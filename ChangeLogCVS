@@ -1,4 +1,9 @@
 Changes since Version 1.1.5
+24.02.2004	Fixed Bug with wrong Gradients when copying Objects.
+		Moved the Documentation files to $prefix/share/scribus
+		Fixed Problems with Editing Styles changing unexpectedly Textframes.
+		All Fonts used in a Document are now embedded into PDF by default.
+
 23.02.2004	Added the Option to protect an Object against resizing.
 		Fixed Issues with Rounded Corners.
 		Added a Context Menueitem for updating Picture frames.

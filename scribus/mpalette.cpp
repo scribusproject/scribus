@@ -2679,29 +2679,32 @@ void Mpalette::handleLock()
 void Mpalette::handlePrint()
 {
 	if ((HaveDoc) && (HaveItem))
+	{
+		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
 		{
-		CurItem->isPrintable = !NoPrint->isOn();
-		emit DocChanged();
+			doc->ActPage->SelItem.at(a)->isPrintable = !NoPrint->isOn();
 		}
+		emit DocChanged();
+	}
 }
 
 void Mpalette::handleResize()
 {
 	if ((HaveDoc) && (HaveItem))
+	{
+		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
 		{
-		CurItem->LockRes = NoResize->isOn();
-		Width->setEnabled(!CurItem->LockRes);
-		Height->setEnabled(!CurItem->LockRes);
-		emit DocChanged();
+			doc->ActPage->SelItem.at(a)->LockRes = NoResize->isOn();
 		}
+		Width->setEnabled(!NoResize->isOn());
+		Height->setEnabled(!NoResize->isOn());
+		emit DocChanged();
+	}
 }
 
 void Mpalette::ToggleFlow()
 {
-	if (Textflow->isChecked())
-		Textflow2->setEnabled(true);
-	else
-		Textflow2->setEnabled(false);
+		Textflow2->setEnabled(Textflow->isChecked());
 }
 
 void Mpalette::handlePathLine()

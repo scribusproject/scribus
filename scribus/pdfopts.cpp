@@ -270,8 +270,9 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Layout6->addWidget( TextFont1_2 );
     EmbedList = new QListBox( GroupFont, "EmbedList" );
     EmbedList->setMinimumSize(QSize(150, 140));
-//    EmbedList->setMaximumSize(QSize(150, 140));
-	if (Optionen->EmbedList.count() != 0)
+	EmbedFonts->setChecked(true);
+	EmbedAll();
+/*	if (Optionen->EmbedList.count() != 0)
 	{
 		for (uint efo = 0; efo < Optionen->EmbedList.count(); ++efo)
 		{
@@ -283,7 +284,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	{
 		EmbedFonts->setChecked(true);
 		EmbedAll();
-	}
+	} */
     Layout6->addWidget( EmbedList );
     GroupFontLayout->addLayout( Layout6 );
     tabLayout_3->addWidget( GroupFont );

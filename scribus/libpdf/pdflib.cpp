@@ -2095,7 +2095,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 	PutDoc("/Background ["+SetFarbe(b->Pcolor, b->Shade)+"]\n");
 	PutDoc(b->GrType == 5 ? "/Extend [true true]\n" : "/Extend [false false]\n");
 	PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-	bool t = b->GrType == 5 ? true : false;
+	bool t = b->GrType > 3 ? true : false;
 	PutDoc("/C0 [" + 
 		SetFarbe((t == true ? b->GrColor : b->GrColor2), (t == true ? b->GrShade : b->GrShade2)) +
 			 "]\n");

@@ -101,7 +101,7 @@ void Run(QWidget *d, ScribusApp *plug)
 {
  	QString pfad = PREL;
  	QString pfad2;
-  pfad2 = pfad + "/lib/scribus/doc/en/Scripter/index.html";
+	pfad2 = pfad + "/share/scribus/doc/en/Scripter/index.html";
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), pfad2);
 	dia->show();
 }

@@ -4765,7 +4765,7 @@ void ScribusApp::slotEditStyles()
 				else
 					ers.append(0);
 			}
-			doc->Vorlagen = dia->TempVorl;
+//			doc->Vorlagen = dia->TempVorl;
 			for (uint c=0; c<view->DocPages.count(); ++c)
 			{
 				for (uint d=0; d<view->DocPages.at(c)->Items.count(); ++d)
@@ -4775,19 +4775,27 @@ void ScribusApp::slotEditStyles()
 					{
 						for (uint e=0; e<ite->Ptext.count(); ++e)
 						{
-							if (ite->Ptext.at(e)->cab > 4)
+							int cabori = ite->Ptext.at(e)->cab;
+							int cabneu = ers[cabori];
+							if (cabori > 4)
 							{
-								ite->Ptext.at(e)->cab = ers[ite->Ptext.at(e)->cab];
-								if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
+								ite->Ptext.at(e)->cstyle &= ~127;
+								if (cabneu > 0)
 								{
-									ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-									ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
-									ite->Ptext.at(e)->cstyle &= ~127;
-									ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
-									ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
-									ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
-									ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
-									ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
+									if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
+										ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
+									if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
+										ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+									if (ite->Ptext.at(e)->cstyle == doc->Vorlagen[cabori].FontEffect)
+										ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+									if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
+										ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+									if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
+										ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+									if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
+										ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+									if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
+										ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
 								}
 								else
 								{
@@ -4796,9 +4804,9 @@ void ScribusApp::slotEditStyles()
 									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
 									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 									ite->Ptext.at(e)->csize = ite->ISize;
-									ite->Ptext.at(e)->cstyle &= ~127;
 									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
+								ite->Ptext.at(e)->cab = cabneu;
 							}
 						}
 					}
@@ -4813,19 +4821,27 @@ void ScribusApp::slotEditStyles()
 					{
 						for (uint e=0; e<ite->Ptext.count(); ++e)
 						{
-							if (ite->Ptext.at(e)->cab > 4)
+							int cabori = ite->Ptext.at(e)->cab;
+							int cabneu = ers[cabori];
+							if (cabori > 4)
 							{
-								ite->Ptext.at(e)->cab = ers[ite->Ptext.at(e)->cab];
-								if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
+								ite->Ptext.at(e)->cstyle &= ~127;
+								if (cabneu > 0)
 								{
-									ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-									ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
-									ite->Ptext.at(e)->cstyle &= ~127;
-									ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
-									ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
-									ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
-									ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
-									ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
+									if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
+										ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
+									if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
+										ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+									if (ite->Ptext.at(e)->cstyle == doc->Vorlagen[cabori].FontEffect)
+										ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+									if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
+										ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+									if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
+										ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+									if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
+										ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+									if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
+										ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
 								}
 								else
 								{
@@ -4834,14 +4850,15 @@ void ScribusApp::slotEditStyles()
 									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
 									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 									ite->Ptext.at(e)->csize = ite->ISize;
-									ite->Ptext.at(e)->cstyle &= ~127;
 									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
+								ite->Ptext.at(e)->cab = cabneu;
 							}
 						}
 					}
 				}
-			}
+			} 
+			doc->Vorlagen = dia->TempVorl;
 			for (uint a=0; a<doc->Vorlagen.count(); ++a)
 			{
 				if (doc->Vorlagen[a].Font != "")

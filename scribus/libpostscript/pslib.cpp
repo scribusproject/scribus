@@ -554,13 +554,29 @@ void PSLib::PS_LinGradient(double w, double h, int item, int grad, bool mu)
 		int pla = Plate - 1 < 0 ? 3 : Plate - 1;
 		QStringList cols1 = QStringList::split(" ", GrColor2);
 		QStringList cols2 = QStringList::split(" ", GrColor1);
-		PutSeite("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
-		PutSeite("/C0 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
+		if (grad == 4)
+		{
+			PutSeite("/C0 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
+			PutSeite("/C1 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
+		}
+		else
+		{
+			PutSeite("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
+			PutSeite("/C0 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
+		}
 	}
 	else
 	{
-		PutSeite("/C0 ["+GrColor1+"]\n");
-		PutSeite("/C1 ["+GrColor2+"]\n");
+		if (grad == 4)
+		{
+			PutSeite("/C1 ["+GrColor1+"]\n");
+			PutSeite("/C0 ["+GrColor2+"]\n");
+		}
+		else
+		{
+			PutSeite("/C0 ["+GrColor1+"]\n");
+			PutSeite("/C1 ["+GrColor2+"]\n");
+		}
 	}
 	PutSeite("/N 1\n");
 	PutSeite(">>\n");

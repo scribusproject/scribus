@@ -5929,9 +5929,9 @@ void Page::AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString 
 	b->fill_gradient.clearStops();
 	QString c1 = typ == 5 ? col2 : col1, c2 = typ == 5 ? col1 : col2;
 	int s1 = typ == 5 ? sh2 : sh1, s2 = typ == 5 ? sh1 : sh2;
-	b->SetFarbe(&tmp, c2, s2);
-	b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
 	b->SetFarbe(&tmp, c1, s1);
+	b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+	b->SetFarbe(&tmp, c2, s2);
 	b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
 	b->GrColor2 = col1;
 	b->GrShade2 = sh1;
@@ -6879,20 +6879,20 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->fill_gradient.clearStops();
 		if (Buffer->GrType == 5)
 		{
-			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
-			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
 			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
 				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
 			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
 		}
 		else
 		{
-			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
-			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
 			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
 				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
 			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
 		}
 		b->GrColor2 = Buffer->GrColor2;

@@ -1351,7 +1351,12 @@ NoRoom: if (NextBox != 0)
 							bool savre = Doc->RePos;
 							Doc->RePos = true;
 							p->save();
-							NextBox->DrawObj(p, QRect(0, 0, 1, 1));
+							QPixmap pgPix(1, 1);
+							ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+							painter->translate(0.5, 0.5);
+							NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
+							painter->end();
+							delete painter;
 							p->restore();
 							Doc->RePos = savre;
 							}

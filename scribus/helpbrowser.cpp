@@ -83,14 +83,14 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
 	QString pfad2;
 	bool Avail = true;
 	if (Datei == "")
-		pfad2 = pfad + "/lib/scribus/doc/"+QString(QTextCodec::locale()).left(2)+"/index.html";
+		pfad2 = pfad + "/share/scribus/doc/"+QString(QTextCodec::locale()).left(2)+"/index.html";
 	else
 		pfad2 = Datei;
 	QFileInfo fi;
 	fi = QFileInfo(pfad2);
 	if (!fi.exists())
 	{
-		pfad2 = pfad + "/lib/scribus/doc/en/index.html";
+		pfad2 = pfad + "/share/scribus/doc/en/index.html";
 		fi = QFileInfo(pfad2);
 		if (!fi.exists())
 		{
