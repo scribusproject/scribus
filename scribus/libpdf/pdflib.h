@@ -173,6 +173,7 @@ private:
 	int Encrypt;
 	int KeyLen;
 	QString HTName;
+	bool BookMinUse;
 };
 
 #endif

@@ -8307,28 +8307,32 @@ void Page::FlipImageV()
 
 void Page::ToBack()
 {
-	uint a, old;
+	int d;
+	QMap<int, uint> ObjOrder;
+	PageItem *b;
 	if ((Items.count() > 1) && (SelItem.count() != 0))
 	{
-		PageItem *b = SelItem.at(0);
-		if ((b->isTableItem) && (b->isSingleSel))
-			return;
-		b = Items.take(SelItem.at(0)->ItemNr);
-		old = SelItem.at(0)->ItemNr;
-		storeUndoInf(b);
-		doku->UnData.UnCode = 4;
-		doku->UnDoValid = true;
-		emit UndoAvail();
-		Items.prepend(b);
-		for (a = 0; a < Items.count(); ++a)
+		for (uint c = 0; c < SelItem.count(); ++c)
+		{
+			b = SelItem.at(c);
+			if ((b->isTableItem) && (b->isSingleSel))
+				return;
+			ObjOrder.insert(b->ItemNr, c);
+			d = Items.findRef(b);
+			Items.take(d);
+		}
+		QValueList<uint> Oindex = ObjOrder.values();
+		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+		{
+			Items.prepend(SelItem.at(Oindex[c]));
+		}
+		for (uint a = 0; a < Items.count(); ++a)
 		{
 			Items.at(a)->ItemNr = a;
 			if (Items.at(a)->isBookmark)
 				emit NewBMNr(Items.at(a)->BMnr, a);
 		}
-		SelItem.clear();
-		SelItem.append(b);
-		emit MoveObj(PageNr, old, 0);
+		ScApp->Tpal->BuildTree(ScApp->view);
 		emit LevelChanged(0);
 		emit DocChanged();
 		update();
@@ -8337,29 +8341,33 @@ void Page::ToBack()
 
 void Page::ToFront()
 {
-	uint a, old;
+	int d;
+	QMap<int, uint> ObjOrder;
+	PageItem *b;
 	if ((Items.count() > 1) && (SelItem.count() != 0))
 	{
-		PageItem *b = SelItem.at(0);
-		if ((b->isTableItem) && (b->isSingleSel))
-			return;
-		b = Items.take(SelItem.at(0)->ItemNr);
-		old = SelItem.at(0)->ItemNr;
-		storeUndoInf(b);
-		doku->UnData.UnCode = 4;
-		doku->UnDoValid = true;
-		emit UndoAvail();
-		Items.append(b);
-		for (a = 0; a < Items.count(); ++a)
+		for (uint c = 0; c < SelItem.count(); ++c)
+		{
+			b = SelItem.at(c);
+			if ((b->isTableItem) && (b->isSingleSel))
+				return;
+			ObjOrder.insert(b->ItemNr, c);
+			d = Items.findRef(b);
+			Items.take(d);
+		}
+		QValueList<uint> Oindex = ObjOrder.values();
+		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
+		{
+			Items.append(SelItem.at(Oindex[c]));
+		}
+		for (uint a = 0; a < Items.count(); ++a)
 		{
 			Items.at(a)->ItemNr = a;
 			if (Items.at(a)->isBookmark)
 				emit NewBMNr(Items.at(a)->BMnr, a);
 		}
-		SelItem.clear();
-		SelItem.append(b);
-		emit MoveObj(PageNr, old, b->ItemNr);
-		emit LevelChanged(b->ItemNr);
+		ScApp->Tpal->BuildTree(ScApp->view);
+		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		update();
 	}
@@ -8367,29 +8375,52 @@ void Page::ToFront()
 
 void Page::LowerItem()
 {
-	uint a, old;
-	if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr>0))
+	uint low = Items.count();
+	uint high = 0;
+	int d;
+	QMap<int, uint> ObjOrder;
+	PageItem *b;
+	PageItem *b2;
+	if ((Items.count() > 1) && (SelItem.count() != 0))
 	{
-		PageItem *b = SelItem.at(0);
-		if ((b->isTableItem) && (b->isSingleSel))
+		for (uint c = 0; c < SelItem.count(); ++c)
+		{
+			b = SelItem.at(c);
+			if ((b->isTableItem) && (b->isSingleSel))
+				return;
+			low = QMIN(b->ItemNr, low);
+			high = QMAX(b->ItemNr, high);
+		}
+		if (low == 0)
 			return;
-		b = Items.take(SelItem.at(0)->ItemNr);
-		old = SelItem.at(0)->ItemNr;
-		storeUndoInf(b);
-		doku->UnData.UnCode = 4;
-		doku->UnDoValid = true;
-		emit UndoAvail();
-		Items.insert(SelItem.at(0)->ItemNr-1, b);
-		for (a = 0; a < Items.count(); ++a)
+		b2 = Items.at(high);
+		SelItem.clear();
+		SelectItemNr(low-1, false);
+		for (uint c = 0; c < SelItem.count(); ++c)
+		{
+			b = SelItem.at(c);
+			b->Select = false;
+			ObjOrder.insert(b->ItemNr, c);
+			d = Items.findRef(b);
+			Items.take(d);
+		}
+		d = Items.findRef(b2);
+		QValueList<uint> Oindex = ObjOrder.values();
+		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+		{
+			Items.insert(d+1, SelItem.at(Oindex[c]));
+		}
+		SelItem.clear();
+		for (uint a = 0; a < Items.count(); ++a)
 		{
 			Items.at(a)->ItemNr = a;
 			if (Items.at(a)->isBookmark)
 				emit NewBMNr(Items.at(a)->BMnr, a);
+			if (Items.at(a)->Select)
+				SelItem.append(Items.at(a));
 		}
-		SelItem.clear();
-		SelItem.append(b);
-		emit MoveObj(PageNr, old, old-1);
-		emit LevelChanged(old-1);
+		ScApp->Tpal->BuildTree(ScApp->view);
+		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		update();
 	}
@@ -8397,30 +8428,53 @@ void Page::LowerItem()
 
 void Page::RaiseItem()
 {
-	uint old;
-	if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr<Items.count()-1))
+	uint low = Items.count();
+	uint high = 0;
+	int d;
+	QMap<int, uint> ObjOrder;
+	PageItem *b;
+	PageItem *b2;
+	if ((Items.count() > 1) && (SelItem.count() != 0))
 	{
-		PageItem *b = SelItem.at(0);
-		if ((b->isTableItem) && (b->isSingleSel))
+		for (uint c = 0; c < SelItem.count(); ++c)
+		{
+			b = SelItem.at(c);
+			if ((b->isTableItem) && (b->isSingleSel))
+				return;
+			low = QMIN(b->ItemNr, low);
+			high = QMAX(b->ItemNr, high);
+		}
+		if (high == Items.count()-1)
 			return;
-		b = Items.take(SelItem.at(0)->ItemNr);
-		old = SelItem.at(0)->ItemNr;
-		storeUndoInf(b);
-		doku->UnData.UnCode = 4;
-		doku->UnDoValid = true;
-		emit UndoAvail();
-		Items.insert(SelItem.at(0)->ItemNr+1, b);
+		b2 = Items.at(low);
+		SelItem.clear();
+		SelectItemNr(high+1, false);
+		for (uint c = 0; c < SelItem.count(); ++c)
+		{
+			b = SelItem.at(c);
+			b->Select = false;
+			ObjOrder.insert(b->ItemNr, c);
+			d = Items.findRef(b);
+			Items.take(d);
+		}
+		QValueList<uint> Oindex = ObjOrder.values();
+		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
+		{
+			d = Items.findRef(b2);
+			Items.insert(d, SelItem.at(Oindex[c]));
+		}
+		SelItem.clear();
 		for (uint a = 0; a < Items.count(); ++a)
 		{
 			Items.at(a)->ItemNr = a;
 			if (Items.at(a)->isBookmark)
 				emit NewBMNr(Items.at(a)->BMnr, a);
+			if (Items.at(a)->Select)
+				SelItem.append(Items.at(a));
 		}
-		SelItem.clear();
-		SelItem.append(b);
+		ScApp->Tpal->BuildTree(ScApp->view);
+		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
-		emit MoveObj(PageNr, old, old+1);
-		emit LevelChanged(old+1);
 		update();
 	}
 }
@@ -8695,7 +8749,10 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 				it++;
 				hg->cshade2 = it == NULL ? 100 : (*it).toInt();
 				it++;
-				hg->cscale = it == NULL ? 100 : (*it).toInt();
+				if (it == NULL)
+					hg->cscale = 100;
+				else
+					hg->cscale = QMIN(QMAX((*it).toInt(), 25), 400);
 				hg->xp = 0;
 				hg->yp = 0;
 				hg->PRot = 0;

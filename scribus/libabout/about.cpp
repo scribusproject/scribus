@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("24").arg("August").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("25").arg("August").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -190,6 +190,10 @@ About::About( QWidget* parent )
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Basque:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Pablo Saratxaga</td><td>pablo@mandrakesoft.com</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
+	                                      "<tr><td><b>Swedish</b></td><td></td></tr>" +
+	                                      "<tr><td>Göran Bondeson</td><td>goran@bondeson.net</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "</table>"));
 	TextView2->setTextFormat( QTextView::RichText );

@@ -410,6 +410,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	view = vie;
 	Bvie = vi;
 	Options = opts;
+	BookMinUse = false;
 	UsedFontsP.clear();
 	ObjCounter = Options->Articles ? 9 : 8;
   	PutDoc(Options->Version <= 13 ? "%PDF-1.3\n" : "%PDF-1.4\n");
@@ -2044,7 +2045,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+
 							FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1)+
 								" cm\n";
-				tmp2 += FToStr(hl->cscale / 100.0)+" 0 0 1 0 0 cm\n";
+				tmp2 += FToStr(QMIN(QMAX(hl->cscale, 25), 400) / 100.0)+" 0 0 1 0 0 cm\n";
 				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName()+IToStr(chr)+" Do\n";
 				if (hl->cstyle & 4)
 				{
@@ -2164,7 +2165,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			}
 			else
 				tmp += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr(-hl->yp)+" Tm\n";
-			tmp += IToStr(hl->cscale) + " Tz\n";
+			tmp += IToStr(QMIN(QMAX(hl->cscale, 25), 400)) + " Tz\n";
 			uchar idx2 = idx & 0xFF;
 			tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 			if (hl->cstyle & 512)
@@ -3294,6 +3295,7 @@ void PDFlib::PDF_Form(QString im)
 void PDFlib::PDF_Bookmark(int nr, double ypos)
 {
 	Bvie->SetAction(nr, "/XYZ 0 "+FToStr(ypos)+" 0]");
+	BookMinUse = true;
 }
 
 void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
@@ -3701,7 +3703,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	QMap<int,QString> Inha;
 	Inha.clear();
 	int Bmc = 0;
-	if ((Bvie->childCount() != 0) && (Options->Bookmarks))
+	if ((Bvie->childCount() != 0) && (Options->Bookmarks) && (BookMinUse))
 	{
 		Basis = ObjCounter - 1;
 		Outlines.Count = Bvie->childCount();
