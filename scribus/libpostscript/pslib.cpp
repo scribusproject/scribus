@@ -1166,12 +1166,12 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								PS_closepath();
 								PS_clip(false);
 								PS_save();
-								if ((ite->flippedH % 2) != 0)
+								if (ite->imageFlippedH())
 								{
 									PS_translate(ite->Width, 0);
 									PS_scale(-1, 1);
 								}
-								if ((ite->flippedV % 2) != 0)
+								if (ite->imageFlippedV())
 								{
 									PS_translate(0, -ite->Height);
 									PS_scale(1, -1);
@@ -1243,12 +1243,12 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									PS_closepath();
 									PS_fill();
 								}
-								if ((ite->flippedH % 2) != 0)
+								if (ite->imageFlippedH())
 								{
 									PS_translate(ite->Width, 0);
 									PS_scale(-1, 1);
 								}
-								if ((ite->flippedV % 2) != 0)
+								if (ite->imageFlippedV())
 								{
 									PS_translate(0, -ite->Height);
 									PS_scale(1, -1);
@@ -1642,12 +1642,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			SetClipPath(&c->PoLine);
 			PS_closepath();
 			PS_clip(true);
-			if ((c->flippedH % 2) != 0)
+			if (c->imageFlippedH())
 			{
 				PS_translate(c->Width, 0);
 				PS_scale(-1, 1);
 			}
-			if ((c->flippedV % 2) != 0)
+			if (c->imageFlippedV())
 			{
 				PS_translate(0, -c->Height);
 				PS_scale(1, -1);
@@ -1726,12 +1726,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				else
 					PS_fill();
 			}
-			if ((c->flippedH % 2) != 0)
+			if (c->imageFlippedH())
 			{
 				PS_translate(c->Width, 0);
 				PS_scale(-1, 1);
 			}
-			if ((c->flippedV % 2) != 0)
+			if (c->imageFlippedV())
 			{
 				PS_translate(0, -c->Height);
 				PS_scale(1, -1);

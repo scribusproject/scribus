@@ -239,7 +239,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	undoList->setMultiSelection(false);
 	undoList->setSelectionMode(QListBox::Single);
 	layout->addWidget(undoList);
-	
+	ScApp->scrActions["editUndoAction"]->addTo(this);
 	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout");
 	undoButton = new QPushButton(loadIcon("u_undo.png"),
                                          tr("&Undo"), this,

@@ -18,10 +18,10 @@ class KeyManager : public QWidget
 	Q_OBJECT
 
 public:
-	KeyManager( QWidget* parent, QMap<int, Keys> oldKeyMap);
+	KeyManager( QWidget* parent, QMap<QString, Keys> oldKeyMap);
 	~KeyManager() {};
 
-	const QMap<int, Keys> getNewKeyMap();
+	const QMap<QString, Keys> getNewKeyMap();
 	bool event( QEvent* ev );
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
@@ -43,8 +43,9 @@ protected:
 	QLabel* keyDisplay;
 	QPushButton* setKeyButton;
 	QHeader *header;
-	QMap<int,Keys> keyMap;
-	int actRow;
+	QMap<QString,Keys> keyMap;
+	QMap<QString,Keys>::Iterator currentKeyMapRow;
+	int currRow;
 	int keyCode;
 	QString Part1;
 	QString Part2;

@@ -189,6 +189,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		break;
 	}
 	QString uc = k->text();
+	/*CB TODO
 	if ((k->key() + KeyMod) == ScApp->Prefs.KeyActions[60].KeyID)
 	{
 		insChars(QString(QChar(30)));
@@ -196,6 +197,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUp(true);
 		return;
 	}
+	*/
 	switch (k->state())
 	{
 		case ControlButton:

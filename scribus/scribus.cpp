@@ -176,8 +176,9 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	scrMenuMgr = new MenuManager(this->menuBar());
 
 	PrefsPfad = getPreferencesLocation();
+	bool importingFrom12=convert12Preferences(PrefsPfad);
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
-	convertToXMLPreferences(PrefsPfad);
+	
 
 	undoManager = UndoManager::instance();
 
@@ -224,7 +225,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
-		ReadPrefs();
+		ReadPrefs(importingFrom12);
 
 		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
@@ -642,123 +643,121 @@ void ScribusApp::initKeyboardShortcuts()
 	//CB TODO Need to rewrite this key management stuff.. these would be much simpler done in the action themselves.
 	
 	//FILE MENU
-	SetKeyEntry(0, scrActions["fileNew"]->cleanMenuText(), 0, scrActions["fileNew"]->accel(), "fileNew");
-	SetKeyEntry(1, scrActions["fileOpen"]->cleanMenuText(), 0, scrActions["fileOpen"]->accel(), "fileOpen");
-	SetKeyEntry(2, scrActions["fileClose"]->cleanMenuText(), 0, scrActions["fileClose"]->accel(), "fileClose");
-	SetKeyEntry(3, scrActions["fileSave"]->cleanMenuText(), 0, scrActions["fileSave"]->accel(), "fileSave");
-	SetKeyEntry(4, scrActions["fileSaveAs"]->cleanMenuText(), 0, scrActions["fileSaveAs"]->accel(), "fileSaveAs");
-	//SetKeyEntry(, scrActions["fileRevert"]->cleanMenuText(), 0, scrActions["fileRevert"]->accel(), "fileRevert");
-	//SetKeyEntry(, scrActions["fileCollect"]->cleanMenuText(), 0, scrActions["fileCollect"]->accel(), "fileCollect");
-	SetKeyEntry(6, scrActions["fileDocSetup"]->cleanMenuText(), 0, scrActions["fileDocSetup"]->accel(), "fileDocSetup");
-	SetKeyEntry(8, scrActions["fileQuit"]->cleanMenuText(), 0, scrActions["fileQuit"]->accel(), "fileQuit");
+	uint id=0;
+	SetKeyEntry("fileNew", scrActions["fileNew"]->cleanMenuText(), QString(scrActions["fileNew"]->accel()));
+	/*
+	SetKeyEntry(0, scrActions["fileOpen"]->cleanMenuText(), 0, 0, scrActions["fileOpen"]->accel(), "fileOpen");
+	SetKeyEntry(0, scrActions["fileClose"]->cleanMenuText(), 0, 0, scrActions["fileClose"]->accel(), "fileClose");
+	SetKeyEntry(0, scrActions["fileSave"]->cleanMenuText(), 0, 0, scrActions["fileSave"]->accel(), "fileSave");
+	SetKeyEntry(0, scrActions["fileSaveAs"]->cleanMenuText(), 0, 0, scrActions["fileSaveAs"]->accel(), "fileSaveAs");
+	//SetKeyEntry(, scrActions["fileRevert"]->cleanMenuText(), 0, 0, scrActions["fileRevert"]->accel(), "fileRevert");
+	//SetKeyEntry(, scrActions["fileCollect"]->cleanMenuText(), 0, 0, scrActions["fileCollect"]->accel(), "fileCollect");
+	SetKeyEntry(0, scrActions["fileDocSetup"]->cleanMenuText(), 0, 0, scrActions["fileDocSetup"]->accel(), "fileDocSetup");
+	SetKeyEntry(0, scrActions["fileQuit"]->cleanMenuText(), 0, 0, scrActions["fileQuit"]->accel(), "fileQuit");
 	//Included import & export options
-	//SetKeyEntry(, scrActions["fileImportText"]->cleanMenuText(), 0, scrActions["fileImportText"]->accel(), "fileImportText");
-	//SetKeyEntry(, scrActions["fileImportAppendText"]->cleanMenuText(), 0, scrActions["fileImportAppendText"]->accel(), "fileImportAppendText");
-	//SetKeyEntry(, scrActions["fileImportImage"]->cleanMenuText(), 0, scrActions["fileImportImage"]->accel(), "fileImportImage");	
-	//SetKeyEntry(, scrActions["fileImportPage"]->cleanMenuText(), 0, scrActions["fileImportPage"]->accel(), "fileImportPage");
-	//SetKeyEntry(, scrActions["fileExportText"]->cleanMenuText(), 0, scrActions["fileExportText"]->accel(), "fileExportText");
-	//SetKeyEntry(, scrActions["fileExportAsEPS"]->cleanMenuText(), 0, scrActions["fileExportAsEPS"]->accel(), "fileExportAsEPS");
-	//SetKeyEntry(, scrActions["fileExportAsPDF"]->cleanMenuText(), 0, scrActions["fileExportAsPDF"]->accel(), "fileExportAsPDF");
+	//SetKeyEntry(, scrActions["fileImportText"]->cleanMenuText(), 0, 0, scrActions["fileImportText"]->accel(), "fileImportText");
+	//SetKeyEntry(, scrActions["fileImportAppendText"]->cleanMenuText(), 0, 0, scrActions["fileImportAppendText"]->accel(), "fileImportAppendText");
+	//SetKeyEntry(, scrActions["fileImportImage"]->cleanMenuText(), 0, 0, scrActions["fileImportImage"]->accel(), "fileImportImage");	
+	//SetKeyEntry(, scrActions["fileImportPage"]->cleanMenuText(), 0, 0, scrActions["fileImportPage"]->accel(), "fileImportPage");
+	//SetKeyEntry(, scrActions["fileExportText"]->cleanMenuText(), 0, 0, scrActions["fileExportText"]->accel(), "fileExportText");
+	//SetKeyEntry(, scrActions["fileExportAsEPS"]->cleanMenuText(), 0, 0, scrActions["fileExportAsEPS"]->accel(), "fileExportAsEPS");
+	//SetKeyEntry(, scrActions["fileExportAsPDF"]->cleanMenuText(), 0, 0, scrActions["fileExportAsPDF"]->accel(), "fileExportAsPDF");
 	
 	//EDIT MENU
-	SetKeyEntry(9, scrActions["editCut"]->cleanMenuText(), 0, scrActions["editCut"]->accel(), "editCut");
-	SetKeyEntry(10, scrActions["editCopy"]->cleanMenuText(), 0, scrActions["editCopy"]->accel(), "editCopy");
-	SetKeyEntry(11, scrActions["editPaste"]->cleanMenuText(), 0, scrActions["editPaste"]->accel(), "editPaste");
-	SetKeyEntry(12, scrActions["editClear"]->cleanMenuText(), 0, scrActions["editClear"]->accel(), "editClear");
-	SetKeyEntry(13, scrActions["editSelectAll"]->cleanMenuText(), 0, scrActions["editSelectAll"]->accel(), "editSelectAll");
-	SetKeyEntry(14, scrActions["editColors"]->cleanMenuText(), 0, scrActions["editColors"]->accel(), "editColors");
-	SetKeyEntry(15, scrActions["editParaStyles"]->cleanMenuText(), 0, scrActions["editParaStyles"]->accel(), "editParaStyles");
-	SetKeyEntry(16, scrActions["editTemplates"]->cleanMenuText(), 0, scrActions["editTemplates"]->accel(), "editTemplates");
-	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), 0, scrActions["editSearchReplace"]->accel(), "editSearchReplace");
-	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), 0, scrActions["editLineStyles"]->accel(), "editLineStyles");
+	SetKeyEntry(0, scrActions["editCut"]->cleanMenuText(), 0, 0, scrActions["editCut"]->accel(), "editCut");
+	SetKeyEntry(0, scrActions["editCopy"]->cleanMenuText(), 0, 0, scrActions["editCopy"]->accel(), "editCopy");
+	SetKeyEntry(0, scrActions["editPaste"]->cleanMenuText(), 0, 0, scrActions["editPaste"]->accel(), "editPaste");
+	SetKeyEntry(0, scrActions["editClear"]->cleanMenuText(), 0, 0, scrActions["editClear"]->accel(), "editClear");
+	SetKeyEntry(0, scrActions["editSelectAll"]->cleanMenuText(), 0, 0, scrActions["editSelectAll"]->accel(), "editSelectAll");
+	SetKeyEntry(0, scrActions["editColors"]->cleanMenuText(), 0, 0, scrActions["editColors"]->accel(), "editColors");
+	SetKeyEntry(0, scrActions["editParaStyles"]->cleanMenuText(), 0, 0, scrActions["editParaStyles"]->accel(), "editParaStyles");
+	SetKeyEntry(0, scrActions["editTemplates"]->cleanMenuText(), 0, 0, scrActions["editTemplates"]->accel(), "editTemplates");
+	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), 0, 0, scrActions["editSearchReplace"]->accel(), "editSearchReplace");
+	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), 0, 0, scrActions["editLineStyles"]->accel(), "editLineStyles");
 	
-	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
-	SetKeyEntry(19, tr("Select New Font"), 0, 0);
+	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), 0, 0, scrActions["editFonts"]->accel(), "editFonts");
+	//SetKeyEntry(19, tr("Select New Font"), 0, 0);
 	
 	//ITEM MENU
-	SetKeyEntry(20, scrActions["itemDuplicate"]->cleanMenuText(), 0, scrActions["itemDuplicate"]->accel(), "itemDuplicate");
-	SetKeyEntry(21, scrActions["itemMulDuplicate"]->cleanMenuText(), 0, scrActions["itemMulDuplicate"]->accel(), "itemMulDuplicate");
-	SetKeyEntry(22, scrActions["itemDelete"]->cleanMenuText(), 0, scrActions["itemDelete"]->accel(), "itemDelete");
-	SetKeyEntry(23, scrActions["itemGroup"]->cleanMenuText(), 0, scrActions["itemGroup"]->accel(), "itemGroup");
-	SetKeyEntry(24, scrActions["itemUngroup"]->cleanMenuText(), 0, scrActions["itemUngroup"]->accel(), "itemUngroup");
-	SetKeyEntry(25, scrActions["itemSendToBack"]->cleanMenuText(), 0, scrActions["itemSendToBack"]->accel(), "itemSendToBack");
-	SetKeyEntry(26, scrActions["itemBringToFront"]->cleanMenuText(), 0, scrActions["itemBringToFront"]->accel(), "itemBringToFront");
-	SetKeyEntry(27, scrActions["itemLower"]->cleanMenuText(), 0, scrActions["itemLower"]->accel(), "itemLower");
-	SetKeyEntry(28, scrActions["itemRaise"]->cleanMenuText(), 0, scrActions["itemRaise"]->accel(), "itemRaise");
-	SetKeyEntry(29, scrActions["itemAlignDist"]->cleanMenuText(), 0, scrActions["itemAlignDist"]->accel(), "itemAlignDist");
-	SetKeyEntry(67, scrActions["itemLock"]->cleanMenuText(), 0, scrActions["itemLock"]->accel(), "itemLock");
+	SetKeyEntry(0, scrActions["itemDuplicate"]->cleanMenuText(), 0, 0, scrActions["itemDuplicate"]->accel(), "itemDuplicate");
+	SetKeyEntry(0, scrActions["itemMulDuplicate"]->cleanMenuText(), 0, 0, scrActions["itemMulDuplicate"]->accel(), "itemMulDuplicate");
+	SetKeyEntry(0, scrActions["itemDelete"]->cleanMenuText(), 0, 0, scrActions["itemDelete"]->accel(), "itemDelete");
+	SetKeyEntry(0, scrActions["itemGroup"]->cleanMenuText(), 0, 0, scrActions["itemGroup"]->accel(), "itemGroup");
+	SetKeyEntry(0, scrActions["itemUngroup"]->cleanMenuText(), 0, 0, scrActions["itemUngroup"]->accel(), "itemUngroup");
+	SetKeyEntry(0, scrActions["itemSendToBack"]->cleanMenuText(), 0, 0, scrActions["itemSendToBack"]->accel(), "itemSendToBack");
+	SetKeyEntry(0, scrActions["itemBringToFront"]->cleanMenuText(), 0, 0, scrActions["itemBringToFront"]->accel(), "itemBringToFront");
+	SetKeyEntry(0, scrActions["itemLower"]->cleanMenuText(), 0, 0, scrActions["itemLower"]->accel(), "itemLower");
+	SetKeyEntry(0, scrActions["itemRaise"]->cleanMenuText(), 0, 0, scrActions["itemRaise"]->accel(), "itemRaise");
+	SetKeyEntry(0, scrActions["itemAlignDist"]->cleanMenuText(), 0, 0, scrActions["itemAlignDist"]->accel(), "itemAlignDist");
+	SetKeyEntry(0, scrActions["itemLock"]->cleanMenuText(), 0, 0, scrActions["itemLock"]->accel(), "itemLock");
 
-	//SetKeyEntry(, scrActions["itemShapeEdit"]->cleanMenuText(), 0, scrActions["itemShapeEdit"]->accel(), "itemShapeEdit");
+	//SetKeyEntry(, scrActions["itemShapeEdit"]->cleanMenuText(), 0, 0, scrActions["itemShapeEdit"]->accel(), "itemShapeEdit");
 		//CBSetKeyEntry(61, tr("Attach Text to Path"), M_ItemAttachTextToPath, 0);
-	//SetKeyEntry(, scrActions["itemAttachTextToPath"]->cleanMenuText(), 0, scrActions["itemAttachTextToPath"]->accel(), "itemAttachTextToPath");
-	//SetKeyEntry(, scrActions["itemDetachTextFromPath"]->cleanMenuText(), 0, scrActions["itemDetachTextFromPath"]->accel(), "itemDetachTextFromPath");
-	//SetKeyEntry(, scrActions["itemCombinePolygons"]->cleanMenuText(), 0, scrActions["itemCombinePolygons"]->accel(), "itemCombinePolygons");
-	//SetKeyEntry(, scrActions["itemSplitPolygons"]->cleanMenuText(), 0, scrActions["itemSplitPolygons"]->accel(), "itemSplitPolygons");
-	//SetKeyEntry(, scrActions["itemConvertToOutlines"]->cleanMenuText(), 0, scrActions["itemConvertToOutlines"]->accel(), "itemConvertToOutlines");
+	//SetKeyEntry(, scrActions["itemAttachTextToPath"]->cleanMenuText(), 0, 0, scrActions["itemAttachTextToPath"]->accel(), "itemAttachTextToPath");
+	//SetKeyEntry(, scrActions["itemDetachTextFromPath"]->cleanMenuText(), 0, 0, scrActions["itemDetachTextFromPath"]->accel(), "itemDetachTextFromPath");
+	//SetKeyEntry(, scrActions["itemCombinePolygons"]->cleanMenuText(), 0, 0, scrActions["itemCombinePolygons"]->accel(), "itemCombinePolygons");
+	//SetKeyEntry(, scrActions["itemSplitPolygons"]->cleanMenuText(), 0, 0, scrActions["itemSplitPolygons"]->accel(), "itemSplitPolygons");
+	//SetKeyEntry(, scrActions["itemConvertToOutlines"]->cleanMenuText(), 0, 0, scrActions["itemConvertToOutlines"]->accel(), "itemConvertToOutlines");
 	
 	//PAGE MENU
-	SetKeyEntry(30, scrActions["pageInsert"]->cleanMenuText(), 0, scrActions["pageInsert"]->accel(), "pageInsert");
-	SetKeyEntry(31, scrActions["pageDelete"]->cleanMenuText(), 0, scrActions["pageDelete"]->accel(), "pageDelete");
-	SetKeyEntry(32, scrActions["pageMove"]->cleanMenuText(), 0, scrActions["pageMove"]->accel(), "pageMove");
-	SetKeyEntry(33, scrActions["pageApplyTemplate"]->cleanMenuText(), 0, scrActions["pageApplyTemplate"]->accel(), "pageApplyTemplate");
-	SetKeyEntry(49, scrActions["pageManageGuides"]->cleanMenuText(), 0, scrActions["pageManageGuides"]->accel(), "pageManageGuides");
-	SetKeyEntry(61, scrActions["pageCopy"]->cleanMenuText(), 0, scrActions["pageCopy"]->accel(), "pageCopy");
+	SetKeyEntry(0, scrActions["pageInsert"]->cleanMenuText(), 0, 0, scrActions["pageInsert"]->accel(), "pageInsert");
+	SetKeyEntry(0, scrActions["pageDelete"]->cleanMenuText(), 0, 0, scrActions["pageDelete"]->accel(), "pageDelete");
+	SetKeyEntry(0, scrActions["pageMove"]->cleanMenuText(), 0, 0, scrActions["pageMove"]->accel(), "pageMove");
+	SetKeyEntry(0, scrActions["pageApplyTemplate"]->cleanMenuText(), 0, 0, scrActions["pageApplyTemplate"]->accel(), "pageApplyTemplate");
+	SetKeyEntry(0, scrActions["pageManageGuides"]->cleanMenuText(), 0, 0, scrActions["pageManageGuides"]->accel(), "pageManageGuides");
+	SetKeyEntry(0, scrActions["pageCopy"]->cleanMenuText(), 0, 0, scrActions["pageCopy"]->accel(), "pageCopy");
 	
 	//VIEW MENU
-	SetKeyEntry(34, scrActions["viewFitInWindow"]->cleanMenuText(), 0, scrActions["viewFitInWindow"]->accel(), "viewFitInWindow");
-	SetKeyEntry(35, scrActions["viewFit50"]->cleanMenuText(), 0, scrActions["viewFit50"]->accel(), "viewFit50");
-	SetKeyEntry(36, scrActions["viewFit75"]->cleanMenuText(), 0, scrActions["viewFit75"]->accel(), "viewFit75");
-	SetKeyEntry(37, scrActions["viewFit100"]->cleanMenuText(), 0, scrActions["viewFit100"]->accel(), "viewFit100");
-	SetKeyEntry(38, scrActions["viewFit200"]->cleanMenuText(), 0, scrActions["viewFit200"]->accel(), "viewFit200");
-	SetKeyEntry(39, scrActions["viewFit20"]->cleanMenuText(), 0, scrActions["viewFit20"]->accel(), "viewFit20");
-	SetKeyEntry(40, scrActions["viewShowMargins"]->cleanMenuText(), 0, scrActions["viewShowMargins"]->accel(), "viewShowMargins");
-	SetKeyEntry(41, scrActions["viewShowFrames"]->cleanMenuText(), 0, scrActions["viewShowFrames"]->accel(), "viewShowFrames");
-	SetKeyEntry(42, scrActions["viewShowImages"]->cleanMenuText(), 0, scrActions["viewShowImages"]->accel(), "viewShowImages");
-	SetKeyEntry(43, scrActions["viewShowGrid"]->cleanMenuText(), 0, scrActions["viewShowGrid"]->accel(), "viewShowGrid");
-	SetKeyEntry(44, scrActions["viewSnapToGrid"]->cleanMenuText(), 0, scrActions["viewSnapToGrid"]->accel(), "viewSnapToGrid");
+	SetKeyEntry(0, scrActions["viewFitInWindow"]->cleanMenuText(), 0, 0, scrActions["viewFitInWindow"]->accel(), "viewFitInWindow");
+	SetKeyEntry(0, scrActions["viewFit50"]->cleanMenuText(), 0, 0, scrActions["viewFit50"]->accel(), "viewFit50");
+	SetKeyEntry(0, scrActions["viewFit75"]->cleanMenuText(), 0, 0, scrActions["viewFit75"]->accel(), "viewFit75");
+	SetKeyEntry(0, scrActions["viewFit100"]->cleanMenuText(), 0, 0, scrActions["viewFit100"]->accel(), "viewFit100");
+	SetKeyEntry(0, scrActions["viewFit200"]->cleanMenuText(), 0, 0, scrActions["viewFit200"]->accel(), "viewFit200");
+	SetKeyEntry(0, scrActions["viewFit20"]->cleanMenuText(), 0, 0, scrActions["viewFit20"]->accel(), "viewFit20");
+	SetKeyEntry(0, scrActions["viewShowMargins"]->cleanMenuText(), 0, 0, scrActions["viewShowMargins"]->accel(), "viewShowMargins");
+	SetKeyEntry(0, scrActions["viewShowFrames"]->cleanMenuText(), 0, 0, scrActions["viewShowFrames"]->accel(), "viewShowFrames");
+	SetKeyEntry(0, scrActions["viewShowImages"]->cleanMenuText(), 0, 0, scrActions["viewShowImages"]->accel(), "viewShowImages");
+	SetKeyEntry(0, scrActions["viewShowGrid"]->cleanMenuText(), 0, 0, scrActions["viewShowGrid"]->accel(), "viewShowGrid");
+	SetKeyEntry(0, scrActions["viewSnapToGrid"]->cleanMenuText(), 0, 0, scrActions["viewSnapToGrid"]->accel(), "viewSnapToGrid");
 	
 	//TOOLS MENU
-	SetKeyEntry(46, scrActions["toolsProperties"]->cleanMenuText(), 0, scrActions["toolsProperties"]->accel(), "toolsProperties");
-	SetKeyEntry(47, scrActions["toolsOutline"]->cleanMenuText(), 0, scrActions["toolsOutline"]->accel(), "toolsOutline");
-	SetKeyEntry(48, scrActions["toolsScrapbook"]->cleanMenuText(), 0, scrActions["toolsScrapbook"]->accel(), "toolsScrapbook");
-	SetKeyEntry(45, scrActions["toolsToolbarTools"]->cleanMenuText(), 0, scrActions["toolsToolbarTools"]->accel(), "toolsToolbarTools");
+	SetKeyEntry(0, scrActions["toolsProperties"]->cleanMenuText(), 0, 0, scrActions["toolsProperties"]->accel(), "toolsProperties");
+	SetKeyEntry(0, scrActions["toolsOutline"]->cleanMenuText(), 0, 0, scrActions["toolsOutline"]->accel(), "toolsOutline");
+	SetKeyEntry(0, scrActions["toolsScrapbook"]->cleanMenuText(), 0, 0, scrActions["toolsScrapbook"]->accel(), "toolsScrapbook");
+	SetKeyEntry(0, scrActions["toolsToolbarTools"]->cleanMenuText(), 0, 0, scrActions["toolsToolbarTools"]->accel(), "toolsToolbarTools");
 
-	
-	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
-	SetKeyEntry(47, tr("Outline"), viewTpal, 0);
-	SetKeyEntry(48, tr("Scrapbook"), viewBpal, 0);
-	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
 	//SetKeyEntry(55, tr("Tooltips"), tip, 0);
 	
 	
 	//EXTRAS MENU
-	SetKeyEntry(51, scrActions["extrasManagePictures"]->cleanMenuText(), 0, scrActions["extrasManagePictures"]->accel(), "extrasManagePictures");
-	SetKeyEntry(50, scrActions["extrasHyphenateText"]->cleanMenuText(), 0, scrActions["extrasHyphenateText"]->accel(), "extrasHyphenateText");
+	SetKeyEntry(0, scrActions["extrasManagePictures"]->cleanMenuText(), 0, 0, scrActions["extrasManagePictures"]->accel(), "extrasManagePictures");
+	SetKeyEntry(0, scrActions["extrasHyphenateText"]->cleanMenuText(), 0, 0, scrActions["extrasHyphenateText"]->accel(), "extrasHyphenateText");
 	
 	//HELP MENU
-	/*
-	SetKeyEntry(52, tr("About Scribus"), MenID, 0);
-	SetKeyEntry(53, tr("About Qt"), MenID, 0);
-	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
-	*/
+	SetKeyEntry(0, scrActions["helpAboutScribus"]->cleanMenuText(), 0, 0, scrActions["helpAboutScribus"]->accel(), "helpAboutScribus");
+	SetKeyEntry(0, scrActions["helpAboutQt"]->cleanMenuText(), 0, 0, scrActions["helpAboutQt"]->accel(), "helpAboutQt");
+	SetKeyEntry(0, scrActions["helpManual"]->cleanMenuText(), 0, 0, scrActions["helpManual"]->accel(), "helpManual");
+	
 	//EXTRAS
-	SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
-	SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
-	SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
-	SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
-	SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
+	//SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
+	
+	SetKeyEntry(0, scrActions["alignLeft"]->cleanMenuText(), 0, 0, scrActions["alignLeft"]->accel(), "alignLeft");
+	SetKeyEntry(0, scrActions["alignRight"]->cleanMenuText(), 0, 0, scrActions["alignRight"]->accel(), "alignRight");
+	SetKeyEntry(0, scrActions["alignCenter"]->cleanMenuText(), 0, 0, scrActions["alignCenter"]->accel(), "alignCenter");
+	
+	//SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
 	
 
-	SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
+	SetKeyEntry(0, scrActions["toolsLayers"]->cleanMenuText(), 0, 0, scrActions["toolsLayers"]->accel(), "toolsLayers");
 	
-	SetKeyEntry(63, scrActions["editJavascripts"]->cleanMenuText(), 0, scrActions["editJavascripts"]->accel(), "editJavascripts");
-	SetKeyEntry(64, scrActions["editUndoAction"]->cleanMenuText(), 0, scrActions["editUndoAction"]->accel(), "editUndoAction");
-	SetKeyEntry(65, scrActions["editRedoAction"]->cleanMenuText(), 0, scrActions["editRedoAction"]->accel(), "editRedoAction");
+	SetKeyEntry(0, scrActions["editJavascripts"]->cleanMenuText(), 0, 0, scrActions["editJavascripts"]->accel(), "editJavascripts");
+	SetKeyEntry(0, scrActions["editUndoAction"]->cleanMenuText(), 0, 0, scrActions["editUndoAction"]->accel(), "editUndoAction");
+	SetKeyEntry(0, scrActions["editRedoAction"]->cleanMenuText(), 0, 0, scrActions["editRedoAction"]->accel(), "editRedoAction");
 
-	SetKeyEntry(66, tr("Show Page Palette"), viewSepal, 0);
+	SetKeyEntry(0, scrActions["toolsPages"]->cleanMenuText(), 0, 0, scrActions["toolsPages"]->accel(), "toolsPages");
 
-	SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
-	
+	//SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
+	*/
 }
 
 void ScribusApp::initArrowStyles()
@@ -1001,17 +1000,30 @@ QString ScribusApp::getPreferencesLocation()
 			moveFile(oldPR3, Pff+"/scrap.scs");
 	}
 
+	return PrefsPfad;
+}
+
+/*!
+ \fn QString ScribusApp::convertToXMLPreferences(QString prefsLocation)
+ \author Craig Bradney
+ \date Sun 09 Jan 2005
+ \brief Convert 1.2 prefs to 1.3 prefs
+ \param prefsLocation Location of user preferences
+ \retval None
+ */
+bool ScribusApp::convert12Preferences(const QString prefsLocation)
+{
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString oldPR =QDir::convertSeparators(PrefsPfad+"/scribus.rc");
-	QString oldPR2=QDir::convertSeparators(PrefsPfad+"/scribusfont.rc");
-	QString oldPR3=QDir::convertSeparators(PrefsPfad+"/scrap.scs");
-	QString oldPR4=QDir::convertSeparators(PrefsPfad+"/prefs.xml");	
-	QString oldPR5=QDir::convertSeparators(PrefsPfad+"/scripter.rc");	
-	QString newPR =QDir::convertSeparators(PrefsPfad+"/scribus13.rc");
-	QString newPR2=QDir::convertSeparators(PrefsPfad+"/scribusfont13.rc");
-	QString newPR3=QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
-	QString newPR4=QDir::convertSeparators(PrefsPfad+"/prefs13.xml");
-	QString newPR5=QDir::convertSeparators(PrefsPfad+"/scripter13.rc");
+	QString oldPR =QDir::convertSeparators(prefsLocation+"/scribus.rc");
+	QString oldPR2=QDir::convertSeparators(prefsLocation+"/scribusfont.rc");
+	QString oldPR3=QDir::convertSeparators(prefsLocation+"/scrap.scs");
+	QString oldPR4=QDir::convertSeparators(prefsLocation+"/prefs.xml");	
+	QString oldPR5=QDir::convertSeparators(prefsLocation+"/scripter.rc");	
+	QString newPR =QDir::convertSeparators(prefsLocation+"/scribus13.rc");
+	QString newPR2=QDir::convertSeparators(prefsLocation+"/scribusfont13.rc");
+	QString newPR3=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
+	QString newPR4=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
+	QString newPR5=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
 		
 	bool existsOldPR =QFile::exists(oldPR);
 	bool existsOldPR2=QFile::exists(oldPR2);
@@ -1024,15 +1036,18 @@ QString ScribusApp::getPreferencesLocation()
 	bool existsNewPR4=QFile::exists(newPR4);	
 	bool existsNewPR5=QFile::exists(newPR5);	
 	
+	bool retVal=false;
+	
 	//Only check for these two as they will be autocreated if they dont exist.
 	if( (existsOldPR && !existsNewPR) || (existsOldPR4 && !existsNewPR4) )
 	{
+		retVal=true; // converting from 1.2 prefs
 		if (splashScreen)
 			splashScreen->hide();
 		if ( (QMessageBox::question( this, tr("Migrate Old Scribus Settings?"),
-				tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
-					"Do you want to migrate them to the new Scribus version?"),
-				QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
+			  tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
+					  "Do you want to migrate them to the new Scribus version?"),
+			  QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
 		{
 			if (existsOldPR && !existsNewPR)
 				copyFile(oldPR, newPR);
@@ -1044,24 +1059,12 @@ QString ScribusApp::getPreferencesLocation()
 				copyFile(oldPR4, newPR4);
 			if (existsOldPR5 && !existsNewPR5)
 				copyFile(oldPR5, newPR5);			
+			
 		}
 		if (splashScreen)
 			splashScreen->show();
 	}
-	return PrefsPfad;
-}
-
-/*!
- \fn QString ScribusApp::convertToXMLPreferences(QString prefsLocation)
- \author Craig Bradney
- \date Sun 09 Jan 2005
- \brief Convert 1.2 prefs to 1.3 prefs
- \param prefsLocation Location of user preferences
- \retval None
- */
-void ScribusApp::convertToXMLPreferences(const QString prefsLocation)
-{
-
+	return retVal;
 }
 
 void ScribusApp::initFileMenuActions()
@@ -1724,20 +1727,21 @@ void ScribusApp::ReportMP(double xp, double yp)
 	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
 }
 
-void ScribusApp::SetKeyEntry(int Nr, QString text, int Men, int KeyC, QString actName)
+void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq)
 {
 	Keys ke;
-	ke.Name = text;
-	ke.MenuID = Men;
-	ke.KeyID = KeyC;
 	if (actName!="")
 	{
 		if (scrActions[actName])
+		{
 			ke.actionName=actName;
+			ke.keySequence = keyseq;
+			ke.cleanMenuText=cleanMenuText;
+			Prefs.KeyActions.insert(actName, ke);
+		}
 		else
 			qDebug(QString("Action Name: %1 does not exist").arg(actName));
 	}
-	Prefs.KeyActions.insert(Nr, ke);
 }
 
 void ScribusApp::DeleteSel(PageItem *b)
@@ -2002,15 +2006,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						view->DeleteItem();
 					break;
 				case Key_Prior:
-					if (!b->Locked)
+					if (!b->locked())
 						view->RaiseItem();
 					break;
 				case Key_Next:
-					if (!b->Locked)
+					if (!b->locked())
 						view->LowerItem();
 					break;
 				case Key_Left:
-					if (!b->Locked)
+					if (!b->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(-10, 0);
@@ -2021,7 +2025,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Right:
-					if (!b->Locked)
+					if (!b->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(10, 0);
@@ -2032,7 +2036,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Up:
-					if (!b->Locked)
+					if (!b->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(0, -10);
@@ -2043,7 +2047,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Down:
-					if (!b->Locked)
+					if (!b->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(0, 10);
@@ -2056,6 +2060,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				default:
 					if (b->PType == 4)
 					{
+						/* CB TODO
 						if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
 						{
 							setNewAbStyle(1);
@@ -2074,6 +2079,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							b->Tinput = true;
 							view->RefreshItem(b);
 						}
+						*/
 					}
 					break;
 				}
@@ -2087,7 +2093,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					switch (kk)
 					{
 						case Key_Left:
-							if (!b->Locked)
+							if (!b->locked())
 							{
 								if ( buttonState & ShiftButton )
 									view->MoveItemI(-10, 0, b->ItemNr, true);
@@ -2098,7 +2104,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							}
 							break;
 						case Key_Right:
-							if (!b->Locked)
+							if (!b->locked())
 							{
 								if ( buttonState & ShiftButton )
 									view->MoveItemI(10, 0, b->ItemNr, true);
@@ -2109,7 +2115,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							}
 							break;
 						case Key_Up:
-							if (!b->Locked)
+							if (!b->locked())
 							{
 								if ( buttonState & ShiftButton )
 									view->MoveItemI(0, -10, b->ItemNr, true);
@@ -2120,7 +2126,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							}
 							break;
 						case Key_Down:
-							if (!b->Locked)
+							if (!b->locked())
 							{
 								if ( buttonState & ShiftButton )
 									view->MoveItemI(0, 10, b->ItemNr, true);
@@ -2597,13 +2603,16 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							DeleteSel(b);
 						if ((kk == Key_Tab)
 						        || ((kk == Key_Return) && (buttonState & ShiftButton))
-						        || ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
-						        || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
+						        //CB TODO || ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
+						        //CB TODO || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID)
+						   )
 						{
 							hg = new ScText;
+							/* CB TODO
 							if ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
 								hg->ch = QString(QChar(30));
-							else if (kk == Key_Return)
+							else */ 
+								if (kk == Key_Return)
 								hg->ch = QString(QChar(28));
 							else if (kk == Key_Tab)
 								hg->ch = QString(QChar(9));
@@ -2636,6 +2645,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(b);
 							break;
 						}
+						/*CB TODO
 						if ((kk + KeyMod) == Prefs.KeyActions[56].KeyID)
 						{
 							b->itemText.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
@@ -2664,6 +2674,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(b);
 							break;
 						}
+						*/
 						if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
 						{
 							hg = new ScText;
@@ -3872,7 +3883,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			view->HR->RExtra = b->RExtra;
 			view->HR->First = doc->docParagraphStyles[doc->currentParaStyle].First;
 			view->HR->Indent = doc->docParagraphStyles[doc->currentParaStyle].Indent;
-			if ((b->flippedH % 2 != 0) || (b->Reverse))
+			if (b->imageFlippedH() || (b->Reverse))
 				view->HR->Revers = true;
 			else
 				view->HR->Revers = false;
@@ -4028,7 +4039,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemUngroup"]->setEnabled(false);
 			scrActions["itemSplitPolygons"]->setEnabled( (b->PType == 6) && (b->Segments.count() != 0) );
 		}
-		if (b->Locked)
+		if (b->locked())
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", false);
 			scrActions["itemAlignDist"]->setEnabled(false);			
@@ -4109,7 +4120,7 @@ void ScribusApp::slotDocCh(bool reb)
 	if (view->SelItem.count() != 0)
 	{
 		PageItem* b = view->SelItem.at(0);
-		scrActions["itemLock"]->setOn(b->Locked);
+		scrActions["itemLock"]->setOn(b->locked());
 	}
 }
 
@@ -7544,7 +7555,7 @@ void ScribusApp::ObjektDup()
 	slotEditPaste();
 	for (uint b=0; b<view->SelItem.count(); ++b)
 	{
-		view->SelItem.at(b)->Locked = false;
+		view->SelItem.at(b)->setLocked(false);
 		view->MoveItem(DispX, DispY, view->SelItem.at(b));
 	}
 }
@@ -7571,7 +7582,7 @@ void ScribusApp::ObjektDupM()
 				slotEditPaste();
 				for (uint b=0; b<view->SelItem.count(); ++b)
 				{
-					view->SelItem.at(b)->Locked = false;
+					view->SelItem.at(b)->setLocked(false);
 					view->MoveItem(dH2, dV2, view->SelItem.at(b), true);
 				}
 				dH2 += dH;
@@ -7779,6 +7790,7 @@ void ScribusApp::slotPrefsOrg()
 		dlclose(mo);
 		return;
 	}
+
 	Preferences *dia = (*demo)(this, &Prefs);
 	if (dia->exec())
 	{
@@ -8055,6 +8067,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
 		SavePrefs();
+
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 		{
@@ -8158,10 +8171,10 @@ void ScribusApp::SavePrefsXML()
     }
 }
 
-void ScribusApp::ReadPrefs()
+void ScribusApp::ReadPrefs(bool import12)
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus13.rc", splashScreen);
+	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus13.rc", splashScreen, import12);
 	delete ss;
 	if (!erg)
 		return;
@@ -8913,7 +8926,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 		{
 			for (uint a=0; a<view->SelItem.count(); ++a)
 			{
-				if (t == -1 && view->SelItem.at(a)->Locked)
+				if (t == -1 && view->SelItem.at(a)->locked())
 					t = QMessageBox::warning(this, tr("Warning"),
 											 tr("Some Objects are locked."),
 											 tr("&Cancel"),
@@ -8928,7 +8941,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 			for (uint a=0; a<view->SelItem.count(); ++a)
 			{
 				b = view->SelItem.at(a);
-				if (b->Locked)
+				if (b->locked())
 				{
 					for (uint c=0; c<view->SelItem.count(); ++c)
 					{
@@ -9551,69 +9564,21 @@ void ScribusApp::SetShortCut()
 {
 	uint a;
 	/* CB TODO */
-	for (a = 0; a < 9; ++a)
+	for (QMap<QString,Keys>::Iterator it = Prefs.KeyActions.begin(); it != Prefs.KeyActions.end(); ++it )
 	{
-		if (Prefs.KeyActions.contains(a))
-			if (Prefs.KeyActions[a].actionName!="")
-				if (scrActions[Prefs.KeyActions[a].actionName])
-					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
+		if (it.data().actionName!="")
+			if (scrActions[it.data().actionName])
+					scrActions[it.data().actionName]->setAccel(it.data().keySequence);
 	}
 	
-	for (a = 9; a < 17; ++a)
-	{
-		if (Prefs.KeyActions.contains(a))
-			if (Prefs.KeyActions[a].actionName!="")
-				if (scrActions[Prefs.KeyActions[a].actionName])
-					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
-	}
 	//CB TODO editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
-
-	for (a = 20; a < 30; ++a)
-	{
-		if (Prefs.KeyActions.contains(a))
-			if (Prefs.KeyActions[a].actionName!="")
-				if (scrActions[Prefs.KeyActions[a].actionName])
-					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
-	}
-	
-	for (a = 30; a < 34; ++a)
-	{
-		if (Prefs.KeyActions.contains(a))
-			if (Prefs.KeyActions[a].actionName!="")
-				if (scrActions[Prefs.KeyActions[a].actionName])
-					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
-	}
-	
 	//pageMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
 	//pageMenu->setAccel(Prefs.KeyActions[49].KeyID, Prefs.KeyActions[49].MenuID);
 	
-	for (a = 34; a < 45; ++a)
-	{
-		if (Prefs.KeyActions.contains(a))
-			if (Prefs.KeyActions[a].actionName!="")
-				if (scrActions[Prefs.KeyActions[a].actionName])
-					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
-	}
-	
-	for (a = 45; a < 49; ++a)
-	{
-	if (Prefs.KeyActions.contains(a))
-		if (Prefs.KeyActions[a].actionName!="")
-			if (scrActions[Prefs.KeyActions[a].actionName])
-				scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
-	}
 	/*
 	extraMenu->setAccel(Prefs.KeyActions[50].KeyID, Prefs.KeyActions[50].MenuID);
 	extraMenu->setAccel(Prefs.KeyActions[51].KeyID, Prefs.KeyActions[51].MenuID);
 	*/
-	for (a = 52; a < 56; ++a)
-	{
-		if (Prefs.KeyActions.contains(a))
-			if (Prefs.KeyActions[a].actionName!="")
-				if (scrActions[Prefs.KeyActions[a].actionName])
-					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
-	}
-	
 	//CB itemMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
 	//CB toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
 	//CB toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
@@ -9680,7 +9645,7 @@ void ScribusApp::LayerRemove(int l, bool dl)
 			if (dl)
 			{
 				view->SelItem.append(doc->MasterItems.at(b));
-				doc->DocItems.at(b)->Locked = false;
+				doc->DocItems.at(b)->setLocked(false);
 			}
 			else
 				doc->MasterItems.at(b)->LayerNr = 0;
@@ -9696,7 +9661,7 @@ void ScribusApp::LayerRemove(int l, bool dl)
 			if (dl)
 			{
 				view->SelItem.append(doc->DocItems.at(b));
-				doc->DocItems.at(b)->Locked = false;
+				doc->DocItems.at(b)->setLocked(false);
 			}
 			else
 				doc->DocItems.at(b)->LayerNr = 0;

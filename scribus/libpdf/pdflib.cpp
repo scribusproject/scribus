@@ -1056,9 +1056,9 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						PutPage("q\n");
 						PutPage(SetClipPath(ite));
 						PutPage("h\nW*\nn\n");
-						if ((ite->flippedH % 2) != 0)
+						if (ite->imageFlippedH())
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
-						if ((ite->flippedV % 2) != 0)
+						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
 							PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX,
@@ -1793,9 +1793,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								}
 							}
 							PutPage("q\n");
-							if ((ite->flippedH % 2) != 0)
+							if (ite->imageFlippedH())
 								PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
-							if ((ite->flippedV % 2) != 0)
+							if (ite->imageFlippedV())
 								PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 							PutPage(setTextSt(ite, PNr));
 							PutPage("Q\n");
@@ -2133,9 +2133,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage("q\n");
 						PutPage(SetClipPath(ite));
 						PutPage("h\nW*\nn\n");
-						if ((ite->flippedH % 2) != 0)
+						if (ite->imageFlippedH())
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
-						if ((ite->flippedV % 2) != 0)
+						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
 							PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX,
@@ -2179,9 +2179,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							}
 						}
 						PutPage("q\n");
-						if ((ite->flippedH % 2) != 0)
+						if (ite->imageFlippedH())
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
-						if ((ite->flippedV % 2) != 0)
+						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						PutPage(setTextSt(ite, PNr));
 						PutPage("Q\n");

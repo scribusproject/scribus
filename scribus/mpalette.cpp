@@ -949,12 +949,14 @@ void Mpalette::keyPressEvent(QKeyEvent *k)
 	}
 	if (kk == Key_F10)
 		emit ToggleAllPalettes();
+	/* CB TODO
 	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[46].KeyID)
 		emit Schliessen();
 	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[47].KeyID)
 		emit CloseTpal();
 	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
 		emit CloseBpal();
+	*/
 	QDialog::keyPressEvent(k);
 }
 
@@ -1104,8 +1106,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
-	FlipH->setOn((i->flippedH % 2 != 0));
-	FlipV->setOn((i->flippedV % 2 != 0));
+	FlipH->setOn(i->imageFlippedH());
+	FlipV->setOn(i->imageFlippedV());
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 	ToggleFlow();
@@ -1130,7 +1132,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	NoPrint->setOn(!i->isPrintable);
-	setter = i->Locked;
+	setter = i->locked();
 	Kette2->setOn(false);
 	Width->setReadOnly(setter);
 	Height->setReadOnly(setter);
@@ -1154,14 +1156,14 @@ void Mpalette::SetCurItem(PageItem *i)
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
-	setter = i->LockRes;
+	setter = i->sizeLocked();
 	NoResize->setOn(setter);
-	if (!i->Locked)
+	if (!i->locked())
 	{
 		Width->setReadOnly(setter);
 		Height->setReadOnly(setter);
 	}
-	if (i->Locked)
+	if (i->locked())
 	{
 		HaveItem = true;
 		return;
@@ -2863,12 +2865,12 @@ void Mpalette::DoRevert()
 	{
 		if (Revert->isOn())
 		{
-			CurItem->flippedH = 1;
+			CurItem->setImageFlippedH(true);
 			CurItem->Reverse = true;
 		}
 		else
 		{
-			CurItem->flippedH = 0;
+			CurItem->setImageFlippedV(false);
 			CurItem->Reverse = false;
 		}
 		ScApp->view->RefreshItem(CurItem);
@@ -3133,7 +3135,7 @@ void Mpalette::handleLock()
 	{
 		if (ScApp->view->SelItem.count() > 1)
 		{
-			if (ScApp->view->SelItem.at(0)->Locked)
+			if (ScApp->view->SelItem.at(0)->locked())
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
 			else
@@ -3179,7 +3181,7 @@ void Mpalette::handleResize()
 	{
 		if (ScApp->view->SelItem.count() > 1)
 		{
-			if (ScApp->view->SelItem.at(0)->LockRes)
+			if (ScApp->view->SelItem.at(0)->sizeLocked())
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
 			else

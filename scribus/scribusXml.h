@@ -42,7 +42,7 @@ public:
 	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
 	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
 	void WritePref(ApplicationPrefs *Vor, QString ho);
-	bool ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash);
+	bool ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash, bool import12);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;
 	struct Linked 

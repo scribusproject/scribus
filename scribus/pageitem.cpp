@@ -134,8 +134,8 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	dpiY = 72.0;
 	LocalX = 0;
 	LocalY = 0;
-	flippedH = 0;
-	flippedV = 0;
+	imageIsFlippedH = 0;
+	imageIsFlippedV = 0;
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
@@ -448,12 +448,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->setupPolygon(&PoLine);
 					p->setClipPath();
 					p->save();
-					if (flippedH % 2 != 0)
+					if (imageFlippedH())
 					{
 						p->translate(Width * sc, 0);
 						p->scale(-1, 1);
 					}
-					if (flippedV % 2 != 0)
+					if (imageFlippedV())
 					{
 						p->translate(0, Height * sc);
 						p->scale(1, -1);
@@ -667,12 +667,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			}
 			if ((itemText.count() != 0) && (Dirty))
 			{
-				if (flippedH % 2 != 0)
+				if (imageFlippedH())
 				{
 					p->translate(Width * sc, 0);
 					p->scale(-1, 1);
 				}
-				if (flippedV % 2 != 0)
+				if (imageFlippedV())
 				{
 					p->translate(0, Height * sc);
 					p->scale(1, -1);
@@ -807,14 +807,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					}
 				}
-				if (flippedH % 2 != 0)
+				if (imageFlippedH())
 				{
 					p->translate(Width * sc, 0);
 					p->scale(-1, 1);
 					pf2.translate(Width, 0);
 					pf2.scale(-1, 1);
 				}
-				if (flippedV % 2 != 0)
+				if (imageFlippedV())
 				{
 					p->translate(0, Height * sc);
 					p->scale(1, -1);
@@ -2445,6 +2445,17 @@ void PageItem::setLineJoin(PenJoinStyle newStyle)
 	PLineJoin = newStyle;
 }
 
+bool PageItem::imageFlippedH() const
+{
+	return imageIsFlippedH;
+}
+
+void PageItem::setImageFlippedH(bool flipped)
+{
+	if (flipped != imageIsFlippedH)
+		flipImageH();
+}
+
 void PageItem::setCustomLineStyle(const QString& newStyle)
 {
 	if (UndoManager::undoEnabled())
@@ -2496,7 +2507,18 @@ void PageItem::flipImageH()
 		ss->set("IMAGEFLIPH", "imagefliph");
 		undoManager->action(this, ss);
 	}
-	flippedH += 1;
+	imageIsFlippedH = !imageIsFlippedH;
+}
+
+bool PageItem::imageFlippedV() const
+{
+	return imageIsFlippedV;
+}
+
+void PageItem::setImageFlippedV(bool flipped)
+{
+	if (flipped != imageIsFlippedV)
+		flipImageV();
 }
 
 void PageItem::flipImageV()
@@ -2507,7 +2529,7 @@ void PageItem::flipImageV()
 		ss->set("IMAGEFLIPV", "imageflipv");
 		undoManager->action(this, ss);
 	}
-	flippedV += 1;
+	imageIsFlippedV = !imageIsFlippedV;
 }
 
 void PageItem::toggleLock()

@@ -1816,8 +1816,8 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 	Buffer->LocalX = b->LocalX;
 	Buffer->LocalY = b->LocalY;
 	Buffer->PicArt = b->PicArt;
-	Buffer->flippedH = b->flippedH;
-	Buffer->flippedV = b->flippedV;
+	Buffer->flippedH = b->imageFlippedH();
+	Buffer->flippedV = b->imageFlippedV();
 	Buffer->BBoxX = b->BBoxX;
 	Buffer->BBoxH = b->BBoxH;
 	Buffer->isPrintable = b->isPrintable;
@@ -1912,8 +1912,8 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 	Buffer->LayerNr = b->LayerNr;
 	Buffer->ScaleType = b->ScaleType;
 	Buffer->AspectRatio = b->AspectRatio;
-	Buffer->Locked = b->Locked;
-	Buffer->LockRes = b->LockRes;
+	Buffer->Locked = b->locked();
+	Buffer->LockRes = b->sizeLocked();
 	Buffer->Transparency = b->Transparency;
 	Buffer->TranspStroke = b->TranspStroke;
 	Buffer->Reverse = b->Reverse;
@@ -2133,8 +2133,8 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->LocalX=QStodouble(obj->attribute("LOCALX"));
 	OB->LocalY=QStodouble(obj->attribute("LOCALY"));
 	OB->PicArt=QStoInt(obj->attribute("PICART"));
-	OB->flippedH=QStoInt(obj->attribute("FLIPPEDH"));
-	OB->flippedV=QStoInt(obj->attribute("FLIPPEDV"));
+	OB->flippedH = QStoInt(obj->attribute("FLIPPEDH"));
+	OB->flippedV = QStoInt(obj->attribute("FLIPPEDV"));
 	OB->BBoxX=QStodouble(obj->attribute("BBOXX"));
 	OB->BBoxH=QStodouble(obj->attribute("BBOXH"));
 	OB->ScaleType = QStoInt(obj->attribute("SCALETYPE","1"));

@@ -276,8 +276,8 @@ PyObject *scribus_lockobject(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	item->Locked = !item->Locked;
-	if (item->Locked)
+	item->toggleLock();
+	if (item->locked())
 		return PyInt_FromLong(1);
 	return PyInt_FromLong(0);
 }
@@ -294,7 +294,7 @@ PyObject *scribus_islocked(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->Locked)
+	if (item->locked())
 		return PyBool_FromLong(1);
 	return PyBool_FromLong(0);
 }

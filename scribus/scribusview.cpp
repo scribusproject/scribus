@@ -633,7 +633,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							HR->RExtra = b->RExtra;
 							HR->First = Doc->docParagraphStyles[Doc->currentParaStyle].First;
 							HR->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].Indent;
-							if ((b->flippedH % 2 != 0) || (b->Reverse))
+							if (b->imageFlippedH() || (b->Reverse))
 								HR->Revers = true;
 							else
 								HR->Revers = false;
@@ -1151,7 +1151,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 	{
 		if ((b->PType == 6) || (b->PType == 7) || (b->PType == 2) || (b->PType == 8))
 		{
-			if ((b->Locked) || (!b->ScaleType))
+			if ((b->locked()) || (!b->ScaleType))
 			{
 				contentsMousePressEvent(m);
 				return;
@@ -1467,7 +1467,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((!GetItem(&b)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == NormalMode))
 	{
-		int menid;
 		QPopupMenu *pmen = new QPopupMenu();
 		if (ScApp->Buffer2.startsWith("<SCRIBUSELEM"))
 		{
@@ -1640,11 +1639,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (b->PType == 8)
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
-			if (!b->Locked)
+			if (!b->locked())
 				pmen->insertItem( tr("&Lock"), this, SLOT(ToggleLock()));
 			else
 				pmen->insertItem( tr("Un&lock"), this, SLOT(ToggleLock()));
-			if (!b->LockRes)
+			if (!b->sizeLocked())
 				pmen->insertItem( tr("Lock Object &Size"), this, SLOT(ToggleResize()));
 			else
 				pmen->insertItem( tr("Unlock Object &Size"), this, SLOT(ToggleResize()));
@@ -1665,7 +1664,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (b->PType == 4)
 				pmen->insertItem( tr("&Insert Sample Text"), this, SLOT(LoremIpsum()));
-			if (!b->Locked)
+			if (!b->locked())
 			{
 				if (SelItem.count() > 1)
 				{
@@ -1723,13 +1722,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
-			if (!b->Locked && !(b->isTableItem && b->isSingleSel))
+			if (!b->locked() && !(b->isTableItem && b->isSingleSel))
 				ScApp->scrActions["editCut"]->addTo(pmen);
 			if (!(b->isTableItem && b->isSingleSel))
 				ScApp->scrActions["editCopy"]->addTo(pmen);
 			if ((Doc->appMode == EditMode) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
 				ScApp->scrActions["editPaste"]->addTo(pmen);
-			if (!b->Locked && (Doc->appMode != 7) && (!(b->isTableItem && b->isSingleSel)))
+			if (!b->locked() && (Doc->appMode != 7) && (!(b->isTableItem && b->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
 			if ((b->PType == 2) || (b->PType == 4))
 				pmen->insertItem( tr("C&lear Contents"), this, SLOT(ClearItem()));
@@ -1974,9 +1973,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								if (bb != b)
 									MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 							}
-							if (b->flippedH % 2 != 0)
+							if (b->imageFlippedH())
 								MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
-							if (b->flippedV % 2 != 0)
+							if (b->imageFlippedV())
 								MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						}
 						else
@@ -2058,9 +2057,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							else
 								MoveSizeItem(npx, npx, b->ItemNr);
 							b->Sizing = false;
-							if (b->flippedH % 2 == 0)
+							if (!b->imageFlippedH())
 								MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
-							if (b->flippedV % 2 == 0)
+							if (!b->imageFlippedV())
 								MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						}
 						else
@@ -2147,9 +2146,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(b->Width - npx.x(), npx.y()), b->ItemNr);
 						b->Sizing = false;
-						if (b->flippedH % 2 != 0)
+						if (b->imageFlippedH())
 							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
-						if (b->flippedV % 2 == 0)
+						if (!b->imageFlippedV())
 							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					case 4:
@@ -2207,9 +2206,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), b->Height - npx.y()), b->ItemNr);
 						b->Sizing = false;
-						if (b->flippedH % 2 == 0)
+						if (!b->imageFlippedH())
 							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
-						if (b->flippedV % 2 != 0)
+						if (b->imageFlippedV())
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					case 5:
@@ -2243,7 +2242,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(0, b->Height - npx.y()), b->ItemNr);
-						if (b->flippedV % 2 != 0)
+						if (b->imageFlippedV())
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						b->Sizing = false;
 						break;
@@ -2278,7 +2277,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(b->Width - npx.x(), 0), b->ItemNr);
-						if (b->flippedH % 2 != 0)
+						if (b->imageFlippedH())
 							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 						b->Sizing = false;
 						break;
@@ -2313,9 +2312,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), b->ItemNr);
 						b->Sizing = false;
-						if (b->flippedH % 2 == 0)
+						if (!b->imageFlippedH())
 							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
-						if (b->flippedV % 2 != 0)
+						if (b->imageFlippedV())
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					case 8:
@@ -2349,9 +2348,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), b->ItemNr);
 						b->Sizing = false;
-						if (b->flippedH % 2 != 0)
+						if (b->imageFlippedH())
 							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
-						if (b->flippedV % 2 == 0)
+						if (!b->imageFlippedV())
 							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					}
@@ -2827,7 +2826,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = static_cast<int>(m->x()/sc);
 		newY = static_cast<int>(m->y()/sc);
-		if ((Mpressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == NormalMode) && (!b->Locked) && (!(b->isTableItem && b->isSingleSel)))
+		if ((Mpressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == NormalMode) && (!b->locked()) && (!(b->isTableItem && b->isSingleSel)))
 		{
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
@@ -2991,7 +2990,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				emit b->HasSel ? HasTextSel() : HasNoTextSel();
 			}
 		}
-		if (Mpressed && (m->state() & LeftButton) && ((Doc->appMode == NormalMode) || ((Doc->appMode == EditMode) && HanMove)) && (!b->Locked))
+		if (Mpressed && (m->state() & LeftButton) && ((Doc->appMode == NormalMode) || ((Doc->appMode == EditMode) && HanMove)) && (!b->locked()))
 		{
 			if (Doc->EditClip)
 			{
@@ -3432,7 +3431,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			for (a = 0; a < SelItem.count(); ++a)
 			{
 				b = SelItem.at(a);
-				if (b->Locked)
+				if (b->locked())
 					break;
 				p.begin(viewport());
 				Transform(b, &p);
@@ -3495,7 +3494,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				if (QRegion(p.xForm(QPointArray(QRect(-3, -3, static_cast<int>(b->Width+6), static_cast<int>(b->Height+6))))).contains(mpo))
 				{
 					tx = p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height)));
-					if ((tx.intersects(mpo)) && (!b->Locked))
+					if ((tx.intersects(mpo)) && (!b->locked()))
 					{
 						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 						if (Doc->appMode == Rotation)
@@ -3507,7 +3506,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							if (b->PType == 2)
 								qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 						}
-						if (!b->LockRes)
+						if (!b->sizeLocked())
 							HandleCurs(&p, b, mpo);
 					}
 					else
@@ -3933,7 +3932,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 									break;
 							}
 						}
-						if (b->LockRes)
+						if (b->sizeLocked())
 						{
 							qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 							HowTo = 0;
@@ -3952,7 +3951,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						b = SelItem.at(0);
 						p.begin(viewport());
 						Transform(b, &p);
-						if (!b->Locked)
+						if (!b->locked())
 						{
 							HandleSizer(&p, b, mpo, m);
 							if (HowTo != 0)
@@ -4037,7 +4036,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			slotDoCurs(false);
 			if (GetItem(&b))
 			{
-				if (!b->Locked)
+				if (!b->locked())
 				{
 					p.begin(viewport());
 					Transform(b, &p);
@@ -4736,7 +4735,7 @@ void ScribusView::RefreshItem(PageItem *b)
 
 bool ScribusView::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 {
-	if (b->Locked)
+	if (b->locked())
 		return false;
 	bool retw = false;
 	double oldx = b->Xpos;
@@ -4778,13 +4777,13 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 void ScribusView::MoveItemI(double newX, double newY, int ite, bool redraw)
 {
 	PageItem *b = Doc->Items.at(ite);
-	if ((b->Locked) || (!b->ScaleType))
+	if ((b->locked()) || (!b->ScaleType))
 		return;
-	if (b->flippedH % 2 != 0)
+	if (b->imageFlippedH())
 		b->LocalX -= newX;
 	else
 		b->LocalX += newX;
-	if (b->flippedV % 2 != 0)
+	if (b->imageFlippedV())
 		b->LocalY -= newY;
 	else
 		b->LocalY += newY;
@@ -5390,7 +5389,7 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 			else
 				MoveItem(np.x(), 0, b);
 			Clip.translate(-np.x(), 0);
-			if (b->flippedH % 2 == 0)
+			if (!b->imageFlippedH())
 				MoveItemI(-np.x()/b->LocalScX, 0, b->ItemNr, false);
 			np.setX(0);
 		}
@@ -5405,7 +5404,7 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 			else
 				MoveItem(0, np.y(), b);
 			Clip.translate(0, -np.y());
-			if (b->flippedV % 2 == 0)
+			if (!b->imageFlippedV())
 				MoveItemI(0, -np.y()/b->LocalScY, b->ItemNr, false);
 			np.setY(0);
 		}
@@ -5517,7 +5516,7 @@ bool ScribusView::SizeItem(double newX, double newY, int ite, bool fromMP, bool 
 bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw)
 {
 	PageItem *b = pi;
-	if (b->Locked)
+	if (b->locked())
 		return false;
 	QPainter p;
 	QRect oldR = getRedrawBounding(b);
@@ -5603,16 +5602,16 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	{
 		if (fromMP)
 		{
-			if (b->flippedH % 2 != 0)
+			if (b->imageFlippedH())
 				MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
-			if (b->flippedV % 2 != 0)
+			if (b->imageFlippedV())
 				MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 		}
 		else
 		{
-			if (b->flippedH % 2 == 0)
+			if (!b->imageFlippedH())
 				MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
-			if (b->flippedV % 2 == 0)
+			if (!b->imageFlippedV())
 				MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 		}
 		UpdateClip(b);
@@ -5823,7 +5822,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		bb = SelItem.at(a);
-		if ((bb->Locked) || (bb->LockRes))
+		if ((bb->locked()) || (bb->sizeLocked()))
 			continue;
 		bb->OldB = bb->Width;
 		bb->OldH = bb->Height;
@@ -5927,7 +5926,7 @@ void ScribusView::RotateItem(double win, PageItem *pi)
 {
 	PageItem *b;
 	b = pi;
-	if (b->Locked)
+	if (b->locked())
 		return;
 	FPoint n;
 	QRect oldR = getRedrawBounding(b);
@@ -5992,14 +5991,14 @@ void ScribusView::AdjustItemSize(PageItem *b)
 	}
 	else
 		MoveItem(tp2.x(), tp2.y(), b, true);
-	if (b->flippedH % 2 == 0)
+	if (!b->imageFlippedH())
 		MoveItemI(-tp2.x()/b->LocalScX, 0, b->ItemNr, false);
-	if (b->flippedV % 2 == 0)
+	if (!b->imageFlippedV())
 		MoveItemI(0, -tp2.y()/b->LocalScY, b->ItemNr, false);
 	FPoint tp = getMaxClipF(&Clip);
-	if (b->flippedH % 2 != 0)
+	if (b->imageFlippedH())
 		MoveItemI((b->Width - tp.x())/b->LocalScX, 0, b->ItemNr, false);
-	if (b->flippedV % 2 != 0)
+	if (b->imageFlippedV())
 		MoveItemI(0, (b->Height - tp.y())/b->LocalScY, b->ItemNr, false);
 	SizeItem(tp.x(), tp.y(), b->ItemNr, true, false);
 	b->ClipEdited = true;
@@ -7096,7 +7095,7 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *
 	b->OldB2 = b->Width;
 	b->OldH2 = b->Height;
 	HowTo = 0;
-	if (b->LockRes)
+	if (b->sizeLocked())
 		return;
 	QRect ne = QRect();
 	PaintSizeRect(p, ne);
@@ -7317,12 +7316,12 @@ void ScribusView::updatePict(QString name)
 		PageItem *b = Doc->Items.at(a);
 		if ((b->PicAvail) && (b->Pfile == name))
 		{
-			int fho = b->flippedH;
-			int fvo = b->flippedV;
+			bool fho = b->imageFlippedH();
+			bool fvo = b->imageFlippedV();
 			b->pixmOrg = QImage();
 			LoadPict(b->Pfile, b->ItemNr, true);
-			b->flippedH = fho;
-			b->flippedV = fvo;
+			b->setImageFlippedH(fho);
+			b->setImageFlippedV(fvo);
 			AdjustPictScale(b);
 			AdjustPreview(b, false);
 		}
@@ -7332,12 +7331,12 @@ void ScribusView::updatePict(QString name)
 		PageItem *b = Doc->MasterItems.at(a);
 		if ((b->PicAvail) && (b->Pfile == name))
 		{
-			int fho = b->flippedH;
-			int fvo = b->flippedV;
+			bool fho = b->imageFlippedH();
+			bool fvo = b->imageFlippedV();
 			b->pixmOrg = QImage();
 			LoadPict(b->Pfile, b->ItemNr, true);
-			b->flippedH = fho;
-			b->flippedV = fvo;
+			b->setImageFlippedH(fho);
+			b->setImageFlippedV(fvo);
 			AdjustPictScale(b);
 			AdjustPreview(b, false);
 		}
@@ -7381,12 +7380,12 @@ void ScribusView::UpdatePic()
 		PageItem *b = SelItem.at(0);
 		if (b->PicAvail)
 		{
-			int fho = b->flippedH;
-			int fvo = b->flippedV;
+			int fho = b->imageFlippedH();
+			int fvo = b->imageFlippedV();
 			b->pixmOrg = QImage();
 			LoadPict(b->Pfile, b->ItemNr, true);
-			b->flippedH = fho;
-			b->flippedV = fvo;
+			b->setImageFlippedH(fho);
+			b->setImageFlippedV(fvo);
 			AdjustPictScale(b);
 			AdjustPreview(b, false);
 			updateContents();
@@ -7473,7 +7472,7 @@ void ScribusView::ToggleLock()
 	{
 		if (SelItem.count() > 1)
 		{
-			if (SelItem.at(0)->Locked)
+			if (SelItem.at(0)->locked())
 				undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
 			else
@@ -7498,7 +7497,7 @@ void ScribusView::ToggleResize()
 	{
 		if (SelItem.count() > 1)
 		{
-			if (SelItem.at(0)->LockRes)
+			if (SelItem.at(0)->sizeLocked())
 				undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
 			else
@@ -7882,8 +7881,8 @@ void ScribusView::ClearItem()
 				b->dpiY = 72.0;
 				b->LocalX = 0;
 				b->LocalY = 0;
-				b->flippedH = 0;
-				b->flippedV = 0;
+				b->setImageFlippedH(false);
+				b->setImageFlippedV(false);
 				b->textAlignment = 0;
 				b->EmProfile = "";
 				b->ScaleType = true;
@@ -7912,7 +7911,7 @@ void ScribusView::DeleteItem()
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = SelItem.at(offs);
-			if ((b->isTableItem && b->isSingleSel) || (b->Locked))
+			if ((b->isTableItem && b->isSingleSel) || (b->locked()))
 			{
 				offs++;
 				continue;
@@ -8900,12 +8899,12 @@ void ScribusView::Transform(PageItem *b, QPainter *p)
 
 void ScribusView::TransformM(PageItem *b, QPainter *p)
 {
-	if (b->flippedH % 2 != 0)
+	if (b->imageFlippedH())
 	{
 		p->translate(b->Width, 0);
 		p->scale(-1, 1);
 	}
-	if (b->flippedV % 2 != 0)
+	if (b->imageFlippedV())
 	{
 		p->translate(0, b->Height);
 		p->scale(1, -1);
@@ -10443,8 +10442,8 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 			Item->PicArt = false;
 		}
 	}
-	Item->flippedH = 0;
-	Item->flippedV = 0;
+	Item->setImageFlippedH(false);
+	Item->setImageFlippedV(false);
 	if (!Doc->loading)
 	{
 		emit RasterPic(Item->isRaster);
@@ -10455,16 +10454,16 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 
 void ScribusView::AdjustPreview(PageItem *b, bool reload)
 {
-	int neww, newh, fho, fvo;
-	bool savF;
+	int neww, newh;
+	bool savF, fho, fvo;
 	if ((b->LocalViewX < 1.0) || (b->LocalViewY < 1.0))
 	{
 		if ((b->Pfile != "") && (b->PicAvail))
 		{
 			if (!b->Sizing)
 			{
-				fho = b->flippedH;
-				fvo = b->flippedV;
+				fho = b->imageFlippedH();
+				fvo = b->imageFlippedV();
 				savF = b->PicArt;
 				if ( !b->pixmOrg.isNull() )
 				{
@@ -10483,8 +10482,8 @@ void ScribusView::AdjustPreview(PageItem *b, bool reload)
 				}
 				else
 					LoadPict(b->Pfile, b->ItemNr, true);
-				b->flippedH = fho;
-				b->flippedV = fvo;
+				b->setImageFlippedH(fho);
+				b->setImageFlippedV(fvo);
 				b->PicArt = savF;
 			}
 			neww = qRound(b->pixm.width() * b->LocalViewX);
@@ -10509,7 +10508,8 @@ void ScribusView::AdjustPictScale(PageItem *b, bool reload)
 	double ys = b->Height / static_cast<double>(b->OrigH);
 	if (!b->Sizing)
 	{
-		int fho = b->flippedH, fvo = b->flippedV;
+		bool fho = b->imageFlippedH();
+		bool fvo = b->imageFlippedV();
 		savF = b->PicArt;
 		if (!b->pixmOrg.isNull())
 		{
@@ -10528,8 +10528,8 @@ void ScribusView::AdjustPictScale(PageItem *b, bool reload)
 			}
 		else // jjsa end
 			LoadPict(b->Pfile, b->ItemNr, true);
-		b->flippedH = fho;
-		b->flippedV = fvo;
+		b->setImageFlippedH(fho);
+		b->setImageFlippedV(fvo);
 		b->PicArt = savF;
 	}
 	if (b->AspectRatio)
@@ -10679,8 +10679,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	}
 	PageItem* b = Doc->Items.at(z);
-	b->flippedH = Buffer->flippedH;
-	b->flippedV = Buffer->flippedV;
+	b->setImageFlippedH(Buffer->flippedH);
+	b->setImageFlippedV(Buffer->flippedV);
 	b->RadRect = Buffer->RadRect;
 	b->FrameType = Buffer->FrameType;
 	b->ClipEdited = Buffer->ClipEdited;
@@ -10793,8 +10793,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	b->TabValues = Buffer->TabValues;
 	b->DashValues = Buffer->DashValues;
 	b->DashOffset = Buffer->DashOffset;
-	b->Locked = Buffer->Locked;
-	b->LockRes = Buffer->LockRes;
+	b->setLocked(Buffer->Locked);
+	b->setSizeLocked(Buffer->LockRes);
 	b->Transparency = Buffer->Transparency;
 	b->TranspStroke = Buffer->TranspStroke;
 	b->Reverse = Buffer->Reverse;
@@ -11253,17 +11253,17 @@ void ScribusView::TextToPath()
 			chma.scale(b->itemText.at(a)->cscale / 100.0, 1);
 			pts.map(chma);
 			chma = QWMatrix();
-			if ((b->flippedH % 2 != 0) && (!b->Reverse))
+			if (b->imageFlippedH() && (!b->Reverse))
 				chma.scale(-1, 1);
-			if (b->flippedV % 2 != 0)
+			if (b->imageFlippedV())
 				chma.scale(1, -1);
 			pts.map(chma);
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
 			bb = Doc->Items.at(z);
 			bb->Textflow = b->Textflow;
 			bb->Textflow2 = b->Textflow2;
-			bb->LockRes = b->LockRes;
-			bb->Locked = b->Locked;
+			bb->setSizeLocked(b->sizeLocked());
+			bb->setLocked(b->locked());
 			bb->NamedLStyle = b->NamedLStyle;
 			bb->setItemName(b->itemName()+"+"+ccounter.setNum(a));
 			bb->AutoName = false;
@@ -11296,9 +11296,9 @@ void ScribusView::TextToPath()
 				wide = Cwidth(Doc, b->itemText.at(a)->cfont, chx, b->itemText.at(a)->csize, b->itemText.at(a+1)->ch);
 			else
 				wide = Cwidth(Doc, b->itemText.at(a)->cfont, chx, b->itemText.at(a)->csize);
-			if (b->flippedH % 2 != 0)
+			if (b->imageFlippedH())
 				textX = b->Width - textX - wide;
-			if (b->flippedV % 2 != 0)
+			if (b->imageFlippedV())
 				textY = b->Height - textY+ y - (bb->Height - y);
 			npo = transformPoint(FPoint(textX+x, textY-y), 0.0, 0.0, b->Rot, 1.0, 1.0);
 			bb->Xpos = b->Xpos+npo.x();

@@ -5,8 +5,9 @@
 #include <qmessagebox.h>
 #include <qkeysequence.h>
 
-KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> oldKeyMap): QWidget( parent, "key" )
+KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( parent, "key" )
 {
+	keyMap.clear();
 	keyMap = oldKeyMap;
 	Part1 = "";
 	Part2 = "";
@@ -17,12 +18,15 @@ KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> oldKeyMap): QWidget( pare
 
 	keyTable = new QTable( oldKeyMap.count(), 2, this, "keyTable" );
 	keyTable->setMaximumSize(QSize(500,200));
-	for (uint a = 0; a < oldKeyMap.count(); ++a)
+	uint a=0;
+	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
 	{
-		QTableItem *it = new QTableItem(keyTable, QTableItem::Never, oldKeyMap[a].Name);
-		keyTable->setItem(a, 0, it);
-		QTableItem *it2 = new QTableItem(keyTable, QTableItem::Never, getKeyText(oldKeyMap[a].KeyID));
-		keyTable->setItem(a, 1, it2);
+		QTableItem *item = new QTableItem(keyTable, QTableItem::Never, it.data().cleanMenuText);
+		keyTable->setItem(a, 0, item);
+		QTableItem *item2 = new QTableItem(keyTable, QTableItem::Never, QString(it.data().keySequence));
+		keyTable->setItem(a, 1, item2);
+		it.data().tableRow=a;
+		++a;
 	}
 	keyTable->setSorting(false);
 	keyTable->setSelectionMode(QTable::NoSelection);
@@ -122,15 +126,18 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 											tr("Warning"),
 											tr("This Key Sequence is already in use"),
 											tr("&OK"), 0, 0, 0, QMessageBox::Ok);
-					keyTable->setText(actRow, 1, "");
+					keyTable->setText(currRow, 1, "");
 					keyDisplay->setText("");
-					keyMap[actRow].KeyID = 0;
+					if (currentKeyMapRow!=NULL)
+						currentKeyMapRow.data().keySequence="";
 					noKey->setChecked(true);
 				}
 				else
 				{
-					keyTable->setText(actRow, 1, getKeyText(keyCode));
-					keyMap[actRow].KeyID = keyCode;
+					QString newKeySequence=QString(QKeySequence(keyCode));
+					keyTable->setText(currRow, 1, newKeySequence);
+					if (currentKeyMapRow!=NULL)
+						currentKeyMapRow.data().keySequence=newKeySequence;
 					userDef->setChecked(true);
 				}
 				setKeyButton->setOn(false);
@@ -192,20 +199,30 @@ void KeyManager::setKeyText()
 void KeyManager::dispKey(int row)
 {
 	keyDisplay->setText(keyTable->text(row, 1));
-	if (keyMap[row].KeyID == 0)
-		noKey->setChecked(true);
-	else
-		userDef->setChecked(true);
-	actRow = row;
+	keyTable->setText(row, 1, keyTable->text(row, 1));
+	
+	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
+	{
+		if (it.data().tableRow == row)
+		{
+			if (it.data().keySequence == "")
+				noKey->setChecked(true);
+			else
+				userDef->setChecked(true);
+			currentKeyMapRow=it;	
+		}
+	}
+	currRow = row;
 }
 
 void KeyManager::setNoKey()
 {
 	if (noKey->isChecked())
 	{
-		keyTable->setText(actRow, 1, "");
+		keyTable->setText(currRow, 1, "");
 		keyDisplay->setText("");
-		keyMap[actRow].KeyID = 0;
+		if (currentKeyMapRow!=NULL)
+			currentKeyMapRow.data().keySequence="";
 	}
 }
 
@@ -217,9 +234,9 @@ QString KeyManager::getKeyText(int KeyC)
 bool KeyManager::checkKey(int code)
 {
 	bool ret = false;
-	for (uint a = 0; a < keyMap.count(); ++a)
+	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
 	{
-		if (keyMap[a].KeyID == code)
+		if (it.data().keySequence == QString(QKeySequence(code)))
 		{
 			ret = true;
 			break;
@@ -228,7 +245,7 @@ bool KeyManager::checkKey(int code)
 	return ret;
 }
 
-const QMap<int, Keys> KeyManager::getNewKeyMap()
+const QMap<QString, Keys> KeyManager::getNewKeyMap()
 {
 	return keyMap;
 }

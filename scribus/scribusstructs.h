@@ -83,8 +83,8 @@ struct CopyPasteBuffer
 	double LocalX;
 	double LocalY;
 	bool PicArt;
-	int flippedH;
-	int flippedV;
+	bool flippedH;
+	bool flippedV;
 	double BBoxX;
 	double BBoxH;
 	bool isPrintable;
@@ -316,10 +316,10 @@ struct PDFOptions
 
 struct Keys
 { 
-	QString Name;
-	int MenuID;
-	int KeyID;
 	QString actionName;
+	QString cleanMenuText;
+	QString keySequence;
+	int tableRow;
 };
 
 /** Definition der Farbenlisten */
@@ -461,7 +461,7 @@ struct ApplicationPrefs
 	QStringList RecentDocs;
 	uint RecentDCount;
 	CMSData DCMSset;
-	QMap<int,Keys> KeyActions;
+	QMap<QString,Keys> KeyActions;
 	QString PrinterName;
 	QString PrinterFile;
 	QString PrinterCommand;

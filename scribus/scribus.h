@@ -100,7 +100,7 @@ public:
 	const QString getGuiLanguage();
 
 	void SetShortCut();
-	void SetKeyEntry(int Nr, QString text, int Men, int KeyC, QString actName = "");
+	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq);
 	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);
@@ -232,7 +232,7 @@ public slots:
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
-	void ReadPrefs();
+	void ReadPrefs(bool import12);
 	void ReadPrefsXML();
 	void ManageGuides();
 	void SetTranspar(double t);
@@ -495,7 +495,7 @@ private:
 	QString recentFileMenuName;
 
 	QString getPreferencesLocation(); //Find preferences location
-	void convertToXMLPreferences(const QString prefsLocation); //convert 1.2 style rc prefs to .xml style
+	bool convert12Preferences(const QString prefsLocation); //convert 1.2 style rc prefs and possibly to .xml style
 	QComboBox *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;

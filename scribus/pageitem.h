@@ -49,6 +49,8 @@ class PageItem : public QObject, public UndoObject
 	Q_PROPERTY(double lineTransparency READ lineTransparency WRITE setLineTransparency DESIGNABLE false)
 	Q_PROPERTY(bool locked READ locked WRITE setLocked DESIGNABLE false)
 	Q_PROPERTY(bool sizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
+	Q_PROPERTY(bool imageFlippedV READ imageFlippedV WRITE setImageFlippedV DESIGNABLE false)
+	Q_PROPERTY(bool imageFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
 public: 
 	PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
@@ -76,8 +78,6 @@ public:
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
-	bool Locked;
-	bool LockRes;
 	bool Reverse;
   /** X-Position auf der Seite */
 	double Xpos;
@@ -183,10 +183,6 @@ public:
 	int OrigH;
 	double dpiX;
 	double dpiY;
-  /** Anzahl horizontaler Spiegelungen */
-	int flippedH;
-  /** Anzahl vertikaler Spiegelungen */
-	int flippedV;
   /** BoundigBox-X */
 	double BBoxX;
   /** BoundingBox-H */
@@ -401,11 +397,18 @@ public:
 	 * @sa Qt::PenJoinStyle
 	 */
 	void setLineJoin(PenJoinStyle newStyle);
+
+	/** @brief Is the image flipped horizontally? */
+	bool imageFlippedH() const;
+	/** @brief Horizontally flip / unflip the image */
+	void setImageFlippedH(bool flipped);
+
 	/** 
 	 * @brief Set custom line style
 	 * @param newStyle name of the custom style
 	 */
 	void setCustomLineStyle(const QString& newStyle);
+
 	/**
 	 * @brief Set start arrow index
 	 * @param newIndex index for start arrow
@@ -416,8 +419,14 @@ public:
 	 * @param newIndex index for end arrow
 	 */
 	void setEndArrowIndex(int newIndex);
+
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
+
+	/** @brief Is the image flipped vertically? */
+	bool imageFlippedV() const;
+	/** @brief Vertically flip / unflip the image */
+	void setImageFlippedV(bool flipped);
 	/** @brief Flip an image vertically */
 	void flipImageV();
 
@@ -497,10 +506,35 @@ protected:
 
 	/**
 	 * @brief Item name. Unicode. User visible (outline, property palette, etc).
-	 *
-	 * See PageItem::itemName(), PageItem::setItemName()
-	 * */
+	 * @sa PageItem::itemName(), PageItem::setItemName()
+	 */
 	QString AnName;
+
+	/**
+	 * @brief Is the image in this image item flipped horizontally?
+	 * @sa PageItem::isImageFlippedH(), PageItem::setImageFlippedH(),
+	 *     PageItem::flipImageH(), PageItem::flippedV
+	 */
+	bool imageIsFlippedH;
+
+	/**
+	 * @brief Is the image in this image item flipped vertically?
+	 * @sa PageItem::isImageFlippedV(), PageItem::setImageFlippedV(),
+	 *     PageItem::flipImageV(), PageItem::flippedH
+	 */
+	bool imageIsFlippedV;
+
+	/**
+	 * @brief Is the item locked (cannot be moved, resized, etc)?
+	 * @sa PageItem::locked(), PageItem::setLocked(), PageItem::toggleLock()
+	 */
+	bool Locked;
+
+	/**
+	 * @brief Is the item's size locked?
+	 * @sa PageItem::sizeLocked(), PageItem::setSizeLocked(), PageItem::toggleSizeLock()
+	 */
+	bool LockRes;
 };
 
 #endif

@@ -222,8 +222,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("PICART", item->PicArt ? 1 : 0);
 	ob->setAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 	ob->setAttribute("BASEOF", item->BaseOffs);
-	ob->setAttribute("FLIPPEDH",item->flippedH);
-	ob->setAttribute("FLIPPEDV",item->flippedV);
+	ob->setAttribute("FLIPPEDH", item->imageFlippedH());
+	ob->setAttribute("FLIPPEDV", item->imageFlippedV());
 	ob->setAttribute("BBOXX",item->BBoxX);
 	ob->setAttribute("BBOXH",item->BBoxH);
 	ob->setAttribute("IFONT",item->IFont);
@@ -298,8 +298,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("EPROF", item->EmProfile);
 	ob->setAttribute("IRENDER",item->IRender);
 	ob->setAttribute("EMBEDDED", item->UseEmbedded ? 1 : 0);
-	ob->setAttribute("LOCK", item->Locked ? 1 : 0);
-	ob->setAttribute("LOCKR", item->LockRes ? 1 : 0);
+	ob->setAttribute("LOCK", item->locked() ? 1 : 0);
+	ob->setAttribute("LOCKR", item->sizeLocked() ? 1 : 0);
 	ob->setAttribute("REVERS", item->Reverse ? 1 : 0);
 	ob->setAttribute("INVERS", item->InvPict ? 1 : 0);
 	ob->setAttribute("TransValue", item->Transparency);
@@ -3084,12 +3084,11 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		rde.setAttribute("NAME",Vor->RecentDocs[rd]);
 		elem.appendChild(rde);
 	}
-	for (uint ksc=0; ksc<68; ++ksc)
+	for (QMap<QString,Keys>::Iterator ksc=Vor->KeyActions.begin(); ksc!=Vor->KeyActions.end(); ++ksc)
 	{
 		QDomElement kscc=docu.createElement("SHORTCUT");
-		kscc.setAttribute("CODE",Vor->KeyActions[ksc].KeyID);
-		kscc.setAttribute("ACTION",Vor->KeyActions[ksc].actionName);
-		kscc.setAttribute("NR", ksc);
+		kscc.setAttribute("ACTION",ksc.data().actionName);
+		kscc.setAttribute("SEQUENCE",QString(ksc.data().keySequence));
 		elem.appendChild(kscc);
 	}
 	QMap<QString,QString>::Iterator itfsu;
@@ -3162,7 +3161,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	f.close();
 }
 
-bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash)
+bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash, bool import12)
 {
 	QDomDocument docu("scridoc");
 	QFile f(ho);
@@ -3359,10 +3358,10 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->nodePalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
 			Vorein->nodePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
-		if (dc.tagName()=="SHORTCUT")
-		{
-			Vorein->KeyActions[QStoInt(dc.attribute("NR"))].KeyID = QStoInt(dc.attribute("CODE"));
-			Vorein->KeyActions[QStoInt(dc.attribute("NR"))].actionName = dc.attribute("ACTION","");
+		if (!import12 && dc.tagName()=="SHORTCUT")
+		{			
+				Vorein->KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
+				Vorein->KeyActions[dc.attribute("ACTION")].keySequence = dc.attribute("SEQUENCE");
 		}
 		if (dc.tagName()=="RECENT")
 			Vorein->RecentDocs.append(dc.attribute("NAME"));
