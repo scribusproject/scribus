@@ -61,6 +61,7 @@
 class Autoforms;
 class FontCombo;
 class StilFormate;
+class LineFormate;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -369,6 +370,7 @@ public slots:
 	void slotEditStyles();
 	void saveStyles(StilFormate *dia);
 	void slotEditLineStyles();
+	void saveLStyles(LineFormate *dia);
 	void setNewAbStyle(int a);
 	void setAbsValue(int a);
 	void SelectFromOutl(int Page, int Item);

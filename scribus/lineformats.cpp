@@ -7,71 +7,81 @@
 extern QPixmap loadIcon(QString nam);
 
 LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
-    : QDialog( parent, "Formate", true, 0)
+		: QDialog( parent, "Formate", true, 0)
 {
-    resize( 327, 260 );
-    setCaption( tr( "Edit Line Styles" ) );
-  	setIcon(loadIcon("AppIcon.png"));
+	resize( 327, 260 );
+	setCaption( tr( "Edit Line Styles" ) );
+	setIcon(loadIcon("AppIcon.png"));
 	Docu = doc;
 	TempStyles = doc->MLineStyles;
-    StilFormateLayout = new QHBoxLayout( this ); 
-    StilFormateLayout->setSpacing( 5 );
-    StilFormateLayout->setMargin( 10 );
+	StilFormateLayout = new QHBoxLayout( this );
+	StilFormateLayout->setSpacing( 5 );
+	StilFormateLayout->setMargin( 10 );
 
-    ListBox1 = new QListBox( this, "ListBox1" );
-    ListBox1->setMinimumSize( QSize( 200, 240 ) );
-    StilFormateLayout->addWidget( ListBox1 );
+	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1->setMinimumSize( QSize( 200, 240 ) );
+	StilFormateLayout->addWidget( ListBox1 );
 
-    Layout15 = new QVBoxLayout; 
-    Layout15->setSpacing( 6 );
-    Layout15->setMargin( 0 );
+	Layout15 = new QVBoxLayout;
+	Layout15->setSpacing( 6 );
+	Layout15->setMargin( 0 );
 
-    LoadLS = new QPushButton( this, "LoadF" );
-    LoadLS->setText( tr( "Append" ) );
-    Layout15->addWidget( LoadLS );
+	LoadLS = new QPushButton( this, "LoadF" );
+	LoadLS->setText( tr( "Append" ) );
+	Layout15->addWidget( LoadLS );
 
-    NewB = new QPushButton( this, "NewB" );
-    NewB->setText( tr( "New" ) );
-    Layout15->addWidget( NewB );
+	NewB = new QPushButton( this, "NewB" );
+	NewB->setText( tr( "New" ) );
+	Layout15->addWidget( NewB );
 
-    EditB = new QPushButton( this, "EditB" );
-    EditB->setText( tr( "Edit" ) );
-    EditB->setDefault( true );
-    EditB->setEnabled(false);
-    Layout15->addWidget( EditB );
+	EditB = new QPushButton( this, "EditB" );
+	EditB->setText( tr( "Edit" ) );
+	EditB->setDefault( true );
+	EditB->setEnabled(false);
+	Layout15->addWidget( EditB );
 
-    DublicateB = new QPushButton( this, "DublicateB" );
-    DublicateB->setText( tr( "Duplicate" ) );
-    DublicateB->setEnabled(false);
-    Layout15->addWidget( DublicateB );
+	DublicateB = new QPushButton( this, "DublicateB" );
+	DublicateB->setText( tr( "Duplicate" ) );
+	DublicateB->setEnabled(false);
+	Layout15->addWidget( DublicateB );
 
-    DeleteB = new QPushButton( this, "DeleteB" );
-    DeleteB->setText( tr( "Delete" ) );
-    DeleteB->setEnabled(false);
-    Layout15->addWidget( DeleteB );
+	DeleteB = new QPushButton( this, "DeleteB" );
+	DeleteB->setText( tr( "Delete" ) );
+	DeleteB->setEnabled(false);
+	Layout15->addWidget( DeleteB );
 
-    SaveB = new QPushButton( this, "SaveB" );
-    SaveB->setText( tr( "Save" ) );
-    Layout15->addWidget( SaveB );
+	SaveB = new QPushButton( this, "SaveB" );
+	SaveB->setText( tr( "Save" ) );
+	Layout15->addWidget( SaveB );
 
-    CancelB = new QPushButton( this, "CancelB" );
-    CancelB->setText( tr( "Cancel" ) );
-    Layout15->addWidget( CancelB );
-    QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout15->addItem( spacer );
-    StilFormateLayout->addLayout( Layout15 );
+	ExitB = new QPushButton( this, "ExitB" );
+	ExitB->setText( tr( "Exit" ) );
+	Layout15->addWidget( ExitB );
 
-    // signals and slots connections
-    connect(CancelB, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(SaveB, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(LoadLS, SIGNAL(clicked()), this, SLOT(loadLStyles()));
-    connect(EditB, SIGNAL(clicked()), this, SLOT(editFormat()));
-    connect(NewB, SIGNAL(clicked()), this, SLOT(neuesFormat()));
-    connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
-    connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
-    connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
+	CancelB = new QPushButton( this, "CancelB" );
+	CancelB->setText( tr( "Cancel" ) );
+	Layout15->addWidget( CancelB );
+	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Layout15->addItem( spacer );
+	StilFormateLayout->addLayout( Layout15 );
+
+	// signals and slots connections
+	connect(CancelB, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(SaveB, SIGNAL(clicked()), this, SLOT(saveIt()));
+	connect(ExitB, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(LoadLS, SIGNAL(clicked()), this, SLOT(loadLStyles()));
+	connect(EditB, SIGNAL(clicked()), this, SLOT(editFormat()));
+	connect(NewB, SIGNAL(clicked()), this, SLOT(neuesFormat()));
+	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
+	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
+	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 	sFnumber = ListBox1->count() > 0 ? TempStyles.begin().key() : QString("");
-    UpdateFList();
+	UpdateFList();
+}
+
+void LineFormate::saveIt()
+{
+	emit saveStyle(this);
 }
 
 void LineFormate::selFormat(QListBoxItem *c)
@@ -126,15 +136,15 @@ void LineFormate::editFormat()
 
 void LineFormate::deleteFormat()
 {
-  int exit=QMessageBox::warning(this,
-  								tr("Warning"),
-                                tr("Do you really want do delete this Style?"),
-                                tr("No"),
-                                tr("Yes"),
-                                0, QMessageBox::No, QMessageBox::Yes);
-  	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
+	int exit=QMessageBox::warning(this,
+	                              tr("Warning"),
+	                              tr("Do you really want do delete this Style?"),
+	                              tr("No"),
+	                              tr("Yes"),
+	                              0, QMessageBox::No, QMessageBox::Yes);
+	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
 	if (exit == QMessageBox::Yes)
-  	{
+	{
 		TempStyles.remove(sFnumber);
 		UpdateFList();
 	}
@@ -153,12 +163,12 @@ void LineFormate::loadLStyles()
 	else
 		return;
 	if (!fileName.isEmpty())
-  	{
-  		ScriXmlDoc *ss = new ScriXmlDoc();
-  		if (ss->ReadLStyles(fileName, &TempStyles))
+	{
+		ScriXmlDoc *ss = new ScriXmlDoc();
+		if (ss->ReadLStyles(fileName, &TempStyles))
 			UpdateFList();
 		delete ss;
-  	}
+	}
 }
 
 void LineFormate::UpdateFList()

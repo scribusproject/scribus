@@ -8,7 +8,7 @@ extern QPixmap loadIcon(QString nam);
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
     : QDialog( parent, "Javadocs", true, 0 )
 {
-    setCaption( tr( "Global JavaScripts" ) );
+    setCaption( tr( "Edit JavaScripts" ) );
 	setIcon(loadIcon("AppIcon.png"));
     Doc = doc;
 	View = vie;

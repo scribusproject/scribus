@@ -156,7 +156,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	else
 	{
 		connect(DelU, SIGNAL( clicked() ), this, SLOT( delUnused() ) );
-		QToolTip::add( DelU, tr( "Remove unused colors from current document" ) );
+		QToolTip::add( DelU, tr( "Remove unused colors from current document's color set" ) );
 	}
 	QToolTip::add( LoadF, tr( "Append colors to the current set from an existing document" ) );
 	QToolTip::add( NewF, tr( "Create a new color within the current set" ) );

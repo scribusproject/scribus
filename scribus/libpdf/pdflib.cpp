@@ -2328,7 +2328,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 						if (ite->Pfile3 != "")
 						{
 							img2 = LoadPict(ite->Pfile3);
-							IconOb = img2.hasAlphaBuffer() ? 3 : 2;
+							IconOb += img2.hasAlphaBuffer() ? 3 : 2;
 							PutDoc("/RI "+IToStr(ObjCounter+IconOb-1)+" 0 R ");
 						}
 						PutDoc("/TP "+IToStr(ite->AnIPlace)+" ");
@@ -2789,7 +2789,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	double aufl = Options->Resolution / 72.0;
 	int ImRes, ImWid, ImHei;
 	struct ShIm ImInfo;
-	if (!SharedImages.contains(fn))
+	if ((!SharedImages.contains(fn)) || (fromAN))
 	{
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options->UseProfiles2))

@@ -9,27 +9,27 @@
 #include "scribusdoc.h"
 
 class StilFormate : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail);
-    ~StilFormate() {};
+	StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail);
+	~StilFormate() {};
 
-    QListBox* ListBox1;
-    QPushButton* LoadS;
-    QPushButton* NewB;
-    QPushButton* EditB;
-    QPushButton* DublicateB;
-    QPushButton* DeleteB;
-    QPushButton* SaveB;
-    QPushButton* ExitB;
-    QPushButton* CancelB;
-    int sFnumber;
-  	QValueList<StVorL> TempVorl;
-    preV *fon;
+	QListBox* ListBox1;
+	QPushButton* LoadS;
+	QPushButton* NewB;
+	QPushButton* EditB;
+	QPushButton* DublicateB;
+	QPushButton* DeleteB;
+	QPushButton* SaveB;
+	QPushButton* ExitB;
+	QPushButton* CancelB;
+	int sFnumber;
+	QValueList<StVorL> TempVorl;
+	preV *fon;
 	ScribusDoc *Docu;
-  	void UpdateFList();
+	void UpdateFList();
 
 public slots:
 	void saveIt();
@@ -44,8 +44,8 @@ signals:
 	void saveStyle(StilFormate *);
 
 protected:
-    QHBoxLayout* StilFormateLayout;
-    QVBoxLayout* Layout15;
+	QHBoxLayout* StilFormateLayout;
+	QVBoxLayout* Layout15;
 };
 
 #endif // STILFORMATE_H

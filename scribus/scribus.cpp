@@ -4751,36 +4751,41 @@ void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 
 void ScribusApp::slotEditLineStyles()
 {
-	PageItem* ite;
 	if (HaveDoc)
 		{
 		LineFormate *dia = new LineFormate(this, doc);
+		connect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
 		if (dia->exec())
-			{
-			doc->MLineStyles = dia->TempStyles;
-			for (uint c = 0; c < view->DocPages.count(); ++c)
-				{
-				for (uint d = 0; d < view->DocPages.at(c)->Items.count(); ++d)
-					{
-					ite = view->DocPages.at(c)->Items.at(d);
-					if (!doc->MLineStyles.contains(ite->NamedLStyle))
-						ite->NamedLStyle = "";
-					}
-				}
-			for (uint c1 = 0; c1 < view->MasterPages.count(); ++c1)
-				{
-				for (uint d1 = 0; d1 < view->MasterPages.at(c1)->Items.count(); ++d1)
-					{
-					ite = view->MasterPages.at(c1)->Items.at(d1);
-					if (!doc->MLineStyles.contains(ite->NamedLStyle))
-						ite->NamedLStyle = "";
-					}
-				}
-			Mpal->SetLineFormats(doc);
-			view->DrawNew();
-			}
+			saveLStyles(dia);
+		disconnect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
 		delete dia;
 		}
+}
+
+void ScribusApp::saveLStyles(LineFormate *dia)
+{
+	PageItem* ite;
+	doc->MLineStyles = dia->TempStyles;
+	for (uint c = 0; c < view->DocPages.count(); ++c)
+	{
+		for (uint d = 0; d < view->DocPages.at(c)->Items.count(); ++d)
+		{
+			ite = view->DocPages.at(c)->Items.at(d);
+			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+				ite->NamedLStyle = "";
+		}
+	}
+	for (uint c1 = 0; c1 < view->MasterPages.count(); ++c1)
+	{
+		for (uint d1 = 0; d1 < view->MasterPages.at(c1)->Items.count(); ++d1)
+		{
+			ite = view->MasterPages.at(c1)->Items.at(d1);
+			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+				ite->NamedLStyle = "";
+		}
+	}
+	Mpal->SetLineFormats(doc);
+	view->DrawNew();
 }
 
 void ScribusApp::slotEditStyles()

@@ -264,8 +264,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	}
 	Doc->Vorlagen[0].Ausri = Ausrich;
 	pf.begin(Parent);
-//	pf.translate(qRound(Xpos*sc), qRound(Ypos*sc));
-//	pf.scale(sc, sc);
 	pf.translate(Xpos*sc, Ypos*sc);
 	pf.rotate(Rot);
 	pf.scale(sc, sc);
@@ -560,6 +558,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									DrawPoly(&pd, Clip, pd.brush().color());
 								}
 							}
+						pd.scale(LocalScX, LocalScY);
 						if (!pixm.isNull())
 							pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
 						pd.end();
@@ -1838,7 +1837,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 
 void PageItem::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm)
 {
-	if ((Pcolor != "None") || (GrType != 0) || (PType == 2))
+	if ((Pcolor != "None") || (GrType != 0) || (PType == 2) || (PType == 4))
 	{
 		QBitmap bm(static_cast<int>(Width), static_cast<int>(Height));
 		bm.fill(Qt::color0);
