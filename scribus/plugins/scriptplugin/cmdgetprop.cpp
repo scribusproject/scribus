@@ -241,27 +241,27 @@ PyObject *scribus_getallobj(PyObject *self, PyObject* args)
 		{
 		if (typ != -1)
 		{
-			for (uint lam2 = 0; lam2 < Carrier->doc->Items.count(); ++lam2)
+			for (uint lam2 = 0; lam2 < Carrier->doc->ActPage->Items.count(); ++lam2)
 			{
-				if (Carrier->doc->Items.at(lam2)->PType == typ)
+				if (Carrier->doc->ActPage->Items.at(lam2)->PType == typ)
 					counter++;
 			}
 		}
 		else
-			counter = Carrier->doc->Items.count();
+			counter = Carrier->doc->ActPage->Items.count();
 		l = PyList_New(counter);
-		for (uint lam=0; lam < Carrier->doc->Items.count(); ++lam)
+		for (uint lam=0; lam < Carrier->doc->ActPage->Items.count(); ++lam)
 			{
 			if (typ != -1)
 			{
-				if (Carrier->doc->Items.at(lam)->PType == typ)
+				if (Carrier->doc->ActPage->Items.at(lam)->PType == typ)
 				{
-					PyList_SetItem(l, counter2, PyString_FromString(Carrier->doc->Items.at(lam)->AnName));
+					PyList_SetItem(l, counter2, PyString_FromString(Carrier->doc->ActPage->Items.at(lam)->AnName));
 					counter2++;
 				}
 			}
 			else
-				PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->Items.at(lam)->AnName));
+				PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->ActPage->Items.at(lam)->AnName));
 			}
 		}
 	else

@@ -17,17 +17,9 @@
 
 #include "conswin.h"
 #include "conswin.moc"
-#include <qfont.h>
 
 ConsWin::ConsWin(QWidget* parent) : QTextEdit(parent)
 {
-	/* 10/09/2004 - pv - an ugly hack to set TypeWriter
-	font without family specification.
-	TODO: get user defined font by (future) KDE integration */
-	QFont font = QFont("nonexisting:)");
-	font.setStyleHint(QFont::TypeWriter);
-	setFont(font);
-	// end of hack
 	setTextFormat(Qt::PlainText);
 	setText(">>>");
 	Prompt = ">>>";

@@ -36,10 +36,8 @@
 #include "helpbrowser.h"
 #include "mpalette.h"
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
 #else
  #include "config.h"
 #endif
@@ -58,11 +56,6 @@ QString Name()
 int Type()
 {
 	return 4;
-}
-
-int ID()
-{
-	return 8;
 }
 
 void InitPlug(QWidget *d, ScribusApp *plug)
@@ -128,7 +121,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	QString pfad = PREL;
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "/share/scribus/doc/en/Scripter/index.html");
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), Carrier->GuiLanguage, "scripter");
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), pfad2);
 	dia->show();
 }
 
@@ -146,8 +139,8 @@ void MenuTest::FinishScriptRun()
 		Carrier->Tpal->BuildTree(Carrier->view);
 		Carrier->Sepal->SetView(Carrier->view);
 		Carrier->Sepal->Rebuild();
-		if (Carrier->view->SelItem.count() != 0)
-			Carrier->HaveNewSel(Carrier->view->SelItem.at(0)->PType);
+		if (Carrier->doc->ActPage->SelItem.count() != 0)
+			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
 		else
 			Carrier->HaveNewSel(-1);
 		Carrier->view->DrawNew();

@@ -322,13 +322,13 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 	if ((i != NULL) && (i->PType == 4))
 	{
 		int Apm = Carrier->doc->AppMode;
-		Carrier->view->SelItem.clear();
-		Carrier->view->SelItem.append(i);
+		i->OwnPage->SelItem.clear();
+		i->OwnPage->SelItem.append(i);
 		if (i->HasSel)
 			Carrier->doc->AppMode = 7;
 		Carrier->setNewAbStyle(size);
 		Carrier->doc->AppMode = Apm;
-		Carrier->view->Deselect();
+		i->OwnPage->Deselect();
 	}
 	return Py_None;
 }
@@ -351,13 +351,13 @@ PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 	if ((i != NULL) && (i->PType == 4))
 	{
 		int Apm = Carrier->doc->AppMode;
-		Carrier->view->SelItem.clear();
-		Carrier->view->SelItem.append(i);
+		i->OwnPage->SelItem.clear();
+		i->OwnPage->SelItem.append(i);
 		if (i->HasSel)
 			Carrier->doc->AppMode = 7;
-		Carrier->view->chFSize(qRound(size * 10.0));
+		i->OwnPage->chFSize(qRound(size * 10.0));
 		Carrier->doc->AppMode = Apm;
-		Carrier->view->Deselect();
+		i->OwnPage->Deselect();
 	}
 	return Py_None;
 }
@@ -378,13 +378,13 @@ PyObject *scribus_setfont(PyObject *self, PyObject* args)
 	if ((i != NULL) && (i->PType == 4) && (Carrier->Prefs.AvailFonts.find(QString(Font))))
 	{
 		int Apm = Carrier->doc->AppMode;
-		Carrier->view->SelItem.clear();
-		Carrier->view->SelItem.append(i);
+		i->OwnPage->SelItem.clear();
+		i->OwnPage->SelItem.append(i);
 		if (i->HasSel)
 			Carrier->doc->AppMode = 7;
 		Carrier->SetNewFont(QString(Font));
 		Carrier->doc->AppMode = Apm;
-		Carrier->view->Deselect();
+		i->OwnPage->Deselect();
 	}
 	return Py_None;
 }
@@ -617,7 +617,8 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 		// references to the others boxes
 		item1->NextBox = item2;
 		item2->BackBox = item1;
-		Carrier->view->DrawNew();
+		item1->OwnPage->repaint();
+		item2->OwnPage->repaint();
 		// enable 'save icon' stuff
 		Carrier->slotDocCh();
 	} // if empty
@@ -661,7 +662,7 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
 	} // if
 	// enable 'save icon' stuff
 	Carrier->slotDocCh();
-	Carrier->view->DrawNew();
+	item->OwnPage->repaint();
 	return Py_None;
 }
 
@@ -686,9 +687,10 @@ PyObject *scribus_tracetext(PyObject *self, PyObject* args)
 	PageItem *item = GetUniqueItem(QString(name));
 	if (item != NULL && item->PType == 4)
 	{
-		Carrier->view->Deselect(true);
-		Carrier->view->SelectItemNr(item->ItemNr);
-		Carrier->view->TextToPath();
+		Carrier->doc->ActPage = item->OwnPage;
+		Carrier->doc->ActPage->Deselect(true);
+		Carrier->doc->ActPage->SelectItemNr(item->ItemNr);
+		Carrier->doc->ActPage->TextToPath();
 		/* FIXME: this won't work. need to know why. maybe later...
 		item->OwnPage->Deselect(true);
 		item->OwnPage->SelectItemNr(item->ItemNr);

@@ -56,7 +56,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
+	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
 		return Py_None;
 	Carrier->DeletePage2(e);
 	//	qApp->processEvents();
@@ -75,7 +75,7 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
+	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
 		return Py_None;
 	Carrier->view->GotoPage(e);
 	//	qApp->processEvents();
@@ -95,11 +95,11 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	if (e < 0)
-		Carrier->slotNewPageP(Carrier->doc->Pages.count(), QString(name));
+		Carrier->slotNewPageP(Carrier->view->Pages.count(), QString(name));
 	else
 	{
 		e--;
-		if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
+		if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
 			return Py_None;
 		Carrier->slotNewPageP(e, QString(name));
 	}
@@ -116,7 +116,7 @@ PyObject *scribus_pagecount(PyObject *self, PyObject* args)
 	}
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->Pages.count()));
+	return PyInt_FromLong(static_cast<long>(Carrier->view->Pages.count()));
 }
 
 PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
@@ -147,17 +147,17 @@ PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageItems()"));
 		return NULL;
 	}
-	if ((!Carrier->HaveDoc) || (Carrier->doc->Items.count() == 0))
+	if ((!Carrier->HaveDoc) || (Carrier->doc->ActPage->Items.count() == 0))
 		return Py_BuildValue((char*)"[]");
-	PyObject *l = PyList_New(Carrier->doc->Items.count());
+	PyObject *l = PyList_New(Carrier->doc->ActPage->Items.count());
 	PyObject *row;
-	for (uint i = 0; i<Carrier->doc->Items.count(); ++i)
+	for (uint i = 0; i<Carrier->doc->ActPage->Items.count(); ++i)
 	{
 		row = Py_BuildValue((char*)"(sii)",
-				Carrier->doc->Items.at(i)->AnName.ascii(),
-				Carrier->doc->Items.at(i)->PType,
-				Carrier->doc->Items.at(i)->ItemNr
-			);
+		                    Carrier->doc->ActPage->Items.at(i)->AnName.ascii(),
+		                    Carrier->doc->ActPage->Items.at(i)->PType,
+		                    Carrier->doc->ActPage->Items.at(i)->ItemNr
+		                   );
 		PyList_SetItem(l, i, row);
 	} // for
 	return l;
