@@ -25,9 +25,10 @@
 #include <utility>
 #include <qobject.h>
 #include <qpixmap.h>
-#include "undogui.h"
 #include "undostate.h"
 #include "undoobject.h"
+
+class UndoGui;
 
 typedef std::pair<UndoObject*, UndoState*> ActionPair;
 typedef std::vector<ActionPair> ActionList;

@@ -23,6 +23,8 @@
 #include <qlayout.h>
 #include <qpixmap.h>
 #include <qpushbutton.h>
+#include <qrect.h>
+#include <qstyle.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
 
@@ -100,14 +102,14 @@ void UndoWidget::redoMenuClicked(int id)
 	emit redo(steps);
 }
 
-void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
+void UndoWidget::insertUndoItem(UndoObject*, UndoState* state)
 {
 	undoItems.insert(undoItems.begin(), state->getName());
 	clearRedoMenu();
 	updateUndoMenu();
 }
 
-void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
+void UndoWidget::insertRedoItem(UndoObject*, UndoState* state)
 {
 	redoItems.push_back(state->getName());
 	updateRedoMenu();
@@ -179,6 +181,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 
 	QCheckBox* objectBox = new QCheckBox(tr("Show selected object only"), this, "objectBox");
 	layout->addWidget(objectBox);
+	objectBox->setEnabled(false);
 
 	undoList = new QListBox(this, "undoList");
 	undoList->setMultiSelection(false);
@@ -223,6 +226,7 @@ void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 	else
 		undoList->insertItem("  " + target->getUName() + ": " + state->getName());
 	currentSelection = undoList->numRows() - 1;
+//	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
 	updateList();
 }
 
@@ -232,6 +236,7 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 		undoList->insertItem(*(state->getPixmap()), "  " + target->getUName() + ": " + state->getName());
 	else
 		undoList->insertItem("  " + target->getUName() + ": " + state->getName());
+//	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
 	updateList();
 }
 
@@ -299,4 +304,48 @@ void UndoPalette::undoListClicked(int i)
 UndoPalette::~UndoPalette()
 {
 
+}
+
+/*** UndoPalette::UndoItem ****************************************************/
+
+UndoPalette::UndoItem::UndoItem() : QListBoxItem()
+{
+	target = "";
+	action = "";
+	pixmap = NULL;
+}
+
+UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListBoxItem()
+{
+	target = another.target;
+	action = another.action;
+	pixmap = another.pixmap;
+}
+
+UndoPalette::UndoItem::UndoItem(const QString &targetName, const QString &actionName,
+                                QPixmap *actionPixmap) : QListBoxItem()
+{
+	target = targetName;
+	action = actionName;
+	pixmap = actionPixmap;
+}
+
+void UndoPalette::UndoItem::paint(QPainter *painter)
+{
+    // Draw the itme here
+}
+
+int UndoPalette::UndoItem::height(const QListBox*) const
+{
+	return 16;
+}
+
+int UndoPalette::UndoItem::width(const QListBox*) const
+{
+	return 100;
+}
+
+UndoPalette::UndoItem::~UndoItem()
+{
+	
 }

@@ -29,6 +29,7 @@
 #include <qstring.h>
 #include <qlistbox.h>
 #include <qtoolbutton.h>
+#include <qpainter.h>
 #include <qpixmap.h>
 #include <qpopupmenu.h>
 
@@ -54,7 +55,6 @@ class UndoGui : public QWidget
 public:
 	/**
 	 * @brief Creates a new UndoGui instance. 
-	 *
 	 * @param parent Parent object for UndoGui
 	 * @param name Name of the object
 	 * @param f widget flags
@@ -166,14 +166,14 @@ public slots:
 	 * @param target Target of the undo action
 	 * @param state State describing the action
 	 */
-	void insertUndoItem(UndoObject* target, UndoState* state);
+	void insertUndoItem(UndoObject*, UndoState* state);
 
 	/**
 	 * @brief Insert a new redo item.
 	 * @param target Target of the redo action
 	 * @param state State describing the action
 	 */
-	void insertRedoItem(UndoObject* target, UndoState* state);
+	void insertRedoItem(UndoObject*, UndoState* state);
 
 	/**
 	 * @brief Update undo stack representation with number of steps.
@@ -240,6 +240,47 @@ private:
 	QPushButton* redoButton;
 	void updateList();
 	void removeRedoItems();
+	
+/*** UndoPalette::UndoItem ****************************************************/
+	
+	/** @brief UndoItem provides a custom QListBoxItem for the undo history view. */
+	class UndoItem : public QListBoxItem
+	{
+	private:
+		/** @brief An icon for the undo state (action) */
+		QPixmap *pixmap;
+		/** @brief Name of the target of the state (action) */
+		QString target;
+		/** @brief Undo action's name */
+		QString action;
+	protected:
+		virtual void paint(QPainter*);
+		virtual int height(const QListBox*) const;
+		virtual int width(const QListBox*) const;
+	public:
+		/** @brief Create an empty UndoItem object */
+		UndoItem();
+		/**
+		 * @brief Create a copy of <code>another</code> UndoItem instance.
+		 * @param another UndoItem instance to copy
+		 */
+		UndoItem(const UndoItem &another);
+		/**
+		 * @brief Create an UndoItem instance.
+		 * @param targetName Name of the target. Will appear on the first row of
+		 * the item.
+		 * @param actionName Name of the state (action). Will appear on the 
+		 * second row of the item.
+		 * @param actionPixmap Icon for the state (action). Will appear on front
+		 * of the text parts.
+		 */ 
+		UndoItem(const QString &targetName, 
+                 const QString &actionName,
+                 QPixmap *actionPixmap);
+		~UndoItem();
+	};
+	
+/******************************************************************************/
 
 private slots:
 	void undoClicked();
