@@ -290,6 +290,9 @@ struct PSDLayer
 	uint ypos;
 	uint width;
 	uint height;
+	ushort opacity;
+	uchar clipping;
+	uchar flags;
 	QString layerName;
 	QString blend;
 };
@@ -332,12 +335,23 @@ static bool IsSupported( const PSDHeader & header )
 	return false;
 }
 
+static unsigned char INT_MULT ( unsigned char a, unsigned char b )
+{
+  int c = a * b + 0x80;
+  return (unsigned char)(( ( c >> 8 ) + c ) >> 8);
+}
+
 static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage & img, QValueList<PSDLayer> layerInfo, uint layer )
 {
 	// Find out if the data is compressed.
 	// Known values:
 	//   0: no compression
 	//   1: RLE compressed
+	QImage tmpImg;
+	if( !tmpImg.create( header.width, header.height, 32 ))
+		return false;
+	tmpImg.setAlphaBuffer( true );
+	tmpImg.fill(qRgba(0, 0, 0, 0));
 	uint base = s.device()->at();
 	uchar cbyte;
 	ushort compression;
@@ -391,11 +405,11 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 			}
 			first = false;
 			uint pixel_count = layerInfo[layer].width;
-			uchar *ptr2 = img.scanLine(img.height()-1)+img.width() * 4;
+			uchar *ptr2 = tmpImg.scanLine(tmpImg.height()-1)+tmpImg.width() * 4;
 			for (uint hh = 0; hh < layerInfo[layer].height; hh++)
 			{
 				uint count = 0;
-				uchar *ptr = img.scanLine(layerInfo[layer].ypos+hh);
+				uchar *ptr = tmpImg.scanLine(layerInfo[layer].ypos+hh);
 				ptr += layerInfo[layer].xpos * 4;
 				ptr += components[channel];
 				while( count < pixel_count )
@@ -414,11 +428,8 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 							if (ptr < ptr2)
 							{
 								if (header.color_mode == CM_CMYK)
-								{
-									*ptr = 255 - cbyte;
-								}
-								else
-									*ptr = cbyte;
+									cbyte = 255 - cbyte;
+								*ptr = cbyte;
 							}
 							ptr += 4;
 							len--;
@@ -456,7 +467,6 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 		// We're at the raw image data.  It's each channel in order (Red, Green, Blue, Alpha, ...)
 		// where each channel consists of an 8-bit value for each pixel in the image.
 		// Read the data by channel.
-		ushort w;
 		bool first = true;
 		for(uint channel = 0; channel < channel_num; channel++)
 		{
@@ -475,11 +485,11 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 			// Read the data.
 			uint pixel_count = layerInfo[layer].width;
 			uchar * ptr;
-			uchar *ptr2 = img.scanLine(img.height()-1)+img.width() * 4;
+			uchar *ptr2 = tmpImg.scanLine(tmpImg.height()-1)+tmpImg.width() * 4;
 			for (uint hh = 0; hh < layerInfo[layer].height; hh++)
 			{
 				uint count = pixel_count;
-				ptr = img.scanLine(layerInfo[layer].ypos+hh);
+				ptr = tmpImg.scanLine(layerInfo[layer].ypos+hh);
 				ptr += layerInfo[layer].xpos * 4;
 				ptr += components[channel];
 				while( count != 0 )
@@ -488,12 +498,118 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 					if (ptr < ptr2)
 					{
 						if (header.color_mode == CM_CMYK)
-							*ptr = 255 - cbyte;
-						else
-							*ptr = cbyte;
+							cbyte = 255 - cbyte;
+						*ptr = cbyte;
 					}
 					ptr += 4;
 					count--;
+				}
+			}
+		}
+	}
+	if (!(layerInfo[layer].flags & 2))
+	{
+		if (layer == 0)
+			img = tmpImg.copy();
+		else
+		{
+			for (unsigned int i = 0; i < layerInfo[layer].height; i++)
+			{
+				unsigned int *dst = (unsigned int *)img.scanLine(layerInfo[layer].ypos+i);
+				unsigned int *src = (unsigned int *)tmpImg.scanLine(layerInfo[layer].ypos+i);
+				dst += layerInfo[layer].xpos;
+				src += layerInfo[layer].xpos;
+				unsigned char r, g, b, a, src_r, src_g, src_b, src_a;
+				for (unsigned int j = 0; j < layerInfo[layer].width; j++)
+				{
+					unsigned char *d = (unsigned char *) dst;
+					unsigned char *s = (unsigned char *) src;
+					src_r = s[0];
+					src_g = s[1];
+					src_b = s[2];
+					src_a = s[3];
+					if (layerInfo[layer].blend == "mul ")
+					{
+						src_r = INT_MULT(src_r, d[0]);
+						src_g = INT_MULT(src_g, d[1]);
+						src_b = INT_MULT(src_b, d[2]);
+						if (header.color_mode == CM_CMYK)
+							src_a = INT_MULT(src_a, d[3]);
+						else
+							src_a = QMIN(src_a, d[3]);
+					}
+					else if (layerInfo[layer].blend == "scrn")
+					{
+						src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
+						src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
+						src_b = 255 - INT_MULT(255 - d[2], 255 - src_b);
+						if (header.color_mode == CM_CMYK)
+							src_a = 255 - INT_MULT(255 - d[3], 255 - src_a);
+						else
+							src_a = QMIN(src_a, d[3]);
+					}
+					else if (layerInfo[layer].blend == "over")
+					{
+						src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
+						src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
+						src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2]));
+						if (header.color_mode == CM_CMYK)
+							src_a = INT_MULT(d[3], d[3] + INT_MULT(2 * src_a, 255 - d[3]));
+						else
+							src_a = QMIN(src_a, d[3]);
+					}
+					else if (layerInfo[layer].blend == "diff")
+					{
+						src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
+						src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
+						src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
+						if (header.color_mode == CM_CMYK)
+							src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
+						else
+							src_a = QMIN(src_a, d[3]);
+					}
+					else if (layerInfo[layer].blend == "dark")
+					{
+						src_r = d[0]  < src_r ? d[0]  : src_r;
+						src_g = d[1] < src_g ? d[1] : src_g;
+						src_b = d[2] < src_b ? d[2] : src_b;
+						if (header.color_mode == CM_CMYK)
+							src_a = d[3] < src_a ? d[3] : src_a;
+						else
+							src_a = QMIN( src_a, d[3] );
+					}
+					else if (layerInfo[layer].blend == "lite")
+					{
+						src_r = d[0] < src_r ? src_r : d[0];
+						src_g = d[1] < src_g ? src_g : d[1];
+						src_b = d[2] < src_b ? src_b : d[2];
+						if (header.color_mode == CM_CMYK)
+							src_a = d[3] < src_a ? src_a : d[3];
+						else
+							src_a = QMIN( src_a, d[3] );
+					}
+					r = (d[0] * (255 - layerInfo[layer].opacity) + src_r * layerInfo[layer].opacity) / 255;
+					g = (d[1] * (255 - layerInfo[layer].opacity) + src_g * layerInfo[layer].opacity) / 255;
+					b = (d[2] * (255 - layerInfo[layer].opacity) + src_b * layerInfo[layer].opacity) / 255;
+					a = (d[3] * (255 - layerInfo[layer].opacity) + src_a * layerInfo[layer].opacity) / 255;
+					if (header.color_mode == CM_CMYK)
+					{
+						d[0] = r;
+						d[1] = g;
+						d[2] = b;
+						d[3] = a;
+					}
+					else
+					{
+						if (s[3] > 0)
+						{
+							d[0] = r;
+							d[1] = g;
+							d[2] = b;
+						}
+					}
+					dst++;
+					src++;
 				}
 			}
 		}
@@ -754,8 +870,11 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 			}
 			lay.blend = blend;
 			s >> opacity;
+			lay.opacity = opacity;
 			s >> clipping;
+			lay.clipping = clipping;
 			s >> flags;
+			lay.flags = flags;
 			s >> filler;
 			s >> extradata;
 			s >> layermasksize;
