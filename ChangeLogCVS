@@ -7,9 +7,15 @@ Changes since Version 1.1.6
 	* bug     #542: PDF-Export changes img-size on copied pages when downsampling is enabeled
 	* bug     #546: Updated Russian Translation from Alexandre Prokoudine
 	* bug     #549: Empty Object Name
+	* bug     #557: Strange message while updating TS file
+	* bug     #558: Updated some tooltips
 	* feature #536: Please move "Print Preview" to "File" menu
 	* feature #545: translation files for Slovene
 	* feature #548: TS-Update German
+	* feature #550: Unique Object Names
+	* feature #551: edit colour by doubleclick
+	* feature #559: Ugly icons - new icons set
+	* feature #561: Translation update German
 
 28.04.2004
 	* bug     #499: svg text and box import don't work correctly

@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "pageitem.h"
+#include "pageitem.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>
@@ -186,7 +187,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 		AnName = "Item";
 		break;
 	}
-	AnName += tmp.setNum(Doc->TotalItems)+" "+QDateTime::currentDateTime().toString();
+	AnName += tmp.setNum(Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
 	AutoName = true;
 	Doc->TotalItems++;
 	AnToolTip = "";
@@ -431,10 +432,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (InvPict)
 					{
 						QImage ip = pixm.copy();
-						p->drawImage(ip);
+						p->drawImage(&ip);
 					}
 					else
-						p->drawImage(pixm);
+						p->drawImage(&pixm);
 					p->restore();
 				}
 			}
@@ -542,7 +543,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->scale(LocalScX, LocalScY);
 					p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
 					if (!pixm.isNull())
-						p->drawImage(pixm);
+						p->drawImage(&pixm);
 					p->restore();
 				}
 			if ((Ptext.count() != 0) || (Dirty) || (NextBox != 0))

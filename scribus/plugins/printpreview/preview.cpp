@@ -61,6 +61,8 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Tes = new MenuPreview(d);
 	int id = plug->fileMenu->insertItem(QObject::tr("Print Preview"), -1, 16);
 	plug->fileMenu->connectItem(id, Tes, SLOT(RunPreview()));
+	plug->fileMenu->setItemEnabled(id, 0);
+	plug->MenuItemsFile.append(id);
 }
 
 void CleanUpPlug()

@@ -491,7 +491,7 @@ QPixmap ScPreview::createPreview(QString data)
 							pixm.invertPixels();
 						pS->scale(OB.LocalScX, OB.LocalScY);
 						pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
-						pS->drawImage(pixm);
+						pS->drawImage(&pixm);
 						pS->restore();
 					}
 				}

@@ -32,7 +32,9 @@
   *@author Franz Schmid
   */
 							
-class PageItem : public QObject  {
+class PageItem : public QObject
+{
+	Q_OBJECT
 
 public: 
 	PageItem(Page* pa, int art, double x, double y, double w, double h, double w2, QString fill, 

@@ -3325,6 +3325,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		ImInfo.aufl = aufl;
 		ImInfo.sxa = sxn;
 		ImInfo.sya = syn;
+		ImInfo.xa = sx;
+		ImInfo.ya = sy;
 		SharedImages.insert(fn, ImInfo);
 		ResCount++;
 	}
@@ -3341,8 +3343,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		}
 		else
 		{
-			sxn = SharedImages[fn].sxa;
-			syn = SharedImages[fn].sya;
+			sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
+			syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 		}
 	}
 	if (!fromAN)

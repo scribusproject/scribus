@@ -844,7 +844,7 @@ void ScPainter::setClipPath()
 	art_free( temp1 );
 }
 
-void ScPainter::drawImage( const QImage &image )
+void ScPainter::drawImage( QImage *image )
 {
 	double affineresult[6];
 	affineresult[0] = m_matrix.m11() * m_zoomFactor;
@@ -854,7 +854,7 @@ void ScPainter::drawImage( const QImage &image )
 	affineresult[4] = m_matrix.dx(); // * m_zoomFactor;
 	affineresult[5] = m_matrix.dy(); // * m_zoomFactor;
 	ksvg_art_rgb_affine_clip( m_clipPath, m_buffer, 0, 0, m_width, m_height, m_width * 4, 4,
-					 image.bits(), image.width(), image.height(), image.width() * 4,
+					 image->bits(), image->width(), image->height(), image->width() * 4,
 					 affineresult, qRound( 255 * fill_trans ), 0L );
 	art_svp_free( m_clipPath );
 }

@@ -130,6 +130,8 @@ private:
 			double aufl;
 			double sxa;
 			double sya;
+			double xa;
+			double ya;
 			};
 	QMap<QString,ShIm> SharedImages;
 	QValueList<uint> XRef;

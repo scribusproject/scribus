@@ -177,6 +177,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	connect( DelF, SIGNAL( clicked() ), this, SLOT( delFarbe() ) );
 	connect( LoadF, SIGNAL( clicked() ), this, SLOT( loadFarben() ) );
 	connect( ListBox1, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
+	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFarbe(QListBoxItem*) ) );
 }
 
 void Farbmanager::saveDefaults()
@@ -291,7 +292,6 @@ void Farbmanager::loadDefaults(int id)
 				EditColors.insert(Cname, tmp);
 			}
 			fiC.close();
-			//			DontChange.clear();
 		}
 		else
 		{
@@ -484,6 +484,15 @@ void Farbmanager::selFarbe(QListBoxItem *c)
 	EditF->setEnabled(true);
 	DupF->setEnabled(true);
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
+}
+
+void Farbmanager::selEditFarbe(QListBoxItem *c)
+{
+	sFarbe = c->text();
+	EditF->setEnabled(true);
+	DupF->setEnabled(true);
+	DelF->setEnabled(EditColors.count() == 1 ? false : true);
+	editFarbe();
 }
 
 void Farbmanager::updateCList()

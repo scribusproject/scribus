@@ -482,7 +482,7 @@ void StoryEditor::closeEvent(QCloseEvent *event)
 		if (TextChanged)
 		{
 			int t = QMessageBox::warning(this, tr("Warning"),
-			                             tr("Do you want save your changes?"),
+			                             tr("Do you want to save your changes?"),
 			                             QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel);
 			if (t == QMessageBox::Yes)
 				accept();

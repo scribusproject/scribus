@@ -64,6 +64,7 @@ private slots:
 	void neueFarbe();
 	void editFarbe();
 	void selFarbe(QListBoxItem*);
+	void selEditFarbe(QListBoxItem*);
 	void updateCList();
 
 protected:

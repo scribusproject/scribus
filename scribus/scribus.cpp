@@ -146,6 +146,7 @@ void ScribusApp::initScribus()
   setCaption( tr("Scribus " VERSION));
 	setKeyCompression(false);
   setIcon(loadIcon("AppIcon.png"));
+  MenuItemsFile.clear();
   initMenuBar();
   initStatusBar();
   WerkTools2 = new QToolBar( tr("File"), this);
@@ -599,6 +600,7 @@ void ScribusApp::initMenuBar()
 	fid1 = fileMenu->insertItem(loadIcon("DateiClos16.png"), tr("Close"), this, SLOT(slotFileClose()), CTRL+Key_W);
 	SetKeyEntry(2, tr("Close"), fid1, CTRL+Key_W);
 	fileMenu->setItemEnabled(fid1, 0);
+	MenuItemsFile.append(fid1);
 	fid4 = fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("Save"), this, SLOT(slotFileSave()), CTRL+Key_S);
 	SetKeyEntry(3, tr("Save"), fid4, CTRL+Key_S);
 	fileMenu->setItemEnabled(fid4, 0);
@@ -609,6 +611,7 @@ void ScribusApp::initMenuBar()
 	fileMenu->setItemEnabled(fid52, 0);
 	fid51 = fileMenu->insertItem( tr("Collect for Output..."), this, SLOT(Collect()));
 	fileMenu->setItemEnabled(fid51, 0);
+	MenuItemsFile.append(fid51);
 	fileMenu->insertSeparator();
 	importMenu = new QPopupMenu();
 	fid2 = importMenu->insertItem( tr("Get Text/Picture..."), this, SLOT(slotFileOpen()));
@@ -630,12 +633,15 @@ void ScribusApp::initMenuBar()
 	fileMenu->insertSeparator();
 	fid6 = fileMenu->insertItem( tr("Document Info..."), this, SLOT(InfoDoc()), CTRL+Key_I);
 	fileMenu->setItemEnabled(fid6, 0);
+	MenuItemsFile.append(fid6);
 	SetKeyEntry(5, tr("Document Info..."), fid6, CTRL+Key_I);
 	fid7 = fileMenu->insertItem( tr("Document Setup..."), this, SLOT(SetupDoc()));
 	fileMenu->setItemEnabled(fid7, 0);
+	MenuItemsFile.append(fid7);
 	SetKeyEntry(6, tr("Document Setup..."), fid7, 0);
 	fid9 = fileMenu->insertItem(loadIcon("DateiPrint16.png"), tr("Print..."), this, SLOT(slotFilePrint()), CTRL+Key_P);
 	fileMenu->setItemEnabled(fid9, 0);
+	MenuItemsFile.append(fid9);
 	SetKeyEntry(7, tr("Print..."), fid9, CTRL+Key_P);
 	fileMenu->insertSeparator();
 	MenID = fileMenu->insertItem(loadIcon("exit.png"), tr("Quit"), this, SLOT(slotFileQuit()), CTRL+Key_Q);
@@ -2359,18 +2365,18 @@ void ScribusApp::HaveNewDoc()
 	DatPri->setEnabled(true);
 	DatPDF->setEnabled(true);
 	DatSav->setEnabled(false);
-	fileMenu->setItemEnabled(fid1, 1);
-	fileMenu->setItemEnabled(fid4, 0);
+	QValueList<int>::iterator itm;
+	for (itm = MenuItemsFile.begin(); itm != MenuItemsFile.end(); ++itm )
+	{
+		fileMenu->setItemEnabled((*itm), 1);
+	}
 	fileMenu->setItemEnabled(fid5, 1);
-	fileMenu->setItemEnabled(fid51, 1);
+	fileMenu->setItemEnabled(fid11, 1);
+	fileMenu->setItemEnabled(fid4, 0);
 	fileMenu->setItemEnabled(fid52, 0);
-	fileMenu->setItemEnabled(fid6, 1);
-	fileMenu->setItemEnabled(fid7, 1);
 	exportMenu->setItemEnabled(fid8, 1);
 	importMenu->setItemEnabled(fid2a, 1);
-	fileMenu->setItemEnabled(fid9, 1);
 	exportMenu->setItemEnabled(fid10, 1);
-	fileMenu->setItemEnabled(fid11, 1);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
 	if (Buffer2 != "")
@@ -3420,21 +3426,21 @@ bool ScribusApp::DoFileClose()
 	BookPal->BView->Last = 0;
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 		{
-		fileMenu->setItemEnabled(fid1, 0);
+		QValueList<int>::iterator itm;
+		for (itm = MenuItemsFile.begin(); itm != MenuItemsFile.end(); ++itm)
+		{
+			fileMenu->setItemEnabled((*itm), 0);
+		}
 		importMenu->setItemEnabled(fid2, 0);
 		importMenu->setItemEnabled(fid2aa, 0);
 		exportMenu->setItemEnabled(fid3, 0);
 		fileMenu->setItemEnabled(fid4, 0);
 		fileMenu->setItemEnabled(fid5, 0);
-		fileMenu->setItemEnabled(fid51, 0);
 		fileMenu->setItemEnabled(fid52, 0);
-		fileMenu->setItemEnabled(fid6, 0);
-		fileMenu->setItemEnabled(fid7, 0);
+		fileMenu->setItemEnabled(fid11, 0);
 		exportMenu->setItemEnabled(fid8, 0);
 		importMenu->setItemEnabled(fid2a, 0);
-		fileMenu->setItemEnabled(fid9, 0);
 		exportMenu->setItemEnabled(fid10, 0);
-		fileMenu->setItemEnabled(fid11, 0);
 		editMenu->setItemEnabled(edUndo, 0);
 		editMenu->setItemEnabled(edid1, 0);
 		editMenu->setItemEnabled(edid2, 0);

@@ -533,19 +533,28 @@ double SVGPlug::fromPercentage( const QString &s )
  */
 double SVGPlug::parseUnit(const QString &unit)
 {
-	bool ok = false;
-	double value = unit.toDouble( &ok );
-	if( !ok )
-	{
-		if( unit.right( 2 ) == "pt" )
-			value = value;
-		else if( unit.right( 2 ) == "cm" )
-			value = ( value / 2.54 ) * 72;
-		else if( unit.right( 2 ) == "mm" )
-			value = ( value / 25.4 ) * 72;
-		else if( unit.right( 2 ) == "in" )
-			value = value * 72;
-	}
+	QString unitval=unit;
+	if( unit.right( 2 ) == "pt" )
+		unitval.replace( "pt", "" );
+	else if( unit.right( 2 ) == "cm" )
+		unitval.replace( "cm", "" );
+	else if( unit.right( 2 ) == "mm" )
+		unitval.replace( "mm" , "" );
+	else if( unit.right( 2 ) == "in" )
+		unitval.replace( "in", "" );
+	else if( unit.right( 2 ) == "px" )
+		unitval.replace( "px", "" );
+	double value = unitval.toDouble();
+	if( unit.right( 2 ) == "pt" )
+		value = value;
+	else if( unit.right( 2 ) == "cm" )
+		value = ( value / 2.54 ) * 72;
+	else if( unit.right( 2 ) == "mm" )
+		value = ( value / 25.4 ) * 72;
+	else if( unit.right( 2 ) == "in" )
+		value = value * 72;
+	else if( unit.right( 2 ) == "px" )
+		value = value;
 	return value;
 }
 

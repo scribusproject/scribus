@@ -2885,7 +2885,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Ebene</translation>
+        <translation>Anordnung</translation>
     </message>
     <message>
         <source>Text flows around Box</source>
@@ -5048,7 +5048,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Ebene</translation>
+        <translation>Anordnung</translation>
     </message>
 </context>
 <context>
@@ -8266,7 +8266,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
-        <translation>Suchen/Ersetzen...</translation>
+        <translation type="obsolete">Suchen/Ersetzen...</translation>
     </message>
     <message>
         <source>Do you want save your changes?</source>

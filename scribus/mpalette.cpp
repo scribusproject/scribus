@@ -442,7 +442,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	page_2b = new QWidget( TabStack2, "page" );
 	pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
 	Distance2 = new QGroupBox( page_2b, "Distance" );
-	Distance2->setTitle( tr( "Path Text Properites" ) );
+	Distance2->setTitle( tr( "Path Text Properties" ) );
 	Distance2->setColumnLayout(0, Qt::Vertical );
 	Distance2->layout()->setSpacing( 2 );
 	Distance2->layout()->setMargin( 5 );
@@ -813,8 +813,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( Locked, tr( "Lock or unlock the object" ) );
 	QToolTip::add( NoResize, tr( "Lock or unlock the size of the object" ) );
 	QToolTip::add( NoPrint, tr( "Enable or disable printing of the object" ) );
-	QToolTip::add( Textflow, tr( "Make text in lower objects flow around this frame" ) );
-	QToolTip::add( Textflow2, tr( "Use the imaginary square border around your object, rather than its actual shape" ) );
+	QToolTip::add( Textflow, tr( "Make text in lower frames flow around the object shape" ) );
+	QToolTip::add( Textflow2, tr( "Use the frame shape instead of the object one" ) );
 
 	QToolTip::add( Fonts, tr( "Font of selected text or object" ) );
 	QToolTip::add( Size, tr( "Font Size" ) );

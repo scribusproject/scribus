@@ -172,6 +172,7 @@ public:
 	QString UniCinS;
 	/** file_menu contains all items of the menubar entry "File" */
 	QPopupMenu *fileMenu;
+	QValueList<int> MenuItemsFile;
 
 public slots:
 	void slotStoryEditor();
