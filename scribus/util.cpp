@@ -31,6 +31,7 @@
 #include <qmessagebox.h>
 #include <cstdlib>
 #include <cmath>
+#include <unistd.h>
 #include "md5.h"
 #include <setjmp.h>
 #include "qprocess.h"

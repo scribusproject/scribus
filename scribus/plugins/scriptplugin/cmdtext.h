@@ -23,6 +23,13 @@ PyObject *scribus_deletetext(PyObject *self, PyObject* args);
 PyObject *scribus_settextfill(PyObject *self, PyObject* args);
 PyObject *scribus_settextstroke(PyObject *self, PyObject* args);
 PyObject *scribus_settextshade(PyObject *self, PyObject* args);
+/**
+ (Un)Link text frames via Scripter.
+ 02/22/04 (petr vanek)
+ TODO: PDF bookmarks handling
+ */
+PyObject *scribus_linktextframes(PyObject *self, PyObject* args);
+PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args);
 
 #endif
 

@@ -78,7 +78,6 @@ public:
 	int CountElements();
 	QPixmap PageToPixmap(int Nr, int maxGr);
 	QPixmap MPageToPixmap(QString name, int maxGr);
-	void RecalcTextPos();
 	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
 	void CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, 
 					bool Hm, bool Vm, bool Ic);

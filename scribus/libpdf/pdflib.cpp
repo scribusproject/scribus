@@ -30,6 +30,7 @@
 #include <qtextstream.h>
 #include <cstdlib>
 #include <cmath>
+#include <unistd.h>
 #include "rc4.h"
 
 extern int callGS(const QStringList & args);

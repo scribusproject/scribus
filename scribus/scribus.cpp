@@ -366,6 +366,14 @@ void ScribusApp::initScribus()
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
+		Prefs.PrPr_Mode = false;
+		Prefs.PrPr_AlphaText = false;
+		Prefs.PrPr_AlphaGraphics = false;
+		Prefs.PrPr_Transparency = false;
+		Prefs.PrPr_C = true;
+		Prefs.PrPr_M = true;
+		Prefs.PrPr_Y = true;
+		Prefs.PrPr_K = true;
 	  PrinterUsed = false;
 		resize(610, 600);
     QVBox* vb = new QVBox( this );

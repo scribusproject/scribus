@@ -31,6 +31,7 @@ class PPreview : public QDialog
 public:
 	PPreview( QWidget* parent, ScribusApp *plug );
 	~PPreview() {};
+	int RenderPreview(int Seite, int Res);
 	QPixmap CreatePreview(int Seite, int Res);
 	PageSelector *PGSel;
 	QCheckBox* AliasText;
@@ -43,10 +44,12 @@ public:
 	QCheckBox* EnableCMYK_K;
 	QScrollView* Anzeige;
 	QLabel* Anz;
-	QPixmap* Bild;
 	ScribusApp *app;
 	int APage;
 	int MPage;
+	bool CMode;
+	bool TxtAl;
+	bool GrAl;
 
 public slots:
 	void ToSeite(int num);

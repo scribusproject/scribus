@@ -39,6 +39,7 @@
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern ScribusApp* ScApp;
+extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
  						: QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
@@ -625,34 +626,6 @@ int ScribusView::CountElements()
 	return cc;
 }
 
-void ScribusView::RecalcTextPos()
-{
-	Doc->RePos = true;
-	QPixmap pgPix(10, 10);
-	QRect rd = QRect(0,0,9,9);
-	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-	for (uint az=0; az<MasterPages.count(); az++)
-		{
-		for (uint azz=0; azz<MasterPages.at(az)->Items.count(); ++azz)
-			{
-			PageItem *ite = MasterPages.at(az)->Items.at(azz);
-			if (ite->PType == 4)
-				ite->DrawObj(painter, rd);
-			}
-		}
-	for (uint az=0; az<Pages.count(); az++)
-		{
-		for (uint azz=0; azz<Pages.at(az)->Items.count(); ++azz)
-			{
-			PageItem *ite = Pages.at(az)->Items.at(azz);
-			if (ite->PType == 4)
-				ite->DrawObj(painter, rd);
-			}
-		}
-	delete painter;
-	Doc->RePos = false;
-}
-
 void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 {
 	uint a, i;
@@ -919,7 +892,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 	int sepac;
 	double wideR;
 	bool multiPath = false;
-	RecalcTextPos();
+	ReOrderText(Doc, this);
 	p->PS_set_Info("Author", Doc->DocAutor);
 	p->PS_set_Info("Title", Doc->DocTitel);
 	if (!farb)

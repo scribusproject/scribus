@@ -3229,6 +3229,16 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc82.setAttribute("FILE",Vor->PrinterFile);
 	dc82.setAttribute("COMMAND",Vor->PrinterCommand);
 	elem.appendChild(dc82);
+	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
+	dc8Pr.setAttribute("Mode", static_cast<int>(Vor->PrPr_Mode));
+	dc8Pr.setAttribute("AlphaText", static_cast<int>(Vor->PrPr_AlphaText));
+	dc8Pr.setAttribute("AlphaGraphics", static_cast<int>(Vor->PrPr_AlphaGraphics));
+	dc8Pr.setAttribute("Transparency", static_cast<int>(Vor->PrPr_Transparency));
+	dc8Pr.setAttribute("Cyan", static_cast<int>(Vor->PrPr_C));
+	dc8Pr.setAttribute("Magenta", static_cast<int>(Vor->PrPr_M));
+	dc8Pr.setAttribute("Yellow", static_cast<int>(Vor->PrPr_Y));
+	dc8Pr.setAttribute("Black", static_cast<int>(Vor->PrPr_K));
+	elem.appendChild(dc8Pr);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", Vor->Language);
 	rde.setAttribute("WORDLEN", Vor->MinWordLen);
@@ -3482,6 +3492,17 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->PrinterName = dc.attribute("NAME");
 			Vorein->PrinterFile = dc.attribute("FILE");
 			Vorein->PrinterCommand = dc.attribute("COMMAND");
+		}
+		if (dc.tagName()=="PRINTPREVIEW")
+		{
+			Vorein->PrPr_Mode = static_cast<bool>(QStoInt(dc.attribute("Mode", "0")));
+			Vorein->PrPr_AlphaText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
+			Vorein->PrPr_AlphaGraphics = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
+			Vorein->PrPr_Transparency = static_cast<bool>(QStoInt(dc.attribute("Transparency", "0")));
+			Vorein->PrPr_C = static_cast<bool>(QStoInt(dc.attribute("Cyan", "1")));
+			Vorein->PrPr_M = static_cast<bool>(QStoInt(dc.attribute("Magenta", "1")));
+			Vorein->PrPr_Y = static_cast<bool>(QStoInt(dc.attribute("Yellow", "1")));
+			Vorein->PrPr_K = static_cast<bool>(QStoInt(dc.attribute("Black", "1")));
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

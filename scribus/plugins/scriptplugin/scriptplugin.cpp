@@ -366,6 +366,10 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 }
 
 static PyMethodDef scribus_methods[] = {
+     // petr's stuff
+    {"GetXFontNames",    scribus_xfontnames,    METH_VARARGS},
+    {"LinkTextFrames",    scribus_linktextframes,    METH_VARARGS},
+    {"UnlinkTextFrames",    scribus_unlinktextframes,    METH_VARARGS},
     {"ProgressReset",    scribus_progressreset,    METH_VARARGS},
     {"ProgressTotal",    scribus_progresssettotalsteps,    METH_VARARGS},
     {"ProgressSet",    scribus_progresssetprogress,    METH_VARARGS},

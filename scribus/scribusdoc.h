@@ -438,6 +438,14 @@ struct preV  {
 				double DGap;
 				QString DColorSet;
 				QStringList CustomColorSets;
+				bool PrPr_Mode;
+				bool PrPr_AlphaText;
+				bool PrPr_AlphaGraphics;
+				bool PrPr_Transparency;
+				bool PrPr_C;
+				bool PrPr_M;
+				bool PrPr_Y;
+				bool PrPr_K;
 			};
 /**
   * the Document Class

@@ -18,6 +18,7 @@
 #include "preview.moc"
 #include <qimage.h>
 #include <cstdlib>
+#include <qcursor.h>
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
@@ -60,10 +61,20 @@ int Type()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
-		{
-  	PPreview *dia = new PPreview(d, plug);
-  	dia->exec();
-  	delete dia;
+	{
+  		PPreview *dia = new PPreview(d, plug);
+  		dia->exec();
+		plug->Prefs.PrPr_Mode = dia->EnableCMYK->isChecked();
+		plug->Prefs.PrPr_AlphaText = dia->AliasText->isChecked();
+		plug->Prefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
+		plug->Prefs.PrPr_Transparency = dia->AliasTr->isChecked();
+		plug->Prefs.PrPr_C = dia->EnableCMYK_C->isChecked();
+		plug->Prefs.PrPr_M = dia->EnableCMYK_M->isChecked();
+		plug->Prefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
+		plug->Prefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+  		delete dia;
+		system("rm -f "+plug->PrefsPfad+"/tmp.ps");
+		system("rm -f "+plug->PrefsPfad+"/sc.png");
   	}
 }
 
@@ -81,8 +92,11 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	QString tmp;
 	setCaption( tr("Print Preview"));
 	app = pl;
-	APage = 0;
+	APage = -1;
 	MPage = app->doc->PageC;
+	CMode = false;
+	TxtAl = false;
+	GrAl = false;
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
 	Layout5 = new QHBoxLayout;
@@ -110,38 +124,38 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout3->setMargin(0);
 	AliasText = new QCheckBox(this, "TextAntiAlias");
 	AliasText->setText( tr("Anti-alias Text"));
-	AliasText->setChecked(false);
+	AliasText->setChecked(app->Prefs.PrPr_AlphaText);
 	Layout2->addWidget(AliasText);
 	AliasGr = new QCheckBox(this, "GraphicsAntiAlias");
 	AliasGr->setText( tr("Anti-alias Graphics"));
-	AliasGr->setChecked(false);
+	AliasGr->setChecked(app->Prefs.PrPr_AlphaGraphics);
 	Layout2->addWidget(AliasGr);
 	AliasTr = new QCheckBox(this, "DisplayTransparency");
 	AliasTr->setText( tr("Display Transparency"));
-	AliasTr->setChecked(false);
+	AliasTr->setChecked(app->Prefs.PrPr_Transparency);
 	Layout2->addWidget(AliasTr);
 	EnableCMYK = new QCheckBox(this, "DisplayCMYK");
 	EnableCMYK->setText( tr("Display CMYK"));
-	EnableCMYK->setChecked(false);
+	EnableCMYK->setChecked(app->Prefs.PrPr_Mode);
 	Layout2->addWidget(EnableCMYK);
 	EnableCMYK_C = new QCheckBox(this, "DisplayCMYK_C");
 	EnableCMYK_C->setText( tr("C"));
-	EnableCMYK_C->setChecked(true);
+	EnableCMYK_C->setChecked(app->Prefs.PrPr_C);
 	EnableCMYK_C->setEnabled(false);
 	Layout3->addWidget(EnableCMYK_C);
 	EnableCMYK_M = new QCheckBox(this, "DisplayCMYK_M");
 	EnableCMYK_M->setText( tr("M"));
-	EnableCMYK_M->setChecked(true);
+	EnableCMYK_M->setChecked(app->Prefs.PrPr_M);
 	EnableCMYK_M->setEnabled(false);
 	Layout3->addWidget(EnableCMYK_M);
 	EnableCMYK_Y = new QCheckBox(this, "DisplayCMYK_Y");
 	EnableCMYK_Y->setText( tr("Y"));
-	EnableCMYK_Y->setChecked(true);
+	EnableCMYK_Y->setChecked(app->Prefs.PrPr_Y);
 	EnableCMYK_Y->setEnabled(false);
 	Layout3->addWidget(EnableCMYK_Y);
 	EnableCMYK_K = new QCheckBox(this, "DisplayCMYK_K");
 	EnableCMYK_K->setText( tr("K"));
-	EnableCMYK_K->setChecked(true);
+	EnableCMYK_K->setChecked(app->Prefs.PrPr_K);
 	EnableCMYK_K->setEnabled(false);
 	Layout3->addWidget(EnableCMYK_K);
 	Layout5->addLayout(Layout2);
@@ -178,7 +192,6 @@ void PPreview::ToSeite(int num)
 	int n = num-1;
 	if (n == APage)
 		return;
-	APage = n;
 	Anz->setPixmap(CreatePreview(n, 72));
 }
 
@@ -236,7 +249,6 @@ void PPreview::ToggleCMYK()
 	EnableCMYK_M->setEnabled(c);
 	EnableCMYK_Y->setEnabled(c);
 	EnableCMYK_K->setEnabled(c);
-	AliasTr->setEnabled(!c);
 	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
@@ -255,42 +267,42 @@ void PPreview::ToggleCMYK_Colour()
 }
 
 /*!
- \fn QPixmap PPreview::CreatePreview(int Seite, int Res)
+ \fn void PPreview::RenderPreview(int Seite, int Res)
  \author Franz Schmid
  \date
- \brief
+ \brief Renders the Preview to a file on Disk
  \param Seite int page number
  \param Res int
- \retval Bild QPixmap print preview
+ \retval bool Flag indicating succsess
  */
-QPixmap PPreview::CreatePreview(int Seite, int Res)
+int PPreview::RenderPreview(int Seite, int Res)
 {
-	int ret = -1;
+	bool ret = -1;
 	QString cmd1, cmd2, tmp, tmp2, tmp3;
 	QMap<QString,QFont> ReallyUsed;
-	QPixmap Bild;
-	ReOrderText(app->doc, app->view);
-	ReallyUsed.clear();
-	app->GetUsedFonts(&ReallyUsed);
-	PSLib *dd = app->getPSDriver(true, app->Prefs.AvailFonts, ReallyUsed, app->doc->PageColors, false);
-	if (dd != NULL)
+// Recreate Postscript-File only when the actual Page has changed
+	if (Seite != APage) 
 	{
-		dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
-		app->view->CreatePS(dd, Seite, Seite+1, 1, false, tr("All"), true, false, false, false);
-		delete dd;
-		app->closePSDriver();
+		ReallyUsed.clear();
+		app->GetUsedFonts(&ReallyUsed);
+		PSLib *dd = app->getPSDriver(true, app->Prefs.AvailFonts, ReallyUsed, app->doc->PageColors, false);
+		if (dd != NULL)
+		{
+			dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
+			app->view->CreatePS(dd, Seite, Seite+1, 1, false, tr("All"), true, false, false, false);
+			delete dd;
+			app->closePSDriver();
+		}
+		else
+			return ret;
 	}
-	else
-		return Bild;
 	double b = app->doc->PageB * Res / 72;
 	double h = app->doc->PageH * Res / 72;
 	cmd1 = "gs -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
 	else
-		{
-		cmd1 += AliasTr->isChecked() ? " -sDEVICE=pngalpha" : " -sDEVICE=png16m";
-		}
+		cmd1 += " -sDEVICE=png16m";
 	if (AliasText->isChecked())
 		cmd1 += " -dTextAlphaBits=4";
 	if (AliasGr->isChecked())
@@ -298,33 +310,62 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	cmd1 += " -sOutputFile="+app->PrefsPfad+"/sc.png ";
 	cmd2 = " -c showpage -c quit";
 	ret = system(cmd1 + app->PrefsPfad+"/tmp.ps" + cmd2);
-	if (ret == 0)
+	return ret;
+}
+
+/*!
+ \fn QPixmap PPreview::CreatePreview(int Seite, int Res)
+ \author Franz Schmid
+ \date
+ \brief Creates the Preview of the Actual Page
+ \param Seite int page number
+ \param Res int
+ \retval Bild QPixmap print preview
+ */
+QPixmap PPreview::CreatePreview(int Seite, int Res)
+{
+	int ret = -1;
+	QPixmap Bild;
+ 	double b = app->doc->PageB * Res / 72;
+ 	double h = app->doc->PageH * Res / 72;
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl))
 	{
-		QImage image;
-		if (EnableCMYK->isChecked())
+		ret = RenderPreview(Seite, Res);
+		if (ret != 0)
 		{
-			int w = qRound(b);
-			int w2 = 4*w;
-			int h2 = qRound(h);
-			int cyan, magenta, yellow, black;
-			uint *p;
-			QByteArray imgc(w2*h2);
-			image = QImage(w, h2, 32);
-			QFile f(app->PrefsPfad+"/sc.png");
-			if (f.open(IO_ReadOnly))
-			{
-				f.readBlock(imgc.data(), w2*h2);
-				f.close();
-			}
-		    for (int y=0; y < h2; ++y ) 
+			Bild.resize(1,1);
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			return Bild;
+		}
+	}
+	APage = Seite;
+	CMode = EnableCMYK->isChecked();
+	TxtAl = AliasText->isChecked();
+	GrAl = AliasGr->isChecked();
+	QImage image;
+	if (EnableCMYK->isChecked())
+	{
+		int w = qRound(b);
+		int w2 = 4*w;
+		int h2 = qRound(h);
+		int cyan, magenta, yellow, black, alpha;
+		uint *p;
+		QByteArray imgc(w2);
+		image = QImage(w, h2, 32);
+		QFile f(app->PrefsPfad+"/sc.png");
+		if (f.open(IO_ReadOnly))
+		{
+			for (int y=0; y < h2; ++y ) 
 			{
 				p = (uint *)image.scanLine( y );
+				f.readBlock(imgc.data(), w2);
 				for (int x=0; x < w2; x += 4 ) 
 				{
-					cyan = uchar(imgc[(y * w2) + x]);
-					magenta = uchar(imgc[(y * w2) + x + 1]);
-					yellow = uchar(imgc[(y * w2) + x + 2]);
-					black = uchar(imgc[(y * w2)+ x + 3]);
+					cyan = uchar(imgc[x]);
+					magenta = uchar(imgc[x + 1]);
+					yellow = uchar(imgc[x + 2]);
+					black = uchar(imgc[x + 3]);
 					if (!EnableCMYK_C->isChecked())
 						cyan = 0;
 					if (!EnableCMYK_M->isChecked())
@@ -333,20 +374,40 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						yellow = 0;
 					if (!EnableCMYK_K->isChecked())
 						black = 0;
-					*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
+					if (AliasTr->isChecked() && ((cyan == 0) && (magenta == 0) && (yellow == 0 ) && (black == 0)))
+						alpha = 0;
+					else
+						alpha = 255;
+					*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
 					p++;
 				}
 			}
+			f.close();
 		}
-		else
+	}
+	else
+	{
+		image.load(app->PrefsPfad+"/sc.png");
+		image = image.convertDepth(32);
+		if (AliasTr->isChecked())
 		{
-			image.load(app->PrefsPfad+"/sc.png");
-			image = image.convertDepth(32);
+			int wi = image.width();
+			int hi = image.height();
+		    for( int yi=0; yi < hi; ++yi )
+			{
+				QRgb *s = (QRgb*)(image.scanLine( yi ));
+				for(int xi=0; xi < wi; ++xi )
+				{
+					if((*s) == 0xffffffff)
+						(*s) &= 0x00ffffff;
+					s++;
+				}
+	    	}
 		}
-		Bild.convertFromImage(image);
-		system("rm -f "+app->PrefsPfad+"/sc.png");
-		}
-	system("rm -f "+app->PrefsPfad+"/tmp.ps");
+	}
+	image.setAlphaBuffer(true);
+	Bild.convertFromImage(image);
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	return Bild;
 }
 
