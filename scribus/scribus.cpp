@@ -3783,7 +3783,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->setMenuEnabled("ItemShapes", !((b->isTableItem) && (b->isSingleSel)));
+		scrMenuMgr->setMenuEnabled("ItemShapes", !(b->isTableItem && b->isSingleSel));
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Color","Style");
@@ -3807,7 +3807,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["extrasHyphenateText"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->setMenuEnabled("ItemShapes", !((b->isTableItem) && (b->isSingleSel)));
+		scrMenuMgr->setMenuEnabled("ItemShapes", !(b->isTableItem && b->isSingleSel));
 		scrActions["itemConvertToOutlines"]->setEnabled(true);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Font","Style");
@@ -3986,6 +3986,7 @@ void ScribusApp::HaveNewSel(int Nr)
 				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (b->Groups.count() == 0))
 					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
+			
 		}
 	}
 	else
@@ -4029,7 +4030,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 		{
 			scrActions["itemLock"]->setOn(false);
-			bool setter=(!(b->isTableItem) && (b->isSingleSel));
+			bool setter=!(b->isTableItem && b->isSingleSel);
 			scrActions["itemConvertToOutlines"]->setEnabled(setter);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
@@ -5301,7 +5302,7 @@ void ScribusApp::slotEditCut()
 		}
 		else
 		{
-			if ((b->isTableItem) && (b->isSingleSel))
+			if (b->isTableItem && b->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&view->SelItem, doc, view);
@@ -5374,7 +5375,7 @@ void ScribusApp::slotEditCopy()
 		}
 		else
 		{
-			if ((b->isTableItem) && (b->isSingleSel))
+			if (b->isTableItem && b->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&view->SelItem, doc, view);
