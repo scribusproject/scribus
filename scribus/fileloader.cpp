@@ -173,6 +173,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 	app->doc->AutoSave = app->Prefs.AutoSave;
 	app->doc->AutoSaveTime = app->Prefs.AutoSaveTime;
 	ReplacedFonts.clear();
+	dummyFois.clear();
+	dummyFois.setAutoDelete(true);
 	switch (FileType)
 	{
 		case 0:
@@ -181,10 +183,12 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				QObject::connect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
 				ss->ReplacedFonts.clear();
 				ss->newReplacement = false;
+				ss->dummyFois.clear();
 				ret = ss->ReadDoc(FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
 				QObject::disconnect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
 				ReplacedFonts = ss->ReplacedFonts;
 				newReplacement = ss->newReplacement;
+				dummyFois = ss->dummyFois;
 				delete ss;
 			}
 			break;
@@ -210,11 +214,21 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			ret = false;
 			break;
 	}
-	if (((ReplacedFonts.count() != 0) && (app->Prefs.askBeforeSubstituite)) || ((ReplacedFonts.count() != 0) && (newReplacement)))
+	if (ReplacedFonts.count() != 0)
 	{
-		qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-		FontReplaceDialog *dia = new FontReplaceDialog(0, &app->Prefs, &ReplacedFonts);
-		dia->exec();
+		if ((app->Prefs.askBeforeSubstituite) || (newReplacement))
+		{
+			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+			FontReplaceDialog *dia = new FontReplaceDialog(0, &app->Prefs, &ReplacedFonts);
+			dia->exec();
+			QMap<QString,QString>::Iterator itfsu;
+			for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
+			{
+				if (dia->stickyReplacements->isChecked())
+					app->Prefs.GFontSub[itfsu.key()] = itfsu.data();
+			}
+			delete dia;
+		}
 		for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = app->doc->MasterItems.at(d);
@@ -224,8 +238,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
-					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
 				}
 			}
 		}
@@ -238,8 +252,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
-					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
 				}
 			}
 		}
@@ -276,11 +290,10 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
 				app->doc->AddFont(itfsu.data(), fo);
 			}
-			if (dia->stickyReplacements->isChecked())
-				app->Prefs.GFontSub[itfsu.key()] = itfsu.data();
 		}
-		delete dia;
-		ReplacedFonts.clear();
+		if (app->Prefs.askBeforeSubstituite)
+			ReplacedFonts.clear();
+		dummyFois.clear();
 	}
 	app->pluginManager->dllInput = "";
 	return ret;
@@ -1033,6 +1046,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, PageItem* obj)
 {
 	struct ScText *hg;
+	Foi* dummy;
+	bool unknown = false;
 	QString tmp2, tmpf;
 	tmp2 = it->attribute("CH");
 	tmp2.replace(QRegExp("\r"), QChar(13));
@@ -1041,6 +1056,22 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
 	{
+		bool isThere = false;
+		for (uint dl = 0; dl < dummyFois.count(); ++dl)
+		{
+			if (dummyFois.at(dl)->SCName == tmpf)
+			{
+				isThere = true;
+				dummy = dummyFois.at(dl);
+				break;
+			}
+		}
+		if (!isThere)
+		{
+			dummy = new Foi(tmpf, "", false);
+			dummyFois.append(dummy);
+		}
+		unknown = true;
 		if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
 		{
 			newReplacement = true;
@@ -1075,7 +1106,10 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 			hg->ch = QChar(13);
 		if (hg->ch == QChar(4))
 			hg->ch = QChar(9);
-		hg->cfont = tmpf;
+		if (unknown)
+			hg->cfont = dummy;
+		else
+			hg->cfont = (*doc->AllFonts)[tmpf];
 		hg->csize = size;
 		hg->ccolor = fcolor;
 		hg->cextra = extra;
@@ -1205,7 +1239,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	b->setImageFlippedH(QStoInt(obj->attribute("FLIPPEDH")));
 	b->setImageFlippedV(QStoInt(obj->attribute("FLIPPEDV")));
 	b->RadRect = QStodouble(obj->attribute("RADRECT","0"));
-	b->FrameType = pt;
 	b->ClipEdited = QStoInt(obj->attribute("CLIPEDIT", "0"));
 	b->setFillColor(Pcolor);
 	b->setLineColor(Pcolor2);

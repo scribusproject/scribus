@@ -25,7 +25,7 @@ public:
 	bool IsScribus(QString fileName);
 	QString ReadDatei(QString fileName);
 	QString AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *Prefs, ScribusDoc *doc);
-	QString GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo, bool docreading);
+	QString GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo, bool docreading, PageItem* obj = 0);
 	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
 	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, ApplicationPrefs *Prefs, bool fl);
@@ -55,6 +55,7 @@ public:
 	QMap<QString,QString> DoFonts;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
+	QPtrList<Foi> dummyFois;
 	uint VorlC;
 	bool newReplacement;
 	

@@ -6,6 +6,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include "scfonts.h"
 #include "annota.h"
 #include "annota.moc"
 #include "customfdialog.h"

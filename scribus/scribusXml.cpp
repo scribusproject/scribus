@@ -102,7 +102,7 @@ QString ScriXmlDoc::ReadDatei(QString fileName)
 /** end changes */
 }
 
-QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo, bool docreading)
+QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo, bool docreading, PageItem* obj)
 {
 	QString tmp2, tmf, tmpf, tmp3, tmp;
 	tmp = "";
@@ -113,8 +113,27 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	if (docreading)
 	{
+		bool unknown = false;
+		struct ScText *hg;
+		Foi* dummy;
 		if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
 		{
+			bool isThere = false;
+			for (uint dl = 0; dl < dummyFois.count(); ++dl)
+			{
+				if (dummyFois.at(dl)->SCName == tmpf)
+				{
+					isThere = true;
+					dummy = dummyFois.at(dl);
+					break;
+				}
+			}
+			if (!isThere)
+			{
+				dummy = new Foi(tmpf, "", false);
+				dummyFois.append(dummy);
+			}
+			unknown = true;
 			if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
 			{
 				newReplacement = true;
@@ -132,6 +151,45 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 				doc->AddFont(tmpf, fo);
 			}
 		}
+		int size = qRound(QStodouble(it->attribute("CSIZE")) * 10);
+		QString fcolor = it->attribute("CCOLOR");
+		double extra = QStodouble(it->attribute("CEXTRA"));
+		int shade = QStoInt(it->attribute("CSHADE"));
+		int style = QStoInt(it->attribute("CSTYLE"));
+		int ab = QStoInt(it->attribute("CAB","0"));
+		QString stroke = it->attribute("CSTROKE","None");
+		int shade2 = QStoInt(it->attribute("CSHADE2","100"));
+		int scale = QStoInt(it->attribute("CSCALE","100"));
+		for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+		{
+			hg = new ScText;
+			hg->ch = tmp2.at(cxx);
+			if (hg->ch == QChar(5))
+				hg->ch = QChar(13);
+			if (hg->ch == QChar(4))
+				hg->ch = QChar(9);
+			if (unknown)
+				hg->cfont = dummy;
+			else
+				hg->cfont = (*doc->AllFonts)[tmpf];
+			hg->csize = size;
+			hg->ccolor = fcolor;
+			hg->cextra = extra;
+			hg->cshade = shade;
+			hg->cselect = false;
+			hg->cstyle = style;
+			hg->cab = ab;
+			hg->cstroke = stroke;
+			hg->cshade2 = shade2;
+			hg->cscale = QMIN(QMAX(scale, 25), 400);
+			hg->xp = 0;
+			hg->yp = 0;
+			hg->PRot = 0;
+			hg->PtransX = 0;
+			hg->PtransY = 0;
+			obj->itemText.append(hg);
+		}
+		return "";
 	}
 	else
 	{
@@ -1455,11 +1513,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							double opa = QStodouble(it.attribute("TRANS","1"));
 							OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
-						if (it.tagName()=="ITEXT")
-							tmp += GetItemText(&it, doc, view->Prefs, false, false, true);
 						IT=IT.nextSibling();
 					}
-					OB.itemText = tmp;
+					OB.itemText = "";
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					if ((OB.PType == 5) && (OB.Height != 0))
@@ -1474,6 +1530,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					view->PasteItem(&OB, true);
 					doc->GroupCounter = docGc;
 					Neu = doc->Items.at(last);
+					IT=OBJ.firstChild();
+					while(!IT.isNull())
+					{
+						QDomElement it=IT.toElement();
+						if (it.tagName()=="ITEXT")
+							GetItemText(&it, doc, view->Prefs, false, false, true, Neu);
+						IT=IT.nextSibling();
+					}
 					Neu->isAutoText=static_cast<bool>(QStoInt(obj.attribute("AUTOTEXT")));
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
@@ -2209,7 +2273,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		{
 			QDomElement it=docu.createElement("ITEXT");
 			ts = item->itemText.at(k)->csize / 10.0;
-			tf = item->itemText.at(k)->cfont;
+			tf = item->itemText.at(k)->cfont->SCName;
 			tc = item->itemText.at(k)->ccolor;
 			te = item->itemText.at(k)->cextra;
 			tsh = item->itemText.at(k)->cshade;
@@ -2245,7 +2309,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				break;
 			}
 			ts2 = item->itemText.at(k)->csize / 10.0;
-			tf2 = item->itemText.at(k)->cfont;
+			tf2 = item->itemText.at(k)->cfont->SCName;
 			tc2 = item->itemText.at(k)->ccolor;
 			te2 = item->itemText.at(k)->cextra;
 			tsh2 = item->itemText.at(k)->cshade;
@@ -2278,7 +2342,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				if (k == item->itemText.count())
 					break;
 				ts2 = item->itemText.at(k)->csize / 10.0;
-				tf2 = item->itemText.at(k)->cfont;
+				tf2 = item->itemText.at(k)->cfont->SCName;
 				tc2 = item->itemText.at(k)->ccolor;
 				te2 = item->itemText.at(k)->cextra;
 				tsh2 = item->itemText.at(k)->cshade;
@@ -2425,7 +2489,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		{
 			QDomElement it=docu->createElement("ITEXT");
 			ts = item->itemText.at(k)->csize / 10.0;
-			tf = item->itemText.at(k)->cfont;
+			tf = item->itemText.at(k)->cfont->SCName;
 			tc = item->itemText.at(k)->ccolor;
 			te = item->itemText.at(k)->cextra;
 			tsh = item->itemText.at(k)->cshade;
@@ -2458,7 +2522,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				break;
 			}
 			ts2 = item->itemText.at(k)->csize / 10.0;
-			tf2 = item->itemText.at(k)->cfont;
+			tf2 = item->itemText.at(k)->cfont->SCName;
 			tc2 = item->itemText.at(k)->ccolor;
 			te2 = item->itemText.at(k)->cextra;
 			tsh2 = item->itemText.at(k)->cshade;
@@ -2488,7 +2552,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				if (k == item->itemText.count())
 					break;
 				ts2 = item->itemText.at(k)->csize / 10.0;
-				tf2 = item->itemText.at(k)->cfont;
+				tf2 = item->itemText.at(k)->cfont->SCName;
 				tc2 = item->itemText.at(k)->ccolor;
 				te2 = item->itemText.at(k)->cextra;
 				tsh2 = item->itemText.at(k)->cshade;

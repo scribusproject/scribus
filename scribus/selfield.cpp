@@ -1,3 +1,5 @@
+
+#include "scfonts.h"
 #include "selfield.h"
 #include "selfield.moc"
 #include <qstringlist.h>

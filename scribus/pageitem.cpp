@@ -46,8 +46,8 @@
 
 using namespace std;
 
-extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
-extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
+extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
+extern double RealCWidth(ScribusDoc *doc, Foi* name, QString ch, int Siz);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -684,8 +684,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
-						desc = static_cast<int>((*Doc->AllFonts)[Zli3.ZFo]->numDescender * (-Zli3.Siz / 10.0));
-						asce = static_cast<int>((*Doc->AllFonts)[Zli3.ZFo]->numAscent * (Zli3.Siz / 10.0));
+						desc = static_cast<int>(Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0));
+						asce = static_cast<int>(Zli3.ZFo->numAscent * (Zli3.Siz / 10.0));
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, &Zli3);
 						if (hl->cstyle & 512)
@@ -808,7 +808,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					else
 						chs = hl->csize;
-					desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
+					desc2 = -hl->cfont->numDescender * (chs / 10.0);
 					CurY = TExtra+lineCorr;
 				}
 				else
@@ -912,13 +912,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
-							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
-							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / (hl->cfont->numAscent+hl->cfont->numDescender)));
+							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / hl->cfont->numAscent));
 						}
 						else
 						{
-							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
-							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / (hl->cfont->numAscent+hl->cfont->numDescender)));
+							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / hl->cfont->numAscent));
 						}
 						hl->csize = chsd;
 					}
@@ -944,13 +944,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
 						desc2 = 0;
 						desc = 0;
-						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+						asce = qRound(hl->cfont->numAscent * (chs / 10.0));
 					}
 					else
 					{
-						desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
-						desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0));
-						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+						desc2 = -hl->cfont->numDescender * (chs / 10.0);
+						desc = qRound(-hl->cfont->numDescender * (chs / 10.0));
+						asce = qRound(hl->cfont->numAscent * (chs / 10.0));
 					}
 					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;
@@ -1039,9 +1039,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 											if (DropCmode)
 											{
 												if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->typographicSetttings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
+													desc2 = -hl->cfont->numDescender * Doc->typographicSetttings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
 												else
-													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin;
+													desc2 = -hl->cfont->numDescender * Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin;
 											}
 											if (DropCmode)
 												DropLines = Doc->docParagraphStyles[hl->cab].DropLin;
@@ -1499,8 +1499,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
 							}
-							desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
-							asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
+							desc = static_cast<int>(Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0));
+							asce = static_cast<int>(Zli2->ZFo->numAscent * (Zli2->Siz / 10.0));
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 							{
 								wide = Zli2->wide;
@@ -1599,8 +1599,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
 					}
-					desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
-					asce = qRound((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
+					desc = qRound(Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0));
+					asce = qRound(Zli2->ZFo->numAscent * (Zli2->Siz / 10.0));
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 					{
 						wide = Zli2->wide;
@@ -2241,7 +2241,7 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 {
 	double retval = 0.0;
-	double asce = (*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0);
+	double asce = hl->cfont->numAscent * (hl->csize / 10.0);
 	int chst = hl->cstyle & 127;
 	if (chst != 0)
 	{
@@ -2276,12 +2276,12 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		ccx = " ";
 	double csi = static_cast<double>(hl->Siz) / 100.0;
 	uint chr = ccx[0].unicode();
-	if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
+	if (hl->ZFo->CharWidth.contains(chr))
 	{
 		QWMatrix chma, chma2, chma3, chma4, chma5;
 		chma.scale(csi, csi);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
-		FPointArray gly = (*Doc->AllFonts)[hl->ZFo]->GlyphArray[chr].Outlines.copy();
+		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
 		if (gly.size() > 3)
 		{
 			chma2.scale(hl->scale / 100.0, 1);
@@ -2296,11 +2296,11 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			gly.map(chma * chma2 * chma3 * chma4 * chma5);
 			p->setFillMode(1);
 			p->setupTextPolygon(&gly);
-			if ((*Doc->AllFonts)[hl->ZFo]->isStroked)
+			if (hl->ZFo->isStroked)
 			{
 				QColor tmp = p->brush();
 				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-				p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2, 1));
+				p->setLineWidth(QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0) / 2, 1));
 				p->strokePath();
 			}
 			else
@@ -2309,7 +2309,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 					p->fillPath();
 				if ((hl->Style & 4) && (hl->Farb2 != "None"))
 				{
-					p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2, 1));
+					p->setLineWidth(QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0) / 2, 1));
 					p->strokePath();
 				}
 			}
@@ -2317,15 +2317,15 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		if (hl->Style & 16)
 		{
 			p->setPen(p->brush());
-			double st = (*Doc->AllFonts)[hl->ZFo]->strikeout_pos * (hl->Siz / 10.0);
-			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0), 1));
+			double st = hl->ZFo->strikeout_pos * (hl->Siz / 10.0);
+			p->setLineWidth(QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1));
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 		}
 		if (hl->Style & 8)
 		{
-			double st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * (hl->Siz / 10.0);
+			double st = hl->ZFo->underline_pos * (hl->Siz / 10.0);
 			p->setPen(p->brush());
-			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0), 1));
+			p->setLineWidth(QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1));
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 		}
 	}

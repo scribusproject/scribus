@@ -33,6 +33,7 @@ public:
 	QValueList<int> LFrames;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
+	QPtrList<Foi> dummyFois;
 };
 
 #endif

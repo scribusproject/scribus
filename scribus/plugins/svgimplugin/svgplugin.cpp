@@ -29,7 +29,7 @@ using namespace std;
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
-extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
+extern double RealCWidth(ScribusDoc *doc, Foi* name, QString ch, int Siz);
 extern FPoint getMaxClipF(FPointArray* Clip);
 extern FPoint getMinClipF(FPointArray* Clip);
 extern PrefsFile* prefsFile;
@@ -1956,7 +1956,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			{
 				hg = new ScText;
 				hg->ch = Text.at(tt);
-				hg->cfont = gc->Family;
+				hg->cfont = (*Doku->AllFonts)[gc->Family];
 				hg->csize = gc->FontSize;
 				hg->ccolor = gc->FillCol;
 				hg->cextra = 0;
@@ -2037,7 +2037,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		{
 			hg = new ScText;
 			hg->ch = Text.at(cc);
-			hg->cfont = gc->Family;
+			hg->cfont = (*Doku->AllFonts)[gc->Family];
 			hg->csize = gc->FontSize;
 			hg->ccolor = gc->FillCol;
 			hg->cextra = 0;

@@ -34,6 +34,7 @@
 #include "config.h"
 #include "gtdialogs.h"
 #include "gtwriter.h"
+#include "scfonts.h"
 #include "pageitem.h"
 
 struct ImporterData {

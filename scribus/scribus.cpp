@@ -1739,7 +1739,7 @@ void ScribusApp::setTBvals(PageItem *b)
 		doc->currentParaStyle = b->itemText.at(ChPos)->cab;
 		setAbsValue(doc->currentParaStyle);
 		propertiesPalette->setAli(doc->currentParaStyle);
-		doc->CurrFont = b->itemText.at(ChPos)->cfont;
+		doc->CurrFont = b->itemText.at(ChPos)->cfont->SCName;
 		doc->CurrFontSize = b->itemText.at(ChPos)->csize;
 		doc->CurrTextFill = b->itemText.at(ChPos)->ccolor;
 		doc->CurrTextFillSh = b->itemText.at(ChPos)->cshade;
@@ -1798,7 +1798,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 						if (actionName=="specialNonBreakingSpace")
 							hg->ch = QString(QChar(29));
 
-					hg->cfont = doc->CurrFont;
+					hg->cfont = (*doc->AllFonts)[doc->CurrFont];
 					hg->csize = doc->CurrFontSize;
 					hg->ccolor = doc->CurrTextFill;
 					hg->cshade = doc->CurrTextFillSh;
@@ -1810,7 +1810,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 					hg->cab = doc->currentParaStyle;
 					if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
 					{
-						hg->cfont = doc->docParagraphStyles[doc->currentParaStyle].Font;
+						hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 						hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
 					}
 					hg->cextra = 0;
@@ -2224,7 +2224,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									conv = 32;
 								hg = new ScText;
 								hg->ch = QString(QChar(conv));
-								hg->cfont = doc->CurrFont;
+								hg->cfont = (*doc->AllFonts)[doc->CurrFont];
 								hg->csize = doc->CurrFontSize;
 								hg->ccolor = doc->CurrTextFill;
 								hg->cshade = doc->CurrTextFillSh;
@@ -2236,7 +2236,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->cab = doc->currentParaStyle;
 								if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
 								{
-									hg->cfont = doc->docParagraphStyles[doc->currentParaStyle].Font;
+									hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 									hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
 								}
 								hg->cextra = 0;
@@ -2648,7 +2648,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->ch = QString(QChar(28));
 							else if (kk == Key_Tab)
 								hg->ch = QString(QChar(9));
-							hg->cfont = doc->CurrFont;
+							hg->cfont = (*doc->AllFonts)[doc->CurrFont];
 							hg->csize = doc->CurrFontSize;
 							hg->ccolor = doc->CurrTextFill;
 							hg->cshade = doc->CurrTextFillSh;
@@ -2660,7 +2660,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cab = doc->currentParaStyle;
 							if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
 							{
-								hg->cfont = doc->docParagraphStyles[doc->currentParaStyle].Font;
+								hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 								hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
 							}
 							hg->cextra = 0;
@@ -2679,7 +2679,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						{
 							hg = new ScText;
 							hg->ch = uc;
-							hg->cfont = doc->CurrFont;
+							hg->cfont = (*doc->AllFonts)[doc->CurrFont];
 							hg->ccolor = doc->CurrTextFill;
 							hg->cshade = doc->CurrTextFillSh;
 							hg->cstroke = doc->CurrTextStroke;
@@ -2692,7 +2692,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cab = doc->currentParaStyle;
 							if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
 							{
-								hg->cfont = doc->docParagraphStyles[doc->currentParaStyle].Font;
+								hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 								hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
 							}
 							hg->xp = 0;
@@ -5436,7 +5436,7 @@ void ScribusApp::slotEditCut()
 							BufferI += nb->itemText.at(a)->ch;
 						}
 						Buffer2 += "\t";
-						Buffer2 += nb->itemText.at(a)->cfont+"\t";
+						Buffer2 += nb->itemText.at(a)->cfont->SCName+"\t";
 						Buffer2 += QString::number(nb->itemText.at(a)->csize)+"\t";
 						Buffer2 += nb->itemText.at(a)->ccolor+"\t";
 						Buffer2 += QString::number(nb->itemText.at(a)->cextra)+"\t";
@@ -5513,7 +5513,7 @@ void ScribusApp::slotEditCopy()
 							BufferI += nb->itemText.at(a)->ch;
 						}
 						Buffer2 += "\t";
-						Buffer2 += nb->itemText.at(a)->cfont+"\t";
+						Buffer2 += nb->itemText.at(a)->cfont->SCName+"\t";
 						Buffer2 += QString::number(nb->itemText.at(a)->csize)+"\t";
 						Buffer2 += nb->itemText.at(a)->ccolor+"\t";
 						Buffer2 += QString::number(nb->itemText.at(a)->cextra)+"\t";
@@ -5575,7 +5575,7 @@ void ScribusApp::slotEditPaste()
 					if (hg->ch == QChar(4))
 						hg->ch = QChar(9);
 					it++;
-					hg->cfont = *it;
+					hg->cfont = (*doc->AllFonts)[*it];
 					it++;
 					hg->csize = (*it).toInt();
 					it++;
@@ -7157,8 +7157,8 @@ void ScribusApp::saveStyles(StilFormate *dia)
 				{
 					if (cabneu > 0)
 					{
-						if (ite->itemText.at(e)->cfont == doc->docParagraphStyles[cabori].Font)
-							ite->itemText.at(e)->cfont = dia->TempVorl[cabneu].Font;
+						if (ite->itemText.at(e)->cfont == (*doc->AllFonts)[doc->docParagraphStyles[cabori].Font])
+							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
 						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
 							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
 						if ((ite->itemText.at(e)->cstyle & 127 ) == doc->docParagraphStyles[cabori].FontEffect)
@@ -7203,8 +7203,8 @@ void ScribusApp::saveStyles(StilFormate *dia)
 				{
 					if (cabneu > 0)
 					{
-						if (ite->itemText.at(e)->cfont == doc->docParagraphStyles[cabori].Font)
-							ite->itemText.at(e)->cfont = dia->TempVorl[cabneu].Font;
+						if (ite->itemText.at(e)->cfont == (*doc->AllFonts)[doc->docParagraphStyles[cabori].Font])
+							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
 						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
 							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
 						if ((ite->itemText.at(e)->cstyle & 127 ) == doc->docParagraphStyles[cabori].FontEffect)
@@ -10029,7 +10029,7 @@ void ScribusApp::ReorgFonts()
 		{
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
-				Really.insert(it->itemText.at(e)->cfont, doc->UsedFonts[it->itemText.at(e)->cfont]);
+				Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
 			}
 		}
 	}
@@ -10041,7 +10041,7 @@ void ScribusApp::ReorgFonts()
 		{
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
-				Really.insert(it->itemText.at(e)->cfont, doc->UsedFonts[it->itemText.at(e)->cfont]);
+				Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
 			}
 		}
 	}
@@ -10074,7 +10074,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 		{
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
-				Really->insert(it->itemText.at(e)->cfont, doc->UsedFonts[it->itemText.at(e)->cfont]);
+				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
 				uint chr = it->itemText.at(e)->ch[0].unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
 					continue;
@@ -10089,18 +10089,18 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco))
+						if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
 						{
-							gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
-							(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(numco, gly);
+							gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
+							it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
 						}
 					}
 					continue;
 				}
-				if ((*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr))
+				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
 				{
-					gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
-					(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(chr, gly);
+					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
 				}
 			}
 		}
@@ -10112,7 +10112,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 		{
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
-				Really->insert(it->itemText.at(e)->cfont, doc->UsedFonts[it->itemText.at(e)->cfont]);
+				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
 				uint chr = it->itemText.at(e)->ch[0].unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
 					continue;
@@ -10127,18 +10127,18 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco))
+						if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
 						{
-							gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
-							(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(numco, gly);
+							gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
+							it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
 						}
 					}
 					continue;
 				}
-				if ((*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr))
+				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
 				{
-					gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
-					(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(chr, gly);
+					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
 				}
 			}
 		}
@@ -10215,12 +10215,12 @@ void ScribusApp::scanDocument()
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
+						if ((!it->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(1, 0);
 					}
 					continue;
 				}
-				if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+				if ((!it->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(1, 0);
 			}
 		}
@@ -10272,12 +10272,12 @@ void ScribusApp::scanDocument()
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
+						if ((!it->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(1, 0);
 					}
 					continue;
 				}
-				if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+				if ((!it->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(1, 0);
 			}
 		}
