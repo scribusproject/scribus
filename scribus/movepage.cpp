@@ -1,4 +1,4 @@
-/#include "movepage.h"
+#include "movepage.h"
 #include "movepage.moc"
 extern QPixmap loadIcon(QString nam);
 

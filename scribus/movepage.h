@@ -1,4 +1,4 @@
-/#ifndef MOVEPAGES_H
+#ifndef MOVEPAGES_H
 #define MOVEPAGES_H
 
 #include <qdialog.h>
