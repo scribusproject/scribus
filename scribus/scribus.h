@@ -20,6 +20,9 @@
 
 #define VERS09x
 
+// include from stl
+#include <vector>
+
 // include files for QT
 #include <qapplication.h>
 #include <qmainwindow.h>
@@ -556,6 +559,8 @@ private:
 	QPopupMenu *toolbarMenu;
 	double mm2pts(int mm);
 	double pts2mm(double pts);
+	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
+	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
 	QMap<int,QString> FontID;
 	int HaveGS;
 	void *PSDriver;

@@ -623,7 +623,7 @@ void ScribusApp::initMenuBar()
 	importMenu->setItemEnabled(fid2, 0);
 	fid2aa = importMenu->insertItem( tr("Append &Text..."), this, SLOT(slotFileAppend()));
 	importMenu->setItemEnabled(fid2aa, 0);
-	fid2a = importMenu->insertItem( tr("Insert &Page..."), this, SLOT(slotDocMerge()));
+	fid2a = importMenu->insertItem( tr("Import &Page(s)..."), this, SLOT(slotDocMerge()));
 	importMenu->setItemEnabled(fid2a, 0);
 	fileMenu->insertItem( tr("&Import"), importMenu);
 	exportMenu = new QPopupMenu();
@@ -1947,6 +1947,60 @@ double ScribusApp::pts2mm(double pts)
 	return pts / 72 * 25.4;
 }
 
+void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount)
+{
+	QString tmp = pages;
+	QString token;
+	int from, to, pageNr;
+	do
+	{
+		if (tmp.find(",") == -1)
+		{
+			token = tmp;
+			tmp = "";	
+		}
+		else
+		{
+			token = tmp.left(tmp.find(","));
+			tmp = tmp.right(tmp.length() - tmp.find(",") - 1);
+		}
+		
+		token = token.stripWhiteSpace();
+		if (token == "*") // Import all source doc pages
+		{
+			for (int i = 1; i <= sourcePageCount; ++i)
+				pageNs->push_back(i);
+		}
+		else if (token.find("-") != -1) // import a range of source doc pages
+		{
+			from = QString(token.left(token.find("-"))).toInt();
+			to = QString(token.right(token.length() - token.find("-") - 1)).toInt();
+			if ((from != 0) && (to != 0) && 
+			    (from <= sourcePageCount) && (to <= sourcePageCount))
+			{
+				if (from == to)
+					pageNs->push_back(to);
+				else if (from < to)
+				{
+					for (int i = from; i <= to; ++i)
+						pageNs->push_back(i);
+				}
+				else
+				{
+					for (int i = from; i >= to; --i)
+						pageNs->push_back(i);
+				}
+			}
+		}
+		else // import single source doc page
+		{
+			pageNr = token.toInt();
+			if ((pageNr > 0) && (pageNr <= sourcePageCount))
+				pageNs->push_back(pageNr);
+		}
+	} while (tmp != "");
+}
+
 bool ScribusApp::slotFileNew()
 {
 	double b, h, tpr, lr, rr, br, sp, ab;
@@ -2891,13 +2945,89 @@ bool ScribusApp::slotDocOpen()
 bool ScribusApp::slotDocMerge()
 {
 	bool ret = false;
-	MergeDoc *dia = new MergeDoc(this, false);
+	MergeDoc *dia = new MergeDoc(this, false, doc->PageC, doc->ActPage->PageNr + 1);
 	if (dia->exec())
 	{
+		FMess->setText(tr("Importing Pages..."));
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		ret = LadeSeite(dia->Filename->text(), dia->PageNr->value()-1, false);
+		std::vector<int> pageNs;
+		parsePagesString(dia->PageNr->text(), &pageNs, dia->Count);
+		int startPage, nrToImport;
+		bool doIt = true;
+		if (doc->TemplateMode)
+		{
+			if (pageNs.size() > 1)
+			{
+				LadeSeite(dia->Filename->text(), pageNs[0] - 1, false);
+			}
+			doIt = false;
+		}
+		else if (dia->Create->isChecked())
+		{
+			if (dia->Where->currentItem() == 0)
+				startPage = dia->ActualPage->value();
+			else if (dia->Where->currentItem() == 1)
+				startPage = dia->ActualPage->value() + 1;
+			else
+				startPage = doc->PageC + 1;
+			addNewPages(dia->ActualPage->value(), dia->Where->currentItem(), pageNs.size());
+			nrToImport = pageNs.size();
+		}
+		else
+		{
+			startPage = doc->ActPage->PageNr + 1;
+			nrToImport = pageNs.size();
+			if (pageNs.size() > (doc->PageC - doc->ActPage->PageNr))
+			{
+				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				QMessageBox mb( tr("Import Page(s)"),
+				tr("<p>You are trying to import more pages than there are available "
+				   "in the current document counting from the active page.</p>"
+				"Choose one of the following:<br>"
+				"<ul><li><li><b>Create</b> missing pages</li></li>"
+				"<li><b>Import</b> pages until the last page</li>"
+				"<li><b>Cancel</b></li></ul><br>"),
+				QMessageBox::Information,
+				QMessageBox::Yes | QMessageBox::Default,
+				QMessageBox::No,
+				QMessageBox::Cancel | QMessageBox::Escape );
+				mb.setButtonText( QMessageBox::Yes, tr("Create") );
+				mb.setButtonText( QMessageBox::No, tr("Import") );
+				mb.setTextFormat(Qt::RichText);
+				switch( mb.exec() ) {
+					case QMessageBox::Yes:
+						nrToImport = pageNs.size();
+						addNewPages(doc->PageC, 2, pageNs.size() - (doc->PageC - doc->ActPage->PageNr));
+					break;
+					case QMessageBox::No:
+						nrToImport = doc->PageC - doc->ActPage->PageNr;
+					break;
+					case QMessageBox::Cancel:
+						doIt = false;
+						FMess->setText("");
+					break;
+				}
+				qApp->setOverrideCursor(QCursor(waitCursor), true);
+			}
+		}
+		if (doIt)
+		{
+			FProg->reset();
+			FProg->setTotalSteps(nrToImport);
+			int counter = startPage;
+			for (int i = 0; i < nrToImport; ++i)
+			{
+				view->GotoPa(counter);
+				LadeSeite(dia->Filename->text(), pageNs[i] - 1, false);
+				counter++;
+				FProg->setProgress(i + 1);
+			}
+			view->GotoPa(startPage);
+			FProg->reset();
+			FMess->setText("");
+		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		ret = true;
+		ret = doIt;
 	}
 	delete dia;
 	return ret;
@@ -4160,75 +4290,92 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 /** Erzeugt eine neue Seite */
 void ScribusApp::slotNewPageM()
 {
-	int wo, cc;
 	NoFrameEdit();
 	doc->ActPage->Deselect(true);
 	InsPage *dia = new InsPage(this, view, doc->ActPage->PageNr, view->Pages.count(), doc->PageFP);
 	if (dia->exec())
 	{
+		QString based2;
+		if (doc->PageFP)
+			based2 = dia->Based2->currentText();
+		else
+			based2 = tr("Normal");
+
+		addNewPages(dia->ActualPage->value(), 
+		            dia->Where->currentItem(), 
+		            dia->NumPages->value(),
+		            dia->Based->currentText(),
+		            based2);
+	}
+	delete dia;
+}
+
+void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QString based2)
+{
 		doc->UnDoValid = false;
 		CanUndo();
-		wo = dia->ActualPage->value();
-		switch (dia->Where->currentItem())
+		int cc;
+		int wot = wo;
+		switch (where)
 		{
 		case 0:
-			wo -= 1;
-			for (cc = 0; cc < dia->NumPages->value(); ++cc)
+			wot -= 1;
+			for (cc = 0; cc < numPages; ++cc)
 			{
-				slotNewPage(wo);
+				slotNewPage(wot);
 				if (doc->PageFP)
 				{
 					if ((doc->ActPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
-						applyNewMaster(dia->Based->currentText());
+						applyNewMaster(based1);
 					if ((doc->ActPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
-						applyNewMaster(dia->Based2->currentText());
+						applyNewMaster(based2);
 					if ((doc->ActPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
-						applyNewMaster(dia->Based2->currentText());
+						applyNewMaster(based2);
 					if ((doc->ActPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
-						applyNewMaster(dia->Based->currentText());
+						applyNewMaster(based1);
 				}
 				else
-					applyNewMaster(dia->Based->currentText());
-				wo ++;
+					applyNewMaster(based1);
+				wot ++;
 			}
 			break;
 		case 1:
-			for (cc = 0; cc < dia->NumPages->value(); ++cc)
+			for (cc = 0; cc < numPages; ++cc)
 			{
-				slotNewPage(wo);
+				slotNewPage(wot);
 				if (doc->PageFP)
 				{
 					if ((doc->ActPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
-						applyNewMaster(dia->Based->currentText());
+						applyNewMaster(based1);
 					if ((doc->ActPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
-						applyNewMaster(dia->Based2->currentText());
+						applyNewMaster(based2);
 					if ((doc->ActPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
-						applyNewMaster(dia->Based2->currentText());
+						applyNewMaster(based2);
 					if ((doc->ActPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
-						applyNewMaster(dia->Based->currentText());
+						applyNewMaster(based1);
 				}
 				else
-					applyNewMaster(dia->Based->currentText());
-				wo ++;
+					applyNewMaster(based1);
+				wot ++;
 			}
 			break;
 		case 2:
-			for (cc = 0; cc < dia->NumPages->value(); ++cc)
+			for (cc = 0; cc < numPages; ++cc)
 			{
 				slotNewPage(view->Pages.count());
 				if (doc->PageFP)
 				{
 					if ((doc->ActPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
-						applyNewMaster(dia->Based->currentText());
+						applyNewMaster(based1);
 					if ((doc->ActPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
-						applyNewMaster(dia->Based2->currentText());
+						applyNewMaster(based2);
 					if ((doc->ActPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
-						applyNewMaster(dia->Based2->currentText());
+						applyNewMaster(based2);
 					if ((doc->ActPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
-						applyNewMaster(dia->Based->currentText());
+						applyNewMaster(based1);
 				}
 				else
-					applyNewMaster(dia->Based->currentText());
+					applyNewMaster(based1);
 			}
 			break;
 		}
@@ -4238,8 +4385,6 @@ void ScribusApp::slotNewPageM()
 			view->MasterPages = view->Pages;
 		else
 			view->DocPages = view->Pages;
-	}
-	delete dia;
 }
 
 void ScribusApp::slotNewPageT(int w)

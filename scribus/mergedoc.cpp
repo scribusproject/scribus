@@ -22,53 +22,92 @@
 
 extern QPixmap loadIcon(QString nam);
 
-MergeDoc::MergeDoc( QWidget* parent, bool Mpages ) : QDialog( parent, "merge", true, 0 )
+MergeDoc::MergeDoc( QWidget* parent, bool Mpages, int targetDocPageCount, int activePage ) : 
+    QDialog( parent, "merge", true, 0 )
 {
-	setCaption( tr( "Import a Page" ) );
+	if (Mpages)
+		setCaption( tr("Import Template") );
+	else
+		setCaption( tr( "Import Page(s)" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	Count = 0;
 	Mpa = Mpages;
-	MergeDocLayout = new QVBoxLayout( this, 11, 6, "MergeDocLayout"); 
-	textLabel1 = new QLabel( this, "textLabel1" );
-	textLabel1->setText( tr( "Document to load:" ) );
-	MergeDocLayout->addWidget( textLabel1 );
+	targetCount = targetDocPageCount;
+	MergeDocLayout = new QVBoxLayout( this, 10, 10, "MergeDocLayout"); 
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1"); 
+	textLabel1 = new QLabel( this, "textLabel1" );
+	textLabel1->setText( tr( "From Document:" ) );
+	textLabel1->setMinimumWidth( 125 ); // 1. Column
+	layout1->addWidget( textLabel1 );
 	Filename = new QLineEdit( this, "Filename" );
-	Filename->setMinimumSize( QSize( 120, 0 ) );
+	Filename->setMinimumWidth( 150 ); // 2. Column
 	layout1->addWidget( Filename );
 	Change = new QPushButton( this, "Change" );
 	Change->setAutoDefault( FALSE );
 	Change->setText( tr( "Change..." ) );
+	Change->setMinimumWidth( 80 ); // 3. Column
 	layout1->addWidget( Change );
 	MergeDocLayout->addLayout( layout1 );
 
-	Inform = new QLabel( this, "Inform" );
-	Inform->setText( tr( "Document contains: 0 Page(s)" ) );
-	MergeDocLayout->addWidget( Inform );
+// 	Inform = new QLabel( this, "Inform" );
+// 	Inform->setText( tr( "Document contains: 0 Page(s)" ) );
+// 	MergeDocLayout->addWidget( Inform );
 
-	layout2 = new QHBoxLayout( 0, 0, 2, "layout2"); 
+	layout2 = new QHBoxLayout( 0, 0, 5, "layout2"); 
 	textLabel3 = new QLabel( this, "textLabel3" );
-	textLabel3->setText( tr( "Import Page Nr:" ) );
+	textLabel3->setText( tr( "Import Page(s):" ) );
+	textLabel3->setMinimumWidth( 125 ); // 1. Column
 	layout2->addWidget( textLabel3 );
 	if (Mpa)
 	{
-    	PageNa = new QComboBox( true, this, "Templ" );
-    	PageNa->setMinimumSize( QSize( 120, 22 ) );
+		textLabel3->setText( tr("Import Template") );
+		PageNa = new QComboBox( true, this, "Templ" );
+		PageNa->setMinimumWidth( 150 ); // 2. Column
 		PageNa->setEditable(false);
 		PageNa->setEnabled(false);
 		layout2->addWidget( PageNa );
+		layout2->addStretch(10);
 	}
 	else
 	{
-		PageNr = new QSpinBox( this, "PageNr" );
-		PageNr->setMinValue( 1 );
-		PageNr->setMaxValue( 2000 );
-		PageNr->setValue( 1 );
+		PageNr = new QLineEdit( this, "PageNr" );
 		PageNr->setEnabled(false);
+		PageNr->setMinimumWidth( 150 ); // 2. Column
+		QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
+		                           "a token can be * for all the pages, 1-5 for\n"
+		                           "a range of pages or a single page number.") );
 		layout2->addWidget( PageNr );
+		fromLabel = new QLabel(this, "fromLabel");
+		fromLabel->setText(tr(" from 0"));
+		fromLabel->setMinimumWidth( 80 ); // 3. Column
+		layout2->addWidget( fromLabel );
 	}
-	MergeDocLayout->addLayout( layout2 );
 
+	MergeDocLayout->addLayout( layout2 );
+	if (!Mpa)
+	{
+		layout2_6 = new QHBoxLayout( 0, 0, 2, "layout2_6" );
+		Create = new QCheckBox( this, "Create" );
+		Create->setText(tr("Create Page(s)"));
+		Create->setMinimumWidth( 125 ); // 1. Column
+		layout2_6->addWidget( Create );
+		Where = new QComboBox( FALSE, this, "positionCombo" );
+		Where->insertItem(tr("before Page"));
+		Where->insertItem(tr("after Page"));
+		Where->insertItem(tr("at End"));
+		Where->setCurrentItem( 2 );
+		Where->setEnabled( false );
+		Where->setMinimumWidth( 150 ); // 2. Column
+		layout2_6->addWidget( Where );
+		ActualPage = new QSpinBox( this, "pageSpin" );
+		ActualPage->setMinValue( 1 );
+		ActualPage->setMaxValue( targetCount );
+		ActualPage->setValue( activePage );
+		ActualPage->setEnabled(false);
+		ActualPage->setMinimumWidth( 80 ); // 3. Column
+		layout2_6->addWidget( ActualPage );
+		MergeDocLayout->addLayout( layout2_6 );
+	}
 	layout3 = new QHBoxLayout( 0, 0, 2, "layout3"); 
 	QSpacerItem* spacer = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout3->addItem( spacer );
@@ -90,6 +129,10 @@ MergeDoc::MergeDoc( QWidget* parent, bool Mpages ) : QDialog( parent, "merge", t
 	connect( Import, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Change, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
+	if (Where)
+		connect( Where, SIGNAL( activated(int) ), this, SLOT( CheckDestPageStatus(int) ) );
+	if (Create)
+		connect( Create, SIGNAL( clicked() ), this, SLOT( enableCreateWidgets() ) );
 }
 
 /*
@@ -138,10 +181,9 @@ void MergeDoc::ChangeFile()
 				else
 				{
 					PageNr->setEnabled(true);
-					PageNr->setValue(1);
-					PageNr->setMaxValue(Count);
 				}
-				Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
+				if (!Mpa)
+					fromLabel->setText( tr(" from %1").arg(Count));
 			}
 			delete ss;
 		}
@@ -159,10 +201,31 @@ void MergeDoc::ChangeFile()
 		else
 		{
 			PageNr->setEnabled(false);
-			PageNr->setValue(1);
-			PageNr->setMaxValue(Count);
 		}
-		Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
+		if (!Mpa)
+			fromLabel->setText( tr(" from %1").arg(Count));
 	}
 }
 
+void MergeDoc::CheckDestPageStatus(int positionComboSelection)
+{
+	if (positionComboSelection == 2)
+		ActualPage->setEnabled( false );
+	else
+		ActualPage->setEnabled( true );
+}
+
+void MergeDoc::enableCreateWidgets()
+{
+	if (Create->isChecked())
+	{
+		Where->setEnabled(true);
+		if (Where->currentItem() != 2)
+			ActualPage->setEnabled(true);
+	}
+	else
+	{
+		Where->setEnabled(false);
+		ActualPage->setEnabled(false);
+	}
+}

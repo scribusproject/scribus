@@ -171,52 +171,41 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 	if (ac != 0)
 		ab++;
 	ZTabelle->setNumRows( ab );
-	int bh = 14 + qRound(-(*pl->doc->AllFonts)[font]->numDescender * 14) + 3;
+	int bh = 16 + qRound(-(*pl->doc->AllFonts)[font]->numDescender * 16) + 3;
 	QPixmap pixm(bh,bh);
-	ScPainter *p = new ScPainter(&pixm, bh, bh);
-	p->translate(1,1);
 	for (int a = 0; a < ab; ++a)
 	{
 		for (int b = 0; b < 32; ++b)
 		{
+			ScPainter *p = new ScPainter(&pixm, bh, bh);
 			p->clear();
 			pixm.fill(white);
 			QWMatrix chma;
-			chma.scale(1.4, 1.4);
+			chma.scale(1.6, 1.6);
 			FPointArray gly = (*pl->doc->AllFonts)[font]->GlyphArray[Zeich[cc]].Outlines.copy();
 			cc++;
 			if (gly.size() > 4)
 			{
 				gly.map(chma);
-				FPoint np;
-				double mx = 99999.9;
-				double my = 99999.9;
-				for (uint c = 0; c < gly.size(); ++c)
-				{
-					np = gly.point(c);
-					if (np.x() > 900000)
-						continue;
-					if (np.x() < mx)
-						mx = np.x();
-					if (np.y() < my)
-						my = np.y();
-				}
-				gly.translate(-mx, 0);
+				double ww = bh - (*ap->doc->AllFonts)[font]->CharWidth[Zeich[cc]]*16;
+				p->translate(ww / 2, 1);
 				p->setBrush(black);
 				p->setFillMode(1);
 				p->setupPolygon(&gly);
 				p->fillPath();
-				p->end();
 			}
+			p->end();
+			delete p;
 			QTableItem *it = new QTableItem(ZTabelle, QTableItem::Never, "", pixm);
 			ZTabelle->setItem(a, b, it);
 			if (cc == counter)
 				break;
 		}
 	}
-	delete p;
 	for (int d = 0; d < 32; ++d)
-		ZTabelle->setColumnWidth(d, ZTabelle->rowHeight(0));
+		ZTabelle->adjustColumn(d);
+	for (int d = 0; d < ZTabelle->numRows(); ++d)
+		ZTabelle->adjustRow(d);
 	ZTabelle->setMinimumSize(QSize(ZTabelle->rowHeight(0)*33, ZTabelle->rowHeight(0)*7));
 	ZAuswahlLayout->addWidget( ZTabelle );
 	ZTabelle->MaxCount = MaxCount;

@@ -2149,10 +2149,6 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
 	int ch,cs,cv,ck;
 	double StartX, StartY, EndX, EndY;
 	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
-	SetFarbe(cstops.at(0)->name, cstops.at(0)->shade, &ch, &cs, &cv, &ck);
-	p->PS_GradientCol1(ch / 255.0, cs / 255.0, cv / 255.0, ck / 255.0);
-	SetFarbe(cstops.at(1)->name, cstops.at(1)->shade, &ch, &cs, &cv, &ck);
-	p->PS_GradientCol2(ch / 255.0, cs / 255.0, cv / 255.0, ck / 255.0);
 	switch (c->GrType)
 	{
 		case 1:
@@ -2201,52 +2197,39 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
 			EndY = c->GrEndY;
 			break;
 	}
+	QValueList<double> StopVec;
+	QStringList Gcolors;
+	QString hs,ss,vs,ks;
 	if ((c->GrType == 5) || (c->GrType == 7))
 	{
-		if (c->fill_gradient.Stops() == 2)
-			p->PS_RadGradient(w, -h, StartX, -StartY, sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)), c->PType);
-		else
+		StopVec.clear();
+		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			QValueList<double> StopVec;
-			QStringList Gcolors;
-			StopVec.clear();
-			for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
-			{
-				StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-				SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
-				QString hs,ss,vs,ks;
-				QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-				Gcolors.prepend(GCol);
-			}
-			p->PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors);
+			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
+			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
+			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			Gcolors.prepend(GCol);
 		}
+		p->PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors);
 	}
 	else
 	{
-		if (c->fill_gradient.Stops() == 2)
-			p->PS_LinGradient(w, -h, StartX, -StartY, EndX, -EndY, c->PType, c->GrType);
-		else
+		StopVec.clear();
+		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			QValueList<double> StopVec;
-			QStringList Gcolors;
-			StopVec.clear();
-			for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
-			{
-				QWMatrix ma;
-				ma.translate(StartX, StartY);
-				ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/3.1415927));
-				double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
-				double x = ma.m11() * w2 + ma.dx();
-				double y = ma.m12() * w2 + ma.dy();
-				StopVec.append(x);
-				StopVec.append(-y);
-				SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
-				QString hs,ss,vs,ks;
-				QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-				Gcolors.append(GCol);
-			}
-			p->PS_MultiLinGradient(w, -h, StopVec, Gcolors);
+			QWMatrix ma;
+			ma.translate(StartX, StartY);
+			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/3.1415927));
+			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
+			double x = fabs(ma.m11() * w2 + ma.dx());
+			double y = fabs(ma.m12() * w2 + ma.dy());
+			StopVec.append(x);
+			StopVec.append(-y);
+			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
+			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			Gcolors.append(GCol);
 		}
+		p->PS_MultiLinGradient(w, -h, StopVec, Gcolors);
 	}
 }
 

@@ -530,16 +530,6 @@ void PSLib::PS_newpath()
 	PutSeite("newpath\n");
 }
 
-void PSLib::PS_GradientCol1(double c, double m, double y, double k)
-{
-	GrColor1 = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
-}
-
-void PSLib::PS_GradientCol2(double c, double m, double y, double k)
-{
-	GrColor2 = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
-}
-
 void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors)
 {
 	bool first = true;
@@ -551,14 +541,19 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 		PutSeite("/ShadingType 3\n");
 		PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
 		PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
-		if (first)
-			PutSeite("/Extend [false true]\n");
+		if (Colors.count() == 2)
+			PutDoc("/Extend [true true]\n");
 		else
 		{
-			if (c == Colors.count()-2)
-				PutSeite("/Extend [true false]\n");
+			if (first)
+				PutSeite("/Extend [false true]\n");
 			else
-				PutSeite("/Extend [false false]\n");
+			{
+				if (c == Colors.count()-2)
+					PutSeite("/Extend [true false]\n");
+				else
+					PutSeite("/Extend [false false]\n");
+			}
 		}
 		PutSeite("/Coords ["+ToStr(x)+" "+ToStr(y)+" "+ToStr((*Stops.at(c+1)))+" "+ToStr(x)+" "+ToStr(y)+" "+ToStr((*Stops.at(c)))+"]\n");
 		PutSeite("/Function\n");
@@ -632,76 +627,6 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 		PutSeite("shfill\n");
 	}
 	PutSeite("cliprestore\n");
-}
-
-void PSLib::PS_LinGradient(double w, double h, double x1, double y1, double x2, double y2, int item, int grad)
-{
-	PutSeite( "clipsave\n" );
-	PutSeite("eoclip\n");
-	PutSeite("<<\n");
-	PutSeite("/ShadingType 2\n");
-	PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
-	PutSeite("/Coords ["+ToStr(x1)+"  "+ToStr(y1)+" "+ToStr(x2)+" "+ToStr(y2)+"]\n");
-	PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
-	if (grad == 6)
-		PutSeite("/Extend [true true]\n");
-	else
-		PutSeite("/Extend [false false]\n");
-	PutSeite("/Function\n");
-	PutSeite("<<\n");
-	PutSeite("/FunctionType 2\n");
-	PutSeite("/Domain [0 1]\n");
-	if (DoSep)
-	{
-		int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-		QStringList cols1 = QStringList::split(" ", GrColor2);
-		QStringList cols2 = QStringList::split(" ", GrColor1);
-		PutSeite("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
-		PutSeite("/C0 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
-	}
-	else
-	{
-		PutSeite("/C0 ["+GrColor1+"]\n");
-		PutSeite("/C1 ["+GrColor2+"]\n");
-	}
-	PutSeite("/N 1\n");
-	PutSeite(">>\n");
-	PutSeite(">>\n");
-	PutSeite("shfill\ncliprestore\n");
-}
-
-void PSLib::PS_RadGradient(double w, double h, double x, double y, double rad, int item)
-{
-	rad = QMAX(w, fabs(h)) / 2.0;
-	PutSeite( "clipsave\n" );
-	PutSeite("eoclip\n");
-	PutSeite("<<\n");
-	PutSeite("/ShadingType 3\n");
-	PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
-	PutSeite("/Coords ["+ToStr(x)+" "+ToStr(y)+" 0 "+ToStr(x)+" "+ToStr(y)+" "+ToStr(rad)+"]\n");
-	PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
-	PutSeite("/Extend [true true]\n");
-	PutSeite("/Function\n");
-	PutSeite("<<\n");
-	PutSeite("/FunctionType 2\n");
-	PutSeite("/Domain [0 1]\n");
-	if (DoSep)
-	{
-		int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-		QStringList cols1 = QStringList::split(" ", GrColor1);
-		QStringList cols2 = QStringList::split(" ", GrColor2);
-		PutSeite("/C0 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
-		PutSeite("/C1 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
-	}
-	else
-	{
-		PutSeite("/C0 ["+GrColor1+"]\n");
-		PutSeite("/C1 ["+GrColor2+"]\n");
-	}
-	PutSeite("/N 1\n");
-	PutSeite(">>\n");
-	PutSeite(">>\n");
-	PutSeite("shfill\ncliprestore\n");
 }
 
 void PSLib::PS_show_xyG(QString font, QString ch, double x, double y)
