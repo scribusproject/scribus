@@ -175,6 +175,7 @@ AC_TRY_COMPILE([
 #error libtiff is too old, need libtiff 3.6.0 or newer.
 #endif
 ], [], [], [LIBTIFF="";hastif=pre36])
+AC_MSG_RESULT($hastif)
 AC_SUBST(LIBTIFF)
 if test $hastif = yes; then
  AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
