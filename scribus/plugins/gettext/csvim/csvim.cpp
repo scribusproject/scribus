@@ -31,6 +31,7 @@ CsvIm::CsvIm(const QString& fname, const QString& enc, gtWriter *w,
 	fieldDelimiter = fdelim;
 	valueDelimiter = vdelim;
 	hasHeader = header;
+	useVDelim = usevdelim;
 	filename = fname;
 	encoding = enc;
 	writer = w;
@@ -126,9 +127,11 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 
 	int start = 0, end = line.length();
 	int fdindex = line.find(fieldDelimiter);
-	int vdindex = line.find(valueDelimiter);
+	int vdindex = -1;
+	if (useVDelim)
+		vdindex = line.find(valueDelimiter);
 		
-	if ((vdindex == -1))
+	if ((vdindex == -1) && (fdindex != -1))
 	{
 		QStringList l = QStringList::split(fieldDelimiter, line);
 		for (uint i = 0; i < l.size(); ++i)

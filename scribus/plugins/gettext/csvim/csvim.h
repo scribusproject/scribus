@@ -31,6 +31,7 @@ private:
 	QString fieldDelimiter;
 	QString valueDelimiter;
 	bool hasHeader;
+	bool useVDelim;
 	QString filename;
 	QString encoding;
 	gtWriter *writer;

@@ -29,7 +29,7 @@ CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 	vlayout->addWidget(vdlabel,1);
 	vdelimCombo = new QComboBox(true, this, "vdelimCombo");
 	QStringList vdList("\"");
-	vdList << "'"; // << tr("None");
+	vdList << "'" << tr("None");
 	vdelimCombo->insertStringList(vdList);
 	vdelimCombo->setMinimumWidth(120);
 	vlayout->addWidget(vdelimCombo,5);
