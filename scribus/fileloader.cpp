@@ -290,11 +290,14 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->DocCover = dc.attribute("DOCCOVER", "");
 		doc->DocRights = dc.attribute("DOCRIGHTS", "");
 		doc->DocContrib = dc.attribute("DOCCONTRIB", "");
-		doc->VHoch=QStoInt(dc.attribute("VHOCH"));
-		doc->VHochSc=QStoInt(dc.attribute("VHOCHSC"));
-		doc->VTief=QStoInt(dc.attribute("VTIEF"));
-		doc->VTiefSc=QStoInt(dc.attribute("VTIEFSC"));
-		doc->VKapit=QStoInt(dc.attribute("VKAPIT"));
+		doc->typographicSetttings.valueSuperScript = QStoInt(dc.attribute("VHOCH"));
+		doc->typographicSetttings.scalingSuperScript = QStoInt(dc.attribute("VHOCHSC"));
+		doc->typographicSetttings.valueSubScript = QStoInt(dc.attribute("VTIEF"));
+		doc->typographicSetttings.scalingSubScript = QStoInt(dc.attribute("VTIEFSC"));
+		doc->typographicSetttings.valueSmallCaps = QStoInt(dc.attribute("VKAPIT"));
+		doc->typographicSetttings.valueBaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
+		doc->typographicSetttings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
+		doc->typographicSetttings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
 		doc->GroupCounter=QStoInt(dc.attribute("GROUPC","1"));
 		doc->HasCMS = static_cast<bool>(QStoInt(dc.attribute("HCMS","0")));
 		doc->CMSSettings.SoftProofOn = static_cast<bool>(QStoInt(dc.attribute("DPSo","0")));
@@ -321,8 +324,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
-		doc->BaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
-		doc->BaseOffs = QStodouble(dc.attribute("BASEO", "0"));
 		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
 		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
 		doc->GridShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGRID", "0")));
@@ -372,7 +373,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		if (dc.hasAttribute("CPICT"))
 			doc->DbrushPict = dc.attribute("CPICT");
 		doc->ShadePict = QStoInt(dc.attribute("PICTSHADE","100"));
-		doc->AutoLine = QStoInt(dc.attribute("AUTOL","20"));
 		if (dc.hasAttribute("PAGEC"))
 			doc->papColor = QColor(dc.attribute("PAGEC"));
 		if (dc.hasAttribute("MARGC"))

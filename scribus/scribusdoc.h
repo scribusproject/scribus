@@ -358,6 +358,17 @@ struct Keys {
  				int KeyID;
  			};
 
+struct typoStruct {
+									int valueSuperScript;
+									int scalingSuperScript;
+									int valueSubScript;
+									int scalingSubScript;
+									int valueSmallCaps;
+									int autoLineSpacing;
+									double valueBaseGrid;
+									double offsetBaseGrid;
+								  };
+
 struct preV  { 
 				SCFonts AvailFonts;
 				QValueList<arrowDesc> arrowStyles;
@@ -377,11 +388,7 @@ struct preV  {
 				QColor guideColor;
 				QColor baseColor;
 				QString GUI;
-				int DVHoch;
-				int DVHochSc;
-				int DVTief;
-				int DVTiefSc;
-				int DVKapit;
+				typoStruct typographicSetttings;
 				QString Dpen;
 				QString Dbrush;
 				int Dshade;
@@ -443,7 +450,6 @@ struct preV  {
 				bool RandFarbig;
 				QStringList RecentDocs;
 				uint RecentDCount;
-				int AutoLine;
 				CMSset DCMSset;
     			QMap<int,Keys> KeyActions;
 				int PolyC;
@@ -506,8 +512,6 @@ struct preV  {
 				bool ShowPic;
 				bool ClipMargin;
 				bool GCRMode;
-				double BaseGrid;
-				double BaseOffs;
 				QColor STEcolor;
 				QString STEfont;
 				double ScratchLeft;
@@ -523,7 +527,7 @@ class ScribusDoc : public QObject
 {
 
 public:
-    ScribusDoc();
+    ScribusDoc(struct preV *prefsData);
     ~ScribusDoc();
     void setModified();
     void setUnModified();
@@ -634,6 +638,7 @@ public: // Public attributes
 	QString DocName;
 	QMap<QString,QFont> UsedFonts;
 	SCFonts *AllFonts;
+	preV *prefsValues;
 	int Dsize;
 	QColor minorColor;
 	QColor majorColor;
@@ -655,16 +660,7 @@ public: // Public attributes
 	int CurrTextScale;
 	bool EditClip;
 	int EditClipMode;
-  /** um wieviel Prozent wird hochgestellt */
-	int VHoch;
-  /** Verkleinerung in Prozent bei Hochstellung */
-	int VHochSc;
-  /** um wieviel Prozent wird tiefgestellt */
-	int VTief;
-  /** Verkleinerung in Prozent bei Tiefstellung */
-	int VTiefSc;
-  /** Verkleinerunug in Prozent bei Kapitaelchen */
-	int VKapit;
+	typoStruct typographicSetttings;
   /** Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
   /** Erstes Element fuer AutoTextrahmen */
@@ -692,7 +688,6 @@ public: // Public attributes
 	bool FirstPageLeft;
 	bool RandFarbig;
 	int GroupCounter;
-	int AutoLine;
 	CMSset CMSSettings;
 	int ActiveLayer;
 #ifdef HAVE_CMS
@@ -742,8 +737,6 @@ public: // Public attributes
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
 	QTimer *CurTimer;
-	double BaseGrid;
-	double BaseOffs;
 	int PolyC;
 	int PolyFd;
 	double PolyF;

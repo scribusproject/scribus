@@ -21,17 +21,95 @@
 #include "page.h"
 #include "pageitem.h"
 #include <qfile.h> 
-/*
- * We need to be able to see ScApp so we can get the
- * Prefs struct.
- */
-// Is this the right place for this declaration?
-extern ScribusApp *ScApp;
 
-ScribusDoc::ScribusDoc()
+ScribusDoc::ScribusDoc(struct preV *prefsData)
 {
+	prefsValues = prefsData;
 	modified = false;
 	MasterP = false;
+	UsedFonts.clear();
+	FT_Init_FreeType( &library );
+	AllFonts = &prefsData->AvailFonts;
+	AddFont(prefsData->DefFont, prefsData->AvailFonts[prefsData->DefFont]->Font);
+	Dfont = prefsData->DefFont;
+	Dsize = prefsData->DefSize;
+	GrabRad = prefsData->GrabRad;
+	GuideRad = prefsData->GuideRad;
+	minorGrid = prefsData->DminGrid;
+	majorGrid = prefsData->DmajGrid;
+	minorColor = prefsData->DminColor;
+	majorColor = prefsData->DmajColor;
+	papColor = prefsData->DpapColor;
+	margColor = prefsData->DmargColor;
+	guideColor = prefsData->guideColor;
+	baseColor = prefsData->baseColor;
+	PageColors.clear();
+	PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
+	PageColors.insert("White", CMYKColor(0, 0, 0, 0));
+	if (prefsData->Dpen != "None")
+		PageColors.insert(prefsData->Dpen, prefsData->DColors[prefsData->Dpen]);
+	Dpen = prefsData->Dpen;
+	if (prefsData->DpenLine != "None")
+		PageColors.insert(prefsData->DpenLine, prefsData->DColors[prefsData->DpenLine]);
+	DpenLine = prefsData->DpenLine;
+	if (prefsData->DpenText != "None")
+		PageColors.insert(prefsData->DpenText, prefsData->DColors[prefsData->DpenText]);
+	DpenText = prefsData->DpenText;
+	if (prefsData->DstrokeText != "None")
+		PageColors.insert(prefsData->DstrokeText, prefsData->DColors[prefsData->DstrokeText]);
+	DstrokeText = prefsData->DstrokeText;
+	if (prefsData->Dbrush != "None")
+		PageColors.insert(prefsData->Dbrush, prefsData->DColors[prefsData->Dbrush]);
+	Dbrush = prefsData->Dbrush;
+	if (prefsData->DbrushPict != "None")
+		PageColors.insert(prefsData->DbrushPict, prefsData->DColors[prefsData->DbrushPict]);
+	DbrushPict = prefsData->DbrushPict;
+	typographicSetttings.valueSuperScript = prefsData->typographicSetttings.valueSuperScript;
+	typographicSetttings.scalingSuperScript = prefsData->typographicSetttings.scalingSuperScript;
+	typographicSetttings.valueSubScript = prefsData->typographicSetttings.valueSubScript;
+	typographicSetttings.scalingSubScript = prefsData->typographicSetttings.scalingSubScript;
+	typographicSetttings.valueSmallCaps = prefsData->typographicSetttings.valueSmallCaps;
+	typographicSetttings.autoLineSpacing = prefsData->typographicSetttings.autoLineSpacing;
+	typographicSetttings.valueBaseGrid = prefsData->typographicSetttings.valueBaseGrid;
+	typographicSetttings.offsetBaseGrid = prefsData->typographicSetttings.offsetBaseGrid;
+	Dshade = prefsData->Dshade;
+	Dshade2 = prefsData->Dshade2;
+	ShadePict = prefsData->ShadePict;
+	ScaleX = prefsData->ScaleX;
+	ScaleY = prefsData->ScaleY;
+	ScaleType = prefsData->ScaleType;
+	AspectRatio = prefsData->AspectRatio;
+	DCols = prefsData->DCols;
+	DGap = prefsData->DGap;
+	DLineArt = PenStyle(prefsData->DLineArt);
+	Dwidth = prefsData->Dwidth;
+	DshadeLine = prefsData->DshadeLine;
+	DLstyleLine = PenStyle(prefsData->DLstyleLine);
+	DwidthLine = prefsData->DwidthLine;
+	DstartArrow = prefsData->DstartArrow;
+	DendArrow = prefsData->DendArrow;
+	PolyC = prefsData->PolyC;
+	PolyF = prefsData->PolyF;
+	PolyS = prefsData->PolyS;
+	PolyFd = prefsData->PolyFd;
+	PolyR = prefsData->PolyR;
+	MagMin = prefsData->MagMin;
+	MagMax = prefsData->MagMax;
+	MagStep = prefsData->MagStep;
+	Before = prefsData->Before;
+	Einheit = prefsData->Einheit;
+	RandFarbig = prefsData->RandFarbig;
+	Language = prefsData->Language;
+	MinWordLen = prefsData->MinWordLen;
+	HyCount = prefsData->HyCount;
+	Automatic = prefsData->Automatic;
+	AutoCheck = prefsData->AutoCheck;
+	MarginsShown = prefsData->MarginsShown;
+	FramesShown = prefsData->FramesShown;
+	GridShown = prefsData->GridShown;
+	GuidesShown = prefsData->GuidesShown;
+	BaseShown = prefsData->BaseShown;
+	linkShown = prefsData->linkShown;
 	GuideLock = false;
 	SnapGuides = false;
 	ShowPic = true;
@@ -39,41 +117,7 @@ ScribusDoc::ScribusDoc()
 	EditClip = false;
 	EditClipMode = 0;
 	loading = false;
-	minorGrid = 20;
-	majorGrid = 100;
-	minorColor = QColor(green);
-	majorColor = QColor(green);
-	guideColor = QColor(darkBlue);
-	GuideRad = 10;
-	PageColors.clear();
-	PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
-	PageColors.insert("White", CMYKColor(0, 0, 0, 0));
-	if (ScApp->Prefs.Dpen != "None")
-		PageColors.insert(ScApp->Prefs.Dpen, ScApp->Prefs.DColors[ScApp->Prefs.Dpen]);
-	Dpen = ScApp->Prefs.Dpen;
-	if (ScApp->Prefs.DpenLine != "None")
-		PageColors.insert(ScApp->Prefs.DpenLine, ScApp->Prefs.DColors[ScApp->Prefs.DpenLine]);
-	DpenLine = ScApp->Prefs.DpenLine;
-	if (ScApp->Prefs.DpenText != "None")
-		PageColors.insert(ScApp->Prefs.DpenText, ScApp->Prefs.DColors[ScApp->Prefs.DpenText]);
-	DpenText = ScApp->Prefs.DpenText;
-	if (ScApp->Prefs.DstrokeText != "None")
-		PageColors.insert(ScApp->Prefs.DstrokeText, ScApp->Prefs.DColors[ScApp->Prefs.DstrokeText]);
-	DstrokeText = ScApp->Prefs.DstrokeText;
-	if (ScApp->Prefs.Dbrush != "None")
-		PageColors.insert(ScApp->Prefs.Dbrush, ScApp->Prefs.DColors[ScApp->Prefs.Dbrush]);
-	Dbrush = ScApp->Prefs.Dbrush;
-	if (ScApp->Prefs.DbrushPict != "None")
-		PageColors.insert(ScApp->Prefs.DbrushPict, ScApp->Prefs.DColors[ScApp->Prefs.DbrushPict]);
-	DbrushPict = ScApp->Prefs.DbrushPict;
-	Dshade2 = 100;
-	Dshade = 100;
-	Dwidth = 1;
-	DLineArt = SolidLine;
 	DocName = QObject::tr("Document")+"-";
-	UsedFonts.clear();
-	Dfont = "";
-	Dsize = 120;
 	CurrentSel = -1;
 	DocTitel = "";
 	DocAutor = "";
@@ -193,18 +237,17 @@ ScribusDoc::ScribusDoc()
 	SubMode = -1;
 	ASaveTimer = new QTimer(this);
 	MLineStyles.clear();
-	FT_Init_FreeType( &library );
 	Pages.clear();
 	MasterPages.clear();
 	DocPages.clear();
 	Items.clear();
 	MasterItems.clear();
 	DocItems.clear();
-	ScratchLeft = ScApp->Prefs.ScratchLeft;
-	ScratchRight = ScApp->Prefs.ScratchRight;
-	ScratchTop = ScApp->Prefs.ScratchTop;
-	ScratchBottom = ScApp->Prefs.ScratchBottom;
-	arrowStyles = ScApp->Prefs.arrowStyles;
+	ScratchLeft = prefsData->ScratchLeft;
+	ScratchRight = prefsData->ScratchRight;
+	ScratchTop = prefsData->ScratchTop;
+	ScratchBottom = prefsData->ScratchBottom;
+	arrowStyles = prefsData->arrowStyles;
 }
 
 ScribusDoc::~ScribusDoc()
@@ -252,7 +295,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<StVorL> *tempSt
 		for (uint x = 5; x < wrkStyles->count(); ++x)
 			ss->Vorlagen.append((*wrkStyles)[x]);
 		uint old = wrkStyles->count()-5;
-		if (ss->ReadStyles(fileName, this, &ScApp->Prefs))
+		if (ss->ReadStyles(fileName, this, prefsValues))
 		{
 			if (ss->Vorlagen.count() > old)
 			{

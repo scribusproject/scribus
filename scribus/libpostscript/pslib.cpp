@@ -1274,14 +1274,14 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									{
 										if (chx.upper() != chx)
 										{
-											tsz = hl->csize * Doc->VKapit / 100;
+											tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
 											chx = chx.upper();
 										}
 									}
 									if (hl->cstyle & 1)
-										tsz = hl->csize * Doc->VHochSc / 100;
+										tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 									if (hl->cstyle & 2)
-										tsz = hl->csize * Doc->VHochSc / 100;
+										tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 									/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
 									QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
 									QString fext = fd.extension(false).lower();
@@ -1791,14 +1791,14 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 							{
 								if (chx.upper() != chx)
 								{
-									tsz = hl->csize * Doc->VKapit / 100;
+									tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
 									chx = chx.upper();
 								}
 							}
 							if (hl->cstyle & 1)
-								tsz = hl->csize * Doc->VHochSc / 100;
+								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 							if (hl->cstyle & 2)
-								tsz = hl->csize * Doc->VHochSc / 100;
+								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 							/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
 							QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
 							QString fext = fd.extension(false).lower();
@@ -2216,14 +2216,14 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 							{
 								if (chx.upper() != chx)
 								{
-									tsz = hl->csize * Doc->VKapit / 100;
+									tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
 									chx = chx.upper();
 								}
 							}
 							if (hl->cstyle & 1)
-								tsz = hl->csize * Doc->VHochSc / 100;
+								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 							if (hl->cstyle & 2)
-								tsz = hl->csize * Doc->VHochSc / 100;
+								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 							if (hl->ccolor != "None")
 							{
 								SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);

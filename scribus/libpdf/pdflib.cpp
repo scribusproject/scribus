@@ -2243,12 +2243,14 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		{
 			if (chx.upper() != chx)
 			{
-				tsz = hl->csize * doc->VKapit / 100;
+				tsz = hl->csize * doc->typographicSetttings.valueSmallCaps / 100;
 				chx = chx.upper();
 			}
 		}
-		if ((hl->cstyle & 1) || (hl->cstyle & 2))
-			tsz = hl->csize * doc->VHochSc / 100;
+		if (hl->cstyle & 1)
+			tsz = hl->csize * doc->typographicSetttings.scalingSuperScript / 100;
+		if (hl->cstyle & 2)
+			tsz = hl->csize * doc->typographicSetttings.scalingSubScript / 100;
 		if (hl->cstroke != "None")
 		{
 			StrokeColor = "";

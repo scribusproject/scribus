@@ -134,7 +134,7 @@ void StilFormate::dupFormat()
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
-	                                static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
+	                                static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->Einheit, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -145,7 +145,7 @@ void StilFormate::neuesFormat()
 {
 	struct StVorL sty;
 	sty.Vname = tr("New Style");
-	sty.LineSpa = ((Docu->Dsize / 10.0) * static_cast<double>(Docu->AutoLine) / 100) + (Docu->Dsize / 10.0);
+	sty.LineSpa = ((Docu->Dsize / 10.0) * static_cast<double>(Docu->typographicSetttings.autoLineSpacing) / 100) + (Docu->Dsize / 10.0);
 	sty.Ausri = 0;
 	sty.Indent = 0;
 	sty.First = 0;
@@ -164,7 +164,7 @@ void StilFormate::neuesFormat()
 	sty.BaseAdj = false;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->Einheit, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -174,7 +174,7 @@ void StilFormate::neuesFormat()
 void StilFormate::editFormat()
 {
 	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon,
-	                               static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
+	                               static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->Einheit, Docu);
 	dia->exec();
 	delete dia;
 	UpdateFList();

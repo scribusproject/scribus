@@ -316,6 +316,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 							
 
 							double a1, b1, a2, b2;
+							a1 = a2 = b1 = b2 = 0;
 							if (nb->NextBox!=NULL)
 							{
 								x21 = nb->NextBox->Xpos;
@@ -707,7 +708,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 	if (Doc->BaseShown)
 	{
 		p->setPen(Doc->baseColor, lw, SolidLine, FlatCap, MiterJoin);
-		for (double yg = Doc->BaseOffs; yg < page->Height; yg += Doc->BaseGrid)
+		for (double yg = Doc->typographicSetttings.offsetBaseGrid; yg < page->Height; yg += Doc->typographicSetttings.valueBaseGrid)
 			p->drawLine(FPoint(0, yg), FPoint(page->Width, yg));
 	}
 	if (Doc->GridShown)
@@ -2338,7 +2339,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						if (b->Ptext.count() != 0)
 						{
 							b->ISize = QMAX(qRound(b->ISize * scy), 1);
-							b->LineSp = ((b->ISize / 10.0)* static_cast<double>(Doc->AutoLine) / 100) + (b->ISize / 10.0);
+							b->LineSp = ((b->ISize / 10.0)* static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (b->ISize / 10.0);
 							b->TxtScale = QMIN(QMAX(qRound(b->TxtScale * scx), 25), 400);
 							Doc->CurrTextScale = b->TxtScale;
 							Doc->CurrFontSize = b->ISize;
@@ -5819,7 +5820,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 		bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
 		if ((bb->Ptext.count() != 0) && (!bb->isTableItem))
 		{
-			bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(Doc->AutoLine) / 100) + (bb->ISize / 10.0);
+			bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (bb->ISize / 10.0);
 			for (aa = 0; aa < bb->Ptext.count(); ++aa)
 				bb->Ptext.at(aa)->csize = QMAX(qRound(bb->Ptext.at(aa)->csize*((scx+scy)/2)), 1);
 			if (bb->PType == 8)
@@ -9677,7 +9678,7 @@ void ScribusView::chFSize(int size)
 			Doc->CurrFontSize = size;
 			if (Doc->AppMode != 7)
 			{
-				b->LineSp = ((size / 10.0) * static_cast<double>(Doc->AutoLine) / 100) + (size / 10.0);
+				b->LineSp = ((size / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (size / 10.0);
 				Doc->Vorlagen[0].LineSpa = b->LineSp;
 				emit ItemTextAttr(b->LineSp);
 				b->ISize = size;
@@ -10885,7 +10886,7 @@ void ScribusView::TextToPath()
 			{
 				if (chx.upper() != chx)
 				{
-					chs = QMAX(static_cast<int>(b->Ptext.at(a)->csize * Doc->VKapit / 100), 1);
+					chs = QMAX(static_cast<int>(b->Ptext.at(a)->csize * Doc->typographicSetttings.valueSmallCaps / 100), 1);
 					chx = chx.upper();
 				}
 			}

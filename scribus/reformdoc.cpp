@@ -466,16 +466,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	tabViewLayout->addWidget( buttonGroup1 );
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
-	tabTypo = new TabTypograpy(  prefsWidgets, 
-																doc->VTief, 
-																doc->VTiefSc, 
-																doc->VHoch, 
-																doc->VHochSc, 
-																doc->VKapit, 
-																doc->BaseGrid * UmReFaktor, 
-																doc->BaseOffs * UmReFaktor, 
-																doc->AutoLine, 
-																ein);
+	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings, UmReFaktor, ein);
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
 	tabTools = new QWidget( prefsWidgets, "tabTools" );

@@ -3,7 +3,7 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
-
+#include "scribusdoc.h"
 class QGridLayout;
 class QGroupBox;
 class QLabel;
@@ -15,7 +15,7 @@ class TabTypograpy : public QWidget
 	Q_OBJECT
 
 public:
-	TabTypograpy( QWidget* parent, int subD, int subS, int superD, int superS, int capsS, double baseG, double baseO, int autoS, QString unit);
+	TabTypograpy( QWidget* parent, struct typoStruct *prefsData, double unitBase, QString unit);
 	~TabTypograpy() {};
 
 	QGroupBox* groupBox1a;

@@ -494,16 +494,7 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	tabGuidesLayout->addLayout( layout12 );
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
-	tabTypo = new TabTypograpy(  prefsWidgets, 
-																prefsData->DVTief, 
-																prefsData->DVTiefSc, 
-																prefsData->DVHoch, 
-																prefsData->DVHochSc, 
-																prefsData->DVKapit, 
-																prefsData->BaseGrid * Umrech, 
-																prefsData->BaseOffs * Umrech, 
-																prefsData->AutoLine, 
-																"");
+	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSetttings, Umrech, "");
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
 	tabTools = new QWidget( prefsWidgets, "tabTools" );

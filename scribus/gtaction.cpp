@@ -450,7 +450,7 @@ QString gtAction::findFontName(gtFont* font)
 
 double gtAction::getLineSpacing(int fontSize)
 {
-	return ((fontSize / 10.0) * static_cast<double>(ScApp->doc->AutoLine) / 100) + (fontSize / 10.0);
+	return ((fontSize / 10.0) * static_cast<double>(ScApp->doc->typographicSetttings.autoLineSpacing) / 100) + (fontSize / 10.0);
 }
 
 double gtAction::getFrameWidth()

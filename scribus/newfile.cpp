@@ -332,7 +332,7 @@ void NewDoc::setDist(int)
 void NewDoc::setUnit(int newUnitIndex)
 {
 	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
-	int precision = unitGetPrecisionFromIndex(unitIndex);
+//	int precision = unitGetPrecisionFromIndex(unitIndex);
 
 	double oldUnitRatio = unitRatio;
 	unitRatio = unitGetRatioFromIndex(newUnitIndex);

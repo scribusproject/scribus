@@ -7,9 +7,7 @@
 #include <qspinbox.h>
 #include "mspinbox.h"
 
-
-TabTypograpy::TabTypograpy( QWidget* parent , int subD, int subS, int superD, int superS, int capsS, double baseG, double baseO, int autoS, QString unit)
-							: QWidget( parent, "tabtypo", 0 )
+TabTypograpy::TabTypograpy( QWidget* parent, struct typoStruct *prefsData, double unitBase, QString unit) : QWidget( parent, "tabtypo", 0 )
 {
 	tabTypoLayout = new QGridLayout( this, 1, 1, 11, 6, "tabTypoLayout");
 	groupBox1a = new QGroupBox( this, "groupBox1a" );
@@ -21,7 +19,7 @@ TabTypograpy::TabTypograpy( QWidget* parent , int subD, int subS, int superD, in
 	groupBox1aLayout->setAlignment( Qt::AlignTop );
 	subDisplacement = new QSpinBox( groupBox1a, "subDisplacement" );
 	subDisplacement->setMaxValue( 100 );
-	subDisplacement->setValue( subD );
+	subDisplacement->setValue( prefsData->valueSubScript );
 	subDisplacement->setSuffix( tr( " %" ) );
 	groupBox1aLayout->addWidget( subDisplacement, 0, 1, Qt::AlignLeft );
 	textLabel1a = new QLabel(subDisplacement, tr( "&Displacement:" ), groupBox1a, "textLabel1a" );
@@ -29,7 +27,7 @@ TabTypograpy::TabTypograpy( QWidget* parent , int subD, int subS, int superD, in
 	subScaling = new QSpinBox( groupBox1a, "subScaling" );
 	subScaling->setMaxValue( 100 );
 	subScaling->setMinValue( 1 );
-	subScaling->setValue( subS );
+	subScaling->setValue( prefsData->scalingSubScript );
 	subScaling->setSuffix( tr( " %" ) );
 	groupBox1aLayout->addWidget( subScaling, 0, 3, Qt::AlignLeft );
 	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a, "textLabel2a" );
@@ -44,7 +42,7 @@ TabTypograpy::TabTypograpy( QWidget* parent , int subD, int subS, int superD, in
 	groupBox2aLayout->setAlignment( Qt::AlignTop );
 	superDisplacement = new QSpinBox( groupBox2a, "superDisplacement" );
 	superDisplacement->setMaxValue( 100 );
-	superDisplacement->setValue( superD );
+	superDisplacement->setValue( prefsData->valueSuperScript );
 	superDisplacement->setSuffix( tr( " %" ) );
 	groupBox2aLayout->addWidget( superDisplacement, 0, 1, Qt::AlignLeft );
 	textLabel3a = new QLabel(superDisplacement, tr( "D&isplacement:" ), groupBox2a, "textLabel3a" );
@@ -52,7 +50,7 @@ TabTypograpy::TabTypograpy( QWidget* parent , int subD, int subS, int superD, in
 	superScaling = new QSpinBox( groupBox2a, "superScaling" );
 	superScaling->setMaxValue( 100 );
 	superScaling->setMinValue( 1 );
-	superScaling->setValue( superS );
+	superScaling->setValue( prefsData->scalingSuperScript );
 	superScaling->setSuffix( tr( " %" ) );
 	groupBox2aLayout->addWidget( superScaling, 0, 3, Qt::AlignLeft );
 	textLabel4a = new QLabel(superScaling, tr( "S&caling:" ), groupBox2a, "textLabel4a" );
@@ -68,7 +66,7 @@ TabTypograpy::TabTypograpy( QWidget* parent , int subD, int subS, int superD, in
 	capsScaling = new QSpinBox( groupBox3a, "capsScaling" );
 	capsScaling->setMaxValue( 100 );
 	capsScaling->setMinValue( 1 );
-	capsScaling->setValue( capsS );
+	capsScaling->setValue( prefsData->valueSmallCaps );
 	capsScaling->setSuffix( tr( " %" ) );
 	groupBox3aLayout->addWidget( capsScaling, 0, 1, Qt::AlignLeft );
 	textLabel5a = new QLabel(capsScaling, tr( "Sc&aling:" ), groupBox3a, "textLabel5a" );
@@ -83,20 +81,20 @@ TabTypograpy::TabTypograpy( QWidget* parent , int subD, int subS, int superD, in
 	groupBox4aLayout->setAlignment( Qt::AlignTop );
 	baseGrid = new MSpinBox( 1, 1000, groupBox4a, 1 );
 	baseGrid->setSuffix( unit );
-	baseGrid->setValue(baseG);
+	baseGrid->setValue(prefsData->valueBaseGrid * unitBase);
 	groupBox4aLayout->addWidget( baseGrid, 0, 1, Qt::AlignLeft );
 	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ),groupBox4a, "textLabel6a" );
 	groupBox4aLayout->addWidget( textLabel6a, 0, 0 );
 	baseOffset = new MSpinBox( 0, 1000, groupBox4a, 1 );
 	baseOffset->setSuffix( unit );
-	baseOffset->setValue(baseO);
+	baseOffset->setValue(prefsData->offsetBaseGrid * unitBase);
 	groupBox4aLayout->addWidget( baseOffset, 1, 1, Qt::AlignLeft );
 	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ),groupBox4a, "textLabel7a" );
 	groupBox4aLayout->addWidget( textLabel7a, 1, 0 );
 	autoLine = new QSpinBox( groupBox4a, "autoLine" );
 	autoLine->setMaxValue( 100 );
 	autoLine->setMinValue( 1 );
-	autoLine->setValue( autoS );
+	autoLine->setValue( prefsData->autoLineSpacing );
 	autoLine->setSuffix( tr( " %" ) );
 	groupBox4aLayout->addWidget( autoLine, 2, 1, Qt::AlignLeft );
 	textLabel8a = new QLabel( autoLine, tr( "Automatic &Line Spacing:" ), groupBox4a, "textLabel8a" );

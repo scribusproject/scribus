@@ -570,14 +570,14 @@ QPixmap ScPreview::createPreview(QString data)
 						if (hl->cstyle != 0)
 						{
 							if (hl->cstyle & 1)
-								chs = static_cast<int>(hl->csize * Prefs->DVHochSc / 100);
+								chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSuperScript / 100);
 							if (hl->cstyle & 2)
-								chs = static_cast<int>(hl->csize * Prefs->DVTiefSc / 100);
+								chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSubScript / 100);
 							if (hl->cstyle & 64)
 							{
 								if (chx.upper() != chx)
 								{
-									chs = static_cast<int>(hl->csize * Prefs->DVKapit / 100);
+									chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.valueSmallCaps / 100);
 									chx = chx.upper();
 								}
 							}
@@ -755,19 +755,19 @@ QPixmap ScPreview::createPreview(QString data)
 					{
 						if (chst & 1)
 						{
-							CurY -= asce * Prefs->DVHoch / 100;
-							chs = static_cast<int>(hl->csize * Prefs->DVHochSc / 100);
+							CurY -= asce * Prefs->typographicSetttings.valueSuperScript / 100;
+							chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSuperScript / 100);
 						}
 						if (chst & 2)
 						{
-							CurY += asce * Prefs->DVTief / 100;
-							chs = static_cast<int>(hl->csize * Prefs->DVTiefSc / 100);
+							CurY += asce * Prefs->typographicSetttings.valueSubScript / 100;
+							chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSubScript / 100);
 						}
 						if (chst & 64)
 						{
 							if (chx.upper() != chx)
 							{
-								chs = static_cast<int>(hl->csize * Prefs->DVKapit / 100);
+								chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.valueSmallCaps / 100);
 								chx = chx.upper();
 							}
 						}

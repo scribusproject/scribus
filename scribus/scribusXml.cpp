@@ -1092,11 +1092,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->DocCover = dc.attribute("DOCCOVER", "");
 		doc->DocRights = dc.attribute("DOCRIGHTS", "");
 		doc->DocContrib = dc.attribute("DOCCONTRIB", "");
-		doc->VHoch=QStoInt(dc.attribute("VHOCH"));
-		doc->VHochSc=QStoInt(dc.attribute("VHOCHSC"));
-		doc->VTief=QStoInt(dc.attribute("VTIEF"));
-		doc->VTiefSc=QStoInt(dc.attribute("VTIEFSC"));
-		doc->VKapit=QStoInt(dc.attribute("VKAPIT"));
+		doc->typographicSetttings.valueSuperScript = QStoInt(dc.attribute("VHOCH"));
+		doc->typographicSetttings.scalingSuperScript = QStoInt(dc.attribute("VHOCHSC"));
+		doc->typographicSetttings.valueSubScript = QStoInt(dc.attribute("VTIEF"));
+		doc->typographicSetttings.scalingSubScript = QStoInt(dc.attribute("VTIEFSC"));
+		doc->typographicSetttings.valueSmallCaps = QStoInt(dc.attribute("VKAPIT"));
+		doc->typographicSetttings.valueBaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
+		doc->typographicSetttings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
+		doc->typographicSetttings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
 		doc->GroupCounter=QStoInt(dc.attribute("GROUPC","1"));
 		doc->HasCMS = static_cast<bool>(QStoInt(dc.attribute("HCMS","0")));
 		doc->CMSSettings.SoftProofOn = static_cast<bool>(QStoInt(dc.attribute("DPSo","0")));
@@ -1117,8 +1120,6 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
-		doc->BaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
-		doc->BaseOffs = QStodouble(dc.attribute("BASEO", "0"));
 		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
 		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
 		doc->DstartArrow = 0;
@@ -2473,11 +2474,14 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("DOCRIGHTS",doc->DocRights);
 	dc.setAttribute("DOCCONTRIB",doc->DocContrib);
 	dc.setAttribute("TITLE",doc->DocTitel);
-	dc.setAttribute("VHOCH",doc->VHoch);
-	dc.setAttribute("VHOCHSC",doc->VHochSc);
-	dc.setAttribute("VTIEF",doc->VTief);
-	dc.setAttribute("VTIEFSC",doc->VTiefSc);
-	dc.setAttribute("VKAPIT",doc->VKapit);
+	dc.setAttribute("VHOCH",doc->typographicSetttings.valueSuperScript);
+	dc.setAttribute("VHOCHSC",doc->typographicSetttings.scalingSuperScript);
+	dc.setAttribute("VTIEF",doc->typographicSetttings.valueSubScript);
+	dc.setAttribute("VTIEFSC",doc->typographicSetttings.scalingSubScript);
+	dc.setAttribute("VKAPIT",doc->typographicSetttings.valueSmallCaps);
+	dc.setAttribute("BASEGRID",doc->typographicSetttings.valueBaseGrid);
+	dc.setAttribute("BASEO", doc->typographicSetttings.offsetBaseGrid);
+	dc.setAttribute("AUTOL", doc->typographicSetttings.autoLineSpacing);
 	dc.setAttribute("GROUPC",doc->GroupCounter);
 	dc.setAttribute("HCMS", static_cast<int>(doc->HasCMS));
 	dc.setAttribute("DPSo", static_cast<int>(doc->CMSSettings.SoftProofOn));
@@ -2498,8 +2502,6 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
 	dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
 	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
-	dc.setAttribute("BASEGRID",doc->BaseGrid);
-	dc.setAttribute("BASEO", doc->BaseOffs);
 	dc.setAttribute("MINGRID", doc->minorGrid);
 	dc.setAttribute("MAJGRID", doc->majorGrid);
 	dc.setAttribute("SHOWGRID", static_cast<int>(doc->GridShown));
@@ -2545,7 +2547,6 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PICTSCY",doc->ScaleY);
 	dc.setAttribute("PSCALE", static_cast<int>(doc->ScaleType));
 	dc.setAttribute("PASPECT", static_cast<int>(doc->AspectRatio));
-	dc.setAttribute("AUTOL", doc->AutoLine);
 	dc.setAttribute("MINORC",doc->minorColor.name());
 	dc.setAttribute("MAJORC",doc->majorColor.name());
 	dc.setAttribute("GuideC", doc->guideColor.name());
@@ -2840,14 +2841,14 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc2.setAttribute("SIZE",Vor->DefSize / 10.0);
 	elem.appendChild(dc2);
 	QDomElement dc3=docu.createElement("TYPO");
-	dc3.setAttribute("TIEF",Vor->DVTief);
-	dc3.setAttribute("TIEFSC",Vor->DVTiefSc);
-	dc3.setAttribute("HOCH",Vor->DVHoch);
-	dc3.setAttribute("HOCHSC",Vor->DVHochSc);
-	dc3.setAttribute("SMCAPS",Vor->DVKapit);
-	dc3.setAttribute("AUTOL", Vor->AutoLine);
-	dc3.setAttribute("BASE", Vor->BaseGrid);
-	dc3.setAttribute("BASEO", Vor->BaseOffs);
+	dc3.setAttribute("TIEF",Vor->typographicSetttings.valueSubScript);
+	dc3.setAttribute("TIEFSC",Vor->typographicSetttings.scalingSubScript);
+	dc3.setAttribute("HOCH",Vor->typographicSetttings.valueSuperScript);
+	dc3.setAttribute("HOCHSC",Vor->typographicSetttings.scalingSuperScript);
+	dc3.setAttribute("SMCAPS",Vor->typographicSetttings.valueSmallCaps);
+	dc3.setAttribute("AUTOL", Vor->typographicSetttings.autoLineSpacing);
+	dc3.setAttribute("BASE", Vor->typographicSetttings.valueBaseGrid);
+	dc3.setAttribute("BASEO", Vor->typographicSetttings.offsetBaseGrid);
 	elem.appendChild(dc3);
 	QDomElement dc9=docu.createElement("TOOLS");
 	dc9.setAttribute("PEN",Vor->Dpen);
@@ -3122,14 +3123,14 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 		}
 		if (dc.tagName()=="TYPO")
 		{
-			Vorein->DVTief = QStoInt(dc.attribute("TIEF"));
-			Vorein->DVTiefSc = QStoInt(dc.attribute("TIEFSC"));
-			Vorein->DVHoch = QStoInt(dc.attribute("HOCH"));
-			Vorein->DVHochSc = QStoInt(dc.attribute("HOCHSC"));
-			Vorein->DVKapit = QStoInt(dc.attribute("SMCAPS"));
-			Vorein->AutoLine = QStoInt(dc.attribute("AUTOL","20"));
-			Vorein->BaseGrid = QStodouble(dc.attribute("BASE","12"));
-			Vorein->BaseOffs = QStodouble(dc.attribute("BASEO","0"));
+			Vorein->typographicSetttings.valueSuperScript = QStoInt(dc.attribute("HOCH"));
+			Vorein->typographicSetttings.scalingSuperScript = QStoInt(dc.attribute("HOCHSC"));
+			Vorein->typographicSetttings.valueSubScript = QStoInt(dc.attribute("TIEF"));
+			Vorein->typographicSetttings.scalingSubScript = QStoInt(dc.attribute("TIEFSC"));
+			Vorein->typographicSetttings.valueSmallCaps = QStoInt(dc.attribute("SMCAPS"));
+			Vorein->typographicSetttings.valueBaseGrid = QStodouble(dc.attribute("BASE", "12"));
+			Vorein->typographicSetttings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
+			Vorein->typographicSetttings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
 		}
 		if (dc.tagName()=="TOOLS")
 		{

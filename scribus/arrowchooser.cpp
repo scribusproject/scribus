@@ -13,7 +13,7 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 	setEditable(false);
 	clear();
 	insertItem( tr("None"));
-	setMaximumWidth(listBox()->maxItemWidth()*3+22);
+	setMaximumWidth(listBox()->maxItemWidth()*2+22);
 	arrowDirection = direction;
 }
 
