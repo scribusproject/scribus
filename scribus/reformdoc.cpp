@@ -7,28 +7,11 @@ extern double UmReFaktor;
 ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, bool fp, bool fpe, int Einh)
 		: QDialog( parent, "r", true, 0 )
 {
-	QString ein;
-	int decimals;
 	einheit = Einh;
-	switch (Einh)
-	{
-	case 0:
-		ein = " pt";
-		decimals = 100;
-		break;
-	case 1:
-		ein = " mm";
-		decimals = 1000;
-		break;
-	case 2:
-		ein = " in";
-		decimals = 10000;
-		break;
-	case 3:
-		ein = " p";
-		decimals = 100;
-		break;
-	}
+	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
+	QString ein = units[Einh];
+	int dp[] = {100, 1000, 10000, 100};
+	int decimals = dp[Einh];
 	Breite = Pagebr * UmReFaktor;
 	Hoehe = Pageho * UmReFaktor;
 	setCaption( tr( "Document Setup" ) );

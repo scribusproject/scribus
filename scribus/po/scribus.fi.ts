@@ -147,6 +147,10 @@
         <source>Online</source>
         <translation>Verkossa</translation>
     </message>
+    <message>
+        <source>Basque:</source>
+        <translation>Baski:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1706,7 +1710,7 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>Print Separations</source>
-        <translation>Tulosta erottimet</translation>
+        <translation>Tulosta erottelu</translation>
     </message>
     <message>
         <source>From page:</source>
@@ -2836,7 +2840,7 @@ Corners:</source>
     </message>
     <message>
         <source>Level</source>
-        <translation>Taso</translation>
+        <translation>Kerros</translation>
     </message>
     <message>
         <source>Shape</source>
@@ -2848,7 +2852,7 @@ Corners:</source>
     </message>
     <message>
         <source>Path Text Properites</source>
-        <translation>Polulla olevan tekstin ominaisuudet</translation>
+        <translation type="obsolete">Polulla olevan tekstin ominaisuudet</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
@@ -2868,7 +2872,7 @@ Corners:</source>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation>Etäisyys kaaresta:</translation>
+        <translation>Etäisyys käyrästä:</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -3038,7 +3042,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>Siirtymän aloitus:</translation>
+        <translation>Alkupisteen siirtymä:</translation>
     </message>
     <message>
         <source>Rotation:</source>
@@ -3154,11 +3158,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation>Siirrä yksi taso ylöspäin</translation>
+        <translation>Siirrä yksi kerros ylöspäin</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation>Siirrä yksi taso alaspäin</translation>
+        <translation>Siirrä yksi kerros alaspäin</translation>
     </message>
     <message>
         <source>Move to front</source>
@@ -3346,11 +3350,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Make text in lower objects flow around this frame</source>
-        <translation>Pakota teksti alemmissa kohteissa kiertämään tämä kehys</translation>
+        <translation type="obsolete">Pakota teksti alemmissa kohteissa kiertämään tämä kehys</translation>
     </message>
     <message>
         <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Käytä kuvitteellista neliötä kohteen reunuksena todellisen muodon sijaan</translation>
+        <translation type="obsolete">Käytä kuvitteellista neliötä kohteen reunuksena todellisen muodon sijaan</translation>
     </message>
     <message>
         <source>Source profile of the image</source>
@@ -3363,6 +3367,30 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Style:</source>
         <translation>Tyyli:</translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation>Vaihda palstan tai palstojen välin leveys</translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation>Palstan leveys</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation>Polulla olevan tesktin ominaisuudet</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation>Pakota alempien kehysten teksti kiertämään kohteen muoto</translation>
+    </message>
+    <message>
+        <source>Use the frame shape instead of the object one</source>
+        <translation>Käytä kehyksen muotoa kohteen muodon sijasta</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Ilmaisee kerroksen jolla kohde on. 0 kertoo kohteen olevan alimmaisena</translation>
     </message>
 </context>
 <context>
@@ -4380,7 +4408,7 @@ Valitse automaattinen ellet tarvitse mitään erityistä pakkausmenetelmää.</t
     </message>
     <message>
         <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Pakkaustaso: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %)</translation>
+        <translation type="obsolete">Pakkaustaso: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
@@ -4509,6 +4537,10 @@ Suosittelemme käyttämään dokumentin otsikkoa/nimeä.</translation>
     <message>
         <source>Save</source>
         <translation>Tallenna</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Pakkaustasot: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %)</translation>
     </message>
 </context>
 <context>
@@ -4872,6 +4904,49 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <source>Adjust Frame to Picture</source>
         <translation>Sovita kehys kuvaan</translation>
     </message>
+    <message>
+        <source>Lock object size</source>
+        <translation>Lukitse koko</translation>
+    </message>
+    <message>
+        <source>Unlock object size</source>
+        <translation>Vapauta koko</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Kerros</translation>
+    </message>
+    <message>
+        <source>Insert Sample Text</source>
+        <translation>Lisää esimerkkiteksti</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem</name>
+    <message>
+        <source>Image</source>
+        <translation>Kuva</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Teksti</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Viiva</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Monikulmio</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Kulmikas viiva</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Teksti polulla</translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
@@ -5072,10 +5147,6 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <translation>Pieni</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Teema</translation>
-    </message>
-    <message>
         <source>Tools</source>
         <translation>Työkalut</translation>
     </message>
@@ -5112,20 +5183,12 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <translation>Säilytä sivujen suhde</translation>
     </message>
     <message>
-        <source>Grab-Radius</source>
-        <translation>Tarttumissäde</translation>
-    </message>
-    <message>
         <source>Use PDF-1.4 Transparency Features</source>
         <translation>Käytä PDF-1.4:n läpinäkyvyysominaisuuksia</translation>
     </message>
     <message>
         <source>Small Caps</source>
         <translation>Pienet isot kirjaimet</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling</source>
-        <translation>Pystysuora skaalaus</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5316,10 +5379,6 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <translation>Näyttö</translation>
     </message>
     <message>
-        <source>Horizontal Scaling</source>
-        <translation>Vaakasuora skaalaus</translation>
-    </message>
-    <message>
         <source>Choose a Directory</source>
         <translation>Valitse hakemisto</translation>
     </message>
@@ -5330,10 +5389,6 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     <message>
         <source>Adjust Display Size</source>
         <translation>Aseta näytön koko</translation>
-    </message>
-    <message>
-        <source>Wheel-Jump</source>
-        <translation>Rullan askellus</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -5843,6 +5898,46 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <source>Filesystem location for graphics editor</source>
         <translation>Grafiikkatyökalun sijainti tiedostojärjestelmässä</translation>
     </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Teema:</translation>
+    </message>
+    <message>
+        <source>Wheel-Jump:</source>
+        <translation>Rullan askellus:</translation>
+    </message>
+    <message>
+        <source>Grab-Radius:</source>
+        <translation>Tarttumissäde:</translation>
+    </message>
+    <message>
+        <source>Horizontal Scaling:</source>
+        <translation>Vaakasuora skaalaus:</translation>
+    </message>
+    <message>
+        <source>Vertical Scaling:</source>
+        <translation>Pystysuora skaalaus:</translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Peruslinja</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Käytössä</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Ei käytössä</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Ottaa peruslinjan käyttöön</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Ottaa peruslinjan pois käytöstä</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -6267,10 +6362,6 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Lisää erikoismerkki</translation>
     </message>
     <message>
-        <source>Import SVG-Image</source>
-        <translation>SVG-kuva</translation>
-    </message>
-    <message>
         <source>Initializing...</source>
         <translation>Alustetaan...</translation>
     </message>
@@ -6345,6 +6436,10 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
         <translation>Iiik! Kohdetta, jonka ympäri yrität viedä tekstiä ei ole olemassa!</translation>
+    </message>
+    <message>
+        <source>Import SVG-Image...</source>
+        <translation>Tuo SVG-kuva...</translation>
     </message>
 </context>
 <context>
@@ -7926,11 +8021,11 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
-        <translation>Etsi/Korvaa...</translation>
+        <translation type="obsolete">Etsi/Korvaa...</translation>
     </message>
     <message>
         <source>Do you want save your changes?</source>
-        <translation>Haluatko tallentaa muutokset?</translation>
+        <translation type="obsolete">Haluatko tallentaa muutokset?</translation>
     </message>
     <message>
         <source>Insert Special...</source>
@@ -7939,6 +8034,10 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Insert Special</source>
         <translation>Lisää erikoismerkki</translation>
+    </message>
+    <message>
+        <source>Do you want to save your changes?</source>
+        <translation>Haluatko tallentaa muutokset?</translation>
     </message>
 </context>
 <context>
@@ -8080,6 +8179,20 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Element</source>
         <translation>Osa</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varoitus</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Nimi &quot;%1&quot; on jo käytössä.
+Ole hyvä ja valitse toinen nimi.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

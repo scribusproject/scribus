@@ -84,26 +84,26 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	VR = new Vruler(this, Doc);
 	UN = new QToolButton(this);
 	Unitmen = new QPopupMenu(this);
-	Unitmen->insertItem("pt");
-	Unitmen->insertItem("mm");
-	Unitmen->insertItem("in");
-	Unitmen->insertItem("p");
+	Unitmen->insertItem(tr("pt"));
+	Unitmen->insertItem(tr("mm"));
+	Unitmen->insertItem(tr("in"));
+	Unitmen->insertItem(tr("p"));
 	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
 	UN->setPopupDelay(10);
 	switch (doc->Einheit)
 		{
 		case 0:
-			UN->setText("pt");
+			UN->setText( tr("pt"));
 			break;
 		case 1:
-			UN->setText("mm");
+			UN->setText( tr("mm"));
 			break;
 		case 2:
-			UN->setText("in");
+			UN->setText( tr("in"));
 			break;
 		case 3:
-			UN->setText("p");
+			UN->setText( tr("p"));
 			break;
 		}
 	Pages.clear();

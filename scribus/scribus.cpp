@@ -844,17 +844,10 @@ void ScribusApp::initMenuBar()
 	ColorMenu->insertItem(ColorMenC);
 	SizeTMenu = new QPopupMenu();
 	SizeTMenu->insertItem( tr("Other..."));
-	SizeTMenu->insertItem(" 7 pt");
-	SizeTMenu->insertItem(" 9 pt");
-	SizeTMenu->insertItem("10 pt");
-	SizeTMenu->insertItem("12 pt");
-	SizeTMenu->insertItem("14 pt");
-	SizeTMenu->insertItem("18 pt");
-	SizeTMenu->insertItem("24 pt");
-	SizeTMenu->insertItem("36 pt");
-	SizeTMenu->insertItem("48 pt");
-	SizeTMenu->insertItem("60 pt");
-	SizeTMenu->insertItem("72 pt");
+	char *ar_sizes[] = {" 7", " 9", "10", "12", "14", "18", "24", "36", "48", "60", "72"};
+	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
+	for (uint s = 0; s < f_size; ++s)
+		SizeTMenu->insertItem(ar_sizes[s] + tr(" pt"));
 	ShadeMenu = new QPopupMenu();
 	ShadeMenu->insertItem( tr("Other..."));
 	ShadeMenu->insertItem("0 %");
@@ -916,31 +909,31 @@ void ScribusApp::ReportMP(double xp, double yp)
 	switch (doc->Einheit)
 	{
 	case 0:
-		tmp2 = " pt";
+		tmp2 = tr(" pt");
 		multiplier = 100;
 		divisor = 100.0;
 		precision = 2;
 		break;
 	case 1:
-		tmp2 = " mm";
+		tmp2 = tr(" mm");
 		multiplier = 1000;
 		divisor = 1000.0;
 		precision = 3;
 		break;
 	case 2:
-		tmp2 = " in";
+		tmp2 = tr(" in");
 		multiplier = 10000;
 		divisor = 10000.0;
 		precision = 4;
 		break;
 	case 3:
-		tmp2 = " p";
+		tmp2 = tr(" p");
 		multiplier = 100;
 		divisor = 100.0;
 		precision = 2;
 		break;
 	default:  // jjsa 21-03-2004 added default (complains for lint)
-		tmp2 = " pt";
+		tmp2 = tr(" pt");
 		multiplier = 100;
 		divisor = 100.0;
 		precision = 2;
@@ -6716,19 +6709,19 @@ void ScribusApp::slotChangeUnit(int art, bool draw)
 	{
 	case 0:
 		UmReFaktor = 1.0;
-		view->UN->setText("pt");
+		view->UN->setText( tr("pt"));
 		break;
 	case 1:
 		UmReFaktor = 0.3527777;
-		view->UN->setText("mm");
+		view->UN->setText( tr("mm"));
 		break;
 	case 2:
 		UmReFaktor = 1.0 / 72.0;
-		view->UN->setText("in");
+		view->UN->setText( tr("in"));
 		break;
 	case 3:
 		UmReFaktor = 1.0 / 12.0;
-		view->UN->setText("p");
+		view->UN->setText( tr("p"));
 		break;
 	}
 	Mpal->UnitChange();

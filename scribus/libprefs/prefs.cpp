@@ -164,6 +164,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	SpinBox3_2->setMinValue( 1 );
 	SpinBox3_2->setLineStep( 1 );
 	SpinBox3_2->setValue(ap->HaveDoc ? ap->doc->GrabRad : Vor->GrabRad );
+	SpinBox3_2->setSuffix( tr( " px" ) );
 	Layout5->addWidget( SpinBox3_2, 1, 1 );
 	MouseLayout->addLayout( Layout5 );
 	tabLayout->addWidget( Mouse, 0, 1 );
@@ -820,11 +821,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15a->addWidget( FontComb, 0, 1 );
 	SizeCombo = new QComboBox( true, ToolFrame, "SizeCombo" );
 	SizeCombo->setEditable(false);
-	char *ar_sizes[] = {" 7 pt", " 9 pt", "10 pt", "12 pt", "14 pt", "18 pt", "24 pt", "36 pt", "48 pt",
-	                    "60 pt", "72 pt"};
+	char *ar_sizes[] = {" 7", " 9", "10", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
-		SizeCombo->insertItem(ar_sizes[s]);
+		SizeCombo->insertItem(ar_sizes[s] + tr(" pt"));
 	int a;
 	if (ap->HaveDoc)
 	{

@@ -177,6 +177,7 @@ void Page::dragEnterEvent(QDragEnterEvent *e)
 		setActiveWindow();
 		raise();
 		ScApp->newActWin(doku->WinHan);
+		qApp->processEvents();
 		SeleItemPos(e->pos());
 	}
 }
@@ -241,6 +242,10 @@ void Page::dropEvent(QDropEvent *e)
 	int re;
 	if (QTextDrag::decode(e, text))
 	{
+		setActiveWindow();
+		raise();
+		ScApp->newActWin(doku->WinHan);
+		qApp->processEvents();
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).upper();
@@ -4485,42 +4490,43 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			HaveSelRect = true;
 		}
-		else
+		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1))
 		{
-			if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1))
+			if (YGuides.count() != 0)
 			{
-				if (YGuides.count() != 0)
+				for (uint yg = 0; yg < YGuides.count(); ++yg)
 				{
-					for (uint yg = 0; yg < YGuides.count(); ++yg)
+					if ((YGuides[yg] < (static_cast<int>(m->y()/sc)+doku->GuideRad)) &&
+							(YGuides[yg] > (static_cast<int>(m->y()/sc)-doku->GuideRad)))
 					{
-						if ((YGuides[yg] < (static_cast<int>(m->y()/sc)+doku->GuideRad)) &&
-						        (YGuides[yg] > (static_cast<int>(m->y()/sc)-doku->GuideRad)))
-						{
-							if (((m->x()/sc) < 0) || ((m->x()/sc) >= doku->PageB-1))
-								qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-							else
-								qApp->setOverrideCursor(QCursor(SPLITHC), true);
-							return;
-						}
+						if (Mpressed)
+							MoveGY = true;
+						if (((m->x()/sc) < 0) || ((m->x()/sc) >= doku->PageB-1))
+							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						else
+							qApp->setOverrideCursor(QCursor(SPLITHC), true);
+						return;
 					}
-					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				}
-				if (XGuides.count() != 0)
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			}
+			if (XGuides.count() != 0)
+			{
+				for (uint xg = 0; xg < XGuides.count(); ++xg)
 				{
-					for (uint xg = 0; xg < XGuides.count(); ++xg)
+					if ((XGuides[xg] < (static_cast<int>(m->x()/sc)+doku->GuideRad)) &&
+							(XGuides[xg] > (static_cast<int>(m->x()/sc)-doku->GuideRad)))
 					{
-						if ((XGuides[xg] < (static_cast<int>(m->x()/sc)+doku->GuideRad)) &&
-						        (XGuides[xg] > (static_cast<int>(m->x()/sc)-doku->GuideRad)))
-						{
-							if (((m->y()/sc) < 0) || ((m->y()/sc) >= doku->PageH-1))
-								qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-							else
-								qApp->setOverrideCursor(QCursor(SPLITVC), true);
-							return;
-						}
+						if (Mpressed)
+							MoveGX = true;
+						if (((m->y()/sc) < 0) || ((m->y()/sc) >= doku->PageH-1))
+							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						else
+							qApp->setOverrideCursor(QCursor(SPLITVC), true);
+						return;
 					}
-					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				}
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
 	}
@@ -5699,7 +5705,6 @@ bool Page::SeleItem(QMouseEvent *m)
 				if ((YGuides[yg] < (Myp+doku->GrabRad)) && (YGuides[yg] > (Myp-doku->GrabRad)))
 				{
 					GyM = yg;
-					MoveGY = true;
 					DrHY = static_cast<int>(YGuides[yg] * sc);
 					break;
 				}
@@ -5712,7 +5717,6 @@ bool Page::SeleItem(QMouseEvent *m)
 				if ((XGuides[xg] < (Mxp+doku->GrabRad)) && (XGuides[xg] > (Mxp-doku->GrabRad)))
 				{
 					GxM = xg;
-					MoveGX = true;
 					DrVX = static_cast<int>(XGuides[xg] * sc);
 					break;
 				}

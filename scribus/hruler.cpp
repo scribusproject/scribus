@@ -258,15 +258,21 @@ void Hruler::paintEvent(QPaintEvent *)
 					}
 					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
 					p.drawLine(qRound((Pos+of)*sc), 11, qRound((Pos+of)*sc), 23);
-					p.drawLine(qRound((Pos+of)*sc), 23, qRound((Pos+of+4/sc)*sc), 23);
-					p.drawLine(qRound((Pos+of)*sc), 11, qRound((Pos+of+4/sc)*sc), 11);
-					double fpos = Pos+First+Indent+of;
-					QPointArray cr;
-					cr.setPoints(3, qRound(fpos*sc), 17, qRound((fpos+3/sc)*sc), 11, qRound((fpos-3/sc)*sc), 11);
-					p.drawPolygon(cr);
-					QPointArray cr2;
-					cr2.setPoints(3, qRound((Pos+Indent+of)*sc), 17, qRound((Pos+Indent+of+3/sc)*sc), 23, qRound((Pos+Indent+of-3/sc)*sc), 23);
-					p.drawPolygon(cr2);
+					if (CurrCol == 0)
+					{
+						p.drawLine(qRound((Pos+of)*sc), 23, qRound((Pos+of+4/sc)*sc), 23);
+						p.drawLine(qRound((Pos+of)*sc), 11, qRound((Pos+of+4/sc)*sc), 11);
+					}
+					if (doku->CurrentABStil > 4)
+					{
+						double fpos = Pos+First+Indent+of;
+						QPointArray cr;
+						cr.setPoints(3, qRound(fpos*sc), 17, qRound((fpos+3/sc)*sc), 11, qRound((fpos-3/sc)*sc), 11);
+						p.drawPolygon(cr);
+						QPointArray cr2;
+						cr2.setPoints(3, qRound((Pos+Indent+of)*sc), 17, qRound((Pos+Indent+of+3/sc)*sc), 23, qRound((Pos+Indent+of-3/sc)*sc), 23);
+						p.drawPolygon(cr2);
+					}
 					if (TabValues.count() != 0)
 					{
 						p.setPen(QPen(black, 2, SolidLine, FlatCap, MiterJoin));
@@ -325,8 +331,11 @@ void Hruler::paintEvent(QPaintEvent *)
 					}
 					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
 					p.drawLine(qRound((EndPos+of)*sc), 11, qRound((EndPos+of)*sc), 23);
-					p.drawLine(qRound((EndPos+of)*sc), 23, qRound((EndPos+of-4/sc)*sc), 23);
-					p.drawLine(qRound((EndPos+of)*sc), 11, qRound((EndPos+of-4/sc)*sc), 11);
+					if (CurrCol == Cols-1)
+					{
+						p.drawLine(qRound((EndPos+of)*sc), 23, qRound((EndPos+of-4/sc)*sc), 23);
+						p.drawLine(qRound((EndPos+of)*sc), 11, qRound((EndPos+of-4/sc)*sc), 11);
+					}
 				}
 			p.restore();
 			}

@@ -3975,6 +3975,10 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Online</source>
         <translation>Na síti</translation>
     </message>
+    <message>
+        <source>Basque:</source>
+        <translation>Baskitsky:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -6898,7 +6902,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Path Text Properites</source>
-        <translation>Vlastnosti textu na křivky</translation>
+        <translation type="obsolete">Vlastnosti textu na křivky</translation>
     </message>
     <message>
         <source>Show Curve</source>
@@ -7461,11 +7465,11 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     </message>
     <message>
         <source>Make text in lower objects flow around this frame</source>
-        <translation>Povolit obtékání textu v nižších objektech kolem zvoleného rámce</translation>
+        <translation type="obsolete">Povolit obtékání textu v nižších objektech kolem zvoleného rámce</translation>
     </message>
     <message>
         <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Použít imaginární obdélníkový rámec kolem objektu, který nahradí aktuální obrys</translation>
+        <translation type="obsolete">Použít imaginární obdélníkový rámec kolem objektu, který nahradí aktuální obrys</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
@@ -7490,6 +7494,30 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation>Vlastnosti textu na křivky</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Ukazuje hladinu zvoleného objektu. 0 znamená, že je objekt nejníž</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation>Povolit obtékání textu v nižších objektech kolem zvoleného obrysu</translation>
+    </message>
+    <message>
+        <source>Use the frame shape instead of the object one</source>
+        <translation>Použít obrys rámu místo obysu objektu</translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation>Přepínat mezi mezisloupcovou mezerou a šířkou sloupce</translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation>Šířka sloupce</translation>
     </message>
 </context>
 <context>
@@ -8557,7 +8585,7 @@ Pokud nepotřebujete speciální kompresi, nechte nastaveno na Automaticky.
     </message>
     <message>
         <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Úroveň komprese: Minimální (25%), Nízká (50%), Střední (75%), Vysoká (85%), Maximální (95%)</translation>
+        <translation type="obsolete">Úroveň komprese: Minimální (25%), Nízká (50%), Střední (75%), Vysoká (85%), Maximální (95%)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
@@ -8710,6 +8738,10 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Vzdálenost ořezu od pravého okraje fyzické strany</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Úrovňe komprese: Minimální (25%), Nízká (50%), Střední (75%), Vysoká (85%), Maximální (95%)</translation>
     </message>
 </context>
 <context>
@@ -9083,7 +9115,50 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     </message>
     <message>
         <source>Insert LoremIpsum</source>
-        <translation>Vložit Lorem Ipsum</translation>
+        <translation type="obsolete">Vložit Lorem Ipsum</translation>
+    </message>
+    <message>
+        <source>Insert Sample Text</source>
+        <translation>Vložit ukázkový text</translation>
+    </message>
+    <message>
+        <source>Lock object size</source>
+        <translation>Zamknout rozměry objektu</translation>
+    </message>
+    <message>
+        <source>Unlock object size</source>
+        <translation>Odemknout rozměry objektu</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Hladina</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem</name>
+    <message>
+        <source>Image</source>
+        <translation>Obrázek</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Čára</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Mnohoúhelník</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Lomená čára</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Text na křivky</translation>
     </message>
 </context>
 <context>
@@ -10091,6 +10166,26 @@ po každém automatickém uložení</translation>
     <message>
         <source>Vertical Scaling:</source>
         <translation>Vertikální zvětšení:</translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Pomocná mřížka</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Zapnout</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Vypnout</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Zapnout pomocnou mřížku</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Vypnout pomocnou mřížku</translation>
     </message>
 </context>
 <context>
@@ -12287,11 +12382,11 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
-        <translation>Hledat/Nahradit...</translation>
+        <translation type="obsolete">Hledat/Nahradit...</translation>
     </message>
     <message>
         <source>Do you want save your changes?</source>
-        <translation>Přejete si uložit změny?</translation>
+        <translation type="obsolete">Přejete si uložit změny?</translation>
     </message>
     <message>
         <source>Insert Special...</source>
@@ -12300,6 +12395,10 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Insert Special</source>
         <translation>Vložit speciální</translation>
+    </message>
+    <message>
+        <source>Do you want to save your changes?</source>
+        <translation>Opravdu chcete uložit změny?</translation>
     </message>
 </context>
 <context>
@@ -12445,6 +12544,20 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Page</source>
         <translation>Strana</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varování</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Název &quot;%1&quot; není jedinečný.
+Vyberte, prosím, jiný.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

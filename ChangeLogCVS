@@ -1,5 +1,16 @@
 Changes since Version 1.1.6
 
+04.05.2004
+	* bug     #554: table context menu - layer is missing
+	* bug     #580: No translation strings for units in "File>Document Setup"
+	* bug     #581: Ruler coordinates in the status bar and the units changer don't have translation strings.
+	* bug     #582: Muster.cpp and newtemp.cpp both translate the text and titel strings, missing Units translations in prefs and main gui
+	* bug     #588: Clicking on the canvas within the "mouse grab radius" from a guide moves the guide.
+	* feature #584: Ukrainian translation update
+	* feature #587: Finnish translation update
+	* feature #589: British English translation update
+	* feature #591: Updated Czech Translation
+
 02.05.2004
 	* bug     #471: guideline symbols are reversed
 	* bug     #571: Seems impossible to actually apply any kind of tab immediately after a right tab
