@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
 "POT-Creation-Date: 1999-02-23 15:38+0200\n"
-"PO-Revision-Date: 2003-07-11 15:26+0100\n"
+"PO-Revision-Date: 2003-07-12 19:51+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
-"Language-Team: Traduc <traduc@traduc.org>\n"
+"Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: scribus/align.cpp:10
@@ -306,6 +306,7 @@ msgid "List Box"
 msgstr "Liste"
 
 #: scribus/annot.cpp:75
+#: scribus/modify.cpp:151
 msgid "Properties"
 msgstr "Propriétés"
 
@@ -501,6 +502,7 @@ msgstr "Creux"
 
 #: scribus/annot.cpp:190
 #: scribus/libprefs/prefs.cpp:677
+#: scribus/modify.cpp:39
 msgid "Other"
 msgstr "Autre"
 
@@ -663,7 +665,7 @@ msgstr "Options"
 #: scribus/annot.cpp:1980
 #: scribus/annot.cpp:2023
 msgid "Java Script"
-msgstr "Script Java"
+msgstr "Javascript"
 
 #: scribus/annot.cpp:499
 #: scribus/annot.cpp:1981
@@ -1266,6 +1268,7 @@ msgstr "RVB pour le ouaibe"
 
 #: scribus/cmykfw.cpp:78
 #: scribus/colorm.cpp:51
+#: scribus/cpalette.cpp:407
 #: scribus/editformats.cpp:28
 #: scribus/editor.cpp:20
 #: scribus/lineformats.cpp:28
@@ -1273,6 +1276,7 @@ msgstr "RVB pour le ouaibe"
 #: scribus/scrap.cpp:131
 #: scribus/scribus.cpp:435
 #: scribus/scribus.cpp:438
+#: scribus/scribus.cpp:4091
 msgid "New"
 msgstr "Nouveau"
 
@@ -1372,15 +1376,25 @@ msgstr "Enregistrer"
 #: scribus/colorm.cpp:94
 #: scribus/mergedoc.cpp:89
 #: scribus/scribus.cpp:2141
-msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
-msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);; Tous les fichiers (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)"
 
 #: scribus/colorm.cpp:96
 #: scribus/mergedoc.cpp:91
 #: scribus/scribus.cpp:2143
 #: scribus/scribus.cpp:2541
-msgid "Documents (*.sla *.scd);; All Files (*)"
-msgstr "Documents (*.sla *.scd);; Tous les fichiers (*)"
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Documents (*.sla *.scd);;Tous les fichiers (*)"
+
+#: scribus/colorm.cpp:139
+#: scribus/colorm.cpp:162
+msgid "New Color:"
+msgstr "Nouvelle couleur :"
+
+#: scribus/colorm.cpp:139
+#: scribus/colorm.cpp:162
+msgid "New Color"
+msgstr "Nouvelle couleur"
 
 #: scribus/colorm.cpp:140
 msgid "Copy of"
@@ -1447,6 +1461,19 @@ msgstr "Opacité :"
 #, c-format
 msgid " %"
 msgstr " %"
+
+#: scribus/cpalette.cpp:407
+#: scribus/scribus.cpp:4091
+msgid "Shade:"
+msgstr "Teinte :"
+
+#: scribus/cpalette.cpp:407
+#: scribus/scribus.cpp:1923
+#: scribus/scribus.cpp:1964
+#: scribus/scribus.cpp:1984
+#: scribus/scribus.cpp:4091
+msgid "Shade"
+msgstr "Teinte"
 
 #: scribus/cupsoptions.cpp:30
 msgid "Printer Options"
@@ -1516,13 +1543,13 @@ msgstr "Orientation"
 #: scribus/libprefs/prefs.cpp:254
 #: scribus/newfile.cpp:83
 msgid "Portrait"
-msgstr "Portait (française)"
+msgstr "Portait (à la française)"
 
 #: scribus/cupsoptions.cpp:142
 #: scribus/libprefs/prefs.cpp:255
 #: scribus/newfile.cpp:84
 msgid "Landscape"
-msgstr "Paysage (italienne)"
+msgstr "Paysage (à l'italienne)"
 
 #: scribus/cupsoptions.cpp:147
 msgid "N-Up Printing"
@@ -1545,7 +1572,6 @@ msgstr "Pages par feuille"
 #: scribus/edit1format.cpp:59
 #: scribus/libprefs/prefs.cpp:262
 #: scribus/libprefs/prefs.cpp:1386
-#: scribus/mpalette.cpp:337
 #: scribus/newfile.cpp:43
 msgid "Size:"
 msgstr "Taille :"
@@ -1748,8 +1774,8 @@ msgid "Save as"
 msgstr "Enregistrer sous"
 
 #: scribus/druck.cpp:583
-msgid "Postscript-Files (*.ps);; All Files (*)"
-msgstr "Fichiers PS (*.ps);; Tous les fichiers (*)"
+msgid "Postscript-Files (*.ps);;All Files (*)"
+msgstr "Fichiers PS (*.ps);;Tous les fichiers (*)"
 
 #: scribus/edit1format.cpp:9
 #: scribus/multiline.cpp:20
@@ -1938,8 +1964,8 @@ msgstr "Obtenir les noms des champs"
 
 #: scribus/editor.cpp:59
 #: scribus/editor.cpp:74
-msgid "JavaScripts (*.js);; All Files (*)"
-msgstr "JavaScripts (*.js);; Tous les fichiers (*)"
+msgid "JavaScripts (*.js);;All Files (*)"
+msgstr "Javascripts (*.js);;Tous les fichiers (*)"
 
 #: scribus/fontprefs.cpp:14
 msgid "Global Fontsettings"
@@ -2178,6 +2204,7 @@ msgid "after Page"
 msgstr "après la page"
 
 #: scribus/inspage.cpp:37
+#: scribus/movepage.cpp:60
 msgid "at End"
 msgstr "à la fin"
 
@@ -2195,7 +2222,7 @@ msgstr "Maquette (page de droite) :"
 
 #: scribus/javadocs.cpp:10
 msgid "Global JavaScripts"
-msgstr "JavaScripts"
+msgstr "Javascripts"
 
 #: scribus/javadocs.cpp:42
 #: scribus/libabout/about.cpp:145
@@ -2368,10 +2395,6 @@ msgstr "Utiliser"
 msgid "instead"
 msgstr "au lieu de"
 
-#: scribus/modify.cpp:39
-msgid "Other:"
-msgstr "Autre :"
-
 #: scribus/modify.cpp:52
 msgid "Horizontal flipped"
 msgstr "Retournement horizontal"
@@ -2386,7 +2409,7 @@ msgid "Text flows around Box"
 msgstr "Habillage"
 
 #: scribus/modify.cpp:67
-msgid "use Bounding Box"
+msgid "Use Bounding Box"
 msgstr "Utiliser les limites du cadre"
 
 #: scribus/modify.cpp:73
@@ -2394,9 +2417,8 @@ msgid "Don't print"
 msgstr "Ne pas imprimer"
 
 #: scribus/modify.cpp:80
-#: scribus/mpalette.cpp:500
-msgid "Position:"
-msgstr "Position :"
+msgid "Position"
+msgstr "Position"
 
 #: scribus/libprefs/prefs.cpp:281
 #: scribus/modify.cpp:101
@@ -2412,10 +2434,6 @@ msgstr "Hauteur :"
 #: scribus/modify.cpp:104
 msgid "Angle:"
 msgstr "Angle :"
-
-#: scribus/modify.cpp:151
-msgid "Properties:"
-msgstr "Propriétés :"
 
 #: scribus/modify.cpp:171
 msgid "Modify Pathtext"
@@ -2578,7 +2596,6 @@ msgid "Move Pages"
 msgstr "Déplacer la(es) page(s)"
 
 #: scribus/movepage.cpp:27
-#: scribus/movepage.cpp:39
 msgid "Copy Page"
 msgstr "Copier la page"
 
@@ -2587,9 +2604,9 @@ msgstr "Copier la page"
 msgid "Move Page(s):"
 msgstr "Déplacer la(es) page(s) :"
 
-#: scribus/movepage.cpp:60
-msgid "To End"
-msgstr "À la fin"
+#: scribus/movepage.cpp:39
+msgid "Copy Page:"
+msgstr "Copier la page :"
 
 #: scribus/mpalette.cpp:13
 msgid "Measurements"
@@ -2680,6 +2697,11 @@ msgstr "Gauche :"
 msgid "Right:"
 msgstr "Droite :"
 
+#: scribus/libprefs/prefs.cpp:88
+#: scribus/mpalette.cpp:337
+msgid "Fontsize:"
+msgstr "Corps :"
+
 #: scribus/mpalette.cpp:450
 msgid "Custom Spacing"
 msgstr "Espacement"
@@ -2695,6 +2717,10 @@ msgstr "Interlignage :"
 #: scribus/mpalette.cpp:476
 msgid "Styles"
 msgstr "Styles"
+
+#: scribus/mpalette.cpp:500
+msgid "Position:"
+msgstr "Position :"
 
 #: scribus/mpalette.cpp:509
 msgid "Horiz. Scale:"
@@ -3425,8 +3451,8 @@ msgid "PDF/X-3"
 msgstr "PDF/X-3"
 
 #: scribus/pdfopts.cpp:1160
-msgid "PDF-Files (*.pdf);; All Files (*)"
-msgstr "Fichiers PDF (*.pdf);; Tous les fichiers (*)"
+msgid "PDF-Files (*.pdf);;All Files (*)"
+msgstr "Fichiers PDF (*.pdf);;Tous les fichiers (*)"
 
 #: scribus/picsearch.cpp:11
 msgid "Result"
@@ -3540,8 +3566,8 @@ msgstr "Grand"
 
 #: scribus/scrap.cpp:196
 #: scribus/scrap.cpp:208
-msgid "Scrapbooks (*.scs);; All Files (*)"
-msgstr "Albums (*.scs);; Tous les fichiers (*)"
+msgid "Scrapbooks (*.scs);;All Files (*)"
+msgstr "Albums (*.scs);;Tous les fichiers (*)"
 
 #: scribus/scrap.cpp:323
 msgid "Object"
@@ -3625,7 +3651,7 @@ msgstr "Afficher les calques"
 #: scribus/scribus.cpp:311
 #: scribus/scribus.cpp:502
 msgid "JavaScripts..."
-msgstr "JavaScripts..."
+msgstr "Javascripts..."
 
 #: scribus/scribus.cpp:313
 #: scribus/scribus.cpp:634
@@ -3815,7 +3841,7 @@ msgid "Combine Polygons"
 msgstr "Associer les polygones"
 
 #: scribus/scribus.cpp:556
-msgid "Split Polygon"
+msgid "Split Polygons"
 msgstr "Dissocier les polygones"
 
 #: scribus/scribus.cpp:558
@@ -4052,12 +4078,6 @@ msgstr "Police"
 msgid "Size"
 msgstr "Corps"
 
-#: scribus/scribus.cpp:1923
-#: scribus/scribus.cpp:1964
-#: scribus/scribus.cpp:1984
-msgid "Shade"
-msgstr "Teinte"
-
 #: scribus/scribus.cpp:2258
 msgid "Loading..."
 msgstr "Chargement..."
@@ -4089,8 +4109,8 @@ msgstr ""
 "%1"
 
 #: scribus/scribus.cpp:2539
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
-msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);; Tous les fichiers (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)"
 
 #: scribus/plugins/svgexplugin/svgexplugin.cpp:48
 #: scribus/scribus.cpp:2550
@@ -4182,8 +4202,8 @@ msgid "Ghostscript : You cannot use EPS-Images"
 msgstr "Ghostscript : vous ne pouvez pas utiliser d'images EPS"
 
 #: scribus/scribus.cpp:5253
-msgid "EPS-Files (*.eps);; All Files (*)"
-msgstr "Fichiers EPS (*.eps);; Tous les fichiers (*)"
+msgid "EPS-Files (*.eps);;All Files (*)"
+msgstr "Fichiers EPS (*.eps);;Tous les fichiers (*)"
 
 #: scribus/scribus.cpp:5788
 msgid "Loading:"
@@ -4507,10 +4527,6 @@ msgstr "Interface graphique"
 msgid "Theme"
 msgstr "Theme"
 
-#: scribus/libprefs/prefs.cpp:88
-msgid "Fontsize"
-msgstr "Corps :"
-
 #: scribus/libprefs/prefs.cpp:98
 msgid "Units"
 msgstr "Unités"
@@ -4640,8 +4656,8 @@ msgstr ""
 "À l'île exiguë\n"
 "Où l'obèse jury mûr\n"
 "Fête l'haï volapük,\n"
-"Âne ex aéquo au whist,\n"
-"Ôtez ce voeu déçu."
+"Âne ex æquo au whist,\n"
+"Ôtez ce v½u déçu."
 
 #: scribus/libprefs/prefs.cpp:1109
 msgid "Minimum:"
@@ -4720,6 +4736,6 @@ msgid "Antialias Graphics"
 msgstr "Lisser les objets graphiques"
 
 #: scribus/plugins/svgexplugin/svgexplugin.cpp:41
-msgid "SVG-Images (*.svg);; All Files (*)"
-msgstr "Fichiers SVG (*.svg);; Tous les fichiers (*)"
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "Fichiers SVG (*.svg);;Tous les fichiers (*)"
 
