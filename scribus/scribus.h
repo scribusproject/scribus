@@ -298,6 +298,7 @@ public slots:
 	bool slotFileClose();
 	/** print the actual file */
 	void slotFilePrint();
+	void slotReallyPrint();
 	bool doPrint(PrintOptions *options);
 	/** exits the application */
 	void slotFileQuit();
@@ -441,6 +442,7 @@ public slots:
 	void SelectFromOutl(int Page, int Item, bool single = false);
 	void SelectFromOutlS(int Page);
 	void SaveAsEps();
+	void reallySaveAsEps();
 	void SaveAsPDF();
 	void doSaveAsPDF();
 	void Aktiv();
@@ -464,6 +466,7 @@ public slots:
 	void SearchText();
 	void GimpExited();
 	void CallGimp();
+	void docCheckToggle(bool visible);
 	void scanDocument();
 	void slotCheckDoc();
 	void setUndoMode(bool isObjectSpecific);

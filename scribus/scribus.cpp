@@ -783,6 +783,7 @@ void ScribusApp::initPalettes()
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
 	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setOn(bool)));
+	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), this, SLOT(docCheckToggle(bool)));
 	docCheckerPalette->setPrefsContext("DocCheckerPalette");
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
@@ -5290,12 +5291,28 @@ void ScribusApp::slotFilePrint()
 			}
 			else
 			{
+				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
+				docCheckerPalette->noButton = false;
+				docCheckerPalette->checkMode = 3;
 				docCheckerPalette->buildErrorList(doc);
 				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
 				return;
 			}
 		}
+	}
+}
+
+void ScribusApp::slotReallyPrint()
+{
+	if (!docCheckerPalette->noButton)
+	{
+		docCheckerPalette->hide();
+		docCheckerPalette->checkMode = 0;
+		docCheckerPalette->noButton = true;
+		docCheckerPalette->ignoreErrors->hide();
+		scrActions["toolsPreflightVerifier"]->setOn(false);
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
 	}
 	PrintOptions options;
 	FMess->setText( tr("Printing..."));
@@ -8396,7 +8413,6 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 
 void ScribusApp::SaveAsEps()
 {
-	QString fna;
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
@@ -8412,12 +8428,29 @@ void ScribusApp::SaveAsEps()
 			}
 			else
 			{
+				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
+				docCheckerPalette->noButton = false;
+				docCheckerPalette->checkMode = 2;
 				docCheckerPalette->buildErrorList(doc);
 				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
 				return;
 			}
 		}
+	}
+}
+
+void ScribusApp::reallySaveAsEps()
+{
+	QString fna;
+	if (!docCheckerPalette->noButton)
+	{
+		docCheckerPalette->hide();
+		docCheckerPalette->checkMode = 0;
+		docCheckerPalette->noButton = true;
+		docCheckerPalette->ignoreErrors->hide();
+		scrActions["toolsPreflightVerifier"]->setOn(false);
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
 	}
 	if (!doc->DocName.startsWith( tr("Document")))
 	{
@@ -8495,6 +8528,7 @@ void ScribusApp::SaveAsPDF()
 			{
 				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
 				docCheckerPalette->noButton = false;
+				docCheckerPalette->checkMode = 1;
 				docCheckerPalette->buildErrorList(doc);
 				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
@@ -8510,6 +8544,9 @@ void ScribusApp::doSaveAsPDF()
 	if (!docCheckerPalette->noButton)
 	{
 		docCheckerPalette->hide();
+		docCheckerPalette->checkMode = 0;
+		docCheckerPalette->noButton = true;
+		docCheckerPalette->ignoreErrors->hide();
 		scrActions["toolsPreflightVerifier"]->setOn(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
 	}
@@ -10251,6 +10288,22 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				}
 			}
 		}
+	}
+}
+
+void ScribusApp::docCheckToggle(bool visible)
+{
+	if (docCheckerPalette->checkMode == 1)
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
+	if (docCheckerPalette->checkMode == 2)
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
+	if (docCheckerPalette->checkMode == 3)
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
+	if (!visible)
+	{
+		docCheckerPalette->ignoreErrors->hide();
+		docCheckerPalette->checkMode = 0;
+		docCheckerPalette->noButton = true;
 	}
 }
 

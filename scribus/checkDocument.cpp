@@ -148,6 +148,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	checkDocumentLayout->addLayout( layout2 );
 	ignoreErrors->hide();
 	noButton = true;
+	checkMode = 0;
 	languageChange();
 	itemMap.clear();
 	pageMap.clear();
@@ -652,13 +653,6 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	else
 		ignoreErrors->show();
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-}
-
-void CheckDocument::hide()
-{
-	noButton = true;
-	ignoreErrors->hide();
-	ScrPaletteBase::hide();
 }
 
 /*

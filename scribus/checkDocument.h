@@ -27,7 +27,6 @@ public:
 	~CheckDocument() {};
 	void clearErrorList();
 	void buildErrorList(ScribusDoc *doc);
-	void hide();
 	/*
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *ke);
@@ -41,6 +40,7 @@ public:
 	QMap<QListViewItem*, QString> templatePageMap;
 	QMap<QListViewItem*, int> templateItemMap;
 	bool noButton;
+	int checkMode;
 
 public slots:
 	void slotSelect(QListViewItem* ite);
