@@ -441,7 +441,7 @@ void Hruler::paintEvent(QPaintEvent *)
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
-	if ((doku->PageFP) && (doku->PagesSbS))
+/*	if ((doku->PageFP) && (doku->PagesSbS))
 	{
 		if (doku->FirstPageLeft)
 		{
@@ -458,7 +458,7 @@ void Hruler::paintEvent(QPaintEvent *)
 				Offset = 0;
 		}
 	}
-	else
+	else */
 		Offset = 0;
 	Scaling = sc;
 	((doku->PageFP) && (doku->PagesSbS)) ? pc = 2 : pc = 1;
@@ -510,15 +510,15 @@ void Hruler::paintEvent(QPaintEvent *)
 		{
 			if (ItemPosValid)
 			{
-				p.eraseRect(QRect(QPoint(qRound((ItemPos+Extra+of)*sc), 10), QPoint(qRound((ItemEndPos-RExtra+of)*sc), 23)));
-				p.drawLine(qRound((ItemPos+Extra+of)*sc), 24, qRound((ItemEndPos-RExtra+of)*sc), 24);
+				p.eraseRect(QRect(QPoint(qRound((ItemPos+Extra)*sc), 10), QPoint(qRound((ItemEndPos-RExtra)*sc), 23)));
+				p.drawLine(qRound((ItemPos+Extra)*sc), 24, qRound((ItemEndPos-RExtra)*sc), 24);
 				p.save();
 				if (Revers)
 				{
-					p.translate(qRound((ItemPos+of)*sc), 0);
+					p.translate(qRound((ItemPos)*sc), 0);
 					p.scale(-1, 1);
-					p.translate(qRound((ItemPos+Extra+of)*sc-(ItemEndPos-RExtra+of)*sc), 0);
-					p.translate(-qRound((ItemPos+of)*sc), 0);
+					p.translate(qRound((ItemPos+Extra)*sc-(ItemEndPos-RExtra)*sc), 0);
+					p.translate(-qRound(ItemPos*sc), 0);
 				}
 				double Pos = ItemPos;
 				double EndPos = ItemEndPos;
@@ -529,10 +529,10 @@ void Hruler::paintEvent(QPaintEvent *)
 					EndPos = Pos+ColWidth;
 					p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 					for (xl = Pos; xl < EndPos; xl += iter)
-						p.drawLine(qRound((xl+of)*sc), 18, qRound((xl+of)*sc), 24);
+						p.drawLine(qRound(xl*sc), 18, qRound(xl*sc), 24);
 					for (xl = Pos; xl < EndPos; xl += iter2)
 					{
-						p.drawLine(qRound((xl+of)*sc), 11, qRound((xl+of)*sc), 24);
+						p.drawLine(qRound(xl*sc), 11, qRound(xl*sc), 24);
 						switch (doku->Einheit)
 						{
 							case 2:
@@ -551,57 +551,57 @@ void Hruler::paintEvent(QPaintEvent *)
 								if (Revers)
 								{
 									p.save();
-									p.translate(qRound((xl+of-2/sc) * sc),0);
+									p.translate(qRound((xl-2/sc) * sc),0);
 									p.scale(-1,1);
 									p.drawText(0, 17, tx);
 									p.restore();
 								}
 								else
-									p.drawText(qRound((xl+of+2/sc) * sc), 17, tx);
+									p.drawText(qRound((xl+2/sc) * sc), 17, tx);
 								break;
 							}
 							case 3:
 								if (Revers)
 								{
 									p.save();
-									p.translate(qRound((xl+of-2/sc) * sc),0);
+									p.translate(qRound((xl-2/sc) * sc),0);
 									p.scale(-1,1);
 									p.drawText(0, 17, QString::number((xl-Pos) / iter / cor));
 									p.restore();
 								}
 								else
-									p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number((xl-Pos) / iter / cor));
+									p.drawText(qRound((xl+2/sc) * sc), 17, QString::number((xl-Pos) / iter / cor));
 								break;
 							default:
 								if (Revers)
 								{
 									p.save();
-									p.translate(qRound((xl+of-2/sc) * sc),0);
+									p.translate(qRound((xl-2/sc) * sc),0);
 									p.scale(-1,1);
 									p.drawText(0, 17, QString::number((xl-Pos) / iter * 10 / cor));
 									p.restore();
 								}
 								else
-									p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number((xl-Pos) / iter * 10 / cor));
+									p.drawText(qRound((xl+2/sc) * sc), 17, QString::number((xl-Pos) / iter * 10 / cor));
 								break;
 						}
 					}
 					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
-					p.drawLine(qRound((Pos+of)*sc), 11, qRound((Pos+of)*sc), 23);
+					p.drawLine(qRound(Pos*sc), 11, qRound(Pos*sc), 23);
 					if (CurrCol == 0)
 					{
-						p.drawLine(qRound((Pos+of)*sc), 23, qRound((Pos+of+4/sc)*sc), 23);
-						p.drawLine(qRound((Pos+of)*sc), 11, qRound((Pos+of+4/sc)*sc), 11);
+						p.drawLine(qRound(Pos*sc), 23, qRound((Pos+4/sc)*sc), 23);
+						p.drawLine(qRound(Pos*sc), 11, qRound((Pos+4/sc)*sc), 11);
 					}
 					if (doku->CurrentABStil > 4)
 					{
 						p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
-						double fpos = Pos+First+Indent+of;
+						double fpos = Pos+First+Indent;
 						QPointArray cr;
 						cr.setPoints(3, qRound(fpos*sc), 17, qRound((fpos+3/sc)*sc), 11, qRound((fpos-3/sc)*sc), 11);
 						p.drawPolygon(cr);
 						QPointArray cr2;
-						cr2.setPoints(3, qRound((Pos+Indent+of)*sc), 17, qRound((Pos+Indent+of+3/sc)*sc), 23, qRound((Pos+Indent+of-3/sc)*sc), 23);
+						cr2.setPoints(3, qRound((Pos+Indent)*sc), 17, qRound((Pos+Indent+3/sc)*sc), 23, qRound((Pos+Indent-3/sc)*sc), 23);
 						p.drawPolygon(cr2);
 					}
 					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
@@ -618,7 +618,7 @@ void Hruler::paintEvent(QPaintEvent *)
 										if (Revers)
 										{
 											p.save();
-											p.translate(qRound((Pos+TabValues[yg+1]+of)*sc),0);
+											p.translate(qRound((Pos+TabValues[yg+1])*sc),0);
 											p.scale(-1,1);
 											p.drawLine(0, 15, 0, 23);
 											p.drawLine(0, 23, 8, 23);
@@ -626,15 +626,15 @@ void Hruler::paintEvent(QPaintEvent *)
 										}
 										else
 										{
-											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
-											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 23, qRound((Pos+TabValues[yg+1]+of+8/sc)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 23, qRound((Pos+TabValues[yg+1]+8/sc)*sc), 23);
 										}
 										break;
 									case 1:
 										if (Revers)
 										{
 											p.save();
-											p.translate(qRound((Pos+TabValues[yg+1]+of)*sc),0);
+											p.translate(qRound((Pos+TabValues[yg+1])*sc),0);
 											p.scale(-1,1);
 											p.drawLine(0, 15, 0, 23);
 											p.drawLine(0, 23, -8, 23);
@@ -642,19 +642,19 @@ void Hruler::paintEvent(QPaintEvent *)
 										}
 										else
 										{
-											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
-											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 23, qRound((Pos+TabValues[yg+1]+of-8/sc)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 23, qRound((Pos+TabValues[yg+1]-8/sc)*sc), 23);
 										}
 										break;
 									case 2:
 									case 3:
-										p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
-										p.drawLine(qRound((Pos+TabValues[yg+1]+of-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+of+4/sc)*sc), 23);
-										p.drawLine(qRound((Pos+TabValues[yg+1]+of+3/sc)*sc), 20, qRound((Pos+TabValues[yg+1]+of+2/sc)*sc), 20);
+										p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg+1]-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+4/sc)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg+1]+3/sc)*sc), 20, qRound((Pos+TabValues[yg+1]+2/sc)*sc), 20);
 										break;
 									case 4:
-										p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
-										p.drawLine(qRound((Pos+TabValues[yg+1]+of-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+of+4/sc)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg+1]-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+4/sc)*sc), 23);
 										break;
 									default:
 										break;
@@ -663,11 +663,11 @@ void Hruler::paintEvent(QPaintEvent *)
 						}
 					}
 					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
-					p.drawLine(qRound((EndPos+of)*sc), 11, qRound((EndPos+of)*sc), 23);
+					p.drawLine(qRound(EndPos*sc), 11, qRound(EndPos*sc), 23);
 					if (CurrCol == Cols-1)
 					{
-						p.drawLine(qRound((EndPos+of)*sc), 23, qRound((EndPos+of-4/sc)*sc), 23);
-						p.drawLine(qRound((EndPos+of)*sc), 11, qRound((EndPos+of-4/sc)*sc), 11);
+						p.drawLine(qRound(EndPos*sc), 23, qRound((EndPos-4/sc)*sc), 23);
+						p.drawLine(qRound(EndPos*sc), 11, qRound((EndPos-4/sc)*sc), 11);
 					}
 				}
 			p.restore();

@@ -1,5 +1,10 @@
 Changes since 1.2 
 
+31.10.2004
+	* bug     #1154: Tabs not in line
+	* bug     #1234: fix configure to detect Python 2.4
+	* bug     #1257: paragraph formatting not applied to the entire selection
+
 30.10.2004
 	* bug     #1134: Don't allow to *Save* without Info-String in PDF/X-3
 	* bug     #1251: "Convert to... outline, picture frame..." in the context menu does not activate the Save button
@@ -7,6 +12,7 @@ Changes since 1.2
 	* bug     #1261: New Dutch Translation
 	* feature # 601: Keep last opened directory
 	* feature #1038: "Export text as outlines" in PDF exporter
+	* feature # 601: Keep last opened directory 
 
 29.10.2004
 	* feature #1259: Polish translation update

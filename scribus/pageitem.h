@@ -284,7 +284,7 @@ public:
 	double BoundingW;
 	double BoundingH;
 	bool ChangedMasterItem;
-	QRect RedrawRect;
+	QString OnMasterPage;
 };
 
 #endif

@@ -3482,6 +3482,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			doc->MasterP = false;
 		}
 		doc->loading = false;
+		view->slotDoZoom();
 		view->GotoPage(0);
 		doc->DocItems = doc->Items;
 		doc->RePos = true;
@@ -8362,17 +8363,17 @@ void ScribusApp::UnDoAction()
 			b->BackBox = 0;
 			b->isAutoText = false;
 			doc->Items.insert(b->ItemNr, b);
-			Tpal->slotAddElement(doc->UnData.PageNr, b->ItemNr);
+//			Tpal->slotAddElement(doc->UnData.PageNr, b->ItemNr);
 			for (a = 0; a < doc->Items.count(); ++a)
 			{
 				doc->Items.at(a)->ItemNr = a;
 			}
-			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
+//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 			break;
 		case 1:
 			b->Xpos = doc->UnData.Xpos;
 			b->Ypos = doc->UnData.Ypos;
-			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
+//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 			break;
 		case 2:
 			b->Xpos = doc->UnData.Xpos;
@@ -8381,7 +8382,7 @@ void ScribusApp::UnDoAction()
 			if (b->PType == 5)
 				mp = true;
 			view->SizeItem(doc->UnData.Width, doc->UnData.Height, b->ItemNr, mp);
-			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
+//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 			break;
 		case 3:
 			b->Rot = doc->UnData.Rot;
@@ -8389,13 +8390,13 @@ void ScribusApp::UnDoAction()
 		case 4:
 			doc->Items.take(b->ItemNr);
 			doc->Items.insert(doc->UnData.ItemNr, b);
-			Tpal->slotMoveElement(doc->UnData.PageNr, b->ItemNr, doc->UnData.ItemNr);
+//			Tpal->slotMoveElement(doc->UnData.PageNr, b->ItemNr, doc->UnData.ItemNr);
 			for (a = 0; a < doc->Items.count(); ++a)
 			{
 				doc->Items.at(a)->ItemNr = a;
 			}
 			break;
-			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
+//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 		}
 		view->DrawNew();
 		doc->UnDoValid = false;

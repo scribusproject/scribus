@@ -1861,7 +1861,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		elem.setAttribute("H", item->Height);
 	}
 	elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("Version", "1.2cvs");
+	elem.setAttribute("Version", "1.3cvs");
 	QMap<QString,QFont>::Iterator itf;
 	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
 	{
@@ -2163,6 +2163,8 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 			pg = docu->createElement("PAGE");
 			page = doc->DocPages.at(i);
 		}
+		pg.setAttribute("PAGEXPOS",page->Xoffset);
+		pg.setAttribute("PAGEYPOS",page->Yoffset);
 		pg.setAttribute("PAGEWITH",page->Width);
 		pg.setAttribute("PAGEHEIGHT",page->Height);
 		pg.setAttribute("BORDERLEFT",page->Margins.Left);
@@ -2216,6 +2218,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			ob = docu->createElement("PAGEOBJECT");
 		}
 		SetItemProps(&ob, item, true);
+		ob.setAttribute("OnMasterPage", item->OnMasterPage);
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
@@ -2328,25 +2331,13 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			ob.appendChild(it);
 		}
 		if (item->BackBox != 0)
-		{
 			ob.setAttribute("BACKITEM", item->BackBox->ItemNr);
-			ob.setAttribute("BACKPAGE", item->BackBox->OwnPage);
-		}
 		else
-		{
 			ob.setAttribute("BACKITEM", -1);
-			ob.setAttribute("BACKPAGE", -1);
-		}
 		if (item->NextBox != 0)
-		{
 			ob.setAttribute("NEXTITEM", item->NextBox->ItemNr);
-			ob.setAttribute("NEXTPAGE", item->NextBox->OwnPage);
-		}
 		else
-		{
 			ob.setAttribute("NEXTITEM", -1);
-			ob.setAttribute("NEXTPAGE", -1);
-		}
 		ob.setAttribute("LAYER", item->LayerNr);
 		dc->appendChild(ob);
 	}
@@ -2359,9 +2350,15 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", "1.3");
+	elem.setAttribute("Version", "1.3cvc");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",doc->DocPages.count());
+	dc.setAttribute("PAGEWITH",doc->PageB);
+	dc.setAttribute("PAGEHEIGHT",doc->PageH);
+	dc.setAttribute("BORDERLEFT",doc->PageM.Left);
+	dc.setAttribute("BORDERRIGHT",doc->PageM.Right);
+	dc.setAttribute("BORDERTOP",doc->PageM.Top);
+	dc.setAttribute("BORDERBOTTOM",doc->PageM.Bottom);
 	dc.setAttribute("ORIENTATION",doc->PageOri);
 	dc.setAttribute("PAGESIZE",doc->PageSize);
 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);

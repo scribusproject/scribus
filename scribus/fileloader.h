@@ -23,11 +23,7 @@ public:
 	int FileType;
 	bool havePS;
 	bool haveSVG;
-	struct Linked { 
-					int Start;
-					int StPag;
-              	};
-	QValueList<Linked> LFrames;
+	QValueList<int> LFrames;
 	QMap<QString,QString> DoFonts;
 	QMap<uint,QString> DoVorl;
 };

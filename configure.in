@@ -85,12 +85,12 @@ if test -n "$FONTCONFIG_CONFIG"; then
 	if test $hafontconfig = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
 	else
-		AC_MSG_ERROR([Couldn't find a usable libfontconfig])
+		AC_MSG_WARN([Couldn't find a usable libfontconfig])
 	fi
 	AC_SUBST(LIBFONTCONFIG_LIBS)
 	AC_SUBST(LIBFONTCONFIG_CFLAGS)
 dnl else
-dnl 	AC_WARNING([Couldn't find a usable libfontconfig])
+dnl 	AC_MSG_WARN([Couldn't find a usable libfontconfig])
 fi
 
 XML_LIBS=""

@@ -187,7 +187,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	int counter, Pgc;
 	bool AtFl;
 	bool newVersion = false;
-	struct Linked Link;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
@@ -289,6 +288,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
 		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
+		doc->PageB=QStodouble(dc.attribute("PAGEWITH"));
+		doc->PageH=QStodouble(dc.attribute("PAGEHEIGHT"));
+		doc->PageM.Left=QStodouble(dc.attribute("BORDERLEFT"));
+		doc->PageM.Right=QStodouble(dc.attribute("BORDERRIGHT"));
+		doc->PageM.Top=QStodouble(dc.attribute("BORDERTOP"));
+		doc->PageM.Bottom=QStodouble(dc.attribute("BORDERBOTTOM"));
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
@@ -441,6 +446,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					Apage->MPageNam = Mus;
 				else
 					Apage->MPageNam = "";
+				Apage->Xoffset = QStodouble(pg.attribute("PAGEXPOS"));
+				Apage->Yoffset = QStodouble(pg.attribute("PAGEYPOS"));
 				Apage->Width = QStodouble(pg.attribute("PAGEWITH"));
 				Apage->Height = QStodouble(pg.attribute("PAGEHEIGHT"));
 				Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
@@ -498,16 +505,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						doc->Pages = doc->MasterPages;
 						doc->MasterP = true;
 					}
-					int atcp = QStoInt(pg.attribute("OwnPage"));
-					if (atcp != -1)
-						doc->ActPage = doc->Pages.at(atcp);
+					if (pg.attribute("OnMasterPage") != "")
+						doc->ActPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
 					if ((QStoInt(pg.attribute("NEXTITEM")) != -1) || (static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")))))
 					{
 						if (QStoInt(pg.attribute("BACKITEM")) == -1)
-						{
-							Link.Start = doc->Items.count();
-							LFrames.append(Link);
-						}
+							LFrames.append(doc->Items.count());
 					}
 					GetItemProps(newVersion, &pg, &OB);
 					OB.Xpos = QStodouble(pg.attribute("XPOS"));
@@ -579,7 +582,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
 					Neu->NextIt = QStoInt(pg.attribute("NEXTITEM"));
-					Neu->NextPg = QStoInt(pg.attribute("NEXTPAGE"));
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -732,30 +734,17 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		PageItem *Its;
 		PageItem *Itn;
 		PageItem *Itr;
-		QValueList<Linked>::Iterator lc;
+		QValueList<int>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
-			Its = doc->Items.at((*lc).Start);
+			Its = doc->Items.at((*lc));
 			Itr = Its;
 			Its->BackBox = 0;
 			if (Its->isAutoText)
 				doc->FirstAuto = Its;
 			while (Its->NextIt != -1)
 			{
-				int itnr = 0;
-				for (uint nn = 0; nn < doc->Items.count(); ++nn)
-				{
-					if (doc->Items.at(nn)->OwnPage == Its->NextPg)
-					{
-						if (itnr == Its->NextIt)
-						{
-							itnr = nn;
-							break;
-						}
-						itnr++;
-					}
-				}
-				Itn = doc->Items.at(itnr);
+				Itn = doc->Items.at(Its->NextIt);
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
 				Its = Itn;
@@ -763,7 +752,21 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			Its->NextBox = 0;
 		}
 	}
-	view->UN->setText(doc->Einheit == 0 ? "pt" : "mm");
+	switch (doc->Einheit)
+	{
+	case 0:
+		view->UN->setText( QObject::tr("pt"));
+		break;
+	case 1:
+		view->UN->setText( QObject::tr("mm"));
+		break;
+	case 2:
+		view->UN->setText( QObject::tr("in"));
+		break;
+	case 3:
+		view->UN->setText( QObject::tr("p"));
+		break;
+	}
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }

@@ -361,8 +361,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							b->BoundingX = OldBX - Mp->Xoffset + page->Xoffset;
 							b->BoundingY = OldBY - Mp->Yoffset + page->Yoffset;
 						}
-//						QRect oldR = getRedrawBounding(b);
-						if (clip.intersects(b->RedrawRect))
+						QRect oldR = getRedrawBounding(b);
+						if (clip.intersects(oldR))
 							b->DrawObj(painter, clip);
 						b->OwnPage = OldOwn;
 						if (!b->ChangedMasterItem)
@@ -393,8 +393,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							b->BoundingX = OldBX - Mp->Xoffset + page->Xoffset;
 							b->BoundingY = OldBY - Mp->Yoffset + page->Yoffset;
 						}
-//						QRect oldR = getRedrawBounding(b);
-						if (clip.intersects(b->RedrawRect))
+						QRect oldR = getRedrawBounding(b);
+						if (clip.intersects(oldR))
 						{
 							painter->setZoomFactor(Scale);
 							painter->save();
@@ -460,8 +460,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((Doc->MasterP) && ((b->OwnPage != -1) && (b->OwnPage != static_cast<int>(Doc->ActPage->PageNr))))
 						continue;
-//					QRect oldR = getRedrawBounding(b);
-					if (clip.intersects(b->RedrawRect))
+					QRect oldR = getRedrawBounding(b);
+					if (clip.intersects(oldR))
 					{
 						if (!((Doc->EditClip) && (Mpressed)))
 							b->DrawObj(painter, clip);
@@ -502,8 +502,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if (!b->isTableItem)
 						continue;
-//					QRect oldR = getRedrawBounding(b);
-					if (clip.intersects(b->RedrawRect))
+					QRect oldR = getRedrawBounding(b);
+					if (clip.intersects(oldR))
 					{
 						painter->setZoomFactor(Scale);
 						painter->save();
@@ -4393,7 +4393,6 @@ void ScribusView::setRedrawBounding(PageItem* b)
 	getBoundingRect(b, &b->BoundingX, &b->BoundingY, &bw, &bh);
 	b->BoundingW = bw - b->BoundingX;
 	b->BoundingH = bh - b->BoundingY;
-	b->RedrawRect = getRedrawBounding(b);
 }
 
 void ScribusView::setGroupRect()
@@ -8056,7 +8055,7 @@ void ScribusView::slotDoZoom()
 		if (Doc->FirstPageLeft)
 			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->PageC-1)/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 		else
-			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->PageC/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop * Scale)));
+			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->PageC/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 	}
 	else
 		resizeContents(qRound((Doc->PageB+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->PageC * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
@@ -9375,7 +9374,7 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 				}
 				nb->Ptext.at(a)->cab = s;
-				if (nb->Ptext.at(a)->ch == QChar(13))
+				if ((nb->Ptext.at(a)->ch == QChar(13)) && (!nb->Ptext.at(a)->cselect))
 				{
 					cr = false;
 					break;

@@ -220,7 +220,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 	if (convert(fName, x, y, b, h))
 	{
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 0)
+		if ((Elements.count() > 0) && (plug->DLLinput == ""))
 		{
 			Prog->view->SelItem.clear();
 			for (uint a = 0; a < Elements.count(); ++a)
@@ -321,11 +321,12 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 void EPSPlug::parseOutput(QString fn)
 {
 	QString tmp, token, params, lasttoken, lastPath, currPath;
-	int z, lcap, ljoin, dc;
+	int z, lcap, ljoin, dc, pagecount;
 	double dcp;
 	PageItem* ite;
 	QFile f(fn);
 	lasttoken = "";
+	pagecount = 1;
 	if (f.open(IO_ReadOnly))
 	{
 		lastPath = "";
@@ -344,6 +345,11 @@ void EPSPlug::parseOutput(QString fn)
 			QTextStream Code(&tmp, IO_ReadOnly);
 			Code >> token;
 			params = Code.read();
+			if ((lasttoken == "sp") && (Prog->DLLinput != ""))
+			{
+				Prog->view->addPage(pagecount);
+				pagecount++;
+			}
 			if (token == "n")
 			{
 				Coords.resize(0);
@@ -513,8 +519,6 @@ void EPSPlug::parseOutput(QString fn)
 			}
 			else if (token == "cp")
 				ClosedPath = true;
-			else if (token == "sp")
-				break;
 			lasttoken = token;
 		}
 		f.close();
