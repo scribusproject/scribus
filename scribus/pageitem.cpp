@@ -895,9 +895,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
 						{
-							int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+							double by = Ypos;
+							if (OwnPage != -1)
+								by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+							int ol1 = qRound((by + CurY - Doc->BaseOffs) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
-							CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+							CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - by;
 						}
 						if (CurY-TopOffset < 0.0)
 							CurY = TopOffset+1;
