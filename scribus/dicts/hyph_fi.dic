@@ -1,4 +1,17 @@
 ISO8859-1
+% First release January -86 by Kauko Saarinen,
+% Computing Centre, University of Jyvaskyla, Finland
+%
+% Completely rewritten January -88. The new patterns make
+% much less mistakes with foreign and compound words.
+% The article "Automatic Hyphenation of Finnish"
+% by Professor Fred Karlsson is also referred
+%
+% 8th March -89 (vers. 2.2), some vowel triples by Fred Karlsson added.
+% 9th January - 95: added \uccode and \lccode by Thomas Esser
+% 3rd November - 04: converted to ALTLinux LibHnj format by Jarno Elonen
+%
+% Patterns may be freely distributed
 c1ha
 char1se
 1ba

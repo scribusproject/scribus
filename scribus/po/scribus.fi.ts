@@ -254,11 +254,19 @@
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation>Tasaa tekstin molemmat reunat</translation>
+        <translation type="obsolete">Tasaa tekstin molemmat reunat</translation>
     </message>
     <message>
         <source>Align Text Center</source>
         <translation>Keskitä teksti</translation>
+    </message>
+    <message>
+        <source>Align Text Justified</source>
+        <translation>Tasaa tekstin molemmat reunat</translation>
+    </message>
+    <message>
+        <source>Align Text Forced Justified</source>
+        <translation>Pakota tekstin molemmat reunat</translation>
     </message>
 </context>
 <context>
@@ -1307,6 +1315,10 @@
         <source>Websafe RGB</source>
         <translation type="obsolete">Web-yhteensopiva RGB</translation>
     </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1353,6 +1365,38 @@
     <message>
         <source>Shade:</source>
         <translation>Sävy:</translation>
+    </message>
+    <message>
+        <source>Edit Line Color Properties</source>
+        <translation>Muokkaa viivan väriä</translation>
+    </message>
+    <message>
+        <source>Edit Fill Color Properties</source>
+        <translation>Muokkaa täyttöväriä</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Värin kylläisyys</translation>
+    </message>
+    <message>
+        <source>Normal or gradient fill method</source>
+        <translation>Normaali täyttö tai väriliuku</translation>
+    </message>
+    <message>
+        <source>Edit the first color of object</source>
+        <translation>Muokka kohteen ensimmäistä väriä</translation>
+    </message>
+    <message>
+        <source>Edit the second color of object</source>
+        <translation>Muokkaa kohteen toista väriä</translation>
+    </message>
+    <message>
+        <source>Set the transparency for the color selected</source>
+        <translation>Aseta valitun värin läpinäkyvyys</translation>
+    </message>
+    <message>
+        <source>Color of selected object</source>
+        <translation>Valitun kohteen väri</translation>
     </message>
 </context>
 <context>
@@ -2410,6 +2454,10 @@ tavutuksen kohdalla kysymysikkuna.</translation>
         <source></source>
         <translation></translation>
     </message>
+    <message>
+        <source>Do you want to delete all Objects on this Layer too?</source>
+        <translation>Haluatko myös tuhota kaikki kohteet tasolla?</translation>
+    </message>
 </context>
 <context>
     <name>LineFormate</name>
@@ -2710,7 +2758,7 @@ Corners:</source>
     </message>
     <message>
         <source>Move to Back</source>
-        <translation>Siirrä alimmaiseksi</translation>
+        <translation type="obsolete">Siirrä alimmaiseksi</translation>
     </message>
     <message>
         <source>Left:</source>
@@ -2746,7 +2794,7 @@ Corners:</source>
     </message>
     <message>
         <source>Flip horizontal</source>
-        <translation>Käännä vaakasuunnassa</translation>
+        <translation type="obsolete">Käännä vaakasuunnassa</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
@@ -2758,7 +2806,7 @@ Corners:</source>
     </message>
     <message>
         <source>Flip vertical</source>
-        <translation>Käännä pystysuunnassa</translation>
+        <translation type="obsolete">Käännä pystysuunnassa</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
@@ -2766,7 +2814,7 @@ Corners:</source>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Säilytä sivujen suhde</translation>
+        <translation type="obsolete">Säilytä sivujen suhde</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -2806,11 +2854,11 @@ Corners:</source>
     </message>
     <message>
         <source>Move to Front</source>
-        <translation>Siirrä päällimmäiseksi</translation>
+        <translation type="obsolete">Siirrä päällimmäiseksi</translation>
     </message>
     <message>
         <source>Lang.:</source>
-        <translation>Kieli:</translation>
+        <translation type="obsolete">Kieli:</translation>
     </message>
     <message>
         <source>Edit Shape...</source>
@@ -2952,11 +3000,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Text flows around Box</source>
-        <translation>Teksti kiertää kehyksen</translation>
+        <translation type="obsolete">Teksti kiertää kehyksen</translation>
     </message>
     <message>
         <source>Move one Level up</source>
-        <translation>Siirrä taso ylöspäin</translation>
+        <translation type="obsolete">Siirrä taso ylöspäin</translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -2964,7 +3012,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Move one Level down</source>
-        <translation>Siirrä taso alaspäin</translation>
+        <translation type="obsolete">Siirrä taso alaspäin</translation>
     </message>
     <message>
         <source>Miter Join</source>
@@ -2988,11 +3036,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Locks or unlocks the Object</source>
-        <translation>Lukitse tai vapauta kohde</translation>
+        <translation type="obsolete">Lukitse tai vapauta kohde</translation>
     </message>
     <message>
         <source>Enables or disables printing of the Object</source>
-        <translation>Tulosta/Älä tulosta kohdetta</translation>
+        <translation type="obsolete">Tulosta/Älä tulosta kohdetta</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -3032,7 +3080,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Basepoint:</source>
-        <translation>Kiertopiste:</translation>
+        <translation>Toimintapiste:</translation>
     </message>
     <message>
         <source></source>
@@ -3072,7 +3120,247 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Enables or disables resizing of the Object</source>
-        <translation>Salli/Älä salli koon muuttamista</translation>
+        <translation type="obsolete">Salli/Älä salli koon muuttamista</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Sävy:</translation>
+    </message>
+    <message>
+        <source>Text flows around frame</source>
+        <translation>Teksti kiertää kehyksen</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Kieli:</translation>
+    </message>
+    <message>
+        <source>Name of selected object</source>
+        <translation>Valitun kohteen nimi</translation>
+    </message>
+    <message>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Toimintapisteen vaakasuora sijainti</translation>
+    </message>
+    <message>
+        <source>Vertical position of current basepoint</source>
+        <translation>Toimintapisteen pystysuora sijainti</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Leveys</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Korkeus</translation>
+    </message>
+    <message>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Kohteen kierto valitun toimintapisteen ympäri</translation>
+    </message>
+    <message>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Piste, josta kohteen sijainti ja kierto lasketaan</translation>
+    </message>
+    <message>
+        <source>Select top left for basepoint</source>
+        <translation>Valitse vasen yläkulma toimintapisteeksi</translation>
+    </message>
+    <message>
+        <source>Select top right for basepoint</source>
+        <translation>Valitse oikea yläkulma toimintapisteeksi</translation>
+    </message>
+    <message>
+        <source>Select bottom left for basepoint</source>
+        <translation>Valitse vasen alakulma toimintapisteeksi</translation>
+    </message>
+    <message>
+        <source>Select bottom right for basepoint</source>
+        <translation>Valitse oikea alakulma toimintapisteeksi</translation>
+    </message>
+    <message>
+        <source>Select center for basepoint</source>
+        <translation>Valitse keskusta toimintapisteeksi</translation>
+    </message>
+    <message>
+        <source>Flip Horizontal</source>
+        <translation>Käännä vaakatasossa</translation>
+    </message>
+    <message>
+        <source>Flip Vertical</source>
+        <translation>Käännä pystytasossa</translation>
+    </message>
+    <message>
+        <source>Move one level up</source>
+        <translation>Siirrä yksi taso ylöspäin</translation>
+    </message>
+    <message>
+        <source>Move one level down</source>
+        <translation>Siirrä yksi taso alaspäin</translation>
+    </message>
+    <message>
+        <source>Move to front</source>
+        <translation>Siirrä päällimmäiseksi</translation>
+    </message>
+    <message>
+        <source>Move to back</source>
+        <translation>Siirrä alimmaiseksi</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the object</source>
+        <translation>Lukitse tai vapauta kohde</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the size of the object</source>
+        <translation>Lukitse tai vapauta kohteen koko</translation>
+    </message>
+    <message>
+        <source>Enable or disable printing of the object</source>
+        <translation>Tulosta/Älä tulosta kohdetta</translation>
+    </message>
+    <message>
+        <source>Enable this to make text flow around overlapping objects</source>
+        <translation>Pakota teksti kiertämään kohde</translation>
+    </message>
+    <message>
+        <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
+        <translation>Käytä kuvitteellista neliötä kohteen reunuksena todellisen muodon sijaan</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Valitun kohteen kirjasin</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation>Merkkien leveyssuuntainen skaalaus</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Tekstin reunan väri</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Tekstin täytön väri</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation>Tekstin reunan värin kylläisyys</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation>Tekstin täytön värin kylläisyys</translation>
+    </message>
+    <message>
+        <source>Style of current paragraph</source>
+        <translation>Valitun kappaleen tyyli</translation>
+    </message>
+    <message>
+        <source>Language of object</source>
+        <translation>Kohteen kieli</translation>
+    </message>
+    <message>
+        <source>Change settings for left or end points</source>
+        <translation>Muuta viivan vasemman pisteen tai päätepisteitten asetuksia</translation>
+    </message>
+    <message>
+        <source>Pattern of line</source>
+        <translation>Viivan kuvio</translation>
+    </message>
+    <message>
+        <source>Thickness of line</source>
+        <translation>Viivan paksuus</translation>
+    </message>
+    <message>
+        <source>Type of line joins</source>
+        <translation>Kulmien tyyli</translation>
+    </message>
+    <message>
+        <source>Type of line end</source>
+        <translation>Viivan pään tyyli</translation>
+    </message>
+    <message>
+        <source>Line style of current object</source>
+        <translation>Valitun kohteen viivatyyli</translation>
+    </message>
+    <message>
+        <source>Choose the shape of frame...</source>
+        <translation>Valitse kehyksen kuvio...</translation>
+    </message>
+    <message>
+        <source>Edit shape of the frame...</source>
+        <translation>Muokkaa kehyksen kuviota...</translation>
+    </message>
+    <message>
+        <source>Set radius of corner rounding</source>
+        <translation>Aseta kulman pyöristyksen säde</translation>
+    </message>
+    <message>
+        <source>Number of columns in text frame</source>
+        <translation>Tekstikehyksen palstojen lukumäärä</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation>Palstojen välinen etäisyys</translation>
+    </message>
+    <message>
+        <source>Distance of text from top of frame</source>
+        <translation>Tekstin etäisyys kehyksen yläreunasta</translation>
+    </message>
+    <message>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Tekstin etäisyys kehyksen alareunasta</translation>
+    </message>
+    <message>
+        <source>Distance of text from left of frame</source>
+        <translation>Tekstin etäisyys kehyksen vasemmasta reunasta</translation>
+    </message>
+    <message>
+        <source>Distance of text from right of frame</source>
+        <translation>Tekstin etäisyys oikeasta reunasta</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Muokkaa tekstikehyksen sarkainasetuksia...</translation>
+    </message>
+    <message>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Salli kuvan koon poiketa kehyksen koosta</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Kuvan siirtymä vaakatasossa kehyksen sisällä</translation>
+    </message>
+    <message>
+        <source>Vertical offset of image within frame</source>
+        <translation>Kuvan siirtymä pystytasossa kehyksen sisällä</translation>
+    </message>
+    <message>
+        <source>Resize the image horizontally</source>
+        <translation>Muuta kuvan kokoa vaakasuunnassa</translation>
+    </message>
+    <message>
+        <source>Resize the image vertically</source>
+        <translation>Muuta kuvan kokoa pystysuunnassa</translation>
+    </message>
+    <message>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>Säilytä vaaka- ja pystysivujen suhde</translation>
+    </message>
+    <message>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Sovita kuva kehyksen kokoon</translation>
+    </message>
+    <message>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation>Käytä kuvan sivujen suhteita kehyksen suhteiden sijaan</translation>
+    </message>
+    <message>
+        <source>Select the source profile of the image</source>
+        <translation>Valitse kuvan profiili</translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for the image</source>
+        <translation>Valitse kuvan sovitustapa</translation>
     </message>
 </context>
 <context>
@@ -4240,6 +4528,10 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Update Picture</source>
         <translation>Päivitä kuva</translation>
+    </message>
+    <message>
+        <source>Edit Picture</source>
+        <translation>Muokkaa kuvaa</translation>
     </message>
 </context>
 <context>
@@ -6929,11 +7221,15 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation>Yliviivattu</translation>
+        <translation type="obsolete">Yliviivattu</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation>Teksti ääriviivoilla</translation>
+    </message>
+    <message>
+        <source>Strike Out</source>
+        <translation>Yliviivattu</translation>
     </message>
 </context>
 <context>

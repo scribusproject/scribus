@@ -339,14 +339,28 @@ void CMYKChoose::SetValueS(int val)
 	disconnect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
 	disconnect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
 	disconnect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
-	if (CyanSL == sender())
-		CyanSp->setValue(val / 10.0);
-	if (MagentaSL == sender())
-		MagentaSp->setValue(val / 10.0);
-	if (YellowSL == sender())
-		YellowSp->setValue(val / 10.0);
-	if (BlackSL == sender())
-		BlackSp->setValue(val / 10.0);
+	if (CMYKmode)
+	{
+		if (CyanSL == sender())
+			CyanSp->setValue(val / 10.0);
+		if (MagentaSL == sender())
+			MagentaSp->setValue(val / 10.0);
+		if (YellowSL == sender())
+			YellowSp->setValue(val / 10.0);
+		if (BlackSL == sender())
+			BlackSp->setValue(val / 10.0);
+	}
+	else
+	{
+		if (CyanSL == sender())
+			CyanSp->setValue(val);
+		if (MagentaSL == sender())
+			MagentaSp->setValue(val);
+		if (YellowSL == sender())
+			YellowSp->setValue(val);
+		if (BlackSL == sender())
+			BlackSp->setValue(val);
+	}
 	setColor();
 	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
@@ -455,20 +469,43 @@ QPixmap CMYKChoose::SliderBlack()
 
 void CMYKChoose::SelModel(const QString& mod)
 {
-	blockSignals(true);
-	CyanSL->setLineStep(1);
-	MagentaSL->setLineStep(1);
-	YellowSL->setLineStep(1);
-	CyanSL->setPageStep(10);
-	MagentaSL->setPageStep(10);
-	YellowSL->setPageStep(10);
-	CyanSp->setLineStep(10);
-	MagentaSp->setLineStep(10);
-	YellowSp->setLineStep(10);
+	disconnect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
+	disconnect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
+	disconnect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
+	disconnect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
+	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	if (mod == tr("CMYK"))
 	{
 		CMYKmode = true;
 		Wsave = false;
+		CyanSL->setMaxValue( 1000 );
+		MagentaSL->setMaxValue( 1000 );
+		YellowSL->setMaxValue( 1000 );
+		CyanSL->setLineStep(1);
+		MagentaSL->setLineStep(1);
+		YellowSL->setLineStep(1);
+		CyanSL->setPageStep(10);
+		MagentaSL->setPageStep(10);
+		YellowSL->setPageStep(10);
+		CyanSp->setDecimals(10);
+		MagentaSp->setDecimals(10);
+		YellowSp->setDecimals(10);
+		CyanSp->setLineStep(10);
+		MagentaSp->setLineStep(10);
+		YellowSp->setLineStep(10);
+		CyanSp->setMaxValue( 100 );
+		MagentaSp->setMaxValue( 100);
+		YellowSp->setMaxValue( 100 );
+		CyanSp->setSuffix( tr(" %"));
+		MagentaSp->setSuffix( tr(" %"));
+		YellowSp->setSuffix( tr(" %"));
 		CyanT->setText( tr("C:"));
 		MagentaT->setText( tr("M:"));
 		YellowT->setText( tr("Y:"));
@@ -487,6 +524,27 @@ void CMYKChoose::SelModel(const QString& mod)
 	{
 		CMYKmode = false;
 		Wsave = false;
+		CyanSL->setMaxValue( 255 );
+		MagentaSL->setMaxValue( 255 );
+		YellowSL->setMaxValue( 255 );
+		CyanSL->setLineStep(1);
+		MagentaSL->setLineStep(1);
+		YellowSL->setLineStep(1);
+		CyanSL->setPageStep(1);
+		MagentaSL->setPageStep(1);
+		YellowSL->setPageStep(1);
+		CyanSp->setDecimals(1);
+		MagentaSp->setDecimals(1);
+		YellowSp->setDecimals(1);
+		CyanSp->setLineStep(1);
+		MagentaSp->setLineStep(1);
+		YellowSp->setLineStep(1);
+		CyanSp->setMaxValue( 255 );
+		MagentaSp->setMaxValue( 255 );
+		YellowSp->setMaxValue( 255 );
+		CyanSp->setSuffix("");
+		MagentaSp->setSuffix("");
+		YellowSp->setSuffix("");
 		CyanT->setText( tr("R:"));
 		MagentaT->setText( tr("G:"));
 		YellowT->setText( tr("B:"));
@@ -500,41 +558,63 @@ void CMYKChoose::SelModel(const QString& mod)
 		if (mod == tr("Web Safe RGB"))
 		{
 			Wsave = true;
-			CyanSL->setLineStep(200);
-			MagentaSL->setLineStep(200);
-			YellowSL->setLineStep(200);
-			CyanSL->setPageStep(200);
-			MagentaSL->setPageStep(200);
-			YellowSL->setPageStep(200);
-			CyanSp->setLineStep(200);
-			MagentaSp->setLineStep(200);
-			YellowSp->setLineStep(200);
+			CyanSL->setLineStep(51);
+			MagentaSL->setLineStep(51);
+			YellowSL->setLineStep(51);
+			CyanSL->setPageStep(51);
+			MagentaSL->setPageStep(51);
+			YellowSL->setPageStep(51);
+			CyanSp->setLineStep(51);
+			MagentaSp->setLineStep(51);
+			YellowSp->setLineStep(51);
 		}
 		setValues();
 	}
-	blockSignals(false);
+	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
+	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
+	connect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
+	connect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
+	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
+	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 }
 
 void CMYKChoose::setColor()
 {
-	int c = qRound(CyanSp->value() * 255 / 100);
-	int m = qRound(MagentaSp->value() * 255 / 100);
-	int y = qRound(YellowSp->value() * 255 / 100);
-	int k = qRound(BlackSp->value() * 255 / 100);
+	int c, m, y, k;
+	if (CMYKmode)
+	{
+		c = qRound(CyanSp->value() * 255 / 100);
+		m = qRound(MagentaSp->value() * 255 / 100);
+		y = qRound(YellowSp->value() * 255 / 100);
+		k = qRound(BlackSp->value() * 255 / 100);
+	}
+	else
+	{
+		c = qRound(CyanSp->value());
+		m = qRound(MagentaSp->value());
+		y = qRound(YellowSp->value());
+		k = qRound(BlackSp->value());
+	}
 	int h, s, v;
 	BlackComp = k;
 	if (Wsave)
 	{
 		blockSignals(true);
-		int c2 = qRound((c / 51 * 51) / 2.55);
-		int m2 = qRound((m / 51 * 51) / 2.55);
-		int y2 = qRound((y / 51 * 51) / 2.55);
-		CyanSp->setValue(c2);
-		MagentaSp->setValue(m2);
-		YellowSp->setValue(y2);
-		CyanSL->setValue(c2*10);
-		MagentaSL->setValue(m2*10);
-		YellowSL->setValue(y2*10);
+		c = c / 51 * 51;
+		m = m / 51 * 51;
+		y = y / 51 * 51;
+		CyanSp->setValue(c);
+		MagentaSp->setValue(m);
+		YellowSp->setValue(y);
+		CyanSL->setValue(c);
+		MagentaSL->setValue(m);
+		YellowSL->setValue(y);
 		blockSignals(false);
 	}
 	CMYKColor tmp = CMYKColor(c, m, y, k);
@@ -650,12 +730,12 @@ void CMYKChoose::setValues()
 		QColor tmp = CMYK2RGB(cc, cm, cy, ck);
 		int r, g, b;
 		tmp.rgb(&r, &g, &b);
-		CyanSp->setValue(r / 2.55);
-		CyanSL->setValue(qRound(r / 2.55 * 10.0));
-		MagentaSp->setValue(g / 2.55);
-		MagentaSL->setValue(qRound(g / 2.55 * 10.0));
-		YellowSp->setValue(b / 2.55);
-		YellowSL->setValue(qRound(b / 2.55 * 10.0));
+		CyanSp->setValue(static_cast<double>(r));
+		CyanSL->setValue(r);
+		MagentaSp->setValue(static_cast<double>(g));
+		MagentaSL->setValue(g);
+		YellowSp->setValue(static_cast<double>(b));
+		YellowSL->setValue(b);
 		int h, s, v;
 		tmp.hsv(&h, &s, &v);
 		BlackComp = 255 - v;

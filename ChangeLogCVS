@@ -1,4 +1,7 @@
 Changes since Version 1.1.5
+03.03.2004	Fixed Bugs #318, #317, #313, #311, #257 and #127
+		Updated the Finnish Translation.
+
 02.03.2004	Added the Option to delete all Objects on a Layer, when deleting this Layer.
 		Changed the readout of the Color Values to Percent in the ColorChooser.
 		Added a new Command to the Scripter.

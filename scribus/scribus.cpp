@@ -6389,6 +6389,7 @@ void ScribusApp::RunImportPlug(int id)
 			{
 			Tpal->BuildTree(view);
 			Tpal->reopenTree(doc->OpenNodes);
+			Mpal->updateCList();
 			}
 		}
 }
@@ -6509,7 +6510,7 @@ void ScribusApp::CallDLL(QString name)
 	if (pda.Typ != 4)
 		dlclose(mo);
 	if (HaveDoc)
-  	doc->ActPage->update();
+	 	doc->ActPage->update();
 }
 
 bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)

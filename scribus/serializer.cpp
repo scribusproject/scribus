@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "serializer.h"
+#include "scribusdoc.h"
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
@@ -37,12 +38,12 @@ void Serializer::PutText(PageItem *Item)
 	QString Dat = "";
 	QPtrList<Pti> y = Item->Ptext;
 	for (a=0; a<y.count(); ++a)
-  	{
+	{
 		QString b = y.at(a)->ch;
 		if (b == QChar(13))
 			b = "\n";
-    	Dat += b;
-    }
+		Dat += b;
+	}
 	Objekt = Dat;
 }
 
@@ -51,6 +52,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	struct Pti *hg;
 	PageItem *nb;
 	PageItem *it = Item;
+	ScribusDoc* doku = it->OwnPage->doku;
 	uint a;
 	if (!Append)
 	{
@@ -79,28 +81,41 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		hg->ch = Objekt.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		hg->cfont = font != "" ? font : it->IFont;
-		hg->csize = font != "" ? size : it->ISize;
-		hg->ccolor = it->TxtFill;
-		hg->cshade = it->ShTxtFill;
-		hg->cstroke = it->TxtStroke;
-		hg->cshade2 = it->ShTxtStroke;
+		if (doku->Vorlagen[Absatz].Font != "")
+		{
+			hg->cfont = doku->Vorlagen[Absatz].Font;
+			hg->csize = doku->Vorlagen[Absatz].FontSize;
+			hg->cstyle = doku->Vorlagen[Absatz].FontEffect;
+			hg->ccolor = doku->Vorlagen[Absatz].FColor;
+			hg->cshade = doku->Vorlagen[Absatz].FShade;
+			hg->cstroke = doku->Vorlagen[Absatz].SColor;
+			hg->cshade2 = doku->Vorlagen[Absatz].SShade;
+		}
+		else
+		{
+			hg->cfont = it->IFont;
+			hg->ccolor = it->TxtFill;
+			hg->cshade = it->ShTxtFill;
+			hg->cstroke = it->TxtStroke;
+			hg->cshade2 = it->ShTxtStroke;
+			hg->csize = it->ISize;
+			hg->cstyle = it->TxTStyle;
+		}
 		hg->cscale = it->TxtScale;
 		hg->cextra = 0;
 		hg->cselect = false;
-		hg->cstyle = 0;
- 		hg->cab = Absatz;
+		hg->cab = Absatz;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
 		if (Append)
- 			it->Ptext.insert(it->CPos, hg);
+			it->Ptext.insert(it->CPos, hg);
 		else
 			it->Ptext.append(hg);
- 		it->CPos += 1;
-		}
+		it->CPos += 1;
+	}
 }
 
 bool Serializer::Write(QString Cod)

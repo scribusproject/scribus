@@ -132,7 +132,8 @@ void LineFormate::deleteFormat()
                                 tr("No"),
                                 tr("Yes"),
                                 0, QMessageBox::No, QMessageBox::Yes);
-	if (exit == 1)
+  	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
+	if (exit == QMessageBox::Yes)
   	{
 		TempStyles.remove(sFnumber);
 		UpdateFList();

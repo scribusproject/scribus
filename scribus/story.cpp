@@ -34,7 +34,7 @@ SEditor::SEditor(QWidget* parent) : QTextEdit(parent)
 	setFrameStyle( QFrame::NoFrame | QFrame::Plain );
 	setUndoRedoEnabled(true);
 	setUndoDepth(50);
-//	setTextFormat(Qt::RichText);
+	//	setTextFormat(Qt::RichText);
 }
 
 void SEditor::focusInEvent(QFocusEvent *f)
@@ -42,7 +42,7 @@ void SEditor::focusInEvent(QFocusEvent *f)
 	bool u = isUndoAvailable();
 	bool r = isRedoAvailable();
 	emit UnRe(u, r);
-	QTextEdit::focusInEvent(f);	
+	QTextEdit::focusInEvent(f);
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
@@ -95,96 +95,96 @@ void STable::keyPressEvent(QKeyEvent *k)
 			return;
 		}
 		if ((k->key() == Key_Left)
-				|| (k->key() == Key_Right)
-				|| (k->key() == Key_Down)
-				|| (k->key() == Key_Up)
-				|| (k->key() == Key_Home)
-				|| (k->key() == Key_End))
+		        || (k->key() == Key_Right)
+		        || (k->key() == Key_Down)
+		        || (k->key() == Key_Up)
+		        || (k->key() == Key_Home)
+		        || (k->key() == Key_End))
 		{
 			QTextEdit::CursorAction move;
 			tt->getCursorPosition(&p, &i);
 			switch (k->key())
 			{
-				case Key_Home:
-					EndK = 0;
-					HomeK++;
-					switch (HomeK)
-					{
-						case 1:
-							move = QTextEdit::MoveLineStart;
-							break;
-						case 2:
-							move = QTextEdit::MoveHome;
-							break;
-						case 3:
-							tt = dynamic_cast<SEditor*>(cellWidget(0, 1));
-							setCurrentCell(0, 1);
-							move = QTextEdit::MoveHome;
-							HomeK = 0;
-							break;
-					}
+			case Key_Home:
+				EndK = 0;
+				HomeK++;
+				switch (HomeK)
+				{
+				case 1:
+					move = QTextEdit::MoveLineStart;
 					break;
-				case Key_End:
+				case 2:
+					move = QTextEdit::MoveHome;
+					break;
+				case 3:
+					tt = dynamic_cast<SEditor*>(cellWidget(0, 1));
+					setCurrentCell(0, 1);
+					move = QTextEdit::MoveHome;
 					HomeK = 0;
-					EndK++;
-					switch (EndK)
-					{
-						case 1:
-							move = QTextEdit::MoveLineEnd;
-							break;
-						case 2:
-							move = QTextEdit::MoveEnd;
-							break;
-						case 3:
-							tt = dynamic_cast<SEditor*>(cellWidget(n-1, 1));
-							setCurrentCell(n-1, 1);
-							move = QTextEdit::MoveEnd;
-							EndK = 0;
-							break;
-					}
 					break;
-				case Key_Left:
-					if ((i == 0) && (r > 0))
-					{
-						tt = dynamic_cast<SEditor*>(cellWidget(r-1, 1));
-						setCurrentCell(r-1, 1);
-						move = QTextEdit::MoveEnd;
-					}
-					else
-						move = QTextEdit::MoveBackward;
+				}
+				break;
+			case Key_End:
+				HomeK = 0;
+				EndK++;
+				switch (EndK)
+				{
+				case 1:
+					move = QTextEdit::MoveLineEnd;
 					break;
-				case Key_Right:
-					if ((i == static_cast<int>(tt->text().length())) && (r < n-1))
-					{
-						tt = dynamic_cast<SEditor*>(cellWidget(r+1, 1));
-						setCurrentCell(r+1, 1);
-						move = QTextEdit::MoveLineStart;
-					}
-					else
-						move = QTextEdit::MoveForward;
+				case 2:
+					move = QTextEdit::MoveEnd;
 					break;
-				case Key_Up:
-					l = tt->lineOfChar(0, i);
-					if ((l == 0) && (r > 0))
-					{
-						tt = dynamic_cast<SEditor*>(cellWidget(r-1, 1));
-						setCurrentCell(r-1, 1);
-						move = QTextEdit::MoveEnd;
-					}
-					else
-						move = QTextEdit::MoveUp;
+				case 3:
+					tt = dynamic_cast<SEditor*>(cellWidget(n-1, 1));
+					setCurrentCell(n-1, 1);
+					move = QTextEdit::MoveEnd;
+					EndK = 0;
 					break;
-				case Key_Down:
-					l = tt->lineOfChar(0, i);
-					if ((l == tt->lines()-1) && (r < n-1))
-					{
-						tt = dynamic_cast<SEditor*>(cellWidget(r+1, 1));
-						setCurrentCell(r+1, 1);
-						move = QTextEdit::MoveLineStart;
-					}
-					else
-						move = QTextEdit::MoveDown;
-					break;
+				}
+				break;
+			case Key_Left:
+				if ((i == 0) && (r > 0))
+				{
+					tt = dynamic_cast<SEditor*>(cellWidget(r-1, 1));
+					setCurrentCell(r-1, 1);
+					move = QTextEdit::MoveEnd;
+				}
+				else
+					move = QTextEdit::MoveBackward;
+				break;
+			case Key_Right:
+				if ((i == static_cast<int>(tt->text().length())) && (r < n-1))
+				{
+					tt = dynamic_cast<SEditor*>(cellWidget(r+1, 1));
+					setCurrentCell(r+1, 1);
+					move = QTextEdit::MoveLineStart;
+				}
+				else
+					move = QTextEdit::MoveForward;
+				break;
+			case Key_Up:
+				l = tt->lineOfChar(0, i);
+				if ((l == 0) && (r > 0))
+				{
+					tt = dynamic_cast<SEditor*>(cellWidget(r-1, 1));
+					setCurrentCell(r-1, 1);
+					move = QTextEdit::MoveEnd;
+				}
+				else
+					move = QTextEdit::MoveUp;
+				break;
+			case Key_Down:
+				l = tt->lineOfChar(0, i);
+				if ((l == tt->lines()-1) && (r < n-1))
+				{
+					tt = dynamic_cast<SEditor*>(cellWidget(r+1, 1));
+					setCurrentCell(r+1, 1);
+					move = QTextEdit::MoveLineStart;
+				}
+				else
+					move = QTextEdit::MoveDown;
+				break;
 			}
 			if (k->key() != Key_Home)
 				HomeK = 0;
@@ -195,7 +195,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 #if QT_VERSION  >= 0x030100
 			updateHeaderStates();
 #endif
-			emit StatBarUpdt(); 
+			emit StatBarUpdt();
 			return;
 		}
 	}
@@ -224,7 +224,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	QString Dat = "";
 	setCaption( tr( "Story Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	Form1Layout = new QVBoxLayout( this, 5, 5, "Form1Layout"); 
+	Form1Layout = new QVBoxLayout( this, 5, 5, "Form1Layout");
 	edList.clear();
 	stList.clear();
 	style.clear();
@@ -240,17 +240,17 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 		style.prepend(tmp[a]);
 	CurrItem = ite;
 
- 	fmenu = new QPopupMenu();
- 	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(Do_new()), CTRL+Key_N);
+	fmenu = new QPopupMenu();
+	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(Do_new()), CTRL+Key_N);
 	fmenu->insertSeparator();
-  	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("Save to File..."), this, SLOT(SaveTextFile()));
-  	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load from File..."), this, SLOT(LoadTextFile()));
+	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("Save to File..."), this, SLOT(SaveTextFile()));
+	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load from File..."), this, SLOT(LoadTextFile()));
 	fmenu->insertSeparator();
 	fmenu->insertItem( tr("Save and Exit"), this, SLOT(accept()));
 	fmenu->insertItem( tr("Exit without Saving"), this, SLOT(Do_leave()));
- 	emenu = new QPopupMenu();
- 	Mundo = emenu->insertItem( tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
- 	Mredo = emenu->insertItem( tr("Redo"), this, SLOT(Do_redo()));
+	emenu = new QPopupMenu();
+	Mundo = emenu->insertItem( tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
+	Mredo = emenu->insertItem( tr("Redo"), this, SLOT(Do_redo()));
 	emenu->insertSeparator();
 	Mcopy = emenu->insertItem(loadIcon("editcut.png"), tr("Cut"), this, SLOT(Do_cut()), CTRL+Key_X);
 	Mcut = emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
@@ -262,7 +262,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	emenu->insertSeparator();
 	emenu->insertItem( tr("Edit Styles..."), this , SLOT(slotEditStyles()));
 	Mupdt = emenu->insertItem( tr("Update Text Frame"), this, SLOT(updateTextFrame()));
- 	menuBar = new QMenuBar(this);
+	menuBar = new QMenuBar(this);
 	menuBar->insertItem( tr("File"), fmenu);
 	menuBar->insertItem( tr("Edit"), emenu);
 	Form1Layout->setMenuBar( menuBar );
@@ -354,8 +354,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	while (nb != 0)
 	{
 		y = nb->Ptext;
-  		for (a = 0; a < y.count(); ++a)
-  		{
+		for (a = 0; a < y.count(); ++a)
+		{
 			QString b = y.at(a)->ch;
 			pstyle = y.at(a)->cab;
 			if (b == QChar(13))
@@ -365,8 +365,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 				para++;
 			}
 			else
-    			Dat += b;
-    	}
+				Dat += b;
+		}
 		nb = nb->NextBox;
 	}
 	if (Dat != "")
@@ -407,8 +407,8 @@ void StoryEditor::updateStatus()
 	int counter2 = 0;
 	while ( pos >= 0 )
 	{
-  		pos = rx.search( cp->text(), pos );
-  		if ( pos > -1 )
+		pos = rx.search( cp->text(), pos );
+		if ( pos > -1 )
 		{
 			counter++;
 			pos += rx.matchedLength();
@@ -420,10 +420,10 @@ void StoryEditor::updateStatus()
 	{
 		SEditor *tt = edList.at(a);
 		int pos = 0;
-  		while ( pos >= 0 )
+		while ( pos >= 0 )
 		{
-  			pos = rx.search( tt->text(), pos );
-  			if ( pos > -1 )
+			pos = rx.search( tt->text(), pos );
+			if ( pos > -1 )
 			{
 				counter2++;
 				pos += rx.matchedLength();
@@ -442,9 +442,9 @@ void StoryEditor::closeEvent(QCloseEvent *event)
 		if (TextChanged)
 		{
 			int t = QMessageBox::warning(this, tr("Warning"),
-																tr("Do you want save your changes?"),
-																QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel);
-	    	if (t == QMessageBox::Yes)
+			                             tr("Do you want save your changes?"),
+			                             QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel);
+			if (t == QMessageBox::Yes)
 				accept();
 			else if (t == QMessageBox::Cancel)
 				return;
@@ -461,9 +461,9 @@ void StoryEditor::Do_leave()
 	if (TextChanged)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
-													tr("Do you really want to lose all your Changes?"),
-													QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-  		if (t == QMessageBox::No)
+		                             tr("Do you really want to lose all your Changes?"),
+		                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+		if (t == QMessageBox::No)
 			return;
 	}
 	reject();
@@ -472,8 +472,8 @@ void StoryEditor::Do_leave()
 void StoryEditor::Do_new()
 {
 	int t = QMessageBox::warning(this, tr("Warning"),
-  							 tr("Do you really want to clear all your Text?"),
-                         			 QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+	                             tr("Do you really want to clear all your Text?"),
+	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 	if (t == QMessageBox::No)
 		return;
 	table1->setNumCols( 2 );
@@ -663,21 +663,21 @@ void StoryEditor::styleChange(int st)
 		SEditor *tt = dynamic_cast<SEditor*>(table1->cellWidget(r, 1));
 		switch (align)
 		{
-			case 0:
-				tt->setAlignment(Qt::AlignLeft);
-				break;
-			case 1:
-				tt->setAlignment(Qt::AlignCenter);
-				break;
-			case 2:
-				tt->setAlignment(Qt::AlignRight);
-				break;
-			case 3:
-			case 4:
-				tt->setAlignment(Qt::AlignJustify);
-				break;
-			default:
-				break;
+		case 0:
+			tt->setAlignment(Qt::AlignLeft);
+			break;
+		case 1:
+			tt->setAlignment(Qt::AlignCenter);
+			break;
+		case 2:
+			tt->setAlignment(Qt::AlignRight);
+			break;
+		case 3:
+		case 4:
+			tt->setAlignment(Qt::AlignJustify);
+			break;
+		default:
+			break;
 		}
 		modifiedText();
 	}
@@ -713,7 +713,7 @@ void StoryEditor::addPar(int where, QString text, int sty)
 	SEditor *cp = new SEditor(this);
 	stList.insert(where, ct);
 	edList.insert(where, cp);
- 	table1->setCellWidget(where, 1, cp);
+	table1->setCellWidget(where, 1, cp);
 	table1->setCurrentCell(where, 1);
 	cp->setText(text);
 	table1->adjHeight(where);
@@ -879,7 +879,7 @@ void StoryEditor::LoadTextFile()
 			data.replace(QRegExp("\r"), "");
 			data.replace(QRegExp("\n"), QChar(13));
 			for (uint a = 0; a < data.length(); ++a)
-  			{
+			{
 				QChar b = data.at(a);
 				if (b == QChar(13))
 				{
@@ -888,7 +888,7 @@ void StoryEditor::LoadTextFile()
 					para++;
 				}
 				else
-    				Dat += b;
+					Dat += b;
 			}
 			if (Dat != "")
 				addPar(para, Dat, 0);
@@ -913,7 +913,7 @@ void StoryEditor::LoadTextFile()
 			emenu->setItemEnabled(Mdel, 0);
 			updateStatus();
 			delete ss;
-    	}
+		}
 	}
 }
 
@@ -927,7 +927,7 @@ void StoryEditor::SaveTextFile()
 	LoadEnc = dia.TxCodeM->currentText();
 	fileName =  dia.selectedFile();
 	if (!fileName.isEmpty())
-  	{
+	{
 		Serializer *ss = new Serializer(fileName);
 		for (uint a = 0; a < edList.count(); ++a)
 		{
@@ -938,5 +938,5 @@ void StoryEditor::SaveTextFile()
 		}
 		ss->Write(LoadEnc);
 		delete ss;
-  	}
+	}
 }

@@ -34,7 +34,7 @@ extern FPoint GetMaxClipF(FPointArray Clip);
  */
 QString Name()
 {
-  return QObject::tr("Import SVG-Image");
+	return QObject::tr("Import SVG-Image");
 }
 
 /*!
@@ -71,8 +71,8 @@ void Run(QWidget *d, ScribusApp *plug)
 		fileName = diaf.selectedFile();
 	else
 		return;
- 	SVGPlug *dia = new SVGPlug(d, plug, fileName);
- 	delete dia;
+	SVGPlug *dia = new SVGPlug(d, plug, fileName);
+	delete dia;
 }
 
 /*!
@@ -90,7 +90,7 @@ SVGPlug::SVGPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	QString f = "";
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
-		{
+	{
 		gzFile gzDoc;
 		char buff[4097];
 		int i;
@@ -98,12 +98,12 @@ SVGPlug::SVGPlug( QWidget* parent, ScribusApp *plug, QString fName )
 		if(gzDoc == NULL)
 			return;
 		while((i = gzread(gzDoc,&buff,4096)) > 0)
-			{
+		{
 			buff[i] = '\0';
 			f.append(buff);
-			}
-		gzclose(gzDoc);
 		}
+		gzclose(gzDoc);
+	}
 	else
 		loadText(fName, &f);
 #else
@@ -136,10 +136,10 @@ void SVGPlug::convert()
 	double width	= !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height	= !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 	if (!Prog->HaveDoc)
-		{
+	{
 		Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
 		ret = true;
-		}
+	}
 	Doku = Prog->doc;
 	Elements.clear();
 	Doku->loading = true;
@@ -149,29 +149,29 @@ void SVGPlug::convert()
 	m_gc.push( gc );
 	parseGroup( docElem );
 	if (Elements.count() > 0)
-		{
+	{
 		Doku->ActPage->SelItem.clear();
 		for (uint a = 0; a < Elements.count(); ++a)
-			{
+		{
 			Elements.at(a)->Groups.push(Doku->GroupCounter);
 			if (!ret)
 				Doku->ActPage->SelItem.append(Elements.at(a));
-			}
-		Doku->GroupCounter++;
 		}
-//	Doku->loading = false;
+		Doku->GroupCounter++;
+	}
+	//	Doku->loading = false;
 	Doku->DoDrawing = true;
 	Doku->ActPage->setUpdatesEnabled(true);
 	if ((Elements.count() > 0) && (!ret))
-		{
+	{
 		Doku->DragP = true;
 		Doku->DraggedElem = 0;
 		Doku->DragElements.clear();
 		for (uint dre=0; dre<Elements.count(); ++dre)
-			{
+		{
 			Doku->DragElements.append(Elements.at(dre)->ItemNr);
-			}
-  	ScriXmlDoc *ss = new ScriXmlDoc();
+		}
+		ScriXmlDoc *ss = new ScriXmlDoc();
 		Doku->ActPage->setGroupRect();
 		QDragObject *dr = new QTextDrag(ss->WriteElem(&Doku->ActPage->SelItem, Doku), Doku->ActPage);
 		Doku->ActPage->DeleteItem();
@@ -181,7 +181,7 @@ void SVGPlug::convert()
 		Doku->DragP = false;
 		Doku->DraggedElem = 0;
 		Doku->DragElements.clear();
-    }
+	}
 	else
 		Doku->setUnModified();
 	Doku->loading = false;
@@ -233,40 +233,40 @@ void SVGPlug::parseGroup(const QDomElement &e)
 	FPointArray ImgClip;
 	ImgClip.resize(0);
 	for( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
-		{
+	{
 		int z = -1;
 		QDomElement b = n.toElement();
 		if( b.isNull() )
 			continue;
 		QString STag = b.tagName();
 		if( STag == "g" )
-			{
+		{
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			setupTransform( b );
 			parseStyle( gc, b );
 			parseGroup( b );
 			for (uint gr = 0; gr < GElements.count(); ++gr)
-				{
+			{
 				GElements.at(gr)->Groups.push(Doku->GroupCounter);
-				}
+			}
 			delete( m_gc.pop() );
 			GElements.clear();
 			Doku->GroupCounter++;
 			continue;
-			}
+		}
 		if( b.tagName() == "defs" )
-			{
+		{
 			parseGroup( b ); 	// try for gradients at least
 			continue;
-			}
+		}
 		else if( STag == "linearGradient" || STag == "radialGradient" )
-			{
+		{
 			parseGradient( b );
 			continue;
-			}
+		}
 		else if( STag == "rect" )
-			{
+		{
 			addGraphicContext();
 			double x		= parseUnit( b.attribute( "x" ) );
 			double y		= parseUnit( b.attribute( "y" ) );
@@ -279,19 +279,19 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			z = Doku->ActPage->PaintRect(0, 0, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			PageItem* ite = Doku->ActPage->Items.at(z);
 			if ((rx != 0) || (ry != 0))
-				{
+			{
 				ite->RadRect = QMAX(rx, ry);
 				Doku->ActPage->SetFrameRound(ite);
-				}
+			}
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
-			}
+		}
 		else if( STag == "ellipse" )
-			{
+		{
 			addGraphicContext();
 			double rx		= parseUnit( b.attribute( "rx" ) );
 			double ry		= parseUnit( b.attribute( "ry" ) );
@@ -307,9 +307,9 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
-			}
+		}
 		else if( STag == "circle" )
-			{
+		{
 			addGraphicContext();
 			double r		= parseUnit( b.attribute( "r" ) );
 			double x		= parseUnit( b.attribute( "cx" ) ) - r;
@@ -324,9 +324,9 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
-			}
+		}
 		else if( STag == "line" )
-			{
+		{
 			addGraphicContext();
 			double x1 = b.attribute( "x1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "x1" ) );
 			double y1 = b.attribute( "y1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "y1" ) );
@@ -341,16 +341,16 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			ite->PoLine.setPoint(1, FPoint(x1, y1));
 			ite->PoLine.setPoint(2, FPoint(x2, y2));
 			ite->PoLine.setPoint(3, FPoint(x2, y2));
-			}
+		}
 		else if( STag == "clipPath" )
-			{
+		{
 			QDomNode n2 = b.firstChild();
 			QDomElement b2 = n2.toElement();
 			parseSVG( b2.attribute( "d" ), &ImgClip );
 			continue;
-			}
+		}
 		else if( STag == "path" )
-			{
+		{
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
@@ -360,14 +360,14 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			if (parseSVG( b.attribute( "d" ), &ite->PoLine ))
 				ite->PType = 7;
 			if (ite->PoLine.size() < 4)
-				{
+			{
 				Doku->ActPage->SelItem.append(ite);
 				Doku->ActPage->DeleteItem();
 				z = -1;
-				}
 			}
+		}
 		else if( STag == "polyline" || b.tagName() == "polygon" )
-			{
+		{
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
@@ -383,33 +383,33 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			QString points = b.attribute( "points" ).simplifyWhiteSpace();
 			points.replace( QRegExp( "," ), " " );
 			points.replace( QRegExp( "\r" ), "" );
-	    points.replace( QRegExp( "\n" ), "" );
+			points.replace( QRegExp( "\n" ), "" );
 			QStringList pointList = QStringList::split( ' ', points );
 			FirstM = true;
 			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
-				{
+			{
 				if( bFirst )
-					{
+				{
 					x = (*(it++)).toDouble();
 					y = (*it).toDouble();
 					svgMoveTo(&ite->PoLine, x, y);
 					bFirst = false;
 					WasM = true;
-					}
+				}
 				else
-					{
+				{
 					x = (*(it++)).toDouble();
 					y = (*it).toDouble();
 					svgLineTo(&ite->PoLine, x, y);
-					}
 				}
+			}
 			if( STag == "polygon" )
 				svgClosePath(&ite->PoLine);
 			else
 				ite->PType = 7;
-			}
+		}
 		else if( STag == "text" )
-			{
+		{
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			double x = b.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(b.attribute("x"));
@@ -421,9 +421,9 @@ void SVGPlug::parseGroup(const QDomElement &e)
 				GElements.append(el.at(ec));
 			}
 			z = -1;
-			}
+		}
 		else if( STag == "image" )
-			{
+		{
 			addGraphicContext();
 			QString fname = b.attribute("xlink:href");
 			double x = b.attribute( "x" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "x" ) );
@@ -432,43 +432,43 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			double h = b.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "height" ) );
 			z = Doku->ActPage->PaintPict(x, y, w, h);
 			if (fname != "")
-   			Doku->ActPage->LoadPict(fname, z);
+				Doku->ActPage->LoadPict(fname, z);
 			PageItem* ite = Doku->ActPage->Items.at(z);
 			if (ImgClip.size() != 0)
 				ite->PoLine = ImgClip.copy();
 			ImgClip.resize(0);
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			}
+		}
 		else
 			continue;
 		if (z != -1)
-			{
+		{
 			setupTransform( b );
 			SvgStyle *gc = m_gc.current();
 			PageItem* ite = Doku->ActPage->Items.at(z);
 			switch (ite->PType)
+			{
+			case 2:
 				{
-				case 2:
-					{
 					QWMatrix mm = gc->matrix;
 					ite->Xpos += mm.dx();
 					ite->Ypos += mm.dy();
 					ite->Width = ite->Width * mm.m11();
 					ite->Height = ite->Height * mm.m22();
 					if (ite->PicAvail)
-						{
+					{
 						ite->LocalScX = ite->Width / ite->pixm.width();
 						ite->LocalScY = ite->Height / ite->pixm.height();
 						ite->LocalViewX = ite->LocalScX;
 						ite->LocalViewY = ite->LocalScY;
 						Doku->ActPage->AdjustPreview(ite);
-						}
-					break;
 					}
-				case 4:
 					break;
-				default:
-					{
+				}
+			case 4:
+				break;
+			default:
+				{
 					ite->ClipEdited = true;
 					ite->FrameType = 3;
 					QWMatrix mm = gc->matrix;
@@ -479,8 +479,8 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 					Doku->ActPage->AdjustItemSize(ite);
 					break;
-					}
 				}
+			}
 			if( !b.attribute("id").isEmpty() )
 				ite->AnName += " "+b.attribute("id");
 			ite->Transparency = gc->Transparency;
@@ -491,17 +491,17 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			ite->DashOffset = gc->dashOffset;
 			ite->DashValues = gc->dashArray;
 			if (gc->Gradient != 0)
-				{
+			{
 				ite->fill_gradient = gc->GradCo;
 				Doku->ActPage->SelItem.append(ite);
 				Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
 				Doku->ActPage->SelItem.clear();
-				}
+			}
 			GElements.append(ite);
 			Elements.append(ite);
-			}
-		delete( m_gc.pop() );
 		}
+		delete( m_gc.pop() );
+	}
 }
 
 /*!
@@ -533,7 +533,7 @@ double SVGPlug::parseUnit(const QString &unit)
 	bool ok = false;
 	double value = unit.toDouble( &ok );
 	if( !ok )
-		{
+	{
 		if( unit.right( 2 ) == "pt" )
 			value = value;
 		else if( unit.right( 2 ) == "cm" )
@@ -542,7 +542,7 @@ double SVGPlug::parseUnit(const QString &unit)
 			value = ( value / 25.4 ) * 72;
 		else if( unit.right( 2 ) == "in" )
 			value = value * 72;
-		}
+	}
 	return value;
 }
 
@@ -650,11 +650,11 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 		integer = (integer * 10) + *(ptr++) - '0';
 	if(*ptr == '.') // read the decimals
-    {
+	{
 		ptr++;
 		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
 			decimal += (*(ptr++) - '0') * (frac *= 0.1);
-    }
+	}
 
 	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
 	{
@@ -676,7 +676,7 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 			exponent += *ptr - '0';
 			ptr++;
 		}
-    }
+	}
 	number = integer + decimal;
 	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
 
@@ -702,7 +702,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 	d = d.replace( QRegExp( "," ), " ");
 	bool ret = false;
 	if( !d.isEmpty() )
-		{
+	{
 		d = d.simplifyWhiteSpace();
 		const char *ptr = d.latin1();
 		const char *end = d.latin1() + d.length() + 1;
@@ -713,16 +713,16 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 		char command = *(ptr++), lastCommand = ' ';
 		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
 		while( ptr < end )
-			{
+		{
 			if( *ptr == ' ' )
 				ptr++;
 			relative = false;
 			switch( command )
 			{
-				case 'm':
-					relative = true;
-				case 'M':
-					{
+			case 'm':
+				relative = true;
+			case 'M':
+				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
 					WasM = true;
@@ -730,58 +730,58 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					subpathy = cury = relative ? cury + toy : toy;
 					svgMoveTo(ite, curx, cury );
 					break;
-					}
-				case 'l':
-					relative = true;
-				case 'L':
-					{
+				}
+			case 'l':
+				relative = true;
+			case 'L':
+				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					svgLineTo(ite, curx, cury );
 					break;
-					}
-				case 'h':
-					{
+				}
+			case 'h':
+				{
 					ptr = getCoord( ptr, tox );
 					curx = curx + tox;
 					svgLineTo(ite, curx, cury );
 					break;
-					}
-				case 'H':
-					{
+				}
+			case 'H':
+				{
 					ptr = getCoord( ptr, tox );
 					curx = tox;
 					svgLineTo(ite, curx, cury );
 					break;
-					}
-				case 'v':
-					{
+				}
+			case 'v':
+				{
 					ptr = getCoord( ptr, toy );
 					cury = cury + toy;
 					svgLineTo(ite, curx, cury );
 					break;
-					}
-				case 'V':
-					{
+				}
+			case 'V':
+				{
 					ptr = getCoord( ptr, toy );
 					cury = toy;
 					svgLineTo(ite,  curx, cury );
 					break;
-					}
-				case 'z':
-				case 'Z':
-					{
+				}
+			case 'z':
+			case 'Z':
+				{
 					curx = subpathx;
 					cury = subpathy;
 					svgClosePath(ite);
 					break;
-					}
-				case 'c':
-					relative = true;
-				case 'C':
-					{
+				}
+			case 'c':
+				relative = true;
+			case 'C':
+				{
 					ptr = getCoord( ptr, x1 );
 					ptr = getCoord( ptr, y1 );
 					ptr = getCoord( ptr, x2 );
@@ -794,17 +794,17 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					py2 = relative ? cury + y2 : y2;
 					px3 = relative ? curx + tox : tox;
 					py3 = relative ? cury + toy : toy;
-          svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
-          contrlx = relative ? curx + x2 : x2;
+					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
+					contrlx = relative ? curx + x2 : x2;
 					contrly = relative ? cury + y2 : y2;
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					break;
-					}
-				case 's':
-					relative = true;
-				case 'S':
-					{
+				}
+			case 's':
+				relative = true;
+			case 'S':
+				{
 					ptr = getCoord( ptr, x2 );
 					ptr = getCoord( ptr, y2 );
 					ptr = getCoord( ptr, tox );
@@ -821,11 +821,11 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					break;
-					}
-				case 'q':
-					relative = true;
-				case 'Q':
-					{
+				}
+			case 'q':
+				relative = true;
+			case 'Q':
+				{
 					ptr = getCoord( ptr, x1 );
 					ptr = getCoord( ptr, y1 );
 					ptr = getCoord( ptr, tox );
@@ -842,11 +842,11 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					break;
-					}
-				case 't':
-					relative = true;
-				case 'T':
-					{
+				}
+			case 't':
+				relative = true;
+			case 'T':
+				{
 					ptr = getCoord(ptr, tox);
 					ptr = getCoord(ptr, toy);
 					xc = 2 * curx - contrlx;
@@ -863,11 +863,11 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					break;
-					}
-				case 'a':
-					relative = true;
-				case 'A':
-					{
+				}
+			case 'a':
+				relative = true;
+			case 'A':
+				{
 					bool largeArc, sweep;
 					double angle, rx, ry;
 					ptr = getCoord( ptr, rx );
@@ -880,24 +880,24 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
 					calculateArc(ite, relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
-					}
 				}
+			}
 			lastCommand = command;
 			if(*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
-				{
+			{
 				// there are still coords in this command
 				if(command == 'M')
 					command = 'L';
 				else if(command == 'm')
 					command = 'l';
-				}
+			}
 			else
 				command = *(ptr++);
 
 			if( lastCommand != 'C' && lastCommand != 'c' &&
-				lastCommand != 'S' && lastCommand != 's' &&
-				lastCommand != 'Q' && lastCommand != 'q' &&
-				lastCommand != 'T' && lastCommand != 't')
+			        lastCommand != 'S' && lastCommand != 's' &&
+			        lastCommand != 'Q' && lastCommand != 'q' &&
+			        lastCommand != 'T' && lastCommand != 't')
 			{
 				contrlx = curx;
 				contrly = cury;
@@ -906,10 +906,10 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 		if ((lastCommand != 'z') && (lastCommand != 'Z'))
 			ret = true;
 		if (ite->size() > 2)
-			{
+		{
 			if ((ite->point(0).x() == ite->point(ite->size()-2).x()) && (ite->point(0).y() == ite->point(ite->size()-2).y()))
 				ret = false;
-			}
+		}
 	}
 	return ret;
 }
@@ -983,7 +983,7 @@ void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 	   (x1, y1) is new point in transformed coordinate space.
 
 	   The arc fits a unit-radius circle in this space.
-     */
+	    */
 	d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
 	sfactor_sq = 1.0 / d - 0.25;
 	if(sfactor_sq < 0)
@@ -1075,14 +1075,14 @@ void SVGPlug::svgMoveTo(FPointArray *i, double x1, double y1)
 void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 {
 	if ((!FirstM) && (WasM))
-		{
+	{
 		i->setMarker();
 		PathLen += 4;
-		}
+	}
 	FirstM = false;
 	WasM = false;
 	if (i->size() > 3)
-		{
+	{
 		FPoint b1 = i->point(i->size()-4);
 		FPoint b2 = i->point(i->size()-3);
 		FPoint b3 = i->point(i->size()-2);
@@ -1091,7 +1091,7 @@ void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 		FPoint n2 = FPoint(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
-		}
+	}
 	i->addPoint(FPoint(CurrX, CurrY));
 	i->addPoint(FPoint(CurrX, CurrY));
 	i->addPoint(FPoint(x1, y1));
@@ -1118,14 +1118,14 @@ void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3)
 {
 	if ((!FirstM) && (WasM))
-		{
+	{
 		i->setMarker();
 		PathLen += 4;
-		}
+	}
 	FirstM = false;
 	WasM = false;
 	if (PathLen > 3)
-		{
+	{
 		FPoint b1 = i->point(i->size()-4);
 		FPoint b2 = i->point(i->size()-3);
 		FPoint b3 = i->point(i->size()-2);
@@ -1136,7 +1136,7 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 		FPoint n4 = FPoint(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
-		}
+	}
 	i->addPoint(FPoint(CurrX, CurrY));
 	i->addPoint(FPoint(x1, y1));
 	i->addPoint(FPoint(x3, y3));
@@ -1157,12 +1157,12 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 void SVGPlug::svgClosePath(FPointArray *i)
 {
 	if ((PathLen == 4) || (i->point(i->size()-2).x() != StartX) || (i->point(i->size()-2).y() != StartY))
-		{
+	{
 		i->addPoint(i->point(i->size()-2));
 		i->addPoint(i->point(i->size()-3));
 		i->addPoint(FPoint(StartX, StartY));
 		i->addPoint(FPoint(StartX, StartY));
-		}
+	}
 }
 
 /*!
@@ -1193,55 +1193,55 @@ QString SVGPlug::parseColor( const QString &s )
 	QColor c;
 	QString ret = "None";
 	if( s.startsWith( "rgb(" ) )
-		{
+	{
 		QString parse = s.stripWhiteSpace();
 		QStringList colors = QStringList::split( ',', parse );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
 		if( r.contains( "%" ) )
-			{
+		{
 			r = r.left( r.length() - 1 );
 			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * r.toDouble() ) / 100.0 ) ) );
-			}
+		}
 		if( g.contains( "%" ) )
-			{
+		{
 			g = g.left( g.length() - 1 );
 			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * g.toDouble() ) / 100.0 ) ) );
-			}
+		}
 		if( b.contains( "%" ) )
-			{
+		{
 			b = b.left( b.length() - 1 );
 			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * b.toDouble() ) / 100.0 ) ) );
-			}
-		c = QColor(r.toInt(), g.toInt(), b.toInt());
 		}
+		c = QColor(r.toInt(), g.toInt(), b.toInt());
+	}
 	else
-		{
+	{
 		QString rgbColor = s.stripWhiteSpace();
 		if( rgbColor.startsWith( "#" ) )
 			c.setNamedColor( rgbColor );
 		else
 			c = parseColorN( rgbColor );
-		}
+	}
 	CListe::Iterator it;
 	bool found = false;
 	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
-		{
+	{
 		if (c == Doku->PageColors[it.key()].getRGBColor())
-			{
+		{
 			ret = it.key();
 			found = true;
-			}
 		}
+	}
 	if (!found)
-		{
+	{
 		CMYKColor tmp;
 		tmp.fromQColor(c);
 		Doku->PageColors.insert("FromSVG"+c.name(), tmp);
 		Prog->Mpal->Cpal->SetColors(Doku->PageColors);
 		ret = "FromSVG"+c.name();
-		}
+	}
 	return ret;
 }
 
@@ -1259,104 +1259,104 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 {
 	if( command == "fill" )
 	{
-	if ((obj->InherCol) && (params == "currentColor"))
-		obj->FillCol = obj->CurCol;
-	else if (params == "none")
+		if ((obj->InherCol) && (params == "currentColor"))
+			obj->FillCol = obj->CurCol;
+		else if (params == "none")
 		{
-		obj->FillCol = "None";
+			obj->FillCol = "None";
 		}
-	else if( params.startsWith( "url(" ) )
+		else if( params.startsWith( "url(" ) )
 		{
-		unsigned int start = params.find("#") + 1;
-		unsigned int end = params.findRev(")");
-		QString key = params.mid(start, end - start);
-		obj->Gradient = m_gradients[key].Type;
-		obj->GradCo = m_gradients[key].gradient;
-		obj->GCol1 = m_gradients[key].Color1;
-		obj->GCol2 = m_gradients[key].Color2;
-		obj->FillCol = "None";
+			unsigned int start = params.find("#") + 1;
+			unsigned int end = params.findRev(")");
+			QString key = params.mid(start, end - start);
+			obj->Gradient = m_gradients[key].Type;
+			obj->GradCo = m_gradients[key].gradient;
+			obj->GCol1 = m_gradients[key].Color1;
+			obj->GCol2 = m_gradients[key].Color2;
+			obj->FillCol = "None";
 		}
-	else
-		obj->FillCol = parseColor(params);
+		else
+			obj->FillCol = parseColor(params);
 	}
 	else if( command == "color" )
 	{
 		if (params == "none")
 			obj->CurCol = "None";
 		else if( params.startsWith( "url(" ) )
-			{
+		{
 			obj->CurCol = "None";
-			}
+		}
 		else
-			{
+		{
 			obj->CurCol = parseColor(params);
-			}
+		}
 	}
 	else if( command == "stroke" )
 	{
-	if ((obj->InherCol) && (params == "currentColor"))
-		obj->StrokeCol = obj->CurCol;
-	else if (params == "none")
+		if ((obj->InherCol) && (params == "currentColor"))
+			obj->StrokeCol = obj->CurCol;
+		else if (params == "none")
 		{
-		obj->StrokeCol = "None";
+			obj->StrokeCol = "None";
 		}
-	else if( params.startsWith( "url(" ) )
-		{
-		obj->StrokeCol = "None";
-		}
-	else
-		obj->StrokeCol = parseColor(params);
-/*		if( params == "none" )
-			gc->stroke.setType( VStroke::none );
 		else if( params.startsWith( "url(" ) )
 		{
-			unsigned int start = params.find("#") + 1;
-			unsigned int end = params.findRev(")");
-			QString key = params.mid( start, end - start );
-			gc->stroke.gradient() = m_gradients[ key ].gradient;
-			gc->stroke.gradient().transform( m_gradients[ key ].gradientTransform );
-			gc->stroke.gradient().transform( gc->matrix );
-			gc->stroke.setType( VStroke::grad );
+			obj->StrokeCol = "None";
 		}
 		else
-		{
-			parseColor( strokecolor, params );
-			gc->stroke.setType( VStroke::solid );
-		} */
+			obj->StrokeCol = parseColor(params);
+		/*		if( params == "none" )
+					gc->stroke.setType( VStroke::none );
+				else if( params.startsWith( "url(" ) )
+				{
+					unsigned int start = params.find("#") + 1;
+					unsigned int end = params.findRev(")");
+					QString key = params.mid( start, end - start );
+					gc->stroke.gradient() = m_gradients[ key ].gradient;
+					gc->stroke.gradient().transform( m_gradients[ key ].gradientTransform );
+					gc->stroke.gradient().transform( gc->matrix );
+					gc->stroke.setType( VStroke::grad );
+				}
+				else
+				{
+					parseColor( strokecolor, params );
+					gc->stroke.setType( VStroke::solid );
+				} */
 	}
 	else if( command == "stroke-width" )
 		obj->LWidth = parseUnit( params );
 	else if( command == "stroke-linejoin" )
-		{
+	{
 		if( params == "miter" )
 			obj->PLineJoin = Qt::MiterJoin;
 		else if( params == "round" )
 			obj->PLineJoin = Qt::RoundJoin;
 		else if( params == "bevel" )
 			obj->PLineJoin = Qt::BevelJoin;
-		}
+	}
 	else if( command == "stroke-linecap" )
-		{
+	{
 		if( params == "butt" )
 			obj->PLineEnd = Qt::FlatCap;
 		else if( params == "round" )
 			obj->PLineEnd = Qt::RoundCap;
 		else if( params == "square" )
 			obj->PLineEnd = Qt::SquareCap;
-		}
-//	else if( command == "stroke-miterlimit" )
-//		gc->stroke.setMiterLimit( params.todouble() );
+	}
+	//	else if( command == "stroke-miterlimit" )
+	//		gc->stroke.setMiterLimit( params.todouble() );
 	else if( command == "stroke-dasharray" )
-		{
+	{
 		QValueList<double> array;
 		if(params != "none")
-			{
+		{
 			QStringList dashes = QStringList::split( ' ', params );
-		  for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
+			for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
 				array.append( (*it).toDouble() );
-			}
-		obj->dashArray = array;
 		}
+		obj->dashArray = array;
+	}
 	else if( command == "stroke-dashoffset" )
 		obj->dashOffset = params.toDouble();
 	else if( command == "stroke-opacity" )
@@ -1364,12 +1364,12 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	else if( command == "fill-opacity" )
 		obj->Transparency = 1.0 - fromPercentage(params);
 	else if( command == "opacity" )
-		{
+	{
 		obj->Transparency = 1.0 - fromPercentage(params);
 		obj->TranspStroke = 1.0 - fromPercentage(params);
-		}
+	}
 	else if( command == "font-family" )
-		{
+	{
 		QString family = params;
 		QString ret = "";
 		family.replace( QRegExp( "'" ) , QChar( ' ' ) );
@@ -1377,22 +1377,22 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		bool found = false;
 		SCFontsIterator it(Prog->Prefs.AvailFonts);
 		for ( ; it.current(); ++it)
-			{
+		{
 			QString fam;
 			QString &fn = it.current()->SCName;
 			int	pos=fn.find(" ");
 			fam = fn.left(pos);
 			if (fam == family)
-				{
+			{
 				found = true;
 				ret = fn;
-				}
 			}
+		}
 		if (found)
 			obj->Family = ret;
 		else
 			obj->Family = Doku->Dfont;
-		}
+	}
 	else if( command == "font-size" )
 		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);
 }
@@ -1412,12 +1412,12 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	if (!gc)
 		return;
 	if( !e.attribute( "color" ).isEmpty() )
-		{
+	{
 		if (e.attribute( "color" ) == "inherit")
 			gc->InherCol = true;
 		else
 			parsePA( obj, "color", e.attribute( "color" ) );
-		}
+	}
 	if( !e.attribute( "fill" ).isEmpty() )
 		parsePA( obj, "fill", e.attribute( "fill" ) );
 	if( !e.attribute( "stroke" ).isEmpty() )
@@ -1434,8 +1434,8 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "stroke-dashoffset", e.attribute( "stroke-dashoffset" ) );
 	if( !e.attribute( "stroke-opacity" ).isEmpty() )
 		parsePA( obj, "stroke-opacity", e.attribute( "stroke-opacity" ) );
-/*	if( !e.attribute( "stroke-miterlimit" ).isEmpty() )
-		parsePA( obj, "stroke-miterlimit", e.attribute( "stroke-miterlimit" ) );   */
+	/*	if( !e.attribute( "stroke-miterlimit" ).isEmpty() )
+			parsePA( obj, "stroke-miterlimit", e.attribute( "stroke-miterlimit" ) );   */
 	if( !e.attribute( "fill-opacity" ).isEmpty() )
 		parsePA( obj, "fill-opacity", e.attribute( "fill-opacity" ) );
 	if( !e.attribute( "opacity" ).isEmpty() )
@@ -1446,13 +1446,13 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "font-size", e.attribute( "font-size" ) );
 	QString style = e.attribute( "style" ).simplifyWhiteSpace();
 	QStringList substyles = QStringList::split( ';', style );
-  for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
-		{
+	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
+	{
 		QStringList substyle = QStringList::split( ':', (*it) );
 		QString command	= substyle[0].stripWhiteSpace();
 		QString params	= substyle[1].stripWhiteSpace();
 		parsePA( obj, command, params );
-		}
+	}
 	return;
 }
 
@@ -1471,41 +1471,41 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	bool first = false;
 	double offset;
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
-		{
+	{
 		QDomElement stop = n.toElement();
 		if(stop.tagName() == "stop")
-			{
+		{
 			QString temp = stop.attribute( "offset" );
 			if( temp.contains( '%' ) )
-				{
+			{
 				temp = temp.left( temp.length() - 1 );
 				offset = temp.toDouble() / 100.0;
-				}
+			}
 			else
 				offset = temp.toDouble();
 			if( !stop.attribute( "stop-color" ).isEmpty() )
 				Col = parseColor(stop.attribute("stop-color"));
 			else
-				{
+			{
 				QString style = stop.attribute( "style" ).simplifyWhiteSpace();
 				QStringList substyles = QStringList::split( ';', style );
-			   for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
-					{
+				for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
+				{
 					QStringList substyle = QStringList::split( ':', (*it) );
 					QString command	= substyle[0].stripWhiteSpace();
 					QString params	= substyle[1].stripWhiteSpace();
 					if( command == "stop-color" )
 						Col = parseColor(params);
-					}
 				}
 			}
+		}
 		if (!first)
 			gradient->Color1 = Col;
 		else
 			gradient->Color2 = Col;
 		first = true;
 		gradient->gradient.addStop( Doku->PageColors[Col].getRGBColor(), offset, 0.5, 1.0 );
-		}
+	}
 }
 
 /*!
@@ -1525,16 +1525,16 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	QString href = e.attribute("xlink:href").mid(1);
 	double x1, y1, x2, y2;
 	if (!href.isEmpty())
-		{
+	{
 		gradhelper.Type = m_gradients[href].Type;
 		gradhelper.gradient = m_gradients[href].gradient;
 		gradhelper.Color1 = m_gradients[href].Color1;
 		gradhelper.Color2 = m_gradients[href].Color2;
-		}
+	}
 	else
-		{
+	{
 		if (e.tagName() == "linearGradient")
-			{
+		{
 			x1 = e.attribute( "x1", "0" ).toDouble();
 			y1 = e.attribute( "y1", "0" ).toDouble();
 			x2 = e.attribute( "x2", "100" ).toDouble();
@@ -1544,25 +1544,25 @@ void SVGPlug::parseGradient( const QDomElement &e )
 			else if ((x1 != x2) && (y1 == y2))
 				gradhelper.Type = 1;
 			else if ((x1 != x2) && (y1 != y2))
-				{
+			{
 				if (x1 < x2)
 					gradhelper.Type = 3;
 				else
 					gradhelper.Type = 4;
-				}
 			}
+		}
 		else
 			gradhelper.Type = 5;
 		QString spreadMethod = e.attribute( "spreadMethod" );
 		if( !spreadMethod.isEmpty() )
-			{
+		{
 			if( spreadMethod == "reflect" )
 				gradhelper.gradient.setRepeatMethod( VGradient::reflect );
 			else if( spreadMethod == "repeat" )
 				gradhelper.gradient.setRepeatMethod( VGradient::repeat );
-			}
-		parseColorStops(&gradhelper, e);
 		}
+		parseColorStops(&gradhelper, e);
+	}
 	m_gradients.insert(e.attribute("id"), gradhelper);
 }
 
@@ -1629,6 +1629,14 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				Text = QString::fromUtf8(tspan.text()).stripWhiteSpace();
 			else
 				Text = " ";
+			ite->IFont = gc->Family;
+			ite->TxtFill = gc->FillCol;
+			ite->ShTxtFill = 100;
+			ite->TxtStroke = gc->StrokeCol;
+			ite->ShTxtStroke = 100;
+			ite->ISize = gc->FontSize;
+			ite->TxTStyle = 0;
+			ite->TxtScale = 100;
 			for (uint tt = 0; tt < Text.length(); ++tt)
 			{
 				hg = new Pti;
@@ -1679,13 +1687,13 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->Textflow = false;
 			ite->DashOffset = gc->dashOffset;
 			ite->DashValues = gc->dashArray;
-			if (gc->Gradient != 0)
-			{
-				ite->fill_gradient = gc->GradCo;
-				Doku->ActPage->SelItem.append(ite);
-				Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-				Doku->ActPage->SelItem.clear();
-			}
+			/*			if (gc->Gradient != 0)
+						{
+							ite->fill_gradient = gc->GradCo;
+							Doku->ActPage->SelItem.append(ite);
+							Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+							Doku->ActPage->SelItem.clear();
+						} */
 			GElements.append(ite);
 			Elements.append(ite);
 			delete( m_gc.pop() );
@@ -1702,6 +1710,14 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		ite->RExtra = 0;
 		ite->LineSp = gc->FontSize / 10.0 + 2;
 		Prog->SetNewFont(gc->Family);
+		ite->IFont = gc->Family;
+		ite->TxtFill = gc->FillCol;
+		ite->ShTxtFill = 100;
+		ite->TxtStroke = gc->StrokeCol;
+		ite->ShTxtStroke = 100;
+		ite->ISize = gc->FontSize;
+		ite->TxTStyle = 0;
+		ite->TxtScale = 100;
 		for (uint cc = 0; cc<Text.length(); ++cc)
 		{
 			hg = new Pti;
@@ -1739,13 +1755,13 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		ite->Textflow = false;
 		ite->DashOffset = gc->dashOffset;
 		ite->DashValues = gc->dashArray;
-		if (gc->Gradient != 0)
-		{
-			ite->fill_gradient = gc->GradCo;
-			Doku->ActPage->SelItem.append(ite);
-			Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-			Doku->ActPage->SelItem.clear();
-		}
+		/*		if (gc->Gradient != 0)
+				{
+					ite->fill_gradient = gc->GradCo;
+					Doku->ActPage->SelItem.append(ite);
+					Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+					Doku->ActPage->SelItem.clear();
+				} */
 		GElements.append(ite);
 		Elements.append(ite);
 	}
@@ -1762,6 +1778,5 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
  \retval None
  */
 SVGPlug::~SVGPlug()
-{
-}
+{}
 

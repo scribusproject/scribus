@@ -240,10 +240,8 @@ void Cpalette::updateBoxS(QString Farbe)
 
 void Cpalette::updateShade(int sh)
 {
-	if ((sh % 10) == 0)
-		SetMen(sh/10+1);
-	else
-		SetMen(0);
+	/* PFJ - 29.02.04 - rewritten to use tenary */
+	SetMen(sh % 10 == 0 ? sh / 10 + 1 : 0);
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
@@ -285,11 +283,13 @@ void Cpalette::slotGrad(int nr)
 
 void Cpalette::ChooseGrad(int nr)
 {
+	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
+	bool test = nr == 0 ? false : true;
+	GradGroup->setEnabled(test);
+	GradientMode = test;
 	switch (nr)
 	{
 		case 0:
-			GradGroup->setEnabled(false);
-			GradientMode = false;
 			updateCList();
 			updateGeometry();
 			repaint();
@@ -297,8 +297,6 @@ void Cpalette::ChooseGrad(int nr)
 			updateBoxS(Color3);
 			break;
 		default:
-			GradGroup->setEnabled(true);
-			GradientMode = true;
 			updateCList();
 			if (GrColor1->isChecked())
 			{
@@ -311,7 +309,7 @@ void Cpalette::ChooseGrad(int nr)
 				updateBoxS(Color2);
 			}
 			break;
-		}
+	}
 	setFocus();
 }
 
@@ -371,9 +369,8 @@ void Cpalette::setActGradient(QString p, QString b, int shp, int shb, int typ)
 
 int Cpalette::SetMen(int c)
 {
-	int b = 0;
-	if (c > 0)
-		b = (c-1) * 10;
+	/* PFJ - 29.02.04 - merged initialisation of b and removed if (c > 0) */
+	int b = c > 0 ? (c - 1) * 10 : 0;
 	PM1->setValue(b);
 	return b;
 }
