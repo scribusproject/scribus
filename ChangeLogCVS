@@ -1,4 +1,9 @@
 Changes since Version 1.1.4
+17.01.2004	Added "Save to File" and "Load from File" Commands to the Story Editor.
+		The Clipboard no longer discards Textattributes.
+		Its no longer possible to attach linked Textframes to a Path.
+		Added new Command "Detach Text from Path".
+
 15.01.2004	Updated the Russian Translation.
 		The Page Selector on the Bottom of the Window is now a Spinbox.
 

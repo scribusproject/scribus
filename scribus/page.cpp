@@ -5262,6 +5262,26 @@ void Page::TextToPath()
 		}
 }
 
+void Page::FromPathText()
+{
+	PageItem *b;
+	PageItem *bb;
+	uint z;
+	if (GetItem(&b))
+		{
+		z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor, b->Pcolor2);
+		bb = Items.at(z);
+        bb->PoLine = b->PoLine.copy();
+		SetPolyClip(bb, 1, 1);
+		b->PType = 4;
+		b->Pcolor2 = "None";
+		b->Frame = true;
+		SetRectFrame(b);
+		RaiseItem();
+		update();
+		}
+}
+
 void Page::ToPathText()
 {
 	PageItem *b;

@@ -23,6 +23,7 @@
 #include <qmessagebox.h>
 #include <qregexp.h>
 #include "serializer.h"
+#include "customfdialog.h"
 extern QPixmap loadIcon(QString nam);
 
 
@@ -239,9 +240,10 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 
  	fmenu = new QPopupMenu();
  	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(Do_new()), CTRL+Key_N);
-/*  	fmenu->insertItem( tr("Save as..."), this, SLOT(SaveAs()));
-  	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(LoadScript()));
-		fmenu->insertSeparator();      */
+	fmenu->insertSeparator();
+  	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("Save to File..."), this, SLOT(SaveTextFile()));
+  	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load from File..."), this, SLOT(LoadTextFile()));
+	fmenu->insertSeparator();
 	fmenu->insertItem( tr("Save and Exit"), this, SLOT(accept()));
 	fmenu->insertItem( tr("Exit without Saving"), this, SLOT(Do_leave()));
  	emenu = new QPopupMenu();
@@ -774,5 +776,91 @@ void StoryEditor::KeyRet()
 	table1->adjHeight(table1->currentRow());
 	addPar(table1->currentRow()+1, tmp3, st);
 	updateStatus();
+}
+
+void StoryEditor::LoadTextFile()
+{
+	QString LoadEnc = "";
+	QString fileName = "";
+	int para = 0;
+	CustomFDialog dia(this, tr("Open"), tr("Text Files (*.txt);;All Files(*)"), false, true, false, true);
+	if (dia.exec() != QDialog::Accepted)
+		return;
+	LoadEnc = dia.TxCodeM->currentText();
+	fileName =  dia.selectedFile();
+	if (!fileName.isEmpty())
+	{
+		table1->setNumCols( 2 );
+		table1->setNumRows( 0 );
+		stList.clear();
+		edList.clear();
+		Serializer *ss = new Serializer(fileName);
+		if (ss->Read(LoadEnc))
+		{
+			QString data = ss->GetObjekt();
+			QString Dat = "";
+			data.replace(QRegExp("\r"), "");
+			data.replace(QRegExp("\n"), QChar(13));
+			for (uint a = 0; a < data.length(); ++a)
+  			{
+				QChar b = data.at(a);
+				if (b == QChar(13))
+				{
+					addPar(para, Dat, 0);
+					Dat = "";
+					para++;
+				}
+				else
+    				Dat += b;
+			}
+			if (Dat != "")
+				addPar(para, Dat, 0);
+			if (table1->numRows() == 0)
+				addPar(0, "", doc->CurrentABStil);
+			TextChanged = true;
+			table1->setCurrentCell(0, 1);
+			table1->ensureVisible(0, 1);
+			SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(0, 1));
+			cp->setFocus();
+			cp->setCursorPosition(0, 0);
+			for (uint a = 0; a < edList.count(); ++a)
+			{
+				SEditor *tt = edList.at(a);
+				tt->setUndoRedoEnabled(false);
+				tt->setUndoRedoEnabled(true);
+			}
+			emenu->setItemEnabled(Mundo, 0);
+			emenu->setItemEnabled(Mredo, 0);
+			emenu->setItemEnabled(Mcopy, 0);
+			emenu->setItemEnabled(Mcut, 0);
+			emenu->setItemEnabled(Mdel, 0);
+			updateStatus();
+			delete ss;
+    	}
+	}
+}
+
+void StoryEditor::SaveTextFile()
+{
+	QString LoadEnc = "";
+	QString fileName = "";
+	CustomFDialog dia(this, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), false, false, false, true);
+	if (dia.exec() != QDialog::Accepted)
+		return;
+	LoadEnc = dia.TxCodeM->currentText();
+	fileName =  dia.selectedFile();
+	if (!fileName.isEmpty())
+  	{
+		Serializer *ss = new Serializer(fileName);
+		for (uint a = 0; a < edList.count(); ++a)
+		{
+			SEditor *tt = edList.at(a);
+			ss->Objekt += tt->text();
+			if (a < edList.count()-1)
+				ss->Objekt += QChar(10);
+		}
+		ss->Write(LoadEnc);
+		delete ss;
+  	}
 }
 

@@ -239,6 +239,7 @@ public slots:
 	void ToPolyFrame();
 	void ToBezierFrame();
 	void MoveClipPoint(PageItem *b, FPoint np);
+	void FromPathText();
 	void ToPathText();
 	void Bezier2Poly();
 

@@ -298,6 +298,7 @@ signals:
 	void EditCL();
 	void EditLSt();
 	void NewTF(QString);
+	void UpdtGui(int);
 
 protected:
     QVBoxLayout* MpalLayout;

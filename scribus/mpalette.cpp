@@ -1144,16 +1144,17 @@ void Mpalette::SetCurItem(PageItem *i)
 		if (i->PType == 2)
 			{
 			updateCmsList();
-			if (i->ScaleType)
-				setter = true;
-			else
-				setter = false;
+			setter = i->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
-				if (setter == false)
-					Kette->setOn(setter);
-				Aspect->setEnabled(!setter);
-				Aspect->setChecked(i->AspectRatio);
+			if (setter == false)
+				Kette->setOn(setter);
+			Aspect->setEnabled(!setter);
+			Aspect->setChecked(i->AspectRatio);
+			LXpos->setEnabled(setter);
+			LYpos->setEnabled(setter);
+			ScaleX->setEnabled(setter);
+			ScaleY->setEnabled(setter);
 			}
 		}
 	HaveItem = true;
@@ -1648,12 +1649,20 @@ void Mpalette::ChangeScaling()
 		FrameScale->setChecked(false);
 		FreeScale->setChecked(true);
 		Aspect->setEnabled(false);
+		LXpos->setEnabled(true);
+		LYpos->setEnabled(true);
+		ScaleX->setEnabled(true);
+		ScaleY->setEnabled(true);
 		}
 	if (FrameScale == sender())
 		{
 		FrameScale->setChecked(true);
 		FreeScale->setChecked(false);
 		Aspect->setEnabled(true);
+		LXpos->setEnabled(false);
+		LYpos->setEnabled(false);
+		ScaleX->setEnabled(false);
+		ScaleY->setEnabled(false);
 		}
 	if ((HaveDoc) && (HaveItem))
 		{
@@ -1662,6 +1671,7 @@ void Mpalette::ChangeScaling()
 		if (!CurItem->ScaleType)
 			doc->ActPage->AdjustPictScale(CurItem);
 		doc->ActPage->RefreshItem(CurItem);
+		emit UpdtGui(2);
 		emit DocChanged();
 		setFocus();
 		}

@@ -457,6 +457,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(Mpal, SIGNAL(Schliessen()), this, SLOT(ToggleMpal()));
 		connect(Mpal, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
 		connect(Mpal, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
+		connect(Mpal, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
 		connect(Mpal->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
 		connect(Mpal->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
 		connect(Mpal->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
@@ -658,6 +659,7 @@ void ScribusApp::initMenuBar()
 	ShapeEdit = ShapeMenu->insertItem( tr("Edit Frame"), this, SLOT(ToggleFrameEdit()));
 	ShapeM = ObjMenu->insertItem( tr("Shape"), ShapeMenu);
 	PfadT = ObjMenu->insertItem( tr("Attach Text to Path"), this, SLOT(Pfadtext()));
+	PfadDT = ObjMenu->insertItem( tr("Detach Text from Path"), this, SLOT(noPfadtext()));
 	PfadV = ObjMenu->insertItem( tr("Combine Polygons"), this, SLOT(UniteOb()));
 	PfadS = ObjMenu->insertItem( tr("Split Polygons"), this, SLOT(SplitUniteOb()));
 	PfadTP = ObjMenu->insertItem( tr("Convert to Outlines"), this, SLOT(TraceText()));
@@ -666,6 +668,7 @@ void ScribusApp::initMenuBar()
 	ObjMenu->setItemEnabled(Gr, 0);
 	ObjMenu->setItemEnabled(UnGr, 0);
 	ObjMenu->setItemEnabled(PfadT, 0);
+	ObjMenu->setItemEnabled(PfadDT, 0);
 	ObjMenu->setItemEnabled(PfadV, 0);
 	ObjMenu->setItemEnabled(PfadS, 0);
 	ObjMenu->setItemEnabled(LockOb, 0);
@@ -2035,6 +2038,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	PageItem *b;
 	if (Nr != -1)
 		b = doc->ActPage->SelItem.at(0);
+	ObjMenu->setItemEnabled(PfadDT, 0);
 	switch (Nr)
 		{
 		case -1:
@@ -2076,7 +2080,7 @@ void ScribusApp::HaveNewSel(int Nr)
 				StilMenu->insertItem( tr("Invert"), this, SLOT(InvertPict()));
 			WerkTools->KetteAus->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
-			WerkTools->Textedit->setEnabled(true);
+			WerkTools->Textedit->setEnabled(b->ScaleType);
 			WerkTools->Textedit2->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(true);
 			break;
@@ -2146,6 +2150,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			extraMenu->setItemEnabled(hyph, 0);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 0);
+			ObjMenu->setItemEnabled(PfadDT, 1);
 			ObjMenu->setItemEnabled(PfadTP, 0);
 			StilMenu->clear();
 			StilMenu->insertItem( tr("Font"), FontMenu);
@@ -2213,7 +2218,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		if (doc->ActPage->SelItem.count() == 2)
 			{
 			if (((b->PType == 4) || (doc->ActPage->SelItem.at(1)->PType == 4)) && ((b->PType == 7) || (doc->ActPage->SelItem.at(1)->PType == 7)))
-				ObjMenu->setItemEnabled(PfadT, 1);
+				{
+				PageItem* bx = doc->ActPage->SelItem.at(1);
+				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0))
+					ObjMenu->setItemEnabled(PfadT, 1);
+				}
 			}
 		}
 	else
@@ -2244,6 +2253,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			ObjMenu->setItemEnabled(PfadTP, 0);
 			ObjMenu->setItemEnabled(PfadS, 0);
 			ObjMenu->setItemEnabled(PfadT, 0);
+			ObjMenu->setItemEnabled(PfadDT, 0);
 			ObjMenu->setItemEnabled(PfadV, 0);
 			ObjMenu->setItemEnabled(Loesch, 0);
 			ObjMenu->setItemEnabled(OBack, 0);
@@ -3087,6 +3097,11 @@ void ScribusApp::slotEditCut()
 							Buffer2 += QChar(5);
 							BufferI += QChar(10);
 							}
+						else if (nb->Ptext.at(a)->ch == QChar(9))
+							{
+							Buffer2 += QChar(4);
+							BufferI += QChar(9);
+							}
 						else
 							{
 							Buffer2 += nb->Ptext.at(a)->ch;
@@ -3118,8 +3133,8 @@ void ScribusApp::slotEditCut()
 			doc->ActPage->DeleteItem();
 			}
 		slotDocCh();
-		ClipB->setText(BufferI);
 		BuFromApp = true;
+		ClipB->setText(BufferI);
 		editMenu->setItemEnabled(edid3, 1);
 		}
 }
@@ -3155,6 +3170,11 @@ void ScribusApp::slotEditCopy()
 							Buffer2 += QChar(5);
 							BufferI += QChar(10);
 							}
+						else if (nb->Ptext.at(a)->ch == QChar(9))
+							{
+							Buffer2 += QChar(4);
+							BufferI += QChar(9);
+							}
 						else
 							{
 							Buffer2 += nb->Ptext.at(a)->ch;
@@ -3165,12 +3185,12 @@ void ScribusApp::slotEditCopy()
 						Buffer2 += QString::number(nb->Ptext.at(a)->csize)+"\t";
 						Buffer2 += nb->Ptext.at(a)->ccolor+"\t";
 						Buffer2 += QString::number(nb->Ptext.at(a)->cextra)+"\t";
-						Buffer2 += QString::number(nb->Ptext.at(a)->cshade)+'\t';
-						Buffer2 += QString::number(nb->Ptext.at(a)->cstyle)+'\t';
-						Buffer2 += QString::number(nb->Ptext.at(a)->cab)+'\t';
+						Buffer2 += QString::number(nb->Ptext.at(a)->cshade)+"\t";
+						Buffer2 += QString::number(nb->Ptext.at(a)->cstyle)+"\t";
+						Buffer2 += QString::number(nb->Ptext.at(a)->cab)+"\t";
 						Buffer2 += nb->Ptext.at(a)->cstroke+"\t";
-						Buffer2 += QString::number(nb->Ptext.at(a)->cshade2)+'\t';
-						Buffer2 += QString::number(nb->Ptext.at(a)->cscale)+'\n';
+						Buffer2 += QString::number(nb->Ptext.at(a)->cshade2)+"\t";
+						Buffer2 += QString::number(nb->Ptext.at(a)->cscale)+"\n";
 						}
 					}
 				nb = nb->NextBox;
@@ -3182,8 +3202,8 @@ void ScribusApp::slotEditCopy()
 			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
 			delete ss;
 			}
-		ClipB->setText(BufferI);
 		BuFromApp = true;
+		ClipB->setText(BufferI);
 		editMenu->setItemEnabled(edid3, 1);
 		}
 }
@@ -3215,6 +3235,8 @@ void ScribusApp::slotEditPaste()
 					hg->ch = (*it);
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);
+					if (hg->ch == QChar(4))
+						hg->ch = QChar(9);
 					it++;
 					hg->cfont = *it;
 					it++;
@@ -3239,7 +3261,7 @@ void ScribusApp::slotEditPaste()
 					if (it == NULL)
 						hg->cshade2 = 100;
 					else
-						hg->cshade = (*it).toInt();
+						hg->cshade2 = (*it).toInt();
 					it++;
 					if (it == NULL)
 						hg->cscale = 100;
@@ -3324,8 +3346,10 @@ void ScribusApp::ClipChange()
 	editMenu->setItemEnabled(edid3, 0);
 	if (!cc.isNull())
 		{
+		if (!BuFromApp)
+			Buffer2 = cc;
 		BuFromApp = false;
-		Buffer2 = cc;
+//		Buffer2 = cc;
 		if (HaveDoc)
 			{
 			if (cc.startsWith("<SCRIBUSELEM"))
@@ -4079,19 +4103,19 @@ void ScribusApp::setAppMode(int mode)
 					return;
 					}
 				}
-			QString cc;
+/*			QString cc;
 #if QT_VERSION  >= 0x030100
 			cc = ClipB->text(QClipboard::Clipboard);
 			if (cc.isNull())
 				cc = ClipB->text(QClipboard::Selection);
 #else
 			cc = ClipB->text();
-#endif
+#endif                               */
 			editMenu->setItemEnabled(edid3, 0);
-			if (!cc.isNull())
+			if (!Buffer2.isNull())
 				{
-				Buffer2 = cc;
-				if (!cc.startsWith("<SCRIBUSELEM"))
+//				Buffer2 = cc;
+				if (!Buffer2.startsWith("<SCRIBUSELEM"))
 					{
 					BuFromApp = false;
 					editMenu->setItemEnabled(edid3, 1);
@@ -6650,6 +6674,13 @@ void ScribusApp::TraceText()
 void ScribusApp::Pfadtext()
 {
 	doc->ActPage->ToPathText();
+	doc->UnDoValid = false;
+	CanUndo();
+}
+
+void ScribusApp::noPfadtext()
+{
+	doc->ActPage->FromPathText();
 	doc->UnDoValid = false;
 	CanUndo();
 }

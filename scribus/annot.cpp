@@ -1310,7 +1310,7 @@ void Annot::setDateSample(const QString& ds)
 {
 	QDateTime dt = QDateTime::currentDateTime();
 	QString tmp = ds;
-	uint q = 0;
+	int q = 0;
 	while (q != -1)
 	{
 		tmp.find("m", q);

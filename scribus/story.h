@@ -133,6 +133,8 @@ public slots:
 	void KeyDel();
 	void KeyBS();
 	void KeyRet();
+	void LoadTextFile();
+	void SaveTextFile();
 
 signals:
 	void DocChanged();
