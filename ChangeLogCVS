@@ -1,5 +1,8 @@
 Changes since Version 1.1.7
 
+26.07.2004
+	* bug     #891: gradients position does not change when objects are re-sized
+
 24.07.2004
 	* feature #884: German language update
 	* feature #888: Updated Danish Translation
@@ -7,9 +10,9 @@ Changes since Version 1.1.7
 21.07.2004
 	* bug     #878: Scribus crashes repeatedly while editing frame shapes
 	* bug     #879: problem with registration color
+	* feature # 58: Add registration colour for colour crop, fold and registration marks
 	* feature #880: Updated British English translation
 	* feature #881: Polish Translation Update
-	* feature # 58: Add registration colour for colour crop, fold and registration marks 
 
 18.07.2004
 	* bug     #874: Tab order in Multiple Duplicate

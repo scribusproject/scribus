@@ -2578,6 +2578,18 @@ void Page::scaleGroup(double scx, double scy)
 		bb->LocalY = oldLocalY;
 		bb->OldB2 = bb->Width;
 		bb->OldH2 = bb->Height;
+		FPointArray gr;
+		gr.addPoint(bb->GrStartX, bb->GrStartY);
+		gr.addPoint(bb->GrEndX, bb->GrEndY);
+		QWMatrix ma4;
+		ma4.scale(scx, scy);
+		gr.map(ma4);
+		bb->GrStartX = gr.point(0).x();
+		bb->GrStartY = gr.point(0).y();
+		bb->GrEndX = gr.point(1).x();
+		bb->GrEndY = gr.point(0).y();
+		bb->ContourLine.map(ma4);
+		updateGradientVectors(bb);
 	}
 	setGroupRect();
 	setUpdatesEnabled(true);
