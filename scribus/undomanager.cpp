@@ -327,6 +327,15 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	if (targetPixmap)
 		target->setUPixmap(oldIcon);
 }
+void UndoManager::action(UndoObject* target, UndoState* state,
+                         const QString &targetName, QPixmap *targetPixmap)
+{
+	QString oldName = target->getUName();
+	if (targetName != "")
+		target->setUName(targetName);
+	action(target, state, targetPixmap);
+	target->setUName(oldName);
+}
 
 void UndoManager::undo(int steps)
 {

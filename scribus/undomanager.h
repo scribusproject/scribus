@@ -495,9 +495,24 @@ public slots:
 	 * @param target Source of the action. When undoing/redoing this action
 	 * restore() method of this UndoObject will be called.
 	 * @param state UndoSate describing the state (action).
-	 * @param targetPixmap Is used to replace the default target icon.
+	 * @param targetPixmap Is used to override the default target icon in this action.
 	 */
 	void action(UndoObject* target, UndoState* state, QPixmap *targetPixmap = 0);
+
+	/**
+	 * @brief Adds a new action to the undo stack.
+	 *
+	 * If _unodEnabled is true the action will be stored otherwise it will
+	 * be just ignored. When a new action is added redo items from the stack
+	 * will be removed and the current action will be set to the one which was
+	 * added.
+	 * @param target Source of the action. When undoing/redoing this action
+	 * restore() method of this UndoObject will be called.
+	 * @param state UndoSate describing the state (action).
+	 * @param targetName Is used to override the default target name in this action.
+	 * @param targetPixmap Is used to override the default target icon in this action.
+	 */
+	void action(UndoObject* target, UndoState* state, const QString &targetName, QPixmap *targetPixmap = 0);
 
 	/**
 	 * @brief Informs UndoManager to perform undo

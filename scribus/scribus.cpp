@@ -8865,7 +8865,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 		PageItem* bb;
 		double x, y, w, h;
 		int t = -1; // show locked dialog only once
-		undoManager->beginTransaction(Um::Selection, Um::IGroup);
+		QString tooltip = Um::ItemsInvolved + "\n";
 		if (showLockDia)
 		{
 			for (uint a=0; a<view->SelItem.count(); ++a)
@@ -8893,22 +8893,23 @@ void ScribusApp::GroupObj(bool showLockDia)
 						bool t1=(t==1);
 						bb->setLocked(t1);
 						scrActions["itemLock"]->setOn(t1);
+						tooltip += "\t" + b->getUName() + "\n";
 					}
 				}
 			}
 		}
 
-		SimpleState *ss = new SimpleState("Group");
+		SimpleState *ss = new SimpleState(Um::Group, tooltip);
 		ss->set("GROUP", "group");
 		ss->set("itemcount", view->SelItem.count());
 
-		QString tooltip = Um::ItemsInvolved + "\n";
+		
 		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
 			b = view->SelItem.at(a);
 			b->Groups.push(doc->GroupCounter);
 			ss->set(QString("item%1").arg(a), b->ItemNr);
-			tooltip += "\t" + b->getUName() + "\n";
+			
 		}
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
@@ -8917,8 +8918,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
 		scrActions["itemUngroup"]->setEnabled(true);
-		undoManager->action(this, ss);
-		undoManager->commit("", 0, Um::Group, tooltip, 0);
+		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 	}
 }
 
@@ -8926,12 +8926,10 @@ void ScribusApp::UnGroupObj()
 {
 	if (HaveDoc)
 	{
-		undoManager->beginTransaction(Um::Group, Um::IGroup);
-		SimpleState *ss = new SimpleState("Ungroup");
+		SimpleState *ss = new SimpleState(Um::Ungroup);
 		ss->set("UNGROUP", "ungroup");
 		ss->set("itemcount", view->SelItem.count());
 		QString tooltip = Um::ItemsInvolved + "\n";
-
 		PageItem* b;
 		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
@@ -8948,8 +8946,7 @@ void ScribusApp::UnGroupObj()
 		slotDocCh();
 		view->Deselect(true);
 
-		undoManager->action(this, ss);
-		undoManager->commit("", 0, Um::Ungroup, tooltip, 0);
+		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 	}
 }
 
@@ -8967,9 +8964,9 @@ void ScribusApp::restore(UndoState* state, bool isUndo)
 
 void ScribusApp::restoreGroupping(SimpleState *state, bool isUndo)
 {
-	uint itemCount = state->getUInt("itemcount");
+	int itemCount = state->getInt("itemcount");
 	view->Deselect();
-	for (uint i = 0; i < itemCount; ++i)
+	for (int i = 0; i < itemCount; ++i)
 	{
 		int itemNr = state->getInt(QString("item%1").arg(i));
 		view->SelectItemNr(itemNr);
@@ -8982,9 +8979,9 @@ void ScribusApp::restoreGroupping(SimpleState *state, bool isUndo)
 
 void ScribusApp::restoreUngroupping(SimpleState *state, bool isUndo)
 {
-	uint itemCount = state->getUInt("itemcount");
+	int itemCount = state->getInt("itemcount");
 	view->Deselect();
-	for (uint i = 0; i < itemCount; ++i)
+	for (int i = 0; i < itemCount; ++i)
 	{
 		int itemNr = state->getInt(QString("item%1").arg(i));
 		view->SelectItemNr(itemNr);
