@@ -396,6 +396,7 @@ public:
 	static QPixmap *IPolygon;
 	static QPixmap *IPolyline;
 	static QPixmap *IPathText;
+	static QPixmap *IGroup;
 /*** Icons for actions ***********************************************/
 	static QPixmap *IMove;
 	static QPixmap *IResize;

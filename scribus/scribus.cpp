@@ -2530,7 +2530,9 @@ void ScribusApp::keyReleaseEvent(QKeyEvent *k)
 		case Key_Down:
 			_arrowKeyDown = false;
 			for (uint i = 0; i < view->SelItem.count(); ++i)
-				view->SelItem.at(0)->moveUndoAction();
+				view->SelItem.at(i)->checkChanges(true);
+			if (view->SelItem.count() > 1 && view->groupTransactionStarted())
+				undoManager->commit();
 	}
 }
 

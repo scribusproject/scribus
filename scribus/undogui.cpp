@@ -421,11 +421,11 @@ int UndoPalette::UndoItem::height(const QListBox *lb) const
 	{
 		int fontHeight = 2 * QFontMetrics(lb->font()).height();
 		if (actionpixmap)
-			return fontHeight > (13 + actionpixmap->height()) ?
-                   fontHeight : (13 + actionpixmap->height());
+			return fontHeight > (10 + actionpixmap->height()) ?
+                   fontHeight : (10 + actionpixmap->height());
 		else if (targetpixmap)
-			return fontHeight > (13 + targetpixmap->height()) ?
-                   fontHeight : (13 + targetpixmap->height());
+			return fontHeight > (10 + targetpixmap->height()) ?
+                   fontHeight : (10 + targetpixmap->height());
 		else
 			return fontHeight;
 	}

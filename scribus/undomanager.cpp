@@ -569,6 +569,7 @@ void UndoManager::initIcons()
 	UndoManager::IPolygon         = new QPixmap(iconDir + "spline.png");
 	UndoManager::IPolyline        = new QPixmap(iconDir + "beziertool.png");
 // 	UndoManager::IPathText        = new QPixmap(iconDir + "?";
+	UndoManager::IGroup           = new QPixmap(iconDir + "u_group.png");
 /*** Icons for actions ***********************************************/
 	UndoManager::IMove            = new QPixmap(iconDir + "u_move.png");
 	UndoManager::IResize          = new QPixmap(iconDir + "u_resize.png");
@@ -607,6 +608,7 @@ QPixmap *UndoManager::ILine            = NULL;
 QPixmap *UndoManager::IPolygon         = NULL;
 QPixmap *UndoManager::IPolyline        = NULL;
 QPixmap *UndoManager::IPathText        = NULL;
+QPixmap *UndoManager::IGroup           = NULL;
 /*** Icons for actions ***********************************************/
 QPixmap *UndoManager::IMove            = NULL;
 QPixmap *UndoManager::IResize          = NULL;

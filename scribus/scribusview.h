@@ -261,6 +261,7 @@ public:
 	void SplitObj();
 	void rememberPreviousSettings(int mx=0, int my=0);
 	bool mousePressed();
+	bool groupTransactionStarted();
 
 public slots: // Public slots
   /** Fhrt die Vergr�erung/Verkleinerung aus; */
@@ -321,6 +322,7 @@ private: // Private attributes
 	int    oldX;
 	int    oldY;
 	bool _mousePressed;
+	bool _groupTransactionStarted;
 	UndoManager *undoManager;
 	void creationUndoAction(PageItem *pi);
 
