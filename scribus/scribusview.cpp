@@ -189,6 +189,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 
 void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int cliph)
 {
+	QPoint vr;
 	if (Doc->loading)
 		return;
 	if (!updateOn)
@@ -415,7 +416,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			painter->setZoomFactor(z);
 		}
 		painter->end();
-		QPoint vr = contentsToViewport(QPoint(clipx, clipy));
+		vr = contentsToViewport(QPoint(clipx, clipy));
 		bitBlt( viewport(), vr.x(), vr.y(), &pm, 0, 0, clipw, cliph );
 		delete painter;
 	}
@@ -7735,6 +7736,10 @@ void ScribusView::ToBack()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
+		if (Doc->TemplateMode)
+			Doc->MasterItems = Doc->Items;
+		else
+			Doc->DocItems = Doc->Items;
 		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(0);
 		emit DocChanged();
@@ -7769,6 +7774,10 @@ void ScribusView::ToFront()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
+		if (Doc->TemplateMode)
+			Doc->MasterItems = Doc->Items;
+		else
+			Doc->DocItems = Doc->Items;
 		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
@@ -7822,6 +7831,10 @@ void ScribusView::LowerItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
+		if (Doc->TemplateMode)
+			Doc->MasterItems = Doc->Items;
+		else
+			Doc->DocItems = Doc->Items;
 		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
@@ -7875,6 +7888,10 @@ void ScribusView::RaiseItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
+		if (Doc->TemplateMode)
+			Doc->MasterItems = Doc->Items;
+		else
+			Doc->DocItems = Doc->Items;
 		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
