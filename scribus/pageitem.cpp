@@ -56,7 +56,15 @@ extern ScribusApp* ScApp;
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline) 
 	// Initialize superclasses
 	: QObject(pa),
-	// Initialize member variables - 2005-03-10 CR. Initializer lists are faster and safer.
+	// Initialize member variables - 2005-03-10 CR. Initializer lists can be faster and safer.
+	fillShadeVal(100),
+	fillTransparencyVal(0.0),
+	lineShadeVal(100),
+	lineTransparencyVal(0.0),
+	imageIsFlippedH(0),
+	imageIsFlippedV(0),
+	Locked(false),
+	LockRes(false),
 	textFlowsAroundFrameVal(false),
 	textFlowUsesBoundingBoxVal(false),
 	textFlowUsesContourLineVal(false)
@@ -64,8 +72,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	QString tmp;
 	BackBox = 0;
 	NextBox = 0;
-	Locked = false;
-	LockRes = false;
 	Xpos = x;
 	oldXpos = x;
 	Ypos = y;
@@ -94,8 +100,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ShTxtFill = 100;
 	TxtScale = 100;
 	TxTStyle = 0;
-	fillShadeVal = 100;
-	lineShadeVal = 100;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
@@ -140,8 +144,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	dpiY = 72.0;
 	LocalX = 0;
 	LocalY = 0;
-	imageIsFlippedH = 0;
-	imageIsFlippedV = 0;
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
@@ -254,8 +256,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	LayerNr = Doc->ActiveLayer;
 	ScaleType = true;
 	AspectRatio = true;
-	fillTransparencyVal = 0.0;
-	lineTransparencyVal = 0.0;
 	Reverse = false;
 	InvPict = false;
 	NamedLStyle = "";
