@@ -45,7 +45,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
     dsLayout4->addWidget( orientationQLabel, 0, 2 );
 	dsLayout4->addWidget( orientationdataQLabel, 0, 3 );
 
-	QString dimvalue=QString("%1 %2");	
+	QString dimvalue="%1 %2";	
     widthdataQLabel = new QLabel( dimvalue.arg(Breite).arg(ein), dsGroupBox7, "widthdataQLabel" );
     widthQLabel = new QLabel( tr( "Width:" ), dsGroupBox7, "widthLabel" );
     dsLayout4->addWidget( widthQLabel, 1, 0 );
