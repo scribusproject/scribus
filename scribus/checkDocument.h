@@ -25,6 +25,7 @@ public:
 	void clearErrorList();
 	void buildErrorList(ScribusDoc *doc);
 	void closeEvent(QCloseEvent *ce);
+	void keyPressEvent(QKeyEvent *ke);
 
 	QComboBox* curCheckProfile;
 	QLabel* textLabel1;

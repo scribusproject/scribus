@@ -151,7 +151,15 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, 
 void CheckDocument::closeEvent(QCloseEvent *ce)
 {
 	emit closePal(false);
-	ce->accept();
+	QDialog::closeEvent(ce);
+}
+
+void CheckDocument::keyPressEvent(QKeyEvent *ke)
+{
+	if (ke->key() == Key_Escape)
+		close();
+	else
+		QDialog::keyPressEvent(ke);
 }
 
 void CheckDocument::slotSelect(QListViewItem* ite)
