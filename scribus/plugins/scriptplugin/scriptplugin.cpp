@@ -757,6 +757,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("selectText"), scribus_selecttext, METH_VARARGS, tr(scribus_selecttext__doc__)},
 	{const_cast<char*>("sentToLayer"), scribus_senttolayer, METH_VARARGS, tr(scribus_senttolayer__doc__)},
 	{const_cast<char*>("setActiveLayer"), scribus_setactlayer, METH_VARARGS, tr(scribus_setactlayer__doc__)},
+	{const_cast<char*>("setPDFBookmark"), scribus_setpdfbookmark, METH_VARARGS, tr(scribus_setpdfbookmark__doc__)},
+	{const_cast<char*>("isPDFBookmark"), scribus_ispdfbookmark, METH_VARARGS, tr(scribus_ispdfbookmark__doc__)},
 	{const_cast<char*>("setColumnGap"), scribus_setcolumngap, METH_VARARGS, tr(scribus_setcolumngap__doc__)},
 	{const_cast<char*>("setColumns"), scribus_setcolumns, METH_VARARGS, tr(scribus_setcolumns__doc__)},
 	{const_cast<char*>("setCornerRadius"), scribus_setcornerrad, METH_VARARGS, tr(scribus_setcornerrad__doc__)},

@@ -860,3 +860,56 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args)
 	} // for error iterator
 	return PyBool_FromLong(static_cast<long>(false));
 }
+
+PyObject *scribus_setpdfbookmark(PyObject */*self*/, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	bool toggle;
+	if (!PyArg_ParseTuple(args, "b|es", &toggle, "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	if (i == NULL)
+		return NULL;
+	if (i->itemType() != PageItem::TextFrame)
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set bookmark on a non-text frame", "python error"));
+		return NULL;
+	}
+	if (i->isBookmark == toggle)
+	{
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+	if (toggle)
+	{
+		i->isAnnotation = false;
+		Carrier->AddBookMark(i);
+	}
+	else
+		Carrier->DelBookMark(i);
+	i->isBookmark = toggle;
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_ispdfbookmark(PyObject */*self*/, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if (!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	if (i == NULL)
+		return NULL;
+	if (i->itemType() != PageItem::TextFrame)
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't get info from a non-text frame", "python error"));
+		return NULL;
+	}
+	if (i->isBookmark)
+		return PyBool_FromLong(1);
+	return PyBool_FromLong(0);
+}

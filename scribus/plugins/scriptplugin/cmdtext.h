@@ -313,4 +313,28 @@ May raise WrongFrameTypeError if the target frame is not an text frame\n"));
  */
 PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_setpdfbookmark__doc__,
+QT_TR_NOOP("setPDFBookmark(\"toggle\", [\"name\"])\n\
+\n\
+Sets wether (toggle = 1) the text frame \"name\" is a bookmark nor not.\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not a text frame\n\
+"));
+/*! Set PDF bookmark */
+PyObject *scribus_setpdfbookmark(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_ispdfbookmark__doc__,
+ QT_TR_NOOP("isPDFBookmark([\"name\"]) -> bool\n\
+\n\
+Returns true if the text frame \"name\" is a PDF bookmark.\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not a text frame\n\
+"));
+/*! Is PDF bookmark? */
+PyObject *scribus_ispdfbookmark(PyObject */*self*/, PyObject* args);
+
 #endif
