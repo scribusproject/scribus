@@ -600,7 +600,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (dashes.count() != 0)
 				ite->DashValues = dashes;
 			if (drawID != "")
-				ite->AnName = drawID;
+				ite->setName(drawID);
 			if (b.hasAttribute("draw:transform"))
 			{
 				parseTransform(&ite->PoLine, b.attribute("draw:transform"));

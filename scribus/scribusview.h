@@ -176,6 +176,7 @@ public:
 	void ResetControl();
 	void MoveClipPoint(PageItem *b, FPoint np);
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
+	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw);
 	void moveGroup(double x, double y, bool fromMP = false);
 	void MoveRotated(PageItem *b, FPoint npv, bool fromMP = false);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false);

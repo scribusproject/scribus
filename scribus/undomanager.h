@@ -221,7 +221,9 @@ public:
 	static const QString LockGuides;
 	static const QString UnlockGuides;
 	static const QString Move;
+	static const QString Resize;
 	static const QString FromXToY;
+	static const QString FromHToW;
 	static const QString From;
 	static const QString To;
 	static const QString X;
@@ -247,6 +249,12 @@ public:
 	static QPixmap *IMovePolygon;
 	static QPixmap *IMovePolyline;
 	static QPixmap *IMovePathText;
+	static QPixmap *IResizeText;
+	static QPixmap *IResizeImage;
+	static QPixmap *IResizeLine;
+	static QPixmap *IResizePolygon;
+	static QPixmap *IResizePolyline;
+	static QPixmap *IResizePathText;
 	/*@}*/
 
 protected:

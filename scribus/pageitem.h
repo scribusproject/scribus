@@ -79,8 +79,12 @@ public:
 	double oldYpos;
   /** Breite des Elements */
 	double Width;
+	/** @brief Stores the old width for undo action. Is used to detect resize actions. */
+	double oldWidth;
   /** Hoehe des Elements */
 	double Height;
+	/** @brief Stores the old height for undo action. Is used to detect resize actions. */
+	double oldHeight;
   /** Eckrundung von Rechtecken */
 	double RadRect;
   /** Art des Items */
@@ -294,8 +298,10 @@ public:
 	QString OnMasterPage;
 	int startArrowIndex;
 	int endArrowIndex;
-	/** Icon for move action */
+	/** @brief Icon for move action */
 	QPixmap *undoIconMove;
+	/** @brief Icon for resize action */
+	QPixmap *undoIconResize;
 	UndoManager *undoManager;
 	/** 
 	 * @brief Set name of the item
@@ -308,6 +314,11 @@ public:
 	 * @author Riku Leino
 	 */
 	void moveUndoAction();
+	/**
+	 * @brief Add an undo action to the undo guis
+	 * @author Riku Leino
+	 */
+	void resizeUndoAction();
 	void restore(UndoState *state, bool isUndo);
 };
 

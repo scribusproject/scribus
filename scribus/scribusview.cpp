@@ -5508,7 +5508,12 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 
 bool ScribusView::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdateClip, bool redraw)
 {
-	PageItem *b =Doc-> Items.at(ite);
+	SizeItem(newX, newY, Doc->Items.at(ite), fromMP, DoUpdateClip, redraw);
+}
+
+bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw)
+{
+	PageItem *b = pi;
 	if (b->Locked)
 		return false;
 	QPainter p;

@@ -328,14 +328,20 @@ UndoManager::~UndoManager()
 void UndoManager::initIcons()
 {
 	QString iconDir = ICONDIR;
-	UndoManager::IGuides       = new QPixmap(iconDir + "u_margins.png");
-	UndoManager::ILockGuides   = new QPixmap(iconDir + "u_margins_locked.png");
-	UndoManager::IMoveText     = new QPixmap(iconDir + "u_move_text.png");
-	UndoManager::IMoveImage    = new QPixmap(iconDir + "u_move_image.png");
-	UndoManager::IMoveLine     = new QPixmap(iconDir + "u_move_line.png");
-	UndoManager::IMovePolygon  = new QPixmap(iconDir + "u_move_polygon.png");
-	UndoManager::IMovePolyline = new QPixmap(iconDir + "u_move_polyline.png");
-// 	UndoManager::IMovePathText = new QPixmap(iconDir + "u_move_pathtext.png");
+	UndoManager::IGuides         = new QPixmap(iconDir + "u_margins.png");
+	UndoManager::ILockGuides     = new QPixmap(iconDir + "u_margins_locked.png");
+	UndoManager::IMoveText       = new QPixmap(iconDir + "u_move_text.png");
+	UndoManager::IMoveImage      = new QPixmap(iconDir + "u_move_image.png");
+	UndoManager::IMoveLine       = new QPixmap(iconDir + "u_move_line.png");
+	UndoManager::IMovePolygon    = new QPixmap(iconDir + "u_move_polygon.png");
+	UndoManager::IMovePolyline   = new QPixmap(iconDir + "u_move_polyline.png");
+// 	UndoManager::IMovePathText   = new QPixmap(iconDir + "u_move_pathtext.png");
+	UndoManager::IResizeText     = new QPixmap(iconDir + "u_resize_text.png");
+	UndoManager::IResizeImage    = new QPixmap(iconDir + "u_resize_image.png");
+	UndoManager::IResizeLine     = new QPixmap(iconDir + "u_resize_line.png");
+	UndoManager::IResizePolygon  = new QPixmap(iconDir + "u_resize_polygon.png");
+	UndoManager::IResizePolyline = new QPixmap(iconDir + "u_resize_polyline.png");
+// 	UndoManager::IResizePathText = new QPixmap(iconDir + "u_resize_pathtext.png");
 }
 
 const QString UndoManager::AddVGuide    = tr("Add vertical guide");
@@ -347,7 +353,9 @@ const QString UndoManager::MoveHGuide   = tr("Move horizontal guide");
 const QString UndoManager::LockGuides   = tr("Lock guides");
 const QString UndoManager::UnlockGuides = tr("Unlock guides");
 const QString UndoManager::Move         = tr("Move");
+const QString UndoManager::Resize       = tr("Resize");
 const QString UndoManager::FromXToY     = tr("X: %1, Y: %2 (from)\nX: %3, Y: %4 (to)");
+const QString UndoManager::FromHToW     = tr("W: %1, H: %2 (from)\nW: %3, H: %4 (to)");
 const QString UndoManager::From         = tr("from");
 const QString UndoManager::To           = tr("to");
 const QString UndoManager::X            = tr("X");
@@ -359,11 +367,17 @@ const QString UndoManager::Polygon      = tr("Polygon");
 const QString UndoManager::Polyline     = tr("Polyline");
 const QString UndoManager::PathText     = tr("PathText");
 
-QPixmap *UndoManager::IGuides       = NULL;
-QPixmap *UndoManager::ILockGuides   = NULL;
-QPixmap *UndoManager::IMoveText     = NULL;
-QPixmap *UndoManager::IMoveImage    = NULL;
-QPixmap *UndoManager::IMoveLine     = NULL;
-QPixmap *UndoManager::IMovePolygon  = NULL;
-QPixmap *UndoManager::IMovePolyline = NULL;
-QPixmap *UndoManager::IMovePathText = NULL;
+QPixmap *UndoManager::IGuides         = NULL;
+QPixmap *UndoManager::ILockGuides     = NULL;
+QPixmap *UndoManager::IMoveText       = NULL;
+QPixmap *UndoManager::IMoveImage      = NULL;
+QPixmap *UndoManager::IMoveLine       = NULL;
+QPixmap *UndoManager::IMovePolygon    = NULL;
+QPixmap *UndoManager::IMovePolyline   = NULL;
+QPixmap *UndoManager::IMovePathText   = NULL;
+QPixmap *UndoManager::IResizeText     = NULL;
+QPixmap *UndoManager::IResizeImage    = NULL;
+QPixmap *UndoManager::IResizeLine     = NULL;
+QPixmap *UndoManager::IResizePolygon  = NULL;
+QPixmap *UndoManager::IResizePolyline = NULL;
+QPixmap *UndoManager::IResizePathText = NULL;
