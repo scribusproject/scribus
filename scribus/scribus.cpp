@@ -2972,12 +2972,11 @@ void ScribusApp::HaveNewSel(int Nr)
 
 void ScribusApp::slotDocCh(bool reb)
 {
-	return;
-	if ((reb) && (!doc->TemplateMode) && (view->SelItem.count() != 0))
+/*	if ((reb) && (!doc->TemplateMode) && (view->SelItem.count() != 0))
 	{
 		for (uint upd = 0; upd < view->SelItem.count(); ++upd)
 			Tpal->slotUpdateElement(doc->ActPage->PageNr, view->SelItem.at(upd)->ItemNr);
-	}
+	} */
 	if (!doc->isModified())
 		doc->setModified();
 	ActWin->setCaption( doc->DocName + "*");
@@ -3069,11 +3068,13 @@ bool ScribusApp::slotDocOpen()
 #else
 	formats += tr("Documents (*.sla *.scd);;");
 #endif
-	formats += tr("Postscript-Files (*.eps *.EPS *.ps *.PS);;");
+	if (DLLexists(6))
+		formats += tr("Postscript-Files (*.eps *.EPS *.ps *.PS);;");
+	if (DLLexists(10))
 #ifdef HAVE_LIBZ
-	formats += tr("SVG-Images (*.svg *.svgz);;");
+		formats += tr("SVG-Images (*.svg *.svgz);;");
 #else
-	formats += tr("SVG-Images (*.svg);;");
+		formats += tr("SVG-Images (*.svg);;");
 #endif
 	formats + tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
@@ -3730,7 +3731,7 @@ bool ScribusApp::DoFileSave(QString fn)
 	QDir::setCurrent(fi.dirPath(true));
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	qApp->processEvents();
-	ret = ss->WriteDoc(fn, doc, view, FProg);
+	ret = ss->WriteDoc(fn, doc, FProg);
 	delete ss;
 	if (ret)
 	{
@@ -9163,7 +9164,7 @@ void ScribusApp::emergencySave()
 				doc->ASaveTimer->stop();
 				disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				ss->WriteDoc(doc->DocName+".emergency", doc, view, 0);
+				ss->WriteDoc(doc->DocName+".emergency", doc, 0);
 				delete ss;
 			}
 			view->close();

@@ -1042,10 +1042,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 					int y = static_cast<int>(Doc->MasterPages.at(ap)->Yoffset);
 					int w = static_cast<int>(Doc->MasterPages.at(ap)->Width);
 					int h = static_cast<int>(Doc->MasterPages.at(ap)->Height);
-					int x2 = static_cast<int>(it->BoundingX);
-					int y2 = static_cast<int>(it->BoundingY);
-					int w2 = static_cast<int>(it->BoundingW);
-					int h2 = static_cast<int>(it->BoundingH);
+					int x2 = static_cast<int>(it->BoundingX - it->Pwidth / 2.0);
+					int y2 = static_cast<int>(it->BoundingY - it->Pwidth / 2.0);
+					int w2 = static_cast<int>(it->BoundingW + it->Pwidth);
+					int h2 = static_cast<int>(it->BoundingH + it->Pwidth);
 					if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
 						continue;
 					if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->PageNr)) && (it->OwnPage != -1))
@@ -1605,10 +1605,10 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				int y = static_cast<int>(a->Yoffset);
 				int w = static_cast<int>(a->Width);
 				int h1 = static_cast<int>(a->Height);
-				int x2 = static_cast<int>(c->BoundingX);
-				int y2 = static_cast<int>(c->BoundingY);
-				int w2 = static_cast<int>(c->BoundingW);
-				int h2 = static_cast<int>(c->BoundingH);
+				int x2 = static_cast<int>(c->BoundingX - c->Pwidth / 2.0);
+				int y2 = static_cast<int>(c->BoundingY - c->Pwidth / 2.0);
+				int w2 = static_cast<int>(c->BoundingW + c->Pwidth);
+				int h2 = static_cast<int>(c->BoundingH + c->Pwidth);
 				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 					continue;
 				if (c->ChangedMasterItem)
@@ -2216,10 +2216,10 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 			int y = static_cast<int>(a->Yoffset);
 			int w = static_cast<int>(a->Width);
 			int h1 = static_cast<int>(a->Height);
-			int x2 = static_cast<int>(c->BoundingX);
-			int y2 = static_cast<int>(c->BoundingY);
-			int w2 = static_cast<int>(c->BoundingW);
-			int h2 = static_cast<int>(c->BoundingH);
+			int x2 = static_cast<int>(c->BoundingX - c->Pwidth / 2.0);
+			int y2 = static_cast<int>(c->BoundingY - c->Pwidth / 2.0);
+			int w2 = static_cast<int>(c->BoundingW + c->Pwidth);
+			int h2 = static_cast<int>(c->BoundingH + c->Pwidth);
 			if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 				continue;
 			if (c->ChangedMasterItem)

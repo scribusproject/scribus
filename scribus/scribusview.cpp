@@ -8667,6 +8667,10 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 {
 	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
+	if (Doc->MasterP)
+		Doc->MasterItems = Doc->Items;
+	else
+		Doc->DocItems = Doc->Items;
 	ite->PLineArt = Doc->DLineArt;
 	ite->Shade = Doc->Dshade;
 	ite->Shade2 = Doc->Dshade2;
@@ -8686,6 +8690,10 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 {
 	PageItem* ite = new PageItem(Doc, 2, x, y, b, h, 1, Doc->DbrushPict, "None");
 	Doc->Items.append(ite);
+	if (Doc->MasterP)
+		Doc->MasterItems = Doc->Items;
+	else
+		Doc->DocItems = Doc->Items;
 	ite->Shade = Doc->ShadePict;
 	ite->LocalScX = Doc->ScaleX;
 	ite->LocalScY = Doc->ScaleY;
@@ -8709,6 +8717,10 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 {
 	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
+	if (Doc->MasterP)
+		Doc->MasterItems = Doc->Items;
+	else
+		Doc->DocItems = Doc->Items;
 	ite->PLineArt = Doc->DLineArt;
 	ite->Shade = Doc->Dshade;
 	ite->Shade2 = Doc->Dshade2;
@@ -8728,6 +8740,10 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 {
 	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
+	if (Doc->MasterP)
+		Doc->MasterItems = Doc->Items;
+	else
+		Doc->DocItems = Doc->Items;
 	ite->PLineArt = Doc->DLineArt;
 	ite->Shade = Doc->Dshade;
 	ite->Shade2 = Doc->Dshade2;
@@ -8747,6 +8763,10 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 {
 	PageItem* ite = new PageItem(Doc, 7, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
+	if (Doc->MasterP)
+		Doc->MasterItems = Doc->Items;
+	else
+		Doc->DocItems = Doc->Items;
 	ite->PLineArt = Doc->DLineArt;
 	ite->Shade = Doc->Dshade;
 	ite->Shade2 = Doc->Dshade2;
@@ -8765,6 +8785,10 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 {
 	PageItem* ite = new PageItem(Doc, 4, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
+	if (Doc->MasterP)
+		Doc->MasterItems = Doc->Items;
+	else
+		Doc->DocItems = Doc->Items;
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
@@ -8783,6 +8807,10 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		w = 1;
 	PageItem* ite = new PageItem(Doc, 5, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
+	if (Doc->MasterP)
+		Doc->MasterItems = Doc->Items;
+	else
+		Doc->DocItems = Doc->Items;
 	ite->PLineArt = Doc->DLstyleLine;
 	ite->Shade2 = Doc->DshadeLine;
 	ite->ItemNr = Doc->Items.count()-1;

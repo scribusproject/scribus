@@ -22,10 +22,9 @@ public:
 	~ScriXmlDoc() {};
 	bool IsScribus(QString fileName);
 	QString ReadDatei(QString fileName);
-	void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
-	void SetItemProps(QDomElement *ob, PageItem* item);
-	QString GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo);
 	QString AskForFont(SCFonts &avail, QString fStr, preV *Prefs, ScribusDoc *doc);
+	QString GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo);
+	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
 	void GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL> &Vorlagen, ScribusDoc* doc, preV *Prefs, bool fl);
 	bool ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs);
@@ -37,11 +36,11 @@ public:
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc,
 					 QMap<QString,QString> &FontSub, preV *Prefs, ScribusView *view);
 	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
-	void WritePages(ScribusView *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC);
-	bool WriteDoc(QString fileName, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
+	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
+	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
+	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
 	void WritePref(preV *Vor, QString ho);
 	bool ReadPref(struct preV *Vorein, QString ho);
-	QColor SetFarbe(ScribusDoc *doc, QString farbe, int shad);
 	CListe Farben;
 	QValueList<StVorL> Vorlagen;
 	struct Linked { 

@@ -50,7 +50,7 @@ void ScribusWin::slotAutoSave()
 		QFileInfo fi(fn);
 		QDir::setCurrent(fi.dirPath(true));
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (ss->WriteDoc(fn, doc, view, 0))
+		if (ss->WriteDoc(fn, doc, 0))
 		{
 			doc->setUnModified();
 			setCaption(doc->DocName);
