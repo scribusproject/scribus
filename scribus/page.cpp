@@ -3906,7 +3906,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		newY = static_cast<int>(m->y()/sc);
 		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
 		{
-			if ((abs(Dxp - newX) > 5) || (abs(Dyp - newY) > 5))
+			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
 				doku->DragP = true;
 				doku->leaveDrag = false;
@@ -4570,7 +4570,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			HaveSelRect = true;
 		}
-		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock))
+		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock) && (!HaveSelRect))
 		{
 			if (YGuides.count() != 0)
 			{

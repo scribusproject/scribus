@@ -183,7 +183,7 @@ public:
 public slots:
 	void slotStoryEditor();
 	void InvertPict();
-	void Collect();
+	QString Collect();
 	void ChBookmarks(int s, int e, int n);
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);

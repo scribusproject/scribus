@@ -30,7 +30,7 @@ extern FPoint GetMaxClipF(FPointArray Clip);
  */
 QString Name()
 {
-	return QObject::tr("Import EPS/PS...");
+	return QObject::tr("Import &EPS/PS...");
 }
 
 /*!

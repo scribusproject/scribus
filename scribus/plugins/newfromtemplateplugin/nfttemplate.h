@@ -17,6 +17,8 @@ public:
 	QString color;
 	QString descr;
 	QString usage;
+	QString scribusVersion;
+	QString date;
 	QString author;
 	QString email;
 	nfttemplate(const QString &tmplType);

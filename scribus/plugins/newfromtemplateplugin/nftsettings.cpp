@@ -2,7 +2,6 @@
  *   Riku Leino, tsoots@welho.com                                          *
  ***************************************************************************/
 #include "nftsettings.h"
-#include <iostream>
 
 nftsettings::nftsettings()
 {
@@ -37,19 +36,33 @@ void nftsettings::read()
 
 void nftsettings::addTemplates(QString dir) // dir will be searched for a sub folder called templates
 {
+	// Add templates from the dir itself
+	QFile* tmplxml = new QFile(QDir::convertSeparators(dir + "/templates/template.xml"));
+	handler->setSourceDir(dir + "/templates");
+	if (tmplxml->exists()) {
+		QXmlInputSource* source = new QXmlInputSource(tmplxml);
+		reader->parse(source);
+		delete source;
+	}
+	delete tmplxml;
+	
+	
+	// And from all the subdirectories. template.xml file is only search one dir level deeper than the dir
 	QDir tmpldir(dir + "/templates");
 	if (tmpldir.exists()) {
 		tmpldir.setFilter(QDir::Dirs);
 		QStringList dirs = tmpldir.entryList();
 		for (uint i = 0; i < dirs.size(); i++) {
-			QFile* tmplxml = new QFile(QDir::convertSeparators(dir + "/templates/" + dirs[i] + "/template.xml"));
-			handler->setSourceDir(dir+"/templates/"+dirs[i]);
-			if (tmplxml->exists()) {
-				QXmlInputSource* source = new QXmlInputSource(tmplxml);
-				reader->parse(source);
-				delete source;
+			if ((dirs[i] != ".") && (dirs[i] != "..")) {
+				QFile* tmplxml = new QFile(QDir::convertSeparators(dir + "/templates/" + dirs[i] + "/template.xml"));
+				handler->setSourceDir(dir+"/templates/"+dirs[i]);
+				if (tmplxml->exists()) {
+					QXmlInputSource* source = new QXmlInputSource(tmplxml);
+					reader->parse(source);
+					delete source;
+				}
+				delete tmplxml;
 			}
-			delete tmplxml;
 		}
 	}
 }

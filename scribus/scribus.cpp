@@ -457,7 +457,7 @@ void ScribusApp::initScribus()
 		SetShortCut();
 		if (CMSavail)
 		{
-			settingsMenu->insertItem( tr("Color Management..."), this , SLOT(SetCMSPrefs()));
+			settingsMenu->insertItem( tr("&Color Management..."), this , SLOT(SetCMSPrefs()));
 			ProfilesL::Iterator ip;
 			if ((Prefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile)))
 			{
@@ -592,85 +592,85 @@ void ScribusApp::initMenuBar()
 	recentMenu = new QPopupMenu();
 	RecentDocs.clear();
 	fileMenu=new QPopupMenu();
-	fid12 = fileMenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(slotFileNew()), CTRL+Key_N);
-	fid13 = fileMenu->insertItem(loadIcon("DateiOpen16.png"), tr("Open..."), this, SLOT(slotDocOpen()), CTRL+Key_O);
-	fid14 = fileMenu->insertItem( tr("Recent Documents"), recentMenu);
+	fid12 = fileMenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(slotFileNew()), CTRL+Key_N);
+	fid13 = fileMenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Open..."), this, SLOT(slotDocOpen()), CTRL+Key_O);
+	fid14 = fileMenu->insertItem( tr("Open &Recent"), recentMenu);
 	SetKeyEntry(0, tr("New"), fid12, CTRL+Key_N);
 	SetKeyEntry(1, tr("Open..."), fid13, CTRL+Key_O);
 	fileMenu->insertSeparator();
-	fid1 = fileMenu->insertItem(loadIcon("DateiClos16.png"), tr("Close"), this, SLOT(slotFileClose()), CTRL+Key_W);
+	fid1 = fileMenu->insertItem(loadIcon("DateiClos16.png"), tr("&Close"), this, SLOT(slotFileClose()), CTRL+Key_W);
 	SetKeyEntry(2, tr("Close"), fid1, CTRL+Key_W);
 	fileMenu->setItemEnabled(fid1, 0);
 	MenuItemsFile.append(fid1);
-	fid4 = fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("Save"), this, SLOT(slotFileSave()), CTRL+Key_S);
+	fid4 = fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slotFileSave()), CTRL+Key_S);
 	SetKeyEntry(3, tr("Save"), fid4, CTRL+Key_S);
 	fileMenu->setItemEnabled(fid4, 0);
-	fid5 = fileMenu->insertItem( tr("Save as..."), this, SLOT(slotFileSaveAs()));
+	fid5 = fileMenu->insertItem( tr("Save &As..."), this, SLOT(slotFileSaveAs()));
 	SetKeyEntry(4, tr("Save as..."), fid5, 0);
 	fileMenu->setItemEnabled(fid5, 0);
-	fid52 = fileMenu->insertItem( tr("Revert to Saved"), this, SLOT(slotFileRevert()));
+	fid52 = fileMenu->insertItem( tr("Re&vert to Saved"), this, SLOT(slotFileRevert()));
 	fileMenu->setItemEnabled(fid52, 0);
-	fid51 = fileMenu->insertItem( tr("Collect for Output..."), this, SLOT(Collect()));
+	fid51 = fileMenu->insertItem( tr("Collect for O&utput..."), this, SLOT(Collect()));
 	fileMenu->setItemEnabled(fid51, 0);
 	MenuItemsFile.append(fid51);
 	fileMenu->insertSeparator();
 	importMenu = new QPopupMenu();
-	fid2 = importMenu->insertItem( tr("Get Text/Picture..."), this, SLOT(slotFileOpen()));
+	fid2 = importMenu->insertItem( tr("&Get Text/Picture..."), this, SLOT(slotFileOpen()));
 	importMenu->setItemEnabled(fid2, 0);
-	fid2aa = importMenu->insertItem( tr("Append Text..."), this, SLOT(slotFileAppend()));
+	fid2aa = importMenu->insertItem( tr("Append &Text..."), this, SLOT(slotFileAppend()));
 	importMenu->setItemEnabled(fid2aa, 0);
-	fid2a = importMenu->insertItem( tr("Insert Page..."), this, SLOT(slotDocMerge()));
+	fid2a = importMenu->insertItem( tr("Insert &Page..."), this, SLOT(slotDocMerge()));
 	importMenu->setItemEnabled(fid2a, 0);
-	fileMenu->insertItem( tr("Import..."), importMenu);
+	fileMenu->insertItem( tr("&Import"), importMenu);
 	exportMenu = new QPopupMenu();
-	fid3 = exportMenu->insertItem( tr("Save Text..."), this, SLOT(SaveText()));
+	fid3 = exportMenu->insertItem( tr("Save &Text..."), this, SLOT(SaveText()));
 	exportMenu->setItemEnabled(fid3, 0);
-	fid8 = exportMenu->insertItem( tr("Save Page as EPS..."), this, SLOT(SaveAsEps()));
+	fid8 = exportMenu->insertItem( tr("Save Page as &EPS..."), this, SLOT(SaveAsEps()));
 	exportMenu->setItemEnabled(fid8, 0);
-	fid10 = exportMenu->insertItem( tr("Save as PDF..."), this, SLOT(SaveAsPDF()));
+	fid10 = exportMenu->insertItem( tr("Save as P&DF..."), this, SLOT(SaveAsPDF()));
 	exportMenu->setItemEnabled(fid10, 0);
-	fid11 = fileMenu->insertItem( tr("Export..."), exportMenu);
+	fid11 = fileMenu->insertItem( tr("&Export"), exportMenu);
 	fileMenu->setItemEnabled(fid11, 0);
 	fileMenu->insertSeparator();
-	fid6 = fileMenu->insertItem( tr("Document Info..."), this, SLOT(InfoDoc()), CTRL+Key_I);
+	fid6 = fileMenu->insertItem( tr("Document &Info..."), this, SLOT(InfoDoc()), CTRL+Key_I);
 	fileMenu->setItemEnabled(fid6, 0);
 	MenuItemsFile.append(fid6);
 	SetKeyEntry(5, tr("Document Info..."), fid6, CTRL+Key_I);
-	fid7 = fileMenu->insertItem( tr("Document Setup..."), this, SLOT(SetupDoc()));
+	fid7 = fileMenu->insertItem( tr("Document &Setup..."), this, SLOT(SetupDoc()));
 	fileMenu->setItemEnabled(fid7, 0);
 	MenuItemsFile.append(fid7);
 	SetKeyEntry(6, tr("Document Setup..."), fid7, 0);
-	fid9 = fileMenu->insertItem(loadIcon("DateiPrint16.png"), tr("Print..."), this, SLOT(slotFilePrint()), CTRL+Key_P);
+	fid9 = fileMenu->insertItem(loadIcon("DateiPrint16.png"), tr("&Print..."), this, SLOT(slotFilePrint()), CTRL+Key_P);
 	fileMenu->setItemEnabled(fid9, 0);
 	MenuItemsFile.append(fid9);
 	SetKeyEntry(7, tr("Print..."), fid9, CTRL+Key_P);
 	fileMenu->insertSeparator();
-	MenID = fileMenu->insertItem(loadIcon("exit.png"), tr("Quit"), this, SLOT(slotFileQuit()), CTRL+Key_Q);
+	MenID = fileMenu->insertItem(loadIcon("exit.png"), tr("&Quit"), this, SLOT(slotFileQuit()), CTRL+Key_Q);
 	SetKeyEntry(8, tr("Quit"), MenID, CTRL+Key_Q);
 	editMenu = new QPopupMenu();
-	edUndo = editMenu->insertItem( tr("Undo"), this, SLOT(UnDoAction()), CTRL+Key_Z);
+	edUndo = editMenu->insertItem( tr("&Undo"), this, SLOT(UnDoAction()), CTRL+Key_Z);
 	editMenu->insertSeparator();
-	edid1 = editMenu->insertItem(loadIcon("editcut.png"), tr("Cut"), this , SLOT(slotEditCut()), CTRL+Key_X);
-	edid2 = editMenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), this , SLOT(slotEditCopy()), CTRL+Key_C);
-	edid3 = editMenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), this , SLOT(slotEditPaste()), CTRL+Key_V);
-	edid4 = editMenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(DeleteText()));
-	edid5 = editMenu->insertItem( tr("Select all"), this, SLOT(SelectAll()), CTRL+Key_A);
+	edid1 = editMenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), this , SLOT(slotEditCut()), CTRL+Key_X);
+	edid2 = editMenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), this , SLOT(slotEditCopy()), CTRL+Key_C);
+	edid3 = editMenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), this , SLOT(slotEditPaste()), CTRL+Key_V);
+	edid4 = editMenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(DeleteText()));
+	edid5 = editMenu->insertItem( tr("Select &All"), this, SLOT(SelectAll()), CTRL+Key_A);
 	SetKeyEntry(9, tr("Cut"), edid1, CTRL+Key_X);
 	SetKeyEntry(10, tr("Copy"), edid2, CTRL+Key_C);
 	SetKeyEntry(11, tr("Paste"), edid3, CTRL+Key_V);
 	SetKeyEntry(12, tr("Clear"), edid4, 0);
 	SetKeyEntry(13, tr("Select all"), edid5, CTRL+Key_A);
 	editMenu->insertSeparator();
-	Sear = editMenu->insertItem( tr("Search/Replace..."), this, SLOT(SearchText()));
+	Sear = editMenu->insertItem( tr("&Search/Replace..."), this, SLOT(SearchText()));
 	editMenu->insertSeparator();
-	MenID = editMenu->insertItem( tr("Colors..."), this , SLOT(slotEditColors()));
+	MenID = editMenu->insertItem( tr("C&olors..."), this , SLOT(slotEditColors()));
 	SetKeyEntry(14, tr("Colors..."), MenID, 0);
-	edid6 = editMenu->insertItem( tr("Paragraph Styles..."), this , SLOT(slotEditStyles()));
-	edid6a = editMenu->insertItem( tr("Line Styles..."), this , SLOT(slotEditLineStyles()));
+	edid6 = editMenu->insertItem( tr("&Paragraph Styles..."), this , SLOT(slotEditStyles()));
+	edid6a = editMenu->insertItem( tr("&Line Styles..."), this , SLOT(slotEditLineStyles()));
 	SetKeyEntry(15, tr("Styles..."), edid6, 0);
-	tman = editMenu->insertItem( tr("Templates..."), this, SLOT(ManageTemp()));
+	tman = editMenu->insertItem( tr("&Templates..."), this, SLOT(ManageTemp()));
 	SetKeyEntry(16, tr("Templates..."), tman, 0);
-	jman = editMenu->insertItem( tr("Javascripts..."), this, SLOT(ManageJava()));
+	jman = editMenu->insertItem( tr("&Javascripts..."), this, SLOT(ManageJava()));
 	editMenu->setItemEnabled(edUndo, 0);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
@@ -685,41 +685,41 @@ void ScribusApp::initMenuBar()
 	StilMenu = new QPopupMenu();
 	ObjMenu = new QPopupMenu();
 	SetKeyEntry(19, tr("Select New Font"), 0, 0);
-	ODup = ObjMenu->insertItem( tr("Duplicate"), this, SLOT(ObjektDup()), CTRL+Key_D);
+	ODup = ObjMenu->insertItem( tr("D&uplicate"), this, SLOT(ObjektDup()), CTRL+Key_D);
 	SetKeyEntry(20, tr("Duplicate"), ODup, CTRL+Key_D);
-	OMDup = ObjMenu->insertItem( tr("Multiple Duplicate"), this, SLOT(ObjektDupM()));
+	OMDup = ObjMenu->insertItem( tr("&Multiple Duplicate"), this, SLOT(ObjektDupM()));
 	SetKeyEntry(21, tr("Multiple Duplicate"), OMDup, 0);
-	Loesch = ObjMenu->insertItem( tr("Delete"), this, SLOT(DeleteObjekt()), CTRL+Key_K);
+	Loesch = ObjMenu->insertItem( tr("&Delete"), this, SLOT(DeleteObjekt()), CTRL+Key_K);
 	SetKeyEntry(22, tr("Delete"), Loesch, CTRL+Key_K);
 	ObjMenu->insertSeparator();
-	Gr = ObjMenu->insertItem( tr("Group"), this, SLOT(GroupObj()), CTRL+Key_G);
+	Gr = ObjMenu->insertItem( tr("&Group"), this, SLOT(GroupObj()), CTRL+Key_G);
 	SetKeyEntry(23, tr("Group"), Gr, CTRL+Key_G);
-	UnGr = ObjMenu->insertItem( tr("Un-group"), this, SLOT(UnGroupObj()),CTRL+Key_U);
+	UnGr = ObjMenu->insertItem( tr("&Ungroup"), this, SLOT(UnGroupObj()),CTRL+Key_U);
 	SetKeyEntry(24, tr("Un-group"), UnGr, CTRL+Key_U);
-	LockOb = ObjMenu->insertItem( tr("Lock"), this, SLOT(ToggleObjLock()), CTRL+Key_H);
+	LockOb = ObjMenu->insertItem( tr("&Lock"), this, SLOT(ToggleObjLock()), CTRL+Key_H);
 	ObjMenu->insertSeparator();
-	OBack = ObjMenu->insertItem( tr("Send to Back"), this, SLOT(Objekt2Back()));
+	OBack = ObjMenu->insertItem( tr("Send to &Back"), this, SLOT(Objekt2Back()));
 	SetKeyEntry(25, tr("Send to Back"), OBack, 0);
-	OFront = ObjMenu->insertItem( tr("Bring to Front"), this, SLOT(Objekt2Front()));
+	OFront = ObjMenu->insertItem( tr("Bring to &Front"), this, SLOT(Objekt2Front()));
 	SetKeyEntry(26, tr("Bring to Front"), OFront, 0);
-	OLower = ObjMenu->insertItem( tr("Lower"), this, SLOT(ObjektLower()));
+	OLower = ObjMenu->insertItem( tr("&Lower"), this, SLOT(ObjektLower()));
 	SetKeyEntry(27, tr("Lower"), OLower, 0);
-	ORaise = ObjMenu->insertItem( tr("Raise"), this, SLOT(ObjektRaise()));
+	ORaise = ObjMenu->insertItem( tr("&Raise"), this, SLOT(ObjektRaise()));
 	SetKeyEntry(28, tr("Raise"), ORaise, 0);
-	DistM = ObjMenu->insertItem( tr("Distribute/Align..."), this, SLOT(ObjektAlign()));
+	DistM = ObjMenu->insertItem( tr("Distribute/&Align..."), this, SLOT(ObjektAlign()));
 	SetKeyEntry(29, tr("Distribute/Align..."), DistM, 0);
 	ObjMenu->insertSeparator();
 	ShapeMenu = new QPopupMenu();
 	SCustom = new Autoforms(0);
 	ShapeMenu->insertItem(SCustom);
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
-	ShapeEdit = ShapeMenu->insertItem( tr("Edit Frame"), this, SLOT(ToggleFrameEdit()));
-	ShapeM = ObjMenu->insertItem( tr("Shape"), ShapeMenu);
-	PfadT = ObjMenu->insertItem( tr("Attach Text to Path"), this, SLOT(Pfadtext()));
-	PfadDT = ObjMenu->insertItem( tr("Detach Text from Path"), this, SLOT(noPfadtext()));
-	PfadV = ObjMenu->insertItem( tr("Combine Polygons"), this, SLOT(UniteOb()));
-	PfadS = ObjMenu->insertItem( tr("Split Polygons"), this, SLOT(SplitUniteOb()));
-	PfadTP = ObjMenu->insertItem( tr("Convert to Outlines"), this, SLOT(TraceText()));
+	ShapeEdit = ShapeMenu->insertItem( tr("&Edit Frame"), this, SLOT(ToggleFrameEdit()));
+	ShapeM = ObjMenu->insertItem( tr("&Shape"), ShapeMenu);
+	PfadT = ObjMenu->insertItem( tr("&Attach Text to Path"), this, SLOT(Pfadtext()));
+	PfadDT = ObjMenu->insertItem( tr("&Detach Text from Path"), this, SLOT(noPfadtext()));
+	PfadV = ObjMenu->insertItem( tr("&Combine Polygons"), this, SLOT(UniteOb()));
+	PfadS = ObjMenu->insertItem( tr("Split &Polygons"), this, SLOT(SplitUniteOb()));
+	PfadTP = ObjMenu->insertItem( tr("C&onvert to Outlines"), this, SLOT(TraceText()));
 	ObjMenu->setItemEnabled(ShapeM, 0);
 	ObjMenu->setItemEnabled(DistM, 0);
 	ObjMenu->setItemEnabled(Gr, 0);
@@ -731,95 +731,95 @@ void ScribusApp::initMenuBar()
 	ObjMenu->setItemEnabled(LockOb, 0);
 	ObjMenu->setItemEnabled(PfadTP, 0);
 	pageMenu = new QPopupMenu();
-	MenID = pageMenu->insertItem( tr("Insert..."), this, SLOT(slotNewPageM()));
+	MenID = pageMenu->insertItem( tr("&Insert..."), this, SLOT(slotNewPageM()));
 	SetKeyEntry(30, tr("Insert..."), MenID, 0);
-	pgmd = pageMenu->insertItem( tr("Delete..."), this, SLOT(DeletePage()));
+	pgmd = pageMenu->insertItem( tr("&Delete..."), this, SLOT(DeletePage()));
 	SetKeyEntry(31, tr("Delete..."), pgmd, 0);
-	MenID = pageMenu->insertItem( tr("Copy")+"...", this, SLOT(CopyPage()));
+	MenID = pageMenu->insertItem( tr("&Copy")+"...", this, SLOT(CopyPage()));
 	SetKeyEntry(61, tr("Copy")+"...", MenID, 0);
-	pgmv = pageMenu->insertItem( tr("Move..."), this, SLOT(MovePage()));
+	pgmv = pageMenu->insertItem( tr("&Move..."), this, SLOT(MovePage()));
 	SetKeyEntry(32, tr("Move..."), pgmv, 0);
-	MenID = pageMenu->insertItem( tr("Apply Template..."), this, SLOT(ApplyTemp()));
+	MenID = pageMenu->insertItem( tr("&Apply Template..."), this, SLOT(ApplyTemp()));
 	SetKeyEntry(33, tr("Apply Template..."), MenID, 0);
-	MenID = pageMenu->insertItem( tr("Manage Guides..."), this, SLOT(ManageGuides()));
+	MenID = pageMenu->insertItem( tr("&Manage Guides..."), this, SLOT(ManageGuides()));
 	SetKeyEntry(49, tr("Manage Guides..."), MenID, 0);
 	pageMenu->setItemEnabled(pgmd, 0);
 	pageMenu->setItemEnabled(pgmv, 0);
 	viewMenu=new QPopupMenu();
-	MenID = viewMenu->insertItem( tr("Fit in Window"), this, SLOT(slotZoomFit()), CTRL+Key_0);
+	MenID = viewMenu->insertItem( tr("&Fit in Window"), this, SLOT(slotZoomFit()), CTRL+Key_0);
 	SetKeyEntry(34, tr("Fit in Window"), MenID, CTRL+Key_0);
-	MenID = viewMenu->insertItem("50%", this, SLOT(slotZoom50()));
+	MenID = viewMenu->insertItem("&50%", this, SLOT(slotZoom50()));
 	SetKeyEntry(35, tr("50%"), MenID, 0);
-	MenID = viewMenu->insertItem("75%", this, SLOT(slotZoom75()));
+	MenID = viewMenu->insertItem("&75%", this, SLOT(slotZoom75()));
 	SetKeyEntry(36, tr("75%"), MenID, 0);
-	MenID = viewMenu->insertItem( tr("Actual Size"), this, SLOT(slotZoom100()), CTRL+Key_1);
+	MenID = viewMenu->insertItem( tr("&100%"), this, SLOT(slotZoom100()), CTRL+Key_1);
 	SetKeyEntry(37, tr("Actual Size"), MenID, CTRL+Key_1);
-	MenID = viewMenu->insertItem("200%", this, SLOT(slotZoom200()));
+	MenID = viewMenu->insertItem("&200%", this, SLOT(slotZoom200()));
 	SetKeyEntry(38, tr("200%"), MenID, 0);
-	MenID = viewMenu->insertItem( tr("Thumbnails"), this, SLOT(slotZoom20()));
+	MenID = viewMenu->insertItem( tr("&Thumbnails"), this, SLOT(slotZoom20()));
 	SetKeyEntry(39, tr("Thumbnails"), MenID, 0);
 	viewMenu->insertSeparator();
-	Markers = viewMenu->insertItem( tr("Hide Margins"), this, SLOT(ToggleMarks()));
+	Markers = viewMenu->insertItem( tr("Hide &Margins"), this, SLOT(ToggleMarks()));
 	SetKeyEntry(40, tr("Hide Margins"), Markers, 0);
-	FrameDr = viewMenu->insertItem( tr("Hide Frames"), this, SLOT(ToggleFrames()));
+	FrameDr = viewMenu->insertItem( tr("Hide &Frames"), this, SLOT(ToggleFrames()));
 	SetKeyEntry(41, tr("Hide Frames"), FrameDr, 0);
-	Bilder = viewMenu->insertItem( tr("Hide Images"), this, SLOT(TogglePics()));
+	Bilder = viewMenu->insertItem( tr("Hide &Images"), this, SLOT(TogglePics()));
 	SetKeyEntry(42, tr("Hide Images"), Bilder, 0);
-	Ras = viewMenu->insertItem( tr("Show Grid"), this, SLOT(ToggleRaster()));
+	Ras = viewMenu->insertItem( tr("Show &Grid"), this, SLOT(ToggleRaster()));
 	SetKeyEntry(43, tr("Show Grid"), Ras, 0);
-	uRas = viewMenu->insertItem( tr("Snap to Grid"), this, SLOT(ToggleURaster()));
+	uRas = viewMenu->insertItem( tr("Snap to &Grid"), this, SLOT(ToggleURaster()));
 	SetKeyEntry(44, tr("Snap to Grid"), uRas, 0);
-	Guide = viewMenu->insertItem( tr("Hide Guides"), this, SLOT(ToggleGuides()));
-	uGuide = viewMenu->insertItem( tr("Snap to Guides"), this, SLOT(ToggleUGuides()));
-	Base = viewMenu->insertItem( tr("Show Baseline Grid"), this, SLOT(ToggleBase()));
+	Guide = viewMenu->insertItem( tr("Hide G&uides"), this, SLOT(ToggleGuides()));
+	uGuide = viewMenu->insertItem( tr("Sna&p to Guides"), this, SLOT(ToggleUGuides()));
+	Base = viewMenu->insertItem( tr("Show &Baseline Grid"), this, SLOT(ToggleBase()));
 	toolMenu=new QPopupMenu();
-	viewMpal = toolMenu->insertItem( tr("Properties"), this, SLOT(ToggleMpal()));
+	viewMpal = toolMenu->insertItem( tr("&Properties"), this, SLOT(ToggleMpal()));
 	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
-	viewTpal = toolMenu->insertItem( tr("Outline"), this, SLOT(ToggleTpal()));
+	viewTpal = toolMenu->insertItem( tr("&Outline"), this, SLOT(ToggleTpal()));
 	SetKeyEntry(47, tr("Outline"), viewTpal, 0);
-	viewBpal = toolMenu->insertItem( tr("Scrapbook"), this, SLOT(ToggleBpal()));
+	viewBpal = toolMenu->insertItem( tr("&Scrapbook"), this, SLOT(ToggleBpal()));
 	SetKeyEntry(48, tr("Scrapbook"), viewBpal, 0);
-	viewLpal = toolMenu->insertItem( tr("Layers"), this, SLOT(ToggleLpal()));
-	viewSepal = toolMenu->insertItem( tr("Page Palette"), this, SLOT(ToggleSepal()));
-	viewBopal = toolMenu->insertItem( tr("Bookmarks"), this, SLOT(ToggleBookpal()));
+	viewLpal = toolMenu->insertItem( tr("&Layers"), this, SLOT(ToggleLpal()));
+	viewSepal = toolMenu->insertItem( tr("P&age Palette"), this, SLOT(ToggleSepal()));
+	viewBopal = toolMenu->insertItem( tr("&Bookmarks"), this, SLOT(ToggleBookpal()));
 	extraMenu=new QPopupMenu();
-	MenID = extraMenu->insertItem( tr("Manage Pictures"), this, SLOT(StatusPic()));
+	MenID = extraMenu->insertItem( tr("&Manage Pictures"), this, SLOT(StatusPic()));
 	SetKeyEntry(51, tr("Manage Pictures"), MenID, 0);
-	hyph = extraMenu->insertItem( tr("Hyphenate Text"), this, SLOT(doHyphenate()));
+	hyph = extraMenu->insertItem( tr("&Hyphenate Text"), this, SLOT(doHyphenate()));
 	extraMenu->setItemEnabled(hyph, 0);
 	SetKeyEntry(50, tr("Hyphenate Text"), hyph, 0);
 
 	settingsMenu = new QPopupMenu();
-	tip = settingsMenu->insertItem( tr("Tool-Tips"), this, SLOT(ToggleTips()));
-	toolbarMenuTools = settingsMenu->insertItem( tr("Tools"), this, SLOT(ToggleTools()));
-	toolbarMenuPDFTools = settingsMenu->insertItem( tr("PDF-Tools"), this, SLOT(TogglePDFTools()));
+	tip = settingsMenu->insertItem( tr("Toolti&ps"), this, SLOT(ToggleTips()));
+	toolbarMenuTools = settingsMenu->insertItem( tr("&Tools"), this, SLOT(ToggleTools()));
+	toolbarMenuPDFTools = settingsMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
 	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
-	SetKeyEntry(55, tr("Tool-Tips"), tip, 0);
+	SetKeyEntry(55, tr("Tooltips"), tip, 0);
 	tipsOn = true;
 	settingsMenu->setItemChecked(tip, tipsOn);
 	settingsMenu->insertSeparator();
-	MenID = settingsMenu->insertItem( tr("Preferences..."), this , SLOT(slotPrefsOrg()));
-	MenID = settingsMenu->insertItem( tr("Fonts..."), this , SLOT(slotFontOrg()));
+	MenID = settingsMenu->insertItem( tr("&Preferences..."), this , SLOT(slotPrefsOrg()));
+	MenID = settingsMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
 	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
-	settingsMenu->insertItem( tr("Hyphenator..."), this, SLOT(configHyphenator()));
-	settingsMenu->insertItem( tr("Keyboard Shortcuts..."), this, SLOT(DefKB()));
+	settingsMenu->insertItem( tr("&Hyphenator..."), this, SLOT(configHyphenator()));
+	settingsMenu->insertItem( tr("&Keyboard Shortcuts..."), this, SLOT(DefKB()));
 
 	windowsMenu = new QPopupMenu();
 	windowsMenu->setCheckable( true );
 	connect(windowsMenu, SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	helpMenu=new QPopupMenu();
-	MenID = helpMenu->insertItem( tr("About Scribus"), this, SLOT(slotHelpAbout()));
+	MenID = helpMenu->insertItem( tr("&About Scribus"), this, SLOT(slotHelpAbout()));
 	SetKeyEntry(52, tr("About Scribus"), MenID, 0);
-	MenID = helpMenu->insertItem( tr("About Qt"), this, SLOT(slotHelpAboutQt()));
+	MenID = helpMenu->insertItem( tr("About &Qt"), this, SLOT(slotHelpAboutQt()));
 	SetKeyEntry(53, tr("About Qt"), MenID, 0);
 	helpMenu->insertSeparator();
-	MenID = helpMenu->insertItem( tr("Scribus Manual..."), this, SLOT(slotOnlineHelp()));
+	MenID = helpMenu->insertItem( tr("Scribus &Manual..."), this, SLOT(slotOnlineHelp()));
 	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
 	//	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 	//	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem( tr("&File"), fileMenu);
 	menuBar()->insertItem( tr("&Edit"), editMenu);
-	Stm = menuBar()->insertItem( tr("&Style"), StilMenu);
+	Stm = menuBar()->insertItem( tr("St&yle"), StilMenu);
 	Obm = menuBar()->insertItem( tr("&Item"), ObjMenu);
 	pgmm = menuBar()->insertItem( tr("&Page"), pageMenu);
 	menuBar()->setItemEnabled(Stm, 0);
@@ -836,23 +836,23 @@ void ScribusApp::initMenuBar()
 	menuBar()->insertSeparator();
 	menuBar()->insertItem( tr("&Help"), helpMenu);
 	AliMenu = new QPopupMenu();
-	AliMenu->insertItem( tr("Left"));
-	AliMenu->insertItem( tr("Center"));
-	AliMenu->insertItem( tr("Right"));
-	AliMenu->insertItem( tr("Block"));
-	AliMenu->insertItem( tr("Forced"));
+	AliMenu->insertItem( tr("&Left"));
+	AliMenu->insertItem( tr("&Center"));
+	AliMenu->insertItem( tr("&Right"));
+	AliMenu->insertItem( tr("&Block"));
+	AliMenu->insertItem( tr("&Forced"));
 	ColorMenu = new QPopupMenu();
 	ColorMenC = new QComboBox(false);
 	ColorMenC->setEditable(false);
 	ColorMenu->insertItem(ColorMenC);
 	SizeTMenu = new QPopupMenu();
-	SizeTMenu->insertItem( tr("Other..."));
+	SizeTMenu->insertItem( tr("&Other..."));
 	char *ar_sizes[] = {" 7", " 9", "10", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		SizeTMenu->insertItem(ar_sizes[s] + tr(" pt"));
 	ShadeMenu = new QPopupMenu();
-	ShadeMenu->insertItem( tr("Other..."));
+	ShadeMenu->insertItem( tr("&Other..."));
 	ShadeMenu->insertItem("0 %");
 	ShadeMenu->insertItem("10 %");
 	ShadeMenu->insertItem("20 %");
@@ -1960,11 +1960,6 @@ bool ScribusApp::slotFileNew()
 		sp = dia->SpinBox10->value();
 		atf = dia->AutoFrame->isChecked();
 		fp = dia->Doppelseiten->isChecked();
-		if (dia->ComboBox3->currentItem() == 1)
-		{
-			b = mm2pts(qRound(pts2mm(dia->Pagebr)));
-			h = mm2pts(qRound(pts2mm(dia->Pageho)));
-		}
 		ret = doFileNew(b, h, tpr, lr, rr, br, ab, sp, atf, fp, dia->ComboBox3->currentItem(),
 		                dia->ErsteSeite->isChecked(), dia->Orient, dia->PgNr->value());
 		FMess->setText( tr("Ready"));
@@ -2159,8 +2154,8 @@ bool ScribusApp::DoSaveClose()
 void ScribusApp::windowsMenuAboutToShow()
 {
 	windowsMenu->clear();
-	int cascadeId = windowsMenu->insertItem( tr("Cascade"), wsp, SLOT(cascade() ) );
-	int tileId = windowsMenu->insertItem( tr("Tile"), wsp, SLOT(tile() ) );
+	int cascadeId = windowsMenu->insertItem( tr("&Cascade"), wsp, SLOT(cascade() ) );
+	int tileId = windowsMenu->insertItem( tr("&Tile"), wsp, SLOT(tile() ) );
 	if ( wsp->windowList().isEmpty() )
 	{
 		windowsMenu->setItemEnabled( cascadeId, false );
@@ -2513,9 +2508,9 @@ void ScribusApp::HaveNewSel(int Nr)
 			ObjMenu->setItemEnabled(ShapeM, 1);
 		ObjMenu->setItemEnabled(PfadTP, 0);
 		StilMenu->clear();
-		StilMenu->insertItem( tr("Color"), ColorMenu);
+		StilMenu->insertItem( tr("&Color"), ColorMenu);
 		if (b->isRaster)
-			StilMenu->insertItem( tr("Invert"), this, SLOT(InvertPict()));
+			StilMenu->insertItem( tr("&Invert"), this, SLOT(InvertPict()));
 		WerkTools->KetteAus->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->Textedit->setEnabled(b->ScaleType);
@@ -2523,7 +2518,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		WerkTools->Rotiere->setEnabled(true);
 		break;
 	case 4:
-		importMenu->changeItem(fid2, tr("Get Text..."));
+		importMenu->changeItem(fid2, tr("&Get Text..."));
 		importMenu->setItemEnabled(fid2, 1);
 		importMenu->setItemEnabled(fid2aa, 1);
 		exportMenu->setItemEnabled(fid3, 1);
@@ -2541,13 +2536,13 @@ void ScribusApp::HaveNewSel(int Nr)
 			ObjMenu->setItemEnabled(ShapeM, 1);
 		ObjMenu->setItemEnabled(PfadTP, 1);
 		StilMenu->clear();
-		StilMenu->insertItem( tr("Font"), FontMenu);
-		StilMenu->insertItem( tr("Size"), SizeTMenu);
-		StilMenu->insertItem( tr("Effects"), TypeStyleMenu);
-		StilMenu->insertItem( tr("Alignment"), AliMenu);
-		StilMenu->insertItem( tr("Color"), ColorMenu);
-		StilMenu->insertItem( tr("Shade"), ShadeMenu);
-		StilMenu->insertItem( tr("Tabulators..."), this, SLOT(EditTabs()));
+		StilMenu->insertItem( tr("&Font"), FontMenu);
+		StilMenu->insertItem( tr("&Size"), SizeTMenu);
+		StilMenu->insertItem( tr("&Effects"), TypeStyleMenu);
+		StilMenu->insertItem( tr("&Alignment"), AliMenu);
+		StilMenu->insertItem( tr("&Color"), ColorMenu);
+		StilMenu->insertItem( tr("&Shade"), ShadeMenu);
+		StilMenu->insertItem( tr("&Tabulators..."), this, SLOT(EditTabs()));
 		WerkTools->Rotiere->setEnabled(true);
 		WerkTools->Textedit2->setEnabled(true);
 		if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -2669,8 +2664,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		menuBar()->setItemEnabled(Stm, 1);
 		menuBar()->setItemEnabled(Obm, 1);
 		StilMenu->clear();
-		StilMenu->insertItem( tr("Color"), ColorMenu);
-		StilMenu->insertItem( tr("Shade"), ShadeMenu);
+		StilMenu->insertItem( tr("&Color"), ColorMenu);
+		StilMenu->insertItem( tr("&Shade"), ShadeMenu);
 		if (Nr == 6)
 			ObjMenu->setItemEnabled(ShapeM, 1);
 		WerkTools->KetteAus->setEnabled(false);
@@ -2754,11 +2749,11 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid1, 0);
 			editMenu->setItemEnabled(edid4, 0);
 			WerkTools->Rotiere->setEnabled(false);
-			ObjMenu->changeItem(LockOb, tr("Unlock"));
+			ObjMenu->changeItem(LockOb, tr("Un&lock"));
 		}
 		else
 		{
-			ObjMenu->changeItem(LockOb, tr("Lock"));
+			ObjMenu->changeItem(LockOb, tr("&Lock"));
 			if ((b->isTableItem) && (b->isSingleSel))
 			{
 				ObjMenu->setItemEnabled(PfadTP, 0);
@@ -2824,9 +2819,9 @@ void ScribusApp::slotDocCh(bool reb)
 	{
 		PageItem* b = doc->ActPage->SelItem.at(0);
 		if (b->Locked)
-			ObjMenu->changeItem(LockOb, tr("Unlock"));
+			ObjMenu->changeItem(LockOb, tr("Un&lock"));
 		else
-			ObjMenu->changeItem(LockOb, tr("Lock"));
+			ObjMenu->changeItem(LockOb, tr("&Lock"));
 	}
 }
 
@@ -3603,7 +3598,7 @@ void ScribusApp::slotFilePrint()
 		fil = printer->outputToFile();
 		if (printer->CurrentPage->isChecked())
 		{
-			Anf = doc->ActPage->PageNr;
+			Anf = doc->ActPage->PageNr+1;
 			Ende = doc->ActPage->PageNr+1;
 		}
 		else
@@ -3644,10 +3639,15 @@ void ScribusApp::slotFilePrint()
 					view->CreatePS(dd, Ende-1, Anf-2, -1, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
 				if (printer->PSLevel != 3)
 				{
+					QString tmp;
+					QString opts = "-dDEVICEWIDTHPOINTS=";
+					opts += tmp.setNum(doc->PageB);
+					opts += " -dDEVICEHEIGHTPOINTS=";
+					opts += tmp.setNum(doc->PageH);
 					if (printer->PSLevel == 1)
-						system("ps2ps -dLanguageLevel=1 \""+fna+"\" \""+fna+".tmp\"");
+						system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
 					else
-						system("ps2ps \""+fna+"\" \""+fna+".tmp\"");
+						system("ps2ps "+opts+" \""+fna+"\" \""+fna+".tmp\"");
 					system("mv \""+fna+".tmp\" \""+fna+"\"");
 				}
 				if (!fil)
@@ -4551,12 +4551,12 @@ void ScribusApp::TogglePics()
 	uint a, b;
 	if (doc->ShowPic)
 	{
-		viewMenu->changeItem(Bilder, tr("Show Images"));
+		viewMenu->changeItem(Bilder, tr("Show &Images"));
 		doc->ShowPic = false;
 	}
 	else
 	{
-		viewMenu->changeItem(Bilder, tr("Hide Images"));
+		viewMenu->changeItem(Bilder, tr("Hide &Images"));
 		doc->ShowPic = true;
 	}
 	for (a=0; a<view->Pages.count(); ++a)
@@ -4601,11 +4601,11 @@ void ScribusApp::ToggleAllGuides()
 		Prefs.GridShown = false;
 		Prefs.GuidesShown = false;
 		Prefs.BaseShown = false;
-		viewMenu->changeItem(Markers, tr("Show Margins"));
-		viewMenu->changeItem(FrameDr, tr("Show Frames"));
-		viewMenu->changeItem(Ras, tr("Show Grid"));
-		viewMenu->changeItem(Guide, tr("Show Guides"));
-		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
+		viewMenu->changeItem(Markers, tr("Show &Margins"));
+		viewMenu->changeItem(FrameDr, tr("Show &Frames"));
+		viewMenu->changeItem(Ras, tr("Show &Grid"));
+		viewMenu->changeItem(Guide, tr("Show G&uides"));
+		viewMenu->changeItem(Base, tr("Show &Baseline Grid"));
 	}
 	view->DrawNew();
 }
@@ -4614,9 +4614,9 @@ void ScribusApp::ToggleMarks()
 {
 	GuidesStat[0] = false;
 	if (Prefs.MarginsShown)
-		viewMenu->changeItem(Markers, tr("Show Margins"));
+		viewMenu->changeItem(Markers, tr("Show &Margins"));
 	else
-		viewMenu->changeItem(Markers, tr("Hide Margins"));
+		viewMenu->changeItem(Markers, tr("Hide &Margins"));
 	Prefs.MarginsShown = !Prefs.MarginsShown;
 	view->DrawNew();
 }
@@ -4625,9 +4625,9 @@ void ScribusApp::ToggleFrames()
 {
 	GuidesStat[0] = false;
 	if (Prefs.FramesShown)
-		viewMenu->changeItem(FrameDr, tr("Show Frames"));
+		viewMenu->changeItem(FrameDr, tr("Show &Frames"));
 	else
-		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
+		viewMenu->changeItem(FrameDr, tr("Hide &Frames"));
 	Prefs.FramesShown = !Prefs.FramesShown;
 	view->DrawNew();
 }
@@ -4636,9 +4636,9 @@ void ScribusApp::ToggleRaster()
 {
 	GuidesStat[0] = false;
 	if (Prefs.GridShown)
-		viewMenu->changeItem(Ras, tr("Show Grid"));
+		viewMenu->changeItem(Ras, tr("Show &Grid"));
 	else
-		viewMenu->changeItem(Ras, tr("Hide Grid"));
+		viewMenu->changeItem(Ras, tr("Hide &Grid"));
 	Prefs.GridShown = !Prefs.GridShown;
 	view->DrawNew();
 }
@@ -4647,9 +4647,9 @@ void ScribusApp::ToggleGuides()
 {
 	GuidesStat[0] = false;
 	if (Prefs.GuidesShown)
-		viewMenu->changeItem(Guide, tr("Show Guides"));
+		viewMenu->changeItem(Guide, tr("Show G&uides"));
 	else
-		viewMenu->changeItem(Guide, tr("Hide Guides"));
+		viewMenu->changeItem(Guide, tr("Hide G&uides"));
 	Prefs.GuidesShown = !Prefs.GuidesShown;
 	view->DrawNew();
 }
@@ -4658,9 +4658,9 @@ void ScribusApp::ToggleBase()
 {
 	GuidesStat[0] = false;
 	if (Prefs.BaseShown)
-		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
+		viewMenu->changeItem(Base, tr("Show &Baseline Grid"));
 	else
-		viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
+		viewMenu->changeItem(Base, tr("Hide &Baseline Grid"));
 	Prefs.BaseShown = !Prefs.BaseShown;
 	view->DrawNew();
 }
@@ -6537,25 +6537,25 @@ void ScribusApp::ReadPrefs()
 	move(Prefs.MainX, Prefs.MainY);
 	resize(Prefs.MainW, Prefs.MainH);
 	if (Prefs.GuidesShown)
-		viewMenu->changeItem(Guide, tr("Hide Guides"));
+		viewMenu->changeItem(Guide, tr("Hide G&uides"));
 	else
-		viewMenu->changeItem(Guide, tr("Show Guides"));
+		viewMenu->changeItem(Guide, tr("Show G&uides"));
 	if (Prefs.MarginsShown)
-		viewMenu->changeItem(Markers, tr("Hide Margins"));
+		viewMenu->changeItem(Markers, tr("Hide &Margins"));
 	else
-		viewMenu->changeItem(Markers, tr("Show Margins"));
+		viewMenu->changeItem(Markers, tr("Show &Margins"));
 	if (Prefs.FramesShown)
-		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
+		viewMenu->changeItem(FrameDr, tr("Hide &Frames"));
 	else
-		viewMenu->changeItem(FrameDr, tr("Show Frames"));
+		viewMenu->changeItem(FrameDr, tr("Show &Frames"));
 	if (Prefs.GridShown)
-		viewMenu->changeItem(Ras, tr("Hide Grid"));
+		viewMenu->changeItem(Ras, tr("Hide &Grid"));
 	else
-		viewMenu->changeItem(Ras, tr("Show Grid"));
+		viewMenu->changeItem(Ras, tr("Show &Grid"));
 	if (Prefs.BaseShown)
-		viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
+		viewMenu->changeItem(Base, tr("Hide &Baseline Grid"));
 	else
-		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
+		viewMenu->changeItem(Base, tr("Show &Baseline Grid"));
 }
 
 void ScribusApp::ShowSubs()
@@ -6565,7 +6565,7 @@ void ScribusApp::ShowSubs()
 	{
 		mess = tr("The following Programs are missing:")+"\n\n";
 		if (HaveGS != 0)
-			mess += tr("Ghostscript : You cannot use EPS-Images")+"\n\n";
+			mess += tr("Ghostscript : You cannot use EPS Images")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
 	setTools(Prefs.Werkv);
@@ -8060,8 +8060,9 @@ void ScribusApp::InvertPict()
 	}
 }
 
-void ScribusApp::Collect()
+QString ScribusApp::Collect()
 {
+	QString retVal = "";
 	QString CurDirP = QDir::currentDirPath();
 	QString s = QFileDialog::getExistingDirectory(QDir::currentDirPath(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
@@ -8073,6 +8074,20 @@ void ScribusApp::Collect()
 		{
 			if (fi.isDir() && fi.isWritable())
 			{
+				QString fn;
+				if (doc->hasName)
+				{
+					QFileInfo fis(doc->DocName);
+					fn = s + fis.fileName();
+				}
+				else
+					fn = s + doc->DocName+".sla";
+				if (!overwrite(this, fn))
+				{
+					retVal = "";
+					return retVal;
+				}
+				retVal = s;
 				for (uint a = 0; a < view->MasterPages.count(); ++a)
 				{
 					for (uint b = 0; b < view->MasterPages.at(a)->Items.count(); ++b)
@@ -8173,16 +8188,11 @@ void ScribusApp::Collect()
 						}
 					}
 				}
-				QString fn;
-				if (doc->hasName)
-				{
-					QFileInfo fis(doc->DocName);
-					fn = s + fis.fileName();
-				}
-				else
-					fn = s + doc->DocName+".sla";
 				if (!DoFileSave(fn))
+				{
 					QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+					retVal = "";
+				}
 				QMap<QString,QFont>::Iterator it3;
 				for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
 				{
@@ -8193,6 +8203,7 @@ void ScribusApp::Collect()
 		}
 	}
 	QDir::setCurrent(CurDirP);
+	return retVal;
 }
 
 void ScribusApp::ReorgFonts()

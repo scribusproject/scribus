@@ -72,7 +72,7 @@ private:
 	QByteArray ComputeMD5(QString in);
 	void PDF_Bookmark(int nr, double ypos);
 	void PDF_Gradient(PageItem *b);
-	void PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QStringList Colors);
+	void PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors);
 	void PDF_Transparenz(PageItem *b);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);

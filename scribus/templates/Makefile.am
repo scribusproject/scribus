@@ -1,4 +1,4 @@
-EXTRA_DIST = template.xml
+EXTRA_DIST = br1/br1.png br1/br1tn.png br1/map.png br1/br1.sla nl2/flowers.jpg nl2/nl2.sla nl2/nl2tn.png nl2/nl2.png nl1/kites.png nl1/nl1.png nl1/nl1tn.png nl1/nl1.sla template.xml
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/templates/

@@ -43,7 +43,7 @@ extern QImage LoadPict(QString fn, bool *gray = 0);
  */
 QString Name()
 {
-  return QObject::tr("Save Page as SVG...");
+  return QObject::tr("Save Page as &SVG...");
 }
 
 /*!

@@ -14,18 +14,20 @@ nftrcreader::nftrcreader(std::vector<nfttemplate*> *tmplts,QString sourceDir)
 
 bool nftrcreader::startDocument()
 {
-	inSettings  = false;
-	inTemplate  = false;
-	inName      = false;
-	inFile      = false;
-	inTNail     = false;
-	inImg       = false;
-	inPSize     = false;
-	inColor     = false;
-	inDescr     = false;
-	inUsage     = false;
-	inAuthor    = false;
-	inEmail     = false;
+	inSettings       = false;
+	inTemplate       = false;
+	inName           = false;
+	inFile           = false;
+	inTNail          = false;
+	inImg            = false;
+	inPSize          = false;
+	inColor          = false;
+	inDescr          = false;
+	inUsage          = false;
+	inScribusVersion = false;
+	inDate           = false;
+	inAuthor         = false;
+	inEmail          = false;
 	return true;
 }
 
@@ -47,13 +49,17 @@ bool nftrcreader::startElement(const QString&, const QString&, const QString &na
 		inDescr = true;
 	else if (name == "usage")
 		inUsage = true;
+	else if (name == "scribus_version")
+		inScribusVersion = true;
+	else if (name == "date")
+		inDate = true;
 	else if (name == "author")
 		inAuthor = true;
 	else if (name == "email")
 		inEmail = true;
 
 	
-	if (name == "template") { // <template id="1">, new template starts here
+	if (name == "template") { // new template starts here
 		inTemplate = true;
 		QString category;
 		for (int i = 0; i < attrs.count(); i++) {
@@ -98,7 +104,11 @@ bool nftrcreader::characters(const QString &ch)
 	else if (inDescr)
 		tmpTemplate->descr = tmp; 
 	else if (inUsage)
-		tmpTemplate->usage = tmp; 
+		tmpTemplate->usage = tmp;
+	else if (inScribusVersion)
+		tmpTemplate->scribusVersion = tmp;
+	else if (inDate)
+		tmpTemplate->date = tmp;
 	else if (inAuthor)
 		tmpTemplate->author = tmp;
 	else if (inEmail)
@@ -132,6 +142,10 @@ bool nftrcreader::endElement(const QString&, const QString&, const QString &name
 			inDescr = false;
 		else if (inUsage && name == "usage")
 			inUsage = false;
+		else if (inScribusVersion && name == "scribus_version")
+			inScribusVersion = false;
+		else if (inDate && name == "date")
+			inDate = false;
 		else if (inAuthor && name == "author")
 			inAuthor = false;
 		else if (inEmail && name == "email")
@@ -194,6 +208,8 @@ void nftrcreader::setupCategories()
 	en = new QString("Programs"); lang = new QString(QObject::tr("Programs"));
 	cats.push_back(new Pair(en,lang));
 	en = new QString("PDF Forms"); lang = new QString(QObject::tr("PDF Forms"));
+	cats.push_back(new Pair(en,lang));
+	en = new QString("PDF Presentations"); lang = new QString(QObject::tr("PDF Presentations"));
 	cats.push_back(new Pair(en,lang));
 	en = new QString("Magazines"); lang = new QString(QObject::tr("Magazines"));
 	cats.push_back(new Pair(en,lang));

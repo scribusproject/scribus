@@ -9,7 +9,7 @@
 
 QString Name()
 {
-	return QObject::tr("Save as Image...");
+	return QObject::tr("Save as &Image...");
 }
 
 

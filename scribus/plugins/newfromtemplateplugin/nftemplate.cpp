@@ -13,7 +13,7 @@ QWidget* par;
 
 QString Name()
 {
-    return QObject::tr("New From Template...");
+    return QObject::tr("New &from Template...");
 }
 
 int Type()
@@ -29,12 +29,12 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	int ind = 0;
 	for (uint a = 0; a < plug->fileMenu->count(); ++a)
 	{
-		if ((plug->fileMenu->text(plug->fileMenu->idAt(a)) == QObject::tr("New")) ||
-			(plug->fileMenu->text(plug->fileMenu->idAt(a)) == "New"))
+		if ((plug->fileMenu->text(plug->fileMenu->idAt(a)) == QObject::tr("&New")) ||
+			(plug->fileMenu->text(plug->fileMenu->idAt(a)) == "&New"))
 			break;
 		ind++;
 	}
-	int id = plug->fileMenu->insertItem(QObject::tr("New From Template..."), -1, ind+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("New &from Template..."), -1, ind+1);
 	plug->fileMenu->connectItem(id, Nft, SLOT(RunNFTPlug()));
 	plug->fileMenu->setItemEnabled(id, 1);
 }

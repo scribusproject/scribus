@@ -2281,6 +2281,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 	double h2 = h / 2.0;
 	double StartX, StartY, EndX, EndY;
 	QValueList<double> StopVec;
+	QValueList<double> TransVec;
 	QStringList Gcolors;
 	QPtrVector<VColorStop> cstops = b->fill_gradient.colorStops();
 	switch (b->GrType)
@@ -2331,18 +2332,20 @@ void PDFlib::PDF_Gradient(PageItem *b)
 			EndY = b->GrEndY;
 			break;
 	}
+	StopVec.clear();
+	TransVec.clear();
+	Gcolors.clear();
 	if ((b->GrType == 5) || (b->GrType == 7))
 	{
-		StopVec.clear();
 		for (uint cst = 0; cst < b->fill_gradient.Stops(); ++cst)
 		{
+			TransVec.prepend(cstops.at(cst)->opacity);
 			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
 			Gcolors.prepend(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
 	else
 	{
-		StopVec.clear();
 		for (uint cst = 0; cst < b->fill_gradient.Stops(); ++cst)
 		{
 			QWMatrix ma;
@@ -2351,23 +2354,92 @@ void PDFlib::PDF_Gradient(PageItem *b)
 			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
 			double x = ma.m11() * w2 + ma.dx();
 			double y = ma.m12() * w2 + ma.dy();
+			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
-			StopVec.append(y);
+			StopVec.append(-y);
 			Gcolors.append(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
-	PDF_DoLinGradient(b, StopVec, Gcolors);
+	PDF_DoLinGradient(b, StopVec, TransVec, Gcolors);
 }
 
-void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QStringList Colors)
+void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors)
 {
 	bool first = true;
 	double w = b->Width;
 	double h = -b->Height;
 	double w2 = b->GrStartX;
 	double h2 = -b->GrStartY;
+	QString TRes = "";
 	for (uint c = 0; c < Colors.count()-1; ++c)
 	{
+		if ((Options->Version == 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
+		{
+			StartObj(ObjCounter);
+			QString ShName = ResNam+IToStr(ResCount);
+			Shadings[ShName] = ObjCounter;
+			ResCount++;
+			ObjCounter++;
+			PutDoc("<<\n");
+			if ((b->GrType == 5) || (b->GrType == 7))
+				PutDoc("/ShadingType 3\n");
+			else
+				PutDoc("/ShadingType 2\n");
+			PutDoc("/ColorSpace /DeviceGray\n");
+			PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
+			if ((b->GrType == 5) || (b->GrType == 7))
+			{
+				PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c+1)))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c)))+"]\n");
+				PutDoc("/Extend [true true]\n");
+				PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+				PutDoc("/C0 ["+FToStr((*Trans.at(c+1)))+"]\n");
+				PutDoc("/C1 ["+FToStr((*Trans.at(c)))+"]\n");
+			}
+			else
+			{
+				PutDoc("/Coords ["+FToStr((*Stops.at(c*2)))+"  "+FToStr((*Stops.at(c*2+1)))+" "+FToStr((*Stops.at(c*2+2)))+" "+FToStr((*Stops.at(c*2+3)))+"]\n");
+				PutDoc("/Extend [true true]\n");
+				PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+				PutDoc("/C0 ["+FToStr((*Trans.at(c)))+"]\n");
+				PutDoc("/C1 ["+FToStr((*Trans.at(c+1)))+"]\n");
+			}
+			PutDoc("/N 1\n>>\n>>\nendobj\n");
+			StartObj(ObjCounter);
+			ObjCounter++;
+			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
+			PutDoc("/FormType 1\n");
+			PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
+			PutDoc("/BBox [ 0 0 "+FToStr(b->Width)+" "+FToStr(-b->Height)+" ]\n");
+			PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+			if (Shadings.count() != 0)
+			{
+				PutDoc("/Shading << \n");
+				QMap<QString,int>::Iterator it3;
+				for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
+					PutDoc("/"+it3.key()+" "+IToStr(it3.data())+" 0 R\n");
+				PutDoc(">>\n");
+			}
+			PutDoc(">>\n");
+			QString stre = "";
+			stre += "q\n"+SetClipPath(b)+"h\nW* n\n"+"/"+ShName+" sh\nQ\n";
+			if ((Options->Compress) && (CompAvail))
+				stre = CompressStr(&stre);
+			PutDoc("/Length "+IToStr(stre.length())+"\n");
+			if ((Options->Compress) && (CompAvail))
+				PutDoc("/Filter /FlateDecode\n");
+			PutDoc(">>\nstream\n"+EncStream(&stre, ObjCounter-1)+"\nendstream\nendobj\n");
+			Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+			ResCount++;
+			StartObj(ObjCounter);
+			QString GXName = ResNam+IToStr(ResCount);
+			Transpar[GXName] = ObjCounter;
+			ResCount++;
+			ObjCounter++;
+			PutDoc("<< /Type /ExtGState\n");
+			PutDoc("/SMask << /S /Luminosity /G "+IToStr(ObjCounter-2)+" 0 R >>\n");
+			PutDoc("/BM /Normal\n>>\nendobj\n");
+			TRes = GXName;
+		}
 		StartObj(ObjCounter);
 		QString ShName = ResNam+IToStr(ResCount);
 		Shadings[ShName] = ObjCounter;
@@ -2428,6 +2500,8 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QStringLis
 		}
 		PutDoc("/N 1\n>>\n>>\nendobj\n");
 		PutPage("q\n");
+		if ((Options->Version == 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
+			PutPage("/"+TRes+" gs\n");
 		PutPage(SetClipPath(b));
 		PutPage("h\nW* n\n");
 		PutPage("/"+ShName+" sh\nQ\n");

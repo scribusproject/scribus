@@ -2,6 +2,8 @@
 #define MYPLUGIN_H
 
 #include <qobject.h>
+#include <qdatetime.h>
+#include <qdir.h>
 #include <scribus.h>
 #include "satdialog.h"
 

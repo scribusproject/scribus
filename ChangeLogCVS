@@ -1,5 +1,11 @@
 Changes since Version 1.1.7
 
+10.06.2004
+	* bug     #755: Collect for Output should ask confirmation
+	* bug     #760: "icons" dir does not get copied by "make dist"
+	* feature #761: Right-click on graphics tablet triggers drag-and-drop
+	* feature #764: Enable transparent Gradients in PDF
+
 08.06.2004
 	* bug     #356: Margin Dialog not intuituve enough
 	* bug     #721: add "current page" to print dialog

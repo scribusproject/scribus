@@ -3,20 +3,18 @@
  ***************************************************************************/
 #include "satemplate.h"
 #include "satemplate.moc"
-#include "satdialog.h"
-#include <qdir.h>
-#include <iostream>
+
 ScribusApp* Carrier;
 QWidget* par;
 
 QString Name()
 {
-	return QObject::tr("Save as Template...");
+    return QObject::tr("Save as &Template...");
 }
 
 int Type()
 {
-	return 5;
+    return 5;
 }
 
 void InitPlug(QWidget *d, ScribusApp *plug)
@@ -27,12 +25,12 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	int ind = 0;
 	for (uint a = 0; a < plug->fileMenu->count(); ++a)
 	{
-		if ((plug->fileMenu->text(plug->fileMenu->idAt(a)) == QObject::tr("Save as...")) ||
-			(plug->fileMenu->text(plug->fileMenu->idAt(a)) == "Save as..."))
+		if ((plug->fileMenu->text(plug->fileMenu->idAt(a)) == QObject::tr("Save &As...")) ||
+			(plug->fileMenu->text(plug->fileMenu->idAt(a)) == "Save &As..."))
 			break;
 		ind++;
 	}
-	int id = plug->fileMenu->insertItem(QObject::tr("Save as Template..."), -1, ind+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("Save as &Template..."), -1, ind+1);
 	plug->fileMenu->connectItem(id, satm, SLOT(RunSATPlug()));
 	plug->fileMenu->setItemEnabled(id, 0);
 	plug->MenuItemsFile.append(id);
@@ -56,14 +54,18 @@ void MenuSAT::RunSATPlug()
 	bool hasName = Carrier->doc->hasName;
 	bool isModified = Carrier->doc->isModified();
 	QDir::setCurrent(QDir::homeDirPath() + "/.scribus/templates");
-	Carrier->Collect();
+	if (Carrier->Collect() == "")
+		return;
 	QString docPath = Carrier->doc->DocName;
 	QString docDir = docPath.left(docPath.findRev('/'));
 	QString docName = docPath.right(docPath.length() - docPath.findRev('/') - 1);
 	docName = docName.left(docName.findRev(".s"));
+
 	if (currentFile !=  Carrier->doc->DocName)
 	{ // TODO Check if the collect was canceled.
-		satdialog* satdia = new satdialog(par,docName);
+		satdialog* satdia = new satdialog(par,docName, 
+		                                  (int)Carrier->doc->PageB, 
+										  (int)Carrier->doc->PageH);
 		if (satdia->exec())
 		{
 			sat* s = new sat(Carrier, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
@@ -181,7 +183,6 @@ void sat::appendTmplXml()
 QString sat::getTemplateTag()
 {
 	QString category = dia->catsCombo->currentText();
-	std::cout << "Category: |" << category << "|" << "\n";
 	if (category == "")
 		category = QObject::tr("Own Templates");
 	else
@@ -196,6 +197,7 @@ QString sat::getTemplateTag()
 			}
 		}
 	}
+	QDate now = QDate::currentDate();
 	QString tag = "\t<template category=\""+category+"\">\n";
 	tag += "\t\t<name>"+dia->nameEdit->text()+"</name>\n";
 	tag += "\t\t<file>"+file+"</file>\n";
@@ -205,10 +207,12 @@ QString sat::getTemplateTag()
 	tag += "\t\t<color>"+dia->colorsEdit->text()+"</color>\n";
 	tag += "\t\t<descr>"+dia->descrEdit->text()+"</descr>\n";
 	tag += "\t\t<usage>"+dia->usageEdit->text()+"</usage>\n";
+	tag += "\t\t<scribus_version>" + QString(VERSION) + "</scribus_version>\n";
+	tag += "\t\t<date>" + now.toString(Qt::ISODate) + "</date>\n";
 	tag += "\t\t<author>"+dia->authorEdit->text()+"</author>\n";
 	tag += "\t\t<email>"+dia->emailEdit->text()+"</email>\n";
 	tag += "\t</template>\n";
-
+	
 	return tag;
 }
 

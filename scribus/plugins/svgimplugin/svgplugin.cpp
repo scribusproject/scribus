@@ -36,7 +36,7 @@ extern FPoint GetMaxClipF(FPointArray Clip);
  */
 QString Name()
 {
-	return QObject::tr("Import SVG-Image...");
+	return QObject::tr("Import &SVG...");
 }
 
 /*!
@@ -513,7 +513,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
 					double dy = ite->GrStartY + (ite->GrEndY-ite->GrStartY) / 2.0;
 					QWMatrix mm;
-					if (gc->GY1 < gc->GY2)
+					if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
 					{
 						mm.rotate(-angle2);
 						mm.rotate(angle1);

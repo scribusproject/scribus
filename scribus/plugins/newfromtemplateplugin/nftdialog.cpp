@@ -46,11 +46,13 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	categoryList = new QListBox(splitter,"categoryList",0);
 	categoryList->setMinimumWidth(130);
 	categoryList->setMaximumWidth(200);
+	categoryList->setCursor(Qt::ArrowCursor);
 	
 	tnailGrid = new QIconView(splitter,"tnailGrid",0);
 	tnailGrid->setMinimumWidth(300);
 	tnailGrid->setSpacing(5);
 	tnailGrid->setItemsMovable(false);
+	tnailGrid->setCursor(Qt::ArrowCursor);
 	
 	QWidget* dtTmp = new QWidget(splitter, "dtTmp", 0);
 	dtTmp->setMinimumWidth(235);
@@ -63,6 +65,7 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	detailBar->setMinimumHeight(32);
 	detailBar->setMargin(5);
 	detaillo->addWidget(detailBar);
+	detailBar->setCursor(Qt::ArrowCursor);
 	
 	infoLabel = new QTextBrowser(dtTmp,"infoLabel");
 	infoLabel->setFrameShape(QFrame::Panel);
@@ -79,6 +82,7 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	imgLabel->setSelectionMode(QIconView::NoSelection);
 	detaillo->addWidget(imgLabel);
 	imgLabel->setHidden(true);
+	imgLabel->setCursor(Qt::ArrowCursor);
 	
 	aboutLabel = new QTextBrowser(dtTmp,"aboutLabel");
 	aboutLabel->setFrameShape(QFrame::Panel);
@@ -202,6 +206,9 @@ void nftdialog::setInfo(QIconViewItem* item)
 	infoText += currentTemplate->descr + "<br>";
 	infoText += "<b>"+tr("Usage")+"</b><br>";
 	infoText += currentTemplate->usage + "<br>";
+	infoText += "<b>"+tr("Created with")+"</b><br>";
+	infoText += "Scribus " + currentTemplate->scribusVersion + "<br>";
+	infoText += currentTemplate->date + "<br><br>";
 	infoText += "<b>"+tr("Author")+"</b><br>";
 	infoText += currentTemplate->author + "<br>";
 	infoText += currentTemplate->email + "<br>";
@@ -287,12 +294,20 @@ void nftdialog::exitOK()
 
 void nftdialog::setupAbout() 
 {
-	QString text = "New From Template - 0.0.5<br><br>";
+	QString text = "New From Template - 0.0.6<br><br>";
+	text += "<b>Downloading Templates</b><br>";
+	text += "Document templates can be found at<br>";
+	text += "<i>http://insert/url/here</i><br><br>";
 	text += "<b>Installing Templates</b><br>";
-	text += "Extract the package to the template directory ";
-	text += "~/.scribus/templates for the current user or ";
-	text += "PREFIX/share/scribus/templates for all the users ";
-	text += "in the system.";
+	text += "Extract the package to the template directory<br>";
+	text += "<i>~/.scribus/templates</i><br>for the current user or<br>";
+	text += "<i>PREFIX/share/scribus/templates</i><br>for all users ";
+	text += "in the system.<br><br>";
+	text += "<b>Preparing a template</b><br>";
+	text += "Make sure images you use can be used anywhere. ";
+	text += "Fonts must be checked for this as well. ";
+	text += "If fonts cannot be shared remove them from the template directory ";
+	text += "before packaging the template.<br><br>";
 	aboutLabel->setText(text);
 }
 

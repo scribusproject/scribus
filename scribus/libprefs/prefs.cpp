@@ -1737,6 +1737,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	connect(TabListe, SIGNAL(highlighted(int)), TabWidget3, SLOT(raiseWidget(int)));
 	setSize(Vor->PageFormat);
 	setOrien(Vor->Ausrichtung);
+	Breite->setValue(Vor->PageBreite * Umrech);
+	Hoehe->setValue(Vor->PageHoehe * Umrech);
 	UnitChange();
 }
 

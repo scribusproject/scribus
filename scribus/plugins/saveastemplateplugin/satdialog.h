@@ -1,12 +1,16 @@
 /***************************************************************************
  *   Riku Leino, tsoots@welho.com                                          *
  ***************************************************************************/
-#ifndef STDIALOG_H
-#define STDIALOG_H
+#ifndef SATDIALOG_H
+#define SATDIALOG_H
 
 #include <vector>
 #include <utility>
+#include <qfile.h>
+#include <qdir.h>
+#include <qtextstream.h>
 #include <qcombobox.h>
+#include <qstring.h>
 #include <qstringlist.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -35,10 +39,15 @@ private:
 	QPushButton* detailButton;
 	QWidget* center;
 	QWidget* middle;
+	QString author;
+	QString email;
 	bool isFullDetail;
 	void fullDetail();
 	void minimumDetail();
+	void readPrefs();
+	void writePrefs();
 	void setupCategories();
+	void setupPageSize(int w, int h);
 public:
 	std::vector<Pair*> cats;
 	QLineEdit* nameEdit;
@@ -49,7 +58,7 @@ public:
 	QTextEdit* usageEdit;
 	QLineEdit* authorEdit;
 	QLineEdit* emailEdit;
-	satdialog(QWidget* parent, QString tmplName = "");
+	satdialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
 	~satdialog();
 private slots:
 	void detailClicked();

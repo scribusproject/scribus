@@ -48,7 +48,7 @@
 
 QString Name()
 {
-	return QObject::tr("Scripter Manual...");
+	return QObject::tr("S&cripter Manual...");
 }
 
 int Type()
@@ -96,11 +96,11 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 		}
 	}
 	Tes->pcon = new PConsole(d);
-	Tes->smenid = men->insertItem(QObject::tr("Scribus Scripts"), Tes->smen);
-	men->insertItem(QObject::tr("Execute Script..."), Tes, SLOT(slotTest()));
-	Tes->rmenid = men->insertItem(QObject::tr("Recent Scripts"), Tes->rmen);
+	Tes->smenid = men->insertItem(QObject::tr("&Scribus Scripts"), Tes->smen);
+	men->insertItem(QObject::tr("&Execute Script..."), Tes, SLOT(slotTest()));
+	Tes->rmenid = men->insertItem(QObject::tr("&Recent Scripts"), Tes->rmen);
 	men->insertSeparator();
-	Tes->cons = men->insertItem(QObject::tr("Show Console"), Tes, SLOT(slotInteractiveScript()));
+	Tes->cons = men->insertItem(QObject::tr("Show &Console"), Tes, SLOT(slotInteractiveScript()));
 	plug->menuBar()->insertItem(QObject::tr("S&cript"), men, -1, plug->menuBar()->count() - 2);
 	QObject::connect(Tes->pcon->OutWin, SIGNAL(returnPressed()), Tes, SLOT(slotExecute()));
 	QObject::connect(Tes->pcon, SIGNAL(Schliessen()), Tes, SLOT(slotInteractiveScript()));
@@ -294,12 +294,12 @@ void MenuTest::slotInteractiveScript()
 {
 	if (pcon->isVisible())
 	{
-		men->changeItem(cons, tr("Show Console"));
+		men->changeItem(cons, tr("Show &Console"));
 		pcon->hide();
 	}
 	else
 	{
-		men->changeItem(cons, tr("Hide Console"));
+		men->changeItem(cons, tr("Hide &Console"));
 		pcon->show();
 	}
 }

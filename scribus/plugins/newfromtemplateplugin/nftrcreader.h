@@ -28,6 +28,8 @@ private:
 	bool inColor;
 	bool inDescr;
 	bool inUsage;
+	bool inScribusVersion;
+	bool inDate;
 	bool inAuthor;
 	bool inEmail;
 	QString currentDir;

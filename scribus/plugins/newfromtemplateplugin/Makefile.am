@@ -16,12 +16,3 @@ EXTRA_DIST = nftemplate.cpp nftemplate.h nftdialog.cpp nftdialog.h nftrcreader.c
 KDE_OPTIONS = qtonly
 AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)
 
-install-data-local:
-	$(mkinstalldirs) $(prefix)/share/scribus/icons/
-	$(INSTALL_DATA) $(srcdir)/icons/nftinfo.xpm $(prefix)/share/scribus/icons/nftinfo.xpm
-	$(INSTALL_DATA) $(srcdir)/icons/nftabout.xpm $(prefix)/share/scribus/icons/nftabout.xpm
-
-uninstall-local:
-	-rm -f $(prefix)/share/scribus/icons/nftinfo.xpm
-	-rm -f $(prefix)/share/scribus/icons/nftabout.xpm
-
