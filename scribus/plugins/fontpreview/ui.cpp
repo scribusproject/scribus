@@ -50,8 +50,9 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	layout6->addLayout( layout5 );
 
 	fontPreview = new QLabel( this, "fontPreview" );
-	fontPreview->setScaledContents( TRUE );
-	fontPreview->setPixmap(loadIcon("scribus_head.png"));
+	fontPreview->setMinimumSize(QSize(400,80));
+/*	fontPreview->setScaledContents( TRUE );
+	fontPreview->setPixmap(loadIcon("scribus_head.png")); */
 	layout6->addWidget( fontPreview );
 
 	FontPreviewLayout->addLayout( layout6, 0, 0 );
@@ -60,7 +61,6 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	layout()->activate();
 	clearWState( WState_Polished );
 	SCFontsIterator fontIter(carrier->Prefs.AvailFonts);
-
 	fontIter.toFirst();
 	for ( ; fontIter.current(); ++fontIter)
 	{
@@ -69,14 +69,15 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	} // for fontIter
 	fontList->sort();
 
-	if (carrier->HaveDoc)
+	QListBoxItem *item;
+	if (carrier->doc->ActPage->SelItem.count() != 0)
+		item = fontList->findItem(carrier->doc->CurrFont);
+	else
+		item = fontList->findItem(carrier->Prefs.DefFont);
+	if (item != 0)
 	{
-		QListBoxItem *item = fontList->findItem(carrier->doc->CurrFont);
-		if (item != 0)
-		{
-			fontList_changed(item);
-			fontList->setCurrentItem(item);
-		}
+		fontList_changed(item);
+		fontList->setCurrentItem(item);
 	}
 
 	// signals and slots connections
@@ -134,17 +135,10 @@ void FontPreview::fontList_changed( QListBoxItem *item )
 	int w = fontPreview->width();
 	int h = fontPreview->height();
 	QString da = carrier->Prefs.AvailFonts[item->text()]->Datei;
-	QPixmap pixmap = FontSample(
-			da, 28,
-			tr("Woven silk pyjamas exchanged for blue quartz"),
-			paletteBackgroundColor()
-		);
+	QPixmap pixmap = FontSample(	da, 28, tr("Woven silk pyjamas exchanged for blue quartz"), paletteBackgroundColor());
 	if ((pixmap.width() > w) || (pixmap.height() > h))
 	{
-		pixmap.resize(
-			pixmap.width() > w ? w : pixmap.width(),
-			pixmap.height() > h ? h : pixmap.height()
-		);
+		pixmap.resize(pixmap.width() > w ? w : pixmap.width(), pixmap.height() > h ? h : pixmap.height());
 	}
 	fontPreview->clear();
 	fontPreview->setScaledContents(FALSE);

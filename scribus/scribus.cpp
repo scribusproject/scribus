@@ -4940,6 +4940,7 @@ void ScribusApp::ToggleFrameEdit()
 				Npal->EditCont->setEnabled(false);
 			else
 				Npal->EditCont->setEnabled(true);
+			Npal->ResetCont->setEnabled(false);
 			Npal->PolyStatus(doc->ActPage->SelItem.at(0)->PType, doc->ActPage->SelItem.at(0)->PoLine.size());
 		}
 	}

@@ -90,7 +90,7 @@ public:
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void MirrorPolyH();
 	void MirrorPolyV();
-	void TransformPoly(int mode);
+	void TransformPoly(int mode, int rot = 1, int scaling = 1);
 	void Reset1Control();
 	void ResetControl();
 	void AdjustItemSize(PageItem *b);

@@ -124,16 +124,29 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	RotateCW->setText( "" );
 	RotateCW->setPixmap(loadIcon("rotate_cw.png"));
 	ButtonGroup1Layout->addWidget( RotateCW, 4, 1 );
+	RotVal = new QSpinBox( ButtonGroup1, "RotVal");
+	RotVal->setSuffix( QString::fromUtf8(" °"));
+	RotVal->setMinValue(1);
+	RotVal->setMaxValue(180);
+	RotVal->setValue(1);
+	ButtonGroup1Layout->addMultiCellWidget( RotVal, 4, 4, 2, 3 );
+
 	Expand = new QToolButton( ButtonGroup1, "Expand" );
 	Expand->setAutoRepeat(true);
 	Expand->setText( "" );
 	Expand->setPixmap(loadIcon("expand.png"));
-	ButtonGroup1Layout->addWidget( Expand, 4, 2 );
+	ButtonGroup1Layout->addWidget( Expand, 5, 0 );
 	Crop = new QToolButton( ButtonGroup1, "Crop" );
 	Crop->setAutoRepeat(true);
 	Crop->setText( "" );
 	Crop->setPixmap(loadIcon("crop.png"));
-	ButtonGroup1Layout->addWidget( Crop, 4, 3 );
+	ButtonGroup1Layout->addWidget( Crop, 5, 1 );
+	ScaleVal = new QSpinBox( ButtonGroup1, "RotVal");
+	ScaleVal->setSuffix(" %");
+	ScaleVal->setMinValue(1);
+	ScaleVal->setMaxValue(100);
+	ScaleVal->setValue(10);
+	ButtonGroup1Layout->addMultiCellWidget( ScaleVal, 5, 5, 2, 3 );
 
 	/*    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	    ButtonGroup4Layout->addItem( spacer_2 );  */
@@ -166,8 +179,13 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	EditCont->setChecked(false);
 	NodePaletteLayout->addWidget( EditCont );
 
+	ResetCont = new QPushButton( this, "PushButton1" );
+	ResetCont->setText( tr( "Reset Contour Line" ) );
+	NodePaletteLayout->addWidget( ResetCont );
+
 	PushButton1 = new QPushButton( this, "PushButton1" );
 	PushButton1->setText( tr( "End Editing" ) );
+	PushButton1->setDefault(true);
 	NodePaletteLayout->addWidget( PushButton1 );
 	QToolTip::add(  MoveNode, tr( "Move Nodes" ) );
 	QToolTip::add(  MoveControl, tr( "Move Control Points" ) );
@@ -187,8 +205,8 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	QToolTip::add(  PolyShearD, tr( "Shears the Path vertical down" ) );
 	QToolTip::add(  RotateCCW, tr( "Rotates the Path counter-clockwise" ) );
 	QToolTip::add(  RotateCW, tr( "Rotates the Path clockwise" ) );
-	QToolTip::add(  Crop, tr( "Reduce the Size of the Path by 10%" ) );
-	QToolTip::add(  Expand, tr( "Enlarges the Size of the Path by 10%" ) );
+	QToolTip::add(  Crop, tr( "Reduce the Size of the Path" ) );
+	QToolTip::add(  Expand, tr( "Enlarges the Size of the Path" ) );
 	QToolTip::add(  AbsMode,  tr( "When checked use Coordinates relative to the Page,\notherwise Coordinates are relative to the Object." ) );
 
 	// signals and slots connections
@@ -217,6 +235,7 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
+	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 }
 
 void NodePalette::setDoc(ScribusDoc *dc)
@@ -284,25 +303,25 @@ void NodePalette::CloseBezier()
 void NodePalette::doRotCCW()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(0);
+		doc->ActPage->TransformPoly(0, RotVal->value());
 }
 
 void NodePalette::doRotCW()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(1);
+		doc->ActPage->TransformPoly(1, RotVal->value());
 }
 
 void NodePalette::doCrop()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(2);
+		doc->ActPage->TransformPoly(2, 1, ScaleVal->value());
 }
 
 void NodePalette::doExpand()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(3);
+		doc->ActPage->TransformPoly(3, 1, ScaleVal->value());
 }
 
 void NodePalette::ShearR()
@@ -349,6 +368,15 @@ void NodePalette::ResetControl()
 void NodePalette::Reset1Control()
 {
 	doc->ActPage->Reset1Control();
+}
+
+void NodePalette::ResetContour()
+{
+	if (doc != 0)
+	{
+		doc->ActPage->SelItem.at(0)->ContourLine = doc->ActPage->SelItem.at(0)->PoLine.copy();
+		doc->ActPage->update();
+	}
 }
 
 void NodePalette::MovePoint()
@@ -412,6 +440,7 @@ void NodePalette::ToggleConMode()
 		{
 			BezierClose->setEnabled(false);
 			PolySplit->setEnabled(false);
+			ResetCont->setEnabled(true);
 			XSpin->setMinValue(-3000);
 			YSpin->setMinValue(-3000);
 		}
@@ -419,6 +448,7 @@ void NodePalette::ToggleConMode()
 		{
 			BezierClose->setEnabled(false);
 			PolySplit->setEnabled(true);
+			ResetCont->setEnabled(false);
 			XSpin->setMinValue(0);
 			YSpin->setMinValue(0);
 		}

@@ -9,6 +9,7 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
+#include <qspinbox.h>
 #include "mspinbox.h"
 #include "scribusdoc.h"
 
@@ -47,6 +48,9 @@ public:
 	MSpinBox* YSpin;
 	QLabel* TextLabel2;
 	MSpinBox* XSpin;
+	QSpinBox *RotVal;
+	QSpinBox *ScaleVal;
+	QPushButton* ResetCont;
 	QPushButton* PushButton1;
 	void setDoc(ScribusDoc *dc);
 	ScribusDoc *doc;
@@ -62,6 +66,7 @@ private slots:
 	void SetAsym();
 	void ResetControl();
 	void Reset1Control();
+	void ResetContour();
 	void CloseBezier();
 	void SplitPoly();
 	void MirrorH();
