@@ -114,12 +114,12 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
 		return NULL;
 	if (!Carrier->HaveDoc)
-		return PyString_FromString("");	
+		return PyString_FromString("");
 	int len = PyList_Size(il);
 	if ((len < 4) || ((len % 2) != 0))
 		return PyString_FromString("");
 	double x, y, b, h;
-	int i = 0;		
+	int i = 0;
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -177,7 +177,7 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	if ((len < 6) || ((len % 2) != 0))
 		return PyString_FromString("");
 	double x, y, b, h;
-	int i = 0;	
+	int i = 0;
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -240,7 +240,7 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	if ((len < 8) || ((len % 6) != 0))
 		return PyString_FromString("");
 	double x, y, b, h, kx, ky, kx2, ky2;
-	int i = 0;		
+	int i = 0;
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -325,6 +325,8 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	return PyString_FromString(it->AnName);
 }
 
+/* 03/21/2004 - exception raised when Name doesn't exists. Doesn't crash then. (subik)
+ */
 PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
@@ -334,16 +336,24 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	if (Name != "")
-		{
+	{
 		Carrier->doc->ActPage->SelItem.clear();
 		int i = GetItem(QString(Name));
 		if (i != -1)
 			Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(i));
+		else
+		{
+			PyErr_SetString(PyExc_Exception, "Oook! You're trying to erase an object doesn't exist!");
+			Py_DECREF(Py_None);
+			return NULL;
 		}
+	}
 	Carrier->doc->ActPage->DeleteItem();
 	return Py_None;
 }
 
+/* 03/21/2004 - exception raises by non existent name (subik)
+ */
 PyObject *scribus_textflow(PyObject *self, PyObject* args)
 {
 	char* name;
@@ -357,7 +367,11 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 
 	id = GetItem(QString(name));
 	if (id == -1)
-		return Py_None;
+	{
+		PyErr_SetString(PyExc_Exception, "Oook! An object you're trying to textflow doesn't exist!");
+		Py_DECREF(Py_None);
+		return NULL;
+	}
 
 	if (state == -1)
 	{

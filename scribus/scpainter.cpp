@@ -277,7 +277,7 @@ void ScPainter::fillPath()
 		ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
 		drawVPath( path, 0 );
 		}
-	m_index--;
+//	m_index--;
 }
 
 void ScPainter::strokePath()
@@ -526,7 +526,7 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 
 	// render the svp to the buffer
 
-	if( fillSvp )
+	if(( fillSvp ) && (mode == 0))
 		{
 		if (fillMode == 2)
 			applyGradient( fillSvp, true );
@@ -544,7 +544,7 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 			}
 		art_svp_free( fillSvp );
 		}
-	if( strokeSvp )
+	if(( strokeSvp ) && (mode == 1))
 	{
 /*		if( m_stroke && m_stroke->type() == VStroke::grad )
 			applyGradient( strokeSvp, false );
@@ -603,7 +603,12 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 
 	ArtRender *render = 0L;
 
-	VGradient gradient = fill ? fill_gradient : stroke_gradient;
+//	VGradient gradient = fill ? fill_gradient : stroke_gradient;
+	VGradient gradient;
+	if (fill)
+		gradient = fill_gradient;
+	else
+		gradient = stroke_gradient;
 	double opa = fill ? fill_trans : stroke_trans;
 
 	if (gradient.type() == VGradient::linear)

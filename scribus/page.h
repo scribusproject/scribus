@@ -112,7 +112,7 @@ public:
 	void MarkClip(PageItem *b);
 	void Transform(PageItem *b, QPainter *p);
 	void TransformM(PageItem *b, QPainter *p);
-	void PaintSizeRect(QPainter *p, QRect alt, QRect neu);
+	void PaintSizeRect(QPainter *p, QRect neu);
 	QPoint ApplyGrid(QPoint in);
 	FPoint ApplyGridF(FPoint in);
 	void RefreshItem(PageItem *b, bool single = false);
@@ -137,6 +137,7 @@ public:
 	void AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state);
 	void setNewPos(PageItem *b, int oldPos, int len, int dir);
 	void ExpandSel(PageItem *b, int dir, int oldPos);
+	void deselectAll(PageItem *b);
 	QRegion ViewReg();
   /** Liste der Elemente */
 	QPtrList<PageItem> Items;

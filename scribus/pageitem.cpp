@@ -290,14 +290,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	p->translate(Xpos*sc, Ypos*sc);
 	p->rotate(Rot);
 	p->setLineWidth(Pwidth);
-	if (Pcolor != "None")
-	{
-		SetFarbe(&tmp, Pcolor, Shade);
-		p->setBrush(tmp);
-		p->setFillMode(1);
-	}
-	else
-		p->setFillMode(0);
 	if (GrType != 0)
 	{
 		p->setFillMode(2);
@@ -337,6 +329,18 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								FPoint(Width / 2.0,Height / 2.0));
 				break;
 		}
+	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (Pcolor != "None")
+		{
+			SetFarbe(&tmp, Pcolor, Shade);
+			p->setBrush(tmp);
+			p->setFillMode(1);
+		}
+		else
+			p->setFillMode(0);
 	}
 	if (Pcolor2 != "None")
 	{

@@ -1495,6 +1495,8 @@ void Mpalette::setXY(double x, double y)
 {
 	if (ScApp->ScriptRunning)
 		return;
+	disconnect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
+	disconnect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
 	bool tmp = HaveItem;
 	double inX, inY, b, h, r, dummy1, dummy2;
 	QWMatrix ma;
@@ -1539,6 +1541,8 @@ void Mpalette::setXY(double x, double y)
 	if ((LMode) && (tmp))
 		setBH(CurItem->Width, CurItem->Height);
 	HaveItem = tmp;
+	connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
+	connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
 }
 
 void Mpalette::setBH(double x, double y)

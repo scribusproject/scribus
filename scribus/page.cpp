@@ -53,6 +53,7 @@
 #include <qevent.h>
 #include <qeventloop.h>
 #include <qprocess.h>
+#include <qscrollbar.h>
 
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
@@ -930,16 +931,23 @@ void Page::TransformM(PageItem *b, QPainter *p)
 	}
 }
 
-void Page::PaintSizeRect(QPainter *p, QRect alt, QRect neu)
+void Page::PaintSizeRect(QPainter *p, QRect neu)
 {
-	QWMatrix ma = p->worldMatrix();
-	ma.setTransformationMode ( QWMatrix::Areas );
-	p->setWorldMatrix(ma);
-	p->setRasterOp(XorROP);
-	p->setBrush(NoBrush);
-	p->setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-	p->drawRect(alt);
-	p->drawRect(neu);
+	static QRect old;
+	if (!neu.isNull())
+	{
+		QWMatrix ma = p->worldMatrix();
+		ma.setTransformationMode ( QWMatrix::Areas );
+		p->setWorldMatrix(ma);
+		p->setRasterOp(XorROP);
+		p->setBrush(NoBrush);
+		p->setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		if (!old.isNull())
+			p->drawRect(old);
+		if (!neu.isNull())
+			p->drawRect(neu);
+	}
+	old = neu;
 }
 
 QPoint Page::ApplyGrid(QPoint in)
@@ -2255,10 +2263,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			}
 			HaveSelRect = false;
 			double Tx, Ty, Tw, Th;
-			Tx = Mxp * sc;
-			Ty = Myp * sc;
-			Tw = SeRx-(Mxp*sc);
-			Th = SeRy-(Myp*sc);
+			Tx = Mxp;
+			Ty = Myp;
+			Tw = SeRx/sc-Mxp;
+			Th = SeRy/sc-Myp;
 			int z;
 			int Cols, Rows;
 			double deltaX, deltaY, offX, offY;
@@ -3088,7 +3096,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						break;
 					case 5:
-						b->Sizing = false;
 						if (b->isTableItem)
 						{
 							double dist = npx.y() - b->Height;
@@ -3121,9 +3128,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, 0), FPoint(0, b->Height - npx.y()), b->ItemNr);
 						if (b->flippedV % 2 != 0)
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+						b->Sizing = false;
 						break;
 					case 6:
-						b->Sizing = false;
 						if (b->isTableItem)
 						{
 							double dist = npx.x() - b->Width;
@@ -3156,6 +3163,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, 0), FPoint(b->Width - npx.x(), 0), b->ItemNr);
 						if (b->flippedH % 2 != 0)
 							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+						b->Sizing = false;
 						break;
 					case 7:
 						if (b->isTableItem)
@@ -3372,9 +3380,64 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			emit Magnify ? ZoomIn() : ZoomOut();
+//			emit Magnify ? ZoomIn() : ZoomOut();
+//			if (SelItem.count() == 0)
+//				emit AbsPosi2(Mxp, Myp);
+			// I want that zoom in/out is centered to mouse cursor
 			if (SelItem.count() == 0)
-				emit AbsPosi2(Mxp, Myp);
+			{
+				// Position of cursor before zoom operation
+				int    oldAbsX;
+				int    oldAbsY;
+				// Position of old point under cursor after zoom operation
+				int    newAbsX;
+				int    newAbsY;
+				// position of child
+				int cx = Anz->childX(parentWidget());
+				int cy = Anz->childY(parentWidget());
+				// scale before zoom operation
+				double oldScale = doku->Scale;
+				// for scrollbar max value check
+				int    sbhMax;
+				int    sbvMax;
+				// remember position of scrollbars
+				QScrollBar *sbv = Anz->verticalScrollBar();
+				QScrollBar *sbh = Anz->horizontalScrollBar();
+				int sbx = sbh->value();
+				int sby = sbv->value();
+				// mouse position absolute X position of frame + mouse position
+				// within the page, ...
+				oldAbsX = Anz->contentsX() + m->x();
+				oldAbsY = Anz->contentsY() + m->y();
+				// do zoom 
+				emit Magnify ? ZoomIn() : ZoomOut();
+				// we need this to get valid values for the scrollbars
+				Anz->updateScrollBars();
+				// if no changes don't recalculate sbx and sby
+				if ( oldScale != doku->Scale )
+				{
+					// new coordinate of point under our cursor
+					newAbsX = (int)(((double)(oldAbsX-cx)* doku->Scale / oldScale)+.5)+cx;
+					newAbsY = (int)(((double)(oldAbsY-cy) * doku->Scale / oldScale)+.5)+cy;
+					// calculate the scrollbar displacement
+					sbx += newAbsX - oldAbsX;
+					sby += newAbsY - oldAbsY;
+					// check for scrollbar position
+					sbhMax = sbh->maxValue();
+					if ( sbx < 0 )
+						sbx = 0;
+					else if ( sbx > sbhMax )
+						sbx = sbhMax;
+					sbvMax = sbv->maxValue();
+					if ( sby < 0 )
+						sby = 0;
+					else if ( sby > sbvMax )
+						sby = sbvMax;
+				}
+				// set scrollbar value
+				sbh->setValue(sbx);
+				sbv->setValue(sby);
+			}
 			HaveSelRect = false;
 		}
 	}
@@ -3867,7 +3930,6 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					switch (HowTo)
 					{
 					case 1:
-						np = QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
 						if (m->state() & ControlButton)
 						{
 							np2 = QPoint(m->x(), static_cast<int>((gy+(gh * ((newX-gx) / gw)))*sc));
@@ -3877,8 +3939,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							np2 = QPoint(m->x(), m->y());
 						Mxp = static_cast<int>(np2.x()/sc);
 						Myp = static_cast<int>(np2.y()/sc);
-						PaintSizeRect(&p, QRect(QPoint(static_cast<int>(gx*sc), static_cast<int>(gy*sc)), np),
-						              QRect(QPoint(static_cast<int>(gx*sc), static_cast<int>(gy*sc)), np2));
+						PaintSizeRect(&p, QRect(QPoint(static_cast<int>(gx*sc), static_cast<int>(gy*sc)), np2));
 						break;
 					}
 					p.end();
@@ -3905,8 +3966,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							{
 								if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
 								{
-									mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) /
-									                                       b->OldB2 * b->OldH2)) * sc));
+									mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) / b->OldB2 * b->OldH2)) * sc));
 									QCursor::setPos(mapToGlobal(mop));
 								}
 								else
@@ -3976,12 +4036,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 								ma = p.worldMatrix();
 								ma.setTransformationMode ( QWMatrix::Areas );
 								p.setWorldMatrix(ma);
-								np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 								np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-								PaintSizeRect(&p, QRect(np, QPoint(static_cast<int>(b->Width),
-								                                   static_cast<int>(b->Height))),
-								              QRect(np2, QPoint(static_cast<int>(b->Width),
-								                                static_cast<int>(b->Height))));
+								PaintSizeRect(&p, QRect(np2, QPoint(qRound(b->Width), qRound(b->Height))));
 								p.end();
 							}
 							break;
@@ -3991,10 +4047,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							ma = p.worldMatrix();
 							ma.setTransformationMode ( QWMatrix::Areas );
 							p.setWorldMatrix(ma);
-							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(np, QPoint(0, static_cast<int>(b->Height))),
-							              QRect(np2, QPoint(0, static_cast<int>(b->Height))));
+							PaintSizeRect(&p, QRect(np2, QPoint(0, qRound(b->Height))));
 							p.end();
 							break;
 						case 4:
@@ -4003,36 +4057,30 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							ma = p.worldMatrix();
 							ma.setTransformationMode ( QWMatrix::Areas );
 							p.setWorldMatrix(ma);
-							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(np, QPoint(static_cast<int>(b->Width), 0)),
-							              QRect(np2, QPoint(static_cast<int>(b->Width), 0)));
+							PaintSizeRect(&p, QRect(np2, QPoint(qRound(b->Width), 0)));
 							p.end();
 							break;
 						case 5:
+							{
 							p.begin(this);
 							Transform(b, &p);
 							ma = p.worldMatrix();
 							ma.setTransformationMode ( QWMatrix::Areas );
 							p.setWorldMatrix(ma);
-							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(QPoint(static_cast<int>(b->Width), np.y()), QPoint(0, 0)),
-							              QRect(QPoint(static_cast<int>(b->Width), np2.y()),
-							                    QPoint(0, 0)));
+							PaintSizeRect(&p, QRect(0, 0, qRound(b->Width), np2.y()));
 							p.end();
 							break;
+							}
 						case 6:
 							p.begin(this);
 							Transform(b, &p);
 							ma = p.worldMatrix();
 							ma.setTransformationMode ( QWMatrix::Areas );
 							p.setWorldMatrix(ma);
-							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(QPoint(np.x(), static_cast<int>(b->Height)),
-							                        QPoint(0, 0)), QRect(QPoint(np2.x(), static_cast<int>(b->Height)),
-							                                             QPoint(0, 0)));
+							PaintSizeRect(&p, QRect(QPoint(np2.x(), qRound(b->Height)), QPoint(0, 0)));
 							p.end();
 							break;
 						case 7:
@@ -4041,12 +4089,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							ma = p.worldMatrix();
 							ma.setTransformationMode ( QWMatrix::Areas );
 							p.setWorldMatrix(ma);
-							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(QPoint(np.x(), static_cast<int>(b->Height)),
-							                        QPoint(static_cast<int>(b->Width), 0)), QRect(QPoint(np2.x(),
-							                                static_cast<int>(b->Height)), QPoint(static_cast<int>(b->Width),
-							                                                                     0)));
+							PaintSizeRect(&p, QRect(QPoint(np2.x(), qRound(b->Height)), QPoint(qRound(b->Width), 0)));
 							p.end();
 							break;
 						case 8:
@@ -4055,12 +4099,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							ma = p.worldMatrix();
 							ma.setTransformationMode ( QWMatrix::Areas );
 							p.setWorldMatrix(ma);
-							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(QPoint(static_cast<int>(b->Width),np.y()),
-							                        QPoint(0, static_cast<int>(b->Height))),
-							              QRect(QPoint(static_cast<int>(b->Width),np2.y()),
-							                    QPoint(0, static_cast<int>(b->Height))));
+							PaintSizeRect(&p, QRect(QPoint(qRound(b->Width),np2.y()), QPoint(0, qRound(b->Height))));
 							p.end();
 							break;
 						}
@@ -5107,6 +5147,8 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 	ma.rotate(b->Rot);
 	ma.setTransformationMode ( QWMatrix::Areas );
 	p->setWorldMatrix(ma);
+	QRect ne = QRect();
+	PaintSizeRect(p, ne);
 	if (b->PType != 5)
 	{
 		if (mpo.contains(p->xForm(QPoint(0, 0))))
@@ -5691,6 +5733,28 @@ void Page::ExpandSel(PageItem *b, int dir, int oldPos)
 	if ( ! sel )
 		emit  HasNoTextSel();
 	RefreshItem(b);
+}
+
+void Page::deselectAll(PageItem *b)
+{
+	PageItem *i = b;
+	int       n;
+	int       l;
+	while( i->BackBox )
+		i=i->BackBox;
+	while ( i )
+	{
+		if ( i->HasSel )
+		{
+			l = i->Ptext.count();
+			for (n=0; n < l; n++ )
+				i->Ptext.at(n)->cselect = false;
+			i->OwnPage->RefreshItem(i);
+			i->HasSel = false;
+		}
+		i = i->NextBox;
+	}
+	emit  HasNoTextSel();
 }
 
 bool Page::slotSetCurs(int x, int y)

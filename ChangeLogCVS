@@ -1,4 +1,10 @@
 Changes since Version 1.1.5
+25.03.2004	Fixed Bug when dragging Objects from the Scrapbook to Template Pages.
+		Improved the drawing of the ouline Box when resizing Objects.
+		Some more Patches from Jean-Jacques Sarton.
+		Updated the Finnish Translation.
+		Fixes for the zooming.
+
 18.03.2004	Fixes for rotated Tables and Borderlines.
 
 17.03.2004	Printing and Exporting to PDF for Tables is now working too.

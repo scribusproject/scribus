@@ -502,10 +502,8 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	RealFonts = DocFonts;
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	FPointArray gly;
 	Page* pg;
 	PageItem* pgit;
-	QString chx;
 	for (uint c = 0; c < view->MasterPages.count(); ++c)
 	{
 		pg = view->MasterPages.at(c);
@@ -516,24 +514,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 			{
 				for (uint e = 0; e < pgit->Ptext.count(); ++e)
 				{
-					ReallyUsed.insert(pgit->Ptext.at(e)->cfont,
-								 DocFonts[pgit->Ptext.at(e)->cfont]);
-					uint chr = pgit->Ptext.at(e)->ch[0].unicode();
-					if ((chr == 13) || (chr == 32))
-						continue;
-					if (pgit->Ptext.at(e)->cstyle & 64)
-					{
-						chx = pgit->Ptext.at(e)->ch;
-						if (chx.upper() != pgit->Ptext.at(e)->ch)
-							chx = chx.upper();
-						chr = chx[0].unicode();
-					}
-					if (AllFonts[pgit->Ptext.at(e)->cfont]->CharWidth.contains(chr))
-					{
-						gly = AllFonts[pgit->Ptext.at(e)->cfont]->
-										GlyphArray[chr].Outlines.copy();
-						AllFonts[pgit->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
-					}
+					ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
 				}
 			}
 		}
@@ -548,24 +529,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 			{
 				for (uint e = 0; e < pgit->Ptext.count(); ++e)
 				{
-					ReallyUsed.insert(pgit->Ptext.at(e)->cfont,
-									 DocFonts[pgit->Ptext.at(e)->cfont]);
-					uint chr = pgit->Ptext.at(e)->ch[0].unicode();
-					if ((chr == 13) || (chr == 32))
-						continue;
-					if (pgit->Ptext.at(e)->cstyle & 64)
-					{
-						chx = pgit->Ptext.at(e)->ch;
-						if (chx.upper() != pgit->Ptext.at(e)->ch)
-							chx = chx.upper();
-						chr = chx[0].unicode();
-					}
-					if (AllFonts[pgit->Ptext.at(e)->cfont]->CharWidth.contains(chr))
-					{
-						gly = AllFonts[pgit->Ptext.at(e)->cfont]->
-										GlyphArray[chr].Outlines.copy();
-						AllFonts[pgit->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
-					}
+					ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
 				}
 			}
 		}
@@ -580,8 +544,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		{
 			QString fon = "";
 			QMap<uint,FPointArray>::Iterator ig;
-			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); 
-						ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
+			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
 			{
 				FPoint np, np1, np2;
 				bool nPath = true;

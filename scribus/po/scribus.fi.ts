@@ -131,6 +131,26 @@
         <source>Finnish:</source>
         <translation>Suomi:</translation>
     </message>
+    <message>
+        <source>March</source>
+        <translation type="obsolete">maaliskuu</translation>
+    </message>
+    <message>
+        <source>Homepage and online reference</source>
+        <translation>Kotisivu ja materiaali verkossa</translation>
+    </message>
+    <message>
+        <source>Mailing list</source>
+        <translation>Postituslista</translation>
+    </message>
+    <message>
+        <source>Bugs and feature requests</source>
+        <translation>Bugit ja parannusehdotukset</translation>
+    </message>
+    <message>
+        <source>Online</source>
+        <translation>Verkossa</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1119,7 +1139,7 @@
     </message>
     <message>
         <source>When Icon is too small</source>
-        <translation>Kun kuvake on liian pieni</translation>
+        <translation type="obsolete">Kun kuvake on liian pieni</translation>
     </message>
     <message>
         <source>Caption left to Icon</source>
@@ -1152,6 +1172,10 @@
     <message>
         <source></source>
         <translation></translation>
+    </message>
+    <message>
+        <source>When Icon it too small</source>
+        <translation>Kun kuvake on liian pieni</translation>
     </message>
 </context>
 <context>
@@ -1223,6 +1247,56 @@
     <message>
         <source>Saturation</source>
         <translation>Saturaation</translation>
+    </message>
+    <message>
+        <source>Default color profile for imported images</source>
+        <translation>Väriprofiili tuoduille kuville</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation>Väriprofiili dokumentin tasaisille väreille</translation>
+    </message>
+    <message>
+        <source>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
+        <translation>Itse tekemäsi tai näyttösi valmistajan toimittama väriprofiili
+Profiilin tulee olla näytöllesi tarkoitettu ei yleinen väriprofiili kuten sRGB.</translation>
+    </message>
+    <message>
+        <source>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
+        <translation>Tulostimesi valmistajan toimittama väriprofiili tulostimellesi.
+Profiilin tulee olla tulostimellesi tarkoitettu ei yleinen väriprofiili kuten sRGB.</translation>
+    </message>
+    <message>
+        <source>Choose the default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Valitse sovitustapa näytöllesi. Ellet tiedä mikä tapa valita, tulisi käyttää
+sovitustapoja Relative Colorimetric tai Perceptual.</translation>
+    </message>
+    <message>
+        <source>Choose the default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Valitse sovitustapa tulostimellesi. Ellet tiedä mikä tapa valita, tulisi käyttää
+sovitustapoja Relative Colorimetric tai Perceptual.</translation>
+    </message>
+    <message>
+        <source>This enables &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation>Mahdollistaa tulosteen värien jäljittelyn näytöllä perustuen
+käytettävään väriprofiiliin.</translation>
+    </message>
+    <message>
+        <source>This is a method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation>Toiminto näyttää värit, jotka mahdollisesti eivät tulostu oikein.
+Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan varoituksena.</translation>
+    </message>
+    <message>
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation>Black Point Compensation on keino parantaa kuvien kontrastia.
+On suositeltavaa että valitsen tämän, jos dokumenttisi sisältää kuvia.</translation>
     </message>
 </context>
 <context>
@@ -1344,7 +1418,7 @@
     </message>
     <message>
         <source>Opacity:</source>
-        <translation>Himmeys:</translation>
+        <translation>Läpinäkyvyys:</translation>
     </message>
     <message>
         <source>Vertical Gradient</source>
@@ -1515,7 +1589,11 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>OK to delete Color:</source>
-        <translation>Poistetaanko väri:</translation>
+        <translation type="obsolete">Poistetaanko väri:</translation>
+    </message>
+    <message>
+        <source>Delete color:</source>
+        <translation>Poista väri:</translation>
     </message>
 </context>
 <context>
@@ -2041,6 +2119,42 @@ Voit määrittää sen asetuksissa.</translation>
         <source>Remove Unused</source>
         <translation>Poista käyttämättömät</translation>
     </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation>Valitse ladattava värisarja</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation>Tallenna nykyinen värisarja</translation>
+    </message>
+    <message>
+        <source>Append colors to the current set from an existing document</source>
+        <translation>Lisää värit toisesta dokumentista nykyiseen värisarjaan</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation>Luo uusi väri nykyiseen värisarjaan</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation>Muokkaa valittua väriä</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation>Kopioi valittu väri</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation>Poista valittu väri</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation>Tee valitusta värisarjasta oletussarja</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation>Poista käyttämättömät värit dokumentin värisarjasta</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2094,7 +2208,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Embed in:</source>
-        <translation>Upota sisään:</translation>
+        <translation>Upota:</translation>
     </message>
     <message>
         <source>Use Font</source>
@@ -2226,7 +2340,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>Tämä on lyhimmän tavutettavan sanan pituus.</translation>
+        <translation>Lyhimmän tavutettavan sanan pituus.</translation>
     </message>
     <message>
         <source>Hyphenator Settings</source>
@@ -2322,7 +2436,7 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>Global JavaScripts</source>
-        <translation>Yleiset javascriptit</translation>
+        <translation type="obsolete">Yleiset javascriptit</translation>
     </message>
     <message>
         <source>Add...</source>
@@ -2343,6 +2457,10 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     <message>
         <source>New Script:</source>
         <translation>Uusi skripti:</translation>
+    </message>
+    <message>
+        <source>Edit JavaScripts</source>
+        <translation>Muokkaa javaskriptejä</translation>
     </message>
 </context>
 <context>
@@ -2529,6 +2647,14 @@ tavutuksen kohdalla kysymysikkuna.</translation>
         <source>Warning</source>
         <translation>Varoitus</translation>
     </message>
+    <message>
+        <source>Exit</source>
+        <translation type="obsolete">Poistu</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sulje</translation>
+    </message>
 </context>
 <context>
     <name>MSpinBox</name>
@@ -2601,6 +2727,14 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     <message>
         <source>Hide Console</source>
         <translation>Piilota konsoli</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Skriptivirhe</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation>Jos ajat ohjelman mukana toimitettua skriptiä ilmoita siitä &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;. Kiitos.</translation>
     </message>
 </context>
 <context>
@@ -3220,7 +3354,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Enable this to make text flow around overlapping objects</source>
-        <translation>Pakota teksti kiertämään kohde</translation>
+        <translation type="obsolete">Pakota teksti kiertämään kohde</translation>
     </message>
     <message>
         <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
@@ -3362,6 +3496,42 @@ Valitse toinen nimi.</translation>
         <source>Select the rendering intent for the image</source>
         <translation>Valitse kuvan sovitustapa</translation>
     </message>
+    <message>
+        <source>Enable this to make text in lower objects flow around this frame</source>
+        <translation>Pakota alempana olevien kohteiden teksti kiertämään tämä kehys</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation>Solun reunat</translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation>Viiva ylhäällä</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation>Viiva vasemmalla</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation>Viiva oikealla</translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation>Viiva alhaalla</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -3464,7 +3634,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Poistu</translation>
+        <translation type="obsolete">Poistu</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
@@ -3509,6 +3679,10 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Name:</source>
         <translation>Nimi:</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sulje</translation>
     </message>
 </context>
 <context>
@@ -3706,7 +3880,7 @@ Valitse toinen nimi.</translation>
     <message>
         <source>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</source>
-        <translation>Kun valittuna käytä koordinaatteja suhteessa sivuun,
+        <translation>Kun valittuna, koordinaatit näytetään suhteessa sivuun,
 muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
@@ -4533,6 +4707,26 @@ muulloin suhteessa kohteeseen.</translation>
         <source>Edit Picture</source>
         <translation>Muokkaa kuvaa</translation>
     </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Jatka tekstiä...</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation>Ohjelma</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation>puuttuu!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varoitus</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Kopio</translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
@@ -4790,7 +4984,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Display Frames</source>
-        <translation>Näytä kehykset</translation>
+        <translation type="obsolete">Näytä kehykset</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4802,7 +4996,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Disp.:</source>
-        <translation>Siirtymä:</translation>
+        <translation type="obsolete">Siirtymä:</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -5030,7 +5224,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Linestyle:</source>
-        <translation>Viivatyyli:</translation>
+        <translation type="obsolete">Viivatyyli:</translation>
     </message>
     <message>
         <source>Autosave</source>
@@ -5119,6 +5313,402 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Millimetres (mm)</source>
         <translation>Millimetrit (mm)</translation>
+    </message>
+    <message>
+        <source>External Tools</source>
+        <translation>Ulkoiset työkalut</translation>
+    </message>
+    <message>
+        <source>Postscript Interpreter</source>
+        <translation>Postscript-tulkitsija</translation>
+    </message>
+    <message>
+        <source>Name of executeable:</source>
+        <translation type="obsolete">Suoritettavan nimi:</translation>
+    </message>
+    <message>
+        <source>Antialias Text</source>
+        <translation>Antialisoi teksti</translation>
+    </message>
+    <message>
+        <source>Antialias Graphics</source>
+        <translation>Antialisoi grafiikka</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation>Kuvanmuokkaustyökalu</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation>Sekalaista</translation>
+    </message>
+    <message>
+        <source>Printing</source>
+        <translation>Tulostus</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Leikkaa reunukset</translation>
+    </message>
+    <message>
+        <source>Displacement:</source>
+        <translation>Siirto:</translation>
+    </message>
+    <message>
+        <source>Name of executable:</source>
+        <translation>Ajettava ohjelma:</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks.
+Scribus inherits any available KDE or Qt themes</source>
+        <translation>Valitse ulkonäkö. Scribus sallii kaikkien 
+mahdollisten KDE- ja QT-teemojen käytön</translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation>Valikoissa ja ikkunoissa käytettävän kirjasimen koko</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Dokumentin muokkauksessa käytettävä oletusmittayksikkö</translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation>Askellettavien rivien lukumäärä hiiren rullaa käytettäessä</translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation>Etäisyys, jonka sisällä Scribus mahdollistaa kohteeseen tarttumisen</translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation>Viimeisten dokumenttien lukumäärä Tiedosto-valikossa</translation>
+    </message>
+    <message>
+        <source>Change the keyboard shortcuts to your preference</source>
+        <translation>Muuta näppäinoikopolut mieleisiksisi</translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation>Oletushakemisto dokumenteille</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory</source>
+        <translation>Oletushakemisto ICC-profiileille</translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation>Oletushakemisto skripteille</translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation>Oletuskoko sivulle, joko standardi tai itse määritelty koko</translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation>Dokumentin sivujen suunta</translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation>Dokumentin sivun leveys, muokattavissa jos valitset sivun kooksi &quot;Oma&quot;</translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation>Dokumentin sivun korkeus, muokattavissa jos valitset sivun kooksi &quot;Oma&quot;</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Sivu- tai aukeamakeskeistä ulkonäköä</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of a document</source>
+        <translation>Tee vasemmasta sivusta dokumentin ensimmäinen sivu</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Paperin reunan ja yläreunuksen välinen etäisyys</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Paperin reunan ja alareunuksen välinen etäisyys</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Paperin reunan ja vasemman reunuksen välinen etäisyys.
+Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuksen ottaen sidonnan huomioon</translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+each time the time period elapses</source>
+        <translation>Jos valittuna, niin Scribus tallentaa kopion dokumentistasi bak-päätteellä
+aina valitun ajan kuluttua</translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation>Automaattisen tallennuksen aikaväli</translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation>Apuruudukon viivojen välinen etäisyys</translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation>Pääruudukon viivojen välinen etäisyys</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation>Etäisyys, jolta kohde kiinnittyy apuviivoihin</translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation>Apuruudukon viivojen väri</translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation>Pääruudukon viivojen väri</translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation>Apuviivojen väri</translation>
+    </message>
+    <message>
+        <source>Place the grid behind your page objects</source>
+        <translation>Sijoita ruudukko kohteiden taakse</translation>
+    </message>
+    <message>
+        <source>Place the grid in front of your page objects</source>
+        <translation>Sijoita ruudukko kohteiden päälle</translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the font on a line</source>
+        <translation>Siirtymä kirjasimen keskikohdan yläpuolelle</translation>
+    </message>
+    <message>
+        <source>Relative size of the superscript compared to the normal font</source>
+        <translation>Yläindeksin kirjasimen koko verrattuna normaaliin kirjasimeen</translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font on a line</source>
+        <translation>Siirtymä kirjasimen keskikohdan alapuolelle</translation>
+    </message>
+    <message>
+        <source>Relative size of the subscript compared to the normal font</source>
+        <translation>Alaindeksin kirjasimen koko verrattuna normaaliin kirjasimeen</translation>
+    </message>
+    <message>
+        <source>Relative size of the small caps font compared to the normal font</source>
+        <translation>Pienten isojen kirjainten koko verrattuna normaaliin kirjasimeen</translation>
+    </message>
+    <message>
+        <source>Percentage increase over the font size for the line spacing</source>
+        <translation>Rivivälin kasvu prosentteina kirjasimen koosta</translation>
+    </message>
+    <message>
+        <source>Text Frame Properties</source>
+        <translation>Tekstikehyksen asetukset</translation>
+    </message>
+    <message>
+        <source>Picture Frame Properties</source>
+        <translation>Kuvakehyksen asetukset</translation>
+    </message>
+    <message>
+        <source>Shape Drawing Properties</source>
+        <translation>Kuvioiden asetukset</translation>
+    </message>
+    <message>
+        <source>Magnification Level Defaults</source>
+        <translation>Suurennostason Oletusarvot</translation>
+    </message>
+    <message>
+        <source>Line Drawing Properties</source>
+        <translation>Viivan ominaisuudet</translation>
+    </message>
+    <message>
+        <source>Polygon Drawing Properties</source>
+        <translation>Monikulmion ominaisuudet</translation>
+    </message>
+    <message>
+        <source>Font for new text frames</source>
+        <translation>Kirjasin uuteen tekstikehykseen</translation>
+    </message>
+    <message>
+        <source>Size of font for new text frames</source>
+        <translation>Kirjasimen koko uuteen tekstikehykseen</translation>
+    </message>
+    <message>
+        <source>Color of font</source>
+        <translation>Kirjasimen väri</translation>
+    </message>
+    <message>
+        <source>Number of columns in a text frame</source>
+        <translation>Tekstikehyksen palstojen lukumäärä</translation>
+    </message>
+    <message>
+        <source>Gap between text frame columns</source>
+        <translation>Kehyksen palstojen väli</translation>
+    </message>
+    <message>
+        <source>Sample of your font</source>
+        <translation>Esimerkki valitusta kirjasimesta</translation>
+    </message>
+    <message>
+        <source>Picture frames allow pictures to scale to any size</source>
+        <translation>Kuvakehykset sallivat kuvan skaalauksen mihin tahansa kokoon</translation>
+    </message>
+    <message>
+        <source>Horizontal scaling of images</source>
+        <translation>Kuvien vaakasuora skaalaus</translation>
+    </message>
+    <message>
+        <source>Vertical scaling of images</source>
+        <translation>Kuvien pystysuora skaalaus</translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation>Säilytä vaaka- ja pystysuora skaalaus samana</translation>
+    </message>
+    <message>
+        <source>Pictures in picture frames are scaled to the size of the frame</source>
+        <translation>Kuvat kuvakehyksissä skaalataan kehyksen kokoon</translation>
+    </message>
+    <message>
+        <source>Automatically scaled pictures keep their original proportions</source>
+        <translation>Automaattisesti skaalatut kuvat säilyttävät sivujen väliset suhteensa</translation>
+    </message>
+    <message>
+        <source>Fill color of picture frames</source>
+        <translation>Kuvakehyksen täyttöväri</translation>
+    </message>
+    <message>
+        <source>Saturation of color of fill</source>
+        <translation>Täyttövärin sävy</translation>
+    </message>
+    <message>
+        <source>Line color of shapes</source>
+        <translation>Kuvion viivan väri</translation>
+    </message>
+    <message>
+        <source>Saturation of color of lines</source>
+        <translation>Kuvion viivan värin sävy</translation>
+    </message>
+    <message>
+        <source>Fill color of shapes</source>
+        <translation>Kuvion täyttöväri</translation>
+    </message>
+    <message>
+        <source>Line style of shapes</source>
+        <translation>Kuvion viivatyyli</translation>
+    </message>
+    <message>
+        <source>Line width of shapes</source>
+        <translation>Kuvion viivan paksuus</translation>
+    </message>
+    <message>
+        <source>Minimum magnification allowed</source>
+        <translation>Pienin sallittu pienennös</translation>
+    </message>
+    <message>
+        <source>Maximum magnification allowed</source>
+        <translation>Suurin sallittu suurennus</translation>
+    </message>
+    <message>
+        <source>Change in magnification for each zoom operation</source>
+        <translation>Suurennoksen muutos jokaisella suurennoskerralla</translation>
+    </message>
+    <message>
+        <source>Color of lines</source>
+        <translation>Viivan väri</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Värin kylläisyys</translation>
+    </message>
+    <message>
+        <source>Style of lines</source>
+        <translation>Viivan tyyli</translation>
+    </message>
+    <message>
+        <source>Width of lines</source>
+        <translation>Viivan paksuus</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation>Monikulmion kulmien lukumäärä</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation>Monikulmion kierron aste</translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation>Monikulmiot ovat kuperia tai koveria</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation>Esimerkki monikulmiosta</translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation>Muuta monikulmion viivojen liittymiskulmia</translation>
+    </message>
+    <message>
+        <source>Choose the size of the preview in the scrapbook palette</source>
+        <translation>Valitse esikatselukuvan koko leikekirjassa</translation>
+    </message>
+    <message>
+        <source>Keep the scrapbook contents after closing Scribus</source>
+        <translation>Säilytä leikekirjan sisältö Scribuksen sulkemisen jälkeen</translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation>Kun käytössä on vastakkaiset sivut, näytetäänkö sivut vierekkäin</translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation>Paperin väri</translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation>Sivun reunusten väri</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation>Merkkaa marginaalien ulkopuolinen alue marginaalin värillä</translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation>Käytä läpinäkyvyysominaisuutta PDF 1.4:na tallennettaessa</translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation>Aseta näytettävä sivun koko</translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter</source>
+        <translation>Ghostscript tulkin sijainti tiedostojärjestelmässä</translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation>Antialisoi EPS- ja PDF-teksti näytöllä</translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation>Antialisoi EPS- ja PDF-grafiikka näytöllä</translation>
+    </message>
+    <message>
+        <source>Filesystem location for editing graphics</source>
+        <translation>Kuvankäsittelyohjelman sijainti tiedostojärjestelmässä</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation>Älä vie tai tulosta kohteita, jotka ovat dokumentin marginaalin ulkopuolella</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Paperin reunan ja oikean reunuksen välinen etäisyys.
+Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuksen ottaen sidonnan huomioon</translation>
     </message>
 </context>
 <context>
@@ -5643,6 +6233,10 @@ Tarkasta polku ja tiedostonimi.</translation>
         <source>p</source>
         <translation>p</translation>
     </message>
+    <message>
+        <source>Scribus Scripts</source>
+        <translation>Scribus-skriptit</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -6066,7 +6660,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Opens a Document</source>
-        <translation>Avaa dokumentti</translation>
+        <translation type="obsolete">Avaa dokumentti</translation>
     </message>
     <message>
         <source>Getting ICC-Profiles</source>
@@ -6098,7 +6692,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Prints the Current Document</source>
-        <translation>Tulosta dokumentti</translation>
+        <translation type="obsolete">Tulosta dokumentti</translation>
     </message>
     <message>
         <source>Split Polygons</source>
@@ -6266,7 +6860,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Closes the Current Document</source>
-        <translation>Sulje dokumentti</translation>
+        <translation type="obsolete">Sulje dokumentti</translation>
     </message>
     <message>
         <source>Tool-Tips</source>
@@ -6450,7 +7044,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Creates a new Document</source>
-        <translation>Luo uusi dokumentti</translation>
+        <translation type="obsolete">Luo uusi dokumentti</translation>
     </message>
     <message>
         <source>Spanish</source>
@@ -6526,7 +7120,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Saves the Current Document</source>
-        <translation>Tallenna dokumentti</translation>
+        <translation type="obsolete">Tallenna dokumentti</translation>
     </message>
     <message>
         <source>Portuguese</source>
@@ -6598,7 +7192,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation>Tallenna dokumentti PDF:na</translation>
+        <translation type="obsolete">Tallenna dokumentti PDF:na</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -6689,6 +7283,34 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>All Supported Formats</source>
         <translation>Kaikki tuetut tiedostotyypit</translation>
+    </message>
+    <message>
+        <source>Create a new Document</source>
+        <translation>Luo uusi dokumentti</translation>
+    </message>
+    <message>
+        <source>Open a Document</source>
+        <translation>Avaa dokumentti</translation>
+    </message>
+    <message>
+        <source>Save the current Document</source>
+        <translation>Tallenna dokumentti</translation>
+    </message>
+    <message>
+        <source>Close the current Document</source>
+        <translation>Sulje dokumentti</translation>
+    </message>
+    <message>
+        <source>Print the current Document</source>
+        <translation>Tulosta dokumentti</translation>
+    </message>
+    <message>
+        <source>Save the current Document as PDF</source>
+        <translation>Tallenna dokumentti PDF:na</translation>
+    </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Jatka tekstiä...</translation>
     </message>
 </context>
 <context>
@@ -7049,6 +7671,18 @@ raahaa malli sivualueelle.</translation>
         <source>Warning</source>
         <translation>Varoitus</translation>
     </message>
+    <message>
+        <source>Leave</source>
+        <translation type="obsolete">Poistu</translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="obsolete">Poistu</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sulje</translation>
+    </message>
 </context>
 <context>
     <name>StoryEditor</name>
@@ -7354,11 +7988,11 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Edit the Text with the Story Editor</source>
-        <translation>Muokkaa tekstiä tekstieditorilla</translation>
+        <translation type="obsolete">Muokkaa tekstiä tekstieditorilla</translation>
     </message>
     <message>
         <source>Zooms in or out</source>
-        <translation>Zoomaa sisään tai ulos</translation>
+        <translation type="obsolete">Zoomaa sisään tai ulos</translation>
     </message>
     <message>
         <source>Insert Lines</source>
@@ -7374,7 +8008,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
-        <translation>Lisää kuvio</translation>
+        <translation type="obsolete">Lisää kuvio</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -7419,6 +8053,22 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Unlink Text Frames</source>
         <translation>Pura tekstikehysten linkitys</translation>
+    </message>
+    <message>
+        <source>Zoom in or out</source>
+        <translation>Zoomaa lähemmäs tai kauemmas</translation>
+    </message>
+    <message>
+        <source>Edit the text with the Story Editor</source>
+        <translation>Muokkaa tekstiä editorilla</translation>
+    </message>
+    <message>
+        <source>Draw various Shapes</source>
+        <translation>Lisää kuvio</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Lisää taulukko</translation>
     </message>
 </context>
 <context>

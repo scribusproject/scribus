@@ -66,10 +66,18 @@
 #include "javadocs.h"
 #include "colorm.h"
 
+#ifndef _MSC_VER   // jjsa 21-03-2004 (lint complains)
+#define _MSC_VER -1
+#endif
+
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
 #else
  #include "config.h"
+#endif
+
+#if (_MSC_VER == -1 )   // jjsa 21-03-2004 (lint complains)
+#undef _MSC_VER
 #endif
 
 #include "fpoint.h"
@@ -801,21 +809,21 @@ void ScribusApp::initMenuBar()
   helpMenu->setItemChecked(tip, tipsOn);
 //	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 //	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
-	menuBar()->insertItem( tr("File"), fileMenu);
-	menuBar()->insertItem( tr("Edit"), editMenu);
+	menuBar()->insertItem( tr("&File"), fileMenu);
+	menuBar()->insertItem( tr("&Edit"), editMenu);
 	Stm = menuBar()->insertItem( tr("Style"), StilMenu);
 	Obm = menuBar()->insertItem( tr("Item"), ObjMenu);
 	pgmm = menuBar()->insertItem( tr("Page"), pageMenu);
 	menuBar()->setItemEnabled(Stm, 0);
 	menuBar()->setItemEnabled(Obm, 0);
 	menuBar()->setItemEnabled(pgmm, 0);
-	menuBar()->insertItem( tr("View"), viewMenu);
-	menuBar()->insertItem( tr("Tools"), toolMenu);
-	exmn = menuBar()->insertItem( tr("Extras"), extraMenu);
+	menuBar()->insertItem( tr("&View"), viewMenu);
+	menuBar()->insertItem( tr("&Tools"), toolMenu);
+	exmn = menuBar()->insertItem( tr("&Extras"), extraMenu);
 	menuBar()->setItemEnabled(exmn, 0);
-	menuBar()->insertItem( tr("Windows"), windowsMenu );
+	menuBar()->insertItem( tr("&Windows"), windowsMenu );
 	menuBar()->insertSeparator();
-	menuBar()->insertItem( tr("Help"), helpMenu);
+	menuBar()->insertItem( tr("&Help"), helpMenu);
 	AliMenu = new QPopupMenu();
 	AliMenu->insertItem( tr("Left"));
 	AliMenu->insertItem( tr("Center"));
@@ -923,6 +931,12 @@ void ScribusApp::ReportMP(double xp, double yp)
 			divisor = 100.0;
 			precision = 2;
 			break;
+		default:  // jjsa 21-03-2004 added default (complains for lint)
+			tmp2 = " pt";
+			multiplier = 100;
+			divisor = 100.0;
+			precision = 2;
+			break;
 		}
 	XDat->setText(tmp.setNum(qRound(xp*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
 	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
@@ -1010,7 +1024,7 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 void ScribusApp::keyPressEvent(QKeyEvent *k)
 {
 	QWidgetList windows;
-	QWidget* w;
+	QWidget* w = NULL;
 	struct Pti *hg;
 	int kk = k->key();
 	int as = k->ascii();
@@ -1018,7 +1032,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
 	uint Tcoun;
-	int len;
+	int len, pos, c;
 	if (keyrep)
 		return;
 	keyrep = true;
@@ -1169,49 +1183,115 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  					break;
  				case 7:
 					int oldPos = b->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
+					doc->ActPage->oldCp = b->CPos;
  					if (b->PType == 4)
  						{
  						doc->ActPage->slotDoCurs(false);
+						switch (kk)
+							{
+							case Key_Prior:
+							case Key_Next:
+							case Key_End:
+							case Key_Home:
+							case Key_Right:
+							case Key_Left:
+							case Key_Up:
+							case Key_Down:
+								if ( (buttonState & ShiftButton) == 0 )
+									doc->ActPage->deselectAll(b);
+							}
  						switch (kk)
  							{
 							case Key_Prior:
 								// go to begin of line
-								// position of character before the cursor
-								if ( b->CPos == 0 )
+								if ( (pos = b->CPos) == 0 )
 									break; // at begin of frame
 								len = static_cast<int>(b->Ptext.count());
-								if ( b->CPos > 0 )
+								if ( pos == len )
+									pos--;
+								if ( (buttonState & ControlButton) == 0 )
 								{
-									alty =  b->Ptext.at(b->CPos-1)->yp;
+									alty =  b->Ptext.at(pos)->yp;
+									c = b->Ptext.at(pos)->ch.at(0).latin1();
+									if ( c == 13 ) // new line, position is wrong
+										if ( --pos > 0 )
+											alty =  b->Ptext.at(pos)->yp;
 									// check for yp at actual position
-									if ( b->CPos < len )
+									if ( pos < len )
 									{
-										altx =  b->Ptext.at(b->CPos)->yp;
+										altx =  b->Ptext.at(pos)->yp;
 										if ( altx > alty )
 										{
 											// we was at begin of line
 											break;
 										}
 									}
-									else if (  b->CPos != len )
-									{
-										break;
-									}
+									while (  pos > 0 && b->Ptext.at(pos-1)->yp == alty )
+										pos--;
+									if ( b->Ptext.at(pos)->ch.at(0).latin1() == 13 )
+										pos++;
 								}
-								len = static_cast<int>(b->Ptext.count());
-								while (  b->CPos > 0 &&  b->Ptext.at(b->CPos-1)->yp == alty )
-									b->CPos--;
+								else
+								{
+									// paragraph begin
+									if ( pos < len &&
+										b->Ptext.at(pos)->ch.at(0).latin1() == 13 )
+										pos--;
+									while(pos > 0 )
+										if ( b->Ptext.at(pos)->ch.at(0).latin1() == 13 )
+										{
+											pos++;
+											break;
+										}
+										else
+											pos--;
+								}
+								b->CPos = pos;
 								if ( buttonState & ShiftButton )
-										doc->ActPage->ExpandSel(b, -1, oldPos);
+									doc->ActPage->ExpandSel(b, -1, oldPos);
 								break;
 							case Key_Next:
 								// go to end of line
 								len = static_cast<int>(b->Ptext.count());
 								if ( b->CPos >= len )
 									break; // at end of frame
-								alty =  b->Ptext.at(b->CPos)->yp;
-								while (  b->CPos < len-1 &&  b->Ptext.at(b->CPos+1)->yp == alty )
-									b->CPos++;
+								if ( (buttonState & ControlButton) == 0 )
+								{
+									if ( b->CPos < len && b->Ptext.at(b->CPos)->ch.at(0).latin1() == 13 )
+									{
+										// at end of paragraph and therefore line
+										break;
+									}
+									alty =  b->Ptext.at(b->CPos)->yp;
+									while (  b->CPos < len-1 &&  b->Ptext.at(b->CPos+1)->yp == alty )
+										b->CPos++;
+									
+									if ( b->CPos < len -1 )
+										c = b->Ptext.at(b->CPos+1)->ch.at(0).latin1();
+									else if ( b->CPos == len - 1 )
+										c = 13;
+									else
+										c = 0;
+									if ( c == 13 )
+										b->CPos++;
+								}
+								else
+								{
+									// go to end of paragraph
+									if ( b->Ptext.at(b->CPos)->ch.at(0).latin1() == 13 )
+									{
+										break;
+									}
+									pos = b->CPos;
+									while ( pos < len )
+									{
+										if ( b->Ptext.at(pos)->ch.at(0).latin1() == 13 )
+											break;
+										else
+											pos++;
+									}
+									b->CPos = pos;
+								}
 								if ( buttonState & ShiftButton )
 										doc->ActPage->ExpandSel(b, 1, oldPos);
 								break;
@@ -2059,7 +2139,11 @@ void ScribusApp::SwitchWin()
 	DatClo->setEnabled(true);
 	if (doc->TemplateMode)
 	{
-		menuBar()->setItemEnabled(pgmm, 0);
+		for (uint a=0; a<5; ++a)
+		{
+			pageMenu->setItemEnabled(pageMenu->idAt(a), 0);
+		}
+//		menuBar()->setItemEnabled(pgmm, 0);
 		editMenu->setItemEnabled(tman, 0);
 		DatNeu->setEnabled(false);
 		DatSav->setEnabled(false);
@@ -2199,7 +2283,7 @@ void ScribusApp::HaveNewDoc()
 
 void ScribusApp::HaveNewSel(int Nr)
 {
-	PageItem *b;
+	PageItem *b = NULL;
 	if (Nr != -1)
 		b = doc->ActPage->SelItem.at(0);
 	ObjMenu->setItemEnabled(PfadDT, 0);
@@ -6138,7 +6222,7 @@ void ScribusApp::SaveAsPDF()
 {
 	QString fn;
 	uint frPa, toPa;
-	int Components;
+	int Components = 3;
 	QString nam = "";
 	if (BookPal->BView->childCount() == 0)
 		doc->PDF_Optionen.Bookmarks = false;
@@ -6301,8 +6385,8 @@ void ScribusApp::RestoreBookMarks()
 	if (doc->BookMarks.count() == 0)
 		return;
 	BookMItem* ip;
-	BookMItem* ip2;
-	BookMItem* ip3;
+	BookMItem* ip2 = NULL;
+	BookMItem* ip3 = NULL;
 	BookMItem *ite = new BookMItem(BookPal->BView, &(*it2));
 	++it2;
 	for( ; it2 != doc->BookMarks.end(); ++it2 )
@@ -7608,7 +7692,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 					{
 					Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
 					uint chr = it->Ptext.at(e)->ch[0].unicode();
-					if ((chr == 13) || (chr == 32))
+					if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
 						continue;
 					if (it->Ptext.at(e)->cstyle & 64)
 						{
@@ -7617,6 +7701,18 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 							chx = chx.upper();
 						chr = chx[0].unicode();
 						}
+					if (chr == 30)
+					{
+						for (uint numco = 0x30; numco < 0x39; ++numco)
+						{
+							if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(numco))
+							{
+								gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
+								(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(numco, gly);
+							}
+						}
+						continue;
+					}
 					if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
 						{
 						gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
