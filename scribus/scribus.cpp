@@ -1476,6 +1476,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->Automatic = Prefs.Automatic;
 	doc->AutoCheck = Prefs.AutoCheck;
 	doc->PageColors = Prefs.DColors;
+	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc, &Prefs);
 	w->setView(view);
