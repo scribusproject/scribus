@@ -1924,6 +1924,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (b->PType == 4)
 				{
 				pmen->insertItem(tr("Get Text..."), this, SIGNAL(LoadPic()));
+				pmen->insertItem(tr("Edit Text..."), this, SIGNAL(EditText()));
 				if (PageNam == "")
 					{
 					int pxb = pmen->insertItem(tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
@@ -5531,16 +5532,16 @@ void Page::chAbStyle(PageItem *b, int s)
 			ax = a;
 			for (int xx=0; xx<ax+1; ++xx)
 				{
+				if (nb->Ptext.at(a)->ch == QChar(13))
+					{
+					cr = false;
+					break;
+					}
 				nb->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					}
-				if (nb->Ptext.at(a)->ch == QChar(13))
-					{
-					cr = false;
-					break;
 					}
 				a--;
 				}

@@ -198,7 +198,7 @@ else
 	echo "TiffLib installed: No"
 fi
 if test $COMPILE_PYTHON = no; then
-	echo "The Scripter-Plugin will no be build."
+	echo "The Scripter-Plugin will not be compiled."
 fi
 if test $hapython = yes; then
   echo "Using Python 2.3"

@@ -155,6 +155,7 @@ class ScribusApp : public QMainWindow
 		QString LoadEnc;
 
   public slots:
+		void slotStoryEditor();
 		void InvertPict();
 		void Collect();
 		void ChBookmarks(int s, int e, int n);

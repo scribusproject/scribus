@@ -69,6 +69,7 @@
 #include "mergedoc.h"
 #include "lineformats.h"
 #include "missing.h"
+#include "story.h"
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
 
@@ -3372,6 +3373,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(AddObj(uint, uint)), Tpal, SLOT(slotAddElement(uint, uint)));
 	connect(doc->ActPage, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
 	connect(doc->ActPage, SIGNAL(MoveObj(uint, uint, uint)), Tpal, SLOT(slotMoveElement(uint, uint, uint)));
+	connect(doc->ActPage, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
 	slotDocCh(!doc->loading);
 }
 
@@ -6448,6 +6450,7 @@ void ScribusApp::InitHyphenator()
 	QString datein = "";
 	QString	lang = QString(QTextCodec::locale()).left(2);
 	QString pfad = PREL;
+	Prefs.Language = tr("English");
 	pfad += "/lib/scribus/dicts/";
 	QDir d(pfad, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
@@ -6827,6 +6830,22 @@ void ScribusApp::HaveRaster(bool art)
 			StilMenu->insertItem(tr("Color"), ColorMenu);
 			StilMenu->insertItem(tr("Invert"), this, SLOT(InvertPict()));
 			}
+		}
+}
+
+void ScribusApp::slotStoryEditor()
+{
+ 	if (doc->ActPage->SelItem.count() != 0)
+		{
+ 		PageItem *b = doc->ActPage->SelItem.at(0);
+		StoryEditor* dia = new StoryEditor(this, doc, b);
+		dia->exec();
+		if (dia->TextChanged)
+			{
+			dia->updateTextFrame();
+			slotDocCh();
+			}
+		delete dia;
 		}
 }
 
