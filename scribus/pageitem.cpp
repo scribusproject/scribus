@@ -292,6 +292,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	bool outs = false;
 	bool fBorder = false;
 	bool RTab = false;
+	bool goNoRoom = false;
 	uint StartRT, StartRT2;
 	int TabCode = 0;
 	int HyphenCount = 0;
@@ -878,6 +879,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (LiList.isEmpty())
 						{
 						startLin = a;
+						goNoRoom = false;
 						double TopOffset = asce;
 						double BotOffset = desc2;
 						if (StartOfCol)
@@ -1302,10 +1304,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										{
 										fromOut = false;
 										CurY += Doc->Vorlagen[hl->cab].LineSpa;
-										if ((CurY+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
+										if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 										{
-											nrc = a+1;
-											goto NoRoom;
+											goNoRoom = true;
+											break;
 										}
 										if (AbsHasDrop)
 											{
@@ -1408,6 +1410,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						LastSP = 0;
 						LastXp = 0;
 						outs = false;
+						if (goNoRoom)
+						{
+							goNoRoom = false;
+							nrc = a+1;
+							goto NoRoom;
+						}
 						}
 					}
 				if (Doc->Vorlagen[absa].Ausri != 0)

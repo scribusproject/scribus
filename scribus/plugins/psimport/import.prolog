@@ -559,8 +559,17 @@
 
 /xshow	% string array
 {
+	currentpoint /curYs exch def /curXs exch def
+	dup length 1 sub
+	0 exch 1 exch
+	{
+		dup get /disp exch def
+		2 index exch get
+		show
+		curXs disp add curYs moveto
+	} for
 	pop
-	show
+	pop
 } bind def
 
 /xyshow	% string array
