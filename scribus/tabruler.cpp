@@ -493,19 +493,19 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double
 	resize( minimumSizeHint() );
 	connect(rulerScrollL, SIGNAL(clicked()), ruler, SLOT(decreaseOffset()));
 	connect(rulerScrollR, SIGNAL(clicked()), ruler, SLOT(increaseOffset()));
-	connect(ruler, SIGNAL(TypeChanged(int)) , this, SLOT(setTabType(int)));
+	connect(ruler, SIGNAL(typeChanged(int)) , this, SLOT(setTabType(int)));
 	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
-	connect(ruler, SIGNAL(TabMoved(double)) , this, SLOT(settabData(double)));
-	connect(ruler, SIGNAL(NewTab()), this, SLOT(tabAdded()));
-	connect(ruler, SIGNAL(NoTabs()), this, SLOT(lastTabRemoved()));
+	connect(ruler, SIGNAL(tabMoved(double)) , this, SLOT(setTabData(double)));
+	connect(ruler, SIGNAL(newTab()), this, SLOT(tabAdded()));
+	connect(ruler, SIGNAL(noTabs()), this, SLOT(lastTabRemoved()));
 	connect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearAll()));
 	if (haveFirst)
 	{
-		connect(ruler, SIGNAL(firstLineMoved(double)) , this, SLOT(setfirstLineData(double)));
-		connect(ruler, SIGNAL(leftIndentMoved(double)) , this, SLOT(setleftIndentData(double)));
-		connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setfirstLine()));
-		connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setleftIndent()));
+		connect(ruler, SIGNAL(firstLineMoved(double)) , this, SLOT(setFirstLineData(double)));
+		connect(ruler, SIGNAL(leftIndentMoved(double)) , this, SLOT(setLeftIndentData(double)));
+		connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
+		connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 		QToolTip::add( firstLineData, tr( "Indentation for first line of the paragraph" ) );
 		QToolTip::add( leftIndentData, tr( "Indentation from the left for the whole paragraph" ) );
 	}
@@ -576,9 +576,9 @@ void Tabruler::setTab()
 
 void Tabruler::setFirstLineData(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setfirstLine()));
+	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 	firstLineData->setValue(t * UmReFaktor);
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setfirstLine()));
+	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 }
 
 void Tabruler::setFirstLine()
@@ -588,9 +588,9 @@ void Tabruler::setFirstLine()
 
 void Tabruler::setLeftIndentData(double t)
 {
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setleftIndent()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 	leftIndentData->setValue(t * UmReFaktor);
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setleftIndent()));
+	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 }
 
 void Tabruler::setLeftIndent()
