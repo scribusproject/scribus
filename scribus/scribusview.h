@@ -43,7 +43,7 @@ class UndoManager;
 extern QPixmap loadIcon(QString nam);
 
 /**
- * This class provides an incomplete base for your application view. 
+ * This class provides an incomplete base for your application view.
  */
 
 class ScribusView : public QScrollView
@@ -114,8 +114,8 @@ public:
 	QPtrList<PageItem> SelItem;
 	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
-	struct AlignObjs 
-	{  
+	struct AlignObjs
+	{
 		int ObjNr;
 		int Group;
 		double x1;
@@ -173,7 +173,7 @@ public:
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void MirrorPolyH();
 	void MirrorPolyV();
-	void TransformPoly(int mode, int rot = 1, int scaling = 1);
+	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	void Reset1Control();
 	void ResetControl();
 	void MoveClipPoint(PageItem *b, FPoint np);

@@ -5213,7 +5213,7 @@ void ScribusView::MirrorPolyV()
 	MarkClip(b);
 }
 
-void ScribusView::TransformPoly(int mode, int rot, int scaling)
+void ScribusView::TransformPoly(int mode, int rot, double scaling)
 {
 	PageItem *b = SelItem.at(0);
 	b->ClipEdited = true;

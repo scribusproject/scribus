@@ -3605,7 +3605,7 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 {
 	int mode    = state->getInt("MODE");
 	int rot     = state->getInt("ROT");
-	int scaling = state->getInt("SCALING");
+	double scaling = state->getDouble("SCALING");
 	bool editContour = ScApp->view->EditContour;
 	ScApp->view->EditContour = isContour;
 	select();
@@ -3615,6 +3615,10 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 			--mode;
 		else
 			++mode;
+		if (mode == 2)
+			scaling = (1.0 - (100.0 / (100.0 + scaling))) * 100.0;
+		else if (mode == 3)
+			scaling = ((100.0 / (100.0 - scaling)) - 1.0) * 100.0;
 		ScApp->view->TransformPoly(mode, rot, scaling);
 	}
 	else
