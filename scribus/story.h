@@ -72,6 +72,8 @@ public:
 	void setStyle(int Csty);
 	void setFarbe(QString farbe, int shad);
 	void insChars(QString t);
+	void insStyledText();
+	void copyStyledText();
 
 	typedef QPtrList<PtiSmall> ChList;
 	QPtrList<ChList> StyledText;
@@ -90,9 +92,12 @@ public:
 	QString CurrTextFill;
 	QString CurrFont;
 	QString UniCinS;
+	QString tBuffer;
+	ChList cBuffer;
 
 public slots:
 	void cut();
+	void copy();
 	void paste();
 
 signals:
