@@ -8545,11 +8545,19 @@ void ScribusView::reformPages()
 	for (uint ite = 0; ite < Doc->Items.count(); ++ite)
 	{
 		PageItem *item = Doc->Items.at(ite);
-		oldPg = pageTable[item->OwnPage];
-		item->Xpos = item->Xpos - oldPg.oldXO + Doc->Pages.at(oldPg.newPg)->Xoffset;
-		item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->Yoffset;
-		item->OwnPage = static_cast<int>(oldPg.newPg);
-		setRedrawBounding(item);
+		if (item->OwnPage < 0)
+		{
+			item->OwnPage = OnPage(item);
+			setRedrawBounding(item);
+		}
+		else
+		{
+			oldPg = pageTable[item->OwnPage];
+			item->Xpos = item->Xpos - oldPg.oldXO + Doc->Pages.at(oldPg.newPg)->Xoffset;
+			item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->Yoffset;
+			item->OwnPage = static_cast<int>(oldPg.newPg);
+			setRedrawBounding(item);
+		}
 	}
 	if (Doc->PageFP)
 	{

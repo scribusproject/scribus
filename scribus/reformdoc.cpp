@@ -421,7 +421,7 @@ void ReformDoc::restoreDefaults()
 		tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
 	}
 	else if (current == tabGuides)
-		tabGuides->restoreDefaults();
+		tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSetttings, einheit);
 	else if (current == tabTypo)
 		tabTypo->restoreDefaults(&currDoc->typographicSetttings);
 	else if (current == tabTools)

@@ -255,8 +255,43 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
 }
 
-void TabGuides::restoreDefaults()
+void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex)
 {
+	unit = unitGetSuffixFromIndex(unitIndex);
+	precision = unitGetPrecisionFromIndex(unitIndex);
+	unitRatio = unitGetRatioFromIndex(unitIndex);
+	QPixmap pm3 = QPixmap(54, 14);
+	pm3.fill(prefsData->guideColor);
+	colorGuides = prefsData->guideColor;
+	guideColor->setPixmap(pm3);
+	QPixmap pm6 = QPixmap(54, 14);
+	pm6.fill(prefsData->margColor);
+	colorMargin = prefsData->margColor;
+	marginColor->setPixmap(pm6);
+	QPixmap pm1 = QPixmap(54, 14);
+	pm1.fill(prefsData->majorColor);
+	colorMajorGrid = prefsData->majorColor;
+	majorGridColor->setPixmap(pm1);
+	QPixmap pm = QPixmap(54, 14);
+	pm.fill(prefsData->minorColor);
+	colorMinorGrid = prefsData->minorColor;
+	minorGridColor->setPixmap(pm);
+	QPixmap pm4 = QPixmap(54, 14);
+	pm4.fill(prefsData->baseColor);
+	colorBaselineGrid = prefsData->baseColor;
+	baselineColor->setPixmap(pm4);
+	minorSpace->setValue(prefsData->minorGrid  * unitRatio);
+	majorSpace->setValue(prefsData->majorGrid * unitRatio);
+	snapDistance->setValue(prefsData->guideRad * unitRatio);
+	grabDistance->setValue(prefsData->grabRad);
+	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
+	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
+	inBackground->setChecked( prefsData->before );
+	inForeground->setChecked( !prefsData->before );
+	checkBaseline->setChecked(prefsData->baseShown);
+	checkGrid->setChecked(prefsData->gridShown);
+	checkMargin->setChecked(prefsData->marginsShown);
+	checkGuides->setChecked(prefsData->guidesShown);
 }
 
 void TabGuides::changeMajorColor()
