@@ -35,7 +35,7 @@ extern PrefsFile* prefsFile;
 
 QString FileFormatName()
 {
-    return QObject::tr("OO.o Writer Documents");
+    return QObject::tr("OpenOffice.org Writer Documents");
 }
 
 QStringList FileExtensions()

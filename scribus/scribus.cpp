@@ -3392,7 +3392,7 @@ bool ScribusApp::slotDocOpen()
 		formats += tr("SVG-Images (*.svg);;");
 #endif
 	if (DLLexists(12))
-		formats += tr("Open Office Draw (*.sxd);;All Files (*)");
+		formats += tr("OpenOffice.org Draw (*.sxd);;All Files (*)");
 	formats + tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
 	docContext->set("docsopen", fileName.left(fileName.findRev("/")));
