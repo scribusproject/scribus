@@ -156,13 +156,13 @@ void BibView::RebuildView()
 Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs) : QWidget( parent, "Sclib" )
 {
 	setFont(qApp->font());
-//	resize( 230, 190 );
+	resize( 230, 190 );
 	ScFilename = "";
 	Prefs = prefs;
 	Changed = false;
 	BiblioLayout = new QVBoxLayout( this );
 	BiblioLayout->setSpacing( 0 );
-	BiblioLayout->setMargin( 0 );
+	BiblioLayout->setMargin( 1 );
 	fmenu = new QPopupMenu();
 	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(NewLib()), CTRL+Key_N);
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load..."), this, SLOT(Load()), CTRL+Key_O);

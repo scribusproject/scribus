@@ -823,6 +823,7 @@ void KoToolDockBase::setView( QWidget* w )
 	if (w -> parentWidget() != this)
 		w -> reparent(this,QPoint(0, 0), true);
 	m_pBaseLayout -> addWidget(w, 1, 1);
+	m_pBaseLayout->activate();
 }
 
 void KoToolDockBase::resizeEvent( QResizeEvent* ev )
@@ -1092,16 +1093,16 @@ void KoToolDockBase::slotHideTimeOut()
 		if (o -> isWidgetType())
 			((QWidget*)o) -> hide();
 
-	hideProcessTimer.start(1);
+	hideProcessTimer.start(1, true);
 }
 
 void KoToolDockBase::slotHideProcessTimeOut()
 {
+	hideProcessTimer.stop();
 	QPoint p(pos());
 	QSize s(size());
 	int z;
 	int m = m_pCaptionManager -> captionHeight()+3;
-
 	switch (hideDirection)
 	{
 	case KoToolDockLeft:
@@ -1123,8 +1124,9 @@ void KoToolDockBase::slotHideProcessTimeOut()
 	default:
 		break;
 	}
-	setFixedSize(s);
 	move(p);
+	setFixedSize(s);
+	hideProcessTimer.start(1, true);
 
 	if (s.height()==m || s.width()==m)
 		hideProcessStop();
@@ -1169,7 +1171,7 @@ void KoToolDockBase::enterEvent( QEvent* )
 	{
 		hStatus = hprocessshow;
 		hdx = -2*hdx;
-		hideProcessTimer.start(1);
+		hideProcessTimer.start(1, true);
 	}
 }
 
