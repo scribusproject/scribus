@@ -462,7 +462,7 @@ void Farbmanager::delFarbe()
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 	{
-		Ersatzliste.insert(sFarbe, dia->EFarbe);
+		Ersatzliste.insert(sFarbe, dia->getReplacementColor());
 		EditColors.remove(sFarbe);
 		updateCList();
 	}

@@ -9,35 +9,33 @@
 #ifndef DELCOLOR_H
 #define DELCOLOR_H
 
-#include <qdialog.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qcombobox.h>
-#include "scribusdoc.h"
+class QDialog;
+class QLayout;
+class QLabel;
+class QPushbutton;
+class QCombobox;
 
 class DelColor : public QDialog
 { 
     Q_OBJECT
 
 public:
-    DelColor(QWidget* parent, CListe farben, QString Fnam, bool HDoc );
+    DelColor(QWidget* parent, CListe colorList, QString colorName, bool haveDoc );
     ~DelColor() {};
-    QString EFarbe;
+	const QString getReplacementColor();
 
 private:
-    QLabel* TextLabel1;
-    QPushButton* PushButton2;
-    QLabel* TextLabel3;
-    QPushButton* PushButton3;
-    QLabel* TextLabel4;
-    QLabel* DColor;
-    QComboBox* Ersatz;
+    QLabel* deleteQLabel;
+    QLabel* colorToDelQLabel;
+    QLabel* replaceQLabel;
+    QPushButton* okQPButton;
+    QPushButton* cancelQPButton;
+    QComboBox* replacementColQCBox;
+    QVBoxLayout* dialogLayout;
+    QGridLayout* delColorLayout;
+    QHBoxLayout* okCancelLayout;
 
-protected:
-    QVBoxLayout* DLayout;
-    QGridLayout* Layout4;
-    QHBoxLayout* Layout3;
+    QString replacementColor;
 
 private slots:
     virtual void ReplaceColor(int);

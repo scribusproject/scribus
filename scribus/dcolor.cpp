@@ -6,75 +6,83 @@
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
-#include "dcolor.h"
-#include "dcolor.moc"
+
+
+#include <qdialog.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qcombobox.h>
 #include <qpixmap.h>
 #include <qiconset.h>
+
+#include "scribusdoc.h"
+
+#include "dcolor.h"
+#include "dcolor.moc"
+
+
 extern QPixmap loadIcon(QString nam);
 
-DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
+DelColor::DelColor( QWidget* parent, CListe colorList, QString colorName, bool haveDoc)
     : QDialog( parent, "dd", true, 0 )
 {
 	setName( "DelColor" );
     setCaption( tr( "Delete Color" ) );
   	setIcon(loadIcon("AppIcon.png"));
-    DLayout = new QVBoxLayout( this );
-    DLayout->setSpacing( 5 );
-    DLayout->setMargin( 10 );
-    Layout4 = new QGridLayout;
-    Layout4->setSpacing( 6 );
-    Layout4->setMargin( 5 );
-    TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText( tr( "Delete color:" ) );
-    Layout4->addWidget( TextLabel1, 0, 0 );
-    DColor = new QLabel( this, "DColor" );
-    DColor->setText( Fnam );
-    Layout4->addWidget( DColor, 0, 1 );
-    TextLabel3 = new QLabel( this, "TextLabel3" );
-    TextLabel3->setText( tr( "?" ) );
-    Layout4->addWidget( TextLabel3, 0, 2 );
-	if (HDoc)
+    dialogLayout = new QVBoxLayout( this, 10, 5 );
+    delColorLayout = new QGridLayout;
+    delColorLayout->setSpacing( 6 );
+    delColorLayout->setMargin( 5 );
+    deleteQLabel = new QLabel( tr( "Delete Color:" ), this, "deleteQLabel" );
+    delColorLayout->addWidget( deleteQLabel, 0, 0 );
+    colorToDelQLabel = new QLabel( colorName, this, "colorToDelQLabel" );
+    delColorLayout->addWidget( colorToDelQLabel, 0, 1 );
+
+	if (haveDoc)
 	{
-    	TextLabel4 = new QLabel( this, "TextLabel4" );
-    	TextLabel4->setText( tr( "Replace it with:" ) );
-    	Layout4->addWidget( TextLabel4, 1, 0 );
-    	Ersatz = new QComboBox(false, this);
-		Ersatz->setEditable(false);
+    	replaceQLabel = new QLabel( tr( "Replace With:" ), this, "replaceQLabel" );
+    	delColorLayout->addWidget( replaceQLabel, 1, 0 );
+    	replacementColQCBox = new QComboBox(false, this);
 		CListe::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
-		farben.remove(Fnam);
-		Ersatz->insertItem(tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */
-		for (it = farben.begin(); it != farben.end(); ++it)
+		colorList.remove(colorName);
+		replacementColQCBox->insertItem(tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */
+		for (it = colorList.begin(); it != colorList.end(); ++it)
 		{
-			pm.fill(farben[it.key()].getRGBColor());
-			Ersatz->insertItem(pm, it.key());
+			pm.fill(colorList[it.key()].getRGBColor());
+			replacementColQCBox->insertItem(pm, it.key());
 		}
-    	Layout4->addWidget( Ersatz, 1, 1 );
-    	EFarbe = Ersatz->text(0);
+    	delColorLayout->addWidget( replacementColQCBox, 1, 1 );
+    	replacementColor = replacementColQCBox->text(0);
 	}
-    DLayout->addLayout( Layout4 );
-    Layout3 = new QHBoxLayout;
-    Layout3->setSpacing( 6 );
-    Layout3->setMargin( 0 );
-    PushButton2 = new QPushButton( this, "PushButton12" );
-    PushButton2->setText( tr( "OK" ) );
-    Layout3->addWidget( PushButton2 );
+    dialogLayout->addLayout( delColorLayout );
+
+    okCancelLayout = new QHBoxLayout;
+    okCancelLayout->setSpacing( 6 );
+    okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout3->addItem( spacer );
-    PushButton3 = new QPushButton( this, "PushButton13" );
-    PushButton3->setText( tr( "Cancel" ) );
-    PushButton3->setDefault( TRUE );
-    Layout3->addWidget( PushButton3 );
-    DLayout->addLayout( Layout3 );
+    okCancelLayout->addItem( spacer );
+    okQPButton = new QPushButton( tr( "&OK" ), this, "okQPButton" );
+    okCancelLayout->addWidget( okQPButton );
+    cancelQPButton = new QPushButton( tr( "&Cancel" ), this, "PushButton13" );
+    cancelQPButton->setDefault( true );
+    okCancelLayout->addWidget( cancelQPButton );
+    dialogLayout->addLayout( okCancelLayout );
     setMaximumSize(sizeHint());
-    connect( PushButton2, SIGNAL( clicked() ), this, SLOT( accept() ) );
-    connect( PushButton3, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	if (HDoc)
-    	connect( Ersatz, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
+
+    connect( okQPButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( cancelQPButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	if (haveDoc)
+    	connect( replacementColQCBox, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 
 void DelColor::ReplaceColor(int id)
 {
-    EFarbe = Ersatz->text(id);
+    replacementColor = replacementColQCBox->text(id);
 }
 
+const QString DelColor::getReplacementColor()
+{
+	return replacementColor;
+}

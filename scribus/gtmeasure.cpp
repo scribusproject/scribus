@@ -18,6 +18,9 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <qstring.h>
+#include <qobject.h>
+
 #include "gtmeasure.h"
 
 double gtMeasure::ratio = 1.0;
@@ -124,4 +127,16 @@ double gtMeasure::qs2d(const QString& value, Unit to)
 	double tmp = convert(parse(value));
 	init(to);
 	return convert2(tmp);
+}
+
+QString gtMeasure::getSuffixFromIndex(int index)
+{
+	QString suffix[] = { QObject::tr(" pt"), QObject::tr(" mm"), QObject::tr(" in"), QObject::tr(" p")};
+	return suffix[index];
+}
+
+int gtMeasure::getDecimalsFromIndex(int index)
+{
+	int decimalPoints[] = {100, 1000, 10000, 100};
+	return decimalPoints[index];
 }

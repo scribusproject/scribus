@@ -20,6 +20,10 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream> */
+
+#include <qcolor.h>
+#include <qstring.h>
+
 #include "cmykcolor.h"
 
 #ifdef _MSC_VER
@@ -32,10 +36,10 @@
 
 #ifdef HAVE_CMS
 	#include CMS_INC
-extern cmsHTRANSFORM stdTrans;
-extern cmsHTRANSFORM stdProof;
-extern bool SoftProofing;
-extern bool CMSuse;
+	extern cmsHTRANSFORM stdTrans;
+	extern cmsHTRANSFORM stdProof;
+	extern bool SoftProofing;
+	extern bool CMSuse;
 #endif
 
 CMYKColor::CMYKColor(int c, int m, int y, int k)
@@ -66,10 +70,10 @@ void CMYKColor::setColorRGB(int r, int g, int b)
 	RGB = QColor(r, g, b);
 }
 
-void CMYKColor::fromQColor(QColor f)
+void CMYKColor::fromQColor(QColor color)
 {
 	int r, g, b;
-	f.rgb(&r, &g, &b);
+	color.rgb(&r, &g, &b);
 	setColorRGB(r, g, b);
 }
 
@@ -81,8 +85,8 @@ QColor CMYKColor::getRGBColor()
 void CMYKColor::getRawRGBColor(int *r, int *g, int *b)
 {
 	*r = 255-QMIN(255, C+K);
-	*g = 255-QMIN(255,M+K);
-	*b = 255-QMIN(255,Y+K);
+	*g = 255-QMIN(255, M+K);
+	*b = 255-QMIN(255, Y+K);
 }
 
 void CMYKColor::getCMYK(int *c, int *m, int *y, int *k)
@@ -106,43 +110,43 @@ QString CMYKColor::name()
 {
 	/* PFJ - 29.02.04 - rewritten to use setw and setfill */
 	// doesn't compile here, so i replaced it with the old code F.S.
-/*	QString tmp2;
+/*	QString name;
 	std::ostringstream tmp;
 	tmp << std::setw(2) << std::setfill('0') << C 
 		<< std::setw(2) << M
 		<< std::setw(2) << Y
 		<< std::setw(2) << K;
-	tmp2 = "#" + tmp.str();
-	return tmp2;
+	name = "#" + tmp.str();
+	return name;
 	*/
-	QString tmp, tmp2;
-	tmp2 = "#";
+	QString tmp, name="#";
 	tmp.setNum(C, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
-	tmp2 += tmp;
+	name += tmp;
 	tmp.setNum(M, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
-	tmp2 += tmp;
+	name += tmp;
 	tmp.setNum(Y, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
-	tmp2 += tmp;
+	name += tmp;
 	tmp.setNum(K, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
-	tmp2 += tmp;
-	return tmp2;
+	name += tmp;
+
+	return name;
 }
 
-void CMYKColor::setNamedColor(QString nam)
+void CMYKColor::setNamedColor(QString name)
 {
 	bool ok;
-	int c = nam.mid(1,2).toInt(&ok, 16);
-	int m = nam.mid(3,2).toInt(&ok, 16);
-	int y = nam.mid(5,2).toInt(&ok, 16);
-	int k = nam.mid(7,2).toInt(&ok, 16);
+	int c = name.mid(1,2).toInt(&ok, 16);
+	int m = name.mid(3,2).toInt(&ok, 16);
+	int y = name.mid(5,2).toInt(&ok, 16);
+	int k = name.mid(7,2).toInt(&ok, 16);
 	setColor(c, m, y, k);
 }
 

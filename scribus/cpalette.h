@@ -18,21 +18,25 @@
 #ifndef CPALETTE_H
 #define CPALETTE_H
 
-#include <qlistbox.h>
-#include <qpixmap.h>
-#include <qrect.h>
-#include <qpopupmenu.h>
-#include <qfont.h>
-#include <qlayout.h>
-#include <qtoolbutton.h>
-#include <qbuttongroup.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qspinbox.h>
+#include "gradienteditor.h"
+
+class QListBox;
+class QListBoxItem;
+class QPixmap;
+class QRect;
+class QPopupMenu;
+class QFont;
+class QLayout;
+class QToolButton;
+class QButtonGroup;
+class QComboBox;
+class QLabel;
+class QSpinBox;
 #include "scribusdoc.h"
 #include "shadebutton.h"
 #include "mspinbox.h"
-#include "gradienteditor.h"
+
+
 
 /**
   *@author Franz Schmid
@@ -45,13 +49,13 @@ public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
 
-	QListBox *ListBox1;
+	QListBox *colorListQLBox;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
 	QSpinBox *PM1;
-	QComboBox* GradCombo;
-	GradientEditor* GradEdit;
-	QFrame* frame8;
+	QComboBox* gradientQCombo;
+	GradientEditor* gradEdit;
+	QFrame* freeGradientQFrame;
 	QLabel* GTextX1;
 	QLabel* GTextY1;
 	QLabel* GTextX2;
@@ -65,7 +69,7 @@ public:
 	QSpinBox* TransSpin;
 	int Mode;
 	QString sFarbe;
-	CListe Farbliste;
+	CListe colorList;
 	bool CSichtbar;
 	QString Color;
 	int Shade;
@@ -77,11 +81,11 @@ public:
 public slots:
 	void InhaltButton();
 	void InnenButton();
-	void SetColors(CListe farben);
+	void SetColors(CListe newColorList);
 	void updateCList();
 	void updateBoxS(QString Farbe);
-	void selFarbe(QListBoxItem *c);
-	QColor SetFarbe(QString farbe, int shad);
+	void selectColor(QListBoxItem *c);
+	QColor setColor(QString farbe, int shad);
 	void slotGrad(int nr);
 	void slotColor(QString n, int s);
 	void ChooseGrad(int nr);
@@ -112,7 +116,7 @@ protected:
 	QVBoxLayout* Form1Layout;
 	QGridLayout* Layout1;
 	QVBoxLayout* GradLayout;
-	QGridLayout* frame8Layout;
+	QGridLayout* freeGradientLayout;
 };
 
 #endif

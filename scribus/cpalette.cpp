@@ -17,7 +17,25 @@
 
 #include "cpalette.h"
 #include "cpalette.moc"
+
 #include <qtooltip.h>
+#include <qlistbox.h>
+#include <qpixmap.h>
+#include <qrect.h>
+#include <qpopupmenu.h>
+#include <qfont.h>
+#include <qlayout.h>
+#include <qtoolbutton.h>
+#include <qbuttongroup.h>
+#include <qcombobox.h>
+#include <qlabel.h>
+#include <qspinbox.h>
+#include "scribusdoc.h"
+#include "shadebutton.h"
+#include "mspinbox.h"
+#include "gradienteditor.h"
+#include "gtmeasure.h"
+
 
 extern QPixmap loadIcon(QString nam);
 
@@ -70,64 +88,60 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradLayout = new QVBoxLayout( 0, 0, 6, "GradLayout");
 	QFont fo = QFont(font());
 	fo.setPointSize(fo.pointSize()-1);
-	GradCombo = new QComboBox( true, this, "GradCombo" );
-	GradCombo->setEditable(false);
-	GradCombo->setFont(fo);
-	GradCombo->insertItem( tr("Normal"));
-	GradCombo->insertItem( tr("Horizontal Gradient"));
-	GradCombo->insertItem( tr("Vertical Gradient"));
-	GradCombo->insertItem( tr("Diagonal Gradient"));
-	GradCombo->insertItem( tr("Cross Diagonal Gradient"));
-	GradCombo->insertItem( tr("Radial Gradient"));
-	GradCombo->insertItem( tr("Free linear Gradient"));
-	GradCombo->insertItem( tr("Free radial Gradient"));
-	GradCombo->setCurrentItem(0);
-	GradLayout->addWidget( GradCombo );
-	GradEdit = new GradientEditor(this);
-	GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
-	GradLayout->addWidget(GradEdit, Qt::AlignHCenter);
-	frame8 = new QFrame( this, "frame8" );
-	frame8->setFrameShape( QFrame::NoFrame );
-	frame8->setFrameShadow( QFrame::Plain );
-	frame8Layout = new QGridLayout( frame8, 1, 1, 5, 5, "frame8Layout");
-	GTextX1 = new QLabel( frame8, "GTextX1" );
-	GTextX1->setText( tr( "X1:" ) );
-	frame8Layout->addWidget( GTextX1, 0, 0 );
-	GTextY1 = new QLabel( frame8, "GTextY1" );
-	GTextY1->setText( tr( "Y1:" ) );
-	frame8Layout->addWidget( GTextY1, 1, 0 );
-	gX1 = new MSpinBox( frame8, 2);
+	gradientQCombo = new QComboBox( true, this, "gradientQCombo" );
+	gradientQCombo->setEditable(false);
+	gradientQCombo->setFont(fo);
+	gradientQCombo->insertItem( tr("Normal"));
+	gradientQCombo->insertItem( tr("Horizontal Gradient"));
+	gradientQCombo->insertItem( tr("Vertical Gradient"));
+	gradientQCombo->insertItem( tr("Diagonal Gradient"));
+	gradientQCombo->insertItem( tr("Cross Diagonal Gradient"));
+	gradientQCombo->insertItem( tr("Radial Gradient"));
+	gradientQCombo->insertItem( tr("Free linear Gradient"));
+	gradientQCombo->insertItem( tr("Free radial Gradient"));
+	gradientQCombo->setCurrentItem(0);
+	GradLayout->addWidget( gradientQCombo );
+	gradEdit = new GradientEditor(this);
+	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
+	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
+	freeGradientQFrame = new QFrame( this, "freeGradientQFrame" );
+	freeGradientQFrame->setFrameShape( QFrame::NoFrame );
+	freeGradientQFrame->setFrameShadow( QFrame::Plain );
+	freeGradientLayout = new QGridLayout( freeGradientQFrame, 1, 1, 5, 5, "freeGradientLayout");
+	GTextX1 = new QLabel( tr( "X1:"), freeGradientQFrame, "GTextX1" );
+	freeGradientLayout->addWidget( GTextX1, 0, 0 );
+	GTextY1 = new QLabel( tr( "Y1:" ), freeGradientQFrame, "GTextY1" );
+	freeGradientLayout->addWidget( GTextY1, 1, 0 );
+	gX1 = new MSpinBox( freeGradientQFrame, 2);
 	gX1->setDecimals(100);
 	gX1->setSuffix( tr( " pt" ) );
 	gX1->setMaxValue(3000);
-	frame8Layout->addWidget( gX1, 0, 1 );
-	gY1 = new MSpinBox( frame8, 2 );
+	freeGradientLayout->addWidget( gX1, 0, 1 );
+	gY1 = new MSpinBox( freeGradientQFrame, 2 );
 	gY1->setSuffix( tr( " pt" ) );
 	gY1->setDecimals(100);
 	gY1->setMaxValue(3000);
-	frame8Layout->addWidget( gY1, 1, 1 );
-	GTextX2 = new QLabel( frame8, "GTextX2" );
-	GTextX2->setText( tr( "X2:" ) );
-	frame8Layout->addWidget( GTextX2, 0, 2 );
-	GTextY2 = new QLabel( frame8, "GTextY2" );
-	GTextY2->setText( tr( "Y2:" ) );
-	frame8Layout->addWidget( GTextY2, 1, 2 );
-	gX2 = new MSpinBox( frame8, 2 );
+	freeGradientLayout->addWidget( gY1, 1, 1 );
+	GTextX2 = new QLabel( tr( "X2:" ), freeGradientQFrame, "GTextX2" );
+	freeGradientLayout->addWidget( GTextX2, 0, 2 );
+	GTextY2 = new QLabel( tr( "Y2:" ), freeGradientQFrame, "GTextY2" );
+	freeGradientLayout->addWidget( GTextY2, 1, 2 );
+	gX2 = new MSpinBox( freeGradientQFrame, 2 );
 	gX2->setSuffix( tr( " pt" ) );
 	gX2->setDecimals(100);
 	gX2->setMaxValue(3000);
-	frame8Layout->addWidget( gX2, 0, 3 );
-	gY2 = new MSpinBox( frame8, 2 );
+	freeGradientLayout->addWidget( gX2, 0, 3 );
+	gY2 = new MSpinBox( freeGradientQFrame, 2 );
 	gY2->setSuffix( tr( " pt" ) );
 	gY2->setDecimals(100);
 	gY2->setMaxValue(3000);
-	frame8Layout->addWidget( gY2, 1, 3 );
-	GradLayout->addWidget( frame8 );
+	freeGradientLayout->addWidget( gY2, 1, 3 );
+	GradLayout->addWidget( freeGradientQFrame );
 	Form1Layout->addLayout(GradLayout);
-	ListBox1 = new QListBox(this, "ListBox1");
-	ListBox1->setMinimumSize( QSize( 150, 30 ) );
-	ListBox1->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-	Form1Layout->addWidget(ListBox1);
+	colorListQLBox = new QListBox(this, "colorListQLBox");
+	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
+	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+	Form1Layout->addWidget(colorListQLBox);
 	Inhalt->setOn(true);
 	InnenButton();
 	setActGradient(0);
@@ -135,24 +149,25 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
 	QToolTip::add( Innen, tr( "Edit Fill Color Properties" ) );
 	QToolTip::add( PM1, tr( "Saturation of color" ) );
-	QToolTip::add( GradCombo, tr( "Normal or gradient fill method" ) );
+	QToolTip::add( gradientQCombo, tr( "Normal or gradient fill method" ) );
 	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
-	QToolTip::add( ListBox1, tr( "Color of selected object" ) );
+	QToolTip::add( colorListQLBox, tr( "Color of selected object" ) );
+
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
-	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
-	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
+	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(GradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
-	connect(GradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
-	connect(GradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(GradEdit->Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(gradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
+	connect(gradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
+	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(gradEdit->Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 }
 
 void Cpalette::InhaltButton()
@@ -161,12 +176,12 @@ void Cpalette::InhaltButton()
 	{
 		Mode = 1;
 		Innen->setOn(false);
-		frame8->hide();
-		frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		GradCombo->hide();
-		GradCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		GradEdit->hide();
-		GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		freeGradientQFrame->hide();
+		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		gradientQCombo->hide();
+		gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		gradEdit->hide();
+		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		GradientMode = false;
 		layout()->activate();
 		updateCList();
@@ -181,25 +196,25 @@ void Cpalette::InnenButton()
 	{
 		Mode = 2;
 		Inhalt->setOn(false);
-		GradCombo->show();
-		GradCombo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-		GradientMode = GradCombo->currentItem() != 0 ? true : false;
+		gradientQCombo->show();
+		gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+		GradientMode = gradientQCombo->currentItem() != 0 ? true : false;
 		if (GradientMode)
 		{
-			if (GradEdit->isHidden())
+			if (gradEdit->isHidden())
 			{
-				GradEdit->show();
-				GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
+				gradEdit->show();
+				gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 			}
-			if (GradCombo->currentItem() > 5)
+			if (gradientQCombo->currentItem() > 5)
 			{
-				frame8->show();
-				frame8->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+				freeGradientQFrame->show();
+				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 			}
 			else
 			{
-				frame8->hide();
-				frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+				freeGradientQFrame->hide();
+				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			}
 		}
 		layout()->activate();
@@ -209,33 +224,33 @@ void Cpalette::InnenButton()
 	emit QueryItem();
 }
 
-void Cpalette::SetColors(CListe farben)
+void Cpalette::SetColors(CListe newColorList)
 {
-	Farbliste.clear();
-	Farbliste = farben;
+	colorList.clear();
+	colorList = newColorList;
 	updateCList();
 }
 
 void Cpalette::updateCList()
 {
-	disconnect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-	disconnect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-	ListBox1->clear();
+	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	colorListQLBox->clear();
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
 	if ((!GradientMode) || (Mode == 1))
-		ListBox1->insertItem( tr("None"));
-	for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
+		colorListQLBox->insertItem( tr("None"));
+	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
-		pm.fill(Farbliste[it.key()].getRGBColor());
-		ListBox1->insertItem(pm, it.key());
+		pm.fill(colorList[it.key()].getRGBColor());
+		colorListQLBox->insertItem(pm, it.key());
 	}
-	ListBox1->setSelected(ListBox1->currentItem(), false);
-	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
+	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 }
 
-void Cpalette::selFarbe(QListBoxItem *c)
+void Cpalette::selectColor(QListBoxItem *c)
 {
 	if (c == NULL) { return; }
 	sFarbe = c->text();
@@ -245,14 +260,14 @@ void Cpalette::selFarbe(QListBoxItem *c)
 		emit NewPen(sFarbe);
 		break;
 	case 2:
-		if (GradCombo->currentItem() == 0)
+		if (gradientQCombo->currentItem() == 0)
 		{
 			Color3 = sFarbe;
 			emit NewBrush(sFarbe);
 		}
 		else
 		{
-			GradEdit->Preview->setActColor(SetFarbe(sFarbe, Shade), sFarbe, Shade);
+			gradEdit->Preview->setActColor(setColor(sFarbe, Shade), sFarbe, Shade);
 			Color = sFarbe;
 			emit gradientChanged();
 		}
@@ -260,46 +275,46 @@ void Cpalette::selFarbe(QListBoxItem *c)
 	}
 }
 
-QColor Cpalette::SetFarbe(QString farbe, int shad)
+QColor Cpalette::setColor(QString colorName, int shad)
 {
 	int h, s, v, sneu;
 	QColor tmp;
-	Farbliste[farbe].getRGBColor().rgb(&h, &s, &v);
+	colorList[colorName].getRGBColor().rgb(&h, &s, &v);
 	if ((h == s) && (s == v))
 	{
-		Farbliste[farbe].getRGBColor().hsv(&h, &s, &v);
+		colorList[colorName].getRGBColor().hsv(&h, &s, &v);
 		sneu = 255 - ((255 - v) * shad / 100);
 		tmp.setHsv(h, s, sneu);
 	}
 	else
 	{
-		Farbliste[farbe].getRGBColor().hsv(&h, &s, &v);
+		colorList[colorName].getRGBColor().hsv(&h, &s, &v);
 		sneu = s * shad / 100;
 		tmp.setHsv(h, sneu, v);
 	}
 	return tmp;
 }
 
-void Cpalette::updateBoxS(QString Farbe)
+void Cpalette::updateBoxS(QString colorName)
 {
-	disconnect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-	disconnect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	CListe::Iterator it;
 	int c = 0;
-	if ((Farbe != "None") && (Farbe != ""))
+	if ((colorName != "None") && (colorName != ""))
 	{
 		if (!GradientMode)
 			c++;
-		for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
+		for (it = colorList.begin(); it != colorList.end(); ++it)
 		{
-			if (it.key() == Farbe)
+			if (it.key() == colorName)
 				break;
 			c++;
 		}
 	}
-	ListBox1->setCurrentItem(c);
-	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	colorListQLBox->setCurrentItem(c);
+	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
@@ -334,42 +349,42 @@ void Cpalette::slotColor(QString n, int s)
 	}
 }
 
-void Cpalette::slotGrad(int nr)
+void Cpalette::slotGrad(int number)
 {
-	ChooseGrad(nr);
-	emit NewGradient(nr);
+	ChooseGrad(number);
+	emit NewGradient(number);
 }
 
-void Cpalette::ChooseGrad(int nr)
+void Cpalette::ChooseGrad(int number)
 {
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
-	bool test = nr == 0 ? false : true;
-	GradientMode = test;
-	if (nr != 0)
+	GradientMode = number == 0 ? false : true;
+
+	if (number != 0)
 	{
-		GradEdit->show();
-		GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-		if (GradCombo->currentItem() > 5)
+		gradEdit->show();
+		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
+		if (gradientQCombo->currentItem() > 5)
 		{
-			frame8->show();
-			frame8->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+			freeGradientQFrame->show();
+			freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 		}
 		else
 		{
-			frame8->hide();
-			frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			freeGradientQFrame->hide();
+			freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		}
 	}
 	else
 	{
-		frame8->hide();
-		GradEdit->hide();
-		frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		freeGradientQFrame->hide();
+		gradEdit->hide();
+		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	}
 	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
-	switch (nr)
+	switch (number)
 	{
 	case 0:
 		updateCList();
@@ -410,20 +425,20 @@ void Cpalette::slotTrans(int val)
 		emit NewTransS(static_cast<double>(100 - val) / 100.0);
 	else
 	{
-		if (GradCombo->currentItem() == 0)
+		if (gradientQCombo->currentItem() == 0)
 			emit NewTrans(static_cast<double>(100 - val) / 100.0);
 		else
 		{
-			GradEdit->Preview->setActTrans(static_cast<double>(val) / 100.0);
+			gradEdit->Preview->setActTrans(static_cast<double>(val) / 100.0);
 			emit gradientChanged();
 		}
 	}
 	setFocus();
 }
 
-void Cpalette::UseTrans(bool b)
+void Cpalette::UseTrans(bool useTrans)
 {
-	if (b)
+	if (useTrans)
 	{
 		TransTxt->show();
 		TransSpin->show();
@@ -442,18 +457,18 @@ void Cpalette::UseTrans(bool b)
 	}
 	layout()->activate();
 	repaint();
-	UseTransFeature = b;
+	UseTransFeature = useTrans;
 }
 
 void Cpalette::setActGradient(int typ)
 {
-	disconnect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
+	disconnect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	if (Mode == 2)
 	{
-		GradCombo->setCurrentItem(typ);
+		gradientQCombo->setCurrentItem(typ);
 		ChooseGrad(typ);
 	}
-	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
+	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 }
 
 void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h)
@@ -490,14 +505,14 @@ void Cpalette::setActShade()
 		emit NewPenShade(b);
 		break;
 	case 2:
-		if (GradCombo->currentItem() == 0)
+		if (gradientQCombo->currentItem() == 0)
 		{
 			Shade3 = b;
 			emit NewBrushShade(b);
 		}
 		else
 		{
-			GradEdit->Preview->setActColor(SetFarbe(Color, b), Color, b);
+			gradEdit->Preview->setActColor(setColor(Color, b), Color, b);
 			Shade = b;
 			emit gradientChanged();
 		}
@@ -505,46 +520,42 @@ void Cpalette::setActShade()
 	}
 }
 
-void Cpalette::UnitChange(double old, double neww, int ein)
+void Cpalette::UnitChange(double oldUnitRatio, double newUnitRatio, int unitIndex)
 {
 	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	double oldX = gX1->value() / old;
-	double oldXM = gX1->maxValue() / old;
-	double oldY = gY1->value() / old;
-	double oldYM = gY1->maxValue() / old;
-	double oldW = gX2->value() / old;
-	double oldWM = gX2->maxValue() / old;
-	double oldH = gY2->value() / old;
-	double oldHM = gY2->maxValue() / old;
-	gX1->setDecimals(100);
-	gY1->setDecimals(100);
-	gX2->setDecimals(100);
-	gY2->setDecimals(100);
-	QString point[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	QString einh = point[ein];
-	int val = ein == 1 ? 1000 : 10000;
-	if ((ein == 1) || (ein == 2))
-	{
-		gX1->setDecimals(val);
-		gY1->setDecimals(val);
-		gX2->setDecimals(val);
-		gY2->setDecimals(val);
-	}
-	gX1->setSuffix( einh );
-	gY1->setSuffix( einh );
-	gX2->setSuffix( einh );
-	gY2->setSuffix( einh );
-	gX1->setMaxValue(oldXM * neww);
-	gX1->setValue(oldX * neww);
-	gY1->setMaxValue(oldYM * neww);
-	gY1->setValue(oldY * neww);
-	gX2->setMaxValue(oldWM * neww);
-	gX2->setValue(oldW * neww);
-	gY2->setMaxValue(oldHM * neww);
-	gY2->setValue(oldH * neww);
+
+	double oldX = gX1->value() / oldUnitRatio;
+	double oldXM = gX1->maxValue() / oldUnitRatio;
+	double oldY = gY1->value() / oldUnitRatio;
+	double oldYM = gY1->maxValue() / oldUnitRatio;
+	double oldW = gX2->value() / oldUnitRatio;
+	double oldWM = gX2->maxValue() / oldUnitRatio;
+	double oldH = gY2->value() / oldUnitRatio;
+	double oldHM = gY2->maxValue() / oldUnitRatio;
+
+	QString unitSuffix = gtMeasure::getSuffixFromIndex(unitIndex);
+	int unitDecimals = gtMeasure::getDecimalsFromIndex(unitIndex);
+	gX1->setDecimals( unitDecimals );
+	gY1->setDecimals( unitDecimals );
+	gX2->setDecimals( unitDecimals );
+	gY2->setDecimals( unitDecimals );
+	gX1->setSuffix( unitSuffix );
+	gY1->setSuffix( unitSuffix );
+	gX2->setSuffix( unitSuffix );
+	gY2->setSuffix( unitSuffix );
+
+	gX1->setMaxValue(oldXM * newUnitRatio);
+	gX1->setValue(oldX * newUnitRatio);
+	gY1->setMaxValue(oldYM * newUnitRatio);
+	gY1->setValue(oldY * newUnitRatio);
+	gX2->setMaxValue(oldWM * newUnitRatio);
+	gX2->setValue(oldW * newUnitRatio);
+	gY2->setMaxValue(oldHM * newUnitRatio);
+	gY2->setValue(oldH * newUnitRatio);
+
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));

@@ -17,8 +17,9 @@
 
 #ifndef CMYKCOLOR_H
 #define CMYKCOLOR_H
-#include <qcolor.h>
-#include <qstring.h>
+
+class QColor;
+class QString;
 
 /**
   *@author Franz Schmid
@@ -42,9 +43,9 @@ public:
 	void setColorRGB(int r, int g, int b);
 	
 /** Computes a CMYKColor for a QColor */
-	void fromQColor(QColor f);
+	void fromQColor(QColor color);
 	
-/** Returns the RGB-Part of an CMYKColor */
+/** Returns the RGB Part of an CMYKColor */
 	QColor getRGBColor();
 	void getRawRGBColor(int *r, int *g, int *b);
 	

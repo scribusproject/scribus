@@ -26,13 +26,12 @@
 #include "scribusdoc.h"
 #include "linkbutton.h"
 #include "linecombo.h"
-#include "cpalette.h"
 #include "spalette.h"
 #include "fontcombo.h"
 #include "styleselect.h"
 #include "alignselect.h"
 #include "shadebutton.h"
-
+#include "cpalette.h"
 class Autoforms;
 extern bool CMSavail;
 

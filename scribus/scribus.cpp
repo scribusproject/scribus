@@ -530,7 +530,7 @@ void ScribusApp::initScribus()
 		connect(Mpal->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
 		connect(Mpal->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
 		connect(Mpal->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
-		connect(Mpal->Cpal->GradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
+		connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 		connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 		connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
 		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
@@ -2698,7 +2698,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		WerkTools->Textedit->setEnabled(false);
 		WerkTools->Textedit2->setEnabled(false);
 		WerkTools->Rotiere->setEnabled(false);
-		Mpal->Cpal->GradCombo->setCurrentItem(0);
+		Mpal->Cpal->gradientQCombo->setCurrentItem(0);
 //		Tpal->slotShowSelect(doc->ActPage->PageNr, -1);
 		break;
 	case 2:
@@ -5449,7 +5449,7 @@ void ScribusApp::DeletePage()
 		view->SelItem.clear();
 //		if (!doc->TemplateMode)
 //			disconnect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-		for (int a = dia->ToPage->value()-1; a >= dia->FromPage->value()-1; a--)
+		for (int a = dia->getToPage()-1; a >= dia->getFromPage()-1; a--)
 		{
 /*			disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint))); */
 			for (uint d = 0; d < doc->Items.count(); ++d)
@@ -5468,7 +5468,7 @@ void ScribusApp::DeletePage()
 //			connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
 		if (view->SelItem.count() != 0)
 			view->DeleteItem();
-		for (int a = dia->ToPage->value()-1; a >= dia->FromPage->value()-1; a--)
+		for (int a = dia->getToPage()-1; a >= dia->getFromPage()-1; a--)
 			view->delPage(a);
 		view->reformPages();
 		view->DrawNew();
@@ -6285,7 +6285,7 @@ void ScribusApp::updtGradFill()
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *b = view->SelItem.at(0);
-			b->fill_gradient = Mpal->Cpal->GradEdit->Preview->fill_gradient;
+			b->fill_gradient = Mpal->Cpal->gradEdit->Preview->fill_gradient;
 			view->RefreshItem(b);
 			slotDocCh();
 		}

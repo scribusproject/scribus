@@ -23,7 +23,8 @@
 #include <qlineedit.h>
 #include <qwidgetstack.h>
 #include <qlistbox.h>
-#include "cmykcolor.h"
+
+class CMYKcolor;
 #include "colorchart.h"
 #include "mspinbox.h"
 #include "scribusdoc.h"
