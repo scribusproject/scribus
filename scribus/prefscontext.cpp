@@ -116,6 +116,11 @@ void PrefsContext::set(const QString& key, int value)
 	set(key, QString("%1").arg(value));
 }
 
+void PrefsContext::set(const QString& key, uint value)
+{
+	set(key, QString("%1").arg(value));
+}
+
 double PrefsContext::getDouble(const QString& key, double defValue)
 {
 	if (!values.contains(key))
