@@ -71,6 +71,8 @@ ScribusDoc::ScribusDoc()
 	vg.Font = "";
 	vg.FontSize = Dsize;
 	vg.TabValues.clear();
+	vg.Drop = false;
+	vg.DropLin = 2;
 	Vorlagen.append(vg);
 	vg.Vname = "Center Internal";
 	vg.Ausri = 1;

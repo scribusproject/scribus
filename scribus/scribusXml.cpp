@@ -197,6 +197,8 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 				else
 					vg.Font = DoFonts[doc->Dfont];
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
+				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
+				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 					{
 					QString tmp = pg.attribute("TABS");
@@ -223,6 +225,8 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 								(vg.Anach == Vorlagen[xx].Anach) &&
 								(vg.Font == Vorlagen[xx].Font) &&
 								(vg.TabValues == Vorlagen[xx].TabValues) &&
+								(vg.Drop == Vorlagen[xx].Drop) &&
+								(vg.DropLin == Vorlagen[xx].DropLin) &&
 								(vg.FontSize == Vorlagen[xx].FontSize))
 							{
 							fou = true;
@@ -449,6 +453,8 @@ while(!DOC.isNull())
 			else
 				vg.Font = DoFonts[Defont];
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
+			vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
+			vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
 			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 				tmp = pg.attribute("TABS");
@@ -475,6 +481,8 @@ while(!DOC.isNull())
 							(vg.Anach == doc->Vorlagen[xx].Anach) &&
 							(vg.Font == doc->Vorlagen[xx].Font) &&
 							(vg.TabValues == Vorlagen[xx].TabValues) &&
+							(vg.Drop == Vorlagen[xx].Drop) &&
+							(vg.DropLin == Vorlagen[xx].DropLin) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 						DoVorl[VorlC] = tmV.setNum(xx);
@@ -1091,6 +1099,8 @@ while(!DOC.isNull())
 			else
 				vg.Font = DoFonts[Defont];
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
+			vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
+			vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
 			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 				tmp = pg.attribute("TABS");
@@ -1779,6 +1789,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			else
 				vg.Font = doc->Dfont;
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10);
+			vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
+			vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
 			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 				tmp = pg.attribute("TABS");
@@ -1805,6 +1817,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 							(vg.Anach == doc->Vorlagen[xx].Anach) &&
 							(vg.Font == doc->Vorlagen[xx].Font) &&
 							(vg.TabValues == Vorlagen[xx].TabValues) &&
+							(vg.Drop == Vorlagen[xx].Drop) &&
+							(vg.DropLin == Vorlagen[xx].DropLin) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 						DoVorl[VorlC] = tmV.setNum(xx);
@@ -2480,6 +2494,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			fo.setAttribute("NACH",doc->Vorlagen[ff].Anach);
 			fo.setAttribute("FONT",doc->Vorlagen[ff].Font);
 			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
+			fo.setAttribute("DROP", static_cast<int>(doc->Vorlagen[ff].Drop));
+			fo.setAttribute("DROPLIN", doc->Vorlagen[ff].DropLin);
 			fo.setAttribute("NUMTAB", static_cast<int>(doc->Vorlagen[ff].TabValues.count()));
 			QString tlp = "";
 			QValueList<double>::Iterator tax;
@@ -3008,6 +3024,8 @@ if (doc->Vorlagen.count() > 5)
 		fo.setAttribute("NACH",doc->Vorlagen[ff].Anach);
 		fo.setAttribute("FONT",doc->Vorlagen[ff].Font);
 		fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
+		fo.setAttribute("DROP", static_cast<int>(doc->Vorlagen[ff].Drop));
+		fo.setAttribute("DROPLIN", doc->Vorlagen[ff].DropLin);
 		fo.setAttribute("NUMTAB", static_cast<int>(doc->Vorlagen[ff].TabValues.count()));
 		QString tlp = "";
 		QString tmp = "";

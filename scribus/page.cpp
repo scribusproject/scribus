@@ -1357,12 +1357,13 @@ void Page::sentToScrap()
 void Page::sentToLayer(int id)
 {
 	int d = pmen3->indexOf(id);
+	int dd = doku->Layers[d].LNr;
   if (SelItem.count() != 0)
   	{
   	for (uint a = 0; a < SelItem.count(); ++a)
   		{
 			PageItem *b = SelItem.at(a);
-			b->LayerNr = d;
+			b->LayerNr = dd;
 			}
 		}
 	Deselect(true);
@@ -5972,10 +5973,8 @@ void Page::chAbStyle(PageItem *b, int s)
 					}
 				nb->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
-					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					}
+				nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 				a--;
 				}
 			if (cr)
@@ -5996,10 +5995,8 @@ void Page::chAbStyle(PageItem *b, int s)
 				{
 				nb->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
-					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					}
+				nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
 					cr = false;
@@ -6023,10 +6020,8 @@ void Page::chAbStyle(PageItem *b, int s)
 				{
 				b->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
-					{
 					b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					}
+				b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 				}
 			}
 		}

@@ -199,6 +199,8 @@ struct StVorL { QString Vname;
 								QString Font;
 								int FontSize;
 								QValueList<double> TabValues;
+								bool Drop;
+								int DropLin;
 							};
 
 struct CMSset {

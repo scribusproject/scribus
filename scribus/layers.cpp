@@ -146,9 +146,8 @@ void LayerPalette::rebuildList()
 	QString tmp;
 	QValueList<Layer>::iterator it;
 	Table->setNumRows(layers->count());
-	for (uint l = 0; l < layers->count(); ++l)
+	for (it = layers->begin(); it != layers->end(); ++it)
 		{
-		it = layers->at(l);
 		Table->setText(layers->count()-(*it).Level-1, 0, (*it).Name);
 		QCheckBox *cp = new QCheckBox(this, tmp.setNum((*it).Level));
     cp->setPixmap(loadIcon("DateiPrint16.png"));
@@ -173,9 +172,11 @@ void LayerPalette::addLayer()
 {
 	QString tmp;
 	struct Layer ll;
-	ll.LNr = layers->count();
+ 	ll.LNr = layers->last().LNr + 1;
+//	ll.LNr = layers->count();
 	ll.Level = layers->count();
-	ll.Name = tr("New Layer")+" "+tmp.setNum(layers->last().LNr + 1);
+ 	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
+//	ll.Name = tr("New Layer")+" "+tmp.setNum(layers->last().LNr + 1);
 	ll.Sichtbar = true;
 	ll.Drucken = true;
 	layers->append(ll);
@@ -192,25 +193,23 @@ void LayerPalette::removeLayer()
 		return;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it2;
-	for (uint l = 0; l < layers->count(); ++l)
+	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
 		{
-		it2 = layers->at(l);
 		if ((*it2).Level == num)
 			break;
 		}
 	int num2 = (*it2).LNr;
+	if (!num2)
+		return;
 	layers->remove(it2);
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
+	for (it = layers->begin(); it != layers->end(); ++it)
 		{
-		it = layers->at(l);
 		if ((*it).Level > num)
 			(*it).Level -= 1;
-		if ((*it).LNr > num2)
-			(*it).LNr -= 1;
 		}
 	rebuildList();
-	emit LayerRemoved(num);
+	emit LayerRemoved(num2);
 	*Activ = 0;
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
@@ -225,16 +224,14 @@ void LayerPalette::upLayer()
 		return;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
+	for (it = layers->begin(); it != layers->end(); ++it)
 		{
-		it = layers->at(l);
 		if ((*it).Level == num+1)
 			break;
 		}
 	QValueList<Layer>::iterator it2;
-	for (uint l = 0; l < layers->count(); ++l)
+	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
 		{
-		it2 = layers->at(l);
 		if ((*it2).Level == num)
 			break;
 		}
@@ -254,16 +251,14 @@ void LayerPalette::downLayer()
 		return;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
+	for (it = layers->begin(); it != layers->end(); ++it)
 		{
-		it = layers->at(l);
 		if ((*it).Level == num-1)
 			break;
 		}
 	QValueList<Layer>::iterator it2;
-	for (uint l = 0; l < layers->count(); ++l)
+	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
 		{
-		it2 = layers->at(l);
 		if ((*it2).Level == num)
 			break;
 		}
@@ -279,8 +274,16 @@ void LayerPalette::changeName(int row, int col)
 {
 	if (col == 0)
 		{
-		(*layers->at(layers->count()-row-1)).Name = Table->text(row, col);
-		ScApp->slotDocCh();
+		int num = layers->count()-1-row;
+		QValueList<Layer>::iterator it;
+		for (it = layers->begin(); it != layers->end(); ++it)
+			{
+			if ((*it).Level == num)
+				{
+				(*it).Name = Table->text(row, col);
+				ScApp->slotDocCh();
+				}
+			}
 		}
 }
 
@@ -288,12 +291,12 @@ void LayerPalette::visibleLayer()
 {
 	int num = QString(sender()->name()).toInt();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
+	QPtrListIterator<QCheckBox> it2(FlagsSicht);
+	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
 		{
-		it = layers->at(l);
 		if ((*it).Level == num)
 			{
-			(*it).Sichtbar = FlagsSicht.at(l)->isChecked();
+			(*it).Sichtbar = it2.current()->isChecked();
 			emit LayerChanged();
 			ScApp->slotDocCh();
 			}
@@ -304,12 +307,12 @@ void LayerPalette::printLayer()
 {
 	int num = QString(sender()->name()).toInt();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
+	QPtrListIterator<QCheckBox> it2(FlagsPrint);
+	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
 		{
-		it = layers->at(l);
 		if ((*it).Level == num)
 			{
-			(*it).Drucken = FlagsPrint.at(l)->isChecked();
+			(*it).Drucken = it2.current()->isChecked();
 			ScApp->slotDocCh();
 			}
 		}
@@ -318,9 +321,8 @@ void LayerPalette::printLayer()
 void LayerPalette::MarkActiveLayer(int l)
 {
 	QValueList<Layer>::iterator it;
-	for (uint la = 0; la < layers->count(); ++la)
+	for (it = layers->begin(); it != layers->end(); ++it)
 		{
-		it = layers->at(la);
 		if ((*it).LNr == l)
 			break;
 		}
@@ -330,9 +332,8 @@ void LayerPalette::MarkActiveLayer(int l)
 void LayerPalette::setActiveLayer(int row)
 {
 	QValueList<Layer>::iterator it;
-	for (uint la = 0; la < layers->count(); ++la)
+	for (it = layers->begin(); it != layers->end(); ++it)
 		{
-		it = layers->at(la);
 		if ((*it).Level == static_cast<int>(layers->count())-1-row)
 			break;
 		}

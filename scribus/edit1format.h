@@ -10,6 +10,7 @@
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <qcheckbox.h>
 #include "mspinbox.h"
 #include "fontcombo.h"
 #include "scribusdoc.h"
@@ -48,6 +49,9 @@ public:
     MSpinBox* SizeC;
     QLabel* TextF2;
     QPushButton* TabsButton;
+    QCheckBox* DropCaps;
+    QLabel* CapLabel;
+    QSpinBox* DropLines;
     QPushButton* Cancel;
     QPushButton* OkButton;
     struct StVorL *werte;
@@ -59,8 +63,9 @@ public:
 
 private slots:
 		void Verlassen();
-		void FontChange(int val);
+		void FontChange();
 		void ManageTabs();
+		void ManageDrops();
 
 protected:
     QHBoxLayout* Layout17;

@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+11.01.2004	Added Drop Caps to the Paragraph Styles.
+		Applied Ted Powells Layers Patch.
+
 10.01.2004	Added Named Color Sets.
 		You can now select Objects beneath another with Control + Mouse Click.
 

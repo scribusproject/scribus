@@ -47,20 +47,42 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     		break;
     		}
     	}
-
-    GroupFontLayout->addWidget( FontC, 0, 1 );
+    GroupFontLayout->addMultiCellWidget( FontC, 0, 0, 1, 2 );
+    TextF2 = new QLabel( GroupFont, "TextF2" );
+    TextF2->setMinimumSize( QSize( 50, 22 ) );
+    TextF2->setText( tr( "Size:" ) );
+    GroupFontLayout->addWidget( TextF2, 1, 0 );
     SizeC = new MSpinBox( GroupFont, 1 );
     SizeC->setMinimumSize( QSize( 70, 22 ) );
     SizeC->setSuffix( tr( " pt" ) );
 		SizeC->setMinValue(1);
 		SizeC->setMaxValue(1024);
 		SizeC->setValue(vor->FontSize / 10.0);
-
     GroupFontLayout->addWidget( SizeC, 1, 1 );
-    TextF2 = new QLabel( GroupFont, "TextF2" );
-    TextF2->setMinimumSize( QSize( 50, 22 ) );
-    TextF2->setText( tr( "Size:" ) );
-    GroupFontLayout->addWidget( TextF2, 1, 0 );
+
+    DropCaps = new QCheckBox( GroupFont, "DropCaps" );
+    DropCaps->setText( tr( "Drop Caps" ) );
+		DropCaps->setChecked(vor->Drop);
+    GroupFontLayout->addMultiCellWidget( DropCaps, 2, 2, 0, 2 );
+    CapLabel = new QLabel( GroupFont, "CapLabel" );
+		CapLabel->setText( tr("Lines:"));
+    GroupFontLayout->addWidget( CapLabel, 3, 0 );
+    DropLines = new QSpinBox( GroupFont, "DropLines" );
+    DropLines->setMinValue( 2 );
+    DropLines->setMaxValue( 20 );
+    DropLines->setValue(vor->DropLin);
+    GroupFontLayout->addWidget( DropLines, 3, 1 );
+		if (vor->Drop)
+			{
+			DropLines->setEnabled(true);
+			CapLabel->setEnabled(true);
+			}
+		else
+			{
+			DropLines->setEnabled(false);
+			CapLabel->setEnabled(false);
+			}
+
     EditStyleLayout->addWidget( GroupFont, 2, 0 );
 
     GroupBox10 = new QGroupBox( this, "GroupBox10" );
@@ -217,7 +239,8 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
     connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
-    connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange(int)));
+    connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
+    connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
 		LeftInd->setDecimals(10);
 		FirstLin->setDecimals(10);
 		AboveV->setDecimals(10);
@@ -252,6 +275,20 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     LeftInd->setValue(vor->Indent * UmReFaktor);
 }
 
+void EditStyle::ManageDrops()
+{
+	if (DropCaps->isChecked())
+		{
+		DropLines->setEnabled(true);
+		CapLabel->setEnabled(true);
+		}
+	else
+		{
+		DropLines->setEnabled(false);
+		CapLabel->setEnabled(false);
+		}
+}
+
 void EditStyle::ManageTabs()
 {
 	TabManager *dia = new TabManager(this, DocsEin, werte->TabValues);
@@ -260,9 +297,10 @@ void EditStyle::ManageTabs()
 	delete dia;
 }
 
-void EditStyle::FontChange(int val)
+void EditStyle::FontChange()
 {
-	LineSpVal->setValue(static_cast<int>((val * AutoVal / 100) + val));
+	double val = SizeC->value();
+	LineSpVal->setValue((val  * AutoVal / 100) + val);
 }
 
 void EditStyle::Verlassen()
@@ -314,5 +352,7 @@ void EditStyle::Verlassen()
 	werte->Vname = Name->text();
 	werte->Font = FontC->currentText();
 	werte->FontSize = qRound(SizeC->value() * 10.0);
+	werte->Drop = DropCaps->isChecked();
+	werte->DropLin = DropLines->value();
 	accept();
 }
