@@ -6,7 +6,10 @@
 #endif
 
 #include <Python.h>
+#include "qstring.h"
 #include "scribus.h"
+
+class ScripterCore;
 
 /* Static global Variables */
 extern ScribusApp* Carrier;
@@ -17,6 +20,19 @@ extern ScribusApp* Carrier;
 extern PyObject* wrappedQApp;
 /** @brief A PyCObject containing a pointer to the main window ('Carrier') */
 extern PyObject* wrappedMainWindow;
+
+/** @brief A pointer to the ScripterCore instance */
+extern ScripterCore* scripterCore;
+
+/** @brief Initialize the 'scribus' Python module in the currently active interpreter */
+extern "C" void initscribus(ScribusApp *pl);
+
+/** @brief String representation of result returned by last python console command */
+extern QString RetString;
+/** @brief String representation of line of code to be passed to the Python interactive interpreter */
+extern QString InValue;
+/** @brief Wish I knew, too... */
+extern int RetVal;
 
 /* Exceptions */
 /*! Common scribus Exception */

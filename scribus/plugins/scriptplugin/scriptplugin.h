@@ -1,17 +1,7 @@
 #ifndef SCRIPTPLUG_H
 #define SCRIPTPLUG_H
 
-#include <qmap.h>
-#include <qguardedptr.h>
-
-#include "scribus.h"
-#include "pconsole.h"
-#include "menumanager.h"
 #include "pluginmanager.h"
-
-class ScrAction;
-class MenuManager;
-
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */
@@ -40,48 +30,8 @@ extern "C" void initPlug(QWidget *d, ScribusApp *plug);
 /** Possible CleanUpOperations when closing the Plugin */
 extern "C" void cleanUpPlug();
 
-extern "C" void initscribus(ScribusApp *pl);
-
 /** Some useful Subroutines */
 static PyObject *scribus_retval(PyObject *self, PyObject* args);
 static PyObject *scribus_getval(PyObject *self);
-QString RetString;
-QString InValue;
-int RetVal;
 
-class MenuTest : public QObject
-{
-    Q_OBJECT
-
-public:
-	MenuTest(QWidget* /*parent*/) {};
-    ~MenuTest() {};
-		void ReadPlugPrefs();
-		void SavePlugPrefs();
-		void FinishScriptRun();
-		PConsole *pcon;
-		int cons;
-		int about;
-		QStringList SavedRecentScripts;
-		QStringList RecentScripts;
-		MenuManager *menuMgr;
-		QMap<QString, QGuardedPtr<ScrAction> > scrScripterActions;
-		QMap<QString, QGuardedPtr<ScrAction> > scrRecentScriptActions;
-		void rebuildRecentScriptsMenu();
-		void buildScribusScriptsMenu();
-		void buildRecentScriptsMenu();
-		void rebuildScribusScriptsMenu();
-
-public slots:
-		void slotTest();
-		void StdScript(QString filebasename);
-		void RecentScript(QString fn);
-		void slotRunScriptFile(QString fileName);
-		QString slotRunScript(QString Script);
-		void slotInteractiveScript(bool);
-		void slotExecute();
-		void aboutScript();
-};
-
-static MenuTest* Tes;
 #endif // CMSPLUG_H
