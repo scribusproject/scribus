@@ -239,6 +239,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	                                      "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Galician:").utf8()  + "</b></td><td> </td></tr>" +
+                                          "<tr><td>Xose Calvo</td><td>xosecalvo@galizaweb.net</td></tr>" +
 	                                      "<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                      
 	                                      "<tr><td><b>" + tr("Hungarian:").utf8()  + "</b></td><td> </td></tr>" +
