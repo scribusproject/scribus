@@ -27,12 +27,12 @@
 #include "linecombo.h"
 #include "cpalette.h"
 #include "spalette.h"
-
+#include "fontcombo.h"
 
 class Mpalette : public QDialog  {
 Q_OBJECT
 public:
-    Mpalette(QWidget* parent, preV *Prefs); // QPopupMenu* FontMenu);
+    Mpalette(QWidget* parent, preV *Prefs);
     ~Mpalette() {};
     void closeEvent(QCloseEvent *ce);
 
@@ -95,8 +95,7 @@ public:
     MSpinBox* DLeft;
     QLabel* Text17;
     MSpinBox* DRight;
-//    QToolButton* Fonts;
-		QComboBox* Fonts;
+		FontCombo* Fonts;
     QSpinBox* Size;
     QToolButton* Revert;
     QToolButton* Underline;

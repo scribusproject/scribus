@@ -26,13 +26,13 @@ About::About( QWidget* parent )
     tab = new QWidget( TabWidget2, "tab" );
     tabLayout1 = new QVBoxLayout( tab );
     tabLayout1->setSpacing( 6 );
-    tabLayout1->setMargin( 10 );
+    tabLayout1->setMargin( 15 );
     PixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
     PixmapLabel1->setPixmap(loadIcon("scribus_logo.jpg"));
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = "16. June 2003 ";
+    QString bu = "17. June 2003 ";
 #ifdef HAVE_FREETYPE
 		bu += "F";
 #else
@@ -117,6 +117,9 @@ About::About( QWidget* parent )
                         "<tr><td><b>" + tr("Polish:") + "</b></td><td> </td></tr>" +
                         "<tr><td>Maciej Hañski</td><td>m.hanski@gmx.at</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Czech:") + "</b></td><td></td></tr>" +
+                        "<tr><td>Petr Vanìk</td><td>subzero@py.cz</td></tr>" +
+                        "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Slovak:") + "</b></td><td></td></tr>" +
                         "<tr><td>Zdenko Podobný</td><td>zdpo@mailbox.sk</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
@@ -124,6 +127,7 @@ About::About( QWidget* parent )
                         "<tr><td>Morten Langlo</td><td>mlanglo@post6.tele.dk</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Norwegian:") + "</b></td><td></td></tr>" +
+                        "<tr><td>Klaus Ade Johnstad</td><td>klaus@astro.uio.no</td></tr>" +
                         "<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("English:") + "</b></td><td></td></tr>" +

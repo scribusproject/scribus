@@ -3,7 +3,7 @@
 extern QPixmap loadIcon(QString nam);
 #include <qmessagebox.h>
 
-EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, SCFonts *avail, float au)
+EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, float au)
     : QDialog( parent, "EditST", true, 0)
 {
     setCaption( tr( "Edit Style" ) );
@@ -35,19 +35,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     TextF1->setMinimumSize( QSize( 50, 22 ) );
     TextF1->setText( tr( "Face:" ) );
     GroupFontLayout->addWidget( TextF1, 0, 0 );
-    FontC = new QComboBox( true, GroupFont, "FontC" );
-		FontC->setEditable(false);
-    FontC->setMinimumSize( QSize( 140, 22 ) );
-		QStringList rlist;
-		rlist.clear();
-    SCFontsIterator it(*avail);
-    for ( ; it.current(); ++it)
-    	{
-			if (it.current()->UseFont)
-    		rlist.append(it.currentKey());
-    	}
-    rlist.sort();
-    FontC->insertStringList(rlist);
+    FontC = new FontCombo(GroupFont, Prefs);
     for (int fc=0; fc<FontC->count(); ++fc)
     	{
     	if (FontC->text(fc) == vor->Font)

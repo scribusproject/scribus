@@ -101,7 +101,7 @@ void LineFormate::neuesFormat()
 	sl.LineJoin = MiterJoin;
 	sl.Width = 1.0;
 	multiLine ml;
-	ml.append(sl);
+	ml.push_back(sl);
 	MultiLine* dia = new MultiLine(this, Docu, ml, tr("New Style"), true, &TempStyles);
 	if (dia->exec())
 		{

@@ -1,11 +1,13 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.uk.qm charselect.da.qm charselect.de.qm charselect.sk.qm charselect.no.qm scribus.no.qm svgexport.de.qm svgexport.sk.qm 
+EXTRA_DIST = scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.uk.qm charselect.da.qm charselect.de.qm charselect.sk.qm charselect.no.qm scribus.no.qm svgexport.de.qm svgexport.sk.qm 
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.bg.qm $(prefix)/lib/scribus/scribus.bg.qm
+	$(mkinstalldirs) $(prefix)/lib/scribus/
+	$(INSTALL_DATA) $(srcdir)/scribus.cs.qm $(prefix)/lib/scribus/scribus.cs.qm
 	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.da.qm $(prefix)/lib/scribus/scribus.da.qm
 	$(mkinstalldirs) $(prefix)/lib/scribus/
@@ -47,6 +49,7 @@ install-data-local:
 
 uninstall-local:
 	-rm -f $(prefix)/lib/scribus/scribus.bg.qm
+	-rm -f $(prefix)/lib/scribus/scribus.cs.qm
 	-rm -f $(prefix)/lib/scribus/scribus.da.qm
 	-rm -f $(prefix)/lib/scribus/scribus.de.qm
 	-rm -f $(prefix)/lib/scribus/scribus.en_GB.qm

@@ -2,24 +2,24 @@
 #define MISSINGFONT_H
 
 #include <qdialog.h>
-#include <qcombobox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <scribusdoc.h>
+#include "scribusdoc.h"
+#include "fontcombo.h"
 
 class DmF : public QDialog
 {
     Q_OBJECT
 
 public:
-    DmF( QWidget* parent, QString fon, SCFonts &avail );
+    DmF( QWidget* parent, QString fon, preV *Prefs );
     ~DmF() {};
 
     QPushButton* PushButton1;
     QLabel* TextLabel6;
     QLabel* PixmapLabel1;
-    QComboBox* Replace;
+    FontCombo* Replace;
     QLabel* TextLabel1;
     QLabel* TextLabel4;
     QString Ersatz;

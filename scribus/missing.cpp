@@ -4,7 +4,6 @@ extern QPixmap loadIcon(QString nam);
 
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qstringlist.h>
 
 static const char* const image100_data[] = {
 "48 48 4 1",
@@ -62,7 +61,7 @@ static const char* const image100_data[] = {
 "................................................"};
 
 
-DmF::DmF( QWidget* parent, QString fon, SCFonts &avail )
+DmF::DmF( QWidget* parent, QString fon, preV *Prefs )
     : QDialog( parent, "mfont", true, 0 )
 {
     QPixmap image0( ( const char** ) image100_data );
@@ -86,20 +85,8 @@ DmF::DmF( QWidget* parent, QString fon, SCFonts &avail )
     TextLabel4 = new QLabel( this, "TextLabel4" );
     TextLabel4->setText( tr( "Use" ) );
     Layout1->addWidget( TextLabel4, 1, 1 );
-    Replace = new QComboBox( true, this, "Replace" );
-    Replace->setMinimumSize( QSize( 175, 24 ) );
-		Replace->setEditable(false);
-		QStringList rlist;
-		rlist.clear();
-    SCFontsIterator it(avail);
-    for ( ; it.current(); ++it)
-    	{
-			if (it.current()->UseFont)
-    		rlist.append(it.currentKey());
-    	}
-		rlist.sort();
-		Replace->insertStringList(rlist);
-		Ersatz = rlist[0];
+    Replace = new FontCombo(this, Prefs);
+		Ersatz = Replace->text(0);
     Layout1->addWidget( Replace, 1, 2 );
     TextLabel6 = new QLabel( this, "TextLabel6" );
     TextLabel6->setText( tr( "instead" ) );

@@ -2786,3 +2786,24 @@ msgstr "Text weichzeichnen"
 msgid "Antialias Graphics"
 msgstr "Graphiken weichzeichnen"
 
+msgid "Russian:"
+msgstr ""
+
+msgid "Loading:"
+msgstr "Lade:"
+
+msgid "Autosave"
+msgstr "Autom. Speichern"
+
+msgid "Enabled"
+msgstr "Eingeschaltet"
+
+msgid "use Bounding Box"
+msgstr "benutze Bounding Box"
+
+msgid "Czech:"
+msgstr "Tschechisch:"
+
+msgid "Norwegian:"
+msgstr "Norwegisch:"
+

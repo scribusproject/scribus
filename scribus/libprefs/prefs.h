@@ -26,6 +26,7 @@
 #include "scfonts.h"
 #include "mspinbox.h"
 #include "scribus.h"
+#include "fontcombo.h"
 
 class Preferences : public QDialog
 {
@@ -90,7 +91,7 @@ public:
 		QWidgetStack* Fram;
     QLabel* TextLabel2_2;
     QLabel* TextLabel1_3;
-    QComboBox* FontCombo;
+    FontCombo* FontComb;
     QComboBox* SizeCombo;
     QComboBox* ForegroundT;
     QLabel* TextLabelT1;

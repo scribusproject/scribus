@@ -49,10 +49,10 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
     Header->setLabel(0, tr("Name"));
     Header->setLabel(1, tr("Path"));
     Header->setLabel(2, tr("Page"));
-    Header->setLabel(3, tr(" "));
+    Header->setLabel(3, " ");
     Header->setLabel(4, tr("Print"));
     Header->setLabel(5, tr("Status"));
-    Header->setLabel(6, tr(" "));
+    Header->setLabel(6, " ");
     Zeilen = 0;
     for (p=0; p<view->MasterPages.count(); p++)
     	{

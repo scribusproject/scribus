@@ -190,7 +190,7 @@ while(!DOC.isNull())
 				if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
 					{
   				qApp->setOverrideCursor(QCursor(arrowCursor), true);
-					DmF *dia = new DmF(view, tmpf, avail);
+					DmF *dia = new DmF(view, tmpf, view->Prefs);
 					dia->exec();
 					tmpf = dia->Ersatz;
 					delete dia;
@@ -276,7 +276,7 @@ while(!DOC.isNull())
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
 				sl.Width = QStoFloat(MuL.attribute("Width"));
-				ml.append(sl);
+				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
 			doc->MLineStyles.insert(pg.attribute("Name"), ml);
@@ -675,7 +675,7 @@ while(!DOC.isNull())
 				if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
 					{
   				qApp->setOverrideCursor(QCursor(arrowCursor), true);
-					DmF *dia = new DmF(view, tmpf, avail);
+					DmF *dia = new DmF(view, tmpf, view->Prefs);
 					dia->exec();
 					tmpf = dia->Ersatz;
 					delete dia;
@@ -808,7 +808,7 @@ while(!DOC.isNull())
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
 				sl.Width = QStoFloat(MuL.attribute("Width"));
-				ml.append(sl);
+				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
 			doc->MLineStyles.insert(pg.attribute("Name"), ml);
@@ -1200,7 +1200,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, float *x, float *y, f
 	return true;
 }
 
-bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub)
+bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, preV *Prefs)
 {
 	struct CLBuf OB;
 	struct StVorL vg;
@@ -1266,7 +1266,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				{
 				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]]->UseFont))
 					{
-					DmF *dia = new DmF(0, tmpf, avail);
+					DmF *dia = new DmF(0, tmpf, Prefs);
 					dia->exec();
 					tmpf = dia->Ersatz;
 					FontSub[pg.attribute("NAME")] = tmpf;
@@ -1304,7 +1304,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
 				sl.Width = QStoFloat(MuL.attribute("Width"));
-				ml.append(sl);
+				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
 			if (!doc->MLineStyles.contains(pg.attribute("Name")))
@@ -2858,7 +2858,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			QString tmpf = dc.attribute("FACE");
 			if (!Vorein->AvailFonts.find(tmpf))
 				{
-				DmF *dia = new DmF(0, tmpf, Vorein->AvailFonts);
+				DmF *dia = new DmF(0, tmpf, Vorein);
 				dia->exec();
 				Vorein->DefFont = dia->Ersatz;
 				delete dia;

@@ -1,4 +1,9 @@
 Changes since Version 0.9.11.1
+17.06.2003	fontcombo.cpp		This is the Replacement for the former Font Menue
+					It's used in all place where you must select a Font
+					except for the Main Menue Bar.
+		scribus.cs_CZ.po	Added first Czech translation.
+ 
 16.06.2003	mpalette.cpp		Replaced the Font Popup Menue with a ComboBox.
 
 15.06.2003	scpreview.cpp		Added a missing #include <cstdlib>

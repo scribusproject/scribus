@@ -10,8 +10,8 @@
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qcombobox.h>
 #include "mspinbox.h"
+#include "fontcombo.h"
 #include "scribusdoc.h"
 
 class EditStyle : public QDialog
@@ -19,7 +19,7 @@ class EditStyle : public QDialog
     Q_OBJECT
 
 public:
-    EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, SCFonts *avail, float au);
+    EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, float au);
     ~EditStyle() {};
 
     QLabel* TextLabel1;
@@ -44,7 +44,7 @@ public:
     QRadioButton* Forced;
     QGroupBox* GroupFont;
     QLabel* TextF1;
-    QComboBox* FontC;
+    FontCombo* FontC;
     QSpinBox* SizeC;
     QLabel* TextF2;
     QPushButton* Cancel;

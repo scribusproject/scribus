@@ -200,36 +200,36 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GZText2->setText( tr( "Orientation:" ) );
     Layout6->addWidget( GZText2, 1, 0 );
     GZComboF = new QComboBox( true, GroupSize, "GZComboF" );
-    GZComboF->insertItem( tr( "A0" ) );
-    GZComboF->insertItem( tr( "A1" ) );
-    GZComboF->insertItem( tr( "A2" ) );
-    GZComboF->insertItem( tr( "A3" ) );
-    GZComboF->insertItem( tr( "A4" ) );
-    GZComboF->insertItem( tr( "A5" ) );
-    GZComboF->insertItem( tr( "A6" ) );
-    GZComboF->insertItem( tr( "A7" ) );
-    GZComboF->insertItem( tr( "A8" ) );
-    GZComboF->insertItem( tr( "A9" ) );
-    GZComboF->insertItem( tr( "B0" ) );
-    GZComboF->insertItem( tr( "B1" ) );
-    GZComboF->insertItem( tr( "B2" ) );
-    GZComboF->insertItem( tr( "B3" ) );
-    GZComboF->insertItem( tr( "B4" ) );
-    GZComboF->insertItem( tr( "B5" ) );
-    GZComboF->insertItem( tr( "B6" ) );
-    GZComboF->insertItem( tr( "B7" ) );
-    GZComboF->insertItem( tr( "B8" ) );
-    GZComboF->insertItem( tr( "B9" ) );
-    GZComboF->insertItem( tr( "B10" ) );
-    GZComboF->insertItem( tr( "C5E" ) );
-    GZComboF->insertItem( tr( "Comm10E" ) );
-    GZComboF->insertItem( tr( "DLE" ) );
-    GZComboF->insertItem( tr( "Executive" ) );
-    GZComboF->insertItem( tr( "Folio" ) );
-    GZComboF->insertItem( tr( "Ledger" ) );
-    GZComboF->insertItem( tr( "Legal" ) );
-    GZComboF->insertItem( tr( "Letter" ) );
-    GZComboF->insertItem( tr( "Tabloid" ) );
+    GZComboF->insertItem("A0");
+    GZComboF->insertItem("A1");
+    GZComboF->insertItem("A2");
+    GZComboF->insertItem("A3");
+    GZComboF->insertItem("A4");
+    GZComboF->insertItem("A5");
+    GZComboF->insertItem("A6");
+    GZComboF->insertItem("A7");
+    GZComboF->insertItem("A8");
+    GZComboF->insertItem("A9");
+    GZComboF->insertItem("B0");
+    GZComboF->insertItem("B1");
+    GZComboF->insertItem("B2");
+    GZComboF->insertItem("B3");
+    GZComboF->insertItem("B4");
+    GZComboF->insertItem("B5");
+    GZComboF->insertItem("B6");
+    GZComboF->insertItem("B7");
+    GZComboF->insertItem("B8");
+    GZComboF->insertItem("B9");
+    GZComboF->insertItem("B10");
+    GZComboF->insertItem("C5E");
+    GZComboF->insertItem("Comm10E");
+    GZComboF->insertItem("DLE");
+    GZComboF->insertItem("Executive");
+    GZComboF->insertItem("Folio");
+    GZComboF->insertItem("Ledger");
+    GZComboF->insertItem("Legal");
+    GZComboF->insertItem("Letter");
+    GZComboF->insertItem("Tabloid");
     GZComboF->insertItem( tr( "Custom" ) );
 		GZComboF->setEditable(false);
 		GZComboF->setCurrentItem(Vor->PageFormat);
@@ -767,41 +767,30 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     TextLabel1_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel1_3->sizePolicy().hasHeightForWidth() ) );
     TextLabel1_3->setText( tr( "Default Font:" ) );
     Layout15a->addWidget( TextLabel1_3, 0, 0 );
-    FontCombo = new QComboBox( true, ToolFrame, "FontCombo" );
-    FontCombo->setEditable(false);
-		QStringList rlist;
-		rlist.clear();
-    SCFontsIterator it(*fon);
-    for ( ; it.current(); ++it)
-    	{
-			if (it.current()->UseFont)
-    		rlist.append(it.currentKey());
-    	}
-    rlist.sort();
-    FontCombo->insertStringList(rlist);
+    FontComb = new FontCombo(ToolFrame, Vor);
 		if (ap->HaveDoc)
 			{
-    	for (int fc=0; fc<FontCombo->count(); ++fc)
+    	for (int fc=0; fc<FontComb->count(); ++fc)
     		{
-    		if (FontCombo->text(fc) == ap->doc->Dfont)
+    		if (FontComb->text(fc) == ap->doc->Dfont)
     			{
-    			FontCombo->setCurrentItem(fc);
+    			FontComb->setCurrentItem(fc);
     			break;
     			}
     		}
 			}
 		else
 			{
-    	for (int fc=0; fc<FontCombo->count(); ++fc)
+    	for (int fc=0; fc<FontComb->count(); ++fc)
     		{
-    		if (FontCombo->text(fc) == Vor->DefFont)
+    		if (FontComb->text(fc) == Vor->DefFont)
     			{
-    			FontCombo->setCurrentItem(fc);
+    			FontComb->setCurrentItem(fc);
     			break;
     			}
     		}
 			}
-    Layout15a->addWidget( FontCombo, 0, 1 );
+    Layout15a->addWidget( FontComb, 0, 1 );
     SizeCombo = new QComboBox( true, ToolFrame, "SizeCombo" );
     SizeCombo->setEditable(false);
 		SizeCombo->insertItem(" 7 pt");
@@ -1568,7 +1557,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     connect( GuideColor, SIGNAL( clicked() ), this, SLOT( changeGuideColor() ) );
     connect( buttonOK, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-    connect(FontCombo, SIGNAL(activated(int)), this, SLOT(SetSample()));
+    connect(FontComb, SIGNAL(activated(int)), this, SLOT(SetSample()));
     connect(SizeCombo, SIGNAL(activated(int)), this, SLOT(SetSample()));
     connect(TextButton, SIGNAL(clicked()), this, SLOT(SetTool()));
     connect(RectButton, SIGNAL(clicked()), this, SLOT(SetTool()));
@@ -1839,7 +1828,7 @@ void Preferences::DefKB()
 void Preferences::SetSample()
 {
 	QFont fo;
-	fo = (*fon)[FontCombo->currentText()]->Font;
+	fo = (*fon)[FontComb->currentText()]->Font;
 	fo.setPointSize(SizeCombo->currentText().left(2).toInt());
 	TextLabel1_4->setFont(fo);
 }

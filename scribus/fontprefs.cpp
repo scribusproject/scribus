@@ -5,6 +5,7 @@
 #include <qfileinfo.h>
 #include <qfiledialog.h>
 #include "config.h"
+
 extern QPixmap loadIcon(QString nam);
 
 FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, QString PPath )

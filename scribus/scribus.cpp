@@ -4158,7 +4158,7 @@ void ScribusApp::slotEditStyles()
 	ers.clear();
 	if (HaveDoc)
 		{
-		StilFormate *dia = new StilFormate(this, doc, &Prefs.AvailFonts);
+		StilFormate *dia = new StilFormate(this, doc, &Prefs);
 		if (dia->exec())
 			{
 			for (uint a=0; a<doc->Vorlagen.count(); ++a)
@@ -4781,7 +4781,7 @@ void ScribusApp::slotPrefsOrg()
 			slotZoomAbs(doc->Scale*Prefs.DisScale);
 			doc->GrabRad = dia->SpinBox3_2->value();
 			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
-			doc->Dfont = dia->FontCombo->currentText();
+			doc->Dfont = dia->FontComb->currentText();
 			doc->Dsize = dia->SizeCombo->currentText().left(2).toInt();
 			doc->minorGrid = dia->SpinBox1->value() / UmReFaktor / 100;
 			doc->majorGrid = dia->SpinBox2->value() / UmReFaktor / 100;
@@ -4894,7 +4894,7 @@ void ScribusApp::slotPrefsOrg()
 			{
 			Prefs.GrabRad = dia->SpinBox3_2->value();
 			Prefs.GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
-			Prefs.DefFont = dia->FontCombo->currentText();
+			Prefs.DefFont = dia->FontComb->currentText();
 			Prefs.DefSize = dia->SizeCombo->currentText().left(2).toInt();
 			Prefs.DminGrid = dia->SpinBox1->value() / UmReFaktor / 100;
 			Prefs.DmajGrid = dia->SpinBox2->value() / UmReFaktor / 100;
@@ -5505,7 +5505,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 {
 	NoFrameEdit();
   ScriXmlDoc *ss = new ScriXmlDoc();
-  if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub))
+  if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs))
   	{
   	BuildFontMenu();
 		Mpal->Spal->updateFList();

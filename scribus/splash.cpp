@@ -35,15 +35,5 @@ void SplashScreen::setStatus( const QString &message )
 	painter.drawText( 10, 90, message );
 	setErasePixmap( textPix );
 	repaint();
-/* Small delay for testing
-	int dd = 0;
-	for (uint ad = 0; ad < 100000; ad++)
-		{
-		dd++;
-		for (uint ad2 = 0; ad2 < 1000; ad2++)
-			{
-			dd++;
-			}
-		}     */
 }
 

@@ -79,7 +79,7 @@ QPixmap ScPreview::createPreview(QString data)
 				{
 				if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
 					{
-					DmF *dia = new DmF(0, tmpf, Prefs->AvailFonts);
+					DmF *dia = new DmF(0, tmpf, Prefs);
 					dia->exec();
 					tmpf = dia->Ersatz;
 					delete dia;
@@ -115,7 +115,7 @@ QPixmap ScPreview::createPreview(QString data)
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
 				sl.Width = QStoFloat(MuL.attribute("Width"));
-				ml.append(sl);
+				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
 			if (!MLineStyles.contains(pg.attribute("Name")))

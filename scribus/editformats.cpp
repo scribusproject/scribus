@@ -4,7 +4,7 @@
 #include <qmessagebox.h>
 extern QPixmap loadIcon(QString nam);
 
-StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, SCFonts *avail)
+StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
     : QDialog( parent, "Formate", true, 0)
 {
     resize( 327, 260 );

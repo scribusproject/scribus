@@ -6,7 +6,7 @@
 extern QPixmap loadIcon(QString nam);
 extern float UmReFaktor;
 
-Mpalette::Mpalette( QWidget* parent, preV *Prefs) /*, QPopupMenu* FontMenu)   */
+Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     : QDialog( parent, "Mfloat", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
     setCaption( tr( "Measurements" ) );
@@ -337,9 +337,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) /*, QPopupMenu* FontMenu)   */
     Fonts->setPopupDelay(1);
     Fonts->setText( tr( "Font" ) );   */
 
-    Fonts = new QComboBox( true, page_3, "Replace" );
+    Fonts = new FontCombo(page_3, Prefs);
 //    Fonts->setMinimumSize( QSize( 175, 24 ) );
-		Fonts->setEditable(false);
+/*		Fonts->setEditable(false);
 		QStringList rlist;
 		rlist.clear();
     SCFontsIterator it(Prefs->AvailFonts);
@@ -349,7 +349,12 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) /*, QPopupMenu* FontMenu)   */
     		rlist.append(it.currentKey());
     	}
 		rlist.sort();
-		Fonts->insertStringList(rlist);
+    Fonts->clear();
+    for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
+			{
+      new FontListItem(Fonts, *it2, Prefs->AvailFonts[*it2]->Font);
+			}   */
+//		Fonts->insertStringList(rlist);
 
 
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );

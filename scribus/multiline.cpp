@@ -165,7 +165,7 @@ void MultiLine::updatePreview()
 	pm.fill(white);
 	QPainter p;
 	p.begin(&pm);
-	for (int it = TempVorl.count()-1; it > -1; it--)
+	for (int it = TempVorl.size()-1; it > -1; it--)
 		{
 		p.setPen(QPen(calcFarbe(TempVorl[it].Color, TempVorl[it].Shade),
 									QMAX(static_cast<int>(TempVorl[it].Width), 1),
@@ -269,7 +269,7 @@ void MultiLine::reSort()
 		cc++;
 		}
 	if (!fo)
-		TempVorl.append(sl);
+		TempVorl.push_back(sl);
 	CurLin = cc;
 	RebuildList();
 	slotEditStyle(cc);
@@ -348,7 +348,7 @@ void MultiLine::NewSubLine()
 		cc++;
 		}
 	if (!fo)
-		TempVorl.append(sl);
+		TempVorl.push_back(sl);
 	CurLin = cc;
 	RebuildList();
 	slotEditStyle(cc);
@@ -357,7 +357,7 @@ void MultiLine::NewSubLine()
 
 void MultiLine::DelSubLine()
 {
-	if (TempVorl.count() == 1)
+	if (TempVorl.size() == 1)
 		return;
 	int cc = 0;
 	multiLine::Iterator it3;
