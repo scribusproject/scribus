@@ -17,7 +17,7 @@ or documentation
 #include "parse.h"
 #include "vlnadialog.h"
 
-#include <scribus.h>
+#include "scribus.h"
 
 /** Calls the Plugin with the main Application window as parent
 and the main Application Class as parameter. Loads translator too.

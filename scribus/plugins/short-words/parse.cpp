@@ -14,7 +14,7 @@ or documentation
 #include "parse.moc"
 #include "version.h"
 
-#include <scribus.h>
+#include "scribus.h"
 #include <qregexp.h>
 
 extern ScribusApp *ScApp;

@@ -17,7 +17,7 @@ or documentation
 
 #include <qstring.h>
 #include <qstringlist.h>
-#include <scribus.h>
+#include "scribus.h"
 
 class QString;
 class QStringList;
