@@ -110,7 +110,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	helpBrowserLayout->addWidget( tabWidget );
 
 	textBrowser = new QTextBrowser( this, "textBrowser" );
-	textBrowser->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 2, 0, textBrowser->sizePolicy().hasHeightForWidth() ) );
+	textBrowser->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 3, 0, textBrowser->sizePolicy().hasHeightForWidth() ) );
 	textBrowser->setFrameShape( QTextBrowser::StyledPanel );
 	helpBrowserLayout->addWidget( textBrowser );
 	helpBrowsermainLayout->addLayout( helpBrowserLayout );
