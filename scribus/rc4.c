@@ -1,7 +1,5 @@
 /*
- * "$Id$"
- *
- *   RC4 functions for HTMLDOC.
+ * RC4 functions for HTMLDOC.
  *
  *   Original code by Tim Martin
  *   Copyright 1999 by Carnegie Mellon University, All Rights Reserved
@@ -139,7 +137,3 @@ rc4_encrypt(rc4_context_t       *text,		/* I - Context */
   text->j = j;
 }
 
-
-/*
- * End of "$Id$".
- */

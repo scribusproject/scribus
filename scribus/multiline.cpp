@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'Mline.ui'
-**
-** Created: Mit Jun 4 23:28:21 2003
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #include "multiline.h"
 #include "multiline.moc"
 #include <qpainter.h>

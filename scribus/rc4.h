@@ -1,7 +1,5 @@
 /*
- * "$Id$"
- *
- *   RC4 functions for HTMLDOC.
+ *RC4 functions for HTMLDOC.
  *
  *   Original code by Rob Earhart
  *   Copyright 1999 by Carnegie Mellon University, All Rights Reserved
@@ -58,6 +56,3 @@ extern void	rc4_encrypt(rc4_context_t *context, const unsigned char *input,
 
 #endif /* !_RC4_H_ */
 
-/*
- * End of "$Id$".
- */

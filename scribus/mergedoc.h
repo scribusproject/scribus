@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'mergedoc.ui'
-**
-** Created: Sam Apr 5 09:30:16 2003
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #ifndef MERGEDOC_H
 #define MERGEDOC_H
 

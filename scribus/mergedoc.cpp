@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'mergedoc.ui'
-**
-** Created: Sam Apr 5 09:30:28 2003
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #include "mergedoc.h"
 #include "mergedoc.moc"
 #include "customfdialog.h"
