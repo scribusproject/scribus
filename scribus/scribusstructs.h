@@ -563,7 +563,8 @@ enum AppMode
 	PanningMode,
 	MeasurementTool,
 	EditGradientVectors,
-	EyeDropper
+	EyeDropper,
+	CopyProperties
 };
 
 

@@ -1328,6 +1328,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_N), this, "toolsLinkTextFrame", LinkFrames));
 	scrActions.insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), tr("Unlink Text Frames"), QKeySequence(Key_U), this, "toolsUnlinkTextFrame", UnlinkFrames));
 	scrActions.insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), tr("&Eye Dropper"), QKeySequence(Key_Y), this, "toolsEyeDropper", EyeDropper));
+	scrActions.insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), tr("Copy Item Properties"), QKeySequence(), this, "toolsCopyProperties", CopyProperties));
 
 	scrActions["toolsProperties"]->setToggleAction(true);
 	scrActions["toolsOutline"]->setToggleAction(true);
@@ -1357,13 +1358,14 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsLinkTextFrame"]->setToggleAction(true);
 	scrActions["toolsUnlinkTextFrame"]->setToggleAction(true);
 	scrActions["toolsEyeDropper"]->setToggleAction(true);
+	scrActions["toolsCopyProperties"]->setToggleAction(true);
 	
 	toolbarActionNames=new QStringList();
 	*toolbarActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
 	*toolbarActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
 	*toolbarActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*toolbarActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
-	*toolbarActionNames << "toolsEyeDropper";
+	*toolbarActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
@@ -3928,6 +3930,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(false);
+		scrActions["toolsCopyProperties"]->setEnabled(false);
 		propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
 		outlinePalette->slotShowSelect(doc->currentPage->PageNr, -1);
 		break;
@@ -3953,6 +3956,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsEditContents"]->setEnabled(b->ScaleType);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(true);
+		scrActions["toolsCopyProperties"]->setEnabled(true);
 		break;
 	case 4:
 		scrActions["fileImportText"]->setEnabled(true);
@@ -3978,6 +3982,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuItem(scrActions["styleTabulators"], "Style");
 
 		scrActions["toolsRotate"]->setEnabled(true);
+		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		scrActions["insertSampleText"]->setEnabled(true);
 		if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -4068,6 +4073,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("Shade","Style");
 
 		scrActions["toolsRotate"]->setEnabled(true);
+		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
@@ -4116,6 +4122,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["toolsRotate"]->setEnabled(true);
 		else
 			scrActions["toolsRotate"]->setEnabled(false);
+		scrActions["toolsCopyProperties"]->setEnabled(true);
 		break;
 	}
 	doc->CurrentSel = Nr;
@@ -6478,6 +6485,7 @@ void ScribusApp::setAppMode(int mode)
 	scrActions["toolsLinkTextFrame"]->setOn(mode==LinkFrames);
 	scrActions["toolsUnlinkTextFrame"]->setOn(mode==UnlinkFrames);
 	scrActions["toolsEyeDropper"]->setOn(mode==EyeDropper);
+	scrActions["toolsCopyProperties"]->setOn(mode==CopyProperties);
 		
 	PageItem *b;
 	setActiveWindow();
@@ -6658,6 +6666,15 @@ void ScribusApp::setAppMode(int mode)
 		{
 			grabMouse();
 			//grabKeyboard();	
+		}
+		if (mode == CopyProperties)
+		{
+			if (view->SelItem.count() != 0)
+			{
+				doc->ElemToLink = view->SelItem.at(0);
+				view->Deselect(true);
+				scrActions["toolsCopyProperties"]->setEnabled(true);
+			}
 		}
 	}
 

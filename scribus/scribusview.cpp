@@ -1229,6 +1229,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if (Doc->appMode == EditGradientVectors)
 		return;
+	if (Doc->appMode == CopyProperties)
+		return;
 	if (Doc->appMode == MeasurementTool)
 	{
 		QPainter p;
@@ -4458,6 +4460,44 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			Dyp = m->y();
 			Mxp = m->x();
 			Myp = m->y();
+			break;
+		case CopyProperties:
+			SeleItem(m);
+			if (GetItem(&b))
+			{
+				b->ColGap = Doc->ElemToLink->ColGap;
+				b->Cols = Doc->ElemToLink->Cols;
+				b->BottomLine = Doc->ElemToLink->BottomLine;
+				b->TopLine = Doc->ElemToLink->TopLine;
+				b->LeftLine = Doc->ElemToLink->LeftLine;
+				b->RightLine = Doc->ElemToLink->RightLine;
+				b->BExtra = Doc->ElemToLink->BExtra;
+				b->RExtra = Doc->ElemToLink->RExtra;
+				b->Extra = Doc->ElemToLink->Extra;
+				b->TExtra = Doc->ElemToLink->TExtra;
+				b->setLineStyle(Doc->ElemToLink->lineStyle());
+				b->setLineWidth(Doc->ElemToLink->lineWidth());
+				b->setLineTransparency(Doc->ElemToLink->lineTransparency());
+				b->setLineShade(Doc->ElemToLink->lineShade());
+				b->setLineColor(Doc->ElemToLink->lineColor());
+				b->setLineEnd(Doc->ElemToLink->lineEnd());
+				b->setLineJoin(Doc->ElemToLink->lineJoin());
+				b->setCustomLineStyle(Doc->ElemToLink->customLineStyle());
+				b->setEndArrowIndex(Doc->ElemToLink->getEndArrowIndex());
+				b->setStartArrowIndex(Doc->ElemToLink->getStartArrowIndex());
+				b->setFillColor(Doc->ElemToLink->fillColor());
+				b->setFillShade(Doc->ElemToLink->fillShade());
+				b->setFillTransparency(Doc->ElemToLink->fillTransparency());
+				Doc->ElemToLink = b;
+				emit DocChanged();
+				updateContents();
+			}
+			else
+			{
+				Doc->ElemToLink = NULL;
+				Doc->appMode = NormalMode;
+				emit PaintingDone();
+			}
 			break;
 	}
 }
@@ -8564,7 +8604,7 @@ void ScribusView::reformPages()
 		if (Doc->FirstPageLeft)
 			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->PageC-1)/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 		else
-			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->PageC/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop * Scale)));
+			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->PageC/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 	}
 	else
 		resizeContents(qRound((Doc->PageB+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->PageC * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
@@ -8979,9 +9019,10 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	{
 		QPoint py = viewport()->mapFromGlobal(m->globalPos());
 		int newY = py.y();
-		emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset, m->y()/Scale-Doc->currentPage->Yoffset);
-		horizRuler->Draw(m->x());
-		vertRuler->Draw(m->y());
+		QPoint out = viewportToContents(py);
+		emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
+		horizRuler->Draw(out.x());
+		vertRuler->Draw(out.y());
 		QPainter p;
 		p.begin(viewport());
 		p.setRasterOp(XorROP);
@@ -8999,9 +9040,10 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	{
 		QPoint py = viewport()->mapFromGlobal(m->globalPos());
 		int newY = py.x();
-		emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset, m->y()/Scale-Doc->currentPage->Yoffset);
-		horizRuler->Draw(m->x());
-		vertRuler->Draw(m->y());
+		QPoint out = viewportToContents(py);
+		emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
+		horizRuler->Draw(out.x());
+		vertRuler->Draw(out.y());
 		QPainter p;
 		p.begin(viewport());
 		p.setRasterOp(XorROP);
@@ -9016,7 +9058,6 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
-	QPoint out = viewportToContents(py);
 	double newX = (py.x() + contentsX()) / Scale;
 	double newY = (py.y() + contentsY()) / Scale;
 	int pg = OnPage(newX, newY);
@@ -9039,7 +9080,6 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
-	QPoint out = viewportToContents(py);
 	double newX = (py.x() + contentsX()) / Scale;
 	double newY = (py.y() + contentsY()) / Scale;
 	int pg = OnPage(newX, newY);
