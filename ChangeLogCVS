@@ -1,4 +1,9 @@
 Changes since Version 0.9.9
+14.05.2003	pslib.cpp		Removed unused Code
+		scribusview.cpp
+		mpalette.cpp
+		pageitem.cpp		Picture Frames can now have a Borderline too.
+
 12.05.2003	customfdialog.cpp	Fixed a small Bug with the File-Preview.
 		pdflib.cpp		Removed some unneeded Code.
 

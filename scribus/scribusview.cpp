@@ -963,21 +963,16 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									{
 									SetFarbe(ite->Pcolor, ite->Shade, &h, &s, &v, &k);
 									p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									if ((ite->FrameType == 2) && (!ite->ClipEdited))
-										p->PS_RoundRect(0, 0, ite->Width, -ite->Height, ite->RadRect);
-									else
-										SetClipPath(p, ite);
+									SetClipPath(p, ite);
 									p->PS_closepath();
 									p->PS_fill(multiPath);
 									}
 								else
 									p->PS_setcmykcolor_dummy();
-								if ((ite->FrameType == 2) && (!ite->ClipEdited))
-									p->PS_RoundRect(0, 0, ite->Width, -ite->Height, ite->RadRect);
-								else
-									SetClipPath(p, ite);
+								SetClipPath(p, ite);
 								p->PS_closepath();
 								p->PS_clip(multiPath);
+								p->PS_save();
 								if ((ite->flippedH % 2) != 0)
 									{
 									p->PS_translate(ite->Width, 0);
@@ -994,6 +989,13 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									p->PS_image(-ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 									}
 								p->PS_restore();
+								if (ite->Pcolor2 != "None")
+									{
+									SetClipPath(p, ite);
+									p->PS_closepath();
+									p->PS_stroke();
+									}
+								p->PS_restore();
 								}
 							if (ite->PType == 4)
 								{
@@ -1008,10 +1010,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									p->PS_rotate(-ite->Rot);
 								if ((ite->Pcolor != "None") || (ite->GrType != 0))
 									{
-									if ((ite->FrameType == 2) && (!ite->ClipEdited))
-										p->PS_RoundRect(0, 0, ite->Width, -ite->Height, ite->RadRect);
-									else
-										SetClipPath(p, ite);
+									SetClipPath(p, ite);
 									p->PS_closepath();
 									if (ite->GrType != 0)
 										{
@@ -1272,27 +1271,17 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 						p->PS_rotate(-c->Rot);
 					switch (c->PType)
 						{
-						case 1:
-							p->PS_translate(c->Width / 2, -c->Height / 2);
-							p->PS_circle(c->Width / 2, c->Height / 2);
-							needsStroke = true;
-							break;
 						case 2:
 							if (c->Pcolor != "None")
 								{
-								if ((c->FrameType == 2) && (!c->ClipEdited))
-									p->PS_RoundRect(0, 0, c->Width, -c->Height, c->RadRect);
-								else
-									SetClipPath(p, c);
+								SetClipPath(p, c);
 								p->PS_closepath();
 								p->PS_fill(multiPath);
 								}
-							if ((c->FrameType == 2) && (!c->ClipEdited))
-								p->PS_RoundRect(0, 0, c->Width, -c->Height, c->RadRect);
-							else
-								SetClipPath(p, c);
+							SetClipPath(p, c);
 							p->PS_closepath();
 							p->PS_clip(multiPath);
+							p->PS_save();
 							if ((c->flippedH % 2) != 0)
 								{
 								p->PS_translate(c->Width, 0);
@@ -1310,6 +1299,13 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									p->PS_image(-c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->AnName);
 								else
 									p->PS_image(-c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
+								}
+							p->PS_restore();
+							if (c->Pcolor2 != "None")
+								{
+								SetClipPath(p, c);
+								p->PS_closepath();
+								p->PS_stroke();
 								}						
 							needsStroke = false;
 							break;
@@ -1340,10 +1336,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								}
 							if ((c->Pcolor != "None") || (c->GrType != 0))
 								{
-								if ((c->FrameType == 2) && (!c->ClipEdited))
-									p->PS_RoundRect(0, 0, c->Width, -c->Height, c->RadRect);
-								else
-									SetClipPath(p, c);
+								SetClipPath(p, c);
 								p->PS_closepath();
 								if ((c->GrType != 0) && (a->PageNam == ""))
 									{
@@ -1529,6 +1522,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							p->PS_stroke();
 							needsStroke = false;
 							break;
+						case 1:
 						case 3:
 						case 6:
 							SetClipPath(p, c);

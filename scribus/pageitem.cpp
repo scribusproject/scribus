@@ -415,6 +415,11 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						}
 					}
 #endif
+				if (Pcolor2 != "None")
+					{
+					p.setBrush(NoBrush);
+					DrawPolyL(&p, Clip);
+					}
 				break;
 			case 4:
 				p.save();
@@ -1134,7 +1139,6 @@ NoRoom:	 if (NextBox != 0)
 					}
 				break;
 			case 7:
-//				DrawPolyL(&p, Clip);
 				if (PoLine.size() > 3)
 					{
 					for (uint poi=0; poi<PoLine.size()-3; poi += 4)

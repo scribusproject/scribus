@@ -37,9 +37,6 @@ public:
 	virtual void PS_begin_doc(int Ori, float breite, float hoehe, int numpage);
 	virtual void PS_begin_page(float breite, float hoehe, struct Margs* Ma);
 	virtual void PS_end_page();
-	virtual void PS_rect(float x, float y, float b, float h);
-	virtual void PS_RoundRect(float x, float y, float b, float h, float r);
-	virtual void PS_circle(float r, float r2);
 	virtual void PS_curve(float x1, float y1, float x2, float y2, float x3, float y3);
 	virtual void PS_moveto(float x, float y);
 	virtual void PS_lineto(float x, float y);

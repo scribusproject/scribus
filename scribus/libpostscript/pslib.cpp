@@ -503,32 +503,6 @@ void PSLib::PS_end_page()
 	PutSeite("%%PageTrailer\nrestore\nsp\n");
 }
 
-void PSLib::PS_rect(float x, float y, float b, float h)
-{
-	PutSeite(ToStr(x) + " " + ToStr(y) + " m\n");
-	PutSeite(ToStr(x) + " " + ToStr(y+h) + " li\n");
-	PutSeite(ToStr(x+b) + " " + ToStr(y+h) + " li\n");
-	PutSeite(ToStr(x+b) + " " + ToStr(y) + " li\n");
-	PutSeite("cl\n");
-}
-
-void PSLib::PS_RoundRect(float x, float y, float b, float h, float r)
-{
-	PutSeite(ToStr(x+r) + " " + ToStr(y) + " m\n");
-	PutSeite(ToStr(x+b) + " " + ToStr(y) + " " + ToStr(x+b) + " " + ToStr(y+h) + " " + ToStr(r) + " arct\n");
-	PutSeite(ToStr(x+b) + " " + ToStr(y+h) + " " + ToStr(x) + " " + ToStr(y+h) + " " + ToStr(r) + " arct\n");
-	PutSeite(ToStr(x) + " " + ToStr(y+h) + " " + ToStr(x) + " " + ToStr(y) + " " + ToStr(r) + " arct\n");
-	PutSeite(ToStr(x) + " " + ToStr(y) + " " + ToStr(x+b) + " " + ToStr(y) + " " + ToStr(r) + " arct\n");
-	PutSeite("cl\n");
-}
-
-void PSLib::PS_circle(float r, float r2)
-{
-	PutSeite("/cmtx matrix currentmatrix def\n");
-	PutSeite(ToStr(r) + " " + ToStr(r2) + " scale ci\n");
-	PutSeite("cmtx setmatrix\n");
-}
-
 void PSLib::PS_curve(float x1, float y1, float x2, float y2, float x3, float y3)
 {
 	PutSeite(ToStr(x1) + " " + ToStr(y1) + " " + ToStr(x2) + " " + ToStr(y2) + " " + ToStr(x3) + " " + ToStr(y3) + " curveto\n");

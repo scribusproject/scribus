@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <iostream>
+
 #include <qstring.h>
 #include <qpixmap.h>
 #include <qbitmap.h>
@@ -635,7 +635,7 @@ float Cwidth(ScribusDoc *doc, QPainter *p, QString name, QString ch, int Siz, QS
 			{
 			uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
 			uint cr = FT_Get_Char_Index(doc->FFonts[name], c2);
-			FT_Get_Kerning(doc->FFonts[name], cl, cr, FT_KERNING_UNSCALED, &delta);
+			FT_Get_Kerning(doc->FFonts[name], cl, cr, ft_kerning_unscaled, &delta);
 			w += delta.x / fo->uniEM * Siz;
 			}
 		return w;

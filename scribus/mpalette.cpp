@@ -937,9 +937,10 @@ void Mpalette::NewSel(int nr)
 				SShape->setEnabled(true);
 				SText->setEnabled(false);
 				SImage->setEnabled(true);
-				SLine->setEnabled(false);
+				SLine->setEnabled(true);
 				TabStack->widget(1)->setEnabled(true);
 				TabStack->widget(3)->setEnabled(true);
+				TabStack->widget(4)->setEnabled(true);
 				FlipH->setEnabled(true);
 				FlipV->setEnabled(true);
 				ShapeGroup->setEnabled(true);

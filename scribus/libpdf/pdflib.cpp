@@ -1327,6 +1327,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							PutPage("h\nW*\nn\n");
 						else
 							PutPage("h\nW\nn\n");
+						PutPage("q\n");
 						if ((ite->flippedH % 2) != 0)
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 						if ((ite->flippedV % 2) != 0)
@@ -1334,6 +1335,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						if ((ite->PicAvail) && (ite->Pfile != ""))
 							{
 							PDF_Image(ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
+							}
+						PutPage("Q\n");
+						if (ite->Pcolor2 != "None")
+							{
+							PutPage(SetClipPath(ite));
+							PutPage("h\nS\n");
 							}
 						break;
 					case 4:
