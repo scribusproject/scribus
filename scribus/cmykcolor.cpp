@@ -38,6 +38,7 @@
 	extern bool SoftProofing;
 	extern bool CMSuse;
 #endif
+extern bool CMSavail;
 bool CMYKColor::UseProf = true;
 
 CMYKColor::CMYKColor()
@@ -195,7 +196,7 @@ void CMYKColor::getCMYK(int *c, int *m, int *y, int *k)
 void CMYKColor::applyGCR()
 {
 #ifdef HAVE_CMS
-	if (!(CMSuse && UseProf))
+	if (!(CMSuse && CMSavail))
 	{
 #endif
 		int k = QMIN(QMIN(C, M), Y);
@@ -287,7 +288,7 @@ void CMYKColor::RecalcRGB()
 		else
 		{
 #ifdef HAVE_CMS
-			if (CMSuse && UseProf)
+			if (CMSuse && CMSavail)
 			{
 				inC[0] = R * 257;
 				inC[1] = G * 257;
@@ -315,7 +316,7 @@ void CMYKColor::RecalcRGB()
 	else if (Model == colorModelCMYK)
  	{
 #ifdef HAVE_CMS
-		if (CMSuse && UseProf)
+		if (CMSuse && CMSavail)
 		{
 			inC[0] = C * 257;
 			inC[1] = M * 257;
@@ -335,7 +336,7 @@ void CMYKColor::RecalcRGB()
 		}
 	}
 #ifdef HAVE_CMS
-	if (CMSuse && UseProf && SoftProofing)
+	if (CMSuse && CMSavail && SoftProofing)
 	{
 		cmsHTRANSFORM xformProof;
 		if (Model == colorModelRGB)

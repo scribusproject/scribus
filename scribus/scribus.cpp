@@ -4493,6 +4493,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		ActWin = w;
 		doc->WinHan = w;
 		w->setCentralWidget(view);
+		w->setUpdatesEnabled(false);
+		view->setUpdatesEnabled(false);
 #ifdef HAVE_CMS
 		doc->SoftProofing = false;
 		doc->Gamut = false;
@@ -4790,6 +4792,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 			slotFileSaveAs();
 		}
 		delete fl;
+		view->setUpdatesEnabled(true);
+		w->setUpdatesEnabled(true);
 		if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 			w->showMaximized();
 		else
