@@ -6217,9 +6217,20 @@ void ScribusApp::ModifyAnnot()
   	b = doc->ActPage->SelItem.at(0);
 		if ((b->AnType == 0) || (b->AnType == 1) || (b->AnType > 9))
 			{
+			int AnType = b->AnType;
+			int AnActType = b->AnActType;
+			QString AnAction = b->AnAction;
+			QString An_Extern = b->An_Extern;
   		Annota *dia = new Annota(this, b, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), doc->PageColors, view);
   		if (dia->exec())
 				slotDocCh();
+			else
+				{
+				b->AnType = AnType;
+				b->AnActType = AnActType;
+				b->AnAction = AnAction;
+				b->An_Extern = An_Extern;
+				}
   		delete dia;
 			}
 		else

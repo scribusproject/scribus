@@ -2011,10 +2011,13 @@ void Annot::SetExternL()
 		if (Destfile->text() == "")
 			{
 			GetFile();
-			item->AnActType = 2;
-			Destfile->setEnabled(false);
-			ChFile->setEnabled(false);
-			LExtern->setChecked(false);
+			if (Destfile->text() == "")
+				{
+				item->AnActType = 2;
+				Destfile->setEnabled(false);
+				ChFile->setEnabled(false);
+				LExtern->setChecked(false);
+				}
 			}
 		SetPg(QMIN(SpinBox11->value(), MaxSeite));
 		}

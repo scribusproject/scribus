@@ -46,6 +46,9 @@
 /* Define if you have the development files for python */
 #undef HAVE_PYTHON
 
+/* Python */
+#undef HAVE_PYTHON_23
+
 /* Define if you have the res_init function */
 #undef HAVE_RES_INIT
 

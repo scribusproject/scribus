@@ -2182,12 +2182,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		case 1:
 		case 11:
 			PutDoc("/Subtype /Link\n");
-			if (ite->AnActType == 7)
-				{
-				PutDoc("/A << /Type /Action /S /GoToR\n/F "+EncString("("+Path2Relative(ite->An_Extern)+")",ObjCounter-1)+"\n");
-				PutDoc("/D ["+IToStr(ite->AnZiel)+" /XYZ "+ite->AnAction+"]\n>>\n");
-				}
-			else
+			if (ite->AnActType == 2)
 				{
 				PutDoc("/Dest /"+NDnam+IToStr(NDnum)+"\n");
 				de.Name = NDnam+IToStr(NDnum);
@@ -2196,6 +2191,13 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 				NamedDest.append(de);
 				NDnum++;
 				}
+			if (ite->AnActType == 7)
+				{
+				PutDoc("/A << /Type /Action /S /GoToR\n/F "+EncString("("+Path2Relative(ite->An_Extern)+")",ObjCounter-1)+"\n");
+				PutDoc("/D ["+IToStr(ite->AnZiel)+" /XYZ "+ite->AnAction+"]\n>>\n");
+				}
+			if (ite->AnActType == 8)
+				PutDoc("/A << /Type /Action /S /URI\n/URI "+EncString("("+ite->An_Extern+")",ObjCounter-1)+"\n>>\n");
 			break;
 		case 2:
 		case 3:

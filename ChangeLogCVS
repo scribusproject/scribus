@@ -1,4 +1,7 @@
 Changes since Version 1.1.2
+10.11.2003	Added Web-Links to the PDF-Export.
+		Fixed compilation issues with Python 2.3
+
 09.11.2003	Fixed compilation issues with the Scripter-Plugin.
 		Fixed wrong colors for Gradients in PDF.
 

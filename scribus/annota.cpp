@@ -53,12 +53,15 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     ComboBox1->insertItem( tr( "Text" ) );
     ComboBox1->insertItem( tr( "Link" ) );
     ComboBox1->insertItem( tr( "External Link" ) );
+    ComboBox1->insertItem( tr( "External Web-Link" ) );
     ComboBox1->setEditable(false);
     Layout1->addWidget( ComboBox1 );
     AnnotLayout->addLayout( Layout1 );
 		item->AnType < 2 ? ComboBox1->setCurrentItem(item->AnType) : ComboBox1->setCurrentItem(item->AnType-10);
     if (item->AnActType == 7)
 			ComboBox1->setCurrentItem(2);
+    if (item->AnActType == 8)
+			ComboBox1->setCurrentItem(3);
     Fram = new QWidgetStack(this);
     AnnotLayout->addWidget( Fram );
 
@@ -79,7 +82,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
 		ChFile = new QPushButton(GroupBox1, "Change");
 		ChFile->setText(tr("Change..."));
     GroupBox1Layout->addWidget( ChFile, 0, 2 );
-		if (item->AnActType != 7)
+		if ((item->AnActType != 7) && (item->AnActType != 8))
 			{
 			Destfile->hide();
 			ChFile->hide();
@@ -151,7 +154,6 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     SetCross();
 }
 
-
 void Annota::SetCo(double x, double y)
 {
 	SpinBox2->setValue(static_cast<int>(x*Breite));
@@ -216,12 +218,29 @@ void Annota::SetVals()
 			}
 		item->AnType = 11;
 		}
+	if (item->AnType == 13)
+		{
+		item->AnAction = "";
+		if (Destfile->text() != "")
+			{
+			item->An_Extern = Destfile->text();
+			item->AnActType = 8;
+			}
+		item->AnType = 11;
+		}
 	accept();
 }
 
 void Annota::SetZiel(int it)
 {
 	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
+	Pg->show();
+	TextLabel3->show();
+	TextLabel4->show();
+	TextLabel5->show();
+	SpinBox1->show();
+	SpinBox2->show();
+	SpinBox3->show();
 	switch (it)
 		{
 		case 1:
@@ -236,8 +255,12 @@ void Annota::SetZiel(int it)
     	Fram->raiseWidget(1);
 			Destfile->show();
 			ChFile->show();
-			if (Destfile->text() == "")
+			Destfile->setReadOnly(true);
+			if ((Destfile->text() == "")  || (item->AnActType == 8))
+				{
+				Destfile->setText("");
 				GetFile();
+				}
 			if (Destfile->text() == "")
 				{
 				item->AnActType = 2;
@@ -250,14 +273,43 @@ void Annota::SetZiel(int it)
 				item->AnActType = 7;
 			SetPg(QMIN(SpinBox1->value(), MaxSeite));
 			break;
+		case 3:
+    	Fram->raiseWidget(1);
+			Destfile->show();
+			Destfile->setReadOnly(false);
+			ChFile->hide();
+			Pg->hide();
+			TextLabel3->hide();
+			TextLabel4->hide();
+			TextLabel5->hide();
+			SpinBox1->hide();
+			SpinBox2->hide();
+			SpinBox3->hide();
+			item->AnActType = 8;
+			break;
 		case 11:
     	Fram->raiseWidget(1);
 			if (item->AnActType == 7)
 				{
 				Destfile->show();
 				ChFile->show();
+				Destfile->setReadOnly(true);
 				}
-			SetPg(QMIN(SpinBox1->value(), MaxSeite));
+			if (item->AnActType == 8)
+				{
+				Destfile->show();
+				Destfile->setReadOnly(false);
+				ChFile->hide();
+				Pg->hide();
+				TextLabel3->hide();
+				TextLabel4->hide();
+				TextLabel5->hide();
+				SpinBox1->hide();
+				SpinBox2->hide();
+				SpinBox3->hide();
+				}
+			if (Pg->isVisible())
+				SetPg(QMIN(SpinBox1->value(), MaxSeite));
 			break;
 		default:
     	Fram->raiseWidget(2);

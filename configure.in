@@ -125,12 +125,19 @@ AC_ENABLE_SHARED(yes)
 AC_ENABLE_STATIC(no)
 KDE_PROG_LIBTOOL
 hapy=no
+hapython=yes
 KDE_CHECK_PYTHON(1.5)
 
 COMPILE_PYTHON=no
 AC_ARG_WITH(python, [  --without-python     Do not compile the Scripter Plugin],[ COMPILE_PYTHON=no ],[ COMPILE_PYTHON=yes ])
 if test $hapy = no; then
 	COMPILE_PYTHON=no
+fi
+if test $hapy = yes; then
+  AC_CHECK_HEADER(python2.3/Python.h, [foo=""],[hapython=no])
+   if test $hapython = yes; then
+    AC_DEFINE_UNQUOTED(HAVE_PYTHON_23, 1, [Python])
+   fi
 fi
 AM_CONDITIONAL(COMPILE_PYTHON, test x$COMPILE_PYTHON = xyes)
 
@@ -192,6 +199,11 @@ else
 fi
 if test $COMPILE_PYTHON = no; then
 	echo "The Scripter-Plugin will no be build."
+fi
+if test $hapython = yes; then
+  echo "Using Python 2.3"
+else
+  echo "Using Python < 2.3"
 fi
 echo ""
 echo "Start make now."
