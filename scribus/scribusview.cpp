@@ -7179,8 +7179,10 @@ void ScribusView::Deselect(bool prop)
 			updateContents(static_cast<int>(x*Scale-5), static_cast<int>(y*Scale-5), static_cast<int>(w*Scale+10), static_cast<int>(h*Scale+10));
 		}
 		else
+		{
 			SelItem.clear();
-		updateContents();
+			updateContents(getRedrawBounding(b));
+		}
 		GroupSel = false;
 	}
 	if (prop)
