@@ -36,6 +36,16 @@ public:
 	QToolButton* toolButton6;
 	QToolButton* toolButton7;
 	QToolButton* toolButton8;
+	QToolButton* toolButton9;
+	QToolButton* toolButton10;
+	QToolButton* toolButton11;
+	QToolButton* toolButton12;
+	QToolButton* toolButton13;
+	QToolButton* toolButton14;
+	QToolButton* toolButton15;
+	QToolButton* toolButton16;
+	QToolButton* toolButton17;
+	QToolButton* toolButton18;
 	QPopupMenu* Men;
 
 public slots:

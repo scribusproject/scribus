@@ -1,4 +1,7 @@
 Changes since Version 1.1.3
+09.12.2003	Added some new Shapes to the Autoforms Menue.
+		Fixed the disabled Keyboard Bug.
+
 07.12.2003	Added various Shapes to the Shape Tab in the Properties Palette.
 		Fixed misbehaviour with some corrupted Docs.
 

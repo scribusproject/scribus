@@ -1167,8 +1167,16 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  								setTBvals(b);
  								break;
  							case Key_Delete:
- 								if (b->CPos == static_cast<int>(b->Ptext.count())) { return; }
- 								if (b->Ptext.count() == 0) { return; }
+ 								if (b->CPos == static_cast<int>(b->Ptext.count()))
+									{
+									keyrep = false;
+									return;
+									}
+ 								if (b->Ptext.count() == 0)
+									{
+									keyrep = false;
+									return;
+									}
  								cr = b->Ptext.at(b->CPos)->ch;
  								if (b->HasSel)
  									DeleteSel(b);
@@ -1186,8 +1194,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  								break;
  							case Key_Backspace:
  								if (b->CPos == 0)
+									{
+									keyrep = false;
  									return;
- 								if (b->Ptext.count() == 0) { return; }
+									}
+ 								if (b->Ptext.count() == 0)
+									{
+									keyrep = false;
+									return;
+									}
  								cr = b->Ptext.at(QMAX(b->CPos-1,0))->ch;
  								if (b->HasSel)
  									DeleteSel(b);
@@ -2597,6 +2612,7 @@ void ScribusApp::slotFileOpen()
     		doc->ActPage->update();
 				Mpal->Cpal->SetColors(doc->PageColors);
 				Mpal->updateCList();
+				Mpal->ShowCMS();
 				slotDocCh();
   			}
   		}

@@ -182,7 +182,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 	Prolog += "/f  {findfont} bind def\n";
 	Prolog += "/fi {fill} bind def\n";
 	Prolog += "/st {stroke} bind def\n";
-	Prolog += "/shgf {gs dup scale begin cvx exec eofill end gr} bind def\n";
+	Prolog += "/shgf {gs dup scale begin cvx exec fill end gr} bind def\n";
 	Prolog += "/shgs {gs dup 1 exch div currentlinewidth mul sw dup scale\n";
 	Prolog += "       begin cvx exec st end gr} bind def\n";
 	Prolog += "/bEPS {\n";

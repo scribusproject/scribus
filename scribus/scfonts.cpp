@@ -358,6 +358,7 @@ void SCFonts::AddScalableFonts(const QString &path)
 		{
 		for (uint dc = 0; dc < d.count(); ++dc)
 			{
+			face = 0;
 			QFileInfo fi(path+d[dc]);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
@@ -410,7 +411,8 @@ void SCFonts::AddScalableFonts(const QString &path)
 					t->Family = QString(face->family_name);
 					}
 				}
-			FT_Done_Face( face );
+			if (face != 0)
+				FT_Done_Face( face );
 			}
 		}
 	FT_Done_FreeType( library );

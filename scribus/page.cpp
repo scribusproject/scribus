@@ -20,6 +20,7 @@
 #include "pageitem.h"
 #include "serializer.h"
 #include "scribusXml.h"
+#include "config.h"
 #include <qapplication.h>
 #include <qcolor.h>
 #include <qrect.h>
@@ -774,9 +775,9 @@ void Page::RefreshItem(PageItem *b, bool single)
 	p.begin(this);
 	Transform(b, &p);
 	if (single)
-		RepaintTextRegion(b, QRegion(p.xForm(QRect(-10, -10, static_cast<int>(b->Width+20), static_cast<int>(b->Height+20)))), true);
+		RepaintTextRegion(b, QRegion(p.xForm(QRect(static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(b->Width+(b->Pwidth / 2.0)), static_cast<int>(b->Height+(b->Pwidth / 2.0))))), true);
 	else
-		update(QRegion(p.xForm(QRect(-10, -10, static_cast<int>(b->Width+20), static_cast<int>(b->Height+20)))).intersect(ViewReg()).boundingRect());
+		update(QRegion(p.xForm(QRect(static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(b->Width+(b->Pwidth / 2.0)), static_cast<int>(b->Height+(b->Pwidth / 2.0))))).intersect(ViewReg()).boundingRect());
 	p.end();
 }
 
@@ -792,10 +793,10 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	p.end();
 	b->Dirty = true;
 	QRect g = neu.boundingRect();
-	g.setX(g.x()-20);
-	g.setY(g.y()-20);
-	g.setWidth(g.width()+20);
-	g.setHeight(g.height()+20);
+	g.setX(g.x()-static_cast<int>(b->Pwidth / 2.0));
+	g.setY(g.y()-static_cast<int>(b->Pwidth / 2.0));
+	g.setWidth(g.width()+static_cast<int>(b->Pwidth / 2.0));
+	g.setHeight(g.height()+static_cast<int>(b->Pwidth / 2.0));
 	if (single)
 		{
 		QRect rd = ViewReg().boundingRect().intersect(g);
