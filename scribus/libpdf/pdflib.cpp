@@ -1205,7 +1205,6 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						{
 							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
 							{
-								PutPage("h\n");
 								if (ite->TopLine)
 								{
 									PutPage("0 0 m\n");
@@ -1648,7 +1647,6 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 					{
 						if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
 						{
-							PutPage("h\n");
 							if (ite->TopLine)
 							{
 								PutPage("0 0 m\n");
@@ -3088,6 +3086,20 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				{
 					QImage image;
 					image.load(tmpFile);
+					image = image.convertDepth(32);
+					image.setAlphaBuffer(true);
+					int wi = image.width();
+					int hi = image.height();
+					for( int yi=0; yi < hi; ++yi )
+					{
+						QRgb *s = (QRgb*)(image.scanLine( yi ));
+						for(int xi=0; xi < wi; ++xi )
+						{
+							if((*s) == 0xffffffff)
+								(*s) &= 0x00ffffff;
+							s++;
+						}
+					}
 					img = image.convertDepth(32);
 					unlink(tmpFile);
 				}
@@ -3136,8 +3148,20 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 							QImage image;
 							image.load(tmpFile);
 							image = image.convertDepth(32);
-							img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2),
-									static_cast<int>(h-y2));
+							image.setAlphaBuffer(true);
+							int wi = image.width();
+							int hi = image.height();
+							for( int yi=0; yi < hi; ++yi )
+							{
+								QRgb *s = (QRgb*)(image.scanLine( yi ));
+								for(int xi=0; xi < wi; ++xi )
+								{
+									if((*s) == 0xffffffff)
+										(*s) &= 0x00ffffff;
+									s++;
+								}
+							}
+							img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2), static_cast<int>(h-y2));
 							unlink(tmpFile);
 						}
 					}

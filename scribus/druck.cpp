@@ -182,6 +182,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	ToolButton1->setMinimumSize( QSize( 80, 22 ) );
 	ToolButton1->setText( tr( "Change..." ) );
 	ToolButton1->setEnabled(false);
+	ToolButton1->setFocusPolicy( QToolButton::TabFocus );
 	Layout1->addWidget( ToolButton1 );
 	DruckerLayout->addLayout( Layout1, 1, 0 );
 
@@ -238,6 +239,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	To->setMinValue(1);
 	To->setMaxValue(1000);
 	To->setValue(1);
+	To->setFocusPolicy( QSpinBox::TabFocus );
 	ButtonGroup5Layout->addWidget( To, 3, 1 );
 
 	From = new QSpinBox( ButtonGroup5, "From" );
@@ -246,6 +248,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	From->setMinValue(1);
 	From->setMaxValue(1000);
 	From->setValue(1);
+	From->setFocusPolicy( QSpinBox::TabFocus );
 
 	ButtonGroup5Layout->addWidget( From, 2, 1 );
 
@@ -280,12 +283,14 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
 	FirstPlast = new QRadioButton( ButtonGroup4, "FirstPlast" );
 	FirstPlast->setText( tr( "Print last page first" ) );
+	FirstPlast->setFocusPolicy( QRadioButton::TabFocus );
 
 	ButtonGroup4Layout->addMultiCellWidget( FirstPlast, 1, 1, 0, 1 );
 
 	FirstPfirst = new QRadioButton( ButtonGroup4, "FirstPfirst" );
 	FirstPfirst->setText( tr( "Print first page first" ) );
 	FirstPfirst->setChecked( true );
+    FirstPfirst->setFocusPolicy( QRadioButton::TabFocus );
 
 	ButtonGroup4Layout->addMultiCellWidget( FirstPfirst, 0, 0, 0, 1 );
 
@@ -300,6 +305,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	Copies->setMinValue( 1 );
 	Copies->setMaxValue(1000);
 	Copies->setValue(1);
+	Copies->setFocusPolicy( QSpinBox::TabFocus );
 
 	ButtonGroup4Layout->addWidget( Copies, 2, 1 );
 	UmfangLayout->addWidget( ButtonGroup4 );
@@ -334,6 +340,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
 	PrintSep = new QRadioButton( ButtonGroup3, "PrintSep" );
 	PrintSep->setText( tr( "Print Separations" ) );
+	PrintSep->setFocusPolicy( QRadioButton::TabFocus );
 	ButtonGroup3Layout->addWidget( PrintSep );
 	ToSeparation = false;
 
@@ -366,6 +373,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	PrintGray = new QRadioButton( ButtonGroup3_2, "PrintGray" );
 	PrintGray->setText( tr( "Print in color if available" ) );
 	PrintGray->setChecked( true );
+	PrintGray->setFocusPolicy( QRadioButton::TabFocus );
 	ButtonGroup3_2Layout->addWidget( PrintGray );
 
 	PrintGray2 = new QRadioButton( ButtonGroup3_2, "PrintGray2" );
@@ -373,7 +381,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	ButtonGroup3_2Layout->addWidget( PrintGray2 );
 	MirrorH = false;
 	MirrorV = false,
-	          ICCinUse = false;
+	ICCinUse = false;
 	AdvOptButton = new QPushButton(ButtonGroup3_2, "Adv");
 	AdvOptButton->setText( tr("Advanced Options..."));
 	ButtonGroup3_2Layout->addWidget( AdvOptButton );
@@ -431,7 +439,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	setTabOrder( PrintGray2, AdvOptButton );
 	setTabOrder( AdvOptButton, OKButton );
 	setTabOrder( OKButton, OKButton_2 );
-	setTabOrder( OKButton_2, PrintDest );
+//	setTabOrder( OKButton_2, PrintDest );
 	PrintDest->setFocus();
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );

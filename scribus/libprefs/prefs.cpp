@@ -92,7 +92,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ButtonGroup1Layout->setSpacing( 6 );
 	ButtonGroup1Layout->setMargin( 10 );
 	TextGstil = new QLabel(ButtonGroup1, "dd");
-	TextGstil->setText( tr("Theme"));
+	TextGstil->setText( tr("Theme:"));
 	ButtonGroup1Layout->addWidget( TextGstil, 0, 0 );
 	GUICombo = new QComboBox( true, ButtonGroup1, "GUICombo" );
 	QStringList STtest;
@@ -145,7 +145,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel1_2 = new QLabel( Mouse, "TextLabel1_2" );
 	TextLabel1_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel1_2->sizePolicy().hasHeightForWidth() ) );
-	TextLabel1_2->setText( tr( "Wheel-Jump" ) );
+	TextLabel1_2->setText( tr( "Wheel-Jump:" ) );
 	Layout5->addWidget( TextLabel1_2, 0, 0 );
 	SpinBox3 = new QSpinBox( Mouse, "SpinBox3" );
 	SpinBox3->setMaxValue( 1000 );
@@ -156,7 +156,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel1_2_2 = new QLabel( Mouse, "TextLabel1_2_2" );
 	TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
-	TextLabel1_2_2->setText( tr( "Grab-Radius" ) );
+	TextLabel1_2_2->setText( tr( "Grab-Radius:" ) );
 	Layout5->addWidget( TextLabel1_2_2, 1, 0 );
 	SpinBox3_2 = new QSpinBox( Mouse, "SpinBox3_2" );
 	SpinBox3_2->setMaxValue( 1000 );
@@ -1135,12 +1135,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT51 = new QLabel( ToolFrame5, "TextLabelT51" );
 	TextLabelT51->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT51->sizePolicy().hasHeightForWidth() ) );
-	TextLabelT51->setText( tr( "Horizontal Scaling" ) );
+	TextLabelT51->setText( tr( "Horizontal Scaling:" ) );
 	Layout15->addWidget( TextLabelT51, 1, 1 );
 	TextLabelT52 = new QLabel( ToolFrame5, "TextLabelT52" );
 	TextLabelT52->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT52->sizePolicy().hasHeightForWidth() ) );
-	TextLabelT52->setText( tr( "Vertical Scaling" ) );
+	TextLabelT52->setText( tr( "Vertical Scaling:" ) );
 	Layout15->addWidget( TextLabelT52, 2, 1 );
 	TextLabelT53 = new QLabel( ToolFrame5, "TextLabelT53" );
 	TextLabelT53->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
