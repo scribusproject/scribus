@@ -237,7 +237,7 @@ void MenuTest::RecentScript(int id)
 void MenuTest::slotRunScriptFile(QString fileName)
 {
 	Carrier->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(waitCursor), false);
 	char* comm[1];
 	QFileInfo fi(fileName);
 	QCString na = fi.fileName().latin1();
@@ -308,13 +308,13 @@ void MenuTest::slotRunScriptFile(QString fileName)
 	Py_EndInterpreter(state);
 	PyEval_RestoreThread(stateo);
 	Carrier->ScriptRunning = false;
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->restoreOverrideCursor();
 }
 
 QString MenuTest::slotRunScript(QString Script)
 {
 	Carrier->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(waitCursor), false);
 	char* comm[1];
 	QString cm;
 	InValue = Script;
@@ -355,7 +355,7 @@ QString MenuTest::slotRunScript(QString Script)
 	else
 		pcon->OutWin->Prompt = "...";
 	Carrier->ScriptRunning = false;
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->restoreOverrideCursor();
 	return RetString;
 }
 
