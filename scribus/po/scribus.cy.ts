@@ -5585,6 +5585,37 @@ Argymhellir alluogi hyn os oes gennych ffotos yn eich dogfen.</translation>
     </message>
 </context>
 <context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Iawn</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Diddymu</translation>
+    </message>
+</context>
+<context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
@@ -12945,6 +12976,65 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Wynebfath</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation type="unfinished">Ar&amp;ddull wynebfath</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="unfinished">Effeithiau</translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation type="unfinished">Trwyli&amp;nellu</translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation type="unfinished">&amp;Tanlinellu</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">&amp;Lliw</translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished">Enghraifft</translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation type="unfinished">Sgr&amp;ipt</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Iawn</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Gweithredu</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Diddymu</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Cau</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation type="unfinished">Dewis Wynebfath</translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
@@ -13376,6 +13466,18 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     <message>
         <source>Text Files</source>
         <translation>Ffeiliau Testun</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14897,7 +14999,7 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>Golygu &amp;Ffrâm</translation>
+        <translation type="obsolete">Golygu &amp;Ffrâm</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -15206,6 +15308,10 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     <message>
         <source>&amp;Undo Object Change</source>
         <translation>Dadwneud &amp;Newid Gwrthrych</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15552,6 +15658,13 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Arlliw:</translation>
+    </message>
+</context>
+<context>
+    <name>SideBar</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Dim Arddull</translation>
     </message>
 </context>
 <context>

@@ -460,6 +460,8 @@ void Page::leaveEvent(QEvent *)
 
 void Page::paintEvent(QPaintEvent *e)
 {
+	if (doku->loading)
+		return;
 	QRect vr = ViewReg().boundingRect().intersect(e->rect());
 	if ((vr.width() < 1) || (vr.height() < 1))
 		return;
@@ -9132,6 +9134,48 @@ void Page::BuildAObj()
 	}
 }
 
+void Page::doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx)
+{
+	double xd;
+	for (uint a2 = 0; a2 < Object.count(); ++a2)
+	{
+		switch (moveCode)
+		{
+		case 0:
+			xd = (xp - AObjects[Object[a2]].x1) + a2*xdisp;
+			break;
+		case 1:
+			xd = (xp - (AObjects[Object[a2]].x1 + (AObjects[Object[a2]].x2 - AObjects[Object[a2]].x1) / 2.0)) + a2*xdisp;
+			break;
+		case 2:
+			xd = (xp - AObjects[Object[a2]].x2) + a2*xdisp;
+			break;
+		case 3:
+			xd = ((a2 * xp + minx) - ((AObjects[Object[a2]].x2 - AObjects[Object[a2]].x1) / 2.0)) - AObjects[Object[a2]].x1;
+			break;
+		case 10:
+			xd = (xp - AObjects[Object[a2]].y1) + a2*ydisp;
+			break;
+		case 11:
+			xd = (xp - (AObjects[Object[a2]].y1 + (AObjects[Object[a2]].y2 - AObjects[Object[a2]].y1) / 2.0)) + a2*ydisp;
+			break;
+		case 12:
+			xd = (xp - AObjects[Object[a2]].y2) + a2*ydisp;
+			break;
+		case 13:
+			xd = ((a2 * xp + minx) - ((AObjects[Object[a2]].y2 - AObjects[Object[a2]].y1) / 2.0)) - AObjects[Object[a2]].y1;
+			break;
+		}
+		for (uint a3 = 0; a3 < AObjects[Object[a2]].Objects.count(); ++a3)
+		{
+			if ((moveCode == 0) || (moveCode == 1) || (moveCode == 2) || (moveCode == 3))
+				AObjects[Object[a2]].Objects.at(a3)->Xpos += xd;
+			else
+				AObjects[Object[a2]].Objects.at(a3)->Ypos += xd;
+		}
+	}
+}
+
 void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart)
 {
 	double xd;
@@ -9140,6 +9184,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 	double miny = 99999.9;
 	double maxx = -99999.9;
 	double maxy = -99999.9;
+	int moveCode = 0;
 	QMap<double,uint> Xsorted;
 	QMap<double,uint> Ysorted;
 	BuildAObj();
@@ -9162,14 +9207,10 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 				maxx = QMAX(AObjects[a].x2, maxx);
 			}
 			xp = (maxx - minx) / (AObjects.count() - 1);
-			for (uint a2 = 1; a2 < Xindex.count()-1; ++a2)
-			{
-				xd = ((a2 * xp + minx) - ((AObjects[Xindex[a2]].x2 - AObjects[Xindex[a2]].x1) / 2.0)) - AObjects[Xindex[a2]].x1;
-				for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
-				{
-					AObjects[Xindex[a2]].Objects.at(a3)->Xpos += xd;
-				}
-			}
+			if (Xindex.count() == 1)
+				doAlign(Yindex, 3, xp, xdisp, ydisp, minx);
+			else
+				doAlign(Xindex, 3, xp, xdisp, ydisp, minx);
 		}
 		else
 		{
@@ -9180,14 +9221,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 					{
 						xp = QMIN(AObjects[a].x1, xp);
 					}
-					for (uint a2 = 0; a2 < Yindex.count(); ++a2)
-					{
-						xd = (xp - AObjects[Yindex[a2]].x1) + a2*xdisp;
-						for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
-						{
-							AObjects[Yindex[a2]].Objects.at(a3)->Xpos += xd;
-						}
-					}
+					moveCode = 0;
 					break;
 				case 1:
 					for (uint a = 0; a < AObjects.count(); ++a)
@@ -9196,14 +9230,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 						maxx = QMAX(AObjects[a].x2, maxx);
 					}
 					xp = minx + (maxx - minx) / 2.0;
-					for (uint a2 = 0; a2 < Yindex.count(); ++a2)
-					{
-						xd = (xp - (AObjects[Yindex[a2]].x1 + (AObjects[Yindex[a2]].x2 - AObjects[Yindex[a2]].x1) / 2.0)) + a2*xdisp;
-						for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
-						{
-							AObjects[Yindex[a2]].Objects.at(a3)->Xpos += xd;
-						}
-					}
+					moveCode = 1;
 					break;
 				case 2:
 					xp = 0;
@@ -9211,16 +9238,13 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 					{
 						xp = QMAX(AObjects[a].x2, xp);
 					}
-					for (uint a2 = 0; a2 < Yindex.count(); ++a2)
-					{
-						xd = (xp - AObjects[Yindex[a2]].x2) + a2*xdisp;
-						for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
-						{
-							AObjects[Yindex[a2]].Objects.at(a3)->Xpos += xd;
-						}
-					}
+					moveCode = 2;
 					break;
 			}
+			if (Xindex.count() == 1)
+				doAlign(Yindex, moveCode, xp, xdisp, ydisp);
+			else
+				doAlign(Xindex, moveCode, xp, xdisp, ydisp);
 		}
 	}
 	xp = 99999.9;
@@ -9240,14 +9264,10 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 				maxx = QMAX(AObjects[a].y2, maxx);
 			}
 			xp = (maxx - minx) / (AObjects.count() - 1);
-			for (uint a2 = 1; a2 < Yindex.count()-1; ++a2)
-			{
-				xd = ((a2 * xp + minx) - ((AObjects[Yindex[a2]].y2 - AObjects[Yindex[a2]].y1) / 2.0)) - AObjects[Yindex[a2]].y1;
-				for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
-				{
-					AObjects[Yindex[a2]].Objects.at(a3)->Ypos += xd;
-				}
-			}
+			if (Yindex.count() == 1)
+				doAlign(Xindex, 13, xp, xdisp, ydisp, minx);
+			else
+				doAlign(Yindex, 13, xp, xdisp, ydisp, minx);
 		}
 		else
 		{
@@ -9258,14 +9278,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 					{
 						xp = QMIN(AObjects[a].y1, xp);
 					}
-					for (uint a2 = 0; a2 < Xindex.count(); ++a2)
-					{
-						xd = (xp - AObjects[Xindex[a2]].y1) + a2*ydisp;
-						for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
-						{
-							AObjects[Xindex[a2]].Objects.at(a3)->Ypos += xd;
-						}
-					}
+					moveCode = 10;
 					break;
 				case 1:
 					for (uint a = 0; a < AObjects.count(); ++a)
@@ -9274,14 +9287,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 						maxy = QMAX(AObjects[a].y2, maxy);
 					}
 					xp = miny + (maxy - miny) / 2.0;
-					for (uint a2 = 0; a2 < Xindex.count(); ++a2)
-					{
-						xd = (xp - (AObjects[Xindex[a2]].y1 + (AObjects[Xindex[a2]].y2 - AObjects[Xindex[a2]].y1) / 2.0)) + a2*ydisp;
-						for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
-						{
-							AObjects[Xindex[a2]].Objects.at(a3)->Ypos += xd;
-						}
-					}
+					moveCode = 11;
 					break;
 				case 2:
 					xp = 0;
@@ -9289,16 +9295,13 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 					{
 						xp = QMAX(AObjects[a].y2, xp);
 					}
-					for (uint a2 = 0; a2 < Xindex.count(); ++a2)
-					{
-						xd = (xp - AObjects[Xindex[a2]].y2) + a2*ydisp;
-						for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
-						{
-							AObjects[Xindex[a2]].Objects.at(a3)->Ypos += xd;
-						}
-					}
+					moveCode = 12;
 					break;
 			}
+			if (Yindex.count() == 1)
+				doAlign(Xindex, moveCode, xp, xdisp, ydisp);
+			else
+				doAlign(Yindex, moveCode, xp, xdisp, ydisp);
 		}
 	}
 	update();

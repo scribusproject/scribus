@@ -1784,6 +1784,37 @@ To zahteva zelo natančno izbiro vseh profilov.</translation>
     </message>
 </context>
 <context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">V redu</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CupsOptions</name>
     <message>
         <source>OK</source>
@@ -3290,7 +3321,7 @@ uporabite 72 dpi</translation>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Predogled pisav</translation>
+        <translation type="obsolete">Predogled pisav</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3311,6 +3342,10 @@ uporabite 72 dpi</translation>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Piškur molče grabi fižol iz dna cezijeve hoste</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9143,6 +9178,65 @@ Preverite ime in pot do nje.</translation>
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Pisava</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Velikost</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="unfinished">Učinki</translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">V redu</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Uporabi</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Zapri</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>&amp;Redo</source>
@@ -9578,6 +9672,18 @@ Preverite ime in pot do nje.</translation>
     <message>
         <source>Text Files</source>
         <translation>Datoteke z besedilom</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11077,7 +11183,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>Ur&amp;edi okvir</translation>
+        <translation type="obsolete">Ur&amp;edi okvir</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -11419,6 +11525,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Undo Object Change</source>
         <translation>&amp;Prekliči spreminjanje predmeta</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12674,28 +12784,48 @@ PREDPONA/share/scribus/templates.</translation>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation>Predloge dokumentov lahko najdete na http://www.scribus.net/, stran &quot;Downloads&quot;.</translation>
+        <translation type="obsolete">Predloge dokumentov lahko najdete na http://www.scribus.net/, stran &quot;Downloads&quot;.</translation>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Prepričajte se, da so uporabljene slike prenosljive. Zato morate obkljukati tudi pisave. Če te ne morejo biti deljene jih ne 
+        <translation type="obsolete">Prepričajte se, da so uporabljene slike prenosljive. Zato morate obkljukati tudi pisave. Če te ne morejo biti deljene jih ne 
 zbirajte ob shranjevanju predloge.</translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Kdor je ustvaril predlogo bi se moral prepričati, da Nameščanje predlog najde tudi na njegove/njene predloge. Tako bi 
+        <translation type="obsolete">Kdor je ustvaril predlogo bi se moral prepričati, da Nameščanje predlog najde tudi na njegove/njene predloge. Tako bi 
 uporabnik lahko naložil paket s predlogo, jo dodal v svoj imenik predlog in jo takoj začel uporabljati.</translation>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Odstranjevanje predloge v oknu NFT samo odstrani vnos v datoteki template.xml, ne pa tudi dejanskih datotek.
+        <translation type="obsolete">Odstranjevanje predloge v oknu NFT samo odstrani vnos v datoteki template.xml, ne pa tudi dejanskih datotek.
 Meni se pokaže samo, če uporabnik lahko piše v datoteko template.xml.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation>Skopiraj obstoječo datoteko template.xml v datoteko template.jezik_DRŽAVA.xml (uporabi isto jezikovno kodo, kot trenutno
+        <translation type="obsolete">Skopiraj obstoječo datoteko template.xml v datoteko template.jezik_DRŽAVA.xml (uporabi isto jezikovno kodo, kot trenutno
 uporabljana datoteka s prevodom qm), na primer template.sl_SI.xml za slovenske predloge v template.xml. Da jo lahko NFT
 prebere, mora biti kopija v istem imeniku kot izvirna template.xml.</translation>
+    </message>
+    <message>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

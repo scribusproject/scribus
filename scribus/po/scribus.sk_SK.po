@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2003-07-12 11:59+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -3869,8 +3869,8 @@ msgid "Distribute/Align..."
 msgstr "Umiestni»/zarovna»..."
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Upravi» rám"
+msgid "&Edit Shape"
+msgstr "Upravi» obrys..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5105,6 +5105,30 @@ msgstr "&Prida» k vlastným farbám"
 msgid "Select color"
 msgstr "Výber farby"
 
+msgid "Font st&yle"
+msgstr "©&týl písma"
+
+msgid "Stri&keout"
+msgstr "Preèia&rknuté"
+
+msgid "&Underline"
+msgstr "Po&dèiarknuté"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Tvar"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Skript:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Pou¾i»"
+
+msgid "Select Font"
+msgstr "Vybra» písmo"
+
 #, fuzzy
 msgid "Page "
 msgstr "Strana"
@@ -6158,6 +6182,33 @@ msgid "Text Files"
 msgstr "Textové pole"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Mo¾nosti tlaèiarne"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Hodnota je"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Tieò"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Uká¾ka pred tlaèou"
 
@@ -6372,6 +6423,10 @@ msgid "Save as &Template..."
 msgstr "Ulo¾i» text..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Upravi» rám"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Dokumenty (*.sla *.scd);; V¹etky súbory (*)"
 
@@ -6419,9 +6474,6 @@ msgstr "Ulo¾i» text..."
 
 #~ msgid "Template:"
 #~ msgstr "©ablóna:"
-
-#~ msgid "Shape"
-#~ msgstr "Tvar"
 
 #~ msgid "Height:"
 #~ msgstr "Vý¹ka:"
@@ -6622,18 +6674,6 @@ msgstr "Ulo¾i» text..."
 
 #~ msgid "Paper format"
 #~ msgstr "Formát papiera"
-
-#~ msgid "Select Font"
-#~ msgstr "Vybra» písmo"
-
-#~ msgid "Font st&yle"
-#~ msgstr "©&týl písma"
-
-#~ msgid "Stri&keout"
-#~ msgstr "Preèia&rknuté"
-
-#~ msgid "&Underline"
-#~ msgstr "Po&dèiarknuté"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Chyba pri tlaèi"

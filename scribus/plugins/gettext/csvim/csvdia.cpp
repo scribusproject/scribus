@@ -1,4 +1,5 @@
 #include "csvdia.h"
+#include "cvsida.moc"
 
 extern QPixmap loadIcon(QString nam);
 

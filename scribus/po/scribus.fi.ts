@@ -1547,6 +1547,37 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     </message>
 </context>
 <context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Peruuta</translation>
+    </message>
+</context>
+<context>
     <name>CupsOptions</name>
     <message>
         <source>No</source>
@@ -2601,7 +2632,7 @@ joita on tarkoitus katsella näytöltä</translation>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Kirjasinten esikatselu</translation>
+        <translation type="obsolete">Kirjasinten esikatselu</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2622,6 +2653,10 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Wowen silk pyjamas exchanged for blue quarz</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5187,10 +5222,6 @@ Pelkän sivunumeron lisäksi voit käyttää
         <translation>&amp;Peruuta</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
     </message>
@@ -6975,6 +7006,65 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Kirjasin</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Koko</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="unfinished">Efektit</translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">&amp;Väri</translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Peruuta</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Sulje</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
@@ -7333,6 +7423,18 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>Text Files</source>
         <translation>Tekstitiedostot</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8530,7 +8632,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>&amp;Muokkaa kehystä</translation>
+        <translation type="obsolete">&amp;Muokkaa kehystä</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -8836,6 +8938,10 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <source>Document &amp;Information...</source>
         <translation>Asiakirjan &amp;tiedot...</translation>
     </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9109,6 +9215,13 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Sävy:</translation>
+    </message>
+</context>
+<context>
+    <name>SideBar</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ei tyyliä</translation>
     </message>
 </context>
 <context>
@@ -9802,7 +9915,7 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation>Asiakirjapohjia on ladattavissa osoitteesta http://www.scribus.net/ kohdasta Downloads.</translation>
+        <translation type="obsolete">Asiakirjapohjia on ladattavissa osoitteesta http://www.scribus.net/ kohdasta Downloads.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
@@ -9818,11 +9931,11 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Varmista, että kuvia voidaan käyttää vapaasti. Kirjasimien täytyy olla myös vapaita. Ellei kirjasimia voida jakaa älä kerää niitä tallentaessasi asiakirjaa mallina.</translation>
+        <translation type="obsolete">Varmista, että kuvia voidaan käyttää vapaasti. Kirjasimien täytyy olla myös vapaita. Ellei kirjasimia voida jakaa älä kerää niitä tallentaessasi asiakirjaa mallina.</translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Asiakirjapohjan tekijän tulisi noudattaa ohjeita jotka annettiin kohdassa &quot;Asiakirjamallien asennus&quot;. Tämä tarkoittaa, että malliasiakirjan käyttäjän tulisi voida vain purkaa asiakirjapohja mallihakemistoonsa ja alkaa käyttää sitä.</translation>
+        <translation type="obsolete">Asiakirjapohjan tekijän tulisi noudattaa ohjeita jotka annettiin kohdassa &quot;Asiakirjamallien asennus&quot;. Tämä tarkoittaa, että malliasiakirjan käyttäjän tulisi voida vain purkaa asiakirjapohja mallihakemistoonsa ja alkaa käyttää sitä.</translation>
     </message>
     <message>
         <source>Removing a template</source>
@@ -9830,7 +9943,7 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Malliasiakirjan poistaminen NFT dialogista poistaa ainoastaan asiakirjaan liittyvän kohdan template.xml-tiedostosta. Se ei poista asiakirjaa eikä siihen liittyviä tiedostoja. Poistaminen on ainoastaan mahdollista mikäli käyttäjällä on kirjoitusoikeus hakemistoon, jossa template.xml-tiedosto sijaitsee.</translation>
+        <translation type="obsolete">Malliasiakirjan poistaminen NFT dialogista poistaa ainoastaan asiakirjaan liittyvän kohdan template.xml-tiedostosta. Se ei poista asiakirjaa eikä siihen liittyviä tiedostoja. Poistaminen on ainoastaan mahdollista mikäli käyttäjällä on kirjoitusoikeus hakemistoon, jossa template.xml-tiedosto sijaitsee.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
@@ -9838,7 +9951,27 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation>Kopioi olemassaoleva template.xml tiedostoon, jonka nimeksi anna template.kieli_ALUE.xml (käytä samoja kieli- ja aluekoodeja, joita käytetään qm-tiedostoissa). Esimerkiksi suomenkielinen template.xml:n tulisi olla nimetty template.fi.xml. Kopion täytyy sijaita samassa hakemistossa alkuperäisen tiedoston kanssa, jotta NFT voi käyttää sitä.</translation>
+        <translation type="obsolete">Kopioi olemassaoleva template.xml tiedostoon, jonka nimeksi anna template.kieli_ALUE.xml (käytä samoja kieli- ja aluekoodeja, joita käytetään qm-tiedostoissa). Esimerkiksi suomenkielinen template.xml:n tulisi olla nimetty template.fi.xml. Kopion täytyy sijaita samassa hakemistossa alkuperäisen tiedoston kanssa, jotta NFT voi käyttää sitä.</translation>
+    </message>
+    <message>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

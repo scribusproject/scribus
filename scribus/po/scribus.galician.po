@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 1999-02-23 15:38+0200\n"
 "Last-Translator: Manuel Anxo Rei <manxopar@mixmail.com>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -3810,7 +3810,7 @@ msgid "Distribute/Align..."
 msgstr "Distribuir/Aliñar..."
 
 #, fuzzy
-msgid "&Edit Frame"
+msgid "&Edit Shape"
 msgstr "Editar Marco"
 
 msgid "&Attach Text to Path"
@@ -5031,6 +5031,31 @@ msgstr "Engadir a cores personalizadas"
 msgid "Select color"
 msgstr "Seleccionar cor"
 
+msgid "Font st&yle"
+msgstr "Estilo da Fonte"
+
+msgid "Stri&keout"
+msgstr "Riscada"
+
+msgid "&Underline"
+msgstr "Suliñada"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Figura"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Codificación"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Aplicar"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Seleccionar Fonte"
+
 #, fuzzy
 msgid "Page "
 msgstr "Páxina"
@@ -6068,6 +6093,32 @@ msgid "Text Files"
 msgstr "Ficheiro:"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Outras opcións"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+msgid "Value delimiter:"
+msgstr ""
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Intensidade"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Previsualizar"
 
@@ -6275,6 +6326,10 @@ msgid "Save as &Template..."
 msgstr "Gardar texto..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Editar Marco"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Documentos (*.scd);; Todos (*)"
 
@@ -6304,9 +6359,6 @@ msgstr "Gardar texto..."
 #, fuzzy
 #~ msgid "Template:"
 #~ msgstr "Novo Patrón"
-
-#~ msgid "Shape"
-#~ msgstr "Figura"
 
 #~ msgid "Height:"
 #~ msgstr "Altura:"
@@ -6476,15 +6528,6 @@ msgstr "Gardar texto..."
 
 #~ msgid "Paper format"
 #~ msgstr "formato do papel"
-
-#~ msgid "Font st&yle"
-#~ msgstr "Estilo da Fonte"
-
-#~ msgid "Stri&keout"
-#~ msgstr "Riscada"
-
-#~ msgid "&Underline"
-#~ msgstr "Suliñada"
 
 #~ msgid "Platinum-Style"
 #~ msgstr "Estilo Platino"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -3765,7 +3765,7 @@ msgid "Distribute/Align..."
 msgstr "Разпределено подравняване..."
 
 #, fuzzy
-msgid "&Edit Frame"
+msgid "&Edit Shape"
 msgstr "Редактиране на рамка"
 
 msgid "&Attach Text to Path"
@@ -4981,6 +4981,31 @@ msgstr "Добави към нагласените цветове"
 msgid "Select color"
 msgstr "Избери цвят"
 
+msgid "Font st&yle"
+msgstr "Стил"
+
+msgid "Stri&keout"
+msgstr "Двоен удар"
+
+msgid "&Underline"
+msgstr "Подчертаване"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Форма"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Стандартно"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Отрази промените"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Избери шрифт"
+
 #, fuzzy
 msgid "Page "
 msgstr "Страница"
@@ -6012,6 +6037,32 @@ msgid "Text Files"
 msgstr "Файл:"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Други опции"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+msgid "Value delimiter:"
+msgstr ""
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Сянка"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Преглед"
 
@@ -6218,6 +6269,10 @@ msgid "Save as &Template..."
 msgstr "Запиши текст..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Редактиране на рамка"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Документи (*.scd);; Всички документи (*)"
 
@@ -6247,9 +6302,6 @@ msgstr "Запиши текст..."
 #, fuzzy
 #~ msgid "Template:"
 #~ msgstr "Нова форма"
-
-#~ msgid "Shape"
-#~ msgstr "Форма"
 
 #~ msgid "Height:"
 #~ msgstr "Височина:"
@@ -6415,15 +6467,6 @@ msgstr "Запиши текст..."
 
 #~ msgid "Paper format"
 #~ msgstr "Формат на хартията"
-
-#~ msgid "Font st&yle"
-#~ msgstr "Стил"
-
-#~ msgid "Stri&keout"
-#~ msgstr "Двоен удар"
-
-#~ msgid "&Underline"
-#~ msgstr "Подчертаване"
 
 #~ msgid "Platinum-Style"
 #~ msgstr "Платинен"

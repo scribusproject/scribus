@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2004-06-17 18:49+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -4008,8 +4008,8 @@ msgid "Distribute/Align..."
 msgstr "Distribuisci/Allinea"
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Modifica cornice"
+msgid "&Edit Shape"
+msgstr "Modifica forma..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5202,6 +5202,34 @@ msgstr ""
 msgid "Select color"
 msgstr ""
 
+#, fuzzy
+msgid "Font st&yle"
+msgstr "Nessuno stile"
+
+#, fuzzy
+msgid "Stri&keout"
+msgstr "Barrato"
+
+#, fuzzy
+msgid "&Underline"
+msgstr "Sottolineato"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Esempio:"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Script:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "OK"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Seleziona nuovo font:"
+
 msgid "Page "
 msgstr ""
 
@@ -6228,6 +6256,32 @@ msgid "Text Files"
 msgstr "Campo di testo"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Opzioni stampante"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Il valore è"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+msgid "CSV_header"
+msgstr ""
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Rimuovi"
 
@@ -6413,6 +6467,10 @@ msgstr ""
 
 msgid "Save as &Template..."
 msgstr ""
+
+#, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Modifica cornice"
 
 #, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"

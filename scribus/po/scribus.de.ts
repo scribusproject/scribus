@@ -1800,6 +1800,37 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
 </context>
 <context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation>CSV Importer Optionen</translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation>Feldbegrenzer:</translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation>(TAB)</translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation>Wertbegrenzer:</translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation>Erste Zeile ist Überschrift</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+</context>
+<context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
@@ -3364,7 +3395,7 @@ Bildschirm betrachten wollen</translation>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Vorschau für Schriftarten</translation>
+        <translation type="obsolete">Vorschau für Schriftarten</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3385,6 +3416,10 @@ Bildschirm betrachten wollen</translation>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>The quick brown fox jumps over the lazy dog</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation>Schriftartenvorschau</translation>
     </message>
 </context>
 <context>
@@ -9354,6 +9389,65 @@ Datei wurde nicht gefunden.
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation>&amp;Schriftart</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation>Schrifts&amp;til</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Größe</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation>Effekte</translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation>Durch&amp;gestrichen</translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation>&amp;Unterstrichen</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation>&amp;Farbe</translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation>Beispiel</translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation>Schr&amp;iftsystem</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Anwenden</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation>Schriftart auswählen</translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
@@ -9842,6 +9936,18 @@ wirklich überschreiben?</translation>
     <message>
         <source>Text Files</source>
         <translation>Textdateien</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation>Komma separierte Daten</translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation>CSV_data</translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation>CSV_Vorspann</translation>
     </message>
 </context>
 <context>
@@ -11384,7 +11490,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>Form &amp;bearbeiten</translation>
+        <translation type="obsolete">Form &amp;bearbeiten</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -11725,6 +11831,10 @@ nicht speichern</translation>
     <message>
         <source>&amp;Undo Object Change</source>
         <translation>&amp;Rückgängig: Objekt ändern</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation>&amp;Form bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -12071,6 +12181,13 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>&amp;Shade:</source>
         <translation>Ton&amp;wert:</translation>
+    </message>
+</context>
+<context>
+    <name>SideBar</name>
+    <message>
+        <source>No Style</source>
+        <translation>Kein Stil</translation>
     </message>
 </context>
 <context>
@@ -13016,7 +13133,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation>Sie finden weitere Vorlagen im Downloadbereich von http://www.scribus.net.</translation>
+        <translation type="obsolete">Sie finden weitere Vorlagen im Downloadbereich von http://www.scribus.net.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
@@ -13032,11 +13149,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Die von Ihnen verwendeten Bilder müssen überall benutzt werden können. Auch Fonts müssen ausgewählt sein. Wenn Sie Schriftarten nicht mit verbreiten können, dann lassen Sie sie beim Speichern aus.</translation>
+        <translation type="obsolete">Die von Ihnen verwendeten Bilder müssen überall benutzt werden können. Auch Fonts müssen ausgewählt sein. Wenn Sie Schriftarten nicht mit verbreiten können, dann lassen Sie sie beim Speichern aus.</translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wenn Sie selber Vorlagen bereitstellen, sollten Sie vorher ausprobieren, ob sie auch korrekt funktionieren. Das heißt, wenn Sie die Vorlage ins angegebene Verzeichnis kopieren, sollte sie sofort einsatzbereit sein.</translation>
+        <translation type="obsolete">Wenn Sie selber Vorlagen bereitstellen, sollten Sie vorher ausprobieren, ob sie auch korrekt funktionieren. Das heißt, wenn Sie die Vorlage ins angegebene Verzeichnis kopieren, sollte sie sofort einsatzbereit sein.</translation>
     </message>
     <message>
         <source>Removing a template</source>
@@ -13044,7 +13161,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Wenn Sie eine Vorlage hier entfernen, wird nur der Eintrag in template.xml gelöscht, die Vorlagendateien an sich bleiben erhalten. Außerdem erscheint das Popup-Menü mit Entfernen nur, wenn sie Schreibrechte auf template.xml besitzen.</translation>
+        <translation type="obsolete">Wenn Sie eine Vorlage hier entfernen, wird nur der Eintrag in template.xml gelöscht, die Vorlagendateien an sich bleiben erhalten. Außerdem erscheint das Popup-Menü mit Entfernen nur, wenn sie Schreibrechte auf template.xml besitzen.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
@@ -13052,6 +13169,26 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation type="obsolete">Kopieren Sie eine bestehende template.xml nach template.lang_COUNTRY.xml, wobei Sie denselben Ländercode benutzen sollten wie die qm-Datei für Ihre Sprache auch hat. Außerdem muss die Kopie im selben Verzeichnis wie das Original liegen.</translation>
+    </message>
+    <message>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation>Dokumentvorlagen können unter http://www.scribus.net/ im Downloadbereich gefunden werden.</translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation>Stellen Sie sicher daß Bilder und Schriften frei verwendet werden können.</translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation>Wenn Sie selber Vorlagen bereitstellen, sollten Sie vorher ausprobieren, ob sie auch korrekt funktionieren. Das heißt, wenn Sie die Vorlage ins angegebene Verzeichnis kopieren, sollte sie sofort einsatzbereit sein.</translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation>Wenn Sie eine Vorlage hier entfernen, wird nur der Eintrag in template.xml gelöscht, die Vorlagendateien an sich bleiben erhalten. Außerdem erscheint das Popup-Menü mit Entfernen nur, wenn sie Schreibrechte auf template.xml besitzen.</translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Kopieren Sie eine bestehende template.xml nach template.lang_COUNTRY.xml, wobei Sie denselben Ländercode benutzen sollten wie die qm-Datei für Ihre Sprache auch hat. Außerdem muss die Kopie im selben Verzeichnis wie das Original liegen.</translation>
     </message>
 </context>

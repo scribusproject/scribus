@@ -136,4 +136,21 @@ tr("Cancel");
 tr("&Add to Custom Colors");
 tr("Select color");
 }
+QFontDialog::QFontDialog()
+{
+tr("&Font");
+tr("Font st&yle");
+tr("&Size");
+tr("Effects");
+tr("Stri&keout");
+tr("&Underline");
+tr("&Color");
+tr("Sample");
+tr("Scr&ipt");
+tr("OK");
+tr("Apply");
+tr("Cancel");
+tr("Close");
+tr("Select Font");
+}
 

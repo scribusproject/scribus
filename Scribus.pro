@@ -353,6 +353,8 @@ SOURCES += scribus/align.cpp \
            scribus/plugins/scriptplugin/scriptplugin.cpp \
            scribus/plugins/svgexplugin/svgexplugin.cpp \
            scribus/plugins/svgimplugin/svgplugin.cpp \
+           scribus/plugins/gettext/csvim/csvdia.cpp \
+           scribus/plugins/gettext/csvim/csvim.cpp \
            scribus/plugins/gettext/htmlim/htmlim.cpp \
            scribus/plugins/gettext/htmlim/htmlreader.cpp \
            scribus/plugins/gettext/txtim/txtim.cpp
@@ -363,6 +365,7 @@ TRANSLATIONS += scribus/po/scribus.br.ts \
                 scribus/po/scribus.de.ts \
                 scribus/po/scribus.en_GB.ts \
                 scribus/po/scribus.fi.ts \
+                scribus/po/scribus.nb_NO.ts \
                 scribus/po/scribus.no_NO.ts \
                 scribus/po/scribus.pl_PL.ts \
                 scribus/po/scribus.ru.ts \

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2003-07-30 09:04+0700\n"
 "Last-Translator: Triyan W. Nugroho <iyan_kid@yahoo.com>\n"
 "Language-Team: Bahasa Indonesia <id@li.org>\n"
@@ -3842,8 +3842,8 @@ msgid "Distribute/Align..."
 msgstr "Sebar/Bariskan..."
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Edit Frame"
+msgid "&Edit Shape"
+msgstr "Edit Bentuk..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5074,6 +5074,31 @@ msgstr "T&ambahkan ke Warna Sendiri"
 msgid "Select color"
 msgstr "Pilih warna"
 
+msgid "Font st&yle"
+msgstr "Ga&ya Font"
+
+#, fuzzy
+msgid "Stri&keout"
+msgstr "Stri&keout"
+
+msgid "&Underline"
+msgstr "&Garis bawah"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Bentuk"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Skrip:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Terapkan"
+
+msgid "Select Font"
+msgstr "Pilih Font"
+
 #, fuzzy
 msgid "Page "
 msgstr "Halaman"
@@ -6126,6 +6151,33 @@ msgid "Text Files"
 msgstr "Field Teks"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Pilihan Printer"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Nilainya adalah"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Tingkat Kegelapan"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Tampilan Prapandang"
 
@@ -6340,6 +6392,10 @@ msgid "Save as &Template..."
 msgstr "Simpan Teks..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Edit Frame"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Dokumen (*.sla *.scd);; Semua File (*)"
 
@@ -6387,9 +6443,6 @@ msgstr "Simpan Teks..."
 
 #~ msgid "Template:"
 #~ msgstr "Template:"
-
-#~ msgid "Shape"
-#~ msgstr "Bentuk"
 
 #~ msgid "Height:"
 #~ msgstr "Tinggi:"
@@ -6582,15 +6635,6 @@ msgstr "Simpan Teks..."
 
 #~ msgid "Paper format"
 #~ msgstr "Format kertas"
-
-#~ msgid "Select Font"
-#~ msgstr "Pilih Font"
-
-#~ msgid "Font st&yle"
-#~ msgstr "Ga&ya Font"
-
-#~ msgid "&Underline"
-#~ msgstr "&Garis bawah"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Kesalahan Cetak"

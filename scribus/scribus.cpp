@@ -738,7 +738,7 @@ void ScribusApp::initMenuBar()
 	SCustom = new Autoforms(0);
 	ShapeMenu->insertItem(SCustom);
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
-	ShapeEdit = ShapeMenu->insertItem( tr("&Edit Frame"), this, SLOT(ToggleFrameEdit()));
+	ShapeEdit = ShapeMenu->insertItem( tr("&Edit Shape"), this, SLOT(ToggleFrameEdit()));
 	ShapeM = ObjMenu->insertItem( tr("&Shape"), ShapeMenu);
 	PfadT = ObjMenu->insertItem( tr("&Attach Text to Path"), this, SLOT(Pfadtext()));
 	PfadDT = ObjMenu->insertItem( tr("&Detach Text from Path"), this, SLOT(noPfadtext()));
@@ -3260,6 +3260,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		bool cmsu = CMSuse;
 		CMSuse = false;
 #endif
+		ScApp->ScriptRunning = true;
 		if(!ss->ReadDoc(fi.fileName(), Prefs.AvailFonts, doc, view, FProg))
 		{
 			view->close();
@@ -3268,6 +3269,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			delete view;
 			delete doc;
 			delete w;
+			ScApp->ScriptRunning = false;
 			FMess->setText("");
 			FProg->reset();
 			ActWin = NULL;
@@ -3276,6 +3278,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			return false;
 		}
 		delete ss;
+		ScApp->ScriptRunning = false;
 		FMess->setText("");
 		FProg->reset();
 #ifdef HAVE_CMS
@@ -3522,10 +3525,14 @@ void ScribusApp::slotFileOpen()
 		}
 		if (b->PType == 4)
 		{
-//			gtGetText* gt = new gtGetText();
-//			gt->run(false);
-//			delete gt;
- 			LoadEnc = "";
+			gtGetText* gt = new gtGetText();
+			gt->run(false);
+			delete gt;
+			if (doc->Trenner->AutoCheck)
+				doc->Trenner->slotHyphenate(b);
+			doc->ActPage->update();
+			slotDocCh();
+/* 			LoadEnc = "";
  			QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
  			if (!fileName.isEmpty())
  			{
@@ -3540,7 +3547,7 @@ void ScribusApp::slotFileOpen()
  					doc->Trenner->slotHyphenate(b);
  				doc->ActPage->update();
  				slotDocCh();
- 			}
+ 			} */
 		}
 	}
 }

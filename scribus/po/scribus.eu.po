@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2003-12-15 23:36+0100\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>\n"
 "Language-Team: basque <itzulpena@euskalgnu.org>\n"
@@ -3870,8 +3870,8 @@ msgid "Distribute/Align..."
 msgstr "Banatu/Lerrokatu..."
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Editatu markoa"
+msgid "&Edit Shape"
+msgstr "Editatu forma..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5114,6 +5114,29 @@ msgstr "&Gehitu kolore pertsonalizatuei"
 msgid "Select color"
 msgstr "Hautatu kolorea"
 
+msgid "Font st&yle"
+msgstr "Letra-tipoaren e&stiloa"
+
+msgid "Stri&keout"
+msgstr "&Marratua"
+
+msgid "&Underline"
+msgstr "&Azpimarra"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Forma"
+
+msgid "Scr&ipt"
+msgstr "Scr&ipt-a"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Aplikatu"
+
+msgid "Select Font"
+msgstr "Hautatu letra-tipoa"
+
 #, fuzzy
 msgid "Page "
 msgstr "Orrialdea"
@@ -6175,6 +6198,33 @@ msgid "Text Files"
 msgstr "Testu-eremua"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Inprimagailuaren aukerak"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Balioa hau da:"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Itzala"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Inprimatzeko aurrebista"
 
@@ -6391,6 +6441,10 @@ msgid "Save as &Template..."
 msgstr "Gorde testua..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Editatu markoa"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Dokumentuak (*.pdf);; Fitxategi guztiak (*)"
 
@@ -6457,9 +6511,6 @@ msgstr "Gorde testua..."
 
 #~ msgid "Template:"
 #~ msgstr "Txantiloiak:"
-
-#~ msgid "Shape"
-#~ msgstr "Forma"
 
 #~ msgid "Height:"
 #~ msgstr "Altuera:"
@@ -6669,9 +6720,6 @@ msgstr "Gorde testua..."
 #~ msgid "Closes this Dialog"
 #~ msgstr "Elkarrizketa-koadro hau ixten du"
 
-#~ msgid "Select Font"
-#~ msgstr "Hautatu letra-tipoa"
-
 #~ msgid "Horizontal flipped"
 #~ msgstr "Horizontalki iraulita"
 
@@ -6869,18 +6917,6 @@ msgstr "Gorde testua..."
 
 #~ msgid "Paper format"
 #~ msgstr "Paper-formatua"
-
-#~ msgid "Font st&yle"
-#~ msgstr "Letra-tipoaren e&stiloa"
-
-#~ msgid "Stri&keout"
-#~ msgstr "&Marratua"
-
-#~ msgid "&Underline"
-#~ msgstr "&Azpimarra"
-
-#~ msgid "Scr&ipt"
-#~ msgstr "Scr&ipt-a"
 
 #~ msgid "Platinum-Style"
 #~ msgstr "Platinum estiloa"

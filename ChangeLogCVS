@@ -1,5 +1,8 @@
 Changes since Version 1.1.7
 
+15.08.2004
+	* bug     #963: Scribus crashes after launching font substitution dialog with document templates
+
 14.08.2004
 	* feature #828: Group members should be hidden for aligning and other operations
 

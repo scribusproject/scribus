@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -3869,8 +3869,8 @@ msgid "Distribute/Align..."
 msgstr "Iðskirstyti/iðlygiuoti..."
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Keisti rëmelá"
+msgid "&Edit Shape"
+msgstr "Taisyti..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5115,6 +5115,31 @@ msgstr "P&apildyti darbo spalvas"
 msgid "Select color"
 msgstr "Pasirink spalvà"
 
+msgid "Font st&yle"
+msgstr "Ðriftas ir &stilius"
+
+msgid "Stri&keout"
+msgstr "Perb&raukta"
+
+msgid "&Underline"
+msgstr "Pa&braukta"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Forma"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Skriptas:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Pritaikyti"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Pasirink ðriftà"
+
 #, fuzzy
 msgid "Page "
 msgstr "Puslapis"
@@ -6160,6 +6185,33 @@ msgid "Text Files"
 msgstr "Teksto laukelis"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Kitos parinktys"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Reikðmë yra"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Ðeðëlis"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Pasiþiûrëti kaip atrodys"
 
@@ -6371,6 +6423,10 @@ msgid "Save as &Template..."
 msgstr "Iðsaugoti kaip tekstà..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Keisti rëmelá"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
@@ -6419,9 +6475,6 @@ msgstr "Iðsaugoti kaip tekstà..."
 #, fuzzy
 #~ msgid "Template:"
 #~ msgstr "Naujas ðablonas"
-
-#~ msgid "Shape"
-#~ msgstr "Forma"
 
 #~ msgid "Height:"
 #~ msgstr "Aukðtis:"
@@ -6617,15 +6670,6 @@ msgstr "Iðsaugoti kaip tekstà..."
 
 #~ msgid "Paper format"
 #~ msgstr "Lapo formatas"
-
-#~ msgid "Font st&yle"
-#~ msgstr "Ðriftas ir &stilius"
-
-#~ msgid "Stri&keout"
-#~ msgstr "Perb&raukta"
-
-#~ msgid "&Underline"
-#~ msgstr "Pa&braukta"
 
 #~ msgid "Platinum-Style"
 #~ msgstr "Platinos-stilius"

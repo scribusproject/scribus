@@ -864,10 +864,6 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
         <translation>Type:</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Script:</source>
         <translation>Script:</translation>
     </message>
@@ -1216,10 +1212,6 @@ Vælg venligst et andet.</translation>
         <translation>Tekst over ikon</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1392,10 +1384,6 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
         <translation>RGB</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1565,6 +1553,37 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     <message>
         <source>Free radial Gradient</source>
         <translation>Fri radial gradient</translation>
+    </message>
+</context>
+<context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
     </message>
 </context>
 <context>
@@ -1928,10 +1947,6 @@ eventuelt efterfulgt af en bindestreg og en ISI-3166 landekode, f.eks en-GB, fr-
     <message>
         <source>Setup Printer</source>
         <translation>Printerindstilling</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -2629,7 +2644,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Font-visning</translation>
+        <translation type="obsolete">Font-visning</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2650,6 +2665,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Vævet silkepyjamas byttet med blå kvarts</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2736,10 +2755,6 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
 </context>
 <context>
     <name>HelpBrowser</name>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Desværre er der ingen manual tilgængelig! Se venligst http://scribus.net for den nyeste dokumentation.</translation>
@@ -3044,10 +3059,6 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>Add a new Layer</source>
         <translation>Tilføj et ny lag</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
@@ -3530,10 +3541,6 @@ Vælg venligst et andet.</translation>
     <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source> %</source>
@@ -4441,10 +4448,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Nulstil kontrolpunkter</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>&amp;Absolute Coordinates</source>
         <translation>A&amp;bsolutte coordinater</translation>
     </message>
@@ -5234,10 +5237,6 @@ en række sider eller et enkelt sidenummer.</translation>
         <translation>&amp;Annullér</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF filer (*.pdf);;Alle filer (*)</translation>
     </message>
@@ -5954,10 +5953,6 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     <message>
         <source>min</source>
         <translation>min</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source> %</source>
@@ -7027,6 +7022,65 @@ Kontrollér sti og filnavn.</translation>
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Font</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Størrelse</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="unfinished">Effekter</translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">Far&amp;ve</translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Luk</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>Cu&amp;t</source>
@@ -7386,6 +7440,18 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Text Files</source>
         <translation>Tekst filer</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8250,10 +8316,6 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <translation>Javascripts...</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>50%</source>
         <translation>50%</translation>
     </message>
@@ -8587,7 +8649,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>&amp;Redigër ramme</translation>
+        <translation type="obsolete">&amp;Redigër ramme</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -8893,6 +8955,10 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <source>&amp;Undo Object Change</source>
         <translation>&amp;Fortryd ændring af objekt</translation>
     </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9166,6 +9232,13 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Farvemætning:</translation>
+    </message>
+</context>
+<context>
+    <name>SideBar</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen typografier</translation>
     </message>
 </context>
 <context>
@@ -9859,7 +9932,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation>Dokument skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
+        <translation type="obsolete">Dokument skabeloner kan hentes fra http://www.scribus.net i &quot;Downloads&quot; afsnittet.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
@@ -9875,11 +9948,11 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Vær sikker på at billeder du bruger kan bruges alle steder. Fonte skal også tjekkes for dette. Hvis fonte ikke kan deles så medtag dem ikke, når du gemmer som skabelon.</translation>
+        <translation type="obsolete">Vær sikker på at billeder du bruger kan bruges alle steder. Fonte skal også tjekkes for dette. Hvis fonte ikke kan deles så medtag dem ikke, når du gemmer som skabelon.</translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation> Den der fremstiller en skabelon skal også sikre sig, at de installerede skabeloner kan anvendes hos en selv. Hvilket betyder, at en bruger kan nedhente en pakke med skabeloner og være i stand til at udpakke den i skabelonmappen og derefter begynde at bruge dem.</translation>
+        <translation type="obsolete"> Den der fremstiller en skabelon skal også sikre sig, at de installerede skabeloner kan anvendes hos en selv. Hvilket betyder, at en bruger kan nedhente en pakke med skabeloner og være i stand til at udpakke den i skabelonmappen og derefter begynde at bruge dem.</translation>
     </message>
     <message>
         <source>Removing a template</source>
@@ -9887,7 +9960,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Når du fjerner en skabelon fra NFT vinduet slettes kun linien fra template.xml. Det vil ikke slette dokumentfilerne. Pop op menuen vil kun vise &quot;Slette&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
+        <translation type="obsolete">Når du fjerner en skabelon fra NFT vinduet slettes kun linien fra template.xml. Det vil ikke slette dokumentfilerne. Pop op menuen vil kun vise &quot;Slette&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
@@ -9895,7 +9968,27 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation>Kopiér en eksisterende template.xml til en fil med navnet template.lang_COUNTRY.xml (brug den samme kode, som bruges for qm filen for dit sprog), f.eks. template.fi.xml for den finske template.xml. Kopien skal være placeret i den samme mappe, som den originale template.xml for at NFT kan indlæse den.</translation>
+        <translation type="obsolete">Kopiér en eksisterende template.xml til en fil med navnet template.lang_COUNTRY.xml (brug den samme kode, som bruges for qm filen for dit sprog), f.eks. template.fi.xml for den finske template.xml. Kopien skal være placeret i den samme mappe, som den originale template.xml for at NFT kan indlæse den.</translation>
+    </message>
+    <message>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

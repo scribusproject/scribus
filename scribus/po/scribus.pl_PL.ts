@@ -1844,6 +1844,37 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     </message>
 </context>
 <context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anuluj</translation>
+    </message>
+</context>
+<context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
@@ -3406,7 +3437,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Podgląd czcionek</translation>
+        <translation type="obsolete">Podgląd czcionek</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3427,6 +3458,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Zażółć Gęślą Jaźń AaBbCc1!2@3#</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished">Podgląd czcionek</translation>
     </message>
 </context>
 <context>
@@ -9674,6 +9709,65 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Czcionka</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Rozmiar</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">&amp;Kolory</translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Zastosuj</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anuluj</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Zamknij</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation type="unfinished">Wybierz czcionkę</translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
@@ -10117,6 +10211,18 @@ Sprawdź katalog i nazwę pliku.</translation>
     <message>
         <source>Text Files</source>
         <translation>Plików tekstowych</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11690,7 +11796,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>&amp;Edycja ramki</translation>
+        <translation type="obsolete">&amp;Edycja ramki</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -12031,6 +12137,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>&amp;Undo Object Change</source>
         <translation>&amp;Cofnij zmianę obiektu</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12388,6 +12498,13 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>&amp;Shade:</source>
         <translation>C&amp;ieniowanie:</translation>
+    </message>
+</context>
+<context>
+    <name>SideBar</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Bez stylu</translation>
     </message>
 </context>
 <context>
@@ -13349,7 +13466,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation>Szablony dokumentów można znaleźć na stronie http://www.scribus.net/ w sekcji Downloads.</translation>
+        <translation type="obsolete">Szablony dokumentów można znaleźć na stronie http://www.scribus.net/ w sekcji Downloads.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
@@ -13365,11 +13482,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Upewnij się, że obrazki mogą być używane dowolnie. Czcionki muszą być również sprawdzone pod tym kątem. Jeśli czcionki nie mogą być udostępniane nie dołączaj ich podczas zapisywania jako szablon.</translation>
+        <translation type="obsolete">Upewnij się, że obrazki mogą być używane dowolnie. Czcionki muszą być również sprawdzone pod tym kątem. Jeśli czcionki nie mogą być udostępniane nie dołączaj ich podczas zapisywania jako szablon.</translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Twórcy szablonów powinni również zadbać o to, by ich szablony można było zainstalować przez dialog &quot;Nowy z szablonu&quot;. Oznacza to, iż użytkownik powinien mieć możliwość ściągnięcia archiwum z szablonem, rozpakowania go do katalogu szablonów i użycia go.</translation>
+        <translation type="obsolete">Twórcy szablonów powinni również zadbać o to, by ich szablony można było zainstalować przez dialog &quot;Nowy z szablonu&quot;. Oznacza to, iż użytkownik powinien mieć możliwość ściągnięcia archiwum z szablonem, rozpakowania go do katalogu szablonów i użycia go.</translation>
     </message>
     <message>
         <source>Removing a template</source>
@@ -13377,7 +13494,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Usunięcie szablonu z okienka dialogowego usunie jedynie wpis z template.xml. Pliki dokumentów nie zostaną skasowane.
+        <translation type="obsolete">Usunięcie szablonu z okienka dialogowego usunie jedynie wpis z template.xml. Pliki dokumentów nie zostaną skasowane.
 Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa do zapisu pliku template.xml.</translation>
     </message>
     <message>
@@ -13386,7 +13503,27 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation>Skopiuj istniejący template.xml do pliku o nazwie template.kod_KRAJU.xml (użyj tego samego kodu kraju co w pliku qm dla twojego języka), na przykład template.fi.xml jest to template.xml w języku fińskim. Kopia musi znajdować się w tym samym katalogu co oryginalny template.xml by NZS mógł go odnaleźć.</translation>
+        <translation type="obsolete">Skopiuj istniejący template.xml do pliku o nazwie template.kod_KRAJU.xml (użyj tego samego kodu kraju co w pliku qm dla twojego języka), na przykład template.fi.xml jest to template.xml w języku fińskim. Kopia musi znajdować się w tym samym katalogu co oryginalny template.xml by NZS mógł go odnaleźć.</translation>
+    </message>
+    <message>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1786,6 +1786,37 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
 </context>
 <context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Гаразд</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Вихід</translation>
+    </message>
+</context>
+<context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
@@ -3272,7 +3303,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Попередній перегляд шрифта</translation>
+        <translation type="obsolete">Попередній перегляд шрифта</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3296,7 +3327,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Fonts Preview</source>
-        <translation type="obsolete">Попередній перегляд шрифтів</translation>
+        <translation type="unfinished">Попередній перегляд шрифтів</translation>
     </message>
 </context>
 <context>
@@ -9046,6 +9077,65 @@ Check path and filename.</source>
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished">&amp;Шрифт</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Розмір</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="unfinished">Ефекти</translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">&amp;Колір</translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Гаразд</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Застосувати</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Вихід</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Зачинити</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
@@ -9469,6 +9559,18 @@ Check path and filename.</source>
     <message>
         <source>Text Files</source>
         <translation>Текстові файли</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10948,7 +11050,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>Редагувати ра&amp;мку</translation>
+        <translation type="obsolete">Редагувати ра&amp;мку</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -11290,6 +11392,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>&amp;Undo Object Change</source>
         <translation>Відмінити &amp;зміну об&apos;єкта</translation>
     </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -11623,6 +11729,13 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Тінь:</translation>
+    </message>
+</context>
+<context>
+    <name>SideBar</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12496,7 +12609,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation>Шаблони документів можна знайти на http://www.scribus.net/  в секції Downloads.</translation>
+        <translation type="obsolete">Шаблони документів можна знайти на http://www.scribus.net/  в секції Downloads.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
@@ -12512,11 +12625,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Ви маєте пересвідчитися, що використані Вами зображення дозволяється використовувати без обмежень. Така ж перевірка має бути виконана для шрифтів. Якщо шрифти не дозволяється розповсюджувати, то не включайте їх у архів шаблона.</translation>
+        <translation type="obsolete">Ви маєте пересвідчитися, що використані Вами зображення дозволяється використовувати без обмежень. Така ж перевірка має бути виконана для шрифтів. Якщо шрифти не дозволяється розповсюджувати, то не включайте їх у архів шаблона.</translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Автор шаблона повинен пересвідчитися, що стандартна процедура установки шаблонів правильно працює для підготовленого ним пакета. Це значить, що користувач повинен мати змогу зкачати пакет з шаблоном, розпакувати його в директорію для шаблонів і почати ним користуватися.</translation>
+        <translation type="obsolete">Автор шаблона повинен пересвідчитися, що стандартна процедура установки шаблонів правильно працює для підготовленого ним пакета. Це значить, що користувач повинен мати змогу зкачати пакет з шаблоном, розпакувати його в директорію для шаблонів і почати ним користуватися.</translation>
     </message>
     <message>
         <source>Removing a template</source>
@@ -12524,7 +12637,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Видалення шаблона з НЗШ діалога лише приводить до його видалення з файла template.xml. Ця процедура не приводить до видалення файлів. Меню видалення доступне лише при наявності у Вас права на редагування файла template.xml.</translation>
+        <translation type="obsolete">Видалення шаблона з НЗШ діалога лише приводить до його видалення з файла template.xml. Ця процедура не приводить до видалення файлів. Меню видалення доступне лише при наявності у Вас права на редагування файла template.xml.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
@@ -12532,7 +12645,27 @@ Please choose another.</source>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation>Скопіюйте існуючий файл template.xml у файл template.lang_COUNTRY.xml (використовуйте той же код країни, що і в qm файлі для Вашої мови). Наприклад, template.fi.xml для Фінської мови. Перекладений файл має бути в тій же директорії, що і основний template.xml файл, щоб НЗШ модуль міг його завантажити.</translation>
+        <translation type="obsolete">Скопіюйте існуючий файл template.xml у файл template.lang_COUNTRY.xml (використовуйте той же код країни, що і в qm файлі для Вашої мови). Наприклад, template.fi.xml для Фінської мови. Перекладений файл має бути в тій же директорії, що і основний template.xml файл, щоб НЗШ модуль міг його завантажити.</translation>
+    </message>
+    <message>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -177,7 +177,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_ES\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2002-09-22 21:20+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <ca@li.org>\n"
@@ -4041,8 +4041,8 @@ msgid "Distribute/Align..."
 msgstr "Distribución/Alineación..."
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Editar marco"
+msgid "&Edit Shape"
+msgstr "Editar..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5284,6 +5284,31 @@ msgstr "&Añade a colores propios"
 msgid "Select color"
 msgstr "Seleccionar color"
 
+msgid "Font st&yle"
+msgstr "&Estilo de la fuente"
+
+msgid "Stri&keout"
+msgstr "&Tachar"
+
+msgid "&Underline"
+msgstr "&Subrayar"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Figura"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Script:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Aplicar"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Seleccionar fuente"
+
 #, fuzzy
 msgid "Page "
 msgstr "Página"
@@ -6328,6 +6353,33 @@ msgid "Text Files"
 msgstr "Campo Texto"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Otras opciones"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Valor es el"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Intensidad"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Previsualizar"
 
@@ -6539,6 +6591,10 @@ msgid "Save as &Template..."
 msgstr "Guardar el texto..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Editar marco"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Documentos (*.scd);; Todos los ficheros (*)"
 
@@ -6587,9 +6643,6 @@ msgstr "Guardar el texto..."
 #, fuzzy
 #~ msgid "Template:"
 #~ msgstr "Nueva Plantilla"
-
-#~ msgid "Shape"
-#~ msgstr "Figura"
 
 #~ msgid "Height:"
 #~ msgstr "Altura:"
@@ -6785,15 +6838,6 @@ msgstr "Guardar el texto..."
 
 #~ msgid "Paper format"
 #~ msgstr "Formato del papel"
-
-#~ msgid "Font st&yle"
-#~ msgstr "&Estilo de la fuente"
-
-#~ msgid "Stri&keout"
-#~ msgstr "&Tachar"
-
-#~ msgid "&Underline"
-#~ msgstr "&Subrayar"
 
 #~ msgid "Platinum-Style"
 #~ msgstr "Estilo-Platino"

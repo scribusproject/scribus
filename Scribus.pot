@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3403,7 +3403,7 @@ msgstr ""
 msgid "Distribute/Align..."
 msgstr ""
 
-msgid "&Edit Frame"
+msgid "&Edit Shape"
 msgstr ""
 
 msgid "&Attach Text to Path"
@@ -4451,6 +4451,27 @@ msgstr ""
 msgid "Select color"
 msgstr ""
 
+msgid "Font st&yle"
+msgstr ""
+
+msgid "Stri&keout"
+msgstr ""
+
+msgid "&Underline"
+msgstr ""
+
+msgid "Sample"
+msgstr ""
+
+msgid "Scr&ipt"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "Select Font"
+msgstr ""
+
 msgid "Page "
 msgstr ""
 
@@ -5369,6 +5390,30 @@ msgid "html"
 msgstr ""
 
 msgid "Text Files"
+msgstr ""
+
+msgid "CSV Importer Options"
+msgstr ""
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+msgid "Value delimiter:"
+msgstr ""
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+msgid "CSV_header"
 msgstr ""
 
 msgid "Fonts Preview"

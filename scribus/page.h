@@ -130,6 +130,7 @@ public:
 	void ExpandSel(PageItem *b, int dir, int oldPos);
 	void deselectAll(PageItem *b);
 	void updateGradientVectors(PageItem *b);
+	void doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx = 0.0);
 	void getBoundingRect(PageItem *b, double *x1, double *y1, double *x2, double *y2);
 	void BuildAObj();
 	struct AlignObjs {  int ObjNr;

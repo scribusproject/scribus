@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.8\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2002-09-18 09:47+0300\n"
 "Last-Translator: erkan <Selamsana@uni.de>\n"
 "Language-Team: Türkçe <tr@li.org>\n"
@@ -4059,8 +4059,8 @@ msgid "Distribute/Align..."
 msgstr "Mesafe/Sıralama..."
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Çerçeve düzenle"
+msgid "&Edit Shape"
+msgstr "Düzenle..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5303,6 +5303,31 @@ msgstr "K&ullanıcı tanımlı renklere ekle"
 msgid "Select color"
 msgstr "Renk seç"
 
+msgid "Font st&yle"
+msgstr "Yazıtipi &biçemi"
+
+msgid "Stri&keout"
+msgstr "&Ortası çizgili"
+
+msgid "&Underline"
+msgstr "&Altı çizgili"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Biçim"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Script:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Uygula"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Yazıtipi seç"
+
 #, fuzzy
 msgid "Page "
 msgstr "Sayfa"
@@ -6349,6 +6374,33 @@ msgid "Text Files"
 msgstr "Metin alanı"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Diğer seçenekler"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Değer"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Gölge"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Önizleme"
 
@@ -6560,6 +6612,10 @@ msgid "Save as &Template..."
 msgstr "Metni kaydet..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Çerçeve düzenle"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Belgeler (*.sdc);; Bütün dosyalar (*)"
 
@@ -6608,9 +6664,6 @@ msgstr "Metni kaydet..."
 #, fuzzy
 #~ msgid "Template:"
 #~ msgstr "Yeni geçici sayfa"
-
-#~ msgid "Shape"
-#~ msgstr "Biçim"
 
 #~ msgid "Height:"
 #~ msgstr "Yükseklik:"
@@ -6806,15 +6859,6 @@ msgstr "Metni kaydet..."
 
 #~ msgid "Paper format"
 #~ msgstr "Sayfa biçemi"
-
-#~ msgid "Font st&yle"
-#~ msgstr "Yazıtipi &biçemi"
-
-#~ msgid "Stri&keout"
-#~ msgstr "&Ortası çizgili"
-
-#~ msgid "&Underline"
-#~ msgstr "&Altı çizgili"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Yazdırma hatası"

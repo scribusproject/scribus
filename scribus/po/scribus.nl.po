@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"POT-Creation-Date: 2004-08-15 12:03+0200\n"
 "PO-Revision-Date: 2003-07-20 10:00+0200\n"
 "Last-Translator: Jasja Glasbeek <jasja@benik.nl>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -3859,8 +3859,8 @@ msgid "Distribute/Align..."
 msgstr "Distribueer/Align..."
 
 #, fuzzy
-msgid "&Edit Frame"
-msgstr "Bewerkt Kader"
+msgid "&Edit Shape"
+msgstr "Bewerkt Vorm..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
@@ -5096,6 +5096,30 @@ msgstr "&Voegtoe aan Aangepaste Kleuren"
 msgid "Select color"
 msgstr "Kies Kleur"
 
+msgid "Font st&yle"
+msgstr "Lettertype St&yle"
+
+msgid "Stri&keout"
+msgstr "Door&halen"
+
+msgid "&Underline"
+msgstr "&Onderlijnen"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Vorm"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Script:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Toepassen"
+
+msgid "Select Font"
+msgstr "Selecteer Lettertype"
+
 #, fuzzy
 msgid "Page "
 msgstr "Pagina"
@@ -6149,6 +6173,33 @@ msgid "Text Files"
 msgstr "Tekst Veld"
 
 #, fuzzy
+msgid "CSV Importer Options"
+msgstr "Printer Opties"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Waarde is de"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Schaduw"
+
+#, fuzzy
 msgid "Fonts Preview"
 msgstr "Afdruk voorbeeld"
 
@@ -6363,6 +6414,10 @@ msgid "Save as &Template..."
 msgstr "Opslaan als Tekst..."
 
 #, fuzzy
+#~ msgid "&Edit Frame"
+#~ msgstr "Bewerkt Kader"
+
+#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Documenten (*.sla *.scd);; Alle Bestanden (*)"
 
@@ -6410,9 +6465,6 @@ msgstr "Opslaan als Tekst..."
 
 #~ msgid "Template:"
 #~ msgstr "Template:"
-
-#~ msgid "Shape"
-#~ msgstr "Vorm"
 
 #~ msgid "Height:"
 #~ msgstr "Hoogte:"
@@ -6613,18 +6665,6 @@ msgstr "Opslaan als Tekst..."
 
 #~ msgid "Paper format"
 #~ msgstr "Papier formaat"
-
-#~ msgid "Select Font"
-#~ msgstr "Selecteer Lettertype"
-
-#~ msgid "Font st&yle"
-#~ msgstr "Lettertype St&yle"
-
-#~ msgid "Stri&keout"
-#~ msgstr "Door&halen"
-
-#~ msgid "&Underline"
-#~ msgstr "&Onderlijnen"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Afdruk-Fouten"
