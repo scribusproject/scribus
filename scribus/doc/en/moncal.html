@@ -3,8 +3,9 @@
 <h2>A Quick Start Guide to Monitor Profiling with littlecms</h2>
 
 <h4>Overview</h4>
+<p><em>Author's note, the littlecms profilers are no longer directly available from littecms, nor are they supported by the littlecms author. Some distros do have them in package form, as well as source mirrors. Google is your friend. However, nothing else on Linux is capable of the profile creation so easily as the profile construction tools. They are worth tracking down in rpm or other package form.</em></p>
 
-<p>One of the best tools with littlecms is the profile construction tools, which are a separate download from <a href="http://www.littlecms.com/">www.littlecms.com</a>. There are five separate tools included in the package:</p>
+<p>One of the best tools with littlecms is the profile construction tools. </a>. There are five separate tools included in the package:</p>
 
 <ul>
 	<li>A monitor profiler</li>
@@ -18,7 +19,7 @@
 
 <h4>Installation</h4>
 
-<p>It is simple to untar and simply type <code>make</code> in the source directory. This will build all five tools and leave the executables in the root source directory. If you are fussy like me, you can go in an hand edit the make files to taste. There is an option to compile this as a KDE application, but if KDE is in a non standard location, it will not compile in this manner.</p>
+<p>It is simple to untar and simply type <code>make</code> in the source directory. This will build all five tools and leave the executables in the root source directory. If you are fussy like me, you can go in an hand edit the make files to taste. There is an option to compile this as a KDE application, but if KDE is in a non standard location, it will not compile in this manner. There is also available a patch availabe which enables correct compiling on Qt 3.x</p>
 
 <h4>Preparation</h4>
 
@@ -33,7 +34,7 @@
 
 <p><b>Explanation:</b> This step, helps to get your monitor to display with a closer match to the standards which are used in color measurement. Typically, most monitors are set at the factory to 9300k, which is too "cold" or bluish to depict colors in a balanced manner. After changing your monitor temperature to 6500k, you might think it has a yellowish cast, but walk away for a few minutes and return. Your eyes will adjust.</p>
 
-<p>Next, set monitor contrast to nearly 100%. Then you want to use the brightness controls to adjust the brightness, so you can see the following, so that each of the shades of gray is distinct.</p>
+<p>Next, set monitor contrast to nearly 100%. Then you want to use the brightness controls to adjust the brightness, so you can see the following, so that each of the shades of gray is distinct. KDE 3.3+ now ships with Kgamma, which is in the KDE Control Center. This is equally useful for your setup. </p>
 
 <table width="100%"><tr><td align="center"><img src="images/gammagrayscale.png" title="Adjust brightness so all shades of gray are visible." alt="gamma gray scale gradient" /></td></tr></table>
 
@@ -48,7 +49,7 @@
 <table width="100%"><tr><td align="center"><img src="images/monprof2.png" title="Setting gamma and monitor white space with qtmonitorprofiler." alt="Setting gamma and monitor white space with qtmonitorprofiler.">
 </td></tr></table>
 
-<p>Now that we have switched the monitor temperature to 6500K, set the same in the white point drop down list. Then, unless you know there is a specific reason to over ride the default sRGB, leave this as is. You do not need to name the profile as indicated just yet.</p>
+<p>Now that we have switched the monitor temperature to 6500K, set the same in the white point drop down list. Then, unless you know there is a specific reason to over ride the default sRGB, leave this as is. You do not need to name the profile as indicated just yet. Knowledgeable folks in India indicate 7500K is a more common setting for that area. </p>
 
 <p>Next adjust the slider to adjust the gamma so the two shades of gray blend together with the closest color match possible. Most IBM compatible PC's have a gamma setting between 2.1 and 2.4. Macs are generally 1.8. This the reason it is common to find images on edited on a PC looking darker on a Mac. If you monitor is older, it might have a slight color cast and you can try adjusting the individual color channel settings. Don't overdo it. Slight subtle adjustments are better.</p>
 
@@ -65,7 +66,7 @@
 <p>The last step is to <strong>click go</strong> and the profiler will create the icm file. This takes but a second or two. Now you can close the profiler for now.</p>
 
 <p>Then, copy the profile to the Scribus profiles directory from a console as root: <code># cp ./d650023.icm /usr/local/lib/scribus/profiles/</code> This is the default
-directory, your might be different if you installed from a package.</p>
+directory, your might be different if you installed from a package. You can also set it to a folder in your home directory.</p>
 
 <p>Now Scribus can use this profile for more accurately managing screen previews. Start or restart Scribus and go <strong>Settings &gt; Color Management</strong>. Enable color management and select the monitor profile as below:</p>
 
@@ -73,7 +74,7 @@ directory, your might be different if you installed from a package.</p>
 
 <p>By setting this monitor profile to be the default, you have enhanced the accuracy of your screen previews. You can selectively enable the gamut checking in your previews, but this is not quite perfected in littlecms. This is not a weakness is littlecms nor Scribus, but a limitation of the current icc specs. When enabling this consider the preview a warning - not definitive. The true test is what actually will print.</p>
 
-<p>You can also use this profile to enhance the previews in Corel Photopaint or other image editing programs like Photoshop which are color management savvy. Monitor colors and brightness vary over time, so re-profiling at least once every couple of months is a good idea. In professional settings, sometimes they are re-profiled every week</p>
+<p>You can also use this profile to enhance the previews in Corel Photopaint or other image editing programs like Photoshop which are color management savvy. Monitor colors and brightness vary over time, so re-profiling at least once every couple of months is a good idea. In professional settings, sometimes they are re-profiled every week.</p>
 
-<p><strong>Note 30:10:2003:</strong> The latest beta profiler for littlecms adds new features, including support for profiling digital cameras and additional enhancements. However, it is a Windows only program. Fortunately, it includes the updated lcms 1.11 and it installs and runs fine under any recent version of Wine.</p>
+<p><strong>Note:</strong> The latest beta profilers for littlecms adds new features, including support for profiling digital cameras and additional enhancements. However, it is a Windows only program. Fortunately, it includes the updated lcms 1.14 and it installs and runs fine under any recent version of Wine.</p>
 </qt>

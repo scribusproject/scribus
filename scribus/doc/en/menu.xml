@@ -30,7 +30,8 @@
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
 		</submenuitem>
-			<submenuitem text="Text Handling" file="text.html">
+			<submenuitem text="Document Text" file="text.html">
+			<submenuitem text="Doc. Info" file="docinfo.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
 	      </submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
