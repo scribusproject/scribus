@@ -54,6 +54,7 @@
 #include <qeventloop.h>
 #include <qprocess.h>
 #include <qscrollbar.h>
+#include <unistd.h>
 
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
@@ -2026,12 +2027,29 @@ void Page::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
 	Mpressed = false;
+	PageItem *b = 0;
 	if ((GroupSel) || (doku->AppMode != 1) || (doku->EditClip))
 	{
-		mousePressEvent(m);
+		if ((GroupSel) && (doku->AppMode == 1))
+		{
+			if (GetItem(&b))
+			{
+				if (b->isTableItem)
+				{
+					Deselect(false);
+					SelItem.append(b);
+					b->isSingleSel = true;
+					b->Select = true;
+					emit HaveSel(b->PType);
+					EmitValues(b);
+					b->paintObj();
+				}
+			}
+		}
+		else
+			mousePressEvent(m);
 		return;
 	}
-	PageItem *b = 0;
 	if (GetItem(&b))
 	{
 		if ((b->PType == 6) || (b->PType == 7) || (b->PType == 2) || (b->PType == 8))
@@ -2090,76 +2108,69 @@ void Page::scaleGroup(double scx, double scy)
 		bb->Sizing = false;
 		FPoint b, b1, t, t1, h, h1, g, tes, tes2;
 		double oldRot, oldLocalX, oldLocalY;
-/*		switch (HowTo)
+		oldRot = bb->Rot;
+		oldLocalX = bb->LocalX;
+		oldLocalY = bb->LocalY;
+		g = FPoint(gx, gy);
+		b = transformPoint(FPoint(0, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
+		b -= g;
+		b1 = transformPoint(b, 0, 0, 0, scx, scy);
+		t = transformPoint(FPoint(bb->Width, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
+		t -= g;
+		t1 = transformPoint(t, 0, 0, 0, scx, scy);
+		h = transformPoint(FPoint(0, bb->Height), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
+		h -= g;
+		h1 = transformPoint(h, 0, 0, 0, scx, scy);
+		bb->Pwidth = QMAX(bb->Pwidth*((scx+scy)/2), 0.01);
+		if (bb->PType == 5)
 		{
-		case 1:
-		case 5:
-		case 6: */
-			oldRot = bb->Rot;
-			oldLocalX = bb->LocalX;
-			oldLocalY = bb->LocalY;
-			g = FPoint(gx, gy);
-			b = transformPoint(FPoint(0, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
-			b -= g;
-			b1 = transformPoint(b, 0, 0, 0, scx, scy);
-			t = transformPoint(FPoint(bb->Width, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
-			t -= g;
-			t1 = transformPoint(t, 0, 0, 0, scx, scy);
-			h = transformPoint(FPoint(0, bb->Height), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
-			h -= g;
-			h1 = transformPoint(h, 0, 0, 0, scx, scy);
-			bb->Pwidth = QMAX(bb->Pwidth*((scx+scy)/2), 0.01);
-			if (bb->PType == 5)
-			{
+			bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
+			bb->Width = sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2));
+			bb->Xpos = b1.x()+gx;
+			bb->Ypos = b1.y()+gy;
+		}
+		else
+		{
+		FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
+		QWMatrix ma;
+		ma.rotate(bb->Rot);
+		bb->PoLine.map(ma);
+		QWMatrix ma2;
+		ma2.translate(gx-bb->Xpos, gy-bb->Ypos);
+		ma2.scale(scx, scy);
+		bb->PoLine.map(ma2);
+		bb->Rot = 0;
+		bb->ClipEdited = true;
+		AdjustItemSize(bb);
+		QWMatrix ma3;
+		ma3.translate(gx, gy);
+		ma3.scale(scx, scy);
+		n = FPoint(gx-oldPos.x(), gy-oldPos.y());
+		double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
+		double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
+		MoveItem(gx-x, gy-y, bb, true);
+		if (oldRot != 0)
+		{
 				bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
-				bb->Width = sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2));
-				bb->Xpos = b1.x()+gx;
-				bb->Ypos = b1.y()+gy;
-			}
-			else
-			{
-				FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
 				QWMatrix ma;
-				ma.rotate(bb->Rot);
+				ma.rotate(-bb->Rot);
 				bb->PoLine.map(ma);
-				QWMatrix ma2;
-				ma2.translate(gx-bb->Xpos, gy-bb->Ypos);
-				ma2.scale(scx, scy);
-				bb->PoLine.map(ma2);
-				bb->Rot = 0;
-				bb->ClipEdited = true;
 				AdjustItemSize(bb);
-				QWMatrix ma3;
-				ma3.translate(gx, gy);
-				ma3.scale(scx, scy);
-				n = FPoint(gx-oldPos.x(), gy-oldPos.y());
-				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
-				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-				MoveItem(gx-x, gy-y, bb, true);
-				if (oldRot != 0)
-				{
-					bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
-					QWMatrix ma;
-					ma.rotate(-bb->Rot);
-					bb->PoLine.map(ma);
-					AdjustItemSize(bb);
-				}
 			}
-			bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
-			if ((bb->Ptext.count() != 0) && (!bb->isTableItem))
-			{
-				bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(doku->AutoLine) / 100) + (bb->ISize / 10.0);
-				for (aa = 0; aa < bb->Ptext.count(); ++aa)
-					bb->Ptext.at(aa)->csize = QMAX(qRound(bb->Ptext.at(aa)->csize*((scx+scy)/2)), 1);
-				if (bb->PType == 8)
-					UpdatePolyClip(bb);
-			}
-			bb->LocalX = oldLocalX;
-			bb->LocalY = oldLocalY;
-			bb->OldB2 = bb->Width;
-			bb->OldH2 = bb->Height;
-//			break;
-//		}
+		}
+		bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
+		if ((bb->Ptext.count() != 0) && (!bb->isTableItem))
+		{
+			bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(doku->AutoLine) / 100) + (bb->ISize / 10.0);
+			for (aa = 0; aa < bb->Ptext.count(); ++aa)
+				bb->Ptext.at(aa)->csize = QMAX(qRound(bb->Ptext.at(aa)->csize*((scx+scy)/2)), 1);
+			if (bb->PType == 8)
+				UpdatePolyClip(bb);
+		}
+		bb->LocalX = oldLocalX;
+		bb->LocalY = oldLocalY;
+		bb->OldB2 = bb->Width;
+		bb->OldH2 = bb->Height;
 	}
 	setGroupRect();
 	setUpdatesEnabled(true);
@@ -3809,7 +3820,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				emit b->HasSel ? HasTextSel() : HasNoTextSel();
 			}
 		}
-		if (Mpressed && ((doku->AppMode == 1) || ((doku->AppMode == 7) && HanMove)))
+		if (Mpressed && ((doku->AppMode == 1) || ((doku->AppMode == 7) && HanMove)) && (!b->Locked))
 		{
 			if (doku->EditClip)
 			{

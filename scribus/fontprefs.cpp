@@ -37,6 +37,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	Table1->setNumRows( flist.count() );
 	Table1->setMaximumSize(32000, 300);
     Table1->setNumCols( 6 );
+    Table1->setSorting(true);
 	SCFontsIterator it(flist);
     int a = 0;
     for ( ; it.current(); ++it)
@@ -86,6 +87,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     	a++;
     }
 	UsedFonts.sort();
+    Table1->sortColumn(0, true, true);
     Table1->setSorting(false);
     Table1->setSelectionMode(QTable::NoSelection);
     Table1->setLeftMargin(0);
@@ -102,7 +104,6 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     Table1->adjustColumn(3);
     Table1->adjustColumn(4);
     Table1->adjustColumn(5);
-    Table1->sortColumn(0, 1, 1);
     Table1->setColumnMovingEnabled(false);
     Table1->setRowMovingEnabled(false);
 	Table1->setColumnReadOnly(1, true);

@@ -92,7 +92,6 @@
 #include "search.h"
 #include "fontcombo.h"
 
-#include <unistd.h>
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -1013,13 +1012,23 @@ void ScribusApp::setTBvals(PageItem *b)
 void ScribusApp::wheelEvent(QWheelEvent *w)
 {
 	if (HaveDoc)
+	{
+		if (w->orientation() == QWheelEvent::Vertical)
 		{
-		if (w->delta() < 0)
-			view->scrollBy(0, Prefs.Wheelval);
-		else
-			view->scrollBy(0, -Prefs.Wheelval);
-		w->accept();
+			if (w->delta() < 0)
+				view->scrollBy(0, Prefs.Wheelval);
+			else
+				view->scrollBy(0, -Prefs.Wheelval);
 		}
+		else
+		{
+			if (w->delta() < 0)
+				view->scrollBy(Prefs.Wheelval, 0);
+			else
+				view->scrollBy(-Prefs.Wheelval, 0);
+		}
+		w->accept();
+	}
 }
 
 void ScribusApp::keyPressEvent(QKeyEvent *k)
@@ -1118,7 +1127,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								CanUndo();
 								}
 							if (!b->Locked)
- 								doc->ActPage->moveGroup(-1, 0);
+							{
+								if ( buttonState & ShiftButton )
+ 									doc->ActPage->moveGroup(-10, 0);
+								else
+ 									doc->ActPage->moveGroup(-1, 0);
+							}
  							break;
  						case Key_Right:
 							if (!k->isAutoRepeat())
@@ -1129,7 +1143,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								CanUndo();
 								}
 							if (!b->Locked)
- 								doc->ActPage->moveGroup(1, 0);
+							{
+								if ( buttonState & ShiftButton )
+ 									doc->ActPage->moveGroup(10, 0);
+								else
+ 									doc->ActPage->moveGroup(1, 0);
+							}
  							break;
  						case Key_Up:
 							if (!k->isAutoRepeat())
@@ -1140,7 +1159,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								CanUndo();
 								}
 							if (!b->Locked)
- 								doc->ActPage->moveGroup(0, -1);
+							{
+								if ( buttonState & ShiftButton )
+ 									doc->ActPage->moveGroup(0, -10);
+								else
+ 									doc->ActPage->moveGroup(0, -1);
+							}
  							break;
  						case Key_Down:
 							if (!k->isAutoRepeat())
@@ -1151,8 +1175,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								CanUndo();
 								}
 							if (!b->Locked)
- 								doc->ActPage->moveGroup(0, 1);
-								break;
+							{
+								if ( buttonState & ShiftButton )
+ 									doc->ActPage->moveGroup(0, 10);
+								else
+ 									doc->ActPage->moveGroup(0, 1);
+							}
+							break;
  						default:
  							if (b->PType == 4)
  								{
@@ -2603,6 +2632,14 @@ void ScribusApp::slotDocCh(bool reb)
 	ActWin->MenuStat[1] = fileMenu->isItemEnabled(fid1);
 	ActWin->MenuStat[2] = fileMenu->isItemEnabled(fid4);
 	ActWin->MenuStat[3] = fileMenu->isItemEnabled(fid5);
+	if (doc->ActPage->SelItem.count() != 0)
+	{
+		PageItem* b = doc->ActPage->SelItem.at(0);
+		if (b->Locked)
+			ObjMenu->changeItem(LockOb, tr("Unlock"));
+		else
+			ObjMenu->changeItem(LockOb, tr("Lock"));
+	}
 }
 
 void ScribusApp::UpdateRecent(QString fn)
@@ -6635,18 +6672,49 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 void ScribusApp::GroupObj()
 {
 	PageItem* b;
+	PageItem* bb;
 	double x, y, w, h;
 	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
+	{
+		b = doc->ActPage->SelItem.at(a);
+		if (b->Locked)
 		{
+    		int t = QMessageBox::warning(this, tr("Warning"),
+																tr("Some Objects are locked."),
+																tr("Cancel"),
+																tr("Lock all"),
+																tr("Unlock all"), 0, 0);
+			if (t != 0)
+			{
+				for (uint c=0; c<doc->ActPage->SelItem.count(); ++c)
+				{
+					bb = doc->ActPage->SelItem.at(c);
+					if (t == 1)
+					{
+						bb->Locked = true;
+						ObjMenu->changeItem(LockOb, tr("Unlock"));
+					}
+					else
+					{
+						bb->Locked = false;
+						ObjMenu->changeItem(LockOb, tr("Lock"));
+					}
+				}
+			}
+		}
+	}
+	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
+	{
 		b = doc->ActPage->SelItem.at(a);
 		b->Groups.push(doc->GroupCounter);
-		}
+	}
 	doc->GroupCounter++;
 	doc->ActPage->getGroupRect(&x, &y, &w, &h);
 	doc->ActPage->repaint(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
+	ObjMenu->setItemEnabled(UnGr, true);
 }
 
 void ScribusApp::UnGroupObj()
@@ -7414,10 +7482,17 @@ void ScribusApp::doHyphenate()
 void ScribusApp::ToggleObjLock()
 {
 	if (HaveDoc)
+	{
+		if (doc->ActPage->SelItem.count() != 0)
 		{
-  	if (doc->ActPage->SelItem.count() != 0)
-  		doc->ActPage->ToggleLock();
+			PageItem* b = doc->ActPage->SelItem.at(0);
+			doc->ActPage->ToggleLock();
+			if (b->Locked)
+				ObjMenu->changeItem(LockOb, tr("Unlock"));
+			else
+				ObjMenu->changeItem(LockOb, tr("Lock"));
 		}
+	}
 }
 
 void ScribusApp::ManageGuides()

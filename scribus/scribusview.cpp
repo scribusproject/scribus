@@ -469,8 +469,6 @@ void ScribusView::slotDoZoom()
 	uint a;
 	Page* Seite;
 	QWidget* PSeite = Doc->ActPage->parentWidget();
-	int oldXM = childX(PSeite);
-	int oldYM = childY(PSeite);
 	if (Doc->Scale > 32)
 		Doc->Scale = 32;
 	if (Pages.count() != 0)
@@ -1098,7 +1096,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 								p->PS_restore();
 								if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 									{
-									if (ite->NamedLStyle == "")
+									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 										{
 										SetClipPath(p, &ite->PoLine);
 										p->PS_closepath();
@@ -1403,7 +1401,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									p->PS_setlinewidth(ite->Pwidth);
 									p->PS_setdash(ite->PLineArt, ite->PLineEnd, ite->PLineJoin);
-									if (ite->NamedLStyle == "")
+									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 										{
 										SetClipPath(p, &ite->PoLine);
 										p->PS_closepath();
@@ -1609,7 +1607,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							p->PS_restore();
 							if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 								{
-								if (c->NamedLStyle == "")
+								if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 									{
 									SetClipPath(p, &c->PoLine);
 									p->PS_closepath();
@@ -1948,7 +1946,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								p->PS_setlinewidth(c->Pwidth);
 								p->PS_setdash(c->PLineArt, c->PLineEnd, c->PLineJoin);
-								if (c->NamedLStyle == "")
+								if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 									{
 									SetClipPath(p, &c->PoLine);
 									p->PS_closepath();
@@ -1971,7 +1969,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								}
 							break;
 						case 5:
-							if (c->NamedLStyle == "")
+							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 								{
 								p->PS_moveto(0, 0);
 								p->PS_lineto(c->Width, -c->Height);
@@ -2025,7 +2023,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								}
 							if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
 								{
-								if (c->NamedLStyle == "")
+								if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 									{
 									SetClipPath(p, &c->PoLine);
 									p->PS_closepath();
@@ -2048,7 +2046,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								}
 							break;
 						case 7:
-							if (c->NamedLStyle == "")
+							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 								{						
 								SetClipPath(p, &c->PoLine);
 								p->PS_stroke();
@@ -2073,7 +2071,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								if (c->PoLine.size() > 3)
 									{
 									p->PS_save();
-									if (c->NamedLStyle == "")
+									if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 										{
 										SetClipPath(p, &c->PoLine);
 										p->PS_stroke();
@@ -2278,12 +2276,25 @@ void ScribusView::SetClipPath(PSLib *p, FPointArray *c)
 void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {
 	if ((Doc->ActPage->Mpressed) && (Doc->ActPage->MidButt))
-		{
-      w->delta() > 0 ? slotZoomIn2() : slotZoomOut2();
-		}
+	{
+		w->delta() > 0 ? slotZoomIn2() : slotZoomOut2();
+	}
 	else
+	{
+		if (w->orientation() == QWheelEvent::Vertical)
 		{
-      w->delta() < 0 ? scrollBy(0, Prefs->Wheelval) : scrollBy(0, -Prefs->Wheelval);
+			if (w->delta() < 0)
+				scrollBy(0, Prefs->Wheelval);
+			else
+				scrollBy(0, -Prefs->Wheelval);
 		}
+		else
+		{
+			if (w->delta() < 0)
+				scrollBy(Prefs->Wheelval, 0);
+			else
+				scrollBy(-Prefs->Wheelval, 0);
+		}
+	}
 	w->accept();
 }

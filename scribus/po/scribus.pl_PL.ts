@@ -1180,6 +1180,56 @@
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
+    <message>
+        <source>Default color profile for imported images</source>
+        <translation>Domyślny profil barw dla importowanych obrazków</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation>Domyślny profil barw dla jednolitych kolorów na stronie</translation>
+    </message>
+    <message>
+        <source>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
+        <translation>Profil barw, który wygenerowałeś lub otrzymałeś od producenta.
+Profil ten powinien być specyficzny dla twojego monitora, a nie generyczny (jak np. sRGB). </translation>
+    </message>
+    <message>
+        <source>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
+        <translation>Profil barw twojej drukarki pochodzący od producenta.
+Profil ten powinien być specyficzny dla twojej drukarki, a nie generyczny (jak np. sRGB). </translation>
+    </message>
+    <message>
+        <source>Choose the default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Wybierz domyślną metodę konwersji dla twojego monitora. Jeśli nie wiesz na pewno,
+dlaczego chcesz to zmienić, wybierz metodę względnie kolorometryczną lub percepcję. </translation>
+    </message>
+    <message>
+        <source>Choose the default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Wybierz domyślną metodę konwersji dla twojej drukarki. Jeśli nie wiesz na pewno,
+dlaczego chcesz to zmienić, wybierz metodę względnie kolorometryczną lub percepcję. </translation>
+    </message>
+    <message>
+        <source>This enables &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation>Włącza tzw. &apos;soft proofing&apos; wydruku kolorów,
+bazującego na wybranym profilu drukarki.</translation>
+    </message>
+    <message>
+        <source>This is a method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation>Metoda ta umożliwia pokazanie na monitorze kolorów, które nie zostaną prawidłowo wydrukowane.
+Wymaga ona bardzo dokładnych profili i służy jedynie jako ostrzeżenie.</translation>
+    </message>
+    <message>
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation>Kompensacja poziomu czerni to metoda polepszania kontrastu zdjęć.
+Jest ona zalecana, jeśli twój dokument zawiera zdjęcia.</translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -2278,6 +2328,29 @@ everytime a possible Hyphenation is found.</source>
     </message>
 </context>
 <context>
+    <name>InsertTable</name>
+    <message>
+        <source>Insert Table</source>
+        <translation>Wklej tabelę</translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation>Ilość wierszy:</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation>Ilość szpalt:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
     <name>JavaDocs</name>
     <message>
         <source>Global JavaScripts</source>
@@ -3283,6 +3356,38 @@ Proszę wybrać inną.</translation>
         <source>Select the rendering intent for the image</source>
         <translation>Wybierz metodę konwersji dla obrazka</translation>
     </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation>Linie ograniczające komórki</translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation>Linia u góry</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation>Linia na dole</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation>Linia po prawej</translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation>Linia na dole</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation><byte value="x9"/></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -4115,6 +4220,238 @@ w innym przypadku do obiektu.</translation>
     <message>
         <source>Minimum</source>
         <translation>Minimalna</translation>
+    </message>
+    <message>
+        <source>From the:</source>
+        <translation>Od:</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation>Eksportuj wszystkie strony do PDF</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation>Eksportuj zakres stron do PDF</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Pierwsza strona zakresu stron przeznaczonego do eskportu</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Ostatnia strona zakresu stron przeznaczonego do eksportu</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility.
+The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation>Określa kompatybilność pliku PDF.
+Domyślne ustawienie to Acrobat 4.0, którego wynikiem jest największa kompatybilność.
+Wybierz Acrobata 5.0, jeśli twój plik korzysta z takich właściwości PDF 1.4 jak przezroczystość, lub jeśli wymagane jest kodowanie 128 bitowe.</translation>
+    </message>
+    <message>
+        <source>This determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation>Określa odstęp do zszycia stron w pliku PDF. Najlepiej zostawić
+domyślne ustawienie (z lewej strony), chyba że wiesz na pewno, że zmiana jest potrzebna.</translation>
+    </message>
+    <message>
+        <source>Enabling this generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation>Włącza generowanie miniatur każdej strony w pliku PDF.
+Niektóre przegląrki używają miniatur do nawigacji.</translation>
+    </message>
+    <message>
+        <source>Enable this for generating PDF Articles, which is useful
+for navigating linked articles in a PDF.</source>
+        <translation>Włącza generowanie artykułów PDF, które przydają się
+w nawigowaniu pomiędzy powiązanymi ze sobą artykułami w PDF.</translation>
+    </message>
+    <message>
+        <source>Enabling this will embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation>Włącza osadzanie utworzonych przez ciebie zakładek w dokumencie.
+Jest to przydatne przy poruszaniu się w długich dokumentach PDF.</translation>
+    </message>
+    <message>
+        <source>Choose the export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Wybór rozdzielczości dla tekstu i grafiki wektorowej.
+Nie ma wpływu na rozdzielczość grafiki bitmapowej, np. zdjęć.</translation>
+    </message>
+    <message>
+        <source>Enable compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation>Włącza kompresję tekstu i grafiki. Najlepiej zostawić zakreślone, 
+chyba że ma się powody, aby to zmieniać. Redukuje to rozmiar pliku PDF.</translation>
+    </message>
+    <message>
+        <source>Choose the version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation>Wybór wersji kompresji obrazków.
+Automatyczna pozwala Scribusowi na wybór najlepszej metody.
+ZIP jest dobry dla obrazków o jednolitych kolorach.
+JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka).</translation>
+    </message>
+    <message>
+        <source>Choose the compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Wybierz stopień kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
+    </message>
+    <message>
+        <source>This choice will enable downsampling of your bitmap images to the selected DPI.</source>
+        <translation>Ten wybór umożliwi redukcję grafiki bitmapowej do wybranej rozdzielczości DPI.</translation>
+    </message>
+    <message>
+        <source>Choose the DPI (Dots Per Inch) for image export.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation>Wybór rozdzielczości DPI (Dots Per Inch) dla eksportu obrazków.
+Jeśli nie zakreślisz tej opcji, obrazji będą interpretowane w oryginalnej rozdzielczości.</translation>
+    </message>
+    <message>
+        <source>Check this to embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation>Zaznacz tę opcję, aby zagnieździć czcionki w dokumencie PDF. Zagnieżdżenie czcionek
+pozwoli na zachowanie układu graficznego i wyglądu dokumentu.</translation>
+    </message>
+    <message>
+        <source>Checking this enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation>Zakreślenie tej opcji włączy efekty prezentacyjne, które Acrobat Reader pokazuje w trybie pełnoekranowym.</translation>
+    </message>
+    <message>
+        <source>Checking this will show page previews of each page listed above.</source>
+        <translation>Zakreślenie tej opcji pozwoli na pokazanie podglądu każdej strony wymienionej powyżej.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation>Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony.</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation>Czas trwania efektu prezentacyjnego.
+Krótszy czas spowoduje przyspieszenie efektu, dłuższy czas jego spowolnienie.</translation>
+    </message>
+    <message>
+        <source>Choose type of the display effect.</source>
+        <translation>Wybierz typ efektu prezentacyjnego.</translation>
+    </message>
+    <message>
+        <source>Choose the direction of the effect of moving lines for the split and blind effects.</source>
+        <translation>Wybierz kierunek przemieszczania się linii dla efektu dzielenia i żaluzji.</translation>
+    </message>
+    <message>
+        <source>Choose the starting position for the box and split effects.</source>
+        <translation>Wybierz pozycję początkową dla efektu ramki i dzielenia.</translation>
+    </message>
+    <message>
+        <source>Choose the direction of the glitter or wipe effects.</source>
+        <translation>Wybierz kierunek efektu szachownicy lub zacierania.</translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation>Zastosuj wybrany efekt do wszystkich stron.</translation>
+    </message>
+    <message>
+        <source>Checking this will enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Zakreślenie tej opcji włączy zabezpieczenia w eksportowanym dokumencie PDF.
+Jeśli wybrałeś eksport do formatu Acrobat 4.0, to plik PDF zostanie zabezpieczony szyfrowaniem 40 bitowym.
+Jeśli wybrałeś eksport do formatu Acrobat 5.0, to  plik PDF zostanie zabezpieczony szyfrowaniem 128 bitowym.
+Zastrzeżenie: szyfrowanie w PDF nie jest tak godne zaufania jak GPG lub PGP i ma pewne ograniczenia.</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation>Wybierz główne hasło, które włączy lub wyłączy wszystkie
+zabezpieczenia w wyeksportowanym pliku PDF</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation>Wybierz hasło dla użytkowników, aby umożliwić im czytanie twojego pliku PDF</translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow printing of the PDF</source>
+        <translation>Jeśli usuniesz zakreślenie tej opcji, zabronisz tym samym drukowanie dokumentu PDF</translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow modifying of the PDF</source>
+        <translation>Usunięcie zakreślenia tej opcji uniemożliwi edycję dokumentu PDF</translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow copying of text or graphics from the PDF</source>
+        <translation>Usunięcie zakreślenia tej opcji spowoduje, że nie będzie można kopiować tekstu i grafiki z dokumentu PDF</translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow adding annotations and fields to the PDF</source>
+        <translation>Usunięcie zakreślenia tej opcji uniemożliwi dodawanie adnotacji i pól do dokumentu PDF</translation>
+    </message>
+    <message>
+        <source>This chooses the color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation>Tutaj wybiera się model barw dla wyjściowego dokumentu PDF.
+Wybierz &quot;Monitor/Internet&quot; dla plików PDF, które przeznaczone są do oglądania na monitorze lub do druku an typowych drukarkach atramentowych.
+Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obsługującej CMYK.</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation>Zagnieżdża profil barw dla jednolitych kolorów</translation>
+    </message>
+    <message>
+        <source>Select the color profile for solid colors</source>
+        <translation>Wybierz profil barw dla jednolitych kolorów</translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for solid colors</source>
+        <translation>Wybierz metodę konwersji dla jednolitych kolorów</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation>Wybierz profil barw dla obrazków</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation>Nie stosuj profili barw zagnieżdżonych w obrazkach</translation>
+    </message>
+    <message>
+        <source>Select the color profile for images</source>
+        <translation>Wybierz profil barw dla obrazków</translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for images</source>
+        <translation>Wybierz metody konwersji dla obrazków</translation>
+    </message>
+    <message>
+        <source>Select the output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Wybierz profil wyjściowy dla druku. Jeśli to możliwe, poproś drukarnię o poradę w sprawie wyboru właściwego profilu.</translation>
+    </message>
+    <message>
+        <source>This is a mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Ten komentrarz musi zostać podany dla zgodności ze standardem PDF/X-3.
+Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Ostęp spadu od górnej krawędzi fizycznej strony</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Ostęp spadu od dolnej krawędzi fizycznej strony</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Ostęp spadu od górnej krawędzi fizycznej strony</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Ostęp spadu od prawej krawędzi fizycznej strony</translation>
     </message>
 </context>
 <context>
@@ -5399,6 +5736,12 @@ w zdefiniowanym odstępie czasowym.</translation>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation>Nie pokazuj obiektów poza marginesami na drukowanej stronie ani w eksportowanym pliku</translation>
     </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Ostęp pomiędzy linią pomocniczą prawego marginesu i krawędzią strony.
+Jeśli zostały wybrane strony widzące się, to margines ten może zostać użyty dla osiągnięcia prawidłowego marginesu dla zszycia</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -5890,6 +6233,10 @@ Sprawdź katalog i nazwę pliku.</translation>
     <message>
         <source>Scribus Scripts</source>
         <translation>Skrypty Scribusa</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation>S&amp;krypt</translation>
     </message>
 </context>
 <context>
@@ -6954,6 +7301,46 @@ Sprawdź katalog i nazwę pliku.</translation>
         <source>Append Text...</source>
         <translation>Dołącz tekst...</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Plik</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edycja</translation>
+    </message>
+    <message>
+        <source>&amp;Style</source>
+        <translation>&amp;Styl</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation>&amp;Obiekt</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation>S&amp;trona</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Widok</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Narzędzia</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>&amp;Dodatki</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation>Okn&amp;a</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>Po&amp;moc</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -7687,6 +8074,10 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Draw various Shapes</source>
         <translation>Rysuje różne formy</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Wklej tabelę</translation>
     </message>
 </context>
 <context>

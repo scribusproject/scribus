@@ -5,7 +5,7 @@ extern QPixmap loadIcon(QString nam);
 NewDoc::NewDoc( QWidget* parent, preV *Vor )
     : QDialog( parent, "newDoc", true, 0 )
 {
-	char *units[] = {" pt", " mm", " in", " p"};
+	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	int decimals;
 	ein = units[Vor->Einheit];
 	switch (Vor->Einheit)
@@ -337,7 +337,7 @@ void NewDoc::setDist(int v)
 
 void NewDoc::setUnit(int u)
 {
-	char *units[] = {" pt", " mm", " in", " p"};
+	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	ein = units[u];
 	int decimals;
 

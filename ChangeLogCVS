@@ -1,4 +1,12 @@
 Changes since Version 1.1.6
+30.03.2004	Fixed Issue on export to PDF and Postscript with Objects with zero Linewidth.
+		Fixed Issues with locked Objects and Groups.
+		Double clicking on a Table Cell selects this Cell now.
+		Resizing Tableitems with the Properties Palette should work now.
+		Updated Polish Translation.
+		Added horizontal Scrolling with the horizontal MouseWheel if available.
+		Fixed compilation issues.
+
 29.03.2004	Removed implicit closing of Polylines in the SVG importer.
 		Added a "Keep aspect ratio" Button to the X-Y-Z Tab of the Properties Palette.
 		Added the missing pageselector.h file to the install function.

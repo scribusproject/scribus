@@ -113,34 +113,34 @@ int MSpinBox::mapTextToValue(bool *)
 	ts.replace(",", ".");
 	if ((su == QObject::tr( " pt" )) || (su == QObject::tr( "pt" )))
 	{
-		ts.replace("pt", "");
-		ts.replace("mm", "/25.4*72");
-		ts.replace("in", "*72");
-		ts.replace("p", "*12");
+		ts.replace(QObject::tr( "pt"), "");
+		ts.replace(QObject::tr( "mm"), "/25.4*72");
+		ts.replace(QObject::tr( "in"), "*72");
+		ts.replace(QObject::tr( "p"), "*12");
 	}
 	else 
 		if ((su == QObject::tr( " mm" )) || (su == QObject::tr( "mm" )))
 		{
-			ts.replace("pt", "/72*25.4");
-			ts.replace("mm", "");
-			ts.replace("in", "*25.4");
-			ts.replace("p", "/12*25.4");
+			ts.replace(QObject::tr( "pt"), "/72*25.4");
+			ts.replace(QObject::tr( "mm"), "");
+			ts.replace(QObject::tr( "in"), "*25.4");
+			ts.replace(QObject::tr( "p"), "/12*25.4");
 		}
 		else 
 			if ((su == QObject::tr( " in" )) || (su == QObject::tr( "in" )))
 			{
-				ts.replace("pt", "/72");
-				ts.replace("mm", "/25.4");
-				ts.replace("in", "");
-				ts.replace("p", "/6");
+				ts.replace(QObject::tr( "pt"), "/72");
+				ts.replace(QObject::tr( "mm"), "/25.4");
+				ts.replace(QObject::tr( "in"), "");
+				ts.replace(QObject::tr( "p"), "/6");
 			}
 			else 
 				if ((su == QObject::tr( " p" )) || (su == QObject::tr( "p" )))
 				{
-					ts.replace("pt", "/12");
-					ts.replace("mm", "/25.4*6");
-					ts.replace("in", "*6");
-					ts.replace("p", "");
+					ts.replace(QObject::tr( "pt"), "/12");
+					ts.replace(QObject::tr( "mm"), "/25.4*6");
+					ts.replace(QObject::tr( "in"), "*6");
+					ts.replace(QObject::tr( "p"), "");
 				}
 			else 
 				if (su != "")

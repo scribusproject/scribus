@@ -1096,8 +1096,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 								else
 								{
 									PutPage(SetClipPath(ite));
-									PutPage(ite->Segments.count() != 0 ?
-										 "h\nf*\n" : "h\nf\n");
+									PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
 								}
 							}
 							if ((ite->flippedH % 2) != 0)
@@ -1272,8 +1271,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options->UseProfiles))
 					{
-						char *tmp[] = {"/Perceptual", "/RelativeColorimetric",
-								 "/Saturation", "/AbsoluteColorimetric"};
+						char *tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 						PutPage(tmp[Options->Intent]);
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
@@ -1369,8 +1367,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
 							else
-								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" :
-										 "h\nf\n");
+								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
 						}
 						PutPage("q\n");
 						PutPage(SetClipPath(ite));
@@ -1387,7 +1384,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						PutPage("Q\n");
 						if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
-							if (ite->NamedLStyle == "")
+							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nS\n");
@@ -1416,8 +1413,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
 							else
-								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" :
-									 "h\nf\n");
+								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
 						}
 						PutPage("q\n");
 						if ((ite->flippedH % 2) != 0)
@@ -1428,7 +1424,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						PutPage("Q\n");
 						if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
-							if (ite->NamedLStyle == "")
+							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nS\n");
@@ -1449,8 +1445,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						if (ite->NamedLStyle == "")
 						{
 							PutPage("0 0 m\n");
-							PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+
-									" l\n");
+							PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
 							PutPage("S\n");
 						}
 						else
@@ -1460,8 +1455,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							{
 								PutPage(setStrokeMulti(&ml[it]));
 								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->Width)+
-									" "+FToStr(-ite->Height)+" l\n");
+								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
 								PutPage("S\n");
 							}
 						}
@@ -1476,13 +1470,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (ite->Pcolor != "None")
 							{
 								PutPage(SetClipPath(ite));
-								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" :
-											 "h\nf\n");
+								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
 							}
 						}
 						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
 						{
-							if (ite->NamedLStyle == "")
+							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nS\n");
@@ -1502,7 +1495,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 					case 7:
 						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
 						{
-							if (ite->NamedLStyle == "")
+							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("S\n");
@@ -1525,10 +1518,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (ite->PoLine.size() > 3)
 							{
 								PutPage("q\n");
-								if ((ite->Pcolor2 != "None") || 
-										(ite->NamedLStyle != ""))
+								if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
 								{
-									if (ite->NamedLStyle == "")
+									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
 										PutPage(SetClipPath(ite));
 										PutPage("S\n");
