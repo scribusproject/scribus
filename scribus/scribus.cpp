@@ -1895,7 +1895,7 @@ void ScribusApp::SwitchWin()
 #endif
 	Mpal->Cpal->SetColors(doc->PageColors);
 	Mpal->Cpal->ChooseGrad(0);
-	ActWin->setCaption( tr(doc->DocName));
+	ActWin->setCaption(doc->DocName);
 	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
@@ -2031,7 +2031,7 @@ void ScribusApp::HaveNewDoc()
 		}
 	Mpal->Cpal->SetColors(doc->PageColors);
 	Mpal->Cpal->ChooseGrad(0);
-	ActWin->setCaption( tr(doc->DocName));
+	ActWin->setCaption( QString::fromLocal8Bit(doc->DocName) );
 	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
@@ -2891,7 +2891,6 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
-  uint a;
 	setAppMode(1);
   doc->ASaveTimer->stop();
 	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
@@ -2985,10 +2984,6 @@ bool ScribusApp::DoFileClose()
 #endif
 		}
   view->close();
-  for (a = 0; a<view->Pages.count(); ++a)
-  	{
-  	delete view->Pages.at(a);
-  	}
   HaveDoc--;
 	view = NULL;
 	delete doc;
@@ -5664,11 +5659,11 @@ void ScribusApp::ReadPrefs()
 	uint max = QMIN(Prefs.RecentDCount, Prefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 		{
-		QFileInfo fd(Prefs.RecentDocs[m]);
+		QFileInfo fd(QString::fromUtf8(Prefs.RecentDocs[m]));
 		if (fd.exists())
 			{
 			RecentDocs.append(Prefs.RecentDocs[m]);
-			recentMenu->insertItem(Prefs.RecentDocs[m]);
+			recentMenu->insertItem(QString::fromUtf8(Prefs.RecentDocs[m]));
 			}
 		}
 	Mpal->move(Prefs.Mpalx, Prefs.Mpaly);

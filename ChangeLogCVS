@@ -1,4 +1,8 @@
 Changes since Version 1.1.4
+01.02.2004	The Rulers are now following the Magnification.
+		Some minor Code cleanups.
+		Added a Scribus.pro file for use with lupdate for creating Translations.
+
 31.01.2004	Added a new Guide Manager from Allessandro Rimoldini.
 		More speedups for the Scripter.
 

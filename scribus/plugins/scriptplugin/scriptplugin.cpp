@@ -146,7 +146,7 @@ void MenuTest::slotTest()
 			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
 		else
 			Carrier->HaveNewSel(-1);
-		Carrier->doc->ActPage->repaint();
+		Carrier->view->DrawNew();
 		}
 }
 
@@ -181,18 +181,18 @@ void MenuTest::RecentScript(int id)
 			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
 		else
 			Carrier->HaveNewSel(-1);
-		Carrier->doc->ActPage->repaint();
+		Carrier->view->DrawNew();
 		}
 }
 
 void MenuTest::slotRunScriptFile(QString fileName)
 {
 	Carrier->ScriptRunning = true;
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	char* comm[1];
 	QFileInfo fi(fileName);
 	QCString na = fi.fileName().latin1();
 	QDir::setCurrent(fi.dirPath(true));
-//	PyThreadState *stateo = PyThreadState_Get();
 	PyThreadState *stateo = PyEval_SaveThread();
 	PyThreadState *state = Py_NewInterpreter();
 	initscribus(Carrier);
@@ -205,11 +205,13 @@ void MenuTest::slotRunScriptFile(QString fileName)
 	Py_EndInterpreter(state);
 	PyEval_RestoreThread(stateo);
 	Carrier->ScriptRunning = false;
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 }
 
 QString MenuTest::slotRunScript(QString Script)
 {
 	Carrier->ScriptRunning = true;
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	char* comm[1];
 	QString cm;
 	InValue = Script;
@@ -248,6 +250,7 @@ QString MenuTest::slotRunScript(QString Script)
 	else
 		pcon->OutWin->Prompt = "...";
 	Carrier->ScriptRunning = false;
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	return RetString;
 }
 
@@ -286,7 +289,7 @@ void MenuTest::slotExecute()
 		else
 			Carrier->HaveNewSel(-1);
 		Carrier->Sepal->Rebuild();
-		Carrier->doc->ActPage->repaint();
+		Carrier->view->DrawNew();
 		}
 }
 

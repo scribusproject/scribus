@@ -57,25 +57,60 @@ void Vruler::paintEvent(QPaintEvent *)
 	int xx, pc;
 	double of, xl, iter, iter2;
 	double sc = doku->Scale;
+	int cor = 1;
+	if (sc > 1)
+		cor = 2;
+	if (sc > 4)
+		cor = 10;
 	switch (doku->Einheit)
-		{
+	{
 		case 0:
-			iter = 10.0;
-  		iter2 = iter * 10.0;
+			if (sc > 1)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = 10.0 / cor;
+	  		iter2 = iter * 10.0;
 			break;
 		case 1:
-			iter = (10.0 / 25.4) * 72.0;
-  		iter2 = iter * 10.0;
+			if (sc > 1)
+				cor = 10;
+			iter = ((10.0 / 25.4) * 72.0) / cor;
+  			iter2 = iter * 10.0;
 			break;
 		case 2:
 			iter = 18.0;
 			iter2 = 72.0;
+			if (sc > 1)
+				{
+				cor = 2;
+				iter = 9.0;
+				iter2 = 36.0;
+				}
+			if (sc > 4)
+				{
+				iter = 9.0;
+				iter2 = 18.0;
+				cor = 4;
+				}
 			break;
 		case 3:
 			iter = 12.0;
 			iter2 = 120.0;
+			if (sc > 1)
+				{
+				cor = 1;
+				iter = 12.0;
+				iter2 = 60.0;
+				}
+			if (sc > 4)
+				{
+				cor = 2;
+				iter = 6.0;
+				iter2 = 12.0;
+				}
 			break;
-		}
+	}
 	QPainter p;
 	p.begin(this);
 	p.drawLine(24, 0, 24, height());
@@ -83,53 +118,47 @@ void Vruler::paintEvent(QPaintEvent *)
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
-	p.scale(1.0, sc);
 	if ((doku->PageFP) && (doku->PagesSbS))
-		{
+	{
 		if (doku->FirstPageLeft)
-			{
+		{
 			if (doku->PageC % 2 == 0)
 				pc = doku->PageC / 2;
 			else
 				pc = (doku->PageC+1) / 2;
-			}
+		}
 		else
-			{
+		{
 			if (doku->PageC % 2 == 0)
 				pc = doku->PageC / 2 + 1;
 			else
 				pc = doku->PageC / 2 + 1;
-			}
 		}
+	}
 	else
 		pc = doku->PageC;
 	for (xx = 0; xx < pc; ++xx)
-		{
+	{
 		of = xx * (doku->PageH+30.0);
 		for (xl = 0; xl < doku->PageH; xl += iter)
-			{
-			p.drawLine(18, static_cast<int>(xl+of), 24, static_cast<int>(xl+of));
-			}
+			p.drawLine(18, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
 		for (xl = 0; xl < doku->PageH+(iter2/2); xl += iter2)
-			{
-			p.drawLine(11, static_cast<int>(xl+of), 24, static_cast<int>(xl+of));
-			p.save();
-			p.scale(1.0, 1.0 / sc);
+		{
+			p.drawLine(11, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
 			switch (doku->Einheit)
-				{
+			{
 				case 2:
-					p.drawText(9, static_cast<int>((xl+of+qRound(10/sc)) * sc), QString::number(xl / iter2));
+					p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter2 / cor));
 					break;
 				case 3:
-					p.drawText(9, static_cast<int>((xl+of+qRound(10/sc)) * sc), QString::number(xl / iter));
+					p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / cor));
 					break;
 				default:
-					p.drawText(9, static_cast<int>((xl+of+qRound(10/sc)) * sc), QString::number(xl / iter * 10));
+					p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter * 10 / cor));
 					break;
-				}
-			p.restore();
 			}
 		}
+	}
 	p.end();
 }
 /** Zeichnet den Pfeil */
@@ -150,4 +179,3 @@ void Vruler::Draw(int wo)
 	p.end();
 	oldMark = Markp;
 }
-

@@ -154,6 +154,9 @@ int MSpinBox::mapTextToValue(bool *)
 
 void MSpinBox::setDecimals(int deci)
 {
+	double oldDeci = static_cast<double>(Decimals);
+	double oldMin = static_cast<double>(QSpinBox::minValue());
+	double oldMax = static_cast<double>(QSpinBox::maxValue());
 	Decimals = deci;
 	QSpinBox::setLineStep(Decimals);
 	if (deci < 10)
@@ -166,6 +169,8 @@ void MSpinBox::setDecimals(int deci)
 		Width = 3;
 	if (deci > 9999)
 		Width = 4;
+	QSpinBox::setMinValue(qRound((oldMin / oldDeci) * Decimals));
+	QSpinBox::setMaxValue(qRound((oldMax / oldDeci) * Decimals));
 }
 
 /*!

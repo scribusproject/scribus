@@ -78,7 +78,7 @@ GuideManager::GuideManager(
     Layout6 = new QHBoxLayout(0, 0, 6, "Layout6"); 
 
     HorGroup = new QGroupBox(this, "HorGroup");
-    HorGroup->setTitle(tr("Horizontal Guides"));
+    HorGroup->setTitle( tr("Horizontal Guides"));
     HorGroup->setColumnLayout(0, Qt::Vertical);
     HorGroup->layout()->setSpacing(6);
     HorGroup->layout()->setMargin(11);
@@ -92,7 +92,7 @@ GuideManager::GuideManager(
     Layout4 = new QHBoxLayout(0, 0, 6, "Layout4"); 
 
     TextLabel2 = new QLabel(HorGroup, "TextLabel2");
-    TextLabel2->setText(tr("X-Pos:"));
+    TextLabel2->setText( tr("X-Pos:"));
     Layout4->addWidget(TextLabel2);
 
     HorSpin = new MSpinBox(HorGroup, 4);
@@ -106,7 +106,7 @@ GuideManager::GuideManager(
     Layout3 = new QHBoxLayout(0, 0, 6, "Layout3"); 
 
     HorSet = new QPushButton(HorGroup, "HorSet");
-    HorSet->setText(tr("Add"));
+    HorSet->setText( tr("Add"));
     HorSet->setAutoDefault(false);
     Layout3->addWidget(HorSet);
 
@@ -120,7 +120,7 @@ GuideManager::GuideManager(
     Layout6->addWidget(HorGroup);
 
     VerGroup = new QGroupBox(this, "VerGroup");
-    VerGroup->setTitle(tr("Vertical Guides"));
+    VerGroup->setTitle( tr("Vertical Guides"));
     VerGroup->setColumnLayout(0, Qt::Vertical);
     VerGroup->layout()->setSpacing(6);
     VerGroup->layout()->setMargin(11);
@@ -134,7 +134,7 @@ GuideManager::GuideManager(
     Layout2 = new QHBoxLayout(0, 0, 6, "Layout2"); 
 
     TextLabel1 = new QLabel(VerGroup, "TextLabel1");
-    TextLabel1->setText(tr("Y-Pos:"));
+    TextLabel1->setText( tr("Y-Pos:"));
     Layout2->addWidget(TextLabel1);
 
     VerSpin = new MSpinBox(VerGroup, 4);
@@ -148,12 +148,12 @@ GuideManager::GuideManager(
     Layout1 = new QHBoxLayout(0, 0, 6, "Layout1"); 
 
     VerSet = new QPushButton(VerGroup, "VerSet");
-    VerSet->setText(tr("Add"));
+    VerSet->setText( tr("Add"));
     VerSet->setAutoDefault(false);
     Layout1->addWidget(VerSet);
 
     VerDel = new QPushButton(VerGroup, "VerDel");
-    VerDel->setText(tr("Delete"));
+    VerDel->setText( tr("Delete"));
     VerDel->setAutoDefault(false);
     Layout1->addWidget(VerDel);
 
@@ -164,7 +164,7 @@ GuideManager::GuideManager(
     GuideManagerLayout->addLayout(Layout6);
 
     Lock = new QCheckBox(this, "Lock");
-    Lock->setText(tr("Lock Guides"));
+    Lock->setText( tr("Lock Guides"));
     Lock->setChecked(LocLocked);
     GuideManagerLayout->addWidget(Lock);
 
@@ -174,7 +174,7 @@ GuideManager::GuideManager(
     Layout5->addItem(spacer);
 
     OK = new QPushButton(this, "OK");
-    OK->setText(tr("OK"));
+    OK->setText( tr("OK"));
     OK->setDefault(true);
     Layout5->addWidget(OK );
 
@@ -182,7 +182,7 @@ GuideManager::GuideManager(
     Layout5->addItem(spacer_2);
 
     Cancel = new QPushButton(this, "Cancel");
-    Cancel->setText(tr("Cancel"));
+    Cancel->setText( tr("Cancel"));
     Layout5->addWidget(Cancel);
 
     QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );

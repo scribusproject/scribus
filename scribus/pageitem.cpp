@@ -261,9 +261,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	}
 	Doc->Vorlagen[0].Ausri = Ausrich;
 	pf.begin(Parent);
-	pf.translate(static_cast<int>(Xpos*sc), static_cast<int>(Ypos*sc));
-	pf.scale(static_cast<double>(sc), static_cast<double>(sc));
-	pf.rotate(static_cast<double>(Rot));
+	pf.translate(qRound(Xpos*sc), qRound(Ypos*sc));
+	pf.scale(sc, sc);
+	pf.rotate(Rot);
 	if (!Doc->RePos)
 		pf.setClipRect(!e.isEmpty() ? e : OwnPage->ViewReg().boundingRect());
 	bool doStroke = true;
@@ -271,7 +271,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	p->save();
 	p->translate(-e.x(), -e.y());
 	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(static_cast<double>(Rot));
+	p->rotate(Rot);
 	p->setLineWidth(Pwidth);
 	if (Pcolor != "None")
 	{
@@ -594,7 +594,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					else
 						chs = hl->csize;
 					desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
-//					CurY = Doc->Vorlagen[hl->cab].LineSpa+TExtra+lineCorr-desc2;
 					CurY = TExtra+lineCorr;
 					}
 				else
@@ -641,10 +640,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										else
 											DropCmode = false;
 										if (DropCmode)
-											{
 											DropLines = Doc->Vorlagen[absa].DropLin;
-//											CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
-											}
 										break;
 										}
 									else
@@ -666,14 +662,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							CurX += Doc->Vorlagen[absa].Indent;
 							CurY += Doc->Vorlagen[absa].Avor;
 							if (DropCmode)
-								{
 								DropLines = Doc->Vorlagen[absa].DropLin;
-//								CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
-								}
 							}
 						}
-//					if ((Doc->Vorlagen[0].LineSpa != Doc->Vorlagen[absa].LineSpa) && (a == 0))
-//						CurY += Doc->Vorlagen[absa].Avor;
 					if (LiList.count() == 0)
 						{
 						if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
@@ -767,10 +758,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											CurY = TExtra+lineCorr;
 											CurY += Doc->Vorlagen[hl->cab].Avor;
 											if (DropCmode)
-												{
 												DropLines = Doc->Vorlagen[hl->cab].DropLin;
-//												CurY += Doc->Vorlagen[hl->cab].LineSpa * (DropLines-1);
-												}
 											}
 										else
 											CurX += Doc->Vorlagen[hl->cab].Indent;
@@ -907,7 +895,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						maxDY = CurY;
 						maxDX = CurX;
 						CurY -= Doc->Vorlagen[absa].LineSpa * (DropLines-1);
-						cm = QRegion(pf.xForm(QRect(qRound(hl->xp), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa), qRound(wide), qRound(DropLines*Doc->Vorlagen[absa].LineSpa))));
+						QPointArray tcli;
+						tcli.resize(4);
+						tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
+						tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
+						tcli.setPoint(2, QPoint(qRound(hl->xp+wide), qRound(maxDY)));
+						tcli.setPoint(3, QPoint(qRound(hl->xp), qRound(maxDY)));
+						cm = QRegion(pf.xForm(tcli));
 						cl = cl.subtract(cm);
 						}
 					if ((hl->ch == QChar(13)) || (outs))

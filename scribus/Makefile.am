@@ -15,6 +15,12 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.h $(prefix)/include/scribus/scribus.h
 	$(mkinstalldirs) $(prefix)/include/scribus/
+	$(INSTALL_DATA) $(srcdir)/styleselect.h $(prefix)/include/scribus/styleselect.h
+	$(mkinstalldirs) $(prefix)/include/scribus/
+	$(INSTALL_DATA) $(srcdir)/alignselect.h $(prefix)/include/scribus/alignselect.h
+	$(mkinstalldirs) $(prefix)/include/scribus/
+	$(INSTALL_DATA) $(srcdir)/shadebutton.h $(prefix)/include/scribus/shadebutton.h
+	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/splash.h $(prefix)/include/scribus/splash.h
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/fontcombo.h $(prefix)/include/scribus/fontcombo.h
@@ -94,6 +100,9 @@ install-data-local:
 uninstall-local:
 	-rm -f $(prefix)/lib/scribus/rgbscribus.txt
 	-rm -f $(prefix)/include/scribus/scribus.h
+	-rm -f $(prefix)/include/scribus/styleselect.h
+	-rm -f $(prefix)/include/scribus/alignselect.h
+	-rm -f $(prefix)/include/scribus/shadebutton.h
 	-rm -f $(prefix)/include/scribus/splash.h
 	-rm -f $(prefix)/include/scribus/fontcombo.h
 	-rm -f $(prefix)/include/scribus/scribusdoc.h

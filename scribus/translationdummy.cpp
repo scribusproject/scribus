@@ -109,4 +109,21 @@ tr("Sh&ade");
 tr("%1 - [%2]");
 tr("&Unshade");
 }
+QColorDialog::QColorDialog()
+{
+tr("Hu&e:");
+tr("&Sat:");
+tr("&Val:");
+tr("&Red:");
+tr("&Green:");
+tr("Bl&ue:");
+tr("A&lpha channel:");
+tr("&Basic colors");
+tr("&Custom colors");
+tr("&Define Custom Colors >>");
+tr("OK");
+tr("Cancel");
+tr("&Add to Custom Colors");
+tr("Select color");
+}
 

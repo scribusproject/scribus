@@ -485,7 +485,7 @@ void Druck::SetOptions()
 							if (it.data().KeyW == "orientation")
 								PrinterOpts += " -o landscape";
 							else
-								PrinterOpts += " -o" + 
+								PrinterOpts += " -o " + 
 							it.data().KeyW+"="+dia->FlagsOpt.at(it.data().Cnum)->currentText();
 						}
 					}
