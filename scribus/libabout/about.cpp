@@ -291,7 +291,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	setMaximumSize(sizeHint());
 
 //tooltips
-	QToolTip::add( buildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.\nMissing library support is indicated by a *" ) );
+	QToolTip::add( buildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.\nMissing library support is indicated by a *" ) );
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }
