@@ -29,6 +29,8 @@
 #include <qstyle.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
+#include <qfont.h>
+#include <qfontmetrics.h>
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
@@ -253,22 +255,14 @@ void UndoPalette::hideEvent(QHideEvent*)
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
 	removeRedoItems();
-	if (state->getPixmap())
-		undoList->insertItem(*(state->getPixmap()), "  " + target->getUName() + ": " + state->getName());
-	else
-		undoList->insertItem("  " + target->getUName() + ": " + state->getName());
+	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
 	currentSelection = undoList->numRows() - 1;
-//	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
 	updateList();
 }
 
 void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
-	if (state->getPixmap())
-		undoList->insertItem(*(state->getPixmap()), "  " + target->getUName() + ": " + state->getName());
-	else
-		undoList->insertItem("  " + target->getUName() + ": " + state->getName());
-//	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
+	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
 	updateList();
 }
 
@@ -298,6 +292,7 @@ void UndoPalette::popBack()
 
 void UndoPalette::updateList()
 {
+	undoList->setCurrentItem(currentSelection);
 	undoList->setSelected(currentSelection, true);
 	redoButton->setEnabled(currentSelection < undoList->numRows() - 1);
 	undoButton->setEnabled(currentSelection > 0);
@@ -364,17 +359,36 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName, const QString &action
 
 void UndoPalette::UndoItem::paint(QPainter *painter)
 {
-    // Draw the item here
+	if (pixmap)
+		painter->drawPixmap(5, 5, *pixmap);
+	painter->drawText(32, QFontMetrics(painter->font()).height(), target);
+	QFont f = QFont(painter->font());
+	f.setItalic(true);
+	painter->setFont(f);
+	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
+//    if ( isSelected() )
+//        painter->eraseRect( r );
+//    painter->fillRect( 5, 5, width( listBox() ) - 10, height( listBox() ) - 10, Qt::red );
+//    if ( isCurrent() )
+//        listBox()->style().drawPrimitive( QStyle::PE_FocusRect, painter, r, listBox()->colorGroup() );
 }
 
-int UndoPalette::UndoItem::height(const QListBox*) const
+int UndoPalette::UndoItem::height(const QListBox *lb) const
 {
-	return 16;
+	if (lb)
+		return (5 + (2 * QFontMetrics(lb->font()).height()));
+	else
+		return 0;
 }
 
-int UndoPalette::UndoItem::width(const QListBox*) const
+int UndoPalette::UndoItem::width(const QListBox *lb) const
 {
-	return 100;
+	if (lb)
+		return target.length() > action.length() ?
+               37 + QFontMetrics(lb->font()).width(target) :
+               37 + QFontMetrics(lb->font()).width(action);
+	else
+		return 0;
 }
 
 UndoPalette::UndoItem::~UndoItem()

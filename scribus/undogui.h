@@ -256,10 +256,6 @@ private:
 		QString target;
 		/** @brief Undo action's name */
 		QString action;
-	protected:
-		virtual void paint(QPainter*);
-		virtual int height(const QListBox*) const;
-		virtual int width(const QListBox*) const;
 	public:
 		/** @brief Create an empty UndoItem object */
 		UndoItem();
@@ -281,6 +277,9 @@ private:
                  const QString &actionName,
                  QPixmap *actionPixmap);
 		~UndoItem();
+		void paint(QPainter *painter);
+		int height(const QListBox*) const;
+		int width(const QListBox*) const;
 	};
 	
 /******************************************************************************/
