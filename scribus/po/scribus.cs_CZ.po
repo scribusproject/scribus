@@ -1,3 +1,5 @@
+# translation of scribus.cs_CZ.po to 
+# translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
 # This is a Qt message file in .po format.  Each msgid starts with
@@ -6,10 +8,10 @@
 # Petr Vanìk <subzero@py.cz>, 2003
 msgid ""
 msgstr ""
-"Project-Id-Version: scribus.cs_CZ.1\n"
+"Project-Id-Version: scribus.cs_CZ\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
-"PO-Revision-Date: 2003-06-27 13:46+0200\n"
-"Last-Translator: Petr Vanìk <subzero@py.cz>, Ondøej Rovòan <ondrej.rovnan@seznam.cz>\n"
+"PO-Revision-Date: 2003-07-01 16:06+0200\n"
+"Last-Translator: Petr Vanìk <subzero@py.cz>\n"
 "Language-Team:  <cs@li.org>\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,7 +39,7 @@ msgid "Save as..."
 msgstr "Ulo¾it jako..."
 
 msgid "Save as"
-msgstr "Ulo¾it"
+msgstr "Ulo¾it jako"
 
 msgid "Revert to Saved"
 msgstr "Vrátit se k ulo¾enému"
@@ -91,7 +93,7 @@ msgid "Show Margins"
 msgstr "Zobrazit okraje"
 
 msgid "Hide Guides"
-msgstr "Skrýt øídící èáry"
+msgstr "Skrýt vodítka"
 
 msgid "Hide Images"
 msgstr "Skrýt obrázky"
@@ -100,7 +102,7 @@ msgid "Show Images"
 msgstr "Zobrazit obrázky"
 
 msgid "Show Guides"
-msgstr "Zobrazit øídící èáry"
+msgstr "Zobrazit vodítka"
 
 msgid "Show Measurements"
 msgstr "Zobrazit rozmìry"
@@ -139,10 +141,10 @@ msgid "Page Size"
 msgstr "Velikost strany"
 
 msgid "Margin Guides"
-msgstr "Okraje øídících èar"
+msgstr "Vodítka okrajù"
 
 msgid "Column Guides"
-msgstr "Øídící èáry sloupcù"
+msgstr "Vodítka sloupcù"
 
 msgid "Columns:"
 msgstr "Sloupce:"
@@ -178,7 +180,7 @@ msgid "Other"
 msgstr "Jiné"
 
 msgid "Facing Pages"
-msgstr "Zrcadlení stran"
+msgstr "Dvoustrany"
 
 msgid "OK"
 msgstr "OK"
@@ -196,10 +198,10 @@ msgid "Tabloid"
 msgstr "Tabloid"
 
 msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
-msgstr "Dokumenty (*.scd *scd.gz *.scd *scd.gz);;V¹echny soubory (*)"
+msgstr "Dokumenty (*.scd *scd.gz *.scd *scd.gz);; V¹echny soubory (*)"
 
 msgid "Documents (*.sla *.scd);; All Files (*)"
-msgstr "Dokumenty (*.sla *scd);;V¹echny soubory (*)"
+msgstr "Dokumenty (*.sla *scd);; V¹echny soubory (*)"
 
 msgid "Document "
 msgstr "Dokument "
@@ -226,13 +228,13 @@ msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
 msgstr ");;Vektorová grafika (*.eps *.pdf);;V¹echny soubory (*)"
 
 msgid "Look &in:"
-msgstr "Nahlédnout &do:"
+msgstr "Nahlédn&i do:"
 
 msgid "File &type:"
 msgstr "&Typ souboru:"
 
 msgid "File &name:"
-msgstr "Jméno souboru:"
+msgstr "Jmé&no souboru:"
 
 msgid "PDF-Options"
 msgstr "Nastavení PDF"
@@ -244,7 +246,7 @@ msgid "Images:"
 msgstr "Obrázky:"
 
 msgid "Resolution for EPS-Images:"
-msgstr "Rozli¹ení pro EPS obrázky:"
+msgstr "Rozli¹ení pro obrázky EPS:"
 
 msgid "Document Info"
 msgstr "Informace o dokumentu"
@@ -256,7 +258,7 @@ msgid "Author:"
 msgstr "Autor:"
 
 msgid "Edit"
-msgstr "Editovat"
+msgstr "Úpravy"
 
 msgid "Cut"
 msgstr "Vyjmout"
@@ -277,13 +279,13 @@ msgid "Deselect all"
 msgstr "V¹e odznaèit"
 
 msgid "Theme"
-msgstr "Téma"
+msgstr "Vzhled"
 
 msgid "Other..."
 msgstr "Jiný..."
 
 msgid "Item"
-msgstr "Polo¾ka"
+msgstr "Objekt"
 
 msgid "Page"
 msgstr "Strana"
@@ -334,7 +336,7 @@ msgid "OK to delete Color:"
 msgstr "OK pro smazání barvy:"
 
 msgid "Replace it with:"
-msgstr "Nahradit to s:"
+msgstr "Nahradit èím:"
 
 msgid "Delete Color"
 msgstr "Smazat barvu"
@@ -343,13 +345,13 @@ msgid "Colors"
 msgstr "Barvy"
 
 msgid "Edit Colors"
-msgstr "Upravit"
+msgstr "Zmìnit barvy"
 
 msgid "Show Outline"
-msgstr "Zobrazit obrysy"
+msgstr "Zobrazit pøehled"
 
 msgid "Hide Outline"
-msgstr "Skrýt obrysy"
+msgstr "Skrýt pøehled"
 
 msgid "Outline"
 msgstr "Pøehled"
@@ -370,16 +372,16 @@ msgid "Type"
 msgstr "Typ"
 
 msgid "Send to Back"
-msgstr "Pøenést do pozadí"
+msgstr "Dát dozadu"
 
 msgid "Bring to Front"
-msgstr "Pøenést do popøedí"
+msgstr "Dát dopøedu"
 
 msgid "Lower"
-msgstr "Sní¾it"
+msgstr "Dozadu"
 
 msgid "Raise"
-msgstr "Zvý¹it"
+msgstr "Dopøedu"
 
 msgid "Delete Page:"
 msgstr "Smazat stranu:"
@@ -397,10 +399,10 @@ msgid "Line Width:"
 msgstr "©íøka èáry:"
 
 msgid "Print destination"
-msgstr "Kam tisknout"
+msgstr "Tisk do"
 
 msgid "Print to printer:"
-msgstr "Tisk na tiskárnì:"
+msgstr "Tisk na tiskárnu:"
 
 msgid "Printer"
 msgstr "Tiskárna"
@@ -421,7 +423,7 @@ msgid "Print in color if available"
 msgstr "Tisknout barevnì, jestli¾e je to mo¾né"
 
 msgid "Print in grayscale"
-msgstr "Tisknout v odstínech ¹edé"
+msgstr "Tisknout v odstínech ¹edi"
 
 msgid "Paper format"
 msgstr "Formát papíru"
@@ -448,10 +450,10 @@ msgid "To page:"
 msgstr "Po stranu:"
 
 msgid "Print first page first"
-msgstr "Tisknout první stranu jako první"
+msgstr "Tisknout v normálním poøadí"
 
 msgid "Print last page first"
-msgstr "Tisknout strany v opaèném poøadí"
+msgstr "Tisk sestupnì od poslední strany"
 
 msgid "Number of copies:"
 msgstr "Poèet kopií:"
@@ -469,7 +471,7 @@ msgid "&Add To Custom Colors"
 msgstr "&Pøidat k vlastním barvám"
 
 msgid "&Define Custom Colors >>"
-msgstr "&Definovat vlastní barvy>>"
+msgstr "&Definovat vlastní barvy >>"
 
 msgid "&Red:"
 msgstr "Èe&rvená:"
@@ -517,7 +519,7 @@ msgid "General"
 msgstr "V¹eobecné"
 
 msgid "Guides"
-msgstr "Øídící èáry"
+msgstr "Vodítka"
 
 msgid "Major Grid Spacing:"
 msgstr "Hlavní vzdálenost møí¾ky:"
@@ -544,19 +546,19 @@ msgid "Is PDF-Bookmark"
 msgstr "Je PDF zálo¾kou"
 
 msgid "Snap to Guides"
-msgstr "Ukotvit k øídícím èarám"
+msgstr "Magnetická vodítka"
 
 msgid "Apply"
 msgstr "Pou¾ít"
 
 msgid "Snap to Grid"
-msgstr "Ukotvit k møí¾ce"
+msgstr "Magnetická møí¾ka"
 
 msgid "Mouse-Settings"
 msgstr "Nastavení my¹i"
 
 msgid "Wheel-Jump"
-msgstr "Skok koleèka"
+msgstr "Krok koleèka"
 
 msgid "Grab-Radius"
 msgstr "Chytit polomìr"
@@ -580,13 +582,13 @@ msgid "Loading aborted"
 msgstr "Naèítání zru¹eno"
 
 msgid "Global Fontsettings"
-msgstr "Globální nastavení písma"
+msgstr "V¹eobecné nastavení písma"
 
 msgid "Path to Fontfile"
 msgstr "Cesta k souborùm písma"
 
 msgid "Embed in:"
-msgstr "Vlo¾it:"
+msgstr "Obsa¾en v:"
 
 msgid "Default Size:"
 msgstr "Standardní velikost"
@@ -595,7 +597,7 @@ msgid "Default Font:"
 msgstr "Standardní písmo:"
 
 msgid "Woven silk pyjamas exchanged for blue quartz"
-msgstr ""
+msgstr "Pøíli¹ ¾lu»ouèký kùò úpìl dábelské Ódy"
 
 msgid "Fonts"
 msgstr "Písma"
@@ -613,10 +615,10 @@ msgid "Use"
 msgstr "Pou¾ít"
 
 msgid "instead"
-msgstr "namísto"
+msgstr "místo"
 
 msgid "Fonts..."
-msgstr "Písmo..."
+msgstr "Písma..."
 
 msgid " loaded"
 msgstr " naèteno"
@@ -637,7 +639,7 @@ msgid "Error creating PDF-File.."
 msgstr "Chyba pøi vytváøení PDF souboru."
 
 msgid "Error during EPS-Export"
-msgstr "Chyba pøi exportu EPS"
+msgstr "Chyba pøi exportu do EPS"
 
 msgid "The following Programs are missing:"
 msgstr "Chybí tyto programy:"
@@ -646,7 +648,7 @@ msgid "Ghostscript : You cannot use EPS-Images"
 msgstr "Ghostscript : Nemù¾ete pou¾ívat EPS obrázky"
 
 msgid "Multiple Duplicate"
-msgstr "Viacnásobné duplikování"
+msgstr "Vícenásobné duplikování"
 
 msgid "Number of Copies:"
 msgstr "Poèet kopií:"
@@ -682,7 +684,7 @@ msgid "Left Sides"
 msgstr "Levé strany"
 
 msgid "Middles"
-msgstr "Støedy"
+msgstr "Na støed"
 
 msgid "Right Sides"
 msgstr "Pravé strany"
@@ -706,10 +708,10 @@ msgid "There are no Postscript-Fonts on your System"
 msgstr "Vá¹ systém neobsahuje ¾ádná Postscriptová písma"
 
 msgid "Exiting now"
-msgstr "Ukonèit ihned"
+msgstr "Konèím"
 
 msgid "Insert Page"
-msgstr "Vlo¾it obrázek"
+msgstr "Vlo¾it stranu"
 
 msgid "Inserting"
 msgstr "Vkládání"
@@ -748,7 +750,7 @@ msgid "to:"
 msgstr "po:"
 
 msgid "Select Items"
-msgstr "Zvolit polo¾ky"
+msgstr "Vybrat polo¾ky"
 
 msgid "Edit Contents of Frame"
 msgstr "Upravit obsah rámu"
@@ -757,16 +759,16 @@ msgid "Zooms in or out"
 msgstr "Zvìt¹it nebo zmen¹it"
 
 msgid "Insert Textbox"
-msgstr "Vlo¾it textový box"
+msgstr "Vlo¾it textový rámec"
 
 msgid "Insert Picture"
 msgstr "Vlo¾it obrázek"
 
 msgid "Insert Lines"
-msgstr "Vlo¾it èáru"
+msgstr "Vlo¾it èáry"
 
 msgid "Insert Ovals"
-msgstr "Vlo¾it ovál"
+msgstr "Vlo¾it ovály"
 
 msgid "Insert Rectangles"
 msgstr "Vlo¾it obdélníky"
@@ -775,16 +777,16 @@ msgid "Rotate Item"
 msgstr "Otoèit polo¾ku"
 
 msgid "Modify..."
-msgstr "Modifikovat..."
+msgstr "Upravit..."
 
 msgid "Modify Textframe"
-msgstr "Modifikovat textový rám"
+msgstr "Upravit textový rám"
 
 msgid "Modify Frame"
-msgstr "Modifikovat rám"
+msgstr "Upravit rám"
 
 msgid "Other:"
-msgstr "Jiný..."
+msgstr "Jiný:"
 
 msgid "Don't print"
 msgstr "Netisknout"
@@ -796,16 +798,16 @@ msgid "Ordinary Text"
 msgstr "Bì¾ný text"
 
 msgid "Is PDF-Annotation"
-msgstr "Je PDF anotací"
+msgstr "Je PDF poznámkou"
 
 msgid "Angle:"
-msgstr "Úhel::"
+msgstr "Úhel:"
 
 msgid "Textdistance"
 msgstr "Vzdálenost textu"
 
 msgid "Face"
-msgstr "Povrch"
+msgstr "Øez"
 
 msgid "Superscript"
 msgstr "Horní index"
@@ -814,10 +816,10 @@ msgid "Subscript"
 msgstr "Dolní index"
 
 msgid "Flip horizontal"
-msgstr "Vodorovnì pøeklopit"
+msgstr "Pøeklopit vodorovnì"
 
 msgid "Flip vertical"
-msgstr "Svisle pøeklopit"
+msgstr "Pøeklopit svisle"
 
 msgid "Scaling:"
 msgstr "Zmìna velikosti:"
@@ -832,7 +834,7 @@ msgid "Typographics"
 msgstr "Typografie"
 
 msgid "Italic"
-msgstr "©ikmé"
+msgstr "Kurzíva"
 
 msgid "No Fill"
 msgstr "Bez výplnì"
@@ -841,13 +843,13 @@ msgid "Underline"
 msgstr "Podtr¾ené"
 
 msgid "Strikethru"
-msgstr "Pøe¹krtnuté"
+msgstr "Pøe¹krtnuté vý¹"
 
 msgid "Strikeout"
 msgstr "Pøe¹krtnuté"
 
 msgid "Append"
-msgstr "Pøidat"
+msgstr "Pøipojit"
 
 msgid "Bold"
 msgstr "Tuèné"
@@ -859,10 +861,10 @@ msgid "Background Color:"
 msgstr "Barva pozadí:"
 
 msgid "Vertical flipped"
-msgstr "Svisle pøeklopené"
+msgstr "Svisle zrcadleno"
 
 msgid "Horizontal flipped"
-msgstr "Vodorovnì pøeklopené"
+msgstr "Vodorovnì zrcadleno"
 
 msgid "Text flows around Box"
 msgstr "Text obtéká okolo"
@@ -886,7 +888,7 @@ msgid "Vertical Scaling"
 msgstr "Svislé zvìt¹ení"
 
 msgid "Modify Pictureframe"
-msgstr "Modifikovat rám obrázku"
+msgstr "Upravit obrázkový rám"
 
 msgid "Line Color:"
 msgstr "Barva èáry:"
@@ -907,7 +909,7 @@ msgid "Scaling Y:"
 msgstr "Zvìt¹ení Y:"
 
 msgid "Manual Kerning"
-msgstr "Ruèní párování znakù (Kerning)"
+msgstr "Ruèní vyrovnání znakù (Kerning)"
 
 msgid "Linespacing"
 msgstr "Øádkování"
@@ -922,10 +924,10 @@ msgid "Tools"
 msgstr "Nástroje"
 
 msgid "Create Textchains"
-msgstr "Vytvoøit vazby textu"
+msgstr "Vytvoøit øetìzení textu"
 
 msgid "Break Textchains"
-msgstr "Pøeru¹it vazby textu"
+msgstr "Pøeru¹it øetìzení textu"
 
 msgid "Stepping:"
 msgstr "Krokování:"
@@ -934,10 +936,10 @@ msgid "Placing"
 msgstr "Umístìní:"
 
 msgid "In the Background"
-msgstr "V pozadí"
+msgstr "Vespod"
 
 msgid "In the Foreground"
-msgstr "V popøedí"
+msgstr "Navrchu"
 
 msgid "Text Color:"
 msgstr "Barva textu:"
@@ -946,7 +948,7 @@ msgid "Units"
 msgstr "Jednotky"
 
 msgid "Points (pts)"
-msgstr "Body (pt)"
+msgstr "Body (pts)"
 
 msgid "Points (pt)"
 msgstr "Body (pt)"
@@ -1027,7 +1029,7 @@ msgid "Print Normal"
 msgstr "Normální tisk"
 
 msgid "Print Separations"
-msgstr "Oddìlený tisk barevných slo¾ek"
+msgstr "Tisknout separace"
 
 msgid "All"
 msgstr "V¹echny"
@@ -1042,7 +1044,7 @@ msgid "Color Model"
 msgstr "Barevný model"
 
 msgid "Is Spot-Color"
-msgstr "je barva bodu"
+msgstr "Neseparovaná barva"
 
 msgid "Edit Color"
 msgstr "Upravit barvu"
@@ -1099,7 +1101,7 @@ msgid "Page-Colors"
 msgstr "Barva strany"
 
 msgid "Background:"
-msgstr "Pozadí:"
+msgstr "Podklad:"
 
 msgid "Left Indent:"
 msgstr "Levé odsazení"
@@ -1111,7 +1113,7 @@ msgid "Character"
 msgstr "Znak"
 
 msgid "Face:"
-msgstr "Tváø:"
+msgstr "Øez:"
 
 msgid "Size:"
 msgstr "Velikost:"
@@ -1168,7 +1170,7 @@ msgid "Move Control Points symmetrical"
 msgstr "Symetricky pøesouvat øídící body"
 
 msgid "Insert Bezier Curves"
-msgstr "Vlo¾it bezierové køivky"
+msgstr "Vlo¾it Beziérovy køivky"
 
 msgid "New Entry"
 msgstr "Nová polo¾ka"
@@ -1198,7 +1200,7 @@ msgid "Save Contents on Exit"
 msgstr "Ulo¾it obsah pøi ukonèení"
 
 msgid "Preview"
-msgstr "Ukázka"
+msgstr "Náhled"
 
 msgid "Small"
 msgstr "Malá"
@@ -1355,7 +1357,7 @@ msgid "Color Management Settings"
 msgstr "Nastavení správy barev"
 
 msgid "Activate Color Management"
-msgstr "Aktivní správa barev"
+msgstr "Aktivovat správu barev"
 
 msgid "System Profiles"
 msgstr "Systémové profily"
@@ -1364,7 +1366,7 @@ msgid "Pictures:"
 msgstr "Obrázky:"
 
 msgid "Solid Colors:"
-msgstr "Plné barvy:"
+msgstr "Plné barvy (Solid colors):"
 
 msgid "Monitor:"
 msgstr "Monitor:"
@@ -1379,7 +1381,7 @@ msgid "Rendering Intent:"
 msgstr "Úèel generování:"
 
 msgid "Perceptual"
-msgstr "Vnímatelné"
+msgstr "Vnímatelný (Perceptual)"
 
 msgid "Relative Colorimetric"
 msgstr "Relative Colorimetric"
@@ -1400,7 +1402,7 @@ msgid "Input Profile:"
 msgstr "Vlo¾it profil:"
 
 msgid "No Title"
-msgstr "Bez titulku"
+msgstr "Bez názvu"
 
 msgid "Unknown"
 msgstr "Neznámý"
@@ -1412,7 +1414,7 @@ msgid "Scribus-Document"
 msgstr "Scribus-Dokument"
 
 msgid "Title:"
-msgstr "Titulek:"
+msgstr "Název:"
 
 msgid "Sorry, no Manual available!"
 msgstr "Lituji, ale Manuál není dostupný!"
@@ -1472,7 +1474,7 @@ msgid "Type:"
 msgstr "Typ:"
 
 msgid "Annotation Properties"
-msgstr "Vlastnosti anotace"
+msgstr "Vlastnosti poznámky"
 
 msgid "Bookmarks"
 msgstr "Zálo¾ky"
@@ -1523,7 +1525,7 @@ msgid "Insert Pagenumber"
 msgstr "Vlo¾it èíslování stran"
 
 msgid "Binding:"
-msgstr "Vázání:"
+msgstr "Vazba:"
 
 msgid "Left Margin"
 msgstr "Levý okraj"
@@ -1727,7 +1729,7 @@ msgid "Lithuanian:"
 msgstr "Litevsky:"
 
 msgid "Measurements"
-msgstr "Míry"
+msgstr "Jednotky"
 
 msgid "Insert Polygons"
 msgstr "Vlo¾it mnohoúhelníky"
@@ -1781,10 +1783,10 @@ msgid "Delete Layer"
 msgstr "Smazat vrstvu"
 
 msgid "Raise Layer"
-msgstr "Zvý¹it vrstvu"
+msgstr "Vrstvu dopøedu"
 
 msgid "Lower Layer"
-msgstr "Sní¾it vrstvu"
+msgstr "Vrstvu dozadu"
 
 msgid "Closes this Dialog"
 msgstr "Zavøít tento dialog"
@@ -1814,7 +1816,7 @@ msgid "Hide Layers"
 msgstr "Skrýt vrstvy"
 
 msgid "Sent to Layer"
-msgstr "Poslat do vrstvy "
+msgstr "Pøesunout do vrstvy "
 
 msgid "Link"
 msgstr "Spojení"
@@ -1898,7 +1900,7 @@ msgid "Push"
 msgstr "Stisknout"
 
 msgid "Multi-Line"
-msgstr "Multi øádek"
+msgstr "Víceøádkový"
 
 msgid "Password"
 msgstr "Heslo"
@@ -1940,7 +1942,7 @@ msgid "Default is Checked"
 msgstr "Standardnì je oznaèené"
 
 msgid "Java Script"
-msgstr "Java skript"
+msgstr "JavaScript"
 
 msgid "Go To"
 msgstr "Jít na"
@@ -1967,19 +1969,19 @@ msgid "Event:"
 msgstr "Událost:"
 
 msgid "Mouse Up"
-msgstr "My¹ nahoøe"
+msgstr "Stisk tlaèítka my¹i"
 
 msgid "Mouse Down"
-msgstr "My¹ dole"
+msgstr "Uvolnìní tlaèítka my¹i"
 
 msgid "Mouse Enter"
-msgstr "My¹ vstup"
+msgstr "Najetí my¹i"
 
 msgid "Mouse Exit"
-msgstr "My¹ konec"
+msgstr "Opu¹tìní my¹í"
 
 msgid "On Focus"
-msgstr "Pøi zamìøení"
+msgstr "Po pøepnutí na"
 
 msgid "On Blur"
 msgstr "Pøi rozmazání"
@@ -2072,10 +2074,10 @@ msgid "Value is the"
 msgstr "Hodnota je"
 
 msgid "sum"
-msgstr "suma"
+msgstr "souèet"
 
 msgid "product"
-msgstr "produkt"
+msgstr "souèin"
 
 msgid "average"
 msgstr "prùmìr"
@@ -2215,19 +2217,19 @@ msgid "Insert PDF-Fields"
 msgstr "Vlo¾it PDF pole"
 
 msgid "Undo"
-msgstr "Zpìt"
+msgstr "Pøedchozí stav (undo)"
 
 msgid "Redo"
-msgstr "Opakovat:"
+msgstr "Následující stav (redo)"
 
 msgid "Select Fields"
-msgstr "Zvolené pole"
+msgstr "Zvolit pole"
 
 msgid "Available Fields"
-msgstr "Dostupné pole:"
+msgstr "Dostupná pole:"
 
 msgid "Selected Fields"
-msgstr "Zvolit pole"
+msgstr "Zvolená pole"
 
 msgid "Field Properties"
 msgstr "Vlastnosti pole"
@@ -2245,7 +2247,7 @@ msgid "New Script"
 msgstr "Nový skript"
 
 msgid "Insert PDF-Annotations"
-msgstr "Vlo¾it PDF anotace"
+msgstr "Vlo¾it PDF poznámky"
 
 msgid "Import Data"
 msgstr "Importovat data ..."
@@ -2303,7 +2305,7 @@ msgid "Here you can see all Pages of your Document."
 msgstr "Zde mù¾ete vidìt v¹echny strany va¹eho dokumentu."
 
 msgid "Free Scaling"
-msgstr "Volná mìrka"
+msgstr "Volná zmìna velikosti"
 
 msgid "Scale to Frame Size"
 msgstr "Zmìnit velikost na rozmìr rámu"
@@ -2351,7 +2353,7 @@ msgid "Enables automatic checking of your Text during Typing."
 msgstr "Povolí automatickou kontrolu textu bìhem psaní."
 
 msgid "Fully Automatic"
-msgstr "Plnì automaticky"
+msgstr "Zcela automaticky"
 
 msgid "Language:"
 msgstr "Jazyk:"
@@ -2490,19 +2492,19 @@ msgid "Add"
 msgstr "Pøidat"
 
 msgid "Horizontal Gradient"
-msgstr "Horizontální pøechod"
+msgstr "Vodorovný pøechod"
 
 msgid "Vertical Gradient"
-msgstr "Vertikální pøechod"
+msgstr "Svislý pøechod"
 
 msgid "Diagonal Gradient"
-msgstr "Diagonální pøechod"
+msgstr "Uhlopøíèný pøechod"
 
 msgid "CrossDiagonal Gradient"
-msgstr "Køí¾-diagonální pøechod"
+msgstr "Uhlopøíènì køí¾ený pøechod"
 
 msgid "Radial Gradient"
-msgstr "Radiální pøechod"
+msgstr "Kruhový pøechod"
 
 msgid "Polish:"
 msgstr "Polsky:"
@@ -2652,7 +2654,7 @@ msgid "Hide Bookmarks"
 msgstr "Skrýt zálo¾ky"
 
 msgid "Collect for Output..."
-msgstr "Hromadit pro výstup..."
+msgstr "Adresáø pro výstup..."
 
 msgid "Danish"
 msgstr "Dánsky"
@@ -2661,14 +2663,13 @@ msgid "Danish:"
 msgstr "Dánsky:"
 
 msgid "Lock Guides"
-msgstr "Uzamknout øídící èáry"
+msgstr "Zamknout vodítka"
 
 msgid "Mirror Page(s) horizontal"
 msgstr "Horizontální zrcadlení stran(y)"
 
 msgid "Mirror Page(s) vertical"
 msgstr "Vertikální zrcadlení stran(y)"
-
 
 msgid "Rotation"
 msgstr "Otoèení"
@@ -2717,7 +2718,7 @@ msgid "Import a Page"
 msgstr "Importovat stranu"
 
 msgid "Document to load:"
-msgstr "Nahrát dokumentace:"
+msgstr "Naèíst dokument:"
 
 msgid "Document contains: 0 Page(s)"
 msgstr "Dokument obsahuje: 0 Stran"
@@ -2741,13 +2742,13 @@ msgid "Apply ICC-Profiles"
 msgstr "Pou¾ít ICC-profily"
 
 msgid "Mark Colors out of Gamut"
-msgstr "Oznaè barvy mimo ¹kálu"
+msgstr "Oznaè netisknutelné barvy (gamut)"
 
 msgid "Scale Picture to Frame Size"
 msgstr "Zmìnit velikost obrázku na rozmìr rámu"
 
 msgid "Combine Polygons"
-msgstr "Kombinuj mnohoúhelníky"
+msgstr "Spoj mnohoúhelníky"
 
 msgid "Split Polygon"
 msgstr "Rozpoj mnohoúhelníky"
@@ -2759,10 +2760,10 @@ msgid "Websave RGB"
 msgstr "Ulo¾it pro web RGB"
 
 msgid "Adjust Display Size"
-msgstr "Pøizpùsobení velikosti displeje"
+msgstr "Pøizpùsobení velikosti obrazovky"
 
 msgid "To adjust the Display drag the Ruler below with the Slider."
-msgstr ""
+msgstr "Pro pøizpùsobení obrazovky posuòte jezdcem na spodním pravítku"
 
 msgid "Show PDF-Tools"
 msgstr "Zobrazit PDF nástroje"
@@ -2804,16 +2805,16 @@ msgid "Getting ICC-Profiles"
 msgstr "Získávám ICC-profily"
 
 msgid "Searching for Fonts"
-msgstr "Hledání písem"
+msgstr "Hledám písma"
 
 msgid "Print Preview"
-msgstr "Ukázka tisku"
+msgstr "Ukázka pøed tiskem"
 
 msgid "Antialias Text"
-msgstr "Antialiasovaný text"
+msgstr "Vyhladit text"
 
 msgid "Antialias Graphics"
-msgstr "Antialiasovaná grafika"
+msgstr "Vyhladit grafiku"
 
 msgid "Russian:"
 msgstr "Rusky:"
@@ -2828,7 +2829,7 @@ msgid "Enabled"
 msgstr "Povoleno"
 
 msgid "use Bounding Box"
-msgstr "pou¾ít vázaný box"
+msgstr "pou¾ít celostránkový rámec"
 
 msgid "Czech:"
 msgstr "Èesky:"
@@ -2837,7 +2838,7 @@ msgid "Norwegian:"
 msgstr "Norsky:"
 
 msgid "Select new Font:"
-msgstr "Vybrat nové písmo"
+msgstr "Vybrat nové písmo:"
 
 msgid "Insert Special"
 msgstr "Vlo¾it speciální"
@@ -2869,39 +2870,39 @@ msgstr "Èerchovaná èára"
 msgid "Dash Dot Dot Line"
 msgstr "Dvojitì èerchovaná èára"
 
-#~ msgid "Hide Colors"
-#~ msgstr "Skrýt barvy"
+msgid "Hide Colors"
+msgstr "Skrýt barvy"
 
-#~ msgid "Show Colors"
-#~ msgstr "Zobrazit barvy"
+msgid "Show Colors"
+msgstr "Zobrazit barvy"
 
-#~ msgid "locally connected"
-#~ msgstr "lokálnì pøipojená"
+msgid "locally connected"
+msgstr "lokálnì pøipojená"
 
-#~ msgid "Sample Text"
-#~ msgstr "Ukázka textu"
+msgid "Sample Text"
+msgstr "Ukázka textu"
 
-#~ msgid "Based on:"
-#~ msgstr "Zalo¾ená na:"
+msgid "Based on:"
+msgstr "Zalo¾ená na:"
 
-#~ msgid "Left Page based on:"
-#~ msgstr "Levá strana zalo¾ená na:"
+msgid "Left Page based on:"
+msgstr "Levá strana zalo¾ena na:"
 
-#~ msgid "Right Page based on:"
-#~ msgstr "Pravá strana zalo¾ená na:"
+msgid "Right Page based on:"
+msgstr "Pravá strana zalo¾ena na:"
 
-#~ msgid "X-Coor.:"
-#~ msgstr "X-koor.:"
+msgid "X-Coor.:"
+msgstr "X-souø.:"
 
-#~ msgid "Y-Coor.:"
-#~ msgstr "Y-koor.:"
+msgid "Y-Coor.:"
+msgstr "Y-souø.:"
 
-#~ msgid "Scale When:"
-#~ msgstr "Zmìna velikosti, jestli¾e:"
+msgid "Scale When:"
+msgstr "Zmìnit velikosti, jestli¾e:"
 
-#~ msgid "Keep Aspect Ratio"
-#~ msgstr "Dodr¾et oèekávaný pomìr"
+msgid "Keep Aspect Ratio"
+msgstr "Dodr¾et pomìr stran"
 
-#~ msgid "Position:"
-#~ msgstr "Pozice:"
+msgid "Position:"
+msgstr "Pozice:"
 
