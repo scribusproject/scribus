@@ -276,7 +276,12 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			if ((Doc->linkShown) && (linkedFramesToShow.count() != 0))
 				b = linkedFramesToShow.at(0);
 			else
-				b = SelItem.at(0);
+			{
+				if (linkedFramesToShow.count() != 0)
+					b = linkedFramesToShow.at(0);
+				else
+					b = SelItem.at(0);
+			}
 			if ((((Doc->AppMode == 10) || (Doc->AppMode == 11)) && (b->PType == 4)) || (Doc->linkShown))
 			{
 				PageItem *nb = b;
@@ -1667,6 +1672,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			updateContents();
 			if (Doc->ElemToLink != 0)
 				return;
+			else
+			{
+				Doc->AppMode = 1;
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				emit PaintingDone();
+				return;
+			}
 		}
 		if (Doc->AppMode == 12)
 		{
