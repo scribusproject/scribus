@@ -105,11 +105,14 @@ void ScribusWin::CloseCMSProfiles()
 void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS
-	QString pfad = PREL;
-	pfad += "/lib/scribus/profiles/";
 	doc->DocInputProf = cmsOpenProfileFromFile(InPo[doc->CMSSettings.DefaultInputProfile2], "r");
-	doc->DocOutputProf = cmsOpenProfileFromFile(pfad + MoPo[doc->CMSSettings.DefaultMonitorProfile], "r");
-	doc->DocPrinterProf = cmsOpenProfileFromFile(pfad + PrPo[doc->CMSSettings.DefaultPrinterProfile], "r");
+	doc->DocOutputProf = cmsOpenProfileFromFile(MoPo[doc->CMSSettings.DefaultMonitorProfile], "r");
+	doc->DocPrinterProf = cmsOpenProfileFromFile(PrPo[doc->CMSSettings.DefaultPrinterProfile], "r");
+	if ((doc->DocInputProf == NULL) || (doc->DocOutputProf == NULL) || (doc->DocPrinterProf == NULL))
+		{
+		doc->CMSSettings.CMSinUse = false;
+		return;
+		}
 	int dcmsFlags = 0;
 	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
 	if (Gamut)

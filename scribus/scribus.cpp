@@ -2402,6 +2402,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 			w->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
+			CMSuse = doc->CMSSettings.CMSinUse;
 			stdProof = w->stdProof;
 			stdTrans = w->stdTrans;
 			stdProofImg = w->stdProofImg;
@@ -5477,8 +5478,6 @@ void ScribusApp::SaveAsPDF()
 	uint frPa, toPa;
 	int Components;
 	QString nam = "";
-	QString pfad = PREL;
-	pfad += "/lib/scribus/profiles/";
 	if (BookPal->BView->childCount() == 0)
 		doc->PDF_Optionen.Bookmarks = false;
   PDF_Opts *dia = new PDF_Opts(this, doc->DocName, doc->UsedFonts, view, &doc->PDF_Optionen, doc->PDF_Optionen.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
@@ -5544,7 +5543,7 @@ void ScribusApp::SaveAsPDF()
 				{
 				const char *Descriptor;
 				cmsHPROFILE hIn;
-				hIn = cmsOpenProfileFromFile(pfad+PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
+				hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
   			Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
 				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
@@ -6114,7 +6113,11 @@ void ScribusApp::GetCMSProfiles()
 	pfad += "/lib/scribus/profiles/";
 	GetCMSProfilesDir(pfad);
 	if (Prefs.ProfileDir != "")
+		{
+		if(Prefs.ProfileDir.right(1) != "/")
+	  	Prefs.ProfileDir += "/";
 		GetCMSProfilesDir(Prefs.ProfileDir);
+		}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
 		CMSavail = true;
 	else
@@ -6137,6 +6140,8 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 			if ((ext == "icm") || (ext == "icc"))
 				{
 				hIn = cmsOpenProfileFromFile(pfad + d[dc], "r");
+				if (hIn == NULL)
+					continue;
   			Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
 				switch (static_cast<int>(cmsGetDeviceClass(hIn)))
@@ -6150,13 +6155,13 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 							InputProfiles[nam] = pfad + d[dc];
 						break;
 					case icSigDisplayClass:
-						MonitorProfiles[nam] = d[dc];
+						MonitorProfiles[nam] = pfad + d[dc];
 						InputProfiles[nam] = pfad + d[dc];
 						break;
 					case icSigOutputClass:
-						PrinterProfiles[nam] = d[dc];
+						PrinterProfiles[nam] = pfad + d[dc];
 						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-							PDFXProfiles[nam] = d[dc];
+							PDFXProfiles[nam] = pfad + d[dc];
 						break;
 					}
 				cmsCloseProfile(hIn);

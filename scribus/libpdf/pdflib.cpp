@@ -53,8 +53,6 @@ extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, i
 bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs)
 {
 	QPixmap pm;
-	QString pfad = PREL;
-	pfad += "/lib/scribus/profiles/";
 	bool ret = false;
 	PDFlib *dia = new PDFlib();
 	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Optionen, plug->Prefs.AvailFonts, plug->doc->UsedFonts, plug->BookPal->BView))
@@ -73,7 +71,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, in
 			dia->PDF_End_Page();
 			}
 		if (plug->doc->PDF_Optionen.Version == 12)
-			dia->PDF_End_Doc(pfad+plug->PrinterProfiles[plug->doc->PDF_Optionen.PrintProf], nam, Components);
+			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Optionen.PrintProf], nam, Components);
 		else
 			dia->PDF_End_Doc();
 		ret = true;

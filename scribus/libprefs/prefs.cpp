@@ -817,7 +817,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 			{
 			for (a = 0; a < SizeCombo->count(); ++a)
 				{
-				if (SizeCombo->text(a).left(2).toInt() == ap->doc->Dsize)
+				if (SizeCombo->text(a).left(2).toInt() == ap->doc->Dsize / 10)
 					SizeCombo->setCurrentItem(a);
 				}
 			}
@@ -825,7 +825,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 			{
 			for (a = 0; a < SizeCombo->count(); ++a)
 				{
-				if (SizeCombo->text(a).left(2).toInt() == Vor->DefSize)
+				if (SizeCombo->text(a).left(2).toInt() == Vor->DefSize / 10)
 					SizeCombo->setCurrentItem(a);
 				}
 			}

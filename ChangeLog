@@ -1,3 +1,51 @@
+Changes since Version 1.1.2
+28.11.2003	Fixed Bug that prevented proper recognition of User Defined ICC-Profile Directorys.
+
+27.11.2003	Fixed Bug that caused Scribus to hang when importing the same Page twice.
+
+26.11.2003	Fixed Crash when loading Documents.
+
+24.11.2003	Fixed duplication of Styles when importing Pages or Objects.
+
+23.11.2003	Added a "Revert to Saved" Option to the File Menu.
+
+22.11.2003	Added Group/Ungroup Items to Right Mouse Click Context Menu.
+		The Fontsize is now a float, you can have now Fontsize like 12.3 pt
+		Managed Guides is now available for Template Pages too.
+		
+21.11.2003	The Linewith of a Textframe is now honoured in the Distances of the
+		Text to the Frameborders when the Borderline is visible.
+
+20.11.2003	Fixed Bug in the PDF and Postscript Export with linked Frames.
+		Increased the maximum Linewidth to 36 pts.
+		Fixed Segfault when deleting more than one Page at once.
+
+19.11.2003	Fixed Bug in the Story Editor with linked Textframes.
+		You can now edit Texts on a Path with the Story Editor too.
+
+15.11.2003	Added first version of the Story Editor.
+
+12.11.2003	Fixed Bug with TIFF-Images.
+
+10.11.2003	Added Web-Links to the PDF-Export.
+		Fixed compilation issues with Python 2.3
+
+09.11.2003	Fixed compilation issues with the Scripter-Plugin.
+		Fixed wrong colors for Gradients in PDF.
+
+08.11.2003	You can now insert Pictures by simply dragging them to a Page.
+		Added an absolute coordinate Mode to the Node-Palette.
+
+06.11.2003	Added a --without-python option to ./configure for
+		those who don't have a use for the Scripter-Plugin.
+
+05.11.2003	Improved the Preview in the charselect plugin.
+
+04.11.2003	When you resize a Textframe with the Mouse and press
+		CTRL+SHIFT the Text is scaled accordingly.
+
+02.11.2003	Reenabled the Fontpreview in the Preferences.
+		
 Changes since Version 1.1.1
 28.10.2003	The Contents of the Outline Palette doesn't collapse anymore
 		when you are editing Objects or adding or removing Pages.

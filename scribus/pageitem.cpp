@@ -580,16 +580,24 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (BackBox != 0)
 							{
 							nb = BackBox;
-							if (nb->Ptext.count() != 0)
+							while (nb != 0)
 								{
-								if (nb->Ptext.at(nb->Ptext.count()-1)->ch == QChar(13))
+								if (nb->Ptext.count() != 0)
 									{
-									CurX += Doc->Vorlagen[absa].First;
-									CurX += Doc->Vorlagen[absa].Indent;
-									CurY += Doc->Vorlagen[absa].Avor;
+									if (nb->Ptext.at(nb->Ptext.count()-1)->ch == QChar(13))
+										{
+										CurX += Doc->Vorlagen[absa].First;
+										CurX += Doc->Vorlagen[absa].Indent;
+										CurY += Doc->Vorlagen[absa].Avor;
+										break;
+										}
+									else
+										{
+										CurX += Doc->Vorlagen[absa].Indent;
+										break;
+										}
 									}
-								else
-									CurX += Doc->Vorlagen[absa].Indent;
+								nb = nb->BackBox;
 								}
 							}
 						else

@@ -1,4 +1,6 @@
 Changes since Version 1.1.2
+28.11.2003	Fixed Bug that prevented proper recognition of User Defined ICC-Profile Directorys.
+
 27.11.2003	Fixed Bug that caused Scribus to hang when importing the same Page twice.
 
 26.11.2003	Fixed Crash when loading Documents.
