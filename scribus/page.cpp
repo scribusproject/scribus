@@ -3640,6 +3640,16 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	else
 		BlockLeave = false;
 	}
+	if (Mpressed && (m->state() & ControlButton) && (SelItem.count() == 0))
+	{
+		qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
+		int scroX = m->x() - qRound((Mxp * sc));
+		int scroY = m->y() - qRound((Myp * sc));
+		Anz->scrollBy(scroX, scroY);
+		Mxp = static_cast<int>(m->x()/sc);
+		Myp = static_cast<int>(m->y()/sc);
+		return;
+	}
 	if (Mpressed && (doku->AppMode == 21))
 	{
 		newX = m->x();

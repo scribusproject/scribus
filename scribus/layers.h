@@ -27,7 +27,6 @@ public:
     QPushButton* DeleteLayer;
     QPushButton* RaiseLayer;
     QPushButton* LowerLayer;
-    QPushButton* CloseB;
 	QValueList<Layer> *layers;
     void closeEvent(QCloseEvent *ce);
     void setLayers(QValueList<Layer> *layin, int *act);
@@ -47,7 +46,6 @@ public slots:
 	void setActiveLayer(int row);
 	void ClearInhalt();
 	void MarkActiveLayer(int l);
-	void Verlassen();
 
 signals:
 	void LayerRemoved(int, bool);
@@ -58,6 +56,9 @@ signals:
 protected:
     QVBoxLayout* LayerPaletteLayout;
     QHBoxLayout* Layout1;
+
+protected slots:
+	virtual void reject();
 };
 
 #endif // LAYERPALETTE_H

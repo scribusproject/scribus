@@ -73,13 +73,6 @@ LayerPalette::LayerPalette(QWidget* parent)
     QToolTip::add( LowerLayer, tr( "Lower Layer" ) );
     Layout1->addWidget( LowerLayer );
 
-    CloseB = new QPushButton( this, "Closeb" );
-    CloseB->setMinimumSize( QSize( 50, 24 ) );
-    CloseB->setMaximumSize( QSize( 50, 24 ) );
-    CloseB->setText( tr( "" ) );
-    CloseB->setPixmap(loadIcon("DateiClos16.png"));
-    QToolTip::add( CloseB, tr( "Closes this Dialog" ) );
-    Layout1->addWidget( CloseB );
     QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1->addItem( spacer );
     LayerPaletteLayout->addLayout( Layout1 );
@@ -89,7 +82,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(RaiseLayer, SIGNAL(clicked()), this, SLOT(upLayer()));
 	connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
 	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
-    connect(CloseB, SIGNAL(clicked()), this, SLOT(Verlassen()));
 }
 
 void LayerPalette::closeEvent(QCloseEvent *ce)
@@ -98,9 +90,10 @@ void LayerPalette::closeEvent(QCloseEvent *ce)
 	ce->accept();
 }
 
-void LayerPalette::Verlassen()
+void LayerPalette::reject()
 {
-	close();
+	emit Schliessen();
+	QDialog::reject();
 }
 
 void LayerPalette::ClearInhalt()

@@ -779,9 +779,11 @@ void ScribusApp::initMenuBar()
 	viewMenu->setItemEnabled(uGuide, 0);
 	viewMenu->setItemEnabled(Base, 0);
 	toolMenu=new QPopupMenu();
-	viewTools = toolMenu->insertItem( tr("Tools"), this, SLOT(ToggleTools()));
-	SetKeyEntry(45, tr("Tools"), viewTools, 0);
-	viewToolsP = toolMenu->insertItem( tr("PDF-Tools"), this, SLOT(TogglePDFTools()));
+	toolbarMenu = new QPopupMenu();
+	toolbarMenuTools = toolbarMenu->insertItem( tr("Tools"), this, SLOT(ToggleTools()));
+	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
+	toolbarMenuPDFTools = toolbarMenu->insertItem( tr("PDF-Tools"), this, SLOT(TogglePDFTools()));
+	viewToolbars = toolMenu->insertItem ( tr("Tool&bars"), toolbarMenu);
 	viewMpal = toolMenu->insertItem( tr("Properties"), this, SLOT(ToggleMpal()));
 	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
 	viewTpal = toolMenu->insertItem( tr("Outline"), this, SLOT(ToggleTpal()));
@@ -4234,7 +4236,7 @@ void ScribusApp::setTools(bool visible)
  		WerkTools->hide();
  		WerkTools->Sichtbar = false;
 		}
-	toolMenu->setItemChecked(viewTools, visible);
+	toolbarMenu->setItemChecked(toolbarMenuTools, visible);
 }
 
 void ScribusApp::ToggleTools()
@@ -4254,7 +4256,7 @@ void ScribusApp::setPDFTools(bool visible)
  		WerkToolsP->hide();
  		WerkToolsP->Sichtbar = false;
 		}
-	toolMenu->setItemChecked(viewToolsP, visible);
+	toolbarMenu->setItemChecked(toolbarMenuPDFTools, visible);
 }
 
 void ScribusApp::TogglePDFTools()

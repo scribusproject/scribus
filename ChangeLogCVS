@@ -1,4 +1,7 @@
 Changes since Version 1.1.6
+08.04.2004	Fixed Crash when exporting Texts on a Path to PDF.
+		You can scroll now with the Mouse when no Object is selected and you press CTRL and move the Mouse.
+
 07.04.2004	Applied Patch for better detecting CUPS.
 		Improved the forced aligning of Text again.
 

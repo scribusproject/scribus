@@ -439,7 +439,7 @@ private:
 	QPopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */
 	QPopupMenu *FontMenu;
-    FontCombo* FontSub;
+	FontCombo* FontSub;
 	QPopupMenu *TypeStyleMenu;
 	QPopupMenu *AliMenu;
 	QPopupMenu *recentMenu;
@@ -474,8 +474,9 @@ private:
 	int Guide;
 	int uGuide;
 	int Base;
-	int viewTools;
-	int viewToolsP;
+	int toolbarMenuTools;
+	int toolbarMenuPDFTools;
+	int viewToolbars;
 	int viewMpal;
 	int viewTpal;
 	int viewNpal;
@@ -532,6 +533,7 @@ private:
 	QPopupMenu *extraMenu;
 	QPopupMenu *importMenu;
 	QPopupMenu *exportMenu;
+	QPopupMenu *toolbarMenu;
 	double mm2pts(int mm);
 	double pts2mm(double pts);
 	QMap<int,QString> FontID;

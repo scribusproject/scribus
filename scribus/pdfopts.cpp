@@ -705,7 +705,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout7->addItem( spacer_2 );
 	OK = new QPushButton( this, "OK" );
-	OK->setText( tr( "OK" ) );
+	OK->setText( tr( "Save" ) );
 	OK->setAutoDefault( true );
 	OK->setDefault( true );
 	Layout7->addWidget( OK );
