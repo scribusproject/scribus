@@ -12,8 +12,10 @@
 #include <qdialog.h>
 #include <qlayout.h>
 #include <qcheckbox.h>
+#include <qcombobox.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
+#include <qlineedit.h>
 #include <qpushbutton.h>
 #include "mspinbox.h"
 
@@ -23,20 +25,29 @@ class ReformDoc : public QDialog
 
 public:
     ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, 
-				bool fp, bool fpe, int Einh );
+				bool fp, bool fpe, int Einh, int ori, QString pageSize );
     ~ReformDoc() {};
 
     QGroupBox* GroupBox7;
+    QGroupBox* dsGroupBox7;
     QLabel* TextLabel5;
     QLabel* TextLabel7;
     MSpinBox* TopR;
     MSpinBox* BottomR;
     MSpinBox* LeftR;
     MSpinBox* RightR;
+    MSpinBox* widthMSpinBox;
+    MSpinBox* heightMSpinBox;
     QCheckBox* Doppelseiten;
     QCheckBox* ErsteSeite;
     QLabel* Links;
     QLabel* Rechts;
+	QLabel*	widthQLabel;
+	QLabel*	heightQLabel;
+	QLabel*	sizeQLabel;
+	QLabel*	orientationQLabel;
+	QComboBox*	sizeQComboBox;
+	QComboBox*	orientationQComboBox;
     QPushButton* OKButton;
     QPushButton* CancelB;
 	int einheit;
@@ -45,7 +56,9 @@ public:
 
 protected:
     QVBoxLayout* ReformDocLayout;
+    QHBoxLayout* dsGroupBox7Layout;
     QHBoxLayout* GroupBox7Layout;
+    QGridLayout* dsLayout4;
     QGridLayout* Layout4;
     QHBoxLayout* Layout3;
 

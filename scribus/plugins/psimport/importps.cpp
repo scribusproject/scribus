@@ -183,7 +183,7 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	Prog = plug;
 	if (!Prog->HaveDoc)
 	{
-		Prog->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
+		Prog->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 		ret = true;
 	}
 	Doku = plug->doc;
