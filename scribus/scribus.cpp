@@ -1198,7 +1198,7 @@ void ScribusApp::initInsertMenuActions()
 {
 	//Insert Menu
 	scrActions.insert("insertSpecialChar", new ScrAction(tr("Special Character..."), QKeySequence(), this, "insertSpecialChar"));
-	scrActions["insertSpecialChar"]->setText(tr("Insert Special Character"));
+	//scrActions["insertSpecialChar"]->setText(tr("Insert Special Character"));
 	scrActions.insert("insertSampleText", new ScrAction(tr("Sample Text"), QKeySequence(), this, "insertSampleText"));
 	
 	connect( scrActions["insertSpecialChar"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
@@ -2097,15 +2097,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *b = view->SelItem.at(0);
-			if (kk == Key_F9)
-			{
-				keyrep = false;
-				if (doc->appMode == EditMode)
-					setAppMode(NormalMode);
-				else
-					setAppMode(EditMode);
-				return;
-			}
 
 			switch (doc->appMode)
 			{
