@@ -62,8 +62,8 @@ void PluginManager::initPlugs()
 				{
 					//Add in ScrAction based plugin linkage
 					//Insert DLL Action into Dictionary with values from plugin interface
-					ScApp->scrActions.insert(pda.actName, new ScrAction(ScrAction::DLL, QIconSet(), pda.Name, QKeySequence(pda.actKeySequence), this, pda.actName, id));
-
+					ScApp->scrActions.insert(pda.actName, new ScrAction(ScrAction::DLL, QIconSet(), pda.Name, QKeySequence(pda.actKeySequence), ScApp, pda.actName, id));
+					
 					if (ScApp->scrActions[pda.actName])
 					{
 						ScApp->scrActions[pda.actName]->setEnabled(pda.actEnabledOnStartup);

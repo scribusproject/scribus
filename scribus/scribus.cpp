@@ -234,6 +234,11 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 		fileWatcher = new FileWatcher(this);
 
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Initializing Plugins"));
+		qApp->processEvents();
+		pluginManager->initPlugs();
+		
 		initKeyboardShortcuts();
 
 		if (splashScreen != NULL)
@@ -259,11 +264,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Scrapbook"));
 		initScrapbook();
-
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Initializing Plugins"));
-		qApp->processEvents();
-		pluginManager->initPlugs();
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Setting up Shortcuts"));
