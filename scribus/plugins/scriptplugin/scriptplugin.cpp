@@ -52,9 +52,13 @@
 #include <qtextstream.h>
 #include <cstdlib>
 
+#include <iostream>
+
 // Exceptions; visible from cmdvar.h, set up in initscribus()
 PyObject* ScribusException;
 PyObject* NoDocOpenError;
+PyObject* WrongFrameTypeError;
+PyObject* NoValidObjectError;
 
 QString Name()
 {
@@ -525,156 +529,169 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 	return PyString_FromString(InValue);
 }
 
+/*!
+ * Translate a docstring. Small helper function for use with the
+ * PyMethodDef struct.
+ */
+char* tr(const char* docstringConstant)
+{
+    // Alas, there's a lot of wasteful string copying going on
+    // here.
+    QString translated = QObject::tr(docstringConstant, "scripter docstring");
+    const char* trch = translated.latin1();
+    return strndup(trch, strlen(trch));
+}
+
 /* Now we're using the more pyhtonic convention for names:
 	class - ClassName
 	procedure/function/method - procedureName
 etc. */
-static PyMethodDef scribus_methods[] = {
+PyMethodDef scribus_methods[] = {
 	// 2004/10/03 pv - aliases with common Python syntax - ClassName methodName
 	// 2004-11-06 cr - move aliasing to dynamically generated wrapper functions, sort methoddef
-	{"changeColor", scribus_setcolor, METH_VARARGS, scribus_setcolor__doc__},
-	{"closeDoc", (PyCFunction)scribus_closedoc, METH_NOARGS, scribus_closedoc__doc__},
-	{"createBezierLine", scribus_bezierline, METH_VARARGS, scribus_bezierline__doc__},
-	{"createEllipse", scribus_newellipse, METH_VARARGS, scribus_newellipse__doc__},
-	{"createImage", scribus_newimage, METH_VARARGS, scribus_newimage__doc__},
-	{"createLayer", scribus_createlayer, METH_VARARGS, scribus_createlayer__doc__},
-	{"createLine", scribus_newline, METH_VARARGS, scribus_newline__doc__},
-	{"createPathText", scribus_pathtext, METH_VARARGS, scribus_pathtext__doc__},
-	{"createPolygon", scribus_polygon, METH_VARARGS, scribus_polygon__doc__},
-	{"createPolyLine", scribus_polyline, METH_VARARGS, scribus_polyline__doc__},
-	{"createRect", scribus_newrect, METH_VARARGS, scribus_newrect__doc__},
-	{"createText", scribus_newtext, METH_VARARGS, scribus_newtext__doc__},
-	{"currentPage", (PyCFunction)scribus_actualpage, METH_NOARGS, scribus_actualpage__doc__},
-	{"defineColor", scribus_newcolor, METH_VARARGS, scribus_newcolor__doc__},
-	{"deleteColor", scribus_delcolor, METH_VARARGS, scribus_delcolor__doc__},
-	{"deleteLayer", scribus_removelayer, METH_VARARGS, scribus_removelayer__doc__},
-	{"deleteObject", scribus_deleteobj, METH_VARARGS, scribus_deleteobj__doc__},
-	{"deletePage", scribus_deletepage, METH_VARARGS, scribus_deletepage__doc__},
-	{"deleteText", scribus_deletetext, METH_VARARGS, scribus_deletetext__doc__},
-	{"deselectAll", (PyCFunction)scribus_deselect, METH_NOARGS, scribus_deselect__doc__},
-	{"docChanged", scribus_docchanged, METH_VARARGS, scribus_docchanged__doc__},
-	{"fileDialog", scribus_filedia, METH_VARARGS, scribus_filedia__doc__},
-	{"getActiveLayer", (PyCFunction)scribus_getactlayer, METH_NOARGS, scribus_getactlayer__doc__},
-	{"getAllObjects", scribus_getallobj, METH_VARARGS, scribus_getallobj__doc__},
-	{"getAllStyles", (PyCFunction)scribus_getstylenames, METH_NOARGS, scribus_getstylenames__doc__},
-	{"getAllText", scribus_gettext, METH_VARARGS, scribus_gettext__doc__},
-	{"getColorNames", (PyCFunction)scribus_colornames, METH_NOARGS, scribus_colornames__doc__},
-	{"getColor", scribus_getcolor, METH_VARARGS, scribus_getcolor__doc__},
-	{"getColumnGap", scribus_getcolumngap, METH_VARARGS, scribus_getcolumngap__doc__},
-	{"getColumns", scribus_getcolumns, METH_VARARGS, scribus_getcolumns__doc__},
-	{"getCornerRadius", scribus_getcornerrad, METH_VARARGS, scribus_getcornerrad__doc__},
-	{"getFillColor", scribus_getfillcolor, METH_VARARGS, scribus_getfillcolor__doc__},
-	{"getFillShade", scribus_getfillshade, METH_VARARGS, scribus_getfillshade__doc__},
-	{"getFontNames", (PyCFunction)scribus_fontnames, METH_NOARGS, scribus_fontnames__doc__},
-	{"getFont", scribus_getfont, METH_VARARGS, scribus_getfont__doc__},
-	{"getFontSize", scribus_getfontsize, METH_VARARGS, scribus_getfontsize__doc__},
-	{"getGuiLanguage", (PyCFunction)scribus_getlanguage, METH_NOARGS, scribus_getlanguage__doc__},
-	{"getHGuides", (PyCFunction)scribus_getHguides, METH_NOARGS, scribus_getHguides__doc__},
-	{"getImageFile", scribus_getimgname, METH_VARARGS, scribus_getimgname__doc__},
-	{"getImageScale", scribus_getimgscale, METH_VARARGS, scribus_getimgscale__doc__},
-	{"getLayers", (PyCFunction)scribus_getlayers, METH_NOARGS, scribus_getlayers__doc__},
-	{"getLineCap", scribus_getlineend, METH_VARARGS, scribus_getlineend__doc__},
-	{"getLineColor", scribus_getlinecolor, METH_VARARGS, scribus_getlinecolor__doc__},
-	{"getLineJoin", scribus_getlinejoin, METH_VARARGS, scribus_getlinejoin__doc__},
-	{"getLineShade", scribus_getlineshade, METH_VARARGS, scribus_getlineshade__doc__},
-	{"getLineSpacing", scribus_getlinespace, METH_VARARGS, scribus_getlinespace__doc__},
-	{"getLineStyle", scribus_getlinestyle, METH_VARARGS, scribus_getlinestyle__doc__},
-	{"getLineWidth", scribus_getlinewidth, METH_VARARGS, scribus_getlinewidth__doc__},
-	{"getPageItems", (PyCFunction)scribus_getpageitems, METH_NOARGS, scribus_getpageitems__doc__},
-	{"getPageMargins", (PyCFunction)scribus_getpagemargins, METH_NOARGS, scribus_getpagemargins__doc__},
-	{"getPageSize", (PyCFunction)scribus_pagedimension, METH_NOARGS, scribus_pagedimension__doc__}, // just an alias to PageDimension()
-	{"getPosition", scribus_getposi, METH_VARARGS, scribus_getposi__doc__},
-	{"getRotation", scribus_getrotation, METH_VARARGS, scribus_getrotation__doc__},
-	{"getSelectedObject", scribus_getselobjnam, METH_VARARGS, scribus_getselobjnam__doc__},
-	{"getSize", scribus_getsize, METH_VARARGS, scribus_getsize__doc__},
-	{"getTextColor", scribus_getlinecolor, METH_VARARGS, scribus_getlinecolor__doc__},
-	{"getTextLength", scribus_gettextsize, METH_VARARGS, scribus_gettextsize__doc__},
-	{"getText", scribus_getframetext, METH_VARARGS, scribus_getframetext__doc__},
-	{"getTextShade", scribus_getlineshade, METH_VARARGS, scribus_getlineshade__doc__},
-	{"getUnit", (PyCFunction)scribus_getunit, METH_NOARGS, scribus_getunit__doc__},
-	{"getVGuides", (PyCFunction)scribus_getVguides, METH_NOARGS, scribus_getVguides__doc__},
-	{"getXFontNames", (PyCFunction)scribus_xfontnames, METH_NOARGS, scribus_xfontnames__doc__},
-	{"gotoPage", scribus_gotopage, METH_VARARGS, scribus_gotopage__doc__},
-	{"groupObjects", scribus_groupobj, METH_VARARGS, scribus_groupobj__doc__},
-	{"haveDoc", (PyCFunction)scribus_havedoc, METH_NOARGS, scribus_havedoc__doc__},
-	{"insertText", scribus_inserttext, METH_VARARGS, scribus_inserttext__doc__},
-	{"isLayerPrintable", scribus_glayerprint, METH_VARARGS, scribus_glayerprint__doc__},
-	{"isLayerVisible", scribus_glayervisib, METH_VARARGS, scribus_glayervisib__doc__},
-	{"isLocked", scribus_islocked, METH_VARARGS, scribus_islocked__doc__},
-	{"linkTextFrames", scribus_linktextframes, METH_VARARGS, scribus_linktextframes__doc__},
-	{"loadImage", scribus_loadimage, METH_VARARGS, scribus_loadimage__doc__},
-	{"loadStylesFromFile", scribus_loadstylesfromfile, METH_VARARGS, scribus_loadstylesfromfile__doc__},
-	{"lockObject", scribus_lockobject, METH_VARARGS, scribus_lockobject__doc__},
-	{"messagebarText", scribus_messagebartext, METH_VARARGS, scribus_messagebartext__doc__},
-	{"messageBox", scribus_messdia, METH_VARARGS, scribus_messdia__doc__},
-	{"moveObjectAbs", scribus_moveobjabs, METH_VARARGS, scribus_moveobjabs__doc__},
-	{"moveObject", scribus_moveobjrel, METH_VARARGS, scribus_moveobjrel__doc__},
-	{"newDocDialog", (PyCFunction)scribus_newdocdia, METH_NOARGS, scribus_newdocdia__doc__},
-	{"newDoc", scribus_newdoc, METH_VARARGS, scribus_newdoc__doc__},
-	{"newPage", scribus_newpage, METH_VARARGS, scribus_newpage__doc__},
-	{"objectExists",scribus_objectexists, METH_VARARGS, scribus_objectexists__doc__},
-	{"openDoc", scribus_opendoc, METH_VARARGS, scribus_opendoc__doc__},
-	{"pageCount", (PyCFunction)scribus_pagecount, METH_NOARGS, scribus_pagecount__doc__},
-	{"pageDimension", (PyCFunction)scribus_pagedimension, METH_NOARGS, scribus_pagedimension__doc__},
-	{"progressReset", scribus_progressreset, METH_VARARGS, scribus_progressreset__doc__},
-	{"progressSet", scribus_progresssetprogress, METH_VARARGS, scribus_progresssetprogress__doc__},
-	{"progressTotal", scribus_progresssettotalsteps, METH_VARARGS, scribus_progresssettotalsteps__doc__},
-	{"redrawAll", (PyCFunction)scribus_redraw, METH_NOARGS, scribus_redraw__doc__},
-	{"renderFont", scribus_renderfont, METH_VARARGS, scribus_renderfont__doc__},
-	{"replaceColor", scribus_replcolor, METH_VARARGS, scribus_replcolor__doc__},
-	{"rotateObjectAbs", scribus_rotobjabs, METH_VARARGS, scribus_rotobjabs__doc__},
-	{"rotateObject", scribus_rotobjrel, METH_VARARGS, scribus_rotobjrel__doc__},
-	{"saveDocAs", scribus_savedocas, METH_VARARGS, scribus_savedocas__doc__},
-	{"saveDoc", (PyCFunction)scribus_savedoc, METH_NOARGS, scribus_savedoc__doc__},
-	{"savePageAsEPS", scribus_savepageeps, METH_VARARGS, scribus_savepageeps__doc__},
-	{"scaleGroup", scribus_scalegroup, METH_VARARGS, scribus_scalegroup__doc__},
-	{"scaleImage", scribus_scaleimage, METH_VARARGS, scribus_scaleimage__doc__},
-	{"selectionCount", (PyCFunction)scribus_selcount, METH_NOARGS, scribus_selcount__doc__},
-	{"selectObject", scribus_selectobj, METH_VARARGS, scribus_selectobj__doc__},
-	{"selectText", scribus_selecttext, METH_VARARGS, scribus_selecttext__doc__},
-	{"sentToLayer", scribus_senttolayer, METH_VARARGS, scribus_senttolayer__doc__},
-	{"setActiveLayer", scribus_setactlayer, METH_VARARGS, scribus_setactlayer__doc__},
-	{"setColumnGap", scribus_setcolumngap, METH_VARARGS, scribus_setcolumngap__doc__},
-	{"setColumns", scribus_setcolumns, METH_VARARGS, scribus_setcolumns__doc__},
-	{"setCornerRadius", scribus_setcornerrad, METH_VARARGS, scribus_setcornerrad__doc__},
-	{"setCursor", scribus_setcursor, METH_VARARGS, scribus_setcursor__doc__},
-	{"setDocType", scribus_setdoctype, METH_VARARGS, scribus_setdoctype__doc__},
-	{"setFillColor", scribus_setfillcolor, METH_VARARGS, scribus_setfillcolor__doc__},
-	{"setFillShade", scribus_setfillshade, METH_VARARGS, scribus_setfillshade__doc__},
-	{"setFont", scribus_setfont, METH_VARARGS, scribus_setfont__doc__},
-	{"setFontSize", scribus_setfontsize, METH_VARARGS, scribus_setfontsize__doc__},
-	{"setGradientFill", scribus_setgradfill, METH_VARARGS, scribus_setgradfill__doc__},
-	{"setHGuides", scribus_setHguides, METH_VARARGS, scribus_setHguides__doc__},
-	{"setInfo", scribus_setinfo, METH_VARARGS, scribus_setinfo__doc__},
-	{"setLayerPrintable", scribus_layerprint, METH_VARARGS, scribus_layerprint__doc__},
-	{"setLayerVisible", scribus_layervisible, METH_VARARGS, scribus_layervisible__doc__},
-	{"setLineCap", scribus_setlineend, METH_VARARGS, scribus_setlineend__doc__},
-	{"setLineColor", scribus_setlinecolor, METH_VARARGS, scribus_setlinecolor__doc__},
-	{"setLineJoin", scribus_setlinejoin, METH_VARARGS, scribus_setlinejoin__doc__},
-	{"setLineShade", scribus_setlineshade, METH_VARARGS, scribus_setlineshade__doc__},
-	{"setLineSpacing", scribus_setlinespace, METH_VARARGS, scribus_setlinespace__doc__},
-	{"setLineStyle", scribus_setlinestyle, METH_VARARGS, scribus_setlinestyle__doc__},
-	{"setLineWidth", scribus_setlinewidth, METH_VARARGS, scribus_setlinewidth__doc__},
-	{"setMargins", scribus_setmargins, METH_VARARGS, scribus_setmargins__doc__},
-	{"setMultiLine", scribus_setmultiline, METH_VARARGS, scribus_setmultiline__doc__},
+	{"changeColor", scribus_setcolor, METH_VARARGS, tr(scribus_setcolor__doc__)},
+	{"closeDoc", (PyCFunction)scribus_closedoc, METH_NOARGS, tr(scribus_closedoc__doc__)},
+	{"createBezierLine", scribus_bezierline, METH_VARARGS, tr(scribus_bezierline__doc__)},
+	{"createEllipse", scribus_newellipse, METH_VARARGS, tr(scribus_newellipse__doc__)},
+	{"createImage", scribus_newimage, METH_VARARGS, tr(scribus_newimage__doc__)},
+	{"createLayer", scribus_createlayer, METH_VARARGS, tr(scribus_createlayer__doc__)},
+	{"createLine", scribus_newline, METH_VARARGS, tr(scribus_newline__doc__)},
+	{"createPathText", scribus_pathtext, METH_VARARGS, tr(scribus_pathtext__doc__)},
+	{"createPolygon", scribus_polygon, METH_VARARGS, tr(scribus_polygon__doc__)},
+	{"createPolyLine", scribus_polyline, METH_VARARGS, tr(scribus_polyline__doc__)},
+	{"createRect", scribus_newrect, METH_VARARGS, tr(scribus_newrect__doc__)},
+	{"createText", scribus_newtext, METH_VARARGS, tr(scribus_newtext__doc__)},
+	{"currentPage", (PyCFunction)scribus_actualpage, METH_NOARGS, tr(scribus_actualpage__doc__)},
+	{"defineColor", scribus_newcolor, METH_VARARGS, tr(scribus_newcolor__doc__)},
+	{"deleteColor", scribus_delcolor, METH_VARARGS, tr(scribus_delcolor__doc__)},
+	{"deleteLayer", scribus_removelayer, METH_VARARGS, tr(scribus_removelayer__doc__)},
+	{"deleteObject", scribus_deleteobj, METH_VARARGS, tr(scribus_deleteobj__doc__)},
+	{"deletePage", scribus_deletepage, METH_VARARGS, tr(scribus_deletepage__doc__)},
+	{"deleteText", scribus_deletetext, METH_VARARGS, tr(scribus_deletetext__doc__)},
+	{"deselectAll", (PyCFunction)scribus_deselect, METH_NOARGS, tr(scribus_deselect__doc__)},
+	{"docChanged", scribus_docchanged, METH_VARARGS, tr(scribus_docchanged__doc__)},
+	{"fileDialog", scribus_filedia, METH_VARARGS, tr(scribus_filedia__doc__)},
+	{"getActiveLayer", (PyCFunction)scribus_getactlayer, METH_NOARGS, tr(scribus_getactlayer__doc__)},
+	{"getAllObjects", scribus_getallobj, METH_VARARGS, tr(scribus_getallobj__doc__)},
+	{"getAllStyles", (PyCFunction)scribus_getstylenames, METH_NOARGS, tr(scribus_getstylenames__doc__)},
+	{"getAllText", scribus_gettext, METH_VARARGS, tr(scribus_gettext__doc__)},
+	{"getColorNames", (PyCFunction)scribus_colornames, METH_NOARGS, tr(scribus_colornames__doc__)},
+	{"getColor", scribus_getcolor, METH_VARARGS, tr(scribus_getcolor__doc__)},
+	{"getColumnGap", scribus_getcolumngap, METH_VARARGS, tr(scribus_getcolumngap__doc__)},
+	{"getColumns", scribus_getcolumns, METH_VARARGS, tr(scribus_getcolumns__doc__)},
+	{"getCornerRadius", scribus_getcornerrad, METH_VARARGS, tr(scribus_getcornerrad__doc__)},
+	{"getFillColor", scribus_getfillcolor, METH_VARARGS, tr(scribus_getfillcolor__doc__)},
+	{"getFillShade", scribus_getfillshade, METH_VARARGS, tr(scribus_getfillshade__doc__)},
+	{"getFontNames", (PyCFunction)scribus_fontnames, METH_NOARGS, tr(scribus_fontnames__doc__)},
+	{"getFont", scribus_getfont, METH_VARARGS, tr(scribus_getfont__doc__)},
+	{"getFontSize", scribus_getfontsize, METH_VARARGS, tr(scribus_getfontsize__doc__)},
+	{"getGuiLanguage", (PyCFunction)scribus_getlanguage, METH_NOARGS, tr(scribus_getlanguage__doc__)},
+	{"getHGuides", (PyCFunction)scribus_getHguides, METH_NOARGS, tr(scribus_getHguides__doc__)},
+	{"getImageFile", scribus_getimgname, METH_VARARGS, tr(scribus_getimgname__doc__)},
+	{"getImageScale", scribus_getimgscale, METH_VARARGS, tr(scribus_getimgscale__doc__)},
+	{"getLayers", (PyCFunction)scribus_getlayers, METH_NOARGS, tr(scribus_getlayers__doc__)},
+	{"getLineCap", scribus_getlineend, METH_VARARGS, tr(scribus_getlineend__doc__)},
+	{"getLineColor", scribus_getlinecolor, METH_VARARGS, tr(scribus_getlinecolor__doc__)},
+	{"getLineJoin", scribus_getlinejoin, METH_VARARGS, tr(scribus_getlinejoin__doc__)},
+	{"getLineShade", scribus_getlineshade, METH_VARARGS, tr(scribus_getlineshade__doc__)},
+	{"getLineSpacing", scribus_getlinespace, METH_VARARGS, tr(scribus_getlinespace__doc__)},
+	{"getLineStyle", scribus_getlinestyle, METH_VARARGS, tr(scribus_getlinestyle__doc__)},
+	{"getLineWidth", scribus_getlinewidth, METH_VARARGS, tr(scribus_getlinewidth__doc__)},
+	{"getPageItems", (PyCFunction)scribus_getpageitems, METH_NOARGS, tr(scribus_getpageitems__doc__)},
+	{"getPageMargins", (PyCFunction)scribus_getpagemargins, METH_NOARGS, tr(scribus_getpagemargins__doc__)},
+	{"getPageSize", (PyCFunction)scribus_pagedimension, METH_NOARGS, tr(scribus_pagedimension__doc__)}, // just an alias to PageDimension()
+	{"getPosition", scribus_getposi, METH_VARARGS, tr(scribus_getposi__doc__)},
+	{"getRotation", scribus_getrotation, METH_VARARGS, tr(scribus_getrotation__doc__)},
+	{"getSelectedObject", scribus_getselobjnam, METH_VARARGS, tr(scribus_getselobjnam__doc__)},
+	{"getSize", scribus_getsize, METH_VARARGS, tr(scribus_getsize__doc__)},
+	{"getTextColor", scribus_getlinecolor, METH_VARARGS, tr(scribus_getlinecolor__doc__)},
+	{"getTextLength", scribus_gettextsize, METH_VARARGS, tr(scribus_gettextsize__doc__)},
+	{"getText", scribus_getframetext, METH_VARARGS, tr(scribus_getframetext__doc__)},
+	{"getTextShade", scribus_getlineshade, METH_VARARGS, tr(scribus_getlineshade__doc__)},
+	{"getUnit", (PyCFunction)scribus_getunit, METH_NOARGS, tr(scribus_getunit__doc__)},
+	{"getVGuides", (PyCFunction)scribus_getVguides, METH_NOARGS, tr(scribus_getVguides__doc__)},
+	{"getXFontNames", (PyCFunction)scribus_xfontnames, METH_NOARGS, tr(scribus_xfontnames__doc__)},
+	{"gotoPage", scribus_gotopage, METH_VARARGS, tr(scribus_gotopage__doc__)},
+	{"groupObjects", scribus_groupobj, METH_VARARGS, tr(scribus_groupobj__doc__)},
+	{"haveDoc", (PyCFunction)scribus_havedoc, METH_NOARGS, tr(scribus_havedoc__doc__)},
+	{"insertText", scribus_inserttext, METH_VARARGS, tr(scribus_inserttext__doc__)},
+	{"isLayerPrintable", scribus_glayerprint, METH_VARARGS, tr(scribus_glayerprint__doc__)},
+	{"isLayerVisible", scribus_glayervisib, METH_VARARGS, tr(scribus_glayervisib__doc__)},
+	{"isLocked", scribus_islocked, METH_VARARGS, tr(scribus_islocked__doc__)},
+	{"linkTextFrames", scribus_linktextframes, METH_VARARGS, tr(scribus_linktextframes__doc__)},
+	{"loadImage", scribus_loadimage, METH_VARARGS, tr(scribus_loadimage__doc__)},
+	{"loadStylesFromFile", scribus_loadstylesfromfile, METH_VARARGS, tr(scribus_loadstylesfromfile__doc__)},
+	{"lockObject", scribus_lockobject, METH_VARARGS, tr(scribus_lockobject__doc__)},
+	{"messagebarText", scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
+	{"messageBox", scribus_messdia, METH_VARARGS, tr(scribus_messdia__doc__)},
+	{"moveObjectAbs", scribus_moveobjabs, METH_VARARGS, tr(scribus_moveobjabs__doc__)},
+	{"moveObject", scribus_moveobjrel, METH_VARARGS, tr(scribus_moveobjrel__doc__)},
+	{"newDocDialog", (PyCFunction)scribus_newdocdia, METH_NOARGS, tr(scribus_newdocdia__doc__)},
+	{"newDoc", scribus_newdoc, METH_VARARGS, tr(scribus_newdoc__doc__)},
+	{"newPage", scribus_newpage, METH_VARARGS, tr(scribus_newpage__doc__)},
+	{"objectExists",scribus_objectexists, METH_VARARGS, tr(scribus_objectexists__doc__)},
+	{"openDoc", scribus_opendoc, METH_VARARGS, tr(scribus_opendoc__doc__)},
+	{"pageCount", (PyCFunction)scribus_pagecount, METH_NOARGS, tr(scribus_pagecount__doc__)},
+	{"pageDimension", (PyCFunction)scribus_pagedimension, METH_NOARGS, tr(scribus_pagedimension__doc__)},
+	{"progressReset", scribus_progressreset, METH_VARARGS, tr(scribus_progressreset__doc__)},
+	{"progressSet", scribus_progresssetprogress, METH_VARARGS, tr(scribus_progresssetprogress__doc__)},
+	{"progressTotal", scribus_progresssettotalsteps, METH_VARARGS, tr(scribus_progresssettotalsteps__doc__)},
+	{"redrawAll", (PyCFunction)scribus_redraw, METH_NOARGS, tr(scribus_redraw__doc__)},
+	{"renderFont", scribus_renderfont, METH_VARARGS, tr(scribus_renderfont__doc__)},
+	{"replaceColor", scribus_replcolor, METH_VARARGS, tr(scribus_replcolor__doc__)},
+	{"rotateObjectAbs", scribus_rotobjabs, METH_VARARGS, tr(scribus_rotobjabs__doc__)},
+	{"rotateObject", scribus_rotobjrel, METH_VARARGS, tr(scribus_rotobjrel__doc__)},
+	{"saveDocAs", scribus_savedocas, METH_VARARGS, tr(scribus_savedocas__doc__)},
+	{"saveDoc", (PyCFunction)scribus_savedoc, METH_NOARGS, tr(scribus_savedoc__doc__)},
+	{"savePageAsEPS", scribus_savepageeps, METH_VARARGS, tr(scribus_savepageeps__doc__)},
+	{"scaleGroup", scribus_scalegroup, METH_VARARGS, tr(scribus_scalegroup__doc__)},
+	{"scaleImage", scribus_scaleimage, METH_VARARGS, tr(scribus_scaleimage__doc__)},
+	{"selectionCount", (PyCFunction)scribus_selcount, METH_NOARGS, tr(scribus_selcount__doc__)},
+	{"selectObject", scribus_selectobj, METH_VARARGS, tr(scribus_selectobj__doc__)},
+	{"selectText", scribus_selecttext, METH_VARARGS, tr(scribus_selecttext__doc__)},
+	{"sentToLayer", scribus_senttolayer, METH_VARARGS, tr(scribus_senttolayer__doc__)},
+	{"setActiveLayer", scribus_setactlayer, METH_VARARGS, tr(scribus_setactlayer__doc__)},
+	{"setColumnGap", scribus_setcolumngap, METH_VARARGS, tr(scribus_setcolumngap__doc__)},
+	{"setColumns", scribus_setcolumns, METH_VARARGS, tr(scribus_setcolumns__doc__)},
+	{"setCornerRadius", scribus_setcornerrad, METH_VARARGS, tr(scribus_setcornerrad__doc__)},
+	{"setCursor", scribus_setcursor, METH_VARARGS, tr(scribus_setcursor__doc__)},
+	{"setDocType", scribus_setdoctype, METH_VARARGS, tr(scribus_setdoctype__doc__)},
+	{"setFillColor", scribus_setfillcolor, METH_VARARGS, tr(scribus_setfillcolor__doc__)},
+	{"setFillShade", scribus_setfillshade, METH_VARARGS, tr(scribus_setfillshade__doc__)},
+	{"setFont", scribus_setfont, METH_VARARGS, tr(scribus_setfont__doc__)},
+	{"setFontSize", scribus_setfontsize, METH_VARARGS, tr(scribus_setfontsize__doc__)},
+	{"setGradientFill", scribus_setgradfill, METH_VARARGS, tr(scribus_setgradfill__doc__)},
+	{"setHGuides", scribus_setHguides, METH_VARARGS, tr(scribus_setHguides__doc__)},
+	{"setInfo", scribus_setinfo, METH_VARARGS, tr(scribus_setinfo__doc__)},
+	{"setLayerPrintable", scribus_layerprint, METH_VARARGS, tr(scribus_layerprint__doc__)},
+	{"setLayerVisible", scribus_layervisible, METH_VARARGS, tr(scribus_layervisible__doc__)},
+	{"setLineCap", scribus_setlineend, METH_VARARGS, tr(scribus_setlineend__doc__)},
+	{"setLineColor", scribus_setlinecolor, METH_VARARGS, tr(scribus_setlinecolor__doc__)},
+	{"setLineJoin", scribus_setlinejoin, METH_VARARGS, tr(scribus_setlinejoin__doc__)},
+	{"setLineShade", scribus_setlineshade, METH_VARARGS, tr(scribus_setlineshade__doc__)},
+	{"setLineSpacing", scribus_setlinespace, METH_VARARGS, tr(scribus_setlinespace__doc__)},
+	{"setLineStyle", scribus_setlinestyle, METH_VARARGS, tr(scribus_setlinestyle__doc__)},
+	{"setLineWidth", scribus_setlinewidth, METH_VARARGS, tr(scribus_setlinewidth__doc__)},
+	{"setMargins", scribus_setmargins, METH_VARARGS, tr(scribus_setmargins__doc__)},
+	{"setMultiLine", scribus_setmultiline, METH_VARARGS, tr(scribus_setmultiline__doc__)},
 	// duplicity? {"setMultiLine", scribus_setmultiline, METH_VARARGS, "TODO: docstring"},
-	{"setRedraw", scribus_setredraw, METH_VARARGS, scribus_setredraw__doc__},
+	{"setRedraw", scribus_setredraw, METH_VARARGS, tr(scribus_setredraw__doc__)},
 	// missing? {"setSelectedObject", scribus_setselobjnam, METH_VARARGS, "Returns the Name of the selecteted Object. \"nr\" if given indicates the Number of the selected Object, e.g. 0 means the first selected Object, 1 means the second selected Object and so on."},
-	{"setStyle", scribus_setstyle, METH_VARARGS, scribus_setstyle__doc__},
-	{"setTextAlignment", scribus_setalign, METH_VARARGS, scribus_setalign__doc__},
-	{"setTextColor", scribus_settextfill, METH_VARARGS, scribus_settextfill__doc__},
-	{"setText", scribus_setboxtext, METH_VARARGS, scribus_setboxtext__doc__},
-	{"setTextShade", scribus_settextshade, METH_VARARGS, scribus_settextshade__doc__},
-	{"setTextStroke", scribus_settextstroke, METH_VARARGS, scribus_settextstroke__doc__},
-	{"setUnit", scribus_setunit, METH_VARARGS, scribus_setunit__doc__},
-	{"setVGuides", scribus_setVguides, METH_VARARGS, scribus_setVguides__doc__},
-	{"sizeObject", scribus_sizeobjabs, METH_VARARGS, scribus_sizeobjabs__doc__},
-	{"statusMessage", scribus_messagebartext, METH_VARARGS, scribus_messagebartext__doc__},
-	{"textFlowsAroundFrame", scribus_textflow, METH_VARARGS, scribus_textflow__doc__},
-	{"traceText", scribus_tracetext, METH_VARARGS, scribus_tracetext__doc__},
-	{"unGroupObject", scribus_ungroupobj, METH_VARARGS, scribus_ungroupobj__doc__},
-	{"unlinkTextFrames", scribus_unlinktextframes, METH_VARARGS, scribus_unlinktextframes__doc__},
-	{"valueDialog", scribus_valdialog, METH_VARARGS, scribus_valdialog__doc__},
+	{"setStyle", scribus_setstyle, METH_VARARGS, tr(scribus_setstyle__doc__)},
+	{"setTextAlignment", scribus_setalign, METH_VARARGS, tr(scribus_setalign__doc__)},
+	{"setTextColor", scribus_settextfill, METH_VARARGS, tr(scribus_settextfill__doc__)},
+	{"setText", scribus_setboxtext, METH_VARARGS, tr(scribus_setboxtext__doc__)},
+	{"setTextShade", scribus_settextshade, METH_VARARGS, tr(scribus_settextshade__doc__)},
+	{"setTextStroke", scribus_settextstroke, METH_VARARGS, tr(scribus_settextstroke__doc__)},
+	{"setUnit", scribus_setunit, METH_VARARGS, tr(scribus_setunit__doc__)},
+	{"setVGuides", scribus_setVguides, METH_VARARGS, tr(scribus_setVguides__doc__)},
+	{"sizeObject", scribus_sizeobjabs, METH_VARARGS, tr(scribus_sizeobjabs__doc__)},
+	{"statusMessage", scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
+	{"textFlowsAroundFrame", scribus_textflow, METH_VARARGS, tr(scribus_textflow__doc__)},
+	{"traceText", scribus_tracetext, METH_VARARGS, tr(scribus_tracetext__doc__)},
+	{"unGroupObject", scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
+	{"unlinkTextFrames", scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
+	{"valueDialog", scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
 	// end of aliases
 	{"retval", scribus_retval, METH_VARARGS, "TODO: docstring"},
 	{"getval", scribus_getval, METH_VARARGS, "TODO: docstring"},
@@ -703,6 +720,14 @@ void initscribus(ScribusApp *pl)
 	NoDocOpenError = PyErr_NewException((char*)"scribus.NoDocOpenError", ScribusException, NULL);
 	Py_INCREF(NoDocOpenError);
 	PyModule_AddObject(m, (char*)"NoDocOpenError", NoDocOpenError);
+	// wrong type of frame for operation
+	WrongFrameTypeError = PyErr_NewException((char*)"scribus.WrongFrameTypeError", ScribusException, NULL);
+	Py_INCREF(WrongFrameTypeError);
+	PyModule_AddObject(m, (char*)"WrongFrameTypeError", WrongFrameTypeError);
+	// Couldn't find named object, or no named object and no selection
+	NoValidObjectError = PyErr_NewException((char*)"scribus.NoValidObjectError", ScribusException, NULL);
+	Py_INCREF(NoValidObjectError);
+	PyModule_AddObject(m, (char*)"NoValidObjectError", NoValidObjectError);
 	// Done with exception setup
 
 	// CONSTANTS
@@ -1030,5 +1055,51 @@ void initscribus(ScribusApp *pl)
 	constantAlias(d, "PAPER_LETTER", "Paper_Letter");
 	constantAlias(d, "PAPER_TABLOID", "Paper_Tabloid");
 	// end of deprecated cosntants
+
+	// Create the module-level docstring. This can be a proper unicode string, unlike
+	// the others, because we can just create a Unicode object and insert it in our
+	// module dictionary.
+	QString docstring = QObject::tr("Scribus Python interface module\n\
+		\n\
+		This module is the Python interface for Scribus. It provides functions\n\
+		to control scribus and to manipulate objects on the canvas. Each\n\
+		function is documented individually below.\n\
+		\n\
+		A few things are common across most of the interface.\n\
+		\n\
+		Most functions operate on frames. Frames are identified by their name,\n\
+		a string - they are not real Python objects. Many functions take an\n\
+		optional (non-keyword) parameter, a frame name.\n\
+		Many exceptions are also common across most functions. These are\n\
+		not currently documented in the docstring for each function.\n\
+		\n\
+		    - Many functions will raise a NoDocOpenError if you try to use them\n\
+		      without a document to operate on.\n\
+		\n\
+		    - If you do not pass a frame name to a function that requires one,\n\
+		      the function will use the currently selected frame, if any, or\n\
+		      raise a NoValidObjectError if it can't find anything to operate\n\
+		      on.\n\
+		\n\
+		    - Many functions will raise WrongFrameTypeError if you try to use them\n\
+		      on a frame type that they do not make sense with. For example, setting\n\
+		      the text colour on a graphics frame doesn't make sense, and will result\n\
+		      in this exception being raised.\n\
+		\n\
+		    - Errors resulting from calls to the underlying Python API will be\n\
+		      passed through unaltered. As such, the list of exceptions thrown by\n\
+		      any function as provided here and in its docstring is incomplete.\n\
+		\n\
+		Details of what exceptions each function may throw are provided on the\n\
+		function's documentation.\n\
+		");
+
+	// Py_UNICODE is a typedef for unsigned short
+	PyObject* uniDocStr = Py_BuildValue("u", (Py_UNICODE*)(docstring.ucs2()));
+	if (uniDocStr == NULL)
+		qDebug("Failed to create module-level docstring object!");
+	else
+		PyDict_SetItemString(d, "__doc__", uniDocStr);
+	Py_DECREF(uniDocStr);
 }
 

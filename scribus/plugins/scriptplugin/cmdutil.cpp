@@ -143,7 +143,7 @@ PageItem* GetUniqueItem(QString name)
 			return Carrier->doc->ActPage->SelItem.at(0);
 		else
 		{
-			PyErr_SetString(ScribusException, QString("Can't use empty string for object name when there is no selection"));
+			PyErr_SetString(NoValidObjectError, QString("Can't use empty string for object name when there is no selection"));
 			return NULL;
 		}
 	for (uint i = 0; i<Carrier->view->Pages.count(); i++)
@@ -154,7 +154,7 @@ PageItem* GetUniqueItem(QString name)
 				return Carrier->view->Pages.at(i)->Items.at(j);
 		} // for items
 	} // for pages
-	PyErr_SetString(ScribusException, QString("Object not found"));
+	PyErr_SetString(NoValidObjectError, QString("Object not found"));
 	return NULL;
 }
 
