@@ -53,6 +53,7 @@ void* Run()
 	PDFlib *dia = new PDFlib();
 	return dia;
 }
+
 PDFlib::PDFlib()
 {
 	OwnerKey = QByteArray(32);
@@ -887,7 +888,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 void PDFlib::PDF_TemplatePage(Page* pag)
 {
 	QString tmp;
-	ActPage = pag;
+	ActPageP = pag;
 	Inhalt = "";
 	Seite.AObjects.clear();
 	PDF_ProcessPage(pag, pag->PageNr);
@@ -960,7 +961,7 @@ void PDFlib::PDF_TemplatePage(Page* pag)
 void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
 {
 	QString tmp;
-	ActPage = pag;
+	ActPageP = pag;
 	Inhalt = "";
 	Seite.AObjects.clear();
 	if (Options->Thumbnails)
@@ -984,7 +985,7 @@ void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
 
 void PDFlib::PDF_End_Page()
 {
-	uint PgNr = ActPage->PageNr;
+	uint PgNr = ActPageP->PageNr;
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(&Inhalt);
 	StartObj(ObjCounter);
@@ -1061,7 +1062,7 @@ void PDFlib::PDF_End_Page()
 void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 {
 	QString tmp;
-	ActPage = pag;
+	ActPageP = pag;
 	PageItem* ite;
 	int Lnr = 0;
 	struct Layer ll;
@@ -1181,9 +1182,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 		Level2Layer(doc, &ll, Lnr);
 		if (ll.Drucken)
 			{
-			for (uint a = 0; a < ActPage->Items.count(); ++a)
+			for (uint a = 0; a < ActPageP->Items.count(); ++a)
 				{
-				ite = ActPage->Items.at(a);
+				ite = ActPageP->Items.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
 				PutPage("q\n");

@@ -274,6 +274,16 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     	for (uint pg2 = 0; pg2 < vie->Pages.count(); ++pg2)
     		{
     		Pages->insertItem(tr("Page")+" "+tmp.setNum(pg2+1));
+				if (EffVal.count()-1 < pg2)
+					{
+    			ef.EffektLen = 1;
+    			ef.AnzeigeLen = 1;
+    			ef.Effekt = 0;
+    			ef.Dm = 0;
+    			ef.M = 0;
+    			ef.Di = 0;
+    			EffVal.append(ef);
+					}
 				}
 			}
 		else
@@ -725,7 +735,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     connect(ToEmbed, SIGNAL(clicked()), this, SLOT(PutToEmbed()));
     connect(FromEmbed, SIGNAL(clicked()), this, SLOT(RemoveEmbed()));
     connect(DSColor, SIGNAL(clicked()), this, SLOT(DoDownsample()));
-//    connect(CheckBM, SIGNAL(clicked()), this, SLOT(ToggleBM()));
     connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
     connect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
     connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
@@ -929,7 +938,6 @@ void PDF_Opts::SelRange(bool e)
     FirstPage->setEnabled( true );
    	LastPage->setEnabled( true );
 		CheckBM->setChecked(false);
-//		ToggleBM();
 		}
 }
 
@@ -978,7 +986,7 @@ void PDF_Opts::SetPgEff(int nr)
 	EffVal[PgSel].Dm = EDirection->currentItem();
 	EffVal[PgSel].M = EDirection_2->currentItem();
 	EffVal[PgSel].Di = EDirection_2_2->currentItem();
-	SetEffOpts(EffectType->currentItem());
+	SetEffOpts(EffVal[nr].Effekt);
 	PageTime->setValue(EffVal[nr].AnzeigeLen);
 	EffectTime->setValue(EffVal[nr].EffektLen);
 	EffectType->setCurrentItem(EffVal[nr].Effekt);
@@ -1034,6 +1042,7 @@ void PDF_Opts::SetEffOpts(int nr)
 
 void PDF_Opts::PagePr()
 {
+  disconnect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
 	QString tmp;
 	int ci = Pages->currentItem();
 	if (PagePrev->isChecked())
@@ -1060,15 +1069,8 @@ void PDF_Opts::PagePr()
   	PgSel = 0;
   	Pages->clearSelection();
   	}
+	connect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
 }
-/*
-void PDF_Opts::ToggleBM()
-{
-	if (CheckBM->isChecked())
-		BView->setEnabled(true);
-	else
-		BView->setEnabled(false);
-}      */
 
 void PDF_Opts::DoDownsample()
 {

@@ -131,18 +131,22 @@ NodePalette::NodePalette( QWidget* parent)
     ButtonGroup4Layout->setAlignment( Qt::AlignTop );
 
     PolyShearL = new QToolButton( ButtonGroup4, "ShearL" );
+		PolyShearL->setAutoRepeat(true);
     PolyShearL->setText( tr( "" ) );
     PolyShearL->setPixmap(loadIcon("shear_left.png"));
     ButtonGroup4Layout->addWidget( PolyShearL );
     PolyShearR = new QToolButton( ButtonGroup4, "ShearR" );
+		PolyShearR->setAutoRepeat(true);
     PolyShearR->setText( tr( "" ) );
     PolyShearR->setPixmap(loadIcon("shear_right.png"));
     ButtonGroup4Layout->addWidget( PolyShearR );
     PolyShearU = new QToolButton( ButtonGroup4, "ShearU" );
+		PolyShearU->setAutoRepeat(true);
     PolyShearU->setText( tr( "" ) );
     PolyShearU->setPixmap(loadIcon("shear_up.png"));
     ButtonGroup4Layout->addWidget( PolyShearU );
     PolyShearD = new QToolButton( ButtonGroup4, "ShearD" );
+		PolyShearD->setAutoRepeat(true);
     PolyShearD->setText( tr( "" ) );
     PolyShearD->setPixmap(loadIcon("shear_down.png"));
     ButtonGroup4Layout->addWidget( PolyShearD );

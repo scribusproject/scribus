@@ -5112,7 +5112,7 @@ PDFlib* ScribusApp::getPDFDriver()
 #else
 	pfad += "/lib/scribus/libs/libpdf.so";
 #endif
-	PDFDriver = dlopen(pfad, RTLD_LAZY);
+	PDFDriver = dlopen(pfad, RTLD_NOW);
 	if (!PDFDriver)
 		{
 		std::cout << "Can't find Plugin" << endl;
@@ -5321,7 +5321,7 @@ void ScribusApp::SaveAsPDF()
 			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
 		delete pd;
 		closePDFDriver();
-//		BuildFontMenu();
+		BuildFontMenu();
  		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		}
   delete dia;
@@ -5528,12 +5528,6 @@ void ScribusApp::ManTempEnd()
 	DatSav->setEnabled(ActWin->MenuStat[0]);
 	DatOpe->setEnabled(true);
 	DatClo->setEnabled(true);
-/*	fileMenu->setItemEnabled(fid1, ActWin->MenuStat[1]);
-	fileMenu->setItemEnabled(fid4, ActWin->MenuStat[2]);
-	fileMenu->setItemEnabled(fid5, ActWin->MenuStat[3]);
-	fileMenu->setItemEnabled(fid12, 1);
-	fileMenu->setItemEnabled(fid13, 1);
-	fileMenu->setItemEnabled(fid14, 1);  */
 	fileMenu->setEnabled(true);
 	if (view->Pages.count() > 1)
 		{

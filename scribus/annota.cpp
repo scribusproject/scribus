@@ -90,13 +90,14 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
     SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
     SpinBox1->setMinValue(1);
-		if (Destfile->text() != "")
+		if (item->AnActType == 7)
+//		if (Destfile->text() != "")
     	SpinBox1->setMaxValue(1000);
 		else
     	SpinBox1->setMaxValue(Seite);
     SpinBox1->setValue(item->AnZiel+1);
     GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
-		if (Destfile->text() != "")
+		if ((Destfile->text() != "") && (item->AnActType == 7))
     	Pg = new Navigator( GroupBox1, 100, item->AnZiel+1, view, item->An_Extern);
 		else
     	Pg = new Navigator( GroupBox1, 100, item->AnZiel, view);
