@@ -152,6 +152,12 @@ QString FileLoader::ReadDatei(QString fileName)
 bool FileLoader::LoadFile(ScribusApp* app)
 {
 	bool ret = false;
+	app->doc->MarginsShown = app->Prefs.MarginsShown;
+	app->doc->FramesShown = app->Prefs.FramesShown;
+	app->doc->GridShown = app->Prefs.GridShown;
+	app->doc->GuidesShown = app->Prefs.GuidesShown;
+	app->doc->BaseShown = app->Prefs.BaseShown;
+	app->doc->linkShown = app->Prefs.linkShown;
 	switch (FileType)
 	{
 		case 0:
@@ -318,6 +324,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN", "1")));
 		doc->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
 		doc->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
+		doc->linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK", "0")));
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())

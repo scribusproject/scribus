@@ -110,6 +110,7 @@ public:
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
 	Page* addPage(int nr);
 	QPtrList<PageItem> SelItem;
+	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
   /** Deletes a Page */
 	void delPage(int Nr);

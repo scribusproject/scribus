@@ -331,6 +331,7 @@ public slots:
 	/** Schaltet Raender ein/aus */
 	void ToggleMarks();
 	void ToggleFrames();
+	void ToggleTextLinks();
 	/** Schaltet Werkzeuge ein/aus */
  	void setTools(bool visible);
 	void ToggleTools();
@@ -531,6 +532,7 @@ private:
 	int Guide;
 	int uGuide;
 	int Base;
+	int textLinks;
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
@@ -581,7 +583,7 @@ private:
 	int ODup;
 	int OMDup;
 	bool PalettesStat[8];
-	bool GuidesStat[6];
+	bool GuidesStat[7];
 	bool tipsOn;
 	bool keyrep;
 	QPopupMenu *helpMenu;

@@ -54,7 +54,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	fon = &Vor->AvailFonts;
 	ap = (ScribusApp*)parent;
 	Umrech = 1.0;
-	Einheit = ap->HaveDoc ? ap->doc->Einheit : Vor->Einheit;
+	Einheit = Vor->Einheit;
 	int f[] = {2, 3, 4};
 	if (Einheit == 3)
 		decimals = f[0];
@@ -145,7 +145,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	UnitCombo->insertItem( tr( "Inches (in)" ) );
 	UnitCombo->insertItem( tr( "Picas (p)" ) );
 	UnitCombo->setEditable(false);
-	UnitCombo->setCurrentItem(ap->HaveDoc ? ap->doc->Einheit : Vor->Einheit);
+	UnitCombo->setCurrentItem(Vor->Einheit);
 	GroupBox20Layout->addWidget( UnitCombo );
 	tabLayout->addWidget( GroupBox20, 1, 0 );
 	Mouse = new QGroupBox( tr( "Mouse Settings" ),tab, "Mouse" );
@@ -382,7 +382,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupASLayout = new QGridLayout( GroupAS->layout() );
 	GroupASLayout->setAlignment( Qt::AlignTop );
 	ASon = new QCheckBox( tr( "&Enabled" ), GroupAS, "Enable Autosave" );
-	ASon->setChecked(ap->HaveDoc ? ap->doc->AutoSave : Vor->AutoSave);
+	ASon->setChecked(Vor->AutoSave);
 	GroupASLayout->addMultiCellWidget( ASon, 0, 0, 0, 1 );
 	ASTime = new QSpinBox( GroupAS, "Time" );
 	ASTime->setMaxValue( 60 );
@@ -437,9 +437,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout10->addWidget( TextLabel2g, 2, 0 );
 	Layout10->addWidget( SpinBox2g, 2, 1 );
 	
-	SpinBox2->setValue(ap->HaveDoc ? ap->doc->majorGrid * Umrech : Vor->DmajGrid * Umrech);
-	SpinBox1->setValue(ap->HaveDoc ? ap->doc->minorGrid * Umrech : Vor->DminGrid * Umrech);
-	SpinBox2g->setValue(ap->HaveDoc ? ap->doc->GuideRad * Umrech : Vor->GuideRad * Umrech);
+	SpinBox2->setValue(Vor->DmajGrid * Umrech);
+	SpinBox1->setValue(Vor->DminGrid * Umrech);
+	SpinBox2g->setValue(Vor->GuideRad * Umrech);
 	GroupBox1Layout->addLayout( Layout10 );
 	tabLayout_2->addWidget( GroupBox1, 0, 0 );
 	
@@ -458,8 +458,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	minColor = new QPushButton( "", GroupBox2, "minColor" );
 	minColor->setAutoDefault( false );
 	QPixmap pm = QPixmap(40, 20);
-	pm.fill(ap->HaveDoc ? ap->doc->minorColor : Vor->DminColor);
-	Cmin = ap->HaveDoc ? ap->doc->minorColor : Vor->DminColor;
+	pm.fill(Vor->DminColor);
+	Cmin = Vor->DminColor;
 	minColor->setPixmap(pm);
 	TextLabel3 = new QLabel( minColor, tr( "Min&or Grid Color:" ), GroupBox2, "TextLabel3" );
 	TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -469,8 +469,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	MaxColor = new QPushButton( "", GroupBox2, "MaxColor" );
 	MaxColor->setAutoDefault( false );
 	QPixmap pm1 = QPixmap(40, 20);
-	pm1.fill(ap->HaveDoc ? ap->doc->majorColor : Vor->DmajColor);
-	Cmax = ap->HaveDoc ? ap->doc->majorColor : Vor->DmajColor;
+	pm1.fill(Vor->DmajColor);
+	Cmax = Vor->DmajColor;
 	MaxColor->setPixmap(pm1);
 	TextLabel4 = new QLabel( MaxColor, tr( "Majo&r Grid Color:" ), GroupBox2, "TextLabel4" );
 	TextLabel4->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -481,8 +481,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GuideColor = new QPushButton( "", GroupBox2, "GuideColor" );
 	GuideColor->setAutoDefault( false );
 	QPixmap pm12 = QPixmap(40, 20);
-	pm12.fill(ap->HaveDoc ? ap->doc->guideColor : Vor->guideColor);
-	Cgui = ap->HaveDoc ? ap->doc->guideColor : Vor->guideColor;
+	pm12.fill(Vor->guideColor);
+	Cgui = Vor->guideColor;
 	GuideColor->setPixmap(pm12);
 	TextLabel4g = new QLabel( GuideColor, tr( "&User Guides Color:" ), GroupBox2, "TextLabel4g" );
 	TextLabel4g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -493,8 +493,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	BaseColor = new QPushButton( "", GroupBox2, "BaseColor" );
 	BaseColor->setAutoDefault( false );
 	QPixmap pm13 = QPixmap(40, 20);
-	pm13.fill(ap->HaveDoc ? ap->doc->baseColor : Vor->baseColor);
-	Cbase = ap->HaveDoc ? ap->doc->baseColor : Vor->baseColor;
+	pm13.fill(Vor->baseColor);
+	Cbase = Vor->baseColor;
 	BaseColor->setPixmap(pm13);
 	TextLabel4ba = new QLabel( BaseColor, tr( "Base&line Grid Color:" ), GroupBox2, "TextLabel4ba" );
 	TextLabel4ba->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -517,10 +517,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout7->setSpacing( 6 );
 	Layout7->setMargin( 0 );
 	RadioButton6 = new QRadioButton( tr( "In the &Background" ), ButtonGroup5, "RadioButton6" );
-	RadioButton6->setChecked(ap->HaveDoc ? ap->doc->Before : Vor->Before );
+	RadioButton6->setChecked(Vor->Before );
 	Layout7->addWidget( RadioButton6 );
 	RadioButton7 = new QRadioButton( tr( "In the Fore&ground" ), ButtonGroup5, "RadioButton6_2" );
-	RadioButton7->setChecked(ap->HaveDoc ? !ap->doc->Before : !Vor->Before );
+	RadioButton7->setChecked(!Vor->Before );
 	Layout7->addWidget( RadioButton7 );
 	ButtonGroup5Layout->addLayout( Layout7 );
 	tabLayout_2->addWidget( ButtonGroup5, 0, 1 );
@@ -1364,8 +1364,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	PapColor = new QPushButton( "", GroupBox20a, "PapColor" );
 	PapColor->setAutoDefault( false );
 	QPixmap pm1a = QPixmap(40, 20);
-	pm1a.fill(ap->HaveDoc ? ap->doc->papColor : Vor->DpapColor);
-	Cpaper = ap->HaveDoc ? ap->doc->papColor : Vor->DpapColor;
+	pm1a.fill(Vor->DpapColor);
+	Cpaper = Vor->DpapColor;
 	PapColor->setPixmap(pm1a);
 	TextLabel4a = new QLabel( PapColor, tr( "&Background:" ), GroupBox20a, "TextLabel4" );
 	TextLabel4a->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -1375,8 +1375,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	RandColor = new QPushButton( "", GroupBox20a, "RColor" );
 	RandColor->setAutoDefault( false );
-	pm1a.fill(ap->HaveDoc ? ap->doc->margColor : Vor->DmargColor);
-	Crand = ap->HaveDoc ? ap->doc->margColor : Vor->DmargColor;
+	pm1a.fill(Vor->DmargColor);
+	Crand = Vor->DmargColor;
 	RandColor->setPixmap(pm1a);
 	TextLabel4b = new QLabel( RandColor, tr( "&Margins:" ), GroupBox20a, "TextLabel4" );
 	TextLabel4b->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -1389,7 +1389,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout_6b->addItem( spacer2 );
 	GroupBox10Layout->addLayout(Layout_6b);
 	RandFarb = new QCheckBox( tr( "Display &Unprintable Area in Margin Color" ), GroupBox10, "Ran" );
-	RandFarb->setChecked(ap->HaveDoc ? ap->doc->RandFarbig : Vor->RandFarbig);
+	RandFarb->setChecked(Vor->RandFarbig);
 	GroupBox10Layout->addWidget( RandFarb );
 	UsePDFTrans = new QCheckBox( tr( "Use PDF 1.4 &Transparency Features" ), GroupBox10, "Ran2" );
 	UsePDFTrans->setChecked(Vor->PDFTransparency);

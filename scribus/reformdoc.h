@@ -5,10 +5,12 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qgroupbox.h>
+#include <qbuttongroup.h>
+#include <qradiobutton.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
-#include <qcheckbox.h>
+#include <qcolor.h>
 #include "mspinbox.h"
 #include "prefsdialogbase.h"
 class ScribusDoc;
@@ -44,17 +46,50 @@ public:
 	QComboBox*	sizeQComboBox;
 	QComboBox*	orientationQComboBox;
 
+	QWidget* tabGuides;
 	QWidget* tabView;
+	QLabel* textLabel1;
+	QLabel* textLabel2;
+	QLabel* textLabel3;
+	QLabel* textLabel4;
+	QLabel* textLabel5;
+	QLabel* textLabel6;
+	QLabel* textLabel7;
+	QLabel* textLabel8;
+	QLabel* textLabel9;
+	QGroupBox* checkGrid;
+	QGroupBox* groupBox1;
+	QGroupBox* groupBox2;
+	QPushButton* majorGridColor;
+	QPushButton* minorGridColor;
+	QPushButton* baselineColor;
+	QPushButton* guideColor;
+	QPushButton* marginColor;
+	QPushButton* backColor;
+	MSpinBox* minorSpace;
+	MSpinBox* majorSpace;
+	MSpinBox* snapDistance;
+	QButtonGroup* buttonGroup1;
+	QButtonGroup* pageBackground;
+	QRadioButton* inBackground;
+	QRadioButton* inForeground;
+	QCheckBox* checkUnprintable;
 	QCheckBox* checkMargin;
 	QCheckBox* checkFrame;
 	QCheckBox* checkPictures;
-	QCheckBox* checkGrid;
 	QCheckBox* checkGuides;
 	QCheckBox* checkBaseline;
+	QCheckBox* checkLink;
 
 	int einheit;
 	double Breite;
 	double Hoehe;
+	QColor colorMajorGrid;
+	QColor colorMinorGrid;
+	QColor colorBaselineGrid;
+	QColor colorPaper;
+	QColor colorGuides;
+	QColor colorMargin;
 
 protected:
 	QVBoxLayout* ReformDocLayout;
@@ -63,9 +98,29 @@ protected:
 	QGridLayout* dsLayout4;
 	QGridLayout* Layout4;
 	QHBoxLayout* Layout3;
+	QVBoxLayout* tabGuidesLayout;
 	QVBoxLayout* tabViewLayout;
+	QGridLayout* checkGridLayout;
+	QGridLayout* groupBox1Layout;
+	QGridLayout* groupBox2Layout;
+	QVBoxLayout* buttonGroup1Layout;
+	QHBoxLayout* layout7;
+	QGridLayout* layout11;
+	QHBoxLayout* layout2;
+	QHBoxLayout* layout3;
+	QHBoxLayout* layout9;
+	QVBoxLayout* pageBackgroundLayout;
+	QHBoxLayout* layout10;
+	QSpacerItem* spacer3;
+	QGridLayout* layout12;
 
 protected slots:
+	virtual void changeMajorColor();
+	virtual void changeMinorColor();
+	virtual void changePaperColor();
+	virtual void changeBaselineColor();
+	virtual void changeGuideColor();
+	virtual void changeMarginColor();
 	virtual void setDS();
 	virtual void setTop(int v);
 	virtual void setBottom(int v);

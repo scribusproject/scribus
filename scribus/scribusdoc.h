@@ -492,6 +492,7 @@ struct preV  {
 				bool MarginsShown;
 				bool GridShown;
 				bool BaseShown;
+				bool linkShown;
 				bool ClipMargin;
 				bool GCRMode;
 				double BaseGrid;
@@ -574,6 +575,7 @@ public: // Public attributes
 	bool MarginsShown;
 	bool GridShown;
 	bool BaseShown;
+	bool linkShown;
   /** Im Dokument benutzte Farben */
 	CListe PageColors;
 	Page* ActPage;

@@ -1053,6 +1053,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->FramesShown = view->Prefs->FramesShown;
 		doc->MarginsShown = view->Prefs->MarginsShown;
 		doc->BaseShown = view->Prefs->BaseShown;
+		doc->linkShown = view->Prefs->linkShown;
 		doc->ShowPic = true;
 		DoFonts.clear();
 		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
@@ -2358,7 +2359,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", "1.3cvs");
+	elem.setAttribute("Version", "1.3.0cvs");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",doc->DocPages.count());
 	dc.setAttribute("PAGEWITH",doc->PageB);
@@ -2433,6 +2434,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->MarginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->BaseShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
+	dc.setAttribute("SHOWLINK", static_cast<int>(doc->linkShown));
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
@@ -2668,6 +2670,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("FRV", static_cast<int>(Vor->FramesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->MarginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(Vor->BaseShown));
+	dc.setAttribute("SHOWLINK", static_cast<int>(Vor->linkShown));
 	dc.setAttribute("STECOLOR", Vor->STEcolor.name());
 	dc.setAttribute("STEFONT", Vor->STEfont);
 	elem.appendChild(dc);
@@ -2939,6 +2942,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->FramesShown = static_cast<bool>(QStoInt(dc.attribute("FRV","1")));
 			Vorein->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));
 			Vorein->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE","1")));
+			Vorein->linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK","0")));
 			if (dc.hasAttribute("STECOLOR"))
 				Vorein->STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))

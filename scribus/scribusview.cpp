@@ -267,32 +267,58 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			if ((!Doc->Before) && (QRect(x, y, w+5, h+5).intersects(QRect(clipx, clipy, clipw, cliph))))
 				DrawPageMarks(painter, Doc->ActPage, QRect(clipx, clipy, clipw, cliph));
 		}
-		if (SelItem.count() != 0)
+		if ((SelItem.count() != 0) || (linkedFramesToShow.count() != 0))
 		{
 			double z = painter->zoomFactor();
 			painter->setZoomFactor(Scale);
 			painter->save();
-			PageItem *b = SelItem.at(0);
-			if (((Doc->AppMode == 10) || (Doc->AppMode == 11)) && (b->PType == 4))
+			PageItem *b;
+			if ((Doc->linkShown) && (linkedFramesToShow.count() != 0))
+				b = linkedFramesToShow.at(0);
+			else
+				b = SelItem.at(0);
+			if ((((Doc->AppMode == 10) || (Doc->AppMode == 11)) && (b->PType == 4)) || (Doc->linkShown))
 			{
 				PageItem *nb = b;
-				while (nb != 0)
+				if (Doc->linkShown)
 				{
-					if (nb->BackBox != 0)
-						nb = nb->BackBox;
-					else
-						break;
-				}
-				while (nb != 0)
-				{
-					FPoint Start = transformPoint(FPoint(nb->Width/2, nb->Height), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
-					nb = nb->NextBox;
-					if (nb != 0)
+					for (uint lks = 0; lks < linkedFramesToShow.count(); ++lks)
 					{
-						FPoint End = transformPoint(FPoint(nb->Width/2, 0), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
-						painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-						painter->setPenOpacity(0.3);
-						painter->drawLine(Start, End);
+						nb = linkedFramesToShow.at(lks);
+						while (nb != 0)
+						{
+							FPoint Start = transformPoint(FPoint(nb->Width/2, nb->Height), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+							nb = nb->NextBox;
+							if (nb != 0)
+							{
+								FPoint End = transformPoint(FPoint(nb->Width/2, 0), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+								painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+								painter->setPenOpacity(0.3);
+								painter->drawLine(Start, End);
+							}
+						}
+					}
+				}
+				else
+				{
+					while (nb != 0)
+					{
+						if (nb->BackBox != 0)
+							nb = nb->BackBox;
+						else
+							break;
+					}
+					while (nb != 0)
+					{
+						FPoint Start = transformPoint(FPoint(nb->Width/2, nb->Height), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+						nb = nb->NextBox;
+						if (nb != 0)
+						{
+							FPoint End = transformPoint(FPoint(nb->Width/2, 0), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+							painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+							painter->setPenOpacity(0.3);
+							painter->drawLine(Start, End);
+						}
 					}
 				}
 			}
@@ -445,6 +471,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	PageItem* b;
 	ll.Sichtbar = false;
 	ll.LNr = 0;
+	linkedFramesToShow.clear();
 	double z = painter->zoomFactor();
 	if (Doc->Items.count() != 0)
 	{
@@ -468,6 +495,19 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if (!((Doc->EditClip) && (Mpressed)))
 							b->DrawObj(painter, clip);
 						b->Redrawn = true;
+						if ((b->PType == 4) && ((b->NextBox != 0) || (b->BackBox != 0)))
+						{
+							PageItem *nb = b;
+							while (nb != 0)
+							{
+								if (nb->BackBox != 0)
+									nb = nb->BackBox;
+								else
+									break;
+							}
+							if (linkedFramesToShow.find(nb) == -1)
+								linkedFramesToShow.append(nb);
+						}
 						if ((Doc->AppMode == 7) && (b->Select) && (b->PType == 4))
 						{
 							HR->ItemPos = b->Xpos - Doc->ScratchLeft;
@@ -819,7 +859,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (ss->Read())
 					{
 						int st = doku->CurrentABStil;
-						ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize);
+						ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize, true);
 						emit DocChanged();
 					}
 					delete ss;
@@ -3841,9 +3881,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						ss->Objekt = cc;
 						int st = Doc->CurrentABStil;
 						if (st > 5)
-							ss->GetText(b, st, Doc->Vorlagen[st].Font, Doc->Vorlagen[st].FontSize);
+							ss->GetText(b, st, Doc->Vorlagen[st].Font, Doc->Vorlagen[st].FontSize, true);
 						else
-							ss->GetText(b, st, b->IFont, b->ISize);
+							ss->GetText(b, st, b->IFont, b->ISize, true);
 						delete ss;
 						if (Doc->Trenner->AutoCheck)
 							Doc->Trenner->slotHyphenate(b);
@@ -6546,9 +6586,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			b = Doc->ActPage->FromMaster.prev();
 		}
 	}
-		
-		
-		
 	if ((m->state() == (ControlButton | ShiftButton)) && (SelItem.count() != 0))
 	{
 		for (a = 0; a < Doc->Items.count(); ++a)
@@ -7224,9 +7261,9 @@ void ScribusView::LoremIpsum()
 		{
 			int st = Doc->CurrentABStil;
 			if (st > 5)
-				ss->GetText(b, st, Doc->Vorlagen[st].Font, Doc->Vorlagen[st].FontSize);
+				ss->GetText(b, st, Doc->Vorlagen[st].Font, Doc->Vorlagen[st].FontSize, true);
 			else
-				ss->GetText(b, st, b->IFont, b->ISize);
+				ss->GetText(b, st, b->IFont, b->ISize, true);
 		}
 		delete ss;
 		if (Doc->Trenner->AutoCheck)

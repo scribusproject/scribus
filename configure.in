@@ -54,8 +54,8 @@ hafree=no
 if test -n "$FREETYPE_CONFIG"; then
 	LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
   LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
-	AC_CHECK_LIB(freetype, FT_Get_First_Char, [hafree=yes],[hafree=no])
-	AC_CHECK_LIB(freetype, FT_Get_Next_Char, [hafree=yes],[hafree=no])
+	AC_CHECK_LIB(freetype, FT_Get_First_Char, [hafree=yes],[hafree=no], "$LIBFREETYPE_LIBS")
+	AC_CHECK_LIB(freetype, FT_Get_Next_Char, [hafree=yes],[hafree=no], "$LIBFREETYPE_LIBS")
 	if test $hafree = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
 	else

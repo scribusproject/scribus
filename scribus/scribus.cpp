@@ -345,6 +345,7 @@ void ScribusApp::initScribus()
 		Prefs.MarginsShown = true;
 		Prefs.GuidesShown = true;
 		Prefs.BaseShown = false;
+		Prefs.linkShown = false;
 		Prefs.ClipMargin = true;
 		Prefs.GCRMode = true;
 		Prefs.PagesSbS = true;
@@ -841,6 +842,9 @@ void ScribusApp::initMenuBar()
 	Guide = viewMenu->insertItem( tr("Show G&uides"), this, SLOT(ToggleGuides()));
 	viewMenu->setItemChecked(Guide, true);
 	Base = viewMenu->insertItem( tr("Show &Baseline Grid"), this, SLOT(ToggleBase()));
+	viewMenu->setItemChecked(Base, false);
+	textLinks = viewMenu->insertItem( tr("Show &Text Chain"), this, SLOT(ToggleTextLinks()));
+	viewMenu->setItemChecked(textLinks, false);
 	viewMenu->insertSeparator();
 	uRas = viewMenu->insertItem( tr("Sn&ap to Grid"), this, SLOT(ToggleURaster()));
 	SetKeyEntry(44, tr("Snap to Grid"), uRas, 0);
@@ -2206,6 +2210,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->GridShown = Prefs.GridShown;
 	doc->GuidesShown = Prefs.GuidesShown;
 	doc->BaseShown = Prefs.BaseShown;
+	doc->linkShown = Prefs.linkShown;
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc, &Prefs);
@@ -2361,6 +2366,7 @@ void ScribusApp::newActWin(QWidget *w)
 	viewMenu->setItemChecked(Guide, doc->GuidesShown);
 	viewMenu->setItemChecked(Base, doc->BaseShown);
 	viewMenu->setItemChecked(Bilder, doc->ShowPic);
+	viewMenu->setItemChecked(textLinks, doc->linkShown);
 //	if (!doc->TemplateMode)
 //		Sepal->Rebuild();
 //	Tpal->BuildTree(view);
@@ -2415,12 +2421,25 @@ bool ScribusApp::SetupDoc()
 		doc->GuidesShown = dia->checkGuides->isChecked();
 		doc->BaseShown = dia->checkBaseline->isChecked();
 		doc->ShowPic = dia->checkPictures->isChecked();
+		doc->linkShown = dia->checkLink->isChecked();
+		doc->Before = dia->inBackground->isChecked();
+		doc->RandFarbig = dia->checkUnprintable->isChecked();
+		doc->GuideRad = dia->snapDistance->value() / UmReFaktor;
+		doc->minorGrid = dia->minorSpace->value() / UmReFaktor;
+		doc->majorGrid = dia->majorSpace->value() / UmReFaktor;
+		doc->minorColor = dia->colorMinorGrid;
+		doc->majorColor = dia->colorMajorGrid;
+		doc->papColor = dia->colorPaper;
+		doc->margColor = dia->colorMargin;
+		doc->guideColor = dia->colorGuides;
+		doc->baseColor = dia->colorBaselineGrid;
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);
 		viewMenu->setItemChecked(Guide, doc->GuidesShown);
 		viewMenu->setItemChecked(Base, doc->BaseShown);
 		viewMenu->setItemChecked(Bilder, doc->ShowPic);
+		viewMenu->setItemChecked(textLinks, doc->linkShown);
 		for (uint b=0; b<doc->Items.count(); ++b)
 		{
 			if (doc->Items.at(b)->PType == 2)
@@ -3302,7 +3321,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->OpenNodes = Tpal->buildReopenVals(); */
 	bool ret = false;
 	QWidgetList windows = wsp->windowList();
-	ScribusWin* ActWinOld;
+	ScribusWin* ActWinOld = NULL;
 	if (windows.count() != 0)
 		ActWinOld = ActWin;
 	bool found = false;
@@ -4319,9 +4338,9 @@ void ScribusApp::slotEditPaste()
 				ss->Objekt = Buffer2;
 				int st = doc->CurrentABStil;
 				if (st > 5)
-					ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
+					ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, true);
 				else
-					ss->GetText(b, st, b->IFont, b->ISize);
+					ss->GetText(b, st, b->IFont, b->ISize, true);
 				delete ss;
 				if (doc->Trenner->AutoCheck)
 					doc->Trenner->slotHyphenate(b);
@@ -4990,11 +5009,13 @@ void ScribusApp::ToggleAllGuides()
 		doc->GridShown = GuidesStat[3];
 		doc->GuidesShown = GuidesStat[4];
 		doc->BaseShown = GuidesStat[5];
+		doc->linkShown = GuidesStat[6];
 		ToggleMarks();
 		ToggleFrames();
 		ToggleRaster();
 		ToggleGuides();
 		ToggleBase();
+		ToggleTextLinks();
 	}
 	else
 	{
@@ -5004,16 +5025,19 @@ void ScribusApp::ToggleAllGuides()
 		GuidesStat[3] = !doc->GridShown;
 		GuidesStat[4] = !doc->GuidesShown;
 		GuidesStat[5] = !doc->BaseShown;
+		GuidesStat[6] = !doc->linkShown;
 		doc->MarginsShown = false;
 		doc->FramesShown = false;
 		doc->GridShown = false;
 		doc->GuidesShown = false;
 		doc->BaseShown = false;
+		doc->linkShown = false;
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);
 		viewMenu->setItemChecked(Guide, doc->GuidesShown);
 		viewMenu->setItemChecked(Base, doc->BaseShown);
+		viewMenu->setItemChecked(textLinks, doc->linkShown);
 	}
 	view->DrawNew();
 }
@@ -5055,6 +5079,14 @@ void ScribusApp::ToggleBase()
 	GuidesStat[0] = false;
 	doc->BaseShown = !doc->BaseShown;
 	viewMenu->setItemChecked(Base, doc->BaseShown);
+	view->DrawNew();
+}
+
+void ScribusApp::ToggleTextLinks()
+{
+	GuidesStat[0] = false;
+	doc->linkShown = !doc->linkShown;
+	viewMenu->setItemChecked(textLinks, doc->linkShown);
 	view->DrawNew();
 }
 
@@ -5767,7 +5799,7 @@ void ScribusApp::setItemShade(int id)
 	slotDocCh();
 }
 
-void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
+void ScribusApp::setCSMenu(QString , QString l, int  , int ls)
 {
 	uint a;
 	QString la;
@@ -5874,7 +5906,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 {
 	QValueList<uint> ers;
 	QString nn;
-	PageItem* ite;
+	PageItem* ite = 0;
 	bool ff;
 	uint nr;
 	ers.clear();
@@ -7882,7 +7914,7 @@ void ScribusApp::InitPlugs()
 	QString nam = "";
 	int id = 0;
 	int ty = 0;
-	int menid;
+	int menid = 0;
 	struct PlugData pda;
 	pfad += "/lib/scribus/plugins/";
 #if defined(__hpux)
