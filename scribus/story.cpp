@@ -754,7 +754,8 @@ void SEditor::loadItemText(PageItem* b)
 			if (nb->Ptext.at(a)->ch == QChar(13))
 			{
 				StyledText.append(chars);
-				ParagStyles.append(Ali);
+				ParagStyles.append(nb->Ptext.at(a)->cab);
+				Ali = nb->Ptext.at(a)->cab;
 				chars = new ChList;
 				chars->setAutoDelete(true);
 				chars->clear();
@@ -2263,6 +2264,7 @@ void StoryEditor::newAlign(int st)
 void StoryEditor::changeAlignSB(int pa, int align)
 {
 	Editor->CurrentABStil = align;
+	(*Editor->ParagStyles.at(pa)) = Editor->CurrentABStil;
 	if (Editor->StyledText.count() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));

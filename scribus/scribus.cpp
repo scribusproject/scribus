@@ -3896,6 +3896,7 @@ void ScribusApp::slotFilePrint()
 			options.filename = di.currentDirPath()+"/"+doc->DocName+".ps";
 		}
 	}
+	options.copies = 1;
 	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, Prefs.GCRMode);
 	printer->setMinMax(1, view->Pages.count(), doc->ActPage->PageNr+1);
 	if (printer->exec())
