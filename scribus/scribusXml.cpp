@@ -99,7 +99,7 @@ QString ScriXmlDoc::ReadDatei(QString fileName)
 /** end changes */
 }
 
-QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo)
+QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo, bool docreading)
 {
 	QString tmp2, tmf, tmpf, tmp3, tmp;
 	tmp = "";
@@ -108,13 +108,32 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-	if (tmpf == "")
-		tmpf = doc->toolSettings.defFont;
-	tmf = tmpf;
-	if (!DoFonts.contains(tmpf))
-		tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
+	if (docreading)
+	{
+		if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
+		{
+			if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+				ReplacedFonts.insert(tmpf, Prefs->toolSettings.defFont);
+			else
+				ReplacedFonts.insert(tmpf, Prefs->GFontSub[tmpf]);
+		}
+		else
+		{
+			QFont fo = Prefs->AvailFonts[tmpf]->Font;
+			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(tmpf, fo);
+		}
+	}
 	else
-		tmpf = DoFonts[tmf];
+	{
+		if (tmpf == "")
+			tmpf = doc->toolSettings.defFont;
+		tmf = tmpf;
+		if (!DoFonts.contains(tmpf))
+			tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
+		else
+			tmpf = DoFonts[tmf];
+	}
 	tmp3 = "\t" + tmpf + "\t";
 	tmp3 += it->attribute("CSIZE") + "\t";
 	tmp3 += it->attribute("CCOLOR") + "\t";
@@ -926,7 +945,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 					}
 					if (it.tagName()=="ITEXT")
-						tmp += GetItemText(&it, doc, view->Prefs, VorLFound, true);
+						tmp += GetItemText(&it, doc, view->Prefs, VorLFound, true, false);
 					IT=IT.nextSibling();
 					}
 					OB.itemText = tmp;
@@ -1081,20 +1100,17 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		DoFonts.clear();
 		doc->toolSettings.defSize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
-		if (!avail.find(Defont))
+		if ((!avail.find(Defont)) || (!avail[Defont]->UseFont))
 		{
-			QString dd = Defont;
-			if (view->Prefs->GFontSub.contains(Defont))
-				Defont = view->Prefs->GFontSub[dd];
-			else
-				Defont = view->Prefs->toolSettings.defFont;
-			DoFonts[dd] = Defont;
+			ReplacedFonts.insert(Defont, view->Prefs->toolSettings.defFont);
+			Defont = view->Prefs->toolSettings.defFont;
 		}
 		else
-			DoFonts[Defont] = Defont;
-		fo = avail[Defont]->Font;
-		fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-		doc->AddFont(Defont, fo);
+		{
+			QFont fo = avail[Defont]->Font;
+			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(Defont, fo);
+		}
 		doc->toolSettings.defFont = Defont;
 		doc->toolSettings.dCols=QStoInt(dc.attribute("DCOL", "1"));
 		doc->toolSettings.dGap=QStodouble(dc.attribute("DGAP", "0.0"));
@@ -1172,13 +1188,19 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.gapBefore = QStodouble(pg.attribute("VOR","0"));
 				vg.gapAfter = QStodouble(pg.attribute("NACH","0"));
 				tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
-				if (tmpf == "")
-					tmpf = doc->toolSettings.defFont;
-				tmf = tmpf;
-				if (!DoFonts.contains(tmpf))
-					tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
+				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+				{
+					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+						ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+					else
+						ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
+				}
 				else
-					tmpf = DoFonts[tmf];
+				{
+					QFont fo = avail[tmpf]->Font;
+					fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+					doc->AddFont(tmpf, fo);
+				}
 				vg.Font = tmpf;
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
@@ -1344,13 +1366,19 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
 					tmpf = obj.attribute("IFONT", doc->toolSettings.defFont);
-					if (tmpf == "")
-						tmpf = doc->toolSettings.defFont;
-					tmf = tmpf;
-					if (!DoFonts.contains(tmpf))
-						tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
+					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+					{
+						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+							ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+						else
+							ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
+					}
 					else
-						tmpf = DoFonts[tmf];
+					{
+						QFont fo = avail[tmpf]->Font;
+						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+						doc->AddFont(tmpf, fo);
+					}
 					OB.IFont = tmpf;
 					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 					OB.Language = obj.attribute("LANGUAGE", doc->Language);
@@ -1382,7 +1410,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
-							tmp += GetItemText(&it, doc, view->Prefs, false, false);
+							tmp += GetItemText(&it, doc, view->Prefs, false, false, true);
 						IT=IT.nextSibling();
 					}
 					OB.itemText = tmp;
@@ -1518,13 +1546,13 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					}
 					if(pdfF.tagName() == "Fonts")
 					{
-						if (!doc->PDF_Optionen.EmbedList.contains(DoFonts[pdfF.attribute("Name")]))
-							doc->PDF_Optionen.EmbedList.append(DoFonts[pdfF.attribute("Name")]);
+						if (!doc->PDF_Optionen.EmbedList.contains(pdfF.attribute("Name")))
+							doc->PDF_Optionen.EmbedList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Subset")
 					{
-						if (!doc->PDF_Optionen.SubsetList.contains(DoFonts[pdfF.attribute("Name")]))
-							doc->PDF_Optionen.SubsetList.append(DoFonts[pdfF.attribute("Name")]);
+						if (!doc->PDF_Optionen.SubsetList.contains(pdfF.attribute("Name")))
+							doc->PDF_Optionen.SubsetList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
@@ -1845,7 +1873,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 				}
 				if (it.tagName()=="ITEXT")
-					tmp += GetItemText(&it, doc, Prefs, VorLFound, true);
+					tmp += GetItemText(&it, doc, Prefs, VorLFound, true, false);
 				IT=IT.nextSibling();
 			}
 			OB.itemText = tmp;

@@ -12,6 +12,7 @@
 #include "scribus.h"
 #include "scribusXml.h"
 #include "missing.h"
+#include "fontreplacedialog.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -165,13 +166,13 @@ bool FileLoader::LoadFile(ScribusApp* app)
 	app->doc->toolSettings.polyS = app->Prefs.toolSettings.polyS;
 	app->doc->AutoSave = app->Prefs.AutoSave;
 	app->doc->AutoSaveTime = app->Prefs.AutoSaveTime;
+	ReplacedFonts.clear();
 	switch (FileType)
 	{
 		case 0:
 			{
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				QObject::connect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
-				ReplacedFonts.clear();
 				ss->ReplacedFonts.clear();
 				ret = ss->ReadDoc(FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
 				QObject::disconnect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
@@ -180,7 +181,6 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			}
 			break;
 		case 1:
-			ReplacedFonts.clear();
 			ret = ReadDoc(app, FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
 			break;
 		case 2:
@@ -201,6 +201,74 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		default:
 			ret = false;
 			break;
+	}
+	if (ReplacedFonts.count() != 0)
+	{
+		qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+		FontReplaceDialog *dia = new FontReplaceDialog(0, &app->Prefs, &ReplacedFonts);
+		dia->exec();
+		for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
+		{
+			PageItem *it = app->doc->MasterItems.at(d);
+			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
+				it->IFont = ReplacedFonts[it->IFont];
+			if ((it->PType == 4) || (it->PType == 8))
+			{
+				for (uint e = 0; e < it->itemText.count(); ++e)
+				{
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
+					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
+				}
+			}
+		}
+		for (uint d = 0; d < app->doc->DocItems.count(); ++d)
+		{
+			PageItem *it = app->doc->DocItems.at(d);
+			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
+				it->IFont = ReplacedFonts[it->IFont];
+			if ((it->PType == 4) || (it->PType == 8))
+			{
+				for (uint e = 0; e < it->itemText.count(); ++e)
+				{
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
+					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
+				}
+			}
+		}
+		for (uint a = 0; a < app->doc->docParagraphStyles.count(); ++a)
+		{
+			if ((!app->doc->UsedFonts.contains(app->doc->docParagraphStyles[a].Font)) && (app->doc->docParagraphStyles[a].Font != ""))
+				app->doc->docParagraphStyles[a].Font = ReplacedFonts[app->doc->docParagraphStyles[a].Font];
+		}
+		QValueList<QString> tmpList;
+		tmpList.clear();
+		for (uint fe = 0; fe <  app->doc->PDF_Optionen.EmbedList.count(); ++fe)
+		{
+			if (ReplacedFonts.contains(app->doc->PDF_Optionen.EmbedList[fe]))
+				tmpList.append(ReplacedFonts[app->doc->PDF_Optionen.EmbedList[fe]]);
+			else
+				tmpList.append(app->doc->PDF_Optionen.EmbedList[fe]);
+		}
+		app->doc->PDF_Optionen.EmbedList = tmpList;
+		tmpList.clear();
+		for (uint fe = 0; fe <  app->doc->PDF_Optionen.SubsetList.count(); ++fe)
+		{
+			if (ReplacedFonts.contains(app->doc->PDF_Optionen.SubsetList[fe]))
+				tmpList.append(ReplacedFonts[app->doc->PDF_Optionen.SubsetList[fe]]);
+			else
+				tmpList.append(app->doc->PDF_Optionen.SubsetList[fe]);
+		}
+		app->doc->PDF_Optionen.SubsetList = tmpList;
+		QMap<QString,QString>::Iterator itfsu;
+		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
+		{
+			QFont fo = app->Prefs.AvailFonts[itfsu.data()]->Font;
+			fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
+			app->doc->AddFont(itfsu.data(), fo);
+			if (dia->stickyReplacements->isChecked())
+				app->Prefs.GFontSub[itfsu.key()] = itfsu.data();
+		}
+		delete dia;
 	}
 	app->DLLinput = "";
 	return ret;
@@ -259,23 +327,19 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 		doc->docUnitIndex = QStoInt(dc.attribute("UNITS","0"));
-		DoFonts.clear();
 		doc->toolSettings.defSize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
-		if (!avail.find(Defont))
+		if ((!avail.find(Defont)) || (!avail[Defont]->UseFont))
 		{
-			QString dd = Defont;
-			if (view->Prefs->GFontSub.contains(Defont))
-				Defont = view->Prefs->GFontSub[dd];
-			else
-				Defont = view->Prefs->toolSettings.defFont;
-			DoFonts[dd] = Defont;
+			ReplacedFonts.insert(Defont, view->Prefs->toolSettings.defFont);
+			Defont = view->Prefs->toolSettings.defFont;
 		}
 		else
-			DoFonts[Defont] = Defont;
-		fo = avail[Defont]->Font;
-		fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-		doc->AddFont(Defont, fo);
+		{
+			QFont fo = avail[Defont]->Font;
+			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(Defont, fo);
+		}
 		doc->toolSettings.defFont = Defont;
 		doc->toolSettings.dCols=QStoInt(dc.attribute("DCOL", "1"));
 		doc->toolSettings.dGap=QStodouble(dc.attribute("DGAP", "0.0"));
@@ -441,13 +505,19 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.gapBefore = QStodouble(pg.attribute("VOR","0"));
 				vg.gapAfter = QStodouble(pg.attribute("NACH","0"));
 				tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
-				if (tmpf == "")
-					tmpf = doc->toolSettings.defFont;
-				tmf = tmpf;
-				if (!DoFonts.contains(tmpf))
-					tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
+				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+				{
+					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+						ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+					else
+						ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
+				}
 				else
-					tmpf = DoFonts[tmf];
+				{
+					QFont fo = avail[tmpf]->Font;
+					fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+					doc->AddFont(tmpf, fo);
+				}
 				vg.Font = tmpf;
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
@@ -654,13 +724,19 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					OB.BMnr = QStoInt(pg.attribute("BookNr","0"));
 					OB.textAlignment = QStoInt(pg.attribute("ALIGN","0"));
 					tmpf = pg.attribute("IFONT", doc->toolSettings.defFont);
-					if (tmpf == "")
-						tmpf = doc->toolSettings.defFont;
-					tmf = tmpf;
-					if (!DoFonts.contains(tmpf))
-						tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
+					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+					{
+						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+							ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+						else
+							ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
+					}
 					else
-						tmpf = DoFonts[tmf];
+					{
+						QFont fo = avail[tmpf]->Font;
+						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+						doc->AddFont(tmpf, fo);
+					}
 					OB.IFont = tmpf;
 					OB.LayerNr = QStoInt(pg.attribute("LAYER","0"));
 					OB.Language = pg.attribute("LANGUAGE", doc->Language);
@@ -692,7 +768,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 							OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
-							tmp += GetItemText(&it, doc, view->Prefs, false, false);
+							tmp += GetItemText(&it, doc, view->Prefs);
 						IT=IT.nextSibling();
 					}
 					OB.itemText = tmp;
@@ -798,13 +874,13 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					}
 					if(pdfF.tagName() == "Fonts")
 					{
-						if (!doc->PDF_Optionen.EmbedList.contains(DoFonts[pdfF.attribute("Name")]))
-							doc->PDF_Optionen.EmbedList.append(DoFonts[pdfF.attribute("Name")]);
+						if (!doc->PDF_Optionen.EmbedList.contains(pdfF.attribute("Name")))
+							doc->PDF_Optionen.EmbedList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Subset")
 					{
-						if (!doc->PDF_Optionen.SubsetList.contains(DoFonts[pdfF.attribute("Name")]))
-							doc->PDF_Optionen.SubsetList.append(DoFonts[pdfF.attribute("Name")]);
+						if (!doc->PDF_Optionen.SubsetList.contains(pdfF.attribute("Name")))
+							doc->PDF_Optionen.SubsetList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
@@ -903,7 +979,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	return true;
 }
 
-QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo)
+QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs)
 {
 	QString tmp2, tmf, tmpf, tmp3, tmp;
 	tmp = "";
@@ -912,64 +988,30 @@ QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-	if (tmpf == "")
-		tmpf = doc->toolSettings.defFont;
-	tmf = tmpf;
-	if (!DoFonts.contains(tmpf))
-		tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
+	if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
+	{
+		if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+			ReplacedFonts.insert(tmpf, Prefs->toolSettings.defFont);
+		else
+			ReplacedFonts.insert(tmpf, Prefs->GFontSub[tmpf]);
+	}
 	else
-		tmpf = DoFonts[tmf];
+	{
+		QFont fo = Prefs->AvailFonts[tmpf]->Font;
+		fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+		doc->AddFont(tmpf, fo);
+	}
 	tmp3 = "\t" + tmpf + "\t";
 	tmp3 += it->attribute("CSIZE") + "\t";
 	tmp3 += it->attribute("CCOLOR") + "\t";
 	tmp3 += it->attribute("CEXTRA") + "\t";
 	tmp3 += it->attribute("CSHADE") + "\t";
 	tmp3 += it->attribute("CSTYLE") + "\t";
-	if (impo)
-	{
-		if (VorLFound)
-			tmp3 += DoVorl[it->attribute("CAB","0").toUInt()] + "\t";
-		else
-		{
-			if (it->attribute("CAB","0").toUInt() < 5)
-				tmp3 += it->attribute("CAB","0")+"\t";
-			else
-				tmp3 += "0\t";
-		}
-	}
-	else
-		tmp3 += it->attribute("CAB","0") + "\t";
+	tmp3 += it->attribute("CAB","0") + "\t";
 	tmp3 += it->attribute("CSTROKE","None") + "\t";
 	tmp3 += it->attribute("CSHADE2","100") + "\t";
 	tmp3 += it->attribute("CSCALE","100") + "\n";
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 		tmp += tmp2.at(cxx)+tmp3;
 	return tmp;
-}
-
-QString FileLoader::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *Prefs, ScribusDoc *doc)
-{
-	QFont fo;
-	QString tmpf = fStr;
-	if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
-	{
-		if ((!Prefs->GFontSub.contains(tmpf)) || (!avail[Prefs->GFontSub[tmpf]]->UseFont))
-		{
-			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-			MissingFont *dia = new MissingFont(0, tmpf, Prefs, doc);
-			dia->exec();
-			tmpf = dia->getReplacementFont();
-			delete dia;
-			qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
-			Prefs->GFontSub[fStr] = tmpf;
-		}
-		else
-			tmpf = Prefs->GFontSub[tmpf];
-		ReplacedFonts[fStr] = tmpf;
-	}
-	fo = avail[tmpf]->Font;
-	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-	doc->AddFont(tmpf, fo);
-	DoFonts[fStr] = tmpf;
-	return tmpf;
 }

@@ -3153,11 +3153,11 @@ void ScribusApp::newActWin(QWidget *w)
 	doc = ActWin->doc;
 	view = ActWin->view;
 	Sepal->SetView(view);
-	scanDocument();
-	docChecker->buildErrorList(doc);
 	ScribusWin* swin;
 	if (!doc->loading)
 	{
+		scanDocument();
+		docChecker->buildErrorList(doc);
 		SwitchWin();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
@@ -4503,7 +4503,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			doc->PDF_Optionen.LPISettings.insert("Black", lpo);
 		}
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-		if (fl->ReplacedFonts.count() != 0)
+/*		if (fl->ReplacedFonts.count() != 0)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			QString mess = tr("Some Fonts used by this Document have been substituted:")+"\n\n";
@@ -4513,7 +4513,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 				mess += it.key() + tr(" was replaced by: ")+ it.data() +"\n";
 			}
 			QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
-		}
+		} */
 		if (!doc->HasCMS)
 		{
 			doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
