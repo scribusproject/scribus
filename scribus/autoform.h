@@ -18,6 +18,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qpopupmenu.h>
+#include <qpixmap.h>
 
 class Autoforms : public QToolButton
 {
@@ -26,6 +27,8 @@ class Autoforms : public QToolButton
 public:
 	Autoforms( QWidget* parent );
 	~Autoforms() {};
+	double* getShapeData(int a, int *n);
+	QPixmap getIconPixmap(int nr);
 
 	QButtonGroup* buttonGroup1;
 	QToolButton* toolButton1;

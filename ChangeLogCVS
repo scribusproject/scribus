@@ -1,4 +1,8 @@
 Changes since Version 1.1.4
+05.02.2004	Added two new Color Sets, a Greyscale one, and a Gnome Colors Set.
+		Updated the Finnish and Czech Translations.
+		Added a new Splash Screen and Icons.
+ 
 02.02.2004	Added Irish Hyphenation Patterns.
 		Updated the Polish Translation.
 		Groups can now freely scaled with the Mouse.

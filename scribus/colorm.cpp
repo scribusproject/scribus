@@ -115,6 +115,8 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 		CSets = new QPopupMenu();
 		CSets->insertItem("Scribus Small");
 		CSets->insertItem("X11 RGB-Set");
+		CSets->insertItem("X11 Grey-Set");
+		CSets->insertItem("Gnome-Set");
 		if (Cust.count() != 0)
 		{
 			for (uint m = 0; m < Cust.count(); ++m)
@@ -155,7 +157,8 @@ void Farbmanager::saveDefaults()
 	QString Cpfad = QString(getenv("HOME"))+"/.scribus/";
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("Name:"), tr("Choose a Name"));
-	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set"))
+	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set")
+		|| (Name == "X11 Grey-Set") || (Name == "Gnome-Set"))
 		dia->Answer->setText("");
 	else
 		dia->Answer->setText(Name);
@@ -196,10 +199,8 @@ void Farbmanager::loadDefaults(int id)
 	LoadColSet->setText(CSets->text(id));
 	EditColors.clear();
 	QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+CSets->text(id);
-	QFile fiCC(Cpfad);
 	QString pfadC = PREL;
 	QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
-	QFile fiC(pfadC2);
 	switch (c)
 	{
 		case 0:
@@ -213,71 +214,50 @@ void Farbmanager::loadDefaults(int id)
 			EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
 			break;
 		case 1:
-			if (fiC.open(IO_ReadOnly))
-			{
-				QString ColorEn, Cname;
-				int Rval, Gval, Bval;
-				QTextStream tsC(&fiC);
-				ColorEn = tsC.readLine();
-				while (!tsC.atEnd())
-				{
-					ColorEn = tsC.readLine();
-					QTextStream CoE(&ColorEn, IO_ReadOnly);
-					CoE >> Rval;
-					CoE >> Gval;
-					CoE >> Bval;
-					CoE >> Cname;
-					CMYKColor tmp;
-					tmp.setColorRGB(Rval, Gval, Bval);
-					EditColors.insert(Cname, tmp);
-				}
-				fiC.close();
-			}
-			else
-			{
-				LoadColSet->setText("Scribus Small");
-	 			EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-  				EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
-				EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-				EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-				EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
-				EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
-				EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-				EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
-			}
+			pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+			break;
+		case 2:
+			pfadC2 = pfadC + "/lib/scribus/rgbscribusgreys.txt";
+			break;
+		case 3:
+			pfadC2 = pfadC + "/lib/scribus/rgbscribusgnome.txt";
 			break;
 		default:
-			if (fiCC.open(IO_ReadOnly))
-			{
-				QString ColorEn, Cname;
-				int Cval, Mval, Yval, Kval;
-				QTextStream tsC(&fiCC);
-				while (!tsC.atEnd())
-				{
-					ColorEn = tsC.readLine();
-					QTextStream CoE(&ColorEn, IO_ReadOnly);
-					CoE >> Cval;
-					CoE >> Mval;
-					CoE >> Yval;
-					CoE >> Kval;
-					CoE >> Cname;
-					EditColors.insert(Cname, CMYKColor(Cval, Mval, Yval, Kval));
-				}
-				fiC.close();
-			}
-			else
-			{
-				LoadColSet->setText("Scribus Small");
-	 			EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-	  			EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
-				EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-				EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-				EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
-				EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
-				EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-				EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
-			}
+			pfadC2 = Cpfad;
 			break;
+		}
+	QFile fiC(pfadC2);
+	if (fiC.open(IO_ReadOnly))
+	{
+		QString ColorEn, Cname;
+		int Rval, Gval, Bval;
+		QTextStream tsC(&fiC);
+		ColorEn = tsC.readLine();
+		while (!tsC.atEnd())
+		{
+			ColorEn = tsC.readLine();
+			QTextStream CoE(&ColorEn, IO_ReadOnly);
+			CoE >> Rval;
+			CoE >> Gval;
+			CoE >> Bval;
+			CoE >> Cname;
+			CMYKColor tmp;
+			tmp.setColorRGB(Rval, Gval, Bval);
+			EditColors.insert(Cname, tmp);
+		}
+		fiC.close();
+	}
+	else
+	{
+		LoadColSet->setText("Scribus Small");
+		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
+  		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
+		EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
+		EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
+		EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
+		EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
+		EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
 	}
 	updateCList();
 }

@@ -2726,6 +2726,7 @@ void ScribusApp::slotFileOpen()
   	if (b->PType == 2)
   		{
 			QString formats = "";
+			QString formatD = tr("All Supported Formats")+" (";
 			QString form1 = "";
 			QString form2 = "";
 			for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
@@ -2738,13 +2739,19 @@ void ScribusApp::slotFileOpen()
 					form2 = "JPG";
 					}
 				if ((form1 == "jpg") || (form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
-        	formats += form2 + " (*."+form1+" *."+form2+");;";
+					{
+        			formats += form2 + " (*."+form1+" *."+form2+");;";
+					formatD += "*."+form1+" *."+form2+" ";
+					}
 				}
 #ifdef HAVE_TIFF
 			formats += "TIFF (*.tif *.TIF);;";
+			formatD += "*.tif *.TIF";
 #endif
 			formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + tr("All Files (*)");
-  		QString fileName = CFileDialog( tr("Open"), formats, "", true);
+			formatD += "*.eps *.EPS *.pdf *.PDF";
+			formatD += ");;"+formats;
+  		QString fileName = CFileDialog( tr("Open"), formatD, "", true);
     	if (!fileName.isEmpty())
     		{
      		b->EmProfile = "";

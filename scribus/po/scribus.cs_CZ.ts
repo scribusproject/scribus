@@ -3831,21 +3831,21 @@ přetáhněte šablonu do náhledu strany.</translation>
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>O Scribusu%1%2</translation>
+        <translation>O Scribusu %1%2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3 </translation>
+        <translation>%1. %2 %3</translation>
     </message>
     <message>
         <source>Scribus Version %1
 %2 %3</source>
-        <translation>Scribus ver. %1
+        <translation>Scribus ver. %1(new line)
 %2 %3</translation>
     </message>
     <message>
         <source>Build-ID:</source>
-        <translation>Build-ID:</translation>
+        <translation>Build=ID:</translation>
     </message>
     <message>
         <source>About</source>
@@ -4101,23 +4101,23 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation type="obsolete">Tlačítko</translation>
+        <translation>Tlačítko</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation type="obsolete">Textové pole</translation>
+        <translation>Textové pole</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation type="obsolete">Políčko k zaškrtnuti</translation>
+        <translation>Políčko k zaškrtnuti</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="obsolete">Výběr</translation>
+        <translation>Výběr</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation type="obsolete">Seznam</translation>
+        <translation>Seznam</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -4369,27 +4369,27 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Check</source>
-        <translation type="obsolete">Kontrolovat</translation>
+        <translation>Kontrolovat</translation>
     </message>
     <message>
         <source>Cross</source>
-        <translation type="obsolete">Kříž</translation>
+        <translation>Kříž</translation>
     </message>
     <message>
         <source>Diamond</source>
-        <translation type="obsolete">Diamant</translation>
+        <translation>Diamant</translation>
     </message>
     <message>
         <source>Circle</source>
-        <translation type="obsolete">Kruh</translation>
+        <translation>Kruh</translation>
     </message>
     <message>
         <source>Star</source>
-        <translation type="obsolete">Hvězda</translation>
+        <translation>Hvězda</translation>
     </message>
     <message>
         <source>Square</source>
-        <translation type="obsolete">Čtverec</translation>
+        <translation>Čtverec</translation>
     </message>
     <message>
         <source>Default is Checked</source>
@@ -4409,19 +4409,19 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Go To</source>
-        <translation type="obsolete">Jít na</translation>
+        <translation>Jít na</translation>
     </message>
     <message>
         <source>Submit Form</source>
-        <translation type="obsolete">Potvrdit formulář</translation>
+        <translation>Potvrdit formulář</translation>
     </message>
     <message>
         <source>Reset Form</source>
-        <translation type="obsolete">Vynulovat formulář</translation>
+        <translation>Vynulovat formulář</translation>
     </message>
     <message>
         <source>Import Data</source>
-        <translation type="obsolete">Importovat data</translation>
+        <translation>Importovat data</translation>
     </message>
     <message>
         <source>Event:</source>
@@ -4429,27 +4429,27 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Mouse Up</source>
-        <translation type="obsolete">Uvolnění myši</translation>
+        <translation>Uvolnění myši</translation>
     </message>
     <message>
         <source>Mouse Down</source>
-        <translation type="obsolete">Stisk tlačítka myši</translation>
+        <translation>Stisk tlačítka myši</translation>
     </message>
     <message>
         <source>Mouse Enter</source>
-        <translation type="obsolete">Najetí myši</translation>
+        <translation>Najetí myši</translation>
     </message>
     <message>
         <source>Mouse Exit</source>
-        <translation type="obsolete">Opuštění myší</translation>
+        <translation>Opuštění myší</translation>
     </message>
     <message>
         <source>On Focus</source>
-        <translation type="obsolete">Po přepnutí na</translation>
+        <translation>Po přepnutí na</translation>
     </message>
     <message>
         <source>On Blur</source>
-        <translation type="obsolete">Při rozmazání</translation>
+        <translation>Při rozmazání</translation>
     </message>
     <message>
         <source>Script:</source>
@@ -4509,27 +4509,27 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Plain</source>
-        <translation type="obsolete">Obyčejný</translation>
+        <translation>Obyčejný</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="obsolete">Číslo</translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>Percentage</source>
-        <translation type="obsolete">Procento</translation>
+        <translation>Procento</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="obsolete">Datum</translation>
+        <translation>Datum</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation type="obsolete">Čas</translation>
+        <translation>Čas</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="obsolete">Vlastní</translation>
+        <translation>Vlastní</translation>
     </message>
     <message>
         <source>Number Format</source>
@@ -4895,31 +4895,31 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Caption only</source>
-        <translation type="obsolete">Jen popisky</translation>
+        <translation>Jen popisky</translation>
     </message>
     <message>
         <source>Icon only</source>
-        <translation type="obsolete">Jen ikony </translation>
+        <translation>Jen ikony </translation>
     </message>
     <message>
         <source>Caption below Icon</source>
-        <translation type="obsolete">Popisky pod ikonami</translation>
+        <translation>Popisky pod ikonami</translation>
     </message>
     <message>
         <source>Caption above Icon</source>
-        <translation type="obsolete">Popisky nad ikonami</translation>
+        <translation>Popisky nad ikonami</translation>
     </message>
     <message>
         <source>Caption right to Icon</source>
-        <translation type="obsolete">Popisky vpravo od ikon</translation>
+        <translation>Popisky vpravo od ikon</translation>
     </message>
     <message>
         <source>Caption left to Icon</source>
-        <translation type="obsolete">Popisky vlevo od ikon</translation>
+        <translation>Popisky vlevo od ikon</translation>
     </message>
     <message>
         <source>Caption overlays Icon</source>
-        <translation type="obsolete">Popisky překrývají ikony</translation>
+        <translation>Popisky překrývají ikony</translation>
     </message>
     <message>
         <source>Scale:</source>
@@ -5010,19 +5010,19 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="obsolete">Perceptuální (fotografická) transformace</translation>
+        <translation>Perceptuální (fotografická) transformace</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="obsolete">Relativní kolorimetrická transformace</translation>
+        <translation>Relativní kolorimetrická transformace</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="obsolete">Sytost</translation>
+        <translation>Sytost</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absolutní kolorimetrická transformace</translation>
+        <translation>Absolutní kolorimetrická transformace</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -5129,7 +5129,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Websave RGB</source>
-        <translation>Uložit pro web RGB</translation>
+        <translation type="obsolete">Uložit pro web RGB</translation>
     </message>
 </context>
 <context>
@@ -5597,14 +5597,6 @@ Lze uvést v Nastavení.</translation>
         <translation>Tabelátory...</translation>
     </message>
     <message>
-        <source>Drop Caps</source>
-        <translation>Iniciály</translation>
-    </message>
-    <message>
-        <source>Lines:</source>
-        <translation>Přes řádky:</translation>
-    </message>
-    <message>
         <source>Effect:</source>
         <translation>Efekt:</translation>
     </message>
@@ -5619,6 +5611,14 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>None</source>
         <translation>Žádné</translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation>Iniciály</translation>
+    </message>
+    <message>
+        <source>Lines:</source>
+        <translation>Čáry:</translation>
     </message>
 </context>
 <context>
@@ -5766,20 +5766,16 @@ Lze uvést v Nastavení.</translation>
         <translation>Kopie %1</translation>
     </message>
     <message>
-        <source>Defaults</source>
-        <translation type="obsolete">Výchozí</translation>
-    </message>
-    <message>
         <source>Color Sets</source>
-        <translation>Sady barev</translation>
+        <translation>Množiny barev</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation>Aktuální sada barev:</translation>
+        <translation>Aktuálí množina barev:</translation>
     </message>
     <message>
         <source>Save Color Set</source>
-        <translation>Uložit sadu barev</translation>
+        <translation>Uložit množinu barev</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -5830,23 +5826,23 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>Use Font</source>
-        <translation type="obsolete">Použít písmo</translation>
+        <translation>Použít písmo</translation>
     </message>
     <message>
         <source>Embed in:</source>
-        <translation type="obsolete">Obsažen v:</translation>
+        <translation>Obsažen v:</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="obsolete">Podmnožina glyphů</translation>
+        <translation>Podmnožina glyphů</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="obsolete">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation type="obsolete">Cesta k souboru s písmem</translation>
+        <translation>Cesta k souboru s písmem</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -5925,19 +5921,19 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
 </context>
 <context>
@@ -6282,19 +6278,19 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     <name>MSpinBox</name>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
 </context>
 <context>
@@ -6571,7 +6567,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>Vzdálenost textu:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source> pts</source>
@@ -7003,6 +6999,10 @@ Vyberte, prosím, jiný.</translation>
         <source>Normal</source>
         <translation>Normální</translation>
     </message>
+    <message>
+        <source>Name:</source>
+        <translation>Název:</translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -7088,7 +7088,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation>Milimetry (mm)</translation>
+        <translation type="obsolete">Milimetry (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -7129,6 +7129,10 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>Outside:</source>
         <translation>Vnější:</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation>Milimetry (mm)</translation>
     </message>
 </context>
 <context>
@@ -7283,7 +7287,7 @@ ke straně, v opačném případě k objektu.</translation>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation>Konzole skriptu</translation>
+        <translation>Konzole skriptů</translation>
     </message>
 </context>
 <context>
@@ -7446,31 +7450,31 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation type="obsolete">Bez efektu</translation>
+        <translation>Bez efektu</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation type="obsolete">Pruhy</translation>
+        <translation>Pruhy</translation>
     </message>
     <message>
         <source>Box</source>
-        <translation type="obsolete">Rám</translation>
+        <translation>Rám</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="obsolete">Rozpuštění</translation>
+        <translation>Rozpuštění</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation type="obsolete">Lesk</translation>
+        <translation>Lesk</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation type="obsolete">Rozdělit</translation>
+        <translation>Rozdělit</translation>
     </message>
     <message>
         <source>Wipe</source>
-        <translation type="obsolete">Setřít</translation>
+        <translation>Setřít</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -7490,19 +7494,19 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation type="obsolete">Zleva doprava</translation>
+        <translation>Zleva doprava</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation type="obsolete">Shora dolů</translation>
+        <translation>Shora dolů</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation type="obsolete">Zdola nahoru</translation>
+        <translation>Zdola nahoru</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation type="obsolete">Zprava doleva</translation>
+        <translation>Zprava doleva</translation>
     </message>
     <message>
         <source>Top-Left to Bottom-Right</source>
@@ -7586,19 +7590,19 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="obsolete">Perceptuální (fotografická) transformace</translation>
+        <translation>Perceptuální (fotografická) transformace</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="obsolete">Relativní kolorimetrická transformace</translation>
+        <translation>Relativní kolorimetrická transformace</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="obsolete">Sytost</translation>
+        <translation>Sytost</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absolutní kolorimetrická transformace</translation>
+        <translation>Absolutní kolorimetrická transformace</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -7668,6 +7672,10 @@ ke straně, v opačném případě k objektu.</translation>
         <source>Screen / Web</source>
         <translation>Monitor / Web</translation>
     </message>
+    <message>
+        <source>Top-left to Bottom-Right</source>
+        <translation>Zleva nahoře doprava dolů</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -7681,11 +7689,11 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
-        <translation>Vyhlazovaný text</translation>
+        <translation>Vyhlazený text</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation>Vyhlazovaná grafika</translation>
+        <translation>Vyhlazená grafika</translation>
     </message>
     <message>
         <source>All</source>
@@ -7924,19 +7932,19 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation>Řetězený text</translation>
+        <translation>Řeťezený text</translation>
     </message>
     <message>
         <source>Print: </source>
         <translation>Tisk:</translation>
     </message>
     <message>
-        <source>enabled</source>
-        <translation>povoleno</translation>
+        <source>Enabled</source>
+        <translation>Povoleno</translation>
     </message>
     <message>
-        <source>disabled</source>
-        <translation>zakázáno</translation>
+        <source>Disabled</source>
+        <translation>Zakázáno</translation>
     </message>
 </context>
 <context>
@@ -8112,7 +8120,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Pica (p)</translation>
+        <translation>Pika (p)</translation>
     </message>
     <message>
         <source>Mouse-Settings</source>
@@ -8464,7 +8472,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Display Unprintable Area in Margin Color</source>
-        <translation>Zobrazit netisknutelnou plochu barvou okraje</translation>
+        <translation>Zobrazit netisknutelnou oblast barvou okrajů</translation>
     </message>
     <message>
         <source>Use PDF-1.4 Transparency Features</source>
@@ -8476,7 +8484,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation>Displej přizpůsobíte přesunutím ukazovátka na pravítku.</translation>
+        <translation>Obrazovku přizpůsobíte posuem jezdce na spodním pravítku.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -8512,6 +8520,369 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
 </context>
 <context>
+    <name>QColorDialog</name>
+    <message>
+        <source>Hu&amp;e:</source>
+        <translation>&amp;Odstín:</translation>
+    </message>
+    <message>
+        <source>&amp;Sat:</source>
+        <translation>&amp;Sytost:</translation>
+    </message>
+    <message>
+        <source>&amp;Val:</source>
+        <translation>&amp;Hod:</translation>
+    </message>
+    <message>
+        <source>&amp;Red:</source>
+        <translation>Če&amp;rvená:</translation>
+    </message>
+    <message>
+        <source>&amp;Green:</source>
+        <translation>Ze&amp;lená:</translation>
+    </message>
+    <message>
+        <source>Bl&amp;ue:</source>
+        <translation>Mo&amp;drá:</translation>
+    </message>
+    <message>
+        <source>A&amp;lpha channel:</source>
+        <translation>&amp;Alfa kanál:</translation>
+    </message>
+    <message>
+        <source>&amp;Basic colors</source>
+        <translation>&amp;Základní barvy</translation>
+    </message>
+    <message>
+        <source>&amp;Custom colors</source>
+        <translation>&amp;Vlastní barvy</translation>
+    </message>
+    <message>
+        <source>&amp;Define Custom Colors &gt;&gt;</source>
+        <translation>&amp;Definovat vlastní barvy &gt;&gt;</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>&amp;Add to Custom Colors</source>
+        <translation>&amp;Přidat k vlastním barvám</translation>
+    </message>
+    <message>
+        <source>Select color</source>
+        <translation>Výběr barvy</translation>
+    </message>
+</context>
+<context>
+    <name>QFileDialog</name>
+    <message>
+        <source>Copy or Move a File</source>
+        <translation>Kopírovat nebo přesunout soubor</translation>
+    </message>
+    <message>
+        <source>Read: %1</source>
+        <translation>Číst: %1</translation>
+    </message>
+    <message>
+        <source>Write: %1</source>
+        <translation>Zapsat: %1</translation>
+    </message>
+    <message>
+        <source>File &amp;name:</source>
+        <translation>Jmé&amp;no souboru:</translation>
+    </message>
+    <message>
+        <source>File &amp;type:</source>
+        <translation>&amp;Typ souboru:</translation>
+    </message>
+    <message>
+        <source>One directory up</source>
+        <translation>O adresář výš</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Včechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Jméno</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Velikost</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Attributes</source>
+        <translation>Atributy</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Look &amp;in:</source>
+        <translation>Nahlédn&amp;i do:</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zpět</translation>
+    </message>
+    <message>
+        <source>Create New Folder</source>
+        <translation>Vytvořit nový adresář</translation>
+    </message>
+    <message>
+        <source>List View</source>
+        <translation>Pohled seznam</translation>
+    </message>
+    <message>
+        <source>Detail View</source>
+        <translation>Podrobný pohled</translation>
+    </message>
+    <message>
+        <source>Preview File Info</source>
+        <translation>Ukázat informace o souboru</translation>
+    </message>
+    <message>
+        <source>Preview File Contents</source>
+        <translation>Ukázat obsah souboru</translation>
+    </message>
+    <message>
+        <source>Read-write</source>
+        <translation>Číst-psát</translation>
+    </message>
+    <message>
+        <source>Read-only</source>
+        <translation>Jen číst</translation>
+    </message>
+    <message>
+        <source>Write-only</source>
+        <translation>Jen psát</translation>
+    </message>
+    <message>
+        <source>Inaccessible</source>
+        <translation>Nepřístupný</translation>
+    </message>
+    <message>
+        <source>Symlink to File</source>
+        <translation>Symbolický odkaz na soubor</translation>
+    </message>
+    <message>
+        <source>Symlink to Directory</source>
+        <translation>Symbolický odkaz na adresář</translation>
+    </message>
+    <message>
+        <source>Symlink to Special</source>
+        <translation>Symbolický odkaz na speciální</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Soubor</translation>
+    </message>
+    <message>
+        <source>Dir</source>
+        <translation>Adresář</translation>
+    </message>
+    <message>
+        <source>Special</source>
+        <translation>Speciální</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otevřít</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation>Uložit jako</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Otevřít</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Uložit</translation>
+    </message>
+    <message>
+        <source>&amp;Rename</source>
+        <translation>&amp;Přejmenovat</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Smazat</translation>
+    </message>
+    <message>
+        <source>R&amp;eload</source>
+        <translation>&amp;Obnovit</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Name</source>
+        <translation>Seřadit podle &amp;jména</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Size</source>
+        <translation>Seřadit podle &amp;velikosti</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Date</source>
+        <translation>Seřadit podle &amp;data</translation>
+    </message>
+    <message>
+        <source>&amp;Unsorted</source>
+        <translation>&amp;Nesetříděno</translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation>Řazení</translation>
+    </message>
+    <message>
+        <source>Show &amp;hidden files</source>
+        <translation>Zobrazit s&amp;kryté soubory</translation>
+    </message>
+    <message>
+        <source>the file</source>
+        <translation>soubor</translation>
+    </message>
+    <message>
+        <source>the directory</source>
+        <translation>adresář</translation>
+    </message>
+    <message>
+        <source>the symlink</source>
+        <translation>symbolický odkaz</translation>
+    </message>
+    <message>
+        <source>Delete %1</source>
+        <translation>Smazat %1</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Opravdu chcete smazat %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Ano</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;Ne</translation>
+    </message>
+    <message>
+        <source>New Folder 1</source>
+        <translation>Nový adresář 1</translation>
+    </message>
+    <message>
+        <source>New Folder</source>
+        <translation>Nový adresář</translation>
+    </message>
+    <message>
+        <source>New Folder %1</source>
+        <translation>Nový adresář %1</translation>
+    </message>
+    <message>
+        <source>Find Directory</source>
+        <translation>Najít adresář</translation>
+    </message>
+    <message>
+        <source>Directories</source>
+        <translation>Adresáře</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Uložit</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Chyba</translation>
+    </message>
+    <message>
+        <source>%1
+File not found.
+Check path and filename.</source>
+        <translation>%1(new line)
+Soubor nenalezen.(new line)
+Zkontrolujte cestu a název souboru.</translation>
+    </message>
+    <message>
+        <source>All Files (*.*)</source>
+        <translation>Včechny soubory (*.*)</translation>
+    </message>
+    <message>
+        <source>Select a Directory</source>
+        <translation>Vybrat adresář</translation>
+    </message>
+    <message>
+        <source>Directory:</source>
+        <translation>Adresář:</translation>
+    </message>
+</context>
+<context>
+    <name>QLineEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Vymazat</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Vybrat vše</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Zpět</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>&amp;Vpřed</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Vyjmou&amp;t</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopírovat</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Vložit</translation>
+    </message>
+</context>
+<context>
+    <name>QMainWindow</name>
+    <message>
+        <source>Line up</source>
+        <translation>Vyrovnat</translation>
+    </message>
+    <message>
+        <source>Customize...</source>
+        <translation>Upravit...</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Warning</source>
@@ -8526,6 +8897,30 @@ ke straně, v opačném případě k objektu.</translation>
     <message>
         <source>Initializing...</source>
         <translation>Inicializace...</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Pozadí</translation>
     </message>
     <message>
         <source>Insert Special</source>
@@ -8593,7 +8988,93 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Import SVG-Image</source>
-        <translation>Importovat SVG obrázek</translation>
+        <translation>Import SVG obrázku</translation>
+    </message>
+</context>
+<context>
+    <name>QTextEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Vymazat</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Vybrat vše</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Zpět</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>&amp;Vpřed</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Vyjmou&amp;t</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopírovat</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Vložit</translation>
+    </message>
+</context>
+<context>
+    <name>QWorkspace</name>
+    <message>
+        <source>&amp;Restore</source>
+        <translation>&amp;Obnovit</translation>
+    </message>
+    <message>
+        <source>&amp;Move</source>
+        <translation>&amp;Přesunout</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Velikost</translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimize</source>
+        <translation>Mi&amp;nimalizovat</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximize</source>
+        <translation>Ma&amp;ximalizovat</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Zavřít</translation>
+    </message>
+    <message>
+        <source>Stay on &amp;Top</source>
+        <translation>&amp;Zůstat navrchu</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Minimalizovat</translation>
+    </message>
+    <message>
+        <source>Restore Down</source>
+        <translation>Obnovit dolů</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zavřít</translation>
+    </message>
+    <message>
+        <source>Sh&amp;ade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 - [%2]</source>
+        <translation>%1 - [%2]</translation>
+    </message>
+    <message>
+        <source>&amp;Unshade</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9486,6 +9967,10 @@ ke straně, v opačném případě k objektu.</translation>
         <translation>Tabelátory...</translation>
     </message>
     <message>
+        <source>Search/Replace...</source>
+        <translation>Hledat/Nahradit...</translation>
+    </message>
+    <message>
         <source>Paragraph Styles...</source>
         <translation>Styly odstavce...</translation>
     </message>
@@ -9499,11 +9984,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Všechny soubory (*)</translation>
-    </message>
-    <message>
-        <source>Search/Replace...</source>
-        <translation>Hledat/Nahradit...</translation>
+        <translation>Včechny soubory (*)</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -9515,18 +9996,22 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation>Finsky</translation>
+    </message>
+    <message>
+        <source>Irish</source>
+        <translation>Irsky</translation>
     </message>
 </context>
 <context>
     <name>ScribusDoc</name>
     <message>
         <source>Document</source>
-        <translation>Dokument</translation>
+        <translation type="obsolete">Dokument</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>Pozadí</translation>
+        <translation type="obsolete">Pozadí</translation>
     </message>
 </context>
 <context>
@@ -9636,8 +10121,36 @@ ke straně, v opačném případě k objektu.</translation>
         <translation>Barva výplně</translation>
     </message>
     <message>
+        <source>Fill Shade</source>
+        <translation>Odstín výplně</translation>
+    </message>
+    <message>
         <source>Stroke Color</source>
         <translation>Barva obrysu</translation>
+    </message>
+    <message>
+        <source>Stroke Shade</source>
+        <translation>Odstín obrysu</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Vlevo</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Na střed</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Vpravo</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Do bloku</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Vynucené</translation>
     </message>
     <message>
         <source> pt</source>
@@ -9657,7 +10170,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Ignore Case</source>
-        <translation>Ignorovat velikost písmen</translation>
+        <translation>Ignorovat velikost znaků</translation>
     </message>
     <message>
         <source>Search</source>
@@ -9673,23 +10186,15 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Leave</source>
-        <translation>Zrušit</translation>
+        <translation>Opustit</translation>
     </message>
     <message>
         <source>Search finished</source>
-        <translation>Hledání je u konce</translation>
+        <translation>Hledání hotovo</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-    <message>
-        <source>Fill Shade</source>
-        <translation>Stín výplně</translation>
-    </message>
-    <message>
-        <source>Stroke Shade</source>
-        <translation>Stín obrysu</translation>
     </message>
 </context>
 <context>
@@ -9865,23 +10370,23 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="obsolete">Vlevo</translation>
+        <translation>Vlevo</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="obsolete">Na střed</translation>
+        <translation>Na střed</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="obsolete">Vpravo</translation>
+        <translation>Vpravo</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation type="obsolete">Do bloku</translation>
+        <translation>Do bloku</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation type="obsolete">Vynucené</translation>
+        <translation>Vynucené</translation>
     </message>
     <message>
         <source>New</source>
@@ -9925,7 +10430,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Update Textframe</source>
-        <translation>Aktualizovat textový rám</translation>
+        <translation type="obsolete">Aktualizovat textový rám</translation>
     </message>
     <message>
         <source>File</source>
@@ -9984,6 +10489,10 @@ přetáhněte šablonu do náhledu strany.</translation>
         <translation>Nahrát ze souboru...</translation>
     </message>
     <message>
+        <source>Update Text Frame</source>
+        <translation>Aktualizovat textový rám</translation>
+    </message>
+    <message>
         <source>Open</source>
         <translation>Otevřít</translation>
     </message>
@@ -10039,19 +10548,19 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="obsolete">Vlevo</translation>
+        <translation>Vlevo</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="obsolete">Vpravo</translation>
+        <translation>Vpravo</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation type="obsolete">Tečka (des. č.)</translation>
+        <translation>Tečka</translation>
     </message>
     <message>
         <source>Comma</source>
-        <translation type="obsolete">Čárka (des. č.)</translation>
+        <translation>Čárka</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10075,7 +10584,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="obsolete">Na střed</translation>
+        <translation>Na střed</translation>
     </message>
 </context>
 <context>
@@ -10220,23 +10729,23 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation type="obsolete">Tlačítko</translation>
+        <translation>Tlačítko</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation type="obsolete">Textové pole</translation>
+        <translation>Textové pole</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation type="obsolete">Políčko k zaškrtnuti</translation>
+        <translation>Políčko k zaškrtnuti</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="obsolete">Výběr</translation>
+        <translation>Výběr</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation type="obsolete">Seznam</translation>
+        <translation>Seznam</translation>
     </message>
     <message>
         <source>Insert PDF-Fields</source>

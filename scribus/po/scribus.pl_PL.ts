@@ -272,23 +272,23 @@
     </message>
     <message>
         <source>Button</source>
-        <translation type="obsolete">Przycisk</translation>
+        <translation>Przycisk</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation type="obsolete">Pole tekstowe</translation>
+        <translation>Pole tekstowe</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation type="obsolete">Pole wyboru</translation>
+        <translation>Pole wyboru</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="obsolete">Lista rozwijana</translation>
+        <translation>Lista rozwijana</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation type="obsolete">Lista</translation>
+        <translation>Lista</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -480,27 +480,27 @@
     </message>
     <message>
         <source>Check</source>
-        <translation type="obsolete">Haczyk</translation>
+        <translation>Haczyk</translation>
     </message>
     <message>
         <source>Cross</source>
-        <translation type="obsolete">Krzyżyk</translation>
+        <translation>Krzyżyk</translation>
     </message>
     <message>
         <source>Diamond</source>
-        <translation type="obsolete">Romb</translation>
+        <translation>Romb</translation>
     </message>
     <message>
         <source>Circle</source>
-        <translation type="obsolete">Kółko</translation>
+        <translation>Kółko</translation>
     </message>
     <message>
         <source>Star</source>
-        <translation type="obsolete">Gwiazdka</translation>
+        <translation>Gwiazdka</translation>
     </message>
     <message>
         <source>Square</source>
-        <translation type="obsolete">Kwadrat</translation>
+        <translation>Kwadrat</translation>
     </message>
     <message>
         <source>Default is Checked</source>
@@ -520,19 +520,19 @@
     </message>
     <message>
         <source>Go To</source>
-        <translation type="obsolete">Idź do</translation>
+        <translation>Idź do</translation>
     </message>
     <message>
         <source>Submit Form</source>
-        <translation type="obsolete">Wyślij formularz</translation>
+        <translation>Wyślij formularz</translation>
     </message>
     <message>
         <source>Reset Form</source>
-        <translation type="obsolete">Wyzeruj formularz</translation>
+        <translation>Wyzeruj formularz</translation>
     </message>
     <message>
         <source>Import Data</source>
-        <translation type="obsolete">Importuj dane</translation>
+        <translation>Importuj dane</translation>
     </message>
     <message>
         <source>Event:</source>
@@ -540,27 +540,27 @@
     </message>
     <message>
         <source>Mouse Up</source>
-        <translation type="obsolete">Klawisz myszy puszczony</translation>
+        <translation>Klawisz myszy puszczony</translation>
     </message>
     <message>
         <source>Mouse Down</source>
-        <translation type="obsolete">Klawisz myszy przyciśnięty</translation>
+        <translation>Klawisz myszy przyciśnięty</translation>
     </message>
     <message>
         <source>Mouse Enter</source>
-        <translation type="obsolete">Kursor myszy wchodzi w pole</translation>
+        <translation>Kursor myszy wchodzi w pole</translation>
     </message>
     <message>
         <source>Mouse Exit</source>
-        <translation type="obsolete">Kursor myszy opuszcza pole</translation>
+        <translation>Kursor myszy opuszcza pole</translation>
     </message>
     <message>
         <source>On Focus</source>
-        <translation type="obsolete">Wejście w pole</translation>
+        <translation>Wejście w pole</translation>
     </message>
     <message>
         <source>On Blur</source>
-        <translation type="obsolete">Opuszczenie pola</translation>
+        <translation>Opuszczenie pola</translation>
     </message>
     <message>
         <source>Script:</source>
@@ -620,27 +620,27 @@
     </message>
     <message>
         <source>Plain</source>
-        <translation type="obsolete">Bez formatowania</translation>
+        <translation>Bez formatowania</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="obsolete">Liczba</translation>
+        <translation>Liczba</translation>
     </message>
     <message>
         <source>Percentage</source>
-        <translation type="obsolete">Procent</translation>
+        <translation>Procent</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="obsolete">Data</translation>
+        <translation>Data</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation type="obsolete">Czas</translation>
+        <translation>Czas</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="obsolete">Definicja użytkownika</translation>
+        <translation>Definicja użytkownika</translation>
     </message>
     <message>
         <source>Number Format</source>
@@ -1002,31 +1002,31 @@
     </message>
     <message>
         <source>Caption only</source>
-        <translation type="obsolete">Tylko tekst</translation>
+        <translation>Tylko tekst</translation>
     </message>
     <message>
         <source>Icon only</source>
-        <translation type="obsolete">Tylko ikona</translation>
+        <translation>Tylko ikona</translation>
     </message>
     <message>
         <source>Caption below Icon</source>
-        <translation type="obsolete">Tekst pod ikoną</translation>
+        <translation>Tekst pod ikoną</translation>
     </message>
     <message>
         <source>Caption above Icon</source>
-        <translation type="obsolete">Tekst nad ikoną</translation>
+        <translation>Tekst nad ikoną</translation>
     </message>
     <message>
         <source>Caption right to Icon</source>
-        <translation type="obsolete">Tekst na prawo od ikony</translation>
+        <translation>Tekst na prawo od ikony</translation>
     </message>
     <message>
         <source>Caption left to Icon</source>
-        <translation type="obsolete">Tekst na lewo od ikony</translation>
+        <translation>Tekst na lewo od ikony</translation>
     </message>
     <message>
         <source>Caption overlays Icon</source>
-        <translation type="obsolete">Tekst na ikonie</translation>
+        <translation>Tekst na ikonie</translation>
     </message>
     <message>
         <source>Scale:</source>
@@ -1113,19 +1113,19 @@
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="obsolete">Percepcja</translation>
+        <translation>Percepcja</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="obsolete">Względnie kolorometryczne</translation>
+        <translation>Względnie kolorometryczna</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="obsolete">Nasycenie </translation>
+        <translation>Nasycenie </translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absolutnie kolorometryczne</translation>
+        <translation>Absolutnie kolorometryczna</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1180,7 +1180,7 @@
     </message>
     <message>
         <source>Old</source>
-        <translation>Stare</translation>
+        <translation>Stary</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1235,7 +1235,7 @@
     <name>Cpalette</name>
     <message>
         <source>Other...</source>
-        <translation type="obsolete">Inne...</translation>
+        <translation>Inne...</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -1424,7 +1424,7 @@ Można to zmienić w Ustawieniach.</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation type="obsolete">Wybierz czcionkę</translation>
+        <translation>Wybierz czcionkę</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
@@ -1432,7 +1432,7 @@ Można to zmienić w Ustawieniach.</translation>
     </message>
     <message>
         <source>Select New Font:</source>
-        <translation type="obsolete">Wybierz nową czcionkę:</translation>
+        <translation>Wybierz nową czcionkę:</translation>
     </message>
     <message>
         <source>Use</source>
@@ -1444,7 +1444,7 @@ Można to zmienić w Ustawieniach.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="obsolete">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1645,27 +1645,27 @@ Można to zmienić w Ustawieniach.</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <translation type="obsolete">Wyrównanie</translation>
+        <translation>Wyrównanie</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="obsolete">Do lewej</translation>
+        <translation>Do lewej</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="obsolete">Do prawej</translation>
+        <translation>Do prawej</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="obsolete">Wyśrodkowane</translation>
+        <translation>Wyśrodkowane</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation type="obsolete">Justowany</translation>
+        <translation>Justowany</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation type="obsolete">Justowany (z ostatnią linią)</translation>
+        <translation>Justowany (z ostatnią linią)</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
@@ -1921,23 +1921,23 @@ Można to zmienić w Ustawieniach.</translation>
     </message>
     <message>
         <source>Use Font</source>
-        <translation type="obsolete">Użyj czcionkę</translation>
+        <translation>Użyj czcionkę</translation>
     </message>
     <message>
         <source>Embed in:</source>
-        <translation type="obsolete">Zagnieźdź w:</translation>
+        <translation>Zagnieźdź w:</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="obsolete">Podzbiór</translation>
+        <translation>Podzbiór</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="obsolete">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation type="obsolete">Ścieżka do pliku czcionki</translation>
+        <translation>Ścieżka do pliku czcionki</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -2013,22 +2013,6 @@ Można to zmienić w Ustawieniach.</translation>
     <message>
         <source>Cancel</source>
         <translation>Anuluj</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -2361,25 +2345,6 @@ everytime a possible Hyphenation is found.</source>
     </message>
 </context>
 <context>
-    <name>MSpinBox</name>
-    <message>
-        <source> pt</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
@@ -2653,7 +2618,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Other...</source>
-        <translation type="obsolete">Inne...</translation>
+        <translation>Inne...</translation>
     </message>
     <message>
         <source>Custom Spacing</source>
@@ -2681,15 +2646,15 @@ rogi:</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation type="obsolete">Pozycja:</translation>
+        <translation>Pozycja:</translation>
     </message>
     <message>
         <source>Horiz. Scale:</source>
-        <translation type="obsolete">Poziomo:</translation>
+        <translation>Poziomo:</translation>
     </message>
     <message>
         <source>Vert. Scale:</source>
-        <translation type="obsolete">Pionowo:</translation>
+        <translation>Pionowo:</translation>
     </message>
     <message>
         <source>Scale to Frame Size</source>
@@ -2717,7 +2682,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Względnie kolorometryczne</translation>
+        <translation>Względnie kolorometryczna</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -2725,7 +2690,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolutnie kolorometryczne</translation>
+        <translation>Absolutnie kolorometryczna</translation>
     </message>
     <message>
         <source>Left Point</source>
@@ -2797,43 +2762,43 @@ rogi:</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="obsolete">Podkreślenie</translation>
+        <translation>Podkreślenie</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation type="obsolete">Kapitaliki</translation>
+        <translation>Kapitaliki</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation type="obsolete">Indeks dolny</translation>
+        <translation>Indeks dolny</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation type="obsolete">Indeks górny</translation>
+        <translation>Indeks górny</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation type="obsolete">Przekreślenie</translation>
+        <translation>Przekreślenie</translation>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation type="obsolete">Obramowanie tekstu</translation>
+        <translation>Obramowanie tekstu</translation>
     </message>
     <message>
         <source>Align Text Left</source>
-        <translation type="obsolete">Wyrównaj tekst do lewej</translation>
+        <translation>Wyrównaj tekst do lewej</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation type="obsolete">Wyrównaj tekst do prawej</translation>
+        <translation>Wyrównaj tekst do prawej</translation>
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation type="obsolete">Justuj tekst</translation>
+        <translation>Justuj tekst</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation type="obsolete">Wyśrodkuj tekst</translation>
+        <translation>Wyśrodkuj tekst</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
@@ -3061,6 +3026,10 @@ Proszę wybrać inną.</translation>
         <source>Normal</source>
         <translation>Normalny</translation>
     </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -3187,6 +3156,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Outside:</source>
         <translation>Na zewnątrz:</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation>Milimetry (mm)</translation>
     </message>
 </context>
 <context>
@@ -3484,31 +3457,31 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation type="obsolete">Brak efektu</translation>
+        <translation>Brak efektu</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation type="obsolete">Żaluzje</translation>
+        <translation>Żaluzje</translation>
     </message>
     <message>
         <source>Box</source>
-        <translation type="obsolete">Ramka</translation>
+        <translation>Ramka</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="obsolete">Znikanie</translation>
+        <translation>Znikanie</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation type="obsolete">Szachownica</translation>
+        <translation>Szachownica</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation type="obsolete">Dzielenie</translation>
+        <translation>Dzielenie</translation>
     </message>
     <message>
         <source>Wipe</source>
-        <translation type="obsolete">Zacieranie</translation>
+        <translation>Zacieranie</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -3528,23 +3501,23 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation type="obsolete">Od lewej do prawej</translation>
+        <translation>Od lewej do prawej</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation type="obsolete">Od góry do dołu</translation>
+        <translation>Od góry do dołu</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation type="obsolete">Od dołu do góry</translation>
+        <translation>Od dołu do góry</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation type="obsolete">Od prawej do lewej</translation>
+        <translation>Od prawej do lewej</translation>
     </message>
     <message>
         <source>Top-Left to Bottom-Right</source>
-        <translation type="obsolete">Od góry po lewej do dołu po prawej</translation>
+        <translation>Od góry po lewej do dołu po prawej</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
@@ -3624,19 +3597,19 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="obsolete">Percepcja</translation>
+        <translation>Percepcja</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="obsolete">Względnie kolorometryczne</translation>
+        <translation>Względnie kolorometryczna</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="obsolete">Nasycenie </translation>
+        <translation>Nasycenie </translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absolutnie kolorometryczne</translation>
+        <translation>Absolutnie kolorometryczna</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -3685,6 +3658,10 @@ w innym przypadku do obiektu.</translation>
     <message>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
         <translation>Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Top-left to Bottom-Right</source>
+        <translation>Od góry po lewej do dołu po prawej</translation>
     </message>
 </context>
 <context>
@@ -3806,7 +3783,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Akapity: </translation>
+        <translation>Akapitów: </translation>
     </message>
     <message>
         <source>Words: </source>
@@ -3940,6 +3917,18 @@ w innym przypadku do obiektu.</translation>
         <source>None</source>
         <translation>Brak</translation>
     </message>
+    <message>
+        <source>Print: </source>
+        <translation>Drukuj:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Włączony</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Wyłączony</translation>
+    </message>
 </context>
 <context>
     <name>PicSearch</name>
@@ -3972,23 +3961,23 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="obsolete">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="obsolete">Ścieżka</translation>
+        <translation>Ścieżka</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="obsolete">Strona</translation>
+        <translation>Strona</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="obsolete">Drukuj</translation>
+        <translation>Drukuj</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="obsolete">Stan</translation>
+        <translation>Stan</translation>
     </message>
     <message>
         <source>Goto</source>
@@ -4510,6 +4499,369 @@ w innym przypadku do obiektu.</translation>
     </message>
 </context>
 <context>
+    <name>QColorDialog</name>
+    <message>
+        <source>Hu&amp;e:</source>
+        <translation>&amp;H:</translation>
+    </message>
+    <message>
+        <source>&amp;Sat:</source>
+        <translation>&amp;S:</translation>
+    </message>
+    <message>
+        <source>&amp;Val:</source>
+        <translation>&amp;V:</translation>
+    </message>
+    <message>
+        <source>&amp;Red:</source>
+        <translation>&amp;R:</translation>
+    </message>
+    <message>
+        <source>&amp;Green:</source>
+        <translation>&amp;G:</translation>
+    </message>
+    <message>
+        <source>Bl&amp;ue:</source>
+        <translation>&amp;B:</translation>
+    </message>
+    <message>
+        <source>A&amp;lpha channel:</source>
+        <translation>K&amp;anał alfa:</translation>
+    </message>
+    <message>
+        <source>&amp;Basic colors</source>
+        <translation>&amp;Podstawowe kolory</translation>
+    </message>
+    <message>
+        <source>&amp;Custom colors</source>
+        <translation>&amp;Kolory użytkownika</translation>
+    </message>
+    <message>
+        <source>&amp;Define Custom Colors &gt;&gt;</source>
+        <translation>&amp;Definiuj kolory użytkownika &gt;&gt;</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>&amp;Add to Custom Colors</source>
+        <translation>D&amp;odaj do kolorów użytkownika</translation>
+    </message>
+    <message>
+        <source>Select color</source>
+        <translation>Wybierz kolor</translation>
+    </message>
+</context>
+<context>
+    <name>QFileDialog</name>
+    <message>
+        <source>Copy or Move a File</source>
+        <translation>Kopiuj albo przesuń plik</translation>
+    </message>
+    <message>
+        <source>Read: %1</source>
+        <translation>Odczyt: %1</translation>
+    </message>
+    <message>
+        <source>Write: %1</source>
+        <translation>Zapis: %1</translation>
+    </message>
+    <message>
+        <source>File &amp;name:</source>
+        <translation>&amp;Nazwa pliku:</translation>
+    </message>
+    <message>
+        <source>File &amp;type:</source>
+        <translation>&amp;Typ pliku:</translation>
+    </message>
+    <message>
+        <source>One directory up</source>
+        <translation>Katalog wyżej</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Rozmiar</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Attributes</source>
+        <translation>Atrybuty</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Look &amp;in:</source>
+        <translation>Szukaj &amp;w:</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Cofnij</translation>
+    </message>
+    <message>
+        <source>Create New Folder</source>
+        <translation>Nowy katalog</translation>
+    </message>
+    <message>
+        <source>List View</source>
+        <translation>Widok listy</translation>
+    </message>
+    <message>
+        <source>Detail View</source>
+        <translation>Widok szczegółowy</translation>
+    </message>
+    <message>
+        <source>Preview File Info</source>
+        <translation>Podgląd informacji o pliku</translation>
+    </message>
+    <message>
+        <source>Preview File Contents</source>
+        <translation>Podgląd zawartości pliku</translation>
+    </message>
+    <message>
+        <source>Read-write</source>
+        <translation>Odczyt-zapis</translation>
+    </message>
+    <message>
+        <source>Read-only</source>
+        <translation>Tylko odczyt</translation>
+    </message>
+    <message>
+        <source>Write-only</source>
+        <translation>Tylko zapis</translation>
+    </message>
+    <message>
+        <source>Inaccessible</source>
+        <translation>Niedostępny</translation>
+    </message>
+    <message>
+        <source>Symlink to File</source>
+        <translation>Symboliczne dowiązanie do pliku</translation>
+    </message>
+    <message>
+        <source>Symlink to Directory</source>
+        <translation>Symboliczne dowiązanie do katalogu</translation>
+    </message>
+    <message>
+        <source>Symlink to Special</source>
+        <translation>Symboliczne dowiązanie do specjalnego pliku</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Dir</source>
+        <translation>Katalog</translation>
+    </message>
+    <message>
+        <source>Special</source>
+        <translation>Plik specjalny</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation>Zapisz jako</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Otwórz</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Zapisz</translation>
+    </message>
+    <message>
+        <source>&amp;Rename</source>
+        <translation>Z&amp;mień nazwę</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Usuń</translation>
+    </message>
+    <message>
+        <source>R&amp;eload</source>
+        <translation>&amp;Aktualizuj</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Name</source>
+        <translation>&amp;Sortuj według nazwy</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Size</source>
+        <translation>Sortuj według &amp;wielkości</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Date</source>
+        <translation>Sortuj według &amp;daty</translation>
+    </message>
+    <message>
+        <source>&amp;Unsorted</source>
+        <translation>&amp;Bez sortowania</translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation>Sortuj</translation>
+    </message>
+    <message>
+        <source>Show &amp;hidden files</source>
+        <translation>Pokaż ukryt&amp;e pliki</translation>
+    </message>
+    <message>
+        <source>the file</source>
+        <translation>plik</translation>
+    </message>
+    <message>
+        <source>the directory</source>
+        <translation>katalog</translation>
+    </message>
+    <message>
+        <source>the symlink</source>
+        <translation>symboliczne dowiązanie</translation>
+    </message>
+    <message>
+        <source>Delete %1</source>
+        <translation>Usuń %1</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Czy na pewno usunąć %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Tak</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;Nie</translation>
+    </message>
+    <message>
+        <source>New Folder 1</source>
+        <translation>Nowy katalog 1</translation>
+    </message>
+    <message>
+        <source>New Folder</source>
+        <translation>Nowy katalog</translation>
+    </message>
+    <message>
+        <source>New Folder %1</source>
+        <translation>Nowy katalog %1</translation>
+    </message>
+    <message>
+        <source>Find Directory</source>
+        <translation>Znajdź katalog</translation>
+    </message>
+    <message>
+        <source>Directories</source>
+        <translation>Katalogi</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Błąd</translation>
+    </message>
+    <message>
+        <source>%1
+File not found.
+Check path and filename.</source>
+        <translation>%1
+Nie znaleziono pliku.
+Sprawdź katalog i nazwę pliku.</translation>
+    </message>
+    <message>
+        <source>All Files (*.*)</source>
+        <translation>Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Select a Directory</source>
+        <translation>Wybierz katalog</translation>
+    </message>
+    <message>
+        <source>Directory:</source>
+        <translation>Katalog:</translation>
+    </message>
+</context>
+<context>
+    <name>QLineEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Zaznacz wszystko</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Cofnij</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>&amp;Przywróć</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Wytni&amp;j</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiuj</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Wklej</translation>
+    </message>
+</context>
+<context>
+    <name>QMainWindow</name>
+    <message>
+        <source>Line up</source>
+        <translation>Wyrównaj</translation>
+    </message>
+    <message>
+        <source>Customize...</source>
+        <translation>Dopasuj...</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;O Qt&lt;/h3&gt;&lt;p&gt;Niniejszy  program używa Qt w wersji %1.&lt;/p&gt;&lt;p&gt;Qt to zestaw narzędzi C++ do programowania aplikacji i graficznych interfejsow użytkownika dla wielu platform.&lt;/p&gt;&lt;p&gt;Qt zapewnia przenośność kodu źródłowego pomiędzy systemami MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux oraz wszystkimi głównymi komercyjnymi wariantami systemu Unix.&lt;br&gt;Qt dostępne jest również dla urządzeń osadzonych.&lt;/p&gt;&lt;p&gt;Qt jest produktem firmy Trolltech. Więcej informacji dostępnych jest na stronie &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Warning</source>
@@ -4588,6 +4940,120 @@ w innym przypadku do obiektu.</translation>
     <message>
         <source>Import SVG-Image</source>
         <translation>Importuj grafikę SVG</translation>
+    </message>
+    <message>
+        <source>Initializing...</source>
+        <translation>Inicjalizacja...</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Tło</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>QTextEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Zaznacz wszystko</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Cofnij</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>&amp;Przywróć</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Wytni&amp;j</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiuj</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Wklej</translation>
+    </message>
+</context>
+<context>
+    <name>QWorkspace</name>
+    <message>
+        <source>&amp;Restore</source>
+        <translation>&amp;Przywróć</translation>
+    </message>
+    <message>
+        <source>&amp;Move</source>
+        <translation>Prz&amp;esuń</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Rozmiar</translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimize</source>
+        <translation>Mi&amp;nimalizuj</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximize</source>
+        <translation>Maks&amp;ymalizuj</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Zamknij</translation>
+    </message>
+    <message>
+        <source>Stay on &amp;Top</source>
+        <translation>Zawsze na &amp;wierzchu</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Minimalizuj</translation>
+    </message>
+    <message>
+        <source>Restore Down</source>
+        <translation>Przywróć</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>Sh&amp;ade</source>
+        <translation>C&amp;ieniowanie</translation>
+    </message>
+    <message>
+        <source>%1 - [%2]</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&amp;Unshade</source>
+        <translation>&amp;Bez cieniowania</translation>
     </message>
 </context>
 <context>
@@ -4971,15 +5437,15 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Rectangle</source>
-        <translation type="obsolete">Prostokąt</translation>
+        <translation>Prostokąt</translation>
     </message>
     <message>
         <source>Rounded Rectangle</source>
-        <translation type="obsolete">Zaokrąglony prostokąt</translation>
+        <translation>Zaokrąglony prostokąt</translation>
     </message>
     <message>
         <source>Oval</source>
-        <translation type="obsolete">Elipsa</translation>
+        <translation>Elipsa</translation>
     </message>
     <message>
         <source>Edit Frame</source>
@@ -5271,7 +5737,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation>Efekty</translation>
+        <translation>Atrybuty</translation>
     </message>
     <message>
         <source>Tabulators...</source>
@@ -5519,7 +5985,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation>Strona</translation>
+        <translation>Strona </translation>
     </message>
     <message>
         <source>Layer</source>
@@ -5615,23 +6081,23 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="obsolete">Do lewej</translation>
+        <translation>Do lewej</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="obsolete">Wyśrodkowane</translation>
+        <translation>Wyśrodkowane</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="obsolete">Do prawej</translation>
+        <translation>Do prawej</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation type="obsolete">Justowany</translation>
+        <translation>Justowany</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation type="obsolete">Justowany (z ostatnią linią)</translation>
+        <translation>Justowany (z ostatnią linią)</translation>
     </message>
     <message>
         <source> pt</source>
@@ -5863,23 +6329,23 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="obsolete">Do lewej</translation>
+        <translation>Do lewej</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="obsolete">Wyśrodkowane</translation>
+        <translation>Wyśrodkowane</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="obsolete">Do prawej</translation>
+        <translation>Do prawej</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation type="obsolete">Justowany</translation>
+        <translation>Justowany</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation type="obsolete">Justowany (z ostatnią linią)</translation>
+        <translation>Justowany (z ostatnią linią)</translation>
     </message>
     <message>
         <source>New</source>
@@ -5993,6 +6459,10 @@ przeciągnij szablon na widok strony na dole.</translation>
         <source>Save as</source>
         <translation>Zapisz jako</translation>
     </message>
+    <message>
+        <source>Update Text Frame</source>
+        <translation>Aktualizuj ramkę tekstową</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -6037,23 +6507,23 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="obsolete">Do lewej</translation>
+        <translation>Do lewej</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="obsolete">Do prawej</translation>
+        <translation>Do prawej</translation>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation type="obsolete">Kropka</translation>
+        <translation>Kropka</translation>
     </message>
     <message>
         <source>Comma</source>
-        <translation type="obsolete">Przecinek</translation>
+        <translation>Przecinek</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="obsolete">Wyśrodkowane</translation>
+        <translation>Wyśrodkowane</translation>
     </message>
     <message>
         <source> pt</source>
@@ -6143,15 +6613,15 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Select Items</source>
-        <translation>Wybierz elementy</translation>
+        <translation>Wybiera elementy</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
-        <translation>Wstaw ramkę tekstową</translation>
+        <translation>Wstawia ramkę tekstową</translation>
     </message>
     <message>
         <source>Insert Picture</source>
-        <translation>Wstaw ramkę graficzną</translation>
+        <translation>Wstawia ramkę graficzną</translation>
     </message>
     <message>
         <source>Properties...</source>
@@ -6159,47 +6629,47 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Insert Polygons</source>
-        <translation>Wstaw wielokąty</translation>
+        <translation>Wstawia wielokąty</translation>
     </message>
     <message>
         <source>Insert Lines</source>
-        <translation>Wstaw linie</translation>
+        <translation>Wstawia linie</translation>
     </message>
     <message>
         <source>Insert Bezier Curves</source>
-        <translation>Wstaw krzywe Beziera</translation>
+        <translation>Wstawia krzywe Beziera</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Wstaw odręczną linię</translation>
+        <translation>Wstawia odręczną linię</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation>Obróć element</translation>
+        <translation>Obraca element</translation>
     </message>
     <message>
         <source>Zooms in or out</source>
-        <translation>Powiększ/Pomniejsz widok</translation>
+        <translation>Powiększa/Pomniejsza widok</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
-        <translation>Edytuj zawartość ramki</translation>
+        <translation>Edytuje zawartość ramki</translation>
     </message>
     <message>
         <source>Edit the Text with the Story Editor</source>
-        <translation>Edytuj tekst w edytorze artykułów</translation>
+        <translation>Edytuje tekst w edytorze artykułów</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Połącz ramki tekstowe</translation>
+        <translation>Łączy ramki tekstowe</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Rozłącz ramki tekstowe</translation>
+        <translation>Rozłącza ramki tekstowe</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
-        <translation>Rysuje różne kształty</translation>
+        <translation>Rysuje różne formy</translation>
     </message>
 </context>
 <context>
@@ -6210,27 +6680,27 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Button</source>
-        <translation type="obsolete">Przycisk</translation>
+        <translation>Przycisk</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation type="obsolete">Pole tekstowe</translation>
+        <translation>Pole tekstowe</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation type="obsolete">Pole wyboru</translation>
+        <translation>Pole wyboru</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="obsolete">Lista rozwijana</translation>
+        <translation>Lista rozwijana</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation type="obsolete">Lista</translation>
+        <translation>Lista</translation>
     </message>
     <message>
         <source>Insert PDF-Fields</source>
-        <translation>Wstaw pola PDF</translation>
+        <translation>Wstawia pola PDF</translation>
     </message>
     <message>
         <source>Text</source>
@@ -6242,7 +6712,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Insert PDF-Annotations</source>
-        <translation>Wstaw adnotacje PDF</translation>
+        <translation>Wstawia adnotacje PDF</translation>
     </message>
 </context>
 <context>

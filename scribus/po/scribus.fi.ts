@@ -127,6 +127,10 @@
         <source>About Scribus%1%2</source>
         <translation>Tietoja Scribuksesta%1%2</translation>
     </message>
+    <message>
+        <source>Finnish:</source>
+        <translation>Suomi:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -236,6 +240,25 @@
     <message>
         <source>between:</source>
         <translation>Kohde:</translation>
+    </message>
+</context>
+<context>
+    <name>AlignSelect</name>
+    <message>
+        <source>Align Text Left</source>
+        <translation>Tasaa teksti vasemmalle</translation>
+    </message>
+    <message>
+        <source>Align Text Right</source>
+        <translation>Tasaa teksti oikealle</translation>
+    </message>
+    <message>
+        <source>Align Text Block</source>
+        <translation>Tasaa tekstin molemmat reunat</translation>
+    </message>
+    <message>
+        <source>Align Text Center</source>
+        <translation>Keskitä teksti</translation>
     </message>
 </context>
 <context>
@@ -586,7 +609,7 @@
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>Lähetä data HTML:nä</translation>
+        <translation>Lähetä data HTML:na</translation>
     </message>
     <message>
         <source>Text Field</source>
@@ -997,6 +1020,14 @@
         <source>Scrapbook</source>
         <translation>Leikekirja</translation>
     </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nimi:</translation>
+    </message>
+    <message>
+        <source>New Entry</source>
+        <translation>Uusi leike</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -1272,6 +1303,10 @@
         <source></source>
         <translation></translation>
     </message>
+    <message>
+        <source>Websafe RGB</source>
+        <translation>Web-yhteensopiva RGB</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1356,7 +1391,7 @@
     </message>
     <message>
         <source>Option</source>
-        <translation>Vaihtoehto</translation>
+        <translation>Asetus</translation>
     </message>
     <message>
         <source>Orientation</source>
@@ -1396,8 +1431,8 @@
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Siirtää dokumenttihakemistoosi,
-joka voidaa määritellä asetuksissa.</translation>
+        <translation>Siirry dokumenttihakemistoosi.
+Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Compress File</source>
@@ -1691,7 +1726,7 @@ joka voidaa määritellä asetuksissa.</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Keskitä</translation>
+        <translation>Keskitetty</translation>
     </message>
     <message>
         <source>Forced</source>
@@ -1744,6 +1779,22 @@ joka voidaa määritellä asetuksissa.</translation>
     <message>
         <source>Tabulators...</source>
         <translation>Sarkaimet...</translation>
+    </message>
+    <message>
+        <source>Alignment:</source>
+        <translation>Tasaus:</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation>Täyttöväri:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ei mitään</translation>
+    </message>
+    <message>
+        <source>Effect:</source>
+        <translation>Tehosteet:</translation>
     </message>
 </context>
 <context>
@@ -1901,6 +1952,22 @@ joka voidaa määritellä asetuksissa.</translation>
     <message>
         <source>Save Color Set</source>
         <translation>Tallenna värisarja</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nimi:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation>Valitse nimi</translation>
+    </message>
+    <message>
+        <source>New Color:</source>
+        <translation>Uusi väri:</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation>Uusi väri</translation>
     </message>
 </context>
 <context>
@@ -2164,7 +2231,7 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>Sivun jälkeen</translation>
+        <translation>Jälkeen sivun</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
@@ -2196,6 +2263,10 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     <message>
         <source>Edit...</source>
         <translation>Muokkaa...</translation>
+    </message>
+    <message>
+        <source>New Script:</source>
+        <translation>Uusi skripti:</translation>
     </message>
 </context>
 <context>
@@ -2531,11 +2602,11 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>before Page</source>
-        <translation>Sivua ennen</translation>
+        <translation>Ennen sivua</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>Sivun jälkeen</translation>
+        <translation>Jälkeen sivun</translation>
     </message>
 </context>
 <context>
@@ -2703,7 +2774,7 @@ Corners:</source>
     </message>
     <message>
         <source>Move to Front</source>
-        <translation>Siirrä päälimmäiseksi</translation>
+        <translation>Siirrä päällimmäiseksi</translation>
     </message>
     <message>
         <source>Lang.:</source>
@@ -3111,6 +3182,10 @@ Valitse toinen nimi.</translation>
         <source>Edit Templates</source>
         <translation>Muokkaa malleja</translation>
     </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nimi:</translation>
+    </message>
 </context>
 <context>
     <name>NewDoc</name>
@@ -3238,6 +3313,10 @@ Valitse toinen nimi.</translation>
         <source>Orientation:</source>
         <translation>Suunta:</translation>
     </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation>Millimetrit (mm)</translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -3294,7 +3373,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Closes this Bezier Curve</source>
-        <translation>Sulkee tämän bezier-kaaren</translation>
+        <translation>Sulkee tämän bezier-viivan</translation>
     </message>
     <message>
         <source>Mirrors the Path Horizontally</source>
@@ -3776,6 +3855,10 @@ muulloin suhteessa kohteeseen.</translation>
         <source>Screen / Web</source>
         <translation>Näytölle/Verkkoon</translation>
     </message>
+    <message>
+        <source>Top-left to Bottom-Right</source>
+        <translation>Ylävasemmalta alaoikealle</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -3824,7 +3907,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Muodosta ryhmä</translation>
+        <translation>Ryhmitä</translation>
     </message>
     <message>
         <source>Lower</source>
@@ -3912,7 +3995,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Bring to Front</source>
-        <translation>Tuo päälimmäiseksi</translation>
+        <translation>Tuo päällimmäiseksi</translation>
     </message>
     <message>
         <source>Send to Layer</source>
@@ -3952,7 +4035,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Kappaleet</translation>
+        <translation>Kappaleet:</translation>
     </message>
     <message>
         <source>Is PDF-Annotation</source>
@@ -4033,6 +4116,18 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Clear Contents</source>
         <translation>Tyhjennä</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Tulosta:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Kyllä</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Ei</translation>
     </message>
 </context>
 <context>
@@ -4606,6 +4701,373 @@ muulloin suhteessa kohteeseen.</translation>
         <source>Factor:</source>
         <translation>Kerroin:</translation>
     </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation>Millimetrit (mm)</translation>
+    </message>
+</context>
+<context>
+    <name>QColorDialog</name>
+    <message>
+        <source>Hu&amp;e:</source>
+        <translation>&amp;H:</translation>
+    </message>
+    <message>
+        <source>&amp;Sat:</source>
+        <translation>&amp;S:</translation>
+    </message>
+    <message>
+        <source>&amp;Val:</source>
+        <translation>&amp;V:</translation>
+    </message>
+    <message>
+        <source>&amp;Red:</source>
+        <translation>&amp;Punainen:</translation>
+    </message>
+    <message>
+        <source>&amp;Green:</source>
+        <translation>V&amp;ihreä:</translation>
+    </message>
+    <message>
+        <source>Bl&amp;ue:</source>
+        <translation>Si&amp;ninen:</translation>
+    </message>
+    <message>
+        <source>A&amp;lpha channel:</source>
+        <translation>&amp;Alpha kanava:</translation>
+    </message>
+    <message>
+        <source>&amp;Basic colors</source>
+        <translation>Pe&amp;rusvärit</translation>
+    </message>
+    <message>
+        <source>&amp;Custom colors</source>
+        <translation>&amp;Omat värit</translation>
+    </message>
+    <message>
+        <source>&amp;Define Custom Colors &gt;&gt;</source>
+        <translation>&amp;Määritä omat värit &gt;&gt;</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Peruuta</translation>
+    </message>
+    <message>
+        <source>&amp;Add to Custom Colors</source>
+        <translation>&amp;Lisää omiin väreihin</translation>
+    </message>
+    <message>
+        <source>Select color</source>
+        <translation>Valitse väri</translation>
+    </message>
+</context>
+<context>
+    <name>QFileDialog</name>
+    <message>
+        <source>Copy or Move a File</source>
+        <translation>Kopioi tai siirrä tiedosto</translation>
+    </message>
+    <message>
+        <source>Read: %1</source>
+        <translation>Lue: %1</translation>
+    </message>
+    <message>
+        <source>Write: %1</source>
+        <translation>Kirjoita: %1</translation>
+    </message>
+    <message>
+        <source>File &amp;name:</source>
+        <translation>Tiedoston nimi:</translation>
+    </message>
+    <message>
+        <source>File &amp;type:</source>
+        <translation>Tiedoston tyyppi:</translation>
+    </message>
+    <message>
+        <source>One directory up</source>
+        <translation>Yksi hakemisto ylöspäin</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Peruuta</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nimi</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Koko</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Tyyppi</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Päivämäärä</translation>
+    </message>
+    <message>
+        <source>Attributes</source>
+        <translation>Määreet</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Look &amp;in:</source>
+        <translation>Nykyinen &amp;hakemisto:</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Takaisin</translation>
+    </message>
+    <message>
+        <source>Create New Folder</source>
+        <translation>Luo uusi hakemisto</translation>
+    </message>
+    <message>
+        <source>List View</source>
+        <translation>Listanäkymä</translation>
+    </message>
+    <message>
+        <source>Detail View</source>
+        <translation>Yksityiskohtainen näkymä</translation>
+    </message>
+    <message>
+        <source>Preview File Info</source>
+        <translation>Katso tiedoston tiedot</translation>
+    </message>
+    <message>
+        <source>Preview File Contents</source>
+        <translation>Katso tiedoston sisältö</translation>
+    </message>
+    <message>
+        <source>Read-write</source>
+        <translation>Luku-kirjoitus</translation>
+    </message>
+    <message>
+        <source>Read-only</source>
+        <translation>Ainoastaan luku</translation>
+    </message>
+    <message>
+        <source>Write-only</source>
+        <translation>Ainoastaan kirjoitus</translation>
+    </message>
+    <message>
+        <source>Inaccessible</source>
+        <translation>Tavoittamaton</translation>
+    </message>
+    <message>
+        <source>Symlink to File</source>
+        <translation>Symbolinen linkki tiedostoon</translation>
+    </message>
+    <message>
+        <source>Symlink to Directory</source>
+        <translation>Symbolinen linkki hakemistoon</translation>
+    </message>
+    <message>
+        <source>Symlink to Special</source>
+        <translation>Symbolinen linkki to Special</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Tiedosto</translation>
+    </message>
+    <message>
+        <source>Dir</source>
+        <translation>Hakemisto</translation>
+    </message>
+    <message>
+        <source>Special</source>
+        <translation>Special</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Avaa</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation>Talenna nimellä</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Avaa</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Tallenna</translation>
+    </message>
+    <message>
+        <source>&amp;Rename</source>
+        <translation>Nimeä &amp;uudelleen</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>P&amp;oista</translation>
+    </message>
+    <message>
+        <source>R&amp;eload</source>
+        <translation>Pä&amp;ivitä</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Name</source>
+        <translation>Järjestä &amp;nimen mukaan</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Size</source>
+        <translation>Järjestä &amp;koon mukaan</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Date</source>
+        <translation>Järjestä &amp;päivämäärän mukaan</translation>
+    </message>
+    <message>
+        <source>&amp;Unsorted</source>
+        <translation>&amp;Järjestämätön</translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation>Järjestä</translation>
+    </message>
+    <message>
+        <source>Show &amp;hidden files</source>
+        <translation>Nä&amp;ytä piilotetut tiedostot</translation>
+    </message>
+    <message>
+        <source>the file</source>
+        <translation>tiedoston</translation>
+    </message>
+    <message>
+        <source>the directory</source>
+        <translation>hakemiston</translation>
+    </message>
+    <message>
+        <source>the symlink</source>
+        <translation>symbolisen linkin</translation>
+    </message>
+    <message>
+        <source>Delete %1</source>
+        <translation>Poista %1</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Haluatko varmasti poistaa %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>Ky&amp;llä</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;Ei</translation>
+    </message>
+    <message>
+        <source>New Folder 1</source>
+        <translation>Uusi hakemisto 1</translation>
+    </message>
+    <message>
+        <source>New Folder</source>
+        <translation>Uusi hakemisto</translation>
+    </message>
+    <message>
+        <source>New Folder %1</source>
+        <translation>Uusi hakemisto %1</translation>
+    </message>
+    <message>
+        <source>Find Directory</source>
+        <translation>Etsi hakemisto</translation>
+    </message>
+    <message>
+        <source>Directories</source>
+        <translation>Hakemistot</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Tallenna</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Virhe</translation>
+    </message>
+    <message>
+        <source>%1
+File not found.
+Check path and filename.</source>
+        <translation>%1
+Tiedostoa ei löydy.
+Tarkasta polku ja tiedostonimi.</translation>
+    </message>
+    <message>
+        <source>All Files (*.*)</source>
+        <translation>Kaikki tiedostot (*.*)</translation>
+    </message>
+    <message>
+        <source>Select a Directory</source>
+        <translation>Valitse hakemisto</translation>
+    </message>
+    <message>
+        <source>Directory:</source>
+        <translation>Hakemisto:</translation>
+    </message>
+</context>
+<context>
+    <name>QLineEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Tyhjennä</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Valitse kaikki</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Kumoa</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>Tee &amp;uudelleen</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>&amp;Leikkaa</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>L&amp;iitä</translation>
+    </message>
+</context>
+<context>
+    <name>QMainWindow</name>
+    <message>
+        <source>Line up</source>
+        <translation>Järjestä</translation>
+    </message>
+    <message>
+        <source>Customize...</source>
+        <translation>Muokkaa...</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -4665,6 +5127,176 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
         <translation>SVG-kuvat (*.svg);;Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation>Lisää erikoismerkki</translation>
+    </message>
+    <message>
+        <source>Import SVG-Image</source>
+        <translation>SVG-kuva</translation>
+    </message>
+    <message>
+        <source>Initializing...</source>
+        <translation>Alustetaan...</translation>
+    </message>
+    <message>
+        <source>Save Page as SVG...</source>
+        <translation>Tallenna sivu SVG:na...</translation>
+    </message>
+    <message>
+        <source>Print Preview</source>
+        <translation>Tulostuksen esikatselu</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation>Python skriptit (*.py);;Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>Document Info</source>
+        <translation>Dokumentin tiedot</translation>
+    </message>
+    <message>
+        <source>Author:</source>
+        <translation>Tekijä:</translation>
+    </message>
+    <message>
+        <source>Title:</source>
+        <translation>Otsikko:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Kuvaus:</translation>
+    </message>
+    <message>
+        <source>Keywords:</source>
+        <translation>Avainsanat:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Peruuta</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation>Vasen sivu</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation>Oikea sivu</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokumentti</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Tausta</translation>
+    </message>
+</context>
+<context>
+    <name>QTextEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Tyhjennä</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Valitse kaikki</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Kumoa</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>Tee &amp;uudelleen</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>&amp;Leikkaa</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>L&amp;iitä</translation>
+    </message>
+</context>
+<context>
+    <name>QWorkspace</name>
+    <message>
+        <source>&amp;Restore</source>
+        <translation>P&amp;alauta</translation>
+    </message>
+    <message>
+        <source>&amp;Move</source>
+        <translation>&amp;Siirrä</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Koko</translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimize</source>
+        <translation>&amp;Pienennä</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximize</source>
+        <translation>S&amp;uurenna</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>Sulje</translation>
+    </message>
+    <message>
+        <source>Stay on &amp;Top</source>
+        <translation>Pää&amp;llimmäisenä</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Pienennä</translation>
+    </message>
+    <message>
+        <source>Restore Down</source>
+        <translation>Palauta</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sulje</translation>
+    </message>
+    <message>
+        <source>Sh&amp;ade</source>
+        <translation>Va&amp;rjosta</translation>
+    </message>
+    <message>
+        <source>%1 - [%2]</source>
+        <translation>%1 - [%2]</translation>
+    </message>
+    <message>
+        <source>&amp;Unshade</source>
+        <translation>Paljasta</translation>
     </message>
 </context>
 <context>
@@ -4888,19 +5520,19 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation>Tsekki</translation>
+        <translation>tsekki</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation>Hollanti</translation>
+        <translation>hollanti</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation>Kreikka</translation>
+        <translation>kreikka</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Muodosta ryhmä</translation>
+        <translation>Ryhmitä</translation>
     </message>
     <message>
         <source>Lower</source>
@@ -4964,7 +5596,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation>Italia</translation>
+        <translation>italia</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
@@ -5056,7 +5688,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Keskitä</translation>
+        <translation>Keskitetty</translation>
     </message>
     <message>
         <source>Hide Guides</source>
@@ -5064,7 +5696,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation>Tanska</translation>
+        <translation>tanska</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -5100,15 +5732,15 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation>Unkari</translation>
+        <translation>unkari</translation>
     </message>
     <message>
         <source>French</source>
-        <translation>Ranska</translation>
+        <translation>ranska</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Saksa</translation>
+        <translation>saksa</translation>
     </message>
     <message>
         <source>Lock/Unlock</source>
@@ -5128,7 +5760,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normal</translation>
+        <translation>Ei mitään</translation>
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
@@ -5140,7 +5772,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation>Puola</translation>
+        <translation>puola</translation>
     </message>
     <message>
         <source>Loading:</source>
@@ -5152,7 +5784,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation>Slovakki</translation>
+        <translation>slovakki</translation>
     </message>
     <message>
         <source>Document</source>
@@ -5252,7 +5884,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Bring to Front</source>
-        <translation>Tuo päälimmäiseksi</translation>
+        <translation>Tuo päällimmäiseksi</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
@@ -5264,7 +5896,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Ukrainian</source>
-        <translation>Ukraina</translation>
+        <translation>ukraina</translation>
     </message>
     <message>
         <source>Scrapbook</source>
@@ -5316,7 +5948,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation>Katalonia</translation>
+        <translation>katalonia</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -5340,7 +5972,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation>Venäjä</translation>
+        <translation>venäjä</translation>
     </message>
     <message>
         <source>Printing failed!</source>
@@ -5360,7 +5992,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation>Espanja</translation>
+        <translation>espanja</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
@@ -5436,7 +6068,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation>Portugali</translation>
+        <translation>portugali</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
@@ -5448,7 +6080,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>English</source>
-        <translation>Englanti</translation>
+        <translation>englanti</translation>
     </message>
     <message>
         <source>General...</source>
@@ -5492,7 +6124,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Save as PDF...</source>
-        <translation>Tallenna PDF:nä...</translation>
+        <translation>Tallenna PDF:na...</translation>
     </message>
     <message>
         <source>Revert to Saved</source>
@@ -5504,7 +6136,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation>Tallentaa nykyisen dokumentin PDF:nä</translation>
+        <translation>Tallentaa nykyisen dokumentin PDF:na</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -5576,6 +6208,22 @@ muulloin suhteessa kohteeseen.</translation>
         <source>All Files (*)</source>
         <translation>Kaikki tiedostot (*)</translation>
     </message>
+    <message>
+        <source>Size:</source>
+        <translation>Koko:</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Sävy:</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>suomi</translation>
+    </message>
+    <message>
+        <source>Irish</source>
+        <translation>irlanti</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -5604,11 +6252,15 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Page %1</source>
-        <translation>Sivu %1</translation>
+        <translation>Sivu  %1</translation>
     </message>
     <message>
         <source>Page </source>
         <translation>Sivu</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation> / %1</translation>
     </message>
 </context>
 <context>
@@ -5738,6 +6390,34 @@ muulloin suhteessa kohteeseen.</translation>
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>Fill Shade</source>
+        <translation>Täytön sävy</translation>
+    </message>
+    <message>
+        <source>Stroke Shade</source>
+        <translation>Reunan sävy</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Vasen</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Keskitetty</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Oikea</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Molemmat reunat</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Pakotettu</translation>
+    </message>
 </context>
 <context>
     <name>SeitenPal</name>
@@ -5809,6 +6489,21 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Select Fields</source>
         <translation>Valitse kentät</translation>
+    </message>
+</context>
+<context>
+    <name>ShadeButton</name>
+    <message>
+        <source>Other...</source>
+        <translation>Muu...</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Sävy</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Sävy:</translation>
     </message>
 </context>
 <context>
@@ -5961,7 +6656,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Keskitä</translation>
+        <translation>Keskitetty</translation>
     </message>
     <message>
         <source>Forced</source>
@@ -6027,6 +6722,10 @@ raahaa malli sivualueelle.</translation>
         <source>Save as</source>
         <translation>Tallenna nimellä</translation>
     </message>
+    <message>
+        <source>Update Text Frame</source>
+        <translation>Päivitä tekstikehys</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -6088,6 +6787,26 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Add</source>
         <translation>Lisää</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Vasen</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Oikea</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation>Piste</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation>Pilkku</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Keskitä</translation>
     </message>
 </context>
 <context>
