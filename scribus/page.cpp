@@ -5999,9 +5999,15 @@ void Page::slotDoCurs(bool draw)
 				chx = " ";
 			chs = b->Ptext.at(offs)->csize;
 			b->SetZeichAttr(b->Ptext.at(offs), &chs, &chx);
-			xp = static_cast<int>(b->Ptext.at(offs)->xp);
 			if (b->CPos != static_cast<int>(b->Ptext.count()))
 				xp = static_cast<int>(b->Ptext.at(offs+1)->xp);
+			else
+			{
+				xp = static_cast<int>(b->Ptext.at(offs)->xp);
+				chs = b->Ptext.at(offs)->csize;
+				chx = b->Ptext.at(offs)->ch;
+				xp += qRound(Cwidth(doku, b->Ptext.at(offs)->cfont, chx, chs)*(b->Ptext.at(offs)->cscale / 100.0));
+			}
 			if (b->CPos != static_cast<int>(b->Ptext.count()))
 			{
 				if (b->Ptext.at(offs)->yp != b->Ptext.at(offs+1)->yp)
