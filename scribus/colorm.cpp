@@ -33,12 +33,12 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
     : QDialog( parent, "dd", true, 0 )
 {
 	setName( "Farbmanager" );
-	DontChange.clear();
+/*	DontChange.clear();
 	DontChange += "White";
 	DontChange += "Black";
 	DontChange += "Cyan";
 	DontChange += "Magenta";
-	DontChange += "Yellow";
+	DontChange += "Yellow"; */
 	HaveDoc = HDoc;
 	CColSet = Cust;
 	 setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 
@@ -297,7 +297,7 @@ void Farbmanager::loadDefaults(int id)
 				EditColors.insert(Cname, tmp);
 			}
 			fiC.close();
-			DontChange.clear();
+//			DontChange.clear();
 		}
 		else
 		{
@@ -347,8 +347,8 @@ void Farbmanager::loadFarben()
 
 void Farbmanager::delFarbe()
 {
-	if (DontChange.contains(sFarbe))
-		return;
+//	if (DontChange.contains(sFarbe))
+//		return;
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 	{
@@ -368,11 +368,11 @@ void Farbmanager::delUnused()
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		found = false;
-		if (DontChange.contains(it.key()))
+/*		if (DontChange.contains(it.key()))
 		{
 			UsedC.insert(it.key(), it.data());
 			continue;
-		}
+		} */
 		if ((it.key() == ScApp->doc->Dbrush) || (it.key() == ScApp->doc->Dpen) || 
 			(it.key() == ScApp->doc->DbrushPict)
 			 || (it.key() == ScApp->doc->DpenLine) || (it.key() == ScApp->doc->DpenText))
@@ -516,8 +516,8 @@ void Farbmanager::neueFarbe()
 
 void Farbmanager::editFarbe()
 {
-	if (DontChange.contains(sFarbe))
-		return;
+//	if (DontChange.contains(sFarbe))
+//		return;
 	CMYKColor tmpFarbe = CMYKColor();
 	CMYKChoose* dia = new CMYKChoose(this, EditColors[sFarbe], sFarbe);
 	if (!dia->exec())
@@ -538,11 +538,11 @@ void Farbmanager::selFarbe(QListBoxItem *c)
 	EditF->setEnabled(true);
 	DupF->setEnabled(true);
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
-	if (DontChange.contains(sFarbe))
+/*	if (DontChange.contains(sFarbe))
 	{
    		EditF->setEnabled(false);
    		DelF->setEnabled(false);
-	}
+	} */
 }
 
 void Farbmanager::updateCList()

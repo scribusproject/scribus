@@ -6420,11 +6420,11 @@ void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
 	PageItem *i;
 	QString col1c, col2c;
 	if ((col1 == "None") || (col1 == ""))
-		col1c = "Black";
+		col1c = doku->PageColors.begin().key();
 	else
 		col1c = col1;
 	if ((col2 == "None") || (col2 == ""))
-		col2c = "Black";
+		col2c = doku->PageColors.begin().key();
 	else
 		col2c = col2;
 	if (SelItem.count() != 0)
@@ -7899,7 +7899,8 @@ int Page::PaintLine(double x, double y, double b, double h, double w, QString ou
 {
 	if (w == 0)
 		w = 1;
-	PageItem* ite = new PageItem(this, 5, x, y, b, h, w, "Black", outline, doku);
+//	PageItem* ite = new PageItem(this, 5, x, y, b, h, w, "Black", outline, doku);
+	PageItem* ite = new PageItem(this, 5, x, y, b, h, w, "None", outline, doku);
 	Items.append(ite);
 	ite->PLineArt = doku->DLstyleLine;
 	ite->Shade2 = doku->DshadeLine;

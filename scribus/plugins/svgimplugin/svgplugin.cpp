@@ -146,6 +146,8 @@ void SVGPlug::convert()
 	Doku->DoDrawing = false;
 	Doku->ActPage->setUpdatesEnabled(false);
 	gc->Family = Doku->Dfont;
+	if (!Doku->PageColors.contains("Black"))
+		Doku->PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
 	m_gc.push( gc );
 	parseGroup( docElem );
 	if (Elements.count() > 0)
