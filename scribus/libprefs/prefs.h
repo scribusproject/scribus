@@ -27,7 +27,7 @@
 #include "scribus.h"
 #include "fontcombo.h"
 
-#include "langlist.h"
+#include "langmgr.h"
 
 class Preferences : public QDialog
 {
