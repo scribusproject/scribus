@@ -68,3 +68,18 @@ PyObject *scribus_setcursor(PyObject *self, PyObject* args)
 		qApp->restoreOverrideCursor();
 	return Py_None;
 }
+
+PyObject *scribus_docchanged(PyObject *self, PyObject* args)
+{
+	int aValue;
+	if (!PyArg_ParseTuple(args, "i", &aValue))
+		return NULL;
+	Py_INCREF(Py_None);
+	if (!Carrier->HaveDoc)
+		return Py_None;
+	if (aValue>0)
+		Carrier->slotDocCh(true);
+	else
+		Carrier->slotDocCh(false);
+	return Py_None;
+}

@@ -1019,11 +1019,16 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
 		DoFonts.clear();
 		Defont=dc.attribute("DFONT");
-		if (Defont == "")
+		if (!avail.find(Defont))
 		{
-			Defont = view->Prefs->DefFont;
-			DoFonts[Defont] = Defont;
+			QString dd = Defont;
+			if (view->Prefs->GFontSub.contains(Defont))
+				Defont = view->Prefs->GFontSub[dd];
+			else
+				Defont = view->Prefs->DefFont;
+			DoFonts[dd] = Defont;
 		}
+		doc->Dfont = Defont;
 		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		doc->DCols=QStoInt(dc.attribute("DCOL", "1"));
 		doc->DGap=QStodouble(dc.attribute("DGAP", "0.0"));
@@ -1420,10 +1425,11 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
 					OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 					OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
-					tmf = obj.attribute("IFONT", doc->Dfont);
+					OB.IFont = obj.attribute("IFONT", doc->Dfont);
 					if (tmf == "")
-						tmf = doc->Dfont;
-					OB.IFont = DoFonts[tmf];
+						OB.IFont = doc->Dfont;
+					else
+						OB.IFont = DoFonts[tmf];
 					OB.ISize = qRound(QStodouble(obj.attribute("ISIZE","12")) * 10);
 					OB.Pfile=obj.attribute("PFILE");
 					OB.Pfile2=obj.attribute("PFILE2","");
@@ -1545,7 +1551,6 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.Ptext = tmp;
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
-					doc->Dfont = DoFonts[Defont];
 					if ((OB.PType == 5) && (OB.Height != 0))
 					{
 						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/3.1415927);

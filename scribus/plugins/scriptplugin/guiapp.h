@@ -23,4 +23,10 @@ Cursor handling
 */
 PyObject *scribus_setcursor(PyObject *self, PyObject* args);
 
+/**
+Enable/disable save icon
+(Petr Vanek 02/20/04)
+*/
+PyObject *scribus_docchanged(PyObject *self, PyObject* args);
+
 #endif

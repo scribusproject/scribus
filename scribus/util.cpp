@@ -33,6 +33,7 @@
 #include <cmath>
 #include "md5.h"
 #include <setjmp.h>
+#include "qprocess.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -122,6 +123,10 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
 QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 QImage ProofImage(QImage *Im);
+int System(const QStringList & args);
+int callGS(const QStringList & args_in);
+int copyFile(QString source, QString target);
+int moveFile(QString source, QString target);
 
 #ifdef HAVE_CMS
 QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr)
@@ -223,6 +228,101 @@ QImage ProofImage(QImage *Im)
 #endif
 }
 
+/******************************************************************
+ * Function System()
+ *  
+ * Create a new process via QProcess and wait until finished.
+ * return the process exit code.
+ *
+ ******************************************************************/
+
+int System(const QStringList & args)
+{
+	QProcess *proc = new QProcess(NULL);
+	proc->setArguments(args);
+	if ( !proc->start() )
+	{
+		return 1;
+	}
+	/* start was OK */
+	while(proc->isRunning())
+	{
+		/* wait a little bit */
+		usleep(5000);
+	}
+	int ex = proc->exitStatus();
+	delete proc;
+	return ex;
+}
+
+/******************************************************************
+ * Function callGS()
+ *   build the complete list of arguments for the call of our
+ *   System() function.
+ *
+ *   The gs commands are all similar and consist of a few constant
+ *   arguments, the variablke arguments and the end arguments which
+ *   are also invariant.
+ ******************************************************************/
+ 
+int callGS(const QStringList & args_in)
+{
+	QStringList args;
+
+	/* these parameters are always the same */
+	args.append("gs");
+	args.append("-q");
+	args.append("-dNOPAUSE");
+	args.append("-sDEVICE=png16m");
+	
+	/* insert specific arguments */
+	QStringList p;
+	p = args_in;
+	args += args_in;
+	/* insert last unspecific arguments */
+	args.append("-c");
+	args.append("showpage");
+	args.append("-c");
+	args.append("quit");
+	
+        return System(args);
+}
+
+int copyFile(QString source, QString target)
+{
+	if ((source.isNull()) || (target.isNull()))
+		return -1;
+	if (source == target)
+		return -1;
+	QFile s(source);
+	QFile t(target);
+	if (!s.exists())
+		return -1;
+	QByteArray bb(s.size());
+	if (s.open(IO_ReadOnly))
+	{
+		s.readBlock(bb.data(), s.size());
+		s.close();
+		if (t.open(IO_WriteOnly))
+		{
+			t.writeBlock(bb.data(), bb.size());
+			t.close();
+		}
+	}
+	return 0;
+}
+
+int moveFile(QString source, QString target)
+{
+	if ((source.isNull()) || (target.isNull()))
+		return -1;
+	if (source == target)
+		return -1;
+	copyFile(source, target);
+	unlink(source);
+	return 0;
+}
+
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
@@ -230,14 +330,18 @@ QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 	QPixmap pm;
 	int ret = -1;
 	tmp.setNum(Seite);
-	cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage="+tmp+" -dLastPage="+tmp+" ";
-	cmd2 = " -c showpage -c quit";
-	ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
+	QStringList args;
+	args.append("-r72");
+	args.append("-sOutputFile="+tmpFile);
+	args.append("-dFirstPage="+tmp);
+	args.append("-dLastPage="+tmp);
+	args.append(fn);
+	ret = callGS(args);
 	if (ret == 0)
 	{
 		QImage image;
 		image.load(tmpFile);
-		system("rm -f "+tmpFile);
+		unlink(tmpFile);
   		QImage im2;
 		*h = image.height();
 		*w = image.width();
@@ -270,15 +374,19 @@ QImage LoadPict(QString fn, bool *gray)
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 	{
-		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
-		cmd2 = " -c showpage -c quit";
-		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
+		QStringList args;
+		args.append("-r72");
+		args.append("-sOutputFile="+tmpFile);
+		args.append("-dFirstPage=1");
+		args.append("-dLastPage=1");
+		args.append(fn);
+		ret = callGS(args);
 		if (ret == 0)
 		{
 			QImage image;
 			image.load(tmpFile);
   			Bild = image.convertDepth(32);
-			system("rm -f "+tmpFile);
+			unlink(tmpFile);
 		}
 	}
 	if ((ext == "eps") || (ext == "ps"))
@@ -310,10 +418,12 @@ QImage LoadPict(QString fn, bool *gray)
 			{
 				QTextStream ts2(&BBox, IO_ReadOnly);
 				ts2 >> dummy >> x >> y >> b >> h;
-				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -g";
-				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + 
-								fn + "\"" + cmd2);
+				QStringList args;
+				args.append("-r72");
+				args.append("-sOutputFile="+tmpFile);
+				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
+				args.append(fn);
+				ret = callGS(args);
 				if (ret == 0)
 				{
 					QImage image;
@@ -333,7 +443,7 @@ QImage LoadPict(QString fn, bool *gray)
 							}
 				    	}
 					Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-					system("rm -f "+tmpFile);
+					unlink(tmpFile);
 				}
 			}
 		}
@@ -414,15 +524,19 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 	{
-		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
-		cmd2 = " -c showpage -c quit";
-		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
+		QStringList args;
+		args.append("-r72");
+		args.append("-sOutputFile="+tmpFile);
+		args.append("-dFirstPage=1");
+		args.append("-dLastPage=1");
+		args.append(fn);
+		ret = callGS(args);
 		if (ret == 0)
 		{
 			QImage image;
 			image.load(tmpFile);
   			Bild = image.convertDepth(32);
-			system("rm -f "+tmpFile);
+			unlink(tmpFile);
 			*realCMYK = false;
 		}
 		}
@@ -455,10 +569,12 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 				{
 					QTextStream ts2(&BBox, IO_ReadOnly);
 					ts2 >> dummy >> x >> y >> b >> h;
-					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -g";
-					cmd2 = " -c showpage -c quit";
-					ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + 
-									fn + "\"" + cmd2);
+					QStringList args;
+					args.append("-r72");
+					args.append("-sOutputFile="+tmpFile);
+					args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
+					args.append(fn);
+					ret = callGS(args);
 					if (ret == 0)
 					{
 						QImage image;
@@ -478,7 +594,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 								}
 					    	}
 						Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-						system("rm -f "+tmpFile);
+						unlink(tmpFile);
 						*realCMYK = false;
 					}
 				}

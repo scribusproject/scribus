@@ -2992,6 +2992,22 @@ This can be set in the Preferences.</source>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
         <translation>Постскрипт файли (*.ps);;Всі файли (*)</translation>
     </message>
+    <message>
+        <source>Cyan</source>
+        <translation>Салатовий</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation>Малиновий</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Жовтий</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation>Чорний</translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -3090,6 +3106,10 @@ This can be set in the Preferences.</source>
     <message>
         <source>Name of the Style is not unique</source>
         <translation>Ім&apos;я стилю вже використане</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation>Колір мазка:</translation>
     </message>
 </context>
 <context>
@@ -3454,7 +3474,7 @@ This can be set in the Preferences.</source>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Якщо ви тут не відмітите, то кожен раз, 
+        <translation>Якщо ви тут не відмітите, то кожен раз,
 як можливий переніс буде знайдено,
 ви побачите діалогове вікно.</translation>
     </message>
@@ -5036,6 +5056,54 @@ otherwise Coordinates are relative to the Object.</source>
         <source>Absolute Colorimetric</source>
         <translation>Абсолютна кольорометрія</translation>
     </message>
+    <message>
+        <source>Image Settings</source>
+        <translation>Установки зображення</translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation>Метод:</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation>Автоматичний</translation>
+    </message>
+    <message>
+        <source>JPEG</source>
+        <translation>JPEG</translation>
+    </message>
+    <message>
+        <source>Zip</source>
+        <translation>Zip</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ніякого</translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation>Якість:</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation>Максимальна</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation>Висока</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Середня</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation>Низька</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation>Мінімальна</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -5329,6 +5397,17 @@ C</translation>
     </message>
 </context>
 <context>
+    <name>PageSelector</name>
+    <message>
+        <source>Page </source>
+        <translation>Сторінка</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation> з %1</translation>
+    </message>
+</context>
+<context>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
@@ -5376,6 +5455,26 @@ C</translation>
     <message>
         <source>Search</source>
         <translation>Пошук</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Ім&apos;я</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation>Шлях</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Сторінка</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Друк</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Статус</translation>
     </message>
 </context>
 <context>
@@ -6357,7 +6456,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source> pt</source>
-        <translation>точки</translation>
+        <translation>тчк</translation>
     </message>
     <message>
         <source> mm</source>
@@ -6369,7 +6468,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source> p</source>
-        <translation>піки</translation>
+        <translation>п</translation>
     </message>
     <message>
         <source>Left Page</source>
@@ -6386,6 +6485,22 @@ Check path and filename.</source>
     <message>
         <source>Background</source>
         <translation>Фон</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>дюйм</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>п</translation>
     </message>
 </context>
 <context>
@@ -6417,6 +6532,37 @@ Check path and filename.</source>
     <message>
         <source>&amp;Paste</source>
         <translation>&amp;Вклеїти</translation>
+    </message>
+</context>
+<context>
+    <name>QTitleBar</name>
+    <message>
+        <source>System Menu</source>
+        <translation>Системне меню</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Затінити</translation>
+    </message>
+    <message>
+        <source>Unshade</source>
+        <translation>Відтінити</translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation>Нормальний розмір</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Згорнути до мінімуму</translation>
+    </message>
+    <message>
+        <source>Maximize</source>
+        <translation>Розгорнути до максимуму</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
@@ -7198,9 +7344,9 @@ Check path and filename.</source>
         <translation>Попередження</translation>
     </message>
     <message>
-        <source>Can&apos;t write the File: 
+        <source>Can&apos;t write the File:
 %1</source>
-        <translation>Не можу записати файл: 
+        <translation>Не можу записати файл:
 %1</translation>
     </message>
     <message>

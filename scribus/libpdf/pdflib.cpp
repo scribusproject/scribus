@@ -32,6 +32,7 @@
 #include <cmath>
 #include "rc4.h"
 
+extern int callGS(const QStringList & args);
 extern QString Path2Relative(QString Path);
 extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 extern QByteArray ComputeMD5Sum(QByteArray *in);
@@ -2857,16 +2858,19 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			afl = Options->Resolution;
 		if (ext == "pdf")
 		{
-			cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile="+tmpFile+
-					" -dFirstPage=1 -dLastPage=1 ";
-			cmd2 = " -c showpage -c quit";
-			ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
+			QStringList args;
+			args.append("-r"+IToStr(afl));
+			args.append("-sOutputFile="+tmpFile);
+			args.append("-dFirstPage=1");
+			args.append("-dLastPage=1");
+			args.append(fn);
+        	ret = callGS(args);
 			if (ret == 0)
 			{
 				QImage image;
 				image.load(tmpFile);
   				img = image.convertDepth(32);
-				system("rm -f "+tmpFile);
+				unlink(tmpFile);
 			}
 		}
 		else
@@ -2902,11 +2906,12 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					y2 = y2 * aufl;
 					b = b * aufl;
 					h = h * aufl;
-					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+
-							" -sOutputFile="+tmpFile+" -g";
-					cmd2 = " -c showpage -c quit";
-					ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmpy.setNum(qRound(h)) +
-							 " \"" + fn + "\"" + cmd2);
+					QStringList args;
+					args.append("-r"+IToStr(afl));
+					args.append("-sOutputFile="+tmpFile);
+					args.append("-g"+ tmp.setNum(qRound(b))+"x"+tmpy.setNum(qRound(h)));
+					args.append(fn);
+        				ret = callGS(args);
 					if (ret == 0)
 					{
 						QImage image;
@@ -2914,7 +2919,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
   						image = image.convertDepth(32);
 						img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2),
 								 static_cast<int>(h-y2));
-						system("rm -f "+tmpFile);
+						unlink(tmpFile);
 					}
 				}
 			}

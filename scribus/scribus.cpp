@@ -17,6 +17,7 @@
 
 #include <qaccel.h>
 #include <qapplication.h>
+#include <qeventloop.h>
 #include <qcolordialog.h>
 #include <qcolor.h>
 #include <qiconset.h>
@@ -89,6 +90,8 @@ extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
 extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
+extern int copyFile(QString source, QString target);
+extern int moveFile(QString source, QString target);
 
 using namespace std;
 
@@ -177,19 +180,19 @@ void ScribusApp::initScribus()
     QFileInfo OldPi = QFileInfo(OldPR);
     if (OldPi.exists())
     	{
-			system("mv " + OldPR + " " + Pff+"/scribus.rc");
+			moveFile(OldPR, Pff+"/scribus.rc");
 			}
 		QString OldPR2 = QString(getenv("HOME"))+"/.scribusfont.rc";
 		QFileInfo OldPi2 = QFileInfo(OldPR2);
 		if (OldPi2.exists())
 			{
-			system("mv " + OldPR2 + " " + Pff+"/scribusfont.rc");
+			moveFile(OldPR2, Pff+"/scribusfont.rc");
 			}
 		QString OldPR3 = QString(getenv("HOME"))+"/.scribusscrap.scs";
 		QFileInfo OldPi3 = QFileInfo(OldPR3);
 		if (OldPi3.exists())
 			{
-			system("mv " + OldPR3 + " " + Pff+"/scrap.scs");
+			moveFile(OldPR3, Pff+"/scrap.scs");
 			}
 		}
 	/** Erstelle Fontliste */
@@ -1512,7 +1515,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			ScBook->Save();
 			}
 		if (ScBook->BibWin->Objekte.count() == 0)
-			system("rm -f " + PrefsPfad+"/scrap.scs");
+			unlink(PrefsPfad+"/scrap.scs");
 		Prefs.AvailFonts.~SCFonts();
 		FinalizePlugs();
 		exit(0);
@@ -1527,7 +1530,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			ScBook->Save();
 			}
 		if (ScBook->BibWin->Objekte.count() == 0)
-			system("rm -f " + PrefsPfad+"/scrap.scs");
+			unlink(PrefsPfad+"/scrap.scs");
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		Prefs.AvailFonts.~SCFonts();
 		FinalizePlugs();
@@ -2769,7 +2772,7 @@ void ScribusApp::slotFileOpen()
 			formatD += "*.tif *.TIF";
 #endif
 			formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + tr("All Files (*)");
-			formatD += "*.eps *.EPS *.pdf *.PDF";
+			formatD += " *.eps *.EPS *.pdf *.PDF";
 			formatD += ");;"+formats;
   		QString fileName = CFileDialog( tr("Open"), formatD, "", true);
     	if (!fileName.isEmpty())
@@ -2778,9 +2781,13 @@ void ScribusApp::slotFileOpen()
       	b->UseEmbedded = true;
   			b->IProfile = doc->CMSSettings.DefaultInputProfile;
 				b->IRender = doc->CMSSettings.DefaultIntentMonitor2;
+				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
+				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
     		doc->ActPage->LoadPict(fileName, b->ItemNr);
     		doc->ActPage->AdjustPictScale(b);
     		doc->ActPage->AdjustPreview(b);
+				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+     		qApp->restoreOverrideCursor();
     		doc->ActPage->update();
 				Mpal->Cpal->SetColors(doc->PageColors);
 				Mpal->updateCList();
@@ -3106,7 +3113,7 @@ void ScribusApp::slotFilePrint()
 						cmd += " "+PrefsPfad+"/tmp.ps";
 						system(cmd);
 						}
-					system("rm -f "+PrefsPfad+"/tmp.ps");
+					unlink(PrefsPfad+"/tmp.ps");
 					}
 				}
 			else
@@ -5927,37 +5934,45 @@ void ScribusApp::SaveAsPDF()
 			{
 			doc->PDF_Optionen.UseRGB = false;
 #ifdef HAVE_CMS
-			doc->PDF_Optionen.UseProfiles = dia->EmbedProfs->isChecked();
-			doc->PDF_Optionen.UseProfiles2 = dia->EmbedProfs2->isChecked();
-			doc->PDF_Optionen.Intent = dia->IntendS->currentItem();
-			doc->PDF_Optionen.Intent2 = dia->IntendI->currentItem();
-			doc->PDF_Optionen.EmbeddedI = dia->NoEmbedded->isChecked();
-			doc->PDF_Optionen.SolidProf = dia->SolidPr->currentText();
-			doc->PDF_Optionen.ImageProf = dia->ImageP->currentText();
-			doc->PDF_Optionen.PrintProf = dia->PrintProfC->currentText();
-			if (doc->PDF_Optionen.Version == 12)
+			if (CMSuse)
+			{
+				doc->PDF_Optionen.UseProfiles = dia->EmbedProfs->isChecked();
+				doc->PDF_Optionen.UseProfiles2 = dia->EmbedProfs2->isChecked();
+				doc->PDF_Optionen.Intent = dia->IntendS->currentItem();
+				doc->PDF_Optionen.Intent2 = dia->IntendI->currentItem();
+				doc->PDF_Optionen.EmbeddedI = dia->NoEmbedded->isChecked();
+				doc->PDF_Optionen.SolidProf = dia->SolidPr->currentText();
+				doc->PDF_Optionen.ImageProf = dia->ImageP->currentText();
+				doc->PDF_Optionen.PrintProf = dia->PrintProfC->currentText();
+				if (doc->PDF_Optionen.Version == 12)
 				{
-				const char *Descriptor;
-				cmsHPROFILE hIn;
-				hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
-  			Descriptor = cmsTakeProductDesc(hIn);
-				nam = QString(Descriptor);
-				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-					Components = 3;
-				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-					Components = 4;
-				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
-					Components = 3;
-				cmsCloseProfile(hIn);
-				doc->PDF_Optionen.Info = dia->InfoString->text();
-				doc->PDF_Optionen.BleedTop = dia->BleedTop->value()/UmReFaktor;
-				doc->PDF_Optionen.BleedLeft = dia->BleedLeft->value()/UmReFaktor;
-				doc->PDF_Optionen.BleedRight = dia->BleedRight->value()/UmReFaktor;
-				doc->PDF_Optionen.BleedBottom = dia->BleedBottom->value()/UmReFaktor;
-				doc->PDF_Optionen.Encrypt = false;
-				doc->PDF_Optionen.PresentMode = false;
-				doc->PDF_Optionen.Encrypt = false;
+					const char *Descriptor;
+					cmsHPROFILE hIn;
+					hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
+					Descriptor = cmsTakeProductDesc(hIn);
+					nam = QString(Descriptor);
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+						Components = 3;
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+						Components = 4;
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
+						Components = 3;
+					cmsCloseProfile(hIn);
+					doc->PDF_Optionen.Info = dia->InfoString->text();
+					doc->PDF_Optionen.BleedTop = dia->BleedTop->value()/UmReFaktor;
+					doc->PDF_Optionen.BleedLeft = dia->BleedLeft->value()/UmReFaktor;
+					doc->PDF_Optionen.BleedRight = dia->BleedRight->value()/UmReFaktor;
+					doc->PDF_Optionen.BleedBottom = dia->BleedBottom->value()/UmReFaktor;
+					doc->PDF_Optionen.Encrypt = false;
+					doc->PDF_Optionen.PresentMode = false;
+					doc->PDF_Optionen.Encrypt = false;
 				}
+			}
+			else
+			{
+				doc->PDF_Optionen.UseProfiles = false;
+				doc->PDF_Optionen.UseProfiles2 = false;
+			}
 #else
 			doc->PDF_Optionen.UseProfiles = false;
 			doc->PDF_Optionen.UseProfiles2 = false;
@@ -6306,6 +6321,8 @@ QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, 
 	if (dia.exec() == QDialog::Accepted)
 		{
 			LoadEnc = cod ? dia.TxCodeM->currentText() : "";
+			this->repaint();
+			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 			return dia.selectedFile();
 		}
 	return "";
@@ -7113,9 +7130,7 @@ void ScribusApp::Collect()
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 								{
-								QCString cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
-											   "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-								system(cmd);
+								copyFile(ite->Pfile, s + itf.fileName());
 								ite->Pfile = s + itf.fileName();
 								}
 							}
@@ -7123,16 +7138,13 @@ void ScribusApp::Collect()
 							{
 							if (ite->isAnnotation)
 								{
-								QString cmd = "";
 								QFileInfo itf;
 								if (ite->Pfile != "")
 									{
 									itf = QFileInfo(ite->Pfile);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
-											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-										system(cmd);
+										copyFile(ite->Pfile, s + itf.fileName());
 										ite->Pfile = s + itf.fileName();
 										}
 									}
@@ -7141,9 +7153,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile2);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + QFile::encodeName(ite->Pfile2) +
-											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-										system(cmd);
+										copyFile(ite->Pfile2, s + itf.fileName());
 										ite->Pfile2 = s + itf.fileName();
 										}
 									}
@@ -7152,9 +7162,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile3);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + QFile::encodeName(ite->Pfile3) +
-											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-										system(cmd);
+										copyFile(ite->Pfile3, s + itf.fileName());
 										ite->Pfile3 = s + itf.fileName();
 										}
 									}
@@ -7172,9 +7180,7 @@ void ScribusApp::Collect()
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 								{
-								QCString cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
-											   "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-								system(cmd);
+								copyFile(ite->Pfile, s + itf.fileName());
 								ite->Pfile = s + itf.fileName();
 								}
 							}
@@ -7182,16 +7188,13 @@ void ScribusApp::Collect()
 							{
 							if (ite->isAnnotation)
 								{
-								QCString cmd = "";
 								QFileInfo itf;
 								if (ite->Pfile != "")
 									{
 									itf = QFileInfo(ite->Pfile);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
-											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-										system(cmd);
+										copyFile(ite->Pfile, s + itf.fileName());
 										ite->Pfile = s + itf.fileName();
 										}
 									}
@@ -7200,9 +7203,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile2);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + QFile::encodeName(ite->Pfile2) +
-											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-										system(cmd);
+										copyFile(ite->Pfile2, s + itf.fileName());
 										ite->Pfile2 = s + itf.fileName();
 										}
 									}
@@ -7211,9 +7212,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile3);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + QFile::encodeName(ite->Pfile3) +
-											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
-										system(cmd);
+										copyFile(ite->Pfile, s + itf.fileName());
 										ite->Pfile3 = s + itf.fileName();
 										}
 									}

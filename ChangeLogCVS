@@ -1,4 +1,9 @@
 Changes since Version 1.1.5
+22.02.2004	Included Patches from Jean-Jacques Sarton.
+		Fixed Bug #278
+		Updated the Ukrainian Translation.
+		Another addition for the Scripter from Petr Vanek.
+
 21.02.2004	Added ability to include Softmasks into PDFs when exporting to PDF 1.4
 		Fixed Bugs #279, #277, #235
 		Bug #235 was fixed by Petr Vanek.

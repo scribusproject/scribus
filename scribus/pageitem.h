@@ -129,6 +129,7 @@ public:
 	Page *OwnPage;
   /** Darzustellendes Bild */
 	QImage pixm;
+	QImage pixmOrg;
   /** Dateiname des Bildes */
 	QString Pfile;
 	QString Pfile2;

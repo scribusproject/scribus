@@ -370,6 +370,7 @@ static PyMethodDef scribus_methods[] = {
     {"ProgressTotal",    scribus_progresssettotalsteps,    METH_VARARGS},
     {"ProgressSet",    scribus_progresssetprogress,    METH_VARARGS},
     {"MessagebarText",    scribus_messagebartext,    METH_VARARGS},
+    {"DocChanged",    scribus_docchanged,    METH_VARARGS},
     {"SetCursor",    scribus_setcursor,    METH_VARARGS},
 	{"PageDimension",	scribus_pagedimension,	METH_VARARGS},
 	{"NewDocDialog",			scribus_newdocdia,			METH_VARARGS},

@@ -77,6 +77,7 @@ extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern FPoint GetMaxClipF(FPointArray Clip);
 extern void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 extern ScribusApp* ScApp;
+extern int callGS(const QStringList & args);
 
 Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView *view)
 				 : QWidget(pa, "ps", WRepaintNoErase)
@@ -867,7 +868,16 @@ void Page::AdjustPreview(PageItem *b)
 				fho = b->flippedH;
 				fvo = b->flippedV;
 				savF = b->PicArt;
-				LoadPict(b->Pfile, b->ItemNr);
+				if ( !b->pixmOrg.isNull() )
+				{
+					b->pixm = b->pixmOrg.copy();
+					b->OrigW = b->pixm.width();
+					b->OrigH  = b->pixm.height();
+					b->LocalViewX = b->LocalScX;
+					b->LocalViewY = b->LocalScY;
+				}
+				else
+					LoadPict(b->Pfile, b->ItemNr);
 				b->flippedH = fho;
 				b->flippedV = fvo;
 				b->PicArt = savF;
@@ -895,7 +905,16 @@ void Page::AdjustPictScale(PageItem *b)
 	{
 		int fho = b->flippedH, fvo = b->flippedV;
 		savF = b->PicArt;
-		LoadPict(b->Pfile, b->ItemNr);
+		if (!b->pixmOrg.isNull())
+		{
+			b->pixm = b->pixmOrg.copy();
+			b->OrigW = b->pixm.width();
+			b->OrigH  = b->pixm.height();
+			b->LocalViewX = b->LocalScX;
+			b->LocalViewY = b->LocalScY;
+		}
+		else
+			LoadPict(b->Pfile, b->ItemNr);
 		b->flippedH = fho;
 		b->flippedV = fvo;
 		b->PicArt = savF;
@@ -6436,13 +6455,12 @@ void Page::ClearItem()
 				b->Ptext.clear();
 				b->CPos = 0;
 			}
+			b->Pfile = "";
+			b->PicAvail = false;
+			b->pixm = QImage();
+			b->pixmOrg = QImage();
 	  		if (b->PType == 2)
-	  		{
-				b->Pfile = "";
-				b->PicAvail = false;
-				b->pixm = QImage();
 				emit UpdtObj(PageNr, b->ItemNr);
-			}
 			RefreshItem(b);
 			emit DocChanged();
 		}
@@ -7268,9 +7286,16 @@ void Page::LoadPict(QString fn, int ItNr)
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 		{
-		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
+/*		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
 		cmd2 = " -c showpage -c quit";
-		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
+		ret = system(cmd1 + "\"" + fn + "\"" + cmd2); */
+		QStringList args;
+		args.append("-r72");
+		args.append("-sOutputFile="+tmpFile);
+		args.append("-dFirstPage=1");
+		args.append("-dLastPage=1");
+		args.append(fn);
+		ret = callGS(args);
 		if (ret == 0)
 			{
 			QImage im4;
@@ -7279,6 +7304,7 @@ void Page::LoadPict(QString fn, int ItNr)
   		image = image.convertDepth(32);
 			im4 = ProofPict(&image, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = im4;
+			Items.at(ItNr)->pixmOrg = im4.copy();
 			Items.at(ItNr)->Pfile = fi.absFilePath();
 			Items.at(ItNr)->PicAvail = true;
 			Items.at(ItNr)->PicArt = true;
@@ -7291,7 +7317,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
 			Items.at(ItNr)->dpiX = 72.0;
 			Items.at(ItNr)->dpiY = 72.0;
-			system("rm -f "+tmpFile);
+			unlink(tmpFile);
 			}
 		else
 			{
@@ -7362,9 +7388,12 @@ void Page::LoadPict(QString fn, int ItNr)
 				{
 				QTextStream ts2(&BBox, IO_ReadOnly);
 				ts2 >> dummy >> x >> y >> b >> h;
-				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -g";
-				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
+				QStringList args;
+				args.append("-r72");
+				args.append("-sOutputFile="+tmpFile);
+				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
+				args.append(fn);
+				ret = callGS(args);
 				if (ret == 0)
 					{
 					QImage im4;
@@ -7388,6 +7417,7 @@ void Page::LoadPict(QString fn, int ItNr)
 					im4 = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 					image = ProofPict(&im4, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 					Items.at(ItNr)->pixm = image;
+					Items.at(ItNr)->pixmOrg = image.copy();
 					Items.at(ItNr)->Pfile = fi.absFilePath();
 					Items.at(ItNr)->PicAvail = true;
 					Items.at(ItNr)->PicArt = true;
@@ -7400,7 +7430,7 @@ void Page::LoadPict(QString fn, int ItNr)
 					Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
 					Items.at(ItNr)->dpiX = 72.0;
 					Items.at(ItNr)->dpiY = 72.0;
-					system("rm -f "+tmpFile);
+					unlink(tmpFile);
 					}
 				else
 					{
@@ -7503,6 +7533,7 @@ void Page::LoadPict(QString fn, int ItNr)
 				inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 #endif
 				Items.at(ItNr)->pixm = inI2;
+				Items.at(ItNr)->pixmOrg = QImage();
 				Items.at(ItNr)->PicAvail = true;
 				Items.at(ItNr)->PicArt = true;
 				Items.at(ItNr)->BBoxX = 0;
@@ -7549,6 +7580,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			inI = inI.convertDepth(32);
 			inI2 = ProofPict(&inI, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = inI2.copy();
+			Items.at(ItNr)->pixmOrg = QImage();
 			if (Items.at(ItNr)->Pfile != fn)
 			{
 				Items.at(ItNr)->LocalScX = 72.0 / dpiX;
@@ -7588,3 +7620,4 @@ void Page::LoadPict(QString fn, int ItNr)
 	}
 	emit DocChanged();
 }
+
