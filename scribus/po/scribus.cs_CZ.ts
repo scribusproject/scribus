@@ -5313,11 +5313,11 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     </message>
     <message>
         <source>Edit the first color of object</source>
-        <translation>Výběr první barvy</translation>
+        <translation type="obsolete">Výběr první barvy</translation>
     </message>
     <message>
         <source>Edit the second color of object</source>
-        <translation>Výběr druhé barvy</translation>
+        <translation type="obsolete">Výběr druhé barvy</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -5329,7 +5329,47 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     </message>
     <message>
         <source>Special</source>
-        <translation>Speciální</translation>
+        <translation type="obsolete">Speciální</translation>
+    </message>
+    <message>
+        <source>Free linear Gradient</source>
+        <translation>Volný lineární gradient</translation>
+    </message>
+    <message>
+        <source>Free radial Gradient</source>
+        <translation>Volný radiální gradient</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -6363,6 +6403,21 @@ Jména exportovaných souborů budou ve tvaru &apos;jmenodokumentu-cislostrany.t
     </message>
 </context>
 <context>
+    <name>GradientEditor</name>
+    <message>
+        <source>Position:</source>
+        <translation>Pozice:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Here you can add, change or remove Color-Stops.</source>
+        <translation>Zde můžete přidat, změnit nemo odstranit Požadované barvy (Stop-colors).</translation>
+    </message>
+</context>
+<context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
@@ -7214,7 +7269,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Styl čáry:</translation>
+        <translation type="obsolete">Styl čáry:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -7722,6 +7777,10 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     <message>
         <source>Font Size:</source>
         <translation>Velikost písma:</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Typ čáry:</translation>
     </message>
 </context>
 <context>
@@ -9845,7 +9904,7 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Styl čáry:</translation>
+        <translation type="obsolete">Styl čáry:</translation>
     </message>
     <message>
         <source>Minimum:</source>
@@ -10434,6 +10493,10 @@ po každém automatickém uložení</translation>
     <message>
         <source> px</source>
         <translation>px</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Typ čáry:</translation>
     </message>
 </context>
 <context>
@@ -12112,7 +12175,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>&amp;Style</source>
-        <translation>&amp;Styl</translation>
+        <translation>St&amp;yl</translation>
     </message>
     <message>
         <source>&amp;Item</source>
@@ -12120,11 +12183,11 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>&amp;Strana</translation>
+        <translation>Str&amp;ana</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Náhled</translation>
+        <translation>Ná&amp;hled</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -12634,11 +12697,11 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Save and Exit</source>
-        <translation>Uložit a ukončit</translation>
+        <translation type="obsolete">Uložit a ukončit</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
-        <translation>Ukončit bez uložení</translation>
+        <translation type="obsolete">Ukončit bez uložení</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -12763,6 +12826,18 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Do you want to save your changes?</source>
         <translation>Opravdu chcete uložit změny?</translation>
+    </message>
+    <message>
+        <source>Save Document</source>
+        <translation>Uložit dokument</translation>
+    </message>
+    <message>
+        <source>Update Text Frame and Exit</source>
+        <translation>Aktualizovat textový rám a skončit</translation>
+    </message>
+    <message>
+        <source>Exit Without Updating Text Frame</source>
+        <translation>Skončit bez aktualizace textového rámu</translation>
     </message>
 </context>
 <context>

@@ -2497,7 +2497,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Schriftartenvorschau</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2532,7 +2532,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Hier können Sie Farben ändern, hinzufügen oder löschen.</translation>
+        <translation>Hier können Sie Farben hinzufügen, ändern oder löschen.</translation>
     </message>
 </context>
 <context>
@@ -3816,7 +3816,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation>Linienart:</translation>
+        <translation>Linientyp:</translation>
     </message>
 </context>
 <context>
@@ -6498,7 +6498,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation>Linienart:</translation>
+        <translation>Linentyp:</translation>
     </message>
 </context>
 <context>
@@ -8826,11 +8826,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Änderungen übernehmen und beenden</translation>
+        <translation>Veränderungen übernehmen und Storyeditor schließen</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Änderungen verwerfen und beenden</translation>
+        <translation>Veränderungen verwerfen und Storyeditor schließen</translation>
     </message>
     <message>
         <source>Save Document</source>

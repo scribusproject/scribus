@@ -3,7 +3,7 @@
 
 QString Name()
 {
-	return "Fonts Preview";
+	return QObject::tr("Fonts Preview");
 }
 
 

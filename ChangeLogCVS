@@ -1,5 +1,10 @@
 Changes since Version 1.1.6
 
+02.06.2004
+	* bug     #739: Fonts Preview plugin entry in extras menu is not translatable
+	* feature #741: german .ts update for 1.1.7
+	* feature #742: Czech Translation for 1.1.7
+
 01.06.2004
 	* bug     #720: print dialog does not allow entering of page numbers
 	* bug     #729: Importing SVG with gradient sometimes misses the colors
