@@ -144,11 +144,7 @@ void OODPlug::convert()
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
 	if (Prog->DLLinput != "")
-	{
 		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
-		Prog->view->addPage(0);
-		PageCounter = 1;
-	}
 	else
 	{
 		if (!Prog->HaveDoc)
@@ -170,11 +166,9 @@ void OODPlug::convert()
 	for( QDomNode drawPag = body.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
-		if ((Prog->DLLinput != "") && (PageCounter > 1))
-		{
+		if (Prog->DLLinput != "")
 			Prog->view->addPage(PageCounter);
-			PageCounter++;
-		}
+		PageCounter++;
 		m_styleStack.clear();
 		fillStyleStack( dpg );
 		parseGroup( dpg );
@@ -221,6 +215,7 @@ void OODPlug::convert()
 		Doku->setUnModified();
 		Prog->slotDocCh();
 	}
+	Prog->DLLinput = "";
 }
 
 void OODPlug::parseGroup(const QDomElement &e)
@@ -228,6 +223,10 @@ void OODPlug::parseGroup(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
+	VGradient gradient;
+	double GradientAngle;
+	bool HaveGradient = false;
+	int GradientType = 0;
 	double BaseX = Doku->ActPage->Xoffset;
 	double BaseY = Doku->ActPage->Yoffset;
 	double lwidth = 0;
@@ -267,8 +266,38 @@ void OODPlug::parseGroup(const QDomElement &e)
 				if( m_styleStack.hasAttribute( "draw:fill-color" ) )
 					FillColor = parseColor( m_styleStack.attribute("draw:fill-color"));
 			}
+			else if( fill == "gradient" )
+			{
+				HaveGradient = true;
+				gradient.clearStops();
+				gradient.setRepeatMethod( VGradient::none );
+				QString style = m_styleStack.attribute( "draw:fill-gradient-name" );
+				QDomElement* draw = m_draws[style];
+				if( draw )
+				{
+					double border = 0.0;
+					if( draw->hasAttribute( "draw:border" ) )
+						border += draw->attribute( "draw:border" ).remove( '%' ).toDouble() / 100.0;
+					QString c;
+					c = parseColor( draw->attribute( "draw:start-color" ) );
+					gradient.addStop( Doku->PageColors[c].getRGBColor(), border, 0.5, 1, c, 100 );
+					c = parseColor( draw->attribute( "draw:end-color" ) );
+					gradient.addStop( Doku->PageColors[c].getRGBColor(), 1.0, 0.5, 1, c, 100 );
+					QString type = draw->attribute( "draw:style" );
+					if( type == "linear" || type == "axial" )
+					{
+						gradient.setType( VGradient::linear );
+						GradientAngle = draw->attribute( "draw:angle" ).toDouble() / 10;
+						GradientType = 1;
+					}
+				}
+			}
 		}
-		if( STag == "draw:rect" )
+		if( STag == "draw:g" )
+		{
+			parseGroup( b );
+		}
+		else if( STag == "draw:rect" )
 		{
 			x = parseUnit(b.attribute("svg:x"));
 			y = parseUnit(b.attribute("svg:y")) ;
@@ -403,14 +432,32 @@ void OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items.at(z);
 			if (b.hasAttribute("draw:transform"))
 			{
-				double rot = 0;
-				double dx = 0;
-				double dy = 0;
-				parseTransform(b.attribute("draw:transform"), &rot, &dx, &dy);
-				ite->Xpos = BaseX+dx;
-				ite->Ypos = BaseY+dy;
-				ite->Rot = rot;
-				Prog->view->setRedrawBounding(ite);
+				QWMatrix mat = parseTransform(b.attribute("draw:transform"));
+				ite->ClipEdited = true;
+				ite->FrameType = 3;
+				ite->PoLine.map(mat);
+				ite->Pwidth = ite->Pwidth * ((mat.m11() + mat.m22()) / 2.0);
+				FPoint wh = GetMaxClipF(ite->PoLine);
+				ite->Width = wh.x();
+				ite->Height = wh.y();
+				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+				Prog->view->AdjustItemSize(ite);
+			}
+			if (HaveGradient)
+			{
+				ite->GrType = 0;
+				ite->fill_gradient = gradient;
+				if (GradientType == 1)
+				{
+					double sr = sin(GradientAngle* 3.1415927 / 180.0);
+					double cr = cos(GradientAngle* 3.1415927 / 180.0);
+					ite->GrEndX = sr * (ite->Width / 2.0) + (ite->Width / 2.0);
+					ite->GrEndY = cr * (ite->Height / 2.0) + (ite->Height / 2.0);
+					ite->GrStartX = (ite->Width / 2.0) - sr * (ite->Width / 2.0);
+					ite->GrStartY = (ite->Height / 2.0) - cr * (ite->Height / 2.0);
+					ite->GrType = 6;
+				}
+				HaveGradient = false;
 			}
 			GElements.append(ite);
 			Elements.append(ite);
@@ -427,7 +474,7 @@ void OODPlug::createStyleMap( QDomDocument &docstyles )
 	QDomNode fixedStyles = styles.namedItem( "office:styles" );
 	if( !fixedStyles.isNull() )
 	{
-//		insertDraws( fixedStyles.toElement() );
+		insertDraws( fixedStyles.toElement() );
 		insertStyles( fixedStyles.toElement() );
 	}
 	QDomNode automaticStyles = styles.namedItem( "office:automatic-styles" );
@@ -437,6 +484,18 @@ void OODPlug::createStyleMap( QDomDocument &docstyles )
 	QDomNode masterStyles = styles.namedItem( "office:master-styles" );
 	if( !masterStyles.isNull() )
 		insertStyles( masterStyles.toElement() );
+}
+
+void OODPlug::insertDraws( const QDomElement& styles )
+{
+	for( QDomNode n = styles.firstChild(); !n.isNull(); n = n.nextSibling() )
+	{
+		QDomElement e = n.toElement();
+		if( !e.hasAttribute( "draw:name" ) )
+			continue;
+		QString name = e.attribute( "draw:name" );
+		m_draws.insert( name, new QDomElement( e ) );
+	}
 }
 
 void OODPlug::insertStyles( const QDomElement& styles )
@@ -568,41 +627,47 @@ QString OODPlug::parseColor( const QString &s )
 	return ret;
 }
 
-void OODPlug::parseTransform( const QString &transform, double *rot, double *dx, double *dy )
+QWMatrix OODPlug::parseTransform( const QString &transform)
 {
+	double dx, dy;
+	QWMatrix result;
 	QStringList subtransforms = QStringList::split(')', transform);
+	subtransforms.prepend("");
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
-	for(; it != end; ++it)
+	for (it = subtransforms.fromLast(); it != subtransforms.begin(); --it)
 	{
+		if ((*it) == "")
+			continue;
 		QStringList subtransform = QStringList::split('(', (*it));
-
 		subtransform[0] = subtransform[0].stripWhiteSpace().lower();
 		subtransform[1] = subtransform[1].simplifyWhiteSpace();
 		QRegExp reg("[,( ]");
 		QStringList params = QStringList::split(reg, subtransform[1]);
-
 		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
-
 		if(subtransform[0] == "rotate")
-		{
-			*rot = -parseUnit(params[0]) * 180 / 3.1415927;
-		}
+			result.rotate(-parseUnit(params[0]) * 180 / 3.1415927);
 		else if(subtransform[0] == "translate")
 		{
 			if(params.count() == 2)
 			{
-				*dx = parseUnit(params[0]);
-				*dy = parseUnit(params[1]);
+				dx = parseUnit(params[0]);
+				dy = parseUnit(params[1]);
 			}
 			else
 			{
-				*dx = parseUnit(params[0]);
-				*dy =0.0;
+				dx = parseUnit(params[0]);
+				dy =0.0;
 			}
+			result.translate(dx, dy);
 		}
+		else if(subtransform[0] == "skewx")
+			result.shear(-params[0].toDouble(), 0.0);
+		else if(subtransform[0] == "skewy")
+			result.shear(0.0, -params[0].toDouble());
 	}
+	return result;
 }
 
 void OODPlug::parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h )

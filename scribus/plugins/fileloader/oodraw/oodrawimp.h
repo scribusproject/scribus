@@ -29,6 +29,7 @@ public:
 	void convert();
 	void parseGroup(const QDomElement &e);
 	void createStyleMap( QDomDocument &docstyles );
+	void insertDraws( const QDomElement& styles );
 	void insertStyles( const QDomElement& styles );
 	void fillStyleStack( const QDomElement& object );
 	void addStyles( const QDomElement* style );
@@ -36,7 +37,7 @@ public:
 	static double parseUnit(const QString &unit);
 	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
-	void parseTransform( const QString &transfor, double *rot, double *dx, double *dy );
+	QWMatrix parseTransform( const QString &transfor);
 	void parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h );
 	void appendPoints(FPointArray *composite, const QDomElement& object);
 	const char * getCoord( const char *ptr, double &number );
@@ -71,7 +72,7 @@ public:
 	ScribusApp* Prog;
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
-	QDict<QDomElement> m_styles;
+	QDict<QDomElement> m_styles, m_draws;
 	StyleStack m_styleStack;
 	QString stylePath;
 	QString contentPath;
