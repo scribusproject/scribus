@@ -4,7 +4,7 @@ Changes since Version 1.1.5
 		Added a Context Menueitem for updating Picture frames.
 		Updated the Finnish Translation.
 		Changed the behaviour of Mouse Clicks:
-			Ctrl+Click selects the Object beneath another.
+			Ctrl+Shift+Click selects the Object beneath another.
 			Shift+Click adds an Object to the Selection.
 			Ctrl+Alt+Click selects a single Object out of a Group.
 
