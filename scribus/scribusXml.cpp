@@ -195,6 +195,11 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
+				vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
+				vg.FColor = pg.attribute("FCOLOR", doc->Dbrush);
+				vg.FShade = QStoInt(pg.attribute("FSHADE", "100"));
+				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
+				vg.SShade = QStoInt(pg.attribute("SSHADE", "100"));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					QString tmp = pg.attribute("TABS");
@@ -223,6 +228,11 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 								(vg.TabValues == Vorlagen[xx].TabValues) &&
 								(vg.Drop == Vorlagen[xx].Drop) &&
 								(vg.DropLin == Vorlagen[xx].DropLin) &&
+								(vg.FontEffect == Vorlagen[xx].FontEffect) &&
+								(vg.FColor == Vorlagen[xx].FColor) &&
+								(vg.FShade == Vorlagen[xx].FShade) &&
+								(vg.SColor == Vorlagen[xx].SColor) &&
+								(vg.SShade == Vorlagen[xx].SShade) &&
 								(vg.FontSize == Vorlagen[xx].FontSize))
 							fou = true;
 						else
@@ -449,6 +459,11 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
+				vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
+				vg.FColor = pg.attribute("FCOLOR", doc->Dbrush);
+				vg.FShade = QStoInt(pg.attribute("FSHADE", "100"));
+				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
+				vg.SShade = QStoInt(pg.attribute("SSHADE", "100"));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");
@@ -477,6 +492,11 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 							(vg.TabValues == doc->Vorlagen[xx].TabValues) &&
 							(vg.Drop == doc->Vorlagen[xx].Drop) &&
 							(vg.DropLin == doc->Vorlagen[xx].DropLin) &&
+							(vg.FontEffect == doc->Vorlagen[xx].FontEffect) &&
+							(vg.FColor == doc->Vorlagen[xx].FColor) &&
+							(vg.FShade == doc->Vorlagen[xx].FShade) &&
+							(vg.SColor == doc->Vorlagen[xx].SColor) &&
+							(vg.SShade == doc->Vorlagen[xx].SShade) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 							DoVorl[VorlC] = tmV.setNum(xx);
@@ -1091,6 +1111,11 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
+				vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
+				vg.FColor = pg.attribute("FCOLOR", doc->Dbrush);
+				vg.FShade = QStoInt(pg.attribute("FSHADE","100"));
+				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
+				vg.SShade = QStoInt(pg.attribute("SSHADE","100"));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");
@@ -1773,6 +1798,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10);
 			vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 			vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
+			vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
+			vg.FColor = pg.attribute("FCOLOR", doc->Dbrush);
+			vg.FShade = QStoInt(pg.attribute("FSHADE", "100"));
+			vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
+			vg.SShade = QStoInt(pg.attribute("SSHADE", "100"));
 			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 			{
 				tmp = pg.attribute("TABS");
@@ -1801,6 +1831,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 							(vg.TabValues == doc->Vorlagen[xx].TabValues) &&
 							(vg.Drop == doc->Vorlagen[xx].Drop) &&
 							(vg.DropLin == doc->Vorlagen[xx].DropLin) &&
+							(vg.FontEffect == doc->Vorlagen[xx].FontEffect) &&
+							(vg.FColor == doc->Vorlagen[xx].FColor) &&
+							(vg.FShade == doc->Vorlagen[xx].FShade) &&
+							(vg.SColor == doc->Vorlagen[xx].SColor) &&
+							(vg.SShade == doc->Vorlagen[xx].SShade) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 					{
 						DoVorl[VorlC] = tmV.setNum(xx);
@@ -2426,12 +2461,17 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(doc->Vorlagen[ff].Drop));
 			fo.setAttribute("DROPLIN", doc->Vorlagen[ff].DropLin);
+			fo.setAttribute("EFFECT", doc->Vorlagen[ff].FontEffect);
 			fo.setAttribute("NUMTAB", static_cast<int>(doc->Vorlagen[ff].TabValues.count()));
 			QString tlp = "";
 			QValueList<double>::Iterator tax;
 			for (tax = doc->Vorlagen[ff].TabValues.begin(); tax != doc->Vorlagen[ff].TabValues.end(); ++tax)
 				tlp += tmp.setNum((*tax)) + " ";
 			fo.setAttribute("TABS", tlp);
+			fo.setAttribute("FCOLOR",doc->Vorlagen[ff].FColor);
+			fo.setAttribute("FSHADE",doc->Vorlagen[ff].FShade);
+			fo.setAttribute("SCOLOR",doc->Vorlagen[ff].SColor);
+			fo.setAttribute("SSHADE",doc->Vorlagen[ff].SShade);
 			elem.appendChild(fo);
 		}
 	}
@@ -2896,6 +2936,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(doc->Vorlagen[ff].Drop));
 			fo.setAttribute("DROPLIN", doc->Vorlagen[ff].DropLin);
+			fo.setAttribute("EFFECT", doc->Vorlagen[ff].FontEffect);
 			fo.setAttribute("NUMTAB", static_cast<int>(doc->Vorlagen[ff].TabValues.count()));
 			QString tlp = "";
 			QString tmp = "";
@@ -2903,6 +2944,10 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 			for (tax = doc->Vorlagen[ff].TabValues.begin(); tax != doc->Vorlagen[ff].TabValues.end(); ++tax)
 				tlp += tmp.setNum((*tax)) + " ";
 			fo.setAttribute("TABS", tlp);
+			fo.setAttribute("FCOLOR",doc->Vorlagen[ff].FColor);
+			fo.setAttribute("FSHADE",doc->Vorlagen[ff].FShade);
+			fo.setAttribute("SCOLOR",doc->Vorlagen[ff].SColor);
+			fo.setAttribute("SSHADE",doc->Vorlagen[ff].SShade);
 			dc.appendChild(fo);
 		}
 	}

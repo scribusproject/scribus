@@ -108,7 +108,11 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 	int a = 0;
 	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
-		if ((AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset))
+/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+		QFileInfo fd = QFileInfo(AllFonts[it.key()]->Datei);
+		QString fext = fd.extension(false).lower();
+
+		if ((fext == "ttf") || (AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset))
 			{
 			FontDesc += "/"+AllFonts[it.key()]->RealName()+" "+IToStr(AllFonts[it.key()]->RealGlyphs.count()+1)+" dict def\n";
 			FontDesc += AllFonts[it.key()]->RealName()+" begin\n";

@@ -1,7 +1,9 @@
 #include "seiten.h"
 #include "seiten.moc"
 #include <qcursor.h>
+#include "scribus.h"
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 /* Code fuer DragObjekt */
 SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): QStoredDrag("page/magic", parent, name)
@@ -665,6 +667,8 @@ void SeitenPal::HandleLP()
 
 void SeitenPal::RebuildTemp()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	TemplList->clear();
 	if (Vie == 0)
 		return;
@@ -680,6 +684,8 @@ void SeitenPal::RebuildTemp()
 
 void SeitenPal::RebuildPage()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	QString str;
 	disconnect(DS, SIGNAL(clicked()), this, SLOT(HandleDS()));
 	disconnect(LP, SIGNAL(clicked()), this, SLOT(HandleLP()));

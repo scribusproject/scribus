@@ -159,6 +159,7 @@ public:
 	QClipboard *ClipB;
 	QString LoadEnc;
 	bool singleClose;
+	bool ScriptRunning;
 
 public slots:
 	void slotStoryEditor();

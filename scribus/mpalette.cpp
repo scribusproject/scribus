@@ -8,9 +8,11 @@
 #include "scribusview.h"
 #include "autoform.h"
 #include "tabmanager.h"
+#include "scribus.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
+extern ScribusApp* ScApp;
 
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 {
@@ -473,20 +475,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     TxStroke = new QComboBox( true, page_3, "TxStroke" );
 		TxStroke->setEditable(false);
     layout23->addWidget( TxStroke );
-  	TxStrokeSh = new QPopupMenu();
-	TxStrokeSh->insertItem( tr("Other..."));
-	char *tmp[] = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
-	size_t array = sizeof(tmp) / sizeof(*tmp);
-	for (uint a = 0; a < array; ++a)
-		TxStrokeSh->insertItem(tmp[a]);
     QSpacerItem* spacer2S = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     layout23->addItem( spacer2S );
-	PM1 = new QToolButton(page_3, "Colors");
-	PM1->setBackgroundMode(PaletteBackground);
-	PM1->setPopup(TxStrokeSh);
-	PM1->setPopupDelay(1);
-	PM1->setText("100 %");
-	PM1->setAutoRaise(true);
+	PM1 = new ShadeButton(page_3);
     layout23->addWidget( PM1 );
     layout46->addLayout( layout23 );
     layout24 = new QHBoxLayout( 0, 0, 5, "layout24");
@@ -498,18 +489,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     TxFill = new QComboBox( true, page_3, "TxFill" );
 	TxFill->setEditable(false);
     layout24->addWidget( TxFill );
-  	TxFillSh = new QPopupMenu();
-	TxFillSh->insertItem( tr("Other..."));
-	for (uint a = 0; a < array; ++a)
-	TxFillSh->insertItem(tmp[a]);
     QSpacerItem* spacer2Sf = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     layout24->addItem( spacer2Sf );
-	PM2 = new QToolButton(page_3, "Colors");
-	PM2->setBackgroundMode(PaletteBackground);
-	PM2->setPopup(TxFillSh);
-	PM2->setPopupDelay(1);
-	PM2->setText("100 %");
-	PM2->setAutoRaise(true);
+	PM2 = new ShadeButton(page_3);
     layout24->addWidget( PM2 );
     layout46->addLayout( layout24 );
 
@@ -528,46 +510,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     layout47->addLayout( layout46 );
     pageLayout_3->addLayout( layout47 );
 
-    GroupAlign = new QButtonGroup( page_3, "GroupAlign" );
-    GroupAlign->setFrameShape( QButtonGroup::NoFrame );
-    GroupAlign->setTitle("");
-    GroupAlign->setExclusive( true );
-    GroupAlign->setColumnLayout(0, Qt::Vertical );
-    GroupAlign->layout()->setSpacing( 0 );
-    GroupAlign->layout()->setMargin( 0 );
-    GroupAlignLayout = new QGridLayout( GroupAlign->layout() );
-    GroupAlignLayout->setAlignment( Qt::AlignTop );
-
-    TextL = new QToolButton( GroupAlign, "TextL" );
-    TextL->setMaximumSize( QSize( 22, 22 ) );
-    TextL->setPixmap(loadIcon("text_left.png"));
-    TextL->setToggleButton( true );
-    TextL->setOn( true );
-    GroupAlignLayout->addWidget( TextL, 0, 0 );
-
-    TextR = new QToolButton( GroupAlign, "TextR" );
-    TextR->setMaximumSize( QSize( 22, 22 ) );
-    TextR->setPixmap(loadIcon("text_right.png"));
-    TextR->setToggleButton( true );
-    GroupAlignLayout->addWidget( TextR, 0, 1 );
-
-    TextC = new QToolButton( GroupAlign, "TextC" );
-    TextC->setMaximumSize( QSize( 22, 22 ) );
-    TextC->setPixmap(loadIcon("text_center.png"));
-    TextC->setToggleButton( true );
-    GroupAlignLayout->addWidget( TextC, 0, 2 );
-
-    TextB = new QToolButton( GroupAlign, "TextB" );
-    TextB->setMaximumSize( QSize( 22, 22 ) );
-    TextB->setPixmap(loadIcon("text_block.png"));
-    TextB->setToggleButton( true );
-    GroupAlignLayout->addWidget( TextB, 0, 3 );
-
-    TextF = new QToolButton( GroupAlign, "TextF" );
-    TextF->setMaximumSize( QSize( 22, 22 ) );
-    TextF->setPixmap(loadIcon("text_force.png"));
-    TextF->setToggleButton( true );
-    GroupAlignLayout->addWidget( TextF, 0, 4 );
+    GroupAlign = new AlignSelect(page_3);
     pageLayout_3->addWidget( GroupAlign );
 
     GroupBox3 = new QGroupBox( page_3, "GroupBox3" );
@@ -781,10 +724,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     QToolTip::add( LineSp, tr( "Line Spacing" ) );
     QToolTip::add( Extra, tr( "Manual Kerning" ) );
     QToolTip::add( Revert, tr( "Reverse Writing" ) );
-    QToolTip::add( TextL, tr( "Align Text Left" ) );
-    QToolTip::add( TextR, tr( "Align Text Right" ) );
-    QToolTip::add( TextB, tr( "Align Text Block" ) );
-    QToolTip::add( TextC, tr( "Align Text Center" ) );
     QToolTip::add( FlipH, tr( "Flip horizontal" ) );
     QToolTip::add( FlipV, tr( "Flip vertical" ) );
     QToolTip::add( Zup, tr( "Move one Level up" ) );
@@ -814,7 +753,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(Kette, SIGNAL(clicked()), this, SLOT(ToggleKette()));
     connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
     connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
-    connect(GroupAlign, SIGNAL(clicked(int)), this, SLOT(NewAli()));
+    connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
     connect(Revert, SIGNAL(clicked()), this, SLOT(DoRevert()));
     connect(SeStyle, SIGNAL(State(int)), this, SLOT(setTypeStyle(int)));
     connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
@@ -841,8 +780,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
     connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
     connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
-  	connect(TxFillSh, SIGNAL(activated(int)), this, SLOT(setActShade(int)));
-  	connect(TxStrokeSh, SIGNAL(activated(int)), this, SLOT(setActShade(int)));
+  	connect(PM1, SIGNAL(clicked()), this, SLOT(setActShade()));
+  	connect(PM2, SIGNAL(clicked()), this, SLOT(setActShade()));
     connect(ChScale, SIGNAL(valueChanged(int)), this, SLOT(NewTScale()));
     connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
     connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
@@ -884,6 +823,8 @@ void Mpalette::closeEvent(QCloseEvent *ce)
 
 void Mpalette::SelTab(int t)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	TabStack->raiseWidget(t);
 	if (HaveItem)
 		{
@@ -960,6 +901,8 @@ void Mpalette::UnsetDoc()
 
 void Mpalette::SetCurItem(PageItem *i)
 {
+	if (ScApp->ScriptRunning)
+		return;
  	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	HaveItem = false;
@@ -1085,6 +1028,8 @@ void Mpalette::SetCurItem(PageItem *i)
 
 void Mpalette::NewSel(int nr)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	int visID;
 	if (doc->ActPage->GroupSel)
 		{
@@ -1437,6 +1382,8 @@ void Mpalette::UnitChange()
 
 void Mpalette::setXY(double x, double y)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	double inX, inY, b, h, r, dummy1, dummy2;
 	QWMatrix ma;
@@ -1485,6 +1432,8 @@ void Mpalette::setXY(double x, double y)
 
 void Mpalette::setBH(double x, double y)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	QWMatrix ma;
@@ -1508,6 +1457,8 @@ void Mpalette::setBH(double x, double y)
 
 void Mpalette::setR(double r)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	double rr = r;
 	if (r > 0)
@@ -1519,6 +1470,8 @@ void Mpalette::setR(double r)
 
 void Mpalette::setRR(double r)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	RoundRect->setValue(r*UmReFaktor);
@@ -1527,6 +1480,8 @@ void Mpalette::setRR(double r)
 
 void Mpalette::setCols(int r, double g)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	DCol->setValue(r);
@@ -1543,6 +1498,8 @@ void Mpalette::setCols(int r, double g)
 
 void Mpalette::setLsp(double r)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	LineSp->setValue(r);
@@ -1551,6 +1508,8 @@ void Mpalette::setLsp(double r)
 
 void Mpalette::setSize(int s)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	Size->setValue(s / 10.0);
@@ -1559,6 +1518,8 @@ void Mpalette::setSize(int s)
 
 void Mpalette::setExtra(double e)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	Extra->setValue(e);
@@ -1567,6 +1528,8 @@ void Mpalette::setExtra(double e)
 
 void Mpalette::ChangeScaling()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (FreeScale == sender())
 		{
 		FrameScale->setChecked(false);
@@ -1602,6 +1565,8 @@ void Mpalette::ChangeScaling()
 
 void Mpalette::setLvalue(double scx, double scy, double x, double y)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	LXpos->setValue(x * UmReFaktor);
@@ -1613,6 +1578,8 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 
 void Mpalette::setSvalue(double s)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	LSize->setValue(s);
@@ -1621,6 +1588,8 @@ void Mpalette::setSvalue(double s)
 
 void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	switch (p)
@@ -1679,6 +1648,8 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 
 void Mpalette::setStil(int s)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
 	PM1->setEnabled(false);
@@ -1693,38 +1664,18 @@ void Mpalette::setStil(int s)
 
 void Mpalette::setAli(int e)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	switch (e)
-		{
-		case 0:
-			TextL->setOn(true);
-			break;
-		case 2:
-			TextR->setOn(true);
-			break;
-		case 1:
-			TextC->setOn(true);
-			break;
-		case 3:
-			TextB->setOn(true);
-			break;
-		case 4:
-			TextF->setOn(true);
-			break;
-		default:
-			TextL->setOn(false);
-			TextR->setOn(false);
-			TextC->setOn(false);
-			TextB->setOn(false);
-			TextF->setOn(false);
-			break;
-		}
+	GroupAlign->setStyle(e);
 	HaveItem = tmp;
 }
 
 void Mpalette::setTScale(int e)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
   ChScale->setValue(e);
@@ -1743,6 +1694,8 @@ void Mpalette::NewTScale()
 
 void Mpalette::NewX()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	double x,y,w,h, gx, gy, gh, gw, base;
 	QWMatrix ma;
 	x = Xpos->value() / UmReFaktor;
@@ -1795,6 +1748,8 @@ void Mpalette::NewX()
 
 void Mpalette::NewY()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	double x,y,w,h, gx, gy, gh, gw, base;
 	QWMatrix ma;
 	x = Xpos->value() / UmReFaktor;
@@ -1847,6 +1802,8 @@ void Mpalette::NewY()
 
 void Mpalette::NewW()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	double x,y,w,h, gx, gy, gh, gw;
 	x = Xpos->value() / UmReFaktor;
 	y = Ypos->value() / UmReFaktor;
@@ -1884,6 +1841,8 @@ void Mpalette::NewW()
 
 void Mpalette::NewH()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	double x,y,w,h, gx, gy, gh, gw;
 	x = Xpos->value() / UmReFaktor;
 	y = Ypos->value() / UmReFaktor;
@@ -1921,6 +1880,8 @@ void Mpalette::NewH()
 
 void Mpalette::NewR()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 		{
@@ -1939,6 +1900,8 @@ void Mpalette::NewR()
 
 void Mpalette::NewRR()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->RadRect = RoundRect->value() / UmReFaktor;
@@ -1949,6 +1912,8 @@ void Mpalette::NewRR()
 
 void Mpalette::NewLsp()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->ChLineSpa(LineSp->value());
@@ -1958,6 +1923,8 @@ void Mpalette::NewLsp()
 
 void Mpalette::NewCols()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->Cols = DCol->value();
@@ -1968,6 +1935,8 @@ void Mpalette::NewCols()
 
 void Mpalette::NewGap()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->ColGap = DGap->value() / UmReFaktor;
@@ -1978,6 +1947,8 @@ void Mpalette::NewGap()
 
 void Mpalette::NewSize()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->chFSize(qRound(Size->value()*10.0));
@@ -1987,6 +1958,8 @@ void Mpalette::NewSize()
 
 void Mpalette::NewExtra()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if ((CurItem->HasSel) || (doc->AppMode == 1))
@@ -2009,6 +1982,8 @@ void Mpalette::NewExtra()
 
 void Mpalette::NewLocalXY()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->ChLocalXY(LXpos->value() / UmReFaktor, LYpos->value() / UmReFaktor);
@@ -2018,6 +1993,8 @@ void Mpalette::NewLocalXY()
 
 void Mpalette::NewLocalSC()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->ChLocalSc(ScaleX->value() / 100.0, ScaleY->value() / 100.0);
@@ -2027,6 +2004,8 @@ void Mpalette::NewLocalSC()
 
 void Mpalette::NewLS()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->ChLineWidth(LSize->value());
@@ -2036,6 +2015,8 @@ void Mpalette::NewLS()
 
 void Mpalette::NewLSty()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	PenStyle c = SolidLine;
 	switch (LStyle->currentItem())
 		{
@@ -2064,6 +2045,8 @@ void Mpalette::NewLSty()
 
 void Mpalette::NewLMode()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (LineMode->currentItem() == 0)
 		{
     Text1->setText( tr( "X-Pos:" ) );
@@ -2092,6 +2075,8 @@ void Mpalette::NewLMode()
 
 void Mpalette::NewLJoin()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	PenJoinStyle c = MiterJoin;
 	switch (LJoinStyle->currentItem())
 		{
@@ -2114,6 +2099,8 @@ void Mpalette::NewLJoin()
 
 void Mpalette::NewLEnd()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	PenCapStyle c = FlatCap;
 	switch (LEndStyle->currentItem())
 		{
@@ -2136,6 +2123,8 @@ void Mpalette::NewLEnd()
 
 void Mpalette::ToggleKette()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (Kette->isOn())
 		{
 		ScaleY->setValue(ScaleX->value());
@@ -2163,6 +2152,8 @@ void Mpalette::VChange()
 
 void Mpalette::DoFlipH()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->FlipImageH();
@@ -2172,6 +2163,8 @@ void Mpalette::DoFlipH()
 
 void Mpalette::DoFlipV()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->FlipImageV();
@@ -2179,31 +2172,26 @@ void Mpalette::DoFlipV()
 		}
 }
 
-void Mpalette::NewAli()
+void Mpalette::NewAli(int a)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
-		{
-		if (TextL->isOn())
-			emit NewAbStyle(0);
-		if (TextR->isOn())
-			emit NewAbStyle(2);
-		if (TextC->isOn())
-			emit NewAbStyle(1);
-		if (TextB->isOn())
-			emit NewAbStyle(3);
-		if (TextF->isOn())
-			emit NewAbStyle(4);
-		}
+		emit NewAbStyle(a);
 }
 
 void Mpalette::setTypeStyle(int s)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	emit Stellung(s);
 	emit BackHome();
 }
 
 void Mpalette::DoLower()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->LowerItem();
@@ -2213,6 +2201,8 @@ void Mpalette::DoLower()
 
 void Mpalette::DoRaise()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->RaiseItem();
@@ -2222,6 +2212,8 @@ void Mpalette::DoRaise()
 
 void Mpalette::DoFront()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->ToFront();
@@ -2231,6 +2223,8 @@ void Mpalette::DoFront()
 
 void Mpalette::DoBack()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->ToBack();
@@ -2240,6 +2234,8 @@ void Mpalette::DoBack()
 
 void Mpalette::NewRotMode(int m)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	double inX, inY, gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 		{
@@ -2313,6 +2309,8 @@ void Mpalette::NewRotMode(int m)
 
 void Mpalette::DoFlow()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->Textflow = Textflow->isChecked();
@@ -2324,6 +2322,8 @@ void Mpalette::DoFlow()
 
 void Mpalette::DoFlow2()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->Textflow2 = Textflow2->isChecked();
@@ -2334,6 +2334,8 @@ void Mpalette::DoFlow2()
 
 void Mpalette::MakeIrre(int f, int c, double *vals)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if ((CurItem->PType == 7) || (CurItem->PType == 8))
@@ -2362,6 +2364,8 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 
 void Mpalette::EditSh()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if ((CurItem->PType == 1) || (CurItem->PType == 3))
@@ -2377,6 +2381,8 @@ void Mpalette::EditSh()
 
 void Mpalette::NewTDist()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->Extra = DLeft->value() / UmReFaktor;
@@ -2390,12 +2396,16 @@ void Mpalette::NewTDist()
 
 void Mpalette::NewTFont(int c)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		emit NewTF(Fonts->text(c));
 }
 
 void Mpalette::DoRevert()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (Revert->isOn())
@@ -2415,7 +2425,9 @@ void Mpalette::DoRevert()
 
 void Mpalette::SetLineFormats(ScribusDoc *dd)
 {
-  disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	if (ScApp->ScriptRunning)
+		return;
+	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	StyledLine->clear();
 	if (dd != 0)
 		{
@@ -2432,6 +2444,8 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 
 void Mpalette::SetSTline(QListBoxItem *c)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (c == NULL)
   	return;
   bool setter = c->listBox()->currentItem() == 0 ? true : false;
@@ -2449,6 +2463,8 @@ void Mpalette::SetSTline(QListBoxItem *c)
 
 void Mpalette::updateCList()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (!HaveDoc)
 		return;
 	TxFill->clear();
@@ -2467,6 +2483,8 @@ void Mpalette::updateCList()
 
 void Mpalette::updateCmsList()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (HaveDoc)
 		{
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
@@ -2502,6 +2520,8 @@ void Mpalette::updateCmsList()
 
 void Mpalette::ChProf(const QString& prn)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	bool EmbedP;
 	if ((HaveDoc) && (HaveItem))
 		{
@@ -2518,6 +2538,8 @@ void Mpalette::ChProf(const QString& prn)
 
 void Mpalette::ChIntent()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->IRender = MonitorI->currentItem();
@@ -2528,6 +2550,8 @@ void Mpalette::ChIntent()
 
 void Mpalette::ShowCMS()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (HaveItem)
 		{
 		HaveItem = false;
@@ -2563,63 +2587,21 @@ void Mpalette::newTxtStroke()
 		}
 }
 
-void Mpalette::setActShade(int id)
+void Mpalette::setActShade()
 {
-	bool ok = false;
-	uint a;
-	int c, b;
-	for (a = 0; a < TxFillSh->count(); ++a)
+	if (ScApp->ScriptRunning)
+		return;
+	int b;
+	if (PM1 == sender())
 		{
-		TxFillSh->setItemChecked(TxFillSh->idAt(a), false);
-		}
-	for (a = 0; a < TxFillSh->count(); ++a)
-		{
-		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(a), false);
-		}
-	if (TxFillSh == sender())
-		{
-		c = TxFillSh->indexOf(id);
-		TxFillSh->setItemChecked(id, true);
-		}
-	else
-		{
-		c = TxStrokeSh->indexOf(id);
-		TxStrokeSh->setItemChecked(id, true);
-		}
-	if (c > 0)
-		b = (c-1) * 10;
-	if (c == 0)
-		{
-    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
-    if (dia->exec())
-    	{
-			c = dia->Answer->text().toInt(&ok);
-			if (ok)
-				{
-				b = c;
-				if (TxFillSh == sender())
-					PM2->setText(dia->Answer->text()+" %");
-				else
-					PM1->setText(dia->Answer->text()+" %");
-				}
-			delete dia;
-      }
-     else
-     	{
-     	delete dia;
-     	return;
-     	}
-		}
-	if (TxFillSh == sender())
-		{
-		PM2->setText(QString::number(b)+" %");
-		doc->ActPage->ItemTextBrushS(b);
+		b = PM1->getValue();
+		doc->ActPage->ItemTextPenS(b);
 		doc->CurrTextFillSh = b;
 		}
 	else
 		{
-		PM1->setText(QString::number(b)+" %");
-		doc->ActPage->ItemTextPenS(b);
+		b = PM2->getValue();
+		doc->ActPage->ItemTextBrushS(b);
 		doc->CurrTextStrokeSh = b;
 		}
 	emit DocChanged();
@@ -2627,27 +2609,12 @@ void Mpalette::setActShade(int id)
 
 void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 {
-	uint a;
+	if (ScApp->ScriptRunning)
+		return;
 	CListe::Iterator it;
 	int c = 1;
-	for (a = 0; a < TxFillSh->count(); ++a)
-		{
-		TxFillSh->setItemChecked(TxFillSh->idAt(a), false);
-		}
-	for (a = 0; a < TxFillSh->count(); ++a)
-		{
-		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(a), false);
-		}
-	if ((shb % 10) == 0)
-		TxFillSh->setItemChecked(TxFillSh->idAt(shb/10+1), true);
-	else
-		TxFillSh->setItemChecked(TxFillSh->idAt(0), true);
-	PM2->setText(QString::number(shb)+" %");
-	if ((shp % 10) == 0)
-		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(shp/10+1), true);
-	else
-		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(0), true);
-	PM1->setText(QString::number(shp)+" %");
+	PM2->setValue(shb);
+	PM1->setValue(shp);
 	if ((b != "None") && (b != ""))
 		{
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -2673,8 +2640,10 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 
 void Mpalette::handleLock()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
-  	doc->ActPage->ToggleLock();
+		doc->ActPage->ToggleLock();
 }
 
 void Mpalette::handlePrint()
@@ -2696,6 +2665,8 @@ void Mpalette::ToggleFlow()
 
 void Mpalette::handlePathLine()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->PoShow = NormText2->isChecked();
@@ -2706,6 +2677,8 @@ void Mpalette::handlePathLine()
 
 void Mpalette::handlePathDist()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->Extra = Dist->value();
@@ -2718,6 +2691,8 @@ void Mpalette::handlePathDist()
 
 void Mpalette::handlePathOffs()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->BaseOffs = -LineW->value();
@@ -2730,6 +2705,8 @@ void Mpalette::handlePathOffs()
 
 void Mpalette::NewName()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	QString NameOld = CurItem->AnName;
 	QString NameNew = NameEdit->text();
 	bool found = false;
@@ -2766,6 +2743,8 @@ void Mpalette::NewName()
 
 void Mpalette::fillLangCombo(QMap<QString,QString> Sprachen)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	LangCombo->clear();
 	QMap<QString,QString>::Iterator it;
 	for (it = Sprachen.begin(); it != Sprachen.end(); ++it)

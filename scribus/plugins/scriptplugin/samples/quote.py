@@ -1,22 +1,13 @@
-#!/usr/bin/python
 # -*- coding: ISO-8859-1 -*-
-# DO NOT remove above line
 from scribus import *
-import os, re
+import re
 
-
+TITLE = "Text quoting"
+BUTTON_OK = 1
+ICON_INFORMATION = 1
+ICON_WARNING = 2
 QUOTE_START = "»"
 QUOTE_END = "«"
-
-
-
-def msgBox(msg):
-	# replace with "gdialog" or "xterm -e dialog" if needed
-	# it would be nice, if the plugin would provide a msgbox
-	# and a file selector
-	cmd = 'kdialog --msgbox "%s"'
-	os.system(cmd % msg)
-
 
 
 def quote(textobj):
@@ -55,7 +46,9 @@ if HaveDoc():
 			for obj in GetAllObjects():
 				changed += quote(obj)
 	SetRedraw(1)
-	msgBox("%s quotations changed" % changed)
+	RedrawAll()
+	MessageBox(TITLE, "%s quotations changed" % changed,
+			   ICON_INFORMATION, BUTTON_OK)
 	
 else:
-	msgBox("No document open")
+	msgBox(TITLE, "No document open", ICON_WARNING, BUTTON_OK)

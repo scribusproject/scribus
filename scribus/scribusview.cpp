@@ -33,6 +33,7 @@
 #include <qstringlist.h>
 #include <qimage.h>
 #include <qcstring.h>
+#include <qfileinfo.h>
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
@@ -1113,7 +1114,10 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										tsz = hl->csize * Doc->VHochSc / 100;
 									if (hl->cstyle & 2)
 										tsz = hl->csize * Doc->VHochSc / 100;
-									if (((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+									QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+									QString fext = fd.extension(false).lower();
+									if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
 										{
 										uint chr = chx[0].unicode();
 										if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
@@ -1607,7 +1611,10 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									tsz = hl->csize * Doc->VHochSc / 100;
 								if (hl->cstyle & 2)
 									tsz = hl->csize * Doc->VHochSc / 100;
-								if (((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+								QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+								QString fext = fd.extension(false).lower();
+								if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
 									{
 									uint chr = chx[0].unicode();
 									if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
@@ -1991,7 +1998,10 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									}
-								if (((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+								QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+								QString fext = fd.extension(false).lower();
+								if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
 									{
 									uint chr = chx[0].unicode();
 									if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))

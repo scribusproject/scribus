@@ -118,7 +118,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 		length=file.readBlock(tmp,65534);
 		if(length)
 			{
-			str+="\n<";
+			str+="\n<\n";
 			for (int j = 0; j < length; j++)
 				{
 				unsigned char u=tmp[posi];
@@ -140,7 +140,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 			linebuf[poso++]=0;
 			str += linebuf;
 			poso = 0;
-			str += "00>";
+			str += "00\n>";
 			}
 		}
 	while (length==65534);

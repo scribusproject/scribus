@@ -1,4 +1,11 @@
 Changes since Version 1.1.4
+25.01.2004	Added Font Effects and Colors to the Paragraph Styles.
+		Applied Craig's patches for better Precision.
+
+24.01.2004	Since there is a bad Bug in the Font embedding Functions all
+		TrueType Fonts are now subsetted.
+		Added a first Finnish Translation.
+
 22.01.2004	Updated Polish Translation.
 		Updated Python Scripts from Henning Schröder.
 

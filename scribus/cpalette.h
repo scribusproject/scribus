@@ -31,6 +31,7 @@
 #include <qlabel.h>
 #include <qspinbox.h>
 #include "scribusdoc.h"
+#include "shadebutton.h"
 
 /**
   *@author Franz Schmid
@@ -45,8 +46,7 @@ public:
 	QListBox *ListBox1;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
-	QToolButton *PM1;
-	QPopupMenu *ShaMenu;
+	ShadeButton *PM1;
 	QComboBox* GradCombo;
 	QButtonGroup* GradGroup;
 	QRadioButton* GrColor1;
@@ -81,7 +81,7 @@ public slots:
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void setActGradient(QString p, QString b, int shp, int shb, int typ);
 	int SetMen(int c);
-	void setActShade(int);
+	void setActShade();
 	void setActTrans(double, double);
 	void slotTrans(int val);
 	void UseTrans(bool b);

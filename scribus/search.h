@@ -17,6 +17,7 @@ class QPushButton;
 class MSpinBox;
 class FontCombo;
 class StyleSelect;
+class ShadeButton;
 
 class SearchReplace : public QDialog
 {
@@ -31,6 +32,8 @@ public:
     QGroupBox* Search;
     QCheckBox* SStroke;
     QCheckBox* SFill;
+    QCheckBox* SStrokeS;
+    QCheckBox* SFillS;
     QCheckBox* SSize;
     QCheckBox* SFont;
     QCheckBox* SStyle;
@@ -42,10 +45,14 @@ public:
     FontCombo* SFontVal;
     MSpinBox* SSizeVal;
     QComboBox* SFillVal;
+	ShadeButton *SFillSVal;
     QComboBox* SStrokeVal;
+	ShadeButton *SStrokeSVal;
     QGroupBox* Replace;
     QCheckBox* RStroke;
+    QCheckBox* RStrokeS;
     QCheckBox* RFill;
+    QCheckBox* RFillS;
     QCheckBox* RSize;
     QCheckBox* RFont;
     QCheckBox* RStyle;
@@ -55,7 +62,9 @@ public:
     FontCombo* RFontVal;
     MSpinBox* RSizeVal;
     QComboBox* RFillVal;
+	ShadeButton *RFillSVal;
     QComboBox* RStrokeVal;
+	ShadeButton *RStrokeSVal;
     StyleSelect* SEffVal;
     StyleSelect* REffVal;
     QCheckBox* Word;
@@ -79,14 +88,18 @@ public slots:
     virtual void enableSizeSearch();
 	virtual void enableEffSearch();
     virtual void enableFillSearch();
+    virtual void enableFillSSearch();
     virtual void enableStrokeSearch();
+    virtual void enableStrokeSSearch();
     virtual void enableTxReplace();
     virtual void enableStyleReplace();
     virtual void enableFontReplace();
     virtual void enableSizeReplace();
 	virtual void enableEffReplace();
     virtual void enableFillReplace();
+    virtual void enableFillSReplace();
     virtual void enableStrokeReplace();
+    virtual void enableStrokeSReplace();
 
 signals:
 	void NewFont(QString);

@@ -131,6 +131,23 @@ void MenuTest::slotTest()
 			}
 		}
 	QDir::setCurrent(CurDirP);
+	if (Carrier->HaveDoc)
+		{
+		Carrier->Mpal->SetDoc(Carrier->doc);
+		Carrier->Mpal->updateCList();
+		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
+		Carrier->Mpal->SetLineFormats(Carrier->doc);
+		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
+		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
+		Carrier->Tpal->BuildTree(Carrier->view);
+		Carrier->Sepal->SetView(Carrier->view);
+		Carrier->Sepal->Rebuild();
+		if (Carrier->doc->ActPage->SelItem.count() != 0)
+			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
+		else
+			Carrier->HaveNewSel(-1);
+		Carrier->doc->ActPage->repaint();
+		}
 }
 
 void MenuTest::RecentScript(int id)
@@ -149,10 +166,28 @@ void MenuTest::RecentScript(int id)
 		return;
 		}
 	slotRunScriptFile(fn);
+	if (Carrier->HaveDoc)
+		{
+		Carrier->Mpal->SetDoc(Carrier->doc);
+		Carrier->Mpal->updateCList();
+		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
+		Carrier->Mpal->SetLineFormats(Carrier->doc);
+		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
+		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
+		Carrier->Tpal->BuildTree(Carrier->view);
+		Carrier->Sepal->SetView(Carrier->view);
+		Carrier->Sepal->Rebuild();
+		if (Carrier->doc->ActPage->SelItem.count() != 0)
+			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
+		else
+			Carrier->HaveNewSel(-1);
+		Carrier->doc->ActPage->repaint();
+		}
 }
 
 void MenuTest::slotRunScriptFile(QString fileName)
 {
+	Carrier->ScriptRunning = true;
 	char* comm[1];
 	QFileInfo fi(fileName);
 	QCString na = fi.fileName().latin1();
@@ -169,10 +204,12 @@ void MenuTest::slotRunScriptFile(QString fileName)
 	PyRun_SimpleString(cmd.data());
 	Py_EndInterpreter(state);
 	PyEval_RestoreThread(stateo);
+	Carrier->ScriptRunning = false;
 }
 
 QString MenuTest::slotRunScript(QString Script)
 {
+	Carrier->ScriptRunning = true;
 	char* comm[1];
 	QString cm;
 	InValue = Script;
@@ -210,6 +247,7 @@ QString MenuTest::slotRunScript(QString Script)
 		}
 	else
 		pcon->OutWin->Prompt = "...";
+	Carrier->ScriptRunning = false;
 	return RetString;
 }
 
@@ -234,7 +272,22 @@ void MenuTest::slotExecute()
 	pcon->OutWin->scrollToBottom();
 	pcon->OutWin->ensureCursorVisible();
 	if (Carrier->HaveDoc)
+		{
+		Carrier->Mpal->SetDoc(Carrier->doc);
+		Carrier->Mpal->updateCList();
+		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
+		Carrier->Mpal->SetLineFormats(Carrier->doc);
+		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
+		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
+		Carrier->Tpal->BuildTree(Carrier->view);
+		Carrier->Sepal->SetView(Carrier->view);
+		if (Carrier->doc->ActPage->SelItem.count() != 0)
+			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
+		else
+			Carrier->HaveNewSel(-1);
+		Carrier->Sepal->Rebuild();
 		Carrier->doc->ActPage->repaint();
+		}
 }
 
 void MenuTest::ReadPlugPrefs()

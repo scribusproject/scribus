@@ -117,6 +117,7 @@ ScribusApp* ScApp;
 
 ScribusApp::ScribusApp(SplashScreen *splash)
 {
+	ScApp = this;
   setCaption( tr("Scribus " VERSION));
 	setKeyCompression(false);
   setIcon(loadIcon("AppIcon.png"));
@@ -192,6 +193,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   	{
   	HaveDoc = 0;
 		singleClose = false;
+		ScriptRunning = false;
 		view = NULL;
 		doc = NULL;
   	BuildFontMenu();
@@ -506,7 +508,6 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 	  typedef void (*HandlerType)(int);
 		HandlerType handler	= 0;
 		handler = ScribusApp::defaultCrashHandler;
-		ScApp = this;
 	  if (!handler)
 	    handler = SIG_DFL;
 	  sigset_t mask;
@@ -858,23 +859,37 @@ void ScribusApp::initStatusBar()
 void ScribusApp::ReportMP(double xp, double yp)
 {
 	QString tmp, tmp2;
+	int multiplier, precision;
+	double divisor;
 	switch (doc->Einheit)
 		{
 		case 0:
 			tmp2 = " pt";
+			multiplier = 100;
+			divisor = 100.0;
+			precision = 2;
 			break;
 		case 1:
 			tmp2 = " mm";
+			multiplier = 1000;
+			divisor = 1000.0;
+			precision = 3;
 			break;
 		case 2:
 			tmp2 = " in";
+			multiplier = 10000;
+			divisor = 10000.0;
+			precision = 4;
 			break;
 		case 3:
 			tmp2 = " p";
+			multiplier = 100;
+			divisor = 100.0;
+			precision = 2;
 			break;
 		}
-	XDat->setText(tmp.setNum(qRound(xp*UmReFaktor * 100) / 100.0, 'f', 2)+tmp2);
-	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * 100) / 100.0, 'f', 2)+tmp2);
+	XDat->setText(tmp.setNum(qRound(xp*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
+	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
 }
 
 void ScribusApp::SetKeyEntry(int Nr, QString text, int Men, int KeyC)
@@ -4712,9 +4727,23 @@ void ScribusApp::slotEditStyles()
 								{
 								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
 								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+								ite->Ptext.at(e)->cstyle &= ~127;
+								ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
+								ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
+								ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
+								ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
+								ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
 								}
 							else
+								{
+								ite->Ptext.at(e)->ccolor = ite->TxtFill;
+								ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+								ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 								ite->Ptext.at(e)->csize = ite->ISize;
+								ite->Ptext.at(e)->cstyle &= ~127;
+								ite->Ptext.at(e)->cstyle |= doc->CurrentStyle;
+								}
 							}
 						}
 					}
@@ -4734,9 +4763,23 @@ void ScribusApp::slotEditStyles()
 								{
 								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
 								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+								ite->Ptext.at(e)->cstyle &= ~127;
+								ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
+								ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
+								ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
+								ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
+								ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
 								}
 							else
+								{
+								ite->Ptext.at(e)->ccolor = ite->TxtFill;
+								ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+								ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 								ite->Ptext.at(e)->csize = ite->ISize;
+								ite->Ptext.at(e)->cstyle &= ~127;
+								ite->Ptext.at(e)->cstyle |= doc->CurrentStyle;
+								}
 							}
 						}
 					}

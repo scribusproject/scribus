@@ -205,6 +205,11 @@ struct StVorL {
 				QValueList<double> TabValues;
 				bool Drop;
 				int DropLin;
+				int FontEffect;
+				QString FColor;
+				int FShade;
+				QString SColor;
+				int SShade;
 			  };
 
 struct CMSset {

@@ -71,7 +71,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
     connect(Supers, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
     connect(Outlined, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
     resize(minimumSizeHint());
-	}
+}
 
 void StyleSelect::setStyle(int s)
 {

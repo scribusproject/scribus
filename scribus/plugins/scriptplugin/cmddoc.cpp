@@ -25,6 +25,7 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	rr = ValToPts(rr, unit);
 	btr = ValToPts(btr, unit);
 	bool ret = Carrier->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr);
+//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -55,7 +56,9 @@ PyObject *scribus_closedoc(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	Carrier->doc->setUnModified();
-	return PyInt_FromLong(static_cast<long>(Carrier->slotFileClose()));
+	bool ret = Carrier->slotFileClose();
+	qApp->processEvents();
+	return PyInt_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_havedoc(PyObject *self, PyObject* args)
@@ -71,6 +74,7 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	bool ret = Carrier->LadeDoc(QString(Name));
+//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -81,6 +85,7 @@ PyObject *scribus_savedoc(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	Carrier->slotFileSave();
+//	qApp->processEvents();
 	return PyInt_FromLong(0L);
 }
 
@@ -91,7 +96,9 @@ PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
-	return PyInt_FromLong(static_cast<long>(Carrier->DoFileSave(QString(Name))));
+	bool ret = Carrier->DoFileSave(QString(Name));
+//	qApp->processEvents();
+	return PyInt_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_setinfo(PyObject *self, PyObject* args)

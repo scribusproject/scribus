@@ -17,7 +17,6 @@
 
 #include "cpalette.h"
 #include "cpalette.moc"
-#include "query.h"
 extern QPixmap loadIcon(QString nam);
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
@@ -49,25 +48,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 	Mode = 2;
-	ShaMenu = new QPopupMenu();
-	ShaMenu->insertItem( tr("Other..."));
-	ShaMenu->insertItem("0 %");
-	ShaMenu->insertItem("10 %");
-	ShaMenu->insertItem("20 %");
-	ShaMenu->insertItem("30 %");
-	ShaMenu->insertItem("40 %");
-	ShaMenu->insertItem("50 %");
-	ShaMenu->insertItem("60 %");
-	ShaMenu->insertItem("70 %");
-	ShaMenu->insertItem("80 %");
-	ShaMenu->insertItem("90 %");
-	ShaMenu->insertItem("100 %");
-	PM1 = new QToolButton(this, "Colors");
-	PM1->setBackgroundMode(PaletteBackground);
-	PM1->setPopup(ShaMenu);
-	PM1->setPopupDelay(1);
-	PM1->setText("100 %");
-	PM1->setAutoRaise(true);
+	PM1 = new ShadeButton(this);
+	PM1->setValue(100);
 	Layout1->addWidget(PM1);
 	Form1Layout->addLayout(Layout1);
 
@@ -133,7 +115,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
 	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-	connect(ShaMenu, SIGNAL(activated(int)), this, SLOT(setActShade(int)));
+	connect(PM1, SIGNAL(clicked()), this, SLOT(setActShade()));
 	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(GrColor1, SIGNAL(clicked()), this, SLOT(slotColor()));
 	connect(GrColor2, SIGNAL(clicked()), this, SLOT(slotColor()));
@@ -249,10 +231,7 @@ void Cpalette::updateShade(int sh)
 	if ((sh % 10) == 0)
 		SetMen(sh/10+1);
 	else
-	{
 		SetMen(0);
-		PM1->setText(QString::number(sh)+" %");
-	}
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
@@ -381,41 +360,15 @@ void Cpalette::setActGradient(QString p, QString b, int shp, int shb, int typ)
 int Cpalette::SetMen(int c)
 {
 	int b = 0;
-	uint a;
-	for (a = 0; a < ShaMenu->count(); ++a)
-		ShaMenu->setItemChecked(ShaMenu->idAt(a), false);
-	ShaMenu->setItemChecked(ShaMenu->idAt(c), true);
 	if (c > 0)
 		b = (c-1) * 10;
-	PM1->setText(QString::number(b)+" %");
+	PM1->setValue(b);
 	return b;
 }
 
-void Cpalette::setActShade(int id)
+void Cpalette::setActShade()
 {
-	QString antw;
-	bool ok = false;
-	int c = ShaMenu->indexOf(id);
-	int b = SetMen(c);
-	if (c == 0)
-	{
-	    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
-    	if (dia->exec())
-    	{
-			c = dia->Answer->text().toInt(&ok);
-			if (ok)
-			{
-				b = c;
-				PM1->setText(dia->Answer->text()+" %");
-			}
-			delete dia;
-		}
-     	else
-     	{
-     		delete dia;
-     		return;
-     	}
-	}
+	int	b = PM1->getValue();
 	switch (Mode)
 	{
     	case 1:

@@ -15,8 +15,9 @@
 #include <qtooltip.h>
 #include <qimage.h>
 #include <qpixmap.h>
-// #include <iostream.h>
+#include "scribus.h"
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 Tree::Tree( QWidget* parent, WFlags fl )
     : QDialog( parent, "Tree", false, fl )
@@ -44,6 +45,8 @@ Tree::Tree( QWidget* parent, WFlags fl )
 
 void Tree::slotShowSelect(uint SNr, int Nr)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
@@ -57,6 +60,8 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 
 void Tree::slotRemoveElement(uint SNr, uint Nr)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	if (PageObj.count() != 0)
@@ -71,6 +76,8 @@ void Tree::slotRemoveElement(uint SNr, uint Nr)
 
 void Tree::slotUpdateElement(uint SNr, uint Nr)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	QString cc, xp, yp, fon;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
@@ -113,6 +120,8 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 
 void Tree::slotAddElement(uint SNr, uint Nr)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	PageObj.at(SNr)->Elemente.insert(Nr, new QListViewItem(Seiten.at(SNr), "Items"));
@@ -121,6 +130,8 @@ void Tree::slotAddElement(uint SNr, uint Nr)
 
 void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	QListViewItem* tmp = PageObj.at(SNr)->Elemente.take(NrOld);
@@ -129,6 +140,8 @@ void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
 
 void Tree::slotAddPage(uint Nr)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	QString cc;
 	if (ListView1->childCount() == 0)
 		return;
@@ -140,6 +153,8 @@ void Tree::slotAddPage(uint Nr)
 
 void Tree::slotDelPage(uint Nr)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (vie->Doc->TemplateMode)
 		return;
 	if (Seiten.count() != 0)
@@ -153,6 +168,8 @@ void Tree::slotDelPage(uint Nr)
 
 void Tree::rebuildPageD()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	QString cc;
 	for (uint e = 0; e < Seiten.count(); ++e)
 		{
@@ -162,6 +179,8 @@ void Tree::rebuildPageD()
 
 void Tree::reopenTree(QValueList<int> op)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	if (op.count() == 0)
 		return;
 	if (op[0] == 1)
@@ -192,6 +211,8 @@ QValueList<int> Tree::buildReopenVals()
 
 void Tree::slotSelect(QListViewItem* ite)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	int sref, oref;
 	if (vie->Doc->TemplateMode)
 		return;
@@ -230,6 +251,8 @@ void Tree::resizeEvent(QResizeEvent *r)
 
 void Tree::BuildTree(ScribusView *view)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	uint a, b;
 	QString cc;
 	PageObj.clear();

@@ -29,7 +29,9 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
-	return PyInt_FromLong(static_cast<long>(Carrier->DoSaveAsEps(QString(Name))));
+	bool ret = Carrier->DoSaveAsEps(QString(Name));
+//	qApp->processEvents();
+	return PyInt_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_deletepage(PyObject *self, PyObject* args)
@@ -44,6 +46,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
 		return Py_None;
 	Carrier->DeletePage2(e);
+//	qApp->processEvents();
 	return Py_None;
 }
 
@@ -59,6 +62,7 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
 		return Py_None;
 	Carrier->view->GotoPage(e);
+//	qApp->processEvents();
 	return Py_None;
 }
 
@@ -80,6 +84,7 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 			return Py_None;
 		Carrier->slotNewPageP(e, QString(name));
 		}
+//	qApp->processEvents();
 	return Py_None;
 }
 

@@ -97,10 +97,15 @@ void StilFormate::dupFormat()
    	sty.TabValues = TempVorl[sFnumber].TabValues;
    	sty.Drop = TempVorl[sFnumber].Drop;
    	sty.DropLin = TempVorl[sFnumber].DropLin;
+   	sty.FontEffect = TempVorl[sFnumber].FontEffect;
+	sty.FColor = TempVorl[sFnumber].FColor;
+	sty.FShade = TempVorl[sFnumber].FShade;
+	sty.SColor = TempVorl[sFnumber].SColor;
+	sty.SShade = TempVorl[sFnumber].SShade;
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
-									static_cast<double>(Docu->AutoLine), Docu->Einheit);
+									static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
    	delete dia2;
@@ -122,10 +127,15 @@ void StilFormate::neuesFormat()
 	sty.TabValues.clear();
    	sty.Drop = false;
    	sty.DropLin = 2;
+	sty.FontEffect = 0;
+	sty.FColor = Docu->Dbrush;
+	sty.FShade = Docu->Dshade;
+	sty.SColor = Docu->Dpen;
+	sty.SShade = Docu->Dshade2;
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
-									static_cast<double>(Docu->AutoLine), Docu->Einheit);
+									static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
    	delete dia2;
@@ -135,7 +145,7 @@ void StilFormate::neuesFormat()
 void StilFormate::editFormat()
 {
 	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon,
-									static_cast<double>(Docu->AutoLine), Docu->Einheit);
+									static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
 	dia->exec();
 	delete dia;
 	UpdateFList();
@@ -195,6 +205,11 @@ void StilFormate::loadStyles()
    					sty.TabValues = ss->Vorlagen[xx].TabValues;
    					sty.Drop = TempVorl[xx].Drop;
   	 				sty.DropLin = TempVorl[xx].DropLin;
+  	 				sty.FontEffect = TempVorl[xx].FontEffect;
+					sty.FColor = TempVorl[xx].FColor;
+					sty.FShade = TempVorl[xx].FShade;
+					sty.SColor = TempVorl[xx].SColor;
+					sty.SShade = TempVorl[xx].SShade;
 				   	TempVorl.append(sty);
 				}
 			}

@@ -16,6 +16,7 @@
 #include "fontcombo.h"
 #include "page.h"
 #include "styleselect.h"
+#include "shadebutton.h"
 extern QPixmap loadIcon(QString nam);
 
 
@@ -67,9 +68,17 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     SFill->setText( tr( "Fill Color" ) );
     SearchLayout->addWidget( SFill, 5, 0 );
 
+    SFillS = new QCheckBox( Search, "SFillS" );
+    SFillS->setText( tr( "Fill Shade" ) );
+    SearchLayout->addWidget( SFillS, 6, 0 );
+
     SStroke = new QCheckBox( Search, "SStroke" );
     SStroke->setText( tr( "Stroke Color" ) );
-    SearchLayout->addWidget( SStroke, 6, 0 );
+    SearchLayout->addWidget( SStroke, 7, 0 );
+
+    SStrokeS = new QCheckBox( Search, "SStrokeS" );
+    SStrokeS->setText( tr( "Stroke Shade" ) );
+    SearchLayout->addWidget( SStrokeS, 8, 0 );
 
     STextVal = new QLineEdit( Search, "STextVal" );
 	STextVal->setEnabled(false);
@@ -121,6 +130,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	SFillVal->setEnabled(false);
     SearchLayout->addWidget( SFillVal, 5, 1 );
 
+	SFillSVal = new ShadeButton(Search);
+	SFillSVal->setEnabled(false);
+    SearchLayout->addWidget( SFillSVal, 6, 1, Qt::AlignLeft );
+
     SStrokeVal = new QComboBox( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
 	SStrokeVal->insertItem( tr("None"));
@@ -131,7 +144,11 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	}
 	SStrokeVal->setCurrentText(doc->CurrTextStroke);
 	SStrokeVal->setEnabled(false);
-    SearchLayout->addWidget( SStrokeVal, 6, 1 );
+    SearchLayout->addWidget( SStrokeVal, 7, 1 );
+
+	SStrokeSVal =  new ShadeButton(Search);
+	SStrokeSVal->setEnabled(false);
+    SearchLayout->addWidget( SStrokeSVal, 8, 1, Qt::AlignLeft );
 
     SelLayout->addWidget( Search );
 
@@ -167,9 +184,17 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     RFill->setText( tr( "Fill Color" ) );
     ReplaceLayout->addWidget( RFill, 5, 0 );
 
+    RFillS = new QCheckBox( Replace, "RFillS" );
+    RFillS->setText( tr( "Fill Shade" ) );
+    ReplaceLayout->addWidget( RFillS, 6, 0 );
+
     RStroke = new QCheckBox( Replace, "RStroke" );
     RStroke->setText( tr( "Stroke Color" ) );
-    ReplaceLayout->addWidget( RStroke, 6, 0 );
+    ReplaceLayout->addWidget( RStroke, 7, 0 );
+
+    RStrokeS = new QCheckBox( Replace, "RStrokeS" );
+    RStrokeS->setText( tr( "Stroke Shade" ) );
+    ReplaceLayout->addWidget( RStrokeS, 8, 0 );
 
     RTextVal = new QLineEdit( Replace, "RTextVal" );
 	RTextVal->setEnabled(false);
@@ -219,6 +244,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	RFillVal->setEnabled(false);
     ReplaceLayout->addWidget( RFillVal, 5, 1 );
 
+	RFillSVal = new ShadeButton(Replace);
+	RFillSVal->setEnabled(false);
+    ReplaceLayout->addWidget( RFillSVal, 6, 1, Qt::AlignLeft );
+
     RStrokeVal = new QComboBox( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
 	RStrokeVal->insertItem( tr("None"));
@@ -229,7 +258,11 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	}
 	RStrokeVal->setCurrentText(doc->CurrTextStroke);
 	RStrokeVal->setEnabled(false);
-    ReplaceLayout->addWidget( RStrokeVal, 6, 1 );
+    ReplaceLayout->addWidget( RStrokeVal, 7, 1 );
+
+	RStrokeSVal = new ShadeButton(Replace);;
+	RStrokeSVal->setEnabled(false);
+    ReplaceLayout->addWidget( RStrokeSVal, 8, 1, Qt::AlignLeft );
 
     SelLayout->addWidget( Replace );
     SearchReplaceLayout->addLayout( SelLayout );
@@ -282,6 +315,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     connect( SSize, SIGNAL( clicked() ), this, SLOT( enableSizeSearch() ) );
     connect( SEffect, SIGNAL( clicked() ), this, SLOT( enableEffSearch() ) );
     connect( SFill, SIGNAL( clicked() ), this, SLOT( enableFillSearch() ) );
+    connect( SFillS, SIGNAL( clicked() ), this, SLOT( enableFillSSearch() ) );
+    connect( SStrokeS, SIGNAL( clicked() ), this, SLOT( enableStrokeSSearch() ) );
     connect( SStroke, SIGNAL( clicked() ), this, SLOT( enableStrokeSearch() ) );
     connect( RText, SIGNAL( clicked() ), this, SLOT( enableTxReplace() ) );
     connect( RStyle, SIGNAL( clicked() ), this, SLOT( enableStyleReplace() ) );
@@ -290,6 +325,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     connect( REffect, SIGNAL( clicked() ), this, SLOT( enableEffReplace() ) );
     connect( RFill, SIGNAL( clicked() ), this, SLOT( enableFillReplace() ) );
     connect( RStroke, SIGNAL( clicked() ), this, SLOT( enableStrokeReplace() ) );
+    connect( RFillS, SIGNAL( clicked() ), this, SLOT( enableFillSReplace() ) );
+    connect( RStrokeS, SIGNAL( clicked() ), this, SLOT( enableStrokeSReplace() ) );
 
     // tab order
     setTabOrder( SText, SStyle );
@@ -350,10 +387,13 @@ void SearchReplace::slotDoSearch()
 	int sStyle = 0;
 	int sSize = 0;
 	int sEff = 0;
+	int sFillSh = 100;
+	int sStrokeSh = 100;
 	bool rep = false;
 	bool found = true;
 	if ((RFill->isChecked()) || (RStroke->isChecked()) || (RStyle->isChecked()) || (RFont->isChecked())
-		|| (RSize->isChecked()) || (RText->isChecked()) || (REffect->isChecked()))
+		|| (RStrokeS->isChecked()) || (RFillS->isChecked()) || (RSize->isChecked()) || (RText->isChecked())
+		|| (REffect->isChecked()))
 		rep = true;
 	if (SText->isChecked())
 		sText = STextVal->text();
@@ -363,8 +403,12 @@ void SearchReplace::slotDoSearch()
 		sEff = SEffVal->getStyle();
 	if (SFill->isChecked())
 		fCol = SFillVal->currentText();
+	if (SFillS->isChecked())
+		sFillSh = SFillSVal->getValue();
 	if (SStroke->isChecked())
 		sCol = SStrokeVal->currentText();
+	if (SStrokeS->isChecked())
+		sStrokeSh = SStrokeSVal->getValue();
 	if (SFont->isChecked())
 		sFont = SFontVal->currentText();
 	if (SStyle->isChecked())
@@ -376,7 +420,8 @@ void SearchReplace::slotDoSearch()
 	uint inde = 0;
 	uint as = Item->CPos;
 	ReplStart = as;
-	for (uint a = as; a < Item->Ptext.count(); ++a)
+	uint a;
+	for (a = as; a < Item->Ptext.count(); ++a)
 	{
 		if (SText->isChecked())
 		{
@@ -408,7 +453,17 @@ void SearchReplace::slotDoSearch()
 		{
 			if (Item->Ptext.at(a)->cstroke != sCol)
 				found = false;
-			}
+		}
+		if (SStrokeS->isChecked())
+		{
+			if (Item->Ptext.at(a)->cshade2 != sStrokeSh)
+				found = false;
+		}
+		if (SFillS->isChecked())
+		{
+			if (Item->Ptext.at(a)->cshade != sFillSh)
+				found = false;
+		}
 		if (SEffect->isChecked())
 			{
 			if ((Item->Ptext.at(a)->cstyle & 127) != sEff)
@@ -468,7 +523,7 @@ void SearchReplace::slotDoSearch()
 			inde = 0;
 		}
 	}
-	if (!found)
+	if ((!found) || (a == Item->Ptext.count()))
 	{
 		Doc->DoDrawing = true;
 		Doc->ActPage->RefreshItem(Item, true);
@@ -537,6 +592,7 @@ void SearchReplace::slotDoReplace()
 					{
 						hg->cfont = Doc->Vorlagen[hg->cab].Font;
 						hg->csize = Doc->Vorlagen[hg->cab].FontSize;
+						hg->cstyle = Doc->Vorlagen[hg->cab].FontEffect;
 					}
 					if (RFont->isChecked())
 						hg->cfont = RFontVal->currentText();
@@ -566,8 +622,12 @@ void SearchReplace::slotDoReplace()
 		emit NewAbs(RStyleVal->currentItem());
 	if (RFill->isChecked())
 		Doc->ActPage->ItemTextBrush(RFillVal->currentText());
+	if (RFillS->isChecked())
+		Doc->ActPage->ItemTextBrushS(RFillSVal->getValue());
 	if (RStroke->isChecked())
 		Doc->ActPage->ItemTextPen(RStrokeVal->currentText());
+	if (RStrokeS->isChecked())
+		Doc->ActPage->ItemTextPenS(RStrokeSVal->getValue());
 	if (RFont->isChecked())
 		emit NewFont(RFontVal->currentText());
 	if (RSize->isChecked())
@@ -642,9 +702,19 @@ void SearchReplace::enableFillSearch()
 	SFillVal->setEnabled(SFill->isChecked());
 }
 
+void SearchReplace::enableFillSSearch()
+{
+	SFillSVal->setEnabled(SFillS->isChecked());
+}
+
 void SearchReplace::enableStrokeSearch()
 {
 	SStrokeVal->setEnabled(SStroke->isChecked());
+}
+
+void SearchReplace::enableStrokeSSearch()
+{
+	SStrokeSVal->setEnabled(SStrokeS->isChecked());
 }
 
 void SearchReplace::enableTxReplace()
@@ -677,8 +747,18 @@ void SearchReplace::enableFillReplace()
 	RFillVal->setEnabled(RFill->isChecked());
 }
 
+void SearchReplace::enableFillSReplace()
+{
+	RFillSVal->setEnabled(RFillS->isChecked());
+}
+
 void SearchReplace::enableStrokeReplace()
 {
 	RStrokeVal->setEnabled(RStroke->isChecked());
+}
+
+void SearchReplace::enableStrokeSReplace()
+{
+	RStrokeSVal->setEnabled(RStrokeS->isChecked());
 }
 

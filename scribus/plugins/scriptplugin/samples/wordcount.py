@@ -1,16 +1,13 @@
-#!/usr/bin/python
 # -*- coding: ISO-8859-1 -*-
-# DO NOT remove above line
 from scribus import *
-import os, re
+import re
 
 
-def msgBox(msg):
-	# replace with "gdialog" or "xterm -e dialog" if needed
-	# it would be nice, if the plugin would provide a msgbox
-	# and a file selector
-	cmd = 'kdialog --msgbox "%s"'
-	os.system(cmd % msg)
+TITLE = "Word count"
+BUTTON_OK = 1
+ICON_INFORMATION = 1
+ICON_WARNING = 2
+
 
 
 def wordsplit(text):
@@ -22,9 +19,7 @@ def wordsplit(text):
 	return words
 
 
-
 if HaveDoc():
-	
 	words = 0
 	sel_count = SelectionCount()
 	if sel_count:
@@ -42,7 +37,8 @@ if HaveDoc():
 				words += len(wordsplit(text))
 				
 	if words == 0: words = "No"	
-	msgBox("%s words counted in %s" % (words, source))
+	MessageBox(TITLE, "%s words counted in %s" % (words, source),
+			   ICON_INFORMATION, BUTTON_OK)
 
 else:
-	msgBox("Not document open")
+	MessageBox(TITLE, "Not document open", ICON_WARNING, BUTTON_OK)

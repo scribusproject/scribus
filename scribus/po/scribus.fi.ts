@@ -916,7 +916,7 @@
     </message>
     <message>
         <source>Template:</source>
-        <translation>Mallipohja:</translation>
+        <translation>Sivumalli:</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -924,7 +924,7 @@
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaali</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Apply from Page:</source>
@@ -932,7 +932,7 @@
     </message>
     <message>
         <source>Apply Template</source>
-        <translation>Käytä mallipohjaa</translation>
+        <translation>Käytä sivumallia</translation>
     </message>
     <message>
         <source>Apply to Current Page</source>
@@ -1719,7 +1719,7 @@ joka voidaa määritellä asetuksissa.</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
-        <translation>Pystysuorat välit</translation>
+        <translation>Välistys</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -1743,7 +1743,7 @@ joka voidaa määritellä asetuksissa.</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Sarakkeet...</translation>
+        <translation>Sarkaimet...</translation>
     </message>
 </context>
 <context>
@@ -2072,7 +2072,7 @@ joka voidaa määritellä asetuksissa.</translation>
     </message>
     <message>
         <source>Possible Hyphenation</source>
-        <translation>Mahdolliset tavutukset</translation>
+        <translation>Mahdollinen tavutus</translation>
     </message>
 </context>
 <context>
@@ -2087,7 +2087,7 @@ joka voidaa määritellä asetuksissa.</translation>
     </message>
     <message>
         <source>Hyphenator Settings</source>
-        <translation>Tavuttajan asetukset</translation>
+        <translation>Tavutuksen asetukset</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2128,11 +2128,11 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>Template (Left Page):</source>
-        <translation>Mallipohja (vasen sivu):</translation>
+        <translation>Sivumalli (vasen sivu):</translation>
     </message>
     <message>
         <source>Template:</source>
-        <translation>Mallipohja:</translation>
+        <translation>Sivumalli:</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2140,7 +2140,7 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Tavallinen</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>page(s)</source>
@@ -2168,7 +2168,7 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
-        <translation>Mallipohja (oikea sivu):</translation>
+        <translation>Sivumalli (oikea sivu):</translation>
     </message>
 </context>
 <context>
@@ -2226,7 +2226,7 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>User Defined Key</source>
-        <translation>Käytäjän määrittämät näppäimet</translation>
+        <translation>Käyttäjän määrittämä oikopolku</translation>
     </message>
     <message>
         <source>Action</source>
@@ -2238,7 +2238,7 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>No Key</source>
-        <translation>Ei näppäintä</translation>
+        <translation>Ei oikopolkua</translation>
     </message>
     <message>
         <source>Shift+</source>
@@ -2258,7 +2258,7 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
-        <translation>Valitse näppäin tälle toiminnolle</translation>
+        <translation>Valitse näppäinoikopolku toiminnolle</translation>
     </message>
     <message>
         <source>This Key-Sequence is already in use</source>
@@ -2643,7 +2643,7 @@ Corners:</source>
     </message>
     <message>
         <source>Flip horizontal</source>
-        <translation>Käännä vaakasuorassa</translation>
+        <translation>Käännä vaakasuunnassa</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
@@ -2655,7 +2655,7 @@ Corners:</source>
     </message>
     <message>
         <source>Flip vertical</source>
-        <translation>Käännä pystysuorassa</translation>
+        <translation>Käännä pystysuunnassa</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
@@ -2945,7 +2945,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Sarakkeet...</translation>
+        <translation>Sarkaimet...</translation>
     </message>
     <message>
         <source>X-Pos.:</source>
@@ -3093,7 +3093,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Haluatko poistaa tämän Mallipohjan?</translation>
+        <translation>Haluatko poistaa tämän sivumallin?</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -3105,7 +3105,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>New Template</source>
-        <translation>Uusi mallipohja</translation>
+        <translation>Uusi sivumalli</translation>
     </message>
     <message>
         <source>Edit Templates</source>
@@ -3192,7 +3192,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Picaa (p)</translation>
+        <translation>Picat (p)</translation>
     </message>
     <message>
         <source>Left Page first</source>
@@ -3430,7 +3430,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>minne:</translation>
+        <translation>mihin:</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -3758,7 +3758,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Output intended for:</source>
-        <translation>Tuloste tarkoitettu:</translation>
+        <translation>Tuloste on tarkoitettu:</translation>
     </message>
     <message>
         <source>Info String:</source>
@@ -4172,7 +4172,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation>GUI</translation>
+        <translation>Käyttöliittymä</translation>
     </message>
     <message>
         <source>min</source>
@@ -4204,15 +4204,15 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation>Polut</translation>
+        <translation>Hakemistot</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Muu</translation>
+        <translation>Muut</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Sisällä:</translation>
+        <translation>Sisäpuoli:</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -4240,11 +4240,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Minor Grid Color:</source>
-        <translation>Pikkuruudukon väri:</translation>
+        <translation>Apuruudukon väri:</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
-        <translation>Näppäimistön oikopolut...</translation>
+        <translation>Näppäinoikopolut...</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -4252,7 +4252,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Pyöreä monikulmio</translation>
+        <translation>Kupera monikulmio</translation>
     </message>
     <message>
         <source>Page-Colors</source>
@@ -4276,7 +4276,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Vertical Scaling</source>
-        <translation>Vaakasuora skaalaus</translation>
+        <translation>Pystysuora skaalaus</translation>
     </message>
     <message>
         <source>Display Frames</source>
@@ -4292,7 +4292,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Disp.:</source>
-        <translation>Näyttö:</translation>
+        <translation>Siirtymä:</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -4544,7 +4544,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
-        <translation>Pikkuruudukon välistys:</translation>
+        <translation>Apuruudukon välistys:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
@@ -4900,7 +4900,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Ryhmä</translation>
+        <translation>Muodosta ryhmä</translation>
     </message>
     <message>
         <source>Lower</source>
@@ -5272,7 +5272,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation>Lueataan leikekirjaa</translation>
+        <translation>Luetaan leikekirjaa</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS-Images</source>
@@ -5280,7 +5280,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Hyphenator...</source>
-        <translation>Tavuttaja...</translation>
+        <translation>Tavutus...</translation>
     </message>
     <message>
         <source>Document Setup...</source>
@@ -5324,7 +5324,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Apply Template...</source>
-        <translation>Käytä mallipohjaa...</translation>
+        <translation>Käytä sivumallia...</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -5472,7 +5472,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Templates...</source>
-        <translation>Mallipohjat...</translation>
+        <translation>Sivumallit...</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -5528,7 +5528,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Init Hyphenator</source>
-        <translation>Alusta tavuttaja</translation>
+        <translation>Alusta tavutus</translation>
     </message>
     <message>
         <source>Save Text...</source>
@@ -5570,7 +5570,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Sarakkeet...</translation>
+        <translation>Sarkaimet...</translation>
     </message>
     <message>
         <source>All Files (*)</source>
@@ -5653,7 +5653,7 @@ muulloin suhteessa kohteeseen.</translation>
     <name>SeView</name>
     <message>
         <source>Show Template Names</source>
-        <translation>Näytä mallipohjien nimet</translation>
+        <translation>Näytä sivumallien nimet</translation>
     </message>
 </context>
 <context>
@@ -5743,7 +5743,7 @@ muulloin suhteessa kohteeseen.</translation>
     <name>SeitenPal</name>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation>Tämä näyttää esikatselun kaikista dokumenttisi sivuista.</translation>
+        <translation>Tässä näet esikatselun kaikista dokumenttisi sivuista.</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -5752,12 +5752,12 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
-        <translation>Tässä on kaikki mallipohjasi. Luodaksesi uuden sivun
-raahaa pohja sivualueelle alhaalla.</translation>
+        <translation>Tässä on kaikki sivumallisi. Luodaksesi uuden sivun
+raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Available Templates:</source>
-        <translation>Käytettävät mallipohjat:</translation>
+        <translation>Sivumallit:</translation>
     </message>
     <message>
         <source>Left Page first</source>
@@ -5765,7 +5765,7 @@ raahaa pohja sivualueelle alhaalla.</translation>
     </message>
     <message>
         <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation>Raahaa sivu tai mallipohja roskakoriin tuhotaksesi sen.</translation>
+        <translation>Raahaa sivu tai sivumalli roskakoriin tuhotaksesi sen.</translation>
     </message>
     <message>
         <source>Facing Pages</source>
@@ -6059,7 +6059,7 @@ raahaa pohja sivualueelle alhaalla.</translation>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
-        <translation>Sarakkeiden hallinta</translation>
+        <translation>Sarkainten hallinta</translation>
     </message>
     <message>
         <source>Position:</source>

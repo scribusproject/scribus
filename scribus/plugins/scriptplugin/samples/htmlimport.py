@@ -1,13 +1,11 @@
 from scribus import *
-
 from sgmllib import SGMLParser
 from htmlentitydefs import entitydefs
-import os
 
 
-DEFAULT_SIZE = 10
-HEADERS = {'h1': 48, 'h2': 36, 'h3': 24,
-		   'h4': 18, 'h5': 14, 'h6': 12 }
+TITLE = "Import HTML"
+BUTTON_OK = 1
+ICON_WARNING = 2
 NEWLINE = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6',
 		   'br', 'p', 'li', 'div', 'tr']
 
@@ -18,7 +16,9 @@ class HTMLParser(SGMLParser):
 		SGMLParser.__init__(self)
 		self.in_body = 0
 		self.textbox = textbox
-		self.textbox.setSize(DEFAULT_SIZE)
+
+	def append(self, text):
+		InsertText(text, GetTextLength(self.textbox), self.textbox)
 
 	def start_body(self, attrs):
 		self.in_body = 1
@@ -28,15 +28,11 @@ class HTMLParser(SGMLParser):
 
 	def unknown_starttag(self, name, attrs):
 		if name in NEWLINE:
-			self.textbox.append('\n')		
-		if name in HEADERS.keys():
-			self.textbox.setSize(HEADERS[name])
+			self.append('\n')		
 			
 	def unknown_endtag(self, name):
-		if name in HEADERS.keys():
-			self.textbox.setSize(DEFAULT_SIZE)
 		if name in NEWLINE:
-			self.textbox.append('\n')
+			self.append('\n')
 
 	def handle_data(self, raw_data):
 		if self.in_body:
@@ -46,52 +42,25 @@ class HTMLParser(SGMLParser):
 				data = ' ' + data
 			if raw_data.endswith(' ') and len(raw_data) > 1:
 				data = data + ' '
-			self.textbox.append(data)
+			self.append(data)
 
 	def unknown_entityref(self, entity):
 		self.handle_data(entitydefs.get(entity, ''))
 
-
-
-def openFileDialog():
-	cmd = 'kdialog --getopenfilename "." "*.html|*.htm"'
-	pipe = os.popen(cmd)
-	filename = pipe.read()[:-1]
-	pipe.close()
-	return filename
-
-
-def messageBox(msg):
-	cmd = 'kdialog --msgbox "%s"' % msg
-	os.system(cmd)
-	
-	
-class TextBox:
-
-	def __init__(self, x, y, width, height):
-		self.boxid = CreateText(x, y, width, height)
-
-	def setSize(self, size):
-		# XXX: disabled, doesn't work like expected
-		pass #SetFontSize(size, self.boxid)
-
-	def append(self, text):
-		InsertText(text, GetTextLength(self.boxid),
-				   self.boxid)		
 		
 
 
 
-def main():
-	if HaveDoc():
-		filename = openFileDialog()
-		if filename:
-			SetUnit(1)
-			textbox = TextBox(20, 20, 70, 250)
-			parser = HTMLParser(textbox)
-			parser.feed(open(filename).read())
-	else:
-		messageBox("No document selected")
+if HaveDoc():
+	filename = FileDialog(TITLE, "*.htm*", "", 0, 1)
+	if filename:
+		unit = GetUnit()
+		SetUnit(Millimeters)
+		textbox = CreateText(20, 20, 70, 250)
+		parser = HTMLParser(textbox)
+		parser.feed(open(filename).read())
+		SetUnit(unit)
+else:
+	MessageBox(TITLE, "No document open", ICON_WARNING, BUTTON_OK)
 
 
-main()

@@ -5991,9 +5991,23 @@ void Page::chAbStyle(PageItem *b, int s)
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					nb->Ptext.at(a)->cstyle &= ~127;
+					nb->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
+					nb->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
+					nb->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
+					nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
+					nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
 				else
+					{
+					nb->Ptext.at(a)->ccolor = nb->TxtFill;
+					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
+					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
+					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
 					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->cstyle &= ~127;
+					nb->Ptext.at(a)->cstyle |= doku->CurrentStyle;
+					}
 				a--;
 				}
 			if (cr)
@@ -6017,9 +6031,23 @@ void Page::chAbStyle(PageItem *b, int s)
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					nb->Ptext.at(a)->cstyle &= ~127;
+					nb->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
+					nb->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
+					nb->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
+					nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
+					nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
 				else
+					{
+					nb->Ptext.at(a)->ccolor = nb->TxtFill;
+					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
+					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
+					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
 					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->cstyle &= ~127;
+					nb->Ptext.at(a)->cstyle |= doku->CurrentStyle;
+					}
 				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
 					cr = false;
@@ -6046,9 +6074,23 @@ void Page::chAbStyle(PageItem *b, int s)
 					{
 					b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					b->Ptext.at(a)->cstyle &= ~127;
+					b->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
+					b->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
+					b->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
+					b->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
+					b->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
 				else
+					{
+					b->Ptext.at(a)->ccolor = b->TxtFill;
+					b->Ptext.at(a)->cshade = b->ShTxtFill;
+					b->Ptext.at(a)->cstroke = b->TxtStroke;
+					b->Ptext.at(a)->cshade2 = b->ShTxtStroke;
 					b->Ptext.at(a)->csize = b->ISize;
+					b->Ptext.at(a)->cstyle &= ~127;
+					b->Ptext.at(a)->cstyle |= doku->CurrentStyle;
+					}
 				}
 			}
 		}

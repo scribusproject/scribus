@@ -44,10 +44,29 @@ void* Run(QWidget *d, preV *Vor)
 Preferences::Preferences( QWidget* parent, preV *Vor)
     : QDialog( parent, "pref", true, 0 )
 {
+	int decimals;
     fon = &Vor->AvailFonts;
 		ap = (ScribusApp*)parent;
     Umrech = 1.0;
     Einheit = ap->HaveDoc ? ap->doc->Einheit : Vor->Einheit;
+
+	switch (Einheit)
+		{
+		case 0:
+			decimals = 100;
+			break;
+		case 1:
+			decimals = 1000;
+			break;
+		case 2:
+			decimals = 10000;
+			break;
+		case 3:
+			decimals = 100;
+			break;
+		}
+
+
 		DisScale = Vor->DisScale;
     KKC = Vor->KeyActions;
     setCaption( tr( "Preferences" ) );
@@ -303,9 +322,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GZText3->setText( tr( "Width:" ) );
     Layout5_2->addWidget( GZText3 );
 
-		Breite = new MSpinBox( GroupSize, 2 );
+		Breite = new MSpinBox( GroupSize, 4 );
     Breite->setEnabled( false );
     Breite->setMinimumSize( QSize( 70, 20 ) );
+	Breite->setDecimals( decimals );
     Breite->setMaxValue( 10000 );
     Breite->setMinValue( 1 );
     Layout5_2->addWidget( Breite );
@@ -314,9 +334,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GZText4->setText( tr( "Height:" ) );
     Layout5_2->addWidget( GZText4 );
 
-		Hoehe = new MSpinBox( GroupSize, 2 );
+		Hoehe = new MSpinBox( GroupSize, 4 );
     Hoehe->setEnabled( false );
     Hoehe->setMinimumSize( QSize( 70, 20 ) );
+	Hoehe->setDecimals( decimals );
     Hoehe->setMaxValue( 10000 );
     Hoehe->setMinValue( 1 );
     Layout5_2->addWidget( Hoehe );
@@ -348,29 +369,33 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupRandLayout = new QGridLayout( GroupRand->layout() );
     GroupRandLayout->setAlignment( Qt::AlignTop );
 
-		TopR = new MSpinBox( GroupRand, 2 );
+		TopR = new MSpinBox( GroupRand, 4 );
     TopR->setMinimumSize( QSize( 70, 20 ) );
+	TopR->setDecimals( decimals );
     TopR->setMaxValue( 1000 );
     TopR->setMinValue( 0 );
     TopR->setValue(Vor->RandOben * Umrech);
 		RandT = Vor->RandOben;
     GroupRandLayout->addWidget( TopR, 0, 1 );
-    BottomR = new MSpinBox( GroupRand, 2 );
+    BottomR = new MSpinBox( GroupRand, 4 );
     BottomR->setMinimumSize( QSize( 70, 20 ) );
+	BottomR->setDecimals( decimals );
     BottomR->setMaxValue( 1000 );
     BottomR->setMinValue( 0 );
     BottomR->setValue(Vor->RandUnten * Umrech);
 		RandB = Vor->RandUnten;
     GroupRandLayout->addWidget( BottomR, 1, 1 );
-    RightR = new MSpinBox( GroupRand, 2 );
+    RightR = new MSpinBox( GroupRand, 4 );
     RightR->setMinimumSize( QSize( 70, 20 ) );
+	RightR->setDecimals( decimals );
     RightR->setMaxValue( 1000 );
     RightR->setMinValue( 0 );
     RightR->setValue(Vor->RandRechts * Umrech);
 		RandR = Vor->RandRechts;
     GroupRandLayout->addWidget( RightR, 1, 3 );
-    LeftR = new MSpinBox( GroupRand, 2 );
+    LeftR = new MSpinBox( GroupRand, 4 );
     LeftR->setMinimumSize( QSize( 70, 20 ) );
+	LeftR->setDecimals( decimals );
     LeftR->setMaxValue( 1000 );
     LeftR->setMinValue( 0 );
     LeftR->setValue(Vor->RandLinks * Umrech);
@@ -444,11 +469,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     TextLabel2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel2->sizePolicy().hasHeightForWidth() ) );
     TextLabel2->setText( tr( "Major Grid Spacing:" ) );
     Layout10->addWidget( TextLabel2, 1, 0 );
-    SpinBox1 = new MSpinBox( GroupBox1, 2 );
+    SpinBox1 = new MSpinBox( GroupBox1, 4 );
+	SpinBox1->setDecimals( decimals );
     SpinBox1->setMaxValue( 1000 );
     SpinBox1->setMinValue( 1 );
     Layout10->addWidget( SpinBox1, 0, 1 );
-    SpinBox2 = new MSpinBox( GroupBox1, 2 );
+    SpinBox2 = new MSpinBox( GroupBox1, 4 );
+	SpinBox2->setDecimals( decimals );
     SpinBox2->setMaxValue( 1000 );
     SpinBox2->setMinValue( 10 );
     Layout10->addWidget( SpinBox2, 1, 1 );
@@ -456,7 +483,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     TextLabel2g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel2->sizePolicy().hasHeightForWidth() ) );
     TextLabel2g->setText( tr( "Guide Snap Distance:" ) );
     Layout10->addWidget( TextLabel2g, 2, 0 );
-    SpinBox2g = new MSpinBox( GroupBox1, 2 );
+    SpinBox2g = new MSpinBox( GroupBox1, 4 );
+	SpinBox2g->setDecimals( decimals );
     SpinBox2g->setMaxValue( 1000 );
     SpinBox2g->setMinValue( 1 );
     Layout10->addWidget( SpinBox2g, 2, 1 );
@@ -868,6 +896,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15a->addWidget( TextGap, 4, 0 );
     TextGapVal = new MSpinBox( ToolFrame, 1 );
     TextGapVal->setSuffix( tr( " pt" ) );
+	TextGapVal->setDecimals( decimals );
     TextGapVal->setMaxValue( 200 );
     TextGapVal->setMinValue( 0 );
 		TextGapVal->setValue(ap->HaveDoc ? ap->doc->DGap : Vor->DGap);
@@ -2175,23 +2204,28 @@ void Preferences::UnitChange()
 {
 	double AltUmrech = Umrech;
 	QString einh;
+	int decimals;
 	Einheit = UnitCombo->currentItem();
 	switch (UnitCombo->currentItem())
 		{
 		case 0:
 			Umrech = 1.0;
+			decimals = 100;
 			einh = tr( " pt" );
 			break;
 		case 1:
 			Umrech = 0.3527777;
+			decimals = 1000;
 			einh = tr( " mm" );
 			break;
 		case 2:
 			Umrech = 1.0 / 72.0;
+			decimals = 10000;
 			einh = tr( " in" );
 			break;
 		case 3:
 			Umrech = 1.0 / 12.0;
+			decimals = 100;
 			einh = tr( " p" );
 			break;
 		}
@@ -2205,6 +2239,18 @@ void Preferences::UnitChange()
   LeftR->setSuffix(einh);
   RightR->setSuffix(einh);
 	TextGapVal->setSuffix(einh);
+
+	Breite->setDecimals (decimals);
+	Hoehe->setDecimals (decimals);
+	TopR->setDecimals (decimals);
+	BottomR->setDecimals (decimals);
+	LeftR->setDecimals (decimals);
+	RightR->setDecimals (decimals);
+	TextGapVal->setDecimals (decimals);
+	SpinBox1->setDecimals (decimals);
+	SpinBox2->setDecimals (decimals);
+	SpinBox2g->setDecimals (decimals);
+
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));

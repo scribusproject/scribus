@@ -30,6 +30,8 @@
 #include "spalette.h"
 #include "fontcombo.h"
 #include "styleselect.h"
+#include "alignselect.h"
+#include "shadebutton.h"
 
 class Autoforms;
 extern bool CMSavail;
@@ -144,12 +146,7 @@ public:
     MSpinBox* Size;
     QToolButton* Revert;
     StyleSelect* SeStyle;
-    QButtonGroup* GroupAlign;
-    QToolButton* TextL;
-    QToolButton* TextR;
-    QToolButton* TextC;
-    QToolButton* TextB;
-    QToolButton* TextF;
+    AlignSelect* GroupAlign;
     QGroupBox* GroupBox3;
     MSpinBox* LineSp;
     MSpinBox* Extra;
@@ -190,12 +187,10 @@ public:
     QSpinBox* ChScale;
     QLabel* StrokeIcon;
     QComboBox* TxStroke;
-	QToolButton *PM1;
-	QPopupMenu *TxStrokeSh;
+	ShadeButton *PM1;
     QLabel* FillIcon;
     QComboBox* TxFill;
-	QToolButton *PM2;
-	QPopupMenu *TxFillSh;
+	ShadeButton *PM2;
     QLabel* SprachT;
     QComboBox* LangCombo;
     QGroupBox* GroupBoxCM;
@@ -234,7 +229,7 @@ public slots:
 	void NewTFont(int);
 	void newTxtFill();
 	void newTxtStroke();
-	void setActShade(int id);
+	void setActShade();
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void ManageTabs();
 		
@@ -263,7 +258,7 @@ private slots:
 	void NewLSty();
 	void NewLJoin();
 	void NewLEnd();
-	void NewAli();
+	void NewAli(int a);
 	void setTypeStyle(int s);
 	void NewLMode();
 	void DoLower();
@@ -329,7 +324,6 @@ protected:
     QHBoxLayout* ShapeGroupLayout;
     QGridLayout* DistanceLayout;
     QGridLayout* DistanceLayout2;
-    QGridLayout* GroupAlignLayout;
     QGridLayout* GroupBox3Layout;
     QVBoxLayout* GroupBox3aLayout;
     QVBoxLayout* GroupBoxCMLayout;

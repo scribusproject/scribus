@@ -7,24 +7,29 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
     : QDialog( parent, "r", true, 0 )
 {
     QString ein;
-		einheit = Einh;
-		switch (Einh)
-			{
-			case 0:
+	int decimals;
+	einheit = Einh;
+	switch (Einh)
+		{
+		case 0:
     		ein = " pt";
-				break;
-			case 1:
+			decimals = 100;
+			break;
+		case 1:
     		ein = " mm";
-				break;
-			case 2:
+			decimals = 1000;
+			break;
+		case 2:
     		ein = " in";
-				break;
-			case 3:
+			decimals = 10000;
+			break;
+		case 3:
     		ein = " p";
-				break;
-			}
-		Breite = Pagebr * UmReFaktor;
-		Hoehe = Pageho * UmReFaktor;
+			decimals = 100;
+			break;
+		}
+	Breite = Pagebr * UmReFaktor;
+	Hoehe = Pageho * UmReFaktor;
     setCaption( tr( "Document Setup" ) );
   	setIcon(loadIcon("AppIcon.png"));
     ReformDocLayout = new QVBoxLayout( this );
@@ -45,32 +50,36 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
     TextLabel5 = new QLabel( GroupBox7, "TextLabel5" );
     TextLabel5->setText( tr( "Top:" ) );
     Layout4->addWidget( TextLabel5, 0, 0 );
-		TopR = new MSpinBox( GroupBox7, 2 );
+		TopR = new MSpinBox( GroupBox7, 4 );
     TopR->setSuffix( ein );
+	TopR->setDecimals( decimals );
 		TopR->setMaxValue(Hoehe);
     TopR->setValue(t * UmReFaktor);
     Layout4->addWidget( TopR, 0, 1 );
     Links = new QLabel( GroupBox7, "Links" );
     Links->setText( tr( "Left:" ) );
     Layout4->addWidget( Links, 0, 2 );
-		LeftR = new MSpinBox( GroupBox7, 2 );
+		LeftR = new MSpinBox( GroupBox7, 4 );
     LeftR->setSuffix( ein );
+	LeftR->setDecimals( decimals );
 		LeftR->setMaxValue(Breite);
     LeftR->setValue(l * UmReFaktor);
     Layout4->addWidget( LeftR, 0, 3 );
     TextLabel7 = new QLabel( GroupBox7, "TextLabel7" );
     TextLabel7->setText( tr( "Bottom:" ) );
     Layout4->addWidget( TextLabel7, 1, 0 );
-		BottomR = new MSpinBox( GroupBox7, 2 );
+		BottomR = new MSpinBox( GroupBox7, 4 );
     BottomR->setSuffix( ein );
+	BottomR->setDecimals( decimals );
 		BottomR->setMaxValue(Hoehe);
     BottomR->setValue(b * UmReFaktor);
     Layout4->addWidget( BottomR, 1, 1 );
     Rechts = new QLabel( GroupBox7, "Rechts" );
     Rechts->setText( tr( "Right:" ) );
     Layout4->addWidget( Rechts, 1, 2 );
-		RightR = new MSpinBox( GroupBox7, 2 );
+		RightR = new MSpinBox( GroupBox7, 4 );
     RightR->setSuffix( ein );
+	RightR->setDecimals( decimals );
 		RightR->setMaxValue(Breite);
     RightR->setValue(r * UmReFaktor);
     Layout4->addWidget( RightR, 1, 3 );

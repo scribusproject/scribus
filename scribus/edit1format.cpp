@@ -5,7 +5,7 @@ extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 #include <qmessagebox.h>
 
-EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au, int dEin)
+EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au, int dEin, ScribusDoc *doc)
     : QDialog( parent, "EditST", true, 0)
 {
     setCaption( tr( "Edit Style" ) );
@@ -59,24 +59,73 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	SizeC->setMaxValue(1024);
 	SizeC->setValue(vor->FontSize / 10.0);
     GroupFontLayout->addWidget( SizeC, 1, 1 );
+    EffeLabel = new QLabel( GroupFont, "EffeLabel" );
+	EffeLabel->setText( tr("Effect:"));
+    GroupFontLayout->addWidget( EffeLabel, 2, 0 );
+	EffeS = new StyleSelect(GroupFont);
+	EffeS->setStyle(vor->FontEffect);
+    GroupFontLayout->addWidget( EffeS, 2, 1, Qt::AlignLeft );
+    AligLabel = new QLabel( GroupFont, "AligLabel" );
+	AligLabel->setText( tr("Alignment:"));
+    GroupFontLayout->addWidget( AligLabel, 3, 0 );
+	AligS = new AlignSelect(GroupFont);
+	AligS->setStyle(vor->Ausri);
+    GroupFontLayout->addWidget( AligS, 3, 1, Qt::AlignLeft );
+
+    FillIcon = new QLabel( GroupFont, "FillIcon" );
+	FillIcon->setText( tr("Fill Color:"));
+    GroupFontLayout->addWidget( FillIcon, 4, 0 );
+    TxFill = new QComboBox( true, GroupFont, "TxFill" );
+	TxFill->setEditable(false);
+    GroupFontLayout->addWidget( TxFill, 4, 1 );
+	PM2 = new ShadeButton(GroupFont);
+    GroupFontLayout->addWidget( PM2, 4, 2, Qt::AlignLeft );
+
+    StrokeIcon = new QLabel( GroupFont, "StrokeIcon" );
+    StrokeIcon->setText("Stroke Color:");
+    GroupFontLayout->addWidget( StrokeIcon, 5, 0 );
+    TxStroke = new QComboBox( true, GroupFont, "TxStroke" );
+	TxStroke->setEditable(false);
+    GroupFontLayout->addWidget( TxStroke, 5, 1 );
+	PM1 = new ShadeButton(GroupFont);
+    GroupFontLayout->addWidget( PM1, 5, 2, Qt::AlignLeft );
+
+	TxFill->clear();
+	TxStroke->clear();
+	CListe::Iterator it;
+	QPixmap pm = QPixmap(15, 15);
+	TxFill->insertItem( tr("None"));
+	TxStroke->insertItem( tr("None"));
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		{
+		pm.fill(doc->PageColors[it.key()].getRGBColor());
+		TxFill->insertItem(pm, it.key());
+		TxStroke->insertItem(pm, it.key());
+		}
+	StrokeIcon->setEnabled(false);
+	TxStroke->setEnabled(false);
+	TxFill->setCurrentText(vor->FColor);
+	TxStroke->setCurrentText(vor->SColor);
+	PM2->setValue(vor->FShade);
+	PM1->setValue(vor->SShade);
 
     DropCaps = new QCheckBox( GroupFont, "DropCaps" );
     DropCaps->setText( tr( "Drop Caps" ) );
 	DropCaps->setChecked(vor->Drop);
-    GroupFontLayout->addMultiCellWidget( DropCaps, 2, 2, 0, 2 );
+    GroupFontLayout->addMultiCellWidget( DropCaps, 6, 6, 0, 2 );
     CapLabel = new QLabel( GroupFont, "CapLabel" );
 	CapLabel->setText( tr("Lines:"));
-    GroupFontLayout->addWidget( CapLabel, 3, 0 );
+    GroupFontLayout->addWidget( CapLabel, 7, 0 );
     DropLines = new QSpinBox( GroupFont, "DropLines" );
     DropLines->setMinValue( 2 );
     DropLines->setMaxValue( 20 );
     DropLines->setValue(vor->DropLin);
-    GroupFontLayout->addWidget( DropLines, 3, 1 );
+    GroupFontLayout->addWidget( DropLines, 7, 1 );
 	bool enable = vor->Drop ? true : false;
 	DropLines->setEnabled(enable);
 	CapLabel->setEnabled(enable);
 
-    EditStyleLayout->addWidget( GroupFont, 2, 0 );
+    EditStyleLayout->addMultiCellWidget( GroupFont, 2, 3, 0, 0 );
 
     GroupBox10 = new QGroupBox( this, "GroupBox10" );
     GroupBox10->setTitle( tr( "Indentation" ) );
@@ -113,56 +162,6 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	TabsButton->setText( tr( "Tabulators..." ) );
 	GroupBox10Layout->addMultiCellWidget( TabsButton, 2, 2, 0, 1 );
     EditStyleLayout->addWidget( GroupBox10, 3, 1 );
-
-    ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
-    ButtonGroup1->setTitle( tr( "Alignment" ) );
-    ButtonGroup1->setColumnLayout(0, Qt::Vertical );
-    ButtonGroup1->layout()->setSpacing( 0 );
-    ButtonGroup1->layout()->setMargin( 0 );
-    ButtonGroup1Layout = new QGridLayout( ButtonGroup1->layout() );
-    ButtonGroup1Layout->setAlignment( Qt::AlignTop );
-    ButtonGroup1Layout->setSpacing( 5 );
-    ButtonGroup1Layout->setMargin( 10 );
-
-    Left = new QRadioButton( ButtonGroup1, "Left" );
-    Left->setText( tr( "Left" ) );
-    Left->setChecked( true );
-    ButtonGroup1Layout->addWidget( Left, 0, 0 );
-
-    Right = new QRadioButton( ButtonGroup1, "Right" );
-    Right->setText( tr( "Right" ) );
-    ButtonGroup1Layout->addWidget( Right, 1, 0 );
-
-    Center = new QRadioButton( ButtonGroup1, "Center" );
-    Center->setText( tr( "Center" ) );
-    ButtonGroup1Layout->addWidget( Center, 0, 1 );
-
-    Full = new QRadioButton( ButtonGroup1, "Full" );
-    Full->setText( tr( "Block" ) );
-    ButtonGroup1Layout->addWidget( Full, 1, 1 );
-
-    Forced = new QRadioButton( ButtonGroup1, "Full" );
-    Forced->setText( tr( "Forced" ) );
-    ButtonGroup1Layout->addWidget( Forced, 2, 1 );
-	switch (vor->Ausri)
-	{
-		case 0 :
-			Left->setChecked( true );
-			break;
-		case 1 :
-			Center->setChecked( true );
-			break;
-		case 2 :
-			Right->setChecked( true );
-			break;
-		case 3 :
-			Full->setChecked( true );
-			break;
-		case 4 :
-			Forced->setChecked( true );
-			break;
-	}
-    EditStyleLayout->addWidget( ButtonGroup1, 3, 0 );
 
     AbstandV = new QGroupBox( this, "AbstandV" );
     AbstandV->setTitle( tr( "Vertical Spaces" ) );
@@ -239,6 +238,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
     connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
     connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
+    connect(EffeS, SIGNAL(State(int)), this, SLOT(ColorChange()));
 	LeftInd->setDecimals(10);
 	FirstLin->setDecimals(10);
 	AboveV->setDecimals(10);
@@ -271,6 +271,14 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     AboveV->setValue(vor->Avor * UmReFaktor);
     FirstLin->setValue(vor->First * UmReFaktor);
     LeftInd->setValue(vor->Indent * UmReFaktor);
+}
+
+void EditStyle::ColorChange()
+{
+	int s = EffeS->getStyle();
+	bool enabled = (s & 4) ? true : false;
+	StrokeIcon->setEnabled(enabled);
+	TxStroke->setEnabled(enabled);
 }
 
 void EditStyle::ManageDrops()
@@ -327,16 +335,8 @@ void EditStyle::Verlassen()
 			}
 		}
 	}
-	if (Left->isChecked())
-		werte->Ausri = 0;
-	if (Center->isChecked())
-		werte->Ausri = 1;
-	if (Right->isChecked())
-		werte->Ausri = 2;
-	if (Full->isChecked())
-		werte->Ausri = 3;
-	if (Forced->isChecked())
-		werte->Ausri = 4;
+	werte->FontEffect = EffeS->getStyle();
+	werte->Ausri = AligS->getStyle();
 	werte->LineSpa = LineSpVal->value();
 	werte->Indent = LeftInd->value() / UmReFaktor;
 	werte->First = FirstLin->value() / UmReFaktor;
@@ -347,5 +347,9 @@ void EditStyle::Verlassen()
 	werte->FontSize = qRound(SizeC->value() * 10.0);
 	werte->Drop = DropCaps->isChecked();
 	werte->DropLin = DropLines->value();
+	werte->FColor = TxFill->currentText();
+	werte->FShade = PM2->getValue();
+	werte->SColor = TxStroke->currentText();
+	werte->SShade = PM1->getValue();
 	accept();
 }

@@ -242,7 +242,7 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 void ScPainter::fillPath()
 {
 	if( m_index == 0 ) return;
-	int find = -1;
+/*	int find = -1;
 	for( int i = m_index - 1; i >= 0; i-- )
 		{
 		if( m_path[i].code == ART_MOVETO_OPEN || m_path[i].code == ART_MOVETO )
@@ -262,7 +262,7 @@ void ScPainter::fillPath()
 		m_path[ m_index ].code = ART_END;
 		}
 	else
-		m_path[ m_index++ ].code = ART_END;
+		m_path[ m_index++ ].code = ART_END;    */
 	if( fillMode != 0)
 		{
 		ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
@@ -832,6 +832,8 @@ void ScPainter::setupPolygon(FPointArray *points)
 			if (points->point(poi).x() > 900000)
 				{
 				nPath = true;
+				ensureSpace( m_index + 1 );
+				m_path[ m_index ].code = ART_END;
 				continue;
 				}
 			if (nPath)
@@ -867,6 +869,9 @@ void ScPainter::setupPolygon(FPointArray *points)
 				}
 			m_index++;
 			}
+		ensureSpace( m_index + 1 );
+		m_path[ m_index ].code = ART_END;
+		m_index++;
 		}
 }
 
@@ -897,6 +902,9 @@ void ScPainter::drawRect(double x, double y, double w, double h)
 	lineTo( x+w, y+h );
 	lineTo( x, y+h );
 	lineTo( x, y );
+	ensureSpace( m_index + 1 );
+	m_path[ m_index ].code = ART_END;
+	m_index++;
 	fillPath();
 	strokePath();
 }

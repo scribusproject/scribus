@@ -73,6 +73,11 @@ ScribusDoc::ScribusDoc()
 	vg.TabValues.clear();
 	vg.Drop = false;
 	vg.DropLin = 2;
+	vg.FontEffect = 0;
+	vg.FColor = Dbrush;
+	vg.FShade = Dshade;
+	vg.SColor = Dpen;
+	vg.SShade = Dshade2;
 	Vorlagen.append(vg);
 	vg.Vname = "Center Internal";
 	vg.Ausri = 1;

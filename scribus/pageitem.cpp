@@ -510,6 +510,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 						if (!pixm.isNull())
 							pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
+						pd.end();
 						pmd.setMask(bmd);
 						QImage ip2 = pmd.convertToImage();
 						if (!ip2.isNull())

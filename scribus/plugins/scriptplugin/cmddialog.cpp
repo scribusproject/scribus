@@ -8,6 +8,7 @@ PyObject *scribus_newdocdia(PyObject *self, PyObject* args)
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
 	bool ret = Carrier->slotFileNew();
+//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 

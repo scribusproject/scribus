@@ -51,7 +51,7 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 			break;
 		case 4:
 			Decimals = 10000;
-			Width = 3;
+			Width = 4;
 			break;
 		default:
 			Decimals = 100;

@@ -6,21 +6,26 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     : QDialog( parent, "newDoc", true, 0 )
 {
 	char *units[] = {" pt", " mm", " in", " p"};
+	int decimals;
 	ein = units[Vor->Einheit];
 	switch (Vor->Einheit)
 	{
 		case 0:
-    		Umrech = 1.0;
+    			Umrech = 1.0;
+			decimals = 100;
 			break;
 		case 1:
 			Umrech = 0.3527777;
+			decimals = 1000;
 			break;
 		case 2:
 			Umrech = 1.0 / 72.0;
-    		break;
+			decimals = 10000;
+	    		break;
 		case 3:
 			Umrech = 1.0 / 12.0;
-    		break;
+			decimals = 100;
+	    		break;
 	}
 	einheit = Vor->Einheit;
 	Orient = 0;
@@ -43,7 +48,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
 	QString sizelist[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3", "B4",
 						"B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", "Executive", "Folio",
-						"Ledger", "Letter", "Tabloid", tr("Custom")};
+						"Ledger", "Legal", "Letter", "Tabloid", tr("Custom")};
 	size_t const num_mappings = (sizeof sizelist)/(sizeof *sizelist);
 	for (uint m = 0; m < num_mappings; ++m)
 		ComboBox1->insertItem(sizelist[m]);
@@ -64,9 +69,10 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	TextLabel1_2 = new QLabel( ButtonGroup1_2, "TextLabel1_2" );
     TextLabel1_2->setText( tr( "Width:" ) );
     Layout5->addWidget( TextLabel1_2 );
-	Breite = new MSpinBox( ButtonGroup1_2, 2 );
+	Breite = new MSpinBox( ButtonGroup1_2, 4 );
     Breite->setEnabled( false );
     Breite->setMinimumSize( QSize( 70, 20 ) );
+	Breite->setDecimals( decimals );
     Breite->setSuffix(ein);
     Breite->setMaxValue( 10000 );
     Breite->setMinValue( 1 );
@@ -74,9 +80,10 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     TextLabel2_2 = new QLabel( ButtonGroup1_2, "TextLabel2_2" );
     TextLabel2_2->setText( tr( "Height:" ) );
     Layout5->addWidget( TextLabel2_2 );
-	Hoehe = new MSpinBox( ButtonGroup1_2, 2 );
+	Hoehe = new MSpinBox( ButtonGroup1_2, 4 );
     Hoehe->setEnabled( false );
     Hoehe->setMinimumSize( QSize( 70, 20 ) );
+	Hoehe->setDecimals( decimals );
     Hoehe->setSuffix(ein);
     Hoehe->setMaxValue( 10000 );
     Hoehe->setMinValue( 1 );
@@ -121,32 +128,36 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     TextLabel7 = new QLabel( GroupBox7, "TextLabel7" );
     TextLabel7->setText( tr( "Bottom:" ) );
     Layout3->addWidget( TextLabel7, 1, 0 );
-	TopR = new MSpinBox( GroupBox7, 2 );
+	TopR = new MSpinBox( GroupBox7, 4 );
     TopR->setMinimumSize( QSize( 70, 20 ) );
+	TopR->setDecimals( decimals );
     TopR->setMaxValue( 1000 );
     TopR->setMinValue( 0 );
     TopR->setSuffix( ein );
     TopR->setValue(Vor->RandOben * Umrech);
 	Top = Vor->RandOben;
     Layout3->addWidget( TopR, 0, 1 );
-	BottomR = new MSpinBox( GroupBox7, 2 );
+	BottomR = new MSpinBox( GroupBox7, 4 );
     BottomR->setMinimumSize( QSize( 70, 20 ) );
+	BottomR->setDecimals( decimals );
     BottomR->setSuffix( ein );
     BottomR->setMaxValue( 1000 );
     BottomR->setMinValue( 0 );
     BottomR->setValue(Vor->RandUnten * Umrech);
 	Bottom = Vor->RandUnten;
     Layout3->addWidget( BottomR, 1, 1 );
-	LeftR = new MSpinBox( GroupBox7, 2 );
+	LeftR = new MSpinBox( GroupBox7, 4 );
     LeftR->setMinimumSize( QSize( 70, 20 ) );
-    LeftR->setSuffix( ein );
+	LeftR->setDecimals( decimals );
+	LeftR->setSuffix( ein );
     LeftR->setMaxValue( 1000 );
     LeftR->setMinValue( 0 );
     LeftR->setValue(Vor->RandLinks * Umrech);
 	Left = Vor->RandLinks;
     Layout3->addWidget( LeftR, 0, 3 );
-	RightR = new MSpinBox( GroupBox7, 2 );
+	RightR = new MSpinBox( GroupBox7, 4 );
     RightR->setMinimumSize( QSize( 70, 20 ) );
+	RightR->setDecimals( decimals );
     RightR->setSuffix( ein );
     RightR->setMaxValue( 1000 );
     RightR->setMinValue( 0 );
@@ -211,7 +222,8 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     TextLabel3 = new QLabel( GroupBox4, "TextLabel3" );
     TextLabel3->setText( tr( "Columns:" ) );
     Layout2->addWidget( TextLabel3, 0, 0 );
-	Distance = new MSpinBox( GroupBox4, 2 );
+	Distance = new MSpinBox( GroupBox4, 4 );
+	Distance->setDecimals( decimals );
     Distance->setSuffix( ein );
     Distance->setMaxValue( 1000 );
     Distance->setValue(11 * Umrech);
@@ -327,22 +339,37 @@ void NewDoc::setUnit(int u)
 {
 	char *units[] = {" pt", " mm", " in", " p"};
 	ein = units[u];
+	int decimals;
+
 	switch (u)
 	{
 		case 0:
    			Umrech = 1.0;
+			decimals = 100;
 			break;
 		case 1:
 			Umrech = 0.3527777;
+			decimals = 1000;
    			break;
 		case 2:
 			Umrech = 1.0 / 72.0;
+			decimals = 10000;
    			break;
 		case 3:
 			Umrech = 1.0 / 12.0;
+			decimals = 100;
    			break;
 	}
 	einheit = u;
+
+	Breite->setDecimals( decimals );
+	Hoehe->setDecimals( decimals );
+	RightR->setDecimals( decimals );
+	LeftR->setDecimals( decimals );
+	TopR->setDecimals( decimals );
+	BottomR->setDecimals( decimals );
+	Distance->setDecimals( decimals );
+
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
@@ -373,6 +400,7 @@ void NewDoc::setUnit(int u)
 	Breite->setSuffix(ein);
 	Hoehe->setSuffix(ein);
 	Distance->setSuffix( ein );
+	
 }
 
 void NewDoc::ExitOK()
@@ -447,8 +475,11 @@ void NewDoc::setSize(int gr)
 		Breite->setEnabled(true);
 		Hoehe->setEnabled(true);
 	}
-	Pagebr = page_x[gr];
-	Pageho = page_y[gr];
+	else
+	{
+		Pagebr = page_x[gr];
+		Pageho = page_y[gr];
+	}
 	Breite->setValue(Pagebr * Umrech);
 	Hoehe->setValue(Pageho * Umrech);
 	RightR->setMaxValue(Breite->value() - LeftR->value());

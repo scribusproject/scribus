@@ -192,7 +192,8 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     PushButton1_2->setFocus();
     Layout2->addWidget( PushButton1_2 );
     FontPrefsLayout->addLayout( Layout2 );
-    setMinimumSize( sizeHint() );
+    resize(minimumSizeHint());
+ //   setMinimumSize( sizeHint() );
 
     // signals and slots connections
     connect( PushButton1_2, SIGNAL( clicked() ), this, SLOT( LeaveDia() ) );
