@@ -9,6 +9,14 @@
 #ifndef INSPAGE_H
 #define INSPAGE_H
 
+class QDialog;
+class QComboBox;
+class QLayout;
+class QLabel;
+class QPushButton;
+class QSpinBox;
+class ScribusDoc;
+/*
 #include <qdialog.h>
 #include <qcombobox.h>
 #include <qlayout.h>
@@ -16,6 +24,7 @@
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include "scribusdoc.h"
+*/
 
 class InsPage : public QDialog
 { 

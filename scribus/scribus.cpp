@@ -5494,10 +5494,10 @@ void ScribusApp::MovePage()
 	if (dia->exec())
 	{
 //		doc->OpenNodes = Tpal->buildReopenVals();
-		int from = dia->FromPage->value();
-		int to = dia->ToPage->value();
-		int wie = dia->Where->currentItem();
-		int wo = dia->ActualPage->value();
+		int from = dia->getFromPage();
+		int to = dia->getToPage();
+		int wie = dia->getWhere();
+		int wo = dia->getWherePage();
 		if (from != wo)
 			view->movePage(from-1, to, wo-1, wie);
 		slotDocCh();
@@ -5518,9 +5518,9 @@ void ScribusApp::CopyPage()
 	if (dia->exec())
 	{
 		doc->loading = true;
-		Page* from = doc->Pages.at(dia->FromPage->value()-1);
-		int wo = dia->ActualPage->value();
-		switch (dia->Where->currentItem())
+		Page* from = doc->Pages.at(dia->getFromPage()-1);
+		int wo = dia->getWherePage();
+		switch (dia->getWhere())
 		{
 		case 0:
 			slotNewPage(wo-1);

@@ -1,39 +1,46 @@
 #ifndef MOVEPAGES_H
 #define MOVEPAGES_H
 
-#include <qdialog.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-#include <qlayout.h>
+class QDialog;
+class QCombobox;
+class QLabel;
+class QPushbutton;
+class QSpinBox;
+class QLayout;
 
 class MovePages : public QDialog
 { 
     Q_OBJECT
 
 public:
-    MovePages( QWidget* parent, int act, int max, bool art );
+    MovePages( QWidget* parent, int currentPage, int maxPages, bool moving );
     ~MovePages() {};
 
-    QLabel* TextLabel2;
-    QSpinBox* FromPage;
-    QSpinBox* ToPage;
-    QSpinBox* ActualPage;
-    QLabel* TextLabel1;
-    QComboBox* Where;
-    QPushButton* OK;
-    QPushButton* Cancel;
-    bool Wie;
+	const int getFromPage();
+	const int getToPage();
+	const int getWhere();
+	const int getWherePage();
 
-protected:
-    QVBoxLayout* DLayout;
-    QGridLayout* Layout4;
-    QHBoxLayout* Layout3;
 
-public slots:
-    virtual void FromChanged(int);
-    virtual void ToChanged(int);
+private:
+    QLabel* moveQLabel;
+    QLabel* toQLabel;
+    QSpinBox* fromPageQSBox;
+    QSpinBox* toPageQSBox;
+    QSpinBox* mvWherePageQSBox;
+    QComboBox* mvWhereQCBox;
+    QPushButton* okQPButton;
+    QPushButton* cancelQPButton;
+    QVBoxLayout* dialogLayout;
+    QGridLayout* fromToLayout;
+    QHBoxLayout* okCancelLayout;
+
+    bool move;
+
+private slots:
+    virtual void fromChanged(int);
+    virtual void toChanged(int);
+	void mvWherePageQSBoxDisable(int index);
 };
 
 #endif // MOVEPAGES_H

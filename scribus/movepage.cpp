@@ -1,3 +1,10 @@
+#include <qdialog.h>
+#include <qcombobox.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qspinbox.h>
+#include <qlayout.h>
+
 #include "movepage.h"
 #include "movepage.moc"
 extern QPixmap loadIcon(QString nam);
@@ -9,88 +16,110 @@ extern QPixmap loadIcon(QString nam);
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  TRUE to construct a modal dialog.
  */
-MovePages::MovePages( QWidget* parent, int act, int max, bool art )
+MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool moving )
 		: QDialog( parent, "MovePages", true, 0 )
 {
-	Wie = art;
-	setCaption (art ? tr("Move Pages") : tr("Copy Page"));
+	move = moving;	
+	setCaption (move ? tr("Move Pages") : tr("Copy Page"));
 	setIcon(loadIcon("AppIcon.png"));
-	DLayout = new QVBoxLayout( this );
-	DLayout->setSpacing( 5 );
-	DLayout->setMargin( 10 );
-	Layout4 = new QGridLayout;
-	Layout4->setSpacing( 6 );
-	Layout4->setMargin( 5 );
-	TextLabel1 = new QLabel( this, "TextLabel1" );
-	TextLabel1->setText(art ? tr("Move Page(s):") : tr("Copy Page") + ":");
-	Layout4->addWidget( TextLabel1, 0, 0);
-	FromPage = new QSpinBox( this, "FromPage" );
-	FromPage->setMinValue( 1 );
-	FromPage->setValue( act );
-	FromPage->setMaxValue( max );
-	Layout4->addWidget( FromPage, 0, 1);
-	if (art)
+	dialogLayout = new QVBoxLayout( this, 10, 5 );
+	fromToLayout = new QGridLayout;
+	fromToLayout->setSpacing( 6 );
+	fromToLayout->setMargin( 5 );
+	moveQLabel = new QLabel( this, "moveQLabel" );
+	moveQLabel->setText(move ? tr("Move Page(s):") : tr("Copy Page") + ":");
+	fromToLayout->addWidget( moveQLabel, 0, 0);
+
+	fromPageQSBox = new QSpinBox( 1, maxPages, 1, this, "fromPageQSBox" );
+	fromPageQSBox->setValue( currentPage );
+	fromToLayout->addWidget( fromPageQSBox, 0, 1);
+
+	if (move)
 	{
-		TextLabel2 = new QLabel( this, "TextLabel2" );
-		TextLabel2->setText( tr( "to:" ) );
-		Layout4->addWidget( TextLabel2, 0, 2);
-		ToPage = new QSpinBox( this, "ToPage" );
-		ToPage->setMinValue( 1 );
-		ToPage->setValue( act );
-		ToPage->setMaxValue( max );
-		Layout4->addWidget( ToPage, 0, 3);
+		toQLabel = new QLabel( tr("to:"), this, "toQLabel" );
+		fromToLayout->addWidget( toQLabel, 0, 2);
+		toPageQSBox = new QSpinBox( 1, maxPages, 1, this, "toPageQSBox" );
+		toPageQSBox->setValue( currentPage );
+		fromToLayout->addWidget( toPageQSBox, 0, 3);
 	}
-	Where = new QComboBox( true, this, "Where" );
-	Where->insertItem( tr("before Page"));
-	Where->insertItem( tr("after Page"));
-	Where->insertItem( tr("at End"));
-	Where->setEditable(false);
-	Where->setCurrentItem(2);
-	Layout4->addMultiCellWidget( Where, 1, 1, 0, 1 );
-	ActualPage = new QSpinBox( this, "ActualPage" );
-	ActualPage->setMinValue( 1 );
-	ActualPage->setValue( act );
-	ActualPage->setMaxValue( max );
-	Layout4->addWidget( ActualPage, 1, 3 );
-	Layout4->addColSpacing(0, TextLabel1->fontMetrics().width( tr( "Move Page(s):" )));
-	DLayout->addLayout( Layout4 );
-	Layout3 = new QHBoxLayout;
-	Layout3->setSpacing( 6 );
-	Layout3->setMargin( 0 );
+
+	mvWhereQCBox = new QComboBox( false, this, "mvWhereQCBox" );
+	mvWhereQCBox->insertItem( tr("Before Page"));
+	mvWhereQCBox->insertItem( tr("After Page"));
+	mvWhereQCBox->insertItem( tr("At End"));
+	mvWhereQCBox->setCurrentItem(2);
+	fromToLayout->addMultiCellWidget( mvWhereQCBox, 1, 1, 0, 1 );
+	mvWherePageQSBox = new QSpinBox( 1, maxPages, 1, this, "mvWherePageQSBox" );
+	mvWherePageQSBox->setValue( currentPage );
+	mvWherePageQSBox->setDisabled( true );
+	fromToLayout->addWidget( mvWherePageQSBox, 1, 3 );
+	fromToLayout->addColSpacing(0, moveQLabel->fontMetrics().width( tr( "Move Page(s):" )));
+	dialogLayout->addLayout( fromToLayout );
+
+	okCancelLayout = new QHBoxLayout;
+	okCancelLayout->setSpacing( 6 );
+	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer );
-	OK = new QPushButton( tr( "&OK" ), this, "OK" );
-	OK->setDefault( true );
-	Layout3->addWidget(OK);
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
-	Layout3->addWidget(Cancel);
-	DLayout->addLayout( Layout3 );
+	okCancelLayout->addItem( spacer );
+	okQPButton = new QPushButton( tr( "&OK" ), this, "okQPButton" );
+	okQPButton->setDefault( true );
+	okCancelLayout->addWidget(okQPButton);
+	cancelQPButton = new QPushButton( tr( "&Cancel" ), this, "cancelQPButton" );
+	okCancelLayout->addWidget(cancelQPButton);
+	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
-	if (art)
-		connect( ToPage, SIGNAL( valueChanged(int) ), this, SLOT( ToChanged(int) ) );
-	connect( FromPage, SIGNAL( valueChanged(int) ), this, SLOT( FromChanged(int) ) );
-	connect( OK, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	if (move)
+		connect( toPageQSBox, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
+	connect( mvWhereQCBox, SIGNAL( activated(int) ), this, SLOT( mvWherePageQSBoxDisable(int) ) );
+	connect( fromPageQSBox, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
+	connect( okQPButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelQPButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
-void MovePages::FromChanged(int nr)
+void MovePages::fromChanged(int pageNumber)
 {
-	if (Wie)
+	if (move)
 	{
-		if (nr > ToPage->value())
-			ToPage->setValue(nr);
-		if ((nr == 1) && (ToPage->value() == ToPage->maxValue()))
-			ToPage->setValue(ToPage->maxValue()-1);
+		if (pageNumber > toPageQSBox->value())
+			toPageQSBox->setValue(pageNumber);
+		if ((pageNumber == 1) && (toPageQSBox->value() == toPageQSBox->maxValue()))
+			toPageQSBox->setValue(toPageQSBox->maxValue()-1);
 	}
 }
 
-void MovePages::ToChanged(int nr)
+void MovePages::toChanged(int pageNumber)
 {
-	if (nr < FromPage->value())
-		FromPage->setValue(nr);
-	if ((FromPage->value() == 1) && (nr == ToPage->maxValue()))
-		FromPage->setValue(2);
+	if (pageNumber < fromPageQSBox->value())
+		fromPageQSBox->setValue(pageNumber);
+	if ((fromPageQSBox->value() == 1) && (pageNumber == toPageQSBox->maxValue()))
+		fromPageQSBox->setValue(2);
+}
+
+void MovePages::mvWherePageQSBoxDisable(int index)
+{
+    mvWherePageQSBox->setDisabled((index==2));
+}
+
+
+const int MovePages::getFromPage()
+{
+	return fromPageQSBox->value();
+}
+
+const int MovePages::getToPage()
+{
+	return toPageQSBox->value();
+}
+
+const int MovePages::getWhere()
+{
+	return mvWhereQCBox->currentItem();
+}
+
+const int MovePages::getWherePage()
+{
+	return mvWherePageQSBox->value();
 }
 

@@ -6,6 +6,15 @@
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
+
+#include <qdialog.h>
+#include <qcombobox.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qspinbox.h>
+#include "scribusdoc.h"
+
 #include "inspage.h"
 #include "inspage.moc"
 
@@ -16,9 +25,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 {
 	setCaption( tr( "Insert Page" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new QVBoxLayout( this );
-	dialogLayout->setSpacing( 5 );
-	dialogLayout->setMargin( 10 );
+	dialogLayout = new QVBoxLayout( this, 10, 5 );
 	whereLayout = new QGridLayout;
 	whereLayout->setSpacing( 6 );
 	whereLayout->setMargin( 5 );
@@ -55,7 +62,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 		templQCBox->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 
-	templQLabel = new QLabel(templQCBox, facingPages ? tr("Template (&Left Page):") : tr("&Template:"), this, "text");
+	templQLabel = new QLabel(templQCBox, "", this, "text");
+	templQLabel->setText( facingPages ? tr("Template (&Left Page):") : tr("&Template:"));
 	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	templLayout->addWidget( templQLabel );
 	templLayout->addItem( spacer3 );
@@ -125,7 +133,7 @@ const int InsPage::getCount()
 	return insCountQSBox->value();
 }
 
-void InsPage::insWherePageQSBoxDisable (int index)
+void InsPage::insWherePageQSBoxDisable(int index)
 {
 	insWherePageQSBox->setDisabled((index==2));
 }
