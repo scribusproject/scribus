@@ -135,9 +135,9 @@ void initPlug(QWidget *d, ScribusApp *plug)
 	}
 	Carrier = plug;
 	RetVal = 0;
-	initscribus(Carrier);
 
 	scripterCore = new ScripterCore(d);
+	initscribus(Carrier);
 }
 
 void cleanUpPlug()
@@ -384,6 +384,11 @@ PyMethodDef scribus_methods[] = {
 
 void initscribus(ScribusApp *pl)
 {
+	if (!scripterCore)
+	{
+		qWarning("scriptplugin: Tried to init scribus module, but no scripter core. Aborting.");
+		return;
+	}
 	PyObject *m, *d;
 	PyImport_AddModule((char*)"scribus");
 	PyType_Ready(&Printer_Type);
