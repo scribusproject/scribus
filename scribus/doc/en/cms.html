@@ -1,3 +1,5 @@
+<qt>
+<title>Color management with Scribus, an Introduction</title>
 <h2>Color management with Scribus, an Introduction</h2>
 
 <p>The objective of a color management system is to reduce the differences between the on-screen colors and final printing, as well as showing colors which are out of gamut, beyond the color range of your selected printer. The caveat is you need to provide a profile which is reasonably accurate. For users of other applications, the default settings and descriptions can be quite confusing to new users. Without prior knowledge of the terminology, it is <strong>very</strong> easy to choose the wrong settings. This can often makes images look worse on screen or print. Then, the first time user simply says enough and disables color management.</p>
@@ -23,7 +25,7 @@
 
 <p><strong>Device Profiles</strong> - are separate files which describe the way a device creates (scanner or digital camera), displays (monitor) or outputs (printer) colors. Users of of Photoshop will be familiar with the choice of <strong>Working Profiles</strong> or <strong>Working Space</strong> - which are color profiles not related to a particular device, but to assist in the conversion of color from one device to another. Well known RGB "working spaces" Include sRGB, Adobe&#174; RGB 1998, Colormatch,Bruce RGB or CIERGB. Users of Photoshop or other color may be wondering if this is a missing feature, but littlecms uses its own internal color conversion process to make the transformation between color spaces. One less setting to worry about!</p>
 
-<div style="text-align: center;"><img src="<?php echo $scr_shots_root; ?>cmsmodify1.png" title="Modify Color Management Dialog" alt="Modify Color Management Dialog"></div>
+<table width="100%"><tr><td><img src="images/cmsmodify1.png" align="center" title="Modify Color Management Dialog" alt="Modify Color Management Dialog"/></td></tr></table>
 
 <p>Why "soft proofing" ? With the proper setup of device profiles, littlecms can adjust the colors of your monitor to more accurately represent how your document will actually look when finally printed., This can be doubly helpful if you are sending it to be printed commercially or for service bureau output. Moreover, each image can be individually modified by Scribus to assign profiles in an image, ( Select image &gt; right click &gt; Modify ) so that it can be properly color managed in document production, such as preparing film, a PDF/X-3 or direct to plate technologies. This does not however, alter the image file internally. Preview profiles <strong>assigned</strong> to an image are part of the setting retained in a Scribus document or in the creation of a PDF. <a href="corelphoto.html">This article</a> explains how to convert color spaces or embed icc profiles using Corel Photopaint 9. There is also a command line tool in littlecms to embed profiles with <strong>tifficc</strong> and <strong>jpegicc</strong>.</p>
 
@@ -53,7 +55,7 @@
 
 <p><strong>Scribus Color Management Settings</strong></p>
 
-<div style="text-align: center;"><img src="<?php echo $scr_shots_root; ?>colormgmtscreen.png" title="Color Managment Options" alt="Color Managment Options"></div>
+<table width="100%"><img src="images/colormgmtscreen.png" align="center" title="Color Managment Options" alt="Color Managment Options"/></td></tr></table>
 
 <p><strong>System Profiles -</strong> These drop down boxes show the available profiles on your system. To enable Scribus to use profiles, they should be copied to the /usr/local/share/Scribus/profiles directory. Color profiles, .icm and .icc, are platform independent, thus files created or available for a Mac or Windows are usable in Linux with littlecms in Scribus, as well. See the links page for more info where to obtain profiles. I highly recommend having the Adobe profiles which are shown on the links page if you plan to do an type of cross platform or commercial printing, as most well set up DTP workstations, as well as most commercial printers will be able to work with these profiles.</p>
 
@@ -113,3 +115,5 @@ intent is measured in highly controlled lighting conditions with a D50 light box
 <p>Acknowledgments:</p>
 
 <p>Mart&iacute; Maria; Developer of little cms, without which this would not be possible.</p>
+
+</qt>

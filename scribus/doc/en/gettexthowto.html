@@ -1,5 +1,7 @@
+<qt>
+<title>How To Write a Scribus Get Text Plugin</title>
 <h2>How To Write a Scribus Get Text Plugin</h2>
-<h4>Plug-in and article written by Riku Leino</h4>
+<h4>Plugin interface and article written by Riku Leino</h4>
 <h3>Preface</h3>
 
 <p>This article shows you how to write Get Text plugins for Scribus. Plugins are dynamic loaded libraries in "so" format. Get Text Plugins are used to import formatted text from all kinds of file formats into a Scribus text frame.</p>
@@ -66,7 +68,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 </pre>
 </small></td></tr></table></blockquote>
 
-<p><a href="<?php echo $scr_download_root?>importnothingplugin-1.0.tar.bz2">importnothingplugin-1.0.tar.bz2</a> can be used as a basis of your own get text plugin.</p>
+<p>The <code>importnothingplugin-1.0.tar.bz2</code> from http://docs.scribus.net can be used as a basis of your own get text plugin.</p>
 
 <h3>How does it work?</h3>
 
@@ -140,6 +142,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 </small></td></tr></table></blockquote>
 
 <p>Now after right clicking on a text frame, choosing "Get Text..." and selecting our just built importer and opening some file we get a text frame with the sample text formatted correctly.</p>
-<img src="<?php echo $scr_shots_root; ?>result.png" alt="Sample frame"/>
+<table width="100%"><tr><td align="center"><img src="images/result.png" alt="Sample frame"/></td></tr></table>
 
-<p>If you have any questions send mail to Riku Leino (IRC nick:Tsoots) tsoots at welho.com</a>, register for Scribus mailing list or join the irc channel #scribus at irc.freenode.net.</p>
+<p>If you have any questions send mail to Riku Leino (IRC nick:Tsoots) tsoots at welho.com, register for Scribus mailing list or join the irc channel #scribus at irc.freenode.net.</p>
+</qt>

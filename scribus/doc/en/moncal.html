@@ -1,3 +1,5 @@
+<qt>
+<title>A Quick Start Guide to Monitor Profiling with littlecms</title>
 <h2>A Quick Start Guide to Monitor Profiling with littlecms</h2>
 
 <h4>Overview</h4>
@@ -33,18 +35,18 @@
 
 <p>Next, set monitor contrast to nearly 100%. Then you want to use the brightness controls to adjust the brightness, so you can see the following, so that each of the shades of gray is distinct.</p>
 
-<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>gammagrayscale.png" title="Adjust brightness so all shades of gray are visible." alt="gamma gray scale gradient" /></div>
+<table width="100%"><tr><td align="center"><img src="images/gammagrayscale.png" title="Adjust brightness so all shades of gray are visible." alt="gamma gray scale gradient" /></td></tr></table>
 
 <h4>Using qtmonitorprofiler</h4>
 
 <p>The first tab will bring up the panel. Check: "I want build a coarse monitor profile."</p>
 
-<div style="text-align: center;"><img src="<?php echo $scr_shots_root; ?>monprof1.png" title="The first qtmeasurement panel" alt="The first qtmeasurement panel"></div>
+<table width="100%"><tr><td align="center"> src="images/monprof1.png" title="The first qtmeasurement panel" alt="The first qtmeasurement panel"></td></tr></table>
 
 <p>Then switch to one the below:</p>
 
-<div style="text-align: center;"><img src="<?php echo $scr_shots_root; ?>monprof2.png" title="Setting gamma and monitor white space with qtmonitorprofiler." alt="Setting gamma and monitor white space with qtmonitorprofiler.">
-</div>
+<table width="100%"><tr><td align="center"> src="images/monprof2.png" title="Setting gamma and monitor white space with qtmonitorprofiler." alt="Setting gamma and monitor white space with qtmonitorprofiler.">
+</td></tr></table>
 
 <p>Now that we have switched the monitor temperature to 6500K, set the same in the white point drop down list. Then, unless you know there is a specific reason to over ride the default sRGB, leave this as is. You do not need to name the profile as indicated just yet.</p>
 
@@ -52,7 +54,7 @@
 
 <p>Next go to the <strong>Profile Identification</strong> tab. Add some additional info as shown below:</p>
 
-<div style="text-align: center;"><img src="<?php echo $scr_shots_root; ?>monprof4.png" title="adding descriptive info for your icm profile" alt="adding descriptive info for your icm profile"></div>
+<table width="100%"><tr><td align="center"> src="images/monprof4.png" title="adding descriptive info for your icm profile" alt="adding descriptive info for your icm profile"></td></tr></table>
 
 <h4>Using the monitor profile in Scribus</h4>
 
@@ -67,10 +69,11 @@ directory, your might be different if you installed from a package.</p>
 
 <p>Now Scribus can use this profile for more accurately managing screen previews. Start or restart Scribus and go <strong>Settings &gt; Color Management</strong>. Enable color management and select the monitor profile as below:</p>
 
-<div style="text-align: center;"><img src="<?php echo $scr_shots_root; ?>scribuscms1.png" title="Scribus CMS settings for the monitor profile" alt="Scribus CMS settings for the monitor profile"></div>
+<table width="100%"><tr><td align="center"> src="images/scribuscms1.png" title="Scribus CMS settings for the monitor profile" alt="Scribus CMS settings for the monitor profile"></td></tr></table>
 
 <p>By setting this monitor profile to be the default, you have enhanced the accuracy of your screen previews. You can selectively enable the gamut checking in your previews, but this is not quite perfected in littlecms. This is not a weakness is littlecms nor Scribus, but a limitation of the current icc specs. When enabling this consider the preview a warning - not definitive. The true test is what actually will print.</p>
 
 <p>You can also use this profile to enhance the previews in Corel Photopaint or other image editing programs like Photoshop which are color management savvy. Monitor colors and brightness vary over time, so re-profiling at least once every couple of months is a good idea. In professional settings, sometimes they are re-profiled every week</p>
 
 <p><strong>Note 30:10:2003:</strong> The latest beta profiler for littlecms adds new features, including support for profiling digital cameras and additional enhancements. However, it is a Windows only program. Fortunately, it includes the updated lcms 1.11 and it installs and runs fine under any recent version of Wine.</p>
+</qt>
