@@ -1,5 +1,7 @@
 This folder contains some Example Scripts:
 
+boilerplate.py = The template for your scripts. See Scripter-FAQ in the documentation, please.
+
 3columnA4.py = Sample 3 column layout
 3columnUSLTR.py = Sample 3 column layout
 Calender.py = Creates a Calendar of the current Month in the current Document as a Group

@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = Sample1.py Calender.py trait_de_coupe.py pochette_cd.py htmlimport.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py wordcount.py quote.py golden-mean.py ReadMe 
+EXTRA_DIST = Sample1.py Calender.py trait_de_coupe.py pochette_cd.py htmlimport.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py wordcount.py quote.py golden-mean.py ReadMe boilerplate.py
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/samples/
@@ -31,6 +31,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/plus_10_pourcent_group.py $(prefix)/share/scribus/samples/plus_10_pourcent_group.py
 	$(mkinstalldirs) $(prefix)/share/scribus/samples/
 	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/share/scribus/samples/ReadMe
+	$(mkinstalldirs) $(prefix)/share/scribus/samples/
+	$(INSTALL_DATA) $(srcdir)/boilerplate.py $(prefix)/share/scribus/samples/boilerplate.py
 
 uninstall-local:
 	-rm -f $(prefix)/share/scribus/samples/quote.py
@@ -47,5 +49,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/samples/legende.py
 	-rm -f $(prefix)/share/scribus/samples/golden-mean.py
 	-rm -f $(prefix)/share/scribus/samples/ReadMe
+	-rm -f $(prefix)/share/scribus/samples/boilerplate.py
 
 ####### kdevelop will overwrite this part!!! (end)############
