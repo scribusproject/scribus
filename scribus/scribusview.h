@@ -57,8 +57,8 @@ public:
 	MSpinBox* LE;
 	PageSelector* PGS;
 	QToolButton *UN;
-	Hruler *HR;
-	Vruler *VR;
+	Hruler *horizRuler;
+	Vruler *vertRuler;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;
 	ApplicationPrefs *Prefs;

@@ -128,12 +128,12 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	LY->setText( tr("Layer")+" 0");
 	LY->setPopup(Laymen);
 	LY->setFocusPolicy(QWidget::NoFocus);
-	HR = new Hruler(this, Doc);
-	VR = new Vruler(this, Doc);
+	horizRuler = new Hruler(this, Doc);
+	vertRuler = new Vruler(this, Doc);
 	UN = new QToolButton(this);
 	Unitmen = new QPopupMenu(this);
 	//CB TODO Convert to actions later
-	for (uint i=0;i<5;++i)
+	for (uint i=0;i<=unitGetMaxIndex();++i)
 		Unitmen->insertItem(unitGetStrFromIndex(i));
 	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
@@ -613,29 +613,29 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 						if ((Doc->appMode == EditMode) && (b->Select) && (b->itemType() == PageItem::TextFrame))
 						{
-							HR->ItemPos = b->Xpos - Doc->ScratchLeft;
-							HR->ItemEndPos = (b->Xpos+b->Width) - Doc->ScratchLeft;
+							horizRuler->ItemPos = b->Xpos - Doc->ScratchLeft;
+							horizRuler->ItemEndPos = (b->Xpos+b->Width) - Doc->ScratchLeft;
 							if (b->lineColor() != "None")
-								HR->lineCorr = b->Pwidth / 2.0;
+								horizRuler->lineCorr = b->Pwidth / 2.0;
 							else
-								HR->lineCorr = 0;
-							HR->ColGap = b->ColGap;
-							HR->Cols = b->Cols;
-							HR->Extra = b->Extra;
-							HR->RExtra = b->RExtra;
-							HR->First = Doc->docParagraphStyles[Doc->currentParaStyle].First;
-							HR->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].Indent;
+								horizRuler->lineCorr = 0;
+							horizRuler->ColGap = b->ColGap;
+							horizRuler->Cols = b->Cols;
+							horizRuler->Extra = b->Extra;
+							horizRuler->RExtra = b->RExtra;
+							horizRuler->First = Doc->docParagraphStyles[Doc->currentParaStyle].First;
+							horizRuler->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].Indent;
 							if (b->imageFlippedH() || (b->Reverse))
-								HR->Revers = true;
+								horizRuler->Revers = true;
 							else
-								HR->Revers = false;
-							HR->ItemPosValid = true;
-							HR->repX = false;
+								horizRuler->Revers = false;
+							horizRuler->ItemPosValid = true;
+							horizRuler->repX = false;
 							if (Doc->currentParaStyle < 5)
-								HR->TabValues = b->TabValues;
+								horizRuler->TabValues = b->TabValues;
 							else
-								HR->TabValues = Doc->docParagraphStyles[Doc->currentParaStyle].TabValues;
-							HR->repaint();
+								horizRuler->TabValues = Doc->docParagraphStyles[Doc->currentParaStyle].TabValues;
+							horizRuler->repaint();
 						}
 					}
 				}
@@ -865,8 +865,8 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 			DraggedGroupFirst = false;
 			p.end();
 			emit MousePos(GroupX-Doc->currentPage->Xoffset, GroupY-Doc->currentPage->Yoffset);
-			HR->Draw(e->pos().x());
-			VR->Draw(e->pos().y());
+			horizRuler->Draw(e->pos().x());
+			vertRuler->Draw(e->pos().y());
 			return;
 		}
 /*		QUrl ur(text);
@@ -2711,8 +2711,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	QPointArray Bez(4);
 	bool erf = false;
 	double sc = Scale;
-	HR->Draw(m->x());
-	VR->Draw(m->y());
+	horizRuler->Draw(m->x());
+	vertRuler->Draw(m->y());
 	emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset, m->y()/Scale-Doc->currentPage->Yoffset);
 	if (Doc->guidesSettings.guidesShown)
 	{
@@ -8218,8 +8218,8 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 			while (fom.height() > LE->ed->height());
 			PGS->setFont(ff);
 			LY->setFont(ff);
-			HR->setFont(ff);
-			VR->setFont(ff);
+			horizRuler->setFont(ff);
+			vertRuler->setFont(ff);
 		}
 		QRect forec = fom.boundingRect("3200.00 %");
 		int sadj = forec.width() - LE->ed->width();
@@ -8228,7 +8228,7 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 		SB2->setGeometry(x+75+sadj, y, 15, h);
 		PGS->setGeometry(x+90+sadj, y, 215, h);
 		LY->setGeometry(x+305+sadj, y, 110, h);
-		HR->setGeometry(25, 1, w-24, 25);
+		horizRuler->setGeometry(25, 1, w-24, 25);
 		bar.setGeometry(x+415+sadj, y, w-(415+sadj), h);
 	}
 }
@@ -8239,7 +8239,7 @@ void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 	bar.setGeometry(x, y, w, h);
 	if (Ready)
 	{
-		VR->setGeometry(1, 25, 25, h-24);
+		vertRuler->setGeometry(1, 25, 25, h-24);
 		UN->setGeometry(1, 1, 25, 25);
 	}
 }
@@ -8270,11 +8270,11 @@ void ScribusView::setRulerPos(int x, int y)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	HR->offs = x-static_cast<int>(Doc->ScratchLeft*Scale)-1;
-	HR->repX = false;
-	HR->repaint();
-	VR->offs = y-static_cast<int>(Doc->ScratchTop*Scale)-1;
-	VR->repaint();
+	horizRuler->offs = x-static_cast<int>(Doc->ScratchLeft*Scale)-1;
+	horizRuler->repX = false;
+	horizRuler->repaint();
+	vertRuler->offs = y-static_cast<int>(Doc->ScratchTop*Scale)-1;
+	vertRuler->repaint();
 }
 
 void ScribusView::Zval()
@@ -8689,9 +8689,9 @@ void ScribusView::DrawNew()
 	if (ScApp->ScriptRunning)
 		return;
 	updateContents();
-	HR->repX = false;
-	HR->repaint();
-	VR->repaint();
+	horizRuler->repX = false;
+	horizRuler->repaint();
+	vertRuler->repaint();
 	setMenTxt(Doc->currentPage->PageNr);
 	disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 	LE->setValue(Scale/Prefs->DisScale*100);
@@ -8969,8 +8969,8 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 		QPoint py = viewport()->mapFromGlobal(m->globalPos());
 		int newY = py.y();
 		emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset, m->y()/Scale-Doc->currentPage->Yoffset);
-		HR->Draw(m->x());
-		VR->Draw(m->y());
+		horizRuler->Draw(m->x());
+		vertRuler->Draw(m->y());
 		QPainter p;
 		p.begin(viewport());
 		p.setRasterOp(XorROP);
@@ -8989,8 +8989,8 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 		QPoint py = viewport()->mapFromGlobal(m->globalPos());
 		int newY = py.x();
 		emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset, m->y()/Scale-Doc->currentPage->Yoffset);
-		HR->Draw(m->x());
-		VR->Draw(m->y());
+		horizRuler->Draw(m->x());
+		vertRuler->Draw(m->y());
 		QPainter p;
 		p.begin(viewport());
 		p.setRasterOp(XorROP);

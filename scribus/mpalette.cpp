@@ -1448,27 +1448,28 @@ void Mpalette::NewSel(int nr)
 
 void Mpalette::UnitChange()
 {
-	double old = Umrech;
+	double oldRatio = Umrech;
 	Umrech = UmReFaktor;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor;
 	double minXYVal=-3000 * UmReFaktor;
 
-	double newX = Xpos->value() / old * UmReFaktor;
-	double newY = Ypos->value() / old * UmReFaktor;
-	double newW = Width->value() / old * UmReFaktor;
-	double newH = Height->value() / old * UmReFaktor;
-	double newLX = LXpos->value() / old * UmReFaktor;
-	double newLY = LYpos->value() / old * UmReFaktor;
-	double newG = dGap->value() / old * UmReFaktor;
-	double newGM = dGap->maxValue() / old * UmReFaktor;
-	double newDT = DTop->value() / old * UmReFaktor;
-	double newDL = DLeft->value() / old * UmReFaktor;
-	double newDB = DBottom->value() / old * UmReFaktor;
-	double newDR = DRight->value() / old * UmReFaktor;
-	double newRR = RoundRect->value() / old * UmReFaktor;
-	double newRM = RoundRect->maxValue() / old * UmReFaktor;
+	double ratioDivisor = UmReFaktor / oldRatio;
+	double newX = Xpos->value() * ratioDivisor;
+	double newY = Ypos->value() * ratioDivisor;
+	double newW = Width->value() * ratioDivisor;
+	double newH = Height->value() * ratioDivisor;
+	double newLX = LXpos->value() * ratioDivisor;
+	double newLY = LYpos->value() * ratioDivisor;
+	double newG = dGap->value() * ratioDivisor;
+	double newGM = dGap->maxValue() * ratioDivisor;
+	double newDT = DTop->value() * ratioDivisor;
+	double newDL = DLeft->value() * ratioDivisor;
+	double newDB = DBottom->value() * ratioDivisor;
+	double newDR = DRight->value() * ratioDivisor;
+	double newRR = RoundRect->value() * ratioDivisor;
+	double newRM = RoundRect->maxValue() * ratioDivisor;
 
 	if (doc->docUnitIndex > unitGetMaxIndex())
 		doc->docUnitIndex = 0;
@@ -1487,48 +1488,46 @@ void Mpalette::UnitChange()
 	DRight->setSuffix( ein );
 	RoundRect->setSuffix( ein );
 
-	int xywhdecimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
-	int dp2[] = {10, 1000, 10000, 10, 10000};
-	int distdecimals = dp2[doc->docUnitIndex];
+	int decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
 
-	Xpos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newX );
-	Ypos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newY );
-	Width->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newW );
-	Height->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newH );
+	Xpos->setValues( minXYVal, maxXYWHVal, decimals, newX );
+	Ypos->setValues( minXYVal, maxXYWHVal, decimals, newY );
+	Width->setValues( UmReFaktor, maxXYWHVal, decimals, newW );
+	Height->setValues( UmReFaktor, maxXYWHVal, decimals, newH );
 
-	LXpos->setDecimals(xywhdecimals);
+	LXpos->setDecimals(decimals);
 	LXpos->setMaxValue( maxXYWHVal );
 	LXpos->setValue(newLX);
 
-	LYpos->setDecimals(xywhdecimals);
+	LYpos->setDecimals(decimals);
 	LYpos->setMaxValue( maxXYWHVal );
 	LYpos->setValue(newLY);
 
-	dGap->setDecimals(distdecimals);
+	dGap->setDecimals(decimals);
 	dGap->setMaxValue(newGM);
 	dGap->setValue(newG);
 
-	DLeft->setDecimals(distdecimals);
+	DLeft->setDecimals(decimals);
 	DLeft->setMaxValue( 300 );
 	DLeft->setValue(newDL);
 
-	DTop->setDecimals(distdecimals);
+	DTop->setDecimals(decimals);
 	DTop->setMaxValue( 300 );
 	DTop->setValue(newDT);
 
-	DBottom->setDecimals(distdecimals);
+	DBottom->setDecimals(decimals);
 	DBottom->setMaxValue( 300 );
 	DBottom->setValue(newDB);
 
-	DRight->setDecimals(distdecimals);
+	DRight->setDecimals(decimals);
 	DRight->setMaxValue( 300 );
 	DRight->setValue(newDR);
 
-	RoundRect->setDecimals(distdecimals);
+	RoundRect->setDecimals(decimals);
 	RoundRect->setMaxValue(newRM);
 	RoundRect->setValue(newRR);
 
-	Cpal->UnitChange(old, UmReFaktor, doc->docUnitIndex);
+	Cpal->UnitChange(oldRatio, UmReFaktor, doc->docUnitIndex);
 	HaveItem = tmp;
 }
 

@@ -3683,8 +3683,8 @@ void ScribusApp::HaveNewDoc()
 	buildFontMenu();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
 	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(MarkActiveLayer(int)));
-	connect(view->HR, SIGNAL(MarkerMoved(double, double)), this, SLOT(ReportMP(double, double)));
-	connect(view->HR, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)));
+	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(ReportMP(double, double)));
+	connect(view->horizRuler, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)));
 	connect(view, SIGNAL(ClipPo(double, double)), nodePalette, SLOT(SetXY(double, double)));
 	connect(view, SIGNAL(PolyOpen()), nodePalette, SLOT(IsOpen()));
 	connect(view, SIGNAL(PStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
@@ -3773,9 +3773,9 @@ void ScribusApp::HaveNewSel(int Nr)
 
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["extrasInsertSpecial"]->setEnabled(false);
-	view->HR->ItemPosValid = false;
-	view->HR->repX = false;
-	view->HR->repaint();
+	view->horizRuler->ItemPosValid = false;
+	view->horizRuler->repX = false;
+	view->horizRuler->repaint();
 	switch (Nr)
 	{
 	case -1:
@@ -3870,29 +3870,29 @@ void ScribusApp::HaveNewSel(int Nr)
 			setTBvals(b);
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["extrasInsertSpecial"]->setEnabled(true);
-			view->HR->ItemPos = b->Xpos;
-			view->HR->ItemEndPos = b->Xpos+b->Width;
+			view->horizRuler->ItemPos = b->Xpos;
+			view->horizRuler->ItemEndPos = b->Xpos+b->Width;
 			if (b->lineColor() != "None")
-				view->HR->lineCorr = b->Pwidth / 2.0;
+				view->horizRuler->lineCorr = b->Pwidth / 2.0;
 			else
-				view->HR->lineCorr = 0;
-			view->HR->ColGap = b->ColGap;
-			view->HR->Cols = b->Cols;
-			view->HR->Extra = b->Extra;
-			view->HR->RExtra = b->RExtra;
-			view->HR->First = doc->docParagraphStyles[doc->currentParaStyle].First;
-			view->HR->Indent = doc->docParagraphStyles[doc->currentParaStyle].Indent;
+				view->horizRuler->lineCorr = 0;
+			view->horizRuler->ColGap = b->ColGap;
+			view->horizRuler->Cols = b->Cols;
+			view->horizRuler->Extra = b->Extra;
+			view->horizRuler->RExtra = b->RExtra;
+			view->horizRuler->First = doc->docParagraphStyles[doc->currentParaStyle].First;
+			view->horizRuler->Indent = doc->docParagraphStyles[doc->currentParaStyle].Indent;
 			if (b->imageFlippedH() || (b->Reverse))
-				view->HR->Revers = true;
+				view->horizRuler->Revers = true;
 			else
-				view->HR->Revers = false;
-			view->HR->ItemPosValid = true;
-			view->HR->repX = false;
+				view->horizRuler->Revers = false;
+			view->horizRuler->ItemPosValid = true;
+			view->horizRuler->repX = false;
 			if (doc->currentParaStyle < 5)
-				view->HR->TabValues = b->TabValues;
+				view->horizRuler->TabValues = b->TabValues;
 			else
-				view->HR->TabValues = doc->docParagraphStyles[doc->currentParaStyle].TabValues;
-			view->HR->repaint();
+				view->horizRuler->TabValues = doc->docParagraphStyles[doc->currentParaStyle].TabValues;
+			view->horizRuler->repaint();
 		}
 		else
 		{
@@ -6335,9 +6335,9 @@ void ScribusApp::setAppMode(int mode)
 				scrMenuMgr->setMenuEnabled("Style", true);
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
-			view->HR->ItemPosValid = false;
-			view->HR->repX = false;
-			view->HR->repaint();
+			view->horizRuler->ItemPosValid = false;
+			view->horizRuler->repX = false;
+			view->horizRuler->repaint();
 		}
 		if (mode == EditMode)
 		{
