@@ -1,5 +1,8 @@
 Changes since 1.2 
 
+03.09.2004
+	* feature #1024: Added Hyphenation Patterns for Afrikaans
+
 29.08.2004
 	* bug     # 869: oriantation setting wrong displayed
 	* bug     #1009: SuSE Patches for scribus
@@ -7,6 +10,7 @@ Changes since 1.2
 	* feature #1010: Update of russian translation. many fixes
 	* feature #1013: middle mouse button refreshes screen when you use it to paste text
 	* feature #1017: Norwegian Bokmaal Translation for 1.2
+	* bug     # 869: oriantation setting wrong displayed 
 
 28.08.2004
 	* feature # 500: Create new documentation website for 1.2 release

@@ -3176,8 +3176,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		if (!ss->IsScribus(FName))
 		{
 			delete ss;
-			//next line to add only after strings are no longer frozen
-			//QMessageBox::warning(this, tr("Warning"), tr("File %1 is not in Scribus format").arg(FName), tr("OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("File %1 is not in Scribus format").arg(FName), tr("OK"));
 			return false;
 		}
 		doc=new ScribusDoc();
@@ -8315,6 +8314,7 @@ void ScribusApp::InitHyphenator()
 	QStringList L_Lithuanian;
 	QStringList L_Swedish;
 	QStringList L_Slovenian;
+	QStringList L_Afrikaans;
 	L_German.clear();
 	L_Polish.clear();
 	L_English.clear();
@@ -8336,6 +8336,7 @@ void ScribusApp::InitHyphenator()
 	L_Lithuanian.clear();
 	L_Swedish.clear();
 	L_Slovenian.clear();
+	L_Afrikaans.clear();
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{
@@ -8432,6 +8433,10 @@ void ScribusApp::InitHyphenator()
 				translatedLang = trans->findMessage("ScribusApp", "Slovenian", "").translation();
 				if (translatedLang != "")
 					L_Slovenian.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Afrikaans", "").translation();
+				if (translatedLang != "")
+					L_Afrikaans.append(translatedLang);
 				delete trans;
 			}
 		}
@@ -8457,6 +8462,7 @@ void ScribusApp::InitHyphenator()
 	InstLang.insert("Lithuanian", L_Lithuanian);
 	InstLang.insert("Swedish", L_Swedish);
 	InstLang.insert("Slovenian", L_Slovenian);
+	InstLang.insert("Afrikaans", L_Afrikaans);
 	QString datein = "";
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
@@ -8510,6 +8516,8 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Swedish");
 			if (d[dc] == "hyph_sl.dic")
 				datein = tr("Slovenian");
+			if (d[dc] == "hyph_af.dic")
+				datein = tr("Afrikaans");
 			QString tDatein = datein;
 			datein = GetLang(datein);
 			LangTransl.insert(datein, tDatein);

@@ -471,9 +471,9 @@ int hnj_hyphen_hyphenate (HyphenDict *dict,
 	      hyphens[offset + k] = match[k];
 	}
 
-      // KBH: we need this to make sure we keep looking in a word
-      // for patterns even if the current character is not known in state 0
-      // since patterns for hyphenation may occur anywhere in the word
+      /* KBH: we need this to make sure we keep looking in a word
+       for patterns even if the current character is not known in state 0
+       since patterns for hyphenation may occur anywhere in the word */
       try_next_letter: ;
 
     }
