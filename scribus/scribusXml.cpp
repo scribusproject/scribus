@@ -27,6 +27,36 @@ extern float QStoFloat(QString in);
 extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
 
+QString ScriXmlDoc::Path2Relative(QString Path)
+{
+	QString	Ndir = "";
+	QStringList Pdir = QStringList::split("/", QDir::currentDirPath());
+	QFileInfo Bfi = QFileInfo(Path);
+	QStringList Bdir = QStringList::split("/", Bfi.dirPath(true));
+	bool ende = true;
+	uint dcoun = 0;
+	uint dcoun2 = 0;
+	while (ende)
+		{
+		if (Pdir[dcoun] == Bdir[dcoun])
+			dcoun++;
+		else
+			break;
+		if (dcoun > Pdir.count())
+			break;
+		}
+	dcoun2 = dcoun;
+	for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
+		{
+		Ndir += "../";
+		}
+	for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
+		{
+		Ndir += Bdir[ddx]+"/";
+		}
+	Ndir += Bfi.fileName();
+	return Ndir;
+}
 QString ScriXmlDoc::ReadDatei(QString fileName)
 {
 /**
@@ -1590,15 +1620,15 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("IFONT",item->IFont);
 		ob.setAttribute("ISIZE",item->ISize);
 		if (item->Pfile != "")
-			ob.setAttribute("PFILE",item->Pfile);
+			ob.setAttribute("PFILE",Path2Relative(item->Pfile));
 		else
 			ob.setAttribute("PFILE","");
 		if (item->Pfile2 != "")
-			ob.setAttribute("PFILE2",item->Pfile2);
+			ob.setAttribute("PFILE2",Path2Relative(item->Pfile2));
 		else
 			ob.setAttribute("PFILE2","");
 		if (item->Pfile3 != "")
-			ob.setAttribute("PFILE3",item->Pfile3);
+			ob.setAttribute("PFILE3",Path2Relative(item->Pfile3));
 		else
 			ob.setAttribute("PFILE3","");
 		ob.setAttribute("PRFILE",item->IProfile);
@@ -1899,45 +1929,16 @@ for(uint i=0;i<view->Pages.count();++i)
 		ob.setAttribute("TEXTRA",item->TExtra);
 		ob.setAttribute("BEXTRA",item->BExtra);
 		ob.setAttribute("REXTRA",item->RExtra);
-		if ((item->PType == 2) && (item->Pfile != ""))
-			{
-			Ndir = "";
-			QStringList Pdir = QStringList::split("/", QDir::currentDirPath());
-			QFileInfo Bfi = QFileInfo(item->Pfile);
-			QStringList Bdir = QStringList::split("/", Bfi.dirPath(true));
-			bool ende = true;
-			uint dcoun = 0;
-			uint dcoun2 = 0;
-			while (ende)
-				{
-				if (Pdir[dcoun] == Bdir[dcoun])
-					dcoun++;
-				else
-					break;
-				if (dcoun > Pdir.count())
-					break;
-				}
-			dcoun2 = dcoun;
-			for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
-				{
-				Ndir += "../";
-				}
-			for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
-				{
-				Ndir += Bdir[ddx]+"/";
-				}
-			Ndir += Bfi.fileName();
-			}
-		if (item->Pfile != "")
-			ob.setAttribute("PFILE",Ndir);
+		if (((item->PType == 2) || (item->PType == 4)) && (item->Pfile != ""))
+			ob.setAttribute("PFILE",Path2Relative(item->Pfile));
 		else
 			ob.setAttribute("PFILE","");
 		if (item->Pfile2 != "")
-			ob.setAttribute("PFILE2",item->Pfile2);
+			ob.setAttribute("PFILE2",Path2Relative(item->Pfile2));
 		else
 			ob.setAttribute("PFILE2","");
 		if (item->Pfile3 != "")
-			ob.setAttribute("PFILE3",item->Pfile3);
+			ob.setAttribute("PFILE3",Path2Relative(item->Pfile3));
 		else
 			ob.setAttribute("PFILE3","");
 		ob.setAttribute("PRFILE",item->IProfile);

@@ -2444,7 +2444,7 @@ void ScribusApp::slotFileOpen()
         formats += "*."+form+" ";
 				}
 			formats += "*.tif";
-  		QString fileName = CFileDialog(tr("Open"),tr("Images")+" ("+formats+tr(");;Postscript (*.eps);;All Files (*)"), "", true);
+  		QString fileName = CFileDialog(tr("Open"),tr("Images")+" ("+formats+tr(");;Vectorimages (*.eps *.pdf);;All Files (*)"), "", true);
   		if (!fileName.isEmpty())
   			{
   			b->EmProfile = "";
@@ -2461,11 +2461,12 @@ void ScribusApp::slotFileOpen()
   		}
   	if (b->PType == 4)
   		{
-  		QString fileName = CFileDialog(tr("Open"),tr("Textfiles (*.txt);;All Files (*)"));
+			LoadEnc = "";
+  		QString fileName = CFileDialog(tr("Open"),tr("Textfiles (*.txt);;All Files (*)"), "", false, true, false, true);
   		if (!fileName.isEmpty())
   			{
   			Serializer *ss = new Serializer(fileName);
-  			if (ss->Read())
+  			if (ss->Read(LoadEnc))
   				{
   				ss->GetText(b, doc->CurrentABStil);
   				}
@@ -2717,7 +2718,10 @@ void ScribusApp::slotFilePrint()
 		if (printer->OtherCom->isChecked())
 			PDef.Command = printer->Command->text();
   	PrinterUsed = true;
-		PSLib *dd = getPSDriver(true, Prefs.AvailFonts, doc->UsedFonts, doc->PageColors, false);
+		QMap<QString,QFont> ReallyUsed;
+		ReallyUsed.clear();
+		GetUsedFonts(&ReallyUsed);
+		PSLib *dd = getPSDriver(true, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
 		if (dd != NULL)
 			{
 			if (fil)
@@ -2875,8 +2879,6 @@ void ScribusApp::slotEditPaste()
 	NoFrameEdit();
 	if (HaveDoc)
 		{
-		if (!BuFromApp)
-			Buffer2 = ClipB->text(QClipboard::Clipboard);
 		if (Buffer2.isNull())
 			return;
 		if (doc->AppMode == 7)
@@ -2965,10 +2967,13 @@ void ScribusApp::ClipChange()
 {
 	QString cc;
 	cc = ClipB->text(QClipboard::Clipboard);
+	if (cc.isNull())
+		cc = ClipB->text(QClipboard::Selection);
 	editMenu->setItemEnabled(edid3, 0);
 	if (!cc.isNull())
 		{
 		BuFromApp = false;
+		Buffer2 = cc;
 		if (cc.startsWith("<SCRIBUSELEM"))
 			{
 			if (doc->AppMode != 7)
@@ -3656,9 +3661,12 @@ void ScribusApp::setAppMode(int mode)
 				}
 			QString cc;
 			cc = ClipB->text(QClipboard::Clipboard);
+			if (cc.isNull())
+				cc = ClipB->text(QClipboard::Selection);
 			editMenu->setItemEnabled(edid3, 0);
 			if (!cc.isNull())
 				{
+				Buffer2 = cc;
 				if (!cc.startsWith("<SCRIBUSELEM"))
 					{
 					BuFromApp = false;
@@ -5117,7 +5125,10 @@ void ScribusApp::closePDFDriver()
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	PSLib *dd = getPSDriver(false, Prefs.AvailFonts, doc->UsedFonts, doc->PageColors, false);
+	QMap<QString,QFont> ReallyUsed;
+	ReallyUsed.clear();
+	GetUsedFonts(&ReallyUsed);
+	PSLib *dd = getPSDriver(false, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
 	if (dd != NULL)
 		{
 		if (dd->PS_set_file(fn))
@@ -5613,13 +5624,19 @@ void ScribusApp::StatusPic()
 		}
 }
 
-QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, bool Pre, bool mod, bool comp)
+QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, bool Pre, bool mod, bool comp, bool cod)
 {
-	CustomFDialog dia(this, caption, filter, Pre, mod, comp);
+	CustomFDialog dia(this, caption, filter, Pre, mod, comp, cod);
 	if (defNa != "")
 		dia.setSelection(defNa);
 	if (dia.exec() == QDialog::Accepted)
+		{
+		if (cod)
+			LoadEnc = dia.TxCodeM->currentText();
+		else
+			LoadEnc = "";
 		return dia.selectedFile();
+		}
 	else
 		return "";
 }
@@ -6362,6 +6379,36 @@ void ScribusApp::Collect()
 					fn = s + doc->DocName+".scd";
 				if (!DoFileSave(fn))
 					QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+				}
+			}
+		}
+}
+
+void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
+{
+	for (uint c=0; c<view->MasterPages.count(); ++c)
+		{
+		for (uint d=0; d<view->MasterPages.at(c)->Items.count(); ++d)
+			{
+			if ((view->MasterPages.at(c)->Items.at(d)->PType == 4) || (view->MasterPages.at(c)->Items.at(d)->PType == 8))
+				{
+				for (uint e=0; e<view->MasterPages.at(c)->Items.at(d)->Ptext.count(); ++e)
+					{
+					Really->insert(view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cfont, doc->UsedFonts[view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cfont]);
+					}
+				}
+			}
+		}
+	for (uint c=0; c<view->Pages.count(); ++c)
+		{
+		for (uint d=0; d<view->Pages.at(c)->Items.count(); ++d)
+			{
+			if ((view->Pages.at(c)->Items.at(d)->PType == 4) || (view->Pages.at(c)->Items.at(d)->PType == 8))
+				{
+				for (uint e=0; e<view->Pages.at(c)->Items.at(d)->Ptext.count(); ++e)
+					{
+					Really->insert(view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cfont, doc->UsedFonts[view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cfont]);
+					}
 				}
 			}
 		}

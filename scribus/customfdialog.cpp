@@ -96,7 +96,7 @@ void FDialogPreview::GenPreview(QString name)
 	QStrList imfo = QImageIO::inputFormats();
 	if (ex == "JPG")
 		ex = "JPEG";
-	if ((imfo.contains(ex))||(ex=="PS")||(ex=="EPS")||(ex=="TIF"))
+	if ((imfo.contains(ex))||(ex=="PS")||(ex=="EPS")||(ex=="PDF")||(ex=="TIF"))
 		{
 		QImage im = LoadPict(name);
 		if (!im.isNull())
@@ -221,13 +221,20 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		TxCodeM->insertItem("KOI8-R");
 		TxCodeM->insertItem("KOI8-U");
 		QString localEn = QTextCodec::codecForLocale()->name();
+		bool hasIt = false;
 		for (int cc = 0; cc < TxCodeM->count(); cc++)
 			{
 			if (TxCodeM->text(cc) == localEn)
 				{
 				TxCodeM->setCurrentItem(cc);
+				hasIt = true;
 				break;
 				}
+			}
+		if (!hasIt)
+			{
+			TxCodeM->insertItem(localEn);
+			TxCodeM->setCurrentItem(TxCodeM->count()-1);
 			}
 		TxCodeM->setMinimumSize(QSize(200, 0));
 		Layout1C->addWidget(TxCodeM);

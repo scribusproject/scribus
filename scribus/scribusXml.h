@@ -20,6 +20,7 @@ Q_OBJECT
 public:
 	ScriXmlDoc() {};
 	~ScriXmlDoc() {};
+	QString Path2Relative(QString Path);
 	QString ReadDatei(QString fileName);
 	bool ReadColors(QString fileName);
 	int ReadPageCount(QString fileName);

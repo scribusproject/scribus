@@ -110,6 +110,7 @@ class ScribusApp : public QMainWindow
 		void SwitchWin();
 		void RestoreBookMarks();
 		void AdjustBM();
+		void GetUsedFonts(QMap<QString,QFont> *Really);
     struct CLBuf Buffer;
     QString Buffer2;
     QString Buffer3;

@@ -1,4 +1,10 @@
 Changes since Version 0.9.10
+25.05.2003	util.cpp
+		page.cpp		Improved Rotation of Objects with the Mouse.
+		scribuxXml.cpp		Icons of PDF-Buttons are now saved properly.
+		scribus.cpp		The first Page of a PDF can now placed like a EPS-File.
+					The Postscript-Exporter embeds now only really used Fonts.
+
 24.05.2003	scribus.cpp		Improved the Clipboard once more, works now with Nedit, OpenOffice
 					and Mozilla too.
 		customfdialog.cpp

@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-// #include <iostream.h>
+#include <iostream.h>
 
 #include "page.h"
 #include "page.moc"
@@ -2575,7 +2575,6 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		if (Mpressed && (doku->AppMode == 9))
 			{
 			float newW = xy2Deg(newX - qRound(RCenter.x()), newY - qRound(RCenter.y()));
-//			RotateItem(qRound((b->Rot - (oldW - newW))*100.0)/100.0, b->ItemNr);
 			RotateItem(b->Rot - (oldW - newW), b->ItemNr);
 			oldW = newW;
 //			emit DocChanged();
@@ -2856,15 +2855,16 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							case 2:
 								if (b->PType == 5)
 									{
-									float sav = doku->SnapGuides;
-									doku->SnapGuides = false;
-									npf = FPoint(newX, newY);
-									npf = ApplyGridF(npf);
+									p.begin(this);
+									Transform(b, &p);
+									mop = QPoint(m->x(), m->y());
+									npf = p.xFormDev(mop);
 									nx = np.x();
 									ny = np.y();
-									npf = transformPointI(FPoint(nx-Mxp, ny-Myp), 0, 0, b->Rot, 1, 1);
+									p.end();
+									float sav = doku->SnapGuides;
 									npf2 = FPoint(nx-Mxp, ny-Myp);
-									erf = MoveSizeItem(np2, np, b->ItemNr);
+									erf = MoveSizeItem(npf, npf, b->ItemNr);
 									doku->SnapGuides = sav;
 									if (sav)
 										b->Sizing = true;
@@ -3635,27 +3635,27 @@ void Page::mousePressEvent(QMouseEvent *m)
 				p.begin(this);
 				Transform(b, &p);
 				doku->RotMode = 2;
-				RCenter = transformPointI(FPoint(b->Width/2, b->Height/2), b->Xpos, b->Ypos, b->Rot, 1, 1);
+				RCenter = transformPointI(FPoint(b->Xpos+b->Width/2, b->Ypos+b->Height/2), 0, 0, b->Rot, 1, 1);
 				if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))))).contains(mpo))
 					{
 					if (p.xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
 						{
-						RCenter = transformPointI(FPoint(0, 0), b->Xpos, b->Ypos, b->Rot, 1, 1);
+						RCenter = FPoint(b->Xpos, b->Ypos);
 						doku->RotMode = 0;
 						}
 					if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
 						{
-						RCenter = transformPointI(FPoint(b->Width, b->Height), b->Xpos, b->Ypos, b->Rot, 1, 1);
+						RCenter = transformPointI(FPoint(b->Xpos+b->Width, b->Ypos+b->Height), 0, 0, b->Rot, 1, 1);
 						doku->RotMode = 4;
 						}
 					if (p.xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
 						{
-						RCenter = transformPointI(FPoint(b->Width, 0), b->Xpos, b->Ypos, b->Rot, 1, 1);
+						RCenter = transformPointI(FPoint(b->Xpos+b->Width, b->Ypos), 0, 0, b->Rot, 1, 1);
 						doku->RotMode = 1;
 						}
 					if (p.xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6)).intersects(mpo))
 						{
-						RCenter = transformPointI(FPoint(0, b->Height), b->Xpos, b->Ypos, b->Rot, 1, 1);
+						RCenter = transformPointI(FPoint(b->Xpos, b->Ypos+b->Height), 0, 0, b->Rot, 1, 1);
 						doku->RotMode = 3;
 						}
 					oldW = xy2Deg(Mxp - qRound(RCenter.x()), Myp - qRound(RCenter.y()));
@@ -6514,6 +6514,39 @@ void Page::LoadPict(QString fn, int ItNr)
 	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
+	if (ext == "pdf")
+		{
+		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+		cmd2 = " -c showpage -c quit";
+		ret = system(cmd1 + fn + cmd2);
+		if (ret == 0)
+			{
+			QImage im4;
+			QImage image;
+			image.load("/tmp/sc.png");
+  		image = image.convertDepth(32);
+			im4 = ProofPict(&image, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
+			Items.at(ItNr)->pixm = im4;
+			Items.at(ItNr)->Pfile = fi.absFilePath();
+			Items.at(ItNr)->PicAvail = true;
+			Items.at(ItNr)->PicArt = true;
+			Items.at(ItNr)->isRaster = false;
+			Items.at(ItNr)->BBoxX = 0;
+			Items.at(ItNr)->BBoxH = Items.at(ItNr)->pixm.height();
+			Items.at(ItNr)->OrigW = Items.at(ItNr)->pixm.width();
+			Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
+			Items.at(ItNr)->LocalViewX = Items.at(ItNr)->LocalScX;
+			Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
+			system("rm -f /tmp/sc.png");
+			}
+		else
+			{
+			Items.at(ItNr)->Pfile = fn;
+			Items.at(ItNr)->PicAvail = false;
+			Items.at(ItNr)->PicArt = false;
+			}
+		return;
+		}
 	if ((ext == "eps") || (ext == "ps"))
 		{
 		QFile f(fn);
@@ -6586,7 +6619,6 @@ void Page::LoadPict(QString fn, int ItNr)
 					int hi = image.height();
 					QBitmap bm("/tmp/sc.png");
 					bm.fill(Qt::color1);
-//    			int i = 0;
     			QPainter pp;
     			pp.begin(&bm);
     			pp.setPen(Qt::color0);
@@ -6600,7 +6632,6 @@ void Page::LoadPict(QString fn, int ItNr)
 								{
                 if(image.color(s[xi]) == 0xffffffff)
                 	pp.drawPoint(xi, yi);
-//                i++;
             		}
         			}
     				}

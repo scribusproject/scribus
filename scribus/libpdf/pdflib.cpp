@@ -2667,49 +2667,65 @@ void PDFlib::PDF_Image(QString fn, float sx, float sy, float x, float y, bool fr
 			}
 		}
 #endif
-	if (ext == "eps")
+	if ((ext == "eps") || (ext == "pdf"))
 		{
-		QFile f(fn);
-		if (f.open(IO_ReadOnly))
+		if (ext == "pdf")
 			{
-			QTextStream ts(&f);
-			while (!ts.atEnd())
+			cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(Options->Resolution)+" -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+			cmd2 = " -c showpage -c quit";
+			ret = system(cmd1 + fn + cmd2);
+			if (ret == 0)
 				{
-				tc = ' ';
-				tmp = "";
-				while ((tc != '\n') && (tc != '\r'))
-					{
-					ts >> tc;
-					if ((tc != '\n') && (tc != '\r'))
-						tmp += tc;
-					}
-				if (tmp.startsWith("%%BoundingBox"))
-					{
-					found = true;
-					BBox = tmp;
-					}
-				if (tmp.startsWith("%%EndComments"))
-					break;
-				}	
-			f.close();
-			if (found)
+				QImage image;
+				image.load("/tmp/sc.png");
+  			img = image.convertDepth(32);
+				system("rm -f /tmp/sc.png");
+				}
+			}
+		else
+			{
+			QFile f(fn);
+			if (f.open(IO_ReadOnly))
 				{
-				QTextStream ts2(&BBox, IO_ReadOnly);
-				ts2 >> dummy >> x2 >> y2 >> b >> h;
-				x2 = x2 * aufl;
-				y2 = y2 * aufl;
-				b = b * aufl;
-				h = h * aufl;
-				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(Options->Resolution)+" -sOutputFile=/tmp/sc.png -g";
-				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp.setNum(qRound(h)) + " " + fn + cmd2);
-				if (ret == 0)
+				QTextStream ts(&f);
+				while (!ts.atEnd())
 					{
-					QImage image;
-					image.load("/tmp/sc.png");
-  				image = image.convertDepth(32);
-					img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2), static_cast<int>(h-y2));
-					system("rm -f /tmp/sc.png");
+					tc = ' ';
+					tmp = "";
+					while ((tc != '\n') && (tc != '\r'))
+						{
+						ts >> tc;
+						if ((tc != '\n') && (tc != '\r'))
+							tmp += tc;
+						}
+					if (tmp.startsWith("%%BoundingBox"))
+						{
+						found = true;
+						BBox = tmp;
+						}
+					if (tmp.startsWith("%%EndComments"))
+						break;
+					}	
+				f.close();
+				if (found)
+					{
+					QTextStream ts2(&BBox, IO_ReadOnly);
+					ts2 >> dummy >> x2 >> y2 >> b >> h;
+					x2 = x2 * aufl;
+					y2 = y2 * aufl;
+					b = b * aufl;
+					h = h * aufl;
+					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(Options->Resolution)+" -sOutputFile=/tmp/sc.png -g";
+					cmd2 = " -c showpage -c quit";
+					ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp.setNum(qRound(h)) + " " + fn + cmd2);
+					if (ret == 0)
+						{
+						QImage image;
+						image.load("/tmp/sc.png");
+  					image = image.convertDepth(32);
+						img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2), static_cast<int>(h-y2));
+						system("rm -f /tmp/sc.png");
+						}
 					}
 				}
 			}

@@ -206,6 +206,19 @@ QImage LoadPict(QString fn)
 	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
+	if (ext == "pdf")
+		{
+		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+		cmd2 = " -c showpage -c quit";
+		ret = system(cmd1 + fn + cmd2);
+		if (ret == 0)
+			{
+			QImage image;
+			image.load("/tmp/sc.png");
+  		Bild = image.convertDepth(32);
+			system("rm -f /tmp/sc.png");
+			}
+		}
 	if ((ext == "eps") || (ext == "ps"))
 		{
 		QFile f(fn);
@@ -353,6 +366,20 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
+	if (ext == "pdf")
+		{
+		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+		cmd2 = " -c showpage -c quit";
+		ret = system(cmd1 + fn + cmd2);
+		if (ret == 0)
+			{
+			QImage image;
+			image.load("/tmp/sc.png");
+  		Bild = image.convertDepth(32);
+			system("rm -f /tmp/sc.png");
+			*realCMYK = false;
+			}
+		}
 	if ((ext == "eps") || (ext == "ps"))
 		{
 		QFile f(fn);

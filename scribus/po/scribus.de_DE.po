@@ -218,8 +218,8 @@ msgstr "Textdateien (*.txt);;Alle Dateien (*)"
 msgid "Images"
 msgstr "Rasterbilder"
 
-msgid ");;Postscript (*.eps);;All Files (*)"
-msgstr ");;Vektorbilder (*.eps);;Alle Dateien (*)"
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Vektorbilder (*.eps *.pdf);;Alle Dateien (*)"
 
 msgid "Look &in:"
 msgstr "Suche &in:"
@@ -2734,4 +2734,22 @@ msgstr "Größenanpassung der Anzeige"
 
 msgid "To adjust the Display drag the Ruler below with the Slider."
 msgstr "Zum Einstellen der Anzeigegröße das Lineal mit dem Regler anpassen"
+
+msgid "Show PDF-Tools"
+msgstr "PDF-Werkzeuge zeigen"
+
+msgid "Hide PDF-Tools"
+msgstr "PDF-Werkzeuge verbergen"
+
+msgid "Shears the Path horizotal to the right"
+msgstr "Scherung nach rechts"
+
+msgid "Shears the Path horizotal to the left"
+msgstr "Scherung nach links"
+
+msgid "Shears the Path vertical up"
+msgstr "Scherung nach open"
+
+msgid "Shears the Path vertical down"
+msgstr "Scherung nach unten"
 
