@@ -10,6 +10,7 @@
 #include FT_GLYPH_H
 
 extern QPixmap loadIcon(QString nam);
+extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
  
 QString Name()
 {
@@ -135,7 +136,6 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
     ZTabelle->setSelectionMode(QTable::NoSelection);
     ZTabelle->setColumnMovingEnabled(false);
     ZTabelle->setRowMovingEnabled(false);
-    ZTabelle->setFont(pl->doc->UsedFonts[pl->doc->CurrFont]);
 		int counter = 1;
 		FT_Face face;
 		FT_ULong  charcode;
@@ -207,8 +207,8 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
     ZAuswahlLayout->addWidget( ZTabelle );
 		ZTabelle->MaxCount = MaxCount;
 
-    Zeichen = new QLineEdit( this, "Zeichen" );
-    Zeichen->setFont(pl->doc->UsedFonts[pl->doc->CurrFont]);
+    Zeichen = new QLabel( this, "Zeichen" );
+		DelEdit();
     ZAuswahlLayout->addWidget( Zeichen );
 
     Layout1 = new QHBoxLayout;
@@ -235,6 +235,7 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
     QSpacerItem* spacer_4 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1->addItem( spacer_4 );
     ZAuswahlLayout->addLayout( Layout1 );
+		Zeichen->setMaximumSize(width(), 50);
 
     // signals and slots connections
     connect(Close, SIGNAL(clicked()), this, SLOT(accept()));
@@ -250,22 +251,28 @@ ZAuswahl::~ZAuswahl()
 void ZAuswahl::NeuesZeichen(int r, int c) // , int b, const QPoint &pp)
 {
 	if ((r*32+c) < MaxCount)
-		Zeichen->insert(QChar(Zeich[r*32+c]));
+		{
+		ChToIns += QChar(Zeich[r*32+c]);
+		QString da = (*ap->doc->AllFonts)[ap->doc->CurrFont]->Datei;
+		Zeichen->setPixmap(FontSample(da, 28, ChToIns, paletteBackgroundColor()));
+		}
 }
 
 void ZAuswahl::DelEdit()
 {
-	Zeichen->clear();
+	ChToIns = "";
+	QPixmap pm(1,28);
+	pm.fill(paletteBackgroundColor());
+	Zeichen->setPixmap(pm);
 }
 
 void ZAuswahl::InsChar()
 {
 	struct Pti *hg;
-	QString Tex = Zeichen->text();
-	for (uint a=0; a<Tex.length(); a++)
+	for (uint a=0; a<ChToIns.length(); a++)
 		{
 		hg = new Pti;
-		hg->ch = Tex.at(a);
+		hg->ch = ChToIns.at(a);
 		if (hg->ch == QChar(10)) { hg->ch = QChar(13); }
 		if (hg->ch == QChar(9)) { hg->ch = " "; }
 		hg->cfont = ap->doc->CurrFont;

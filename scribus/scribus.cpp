@@ -172,6 +172,8 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   else
   	{
   	HaveDoc = 0;
+		view = NULL;
+		doc = NULL;
   	BuildFontMenu();
 		SCFontsIterator it(Prefs.AvailFonts);
 		Prefs.DefFont = it.currentKey();

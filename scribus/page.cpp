@@ -64,6 +64,7 @@ extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
+extern FPoint GetMaxClipF(FPointArray Clip);
 
 Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView *view)
 				 : QWidget(pa, "ps", WRepaintNoErase)
@@ -2184,6 +2185,31 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 							break;
 						}
+					if ((b->PType == 4) && (m->state() & ShiftButton) && (m->state() & ControlButton))
+						{
+						double scx = b->Width / b->OldB2;
+						double scy = b->Height / b->OldH2;
+						if (scx != scy)
+							scx = scx / scy;
+						else
+							scx = 1.0;
+						if (b->Ptext.count() != 0)
+							{
+							b->ISize = QMAX(qRound(b->ISize * scy), 1);
+							b->LineSp = (b->ISize * static_cast<double>(doku->AutoLine) / 100) + b->ISize;
+							b->TxtScale = QMIN(QMAX(qRound(b->TxtScale * scx), 25), 400);
+							doku->CurrTextScale = b->TxtScale;
+							doku->CurrFontSize = b->ISize;
+							emit ItemTextAttr(b->LineSp);
+							emit ItemTextSize(b->ISize);
+							emit ItemTextSca(b->TxtScale);
+							for (uint aa = 0; aa < b->Ptext.count(); ++aa)
+								{
+								b->Ptext.at(aa)->csize = QMAX(qRound(b->Ptext.at(aa)->csize*scy), 1);
+								b->Ptext.at(aa)->cscale = QMAX(QMIN(qRound(b->Ptext.at(aa)->cscale*scx), 400), 25);
+								}
+							}
+						}
 					if (b->PType == 2)
 						{
 						AdjustPictScale(b);
@@ -2769,14 +2795,14 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							case 1:
 								p.begin(this);
 								Transform(b, &p);
-								if (m->state() & ShiftButton)
+								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
 									{
 									mop = QPoint(m->x(), static_cast<int>((b->Ypos + (newX - b->Xpos)) * sc));
 									QCursor::setPos(mapToGlobal(mop));
 									}
 								else
 									{
-									if (m->state() & ControlButton)
+									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
 										{
 										mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) / b->OldB2 * b->OldH2)) * sc));
 										QCursor::setPos(mapToGlobal(mop));
@@ -3898,25 +3924,6 @@ FPoint Page::GetMinClipF(FPointArray Clip)
 	return rp;
 }
 
-FPoint Page::GetMaxClipF(FPointArray Clip)
-{
-	FPoint np, rp;
-	double mx = 0;
-	double my = 0;
-	for (uint c = 0; c < Clip.size(); ++c)
-		{
-		np = Clip.point(c);
-		if (np.x() > 900000)
-			continue;
-		if (np.x() > mx)
-			mx = np.x();
-		if (np.y() > my)
-			my = np.y();
-		}
-	rp = FPoint(mx, my);
-	return rp;
-}
-
 QPoint Page::GetMinClip(QPointArray Clip)
 {
 	QPoint np, rp;
@@ -4453,31 +4460,31 @@ void Page::MarkClip(PageItem *b)
 			{
 			p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a+1, &x, &y);
-			p.drawLine(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x), static_cast<int>(y));
+			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 			p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a, &x, &y);
-			p.drawLine(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x), static_cast<int>(y));
+			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 			}
 		else
 			{
 			p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a, &x, &y);
-			p.drawLine(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x), static_cast<int>(y));
+			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 			p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a+1, &x, &y);
-			p.drawLine(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x), static_cast<int>(y));
+			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 			}
 		}
 	if (ClRe != -1)
 		{
 		p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
 		cli.point(ClRe, &x, &y);
-		p.drawLine(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x), static_cast<int>(y));
+		p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 		QValueList<int>::Iterator itm;
 		for (itm = SelNode.begin(); itm != SelNode.end(); ++itm)
 			{
 			cli.point((*itm), &x, &y);
-			p.drawLine(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x), static_cast<int>(y));
+			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 			}
 		emit HavePoint(true, MoveSym);
 		}

@@ -6,6 +6,7 @@
 PyObject *scribus_getfontsize(PyObject *self, PyObject* args);
 PyObject *scribus_getfont(PyObject *self, PyObject* args);
 PyObject *scribus_gettextsize(PyObject *self, PyObject* args);
+PyObject *scribus_getframetext(PyObject *self, PyObject* args);
 PyObject *scribus_gettext(PyObject *self, PyObject* args);
 PyObject *scribus_getlinespace(PyObject *self, PyObject* args);
 PyObject *scribus_setboxtext(PyObject *self, PyObject* args);

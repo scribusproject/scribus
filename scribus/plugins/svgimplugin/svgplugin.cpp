@@ -16,6 +16,7 @@ extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern FPoint GetMaxClipF(FPointArray Clip);
 
 QString Name()
 {
@@ -211,8 +212,9 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			ite->Width = Doku->ActPage->GetMaxClipF(ite->PoLine).x();
-			ite->Height = Doku->ActPage->GetMaxClipF(ite->PoLine).y();
+			FPoint wh = GetMaxClipF(ite->PoLine);
+			ite->Width = wh.x();
+			ite->Height = wh.y();
 			}
 		else if( STag == "ellipse" )
 			{
@@ -228,8 +230,9 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			ite->Width = Doku->ActPage->GetMaxClipF(ite->PoLine).x();
-			ite->Height = Doku->ActPage->GetMaxClipF(ite->PoLine).y();
+			FPoint wh = GetMaxClipF(ite->PoLine);
+			ite->Width = wh.x();
+			ite->Height = wh.y();
 			}
 		else if( STag == "circle" )
 			{
@@ -244,8 +247,9 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			ite->Width = Doku->ActPage->GetMaxClipF(ite->PoLine).x();
-			ite->Height = Doku->ActPage->GetMaxClipF(ite->PoLine).y();
+			FPoint wh = GetMaxClipF(ite->PoLine);
+			ite->Width = wh.x();
+			ite->Height = wh.y();
 			}
 		else if( STag == "line" )
 			{
@@ -411,8 +415,9 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					ite->FrameType = 3;
 					QWMatrix mm = gc->matrix;
 					ite->PoLine.map(mm);
-					ite->Width = Doku->ActPage->GetMaxClipF(ite->PoLine).x();
-					ite->Height = Doku->ActPage->GetMaxClipF(ite->PoLine).y();
+					FPoint wh = GetMaxClipF(ite->PoLine);
+					ite->Width = wh.x();
+					ite->Height = wh.y();
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 					Doku->ActPage->AdjustItemSize(ite);
 					break;

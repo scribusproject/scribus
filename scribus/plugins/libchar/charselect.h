@@ -10,7 +10,7 @@
 #define QUERY_H
 
 #include <qdialog.h>
-#include <qlineedit.h>
+#include <qlabel.h>
 #include <qpushbutton.h>
 #include <qtable.h>
 #include <qlayout.h>
@@ -53,13 +53,14 @@ public:
     ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *plug );
     ~ZAuswahl();
     ChTable* ZTabelle;
-    QLineEdit* Zeichen;
+    QLabel* Zeichen;
     QPushButton* Einf;
     QPushButton* Delete;
     QPushButton* Close;
     PageItem *ite;
     ScribusApp *ap;
     QValueList<uint> Zeich;
+		QString ChToIns;
     int MaxCount;
 
 public slots:

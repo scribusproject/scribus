@@ -32,7 +32,7 @@ Scripting Scribus with Python
 Franz Schmid
 \layout Date
 
-18.07.2003
+04.11.2003
 \layout Abstract
 
 This is the description how to use the Scripting Plugin for Scribus.
@@ -2690,6 +2690,40 @@ name
 .
  If this Textframe has some Text selected the Value assigned to the first
  Character of the Selection is returned.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetAllText
+\begin_inset LatexCommand \index{GetText}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Text of the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ and of all Textframes which are linked with this Frame.
+ If this Textframe has some Text selected, this Text is returned.
  If 
 \begin_inset Quotes eld
 \end_inset 

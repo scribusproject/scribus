@@ -80,7 +80,7 @@ PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
 		PyFloat_FromDouble(0.0);
 }
 
-PyObject *scribus_gettext(PyObject *self, PyObject* args)
+PyObject *scribus_getframetext(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
@@ -102,6 +102,56 @@ PyObject *scribus_gettext(PyObject *self, PyObject* args)
 				}
 			else
 				text += it->Ptext.at(a)->ch;
+			}
+		return PyString_FromString(text);
+		}
+	else
+		return PyString_FromString("");
+}
+
+PyObject *scribus_gettext(PyObject *self, PyObject* args)
+{
+	char *Name = "";
+	if (!PyArg_ParseTuple(args, "|s", &Name))
+		return NULL;
+	if (!Carrier->HaveDoc)
+		return PyString_FromString("");
+	int i = GetItem(QString(Name));
+	QString text = "";
+	PageItem *it;
+	PageItem *is;
+	if (i != -1)
+		{
+		it = doc->ActPage->Items.at(i);
+		while (it->BackBox != 0)
+			{
+			is = doc->ActPage->Items.at(it->BackBox->ItemNr);
+			it = is;
+			}
+		for (uint a = 0; a < it->Ptext.count(); a++)
+			{
+			if (it->HasSel)
+				{
+				if (it->Ptext.at(a)->cselect)
+					text += it->Ptext.at(a)->ch;
+				}
+			else
+				text += it->Ptext.at(a)->ch;
+			}
+		while (it->NextBox != 0)
+			{
+			is = doc->ActPage->Items.at(it->NextBox->ItemNr);
+			it = is;
+			for (uint a = 0; a < it->Ptext.count(); a++)
+				{
+				if (it->HasSel)
+					{
+					if (it->Ptext.at(a)->cselect)
+						text += it->Ptext.at(a)->ch;
+					}
+				else
+					text += it->Ptext.at(a)->ch;
+				}
 			}
 		return PyString_FromString(text);
 		}

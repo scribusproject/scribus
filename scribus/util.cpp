@@ -63,6 +63,7 @@ extern ProfilesL InputProfiles;
 
 bool overwrite(QWidget *parent, QString filename);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
+FPoint GetMaxClipF(FPointArray Clip);
 QPixmap FontSample(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
@@ -1234,23 +1235,43 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y)
 	return pts2;
 }
 
+FPoint GetMaxClipF(FPointArray Clip)
+{
+	FPoint np, rp;
+	double mx = 0;
+	double my = 0;
+	for (uint c = 0; c < Clip.size(); ++c)
+		{
+		np = Clip.point(c);
+		if (np.x() > 900000)
+			continue;
+		if (np.x() > mx)
+			mx = np.x();
+		if (np.y() > my)
+			my = np.y();
+		}
+	rp = FPoint(mx, my);
+	return rp;
+}
+
 QPixmap FontSample(QString da, int s, QString ts, QColor back)
 {
 	FT_Face face;
 	FT_Library library;
-	double x, y, wid;
+	double x, y, ymax;
 	bool error;
 	int  pen_x;
+	FPoint gp;
 	error = FT_Init_FreeType( &library );
 	error = FT_New_Face( library, da, 0, &face );
 	double uniEM = static_cast<double>(face->units_per_EM);
-	int h = qRound(face->height / uniEM) * s;
-	double a = static_cast<double>(face->descender) / uniEM * s;
+	int h = qRound(face->height / uniEM) * s + 1;
+	double a = static_cast<double>(face->descender) / uniEM * s + 1;
 	int w = qRound((face->bbox.xMax - face->bbox.xMin) / uniEM) * s * (ts.length()+1);
 	QPixmap pm(w, h);
 	pm.fill();
 	pen_x = 0;
-	wid = 0.0;
+	ymax = 0.0;
 	ScPainter *p = new ScPainter(&pm, pm.width(), pm.height());
 	p->setFillMode(1);
 	p->setLineWidth(0.0);
@@ -1264,14 +1285,15 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 		if (gly.size() > 3)
 			{
 			gly.translate(static_cast<double>(pen_x) / 64.0, a);
+			gp = GetMaxClipF(gly);
+			ymax = QMAX(ymax, gp.y());
 			p->setupPolygon(&gly);
 			p->fillPath();
 			}
 		pen_x += face->glyph->advance.x;
-		wid += face->glyph->metrics.horiAdvance / uniEM * s;
 		}
 	p->end();
-	pm.resize(QMIN(QMAX(qRound(wid), qRound(static_cast<double>(pen_x) / 64.0)), w), h);
+	pm.resize(QMIN(qRound(gp.x()), w), QMIN(qRound(ymax), h));
 	delete p;
 	FT_Done_FreeType( library );
 	return pm;

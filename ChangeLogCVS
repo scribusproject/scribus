@@ -1,3 +1,8 @@
 Changes since Version 1.1.2
-02.10.2003	Reenabled the Fontpreview in the Preferences.
+05.11.2003	Improved the Preview in the charselect plugin.
+
+04.11.2003	When you resize a Textframe with the Mouse and press
+		CTRL+SHIFT the Text is scaled accordingly.
+
+02.11.2003	Reenabled the Fontpreview in the Preferences.
 		Fixed Bug in the "SetText" Command of the Scripter.

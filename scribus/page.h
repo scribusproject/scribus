@@ -83,7 +83,6 @@ public:
 	void MoveItemI(double newX, double newY, int ite);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void UpdateClip(PageItem* b);
-	FPoint GetMaxClipF(FPointArray Clip);
 	FPoint GetMinClipF(FPointArray Clip);
 	QPoint GetMaxClip(QPointArray Clip);
 	QPoint GetMinClip(QPointArray Clip);
