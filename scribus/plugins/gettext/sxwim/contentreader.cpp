@@ -248,7 +248,7 @@ void ContentReader::write(const QString& text)
 void ContentReader::parse(QString fileName)
 {
 	sreader->parse(fileName);
-	xmlSAXParseFile(cSAXHandler, fileName.ascii(), XML_PARSE_RECOVER);
+	xmlSAXParseFile(cSAXHandler, fileName.ascii(), 1);
 }
 
 xmlSAXHandler cSAXHandlerStruct = {
