@@ -115,7 +115,15 @@ elif test -n "$PKG_CONFIG"; then
 else
 	AC_MSG_WARN([Couldn't find fontconfig-config or pkg-config])
 fi
+
+dnl Check to see if we can compile fontconfig
+SAVE_CFLAGS="${CFLAGS}"
+SAVE_LDFLAGS="${LDFLAGS}"
+CFLAGS="${CFLAGS} ${LIBFONTCONFIG_CFLAGS}"
+LDFLAGS="${LDFLAGS} ${LIBFONTCONFIG_LIBS}"
 AC_CHECK_LIB(fontconfig, FcPatternBuild, [hafontconfig=yes],[hafontconfig=no])
+CFLAGS="${SAVE_CFLAGS}"
+LDFLAGS="${SAVE_LDFLAGS}"
 if test $hafontconfig = yes; then
 	AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
 else
@@ -273,7 +281,7 @@ fi
 
 COMPILE_DEBUG=no
 AC_ARG_ENABLE(debug, [  --enable-debug     Enables Debug-Code],
-[if test "x$enable_debug" = "xyes"; then
+[if test "x$enable_debug" = "xyes" || test "x$enable_debug" = "xfull"; then
 	COMPILE_DEBUG=yes
     CXXFLAGS="$CXXFLAGS -g3 -fno-inline -O0 "
     CFLAGS="$CFLAGS -g3 -fno-inline -O0 "
@@ -307,10 +315,8 @@ AC_CONFIG_FILES([ scribus/doc/pl/tutorials/Makefile ])
 AC_CONFIG_FILES([ scribus/doc/pl/tutorials/short-words/Makefile ])
 AC_CONFIG_FILES([ scribus/icons/Makefile ])
 AC_CONFIG_FILES([ scribus/keysets/Makefile ])
-AC_CONFIG_FILES([ scribus/libabout/Makefile ])
 AC_CONFIG_FILES([ scribus/libpdf/Makefile ])
 AC_CONFIG_FILES([ scribus/libpostscript/Makefile ])
-AC_CONFIG_FILES([ scribus/libprefs/Makefile ])
 AC_CONFIG_FILES([ scribus/manpages/Makefile ])
 AC_CONFIG_FILES([ scribus/plugins/Makefile ])
 AC_CONFIG_FILES([ scribus/plugins/fileloader/Makefile ])
@@ -339,55 +345,82 @@ AC_CONFIG_FILES([ scribus/profiles/Makefile ])
 AC_CONFIG_FILES([ scribus/qm/Makefile ])
 AC_CONFIG_FILES([ scribus/templates/Makefile ])
 AC_OUTPUT
+echo
 echo "Configuration Summary:"
-echo ""
-if test $hafree = yes; then
-	if test $hafree_post213 = yes; then
-		echo "FreeType2 installed: Yes"
+echo
+
+FORMAT="   %-25s"
+
+echo "Libraries:"
+printf "${FORMAT}" "Freetype2 installed: "
+if test "$hafree" = yes; then
+	if test "$hafree_post213" = yes; then
+		echo "Yes"
 	else
-		echo "FreeType2 installed: Yes (OLD); Version 2.1.3 or newer recommended."
+		echo "Yes (OLD); Version 2.1.3 or newer recommended."
 	fi
 else
-	echo "FreeType2 installed: No"
+	echo "No"
 fi
-if test $hafontconfig = yes; then
-	echo "Fontconfig found:    Yes"
+
+printf "${FORMAT}" "Fontconfig found: "
+if test "$hafontconfig" = yes; then
+	echo "Yes"
 else
-	echo "Fontconfig found:    No"
+	echo "No"
 fi
-if test $hacups = yes; then
-	echo "CUPS installed:      Yes"
+
+printf "${FORMAT}" "CUPS installed: "
+if test "$hacups" = yes; then
+	echo "Yes"
 else
-	echo "CUPS installed:      No"
+	echo "No"
 fi
-if test $hacms = yes; then
-	echo "LittleCMS installed: Yes"
-elif test $hacms = pre112; then
-	echo "LittleCMS installed: Too old; Version 1.12 or newer required"
+
+printf "${FORMAT}" "LittleCMS installed: "
+if test "$hacms" = yes; then
+	echo "Yes"
+elif test "$hacms" = pre112; then
+	echo "Too old; Version 1.12 or newer required"
 else
-	echo "LittleCMS installed: No"
+	echo "No"
 fi
-if test $hastif = yes; then
-	echo "TiffLib installed:   Yes"
-elif test $hastif = pre36; then
-	echo "TiffLib installed:   Too old; Version 3.6.0 or newer required"
+
+printf "${FORMAT}" "libtiff installed: "
+if test "$hastif" = yes; then
+	echo "Yes"
+elif test "$hastif" = pre36; then
+	echo "Too old; Version 3.6.0 or newer required"
 else 
-	echo "TiffLib installed:   No"
+	echo "No"
 fi
-if test $haxml = yes; then
-	echo "Libxml2 installed:   Yes"
+
+printf "${FORMAT}" "Libxml2 installed: "
+if test "$haxml" = yes; then
+	echo "Yes"
 else
-	echo "Libxml2 installed:   No"
+	echo "No"
 fi
-if test $COMPILE_PYTHON = no; then
+
+if test "$COMPILE_PYTHON" = no; then
 	echo "The Scripter-Plugin will not be compiled."
 else
-	if test $hapython = yes; then
+	if test "$hapython" = yes; then
   	echo "Using Python 2.3"
 	else
   	echo "Using Python < 2.3"
 	fi
 fi
+
+echo "Configuration options:"
+
+printf "${FORMAT}" "Debugging enabled: "
+if test "$COMPILE_DEBUG" = yes; then
+	echo "Yes"
+else
+	echo "No"
+fi
+
 echo ""
 # Check if KDE_SET_PREFIX was called, and --prefix was passed to configure
 if test -n "$kde_libs_prefix" -a -n "$given_prefix"; then

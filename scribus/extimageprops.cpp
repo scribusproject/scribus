@@ -24,6 +24,43 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout = new QVBoxLayout( this, 10, 5, "ExtImagePropsLayout");
 	viewWidget = view;
 	currentItem = item;
+	currentLayer = 0;
+	blendModes.clear();
+	blendModes.insert("norm", tr("Normal"));
+	blendModes.insert("dark", tr("Darken"));
+	blendModes.insert("lite", tr("Lighten"));
+	blendModes.insert("hue ", tr("Hue"));
+	blendModes.insert("sat ", tr("Saturation"));
+	blendModes.insert("colr", tr("Color"));
+	blendModes.insert("lum ", tr("Luminosity"));
+	blendModes.insert("mul ", tr("Multiply"));
+	blendModes.insert("scrn", tr("Screen"));
+	blendModes.insert("diss", tr("Dissolve"));
+	blendModes.insert("over", tr("Overlay"));
+	blendModes.insert("hLit", tr("Hard Light"));
+	blendModes.insert("sLit", tr("Soft Light"));
+	blendModes.insert("diff", tr("Difference"));
+	blendModes.insert("smud", tr("Exlusion"));
+	blendModes.insert("div ", tr("Color Dodge"));
+	blendModes.insert("idiv", tr("Color Burn"));
+	blendModesRev.clear();
+	blendModesRev.insert( tr("Normal"), "norm");
+	blendModesRev.insert( tr("Darken"), "dark");
+	blendModesRev.insert( tr("Lighten"), "lite");
+	blendModesRev.insert( tr("Hue"), "hue ");
+	blendModesRev.insert( tr("Saturation"), "sat ");
+	blendModesRev.insert( tr("Color"), "colr");
+	blendModesRev.insert( tr("Luminosity"), "lum ");
+	blendModesRev.insert( tr("Multiply"), "mul ");
+	blendModesRev.insert( tr("Screen"), "scrn");
+	blendModesRev.insert( tr("Dissolve"), "diss");
+	blendModesRev.insert( tr("Overlay"), "over");
+	blendModesRev.insert( tr("Hard Light"), "hLit");
+	blendModesRev.insert( tr("Soft Light"), "sLit");
+	blendModesRev.insert( tr("Difference"), "diff");
+	blendModesRev.insert( tr("Exlusion"), "smud");
+	blendModesRev.insert( tr("Color Dodge"), "div ");
+	blendModesRev.insert( tr("Color Burn"), "idiv");
 	propsTab = new QTabWidget( this, "propsTab" );
 
 	tab = new QWidget( propsTab, "tab" );
@@ -32,12 +69,35 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	textLabel1 = new QLabel( tab, "textLabel1" );
 	textLabel1->setText( tr( "Blend Mode:" ) );
 	layout1->addWidget( textLabel1 );
-	blendMode = new QComboBox( false, tab, "blendMode" );
+	blendMode = new QComboBox( true, tab, "blendMode" );
+	blendMode->setEditable(false);
+	blendMode->clear();
+	blendMode->insertItem( tr("Normal"));
+	blendMode->insertItem( tr("Darken"));
+	blendMode->insertItem( tr("Lighten"));
+	blendMode->insertItem( tr("Hue"));
+	blendMode->insertItem( tr("Saturation"));
+	blendMode->insertItem( tr("Color"));
+	blendMode->insertItem( tr("Luminosity"));
+	blendMode->insertItem( tr("Multiply"));
+	blendMode->insertItem( tr("Screen"));
+	blendMode->insertItem( tr("Dissolve"));
+	blendMode->insertItem( tr("Overlay"));
+	blendMode->insertItem( tr("Hard Light"));
+	blendMode->insertItem( tr("Soft Light"));
+	blendMode->insertItem( tr("Difference"));
+	blendMode->insertItem( tr("Exlusion"));
+	blendMode->insertItem( tr("Color Dodge"));
+	blendMode->insertItem( tr("Color Burn"));
 	layout1->addWidget( blendMode );
 	textLabel2 = new QLabel( tab, "textLabel2" );
 	textLabel2->setText( tr( "Opacity:" ) );
 	layout1->addWidget( textLabel2 );
 	opacitySpinBox = new QSpinBox( tab, "opacitySpinBox" );
+	opacitySpinBox->setMinValue(0);
+	opacitySpinBox->setMaxValue(100);
+	opacitySpinBox->setLineStep(10);
+	opacitySpinBox->setSuffix( tr(" %"));
 	layout1->addWidget( opacitySpinBox );
 	tabLayout->addLayout( layout1 );
 	layerTable = new QTable( tab, "layerTable" );
@@ -59,10 +119,22 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	layerTable->setFocusStyle( QTable::FollowStyle );
 	QHeader *Header = layerTable->verticalHeader();
 	Header->setMovingEnabled(false);
-//	Header->setResizeEnabled(false);
+	Header->setResizeEnabled(false);
 	FlagsSicht.clear();
 	if (info->layerInfo.count() != 0)
 	{
+		if ((info->isRequest) && (info->RequestProps.contains(0)))
+		{
+			opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
+			blendMode->setCurrentText(blendModes[info->RequestProps[0].blend]);
+		}
+		else
+		{
+			opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
+			blendMode->setCurrentText(blendModes[info->layerInfo[0].blend]);
+		}
+		opacitySpinBox->setEnabled(true);
+		blendMode->setEnabled(true);
 		QString tmp;
 		QValueList<PSDLayer>::iterator it2;
 		layerTable->setNumRows(info->layerInfo.count());
@@ -73,6 +145,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			cp->setChecked(!((*it2).flags & 2));
 			FlagsSicht.append(cp);
 //			connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
+			connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
 			layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
 			QPixmap pm;
 			pm.convertFromImage((*it2).thumb);
@@ -85,6 +158,10 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	}
 	else
 	{
+		opacitySpinBox->setValue(100);
+		opacitySpinBox->setEnabled(false);
+		blendMode->setCurrentText( tr("Normal"));
+		blendMode->setEnabled(false);
 		layerTable->setNumRows(1);
 		QPixmap pm;
 		QImage imt;
@@ -103,6 +180,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		FlagsSicht.append(cp);
 	}
 	tabLayout->addWidget( layerTable );
+	blendMode->setCurrentItem(0);
 	propsTab->insertTab( tab,  tr( "Layers" ) );
 
 	tab_2 = new QWidget( propsTab, "tab_2" );
@@ -127,7 +205,51 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout->addWidget( propsTab );
 	resize(330, 320);
 	clearWState( WState_Polished );
-	connect( pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	connect(layerTable, SIGNAL(currentChanged(int, int)), this, SLOT(selLayer(int)));
+	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+	connect(blendMode, SIGNAL(highlighted(int)), this, SLOT(changedLayer()));
+}
+
+void ExtImageProps::changedLayer()
+{
+	struct LoadRequest loadingInfo;
+	currentItem->imgInfo.isRequest = true;
+	currentItem->imgInfo.RequestProps.clear();
+	for (uint r = 0; r < layerTable->numRows(); ++r)
+	{
+		if (currentLayer == layerTable->numRows() - r - 1)
+		{
+			loadingInfo.blend = blendModesRev[blendMode->currentText()];
+			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
+		}
+		else
+		{
+			loadingInfo.blend = currentItem->imgInfo.layerInfo[layerTable->numRows() - r - 1].blend;
+			loadingInfo.opacity = currentItem->imgInfo.layerInfo[layerTable->numRows() - r - 1].opacity;
+		}
+		loadingInfo.visible = FlagsSicht.at(layerTable->numRows() - r - 1)->isChecked();
+		currentItem->imgInfo.RequestProps.insert(layerTable->numRows() - r - 1, loadingInfo);
+	}
+	viewWidget->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+	viewWidget->updateContents();
+}
+
+void ExtImageProps::selLayer(int layer)
+{
+	if ((currentItem->imgInfo.isRequest) && (currentItem->imgInfo.RequestProps.contains(layerTable->numRows() - layer - 1)))
+	{
+		opacitySpinBox->setValue(qRound(currentItem->imgInfo.RequestProps[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
+		blendMode->setCurrentText(blendModes[currentItem->imgInfo.RequestProps[layerTable->numRows() - layer - 1].blend]);
+	}
+	else
+	{
+		opacitySpinBox->setValue(qRound(currentItem->imgInfo.layerInfo[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
+		blendMode->setCurrentText(blendModes[currentItem->imgInfo.layerInfo[layerTable->numRows() - layer - 1].blend]);
+	}
+	opacitySpinBox->setEnabled(true);
+	blendMode->setEnabled(true);
+	currentLayer = layerTable->numRows() - layer - 1;
 }
 
 void ExtImageProps::selPath(QListBoxItem *c)

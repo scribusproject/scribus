@@ -37,8 +37,13 @@ public:
 	QPtrList<QCheckBox> FlagsSicht;
 	ScribusView *viewWidget;
 	PageItem *currentItem;
+	int currentLayer;
+	QMap<QString, QString> blendModes;
+	QMap<QString, QString> blendModesRev;
 
 public slots:
+	void changedLayer();
+	void selLayer(int layer);
 	void selPath(QListBoxItem *c);
 
 protected:

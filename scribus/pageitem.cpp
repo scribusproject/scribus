@@ -293,6 +293,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	endArrowIndex = Doc->toolSettings.dEndArrow;
 	undoManager = UndoManager::instance();
 	imgInfo.valid = false;
+	imgInfo.isRequest = false;
 }
 
 /** Zeichnet das Item */

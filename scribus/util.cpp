@@ -550,7 +550,7 @@ static void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 	}
 }
 
-static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage & img, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer )
+static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage & img, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer, ImageInfoRecord *info )
 {
 	// Find out if the data is compressed.
 	// Known values:
@@ -728,7 +728,10 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
 							tmpImg2.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
 	layerInfo[layer].thumb = imt.copy();
-	if (!(layerInfo[layer].flags & 2))
+	bool visible = !(layerInfo[layer].flags & 2);
+	if ((info->isRequest) && (info->RequestProps.contains(layer)))
+		visible = info->RequestProps[layer].visible;
+	if (visible)
 	{
 		if (*firstLayer)
 		{
@@ -755,7 +758,10 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 					src_g = s[1];
 					src_b = s[2];
 					src_a = s[3];
-					if (layerInfo[layer].blend == "mul ")
+					QString layBlend = layerInfo[layer].blend;
+					if ((info->isRequest) && (info->RequestProps.contains(layer)))
+						layBlend = info->RequestProps[layer].blend;
+					if (layBlend == "mul ")
 					{
 						src_r = INT_MULT(src_r, d[0]);
 						src_g = INT_MULT(src_g, d[1]);
@@ -765,7 +771,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 						else
 							src_a = QMIN(src_a, d[3]);
 					}
-					else if (layerInfo[layer].blend == "scrn")
+					else if (layBlend == "scrn")
 					{
 						src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
 						src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
@@ -775,7 +781,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 						else
 							src_a = QMIN(src_a, d[3]);
 					}
-					else if (layerInfo[layer].blend == "over")
+					else if (layBlend == "over")
 					{
 						src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
 						src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
@@ -785,7 +791,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 						else
 							src_a = QMIN(src_a, d[3]);
 					}
-					else if (layerInfo[layer].blend == "diff")
+					else if (layBlend == "diff")
 					{
 						src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
 						src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
@@ -795,7 +801,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 						else
 							src_a = QMIN(src_a, d[3]);
 					}
-					else if (layerInfo[layer].blend == "dark")
+					else if (layBlend == "dark")
 					{
 						src_r = d[0]  < src_r ? d[0]  : src_r;
 						src_g = d[1] < src_g ? d[1] : src_g;
@@ -805,7 +811,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 						else
 							src_a = QMIN( src_a, d[3] );
 					}
-					else if (layerInfo[layer].blend == "lite")
+					else if (layBlend == "lite")
 					{
 						src_r = d[0] < src_r ? src_r : d[0];
 						src_g = d[1] < src_g ? src_g : d[1];
@@ -815,7 +821,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 						else
 							src_a = QMIN( src_a, d[3] );
 					}
-					else if (layerInfo[layer].blend == "hue ")
+					else if (layBlend == "hue ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
@@ -832,7 +838,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 							src_a = QMIN( src_a, d[3] );
 						}
 					}
-					else if (layerInfo[layer].blend == "sat ")
+					else if (layBlend == "sat ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
@@ -849,7 +855,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 							src_a = QMIN(src_a, d[3]);
 						}
 					}
-					else if (layerInfo[layer].blend == "lum ")
+					else if (layBlend == "lum ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
@@ -866,7 +872,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 							src_a = QMIN(src_a, d[3]);
 						}
 					}
-					else if (layerInfo[layer].blend == "colr")
+					else if (layBlend == "colr")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
@@ -884,10 +890,13 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 							src_a = QMIN(src_a, d[3]);
 						}
 					}
-					r = (d[0] * (255 - layerInfo[layer].opacity) + src_r * layerInfo[layer].opacity) / 255;
-					g = (d[1] * (255 - layerInfo[layer].opacity) + src_g * layerInfo[layer].opacity) / 255;
-					b = (d[2] * (255 - layerInfo[layer].opacity) + src_b * layerInfo[layer].opacity) / 255;
-					a = (d[3] * (255 - layerInfo[layer].opacity) + src_a * layerInfo[layer].opacity) / 255;
+					int layOpa = layerInfo[layer].opacity;
+					if ((info->isRequest) && (info->RequestProps.contains(layer)))
+						layOpa = info->RequestProps[layer].opacity;
+					r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
+					g = (d[1] * (255 - layOpa) + src_g * layOpa) / 255;
+					b = (d[2] * (255 - layOpa) + src_b * layOpa) / 255;
+					a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
 					if (header.color_mode == CM_CMYK)
 					{
 						d[0] = r;
@@ -1307,7 +1316,7 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 		bool firstLayer = true;
 		for (int layer = 0; layer < numLayers; layer++)
 		{
-			loadLayerChannels( s, header, img, info->layerInfo, layer, &firstLayer );
+			loadLayerChannels( s, header, img, info->layerInfo, layer, &firstLayer, info );
 		}
 	}
 	else

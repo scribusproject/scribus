@@ -52,6 +52,13 @@ struct PSDLayer
 	QImage thumb;
 };
 
+struct LoadRequest
+{
+	bool visible;
+	ushort opacity;
+	QString blend;
+};
+
 struct ImageInfoRecord
 {
 	int xres;
@@ -60,6 +67,7 @@ struct ImageInfoRecord
 	bool valid;
 	bool isRequest;
 	QMap<QString, FPointArray> PDSpathData;
+	QMap<int, LoadRequest> RequestProps;
 	QString clipPath;
 	QString usedPath;
 	QValueList<PSDLayer> layerInfo;

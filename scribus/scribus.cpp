@@ -4805,6 +4805,7 @@ void ScribusApp::slotFileOpen()
 			{
 				dirs->set("images", fileName.left(fileName.findRev("/")));
 				b->EmProfile = "";
+				b->imgInfo.isRequest = false;
 				b->UseEmbedded = true;
 				b->IProfile = doc->CMSSettings.DefaultInputProfile;
 				b->IRender = doc->CMSSettings.DefaultIntentMonitor2;
