@@ -29,8 +29,9 @@
 			<submenuitem text="Font Setup" file="fonts1.html"/>
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
+			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
 		</submenuitem>
-			<submenuitem text="Document Text" file="text.html">
+			<submenuitem text="Document Text" file="text.html" />
 			<submenuitem text="Doc. Info" file="docinfo.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
 	      </submenuitem>
