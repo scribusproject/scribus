@@ -6,7 +6,6 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
 	$(INSTALL_DATA) $(srcdir)/about1.html $(prefix)/share/scribus/doc/en/about1.html
 	$(INSTALL_DATA) $(srcdir)/about2.html $(prefix)/share/scribus/doc/en/about2.html
-	$(INSTALL_DATA) $(srcdir)/acroreader.html $(prefix)/share/scribus/doc/en/acroreader.html
 	$(INSTALL_DATA) $(srcdir)/cms.html $(prefix)/share/scribus/doc/en/cms.html
 	$(INSTALL_DATA) $(srcdir)/codingstandards.html $(prefix)/share/scribus/doc/en/codingstandards.html
 	$(INSTALL_DATA) $(srcdir)/contributions.html $(prefix)/share/scribus/doc/en/contributions.html
@@ -107,7 +106,6 @@ install-data-local:
 uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/about1.html
 	-rm -f $(prefix)/share/scribus/doc/en/about2.html
-	-rm -f $(prefix)/share/scribus/doc/en/acroreader.html
 	-rm -f $(prefix)/share/scribus/doc/en/cms.html
 	-rm -f $(prefix)/share/scribus/doc/en/codingstandards.html
 	-rm -f $(prefix)/share/scribus/doc/en/contributions.html
