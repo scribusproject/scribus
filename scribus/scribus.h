@@ -496,6 +496,15 @@ private:
 	void initCMS();
 	void initFileMenuActions();
 	void initEditMenuActions();
+	void initStyleMenuActions();
+	void initItemMenuActions();
+	void initPageMenuActions();
+	void initViewMenuActions();
+	void initToolsMenuActions();
+	void initExtrasMenuActions();
+	void initWindowsMenuActions();
+	void initScriptMenuActions();
+	void initHelpMenuActions();
 
 	QString guiLanguage;
 	QString recentFileMenuName;
@@ -507,9 +516,9 @@ private:
 	/** StilMenu enthaelt das Stilemenue */
 	QPopupMenu *StilMenu;
 	/** itemMenu enthaelt das Objektemenue */
-	QPopupMenu *itemMenu;
+	//QPopupMenu *itemMenu;
 	/** pageMenu enthaelt das Seitenmenue */
-	QPopupMenu *pageMenu;
+	//QPopupMenu *pageMenu;
 	/** viewMenu contains all items of the menubar entry "View" */
 	QPopupMenu *viewMenu;
 	/** ColorMenu enthaelt die Farben des Dokuments */
@@ -538,19 +547,29 @@ private:
 	QToolButton* DatPDF;
 	QToolButton* DatNeu;
 	int KeyMod;
-	int ShapeEdit;
-	int ShapeM;
-	int M_ItemAlignDist;
-	int PfadT;
-	int PfadDT;
-	int PfadS;
-	int PfadV;
-	int PfadTP;
-	int pgmd;
-	int pgmm;
-	int pgmv;
+	
+	//int M_ItemShapeEdit;
+	//int M_ItemShapeMenu;
+	//int M_ItemAlignDist;
+	//int M_ItemAttachTextToPath;
+	//int M_ItemDetachTextFromPath;
+	//int M_ItemSplitPolygons;
+	//int M_ItemCombinePolygons;
+	//int M_ItemConvertToOutlines;
+	//int M_ItemDelete;
+	//int M_ItemGroup;
+	//int M_ItemUngroup;
+	//int M_ItemLock;
+	//int M_ItemRaise;
+	//int M_ItemLower;
+	//int M_ItemSendToBack;
+	//int M_ItemBringToFront;
+	//int M_ItemDuplicate;
+	//int M_ItemMultiDuplicate;
+	//int M_PageDelete;
+	//int M_PageMove;
+	//int pgmm;
 	int Stm;
-	int Obm;
 	int M_ViewShowMarkers;
 	int M_ViewDrawFrames;
 	int M_ViewShowImages;
@@ -599,20 +618,10 @@ private:
 	//int M_EditTemplates;
 	//int M_EditJavascripts;
 	int tip;
-	int M_ItemDelete;
-	int M_ItemGroup;
-	int M_ItemUngroup;
-	int M_ItemLock;
 	int exmn;
 	int hyph;
 	int M_ExtraCharSelect;
 	int M_ToolsCheckDoc;
-	int M_ItemRaise;
-	int M_ItemLower;
-	int M_ItemSendToBack;
-	int M_ItemBringToFront;
-	int M_ItemDuplicate;
-	int M_ItemMultiDuplicate;
 	bool PalettesStat[10];
 	bool GuidesStat[7];
 	bool tipsOn;
