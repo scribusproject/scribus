@@ -14,7 +14,7 @@ The dependencies for compilation, and also to run Scribus are:
 	<li>Freetype2 2.1.3+.</li>
 	<li>libart_lgpl 2.3.10+, 2.3.16+ recommended.</li>
 	<li>libxml 2.6+.</li>
-	<li>Ghostscript &gt; 6.53+. GNU Ghostscript 7.07+ or AFPL Ghostscript 8.14 is highly recommended.</li>
+	<li>Ghostscript &gt; 6.53+. GPL Ghostscript 7.07+ or AFPL Ghostscript 8.50+ is highly recommended.</li>
 	<li>Postscript-Fonts. TrueType Fonts. Scribus also can support OpenType fonts both TrueType and Type 1 Outline OpenType Fonts in 1.1.1+.</li>
 </ol>
 <p>Scribus will run under most any window manager and does not require KDE
@@ -30,7 +30,7 @@ straight forward. You also need at least one RGB profile and one CMYK
 profile installed or the color preferences and options will not appear in
 the menus. On Red Hat and Mandrake 9.x you may have to type export
 LDFLAGS=&quot;-lm&quot;, just before compiling or littlecms may not link correctly
-to Scribus. This issue has been fixed in littlecms 1.10 and in Scribus 1.2</p>
+to Scribus. This issue has been fixed in littlecms 1.10+ and in Scribus 1.2.x</p>
 <p>Testing suggests setting the correct &#034;-march=&#034; CXXFLAGS has a very
 benefitial effect on Scribus performance. For example, if you have a Duron or Athlon processor, using <code>export
 CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see:
@@ -44,5 +44,6 @@ for detailed options</p>
 with CUPS.</li>
 <li>Gimp Print development librairies - Scribus now directly supports the
 Gimp Print plug-in with CUPS.</li>
+<li>Littlecms - also known as lcms in some distros. Minimum 1.09, 1.12+ recommended. lcms 1.12+ has support for black point generation.</li>
 </ul>
 </qt>
