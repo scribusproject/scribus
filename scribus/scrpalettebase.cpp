@@ -22,6 +22,7 @@
 #include <qpoint.h>
 
 #include "scrpalettebase.h"
+#include "scrpalettebase.moc"
 #include "prefsfile.h"
 #include "prefscontext.h"
 

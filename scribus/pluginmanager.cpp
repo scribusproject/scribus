@@ -1,5 +1,5 @@
 #include "pluginmanager.h"
-//include "pluginmanager.moc"
+#include "pluginmanager.moc"
 #include <dlfcn.h>
 #include <iostream>
 #include <qdir.h>
