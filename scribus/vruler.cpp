@@ -144,7 +144,7 @@ void Vruler::paintEvent(QPaintEvent *)
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
-	if ((doku->PageFP) && (doku->PagesSbS))
+	if (doku->PageFP)
 	{
 		if (doku->FirstPageLeft)
 		{

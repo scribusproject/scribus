@@ -2,6 +2,7 @@
 #include "fpointarray.h"
 #include "scribusdoc.h"
 #include <qpixmap.h>
+#include <qlistbox.h>
 #include "scpainter.h"
 #include <qimage.h>
 
@@ -11,6 +12,8 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 {
 	setEditable(false);
 	clear();
+	insertItem( tr("None"));
+	setMaximumWidth(listBox()->maxItemWidth()*3+22);
 	arrowDirection = direction;
 }
 
@@ -67,4 +70,5 @@ void ArrowChooser::rebuildList(ScribusDoc *currentDoc)
 		Ico.convertFromImage(image);
 		insertItem(Ico, currentDoc->arrowStyles[a].name);
 	}
+	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }

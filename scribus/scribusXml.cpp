@@ -1692,6 +1692,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				struct arrowDesc arrow;
 				double xa, ya;
 				arrow.name = pg.attribute("Name");
+				arrow.userArrow = true;
 				QString tmp = pg.attribute("Points");
 				QTextStream fp(&tmp, IO_ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
@@ -2058,19 +2059,22 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	{
 		for (itar = usedArrows.begin(); itar != usedArrows.end(); ++itar)
 		{
-			QDomElement ar=docu.createElement("Arrows");
-			ar.setAttribute("NumPoints", itar.data().points.size());
-			QString arp = "";
-			double xa, ya;
-			for (uint nxx = 0; nxx < itar.data().points.size(); ++nxx)
+			if (itar.data().userArrow)
 			{
-				itar.data().points.point(nxx, &xa, &ya);
-				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+				QDomElement ar=docu.createElement("Arrows");
+				ar.setAttribute("NumPoints", itar.data().points.size());
+				QString arp = "";
+				double xa, ya;
+				for (uint nxx = 0; nxx < itar.data().points.size(); ++nxx)
+				{
+					itar.data().points.point(nxx, &xa, &ya);
+					arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+				}
+				ar.setAttribute("Points", arp);
+				ar.setAttribute("Name", itar.data().name);
+				ar.setAttribute("Index", itar.key());
+				elem.appendChild(ar);
 			}
-			ar.setAttribute("Points", arp);
-			ar.setAttribute("Name", itar.data().name);
-			ar.setAttribute("Index", itar.key());
-			elem.appendChild(ar);
 		}
 	}
 	for (uint co=0; co<Selitems->count(); ++co)
@@ -2506,6 +2510,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->linkShown));
 	dc.setAttribute("GuideRad", doc->GuideRad);
+	dc.setAttribute("GRAB",doc->GrabRad);
 	dc.setAttribute("POLYC", doc->PolyC);
 	dc.setAttribute("POLYF", doc->PolyF);
 	dc.setAttribute("POLYR", doc->PolyR);
@@ -2573,19 +2578,22 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	QValueList<arrowDesc>::Iterator itar;
 	for (itar = doc->arrowStyles.begin(); itar != doc->arrowStyles.end(); ++itar)
 	{
-		QDomElement ar=docu.createElement("Arrows");
-		ar.setAttribute("NumPoints", (*itar).points.size());
-		QString arp = "";
-		QString tmp, tmpy;
-		double xa, ya;
-		for (uint nxx = 0; nxx < (*itar).points.size(); ++nxx)
+		if ((*itar).userArrow)
 		{
-			(*itar).points.point(nxx, &xa, &ya);
-			arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+			QDomElement ar=docu.createElement("Arrows");
+			ar.setAttribute("NumPoints", (*itar).points.size());
+			QString arp = "";
+			QString tmp, tmpy;
+			double xa, ya;
+			for (uint nxx = 0; nxx < (*itar).points.size(); ++nxx)
+			{
+				(*itar).points.point(nxx, &xa, &ya);
+				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+			}
+			ar.setAttribute("Points", arp);
+			ar.setAttribute("Name", (*itar).name);
+			dc.appendChild(ar);
 		}
-		ar.setAttribute("Points", arp);
-		ar.setAttribute("Name", (*itar).name);
-		dc.appendChild(ar);
 	}
 	QMap<QString,QString>::Iterator itja;
 	for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
@@ -2792,7 +2800,6 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("APF",Vor->AppFontSize);
 	dc.setAttribute("GRAB",Vor->GrabRad);
 	dc.setAttribute("UNIT",Vor->Einheit);
-	dc.setAttribute("SBS", Vor->PagesSbS);
 	dc.setAttribute("RCD", Vor->RecentDCount);
 	dc.setAttribute("DOC", Vor->DocDir);
 	dc.setAttribute("PROFILES", Vor->ProfileDir);
@@ -2803,6 +2810,11 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->MarginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(Vor->BaseShown));
 	dc.setAttribute("SHOWLINK", static_cast<int>(Vor->linkShown));
+	dc.setAttribute("SHOWPICT", static_cast<int>(Vor->ShowPic));
+	dc.setAttribute("ScratchBottom", Vor->ScratchBottom);
+	dc.setAttribute("ScatchLeft", Vor->ScratchLeft);
+	dc.setAttribute("ScratchRight", Vor->ScratchRight);
+	dc.setAttribute("ScratchTop", Vor->ScratchTop);
 	dc.setAttribute("STECOLOR", Vor->STEcolor.name());
 	dc.setAttribute("STEFONT", Vor->STEfont);
 	elem.appendChild(dc);
@@ -2821,7 +2833,6 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc1a.setAttribute("PAGEC",Vor->DpapColor.name());
 	dc1a.setAttribute("MARGC",Vor->DmargColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(Vor->RandFarbig));
-	dc1a.setAttribute("TRANS", static_cast<int>(Vor->PDFTransparency));
 	dc1a.setAttribute("DScale",Vor->DisScale);
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
@@ -3066,7 +3077,6 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->Wheelval = QStoInt(dc.attribute("RAD"));
 			Vorein->GrabRad = QStoInt(dc.attribute("GRAB","4"));
 			Vorein->Einheit = QStoInt(dc.attribute("UNIT","0"));
-			Vorein->PagesSbS = QStoInt(dc.attribute("SBS","1"));
 			Vorein->AppFontSize = QStoInt(dc.attribute("APF","12"));
 			Vorein->RecentDCount = dc.attribute("RCD","5").toUInt();
 			Vorein->DocDir = dc.attribute("DOC","");
@@ -3078,6 +3088,11 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));
 			Vorein->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE","1")));
 			Vorein->linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK","0")));
+			Vorein->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT","1")));
+			Vorein->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
+			Vorein->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
+			Vorein->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
+			Vorein->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
 			if (dc.hasAttribute("STECOLOR"))
 				Vorein->STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
@@ -3103,7 +3118,6 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DpapColor = QColor(dc.attribute("PAGEC"));
 			Vorein->DmargColor = QColor(dc.attribute("MARGC","#0000ff"));
 			Vorein->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
-			Vorein->PDFTransparency = static_cast<bool>(QStoInt(dc.attribute("TRANS","0")));
 			Vorein->DisScale = QStodouble(dc.attribute("DScale","1"));
 		}
 		if (dc.tagName()=="TYPO")

@@ -450,27 +450,9 @@ void Hruler::paintEvent(QPaintEvent *)
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
-/*	if ((doku->PageFP) && (doku->PagesSbS))
-	{
-		if (doku->FirstPageLeft)
-		{
-			if ((doku->ActPage->PageNr % 2) == 0)
-				Offset = 0;
-			else
-				Offset = doku->PageB;
-		}
-		else
-		{
-			if ((doku->ActPage->PageNr % 2) == 0)
-				Offset = doku->PageB;
-			else
-				Offset = 0;
-		}
-	}
-	else */
-		Offset = 0;
+	Offset = 0;
 	Scaling = sc;
-	((doku->PageFP) && (doku->PagesSbS)) ? pc = 2 : pc = 1;
+	doku->PageFP ? pc = 2 : pc = 1;
 	if (doku->MasterP)
 	{
 		pc = 1;

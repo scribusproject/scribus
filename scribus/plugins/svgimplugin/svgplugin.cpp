@@ -564,15 +564,15 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					double angle2 = atan2(ite->GrEndY-ite->GrStartX,ite->GrEndX-ite->GrStartX)*(180.0/M_PI);
 					double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
 					double dy = ite->GrStartY + (ite->GrEndY-ite->GrStartY) / 2.0;
-					QWMatrix mm;
+					QWMatrix mm, mm2;
 					if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
 					{
 						mm.rotate(-angle2);
-						mm.rotate(angle1);
+						mm2.rotate(angle1);
 					}
 					FPointArray gra;
 					gra.setPoints(2, ite->GrStartX-dx, ite->GrStartY-dy, ite->GrEndX-dx, ite->GrEndY-dy);
-					gra.map(mm);
+					gra.map(mm*mm2);
 					gra.translate(dx, dy);
 					ite->GrStartX = gra.point(0).x();
 					ite->GrStartY = gra.point(0).y();

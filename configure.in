@@ -85,8 +85,17 @@ if test -n "$FONTCONFIG_CONFIG"; then
 	fi
 	AC_SUBST(LIBFONTCONFIG_LIBS)
 	AC_SUBST(LIBFONTCONFIG_CFLAGS)
-dnl else
-dnl 	AC_MSG_WARN([Couldn't find a usable libfontconfig])
+else
+	PKG_CONFIG=""
+	AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+	if test -n "$PKG_CONFIG"; then
+		LIBFONTCONFIG_LIBS="`$PKGCONFIG fontconfig --libs`"
+		LIBFONTCONFIG_CFLAGS="`$PKGCONFIG fontconfig --cflags`"
+		AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
+		AC_SUBST(LIBFONTCONFIG_LIBS)
+		AC_SUBST(LIBFONTCONFIG_CFLAGS)
+		hafontconfig=yes
+	fi
 fi
 
 XML_LIBS=""
@@ -100,7 +109,7 @@ if test -n "$XML_CONFIG"; then
 	XML_LIBS="`$XML_CONFIG --libs`"
 	XML_CFLAGS="`$XML_CONFIG --cflags`"
 	AC_CHECK_LIB(xml2, attribute, [haxml=yes],[haxml=no])
-	if test $hafree = yes; then
+	if test $haxml = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_XML, 1, [Defines if your system has the libxml2 library])
 		AC_SUBST(XML_LIBS)
 		AC_SUBST(XML_CFLAGS)

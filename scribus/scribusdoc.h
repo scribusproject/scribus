@@ -282,6 +282,7 @@ typedef QValueVector<singleLine> multiLine;
 
 struct arrowDesc {
 									QString name;
+									bool userArrow;
 									FPointArray points;
 								 };
 
@@ -359,6 +360,7 @@ struct Keys {
 
 struct preV  { 
 				SCFonts AvailFonts;
+				QValueList<arrowDesc> arrowStyles;
 				QString DefFont;
 				int DefSize;
 				CListe DColors;
@@ -438,7 +440,6 @@ struct preV  {
 				bool SepalN;
 				int PSize;
 				bool SaveAtQ;
-				bool PagesSbS;
 				bool RandFarbig;
 				QStringList RecentDocs;
 				uint RecentDCount;
@@ -476,7 +477,6 @@ struct preV  {
 				QString ScriptDir;
 				QString TemplateDir;
 				QMap<QString,QString> GFontSub;
-				bool PDFTransparency;
 				bool AutoSave;
 				int AutoSaveTime;
 				double DisScale;
@@ -503,12 +503,17 @@ struct preV  {
 				bool GridShown;
 				bool BaseShown;
 				bool linkShown;
+				bool ShowPic;
 				bool ClipMargin;
 				bool GCRMode;
 				double BaseGrid;
 				double BaseOffs;
 				QColor STEcolor;
 				QString STEfont;
+				double ScratchLeft;
+				double ScratchRight;
+				double ScratchTop;
+				double ScratchBottom;
 			};
 /**
   * the Document Class
@@ -685,7 +690,6 @@ public: // Public attributes
 	QValueList<Layer> Layers;
 	bool MasterP;
 	bool FirstPageLeft;
-	bool PagesSbS;
 	bool RandFarbig;
 	int GroupCounter;
 	int AutoLine;

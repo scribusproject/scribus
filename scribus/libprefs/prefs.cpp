@@ -22,71 +22,52 @@ using namespace std;
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
 
-extern "C" void* Run(QWidget *d, preV *Vor);
+extern "C" void* Run(QWidget *d, preV *prefsData);
 
 /*!
- \fn void* Run(QWidget *d, preV *Vor)
+ \fn void* Run(QWidget *d, preV *prefsData)
  \author Franz Schmid
  \date  
  \brief Creates Preferences dialog and returns pointer to it
  \param d QWidget * to Preferences dialog widget
- \param Vor preV * struct
+ \param prefsData preV * struct
  \retval dia * widget pointer
  */
-void* Run(QWidget *d, preV *Vor)
+void* Run(QWidget *d, preV *prefsData)
 {
-	Preferences *dia = new Preferences(d, Vor);
+	Preferences *dia = new Preferences(d, prefsData);
 	return dia;
 }
 
 /*!
- \fn Preferences::Preferences( QWidget* parent, preV *Vor)
+ \fn Preferences::Preferences( QWidget* parent, preV *prefsData)
  \author Franz Schmid 
  \date  
  \brief Constructor for Preferences dialog box
  \param parent QWidget pointer to parent window
- \param Vor preV * struct
+ \param prefsData preV * struct
  \retval Preferences dialog
  */
-Preferences::Preferences( QWidget* parent, preV *Vor)
-		: QDialog( parent, "pref", true, 0 )
+Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( parent )
 {
 	int decimals;
-	fon = &Vor->AvailFonts;
+	fon = &prefsData->AvailFonts;
 	ap = (ScribusApp*)parent;
 	Umrech = 1.0;
-	Einheit = Vor->Einheit;
+	Einheit = prefsData->Einheit;
 	int f[] = {2, 3, 4};
 	if (Einheit == 3)
 		decimals = f[0];
 	else
 		decimals = f[Einheit];
-	DisScale = Vor->DisScale;
+	DisScale = prefsData->DisScale;
 	setCaption( tr( "Preferences" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-	PrefsLayout = new QVBoxLayout( this );
-	PrefsLayout->setSpacing( 6 );
-	PrefsLayout->setMargin( 11 );
 
-	PrefsLayout2 = new QHBoxLayout(0, 0, 6);
-
-	TabListe = new QListBox(this, "StyledL");
-	QString ar_tab[] = { tr("General"), tr("Document"), tr("Guides"), tr("Typography"), tr("Tools"), tr("Scrapbook"), tr("Display"), tr("External Tools"), tr("Misc.")};
-	size_t a_tab = sizeof(ar_tab) / sizeof(*ar_tab);
-	for (uint s = 0; s < a_tab; ++s)
-		TabListe->insertItem(ar_tab[s]);
-	TabListe->setFocusPolicy(QWidget::NoFocus);
-	PrefsLayout2->addWidget(TabListe);
-
-	TabWidget3 = new QWidgetStack( this, "TabWidget3" );
-	TabWidget3->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-	TabWidget3->setFrameShape( QWidgetStack::StyledPanel );
-	TabWidget3->setFrameShadow( QWidgetStack::Sunken );
-	tab = new QWidget( TabWidget3, "tab" );
+	tab = new QWidget( prefsWidgets, "tab" );
 	tabLayout = new QGridLayout( tab );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
+	tabLayout->setAlignment( Qt::AlignTop );
 
 	// GUI Group
 	ButtonGroup1 = new QButtonGroup( tr( "GUI" ), tab, "ButtonGroup1" );
@@ -104,8 +85,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	languageList.sort();
 	guiLangCombo = new QComboBox( false, ButtonGroup1, "guiLangCombo");
 	guiLangCombo->insertStringList( languageList );
-	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(Vor->guiLanguage));
-	selectedGUILang=Vor->guiLanguage;
+	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(prefsData->guiLanguage));
+	selectedGUILang=prefsData->guiLanguage;
 	guiLangLabel = new QLabel(guiLangCombo, tr("&Language:"), ButtonGroup1, "guiLangLabel");
 	ButtonGroup1Layout->addWidget( guiLangLabel, 0, 0 );
 	ButtonGroup1Layout->addWidget( guiLangCombo, 0, 1, Qt::AlignRight );
@@ -116,7 +97,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	for (uint stt = 0; stt < STtest.count(); ++stt)
 		GUICombo->insertItem(STtest[stt]);
 	GUICombo->setEditable(false);
-	GUICombo->setCurrentText(Vor->GUI);
+	GUICombo->setCurrentText(prefsData->GUI);
 	TextGstil = new QLabel(GUICombo, tr("&Theme:"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil, 1, 0 );
 	ButtonGroup1Layout->addWidget( GUICombo, 1, 1, Qt::AlignRight );
@@ -125,31 +106,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GFsize->setSuffix( tr( " pt" ) );
 	GFsize->setMaxValue( 22 );
 	GFsize->setMinValue( 8 );
-	GFsize->setValue( Vor->AppFontSize );
+	GFsize->setValue( prefsData->AppFontSize );
 	TextGstil2 = new QLabel(GFsize, tr("&Font Size:"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil2, 2, 0 );
 	ButtonGroup1Layout->addWidget( GFsize, 2, 1, Qt::AlignRight );
 	tabLayout->addWidget( ButtonGroup1, 0, 0 );
 
-
-	GroupBox20 = new QGroupBox( tr( "Units" ), tab, "GroupBox20" );
-	GroupBox20->setColumnLayout(0, Qt::Vertical );
-	GroupBox20->layout()->setSpacing( 0 );
-	GroupBox20->layout()->setMargin( 0 );
-	GroupBox20Layout = new QHBoxLayout( GroupBox20->layout() );
-	GroupBox20Layout->setAlignment( Qt::AlignTop );
-	GroupBox20Layout->setSpacing( 0 );
-	GroupBox20Layout->setMargin( 25 );
-	UnitCombo = new QComboBox( true, GroupBox20, "UnitCombo" );
-	UnitCombo->insertItem( tr( "Points (pt)" ) );
-	UnitCombo->insertItem( tr( "Millimetres (mm)" ) );
-	UnitCombo->insertItem( tr( "Inches (in)" ) );
-	UnitCombo->insertItem( tr( "Picas (p)" ) );
-	UnitCombo->setEditable(false);
-	UnitCombo->setCurrentItem(Vor->Einheit);
-	GroupBox20Layout->addWidget( UnitCombo );
-	tabLayout->addWidget( GroupBox20, 1, 0 );
-	Mouse = new QGroupBox( tr( "Mouse Settings" ),tab, "Mouse" );
+	Mouse = new QGroupBox( tr( "Other Settings" ),tab, "Mouse" );
 	Mouse->setColumnLayout(0, Qt::Vertical );
 	Mouse->layout()->setSpacing( 0 );
 	Mouse->layout()->setMargin( 0 );
@@ -165,46 +128,23 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	SpinBox3->setMaxValue( 1000 );
 	SpinBox3->setMinValue( 0 );
 	SpinBox3->setLineStep( 10 );
-	SpinBox3->setValue( Vor->Wheelval );
+	SpinBox3->setValue( prefsData->Wheelval );
 	TextLabel1_2 = new QLabel( SpinBox3, tr( "&Wheel Jump:" ), Mouse, "TextLabel1_2" );
 	TextLabel1_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel1_2->sizePolicy().hasHeightForWidth() ) );
 	Layout5->addWidget( TextLabel1_2, 0, 0 );
 	Layout5->addWidget( SpinBox3, 0, 1 );
-	
-	SpinBox3_2 = new QSpinBox( Mouse, "SpinBox3_2" );
-	SpinBox3_2->setMaxValue( 1000 );
-	SpinBox3_2->setMinValue( 1 );
-	SpinBox3_2->setLineStep( 1 );
-	SpinBox3_2->setValue(ap->HaveDoc ? ap->doc->GrabRad : Vor->GrabRad );
-	SpinBox3_2->setSuffix( tr( " px" ) );
-	TextLabel1_2_2 = new QLabel( SpinBox3_2, tr( "&Grab Radius:" ), Mouse, "TextLabel1_2_2" );
-	TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                               TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
-	Layout5->addWidget( TextLabel1_2_2, 1, 0 );
-	Layout5->addWidget( SpinBox3_2, 1, 1 );
-	MouseLayout->addLayout( Layout5 );
-	tabLayout->addWidget( Mouse, 0, 1 );
-
-	GroupBox20b = new QGroupBox( tr( "Menus" ), tab, "GroupBox20b" );
-	GroupBox20b->setColumnLayout(0, Qt::Vertical );
-	GroupBox20b->layout()->setSpacing( 0 );
-	GroupBox20b->layout()->setMargin( 0 );
-	GroupBox20bLayout = new QGridLayout( GroupBox20b->layout() );
-	GroupBox20bLayout->setAlignment( Qt::AlignTop );
-	GroupBox20bLayout->setSpacing( 5 );
-	GroupBox20bLayout->setMargin( 10 );
-
-	Recen = new QSpinBox( GroupBox20b, "Recen" );
+	Recen = new QSpinBox( Mouse, "Recen" );
 	Recen->setMaxValue( 30 );
 	Recen->setMinValue( 1 );
-	Recen->setValue( Vor->RecentDCount );
-	TextLabel4c = new QLabel( Recen, tr( "&Recent Documents:" ), GroupBox20b, "TextLabel4c" );
+	Recen->setValue( prefsData->RecentDCount );
+	TextLabel4c = new QLabel( Recen, tr( "&Recent Documents:" ), Mouse, "TextLabel4c" );
 	TextLabel4c->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                            TextLabel4c->sizePolicy().hasHeightForWidth() ) );
-	GroupBox20bLayout->addWidget( TextLabel4c, 0, 0);
-	GroupBox20bLayout->addWidget( Recen, 0, 1 );
-	tabLayout->addWidget( GroupBox20b, 1, 1 );
+	Layout5->addWidget( TextLabel4c, 1, 0);
+	Layout5->addWidget( Recen, 1, 1 );
+	MouseLayout->addLayout( Layout5 );
+	tabLayout->addWidget( Mouse, 0, 1 );
 
 	GroupBox200 = new QGroupBox( tr( "Paths" ), tab, "GroupBox200" );
 	GroupBox200->setColumnLayout(0, Qt::Horizontal );
@@ -217,7 +157,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	Docs = new QLineEdit( GroupBox200, "Datei" );
 	Docs->setMinimumSize( QSize( 268, 22 ) );
-	Docs->setText(Vor->DocDir);
+	Docs->setText(prefsData->DocDir);
 	PfadText = new QLabel( Docs, tr("&Documents:"), GroupBox200, "Pfadtext" );
 	FileC = new QToolButton( GroupBox200, "FileC" );
 	FileC->setMinimumSize( QSize( 88, 24 ) );
@@ -225,11 +165,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox200Layout->addWidget( PfadText, 0, 0 );
 	GroupBox200Layout->addWidget( Docs, 0, 1 );
 	GroupBox200Layout->addWidget( FileC, 0, 2 );
-	
-	
+
 	ProPfad = new QLineEdit( GroupBox200, "Datei1" );
 	ProPfad->setMinimumSize( QSize( 268, 22 ) );
-	ProPfad->setText(Vor->ProfileDir);
+	ProPfad->setText(prefsData->ProfileDir);
 	PfadText2 = new QLabel( ProPfad, tr("&ICC Profiles:"), GroupBox200, "Pfadtext1" );
 	FileC2 = new QToolButton( GroupBox200, "FileC1" );
 	FileC2->setMinimumSize( QSize( 88, 24 ) );
@@ -240,7 +179,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	ScriptPfad = new QLineEdit( GroupBox200, "Datei1" );
 	ScriptPfad->setMinimumSize( QSize( 268, 22 ) );
-	ScriptPfad->setText(Vor->ScriptDir);
+	ScriptPfad->setText(prefsData->ScriptDir);
 	PfadText3 = new QLabel( ScriptPfad, tr("&Scripts:"), GroupBox200, "Pfadtext1" );
 	FileC3 = new QToolButton( GroupBox200, "FileC3" );
 	FileC3->setMinimumSize( QSize( 88, 24 ) );
@@ -251,7 +190,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	TemplateDir = new QLineEdit( GroupBox200, "Datei1" );
 	TemplateDir->setMinimumSize( QSize( 268, 22 ) );
-	TemplateDir->setText(Vor->TemplateDir);
+	TemplateDir->setText(prefsData->TemplateDir);
 	PfadText4 = new QLabel( TemplateDir, tr("T&emplates:"), GroupBox200, "Pfadtext1" );
 	FileC4 = new QToolButton( GroupBox200, "FileC4" );
 	FileC4->setMinimumSize( QSize( 88, 24 ) );
@@ -259,12 +198,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox200Layout->addWidget( PfadText4, 3, 0 );
 	GroupBox200Layout->addWidget( TemplateDir, 3, 1 );
 	GroupBox200Layout->addWidget( FileC4, 3, 2 );
+	tabLayout->addMultiCellWidget( GroupBox200, 1, 1, 0, 1 );
+	addItem( tr("General"), loadIcon("AppIcon.png"), tab);
 
-	tabLayout->addMultiCellWidget( GroupBox200, 2, 2, 0, 1 );
-
-	TabWidget3->addWidget( tab, 0 );
-
-	tab_7 = new QWidget( TabWidget3, "tab_7" );
+	tab_7 = new QWidget( prefsWidgets, "tab_7" );
 	tabLayout_7 = new QHBoxLayout( tab_7, 11, 6, "tabLayout_7");
 	Layout21 = new QVBoxLayout( 0, 0, 6, "Layout21");
 	GroupSize = new QButtonGroup( tr( "Page Size" ), tab_7, "GroupSize" );
@@ -284,7 +221,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		GZComboF->insertItem(ar_size[s]);
 	GZComboF->insertItem( tr( "Custom" ) );
 	GZComboF->setEditable(false);
-	GZComboF->setCurrentItem(Vor->PageFormat);
+	GZComboF->setCurrentItem(prefsData->PageFormat);
 	GZText1 = new QLabel( GZComboF, tr( "&Size:" ), GroupSize, "GZText1" );
 	Layout6->addWidget( GZText1, 0, 0 );
 	Layout6->addWidget( GZComboF, 0, 1 );
@@ -293,7 +230,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GZComboO->insertItem( tr( "Portrait" ) );
 	GZComboO->insertItem( tr( "Landscape" ) );
 	GZComboO->setEditable(false);
-	GZComboO->setCurrentItem(Vor->Ausrichtung);
+	GZComboO->setCurrentItem(prefsData->Ausrichtung);
 	GZText2 = new QLabel( GZComboO, tr( "Orie&ntation:" ), GroupSize, "GZText2" );
 	Layout6->addWidget( GZText2, 1, 0 );
 	Layout6->addWidget( GZComboO, 1, 1 );
@@ -302,11 +239,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	Layout5_2 = new QHBoxLayout( 0, 0, 6, "Layout5_2");
 
-
 	Breite = new MSpinBox( 1, 10000, GroupSize, decimals );
 	Breite->setEnabled( false );
 	Breite->setMinimumSize( QSize( 70, 20 ) );
-	Breite->setValue(Vor->PageBreite * Umrech);
+	Breite->setValue(prefsData->PageBreite * Umrech);
 	GZText3 = new QLabel( Breite, tr( "&Width:" ), GroupSize, "GZText3" );
 	Layout5_2->addWidget( GZText3 );	
 	Layout5_2->addWidget( Breite );
@@ -314,7 +250,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Hoehe = new MSpinBox( 1, 10000, GroupSize, decimals );
 	Hoehe->setEnabled( false );
 	Hoehe->setMinimumSize( QSize( 70, 20 ) );
-	Hoehe->setValue(Vor->PageHoehe * Umrech);
+	Hoehe->setValue(prefsData->PageHoehe * Umrech);
 	GZText4 = new QLabel( Hoehe, tr( "&Height:" ), GroupSize, "GZText4" );
 	Layout5_2->addWidget( GZText4 );	
 	Layout5_2->addWidget( Hoehe );
@@ -324,11 +260,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 
 	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), GroupSize, "Doppelseiten" );
-	Doppelseiten->setChecked(Vor->DoppelSeiten);
+	Doppelseiten->setChecked(prefsData->DoppelSeiten);
 	Layout8->addWidget( Doppelseiten );
 
 	Linkszuerst = new QCheckBox( tr( "Left &Page First" ), GroupSize, "Linkszuerst" );
-	Linkszuerst->setChecked(Vor->ErsteLinks);
+	Linkszuerst->setChecked(prefsData->ErsteLinks);
 	if (!Doppelseiten->isChecked())
 		Linkszuerst->setEnabled(false);
 	Layout8->addWidget( Linkszuerst );
@@ -344,23 +280,23 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	TopR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setValue(Vor->RandOben * Umrech);
-	RandT = Vor->RandOben;
+	TopR->setValue(prefsData->RandOben * Umrech);
+	RandT = prefsData->RandOben;
 	GroupRandLayout->addWidget( TopR, 0, 1 );
 	BottomR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setValue(Vor->RandUnten * Umrech);
-	RandB = Vor->RandUnten;
+	BottomR->setValue(prefsData->RandUnten * Umrech);
+	RandB = prefsData->RandUnten;
 	GroupRandLayout->addWidget( BottomR, 1, 1 );
 	RightR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setValue(Vor->RandRechts * Umrech);
-	RandR = Vor->RandRechts;
+	RightR->setValue(prefsData->RandRechts * Umrech);
+	RandR = prefsData->RandRechts;
 	GroupRandLayout->addWidget( RightR, 1, 3 );
 	LeftR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setValue(Vor->RandLinks * Umrech);
-	RandL = Vor->RandLinks;
+	LeftR->setValue(prefsData->RandLinks * Umrech);
+	RandL = prefsData->RandLinks;
 	GroupRandLayout->addWidget( LeftR, 0, 3 );
 
 	GRText2 = new QLabel( BottomR, tr( "&Bottom:" ), GroupRand, "GRText2" );
@@ -383,311 +319,303 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupASLayout = new QGridLayout( GroupAS->layout() );
 	GroupASLayout->setAlignment( Qt::AlignTop );
 	ASon = new QCheckBox( tr( "&Enabled" ), GroupAS, "Enable Autosave" );
-	ASon->setChecked(Vor->AutoSave);
+	ASon->setChecked(prefsData->AutoSave);
 	GroupASLayout->addMultiCellWidget( ASon, 0, 0, 0, 1 );
 	ASTime = new QSpinBox( GroupAS, "Time" );
 	ASTime->setMaxValue( 60 );
 	ASTime->setMinValue( 1 );
 	ASTime->setSuffix( " " + tr("min") );
-	ASTime->setValue(Vor->AutoSaveTime / 1000 / 60);
+	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS, "ASText" );
 	GroupASLayout->addWidget( ASText, 1, 0 );
 	GroupASLayout->addWidget( ASTime, 1, 1 );
 	Layout21b->addWidget( GroupAS );
+	GroupBox20 = new QGroupBox( tr( "Units" ), tab_7, "GroupBox20" );
+	GroupBox20->setColumnLayout(0, Qt::Vertical );
+	GroupBox20->layout()->setSpacing( 0 );
+	GroupBox20->layout()->setMargin( 0 );
+	GroupBox20Layout = new QHBoxLayout( GroupBox20->layout() );
+	GroupBox20Layout->setAlignment( Qt::AlignTop );
+	GroupBox20Layout->setSpacing( 0 );
+	GroupBox20Layout->setMargin( 25 );
+	UnitCombo = new QComboBox( true, GroupBox20, "UnitCombo" );
+	UnitCombo->insertItem( tr( "Points (pt)" ) );
+	UnitCombo->insertItem( tr( "Millimetres (mm)" ) );
+	UnitCombo->insertItem( tr( "Inches (in)" ) );
+	UnitCombo->insertItem( tr( "Picas (p)" ) );
+	UnitCombo->setEditable(false);
+	UnitCombo->setCurrentItem(prefsData->Einheit);
+	GroupBox20Layout->addWidget( UnitCombo );
+	Layout21b->addWidget( GroupBox20 );
 	QSpacerItem* spacerDocb = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout21b->addItem( spacerDocb );
 	tabLayout_7->addLayout( Layout21b );
-	TabWidget3->addWidget( tab_7, 1 );
+	addItem( tr("Document"), loadIcon("page.png"), tab_7);
 
-	
-	tab_2 = new QWidget( TabWidget3, "tab_2" );
-	tabLayout_2 = new QGridLayout( tab_2 );
-	tabLayout_2->setSpacing( 6 );
-	tabLayout_2->setMargin( 11 );
-	
-	GroupBox1 = new QGroupBox( tr( "Grid Layout" ), tab_2, "GroupBox1" );
-	GroupBox1->setColumnLayout(0, Qt::Vertical );
-	GroupBox1->layout()->setSpacing( 0 );
-	GroupBox1->layout()->setMargin( 0 );
-	GroupBox1Layout = new QHBoxLayout( GroupBox1->layout() );
-	GroupBox1Layout->setAlignment( Qt::AlignTop );
-	GroupBox1Layout->setSpacing( 0 );
-	GroupBox1Layout->setMargin( 10 );
-	Layout10 = new QGridLayout;
-	Layout10->setSpacing( 6 );
-	Layout10->setMargin( 0 );
-	
-	SpinBox1 = new MSpinBox( Umrech, 1000 * Umrech, GroupBox1, decimals );
-	TextLabel1 = new QLabel( SpinBox1, tr( "M&inor Grid Spacing:" ), GroupBox1, "TextLabel1" );
-	TextLabel1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                                        TextLabel1->sizePolicy().hasHeightForWidth() ) );
-	Layout10->addWidget( TextLabel1, 0, 0 );	
-	Layout10->addWidget( SpinBox1, 0, 1 );
-	
-	SpinBox2 = new MSpinBox( 10 * Umrech, 1000 * Umrech, GroupBox1, decimals );
-	TextLabel2 = new QLabel( SpinBox2, tr( "Ma&jor Grid Spacing:" ), GroupBox1, "TextLabel2" );
-	TextLabel2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                                        TextLabel2->sizePolicy().hasHeightForWidth() ) );
-	Layout10->addWidget( TextLabel2, 1, 0 );
-	Layout10->addWidget( SpinBox2, 1, 1 );
-	
-	SpinBox2g = new MSpinBox( Umrech, 1000 * Umrech, GroupBox1, decimals );
-	TextLabel2g = new QLabel( SpinBox2g, tr( "Guide &Snap Distance:" ), GroupBox1, "TextLabel2" );
-	TextLabel2g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                            TextLabel2->sizePolicy().hasHeightForWidth() ) );
-	Layout10->addWidget( TextLabel2g, 2, 0 );
-	Layout10->addWidget( SpinBox2g, 2, 1 );
-	
-	SpinBox2->setValue(Vor->DmajGrid * Umrech);
-	SpinBox1->setValue(Vor->DminGrid * Umrech);
-	SpinBox2g->setValue(Vor->GuideRad * Umrech);
-	GroupBox1Layout->addLayout( Layout10 );
-	tabLayout_2->addWidget( GroupBox1, 0, 0 );
-	
-	GroupBox2 = new QGroupBox( tr( "Grid Colors" ), tab_2, "GroupBox2" );
-	GroupBox2->setColumnLayout(0, Qt::Vertical );
-	GroupBox2->layout()->setSpacing( 0 );
-	GroupBox2->layout()->setMargin( 0 );
-	GroupBox2Layout = new QHBoxLayout( GroupBox2->layout() );
-	GroupBox2Layout->setAlignment( Qt::AlignTop );
-	GroupBox2Layout->setSpacing( 6 );
-	GroupBox2Layout->setMargin( 11 );
-	Layout11 = new QGridLayout;
-	Layout11->setSpacing( 6 );
-	Layout11->setMargin( 0 );
-	
-	minColor = new QPushButton( "", GroupBox2, "minColor" );
-	minColor->setAutoDefault( false );
-	QPixmap pm = QPixmap(40, 20);
-	pm.fill(Vor->DminColor);
-	Cmin = Vor->DminColor;
-	minColor->setPixmap(pm);
-	TextLabel3 = new QLabel( minColor, tr( "Min&or Grid Color:" ), GroupBox2, "TextLabel3" );
-	TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                                        TextLabel3->sizePolicy().hasHeightForWidth() ) );
-	Layout11->addWidget( TextLabel3, 0, 0 );	
-	Layout11->addWidget( minColor, 0, 1 );
-	MaxColor = new QPushButton( "", GroupBox2, "MaxColor" );
-	MaxColor->setAutoDefault( false );
-	QPixmap pm1 = QPixmap(40, 20);
-	pm1.fill(Vor->DmajColor);
-	Cmax = Vor->DmajColor;
-	MaxColor->setPixmap(pm1);
-	TextLabel4 = new QLabel( MaxColor, tr( "Majo&r Grid Color:" ), GroupBox2, "TextLabel4" );
-	TextLabel4->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                                        TextLabel4->sizePolicy().hasHeightForWidth() ) );
-	Layout11->addWidget( TextLabel4, 1, 0 );
-	
-	Layout11->addWidget( MaxColor, 1, 1 );
-	GuideColor = new QPushButton( "", GroupBox2, "GuideColor" );
-	GuideColor->setAutoDefault( false );
-	QPixmap pm12 = QPixmap(40, 20);
-	pm12.fill(Vor->guideColor);
-	Cgui = Vor->guideColor;
-	GuideColor->setPixmap(pm12);
-	TextLabel4g = new QLabel( GuideColor, tr( "&User Guides Color:" ), GroupBox2, "TextLabel4g" );
-	TextLabel4g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                            TextLabel4g->sizePolicy().hasHeightForWidth() ) );
-	Layout11->addWidget( TextLabel4g, 2, 0 );
-	Layout11->addWidget( GuideColor, 2, 1 );
-	
-	BaseColor = new QPushButton( "", GroupBox2, "BaseColor" );
-	BaseColor->setAutoDefault( false );
-	QPixmap pm13 = QPixmap(40, 20);
-	pm13.fill(Vor->baseColor);
-	Cbase = Vor->baseColor;
-	BaseColor->setPixmap(pm13);
-	TextLabel4ba = new QLabel( BaseColor, tr( "Base&line Grid Color:" ), GroupBox2, "TextLabel4ba" );
-	TextLabel4ba->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                            TextLabel4ba->sizePolicy().hasHeightForWidth() ) );
-	Layout11->addWidget( TextLabel4ba, 3, 0 );	
-	Layout11->addWidget( BaseColor, 3, 1 );
-	GroupBox2Layout->addLayout( Layout11 );
-	tabLayout_2->addWidget( GroupBox2, 1, 0 );
-	
-	ButtonGroup5 = new QButtonGroup( tr( "Placing" ), tab_2, "ButtonGroup5" );
-	ButtonGroup5->setExclusive( true );
-	ButtonGroup5->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup5->layout()->setSpacing( 0 );
-	ButtonGroup5->layout()->setMargin( 0 );
-	ButtonGroup5Layout = new QHBoxLayout( ButtonGroup5->layout() );
-	ButtonGroup5Layout->setAlignment( Qt::AlignTop );
-	ButtonGroup5Layout->setSpacing( 6 );
-	ButtonGroup5Layout->setMargin( 11 );
-	Layout7 = new QVBoxLayout;
-	Layout7->setSpacing( 6 );
-	Layout7->setMargin( 0 );
-	RadioButton6 = new QRadioButton( tr( "In the &Background" ), ButtonGroup5, "RadioButton6" );
-	RadioButton6->setChecked(Vor->Before );
+	tabGuides = new QWidget( prefsWidgets, "tabView" );
+	tabGuidesLayout = new QVBoxLayout( tabGuides, 10, 5, "tabViewLayout");
+	tabGuidesLayout->setAlignment( Qt::AlignTop );
+	checkGrid = new QGroupBox( tabGuides, "checkGrid" );
+	checkGrid->setTitle( tr( "Show Grid" ) );
+	checkGrid->setCheckable( true );
+	checkGrid->setChecked(prefsData->GridShown);
+	checkGrid->setColumnLayout(0, Qt::Vertical );
+	checkGrid->layout()->setSpacing( 5 );
+	checkGrid->layout()->setMargin( 10 );
+	checkGridLayout = new QGridLayout( checkGrid->layout() );
+	checkGridLayout->setAlignment( Qt::AlignTop );
+	groupBox1 = new QGroupBox( checkGrid, "groupBox1" );
+	groupBox1->setColumnLayout(0, Qt::Vertical );
+	groupBox1->layout()->setSpacing( 5 );
+	groupBox1->layout()->setMargin( 10 );
+	groupBox1->setTitle( tr( "Major Grid" ) );
+	groupBox1Layout = new QGridLayout( groupBox1->layout() );
+	groupBox1Layout->setAlignment( Qt::AlignTop );
+	majorGridColor = new QPushButton( groupBox1, "majorGridColor" );
+	majorGridColor->setMinimumSize( QSize( 60, 20 ) );
+	majorGridColor->setMaximumSize( QSize( 60, 20 ) );
+	majorGridColor->setFlat( false );
+	majorGridColor->setAutoDefault( false );
+	QPixmap pm1 = QPixmap(54, 14);
+	pm1.fill(prefsData->DmajColor);
+	colorMajorGrid = prefsData->DmajColor;
+	majorGridColor->setPixmap(pm1);
+	majorGridColor->setText( QString::null );
+	groupBox1Layout->addWidget( majorGridColor, 1, 1 );
+	textLabel4 = new QLabel( groupBox1, "textLabel4" );
+	textLabel4->setText( tr( "Color:" ) );
+	groupBox1Layout->addWidget( textLabel4, 1, 0 );
+	textLabel6 = new QLabel( groupBox1, "textLabel6" );
+	textLabel6->setText( tr( "Spacing:" ) );
+	groupBox1Layout->addWidget( textLabel6, 0, 0 );
+	majorSpace = new MSpinBox( 10 * Umrech, 1000 * Umrech, groupBox1, decimals );
+	majorSpace->setValue( prefsData->DmajGrid * Umrech );
+	groupBox1Layout->addWidget( majorSpace, 0, 1 );
+	checkGridLayout->addWidget( groupBox1, 0, 0 );
+	groupBox2 = new QGroupBox( checkGrid, "groupBox2" );
+	groupBox2->setColumnLayout(0, Qt::Vertical );
+	groupBox2->layout()->setSpacing( 5 );
+	groupBox2->layout()->setMargin( 10 );
+	groupBox2->setTitle( tr( "Minor Grid" ) );
+	groupBox2Layout = new QGridLayout( groupBox2->layout() );
+	groupBox2Layout->setAlignment( Qt::AlignTop );
+	textLabel5 = new QLabel( groupBox2, "textLabel5" );
+	textLabel5->setText( tr( "Color:" ) );
+	groupBox2Layout->addWidget( textLabel5, 1, 0 );
+	minorGridColor = new QPushButton( groupBox2, "minorGridColor" );
+	minorGridColor->setMinimumSize( QSize( 60, 20 ) );
+	minorGridColor->setMaximumSize( QSize( 60, 20 ) );
+	minorGridColor->setFlat( false );
+	minorGridColor->setAutoDefault( false );
+	QPixmap pm = QPixmap(54, 14);
+	pm.fill(prefsData->DminColor);
+	colorMinorGrid = prefsData->DminColor;
+	minorGridColor->setPixmap(pm);
+	minorGridColor->setText( QString::null );
+	groupBox2Layout->addWidget( minorGridColor, 1, 1 );
+	textLabel7 = new QLabel( groupBox2, "textLabel7" );
+	textLabel7->setText( tr( "Spacing:" ) );
+	groupBox2Layout->addWidget( textLabel7, 0, 0 );
+	minorSpace = new MSpinBox(Umrech, 1000 * Umrech, groupBox2, decimals);
+	minorSpace->setValue(prefsData->DminGrid * Umrech);
+	groupBox2Layout->addWidget( minorSpace, 0, 1 );
+	checkGridLayout->addWidget( groupBox2, 0, 1 );
+	tabGuidesLayout->addWidget( checkGrid );
+	layout11 = new QGridLayout( 0, 1, 1, 0, 5, "layout11");
+	textLabel8 = new QLabel( tabGuides, "textLabel8" );
+	textLabel8->setText( tr( "Guide Snap Distance:" ) );
+	layout11->addWidget( textLabel8, 0, 0 );
+	snapDistance = new MSpinBox( Umrech, 1000 * Umrech, tabGuides, decimals );
+	snapDistance->setValue( prefsData->GuideRad * Umrech );
+	layout11->addWidget( snapDistance, 0, 1, Qt::AlignLeft );
+	textLabel82 = new QLabel( tabGuides, "textLabel8" );
+	textLabel82->setText( tr( "&Grab Radius:" ) );
+	layout11->addWidget( textLabel82, 1, 0 );	
+	grabDistance = new QSpinBox( tabGuides, "grabDistance" );
+	grabDistance->setMaxValue( 1000 );
+	grabDistance->setMinValue( 1 );
+	grabDistance->setLineStep( 1 );
+	grabDistance->setValue(prefsData->GrabRad );
+	grabDistance->setSuffix( tr( " px" ) );
+	layout11->addWidget( grabDistance, 1, 1, Qt::AlignLeft );
+	checkMargin = new QCheckBox( tabGuides, "checkMargin" );
+	checkMargin->setText( tr( "Show Margins" ) );
+	checkMargin->setChecked(prefsData->MarginsShown);
+	layout11->addWidget( checkMargin, 2, 0 );
+	checkGuides = new QCheckBox( tabGuides, "checkGuides" );
+	checkGuides->setText( tr( "Show Guides" ) );
+	checkGuides->setChecked(prefsData->GuidesShown);
+	layout11->addWidget( checkGuides, 3, 0 );
+	checkBaseline = new QCheckBox( tabGuides, "checkBaseline" );
+	checkBaseline->setText( tr( "Show Baseline Grid" ) );
+	checkBaseline->setChecked(prefsData->BaseShown);
+	layout11->addWidget( checkBaseline, 4, 0 );
+	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
+	textLabel2 = new QLabel( tabGuides, "textLabel2" );
+	textLabel2->setText( tr( "Color:" ) );
+	layout2->addWidget( textLabel2 );
+	baselineColor = new QPushButton( tabGuides, "baselineColor" );
+	baselineColor->setMinimumSize( QSize( 60, 20 ) );
+	baselineColor->setMaximumSize( QSize( 60, 20 ) );
+	baselineColor->setFlat( false );
+	baselineColor->setAutoDefault( false );
+	QPixmap pm4 = QPixmap(54, 14);
+	pm4.fill(prefsData->baseColor);
+	colorBaselineGrid = prefsData->baseColor;
+	baselineColor->setPixmap(pm4);
+	baselineColor->setText( QString::null );
+	layout2->addWidget( baselineColor );
+	layout11->addLayout( layout2, 4, 1 );
+	layout3 = new QHBoxLayout( 0, 0, 5, "layout3");
+	textLabel3 = new QLabel( tabGuides, "textLabel3" );
+	textLabel3->setText( tr( "Color:" ) );
+	layout3->addWidget( textLabel3 );
+	guideColor = new QPushButton( tabGuides, "guideColor" );
+	guideColor->setMinimumSize( QSize( 60, 20 ) );
+	guideColor->setMaximumSize( QSize( 60, 20 ) );
+	guideColor->setFlat( false );
+	guideColor->setAutoDefault( false );
+	QPixmap pm3 = QPixmap(54, 14);
+	pm3.fill(prefsData->guideColor);
+	colorGuides = prefsData->guideColor;
+	guideColor->setPixmap(pm3);
+	guideColor->setText( QString::null );
+	layout3->addWidget( guideColor );
+	layout11->addLayout( layout3, 3, 1 );
+	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
+	textLabel1 = new QLabel( tabGuides, "textLabel1" );
+	textLabel1->setText( tr( "Color:" ) );
+	layout9->addWidget( textLabel1 );
+	marginColor = new QPushButton( tabGuides, "marginColor" );
+	marginColor->setMinimumSize( QSize( 60, 20 ) );
+	marginColor->setMaximumSize( QSize( 60, 20 ) );
+	marginColor->setAutoDefault( false );
+	QPixmap pm6 = QPixmap(54, 14);
+	pm6.fill(prefsData->DmargColor);
+	colorMargin = prefsData->DmargColor;
+	marginColor->setPixmap(pm6);
+	marginColor->setFlat( false );
+	marginColor->setText( QString::null );
+	layout9->addWidget( marginColor );
+	layout11->addLayout( layout9, 2, 1 );
+	tabGuidesLayout->addLayout( layout11 );
+	layout12 = new QGridLayout( 0, 1, 1, 0, 5, "layout12");
+	checkLink = new QCheckBox( tabGuides, "checkLink" );
+	checkLink->setText( tr( "Show Text Chains" ) );
+	checkLink->setChecked(prefsData->linkShown);
+	layout12->addWidget( checkLink, 1, 0 );
+	checkFrame = new QCheckBox( tabGuides, "checkFrame" );
+	checkFrame->setText( tr( "Show Frames" ) );
+	checkFrame->setChecked(prefsData->FramesShown);
+	layout12->addWidget( checkFrame, 0, 0 );
+	checkPictures = new QCheckBox( tabGuides, "checkPictures" );
+	checkPictures->setText( tr( "Show Pictures" ) );
+	layout12->addWidget( checkPictures, 0, 1 );
+	checkPictures->setChecked(prefsData->ShowPic);
+	tabGuidesLayout->addLayout( layout12 );
+	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
+
+/*	RadioButton6 = new QRadioButton( tr( "In the &Background" ), ButtonGroup5, "RadioButton6" );
+	RadioButton6->setChecked(prefsData->Before );
 	Layout7->addWidget( RadioButton6 );
 	RadioButton7 = new QRadioButton( tr( "In the Fore&ground" ), ButtonGroup5, "RadioButton6_2" );
-	RadioButton7->setChecked(!Vor->Before );
-	Layout7->addWidget( RadioButton7 );
-	ButtonGroup5Layout->addLayout( Layout7 );
-	tabLayout_2->addWidget( ButtonGroup5, 0, 1 );
-	//TabWidget3->addWidget( tab_2, 2 );
+	RadioButton7->setChecked(!prefsData->Before );
+	Layout7->addWidget( RadioButton7 ); */
 
-	ButtonGroup6 = new QButtonGroup( tr( "Baseline Grid" ), tab_2, "ButtonGroup6" );
-	ButtonGroup6->setExclusive( true );
-	ButtonGroup6->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup6->layout()->setSpacing( 0 );
-	ButtonGroup6->layout()->setMargin( 0 );
-	ButtonGroup6Layout = new QHBoxLayout( ButtonGroup6->layout() );
-	ButtonGroup6Layout->setAlignment( Qt::AlignTop );
-	ButtonGroup6Layout->setSpacing( 6 );
-	ButtonGroup6Layout->setMargin( 11 );
-	Layout18 = new QVBoxLayout;
-	Layout18->setSpacing( 6 );
-	Layout18->setMargin( 0 );
-	RadioButton8 = new QRadioButton( tr( "O&n" ), ButtonGroup6, "RadioButton8" );
-	Layout18->addWidget( RadioButton8 );
-	RadioButton9 = new QRadioButton( tr( "O&ff" ), ButtonGroup6, "RadioButton8_2" );
-	Layout18->addWidget( RadioButton9 );
-	RadioButton8->setChecked(Vor->BaseShown );
-	RadioButton9->setChecked(!Vor->BaseShown );
-	ButtonGroup6Layout->addLayout( Layout18 );
-	tabLayout_2->addWidget( ButtonGroup6, 1, 1 );
-	TabWidget3->addWidget( tab_2, 2 );
-	
-	tab_4 = new QWidget( TabWidget3, "tab_4" );
-	tabLayout_3 = new QGridLayout( tab_4 );
-	tabLayout_3->setSpacing( 6 );
-	tabLayout_3->setMargin( 11 );
-	GroupBox4_2 = new QGroupBox( tr( "Subscript" ), tab_4, "GroupBox4_2" );
-	GroupBox4_2->setColumnLayout(0, Qt::Vertical );
-	GroupBox4_2->layout()->setSpacing( 0 );
-	GroupBox4_2->layout()->setMargin( 0 );
-	GroupBox4_2Layout = new QHBoxLayout( GroupBox4_2->layout() );
-	GroupBox4_2Layout->setAlignment( Qt::AlignTop );
-	GroupBox4_2Layout->setSpacing( 6 );
-	GroupBox4_2Layout->setMargin( 11 );
+	tabTypo = new QWidget( prefsWidgets, "tabTypo" );
+	tabTypoLayout = new QGridLayout( tabTypo, 1, 1, 11, 6, "tabTypoLayout");
+	tabTypoLayout->setAlignment( Qt::AlignTop );
+	groupBox1a = new QGroupBox( tabTypo, "groupBox1a" );
+	groupBox1a->setColumnLayout(0, Qt::Vertical );
+	groupBox1a->layout()->setSpacing( 6 );
+	groupBox1a->layout()->setMargin( 11 );
+	groupBox1a->setTitle( tr( "Subscript" ) );
+	groupBox1aLayout = new QGridLayout( groupBox1a->layout() );
+	groupBox1aLayout->setAlignment( Qt::AlignTop );
+	subDisplacement = new QSpinBox( groupBox1a, "subDisplacement" );
+	subDisplacement->setMaxValue( 100 );
+	subDisplacement->setValue( prefsData->DVTief );
+	subDisplacement->setSuffix( tr( " %" ) );
+	groupBox1aLayout->addWidget( subDisplacement, 0, 1, Qt::AlignLeft );
+	textLabel1a = new QLabel(subDisplacement, tr( "&Displacement:" ), groupBox1a, "textLabel1a" );
+	groupBox1aLayout->addWidget( textLabel1a, 0, 0 );
+	subScaling = new QSpinBox( groupBox1a, "subScaling" );
+	subScaling->setMaxValue( 100 );
+	subScaling->setMinValue( 1 );
+	subScaling->setValue( prefsData->DVTiefSc );
+	subScaling->setSuffix( tr( " %" ) );
+	groupBox1aLayout->addWidget( subScaling, 0, 3, Qt::AlignLeft );
+	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a, "textLabel2a" );
+	groupBox1aLayout->addWidget( textLabel2a, 0, 2 );
+	tabTypoLayout->addWidget( groupBox1a, 0, 0 );
+	groupBox2a = new QGroupBox( tabTypo, "groupBox2a" );
+	groupBox2a->setColumnLayout(0, Qt::Vertical );
+	groupBox2a->layout()->setSpacing( 6 );
+	groupBox2a->layout()->setMargin( 11 );
+	groupBox2a->setTitle( tr( "Superscript" ) );
+	groupBox2aLayout = new QGridLayout( groupBox2a->layout() );
+	groupBox2aLayout->setAlignment( Qt::AlignTop );
+	superDisplacement = new QSpinBox( groupBox2a, "superDisplacement" );
+	superDisplacement->setMaxValue( 100 );
+	superDisplacement->setValue( prefsData->DVHoch );
+	superDisplacement->setSuffix( tr( " %" ) );
+	groupBox2aLayout->addWidget( superDisplacement, 0, 1, Qt::AlignLeft );
+	textLabel3a = new QLabel(superDisplacement, tr( "D&isplacement:" ), groupBox2a, "textLabel3a" );
+	groupBox2aLayout->addWidget( textLabel3a, 0, 0 );
+	superScaling = new QSpinBox( groupBox2a, "superScaling" );
+	superScaling->setMaxValue( 100 );
+	superScaling->setMinValue( 1 );
+	superScaling->setValue( prefsData->DVHochSc );
+	superScaling->setSuffix( tr( " %" ) );
+	groupBox2aLayout->addWidget( superScaling, 0, 3, Qt::AlignLeft );
+	textLabel4a = new QLabel(superScaling, tr( "S&caling:" ), groupBox2a, "textLabel4a" );
+	groupBox2aLayout->addWidget( textLabel4a, 0, 2 );
+	tabTypoLayout->addWidget( groupBox2a, 1, 0 );
+	groupBox3a = new QGroupBox( tabTypo, "groupBox3a" );
+	groupBox3a->setColumnLayout(0, Qt::Vertical );
+	groupBox3a->layout()->setSpacing( 6 );
+	groupBox3a->layout()->setMargin( 11 );
+	groupBox3a->setTitle( tr( "Small Caps" ) );
+	groupBox3aLayout = new QGridLayout( groupBox3a->layout() );
+	groupBox3aLayout->setAlignment( Qt::AlignTop );
+	capsScaling = new QSpinBox( groupBox3a, "capsScaling" );
+	capsScaling->setMaxValue( 100 );
+	capsScaling->setMinValue( 1 );
+	capsScaling->setValue( prefsData->DVKapit );
+	capsScaling->setSuffix( tr( " %" ) );
+	groupBox3aLayout->addWidget( capsScaling, 0, 1, Qt::AlignLeft );
+	textLabel5a = new QLabel(capsScaling, tr( "Sc&aling:" ), groupBox3a, "textLabel5a" );
+	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
+	tabTypoLayout->addWidget( groupBox3a, 2, 0 );
+	groupBox4a = new QGroupBox( tabTypo, "groupBox4a" );
+	groupBox4a->setColumnLayout(0, Qt::Vertical );
+	groupBox4a->layout()->setSpacing( 6 );
+	groupBox4a->layout()->setMargin( 11 );
+	groupBox4a->setTitle( tr( "Other" ) );
+	groupBox4aLayout = new QGridLayout( groupBox4a->layout() );
+	groupBox4aLayout->setAlignment( Qt::AlignTop );
+	baseGrid = new MSpinBox( 1, prefsData->PageHoehe * Umrech, groupBox4a, 1 );
+	baseGrid->setValue(prefsData->BaseGrid * Umrech);
+	groupBox4aLayout->addWidget( baseGrid, 0, 1, Qt::AlignLeft );
+	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ),groupBox4a, "textLabel6a" );
+	groupBox4aLayout->addWidget( textLabel6a, 0, 0 );
+	baseOffset = new MSpinBox( 0, prefsData->PageHoehe * Umrech, groupBox4a, 1 );
+	baseOffset->setValue(prefsData->BaseOffs * Umrech);
+	groupBox4aLayout->addWidget( baseOffset, 1, 1, Qt::AlignLeft );
+	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ),groupBox4a, "textLabel7a" );
+	groupBox4aLayout->addWidget( textLabel7a, 1, 0 );
+	autoLine = new QSpinBox( groupBox4a, "autoLine" );
+	autoLine->setMaxValue( 100 );
+	autoLine->setMinValue( 1 );
+	autoLine->setValue( prefsData->AutoLine );
+	autoLine->setSuffix( tr( " %" ) );
+	groupBox4aLayout->addWidget( autoLine, 2, 1, Qt::AlignLeft );
+	textLabel8a = new QLabel( autoLine, tr( "Automatic &Line Spacing:" ), groupBox4a, "textLabel8a" );
+	groupBox4aLayout->addWidget( textLabel8a, 2, 0 );
+	tabTypoLayout->addWidget( groupBox4a, 3, 0 );
+	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
-	Layout12 = new QGridLayout;
-	Layout12->setSpacing( 6 );
-	Layout12->setMargin( 0 );
-	
-	VTiefW = new QSpinBox( GroupBox4_2, "VTiefW" );
-	VTiefW->setSuffix( tr( " %" ) );
-	VTiefW->setMaxValue( 100 );
-	VTiefW->setMinValue( 1 );
-	VTiefW->setValue(Vor->DVTief );
-	TextLabel1_5_2 = new QLabel( VTiefW, tr( "&Displacement:" ), GroupBox4_2, "TextLabel1_5_2" );
-	TextLabel1_5_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                               TextLabel1_5_2->sizePolicy().hasHeightForWidth() ) );
-	Layout12->addWidget( TextLabel1_5_2, 0, 0 );
-	Layout12->addWidget( VTiefW, 0, 1 );
-	
-	VTiefWSc = new QSpinBox( GroupBox4_2, "VTiefWSc" );
-	VTiefWSc->setSuffix( tr( " %" ) );
-	VTiefWSc->setMaxValue( 100 );
-	VTiefWSc->setMinValue( 1 );
-	VTiefWSc->setValue(Vor->DVTiefSc );
-	TextLabel2_3_2 = new QLabel( VTiefWSc, tr( "&Scaling:" ), GroupBox4_2, "TextLabel2_3_2" );
-	TextLabel2_3_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                               TextLabel2_3_2->sizePolicy().hasHeightForWidth() ) );
-	Layout12->addWidget( TextLabel2_3_2, 1, 0 );	
-	Layout12->addWidget( VTiefWSc, 1, 1 );
-	GroupBox4_2Layout->addLayout( Layout12 );
-	
-	tabLayout_3->addWidget( GroupBox4_2, 0, 0 );
-	GroupBox4 = new QGroupBox( tr( "Superscript" ), tab_4, "GroupBox4" );
-	GroupBox4->setColumnLayout(0, Qt::Vertical );
-	GroupBox4->layout()->setSpacing( 0 );
-	GroupBox4->layout()->setMargin( 0 );
-	GroupBox4Layout = new QHBoxLayout( GroupBox4->layout() );
-	GroupBox4Layout->setAlignment( Qt::AlignTop );
-	GroupBox4Layout->setSpacing( 6 );
-	GroupBox4Layout->setMargin( 11 );
-	Layout13 = new QGridLayout;
-	Layout13->setSpacing( 6 );
-	Layout13->setMargin( 0 );
-
-	VHochW = new QSpinBox( GroupBox4, "VHochW" );
-	VHochW->setSuffix( tr( " %" ) );
-	VHochW->setMaxValue( 100 );
-	VHochW->setMinValue( 1 );
-	VHochW->setValue(Vor->DVHoch );
-	TextLabel1_5 = new QLabel( VHochW, tr( "D&isplacement:" ), GroupBox4, "TextLabel1_5" );
-	TextLabel1_5->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                             TextLabel1_5->sizePolicy().hasHeightForWidth() ) );
-	Layout13->addWidget( TextLabel1_5, 0, 0 );	
-	Layout13->addWidget( VHochW, 0, 1 );
-	VHochWSc = new QSpinBox( GroupBox4, "VHochWSc" );
-	VHochWSc->setSuffix( tr( " %" ) );
-	VHochWSc->setMaxValue( 100 );
-	VHochWSc->setMinValue( 1 );
-	VHochWSc->setValue(Vor->DVHochSc );
-	TextLabel2_3 = new QLabel( VHochWSc, tr( "S&caling:" ), GroupBox4, "TextLabel2_3" );
-	TextLabel2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                             TextLabel2_3->sizePolicy().hasHeightForWidth() ) );
-	Layout13->addWidget( TextLabel2_3, 1, 0 );	
-	Layout13->addWidget( VHochWSc, 1, 1 );
-	GroupBox4Layout->addLayout( Layout13 );
-	
-	tabLayout_3->addWidget( GroupBox4, 1, 0 );
-	GroupBox4_3 = new QGroupBox( tr( "Small Caps" ), tab_4, "GroupBox4_3" );
-	GroupBox4_3->setColumnLayout(0, Qt::Vertical );
-	GroupBox4_3->layout()->setSpacing( 0 );
-	GroupBox4_3->layout()->setMargin( 0 );
-	GroupBox4_3Layout = new QHBoxLayout( GroupBox4_3->layout() );
-	GroupBox4_3Layout->setAlignment( Qt::AlignTop );
-	GroupBox4_3Layout->setSpacing( 6 );
-	GroupBox4_3Layout->setMargin( 11 );
-	Layout14 = new QHBoxLayout;
-	Layout14->setSpacing( 6 );
-	Layout14->setMargin( 0 );
-	SmallCaps = new QSpinBox( GroupBox4_3, "SmallCaps" );
-	SmallCaps->setSuffix( tr( " %" ) );
-	SmallCaps->setMaxValue( 100 );
-	SmallCaps->setMinValue( 1 );
-	SmallCaps->setValue(Vor->DVKapit );
-	TextLabel2_3_3 = new QLabel( SmallCaps, tr( "Sc&aling:" ), GroupBox4_3, "TextLabel2_3_3" );
-	TextLabel2_3_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                               TextLabel2_3_3->sizePolicy().hasHeightForWidth() ) );
-	Layout14->addWidget( TextLabel2_3_3 );
-	
-	Layout14->addWidget( SmallCaps );
-	GroupBox4_3Layout->addLayout( Layout14 );
-	
-	tabLayout_3->addWidget( GroupBox4_3, 0, 1 );
-
-	GroupBox4_3a = new QGroupBox( tr( "Other" ), tab_4, "GroupBox4_3a" );
-	GroupBox4_3a->setColumnLayout(0, Qt::Vertical );
-	GroupBox4_3a->layout()->setSpacing( 0 );
-	GroupBox4_3a->layout()->setMargin( 0 );
-	GroupBox4_3aLayout = new QGridLayout( GroupBox4_3a->layout() );
-	GroupBox4_3aLayout->setAlignment( Qt::AlignTop );
-	GroupBox4_3aLayout->setSpacing( 6 );
-	GroupBox4_3aLayout->setMargin( 11 );
-	
-	BaseGrid = new MSpinBox( 1, 100, GroupBox4_3a, 1 );
-	BaseGrid->setSuffix( tr( " pt" ) );
-	BaseGrid->setValue(Vor->BaseGrid );
-	TextLabel2_3_3b = new QLabel( BaseGrid, tr( "Baseline &Grid:" ), GroupBox4_3a, "TextLabel2_3_3" );
-	GroupBox4_3aLayout->addWidget( TextLabel2_3_3b, 0, 0 );
-	
-	GroupBox4_3aLayout->addWidget( BaseGrid, 0, 1 );
-	
-	BaseOffs = new MSpinBox( 0, 1000, GroupBox4_3a, 1 );
-	BaseOffs->setSuffix( tr( " pt" ) );
-	BaseOffs->setValue(Vor->BaseOffs );
-	TextLabel2_3_3c = new QLabel( BaseOffs, tr( "Baseline &Offset:" ), GroupBox4_3a, "TextLabel2_3_3" );
-	GroupBox4_3aLayout->addWidget( TextLabel2_3_3c, 1, 0 );
-	GroupBox4_3aLayout->addWidget( BaseOffs, 1, 1 );
-	
-	AutoLineV = new QSpinBox( GroupBox4_3a, "LineS" );
-	AutoLineV->setSuffix( tr( " %" ) );
-	AutoLineV->setMaxValue( 100 );
-	AutoLineV->setMinValue( 1 );
-	AutoLineV->setValue(Vor->AutoLine );
-	TextLabel2_3_3a = new QLabel( AutoLineV, tr( "Automatic &Line Spacing:" ), GroupBox4_3a, "TextLabel2_3_3" );
-	GroupBox4_3aLayout->addWidget( TextLabel2_3_3a, 2, 0 );
-	GroupBox4_3aLayout->addWidget( AutoLineV, 2, 1 );
-	tabLayout_3->addWidget( GroupBox4_3a, 1, 1 );
-
-	TabWidget3->addWidget( tab_4, 3 );
-
-	tab_3 = new QWidget( TabWidget3, "tab_3" );
+	tab_3 = new QWidget( prefsWidgets, "tab_3" );
 	tabLayout_4 = new QHBoxLayout( tab_3 );
 	tabLayout_4->setSpacing( 0 );
 	tabLayout_4->setMargin( 10 );
@@ -762,10 +690,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15a->setSpacing( 6 );
 	Layout15a->setMargin( 0 );
 
-	FontComb = new FontCombo(ToolFrame, Vor);
+	FontComb = new FontCombo(ToolFrame, prefsData);
 	for (int fc=0; fc<FontComb->count(); ++fc)
 	{
-		if (FontComb->text(fc) == Vor->DefFont)
+		if (FontComb->text(fc) == prefsData->DefFont)
 		{
 			FontComb->setCurrentItem(fc);
 			break;
@@ -785,7 +713,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	int a;
 	for (a = 0; a < SizeCombo->count(); ++a)
 	{
-		if (SizeCombo->text(a).left(2).toInt() == Vor->DefSize / 10)
+		if (SizeCombo->text(a).left(2).toInt() == prefsData->DefSize / 10)
 			SizeCombo->setCurrentItem(a);
 	}
 	TextLabel2_2 = new QLabel( SizeCombo, tr( "Default &Size:" ), ToolFrame, "TextLabel2_2" );
@@ -799,11 +727,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QPixmap pm2;
 	pm2 = QPixmap(15, 15);
 	CListe::Iterator itc;
-	for (itc = Vor->DColors.begin(); itc != Vor->DColors.end(); ++itc)
+	for (itc = prefsData->DColors.begin(); itc != prefsData->DColors.end(); ++itc)
 	{
-		pm2.fill(Vor->DColors[itc.key()].getRGBColor());
+		pm2.fill(prefsData->DColors[itc.key()].getRGBColor());
 		ForegroundT->insertItem(pm2, itc.key());
-		if (itc.key() == Vor->DpenText)
+		if (itc.key() == prefsData->DpenText)
 			ForegroundT->setCurrentItem(ForegroundT->count()-1);
 	}
 	TextLabelT1 = new QLabel( ForegroundT, tr( "&Text Color:" ), ToolFrame, "TextLabel1_3_2" );
@@ -815,14 +743,14 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextColVal = new QSpinBox( ToolFrame, "TextColVal" );
 	TextColVal->setMaxValue( 100 );
 	TextColVal->setMinValue( 1 );
-	TextColVal->setValue(Vor->DCols );
+	TextColVal->setValue(prefsData->DCols );
 	TextCol = new QLabel(TextColVal, tr("Colu&mns:"), ToolFrame, "TextCol");
 	Layout15a->addWidget( TextCol, 3, 0 );
 	Layout15a->addWidget( TextColVal, 3, 1 );
 	
 	TextGapVal = new MSpinBox( 0, 200, ToolFrame, decimals );
 	TextGapVal->setSuffix( tr( " pt" ) );
-	TextGapVal->setValue(Vor->DGap);
+	TextGapVal->setValue(prefsData->DGap);
 	TextGap = new QLabel(TextGapVal, tr("&Gap:"), ToolFrame, "TextCol");
 	Layout15a->addWidget( TextGap, 4, 0 );
 	Layout15a->addWidget( TextGapVal, 4, 1 );
@@ -853,14 +781,14 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Foreground = new QComboBox( true, ToolFrame2, "Foreground" );
 	Foreground->setEditable(false);
 	Foreground->insertItem( tr("None"));
-	if (Vor->Dpen == "None")
+	if (prefsData->Dpen == "None")
 		Foreground->setCurrentItem(Foreground->count()-1);
 	pm2 = QPixmap(15, 15);
-	for (itc = Vor->DColors.begin(); itc != Vor->DColors.end(); ++itc)
+	for (itc = prefsData->DColors.begin(); itc != prefsData->DColors.end(); ++itc)
 	{
-		pm2.fill(Vor->DColors[itc.key()].getRGBColor());
+		pm2.fill(prefsData->DColors[itc.key()].getRGBColor());
 		Foreground->insertItem(pm2, itc.key());
-		if (itc.key() == Vor->Dpen)
+		if (itc.key() == prefsData->Dpen)
 			Foreground->setCurrentItem(Foreground->count()-1);
 	}
 	TextLabelT21 = new QLabel( Foreground, tr( "&Line Color:" ), ToolFrame2, "TextLabel1_3_2" );
@@ -873,7 +801,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Shade2->setSuffix( tr( " %" ) );
 	Shade2->setMaxValue( 100 );
 	Shade2->setMinValue( 0 );
-	Shade2->setValue(Vor->Dshade2 );
+	Shade2->setValue(prefsData->Dshade2 );
 	TextLabelT22 = new QLabel( Shade2, tr( "&Shading:" ), ToolFrame2, "TextLabel2_2" );
 	TextLabelT22->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT22->sizePolicy().hasHeightForWidth() ) );
@@ -883,13 +811,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Background = new QComboBox( true, ToolFrame2, "Background" );
 	Background->setEditable(false);
 	Background->insertItem( tr("None"));
-	if (Vor->Dbrush == "None")
+	if (prefsData->Dbrush == "None")
 		Background->setCurrentItem(Background->count()-1);
-	for (itc = Vor->DColors.begin(); itc != Vor->DColors.end(); ++itc)
+	for (itc = prefsData->DColors.begin(); itc != prefsData->DColors.end(); ++itc)
 	{
-		pm2.fill(Vor->DColors[itc.key()].getRGBColor());
+		pm2.fill(prefsData->DColors[itc.key()].getRGBColor());
 		Background->insertItem(pm2, itc.key());
-		if (itc.key() == Vor->Dbrush)
+		if (itc.key() == prefsData->Dbrush)
 			Background->setCurrentItem(Background->count()-1);
 	}
 	TextLabelT23 = new QLabel( Background, tr( "&Fill Color:" ), ToolFrame2, "TextLabel1_3" );
@@ -902,7 +830,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Shade->setSuffix( tr( " %" ) );
 	Shade->setMaxValue( 100 );
 	Shade->setMinValue( 0 );
-	Shade->setValue(Vor->Dshade );
+	Shade->setValue(prefsData->Dshade );
 	TextLabelT24 = new QLabel( Shade, tr( "S&hading:" ), ToolFrame2, "TextLabel2_2_2" );
 	TextLabelT24->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT24->sizePolicy().hasHeightForWidth() ) );
@@ -911,7 +839,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	Linestyle = new LineCombo(ToolFrame2);
 	Linestyle->setEditable(false);
-	switch (Vor->DLineArt)
+	switch (prefsData->DLineArt)
 	{
 	case SolidLine:
 		Linestyle->setCurrentItem(0);
@@ -940,7 +868,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	LineW = new MSpinBox( 0, 36, ToolFrame2, 1 );
 	LineW->setSuffix( tr( " pt" ) );
-	LineW->setValue(Vor->Dwidth);
+	LineW->setValue(prefsData->Dwidth);
 	TextLabelT26 = new QLabel( LineW, tr( "Line &Width:" ), ToolFrame2, "TextLabel2_3_4" );
 	TextLabelT26->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT26->sizePolicy().hasHeightForWidth() ) );
@@ -967,14 +895,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	Foreground2 = new QComboBox( true, ToolFrame3, "Foreground" );
 	Foreground2->setEditable(false);
-	QPixmap pm3;
 	pm3 = QPixmap(15, 15);
 	CListe::Iterator itc2;
-	for (itc2 = Vor->DColors.begin(); itc2 != Vor->DColors.end(); ++itc2)
+	for (itc2 = prefsData->DColors.begin(); itc2 != prefsData->DColors.end(); ++itc2)
 	{
-		pm3.fill(Vor->DColors[itc2.key()].getRGBColor());
+		pm3.fill(prefsData->DColors[itc2.key()].getRGBColor());
 		Foreground2->insertItem(pm3, itc2.key());
-		if (itc2.key() == Vor->DpenLine)
+		if (itc2.key() == prefsData->DpenLine)
 			Foreground2->setCurrentItem(Foreground2->count()-1);
 	}
 	TextLabelT31 = new QLabel( Foreground2, tr( "&Line Color:" ), ToolFrame3, "TextLabel1_3_2" );
@@ -986,7 +913,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Shade22->setSuffix( tr( " %" ) );
 	Shade22->setMaxValue( 100 );
 	Shade22->setMinValue( 0 );
-	Shade22->setValue(Vor->DshadeLine );
+	Shade22->setValue(prefsData->DshadeLine );
 	TextLabelT32 = new QLabel( Shade22, tr( "&Shading:" ), ToolFrame3, "TextLabel2_2" );
 	TextLabelT32->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT32->sizePolicy().hasHeightForWidth() ) );
@@ -994,7 +921,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15c->addWidget(Shade22, 1, 1);
 	Linestyle2 = new LineCombo(ToolFrame3);
 	Linestyle2->setEditable(false);
-	int dla = Vor->DLstyleLine;
+	int dla = prefsData->DLstyleLine;
 	switch (dla)
 	{
 	case SolidLine:
@@ -1024,7 +951,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	LineW2 = new MSpinBox( 1, 36, ToolFrame3, 1 );
 	LineW2->setSuffix( tr( " pt" ) );
-	LineW2->setValue(Vor->DwidthLine);
+	LineW2->setValue(prefsData->DwidthLine);
 	TextLabelT36 = new QLabel( LineW2, tr( "Line &Width:" ), ToolFrame3, "TextLabel2_3_4" );
 	TextLabelT36->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT36->sizePolicy().hasHeightForWidth() ) );
@@ -1041,6 +968,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ToolFrame4->setFrameShape( QFrame::Box );
 	ToolFrame4->setFrameShadow( QFrame::Sunken );
 	ToolFrame4Layout = new QHBoxLayout( ToolFrame4 );
+	ToolFrame4Layout->setAlignment( Qt::AlignTop );
 	ToolFrame4Layout->setSpacing( 0 );
 	ToolFrame4Layout->setMargin( 10 );
 	Layout15d = new QGridLayout;
@@ -1052,7 +980,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	MinMag->setMaxValue( 800 );
 	MinMag->setMinValue( 10 );
 	MinMag->setLineStep( 10 );
-	MinMag->setValue(Vor->MagMin );
+	MinMag->setValue(prefsData->MagMin );
 	TextLabelT42 = new QLabel( MinMag, tr( "Mi&nimum:" ), ToolFrame4, "TextLabel2_2" );
 	TextLabelT42->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT42->sizePolicy().hasHeightForWidth() ) );
@@ -1064,7 +992,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	MaxMag->setMaxValue( 800 );
 	MaxMag->setMinValue( 10 );
 	MaxMag->setLineStep( 10 );
-	MaxMag->setValue(Vor->MagMax );
+	MaxMag->setValue(prefsData->MagMax );
 	TextLabelT43 = new QLabel( MaxMag, tr( "Ma&ximum:" ), ToolFrame4, "TextLabel2_2_3" );
 	TextLabelT43->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT43->sizePolicy().hasHeightForWidth() ) );
@@ -1076,7 +1004,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	StepMag->setMaxValue( 200 );
 	StepMag->setMinValue( 1 );
 	StepMag->setLineStep( 25 );
-	StepMag->setValue(Vor->MagStep );
+	StepMag->setValue(prefsData->MagStep );
 	TextLabelT44 = new QLabel( StepMag, tr( "&Stepping:" ), ToolFrame4, "TextLabel2_3_4" );
 	TextLabelT44->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT44->sizePolicy().hasHeightForWidth() ) );
@@ -1108,7 +1036,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	XScale->setSuffix( tr( " %" ) );
 	XScale->setMaxValue( 1000 );
 	XScale->setMinValue( 1 );
-	XScale->setValue(qRound(Vor->ScaleX * 100) );
+	XScale->setValue(qRound(prefsData->ScaleX * 100) );
 	TextLabelT51 = new QLabel( XScale, tr( "&Horizontal Scaling:" ), ToolFrame5, "TextLabelT51" );
 	TextLabelT51->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT51->sizePolicy().hasHeightForWidth() ) );
@@ -1118,7 +1046,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	YScale->setSuffix( tr( " %" ) );
 	YScale->setMaxValue( 1000 );
 	YScale->setMinValue( 1 );
-	YScale->setValue(qRound(Vor->ScaleY * 100) );
+	YScale->setValue(qRound(prefsData->ScaleY * 100) );
 	TextLabelT52 = new QLabel( YScale, tr( "&Vertical Scaling:" ), ToolFrame5, "TextLabelT52" );
 	TextLabelT52->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT52->sizePolicy().hasHeightForWidth() ) );
@@ -1136,7 +1064,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ShadeP->setSuffix( tr( " %" ) );
 	ShadeP->setMaxValue( 100 );
 	ShadeP->setMinValue( 0 );
-	ShadeP->setValue(Vor->ShadePict );
+	ShadeP->setValue(prefsData->ShadePict );
 	TextLabelT54 = new QLabel( ShadeP, tr( "S&hading:" ), ToolFrame5, "TextLabelT54" );
 	TextLabelT54->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT54->sizePolicy().hasHeightForWidth() ) );
@@ -1145,13 +1073,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	BackgroundP = new QComboBox( true, ToolFrame5, "BackgroundP" );
 	BackgroundP->setEditable(false);
 	BackgroundP->insertItem( tr("None"));
-	if (Vor->DbrushPict == "None")
+	if (prefsData->DbrushPict == "None")
 		BackgroundP->setCurrentItem(BackgroundP->count()-1);
-	for (itc = Vor->DColors.begin(); itc != Vor->DColors.end(); ++itc)
+	for (itc = prefsData->DColors.begin(); itc != prefsData->DColors.end(); ++itc)
 	{
-		pm2.fill(Vor->DColors[itc.key()].getRGBColor());
+		pm2.fill(prefsData->DColors[itc.key()].getRGBColor());
 		BackgroundP->insertItem(pm2, itc.key());
-		if (itc.key() == Vor->DbrushPict)
+		if (itc.key() == prefsData->DbrushPict)
 			BackgroundP->setCurrentItem(BackgroundP->count()-1);
 	}
 	TextLabelT53 = new QLabel( BackgroundP, tr( "F&ill Color:" ), ToolFrame5, "TextLabelT53" );
@@ -1164,9 +1092,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ToolFrame5Layout->addLayout( Layout15 );
 	QSpacerItem* sp02 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	ToolFrame5Layout->addItem( sp02 );
-	Aspect->setChecked(Vor->AspectRatio);
-	FreeScale->setChecked(Vor->ScaleType ? true : false);
-	FrameScale->setChecked(Vor->ScaleType ? false : true);
+	Aspect->setChecked(prefsData->AspectRatio);
+	FreeScale->setChecked(prefsData->ScaleType ? true : false);
+	FrameScale->setChecked(prefsData->ScaleType ? false : true);
 	ChangeScaling();
 	Fram->addWidget(ToolFrame5, 5);
 
@@ -1174,15 +1102,15 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ToolFrame6->setFrameShape( QFrame::Box );
 	ToolFrame6->setFrameShadow( QFrame::Sunken );
 	PolygonPropsLayout = new QHBoxLayout( ToolFrame6, 10, 5, "PolygonPropsLayout");
-	polyWidget = new PolygonWidget(ToolFrame6, Vor->PolyC, Vor->PolyFd, Vor->PolyF, Vor->PolyS, Vor->PolyR);
+	PolygonPropsLayout->setAlignment( Qt::AlignTop );
+	polyWidget = new PolygonWidget(ToolFrame6, prefsData->PolyC, prefsData->PolyFd, prefsData->PolyF, prefsData->PolyS, prefsData->PolyR);
 	PolygonPropsLayout->addWidget( polyWidget );
 	QSpacerItem* T6_spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	PolygonPropsLayout->addItem( T6_spacer2 );
 	Fram->addWidget(ToolFrame6, 6);
+	addItem( tr("Tools"), loadIcon("tools.png"), tab_3);
 
-	TabWidget3->addWidget( tab_3, 4 );
-
-	tab_5 = new QWidget( TabWidget3, "tab_5" );
+	tab_5 = new QWidget( prefsWidgets, "tab_5" );
 	tabLayout_5 = new QGridLayout( tab_5 );
 	tabLayout_5->setSpacing( 6 );
 	tabLayout_5->setMargin( 11 );
@@ -1197,7 +1125,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	SavingLayout->setMargin( 25 );
 
 	SaveAtQuit = new QCheckBox( tr( "Sa&ve Contents on Changes" ), Saving, "SaveAtQuit" );
-	SaveAtQuit->setChecked(Vor->SaveAtQ);
+	SaveAtQuit->setChecked(prefsData->SaveAtQ);
 	SavingLayout->addWidget( SaveAtQuit );
 
 	tabLayout_5->addWidget( Saving, 1, 0 );
@@ -1216,7 +1144,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	PreviewSize->insertItem( tr( "Medium" ) );
 	PreviewSize->insertItem( tr( "Large" ) );
 	PreviewSize->setEditable(false);
-	int sci = Vor->PSize == 40 ? 0 : Vor->PSize == 60 ? 1 : 2;
+	int sci = prefsData->PSize == 40 ? 0 : prefsData->PSize == 60 ? 1 : 2;
 	PreviewSize->setCurrentItem(sci);
 	TextLabelP = new QLabel( PreviewSize, tr( "&Size:" ), Preview, "TextLabel1_3" );
 	PreviewLayout->addWidget( TextLabelP );
@@ -1230,70 +1158,100 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Frame6->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	tabLayout_5->addMultiCellWidget( Frame6, 0, 1, 1, 1 );
-	TabWidget3->addWidget( tab_5, 5 );
+	addItem(  tr("Scrapbook"), loadIcon("scrap.png"), tab_5);
 
-	tab_6 = new QWidget( TabWidget3, "tab_6" );
-	tabLayout_6 = new QHBoxLayout( tab_6 );
-	tabLayout_6->setSpacing( 6 );
-	tabLayout_6->setMargin( 11 );
-	GroupBox10 = new QGroupBox( "", tab_6, "GroupBox10" );
-	GroupBox10->setColumnLayout(0, Qt::Vertical );
-	GroupBox10->layout()->setSpacing( 0 );
-	GroupBox10->layout()->setMargin( 0 );
-	GroupBox10Layout = new QVBoxLayout( GroupBox10->layout() );
-	GroupBox10Layout->setAlignment( Qt::AlignTop );
-	GroupBox10Layout->setSpacing( 6 );
-	GroupBox10Layout->setMargin( 11 );
-	SidebySide = new QCheckBox( tr( "Display Pages &Side by Side" ), GroupBox10, "SidebySide" );
-	SidebySide->setChecked(Vor->PagesSbS);
-	GroupBox10Layout->addWidget( SidebySide );
+	tabView = new QWidget( prefsWidgets, "tabView" );
+	tabViewLayout = new QVBoxLayout( tabView, 10, 5, "tabViewLayout");
+	tabViewLayout->setAlignment( Qt::AlignTop );
+	pageBackground = new QButtonGroup( tabView, "pageBackground" );
+	pageBackground->setTitle( tr( "Page Background" ) );
+	pageBackground->setColumnLayout(0, Qt::Vertical );
+	pageBackground->layout()->setSpacing( 5 );
+	pageBackground->layout()->setMargin( 10 );
+	pageBackgroundLayout = new QHBoxLayout( pageBackground->layout() );
+	pageBackgroundLayout->setAlignment( Qt::AlignTop );
+	textLabel9 = new QLabel( pageBackground, "textLabel9" );
+	textLabel9->setText( tr( "Color:" ) );
+	pageBackgroundLayout->addWidget( textLabel9 );
+	backColor = new QPushButton( pageBackground, "backColor" );
+	backColor->setMinimumSize( QSize( 60, 20 ) );
+	backColor->setMaximumSize( QSize( 60, 20 ) );
+	backColor->setFlat( false );
+	backColor->setAutoDefault( false );
+	QPixmap pm5 = QPixmap(54, 14);
+	pm5.fill(prefsData->DpapColor);
+	colorPaper = prefsData->DpapColor;
+	backColor->setPixmap(pm5);
+	backColor->setText( QString::null );
+	pageBackgroundLayout->addWidget( backColor );
+	checkUnprintable = new QCheckBox( pageBackground, "checkUnprintable" );
+	checkUnprintable->setText( tr( "Display &Unprintable Area in Margin Color" ) );
+	checkUnprintable->setAccel( QKeySequence( tr( "Alt+U" ) ) );
+	checkUnprintable->setChecked( prefsData->RandFarbig );
+	pageBackgroundLayout->addWidget( checkUnprintable );
+	tabViewLayout->addWidget( pageBackground );
 
-	Layout_6b = new QHBoxLayout();
-	Layout_6b->setSpacing( 0 );
-	Layout_6b->setMargin( 0 );
-	GroupBox20a = new QGroupBox( tr( "Page Colors" ), GroupBox10, "GroupBox20" );
-	GroupBox20a->setColumnLayout(0, Qt::Vertical );
-	GroupBox20a->layout()->setSpacing( 0 );
-	GroupBox20a->layout()->setMargin( 0 );
-	GroupBox20aLayout = new QHBoxLayout( GroupBox20a->layout() );
-	GroupBox20aLayout->setAlignment( Qt::AlignTop );
-	GroupBox20aLayout->setSpacing( 10 );
-	GroupBox20aLayout->setMargin( 5 );
-	PapColor = new QPushButton( "", GroupBox20a, "PapColor" );
-	PapColor->setAutoDefault( false );
-	QPixmap pm1a = QPixmap(40, 20);
-	pm1a.fill(Vor->DpapColor);
-	Cpaper = Vor->DpapColor;
-	PapColor->setPixmap(pm1a);
-	TextLabel4a = new QLabel( PapColor, tr( "&Background:" ), GroupBox20a, "TextLabel4" );
-	TextLabel4a->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                            TextLabel4a->sizePolicy().hasHeightForWidth() ) );
-	GroupBox20aLayout->addWidget( TextLabel4a);
-	GroupBox20aLayout->addWidget( PapColor );
-	
-	RandColor = new QPushButton( "", GroupBox20a, "RColor" );
-	RandColor->setAutoDefault( false );
-	pm1a.fill(Vor->DmargColor);
-	Crand = Vor->DmargColor;
-	RandColor->setPixmap(pm1a);
-	TextLabel4b = new QLabel( RandColor, tr( "&Margins:" ), GroupBox20a, "TextLabel4" );
-	TextLabel4b->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                            TextLabel4b->sizePolicy().hasHeightForWidth() ) );
-	GroupBox20aLayout->addWidget( TextLabel4b);
-	GroupBox20aLayout->addWidget( RandColor );
-	Layout_6b->addWidget(GroupBox20a);
-	
-	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout_6b->addItem( spacer2 );
-	GroupBox10Layout->addLayout(Layout_6b);
-	RandFarb = new QCheckBox( tr( "Display &Unprintable Area in Margin Color" ), GroupBox10, "Ran" );
-	RandFarb->setChecked(Vor->RandFarbig);
-	GroupBox10Layout->addWidget( RandFarb );
-	UsePDFTrans = new QCheckBox( tr( "Use PDF 1.4 &Transparency Features" ), GroupBox10, "Ran2" );
-	UsePDFTrans->setChecked(Vor->PDFTransparency);
-	GroupBox10Layout->addWidget( UsePDFTrans );
+	groupScratch = new QGroupBox( tabView, "GroupBox7" );
+	groupScratch->setTitle( tr( "Scratch Space" ) );
+	groupScratch->setColumnLayout(0, Qt::Vertical );
+	groupScratch->layout()->setSpacing( 0 );
+	groupScratch->layout()->setMargin( 0 );
+	groupScratchLayout = new QHBoxLayout( groupScratch->layout() );
+	groupScratchLayout->setAlignment( Qt::AlignTop );
+	groupScratchLayout->setSpacing( 0 );
+	groupScratchLayout->setMargin( 10 );
+	Layout4s = new QGridLayout;
+	Layout4s->setSpacing( 6 );
+	Layout4s->setMargin( 0 );
+	topScratch = new MSpinBox( groupScratch, 4 );
+	topScratch->setDecimals( decimals );
+	topScratch->setMaxValue(1000);
+	topScratch->setValue(prefsData->ScratchTop * Umrech);
+	Layout4s->addWidget( topScratch, 0, 1 );
+	TextLabel5s = new QLabel(topScratch, tr( "&Top:" ), groupScratch, "TextLabel5" );
+	Layout4s->addWidget( TextLabel5s, 0, 0 );
+	leftScratch = new MSpinBox( groupScratch, 4 );
+	leftScratch->setDecimals( decimals );
+	leftScratch->setMaxValue(1000);
+	leftScratch->setValue(prefsData->ScratchLeft * Umrech);
+	Layout4s->addWidget( leftScratch, 0, 3 );
+	Linkss = new QLabel(leftScratch, tr( "&Left:" ), groupScratch, "Links" );
+	Layout4s->addWidget( Linkss, 0, 2 );
+	bottomScratch = new MSpinBox( groupScratch, 4 );
+	bottomScratch->setDecimals( decimals );
+	bottomScratch->setMaxValue(1000);
+	bottomScratch->setValue(prefsData->ScratchBottom * Umrech);
+	Layout4s->addWidget( bottomScratch, 1, 1 );
+	TextLabel7s = new QLabel(bottomScratch, tr( "&Bottom:" ), groupScratch, "TextLabel7" );
+	Layout4s->addWidget( TextLabel7s, 1, 0 );
+	rightScratch = new MSpinBox( groupScratch, 4 );
+	rightScratch->setDecimals( decimals );
+	rightScratch->setMaxValue(1000);
+	rightScratch->setValue(prefsData->ScratchRight * Umrech);
+	Layout4s->addWidget( rightScratch, 1, 3 );
+	Rechtss = new QLabel(rightScratch, tr( "&Right:" ), groupScratch, "Rechts" );
+	Layout4s->addWidget( Rechtss, 1, 2 );
+	groupScratchLayout->addLayout( Layout4s );
+	tabViewLayout->addWidget( groupScratch );
 
-	CaliGroup = new QGroupBox( tr( "&Adjust Display Size" ), GroupBox10, "CaliGroup" );
+	buttonGroup1 = new QButtonGroup( tabView, "buttonGroup1" );
+	buttonGroup1->setExclusive( true );
+	buttonGroup1->setColumnLayout(0, Qt::Vertical );
+	buttonGroup1->layout()->setSpacing( 5 );
+	buttonGroup1->layout()->setMargin( 10 );
+	buttonGroup1->setTitle( tr( "Placing of Guides" ) );
+	buttonGroup1Layout = new QHBoxLayout( buttonGroup1->layout() );
+	buttonGroup1Layout->setAlignment( Qt::AlignTop );
+	inBackground = new QRadioButton( buttonGroup1, "inBackground" );
+	inBackground->setText( tr( "In the Background" ) );
+	buttonGroup1Layout->addWidget( inBackground );
+	inForeground = new QRadioButton( buttonGroup1, "inForeground" );
+	inForeground->setText( tr( "In the Foreground" ) );
+	buttonGroup1Layout->addWidget( inForeground );
+	inBackground->setChecked( prefsData->Before );
+	inForeground->setChecked( !prefsData->Before );
+	tabViewLayout->addWidget( buttonGroup1 );
+	CaliGroup = new QGroupBox( tr( "&Adjust Display Size" ), tabView, "CaliGroup" );
 	CaliGroup->setColumnLayout(0, Qt::Vertical );
 	CaliGroup->layout()->setSpacing( 6 );
 	CaliGroup->layout()->setMargin( 11 );
@@ -1306,7 +1264,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	DrawRuler();
 	CaliRuler->setFrameShape( QLabel::Box );
 	CaliRuler->setFrameShadow( QLabel::Sunken );
-	CaliRuler->setScaledContents( FALSE );
+	CaliRuler->setScaledContents( false );
 	CaliGroupLayout->addWidget( CaliRuler );
 	layout15ca = new QHBoxLayout( 0, 0, 6, "layout15");
 	CaliSlider = new QSlider( CaliGroup, "CaliSlider" );
@@ -1322,14 +1280,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 	layout15ca->addWidget( CaliAnz );
 	CaliGroupLayout->addLayout( layout15ca );
-
-	GroupBox10Layout->addWidget( CaliGroup );
-
-	tabLayout_6->addWidget( GroupBox10 );
-	TabWidget3->addWidget( tab_6, 6 );
+	tabViewLayout->addWidget( CaliGroup );
+	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 	
-	ExtTool = new QWidget( TabWidget3, "ExtTool" );
+	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 11, 6, "ExtToolLayout"); 
+	ExtToolLayout->setAlignment( Qt::AlignTop );
 	groupGS = new QGroupBox( tr( "Postscript Interpreter" ), ExtTool, "groupGS" );
 	groupGS->setColumnLayout(0, Qt::Vertical );
 	groupGS->layout()->setSpacing( 6 );
@@ -1338,16 +1294,16 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	groupGSLayout->setAlignment( Qt::AlignTop );
 	GSlayout = new QHBoxLayout( 0, 0, 6, "GSlayout"); 
 	GSName = new QLineEdit( groupGS, "GSName" );
-	GSName->setText(Vor->gs_exe);
+	GSName->setText(prefsData->gs_exe);
 	GSText = new QLabel( GSName, tr( "&Name of Executable:" ), groupGS, "GSText" );
 	GSlayout->addWidget( GSText );
 	GSlayout->addWidget( GSName );
 	groupGSLayout->addLayout( GSlayout );
 	GSantiText = new QCheckBox( tr( "Antialias &Text" ), groupGS, "GSantiText" );
-	GSantiText->setChecked(Vor->gs_antiText);
+	GSantiText->setChecked(prefsData->gs_antiText);
 	groupGSLayout->addWidget( GSantiText );
 	GSantiGraph = new QCheckBox( tr( "Antialias &Graphics" ), groupGS, "GSantiGraph" );
-	GSantiGraph->setChecked(Vor->gs_antiGraph);
+	GSantiGraph->setChecked(prefsData->gs_antiGraph);
 	groupGSLayout->addWidget( GSantiGraph );
 	ExtToolLayout->addWidget( groupGS );
 	groupGimp = new QGroupBox( tr( "Image Processing Tool" ), ExtTool, "groupGimp" );
@@ -1357,17 +1313,18 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	groupGimpLayout = new QHBoxLayout( groupGimp->layout() );
 	groupGimpLayout->setAlignment( Qt::AlignTop );
 	GimpName = new QLineEdit( groupGimp, "GimpName" );
-	GimpName->setText(Vor->gimp_exe);
+	GimpName->setText(prefsData->gimp_exe);
 	GimpText = new QLabel( GimpName, tr( "Name of &Executable:" ), groupGimp, "GimpText" );
 	groupGimpLayout->addWidget( GimpText );
 	groupGimpLayout->addWidget( GimpName );
 	ExtToolLayout->addWidget( groupGimp );
 	QSpacerItem* spacer_gs = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ExtToolLayout->addItem( spacer_gs );
-	TabWidget3->addWidget( ExtTool, 7 );
+	addItem(  tr("External Tools."), loadIcon("misc.png"), ExtTool);
 
-	Misc = new QWidget( TabWidget3, "Misc" );
+	Misc = new QWidget( prefsWidgets, "Misc" );
 	MiscLayout = new QVBoxLayout( Misc, 11, 6, "MiscLayout"); 
+	MiscLayout->setAlignment( Qt::AlignTop );
 	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
 	groupPrint->setColumnLayout(0, Qt::Vertical );
 	groupPrint->layout()->setSpacing( 10 );
@@ -1375,41 +1332,21 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	groupPrintLayout = new QVBoxLayout( groupPrint->layout() );
 	groupPrintLayout->setAlignment( Qt::AlignTop );
 	ClipMarg = new QCheckBox( tr( "Clip to Page &Margins" ), groupPrint, "ClipMarg" );
-	ClipMarg->setChecked(Vor->ClipMargin);
+	ClipMarg->setChecked(prefsData->ClipMargin);
 	groupPrintLayout->addWidget( ClipMarg );
 	DoGCR = new QCheckBox( tr( "Apply &Under Color Removal" ), groupPrint, "ClipMarg" );
-	DoGCR->setChecked(Vor->GCRMode);
+	DoGCR->setChecked(prefsData->GCRMode);
 	groupPrintLayout->addWidget( DoGCR );
 	MiscLayout->addWidget( groupPrint );
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
-	TabWidget3->addWidget( Misc, 8 );
+	addItem(  tr("Misc."), loadIcon("misc.png"), Misc);
 
-	TabListe->setCurrentItem(0);
-	TabListe->setSelected(0, true);
 	Fram->raiseWidget(1);
-
-	PrefsLayout2->addWidget( TabWidget3 );
-	PrefsLayout->addLayout(PrefsLayout2);
-
-	Layout3 = new QHBoxLayout;
-	Layout3->setSpacing( 6 );
-	Layout3->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer );
-	buttonOK = new QPushButton( tr( "&OK" ), this, "buttonOK" );
-	buttonOK->setDefault( true );
-	buttonOK->setFocus();
-	Layout3->addWidget( buttonOK );
-	buttonCancel = new QPushButton( tr( "&Cancel" ), this, "buttonCancel" );
-	buttonCancel->setDefault( false );
-	Layout3->addWidget( buttonCancel );
-	PrefsLayout->addLayout( Layout3 );
 	setDS();
 	//tab order
 	QWidget::setTabOrder( GFsize, SpinBox3 );
-	QWidget::setTabOrder( SpinBox3, SpinBox3_2 );
-	QWidget::setTabOrder( SpinBox3_2, UnitCombo );
+	QWidget::setTabOrder( SpinBox3, UnitCombo );
 	QWidget::setTabOrder( UnitCombo, Recen );
 	QWidget::setTabOrder( Recen, Docs );
 	QWidget::setTabOrder( Docs, FileC );
@@ -1432,7 +1369,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( GFsize, tr( "Default font size for the menus and windows" ) );
 	QToolTip::add( UnitCombo, tr( "Default unit of measurement for document editing" ) );
 	QToolTip::add( SpinBox3, tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) );
-	QToolTip::add( SpinBox3_2, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
 	QToolTip::add( Recen, tr( "Number of recently edited documents to show in the File menu" ) );
 	QToolTip::add( Docs, tr( "Default documents directory" ) );
 	QToolTip::add( ProPfad, tr( "Default ICC profiles directory" ) );
@@ -1452,23 +1388,31 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
 	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
 
-	QToolTip::add( SpinBox1, tr( "Distance between the minor grid lines" ) );
-	QToolTip::add( SpinBox2, tr( "Distance between the major grid lines" ) );
-	QToolTip::add( SpinBox2g, tr( "Distance within which an object will snap to your placed guides" ) );
-	QToolTip::add( minColor, tr( "Color of the minor grid lines" ) );
-	QToolTip::add( MaxColor, tr( "Color of the major grid lines" ) );
-	QToolTip::add( GuideColor, tr( "Color of the guide lines you insert" ) );
-	QToolTip::add( RadioButton6, tr( "Place the grid behind your page objects" ) );
-	QToolTip::add( RadioButton7, tr( "Place the grid in front of your page objects" ) );
-	QToolTip::add( RadioButton8, tr("Turns on the basegrid"));
-	QToolTip::add( RadioButton9, tr("Turns off the basegrid")); 
+	QToolTip::add( minorSpace, tr( "Distance between the minor grid lines" ) );
+	QToolTip::add( majorSpace, tr( "Distance between the major grid lines" ) );
+	QToolTip::add( snapDistance, tr( "Distance within which an object will snap to your placed guides" ) );
+	QToolTip::add( grabDistance, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
+	QToolTip::add( minorGridColor, tr( "Color of the minor grid lines" ) );
+	QToolTip::add( majorGridColor, tr( "Color of the major grid lines" ) );
+	QToolTip::add( guideColor, tr( "Color of the guide lines you insert" ) );
+	QToolTip::add( marginColor, tr( "Color for the margin lines" ) );
+	QToolTip::add( baselineColor, tr( "Color for the basegrid lines" ) );
+	QToolTip::add( checkBaseline, tr("Turns the basegrid on or off"));
+	QToolTip::add( checkGrid, tr("Turns the gridlines on or off"));
+	QToolTip::add( checkGuides, tr("Turns the guides on or off"));
+	QToolTip::add( checkMargin, tr("Turns the margins on or off"));
+	QToolTip::add( checkLink, tr("Turns the of linked frames on or off"));
+	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
+	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
+	QToolTip::add( inBackground, tr( "Place the grid behind your page objects" ) );
+	QToolTip::add( inForeground, tr( "Place the grid in front of your page objects" ) );
 
-	QToolTip::add( VHochW, tr( "Displacement above the baseline of the font on a line" ) );
-	QToolTip::add( VHochWSc, tr( "Relative size of the superscript compared to the normal font" ) );
-	QToolTip::add( VTiefW, tr( "Displacement below the baseline of the normal font on a line" ) );
-	QToolTip::add( VTiefWSc, tr( "Relative size of the subscript compared to the normal font" ) );
-	QToolTip::add( SmallCaps, tr( "Relative size of the small caps font compared to the normal font" ) );
-	QToolTip::add( AutoLineV, tr( "Percentage increase over the font size for the line spacing" ) );
+	QToolTip::add( superDisplacement, tr( "Displacement above the baseline of the font on a line" ) );
+	QToolTip::add( superScaling, tr( "Relative size of the superscript compared to the normal font" ) );
+	QToolTip::add( subDisplacement, tr( "Displacement below the baseline of the normal font on a line" ) );
+	QToolTip::add( subScaling, tr( "Relative size of the subscript compared to the normal font" ) );
+	QToolTip::add( capsScaling, tr( "Relative size of the small caps font compared to the normal font" ) );
+	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
 
 	QToolTip::add( TextButton, tr( "Text Frame Properties" ) );
 	QToolTip::add( BildButton, tr( "Picture Frame Properties" ) );
@@ -1514,11 +1458,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( PreviewSize, tr( "Choose the size of the preview in the scrapbook palette" ) );
 	QToolTip::add( SaveAtQuit, tr( "Save the scrapbook contents everytime after a change" ) );
 
-	QToolTip::add( SidebySide, tr( "When using facing pages, show the two pages side by side" ) );
-	QToolTip::add( PapColor, tr( "Color for paper" ) );
-	QToolTip::add( RandColor, tr( "Color for the margin lines" ) );
-	QToolTip::add( RandFarb, tr( "Mask the area outside the margins in the margin color" ) );
-	QToolTip::add( UsePDFTrans, tr( "Enable transparency features within PDF 1.4 export" ) );
+	QToolTip::add( backColor, tr( "Color for paper" ) );
+	QToolTip::add( checkUnprintable, tr( "Mask the area outside the margins in the margin color" ) );
 	QToolTip::add( CaliSlider, tr( "Set the default zoom level" ) );
 
 	QToolTip::add( GSName, tr( "Filesystem location for the Ghostscript interpreter" ) );
@@ -1536,15 +1477,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	// signals and slots connections
 	connect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );
-
-	connect( minColor, SIGNAL( clicked() ), this, SLOT( changeMicolor() ) );
-	connect( MaxColor, SIGNAL( clicked() ), this, SLOT( changeMaColor() ) );
-	connect( PapColor, SIGNAL( clicked() ), this, SLOT( changePapColor() ) );
-	connect( RandColor, SIGNAL( clicked() ), this, SLOT( changeRandColor() ) );
-	connect( GuideColor, SIGNAL( clicked() ), this, SLOT( changeGuideColor() ) );
-	connect( BaseColor, SIGNAL( clicked() ), this, SLOT( changeBaseColor() ) );
-	connect( buttonOK, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(majorGridColor, SIGNAL(clicked()), this, SLOT(changeMajorColor()));
+	connect(minorGridColor, SIGNAL(clicked()), this, SLOT(changeMinorColor()));
+	connect(baselineColor, SIGNAL(clicked()), this, SLOT(changeBaselineColor()));
+	connect(guideColor, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
+	connect(marginColor, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
+	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 	connect(FontComb, SIGNAL(activated(int)), this, SLOT(SetSample()));
 	connect(SizeCombo, SIGNAL(activated(int)), this, SLOT(SetSample()));
 	connect(TextButton, SIGNAL(clicked()), this, SLOT(SetTool()));
@@ -1574,12 +1512,15 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(ChangeScripts()));
 	connect(FileC4, SIGNAL(clicked()), this, SLOT(ChangeTemplates()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
-	connect(TabListe, SIGNAL(highlighted(int)), TabWidget3, SLOT(raiseWidget(int)));
-	setSize(Vor->PageFormat);
-	setOrien(Vor->Ausrichtung);
-	Breite->setValue(Vor->PageBreite * Umrech);
-	Hoehe->setValue(Vor->PageHoehe * Umrech);
+	setSize(prefsData->PageFormat);
+	setOrien(prefsData->Ausrichtung);
+	Breite->setValue(prefsData->PageBreite * Umrech);
+	Hoehe->setValue(prefsData->PageHoehe * Umrech);
 	UnitChange();
+	prefsWidgets->raiseWidget(0);
+	resize( minimumSizeHint() );
+	arrangeIcons();
+	clearWState( WState_Polished );
 }
 
 /*!
@@ -1881,16 +1822,17 @@ void Preferences::SetSample()
  \param None
  \retval None 
  */
-void Preferences::changeMaColor()
+
+void Preferences::changeMajorColor()
 {
 	QColor neu = QColor();
-	neu = QColorDialog::getColor(Cmax, this);
+	neu = QColorDialog::getColor(colorMajorGrid, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(40, 20);
+		QPixmap pm = QPixmap(54, 14);
 		pm.fill(neu);
-		Cmax = neu;
-		MaxColor->setPixmap(pm);
+		colorMajorGrid = neu;
+		majorGridColor->setPixmap(pm);
 	}
 }
 
@@ -1902,16 +1844,17 @@ void Preferences::changeMaColor()
  \param None
  \retval None 
  */
-void Preferences::changeMicolor()
+
+void Preferences::changeMinorColor()
 {
 	QColor neu = QColor();
-	neu = QColorDialog::getColor(Cmin, this);
+	neu = QColorDialog::getColor(colorMinorGrid, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(40, 20);
+		QPixmap pm = QPixmap(54, 14);
 		pm.fill(neu);
-		Cmin = neu;
-		minColor->setPixmap(pm);
+		colorMinorGrid = neu;
+		minorGridColor->setPixmap(pm);
 	}
 }
 
@@ -1923,16 +1866,16 @@ void Preferences::changeMicolor()
  \param None
  \retval None 
  */
-void Preferences::changePapColor()
+void Preferences::changePaperColor()
 {
 	QColor neu = QColor();
-	neu = QColorDialog::getColor(Cpaper, this);
+	neu = QColorDialog::getColor(colorPaper, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(40, 20);
+		QPixmap pm = QPixmap(54, 14);
 		pm.fill(neu);
-		Cpaper = neu;
-		PapColor->setPixmap(pm);
+		colorPaper = neu;
+		backColor->setPixmap(pm);
 	}
 }
 
@@ -1944,16 +1887,16 @@ void Preferences::changePapColor()
  \param None
  \retval None 
  */
-void Preferences::changeRandColor()
+void Preferences::changeMarginColor()
 {
 	QColor neu = QColor();
-	neu = QColorDialog::getColor(Crand, this);
+	neu = QColorDialog::getColor(colorMargin, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(40, 20);
+		QPixmap pm = QPixmap(54, 14);
 		pm.fill(neu);
-		Crand = neu;
-		RandColor->setPixmap(pm);
+		colorMargin = neu;
+		marginColor->setPixmap(pm);
 	}
 }
 
@@ -1968,25 +1911,26 @@ void Preferences::changeRandColor()
 void Preferences::changeGuideColor()
 {
 	QColor neu = QColor();
-	neu = QColorDialog::getColor(Cgui, this);
+	neu = QColorDialog::getColor(colorGuides, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(40, 20);
+		QPixmap pm = QPixmap(54, 14);
 		pm.fill(neu);
-		Cgui = neu;
-		GuideColor->setPixmap(pm);
+		colorGuides = neu;
+		guideColor->setPixmap(pm);
 	}
 }
-void Preferences::changeBaseColor()
+
+void Preferences::changeBaselineColor()
 {
 	QColor neu = QColor();
-	neu = QColorDialog::getColor(Cbase, this);
+	neu = QColorDialog::getColor(colorBaselineGrid, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(40, 20);
+		QPixmap pm = QPixmap(54, 14);
 		pm.fill(neu);
-		Cbase = neu;
-		BaseColor->setPixmap(pm);
+		colorBaselineGrid = neu;
+		baselineColor->setPixmap(pm);
 	}
 }
 
@@ -2076,19 +2020,7 @@ void Preferences::UnitChange()
 	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	int decimals;
 	double AltUmrech = Umrech;
-	double oldS1, oldSM1, oldSV1, oldS2, oldSM2, oldSV2, oldS2g, oldSM2g, oldSV2g, oldTG, oldTGM, oldTGV, oldB, oldBM, oldH, oldHM, val;
-	SpinBox1->getValues(&oldS1, &oldSM1, &decimals, &oldSV1);
-	oldS1 /= AltUmrech;
-	oldSM1 /= AltUmrech;
-	oldSV1 /= AltUmrech;
-	SpinBox2->getValues(&oldS2, &oldSM2, &decimals, &oldSV2);
-	oldS2 /= AltUmrech;
-	oldSM2 /= AltUmrech;
-	oldSV2 /= AltUmrech;
-	SpinBox2g->getValues(&oldS2g, &oldSM2g, &decimals, &oldSV2g);
-	oldS2g /= AltUmrech;
-	oldSM2g /= AltUmrech;
-	oldSV2g /= AltUmrech;
+	double oldMin, oldMax, oldTG, oldTGM, oldTGV, oldB, oldBM, oldH, oldHM, val;
 	TextGapVal->getValues(&oldTG, &oldTGM, &decimals, &oldTGV);
 	oldTG /= AltUmrech;
 	oldTGM /= AltUmrech;
@@ -2124,9 +2056,6 @@ void Preferences::UnitChange()
 		einh = tr( " p" );
 		break;
 	}
-	SpinBox1->setSuffix(einh);
-	SpinBox2->setSuffix(einh);
-	SpinBox2g->setSuffix(einh);
 	Breite->setSuffix(einh);
 	Hoehe->setSuffix(einh);
 	TopR->setSuffix(einh);
@@ -2141,9 +2070,34 @@ void Preferences::UnitChange()
 	LeftR->setValues(0, Breite->value() - RandR * Umrech, decimals, RandL * Umrech);
 	RightR->setValues(0, Breite->value() - RandL * Umrech, decimals, RandR * Umrech);
 	TextGapVal->setValues(oldTG * Umrech, oldTGM * Umrech, decimals, oldTGV * Umrech);
-	SpinBox1->setValues(oldS1 * Umrech, oldSM1 * Umrech, decimals, oldSV1 * Umrech);
-	SpinBox2->setValues(oldS2 * Umrech, oldSM2 * Umrech, decimals, oldSV2 * Umrech);
-	SpinBox2g->setValues(oldS2g * Umrech, oldSM2g * Umrech, decimals, oldSV2g * Umrech);
+	int decimalsOld;
+	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	topScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	topScratch->setSuffix(einh);
+	bottomScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	bottomScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	bottomScratch->setSuffix(einh);
+	leftScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	leftScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	leftScratch->setSuffix(einh);
+	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	rightScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	rightScratch->setSuffix(einh);
+	baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	baseGrid->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	baseGrid->setSuffix(einh);
+	baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	baseOffset->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	baseOffset->setSuffix(einh);
+	minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	minorSpace->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	minorSpace->setSuffix(einh);
+	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	majorSpace->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	majorSpace->setSuffix(einh);
+	snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	snapDistance->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	snapDistance->setSuffix(einh);
 	DrawRuler();
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));

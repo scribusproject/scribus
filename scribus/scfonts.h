@@ -112,9 +112,12 @@ class SCFonts : public QDict<Foi>
 		void AddPath(QString p);
 		bool AddScalableFont(QString filename, FT_Library &library, QString DocName);
 		void AddUserPath(QString pf);
+#ifdef HAVE_FONTCONFIG
+		void AddFontconfigFonts();
+#else
 		void AddXFontServerPath();
 		void AddXFontPath();
-		void AddFontconfigFonts();
+#endif
 		QStrList FontPath;
 		QString ExtraPath;
 };

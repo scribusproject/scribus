@@ -25,33 +25,28 @@
 #include "scfonts.h"
 #include "mspinbox.h"
 #include "scribus.h"
+#include "prefsdialogbase.h"
 class FontCombo;
 class PolygonWidget;
 
 #include "langmgr.h"
 
-class Preferences : public QDialog
+class Preferences : public PrefsDialogBase
 {
     	Q_OBJECT
 
 public:
-	Preferences( QWidget* parent, preV *Vor);
+	Preferences( QWidget* parent, preV *prefsData);
 	~Preferences();
 
 	//const QString getSelectedGUILang( void );
 	QString selectedGUILang;
 	void DrawRuler();
 
-	QPushButton* buttonOK;
-	QPushButton* buttonCancel;
-	QWidgetStack* TabWidget3;
-	QListBox* TabListe;
 	QWidget* tab;
 	QGroupBox* Mouse;
 	QLabel* TextLabel1_2;
-	QLabel* TextLabel1_2_2;
 	QSpinBox* SpinBox3;
-	QSpinBox* SpinBox3_2;
 	QSpinBox* Recen;
 	QButtonGroup* ButtonGroup1;
 	QLabel* guiLangLabel;
@@ -62,8 +57,6 @@ public:
 	QComboBox* GUICombo;
 	QComboBox* UnitCombo;
 	QGroupBox* GroupBox20;
-	QGroupBox* GroupBox20a;
-	QGroupBox* GroupBox20b;
 	QGroupBox* GroupBox200;
 	QLabel* PfadText;
 	QLineEdit* Docs;
@@ -78,34 +71,37 @@ public:
 	QLineEdit* TemplateDir;
 	QToolButton* FileC4;
 	QButtonGroup* ButtonGroup2;
-	QButtonGroup* ButtonGroup5;
-	QButtonGroup* ButtonGroup6;
-	QRadioButton* RadioButton6;
-	QRadioButton* RadioButton7;
-	QRadioButton* RadioButton8;
-	QRadioButton* RadioButton9;
-	QWidget* tab_2;
-	QGroupBox* GroupBox1;
-	QLabel* TextLabel1;
-	QLabel* TextLabel2;
-	QLabel* TextLabel2g;
-	MSpinBox* SpinBox1;
-	MSpinBox* SpinBox2;
-	MSpinBox* SpinBox2g;
-	QGroupBox* GroupBox2;
-	QLabel* TextLabel3;
-	QLabel* TextLabel4;
-	QLabel* TextLabel4a;
-	QLabel* TextLabel4b;
+
+	QWidget* tabGuides;
+	QGroupBox* checkGrid;
+	QGroupBox* groupBox1;
+	QPushButton* majorGridColor;
+	QLabel* textLabel4;
+	QLabel* textLabel6;
+	MSpinBox* majorSpace;
+	QGroupBox* groupBox2;
+	QLabel* textLabel5;
+	QPushButton* minorGridColor;
+	QLabel* textLabel7;
+	MSpinBox* minorSpace;
+	QLabel* textLabel8;
+	QLabel* textLabel82;
+	MSpinBox* snapDistance;
+	QSpinBox* grabDistance;
+	QCheckBox* checkMargin;
+	QCheckBox* checkGuides;
+	QCheckBox* checkBaseline;
+	QLabel* textLabel2;
+	QPushButton* baselineColor;
+	QLabel* textLabel3;
+	QPushButton* guideColor;
+	QLabel* textLabel1;
+	QPushButton* marginColor;
+	QCheckBox* checkLink;
+	QCheckBox* checkFrame;
+	QCheckBox* checkPictures;
+	
 	QLabel* TextLabel4c;
-	QLabel* TextLabel4g;
-	QLabel* TextLabel4ba;
-	QPushButton* minColor;
-	QPushButton* MaxColor;
-	QPushButton* GuideColor;
-	QPushButton* PapColor;
-	QPushButton* RandColor;
-	QPushButton* BaseColor;
 	QWidget* tab_3;
 	QWidgetStack* Fram;
 	QLabel* TextLabel2_2;
@@ -115,23 +111,47 @@ public:
 	QComboBox* ForegroundT;
 	QLabel* TextLabelT1;
 	QLabel* TextLabel1_4;
-	QWidget* tab_4;
-	QGroupBox* GroupBox4_2;
-	QLabel* TextLabel2_3_2;
-	QLabel* TextLabel1_5_2;
-	QSpinBox* VTiefW;
-	QSpinBox* VTiefWSc;
-	QGroupBox* GroupBox4;
-	QLabel* TextLabel2_3;
-	QLabel* TextLabel1_5;
-	QSpinBox* VHochW;
-	QSpinBox* VHochWSc;
-	QGroupBox* GroupBox4_3;
-	QLabel* TextLabel2_3_3;
-	QSpinBox* SmallCaps;
-	QGroupBox* GroupBox4_3a;
-	QLabel* TextLabel2_3_3a;
-	QSpinBox* AutoLineV;
+
+	QWidget* tabTypo;
+	QGroupBox* groupBox1a;
+	QLabel* textLabel1a;
+	QLabel* textLabel2a;
+	QSpinBox* subDisplacement;
+	QSpinBox* subScaling;
+	QGroupBox* groupBox2a;
+	QLabel* textLabel3a;
+	QLabel* textLabel4a;
+	QSpinBox* superDisplacement;
+	QSpinBox* superScaling;
+	QGroupBox* groupBox3a;
+	QLabel* textLabel5a;
+	QSpinBox* capsScaling;
+	QGroupBox* groupBox4a;
+	QLabel* textLabel6a;
+	QSpinBox* autoLine;
+	QLabel* textLabel7a;
+	MSpinBox* baseGrid;
+	MSpinBox* baseOffset;
+	QLabel* textLabel8a;
+
+	QWidget* tabView;
+	QButtonGroup* pageBackground;
+	QLabel* textLabel9;
+	QPushButton* backColor;
+	QCheckBox* checkUnprintable;
+	QGroupBox* groupScratch;
+	MSpinBox* topScratch;
+	MSpinBox* bottomScratch;
+	MSpinBox* leftScratch;
+	MSpinBox* rightScratch;
+	QLabel* TextLabel7s;
+	QLabel* TextLabel5s;
+	QLabel* Linkss;
+	QLabel* Rechtss;
+	QButtonGroup* buttonGroup1;
+	QRadioButton* inBackground;
+	QRadioButton* inForeground;
+
 	QToolButton* TextButton;
 	QToolButton* BildButton;
 	QToolButton* RectButton;
@@ -193,10 +213,6 @@ public:
 	QGroupBox* Preview;
 	QComboBox* PreviewSize;
 	QFrame* Frame6;
-	QWidget* tab_6;
-	QGroupBox* GroupBox10;
-	QCheckBox* SidebySide;
-	QCheckBox* RandFarb;
 	QFrame* ToolFrame6;
 	PolygonWidget* polyWidget;
 	QWidget* tab_7;
@@ -220,7 +236,6 @@ public:
 	QLabel* GRText2;
 	QLabel* GRText1;
 	QLabel* GRText4;
-	QCheckBox *UsePDFTrans;
 	QGroupBox* GroupAS;
 	QCheckBox* ASon;
 	QLabel* ASText;
@@ -243,20 +258,10 @@ public:
 	QGroupBox* groupPrint;
 	QCheckBox* ClipMarg;
 	QCheckBox* DoGCR;
-	MSpinBox* BaseGrid;
-	QLabel* TextLabel2_3_3b;
-	MSpinBox* BaseOffs;
-	QLabel* TextLabel2_3_3c;
 	
 	SCFonts *fon; // can't use a reference, and can't copy whole structure...
 	double Umrech;
 	double PFactor;
-	QColor Cmin;
-	QColor Cmax;
-	QColor Crand;
-	QColor Cpaper;
-	QColor Cgui;
-	QColor Cbase;
 	double Pagebr;
 	double Pageho;
 	double RandT;
@@ -266,12 +271,21 @@ public:
 	int Einheit;
 	double DisScale;
 	ScribusApp *ap;
+	QColor colorMajorGrid;
+	QColor colorMinorGrid;
+	QColor colorBaselineGrid;
+	QColor colorPaper;
+	QColor colorGuides;
+	QColor colorMargin;
 
 
 public slots:
-
-	virtual void changeMaColor();
-	virtual void changeMicolor();
+	virtual void changeMajorColor();
+	virtual void changeMinorColor();
+	virtual void changePaperColor();
+	virtual void changeBaselineColor();
+	virtual void changeGuideColor();
+	virtual void changeMarginColor();
 	void ChangeDocs();
 	void ChangeProfs();
 	void ChangeScripts();
@@ -288,9 +302,6 @@ public slots:
 	void setSize(int gr);
 	void setOrien(int ori);
 	void changePapColor();
-	void changeRandColor();
-	void changeGuideColor();
-	void changeBaseColor();
 	void SetSample();
 	void SetTool();
 	void ToggleKette();
@@ -300,33 +311,12 @@ public slots:
 	void SetDisScale();
 
 protected:
-	QVBoxLayout* PrefsLayout;
-	QHBoxLayout* PrefsLayout2;
 	QGridLayout* tabLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QHBoxLayout* GroupBox20Layout;
-	QHBoxLayout* GroupBox20aLayout;
-	QGridLayout* GroupBox20bLayout;
 	QGridLayout* GroupBox200Layout;
 	QHBoxLayout* MouseLayout;
 	QGridLayout* Layout5;
-	QGridLayout* tabLayout_2;
-	QHBoxLayout* ButtonGroup5Layout;
-	QHBoxLayout* ButtonGroup6Layout;
-	QVBoxLayout* Layout7;
-	QVBoxLayout* Layout18;
-	QHBoxLayout* GroupBox1Layout;
-	QGridLayout* Layout10;
-	QHBoxLayout* GroupBox2Layout;
-	QGridLayout* Layout11;
-	QGridLayout* tabLayout_3;
-	QHBoxLayout* GroupBox4_2Layout;
-	QGridLayout* Layout12;
-	QHBoxLayout* GroupBox4Layout;
-	QGridLayout* Layout13;
-	QHBoxLayout* GroupBox4_3Layout;
-	QHBoxLayout* Layout14;
-	QGridLayout* GroupBox4_3aLayout;
 	QHBoxLayout* tabLayout_4;
 	QHBoxLayout* ButtonGroup2Layout;
 	QGridLayout* Layout16;
@@ -343,9 +333,6 @@ protected:
 	QGridLayout* tabLayout_5;
 	QHBoxLayout* SavingLayout;
 	QHBoxLayout* PreviewLayout;
-	QHBoxLayout* tabLayout_6;
-	QHBoxLayout* Layout_6b;
-	QVBoxLayout* GroupBox10Layout;
 	QHBoxLayout* Layout3;
 	QHBoxLayout* PolygonPropsLayout;
 	QHBoxLayout* tabLayout_7;
@@ -365,6 +352,25 @@ protected:
 	QHBoxLayout* groupGimpLayout;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
+	QGridLayout* tabTypoLayout;
+	QGridLayout* groupBox1aLayout;
+	QGridLayout* groupBox2aLayout;
+	QGridLayout* groupBox3aLayout;
+	QGridLayout* groupBox4aLayout;
+	QVBoxLayout* tabGuidesLayout;
+	QGridLayout* checkGridLayout;
+	QGridLayout* groupBox1Layout;
+	QGridLayout* groupBox2Layout;
+	QGridLayout* layout11;
+	QHBoxLayout* layout2;
+	QHBoxLayout* layout3;
+	QHBoxLayout* layout9;
+	QGridLayout* layout12;
+	QVBoxLayout* tabViewLayout;
+	QHBoxLayout* pageBackgroundLayout;
+	QHBoxLayout* groupScratchLayout;
+	QGridLayout* Layout4s;
+	QHBoxLayout* buttonGroup1Layout;
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );

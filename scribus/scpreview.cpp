@@ -61,6 +61,7 @@ QPixmap ScPreview::createPreview(QString data)
 	uint a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
 	QValueList<arrowDesc> arrowStyles;
+	arrowStyles = Prefs->arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
 	QDomElement elem=docu.documentElement();

@@ -170,8 +170,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	tabGuides = new QWidget( prefsWidgets, "tabView" );
 	tabGuidesLayout = new QVBoxLayout( tabGuides, 10, 5, "tabViewLayout");
 	checkGrid = new QGroupBox( tabGuides, "checkGrid" );
-	checkGrid->setTitle( tr( "ShowGrid" ) );
-	checkGrid->setCheckable( TRUE );
+	checkGrid->setTitle( tr( "Show Grid" ) );
+	checkGrid->setCheckable( true );
 	checkGrid->setChecked(doc->GridShown);
 	checkGrid->setColumnLayout(0, Qt::Vertical );
 	checkGrid->layout()->setSpacing( 5 );
@@ -202,7 +202,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	textLabel6 = new QLabel( groupBox1, "textLabel6" );
 	textLabel6->setText( tr( "Spacing:" ) );
 	groupBox1Layout->addWidget( textLabel6, 0, 0 );
-	majorSpace = new MSpinBox( 1, 10000, groupBox1, 2 );
+	majorSpace = new MSpinBox( 10 * UmReFaktor, 1000 * UmReFaktor, groupBox1, decimals );
 	majorSpace->setValue( doc->majorGrid * UmReFaktor );
 	majorSpace->setSuffix( ein );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
@@ -231,7 +231,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	textLabel7 = new QLabel( groupBox2, "textLabel7" );
 	textLabel7->setText( tr( "Spacing:" ) );
 	groupBox2Layout->addWidget( textLabel7, 0, 0 );
-	minorSpace = new MSpinBox( 1, 10000, groupBox2, 2 );
+	minorSpace = new MSpinBox( UmReFaktor, 1000 * UmReFaktor, groupBox2, decimals );
 	minorSpace->setValue( doc->minorGrid  * UmReFaktor);
 	minorSpace->setSuffix( ein );
 	groupBox2Layout->addWidget( minorSpace, 0, 1 );
@@ -241,22 +241,33 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	textLabel8 = new QLabel( tabGuides, "textLabel8" );
 	textLabel8->setText( tr( "Guide Snap Distance:" ) );
 	layout11->addWidget( textLabel8, 0, 0 );
-	snapDistance = new MSpinBox( 1, 10000, tabGuides, 2 );
+	snapDistance = new MSpinBox( UmReFaktor, 1000 * UmReFaktor, tabGuides, decimals );
 	snapDistance->setValue( doc->GuideRad * UmReFaktor );
 	snapDistance->setSuffix( ein );
 	layout11->addWidget( snapDistance, 0, 1, Qt::AlignLeft );
+	textLabel82 = new QLabel( tabGuides, "textLabel8" );
+	textLabel82->setText( tr( "Grab Radius:" ) );
+	layout11->addWidget( textLabel82, 1, 0 );
+	grabDistance = new QSpinBox( tabGuides, "grabDistance" );
+	grabDistance->setMaxValue( 1000 );
+	grabDistance->setMinValue( 1 );
+	grabDistance->setLineStep( 1 );
+	grabDistance->setValue( doc->GrabRad );
+	grabDistance->setSuffix( tr( " px" ) );
+	layout11->addWidget( grabDistance, 1, 1, Qt::AlignLeft );
+	
 	checkMargin = new QCheckBox( tabGuides, "checkMargin" );
 	checkMargin->setText( tr( "Show Margins" ) );
 	checkMargin->setChecked(doc->MarginsShown);
-	layout11->addWidget( checkMargin, 1, 0 );
+	layout11->addWidget( checkMargin, 2, 0 );
 	checkGuides = new QCheckBox( tabGuides, "checkGuides" );
 	checkGuides->setText( tr( "Show Guides" ) );
 	checkGuides->setChecked(doc->GuidesShown);
-	layout11->addWidget( checkGuides, 2, 0 );
+	layout11->addWidget( checkGuides, 3, 0 );
 	checkBaseline = new QCheckBox( tabGuides, "checkBaseline" );
 	checkBaseline->setText( tr( "Show Baseline Grid" ) );
 	checkBaseline->setChecked(doc->BaseShown);
-	layout11->addWidget( checkBaseline, 3, 0 );
+	layout11->addWidget( checkBaseline, 4, 0 );
 	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
 	textLabel2 = new QLabel( tabGuides, "textLabel2" );
 	textLabel2->setText( tr( "Color:" ) );
@@ -272,7 +283,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	baselineColor->setPixmap(pm4);
 	baselineColor->setText( QString::null );
 	layout2->addWidget( baselineColor );
-	layout11->addLayout( layout2, 3, 1 );
+	layout11->addLayout( layout2, 4, 1 );
 	layout3 = new QHBoxLayout( 0, 0, 5, "layout3");
 	textLabel3 = new QLabel( tabGuides, "textLabel3" );
 	textLabel3->setText( tr( "Color:" ) );
@@ -288,7 +299,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	guideColor->setPixmap(pm3);
 	guideColor->setText( QString::null );
 	layout3->addWidget( guideColor );
-	layout11->addLayout( layout3, 2, 1 );
+	layout11->addLayout( layout3, 3, 1 );
 	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
 	textLabel1 = new QLabel( tabGuides, "textLabel1" );
 	textLabel1->setText( tr( "Color:" ) );
@@ -304,7 +315,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	marginColor->setFlat( false );
 	marginColor->setText( QString::null );
 	layout9->addWidget( marginColor );
-	layout11->addLayout( layout9, 1, 1 );
+	layout11->addLayout( layout9, 2, 1 );
 	tabGuidesLayout->addLayout( layout11 );
 	layout12 = new QGridLayout( 0, 1, 1, 0, 5, "layout12");
 	checkLink = new QCheckBox( tabGuides, "checkLink" );
@@ -494,13 +505,13 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	groupBox4a->setTitle( tr( "Other" ) );
 	groupBox4aLayout = new QGridLayout( groupBox4a->layout() );
 	groupBox4aLayout->setAlignment( Qt::AlignTop );
-	baseGrid = new MSpinBox( 1, doc->PageH, groupBox4a, 1 );
+	baseGrid = new MSpinBox( 1, doc->PageH * UmReFaktor, groupBox4a, 1 );
 	baseGrid->setSuffix( ein );
 	baseGrid->setValue(doc->BaseGrid * UmReFaktor);
 	groupBox4aLayout->addWidget( baseGrid, 0, 1, Qt::AlignLeft );
 	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ),groupBox4a, "textLabel6a" );
 	groupBox4aLayout->addWidget( textLabel6a, 0, 0 );
-	baseOffset = new MSpinBox( 0, doc->PageH, groupBox4a, 1 );
+	baseOffset = new MSpinBox( 0, doc->PageH * UmReFaktor, groupBox4a, 1 );
 	baseOffset->setSuffix( ein );
 	baseOffset->setValue(doc->BaseOffs * UmReFaktor);
 	groupBox4aLayout->addWidget( baseOffset, 1, 1, Qt::AlignLeft );
@@ -959,6 +970,24 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	toolText->setOn(true);
 	setSample();
 	//tooltips
+	QToolTip::add( backColor, tr( "Color for paper" ) );
+	QToolTip::add( checkUnprintable, tr( "Mask the area outside the margins in the margin color" ) );
+	QToolTip::add( minorSpace, tr( "Distance between the minor grid lines" ) );
+	QToolTip::add( majorSpace, tr( "Distance between the major grid lines" ) );
+	QToolTip::add( snapDistance, tr( "Distance within which an object will snap to your placed guides" ) );
+	QToolTip::add( grabDistance, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
+	QToolTip::add( minorGridColor, tr( "Color of the minor grid lines" ) );
+	QToolTip::add( majorGridColor, tr( "Color of the major grid lines" ) );
+	QToolTip::add( guideColor, tr( "Color of the guide lines you insert" ) );
+	QToolTip::add( marginColor, tr( "Color for the margin lines" ) );
+	QToolTip::add( baselineColor, tr( "Color for the basegrid lines" ) );
+	QToolTip::add( checkBaseline, tr("Turns the basegrid on or off"));
+	QToolTip::add( checkGrid, tr("Turns the gridlines on or off"));
+	QToolTip::add( checkGuides, tr("Turns the guides on or off"));
+	QToolTip::add( checkMargin, tr("Turns the margins on or off"));
+	QToolTip::add( checkLink, tr("Turns the of linked frames on or off"));
+	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
+	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
 	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
 	QToolTip::add( firstPage, tr( "Make the first page the left page of the document" ) );
 	QToolTip::add( topR, tr( "Distance between the top margin guide and the edge of the page" ) );
@@ -968,8 +997,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 
 	// signals and slots connections
 	connect( facingPages, SIGNAL( clicked() ), this, SLOT( setDS() ) );
-	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));

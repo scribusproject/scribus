@@ -45,9 +45,28 @@ ScribusDoc::ScribusDoc()
 	majorColor = QColor(green);
 	guideColor = QColor(darkBlue);
 	GuideRad = 10;
-	Dpen = "Black";
+	PageColors.clear();
+	PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
+	PageColors.insert("White", CMYKColor(0, 0, 0, 0));
+	if (ScApp->Prefs.Dpen != "None")
+		PageColors.insert(ScApp->Prefs.Dpen, ScApp->Prefs.DColors[ScApp->Prefs.Dpen]);
+	Dpen = ScApp->Prefs.Dpen;
+	if (ScApp->Prefs.DpenLine != "None")
+		PageColors.insert(ScApp->Prefs.DpenLine, ScApp->Prefs.DColors[ScApp->Prefs.DpenLine]);
+	DpenLine = ScApp->Prefs.DpenLine;
+	if (ScApp->Prefs.DpenText != "None")
+		PageColors.insert(ScApp->Prefs.DpenText, ScApp->Prefs.DColors[ScApp->Prefs.DpenText]);
+	DpenText = ScApp->Prefs.DpenText;
+	if (ScApp->Prefs.DstrokeText != "None")
+		PageColors.insert(ScApp->Prefs.DstrokeText, ScApp->Prefs.DColors[ScApp->Prefs.DstrokeText]);
+	DstrokeText = ScApp->Prefs.DstrokeText;
+	if (ScApp->Prefs.Dbrush != "None")
+		PageColors.insert(ScApp->Prefs.Dbrush, ScApp->Prefs.DColors[ScApp->Prefs.Dbrush]);
+	Dbrush = ScApp->Prefs.Dbrush;
+	if (ScApp->Prefs.DbrushPict != "None")
+		PageColors.insert(ScApp->Prefs.DbrushPict, ScApp->Prefs.DColors[ScApp->Prefs.DbrushPict]);
+	DbrushPict = ScApp->Prefs.DbrushPict;
 	Dshade2 = 100;
-	Dbrush = "Black";
 	Dshade = 100;
 	Dwidth = 1;
 	DLineArt = SolidLine;
@@ -181,47 +200,11 @@ ScribusDoc::ScribusDoc()
 	Items.clear();
 	MasterItems.clear();
 	DocItems.clear();
-	ScratchLeft = 100;
-	ScratchRight = 100;
-	ScratchTop = 20;
-	ScratchBottom = 20;
-	struct arrowDesc arrow;
-	FPointArray points;
-	QWMatrix arrowScaling;
-	arrowScaling.scale(0.5, 0.5);
-	arrow.name = "Arrow1L";
-	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
-	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-	points.addQuadPoint(12, 0, 12, 0, 12, 0, 12, 0);
-	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
-	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
-	arrow.points = points.copy();
-	arrowStyles.append(arrow);
-	arrow.name = "Arrow1M";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	arrowStyles.append(arrow);
-	arrow.name = "Arrow1S";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	arrowStyles.append(arrow);
-	arrow.name = "SquareL";
-	points.resize(0);
-	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-	points.addQuadPoint(5, -5, 5, -5, 5, -5, 5, -5);
-	points.addQuadPoint(5, 5, 5, 5, 5, 5, 5, 5);
-	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
-	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-	arrow.points = points.copy();
-	arrowStyles.append(arrow);
-	arrow.name = "SquareM";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	arrowStyles.append(arrow);
-	arrow.name = "SquareS";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	arrowStyles.append(arrow);
+	ScratchLeft = ScApp->Prefs.ScratchLeft;
+	ScratchRight = ScApp->Prefs.ScratchRight;
+	ScratchTop = ScApp->Prefs.ScratchTop;
+	ScratchBottom = ScApp->Prefs.ScratchBottom;
+	arrowStyles = ScApp->Prefs.arrowStyles;
 }
 
 ScribusDoc::~ScribusDoc()

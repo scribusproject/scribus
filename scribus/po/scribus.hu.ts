@@ -1,3716 +1,5 @@
 <!DOCTYPE TS><TS>
 <context>
-    <name>@default</name>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Rendben</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Nem</translation>
-    </message>
-    <message>
-        <source>W:</source>
-        <translation type="obsolete">Sz:</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="obsolete">Hozzáadás</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">Minden</translation>
-    </message>
-    <message>
-        <source>Big</source>
-        <translation type="obsolete">Nagy</translation>
-    </message>
-    <message>
-        <source>Box</source>
-        <translation type="obsolete">Doboz</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Kivágás</translation>
-    </message>
-    <message>
-        <source>GUI</source>
-        <translation type="obsolete">Grafikus felhasználói felület</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Új...</translation>
-    </message>
-    <message>
-        <source>Old</source>
-        <translation type="obsolete">Régi</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="obsolete">Használd</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Igen</translation>
-    </message>
-    <message>
-        <source>min</source>
-        <translation type="obsolete">perc</translation>
-    </message>
-    <message>
-        <source>sum</source>
-        <translation type="obsolete">összeg</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">oldalig:</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation type="obsolete">Cél</translation>
-    </message>
-    <message>
-        <source>Bold</source>
-        <translation type="obsolete">Félkövér</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Másolás</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation type="obsolete">Dátum</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Szerkesztés</translation>
-    </message>
-    <message>
-        <source>Exit</source>
-        <translation type="obsolete">Kilépés</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Fájl</translation>
-    </message>
-    <message>
-        <source>Font</source>
-        <translation type="obsolete">Betűtípus</translation>
-    </message>
-    <message>
-        <source>Goto</source>
-        <translation type="obsolete">Ugrás</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="obsolete">Segítség</translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation type="obsolete">Elem</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="obsolete">Balra</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Vonal</translation>
-    </message>
-    <message>
-        <source>Link</source>
-        <translation type="obsolete">Link</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation type="obsolete">Rögzítés</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Nincs</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Megnyitás</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="obsolete">Oldal</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation type="obsolete">Útvonal</translation>
-    </message>
-    <message>
-        <source>Oval</source>
-        <translation type="obsolete">Ovális</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation type="obsolete">Újra</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation type="obsolete">Kilépés</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Mentés</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Méret</translation>
-    </message>
-    <message>
-        <source>Skip</source>
-        <translation type="obsolete">Kihagyás</translation>
-    </message>
-    <message>
-        <source>Exiting now</source>
-        <translation type="obsolete">Program bezárása</translation>
-    </message>
-    <message>
-        <source>Star</source>
-        <translation type="obsolete">Csillag</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Szöveg</translation>
-    </message>
-    <message>
-        <source>Thin</source>
-        <translation type="obsolete">Vékony</translation>
-    </message>
-    <message>
-        <source>Tile</source>
-        <translation type="obsolete">Elhelyezés csempeszerűen</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="obsolete">Idő</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Fent:</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Típus</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="obsolete">Visszavonás</translation>
-    </message>
-    <message>
-        <source>View</source>
-        <translation type="obsolete">Nézet</translation>
-    </message>
-    <message>
-        <source>Wide</source>
-        <translation type="obsolete">Széles</translation>
-    </message>
-    <message>
-        <source>Wipe</source>
-        <translation type="obsolete">Fehér</translation>
-    </message>
-    <message>
-        <source>Align Right</source>
-        <translation type="obsolete">Jobbra igazítás</translation>
-    </message>
-    <message>
-        <source>Get Field Names</source>
-        <translation type="obsolete">Mezőnevek megadása</translation>
-    </message>
-    <message>
-        <source>Strikethru</source>
-        <translation type="obsolete">Áthúzott</translation>
-    </message>
-    <message>
-        <source>Align Center</source>
-        <translation type="obsolete">Középre igazítás</translation>
-    </message>
-    <message>
-        <source>Print Preview</source>
-        <translation type="obsolete">Nyomtatási nézet</translation>
-    </message>
-    <message>
-        <source>&amp;Font</source>
-        <translation type="obsolete">Betűtípus</translation>
-    </message>
-    <message>
-        <source>&amp;Move</source>
-        <translation type="obsolete">&amp;Mozgatás</translation>
-    </message>
-    <message>
-        <source>&amp;Red:</source>
-        <translation type="obsolete">&amp;Vörös:</translation>
-    </message>
-    <message>
-        <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Méret</translation>
-    </message>
-    <message>
-        <source>Styles...</source>
-        <translation type="obsolete">Stílusok...</translation>
-    </message>
-    <message>
-        <source>Compress File</source>
-        <translation type="obsolete">Fájl tömörítése</translation>
-    </message>
-    <message>
-        <source>Images:</source>
-        <translation type="obsolete">Képek:</translation>
-    </message>
-    <message>
-        <source>Submit Form</source>
-        <translation type="obsolete">Űrlap elküldése</translation>
-    </message>
-    <message>
-        <source>Distribute/Align...</source>
-        <translation type="obsolete">Elosztás/Igazítás</translation>
-    </message>
-    <message>
-        <source>Loading aborted</source>
-        <translation type="obsolete">Betöltés sikertelen</translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation type="obsolete">Névjegy</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="obsolete">Igazítás</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="obsolete">Alkalmazás</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="obsolete">Sorkizárva</translation>
-    </message>
-    <message>
-        <source>Rounded Rectangle</source>
-        <translation type="obsolete">Lekerekített sarkú téglalap</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Törlés</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Bezárás</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Szín</translation>
-    </message>
-    <message>
-        <source>Cross</source>
-        <translation type="obsolete">Kereszt</translation>
-    </message>
-    <message>
-        <source>Binding:</source>
-        <translation type="obsolete">Kötés:</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="obsolete">Cseh</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation type="obsolete">Holland</translation>
-    </message>
-    <message>
-        <source>Face:</source>
-        <translation type="obsolete">Típus:</translation>
-    </message>
-    <message>
-        <source>File </source>
-        <translation type="obsolete">Fájl </translation>
-    </message>
-    <message>
-        <source>File:</source>
-        <translation type="obsolete">Fájl:</translation>
-    </message>
-    <message>
-        <source>On Focus</source>
-        <translation type="obsolete">Fókusz</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation type="obsolete">Betűtípus:</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Betűtípusok</translation>
-    </message>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Keret</translation>
-    </message>
-    <message>
-        <source>From:</source>
-        <translation type="obsolete">Oldaltól:</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="obsolete">Görög</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="obsolete">Csoportosítás</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Kép</translation>
-    </message>
-    <message>
-        <source>Minimize</source>
-        <translation type="obsolete">Minimalizálás</translation>
-    </message>
-    <message>
-        <source>Round
-Corners:</source>
-        <translation type="obsolete">Kerek
-sarkok:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Baloldalt:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="obsolete">Szint</translation>
-    </message>
-    <message>
-        <source>Line:</source>
-        <translation type="obsolete">Vonal:</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="obsolete">Hátrébb</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Név:</translation>
-    </message>
-    <message>
-        <source>Even Pages only</source>
-        <translation type="obsolete">Csak páros oldalak</translation>
-    </message>
-    <message>
-        <source>Never</source>
-        <translation type="obsolete">Soha</translation>
-    </message>
-    <message>
-        <source>Nodes</source>
-        <translation type="obsolete">Csomópontok</translation>
-    </message>
-    <message>
-        <source>Vert. Scale:</source>
-        <translation type="obsolete">Függőleges méretezés:</translation>
-    </message>
-    <message>
-        <source>Print all</source>
-        <translation type="obsolete">Mind</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Oldal:</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Beillesztés</translation>
-    </message>
-    <message>
-        <source>Paths</source>
-        <translation type="obsolete">Útvonalak</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="obsolete">Másik</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation type="obsolete">Nyomtatás</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation type="obsolete">Előrébb</translation>
-    </message>
-    <message>
-        <source>Ready</source>
-        <translation type="obsolete">Kész</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="obsolete">Visszaállítás</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Jobbra</translation>
-    </message>
-    <message>
-        <source>Points (pts)</source>
-        <translation type="obsolete">Pont (pt)</translation>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation type="obsolete">Árnyalat</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="obsolete">Alak</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Belül:</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Méret:</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="obsolete">Kicsi</translation>
-    </message>
-    <message>
-        <source>Split</source>
-        <translation type="obsolete">Felosztás</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="obsolete">-t helyette</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="obsolete">Stílus</translation>
-    </message>
-    <message>
-        <source>Theme</source>
-        <translation type="obsolete">Téma</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="obsolete">Eszközök</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="obsolete">Típus:</translation>
-    </message>
-    <message>
-        <source>Units</source>
-        <translation type="obsolete">Mértékegység</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Érték</translation>
-    </message>
-    <message>
-        <source>User:</source>
-        <translation type="obsolete">Felhasználó:</translation>
-    </message>
-    <message>
-        <source>Options...</source>
-        <translation type="obsolete">Beállítások...</translation>
-    </message>
-    <message>
-        <source>Snap to Guides</source>
-        <translation type="obsolete">Igazítás a segédvonalakhoz</translation>
-    </message>
-    <message>
-        <source>Textdistance:</source>
-        <translation type="obsolete">Szövegtávolság:</translation>
-    </message>
-    <message>
-        <source>Line Styles...</source>
-        <translation type="obsolete">Vonalstílusok...</translation>
-    </message>
-    <message>
-        <source>Modify Textframe</source>
-        <translation type="obsolete">Szövegdoboz módosítása</translation>
-    </message>
-    <message>
-        <source>If you uncheck this you will get an Dialog
-everytime a possible Hyphenation is found.</source>
-        <translation type="obsolete">Ha törli a kijelölést, minden egyes
-elválasztási lehetőségnél egy beállítóablak jelenik meg.</translation>
-    </message>
-    <message>
-        <source>Align Text Left</source>
-        <translation type="obsolete">Szöveg balra igazítása</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation type="obsolete">Hátra</translation>
-    </message>
-    <message>
-        <source>Send to Scrapbook</source>
-        <translation type="obsolete">Küldés vágólapra</translation>
-    </message>
-    <message>
-        <source>Convert to Outlines</source>
-        <translation type="obsolete">Körvonalakká alakítás</translation>
-    </message>
-    <message>
-        <source>Local Y-Pos:</source>
-        <translation type="obsolete">Függőleges elhelyezkedés:</translation>
-    </message>
-    <message>
-        <source>The following Programs are missing:</source>
-        <translation type="obsolete">A következő programok hiányoznak:</translation>
-    </message>
-    <message>
-        <source>Major Grid Color:</source>
-        <translation type="obsolete">Főrács színe:</translation>
-    </message>
-    <message>
-        <source>Minor Grid Color:</source>
-        <translation type="obsolete">Segédrács színe:</translation>
-    </message>
-    <message>
-        <source>Create Textchains</source>
-        <translation type="obsolete">Szövegláncok létrehozása</translation>
-    </message>
-    <message>
-        <source>Local X-Pos:</source>
-        <translation type="obsolete">Vízszintes elhelyezkedés:</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="obsolete">Olasz</translation>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation type="obsolete">Eltűnés</translation>
-    </message>
-    <message>
-        <source>Snap to Grid</source>
-        <translation type="obsolete">Igazítás a rácshoz</translation>
-    </message>
-    <message>
-        <source>Use Currency Symbol</source>
-        <translation type="obsolete">Pénzügyi szimbólum használata</translation>
-    </message>
-    <message>
-        <source>Import Page Nr:</source>
-        <translation type="obsolete">A következő oldal importálása:</translation>
-    </message>
-    <message>
-        <source>Bezier Curve</source>
-        <translation type="obsolete">Bezier-görbe</translation>
-    </message>
-    <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation type="obsolete">Gyorsbillentyűk...</translation>
-    </message>
-    <message>
-        <source>Unable to create PDF-File.</source>
-        <translation type="obsolete">Nem lehet a PDF-fájlt előállítani.</translation>
-    </message>
-    <message>
-        <source>Other Options</source>
-        <translation type="obsolete">Egyéb opciók</translation>
-    </message>
-    <message>
-        <source>Use ICC-Profile</source>
-        <translation type="obsolete">ICC-színprofil használata</translation>
-    </message>
-    <message>
-        <source>Path to Fontfile</source>
-        <translation type="obsolete">Betűtípusok elérési útja</translation>
-    </message>
-    <message>
-        <source>Keywords:</source>
-        <translation type="obsolete">Kulcsszavak:</translation>
-    </message>
-    <message>
-        <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation type="obsolete">Saját színek definiálása &gt;&gt;</translation>
-    </message>
-    <message>
-        <source>New Document</source>
-        <translation type="obsolete">Új dokumentum</translation>
-    </message>
-    <message>
-        <source>User Defined Key</source>
-        <translation type="obsolete">Egyénileg definiált</translation>
-    </message>
-    <message>
-        <source>Opens a Document</source>
-        <translation type="obsolete">Dokumentum megnyitása</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="obsolete">Vízszintes</translation>
-    </message>
-    <message>
-        <source>Number Format</source>
-        <translation type="obsolete">Számformátum</translation>
-    </message>
-    <message>
-        <source>Printing-Error</source>
-        <translation type="obsolete">Nyomtatási hiba</translation>
-    </message>
-    <message>
-        <source>Closes this Bezier Curve</source>
-        <translation type="obsolete">Bezier-görbe bezárása</translation>
-    </message>
-    <message>
-        <source>Convex Polygon</source>
-        <translation type="obsolete">Konvex sokszög</translation>
-    </message>
-    <message>
-        <source>Zooms in or out</source>
-        <translation type="obsolete">Nagyítás/kicsinyítés</translation>
-    </message>
-    <message>
-        <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation type="obsolete">Ez a legrövidebb elválasztható szó hosszúsága.</translation>
-    </message>
-    <message>
-        <source>Caption overlays Icon</source>
-        <translation type="obsolete">Szöveg az ikonon</translation>
-    </message>
-    <message>
-        <source>Sorry, no Manual available!</source>
-        <translation type="obsolete">Sajnos a Kézikönyv nem elérhető!</translation>
-    </message>
-    <message>
-        <source>Is PDF-Bookmark</source>
-        <translation type="obsolete">PDF-könyvjelző</translation>
-    </message>
-    <message>
-        <source>Getting ICC-Profiles</source>
-        <translation type="obsolete">ICC-profilok betöltése</translation>
-    </message>
-    <message>
-        <source>Flip horizontal</source>
-        <translation type="obsolete">Vízszintes tükrözés</translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absolute Colorimetric</translation>
-    </message>
-    <message>
-        <source>Initializing Plugins</source>
-        <translation type="obsolete">Beépülő modulok indítása</translation>
-    </message>
-    <message>
-        <source>Moving Lines:</source>
-        <translation type="obsolete">Mozgó vonalak:</translation>
-    </message>
-    <message>
-        <source>No Print</source>
-        <translation type="obsolete">Nincs nyomtatás</translation>
-    </message>
-    <message>
-        <source>No Style</source>
-        <translation type="obsolete">Nincs stílus megadva</translation>
-    </message>
-    <message>
-        <source>No Title</source>
-        <translation type="obsolete">Nincs cím</translation>
-    </message>
-    <message>
-        <source>Smart Hyphen</source>
-        <translation type="obsolete">Intelligens elválasztás</translation>
-    </message>
-    <message>
-        <source>Leave Anyway</source>
-        <translation type="obsolete">Kilépés</translation>
-    </message>
-    <message>
-        <source>Use Encryption</source>
-        <translation type="obsolete">Titkosítás használata</translation>
-    </message>
-    <message>
-        <source>To page:</source>
-        <translation type="obsolete">Záróoldal:</translation>
-    </message>
-    <message>
-        <source>Error during EPS-Export</source>
-        <translation type="obsolete">Hiba az EPS-exportálás közben</translation>
-    </message>
-    <message>
-        <source>Flip vertical</source>
-        <translation type="obsolete">Függőleges tükrözés</translation>
-    </message>
-    <message>
-        <source>Picture Frame</source>
-        <translation type="obsolete">Képdoboz</translation>
-    </message>
-    <message>
-        <source>Name of the Style is not unique</source>
-        <translation type="obsolete">A megadott stílusnév már létezik</translation>
-    </message>
-    <message>
-        <source>Template for this Page:</source>
-        <translation type="obsolete">Mesteroldal:</translation>
-    </message>
-    <message>
-        <source>Page-Colors</source>
-        <translation type="obsolete">Oldalak színe</translation>
-    </message>
-    <message>
-        <source>Missing Font</source>
-        <translation type="obsolete">Hiányzó betűtípus</translation>
-    </message>
-    <message>
-        <source>Downsample Images to:</source>
-        <translation type="obsolete">Képek felbontása:</translation>
-    </message>
-    <message>
-        <source>Background</source>
-        <translation type="obsolete">Háttér</translation>
-    </message>
-    <message>
-        <source>Hide Outline</source>
-        <translation type="obsolete">Szerkezet elrejtése</translation>
-    </message>
-    <message>
-        <source>Don&apos;t change</source>
-        <translation type="obsolete">Nincs változtatás</translation>
-    </message>
-    <message>
-        <source>Printing aborted</source>
-        <translation type="obsolete">Nyomtatás leállítva</translation>
-    </message>
-    <message>
-        <source>Move Bookmark</source>
-        <translation type="obsolete">Könyvjelző mozgatása</translation>
-    </message>
-    <message>
-        <source>Print Normal</source>
-        <translation type="obsolete">Normál nyomtatás</translation>
-    </message>
-    <message>
-        <source>Top Sides</source>
-        <translation type="obsolete">Felső szélek</translation>
-    </message>
-    <message>
-        <source>Scale How:</source>
-        <translation type="obsolete">Méretezés módja:</translation>
-    </message>
-    <message>
-        <source> saved</source>
-        <translation type="obsolete"> mentve</translation>
-    </message>
-    <message>
-        <source>Submit to URL:</source>
-        <translation type="obsolete">Küldés URL-re:</translation>
-    </message>
-    <message>
-        <source>Character Settings</source>
-        <translation type="obsolete">Karakter beállítások</translation>
-    </message>
-    <message>
-        <source>Radial Gradient</source>
-        <translation type="obsolete">Sugaras átmenet</translation>
-    </message>
-    <message>
-        <source>Layout:</source>
-        <translation type="obsolete">Kinézet:</translation>
-    </message>
-    <message>
-        <source>File &amp;type:</source>
-        <translation type="obsolete">Fájl&amp;típus:</translation>
-    </message>
-    <message>
-        <source>Export Range</source>
-        <translation type="obsolete">Exportálás hatóköre</translation>
-    </message>
-    <message>
-        <source>File &amp;name:</source>
-        <translation type="obsolete">Fájl&amp;név:</translation>
-    </message>
-    <message>
-        <source>Dash Dot Dot Line</source>
-        <translation type="obsolete">Tá-ti-ti vonal</translation>
-    </message>
-    <message>
-        <source>Caption only</source>
-        <translation type="obsolete">Csak szöveg</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">Be&amp;csukás</translation>
-    </message>
-    <message>
-        <source>File Options</source>
-        <translation type="obsolete">Fájl beállítások</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">A(z) %1 betűtípus nincs telepítve.</translation>
-    </message>
-    <message>
-        <source>Calculate</source>
-        <translation type="obsolete">Kiszámítás</translation>
-    </message>
-    <message>
-        <source>Scaled to </source>
-        <translation type="obsolete">Nagyítás</translation>
-    </message>
-    <message>
-        <source>Horizontal Gradient</source>
-        <translation type="obsolete">Vízszintes átmenet</translation>
-    </message>
-    <message>
-        <source>Right Margin</source>
-        <translation type="obsolete">Jobb margó</translation>
-    </message>
-    <message>
-        <source>Simulate Printer on the Screen</source>
-        <translation type="obsolete">Nyomtató szimulálása a képernyőn</translation>
-    </message>
-    <message>
-        <source>Length:</source>
-        <translation type="obsolete">Hosszúság:</translation>
-    </message>
-    <message>
-        <source>Grab-Radius</source>
-        <translation type="obsolete">Kijelölés sugara</translation>
-    </message>
-    <message>
-        <source>Delete...</source>
-        <translation type="obsolete">Törlés...</translation>
-    </message>
-    <message>
-        <source>Use PDF-1.4 Transparency Features</source>
-        <translation type="obsolete">PDF-1.4 átlátszósági jellemzők használata</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="obsolete">Kiskapitális</translation>
-    </message>
-    <message>
-        <source>Value is not validated</source>
-        <translation type="obsolete">Az érték nincs jóváhagyva</translation>
-    </message>
-    <message>
-        <source>Effect Type:</source>
-        <translation type="obsolete">Effektus típusa:</translation>
-    </message>
-    <message>
-        <source>Select new Font:</source>
-        <translation type="obsolete">Betűtípus:</translation>
-    </message>
-    <message>
-        <source>Document contains: %1 Page(s)</source>
-        <translation type="obsolete">A dokumentum %1 oldalt tartalmaz.</translation>
-    </message>
-    <message>
-        <source>Galician:</source>
-        <translation type="obsolete">Galíciai:</translation>
-    </message>
-    <message>
-        <source>Scaling X:</source>
-        <translation type="obsolete">Vízszintes nagyítás:</translation>
-    </message>
-    <message>
-        <source>Scaling Y:</source>
-        <translation type="obsolete">Függőleges nagyítás:</translation>
-    </message>
-    <message>
-        <source>Line up</source>
-        <translation type="obsolete">Felgörgetés</translation>
-    </message>
-    <message>
-        <source>Prints the current Document</source>
-        <translation type="obsolete">Aktuális dokumentum nyomtatása</translation>
-    </message>
-    <message>
-        <source>Printing Mode</source>
-        <translation type="obsolete">Nyomtatási mód</translation>
-    </message>
-    <message>
-        <source>Split Polygons</source>
-        <translation type="obsolete">Sokszögek felosztása</translation>
-    </message>
-    <message>
-        <source>Fonts to embed:</source>
-        <translation type="obsolete">Beágyazandó betűtípusok:</translation>
-    </message>
-    <message>
-        <source>Create PDF-File</source>
-        <translation type="obsolete">PDF fájl létrehozása</translation>
-    </message>
-    <message>
-        <source>Global JavaScripts</source>
-        <translation type="obsolete">Általános JavaScript-ek</translation>
-    </message>
-    <message>
-        <source>Select Character</source>
-        <translation type="obsolete">Karakter kiválasztása</translation>
-    </message>
-    <message>
-        <source>Effect Duration:</source>
-        <translation type="obsolete">Effektus időtartama:</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="obsolete">Elmozdítás</translation>
-    </message>
-    <message>
-        <source>Multiple Duplicate</source>
-        <translation type="obsolete">Többszörös duplikálás</translation>
-    </message>
-    <message>
-        <source>Error creating PDF-File..</source>
-        <translation type="obsolete">Hiba a PDF-fájl előállítása közben.</translation>
-    </message>
-    <message>
-        <source>Linespacing:</source>
-        <translation type="obsolete">Sorköz:</translation>
-    </message>
-    <message>
-        <source>Insert Rectangles</source>
-        <translation type="obsolete">Téglalap beszúrása</translation>
-    </message>
-    <message>
-        <source>Insert Ovals</source>
-        <translation type="obsolete">Ellipszis beszúrása</translation>
-    </message>
-    <message>
-        <source>Show Outline</source>
-        <translation type="obsolete">Szerkezet mutatása</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation type="obsolete">Betöltés...</translation>
-    </message>
-    <message>
-        <source>Insert Lines</source>
-        <translation type="obsolete">Vonal beszúrása</translation>
-    </message>
-    <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programozás:</translation>
-    </message>
-    <message>
-        <source>Show Page Palette</source>
-        <translation type="obsolete">Oldalpaletta mutatása</translation>
-    </message>
-    <message>
-        <source>Insert Picture</source>
-        <translation type="obsolete">Kép beszúrása</translation>
-    </message>
-    <message>
-        <source>Colors...</source>
-        <translation type="obsolete">Színek...</translation>
-    </message>
-    <message>
-        <source>Distance from Curve:</source>
-        <translation type="obsolete">Távolság a görbétől:</translation>
-    </message>
-    <message>
-        <source>Hide Page Palette</source>
-        <translation type="obsolete">Oldalpaletta elrejtése</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling</source>
-        <translation type="obsolete">Függőleges méretezés</translation>
-    </message>
-    <message>
-        <source>Insert Pagenumber</source>
-        <translation type="obsolete">Oldalszám beszúrása</translation>
-    </message>
-    <message>
-        <source>Page per Sheet</source>
-        <translation type="obsolete">Oldal/ív</translation>
-    </message>
-    <message>
-        <source>maximum</source>
-        <translation type="obsolete">maximum</translation>
-    </message>
-    <message>
-        <source>Formatting</source>
-        <translation type="obsolete">Formázás</translation>
-    </message>
-    <message>
-        <source>Thumbnails</source>
-        <translation type="obsolete">Gyorsnézeti kép</translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="obsolete">Felbontás:</translation>
-    </message>
-    <message>
-        <source>Template (Left Page):</source>
-        <translation type="obsolete">Mesteroldal (bal):</translation>
-    </message>
-    <message>
-        <source>First Pagenumber:</source>
-        <translation type="obsolete">Első oldalszám:</translation>
-    </message>
-    <message>
-        <source>Move Page(s):</source>
-        <translation type="obsolete">Oldal(ak) mozgatása:</translation>
-    </message>
-    <message>
-        <source>Searching for Fonts</source>
-        <translation type="obsolete">Betűtípusok keresése...</translation>
-    </message>
-    <message>
-        <source>Paper format</source>
-        <translation type="obsolete">Papírformátum</translation>
-    </message>
-    <message>
-        <source>Delete from:</source>
-        <translation type="obsolete">Ettől:</translation>
-    </message>
-    <message>
-        <source>Enables automatic checking of your Text during Typing.</source>
-        <translation type="obsolete">Gépelés közben engedélyezi az elválasztást.</translation>
-    </message>
-    <message>
-        <source>Insert Page...</source>
-        <translation type="obsolete">Oldal beszúrása...</translation>
-    </message>
-    <message>
-        <source>Left to Right</source>
-        <translation type="obsolete">Balról jobbra:</translation>
-    </message>
-    <message>
-        <source>Delete Color</source>
-        <translation type="obsolete">Szín törlése</translation>
-    </message>
-    <message>
-        <source>Right to Left</source>
-        <translation type="obsolete">Jobbról balra:</translation>
-    </message>
-    <message>
-        <source>Select Items</source>
-        <translation type="obsolete">Elemek kijelölése</translation>
-    </message>
-    <message>
-        <source>Scrapbooks (*.scs);; All Files (*)</source>
-        <translation type="obsolete">Könyvtárak (*.scs);; Minden fájl (*)</translation>
-    </message>
-    <message>
-        <source>Document Setup</source>
-        <translation type="obsolete">Dokumentumbeállítások</translation>
-    </message>
-    <message>
-        <source>Select color</source>
-        <translation type="obsolete">Szín kiválasztása</translation>
-    </message>
-    <message>
-        <source>System Profiles</source>
-        <translation type="obsolete">Rendszerprofilok</translation>
-    </message>
-    <message>
-        <source>Edit Polygon</source>
-        <translation type="obsolete">Sokszög szerkesztése</translation>
-    </message>
-    <message>
-        <source>Delete Nodes</source>
-        <translation type="obsolete">Csomópontok törlése</translation>
-    </message>
-    <message>
-        <source>Delete Page:</source>
-        <translation type="obsolete">Oldal törlése:</translation>
-    </message>
-    <message>
-        <source>Delete Pages</source>
-        <translation type="obsolete">Oldalak törlése</translation>
-    </message>
-    <message>
-        <source>Middles</source>
-        <translation type="obsolete">Közepek</translation>
-    </message>
-    <message>
-        <source>Delete Layer</source>
-        <translation type="obsolete">Réteg törlése</translation>
-    </message>
-    <message>
-        <source>Replace it with:</source>
-        <translation type="obsolete">Helyettesítés:</translation>
-    </message>
-    <message>
-        <source>minimum</source>
-        <translation type="obsolete">minimum</translation>
-    </message>
-    <message>
-        <source>Caption below Icon</source>
-        <translation type="obsolete">Szöveg az ikon alatt</translation>
-    </message>
-    <message>
-        <source>Hyphenator Settings</source>
-        <translation type="obsolete">Szóelválasztó beállításai</translation>
-    </message>
-    <message>
-        <source>Missing</source>
-        <translation type="obsolete">Hiányzik</translation>
-    </message>
-    <message>
-        <source>Document Info...</source>
-        <translation type="obsolete">Dokumentuminformáció...</translation>
-    </message>
-    <message>
-        <source>Color Model</source>
-        <translation type="obsolete">Színmodell:</translation>
-    </message>
-    <message>
-        <source>Output Profile:</source>
-        <translation type="obsolete">Bemeneti profil:</translation>
-    </message>
-    <message>
-        <source>Lower Layer</source>
-        <translation type="obsolete">Réteg lejjebbrakása</translation>
-    </message>
-    <message>
-        <source>Solid Colors:</source>
-        <translation type="obsolete">Színek:</translation>
-    </message>
-    <message>
-        <source>Generate Thumbnails</source>
-        <translation type="obsolete">Előképek létrehozása</translation>
-    </message>
-    <message>
-        <source>&amp;Add To Custom Colors</source>
-        <translation type="obsolete">Hozzáadás a saját színekhez</translation>
-    </message>
-    <message>
-        <source>Mark Colors out of Gamut</source>
-        <translation type="obsolete">Nem nyomtatható színek jelölése</translation>
-    </message>
-    <message>
-        <source>Move...</source>
-        <translation type="obsolete">Mozgatás...</translation>
-    </message>
-    <message>
-        <source>Template:</source>
-        <translation type="obsolete">Mesteroldal:</translation>
-    </message>
-    <message>
-        <source>Above:</source>
-        <translation type="obsolete">Fent:</translation>
-    </message>
-    <message>
-        <source>Accept</source>
-        <translation type="obsolete">Elfogadás</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation type="obsolete">Hozzáadás...</translation>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation type="obsolete">Művelet</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Tényleg törölni akarja ezt a stílust?</translation>
-    </message>
-    <message>
-        <source>Display Frames</source>
-        <translation type="obsolete">Keretek mutatása</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Keretek mutatása</translation>
-    </message>
-    <message>
-        <source>Rendering Intents</source>
-        <translation type="obsolete">Megjelenítési prioritások</translation>
-    </message>
-    <message>
-        <source>Rendering Intent:</source>
-        <translation type="obsolete">Megjelenítési prioritások:</translation>
-    </message>
-    <message>
-        <source>Rendering-Intent:</source>
-        <translation type="obsolete">Megjelenítési prioritások:</translation>
-    </message>
-    <message>
-        <source>Always</source>
-        <translation type="obsolete">Mindig</translation>
-    </message>
-    <message>
-        <source>Angle:</source>
-        <translation type="obsolete">Forgatás:</translation>
-    </message>
-    <message>
-        <source>Append</source>
-        <translation type="obsolete">Hozzáadás</translation>
-    </message>
-    <message>
-        <source>Align Text Center</source>
-        <translation type="obsolete">Szöveg középre igazítása</translation>
-    </message>
-    <message>
-        <source>Below:</source>
-        <translation type="obsolete">Lent:</translation>
-    </message>
-    <message>
-        <source>Bl&amp;ue:</source>
-        <translation type="obsolete">&amp;Kék:</translation>
-    </message>
-    <message>
-        <source>Blinds</source>
-        <translation type="obsolete">Redőny</translation>
-    </message>
-    <message>
-        <source>Border</source>
-        <translation type="obsolete">Keret</translation>
-    </message>
-    <message>
-        <source>Hide Frames</source>
-        <translation type="obsolete">Keretek elrejtése</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Mégsem</translation>
-    </message>
-    <message>
-        <source>Date Format</source>
-        <translation type="obsolete">Dátumformátum</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">Középre</translation>
-    </message>
-    <message>
-        <source>Button</source>
-        <translation type="obsolete">Gomb</translation>
-    </message>
-    <message>
-        <source>Advanced Options...</source>
-        <translation type="obsolete">Haladó opciók...</translation>
-    </message>
-    <message>
-        <source>Circle</source>
-        <translation type="obsolete">Kör</translation>
-    </message>
-    <message>
-        <source>New Color:</source>
-        <translation type="obsolete">Új szín:</translation>
-    </message>
-    <message>
-        <source>Hide Guides</source>
-        <translation type="obsolete">Segédvonalak elrejtése</translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="obsolete">Szín:</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Színek</translation>
-    </message>
-    <message>
-        <source>Field Properties</source>
-        <translation type="obsolete">Mezőjellemzők</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation type="obsolete">Dán</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Törlés</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="obsolete">Saját</translation>
-    </message>
-    <message>
-        <source>Time Format</source>
-        <translation type="obsolete">Időformátum</translation>
-    </message>
-    <message>
-        <source>Endings:</source>
-        <translation type="obsolete">Vonalvégek:</translation>
-    </message>
-    <message>
-        <source>Disp.:</source>
-        <translation type="obsolete">Eltolás</translation>
-    </message>
-    <message>
-        <source>Czech:</source>
-        <translation type="obsolete">Cseh:</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Segédvonalak mutatása</translation>
-    </message>
-    <message>
-        <source>Horizontal Shift:</source>
-        <translation type="obsolete">Vízszintes eltolás:</translation>
-    </message>
-    <message>
-        <source>Lock Guides</source>
-        <translation type="obsolete">Segédvonalak rögzítése</translation>
-    </message>
-    <message>
-        <source>Landscape</source>
-        <translation type="obsolete">Fekvő</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Képek mutatása</translation>
-    </message>
-    <message>
-        <source>Edges:</source>
-        <translation type="obsolete">Sarkok:</translation>
-    </message>
-    <message>
-        <source>No Effect</source>
-        <translation type="obsolete">Nincs effektus</translation>
-    </message>
-    <message>
-        <source>Undo Object Change</source>
-        <translation type="obsolete">Változtatás visszavonása</translation>
-    </message>
-    <message>
-        <source>Event:</source>
-        <translation type="obsolete">Esemény:</translation>
-    </message>
-    <message>
-        <source>Hide Images</source>
-        <translation type="obsolete">Képek elrejtése</translation>
-    </message>
-    <message>
-        <source>Extras</source>
-        <translation type="obsolete">Extrák</translation>
-    </message>
-    <message>
-        <source>Save Contents on Exit</source>
-        <translation type="obsolete">Tartalom mentése kilépéskor</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="obsolete">Leírás:</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation type="obsolete">Kihajtva</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="obsolete">Formátum</translation>
-    </message>
-    <message>
-        <source>Line Color:</source>
-        <translation type="obsolete">Vonal színe:</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="obsolete">Magyar</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="obsolete">Francia</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="obsolete">Német</translation>
-    </message>
-    <message>
-        <source>Text Color:</source>
-        <translation type="obsolete">Szövegszín:</translation>
-    </message>
-    <message>
-        <source>English:</source>
-        <translation type="obsolete">Angol:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Kitöltés színe:</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="obsolete">Nyelv:</translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="obsolete">Segédvonalak</translation>
-    </message>
-    <message>
-        <source>Grid Colors</source>
-        <translation type="obsolete">Rácsszínek</translation>
-    </message>
-    <message>
-        <source>Available Fields</source>
-        <translation type="obsolete">Felhasználóható mezők</translation>
-    </message>
-    <message>
-        <source>Edit Colors</source>
-        <translation type="obsolete">Színek szerkesztése</translation>
-    </message>
-    <message>
-        <source>Hidden</source>
-        <translation type="obsolete">Láthatatlan</translation>
-    </message>
-    <message>
-        <source>Available Fonts:</source>
-        <translation type="obsolete">Rendelkezésre álló betűtípusok:</translation>
-    </message>
-    <message>
-        <source>Images</source>
-        <translation type="obsolete">Képek</translation>
-    </message>
-    <message>
-        <source>Custom Scripts</source>
-        <translation type="obsolete">Saját szkriptek</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="obsolete">Importálás</translation>
-    </message>
-    <message>
-        <source>Insert</source>
-        <translation type="obsolete">Beszúrás</translation>
-    </message>
-    <message>
-        <source>Inside</source>
-        <translation type="obsolete">Belül</translation>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation type="obsolete">Invertálás</translation>
-    </message>
-    <message>
-        <source>Show Template Names</source>
-        <translation type="obsolete">Sablonnevek mutatása</translation>
-    </message>
-    <message>
-        <source>Italic</source>
-        <translation type="obsolete">Kurzív</translation>
-    </message>
-    <message>
-        <source>No Fill</source>
-        <translation type="obsolete">Nincs kitöltés</translation>
-    </message>
-    <message>
-        <source>No View</source>
-        <translation type="obsolete">Nincs nézet</translation>
-    </message>
-    <message>
-        <source>Here you can see all Pages of your Document.</source>
-        <translation type="obsolete">Itt láthatóak a dokumentum oldalai.</translation>
-    </message>
-    <message>
-        <source>Layers</source>
-        <translation type="obsolete">Rétegek</translation>
-    </message>
-    <message>
-        <source>Document contains: 0 Page(s)</source>
-        <translation type="obsolete">A dokumentumban nincsenek oldalak.</translation>
-    </message>
-    <message>
-        <source>Edit Shape...</source>
-        <translation type="obsolete">Alakzat szerkesztése...</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Közepes</translation>
-    </message>
-    <message>
-        <source>Menues</source>
-        <translation type="obsolete">Menük</translation>
-    </message>
-    <message>
-        <source>Mirror</source>
-        <translation type="obsolete">Tükrözés</translation>
-    </message>
-    <message>
-        <source>No Key</source>
-        <translation type="obsolete">Nincs billentyűparancs</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normál</translation>
-    </message>
-    <message>
-        <source>Object</source>
-        <translation type="obsolete">Nem</translation>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation type="obsolete">Szám</translation>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation type="obsolete">Betűtípus neve</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="obsolete">Betűméret</translation>
-    </message>
-    <message>
-        <source>Hide Layers</source>
-        <translation type="obsolete">Rétegek elrejtése</translation>
-    </message>
-    <message>
-        <source>Grid Layout</source>
-        <translation type="obsolete">Rácsnézet</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Nincsenek PostScript-betűtípusok telepítve</translation>
-    </message>
-    <message>
-        <source>Option</source>
-        <translation type="obsolete">Beállítások</translation>
-    </message>
-    <message>
-        <source>Left Margin</source>
-        <translation type="obsolete">Bal margó</translation>
-    </message>
-    <message>
-        <source>Other:</source>
-        <translation type="obsolete">Egyéb:</translation>
-    </message>
-    <message>
-        <source>Owner:</source>
-        <translation type="obsolete">Tulajdonos:</translation>
-    </message>
-    <message>
-        <source>Show Layers</source>
-        <translation type="obsolete">Rétegek mutatása</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="obsolete">Lengyel</translation>
-    </message>
-    <message>
-        <source>Closes this Dialog</source>
-        <translation type="obsolete">Bezárás</translation>
-    </message>
-    <message>
-        <source>Loading:</source>
-        <translation type="obsolete">Betöltés:</translation>
-    </message>
-    <message>
-        <source>Document to load:</source>
-        <translation type="obsolete">Betöltendő dokumentum:</translation>
-    </message>
-    <message>
-        <source>Range:</source>
-        <translation type="obsolete">Tartomány:</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Törlés</translation>
-    </message>
-    <message>
-        <source>Result</source>
-        <translation type="obsolete">Eredmény</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Vonalvastagság:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Jobboldalt:</translation>
-    </message>
-    <message>
-        <source>Sample</source>
-        <translation type="obsolete">Minta</translation>
-    </message>
-    <message>
-        <source>Scale:</source>
-        <translation type="obsolete">Méretezés:</translation>
-    </message>
-    <message>
-        <source>Screen</source>
-        <translation type="obsolete">Képernyő</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="obsolete">Keresés</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="obsolete">Kijelölés</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Árnyalat:</translation>
-    </message>
-    <message>
-        <source>New Script</source>
-        <translation type="obsolete">Új szkript</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="obsolete">Szlovák</translation>
-    </message>
-    <message>
-        <source>Font Substitutions</source>
-        <translation type="obsolete">Betűtípus-helyettesítés</translation>
-    </message>
-    <message>
-        <source>Square</source>
-        <translation type="obsolete">Négyzet</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="obsolete">Státusz</translation>
-    </message>
-    <message>
-        <source>Styles</source>
-        <translation type="obsolete">Stílusok</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation type="obsolete">Dokumentum</translation>
-    </message>
-    <message>
-        <source>New Style:</source>
-        <translation type="obsolete">Új stílus:</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="obsolete">Cím:</translation>
-    </message>
-    <message>
-        <source>To End</source>
-        <translation type="obsolete">A végére</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X:</translation>
-    </message>
-    <message>
-        <source>Fontsize:</source>
-        <translation type="obsolete">Betűméret:</translation>
-    </message>
-    <message>
-        <source>Horizontal Guides</source>
-        <translation type="obsolete">Vízszintes segédvonalak</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y:</translation>
-    </message>
-    <message>
-        <source>Compress Text and Vector Graphics</source>
-        <translation type="obsolete">Szöveg és vektorgrafikák tömörítése</translation>
-    </message>
-    <message>
-        <source>Unlock</source>
-        <translation type="obsolete">Feloldás</translation>
-    </message>
-    <message>
-        <source>Closes the current Document</source>
-        <translation type="obsolete">Aktuális dokumentum bezárása</translation>
-    </message>
-    <message>
-        <source>Java Script</source>
-        <translation type="obsolete">JavaScript</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="obsolete">Előtérbe</translation>
-    </message>
-    <message>
-        <source>Look &amp;in:</source>
-        <translation type="obsolete">Megtek&amp;intés:</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">A &quot;%1&quot; fájl már létezik.
-Válasszon másikat.</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="obsolete">Legrövidebb szó:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Szélesség:</translation>
-    </message>
-    <message>
-        <source>Edit Styles</source>
-        <translation type="obsolete">Stílusok szerkesztése</translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="obsolete">Segédvonalak vonzási távolsága:</translation>
-    </message>
-    <message>
-        <source>Hide Styles</source>
-        <translation type="obsolete">Stílusok elrejtése</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) horizontal</source>
-        <translation type="obsolete">Oldalak tükrözése vízszintesen</translation>
-    </message>
-    <message>
-        <source>Show Styles</source>
-        <translation type="obsolete">Stílusok mutatása</translation>
-    </message>
-    <message>
-        <source>Tool-Tips</source>
-        <translation type="obsolete">Buboréksúgó</translation>
-    </message>
-    <message>
-        <source>Tool-Tip:</source>
-        <translation type="obsolete">Buboréksúgó:</translation>
-    </message>
-    <message>
-        <source>from the:</source>
-        <translation type="obsolete">Honnan:</translation>
-    </message>
-    <message>
-        <source>Indentation</source>
-        <translation type="obsolete">Behúzás</translation>
-    </message>
-    <message>
-        <source>No Document</source>
-        <translation type="obsolete">Nincs dokumentum</translation>
-    </message>
-    <message>
-        <source>Right Sides</source>
-        <translation type="obsolete">Jobb oldalak</translation>
-    </message>
-    <message>
-        <source>Icon only</source>
-        <translation type="obsolete">Csak ikon</translation>
-    </message>
-    <message>
-        <source>has been changed since the last save.</source>
-        <translation type="obsolete">megváltozott a legutóbbi mentés óta.</translation>
-    </message>
-    <message>
-        <source>Preview File Contents</source>
-        <translation type="obsolete">Fájl tartalmának mutatása</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Margók mutatása</translation>
-    </message>
-    <message>
-        <source>Color Management Settings</source>
-        <translation type="obsolete">Színkezelés beállítások</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation type="obsolete">Első sor:</translation>
-    </message>
-    <message>
-        <source>Printer Options</source>
-        <translation type="obsolete">Nyomtató opciók</translation>
-    </message>
-    <message>
-        <source>Bookmarks</source>
-        <translation type="obsolete">Könyvjelzők</translation>
-    </message>
-    <message>
-        <source>PDF-Options</source>
-        <translation type="obsolete">PDF-beállítások</translation>
-    </message>
-    <message>
-        <source>Search Results for: </source>
-        <translation type="obsolete">A keresés eredménye: </translation>
-    </message>
-    <message>
-        <source>Print range</source>
-        <translation type="obsolete">Tartomány</translation>
-    </message>
-    <message>
-        <source>Odd Pages only</source>
-        <translation type="obsolete">Csak páratlan oldalak</translation>
-    </message>
-    <message>
-        <source>When Icon is too small</source>
-        <translation type="obsolete">Ha az ikon túl kicsi</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Hasábok:</translation>
-    </message>
-    <message>
-        <source>Don&apos;t print</source>
-        <translation type="obsolete">Nem nyomtatható</translation>
-    </message>
-    <message>
-        <source>Command:</source>
-        <translation type="obsolete">Parancs:</translation>
-    </message>
-    <message>
-        <source>Caption left to Icon</source>
-        <translation type="obsolete">Szöveg az ikontól balra</translation>
-    </message>
-    <message>
-        <source>Submit Data as HTML</source>
-        <translation type="obsolete">Adat küldése HTML-ként</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="obsolete">Szövegdoboz</translation>
-    </message>
-    <message>
-        <source>Edit Frame</source>
-        <translation type="obsolete">Keret módosítása</translation>
-    </message>
-    <message>
-        <source>Text Field</source>
-        <translation type="obsolete">Szövegmező</translation>
-    </message>
-    <message>
-        <source>Edit Color</source>
-        <translation type="obsolete">Szín szerkesztése</translation>
-    </message>
-    <message>
-        <source>Monitor:</source>
-        <translation type="obsolete">Monitor:</translation>
-    </message>
-    <message>
-        <source>Left Point</source>
-        <translation type="obsolete">Bal pont</translation>
-    </message>
-    <message>
-        <source>Add Nodes</source>
-        <translation type="obsolete">Csomópontok hozzáadása</translation>
-    </message>
-    <message>
-        <source>Edit Contents of Frame</source>
-        <translation type="obsolete">Keret tartalmának szerkesztése</translation>
-    </message>
-    <message>
-        <source>Caption right to Icon</source>
-        <translation type="obsolete">Szöveg az ikontól jobbra</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">Tartalmak</translation>
-    </message>
-    <message>
-        <source>Fonts...</source>
-        <translation type="obsolete">Hozzáadás...</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);; All Files (*)</source>
-        <translation type="obsolete">Dokumentumok (*.sla *.scd);; Minden fájl (*)</translation>
-    </message>
-    <message>
-        <source>Fontsize</source>
-        <translation type="obsolete">Betűméret</translation>
-    </message>
-    <message>
-        <source>Left Sides</source>
-        <translation type="obsolete">Bal oldalak</translation>
-    </message>
-    <message>
-        <source>Edit Style</source>
-        <translation type="obsolete">Stílus szerkesztése</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Betűméret:</translation>
-    </message>
-    <message>
-        <source>Open...</source>
-        <translation type="obsolete">Megnyitás...</translation>
-    </message>
-    <message>
-        <source>Import a Page</source>
-        <translation type="obsolete">Oldal importálása</translation>
-    </message>
-    <message>
-        <source>Number of copies:</source>
-        <translation type="obsolete">Példányszám</translation>
-    </message>
-    <message>
-        <source>Number of Copies:</source>
-        <translation type="obsolete">Másolatok száma:</translation>
-    </message>
-    <message>
-        <source>Selected Fields</source>
-        <translation type="obsolete">Mezők kijelölése</translation>
-    </message>
-    <message>
-        <source>Don&apos;t use embedded Profiles</source>
-        <translation type="obsolete">Ne használjon beágyazott profilokat.</translation>
-    </message>
-    <message>
-        <source>Opacity:</source>
-        <translation type="obsolete">Opacitás:</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="obsolete">Beállítások</translation>
-    </message>
-    <message>
-        <source>Copy of </source>
-        <translation type="obsolete">Másolat </translation>
-    </message>
-    <message>
-        <source>page(s)</source>
-        <translation type="obsolete">oldalt</translation>
-    </message>
-    <message>
-        <source>Manage Keyboard Shortcuts</source>
-        <translation type="obsolete">Gyorsbillentyűk beállítása</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">A végére</translation>
-    </message>
-    <message>
-        <source>Hungarian and Italian:</source>
-        <translation type="obsolete">Magyar és olasz:</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="obsolete">Rács mutatása</translation>
-    </message>
-    <message>
-        <source>Corners:</source>
-        <translation type="obsolete">Sarkok:</translation>
-    </message>
-    <message>
-        <source>Icon Placement...</source>
-        <translation type="obsolete">Ikon elhelyezése</translation>
-    </message>
-    <message>
-        <source>Portrait</source>
-        <translation type="obsolete">Álló</translation>
-    </message>
-    <message>
-        <source>Position</source>
-        <translation type="obsolete">Elhelyezkedés</translation>
-    </message>
-    <message>
-        <source>Rotation</source>
-        <translation type="obsolete">Forgatás</translation>
-    </message>
-    <message>
-        <source>Do you really want to overwrite the File:
-%1 ?</source>
-        <translation type="obsolete">Tényleg felül akarja írni a(z)
-%1 fájlt?</translation>
-    </message>
-    <message>
-        <source>Copying Text and Graphics is allowed</source>
-        <translation type="obsolete">Szöveg és grafika másolása engedélyezett</translation>
-    </message>
-    <message>
-        <source>Contributions from:</source>
-        <translation type="obsolete">Közreműködők:</translation>
-    </message>
-    <message>
-        <source>RoundCap</source>
-        <translation type="obsolete">Gömbölyű</translation>
-    </message>
-    <message>
-        <source>Mouse Up</source>
-        <translation type="obsolete">Egér fel</translation>
-    </message>
-    <message>
-        <source>Outline</source>
-        <translation type="obsolete">Szerkezet</translation>
-    </message>
-    <message>
-        <source>Outside</source>
-        <translation type="obsolete">Kívül</translation>
-    </message>
-    <message>
-        <source>Custom Spacing</source>
-        <translation type="obsolete">Térközök</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation type="obsolete">Jellemzők</translation>
-    </message>
-    <message>
-        <source>Automatic Linespaceing:</source>
-        <translation type="obsolete">Automatikus sorköz:</translation>
-    </message>
-    <message>
-        <source>Top-Left to Bottom-Right</source>
-        <translation type="obsolete">Bal felső -&gt; jobb alsó sarok</translation>
-    </message>
-    <message>
-        <source>Move Control Points independently</source>
-        <translation type="obsolete">Független kontrollpontok</translation>
-    </message>
-    <message>
-        <source>Browse...</source>
-        <translation type="obsolete">Böngészés...</translation>
-    </message>
-    <message>
-        <source>Here are all your Templates, to create a new Page
-drag a Template to the Pageview below.</source>
-        <translation type="obsolete">Itt találhatóak a mesteroldalak, új oldal beszúrásához
-egy mesteroldalt kell az oldalak közé húzni.</translation>
-    </message>
-    <message>
-        <source>Recent Documents</source>
-        <translation type="obsolete">Legutóbbi dokumentumok</translation>
-    </message>
-    <message>
-        <source>Embed all Fonts</source>
-        <translation type="obsolete">Összes font beágyazása</translation>
-    </message>
-    <message>
-        <source>Mouse Enter</source>
-        <translation type="obsolete">Egér belépés</translation>
-    </message>
-    <message>
-        <source>Allow Changing the Document</source>
-        <translation type="obsolete">Változtatás engedélyezése</translation>
-    </message>
-    <message>
-        <source>Hide Scrapbook</source>
-        <translation type="obsolete">Könyvtár elrejtése</translation>
-    </message>
-    <message>
-        <source>Placing</source>
-        <translation type="obsolete">Elhelyezés</translation>
-    </message>
-    <message>
-        <source>Raise Layer</source>
-        <translation type="obsolete">Réteg feljebbrakása</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Duplikálás</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="obsolete">Fordítások</translation>
-    </message>
-    <message>
-        <source> loaded</source>
-        <translation type="obsolete"> betöltve</translation>
-    </message>
-    <message>
-        <source>Is Spot-Color</source>
-        <translation type="obsolete">direktszín</translation>
-    </message>
-    <message>
-        <source>Use Icons</source>
-        <translation type="obsolete">Ikonok használata</translation>
-    </message>
-    <message>
-        <source>Move Nodes</source>
-        <translation type="obsolete">Csomópontok mozgatása</translation>
-    </message>
-    <message>
-        <source>Move Pages</source>
-        <translation type="obsolete">Oldalak mozgatása</translation>
-    </message>
-    <message>
-        <source>Line Width</source>
-        <translation type="obsolete">Vonalvastagság</translation>
-    </message>
-    <message>
-        <source>Hide Tools</source>
-        <translation type="obsolete">Eszköztár elrejtése</translation>
-    </message>
-    <message>
-        <source>Polish:</source>
-        <translation type="obsolete">Lengyel:</translation>
-    </message>
-    <message>
-        <source>Margin Guides</source>
-        <translation type="obsolete">Margók</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Sokszög</translation>
-    </message>
-    <message>
-        <source>Read Only</source>
-        <translation type="obsolete">Csak olvasható</translation>
-    </message>
-    <message>
-        <source>Hide Margins</source>
-        <translation type="obsolete">Margók elrejtése</translation>
-    </message>
-    <message>
-        <source>Export...</source>
-        <translation type="obsolete">Exportálás...</translation>
-    </message>
-    <message>
-        <source>Import...</source>
-        <translation type="obsolete">Importálás...</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Mentés más néven...</translation>
-    </message>
-    <message>
-        <source>Move Control Points</source>
-        <translation type="obsolete">Kontrollpontok mozgatása</translation>
-    </message>
-    <message>
-        <source>Manage Guides</source>
-        <translation type="obsolete">Segédvonalak kezelése</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="obsolete">Előnézet</translation>
-    </message>
-    <message>
-        <source>Printer</source>
-        <translation type="obsolete">Nyomtató</translation>
-    </message>
-    <message>
-        <source>product</source>
-        <translation type="obsolete">szorzat</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Aktuális méret</translation>
-    </message>
-    <message>
-        <source>Check during Typing</source>
-        <translation type="obsolete">Ellenőrzés gépelés közben</translation>
-    </message>
-    <message>
-        <source>Annotation Properties</source>
-        <translation type="obsolete">Megjegyzés tulajdonságai</translation>
-    </message>
-    <message>
-        <source>When Icon is too big</source>
-        <translation type="obsolete">Ha az ikon túl nagy</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation type="obsolete">Kép betöltése...</translation>
-    </message>
-    <message>
-        <source>Vertical Gradient</source>
-        <translation type="obsolete">Függőleges átmenet</translation>
-    </message>
-    <message>
-        <source>Copy Here</source>
-        <translation type="obsolete">Másolás ide</translation>
-    </message>
-    <message>
-        <source>Copy Page</source>
-        <translation type="obsolete">Oldal másolása</translation>
-    </message>
-    <message>
-        <source>Polygon Properties</source>
-        <translation type="obsolete">Sokszög tulajdonságai</translation>
-    </message>
-    <message>
-        <source>Global Fontsettings</source>
-        <translation type="obsolete">Általános betűtípus-beállítások</translation>
-    </message>
-    <message>
-        <source>Replacement</source>
-        <translation type="obsolete">Helyettesítés</translation>
-    </message>
-    <message>
-        <source>Page Set</source>
-        <translation type="obsolete">Törlés</translation>
-    </message>
-    <message>
-        <source>Font st&amp;yle</source>
-        <translation type="obsolete">Betűstílus</translation>
-    </message>
-    <message>
-        <source>Vertical flipped</source>
-        <translation type="obsolete">Függőlegesen tükrözött</translation>
-    </message>
-    <message>
-        <source>Print in color if available</source>
-        <translation type="obsolete">Színes nyomtatás, ha lehetséges</translation>
-    </message>
-    <message>
-        <source>Show Scrapbook</source>
-        <translation type="obsolete">Könyvtár mutatása</translation>
-    </message>
-    <message>
-        <source>Scale to Frame Size</source>
-        <translation type="obsolete">Kép méretezése a kerethez</translation>
-    </message>
-    <message>
-        <source>Ukrainian:</source>
-        <translation type="obsolete">Ukrán:</translation>
-    </message>
-    <message>
-        <source>Attach Text to Path</source>
-        <translation type="obsolete">Szöveg illesztése útvonalhoz</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="obsolete">Betűtípusnéző próbamondatszörny.</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">Oldal elé:</translation>
-    </message>
-    <message>
-        <source>Validate</source>
-        <translation type="obsolete">Érvényesít</translation>
-    </message>
-    <message>
-        <source>CrossDiagonal Gradient</source>
-        <translation type="obsolete">Átlós átmenet jobbról</translation>
-    </message>
-    <message>
-        <source>Show PDF-Tools</source>
-        <translation type="obsolete">PDF-eszközök mutatása</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation type="obsolete">Előre</translation>
-    </message>
-    <message>
-        <source>Align Text Block</source>
-        <translation type="obsolete">Sorkizárt szöveg</translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation type="obsolete">A színek módosítása</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Módosítás...</translation>
-    </message>
-    <message>
-        <source>Align Text Right</source>
-        <translation type="obsolete">Szöveg jobbra igazítása </translation>
-    </message>
-    <message>
-        <source>Percent Format</source>
-        <translation type="obsolete">Százalékformátum</translation>
-    </message>
-    <message>
-        <source>Print to file:</source>
-        <translation type="obsolete">Nyomtatás fájlba:</translation>
-    </message>
-    <message>
-        <source>Print first page first</source>
-        <translation type="obsolete">Első oldalt először</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="obsolete">Karakterek</translation>
-    </message>
-    <message>
-        <source>Character:</source>
-        <translation type="obsolete">Karakter</translation>
-    </message>
-    <message>
-        <source>Manage Guides...</source>
-        <translation type="obsolete">Segédvonalak kezelése</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation type="obsolete">Ukrán</translation>
-    </message>
-    <message>
-        <source>Compression</source>
-        <translation type="obsolete">Tömörítés</translation>
-    </message>
-    <message>
-        <source>Scrapbook</source>
-        <translation type="obsolete">Könyvtár</translation>
-    </message>
-    <message>
-        <source>Character</source>
-        <translation type="obsolete">Betű</translation>
-    </message>
-    <message>
-        <source>Margins:</source>
-        <translation type="obsolete">Margók:</translation>
-    </message>
-    <message>
-        <source>Hide PDF-Tools</source>
-        <translation type="obsolete">PDF-eszközök elrejtése</translation>
-    </message>
-    <message>
-        <source>Reading Scrapbook</source>
-        <translation type="obsolete">Vágólap olvasása</translation>
-    </message>
-    <message>
-        <source>Sent to Layer</source>
-        <translation type="obsolete">Küldés a rétegre</translation>
-    </message>
-    <message>
-        <source>Websave RGB</source>
-        <translation type="obsolete">Webes RGB</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation type="obsolete">Ghostscript : Nem használhat EPS-képeket</translation>
-    </message>
-    <message>
-        <source>To adjust the Display drag the Ruler below with the Slider.</source>
-        <translation type="obsolete">A képernyő beállítását a csúszka mozgatásával végezheti el.</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Jelszó</translation>
-    </message>
-    <message>
-        <source>Apply Effect on all Pages</source>
-        <translation type="obsolete">Effektus alkalmazása minden oldalon</translation>
-    </message>
-    <message>
-        <source>Hyphenator...</source>
-        <translation type="obsolete">Szóelválasztó...</translation>
-    </message>
-    <message>
-        <source>Document Setup...</source>
-        <translation type="obsolete">Dokumentumbeállítások...</translation>
-    </message>
-    <message>
-        <source>Embed in:</source>
-        <translation type="obsolete">Beágyazás:</translation>
-    </message>
-    <message>
-        <source>Embedding</source>
-        <translation type="obsolete">Beágyazás</translation>
-    </message>
-    <message>
-        <source>JavaScripts...</source>
-        <translation type="obsolete">JavaScript-ek...</translation>
-    </message>
-    <message>
-        <source>Visibility:</source>
-        <translation type="obsolete">Láthatóság:</translation>
-    </message>
-    <message>
-        <source>Save Now</source>
-        <translation type="obsolete">Mentés</translation>
-    </message>
-    <message>
-        <source>&amp;Restore</source>
-        <translation type="obsolete">Hely&amp;reállítás</translation>
-    </message>
-    <message>
-        <source>Author:</source>
-        <translation type="obsolete">Szerző:</translation>
-    </message>
-    <message>
-        <source>Authors</source>
-        <translation type="obsolete">Szerzők</translation>
-    </message>
-    <message>
-        <source>average</source>
-        <translation type="obsolete">átlagos</translation>
-    </message>
-    <message>
-        <source>Fit in Window</source>
-        <translation type="obsolete">Teljes oldal</translation>
-    </message>
-    <message>
-        <source>Maximize</source>
-        <translation type="obsolete">Maximalizálás</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Fields</source>
-        <translation type="obsolete">PDF-mezők beszúrása</translation>
-    </message>
-    <message>
-        <source>Strikeout</source>
-        <translation type="obsolete">Áthúzott</translation>
-    </message>
-    <message>
-        <source>Print...</source>
-        <translation type="obsolete">Nyomtatás...</translation>
-    </message>
-    <message>
-        <source>Printer:</source>
-        <translation type="obsolete">Nyomtató:</translation>
-    </message>
-    <message>
-        <source>Apply ICC-Profiles</source>
-        <translation type="obsolete">ICC-profilok alkalmazása</translation>
-    </message>
-    <message>
-        <source>Printer settings</source>
-        <translation type="obsolete">Nyomtatóbeállítások</translation>
-    </message>
-    <message>
-        <source>Import Data</source>
-        <translation type="obsolete">Adat importálása</translation>
-    </message>
-    <message>
-        <source>Insert Page</source>
-        <translation type="obsolete">Oldal beszúrása</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation type="obsolete">Új szín</translation>
-    </message>
-    <message>
-        <source>Static Color Bars</source>
-        <translation type="obsolete">Statikus színcsúszkák</translation>
-    </message>
-    <message>
-        <source>New Entry</source>
-        <translation type="obsolete">Új bejegyzés</translation>
-    </message>
-    <message>
-        <source>Show Curve</source>
-        <translation type="obsolete">Görbe mutatása</translation>
-    </message>
-    <message>
-        <source>New Layer</source>
-        <translation type="obsolete">Új réteg</translation>
-    </message>
-    <message>
-        <source>New Style</source>
-        <translation type="obsolete">Új stílus</translation>
-    </message>
-    <message>
-        <source>Profiles</source>
-        <translation type="obsolete">Profilok</translation>
-    </message>
-    <message>
-        <source>Show Tools</source>
-        <translation type="obsolete">Eszköztár mutatása</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="obsolete">Információ</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Alul:</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation type="obsolete">A Qt névjegye</translation>
-    </message>
-    <message>
-        <source>Mouse Exit</source>
-        <translation type="obsolete">Egér kilépés</translation>
-    </message>
-    <message>
-        <source>Mouse Down</source>
-        <translation type="obsolete">Egér le</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)</source>
-        <translation type="obsolete">Dokumentumok (*.sla *sla.gz *.scd *.scd.gz);; Minden fájl (*)</translation>
-    </message>
-    <message>
-        <source>Use Font</source>
-        <translation type="obsolete">Betűtípus használata</translation>
-    </message>
-    <message>
-        <source>Get Text/Picture...</source>
-        <translation type="obsolete">Szöveg/kép betöltése...</translation>
-    </message>
-    <message>
-        <source>Scaling:</source>
-        <translation type="obsolete">Méretezés</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation type="obsolete">Picák (p)</translation>
-    </message>
-    <message>
-        <source>Modify Pictureframe</source>
-        <translation type="obsolete">Képkeret módosítása</translation>
-    </message>
-    <message>
-        <source>Cascade</source>
-        <translation type="obsolete">Elhelyezés lépcsőzetesen</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Mentés más néven</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Betűköz</translation>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation type="obsolete">Méretezés</translation>
-    </message>
-    <message>
-        <source>Apply Template...</source>
-        <translation type="obsolete">Mesteroldal alkalmazása...</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="obsolete">Alsó index</translation>
-    </message>
-    <message>
-        <source>Pages per Sheet</source>
-        <translation type="obsolete">Oldalak/ív</translation>
-    </message>
-    <message>
-        <source>Scr&amp;ipt</source>
-        <translation type="obsolete">Szkript</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Spanyol és katalán:</translation>
-    </message>
-    <message>
-        <source>Script:</source>
-        <translation type="obsolete">Szkript:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="obsolete">Felső index</translation>
-    </message>
-    <message>
-        <source>Percentage</source>
-        <translation type="obsolete">Százalék</translation>
-    </message>
-    <message>
-        <source>Insert Bezier Curves</source>
-        <translation type="obsolete">Bezier-görbe beszúrása</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation type="obsolete">Perceptual</translation>
-    </message>
-    <message>
-        <source>Set Key</source>
-        <translation type="obsolete">Billentyűkombináció beállítása</translation>
-    </message>
-    <message>
-        <source>Exit without Saving</source>
-        <translation type="obsolete">Kilépés mentés nélkül</translation>
-    </message>
-    <message>
-        <source>Insert...</source>
-        <translation type="obsolete">Beszúrás...</translation>
-    </message>
-    <message>
-        <source>Inserting</source>
-        <translation type="obsolete">Szúrjon be</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="obsolete">Orosz</translation>
-    </message>
-    <message>
-        <source>Printing failed!</source>
-        <translation type="obsolete">Sikertelen nyomtatás!</translation>
-    </message>
-    <message>
-        <source>Available Templates:</source>
-        <translation type="obsolete">Mesteroldalak:</translation>
-    </message>
-    <message>
-        <source>N-Up Printing</source>
-        <translation type="obsolete">n-Up nyomtatás</translation>
-    </message>
-    <message>
-        <source>Display Pages Side by Side</source>
-        <translation type="obsolete">Oldalak egymás mellett</translation>
-    </message>
-    <message>
-        <source>New Script:</source>
-        <translation type="obsolete">Új szkript:</translation>
-    </message>
-    <message>
-        <source>Decimals:</source>
-        <translation type="obsolete">Tizedesjegyek:</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Bal kezdőoldal</translation>
-    </message>
-    <message>
-        <source>Position:</source>
-        <translation type="obsolete">Elhelyezkedés:</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation type="obsolete">Relative Colorimetric</translation>
-    </message>
-    <message>
-        <source>Hyphenate Text</source>
-        <translation type="obsolete">Szöveg elválasztása</translation>
-    </message>
-    <message>
-        <source>Convert to Polygons</source>
-        <translation type="obsolete">Sokszögekké alakítás</translation>
-    </message>
-    <message>
-        <source>Display unprintable Area in Margin Color</source>
-        <translation type="obsolete">Nem nyomtatható terület mutatása a margó színével</translation>
-    </message>
-    <message>
-        <source>Rotate Item</source>
-        <translation type="obsolete">Elem forgatása</translation>
-    </message>
-    <message>
-        <source>Output to File:</source>
-        <translation type="obsolete">Kimenet fájlba:</translation>
-    </message>
-    <message>
-        <source>Scribus-Document</source>
-        <translation type="obsolete">Dokumentum:</translation>
-    </message>
-    <message>
-        <source>Linespacing</source>
-        <translation type="obsolete">Sorköz:</translation>
-    </message>
-    <message>
-        <source>Slovak:</source>
-        <translation type="obsolete">Szlovák:</translation>
-    </message>
-    <message>
-        <source>Select Font</source>
-        <translation type="obsolete">Betűtípus választása</translation>
-    </message>
-    <message>
-        <source>Delete Page</source>
-        <translation type="obsolete">Oldalak törlése</translation>
-    </message>
-    <message>
-        <source>Display Duration:</source>
-        <translation type="obsolete">Megjelenítés időtartama:</translation>
-    </message>
-    <message>
-        <source>Creates a new Document</source>
-        <translation type="obsolete">Dokumentum létrehozása</translation>
-    </message>
-    <message>
-        <source>Millimeters (mm)</source>
-        <translation type="obsolete">Milliméter (mm)</translation>
-    </message>
-    <message>
-        <source>Import Data from:</source>
-        <translation type="obsolete">Adat importálása</translation>
-    </message>
-    <message>
-        <source>Background Color:</source>
-        <translation type="obsolete">Háttérszín:</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation type="obsolete">Megjegyzés</translation>
-    </message>
-    <message>
-        <source>List View</source>
-        <translation type="obsolete">Listanézet</translation>
-    </message>
-    <message>
-        <source>Select a Key for this Action</source>
-        <translation type="obsolete">Billentyű kiválasztása a művelethez</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="obsolete">Spanyol</translation>
-    </message>
-    <message>
-        <source>and less or equal to:</source>
-        <translation type="obsolete">és kisebbnek vagy egyenlőnek, mint</translation>
-    </message>
-    <message>
-        <source>Mouse-Settings</source>
-        <translation type="obsolete">Egérbeállítások</translation>
-    </message>
-    <message>
-        <source>Hide Grid</source>
-        <translation type="obsolete">Rács elrejtése</translation>
-    </message>
-    <message>
-        <source>Print destination</source>
-        <translation type="obsolete">Nyomtatás célja:</translation>
-    </message>
-    <message>
-        <source>Fully Automatic</source>
-        <translation type="obsolete">Teljesen automatikus</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="obsolete">Tabloid</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation type="obsolete">Szöveg betöltése...</translation>
-    </message>
-    <message>
-        <source>Italian:</source>
-        <translation type="obsolete">Olasz:</translation>
-    </message>
-    <message>
-        <source>Danish:</source>
-        <translation type="obsolete">Dán:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Forgatás:</translation>
-    </message>
-    <message>
-        <source>Autom. Textframes</source>
-        <translation type="obsolete">Automatikus szövegdobozok</translation>
-    </message>
-    <message>
-        <source>Color Management...</source>
-        <translation type="obsolete">Színkezelés</translation>
-    </message>
-    <message>
-        <source>Distances</source>
-        <translation type="obsolete">Távolságok</translation>
-    </message>
-    <message>
-        <source>Rectangle</source>
-        <translation type="obsolete">Téglalap</translation>
-    </message>
-    <message>
-        <source>Passwords</source>
-        <translation type="obsolete">Jelszavak</translation>
-    </message>
-    <message>
-        <source>Printing...</source>
-        <translation type="obsolete">Nyomtatás...</translation>
-    </message>
-    <message>
-        <source>Pictures:</source>
-        <translation type="obsolete">Képek:</translation>
-    </message>
-    <message>
-        <source>Document:</source>
-        <translation type="obsolete">Dokumentum:</translation>
-    </message>
-    <message>
-        <source>Document </source>
-        <translation type="obsolete">Dokumentum </translation>
-    </message>
-    <message>
-        <source>Multi-Line</source>
-        <translation type="obsolete">Többsoros</translation>
-    </message>
-    <message>
-        <source>MiterJoin</source>
-        <translation type="obsolete">Hegyes</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation type="obsolete">Aláhúzott</translation>
-    </message>
-    <message>
-        <source>&amp;Underline</source>
-        <translation type="obsolete">Aláhúzott</translation>
-    </message>
-    <message>
-        <source>To the End</source>
-        <translation type="obsolete">A végéig</translation>
-    </message>
-    <message>
-        <source>X, Y, Z</source>
-        <translation type="obsolete">Pozíció</translation>
-    </message>
-    <message>
-        <source>Print via other Command</source>
-        <translation type="obsolete">Nyomtatás parancson keresztül</translation>
-    </message>
-    <message>
-        <source>&amp;Green:</source>
-        <translation type="obsolete">&amp;Zöld:</translation>
-    </message>
-    <message>
-        <source>Other...</source>
-        <translation type="obsolete">Egyéb...</translation>
-    </message>
-    <message>
-        <source>Horiz. Scale:</source>
-        <translation type="obsolete">Vízszintes méretezés:</translation>
-    </message>
-    <message>
-        <source>Diamond</source>
-        <translation type="obsolete">Gyémánt</translation>
-    </message>
-    <message>
-        <source>Scale Picture to Frame Size</source>
-        <translation type="obsolete">Kép méretezése a kerethez</translation>
-    </message>
-    <message>
-        <source>Modify...</source>
-        <translation type="obsolete">Módosítás...</translation>
-    </message>
-    <message>
-        <source>Save Page as EPS...</source>
-        <translation type="obsolete">Oldal mentése EPS-ként...</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation type="obsolete">Betöltés...</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Tényleg törölni akarja ezt a mesteroldalt?</translation>
-    </message>
-    <message>
-        <source>Points (pt)</source>
-        <translation type="obsolete">Pont (pt)</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="obsolete">Kijelző</translation>
-    </message>
-    <message>
-        <source>Editable</source>
-        <translation type="obsolete">Szerkeszthető</translation>
-    </message>
-    <message>
-        <source>Gutter Width:</source>
-        <translation type="obsolete">Hasábköz:</translation>
-    </message>
-    <message>
-        <source>X-Pos+:</source>
-        <translation type="obsolete">X+:</translation>
-    </message>
-    <message>
-        <source>Show Page Previews</source>
-        <translation type="obsolete">Gyorsnézet mutatása</translation>
-    </message>
-    <message>
-        <source>Dashed Line</source>
-        <translation type="obsolete">Szaggatott vonal</translation>
-    </message>
-    <message>
-        <source>Dotted Line</source>
-        <translation type="obsolete">Pontozott vonal</translation>
-    </message>
-    <message>
-        <source>Collect for Output...</source>
-        <translation type="obsolete">Fájlok összegyűjtése...</translation>
-    </message>
-    <message>
-        <source>Undo Object Move</source>
-        <translation type="obsolete">Mozgatás visszavonása</translation>
-    </message>
-    <message>
-        <source>Lithuanian:</source>
-        <translation type="obsolete">Litván:</translation>
-    </message>
-    <message>
-        <source>Horizontal Scaling</source>
-        <translation type="obsolete">Vízszintes méretezés</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Könyvtárválasztás</translation>
-    </message>
-    <message>
-        <source>Left Indent:</source>
-        <translation type="obsolete">Balról:</translation>
-    </message>
-    <message>
-        <source>Endpoints</source>
-        <translation type="obsolete">Végpontok</translation>
-    </message>
-    <message>
-        <source>Text flows around Box</source>
-        <translation type="obsolete">A keret körülfolyása</translation>
-    </message>
-    <message>
-        <source>Major Grid Spacing:</source>
-        <translation type="obsolete">Főrács sűrűsége:</translation>
-    </message>
-    <message>
-        <source>SquareCap</source>
-        <translation type="obsolete">Négyszögletű</translation>
-    </message>
-    <message>
-        <source>Show Bookmarks</source>
-        <translation type="obsolete">Könyvjelzők mutatása</translation>
-    </message>
-    <message>
-        <source>Appearance</source>
-        <translation type="obsolete">Megjelenés</translation>
-    </message>
-    <message>
-        <source>Online-Help...</source>
-        <translation type="obsolete">Kézikönyv...</translation>
-    </message>
-    <message>
-        <source>Adjust Display Size</source>
-        <translation type="obsolete">Megjelenítés méretének szabályozása</translation>
-    </message>
-    <message>
-        <source>AFM-File available</source>
-        <translation type="obsolete">AFM-fájl elérhető</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="obsolete">Mindent kijelöl</translation>
-    </message>
-    <message>
-        <source>Security</source>
-        <translation type="obsolete">Biztonság</translation>
-    </message>
-    <message>
-        <source>Direction:</source>
-        <translation type="obsolete">Irány:</translation>
-    </message>
-    <message>
-        <source>Possible Hyphenation</source>
-        <translation type="obsolete">Lehetséges elválasztás</translation>
-    </message>
-    <message>
-        <source>Directory:</source>
-        <translation type="obsolete">Könyvtár:</translation>
-    </message>
-    <message>
-        <source>System Menu</source>
-        <translation type="obsolete">Rendszermenü</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation type="obsolete">Szerkesztés...</translation>
-    </message>
-    <message>
-        <source>Saves the current Document</source>
-        <translation type="obsolete">Aktuális dokumentum mentése</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="obsolete">Portugál</translation>
-    </message>
-    <message>
-        <source>Hide Bookmarks</source>
-        <translation type="obsolete">Könyvjelzők elrejtése</translation>
-    </message>
-    <message>
-        <source>Effects</source>
-        <translation type="obsolete">Hatások</translation>
-    </message>
-    <message>
-        <source>Bottom Sides</source>
-        <translation type="obsolete">Alsó szélek</translation>
-    </message>
-    <message>
-        <source>Save Page as SVG...</source>
-        <translation type="obsolete">Oldal mentése SVG-ként...</translation>
-    </message>
-    <message>
-        <source>Stri&amp;keout</source>
-        <translation type="obsolete">Áthúzott</translation>
-    </message>
-    <message>
-        <source>This Key-Sequence is already in use</source>
-        <translation type="obsolete">Ez a billentyűkombináció már használatban van</translation>
-    </message>
-    <message>
-        <source>Manage Pictures</source>
-        <translation type="obsolete">Képek kezelése</translation>
-    </message>
-    <message>
-        <source>);;Vectorimages (*.eps *.pdf);;All Files (*)</source>
-        <translation type="obsolete">);;Vektorképek (*.eps *.pdf);;Minden fájl (*)</translation>
-    </message>
-    <message>
-        <source>Wheel-Jump</source>
-        <translation type="obsolete">Görgő lépésköze</translation>
-    </message>
-    <message>
-        <source>End Editing</source>
-        <translation type="obsolete">Szerkesztés vége</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation type="obsolete">Hüvelyk (in)</translation>
-    </message>
-    <message>
-        <source>Vertical Spaces</source>
-        <translation type="obsolete">Függőleges térközök</translation>
-    </message>
-    <message>
-        <source>Current Key</source>
-        <translation type="obsolete">Jelenlegi billentyűparancs</translation>
-    </message>
-    <message>
-        <source>Preferences...</source>
-        <translation type="obsolete">Alapbeállítások...</translation>
-    </message>
-    <message>
-        <source>Y-Pos+:</source>
-        <translation type="obsolete">Y+:</translation>
-    </message>
-    <message>
-        <source>Element</source>
-        <translation type="obsolete">Elem</translation>
-    </message>
-    <message>
-        <source>&amp;Basic colors</source>
-        <translation type="obsolete">Alapszínek</translation>
-    </message>
-    <message>
-        <source>Vertical Shift:</source>
-        <translation type="obsolete">Függőleges eltolás:</translation>
-    </message>
-    <message>
-        <source>Enable Presentation Effects</source>
-        <translation type="obsolete">Prezentáció-effektusok engedélyezése</translation>
-    </message>
-    <message>
-        <source>Documents:</source>
-        <translation type="obsolete">Dokumentumok:</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">Oldal után:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Engedélyezve</translation>
-    </message>
-    <message>
-        <source>Activate Color Management</source>
-        <translation type="obsolete">Színkezelés aktiválása</translation>
-    </message>
-    <message>
-        <source>RoundJoin</source>
-        <translation type="obsolete">Kerekített</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="obsolete">Angol</translation>
-    </message>
-    <message>
-        <source>Ungroup</source>
-        <translation type="obsolete">Feloszlatás</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="obsolete">Ismeretlen</translation>
-    </message>
-    <message>
-        <source>Adding Annotations and Fields is allowed</source>
-        <translation type="obsolete">Megjegyzések és mezők hozzáadása engefélyezett</translation>
-    </message>
-    <message>
-        <source>Reset Form</source>
-        <translation type="obsolete">Űrlap törlése</translation>
-    </message>
-    <message>
-        <source>Geometry</source>
-        <translation type="obsolete">Elhelyezkedés</translation>
-    </message>
-    <message>
-        <source>&amp;Custom colors</source>
-        <translation type="obsolete">Saját színek</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="obsolete">Mozgatás ide</translation>
-    </message>
-    <message>
-        <source>Factor:</source>
-        <translation type="obsolete">Faktor:</translation>
-    </message>
-    <message>
-        <source>General...</source>
-        <translation type="obsolete">Általános...</translation>
-    </message>
-    <message>
-        <source>Required</source>
-        <translation type="obsolete">Szükséges</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation type="obsolete">Telítettség</translation>
-    </message>
-    <message>
-        <source>Print in grayscale</source>
-        <translation type="obsolete">Szürkeárnyalatok nyomtatása</translation>
-    </message>
-    <message>
-        <source>Turkish:</source>
-        <translation type="obsolete">Török:</translation>
-    </message>
-    <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Betűköz:</translation>
-    </message>
-    <message>
-        <source>Intervall:</source>
-        <translation type="obsolete">Időköz:</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="obsolete">Függőleges</translation>
-    </message>
-    <message>
-        <source>Do Not Spell Check</source>
-        <translation type="obsolete">Nem ellenőrzi a helyesírást</translation>
-    </message>
-    <message>
-        <source>Russian:</source>
-        <translation type="obsolete">Orosz:</translation>
-    </message>
-    <message>
-        <source>Linestyle:</source>
-        <translation type="obsolete">Vonalstílus:</translation>
-    </message>
-    <message>
-        <source>Outlined</source>
-        <translation type="obsolete">Szerkezet</translation>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation type="obsolete">Automatikus mentés</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Kívül:</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="obsolete">Beállítások</translation>
-    </message>
-    <message>
-        <source>between:</source>
-        <translation type="obsolete">között:</translation>
-    </message>
-    <message>
-        <source>BevelJoin</source>
-        <translation type="obsolete">Csapott</translation>
-    </message>
-    <message>
-        <source>Properties:</source>
-        <translation type="obsolete">Tulajdonságok:</translation>
-    </message>
-    <message>
-        <source>Convert to</source>
-        <translation type="obsolete">Konvertálás</translation>
-    </message>
-    <message>
-        <source>Non Proportional</source>
-        <translation type="obsolete">Nem proporcionális</translation>
-    </message>
-    <message>
-        <source>Proportional</source>
-        <translation type="obsolete">Proporcionális</translation>
-    </message>
-    <message>
-        <source>Linewidth:</source>
-        <translation type="obsolete">Vonalvastagság:</translation>
-    </message>
-    <message>
-        <source>Use Bounding Box</source>
-        <translation type="obsolete">Befoglaló doboz használata</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation type="obsolete">Alapbeállítások</translation>
-    </message>
-    <message>
-        <source>Undo Delete Object</source>
-        <translation type="obsolete">Törlés visszavonása</translation>
-    </message>
-    <message>
-        <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation type="obsolete">Törléshez húzd a (mester)oldalakat a kukába.</translation>
-    </message>
-    <message>
-        <source>Default Size:</source>
-        <translation type="obsolete">Alapértelmezett méret:</translation>
-    </message>
-    <message>
-        <source>Default Unit:</source>
-        <translation type="obsolete">Alapértelmezett mértékegység:</translation>
-    </message>
-    <message>
-        <source>Dash Dot Line</source>
-        <translation type="obsolete">Tá-ti vonal</translation>
-    </message>
-    <message>
-        <source>Default Font:</source>
-        <translation type="obsolete">Alapértelmezett betűtípus:</translation>
-    </message>
-    <message>
-        <source>Minor Grid Spacing:</source>
-        <translation type="obsolete">Segédrács sűrűsége:</translation>
-    </message>
-    <message>
-        <source>Templates...</source>
-        <translation type="obsolete">Mesteroldalak...</translation>
-    </message>
-    <message>
-        <source>Visible</source>
-        <translation type="obsolete">Látható</translation>
-    </message>
-    <message>
-        <source>Select Fields</source>
-        <translation type="obsolete">Mezők kijelölése</translation>
-    </message>
-    <message>
-        <source>Reset this Control Points</source>
-        <translation type="obsolete">Kontrollpontok mozgatása</translation>
-    </message>
-    <message>
-        <source>FlatCap</source>
-        <translation type="obsolete">Sima</translation>
-    </message>
-    <message>
-        <source>Apply Template</source>
-        <translation type="obsolete">Mesteroldal alkalmazása</translation>
-    </message>
-    <message>
-        <source>Value must be greater than or equal to:</source>
-        <translation type="obsolete">Az értéknek nagyobbnak vagy egyenlőnek kell lenni, mint</translation>
-    </message>
-    <message>
-        <source>Image visible</source>
-        <translation type="obsolete">Kép mutatása</translation>
-    </message>
-    <message>
-        <source>Combine Polygons</source>
-        <translation type="obsolete">Sokszögek egyesítése</translation>
-    </message>
-    <message>
-        <source>Vertical Guides</source>
-        <translation type="obsolete">Függőleges segédvonalak</translation>
-    </message>
-    <message>
-        <source>Typographics</source>
-        <translation type="obsolete">Tipográfia</translation>
-    </message>
-    <message>
-        <source>Break Textchains</source>
-        <translation type="obsolete">Szövegláncok megszakítása</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimize</source>
-        <translation type="obsolete">Mi&amp;nimalizálás</translation>
-    </message>
-    <message>
-        <source>Free Scaling</source>
-        <translation type="obsolete">Szabad méretezés</translation>
-    </message>
-    <message>
-        <source>Print last page first</source>
-        <translation type="obsolete">Utolsó oldalt először</translation>
-    </message>
-    <message>
-        <source>Left Page</source>
-        <translation type="obsolete">Bal oldal</translation>
-    </message>
-    <message>
-        <source>Format:</source>
-        <translation type="obsolete">Formátum:</translation>
-    </message>
-    <message>
-        <source>Properties...</source>
-        <translation type="obsolete">Jellemzők...</translation>
-    </message>
-    <message>
-        <source>Reading Preferences</source>
-        <translation type="obsolete">Alapbeállítások beolvasása</translation>
-    </message>
-    <message>
-        <source>Page Size</source>
-        <translation type="obsolete">Papírméret</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) vertical</source>
-        <translation type="obsolete">Oldalak tükrözése függőlegesen</translation>
-    </message>
-    <message>
-        <source>Save linked Text Frames as PDF-Articles</source>
-        <translation type="obsolete">Láncolt szövegdobozok mentése PDF-cikként</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Figyelmeztetés</translation>
-    </message>
-    <message>
-        <source>Hungarian:</source>
-        <translation type="obsolete">Magyar:</translation>
-    </message>
-    <message>
-        <source>French:</source>
-        <translation type="obsolete">Francia:</translation>
-    </message>
-    <message>
-        <source>Bulgarian:</source>
-        <translation type="obsolete">Bolgár:</translation>
-    </message>
-    <message>
-        <source>Save as PDF...</source>
-        <translation type="obsolete">Mentés PDF-ként...</translation>
-    </message>
-    <message>
-        <source>Revert to Saved</source>
-        <translation type="obsolete">Visszatérés a mentetthez</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Szembenéző oldalak</translation>
-    </message>
-    <message>
-        <source>Measurements</source>
-        <translation type="obsolete">Méretek</translation>
-    </message>
-    <message>
-        <source>Insert Bookmark</source>
-        <translation type="obsolete">Könyvjelző beszúrása</translation>
-    </message>
-    <message>
-        <source>Norwegian:</source>
-        <translation type="obsolete">Norvég:</translation>
-    </message>
-    <message>
-        <source>Distribute/Align</source>
-        <translation type="obsolete">Elosztás/Igazítás</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">Általános</translation>
-    </message>
-    <message>
-        <source>German:</source>
-        <translation type="obsolete">Német:</translation>
-    </message>
-    <message>
-        <source>Dynamic Color Bars</source>
-        <translation type="obsolete">Dinamikus színcsúszkák</translation>
-    </message>
-    <message>
-        <source>Hide Measurements</source>
-        <translation type="obsolete">Méretek elrejtése</translation>
-    </message>
-    <message>
-        <source>One directory up</source>
-        <translation type="obsolete">Egy könyvtárral feljebb</translation>
-    </message>
-    <message>
-        <source>Saves the current Document as PDF</source>
-        <translation type="obsolete">Aktuális dokumentum mentése PDF-ként</translation>
-    </message>
-    <message>
-        <source>Show Measurements</source>
-        <translation type="obsolete">Méretek mutatása</translation>
-    </message>
-    <message>
-        <source>Setting up Shortcuts</source>
-        <translation type="obsolete">Gyorsgombok beállítása</translation>
-    </message>
-    <message>
-        <source>Save and Exit</source>
-        <translation type="obsolete">Mentés és kilépés</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximize</source>
-        <translation type="obsolete">Ma&amp;ximalizálás</translation>
-    </message>
-    <message>
-        <source>OK to delete Color:</source>
-        <translation type="obsolete">Törölni kívánja a következő színt?</translation>
-    </message>
-    <message>
-        <source>Insert Polygons</source>
-        <translation type="obsolete">Sokszögek beszúrása</translation>
-    </message>
-    <message>
-        <source>Restore Down</source>
-        <translation type="obsolete">Legörgetés</translation>
-    </message>
-    <message>
-        <source>Antialias Text</source>
-        <translation type="obsolete">Szöveg élsimítása</translation>
-    </message>
-    <message>
-        <source>Fatal Error</source>
-        <translation type="obsolete">Végzetes hiba</translation>
-    </message>
-    <message>
-        <source>Align Left</source>
-        <translation type="obsolete">Balra igazítás</translation>
-    </message>
-    <message>
-        <source>Windows</source>
-        <translation type="obsolete">Ablakok</translation>
-    </message>
-    <message>
-        <source>Modify Frame</source>
-        <translation type="obsolete">Keret módosítása</translation>
-    </message>
-    <message>
-        <source>Input Profile:</source>
-        <translation type="obsolete">Bemeneti profil:</translation>
-    </message>
-    <message>
-        <source>Default is Checked</source>
-        <translation type="obsolete">Alapértelmezett: kijelölve</translation>
-    </message>
-    <message>
-        <source>Glitter</source>
-        <translation type="obsolete">Csillogás</translation>
-    </message>
-    <message>
-        <source>Advanced Options</source>
-        <translation type="obsolete">Haladó opciók</translation>
-    </message>
-    <message>
-        <source>About Scribus</source>
-        <translation type="obsolete">A Scribus névjegye</translation>
-    </message>
-    <message>
-        <source>Document Info</source>
-        <translation type="obsolete">Dokumentuminformáció</translation>
-    </message>
-    <message>
-        <source>Setup Printer</source>
-        <translation type="obsolete">Nyomtatás</translation>
-    </message>
-    <message>
-        <source>Is PDF-Annotation</source>
-        <translation type="obsolete">PDF-megjegyzés</translation>
-    </message>
-    <message>
-        <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation type="obsolete">Sokszög megnyitása vagy Bezier-görbe vágása</translation>
-    </message>
-    <message>
-        <source>All Pages</source>
-        <translation type="obsolete">Minden oldal</translation>
-    </message>
-    <message>
-        <source>Diagonal Gradient</source>
-        <translation type="obsolete">Átlós átmenet balról</translation>
-    </message>
-    <message>
-        <source>JavaScripts (*.js);; All Files (*)</source>
-        <translation type="obsolete">JavaScript-ek (*.js);; Minden fájl (*)</translation>
-    </message>
-    <message>
-        <source>Shading:</source>
-        <translation type="obsolete">Tónus:</translation>
-    </message>
-    <message>
-        <source>Distribute evenly</source>
-        <translation type="obsolete">Egyenletes elrendezéés</translation>
-    </message>
-    <message>
-        <source>Example:</source>
-        <translation type="obsolete">Példa:</translation>
-    </message>
-    <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Színbontás</translation>
-    </message>
-    <message>
-        <source>Column Guides</source>
-        <translation type="obsolete">Hasábok</translation>
-    </message>
-    <message>
-        <source>Do Not Scroll</source>
-        <translation type="obsolete">Nem görget</translation>
-    </message>
-    <message>
-        <source>Move Control Points symmetrical</source>
-        <translation type="obsolete">Szimmetrikus kontrollpontok</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Magasság:</translation>
-    </message>
-    <message>
-        <source>Compatibility:</source>
-        <translation type="obsolete">Kompatibilitás:</translation>
-    </message>
-    <message>
-        <source>Bottom to Top</source>
-        <translation type="obsolete">Függőlegesen, fölfelé:</translation>
-    </message>
-    <message>
-        <source>Background:</source>
-        <translation type="obsolete">Háttér</translation>
-    </message>
-    <message>
-        <source>Init Hyphenator</source>
-        <translation type="obsolete">Szóelválasztó betöltése</translation>
-    </message>
-    <message>
-        <source>Caption above Icon</source>
-        <translation type="obsolete">Szöveg az ikon felett</translation>
-    </message>
-    <message>
-        <source>Print to printer:</source>
-        <translation type="obsolete">Nyomtatás nyomtatóra</translation>
-    </message>
-    <message>
-        <source>Corner Radius:</source>
-        <translation type="obsolete">Lekerekítés sugara:</translation>
-    </message>
-    <message>
-        <source>Additional Paths</source>
-        <translation type="obsolete">További útvonalak</translation>
-    </message>
-    <message>
-        <source>Antialias Graphics</source>
-        <translation type="obsolete">Grafikák élsimítása</translation>
-    </message>
-    <message>
-        <source>Distance of Text</source>
-        <translation type="obsolete">Szöveg távolsága</translation>
-    </message>
-    <message>
-        <source>Recent Documents:</source>
-        <translation type="obsolete">Legutóbbi dokumentumok:</translation>
-    </message>
-    <message>
-        <source>Deselect all</source>
-        <translation type="obsolete">Kijelölés törlése</translation>
-    </message>
-    <message>
-        <source>New Template</source>
-        <translation type="obsolete">Új mesteroldal</translation>
-    </message>
-    <message>
-        <source>Create New Folder</source>
-        <translation type="obsolete">Könyvtár létrehozása</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Annotations</source>
-        <translation type="obsolete">PDF-megjegyzések beszúrása</translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Dokumentáció:</translation>
-    </message>
-    <message>
-        <source>Selection Change</source>
-        <translation type="obsolete">Mégsem</translation>
-    </message>
-    <message>
-        <source>Add a new Layer</source>
-        <translation type="obsolete">Réteg hozzáadása</translation>
-    </message>
-    <message>
-        <source>Allow Printing the Document</source>
-        <translation type="obsolete">Nyomtatás engedélyezése</translation>
-    </message>
-    <message>
-        <source>Ordinary Text</source>
-        <translation type="obsolete">Közönséges szöveg</translation>
-    </message>
-    <message>
-        <source>Available Fonts</source>
-        <translation type="obsolete">Rendelkezésre álló betűtípusok:</translation>
-    </message>
-    <message>
-        <source>Insert Textbox</source>
-        <translation type="obsolete">Szövegdoboz beszúrása</translation>
-    </message>
-    <message>
-        <source>Save Text...</source>
-        <translation type="obsolete">Szöveg mentése...</translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);; All Files (*)</source>
-        <translation type="obsolete">EPS-fájlok (*.eps);; Minden fájl (*)</translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="obsolete">Jobb oldal</translation>
-    </message>
-    <message>
-        <source>Solid Line</source>
-        <translation type="obsolete">Folytonos vonal</translation>
-    </message>
-    <message>
-        <source>Printing completed</source>
-        <translation type="obsolete">Nyomtatás kész</translation>
-    </message>
-    <message>
-        <source>Saving aborted</source>
-        <translation type="obsolete">Mentés sikertelen</translation>
-    </message>
-    <message>
-        <source>From page:</source>
-        <translation type="obsolete">Kezdőoldal:</translation>
-    </message>
-    <message>
-        <source>Edit Templates</source>
-        <translation type="obsolete">Mesteroldalak szerkesztése</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write the File: 
-%1</source>
-        <translation type="obsolete">A(z) %1
-fájl nem írható!</translation>
-    </message>
-    <message>
-        <source>Resolution for EPS-Images:</source>
-        <translation type="obsolete">EPS-képek felbontása</translation>
-    </message>
-    <message>
-        <source>Output intended for:</source>
-        <translation type="obsolete">Kimenet igazítása:</translation>
-    </message>
-    <message>
-        <source>Horizontal flipped</source>
-        <translation type="obsolete">Vízszintesen tükrözött</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation type="obsolete">Oldalak:</translation>
-    </message>
-    <message>
-        <source>Picture </source>
-        <translation type="obsolete">Kép </translation>
-    </message>
-    <message>
-        <source>Pictures</source>
-        <translation type="obsolete">Képek</translation>
-    </message>
-    <message>
-        <source>Detail View</source>
-        <translation type="obsolete">Részletes nézet</translation>
-    </message>
-    <message>
-        <source>Reset Control Points</source>
-        <translation type="obsolete">Kontrollpontok mozgatása</translation>
-    </message>
-    <message>
-        <source>Textfiles (*.txt);;All Files (*)</source>
-        <translation type="obsolete">Szövegfájlok (*.txt);;Minden fájl (*)</translation>
-    </message>
-    <message>
-        <source>Scribus Manual</source>
-        <translation type="obsolete">Scribus kézikönyv</translation>
-    </message>
-    <message>
-        <source>Template (Right Page):</source>
-        <translation type="obsolete">Mesteroldal (jobb):</translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="obsolete">Háttérbe</translation>
-    </message>
-    <message>
-        <source>Arrange Pages</source>
-        <translation type="obsolete">Oldalak elrendezése</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Irány:</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation type="obsolete">Igazítás</translation>
-    </message>
-    <message>
-        <source>User Guides Color:</source>
-        <translation type="obsolete">Felhasználói segédvonalak színe:</translation>
-    </message>
-    <message>
-        <source>Include Bookmarks</source>
-        <translation type="obsolete">Mentés könyvjelzőkkel</translation>
-    </message>
-    <message>
-        <source>Top to Bottom</source>
-        <translation type="obsolete">Függőlegesen, lefelé:</translation>
-    </message>
-    <message>
-        <source>Insert Special</source>
-        <translation type="obsolete">Speciális karakterek</translation>
-    </message>
-</context>
-<context>
     <name>About</name>
     <message>
         <source>%1. %2 %3 </source>
@@ -3730,20 +19,12 @@ fájl nem írható!</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programozás:</translation>
-    </message>
-    <message>
         <source>Contributions from:</source>
         <translation type="unfinished">Közreműködők:</translation>
     </message>
     <message>
         <source>Windows port:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Dokumentáció:</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -3756,10 +37,6 @@ fájl nem írható!</translation>
     <message>
         <source>French:</source>
         <translation type="unfinished">Francia:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Spanyol és katalán:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -3810,10 +87,6 @@ fájl nem írható!</translation>
         <translation type="unfinished">Norvég:</translation>
     </message>
     <message>
-        <source>English:</source>
-        <translation type="obsolete">Angol:</translation>
-    </message>
-    <message>
         <source>Welsh:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3852,13 +125,6 @@ fájl nem írható!</translation>
     <message>
         <source>&amp;Close</source>
         <translation type="unfinished">Be&amp;csukás</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Development Team:</source>
@@ -3922,6 +188,13 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>About Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.
+Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4663,10 +936,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished">Megjegyzés tulajdonságai</translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation type="obsolete">Típus:</translation>
-    </message>
-    <message>
         <source>Text</source>
         <translation type="unfinished">Szöveg</translation>
     </message>
@@ -4687,32 +956,8 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished">Cél</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Módosítás...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Oldal:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Rendben</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Mégsem</translation>
     </message>
     <message>
         <source>Open</source>
@@ -5478,18 +1723,6 @@ This can be set in the Preferences.</source>
         <translation type="unfinished">Szín törlése</translation>
     </message>
     <message>
-        <source>Replace it with:</source>
-        <translation type="obsolete">Helyettesítés:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Rendben</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Mégsem</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation type="unfinished">Nincs</translation>
     </message>
@@ -5517,10 +1750,6 @@ This can be set in the Preferences.</source>
         <translation type="unfinished">Oldalak törlése</translation>
     </message>
     <message>
-        <source>Delete from:</source>
-        <translation type="obsolete">Ettől:</translation>
-    </message>
-    <message>
         <source>to:</source>
         <translation type="unfinished">oldalig:</translation>
     </message>
@@ -5535,29 +1764,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete From:</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DmF</name>
-    <message>
-        <source>Missing Font</source>
-        <translation type="obsolete">Hiányzó betűtípus</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">A(z) %1 betűtípus nincs telepítve.</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="obsolete">Használd</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="obsolete">-t helyette</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Rendben</translation>
     </message>
 </context>
 <context>
@@ -6568,29 +2774,6 @@ and www.scribus.net for downloads.</source>
     </message>
 </context>
 <context>
-    <name>HelpBrowser2</name>
-    <message>
-        <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tab 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tab 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
@@ -6684,20 +2867,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">A végére</translation>
     </message>
     <message>
-        <source>Inserting</source>
-        <translation type="obsolete">Szúrjon be</translation>
-    </message>
-    <message>
         <source>&amp;Template:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Normal</source>
         <translation type="unfinished">Normál</translation>
-    </message>
-    <message>
-        <source>Template (Right Page):</source>
-        <translation type="obsolete">Mesteroldal (jobb):</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -6947,10 +3122,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Figyelmeztetés</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Tényleg törölni akarja ezt a stílust?</translation>
-    </message>
-    <message>
         <source>&amp;No</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7130,36 +3301,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Módosítás...</translation>
-    </message>
-    <message>
         <source> from 0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create Page(s)</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">Oldal elé:</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">Oldal után:</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">A végére</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="obsolete">Importálás</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Mégsem</translation>
     </message>
     <message>
         <source>Open</source>
@@ -7260,18 +3407,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>to:</source>
         <translation type="unfinished">oldalig:</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">Oldal elé:</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">Oldal után:</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">A végére</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8030,10 +4165,6 @@ Válasszon másikat.</translation>
     <message>
         <source>Warning</source>
         <translation type="unfinished">Figyelmeztetés</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Tényleg törölni akarja ezt a mesteroldalt?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -9228,37 +5359,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
 </context>
 <context>
-    <name>Page</name>
-    <message>
-        <source>Copy Here</source>
-        <translation type="obsolete">Másolás ide</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="obsolete">Mozgatás ide</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Mégsem</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="obsolete">Szövegdoboz</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Engedélyezve</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Nincs</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Figyelmeztetés</translation>
-    </message>
-</context>
-<context>
     <name>PageItem</name>
     <message>
         <source>Image</source>
@@ -9464,10 +5564,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished">Kijelző</translation>
     </message>
     <message>
-        <source>External Tools</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Misc.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9508,10 +5604,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished">Picák (p)</translation>
     </message>
     <message>
-        <source>Mouse Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Wheel Jump:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9521,10 +5613,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Menus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9633,66 +5721,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid Layout</source>
-        <translation type="unfinished">Rácsnézet</translation>
-    </message>
-    <message>
-        <source>M&amp;inor Grid Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ma&amp;jor Grid Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide &amp;Snap Distance:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid Colors</source>
-        <translation type="unfinished">Rácsszínek</translation>
-    </message>
-    <message>
-        <source>Min&amp;or Grid Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Majo&amp;r Grid Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;User Guides Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Base&amp;line Grid Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing</source>
-        <translation type="unfinished">Elhelyezés</translation>
-    </message>
-    <message>
-        <source>In the &amp;Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Fore&amp;ground</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>O&amp;n</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>O&amp;ff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9860,27 +5888,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display Pages &amp;Side by Side</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Background:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Margins:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use PDF 1.4 &amp;Transparency Features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9925,14 +5933,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10053,14 +6053,6 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Place the grid in front of your page objects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10224,10 +6216,6 @@ each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>When using facing pages, show the two pages side by side</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color for paper</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10237,10 +6225,6 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable transparency features within PDF 1.4 export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10320,6 +6304,118 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <source>Select your default language for Scribus to run with.
 Leave this blank to choose based on environment variables.
 You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Grid</source>
+        <translation type="unfinished">Rács mutatása</translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Szín:</translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide Snap Distance:</source>
+        <translation type="unfinished">Segédvonalak vonzási távolsága:</translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation type="unfinished">Margók mutatása</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation type="unfinished">Segédvonalak mutatása</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished">Keretek mutatása</translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placing of Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation type="unfinished">Háttérbe</translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation type="unfinished">Előtérbe</translation>
+    </message>
+    <message>
+        <source>External Tools.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the basegrid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11538,10 +7634,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished">Oldal</translation>
     </message>
     <message>
-        <source>ShowGrid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Major Grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11825,6 +7917,90 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Misc.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show Grid</source>
+        <translation type="unfinished">Rács mutatása</translation>
+    </message>
+    <message>
+        <source>Grab Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the basegrid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBAlign</name>
@@ -11969,10 +8145,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Searching for Fonts</source>
         <translation type="unfinished">Betűtípusok keresése...</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Nincsenek PostScript-betűtípusok telepítve</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -13165,10 +9337,6 @@ is not in an acceptable format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All</source>
-        <translation type="obsolete">Minden</translation>
-    </message>
-    <message>
         <source>Copy Here</source>
         <translation type="unfinished">Másolás ide</translation>
     </message>
@@ -13765,10 +9933,6 @@ egy mesteroldalt kell az oldalak közé húzni.</translation>
         <translation type="unfinished">Figyelmeztetés</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Tényleg törölni akarja ezt a stílust?</translation>
-    </message>
-    <message>
         <source>No</source>
         <translation type="unfinished">Nem</translation>
     </message>
@@ -14142,40 +10306,6 @@ edited to match the one being imported, or left untouched</source>
     <message>
         <source>Information</source>
         <translation type="unfinished">Információ</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Figyelmeztetés</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">A &quot;%1&quot; fájl már létezik.
-Válasszon másikat.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Rendben</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation type="obsolete">Betűtípus:</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Kép</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Szöveg</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Vonal</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Sokszög</translation>
     </message>
     <message>
         <source>Page</source>

@@ -295,6 +295,24 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 								painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 								painter->setPenOpacity(0.3);
 								painter->drawLine(Start, End);
+								double r = atan2(End.y()-Start.y(),End.x()-Start.x())*(180.0/3.1415927);
+								QWMatrix arrowTrans;
+								FPointArray arrow;
+								arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
+								arrow.addQuadPoint(-15, -5, -15, -5, -15, -5, -15, -5);
+								arrow.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
+								arrow.addQuadPoint(-15, 5, -15, 5, -15, 5, -15, 5);
+								arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
+								arrowTrans.translate(End.x(), End.y());
+								arrowTrans.rotate(r);
+								arrowTrans.scale(2.5 / Scale, 2.5 / Scale);
+								arrow.map(arrowTrans);
+								painter->setBrush(painter->pen());
+								painter->setBrushOpacity(0.3);
+								painter->setLineWidth(0);
+								painter->setFillMode(ScPainter::Solid);
+								painter->setupPolygon(&arrow);
+								painter->fillPath();
 							}
 						}
 					}
@@ -7998,7 +8016,7 @@ void ScribusView::reformPages()
 		}
 		else
 		{
-			if ((Doc->PageFP) && (Doc->PagesSbS))
+			if (Doc->PageFP)
 			{
 				if (a % 2 == 0)
 				{
@@ -8045,7 +8063,7 @@ void ScribusView::reformPages()
 			}
 		}
 	}
-	if ((Doc->PageFP) && (Doc->PagesSbS))
+	if (Doc->PageFP)
 	{
 		if (Doc->FirstPageLeft)
 			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->PageC-1)/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
@@ -8099,7 +8117,7 @@ void ScribusView::slotDoZoom()
 	updateOn = false;
 	if (Scale > 32)
 		Scale = 32;
-	if ((Doc->PageFP) && (Doc->PagesSbS))
+	if (Doc->PageFP)
 	{
 		if (Doc->FirstPageLeft)
 			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->PageC-1)/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));

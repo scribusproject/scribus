@@ -66,7 +66,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("28").arg("November").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("01").arg("December").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -81,6 +81,12 @@ About::About( QWidget* parent )
 	bu += "-";
 #ifdef HAVE_TIFF
 	bu += "T";
+#else
+	bu += "*";
+#endif
+	bu += "-";
+#ifdef HAVE_FONTCONFIG
+	bu += "F";
 #else
 	bu += "*";
 #endif
@@ -286,7 +292,7 @@ About::About( QWidget* parent )
 	setMaximumSize(sizeHint());
 
 //tooltips
-	QToolTip::add( BuildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T equates to C=CUPS C=littlecms T=TIFF support.\nMissing library support is indicated by a *" ) );
+	QToolTip::add( BuildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.\nMissing library support is indicated by a *" ) );
 	// signals and slots connections
 	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }

@@ -229,7 +229,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		return false;
 	doc->PageColors.clear();	
 	doc->Layers.clear();
-	doc->arrowStyles.clear();
 	CMYKColor lf = CMYKColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
@@ -389,6 +388,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 		doc->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
 		doc->GuideRad = QStoInt(dc.attribute("GuideRad","10"));
+		doc->GrabRad = QStoInt(dc.attribute("GRAB","4"));
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())
@@ -497,6 +497,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			{
 				struct arrowDesc arrow;
 				arrow.name = pg.attribute("Name");
+				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
 				QTextStream fp(&tmp, IO_ReadOnly);

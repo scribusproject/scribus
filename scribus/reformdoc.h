@@ -76,6 +76,7 @@ public:
 	QLabel* textLabel6;
 	QLabel* textLabel7;
 	QLabel* textLabel8;
+	QLabel* textLabel82;
 	QLabel* textLabel9;
 	QGroupBox* checkGrid;
 	QGroupBox* groupBox1;
@@ -89,6 +90,7 @@ public:
 	MSpinBox* minorSpace;
 	MSpinBox* majorSpace;
 	MSpinBox* snapDistance;
+	QSpinBox* grabDistance;
 	QButtonGroup* buttonGroup1;
 	QButtonGroup* pageBackground;
 	QRadioButton* inBackground;

@@ -1,2222 +1,5 @@
 <!DOCTYPE TS><TS>
 <context>
-    <name>@default</name>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Correcto</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Non</translation>
-    </message>
-    <message>
-        <source>W:</source>
-        <translation type="obsolete">Un:</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">Todo</translation>
-    </message>
-    <message>
-        <source>Big</source>
-        <translation type="obsolete">Grande</translation>
-    </message>
-    <message>
-        <source>Box</source>
-        <translation type="obsolete">Caixa</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Cortar</translation>
-    </message>
-    <message>
-        <source>GUI</source>
-        <translation type="obsolete">GUI</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Novo</translation>
-    </message>
-    <message>
-        <source>Old</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="obsolete">Usar</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Si</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">a:</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation type="obsolete">Destino</translation>
-    </message>
-    <message>
-        <source>Bold</source>
-        <translation type="obsolete">Negriña</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Copiar</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Editar</translation>
-    </message>
-    <message>
-        <source>Face</source>
-        <translation type="obsolete">Cara</translation>
-    </message>
-    <message>
-        <source>Exit</source>
-        <translation type="obsolete">Saír</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Ficheiro</translation>
-    </message>
-    <message>
-        <source>Font</source>
-        <translation type="obsolete">Fonte</translation>
-    </message>
-    <message>
-        <source>Goto</source>
-        <translation type="obsolete">Ir a</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="obsolete">Axuda</translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation type="obsolete">Obxecto</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="obsolete">Esquerda</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Liña</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ningun</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Abrir</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="obsolete">Páxina</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation type="obsolete">Rota</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation type="obsolete">Quitar</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Gardar</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Tamaño</translation>
-    </message>
-    <message>
-        <source>Exiting now</source>
-        <translation type="obsolete">Saíndo agora</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Superior:</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Tipo</translation>
-    </message>
-    <message>
-        <source>View</source>
-        <translation type="obsolete">Ver</translation>
-    </message>
-    <message>
-        <source>Wipe</source>
-        <translation type="obsolete">Cortiniñas</translation>
-    </message>
-    <message>
-        <source>Align Right</source>
-        <translation type="obsolete">Aliñación á dereita</translation>
-    </message>
-    <message>
-        <source>Strikethru</source>
-        <translation type="obsolete">Riscado</translation>
-    </message>
-    <message>
-        <source>Align Center</source>
-        <translation type="obsolete">Aliñár ó centro</translation>
-    </message>
-    <message>
-        <source>&amp;Font</source>
-        <translation type="obsolete">Fonte</translation>
-    </message>
-    <message>
-        <source>&amp;Red:</source>
-        <translation type="obsolete">vermello:</translation>
-    </message>
-    <message>
-        <source>&amp;Size</source>
-        <translation type="obsolete">Tamaño</translation>
-    </message>
-    <message>
-        <source>Styles...</source>
-        <translation type="obsolete">Estilos...</translation>
-    </message>
-    <message>
-        <source>Images:</source>
-        <translation type="obsolete">Imaxes:</translation>
-    </message>
-    <message>
-        <source>Distribute/Align...</source>
-        <translation type="obsolete">Distribuir/Aliñar...</translation>
-    </message>
-    <message>
-        <source>Device Settings</source>
-        <translation type="obsolete">Configuración do Dispositivo</translation>
-    </message>
-    <message>
-        <source>Loading aborted</source>
-        <translation type="obsolete">Carga cancelada</translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation type="obsolete">Sobre</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="obsolete">Aliñar</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="obsolete">Aplicar</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="obsolete">Bloque</translation>
-    </message>
-    <message>
-        <source>Rounded Rectangle</source>
-        <translation type="obsolete">Rectángulo redondeado</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Limpar</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Pechar</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Cor</translation>
-    </message>
-    <message>
-        <source>Binding:</source>
-        <translation type="obsolete">Enlazar</translation>
-    </message>
-    <message>
-        <source>Face:</source>
-        <translation type="obsolete">Cara:</translation>
-    </message>
-    <message>
-        <source>File </source>
-        <translation type="obsolete">Ficheiro </translation>
-    </message>
-    <message>
-        <source>File:</source>
-        <translation type="obsolete">Ficheiro:</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Fontes</translation>
-    </message>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">marco</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="obsolete">Agrupar</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Imaxe</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Esquerda:</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="obsolete">Poñer máis abaixo</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Nome:</translation>
-    </message>
-    <message>
-        <source>Nodes</source>
-        <translation type="obsolete">Nodos</translation>
-    </message>
-    <message>
-        <source>Print all</source>
-        <translation type="obsolete">Imprimir todo</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Páxina</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Apegar</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="obsolete">Outras</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation type="obsolete">Imprimir</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation type="obsolete">Adiantar</translation>
-    </message>
-    <message>
-        <source>Ready</source>
-        <translation type="obsolete">Listo</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Dereita</translation>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation type="obsolete">Intensidade</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="obsolete">Figura</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Interior:</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Tamaño:</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="obsolete">Pequeno</translation>
-    </message>
-    <message>
-        <source>Split</source>
-        <translation type="obsolete">Anacos</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="obsolete">no lugar de</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="obsolete">Estilo</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="obsolete">Ferramentas</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="obsolete">Tipo</translation>
-    </message>
-    <message>
-        <source>Units</source>
-        <translation type="obsolete">Unidades</translation>
-    </message>
-    <message>
-        <source>Documents (*.scd);; All Files (*)</source>
-        <translation type="obsolete">Documentos (*.scd);; Todos (*)</translation>
-    </message>
-    <message>
-        <source>Snap to Guides</source>
-        <translation type="obsolete">Axustar ás Guías</translation>
-    </message>
-    <message>
-        <source>Modify Textframe</source>
-        <translation type="obsolete">Modificar Caixa de Texto</translation>
-    </message>
-    <message>
-        <source>Align Text Left</source>
-        <translation type="obsolete">Aliñar texto á esquerda</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation type="obsolete">Enviar ó fondo</translation>
-    </message>
-    <message>
-        <source>Local Y-Pos:</source>
-        <translation type="obsolete">Posición do eixo vertical Y:</translation>
-    </message>
-    <message>
-        <source>The following Programs are missing:</source>
-        <translation type="obsolete">Os seguintes Programas non existen:</translation>
-    </message>
-    <message>
-        <source>Major Grid Color:</source>
-        <translation type="obsolete">Cor da Reixa maior:</translation>
-    </message>
-    <message>
-        <source>Minor Grid Color:</source>
-        <translation type="obsolete">Cor da Reixa maenor:</translation>
-    </message>
-    <message>
-        <source>Create Textchains</source>
-        <translation type="obsolete">Crea cadea de texto</translation>
-    </message>
-    <message>
-        <source>Local X-Pos:</source>
-        <translation type="obsolete">Posición do eixo horizontal X:</translation>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation type="obsolete">Disolver</translation>
-    </message>
-    <message>
-        <source>Snap to Grid</source>
-        <translation type="obsolete">Encaixar na Reixa</translation>
-    </message>
-    <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation type="obsolete">Acceso rápido por teclado</translation>
-    </message>
-    <message>
-        <source>Unable to create PDF-File.</source>
-        <translation type="obsolete">Non foi posible crear o ficheiro PDF</translation>
-    </message>
-    <message>
-        <source>Other Options</source>
-        <translation type="obsolete">Outras opcións</translation>
-    </message>
-    <message>
-        <source>Automatic Text Box</source>
-        <translation type="obsolete">Caixa Automática de Texto</translation>
-    </message>
-    <message>
-        <source>Path to Fontfile</source>
-        <translation type="obsolete">Rota ós ficheiros de fontes</translation>
-    </message>
-    <message>
-        <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation type="obsolete">Definir cores personalizadas &gt;&gt;</translation>
-    </message>
-    <message>
-        <source>New Document</source>
-        <translation type="obsolete">Novo documento</translation>
-    </message>
-    <message>
-        <source>User Defined Key</source>
-        <translation type="obsolete">Tecla definida polo usuario</translation>
-    </message>
-    <message>
-        <source>Opens a Document</source>
-        <translation type="obsolete">Abrir un Documento</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="obsolete">Horizontal</translation>
-    </message>
-    <message>
-        <source>Printing-Error</source>
-        <translation type="obsolete">Erro da Impresión</translation>
-    </message>
-    <message>
-        <source>Zooms in or out</source>
-        <translation type="obsolete">Ampliar ou Reducir vista</translation>
-    </message>
-    <message>
-        <source>Sorry, no Manual available!</source>
-        <translation type="obsolete">O sinto, o manual non está dispoñible</translation>
-    </message>
-    <message>
-        <source>Is PDF-Bookmark</source>
-        <translation type="obsolete">É ligazón PDF</translation>
-    </message>
-    <message>
-        <source>Flip horizontal</source>
-        <translation type="obsolete">Reflectir horizontalmente</translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Axuste Absoluto da Cor</translation>
-    </message>
-    <message>
-        <source>Moving Lines:</source>
-        <translation type="obsolete">Mover liñas</translation>
-    </message>
-    <message>
-        <source>No Style</source>
-        <translation type="obsolete">Sen Estilo</translation>
-    </message>
-    <message>
-        <source>No Title</source>
-        <translation type="obsolete">sen título</translation>
-    </message>
-    <message>
-        <source>Smart Hyphen</source>
-        <translation type="obsolete">Esquema Elegante</translation>
-    </message>
-    <message>
-        <source>Leave Anyway</source>
-        <translation type="obsolete">Abandonar</translation>
-    </message>
-    <message>
-        <source>To page:</source>
-        <translation type="obsolete">A páxina:</translation>
-    </message>
-    <message>
-        <source>Error during EPS-Export</source>
-        <translation type="obsolete">Erro exportando PDF</translation>
-    </message>
-    <message>
-        <source>X-Coor.:</source>
-        <translation type="obsolete">X-Cord.:</translation>
-    </message>
-    <message>
-        <source>Y-Coor.:</source>
-        <translation type="obsolete">Y-Cord.:</translation>
-    </message>
-    <message>
-        <source>Flip vertical</source>
-        <translation type="obsolete">Reflectir verticalmente</translation>
-    </message>
-    <message>
-        <source>Name of the Style is not unique</source>
-        <translation type="obsolete">O nome do Estilo xa existe</translation>
-    </message>
-    <message>
-        <source>Right Page based on:</source>
-        <translation type="obsolete">Páxina Dereita baseada en:</translation>
-    </message>
-    <message>
-        <source>Template for this Page:</source>
-        <translation type="obsolete">Patrón para a Páxina</translation>
-    </message>
-    <message>
-        <source>Page-Colors</source>
-        <translation type="obsolete">Cor de Páxina</translation>
-    </message>
-    <message>
-        <source>Missing Font</source>
-        <translation type="obsolete">Fonte omitida</translation>
-    </message>
-    <message>
-        <source>Downsample Images to:</source>
-        <translation type="obsolete">Reformatear Imaxes a:</translation>
-    </message>
-    <message>
-        <source>Hide Outline</source>
-        <translation type="obsolete">Agachar Contorno</translation>
-    </message>
-    <message>
-        <source>Don&apos;t change</source>
-        <translation type="obsolete">Non cambiar</translation>
-    </message>
-    <message>
-        <source>Sample Text</source>
-        <translation type="obsolete">Texto de exemplo</translation>
-    </message>
-    <message>
-        <source>Printing aborted</source>
-        <translation type="obsolete">Impresión cancelada</translation>
-    </message>
-    <message>
-        <source>Move Bookmark</source>
-        <translation type="obsolete">Mover Ligazón</translation>
-    </message>
-    <message>
-        <source>Print Normal</source>
-        <translation type="obsolete">Impresión normal</translation>
-    </message>
-    <message>
-        <source>Top Sides</source>
-        <translation type="obsolete">Lados Superiores</translation>
-    </message>
-    <message>
-        <source> saved</source>
-        <translation type="obsolete"> gardado</translation>
-    </message>
-    <message>
-        <source>Placing:</source>
-        <translation type="obsolete">Colocación:</translation>
-    </message>
-    <message>
-        <source>Inputprofil:</source>
-        <translation type="obsolete">Perfil de entrada</translation>
-    </message>
-    <message>
-        <source>File &amp;type:</source>
-        <translation type="obsolete">Tipo &amp;ficheiro:</translation>
-    </message>
-    <message>
-        <source>File &amp;name:</source>
-        <translation type="obsolete">Nome &amp;ficheiro:</translation>
-    </message>
-    <message>
-        <source>File Options</source>
-        <translation type="obsolete">Opcións de arquivo</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">A fonte %1 non está instalada.</translation>
-    </message>
-    <message>
-        <source>End Editing Frame</source>
-        <translation type="obsolete">Final da edición do Marco</translation>
-    </message>
-    <message>
-        <source>Scaled to </source>
-        <translation type="obsolete">Escalado a </translation>
-    </message>
-    <message>
-        <source>Right Margin</source>
-        <translation type="obsolete">Marxe dereita</translation>
-    </message>
-    <message>
-        <source>Simulate Printer on the Screen</source>
-        <translation type="obsolete">Simular Cores de Inpresora na Pantalla</translation>
-    </message>
-    <message>
-        <source>Grab-Radius</source>
-        <translation type="obsolete">Radio</translation>
-    </message>
-    <message>
-        <source>Delete...</source>
-        <translation type="obsolete">Borrar...</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="obsolete">Versalitas</translation>
-    </message>
-    <message>
-        <source>Effect Type:</source>
-        <translation type="obsolete">Tipo de efecto</translation>
-    </message>
-    <message>
-        <source>Scaling X:</source>
-        <translation type="obsolete">Escala X:</translation>
-    </message>
-    <message>
-        <source>Scaling Y:</source>
-        <translation type="obsolete">Escala Y:</translation>
-    </message>
-    <message>
-        <source>Prints the current Document</source>
-        <translation type="obsolete">Imprimir o Documento actual</translation>
-    </message>
-    <message>
-        <source>Fonts to embed:</source>
-        <translation type="obsolete">Fontes para adxuntar</translation>
-    </message>
-    <message>
-        <source>Create PDF-File</source>
-        <translation type="obsolete">Crear arquivo PDF</translation>
-    </message>
-    <message>
-        <source>Remove Items from previous Template</source>
-        <translation type="obsolete">Eliminar Elementos do Patrón anterior</translation>
-    </message>
-    <message>
-        <source>Effect Duration:</source>
-        <translation type="obsolete">Duración do efecto</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="obsolete">Desprazamento</translation>
-    </message>
-    <message>
-        <source>Multiple Duplicate</source>
-        <translation type="obsolete">Duplicado múltiple</translation>
-    </message>
-    <message>
-        <source>Error creating PDF-File..</source>
-        <translation type="obsolete">Erro creando arquivo PDF</translation>
-    </message>
-    <message>
-        <source>Insert Rectangles</source>
-        <translation type="obsolete">Inserir Rectángulos</translation>
-    </message>
-    <message>
-        <source>Insert Ovals</source>
-        <translation type="obsolete">Inserir Óvalos</translation>
-    </message>
-    <message>
-        <source>Show Outline</source>
-        <translation type="obsolete">Amosar Contorno</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation type="obsolete">cargar...</translation>
-    </message>
-    <message>
-        <source>Insert Lines</source>
-        <translation type="obsolete">Inserir Liñas</translation>
-    </message>
-    <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programación:</translation>
-    </message>
-    <message>
-        <source>Insert Picture</source>
-        <translation type="obsolete">Inserir Imaxe</translation>
-    </message>
-    <message>
-        <source>Colors...</source>
-        <translation type="obsolete">Cores...</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling</source>
-        <translation type="obsolete">Escala Vertical</translation>
-    </message>
-    <message>
-        <source>Insert Pagenumber</source>
-        <translation type="obsolete">Inserir números de páxinas</translation>
-    </message>
-    <message>
-        <source>Thumbnails</source>
-        <translation type="obsolete">Miniaturas</translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="obsolete">Resolución</translation>
-    </message>
-    <message>
-        <source>Move Page(s):</source>
-        <translation type="obsolete">Mover Páxina(s)</translation>
-    </message>
-    <message>
-        <source>Paper format</source>
-        <translation type="obsolete">formato do papel</translation>
-    </message>
-    <message>
-        <source>Delete from:</source>
-        <translation type="obsolete">Eliminar desde:</translation>
-    </message>
-    <message>
-        <source>Left to Right</source>
-        <translation type="obsolete">Esquerda a Dereita</translation>
-    </message>
-    <message>
-        <source>Delete Color</source>
-        <translation type="obsolete">Borar Cor</translation>
-    </message>
-    <message>
-        <source>Right to Left</source>
-        <translation type="obsolete">Dereita a Esquerda</translation>
-    </message>
-    <message>
-        <source>Select Items</source>
-        <translation type="obsolete">selecciona elementos</translation>
-    </message>
-    <message>
-        <source>Scrapbooks (*.scs);; All Files (*)</source>
-        <translation type="obsolete">Biblioteca (*.scs);; Tódolos ficheiros (*)</translation>
-    </message>
-    <message>
-        <source>Document Setup</source>
-        <translation type="obsolete">Configurar Documento</translation>
-    </message>
-    <message>
-        <source>Select color</source>
-        <translation type="obsolete">Seleccionar cor</translation>
-    </message>
-    <message>
-        <source>System Profiles</source>
-        <translation type="obsolete">Perfís do sistema</translation>
-    </message>
-    <message>
-        <source>Delete Page:</source>
-        <translation type="obsolete">Borrar Páxina:</translation>
-    </message>
-    <message>
-        <source>Delete Pages</source>
-        <translation type="obsolete">Eliminar Páxinas</translation>
-    </message>
-    <message>
-        <source>Middles</source>
-        <translation type="obsolete">Centro</translation>
-    </message>
-    <message>
-        <source>Replace it with:</source>
-        <translation type="obsolete">Substituir con:</translation>
-    </message>
-    <message>
-        <source>Missing</source>
-        <translation type="obsolete">Omitida</translation>
-    </message>
-    <message>
-        <source>Document Info...</source>
-        <translation type="obsolete">Información...</translation>
-    </message>
-    <message>
-        <source>Solid Colors:</source>
-        <translation type="obsolete">Cores Sólidas</translation>
-    </message>
-    <message>
-        <source>Generate Thumbnails</source>
-        <translation type="obsolete">Xerar Iconas</translation>
-    </message>
-    <message>
-        <source>&amp;Add To Custom Colors</source>
-        <translation type="obsolete">Engadir a cores personalizadas</translation>
-    </message>
-    <message>
-        <source>Colormanagement...</source>
-        <translation type="obsolete">Xestión da cor</translation>
-    </message>
-    <message>
-        <source>Move...</source>
-        <translation type="obsolete">Mover...</translation>
-    </message>
-    <message>
-        <source>Above:</source>
-        <translation type="obsolete">Enriba:</translation>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation type="obsolete">Acción</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">¿Queres eliminar o Estilo?</translation>
-    </message>
-    <message>
-        <source>Display Frames</source>
-        <translation type="obsolete">Amosar Marcos</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Amosar Marcos</translation>
-    </message>
-    <message>
-        <source>Angle:</source>
-        <translation type="obsolete">Ángulo:</translation>
-    </message>
-    <message>
-        <source>At End</source>
-        <translation type="obsolete">no Final</translation>
-    </message>
-    <message>
-        <source>Append</source>
-        <translation type="obsolete">Adxunto</translation>
-    </message>
-    <message>
-        <source>Align Text Center</source>
-        <translation type="obsolete">Aliñar texto ó centro</translation>
-    </message>
-    <message>
-        <source>Below:</source>
-        <translation type="obsolete">Enbaixo:</translation>
-    </message>
-    <message>
-        <source>Bl&amp;ue:</source>
-        <translation type="obsolete">Azul:</translation>
-    </message>
-    <message>
-        <source>Blinds</source>
-        <translation type="obsolete">Persiana</translation>
-    </message>
-    <message>
-        <source>Hide Frames</source>
-        <translation type="obsolete">Agachar Marcos</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancelar</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">Centrado</translation>
-    </message>
-    <message>
-        <source>New Color:</source>
-        <translation type="obsolete">Nova Cor:</translation>
-    </message>
-    <message>
-        <source>Hide Guides</source>
-        <translation type="obsolete">Agachar Guías</translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="obsolete">Cor:</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Cores</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Borrar</translation>
-    </message>
-    <message>
-        <source>Endings:</source>
-        <translation type="obsolete">Remates</translation>
-    </message>
-    <message>
-        <source>Disp.:</source>
-        <translation type="obsolete">Disp.:</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Amosar Guías</translation>
-    </message>
-    <message>
-        <source>Horizontal Shift:</source>
-        <translation type="obsolete">Distribución Horizontal:</translation>
-    </message>
-    <message>
-        <source>Landscape</source>
-        <translation type="obsolete">Apaisado</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Amosar Imaxes</translation>
-    </message>
-    <message>
-        <source>Edges:</source>
-        <translation type="obsolete">Bordes</translation>
-    </message>
-    <message>
-        <source>No Effect</source>
-        <translation type="obsolete">Sen efecto</translation>
-    </message>
-    <message>
-        <source>Hide Images</source>
-        <translation type="obsolete">Agachar Imaxes</translation>
-    </message>
-    <message>
-        <source>Extras</source>
-        <translation type="obsolete">Extras</translation>
-    </message>
-    <message>
-        <source>Save Contents on Exit</source>
-        <translation type="obsolete">Gardar contidos e Saír</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="obsolete">Descrición:</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation type="obsolete">Forzar</translation>
-    </message>
-    <message>
-        <source>Line Color:</source>
-        <translation type="obsolete">Cor da Liña:</translation>
-    </message>
-    <message>
-        <source>Show Colors</source>
-        <translation type="obsolete">Amosar Cores</translation>
-    </message>
-    <message>
-        <source>Text Color:</source>
-        <translation type="obsolete">Cor do Texto:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Cor de recheo:</translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="obsolete">Guías</translation>
-    </message>
-    <message>
-        <source>Hide Colors</source>
-        <translation type="obsolete">Agachar Cores</translation>
-    </message>
-    <message>
-        <source>Edit Colors</source>
-        <translation type="obsolete">Editar Cores</translation>
-    </message>
-    <message>
-        <source>Available Fonts:</source>
-        <translation type="obsolete">Fontes dispoñibles</translation>
-    </message>
-    <message>
-        <source>Inside</source>
-        <translation type="obsolete">Cara dentro</translation>
-    </message>
-    <message>
-        <source>Textdistance</source>
-        <translation type="obsolete">Distancia do texto</translation>
-    </message>
-    <message>
-        <source>Italic</source>
-        <translation type="obsolete">Cursiva</translation>
-    </message>
-    <message>
-        <source>No Fill</source>
-        <translation type="obsolete">Sen Recheo</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Medio</translation>
-    </message>
-    <message>
-        <source>Menues</source>
-        <translation type="obsolete">Menús</translation>
-    </message>
-    <message>
-        <source>No Key</source>
-        <translation type="obsolete">sen tecla</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normal</translation>
-    </message>
-    <message>
-        <source>Object</source>
-        <translation type="obsolete">Obxecto</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="obsolete">Tamaño da fonte</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Non tes instaladas fontes Postcript no Sistema</translation>
-    </message>
-    <message>
-        <source>Left Margin</source>
-        <translation type="obsolete">Marxe esquerda</translation>
-    </message>
-    <message>
-        <source>Other:</source>
-        <translation type="obsolete">Outro:</translation>
-    </message>
-    <message>
-        <source>Range:</source>
-        <translation type="obsolete">Rango</translation>
-    </message>
-    <message>
-        <source>Result</source>
-        <translation type="obsolete">Resultado</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Grosor de Liña:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Dereita:</translation>
-    </message>
-    <message>
-        <source>Sample</source>
-        <translation type="obsolete">Beispiel</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="obsolete">Busca</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="obsolete">Seleccionar</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Intensidade:</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="obsolete">Estado</translation>
-    </message>
-    <message>
-        <source>Styles</source>
-        <translation type="obsolete">Estilos</translation>
-    </message>
-    <message>
-        <source>New Style:</source>
-        <translation type="obsolete">Novo estilo:</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="obsolete">Título</translation>
-    </message>
-    <message>
-        <source>To End</source>
-        <translation type="obsolete">Ó Final</translation>
-    </message>
-    <message>
-        <source>Closes the current Document</source>
-        <translation type="obsolete">Pecha o documento actual</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="obsolete">No frente</translation>
-    </message>
-    <message>
-        <source>Look &amp;in:</source>
-        <translation type="obsolete">Mirar &amp;in:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Anchura:</translation>
-    </message>
-    <message>
-        <source>Edit Styles</source>
-        <translation type="obsolete">Editar Estilos</translation>
-    </message>
-    <message>
-        <source>Hide Styles</source>
-        <translation type="obsolete">Agachar estilos</translation>
-    </message>
-    <message>
-        <source>Compatibility</source>
-        <translation type="obsolete">Compatibilidade</translation>
-    </message>
-    <message>
-        <source>Show Styles</source>
-        <translation type="obsolete">Amosar Estilos</translation>
-    </message>
-    <message>
-        <source>from the:</source>
-        <translation type="obsolete">Desde:</translation>
-    </message>
-    <message>
-        <source>Indentation</source>
-        <translation type="obsolete">Indentar</translation>
-    </message>
-    <message>
-        <source>No Document</source>
-        <translation type="obsolete">Non documento</translation>
-    </message>
-    <message>
-        <source>Right Sides</source>
-        <translation type="obsolete">lados Dereitos</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Mostrar Marxes</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation type="obsolete">Primeira Liña:</translation>
-    </message>
-    <message>
-        <source>Bookmarks</source>
-        <translation type="obsolete">Ligazóns</translation>
-    </message>
-    <message>
-        <source>PDF-Options</source>
-        <translation type="obsolete">Opcións-PDF</translation>
-    </message>
-    <message>
-        <source>Search Results for: </source>
-        <translation type="obsolete">Busca Resultados por: </translation>
-    </message>
-    <message>
-        <source>Print range</source>
-        <translation type="obsolete">Imprimir o intervalo</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Imaxes (*.tif *.png *.jpg *.xpm);;Postcript (*.eps);;Todos (*)</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Columnas:</translation>
-    </message>
-    <message>
-        <source>Don&apos;t print</source>
-        <translation type="obsolete">Non imprime</translation>
-    </message>
-    <message>
-        <source>Edit Frame</source>
-        <translation type="obsolete">Editar Marco</translation>
-    </message>
-    <message>
-        <source>Edit Color</source>
-        <translation type="obsolete">Editar Cor</translation>
-    </message>
-    <message>
-        <source>Monitor:</source>
-        <translation type="obsolete">Monitor</translation>
-    </message>
-    <message>
-        <source>Compress Text and Vectorgraphics</source>
-        <translation type="obsolete">Comprimir Textos e Gráficos Vectoriais</translation>
-    </message>
-    <message>
-        <source>Edit Contents of Frame</source>
-        <translation type="obsolete">Editar contidos do marco</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">Contidos</translation>
-    </message>
-    <message>
-        <source>Fonts...</source>
-        <translation type="obsolete">Fontes...</translation>
-    </message>
-    <message>
-        <source>Fontsize</source>
-        <translation type="obsolete">Tamaño da fonte</translation>
-    </message>
-    <message>
-        <source>Left Sides</source>
-        <translation type="obsolete">Lados Esquerdos</translation>
-    </message>
-    <message>
-        <source>Edit Style</source>
-        <translation type="obsolete">Editar Estilo</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Tamaño da fonte:</translation>
-    </message>
-    <message>
-        <source>Grid Layout:</source>
-        <translation type="obsolete">Disposición da reixa:</translation>
-    </message>
-    <message>
-        <source>Open...</source>
-        <translation type="obsolete">Abrir...</translation>
-    </message>
-    <message>
-        <source>Number of copies:</source>
-        <translation type="obsolete">Número de copias</translation>
-    </message>
-    <message>
-        <source>Number of Copies:</source>
-        <translation type="obsolete">Número de Copias:</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="obsolete">Opcións</translation>
-    </message>
-    <message>
-        <source>Copy of </source>
-        <translation type="obsolete">Copiar de </translation>
-    </message>
-    <message>
-        <source>Page(s)</source>
-        <translation type="obsolete">Páxina(s)</translation>
-    </message>
-    <message>
-        <source>Manage Keyboard Shortcuts</source>
-        <translation type="obsolete">Configurar o acceso rápido por teclado</translation>
-    </message>
-    <message>
-        <source>Hungarian and Italian:</source>
-        <translation type="obsolete">Húngaro e Italiano:</translation>
-    </message>
-    <message>
-        <source>Colormodel</source>
-        <translation type="obsolete">Modelo de Cor</translation>
-    </message>
-    <message>
-        <source>Portrait</source>
-        <translation type="obsolete">Vertical</translation>
-    </message>
-    <message>
-        <source>Do you really want to overwrite the File:
-%1 ?</source>
-        <translation type="obsolete">¿Queres sobreescribir o ficheiro:
-%1 ?</translation>
-    </message>
-    <message>
-        <source>Contributions from:</source>
-        <translation type="obsolete">Contribucións de:</translation>
-    </message>
-    <message>
-        <source>RoundCap</source>
-        <translation type="obsolete">Fin de liña redondeado</translation>
-    </message>
-    <message>
-        <source>Outline</source>
-        <translation type="obsolete">Contorno</translation>
-    </message>
-    <message>
-        <source>Outside</source>
-        <translation type="obsolete">Cara fora</translation>
-    </message>
-    <message>
-        <source>Automatic Linespaceing:</source>
-        <translation type="obsolete">Espaciado de liña Automático:</translation>
-    </message>
-    <message>
-        <source>Top-Left to Bottom-Right</source>
-        <translation type="obsolete">Diagonal descendente</translation>
-    </message>
-    <message>
-        <source>Browse...</source>
-        <translation type="obsolete">Buscar...</translation>
-    </message>
-    <message>
-        <source>Recent Documents</source>
-        <translation type="obsolete">Documentos Recentes</translation>
-    </message>
-    <message>
-        <source>Embed all Fonts</source>
-        <translation type="obsolete">Adxuntar tódalas fontes</translation>
-    </message>
-    <message>
-        <source>Hide Scrapbook</source>
-        <translation type="obsolete">Agachar Biblioteca</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Duplicar</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="obsolete">Traducciones</translation>
-    </message>
-    <message>
-        <source> loaded</source>
-        <translation type="obsolete"> cargado</translation>
-    </message>
-    <message>
-        <source>Is Spot-Color</source>
-        <translation type="obsolete">É Marca de Cor</translation>
-    </message>
-    <message>
-        <source>Move Pages</source>
-        <translation type="obsolete">mover Páxinas</translation>
-    </message>
-    <message>
-        <source>Line Width</source>
-        <translation type="obsolete">Grosor de Liña</translation>
-    </message>
-    <message>
-        <source>Hide Tools</source>
-        <translation type="obsolete">Agachar ferramentas</translation>
-    </message>
-    <message>
-        <source>Margin Guides</source>
-        <translation type="obsolete">Guías de Marxes</translation>
-    </message>
-    <message>
-        <source>Hide Margins</source>
-        <translation type="obsolete">Agachar Marxes</translation>
-    </message>
-    <message>
-        <source>Export...</source>
-        <translation type="obsolete">Exportar</translation>
-    </message>
-    <message>
-        <source>Import...</source>
-        <translation type="obsolete">Importar</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Gardar como...</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="obsolete">Previsualizar</translation>
-    </message>
-    <message>
-        <source>Printer</source>
-        <translation type="obsolete">Impresora</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Tamaño Actual</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation type="obsolete">Obter Imaxe...</translation>
-    </message>
-    <message>
-        <source>Copy Here</source>
-        <translation type="obsolete">Copiar aquí</translation>
-    </message>
-    <message>
-        <source>Copy Page</source>
-        <translation type="obsolete">Copiar páxina</translation>
-    </message>
-    <message>
-        <source>Downsample Color-Images to:</source>
-        <translation type="obsolete">Transformar Cores da imaxe a:</translation>
-    </message>
-    <message>
-        <source>Global Fontsettings</source>
-        <translation type="obsolete">Configuración global das fontes</translation>
-    </message>
-    <message>
-        <source>Font st&amp;yle</source>
-        <translation type="obsolete">Estilo da Fonte</translation>
-    </message>
-    <message>
-        <source>Vertical flipped</source>
-        <translation type="obsolete">Xirado vertical</translation>
-    </message>
-    <message>
-        <source>Print in color if available</source>
-        <translation type="obsolete">Imprimir a coresde ser posible</translation>
-    </message>
-    <message>
-        <source>Show Scrapbook</source>
-        <translation type="obsolete">Amosar Biblioteca</translation>
-    </message>
-    <message>
-        <source>Ukrainian:</source>
-        <translation type="obsolete">Ucraniano:</translation>
-    </message>
-    <message>
-        <source>locally connected</source>
-        <translation type="obsolete">conectada localmente</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">antes da Páxina</translation>
-    </message>
-    <message>
-        <source>Downsample Grayscale-Images to:</source>
-        <translation type="obsolete">Transformar Escala de gris a:</translation>
-    </message>
-    <message>
-        <source>CDE-Style</source>
-        <translation type="obsolete">Estilo CDE</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation type="obsolete">Traer ó Frente</translation>
-    </message>
-    <message>
-        <source>Align Text Block</source>
-        <translation type="obsolete">Xustificar</translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation type="obsolete">Axustar Cores</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Cambiar...</translation>
-    </message>
-    <message>
-        <source>The document has been changed since the last save.</source>
-        <translation type="obsolete">O documento foi modificado despois de gardado.</translation>
-    </message>
-    <message>
-        <source>Align Text Right</source>
-        <translation type="obsolete">Aliñar texto á dereita</translation>
-    </message>
-    <message>
-        <source>Print to file:</source>
-        <translation type="obsolete">Imprimir a ficheiro:</translation>
-    </message>
-    <message>
-        <source>Print first page first</source>
-        <translation type="obsolete">Imprimir a primeira páxina en primeiro lugar</translation>
-    </message>
-    <message>
-        <source>Activate Colormanagement</source>
-        <translation type="obsolete">Activar xestión da cor</translation>
-    </message>
-    <message>
-        <source>Compression</source>
-        <translation type="obsolete">Compresión</translation>
-    </message>
-    <message>
-        <source>Scrapbook</source>
-        <translation type="obsolete">Biblioteca</translation>
-    </message>
-    <message>
-        <source>Character</source>
-        <translation type="obsolete">Caracter</translation>
-    </message>
-    <message>
-        <source>Margins:</source>
-        <translation type="obsolete">Marxes:</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation type="obsolete">Ghostscript : Non podes usar imaxes EPS</translation>
-    </message>
-    <message>
-        <source>Shift+Click to add Point; Ctrl+Click to delete Point</source>
-        <translation type="obsolete">Shift+Click engade punto; Ctrl+Click borra punto</translation>
-    </message>
-    <message>
-        <source>Document Setup...</source>
-        <translation type="obsolete">Configurar Documento...</translation>
-    </message>
-    <message>
-        <source>Embed in:</source>
-        <translation type="obsolete">Incrutado en:</translation>
-    </message>
-    <message>
-        <source>Embedding</source>
-        <translation type="obsolete">Adxuntar</translation>
-    </message>
-    <message>
-        <source>Save Now</source>
-        <translation type="obsolete">Gardar Agora</translation>
-    </message>
-    <message>
-        <source>Author:</source>
-        <translation type="obsolete">Autor:</translation>
-    </message>
-    <message>
-        <source>Authors</source>
-        <translation type="obsolete">Autores</translation>
-    </message>
-    <message>
-        <source>Fit in Window</source>
-        <translation type="obsolete">Axustar na ventá</translation>
-    </message>
-    <message>
-        <source>Colormanagement Settings</source>
-        <translation type="obsolete">Axustes de xestión da cor</translation>
-    </message>
-    <message>
-        <source>Strikeout</source>
-        <translation type="obsolete">Non Riscado</translation>
-    </message>
-    <message>
-        <source>Print...</source>
-        <translation type="obsolete">Imprimir...</translation>
-    </message>
-    <message>
-        <source>Printer:</source>
-        <translation type="obsolete">Impresora</translation>
-    </message>
-    <message>
-        <source>Printer settings</source>
-        <translation type="obsolete">Configurar impresora</translation>
-    </message>
-    <message>
-        <source>Insert Page</source>
-        <translation type="obsolete">Inserir Páxina</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation type="obsolete">Nova Cor</translation>
-    </message>
-    <message>
-        <source>Static Color Bars</source>
-        <translation type="obsolete">Paletas de cores estáticas</translation>
-    </message>
-    <message>
-        <source>New Entry</source>
-        <translation type="obsolete">Nova Entrada</translation>
-    </message>
-    <message>
-        <source>New Style</source>
-        <translation type="obsolete">Novo estilo</translation>
-    </message>
-    <message>
-        <source>Show Tools</source>
-        <translation type="obsolete">Amosar ferramentas</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Inferior:</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation type="obsolete">Sobre Qt</translation>
-    </message>
-    <message>
-        <source>Get Text/Picture...</source>
-        <translation type="obsolete">Obter Texto/Imaxe...</translation>
-    </message>
-    <message>
-        <source>Motif-Style</source>
-        <translation type="obsolete">Estilo Motif</translation>
-    </message>
-    <message>
-        <source>Scaling:</source>
-        <translation type="obsolete">Escala:</translation>
-    </message>
-    <message>
-        <source>Modify Pictureframe</source>
-        <translation type="obsolete">Modificar cadro de Imaxe</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Gardar como</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Axuste manual do Kerning</translation>
-    </message>
-    <message>
-        <source>Apply Template...</source>
-        <translation type="obsolete">Aplicar Patrón...</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="obsolete">Subíndice</translation>
-    </message>
-    <message>
-        <source>Scr&amp;ipt</source>
-        <translation type="obsolete">Codificación</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Español e Catalán:</translation>
-    </message>
-    <message>
-        <source>Based on:</source>
-        <translation type="obsolete">Baseado en:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="obsolete">Superíndice</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation type="obsolete">Perceptual</translation>
-    </message>
-    <message>
-        <source>Set Key</source>
-        <translation type="obsolete">Fixa a tecla</translation>
-    </message>
-    <message>
-        <source>Insert...</source>
-        <translation type="obsolete">Inserir...</translation>
-    </message>
-    <message>
-        <source>Inserting</source>
-        <translation type="obsolete">Insertando</translation>
-    </message>
-    <message>
-        <source>Display Pages Side by Side</source>
-        <translation type="obsolete">Amosar Páxinas cara a cara</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Páxina Esquerda primeiro</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation type="obsolete">Axuste Relativo da Cor</translation>
-    </message>
-    <message>
-        <source>Display unprintable Area in Margin Color</source>
-        <translation type="obsolete">Amosa o area non imprimíble cun marxe de cor</translation>
-    </message>
-    <message>
-        <source>Rotate Item</source>
-        <translation type="obsolete">Rotar Elemento</translation>
-    </message>
-    <message>
-        <source>Output to File:</source>
-        <translation type="obsolete">Arquivo de saída</translation>
-    </message>
-    <message>
-        <source>Scribus-Document</source>
-        <translation type="obsolete">Documento de Scribus</translation>
-    </message>
-    <message>
-        <source>Linespacing</source>
-        <translation type="obsolete">Espaciado de Liña</translation>
-    </message>
-    <message>
-        <source>Slovak:</source>
-        <translation type="obsolete">Eslovaco:</translation>
-    </message>
-    <message>
-        <source>Select Font</source>
-        <translation type="obsolete">Seleccionar Fonte</translation>
-    </message>
-    <message>
-        <source>Delete Node</source>
-        <translation type="obsolete">Eliminar nodo</translation>
-    </message>
-    <message>
-        <source>Delete Page</source>
-        <translation type="obsolete">Borrar Páxina</translation>
-    </message>
-    <message>
-        <source>Display Duration:</source>
-        <translation type="obsolete">Amosa a duración</translation>
-    </message>
-    <message>
-        <source>Creates a new Document</source>
-        <translation type="obsolete">Crear novo Documento</translation>
-    </message>
-    <message>
-        <source>Millimeters (mm)</source>
-        <translation type="obsolete">Milímetros (mm)</translation>
-    </message>
-    <message>
-        <source>Background Color:</source>
-        <translation type="obsolete">Cor de Fondo:</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation type="obsolete">Comentario</translation>
-    </message>
-    <message>
-        <source>Add Node</source>
-        <translation type="obsolete">Engadir Nodo</translation>
-    </message>
-    <message>
-        <source>Select a Key for this Action</source>
-        <translation type="obsolete">Selecciona unha tecla para a acción</translation>
-    </message>
-    <message>
-        <source>Mouse-Settings</source>
-        <translation type="obsolete">Configuración do Rato</translation>
-    </message>
-    <message>
-        <source>Print destination</source>
-        <translation type="obsolete">Destino da impresión</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="obsolete">Tabloide</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation type="obsolete">Obter Texto...</translation>
-    </message>
-    <message>
-        <source>Distances</source>
-        <translation type="obsolete">Distancias</translation>
-    </message>
-    <message>
-        <source>Rectangle</source>
-        <translation type="obsolete">Rectángulo</translation>
-    </message>
-    <message>
-        <source>Printing...</source>
-        <translation type="obsolete">Imprimindo...</translation>
-    </message>
-    <message>
-        <source>Pictures:</source>
-        <translation type="obsolete">Debuxos</translation>
-    </message>
-    <message>
-        <source>Document </source>
-        <translation type="obsolete">Documento </translation>
-    </message>
-    <message>
-        <source>MiterJoin</source>
-        <translation type="obsolete">Ángulos en pico</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation type="obsolete">Suliñado</translation>
-    </message>
-    <message>
-        <source>&amp;Underline</source>
-        <translation type="obsolete">Suliñada</translation>
-    </message>
-    <message>
-        <source>To the End</source>
-        <translation type="obsolete">Ir ó final</translation>
-    </message>
-    <message>
-        <source>&amp;Green:</source>
-        <translation type="obsolete">Verde:</translation>
-    </message>
-    <message>
-        <source>Other...</source>
-        <translation type="obsolete">Outro...</translation>
-    </message>
-    <message>
-        <source>Modify...</source>
-        <translation type="obsolete">Modificar...</translation>
-    </message>
-    <message>
-        <source>Save Page as EPS...</source>
-        <translation type="obsolete">Gardar Páxina como EPS...</translation>
-    </message>
-    <message>
-        <source>Points (pt)</source>
-        <translation type="obsolete">Puntos (pt)</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="obsolete">Amosar</translation>
-    </message>
-    <message>
-        <source>Gutter Width:</source>
-        <translation type="obsolete">Anchura do espacio:</translation>
-    </message>
-    <message>
-        <source>Downsample Mono-Images to:</source>
-        <translation type="obsolete">Transformar Monócromo a:</translation>
-    </message>
-    <message>
-        <source>Show Page Previews</source>
-        <translation type="obsolete">Previsualizar páxina</translation>
-    </message>
-    <message>
-        <source>Horizontal Scaling</source>
-        <translation type="obsolete">Escala horizontal</translation>
-    </message>
-    <message>
-        <source>Left Indent:</source>
-        <translation type="obsolete">Indentación Esquerda</translation>
-    </message>
-    <message>
-        <source>Text flows around Box</source>
-        <translation type="obsolete">Texto rodeando a caixa</translation>
-    </message>
-    <message>
-        <source>Major Grid Spacing:</source>
-        <translation type="obsolete">Espaciado da Reixa maior:</translation>
-    </message>
-    <message>
-        <source>SquareCap</source>
-        <translation type="obsolete">Fin de liña suavizado</translation>
-    </message>
-    <message>
-        <source>Online-Help...</source>
-        <translation type="obsolete">Axuda en liña...</translation>
-    </message>
-    <message>
-        <source>AFM-File available</source>
-        <translation type="obsolete">Arquivo AFM disponible</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="obsolete">Seleccionar todo</translation>
-    </message>
-    <message>
-        <source>Direction:</source>
-        <translation type="obsolete">Dirección:</translation>
-    </message>
-    <message>
-        <source>Saves the current Document</source>
-        <translation type="obsolete">Gardar o Documento actual</translation>
-    </message>
-    <message>
-        <source>Motif-Plus-Style</source>
-        <translation type="obsolete">Estilo Motif-Plus</translation>
-    </message>
-    <message>
-        <source>Effects</source>
-        <translation type="obsolete">Efectos</translation>
-    </message>
-    <message>
-        <source>Bottom Sides</source>
-        <translation type="obsolete">Lados Inferiores</translation>
-    </message>
-    <message>
-        <source>Stri&amp;keout</source>
-        <translation type="obsolete">Riscada</translation>
-    </message>
-    <message>
-        <source>This Key-Sequence is already in use</source>
-        <translation type="obsolete">A secuencia definida xa está en uso</translation>
-    </message>
-    <message>
-        <source>Manage Pictures</source>
-        <translation type="obsolete">Manexar Imaxes</translation>
-    </message>
-    <message>
-        <source>Wheel-Jump</source>
-        <translation type="obsolete">Dist. desprazamento</translation>
-    </message>
-    <message>
-        <source>Vertical Spaces</source>
-        <translation type="obsolete">Espacios Verticais</translation>
-    </message>
-    <message>
-        <source>Current Key</source>
-        <translation type="obsolete">Tecla activa</translation>
-    </message>
-    <message>
-        <source>Preferences...</source>
-        <translation type="obsolete">Preferencias...</translation>
-    </message>
-    <message>
-        <source>Windows-Style</source>
-        <translation type="obsolete">Estilo Windows</translation>
-    </message>
-    <message>
-        <source>&amp;Basic colors</source>
-        <translation type="obsolete">Cores Básicas</translation>
-    </message>
-    <message>
-        <source>Vertical Shift:</source>
-        <translation type="obsolete">Distribución Vertical:</translation>
-    </message>
-    <message>
-        <source>Enable Presentation Effects</source>
-        <translation type="obsolete">Activar Efectos de presentación</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">despois da Páxina</translation>
-    </message>
-    <message>
-        <source>RoundJoin</source>
-        <translation type="obsolete">Ángulos redondeados</translation>
-    </message>
-    <message>
-        <source>Ungroup</source>
-        <translation type="obsolete">Desagrupar</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="obsolete">Descoñecido</translation>
-    </message>
-    <message>
-        <source>&amp;Custom colors</source>
-        <translation type="obsolete">Cores personalizadas</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="obsolete">Mover aquí</translation>
-    </message>
-    <message>
-        <source>Move Node</source>
-        <translation type="obsolete">Mover nodo</translation>
-    </message>
-    <message>
-        <source>Stepping:</source>
-        <translation type="obsolete">Lonxitude do paso:</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation type="obsolete">saturación</translation>
-    </message>
-    <message>
-        <source>Print in grayscale</source>
-        <translation type="obsolete">Imprimir en escala de grises</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="obsolete">Vertical</translation>
-    </message>
-    <message>
-        <source>Linestyle:</source>
-        <translation type="obsolete">Estilo da Liña</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Exterior:</translation>
-    </message>
-    <message>
-        <source>between:</source>
-        <translation type="obsolete">entre:</translation>
-    </message>
-    <message>
-        <source>BevelJoin</source>
-        <translation type="obsolete">Ángulos truncados</translation>
-    </message>
-    <message>
-        <source>Properties:</source>
-        <translation type="obsolete">Propiedades:</translation>
-    </message>
-    <message>
-        <source>Linewidth:</source>
-        <translation type="obsolete">Anchura da Liña:</translation>
-    </message>
-    <message>
-        <source>Left Page based on:</source>
-        <translation type="obsolete">Páxina Esquerda baseada en:</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation type="obsolete">Preferencias</translation>
-    </message>
-    <message>
-        <source>Default Size:</source>
-        <translation type="obsolete">Tamaño por defecto</translation>
-    </message>
-    <message>
-        <source>Default Font:</source>
-        <translation type="obsolete">Fonte por defecto</translation>
-    </message>
-    <message>
-        <source>Minor Grid Spacing:</source>
-        <translation type="obsolete">Espaciado da Reixa menor:</translation>
-    </message>
-    <message>
-        <source>Templates...</source>
-        <translation type="obsolete">Patróns...</translation>
-    </message>
-    <message>
-        <source>FlatCap</source>
-        <translation type="obsolete">Fin de liña normal</translation>
-    </message>
-    <message>
-        <source>Apply Template</source>
-        <translation type="obsolete">Aplicar Patrón</translation>
-    </message>
-    <message>
-        <source>Image visible</source>
-        <translation type="obsolete">Imaxe visible</translation>
-    </message>
-    <message>
-        <source>Typographics</source>
-        <translation type="obsolete">Tipografías</translation>
-    </message>
-    <message>
-        <source>Break Textchains</source>
-        <translation type="obsolete">Racha cadea de texto</translation>
-    </message>
-    <message>
-        <source>Print last page first</source>
-        <translation type="obsolete">Imprimir primeiro a última páxina</translation>
-    </message>
-    <message>
-        <source>Left Page</source>
-        <translation type="obsolete">Páxina Esquerda</translation>
-    </message>
-    <message>
-        <source>Page Size</source>
-        <translation type="obsolete">Tamaño da Páxina</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Aviso</translation>
-    </message>
-    <message>
-        <source>French:</source>
-        <translation type="obsolete">Francés:</translation>
-    </message>
-    <message>
-        <source>Save as PDF...</source>
-        <translation type="obsolete">Gardar como PDF...</translation>
-    </message>
-    <message>
-        <source>Revert to Saved</source>
-        <translation type="obsolete">Voltar á versión gardada</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Páxinas Enfrontadas</translation>
-    </message>
-    <message>
-        <source>Insert Bookmark</source>
-        <translation type="obsolete">Inserir Ligazón</translation>
-    </message>
-    <message>
-        <source>Distribute/Align</source>
-        <translation type="obsolete">Distribuir/Aliñar</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">Xeral</translation>
-    </message>
-    <message>
-        <source>German:</source>
-        <translation type="obsolete">alemán:</translation>
-    </message>
-    <message>
-        <source>Dynamic Color Bars</source>
-        <translation type="obsolete">Paletas de cores dinámicas</translation>
-    </message>
-    <message>
-        <source>Hide Measurements</source>
-        <translation type="obsolete">Agachar Dimensións</translation>
-    </message>
-    <message>
-        <source>Saves the current Document as PDF</source>
-        <translation type="obsolete">Gardar o documento como PDF</translation>
-    </message>
-    <message>
-        <source>Show Measurements</source>
-        <translation type="obsolete">Amosar Dimensións</translation>
-    </message>
-    <message>
-        <source>OK to delete Color:</source>
-        <translation type="obsolete">Confirma eliminar cor:</translation>
-    </message>
-    <message>
-        <source>Fatal Error</source>
-        <translation type="obsolete">Erro Chungo</translation>
-    </message>
-    <message>
-        <source>Align Left</source>
-        <translation type="obsolete">Aliñación á esquerda</translation>
-    </message>
-    <message>
-        <source>Save linked Textframes as PDF-Articles</source>
-        <translation type="obsolete">Gardar ligazóns de Texto como Artigos PDF</translation>
-    </message>
-    <message>
-        <source>Modify Frame</source>
-        <translation type="obsolete">Modificar marco</translation>
-    </message>
-    <message>
-        <source>Glitter</source>
-        <translation type="obsolete">Brillo</translation>
-    </message>
-    <message>
-        <source>About Scribus</source>
-        <translation type="obsolete">Sobre Scribus</translation>
-    </message>
-    <message>
-        <source>Document Info</source>
-        <translation type="obsolete">Información</translation>
-    </message>
-    <message>
-        <source>Setup Printer</source>
-        <translation type="obsolete">Configurar impresora</translation>
-    </message>
-    <message>
-        <source>Is PDF-Annotation</source>
-        <translation type="obsolete">É Anotación PDF</translation>
-    </message>
-    <message>
-        <source>Shading:</source>
-        <translation type="obsolete">Intensidade:</translation>
-    </message>
-    <message>
-        <source>Distribute evenly</source>
-        <translation type="obsolete">Distribución equivalente</translation>
-    </message>
-    <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Imprimir Separacións</translation>
-    </message>
-    <message>
-        <source>Column Guides</source>
-        <translation type="obsolete">Guías de Columnas</translation>
-    </message>
-    <message>
-        <source>Platinum-Style</source>
-        <translation type="obsolete">Estilo Platino</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Altura:</translation>
-    </message>
-    <message>
-        <source>Compatibility:</source>
-        <translation type="obsolete">Compatibilidade:</translation>
-    </message>
-    <message>
-        <source>Grid Colors:</source>
-        <translation type="obsolete">Cores da Reixa:</translation>
-    </message>
-    <message>
-        <source>Bottom to Top</source>
-        <translation type="obsolete">De Abaixo a Arriba</translation>
-    </message>
-    <message>
-        <source>Background:</source>
-        <translation type="obsolete">Fondo</translation>
-    </message>
-    <message>
-        <source>Print to printer:</source>
-        <translation type="obsolete">Imprimir por impresora:</translation>
-    </message>
-    <message>
-        <source>Corner Radius:</source>
-        <translation type="obsolete">Radio da esquina</translation>
-    </message>
-    <message>
-        <source>Recent Documents:</source>
-        <translation type="obsolete">Documentos Recentes:</translation>
-    </message>
-    <message>
-        <source>Deselect all</source>
-        <translation type="obsolete">Deseleccionar todo</translation>
-    </message>
-    <message>
-        <source>New Template</source>
-        <translation type="obsolete">Novo Patrón</translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Documentación:</translation>
-    </message>
-    <message>
-        <source>Ordinary Text</source>
-        <translation type="obsolete">Texto Normal</translation>
-    </message>
-    <message>
-        <source>Insert Textbox</source>
-        <translation type="obsolete">Inserir Caixa de texto</translation>
-    </message>
-    <message>
-        <source>Save Text...</source>
-        <translation type="obsolete">Gardar texto...</translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="obsolete">Páxina Dereita</translation>
-    </message>
-    <message>
-        <source>Printing completed</source>
-        <translation type="obsolete">Impresión completa</translation>
-    </message>
-    <message>
-        <source>Saving aborted</source>
-        <translation type="obsolete">Gardado cancelado</translation>
-    </message>
-    <message>
-        <source>From page:</source>
-        <translation type="obsolete">desde páxina:</translation>
-    </message>
-    <message>
-        <source>Edit Templates</source>
-        <translation type="obsolete">Editar Patróns</translation>
-    </message>
-    <message>
-        <source>Resolution for EPS-Images:</source>
-        <translation type="obsolete">Resolución das imaxes-EPS:</translation>
-    </message>
-    <message>
-        <source>Horizontal flipped</source>
-        <translation type="obsolete">Xirado horizontal</translation>
-    </message>
-    <message>
-        <source>Picture </source>
-        <translation type="obsolete">Imaxe </translation>
-    </message>
-    <message>
-        <source>Pictures</source>
-        <translation type="obsolete">Imaxes</translation>
-    </message>
-    <message>
-        <source>Textfiles (*.txt);;All Files (*)</source>
-        <translation type="obsolete">Ficheiros de Texto (*.txt);;Todos (*)</translation>
-    </message>
-    <message>
-        <source>Scribus Manual</source>
-        <translation type="obsolete">manual do Scribus</translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="obsolete">No Fondo</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation type="obsolete">Aliñamento</translation>
-    </message>
-    <message>
-        <source>Include Bookmarks</source>
-        <translation type="obsolete">Incluir Ligazóns</translation>
-    </message>
-    <message>
-        <source>Top to Bottom</source>
-        <translation type="obsolete">De Arriba a Abaixo</translation>
-    </message>
-</context>
-<context>
     <name>About</name>
     <message>
         <source>%1. %2 %3 </source>
@@ -2236,20 +19,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programación:</translation>
-    </message>
-    <message>
         <source>Contributions from:</source>
         <translation type="unfinished">Contribucións de:</translation>
     </message>
     <message>
         <source>Windows port:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Documentación:</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -2262,10 +37,6 @@
     <message>
         <source>French:</source>
         <translation type="unfinished">Francés:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Español e Catalán:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -2356,13 +127,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Development Team:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2424,6 +188,13 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>About Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.
+Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3165,10 +936,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation type="obsolete">Tipo</translation>
-    </message>
-    <message>
         <source>Text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3189,24 +956,8 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished">Destino</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Cambiar...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Páxina</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Correcto</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3971,18 +1722,6 @@ This can be set in the Preferences.</source>
         <translation type="unfinished">Borar Cor</translation>
     </message>
     <message>
-        <source>Replace it with:</source>
-        <translation type="obsolete">Substituir con:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Correcto</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancelar</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation type="unfinished">Ningun</translation>
     </message>
@@ -4010,10 +1749,6 @@ This can be set in the Preferences.</source>
         <translation type="unfinished">Eliminar Páxinas</translation>
     </message>
     <message>
-        <source>Delete from:</source>
-        <translation type="obsolete">Eliminar desde:</translation>
-    </message>
-    <message>
         <source>to:</source>
         <translation type="unfinished">a:</translation>
     </message>
@@ -4028,29 +1763,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete From:</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DmF</name>
-    <message>
-        <source>Missing Font</source>
-        <translation type="obsolete">Fonte omitida</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">A fonte %1 non está instalada.</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="obsolete">Usar</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="obsolete">no lugar de</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Correcto</translation>
     </message>
 </context>
 <context>
@@ -5061,29 +2773,6 @@ and www.scribus.net for downloads.</source>
     </message>
 </context>
 <context>
-    <name>HelpBrowser2</name>
-    <message>
-        <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tab 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tab 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
@@ -5175,10 +2864,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>at End</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inserting</source>
-        <translation type="obsolete">Insertando</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
@@ -5436,10 +3121,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">¿Queres eliminar o Estilo?</translation>
-    </message>
-    <message>
         <source>&amp;No</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5619,28 +3300,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Cambiar...</translation>
-    </message>
-    <message>
         <source> from 0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create Page(s)</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">antes da Páxina</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">despois da Páxina</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
         <source>Open</source>
@@ -5741,14 +3406,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>to:</source>
         <translation type="unfinished">a:</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">antes da Páxina</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">despois da Páxina</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7699,29 +5356,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
 </context>
 <context>
-    <name>Page</name>
-    <message>
-        <source>Copy Here</source>
-        <translation type="obsolete">Copiar aquí</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="obsolete">Mover aquí</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancelar</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ningun</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Aviso</translation>
-    </message>
-</context>
-<context>
     <name>PageItem</name>
     <message>
         <source>Image</source>
@@ -7927,10 +5561,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished">Amosar</translation>
     </message>
     <message>
-        <source>External Tools</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Misc.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7971,10 +5601,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mouse Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Wheel Jump:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7984,10 +5610,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Menus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8096,66 +5718,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid Layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>M&amp;inor Grid Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ma&amp;jor Grid Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide &amp;Snap Distance:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Min&amp;or Grid Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Majo&amp;r Grid Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;User Guides Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Base&amp;line Grid Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the &amp;Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Fore&amp;ground</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>O&amp;n</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>O&amp;ff</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8323,27 +5885,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display Pages &amp;Side by Side</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Background:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Margins:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use PDF 1.4 &amp;Transparency Features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8388,14 +5930,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8516,14 +6050,6 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Place the grid in front of your page objects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8687,10 +6213,6 @@ each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>When using facing pages, show the two pages side by side</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color for paper</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8700,10 +6222,6 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable transparency features within PDF 1.4 export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8783,6 +6301,118 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <source>Select your default language for Scribus to run with.
 Leave this blank to choose based on environment variables.
 You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Cor:</translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation type="unfinished">Mostrar Marxes</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation type="unfinished">Amosar Guías</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished">Amosar Marcos</translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placing of Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation type="unfinished">No Fondo</translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation type="unfinished">No frente</translation>
+    </message>
+    <message>
+        <source>External Tools.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the basegrid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10001,10 +7631,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished">Páxina</translation>
     </message>
     <message>
-        <source>ShowGrid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Major Grid</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10288,6 +7914,90 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Misc.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grab Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the basegrid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBAlign</name>
@@ -10432,10 +8142,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Searching for Fonts</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Non tes instaladas fontes Postcript no Sistema</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -11627,10 +9333,6 @@ is not in an acceptable format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>All</source>
-        <translation type="obsolete">Todo</translation>
-    </message>
-    <message>
         <source>Copy Here</source>
         <translation type="unfinished">Copiar aquí</translation>
     </message>
@@ -12226,10 +9928,6 @@ drag a Template to the Pageview below.</source>
         <translation type="unfinished">Aviso</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">¿Queres eliminar o Estilo?</translation>
-    </message>
-    <message>
         <source>No</source>
         <translation type="unfinished">Non</translation>
     </message>
@@ -12603,22 +10301,6 @@ edited to match the one being imported, or left untouched</source>
     <message>
         <source>Information</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Aviso</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Correcto</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Imaxe</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Liña</translation>
     </message>
     <message>
         <source>Page</source>

@@ -2,10 +2,6 @@
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">О Scribus-у%1%2</translation>
-    </message>
-    <message>
         <source>%1. %2 %3 </source>
         <translation>%1. %2 %3 </translation>
     </message>
@@ -180,16 +176,6 @@
         <translation>&amp;Затвори</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation>Овај панел приказује верзију, датум прављења и
- укомпајлирану подршку за библиотеке у Scribus-у
-C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
-Подршка за библиотеке које недостају је обележена *</translation>
-    </message>
-    <message>
         <source>Official Translations and Translators:</source>
         <translation>Званични преводи и преводиоци:</translation>
     </message>
@@ -203,6 +189,13 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     </message>
     <message>
         <source>About Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.
+Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1592,18 +1585,6 @@ It&apos;s a reserved name for transparent color</source>
         <translation>Ниједан</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation type="obsolete"> mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete"> in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete"> p</translation>
-    </message>
-    <message>
         <source>Move Vector</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1763,26 +1744,6 @@ This can be set in the Preferences.</source>
         <translation>Обриши боју</translation>
     </message>
     <message>
-        <source>Delete color:</source>
-        <translation type="obsolete">Обриши боју:</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation type="obsolete">?</translation>
-    </message>
-    <message>
-        <source>Replace it with:</source>
-        <translation type="obsolete">Замени је са:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">У реду</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Поништи</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Ниједан</translation>
     </message>
@@ -1810,10 +1771,6 @@ This can be set in the Preferences.</source>
         <translation>Обриши странице</translation>
     </message>
     <message>
-        <source>Delete from:</source>
-        <translation type="obsolete">Обриши од:</translation>
-    </message>
-    <message>
         <source>to:</source>
         <translation>у:</translation>
     </message>
@@ -1828,29 +1785,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete From:</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DmF</name>
-    <message>
-        <source>Missing Font</source>
-        <translation type="obsolete">Недостаје фонт</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">Фонт %1 није инсталиран.</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="obsolete">Користи</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="obsolete">уместо</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">У реду</translation>
     </message>
 </context>
 <context>
@@ -2880,29 +2814,6 @@ and www.scribus.net for downloads.</source>
     </message>
 </context>
 <context>
-    <name>HelpBrowser2</name>
-    <message>
-        <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tab 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tab 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
@@ -2981,10 +2892,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Убаци страну</translation>
     </message>
     <message>
-        <source>&amp;Inserting</source>
-        <translation type="obsolete">&amp;Умећем</translation>
-    </message>
-    <message>
         <source>Page(s)</source>
         <translation>Страна(е)</translation>
     </message>
@@ -3001,24 +2908,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>на крају</translation>
     </message>
     <message>
-        <source>Inserting</source>
-        <translation type="obsolete">Умећем</translation>
-    </message>
-    <message>
-        <source>&amp;Template (Left Page):</source>
-        <translation type="obsolete">&amp;Шаблон (Лева страна):</translation>
-    </message>
-    <message>
         <source>&amp;Template:</source>
         <translation>Ша&amp;блон:</translation>
     </message>
     <message>
         <source>Normal</source>
         <translation>Нормално</translation>
-    </message>
-    <message>
-        <source>Template (Right Page):</source>
-        <translation type="obsolete">Шаблон (Десна страна):</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3409,22 +3304,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Дужина:</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="obsolete"> тач.</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete"> mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete"> in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete"> p</translation>
-    </message>
-    <message>
         <source>pt</source>
         <translation type="unfinished">pt</translation>
     </message>
@@ -3463,52 +3342,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Увези страницу(е)</translation>
     </message>
     <message>
-        <source>From Document:</source>
-        <translation type="obsolete">Из документа:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Измени...</translation>
-    </message>
-    <message>
-        <source>Import Page(s):</source>
-        <translation type="obsolete">Увези страницу(е):</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="obsolete">Унесите листу обележја раздвојених зарезима где\n
-обележје може бити * за све странице, 1-5 за\n
-опсег страница или број једне странице.</translation>
-    </message>
-    <message>
         <source> from 0</source>
         <translation> из 0</translation>
     </message>
     <message>
         <source>Create Page(s)</source>
         <translation>Направи страницу(е)</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">пре странице</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">после странице</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">на крају</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="obsolete">Увези</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Поништи</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3609,18 +3448,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>to:</source>
         <translation>у:</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">пре странице</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">после странице</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">на крају</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5486,18 +5313,6 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
         <translation>PDF фајлови (*.pdf);;Сви фајлови (*)</translation>
     </message>
     <message>
-        <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="obsolete">Компресуј текст и &amp;векторску графику</translation>
-    </message>
-    <message>
-        <source>En&amp;able Presentation Effects</source>
-        <translation type="obsolete">Ук&amp;ључи ефекте за презентацију</translation>
-    </message>
-    <message>
-        <source>&amp;Presentation</source>
-        <translation type="obsolete">&amp;Презентација</translation>
-    </message>
-    <message>
         <source>&amp;Subset all Fonts</source>
         <translation>Сви фонтови у &amp;подсет</translation>
     </message>
@@ -5606,20 +5421,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Укључи/искључи К (Црна) палету мастила</translation>
     </message>
     <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Начин за замену неких од сивих нијанси које се састоје од
-цијан, жуте и магенте и коришћење црне уместо тога.
-UCR највише утиче на делове слике који су неутрални и/или тамни тонови
-блиски сивој. Коришћење овога може поправити штампу неких слика,
-а потребно је мало експериментисања и тестирања у зависности од случаја.
-UCR смањује могућност презасићења CMY мастилима.</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Све</translation>
     </message>
@@ -5631,297 +5432,6 @@ which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Page</name>
-    <message>
-        <source>Copy Here</source>
-        <translation type="obsolete">Копирај овде</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="obsolete">Помери овде</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Поништи</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="obsolete">&amp;Пренеси</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="obsolete">Прикажи &amp;маргине</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="obsolete">Прикажи &amp;оквире</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="obsolete">Прикажи &amp;слике</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="obsolete">Прикажи &amp;мрежу</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="obsolete">Прикажи &amp;водиље</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="obsolete">Прикажи мрежу &amp;основне линије</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="obsolete">Пре&amp;баци на мрежу</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="obsolete">Преб&amp;аци на водиље</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="obsolete">Слика</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="obsolete">Фајл: </translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="obsolete">Оригинални PPI: </translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="obsolete">Стварни PPI: </translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation type="obsolete">Повезан текст</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="obsolete">Текстуални оквир</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation type="obsolete">Текст на путањи</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation type="obsolete">Пасуси: </translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation type="obsolete">Речи: </translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation type="obsolete">Карактери: </translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation type="obsolete">Штампај: </translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Укључено</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="obsolete">Искључено</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="obsolete">Ин&amp;фо</translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation type="obsolete">&amp;Добави слику...</translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="obsolete">С&amp;лика видљива</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="obsolete">&amp;Ажурирај слику</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="obsolete">&amp;Уређивање слике</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="obsolete">&amp;Подеси оквир према слици</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="obsolete">&amp;Добави текст...</translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation type="obsolete">&amp;Примени текст...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="obsolete">&amp;Уређивање текста...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="obsolete">Је PDF &amp;маркер</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="obsolete">Је PDF ан&amp;отација</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="obsolete">С&amp;војства анотације</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="obsolete">С&amp;војства поља</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="obsolete">&amp;PDF опције</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation type="obsolete">Уреди текст...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="obsolete">&amp;Закључај</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="obsolete">От&amp;кључај</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="obsolete">Закључај &amp;величину објекта</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="obsolete">Откључај &amp;величину објекта</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="obsolete">Пошаљи у св&amp;еску</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="obsolete">Пошаљи у сл&amp;ој</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="obsolete">&amp;Уметни пример текста</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="obsolete">&amp;Група</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="obsolete">Од&amp;групиши</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="obsolete">Ни&amp;во</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="obsolete">&amp;Пошаљи иза свега</translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="obsolete">&amp;Доведи испред свега</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="obsolete">&amp;Спусти</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="obsolete">&amp;Подигни</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="obsolete">Оквир &amp;слике</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="obsolete">Пол&amp;игон</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;Оквирне линије</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="obsolete">&amp;Текстуални оквир</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="obsolete">&amp;Bezier крива</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="obsolete">Претв&amp;ори у</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="obsolete">&amp;Исеци</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Копирај</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Обриши</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="obsolete">О&amp;чисти садржај</translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation type="obsolete">Прикажи с&amp;војства...</translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation type="obsolete">Сакриј св&amp;ојства...</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Ниједан</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Упозорење</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="obsolete">Да ли стварно желите да очистите сав текст?</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation type="obsolete">Програм</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation type="obsolete">недостаје!</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Копија</translation>
     </message>
 </context>
 <context>
@@ -6043,55 +5553,12 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Својства полигона</translation>
     </message>
     <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="obsolete">Угл&amp;ови:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="obsolete">&amp;Ротација:</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="obsolete">Примени &amp;фактор</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="obsolete">&amp;Фактор:</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>&amp;У реду</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Откажи</translation>
-    </message>
-    <message>
-        <source>Number of corners for polygons</source>
-        <translation type="obsolete">Број углова за полигоне</translation>
-    </message>
-    <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation type="obsolete">Степени ротације за полигоне</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="obsolete">Примени конвексно/конкавно фактор да би променио облик полигона</translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation type="obsolete">Пример полигона</translation>
-    </message>
-    <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-        <translation type="obsolete">Негативна вредност ће полигон учинити конкавним 
-(или у облику звезде),
- позитивна вредност ће га учинити конвексним</translation>
     </message>
 </context>
 <context>
@@ -6175,10 +5642,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Приказ</translation>
     </message>
     <message>
-        <source>External Tools</source>
-        <translation>Спољашњи алати</translation>
-    </message>
-    <message>
         <source>Misc.</source>
         <translation>Разно</translation>
     </message>
@@ -6219,10 +5682,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Пика (p)</translation>
     </message>
     <message>
-        <source>Mouse Settings</source>
-        <translation>Поставке миша</translation>
-    </message>
-    <message>
         <source>&amp;Wheel Jump:</source>
         <translation>&amp;Скок помоћу точкића:</translation>
     </message>
@@ -6233,10 +5692,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>&amp;Grab Radius:</source>
         <translation>&amp;Зграби полупречник:</translation>
-    </message>
-    <message>
-        <source>Menus</source>
-        <translation>Менији</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
@@ -6353,66 +5808,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>&amp;Interval:</source>
         <translation>&amp;Период:</translation>
-    </message>
-    <message>
-        <source>Grid Layout</source>
-        <translation>Распоред мреже</translation>
-    </message>
-    <message>
-        <source>M&amp;inor Grid Spacing:</source>
-        <translation>С&amp;итни проред мреже:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;jor Grid Spacing:</source>
-        <translation>Озб&amp;иљни проред мреже:</translation>
-    </message>
-    <message>
-        <source>Guide &amp;Snap Distance:</source>
-        <translation>Растојање &amp;пресецања водиља:</translation>
-    </message>
-    <message>
-        <source>Grid Colors</source>
-        <translation>Боје мреже</translation>
-    </message>
-    <message>
-        <source>Min&amp;or Grid Color:</source>
-        <translation>Си&amp;тне боје мреже:</translation>
-    </message>
-    <message>
-        <source>Majo&amp;r Grid Color:</source>
-        <translation>Озб&amp;иљне боје мреже:</translation>
-    </message>
-    <message>
-        <source>&amp;User Guides Color:</source>
-        <translation>Боје &amp;корисничких водиља:</translation>
-    </message>
-    <message>
-        <source>Base&amp;line Grid Color:</source>
-        <translation>Боја осн&amp;овне мреже:</translation>
-    </message>
-    <message>
-        <source>Placing</source>
-        <translation>Постављање</translation>
-    </message>
-    <message>
-        <source>In the &amp;Background</source>
-        <translation>У &amp;позадини</translation>
-    </message>
-    <message>
-        <source>In the Fore&amp;ground</source>
-        <translation>&amp;Спреда</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation>Основна мрежа</translation>
-    </message>
-    <message>
-        <source>O&amp;n</source>
-        <translation>&amp;Укључи</translation>
-    </message>
-    <message>
-        <source>O&amp;ff</source>
-        <translation>И&amp;скључи се</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -6555,22 +5950,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Боја за поп&amp;уњавање:</translation>
     </message>
     <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="obsolete">Угл&amp;ови:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="obsolete">&amp;Ротација:</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="obsolete">Примени &amp;фактор</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="obsolete">&amp;Фактор:</translation>
-    </message>
-    <message>
         <source>Other Options</source>
         <translation>Остале опције</translation>
     </message>
@@ -6595,28 +5974,8 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Велики</translation>
     </message>
     <message>
-        <source>Display Pages &amp;Side by Side</source>
-        <translation>Прикажи странице &amp;једну до друге</translation>
-    </message>
-    <message>
-        <source>Page Colors</source>
-        <translation>Боје странице</translation>
-    </message>
-    <message>
-        <source>&amp;Background:</source>
-        <translation>&amp;Позадина:</translation>
-    </message>
-    <message>
-        <source>&amp;Margins:</source>
-        <translation>&amp;Маргине:</translation>
-    </message>
-    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation>Прикажи област која се не може одштампати у боји маргине</translation>
-    </message>
-    <message>
-        <source>Use PDF 1.4 &amp;Transparency Features</source>
-        <translation>Користи опције &amp;провидности PDF 1.4</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
@@ -6661,14 +6020,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Примени &amp;под уклањање боја</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;У реду</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Откажи</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
@@ -6797,14 +6148,6 @@ each time the time period elapses</source>
     <message>
         <source>Place the grid in front of your page objects</source>
         <translation>Постави мрежу испред Ваших објеката на страници</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation>Укључује основну мрежу</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation>Искључује основну мрежу</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -6959,39 +6302,12 @@ each time the time period elapses</source>
         <translation>Ширина линија</translation>
     </message>
     <message>
-        <source>Number of corners for polygons</source>
-        <translation type="obsolete">Број углова за полигоне</translation>
-    </message>
-    <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation type="obsolete">Степени ротације за полигоне</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="obsolete">Примени конвексно/конкавно фактор да би променио облик полигона</translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation type="obsolete">Пример полигона</translation>
-    </message>
-    <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-        <translation type="obsolete">Негативна вредност ће полигон учинити конкавним 
-(или у облику звезде),
- позитивна вредност ће га учинити конвексним</translation>
-    </message>
-    <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
         <translation>Изаберите величину прегледа у албумској палети</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
         <translation>Сними садржај албума после сваке измене</translation>
-    </message>
-    <message>
-        <source>When using facing pages, show the two pages side by side</source>
-        <translation>Када се користе наспрамне странице, прикажи две странице једну поред друге</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -7004,10 +6320,6 @@ each time the time period elapses</source>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
         <translation>Маскирај област изван линија маргина у боју тих линија</translation>
-    </message>
-    <message>
-        <source>Enable transparency features within PDF 1.4 export</source>
-        <translation>Укључи својства провидности у оквиру PDF 1.4 извоза</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
@@ -7079,6 +6391,118 @@ UCR смањује могућност презасићености CMY маст�
         <source>Select your default language for Scribus to run with.
 Leave this blank to choose based on environment variables.
 You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Grid</source>
+        <translation type="unfinished">Прикажи мрежу</translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Боја:</translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation type="unfinished">Прикажи основну мрежу</translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placing of Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Tools.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the basegrid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7738,30 +7162,6 @@ Check path and filename.</source>
         <translation>Сними као &amp;шаблон...</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Упс! Покушавате да учитате слику у објекат који не постоји или није изабран.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Упс! Покушавате да (откључате)закључате објекат који не постоји! Такође, ниједан није изабран.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Упс! Покушавате да позовете објекат који не постоји! Такође, ниједан није изабран.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Упс! Позивате објекат који не постоји!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Упс! Покушавате да обришете објекат који не постоји!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Упс! Објекат који покушавате да придружите тексту не постоји!</translation>
-    </message>
-    <message>
         <source>S&amp;cripter Manual...</source>
         <translation>S&amp;cripter приручник...</translation>
     </message>
@@ -8244,14 +7644,6 @@ External Links
         <translation>Прво лева &amp;страница</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;У реду</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Откажи</translation>
-    </message>
-    <message>
         <source>Enable single or spread based layout</source>
         <translation>Укључи једноструки распоред или раширени распоред</translation>
     </message>
@@ -8300,24 +7692,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Произвољно</translation>
     </message>
     <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Оријентација:</translation>
-    </message>
-    <message>
         <source>Portrait</source>
         <translation>Усправно</translation>
     </message>
     <message>
         <source>Landscape</source>
         <translation>Водоравно</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Ширина:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Висина:</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -8358,10 +7738,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Page</source>
         <translation type="unfinished">Страница</translation>
-    </message>
-    <message>
-        <source>ShowGrid</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Major Grid</source>
@@ -8643,6 +8019,90 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Misc.</source>
         <translation type="unfinished">Разно</translation>
     </message>
+    <message>
+        <source>Show Grid</source>
+        <translation type="unfinished">Прикажи мрежу</translation>
+    </message>
+    <message>
+        <source>Grab Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation type="unfinished"> px</translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation type="unfinished">Боја папира</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation type="unfinished">Маскирај област изван линија маргина у боју тих линија</translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation type="unfinished">Растојање између мањих линија мреже</translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation type="unfinished">Растојање између озбиљних линија мреже</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation type="unfinished">Растојање у оквиру кога ће се објекат пребацити на постављене водиље</translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation type="unfinished">Радијус области где ће Вам scribus дозволити да хватате објекте</translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation type="unfinished">Боја мањих линија мреже</translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation type="unfinished">Боја озбиљнијих линија мреже</translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation type="unfinished">Боја водиља које Ви умећете</translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation type="unfinished">Боја линија маргина</translation>
+    </message>
+    <message>
+        <source>Color for the basegrid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBAlign</name>
@@ -8787,10 +8247,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Searching for Fonts</source>
         <translation>Тражим фонтове</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Нема postscript фонтова на Вашем систему</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -9637,10 +9093,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Отвори</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="obsolete">Документи (*.sla *.sla.gz *.scd *.scd.gz);;Сви фајлови (*)</translation>
-    </message>
-    <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Документи (*.sla *.scd);;Сви фајлови (*)</translation>
     </message>
@@ -9678,10 +9130,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Warning</source>
         <translation>Упозорење</translation>
-    </message>
-    <message>
-        <source>File %1 is not in Scribus format</source>
-        <translation type="obsolete">Фајл %1 није у scribus-овом формату</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9743,14 +9191,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Сенка:</translation>
-    </message>
-    <message>
-        <source>Hide Baseline Grid</source>
-        <translation type="obsolete">Сакриј основну мрежу</translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="obsolete">Прикажи основну мрежу</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
@@ -9999,10 +9439,6 @@ is not in an acceptable format</source>
     <message>
         <source>p</source>
         <translation>p</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">Све</translation>
     </message>
     <message>
         <source>Copy Here</source>
@@ -10784,14 +10220,6 @@ drag a Template to the Pageview below.</source>
         <translation>Да ли желите да снимите измене?</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Уметни специјално</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">Преглед &amp;фонтова</translation>
-    </message>
-    <message>
         <source>Do you really want to lose all your Changes?</source>
         <translation>Да ли стварно желите да се изгубе све измене?</translation>
     </message>
@@ -10837,10 +10265,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Strike Out</source>
         <translation>Прецртано</translation>
-    </message>
-    <message>
-        <source>Outline Text</source>
-        <translation type="obsolete">Контура текста</translation>
     </message>
     <message>
         <source>Outline</source>
@@ -10989,60 +10413,6 @@ edited to match the one being imported, or left untouched</source>
     <message>
         <source>Information</source>
         <translation>Информација</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Упозорење</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">Име „%1“ није јединствено. 
-Молим Вас изаберите друго.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">У реду</translation>
-    </message>
-    <message>
-        <source>X:</source>
-        <translation type="obsolete">X:</translation>
-    </message>
-    <message>
-        <source>Y:</source>
-        <translation type="obsolete">Y:</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation type="obsolete">Фонт:</translation>
-    </message>
-    <message>
-        <source>Group </source>
-        <translation type="obsolete">Група </translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Слика</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Текст</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Линија</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Полигон</translation>
-    </message>
-    <message>
-        <source>Polyline</source>
-        <translation type="obsolete">Полилинија</translation>
-    </message>
-    <message>
-        <source>PathText</source>
-        <translation type="obsolete">Текста путање</translation>
     </message>
     <message>
         <source>Page</source>

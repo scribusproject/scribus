@@ -41,6 +41,8 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	prefsLayout->addLayout( layout4 );
 	languageChange();
 	connect(prefsSelection, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
 void PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)

@@ -467,6 +467,49 @@ void SCFonts::removeFont(QString name)
 	remove(name);
 }
 
+#ifdef HAVE_FONTCONFIG
+// Use Fontconfig to locate and load fonts.
+void SCFonts::AddFontconfigFonts()
+{
+    // All-in-one library setup. Perhaps this should be in
+    // the SCFonts constructor.
+    FcConfig* FcInitLoadConfigAndFonts();
+    // The pattern controls what fonts to match. In this case we want to
+    // match all scalable fonts, but ignore bitmap fonts.
+    FcPattern* pat = FcPatternBuild(NULL,
+                                    FC_SCALABLE, FcTypeBool, true,
+                                    NULL);
+    // The ObjectSet tells FontConfig what information about each match to return.
+    // We currently just need FC_FILE, but other info like font family and style
+    // is availible - see "man fontconfig".
+    FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
+    // Now ask fontconfig to retrieve info as specified in 'os' about fonts
+    // matching pattern 'pat'.
+    FcFontSet* fs = FcFontList(0, pat, os);
+    FcObjectSetDestroy(os);
+    FcPatternDestroy(pat);
+    // Create the Freetype library
+    bool error;
+    FT_Library library = NULL;
+    error = FT_Init_FreeType( &library );
+    // Now iterate over the font files and load them
+    int i;
+    for (i = 0; i < fs->nfont; i++) {
+        FcChar8 *file = NULL;
+        if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
+        {
+            error = AddScalableFont(QString((char*)file), library, "");
+            if (error)
+                qDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
+        }
+        else
+            qDebug(QObject::tr("Failed to load a font - freetype couldn't find the font file"));
+    }
+    FT_Done_FreeType( library );
+}
+
+#else
+
 void SCFonts::AddXFontPath()
 {
 	int pathcount,i;
@@ -530,6 +573,7 @@ void SCFonts::AddXFontServerPath()
 		} while (pos > -1);
 	}
 }
+#endif
 
 /* Add an extra path to the X-Server's Fontpath
  * allowing a user to have extra Fonts installed
@@ -558,51 +602,14 @@ void SCFonts::GetFonts(QString pf)
 {
 	FontPath.clear();
 	AddUserPath(pf);
+#ifdef HAVE_FONTCONFIG
+	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
+		AddScalableFonts(fpi.current());
+	AddFontconfigFonts();
+#else
 	AddXFontPath();
 	AddXFontServerPath();
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
 		AddScalableFonts(fpi.current());
-	AddFontconfigFonts();
-}
-
-// Use Fontconfig to locate and load fonts.
-void SCFonts::AddFontconfigFonts()
-{
-#ifdef HAVE_FONTCONFIG
-    // All-in-one library setup. Perhaps this should be in
-    // the SCFonts constructor.
-    FcConfig* FcInitLoadConfigAndFonts();
-    // The pattern controls what fonts to match. In this case we want to
-    // match all scalable fonts, but ignore bitmap fonts.
-    FcPattern* pat = FcPatternBuild(NULL,
-                                    FC_SCALABLE, FcTypeBool, true,
-                                    NULL);
-    // The ObjectSet tells FontConfig what information about each match to return.
-    // We currently just need FC_FILE, but other info like font family and style
-    // is availible - see "man fontconfig".
-    FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
-    // Now ask fontconfig to retrieve info as specified in 'os' about fonts
-    // matching pattern 'pat'.
-    FcFontSet* fs = FcFontList(0, pat, os);
-    FcObjectSetDestroy(os);
-    FcPatternDestroy(pat);
-    // Create the Freetype library
-    bool error;
-    FT_Library library = NULL;
-    error = FT_Init_FreeType( &library );
-    // Now iterate over the font files and load them
-    int i;
-    for (i = 0; i < fs->nfont; i++) {
-        FcChar8 *file = NULL;
-        if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
-        {
-            error = AddScalableFont(QString((char*)file), library, "");
-            if (error)
-                qDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
-        }
-        else
-            qDebug(QObject::tr("Failed to load a font - freetype couldn't find the font file"));
-    }
-    FT_Done_FreeType( library );
 #endif
 }
