@@ -1,3 +1,5 @@
+<qt>
+<title>How to write a Scribus Plugin</title>
 <h2>How to write a Scribus Plugin</h2>
 
 <h3>Preface</h3>
@@ -163,7 +165,7 @@ SOURCES += myplugin.cpp
 
 <h4>Back to business...</h4>
 
-<p>Download the <a href="<?php echo $site_examples_root?>donothingplugin-1.0.tar.gz">example</a>, unpack it and browse it.</p>
+<p>Download the <code>donothingplugin-1.0.tar.gz</code> example from http://docs.scribus.net, unpack it and browse it.</p>
 <p>When you enter the main directory you can see a lot of files and directories. <b>Warning</b>, do not change anything in the admin directory. It's content is TABOO for you!</p>
 <p>As you read the automagic docs (surely) you know that there is an important file in every directory of your project called <code>Makefile.am</code>. Here is a short commented example:</p>
 
@@ -193,7 +195,7 @@ AM_LDFLAGS =    -s $(LIBFREETYPE_LIBS)
 </pre>
 </small></td></tr></table></blockquote>
 
-<p>Shortly - if you take the <a href="<?php echo $scr_download_root?>donothingplugin-1.0.tar.gz">donothingplugin-1.0.tar.gz</a> file and parse the content (and rename it of course :)) of <code>Makefile.am</code> files you'll get a functional package.</p>
+<p>Shortly - if you take the <code>donothingplugin-1.0.tar.gz</code> file and parse the content (and rename it of course :)) of <code>Makefile.am</code> files you'll get a functional package.</p>
 <p>There is one more thing to do. You have to specify directory structure in <code>configure.in</code> in the project root directory too:</p>
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
@@ -271,3 +273,4 @@ myPluginPrefs->set("s", "cat");
 <a href="http://doc.trolltech.com/">Qt documentation from Trolltech</a><br />
 <a href="http://doc.trolltech.com/3.2/qmake-manual.html">QMake documentation from Trolltech</a><br />
 <a href="http://www.murrayc.com/learning/linux/automake/automake.shtml">Automake/autoconf example</a><br />
+</qt>

@@ -1,7 +1,9 @@
+<qt>
+<title>Print Previewing</title>
 <h2>Print Previewing</h2>
 <p>As mentioned in the prior section, one of the challenges of an advanced DTP application like Scribus, is the ability to generate what I refer to as "high-level" postscript or PDF features. The print previewer in Scribus is quite special, as it does more than just generate a screen dump of your document. Scribus generates its print preview by actually outputting a temporary PS file and then using some of the special "devices" from Ghostscript. Have patience when launching the print preview, Scribus and Ghostscript do a lot of work in the background. Newer GS 8.x versions will have far fewer limits on the kinds of advanced PS which can be displayed. The print previewer also gives you the option to preview the individual inks in CMYK color.</p>
 <p>The print previewer can help you to identify images and artwork, which may have difficulty printing directly on your particular printing setup. This often depends on the capabilities of your printing system, along with the types of advanced features included in your documents. The types of features which can be troublesome with some printing setups include gradients, transparency and complex masking to name a few. The print previewer also can help to give you an idea of color shifts which might occur when printing in CMYK mode.</p>
-<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>printpreview.png" align="center" alt="Print Previewer" title="Print Previewer" /></div>
+<table width="100%"><tr><td align="center"><img src="images/printpreview.png" align="center" alt="Print Previewer" title="Print Previewer" /></td></tr></table>
 <h4>Print Previewer Options</h4>
 <p>Most of these options are for advanced CMYK or commercial printing. The first two check boxes are useful for all users.</p>
 <ul>
@@ -11,3 +13,4 @@
 	<li><strong>Under Color Removal</strong> - This feature enables/disables Under Color Removal, a technique which can improve CMYK printing, especially with media like newspaper or other highly absorbant papers. UCR, for short is used to prevent over saturation of inks in these situations. Normally, for common ink-jet printing this should be disabled.</li>
 	<li><strong>Display CMYK</strong> - Enabling this option gives you a simulation of generic CMYK inks on the screen. Once enabled, you can selectivly disable/enable any of the C (Cyan), M (Magenta),Y (Yellow) or K (BlacK) ink displays. </li>  
 </ul>
+</qt>
