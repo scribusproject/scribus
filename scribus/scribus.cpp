@@ -460,7 +460,6 @@ void ScribusApp::initScribus()
 		InitHyphenator();
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		Mpal->Fonts->RebuildList(&Prefs);
-		Mpal->fillLangCombo(Sprachen);
 		DocDir = Prefs.DocDir;
 		splash->setStatus("");
 		splash->setStatus( tr("Setting up Shortcuts"));
@@ -3157,6 +3156,9 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 
 bool ScribusApp::LadeDoc(QString fileName)
 {
+	QFileInfo fi(fileName);
+	if (!fi.exists())
+		return false;
 	if (HaveDoc)
 		doc->OpenNodes = Tpal->buildReopenVals();
 	bool ret = false;
@@ -3179,7 +3181,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 	}
 	if (!fileName.isEmpty())
 	{
-		QFileInfo fi(fileName);
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
 		doc=new ScribusDoc();
@@ -3360,6 +3361,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		Mpal->Cpal->ChooseGrad(0);
 		doc->DocName = FName;
 		doc->MasterP = false;
+		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
 		Mpal->updateCList();
 		doc->hasName = true;
@@ -8275,10 +8277,176 @@ void ScribusApp::CanUndo()
 
 void ScribusApp::InitHyphenator()
 {
-	QString datein = "";
-	QString	lang = QString(QTextCodec::locale()).left(2);
 	QString pfad = PREL;
-	Prefs.Language = tr("English");
+	pfad += "/lib/scribus/";
+	QStringList L_German;
+	QStringList L_Polish;
+	QStringList L_English;
+	QStringList L_Spanish;
+	QStringList L_Italian;
+	QStringList L_French;
+	QStringList L_Russian;
+	QStringList L_Danish;
+	QStringList L_Slovak;
+	QStringList L_Hungarian;
+	QStringList L_Czech;
+	QStringList L_Dutch;
+	QStringList L_Portuguese;
+	QStringList L_Ukrainian;
+	QStringList L_Greek;
+	QStringList L_Catalan;
+	QStringList L_Finnish;
+	QStringList L_Irish;
+	QStringList L_Lithuanian;
+	QStringList L_Swedish;
+	QStringList L_Slovenian;
+	L_German.clear();
+	L_Polish.clear();
+	L_English.clear();
+	L_Spanish.clear();
+	L_Italian.clear();
+	L_French.clear();
+	L_Russian.clear();
+	L_Danish.clear();
+	L_Slovak.clear();
+	L_Hungarian.clear();
+	L_Czech.clear();
+	L_Dutch.clear();
+	L_Portuguese.clear();
+	L_Ukrainian.clear();
+	L_Greek.clear();
+	L_Catalan.clear();
+	L_Finnish.clear();
+	L_Irish.clear();
+	L_Lithuanian.clear();
+	L_Swedish.clear();
+	L_Slovenian.clear();
+	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	if ((d2.exists()) && (d2.count() != 0))
+	{
+		for (uint dc = 0; dc < d2.count(); dc++)
+		{
+			QFileInfo fi(pfad + d2[dc]);
+			QString ext = fi.extension(false).lower();
+			QString ext2 = fi.extension(true).lower();
+			if (ext == "qm")
+			{
+    			QTranslator *trans = new QTranslator(0);
+				trans->load(pfad + d2[dc]);
+				QString translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "German", "").translation();
+				if (translatedLang != "")
+					L_German.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Polish", "").translation();
+				if (translatedLang != "")
+					L_Polish.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "English", "").translation();
+				if (translatedLang != "")
+					L_English.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Spanish", "").translation();
+				if (translatedLang != "")
+					L_Spanish.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Italian", "").translation();
+				if (translatedLang != "")
+					L_Italian.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "French", "").translation();
+				if (translatedLang != "")
+					L_French.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Russian", "").translation();
+				if (translatedLang != "")
+					L_Russian.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Danish", "").translation();
+				if (translatedLang != "")
+					L_Danish.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Slovak", "").translation();
+				if (translatedLang != "")
+					L_Slovak.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Hungarian", "").translation();
+				if (translatedLang != "")
+					L_Hungarian.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Czech", "").translation();
+				if (translatedLang != "")
+					L_Czech.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Dutch", "").translation();
+				if (translatedLang != "")
+					L_Dutch.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Portuguese", "").translation();
+				if (translatedLang != "")
+					L_Portuguese.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Ukrainian", "").translation();
+				if (translatedLang != "")
+					L_Ukrainian.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Greek", "").translation();
+				if (translatedLang != "")
+					L_Greek.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Catalan", "").translation();
+				if (translatedLang != "")
+					L_Catalan.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Finnish", "").translation();
+				if (translatedLang != "")
+					L_Finnish.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Irish", "").translation();
+				if (translatedLang != "")
+					L_Irish.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Lithuanian", "").translation();
+				if (translatedLang != "")
+					L_Lithuanian.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Swedish", "").translation();
+				if (translatedLang != "")
+					L_Swedish.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Slovenian", "").translation();
+				if (translatedLang != "")
+					L_Slovenian.append(translatedLang);
+				delete trans;
+			}
+		}
+	}
+	InstLang.insert("German", L_German);
+	InstLang.insert("Polish", L_Polish);
+	InstLang.insert("English", L_English);
+	InstLang.insert("Spanish", L_Spanish);
+	InstLang.insert("Italian", L_Italian);
+	InstLang.insert("French", L_French);
+	InstLang.insert("Russian", L_Russian);
+	InstLang.insert("Danish", L_Danish);
+	InstLang.insert("Slovak", L_Slovak);
+	InstLang.insert("Hungarian", L_Hungarian);
+	InstLang.insert("Czech", L_Czech);
+	InstLang.insert("Dutch", L_Dutch);
+	InstLang.insert("Portuguese", L_Portuguese);
+	InstLang.insert("Ukrainian", L_Ukrainian);
+	InstLang.insert("Greek", L_Greek);
+	InstLang.insert("Catalan", L_Catalan);
+	InstLang.insert("Finnish", L_Finnish);
+	InstLang.insert("Irish", L_Irish);
+	InstLang.insert("Lithuanian", L_Lithuanian);
+	InstLang.insert("Swedish", L_Swedish);
+	InstLang.insert("Slovenian", L_Slovenian);
+	QString datein = "";
+	QString lang = QString(QTextCodec::locale()).left(2);
+	LangTransl.clear();
+	Prefs.Language = "English";
+	pfad = PREL;
 	pfad += "/lib/scribus/dicts/";
 	QDir d(pfad, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
@@ -8327,23 +8495,42 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Swedish");
 			if (d[dc] == "hyph_sl.dic")
 				datein = tr("Slovenian");
+			QString tDatein = datein;
+			datein = GetLang(datein);
+			LangTransl.insert(datein, tDatein);
 			Sprachen.insert(datein, d[dc]);
 			if (d[dc] == "hyph_"+lang+".dic")
 				Prefs.Language = datein;
 		}
 		if (datein == "")
-			Prefs.Language = tr("English");
+			Prefs.Language = "English";
 	}
+	Mpal->fillLangCombo(LangTransl);
+}
+
+QString ScribusApp::GetLang(QString inLang)
+{
+	QMap<QString, QStringList>::Iterator itl;
+	for (itl = InstLang.begin(); itl != InstLang.end(); ++itl)
+	{
+		QStringList::Iterator itlr;
+		for (itlr = itl.data().begin(); itlr != itl.data().end(); ++itlr)
+		{
+			if ((*itlr) == inLang)
+				return itl.key();
+		}
+	}
+	return inLang;
 }
 
 void ScribusApp::configHyphenator()
 {
-	HySettings *dia = new HySettings(this, &Sprachen);
+	HySettings *dia = new HySettings(this, &LangTransl);
 	if (HaveDoc)
 	{
 		dia->Verbose->setChecked(doc->Trenner->Automatic);
 		dia->Input->setChecked(doc->Trenner->AutoCheck);
-		dia->Language->setCurrentText(doc->Trenner->Language);
+		dia->Language->setCurrentText(LangTransl[doc->Trenner->Language]);
 		dia->WordLen->setValue(doc->Trenner->MinWordLen);
 		dia->MaxCount->setValue(doc->Trenner->HyCount);
 	}
@@ -8351,7 +8538,7 @@ void ScribusApp::configHyphenator()
 	{
 		dia->Verbose->setChecked(Prefs.Automatic);
 		dia->Input->setChecked(Prefs.AutoCheck);
-		dia->Language->setCurrentText(Prefs.Language);
+		dia->Language->setCurrentText(LangTransl[Prefs.Language]);
 		dia->WordLen->setValue(Prefs.MinWordLen);
 		dia->MaxCount->setValue(Prefs.HyCount);
 	}
@@ -8365,7 +8552,7 @@ void ScribusApp::configHyphenator()
 		else
 		{
 			Prefs.MinWordLen = dia->WordLen->value();
-			Prefs.Language = dia->Language->currentText();
+			Prefs.Language = GetLang(dia->Language->currentText());
 			Prefs.Automatic = dia->Verbose->isChecked();
 			Prefs.AutoCheck = dia->Input->isChecked();
 			Prefs.HyCount = dia->MaxCount->value();

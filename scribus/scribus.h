@@ -104,6 +104,7 @@ public:
 	void UpdateRecent(QString fn);
 	void InitPlugs(SplashScreen *spl);
 	void InitHyphenator();
+	QString GetLang(QString inLang);
 	void FinalizePlugs();
 	bool DLLName(QString name, QString *PName, int *typ, void **Zeig);
 	void CallDLL(QString name);
@@ -184,6 +185,8 @@ public:
 	/** file_menu contains all items of the menubar entry "File" */
 	QPopupMenu *fileMenu;
 	QValueList<int> MenuItemsFile;
+	QMap<QString, QStringList> InstLang;
+	QMap<QString,QString> LangTransl;
 
 public slots:
 	void ToggleAllPalettes();

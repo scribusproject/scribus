@@ -22,7 +22,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	Language = new QComboBox( true, this, "Language" );
 	QMap<QString,QString>::Iterator it;
 	for (it = langs->begin(); it != langs->end(); ++it)
-		lada.append(it.key());
+		lada.append(it.data());
 	lada.sort();
 	Language->insertStringList(lada);
 	Language->setEditable(false);

@@ -1067,7 +1067,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	ToggleFlow();
-	langCombo->setCurrentText(i->Language);
+	langCombo->setCurrentText(ScApp->LangTransl[i->Language]);
 	bool setter;
 	if (i->NamedLStyle == "")
 	{
@@ -3175,7 +3175,7 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 	langCombo->clear();
 	QMap<QString,QString>::Iterator it;
 	for (it = langMap.begin(); it != langMap.end(); ++it)
-		langCombo->insertItem(it.key());
+		langCombo->insertItem(it.data());
 	langCombo->listBox()->setMinimumWidth(langCombo->listBox()->maxItemWidth()+24);
 }
 
@@ -3183,7 +3183,7 @@ void Mpalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->Language = langCombo->currentText();
+		CurItem->Language = ScApp->GetLang(langCombo->currentText());
 		emit DocChanged();
 	}
 }

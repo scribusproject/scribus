@@ -8836,7 +8836,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->Reverse = Buffer->Reverse;
 	b->InvPict = Buffer->InvPict;
 	b->NamedLStyle = Buffer->NamedLStyle;
-	b->Language = Buffer->Language;
+	b->Language = ScApp->GetLang(Buffer->Language);
 	b->Cols = Buffer->Cols;
 	b->ColGap = Buffer->ColGap;
 	if (Buffer->LayerNr != -1)

@@ -1,5 +1,8 @@
 Changes since Version 1.1.7
 
+08.08.2004
+	* bug     #616: Properties/Language: Wrong language descriptions
+
 07.08.2004
 	* bug     #724: No left aligned page numbers
 	* bug     #925: clicking on bookmarks in bookmark window should activate the corresponding text frame
