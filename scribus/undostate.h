@@ -24,6 +24,7 @@
 #include <qmap.h>
 #include <qpixmap.h>
 #include <qstring.h>
+class PageItem;
 
 /** 
  * @brief UndoState describes an undoable state (action).
@@ -247,6 +248,19 @@ public:
 	 * @param value Value attached to the key.
 	 */
 	void set(const QString& key, bool value);
+};
+
+/*** ItemState ***************************************************************************/
+
+class ItemState : public SimpleState
+{
+private:
+	PageItem *pi;
+public:
+	ItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0);
+	~ItemState();
+	void setPageItem(PageItem *pageItem);
+	PageItem* getPageItem();
 };
 
 #endif

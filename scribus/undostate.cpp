@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "undostate.h"
+#include "pageitem.h"
 
 UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap)
 {
@@ -151,6 +152,29 @@ void SimpleState::set(const QString& key, bool value)
 
 
 SimpleState::~SimpleState() 
+{
+
+}
+
+/*** ItemState **************************************************************/
+
+ItemState::ItemState(const QString& name, const QString& description, QPixmap* pixmap)
+: SimpleState(name, description, pixmap)
+{
+	pi = NULL;
+}
+
+void ItemState::setPageItem(PageItem *pageItem)
+{
+	pi = pageItem;
+}
+
+PageItem* ItemState::getPageItem()
+{
+	return pi;
+}
+
+ItemState::~ItemState()
 {
 
 }

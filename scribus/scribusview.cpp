@@ -7899,6 +7899,7 @@ void ScribusView::DeleteItem()
 	{
 		anz = SelItem.count();
 		uint offs = 0;
+		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = SelItem.at(offs);
@@ -7907,16 +7908,20 @@ void ScribusView::DeleteItem()
 				offs++;
 				continue;
 			}
+			tooltip += "\t" + b->getUName() + "\n";
 			delItems.append(SelItem.take(offs));
 		}
 		if (delItems.count() == 0)
 			return;
 		anz = delItems.count();
+
+		if (anz > 1)
+			undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
+										  Um::Delete, tooltip, Um::IDelete);
+
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = delItems.at(0);
-			// tmp solution to prevent crashing when undoactions are done with a deleted object
-			undoManager->replaceObject(b->getUId(), NULL);
 			if ((b->PType == 2) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
 				ScApp->fileWatcher->removeFile(b->Pfile);
 			if (b->PType == 4)
@@ -7961,7 +7966,8 @@ void ScribusView::DeleteItem()
 //			if (anz != 1)
 //			{
 				Doc->Items.remove(b->ItemNr);
-				delete b;
+				b->Select = false;
+// 				delete b;
 //			}
 //			emit DelObj(PageNr, SelItem.at(0)->ItemNr);
 			delItems.removeFirst();
@@ -7977,7 +7983,19 @@ void ScribusView::DeleteItem()
 						delItems.at(dxx)->ItemNr = a;
 				}
 			}
+			// send the undo action to the UndoManager
+			if (UndoManager::undoEnabled())
+			{
+				ItemState *is = new ItemState(Um::Delete + " " + b->getUName(), "", Um::IDelete);
+				is->setPageItem(b);
+				is->set("DELETE_ITEM", "delete_item");
+				undoManager->action(Doc->Pages.at(b->OwnPage), is, b->getUPixmap());
+			}
 		}
+
+		if (anz > 1)
+			undoManager->commit();
+
 		if (GroupSel)
 		{
 			double x, y, w, h;

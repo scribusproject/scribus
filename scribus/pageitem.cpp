@@ -2358,9 +2358,7 @@ void PageItem::toggleLock()
 
 void PageItem::setLocked(bool isLocked)
 {
-	if (isLocked == Locked)
-		return; // nothing to do return
-	else
+	if (isLocked != Locked)
 		toggleLock();
 }
 
@@ -2665,6 +2663,6 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 
 void PageItem::select()
 {
-	ScApp->view->Deselect();
-	ScApp->view->SelectItem(this);
+	ScApp->view->Deselect(false);
+	ScApp->view->SelectItem(this, false);
 }

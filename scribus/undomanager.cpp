@@ -73,6 +73,8 @@ void UndoManager::beginTransaction(const QString &targetName,
                                    const QString &description,
                                    QPixmap *actionPixmap)
 {
+	if (!_undoEnabled)
+		return;
 	if (transaction) // begin a transaction inside transaction
 		transactions.push_back(
 			std::pair<TransactionObject*, TransactionState*>(transactionTarget, transaction));
@@ -111,7 +113,7 @@ void UndoManager::commit(const QString &targetName,
                          const QString &description,
                          QPixmap *actionPixmap)
 {
-	if (!transaction || !transactionTarget)
+	if (!transaction || !transactionTarget || !_undoEnabled)
 	{
 		cancelTransaction();
 		return;
@@ -275,8 +277,15 @@ void UndoManager::removeStack(const QString& stackName)
 	}
 }
 
-void UndoManager::action(UndoObject* target, UndoState* state)
+void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPixmap)
 {
+	QPixmap *oldIcon = NULL;
+	if (targetPixmap)
+	{
+		oldIcon = target->getUPixmap();
+		target->setUPixmap(targetPixmap);
+	}
+	if (targetPixmap)
 	if (!_undoEnabled) // if so flush down the state
 	{
 		TransactionState *ts = dynamic_cast<TransactionState*>(state);
@@ -315,6 +324,8 @@ void UndoManager::action(UndoObject* target, UndoState* state)
 		stacks[currentDoc].second.insert(stacks[currentDoc].second.begin(), ActionPair(target, state));
 		stacks[currentDoc].first = stacks[currentDoc].second.begin();
 	}
+	if (targetPixmap)
+		target->setUPixmap(oldIcon);
 }
 
 void UndoManager::undo(int steps)
@@ -585,10 +596,12 @@ void UndoManager::initIcons()
 	UndoManager::ILockGuides      = new QPixmap(iconDir + "u_margins_locked.png");
 	UndoManager::IFill            = new QPixmap(iconDir + "u_fill.png");
 	UndoManager::IShade           = new QPixmap(iconDir + "u_shade.png");
-// 	UndoManager::IFlipH           = new QPixmap(iconDir + "u_fliph.png");
-// 	UndoManager::IFlipV           = new QPixmap(iconDir + "u_flipv.png");
+	UndoManager::IFlipH           = new QPixmap(iconDir + "u_fliph.png");
+	UndoManager::IFlipV           = new QPixmap(iconDir + "u_flipv.png");
 	UndoManager::ILock            = new QPixmap(iconDir + "u_lock.png");
 	UndoManager::IUnLock          = new QPixmap(iconDir + "u_unlock.png");
+	UndoManager::IDelete          = new QPixmap(iconDir + "u_delete.png");
+	UndoManager::ICreate          = new QPixmap(iconDir + "u_create.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -625,6 +638,7 @@ const QString UndoManager::UnLock            = tr("Unlock");
 const QString UndoManager::SizeLock          = tr("Lock size");
 const QString UndoManager::SizeUnLock        = tr("Unlock size");
 const QString UndoManager::Ungroup           = tr("Ungroup");
+const QString UndoManager::Delete            = tr("Delete");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -647,3 +661,5 @@ QPixmap *UndoManager::IFlipH           = NULL;
 QPixmap *UndoManager::IFlipV           = NULL;
 QPixmap *UndoManager::ILock            = NULL;
 QPixmap *UndoManager::IUnLock          = NULL;
+QPixmap *UndoManager::IDelete          = NULL;
+QPixmap *UndoManager::ICreate          = NULL;

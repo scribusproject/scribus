@@ -425,6 +425,7 @@ public:
 	static const QString SizeLock;
 	static const QString SizeUnLock;
 	static const QString Ungroup;
+	static const QString Delete;
 	/*@}*/
 
 	/**
@@ -453,6 +454,8 @@ public:
 	static QPixmap *IFlipV;
 	static QPixmap *ILock;
 	static QPixmap *IUnLock;
+	static QPixmap *IDelete;
+	static QPixmap *ICreate;
 	/*@}*/
 
 protected:
@@ -491,8 +494,9 @@ public slots:
 	 * @param target Source of the action. When undoing/redoing this action
 	 * restore() method of this UndoObject will be called.
 	 * @param state UndoSate describing the state (action).
+	 * @param targetPixmap Is used to replace the default target icon.
 	 */
-	void action(UndoObject* target, UndoState* state);
+	void action(UndoObject* target, UndoState* state, QPixmap *targetPixmap = 0);
 
 	/**
 	 * @brief Informs UndoManager to perform undo

@@ -253,6 +253,8 @@ void Page::restore(UndoState* state, bool isUndo)
 		}
 		else if (ss->contains("CREATE_PAGEITEM"))
 			restorePageItemCreation(ss, isUndo);
+		else if (ss->contains("DELETE_ITEM"))
+			restorePageItemDeletion(dynamic_cast<ItemState*>(ss), isUndo);
 	}
 }
 
@@ -306,3 +308,24 @@ void Page::restorePageItemCreation(SimpleState *state, bool isUndo)
 	}
 }
 
+void Page::restorePageItemDeletion(ItemState *state, bool isUndo)
+{
+	if (!state)
+		return;
+	PageItem *ite = state->getPageItem();
+	if (isUndo)
+	{
+		ScApp->doc->Items.append(ite);
+		if (ScApp->doc->MasterP)
+			ScApp->doc->MasterItems = ScApp->doc->Items;
+		else
+			ScApp->doc->DocItems = ScApp->doc->Items;
+		ite->ItemNr = ScApp->doc->Items.count()-1;
+	}
+	else
+	{
+		ScApp->view->Deselect();
+		ScApp->view->SelectItem(ite, false);
+		ScApp->view->DeleteItem();
+	}
+}
