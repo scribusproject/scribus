@@ -1961,7 +1961,7 @@ QStringList sortQStringList(QStringList aList)
 	for (it = aList.begin(); it != aList.end(); ++it)
 		sortList.push_back(*it);
 	std::sort(sortList.begin(), sortList.end(), compareQStrings);
-	for(int i = 0; i < sortList.size(); i++)
+	for(uint i = 0; i < sortList.size(); i++)
 		retList.append(sortList[i]);
 	return retList;
 }

@@ -2367,7 +2367,7 @@ bool ScribusApp::SetupDoc()
 	bool fpe = doc->FirstPageLeft;
 	double tpr2, lr2, rr2, br2;
 	bool ret = false;
-	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, doc->PageB, doc->PageH, fp, fpe, doc->Einheit, doc->PageOri, doc->PageSize);
+	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, doc->PageB, doc->PageH, fp, fpe, doc->Einheit, doc->PageOri, doc->PageSize, doc->FirstPnum);
 	if (dia->exec())
 	{
 		tpr2 = dia->TopR->value() / UmReFaktor;
@@ -2377,6 +2377,7 @@ bool ScribusApp::SetupDoc()
 		fp = dia->Doppelseiten->isChecked();
 		if (fp)
 			doc->FirstPageLeft = dia->ErsteSeite->isChecked();
+		doc->FirstPnum = dia->PgNr->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
 		view->reformPages();
 		view->GotoPage(doc->ActPage->PageNr);

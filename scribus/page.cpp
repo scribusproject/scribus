@@ -6851,6 +6851,7 @@ void Page::ToTextFrame()
 	if (!doku->loading)
 		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void Page::ToPicFrame()
@@ -6864,6 +6865,7 @@ void Page::ToPicFrame()
 	if (!doku->loading)
 		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void Page::ToPolyFrame()
@@ -6881,6 +6883,7 @@ void Page::ToPolyFrame()
 	if (!doku->loading)
 		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void Page::ToBezierFrame()
@@ -6896,6 +6899,7 @@ void Page::ToBezierFrame()
 	if (!doku->loading)
 		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void Page::Bezier2Poly()
@@ -6916,6 +6920,7 @@ void Page::Bezier2Poly()
 	if (!doku->loading)
 		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void Page::SetPolyClip(PageItem *b, int up, int down)

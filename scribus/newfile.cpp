@@ -361,18 +361,20 @@ void NewDoc::setUnit(int u)
 	Umrech = umr[u];
 	decimals = dec[u];
 	einheit = u;
-	Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
-	Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
+	if (ComboBox2->currentItem() == PORTRAIT)
+	{
+		Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
+		Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
+	}
+	else
+	{
+		Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pageho * Umrech);
+		Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pagebr * Umrech);
+	}
 	RightR->setValues(0, Breite->value() - Left * Umrech, decimals, Right * Umrech);
 	LeftR->setValues(0, Breite->value() - Right * Umrech, decimals, Left * Umrech);
 	TopR->setValues(0, Hoehe->value() - Bottom * Umrech, decimals, Top * Umrech);
 	BottomR->setValues(0, Hoehe->value() - Top * Umrech, decimals, Bottom * Umrech);
-	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
-	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Distance->setValue(Dist * Umrech);
 	TopR->setSuffix(ein);
 	BottomR->setSuffix(ein);
@@ -381,6 +383,12 @@ void NewDoc::setUnit(int u)
 	Breite->setSuffix(ein);
 	Hoehe->setSuffix(ein);
 	Distance->setSuffix( ein );
+	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 
 }
 

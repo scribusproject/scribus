@@ -1477,7 +1477,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -1763,7 +1763,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
 </context>
 <context>
@@ -2592,7 +2592,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
 </context>
 <context>
@@ -4402,7 +4402,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation>Nummer der &amp;ersten Seite:</translation>
+        <translation type="unfinished">&amp;Erste Seitennummer:</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
