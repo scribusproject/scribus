@@ -159,13 +159,26 @@ AC_SUBST(LIBLCMS)
 if test $hacms = yes && test $hacmsh = yes; then
  AC_DEFINE_UNQUOTED(HAVE_CMS, 1, [ColorManagement])
 fi
+
+dnl Checks for libtiff - library exists, tiffvers.h can be found, and new enough.
 LIBTIFF=""
 hastif=
+dnl Check if we have libtiff
 AC_CHECK_LIB(tiff, TIFFOpen, [LIBTIFF="-ltiff";hastif=yes],[LIBTIFF="";hastif=no],[-lm])
+dnl Check for tiffvers.h
+AC_CHECK_HEADER(tiffvers.h, [], [LIBTIFF="";hastif=no])
+dnl Now attempt to check if libtiff is new enough
+AC_TRY_COMPILE([
+#include "tiffvers.h"
+#if TIFFLIB_VERSION < 20031226
+#error libtiff is too old, need libtiff 3.6.0 or newer.
+#endif
+], [], [], [LIBTIFF="";hastif=no])
 AC_SUBST(LIBTIFF)
 if test $hastif = yes; then
  AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
 fi
+
 LIBDL2=""
 AC_CHECK_LIB(c, dlopen, [LIBDL2="-lc"],[LIBDL2=""])
 AC_SUBST(LIBDL2)
