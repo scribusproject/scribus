@@ -1101,6 +1101,12 @@ void Mpalette::SetCurItem(PageItem *i)
 	Textflow3->setChecked(i->UseContour);
 	connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
+	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	FlipH->setOn((i->flippedH % 2 != 0));
+	FlipV->setOn((i->flippedV % 2 != 0));
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 	ToggleFlow();
 	langCombo->setCurrentText(ScApp->LangTransl[i->Language]);
 	bool setter;
@@ -1287,6 +1293,12 @@ void Mpalette::NewSel(int nr)
 		TabStack->widget(4)->setEnabled(false);
 		TabStack->widget(5)->setEnabled(true);
 		SColor->setEnabled(true);
+		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+		FlipH->setOn(false);
+		FlipV->setOn(false);
+		connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+		connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 		switch (nr)
 		{
 		case -1:

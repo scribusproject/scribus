@@ -6657,6 +6657,7 @@ void ScribusApp::ObjektLower()
 
 void ScribusApp::ObjektDup()
 {
+	slotSelect();
 	slotEditCopy();
 	view->Deselect(true);
 	slotEditPaste();
@@ -6671,6 +6672,7 @@ void ScribusApp::ObjektDup()
 
 void ScribusApp::ObjektDupM()
 {
+	slotSelect();
 	NoFrameEdit();
 	Mdup *dia = new Mdup(this, DispX * UmReFaktor, DispY * UmReFaktor, doc->Einheit);
 	if (dia->exec())
