@@ -64,6 +64,7 @@ public:
 	MSpinBox* gX2;
 	MSpinBox* gX1;
 	MSpinBox* gY2;
+	QToolButton *gradEditButton;
 	QLabel* TransTxt;
 	QLabel* ShadeTxt;
 	QSpinBox* TransSpin;
@@ -111,6 +112,7 @@ signals:
 	void NewTransS(double);
 	void QueryItem();
 	void gradientChanged();
+	void editGradient();
 
 protected:
 	QVBoxLayout* Form1Layout;

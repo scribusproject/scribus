@@ -335,6 +335,7 @@ private slots:
 	void EditSh();
 	void NewTDist();
 	void NewSpGradient(double x1, double y1, double x2, double y2);
+	void toggleGradientEdit();
 	void DoRevert();
 	void handleLock();
 	void handlePrint();

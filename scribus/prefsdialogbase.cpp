@@ -20,7 +20,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	prefsSelection->setVScrollBarMode( QIconView::Auto );
 	prefsSelection->setArrangement(QIconView::LeftToRight);
 	prefsSelection->setItemsMovable(false);
-	prefsSelection->setAutoArrange( true );
+	prefsSelection->setAutoArrange( false );
 	prefsSelection->setSorting( false );
 	prefsSelection->setFocusPolicy(QWidget::NoFocus);
 	prefsSelection->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, prefsSelection->sizePolicy().hasHeightForWidth() ) );
@@ -45,11 +45,35 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 
 void PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 {
-	QIconViewItem* ic = new QIconViewItem(prefsSelection, name, icon);
+	QIconViewItem* icx = new QIconViewItem(prefsSelection, name, icon);
 	prefsWidgets->addWidget(tab, counter);
-	itemMap.insert(ic, counter);
+	itemMap.insert(icx, counter);
 	counter++;
-//	prefsSelection->arrangeItemsInGrid();
+}
+
+void PrefsDialogBase::arrangeIcons()
+{
+	int maxWidth = 0;
+	QIconViewItem* ic = prefsSelection->firstItem();
+	int deltaHeight = ic->height()+5;
+	int startY = 5;
+	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
+	{
+		int w = ic->width();
+		maxWidth = QMAX(w, maxWidth);
+		ic = ic->nextItem();
+	}
+	ic = prefsSelection->firstItem();
+	prefsSelection->setAutoArrange( false );
+	prefsSelection->setResizeMode(QIconView::Fixed);
+	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
+	{
+		int w = ic->width();
+		int moveW = (maxWidth - w) / 2;
+		ic->move(moveW, startY);
+		startY += deltaHeight;
+		ic = ic->nextItem();
+	}
 }
 
 void PrefsDialogBase::itemSelected(QIconViewItem* ic)

@@ -22,6 +22,7 @@ public:
 	PrefsDialogBase( QWidget* parent = 0 );
 	~PrefsDialogBase() {};
 	void addItem(QString name, QPixmap icon, QWidget *tab);
+	void arrangeIcons();
 	QWidgetStack* prefsWidgets;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;

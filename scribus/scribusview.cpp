@@ -341,6 +341,21 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 	}
 	if (Doc->AppMode == 7)
 		slotDoCurs(true);
+	if (Doc->AppMode == 25)
+	{
+		PageItem *b = SelItem.at(0);
+		QPainter p;
+		p.begin(viewport());
+		ToView(&p);
+		Transform(b, &p);
+		p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+		p.setBrush(NoBrush);
+		p.drawLine(QPoint(qRound(b->GrStartX), qRound(b->GrStartY)), QPoint(qRound(b->GrEndX), qRound(b->GrEndY)));
+		p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+		p.drawLine(QPoint(qRound(b->GrStartX), qRound(b->GrStartY)), QPoint(qRound(b->GrStartX), qRound(b->GrStartY)));
+		p.drawLine(QPoint(qRound(b->GrEndX), qRound(b->GrEndY)), QPoint(qRound(b->GrEndX), qRound(b->GrEndY)));
+		p.end();
+	}
 //	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 }
 
@@ -1099,6 +1114,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			return;
 		}
 	}
+	if (Doc->AppMode == 25)
+		return;
 	if (Doc->AppMode == 24)
 	{
 		QPainter p;
@@ -2561,6 +2578,33 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	else
 		BlockLeave = false;
 	} */
+	if (Mpressed && (Doc->AppMode == 25))
+	{
+		PageItem *b = SelItem.at(0);
+		newX = m->x();
+		newY = m->y(); 
+		if (m->state() == LeftButton)
+		{
+			b->GrStartX -= (Mxp - newX) / Scale;
+			b->GrStartX = QMIN(QMAX(0.0, b->GrStartX), b->Width);
+			b->GrStartY -= (Myp - newY) / Scale;
+			b->GrStartY = QMIN(QMAX(0.0, b->GrStartY), b->Height);
+		}
+		if (m->state() == RightButton)
+		{
+			b->GrEndX -= (Mxp - newX) / Scale;
+			b->GrEndX = QMIN(QMAX(0.0, b->GrEndX), b->Width);
+			b->GrEndY -= (Myp - newY) / Scale;
+			b->GrEndY = QMIN(QMAX(0.0, b->GrEndY), b->Height);
+		}
+		Mxp = newX;
+		Myp = newY;
+		RefreshItem(b);
+		ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
+																 					 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
+																 					 b->Width * UmReFaktor, b->Height * UmReFaktor);
+		return;
+	}
 	if (Mpressed && (Doc->AppMode == 24))
 	{
 		newX = m->x();
@@ -4160,6 +4204,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case 23:
 			break;
 		case 24:
+		case 25:
 			Mpressed = true;
 			qApp->setOverrideCursor(QCursor(CrossCursor), true);
 			Dxp = m->x();
@@ -6873,6 +6918,7 @@ void ScribusView::Deselect(bool prop)
 	}
 	if (prop)
 		emit HaveSel(-1);
+	ScApp->Mpal->Cpal->gradEditButton->setOn(false);
 }
 
 void ScribusView::updateGradientVectors(PageItem *b)

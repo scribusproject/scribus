@@ -136,6 +136,10 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	gY2->setDecimals(100);
 	gY2->setMaxValue(3000);
 	freeGradientLayout->addWidget( gY2, 1, 3 );
+	gradEditButton = new QToolButton(freeGradientQFrame, "t1");
+	gradEditButton->setText( tr("Edit..."));
+	gradEditButton->setToggleButton(true);
+	freeGradientLayout->addMultiCellWidget(gradEditButton, 2, 2, 0, 3);
 	GradLayout->addWidget( freeGradientQFrame );
 	Form1Layout->addLayout(GradLayout);
 	colorListQLBox = new QListBox(this, "colorListQLBox");
@@ -168,6 +172,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEdit->Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(gradEditButton, SIGNAL(clicked()), this, SIGNAL(editGradient()));
 }
 
 void Cpalette::InhaltButton()

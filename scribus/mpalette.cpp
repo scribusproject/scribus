@@ -891,6 +891,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double )), this, SLOT(NewSpGradient(double, double, double, double )));
+	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -2761,6 +2762,20 @@ void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 		CurItem->GrEndY = y2 / UmReFaktor;
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
+	}
+}
+
+void Mpalette::toggleGradientEdit()
+{
+	if (ScApp->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		if (Cpal->gradEditButton->isOn())
+			ScApp->setAppMode(25);
+		else
+			ScApp->setAppMode(1);
+		ScApp->view->RefreshItem(CurItem);
 	}
 }
 

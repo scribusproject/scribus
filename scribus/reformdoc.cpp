@@ -965,6 +965,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 
 	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
+	arrangeIcons();
 	clearWState( WState_Polished );
 }
 
