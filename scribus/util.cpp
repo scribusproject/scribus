@@ -523,15 +523,17 @@ QImage LoadPict(QString fn, bool *gray)
 #endif
 	else
 	{
-		Bild.load(fn);
-		if (gray != 0)
+		if (Bild.load(fn))
 		{
-			if ((Bild.depth() == 8) && (Bild.isGrayscale()))
-				*gray = true;
-			else
-				*gray = false;
+			if (gray != 0)
+			{
+				if ((Bild.depth() == 8) && (Bild.isGrayscale()))
+					*gray = true;
+				else
+					*gray = false;
+			}
+			Bild = Bild.convertDepth(32);
 		}
-  		Bild = Bild.convertDepth(32);
 	}
 	return Bild;
 }
