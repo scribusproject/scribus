@@ -72,11 +72,12 @@ class ScribusApp : public QMainWindow
 	Q_OBJECT
   
 public:
-	/** construtor */
-	ScribusApp(SplashScreen *splash);
+	/** constructor */
 	ScribusApp();
 	/** destructor */
 	~ScribusApp() {};
+    /** init methods */
+	void initGui();
 	/** initMenuBar creates the menu_bar and inserts the menuitems */
 	void initMenuBar();
 	/** setup the statusbar */
@@ -160,6 +161,8 @@ public:
 	QString LoadEnc;
 	bool singleClose;
 	bool ScriptRunning;
+	Autoforms* SCustom;
+	WerkToolB* WerkTools;
 
 public slots:
 	void slotStoryEditor();
@@ -401,6 +404,10 @@ signals:
 	void TextScale(int);
 
 private:
+    /** the splash screen */
+	SplashScreen * splash;
+    /** init methods */
+	void initScribus();
 
 	/** file_menu contains all items of the menubar entry "File" */
 	QPopupMenu *fileMenu;
@@ -423,7 +430,6 @@ private:
 	QPopupMenu *ShadeMenu;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;
-	Autoforms* SCustom;
 	/** FontMenu enthaelt die Fonts */
 	QPopupMenu *FontMenu;
     FontCombo* FontSub;
@@ -432,7 +438,6 @@ private:
 	QPopupMenu *recentMenu;
 	QPopupMenu *hymen;
 	QToolBar *WerkTools2;
-	WerkToolB* WerkTools;
 	WerkToolBP* WerkToolsP;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;

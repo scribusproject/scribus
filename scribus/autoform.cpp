@@ -11,7 +11,7 @@
 #include "autoform.moc"
 #include "fpointarray.h"
 #include "scpainter.h"
-#include <qbitmap.h>
+#include <qimage.h>
 
 Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 {
@@ -286,17 +286,33 @@ QPixmap Autoforms::getIconPixmap(int nr)
 		Path.addPoint(x2, y2);
 		}
 	ScPainter *painter = new ScPainter(&Ico, 22, 22);
-	painter->setBrush(qRgb(240, 240, 240));
+	painter->setBrush(qRgb(230, 230, 230));
+	painter->setPen(qRgb(0, 0, 0));
 	painter->setFillMode(1);
-	painter->setLineWidth(0.0);
-	painter->drawRect(0.0, 0.0, 22.0, 22.0);
-	painter->setFillMode(0);
 	painter->translate(3.0, 3.0);
 	painter->setupPolygon(&Path);
 	painter->setLineWidth(1.0);
+	painter->drawPolygon();
 	painter->drawPolyLine();
 	painter->end();
 	delete painter;
-	Ico.setMask( Ico.createHeuristicMask() );
+	QImage image;
+	image = Ico.convertToImage();
+  	image = image.convertDepth(32);
+	image.setAlphaBuffer(true);
+	int wi = image.width();
+	int hi = image.height();
+    for( int yi=0; yi < hi; ++yi )
+		{
+		QRgb *s = (QRgb*)(image.scanLine( yi ));
+		for(int xi=0; xi < wi; ++xi )
+			{
+			if((*s) == 0xffffffff)
+				(*s) &= 0x00ffffff;
+			s++;
+			}
+    	}
+	Ico.convertFromImage(image);
+//	Ico.setMask( Ico.createHeuristicMask() );
 	return Ico;
 }

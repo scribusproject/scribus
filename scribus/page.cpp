@@ -3881,6 +3881,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 				default:
 					z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
 					SetFrameShape(Items.at(z), doku->ValCount, doku->ShapeValues);
+					Items.at(z)->FrameType = doku->SubMode+2;
 					SetupDraw(z);
 					break;
 			}
@@ -4461,7 +4462,7 @@ bool Page::SeleItem(QMouseEvent *m)
 		doku->ActPage = this;
 		emit PgCh(PageNr);
 	}
-	if ((m->state() == (ControlButton | ShiftButton)) && (SelItem.count() != 0))
+	if ((m->state() & (ControlButton | ShiftButton)) && (SelItem.count() != 0))
 	{
 		for (a = 0; a < Items.count(); ++a)
 		{
@@ -7359,48 +7360,24 @@ void Page::LoadPict(QString fn, int ItNr)
 					QImage im4;
 					QImage image;
 					image.load(tmpFile);
-  				image = image.convertDepth(32);
+				  	image = image.convertDepth(32);
+					image.setAlphaBuffer(true);
 					int wi = image.width();
 					int hi = image.height();
-					QBitmap bm(tmpFile);
-					bm.fill(Qt::color1);
-    			QPainter pp;
-    			pp.begin(&bm);
-    			pp.setPen(Qt::color0);
-    			QString tmp2;
-    			if ( image.depth() == 8 )
+				    for( int yi=0; yi < hi; ++yi )
 						{
-        		for( int yi=0; yi < hi; ++yi )
+						QRgb *s = (QRgb*)(image.scanLine( yi ));
+						for(int xi=0; xi < wi; ++xi )
 							{
-            	uchar * s = image.scanLine( yi );
-            	for( int xi=0; xi < wi; ++xi )
-								{
-                if(image.color(s[xi]) == 0xffffffff)
-                	pp.drawPoint(xi, yi);
-            		}
-        			}
-    				}
-					else
-						{
-        		for( int yi=0; yi < hi; ++yi )
-							{
-            	QRgb * s = (QRgb*)(image.scanLine( yi ));
-              for(int xi=0; xi < wi; ++xi )
-								{
-                if((*s++) == 0xffffffff)
-                	pp.drawPoint(xi, yi);
-                }
-        			}
-    				}
-    			pp.end();
-					QPixmap pm;
-					pm.convertFromImage(image);
-					pm.setMask(bm);
+							if((*s) == 0xffffffff)
+								(*s) &= 0x00ffffff;
+							s++;
+							}
+				    	}
 					im4.setAlphaBuffer(true);
-					im4 = pm.convertToImage();
-					image = im4.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-					im4 = ProofPict(&image, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
-					Items.at(ItNr)->pixm = im4;
+					im4 = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
+					image = ProofPict(&im4, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
+					Items.at(ItNr)->pixm = image;
 					Items.at(ItNr)->Pfile = fi.absFilePath();
 					Items.at(ItNr)->PicAvail = true;
 					Items.at(ItNr)->PicArt = true;

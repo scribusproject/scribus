@@ -362,11 +362,16 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				pb.setBrush(Qt::color1);
 				pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
 				DrawPoly(&pb, Clip, pb.brush().color(), true);
-				pb.end();
 				QPixmap pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
+				QPixmap pmd2;
+				QPainter pd2;
+				QImage imd;
 				pmd.fill();
 				QPainter pd;
 				pd.begin(&pmd);
+				pmd2 = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
+				pmd2.fill();
+				pd2.begin(&pmd2);
 				if ((!PicArt) || (!PicAvail))
 				{
 					pd.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
@@ -383,29 +388,41 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				}
 				else
 				{
-					if ((Pcolor != "None") || (GrType != 0))
+					imd = pixm.copy();
+					imd.setAlphaBuffer(true);
+					int wi = imd.width();
+					int hi = imd.height();
+					for( int yi=0; yi < hi; ++yi )
 					{
-						pd.setPen(NoPen);
-						SetFarbe(&tmp, Pcolor, Shade);
-						pd.setBrush(tmp);
-						if (!Doc->RePos)
+						QRgb *s = (QRgb*)(imd.scanLine( yi ));
+						for(int xi=0; xi < wi; ++xi )
 						{
-							if (GrType == 0)
-								DrawPoly(&pd, Clip, pd.brush().color());
+							if(qAlpha((*s)) != 0)
+								(*s) = 0xff000000;
+							else
+								(*s) = 0xffffffff;
+							s++;
 						}
-					}
+		  	  		}
 					if (flippedH % 2 != 0)
 					{
 						pd.translate(Width, 0);
 						pd.scale(-1, 1);
+						pd2.translate(Width, 0);
+						pd2.scale(-1, 1);
 					}
 					if (flippedV % 2 != 0)
 					{
 						pd.translate(0, static_cast<int>(Height));
 						pd.scale(1, -1);
+						pd2.translate(0, static_cast<int>(Height));
+						pd2.scale(1, -1);
 					}
 					if ((LocalViewX != 1) || (LocalViewY != 1))
+					{
 						pd.scale(LocalViewX, LocalViewY);
+						pd2.scale(LocalViewX, LocalViewY);
+					}
 					if (InvPict)
 					{
 						QImage ip = pixm.copy();
@@ -414,11 +431,34 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					}
 					else
 						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
+					pd2.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), imd);
+					pd2.end();
 				}
 				pmd.setMask(bmd);
 				QImage ip2 = pmd.convertToImage();
+				if (!imd.isNull())
+				{
+					imd = pmd2.convertToImage();
+					ip2 = ip2.convertDepth(32);
+					ip2.setAlphaBuffer(true);
+					int wi = ip2.width();
+					int hi = ip2.height();
+					for( int yi=0; yi < hi; ++yi )
+					{
+						QRgb *s = (QRgb*)(ip2.scanLine( yi ));
+						QRgb *s2 = (QRgb*)(imd.scanLine( yi ));
+						for(int xi=0; xi < wi; ++xi )
+						{
+							if((*s2) != 0xff000000)
+								(*s) &= 0x00ffffff;
+							s++;
+							s2++;
+						}
+			    		}
+				}
 				p->drawImage(ip2);
 				pd.end();
+				pb.end();
 			}
 			break;
 		case 5:

@@ -38,7 +38,7 @@ Q_OBJECT
 
 public:
 	Zoom( QWidget* parent, QPixmap pix, uint val);
-	~Zoom();
+	~Zoom() {};
 	void paintEvent(QPaintEvent *);
 	QPixmap pixm;
 	QString valu;
@@ -48,30 +48,30 @@ class ChTable;
 
 class ZAuswahl : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *plug );
-    ~ZAuswahl();
-    ChTable* ZTabelle;
-    QLabel* Zeichen;
-    QPushButton* Einf;
-    QPushButton* Delete;
-    QPushButton* Close;
-    PageItem *ite;
-    ScribusApp *ap;
-    QValueList<uint> Zeich;
-		QString ChToIns;
-    int MaxCount;
+	ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *plug );
+	~ZAuswahl() {};
+	ChTable* ZTabelle;
+	QLabel* Zeichen;
+	QPushButton* Einf;
+	QPushButton* Delete;
+	QPushButton* Close;
+	PageItem *ite;
+	ScribusApp *ap;
+	QValueList<uint> Zeich;
+	QString ChToIns;
+    	int MaxCount;
 
 public slots:
-    void NeuesZeichen(int r, int c);
-    void DelEdit();
-    void InsChar();
+	void NeuesZeichen(int r, int c);
+	void DelEdit();
+	void InsChar();
 
 protected:
-    QVBoxLayout* ZAuswahlLayout;
-    QHBoxLayout* Layout1;
+	QVBoxLayout* ZAuswahlLayout;
+	QHBoxLayout* Layout1;
 };
 
 class ChTable : public QTable
@@ -79,19 +79,19 @@ class ChTable : public QTable
     Q_OBJECT
 
 public:
-    ChTable(ZAuswahl* parent, ScribusApp *pl);
-    ~ChTable() {};
-    bool Mpressed;
-		Zoom* dia;
-    ScribusApp *ap;
-		ZAuswahl* par;
-		int MaxCount;
+	ChTable(ZAuswahl* parent, ScribusApp *pl);
+	~ChTable() {};
+	bool Mpressed;
+	Zoom* dia;
+    	ScribusApp *ap;
+	ZAuswahl* par;
+	int MaxCount;
 
 signals:
-		void SelectChar(int, int);
+	void SelectChar(int, int);
 
 protected:
-		virtual void contentsMouseReleaseEvent(QMouseEvent *m);
-		virtual void contentsMousePressEvent(QMouseEvent* e);
+	virtual void contentsMouseReleaseEvent(QMouseEvent *m);
+	virtual void contentsMousePressEvent(QMouseEvent* e);
 };
 #endif // QUERY_H

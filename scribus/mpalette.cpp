@@ -136,7 +136,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Text3->setText( tr( "Rotation:" ) );
     GeoGroupLayout->addWidget( Text3, 4, 0 );
     Rot = new MSpinBox( GeoGroup, 2);
-    Rot->setSuffix(" °");
+    Rot->setSuffix(" ");
     Rot->setWrapping( true );
     GeoGroupLayout->addWidget( Rot, 4, 1 );
     Text3r = new QLabel( GeoGroup, "Text3r" );
@@ -906,7 +906,13 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	HaveItem = false;
 	CurItem = i;
-  NameEdit->setText(i->AnName);
+	if (i->FrameType == 0)
+		SCustom->setPixmap(SCustom->getIconPixmap(0));
+	if (i->FrameType == 1)
+		SCustom->setPixmap(SCustom->getIconPixmap(1));
+	if (i->FrameType > 3)
+		SCustom->setPixmap(SCustom->getIconPixmap(i->FrameType-2));
+	NameEdit->setText(i->AnName);
 	RoundRect->setValue(i->RadRect*UmReFaktor);
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
 	DGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
@@ -2362,8 +2368,10 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 				break;
 			default:
 				doc->ActPage->SetFrameShape(CurItem, c, vals);
+				CurItem->FrameType = f+2;
 				break;
 			}
+		ScApp->SCustom->setPixmap(ScApp->SCustom->getIconPixmap(f));
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		if ((CurItem->PType == 2) || (CurItem->PType == 4))

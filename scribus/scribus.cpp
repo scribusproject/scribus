@@ -115,7 +115,20 @@ double UmReFaktor;
 QString DocDir;
 ScribusApp* ScApp;
 
-ScribusApp::ScribusApp(SplashScreen *splash)
+ScribusApp::ScribusApp()
+{
+} // ScribusApp::ScribusApp()
+
+void ScribusApp::initGui()
+{
+    splash = new SplashScreen();
+    splash->setStatus(QObject::tr("Initializing..."));
+    initScribus();
+    splash->close();
+    delete splash;
+}
+
+void ScribusApp::initScribus()
 {
 	ScApp = this;
   setCaption( tr("Scribus " VERSION));
@@ -2310,10 +2323,16 @@ void ScribusApp::HaveNewSel(int Nr)
 		}
 	Mpal->NewSel(Nr);
 	if (Nr != -1)
-		{
+	{
  		Mpal->SetCurItem(b);
 		Tpal->slotShowSelect(b->OwnPage->PageNr, b->ItemNr);
-		}
+		if (b->FrameType == 0)
+			SCustom->setPixmap(SCustom->getIconPixmap(0));
+		if (b->FrameType == 1)
+			SCustom->setPixmap(SCustom->getIconPixmap(1));
+		if (b->FrameType > 3)
+			SCustom->setPixmap(SCustom->getIconPixmap(b->FrameType-2));
+	}
 }
 
 void ScribusApp::slotDocCh(bool reb)
@@ -4199,6 +4218,8 @@ void ScribusApp::setAppMode(int mode)
 			doc->SubMode = WerkTools->SubMode;
 			doc->ShapeValues = WerkTools->ShapeVals;
 			doc->ValCount = WerkTools->ValCount;
+			Mpal->SCustom->setPixmap(Mpal->SCustom->getIconPixmap(doc->SubMode));
+			SCustom->setPixmap(SCustom->getIconPixmap(doc->SubMode));
 			}
 		else
 			doc->SubMode = -1;
@@ -5052,8 +5073,10 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 			break;
 		default:
 			doc->ActPage->SetFrameShape(b, c, vals);
+			b->FrameType = f+2;
 			break;
 		}
+	Mpal->SetCurItem(b);
 	doc->ActPage->RefreshItem(b);
 	slotDocCh();
 	doc->UnDoValid = false;
@@ -5834,6 +5857,17 @@ void ScribusApp::SaveAsPDF()
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	GetUsedFonts(&ReallyUsed);
+	if (doc->PDF_Optionen.EmbedList.count() != 0)
+		{
+		QValueList<QString> tmpEm;
+		QValueList<QString>::Iterator itef;
+		for (itef = doc->PDF_Optionen.EmbedList.begin(); itef != doc->PDF_Optionen.EmbedList.end(); ++itef)
+			{
+			if (ReallyUsed.contains((*itef)))
+				tmpEm.append((*itef));
+			}
+		doc->PDF_Optionen.EmbedList = tmpEm;
+		}
   PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Optionen, doc->PDF_Optionen.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
   if (dia->exec())
   	{
@@ -7297,7 +7331,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 					{
 					Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
 					uint chr = it->Ptext.at(e)->ch[0].unicode();
-					if ((chr == 13) || (chr == 32))
+					if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
 						continue;
 					if (it->Ptext.at(e)->cstyle & 64)
 						{

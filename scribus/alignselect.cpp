@@ -54,7 +54,8 @@ AlignSelect::AlignSelect(QWidget* parent) : QButtonGroup(parent, "AlignSelect")
 
 void AlignSelect::setStyle(int s)
 {
-	switch (s)
+	setButton(s == 1 ? 2 : s == 2 ? 1 : s);
+/*	switch (s)
 		{
 		case 0:
 			setButton(0);
@@ -71,7 +72,7 @@ void AlignSelect::setStyle(int s)
 		case 4:
 			setButton(4);
 			break;
-		}
+		}*/
 }
 
 int AlignSelect::getStyle()
@@ -92,7 +93,8 @@ int AlignSelect::getStyle()
 
 void AlignSelect::setTypeStyle(int a)
 {
-	switch (a)
+	emit State(a == 1 ? 2 : a == 2 ? 1 : a);
+	/*switch (a)
 	{
 		case 0:
 			emit State(0);
@@ -109,5 +111,5 @@ void AlignSelect::setTypeStyle(int a)
 		case 4:
 			emit State(4);
 			break;
-	}
+	}*/
 }

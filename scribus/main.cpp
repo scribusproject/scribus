@@ -23,7 +23,6 @@
 #include <qdir.h>
 #include <qtextcodec.h>
 #include <cstdlib>
-#include "splash.h"
 #include "scribus.h"
 
 #if (_MSC_VER >= 1200)
@@ -39,11 +38,11 @@ int main(int argc, char *argv[])
 {
 	QString pfad = PREL;
 	pfad += "/lib/scribus/";
-	QApplication a(argc, argv);
+	QApplication app(argc, argv);
 	QString Arg1, lang;
 	lang = "";
 	if (argc > 1)
-		Arg1 = QString(a.argv()[1]);
+		Arg1 = QString(app.argv()[1]);
 	QTranslator tor( 0 );
 	if (argc > 1)
   	{
@@ -53,7 +52,7 @@ int main(int argc, char *argv[])
 			{
 				lang = QString(argv[2]);
   				tor.load( QString(pfad+"scribus.") + QString(argv[2]), "." );
-  				a.installTranslator( &tor );
+  				app.installTranslator( &tor );
 			}
 		}
 		else
@@ -63,7 +62,7 @@ int main(int argc, char *argv[])
 		  	else
   				tor.load( QString(pfad+"scribus.") + QString(QTextCodec::locale()).left(2), "." );
 			lang = QString(QTextCodec::locale()).left(2);
-  			a.installTranslator( &tor );
+  			app.installTranslator( &tor );
 		}
 	}
 	else
@@ -73,7 +72,7 @@ int main(int argc, char *argv[])
   			tor.load( QString(pfad+"scribus.") + "en_GB", "." );
 		else
  			tor.load( QString(pfad+"scribus.") + QString(QTextCodec::locale()).left(2), "." );
- 		a.installTranslator( &tor );
+ 		app.installTranslator( &tor );
 	}
 	pfad = PREL;
 	pfad += "/lib/scribus/plugins/";
@@ -92,7 +91,7 @@ int main(int argc, char *argv[])
 				{
 					QTranslator *tox = new QTranslator(0);
 					tox->load(QString(pfad+d[dc]), ".");
-					a.installTranslator(tox);
+					app.installTranslator(tox);
 				}
 			}
 		}
@@ -102,7 +101,7 @@ int main(int argc, char *argv[])
   		if (Arg1 == "--version")
   		{
   			cout << "Scribus Version " << VERSION << endl;
-//			a.unlock();
+//			app.unlock();
   			return 0;
   		}
   		if (Arg1 == "--help")
@@ -117,12 +116,12 @@ int main(int argc, char *argv[])
   			cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
   			cout << "                      for a Document and tries to open it." << endl;
   			cout << endl;
-//			a.unlock();
+//			app.unlock();
   			return 0;
   		}
   		if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version") && (Arg1 != "--nosplash"))
 		{
-  			QFileInfo fi = QFileInfo(QFile::decodeName(a.argv()[1]));
+  			QFileInfo fi = QFileInfo(QFile::decodeName(app.argv()[1]));
   			if (!fi.exists())
   			{
   				cout << "File does not exist, aborting." << endl;
@@ -134,32 +133,28 @@ int main(int argc, char *argv[])
   				cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
   				cout << "                      for a Document and tries to open it." << endl;
   				cout << endl;
-//				a.unlock();
+//				app.unlock();
   				return 0;
 			}
   		}
   	}
 	
-	SplashScreen *splash = new SplashScreen();
- 	splash->setStatus( QObject::tr("Initializing...") );
- 	a.processEvents();
-	ScribusApp *scribus = new ScribusApp(splash);
+ 	app.processEvents();
+	ScribusApp *scribus = new ScribusApp();
+  scribus->initGui();
 	if (scribus->NoFonts)
 	{
-    	delete splash;
     	exit(EXIT_FAILURE);
    	}
-	a.setMainWidget(scribus);
-   	a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
-   	splash->close();
-   	delete splash;
+	app.setMainWidget(scribus);
+  app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 
 	scribus->show();
 	scribus->ShowSubs();
 	if (argc > 1)
   	{
   		if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version"))
-  			scribus->LadeDoc(QFile::decodeName(a.argv()[1]));
+  			scribus->LadeDoc(QFile::decodeName(app.argv()[1]));
   	}
-	return a.exec();
+	return app.exec();
 }

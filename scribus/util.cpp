@@ -299,49 +299,23 @@ QImage LoadPict(QString fn)
 								fn + "\"" + cmd2);
 				if (ret == 0)
 				{
-					QImage im4;
 					QImage image;
 					image.load(tmpFile);
-  					image = image.convertDepth(32);
+				  	image = image.convertDepth(32);
+					image.setAlphaBuffer(true);
 					int wi = image.width();
 					int hi = image.height();
-					QBitmap bm(tmpFile);
-					bm.fill(Qt::color1);
-    				QPainter pp;
-    				pp.begin(&bm);
-    				pp.setPen(Qt::color0);
-    				QString tmp2;
-    				if ( image.depth() == 8 )
-					{
-        				for( int yi=0; yi < hi; ++yi )
+				    for( int yi=0; yi < hi; ++yi )
 						{
-            				uchar * s = image.scanLine( yi );
-            				for( int xi=0; xi < wi; ++xi )
+						QRgb *s = (QRgb*)(image.scanLine( yi ));
+						for(int xi=0; xi < wi; ++xi )
 							{
-                				if(image.color(s[xi]) == 0xffffffff)
-                					pp.drawPoint(xi, yi);
-            				}
-        				}
-    				}
-					else
-					{
-        				for( int yi=0; yi < hi; ++yi )
-						{
-            				QRgb * s = (QRgb*)(image.scanLine( yi ));
-              				for(int xi=0; xi < wi; ++xi )
-							{
-                				if((*s++) == 0xffffffff)
-                					pp.drawPoint(xi, yi);
-                			}
-        				}
-    				}
-    				pp.end();
-					QPixmap pm;
-					pm.convertFromImage(image);
-					pm.setMask(bm);
-					im4.setAlphaBuffer(true);
-					im4 = pm.convertToImage();
-					Bild = im4.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
+							if((*s) == 0xffffffff)
+								(*s) &= 0x00ffffff;
+							s++;
+							}
+				    	}
+					Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 					system("rm -f "+tmpFile);
 				}
 			}
@@ -462,49 +436,23 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 									fn + "\"" + cmd2);
 					if (ret == 0)
 					{
-						QImage im4;
 						QImage image;
 						image.load(tmpFile);
-  						image = image.convertDepth(32);
+					  	image = image.convertDepth(32);
+						image.setAlphaBuffer(true);
 						int wi = image.width();
 						int hi = image.height();
-						QBitmap bm(tmpFile);
-						bm.fill(Qt::color1);
-    					QPainter pp;
-    					pp.begin(&bm);
-    					pp.setPen(Qt::color0);
-    					QString tmp2;
-    					if ( image.depth() == 8 )
-						{
-        					for( int yi=0; yi < hi; ++yi )
+					    for( int yi=0; yi < hi; ++yi )
 							{
-            					uchar * s = image.scanLine( yi );
-            					for( int xi=0; xi < wi; ++xi )
+							QRgb *s = (QRgb*)(image.scanLine( yi ));
+							for(int xi=0; xi < wi; ++xi )
 								{
-                					if(image.color(s[xi]) == 0xffffffff)
-                					pp.drawPoint(xi, yi);
-            					}
-        					}
-    					}
-						else
-						{
-        					for( int yi=0; yi < hi; ++yi )
-							{
-            					QRgb * s = (QRgb*)(image.scanLine( yi ));
-              					for(int xi=0; xi < wi; ++xi )
-								{
-                					if((*s++) == 0xffffffff)
-                						pp.drawPoint(xi, yi);
-                				}
-        					}
-    					}
-    					pp.end();
-						QPixmap pm;
-						pm.convertFromImage(image);
-						pm.setMask(bm);
-						im4.setAlphaBuffer(true);
-						im4 = pm.convertToImage();
-						Bild = im4.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
+								if((*s) == 0xffffffff)
+									(*s) &= 0x00ffffff;
+								s++;
+								}
+					    	}
+						Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 						system("rm -f "+tmpFile);
 						*realCMYK = false;
 					}

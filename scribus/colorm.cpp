@@ -18,6 +18,7 @@
 #include "scribusXml.h"
 #include "cmykfw.h"
 #include "query.h"
+#include "scribus.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -26,11 +27,13 @@
 #endif
 
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust )
     : QDialog( parent, "dd", true, 0 )
 {
 	setName( "Farbmanager" );
+	DontChange.clear();
 	DontChange += "White";
 	DontChange += "Black";
 	DontChange += "Cyan";
@@ -38,22 +41,22 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	DontChange += "Yellow";
 	HaveDoc = HDoc;
 	CColSet = Cust;
-    setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 
-								sizePolicy().hasHeightForWidth() ) );
-    setSizeGripEnabled(true);
-    setCaption( tr( "Colors" ) );
-  	setIcon(loadIcon("AppIcon.png"));
-    Layout2 = new QVBoxLayout( this );
-    Layout2->setSpacing( 6 );
-    Layout2->setMargin( 11 );
+	 setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 
+						sizePolicy().hasHeightForWidth() ) );
+	setSizeGripEnabled(true);
+	setCaption( tr( "Colors" ) );
+	setIcon(loadIcon("AppIcon.png"));
+	Layout2 = new QVBoxLayout( this );
+	Layout2->setSpacing( 6 );
+	Layout2->setMargin( 11 );
 
-    layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
-    ListBox1 = new QListBox( this, "ListBox1" );
-    ListBox1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3,
-								 ListBox1->sizePolicy().hasHeightForWidth() ) );
-    ListBox1->setMinimumSize( QSize( 164, 228 ) );
-    ListBox1->setColumnMode( QListBox::FixedNumber );
-    layout5->addWidget( ListBox1 );
+	layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
+	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3,
+						 ListBox1->sizePolicy().hasHeightForWidth() ) );
+	ListBox1->setMinimumSize( QSize( 164, 228 ) );
+	ListBox1->setColumnMode( QListBox::FixedNumber );
+	layout5->addWidget( ListBox1 );
 
 	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
 	ColorsGroup->setTitle( tr( "Colors" ) );
@@ -63,42 +66,47 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	Layout1 = new QVBoxLayout( ColorsGroup->layout() );
 	Layout1->setAlignment( Qt::AlignTop );
 	LoadF = new QPushButton( ColorsGroup, "LoadF" );
-    LoadF->setText( tr( "Append" ) );
-    Layout1->addWidget( LoadF );
-    NewF = new QPushButton( ColorsGroup, "NewF" );
-    NewF->setText( tr( "New" ) );
-    Layout1->addWidget( NewF );
-    EditF = new QPushButton( ColorsGroup, "EditF" );
-    EditF->setEnabled( false );
-    EditF->setText( tr( "Edit" ) );
-    EditF->setDefault( true );
-    Layout1->addWidget( EditF );
-    DupF = new QPushButton( ColorsGroup, "DupF" );
-    DupF->setEnabled( false );
-    DupF->setText( tr( "Duplicate" ) );
-    Layout1->addWidget( DupF );
-    DelF = new QPushButton( ColorsGroup, "DelF" );
-    DelF->setEnabled( false );
-    DelF->setText( tr( "Delete" ) );
-    Layout1->addWidget( DelF );
-    layout5->addWidget( ColorsGroup );
-    Layout2->addLayout( layout5 );
+	LoadF->setText( tr( "Append" ) );
+	Layout1->addWidget( LoadF );
+	NewF = new QPushButton( ColorsGroup, "NewF" );
+	NewF->setText( tr( "New" ) );
+	Layout1->addWidget( NewF );
+	EditF = new QPushButton( ColorsGroup, "EditF" );
+	EditF->setEnabled( false );
+	EditF->setText( tr( "Edit" ) );
+	EditF->setDefault( true );
+	Layout1->addWidget( EditF );
+	DupF = new QPushButton( ColorsGroup, "DupF" );
+	DupF->setEnabled( false );
+	DupF->setText( tr( "Duplicate" ) );
+	Layout1->addWidget( DupF );
+	DelF = new QPushButton( ColorsGroup, "DelF" );
+	DelF->setEnabled( false );
+	DelF->setText( tr( "Delete" ) );
+	Layout1->addWidget( DelF );
+	layout5->addWidget( ColorsGroup );
+	Layout2->addLayout( layout5 );
 
-    layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
+	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
 
-    layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
-    SaveF = new QPushButton( this, "SaveF" );
-    SaveF->setText( tr( "Save" ) );
-    layout3->addWidget( SaveF );
-    CancF = new QPushButton( this, "CancF" );
-    CancF->setText( tr( "Cancel" ) );
-    CancF->setDefault( true );
-    layout3->addWidget( CancF );
-    layout4->addLayout( layout3 ); 
+	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
+	SaveF = new QPushButton( this, "SaveF" );
+	SaveF->setText( tr( "Save" ) );
+	layout3->addWidget( SaveF );
+	CancF = new QPushButton( this, "CancF" );
+	CancF->setText( tr( "Cancel" ) );
+	CancF->setDefault( true );
+	layout3->addWidget( CancF );
+	layout4->addLayout( layout3 ); 
 	if (HaveDoc)
 	{
-    	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    	layout4->addItem( spacer );
+		layout7 = new QVBoxLayout( 0, 0, 6, "layout3");
+		DelU = new QPushButton( this, "DelU" );
+		DelU->setText( tr( "Remove Unused" ) );
+		layout7->addWidget( DelU );
+		QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+		layout7->addItem( spacer );
+		layout4->addLayout( layout7 );
 	}
 	else
 	{
@@ -134,22 +142,24 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	}
 	Layout2->addLayout( layout4 );
     Ersatzliste.clear();
-    EditColors = doco;
-    updateCList();
-    // signals and slots connections
+	EditColors = doco;
+	updateCList();
+// signals and slots connections
 	if (!HaveDoc)
 	{
 		connect(CSets, SIGNAL(activated(int)), this, SLOT(loadDefaults(int)));
-    	connect(SaveColSet, SIGNAL( clicked() ), this, SLOT( saveDefaults() ) );
+		connect(SaveColSet, SIGNAL( clicked() ), this, SLOT( saveDefaults() ) );
 	}
-    connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
-    connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
-    connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
-    connect( EditF, SIGNAL( clicked() ), this, SLOT( editFarbe() ) );
-    connect( DupF, SIGNAL( clicked() ), this, SLOT( duplFarbe() ) );
-    connect( DelF, SIGNAL( clicked() ), this, SLOT( delFarbe() ) );
-    connect( LoadF, SIGNAL( clicked() ), this, SLOT( loadFarben() ) );
-    connect( ListBox1, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
+	else
+		connect(DelU, SIGNAL( clicked() ), this, SLOT( delUnused() ) );
+	connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
+	connect( EditF, SIGNAL( clicked() ), this, SLOT( editFarbe() ) );
+	connect( DupF, SIGNAL( clicked() ), this, SLOT( duplFarbe() ) );
+	connect( DelF, SIGNAL( clicked() ), this, SLOT( delFarbe() ) );
+	connect( LoadF, SIGNAL( clicked() ), this, SLOT( loadFarben() ) );
+	connect( ListBox1, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
 }
 
 void Farbmanager::saveDefaults()
@@ -246,6 +256,7 @@ void Farbmanager::loadDefaults(int id)
 			EditColors.insert(Cname, tmp);
 		}
 		fiC.close();
+		DontChange.clear();
 	}
 	else
 	{
@@ -299,11 +310,106 @@ void Farbmanager::delFarbe()
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 	{
-    	Ersatzliste.insert(sFarbe, dia->EFarbe);
-    	EditColors.remove(sFarbe);
-    	updateCList();
-    }
+		Ersatzliste.insert(sFarbe, dia->EFarbe);
+		EditColors.remove(sFarbe);
+		updateCList();
+	}
 	delete dia;
+}
+
+void Farbmanager::delUnused()
+{
+	PageItem* ite;
+	bool found;
+	UsedC.clear();
+	CListe::Iterator it;
+	for (it = EditColors.begin(); it != EditColors.end(); ++it)
+	{
+		found = false;
+		if (DontChange.contains(it.key()))
+		{
+			UsedC.insert(it.key(), it.data());
+			continue;
+		}
+		for (uint b = 0; b < ScApp->view->MasterPages.count(); ++b)
+		{
+			for (uint c = 0; c < ScApp->view->MasterPages.at(b)->Items.count(); ++c)
+			{
+				ite = ScApp->view->MasterPages.at(b)->Items.at(c);
+				if ((ite->PType == 4) || (ite->PType == 8))
+				{
+					for (uint d=0; d<ite->Ptext.count(); ++d)
+					{
+						if (it.key() == ite->Ptext.at(d)->ccolor)
+							found = true;
+						if (it.key() == ite->Ptext.at(d)->cstroke)
+							found = true;
+						if (found)
+							break;
+					}
+				}
+				if (it.key() == ite->Pcolor)
+					found = true;
+				if (it.key() == ite->Pcolor2)
+					found = true;
+				if (it.key() == ite->GrColor)
+					found = true;
+				if (it.key() == ite->GrColor2)
+					found = true;
+				if (found)
+					break;
+			}
+			if (found)
+				break;
+		}
+		if (found)
+		{
+			UsedC.insert(it.key(), it.data());
+			continue;
+		}
+		for (uint b = 0; b < ScApp->view->DocPages.count(); ++b)
+		{
+			for (uint c = 0; c < ScApp->view->DocPages.at(b)->Items.count(); ++c)
+			{
+				ite = ScApp->view->DocPages.at(b)->Items.at(c);
+				if ((ite->PType == 4) || (ite->PType == 8))
+				{
+					for (uint d=0; d<ite->Ptext.count(); ++d)
+					{
+						if (it.key() == ite->Ptext.at(d)->ccolor)
+							found = true;
+						if (it.key() == ite->Ptext.at(d)->cstroke)
+							found = true;
+						if (found)
+							break;
+					}
+				}
+				if (it.key() == ite->Pcolor)
+					found = true;
+				if (it.key() == ite->Pcolor2)
+					found = true;
+				if (it.key() == ite->GrColor)
+					found = true;
+				if (it.key() == ite->GrColor2)
+					found = true;
+				if (found)
+					break;
+			}
+			if (found)
+				break;
+		}
+		if (it.key() == ScApp->doc->CurrTextFill)
+			found = true;
+		if (it.key() == ScApp->doc->CurrTextStroke)
+			found = true;
+		if (found)
+		{
+			UsedC.insert(it.key(), it.data());
+			continue;
+		}
+	}
+	EditColors = UsedC;
+	updateCList();
 }
 
 void Farbmanager::duplFarbe()

@@ -338,6 +338,7 @@ ksvg_art_bez_path_to_vec(const ArtBpath *bez, double flatness)
 		if (z < 0 || z >= src_height)
 		{
 			*p_x1 = *p_x0;
+
 			return;
 		}
 	}

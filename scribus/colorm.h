@@ -23,32 +23,34 @@
 
 class Farbmanager : public QDialog
 { 
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust );
-    ~Farbmanager() {};
-  	CListe EditColors;
-  	QMap<QString,QString> Ersatzliste;
-    QToolButton* LoadColSet;
+	Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust );
+	~Farbmanager() {};
+	CListe EditColors;
+	CListe UsedC;
+	QMap<QString,QString> Ersatzliste;
+	QToolButton* LoadColSet;
 	QStringList CColSet;
 
 private:
-    QListBox* ListBox1;
-    QGroupBox* ColorsGroup;
-    QGroupBox* ColsSetGroup;
-    QPushButton* LoadF;
-    QPushButton* NewF;
-    QPushButton* EditF;
-    QPushButton* DupF;
-    QPushButton* DelF;
-    QPushButton* SaveF;
-    QPushButton* CancF;
-    QLabel* textLabel1;
-    QPushButton* SaveColSet;
+	QListBox* ListBox1;
+	QGroupBox* ColorsGroup;
+	QGroupBox* ColsSetGroup;
+	QPushButton* LoadF;
+	QPushButton* NewF;
+	QPushButton* EditF;
+	QPushButton* DupF;
+	QPushButton* DelF;
+	QPushButton* DelU;
+	QPushButton* SaveF;
+	QPushButton* CancF;
+	QLabel* textLabel1;
+	QPushButton* SaveColSet;
 	QPopupMenu* CSets;
-    QString sFarbe;
-    QColor tmpFarbe;
+	QString sFarbe;
+	QColor tmpFarbe;
 	QStringList DontChange;
 	bool HaveDoc;
 
@@ -56,20 +58,22 @@ private slots:
 	void saveDefaults();
 	void loadDefaults(int id);
 	void loadFarben();
-    void delFarbe();
-    void duplFarbe();
-    void neueFarbe();
-    void editFarbe();
-    void selFarbe(QListBoxItem*);
-    void updateCList();
+	void delFarbe();
+	void delUnused();
+	void duplFarbe();
+	void neueFarbe();
+	void editFarbe();
+	void selFarbe(QListBoxItem*);
+	void updateCList();
 
 protected:
-    QVBoxLayout* Layout2;
-    QHBoxLayout* layout5;
-    QHBoxLayout* layout4;
-    QVBoxLayout* layout3;
-    QVBoxLayout* ColsSetGroupLayout;
-    QVBoxLayout* Layout1;
+	QVBoxLayout* Layout2;
+	QHBoxLayout* layout5;
+	QHBoxLayout* layout4;
+	QVBoxLayout* layout3;
+	QVBoxLayout* layout7;
+	QVBoxLayout* ColsSetGroupLayout;
+	QVBoxLayout* Layout1;
 };
 
 #endif // FARBMANAGER_H

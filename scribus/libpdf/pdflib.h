@@ -44,9 +44,10 @@ public:
 	void PDF_TemplatePage(Page* pag);
 	void PDF_ProcessPage(Page* pag, uint PNr);
 	void PDF_End_Doc(QString PrintPr = "", QString Name = "", int Components = 0);
-	struct GlNamInd { uint Code;
-										QString Name;
-									};
+	struct GlNamInd { 
+			 uint Code;
+			 QString Name;
+			};
 	typedef QMap<uint, GlNamInd> GListeInd;
 	QMap<QString, GListeInd> GlyphsIdxOfFont;
 	
@@ -76,45 +77,52 @@ private:
   void PDF_xForm(double w, double h, QString im);
 	void PDF_Image(bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
 	QString Inhalt;
-  ScribusDoc* doc;
-  ScribusView* view;
-  Page* ActPageP;
-  PDFOpt* Options;
-  BookMView* Bvie;
+	ScribusDoc* doc;
+	ScribusView* view;
+	Page* ActPageP;
+	PDFOpt* Options;
+	BookMView* Bvie;
 	QFile Spool;
 	int Dokument;
-	struct Dest {	QString Name;
-								int Seite;
-								QString Act;
-							};
-	struct Cata { int Outlines;
-								int PageTree;
-								int Dest;
-							} Catalog;
-	struct PagT { QValueList<int> Kids;
-								int Count;
-							} PageTree;
-	struct PagL { int ObjNum;
-								int Thumb;
-								QMap<QString,int> XObjects;
-								QMap<QString,int> FObjects;
-								QValueList<int> AObjects;
-								QValueList<int> FormObjects;
-							} Seite;
-	struct OutL { int First;
-								int Last;
-								int Count;
-							} Outlines;
-	struct Bead { int Parent;
-								int Next;
-								int Prev;
-								int Page;
-								QRect Recht;
-							};
-	struct ICCD { int ResNum;
-								QString ResName;
-								QString ICCArray;
-							};
+	struct Dest {
+			QString Name;
+			int Seite;
+			QString Act;
+			};
+	struct Cata { 
+			int Outlines;
+			int PageTree;
+			int Dest;
+			} Catalog;
+	struct PagT { 
+			QValueList<int> Kids;
+			int Count;
+			} PageTree;
+	struct PagL { 
+			int ObjNum;
+			int Thumb;
+			QMap<QString,int> XObjects;
+			QMap<QString,int> FObjects;
+			QValueList<int> AObjects;
+			QValueList<int> FormObjects;
+			} Seite;
+	struct OutL { 
+			int First;
+			int Last;
+			int Count;
+			} Outlines;
+	struct Bead { 
+			int Parent;
+			int Next;
+			int Prev;
+			int Page;
+			QRect Recht;
+			};
+	struct ICCD { 
+			int ResNum;
+			QString ResName;
+			QString ICCArray;
+			};
 	QValueList<uint> XRef;
 	QValueList<Dest> NamedDest;
 	QValueList<int> Threads;
