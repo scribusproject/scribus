@@ -1944,7 +1944,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			}
 		}
 		SavePrefs();
-		prefsFile->write();
 		delete prefsFile;
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
@@ -1961,7 +1960,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	else
 	{
 		SavePrefs();
-		prefsFile->write();
 		delete prefsFile;
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
@@ -6967,7 +6965,6 @@ void ScribusApp::SavePrefsXML()
 		else
 			PrefsPfad = QDir::homeDirPath();
 	}
-	PrefsFile* prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
 	if (prefsFile) {
 		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 		if (userprefsContext) {
@@ -7038,7 +7035,6 @@ void ScribusApp::ReadPrefsXML()
 		else
 			PrefsPfad = QDir::homeDirPath();
 	}
-	PrefsFile* prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
 	if (prefsFile) {
 		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 		if (userprefsContext) {
