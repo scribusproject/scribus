@@ -264,7 +264,7 @@ void WerkToolB::setLinMode(int id)
 	Polygon->setOn(false);
 	Measure->setOn(false);
 	int c = LinM->indexOf(id);
-	char *icn[] = {"Stift.xpm", "beziertool.png", "Stiftalt.xpm"};
+	QString icn[] = {"Stift.xpm", "beziertool.png", "Stiftalt.xpm"};
 	int lm[] = {8, 13, 21};
 	Linien->setPixmap(loadIcon(icn[c]));
 	LMode = lm[c];
@@ -275,7 +275,7 @@ void WerkToolB::setLinMode(int id)
 WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 {
 	PDFM = new QPopupMenu();
-	char *tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
+	QString tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
 	QString tmp_txt[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
 	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
 	for (uint a = 0; a < ar_tmp; ++a)
@@ -324,7 +324,7 @@ void WerkToolBP::setPDFtool(int id)
 {
 	int c = PDFM->indexOf(id);
 	PDFwerkz = c;
-	char *tmp[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
+	QString tmp[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
 	PDFTool->setPixmap(loadIcon(tmp[c]));
 	PDFTool->setOn(true);
 	PDFaTool->setOn(false);

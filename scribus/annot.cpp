@@ -787,7 +787,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	DateGroupLayout->setAlignment( Qt::AlignTop );
 	LayoutFN1c = new QHBoxLayout( 0, 0, 6, "LayoutFN1");
 	Format0c = new QComboBox( true, DateGroup, "DateTyp" );
-	char *tmp_form[] = {"m/d", "m/d/yy", "mm/dd/yy", "mm/yy", "d-mmm", "d-mmm-yy", "dd-mmm-yy", "yy-mm-dd",
+	QString tmp_form[] = {"m/d", "m/d/yy", "mm/dd/yy", "mm/yy", "d-mmm", "d-mmm-yy", "dd-mmm-yy", "yy-mm-dd",
 	                    "mmm-yy", "mmmm-yy", "mmm d, yyyy", "mmmm d, yyyy", "m/d/yy h:MM tt", "m/d/yy HH:MM"};
 	size_t array_form = sizeof(tmp_form) / sizeof(*tmp_form);
 	/* PFJ - 28/02/04 - Altered from uint to int and var name */

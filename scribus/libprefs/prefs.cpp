@@ -258,7 +258,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout6 = new QGridLayout( 0, 1, 1, 0, 6, "Layout6");
 	
 	GZComboF = new QComboBox( true, GroupSize, "GZComboF" );
-	const char *ar_size[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
+	const QString ar_size[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
 	                   "B4", "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", "Executive",
 	                   "Folio", "Ledger", "Legal", "Letter", "Tabloid"};
 	size_t ar_s = sizeof(ar_size) / sizeof(*ar_size);
@@ -774,7 +774,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15a->addWidget( FontComb, 0, 1 );
 	SizeCombo = new QComboBox( true, ToolFrame, "SizeCombo" );
 	SizeCombo->setEditable(false);
-	char *ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
+	QString ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		SizeCombo->insertItem(ar_sizes[s] + tr(" pt"));

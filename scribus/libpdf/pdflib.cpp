@@ -18,8 +18,10 @@
 #include "pdflib.h"
 #include "pdflib.moc"
 
-#if (_MSC_VER >= 1200)
- #include "win-config.h"
+#ifdef _MSC_VER
+ #if (_MSC_VER >= 1200)
+  #include "win-config.h"
+ #endif
 #else
  #include "config.h"
 #endif

@@ -4,8 +4,10 @@
 #include <qtextstream.h>
 #include <qtooltip.h>
 
-#if (_MSC_VER >=1200)
- #include "win-config.h"
+#ifdef _MSC_VER
+ #if (_MSC_VER >=1200)
+  #include "win-config.h"
+ #endif
 #else
  #include "config.h"
 #endif
@@ -109,10 +111,12 @@ About::About( QWidget* parent )
 										"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
 										"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +	                                     
 										"<tr><td></td><td> </td></tr>" +
-#if (_MSC_VER >= 1200)
+#ifdef _MSC_VER
+ #if (_MSC_VER >= 1200)
 										"<tr><td><b>" + tr("Windows port:").utf8()  + "</b></td><td> </td></tr>" +
 										"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 										"<tr><td> </td><td> </td></tr>" +
+ #endif
 #endif
 										"<tr><td><b>" + tr("Official Documentation:").utf8()  + "</b></td><td></td></tr>" +
 										"<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 

@@ -5,7 +5,7 @@
 
 ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent, "ShadeButton")
 {
-	char *tmp[] = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
+	QString tmp[] = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	FillSh = new QPopupMenu();
 	FillSh->insertItem( tr("Other..."));
