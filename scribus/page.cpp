@@ -78,9 +78,13 @@ void Page::addYGuide(double position)
 
 void Page::addXGuides(QValueList<double>& guides)
 {
+	QValueList<double> toBeRemoved;
 	for (uint i = 0; i < XGuides.size(); ++i)
 		if (guides.find(XGuides[i]) == guides.end())
-			removeXGuide(XGuides[i]);
+			toBeRemoved.push_back(XGuides[i]);
+
+	for (uint i = 0; i < toBeRemoved.size(); ++i)
+		removeXGuide(toBeRemoved[i]);
 
 	for (uint i = 0; i < guides.size(); ++i)
 		if (XGuides.find(guides[i]) == XGuides.end())
@@ -89,10 +93,14 @@ void Page::addXGuides(QValueList<double>& guides)
 
 void Page::addYGuides(QValueList<double>& guides)
 {
+	QValueList<double> toBeRemoved;
 	for (uint i = 0; i < YGuides.size(); ++i)
 		if (guides.find(YGuides[i]) == guides.end())
-			removeYGuide(YGuides[i]);
-	
+			toBeRemoved.push_back(YGuides[i]);
+
+	for (uint i = 0; i < toBeRemoved.size(); ++i)
+		removeYGuide(toBeRemoved[i]);
+
 	for (uint i = 0; i < guides.size(); ++i)
 		if (YGuides.find(guides[i]) == YGuides.end())
 			addYGuide(guides[i]);
