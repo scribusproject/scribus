@@ -31,6 +31,7 @@
 #include "prefstable.h"
 #include "sxwunzip.h"
 #include "serializer.h"
+#include "undomanager.h"
 
 using namespace std;
 
@@ -115,7 +116,11 @@ void Run(QWidget *d, ScribusApp *plug)
 		else
 			return;
 	}
+	if (UndoManager::undoEnabled())
+		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),0,Um::ImportOOoDraw,	fileName, Um::IImportOOoDraw);
 	OODPlug *dia = new OODPlug(plug, fileName);
+	if (UndoManager::undoEnabled())
+		UndoManager::instance()->commit();
 	delete dia;
 }
 
