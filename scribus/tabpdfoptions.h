@@ -27,17 +27,10 @@ class TabPDFOptions : public QTabWidget
 	Q_OBJECT
 
 public:
-	TabPDFOptions(  QWidget* parent,
-									PDFOptions *Optionen,
-									SCFonts &AllFonts,
-									ProfilesL *PDFXProfiles,
-									QMap<QString,QFont> DocFonts,
-									QValueList<PDFPresentationData> Eff,
-									double unitBase,
-									QString unit,
-									double PageH,
-									double PageB,
-									ScribusView *vie = 0 );
+	TabPDFOptions(  QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
+					ProfilesL *PDFXProfiles, QMap<QString,QFont> DocFonts,
+					QValueList<PDFPresentationData> Eff, int unitIndex,
+					double PageH, double PageB, ScribusView *vie = 0 );
 	~TabPDFOptions() {};
 
 	QWidget* tabGeneral;
@@ -161,8 +154,9 @@ public:
 	PDFOptions *Opts;
 	double pageH;
 	double pageB;
-	double unitConv;
 	bool cms;
+	
+	double unitRatio;
 
 public slots:
 	void ToggleEncr();
@@ -227,5 +221,8 @@ protected:
 	QGridLayout* GroupPassLayout;
 	QVBoxLayout* GroupSecSetLayout;
 	QGridLayout* LPIgroupLayout;
+	
+	QString unit;
+	int precision;
 };
 #endif

@@ -73,8 +73,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 																PDFXProfiles,
 																DocFonts,
 																Eff,
-																UmReFaktor,
-																unitGetSuffixFromIndex(vie->Doc->docUnitIndex),
+																vie->Doc->docUnitIndex,
 																vie->Doc->PageH,
 																vie->Doc->PageB,
 																vie );

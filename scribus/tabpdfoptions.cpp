@@ -30,26 +30,22 @@ extern bool CMSavail;
 extern ScribusApp* ScApp;
 
 
-TabPDFOptions::TabPDFOptions(   QWidget* parent,
-																PDFOptions *Optionen,
-																SCFonts &AllFonts,
-																ProfilesL *PDFXProfiles,
-																QMap<QString,QFont> DocFonts,
-																QValueList<PDFPresentationData> Eff,
-																double unitBase,
-																QString unit,
-																double PageH,
-																double PageB,
-																ScribusView *vie )
-		: QTabWidget( parent, "pdf" )
+TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
+								ProfilesL *PDFXProfiles, QMap<QString,QFont> DocFonts,
+								QValueList<PDFPresentationData> Eff, int unitIndex,
+								double PageH, double PageB, ScribusView *vie ) : QTabWidget( parent, "pdf" )
 {
+
+	unit = unitGetSuffixFromIndex(unitIndex);
+	precision = unitGetPrecisionFromIndex(unitIndex);
+	unitRatio = unitGetRatioFromIndex(unitIndex);
+	
 	FontsToEmbed.clear();
 	view = vie;
 	EffVal = Eff;
 	Opts = Optionen;
 	pageH = PageH;
 	pageB = PageB;
-	unitConv = unitBase;
 	tabGeneral = new QWidget( this, "tabGeneral" );
 	tabLayout = new QVBoxLayout( tabGeneral );
 	tabLayout->setSpacing( 5 );
@@ -745,13 +741,13 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	BleedIcon->setScaledContents( false );
 	BleedIcon->setAlignment( static_cast<int>( QLabel::AlignCenter ) );
 	BleedGroupLayout->addWidget( BleedIcon, 1, 2 );
-	BleedTop = new MSpinBox( BleedGroup, 2 );
+	BleedTop = new MSpinBox( BleedGroup, precision );
 	BleedGroupLayout->addWidget( BleedTop, 0, 2 );
-	BleedBottom = new MSpinBox( BleedGroup, 2 );
+	BleedBottom = new MSpinBox( BleedGroup, precision );
 	BleedGroupLayout->addWidget( BleedBottom, 2, 2 );
-	BleedRight = new MSpinBox( BleedGroup, 2 );
+	BleedRight = new MSpinBox( BleedGroup, precision );
 	BleedGroupLayout->addWidget( BleedRight, 1, 3 );
-	BleedLeft = new MSpinBox( BleedGroup, 2 );
+	BleedLeft = new MSpinBox( BleedGroup, precision );
 	BleedGroupLayout->addWidget( BleedLeft, 1, 1 );
 	QSpacerItem* spacerPX = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	BleedGroupLayout->addItem( spacerPX, 1, 0 );
@@ -761,20 +757,20 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	insertTab( tabPDFX, tr( "PDF/X-&3" ) );
 	BleedTop->setSuffix( unit );
 	BleedTop->setMinValue(0);
-	BleedTop->setMaxValue(PageH*unitBase);
-	BleedTop->setValue(Optionen->BleedTop*unitBase);
+	BleedTop->setMaxValue(PageH*unitRatio);
+	BleedTop->setValue(Optionen->BleedTop*unitRatio);
 	BleedBottom->setSuffix( unit );
 	BleedBottom->setMinValue(0);
-	BleedBottom->setMaxValue(PageH*unitBase);
-	BleedBottom->setValue(Optionen->BleedBottom*unitBase);
+	BleedBottom->setMaxValue(PageH*unitRatio);
+	BleedBottom->setValue(Optionen->BleedBottom*unitRatio);
 	BleedRight->setSuffix( unit );
 	BleedRight->setMinValue(0);
-	BleedRight->setMaxValue(PageB*unitBase);
-	BleedRight->setValue(Optionen->BleedRight*unitBase);
+	BleedRight->setMaxValue(PageB*unitRatio);
+	BleedRight->setValue(Optionen->BleedRight*unitRatio);
 	BleedLeft->setSuffix( unit );
 	BleedLeft->setMinValue(0);
-	BleedLeft->setMaxValue(PageB*unitBase);
-	BleedLeft->setValue(Optionen->BleedLeft*unitBase);
+	BleedLeft->setMaxValue(PageB*unitRatio);
+	BleedLeft->setValue(Optionen->BleedLeft*unitRatio);
 #ifdef HAVE_CMS
 	if ((!CMSuse) || (!CMSavail))
 		setTabEnabled(tabPDFX, false);
@@ -902,10 +898,10 @@ void TabPDFOptions::ToggleEncr()
 
 void TabPDFOptions::BleedChanged()
 {
-	BleedTop->setMaxValue(pageH*unitConv-BleedBottom->value());
-	BleedBottom->setMaxValue(pageH*unitConv-BleedTop->value());
-	BleedRight->setMaxValue(pageB*unitConv-BleedLeft->value());
-	BleedLeft->setMaxValue(pageB*unitConv-BleedRight->value());
+	BleedTop->setMaxValue(pageH*unitRatio-BleedBottom->value());
+	BleedBottom->setMaxValue(pageH*unitRatio-BleedTop->value());
+	BleedRight->setMaxValue(pageB*unitRatio-BleedLeft->value());
+	BleedLeft->setMaxValue(pageB*unitRatio-BleedRight->value());
 	QPixmap pm = QPixmap(70,80);
 	pm.fill(white);
 	QPainter p;
@@ -914,10 +910,10 @@ void TabPDFOptions::BleedChanged()
 	p.setPen(black);
 	p.drawRect(0, 0, pm.width(), pm.height());
 	p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
-	int x = qRound((BleedLeft->value() / unitConv) * (70.0 / pageB));
-	int y = qRound((BleedTop->value() / unitConv) * (80.0 / pageH));
-	int w =qRound((pageB-((BleedLeft->value()+BleedRight->value())/unitConv))*(70.0/pageB));
-	int h = qRound((pageH-((BleedTop->value()+BleedBottom->value())/unitConv))*(80.0/pageH));
+	int x = qRound((BleedLeft->value() / unitRatio) * (70.0 / pageB));
+	int y = qRound((BleedTop->value() / unitRatio) * (80.0 / pageH));
+	int w =qRound((pageB-((BleedLeft->value()+BleedRight->value())/unitRatio))*(70.0/pageB));
+	int h = qRound((pageH-((BleedTop->value()+BleedBottom->value())/unitRatio))*(80.0/pageH));
 	p.drawRect(x, y, w, h);
 	BleedIcon->setPixmap(pm);
 	p.end();
