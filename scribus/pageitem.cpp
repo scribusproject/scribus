@@ -2260,6 +2260,8 @@ QString PageItem::itemName() const
 
 void PageItem::setItemName(const QString& newName)
 {
+	if (AnName == newName)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(AnName).arg(newName));
@@ -2278,6 +2280,8 @@ QString PageItem::fillColor() const
 
 void PageItem::setFillColor(const QString &newColor)
 {
+	if (fillColorVal == newColor)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFill,
@@ -2298,6 +2302,8 @@ int PageItem::fillShade() const
 
 void PageItem::setFillShade(int newShade)
 {
+	if (fillShadeVal == newShade)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetShade,
@@ -2318,6 +2324,8 @@ double PageItem::fillTransparency() const
 
 void PageItem::setFillTransparency(double newTransparency)
 {
+	if (fillTransparencyVal == newTransparency)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Transparency,
@@ -2338,6 +2346,8 @@ QString PageItem::lineColor() const
 
 void PageItem::setLineColor(const QString &newColor)
 {
+	if (lineColorVal == newColor)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineColor,
@@ -2358,6 +2368,8 @@ int PageItem::lineShade() const
 
 void PageItem::setLineShade(int newShade)
 {
+	if (lineShadeVal == newShade)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineShade,
@@ -2379,6 +2391,8 @@ double PageItem::lineTransparency() const
 
 void PageItem::setLineTransparency(double newTransparency)
 {
+	if (lineTransparencyVal == newTransparency)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LineTransparency,
@@ -2399,6 +2413,8 @@ Qt::PenStyle PageItem::lineStyle() const
 
 void PageItem::setLineStyle(PenStyle newStyle)
 {
+	if (PLineArt == newStyle)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LineStyle,"",Um::ILineStyle);
@@ -2417,6 +2433,8 @@ double PageItem::lineWidth() const
 
 void PageItem::setLineWidth(double newWidth)
 {
+	if (Pwidth == newWidth)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LineWidth,
@@ -2436,6 +2454,8 @@ Qt::PenCapStyle PageItem::lineEnd() const
 
 void PageItem::setLineEnd(PenCapStyle newStyle)
 {
+	if (PLineEnd == newStyle)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LineEnd,"",Um::ILineStyle);
@@ -2454,6 +2474,8 @@ Qt::PenJoinStyle PageItem::lineJoin() const
 
 void PageItem::setLineJoin(PenJoinStyle newStyle)
 {
+	if (PLineJoin == newStyle)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LineJoin,"",Um::ILineStyle);
@@ -2471,6 +2493,8 @@ QString PageItem::customLineStyle() const
 
 void PageItem::setCustomLineStyle(const QString& newStyle)
 {
+	if (NamedLStyle == newStyle)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		QString oldStyle = NamedLStyle == "" ? Um::NoStyle : NamedLStyle;
@@ -2493,6 +2517,8 @@ int PageItem::getStartArrowIndex() const
 
 void PageItem::setStartArrowIndex(int newIndex)
 {
+	if (startArrowIndex == newIndex)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::StartArrow,"",Um::IArrow);
@@ -2511,6 +2537,8 @@ int PageItem::getEndArrowIndex() const
 
 void PageItem::setEndArrowIndex(int newIndex)
 {
+	if (endArrowIndex == newIndex)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::EndArrow,"",Um::IArrow);
@@ -2627,6 +2655,8 @@ QString PageItem::font() const
 
 void PageItem::setFont(const QString& newFont)
 {
+	if (IFont == newFont)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFont,
@@ -2646,6 +2676,8 @@ int PageItem::fontSize() const
 
 void PageItem::setFontSize(int newSize)
 {
+	if (ISize == newSize)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFontSize,
@@ -2665,6 +2697,8 @@ int PageItem::fontWidth() const
 
 void PageItem::setFontWidth(int newWidth)
 {
+	if (TxtScale == newWidth)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFontWidth,
@@ -2684,6 +2718,8 @@ QString PageItem::fontFillColor() const
 
 void PageItem::setFontFillColor(const QString& newColor)
 {
+	if (TxtFill == newColor)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFontFill,
@@ -2703,6 +2739,8 @@ QString PageItem::fontStrokeColor() const
 
 void PageItem::setFontStrokeColor(const QString& newColor)
 {
+	if (TxtStroke == newColor)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFontStroke,
@@ -2722,6 +2760,8 @@ int PageItem::fontFillShade() const
 
 void PageItem::setFontFillShade(int newShade)
 {
+	if (ShTxtFill == newShade)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFontFillShade,
@@ -2742,6 +2782,8 @@ int PageItem::fontStrokeShade() const
 
 void PageItem::setFontStrokeShade(int newShade)
 {
+	if (ShTxtStroke == newShade)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFontStrokeShade,
@@ -2781,6 +2823,8 @@ double PageItem::kerning() const
 
 void PageItem::setKerning(double newKerning)
 {
+	if (ExtraV == newKerning)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetKerning,
@@ -2801,6 +2845,8 @@ double PageItem::lineSpacing() const
 
 void PageItem::setLineSpacing(double newSpacing)
 {
+	if (LineSp == newSpacing)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineSpacing,
@@ -2821,6 +2867,8 @@ QString PageItem::language() const
 
 void PageItem::setLanguage(const QString& newLanguage)
 {
+	if (Language == newLanguage)
+		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLanguage,
@@ -2841,6 +2889,8 @@ int PageItem::frameType() const
 
 void PageItem::convertTo(int newType)
 {
+	if (PType == newType)
+		return; // nothing to do -> return
 	QString fromType = "", toType = "";
 	switch (PType)
 	{
