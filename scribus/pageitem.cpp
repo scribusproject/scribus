@@ -976,13 +976,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (StartOfCol)
 						{
 							CurY = asce+TExtra+lineCorr+1;
-							if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || (a == 0))
+							if ((a > 0) && (itemText.at(a-1)->ch == QChar(13)))
 							{
 								CurY += Doc->docParagraphStyles[hl->cab].gapBefore;
 								CurX += Doc->docParagraphStyles[hl->cab].First;
 								CurX += Doc->docParagraphStyles[hl->cab].Indent;
 							}
-							CurY = asce+TExtra+lineCorr+1;
 						}
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
@@ -1057,7 +1056,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 												else
 													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin;
 											}
-											CurY += Doc->docParagraphStyles[hl->cab].gapBefore;
 											if (DropCmode)
 												DropLines = Doc->docParagraphStyles[hl->cab].DropLin;
 										}
