@@ -495,8 +495,11 @@ void ScribusView::slotDoZoom()
 	uint a;
 	Page* Seite;
 	QWidget* PSeite = Doc->ActPage->parentWidget();
-	if (Doc->Scale > 32)
-		Doc->Scale = 32;
+	if (Doc->Scale > 32*Prefs->DisScale)
+	{
+		Doc->Scale = 32*Prefs->DisScale;
+		return;
+	}
 	if (Pages.count() != 0)
 	{
 		for (a=0; a < Pages.count(); a++)
@@ -651,7 +654,7 @@ void ScribusView::slotZoomIn(int mx,int my)
 	else
 		rememberPreviousSettings(mx,my);
 	Doc->Scale *= 2;
-	if (Doc->Scale > 32)
+	if (Doc->Scale > 32*Prefs->DisScale)
 		Doc->Scale = 32*Prefs->DisScale;
 	slotDoZoom();
 }
@@ -677,15 +680,15 @@ void ScribusView::slotZoomOut(int mx,int my)
 rt die Ansicht */
 void ScribusView::slotZoomIn2(int mx,int my)
 {
-	if (doZooming)
-		return;
 	doZooming = true;
 	rememberPreviousSettings(mx,my);
 	Doc->Scale += static_cast<double>(Doc->MagStep*Prefs->DisScale)/100.0;
 	if (Doc->Scale > static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0)
+	{
 		Doc->Scale = static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0;
+		return;
+	}
 	slotDoZoom();
-	doZooming = false;
 }
 
 /** Verkleinert die Ansicht */

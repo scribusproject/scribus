@@ -3965,9 +3965,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (doku->AppMode == 6)
 	{
+		double sc = doku->Scale;
 		if (HaveSelRect)
 		{
-			double sc = doku->Scale;
 			if((Mxp*sc) > SeRx)
 			{
 				double tmp=SeRx;
@@ -3984,19 +3984,29 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			double xf = width() / (SeRx/sc-Mxp);
 			doku->Scale = QMIN(yf, xf);
 			emit ZoomAbs();
-			emit AbsPosi(Mxp, Myp);
-			HaveSelRect = false;
-			doku->AppMode = 1;
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-			emit PaintingDone();
+			if (sc == doku->Scale)
+			{
+				emit AbsPosi(Mxp, Myp);
+				HaveSelRect = false;
+				doku->AppMode = 1;
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				emit PaintingDone();
+			}
 		}
 		else
 		{
 			int mx = qRound(m->x() / doku->Scale);
 			int my = qRound(m->y() / doku->Scale);
 			emit Magnify ? ZoomIn(mx,my) : ZoomOut(mx,my);
-			HaveSelRect = false;
-			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+			if (sc == doku->Scale)
+			{
+				HaveSelRect = false;
+				doku->AppMode = 1;
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				emit PaintingDone();
+			}
+			else
+				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 		}
 	}
 	if ((doku->AppMode == 7) && !HanMove)

@@ -1373,38 +1373,46 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						LiList.at(LiList.count()-1)->xco = hl->xp;
 						LiList.at(LiList.count()-1)->yco = hl->yp;
 						for (uint zc = 0; zc<BuPos3; ++zc)
-							{
+						{
+							double wide2 = 0;
 							Zli2 = LiList.at(zc);
+							double xcoZli = Zli2->xco;
 							Ptext.at(startLin+zc)->xp = Zli2->xco;
 							Ptext.at(startLin+zc)->yp = Zli2->yco;
 							if (Zli2->Farb != "None")
-								{
+							{
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
-								}
+							}
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
-								{
+							{
 								wide = Zli2->wide;
 								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
 								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 								p->setFillMode(1);
 								p->setBrush(darkBlue);
 								p->setLineWidth(0);
-								if (!Doc->RePos)
-									p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
-								p->setBrush(white);
-								}
-							if (Zli2->Farb2 != "None")
+								if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 								{
+									wide2 = LiList.at(zc-1)->wide;
+									xcoZli = LiList.at(zc-1)->xco+wide2;
+									wide = Zli2->xco - xcoZli + Zli2->wide;
+								}
+								if (!Doc->RePos)
+									p->drawRect(xcoZli, Zli2->yco-asce, wide+1, asce+desc);
+								p->setBrush(white);
+							}
+							if (Zli2->Farb2 != "None")
+							{
 								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
 								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-								}
+							}
 							if (!Doc->RePos)
-								{
+							{
 								if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
 									DrawZeichenS(p, Zli2);
-								}
 							}
+						}
 						LiList.clear();
 						BuPos = 0;
 						LastSP = 0;
@@ -1416,17 +1424,17 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							nrc = a+1;
 							goto NoRoom;
 						}
-						}
 					}
+				}
 				if (Doc->Vorlagen[absa].Ausri != 0)
-					{
+				{
 					EndX = CurX;
 					do
-						{
+					{
 						pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
 						pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
 						EndX++;
-						}
+					}
 					while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
 					if (Doc->Vorlagen[absa].Ausri == 2)
 						OFs = EndX - CurX;
@@ -1435,73 +1443,79 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (Doc->Vorlagen[absa].Ausri == 3)
 						OFs = 0;
 					if (Doc->Vorlagen[absa].Ausri == 4)
-						{
+					{
 						aSpa = 0;
 						for (uint sof = 0; sof<LiList.count(); ++sof)
-							{
+						{
 							if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
 								aSpa++;
-							}
+						}
 						if (aSpa != 0)
-							{
 							OFs2 = (EndX - CurX) / aSpa;
-							}
 						else
 							OFs2 = 0;
 						OFs = 0;
 						for (uint yof = 0; yof < LiList.count(); ++yof)
-							{
+						{
 							LiList.at(yof)->xco += OFs;
 							if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
 								OFs += OFs2;
-							}
-						}
-					else
-						{
-						for (uint xof = 0; xof<LiList.count(); ++xof)
-							{
-							LiList.at(xof)->xco += OFs;
-							}
 						}
 					}
-				for (uint zc = 0; zc<LiList.count(); ++zc)
+					else
 					{
+						for (uint xof = 0; xof<LiList.count(); ++xof)
+						{
+							LiList.at(xof)->xco += OFs;
+						}
+					}
+				}
+				for (uint zc = 0; zc<LiList.count(); ++zc)
+				{
+					double wide2 = 0;
 					Zli2 = LiList.at(zc);
+					double xcoZli = Zli2->xco;
 					Ptext.at(startLin+zc)->xp = Zli2->xco;
 					Ptext.at(startLin+zc)->yp = Zli2->yco;
 					if (Zli2->Farb != "None")
-						{
+					{
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
-						}
+					}
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
-						{
+					{
 						wide = Zli2->wide;
 						desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
 						asce = qRound((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 						p->setFillMode(1);
 						p->setBrush(darkBlue);
 						p->setLineWidth(0);
-						if (!Doc->RePos)
-							p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
-						p->setBrush(white);
-						}
-					if (Zli2->Farb2 != "None")
+						if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 						{
+							wide2 = LiList.at(zc-1)->wide;
+							xcoZli = LiList.at(zc-1)->xco+wide2;
+							wide = Zli2->xco - xcoZli + Zli2->wide;
+						}
+						if (!Doc->RePos)
+							p->drawRect(xcoZli, Zli2->yco-asce, wide+1, asce+desc);
+						p->setBrush(white);
+					}
+					if (Zli2->Farb2 != "None")
+					{
 						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-						}
+					}
 					if (!Doc->RePos)
-						{
+					{
 						if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
 							DrawZeichenS(p, Zli2);
-						}
 					}
+				}
 				LiList.clear();
 				BuPos = 0;
 				LastSP = 0;
 				outs = false;
-				}
+			}
 			MaxChars = Ptext.count();
 			Redrawn = true;
 			pf2.end();
