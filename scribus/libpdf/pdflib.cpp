@@ -1228,7 +1228,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options->UseProfiles))
 					{
-						char *tmp[] = {"/Perceptual", "/RelativeColorimetric",
+						QString tmp[] = {"/Perceptual", "/RelativeColorimetric",
 								 "/Saturation", "/AbsoluteColorimetric"};
 						PutPage(tmp[Options->Intent]);
 						PutPage(" ri\n");
@@ -1384,7 +1384,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options->UseProfiles))
 					{
-						char *tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+						QStringtmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 						PutPage(tmp[Options->Intent]);
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
@@ -1718,7 +1718,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options->UseProfiles))
 					{
-						char *tmp[] = {"/Perceptual", "/RelativeColorimetric",
+						QString tmp[] = {"/Perceptual", "/RelativeColorimetric",
 								 "/Saturation", "/AbsoluteColorimetric"};
 						PutPage(tmp[Options->Intent]);
 						PutPage(" ri\n");
@@ -1850,7 +1850,7 @@ QString PDFlib::setStrokeMulti(struct singleLine *sl)
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options->UseProfiles))
 		{
-			char *t[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation",
+			QString t[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation",
 					 "/AbsoluteColorimetric"};
 			tmp += t[Options->Intent];
 			tmp += " ri\n";
@@ -2658,7 +2658,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 	QImage img;
 	QImage img2;
 	QMap<int, QString> ind2PDFabr;
-	const char *tmp[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
+	const QString tmp[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
 			"/TiRo", "/TiBo", "/TiIt", "/TiBI", "/ZaDb", "/Symb"};
 	size_t ar = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < ar; ++a)
@@ -2677,7 +2677,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		bm += cc;
 	}
 	QStringList bmst = QStringList::split("\\r", bm);
-	const char *m[] = {"4", "5", "F", "l", "H", "n"};
+	const QString m[] = {"4", "5", "F", "l", "H", "n"};
 	ct = m[ite->AnChkStil];
 	StartObj(ObjCounter);
 	Seite.AObjects.append(ObjCounter);
@@ -2723,13 +2723,13 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 			if (ite->AnToolTip != "")
 				PutDoc("/TU "+EncString("("+PDFEncode(ite->AnToolTip)+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");
-			char *mm[] = {"4", "2", "0", "32"};
+			QString mm[] = {"4", "2", "0", "32"};
 			PutDoc(mm[ite->AnVis]);
 			PutDoc("\n");
 			PutDoc("/BS << /Type /Border /W ");
 			PutDoc(ite->AnBColor != "None" ? IToStr(ite->AnBwid) : QString("0"));
 			PutDoc(" /S /");
-			const char *x[] = {"S", "D", "U", "B", "I"};
+			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->AnBsty]);
 			PutDoc(" >>\n");
 			cnx = "("+ind2PDFabr[ite->AnFont]+" "+FToStr(ite->ISize / 10.0)+" Tf";
@@ -2769,7 +2769,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 			if (Options->Version == 13)
 				flg = flg & 522247;
 			PutDoc("/Ff "+IToStr(flg)+"\n");
-			char *xs[] = {"N", "I", "O", "P"};
+			QString xs[] = {"N", "I", "O", "P"};
 			switch (ite->AnType)
 			{
 				case 2:
@@ -2857,7 +2857,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 						}
 						PutDoc("/TP "+IToStr(ite->AnIPlace)+" ");
 						PutDoc("/IF << /SW /");
-						char *x[] = {"A", "S", "B", "N"};
+						QString x[] = {"A", "S", "B", "N"};
 						PutDoc(x[ite->AnScaleW]);
 						PutDoc(" /S /");
 						PutDoc(ite->LocalScX != ite->LocalScY ? "A" : "P");
@@ -3610,7 +3610,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			int inte2 = Intent;
 			if (Options->EmbeddedI)
 				inte2 = Options->Intent2;
-			char *t[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
+			QString t[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
 			PutDoc(t[inte2]);
 			PutDoc("\n");
 		}
