@@ -1,0 +1,341 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ApplyTemplate</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>ApplyTemplate</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>272</width>
+            <height>230</height>
+        </rect>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>35</width>
+            <height>0</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>Apply Template</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>templateNameLayout</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>templateLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Template:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>templateComboBox</cstring>
+                    </property>
+                </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>100</width>
+                            <height>21</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QComboBox">
+                    <property name="name">
+                        <cstring>templateComboBox</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QButtonGroup">
+            <property name="name">
+                <cstring>applyToPageButtonGroup</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>250</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property name="frameShape">
+                <enum>GroupBoxPanel</enum>
+            </property>
+            <property name="title">
+                <string>Apply To</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>currentPageRadioButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Current &amp;page</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+P</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>evenPagesRadioButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Even pages</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+E</string>
+                    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>oddPagesRadioButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>O&amp;dd pages</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+D</string>
+                    </property>
+                </widget>
+                <widget class="QRadioButton">
+                    <property name="name">
+                        <cstring>allPagesRadioButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;All pages</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+A</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>rangeLayout</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QCheckBox">
+                            <property name="name">
+                                <cstring>useRangeCheckBox</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Within range</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+W</string>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</string>
+                            </property>
+                        </widget>
+                        <widget class="QSpinBox">
+                            <property name="name">
+                                <cstring>fromPageSpinBox</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="minValue">
+                                <number>1</number>
+                            </property>
+                        </widget>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>toPageLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>to</string>
+                            </property>
+                        </widget>
+                        <widget class="QSpinBox">
+                            <property name="name">
+                                <cstring>toPageSpinBox</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="minValue">
+                                <number>1</number>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer3</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>16</width>
+                                    <height>21</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout8</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>100</width>
+                            <height>21</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>okButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;OK</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+O</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>cancelButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Cancel</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>useRangeCheckBox</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>enableRange(bool)</slot>
+    </connection>
+    <connection>
+        <sender>currentPageRadioButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>singleSelectable()</slot>
+    </connection>
+    <connection>
+        <sender>evenPagesRadioButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>rangeSelectable()</slot>
+    </connection>
+    <connection>
+        <sender>oddPagesRadioButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>rangeSelectable()</slot>
+    </connection>
+    <connection>
+        <sender>allPagesRadioButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>rangeSelectable()</slot>
+    </connection>
+    <connection>
+        <sender>fromPageSpinBox</sender>
+        <signal>valueChanged(const QString&amp;)</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>checkRangeFrom()</slot>
+    </connection>
+    <connection>
+        <sender>toPageSpinBox</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>checkRangeTo()</slot>
+    </connection>
+    <connection>
+        <sender>okButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>cancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ApplyTemplate</receiver>
+        <slot>reject()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">scribusdoc.h</include>
+    <include location="local" impldecl="in implementation">page.h</include>
+    <include location="local" impldecl="in declaration">scribusdoc.h</include>
+    <include location="local" impldecl="in declaration">page.h</include>
+    <include location="local" impldecl="in implementation">applytemplatedialog.ui.h</include>
+</includes>
+<slots>
+    <slot access="private">checkRangeFrom()</slot>
+    <slot access="private">checkRangeTo()</slot>
+    <slot access="private">enableRange( bool enabled )</slot>
+    <slot access="private">rangeSelectable()</slot>
+    <slot access="private">singleSelectable()</slot>
+</slots>
+<functions>
+    <function>setup( ScribusDoc * view, QString Nam )</function>
+    <function returnType="QString">getTemplateName()</function>
+    <function returnType="int">getPageSelection()</function>
+    <function returnType="bool">usingRange()</function>
+    <function returnType="int">getFromPage()</function>
+    <function returnType="int">getToPage()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

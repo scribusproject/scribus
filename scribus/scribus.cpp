@@ -65,7 +65,7 @@
 #include "druck.h"
 #include "editformats.h"
 #include "muster.h"
-#include "applytemplate.h"
+#include "applytemplatedialog.h"
 #include "picstatus.h"
 #include "customfdialog.h"
 #include "cmsprefs.h"
@@ -8862,37 +8862,47 @@ void ScribusApp::ManTempEnd()
 //	outlinePalette->reopenTree(doc->OpenNodes);
 //	slotDocCh();
 }
-
+/*!
+ * @brief Apply template pages from the Apply Template dialog 
+ * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
+ */
 void ScribusApp::ApplyTemp()
 {
-	QString mna;
-	ApplyT *dia = new ApplyT(this, doc, doc->currentPage->MPageNam);
+	
+	ApplyTemplate *dia = new ApplyTemplate(this);
+	dia->setup(doc, doc->currentPage->MPageNam);
 	if (dia->exec())
 	{
-		mna = dia->Templ->currentText();
-		if (dia->SinglePage->isChecked())
-			Apply_Temp(mna, doc->currentPage->PageNr, false);
-		else if (dia->OddRange->isChecked())
-		{
-			for (int a = 0; a < doc->PageC; a +=2)
-			{
-				Apply_Temp(mna, a, false);
-			}
-		}
-		else if (dia->EvenRange->isChecked())
-		{
-			for (int a = 1; a < doc->PageC; a +=2)
-			{
-				Apply_Temp(mna, a, false);
-			}
-		}
+		QString templateName = dia->getTemplateName();
+		int pageSelection = dia->getPageSelection(); //0=current, 1=even, 2=odd, 3=all
+		if (pageSelection==0) //current page only
+			Apply_Temp(templateName, doc->currentPage->PageNr, false);
 		else
 		{
-			int from = dia->FromPage->value()-1;
-			int to = dia->ToPage->value();
-			for (int a = from; a < to; ++a)
+			int startPage, endPage;
+			if (dia->usingRange())
 			{
-				Apply_Temp(mna, a, false);
+				startPage=dia->getFromPage()-1; //Pages start from 0, not 1
+				endPage=dia->getToPage();
+			}
+			else
+			{
+				startPage = pageSelection==1 ? 1 : 0; //if even, startPage is 1 (real page 2)
+				endPage=doc->PageC;
+			}
+				
+			for (int pageNum = startPage; pageNum < endPage; ++pageNum)// +=pageStep)
+			{
+				//Increment by 1 and not 2 even for even/odd application as user
+				//can select to eg apply to even pages with a single odd page selected
+				if (pageSelection==1 && pageNum%2!=0) //Even, %2!=0 as 1st page is numbered 0
+					Apply_Temp(templateName, pageNum, false);
+				else
+				if (pageSelection==2 && pageNum%2==0) //Odd, %2==0 as 1st page is numbered 0
+					Apply_Temp(templateName, pageNum, false);
+				else
+				if (pageSelection==3) //All
+					Apply_Temp(templateName, pageNum, false);
 			}
 		}
 	}
