@@ -813,7 +813,7 @@ void ScribusApp::initPalettes()
 	connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
-	connect(docChecker, SIGNAL(closePal()), this, SLOT(ToggleCheckPal()));
+	connect(docChecker, SIGNAL(closePal(bool)), this, SLOT(setCheckPal(bool)));
 	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
 	connect(docChecker, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
@@ -1249,7 +1249,7 @@ void ScribusApp::initToolsMenuActions()
 	connect( scrActions["toolsPages"], SIGNAL(activated()) , this, SLOT(ToggleSepal()) );
 	connect( scrActions["toolsBookmarks"], SIGNAL(activated()) , this, SLOT(ToggleBookpal()) );
 	connect( scrActions["toolsActionHistory"], SIGNAL(activated()) , this, SLOT(ToggleUndoPalette()) );
-	connect( scrActions["toolsPreflightVerifier"], SIGNAL(activated()) , this, SLOT(slotCheckDoc()) );
+	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(toggleCheckPal(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(activated()) , this, SLOT(ToggleTools()) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(activated()) , this, SLOT(TogglePDFTools()) );
 	
@@ -1465,7 +1465,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Tools");	
-	scrActions["toolsPreflightVerifier"]->setEnabled(false);
+	//scrActions["toolsPreflightVerifier"]->setEnabled(false);
 	
 	//Extra menu
 	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
@@ -3345,7 +3345,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["fileExportAsEPS"]->setEnabled(true);
 	scrActions["fileExportAsPDF"]->setEnabled(true);
 	scrActions["fileImportPage"]->setEnabled(true);
-	scrActions["toolsPreflightVerifier"]->setEnabled(true);
+	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
 	if (scrActions["PrintPreview"])
 		scrActions["PrintPreview"]->setEnabled(true);
@@ -4743,7 +4743,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["editTemplates"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
 		
-		scrActions["toolsPreflightVerifier"]->setEnabled(false);
+		//scrActions["toolsPreflightVerifier"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("View", false);
@@ -5643,24 +5643,32 @@ void ScribusApp::ToggleAllPalettes()
 
 void ScribusApp::setCheckPal(bool visible)
 {
+	scrActions["toolsPreflightVerifier"]->setOn(visible);
+	toggleCheckPal(visible);
+}
+
+void ScribusApp::toggleCheckPal(bool visible)
+{
 	if (visible)
 	{
-		docChecker->show();
-		docChecker->move(Prefs.checkPalSettings.xPosition, Prefs.checkPalSettings.yPosition);
+		if (HaveDoc)
+			slotCheckDoc();
+		if (!docChecker->isShown())
+		{
+			docChecker->show();
+			docChecker->move(Prefs.checkPalSettings.xPosition, Prefs.checkPalSettings.yPosition);
+		}
 	}
 	else
 	{
-		Prefs.checkPalSettings.xPosition = docChecker->pos().x();
-		Prefs.checkPalSettings.yPosition = docChecker->pos().y();
-		docChecker->hide();
+		if (docChecker->isShown())
+		{
+			Prefs.checkPalSettings.xPosition = docChecker->pos().x();
+			Prefs.checkPalSettings.yPosition = docChecker->pos().y();
+			docChecker->hide();
+		}
 	}
-	scrActions["toolsPreflightVerifier"]->setOn(visible);
-}
-
-void ScribusApp::ToggleCheckPal()
-{
-	setCheckPal(!docChecker->isVisible());
-	PalettesStat[9] = false;
+	PalettesStat[9] = visible;
 }
 
 void ScribusApp::setMapal(bool visible)
@@ -9982,8 +9990,6 @@ void ScribusApp::slotCheckDoc()
 {
 	scanDocument();
 	docChecker->buildErrorList(doc);
-	docChecker->show();
-	scrActions["toolsPreflightVerifier"]->setOn(true);
 }
 
 void ScribusApp::scanDocument()

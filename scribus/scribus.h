@@ -355,7 +355,7 @@ public slots:
 	void ToggleUndoPalette();
 	void setUndoPalette(bool visible);
 	void setCheckPal(bool visible);
-	void ToggleCheckPal();
+	void toggleCheckPal(bool);
 	/** Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */

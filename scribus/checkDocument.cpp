@@ -145,7 +145,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, 
 
 void CheckDocument::closeEvent(QCloseEvent *ce)
 {
-	emit closePal();
+	emit closePal(false);
 	ce->accept();
 }
 

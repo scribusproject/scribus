@@ -38,7 +38,7 @@ public slots:
 
 signals:
 	void rescan();
-	void closePal();
+	void closePal(bool);
 	void selectElement(int, int);
 	void selectPage(int);
 
