@@ -85,7 +85,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GUICombo->setCurrentText(Vor->GUI);
     ButtonGroup1Layout->addWidget( GUICombo, 0, 1, Qt::AlignRight );
     TextGstil2 = new QLabel(ButtonGroup1, "dd");
-    TextGstil2->setText(tr("Fontsize"));
+    TextGstil2->setText(tr("Fontsize:"));
     ButtonGroup1Layout->addWidget( TextGstil2, 1, 0 );
     GFsize = new QSpinBox(ButtonGroup1, "gfs" );
     GFsize->setSuffix( tr( " pts" ) );

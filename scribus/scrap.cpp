@@ -193,7 +193,7 @@ void Biblio::Save()
 
 void Biblio::SaveAs()
 {
-  QString fn = QFileDialog::getSaveFileName(0, tr("Scrapbooks (*.scs);; All Files (*)"), this);
+  QString fn = QFileDialog::getSaveFileName(0, tr("Scrapbooks (*.scs);;All Files (*)"), this);
   if (!fn.isEmpty())
   	{
   	BibWin->SaveContents(fn);
@@ -205,7 +205,7 @@ void Biblio::SaveAs()
 
 void Biblio::Load()
 {
-	QString fileName = QFileDialog::getOpenFileName(0,tr("Scrapbooks (*.scs);; All Files (*)"),this);
+	QString fileName = QFileDialog::getOpenFileName(0,tr("Scrapbooks (*.scs);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 		{
 		BibWin->ReadContents(fileName);

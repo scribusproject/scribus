@@ -86,9 +86,9 @@ void MergeDoc::ChangeFile()
 {
 	QString fn;
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);; All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (Filename->text() != "")
 		dia.setSelection(Filename->text());

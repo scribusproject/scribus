@@ -580,7 +580,7 @@ void Druck::SelMode(bool e)
 
 void Druck::SelFile()
 {
-	CustomFDialog dia(this, tr("Save as"), tr("Postscript-Files (*.ps);; All Files (*)"), false, false);
+	CustomFDialog dia(this, tr("Save as"), tr("Postscript-Files (*.ps);;All Files (*)"), false, false);
 	if (LineEdit1->text() != "")
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)

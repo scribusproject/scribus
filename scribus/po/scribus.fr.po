@@ -5,122 +5,201 @@
 # Nicolas Boos <nicolas.boos@wanadoo.fr> 2002-2003
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 0.9.8\n"
+"Project-Id-Version: Scribus 1.0\n"
 "POT-Creation-Date: 1999-02-23 15:38+0200\n"
-"PO-Revision-Date: 2003-04-19 23:13+0100\n"
+"PO-Revision-Date: 2003-07-11 15:26+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
-"Language-Team: français <traduc@traduc.org>\n"
+"Language-Team: Traduc <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: scribus/bookmwin.cpp:108
-#: scribus/bookpalette.cpp:25
-msgid "Bookmarks"
-msgstr "Signets"
+#: scribus/align.cpp:10
+msgid "Distribute/Align"
+msgstr "Espacer-Aligner"
 
-#: scribus/cupsoptions.cpp:30
-msgid "Printer Options"
-msgstr "Options d'impression"
+#: scribus/align.cpp:10
+#: scribus/align.cpp:44
+#: scribus/align.cpp:92
+msgid "Align"
+msgstr "Aligner"
 
-#: scribus/cupsoptions.cpp:44
-msgid "Option"
-msgstr "Option"
+#: scribus/align.cpp:19
+#: scribus/pdfopts.cpp:359
+msgid "Horizontal"
+msgstr "Horizontal"
 
-#: scribus/cupsoptions.cpp:45
-msgid "Value"
-msgstr "Valeur"
+#: scribus/align.cpp:29
+#: scribus/align.cpp:77
+msgid "between:"
+msgstr "entre :"
 
-#: scribus/cupsoptions.cpp:108
-msgid "Page Set"
-msgstr "Format de la page"
+#: scribus/align.cpp:34
+msgid "Left Sides"
+msgstr "Côtés gauche"
 
-#: scribus/cupsoptions.cpp:115
-#: scribus/cupsoptions.cpp:119
-#: scribus/pdfopts.cpp:63
-msgid "All Pages"
-msgstr "Toutes les pages"
+#: scribus/align.cpp:35
+#: scribus/align.cpp:83
+msgid "Middles"
+msgstr "Centres"
 
-#: scribus/cupsoptions.cpp:116
-msgid "Even Pages only"
-msgstr "Pages paires uniquement"
+#: scribus/align.cpp:36
+msgid "Right Sides"
+msgstr "Côtés droit"
 
-#: scribus/cupsoptions.cpp:117
-msgid "Odd Pages only"
-msgstr "Pages impaires uniquement"
+#: scribus/align.cpp:40
+#: scribus/align.cpp:88
+msgid "Don't change"
+msgstr "Laisser tel que"
 
-#: scribus/cupsoptions.cpp:122
-msgid "Mirror"
-msgstr "Miroir"
+#: scribus/align.cpp:47
+#: scribus/align.cpp:95
+msgid "Displacement"
+msgstr "Déplacer"
 
-#: scribus/cupsoptions.cpp:129
-#: scribus/cupsoptions.cpp:132
-#: scribus/editformats.cpp:133
-#: scribus/fontprefs.cpp:62
-#: scribus/fontprefs.cpp:380
-#: scribus/muster.cpp:100
-#: scribus/scribus.cpp:2345
-msgid "No"
-msgstr "Non"
+#: scribus/align.cpp:60
+#: scribus/align.cpp:128
+msgid "Distribute evenly"
+msgstr "Distribution régulière"
 
-#: scribus/cupsoptions.cpp:130
-#: scribus/editformats.cpp:134
-#: scribus/fontprefs.cpp:60
-#: scribus/fontprefs.cpp:378
-#: scribus/muster.cpp:101
-#: scribus/picstatus.cpp:99
-#: scribus/picstatus.cpp:136
-#: scribus/scribus.cpp:2346
-msgid "Yes"
-msgstr "Oui"
+#: scribus/align.cpp:67
+#: scribus/pdfopts.cpp:360
+msgid "Vertical"
+msgstr "Vertical"
 
-#: scribus/cupsoptions.cpp:135
-msgid "N-Up Printing"
-msgstr "Impression N-Up"
+#: scribus/align.cpp:82
+msgid "Top Sides"
+msgstr "Côtés haut"
 
-#: scribus/cupsoptions.cpp:142
-#: scribus/cupsoptions.cpp:149
-msgid "Page per Sheet"
-msgstr "Page par feuille"
+#: scribus/align.cpp:84
+msgid "Bottom Sides"
+msgstr "Côtés bas"
 
-#: scribus/cupsoptions.cpp:143
-#: scribus/cupsoptions.cpp:144
-#: scribus/cupsoptions.cpp:145
-#: scribus/cupsoptions.cpp:146
-#: scribus/cupsoptions.cpp:147
-msgid "Pages per Sheet"
-msgstr "Pages par feuille"
+#: scribus/align.cpp:104
+#: scribus/align.cpp:105
+#: scribus/libprefs/prefs.cpp:91
+#: scribus/libprefs/prefs.cpp:988
+#: scribus/libprefs/prefs.cpp:1082
+#: scribus/modify.cpp:183
+#: scribus/modify.cpp:195
+#: scribus/modify.cpp:570
+msgid " pts"
+msgstr " pts"
+
+#: scribus/align.cpp:108
+#: scribus/align.cpp:109
+#: scribus/frameedit.cpp:229
+#: scribus/frameedit.cpp:230
+#: scribus/guidemanager.cpp:154
+#: scribus/libprefs/prefs.cpp:2024
+#: scribus/libprefs/prefs.cpp:2025
+#: scribus/libprefs/prefs.cpp:2026
+#: scribus/libprefs/prefs.cpp:2027
+#: scribus/libprefs/prefs.cpp:2028
+#: scribus/libprefs/prefs.cpp:2029
+#: scribus/libprefs/prefs.cpp:2030
+#: scribus/libprefs/prefs.cpp:2031
+#: scribus/libprefs/prefs.cpp:2032
+#: scribus/mdup.cpp:48
+#: scribus/mdup.cpp:49
+#: scribus/modify.cpp:924
+#: scribus/modify.cpp:925
+#: scribus/modify.cpp:926
+#: scribus/modify.cpp:927
+#: scribus/modify.cpp:930
+#: scribus/modify.cpp:931
+#: scribus/modify.cpp:934
+#: scribus/pdfopts.cpp:650
+msgid " mm"
+msgstr " mm"
+
+#: scribus/align.cpp:112
+#: scribus/align.cpp:113
+#: scribus/frameedit.cpp:233
+#: scribus/frameedit.cpp:234
+#: scribus/guidemanager.cpp:157
+#: scribus/libprefs/prefs.cpp:2036
+#: scribus/libprefs/prefs.cpp:2037
+#: scribus/libprefs/prefs.cpp:2038
+#: scribus/libprefs/prefs.cpp:2039
+#: scribus/libprefs/prefs.cpp:2040
+#: scribus/libprefs/prefs.cpp:2041
+#: scribus/libprefs/prefs.cpp:2042
+#: scribus/libprefs/prefs.cpp:2043
+#: scribus/libprefs/prefs.cpp:2044
+#: scribus/mdup.cpp:52
+#: scribus/mdup.cpp:53
+#: scribus/modify.cpp:937
+#: scribus/modify.cpp:938
+#: scribus/modify.cpp:939
+#: scribus/modify.cpp:940
+#: scribus/modify.cpp:943
+#: scribus/modify.cpp:944
+#: scribus/modify.cpp:947
+#: scribus/pdfopts.cpp:653
+msgid " in"
+msgstr " in"
+
+#: scribus/align.cpp:116
+#: scribus/align.cpp:117
+#: scribus/frameedit.cpp:237
+#: scribus/frameedit.cpp:238
+#: scribus/guidemanager.cpp:160
+#: scribus/libprefs/prefs.cpp:2048
+#: scribus/libprefs/prefs.cpp:2049
+#: scribus/libprefs/prefs.cpp:2050
+#: scribus/libprefs/prefs.cpp:2051
+#: scribus/libprefs/prefs.cpp:2052
+#: scribus/libprefs/prefs.cpp:2053
+#: scribus/libprefs/prefs.cpp:2054
+#: scribus/libprefs/prefs.cpp:2055
+#: scribus/libprefs/prefs.cpp:2056
+#: scribus/mdup.cpp:56
+#: scribus/mdup.cpp:57
+#: scribus/modify.cpp:950
+#: scribus/modify.cpp:951
+#: scribus/modify.cpp:952
+#: scribus/modify.cpp:953
+#: scribus/modify.cpp:956
+#: scribus/modify.cpp:957
+#: scribus/modify.cpp:960
+#: scribus/pdfopts.cpp:656
+msgid " p"
+msgstr " p"
 
 #: scribus/align.cpp:141
-#: scribus/annot.cpp:1004
-#: scribus/annota.cpp:112
+#: scribus/annot.cpp:1043
+#: scribus/annota.cpp:137
 #: scribus/applytemplate.cpp:31
 #: scribus/buttonicon.cpp:84
 #: scribus/cmsprefs.cpp:179
-#: scribus/cmykfw.cpp:117
-#: scribus/cupsoptions.cpp:164
+#: scribus/cmykfw.cpp:119
+#: scribus/cupsoptions.cpp:176
 #: scribus/dcolor.cpp:66
 #: scribus/delpages.cpp:52
 #: scribus/docinfo.cpp:63
-#: scribus/druck.cpp:333
-#: scribus/edit1format.cpp:223
-#: scribus/edit1format.cpp:255
-#: scribus/edit1format.cpp:269
-#: scribus/fontprefs.cpp:163
+#: scribus/druck.cpp:60
+#: scribus/druck.cpp:385
+#: scribus/edit1format.cpp:211
+#: scribus/edit1format.cpp:243
+#: scribus/edit1format.cpp:257
+#: scribus/fontprefs.cpp:176
 #: scribus/guidemanager.cpp:93
 #: scribus/hysettings.cpp:57
 #: scribus/inspage.cpp:98
 #: scribus/keymanager.cpp:91
 #: scribus/keymanager.cpp:162
-#: scribus/libprefs/prefs.cpp:1322
+#: scribus/libprefs/prefs.cpp:1559
 #: scribus/mdup.cpp:74
-#: scribus/missing.cpp:108
-#: scribus/modify.cpp:615
-#: scribus/modify.cpp:969
+#: scribus/missing.cpp:115
+#: scribus/modify.cpp:623
+#: scribus/modify.cpp:985
 #: scribus/movepage.cpp:75
-#: scribus/newfile.cpp:267
+#: scribus/multiline.cpp:125
+#: scribus/multiline.cpp:318
+#: scribus/newfile.cpp:266
 #: scribus/newtemp.cpp:50
-#: scribus/pdfopts.cpp:704
+#: scribus/pdfopts.cpp:714
 #: scribus/picstatus.cpp:106
 #: scribus/picstatus.cpp:143
 #: scribus/picstatus.cpp:175
@@ -130,391 +209,251 @@ msgstr "Pages par feuille"
 #: scribus/picstatus.cpp:265
 #: scribus/polyprops.cpp:112
 #: scribus/query.cpp:46
-#: scribus/reformdoc.cpp:92
-#: scribus/scribus.cpp:2316
-#: scribus/scribus.cpp:2352
-#: scribus/scribus.cpp:2568
-#: scribus/scribus.cpp:4860
-#: scribus/scribus.cpp:4991
-#: scribus/scribus.cpp:6023
+#: scribus/reformdoc.cpp:94
+#: scribus/scribus.cpp:2522
+#: scribus/scribus.cpp:2558
+#: scribus/scribus.cpp:2787
+#: scribus/scribus.cpp:5257
+#: scribus/scribus.cpp:5377
+#: scribus/scribus.cpp:6531
 #: scribus/selfield.cpp:85
 msgid "OK"
 msgstr "OK"
 
+#: scribus/align.cpp:147
+#: scribus/modify.cpp:630
+msgid "Apply"
+msgstr "Appliquer"
+
 #: scribus/align.cpp:152
-#: scribus/annot.cpp:1008
-#: scribus/annota.cpp:116
+#: scribus/annot.cpp:1047
+#: scribus/annota.cpp:141
 #: scribus/applytemplate.cpp:37
-#: scribus/bookmwin.cpp:195
+#: scribus/bookmwin.cpp:197
 #: scribus/buttonicon.cpp:88
 #: scribus/cmsprefs.cpp:186
-#: scribus/cmykfw.cpp:121
-#: scribus/colorm.cpp:69
-#: scribus/cupsoptions.cpp:169
+#: scribus/cmykfw.cpp:123
+#: scribus/colorm.cpp:70
+#: scribus/cupsoptions.cpp:181
 #: scribus/dcolor.cpp:71
 #: scribus/delpages.cpp:58
 #: scribus/docinfo.cpp:69
-#: scribus/druck.cpp:337
-#: scribus/edit1format.cpp:228
+#: scribus/druck.cpp:65
+#: scribus/druck.cpp:389
+#: scribus/edit1format.cpp:216
 #: scribus/editformats.cpp:52
-#: scribus/fontprefs.cpp:166
+#: scribus/fontprefs.cpp:179
 #: scribus/guidemanager.cpp:99
 #: scribus/hyask.cpp:64
 #: scribus/hysettings.cpp:64
 #: scribus/inspage.cpp:104
 #: scribus/keymanager.cpp:97
-#: scribus/libprefs/prefs.cpp:1328
+#: scribus/libprefs/prefs.cpp:1565
+#: scribus/lineformats.cpp:52
 #: scribus/mdup.cpp:80
-#: scribus/modify.cpp:628
+#: scribus/mergedoc.cpp:65
+#: scribus/missing.cpp:111
+#: scribus/modify.cpp:636
 #: scribus/movepage.cpp:81
-#: scribus/newfile.cpp:273
+#: scribus/multiline.cpp:131
+#: scribus/newfile.cpp:272
 #: scribus/newtemp.cpp:56
-#: scribus/page.cpp:305
-#: scribus/pdfopts.cpp:711
+#: scribus/page.cpp:309
+#: scribus/pdfopts.cpp:721
 #: scribus/picsearch.cpp:64
 #: scribus/polyprops.cpp:118
 #: scribus/query.cpp:52
-#: scribus/reformdoc.cpp:98
+#: scribus/reformdoc.cpp:100
 #: scribus/scribuswin.cpp:46
 #: scribus/selfield.cpp:89
 msgid "Cancel"
 msgstr "Annuler"
 
-#: scribus/guidemanager.cpp:10
-msgid "Manage Guides"
-msgstr "Gestion des repères"
+#: scribus/annot.cpp:26
+#: scribus/page.cpp:1948
+msgid "Field Properties"
+msgstr "Propriétés du champ"
 
-#: scribus/guidemanager.cpp:22
-msgid "Horizontal Guides"
-msgstr "Repères horizontaux"
+#: scribus/annot.cpp:56
+#: scribus/annot.cpp:493
+#: scribus/annota.cpp:49
+msgid "Type:"
+msgstr "Type :"
 
-#: scribus/annot.cpp:618
-#: scribus/annota.cpp:90
-#: scribus/frameedit.cpp:123
-#: scribus/guidemanager.cpp:33
-#: scribus/modify.cpp:89
-#: scribus/mpalette.cpp:83
-#: scribus/mpalette.cpp:829
-#: scribus/mpalette.cpp:867
-#: scribus/mpalette.cpp:910
-#: scribus/mpalette.cpp:1587
-#: scribus/scribus.cpp:702
-msgid "Y-Pos:"
-msgstr "Y :"
+#: scribus/annot.cpp:60
+#: scribus/werktoolb.cpp:184
+msgid "Button"
+msgstr "Bouton"
 
-#: scribus/guidemanager.cpp:43
-#: scribus/guidemanager.cpp:75
-msgid "Add"
-msgstr "Ajouter"
+#: scribus/annot.cpp:61
+#: scribus/werktoolb.cpp:185
+msgid "Text Field"
+msgstr "Champ de texte"
 
-#: scribus/colorm.cpp:63
-#: scribus/editformats.cpp:43
-#: scribus/fontprefs.cpp:123
-#: scribus/guidemanager.cpp:47
-#: scribus/guidemanager.cpp:79
-#: scribus/javadocs.cpp:36
-#: scribus/muster.cpp:36
-#: scribus/page.cpp:1852
-#: scribus/scrap.cpp:906
-#: scribus/scribus.cpp:497
-#: scribus/scribus.cpp:498
-msgid "Delete"
-msgstr "Supprimer"
+#: scribus/annot.cpp:62
+#: scribus/werktoolb.cpp:186
+msgid "Check Box"
+msgstr "Case à cocher"
 
-#: scribus/guidemanager.cpp:54
-msgid "Vertical Guides"
-msgstr "Repères verticaux"
+#: scribus/annot.cpp:63
+#: scribus/werktoolb.cpp:187
+msgid "Combo Box"
+msgstr "Menu déroulant"
 
-#: scribus/annot.cpp:610
-#: scribus/annota.cpp:82
-#: scribus/frameedit.cpp:115
-#: scribus/guidemanager.cpp:65
-#: scribus/modify.cpp:86
-#: scribus/mpalette.cpp:80
-#: scribus/mpalette.cpp:827
-#: scribus/mpalette.cpp:865
-#: scribus/mpalette.cpp:908
-#: scribus/mpalette.cpp:1585
-#: scribus/scribus.cpp:696
-msgid "X-Pos:"
-msgstr "X :"
+#: scribus/annot.cpp:64
+#: scribus/werktoolb.cpp:188
+msgid "List Box"
+msgstr "Liste"
 
-#: scribus/guidemanager.cpp:86
-msgid "Lock Guides"
-msgstr "Repères fixes"
+#: scribus/annot.cpp:75
+msgid "Properties"
+msgstr "Propriétés"
 
-#: scribus/annot.cpp:613
-#: scribus/annot.cpp:622
-#: scribus/annota.cpp:85
-#: scribus/annota.cpp:94
-#: scribus/edit1format.cpp:63
-#: scribus/edit1format.cpp:96
-#: scribus/edit1format.cpp:104
-#: scribus/edit1format.cpp:174
-#: scribus/edit1format.cpp:183
-#: scribus/edit1format.cpp:192
-#: scribus/frameedit.cpp:168
-#: scribus/frameedit.cpp:169
-#: scribus/guidemanager.cpp:151
-#: scribus/libprefs/prefs.cpp:1727
-#: scribus/libprefs/prefs.cpp:1728
-#: scribus/libprefs/prefs.cpp:1729
-#: scribus/libprefs/prefs.cpp:1730
-#: scribus/libprefs/prefs.cpp:1731
-#: scribus/libprefs/prefs.cpp:1732
-#: scribus/libprefs/prefs.cpp:1733
-#: scribus/libprefs/prefs.cpp:1734
-#: scribus/libprefs/prefs.cpp:1735
-#: scribus/mdup.cpp:44
-#: scribus/mdup.cpp:45
-#: scribus/modify.cpp:102
-#: scribus/modify.cpp:110
-#: scribus/modify.cpp:118
-#: scribus/modify.cpp:127
-#: scribus/modify.cpp:233
-#: scribus/modify.cpp:268
-#: scribus/modify.cpp:312
-#: scribus/modify.cpp:320
-#: scribus/modify.cpp:411
-#: scribus/modify.cpp:589
-#: scribus/modify.cpp:895
-#: scribus/modify.cpp:896
-#: scribus/modify.cpp:897
-#: scribus/modify.cpp:898
-#: scribus/modify.cpp:901
-#: scribus/modify.cpp:902
-#: scribus/modify.cpp:905
-#: scribus/mpalette.cpp:92
-#: scribus/mpalette.cpp:97
-#: scribus/mpalette.cpp:102
-#: scribus/mpalette.cpp:105
-#: scribus/mpalette.cpp:271
-#: scribus/mpalette.cpp:299
-#: scribus/mpalette.cpp:304
-#: scribus/mpalette.cpp:309
-#: scribus/mpalette.cpp:314
-#: scribus/mpalette.cpp:346
-#: scribus/mpalette.cpp:471
-#: scribus/mpalette.cpp:475
-#: scribus/mpalette.cpp:516
-#: scribus/mpalette.cpp:519
-#: scribus/mpalette.cpp:599
-#: scribus/pdfopts.cpp:637
-msgid " pt"
-msgstr " pt"
+#: scribus/annot.cpp:84
+#: scribus/cmykfw.cpp:42
+#: scribus/edit1format.cpp:17
+#: scribus/modify.cpp:606
+msgid "Name:"
+msgstr "Nom :"
 
-#: scribus/align.cpp:108
-#: scribus/align.cpp:109
-#: scribus/frameedit.cpp:172
-#: scribus/frameedit.cpp:173
-#: scribus/guidemanager.cpp:154
-#: scribus/libprefs/prefs.cpp:1739
-#: scribus/libprefs/prefs.cpp:1740
-#: scribus/libprefs/prefs.cpp:1741
-#: scribus/libprefs/prefs.cpp:1742
-#: scribus/libprefs/prefs.cpp:1743
-#: scribus/libprefs/prefs.cpp:1744
-#: scribus/libprefs/prefs.cpp:1745
-#: scribus/libprefs/prefs.cpp:1746
-#: scribus/libprefs/prefs.cpp:1747
-#: scribus/mdup.cpp:48
-#: scribus/mdup.cpp:49
-#: scribus/modify.cpp:908
-#: scribus/modify.cpp:909
-#: scribus/modify.cpp:910
-#: scribus/modify.cpp:911
-#: scribus/modify.cpp:914
-#: scribus/modify.cpp:915
-#: scribus/modify.cpp:918
-#: scribus/pdfopts.cpp:640
-msgid " mm"
-msgstr " mm"
+#: scribus/annot.cpp:96
+msgid "Tool-Tip:"
+msgstr "Infobulle :"
 
-#: scribus/align.cpp:112
-#: scribus/align.cpp:113
-#: scribus/frameedit.cpp:176
-#: scribus/frameedit.cpp:177
-#: scribus/guidemanager.cpp:157
-#: scribus/libprefs/prefs.cpp:1751
-#: scribus/libprefs/prefs.cpp:1752
-#: scribus/libprefs/prefs.cpp:1753
-#: scribus/libprefs/prefs.cpp:1754
-#: scribus/libprefs/prefs.cpp:1755
-#: scribus/libprefs/prefs.cpp:1756
-#: scribus/libprefs/prefs.cpp:1757
-#: scribus/libprefs/prefs.cpp:1758
-#: scribus/libprefs/prefs.cpp:1759
-#: scribus/mdup.cpp:52
-#: scribus/mdup.cpp:53
-#: scribus/modify.cpp:921
-#: scribus/modify.cpp:922
-#: scribus/modify.cpp:923
-#: scribus/modify.cpp:924
-#: scribus/modify.cpp:927
-#: scribus/modify.cpp:928
-#: scribus/modify.cpp:931
-#: scribus/pdfopts.cpp:643
-msgid " in"
-msgstr " in"
+#: scribus/annot.cpp:106
+#: scribus/annot.cpp:240
+#: scribus/annota.cpp:53
+#: scribus/mpalette.cpp:49
+#: scribus/tree.cpp:110
+#: scribus/werktoolb.cpp:195
+msgid "Text"
+msgstr "Texte"
 
-#: scribus/align.cpp:116
-#: scribus/align.cpp:117
-#: scribus/frameedit.cpp:180
-#: scribus/frameedit.cpp:181
-#: scribus/guidemanager.cpp:160
-#: scribus/libprefs/prefs.cpp:1763
-#: scribus/libprefs/prefs.cpp:1764
-#: scribus/libprefs/prefs.cpp:1765
-#: scribus/libprefs/prefs.cpp:1766
-#: scribus/libprefs/prefs.cpp:1767
-#: scribus/libprefs/prefs.cpp:1768
-#: scribus/libprefs/prefs.cpp:1769
-#: scribus/libprefs/prefs.cpp:1770
-#: scribus/libprefs/prefs.cpp:1771
-#: scribus/mdup.cpp:56
-#: scribus/mdup.cpp:57
-#: scribus/modify.cpp:934
-#: scribus/modify.cpp:935
-#: scribus/modify.cpp:936
-#: scribus/modify.cpp:937
-#: scribus/modify.cpp:940
-#: scribus/modify.cpp:941
-#: scribus/modify.cpp:944
-#: scribus/pdfopts.cpp:646
-msgid " p"
-msgstr " p"
+#: scribus/annot.cpp:113
+msgid "Font for use with PDF-1.3:"
+msgstr "Police à utiliser pour le format PDF 1.3"
 
-#: scribus/edit1format.cpp:255
-#: scribus/edit1format.cpp:269
-#: scribus/editformats.cpp:131
-#: scribus/keymanager.cpp:160
-#: scribus/modify.cpp:969
-#: scribus/muster.cpp:98
-#: scribus/scribus.cpp:2316
-#: scribus/scribus.cpp:2343
-#: scribus/scribus.cpp:2352
-#: scribus/scribus.cpp:2568
-#: scribus/scribus.cpp:4735
-#: scribus/scribus.cpp:4860
-#: scribus/scribus.cpp:4991
-#: scribus/scribus.cpp:6023
-#: scribus/scribuswin.cpp:43
-msgid "Warning"
-msgstr "Attention"
+#: scribus/annot.cpp:116
+msgid "Courier"
+msgstr "Courier"
 
-#: scribus/scribuswin.cpp:44
-msgid "Document:"
-msgstr "Document :"
+#: scribus/annot.cpp:117
+msgid "Courier Bold"
+msgstr "Courier gras"
 
-#: scribus/scribuswin.cpp:44
-msgid "has been changed since the last save."
-msgstr "a été modifié depuis la dernière sauvegarde."
+#: scribus/annot.cpp:118
+msgid "Courier Italic"
+msgstr "Courier italique"
 
-#: scribus/scribuswin.cpp:45
-msgid "Save Now"
-msgstr "Enregistrer maintenant"
+#: scribus/annot.cpp:119
+msgid "Courier Bold Italic"
+msgstr "Courier gras italique"
 
-#: scribus/scribuswin.cpp:47
-msgid "Leave Anyway"
-msgstr "Fermer quand même"
+#: scribus/annot.cpp:120
+msgid "Helvetica"
+msgstr "Helvetica"
 
-#: scribus/hyask.cpp:38
-msgid "Possible Hyphenation"
-msgstr "Césure possible"
+#: scribus/annot.cpp:121
+msgid "Helvetica Bold"
+msgstr "Helvetica gras"
 
-#: scribus/hyask.cpp:53
-msgid "Accept"
-msgstr "Approuver"
+#: scribus/annot.cpp:122
+msgid "Helvetica Italic"
+msgstr "Helvetica italique"
 
-#: scribus/hyask.cpp:59
-msgid "Skip"
-msgstr "Sauter"
+#: scribus/annot.cpp:123
+msgid "Helvetica Bold Italic"
+msgstr "Helvetica gras italique"
 
-#: scribus/hysettings.cpp:11
-msgid "Hyphenator Settings"
-msgstr "Paramètres de césure"
+#: scribus/annot.cpp:124
+msgid "Times"
+msgstr "Times"
 
-#: scribus/hysettings.cpp:17
-msgid "Fully Automatic"
-msgstr "Automatique"
+#: scribus/annot.cpp:125
+msgid "Times Bold"
+msgstr "Times gras"
 
-#: scribus/hysettings.cpp:19
-msgid "If you uncheck this you will get an Dialog\n"
-"everytime a possible Hyphenation is found."
-msgstr "Si vous décochez cette case, une boîte de dialogue\n"
-"s'affichera à chaque éventuelle césure possible."
+#: scribus/annot.cpp:126
+msgid "Times Italic"
+msgstr "Times italique"
 
-#: scribus/hysettings.cpp:21
-msgid "Check during Typing"
-msgstr "Examiner pendant la saisie"
+#: scribus/annot.cpp:127
+msgid "Times Bold Italic"
+msgstr "Times gras italique"
 
-#: scribus/hysettings.cpp:23
-msgid "Enables automatic checking of your Text during Typing."
-msgstr "Examine systématiquement le texte pendant sa saisie."
+#: scribus/annot.cpp:128
+msgid "Zapf Dingbats"
+msgstr "Zapf Dingbats"
 
-#: scribus/hysettings.cpp:36
-msgid "Language:"
-msgstr "Langue :"
+#: scribus/annot.cpp:129
+msgid "Symbol"
+msgstr "Symbol"
 
-#: scribus/hysettings.cpp:41
-msgid "Smallest Word:"
-msgstr "Mot le plus court :"
+#: scribus/annot.cpp:137
+msgid "Border"
+msgstr "Bord"
 
-#: scribus/hysettings.cpp:47
-msgid "This is the length of the smallest word to be hyphenated."
-msgstr "Nombre de lettres minimal qu'un mot doit contenir pour être coupé."
+#: scribus/annot.cpp:144
+msgid "Color:"
+msgstr "Couleur :"
 
-#: scribus/pdfopts.cpp:295
-#: scribus/seiten.cpp:81
-msgid "Show Page Previews"
-msgstr "Aperçu de la page"
+#: scribus/annot.cpp:149
+#: scribus/annot.cpp:168
+#: scribus/annot.cpp:378
+#: scribus/annot.cpp:497
+#: scribus/annot.cpp:1736
+#: scribus/annot.cpp:1979
+#: scribus/annot.cpp:2022
+#: scribus/cpalette.cpp:201
+#: scribus/libprefs/prefs.cpp:911
+#: scribus/libprefs/prefs.cpp:936
+#: scribus/libprefs/prefs.cpp:1225
+#: scribus/modify.cpp:248
+#: scribus/modify.cpp:392
+#: scribus/modify.cpp:501
+#: scribus/modify.cpp:524
+#: scribus/modify.cpp:721
+#: scribus/modify.cpp:743
+#: scribus/modify.cpp:805
+#: scribus/modify.cpp:821
+#: scribus/page.cpp:5154
+#: scribus/page.cpp:5187
+#: scribus/scribus.cpp:1664
+#: scribus/scribus.cpp:1819
+#: scribus/scribus.cpp:4129
+#: scribus/scribus.cpp:4317
+#: scribus/scribus.cpp:4792
+#: scribus/scribus.cpp:4795
+#: scribus/scribus.cpp:4798
+#: scribus/scribus.cpp:4822
+#: scribus/scribus.cpp:4848
+#: scribus/scribus.cpp:4905
+#: scribus/scribus.cpp:4908
+#: scribus/scribus.cpp:4911
+#: scribus/scribus.cpp:4935
+#: scribus/scribus.cpp:4961
+#: scribus/scribus.cpp:6018
+msgid "None"
+msgstr "Aucune"
 
-#: scribus/seiten.cpp:154
-msgid "Show Template Names"
-msgstr "Afficher les noms des maquettes"
+#: scribus/annot.cpp:165
+#: scribus/libprefs/prefs.cpp:270
+#: scribus/modify.cpp:98
+#: scribus/mpalette.cpp:87
+#: scribus/mpalette.cpp:847
+#: scribus/mpalette.cpp:885
+#: scribus/mpalette.cpp:930
+#: scribus/mpalette.cpp:1608
+#: scribus/newfile.cpp:92
+msgid "Width:"
+msgstr "Largeur :"
 
-#: scribus/seiten.cpp:508
-msgid "Arrange Pages"
-msgstr "Organiser les pages"
+#: scribus/annot.cpp:169
+msgid "Thin"
+msgstr "Mince"
 
-#: scribus/seiten.cpp:518
-msgid "Available Templates:"
-msgstr "Maquettes disponibles :"
-
-#: scribus/seiten.cpp:527
-msgid "Document Pages:"
-msgstr "Pages du document :"
-
-#: scribus/libprefs/prefs.cpp:273
-#: scribus/newfile.cpp:114
-#: scribus/reformdoc.cpp:76
-#: scribus/seiten.cpp:553
-msgid "Facing Pages"
-msgstr "Recto-verso"
-
-#: scribus/libprefs/prefs.cpp:278
-#: scribus/newfile.cpp:118
-#: scribus/reformdoc.cpp:80
-#: scribus/seiten.cpp:556
-msgid "Left Page first"
-msgstr "Page gauche en premier"
-
-#: scribus/seiten.cpp:575
-msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr "Déposez une page ou une maquette sur la corbeille pour la supprimer."
-
-#: scribus/seiten.cpp:576
-msgid "Here you can see all Pages of your Document."
-msgstr "Vous pouvez voir ici toutes les pages de votre composition"
-
-#: scribus/seiten.cpp:577
-msgid "Here are all your Templates, to create a new Page\n"
-"drag a Template to the Pageview below."
-msgstr "Voici la liste des maquettes disponibles ; pour créer une nouvelle\n"
-"page, déposez une maquette dans la fenêtre ci-dessous."
-
-#: scribus/annot.cpp:167
-#: scribus/annot.cpp:272
+#: scribus/annot.cpp:170
+#: scribus/annot.cpp:275
 #: scribus/applytemplate.cpp:22
 #: scribus/cpalette.cpp:80
 #: scribus/inspage.cpp:65
@@ -522,48 +461,634 @@ msgstr "Voici la liste des maquettes disponibles ; pour créer une nouvelle\n"
 #: scribus/muster.cpp:224
 #: scribus/muster.cpp:241
 #: scribus/muster.cpp:251
-#: scribus/scribus.cpp:667
-#: scribus/scribus.cpp:5236
-#: scribus/seiten.cpp:589
-#: scribus/seiten.cpp:724
-#: scribus/seiten.cpp:731
+#: scribus/scribus.cpp:708
+#: scribus/scribus.cpp:5612
+#: scribus/seiten.cpp:591
+#: scribus/seiten.cpp:726
+#: scribus/seiten.cpp:733
 msgid "Normal"
 msgstr "Normal"
 
-#: scribus/annota.cpp:18
-#: scribus/page.cpp:1798
-msgid "Annotation Properties"
-msgstr "Propriétés de l'annotation"
+#: scribus/annot.cpp:171
+msgid "Wide"
+msgstr "Large"
 
-#: scribus/annot.cpp:53
-#: scribus/annot.cpp:490
-#: scribus/annota.cpp:45
-msgid "Type:"
-msgstr "Type :"
+#: scribus/annot.cpp:176
+msgid "Style:"
+msgstr "Style :"
 
-#: scribus/annot.cpp:103
-#: scribus/annot.cpp:237
-#: scribus/annota.cpp:49
-#: scribus/mpalette.cpp:48
-#: scribus/tree.cpp:110
-#: scribus/werktoolb.cpp:78
-msgid "Text"
-msgstr "Texte"
+#: scribus/annot.cpp:179
+msgid "Solid"
+msgstr "Plein"
 
-#: scribus/annota.cpp:50
-#: scribus/werktoolb.cpp:79
-msgid "Link"
-msgstr "Lien"
+#: scribus/annot.cpp:180
+msgid "Dashed"
+msgstr "Pointillé"
 
-#: scribus/annot.cpp:590
-#: scribus/annota.cpp:60
+#: scribus/annot.cpp:181
+#: scribus/mpalette.cpp:621
+#: scribus/scribus.cpp:712
+msgid "Underline"
+msgstr "Souligné"
+
+#: scribus/annot.cpp:182
+msgid "Beveled"
+msgstr "Biseauté"
+
+#: scribus/annot.cpp:183
+msgid "Inset"
+msgstr "Creux"
+
+#: scribus/annot.cpp:190
+#: scribus/libprefs/prefs.cpp:677
+msgid "Other"
+msgstr "Autre"
+
+#: scribus/annot.cpp:197
+msgid "Read Only"
+msgstr "Lecture seule"
+
+#: scribus/annot.cpp:203
+msgid "Required"
+msgstr "Nécessaire"
+
+#: scribus/annot.cpp:209
+msgid "Don't Export Value"
+msgstr "Ne pas exporter la valeur"
+
+#: scribus/annot.cpp:215
+msgid "Visibility:"
+msgstr "Visibilité :"
+
+#: scribus/annot.cpp:218
+msgid "Visible"
+msgstr "Visible"
+
+#: scribus/annot.cpp:219
+msgid "Hidden"
+msgstr "Caché"
+
+#: scribus/annot.cpp:220
+msgid "No Print"
+msgstr "Non-imprimable"
+
+#: scribus/annot.cpp:221
+msgid "No View"
+msgstr "Invisible"
+
+#: scribus/annot.cpp:227
+msgid "Appearance"
+msgstr "Aspect"
+
+#: scribus/annot.cpp:247
+msgid "Text for Button Down"
+msgstr "Texte pour le bouton bas"
+
+#: scribus/annot.cpp:250
+msgid "Text for Roll Over"
+msgstr "Texte pour la bascule (rollover)"
+
+#: scribus/annot.cpp:261
+msgid "Icons"
+msgstr "Icônes"
+
+#: scribus/annot.cpp:268
+msgid "Use Icons"
+msgstr "Utiliser les icônes"
+
+#: scribus/annot.cpp:285
+#: scribus/annot.cpp:301
+#: scribus/annot.cpp:317
+#: scribus/fontprefs.cpp:157
+msgid "Remove"
+msgstr "Effacer"
+
+#: scribus/annot.cpp:291
+msgid "Pressed"
+msgstr "Appuyé"
+
+#: scribus/annot.cpp:307
+msgid "Roll Over"
+msgstr "Bascule"
+
+#: scribus/annot.cpp:324
+msgid "Icon Placement..."
+msgstr "Position des icônes..."
+
+#: scribus/annot.cpp:371
+msgid "Highlight"
+msgstr "Surligné :"
+
+#: scribus/annot.cpp:379
+#: scribus/scribus.cpp:1896
+#: scribus/scribus.cpp:6576
+msgid "Invert"
+msgstr "Inverser"
+
+#: scribus/annot.cpp:380
+msgid "Outlined"
+msgstr "Souligné"
+
+#: scribus/annot.cpp:381
+msgid "Push"
+msgstr "Pousser"
+
+#: scribus/annot.cpp:396
+msgid "Multi-Line"
+msgstr "Multi-ligne"
+
+#: scribus/annot.cpp:400
+msgid "Password"
+msgstr "Mot de passe"
+
+#: scribus/annot.cpp:405
+msgid "Limit of"
+msgstr "Limite de"
+
+#: scribus/annot.cpp:424
+msgid "Characters"
+msgstr "Caractères"
+
+#: scribus/annot.cpp:430
+msgid "Do Not Scroll"
+msgstr "Ne pas dérouler"
+
+#: scribus/annot.cpp:434
+msgid "Do Not Spell Check"
+msgstr "Ne pas vérifier l'orthographe"
+
+#: scribus/annot.cpp:448
+msgid "Check Style:"
+msgstr "Type de case :"
+
+#: scribus/annot.cpp:451
+msgid "Check"
+msgstr "Coche"
+
+#: scribus/annot.cpp:452
+msgid "Cross"
+msgstr "Croix"
+
+#: scribus/annot.cpp:453
+msgid "Diamond"
+msgstr "Diamant"
+
+#: scribus/annot.cpp:454
+msgid "Circle"
+msgstr "Rond"
+
+#: scribus/annot.cpp:455
+msgid "Star"
+msgstr "Étoile"
+
+#: scribus/annot.cpp:456
+msgid "Square"
+msgstr "Carré"
+
+#: scribus/annot.cpp:465
+msgid "Default is Checked"
+msgstr "Cochée par défaut"
+
+#: scribus/annot.cpp:478
+msgid "Editable"
+msgstr "Modifiable"
+
+#: scribus/annot.cpp:485
+#: scribus/druck.cpp:307
+#: scribus/newfile.cpp:199
+msgid "Options"
+msgstr "Options"
+
+#: scribus/annot.cpp:498
+#: scribus/annot.cpp:1980
+#: scribus/annot.cpp:2023
+msgid "Java Script"
+msgstr "Script Java"
+
+#: scribus/annot.cpp:499
+#: scribus/annot.cpp:1981
+msgid "Go To"
+msgstr "Aller à"
+
+#: scribus/annot.cpp:500
+#: scribus/annot.cpp:1982
+msgid "Submit Form"
+msgstr "Envoyer le formulaire"
+
+#: scribus/annot.cpp:501
+#: scribus/annot.cpp:1983
+msgid "Reset Form"
+msgstr "R.A.Z du formulaire"
+
+#: scribus/annot.cpp:502
+#: scribus/annot.cpp:1984
+msgid "Import Data"
+msgstr "Importer des données"
+
+#: scribus/annot.cpp:528
+msgid "Event:"
+msgstr "Événement :"
+
+#: scribus/annot.cpp:531
+#: scribus/annot.cpp:1961
+msgid "Mouse Up"
+msgstr "Bouton souris relaché"
+
+#: scribus/annot.cpp:532
+#: scribus/annot.cpp:1962
+msgid "Mouse Down"
+msgstr "Bouton souris enfoncé"
+
+#: scribus/annot.cpp:533
+#: scribus/annot.cpp:1963
+msgid "Mouse Enter"
+msgstr "Entrée souris"
+
+#: scribus/annot.cpp:534
+#: scribus/annot.cpp:1964
+msgid "Mouse Exit"
+msgstr "Sortie souris"
+
+#: scribus/annot.cpp:535
+#: scribus/annot.cpp:1965
+msgid "On Focus"
+msgstr "Au centre"
+
+#: scribus/annot.cpp:536
+#: scribus/annot.cpp:1966
+msgid "On Blur"
+msgstr "Autour"
+
+#: scribus/annot.cpp:543
+msgid "Script:"
+msgstr "Script :"
+
+#: scribus/annot.cpp:556
+#: scribus/annot.cpp:862
+#: scribus/annot.cpp:883
+#: scribus/annot.cpp:955
+#: scribus/annot.cpp:1020
+#: scribus/javadocs.cpp:28
+msgid "Edit..."
+msgstr "Éditer..."
+
+#: scribus/annot.cpp:566
+msgid "Submit to URL:"
+msgstr "URL :"
+
+#: scribus/annot.cpp:574
+msgid "Submit Data as HTML"
+msgstr "Envoyer les données en HTML"
+
+#: scribus/annot.cpp:585
+msgid "Import Data from:"
+msgstr "Importer les données depuis :"
+
+#: scribus/annot.cpp:596
+#: scribus/annota.cpp:66
 msgid "Destination"
 msgstr "Destination"
 
-#: scribus/annot.cpp:599
-#: scribus/annota.cpp:69
+#: scribus/annot.cpp:605
+msgid "To File:"
+msgstr "Vers :"
+
+#: scribus/annot.cpp:612
+#: scribus/annota.cpp:80
+#: scribus/druck.cpp:181
+#: scribus/fontprefs.cpp:151
+#: scribus/libprefs/prefs.cpp:197
+#: scribus/mergedoc.cpp:35
+#: scribus/pdfopts.cpp:44
+msgid "Change..."
+msgstr "Parcourir..."
+
+#: scribus/annot.cpp:615
+#: scribus/annota.cpp:89
+#: scribus/plugins/printpreview/preview.cpp:67
 msgid "Page:"
 msgstr "Page :"
+
+#: scribus/annot.cpp:634
+#: scribus/annota.cpp:108
+#: scribus/frameedit.cpp:160
+#: scribus/guidemanager.cpp:65
+#: scribus/modify.cpp:92
+#: scribus/mpalette.cpp:81
+#: scribus/mpalette.cpp:846
+#: scribus/mpalette.cpp:884
+#: scribus/mpalette.cpp:929
+#: scribus/mpalette.cpp:1607
+#: scribus/scribus.cpp:732
+msgid "X-Pos:"
+msgstr "X :"
+
+#: scribus/annot.cpp:637
+#: scribus/annot.cpp:646
+#: scribus/annota.cpp:111
+#: scribus/annota.cpp:120
+#: scribus/edit1format.cpp:51
+#: scribus/edit1format.cpp:84
+#: scribus/edit1format.cpp:92
+#: scribus/edit1format.cpp:162
+#: scribus/edit1format.cpp:171
+#: scribus/edit1format.cpp:180
+#: scribus/frameedit.cpp:225
+#: scribus/frameedit.cpp:226
+#: scribus/guidemanager.cpp:151
+#: scribus/libprefs/prefs.cpp:2012
+#: scribus/libprefs/prefs.cpp:2013
+#: scribus/libprefs/prefs.cpp:2014
+#: scribus/libprefs/prefs.cpp:2015
+#: scribus/libprefs/prefs.cpp:2016
+#: scribus/libprefs/prefs.cpp:2017
+#: scribus/libprefs/prefs.cpp:2018
+#: scribus/libprefs/prefs.cpp:2019
+#: scribus/libprefs/prefs.cpp:2020
+#: scribus/mdup.cpp:44
+#: scribus/mdup.cpp:45
+#: scribus/modify.cpp:108
+#: scribus/modify.cpp:116
+#: scribus/modify.cpp:124
+#: scribus/modify.cpp:133
+#: scribus/modify.cpp:239
+#: scribus/modify.cpp:274
+#: scribus/modify.cpp:318
+#: scribus/modify.cpp:326
+#: scribus/modify.cpp:417
+#: scribus/modify.cpp:597
+#: scribus/modify.cpp:911
+#: scribus/modify.cpp:912
+#: scribus/modify.cpp:913
+#: scribus/modify.cpp:914
+#: scribus/modify.cpp:917
+#: scribus/modify.cpp:918
+#: scribus/modify.cpp:921
+#: scribus/mpalette.cpp:93
+#: scribus/mpalette.cpp:98
+#: scribus/mpalette.cpp:103
+#: scribus/mpalette.cpp:106
+#: scribus/mpalette.cpp:272
+#: scribus/mpalette.cpp:300
+#: scribus/mpalette.cpp:305
+#: scribus/mpalette.cpp:310
+#: scribus/mpalette.cpp:315
+#: scribus/mpalette.cpp:341
+#: scribus/mpalette.cpp:458
+#: scribus/mpalette.cpp:462
+#: scribus/mpalette.cpp:503
+#: scribus/mpalette.cpp:506
+#: scribus/mpalette.cpp:584
+#: scribus/multiline.cpp:96
+#: scribus/pdfopts.cpp:647
+msgid " pt"
+msgstr " pt"
+
+#: scribus/annot.cpp:642
+#: scribus/annota.cpp:116
+#: scribus/frameedit.cpp:168
+#: scribus/guidemanager.cpp:33
+#: scribus/modify.cpp:95
+#: scribus/mpalette.cpp:84
+#: scribus/mpalette.cpp:848
+#: scribus/mpalette.cpp:886
+#: scribus/mpalette.cpp:931
+#: scribus/mpalette.cpp:1609
+#: scribus/scribus.cpp:738
+msgid "Y-Pos:"
+msgstr "Y :"
+
+#: scribus/annot.cpp:650
+#: scribus/keymanager.cpp:39
+msgid "Action"
+msgstr "Action"
+
+#: scribus/annot.cpp:671
+msgid "Field is formatted as:"
+msgstr "Le champ est formaté comme :"
+
+#: scribus/annot.cpp:674
+msgid "Plain"
+msgstr "Rempli"
+
+#: scribus/annot.cpp:675
+msgid "Number"
+msgstr "Nombre"
+
+#: scribus/annot.cpp:676
+msgid "Percentage"
+msgstr "Pourcentage"
+
+#: scribus/annot.cpp:677
+msgid "Date"
+msgstr "Date"
+
+#: scribus/annot.cpp:678
+msgid "Time"
+msgstr "Heure"
+
+#: scribus/annot.cpp:679
+#: scribus/libprefs/prefs.cpp:248
+#: scribus/newfile.cpp:76
+msgid "Custom"
+msgstr "Sur mesure"
+
+#: scribus/annot.cpp:694
+msgid "Number Format"
+msgstr "Format du nombre"
+
+#: scribus/annot.cpp:702
+#: scribus/annot.cpp:759
+msgid "Decimals:"
+msgstr "Décimales"
+
+#: scribus/annot.cpp:714
+msgid "Use Currency Symbol"
+msgstr "Unité monétaire :"
+
+#: scribus/annot.cpp:723
+msgid "Prepend Currency Symbol"
+msgstr "Symbole monétaire"
+
+#: scribus/annot.cpp:727
+#: scribus/annot.cpp:770
+msgid "Formatting"
+msgstr "Mise en page"
+
+#: scribus/annot.cpp:751
+msgid "Percent Format"
+msgstr "Format du pourcentage"
+
+#: scribus/annot.cpp:794
+msgid "Date Format"
+msgstr "Format de la date"
+
+#: scribus/annot.cpp:827
+msgid "Time Format"
+msgstr "Format de l'heure"
+
+#: scribus/annot.cpp:850
+msgid "Custom Scripts"
+msgstr "Scripts sur mesure"
+
+#: scribus/annot.cpp:859
+msgid "Format:"
+msgstr "Format :"
+
+#: scribus/annot.cpp:880
+msgid "Keystroke:"
+msgstr "Frappe :"
+
+#: scribus/annot.cpp:903
+msgid "Format"
+msgstr "Format"
+
+#: scribus/annot.cpp:918
+msgid "Value is not validated"
+msgstr "La valeur n'est pas validée"
+
+#: scribus/annot.cpp:925
+msgid "Value must be greater than or equal to:"
+msgstr "La valeur doit être supérieure ou égale à :"
+
+#: scribus/annot.cpp:929
+msgid "and less or equal to:"
+msgstr "et inférieure ou égale à :"
+
+#: scribus/annot.cpp:942
+msgid "Custom validate script:"
+msgstr "Script de validation sur mesure :"
+
+#: scribus/annot.cpp:960
+msgid "Validate"
+msgstr "Valider"
+
+#: scribus/annot.cpp:975
+msgid "Value is not calculated"
+msgstr "La valeur n'est pas calculée"
+
+#: scribus/annot.cpp:982
+msgid "Value is the"
+msgstr "La valeur est"
+
+#: scribus/annot.cpp:986
+msgid "sum"
+msgstr "la somme"
+
+#: scribus/annot.cpp:987
+msgid "product"
+msgstr "le produit"
+
+#: scribus/annot.cpp:988
+msgid "average"
+msgstr "la moyenne"
+
+#: scribus/annot.cpp:989
+msgid "minimum"
+msgstr "le minimum"
+
+#: scribus/annot.cpp:990
+msgid "maximum"
+msgstr "le maximum"
+
+#: scribus/annot.cpp:994
+msgid "of the following fields:"
+msgstr "des champs suivants :"
+
+#: scribus/annot.cpp:1002
+msgid "Pick..."
+msgstr "Choisir..."
+
+#: scribus/annot.cpp:1007
+msgid "Custom calculation script:"
+msgstr "Script de calcul sur mesure :"
+
+#: scribus/annot.cpp:1024
+msgid "Calculate"
+msgstr "Calculer"
+
+#: scribus/annot.cpp:1099
+#: scribus/annot.cpp:1100
+msgid "Flag is ignored for PDF-1.3"
+msgstr "Le drapeau est ignoré pour le format PDF 1.3"
+
+#: scribus/annot.cpp:1101
+msgid "Enter a comma separated list of Fields here"
+msgstr "Saisissez une liste de champs séparés par des virgules"
+
+#: scribus/annot.cpp:1102
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr "Vous avez au moins besoin de l'icône « Normal » pour pouvoir utiliser les icônes comme boutons"
+
+#: scribus/annot.cpp:1200
+#: scribus/annot.cpp:1231
+#: scribus/annot.cpp:1250
+#: scribus/annot.cpp:2181
+#: scribus/annota.cpp:276
+#: scribus/colorm.cpp:94
+#: scribus/colorm.cpp:96
+#: scribus/mergedoc.cpp:89
+#: scribus/mergedoc.cpp:91
+#: scribus/scribus.cpp:2141
+#: scribus/scribus.cpp:2143
+#: scribus/scribus.cpp:2472
+#: scribus/scribus.cpp:2490
+msgid "Open"
+msgstr "Ouvrir"
+
+#: scribus/annot.cpp:1200
+#: scribus/annot.cpp:1231
+#: scribus/annot.cpp:1250
+msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgstr "Images (*.tif *.png *.jpg *.xpm);;Postscript encapsulé (*.eps);;Tous les fichiers (*)"
+
+#: scribus/annot.cpp:1358
+msgid "Example:"
+msgstr "Exemple :"
+
+#: scribus/annot.cpp:2014
+msgid "Selection Change"
+msgstr "Sélection modifiée"
+
+#: scribus/annot.cpp:2181
+#: scribus/annota.cpp:276
+msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgstr "Documents PDF (*.pdf);;Tous les fichiers (*)"
+
+#: scribus/annota.cpp:19
+#: scribus/page.cpp:1946
+msgid "Annotation Properties"
+msgstr "Propriétés de l'annotation"
+
+#: scribus/annota.cpp:54
+#: scribus/werktoolb.cpp:196
+msgid "Link"
+msgstr "Lien"
+
+#: scribus/annota.cpp:55
+msgid "External Link"
+msgstr "Lien externe"
+
+#: scribus/applytemplate.cpp:8
+msgid "Apply Template"
+msgstr "Appliquer une maquette"
+
+#: scribus/applytemplate.cpp:14
+msgid "Template for this Page:"
+msgstr "Maquette pour cette page :"
+
+#: scribus/bookmwin.cpp:108
+#: scribus/bookpalette.cpp:27
+msgid "Bookmarks"
+msgstr "Signets"
+
+#: scribus/bookmwin.cpp:195
+msgid "Move Bookmark"
+msgstr "Déplacer signet"
+
+#: scribus/bookmwin.cpp:196
+msgid "Insert Bookmark"
+msgstr "Insérer signet"
 
 #: scribus/buttonicon.cpp:9
 msgid "Icon Placement"
@@ -626,7 +1151,7 @@ msgid "Scale How:"
 msgstr "Type :"
 
 #: scribus/buttonicon.cpp:40
-#: scribus/mpalette.cpp:562
+#: scribus/mpalette.cpp:549
 msgid "Proportional"
 msgstr "Proportionnel"
 
@@ -642,83 +1167,721 @@ msgstr "Icône"
 msgid "Reset"
 msgstr "R.A.Z."
 
-#: scribus/javadocs.cpp:10
-msgid "Global JavaScripts"
-msgstr "JavaScripts"
+#: scribus/cmsprefs.cpp:17
+msgid "Color Management Settings"
+msgstr "Configuration de la gestion des couleurs"
 
-#: scribus/annot.cpp:550
-#: scribus/annot.cpp:823
-#: scribus/annot.cpp:844
-#: scribus/annot.cpp:916
-#: scribus/annot.cpp:981
-#: scribus/javadocs.cpp:28
-msgid "Edit..."
-msgstr "Éditer..."
+#: scribus/cmsprefs.cpp:26
+msgid "Activate Color Management"
+msgstr "Activer la gestion des couleurs"
 
-#: scribus/fontprefs.cpp:141
-#: scribus/javadocs.cpp:32
-msgid "Add..."
-msgstr "Ajouter..."
+#: scribus/cmsprefs.cpp:33
+msgid "System Profiles"
+msgstr "Profils"
 
-#: scribus/javadocs.cpp:42
-#: scribus/libabout/about.cpp:108
-#: scribus/plugins/libchar/charselect.cpp:98
-#: scribus/scrap.cpp:780
-#: scribus/scribus.cpp:414
-#: scribus/scribus.cpp:415
-msgid "Close"
-msgstr "Fermer"
+#: scribus/cmsprefs.cpp:43
+msgid "Pictures:"
+msgstr "Images :"
 
-#: scribus/javadocs.cpp:63
-msgid "New Script"
-msgstr "Nouveau script"
+#: scribus/cmsprefs.cpp:47
+#: scribus/pdfopts.cpp:468
+msgid "Solid Colors:"
+msgstr "Couleurs :"
 
-#: scribus/selfield.cpp:10
-msgid "Select Fields"
-msgstr "Sélectionner les champs"
+#: scribus/cmsprefs.cpp:51
+#: scribus/cmsprefs.cpp:127
+msgid "Monitor:"
+msgstr "Écran :"
 
-#: scribus/selfield.cpp:18
-msgid "Available Fields"
-msgstr "Champs disponibles"
+#: scribus/cmsprefs.cpp:55
+#: scribus/cmsprefs.cpp:131
+msgid "Printer:"
+msgstr "Imprimante :"
 
-#: scribus/pdfopts.cpp:229
-#: scribus/selfield.cpp:48
-msgid ">>"
-msgstr "Incorporer"
+#: scribus/cmsprefs.cpp:117
+msgid "Rendering Intents"
+msgstr "Rendus"
 
-#: scribus/pdfopts.cpp:233
-#: scribus/selfield.cpp:51
-msgid "<<"
-msgstr "Détacher"
+#: scribus/cmsprefs.cpp:135
+#: scribus/cmsprefs.cpp:146
+#: scribus/modify.cpp:459
+#: scribus/pdfopts.cpp:488
+#: scribus/pdfopts.cpp:520
+msgid "Perceptual"
+msgstr "Perceptible"
 
-#: scribus/selfield.cpp:58
-msgid "Selected Fields"
-msgstr "Champs sélectionnés"
+#: scribus/cmsprefs.cpp:136
+#: scribus/cmsprefs.cpp:147
+#: scribus/modify.cpp:460
+#: scribus/pdfopts.cpp:489
+#: scribus/pdfopts.cpp:521
+msgid "Relative Colorimetric"
+msgstr "Colorimétrie relative"
+
+#: scribus/cmsprefs.cpp:137
+#: scribus/cmsprefs.cpp:148
+#: scribus/modify.cpp:461
+#: scribus/pdfopts.cpp:490
+#: scribus/pdfopts.cpp:522
+msgid "Saturation"
+msgstr "Saturation"
+
+#: scribus/cmsprefs.cpp:138
+#: scribus/cmsprefs.cpp:149
+#: scribus/modify.cpp:462
+#: scribus/pdfopts.cpp:491
+#: scribus/pdfopts.cpp:523
+msgid "Absolute Colorimetric"
+msgstr "Colorimétrie absolue"
+
+#: scribus/cmsprefs.cpp:159
+msgid "Simulate Printer on the Screen"
+msgstr "Simulation du rendu de l'imprimante à l'écran"
+
+#: scribus/cmsprefs.cpp:164
+msgid "Mark Colors out of Gamut"
+msgstr "Marquer les couleurs en dehors de la gamme"
+
+#: scribus/cmykfw.cpp:31
+msgid "Edit Color"
+msgstr "Édition couleur"
+
+#: scribus/cmykfw.cpp:54
+msgid "Color Model"
+msgstr "Modèle :"
+
+#: scribus/cmykfw.cpp:59
+#: scribus/cmykfw.cpp:447
+msgid "CMYK"
+msgstr "CMJN"
+
+#: scribus/cmykfw.cpp:60
+msgid "RGB"
+msgstr "RVB"
+
+#: scribus/cmykfw.cpp:61
+#: scribus/cmykfw.cpp:479
+msgid "Websave RGB"
+msgstr "RVB pour le ouaibe"
+
+#: scribus/cmykfw.cpp:78
+#: scribus/colorm.cpp:51
+#: scribus/editformats.cpp:28
+#: scribus/editor.cpp:20
+#: scribus/lineformats.cpp:28
+#: scribus/muster.cpp:28
+#: scribus/scrap.cpp:131
+#: scribus/scribus.cpp:435
+#: scribus/scribus.cpp:438
+msgid "New"
+msgstr "Nouveau"
+
+#: scribus/cmykfw.cpp:97
+msgid "Old"
+msgstr "Ancienne"
+
+#: scribus/cmykfw.cpp:153
+#: scribus/cmykfw.cpp:451
+msgid "C:"
+msgstr "C :"
+
+#: scribus/cmykfw.cpp:187
+#: scribus/cmykfw.cpp:452
+msgid "M:"
+msgstr "M :"
+
+#: scribus/cmykfw.cpp:221
+#: scribus/cmykfw.cpp:453
+msgid "Y:"
+msgstr "J :"
+
+#: scribus/cmykfw.cpp:255
+msgid "K:"
+msgstr "N :"
+
+#: scribus/cmykfw.cpp:315
+msgid "Dynamic Color Bars"
+msgstr "Barres de couleur dynamique"
+
+#: scribus/cmykfw.cpp:316
+msgid "Static Color Bars"
+msgstr "Barres de couleur statique"
+
+#: scribus/cmykfw.cpp:469
+msgid "R:"
+msgstr "R :"
+
+#: scribus/cmykfw.cpp:470
+msgid "G:"
+msgstr "V :"
+
+#: scribus/cmykfw.cpp:471
+msgid "B:"
+msgstr "B :"
+
+#: scribus/colorm.cpp:34
+#: scribus/mpalette.cpp:64
+msgid "Colors"
+msgstr "Couleurs"
+
+#: scribus/colorm.cpp:48
+msgid "Append"
+msgstr "Ajouter"
+
+#: scribus/colorm.cpp:55
+#: scribus/editformats.cpp:32
+#: scribus/editor.cpp:38
+#: scribus/lineformats.cpp:32
+#: scribus/scribus.cpp:660
+msgid "Edit"
+msgstr "Édition"
+
+#: scribus/colorm.cpp:60
+#: scribus/editformats.cpp:38
+#: scribus/lineformats.cpp:38
+#: scribus/muster.cpp:32
+#: scribus/scribus.cpp:524
+#: scribus/scribus.cpp:525
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+#: scribus/colorm.cpp:64
+#: scribus/editformats.cpp:43
+#: scribus/fontprefs.cpp:136
+#: scribus/guidemanager.cpp:47
+#: scribus/guidemanager.cpp:79
+#: scribus/javadocs.cpp:36
+#: scribus/lineformats.cpp:43
+#: scribus/muster.cpp:36
+#: scribus/page.cpp:2000
+#: scribus/scrap.cpp:262
+#: scribus/scribus.cpp:528
+#: scribus/scribus.cpp:529
+msgid "Delete"
+msgstr "Supprimer"
+
+#: scribus/colorm.cpp:67
+#: scribus/editformats.cpp:48
+#: scribus/lineformats.cpp:48
+#: scribus/scrap.cpp:132
+#: scribus/scribus.cpp:444
+#: scribus/scribus.cpp:445
+msgid "Save"
+msgstr "Enregistrer"
+
+#: scribus/colorm.cpp:94
+#: scribus/mergedoc.cpp:89
+#: scribus/scribus.cpp:2141
+msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
+msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);; Tous les fichiers (*)"
+
+#: scribus/colorm.cpp:96
+#: scribus/mergedoc.cpp:91
+#: scribus/scribus.cpp:2143
+#: scribus/scribus.cpp:2541
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Documents (*.sla *.scd);; Tous les fichiers (*)"
+
+#: scribus/colorm.cpp:140
+msgid "Copy of"
+msgstr "Copy de"
+
+#: scribus/cpalette.cpp:53
+#: scribus/scribus.cpp:681
+#: scribus/scribus.cpp:694
+#: scribus/scribus.cpp:4626
+msgid "Other..."
+msgstr "Autre..."
+
+#: scribus/cpalette.cpp:81
+msgid "Horizontal Gradient"
+msgstr "Dégradé horizontal"
+
+#: scribus/cpalette.cpp:82
+msgid "Vertical Gradient"
+msgstr "Dégradé vertical"
+
+#: scribus/cpalette.cpp:83
+msgid "Diagonal Gradient"
+msgstr "Dégradé montant"
+
+#: scribus/cpalette.cpp:84
+msgid "CrossDiagonal Gradient"
+msgstr "Dégradé descendant"
+
+#: scribus/cpalette.cpp:85
+msgid "Radial Gradient"
+msgstr "Dégradé circulaire"
+
+#: scribus/cpalette.cpp:116
+msgid "Opacity:"
+msgstr "Opacité :"
+
+#: scribus/cpalette.cpp:122
+#: scribus/libprefs/prefs.cpp:589
+#: scribus/libprefs/prefs.cpp:598
+#: scribus/libprefs/prefs.cpp:629
+#: scribus/libprefs/prefs.cpp:638
+#: scribus/libprefs/prefs.cpp:665
+#: scribus/libprefs/prefs.cpp:693
+#: scribus/libprefs/prefs.cpp:926
+#: scribus/libprefs/prefs.cpp:950
+#: scribus/libprefs/prefs.cpp:1045
+#: scribus/libprefs/prefs.cpp:1120
+#: scribus/libprefs/prefs.cpp:1130
+#: scribus/libprefs/prefs.cpp:1140
+#: scribus/libprefs/prefs.cpp:1187
+#: scribus/libprefs/prefs.cpp:1196
+#: scribus/libprefs/prefs.cpp:1215
+#: scribus/libprefs/prefs.cpp:1318
+#: scribus/modify.cpp:264
+#: scribus/modify.cpp:334
+#: scribus/modify.cpp:342
+#: scribus/modify.cpp:407
+#: scribus/modify.cpp:515
+#: scribus/modify.cpp:539
+#: scribus/mpalette.cpp:512
+#: scribus/mpalette.cpp:518
+#: scribus/multiline.cpp:115
+#: scribus/polyprops.cpp:82
+#, c-format
+msgid " %"
+msgstr " %"
+
+#: scribus/cupsoptions.cpp:30
+msgid "Printer Options"
+msgstr "Options d'impression"
+
+#: scribus/cupsoptions.cpp:44
+msgid "Option"
+msgstr "Option"
+
+#: scribus/cupsoptions.cpp:45
+msgid "Value"
+msgstr "Valeur"
+
+#: scribus/cupsoptions.cpp:107
+msgid "Page Set"
+msgstr "Format de la page"
+
+#: scribus/cupsoptions.cpp:114
+#: scribus/cupsoptions.cpp:118
+#: scribus/pdfopts.cpp:63
+msgid "All Pages"
+msgstr "Toutes les pages"
+
+#: scribus/cupsoptions.cpp:115
+msgid "Even Pages only"
+msgstr "Pages paires uniquement"
+
+#: scribus/cupsoptions.cpp:116
+msgid "Odd Pages only"
+msgstr "Pages impaires uniquement"
+
+#: scribus/cupsoptions.cpp:121
+msgid "Mirror"
+msgstr "Miroir"
+
+#: scribus/cupsoptions.cpp:128
+#: scribus/cupsoptions.cpp:131
+#: scribus/editformats.cpp:133
+#: scribus/fontprefs.cpp:70
+#: scribus/fontprefs.cpp:405
+#: scribus/lineformats.cpp:128
+#: scribus/muster.cpp:100
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:50
+#: scribus/scribus.cpp:2551
+msgid "No"
+msgstr "Non"
+
+#: scribus/cupsoptions.cpp:129
+#: scribus/editformats.cpp:134
+#: scribus/fontprefs.cpp:68
+#: scribus/fontprefs.cpp:403
+#: scribus/lineformats.cpp:129
+#: scribus/muster.cpp:101
+#: scribus/picstatus.cpp:99
+#: scribus/picstatus.cpp:136
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:49
+#: scribus/scribus.cpp:2552
+msgid "Yes"
+msgstr "Oui"
+
+#: scribus/cupsoptions.cpp:134
+msgid "Orientation"
+msgstr "Orientation"
+
+#: scribus/cupsoptions.cpp:141
+#: scribus/cupsoptions.cpp:144
+#: scribus/libprefs/prefs.cpp:254
+#: scribus/newfile.cpp:83
+msgid "Portrait"
+msgstr "Portait (française)"
+
+#: scribus/cupsoptions.cpp:142
+#: scribus/libprefs/prefs.cpp:255
+#: scribus/newfile.cpp:84
+msgid "Landscape"
+msgstr "Paysage (italienne)"
+
+#: scribus/cupsoptions.cpp:147
+msgid "N-Up Printing"
+msgstr "Impression N-Up"
+
+#: scribus/cupsoptions.cpp:154
+#: scribus/cupsoptions.cpp:161
+msgid "Page per Sheet"
+msgstr "Page par feuille"
+
+#: scribus/cupsoptions.cpp:155
+#: scribus/cupsoptions.cpp:156
+#: scribus/cupsoptions.cpp:157
+#: scribus/cupsoptions.cpp:158
+#: scribus/cupsoptions.cpp:159
+msgid "Pages per Sheet"
+msgstr "Pages par feuille"
+
+#: scribus/customfdialog.cpp:123
+#: scribus/edit1format.cpp:59
+#: scribus/libprefs/prefs.cpp:262
+#: scribus/libprefs/prefs.cpp:1386
+#: scribus/mpalette.cpp:337
+#: scribus/newfile.cpp:43
+msgid "Size:"
+msgstr "Taille :"
+
+#: scribus/customfdialog.cpp:142
+#: scribus/docinfo.cpp:43
+msgid "Title:"
+msgstr "Titre :"
+
+#: scribus/customfdialog.cpp:145
+msgid "No Title"
+msgstr "Pas de titre"
+
+#: scribus/customfdialog.cpp:147
+#: scribus/docinfo.cpp:35
+msgid "Author:"
+msgstr "Auteur :"
+
+#: scribus/customfdialog.cpp:150
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: scribus/customfdialog.cpp:152
+msgid "Scribus-Document"
+msgstr "Document Scribus"
+
+#: scribus/customfdialog.cpp:184
+msgid "Compress File"
+msgstr "Compression"
+
+#: scribus/customfdialog.cpp:204
+msgid "Encoding:"
+msgstr "Codage :"
+
+#: scribus/customfdialog.cpp:262
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Revenir dans le dossier des documents. Celui-ci\n"
+"peut être défini dans les préférences."
+
+#: scribus/dcolor.cpp:26
+msgid "Delete Color"
+msgstr "Supprimer la couleur"
+
+#: scribus/dcolor.cpp:35
+msgid "OK to delete Color:"
+msgstr "Confirmer la suppression de la couleur :"
+
+#: scribus/dcolor.cpp:41
+msgid "?"
+msgstr "?"
+
+#: scribus/dcolor.cpp:44
+msgid "Replace it with:"
+msgstr "Remplacer par :"
+
+#: scribus/delpages.cpp:23
+msgid "Delete Pages"
+msgstr "Effacer les pages"
+
+#: scribus/delpages.cpp:32
+msgid "Delete from:"
+msgstr "Effacer à partir de :"
+
+#: scribus/delpages.cpp:40
+#: scribus/movepage.cpp:49
+#: scribus/pdfopts.cpp:75
+msgid "to:"
+msgstr "à :"
+
+#: scribus/docinfo.cpp:25
+msgid "Document Info"
+msgstr "Informations sur le document"
+
+#: scribus/docinfo.cpp:51
+msgid "Description:"
+msgstr "Description :"
+
+#: scribus/druck.cpp:31
+msgid "Advanced Options"
+msgstr "Autres options"
+
+#: scribus/druck.cpp:37
+msgid "Mirror Page(s) horizontal"
+msgstr "Miroir horizontal des pages"
+
+#: scribus/druck.cpp:41
+msgid "Mirror Page(s) vertical"
+msgstr "Miroir vertical des pages"
+
+#: scribus/druck.cpp:48
+msgid "Apply ICC-Profiles"
+msgstr "Appliquer un profil ICC"
+
+#: scribus/druck.cpp:81
+msgid "Setup Printer"
+msgstr "Configuration de l'impression"
+
+#: scribus/druck.cpp:88
+msgid "Print destination"
+msgstr "Destination de l'impression"
+
+#: scribus/druck.cpp:149
+#: scribus/druck.cpp:394
+#: scribus/druck.cpp:518
+#: scribus/druck.cpp:526
+#: scribus/editor.cpp:37
+#: scribus/scrap.cpp:153
+#: scribus/scribus.cpp:104
+#: scribus/scribus.cpp:659
+msgid "File"
+msgstr "Fichier"
+
+#: scribus/druck.cpp:161
+msgid "Options..."
+msgstr "Options..."
+
+#: scribus/druck.cpp:172
+msgid "File:"
+msgstr "Fichier :"
+
+#: scribus/druck.cpp:188
+msgid "Print via other Command"
+msgstr "Imprimer via une commande externe"
+
+#: scribus/druck.cpp:195
+msgid "Command:"
+msgstr "Commande :"
+
+#: scribus/druck.cpp:207
+msgid "Range:"
+msgstr "Plage :"
+
+#: scribus/druck.cpp:229
+msgid "To page:"
+msgstr "À la page :"
+
+#: scribus/druck.cpp:252
+msgid "From page:"
+msgstr "De la page :"
+
+#: scribus/druck.cpp:257
+msgid "Print range"
+msgstr "Les pages choisies"
+
+#: scribus/druck.cpp:262
+msgid "Print all"
+msgstr "Toutes les pages"
+
+#: scribus/druck.cpp:280
+msgid "Print last page first"
+msgstr "Imprimer dans l'ordre inverse"
+
+#: scribus/druck.cpp:285
+msgid "Print first page first"
+msgstr "Imprimer dans l'ordre"
+
+#: scribus/druck.cpp:291
+msgid "Number of copies:"
+msgstr "Nombre de copies"
+
+#: scribus/druck.cpp:329
+msgid "Print Normal"
+msgstr "Impression normale"
+
+#: scribus/druck.cpp:334
+msgid "Print Separations"
+msgstr "Séparation"
+
+#: scribus/druck.cpp:339
+#: scribus/plugins/printpreview/preview.cpp:208
+#: scribus/scribus.cpp:5223
+#: scribus/scribusview.cpp:926
+#: scribus/scribusview.cpp:1216
+msgid "All"
+msgstr "Tout"
+
+#: scribus/druck.cpp:361
+msgid "Print in color if available"
+msgstr "Imprimer en couleur si possible"
+
+#: scribus/druck.cpp:366
+msgid "Print in grayscale"
+msgstr "Imprimer en niveaux de gris"
+
+#: scribus/druck.cpp:372
+msgid "Advanced Options..."
+msgstr "Autres options..."
+
+#: scribus/druck.cpp:583
+#: scribus/pdfopts.cpp:1160
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:41
+#: scribus/scribus.cpp:2539
+#: scribus/scribus.cpp:2541
+#: scribus/scribus.cpp:3099
+#: scribus/scribus.cpp:5253
+msgid "Save as"
+msgstr "Enregistrer sous"
+
+#: scribus/druck.cpp:583
+msgid "Postscript-Files (*.ps);; All Files (*)"
+msgstr "Fichiers PS (*.ps);; Tous les fichiers (*)"
+
+#: scribus/edit1format.cpp:9
+#: scribus/multiline.cpp:20
+msgid "Edit Style"
+msgstr "Édition du style"
+
+#: scribus/edit1format.cpp:28
+msgid "Character"
+msgstr "Caractère"
+
+#: scribus/edit1format.cpp:36
+msgid "Face:"
+msgstr "Police :"
+
+#: scribus/edit1format.cpp:64
+msgid "Indentation"
+msgstr "Alinéa"
+
+#: scribus/edit1format.cpp:75
+msgid "Left Indent:"
+msgstr "Retrait à gauche"
+
+#: scribus/edit1format.cpp:80
+msgid "First Line:"
+msgstr "Première ligne"
+
+#: scribus/edit1format.cpp:101
+#: scribus/scribus.cpp:1921
+msgid "Alignment"
+msgstr "Alignement"
+
+#: scribus/edit1format.cpp:111
+#: scribus/scribus.cpp:674
+msgid "Left"
+msgstr "Gauche"
+
+#: scribus/edit1format.cpp:116
+#: scribus/scribus.cpp:676
+msgid "Right"
+msgstr "Droite"
+
+#: scribus/edit1format.cpp:120
+#: scribus/scribus.cpp:675
+msgid "Center"
+msgstr "Centré"
+
+#: scribus/edit1format.cpp:124
+#: scribus/scribus.cpp:677
+msgid "Block"
+msgstr "Justifié"
+
+#: scribus/edit1format.cpp:128
+#: scribus/scribus.cpp:678
+msgid "Forced"
+msgstr "Forcé"
+
+#: scribus/edit1format.cpp:151
+msgid "Vertical Spaces"
+msgstr "Espace vertical"
+
+#: scribus/edit1format.cpp:190
+#: scribus/mpalette.cpp:618
+msgid "Linespacing"
+msgstr "Interlignage"
+
+#: scribus/edit1format.cpp:195
+msgid "Above:"
+msgstr "Avant"
+
+#: scribus/edit1format.cpp:200
+msgid "Below:"
+msgstr "Après"
+
+#: scribus/edit1format.cpp:243
+#: scribus/edit1format.cpp:257
+#: scribus/editformats.cpp:131
+#: scribus/keymanager.cpp:160
+#: scribus/lineformats.cpp:126
+#: scribus/modify.cpp:985
+#: scribus/multiline.cpp:318
+#: scribus/muster.cpp:98
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:47
+#: scribus/scribus.cpp:2522
+#: scribus/scribus.cpp:2549
+#: scribus/scribus.cpp:2558
+#: scribus/scribus.cpp:2787
+#: scribus/scribus.cpp:5120
+#: scribus/scribus.cpp:5257
+#: scribus/scribus.cpp:5377
+#: scribus/scribus.cpp:6531
+#: scribus/scribuswin.cpp:43
+msgid "Warning"
+msgstr "Attention"
+
+#: scribus/edit1format.cpp:243
+#: scribus/edit1format.cpp:257
+msgid "Name of the Style is not unique"
+msgstr "Ce nom existe déjà"
+
+#: scribus/editformats.cpp:11
+msgid "Edit Styles"
+msgstr "Édition des styles"
+
+#: scribus/editformats.cpp:81
+#: scribus/lineformats.cpp:85
+#: scribus/muster.cpp:131
+msgid "Copy of "
+msgstr "Copie de "
+
+#: scribus/editformats.cpp:102
+#: scribus/lineformats.cpp:105
+msgid "New Style"
+msgstr "Nouveau style"
+
+#: scribus/editformats.cpp:132
+#: scribus/lineformats.cpp:127
+msgid "Do you really want do delete this Style?"
+msgstr "Détruire ce style ?"
 
 #: scribus/editor.cpp:13
 msgid "Editor"
 msgstr "Éditeur"
 
-#: scribus/cmykfw.cpp:76
-#: scribus/colorm.cpp:50
-#: scribus/editformats.cpp:28
-#: scribus/editor.cpp:20
-#: scribus/muster.cpp:28
-#: scribus/scrap.cpp:776
-#: scribus/scribus.cpp:408
-#: scribus/scribus.cpp:411
-msgid "New"
-msgstr "Nouveau"
-
 #: scribus/editor.cpp:21
-#: scribus/scrap.cpp:778
-#: scribus/scribus.cpp:420
-#: scribus/scribus.cpp:421
+#: scribus/scrap.cpp:133
+#: scribus/scribus.cpp:447
+#: scribus/scribus.cpp:448
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
 #: scribus/editor.cpp:22
-#: scribus/scrap.cpp:779
+#: scribus/scrap.cpp:134
 msgid "Load..."
 msgstr "Charger..."
 
@@ -731,8 +1894,8 @@ msgid "Exit without Saving"
 msgstr "Quitter sans enregistrer"
 
 #: scribus/editor.cpp:27
-#: scribus/scribus.cpp:297
-#: scribus/scribus.cpp:453
+#: scribus/scribus.cpp:312
+#: scribus/scribus.cpp:482
 msgid "Undo"
 msgstr "Défaire"
 
@@ -741,31 +1904,31 @@ msgid "Redo"
 msgstr "Rétablir"
 
 #: scribus/editor.cpp:30
-#: scribus/page.cpp:1849
-#: scribus/scribus.cpp:455
-#: scribus/scribus.cpp:460
+#: scribus/page.cpp:1997
+#: scribus/scribus.cpp:484
+#: scribus/scribus.cpp:489
 msgid "Cut"
 msgstr "Couper"
 
 #: scribus/editor.cpp:31
-#: scribus/page.cpp:1850
-#: scribus/scribus.cpp:456
-#: scribus/scribus.cpp:461
-#: scribus/scribus.cpp:535
-#: scribus/scribus.cpp:536
+#: scribus/page.cpp:1998
+#: scribus/scribus.cpp:485
+#: scribus/scribus.cpp:490
+#: scribus/scribus.cpp:576
+#: scribus/scribus.cpp:577
 msgid "Copy"
 msgstr "Copier"
 
 #: scribus/editor.cpp:32
-#: scribus/scribus.cpp:457
-#: scribus/scribus.cpp:462
+#: scribus/scribus.cpp:486
+#: scribus/scribus.cpp:491
 msgid "Paste"
 msgstr "Coller"
 
 #: scribus/editor.cpp:33
-#: scribus/plugins/libchar/charselect.cpp:92
-#: scribus/scribus.cpp:458
-#: scribus/scribus.cpp:463
+#: scribus/plugins/libchar/charselect.cpp:168
+#: scribus/scribus.cpp:487
+#: scribus/scribus.cpp:492
 msgid "Clear"
 msgstr "Effacer"
 
@@ -773,710 +1936,283 @@ msgstr "Effacer"
 msgid "Get Field Names"
 msgstr "Obtenir les noms des champs"
 
-#: scribus/druck.cpp:95
-#: scribus/druck.cpp:342
-#: scribus/druck.cpp:445
-#: scribus/druck.cpp:453
-#: scribus/editor.cpp:37
-#: scribus/scrap.cpp:798
-#: scribus/scribus.cpp:101
-#: scribus/scribus.cpp:617
-msgid "File"
-msgstr "Fichier"
-
-#: scribus/colorm.cpp:54
-#: scribus/editformats.cpp:32
-#: scribus/editor.cpp:38
-#: scribus/scribus.cpp:618
-msgid "Edit"
-msgstr "Édition"
-
 #: scribus/editor.cpp:59
 #: scribus/editor.cpp:74
 msgid "JavaScripts (*.js);; All Files (*)"
 msgstr "JavaScripts (*.js);; Tous les fichiers (*)"
 
-#: scribus/page.cpp:303
-msgid "Copy Here"
-msgstr "Copier ici"
-
-#: scribus/page.cpp:304
-msgid "Move Here"
-msgstr "Déplacer ici"
-
-#: scribus/page.cpp:1782
-#: scribus/scribus.cpp:1803
-msgid "Get Picture..."
-msgstr "Importer une image..."
-
-#: scribus/modify.cpp:371
-#: scribus/page.cpp:1783
-msgid "Image visible"
-msgstr "Image visible"
-
-#: scribus/page.cpp:1788
-#: scribus/scribus.cpp:1822
-#: scribus/scribus.cpp:1861
-msgid "Get Text..."
-msgstr "Importer texte..."
-
-#: scribus/modify.cpp:204
-#: scribus/page.cpp:1791
-msgid "Is PDF-Bookmark"
-msgstr "Signet PDF"
-
-#: scribus/modify.cpp:208
-#: scribus/page.cpp:1793
-msgid "Is PDF-Annotation"
-msgstr "Annotation PDF"
-
-#: scribus/annot.cpp:26
-#: scribus/page.cpp:1800
-msgid "Field Properties"
-msgstr "Propriétés du champ"
-
-#: scribus/page.cpp:1804
-#: scribus/scribus.cpp:491
-#: scribus/scribus.cpp:492
-msgid "Modify..."
-msgstr "Modifier..."
-
-#: scribus/page.cpp:1807
-#: scribus/scribus.cpp:504
-#: scribus/scribus.cpp:1946
-msgid "Lock"
-msgstr "Verrouiller"
-
-#: scribus/page.cpp:1808
-#: scribus/scribus.cpp:506
-#: scribus/scribus.cpp:507
-msgid "Send to Back"
-msgstr "Mettre au fond"
-
-#: scribus/page.cpp:1809
-#: scribus/scribus.cpp:508
-#: scribus/scribus.cpp:509
-msgid "Bring to Front"
-msgstr "Mettre devant"
-
-#: scribus/page.cpp:1810
-#: scribus/scribus.cpp:510
-#: scribus/scribus.cpp:511
-msgid "Lower"
-msgstr "Placer au-dessous"
-
-#: scribus/page.cpp:1811
-#: scribus/scribus.cpp:512
-#: scribus/scribus.cpp:513
-msgid "Raise"
-msgstr "Placer au-dessus"
-
-#: scribus/page.cpp:1814
-#: scribus/scribus.cpp:1942
-msgid "Unlock"
-msgstr "Déverroullier"
-
-#: scribus/page.cpp:1815
-msgid "Send to Scrapbook"
-msgstr "Inclure dans l'album"
-
-#: scribus/page.cpp:1824
-msgid "Sent to Layer"
-msgstr "Mettre sur le calque"
-
-#: scribus/page.cpp:1831
-#: scribus/page.cpp:1842
-msgid "Picture Frame"
-msgstr "Cadre d'image"
-
-#: scribus/page.cpp:1832
-#: scribus/page.cpp:1837
-msgid "Polygon"
-msgstr "Polygone"
-
-#: scribus/page.cpp:1836
-#: scribus/page.cpp:1841
-msgid "Text Frame"
-msgstr "Cadre de texte"
-
-#: scribus/page.cpp:1843
-msgid "Bezier Curve"
-msgstr "Courbe de Bézier"
-
-#: scribus/page.cpp:1845
-msgid "Convert to"
-msgstr "Convertir vers"
-
-#: scribus/annot.cpp:146
-#: scribus/annot.cpp:165
-#: scribus/annot.cpp:375
-#: scribus/annot.cpp:494
-#: scribus/annot.cpp:1672
-#: scribus/annot.cpp:1908
-#: scribus/annot.cpp:1945
-#: scribus/cpalette.cpp:192
-#: scribus/libprefs/prefs.cpp:785
-#: scribus/libprefs/prefs.cpp:807
-#: scribus/libprefs/prefs.cpp:1057
-#: scribus/modify.cpp:242
-#: scribus/modify.cpp:386
-#: scribus/modify.cpp:495
-#: scribus/modify.cpp:518
-#: scribus/modify.cpp:711
-#: scribus/modify.cpp:733
-#: scribus/modify.cpp:795
-#: scribus/modify.cpp:811
-#: scribus/page.cpp:4630
-#: scribus/page.cpp:4663
-#: scribus/scribus.cpp:1598
-#: scribus/scribus.cpp:1744
-#: scribus/scribus.cpp:3832
-#: scribus/scribus.cpp:3970
-#: scribus/scribus.cpp:4424
-#: scribus/scribus.cpp:4427
-#: scribus/scribus.cpp:4430
-#: scribus/scribus.cpp:4453
-#: scribus/scribus.cpp:4480
-#: scribus/scribus.cpp:5629
-msgid "None"
-msgstr "Aucune"
-
-#: scribus/colorm.cpp:135
-#: scribus/page.cpp:5522
-#: scribus/scribus.cpp:2729
-msgid "Copy of"
-msgstr "Copie de "
-
-#: scribus/layers.cpp:18
-msgid "Layers"
-msgstr "Calques"
-
-#: scribus/layers.cpp:45
-msgid "Add a new Layer"
-msgstr "Créer un nouveau calque"
-
-#: scribus/layers.cpp:53
-msgid "Delete Layer"
-msgstr "Détruire le calque"
-
-#: scribus/layers.cpp:61
-msgid "Raise Layer"
-msgstr "Placer le calque au-dessus"
-
-#: scribus/layers.cpp:69
-msgid "Lower Layer"
-msgstr "Placer le calque au-dessous"
-
-#: scribus/layers.cpp:77
-msgid "Closes this Dialog"
-msgstr "Fermer cette boite de dialogue"
-
-#: scribus/layers.cpp:171
-msgid "New Layer"
-msgstr "Nouveau calque"
-
-#: scribus/polyprops.cpp:27
-msgid "Polygon Properties"
-msgstr "Propriétés du polygone"
-
-#: scribus/libprefs/prefs.cpp:1099
-#: scribus/polyprops.cpp:36
-msgid "Corners:"
-msgstr "Nombre de cotés :"
-
-#: scribus/libprefs/prefs.cpp:1111
-#: scribus/polyprops.cpp:50
-msgid "Rotation:"
-msgstr "Rotation :"
-
-#: scribus/libprefs/prefs.cpp:1130
-#: scribus/polyprops.cpp:70
-msgid "Convex Polygon"
-msgstr "Polygone convexe-concave"
-
-#: scribus/libprefs/prefs.cpp:1139
-#: scribus/polyprops.cpp:79
-msgid "Factor:"
-msgstr "Intensité :"
-
-#: scribus/cpalette.cpp:122
-#: scribus/libprefs/prefs.cpp:493
-#: scribus/libprefs/prefs.cpp:499
-#: scribus/libprefs/prefs.cpp:527
-#: scribus/libprefs/prefs.cpp:533
-#: scribus/libprefs/prefs.cpp:557
-#: scribus/libprefs/prefs.cpp:582
-#: scribus/libprefs/prefs.cpp:800
-#: scribus/libprefs/prefs.cpp:821
-#: scribus/libprefs/prefs.cpp:905
-#: scribus/libprefs/prefs.cpp:970
-#: scribus/libprefs/prefs.cpp:977
-#: scribus/libprefs/prefs.cpp:984
-#: scribus/libprefs/prefs.cpp:1028
-#: scribus/libprefs/prefs.cpp:1034
-#: scribus/libprefs/prefs.cpp:1050
-#: scribus/libprefs/prefs.cpp:1142
-#: scribus/modify.cpp:258
-#: scribus/modify.cpp:328
-#: scribus/modify.cpp:336
-#: scribus/modify.cpp:401
-#: scribus/modify.cpp:509
-#: scribus/modify.cpp:533
-#: scribus/mpalette.cpp:525
-#: scribus/mpalette.cpp:531
-#: scribus/polyprops.cpp:82
-#, c-format
-msgid " %"
-msgstr " %"
-
-#: scribus/mpalette.cpp:12
-msgid "Measurements"
-msgstr "Mesures"
-
-#: scribus/mpalette.cpp:38
-msgid "X, Y, Z"
-msgstr "X, Y, Z"
-
-#: scribus/mpalette.cpp:43
-#: scribus/scribus.cpp:522
-msgid "Shape"
-msgstr "Forme"
-
-#: scribus/mpalette.cpp:53
-#: scribus/tree.cpp:102
-msgid "Image"
-msgstr "Image"
-
-#: scribus/mpalette.cpp:58
-#: scribus/tree.cpp:114
-msgid "Line"
-msgstr "Filet"
-
-#: scribus/colorm.cpp:33
-#: scribus/mpalette.cpp:63
-msgid "Colors"
-msgstr "Couleurs"
-
-#: scribus/mpalette.cpp:73
-msgid "Geometry"
-msgstr "Géométrie"
-
-#: scribus/annot.cpp:162
-#: scribus/libprefs/prefs.cpp:244
-#: scribus/modify.cpp:92
-#: scribus/mpalette.cpp:86
-#: scribus/mpalette.cpp:828
-#: scribus/mpalette.cpp:866
-#: scribus/mpalette.cpp:909
-#: scribus/mpalette.cpp:1586
-#: scribus/newfile.cpp:92
-msgid "Width:"
-msgstr "Largeur :"
-
-#: scribus/libprefs/prefs.cpp:255
-#: scribus/modify.cpp:95
-#: scribus/mpalette.cpp:89
-#: scribus/mpalette.cpp:830
-#: scribus/mpalette.cpp:868
-#: scribus/mpalette.cpp:911
-#: scribus/mpalette.cpp:1588
-#: scribus/newfile.cpp:102
-msgid "Height:"
-msgstr "Hauteur :"
-
-#: scribus/mpalette.cpp:114
-msgid "Level"
-msgstr "Disposition"
-
-#: scribus/mpalette.cpp:161
-msgid "Rotation"
-msgstr "Rotation"
-
-#: scribus/mpalette.cpp:219
-msgid "by:"
-msgstr "par :"
-
-#: scribus/mpalette.cpp:261
-msgid "Edit Shape..."
-msgstr "Éditer la forme..."
-
-#: scribus/mpalette.cpp:267
-msgid "Round\n"
-"Corners:"
-msgstr "Angles\n"
-"arrondis :"
-
-#: scribus/modify.cpp:62
-#: scribus/mpalette.cpp:276
-msgid "Text flows around Box"
-msgstr "Habillage"
-
-#: scribus/mpalette.cpp:280
-msgid "Distance of Text"
-msgstr "Distance au texte"
-
-#: scribus/libprefs/prefs.cpp:329
-#: scribus/mpalette.cpp:287
-#: scribus/newfile.cpp:149
-#: scribus/reformdoc.cpp:44
-msgid "Top:"
-msgstr "Haut :"
-
-#: scribus/libprefs/prefs.cpp:326
-#: scribus/mpalette.cpp:290
-#: scribus/newfile.cpp:152
-#: scribus/reformdoc.cpp:60
-msgid "Bottom:"
-msgstr "Bas :"
-
-#: scribus/libprefs/prefs.cpp:335
-#: scribus/libprefs/prefs.cpp:1424
-#: scribus/mpalette.cpp:293
-#: scribus/newfile.cpp:143
-#: scribus/newfile.cpp:560
-#: scribus/reformdoc.cpp:52
-#: scribus/reformdoc.cpp:124
-msgid "Left:"
-msgstr "Gauche :"
-
-#: scribus/libprefs/prefs.cpp:332
-#: scribus/libprefs/prefs.cpp:1425
-#: scribus/mpalette.cpp:296
-#: scribus/newfile.cpp:146
-#: scribus/newfile.cpp:561
-#: scribus/reformdoc.cpp:68
-#: scribus/reformdoc.cpp:125
-msgid "Right:"
-msgstr "Droite :"
-
-#: scribus/mpalette.cpp:338
-#: scribus/scribus.cpp:1833
-#: scribus/scribus.cpp:1872
-msgid "Font"
-msgstr "Police"
-
-#: scribus/customfdialog.cpp:120
-#: scribus/edit1format.cpp:71
-#: scribus/libprefs/prefs.cpp:236
-#: scribus/libprefs/prefs.cpp:1210
-#: scribus/mpalette.cpp:342
-#: scribus/newfile.cpp:43
-msgid "Size:"
-msgstr "Corps :"
-
-#: scribus/mpalette.cpp:463
-msgid "Custom Spacing"
-msgstr "Espacement"
-
-#: scribus/mpalette.cpp:479
-msgid "Kerning:"
-msgstr "Interlettrage :"
-
-#: scribus/mpalette.cpp:483
-msgid "Linespacing:"
-msgstr "Interlignage :"
-
-#: scribus/mpalette.cpp:489
-msgid "Styles"
-msgstr "Styles"
-
-#: scribus/libprefs/prefs.cpp:1009
-#: scribus/modify.cpp:289
-#: scribus/mpalette.cpp:507
-msgid "Free Scaling"
-msgstr "Mise à l'échelle libre"
-
-#: scribus/modify.cpp:74
-#: scribus/mpalette.cpp:513
-msgid "Position:"
-msgstr "Position :"
-
-#: scribus/mpalette.cpp:522
-msgid "Horiz. Scale:"
-msgstr "Échelle horizontale :"
-
-#: scribus/mpalette.cpp:528
-msgid "Vert. Scale:"
-msgstr "Échelle verticale :"
-
-#: scribus/mpalette.cpp:543
-msgid "Scale to Frame Size"
-msgstr "Mettre l'image aux dimensions du cadre"
-
-#: scribus/libprefs/prefs.cpp:1047
-#: scribus/modify.cpp:355
-#: scribus/mpalette.cpp:558
-msgid "Keep Aspect Ratio"
-msgstr "Conserver les proportions"
-
-#: scribus/mpalette.cpp:579
-msgid "Left Point"
-msgstr "Point gauche"
-
-#: scribus/mpalette.cpp:580
-msgid "Endpoints"
-msgstr "Points finaux"
-
-#: scribus/libprefs/prefs.cpp:777
-#: scribus/libprefs/prefs.cpp:883
-#: scribus/modify.cpp:481
-#: scribus/mpalette.cpp:590
-msgid "Linestyle:"
-msgstr "Style :"
-
-#: scribus/libprefs/prefs.cpp:781
-#: scribus/libprefs/prefs.cpp:887
-#: scribus/modify.cpp:487
-#: scribus/mpalette.cpp:596
-msgid "Linewidth:"
-msgstr "Épaisseur :"
-
-#: scribus/mpalette.cpp:604
-msgid "Edges:"
-msgstr "Bords :"
-
-#: scribus/mpalette.cpp:608
-msgid "MiterJoin"
-msgstr "Onglet"
-
-#: scribus/mpalette.cpp:609
-msgid "BevelJoin"
-msgstr "Biseau"
-
-#: scribus/mpalette.cpp:610
-msgid "RoundJoin"
-msgstr "Arrondi"
-
-#: scribus/mpalette.cpp:614
-msgid "Endings:"
-msgstr "Terminaisons :"
-
-#: scribus/mpalette.cpp:618
-msgid "FlatCap"
-msgstr "Plat"
-
-#: scribus/mpalette.cpp:619
-msgid "SquareCap"
-msgstr "Carré"
-
-#: scribus/mpalette.cpp:620
-msgid "RoundCap"
-msgstr "Arrondi"
-
-#: scribus/mpalette.cpp:630
-msgid "Font Size"
-msgstr "Corps de la police"
-
-#: scribus/edit1format.cpp:202
-#: scribus/mpalette.cpp:631
-msgid "Linespacing"
-msgstr "Interlignage"
-
-#: scribus/mpalette.cpp:632
-msgid "Manual Kerning"
-msgstr "Interlettrage"
-
-#: scribus/mpalette.cpp:633
-#: scribus/scribus.cpp:670
-msgid "Bold"
-msgstr "Gras"
-
-#: scribus/mpalette.cpp:634
-#: scribus/scribus.cpp:673
-msgid "Italic"
-msgstr "Italique"
-
-#: scribus/annot.cpp:178
-#: scribus/mpalette.cpp:635
-#: scribus/scribus.cpp:676
-msgid "Underline"
-msgstr "Souligné"
-
-#: scribus/libprefs/prefs.cpp:541
-#: scribus/mpalette.cpp:636
-#: scribus/scribus.cpp:680
-msgid "Small Caps"
-msgstr "Petites majuscules"
-
-#: scribus/libprefs/prefs.cpp:472
-#: scribus/mpalette.cpp:637
-#: scribus/scribus.cpp:682
-msgid "Subscript"
-msgstr "Indice"
-
-#: scribus/libprefs/prefs.cpp:507
-#: scribus/mpalette.cpp:638
-#: scribus/scribus.cpp:681
-msgid "Superscript"
-msgstr "Exposant"
-
-#: scribus/mpalette.cpp:639
-msgid "Strikeout"
-msgstr "Barré"
-
-#: scribus/mpalette.cpp:640
-msgid "Align Text Left"
-msgstr "Texte aligné à gauche"
-
-#: scribus/mpalette.cpp:641
-msgid "Align Text Right"
-msgstr "Texte aligné à droite"
-
-#: scribus/mpalette.cpp:642
-msgid "Align Text Block"
-msgstr "Texte justifié"
-
-#: scribus/mpalette.cpp:643
-msgid "Align Text Center"
-msgstr "Texte centré"
-
-#: scribus/mpalette.cpp:644
-msgid "Flip horizontal"
-msgstr "Retourner horizontalement"
-
-#: scribus/mpalette.cpp:645
-msgid "Flip vertical"
-msgstr "Retourner verticalement"
-
-#: scribus/mpalette.cpp:646
-msgid "Move one Level up"
-msgstr "Placer au-dessus"
-
-#: scribus/mpalette.cpp:647
-msgid "Move one Level down"
-msgstr "Placer au-dessous"
-
-#: scribus/mpalette.cpp:648
-msgid "Move to Front"
-msgstr "Mettre devant"
-
-#: scribus/mpalette.cpp:649
-msgid "Move to Back"
-msgstr "Mettre au fond"
-
-#: scribus/mpalette.cpp:818
-#: scribus/mpalette.cpp:1595
-msgid "X1:"
-msgstr "X1 :"
-
-#: scribus/mpalette.cpp:819
-#: scribus/mpalette.cpp:1596
-msgid "X2:"
-msgstr "X2 :"
-
-#: scribus/mpalette.cpp:820
-#: scribus/mpalette.cpp:1597
-msgid "Y1:"
-msgstr "Y1 :"
-
-#: scribus/mpalette.cpp:821
-#: scribus/mpalette.cpp:1598
-msgid "Y2:"
-msgstr "Y2 :"
-
-#: scribus/libprefs/prefs.cpp:1175
-#: scribus/scribus.cpp:625
-#: scribus/werktoolb.cpp:29
-msgid "Tools"
-msgstr "Outils"
-
-#: scribus/werktoolb.cpp:31
-msgid "Select Items"
-msgstr "Sélectionner un(des) objet(s)"
-
-#: scribus/werktoolb.cpp:34
-msgid "Rotate Item"
-msgstr "Rotation de l'objet"
-
-#: scribus/werktoolb.cpp:37
-msgid "Edit Contents of Frame"
-msgstr "Éditer le contenu du cadre"
-
-#: scribus/werktoolb.cpp:40
-msgid "Zooms in or out"
-msgstr "Zoom"
-
-#: scribus/werktoolb.cpp:42
-msgid "Insert Textbox"
-msgstr "Insérer un cadre de texte"
-
-#: scribus/werktoolb.cpp:44
-msgid "Insert Picture"
-msgstr "Insérer une image"
-
-#: scribus/werktoolb.cpp:46
-msgid "Insert Rectangles"
-msgstr "Insérer un(des) rectangle(s)"
-
-#: scribus/werktoolb.cpp:48
-msgid "Insert Ovals"
-msgstr "Insérer un(des) ovale(s)"
-
-#: scribus/werktoolb.cpp:51
-msgid "Properties..."
-msgstr "Propriétés..."
-
-#: scribus/werktoolb.cpp:52
-msgid "Insert Polygons"
-msgstr "Insérer un(des) polygone(s)"
-
-#: scribus/werktoolb.cpp:56
-msgid "Insert Lines"
-msgstr "Insérer un(des) filet(s)"
-
-#: scribus/werktoolb.cpp:58
-msgid "Insert Bezier Curves"
-msgstr "Insérer une(des) courbe(s) de Bézier"
-
-#: scribus/werktoolb.cpp:60
-msgid "Create Textchains"
-msgstr "Chaînage de texte"
-
-#: scribus/werktoolb.cpp:63
-msgid "Break Textchains"
-msgstr "Briser le chaînage de texte"
-
-#: scribus/annot.cpp:57
-#: scribus/werktoolb.cpp:67
-msgid "Button"
-msgstr "Bouton"
-
-#: scribus/annot.cpp:58
-#: scribus/werktoolb.cpp:68
-msgid "Text Field"
-msgstr "Champ de texte"
-
-#: scribus/annot.cpp:59
-#: scribus/werktoolb.cpp:69
-msgid "Check Box"
-msgstr "Case à cocher"
-
-#: scribus/annot.cpp:60
-#: scribus/werktoolb.cpp:70
-msgid "Combo Box"
-msgstr "Menu déroulant"
-
-#: scribus/annot.cpp:61
-#: scribus/werktoolb.cpp:71
-msgid "List Box"
-msgstr "Liste"
-
-#: scribus/werktoolb.cpp:72
-msgid "Insert PDF-Fields"
-msgstr "Insérer un champ (PDF)"
-
-#: scribus/werktoolb.cpp:80
-msgid "Insert PDF-Annotations"
-msgstr "Insérer une annotation (PDF)"
+#: scribus/fontprefs.cpp:14
+msgid "Global Fontsettings"
+msgstr "Sélection globale des polices"
+
+#: scribus/fontprefs.cpp:43
+#: scribus/fontprefs.cpp:379
+msgid " "
+msgstr " "
+
+#: scribus/fontprefs.cpp:54
+#: scribus/fontprefs.cpp:390
+msgid "Postscript"
+msgstr "Postscript"
+
+#: scribus/fontprefs.cpp:80
+#: scribus/fontprefs.cpp:114
+msgid "Font Name"
+msgstr "Nom de la police"
+
+#: scribus/fontprefs.cpp:81
+msgid "Use Font"
+msgstr "Utiliser la police"
+
+#: scribus/fontprefs.cpp:82
+msgid "Embed in:"
+msgstr "Incorporée :"
+
+#: scribus/fontprefs.cpp:83
+#: scribus/tree.cpp:36
+msgid "Type"
+msgstr "Type"
+
+#: scribus/fontprefs.cpp:84
+msgid "Path to Fontfile"
+msgstr "Chemin vers la police"
+
+#: scribus/fontprefs.cpp:86
+msgid "AFM-File available"
+msgstr "Fichier AFM disponible"
+
+#: scribus/fontprefs.cpp:101
+msgid "Available Fonts"
+msgstr "Polices disponibles"
+
+#: scribus/fontprefs.cpp:115
+msgid "Replacement"
+msgstr "Substitution"
+
+#: scribus/fontprefs.cpp:142
+msgid "Font Substitutions"
+msgstr "Substitutions de polices"
+
+#: scribus/fontprefs.cpp:154
+#: scribus/javadocs.cpp:32
+msgid "Add..."
+msgstr "Ajouter..."
+
+#: scribus/fontprefs.cpp:162
+msgid "Additional Paths"
+msgstr "Chemins additionnels"
+
+#: scribus/fontprefs.cpp:264
+#: scribus/fontprefs.cpp:298
+#: scribus/libprefs/prefs.cpp:1631
+#: scribus/scribus.cpp:6402
+msgid "Choose a Directory"
+msgstr "Sélectionnez un dossier"
+
+#: scribus/frameedit.cpp:12
+msgid "Nodes"
+msgstr "Points"
+
+#: scribus/frameedit.cpp:178
+msgid "End Editing"
+msgstr "Fin"
+
+#: scribus/frameedit.cpp:180
+msgid "Move Nodes"
+msgstr "Déplacer un point"
+
+#: scribus/frameedit.cpp:181
+msgid "Move Control Points"
+msgstr "Déplacer les points de contrôle"
+
+#: scribus/frameedit.cpp:182
+msgid "Add Nodes"
+msgstr "Ajouter un point"
+
+#: scribus/frameedit.cpp:183
+msgid "Delete Nodes"
+msgstr "Supprimer un point"
+
+#: scribus/frameedit.cpp:184
+msgid "Move Control Points independently"
+msgstr "Déplacer les points de contrôle indépendamment"
+
+#: scribus/frameedit.cpp:185
+msgid "Move Control Points symmetrical"
+msgstr "Déplacer les points de contrôle de façon symétrique"
+
+#: scribus/frameedit.cpp:186
+msgid "Reset Control Points"
+msgstr "R.A.Z. des points de contrôle"
+
+#: scribus/frameedit.cpp:187
+msgid "Reset this Control Points"
+msgstr "R.A.Z. du point de contrôle courant"
+
+#: scribus/frameedit.cpp:188
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Ouvre un polygone ou découpe une courbe de Bézier"
+
+#: scribus/frameedit.cpp:189
+msgid "Closes this Bezier Curve"
+msgstr "Ferme cette courbe de Bézier"
+
+#: scribus/frameedit.cpp:190
+msgid "Mirrors the Path horizontal"
+msgstr "Miroir horizontal des points"
+
+#: scribus/frameedit.cpp:191
+msgid "Mirrors the Path vertical"
+msgstr "Miroir vertical des points"
+
+#: scribus/frameedit.cpp:192
+msgid "Shears the Path horizotal to the right"
+msgstr "Étirer le cadre vers la droite"
+
+#: scribus/frameedit.cpp:193
+msgid "Shears the Path horizotal to the left"
+msgstr "Étirer le cadre vers la gauche"
+
+#: scribus/frameedit.cpp:194
+msgid "Shears the Path vertical up"
+msgstr "Étirer le cadre vers le haut"
+
+#: scribus/frameedit.cpp:195
+msgid "Shears the Path vertical down"
+msgstr "Étirer le cadre vers le bas"
+
+#: scribus/guidemanager.cpp:10
+msgid "Manage Guides"
+msgstr "Gestion des repères"
+
+#: scribus/guidemanager.cpp:22
+msgid "Horizontal Guides"
+msgstr "Repères horizontaux"
+
+#: scribus/guidemanager.cpp:43
+#: scribus/guidemanager.cpp:75
+msgid "Add"
+msgstr "Ajouter"
+
+#: scribus/guidemanager.cpp:54
+msgid "Vertical Guides"
+msgstr "Repères verticaux"
+
+#: scribus/guidemanager.cpp:86
+msgid "Lock Guides"
+msgstr "Repères fixes"
+
+#: scribus/helpbrowser.cpp:87
+msgid "Sorry, no Manual available!"
+msgstr "Le manuel n'est pas disponible."
+
+#: scribus/hyask.cpp:38
+msgid "Possible Hyphenation"
+msgstr "Césure possible"
+
+#: scribus/hyask.cpp:53
+msgid "Accept"
+msgstr "Approuver"
+
+#: scribus/hyask.cpp:59
+msgid "Skip"
+msgstr "Sauter"
+
+#: scribus/hysettings.cpp:11
+msgid "Hyphenator Settings"
+msgstr "Paramètres de césure"
+
+#: scribus/hysettings.cpp:17
+msgid "Fully Automatic"
+msgstr "Automatique"
+
+#: scribus/hysettings.cpp:19
+msgid ""
+"If you uncheck this you will get an Dialog\n"
+"everytime a possible Hyphenation is found."
+msgstr ""
+"Si vous décochez cette case, une boîte de dialogue\n"
+"s'affichera à chaque éventuelle césure possible."
+
+#: scribus/hysettings.cpp:21
+msgid "Check during Typing"
+msgstr "Examiner pendant la saisie"
+
+#: scribus/hysettings.cpp:23
+msgid "Enables automatic checking of your Text during Typing."
+msgstr "Examine systématiquement le texte pendant sa saisie."
+
+#: scribus/hysettings.cpp:36
+msgid "Language:"
+msgstr "Langue :"
+
+#: scribus/hysettings.cpp:41
+msgid "Smallest Word:"
+msgstr "Mot le plus court :"
+
+#: scribus/hysettings.cpp:47
+msgid "This is the length of the smallest word to be hyphenated."
+msgstr "Nombre de lettres minimal qu'un mot doit contenir pour être coupé."
+
+#: scribus/inspage.cpp:16
+msgid "Insert Page"
+msgstr "Insérer une(des) page(s)"
+
+#: scribus/inspage.cpp:25
+#: scribus/inspage.cpp:46
+msgid "Inserting"
+msgstr "Insertion en cours"
+
+#: scribus/inspage.cpp:32
+msgid "page(s)"
+msgstr "page(s)"
+
+#: scribus/inspage.cpp:35
+#: scribus/movepage.cpp:58
+msgid "before Page"
+msgstr "avant la page"
+
+#: scribus/inspage.cpp:36
+#: scribus/movepage.cpp:59
+msgid "after Page"
+msgstr "après la page"
+
+#: scribus/inspage.cpp:37
+msgid "at End"
+msgstr "à la fin"
+
+#: scribus/inspage.cpp:53
+msgid "Template (Left Page):"
+msgstr "Maquette (page de gauche) :"
+
+#: scribus/inspage.cpp:55
+msgid "Template:"
+msgstr "Maquette :"
+
+#: scribus/inspage.cpp:77
+msgid "Template (Right Page):"
+msgstr "Maquette (page de droite) :"
+
+#: scribus/javadocs.cpp:10
+msgid "Global JavaScripts"
+msgstr "JavaScripts"
+
+#: scribus/javadocs.cpp:42
+#: scribus/libabout/about.cpp:145
+#: scribus/plugins/libchar/charselect.cpp:174
+#: scribus/scrap.cpp:135
+#: scribus/scribus.cpp:441
+#: scribus/scribus.cpp:442
+msgid "Close"
+msgstr "Fermer"
+
+#: scribus/javadocs.cpp:63
+msgid "New Script"
+msgstr "Nouveau script"
 
 #: scribus/keymanager.cpp:12
 msgid "Manage Keyboard Shortcuts"
 msgstr "Configuration des raccourcis clavier"
-
-#: scribus/annot.cpp:626
-#: scribus/keymanager.cpp:39
-msgid "Action"
-msgstr "Action"
 
 #: scribus/keymanager.cpp:40
 msgid "Current Key"
@@ -1533,1130 +2269,104 @@ msgstr "Ctrl+"
 msgid "This Key-Sequence is already in use"
 msgstr "Raccourci déjà utilisé"
 
-#: scribus/annot.cpp:72
-msgid "Properties"
-msgstr "Propriétés"
-
-#: scribus/annot.cpp:81
-#: scribus/cmykfw.cpp:41
-#: scribus/edit1format.cpp:17
-#: scribus/modify.cpp:598
-msgid "Name:"
-msgstr "Nom :"
-
-#: scribus/annot.cpp:93
-msgid "Tool-Tip:"
-msgstr "Infobulle :"
-
-#: scribus/annot.cpp:110
-msgid "Font for use with PDF-1.3:"
-msgstr "Police à utiliser pour le format PDF 1.3"
-
-#: scribus/annot.cpp:113
-msgid "Courier"
-msgstr "Courier"
-
-#: scribus/annot.cpp:114
-msgid "Courier Bold"
-msgstr "Courier gras"
-
-#: scribus/annot.cpp:115
-msgid "Courier Italic"
-msgstr "Courier italique"
-
-#: scribus/annot.cpp:116
-msgid "Courier Bold Italic"
-msgstr "Courier gras italique"
-
-#: scribus/annot.cpp:117
-msgid "Helvetica"
-msgstr "Helvetica"
-
-#: scribus/annot.cpp:118
-msgid "Helvetica Bold"
-msgstr "Helvetica gras"
-
-#: scribus/annot.cpp:119
-msgid "Helvetica Italic"
-msgstr "Helvetica italique"
-
-#: scribus/annot.cpp:120
-msgid "Helvetica Bold Italic"
-msgstr "Helvetica gras italique"
-
-#: scribus/annot.cpp:121
-msgid "Times"
-msgstr "Times"
-
-#: scribus/annot.cpp:122
-msgid "Times Bold"
-msgstr "Times gras"
-
-#: scribus/annot.cpp:123
-msgid "Times Italic"
-msgstr "Times italique"
-
-#: scribus/annot.cpp:124
-msgid "Times Bold Italic"
-msgstr "Times gras italique"
-
-#: scribus/annot.cpp:125
-msgid "Zapf Dingbats"
-msgstr "Zapf Dingbats"
-
-#: scribus/annot.cpp:126
-msgid "Symbol"
-msgstr "Symbol"
-
-#: scribus/annot.cpp:134
-msgid "Border"
-msgstr "Bord"
-
-#: scribus/annot.cpp:141
-msgid "Color:"
-msgstr "Couleur :"
-
-#: scribus/annot.cpp:166
-msgid "Thin"
-msgstr "Mince"
-
-#: scribus/annot.cpp:168
-msgid "Wide"
-msgstr "Large"
-
-#: scribus/annot.cpp:173
-msgid "Style:"
-msgstr "Style :"
-
-#: scribus/annot.cpp:176
-msgid "Solid"
-msgstr "Plein"
-
-#: scribus/annot.cpp:177
-msgid "Dashed"
-msgstr "Pointillé"
-
-#: scribus/annot.cpp:179
-msgid "Beveled"
-msgstr "Biseauté"
-
-#: scribus/annot.cpp:180
-msgid "Inset"
-msgstr "Creux"
-
-#: scribus/annot.cpp:187
-#: scribus/libprefs/prefs.cpp:566
-msgid "Other"
-msgstr "Autre"
-
-#: scribus/annot.cpp:194
-msgid "Read Only"
-msgstr "Lecture seule"
-
-#: scribus/annot.cpp:200
-msgid "Required"
-msgstr "Nécessaire"
-
-#: scribus/annot.cpp:206
-msgid "Don't Export Value"
-msgstr "Ne pas exporter la valeur"
-
-#: scribus/annot.cpp:212
-msgid "Visibility:"
-msgstr "Visibilité :"
-
-#: scribus/annot.cpp:215
-msgid "Visible"
-msgstr "Visible"
-
-#: scribus/annot.cpp:216
-msgid "Hidden"
-msgstr "Caché"
-
-#: scribus/annot.cpp:217
-msgid "No Print"
-msgstr "Non-imprimable"
-
-#: scribus/annot.cpp:218
-msgid "No View"
-msgstr "Invisible"
-
-#: scribus/annot.cpp:224
-msgid "Appearance"
-msgstr "Aspect"
-
-#: scribus/annot.cpp:244
-msgid "Text for Button Down"
-msgstr "Texte pour le bouton bas"
-
-#: scribus/annot.cpp:247
-msgid "Text for Roll Over"
-msgstr "Texte pour la bascule (rollover)"
-
-#: scribus/annot.cpp:258
-msgid "Icons"
-msgstr "Icônes"
-
-#: scribus/annot.cpp:265
-msgid "Use Icons"
-msgstr "Utiliser les icônes"
-
-#: scribus/annot.cpp:282
-#: scribus/annot.cpp:298
-#: scribus/annot.cpp:314
-#: scribus/fontprefs.cpp:144
-msgid "Remove"
-msgstr "Effacer"
-
-#: scribus/annot.cpp:288
-msgid "Pressed"
-msgstr "Appuyé"
-
-#: scribus/annot.cpp:304
-msgid "Roll Over"
-msgstr "Bascule"
-
-#: scribus/annot.cpp:321
-msgid "Icon Placement..."
-msgstr "Position des icônes..."
-
-#: scribus/annot.cpp:368
-msgid "Highlight"
-msgstr "Surligné :"
-
-#: scribus/annot.cpp:376
-#: scribus/scribus.cpp:1814
-msgid "Invert"
-msgstr "Inverser"
-
-#: scribus/annot.cpp:377
-msgid "Outlined"
-msgstr "Souligné"
-
-#: scribus/annot.cpp:378
-msgid "Push"
-msgstr "Pousser"
-
-#: scribus/annot.cpp:393
-msgid "Multi-Line"
-msgstr "Multi-ligne"
-
-#: scribus/annot.cpp:397
-msgid "Password"
-msgstr "Mot de passe"
-
-#: scribus/annot.cpp:402
-msgid "Limit of"
-msgstr "Limite de"
-
-#: scribus/annot.cpp:421
-msgid "Characters"
-msgstr "Caractères"
-
-#: scribus/annot.cpp:427
-msgid "Do Not Scroll"
-msgstr "Ne pas dérouler"
-
-#: scribus/annot.cpp:431
-msgid "Do Not Spell Check"
-msgstr "Ne pas vérifier l'orthographe"
-
-#: scribus/annot.cpp:445
-msgid "Check Style:"
-msgstr "Type de case :"
-
-#: scribus/annot.cpp:448
-msgid "Check"
-msgstr "Coche"
-
-#: scribus/annot.cpp:449
-msgid "Cross"
-msgstr "Croix"
-
-#: scribus/annot.cpp:450
-msgid "Diamond"
-msgstr "Diamant"
-
-#: scribus/annot.cpp:451
-msgid "Circle"
-msgstr "Rond"
-
-#: scribus/annot.cpp:452
-msgid "Star"
-msgstr "Étoile"
-
-#: scribus/annot.cpp:453
-msgid "Square"
-msgstr "Carré"
-
-#: scribus/annot.cpp:462
-msgid "Default is Checked"
-msgstr "Cochée par défaut"
-
-#: scribus/annot.cpp:475
-msgid "Editable"
-msgstr "Modifiable"
-
-#: scribus/annot.cpp:482
-#: scribus/druck.cpp:253
-#: scribus/newfile.cpp:198
-msgid "Options"
-msgstr "Options"
-
-#: scribus/annot.cpp:495
-#: scribus/annot.cpp:1909
-#: scribus/annot.cpp:1946
-msgid "Java Script"
-msgstr "Script Java"
-
-#: scribus/annot.cpp:496
-#: scribus/annot.cpp:1910
-msgid "Go To"
-msgstr "Aller à"
-
-#: scribus/annot.cpp:497
-#: scribus/annot.cpp:1911
-msgid "Submit Form"
-msgstr "Envoyer le formulaire"
-
-#: scribus/annot.cpp:498
-#: scribus/annot.cpp:1912
-msgid "Reset Form"
-msgstr "R.A.Z du formulaire"
-
-#: scribus/annot.cpp:499
-#: scribus/annot.cpp:1913
-msgid "Import Data"
-msgstr "Importer des données"
-
-#: scribus/annot.cpp:522
-msgid "Event:"
-msgstr "Événement :"
-
-#: scribus/annot.cpp:525
-#: scribus/annot.cpp:1890
-msgid "Mouse Up"
-msgstr "Bouton souris relaché"
-
-#: scribus/annot.cpp:526
-#: scribus/annot.cpp:1891
-msgid "Mouse Down"
-msgstr "Bouton souris enfoncé"
-
-#: scribus/annot.cpp:527
-#: scribus/annot.cpp:1892
-msgid "Mouse Enter"
-msgstr "Entrée souris"
-
-#: scribus/annot.cpp:528
-#: scribus/annot.cpp:1893
-msgid "Mouse Exit"
-msgstr "Sortie souris"
-
-#: scribus/annot.cpp:529
-#: scribus/annot.cpp:1894
-msgid "On Focus"
-msgstr "Au centre"
-
-#: scribus/annot.cpp:530
-#: scribus/annot.cpp:1895
-msgid "On Blur"
-msgstr "Autour"
-
-#: scribus/annot.cpp:537
-msgid "Script:"
-msgstr "Script :"
-
-#: scribus/annot.cpp:560
-msgid "Submit to URL:"
-msgstr "URL :"
-
-#: scribus/annot.cpp:568
-msgid "Submit Data as HTML"
-msgstr "Envoyer les données en HTML"
-
-#: scribus/annot.cpp:579
-msgid "Import Data from:"
-msgstr "Importer les données depuis :"
-
-#: scribus/annot.cpp:632
-msgid "Field is formatted as:"
-msgstr "Le champ est formaté comme :"
-
-#: scribus/annot.cpp:635
-msgid "Plain"
-msgstr "Rempli"
-
-#: scribus/annot.cpp:636
-msgid "Number"
-msgstr "Nombre"
-
-#: scribus/annot.cpp:637
-msgid "Percentage"
-msgstr "Pourcentage"
-
-#: scribus/annot.cpp:638
-msgid "Date"
-msgstr "Date"
-
-#: scribus/annot.cpp:639
-msgid "Time"
-msgstr "Heure"
-
-#: scribus/annot.cpp:640
-#: scribus/libprefs/prefs.cpp:222
-#: scribus/newfile.cpp:76
-msgid "Custom"
-msgstr "Sur mesure"
-
-#: scribus/annot.cpp:655
-msgid "Number Format"
-msgstr "Format du nombre"
-
-#: scribus/annot.cpp:663
-#: scribus/annot.cpp:720
-msgid "Decimals:"
-msgstr "Décimales"
-
-#: scribus/annot.cpp:675
-msgid "Use Currency Symbol"
-msgstr "Unité monétaire :"
-
-#: scribus/annot.cpp:684
-msgid "Prepend Currency Symbol"
-msgstr "Symbole monétaire"
-
-#: scribus/annot.cpp:688
-#: scribus/annot.cpp:731
-msgid "Formatting"
-msgstr "Mise en page"
-
-#: scribus/annot.cpp:712
-msgid "Percent Format"
-msgstr "Format du pourcentage"
-
-#: scribus/annot.cpp:755
-msgid "Date Format"
-msgstr "Format de la date"
-
-#: scribus/annot.cpp:788
-msgid "Time Format"
-msgstr "Format de l'heure"
-
-#: scribus/annot.cpp:811
-msgid "Custom Scripts"
-msgstr "Scripts sur mesure"
-
-#: scribus/annot.cpp:820
-msgid "Format:"
-msgstr "Format :"
-
-#: scribus/annot.cpp:841
-#, fuzzy
-msgid "Keystroke:"
-msgstr "Frappe :"
-
-#: scribus/annot.cpp:864
-msgid "Format"
-msgstr "Format"
-
-#: scribus/annot.cpp:879
-msgid "Value is not validated"
-msgstr "La valeur n'est pas validée"
-
-#: scribus/annot.cpp:886
-msgid "Value must be greater than or equal to:"
-msgstr "La valeur doit être supérieure ou égale à :"
-
-#: scribus/annot.cpp:890
-msgid "and less or equal to:"
-msgstr "et inférieure ou égale à :"
-
-#: scribus/annot.cpp:903
-msgid "Custom validate script:"
-msgstr "Script de validation sur mesure :"
-
-#: scribus/annot.cpp:921
-msgid "Validate"
-msgstr "Valider"
-
-#: scribus/annot.cpp:936
-msgid "Value is not calculated"
-msgstr "La valeur n'est pas calculée"
-
-#: scribus/annot.cpp:943
-msgid "Value is the"
-msgstr "La valeur est"
-
-#: scribus/annot.cpp:947
-msgid "sum"
-msgstr "la somme"
-
-#: scribus/annot.cpp:948
-msgid "product"
-msgstr "le produit"
-
-#: scribus/annot.cpp:949
-msgid "average"
-msgstr "la moyenne"
-
-#: scribus/annot.cpp:950
-msgid "minimum"
-msgstr "le minimum"
-
-#: scribus/annot.cpp:951
-msgid "maximum"
-msgstr "le maximum"
-
-#: scribus/annot.cpp:955
-msgid "of the following fields:"
-msgstr "des champs suivants :"
-
-#: scribus/annot.cpp:963
-msgid "Pick..."
-msgstr "Choisir..."
-
-#: scribus/annot.cpp:968
-msgid "Custom calculation script:"
-msgstr "Script de calcul sur mesure :"
-
-#: scribus/annot.cpp:985
-msgid "Calculate"
-msgstr "Calculer"
-
-#: scribus/annot.cpp:1059
-#: scribus/annot.cpp:1060
-msgid "Flag is ignored for PDF-1.3"
-msgstr "Le drapeau est ignoré pour le format PDF 1.3"
-
-#: scribus/annot.cpp:1061
-msgid "Enter a comma separated list of Fields here"
-msgstr "Saisissez une liste de champs séparés par des virgules"
-
-#: scribus/annot.cpp:1062
-msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr "Vous avez au moins besoin de l'icône « Normal » pour pouvoir utiliser les icônes comme boutons"
-
-#: scribus/annot.cpp:1158
-#: scribus/annot.cpp:1189
-#: scribus/annot.cpp:1208
-#: scribus/colorm.cpp:92
-#: scribus/scribus.cpp:2022
-#: scribus/scribus.cpp:2024
-#: scribus/scribus.cpp:2277
-#: scribus/scribus.cpp:2294
-msgid "Open"
-msgstr "Ouvrir"
-
-#: scribus/annot.cpp:1158
-#: scribus/annot.cpp:1189
-#: scribus/annot.cpp:1208
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr "Images (*.tif *.png *.jpg *.xpm);;Postscript encapsulé (*.eps);;Tous les fichiers (*)"
-
-#: scribus/annot.cpp:1316
-msgid "Example:"
-msgstr "Exemple :"
-
-#: scribus/annot.cpp:1933
-msgid "Selection Change"
-msgstr "Sélection modifiée"
-
-#: scribus/bookmwin.cpp:193
-msgid "Move Bookmark"
-msgstr "Déplacer signet"
-
-#: scribus/bookmwin.cpp:194
-msgid "Insert Bookmark"
-msgstr "Insérer signet"
-
-#: scribus/cmsprefs.cpp:17
-msgid "Color Management Settings"
-msgstr "Configuration de la gestion des couleurs"
-
-#: scribus/cmsprefs.cpp:26
-msgid "Activate Color Management"
-msgstr "Activer la gestion des couleurs"
-
-#: scribus/cmsprefs.cpp:33
-msgid "System Profiles"
-msgstr "Profils"
-
-#: scribus/cmsprefs.cpp:43
-msgid "Pictures:"
-msgstr "Images :"
-
-#: scribus/cmsprefs.cpp:47
-#: scribus/pdfopts.cpp:458
-msgid "Solid Colors:"
-msgstr "Couleurs :"
-
-#: scribus/cmsprefs.cpp:51
-#: scribus/cmsprefs.cpp:127
-msgid "Monitor:"
-msgstr "Écran :"
-
-#: scribus/cmsprefs.cpp:55
-#: scribus/cmsprefs.cpp:131
-msgid "Printer:"
-msgstr "Imprimante :"
-
-#: scribus/cmsprefs.cpp:117
-msgid "Rendering Intents"
-msgstr "Rendus"
-
-#: scribus/cmsprefs.cpp:135
-#: scribus/cmsprefs.cpp:146
-#: scribus/modify.cpp:453
-#: scribus/pdfopts.cpp:478
-#: scribus/pdfopts.cpp:510
-msgid "Perceptual"
-msgstr "Perceptible"
-
-#: scribus/cmsprefs.cpp:136
-#: scribus/cmsprefs.cpp:147
-#: scribus/modify.cpp:454
-#: scribus/pdfopts.cpp:479
-#: scribus/pdfopts.cpp:511
-msgid "Relative Colorimetric"
-msgstr "Colorimétrie relative"
-
-#: scribus/cmsprefs.cpp:137
-#: scribus/cmsprefs.cpp:148
-#: scribus/modify.cpp:455
-#: scribus/pdfopts.cpp:480
-#: scribus/pdfopts.cpp:512
-msgid "Saturation"
-msgstr "Saturation"
-
-#: scribus/cmsprefs.cpp:138
-#: scribus/cmsprefs.cpp:149
-#: scribus/modify.cpp:456
-#: scribus/pdfopts.cpp:481
-#: scribus/pdfopts.cpp:513
-msgid "Absolute Colorimetric"
-msgstr "Colorimétrie absolue"
-
-#: scribus/cmsprefs.cpp:159
-msgid "Simulate Printer on the Screen"
-msgstr "Simulation du rendu de l'imprimante à l'écran"
-
-#: scribus/cmsprefs.cpp:164
-msgid "Mark Colors out of Gamut"
-msgstr "Marquer les couleurs en dehors de la gamme"
-
-#: scribus/customfdialog.cpp:139
-#: scribus/docinfo.cpp:43
-msgid "Title:"
-msgstr "Titre :"
-
-#: scribus/customfdialog.cpp:142
-msgid "No Title"
-msgstr "Pas de titre"
-
-#: scribus/customfdialog.cpp:144
-#: scribus/docinfo.cpp:35
-msgid "Author:"
-msgstr "Auteur :"
-
-#: scribus/customfdialog.cpp:147
-msgid "Unknown"
-msgstr "Inconnu"
-
-#: scribus/customfdialog.cpp:149
-msgid "Scribus-Document"
-msgstr "Document Scribus"
-
-#: scribus/customfdialog.cpp:181
-msgid "Compress File"
-msgstr "Compression"
-
-#: scribus/customfdialog.cpp:203
-msgid "Moves to your Document Directory.\n"
-"This can be set in the Preferences."
-msgstr "Revenir dans le dossier des documents. Celui-ci\n"
-"peut être défini dans les préférences."
-
-#: scribus/picsearch.cpp:11
-msgid "Result"
-msgstr "Résultat"
-
-#: scribus/picsearch.cpp:24
-msgid "Search Results for: "
-msgstr "Résultats de la recherche pour :"
-
-#: scribus/libprefs/prefs.cpp:1200
-#: scribus/picsearch.cpp:49
-#: scribus/scrap.cpp:799
-msgid "Preview"
-msgstr "Prévisualisation"
-
-#: scribus/picsearch.cpp:57
-msgid "Select"
-msgstr "Sélectionner"
-
-#: scribus/picstatus.cpp:34
-msgid "Pictures"
-msgstr "Images"
-
-#: scribus/picstatus.cpp:49
-msgid "Name"
-msgstr "Nom"
-
-#: scribus/picstatus.cpp:50
-msgid "Path"
-msgstr "Chemin"
-
-#: scribus/pdfopts.cpp:276
-#: scribus/pdfopts.cpp:283
-#: scribus/pdfopts.cpp:1043
-#: scribus/pdfopts.cpp:1050
-#: scribus/picstatus.cpp:51
-#: scribus/scribus.cpp:621
-#: scribus/scribusview.cpp:61
-#: scribus/scribusview.cpp:219
-#: scribus/scribusview.cpp:244
-#: scribus/scribusview.cpp:402
-#: scribus/scribusview.cpp:501
-#: scribus/scribusview.cpp:543
-#: scribus/tree.cpp:47
-#: scribus/tree.cpp:84
-msgid "Page"
-msgstr "Page"
-
-#: scribus/fontprefs.cpp:37
-#: scribus/fontprefs.cpp:355
-#: scribus/picstatus.cpp:52
-#: scribus/picstatus.cpp:55
-msgid " "
-msgstr " "
-
-#: scribus/picstatus.cpp:53
-msgid "Print"
-msgstr "Imprimer"
-
-#: scribus/picstatus.cpp:54
-msgid "Status"
-msgstr "Statut"
-
-#: scribus/picstatus.cpp:92
-#: scribus/picstatus.cpp:95
-#: scribus/picstatus.cpp:130
-#: scribus/picstatus.cpp:132
-msgid "Goto"
-msgstr "Montrer"
-
-#: scribus/picstatus.cpp:108
-#: scribus/picstatus.cpp:145
-#: scribus/picstatus.cpp:223
-#: scribus/picstatus.cpp:232
-#: scribus/picstatus.cpp:258
-#: scribus/picstatus.cpp:267
-msgid "Missing"
-msgstr "Manquante"
-
-#: scribus/picstatus.cpp:110
-#: scribus/picstatus.cpp:111
-#: scribus/picstatus.cpp:147
-#: scribus/picstatus.cpp:148
-msgid "Search"
-msgstr "Chercher"
-
-#: scribus/newtemp.cpp:40
-msgid "Left Page"
-msgstr "Page gauche"
-
-#: scribus/newtemp.cpp:41
-msgid "Right Page"
-msgstr "Page droite"
-
-#: scribus/applytemplate.cpp:8
-msgid "Apply Template"
-msgstr "Appliquer une maquette"
-
-#: scribus/applytemplate.cpp:14
-msgid "Template for this Page:"
-msgstr "Maquette pour cette page :"
-
-#: scribus/muster.cpp:11
-msgid "Edit Templates"
-msgstr "Édition des maquettes"
-
-#: scribus/colorm.cpp:59
-#: scribus/editformats.cpp:38
-#: scribus/muster.cpp:32
-#: scribus/scribus.cpp:493
-#: scribus/scribus.cpp:494
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-#: scribus/muster.cpp:43
-msgid "Exit"
-msgstr "Quitter"
-
-#: scribus/muster.cpp:99
-msgid "Do you really want do delete this Template?"
-msgstr "Détruire cette Maquette?"
-
-#: scribus/editformats.cpp:81
-#: scribus/muster.cpp:131
-msgid "Copy of "
-msgstr "Copie de "
-
-#: scribus/muster.cpp:181
-msgid "New Template"
-msgstr "Nouvelle maquette"
-
-#: scribus/libprefs/prefs.cpp:1240
-#: scribus/scrap.cpp:768
-#: scribus/scrap.cpp:919
-msgid "Scrapbook"
-msgstr "Album"
-
-#: scribus/colorm.cpp:66
-#: scribus/editformats.cpp:48
-#: scribus/scrap.cpp:777
-#: scribus/scribus.cpp:417
-#: scribus/scribus.cpp:418
-msgid "Save"
-msgstr "Enregistrer"
-
-#: scribus/libprefs/prefs.cpp:1214
-#: scribus/scrap.cpp:782
-msgid "Small"
-msgstr "Petit"
-
-#: scribus/libprefs/prefs.cpp:1215
-#: scribus/scrap.cpp:783
-msgid "Medium"
-msgstr "Moyen"
-
-#: scribus/libprefs/prefs.cpp:1216
-#: scribus/scrap.cpp:784
-msgid "Big"
-msgstr "Grand"
-
-#: scribus/scrap.cpp:840
-#: scribus/scrap.cpp:852
-msgid "Scrapbooks (*.scs);; All Files (*)"
-msgstr "Albums (*.scs);; Tous les fichiers (*)"
-
-#: scribus/scrap.cpp:991
-msgid "Object"
-msgstr "Objet"
-
-#: scribus/frameedit.cpp:12
-msgid "Nodes"
-msgstr "Points"
-
-#: scribus/frameedit.cpp:133
-msgid "End Editing"
-msgstr "Fin"
-
-#: scribus/frameedit.cpp:135
-msgid "Move Nodes"
-msgstr "Déplacer un point"
-
-#: scribus/frameedit.cpp:136
-msgid "Move Control Points"
-msgstr "Déplacer les points de contrôle"
-
-#: scribus/frameedit.cpp:137
-msgid "Add Nodes"
-msgstr "Ajouter un point"
-
-#: scribus/frameedit.cpp:138
-msgid "Delete Nodes"
-msgstr "Supprimer un point"
-
-#: scribus/frameedit.cpp:139
-msgid "Move Control Points independently"
-msgstr "Déplacer les points de contrôle indépendamment"
-
-#: scribus/frameedit.cpp:140
-msgid "Move Control Points symmetrical"
-msgstr "Déplacer les points de contrôle de facçon symétrique"
-
-#: scribus/frameedit.cpp:141
-msgid "Reset Control Points"
-msgstr "R.A.Z. des points de contrôle"
-
-#: scribus/frameedit.cpp:142
-msgid "Reset this Control Points"
-msgstr "R.A.Z. de ce point de contrôle"
-
-#: scribus/frameedit.cpp:143
-msgid "Opens a Polygon or cuts a Bezier Curve"
-msgstr "Ouvre un polygone ou découpe une courbe de Bézier"
-
-#: scribus/frameedit.cpp:144
-msgid "Closes this Bezier Curve"
-msgstr "Ferme cette courbe de Bézier"
-
-#: scribus/spalette.cpp:25
-#: scribus/spalette.cpp:42
-msgid "No Style"
-msgstr "Aucun style"
-
-#: scribus/edit1format.cpp:9
-msgid "Edit Style"
-msgstr "Édition du style"
-
-#: scribus/edit1format.cpp:28
-msgid "Character"
-msgstr "Caractère"
-
-#: scribus/edit1format.cpp:36
-msgid "Face:"
-msgstr "Police :"
-
-#: scribus/edit1format.cpp:76
-msgid "Indentation"
-msgstr "Alinéa"
-
-#: scribus/edit1format.cpp:87
-msgid "Left Indent:"
-msgstr "Retrait à gauche"
-
-#: scribus/edit1format.cpp:92
-msgid "First Line:"
-msgstr "Première ligne"
-
-#: scribus/edit1format.cpp:113
-#: scribus/scribus.cpp:1836
-msgid "Alignment"
-msgstr "Alignement"
-
-#: scribus/edit1format.cpp:123
-#: scribus/scribus.cpp:632
-msgid "Left"
-msgstr "Gauche"
-
-#: scribus/edit1format.cpp:128
-#: scribus/scribus.cpp:634
-msgid "Right"
-msgstr "Droite"
-
-#: scribus/edit1format.cpp:132
-#: scribus/scribus.cpp:633
-msgid "Center"
-msgstr "Centré"
-
-#: scribus/edit1format.cpp:136
-#: scribus/scribus.cpp:635
-msgid "Block"
-msgstr "Justifié"
-
-#: scribus/edit1format.cpp:140
-#: scribus/scribus.cpp:636
-msgid "Forced"
-msgstr "Forcé"
-
-#: scribus/edit1format.cpp:163
-msgid "Vertical Spaces"
-msgstr "Espace vertical"
-
-#: scribus/edit1format.cpp:207
-msgid "Above:"
-msgstr "Avant"
-
-#: scribus/edit1format.cpp:212
-msgid "Below:"
-msgstr "Après"
-
-#: scribus/edit1format.cpp:255
-#: scribus/edit1format.cpp:269
-msgid "Name of the Style is not unique"
-msgstr "Ce nom existe déjà"
-
-#: scribus/editformats.cpp:11
-msgid "Edit Styles"
-msgstr "Édition des styles"
-
-#: scribus/editformats.cpp:102
-msgid "New Style"
-msgstr "Nouveau style"
-
-#: scribus/editformats.cpp:132
-msgid "Do you really want do delete this Style?"
-msgstr "Détruire ce style ?"
-
-#: scribus/druck.cpp:30
-msgid "Setup Printer"
-msgstr "Configuration de l'impression"
-
-#: scribus/druck.cpp:37
-msgid "Print destination"
-msgstr "Destination de l'impression"
-
-#: scribus/druck.cpp:107
-msgid "Options..."
-msgstr "Options..."
-
-#: scribus/druck.cpp:118
-msgid "File:"
-msgstr "Fichier :"
-
-#: scribus/druck.cpp:127
-#: scribus/fontprefs.cpp:138
-#: scribus/libprefs/prefs.cpp:171
-#: scribus/pdfopts.cpp:44
-msgid "Change..."
-msgstr "Parcourir..."
-
-#: scribus/druck.cpp:134
-msgid "Print via other Command"
-msgstr "Imprimer via une commande externe"
-
-#: scribus/druck.cpp:141
-msgid "Command:"
-msgstr "Commande :"
-
-#: scribus/druck.cpp:153
-msgid "Range:"
-msgstr "De :"
-
-#: scribus/druck.cpp:175
-msgid "To page:"
-msgstr "À la page :"
-
-#: scribus/druck.cpp:198
-msgid "From page:"
-msgstr "De la page :"
-
-#: scribus/druck.cpp:203
-msgid "Print range"
-msgstr "Les pages choisies"
-
-#: scribus/druck.cpp:208
-msgid "Print all"
-msgstr "Toutes les pages"
-
-#: scribus/druck.cpp:226
-msgid "Print last page first"
-msgstr "Imprimer dans l'ordre inverse"
-
-#: scribus/druck.cpp:231
-msgid "Print first page first"
-msgstr "Imprimer dans l'ordre"
-
-#: scribus/druck.cpp:237
-msgid "Number of copies:"
+#: scribus/layers.cpp:18
+msgid "Layers"
+msgstr "Calques"
+
+#: scribus/layers.cpp:46
+msgid "Add a new Layer"
+msgstr "Créer un nouveau calque"
+
+#: scribus/layers.cpp:54
+msgid "Delete Layer"
+msgstr "Détruire le calque"
+
+#: scribus/layers.cpp:62
+msgid "Raise Layer"
+msgstr "Placer le calque au-dessus"
+
+#: scribus/layers.cpp:70
+msgid "Lower Layer"
+msgstr "Placer le calque au-dessous"
+
+#: scribus/layers.cpp:78
+msgid "Closes this Dialog"
+msgstr "Fermer cette boite de dialogue"
+
+#: scribus/layers.cpp:175
+msgid "New Layer"
+msgstr "Nouveau calque"
+
+#: scribus/lineformats.cpp:11
+msgid "Edit Line Styles"
+msgstr "Édition des styles de filets"
+
+#: scribus/mdup.cpp:16
+#: scribus/scribus.cpp:526
+#: scribus/scribus.cpp:527
+msgid "Multiple Duplicate"
+msgstr "Dupliquer-Déplacer"
+
+#: scribus/mdup.cpp:61
+msgid "Number of Copies:"
 msgstr "Nombre de copies"
 
-#: scribus/druck.cpp:275
-msgid "Print Normal"
-msgstr "Impression normale"
+#: scribus/mdup.cpp:64
+msgid "Horizontal Shift:"
+msgstr "Déplacement horizontal :"
 
-#: scribus/druck.cpp:280
-msgid "Print Separations"
-msgstr "Séparation"
+#: scribus/mdup.cpp:67
+msgid "Vertical Shift:"
+msgstr "Déplacement vertical :"
 
-#: scribus/druck.cpp:285
-#: scribus/scribus.cpp:4827
-#: scribus/scribusview.cpp:921
-#: scribus/scribusview.cpp:1129
-msgid "All"
-msgstr "Tout"
+#: scribus/mergedoc.cpp:21
+msgid "Import a Page"
+msgstr "Importer une page"
 
-#: scribus/druck.cpp:307
-msgid "Print in color if available"
-msgstr "Imprimer en couleur si possible"
+#: scribus/mergedoc.cpp:27
+msgid "Document to load:"
+msgstr "Document à ouvrir :"
 
-#: scribus/druck.cpp:312
-msgid "Print in grayscale"
-msgstr "Imprimer en niveaux de gris"
+#: scribus/mergedoc.cpp:40
+msgid "Document contains: 0 Page(s)"
+msgstr "Le document contient : 0 page(s)"
 
-#: scribus/druck.cpp:316
-msgid "Mirror Page(s) horizontal"
-msgstr "Miroir horizontal des pages"
+#: scribus/mergedoc.cpp:45
+msgid "Import Page Nr:"
+msgstr "Importer la page :"
 
-#: scribus/druck.cpp:320
-msgid "Mirror Page(s) vertical"
-msgstr "Miroir vertical des pages"
+#: scribus/mergedoc.cpp:58
+msgid "Import"
+msgstr "Importer"
 
-#: scribus/druck.cpp:510
-#: scribus/pdfopts.cpp:1158
-#: scribus/scribus.cpp:2333
-#: scribus/scribus.cpp:2335
-#: scribus/scribus.cpp:2841
-#: scribus/scribus.cpp:4856
-msgid "Save as"
-msgstr "Enregistrer sous"
+#: scribus/mergedoc.cpp:111
+#: scribus/mergedoc.cpp:124
+msgid "Document contains: %1 Page(s)"
+msgstr "Le document contient : %1 page(s)"
 
-#: scribus/druck.cpp:510
-msgid "Postscript-Files (*.ps);; All Files (*)"
-msgstr "Fichiers PS (*.ps);; Tous les fichiers (*)"
+#: scribus/missing.cpp:69
+msgid "Missing Font"
+msgstr "Police manquante"
 
-#: scribus/cmykfw.cpp:30
-msgid "Edit Color"
-msgstr "Édition couleur"
+#: scribus/missing.cpp:71
+msgid "Select Font"
+msgstr "Sélectionner la police"
 
-#: scribus/cmykfw.cpp:53
-msgid "Color Model"
-msgstr "Modèle :"
+#: scribus/missing.cpp:81
+msgid "The Font %1 is not installed."
+msgstr "La police %1 n'est pas installée."
 
-#: scribus/cmykfw.cpp:58
-#: scribus/cmykfw.cpp:436
-msgid "CMYK"
-msgstr "CMJN"
+#: scribus/missing.cpp:83
+msgid "Select new Font:"
+msgstr "Sélectionner la nouvelle police :"
 
-#: scribus/cmykfw.cpp:59
-#: scribus/cmykfw.cpp:452
-msgid "RGB"
-msgstr "RVB"
+#: scribus/missing.cpp:94
+msgid "Use"
+msgstr "Utiliser"
 
-#: scribus/cmykfw.cpp:95
-msgid "Old"
-msgstr "Ancienne"
-
-#: scribus/cmykfw.cpp:151
-#: scribus/cmykfw.cpp:439
-msgid "C:"
-msgstr "C :"
-
-#: scribus/cmykfw.cpp:185
-#: scribus/cmykfw.cpp:440
-msgid "M:"
-msgstr "M :"
-
-#: scribus/cmykfw.cpp:219
-#: scribus/cmykfw.cpp:441
-msgid "Y:"
-msgstr "J :"
-
-#: scribus/cmykfw.cpp:253
-msgid "K:"
-msgstr "N :"
-
-#: scribus/cmykfw.cpp:313
-msgid "Dynamic Color Bars"
-msgstr "Barres de couleur dynamique"
-
-#: scribus/cmykfw.cpp:314
-msgid "Static Color Bars"
-msgstr "Barres de couleur statique"
-
-#: scribus/cmykfw.cpp:455
-msgid "R:"
-msgstr "R :"
-
-#: scribus/cmykfw.cpp:456
-msgid "G:"
-msgstr "V :"
-
-#: scribus/cmykfw.cpp:457
-msgid "B:"
-msgstr "B :"
-
-#: scribus/scribusXml.cpp:629
-#: scribus/scribusdoc.cpp:88
-msgid "Background"
-msgstr "Fond de page"
-
-#: scribus/helpbrowser.cpp:415
-msgid "Sorry, no Manual available!"
-msgstr "Le manuel n'est pas disponible."
+#: scribus/missing.cpp:103
+msgid "instead"
+msgstr "au lieu de"
 
 #: scribus/modify.cpp:39
 msgid "Other:"
@@ -2670,143 +2380,197 @@ msgstr "Retournement horizontal"
 msgid "Vertical flipped"
 msgstr "Retournement vertical"
 
+#: scribus/modify.cpp:62
+#: scribus/mpalette.cpp:277
+msgid "Text flows around Box"
+msgstr "Habillage"
+
 #: scribus/modify.cpp:67
+msgid "use Bounding Box"
+msgstr "Utiliser les limites du cadre"
+
+#: scribus/modify.cpp:73
 msgid "Don't print"
 msgstr "Ne pas imprimer"
 
-#: scribus/modify.cpp:98
+#: scribus/modify.cpp:80
+#: scribus/mpalette.cpp:500
+msgid "Position:"
+msgstr "Position :"
+
+#: scribus/libprefs/prefs.cpp:281
+#: scribus/modify.cpp:101
+#: scribus/mpalette.cpp:90
+#: scribus/mpalette.cpp:849
+#: scribus/mpalette.cpp:887
+#: scribus/mpalette.cpp:932
+#: scribus/mpalette.cpp:1610
+#: scribus/newfile.cpp:102
+msgid "Height:"
+msgstr "Hauteur :"
+
+#: scribus/modify.cpp:104
 msgid "Angle:"
 msgstr "Angle :"
 
-#: scribus/modify.cpp:145
+#: scribus/modify.cpp:151
 msgid "Properties:"
 msgstr "Propriétés :"
 
-#: scribus/modify.cpp:165
+#: scribus/modify.cpp:171
 msgid "Modify Pathtext"
 msgstr "Modifier le chemin de texte"
 
-#: scribus/modify.cpp:168
+#: scribus/modify.cpp:174
 msgid "Show Curve"
 msgstr "Afficher les courbes"
 
-#: scribus/modify.cpp:173
+#: scribus/modify.cpp:179
 msgid "Startoffset:"
 msgstr "Départ :"
 
-#: scribus/align.cpp:104
-#: scribus/align.cpp:105
-#: scribus/libprefs/prefs.cpp:71
-#: scribus/libprefs/prefs.cpp:851
-#: scribus/libprefs/prefs.cpp:935
-#: scribus/modify.cpp:177
-#: scribus/modify.cpp:189
-#: scribus/modify.cpp:564
-msgid " pts"
-msgstr " pts"
-
-#: scribus/modify.cpp:185
+#: scribus/modify.cpp:191
 msgid "Distance from Curve:"
 msgstr "Distance à la courbe :"
 
-#: scribus/modify.cpp:197
+#: scribus/modify.cpp:203
 msgid "Modify Textframe"
 msgstr "Modifier le cadre de texte"
 
-#: scribus/modify.cpp:200
+#: scribus/modify.cpp:206
 msgid "Ordinary Text"
 msgstr "Texte normal"
 
-#: scribus/modify.cpp:221
+#: scribus/modify.cpp:210
+#: scribus/page.cpp:1939
+msgid "Is PDF-Bookmark"
+msgstr "Signet PDF"
+
+#: scribus/modify.cpp:214
+#: scribus/page.cpp:1941
+msgid "Is PDF-Annotation"
+msgstr "Annotation PDF"
+
+#: scribus/modify.cpp:227
 msgid "Textdistance:"
 msgstr "Retrait de texte :"
 
-#: scribus/modify.cpp:225
-#: scribus/modify.cpp:376
+#: scribus/modify.cpp:231
+#: scribus/modify.cpp:382
 msgid "Background Color:"
 msgstr "Couleur de fond :"
 
-#: scribus/libprefs/prefs.cpp:765
-#: scribus/libprefs/prefs.cpp:773
-#: scribus/libprefs/prefs.cpp:879
-#: scribus/libprefs/prefs.cpp:1025
-#: scribus/modify.cpp:229
-#: scribus/modify.cpp:380
-#: scribus/modify.cpp:475
-#: scribus/modify.cpp:484
+#: scribus/libprefs/prefs.cpp:891
+#: scribus/libprefs/prefs.cpp:899
+#: scribus/libprefs/prefs.cpp:1019
+#: scribus/libprefs/prefs.cpp:1184
+#: scribus/modify.cpp:235
+#: scribus/modify.cpp:386
+#: scribus/modify.cpp:481
+#: scribus/modify.cpp:490
 msgid "Shading:"
 msgstr "Teinte :"
 
-#: scribus/modify.cpp:264
-#: scribus/modify.cpp:407
-#: scribus/modify.cpp:585
+#: scribus/modify.cpp:270
+#: scribus/modify.cpp:413
+#: scribus/modify.cpp:593
 msgid "Corner Radius:"
 msgstr "Rayon angulaire :"
 
-#: scribus/modify.cpp:277
+#: scribus/modify.cpp:283
 msgid "Modify Pictureframe"
 msgstr "Modifier le cadre d'image"
 
-#: scribus/modify.cpp:280
+#: scribus/modify.cpp:286
 msgid "Scaling"
 msgstr "Mise à l'échelle"
 
-#: scribus/modify.cpp:296
+#: scribus/libprefs/prefs.cpp:1168
+#: scribus/modify.cpp:295
+#: scribus/mpalette.cpp:494
+msgid "Free Scaling"
+msgstr "Mise à l'échelle libre"
+
+#: scribus/modify.cpp:302
 msgid "Local X-Pos:"
 msgstr "X+ :"
 
-#: scribus/modify.cpp:300
+#: scribus/modify.cpp:306
 msgid "Local Y-Pos:"
 msgstr "Y+ :"
 
-#: scribus/libprefs/prefs.cpp:1013
-#: scribus/modify.cpp:304
+#: scribus/libprefs/prefs.cpp:1172
+#: scribus/modify.cpp:310
 msgid "Horizontal Scaling"
 msgstr "Échelle horizontale :"
 
-#: scribus/libprefs/prefs.cpp:1017
-#: scribus/modify.cpp:308
+#: scribus/libprefs/prefs.cpp:1176
+#: scribus/modify.cpp:314
 msgid "Vertical Scaling"
 msgstr "Échelle verticale :"
 
-#: scribus/libprefs/prefs.cpp:1044
-#: scribus/modify.cpp:350
+#: scribus/libprefs/prefs.cpp:1209
+#: scribus/modify.cpp:356
 msgid "Scale Picture to Frame Size"
 msgstr "Mettre l'image aux dimensions du cadre"
 
-#: scribus/modify.cpp:422
+#: scribus/libprefs/prefs.cpp:1212
+#: scribus/modify.cpp:361
+#: scribus/mpalette.cpp:545
+msgid "Keep Aspect Ratio"
+msgstr "Conserver les proportions"
+
+#: scribus/modify.cpp:377
+#: scribus/page.cpp:1931
+msgid "Image visible"
+msgstr "Image visible"
+
+#: scribus/modify.cpp:428
 msgid "Input Profile:"
 msgstr "Profil source :"
 
-#: scribus/modify.cpp:450
+#: scribus/modify.cpp:456
 msgid "Rendering Intent:"
 msgstr "Rendu :"
 
-#: scribus/modify.cpp:470
+#: scribus/modify.cpp:476
 msgid "Modify Frame"
 msgstr "Modifier le cadre"
 
-#: scribus/libprefs/prefs.cpp:761
-#: scribus/libprefs/prefs.cpp:875
-#: scribus/modify.cpp:472
+#: scribus/libprefs/prefs.cpp:887
+#: scribus/libprefs/prefs.cpp:1015
+#: scribus/modify.cpp:478
 msgid "Line Color:"
 msgstr "Couleur du filet :"
 
-#: scribus/libprefs/prefs.cpp:769
-#: scribus/libprefs/prefs.cpp:1021
-#: scribus/modify.cpp:478
+#: scribus/libprefs/prefs.cpp:895
+#: scribus/libprefs/prefs.cpp:1180
+#: scribus/modify.cpp:484
 msgid "Fill Color:"
 msgstr "Couleur de fond :"
 
-#: scribus/align.cpp:147
-#: scribus/modify.cpp:622
-msgid "Apply"
-msgstr "Appliquer"
+#: scribus/libprefs/prefs.cpp:903
+#: scribus/libprefs/prefs.cpp:1023
+#: scribus/modify.cpp:487
+#: scribus/mpalette.cpp:576
+msgid "Linestyle:"
+msgstr "Style :"
 
-#: scribus/modify.cpp:969
-msgid "Name \"%1\" isn't unique.\n"
+#: scribus/libprefs/prefs.cpp:907
+#: scribus/libprefs/prefs.cpp:1027
+#: scribus/modify.cpp:493
+#: scribus/mpalette.cpp:581
+#: scribus/multiline.cpp:91
+msgid "Linewidth:"
+msgstr "Épaisseur :"
+
+#: scribus/modify.cpp:985
+#: scribus/multiline.cpp:318
+msgid ""
+"Name \"%1\" isn't unique.\n"
 "Please choose another."
-msgstr "Le nom « %1 » existe déjà.\n"
+msgstr ""
+"Le nom « %1 » existe déjà.\n"
 "Choisissez-en un autre."
 
 #: scribus/movepage.cpp:25
@@ -2823,62 +2587,509 @@ msgstr "Copier la page"
 msgid "Move Page(s):"
 msgstr "Déplacer la(es) page(s) :"
 
-#: scribus/delpages.cpp:40
-#: scribus/movepage.cpp:49
-#: scribus/pdfopts.cpp:75
-msgid "to:"
-msgstr "à :"
-
-#: scribus/inspage.cpp:35
-#: scribus/movepage.cpp:58
-msgid "before Page"
-msgstr "avant la page"
-
-#: scribus/inspage.cpp:36
-#: scribus/movepage.cpp:59
-msgid "after Page"
-msgstr "après la page"
-
 #: scribus/movepage.cpp:60
 msgid "To End"
 msgstr "À la fin"
 
-#: scribus/delpages.cpp:23
-msgid "Delete Pages"
-msgstr "Détruire les pages"
+#: scribus/mpalette.cpp:13
+msgid "Measurements"
+msgstr "Mesures"
 
-#: scribus/delpages.cpp:32
-msgid "Delete from:"
-msgstr "Détruire à partir de :"
+#: scribus/mpalette.cpp:39
+msgid "X, Y, Z"
+msgstr "X, Y, Z"
 
-#: scribus/inspage.cpp:16
-msgid "Insert Page"
-msgstr "Insérer une(des) page(s)"
+#: scribus/mpalette.cpp:44
+#: scribus/scribus.cpp:553
+msgid "Shape"
+msgstr "Forme"
 
-#: scribus/inspage.cpp:25
-#: scribus/inspage.cpp:46
-msgid "Inserting"
-msgstr "Insertion en cours"
+#: scribus/mpalette.cpp:54
+#: scribus/tree.cpp:102
+msgid "Image"
+msgstr "Image"
 
-#: scribus/inspage.cpp:32
-msgid "page(s)"
-msgstr "page(s)"
+#: scribus/mpalette.cpp:59
+#: scribus/tree.cpp:114
+msgid "Line"
+msgstr "Filet"
 
-#: scribus/inspage.cpp:37
-msgid "at End"
-msgstr "à la fin"
+#: scribus/mpalette.cpp:74
+msgid "Geometry"
+msgstr "Géométrie"
 
-#: scribus/inspage.cpp:53
-msgid "Template (Left Page):"
-msgstr "Maquette (page de gauche) :"
+#: scribus/mpalette.cpp:115
+msgid "Level"
+msgstr "Disposition"
 
-#: scribus/inspage.cpp:55
-msgid "Template:"
-msgstr "Maquette :"
+#: scribus/mpalette.cpp:162
+msgid "Rotation"
+msgstr "Rotation"
 
-#: scribus/inspage.cpp:77
-msgid "Template (Right Page):"
-msgstr "Maquette (page de droite) :"
+#: scribus/mpalette.cpp:220
+msgid "by:"
+msgstr "de :"
+
+#: scribus/mpalette.cpp:262
+msgid "Edit Shape..."
+msgstr "Éditer la forme..."
+
+#: scribus/mpalette.cpp:268
+msgid ""
+"Round\n"
+"Corners:"
+msgstr ""
+"Angles\n"
+"arrondis :"
+
+#: scribus/mpalette.cpp:281
+msgid "Distance of Text"
+msgstr "Distance au texte"
+
+#: scribus/libprefs/prefs.cpp:359
+#: scribus/mpalette.cpp:288
+#: scribus/newfile.cpp:148
+#: scribus/reformdoc.cpp:46
+msgid "Top:"
+msgstr "Haut :"
+
+#: scribus/libprefs/prefs.cpp:356
+#: scribus/mpalette.cpp:291
+#: scribus/newfile.cpp:151
+#: scribus/reformdoc.cpp:62
+msgid "Bottom:"
+msgstr "Bas :"
+
+#: scribus/libprefs/prefs.cpp:365
+#: scribus/libprefs/prefs.cpp:1668
+#: scribus/mpalette.cpp:294
+#: scribus/newfile.cpp:142
+#: scribus/newfile.cpp:615
+#: scribus/reformdoc.cpp:54
+#: scribus/reformdoc.cpp:153
+msgid "Left:"
+msgstr "Gauche :"
+
+#: scribus/libprefs/prefs.cpp:362
+#: scribus/libprefs/prefs.cpp:1669
+#: scribus/mpalette.cpp:297
+#: scribus/newfile.cpp:145
+#: scribus/newfile.cpp:616
+#: scribus/reformdoc.cpp:70
+#: scribus/reformdoc.cpp:154
+msgid "Right:"
+msgstr "Droite :"
+
+#: scribus/mpalette.cpp:450
+msgid "Custom Spacing"
+msgstr "Espacement"
+
+#: scribus/mpalette.cpp:466
+msgid "Kerning:"
+msgstr "Interlettrage :"
+
+#: scribus/mpalette.cpp:470
+msgid "Linespacing:"
+msgstr "Interlignage :"
+
+#: scribus/mpalette.cpp:476
+msgid "Styles"
+msgstr "Styles"
+
+#: scribus/mpalette.cpp:509
+msgid "Horiz. Scale:"
+msgstr "Échelle horizontale :"
+
+#: scribus/mpalette.cpp:515
+msgid "Vert. Scale:"
+msgstr "Échelle verticale :"
+
+#: scribus/mpalette.cpp:530
+msgid "Scale to Frame Size"
+msgstr "Mettre l'image aux dimensions du cadre"
+
+#: scribus/mpalette.cpp:566
+msgid "Left Point"
+msgstr "Point gauche"
+
+#: scribus/mpalette.cpp:567
+msgid "Endpoints"
+msgstr "Points finaux"
+
+#: scribus/mpalette.cpp:588
+msgid "Edges:"
+msgstr "Bords :"
+
+#: scribus/mpalette.cpp:592
+#: scribus/multiline.cpp:83
+msgid "MiterJoin"
+msgstr "Pointe"
+
+#: scribus/mpalette.cpp:593
+#: scribus/multiline.cpp:84
+msgid "BevelJoin"
+msgstr "Biseau"
+
+#: scribus/mpalette.cpp:594
+#: scribus/multiline.cpp:85
+msgid "RoundJoin"
+msgstr "Arrondi"
+
+#: scribus/mpalette.cpp:597
+msgid "Endings:"
+msgstr "Terminaisons :"
+
+#: scribus/mpalette.cpp:601
+#: scribus/multiline.cpp:76
+msgid "FlatCap"
+msgstr "Plat"
+
+#: scribus/mpalette.cpp:602
+#: scribus/multiline.cpp:77
+msgid "SquareCap"
+msgstr "Carré"
+
+#: scribus/mpalette.cpp:603
+#: scribus/multiline.cpp:78
+msgid "RoundCap"
+msgstr "Arrondi"
+
+#: scribus/mpalette.cpp:608
+#: scribus/mpalette.cpp:1931
+#: scribus/spalette.cpp:25
+#: scribus/spalette.cpp:42
+msgid "No Style"
+msgstr "Aucun style"
+
+#: scribus/mpalette.cpp:617
+msgid "Font Size"
+msgstr "Corps de la police"
+
+#: scribus/mpalette.cpp:619
+msgid "Manual Kerning"
+msgstr "Interlettrage"
+
+#: scribus/mpalette.cpp:620
+msgid "Reverse Writing"
+msgstr "Écriture à l'envers"
+
+#: scribus/libprefs/prefs.cpp:649
+#: scribus/mpalette.cpp:622
+#: scribus/scribus.cpp:716
+msgid "Small Caps"
+msgstr "Petites majuscules"
+
+#: scribus/libprefs/prefs.cpp:568
+#: scribus/mpalette.cpp:623
+#: scribus/scribus.cpp:718
+msgid "Subscript"
+msgstr "Indice"
+
+#: scribus/libprefs/prefs.cpp:609
+#: scribus/mpalette.cpp:624
+#: scribus/scribus.cpp:717
+msgid "Superscript"
+msgstr "Exposant"
+
+#: scribus/mpalette.cpp:625
+msgid "Strikeout"
+msgstr "Barré"
+
+#: scribus/mpalette.cpp:626
+msgid "Align Text Left"
+msgstr "Texte aligné à gauche"
+
+#: scribus/mpalette.cpp:627
+msgid "Align Text Right"
+msgstr "Texte aligné à droite"
+
+#: scribus/mpalette.cpp:628
+msgid "Align Text Block"
+msgstr "Texte justifié"
+
+#: scribus/mpalette.cpp:629
+msgid "Align Text Center"
+msgstr "Texte centré"
+
+#: scribus/mpalette.cpp:630
+msgid "Flip horizontal"
+msgstr "Retourner horizontalement"
+
+#: scribus/mpalette.cpp:631
+msgid "Flip vertical"
+msgstr "Retourner verticalement"
+
+#: scribus/mpalette.cpp:632
+msgid "Move one Level up"
+msgstr "Placer au-dessus"
+
+#: scribus/mpalette.cpp:633
+msgid "Move one Level down"
+msgstr "Placer au-dessous"
+
+#: scribus/mpalette.cpp:634
+msgid "Move to Front"
+msgstr "Mettre devant"
+
+#: scribus/mpalette.cpp:635
+msgid "Move to Back"
+msgstr "Mettre au fond"
+
+#: scribus/mpalette.cpp:837
+#: scribus/mpalette.cpp:1617
+msgid "X1:"
+msgstr "X1 :"
+
+#: scribus/mpalette.cpp:838
+#: scribus/mpalette.cpp:1618
+msgid "X2:"
+msgstr "X2 :"
+
+#: scribus/mpalette.cpp:839
+#: scribus/mpalette.cpp:1619
+msgid "Y1:"
+msgstr "Y1 :"
+
+#: scribus/mpalette.cpp:840
+#: scribus/mpalette.cpp:1620
+msgid "Y2:"
+msgstr "Y2 :"
+
+#: scribus/multiline.cpp:206
+#: scribus/multiline.cpp:286
+msgid " pt "
+msgstr " pt "
+
+#: scribus/multiline.cpp:210
+#: scribus/multiline.cpp:225
+#: scribus/multiline.cpp:290
+#: scribus/multiline.cpp:305
+msgid "Solid Line"
+msgstr "ligne continue"
+
+#: scribus/multiline.cpp:213
+#: scribus/multiline.cpp:293
+msgid "Dashed Line"
+msgstr "tirets"
+
+#: scribus/multiline.cpp:216
+#: scribus/multiline.cpp:296
+msgid "Dotted Line"
+msgstr "pointillés"
+
+#: scribus/multiline.cpp:219
+#: scribus/multiline.cpp:299
+msgid "Dash Dot Line"
+msgstr "pointillé tiret"
+
+#: scribus/multiline.cpp:222
+#: scribus/multiline.cpp:302
+msgid "Dash Dot Dot Line"
+msgstr "double-pointillé tiret"
+
+#: scribus/muster.cpp:11
+msgid "Edit Templates"
+msgstr "Édition des maquettes"
+
+#: scribus/muster.cpp:43
+msgid "Exit"
+msgstr "Quitter"
+
+#: scribus/muster.cpp:99
+msgid "Do you really want do delete this Template?"
+msgstr "Détruire cette Maquette?"
+
+#: scribus/muster.cpp:181
+msgid "New Template"
+msgstr "Nouvelle maquette"
+
+#: scribus/newfile.cpp:29
+msgid "New Document"
+msgstr "Nouveau document"
+
+#: scribus/libprefs/prefs.cpp:207
+#: scribus/newfile.cpp:35
+msgid "Page Size"
+msgstr "Format de la page"
+
+#: scribus/libprefs/prefs.cpp:215
+#: scribus/newfile.cpp:80
+msgid "Orientation:"
+msgstr "Orientation :"
+
+#: scribus/libprefs/prefs.cpp:299
+#: scribus/newfile.cpp:114
+#: scribus/reformdoc.cpp:78
+#: scribus/seiten.cpp:553
+msgid "Facing Pages"
+msgstr "Recto-verso"
+
+#: scribus/libprefs/prefs.cpp:304
+#: scribus/newfile.cpp:118
+#: scribus/reformdoc.cpp:82
+#: scribus/seiten.cpp:556
+msgid "Left Page first"
+msgstr "Page gauche en premier"
+
+#: scribus/libprefs/prefs.cpp:313
+#: scribus/newfile.cpp:130
+#: scribus/reformdoc.cpp:34
+msgid "Margin Guides"
+msgstr "Marges"
+
+#: scribus/newfile.cpp:206
+msgid "First Pagenumber:"
+msgstr "Premier n° de page :"
+
+#: scribus/newfile.cpp:213
+msgid "Default Unit:"
+msgstr "Unité par défaut :"
+
+#: scribus/newfile.cpp:216
+msgid "Points (pts)"
+msgstr "Points (pts)"
+
+#: scribus/libprefs/prefs.cpp:108
+#: scribus/newfile.cpp:217
+msgid "Millimeters (mm)"
+msgstr "Millimètres (mm)"
+
+#: scribus/libprefs/prefs.cpp:109
+#: scribus/newfile.cpp:218
+msgid "Inches (in)"
+msgstr "Pouces (in)"
+
+#: scribus/libprefs/prefs.cpp:110
+#: scribus/newfile.cpp:219
+msgid "Picas (p)"
+msgstr "Picas (p)"
+
+#: scribus/newfile.cpp:226
+msgid "Autom. Textframes"
+msgstr "Cadres de texte auto."
+
+#: scribus/newfile.cpp:230
+msgid "Column Guides"
+msgstr "Colonnes"
+
+#: scribus/newfile.cpp:242
+msgid "Gutter Width:"
+msgstr "Largeur de la gouttière :"
+
+#: scribus/newfile.cpp:245
+msgid "Columns:"
+msgstr "Nombre de colonnes :"
+
+#: scribus/libprefs/prefs.cpp:1662
+#: scribus/newfile.cpp:609
+#: scribus/reformdoc.cpp:147
+msgid "Inside:"
+msgstr "Intérieur :"
+
+#: scribus/libprefs/prefs.cpp:1663
+#: scribus/newfile.cpp:610
+#: scribus/reformdoc.cpp:148
+msgid "Outside:"
+msgstr "Extérieur :"
+
+#: scribus/newtemp.cpp:40
+msgid "Left Page"
+msgstr "Page gauche"
+
+#: scribus/newtemp.cpp:41
+msgid "Right Page"
+msgstr "Page droite"
+
+#: scribus/page.cpp:307
+msgid "Copy Here"
+msgstr "Copier ici"
+
+#: scribus/page.cpp:308
+msgid "Move Here"
+msgstr "Déplacer ici"
+
+#: scribus/page.cpp:1930
+#: scribus/scribus.cpp:1881
+msgid "Get Picture..."
+msgstr "Importer une image..."
+
+#: scribus/page.cpp:1936
+#: scribus/scribus.cpp:1904
+#: scribus/scribus.cpp:1946
+msgid "Get Text..."
+msgstr "Importer du texte..."
+
+#: scribus/page.cpp:1952
+#: scribus/scribus.cpp:522
+#: scribus/scribus.cpp:523
+msgid "Modify..."
+msgstr "Modifier..."
+
+#: scribus/page.cpp:1955
+#: scribus/scribus.cpp:535
+#: scribus/scribus.cpp:2061
+msgid "Lock"
+msgstr "Verrouiller"
+
+#: scribus/page.cpp:1956
+#: scribus/scribus.cpp:537
+#: scribus/scribus.cpp:538
+msgid "Send to Back"
+msgstr "Mettre au fond"
+
+#: scribus/page.cpp:1957
+#: scribus/scribus.cpp:539
+#: scribus/scribus.cpp:540
+msgid "Bring to Front"
+msgstr "Mettre devant"
+
+#: scribus/page.cpp:1958
+#: scribus/scribus.cpp:541
+#: scribus/scribus.cpp:542
+msgid "Lower"
+msgstr "Placer au-dessous"
+
+#: scribus/page.cpp:1959
+#: scribus/scribus.cpp:543
+#: scribus/scribus.cpp:544
+msgid "Raise"
+msgstr "Placer au-dessus"
+
+#: scribus/page.cpp:1962
+#: scribus/scribus.cpp:2057
+msgid "Unlock"
+msgstr "Déverroullier"
+
+#: scribus/page.cpp:1963
+msgid "Send to Scrapbook"
+msgstr "Inclure dans l'album"
+
+#: scribus/page.cpp:1972
+msgid "Sent to Layer"
+msgstr "Mettre sur le calque"
+
+#: scribus/page.cpp:1979
+#: scribus/page.cpp:1990
+msgid "Picture Frame"
+msgstr "Cadre d'image"
+
+#: scribus/page.cpp:1980
+#: scribus/page.cpp:1985
+msgid "Polygon"
+msgstr "Polygone"
+
+#: scribus/page.cpp:1984
+#: scribus/page.cpp:1989
+msgid "Text Frame"
+msgstr "Cadre de texte"
+
+#: scribus/page.cpp:1991
+msgid "Bezier Curve"
+msgstr "Courbe de Bézier"
+
+#: scribus/page.cpp:1993
+msgid "Convert to"
+msgstr "Convertir vers"
 
 #: scribus/pdfopts.cpp:16
 msgid "Create PDF-File"
@@ -2926,7 +3137,7 @@ msgstr "Enregister les cadres de texte liés comme des articles PDF"
 
 #: scribus/pdfopts.cpp:143
 msgid "Include Bookmarks"
-msgstr "Inclure les Signets"
+msgstr "Inclure les signets"
 
 #: scribus/pdfopts.cpp:147
 msgid "Resolution:"
@@ -2947,11 +3158,11 @@ msgstr "Rééchantillonner l'image à :"
 
 #: scribus/pdfopts.cpp:182
 msgid "Compress Text and Vector Graphics"
-msgstr "Compresser le texte et les graphiques vectoriels"
+msgstr "Comprimer le texte et les graphiques vectoriels"
 
-#: scribus/libprefs/prefs.cpp:175
+#: scribus/libprefs/prefs.cpp:48
 #: scribus/pdfopts.cpp:186
-#: scribus/pdfopts.cpp:437
+#: scribus/pdfopts.cpp:447
 msgid "General"
 msgstr "Général"
 
@@ -2967,6 +3178,16 @@ msgstr "Incorporation"
 msgid "Available Fonts:"
 msgstr "Polices disponibles :"
 
+#: scribus/pdfopts.cpp:229
+#: scribus/selfield.cpp:48
+msgid ">>"
+msgstr "Incorporer"
+
+#: scribus/pdfopts.cpp:233
+#: scribus/selfield.cpp:51
+msgid "<<"
+msgstr "Détacher"
+
 #: scribus/pdfopts.cpp:241
 msgid "Fonts to embed:"
 msgstr "Polices à incorporer :"
@@ -2979,221 +3200,1120 @@ msgstr "Polices"
 msgid "Enable Presentation Effects"
 msgstr "Activer les effets de présentation"
 
-#: scribus/pdfopts.cpp:300
+#: scribus/pdfopts.cpp:276
+#: scribus/pdfopts.cpp:293
+#: scribus/pdfopts.cpp:1052
+#: scribus/pdfopts.cpp:1059
+#: scribus/picstatus.cpp:51
+#: scribus/scribus.cpp:663
+#: scribus/scribusview.cpp:62
+#: scribus/scribusview.cpp:220
+#: scribus/scribusview.cpp:245
+#: scribus/scribusview.cpp:403
+#: scribus/scribusview.cpp:502
+#: scribus/scribusview.cpp:544
+#: scribus/tree.cpp:47
+#: scribus/tree.cpp:84
+msgid "Page"
+msgstr "Page"
+
+#: scribus/pdfopts.cpp:305
+#: scribus/seiten.cpp:81
+msgid "Show Page Previews"
+msgstr "Aperçu de la page"
+
+#: scribus/pdfopts.cpp:310
 msgid "Effects"
 msgstr "Effets"
 
-#: scribus/pdfopts.cpp:309
+#: scribus/pdfopts.cpp:319
 msgid "Display Duration:"
 msgstr "Affichage de la durée :"
 
-#: scribus/pdfopts.cpp:312
+#: scribus/pdfopts.cpp:322
 msgid "Effect Duration:"
 msgstr "Durée de l'effet :"
 
-#: scribus/pdfopts.cpp:315
+#: scribus/pdfopts.cpp:325
 msgid "Effect Type:"
 msgstr "Type d'effet :"
 
-#: scribus/pdfopts.cpp:318
+#: scribus/pdfopts.cpp:328
 msgid "Moving Lines:"
 msgstr "Lignes mobiles :"
 
-#: scribus/pdfopts.cpp:321
+#: scribus/pdfopts.cpp:331
 msgid "from the:"
 msgstr "Depuis :"
 
-#: scribus/pdfopts.cpp:324
+#: scribus/pdfopts.cpp:334
 msgid "Direction:"
 msgstr "Direction :"
 
-#: scribus/pdfopts.cpp:327
-#: scribus/pdfopts.cpp:333
+#: scribus/pdfopts.cpp:337
+#: scribus/pdfopts.cpp:343
 msgid " sec"
 msgstr " seconde(s)"
 
-#: scribus/pdfopts.cpp:339
+#: scribus/pdfopts.cpp:349
 msgid "No Effect"
 msgstr "Pas d'effet"
 
-#: scribus/pdfopts.cpp:340
+#: scribus/pdfopts.cpp:350
 msgid "Blinds"
 msgstr "Masques"
 
-#: scribus/pdfopts.cpp:341
+#: scribus/pdfopts.cpp:351
 msgid "Box"
 msgstr "Boite"
 
-#: scribus/pdfopts.cpp:342
+#: scribus/pdfopts.cpp:352
 msgid "Dissolve"
 msgstr "Dissiper"
 
-#: scribus/pdfopts.cpp:343
+#: scribus/pdfopts.cpp:353
 msgid "Glitter"
 msgstr "Scintillement"
 
-#: scribus/pdfopts.cpp:344
+#: scribus/pdfopts.cpp:354
 msgid "Split"
 msgstr "Rupture"
 
-#: scribus/pdfopts.cpp:345
+#: scribus/pdfopts.cpp:355
 msgid "Wipe"
 msgstr "Effacer"
 
-#: scribus/align.cpp:19
-#: scribus/pdfopts.cpp:349
-msgid "Horizontal"
-msgstr "Horizontal"
-
-#: scribus/align.cpp:67
-#: scribus/pdfopts.cpp:350
-msgid "Vertical"
-msgstr "Vertical"
-
-#: scribus/pdfopts.cpp:354
+#: scribus/pdfopts.cpp:364
 msgid "Inside"
 msgstr "Interne"
 
-#: scribus/pdfopts.cpp:355
+#: scribus/pdfopts.cpp:365
 msgid "Outside"
 msgstr "Externe"
 
-#: scribus/pdfopts.cpp:359
+#: scribus/pdfopts.cpp:369
 msgid "Left to Right"
 msgstr "De gauche à droite"
 
-#: scribus/pdfopts.cpp:360
+#: scribus/pdfopts.cpp:370
 msgid "Top to Bottom"
 msgstr "De haut en bas"
 
-#: scribus/pdfopts.cpp:361
+#: scribus/pdfopts.cpp:371
 msgid "Bottom to Top"
 msgstr "De bas en haut"
 
-#: scribus/pdfopts.cpp:362
+#: scribus/pdfopts.cpp:372
 msgid "Right to Left"
 msgstr "De droite à gauche"
 
-#: scribus/pdfopts.cpp:363
+#: scribus/pdfopts.cpp:373
 msgid "Top-Left to Bottom-Right"
 msgstr "D'en haut à gauche vers le bas à droite"
 
-#: scribus/pdfopts.cpp:367
+#: scribus/pdfopts.cpp:377
 msgid "Apply Effect on all Pages"
 msgstr "Appliquer le(s) effet(s) sur toutes les pages"
 
-#: scribus/pdfopts.cpp:370
-#: scribus/scribus.cpp:626
+#: scribus/pdfopts.cpp:380
+#: scribus/scribus.cpp:668
 msgid "Extras"
 msgstr "Extra"
 
-#: scribus/pdfopts.cpp:375
+#: scribus/pdfopts.cpp:385
 msgid "Use Encryption"
 msgstr "Chiffrement"
 
-#: scribus/pdfopts.cpp:380
+#: scribus/pdfopts.cpp:390
 msgid "Passwords"
 msgstr "Mots de passe"
 
-#: scribus/pdfopts.cpp:387
+#: scribus/pdfopts.cpp:397
 msgid "User:"
 msgstr "Utilisateur :"
 
-#: scribus/pdfopts.cpp:390
+#: scribus/pdfopts.cpp:400
 msgid "Owner:"
 msgstr "Propriétaire :"
 
-#: scribus/pdfopts.cpp:404
+#: scribus/pdfopts.cpp:414
 msgid "Settings"
 msgstr "Paramètres"
 
-#: scribus/pdfopts.cpp:411
+#: scribus/pdfopts.cpp:421
 msgid "Allow Printing the Document"
 msgstr "Autoriser l'impression du document"
 
-#: scribus/pdfopts.cpp:415
+#: scribus/pdfopts.cpp:425
 msgid "Allow Changing the Document"
 msgstr "Autoriser la modification du document"
 
-#: scribus/pdfopts.cpp:419
+#: scribus/pdfopts.cpp:429
 msgid "Copying Text and Graphics is allowed"
-msgstr "La duplication des textes et des graphiques est autorisée"
+msgstr "La copie des textes et des objets graphiques est autorisée"
 
-#: scribus/pdfopts.cpp:423
+#: scribus/pdfopts.cpp:433
 msgid "Adding Annotations and Fields is allowed"
 msgstr "L'ajout d'annotations et de champs est autorisé"
 
-#: scribus/pdfopts.cpp:432
+#: scribus/pdfopts.cpp:442
 msgid "Security"
 msgstr "Protection"
 
-#: scribus/pdfopts.cpp:444
+#: scribus/pdfopts.cpp:454
 msgid "Output intended for:"
 msgstr "Sortie sur :"
 
-#: scribus/pdfopts.cpp:447
+#: scribus/pdfopts.cpp:457
 msgid "Screen"
 msgstr "Écran"
 
-#: scribus/pdfopts.cpp:448
+#: scribus/pdfopts.cpp:458
 msgid "Printer"
 msgstr "Imprimante"
 
-#: scribus/pdfopts.cpp:465
-#: scribus/pdfopts.cpp:493
+#: scribus/pdfopts.cpp:475
+#: scribus/pdfopts.cpp:503
 msgid "Use ICC-Profile"
 msgstr "Utiliser un profil ICC"
 
-#: scribus/pdfopts.cpp:469
-#: scribus/pdfopts.cpp:501
+#: scribus/pdfopts.cpp:479
+#: scribus/pdfopts.cpp:511
 msgid "Profile:"
 msgstr "Profile :"
 
-#: scribus/pdfopts.cpp:472
-#: scribus/pdfopts.cpp:504
+#: scribus/pdfopts.cpp:482
+#: scribus/pdfopts.cpp:514
 msgid "Rendering-Intent:"
 msgstr "Rendu :"
 
-#: scribus/pdfopts.cpp:486
+#: scribus/pdfopts.cpp:496
 msgid "Images:"
 msgstr "Images :"
 
-#: scribus/pdfopts.cpp:497
+#: scribus/pdfopts.cpp:507
 msgid "Don't use embedded Profiles"
 msgstr "Ne pas utiliser les profiles embarqués"
 
-#: scribus/pdfopts.cpp:566
-#: scribus/scribus.cpp:1813
-#: scribus/scribus.cpp:1837
-#: scribus/scribus.cpp:1875
-#: scribus/scribus.cpp:1895
+#: scribus/pdfopts.cpp:576
+#: scribus/scribus.cpp:1894
+#: scribus/scribus.cpp:1922
+#: scribus/scribus.cpp:1963
+#: scribus/scribus.cpp:1983
+#: scribus/scribus.cpp:6575
 msgid "Color"
 msgstr "Couleur"
 
-#: scribus/pdfopts.cpp:571
+#: scribus/pdfopts.cpp:581
 msgid "PDF/X-3 Output Intent"
 msgstr "Sortie PDF/X-3"
 
-#: scribus/pdfopts.cpp:598
+#: scribus/pdfopts.cpp:608
 msgid "Info String:"
 msgstr "Ligne d'information :"
 
-#: scribus/pdfopts.cpp:601
+#: scribus/pdfopts.cpp:611
 msgid "Output Profile:"
 msgstr "Profil de sortie :"
 
-#: scribus/pdfopts.cpp:605
-#, fuzzy
+#: scribus/pdfopts.cpp:615
 msgid "Trim Box"
-msgstr "Boîte alignée"
+msgstr "Cadre de découpe"
 
-#: scribus/pdfopts.cpp:632
+#: scribus/pdfopts.cpp:642
 msgid "PDF/X-3"
 msgstr "PDF/X-3"
 
-#: scribus/pdfopts.cpp:1158
+#: scribus/pdfopts.cpp:1160
 msgid "PDF-Files (*.pdf);; All Files (*)"
 msgstr "Fichiers PDF (*.pdf);; Tous les fichiers (*)"
+
+#: scribus/picsearch.cpp:11
+msgid "Result"
+msgstr "Résultat"
+
+#: scribus/picsearch.cpp:24
+msgid "Search Results for: "
+msgstr "Résultats de la recherche pour :"
+
+#: scribus/libprefs/prefs.cpp:1376
+#: scribus/picsearch.cpp:49
+#: scribus/scrap.cpp:154
+msgid "Preview"
+msgstr "Prévisualisation"
+
+#: scribus/picsearch.cpp:57
+msgid "Select"
+msgstr "Sélectionner"
+
+#: scribus/picstatus.cpp:34
+msgid "Pictures"
+msgstr "Images"
+
+#: scribus/picstatus.cpp:49
+msgid "Name"
+msgstr "Nom"
+
+#: scribus/picstatus.cpp:50
+msgid "Path"
+msgstr "Chemin"
+
+#: scribus/picstatus.cpp:53
+msgid "Print"
+msgstr "Imprimer"
+
+#: scribus/picstatus.cpp:54
+msgid "Status"
+msgstr "Statut"
+
+#: scribus/picstatus.cpp:92
+#: scribus/picstatus.cpp:95
+#: scribus/picstatus.cpp:130
+#: scribus/picstatus.cpp:132
+msgid "Goto"
+msgstr "Montrer"
+
+#: scribus/picstatus.cpp:108
+#: scribus/picstatus.cpp:145
+#: scribus/picstatus.cpp:223
+#: scribus/picstatus.cpp:232
+#: scribus/picstatus.cpp:258
+#: scribus/picstatus.cpp:267
+msgid "Missing"
+msgstr "Manquante"
+
+#: scribus/picstatus.cpp:110
+#: scribus/picstatus.cpp:111
+#: scribus/picstatus.cpp:147
+#: scribus/picstatus.cpp:148
+msgid "Search"
+msgstr "Chercher"
+
+#: scribus/polyprops.cpp:27
+msgid "Polygon Properties"
+msgstr "Propriétés du polygone"
+
+#: scribus/libprefs/prefs.cpp:1275
+#: scribus/polyprops.cpp:36
+msgid "Corners:"
+msgstr "Nombre de cotés :"
+
+#: scribus/libprefs/prefs.cpp:1287
+#: scribus/polyprops.cpp:50
+msgid "Rotation:"
+msgstr "Rotation :"
+
+#: scribus/libprefs/prefs.cpp:1306
+#: scribus/polyprops.cpp:70
+msgid "Convex Polygon"
+msgstr "Polygone convexe-concave"
+
+#: scribus/libprefs/prefs.cpp:1315
+#: scribus/polyprops.cpp:79
+msgid "Factor:"
+msgstr "Intensité :"
+
+#: scribus/reformdoc.cpp:28
+msgid "Document Setup"
+msgstr "Réglage du document"
+
+#: scribus/libprefs/prefs.cpp:53
+#: scribus/scrap.cpp:123
+#: scribus/scrap.cpp:275
+msgid "Scrapbook"
+msgstr "Album"
+
+#: scribus/libprefs/prefs.cpp:1390
+#: scribus/scrap.cpp:137
+msgid "Small"
+msgstr "Petit"
+
+#: scribus/libprefs/prefs.cpp:1391
+#: scribus/scrap.cpp:138
+msgid "Medium"
+msgstr "Moyen"
+
+#: scribus/libprefs/prefs.cpp:1392
+#: scribus/scrap.cpp:139
+msgid "Big"
+msgstr "Grand"
+
+#: scribus/scrap.cpp:196
+#: scribus/scrap.cpp:208
+msgid "Scrapbooks (*.scs);; All Files (*)"
+msgstr "Albums (*.scs);; Tous les fichiers (*)"
+
+#: scribus/scrap.cpp:323
+msgid "Object"
+msgstr "Objet"
+
+#: scribus/scribus.cpp:100
+msgid "Scribus "
+msgstr "Manuel de Scribus"
+
+#: scribus/scribus.cpp:105
+msgid "Creates a new Document"
+msgstr "Créer un nouveau document"
+
+#: scribus/scribus.cpp:106
+msgid "Opens a Document"
+msgstr "Ouvrir un document"
+
+#: scribus/scribus.cpp:107
+msgid "Saves the current Document"
+msgstr "Enregistrer le document en cours"
+
+#: scribus/scribus.cpp:108
+msgid "Closes the current Document"
+msgstr "Fermer"
+
+#: scribus/scribus.cpp:109
+msgid "Prints the current Document"
+msgstr "Imprimer"
+
+#: scribus/scribus.cpp:110
+msgid "Saves the current Document as PDF"
+msgstr "Enregister le document courant en PDF"
+
+#: scribus/scribus.cpp:162
+msgid "Searching for Fonts"
+msgstr "Recherche des polices"
+
+#: scribus/scribus.cpp:166
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Il n'y a pas de police Postscript (Type 1) installé"
+
+#: scribus/scribus.cpp:167
+msgid "Exiting now"
+msgstr "Quitter maintenant"
+
+#: scribus/scribus.cpp:168
+msgid "Fatal Error"
+msgstr "Erreur fatale"
+
+#: scribus/scribus.cpp:304
+msgid "Smart Hyphen"
+msgstr "Trait d'union"
+
+#: scribus/scribus.cpp:305
+msgid "Align Left"
+msgstr "Aligner à gauche"
+
+#: scribus/scribus.cpp:306
+msgid "Align Right"
+msgstr "Aligner à droite"
+
+#: scribus/scribus.cpp:307
+msgid "Align Center"
+msgstr "Centrer"
+
+#: scribus/scribus.cpp:308
+msgid "Insert Pagenumber"
+msgstr "Insérer le n° de page"
+
+#: scribus/scribus.cpp:309
+#: scribus/scribus.cpp:554
+msgid "Attach Text to Path"
+msgstr "Joindre le texte au chemin"
+
+#: scribus/scribus.cpp:310
+#: scribus/scribus.cpp:633
+#: scribus/scribus.cpp:3407
+msgid "Show Layers"
+msgstr "Afficher les calques"
+
+#: scribus/scribus.cpp:311
+#: scribus/scribus.cpp:502
+msgid "JavaScripts..."
+msgstr "JavaScripts..."
+
+#: scribus/scribus.cpp:313
+#: scribus/scribus.cpp:634
+#: scribus/scribus.cpp:3427
+msgid "Show Page Palette"
+msgstr "Afficher la palette"
+
+#: scribus/scribus.cpp:314
+msgid "Lock/Unlock"
+msgstr "Verrouiller-Déverrouiller"
+
+#: scribus/scribus.cpp:315
+msgid "Nonbreaking Space"
+msgstr "Espace insécable"
+
+#: scribus/scribus.cpp:316
+msgid "Getting ICC-Profiles"
+msgstr "Chargement des profils ICC"
+
+#: scribus/scribus.cpp:318
+msgid "Init Hyphenator"
+msgstr "Initialisation du module de césure"
+
+#: scribus/scribus.cpp:320
+msgid "Reading Preferences"
+msgstr "Lecture des préférences"
+
+#: scribus/scribus.cpp:325
+msgid "Setting up Shortcuts"
+msgstr "Paramètrer les raccourcis clavier"
+
+#: scribus/scribus.cpp:329
+msgid "Color Management..."
+msgstr "Gestion des couleurs..."
+
+#: scribus/scribus.cpp:358
+msgid "Reading Scrapbook"
+msgstr "Lecture de l'album"
+
+#: scribus/scribus.cpp:368
+msgid "Initializing Plugins"
+msgstr "Recherche des greffons"
+
+#: scribus/scribus.cpp:436
+#: scribus/scribus.cpp:439
+msgid "Open..."
+msgstr "Ouvrir..."
+
+#: scribus/scribus.cpp:437
+msgid "Recent Documents"
+msgstr "Documents récents"
+
+#: scribus/scribus.cpp:450
+msgid "Collect for Output..."
+msgstr "Rassembler les éléments pour la sortie..."
+
+#: scribus/scribus.cpp:454
+#: scribus/scribus.cpp:1859
+#: scribus/scribus.cpp:1973
+msgid "Get Text/Picture..."
+msgstr "Importer du texte/une image..."
+
+#: scribus/scribus.cpp:456
+msgid "Insert Page..."
+msgstr "Insérer une page..."
+
+#: scribus/scribus.cpp:458
+msgid "Import..."
+msgstr "Importer..."
+
+#: scribus/scribus.cpp:460
+msgid "Save Text..."
+msgstr "Enregistrer le texte"
+
+#: scribus/scribus.cpp:462
+msgid "Save Page as EPS..."
+msgstr "Enregistrer en EPS..."
+
+#: scribus/scribus.cpp:464
+msgid "Save as PDF..."
+msgstr "Enregistrer en PDF..."
+
+#: scribus/scribus.cpp:466
+msgid "Export..."
+msgstr "Exporter..."
+
+#: scribus/scribus.cpp:469
+#: scribus/scribus.cpp:471
+msgid "Document Info..."
+msgstr "Informations sur le document..."
+
+#: scribus/scribus.cpp:472
+#: scribus/scribus.cpp:474
+msgid "Document Setup..."
+msgstr "Réglage du document..."
+
+#: scribus/scribus.cpp:475
+#: scribus/scribus.cpp:477
+msgid "Print..."
+msgstr "Imprimer..."
+
+#: scribus/scribus.cpp:479
+#: scribus/scribus.cpp:480
+msgid "Quit"
+msgstr "Quitter"
+
+#: scribus/scribus.cpp:488
+#: scribus/scribus.cpp:493
+msgid "Select all"
+msgstr "Tout sélectionner"
+
+#: scribus/scribus.cpp:495
+#: scribus/scribus.cpp:496
+msgid "Colors..."
+msgstr "Couleurs..."
+
+#: scribus/scribus.cpp:497
+#: scribus/scribus.cpp:499
+msgid "Styles..."
+msgstr "Styles..."
+
+#: scribus/scribus.cpp:498
+msgid "Line Styles..."
+msgstr "Styles de filets..."
+
+#: scribus/scribus.cpp:500
+#: scribus/scribus.cpp:501
+msgid "Templates..."
+msgstr "Maquettes..."
+
+#: scribus/scribus.cpp:504
+msgid "General..."
+msgstr "Général..."
+
+#: scribus/scribus.cpp:505
+msgid "Preferences..."
+msgstr "Préférences..."
+
+#: scribus/scribus.cpp:506
+#: scribus/scribus.cpp:507
+msgid "Fonts..."
+msgstr "Polices..."
+
+#: scribus/scribus.cpp:508
+msgid "Hyphenator..."
+msgstr "Césure..."
+
+#: scribus/libprefs/prefs.cpp:38
+#: scribus/scribus.cpp:509
+msgid "Preferences"
+msgstr "Préférences"
+
+#: scribus/scribus.cpp:531
+#: scribus/scribus.cpp:532
+msgid "Group"
+msgstr "Grouper"
+
+#: scribus/scribus.cpp:533
+#: scribus/scribus.cpp:534
+msgid "Ungroup"
+msgstr "Dégrouper"
+
+#: scribus/scribus.cpp:545
+#: scribus/scribus.cpp:546
+msgid "Distribute/Align..."
+msgstr "Espacer-Aligner..."
+
+#: scribus/scribus.cpp:549
+#: scribus/tree.cpp:106
+msgid "Rectangle"
+msgstr "Rectangle"
+
+#: scribus/scribus.cpp:550
+msgid "Rounded Rectangle"
+msgstr "Rectangle à coins arrondis"
+
+#: scribus/scribus.cpp:551
+msgid "Oval"
+msgstr "Ovale"
+
+#: scribus/scribus.cpp:552
+msgid "Edit Frame"
+msgstr "Modifier le cadre"
+
+#: scribus/scribus.cpp:555
+msgid "Combine Polygons"
+msgstr "Associer les polygones"
+
+#: scribus/scribus.cpp:556
+msgid "Split Polygon"
+msgstr "Dissocier les polygones"
+
+#: scribus/scribus.cpp:558
+msgid "Convert to Polygons"
+msgstr "Convertir en polygones"
+
+#: scribus/scribus.cpp:572
+#: scribus/scribus.cpp:573
+msgid "Insert..."
+msgstr "Insérer..."
+
+#: scribus/scribus.cpp:574
+#: scribus/scribus.cpp:575
+msgid "Delete..."
+msgstr "Supprimer..."
+
+#: scribus/scribus.cpp:578
+#: scribus/scribus.cpp:579
+msgid "Move..."
+msgstr "Déplacer..."
+
+#: scribus/scribus.cpp:580
+#: scribus/scribus.cpp:581
+msgid "Apply Template..."
+msgstr "Appliquer une maquette..."
+
+#: scribus/scribus.cpp:582
+#: scribus/scribus.cpp:583
+msgid "Manage Guides..."
+msgstr "Gestion des repères..."
+
+#: scribus/scribus.cpp:587
+#: scribus/scribus.cpp:588
+msgid "Fit in Window"
+msgstr "Taille de la fenêtre"
+
+#: scribus/scribus.cpp:590
+#, c-format
+msgid "50%"
+msgstr "50%"
+
+#: scribus/scribus.cpp:592
+#, c-format
+msgid "75%"
+msgstr "75%"
+
+#: scribus/scribus.cpp:593
+#: scribus/scribus.cpp:594
+msgid "Actual Size"
+msgstr "Taille réelle (100%)"
+
+#: scribus/scribus.cpp:596
+#, c-format
+msgid "200%"
+msgstr "200%"
+
+#: scribus/scribus.cpp:597
+#: scribus/scribus.cpp:598
+msgid "Thumbnails"
+msgstr "Miniature(s)"
+
+#: scribus/scribus.cpp:600
+#: scribus/scribus.cpp:601
+#: scribus/scribus.cpp:2656
+#: scribus/scribus.cpp:3327
+msgid "Hide Margins"
+msgstr "Masquer les marges"
+
+#: scribus/scribus.cpp:602
+#: scribus/scribus.cpp:603
+#: scribus/scribus.cpp:1707
+#: scribus/scribus.cpp:2657
+#: scribus/scribus.cpp:3342
+msgid "Hide Frames"
+msgstr "Masquer les cadres"
+
+#: scribus/scribus.cpp:604
+#: scribus/scribus.cpp:605
+#: scribus/scribus.cpp:2658
+#: scribus/scribus.cpp:3494
+msgid "Hide Images"
+msgstr "Masquer les images"
+
+#: scribus/scribus.cpp:606
+#: scribus/scribus.cpp:607
+#: scribus/scribus.cpp:2659
+#: scribus/scribus.cpp:3515
+msgid "Show Grid"
+msgstr "Afficher la grille"
+
+#: scribus/scribus.cpp:608
+#: scribus/scribus.cpp:609
+msgid "Snap to Grid"
+msgstr "Grille magnétique"
+
+#: scribus/scribus.cpp:610
+#: scribus/scribus.cpp:2660
+#: scribus/scribus.cpp:3545
+msgid "Hide Guides"
+msgstr "Masquer les repères"
+
+#: scribus/scribus.cpp:611
+msgid "Snap to Guides"
+msgstr "Repères magnétiques"
+
+#: scribus/scribus.cpp:624
+#: scribus/scribus.cpp:625
+#: scribus/scribus.cpp:3464
+msgid "Hide Tools"
+msgstr "Masquer les outils"
+
+#: scribus/scribus.cpp:626
+#: scribus/scribus.cpp:3480
+msgid "Hide PDF-Tools"
+msgstr "Masquer les outils PDF"
+
+#: scribus/scribus.cpp:627
+#: scribus/scribus.cpp:628
+#: scribus/scribus.cpp:3354
+msgid "Show Measurements"
+msgstr "Afficher les mesures"
+
+#: scribus/scribus.cpp:629
+#: scribus/scribus.cpp:630
+#: scribus/scribus.cpp:3371
+msgid "Show Outline"
+msgstr "Afficher le plan"
+
+#: scribus/scribus.cpp:631
+#: scribus/scribus.cpp:632
+#: scribus/scribus.cpp:3391
+msgid "Show Scrapbook"
+msgstr "Afficher l'album"
+
+#: scribus/scribus.cpp:635
+#: scribus/scribus.cpp:3443
+msgid "Show Bookmarks"
+msgstr "Afficher les signets"
+
+#: scribus/scribus.cpp:637
+#: scribus/scribus.cpp:638
+msgid "Manage Pictures"
+msgstr "Gestion des images"
+
+#: scribus/scribus.cpp:639
+#: scribus/scribus.cpp:641
+msgid "Hyphenate Text"
+msgstr "Césure du texte"
+
+#: scribus/libabout/about.cpp:19
+#: scribus/scribus.cpp:646
+#: scribus/scribus.cpp:647
+msgid "About Scribus"
+msgstr "À propos de Scribus"
+
+#: scribus/scribus.cpp:648
+#: scribus/scribus.cpp:649
+#: scribus/scribus.cpp:3080
+msgid "About Qt"
+msgstr "À propos de Qt"
+
+#: scribus/scribus.cpp:651
+#: scribus/scribus.cpp:652
+msgid "Online-Help..."
+msgstr "Aide en ligne"
+
+#: scribus/scribus.cpp:653
+#: scribus/scribus.cpp:654
+msgid "Tool-Tips"
+msgstr "Infobulles"
+
+#: scribus/scribus.cpp:661
+#: scribus/scribus.cpp:1920
+#: scribus/scribus.cpp:1962
+msgid "Style"
+msgstr "Style"
+
+#: scribus/scribus.cpp:662
+#: scribus/tree.cpp:52
+#: scribus/tree.cpp:91
+msgid "Item"
+msgstr "Objet"
+
+#: scribus/scribus.cpp:666
+msgid "View"
+msgstr "Affichage"
+
+#: scribus/libprefs/prefs.cpp:52
+#: scribus/scribus.cpp:667
+#: scribus/werktoolb.cpp:29
+msgid "Tools"
+msgstr "Outils"
+
+#: scribus/scribus.cpp:670
+msgid "Windows"
+msgstr "Fenêtres"
+
+#: scribus/scribus.cpp:672
+msgid "Help"
+msgstr "Aide"
+
+#: scribus/scribus.cpp:715
+msgid "Strikethru"
+msgstr "Barré"
+
+#: scribus/scribus.cpp:1378
+#: scribus/scribus.cpp:2434
+#: scribus/scribus.cpp:2560
+#: scribus/scribus.cpp:2671
+#: scribus/scribus.cpp:2794
+msgid "Ready"
+msgstr "Prêt"
+
+#: scribus/scribus.cpp:1557
+msgid "Cascade"
+msgstr "Cascade"
+
+#: scribus/scribus.cpp:1558
+msgid "Tile"
+msgstr "Mosaïque"
+
+#: scribus/scribus.cpp:1709
+#: scribus/scribus.cpp:3337
+msgid "Show Frames"
+msgstr "Afficher les cadres"
+
+#: scribus/scribus.cpp:1918
+#: scribus/scribus.cpp:1960
+msgid "Font"
+msgstr "Police"
+
+#: scribus/scribus.cpp:1919
+#: scribus/scribus.cpp:1961
+msgid "Size"
+msgstr "Corps"
+
+#: scribus/scribus.cpp:1923
+#: scribus/scribus.cpp:1964
+#: scribus/scribus.cpp:1984
+msgid "Shade"
+msgstr "Teinte"
+
+#: scribus/scribus.cpp:2258
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: scribus/scribus.cpp:2472
+msgid "Images"
+msgstr "Images"
+
+#: scribus/scribus.cpp:2472
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Fichiers vectoriels (*.eps *.pdf);;Tous les fichiers (*)"
+
+#: scribus/scribus.cpp:2490
+#: scribus/scribus.cpp:3099
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "Fichiers texte (*.txt);;Tous les fichiers (*)"
+
+#: scribus/scribus.cpp:2522
+#: scribus/scribus.cpp:2558
+#: scribus/scribus.cpp:5257
+#: scribus/scribus.cpp:5377
+#: scribus/scribus.cpp:6531
+#, c-format
+msgid ""
+"Can't write the File: \n"
+"%1"
+msgstr ""
+"Impossible d'écrire le fichier : \n"
+"%1"
+
+#: scribus/scribus.cpp:2539
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);; Tous les fichiers (*)"
+
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:48
+#: scribus/scribus.cpp:2550
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Voulez-vous vraiment remplacer le fichier :\n"
+"%1 ?"
+
+#: scribus/scribus.cpp:2566
+msgid "Saving..."
+msgstr "Enregistrement..."
+
+#: scribus/scribus.cpp:2705
+msgid "Printing..."
+msgstr "Impression en cours..."
+
+#: scribus/scribus.cpp:2787
+msgid "Printing failed!"
+msgstr "Impossible d'imprimer !"
+
+#: scribus/scribus.cpp:3085
+msgid "Scribus Manual"
+msgstr "Manuel de Scribus"
+
+#: scribus/scribus.cpp:3322
+msgid "Show Margins"
+msgstr "Afficher les marges"
+
+#: scribus/scribus.cpp:3360
+#: scribus/scribus.cpp:5089
+msgid "Hide Measurements"
+msgstr "Masquer les mesures"
+
+#: scribus/scribus.cpp:3378
+#: scribus/scribus.cpp:5091
+msgid "Hide Outline"
+msgstr "Masquer le plan"
+
+#: scribus/scribus.cpp:3396
+#: scribus/scribus.cpp:5093
+msgid "Hide Scrapbook"
+msgstr "Masquer l'album"
+
+#: scribus/scribus.cpp:3414
+#: scribus/scribus.cpp:5095
+msgid "Hide Layers"
+msgstr "Masquer les calques"
+
+#: scribus/scribus.cpp:3432
+#: scribus/scribus.cpp:5097
+msgid "Hide Page Palette"
+msgstr "Masquer la palette"
+
+#: scribus/scribus.cpp:3448
+#: scribus/scribus.cpp:5099
+msgid "Hide Bookmarks"
+msgstr "Masquer les signets"
+
+#: scribus/scribus.cpp:3458
+#: scribus/scribus.cpp:5085
+msgid "Show Tools"
+msgstr "Afficher les outils"
+
+#: scribus/scribus.cpp:3474
+#: scribus/scribus.cpp:5087
+msgid "Show PDF-Tools"
+msgstr "Afficher les outils PDF"
+
+#: scribus/scribus.cpp:3489
+msgid "Show Images"
+msgstr "Afficher les images"
+
+#: scribus/scribus.cpp:3520
+msgid "Hide Grid"
+msgstr "Masquer la grille"
+
+#: scribus/scribus.cpp:3540
+msgid "Show Guides"
+msgstr "Afficher les repères"
+
+#: scribus/scribus.cpp:5117
+msgid "The following Programs are missing:"
+msgstr "Le programme suivant est absent :"
+
+#: scribus/scribus.cpp:5119
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript : vous ne pouvez pas utiliser d'images EPS"
+
+#: scribus/scribus.cpp:5253
+msgid "EPS-Files (*.eps);; All Files (*)"
+msgstr "Fichiers EPS (*.eps);; Tous les fichiers (*)"
+
+#: scribus/scribus.cpp:5788
+msgid "Loading:"
+msgstr "Chargement :"
+
+#: scribus/scribus.cpp:5949
+msgid "Adjusting Colors"
+msgstr "Ajustement des Couleurs"
+
+#: scribus/scribus.cpp:6241
+msgid "Undo Delete Object"
+msgstr "Défaire l'objet détruit"
+
+#: scribus/scribus.cpp:6245
+msgid "Undo Object Move"
+msgstr "Défaire le déplacement de l'objet"
+
+#: scribus/scribus.cpp:6249
+msgid "Undo Object Change"
+msgstr "Défaire la modification de l'objet"
+
+#: scribus/scribus.cpp:6270
+#: scribus/scribus.cpp:6294
+msgid "English"
+msgstr "Anglais"
+
+#: scribus/scribus.cpp:6272
+msgid "German"
+msgstr "Allemand"
+
+#: scribus/scribus.cpp:6274
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: scribus/scribus.cpp:6276
+msgid "Italian"
+msgstr "Italien"
+
+#: scribus/scribus.cpp:6278
+msgid "French"
+msgstr "Français"
+
+#: scribus/scribus.cpp:6280
+msgid "Russian"
+msgstr "Russe"
+
+#: scribus/scribus.cpp:6282
+msgid "Danish"
+msgstr "Danois"
+
+#: scribus/scribus.cpp:6284
+msgid "Slovak"
+msgstr "Slovaque"
+
+#: scribus/scribus.cpp:6286
+msgid "Hungarian"
+msgstr "Hongrois :"
+
+#: scribus/scribus.cpp:6288
+msgid "Czech"
+msgstr "Tchèque"
+
+#: scribus/scribusXml.cpp:1129
+#: scribus/scribusdoc.cpp:89
+msgid "Background"
+msgstr "Fond de page"
+
+#: scribus/scribusview.cpp:69
+msgid "Layer"
+msgstr "Calque"
+
+#: scribus/scribuswin.cpp:44
+msgid "Document:"
+msgstr "Document :"
+
+#: scribus/scribuswin.cpp:44
+msgid "has been changed since the last save."
+msgstr "a été modifié depuis la dernière sauvegarde."
+
+#: scribus/scribuswin.cpp:45
+msgid "Save Now"
+msgstr "Enregistrer maintenant"
+
+#: scribus/scribuswin.cpp:47
+msgid "Leave Anyway"
+msgstr "Fermer quand même"
+
+#: scribus/seiten.cpp:154
+msgid "Show Template Names"
+msgstr "Afficher les noms des maquettes"
+
+#: scribus/seiten.cpp:509
+msgid "Arrange Pages"
+msgstr "Organiser les pages"
+
+#: scribus/seiten.cpp:519
+msgid "Available Templates:"
+msgstr "Maquettes disponibles :"
+
+#: scribus/seiten.cpp:528
+msgid "Document Pages:"
+msgstr "Pages du document :"
+
+#: scribus/seiten.cpp:577
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr "Déposez une page ou une maquette sur la corbeille pour la supprimer."
+
+#: scribus/seiten.cpp:578
+msgid "Here you can see all Pages of your Document."
+msgstr "Vous pouvez voir ici toutes les pages de votre composition"
+
+#: scribus/seiten.cpp:579
+msgid ""
+"Here are all your Templates, to create a new Page\n"
+"drag a Template to the Pageview below."
+msgstr ""
+"Voici la liste des maquettes disponibles ; pour créer une nouvelle\n"
+"page, déposez une maquette dans la fenêtre ci-dessous."
+
+#: scribus/selfield.cpp:10
+msgid "Select Fields"
+msgstr "Sélectionner les champs"
+
+#: scribus/selfield.cpp:18
+msgid "Available Fields"
+msgstr "Champs disponibles"
+
+#: scribus/selfield.cpp:58
+msgid "Selected Fields"
+msgstr "Champs sélectionnés"
 
 #: scribus/tree.cpp:27
 msgid "Outline"
@@ -3203,1300 +4323,318 @@ msgstr "Plan du Document"
 msgid "Element"
 msgstr "Élément"
 
-#: scribus/fontprefs.cpp:74
-#: scribus/tree.cpp:36
-msgid "Type"
-msgstr "Type"
-
 #: scribus/tree.cpp:37
 msgid "Information"
 msgstr "Information"
-
-#: scribus/scribus.cpp:620
-#: scribus/tree.cpp:52
-#: scribus/tree.cpp:91
-msgid "Item"
-msgstr "Objet"
 
 #: scribus/tree.cpp:98
 msgid "Ellipse"
 msgstr "Ellipse"
 
-#: scribus/scribus.cpp:518
-#: scribus/tree.cpp:106
-msgid "Rectangle"
-msgstr "Rectangle"
-
-#: scribus/missing.cpp:69
-msgid "Missing Font"
-msgstr "Police manquante"
-
-#: scribus/missing.cpp:78
-msgid "The Font %1 is not installed."
-msgstr "La police %1 n'est pas installée."
-
-#: scribus/missing.cpp:87
-msgid "Use"
-msgstr "Utiliser"
-
-#: scribus/missing.cpp:105
-msgid "instead"
-msgstr "au lieu de"
-
-#: scribus/fontprefs.cpp:12
-msgid "Global Fontsettings"
-msgstr "Sélection globale des polices"
-
-#: scribus/fontprefs.cpp:48
-#: scribus/fontprefs.cpp:366
-msgid "Postscript"
-msgstr "Postscript"
-
-#: scribus/fontprefs.cpp:71
-#: scribus/fontprefs.cpp:101
-msgid "Font Name"
-msgstr "Nom de la police"
-
-#: scribus/fontprefs.cpp:72
-msgid "Use Font"
-msgstr "Utiliser la police"
-
-#: scribus/fontprefs.cpp:73
-msgid "Embed in:"
-msgstr "Incorporée :"
-
-#: scribus/fontprefs.cpp:75
-msgid "AFM-File available"
-msgstr "Fichier AFM disponible"
-
-#: scribus/fontprefs.cpp:88
-msgid "Available Fonts"
-msgstr "Polices disponibles"
-
-#: scribus/fontprefs.cpp:102
-msgid "Replacement"
-msgstr "Substitution"
-
-#: scribus/fontprefs.cpp:129
-msgid "Font Substitutions"
-msgstr "Substitutions de polices"
-
-#: scribus/fontprefs.cpp:149
-msgid "Additional Paths"
-msgstr "Chemins additionnels"
-
-#: scribus/fontprefs.cpp:251
-#: scribus/fontprefs.cpp:285
-#: scribus/libprefs/prefs.cpp:1387
-#: scribus/scribus.cpp:5970
-msgid "Choose a Directory"
-msgstr "Sélectionnez un dossier"
-
-#: scribus/align.cpp:10
-msgid "Distribute/Align"
-msgstr "Espacer/Aligner"
-
-#: scribus/align.cpp:10
-#: scribus/align.cpp:44
-#: scribus/align.cpp:92
-msgid "Align"
-msgstr "Aligner"
-
-#: scribus/align.cpp:29
-#: scribus/align.cpp:77
-msgid "between:"
-msgstr "entre :"
-
-#: scribus/align.cpp:34
-msgid "Left Sides"
-msgstr "Côtés gauche"
-
-#: scribus/align.cpp:35
-#: scribus/align.cpp:83
-msgid "Middles"
-msgstr "Centres"
-
-#: scribus/align.cpp:36
-msgid "Right Sides"
-msgstr "Côtés droit"
-
-#: scribus/align.cpp:40
-#: scribus/align.cpp:88
-msgid "Don't change"
-msgstr "Laisser tel que"
-
-#: scribus/align.cpp:47
-#: scribus/align.cpp:95
-msgid "Displacement"
-msgstr "Déplacer"
-
-#: scribus/align.cpp:60
-#: scribus/align.cpp:128
-msgid "Distribute evenly"
-msgstr "Distribution régulière"
-
-#: scribus/align.cpp:82
-msgid "Top Sides"
-msgstr "Côtés haut"
-
-#: scribus/align.cpp:84
-msgid "Bottom Sides"
-msgstr "Côtés bas"
-
-#: scribus/reformdoc.cpp:26
-msgid "Document Setup"
-msgstr "Réglage du document"
-
-#: scribus/libprefs/prefs.cpp:287
-#: scribus/newfile.cpp:131
-#: scribus/reformdoc.cpp:32
-msgid "Margin Guides"
-msgstr "Marges"
-
-#: scribus/libprefs/prefs.cpp:1418
-#: scribus/newfile.cpp:554
-#: scribus/reformdoc.cpp:118
-msgid "Inside:"
-msgstr "Intérieur :"
-
-#: scribus/libprefs/prefs.cpp:1419
-#: scribus/newfile.cpp:555
-#: scribus/reformdoc.cpp:119
-msgid "Outside:"
-msgstr "Extérieur :"
-
-#: scribus/docinfo.cpp:25
-msgid "Document Info"
-msgstr "Informations sur le document"
-
-#: scribus/docinfo.cpp:51
-msgid "Description:"
-msgstr "Description :"
-
-#: scribus/mdup.cpp:16
-#: scribus/scribus.cpp:495
-#: scribus/scribus.cpp:496
-msgid "Multiple Duplicate"
-msgstr "Dupliquer-Déplacer"
-
-#: scribus/mdup.cpp:61
-msgid "Number of Copies:"
-msgstr "Nombre de copies"
-
-#: scribus/mdup.cpp:64
-msgid "Horizontal Shift:"
-msgstr "Déplacement horizontal :"
-
-#: scribus/mdup.cpp:67
-msgid "Vertical Shift:"
-msgstr "Déplacement vertical :"
-
-#: scribus/cpalette.cpp:53
-#: scribus/scribus.cpp:639
-#: scribus/scribus.cpp:652
-msgid "Other..."
-msgstr "Autre..."
-
-#: scribus/cpalette.cpp:81
-msgid "Horizontal Gradient"
-msgstr "Dégradé horizontal"
-
-#: scribus/cpalette.cpp:82
-msgid "Vertical Gradient"
-msgstr "Dégradé vertical"
-
-#: scribus/cpalette.cpp:83
-msgid "Diagonal Gradient"
-msgstr "Dégradé montant"
-
-#: scribus/cpalette.cpp:84
-msgid "CrossDiagonal Gradient"
-msgstr "Dégradé descendant"
-
-#: scribus/cpalette.cpp:85
-msgid "Radial Gradient"
-msgstr "Dégradé circulaire"
-
-#: scribus/cpalette.cpp:98
-msgid "#1"
-msgstr "#1"
-
-#: scribus/cpalette.cpp:102
-msgid "#2"
-msgstr "#2"
-
-#: scribus/cpalette.cpp:116
-msgid "Opacity:"
-msgstr "Opacité :"
-
-#: scribus/dcolor.cpp:26
-msgid "Delete Color"
-msgstr "Supprimer la couleur"
-
-#: scribus/dcolor.cpp:35
-msgid "OK to delete Color:"
-msgstr "Confirmer la suppression de la couleur :"
-
-#: scribus/dcolor.cpp:41
-msgid "?"
-msgstr "?"
-
-#: scribus/dcolor.cpp:44
-msgid "Replace it with:"
-msgstr "Remplacer par :"
-
-#: scribus/colorm.cpp:47
-msgid "Append"
-msgstr "Ajouter"
-
-#: scribus/colorm.cpp:92
-msgid "Documents (*.scd);; All Files (*)"
-msgstr "Documents (*.scd);; Tous les fichiers (*)"
-
-#: scribus/newfile.cpp:29
-msgid "New Document"
-msgstr "Nouveau document"
-
-#: scribus/libprefs/prefs.cpp:181
-#: scribus/newfile.cpp:35
-msgid "Page Size"
-msgstr "Format de la page"
-
-#: scribus/libprefs/prefs.cpp:192
-#: scribus/newfile.cpp:46
-msgid "A0"
-msgstr "A0"
-
-#: scribus/libprefs/prefs.cpp:193
-#: scribus/newfile.cpp:47
-msgid "A1"
-msgstr "A1"
-
-#: scribus/libprefs/prefs.cpp:194
-#: scribus/newfile.cpp:48
-msgid "A2"
-msgstr "A2"
-
-#: scribus/libprefs/prefs.cpp:195
-#: scribus/newfile.cpp:49
-msgid "A3"
-msgstr "A3"
-
-#: scribus/libprefs/prefs.cpp:196
-#: scribus/newfile.cpp:50
-msgid "A4"
-msgstr "A4"
-
-#: scribus/libprefs/prefs.cpp:197
-#: scribus/newfile.cpp:51
-msgid "A5"
-msgstr "A5"
-
-#: scribus/libprefs/prefs.cpp:198
-#: scribus/newfile.cpp:52
-msgid "A6"
-msgstr "A6"
-
-#: scribus/libprefs/prefs.cpp:199
-#: scribus/newfile.cpp:53
-msgid "A7"
-msgstr "A7"
-
-#: scribus/libprefs/prefs.cpp:200
-#: scribus/newfile.cpp:54
-msgid "A8"
-msgstr "A8"
-
-#: scribus/libprefs/prefs.cpp:201
-#: scribus/newfile.cpp:55
-msgid "A9"
-msgstr "A9"
-
-#: scribus/libprefs/prefs.cpp:202
-#: scribus/newfile.cpp:56
-msgid "B0"
-msgstr "B0"
-
-#: scribus/libprefs/prefs.cpp:203
-#: scribus/newfile.cpp:57
-msgid "B1"
-msgstr "B1"
-
-#: scribus/libprefs/prefs.cpp:204
-#: scribus/newfile.cpp:58
-msgid "B2"
-msgstr "B2"
-
-#: scribus/libprefs/prefs.cpp:205
-#: scribus/newfile.cpp:59
-msgid "B3"
-msgstr "B3"
-
-#: scribus/libprefs/prefs.cpp:206
-#: scribus/newfile.cpp:60
-msgid "B4"
-msgstr "B4"
-
-#: scribus/libprefs/prefs.cpp:207
-#: scribus/newfile.cpp:61
-msgid "B5"
-msgstr "B5"
-
-#: scribus/libprefs/prefs.cpp:208
-#: scribus/newfile.cpp:62
-msgid "B6"
-msgstr "B6"
-
-#: scribus/libprefs/prefs.cpp:209
-#: scribus/newfile.cpp:63
-msgid "B7"
-msgstr "B7"
-
-#: scribus/libprefs/prefs.cpp:210
-#: scribus/newfile.cpp:64
-msgid "B8"
-msgstr "B8"
-
-#: scribus/libprefs/prefs.cpp:211
-#: scribus/newfile.cpp:65
-msgid "B9"
-msgstr "B9"
-
-#: scribus/libprefs/prefs.cpp:212
-#: scribus/newfile.cpp:66
-msgid "B10"
-msgstr "B10"
-
-#: scribus/libprefs/prefs.cpp:213
-#: scribus/newfile.cpp:67
-msgid "C5E"
-msgstr "C5E"
-
-#: scribus/libprefs/prefs.cpp:214
-#: scribus/newfile.cpp:68
-msgid "Comm10E"
-msgstr "Comm10E"
-
-#: scribus/libprefs/prefs.cpp:215
-#: scribus/newfile.cpp:69
-msgid "DLE"
-msgstr "DLE"
-
-#: scribus/libprefs/prefs.cpp:216
-#: scribus/newfile.cpp:70
-msgid "Executive"
-msgstr "Executive"
-
-#: scribus/libprefs/prefs.cpp:217
-#: scribus/newfile.cpp:71
-msgid "Folio"
-msgstr "Folio"
-
-#: scribus/libprefs/prefs.cpp:218
-#: scribus/newfile.cpp:72
-msgid "Ledger"
-msgstr "Ledger"
-
-#: scribus/libprefs/prefs.cpp:219
-#: scribus/newfile.cpp:73
-msgid "Legal"
-msgstr "Légal US"
-
-#: scribus/libprefs/prefs.cpp:220
-#: scribus/newfile.cpp:74
-msgid "Letter"
-msgstr "Lettre US"
-
-#: scribus/libprefs/prefs.cpp:221
-#: scribus/newfile.cpp:75
-msgid "Tabloid"
-msgstr "Tabloïd"
-
-#: scribus/libprefs/prefs.cpp:189
-#: scribus/newfile.cpp:80
-msgid "Orientation:"
-msgstr "Orientation :"
-
-#: scribus/libprefs/prefs.cpp:228
-#: scribus/newfile.cpp:83
-msgid "Portrait"
-msgstr "Portait (française)"
-
-#: scribus/libprefs/prefs.cpp:229
-#: scribus/newfile.cpp:84
-msgid "Landscape"
-msgstr "Paysage (italienne)"
-
-#: scribus/newfile.cpp:205
-msgid "First Pagenumber:"
-msgstr "Premier n° de page :"
-
-#: scribus/newfile.cpp:212
-msgid "Default Unit:"
-msgstr "Unité par défaut :"
-
-#: scribus/newfile.cpp:215
-msgid "Points (pts)"
-msgstr "Points (pt)"
-
-#: scribus/libprefs/prefs.cpp:88
-#: scribus/newfile.cpp:216
-msgid "Millimeters (mm)"
-msgstr "Millimètres (mm)"
-
-#: scribus/libprefs/prefs.cpp:89
-#: scribus/newfile.cpp:217
-msgid "Inches (in)"
-msgstr "Inches (in)"
-
-#: scribus/libprefs/prefs.cpp:90
-#: scribus/newfile.cpp:218
-msgid "Picas (p)"
-msgstr "Picas (p)"
-
-#: scribus/newfile.cpp:225
-msgid "Autom. Textframes"
-msgstr "Cadres de texte auto."
-
-#: scribus/newfile.cpp:229
-msgid "Column Guides"
-msgstr "Colonnes"
-
-#: scribus/newfile.cpp:241
-msgid "Gutter Width:"
-msgstr "Largeur de la gouttière :"
-
-#: scribus/newfile.cpp:244
-msgid "Columns:"
-msgstr "Nombre de colonnes :"
-
-#: scribus/scribusview.cpp:68
-msgid "Layer"
-msgstr "Calque"
-
-#: scribus/scribus.cpp:97
-msgid "Scribus "
-msgstr "Manuel de Scribus"
-
-#: scribus/scribus.cpp:102
-msgid "Creates a new Document"
-msgstr "Créer un nouveau document"
-
-#: scribus/scribus.cpp:103
-msgid "Opens a Document"
-msgstr "Ouvrir un document"
-
-#: scribus/scribus.cpp:104
-msgid "Saves the current Document"
-msgstr "Enregistrer le document en cours"
-
-#: scribus/scribus.cpp:105
-msgid "Closes the current Document"
-msgstr "Fermer"
-
-#: scribus/scribus.cpp:106
-msgid "Prints the current Document"
-msgstr "Imprimer"
-
-#: scribus/scribus.cpp:107
-msgid "Saves the current Document as PDF"
-msgstr "Enregister le document courant en PDF"
-
-#: scribus/scribus.cpp:155
-msgid "There are no Postscript-Fonts on your System"
-msgstr "Il n'y a pas de police Postscript (Type 1) installé"
-
-#: scribus/scribus.cpp:156
-msgid "Exiting now"
-msgstr "Quitter maintenant"
-
-#: scribus/scribus.cpp:157
-msgid "Fatal Error"
-msgstr "Erreur fatale"
-
-#: scribus/scribus.cpp:289
-msgid "Smart Hyphen"
-msgstr "Trait d'union"
-
-#: scribus/scribus.cpp:290
-msgid "Align Left"
-msgstr "Aligner à gauche"
-
-#: scribus/scribus.cpp:291
-msgid "Align Right"
-msgstr "Aligner à droite"
-
-#: scribus/scribus.cpp:292
-msgid "Align Center"
-msgstr "Centrer"
-
-#: scribus/scribus.cpp:293
-msgid "Insert Pagenumber"
-msgstr "Insérer le n° de page"
-
-#: scribus/scribus.cpp:294
-#: scribus/scribus.cpp:523
-msgid "Attach Text to Path"
-msgstr "Joindre le texte au chemin"
-
-#: scribus/scribus.cpp:295
-#: scribus/scribus.cpp:591
-#: scribus/scribus.cpp:3152
-msgid "Show Layers"
-msgstr "Afficher les calques"
-
-#: scribus/scribus.cpp:296
-#: scribus/scribus.cpp:472
-msgid "JavaScripts..."
-msgstr "JavaScripts..."
-
-#: scribus/scribus.cpp:298
-#: scribus/scribus.cpp:592
-#: scribus/scribus.cpp:3172
-msgid "Show Page Palette"
-msgstr "Afficher la palette"
-
-#: scribus/scribus.cpp:299
-msgid "Lock/Unlock"
-msgstr "Verrouiller-Déverrouiller"
-
-#: scribus/scribus.cpp:308
-msgid "Color Management..."
-msgstr "Gestion des couleurs..."
-
-#: scribus/scribus.cpp:409
-#: scribus/scribus.cpp:412
-msgid "Open..."
-msgstr "Ouvrir..."
-
-#: scribus/scribus.cpp:410
-msgid "Recent Documents"
-msgstr "Documents récents"
-
-#: scribus/scribus.cpp:423
-msgid "Collect for Output..."
-msgstr "Rassembler les éléments pour la sortie..."
-
-#: scribus/scribus.cpp:427
-#: scribus/scribus.cpp:1783
-#: scribus/scribus.cpp:1885
-msgid "Get Text/Picture..."
-msgstr "Importer Texte/Image..."
-
-#: scribus/scribus.cpp:429
-msgid "Import..."
-msgstr "Importer..."
-
-#: scribus/scribus.cpp:431
-msgid "Save Text..."
-msgstr "Enregistrer le texte"
-
-#: scribus/scribus.cpp:433
-msgid "Save Page as EPS..."
-msgstr "Enregistrer en EPS..."
-
-#: scribus/scribus.cpp:435
-msgid "Save as PDF..."
-msgstr "Enregistrer en PDF..."
-
-#: scribus/scribus.cpp:437
-msgid "Export..."
-msgstr "Exporter..."
-
-#: scribus/scribus.cpp:440
-#: scribus/scribus.cpp:442
-msgid "Document Info..."
-msgstr "Informations sur le document..."
-
-#: scribus/scribus.cpp:443
-#: scribus/scribus.cpp:445
-msgid "Document Setup..."
-msgstr "Réglage du document..."
-
-#: scribus/scribus.cpp:446
-#: scribus/scribus.cpp:448
-msgid "Print..."
-msgstr "Imprimer..."
-
-#: scribus/scribus.cpp:450
-#: scribus/scribus.cpp:451
-msgid "Quit"
-msgstr "Quitter"
-
-#: scribus/scribus.cpp:459
-#: scribus/scribus.cpp:464
-msgid "Select all"
-msgstr "Tout sélectionner"
-
-#: scribus/scribus.cpp:466
-#: scribus/scribus.cpp:467
-msgid "Colors..."
-msgstr "Couleurs..."
-
-#: scribus/scribus.cpp:468
-#: scribus/scribus.cpp:469
-msgid "Styles..."
-msgstr "Styles..."
-
-#: scribus/scribus.cpp:470
-#: scribus/scribus.cpp:471
-msgid "Templates..."
-msgstr "Maquettes..."
-
-#: scribus/scribus.cpp:474
-msgid "General..."
-msgstr "Général..."
-
-#: scribus/scribus.cpp:475
-msgid "Preferences..."
-msgstr "Préférences..."
-
-#: scribus/scribus.cpp:476
-#: scribus/scribus.cpp:477
-msgid "Fonts..."
-msgstr "Polices..."
-
-#: scribus/scribus.cpp:478
-msgid "Hyphenator..."
-msgstr "Césure..."
-
-#: scribus/libprefs/prefs.cpp:33
-#: scribus/scribus.cpp:479
-msgid "Preferences"
-msgstr "Préférences"
-
-#: scribus/scribus.cpp:500
-#: scribus/scribus.cpp:501
-msgid "Group"
-msgstr "Grouper"
-
-#: scribus/scribus.cpp:502
-#: scribus/scribus.cpp:503
-msgid "Ungroup"
-msgstr "Dégrouper"
-
-#: scribus/scribus.cpp:514
-#: scribus/scribus.cpp:515
-msgid "Distribute/Align..."
-msgstr "Espacer/Aligner..."
-
-#: scribus/scribus.cpp:519
-msgid "Rounded Rectangle"
-msgstr "Rectangle à coins arrondis"
-
-#: scribus/scribus.cpp:520
-msgid "Oval"
-msgstr "Ovale"
-
-#: scribus/scribus.cpp:521
-msgid "Edit Frame"
-msgstr "Modifier le cadre"
-
-#: scribus/scribus.cpp:531
-#: scribus/scribus.cpp:532
-msgid "Insert..."
-msgstr "Insérer..."
-
-#: scribus/scribus.cpp:533
-#: scribus/scribus.cpp:534
-msgid "Delete..."
-msgstr "Supprimer..."
-
-#: scribus/scribus.cpp:537
-#: scribus/scribus.cpp:538
-msgid "Move..."
-msgstr "Déplacer..."
-
-#: scribus/scribus.cpp:539
-#: scribus/scribus.cpp:540
-msgid "Apply Template..."
-msgstr "Appliquer une maquette..."
-
-#: scribus/scribus.cpp:541
-#: scribus/scribus.cpp:542
-msgid "Manage Guides..."
-msgstr "Gestion des repères..."
-
-#: scribus/scribus.cpp:546
-#: scribus/scribus.cpp:547
-msgid "Fit in Window"
-msgstr "Taille de la fenêtre"
-
-#: scribus/scribus.cpp:549
-#, c-format
-msgid "50%"
-msgstr "50%"
-
-#: scribus/scribus.cpp:551
-#, c-format
-msgid "75%"
-msgstr "75%"
-
-#: scribus/scribus.cpp:552
-#: scribus/scribus.cpp:553
-msgid "Actual Size"
-msgstr "Taille réelle (100%)"
-
-#: scribus/scribus.cpp:555
-#, c-format
-msgid "200%"
-msgstr "200%"
-
-#: scribus/scribus.cpp:556
-#: scribus/scribus.cpp:557
-msgid "Thumbnails"
-msgstr "Miniature(s)"
-
-#: scribus/scribus.cpp:559
-#: scribus/scribus.cpp:560
-#: scribus/scribus.cpp:2443
-#: scribus/scribus.cpp:3072
-msgid "Hide Margins"
-msgstr "Masquer les marges"
-
-#: scribus/scribus.cpp:561
-#: scribus/scribus.cpp:562
-#: scribus/scribus.cpp:1634
-#: scribus/scribus.cpp:2444
-#: scribus/scribus.cpp:3087
-msgid "Hide Frames"
-msgstr "Masquer les cadres"
-
-#: scribus/scribus.cpp:563
-#: scribus/scribus.cpp:564
-#: scribus/scribus.cpp:2445
-#: scribus/scribus.cpp:3223
-msgid "Hide Images"
-msgstr "Masquer les images"
-
-#: scribus/scribus.cpp:565
-#: scribus/scribus.cpp:566
-#: scribus/scribus.cpp:2446
-#: scribus/scribus.cpp:3244
-msgid "Show Grid"
-msgstr "Afficher la grille"
-
-#: scribus/scribus.cpp:567
-#: scribus/scribus.cpp:568
-msgid "Snap to Grid"
-msgstr "Grille magnétique"
-
-#: scribus/scribus.cpp:569
-#: scribus/scribus.cpp:2447
-#: scribus/scribus.cpp:3274
-msgid "Hide Guides"
-msgstr "Masquer les repères"
-
-#: scribus/scribus.cpp:570
-msgid "Snap to Guides"
-msgstr "Repères magnétiques"
-
-#: scribus/scribus.cpp:583
-#: scribus/scribus.cpp:584
-#: scribus/scribus.cpp:3209
-msgid "Hide Tools"
-msgstr "Masquer les outils"
-
-#: scribus/scribus.cpp:585
-#: scribus/scribus.cpp:586
-#: scribus/scribus.cpp:3099
-msgid "Show Measurements"
-msgstr "Afficher les mesures"
-
-#: scribus/scribus.cpp:587
-#: scribus/scribus.cpp:588
-#: scribus/scribus.cpp:3116
-msgid "Show Outline"
-msgstr "Afficher le plan"
-
-#: scribus/scribus.cpp:589
-#: scribus/scribus.cpp:590
-#: scribus/scribus.cpp:3136
-msgid "Show Scrapbook"
-msgstr "Afficher l'album"
-
-#: scribus/scribus.cpp:593
-#: scribus/scribus.cpp:3188
-msgid "Show Bookmarks"
-msgstr "Afficher les signets"
-
-#: scribus/scribus.cpp:595
-#: scribus/scribus.cpp:596
-msgid "Manage Pictures"
-msgstr "Gestion des images"
-
-#: scribus/scribus.cpp:597
-#: scribus/scribus.cpp:599
-msgid "Hyphenate Text"
-msgstr "Césure du texte"
-
-#: scribus/scribus.cpp:604
-#: scribus/scribus.cpp:605
-msgid "About Scribus"
-msgstr "À propos de Scribus"
-
-#: scribus/scribus.cpp:606
-#: scribus/scribus.cpp:607
-#: scribus/scribus.cpp:2823
-msgid "About Qt"
-msgstr "À propos de Qt"
-
-#: scribus/scribus.cpp:609
-#: scribus/scribus.cpp:610
-msgid "Online-Help..."
-msgstr "Aide en ligne"
-
-#: scribus/scribus.cpp:611
-#: scribus/scribus.cpp:612
-msgid "Tool-Tips"
-msgstr "Infobulles"
-
-#: scribus/scribus.cpp:619
-#: scribus/scribus.cpp:1835
-#: scribus/scribus.cpp:1874
-msgid "Style"
-msgstr "Style"
-
-#: scribus/scribus.cpp:624
-msgid "View"
-msgstr "Affichage"
-
-#: scribus/scribus.cpp:628
-msgid "Windows"
-msgstr "Fenêtres"
-
-#: scribus/scribus.cpp:630
-msgid "Help"
-msgstr "Aide"
-
-#: scribus/scribus.cpp:679
-msgid "Strikethru"
-msgstr "Barré"
-
-#: scribus/scribus.cpp:1318
-#: scribus/scribus.cpp:2243
-#: scribus/scribus.cpp:2354
-#: scribus/scribus.cpp:2457
-#: scribus/scribus.cpp:2575
-msgid "Ready"
-msgstr "Prêt"
-
-#: scribus/scribus.cpp:1491
-msgid "Cascade"
-msgstr "Cascade"
-
-#: scribus/scribus.cpp:1492
-msgid "Tile"
-msgstr "Mosaïque"
-
-#: scribus/scribus.cpp:1636
-#: scribus/scribus.cpp:3082
-msgid "Show Frames"
-msgstr "Afficher les cadres"
-
-#: scribus/scribus.cpp:1834
-#: scribus/scribus.cpp:1873
-msgid "Size"
-msgstr "Corps"
-
-#: scribus/scribus.cpp:1838
-#: scribus/scribus.cpp:1876
-#: scribus/scribus.cpp:1896
-msgid "Shade"
-msgstr "Teinte"
-
-#: scribus/scribus.cpp:2022
-#: scribus/scribus.cpp:2333
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
-msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);; Tous les fichiers (*)"
-
-#: scribus/scribus.cpp:2024
-#: scribus/scribus.cpp:2335
-msgid "Documents (*.sla *.scd);; All Files (*)"
-msgstr "Documents (*.sla *.scd);; Tous les fichiers (*)"
-
-#: scribus/scribus.cpp:2085
-msgid "Loading..."
-msgstr "Chargement..."
-
-#: scribus/scribus.cpp:2277
-msgid "Images"
-msgstr "Images"
-
-#: scribus/scribus.cpp:2277
-msgid ");;Postscript (*.eps);;All Files (*)"
-msgstr ");;Fichiers EPS (*.eps);;Tous les fichiers (*)"
-
-#: scribus/scribus.cpp:2294
-#: scribus/scribus.cpp:2841
-msgid "Textfiles (*.txt);;All Files (*)"
-msgstr "Fichiers texte (*.txt);;Tous les fichiers (*)"
-
-#: scribus/scribus.cpp:2316
-#: scribus/scribus.cpp:2352
-#: scribus/scribus.cpp:4860
-#: scribus/scribus.cpp:4991
-#: scribus/scribus.cpp:6023
-#, c-format
-msgid "Can't write the File: \n"
-"%1"
-msgstr "Impossible d'écrire le fichier : \n"
-"%1"
-
-#: scribus/scribus.cpp:2344
-msgid "Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr "Voulez-vous vraiment remplacer le fichier :\n"
-"%1 ?"
-
-#: scribus/scribus.cpp:2360
-msgid "Saving..."
-msgstr "Enregistrement..."
-
-#: scribus/scribus.cpp:2490
-msgid "Printing..."
-msgstr "Impression en cours..."
-
-#: scribus/scribus.cpp:2568
-msgid "Printing failed!"
-msgstr "Impossible d'imprimer !"
-
-#: scribus/scribus.cpp:2828
-msgid "Scribus Manual"
-msgstr "Manuel de Scribus"
-
-#: scribus/scribus.cpp:3067
-msgid "Show Margins"
-msgstr "Afficher les marges"
-
-#: scribus/scribus.cpp:3105
-#: scribus/scribus.cpp:4701
-msgid "Hide Measurements"
-msgstr "Masquer les mesures"
-
-#: scribus/scribus.cpp:3123
-#: scribus/scribus.cpp:4703
-msgid "Hide Outline"
-msgstr "Masquer le plan"
-
-#: scribus/scribus.cpp:3141
-#: scribus/scribus.cpp:4705
-msgid "Hide Scrapbook"
-msgstr "Masquer l'album"
-
-#: scribus/scribus.cpp:3159
-#: scribus/scribus.cpp:4707
-msgid "Hide Layers"
-msgstr "Masquer les calques"
-
-#: scribus/scribus.cpp:3177
-#: scribus/scribus.cpp:4709
-msgid "Hide Page Palette"
-msgstr "Masquer la palette"
-
-#: scribus/scribus.cpp:3193
-#: scribus/scribus.cpp:4711
-msgid "Hide Bookmarks"
-msgstr "Masquer les signets"
-
-#: scribus/scribus.cpp:3203
-#: scribus/scribus.cpp:4699
-msgid "Show Tools"
-msgstr "Afficher les outils"
-
-#: scribus/scribus.cpp:3218
-msgid "Show Images"
-msgstr "Afficher les images"
-
-#: scribus/scribus.cpp:3249
-msgid "Hide Grid"
-msgstr "Masquer la grille"
-
-#: scribus/scribus.cpp:3269
-msgid "Show Guides"
-msgstr "Afficher les repères"
-
-#: scribus/scribus.cpp:4298
-msgid "Face"
-msgstr "Police"
-
-#: scribus/scribus.cpp:4729
-msgid "The following Programs are missing:"
-msgstr "Le programme suivant est absent :"
-
-#: scribus/scribus.cpp:4732
-msgid "Ghostscript : You cannot use EPS-Images"
-msgstr "Ghostscript : vous ne pouvez pas utiliser d'images EPS"
-
-#: scribus/scribus.cpp:4856
-msgid "EPS-Files (*.eps);; All Files (*)"
-msgstr "Fichiers EPS (*.eps);; Tous les fichiers (*)"
-
-#: scribus/scribus.cpp:5560
-msgid "Adjusting Colors"
-msgstr "Ajustement des Couleurs"
-
-#: scribus/scribus.cpp:5828
-msgid "Undo Delete Object"
-msgstr "Défaire l'objet détruit"
-
-#: scribus/scribus.cpp:5832
-msgid "Undo Object Move"
-msgstr "Défaire le déplacement de l'objet"
-
-#: scribus/scribus.cpp:5836
-msgid "Undo Object Change"
-msgstr "Défaire la modification de l'objet"
-
-#: scribus/scribus.cpp:5857
-#: scribus/scribus.cpp:5877
-msgid "English"
-msgstr "Anglais"
-
-#: scribus/scribus.cpp:5859
-msgid "German"
-msgstr "Allemand"
-
-#: scribus/scribus.cpp:5861
-msgid "Spanish"
-msgstr "Espagnol"
-
-#: scribus/scribus.cpp:5863
-msgid "Italian"
-msgstr "Italien"
-
-#: scribus/scribus.cpp:5865
-msgid "French"
-msgstr "Français"
-
-#: scribus/scribus.cpp:5867
-msgid "Russian"
-msgstr "Russe"
-
-#: scribus/scribus.cpp:5869
-msgid "Danish"
-msgstr "Danois"
-
-#: scribus/scribus.cpp:5871
-msgid "Slovak"
-msgstr "Slovaque"
-
-#: scribus/libabout/about.cpp:18
-msgid "About Scribus "
-msgstr "À propos de Scribus "
-
-#: scribus/libabout/about.cpp:32
+#: scribus/werktoolb.cpp:31
+msgid "Select Items"
+msgstr "Sélectionner un(des) objet(s)"
+
+#: scribus/werktoolb.cpp:34
+msgid "Rotate Item"
+msgstr "Rotation de l'objet"
+
+#: scribus/werktoolb.cpp:37
+msgid "Edit Contents of Frame"
+msgstr "Éditer le contenu du cadre"
+
+#: scribus/werktoolb.cpp:40
+msgid "Zooms in or out"
+msgstr "Agrandissement ou réduction"
+
+#: scribus/werktoolb.cpp:42
+msgid "Insert Textbox"
+msgstr "Insérer un cadre de texte"
+
+#: scribus/werktoolb.cpp:44
+msgid "Insert Picture"
+msgstr "Insérer un cadre d'image"
+
+#: scribus/werktoolb.cpp:46
+msgid "Insert Rectangles"
+msgstr "Insérer un rectangle"
+
+#: scribus/werktoolb.cpp:48
+msgid "Insert Ovals"
+msgstr "Insérer un ovale"
+
+#: scribus/werktoolb.cpp:51
+msgid "Properties..."
+msgstr "Propriétés..."
+
+#: scribus/werktoolb.cpp:52
+msgid "Insert Polygons"
+msgstr "Insérer un polygone"
+
+#: scribus/werktoolb.cpp:56
+msgid "Insert Lines"
+msgstr "Insérer un filet"
+
+#: scribus/werktoolb.cpp:58
+msgid "Insert Bezier Curves"
+msgstr "Insérer une courbe de Bézier"
+
+#: scribus/werktoolb.cpp:60
+msgid "Create Textchains"
+msgstr "Chaînage de texte"
+
+#: scribus/werktoolb.cpp:63
+msgid "Break Textchains"
+msgstr "Briser le chaînage de texte"
+
+#: scribus/werktoolb.cpp:181
+msgid "PDF-Tools"
+msgstr "Outils PDF"
+
+#: scribus/werktoolb.cpp:189
+msgid "Insert PDF-Fields"
+msgstr "Insérer un champ (PDF)"
+
+#: scribus/werktoolb.cpp:197
+msgid "Insert PDF-Annotations"
+msgstr "Insérer une annotation (PDF)"
+
+#: scribus/libabout/about.cpp:62
 msgid "About"
 msgstr "À propos"
 
-#: scribus/libabout/about.cpp:38
+#: scribus/libabout/about.cpp:68
 msgid "Programming:"
 msgstr "Programmation :"
 
-#: scribus/libabout/about.cpp:41
+#: scribus/libabout/about.cpp:71
 msgid "Contributions from:"
 msgstr "Contributions :"
 
-#: scribus/libabout/about.cpp:46
+#: scribus/libabout/about.cpp:76
 msgid "Documentation:"
 msgstr "Documentation :"
 
-#: scribus/libabout/about.cpp:52
+#: scribus/libabout/about.cpp:82
 msgid "Authors"
 msgstr "Auteurs"
 
-#: scribus/libabout/about.cpp:58
+#: scribus/libabout/about.cpp:88
 msgid "German:"
 msgstr "Allemand :"
 
-#: scribus/libabout/about.cpp:61
+#: scribus/libabout/about.cpp:91
 msgid "French:"
 msgstr "Français :"
 
-#: scribus/libabout/about.cpp:66
+#: scribus/libabout/about.cpp:96
 msgid "Spanish and Catalan:"
 msgstr "Espagnol et Catalan :"
 
-#: scribus/libabout/about.cpp:69
+#: scribus/libabout/about.cpp:99
 msgid "Hungarian and Italian:"
 msgstr "Hongrois et Italien :"
 
-#: scribus/libabout/about.cpp:72
+#: scribus/libabout/about.cpp:102
 msgid "Ukrainian:"
 msgstr "Ukrainien :"
 
-#: scribus/libabout/about.cpp:75
+#: scribus/libabout/about.cpp:105
 msgid "Bulgarian:"
 msgstr "Bulgare :"
 
-#: scribus/libabout/about.cpp:78
+#: scribus/libabout/about.cpp:108
 msgid "Galician:"
 msgstr "Galicien :"
 
-#: scribus/libabout/about.cpp:81
+#: scribus/libabout/about.cpp:111
 msgid "Turkish:"
 msgstr "Turque :"
 
-#: scribus/libabout/about.cpp:84
+#: scribus/libabout/about.cpp:114
 msgid "Lithuanian:"
 msgstr "Lithuanien :"
 
-#: scribus/libabout/about.cpp:87
+#: scribus/libabout/about.cpp:117
 msgid "Polish:"
 msgstr "Polonais :"
 
-#: scribus/libabout/about.cpp:90
+#: scribus/libabout/about.cpp:120
+msgid "Czech:"
+msgstr "Tchèque :"
+
+#: scribus/libabout/about.cpp:123
 msgid "Slovak:"
 msgstr "Slovaque :"
 
-#: scribus/libabout/about.cpp:93
+#: scribus/libabout/about.cpp:126
 msgid "Danish:"
 msgstr "Danois :"
 
-#: scribus/libabout/about.cpp:96
+#: scribus/libabout/about.cpp:129
+msgid "Norwegian:"
+msgstr "Norvégien :"
+
+#: scribus/libabout/about.cpp:133
 msgid "English:"
 msgstr "Anglais :"
 
-#: scribus/libabout/about.cpp:100
+#: scribus/libabout/about.cpp:137
 msgid "Translations"
 msgstr "Traductions"
 
-#: scribus/libprefs/prefs.cpp:46
-msgid "GUI"
-msgstr "Interface graphique"
-
-#: scribus/libprefs/prefs.cpp:55
-msgid "Theme"
-msgstr "Theme"
-
-#: scribus/libprefs/prefs.cpp:68
-msgid "Fontsize"
-msgstr "Taille de la police :"
-
-#: scribus/libprefs/prefs.cpp:78
-msgid "Units"
-msgstr "Unités"
-
-#: scribus/libprefs/prefs.cpp:87
-msgid "Points (pt)"
-msgstr "Points (pt)"
-
-#: scribus/libprefs/prefs.cpp:96
-msgid "Mouse-Settings"
-msgstr "Paramètres de la souris"
-
-#: scribus/libprefs/prefs.cpp:109
-msgid "Wheel-Jump"
-msgstr "Défilement :"
-
-#: scribus/libprefs/prefs.cpp:119
-msgid "Grab-Radius"
-msgstr "Rayon d'action :"
-
-#: scribus/libprefs/prefs.cpp:131
-msgid "Menues"
-msgstr "Menus"
-
-#: scribus/libprefs/prefs.cpp:141
-msgid "Recent Documents:"
-msgstr "Documents récents :"
-
-#: scribus/libprefs/prefs.cpp:149
-msgid "Keyboard Shortcuts..."
-msgstr "Raccourcis clavier..."
-
-#: scribus/libprefs/prefs.cpp:154
-msgid "Paths"
-msgstr "Chemins"
-
-#: scribus/libprefs/prefs.cpp:163
-msgid "Documents:"
-msgstr "Documents :"
-
-#: scribus/libprefs/prefs.cpp:342
+#: scribus/libprefs/prefs.cpp:49
 msgid "Document"
 msgstr "Document"
 
-#: scribus/libprefs/prefs.cpp:349
-msgid "Grid Layout"
-msgstr "Réglage de la grille"
-
-#: scribus/libprefs/prefs.cpp:362
-msgid "Minor Grid Spacing:"
-msgstr "Petit quadrillage :"
-
-#: scribus/libprefs/prefs.cpp:366
-msgid "Major Grid Spacing:"
-msgstr "Grand quadrillage :"
-
-#: scribus/libprefs/prefs.cpp:380
-msgid "Guide Snap Distance:"
-msgstr "Distance de magnétisation :"
-
-#: scribus/libprefs/prefs.cpp:393
-msgid "Grid Colors"
-msgstr "Couleur de la grille"
-
-#: scribus/libprefs/prefs.cpp:406
-msgid "Minor Grid Color:"
-msgstr "Couleur de la grille (pt carreaux) :"
-
-#: scribus/libprefs/prefs.cpp:410
-msgid "Major Grid Color:"
-msgstr "Couleur de la grille (gd carreaux) :"
-
-#: scribus/libprefs/prefs.cpp:430
-msgid "User Guides Color:"
-msgstr "Couleur des repères :"
-
-#: scribus/libprefs/prefs.cpp:443
-msgid "Placing"
-msgstr "Disposition"
-
-#: scribus/libprefs/prefs.cpp:456
-msgid "In the Background"
-msgstr "En arrière"
-
-#: scribus/libprefs/prefs.cpp:460
-msgid "In the Foreground"
-msgstr "En avant"
-
-#: scribus/libprefs/prefs.cpp:465
+#: scribus/libprefs/prefs.cpp:50
 msgid "Guides"
 msgstr "Guides"
 
-#: scribus/libprefs/prefs.cpp:486
-#: scribus/libprefs/prefs.cpp:520
-#: scribus/libprefs/prefs.cpp:554
-msgid "Scaling:"
-msgstr "Mettre à l'échelle :"
-
-#: scribus/libprefs/prefs.cpp:490
-#: scribus/libprefs/prefs.cpp:524
-msgid "Disp.:"
-msgstr "Décalage :"
-
-#: scribus/libprefs/prefs.cpp:579
-msgid "Automatic Linespaceing:"
-msgstr "Interlignage automatique :"
-
-#: scribus/libprefs/prefs.cpp:590
+#: scribus/libprefs/prefs.cpp:51
 msgid "Typographics"
 msgstr "Typographiques"
 
-#: scribus/libprefs/prefs.cpp:669
+#: scribus/libprefs/prefs.cpp:54
+msgid "Display"
+msgstr "Affichage"
+
+#: scribus/libprefs/prefs.cpp:66
+msgid "GUI"
+msgstr "Interface graphique"
+
+#: scribus/libprefs/prefs.cpp:75
+msgid "Theme"
+msgstr "Theme"
+
+#: scribus/libprefs/prefs.cpp:88
+msgid "Fontsize"
+msgstr "Corps :"
+
+#: scribus/libprefs/prefs.cpp:98
+msgid "Units"
+msgstr "Unités"
+
+#: scribus/libprefs/prefs.cpp:107
+msgid "Points (pt)"
+msgstr "Points (pt)"
+
+#: scribus/libprefs/prefs.cpp:119
+msgid "Mouse-Settings"
+msgstr "Paramètres de la souris"
+
+#: scribus/libprefs/prefs.cpp:132
+msgid "Wheel-Jump"
+msgstr "Défilement :"
+
+#: scribus/libprefs/prefs.cpp:142
+msgid "Grab-Radius"
+msgstr "Rayon d'action :"
+
+#: scribus/libprefs/prefs.cpp:157
+msgid "Menues"
+msgstr "Menus"
+
+#: scribus/libprefs/prefs.cpp:167
+msgid "Recent Documents:"
+msgstr "Documents récents :"
+
+#: scribus/libprefs/prefs.cpp:175
+msgid "Keyboard Shortcuts..."
+msgstr "Raccourcis clavier..."
+
+#: scribus/libprefs/prefs.cpp:180
+msgid "Paths"
+msgstr "Chemins"
+
+#: scribus/libprefs/prefs.cpp:189
+msgid "Documents:"
+msgstr "Documents :"
+
+#: scribus/libprefs/prefs.cpp:373
+msgid "Autosave"
+msgstr "Enregistrement automatique"
+
+#: scribus/libprefs/prefs.cpp:380
+msgid "Enabled"
+msgstr "Activé"
+
+#: scribus/libprefs/prefs.cpp:387
+msgid "Intervall:"
+msgstr "Fréquence :"
+
+#: scribus/libprefs/prefs.cpp:406
+msgid "Grid Layout"
+msgstr "Réglage de la grille"
+
+#: scribus/libprefs/prefs.cpp:419
+msgid "Minor Grid Spacing:"
+msgstr "Petit quadrillage :"
+
+#: scribus/libprefs/prefs.cpp:423
+msgid "Major Grid Spacing:"
+msgstr "Grand quadrillage :"
+
+#: scribus/libprefs/prefs.cpp:437
+msgid "Guide Snap Distance:"
+msgstr "Distance de magnétisation :"
+
+#: scribus/libprefs/prefs.cpp:459
+msgid "Grid Colors"
+msgstr "Couleur de la grille"
+
+#: scribus/libprefs/prefs.cpp:472
+msgid "Minor Grid Color:"
+msgstr "Couleur de la grille (pt carreaux) :"
+
+#: scribus/libprefs/prefs.cpp:476
+msgid "Major Grid Color:"
+msgstr "Couleur de la grille (gd carreaux) :"
+
+#: scribus/libprefs/prefs.cpp:512
+msgid "User Guides Color:"
+msgstr "Couleur des repères :"
+
+#: scribus/libprefs/prefs.cpp:533
+msgid "Placing"
+msgstr "Disposition"
+
+#: scribus/libprefs/prefs.cpp:546
+msgid "In the Background"
+msgstr "En arrière"
+
+#: scribus/libprefs/prefs.cpp:553
+msgid "In the Foreground"
+msgstr "En avant"
+
+#: scribus/libprefs/prefs.cpp:582
+#: scribus/libprefs/prefs.cpp:622
+#: scribus/libprefs/prefs.cpp:662
+msgid "Scaling:"
+msgstr "Mettre à l'échelle :"
+
+#: scribus/libprefs/prefs.cpp:586
+#: scribus/libprefs/prefs.cpp:626
+msgid "Disp.:"
+msgstr "Décalage :"
+
+#: scribus/libprefs/prefs.cpp:690
+msgid "Automatic Linespaceing:"
+msgstr "Interlignage automatique :"
+
+#: scribus/libprefs/prefs.cpp:783
 msgid "Default Size:"
 msgstr "Corps par défaut :"
 
-#: scribus/libprefs/prefs.cpp:673
+#: scribus/libprefs/prefs.cpp:787
 msgid "Default Font:"
 msgstr "Police par défaut :"
 
-#: scribus/libprefs/prefs.cpp:720
+#: scribus/libprefs/prefs.cpp:846
 msgid "Text Color:"
 msgstr "Couleur du texte :"
 
-#: scribus/libprefs/prefs.cpp:739
+#: scribus/libprefs/prefs.cpp:865
 msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr ""
 "À l'île exiguë\n"
@@ -4505,63 +4643,83 @@ msgstr ""
 "Âne ex aéquo au whist,\n"
 "Ôtez ce voeu déçu."
 
-#: scribus/libprefs/prefs.cpp:959
+#: scribus/libprefs/prefs.cpp:1109
 msgid "Minimum:"
 msgstr "Minimum :"
 
-#: scribus/libprefs/prefs.cpp:963
+#: scribus/libprefs/prefs.cpp:1113
 msgid "Maximum:"
 msgstr "Maximum :"
 
-#: scribus/libprefs/prefs.cpp:967
+#: scribus/libprefs/prefs.cpp:1117
 msgid "Stepping:"
 msgstr "Progression :"
 
-#: scribus/libprefs/prefs.cpp:1183
+#: scribus/libprefs/prefs.cpp:1359
 msgid "Other Options"
 msgstr "Autres options"
 
-#: scribus/libprefs/prefs.cpp:1193
+#: scribus/libprefs/prefs.cpp:1369
 msgid "Save Contents on Exit"
 msgstr "Enregistrer le contenu en quittant"
 
-#: scribus/libprefs/prefs.cpp:1256
+#: scribus/libprefs/prefs.cpp:1432
 msgid "Display Frames"
 msgstr "Afficher les cadres"
 
-#: scribus/libprefs/prefs.cpp:1260
+#: scribus/libprefs/prefs.cpp:1439
 msgid "Display Pages Side by Side"
 msgstr "Afficher les pages en vis à vis"
 
-#: scribus/libprefs/prefs.cpp:1268
+#: scribus/libprefs/prefs.cpp:1450
 msgid "Page-Colors"
 msgstr "Couleur de la page"
 
-#: scribus/libprefs/prefs.cpp:1278
+#: scribus/libprefs/prefs.cpp:1460
 msgid "Background:"
 msgstr "Fond de page :"
 
-#: scribus/libprefs/prefs.cpp:1290
+#: scribus/libprefs/prefs.cpp:1480
 msgid "Margins:"
 msgstr "Marges :"
 
-#: scribus/libprefs/prefs.cpp:1304
+#: scribus/libprefs/prefs.cpp:1502
 msgid "Display unprintable Area in Margin Color"
 msgstr "Afficher les zones non imprimables dans la couleur des marges"
 
-#: scribus/libprefs/prefs.cpp:1308
+#: scribus/libprefs/prefs.cpp:1509
 msgid "Use PDF-1.4 Transparency Features"
-msgstr "Utiliser les options de transparence PDF-1.4"
+msgstr "Utiliser les options de transparence PDF 1.4"
 
-#: scribus/libprefs/prefs.cpp:1312
-msgid "Display"
-msgstr "Affichage"
+#: scribus/libprefs/prefs.cpp:1514
+msgid "Adjust Display Size"
+msgstr "Réglage"
 
-#: scribus/plugins/libchar/charselect.cpp:33
+#: scribus/libprefs/prefs.cpp:1521
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "Pour régler l'affichage, ajustez la règle ci-dessous à l'aide du curseur."
+
+#: scribus/plugins/libchar/charselect.cpp:43
 msgid "Select Character"
 msgstr "Choisir le caractère"
 
-#: scribus/plugins/libchar/charselect.cpp:86
+#: scribus/plugins/libchar/charselect.cpp:162
 msgid "Insert"
 msgstr "Insérer"
+
+#: scribus/plugins/printpreview/preview.cpp:47
+msgid "Print Preview"
+msgstr "Prévisualisation"
+
+#: scribus/plugins/printpreview/preview.cpp:92
+msgid "Antialias Text"
+msgstr "Lisser les textes"
+
+#: scribus/plugins/printpreview/preview.cpp:96
+msgid "Antialias Graphics"
+msgstr "Lisser les objets graphiques"
+
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:41
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "Fichiers SVG (*.svg);; Tous les fichiers (*)"
 

@@ -8,7 +8,7 @@
    <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
   </Doc0>
   <Doc1 CursorPosLine="1328" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="18" FileName="/home/paul/Scribus/scribus/annot.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
+   <View0 Top="0" Width="98" Attach="1" Height="28" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
   </Doc1>
   <Doc2 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/annota.cpp" >
    <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
@@ -251,13 +251,13 @@
    <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
   </Doc81>
   <Doc82 CursorPosLine="1061" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="41" FileName="/home/paul/Scribus/scribus/util.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="1" Type="KWriteView" MinMaxMode="0" />
+   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
   </Doc82>
   <Doc83 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/vruler.cpp" >
    <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
   </Doc83>
-  <Doc84 CursorPosLine="71" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="14" FileName="/home/paul/Scribus/scribus/werktoolb.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  <Doc84 CursorPosLine="30" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="117" FileName="/home/paul/Scribus/scribus/werktoolb.cpp" >
+   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="1" Type="KWriteView" MinMaxMode="0" />
   </Doc84>
  </DocsAndViews>
 </KDevPrjSession>

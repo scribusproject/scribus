@@ -1157,7 +1157,7 @@ void PDF_Opts::EmbedAll()
 void PDF_Opts::ChangeFile()
 {
 	QString fn;
-	CustomFDialog dia(this, tr("Save as"), tr("PDF-Files (*.pdf);; All Files (*)"), false, false);
+	CustomFDialog dia(this, tr("Save as"), tr("PDF-Files (*.pdf);;All Files (*)"), false, false);
 	if (Datei->text() != "")
 		dia.setSelection(Datei->text());
 	if (dia.exec() == QDialog::Accepted)

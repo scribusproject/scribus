@@ -553,7 +553,7 @@ void ScribusApp::initMenuBar()
 	ShapeM = ObjMenu->insertItem(tr("Shape"), ShapeMenu);
 	PfadT = ObjMenu->insertItem(tr("Attach Text to Path"), this, SLOT(Pfadtext()));
 	PfadV = ObjMenu->insertItem(tr("Combine Polygons"), this, SLOT(UniteOb()));
-	PfadS = ObjMenu->insertItem(tr("Split Polygon"), this, SLOT(SplitUniteOb()));
+	PfadS = ObjMenu->insertItem(tr("Split Polygons"), this, SLOT(SplitUniteOb()));
 #ifdef HAVE_FREETYPE
 	PfadTP = ObjMenu->insertItem(tr("Convert to Polygons"), this, SLOT(TraceText()));
 #endif
@@ -2138,9 +2138,9 @@ bool ScribusApp::slotDocOpen()
 {
 	bool ret = false;
 #ifdef HAVE_LIBZ
-	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"));
+	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.scd);; All Files (*)"));
+	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
   qApp->setOverrideCursor(QCursor(waitCursor), true);
 	ret = LadeDoc(fileName);
@@ -2536,9 +2536,9 @@ void ScribusApp::slotFileSaveAs()
   	fna = di.currentDirPath()+"/"+doc->DocName+".sla";
   	}
 #ifdef HAVE_LIBZ
-  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"), fna, false, false, true);
+  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
 #else
-  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.scd);; All Files (*)"), fna, false, false, false);
+  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
 #endif
   if (!fn.isEmpty())
   	{
@@ -4088,7 +4088,7 @@ void ScribusApp::setItemShade(int id)
 		}
 	else
 		{
-    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
+    Query* dia = new Query(this, tr("New"), 1, 0, tr("Shade:"), tr("Shade"));
     if (dia->exec())
     	{
 			c = dia->Answer->text().toInt(&ok);
@@ -5250,7 +5250,7 @@ void ScribusApp::SaveAsEps()
   	QDir di = QDir();
   	fna = di.currentDirPath()+"/"+doc->DocName+".eps";
   	}
-  QString fn = CFileDialog(tr("Save as"), tr("EPS-Files (*.eps);; All Files (*)"), "", false, false);
+  QString fn = CFileDialog(tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
   if (!fn.isEmpty())
   	{
 		if (!DoSaveAsEps(fn))

@@ -36,7 +36,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     if (art)
     	TextLabel1->setText( tr( "Move Page(s):" ) );
     else
-    	TextLabel1->setText( tr("Copy Page")+":" );
+    	TextLabel1->setText( tr( "Copy Page:" ) );
     Layout4->addWidget( TextLabel1, 0, 0);
     FromPage = new QSpinBox( this, "FromPage" );
     FromPage->setMinValue( 1 );
@@ -57,7 +57,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     Where = new QComboBox( true, this, "Where" );
     Where->insertItem(tr("before Page"));
     Where->insertItem(tr("after Page"));
-    Where->insertItem(tr("To End"));
+    Where->insertItem(tr("at End"));
     Where->setEditable(false);
     Where->setCurrentItem(2);
 		Layout4->addMultiCellWidget( Where, 1, 1, 0, 1 );

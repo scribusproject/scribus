@@ -82,7 +82,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	LineJoin->setEditable(false);
 	LineJoin->insertItem(loadIcon("MiterJoin.png"), tr( "MiterJoin" ) );
 	LineJoin->insertItem(loadIcon("BevelJoin.png"), tr( "BevelJoin" ) );
-	LineJoin->insertItem(loadIcon("BevelJoin.png"), tr( "RoundJoin" ) );
+	LineJoin->insertItem(loadIcon("RoundJoin.png"), tr( "RoundJoin" ) );
 	PropertiesLayout->addWidget( LineJoin );
 
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1"); 

@@ -36,7 +36,7 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     Layout5->setSpacing( 6 );
     Layout5->setMargin( 10 );
     GroupSpecial = new QGroupBox( this, "GroupSpecial" );
-    GroupSpecial->setTitle( tr( "Other:" ) );
+    GroupSpecial->setTitle( tr( "Other" ) );
     GroupSpecial->setColumnLayout(0, Qt::Vertical );
     GroupSpecial->layout()->setSpacing( 0 );
     GroupSpecial->layout()->setMargin( 0 );
@@ -64,7 +64,7 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     Layout2->addWidget( Textflow );
     Textflow2 = new QCheckBox( GroupSpecial, "Textflow2" );
     Textflow2->setMinimumSize( QSize( 150, 22 ) );
-    Textflow2->setText( tr( "use Bounding Box" ) );
+    Textflow2->setText( tr( "Use Bounding Box" ) );
     Textflow2->setChecked(b->Textflow2);
     Layout2->addWidget( Textflow2 );
 		ToggleFlow();
@@ -77,7 +77,7 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     Layout5->addWidget( GroupSpecial, 1, 0 );
 
     GroupPos = new QGroupBox( this, "GroupPos" );
-    GroupPos->setTitle( tr( "Position:" ) );
+    GroupPos->setTitle( tr( "Position" ) );
     GroupPos->setColumnLayout(0, Qt::Vertical );
     GroupPos->layout()->setSpacing( 0 );
     GroupPos->layout()->setMargin( 0 );
@@ -148,7 +148,7 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     GroupPosLayout->addLayout( Layout1 );
     Layout5->addWidget( GroupPos, 0, 0 );
     Props = new QButtonGroup( this, "Props" );
-    Props->setTitle( tr( "Properties:" ) );
+    Props->setTitle( tr( "Properties" ) );
     Props->setColumnLayout(0, Qt::Vertical );
     Props->layout()->setSpacing( 0 );
     Props->layout()->setMargin( 0 );

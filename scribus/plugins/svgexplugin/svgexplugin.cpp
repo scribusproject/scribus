@@ -38,7 +38,7 @@ void Run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
 		{
-		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);; All Files (*)"),"", false, false);
+		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"),"", false, false);
 		if (!fileName.isEmpty())
 			{
   		QFile f(fileName);

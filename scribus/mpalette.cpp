@@ -334,7 +334,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
     Text20 = new QLabel( page_3, "Text20" );
-    Text20->setText(tr("Size:"));
+    Text20->setText(tr("Fontsize:"));
     layout41->addWidget( Text20, 1, 0 );
     Size = new QSpinBox( page_3, "Size" );
     Size->setPrefix( tr( "" ) );
@@ -591,7 +591,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     LJoinStyle->setEditable(false);
     LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr( "MiterJoin" ) );
     LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "BevelJoin" ) );
-    LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "RoundJoin" ) );
+    LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr( "RoundJoin" ) );
     Layout12_2->addWidget( LJoinStyle, 5, 0 );
     Text10 = new QLabel( page_5, "Text10" );
     Text10->setText( tr( "Endings:" ) );

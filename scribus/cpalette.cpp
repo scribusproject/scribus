@@ -404,7 +404,7 @@ void Cpalette::setActShade(int id)
 	int b = SetMen(c);
 	if (c == 0)
 		{
-    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
+    Query* dia = new Query(this, tr("New"), 1, 0, tr("Shade:"), tr("Shade"));
     if (dia->exec())
     	{
 			c = dia->Answer->text().toInt(&ok);
