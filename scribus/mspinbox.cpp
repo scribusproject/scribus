@@ -67,21 +67,21 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 
 QString MSpinBox::mapValueToText(int value)
 {
-	int dez;
+	double dez;
 	if (Width == 1)
-		dez = 10;
+		dez = 10.0;
 	else
-		dez = 100;
+		dez = 100.0;
 	return QString::number(static_cast<double>(value) / dez, 'f', Width);
 }
 
 int MSpinBox::mapTextToValue(bool *)
 {
-	int dez;
+	float dez;
 	if (Width == 1)
-		dez = 10;
+		dez = 10.0;
 	else
-		dez = 100;
+		dez = 100.0;
 	return int(qRound(text().toFloat()*dez));
 }
 

@@ -1,60 +1,6 @@
-Changes since Version 1.1.0
-03.10.2003	Improved rendering of linked Textframes.
-		Added a new .pot file for Scribus-1.1.1
+Changes since Version 1.1.1
+05.10.2003	Improved History in the Helpbrowser.
+		Fixed a Bug with subsetted Fonst and Hyphens
+		Fixed segfault when dragging Objects between Documents.
+		Fixed Bug when duplicating grouped Objects.
 
-02.10.2003	Removed some small Bugs reported after reopening the CVS 
-		to the public.
-
-30.09.2003	Every Textbox can have now it's own Language for
-		Hyphenation.
-
-29.09.2003	Added a Catalan Hyphenation Dictionary.
-
-28.09.2003	Subsetting Fonts and OpenType Fonts works now in PDF and Postscript.
-		Updated the CharSelect Plugin.
-		Added a User defineable Directory for ICC-Profiles in the Preferences.
-
-27.09.2003	Replaced the LineEdit for the Zoom-Factor in the lower left Corner of
-		the Working Window by a SpinBox.
-		Updated the Welsh Translation.
-
-26.09.2003	Export of OpenType Fonts to Postscript works now too.
-		You can now optionally subset every Font in the Postscript Output,
-		OpenType Fonts are always subsetted.
-
-23.09.2003	Export of OpenType Fonts to PDF works now, but you need
-		Acrobat Reader to view or print PDF's containing OpenType Fonts.
-
-22.09.2003	First Support for OpenType Fonts.
-		fonts.dir or fonts.scale are no longer needed to find Fonts.
-		See the Readme for some changes regarding Fontnames.
-
-21.09.2003	Removed the "Modify Object" Dialog since all of it's functionality
-		in now in the former "Measurement" Palette, which is now called
-		"Properties" Palette.
-
-20.09.2003	Made handling of Text-Properties more consistent.
-
-19.09.2003	Scaling Glyphs in the X-Direction works now in PS and PDF.
-
-18.09.2003	Now you can scale Glyphs in the X-Direction.
-		Works only on Screen for now.
-
-17.09.2003	pageitem.cpp		Removed all occurences of QFont in the rendering Code
-		scribusXml.cpp		Added Version Info to Scribus Files.
-
-16.09.2003	Improved Redraw of linked Textframes.
-		The PS-Exporter does now support Text with Fill & Stroke.
-		Removed all Font Encoding Stuff from the PS-Exporter, all
-		Text Rendering is now done with "glyphshow".
-
-15.09.2003	Text with Fill & Stroke can now exported to PDF and SVG.
-		Fixed Crash when deleting Pages containing linked Textframes.
-		Fixed Crash after Drag-Copying Elements.
-
-14.09.2003	Added the possibility to set the fill and stroke of Glyphs.
-
-12.09.2003	Added a Welsh Translation.
-
-11.09.2003	svgplugin.cpp		Fixed some Bugs.
-		pageitem.cpp		Fixed Bug with linked Textframes.

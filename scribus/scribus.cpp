@@ -2605,6 +2605,7 @@ bool ScribusApp::DoFileSave(QString fn)
 		fileMenu->setItemEnabled(fid4, 0);
 		DatSav->setEnabled(false);
 		UpdateRecent(fn);
+		doc->hasName = true;
 		}
 	FMess->setText("");
 	FProg->reset();
@@ -5563,17 +5564,21 @@ void ScribusApp::StoreBookmarks()
 
 void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc)
 {
-	NoFrameEdit();
+	if (doc == docc)
+		NoFrameEdit();
   ScriXmlDoc *ss = new ScriXmlDoc();
   if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs))
   	{
-  	BuildFontMenu();
-		Mpal->Spal->updateFList();
-		Mpal->SetLineFormats(docc);
   	docc->ActPage->update();
-  	slotDocCh();
 		docc->UnDoValid = false;
-		CanUndo();
+		if (doc == docc)
+			{
+  		BuildFontMenu();
+			Mpal->Spal->updateFList();
+			Mpal->SetLineFormats(docc);
+  		slotDocCh();
+			CanUndo();
+			}
   	}
   delete ss;
 }

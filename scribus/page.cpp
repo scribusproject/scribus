@@ -204,7 +204,7 @@ void Page::dropEvent(QDropEvent *e)
 {
 	QString text;
 	PageItem *b;
-	bool img;
+	bool img = false;
 	struct Pti *hg;
 	uint a;
 	int re;
@@ -316,7 +316,7 @@ void Page::dropEvent(QDropEvent *e)
 					re = 1;
 				if ((!img) && ((re == 0) || (re == 1)))
 					emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
-				Deselect(true);
+//				Deselect(true);
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
 				}
@@ -525,23 +525,33 @@ void Page::DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd)
 void Page::setGroupRect()
 {
 	PageItem* b;
-	float minx = 99999;
-	float miny = 99999;
-	float maxx = -99999;
-	float maxy = -99999;
+	float minx = 99999.9;
+	float miny = 99999.9;
+	float maxx = -99999.9;
+	float maxy = -99999.9;
 	for (uint gc = 0; gc < SelItem.count(); ++gc)
 		{
 		b = SelItem.at(gc);
-		QPainter p;
-		p.begin(this);
-		p.translate(static_cast<int>(b->Xpos), static_cast<int>(b->Ypos));
-		p.rotate(b->Rot);
-		QRect apr = QRegion(p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(QMAX(b->Height, 1))))).boundingRect();
-		p.end();
-		minx = QMIN(minx, apr.x());
-		miny = QMIN(miny, apr.y());
-		maxx = QMAX(maxx, apr.x() + apr.width());
-		maxy = QMAX(maxy, apr.y() + apr.height());
+		if (b->Rot != 0)
+			{
+			QPainter p;
+			p.begin(this);
+			p.translate(static_cast<int>(b->Xpos), static_cast<int>(b->Ypos));
+			p.rotate(b->Rot);
+			QRect apr = QRegion(p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(QMAX(b->Height, 1))))).boundingRect();
+			p.end();
+			minx = QMIN(minx, apr.x());
+			miny = QMIN(miny, apr.y());
+			maxx = QMAX(maxx, apr.x() + apr.width());
+			maxy = QMAX(maxy, apr.y() + apr.height());
+			}
+		else
+			{
+			minx = QMIN(minx, b->Xpos);
+			miny = QMIN(miny, b->Ypos);
+			maxx = QMAX(maxx, b->Xpos + b->Width);
+			maxy = QMAX(maxy, b->Ypos + b->Height);
+			}
 		}
 	GroupX = minx;
 	GroupY = miny;
@@ -749,13 +759,13 @@ void Page::RefreshItem(PageItem *b, bool single)
 	p.begin(this);
 	Transform(b, &p);
 	if (single)
-		RepaintTextRegion(b, QRegion(p.xForm(QRect(-10, -10, static_cast<int>(b->Width+20), static_cast<int>(b->Height+20)))));
+		RepaintTextRegion(b, QRegion(p.xForm(QRect(-10, -10, static_cast<int>(b->Width+20), static_cast<int>(b->Height+20)))), true);
 	else
 		update(QRegion(p.xForm(QRect(-10, -10, static_cast<int>(b->Width+20), static_cast<int>(b->Height+20)))).intersect(ViewReg()).boundingRect());
 	p.end();
 }
 
-void Page::RepaintTextRegion(PageItem *b, QRegion alt)
+void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 {
 	QPainter p;
 	QRegion neu;
@@ -771,30 +781,38 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt)
 	g.setY(g.y()-20);
 	g.setWidth(g.width()+20);
 	g.setHeight(g.height()+20);
-	QRect rd = ViewReg().boundingRect().intersect(g);
-	if ((rd.width() < 1) || (rd.height() < 1))
-		return;
-	QPixmap pgPix(rd.width(), rd.height());
-	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-	painter->translate(0.5, 0.5);
-	b->DrawObj(painter, rd);
-	painter->end();
-	bitBlt( this, rd.x(), rd.y(), &pgPix, 0, 0, pgPix.width(), pgPix.height() );
-	QPainter px;
-	px.begin(this);
-	px.setPen(QColor(0, 0, 0));
-	px.setBrush(NoBrush);
-	px.drawRect(0, 0, width(), height());
- 	px.end();
-	b->paintObj(rd);
-	if ((doku->EditClip) && (b->Select))
-		MarkClip(b);
-	if (GroupSel)
+	if (single)
 		{
-		setGroupRect();
-		paintGroupRect();
+		QRect rd = ViewReg().boundingRect().intersect(g);
+		if ((rd.width() < 1) || (rd.height() < 1))
+			return;
+		QPixmap pgPix(rd.width(), rd.height());
+		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+		painter->translate(0.5, 0.5);
+		b->DrawObj(painter, rd);
+		painter->end();
+		bitBlt( this, rd.x(), rd.y(), &pgPix, 0, 0, pgPix.width(), pgPix.height() );
+		QPainter px;
+		px.begin(this);
+		px.setPen(QColor(0, 0, 0));
+		px.setBrush(NoBrush);
+		px.drawRect(0, 0, width(), height());
+ 		px.end();
+		b->paintObj(rd);
+		if ((doku->EditClip) && (b->Select))
+			MarkClip(b);
+		if (GroupSel)
+			{
+			setGroupRect();
+			paintGroupRect();
+			}
+		delete painter;
 		}
-	delete painter;
+	else
+		{
+		neu = QRegion(g);
+		update(neu.intersect(ViewReg()).boundingRect());
+		}
 }
 
 void Page::AdjustPreview(PageItem *b)

@@ -5,6 +5,7 @@
     copyright            : (C) 2001 by Christian Töpp
     email                : christian.toepp@mr-ct@gmx.de
  ***************************************************************************/
+
 #include "scribusXml.h"
 #include "scribusXml.moc"
 #include <qfile.h>
@@ -531,7 +532,7 @@ while(!DOC.isNull())
 							tmp += tmp2.at(cxx)+tmp3;
 							}
 						}
-					else
+/*					else
 						{
 						tmp += QString(QChar(QStoInt(it.attribute("CH")))) + "\t";
 						tmp += DoFonts[it.attribute("CFONT")] + "\t";
@@ -546,7 +547,7 @@ while(!DOC.isNull())
 						tmp += it.attribute("CSTROKE","None") + "\t";
 						tmp += it.attribute("CSHADE2","100") + "\t";
 						tmp += it.attribute("CSCALE","100") + "\n";
-						}
+						}         */
 					IT=IT.nextSibling();
 				}
 				OB.Ptext = tmp;
@@ -1118,7 +1119,7 @@ while(!DOC.isNull())
 							tmp += tmp2.at(cxx)+tmp3;
 							}
 						}
-					else
+/*					else
 						{
 						tmp += QString(QChar(QStoInt(it.attribute("CH")))) + "\t";
 						tmp += DoFonts[it.attribute("CFONT")] + "\t";
@@ -1131,7 +1132,7 @@ while(!DOC.isNull())
 						tmp += it.attribute("CSTROKE","None") + "\t";
 						tmp += it.attribute("CSHADE2","100") + "\t";
 						tmp += it.attribute("CSCALE","100") + "\n";
-						}
+						}               */
 					IT=IT.nextSibling();
 				}
 				OB.Ptext = tmp;
@@ -1533,6 +1534,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.Locked = static_cast<bool>(QStoInt(pg.attribute("LOCK","0")));
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
 			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
+			OB.Language = pg.attribute("LANGUAGE", doc->Language);
 			OB.Transparency = QStoFloat(pg.attribute("TransValue","0.0"));
 			if (pg.hasAttribute("TransValueS"))
 				OB.TranspStroke = QStoFloat(pg.attribute("TransValueS","0.0"));
@@ -1615,7 +1617,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 							tmp += tmp2.at(cxx)+tmp3;
 							}
 						}
-					else
+/*					else if (it.tagName()=="TEXT")
 						{
 						tmp += QString(QChar(QStoInt(it.attribute("CH")))) + "\t";
 						tmp += DoFonts[it.attribute("CFONT")] + "\t";
@@ -1636,7 +1638,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 						tmp += it.attribute("CSTROKE","None") + "\t";
 						tmp += it.attribute("CSHADE2","100") + "\t";
 						tmp += it.attribute("CSCALE","100") + "\n";
-						}
+						}     */
 					IT=IT.nextSibling();
 				}
 			OB.Ptext = tmp;

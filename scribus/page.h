@@ -116,7 +116,7 @@ public:
 	QPoint ApplyGrid(QPoint in);
 	FPoint ApplyGridF(FPoint in);
 	void RefreshItem(PageItem *b, bool single = false);
-	void RepaintTextRegion(PageItem *b, QRegion alt);
+	void RepaintTextRegion(PageItem *b, QRegion alt, bool single = false);
 	void EmitValues(PageItem *b);
 	void AdjustPreview(PageItem *b);
 	void FromHRuler(QMouseEvent *m);

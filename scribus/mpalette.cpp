@@ -1013,10 +1013,10 @@ void Mpalette::SetCurItem(PageItem *i)
 	CurItem = i;
   NameEdit->setText(i->AnName);
 	RoundRect->setValue(qRound(i->RadRect));
-  DLeft->setValue(static_cast<int>(i->Extra*10));
-  DTop->setValue(static_cast<int>(i->TExtra*10));
-  DBottom->setValue(static_cast<int>(i->BExtra*10));
-  DRight->setValue(static_cast<int>(i->RExtra*10));
+  DLeft->setValue(static_cast<int>(i->Extra*10.0));
+  DTop->setValue(static_cast<int>(i->TExtra*10.0));
+  DBottom->setValue(static_cast<int>(i->BExtra*10.0));
+  DRight->setValue(static_cast<int>(i->RExtra*10.0));
   Revert->setOn(i->Reverse);
 	Textflow->setChecked(i->Textflow);
 	Textflow2->setChecked(i->Textflow2);
@@ -1377,8 +1377,8 @@ void Mpalette::setXY(float x, float y)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
-	Xpos->setValue(qRound(x*UmReFaktor*100));
-	Ypos->setValue(qRound(y*UmReFaktor*100));
+	Xpos->setValue(qRound(x*UmReFaktor*100.0));
+	Ypos->setValue(qRound(y*UmReFaktor*100.0));
 	if (LMode)
 		setBH(CurItem->Width, CurItem->Height);
 	HaveItem = tmp;
@@ -1392,17 +1392,17 @@ void Mpalette::setBH(float x, float y)
 	QPoint dp;
 	if ((LMode) && (CurItem->PType == 5))
 		{
-		ma.translate(static_cast<float>(Xpos->value()) / UmReFaktor / 100, static_cast<float>(Ypos->value()) / UmReFaktor / 100);
-		ma.rotate(static_cast<float>(Rot->value())/100*(-1));
+		ma.translate(static_cast<float>(Xpos->value()) / UmReFaktor / 100.0, static_cast<float>(Ypos->value()) / UmReFaktor / 100.0);
+		ma.rotate(static_cast<float>(Rot->value())/100.0*(-1));
 		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
-		Width->setValue(qRound(dp.x()*UmReFaktor*100));
-		Height->setValue(qRound(dp.y()*UmReFaktor*100));
+		Width->setValue(qRound(dp.x()*UmReFaktor*100.0));
+		Height->setValue(qRound(dp.y()*UmReFaktor*100.0));
 		}
 	else
 		{
 		RoundRect->setMaxValue(static_cast<int>(QMIN(x, y)/2));
-		Width->setValue(qRound(x*UmReFaktor*100));
-		Height->setValue(qRound(y*UmReFaktor*100));
+		Width->setValue(qRound(x*UmReFaktor*100.0));
+		Height->setValue(qRound(y*UmReFaktor*100.0));
 		}
 	HaveItem = tmp;
 }
@@ -1644,10 +1644,10 @@ void Mpalette::NewTScale()
 void Mpalette::NewX()
 {
 	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100;
+	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1675,10 +1675,10 @@ void Mpalette::NewX()
 void Mpalette::NewY()
 {
 	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100;
+	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1706,10 +1706,10 @@ void Mpalette::NewY()
 void Mpalette::NewW()
 {
 	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100;
+	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1743,10 +1743,10 @@ void Mpalette::NewW()
 void Mpalette::NewH()
 {
 	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100;
+	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1783,7 +1783,7 @@ void Mpalette::NewR()
 		{
 		if (doc->ActPage->GroupSel)
 			return;
-		doc->ActPage->RotateItem(static_cast<float>(Rot->value())/100*(-1), CurItem->ItemNr);
+		doc->ActPage->RotateItem(static_cast<float>(Rot->value())/100.0*(-1), CurItem->ItemNr);
 		emit DocChanged();
 		}
 }
@@ -1802,7 +1802,7 @@ void Mpalette::NewLsp()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLineSpa(static_cast<float>(LineSp->value())/10);
+		doc->ActPage->ChLineSpa(static_cast<float>(LineSp->value())/10.0);
 		emit DocChanged();
 		}
 }
@@ -1842,7 +1842,7 @@ void Mpalette::NewLocalXY()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLocalXY(static_cast<float>(LXpos->value()) / UmReFaktor / 100, static_cast<float>(LYpos->value()) / UmReFaktor / 100);
+		doc->ActPage->ChLocalXY(static_cast<float>(LXpos->value()) / UmReFaktor / 100.0, static_cast<float>(LYpos->value()) / UmReFaktor / 100.0);
 		emit DocChanged();
 		}
 }
@@ -1851,7 +1851,7 @@ void Mpalette::NewLocalSC()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLocalSc(static_cast<float>(ScaleX->value()) / 1000, static_cast<float>(ScaleY->value()) / 1000);
+		doc->ActPage->ChLocalSc(static_cast<float>(ScaleX->value()) / 1000.0, static_cast<float>(ScaleY->value()) / 1000.0);
 		emit DocChanged();
 		}
 }
@@ -1860,7 +1860,7 @@ void Mpalette::NewLS()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLineWidth(static_cast<float>(LSize->value())/10);
+		doc->ActPage->ChLineWidth(static_cast<float>(LSize->value())/10.0);
 		emit DocChanged();
 		}
 }

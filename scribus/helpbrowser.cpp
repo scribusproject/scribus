@@ -30,6 +30,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
     resize( 547, 450 ); 
     setCaption( Capt );
 		mHistory.clear();
+		struct histd his;
   	setIcon(loadIcon("AppIcon.xpm"));
     HelpBrowserLayout = new QVBoxLayout( this ); 
     HelpBrowserLayout->setSpacing( 2 );
@@ -91,7 +92,11 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
   	if (Avail)
 			{
     	Anzeige->setSource(pfad2);
-			mHistory[hist->insertItem(pfad2)] = pfad2;
+			his.Title = Anzeige->documentTitle();
+			if (his.Title == "")
+				his.Title = pfad2;
+			his.Url = pfad2;
+			mHistory[hist->insertItem(his.Title)] = his;
 			}
     HelpBrowserLayout->addWidget( Anzeige );
 
@@ -106,19 +111,34 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
 void HelpBrowser::sourceChanged(const QString& url)
 {
 	bool inList = false;
-	QMap<int, QString>::Iterator it;
+	struct histd his;
+	QString title = "";
+	title = Anzeige->documentTitle();
+	if (title == "")
+		title = url;
+	QMap<int, histd>::Iterator it;
 	for (it = mHistory.begin(); it != mHistory.end(); ++it)
 		{
-		if (it.data() == url)
+		if (it.data().Title == title)
 			inList = true;
-		}
+		}	
 	if (!inList)
-		mHistory[hist->insertItem(url)] = url;
+		{
+		his.Title = title;
+		his.Url = url;
+		mHistory[hist->insertItem(title)] = his;
+		}
+	if (mHistory.count() > 15)
+		{
+		int itk = hist->idAt(0);
+		mHistory.remove(itk);
+		hist->removeItem(itk);
+		}
 }
 
 void HelpBrowser::histChosen(int i)
 {
 	if (mHistory.contains(i))
-		Anzeige->setSource(mHistory[i]);
+		Anzeige->setSource(mHistory[i].Url);
 }
 

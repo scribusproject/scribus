@@ -30,7 +30,10 @@ public:
     QToolButton* ForwB;
     QTextBrowser* Anzeige;
 		QPopupMenu* hist;
-    QMap<int, QString> mHistory;
+		struct histd { QString Url;
+									 QString Title;
+								 };
+    QMap<int, histd> mHistory;
 
 public slots:
 		void sourceChanged(const QString& url);

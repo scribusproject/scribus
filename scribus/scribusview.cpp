@@ -1211,7 +1211,29 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										int chs = hl->csize;
 										ite->SetZeichAttr(hl, &chs, &chx);
 										float wide = Cwidth(Doc, hl->cfont, chx, chs);
-										p->PS_show(hl->xp+wide, -hl->yp);
+										chx = "-";
+										uint chr = chx[0].unicode();
+										if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+											{
+											FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+											QWMatrix chma;
+											chma.scale(tsz / 10.0, tsz / 10.0);
+											gly.map(chma);
+											chma = QWMatrix();
+											chma.scale(hl->cscale / 100.0, 1);
+											gly.map(chma);
+											if (hl->ccolor != "None")
+												{
+												p->PS_save();
+												p->PS_translate(hl->xp+wide, (hl->yp - tsz) * -1);
+												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+												SetClipPath(p, &gly);
+												p->PS_closepath();
+												p->PS_fill(true);
+												p->PS_restore();
+												}
+											}
 										}
 									if ((hl->cstyle & 8) && (chx != QChar(13)))
 										{
@@ -1735,7 +1757,29 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									int chs = hl->csize;
 									c->SetZeichAttr(hl, &chs, &chx);
 									float wide = Cwidth(Doc, hl->cfont, chx, chs);
-									p->PS_show(hl->xp+wide, -hl->yp);
+									chx = "-";
+									uint chr = chx[0].unicode();
+									if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+										{
+										FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+										QWMatrix chma;
+										chma.scale(tsz / 10.0, tsz / 10.0);
+										gly.map(chma);
+										chma = QWMatrix();
+										chma.scale(hl->cscale / 100.0, 1);
+										gly.map(chma);
+										if (hl->ccolor != "None")
+											{
+											p->PS_save();
+											p->PS_translate(hl->xp+wide, (hl->yp - tsz) * -1);
+											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+											p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+											SetClipPath(p, &gly);
+											p->PS_closepath();
+											p->PS_fill(true);
+											p->PS_restore();
+											}
+										}
 									}
 								}
 							if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))

@@ -1829,6 +1829,45 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 						}
 					tmp2 += "s\n";
 					}
+				if ((hl->cstyle & 128) && ((ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->yp != hl->yp) && (ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->ch != QChar(13)) ||  ((ite->NextBox != 0) && (d == ite->Ptext.count()-1))))
+					{
+					int chs = hl->csize;
+					float wtr = Cwidth(doc, hl->cfont, chx, chs);
+					tmp2 += "1 0 0 1 "+FToStr(wtr / tsz)+" 0 cm\n";
+					chx = "-";
+					chr = chx[0].unicode();
+					FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+					QWMatrix mat;
+					mat.scale(0.1, 0.1);
+					gly.map(mat);
+					bool nPath = true;
+					FPoint np;
+					if (gly.size() > 3)
+						{
+						for (uint poi=0; poi<gly.size()-3; poi += 4)
+							{
+							if (gly.point(poi).x() > 900000)
+								{
+								tmp2 += "h\n";
+								nPath = true;
+								continue;
+								}
+							if (nPath)
+								{
+								np = gly.point(poi);
+								tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
+								nPath = false;
+								}
+							np = gly.point(poi+1);
+							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+							np = gly.point(poi+3);
+							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+							np = gly.point(poi+2);
+							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
+							}
+						}
+					tmp2 += "f*\n";
+					}
 				tmp2 += "Q\n";
 				}
 			}
