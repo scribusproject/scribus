@@ -2137,6 +2137,21 @@ void StoryEditor::updateTextFrame()
 			doc->Trenner->slotNewDict(nb->Language);
 		doc->Trenner->slotHyphenate(nb);
 	}
+	bool rep = doc->RePos;
+	doc->RePos = true;
+	QPixmap pgPix(1, 1);
+	ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+	painter->translate(0.5, 0.5);
+	nb->DrawObj(painter, QRect(0, 0, 1, 1));
+	painter->end();
+	delete painter;
+	doc->RePos = rep;
+	nb2 = nb;
+	while (nb2 != 0)
+	{
+		nb2->Dirty = false;
+		nb2 = nb2->NextBox;
+	}
 	doc->ActPage->update();
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);

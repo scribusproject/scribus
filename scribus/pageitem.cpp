@@ -1495,6 +1495,8 @@ NoRoom: pf2.end();
 						}
 					}
 					p->save();
+					bool rep = Doc->RePos;
+					Doc->RePos = true;
 					NextBox->Dirty = false;
 					QPixmap pgPix(1, 1);
 					ScPainter *painter = new ScPainter(&pgPix, 1, 1);
@@ -1506,6 +1508,7 @@ NoRoom: pf2.end();
 					p->restore();
 					if (NextBox->OwnPage != OwnPage)
 						NextBox->OwnPage->update();
+					Doc->RePos = rep;
 				}
 				else
 				{
