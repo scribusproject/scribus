@@ -9034,201 +9034,257 @@ void Page::EmitValues(PageItem *b)
 																 b->Width * UmReFaktor, b->Height * UmReFaktor);
 }
 
+void Page::getBoundingRect(PageItem *b, double *x1, double *y1, double *x2, double *y2)
+{
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
+	if (b->Rot != 0)
+	{
+		FPointArray pb;
+		FPoint p1;
+		pb.resize(0);
+		pb.addPoint(FPoint(b->Xpos, b->Ypos));
+		p1 = transformPoint(FPoint(b->Width, 0.0), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
+		pb.addPoint(p1);
+		p1 = transformPoint(FPoint(b->Width, b->Height), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
+		pb.addPoint(p1);
+		p1 = transformPoint(FPoint(0.0, b->Height), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
+		pb.addPoint(p1);
+		for (uint pc = 0; pc < 4; ++pc)
+		{
+			minx = QMIN(minx, pb.point(pc).x());
+			miny = QMIN(miny, pb.point(pc).y());
+			maxx = QMAX(maxx, pb.point(pc).x());
+			maxy = QMAX(maxy, pb.point(pc).y());
+		}
+		*x1 = minx;
+		*y1 = miny;
+		*x2 = maxx;
+		*y2 = maxy;
+	}
+	else
+	{
+		*x1 = b->Xpos;
+		*y1 = b->Ypos;
+		*x2 = b->Xpos + b->Width;
+		*y2 = b->Ypos + b->Height;
+	}
+}
+
+void Page::BuildAObj()
+{
+	PageItem *b;
+	int ObjGroup;
+	struct AlignObjs Object;
+	AObjects.clear();
+	for (uint a = 0; a < SelItem.count(); ++a)
+	{
+		b = SelItem.at(a);
+		Object.Objects.clear();
+		getBoundingRect(b, &Object.x1, &Object.y1, &Object.x2, &Object.y2);
+		if (b->Groups.count() > 0)
+		{
+			ObjGroup = b->Groups.top();
+			bool found = false;
+			for (uint a2 = 0; a2 < AObjects.count(); ++a2)
+			{
+				if (AObjects[a2].Group == ObjGroup)
+				{
+					AObjects[a2].x1 = QMIN(AObjects[a2].x1, Object.x1);
+					AObjects[a2].y1 = QMIN(AObjects[a2].y1, Object.y1);
+					AObjects[a2].x2 = QMAX(AObjects[a2].x2, Object.x2);
+					AObjects[a2].y2 = QMAX(AObjects[a2].y2, Object.y2);
+					AObjects[a2].Objects.append(b);
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				Object.Group = ObjGroup;
+				Object.ObjNr = 0;
+				Object.Objects.append(b);
+				AObjects.append(Object);
+			}
+		}
+		else
+		{
+			Object.Group = 0;
+			Object.ObjNr = b->ItemNr;
+			Object.Objects.append(b);
+			AObjects.append(Object);
+		}
+	}
+}
+
 void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart)
 {
-	uint a;
-	double xp = 999999;
-	double yp = 999999;
-	double xm = 0;
-	double xd, xo;
-	QPtrList<double> ml;
-	QPainter p;
-	PageItem *b;
-	ml.setAutoDelete(true);
-	ml.clear();
+	double xd;
+	double xp = 99999.9;
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
+	QMap<double,uint> Xsorted;
+	QMap<double,uint> Ysorted;
+	BuildAObj();
+	for (uint a = 0; a < AObjects.count(); ++a)
+	{
+		Ysorted.insert(AObjects[a].y1, a, false);
+		Xsorted.insert(AObjects[a].x1, a, false);
+	}
+	QValueList<uint> Yindex = Ysorted.values();
+	QValueList<uint> Xindex = Xsorted.values();
 	if (xa)
 	{
 		if (Vth)
 		{
-			for (a=0; a<SelItem.count(); ++a)
+			if (AObjects.count() < 3)
+				return;
+			for (uint a = 0; a < AObjects.count(); ++a)
 			{
-				p.begin(this);
-				b = SelItem.at(a);
-				Transform(b, &p);
-				switch (xart)
+				minx = QMIN(AObjects[a].x1, minx);
+				maxx = QMAX(AObjects[a].x2, maxx);
+			}
+			xp = (maxx - minx) / (AObjects.count() - 1);
+			for (uint a2 = 1; a2 < Xindex.count()-1; ++a2)
+			{
+				xd = ((a2 * xp + minx) - ((AObjects[Xindex[a2]].x2 - AObjects[Xindex[a2]].x1) / 2.0)) - AObjects[Xindex[a2]].x1;
+				for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
 				{
-				case 0:
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()));
-					break;
-				case 1:
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()+
-					                     QRegion(p.xForm(b->Clip)).boundingRect().width() / 2));
-					break;
-				case 2:
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().right()));
-					break;
+					AObjects[Xindex[a2]].Objects.at(a3)->Xpos += xd;
 				}
-				p.end();
 			}
-			xp = 99999;
-			xm = 0;
-			for (a=0; a<SelItem.count(); ++a)
-			{
-				xp = QMIN(*ml.at(a), xp);
-				xm = QMAX(*ml.at(a), xm);
-			}
-			xd = (xm - xp) / (SelItem.count()-1);
-			for	(a=0; a<SelItem.count(); ++a)
-			{
-				xo = *ml.at(a);
-				MoveItem((xp + xd * a) - xo, 0, SelItem.at(a));
-			}
-			ml.clear();
 		}
 		else
 		{
 			switch (xart)
 			{
-			case 0:
-				for (a=0; a<SelItem.count(); ++a)
-				{
-					b = SelItem.at(a);
-					p.begin(this);
-					Transform(b, &p);
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()));
-					p.end();
-				}
-				xp = 99999;
-				for (a=0; a<SelItem.count(); ++a)
-					xp = QMIN(*ml.at(a), xp);
-				for	(a=0; a<SelItem.count(); ++a)
-					MoveItem(xp - *ml.at(a) + a*xdisp, 0, SelItem.at(a));
-				ml.clear();
-				break;
-			case 1:
-				for (a=0; a<SelItem.count(); ++a)
-				{
-					b = SelItem.at(a);
-					p.begin(this);
-					Transform(b, &p);
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()+
-					                     QRegion(p.xForm(b->Clip)).boundingRect().width() / 2));
-					p.end();
-				}
-				xp = *ml.at(0);
-				for	(a=0; a<SelItem.count(); ++a)
-					MoveItem(xp - *ml.at(a) + a*xdisp, 0, SelItem.at(a));
-				ml.clear();
-				break;
-			case 2:
-				xp = 0;
-				for (a=0; a<SelItem.count(); ++a)
-				{
-					b = SelItem.at(a);
-					p.begin(this);
-					Transform(b, &p);
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().right()));
-					p.end();
-				}
-				for (a=0; a<SelItem.count(); ++a)
-					xp = QMAX(*ml.at(a), xp);
-				for	(a=0; a<SelItem.count(); ++a)
-					MoveItem(xp - *ml.at(a) + a*xdisp, 0, SelItem.at(a));
-				ml.clear();
-				break;
+				case 0:
+					for (uint a = 0; a < AObjects.count(); ++a)
+					{
+						xp = QMIN(AObjects[a].x1, xp);
+					}
+					for (uint a2 = 0; a2 < Yindex.count(); ++a2)
+					{
+						xd = (xp - AObjects[Yindex[a2]].x1) + a2*xdisp;
+						for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
+						{
+							AObjects[Yindex[a2]].Objects.at(a3)->Xpos += xd;
+						}
+					}
+					break;
+				case 1:
+					for (uint a = 0; a < AObjects.count(); ++a)
+					{
+						minx = QMIN(AObjects[a].x1, minx);
+						maxx = QMAX(AObjects[a].x2, maxx);
+					}
+					xp = minx + (maxx - minx) / 2.0;
+					for (uint a2 = 0; a2 < Yindex.count(); ++a2)
+					{
+						xd = (xp - (AObjects[Yindex[a2]].x1 + (AObjects[Yindex[a2]].x2 - AObjects[Yindex[a2]].x1) / 2.0)) + a2*xdisp;
+						for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
+						{
+							AObjects[Yindex[a2]].Objects.at(a3)->Xpos += xd;
+						}
+					}
+					break;
+				case 2:
+					xp = 0;
+					for (uint a = 0; a < AObjects.count(); ++a)
+					{
+						xp = QMAX(AObjects[a].x2, xp);
+					}
+					for (uint a2 = 0; a2 < Yindex.count(); ++a2)
+					{
+						xd = (xp - AObjects[Yindex[a2]].x2) + a2*xdisp;
+						for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
+						{
+							AObjects[Yindex[a2]].Objects.at(a3)->Xpos += xd;
+						}
+					}
+					break;
 			}
 		}
 	}
+	xp = 99999.9;
+	minx = 99999.9;
+	miny = 99999.9;
+	maxx = -99999.9;
+	maxy = -99999.9;
 	if (ya)
 	{
 		if (Vtv)
 		{
-			for (a=0; a<SelItem.count(); ++a)
+			if (AObjects.count() < 3)
+				return;
+			for (uint a = 0; a < AObjects.count(); ++a)
 			{
-				p.begin(this);
-				b = SelItem.at(a);
-				Transform(b, &p);
-				switch (yart)
+				minx = QMIN(AObjects[a].y1, minx);
+				maxx = QMAX(AObjects[a].y2, maxx);
+			}
+			xp = (maxx - minx) / (AObjects.count() - 1);
+			for (uint a2 = 1; a2 < Yindex.count()-1; ++a2)
+			{
+				xd = ((a2 * xp + minx) - ((AObjects[Yindex[a2]].y2 - AObjects[Yindex[a2]].y1) / 2.0)) - AObjects[Yindex[a2]].y1;
+				for (uint a3 = 0; a3 < AObjects[Yindex[a2]].Objects.count(); ++a3)
 				{
-				case 0:
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()));
-					break;
-				case 1:
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()+
-					                     QRegion(p.xForm(b->Clip)).boundingRect().height() / 2));
-					break;
-				case 2:
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().bottom()));
-					break;
+					AObjects[Yindex[a2]].Objects.at(a3)->Ypos += xd;
 				}
-				p.end();
 			}
-			xp = 99999;
-			xm = 0;
-			for (a=0; a<SelItem.count(); ++a)
-			{
-				xp = QMIN(*ml.at(a), xp);
-				xm = QMAX(*ml.at(a), xm);
-			}
-			xd = (xm - xp) / (SelItem.count()-1);
-			for	(a=0; a<SelItem.count(); ++a)
-			{
-				xo = *ml.at(a);
-				MoveItem(0, (xp + xd * a) - xo, SelItem.at(a));
-			}
-			ml.clear();
 		}
 		else
 		{
 			switch (yart)
 			{
-			case 0:
-				for (a=0; a<SelItem.count(); ++a)
-				{
-					b = SelItem.at(a);
-					p.begin(this);
-					Transform(b, &p);
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()));
-					p.end();
-				}
-				yp = 99999;
-				for (a=0; a<SelItem.count(); ++a)
-					yp = QMIN(*ml.at(a), yp);
-				for	(a=0; a<SelItem.count(); ++a)
-					MoveItem(0, yp - *ml.at(a) + a*ydisp, SelItem.at(a));
-				ml.clear();
-				break;
-			case 1:
-				for (a=0; a<SelItem.count(); ++a)
-				{
-					b = SelItem.at(a);
-					p.begin(this);
-					Transform(b, &p);
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()+
-					                     QRegion(p.xForm(b->Clip)).boundingRect().height() / 2));
-					p.end();
-				}
-				xp = *ml.at(0);
-				for	(a=0; a<SelItem.count(); ++a)
-					MoveItem(0, xp - *ml.at(a) + a*ydisp, SelItem.at(a));
-				ml.clear();
-				break;
-			case 2:
-				yp = 0;
-				for (a=0; a<SelItem.count(); ++a)
-				{
-					b = SelItem.at(a);
-					p.begin(this);
-					Transform(b, &p);
-					ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().bottom()));
-					p.end();
-				}
-				for (a=0; a<SelItem.count(); ++a)
-					yp = QMAX(*ml.at(a), yp);
-				for	(a=0; a<SelItem.count(); ++a)
-					MoveItem(0, yp - *ml.at(a) + a*ydisp, SelItem.at(a));
-				ml.clear();
-				break;
+				case 0:
+					for (uint a = 0; a < AObjects.count(); ++a)
+					{
+						xp = QMIN(AObjects[a].y1, xp);
+					}
+					for (uint a2 = 0; a2 < Xindex.count(); ++a2)
+					{
+						xd = (xp - AObjects[Xindex[a2]].y1) + a2*ydisp;
+						for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
+						{
+							AObjects[Xindex[a2]].Objects.at(a3)->Ypos += xd;
+						}
+					}
+					break;
+				case 1:
+					for (uint a = 0; a < AObjects.count(); ++a)
+					{
+						miny = QMIN(AObjects[a].y1, miny);
+						maxy = QMAX(AObjects[a].y2, maxy);
+					}
+					xp = miny + (maxy - miny) / 2.0;
+					for (uint a2 = 0; a2 < Xindex.count(); ++a2)
+					{
+						xd = (xp - (AObjects[Xindex[a2]].y1 + (AObjects[Xindex[a2]].y2 - AObjects[Xindex[a2]].y1) / 2.0)) + a2*ydisp;
+						for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
+						{
+							AObjects[Xindex[a2]].Objects.at(a3)->Ypos += xd;
+						}
+					}
+					break;
+				case 2:
+					xp = 0;
+					for (uint a = 0; a < AObjects.count(); ++a)
+					{
+						xp = QMAX(AObjects[a].y2, xp);
+					}
+					for (uint a2 = 0; a2 < Xindex.count(); ++a2)
+					{
+						xd = (xp - AObjects[Xindex[a2]].y2) + a2*ydisp;
+						for (uint a3 = 0; a3 < AObjects[Xindex[a2]].Objects.count(); ++a3)
+						{
+							AObjects[Xindex[a2]].Objects.at(a3)->Ypos += xd;
+						}
+					}
+					break;
 			}
 		}
 	}

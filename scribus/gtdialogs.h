@@ -34,18 +34,19 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qtextcodec.h>
+#include <qtoolbutton.h>
 #include <qtooltip.h>
 
 class gtFileDialog : public QFileDialog
 {
 	Q_OBJECT
-
 private:
 	QDir dir;
 	QFrame* importerFrame;
 	QFrame* encodingFrame;
 	QHBoxLayout* importerLayout;
 	QHBoxLayout* encodingLayout;
+	QToolButton* HomeB;
 	void createWidgets(const QStringList& importers);
 public:
 	gtFileDialog(const QString& filters, const QStringList& importers);
@@ -53,9 +54,11 @@ public:
 	QCheckBox* textOnlyCheckBox;
 	QComboBox* importerCombo;
 	QComboBox* encodingCombo;
+private slots:
+	void slotHome();
 };
 
-class gtDialogs 
+class gtDialogs
 {
 private:
 	gtFileDialog* fdia;

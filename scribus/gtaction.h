@@ -22,8 +22,10 @@
 #define GTACTION_H
 
 #include <qtextcodec.h>
+#include <qvaluelist.h>
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "missing.h"
 #include "mpalette.h"
 #include "gtfont.h"
 #include "gtframestyle.h"
@@ -41,6 +43,7 @@ private:
 	int findParagraphStyle(gtParagraphStyle* pstyle);
 	int applyParagraphStyle(gtParagraphStyle* pstyle);
 	void applyFrameStyle(gtFrameStyle* fstyle);
+	QString validateFont(gtFont* font);
 	void finalize();
 public:
 	gtAction(bool append);
@@ -54,7 +57,8 @@ public:
 	void getFrameStyle(gtFrameStyle *fstyle);
 	void write(QString text, gtStyle *style);
 	void createParagraphStyle(gtParagraphStyle* pstyle);
-	bool validateFont(gtFont* font);
+	double getFrameWidth();
+	QString getFrameName();
 };
 
 #endif

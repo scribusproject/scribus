@@ -47,7 +47,6 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc)
 	TextLabelD->setEnabled(false);
 	ButtonGroup1Layout->addWidget( TextLabelD, 3, 1);
 	AHor = new MSpinBox( -1000, 1000, ButtonGroup1, 2 );
-	AHor->setEnabled( true );
 	AHor->setMinimumSize( QSize( 80, 20 ) );
 	AHor->setValue( 0 );
 	AHor->setEnabled(false);
@@ -56,8 +55,6 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc)
 	VerteilenH = new QRadioButton( tr( "Distribute &Evenly" ), ButtonGroup1, "VerteilenH" );
 	if (Anzahl < 3)
 		VerteilenH->setEnabled(false);
-	else
-		VerteilenH->setEnabled( true );
 	ButtonGroup1Layout->addMultiCellWidget( VerteilenH, 4, 4, 0, 2 );
 	Layout4->addWidget( ButtonGroup1 );
 
@@ -89,7 +86,6 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc)
 	TextLabelD2->setEnabled(false);
 	ButtonGroup1_2Layout->addWidget( TextLabelD2, 3, 1 );
 	AVert = new MSpinBox( -1000, 1000, ButtonGroup1_2, 2 );
-	AVert->setEnabled( true );
 	AVert->setMinimumSize( QSize( 80, 20 ) );
 	AVert->setValue( 0 );
 	AVert->setEnabled(false);

@@ -39,11 +39,13 @@ public:
 	void setFrameStyle(gtFrameStyle *fStyle);
 	void setParagraphStyle(gtParagraphStyle *pStyle);
 	void setCharacterStyle(gtStyle *cStyle);
-	void unSetFrameStyle();
-	void unSetParagraphStyle();
-	void unSetCharacterStyle();
+	void unsetFrameStyle();
+	void unsetParagraphStyle();
+	void unsetCharacterStyle();
 	void append(QString text); // Use the styles set beforehand
 	void append(QString text, gtStyle *style); // Use the style provided as a parameter
+	double getFrameWidth();
+	QString getFrameName();
 private:
 	gtAction *action;
 	gtFrameStyle* defaultStyle;

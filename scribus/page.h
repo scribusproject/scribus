@@ -130,6 +130,17 @@ public:
 	void ExpandSel(PageItem *b, int dir, int oldPos);
 	void deselectAll(PageItem *b);
 	void updateGradientVectors(PageItem *b);
+	void getBoundingRect(PageItem *b, double *x1, double *y1, double *x2, double *y2);
+	void BuildAObj();
+	struct AlignObjs {  int ObjNr;
+								int Group;
+								double x1;
+								double y1;
+								double x2;
+								double y2;
+								QPtrList<PageItem> Objects;
+							};
+	QValueList<AlignObjs> AObjects;
 	QRegion ViewReg();
   /** Liste der Elemente */
 	QPtrList<PageItem> Items;

@@ -53,8 +53,9 @@ private:
 	std::vector<ImporterData> importers;
 	QMap<QString, ImporterData*> importerMap; // map ImporterDatas to file endings for easy launc for desired plugin
 	void loadImporterPlugins();
-	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding);
-	void CallDLL(const ImporterData& idata, const QString& filePath, const QString& encoding, bool textOnly);
+	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append);
+	void CallDLL(const ImporterData& idata, const QString& filePath,
+	             const QString& encoding, bool textOnly, bool append);
 	bool DLLName(QString name, QString *PName, QStringList *fileEndings, void **Zeig);
 	void createMap();
 	gtDialogs* dias;
@@ -62,7 +63,7 @@ private:
 public:
 	gtGetText();
 	~gtGetText();
-	void run();
+	void run(bool append);
 };
 
 #endif

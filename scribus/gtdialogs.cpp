@@ -21,10 +21,13 @@
 #include "gtdialogs.h"
 #include "gtdialogs.moc"
 
+extern QPixmap loadIcon(QString nam);
+extern QString DocDir;
+
 /********* Class gtFileDialog ************************************************************************/
 
-gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers) :
-                                 QFileDialog(QString::null, filters, 0, 0, true)
+gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers) : 
+               QFileDialog(QString::null, filters, 0, 0, true)
 {
 // 	setIcon(loadIcon("AppIcon.png"));
 	setCaption("Open");
@@ -51,6 +54,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	textOnlyCheckBox = new QCheckBox(importerFrame, "textOnlyCB");
 	textOnlyCheckBox->setText(tr("Get text only"));
 	QToolTip::add(textOnlyCheckBox, tr("Import text without any formatting"));
+// 	                                   "\nNotice that not all importers provide this feature."));
 	importerLayout->addWidget(textOnlyCheckBox);
 
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -93,6 +97,17 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	encodingLayout->addItem( spacer2 );
 	addWidgets(new QLabel(tr("Encoding:"), this), encodingFrame, 0);
+
+	HomeB = new QToolButton(this);
+	HomeB->setIconSet(loadIcon("gohome.png"));
+// 	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
+	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
+	addToolButton(HomeB);
+}
+
+void gtFileDialog::slotHome()
+{
+	setDir(QDir(DocDir));
 }
 
 gtFileDialog::~gtFileDialog()

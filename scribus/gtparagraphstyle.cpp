@@ -132,14 +132,10 @@ QValueList<double>* gtParagraphStyle::getTabValues()
 	return &tabValues;
 }
 
-void gtParagraphStyle::setTabValue(double newTabValue)
+void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
 {
+	tabValues.append(static_cast<double>(ttype));
 	tabValues.append(newTabValue);
-}
-
-void   gtParagraphStyle::removeTabValue(double valueToRemove)
-{
-	// @todo Implement this method
 }
 
 bool gtParagraphStyle::hasDropCap()

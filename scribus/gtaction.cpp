@@ -28,19 +28,23 @@ gtAction::gtAction(bool append)
 	it = textFrame;
 	lastParagraphStyle = -1;
 	lastCharWasLineChange = false;
-	if (it->NextBox != 0)
+	currentFrameStyle = "";
+	if (!append)
 	{
-		PageItem *nb = it->NextBox;
-		while (nb != 0)
+		if (it->NextBox != 0)
 		{
-			nb->Ptext.clear();
-			nb->CPos = 0;
-			nb->Dirty = true;
-			nb = nb->NextBox;
+			PageItem *nb = it->NextBox;
+			while (nb != 0)
+			{
+				nb->Ptext.clear();
+				nb->CPos = 0;
+				nb->Dirty = true;
+				nb = nb->NextBox;
+			}
 		}
+		it->Ptext.clear();
+		it->CPos = 0;
 	}
-	it->Ptext.clear();
-	it->CPos = 0;
 }
 
 void gtAction::setProgressInfo()
@@ -82,7 +86,7 @@ void gtAction::write(QString text, gtStyle *style)
 		applyFrameStyle(fstyle);
 	}
 	gtFont* font = style->getFont();
-	validateFont(font);
+	QString fontName = validateFont(font);
 	for (uint a = 0; a < text.length(); ++a)
 	{
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
@@ -91,7 +95,7 @@ void gtAction::write(QString text, gtStyle *style)
 		hg->ch = text.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		hg->cfont = font->getName();
+		hg->cfont = fontName;
 		hg->csize = font->getSize();
 		hg->ccolor = font->getColor();
 		hg->cshade = font->getShade();
@@ -147,23 +151,26 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 
 void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 {
-	if (fstyle->getName() != currentFrameStyle)
-	{
-		// @todo Set the default options for the text frame
-		gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
-		int pstyleIndex = findParagraphStyle(pstyle);
-		if (pstyleIndex == -1)
-			pstyleIndex = 0;
-		textFrame->Doc->CurrentABStil = pstyleIndex;
-		gtFont* font = fstyle->getFont();
-		textFrame->IFont = font->getName();
-		textFrame->ISize = font->getSize();
-		textFrame->TxtFill = font->getColor();
-		textFrame->ShTxtFill = font->getShade();
-		textFrame->TxtStroke = font->getStrokeColor();
-		textFrame->ShTxtStroke = font->getStrokeShade();
-		textFrame->TxtScale = font->getHscale();
-	}
+	textFrame->Cols = fstyle->getColumns();
+	textFrame->ColGap = fstyle->getColumnsGap();
+	textFrame->Pcolor = fstyle->getBgColor();
+	textFrame->Shade = fstyle->getBgShade();
+	
+	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
+	int pstyleIndex = findParagraphStyle(pstyle);
+	if (pstyleIndex == -1)
+		pstyleIndex = 0;
+	textFrame->Doc->CurrentABStil = pstyleIndex;
+
+	gtFont* font = fstyle->getFont();
+	QString fontName = validateFont(font);
+	textFrame->IFont = fontName;
+	textFrame->ISize = font->getSize();
+	textFrame->TxtFill = font->getColor();
+	textFrame->ShTxtFill = font->getShade();
+	textFrame->TxtStroke = font->getStrokeColor();
+	textFrame->ShTxtStroke = font->getStrokeShade();
+	textFrame->TxtScale = font->getHscale();
 }
 
 void gtAction::getFrameFont(gtFont *font)
@@ -224,6 +231,12 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.Font = font->getName();
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
+	QValueList<double> *tabs = pstyle->getTabValues();
+	for (uint i = 0; i < tabs->size(); ++i)
+	{
+		double tmp = (*tabs)[i];
+		vg.TabValues.append(tmp);
+	}
 	vg.Drop = pstyle->hasDropCap();
 	vg.DropLin = pstyle->getDropCapHeight();
 	vg.FontEffect = font->getEffectsValue();
@@ -236,19 +249,38 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	ScApp->Mpal->Spal->updateFList();
 }
 
-bool gtAction::validateFont(gtFont* font)
+QString gtAction::validateFont(gtFont* font)
 {
-	if (ScApp->Prefs.AvailFonts[font->getName()] == 0)
+	QString useFont = font->getName();
+	if ((useFont == NULL) || (useFont == ""))
+		useFont = textFrame->IFont;
+	else if (ScApp->Prefs.AvailFonts[font->getName()] == 0)
 	{
-		// @todo show the subst dialog and add font
+		if (!ScApp->Prefs.GFontSub.contains(font->getName()))
+		{
+			DmF *dia = new DmF(0, useFont, &ScApp->Prefs);
+			dia->exec();
+			useFont = dia->Ersatz;
+			delete dia;
+			ScApp->Prefs.GFontSub[font->getName()] = useFont;
+		}
+		else
+			useFont = ScApp->Prefs.GFontSub[font->getName()];
 	}
-	else
-	{
-		ScApp->SetNewFont(font->getName());
-	}
-	if(!ScApp->doc->UsedFonts.contains(font->getName()))
-		ScApp->doc->AddFont(font->getName(), ScApp->Prefs.AvailFonts[font->getName()]->Font);
-	return false;
+	if(!ScApp->doc->UsedFonts.contains(useFont))
+		ScApp->doc->AddFont(useFont, ScApp->Prefs.AvailFonts[useFont]->Font);
+
+	return useFont;
+}
+
+double gtAction::getFrameWidth()
+{
+	return textFrame->Width;
+}
+
+QString gtAction::getFrameName()
+{
+	return QString(textFrame->AnName);
 }
 
 void gtAction::finalize()

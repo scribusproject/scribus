@@ -27,7 +27,8 @@ gtGetText::gtGetText()
 	loadImporterPlugins();
 }
 
-void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding)
+void gtGetText::launchImporter(int importer, const QString& filename,
+                               bool textOnly, const QString& encoding, bool append)
 {
 	struct ImporterData ida;
 	bool callImporter = true;
@@ -49,7 +50,7 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 	}
 
 	if (callImporter)
-		CallDLL(ida, filename, encoding, textOnly);
+		CallDLL(ida, filename, encoding, textOnly, append);
 }
 
 void gtGetText::loadImporterPlugins()
@@ -81,20 +82,23 @@ void gtGetText::loadImporterPlugins()
 	createMap();
 }
 
-void gtGetText::run()
+void gtGetText::run(bool append)
 {
 	QString filters = "";
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
 	for (uint i = 0; i < importers.size(); ++i)
 	{
-		filters += importers[i].fileFormatName + " (";
-		for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+		if (importers[i].fileEndings.count() != 0)
 		{
-			filters += "*." + importers[i].fileEndings[j] + " ";
-			allSupported += "*." + importers[i].fileEndings[j] + " ";
+			filters += importers[i].fileFormatName + " (";
+			for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+			{
+				filters += "*." + importers[i].fileEndings[j] + " ";
+				allSupported += "*." + importers[i].fileEndings[j] + " ";
+			}
+			filters = filters.stripWhiteSpace();
+			filters += ");;";
 		}
-		filters = filters.stripWhiteSpace();
-		filters += ");;";
 	}
 	allSupported = allSupported.stripWhiteSpace();
 	allSupported += ");;";
@@ -105,12 +109,14 @@ void gtGetText::run()
 	dias = new gtDialogs();
 	if (dias->runFileDialog(filters, ilist))
 	{
-		launchImporter(dias->getImporter(), dias->getFileName(), dias->importTextOnly(), dias->getEncoding());
+		launchImporter(dias->getImporter(), dias->getFileName(),
+		               dias->importTextOnly(), dias->getEncoding(), append);
 	}
 	delete dias;
 }
 
-void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath, const QString& encoding, bool textOnly)
+void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
+                        const QString& encoding, bool textOnly, bool append)
 {
 	void *mo;
 	const char *error;
@@ -130,7 +136,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath, cons
 		dlclose(mo);
 		return;
 	}
-	gtWriter *w = new gtWriter(false); // @todo fix the bool (append)
+	gtWriter *w = new gtWriter(append);
 	(*demo)(filePath, encoding, textOnly, w);
 	delete w;
 	dlclose(mo);
@@ -182,7 +188,7 @@ void gtGetText::createMap()
 	for (uint i = 0; i < importers.size(); ++i)
 	{
 		for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
-			importerMap.insert(importers[i].fileEndings[j], &importers[i]);
+				importerMap.insert(importers[i].fileEndings[j], &importers[i]);
 	}
 }
 

@@ -33,6 +33,14 @@ enum Alignment {
 	AlignmentMAX
 };
 
+enum TabType {
+	LEFT_T,
+	RIGHT_T,
+	FULL_STOP_T,
+	COMMA_T,
+	CENTER_T
+};
+
 class gtParagraphStyle : public gtStyle
 {
 private:
@@ -63,8 +71,7 @@ public:
 	double getSpaceBelow();
 	void   setSpaceBelow(double newSpaceBelow);
 	QValueList<double>* getTabValues();
-	void   setTabValue(double newTabValue);
-	void   removeTabValue(double valueToRemove);
+	void   setTabValue(double newTabValue, TabType ttype = LEFT_T);
 	bool   hasDropCap();
 	void   setDropCap(bool newDropCap);
 	void   setDropCap(int newHeight);

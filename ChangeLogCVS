@@ -1,5 +1,9 @@
 Changes since Version 1.1.7
 
+13.08.2004
+	* bug     #263: distribute items shuffles the order of the items
+	* feature #966: Scribus 1.2 Slovene translation file
+
 11.08.2004
 	* bug     #957: Scribus crashes when adding new paragraph style while text is selected
 	* bug     #962: Scribus crashes when opening a document not in .sla format

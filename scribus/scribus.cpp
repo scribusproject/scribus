@@ -3523,7 +3523,7 @@ void ScribusApp::slotFileOpen()
 		if (b->PType == 4)
 		{
 //			gtGetText* gt = new gtGetText();
-//			gt->run();
+//			gt->run(false);
 //			delete gt;
  			LoadEnc = "";
  			QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
@@ -6399,12 +6399,10 @@ void ScribusApp::ObjektAlign()
 	double xdp, ydp;
 	bool xa, ya, Vth, Vtv;
 	int xart, yart, ein;
-	if (HaveDoc)
-		ein = doc->Einheit;
-	else
-		ein = Prefs.Einheit;
+	ein = doc->Einheit;
 	NoFrameEdit();
-	Align *dia = new Align(this, doc->ActPage->SelItem.count(), ein, doc);
+	doc->ActPage->BuildAObj();
+	Align *dia = new Align(this, doc->ActPage->AObjects.count(), ein, doc);
 	connect(dia, SIGNAL(ApplyDist(bool, bool, bool, bool, double, double, int, int)),
 	        this, SLOT(DoAlign(bool, bool, bool, bool, double, double, int, int)));
 	if (dia->exec())
@@ -6421,6 +6419,7 @@ void ScribusApp::ObjektAlign()
 		slotDocCh();
 		doc->UnDoValid = false;
 		CanUndo();
+		HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
 	}
 	delete dia;
 }

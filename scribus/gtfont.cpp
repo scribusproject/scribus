@@ -155,6 +155,9 @@ int gtFont::getEffectsValue()
 void gtFont::setName(QString newName)
 {
 	name = newName;
+	setWeight(NO_WEIGHT);
+	setSlant(NO_SLANT);
+	setWidth(NO_WIDTH);
 	parseName();
 }
 

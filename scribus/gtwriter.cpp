@@ -26,9 +26,12 @@ gtWriter::gtWriter(bool append)
 	errorSet = false;
 	action->setProgressInfo();
 	setDefaultStyle();
-	unSetCharacterStyle();
-	unSetParagraphStyle();
-	action->clearFrame();
+	unsetCharacterStyle();
+	unsetParagraphStyle();
+	if (!append)
+		action->clearFrame();
+	else
+		this->append("\n");
 }
 
 gtFrameStyle* gtWriter::getDefaultStyle()
@@ -38,7 +41,6 @@ gtFrameStyle* gtWriter::getDefaultStyle()
 
 void gtWriter::setFrameStyle(gtFrameStyle *fStyle)
 {
-	// @todo Update attributes of the text frame
 	frameStyle = fStyle;
 }
 
@@ -53,17 +55,17 @@ void gtWriter::setCharacterStyle(gtStyle *cStyle)
 	characterStyle = cStyle;
 }
 
-void gtWriter::unSetFrameStyle()
+void gtWriter::unsetFrameStyle()
 {
 	frameStyle = defaultStyle;
 }
 
-void gtWriter::unSetParagraphStyle()
+void gtWriter::unsetParagraphStyle()
 {
 	paragraphStyle = NULL;
 }
 
-void gtWriter::unSetCharacterStyle()
+void gtWriter::unsetCharacterStyle()
 {
 	characterStyle = NULL;
 }
@@ -86,6 +88,16 @@ void gtWriter::append(QString text)
 	{
 		action->write(text, frameStyle);
 	}
+}
+
+double gtWriter::getFrameWidth()
+{
+	return action->getFrameWidth();
+}
+
+QString gtWriter::getFrameName()
+{
+	return action->getFrameName();
 }
 
 void gtWriter::append(QString text, gtStyle *style)
@@ -111,7 +123,6 @@ void gtWriter::setDefaultStyle()
 
 gtWriter::~gtWriter()
 {
-// 	action->flush();
 	if (!errorSet)
 		action->setProgressInfoDone();
 	delete action;
