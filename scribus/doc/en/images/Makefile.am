@@ -6,27 +6,27 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/docheader2.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/fontpref3.png
+	$(INSTALL_DATA) $(srcdir)/fontpref3.png $(prefix)/share/scribus/doc/en/images/fontpref3.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/fontpref2.png 
+	$(INSTALL_DATA) $(srcdir)/fontpref2.png  $(prefix)/share/scribus/doc/en/images/fontpref2.png 
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/fontpref3.png
+	$(INSTALL_DATA) $(srcdir)/fontpref3.png $(prefix)/share/scribus/doc/en/images/fontpref3.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/hyphen1.png
+	$(INSTALL_DATA) $(srcdir)/hyphen1.png $(prefix)/share/scribus/doc/en/images/hyphen1.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/hyphen2.png
+	$(INSTALL_DATA) $(srcdir)/hyphen2.png $(prefix)/share/scribus/doc/en/images/hyphen2.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/hyphen3.png
+	$(INSTALL_DATA) $(srcdir)/hyphen3.png $(prefix)/share/scribus/doc/en/images/hyphen3.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/pdfxcolor.png
+	$(INSTALL_DATA) $(srcdir)/pdfxcolor.png $(prefix)/share/scribus/doc/en/images/pdfxcolor.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/pdfxintent.png
+	$(INSTALL_DATA) $(srcdir)/pdfxintent.png $(prefix)/share/scribus/doc/en/images/pdfxintent.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/pstoedit1.png
+	$(INSTALL_DATA) $(srcdir)/pstoedit1.png $(prefix)/share/scribus/doc/en/images/pstoedit1.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/pdfx3-1.png 
+	$(INSTALL_DATA) $(srcdir)/pdfx3-1.png  $(prefix)/share/scribus/doc/en/images/pdfx3-1.png 
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/svg1.png
+	$(INSTALL_DATA) $(srcdir)/svg1.png $(prefix)/share/scribus/doc/en/images/svg1.png
 	
 	
 	
