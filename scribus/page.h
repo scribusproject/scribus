@@ -333,6 +333,7 @@ signals: // Signals
 	void AddObj(uint, uint);
 	void DoGroup();
 	void DoUnGroup();
+	void LevelChanged(uint);
 };
 
 #endif

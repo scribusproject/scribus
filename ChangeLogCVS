@@ -1,5 +1,14 @@
 Changes since Version 1.1.6
 
+02.05.2004
+	* bug     #471: guideline symbols are reversed
+	* bug     #571: Seems impossible to actually apply any kind of tab immediately after a right tab
+	* bug     #572: Layers palette still shows a "Background" layer after the last document is closed
+	* bug     #573: View menu should be greyed out if no document is open
+	* feature #552: Tabs could be shown in the ruler
+	* feature #560: layer and level should be displayed in properties and/or status line
+	* feature #574: Windows menu item should be greyed out if no documents are open
+
 01.05.2004
 	* bug     #396: PDF Export: text field at wrong position
 	* bug     #554: table context menu - layer is missing

@@ -42,6 +42,18 @@ public:
 	int Markp;
 	bool repX;
 	bool Mpressed;
+	QValueList<double> TabValues;
+	double ItemPos;
+	double ItemEndPos;
+	int Cols;
+	double ColGap;
+	double RExtra;
+	double Extra;
+	double lineCorr;
+	double Indent;
+	double First;
+	bool Revers;
+	bool ItemPosValid;
 
 private: // Private attributes
   /** Zeichensatz des Lineals */

@@ -23,6 +23,12 @@
 #include <qrect.h>
 #include <qpointarray.h>
 
+#if QT_VERSION  > 0x030102
+	#define SPLITHC SplitVCursor
+#else
+	#define SPLITHC SplitHCursor
+#endif
+
 Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
@@ -31,12 +37,13 @@ Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 	Markp = 0;
 	repX = false;
 	Mpressed = false;
+	ItemPosValid = false;
 }
 
 void Hruler::mousePressEvent(QMouseEvent *)
 {
 	Mpressed = true;
-	qApp->setOverrideCursor(QCursor(SplitHCursor), true);
+	qApp->setOverrideCursor(QCursor(SPLITHC), true);
 }
 
 void Hruler::mouseReleaseEvent(QMouseEvent *m)
@@ -132,6 +139,7 @@ void Hruler::paintEvent(QPaintEvent *)
 		pc = 1;
 	for (xx = 0; xx < pc; ++xx)
 	{
+		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
 		of = xx * (doku->PageB+30.0);
 		for (xl = 0; xl < doku->PageB; xl += iter)
 			p.drawLine(qRound((xl+of)*sc), 18, qRound((xl+of)*sc), 24);
@@ -162,6 +170,165 @@ void Hruler::paintEvent(QPaintEvent *)
 				default:
 					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter * 10 / cor));
 					break;
+			}
+		}
+		if (((xx == 0) && (doku->ActPage->PageNr % 2 == 0) && (doku->FirstPageLeft))
+		    || ((xx == 1) && (doku->ActPage->PageNr % 2 != 0) && (doku->FirstPageLeft))
+		    || ((xx == 0) && (doku->ActPage->PageNr % 2 != 0) && (!doku->FirstPageLeft))
+		    || ((xx == 1) && (doku->ActPage->PageNr % 2 == 0) && (!doku->FirstPageLeft))
+			|| (pc == 1))
+		{
+			if (ItemPosValid)
+			{
+				p.eraseRect(QRect(QPoint(qRound((ItemPos+Extra+of)*sc), 10), QPoint(qRound((ItemEndPos-RExtra+of)*sc), 23)));
+				p.drawLine(qRound((ItemPos+Extra+of)*sc), 24, qRound((ItemEndPos-RExtra+of)*sc), 24);
+				p.save();
+				if (Revers)
+				{
+					p.translate(qRound((ItemPos+of)*sc), 0);
+					p.scale(-1, 1);
+					p.translate(qRound((ItemPos+Extra+of)*sc-(ItemEndPos-RExtra+of)*sc), 0);
+					p.translate(-qRound((ItemPos+of)*sc), 0);
+				}
+				double Pos = ItemPos;
+				double EndPos = ItemEndPos;
+				for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
+				{
+					double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+					Pos = ItemPos + (ColWidth + ColGap) * CurrCol+Extra + lineCorr;
+					EndPos = Pos+ColWidth;
+					p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+					for (xl = Pos; xl < EndPos; xl += iter)
+						p.drawLine(qRound((xl+of)*sc), 18, qRound((xl+of)*sc), 24);
+					for (xl = Pos; xl < EndPos; xl += iter2)
+					{
+						p.drawLine(qRound((xl+of)*sc), 11, qRound((xl+of)*sc), 24);
+						switch (doku->Einheit)
+						{
+							case 2:
+							{
+								QString tx = "";
+								int num1 = static_cast<int>((xl-Pos) / iter2 / cor);
+								if (num1 != 0)
+									tx = QString::number(num1);
+								double frac = (xl / iter2 / cor) - num1;
+								if ((frac > 0.24) && (frac < 0.26))
+									tx += QChar(0xBC);
+								if ((frac > 0.49) && (frac < 0.51))
+									tx += QChar(0xBD);
+								if ((frac > 0.74) && (frac < 0.76))
+									tx += QChar(0xBE);
+								if (Revers)
+								{
+									p.save();
+									p.translate(qRound((xl+of-2/sc) * sc),0);
+									p.scale(-1,1);
+									p.drawText(0, 17, tx);
+									p.restore();
+								}
+								else
+									p.drawText(qRound((xl+of+2/sc) * sc), 17, tx);
+								break;
+							}
+							case 3:
+								if (Revers)
+								{
+									p.save();
+									p.translate(qRound((xl+of-2/sc) * sc),0);
+									p.scale(-1,1);
+									p.drawText(0, 17, QString::number((xl-Pos) / iter / cor));
+									p.restore();
+								}
+								else
+									p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number((xl-Pos) / iter / cor));
+								break;
+							default:
+								if (Revers)
+								{
+									p.save();
+									p.translate(qRound((xl+of-2/sc) * sc),0);
+									p.scale(-1,1);
+									p.drawText(0, 17, QString::number((xl-Pos) / iter * 10 / cor));
+									p.restore();
+								}
+								else
+									p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number((xl-Pos) / iter * 10 / cor));
+								break;
+						}
+					}
+					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
+					p.drawLine(qRound((Pos+of)*sc), 11, qRound((Pos+of)*sc), 23);
+					p.drawLine(qRound((Pos+of)*sc), 23, qRound((Pos+of+4/sc)*sc), 23);
+					p.drawLine(qRound((Pos+of)*sc), 11, qRound((Pos+of+4/sc)*sc), 11);
+					double fpos = Pos+First+Indent+of;
+					QPointArray cr;
+					cr.setPoints(3, qRound(fpos*sc), 17, qRound((fpos+3/sc)*sc), 11, qRound((fpos-3/sc)*sc), 11);
+					p.drawPolygon(cr);
+					QPointArray cr2;
+					cr2.setPoints(3, qRound((Pos+Indent+of)*sc), 17, qRound((Pos+Indent+of+3/sc)*sc), 23, qRound((Pos+Indent+of-3/sc)*sc), 23);
+					p.drawPolygon(cr2);
+					if (TabValues.count() != 0)
+					{
+						p.setPen(QPen(black, 2, SolidLine, FlatCap, MiterJoin));
+						for (int yg = 0; yg < static_cast<int>(TabValues.count()-1); yg += 2)
+						{
+							if (Pos+TabValues[yg+1] < EndPos)
+							{
+								switch (static_cast<int>(TabValues[yg]))
+								{
+									case 0:
+										if (Revers)
+										{
+											p.save();
+											p.translate(qRound((Pos+TabValues[yg+1]+of)*sc),0);
+											p.scale(-1,1);
+											p.drawLine(0, 15, 0, 23);
+											p.drawLine(0, 23, 8, 23);
+											p.restore();
+										}
+										else
+										{
+											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 23, qRound((Pos+TabValues[yg+1]+of+8/sc)*sc), 23);
+										}
+										break;
+									case 1:
+										if (Revers)
+										{
+											p.save();
+											p.translate(qRound((Pos+TabValues[yg+1]+of)*sc),0);
+											p.scale(-1,1);
+											p.drawLine(0, 15, 0, 23);
+											p.drawLine(0, 23, -8, 23);
+											p.restore();
+										}
+										else
+										{
+											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 23, qRound((Pos+TabValues[yg+1]+of-8/sc)*sc), 23);
+										}
+										break;
+									case 2:
+										p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg+1]+of-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+of+4/sc)*sc), 23);
+										break;
+									case 3:
+									case 4:
+										p.drawLine(qRound((Pos+TabValues[yg+1]+of)*sc), 15, qRound((Pos+TabValues[yg+1]+of)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg+1]+of-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+of+4/sc)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg+1]+of+3/sc)*sc), 20, qRound((Pos+TabValues[yg+1]+of+2/sc)*sc), 20);
+									default:
+										break;
+								}
+							}
+						}
+					}
+					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
+					p.drawLine(qRound((EndPos+of)*sc), 11, qRound((EndPos+of)*sc), 23);
+					p.drawLine(qRound((EndPos+of)*sc), 23, qRound((EndPos+of-4/sc)*sc), 23);
+					p.drawLine(qRound((EndPos+of)*sc), 11, qRound((EndPos+of-4/sc)*sc), 11);
+				}
+			p.restore();
 			}
 		}
 	}

@@ -156,6 +156,7 @@ public:
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
 	QPopupMenu* windowsMenu;
+	int WinMen;
 	ScribusWin* ActWin;
 	QString PrefsPfad;
 	QClipboard *ClipB;
@@ -434,6 +435,7 @@ private:
 	/** view_menu contains all items of the menubar entry "View" */
 	QPopupMenu *viewMenu;
 	/** ColorMenu enthaelt die Farben des Dokuments */
+	int ViMen;
 	QPopupMenu *ColorMenu;
 	QComboBox *ColorMenC;
 	/** SizeTMenu enthaelt die Schriftgroessen */

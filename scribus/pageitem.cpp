@@ -855,7 +855,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 						if (((hl->ch == ".") && (TabCode == 2)) ||
 							((hl->ch == ",") && (TabCode == 3)) ||
-							((hl->ch == QChar(9)) && (TabCode == 4)))
+							(hl->ch == QChar(9)))
 							{
 							RTab = false;
 							TabCode = 0;

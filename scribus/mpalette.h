@@ -138,6 +138,7 @@ public:
 	QLabel* Text3;
 	MSpinBox* Rot;
 	QLabel* Text3r;
+	QLabel* LevelTxt;
 	QToolButton* FlipH;
 	QToolButton* FlipV;
 	QToolButton* Locked;
@@ -247,6 +248,7 @@ public slots:
 	void NewSel(int nr);
 	void SetCurItem(PageItem *i);
 	void UnitChange();
+	void setLevel(uint l);
 	void setXY(double x, double y);
 	void setBH(double x, double y);
 	void setR(double r);

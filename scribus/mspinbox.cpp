@@ -111,6 +111,7 @@ int MSpinBox::mapTextToValue(bool *)
 	QString ts = text();
 	QString su = suffix();
 	ts.replace(",", ".");
+	ts.replace("%", "");
 	if ((su == QObject::tr( " pt" )) || (su == QObject::tr( "pt" )))
 	{
 		ts.replace(QObject::tr( "pt"), "");

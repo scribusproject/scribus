@@ -54,7 +54,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("01").arg("May").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("02").arg("May").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -157,7 +157,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Zdenko Podobn&yacute;ý</td><td>zdpo@mailbox.sk</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Danish:").utf8()  + "</b></td><td></td></tr>" +
-	                                      "<tr><td>Morten Langlo</td><td>mlanglo@post6.tele.dk</td></tr>" +
+	                                      "<tr><td>Morten Langlo</td><td>mlanglo@mail.dk</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Norwegian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Klaus Ade Johnstad</td><td>klaus@astro.uio.no</td></tr>" +
@@ -178,6 +178,8 @@ About::About( QWidget* parent )
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Finnish:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
+	                                      "<tr><td><b>" + tr("Basque:").utf8()  + "</b></td><td></td></tr>" +
+	                                      "<tr><td>Pablo Saratxaga</td><td>pablo@mandrakesoft.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "</table>"));
 	TextView2->setTextFormat( QTextView::RichText );

@@ -286,6 +286,10 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	ZBottom->setMaximumSize( QSize( 22, 22 ) );
 	ZBottom->setPixmap(loadIcon("bottom.png"));
 	LayerGroupLayout->addWidget( ZBottom, 1, 1 );
+	LevelTxt = new QLabel( LayerGroup, "LevelTxt" );
+	LevelTxt->setAlignment( Qt::AlignCenter );
+	LevelTxt->setText( "  0");
+	LayerGroupLayout->addMultiCellWidget( LevelTxt, 0, 1, 2, 2 );
 
 	layout60->addWidget( LayerGroup );
 	QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -810,6 +814,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( ZDown, tr( "Move one level down" ) );
 	QToolTip::add( ZTop, tr( "Move to front" ) );
 	QToolTip::add( ZBottom, tr( "Move to back" ) );
+	QToolTip::add( LevelTxt, tr( "Indicates the level the object is on, 0 means the object is at the bottom" ) );
 	QToolTip::add( Locked, tr( "Lock or unlock the object" ) );
 	QToolTip::add( NoResize, tr( "Lock or unlock the size of the object" ) );
 	QToolTip::add( NoPrint, tr( "Enable or disable printing of the object" ) );
@@ -1055,6 +1060,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		SCustom->setPixmap(SCustom->getIconPixmap(i->FrameType-2));
 	NameEdit->setText(i->AnName);
 	RoundRect->setValue(i->RadRect*UmReFaktor);
+	QString tm;
+	LevelTxt->setText(tm.setNum(i->ItemNr));
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
@@ -1556,6 +1563,12 @@ void Mpalette::UnitChange()
 	RoundRect->setMaxValue(oldRM * UmReFaktor);
 	RoundRect->setValue(oldRR * UmReFaktor);
 	HaveItem = tmp;
+}
+
+void Mpalette::setLevel(uint l)
+{
+	QString tm;
+	LevelTxt->setText(tm.setNum(l));
 }
 
 void Mpalette::setXY(double x, double y)

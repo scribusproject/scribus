@@ -56,6 +56,13 @@
 #include <qprocess.h>
 #include <qscrollbar.h>
 #include <unistd.h>
+#if QT_VERSION  > 0x030102
+	#define SPLITVC SplitHCursor
+	#define SPLITHC SplitVCursor
+#else
+	#define SPLITVC SplitVCursor
+	#define SPLITHC SplitHCursor
+#endif
 
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
@@ -692,6 +699,32 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						if (!((doku->EditClip) && (Mpressed)))
 							b->DrawObj(painter, rd);
 						b->Redrawn = true;
+						if ((doku->AppMode == 7) && (b->Select) && (b->PType == 4))
+						{
+							vi->HR->ItemPos = b->Xpos;
+							vi->HR->ItemEndPos = b->Xpos+b->Width;
+							if (b->Pcolor2 != "None")
+								vi->HR->lineCorr = b->Pwidth / 2.0;
+							else
+								vi->HR->lineCorr = 0;
+							vi->HR->ColGap = b->ColGap;
+							vi->HR->Cols = b->Cols;
+							vi->HR->Extra = b->Extra;
+							vi->HR->RExtra = b->RExtra;
+							vi->HR->First = doku->Vorlagen[doku->CurrentABStil].First;
+							vi->HR->Indent = doku->Vorlagen[doku->CurrentABStil].Indent;
+							if ((b->flippedH % 2 != 0) || (b->Reverse))
+								vi->HR->Revers = true;
+							else
+								vi->HR->Revers = false;
+							vi->HR->ItemPosValid = true;
+							vi->HR->repX = false;
+							if (doku->CurrentABStil < 5)
+								vi->HR->TabValues = b->TabValues;
+							else
+								vi->HR->TabValues = doku->Vorlagen[doku->CurrentABStil].TabValues;
+							vi->HR->repaint();
+						}
 					}
 				}
 				for (a = 0; a < Items.count(); ++a)
@@ -979,13 +1012,14 @@ FPoint Page::ApplyGridF(FPoint in)
 
 void Page::RefreshItem(PageItem *b, bool single)
 {
+	bool dirtyT = b->Dirty;
 	QPainter p;
 	p.begin(this);
 	Transform(b, &p);
-	QRect rd = QRect(qRound(ceil(-b->OldPwidth / 2.0)), 
-							   qRound(ceil(-b->OldPwidth / 2.0)),
-							   qRound(ceil(b->Width+b->OldPwidth*2)),
-							   qRound(ceil(b->Height+b->OldPwidth*2)));
+	QRect rd = QRect(qRound(ceil(-b->OldPwidth / 2.0))-1, 
+							   qRound(ceil(-b->OldPwidth / 2.0))-1,
+							   qRound(ceil(b->Width+b->OldPwidth*2))+2,
+							   qRound(ceil(b->Height+b->OldPwidth*2))+2);
 	if ((b->isTableItem) && (b->Pcolor2 != "None"))
 	{
 		if (!b->TopLine)
@@ -1011,7 +1045,36 @@ void Page::RefreshItem(PageItem *b, bool single)
 			slotDoCurs(false);
 		update(QRegion(p.xForm(rd)).intersect(ViewReg()).boundingRect());
 		if (doku->AppMode == 7)
+		{
 			slotDoCurs(true);
+			if ((b->PType == 4) && (!dirtyT))
+			{
+				ScribusView* vi = (ScribusView*)Anz;
+				vi->HR->ItemPos = b->Xpos;
+				vi->HR->ItemEndPos = b->Xpos+b->Width;
+				if (b->Pcolor2 != "None")
+					vi->HR->lineCorr = b->Pwidth / 2.0;
+				else
+					vi->HR->lineCorr = 0;
+				vi->HR->ColGap = b->ColGap;
+				vi->HR->Cols = b->Cols;
+				vi->HR->Extra = b->Extra;
+				vi->HR->RExtra = b->RExtra;
+				vi->HR->First = doku->Vorlagen[doku->CurrentABStil].First;
+				vi->HR->Indent = doku->Vorlagen[doku->CurrentABStil].Indent;
+				if ((b->flippedH % 2 != 0) || (b->Reverse))
+					vi->HR->Revers = true;
+				else
+					vi->HR->Revers = false;
+				vi->HR->ItemPosValid = true;
+				vi->HR->repX = false;
+				if (doku->CurrentABStil < 5)
+					vi->HR->TabValues = b->TabValues;
+				else
+					vi->HR->TabValues = doku->Vorlagen[doku->CurrentABStil].TabValues;
+				vi->HR->repaint();
+			}
+		}
 	}
 	p.end();
 	b->OldPwidth = b->Pwidth;
@@ -1021,6 +1084,7 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 {
 	if (!isUpdatesEnabled())
 		return;
+	bool dirtyT = b->Dirty;
 	if (doku->AppMode == 7)
 		slotDoCurs(false);
 	QPainter p;
@@ -1102,7 +1166,36 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 		update(neu.intersect(ViewReg()).boundingRect());
 	}
 	if (doku->AppMode == 7)
+	{
 		slotDoCurs(true);
+		if ((b->PType == 4) && (!dirtyT))
+		{
+			ScribusView* vi = (ScribusView*)Anz;
+			vi->HR->ItemPos = b->Xpos;
+			vi->HR->ItemEndPos = b->Xpos+b->Width;
+			if (b->Pcolor2 != "None")
+				vi->HR->lineCorr = b->Pwidth / 2.0;
+			else
+				vi->HR->lineCorr = 0;
+			vi->HR->ColGap = b->ColGap;
+			vi->HR->Cols = b->Cols;
+			vi->HR->Extra = b->Extra;
+			vi->HR->RExtra = b->RExtra;
+			vi->HR->First = doku->Vorlagen[doku->CurrentABStil].First;
+			vi->HR->Indent = doku->Vorlagen[doku->CurrentABStil].Indent;
+			if ((b->flippedH % 2 != 0) || (b->Reverse))
+				vi->HR->Revers = true;
+			else
+				vi->HR->Revers = false;
+			vi->HR->ItemPosValid = true;
+			vi->HR->repX = false;
+			if (doku->CurrentABStil < 5)
+				vi->HR->TabValues = b->TabValues;
+			else
+				vi->HR->TabValues = doku->Vorlagen[doku->CurrentABStil].TabValues;
+			vi->HR->repaint();
+		}
+	}
 }
 
 void Page::AdjustPreview(PageItem *b, bool reload)
@@ -1453,7 +1546,7 @@ void Page::MoveItemI(double newX, double newY, int ite)
 		b->LocalY -= newY;
 	else
 		b->LocalY += newY;
-	repaint(alt);
+	RepaintTextRegion(b, alt, true);
 	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY);
 }
 
@@ -3659,7 +3752,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			if (((m->y()/sc) < 0) || ((m->y()/sc) > doku->PageH))
 				qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
 			else
-				qApp->setOverrideCursor(QCursor(SplitHCursor), true);
+				qApp->setOverrideCursor(QCursor(SPLITHC), true);
 			return;
 		}
 		if (MoveGX)
@@ -3668,7 +3761,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			if (((m->x()/sc) < 0) || ((m->x()/sc) > doku->PageB))
 				qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
 			else
-				qApp->setOverrideCursor(QCursor(SplitVCursor), true);
+				qApp->setOverrideCursor(QCursor(SPLITVC), true);
 			return;
 		}
 	}
@@ -4406,7 +4499,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							if (((m->x()/sc) < 0) || ((m->x()/sc) >= doku->PageB-1))
 								qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 							else
-								qApp->setOverrideCursor(QCursor(SplitHCursor), true);
+								qApp->setOverrideCursor(QCursor(SPLITHC), true);
 							return;
 						}
 					}
@@ -4422,7 +4515,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							if (((m->y()/sc) < 0) || ((m->y()/sc) >= doku->PageH-1))
 								qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 							else
-								qApp->setOverrideCursor(QCursor(SplitVCursor), true);
+								qApp->setOverrideCursor(QCursor(SPLITVC), true);
 							return;
 						}
 					}
@@ -7759,6 +7852,7 @@ void Page::ToBack()
 		SelItem.clear();
 		SelItem.append(b);
 		emit MoveObj(PageNr, old, 0);
+		emit LevelChanged(0);
 		emit DocChanged();
 		update();
 	}
@@ -7789,6 +7883,7 @@ void Page::ToFront()
 		SelItem.clear();
 		SelItem.append(b);
 		emit MoveObj(PageNr, old, b->ItemNr);
+		emit LevelChanged(b->ItemNr);
 		emit DocChanged();
 		update();
 	}
@@ -7819,6 +7914,7 @@ void Page::LowerItem()
 		SelItem.clear();
 		SelItem.append(b);
 		emit MoveObj(PageNr, old, old-1);
+		emit LevelChanged(old-1);
 		emit DocChanged();
 		update();
 	}
@@ -7827,7 +7923,7 @@ void Page::LowerItem()
 void Page::RaiseItem()
 {
 	uint a, old;
-	if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr<Items.count()-2))
+	if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr<Items.count()-1))
 	{
 		PageItem *b = SelItem.at(0);
 		if ((b->isTableItem) && (b->isSingleSel))
@@ -7850,6 +7946,7 @@ void Page::RaiseItem()
 		SelItem.append(b);
 		emit DocChanged();
 		emit MoveObj(PageNr, old, old+1);
+		emit LevelChanged(old+1);
 		update();
 	}
 }
