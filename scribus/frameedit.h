@@ -25,21 +25,22 @@ public:
     QToolButton* MoveControl;
     QToolButton* AddNode;
     QToolButton* DeleteNode;
-    QButtonGroup* ButtonGroup2;
     QToolButton* AsymMove;
     QToolButton* SymMove;
 		QToolButton* ResNode;
 		QToolButton* Res1Node;
-    QButtonGroup* ButtonGroup3;
     QToolButton* PolySplit;
     QToolButton* BezierClose;
     QToolButton* PolyMirrorH;
     QToolButton* PolyMirrorV;
-    QButtonGroup* ButtonGroup4;
     QToolButton* PolyShearL;
     QToolButton* PolyShearR;
     QToolButton* PolyShearU;
     QToolButton* PolyShearD;
+    QToolButton* RotateCCW;
+    QToolButton* RotateCW;
+    QToolButton* Expand;
+    QToolButton* Crop;
 		QCheckBox* AbsMode;
     QLabel* TextLabel1;
     MSpinBox* YSpin;
@@ -64,6 +65,10 @@ private slots:
 		void SplitPoly();
 		void MirrorH();
 		void MirrorV();
+		void doRotCCW();
+		void doRotCW();
+		void doCrop();
+		void doExpand();
 		void ShearR();
 		void ShearL();
 		void ShearU();
@@ -79,10 +84,7 @@ public slots:
 
 protected:
     QVBoxLayout* NodePaletteLayout;
-    QHBoxLayout* ButtonGroup1Layout;
-    QHBoxLayout* ButtonGroup2Layout;
-    QHBoxLayout* ButtonGroup3Layout;
-    QHBoxLayout* ButtonGroup4Layout;
+    QGridLayout* ButtonGroup1Layout;
     QGridLayout* Layout2;
 
 signals:

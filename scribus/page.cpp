@@ -20,6 +20,7 @@
 #include "pageitem.h"
 #include "serializer.h"
 #include "scribusXml.h"
+#include "scribus.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -75,6 +76,7 @@ extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoin
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern FPoint GetMaxClipF(FPointArray Clip);
 extern void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
+extern ScribusApp* ScApp;
 
 Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView *view)
 				 : QWidget(pa, "ps", WRepaintNoErase)
@@ -1040,8 +1042,30 @@ bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdat
 	Transform(b, &p);
 	alt = QRegion(p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))));
 	p.end();
+	QWMatrix ma;
+	ma.rotate(b->Rot);
+	double dX = ma.m11() * (b->Width - newX) + ma.m21() * (b->Height - newY) + ma.dx();
+	double dY = ma.m22() * (b->Height - newY) + ma.m12() * (b->Width - newX) + ma.dy();
 	b->Width = newX;
 	b->Height = newY;
+	if ((doku->RotMode != 0) && (fromMP))
+		{
+		switch (doku->RotMode)
+			{
+			case 2:
+				MoveItem(dX / 2.0, dY / 2.0, b);
+				break;
+			case 4:
+				MoveItem(dX, dY, b);
+				break;
+			case 3:
+				MoveItem(0.0, dY, b);
+				break;
+			case 1:
+				MoveItem(dX, 0.0, b);
+				break;
+			}
+		}
   b->RadRect = QMIN(b->RadRect, QMIN(b->Width,b->Height)/2);
 	if ((b->PType == 2) && (!b->Sizing) && (!doku->EditClip))
 		{
@@ -1462,55 +1486,79 @@ void Page::MirrorPolyV()
 	MarkClip(b);
 }
 
-void Page::ShearPolyHR()
+void Page::TransformPoly(int mode)
 {
 	PageItem *b = SelItem.at(0);
 	QWMatrix ma;
-	ma.shear(-0.017455, 0);
+	FPoint oldPos = FPoint(b->Xpos, b->Ypos);
+	double offsX = b->Width / 2.0;
+	double offsY = b->Height / 2.0;
+	ma.translate(-offsX, -offsY);
+	switch (mode)
+		{
+		case 0:
+			ma.rotate(-1.0);
+			break;
+		case 1:
+			ma.rotate(1.0);
+			break;
+		case 2:
+			ma.scale(0.9, 0.9);
+			break;
+		case 3:
+			ma.scale(1.1, 1.1);
+			break;
+		case 4:
+			ma.shear(0.017455, 0);
+			break;
+		case 5:
+			ma.shear(-0.017455, 0);
+			break;
+		case 6:
+			ma.shear(0, -0.017455);
+			break;
+		case 7:
+			ma.shear(0, 0.017455);
+			break;
+		}
 	b->PoLine.map(ma);
+	b->PoLine.translate(offsX, offsY);
 	AdjustItemSize(b);
-	if (b->PType == 8)
-		UpdatePolyClip(b);
-	RefreshItem(b);
-	MarkClip(b);
-	b->FrameType = 3;
-}
-
-void Page::ShearPolyHL()
-{
-	PageItem *b = SelItem.at(0);
-	QWMatrix ma;
-	ma.shear(0.017455, 0);
-	b->PoLine.map(ma);
-	AdjustItemSize(b);
-	if (b->PType == 8)
-		UpdatePolyClip(b);
-	RefreshItem(b);
-	MarkClip(b);
-	b->FrameType = 3;
-}
-
-void Page::ShearPolyVU()
-{
-	PageItem *b = SelItem.at(0);
-	QWMatrix ma;
-	ma.shear(0, -0.017455);
-	b->PoLine.map(ma);
-	AdjustItemSize(b);
-	if (b->PType == 8)
-		UpdatePolyClip(b);
-	RefreshItem(b);
-	MarkClip(b);
-	b->FrameType = 3;
-}
-
-void Page::ShearPolyVD()
-{
-	PageItem *b = SelItem.at(0);
-	QWMatrix ma;
-	ma.shear(0, 0.017455);
-	b->PoLine.map(ma);
-	AdjustItemSize(b);
+	QWMatrix ma2;
+	ma2.translate(oldPos.x(), oldPos.y());
+	ma2.scale(1, 1);
+	ma2.translate(offsX, offsY);
+	FPoint n = FPoint(-offsX, -offsY);
+	switch (mode)
+		{
+		case 0:
+			ma2.rotate(-1.0);
+			break;
+		case 1:
+			ma2.rotate(1.0);
+			break;
+		case 2:
+			ma2.scale(0.9, 0.9);
+			break;
+		case 3:
+			ma2.scale(1.1, 1.1);
+			break;
+		case 4:
+			ma2.shear(0.017455, 0);
+			break;
+		case 5:
+			ma2.shear(-0.017455, 0);
+			break;
+		case 6:
+			ma2.shear(0, -0.017455);
+			break;
+		case 7:
+			ma2.shear(0, 0.017455);
+			break;
+		}
+	double x = ma2.m11() * n.x() + ma2.m21() * n.y() + ma2.dx();
+	double y = ma2.m22() * n.y() + ma2.m12() * n.x() + ma2.dy();
+	MoveItem(x-oldPos.x(), y-oldPos.y(), b);
 	if (b->PType == 8)
 		UpdatePolyClip(b);
 	RefreshItem(b);
@@ -1834,6 +1882,14 @@ void Page::scaleGroup(double scx, double scy)
 	emit DocChanged();
 }
 
+void Page::PasteToPage()
+{
+	emit LoadElem(ScApp->Buffer2, qRound(Mxp/doku->Scale), qRound(Myp/doku->Scale), false, false, doku);
+	doku->DraggedElem = 0;
+	doku->DragElements.clear();
+	update();
+}
+
 void Page::mouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *b;
@@ -1963,6 +2019,19 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		b->paintObj();
 		MarkClip(b);
 		return;
+		}
+	if ((!GetItem(&b)) && (m->button() == RightButton) && (!doku->DragP) && (doku->AppMode == 1))
+		{
+		if (ScApp->Buffer2.startsWith("<SCRIBUSELEM"))
+			{
+			Mxp = m->x();
+			Myp = m->y();
+			QPopupMenu *pmen = new QPopupMenu();
+			pmen->insertItem( tr("Paste") , this, SLOT(PasteToPage()));
+			pmen->exec(QCursor::pos());
+			delete pmen;
+			return;
+			}
 		}
 	if ((doku->AppMode != 6) /* && (doku->AppMode != 7) */ && (!doku->EditClip) && (doku->AppMode != 13))
 		{
@@ -2443,6 +2512,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			}
 		if (doku->AppMode != 7)
 			{
+			if (doku->AppMode == 9)
+				doku->RotMode = RotMode;
 			doku->AppMode = 1;
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			emit PaintingDone();
@@ -3815,6 +3886,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 		case 9:
 			if (GetItem(&b))
 				{
+				RotMode = doku->RotMode;
 				p.begin(this);
 				Transform(b, &p);
 				doku->RotMode = 2;
@@ -3846,7 +3918,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 					storeUndoInf(b);
 					doku->UnDoValid = true;
 					emit UndoAvail();
-					emit RotMode(doku->RotMode);
 					p.end();
 					}
 				}

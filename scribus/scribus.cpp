@@ -3437,7 +3437,6 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextSca(int)), Mpal, SLOT(setTScale(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextAbs(int)), Mpal, SLOT(setAli(int)));
-	connect(doc->ActPage, SIGNAL(RotMode(int)), Mpal, SLOT(setRM(int)));
 	connect(doc->ActPage, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), Mpal, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));

@@ -129,6 +129,76 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Height = new MSpinBox( GeoGroup, 2 );
     Height->setSuffix( tr( " pt" ) );
     GeoGroupLayout->addWidget( Height, 3, 1 );
+    Text3 = new QLabel( GeoGroup, "Text3" );
+    Text3->setText( tr( "Rotation:" ) );
+    GeoGroupLayout->addWidget( Text3, 4, 0 );
+    Rot = new MSpinBox( GeoGroup, 2);
+    Rot->setSuffix(" °");
+    Rot->setWrapping( true );
+    GeoGroupLayout->addWidget( Rot, 4, 1 );
+    Text3r = new QLabel( GeoGroup, "Text3r" );
+    Text3r->setText( tr( "Basepoint:" ) );
+    GeoGroupLayout->addWidget( Text3r, 5, 0 );
+    RotationGroup = new QButtonGroup( GeoGroup, "RotationGroup" );
+    RotationGroup->setTitle( "" );
+    RotationGroup->setFrameShape( QButtonGroup::NoFrame );
+    RotationGroup->setColumnLayout(0, Qt::Vertical );
+    RotationGroup->layout()->setSpacing( 0 );
+    RotationGroup->layout()->setMargin( 0 );
+    RotationGroupLayout = new QHBoxLayout( RotationGroup->layout() );
+    RotationGroupLayout->setAlignment( Qt::AlignTop );
+    Layout12 = new QGridLayout( 0, 1, 1, 0, 0, "Layout12");
+    TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
+    TopLeft->setText( tr( "" ) );
+    TopLeft->setChecked( true );
+    Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
+    Line1 = new QFrame( RotationGroup, "Line1" );
+    Line1->setMinimumSize( QSize( 20, 4 ) );
+    Line1->setMaximumSize( QSize( 20, 4 ) );
+    Line1->setFrameShape( QFrame::HLine );
+    Line1->setFrameShadow( QFrame::Plain );
+    Line1->setLineWidth( 3 );
+    Line1->setFrameShape( QFrame::HLine );
+    Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
+    TopRight = new QRadioButton( RotationGroup, "TopRight" );
+    TopRight->setText( tr( "" ) );
+    Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
+    Line2 = new QFrame( RotationGroup, "Line2" );
+    Line2->setMinimumSize( QSize( 4, 20 ) );
+    Line2->setMaximumSize( QSize( 4, 20 ) );
+    Line2->setFrameShape( QFrame::VLine );
+    Line2->setFrameShadow( QFrame::Plain );
+    Line2->setLineWidth( 3 );
+    Line2->setFrameShape( QFrame::VLine );
+    Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
+    Center = new QRadioButton( RotationGroup, "Center" );
+    Center->setText( tr( "" ) );
+    Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
+    Line4 = new QFrame( RotationGroup, "Line4" );
+    Line4->setMinimumSize( QSize( 4, 20 ) );
+    Line4->setMaximumSize( QSize( 4, 20 ) );
+    Line4->setFrameShadow( QFrame::Plain );
+    Line4->setLineWidth( 3 );
+    Line4->setFrameShape( QFrame::VLine );
+    Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
+    BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
+    BottomLeft->setText( tr( "" ) );
+    Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
+    Line5 = new QFrame( RotationGroup, "Line5" );
+    Line5->setMinimumSize( QSize( 20, 4 ) );
+    Line5->setMaximumSize( QSize( 20, 4 ) );
+    Line5->setFrameShape( QFrame::HLine );
+    Line5->setFrameShadow( QFrame::Plain );
+    Line5->setLineWidth( 3 );
+    Line5->setFrameShape( QFrame::HLine );
+    Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
+    BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
+    BottomRight->setText( tr( "" ) );
+    Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
+    RotationGroupLayout->addLayout( Layout12 );
+    QSpacerItem* spacer12 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    RotationGroupLayout->addItem( spacer12 );
+    GeoGroupLayout->addWidget( RotationGroup, 5, 1 );
     pageLayout->addWidget( GeoGroup );
 
     layout60 = new QHBoxLayout( 0, 0, 5, "layout60");
@@ -211,78 +281,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Textflow2->setText( tr( "Use Bounding Box" ) );
     pageLayout->addWidget( Textflow2 );
 
-    layout60a = new QHBoxLayout( 0, 0, 5, "layout60a");
-    RotationGroup = new QButtonGroup( page, "RotationGroup" );
-    RotationGroup->setTitle( tr( "Rotation" ) );
-    RotationGroup->setColumnLayout(0, Qt::Vertical );
-    RotationGroup->layout()->setSpacing( 4 );
-    RotationGroup->layout()->setMargin( 5 );
-    RotationGroupLayout = new QHBoxLayout( RotationGroup->layout() );
-    RotationGroupLayout->setAlignment( Qt::AlignTop );
-    Layout12 = new QGridLayout( 0, 1, 1, 0, 0, "Layout12");
-    TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
-    TopLeft->setText( tr( "" ) );
-    TopLeft->setChecked( true );
-    Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
-    Line1 = new QFrame( RotationGroup, "Line1" );
-    Line1->setMinimumSize( QSize( 20, 4 ) );
-    Line1->setMaximumSize( QSize( 20, 4 ) );
-    Line1->setFrameShape( QFrame::HLine );
-    Line1->setFrameShadow( QFrame::Plain );
-    Line1->setLineWidth( 3 );
-    Line1->setFrameShape( QFrame::HLine );
-    Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
-    TopRight = new QRadioButton( RotationGroup, "TopRight" );
-    TopRight->setText( tr( "" ) );
-    Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
-    Line2 = new QFrame( RotationGroup, "Line2" );
-    Line2->setMinimumSize( QSize( 4, 20 ) );
-    Line2->setMaximumSize( QSize( 4, 20 ) );
-    Line2->setFrameShape( QFrame::VLine );
-    Line2->setFrameShadow( QFrame::Plain );
-    Line2->setLineWidth( 3 );
-    Line2->setFrameShape( QFrame::VLine );
-    Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
-    Center = new QRadioButton( RotationGroup, "Center" );
-    Center->setText( tr( "" ) );
-    Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
-    Line4 = new QFrame( RotationGroup, "Line4" );
-    Line4->setMinimumSize( QSize( 4, 20 ) );
-    Line4->setMaximumSize( QSize( 4, 20 ) );
-    Line4->setFrameShadow( QFrame::Plain );
-    Line4->setLineWidth( 3 );
-    Line4->setFrameShape( QFrame::VLine );
-    Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
-    BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
-    BottomLeft->setText( tr( "" ) );
-    Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
-    Line5 = new QFrame( RotationGroup, "Line5" );
-    Line5->setMinimumSize( QSize( 20, 4 ) );
-    Line5->setMaximumSize( QSize( 20, 4 ) );
-    Line5->setFrameShape( QFrame::HLine );
-    Line5->setFrameShadow( QFrame::Plain );
-    Line5->setLineWidth( 3 );
-    Line5->setFrameShape( QFrame::HLine );
-    Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
-    BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
-    BottomRight->setText( tr( "" ) );
-    Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
-    RotationGroupLayout->addLayout( Layout12 );
-
-    Layout15_2 = new QVBoxLayout( 0, 3, 0, "Layout15_2");
-    Text3 = new QLabel( RotationGroup, "Text3" );
-    Text3->setText( tr( "by:" ) );
-    Layout15_2->addWidget( Text3 );
-    Rot = new MSpinBox( RotationGroup, 2);
-    Rot->setSuffix(" °");
-    Rot->setWrapping( true );
-    Layout15_2->addWidget( Rot );
-    RotationGroupLayout->addLayout(Layout15_2);
-
-    layout60a->addWidget(RotationGroup);
-    QSpacerItem* spacer12 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    layout60a->addItem( spacer12 );
-    pageLayout->addLayout(layout60a);
     QSpacerItem* spacer13 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     pageLayout->addItem( spacer13 );
     TabStack->addWidget( page, 0 );
@@ -1423,10 +1421,39 @@ void Mpalette::UnitChange()
 void Mpalette::setXY(double x, double y)
 {
 	bool tmp = HaveItem;
+	double inX, inY, b, h, r;
+	QWMatrix ma;
+	FPoint n;
+	if (HaveItem)
+		{
+		b = CurItem->Width;
+		h = CurItem->Height;
+		r = CurItem->Rot;
+		}
+	else
+		{
+		b = 0.0;
+		h = 0.0;
+		r = 0.0;
+		}
 	HaveItem = false;
-	Xpos->setValue(qRound(x*UmReFaktor*100.0));
-	Ypos->setValue(qRound(y*UmReFaktor*100.0));
-	if (LMode)
+	ma.translate(x, y);
+	ma.rotate(r);
+  if (TopLeft->isChecked())
+		n = FPoint(0.0, 0.0);
+	if (TopRight->isChecked())
+		n = FPoint(b, 0.0);
+  if (Center->isChecked())
+		n = FPoint(b / 2.0, h / 2.0);
+	if (BottomLeft->isChecked())
+		n = FPoint(0.0, h);
+	if (BottomRight->isChecked())
+		n = FPoint(b, h);
+	inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+	Xpos->setValue(qRound(inX*UmReFaktor*100.0));
+	Ypos->setValue(qRound(inY*UmReFaktor*100.0));
+	if ((LMode) && (tmp))
 		setBH(CurItem->Width, CurItem->Height);
 	HaveItem = tmp;
 }
@@ -1470,14 +1497,6 @@ void Mpalette::setRR(double r)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	RoundRect->setValue(qRound(r));
-	HaveItem = tmp;
-}
-
-void Mpalette::setRM(int r)
-{
-	bool tmp = HaveItem;
-	HaveItem = false;
-	RotationGroup->setButton(r);
 	HaveItem = tmp;
 }
 
@@ -1690,7 +1709,8 @@ void Mpalette::NewTScale()
 
 void Mpalette::NewX()
 {
-	double x,y,w,h, gx, gy, gh, gw;
+	double x,y,w,h, gx, gy, gh, gw, base;
+	QWMatrix ma;
 	x = static_cast<double>(Xpos->value()) / UmReFaktor / 100.0;
 	y = static_cast<double>(Ypos->value()) / UmReFaktor / 100.0;
 	w = static_cast<double>(Width->value()) / UmReFaktor / 100.0;
@@ -1713,7 +1733,21 @@ void Mpalette::NewX()
 				doc->ActPage->RotateItem(r, CurItem->ItemNr);
 				}
 			else
-				doc->ActPage->MoveItem(x - CurItem->Xpos, 0, CurItem, true);
+				{
+				ma.translate(CurItem->Xpos, CurItem->Ypos);
+				ma.rotate(CurItem->Rot);
+  			if (TopLeft->isChecked())
+					base = CurItem->Xpos;
+  			if (Center->isChecked())
+					base = ma.m11() * (CurItem->Width / 2.0) + ma.m21() * (CurItem->Height / 2.0) + ma.dx();
+  			if (TopRight->isChecked())
+					base = ma.m11() * CurItem->Width + ma.m21() * 0.0 + ma.dx();
+  			if (BottomRight->isChecked())
+					base = ma.m11() * CurItem->Width + ma.m21() * CurItem->Height + ma.dx();
+  			if (BottomLeft->isChecked())
+					base = ma.m11() * 0.0 + ma.m21() * CurItem->Height + ma.dx();
+				doc->ActPage->MoveItem(x - base, 0, CurItem, true);
+				}
 			}
 		emit DocChanged();
 		}
@@ -1721,7 +1755,8 @@ void Mpalette::NewX()
 
 void Mpalette::NewY()
 {
-	double x,y,w,h, gx, gy, gh, gw;
+	double x,y,w,h, gx, gy, gh, gw, base;
+	QWMatrix ma;
 	x = static_cast<double>(Xpos->value()) / UmReFaktor / 100.0;
 	y = static_cast<double>(Ypos->value()) / UmReFaktor / 100.0;
 	w = static_cast<double>(Width->value()) / UmReFaktor / 100.0;
@@ -1744,7 +1779,21 @@ void Mpalette::NewY()
 				doc->ActPage->RotateItem(r, CurItem->ItemNr);
 				}
 			else
-				doc->ActPage->MoveItem(0, y - CurItem->Ypos, CurItem);
+				{
+				ma.translate(CurItem->Xpos, CurItem->Ypos);
+				ma.rotate(CurItem->Rot);
+  			if (TopLeft->isChecked())
+					base = CurItem->Ypos;
+  			if (Center->isChecked())
+					base = ma.m22() * (CurItem->Height / 2.0) + ma.m12() * (CurItem->Width / 2.0) + ma.dy();
+  			if (TopRight->isChecked())
+					base = ma.m22() * 0.0 + ma.m12() * CurItem->Width + ma.dy();
+  			if (BottomRight->isChecked())
+					base = ma.m22() * CurItem->Height + ma.m12() * CurItem->Width + ma.dy();
+  			if (BottomLeft->isChecked())
+					base = ma.m22() * CurItem->Height + ma.m12() * 0.0 + ma.dy();
+				doc->ActPage->MoveItem(0, y - base, CurItem);
+				}
 			}
 		emit DocChanged();
 		}
@@ -2176,7 +2225,33 @@ void Mpalette::NewRotMode(int m)
 				doc->ActPage->RCenter = FPoint(gx+gw, gy+gh);
 			}
 		else
-			doc->RotMode = m;
+			{
+			double inX, inY, b, h, r;
+			HaveItem = false;
+			QWMatrix ma;
+			FPoint n;
+			b = CurItem->Width;
+			h = CurItem->Height;
+			r = CurItem->Rot;
+			ma.translate(CurItem->Xpos, CurItem->Ypos);
+			ma.rotate(r);
+		  if (TopLeft->isChecked())
+				n = FPoint(0.0, 0.0);
+			if (TopRight->isChecked())
+				n = FPoint(b, 0.0);
+		  if (Center->isChecked())
+				n = FPoint(b / 2.0, h / 2.0);
+			if (BottomLeft->isChecked())
+				n = FPoint(0.0, h);
+			if (BottomRight->isChecked())
+				n = FPoint(b, h);
+			inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+			Xpos->setValue(qRound(inX*UmReFaktor*100.0));
+			Ypos->setValue(qRound(inY*UmReFaktor*100.0));
+			HaveItem = true;
+			}
+		doc->RotMode = m;
 		}
 }
 

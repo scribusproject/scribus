@@ -22,9 +22,9 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     ButtonGroup1->setColumnLayout(0, Qt::Vertical );
     ButtonGroup1->layout()->setSpacing( 0 );
     ButtonGroup1->layout()->setMargin( 0 );
-    ButtonGroup1Layout = new QHBoxLayout( ButtonGroup1->layout() );
+    ButtonGroup1Layout = new QGridLayout( ButtonGroup1->layout() );
     ButtonGroup1Layout->setAlignment( Qt::AlignTop );
-    ButtonGroup1Layout->setSpacing( 2 );
+    ButtonGroup1Layout->setSpacing( 0 );
     ButtonGroup1Layout->setMargin( 0 );
 
     MoveNode = new QToolButton( ButtonGroup1, "MoveNode" );
@@ -32,127 +32,115 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     MoveNode->setPixmap(loadIcon("MoveNode.png"));
     MoveNode->setToggleButton( true );
 		MoveNode->setOn(true);
-    ButtonGroup1Layout->addWidget( MoveNode );
+    ButtonGroup1Layout->addWidget( MoveNode, 0, 0 );
     MoveControl = new QToolButton( ButtonGroup1, "MoveControl" );
     MoveControl->setText( tr( "" ) );
     MoveControl->setPixmap(loadIcon("MoveKontrol.png"));
     MoveControl->setToggleButton( true );
-    ButtonGroup1Layout->addWidget( MoveControl );
+    ButtonGroup1Layout->addWidget( MoveControl, 0, 1 );
     AddNode = new QToolButton( ButtonGroup1, "AddNode" );
     AddNode->setText( tr( "" ) );
     AddNode->setPixmap(loadIcon("AddNode.png"));
     AddNode->setToggleButton( true );
-    ButtonGroup1Layout->addWidget( AddNode );
+    ButtonGroup1Layout->addWidget( AddNode, 0, 2 );
     DeleteNode = new QToolButton( ButtonGroup1, "DeleteNode" );
     DeleteNode->setText( tr( "" ) );
     DeleteNode->setPixmap(loadIcon("DeleteNode.png"));
     DeleteNode->setToggleButton( true );
-    ButtonGroup1Layout->addWidget( DeleteNode );
-    NodePaletteLayout->addWidget( ButtonGroup1 );
+    ButtonGroup1Layout->addWidget( DeleteNode, 0, 3 );
 
-    ButtonGroup2 = new QButtonGroup( this, "ButtonGroup2" );
-    ButtonGroup2->setFrameShape( QButtonGroup::NoFrame );
-    ButtonGroup2->setFrameShadow( QButtonGroup::Plain );
-    ButtonGroup2->setTitle( tr( "" ) );
-    ButtonGroup2->setExclusive( true );
-    ButtonGroup2->setColumnLayout(0, Qt::Vertical );
-    ButtonGroup2->layout()->setSpacing( 2 );
-    ButtonGroup2->layout()->setMargin( 0 );
-    ButtonGroup2Layout = new QHBoxLayout( ButtonGroup2->layout() );
-    ButtonGroup2Layout->setAlignment( Qt::AlignTop );
-    AsymMove = new QToolButton( ButtonGroup2, "AsymMove" );
+    AsymMove = new QToolButton( ButtonGroup1, "AsymMove" );
     AsymMove->setEnabled( false );
     AsymMove->setText( tr( "" ) );
     AsymMove->setPixmap(loadIcon("MoveAsym.png"));
     AsymMove->setToggleButton( true );
-    ButtonGroup2Layout->addWidget( AsymMove );
-    SymMove = new QToolButton( ButtonGroup2, "SymMove" );
+    ButtonGroup1Layout->addWidget( AsymMove, 1, 0 );
+    SymMove = new QToolButton( ButtonGroup1, "SymMove" );
     SymMove->setEnabled( false );
     SymMove->setText( tr( "" ) );
     SymMove->setPixmap(loadIcon("MoveSym.png"));
     SymMove->setToggleButton( true );
-    ButtonGroup2Layout->addWidget( SymMove );
-    ResNode = new QToolButton( ButtonGroup2, "resnode" );
+    ButtonGroup1Layout->addWidget( SymMove, 1, 1 );
+    ResNode = new QToolButton( ButtonGroup1, "resnode" );
     ResNode->setEnabled( false );
     ResNode->setText( tr( "" ) );
     ResNode->setPixmap(loadIcon("ResetNode.png"));
-    ButtonGroup2Layout->addWidget( ResNode );
-    Res1Node = new QToolButton( ButtonGroup2, "res1node" );
+    ButtonGroup1Layout->addWidget( ResNode, 1, 2 );
+    Res1Node = new QToolButton( ButtonGroup1, "res1node" );
     Res1Node->setEnabled( false );
     Res1Node->setText( tr( "" ) );
     Res1Node->setPixmap(loadIcon("Reset1Node.png"));
-    ButtonGroup2Layout->addWidget( Res1Node );
-    NodePaletteLayout->addWidget( ButtonGroup2 );
+    ButtonGroup1Layout->addWidget( Res1Node, 1, 3 );
 
-    ButtonGroup3 = new QButtonGroup( this, "ButtonGroup3" );
-    ButtonGroup3->setFrameShape( QButtonGroup::NoFrame );
-    ButtonGroup3->setFrameShadow( QButtonGroup::Plain );
-    ButtonGroup3->setTitle( tr( "" ) );
-    ButtonGroup3->setExclusive( true );
-    ButtonGroup3->setColumnLayout(0, Qt::Vertical );
-    ButtonGroup3->layout()->setSpacing( 2 );
-    ButtonGroup3->layout()->setMargin( 0 );
-    ButtonGroup3Layout = new QHBoxLayout( ButtonGroup3->layout() );
-    ButtonGroup3Layout->setAlignment( Qt::AlignTop );
-    PolySplit = new QToolButton( ButtonGroup3, "PolySplit" );
+    PolySplit = new QToolButton( ButtonGroup1, "PolySplit" );
     PolySplit->setEnabled( false );
     PolySplit->setText( tr( "" ) );
     PolySplit->setToggleButton( true );
     PolySplit->setPixmap(loadIcon("PolyCut.png"));
-    ButtonGroup3Layout->addWidget( PolySplit );
-    BezierClose = new QToolButton( ButtonGroup3, "BezierClose" );
+    ButtonGroup1Layout->addWidget( PolySplit, 2, 0 );
+    BezierClose = new QToolButton( ButtonGroup1, "BezierClose" );
     BezierClose->setEnabled( false );
     BezierClose->setText( tr( "" ) );
     BezierClose->setPixmap(loadIcon("BezierClose.png"));
-    ButtonGroup3Layout->addWidget( BezierClose );
+    ButtonGroup1Layout->addWidget( BezierClose, 2, 1 );
 
-    PolyMirrorH = new QToolButton( ButtonGroup3, "MirrorH" );
+    PolyMirrorH = new QToolButton( ButtonGroup1, "MirrorH" );
     PolyMirrorH->setText( tr( "" ) );
     PolyMirrorH->setPixmap(loadIcon("hmirror.png"));
-    ButtonGroup3Layout->addWidget( PolyMirrorH );
+    ButtonGroup1Layout->addWidget( PolyMirrorH, 2, 2 );
 
-    PolyMirrorV = new QToolButton( ButtonGroup3, "MirrorV" );
+    PolyMirrorV = new QToolButton( ButtonGroup1, "MirrorV" );
     PolyMirrorV->setText( tr( "" ) );
     PolyMirrorV->setPixmap(loadIcon("vmirror.png"));
-    ButtonGroup3Layout->addWidget( PolyMirrorV );
+    ButtonGroup1Layout->addWidget( PolyMirrorV, 2, 3 );
 
-    NodePaletteLayout->addWidget( ButtonGroup3 );
-
-    ButtonGroup4 = new QButtonGroup( this, "ButtonGroup4" );
-    ButtonGroup4->setFrameShape( QButtonGroup::NoFrame );
-    ButtonGroup4->setFrameShadow( QButtonGroup::Plain );
-    ButtonGroup4->setTitle( tr( "" ) );
-    ButtonGroup4->setExclusive( true );
-    ButtonGroup4->setColumnLayout(0, Qt::Vertical );
-    ButtonGroup4->layout()->setSpacing( 2 );
-    ButtonGroup4->layout()->setMargin( 0 );
-    ButtonGroup4Layout = new QHBoxLayout( ButtonGroup4->layout() );
-    ButtonGroup4Layout->setAlignment( Qt::AlignTop );
-
-    PolyShearL = new QToolButton( ButtonGroup4, "ShearL" );
+    PolyShearL = new QToolButton( ButtonGroup1, "ShearL" );
 		PolyShearL->setAutoRepeat(true);
     PolyShearL->setText( tr( "" ) );
     PolyShearL->setPixmap(loadIcon("shear_left.png"));
-    ButtonGroup4Layout->addWidget( PolyShearL );
-    PolyShearR = new QToolButton( ButtonGroup4, "ShearR" );
+    ButtonGroup1Layout->addWidget( PolyShearL, 3, 0 );
+    PolyShearR = new QToolButton( ButtonGroup1, "ShearR" );
 		PolyShearR->setAutoRepeat(true);
     PolyShearR->setText( tr( "" ) );
     PolyShearR->setPixmap(loadIcon("shear_right.png"));
-    ButtonGroup4Layout->addWidget( PolyShearR );
-    PolyShearU = new QToolButton( ButtonGroup4, "ShearU" );
+    ButtonGroup1Layout->addWidget( PolyShearR, 3, 1 );
+    PolyShearU = new QToolButton( ButtonGroup1, "ShearU" );
 		PolyShearU->setAutoRepeat(true);
     PolyShearU->setText( tr( "" ) );
     PolyShearU->setPixmap(loadIcon("shear_up.png"));
-    ButtonGroup4Layout->addWidget( PolyShearU );
-    PolyShearD = new QToolButton( ButtonGroup4, "ShearD" );
+    ButtonGroup1Layout->addWidget( PolyShearU, 3, 2 );
+    PolyShearD = new QToolButton( ButtonGroup1, "ShearD" );
 		PolyShearD->setAutoRepeat(true);
     PolyShearD->setText( tr( "" ) );
     PolyShearD->setPixmap(loadIcon("shear_down.png"));
-    ButtonGroup4Layout->addWidget( PolyShearD );
+    ButtonGroup1Layout->addWidget( PolyShearD, 3, 3 );
+
+    RotateCCW = new QToolButton( ButtonGroup1, "RotateCCW" );
+		RotateCCW->setAutoRepeat(true);
+    RotateCCW->setText( tr( "" ) );
+    RotateCCW->setPixmap(loadIcon("rotate_ccw.png"));
+    ButtonGroup1Layout->addWidget( RotateCCW, 4, 0 );
+    RotateCW = new QToolButton( ButtonGroup1, "RotateCW" );
+		RotateCW->setAutoRepeat(true);
+    RotateCW->setText( tr( "" ) );
+    RotateCW->setPixmap(loadIcon("rotate_cw.png"));
+    ButtonGroup1Layout->addWidget( RotateCW, 4, 1 );
+    Expand = new QToolButton( ButtonGroup1, "Expand" );
+		Expand->setAutoRepeat(true);
+    Expand->setText( tr( "" ) );
+    Expand->setPixmap(loadIcon("expand.png"));
+    ButtonGroup1Layout->addWidget( Expand, 4, 2 );
+    Crop = new QToolButton( ButtonGroup1, "Crop" );
+		Crop->setAutoRepeat(true);
+    Crop->setText( tr( "" ) );
+    Crop->setPixmap(loadIcon("crop.png"));
+    ButtonGroup1Layout->addWidget( Crop, 4, 3 );
+
+
 
 /*    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ButtonGroup4Layout->addItem( spacer_2 );  */
-    NodePaletteLayout->addWidget( ButtonGroup4 );
+    NodePaletteLayout->addWidget( ButtonGroup1 );
 
     AbsMode = new QCheckBox( this, "Textflow" );
     AbsMode->setText( tr( "Absolute Coordinates" ) );
@@ -197,6 +185,10 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     QToolTip::add(  PolyShearL, tr( "Shears the Path horizontal to the left" ) );
     QToolTip::add(  PolyShearU, tr( "Shears the Path vertical up" ) );
     QToolTip::add(  PolyShearD, tr( "Shears the Path vertical down" ) );
+    QToolTip::add(  RotateCCW, tr( "Rotates the Path counter-clockwise" ) );
+    QToolTip::add(  RotateCCW, tr( "Rotates the Path clockwise" ) );
+    QToolTip::add(  Crop, tr( "Reduce the Size of the Path by 10%" ) );
+    QToolTip::add(  Expand, tr( "Enlarges the Size of the Path by 10%" ) );
     QToolTip::add(  AbsMode, tr( "When checked use Coordinates relative to the Page,\notherwise Coordinates are relative to the Object." ) );
 
     // signals and slots connections
@@ -219,6 +211,10 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     connect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearL()));
     connect(PolyShearU, SIGNAL(clicked()), this, SLOT(ShearU()));
     connect(PolyShearD, SIGNAL(clicked()), this, SLOT(ShearD()));
+    connect(RotateCCW, SIGNAL(clicked()), this, SLOT(doRotCCW()));
+    connect(RotateCW, SIGNAL(clicked()), this, SLOT(doRotCW()));
+    connect(Crop, SIGNAL(clicked()), this, SLOT(doCrop()));
+    connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 		connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 }
 
@@ -295,28 +291,52 @@ void NodePalette::CloseBezier()
 	PolySplit->setEnabled(true);
 }
 
+void NodePalette::doRotCCW()
+{
+	if (doc != 0)
+		doc->ActPage->TransformPoly(0);
+}
+
+void NodePalette::doRotCW()
+{
+	if (doc != 0)
+		doc->ActPage->TransformPoly(1);
+}
+
+void NodePalette::doCrop()
+{
+	if (doc != 0)
+		doc->ActPage->TransformPoly(2);
+}
+
+void NodePalette::doExpand()
+{
+	if (doc != 0)
+		doc->ActPage->TransformPoly(3);
+}
+
 void NodePalette::ShearR()
 {
 	if (doc != 0)
-		doc->ActPage->ShearPolyHR();
+		doc->ActPage->TransformPoly(5);
 }
 
 void NodePalette::ShearL()
 {
 	if (doc != 0)
-		doc->ActPage->ShearPolyHL();
+		doc->ActPage->TransformPoly(4);
 }
 
 void NodePalette::ShearU()
 {
 	if (doc != 0)
-		doc->ActPage->ShearPolyVU();
+		doc->ActPage->TransformPoly(6);
 }
 
 void NodePalette::ShearD()
 {
 	if (doc != 0)
-		doc->ActPage->ShearPolyVD();
+		doc->ActPage->TransformPoly(7);
 }
 
 void NodePalette::MirrorH()

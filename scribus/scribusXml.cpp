@@ -1983,7 +1983,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			}
 		}
 	elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("Version", "1.1.2");
+	elem.setAttribute("Version", "1.1.5");
 	for (uint co=0; co<Selitems->count(); ++co)
 		{
 		QString CurDirP = QDir::currentDirPath();
@@ -2669,7 +2669,7 @@ QDomDocument docu("scribus");
 QString st="<SCRIBUSUTF8></SCRIBUSUTF8>";
 docu.setContent(st);
 QDomElement elem=docu.documentElement();
-elem.setAttribute("Version", "1.1.4");
+elem.setAttribute("Version", "1.1.5");
 QDomElement dc=docu.createElement("DOCUMENT");
 dc.setAttribute("ANZPAGES",doc->PageC);
 dc.setAttribute("PAGEWITH",doc->PageB);

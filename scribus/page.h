@@ -96,10 +96,7 @@ public:
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void MirrorPolyH();
 	void MirrorPolyV();
-	void ShearPolyHR();
-	void ShearPolyHL();
-	void ShearPolyVU();
-	void ShearPolyVD();
+	void TransformPoly(int mode);
 	void Reset1Control();
 	void ResetControl();
 	void AdjustItemSize(PageItem *b);
@@ -189,8 +186,10 @@ public:
 	bool MoveGX;
 	FPoint RCenter;
 	bool MidButt;
+	int RotMode;
 
 public slots:
+	void PasteToPage();
 	void TextToPath();
 	void ChLineWidth(double w);
 	void ChLineArt(PenStyle w);
@@ -308,7 +307,6 @@ signals: // Signals
 	void DelBM(PageItem *);
 	void NewBMNr(int, int);
 	void ChBMText(PageItem *);
-	void RotMode(int);
 	void RasterPic(bool);
 	void DelObj(uint, uint);
 	void MoveObj(uint, uint, uint);

@@ -105,6 +105,7 @@ public:
     QRadioButton* BottomRight;
     QLabel* Text3;
     MSpinBox* Rot;
+    QLabel* Text3r;
     QToolButton* FlipH;
     QToolButton* FlipV;
     QToolButton* Locked;
@@ -214,7 +215,6 @@ public slots:
     void setBH(double x, double y);
 		void setR(double r);
 		void setRR(double r);
-		void setRM(int r);
 		void setLsp(double r);
 		void setSize(int s);
 		void setExtra(double e);
@@ -301,12 +301,10 @@ protected:
     QVBoxLayout* pageLayout_4;
     QVBoxLayout* pageLayout_5;
     QHBoxLayout* layout60;
-    QHBoxLayout* layout60a;
     QVBoxLayout* Layout44;
     QVBoxLayout* Layout44a;
-    QGridLayout* Layout12;
-    QVBoxLayout* Layout15_2;
     QHBoxLayout* Layout13;
+    QGridLayout* Layout12;
     QHBoxLayout* layout47;
     QVBoxLayout* layout46;
     QGridLayout* layout41;
