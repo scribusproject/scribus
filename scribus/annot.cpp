@@ -617,14 +617,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     SpinBox11 = new QSpinBox( GroupBox11, "SpinBox1" );
     SpinBox11->setMinValue(1);
 		if (item->AnActType == 7)
-//		if (Destfile->text() != "")
     	SpinBox11->setMaxValue(1000);
 		else
     	SpinBox11->setMaxValue(Seite);
     SpinBox11->setValue(item->AnZiel+1);
     GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
 		if (item->AnActType == 7)
-//		if (Destfile->text() != "")
     	Pg1 = new Navigator( GroupBox11, 100, item->AnZiel+1, view, item->An_Extern);
 		else
     	Pg1 = new Navigator( GroupBox11, 100, item->AnZiel, view);

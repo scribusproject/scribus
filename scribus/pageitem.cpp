@@ -222,6 +222,14 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	QPixmap pmd;
 	QPainter pb, pd;
 #endif
+	if (!Doc->DoDrawing)
+		{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		Dirty = false;
+		return;
+		}
 	LiList.setAutoDelete(true);
 	for (int xxx=0; xxx<5; ++xxx)
 		{

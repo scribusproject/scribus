@@ -857,6 +857,7 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt)
 void Page::AdjustPreview(PageItem *b)
 {
 	int neww, newh, fho, fvo;
+	bool savF;
 	if ((b->LocalViewX < 1.0) || (b->LocalViewY < 1.0))
 		{
 		if ((b->Pfile != "") && (b->PicAvail))
@@ -865,9 +866,11 @@ void Page::AdjustPreview(PageItem *b)
 				{
 				fho = b->flippedH;
 				fvo = b->flippedV;
+				savF = b->PicArt;
 				LoadPict(b->Pfile, b->ItemNr);
 				b->flippedH = fho;
 				b->flippedV = fvo;
+				b->PicArt = savF;
 				}
 			neww = qRound(b->pixm.width() * b->LocalViewX);
 			newh = qRound(b->pixm.height() * b->LocalViewY);
@@ -881,6 +884,7 @@ void Page::AdjustPreview(PageItem *b)
 void Page::AdjustPictScale(PageItem *b)
 {
 	int fho, fvo;
+	bool savF;
 	if (b->ScaleType)
 		return;
 	b->LocalX = 0;
@@ -893,9 +897,11 @@ void Page::AdjustPictScale(PageItem *b)
 		{
 		fho = b->flippedH;
 		fvo = b->flippedV;
+		savF = b->PicArt;
 		LoadPict(b->Pfile, b->ItemNr);
 		b->flippedH = fho;
 		b->flippedV = fvo;
+		b->PicArt = savF;
 		}
 	if (b->AspectRatio)
 		{
@@ -1917,6 +1923,16 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		Imoved = false;
 		return;
 		}
+	if ((doku->EditClip) && (SegP1 != -1) && (SegP2 != -1))
+		{
+		SegP1 = -1;
+		SegP2 = -1;
+		b = SelItem.at(0);
+		Imoved = false;
+		b->paintObj();
+		MarkClip(b);
+		return;
+		}
 	if ((doku->AppMode != 6) /* && (doku->AppMode != 7) */ && (!doku->EditClip) && (doku->AppMode != 13))
 		{
 		if ((GetItem(&b)) && (m->button() == RightButton) && (!doku->DragP))
@@ -2695,7 +2711,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			{
 			if (doku->EditClip)
 				{
-				if ((Mpressed) && (ClRe == -1))
+				if ((Mpressed) && (ClRe == -1) && (SegP1 == -1) && (SegP2 == -1))
 					{
 					newX = m->x();
 					newY = m->y();

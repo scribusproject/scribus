@@ -134,6 +134,7 @@ ScribusDoc::ScribusDoc()
 	BookMarks.clear();
 	OldBM = false;
 	hasName = false;
+	DoDrawing = true;
 	RotMode = 0;
 	ASaveTimer = new QTimer(this);
 	MLineStyles.clear();

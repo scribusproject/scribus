@@ -1,46 +1,7 @@
-Changes since Version 1.0RC1
-09.07.2003	cpalette.cpp		Fixed a cosmetic issue with Gradients.
-		svgplugin.cpp		Made Translations work correct.
-					Updated Russian and Czech Translation.
+Changes since Version 1.0
+25.07.2003	page.cpp		Fixed Bug with the Picture Preview.
+		Added Dutch, Ukrainian and Portuguese Hyphenation.
 
-08.07.2003	scribus.cpp		Some small Changes for the Scripter Plugin.
-
-04.07.2003	page.cpp
-		pageitem.cpp		Fixed Redraw Issues with Text Chains.
-
-03.07.2003	Added Russian Translation.
-		cupsoptions.cpp		Added the missing Pageorientation Option.
-		scribus.cpp		Added Non Breaking Spaces, can be inserted into the Text
-					via Ctrl-Space.
-
-02.07.2003	scribus.cpp		Fixed Bug with Bookmarks when switching Documents.
-		pdflib.cpp		Fixed Bug with Bookmarks and Encryption.
-
-01.07.2003	Added Czech Hyphenation Dictionary and updated the Czech Translation.
-		Various small Fixes from Paul.
-		scribus.cpp		Fixed unneeded Redraw when switching Windows.
-
-30.06.2003	page.cpp		Pressing the Ctlr-Key when resizing Objects with the Mouse
-					keeps now the aspect ratio of the Object.
-		pageitem.cpp		All Characters with code above 128 are now handled by FreeType.
-		scribus.no_NO.po	Updated.
-
-29.06.2003	fontprefs.cpp		Fixed Bug when deleting the last Extra Font Path.
-		prefs.cpp		Changed from the tabbed Layout to a more modern one.
-		pslib.cpp		Don't rotate Pages anymore when Landscape is selected.
-		scribusview.cpp		Fixed the bug that prevents proper Arrangement of the Pages when
-					Pages Side by Side was changed in the Preferences.
-
-28.06.2003	configure.in		Changed configure script to ensure proper recognition of lcms.h
-		customfdialog.cpp	Added CP1251 encoding and friends.
-
-26.06.2003	mpalette.cpp		Bugfix: Height and Width can now set below 1 Inch.
-		newfile.cpp		Bugfix: Landscape Mode works again.
-		prefs.cpp		Bugfix: Fixed Margin Values when switching Units.
-
-25.06.2003	pdflib.cpp		Fixed Bug when recalculating Picture Resolutions.
-
-23.06.2003	bookpalette.cpp
-		mpalette.cpp
-		seiten.cpp		Changed the Construktor to avoid a Bug in Gnome's 
-					Windowmanager metacity.
+18.07.2003	scpreview.cpp		Fixed Clipping Bug
+		scrap.cpp		Fixed Bug which caused Pictures to disappear when the actual
+					Application Directory isn't the users Home Directory.

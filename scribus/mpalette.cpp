@@ -336,7 +336,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     Text20 = new QLabel( page_3, "Text20" );
     Text20->setText(tr("Fontsize:"));
     layout41->addWidget( Text20, 1, 0 );
-    Size = new QSpinBox( page_3, "Size" );
+    Size = new QSpinBox( page_3, "Fontsize:" );
     Size->setPrefix( tr( "" ) );
     Size->setSuffix( tr( " pt" ) );
     Size->setMaxValue( 3000 );

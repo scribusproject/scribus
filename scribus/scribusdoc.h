@@ -569,6 +569,7 @@ public:
 #endif
 	QMap<QString,multiLine> MLineStyles;
 	QWidget* WinHan;
+	bool DoDrawing;
 };
 
 #endif

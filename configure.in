@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.0)
+AM_INIT_AUTOMAKE(scribus,1.0.1)
 
 dnl KDE_SET_PREFIX
 
@@ -37,7 +37,7 @@ hafree=yes
 if test -n "$FREETYPE_CONFIG"; then
 	LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
   LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
-	AC_CHECK_LIB(freetype, FT_Get_Next_Char, [AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])],[hafree=no])
+	AC_CHECK_LIB(freetype, FT_Get_First_Char, [AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])],[hafree=no])
 	AC_SUBST(LIBFREETYPE_LIBS)
 	AC_SUBST(LIBFREETYPE_CFLAGS)
 else

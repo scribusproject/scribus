@@ -1256,6 +1256,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	DoFonts.clear();
 	DoVorl.clear();
 	VorlC = 5;
+	QString CurDirP = QDir::currentDirPath();
+	QDir::setCurrent(QString(getenv("HOME")));
 	while(!DOC.isNull())
 		{
 		QDomElement pg=DOC.toElement();
@@ -1565,6 +1567,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		DOC=DOC.nextSibling();
 		}
 	doc->GroupCounter = GrMax + 1;
+	QDir::setCurrent(CurDirP);
 	return true;
 }
 

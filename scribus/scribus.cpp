@@ -2968,7 +2968,12 @@ void ScribusApp::slotEditPaste()
 			if (Buffer2.startsWith("<SCRIBUSELEM"))
 				{
 				doc->ActPage->Deselect(true);
+				uint ac = doc->ActPage->Items.count();
 				slotElemRead(Buffer2, 0, 0, false, true, doc);
+				for (uint as = ac; as < doc->ActPage->Items.count(); ++as)
+					{
+					doc->ActPage->SelectItemNr(as);
+					}
 				}
 			}
 		slotDocCh(false);
@@ -4523,25 +4528,30 @@ void ScribusApp::ObjektDupM()
 		int anz = dia->Ncopies->value();
 		float dH = static_cast<float>(dia->ShiftH->value()) / UmReFaktor / 100.0;
 		float dV = static_cast<float>(dia->ShiftV->value()) / UmReFaktor / 100.0;
+		float dH2 = dH;
+		float dV2 = dV;
 		int a;
 		if (anz>0)
 			{
+			slotEditCopy();
+			doc->ActPage->Deselect(true);
 			for (a=0; a<anz; ++a)
 				{
-				slotEditCopy();
-				doc->ActPage->Deselect(true);
 				slotEditPaste();
 				for (uint b=0; b<doc->ActPage->SelItem.count(); ++b)
 					{
 					doc->ActPage->SelItem.at(b)->Locked = false;
-					doc->ActPage->MoveItem(dH, dV, doc->ActPage->SelItem.at(b));
+					doc->ActPage->MoveItem(dH2, dV2, doc->ActPage->SelItem.at(b));
 					}
-				DispX = dH;
-				DispY = dV;
+				dH2 += dH;
+				dV2 += dV;
 				}
+			DispX = dH;
+			DispY = dV;
 			slotDocCh();
 			doc->UnDoValid = false;
 			CanUndo();
+			doc->ActPage->Deselect(true);
 			}
 		}
 	delete dia;
@@ -6286,6 +6296,12 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Hungarian");
 			if (d[dc] == "hyph_cs.dic")
 				datein = tr("Czech");
+			if (d[dc] == "hyph_nl.dic")
+				datein = tr("Dutch");
+			if (d[dc] == "hyph_pt.dic")
+				datein = tr("Portuguese");
+			if (d[dc] == "hyph_uk.dic")
+				datein = tr("Ukrainian");
 			Sprachen.insert(datein, d[dc]);
 			if (d[dc] == "hyph_"+lang+".dic")
 				Prefs.Language = datein;

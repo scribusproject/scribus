@@ -42,6 +42,10 @@ QPixmap ScPreview::createPreview(QString data)
 	int x, y;
 	float xf, yf;
 	QPainter pm;
+	QPainter pb;
+	QPainter pd;
+	QBitmap bmd;
+	QPixmap pmd;
 	QPointArray Bez(4);
 	int desc, asce, chs;
 	QPointArray cl;
@@ -348,35 +352,56 @@ QPixmap ScPreview::createPreview(QString data)
 			switch (OB.PType)
 				{
 				case 2:
-					pm.setClipRegion(QRegion(pm.xForm(OB.Clip)));
+//					pm.setClipRegion(QRegion(pm.xForm(OB.Clip)));
+					pm.setClipRegion(QRegion(pm.xForm(QRect(0, 0, static_cast<int>(OB.Width), static_cast<int>(OB.Height)))));
+					bmd = QBitmap(static_cast<int>(OB.Width), static_cast<int>(OB.Height));
+					bmd.fill(Qt::color0);
+					pb.begin(&bmd);
+					pb.setBrush(Qt::color1);
+					pb.setPen(QPen(Qt::color1, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+					DrawPoly(&pb, OB.Clip, pb.brush().color(), &OB, true);
+					pb.end();
+					pmd = QPixmap(static_cast<int>(OB.Width), static_cast<int>(OB.Height));
+					pmd.fill();
+					pd.begin(&pmd);
 					if (OB.Pcolor != "None")
 						{
-						pm.setPen(Qt::NoPen);
-						DrawPoly(&pm, OB.Clip, pm.brush().color(), &OB);
+						pd.setPen(Qt::NoPen);
+						DrawPoly(&pd, OB.Clip, pm.brush().color(), &OB);
 						}
 					if (OB.Pfile != "")
 						{
 						QFileInfo fi = QFileInfo(OB.Pfile);
 						if (fi.exists())
 							{
-							pm.save();
+							pd.save();
 							if (OB.flippedH % 2 != 0)
 								{
-								pm.translate(static_cast<int>(OB.Width), 0);
-								pm.scale(-1, 1);
+								pd.translate(static_cast<int>(OB.Width), 0);
+								pd.scale(-1, 1);
 								}
 							if (OB.flippedV % 2 != 0)
 								{
-								pm.translate(0, static_cast<int>(OB.Height));
-								pm.scale(1, -1);
+								pd.translate(0, static_cast<int>(OB.Height));
+								pd.scale(1, -1);
 								}
-							pm.scale(OB.LocalScX, OB.LocalScY);
+							pd.scale(OB.LocalScX, OB.LocalScY);
 							QString ext = fi.extension(false).lower();
 							QImage pixm = LoadPict(OB.Pfile);
-							pm.drawImage(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY), pixm);
-							pm.restore();
+							if (OB.InvPict)
+								{
+								QImage ip = pixm.copy();
+								ip.invertPixels();
+								pd.drawImage(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY), ip);
+								}
+							else
+								pd.drawImage(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY), pixm);
+							pd.restore();
+							pd.end();
 							}
 						}
+					pmd.setMask(bmd);
+					pm.drawPixmap(0, 0, pmd);
 					if ((OB.Pcolor2 != "None") || (OB.NamedLStyle != ""))
 						{
 						pm.setBrush(Qt::NoBrush);
@@ -386,7 +411,8 @@ QPixmap ScPreview::createPreview(QString data)
 				case 4:
 					if (Ptexti.count() != 0)
 						{
-						pm.setClipRegion(QRegion(pm.xForm(OB.Clip)));
+//						pm.setClipRegion(QRegion(pm.xForm(OB.Clip)));
+						pm.setClipRegion(QRegion(pm.xForm(QRect(0, 0, static_cast<int>(OB.Width), static_cast<int>(OB.Height)))));
 						if (OB.Pcolor != "None")
 							{
 							pm.setPen(Qt::NoPen);
