@@ -1,397 +1,88 @@
-Changes since 1.2 
-
-07.01.2005
-	* bug     #1061: Rasterized EPS/PS files on import do not export at selected resolution
-	* bug     #1228: Ghost layer with Append Templates
-	* bug     #1502: German Version: After starting Scribus menu-shortcut for file-menu (Alt-D for "_Datei") doesn't work .
-	* bug     #1503: German Ver.:  Same ALT-shortcut in Menu for "_Search" (_Suchen) and "Inserts _Special" (_Sonderzeichen einfügen)
-	* feature #1437: Usability-improvement for Extras:Insert Special. Make it possible to select the font
-
-06.01.2005
-	* bug     #1296: End key in right-aligned text is 1 char short
-	* bug     #1307: wrong indentation on first line
-	* bug     #1491: A paragraph with an Above value, starting on top of a column, should start right at the top, no space
-	* bug     #1500: Certain EPS-Files with included Preview won't print from Scribus.
-	* feature # 830: Integration of 3rd party docs within Scribus
-
-05.01.2005
-	* bug     # 522: screen refresh not perfect
-	* bug     #1450: replace icons for leaving & saving changes and leaving without saving
-	* bug     #1469: Scribus crashed on the attached document
-	* bug     #1482: Filename not updated when exporting to pdf
-	* bug     #1490: Zoom Tool not capable of  > 800% view, unlike status bar tool
-	* bug     #1492: Updated french translation
-	* bug     #1495: Startup error notification window gets stuck behind splash image
-
-04.01.2005
-	* bug     #1481: Scribus crashed on the attached document when trying to add a page
-
-03.01.2005
-	* bug     #1287: calendier.py doesn't work
-	* bug     #1368: Justified or right aligned text is misaligned when hyphenated
-	* bug     #1459: Control drag for proportional resize doesnt work on imported vectors
-	* bug     #1478: New afrikaans translation dated 31 Dec
-	* bug     #1480: Bookmark reorganisation can cause sig11
-
-02.01.2005
-	* bug     #1479: [PATCH] minor fix: correct usage of setOverrideCursor() so cursors are restored properly
-
-01.01.2005
-	* feature #1438: Usability-improvement for Extras:Insert Special. Point out that you can use the RMB for the magnifier
-
-30.12.2004
-	* bug     #1375: Missing pictures in built-in documentation
-	* bug     #1396: make font preview field in preview transparent
-	* feature #1312: Update screenshots  and add to documentation
-	* feature #1317: Script plugin FAQ and boilerplate script wrapper code
-	* feature #1472: Export scribus version to Python
-
-29.12.2004
-	* feature #1468: New Afrikaans translation
-
-28.12.2004
-	* bug     #1465: Scribus crashes on attached file
-	* bug     #1466: aligning tab stops not functioning
-
-27.12.2004
-	* bug     #1148: Scribus crashes with sig11 with font substitution dialog (again)
-	* bug     #1458: make dist fails on the cvs checkout
-
-26.12.2004
-	* bug     #1446: SVG doesnt import / render large files
-	* bug     #1449: Grouping text/bezier curve and then attach to path makes items disappear
-	* bug     #1455: updated translation into Russian
-	* feature #1451: Polish translation update
-
-25.12.2004
-	* feature #1448: Updated nb_NO translation.
-
-24.12.2004
-	* bug     #1444: attempting to zoom beyond 3200% shifts focus
-
-23.12.2004
-	* bug     # 793: Cursor placed at wrong location when using tabs
-	* bug     #1236: Paragraph style of blank paragraph lost in Story Editor
-	* bug     #1439: updated slovenian translation
-
-21.12.2004
-	* bug     #1414: Last line of text does not display when flowing around a picture
-	* bug     #1427: Finnish translation update
-	* feature #1429: German Translation für 1.2.1
-	* feature #1431: Spanish translation update
-	* feature #1432: Updated Danish Translation
-	* feature #1433: Updated nb_NO translation.
-
-20.12.2004
-	* bug     #1283: Scripter code cleanup
-	* bug     #1363: configure does not require libxml2>=2.6 but scribus does
-	* bug     #1415: Update of russian translation
-	* bug     #1416: Slovakian translation update
-	* feature #1419: Clear a selection by clicking outside the page boundary...
-	* feature #1426: Updated nb_NO translation.
-
-19.12.2004
-	* bug     #1383: Export to PDF and PS is not readable by acrobat or gnome ghostview
-	* bug     #1399: Flipped text return to normal after convert to outlines
-	* bug     #1403: Selecting a group in the middle of the group near the edge of an item in the group can cause a resize
-
-18.12.2004
-	* bug     #1385: Scribus 1.2.x hangs when vertically resizing a frame from the top
-	* feature #1411: Polish translation update
-
-17.12.2004
-	* bug     #1400: Converting outlined fonts to outlined polygons chooses random outline width
-	* bug     #1402: Selecting unlocked objects and locked objects allows locked ones to be deleted
-	* bug     #1404: Scribus crashes when duplicating a text frame with the text selected.
-	* feature #1409: Updated nb_NO translation.
-
-16.12.2004
-	* bug     #1395: Polish manpage must not be compressed in the source tarball.
-	* feature #1397: Polish man page for 1.2.1 (final version)
-
-15.12.2004
-	* bug     #1382: "Non-breaking space" character rendered as "unknown character" in PDF output
-	* bug     #1392: Catalan Translation Update
-
-14.12.2004
-	* bug     #1376: Some glyphs in Luxi Sans font family disappear when file is exported to PDF
-	* bug     #1378: Some elements on a template don't make it into PDF
-
-12.12.2004
-	* bug     #1163: "adjusting to frame" makes pictures smaller
-	* bug     #1207: Scribus crashes with Story Editor applying to new empty paragraphs..
-	* bug     #1379: slovenian updates
-	* feature #1057: Updates to allow correct build on AMD 64
-
-11.12.2004
-	* bug     #1082: Save state of toolwindows when exiting
-	* bug     #1143: Story editor loses first keystroke
-	* bug     #1359: garbage in preview when inserting graphic file without extension
-
-10.12.2004
-	* bug     # 931: Insert Special should be disabled when not usable
-	* bug     #1100: libfreetype not found by ./configure
-	* bug     #1328: SVG Import: incorrect units
-	* bug     #1361: after attaching text to path the shape cannot be resized without dissappearing
-	* bug     #1369: Crash when using <esc> to end line drawing
-	* bug     #1370: Bezier tool does not set document changed when escaped pressed to end drawing.
-	* bug     #1372: Change of Translator email-adress.
-	* bug     #1373: Updated nb_NO translation.
-
-09.12.2004
-	* bug     # 984: Can Search/Replace dialog remember from last time?
-	* bug     #1135: Page number in TTF font doesn't print
-	* bug     #1344: crash when drawing bezier curves
-	* bug     #1349: Auto Number-Page Bug
-
-08.12.2004
-	* bug     #1227: translatable man page
-	* bug     #1287: calendier.py doesn't work
-	* bug     #1366: Remove header class interdependencies
-	* feature #1367: Polish man page (first version)
-
-07.12.2004
-	* bug     #1073: make-dist removes the "po" dir and breaks the build. po removal must not be done
-	* bug     #1258: Missing translation strings
-	* bug     #1301: Text frame tool is confused when clicking on existing text frames
-	* bug     #1334: autoconf fails to build configure
-	* bug     #1350: Scribus crashes when pressing Update text-frame and exit -button when first empty lines are deleted
-	* bug     #1361: after attaching text to path the shape cannot be resized without dissappearing
-
-06.12.2004
-	* feature #1339: Updated french translation
-
-05.12.2004
-	* bug     #1018: Migrate to new KDE/KDevelop build environment for 1.2.1
-	* bug     #1331: Minor improvements to PDF  Export and About Scribus GUI
-	* bug     #1356: nb_NO Translation for 1.2.1cvs
-	* feature # 159: scratch space, please!
-	* feature # 964: make settings > preferences look like most kde apps
-	* feature #1355: Polish translation update
-
-03.12.2004
-	* bug     #1353: sig 11 crash if a missing template is chosen for a new document
-
-30.11.2004
-	* bug     #1347: Please remove locale no
-
-22.11.2004
-	* bug     #1333: Missing word in one of the UCR defs
-
-20.11.2004
-	* bug     #1021: ./configure --enable-debug --enable-profile still strips binaries
-	* bug     #1332: Scribus crashes when pasting into text frame
-
-18.11.2004
-	* feature #1315: New sq-AL translation of Scribus
-	* feature #1323: Implement -ns/--no-splash option on startup
-
-16.11.2004
-	* bug     #1316: xlib_rgb_init: compiled for big endian ... scribus won't run
-	* bug     #1320: Updated Czech Translation
-
-10.11.2004
-	* bug     #1306: Scribus crashes Sig 11 with Insert Special Char in StoryEditor
-	* feature #1313: Updated french translation
-
-08.11.2004
-	* feature #1281: Rewrite help browser to support multipage help with menu
-	* feature #1282: Migrate docs.scribus.net into 1.2.1 documentation package
-	* feature #1289: Open Office Draw Importer
-
-07.11.2004
-	* bug     #1262: Serbian Translation Updated
-	* bug     #1265: German ts update
-	* bug     #1269: editing state should be lost if selecting another object
-	* bug     #1275: poor quality bitmap export
-	* bug     #1277: update of scribus.ru.ts
-	* feature #1264: PATCH: Convert functions that take no arguments to METH_NOARGS
-	* feature #1276: PATCH: Change function aliasing to use a dynamically created Python wrapper function
-
-31.10.2004
-	* bug     #1154: Tabs not in line
-	* bug     #1234: fix configure to detect Python 2.4
-	* bug     #1257: paragraph formatting not applied to the entire selection
-
-30.10.2004
-	* bug     #1134: Don't allow to *Save* without Info-String in PDF/X-3
-	* bug     #1251: "Convert to... outline, picture frame..." in the context menu does not activate the Save button
-	* bug     #1255: wrong page orientation
-	* bug     #1261: New Dutch Translation
-	* feature # 601: Keep last opened directory
-	* feature # 601: Keep last opened directory
-	* feature #1038: "Export text as outlines" in PDF exporter
-
-29.10.2004
-	* feature #1259: Polish translation update
-
-28.10.2004
-	* feature #1253: Show page dimension and orientation information in Document Setup
-	* feature #1256: Danish Translation Update
-
-27.10.2004
-	* bug     #1195: reordering menu items
-
-26.10.2004
-	* bug     #1191: "None" Colour ends up in colour list
-	* bug     #1237: minor build fix: search for xml2-config on PATH
-	* bug     #1244: Implement patches for IRIX compatiblity
-
-25.10.2004
-	* bug     #1245: Rotated Objects not rotated in PDF-export
-	* bug     #1247: Serbian Translation Update
-
-24.10.2004
-	* bug     #1240: Scribus crashed while importing an Svg file from inkscape.
-	* feature #1242: British English Translation Update
-
-22.10.2004
-	* bug     #1238: acroread reports dash errors in pdf
-
-21.10.2004
-	* bug     #1239: Splashscreen doesnt hide when clicking on it
-
-20.10.2004
-	* bug     #1231: Error in one of the OO.o Writer importer UI strings
-	* bug     #1233: Ukrainian translation update
-	* feature #1217: Help>About>Translations: please mark active translators
-
-19.10.2004
-	* bug     #1221: Partly outside the page images not cropped on PDF export
-	* bug     #1226: Update of russian translation
-	* feature #1157: scribus man page
-	* feature #1217: Help>About>Translations: please mark active translators
-
-18.10.2004
-	* bug     #1203: wrong selection on double click
-	* bug     #1220: cddb_cover.py failed
-
-15.10.2004
-	* bug     #1216: Scribus crashes after a double click and right click on a text frame
-	* feature # 803: Feature request: rotation of pdf output
-
-14.10.2004
-	* bug     #1208: grey out the factor field in polygon setting when not activated
-	* bug     #1211: wrong PDF export of imported EPS image
-	* bug     #1213: duplicating a page template doesn't duplicate the guides
-
-12.10.2004
-	* bug     #1210: Translation update for German
-
-11.10.2004
-	* bug     #1093: Deleting selected text from text frame deletes also one character after the selction
-	* bug     #1199: Updated Norwegian Bokmaal Translation
-	* bug     #1200: Fontconversation dialog behind supermodal splash screen
-	* bug     #1206: Serbian Translation Update
-	* feature #1157: scribus man page
-	* feature #1198: Script console should use fixed-width font
-
-09.10.2004
-	* bug     #1182: Build issues for SXW unzipping
-	* bug     #1185: Aphabetical order of languages in Properties retains that of English denominations in all other languages
-	* feature #1196: Finnish translation update
-
-08.10.2004
-	* bug     #1111: Some accented letters and other diacritic marks only available from within the Story Editor
-
-05.10.2004
-	* bug     #1091: Luxi Fonts: Polish and Czech glyphs stopped displaying in Scribus 1.2
-	* bug     #1092: Crash when opening bad document
-
-04.10.2004
-	* bug     #1187: Initial Esperanto translation
-	* bug     #1188: Italian Translation Update
-	* feature #1178: Polish Translation Update
-
-03.10.2004
-	* feature # 354: Ability to script exporting to PDF
-
-02.10.2004
-	* bug     #1164: Korean Translation
-	* bug     #1165: Catalan Translation Update
-	* bug     #1174: Enable Scribus to show installed GUI translations with cmd line option
-	* feature #1167: patch to add new translators
-	* feature #1169: [PATCH] Horizontal mirroring for PDF export
-	* feature #1170: Danish Translation
-
-01.10.2004
-	* feature #  59: Add in table support
-	* feature # 189: ASCII import options to strip Carriage Returns
-
-29.09.2004
-	* bug     #1014: Bad pangram display in Font Preview
-	* bug     #1133: Error in script htmlimport.py
-	* bug     #1136: Hyphenation marks not visible on linked frames
-	* bug     #1159: fix for revised help browser
-	* bug     #1160: cs_CZ translation for 1.2.1cvs
-	* feature #1078: Custom import filter for text files
-
-25.09.2004
-	* bug     # 971: Improvement in the Hyphenation Settings menus
-	* bug     # 971: Improvement in the Hyphenation Settings menus
-	* feature #1045: are stars convex?
-	* feature #1145: Polish Translation Update
-
-24.09.2004
-	* bug     #1002: Many dialog boxes don't remember last settings
-	* feature #1145: Polish Translation Update
-
-22.09.2004
-	* bug     #1019: When fonts are auto removed because of errors, they should be reported in the console
-	* bug     #1103: Scribus exits with a Signal 11 when adding a new page to a document
-	* bug     #1110: Stroke color greyed by default lets user access the value nonetheless in Paragraph style edit dialog
-	* bug     #1128: Small Caps are not correctly displayed
-	* bug     #1129: Polish hyphenation is not satisfactory
-	* feature #1070: Can't save after just javascript editing
-
-21.09.2004
-	* bug     #1014: Bad pangram display in Font Preview
-	* bug     #1081: Insert Special... crash scribus
-	* bug     #1122: Icon change in main toolbar + story editor
-	* bug     #1131: *Blank page* icon has two different meanings whether in Main Tools bar or in Story Editor
-	* feature # 113: OOo importer
-	* feature #1121: Danish Translation
-
-20.09.2004
-	* bug     #1084: Docs >Exporting to PDF >  PDF and PHP Forms: PHP script doesn't work
-	* feature # 117: HTML importer
-
-17.09.2004
-	* feature #1088: Please add link to Polish tutorial to community resources
-
-14.09.2004
-	* feature #1064: Polish Translation Update
-	* feature #1072: Make it possible to change the document templates directory in settings
-
-11.09.2004
-	* bug     #1058: Incorrect PDF output for dotted/dashed straight single-segment PolyLines with a non-'None' background colour
-	* bug     #1059: Adjusting the width or height of a PolyLine or freehand line causes it to become a square
-	* feature #1062: Updated Italian translation
-
-08.09.2004
-	* bug     #1031: Bad version number in the sla files
-	* bug     #1040: Adjust Frame to Picture scales frame incorrectly
-	* feature #1043: german ts-update
-
-05.09.2004
-	* bug     #1029: Crash with empty text when pressing left cursor key
-	* bug     #1031: Bad version number in the sla files
-	* bug     #1035: Adjust Frame to Picture doesnt set dirty doc flag
-
-03.09.2004
-	* bug     #1028: Crash when editing a text frame with spaces at the beginning in Block mode
-	* feature #1024: Added Hyphenation Patterns for Afrikaans
-	* feature #1026: Danish translation - wrong qm-file
-
-29.08.2004
-	* bug     # 869: oriantation setting wrong displayed
-	* bug     # 869: oriantation setting wrong displayed
-	* bug     #1009: SuSE Patches for scribus
-	* bug     #1011: Serious problems with pasting copied content from some applications.
-	* feature #1010: Update of russian translation. many fixes
-	* feature #1013: middle mouse button refreshes screen when you use it to paste text
-	* feature #1017: Norwegian Bokmaal Translation for 1.2
-
-28.08.2004
-	* feature # 500: Create new documentation website for 1.2 release
-
+- 0001722: [Default] create page / inserte frame / crash (fschmid)
+- 0001723: [Default] Page sizes are innaccurate where they are predefined values (cbradney)
+- 0001690: [Default] Alllow the loading of customised shortcut sets (cbradney)
+- 0000826: [Picture Frames] cmyk-jpg gets blue colour engraving (fschmid)
+- 0001550: [Default] Wrong postition of "Preferences" menu item (fschmid)
+- 0001637: [User Interface] new icons for navigation bar (fschmid)
+- 0001655: [Internal] PATCH: remove last traces of PType (Tsoots)
+- 0001654: [Internal] PATCH: check for constructor failure in tree.cpp (Tsoots)
+- 0001224: [Scripter] Scripter support for checking if a text box is overflowing. (subik)
+- 0001639: [Internal] PATCH: Convert PageItem::PType to a protected enumerated member (cbradney)
+- 0001626: [Story Editor / Text Frames] Added Bulgarian Hyphenation Patterns (fschmid)
+- 0001628: [Scripter] PATCH: Basic version of Qt property based scripter interface for pageitems (subik)
+- 0001632: [Internal] PATCH: add getters and properties for all existing setters in PageItem (Round 2) (Tsoots)
+- 0001563: [User Interface] Show type icons for fonts in create PDF dialog
+- 0001623: [Internal] PATCH: Convert more PageItem members to protected (cbradney)
+- 0001616: [Default] PATCH: add getters and properties for all existing setters in PageItem (cbradney)
+- 0001609: [Default] [PATCH] Minor PageItem cleanups (Tsoots)
+- 0001611: [User Interface] PATCH: fix doc checker so that action is toggled on all hide types (cbradney)
+- 0001610: [Internal] PATCH: build fix for no lcms (cbradney)
+- 0001599: [Picture Frames] Make Images moveable with the Cursor keys when in Edit Mode. (fschmid)
+- 0001590: [Internal] [PATCH] Don't redraw the whole canvas when deselecting a single item (fschmid)
+- 0001589: [Scripter] 1.3 scripter object positioning fixes (subik)
+- 0001538: [Default] Textframe disappears (fschmid)
+- 0001529: [Default] "Undo history" palette (Tsoots)
+- 0001559: [Fonts] Warn about missing glyphs on print, export (fschmid)
+- 0001548: [Default] Redesign of Preferences - Guides (fschmid)
+- 0001535: [General] annotation settings issue (fschmid)
+- 0001528: [User Interface] "View" tab in Preferences (fschmid)
+- 0001248: [Picture Frames] delete content should reset properties too (fschmid)
+- 0001340: [Default] Occasional crash when trying to move locked frames/drawings (fschmid)
+- 0001390: [User Interface] Font-preview in Styleeditor (subik)
+- 0001290: [Story Editor / Text Frames] Caret invisible in new text frames (fschmid)
+- 0000562: [Shape Drawing] arrow-heads for line styles (fschmid)
+- 0000773: [User Interface] save doc options when scribus exits (fschmid)
+- 0000506: [General] Unprompted objects resizing after more objects selection (fschmid)
+- 0000006: [User Interface] Ability to show some sort of indicator to show how a textframe chain flows (fschmid)
+- 0000192: [Story Editor / Text Frames] Text and image frames must be able to spread across the facing pages spread (fschmid)
+- 0001525: [General] Unexpectedly access to the Manage Guides dialog (fschmid)
+- 0001524: [User Interface] Grey out "page number field" in Page>Insert>at End (cbradney)
+- 0001437: [User Interface] Usability-improvement for Extras:Insert Special. Make it possible to select the font (fschmid)
+- 0001301: [User Interface] Text frame tool is confused when clicking on existing text frames
+- 0001438: [User Interface] Usability-improvement for Extras:Insert Special. Point out that you can use the RMB for the magnifier (subik)
+- 0001419: [General] Clear a selection by clicking outside the page boundary... (cbradney)
+- 0001366: [Internal] Remove header class interdependencies (cbradney)
+- 0000964: [User Interface] make settings > preferences look like most kde apps
+- 0000159: [General] scratch space, please!
+- 0001323: [User Interface] 1.3.0cvs: Implement -ns/--no-splash option on startup (cbradney)
+- 0001724: [Default] replaced fonts in templates to avoid non-free licenses (cbradney)
+- 0001681: [Scripter] add setBookmark (subik)
+- 0001706: [Translation] Short-Words - Brazilian Portuguese Update (subik)
+- 0001454: [Translation] pythons strings. several issues (cbradney)
+- 0001705: [Translation] Brazilian Portguese Translation Update (cbradney)
+- 0001618: [User Interface] automatically add .scs to the scrapbook name (cbradney)
+- 0001715: [Translation] Updated Danish Translation (plinnell)
+- 0001520: [Documentation] configure refuses to compile with Qt version lower than 3.3 (plinnell)
+- 0001687: [Default] 1.2.1 crashes when deleting a locked object
+- 0001642: [Import / Export] Attach text to path is not accurate (fschmid)
+- 0001679: [Translation] Galician Translation Update (cbradney)
+- 0001672: [Scripter] setColumnGap and getPageMargin ignore Unit (ringerc)
+- 0001664: [Printing] No print preview and error in postscript output (fschmid)
+- 0001667: [Documentation] PATCH: Update scripter FAQ, fix escaping of coding standards (plinnell)
+- 0001647: [Plug-ins] /usr/lib/scribus/plugins/scribus-short-words.rc must not be executable (subik)
+- 0001583: [Translation] Brazilian Portuguese Translation Update (cbradney)
+- 0001452: [Scripter] Feature request - export image in script (subik)
+- 0001523: [Scripter] Script console blocks when waiting for input (subik)
+- 0001644: [Scripter] PATCH: Split MenuTest out of scriptplugin.cpp and rename (cbradney)
+- 0001643: [Translation] Update translation for Albanian (SQ) (cbradney)
+- 0001636: [Translation] Update of russian translation (cbradney)
+- 0001649: [Translation] Brazilian Portuguese hyphenation (cbradney)
+- 0001612: [Scripter] PATCH: fix moveObject and moveObjectAbs for groups (subik)
+- 0001614: [Default] PATCH: scale image to frame control from scripter (subik)
+- 0001585: [Scripter] [PATCH] Macro manager for Scripter (cbradney)
+- 0001604: [General] Crash when deleting pages (cbradney)
+- 0001608: [Translation] Please include Short Words translation strings into Scribus TS files (subik)
+- 0001615: [Translation] Polish translation update for 1.2.2cvs (cbradney)
+- 0001597: [Plug-ins] short-words plugin doesn't build and blocks the entire build. (subik)
+- 0001600: [Import / Export] Non-break spaces from OpenOffice.org should be converted into Scribus' ones (Tsoots)
+- 0001596: [Picture Frames] Image movement within frame has max in mm (32.764) and in (1.2864), not in pt and p. (fschmid)
+- 0001389: [Plug-ins] short words for 1.2.1(cvs) (subik)
+- 0001560: [Scripter] [patch] minor scripter fixes for selection and text color (subik)
+- 0001570: [Translation] Ukrainian translation update (cbradney)
+- 0001521: [Documentation] Compilation aborts when using Python 2.2 (subik)
+- 0001536: [Translation] updated translation into Russian (plinnell)
+- 0001544: [Translation] Galician Translation Update (plinnell)
+- 0001515: [Scripter] scaleImage won't work (subik)
+- 0001541: [General] scribus/plugins/scriptplugin/scripts/COPYING file is not needed and is a nuisance during packaging (cbradney)
+- 0001516: [Story Editor / Text Frames] Can't import text from OO.o + can't import .txt without loosing all diacritic marks (French) (cbradney)
+- 0001513: [Default] Crash in help browser if doc/en help files are all deleted (cbradney)
