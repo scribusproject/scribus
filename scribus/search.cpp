@@ -419,7 +419,7 @@ void SearchReplace::slotDoSearch()
 			}
 			if (SFont->isChecked())
 			{
-				if (Item->itemText.at(a)->cfont->SCName != sFont)
+				if (Item->itemText.at(a)->cfont != sFont)
 					found = false;
 			}
 			if (SStyle->isChecked())
@@ -705,21 +705,21 @@ void SearchReplace::slotDoReplace()
 							hg->cab = Doc->currentParaStyle;
 						if (Doc->docParagraphStyles[hg->cab].Font != "")
 						{
-							hg->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].Font];
+							hg->cfont = Doc->docParagraphStyles[hg->cab].Font;
 							hg->csize = Doc->docParagraphStyles[hg->cab].FontSize;
 							hg->cstyle = Doc->docParagraphStyles[hg->cab].FontEffect;
 						}
 						if (RFont->isChecked())
-							hg->cfont = (*Doc->AllFonts)[RFontVal->currentText()];
+							hg->cfont = RFontVal->currentText();
 						else
-							hg->cfont = (*Doc->AllFonts)[Doc->CurrFont];
+							hg->cfont = Doc->CurrFont;
 						hg->cextra = 0;
 						hg->xp = 0;
 						hg->yp = 0;
 						hg->PRot = 0;
 						hg->PtransX = 0;
 						hg->PtransY = 0;
-						Item->itemText.insert(ReplStart+cx, hg);
+						Item->itemText.insert(ReplStart+cx, hg);     
 					}
 					Item->CPos = ReplStart+cx;
 				}

@@ -35,7 +35,7 @@ struct ScText
 	float PtransX;
 	float PtransY;
 	float PRot;
-	Foi* cfont;
+	QString cfont;
 	QString ccolor;
 	QString cstroke;
 	QString ch;

@@ -6,7 +6,6 @@
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
-#include "scfonts.h"
 #include "annot.h"
 #include "annot.moc"
 #include "editor.h"

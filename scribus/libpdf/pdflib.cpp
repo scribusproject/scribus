@@ -66,7 +66,7 @@ extern QString MaskToTxt(QImage *im, bool PDF = true);
 extern QString MaskToTxt14(QImage *im);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
-extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
+extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern FPoint getMaxClipF(FPointArray* Clip);
 extern FPoint getMinClipF(FPointArray* Clip);
 #ifdef HAVE_CMS
@@ -557,7 +557,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->SCName, DocFonts[pgit->itemText.at(e)->cfont->SCName]);
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont, DocFonts[pgit->itemText.at(e)->cfont]);
 			}
 		}
 	}
@@ -568,7 +568,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->SCName, DocFonts[pgit->itemText.at(e)->cfont->SCName]);
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont, DocFonts[pgit->itemText.at(e)->cfont]);
 			}
 		}
 	}
@@ -2635,8 +2635,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		}
 		uint cc = chx[0].unicode();
 		uint idx = 0;
-		if (GlyphsIdxOfFont[hl->cfont->SCName].contains(cc))
-			idx = GlyphsIdxOfFont[hl->cfont->SCName][cc].Code;
+		if (GlyphsIdxOfFont[hl->cfont].contains(cc))
+			idx = GlyphsIdxOfFont[hl->cfont][cc].Code;
 		uint idx1 = (idx >> 8) & 0xFF;
 		if (hl->cstyle & 64)
 		{
@@ -2660,14 +2660,14 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			FillColor = "";
 			FillColor += putColor(hl->ccolor, hl->cshade, true);
 		}
-		if ((hl->cfont->isOTF) || (hl->cfont->Subset) || (Options->SubsetList.contains(hl->cfont->SCName)))
+		if (((*doc->AllFonts)[hl->cfont]->isOTF) || ((*doc->AllFonts)[hl->cfont]->Subset) || (Options->SubsetList.contains(hl->cfont)))
 		{
 			uint chr = chx[0].unicode();
-			if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
+			if (((*doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
 			{
 				if ((hl->cstroke != "None") && (hl->cstyle & 4))
 				{
-					tmp2 += FToStr(QMAX(hl->cfont->strokeWidth * tsz / 20.0, 10) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
+					tmp2 += FToStr(QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 20.0, 10) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
 					tmp2 += StrokeColor;
 				}
 				if (hl->ccolor != "None")
@@ -2699,10 +2699,10 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(((tsz / 10.0)))+" cm\n";
 				}
 				tmp2 += FToStr(QMIN(QMAX(hl->cscale, 25), 400) / 100.0)+" 0 0 1 0 0 cm\n";
-				tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
+				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
 				if (hl->cstyle & 4)
 				{
-					FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+					FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
 					QWMatrix mat;
 					mat.scale(0.1, 0.1);
 					gly.map(mat);
@@ -2741,7 +2741,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
 					chx = "-";
 					chr = chx[0].unicode();
-					FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+					FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
 					QWMatrix mat;
 					mat.scale(0.1, 0.1);
 					gly.map(mat);
@@ -2780,10 +2780,10 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		{
 			cc = chx[0].unicode();
 			idx = 0;
-			if (GlyphsIdxOfFont[hl->cfont->SCName].contains(cc))
-				idx = GlyphsIdxOfFont[hl->cfont->SCName][cc].Code;
+			if (GlyphsIdxOfFont[hl->cfont].contains(cc))
+				idx = GlyphsIdxOfFont[hl->cfont][cc].Code;
 			idx1 = (idx >> 8) & 0xFF;
-			tmp += UsedFontsP[hl->cfont->SCName]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+			tmp += UsedFontsP[hl->cfont]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 			if (hl->cstroke != "None")
 			{
 				tmp += StrokeColor;
@@ -2797,7 +2797,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp2 += FillColor;
 			}
 			if (hl->cstyle & 4)
-				tmp += FToStr(hl->cfont->strokeWidth * tsz / 20.0) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
+				tmp += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 20.0) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
 			else
 				tmp += "0 Tr\n";
 			if (ite->itemType() != PageItem::PathText)
@@ -2837,10 +2837,10 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					chx = "-";
 					cc = chx[0].unicode();
 					idx = 0;
-					if (GlyphsIdxOfFont[hl->cfont->SCName].contains(cc))
-						idx = GlyphsIdxOfFont[hl->cfont->SCName][cc].Code;
+					if (GlyphsIdxOfFont[hl->cfont].contains(cc))
+						idx = GlyphsIdxOfFont[hl->cfont][cc].Code;
 					idx1 = (idx >> 8) & 0xFF;
-					tmp += UsedFontsP[hl->cfont->SCName]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+					tmp += UsedFontsP[hl->cfont]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 					idx2 = idx & 0xFF;
 					tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 				}
@@ -2848,8 +2848,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			if ((hl->cstyle & 8) && (chx != QChar(13)))
 			{
 				double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-				double Upos = hl->cfont->underline_pos * (tsz / 10.0);
-				double Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+				double Upos = (*doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
+				double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
 				if (hl->ccolor != "None")
 					tmp2 += putColor(hl->cstroke, hl->cshade, false);
 				tmp2 += FToStr(Uwid)+" w\n";
@@ -2860,8 +2860,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			if ((hl->cstyle & 16) && (chx != QChar(13)))
 			{
 				double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-				double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
-				double Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+				double Upos = (*doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+				double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
 				if (hl->ccolor != "None")
 					tmp2 += putColor(hl->cstroke, hl->cshade, false);
 				tmp2 += FToStr(Uwid)+" w\n";

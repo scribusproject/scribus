@@ -39,6 +39,7 @@ using namespace std;
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
+extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern FPoint getMaxClipF(FPointArray* Clip);
 extern PrefsFile* prefsFile;
 

@@ -2209,7 +2209,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		{
 			QDomElement it=docu.createElement("ITEXT");
 			ts = item->itemText.at(k)->csize / 10.0;
-			tf = item->itemText.at(k)->cfont->SCName;
+			tf = item->itemText.at(k)->cfont;
 			tc = item->itemText.at(k)->ccolor;
 			te = item->itemText.at(k)->cextra;
 			tsh = item->itemText.at(k)->cshade;
@@ -2245,7 +2245,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				break;
 			}
 			ts2 = item->itemText.at(k)->csize / 10.0;
-			tf2 = item->itemText.at(k)->cfont->SCName;
+			tf2 = item->itemText.at(k)->cfont;
 			tc2 = item->itemText.at(k)->ccolor;
 			te2 = item->itemText.at(k)->cextra;
 			tsh2 = item->itemText.at(k)->cshade;
@@ -2278,7 +2278,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				if (k == item->itemText.count())
 					break;
 				ts2 = item->itemText.at(k)->csize / 10.0;
-				tf2 = item->itemText.at(k)->cfont->SCName;
+				tf2 = item->itemText.at(k)->cfont;
 				tc2 = item->itemText.at(k)->ccolor;
 				te2 = item->itemText.at(k)->cextra;
 				tsh2 = item->itemText.at(k)->cshade;
@@ -2425,7 +2425,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		{
 			QDomElement it=docu->createElement("ITEXT");
 			ts = item->itemText.at(k)->csize / 10.0;
-			tf = item->itemText.at(k)->cfont->SCName;
+			tf = item->itemText.at(k)->cfont;
 			tc = item->itemText.at(k)->ccolor;
 			te = item->itemText.at(k)->cextra;
 			tsh = item->itemText.at(k)->cshade;
@@ -2458,7 +2458,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				break;
 			}
 			ts2 = item->itemText.at(k)->csize / 10.0;
-			tf2 = item->itemText.at(k)->cfont->SCName;
+			tf2 = item->itemText.at(k)->cfont;
 			tc2 = item->itemText.at(k)->ccolor;
 			te2 = item->itemText.at(k)->cextra;
 			tsh2 = item->itemText.at(k)->cshade;
@@ -2488,7 +2488,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				if (k == item->itemText.count())
 					break;
 				ts2 = item->itemText.at(k)->csize / 10.0;
-				tf2 = item->itemText.at(k)->cfont->SCName;
+				tf2 = item->itemText.at(k)->cfont;
 				tc2 = item->itemText.at(k)->ccolor;
 				te2 = item->itemText.at(k)->cextra;
 				tsh2 = item->itemText.at(k)->cshade;

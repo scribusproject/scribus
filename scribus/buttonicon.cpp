@@ -1,5 +1,3 @@
-
-#include "scfonts.h"
 #include "buttonicon.h"
 #include "buttonicon.moc"
 extern QPixmap loadIcon(QString nam);

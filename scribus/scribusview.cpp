@@ -76,7 +76,7 @@
 using namespace std;
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
+extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern ScribusApp* ScApp;
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QPixmap loadIcon(QString nam);
@@ -5041,8 +5041,8 @@ void ScribusView::UpdatePolyClip(PageItem *b)
 	for (uint a = 0; a < b->itemText.count(); ++a)
 	{
 		hl = b->itemText.at(a);
-		int des = static_cast<int>(hl->cfont->numDescender * (-hl->csize / 10.0));
-		int asc = static_cast<int>(hl->cfont->numAscent * (hl->csize / 10.0));
+		int des = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numDescender * (-hl->csize / 10.0));
+		int asc = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
 		if (asc > asce)
 			asce = asc;
 		if (des > desc)
@@ -6381,7 +6381,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				{
 					b->CPos = a;
 					p.end();
-					Doc->CurrFont = b->itemText.at(a)->cfont->SCName;
+					Doc->CurrFont = b->itemText.at(a)->cfont;
 					Doc->CurrFontSize = b->itemText.at(a)->csize;
 					Doc->CurrTextFill = b->itemText.at(a)->ccolor;
 					Doc->CurrTextFillSh = b->itemText.at(a)->cshade;
@@ -6389,7 +6389,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextStrokeSh = b->itemText.at(a)->cshade2;
 					Doc->CurrTextScale = b->itemText.at(a)->cscale;
 					emit ItemTextSca(b->itemText.at(a)->cscale);
-					emit ItemTextFont(b->itemText.at(a)->cfont->SCName);
+					emit ItemTextFont(b->itemText.at(a)->cfont);
 					emit ItemTextSize(b->itemText.at(a)->csize);
 					emit ItemTextUSval(b->itemText.at(a)->cextra);
 					emit ItemTextStil(b->itemText.at(a)->cstyle);
@@ -6412,7 +6412,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 						i = a - 1;
 					else
 						i = a;
-					Doc->CurrFont = b->itemText.at(i)->cfont->SCName;
+					Doc->CurrFont = b->itemText.at(i)->cfont;
 					Doc->CurrFontSize = b->itemText.at(i)->csize;
 					Doc->CurrTextFill = b->itemText.at(i)->ccolor;
 					Doc->CurrTextFillSh = b->itemText.at(i)->cshade;
@@ -6421,7 +6421,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextScale = b->itemText.at(i)->cscale;
 					emit ItemTextSca(b->itemText.at(i)->cscale);
 					emit ItemTextFarben(b->itemText.at(i)->cstroke, b->itemText.at(i)->ccolor, b->itemText.at(i)->cshade2, b->itemText.at(i)->cshade);
-					emit ItemTextFont(b->itemText.at(i)->cfont->SCName);
+					emit ItemTextFont(b->itemText.at(i)->cfont);
 					emit ItemTextSize(b->itemText.at(i)->csize);
 					emit ItemTextUSval(b->itemText.at(i)->cextra);
 					emit ItemTextStil(b->itemText.at(i)->cstyle);
@@ -6432,7 +6432,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			b->CPos = b->itemText.count();
 			if (b->itemText.count() != 0)
 			{
-				Doc->CurrFont = b->itemText.at(b->CPos-1)->cfont->SCName;
+				Doc->CurrFont = b->itemText.at(b->CPos-1)->cfont;
 				Doc->CurrFontSize = b->itemText.at(b->CPos-1)->csize;
 				Doc->CurrTextFill = b->itemText.at(b->CPos-1)->ccolor;
 				Doc->CurrTextFillSh = b->itemText.at(b->CPos-1)->cshade;
@@ -6441,7 +6441,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				Doc->CurrTextScale = b->itemText.at(b->CPos-1)->cscale;
 				emit ItemTextSca(b->itemText.at(b->CPos-1)->cscale);
 				emit ItemTextFarben(b->itemText.at(b->CPos-1)->cstroke, b->itemText.at(b->CPos-1)->ccolor, b->itemText.at(b->CPos-1)->cshade2, b->itemText.at(b->CPos-1)->cshade);
-				emit ItemTextFont(b->itemText.at(b->CPos-1)->cfont->SCName);
+				emit ItemTextFont(b->itemText.at(b->CPos-1)->cfont);
 				emit ItemTextSize(b->itemText.at(b->CPos-1)->csize);
 				emit ItemTextUSval(b->itemText.at(b->CPos-1)->cextra);
 				emit ItemTextStil(b->itemText.at(b->CPos-1)->cstyle);
@@ -6550,8 +6550,8 @@ void ScribusView::slotDoCurs(bool draw)
 				}
 			}
 			yp = static_cast<int>(b->itemText.at(offs)->yp);
-			desc = static_cast<int>(b->itemText.at(offs)->cfont->numDescender * (-b->itemText.at(offs)->csize / 10.0));
-			asce = static_cast<int>(b->itemText.at(offs)->cfont->numAscent * (b->itemText.at(offs)->csize / 10.0));
+			desc = static_cast<int>((*Doc->AllFonts)[b->itemText.at(offs)->cfont]->numDescender * (-b->itemText.at(offs)->csize / 10.0));
+			asce = static_cast<int>((*Doc->AllFonts)[b->itemText.at(offs)->cfont]->numAscent * (b->itemText.at(offs)->csize / 10.0));
 		}
 		else
 		{
@@ -6585,8 +6585,8 @@ void ScribusView::slotDoCurs(bool draw)
 				{
 					xp = static_cast<int>(b->itemText.at(b->CPos)->xp);
 					yp = static_cast<int>(b->itemText.at(b->CPos)->yp);
-					desc = static_cast<int>(b->itemText.at(b->CPos)->cfont->numDescender * (-b->itemText.at(b->CPos)->csize / 10.0));
-					asce = static_cast<int>(b->itemText.at(b->CPos)->cfont->numAscent * (b->itemText.at(b->CPos)->csize / 10.0));
+					desc = static_cast<int>((*Doc->AllFonts)[b->itemText.at(b->CPos)->cfont]->numDescender * (-b->itemText.at(b->CPos)->csize / 10.0));
+					asce = static_cast<int>((*Doc->AllFonts)[b->itemText.at(b->CPos)->cfont]->numAscent * (b->itemText.at(b->CPos)->csize / 10.0));
 				}
 			}
 		}
@@ -9704,7 +9704,7 @@ void ScribusView::ItemFont(QString fon)
 				if (b->itemText.count() != 0)
 				{
 					for (uint a = 0; a < b->itemText.count(); ++a)
-						b->itemText.at(a)->cfont = (*Doc->AllFonts)[fon];
+						b->itemText.at(a)->cfont = fon;
 					if (b->itemType() == PageItem::PathText)
 					{
 						UpdatePolyClip(b);
@@ -9722,7 +9722,7 @@ void ScribusView::ItemFont(QString fon)
 					for (uint a = 0; a < b->itemText.count(); ++a)
 					{
 						if (b->itemText.at(a)->cselect)
-							b->itemText.at(a)->cfont = (*Doc->AllFonts)[fon];
+							b->itemText.at(a)->cfont = fon;
 					}
 					RefreshItem(b);
 				}
@@ -10088,7 +10088,7 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 				{
 					if (Doc->docParagraphStyles[s].Font != "")
 					{
-						nb->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
+						nb->itemText.at(a)->cfont = Doc->docParagraphStyles[s].Font;
 						nb->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
 						nb->itemText.at(a)->cstyle &= ~127;
 						nb->itemText.at(a)->cstyle |= Doc->docParagraphStyles[s].FontEffect;
@@ -10105,7 +10105,7 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 					nb->itemText.at(a)->cstroke = nb->TxtStroke;
 					nb->itemText.at(a)->cshade2 = nb->ShTxtStroke;
 					nb->itemText.at(a)->csize = nb->ISize;
-					nb->itemText.at(a)->cfont = (*Doc->AllFonts)[nb->IFont];
+					nb->itemText.at(a)->cfont = nb->IFont;
 					nb->itemText.at(a)->cstyle &= ~127;
 					nb->itemText.at(a)->cstyle |= nb->TxTStyle;
 				}
@@ -10132,7 +10132,7 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 				{
 					if (Doc->docParagraphStyles[s].Font != "")
 					{
-						nb->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
+						nb->itemText.at(a)->cfont = Doc->docParagraphStyles[s].Font;
 						nb->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
 						nb->itemText.at(a)->cstyle &= ~127;
 						nb->itemText.at(a)->cstyle |= Doc->docParagraphStyles[s].FontEffect;
@@ -10149,7 +10149,7 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 					nb->itemText.at(a)->cstroke = nb->TxtStroke;
 					nb->itemText.at(a)->cshade2 = nb->ShTxtStroke;
 					nb->itemText.at(a)->csize = nb->ISize;
-					nb->itemText.at(a)->cfont = (*Doc->AllFonts)[nb->IFont];
+					nb->itemText.at(a)->cfont = nb->IFont;
 					nb->itemText.at(a)->cstyle &= ~127;
 					nb->itemText.at(a)->cstyle |= nb->TxTStyle;
 				}
@@ -10188,7 +10188,7 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 				{
 					if (Doc->docParagraphStyles[s].Font != "")
 					{
-						b->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
+						b->itemText.at(a)->cfont = Doc->docParagraphStyles[s].Font;
 						b->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
 						b->itemText.at(a)->cstyle &= ~127;
 						b->itemText.at(a)->cstyle |= Doc->docParagraphStyles[s].FontEffect;
@@ -10204,7 +10204,7 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 					b->itemText.at(a)->cshade = b->ShTxtFill;
 					b->itemText.at(a)->cstroke = b->TxtStroke;
 					b->itemText.at(a)->cshade2 = b->ShTxtStroke;
-					b->itemText.at(a)->cfont = (*Doc->AllFonts)[b->IFont];
+					b->itemText.at(a)->cfont = b->IFont;
 					b->itemText.at(a)->csize = b->ISize;
 					b->itemText.at(a)->cstyle &= ~127;
 					b->itemText.at(a)->cstyle |= b->TxTStyle;
@@ -10605,7 +10605,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				if (hg->ch == QChar(4))
 					hg->ch = QChar(9);
 				it++;
-				hg->cfont = (*Doc->AllFonts)[*it];
+				hg->cfont = *it;
 				it++;
 				hg->csize = qRound((*it).toDouble() * 10);
 				it++;
@@ -11215,11 +11215,11 @@ void ScribusView::TextToPath()
 			uint chr = chx[0].unicode();
 			QWMatrix chma;
 			chma.scale(csi, csi);
-			pts = b->itemText.at(a)->cfont->GlyphArray[chr].Outlines.copy();
+			pts = (*Doc->AllFonts)[b->itemText.at(a)->cfont]->GlyphArray[chr].Outlines.copy();
 			if (pts.size() < 4)
 				continue;
-			x = b->itemText.at(a)->cfont->GlyphArray[chr].x * csi;
-			y = b->itemText.at(a)->cfont->GlyphArray[chr].y * csi;
+			x = (*Doc->AllFonts)[b->itemText.at(a)->cfont]->GlyphArray[chr].x * csi;
+			y = (*Doc->AllFonts)[b->itemText.at(a)->cfont]->GlyphArray[chr].y * csi;
 			pts.map(chma);
 			chma = QWMatrix();
 			chma.scale(b->itemText.at(a)->cscale / 100.0, 1);
@@ -11253,7 +11253,7 @@ void ScribusView::TextToPath()
 				bb->lineColor() = "None";
 				bb->setLineShade(100);
 			}
-			bb->Pwidth = QMAX(b->itemText.at(a)->cfont->strokeWidth * chs / 2.0, 1);
+			bb->Pwidth = QMAX((*Doc->AllFonts)[b->itemText.at(a)->cfont]->strokeWidth * chs / 2.0, 1);
 			FPoint tp2 = getMinClipF(&bb->PoLine);
 			bb->PoLine.translate(-tp2.x(), -tp2.y());
 			FPoint tp = getMaxClipF(&bb->PoLine);

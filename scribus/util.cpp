@@ -131,8 +131,8 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 QPixmap loadIcon(QString nam);
 uint getDouble(QString in, bool raw);
 bool loadText(QString nam, QString *Buffer);
-double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz, QString ch2 = " ");
-double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz);
+double Cwidth(ScribusDoc *currentDoc, QString name, QString ch, int Siz, QString ch2 = " ");
+double RealCWidth(ScribusDoc *currentDoc, QString name, QString ch, int Siz);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -2561,23 +2561,24 @@ bool loadText(QString filename, QString *Buffer)
 	return ret;
 }
 
-double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString ch2)
+double Cwidth(ScribusDoc *currentDoc, QString name, QString ch, int Size, QString ch2)
 {
 	double width;
 	FT_Vector  delta;
 	FT_Face      face;
 	uint c1 = ch.at(0).unicode();
 	uint c2 = ch2.at(0).unicode();
-	if (name->CharWidth.contains(c1))
+	Foi* fo = (*currentDoc->AllFonts)[name];
+	if (fo->CharWidth.contains(c1))
 	{
-		width = name->CharWidth[c1]*(Size / 10.0);
-		if (name->HasKern)
+		width = fo->CharWidth[c1]*(Size / 10.0);
+		if (fo->HasKern)
 		{
-			face = currentDoc->FFonts[name->SCName];
+			face = currentDoc->FFonts[name];
 			uint cl = FT_Get_Char_Index(face, c1);
 			uint cr = FT_Get_Char_Index(face, c2);
 			FT_Get_Kerning(face, cl, cr, ft_kerning_unscaled, &delta);
-			width += delta.x / name->uniEM * (Size / 10.0);
+			width += delta.x / fo->uniEM * (Size / 10.0);
 		}
 		return width;
 	}
@@ -2585,18 +2586,19 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 		return static_cast<double>(Size / 10.0);
 }
 
-double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
+double RealCWidth(ScribusDoc *currentDoc, QString name, QString ch, int Size)
 {
 	double w, ww;
-	FT_Face      face;
 	uint c1 = ch.at(0).unicode();
-	if (name->CharWidth.contains(c1))
+	FT_Face      face;
+	Foi* fo = (*currentDoc->AllFonts)[name];
+	if (fo->CharWidth.contains(c1))
 	{
-		face = currentDoc->FFonts[name->SCName];
+		face = currentDoc->FFonts[name];
 		uint cl = FT_Get_Char_Index(face, c1);
-		FT_Load_Glyph( face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / name->uniEM * (Size / 10.0);
-		ww = face->glyph->metrics.horiAdvance / name->uniEM * (Size / 10.0);
+		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / fo->uniEM * (Size / 10.0);
+		ww = face->glyph->metrics.horiAdvance / fo->uniEM * (Size / 10.0);
 		return QMAX(ww, w);
 	}
 	else
@@ -3580,7 +3582,7 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 				Text += QString(QChar(4))+"\t";
 			else
 				Text += b->itemText.at(a)->ch+"\t";
-			Text += b->itemText.at(a)->cfont->SCName+"\t";
+			Text += b->itemText.at(a)->cfont+"\t";
 			Text += QString::number(b->itemText.at(a)->csize / 10.0)+"\t";
 			Text += b->itemText.at(a)->ccolor+"\t";
 			Text += QString::number(b->itemText.at(a)->cextra)+"\t";

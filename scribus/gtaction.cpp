@@ -137,9 +137,9 @@ void gtAction::write(const QString& text, gtStyle *style)
 		if ((inPara) && (!overridePStyleFont))
 		{
 			if (ScApp->doc->docParagraphStyles[paragraphStyle].Font == "")
-				hg->cfont = (*ScApp->doc->AllFonts)[fontName2];
+				hg->cfont = fontName2;
 			else
-				hg->cfont = (*ScApp->doc->AllFonts)[ScApp->doc->docParagraphStyles[paragraphStyle].Font];
+				hg->cfont = ScApp->doc->docParagraphStyles[paragraphStyle].Font;
 			hg->csize = ScApp->doc->docParagraphStyles[paragraphStyle].FontSize;
 			hg->ccolor = ScApp->doc->docParagraphStyles[paragraphStyle].FColor;
 			hg->cshade = ScApp->doc->docParagraphStyles[paragraphStyle].FShade;
@@ -149,7 +149,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 		}
 		else
 		{
-			hg->cfont = (*ScApp->doc->AllFonts)[fontName];
+			hg->cfont = fontName;
 			hg->csize = font->getSize();
 			hg->ccolor = parseColor(font->getColor());
 			hg->cshade = font->getShade();

@@ -684,7 +684,7 @@ void CharSelect::insChar()
 			hg->ch = QChar(13);
 		if (hg->ch == QChar(9))
 			hg->ch = " ";
-		hg->cfont = (*ap->doc->AllFonts)[fontInUse];
+		hg->cfont = fontInUse;
 		hg->csize = ap->doc->CurrFontSize;
 		hg->ccolor = ap->doc->CurrTextFill;
 		hg->cshade = ap->doc->CurrTextFillSh;
@@ -696,7 +696,7 @@ void CharSelect::insChar()
 		hg->cab = ap->doc->currentParaStyle;
 		if (ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font != "")
 		{
-			hg->cfont = (*ap->doc->AllFonts)[ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font];
+			hg->cfont = ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font;
 			hg->csize = ap->doc->docParagraphStyles[ap->doc->currentParaStyle].FontSize;
 		}
 		hg->cextra = 0;

@@ -1,5 +1,3 @@
-
-#include "scfonts.h"
 #include "mpalette.h"
 #include "mpalette.moc"
 #include <cmath>

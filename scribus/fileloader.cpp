@@ -224,8 +224,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
+					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
 				}
 			}
 		}
@@ -238,8 +238,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
+					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
 				}
 			}
 		}
@@ -1075,7 +1075,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 			hg->ch = QChar(13);
 		if (hg->ch == QChar(4))
 			hg->ch = QChar(9);
-		hg->cfont = (*doc->AllFonts)[tmpf];
+		hg->cfont = tmpf;
 		hg->csize = size;
 		hg->ccolor = fcolor;
 		hg->cextra = extra;
@@ -1205,6 +1205,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	b->setImageFlippedH(QStoInt(obj->attribute("FLIPPEDH")));
 	b->setImageFlippedV(QStoInt(obj->attribute("FLIPPEDV")));
 	b->RadRect = QStodouble(obj->attribute("RADRECT","0"));
+	b->FrameType = pt;
 	b->ClipEdited = QStoInt(obj->attribute("CLIPEDIT", "0"));
 	b->setFillColor(Pcolor);
 	b->setLineColor(Pcolor2);
