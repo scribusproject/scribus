@@ -1013,19 +1013,19 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 {
 	if (HaveDoc)
 	{
-		if (w->orientation() == QWheelEvent::Vertical)
-		{
-			if (w->delta() < 0)
-				view->scrollBy(0, Prefs.Wheelval);
-			else
-				view->scrollBy(0, -Prefs.Wheelval);
-		}
-		else
+		if ((w->orientation() != QWheelEvent::Vertical) || ( w->state() & ShiftButton ))
 		{
 			if (w->delta() < 0)
 				view->scrollBy(Prefs.Wheelval, 0);
 			else
 				view->scrollBy(-Prefs.Wheelval, 0);
+		}
+		else
+		{
+			if (w->delta() < 0)
+				view->scrollBy(0, Prefs.Wheelval);
+			else
+				view->scrollBy(0, -Prefs.Wheelval);
 		}
 		w->accept();
 	}
@@ -1062,7 +1062,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			break;
 		}
 	ButtonState buttonState = k->state();
- 	if ((HaveDoc) && (!view->LE->hasFocus()))
+ 	if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->PageCombo->hasFocus()))
  		{
 		if (doc->AppMode != 7)
 			{
@@ -1130,6 +1130,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								if ( buttonState & ShiftButton )
  									doc->ActPage->moveGroup(-10, 0);
+								else if ( buttonState & ControlButton )
+ 									doc->ActPage->moveGroup(-0.1, 0);
 								else
  									doc->ActPage->moveGroup(-1, 0);
 							}
@@ -1146,6 +1148,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								if ( buttonState & ShiftButton )
  									doc->ActPage->moveGroup(10, 0);
+								else if ( buttonState & ControlButton )
+ 									doc->ActPage->moveGroup(0.1, 0);
 								else
  									doc->ActPage->moveGroup(1, 0);
 							}
@@ -1162,6 +1166,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								if ( buttonState & ShiftButton )
  									doc->ActPage->moveGroup(0, -10);
+								else if ( buttonState & ControlButton )
+ 									doc->ActPage->moveGroup(0, -0.1);
 								else
  									doc->ActPage->moveGroup(0, -1);
 							}
@@ -1178,6 +1184,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								if ( buttonState & ShiftButton )
  									doc->ActPage->moveGroup(0, 10);
+								else if ( buttonState & ControlButton )
+ 									doc->ActPage->moveGroup(0, 0.1);
 								else
  									doc->ActPage->moveGroup(0, 1);
 							}
@@ -4451,6 +4459,8 @@ void ScribusApp::setAppMode(int mode)
 			{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
 			doc->CurTimer->stop();
+ 			view->LE->setFocusPolicy(QWidget::ClickFocus);
+			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
 			delete doc->CurTimer;
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
@@ -4464,6 +4474,8 @@ void ScribusApp::setAppMode(int mode)
 			}
 		if (mode == 7)
 			{
+ 			view->LE->setFocusPolicy(QWidget::NoFocus);
+			view->PGS->PageCombo->setFocusPolicy(QWidget::NoFocus);
 			if (b != 0)
 				{
 				if ((b->PType == 6) || (b->PType == 7) || (b->PType == 8))
@@ -5257,6 +5269,8 @@ void ScribusApp::setNewAbStyle(int a)
 		doc->ActPage->SetAbStyle(a);
 		doc->CurrentABStil = a;
 		Mpal->setAli(a);
+ 		PageItem *b = doc->ActPage->SelItem.at(0);
+		setTBvals(b);
 		slotDocCh();
 		}
 }

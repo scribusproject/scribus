@@ -32,12 +32,14 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	Start->setDefault( false );
 	Start->setAutoDefault( false );
 	Start->setPixmap( loadIcon("start.png") );
+	Start->setFocusPolicy(QWidget::NoFocus);
 	PageSelectorLayout->addWidget( Start );
 
 	Back = new QPushButton( this, "Back" );
 	Back->setPixmap( loadIcon("back.png") );
 	Back->setDefault( false );
 	Back->setAutoDefault( false );
+	Back->setFocusPolicy(QWidget::NoFocus);
 	PageSelectorLayout->addWidget( Back );
 
 	Label1 = new QLabel( this, "Label1" );
@@ -53,6 +55,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 		PageCombo->insertItem(tmp.setNum(a+1));
 	}
 	PageCombo->setValidator(v);
+	PageCombo->setFocusPolicy(QWidget::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 
 	Label2 = new QLabel( this, "Label2" );
@@ -63,12 +66,14 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	Forward->setPixmap( loadIcon("forward.png") );
 	Forward->setDefault( false );
 	Forward->setAutoDefault( false );
+	Forward->setFocusPolicy(QWidget::NoFocus);
 	PageSelectorLayout->addWidget( Forward );
 
 	Last = new QPushButton( this, "Last" );
 	Last->setPixmap( loadIcon("finish.png") );
 	Last->setDefault( false );
 	Last->setAutoDefault( false );
+	Last->setFocusPolicy(QWidget::NoFocus);
 	PageSelectorLayout->addWidget( Last );
 	Forward->setEnabled(true);
 	Last->setEnabled(true);

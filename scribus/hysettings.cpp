@@ -43,7 +43,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 
     WordLen = new QSpinBox( this, "WordLen" );
     WordLen->setMinValue( 3 );
-    QToolTip::add( WordLen, tr( "This is the length of the smallest word to be hyphenated." ) );
+    QToolTip::add( WordLen, tr( "Length of the smallest word to be hyphenated." ) );
 
     Layout3->addWidget( WordLen, 3, 1 );
     HySettingsLayout->addLayout( Layout3 );

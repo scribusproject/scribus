@@ -549,7 +549,7 @@ SeitenPal::SeitenPal(QWidget* parent)
 	connect(LP, SIGNAL(clicked()), this, SLOT(HandleLP()));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
 	QToolTip::add( Trash, tr( "Drag Pages or Template Pages onto the Trashbin to delete them." ) );
-	QToolTip::add( PageView, tr( "This previews all the pages of your Document." ));
+	QToolTip::add( PageView, tr( "Previews all the pages of your document." ));
 	QToolTip::add( TemplList, 
 		tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
 }

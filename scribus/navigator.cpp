@@ -24,13 +24,13 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 	setScaledContents(false);
 	setAlignment(static_cast<int>( QLabel::AlignLeft | QLabel::AlignTop) );
 	if (fn != "")
-		{
+	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())
 			pmx = img;
 		else
 			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
-		}
+	}
 	else
 		pmx = vie->PageToPixmap(Seite, Size);
 	resize(pmx.width(), pmx.height());
@@ -44,20 +44,20 @@ void Navigator::mouseMoveEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
 	emit Coords(static_cast<double>(m->x())/static_cast<double>(pmx.width()),
-		    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
+			    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
 }
 
 void Navigator::mousePressEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
 	emit Coords(static_cast<double>(m->x())/static_cast<double>(pmx.width()),
-		    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
+			    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
 }
 
 void Navigator::mouseReleaseEvent(QMouseEvent *m)
 {
 	emit Coords(static_cast<double>(m->x())/static_cast<double>(pmx.width()),
-		    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
+			    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
 }
 
 void Navigator::paintEvent(QPaintEvent *e)
@@ -87,23 +87,22 @@ bool Navigator::SetSeite(int Seite, int Size, QString fn)
 {
 	bool ret = false;
 	if (fn != "")
-		{
+	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())
-			{
+		{
 			pmx = img;
 			ret = true;
-			}
+		}
 		else
 			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
-		}
+	}
 	else
-		{
+	{
 		pmx = view->PageToPixmap(Seite, Size);
 		ret = true;
-		}
+	}
 	resize(pmx.width(), pmx.height());
 	repaint();
 	return ret;
 }
-

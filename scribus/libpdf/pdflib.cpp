@@ -2343,7 +2343,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 	QImage img;
 	QImage img2;
 	QMap<int, QString> ind2PDFabr;
-	char *tmp[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
+	const char *tmp[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
 			"/TiRo", "/TiBo", "/TiIt", "/TiBI", "/ZaDb", "/Symb"};
 	size_t ar = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < ar; ++a)
@@ -2360,7 +2360,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		bm += cc;
 	}
 	QStringList bmst = QStringList::split("\r", bm);
-	char *m[] = {"4", "5", "F", "l", "H", "n"};
+	const char *m[] = {"4", "5", "F", "l", "H", "n"};
 	ct = m[ite->AnChkStil];
 	StartObj(ObjCounter);
 	Seite.AObjects.append(ObjCounter);
@@ -2412,14 +2412,14 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 			PutDoc("/BS << /Type /Border /W ");
 			PutDoc(ite->AnBColor != "None" ? IToStr(ite->AnBwid) : QString("0"));
 			PutDoc(" /S /");
-			char *x[] = {"S", "D", "U", "B", "I"};
+			const char *x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->AnBsty]);
 			PutDoc(" >>\n");
 			cnx = "("+ind2PDFabr[ite->AnFont]+" "+FToStr(ite->ISize / 10.0)+" Tf";
 			if (Options->UseRGB)
 			{
-				if (ite->Pcolor2 != "None")
-					cnx += " "+SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n";
+				if (ite->TxtFill != "None")
+					cnx += " "+SetFarbe(ite->TxtFill, ite->ShTxtFill)+" rg\n";
 				if (ite->Pcolor != "None")
 					cnx += " "+SetFarbe(ite->Pcolor, ite->Shade)+" RG\n";
 			}
@@ -2432,14 +2432,14 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 					cnx += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
 					if (ite->Pcolor != "None")
 						cnx += SetFarbe(ite->Pcolor, ite->Shade)+" SCN\n";
-					if (ite->Pcolor2 != "None")
-						cnx += SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n";
+					if (ite->TxtFill != "None")
+						cnx += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" scn\n";
 				}
 				else
 				{
 #endif
-				if (ite->Pcolor2 != "None")
-					cnx += " "+SetFarbe(ite->Pcolor2, ite->Shade2)+" k";
+				if (ite->TxtFill != "None")
+					cnx += " "+SetFarbe(ite->TxtFill, ite->ShTxtFill)+" k";
 				if (ite->Pcolor != "None")
 					cnx += " "+SetFarbe(ite->Pcolor, ite->Shade)+" K";
 			}
@@ -2727,26 +2727,26 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		cc += "/Tx BMC\nBT\n";
 		if (Options->UseRGB)
 		{
-			if (ite->Pcolor2 != "None")
-				cc += SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n";
+			if (ite->TxtFill != "None")
+				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" rg\n";
 		}
 		else
 		{
 #ifdef HAVE_CMS
 			if ((CMSuse) && (Options->UseProfiles))
 			{
-				if (ite->Pcolor2 != "None")
+				if (ite->TxtFill != "None")
 				{
 					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
 					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					cc += SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n";
+					cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" scn\n";
 				}
 			}
 			else
 			{
 #endif
-			if (ite->Pcolor2 != "None")
-				cc += SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n";
+			if (ite->TxtFill != "None")
+				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" k\n";
 		}
 #ifdef HAVE_CMS
 		}
@@ -2761,26 +2761,26 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		cc = "q\nBT\n";
 		if (Options->UseRGB)
 		{
-			if (ite->Pcolor2 != "None")
-				cc += SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n";
+			if (ite->TxtFill != "None")
+				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" rg\n";
 		}
 		else
 		{
 #ifdef HAVE_CMS
 			if ((CMSuse) && (Options->UseProfiles))
 			{
-				if (ite->Pcolor2 != "None")
+				if (ite->TxtFill != "None")
 				{
 					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
 					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					cc += SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n";
+					cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" scn\n";
 				}
 			}
 			else
 			{
 #endif
-			if (ite->Pcolor2 != "None")
-				cc += SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n";
+			if (ite->TxtFill != "None")
+				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" k\n";
 		}
 #ifdef HAVE_CMS
 		}

@@ -1500,9 +1500,9 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			}
 		}
 		if (!first)
-			gradient->Color1 = Col;
-		else
 			gradient->Color2 = Col;
+		else
+			gradient->Color1 = Col;
 		first = true;
 		gradient->gradient.addStop( Doku->PageColors[Col].getRGBColor(), offset, 0.5, 1.0 );
 	}

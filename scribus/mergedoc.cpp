@@ -27,7 +27,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool Mpages ) : QDialog( parent, "merge", t
 	setCaption( tr( "Import a Page" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	Count = 0;
-  Mpa = Mpages;
+	Mpa = Mpages;
 	MergeDocLayout = new QVBoxLayout( this, 11, 6, "MergeDocLayout"); 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setText( tr( "Document to load:" ) );
@@ -51,22 +51,22 @@ MergeDoc::MergeDoc( QWidget* parent, bool Mpages ) : QDialog( parent, "merge", t
 	textLabel3->setText( tr( "Import Page Nr:" ) );
 	layout2->addWidget( textLabel3 );
 	if (Mpa)
-		{
-    PageNa = new QComboBox( true, this, "Templ" );
-    PageNa->setMinimumSize( QSize( 120, 22 ) );
+	{
+    	PageNa = new QComboBox( true, this, "Templ" );
+    	PageNa->setMinimumSize( QSize( 120, 22 ) );
 		PageNa->setEditable(false);
 		PageNa->setEnabled(false);
 		layout2->addWidget( PageNa );
-		}
+	}
 	else
-		{
+	{
 		PageNr = new QSpinBox( this, "PageNr" );
 		PageNr->setMinValue( 1 );
 		PageNr->setMaxValue( 2000 );
 		PageNr->setValue( 1 );
 		PageNr->setEnabled(false);
 		layout2->addWidget( PageNr );
-		}
+	}
 	MergeDocLayout->addLayout( layout2 );
 
 	layout3 = new QHBoxLayout( 0, 0, 2, "layout3"); 
@@ -114,10 +114,10 @@ void MergeDoc::ChangeFile()
 	if (Filename->text() != "")
 		dia.setSelection(Filename->text());
 	if (dia.exec() == QDialog::Accepted)
-		{
+	{
 		fn = dia.selectedFile();
 		if (!fn.isEmpty())
-			{
+		{
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			if (Mpa)
@@ -126,43 +126,43 @@ void MergeDoc::ChangeFile()
 				ret = ss->ReadPageCount(fn, &Count, &dummy);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			if ((ret) && (Count != 0))
-				{
+			{
 				Filename->setText(fn);
 				Import->setEnabled(true);
 				if (Mpa)
-					{
+				{
 					PageNa->clear();
 					PageNa->setEnabled(true);
 					PageNa->insertStringList(ss->MNames);
-					}
+				}
 				else
-					{
+				{
 					PageNr->setEnabled(true);
 					PageNr->setValue(1);
 					PageNr->setMaxValue(Count);
-					}
-				Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
 				}
-			delete ss;
+				Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
 			}
+			delete ss;
 		}
+	}
 	else
-		{
+	{
 		Filename->setText("");
 		Count = 0;
 		Import->setEnabled(false);
 		if (Mpa)
-			{
+		{
 			PageNa->clear();
 			PageNa->setEnabled(false);
-			}
+		}
 		else
-			{
+		{
 			PageNr->setEnabled(false);
 			PageNr->setValue(1);
 			PageNr->setMaxValue(Count);
-			}
-		Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
 		}
+		Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
+	}
 }
 

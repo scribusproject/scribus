@@ -222,13 +222,13 @@ void StilFormate::loadStyles()
 					sty.Font = ss->Vorlagen[xx].Font;
 					sty.FontSize = ss->Vorlagen[xx].FontSize;
 					sty.TabValues = ss->Vorlagen[xx].TabValues;
-					sty.Drop = TempVorl[xx].Drop;
-					sty.DropLin = TempVorl[xx].DropLin;
-					sty.FontEffect = TempVorl[xx].FontEffect;
-					sty.FColor = TempVorl[xx].FColor;
-					sty.FShade = TempVorl[xx].FShade;
-					sty.SColor = TempVorl[xx].SColor;
-					sty.SShade = TempVorl[xx].SShade;
+					sty.Drop = ss->Vorlagen[xx].Drop;
+					sty.DropLin = ss->Vorlagen[xx].DropLin;
+					sty.FontEffect = ss->Vorlagen[xx].FontEffect;
+					sty.FColor = ss->Vorlagen[xx].FColor;
+					sty.FShade = ss->Vorlagen[xx].FShade;
+					sty.SColor = ss->Vorlagen[xx].SColor;
+					sty.SShade = ss->Vorlagen[xx].SShade;
 					TempVorl.append(sty);
 				}
 			}

@@ -1,4 +1,14 @@
 Changes since Version 1.1.6
+02.04.2004	Flipping state of images is now preserved when updating or editing Images, Bug #408
+		Properties Palette is now updated immediately after text style change, Bug #404
+		Textcolor is now imported too when appending Styles, Bug #402
+		Applying "No Style" resets now all Textproperties to the default style, Bug #400
+		You can now move Objects in 0.1 Point units when pressing CTRL and the Cursor Keys, Bug #397
+		Colors in PDF-Textfields are now exported correctly, Bug #396
+		Pressing Tab while editing a Text doesn't jump to the Pageselector anymore, Bug #395
+		Pressing Shift while rotating the Mouse Whell scrolls now horizontal, Bug #388
+		Updated several Tooltips.
+
 30.03.2004	Fixed Issue on export to PDF and Postscript with Objects with zero Linewidth.
 		Fixed Issues with locked Objects and Groups.
 		Double clicking on a Table Cell selects this Cell now.

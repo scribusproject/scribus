@@ -48,18 +48,18 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	doZooming = false;
 	Doc = doc;
 	Doc->PageC = 0;
-  Prefs = prefs;
+	Prefs = prefs;
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);
 	setMargins(25, 25, 0, 0);
 	setResizePolicy(Manual);
 	enableClipper(true);
-  viewport()->setBackgroundMode(PaletteBackground);
+	viewport()->setBackgroundMode(PaletteBackground);
 	QFont fo = QFont(font());
 	fo.setPointSize(10);
-  LE = new MSpinBox( this, 2 );
+	LE = new MSpinBox( this, 2 );
 	LE->setFont(fo);
-  LE->setSuffix( tr( " %" ) );
+	LE->setSuffix( tr( " %" ) );
 	LE->setMaxValue( 3200 );
 	LE->setMinValue( 10 );
 	LE->setValue( 100 );
@@ -219,6 +219,7 @@ Page* ScribusView::addPage(int nr)
 	Doc->ActPage = fe;
 	fe->Margins.Top = Doc->PageM.Top;
 	fe->Margins.Bottom = Doc->PageM.Bottom;
+	fe->setFocusPolicy(QWidget::ClickFocus);
 	addChild(feh, static_cast<int>(10*s), static_cast<int>(Doc->PageC*((Doc->PageH+30)*s)+10*s));
 	feh->show();
 	Doc->PageC++;
@@ -613,8 +614,8 @@ void ScribusView::GotoLa(int l)
 
 void ScribusView::GotoPa(int Seite)
 {
-	setFocus();
 	GotoPage(Seite-1);
+	setFocus();
 }
 
 void ScribusView::ChgUnit(int art)
@@ -2281,19 +2282,19 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 	}
 	else
 	{
-		if (w->orientation() == QWheelEvent::Vertical)
-		{
-			if (w->delta() < 0)
-				scrollBy(0, Prefs->Wheelval);
-			else
-				scrollBy(0, -Prefs->Wheelval);
-		}
-		else
+		if ((w->orientation() != QWheelEvent::Vertical) || ( w->state() & ShiftButton ))
 		{
 			if (w->delta() < 0)
 				scrollBy(Prefs->Wheelval, 0);
 			else
 				scrollBy(-Prefs->Wheelval, 0);
+		}
+		else
+		{
+			if (w->delta() < 0)
+				scrollBy(0, Prefs->Wheelval);
+			else
+				scrollBy(0, -Prefs->Wheelval);
 		}
 	}
 	w->accept();

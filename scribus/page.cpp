@@ -7149,16 +7149,17 @@ void Page::chAbStyle(PageItem *b, int s)
 						nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
 						nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
-					else
-					{
-						nb->Ptext.at(a)->ccolor = nb->TxtFill;
-						nb->Ptext.at(a)->cshade = nb->ShTxtFill;
-						nb->Ptext.at(a)->cstroke = nb->TxtStroke;
-						nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
-						nb->Ptext.at(a)->csize = nb->ISize;
-						nb->Ptext.at(a)->cstyle &= ~127;
-						nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
-					}
+				}
+				if (s == 0)
+				{
+					nb->Ptext.at(a)->ccolor = nb->TxtFill;
+					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
+					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
+					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
+					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->cfont = nb->IFont;
+					nb->Ptext.at(a)->cstyle &= ~127;
+					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 				}
 				a--;
 			}
@@ -7192,16 +7193,17 @@ void Page::chAbStyle(PageItem *b, int s)
 						nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
 						nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
-					else
-					{
-						nb->Ptext.at(a)->ccolor = nb->TxtFill;
-						nb->Ptext.at(a)->cshade = nb->ShTxtFill;
-						nb->Ptext.at(a)->cstroke = nb->TxtStroke;
-						nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
-						nb->Ptext.at(a)->csize = nb->ISize;
-						nb->Ptext.at(a)->cstyle &= ~127;
-						nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
-					}
+				}
+				if (s == 0)
+				{
+					nb->Ptext.at(a)->ccolor = nb->TxtFill;
+					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
+					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
+					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
+					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->cfont = nb->IFont;
+					nb->Ptext.at(a)->cstyle &= ~127;
+					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 				}
 				if (nb->Ptext.at(a)->ch == QChar(13))
 				{
@@ -7238,16 +7240,17 @@ void Page::chAbStyle(PageItem *b, int s)
 						b->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
 						b->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
-					else
-					{
-						b->Ptext.at(a)->ccolor = b->TxtFill;
-						b->Ptext.at(a)->cshade = b->ShTxtFill;
-						b->Ptext.at(a)->cstroke = b->TxtStroke;
-						b->Ptext.at(a)->cshade2 = b->ShTxtStroke;
-						b->Ptext.at(a)->csize = b->ISize;
-						b->Ptext.at(a)->cstyle &= ~127;
-						b->Ptext.at(a)->cstyle |= b->TxTStyle;
-					}
+				}
+				if (s == 0)
+				{
+					b->Ptext.at(a)->ccolor = b->TxtFill;
+					b->Ptext.at(a)->cshade = b->ShTxtFill;
+					b->Ptext.at(a)->cstroke = b->TxtStroke;
+					b->Ptext.at(a)->cshade2 = b->ShTxtStroke;
+					b->Ptext.at(a)->cfont = b->IFont;
+					b->Ptext.at(a)->csize = b->ISize;
+					b->Ptext.at(a)->cstyle &= ~127;
+					b->Ptext.at(a)->cstyle |= b->TxTStyle;
 				}
 			}
 		}
@@ -7436,8 +7439,12 @@ void Page::UpdatePic()
 		PageItem *b = SelItem.at(0);
 		if (b->PicAvail)
 		{
+			int fho = b->flippedH;
+			int fvo = b->flippedV;
 			b->pixmOrg = QImage();
 			LoadPict(b->Pfile, b->ItemNr);
+			b->flippedH = fho;
+			b->flippedV = fvo;
 			AdjustPictScale(b);
 			AdjustPreview(b, false);
 			update();
@@ -7509,7 +7516,11 @@ void Page::GimpExited()
 	{
 		if ( ex == 0 )
 		{
+			int fho = b->flippedH;
+			int fvo = b->flippedV;
 			LoadPict(b->Pfile, b->ItemNr);
+			b->flippedH = fho;
+			b->flippedV = fvo;
 			AdjustPictScale(b);
 			AdjustPreview(b, false);
 			update();

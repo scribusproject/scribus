@@ -200,10 +200,10 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
 	QToolTip::add( InputP2, tr( "Default color profile for solid colors on the page" ) );
 	QToolTip::add( MonitorP, tr( "Color profile that you have generated or received from the manufacturer.\nThis profile should be specific to your monitor and not a generic profile (i.e. sRGB)." ) );
 	QToolTip::add( PrinterP, tr( "Color profile for your printer model from the manufacturer.\nThis profile should be specific to your printer and not a generic profile (i.e. sRGB)." ) );
-	QToolTip::add( MonitorI, tr( "Choose the default rendering intent for your monitor. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
-	QToolTip::add( PrinterI, tr( "Choose the default rendering intent for your printer. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
-	QToolTip::add( Simulate, tr( "This enables 'soft proofing' of how your document colors will print,\nbased on the chosen printer profile." ) );
-	QToolTip::add( GamutC, tr( "This is a method of showing colors on the screen which may not print properly.\nThis requires very accurate profiles and serves only as a warning." ) );
+	QToolTip::add( MonitorI, tr( "Default rendering intent for your monitor. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
+	QToolTip::add( PrinterI, tr( "Default rendering intent for your printer. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
+	QToolTip::add( Simulate, tr( "Enable 'soft proofing' of how your document colors will print,\nbased on the chosen printer profile." ) );
+	QToolTip::add( GamutC, tr( "Method of showing colors on the screen which may not print properly.\nThis requires very accurate profiles and serves only as a warning." ) );
 	QToolTip::add( BlackP, tr( "Black Point Compensation is a method of improving contrast in photos.\nIt is recommended that you enable this if you have photos in your document." ) );
 
     // signals and slots connections
