@@ -24,7 +24,6 @@ PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args)
 
 PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
 {
-	// FIXME: This function doesn't seem to work...
 	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
@@ -41,8 +40,8 @@ PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
 	}
 	item->LocalScX = x;
 	item->LocalScY = y;
-	// FIXME: item->OwnPage->ChLocalSc(x, y);
-	Carrier->slotDocCh(TRUE);
+	Carrier->view->ChLocalSc(x, y);
+	Carrier->view->UpdatePic();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
