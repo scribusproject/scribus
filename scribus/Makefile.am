@@ -114,6 +114,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/iso8859-13ps.enc $(prefix)/lib/scribus/iso8859-13ps.enc
 	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/koi8ps.enc $(prefix)/lib/scribus/koi8ps.enc
+	$(mkinstalldirs) $(prefix)/include/scribus/
+	$(INSTALL_DATA) $(srcdir)/fontcombo.h $(prefix)/include/scribus/fontcombo.h
 
 uninstall-local:
 	-rm -f $(prefix)/include/scribus/scribus.h
@@ -159,6 +161,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/hyphenator.h
 	-rm -f $(prefix)/include/scribus/scribuswin.h
 	-rm -f $(prefix)/include/scribus/bookpalette.h
+	-rm -f $(prefix)/include/scribus/fontcombo.h
 	-rm -f $(prefix)/lib/scribus/iso8859-2ps.enc
 	-rm -f $(prefix)/lib/scribus/iso8859-3ps.enc
 	-rm -f $(prefix)/lib/scribus/iso8859-4ps.enc

@@ -2243,6 +2243,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 							break;
 						}
 					PutDoc("\n");
+					PutDoc("/Q 0\n");
 					break;
 				case 3:
 					PutDoc("/FT /Tx\n");
@@ -2812,7 +2813,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 	QChar tc;
 	bool found = false;
 	int ret = -1;
-	float x2, y2, b, h, ax, ay, a2, a1;
+	float x2, y2, b, h, ax, ay, a2, a1, sxn, syn;
 	x2 = 0;
 	float aufl = Options->Resolution / 72.0;
 #ifdef HAVE_CMS
@@ -2953,8 +2954,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 			ay = img.height() / a1;
 			img = img.smoothScale(static_cast<int>(ax), static_cast<int>(ay));
   		img = img.convertDepth(32);
-			sx = sx * a2;
-			sy = sy * a1;
+			sxn = sx * a2;
+			syn = sy * a1;
 			}
 		}
 	else
@@ -2969,8 +2970,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 			ay = img.height() / a1;
 			img = img.smoothScale(qRound(ax), qRound(ay));
  			img = img.convertDepth(32);
-			sx = sx * a2;
-			sy = sy * a1;
+			sxn = sx * a2;
+			syn = sy * a1;
 			}
 		aufl = 1;
 		}
@@ -2987,8 +2988,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 #endif
 			im = ImageToCMYK(&img);
 		}
-	sx = sx * (1.0 / aufl);
-	sy = sy * (1.0 / aufl);
+	sxn = sx * (1.0 / aufl);
+	syn = sy * (1.0 / aufl);
   if (img.hasAlphaBuffer())
  		{
 		QImage iMask = img.createAlphaMask();
@@ -3060,7 +3061,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 	Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 	if (!fromAN)
 		{
-		Inhalt += FToStr(img.width()*sx)+" 0 0 "+FToStr(img.height()*sy)+" "+FToStr(x*sx)+" "+FToStr((-img.height()+y)*sy)+" cm\n";
+		Inhalt += FToStr(img.width()*sxn)+" 0 0 "+FToStr(img.height()*syn)+" "+FToStr(x*sx)+" "+FToStr((-img.height()*syn+y*sy))+" cm\n";
 		Inhalt += "/"+ResNam+IToStr(ResCount)+" Do\n";
 		}
 	ResCount++;
