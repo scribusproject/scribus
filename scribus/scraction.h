@@ -25,7 +25,7 @@ class ScrAction : public QAction
 {
 	Q_OBJECT;
 public:
-	enum MenuType {Normal, RecentFile, DLL, Window, RecentScript };
+	enum MenuType {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript };
 	
 	/*!
 		\fn ScrAction::ScrAction( QObject * parent, const char * name )
@@ -52,19 +52,19 @@ public:
 	ScrAction( const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0 );
 		
 	/*!
-		\fn ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
+		\fn ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null )
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor for an action that may require a specific menu type, such as a DLL menu
 		\param mType menuType, of Normal, RecentFile or DLL
+					\param icon Iconset for the action
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
 		\param name Name of the action
 		\retval None
 	 */
-					ScrAction( MenuType mType, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraParameter = 0, QString extraText = QString::null );
-			
+	ScrAction( MenuType mType, const QIconSet & icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
 		\fn ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
 		\author Craig Bradney
@@ -79,34 +79,7 @@ public:
 	*/			
 	ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
 	
-	/*!
-		\fn ScrAction::ScrAction( const int dllID, const QString & menuText, QKeySequence accel, QObject * parent, const char * name)
-		\author Craig Bradney
-		\date Jan 2005
-		\brief Constructor for the action related to plugin DLLs, stores DLL ID. Stores menuType of DLL. No iconset.
-		\param dllID ID of the plugin
-		\param menuText Text to be in the menus for this action
-		\param accel Accelerator QKeySequence
-		\param parent Parent of this action
-		\param name Name of the action
-		\retval None
-	*/
-	ScrAction( const int dllID, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0);
-	/*!
-		\fn ScrAction::ScrAction( const int dllID, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
-		\author Craig Bradney
-		\date Jan 2005
-		\brief Constructor for the action related to plugin DLLs, stores DLL ID. Stores menuType of DLL and iconset.
-		\param dllID ID of the plugin
-		\param icon Iconset for the action
-		\param menuText Text to be in the menus for this action
-		\param accel Accelerator QKeySequence
-		\param parent Parent of this action
-		\param name Name of the action
-		\retval None
-	 */
-	ScrAction( const int dllID, const QIconSet &icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0 );
-			
+	
 	/*!
 		\fn ScrAction::~ScrAction()
 		\author Craig Bradney
@@ -178,14 +151,20 @@ public:
 	const int dllID();
 	
 signals:
-	void activatedDLL(int);
-	void activatedRecentFile(QString);
-	void activatedRecentScript(QString);
-	void activatedWindowID(int);
-protected:
+	void activatedData(int);
+	void activatedData(double);
+	void activatedData(QString);
+	void toggledData(bool, int);
+	void toggledData(bool, double);
+	void toggledData(bool, QString);
+	
+	protected:
 	int menuIndex;
 	int pluginID;
 	int windowID;
+	int _dataInt;
+	double _dataDouble;
+	QString _dataQString;
 	MenuType menuType;
 	QWidget *widgetAddedTo;
 	QWidget *containerWidgetAddedTo;
@@ -224,41 +203,23 @@ protected:
 			
 private slots:
 	/*!
-		\fn ScrAction::activatedToActivatedDLL()
+		\fn ScrAction::activatedtoactivatedData()
 		\author Craig Bradney
 		\date Jan 2005
-		\brief This passed the activated() action signal back out but with the ID of the plugin the action is for.
+		\brief This passed the activated() action signal in and back out but with some data, easier than 	overriding menu and menu bar classes for now.
 		\param None
 		\retval None
 	 */
-	void activatedToActivatedDLL();
+	void activatedToActivatedData();
 	/*!
-		\fn ScrAction::activatedToActivatedRecentFile()
+			\fn ScrAction::toggledToToggledData()
 		\author Craig Bradney
 		\date Jan 2005
-		\brief This passed the activated() action signal back out but with the menutext which is the filename to load.
-		\param None
-		\retval None
-	*/
-	void activatedToActivatedRecentFile();
-	/*!
-		\fn ScrAction::activatedToActivatedRecentFile()
-		\author Craig Bradney
-		\date Jan 2005
-		\brief This passed the activated() action signal back out but with the menutext which is the filename to load.
+		\brief This passed the toggled() action signal in and back out but with some data, easier than 	overriding menu and menu bar classes for now.
 		\param None
 		\retval None
 	 */
-	void activatedToActivatedWindowID();
-	/*!
-		\fn ScrAction::activatedToActivatedRecentScript()
-		\author Craig Bradney
-		\date Jan 2005
-		\brief This passed the activated() action signal back out but with the menutext which is the filename to load.
-		\param None
-		\retval None
-	 */
-	void activatedToActivatedRecentScript();
+	void toggledToToggledData();
 };
 
 #endif

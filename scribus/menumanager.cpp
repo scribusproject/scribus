@@ -61,7 +61,7 @@ bool MenuManager::clearMenu(const QString menuName)
 	return retVal;
 }
 
-const QPopupMenu *MenuManager::getLocalPopupMenu(const QString menuName)
+QPopupMenu *MenuManager::getLocalPopupMenu(const QString menuName)
 {
 	if (menuList[menuName])
 	{

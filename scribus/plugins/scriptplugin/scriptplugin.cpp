@@ -181,8 +181,8 @@ void MenuTest::buildScribusScriptsMenu()
 		{
 			QFileInfo fs(ds[dc]);
 			QString strippedName=fs.baseName(false);
-			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this, strippedName));
-			connect( scrScripterActions[strippedName], SIGNAL(activatedRecentScript(QString)), this, SLOT(StdScript(QString)) );
+			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), strippedName, QKeySequence(), this, strippedName));
+			connect( scrScripterActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(StdScript(QString)) );
 			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
 		}
 	}
@@ -198,8 +198,8 @@ void MenuTest::rebuildRecentScriptsMenu()
 	{
 		QString strippedName=RecentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, RecentScripts[m], QKeySequence(), this, strippedName));
-		connect( scrRecentScriptActions[strippedName], SIGNAL(activatedRecentScript(QString)), this, SLOT(RecentScript(QString)) );
+		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), RecentScripts[m], QKeySequence(), this, strippedName));
+		connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 	}
 }
@@ -218,8 +218,8 @@ void MenuTest::buildRecentScriptsMenu()
 			{
 				QString strippedName=SavedRecentScripts[m];
 				strippedName.remove(QDir::separator());
-				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, SavedRecentScripts[m], QKeySequence(), this, strippedName));
-				connect( scrRecentScriptActions[strippedName], SIGNAL(activatedRecentScript(QString)), this, SLOT(RecentScript(QString)) );
+				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
+				connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 			}
 		}

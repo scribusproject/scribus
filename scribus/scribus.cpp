@@ -177,6 +177,18 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 	undoManager = UndoManager::instance();
 
+	initFileMenuActions();
+	initEditMenuActions();
+	initStyleMenuActions();
+	initItemMenuActions();
+	initPageMenuActions();
+	initViewMenuActions();
+	initToolsMenuActions();
+	initExtrasMenuActions();
+	initWindowsMenuActions();
+	initScriptMenuActions();
+	initHelpMenuActions();
+	
 	initMenuBar();
 	initStatusBar();
 	initToolBars();
@@ -1079,8 +1091,8 @@ void ScribusApp::initFileMenuActions()
 void ScribusApp::initEditMenuActions()
 {
 	//Edit Menu
-	scrActions.insert("editUndoAction", new ScrAction(QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), tr("&Undo"), CTRL+Key_Z, this, "editUndo"));
-	scrActions.insert("editRedoAction", new ScrAction(QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), tr("&Redo"), CTRL+SHIFT+Key_Z, this, "editRedo"));
+	scrActions.insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), tr("&Undo"), CTRL+Key_Z, this, "editUndo",1));
+	scrActions.insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), tr("&Redo"), CTRL+SHIFT+Key_Z, this, "editRedo", 1));
 	scrActions.insert("editActionMode", new ScrAction(tr("&Item Action Mode"), QKeySequence(), this, "editActionMode"));
 	scrActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut.png")), tr("Cu&t"), CTRL+Key_X, this, "editCut"));
 	scrActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), tr("&Copy"), CTRL+Key_C, this, "editCopy"));
@@ -1097,8 +1109,8 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
 	scrActions.insert("editFonts", new ScrAction(tr("&Fonts..."), QKeySequence(), this, "editFonts"));
 		
-	connect( scrActions["editUndoAction"], SIGNAL(activated()) , this, SLOT(UnDoAction()) );
-	connect( scrActions["editRedoAction"], SIGNAL(activated()) , this, SLOT(RedoAction()) );
+	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
+	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
 	//TODO connect( scrActions["editActionMode"], SIGNAL(activated()) , this, SLOT(RedoAction()) );
 	connect( scrActions["editCut"], SIGNAL(activated()) , this, SLOT(slotEditCut()) );
 	connect( scrActions["editCopy"], SIGNAL(activated()) , this, SLOT(slotEditCopy()) );
@@ -1309,22 +1321,9 @@ void ScribusApp::initHelpMenuActions()
 
 void ScribusApp::initMenuBar()
 {
-	int MenID;
 	QFont tmp;
 	RecentDocs.clear();
 
-	initFileMenuActions();
-	initEditMenuActions();
-	initStyleMenuActions();
-	initItemMenuActions();
-	initPageMenuActions();
-	initViewMenuActions();
-	initToolsMenuActions();
-	initExtrasMenuActions();
-	initWindowsMenuActions();
-	initScriptMenuActions();
-	initHelpMenuActions();
-	
 	scrMenuMgr->createMenu("File", tr("&File"));
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
@@ -2943,9 +2942,9 @@ void ScribusApp::windowsMenuAboutToShow()
 	for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 	{
 		QString docInWindow=windows.at(i)->caption();
-		scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, docInWindow, QKeySequence(), this, docInWindow, i));
+		scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QIconSet(), docInWindow, QKeySequence(), this, docInWindow, i));
 		scrWindowsActions[docInWindow]->setToggleAction(true);
-		connect( scrWindowsActions[docInWindow], SIGNAL(activatedWindowID(int)), this, SLOT(windowsMenuActivated(int)) );
+		connect( scrWindowsActions[docInWindow], SIGNAL(activatedData(int)), this, SLOT(windowsMenuActivated(int)) );
 		scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows");
 		scrWindowsActions[docInWindow]->setOn(wsp->activeWindow() == windows.at(i));
 	}
@@ -3909,8 +3908,8 @@ void ScribusApp::rebuildRecentFileMenu()
 	{
 		QString strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
-		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, RecentDocs[m], QKeySequence(), this, strippedName));
-		connect( scrRecentFileActions[strippedName], SIGNAL(activatedRecentFile(QString)), this, SLOT(loadRecent(QString)) );
+		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIconSet(), RecentDocs[m], QKeySequence(), this, strippedName));
+		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
 	}
 }
@@ -8826,12 +8825,13 @@ void ScribusApp::initPlugs()
 					//Add in ScrAction based plugin linkage
 					//Insert DLL Action into Dictionary with values from plugin interface
 					
-					scrActions.insert(pda.actName, new ScrAction(id, pda.Name, QKeySequence(pda.actKeySequence), this, pda.actName));
+					scrActions.insert(pda.actName, new ScrAction(ScrAction::DLL, QIconSet(), pda.Name, QKeySequence(pda.actKeySequence), this, pda.actName, id));
+					
 					if (scrActions[pda.actName])
 					{
 						scrActions[pda.actName]->setEnabled(pda.actEnabledOnStartup);
 						//Connect DLL Action's activated signal with ID to Scribus DLL loader
-						connect( scrActions[pda.actName], SIGNAL(activatedDLL(int)) , this, SLOT(callDLLBySlot(int)) );
+						connect( scrActions[pda.actName], SIGNAL(activatedData(int)) , this, SLOT(callDLLBySlot(int)) );
 						//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 						if (QString(pda.actMenuAfterName).length()==0)
 							scrMenuMgr->addMenuItem(scrActions[pda.actName], pda.actMenu);

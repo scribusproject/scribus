@@ -137,8 +137,10 @@ private:
 	static const uint MENU_HEIGHT = 5;
 	std::vector<QString> undoItems;
 	std::vector<QString> redoItems;
+	/* BnF buttons
 	QToolButton* undoButton;
 	QToolButton* redoButton;
+	*/
 	QPopupMenu* undoMenu;
 	QPopupMenu* redoMenu;
 	void updateUndoMenu();

@@ -28,23 +28,37 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	menuType=ScrAction::Normal;
 }
 
-ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraParameter, QString extraText ) : QAction( menuText, accel, parent, name )
+ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
 {
+	setIconSizes();
 	menuType=mType;
 	switch (mType)
 	{
+		case DataInt:
+			_dataInt=extraInt;
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
+			break;
+		case DataDouble:
+			_dataDouble=extraDouble;
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
+			break;
+		case DataQString:
+			_dataQString=extraQString;
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
+			break;
 		case RecentFile:
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedRecentFile()));
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case DLL:
-			qDebug("Wrong constructor for now!");
+			pluginID=extraInt;
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case Window:
-			windowID=extraParameter;
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedWindowID()));
+			windowID=extraInt;
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case RecentScript:
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedRecentScript()));
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;			
 		case Normal:
 		default:
@@ -57,23 +71,6 @@ ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySeque
 	menuType=ScrAction::Normal;
 	setIconSizes();
 }
-
-ScrAction::ScrAction( const int dllID, const QString & menuText, QKeySequence accel, QObject * parent, const char * name) : QAction( menuText, accel, parent, name )
-{
-	pluginID=dllID;
-	menuType=ScrAction::DLL;
-	connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedDLL()));
-}
-
-
-ScrAction::ScrAction( const int dllID, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( icon, menuText, accel, parent, name )
-{
-	pluginID=dllID;
-	menuType=ScrAction::DLL;
-	setIconSizes();
-	connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedDLL()));
-}
-
 
 ScrAction::~ScrAction()
 {
@@ -89,28 +86,43 @@ void ScrAction::setIconSizes()
 	}
 }
 
-void ScrAction::activatedToActivatedDLL()
+void ScrAction::activatedToActivatedData()
 {
+	if (menuType==ScrAction::DataInt)
+		emit activatedData(_dataInt);
+	if (menuType==ScrAction::DataDouble)
+		emit activatedData(_dataDouble);
+	if (menuType==ScrAction::DataQString)
+		emit activatedData(_dataQString);
 	if (menuType==ScrAction::DLL)
-		emit activatedDLL(pluginID);
-}
-
-void ScrAction::activatedToActivatedRecentFile()
-{
-	if (menuType==ScrAction::RecentFile)
-		emit activatedRecentFile(menuText());
-}
-
-void ScrAction::activatedToActivatedRecentScript()
-{
-	if (menuType==ScrAction::RecentScript)
-		emit activatedRecentScript(menuText());
-}
-
-void ScrAction::activatedToActivatedWindowID()
-{
+		emit activatedData(pluginID);
 	if (menuType==ScrAction::Window)
-		emit activatedWindowID(windowID);
+		emit activatedData(windowID);
+	if (menuType==ScrAction::RecentFile)
+		emit activatedData(menuText());
+	if (menuType==ScrAction::RecentScript)
+		emit activatedData(menuText());
+}
+
+void ScrAction::toggledToToggledData()
+{
+	if (isToggleAction())
+	{
+		if (menuType==ScrAction::DataInt)
+			emit toggledData(isOn(), _dataInt);
+		if (menuType==ScrAction::DataDouble)
+			emit toggledData(isOn(), _dataDouble);
+		if (menuType==ScrAction::DataQString)
+			emit toggledData(isOn(), _dataQString);
+		if (menuType==ScrAction::DLL)
+			emit toggledData(isOn(), pluginID);
+		if (menuType==ScrAction::Window)
+			emit toggledData(isOn(), windowID);
+		if (menuType==ScrAction::RecentFile)
+			emit toggledData(isOn(), menuText());
+		if (menuType==ScrAction::RecentScript)
+			emit toggledData(isOn(), menuText());
+	}
 }
 
 void ScrAction::addedTo ( int index, QPopupMenu * menu )
@@ -122,8 +134,10 @@ void ScrAction::addedTo ( int index, QPopupMenu * menu )
 
 void ScrAction::addedTo( QWidget * actionWidget, QWidget * container )
 {
-	widgetAddedTo = actionWidget;
-	containerWidgetAddedTo = container;
+	if (widgetAddedTo)
+		widgetAddedTo = actionWidget;
+	if (containerWidgetAddedTo)
+		containerWidgetAddedTo = container;
 }
 
 

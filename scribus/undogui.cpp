@@ -18,10 +18,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "undogui.h"
-#include "undogui.moc"
-#include "prefsfile.h"
-#include "prefscontext.h"
 #include <qlayout.h>
 #include <qpixmap.h>
 #include <qpushbutton.h>
@@ -31,9 +27,17 @@
 #include <qcheckbox.h>
 #include <qfont.h>
 #include <qfontmetrics.h>
+ 
+#include "undogui.h"
+#include "undogui.moc"
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "scribus.h"
+#include "menumanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
+extern ScribusApp *ScApp;
 
 UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : QWidget(parent, name, f)
 {
@@ -45,7 +49,9 @@ UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : QWidget(parent, 
 UndoWidget::UndoWidget(QWidget* parent, const char* name)
 : UndoGui(parent, name)
 {
+	/* BnF standard toolbar buttons
 	QHBoxLayout* layout = new QHBoxLayout(this, 0, 0, "layout");
+
 
 	undoButton = new QToolButton(this, "undoButton");
 	undoButton->setIconSet(loadIcon("u_undo.png"));
@@ -66,9 +72,29 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	redoButton->setPopup(redoMenu);
 	redoButton->setPopupDelay(0);
 	redoButton->setAutoRaise(true);
-
+	*/
+	//Scribus action based toolbar button construction
+	ScApp->scrActions["editUndoAction"]->addTo(parent);
+	ScApp->scrActions["editRedoAction"]->addTo(parent);
+	ScApp->scrMenuMgr->createMenu("undoButtonMenu", "undoButtonMenu");
+	ScApp->scrMenuMgr->createMenu("redoButtonMenu", "redoButtonMenu");
+	undoMenu=ScApp->scrMenuMgr->getLocalPopupMenu("undoButtonMenu");
+	redoMenu=ScApp->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
+	ScApp->scrMenuMgr->addMenuToWidgetOfAction("undoButtonMenu", ScApp->scrActions["editUndoAction"]);
+	ScApp->scrMenuMgr->addMenuToWidgetOfAction("redoButtonMenu", ScApp->scrActions["editRedoAction"]);
+	QToolButton *undoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editUndoAction"]->getWidgetAddedTo());
+	QToolButton *redoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editRedoAction"]->getWidgetAddedTo());
+	undoButton->setPopupDelay(0);
+	redoButton->setPopupDelay(0);
+	
+	ScApp->scrActions["editCut"]->addTo(parent);
+	ScApp->scrActions["editCopy"]->addTo(parent);
+	ScApp->scrActions["editPaste"]->addTo(parent);
+	
+	/* BnF Undo buttons
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
+	*/
 	connect(undoMenu, SIGNAL(activated(int)), this, SLOT(undoMenuClicked(int)));
 	connect(redoMenu, SIGNAL(activated(int)), this, SLOT(redoMenuClicked(int)));
 }
@@ -77,10 +103,16 @@ void UndoWidget::clear()
 {
 	undoMenu->clear();
 	undoItems.clear();
-	undoButton->setEnabled(false);
+	//Scribus disable
+	ScApp->scrActions["editUndoAction"]->setEnabled(false);
+	// BnF disable
+	//undoButton->setEnabled(false);
 	redoMenu->clear();
 	redoItems.clear();
-	redoButton->setEnabled(false);
+	//Scribus disable;
+	ScApp->scrActions["editRedoAction"]->setEnabled(false);			
+	// BnF disable
+	//redoButton->setEnabled(false);
 }
 
 void UndoWidget::undoClicked()
@@ -131,7 +163,10 @@ void UndoWidget::updateUndoMenu()
 	undoMenu->clear();
 	for (uint i = 0; i < MENU_HEIGHT && i < undoItems.size(); ++i)
 		undoMenu->insertItem(undoItems[i]);
-	undoButton->setEnabled(undoMenu->count() != 0);
+	//BnF
+	//undoButton->setEnabled(undoMenu->count() != 0);
+	//SCribus
+	ScApp->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
 }
 
 void UndoWidget::updateRedoMenu()
@@ -139,7 +174,10 @@ void UndoWidget::updateRedoMenu()
 	redoMenu->clear();
 	for (uint i = 0; i < MENU_HEIGHT && i < redoItems.size(); ++i)
 		redoMenu->insertItem(redoItems[i]);
-	redoButton->setEnabled(redoMenu->count() != 0);
+	//BnF
+	//redoButton->setEnabled(redoMenu->count() != 0);
+	//Scribus
+	ScApp->scrActions["editRedoAction"]->setEnabled(redoMenu->count() != 0);
 }
 
 void UndoWidget::updateUndo(int steps)
