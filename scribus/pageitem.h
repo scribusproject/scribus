@@ -719,6 +719,12 @@ public:
 	void convertTo(ItemType newType);
 
 	/**
+	* Set the layer for the item
+	* @param layerId layer where this item is moved
+	*/
+	void setLayer(int layerId);
+
+	/**
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down
 	 * check anyway.
@@ -778,6 +784,7 @@ protected:
 	void restoreImageScaling(SimpleState *state, bool isUndo);
 	void restorePoly(SimpleState *state, bool isUndo, bool isContour);
 	void restoreContourLine(SimpleState *state, bool isUndo);
+	void restoreLayer(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

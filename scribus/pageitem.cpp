@@ -3063,6 +3063,23 @@ void PageItem::convertTo(ItemType newType)
 	itemTypeVal = newType;
 }
 
+void PageItem::setLayer(int layerId)
+{
+	if (LayerNr == layerId)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SendToLayer,
+										  QString(Um::FromTo).arg(LayerNr).arg(layerId),
+										  Um::ILayerAction);
+		ss->set("SEND_TO_LAYER", "send_to_layer");
+		ss->set("OLD_LAYER", LayerNr);
+		ss->set("NEW_LAYER", layerId);
+		undoManager->action(this, ss);
+	}
+	LayerNr = layerId;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -3290,6 +3307,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			ScApp->view->MirrorPolyV();
 			ScApp->view->EditContour = editContour;
 		}
+		else if (ss->contains("SEND_TO_LAYER"))
+			restoreLayer(ss, isUndo);
 	}
 }
 
@@ -3717,6 +3736,13 @@ void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 			ClipEdited = true;
 		}
 	}
+}
+
+void PageItem::restoreLayer(SimpleState *state, bool isUndo)
+{
+	setLayer(isUndo ? state->getInt("OLD_LAYER") : state->getInt("NEW_LAYER"));
+	ScApp->view->Deselect(true);
+	ScApp->view->updateContents();
 }
 
 void PageItem::select()

@@ -538,6 +538,10 @@ public:
 	static const QString AddPages;
 	static const QString DeletePage;
 	static const QString DeletePages;
+	static const QString AddLayer;
+	static const QString DeleteLayer;
+	static const QString RenameLayer;
+	static const QString SendToLayer;
 	/*@}*/
 
 	/**
@@ -553,6 +557,7 @@ public:
 	static QPixmap *IPolyline;
 	static QPixmap *IPathText;
 	static QPixmap *IGroup;
+	static QPixmap *ILayer;
 /*** Icons for actions ***********************************************/
 	static QPixmap *IMove;
 	static QPixmap *IResize;
@@ -581,6 +586,7 @@ public:
 	static QPixmap *IImageScaling;
 	static QPixmap *IBorder;
 	static QPixmap *IDocument;
+	static QPixmap *ILayerAction;
 	/*@}*/
 
 protected:

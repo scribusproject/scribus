@@ -7673,12 +7673,23 @@ void ScribusView::sentToLayer(int id)
 	int dd = Doc->Layers[d].LNr;
 	if (SelItem.count() != 0)
 	{
+		if (UndoManager::undoEnabled() && SelItem.count() > 1)
+			undoManager->beginTransaction();
+		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			PageItem *b = SelItem.at(a);
-			b->LayerNr = dd;
+			b->setLayer(dd);
+			tooltip += "\t" + b->getUName() + "\n";
 		}
+		if (UndoManager::undoEnabled() && SelItem.count() > 1)
+			undoManager->commit(Um::Selection,
+								Um::IGroup,
+								Um::SendToLayer,
+								tooltip,
+								Um::ILayerAction);
 	}
+
 	Deselect(true);
 	updateContents();
 	emit DocChanged();
