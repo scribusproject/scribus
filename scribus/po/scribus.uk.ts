@@ -9,7 +9,11 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontSize([&quot;name&quot;]) -&gt; float
+
+Повертає розмір шрифта в тчк для текстової рамки з назвою &quot;name&quot;. Якщо в цій
+текстовій рамці вибрано частину тексту, то функція повертає значення для
+першого знака вибірки. Якщо &quot;name&quot; не вказане, буде використано активний об&apos;єкт.</translation>
     </message>
     <message>
         <source>getColorNames() -&gt; list
@@ -17,7 +21,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorNames() -&gt; list
+
+Повертає список імен всіх кольорів визначених в документі.
+Якщо відкритий документ відсутній, повертає список основних
+кольорів.</translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -26,7 +34,12 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocDialog() -&gt; bool
+
+Показує діалогове вікно &quot;Новий Документ&quot;. Створює новий документ, якщо
+користувач підтвердить установки. Не створює документ, якщо користувач
+вибирає кнопку &quot;Вихід&quot;. Повернене значення дорівнює булевому &quot;так&quot;, якщо 
+документ було створено.</translation>
     </message>
     <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
@@ -34,7 +47,10 @@ Returns true if a new document was created.
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillColor([&quot;name&quot;]) -&gt; string
+
+Повертає ім&apos;я кольору заповнення об&apos;єкту під назвою &apos;name&apos;.
+Якщо &quot;name&quot; не дано, то використовується активний об&apos;єкт.</translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -44,7 +60,13 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
+
+Зсовує об&apos;єкт &quot;name&quot; на dx і dy відносно до його теперішньої позиції. Відстані
+визначаються активними одиницями виміру документа (див. константи Юнікс).
+Якщо &quot;name&quot; не дано, то використовується активний об&apos;єкт. Якщо об&apos;єкт &quot;name&quot; 
+належить до групи, то рухається вся група.
+</translation>
     </message>
     <message>
         <source>setRedraw(bool)
@@ -53,7 +75,13 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setRedraw(bool)
+
+Відключає обновлення сторінки, якщо bool = False, в протилежному
+випадку обновлення ввімкнене. Ця установка залишається в силі 
+навіть після закінчення роботи сценарія. Тому в кінці сценарія
+необхідно помістити виклик setRedraw(True) в умові finally: в верхньому
+рівні сценарія.</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -66,7 +94,16 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Створює новий прямокутник на активній сторінці і повертаю його ім&apos;я. Координати
+задаються в активних одиницях виміру документа (див. константи Юнікс). &quot;name&quot; 
+має унікально ідентифікувати об&apos;єкт, тому що воно буде необхідним для звернення
+до цього об&apos;єкта в майбутньому. Якщо &quot;name&quot; не вказане, то Scribus вибере його
+сам.
+
+Може повернути помилку NameExistsError якщо ви вкажете ім&apos;я, яке вже було використане.
+</translation>
     </message>
     <message>
         <source>newPage(where [,&quot;template&quot;])
@@ -79,7 +116,17 @@ template page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newPage(where [,&quot;template&quot;])
+
+Створює нову сторінку. Якщо &quot;where&quot; дорівнює -1 то нова сторінка добавляється
+в кінець документа. В іншому випадку нова сторінка вставляється перед &quot;where&quot;.
+Номери сторінок рахуються від 1 вверх, незалежно від того який номер показаний
+на першій сторінці Вашого документа. Необов&apos;язковий параметр &quot;template&quot; визначає
+ім&apos;я шаблона для нової сторінки.
+
+Може повернути помилку IndexError, якщо номер сторінки виходить за дозволений
+діапазон
+</translation>
     </message>
     <message>
         <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
@@ -88,7 +135,12 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Установлює заповнення градієнтом об&apos;єкта &quot;name&quot; типом type. Описання
+кольорів застосовуються так же як і в setFillColor() та setFillShade(). Дивіться
+константи для доступних типів (FILL_&lt;type&gt;).
+</translation>
     </message>
     <message>
         <source>messagebarText(&quot;string&quot;)
@@ -96,7 +148,11 @@ available types (FILL_&lt;type&gt;).
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messagebarText(&quot;string&quot;)
+
+Поміщає строкову величину &quot;string&quot; в панель повідомлень Scribus (полоса статусу). 
+Текст має бути в UTF8 кодуванні або строковою величиною &apos;unicode&apos; (рекомендовано).
+</translation>
     </message>
     <message>
         <source>newDoc(size, margins, orientation, firstPageNumber,
@@ -132,7 +188,40 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Створює новий документ та повертає true в разі успіху. Параметри мають
+слідуюче значення:
+
+    розмір - size = Тупль (ширина,висота), який описує розмір документу. Ви 
+    можете використовувати попередньо визначені константи названі 
+    PAPER_&lt;paper_type&gt;, наприклад PAPER_A4 і.т.д.
+
+    поля - margins = Тупль (ліве, праве, верхнє, нижнє) - описує поля документа.
+
+    орієнтація - orientation = орієнтація сторінки - константи PORTRAIT - портретна,
+    LANDSCAPE - ландшафтна.
+
+    firstPageNumber = номер першої сторінки даного документа. Звичайно 
+    починається з 1, але більші значення можуть використовуваться, наприклад 
+    якщо Ви створюєте документ, який складається з кількох частин.
+
+    одиниця виміру - unit: це значення установлює одиниці виміру, які будуть
+    використовуватися в документі. Використовуйте попередньо визначені
+    константи: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+    книжкові сторінки - facingPages = FACINGPAGES, NOFACINGPAGES
+
+    перша сторона зліва - firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Значення для ширини, висоти, та полів виражаються в одиницях виміру, вибраних
+для всього документа. PAPER_* константи виражаються в точках. Якщо Ваш документ
+не вимірюється в точках, майте це на увазі.
+
+Приклад: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
     </message>
 </context>
 <context>
@@ -145,7 +234,11 @@ has some text selected the value assigned to the first character
 of the selection is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFont([&quot;name&quot;]) -&gt; string
+
+Повертає ім&apos;я шрифта в текстовій рамці &quot;name&quot;. Якщо частина текста
+в цій рамці виділена, то повертає значення для першого знака вибірки.
+Якщо &quot;name&quot; не вказане - повертає значення для активного об&apos;єкту.</translation>
     </message>
     <message>
         <source>getTextLength([&quot;name&quot;]) -&gt; integer
@@ -153,7 +246,11 @@ selected item is used.
 Returns the length of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Повертає довжину тексту в текстовій рамці з ім&apos;ям &quot;name&quot;.
+Якщо &quot;name&quot; не вказане, то використовується активний
+об&apos;єкт.</translation>
     </message>
     <message>
         <source>getText([&quot;name&quot;]) -&gt; string
@@ -163,7 +260,13 @@ selected, the selected text is returned. All text in the frame, not just
 currently visible text, is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getText([&quot;name&quot;]) -&gt; string
+
+Повертає текст з текстової рамки &quot;name&quot;. Якщо в цій рамці частина тексту
+виділена, то повертає виділений текст. Повертає весь текст в рамці, а не 
+тільки видиму частину. Якщо &quot;name&quot; не вказане, то використовується
+активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getAllText([&quot;name&quot;]) -&gt; string
@@ -173,7 +276,12 @@ linked with this frame. If this textframe has some text selected, the selected
 text is returned. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllText([&quot;name&quot;]) -&gt; string
+
+Повертає текст із текстової рамки &quot;name&quot; і всіх текстових рамок зв&apos;язаних з нею.
+Якщо в цій рамці частина тексту виділена, то повертає виділений текст. Якщо 
+&quot;name&quot; не вказано, то використовується активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getLineSpacing([&quot;name&quot;]) -&gt; float
@@ -181,7 +289,11 @@ used.
 Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
 points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Повертає міжрядковий інтервал (&quot;leading&quot;) текстової рамки з ім&apos;ям &quot;name&quot;,
+виражений в точках. Якщо &quot;name&quot; не вказано, то використовується активний
+об&apos;єкт.</translation>
     </message>
     <message>
         <source>getColumnGap([&quot;name&quot;]) -&gt; float
@@ -189,7 +301,11 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
 &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Повертає розмір інтервалу між колонками тексту в текстовій рамці &quot;name&quot;, 
+виражений в точках. Якщо &quot;name&quot; не задано, використовується активний
+об&apos;єкт.</translation>
     </message>
     <message>
         <source>getColumns([&quot;name&quot;]) -&gt; integer
@@ -197,7 +313,10 @@ Returns the column gap size of the text frame &quot;name&quot; expressed in poin
 Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumns([&quot;name&quot;]) -&gt; integer
+
+Повертає число колонок тексту в текстовій рамці &quot;name&quot;. Якщо &quot;name&quot; 
+не вказано, використовується активний об&apos;єкт.</translation>
     </message>
     <message>
         <source>setText(&quot;text&quot;, [&quot;name&quot;])
@@ -207,7 +326,13 @@ Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See 
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Змінює текст в текстовій рамці &quot;name&quot; на зміст текстової змінної &quot;text&quot;.
+Текст має бути в кодуванні UTF8 - використовуйте, наприклад, 
+unicode(text, &apos;iso-8859-2&apos;). Додаткова інформація по цьому приводу
+розміщена в часто задаваних питаннях. Якщо &quot;name&quot; не вказано, то
+використовується активний об&apos;єкт.</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -219,7 +344,15 @@ used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Вставляє текст&quot; text&quot; в позицію &quot;pos&quot; в текстову рамку. Текст має бути в
+кодуванні UTF (дивіться setText() для подальшої інформації). Перший знак
+має індекс 0. Якщо &quot;name&quot; не вказано, використовується активний об&apos;єкт.
+
+Може повернути помилку IndexError якщо індекс вставки виходить за 
+дозволений діапазон.
+</translation>
     </message>
     <message>
         <source>setFont(&quot;font&quot;, [&quot;name&quot;])
@@ -230,7 +363,14 @@ currently selected item is used.
 
 May throw ValueError if the font cannot be found.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Установлює шрифт текстової рамки &quot;name&quot; до &quot;font&quot;. Якщо вибрана лише 
+частина тексту в рамці то зміна шрифта відноситься лише до неї. Якщо  
+&quot;name&quot; не вказано, то використовується активний об&apos;єкт.
+
+Може повернути ValueError, якщо шрифт не може бути знайдено.
+</translation>
     </message>
     <message>
         <source>setFontSize(size, [&quot;name&quot;])
@@ -242,7 +382,16 @@ currently selected item is used.
 
 May throw ValueError for a font size that&apos;s out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFontSize(size, [&quot;name&quot;])
+
+Установлює розмір шрифта в текстовій рамці &quot;name&quot; до розміру &quot;size&quot;. 
+Значення &quot;size&quot; визначається в точках. Якщо в рамці вибрана частина
+тексту, то зміна розміру шрифта відноситься лише до неї. Діапазон &quot;size&quot; 
+від 1 до 512. Якщо &quot;name&quot; не вказано, то використовується активний
+об&apos;єкт.
+
+Може повернути помилку ValueError, якщо розмір шрифта виходить за
+дозволений діапазон.</translation>
     </message>
     <message>
         <source>setLineSpacing(size, [&quot;name&quot;])
@@ -253,7 +402,15 @@ item is used.
 
 May throw ValueError if the line spacing is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineSpacing(size, [&quot;name&quot;])
+
+Установлює міжрядковий інтервал (початковий) в текстовій рамці &quot;name&quot;
+до розміру &quot;size&quot;. Значення &quot;size&quot; виражається в точках. Якщо &quot;name&quot; не
+вказано, використовується активний об&apos;єкт.
+
+Може повернути помилку ValueError, якщо значення інтервалу виходить
+за доступний діапазон.
+</translation>
     </message>
     <message>
         <source>setColumnGap(size, [&quot;name&quot;])
@@ -263,7 +420,14 @@ Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&q
 
 May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setColumnGap(size, [&quot;name&quot;])
+
+Установлює проміжок між колонками в текстовій рамці &quot;name&quot; до значення
+&quot;size&quot;. Якщо &quot;name&quot; не задано, використовується активний об&apos;єкт.
+
+Може повернути помилку ValueError, якщо проміжок між колонками виходить
+за доступний діапазон (повинен бути позитивним).
+</translation>
     </message>
     <message>
         <source>setColumns(nr, [&quot;name&quot;])
@@ -273,7 +437,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May throw ValueError if number of columns is not at least one.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setColumns(nr, [&quot;name&quot;])
+
+Установлює число колонок в текстовій рамці &quot;name&quot; до цілого числа &quot;nr&quot;.
+Якщо &quot;name&quot; не задано, використовується активний об&apos;єкт.
+
+Може повернути помилку ValueError, якщо не вказана хоч одна колонка.
+</translation>
     </message>
     <message>
         <source>setTextAlignment(align, [&quot;name&quot;])
@@ -284,7 +454,16 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).
 
 May throw ValueError for an invalid alignment constant.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextAlignment(align, [&quot;name&quot;])
+
+Установлює вирівнювання тексту в текстовій рамці &quot;name&quot; до вказаного.
+Якщо &quot;name&quot; не вказано, використовується активний об&apos;єкт. &quot;align&quot; повинне
+дорівнювати одній з констант ALIGN_ constants визначених в цьому модулі -
+дивіться в dir(scribus).
+
+Може повернути помилку ValueError, якщо константа вирівнювання задана
+невірно.
+</translation>
     </message>
     <message>
         <source>selectText(start, count, [&quot;name&quot;])
@@ -296,7 +475,16 @@ selected item is used.
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectText(start, count, [&quot;name&quot;])
+
+Вибирає &quot;count&quot; число знаків тексту в текстовій рамці &quot;name&quot;, починаючи з
+знака &quot;start&quot;. Рахунок знаків починається з 0. Якщо &quot;count&quot; дорівнює нулю,
+текстова вибірка буде знята. Якщо &quot;name&quot; не задано, буде використано
+активний об&apos;єкт.
+
+Може повернути помилку IndexError, якщо вибірка виходить за межі 
+наявного тексту.
+</translation>
     </message>
     <message>
         <source>deleteText([&quot;name&quot;])
@@ -305,7 +493,12 @@ Deletes any text in the text frame &quot;name&quot;. If there is some text selec
 only the selected text will be deleted. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteText([&quot;name&quot;])
+
+Видаляє весь текст в текстовій рамці &quot;name&quot;. Якщо частина тексту вибрана
+то видаляється лише вона. Якщо &quot;name&quot; не задано, використовується
+активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
@@ -314,7 +507,12 @@ Sets the text color of the text frame &quot;name&quot; to the color &quot;color&
 is some text selected only the selected text is changed. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Установлює колір тексту в текстовій рамці &quot;name&quot; до кольору &quot;color&quot;. Якщо
+частина тексту вибрана - змінюється лише вона. Якщо &quot;name&quot; не задано,
+використовується активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
@@ -322,7 +520,11 @@ given the currently selected item is used.
 Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Установлює колір &quot;color&quot; текстового контура. Якщо &quot;name&quot; не задано,
+використовується активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setTextShade(shade, [&quot;name&quot;])
@@ -333,7 +535,13 @@ be an integer value in the range from 0 (lightest) to 100 (full color
 intensity). If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextShade(shade, [&quot;name&quot;])
+
+Установлює тінь кольору тексту об&apos;єкта &quot;name&quot; до &quot;shade&quot;. Якщо
+частина тексту вибрана - змінюється лише вона. &quot;shade&quot; має бути
+цілим числом від 0 (найсвітліша) до 100 (повна насиченість кольору).
+Якщо &quot;name&quot; не задано, використовується активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
@@ -344,7 +552,15 @@ and must not link to or be linked from any other frames already.
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Зв&apos;язує дві текстові рамки. Рамка з ім&apos;ям &quot;fromname&quot; приєднується до
+рамки з ім&apos;ям &quot;toname&quot;. Кінцева рамка має бути пустою текстовою
+рамкою і не повинна бути з&apos;єднана ні з якою іншою рамкою.
+
+Може повернути помилку ScribusException, якщо відбувається порушення
+правил зв&apos;язування рамок.
+</translation>
     </message>
     <message>
         <source>unlinkTextFrames(&quot;name&quot;)
@@ -355,14 +571,26 @@ connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unl
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>unlinkTextFrames(&quot;name&quot;)
+
+Видаляє вказаний (названий) об&apos;єкт з ланцюжка зв&apos;язаних текстових
+рамок. Якщо рамка знаходиться всередині ланцюжка, то рамки, які
+знаходилися перед і після неї будуть з&apos;єднані, наприклад &apos;a-&gt;b-&gt;c&apos; 
+зміниться на &apos;a-&gt;c&apos;, при виконанні unlinkTextFrames(b)&apos;
+
+Може повернути помилку ScribusException при порушенні правил
+з&apos;єднання рамок.
+</translation>
     </message>
     <message>
         <source>traceText([&quot;name&quot;])
 
 Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
 currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation>traceText([&quot;name&quot;])
+
+Конвертує текстову рамку &quot;name&quot; в контурний текст. Якщо &quot;name&quot; 
+не вказано, використовується активний об&apos;єкт.</translation>
     </message>
     <message>
         <source>getColor(&quot;name&quot;) -&gt; tuple
@@ -374,7 +602,16 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColor(&quot;name&quot;) -&gt; tuple
+
+Повертає тупль (C, M, Y, K), який містить чотири складових
+кольору &quot;name&quot; з активного документа. Якщо не відкрито
+жодного документа, повертає значення для названого
+кольору з палітри стандартних кольорів.
+
+Може повернути помилку NotFoundError, якщо названий колір не знайдено.
+Може повернути помилку ValueError, якщо було вказано недійсне ім&apos;я кольору.
+</translation>
     </message>
     <message>
         <source>changeColor(&quot;name&quot;, c, m, y, k)
@@ -386,7 +623,17 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>changeColor(&quot;name&quot;, c, m, y, k)
+
+Змінює колір &quot;name&quot; до вказаних значень CMYK. Значення кольору
+визначається його чотирма компонентами c = Cyan (салатовий),
+m = Magenta (малиновий), y = Yellow (жовтий) та k = Black (чорний).
+Значення складових кольору повинні знаходитися в діапазоні від
+0 до 255.
+
+Може повернути помилку NotFoundError, якщо названий колір не знайдено.
+Може повернути помилку ValueError, якщо було вказано недійсне ім&apos;я кольору.
+</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -401,7 +648,16 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Видаляє колір &quot;name&quot;. Кожний приклад цього кольору заміняється на колір
+&quot;replace&quot;. Якщо &quot;replace&quot; не вказано, то використовується колір &quot;None&quot; - прозорість.
+
+deleteColor змінює стандартні кольори при відсутності відчинених документів. В
+цьому випадку &quot;replace&quot;, якщо вказаний, ефекту не має.
+
+Може повернути помилку NotFoundError, якщо названий колір не знайдено.
+Може повернути помилку ValueError, якщо було вказано недійсне ім&apos;я кольору.</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -411,7 +667,12 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Кожний приклад кольору &quot;name&quot; заміняється на колір &quot;replace&quot;.
+
+Може повернути помилку NotFoundError, якщо названий колір не знайдено.
+Може повернути помилку ValueError, якщо було вказано недійсне ім&apos;я кольору.</translation>
     </message>
     <message>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
@@ -432,7 +693,24 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; строкова
+величина з іменем файла
+
+Показує діалогове вікно &quot;Відчинити файл&quot; з аннотацією &quot;caption&quot;. Імена 
+файлів фільтруються за домомогою строкової змінної &quot;filter&quot;. Може бути вказане стандартне ім&apos;я або шлях до файла (&quot;defaultname&quot;) - залиште цю змінну  пустою,
+якщо Ви не бажаєте її використовувати. Значення &quot;True&quot; для &quot;haspreview&quot;
+вмикає застосування невеликого віджета попереднього перегляду в діалоговому
+вікні &quot;FileSelect&quot;. Якщо параметр &quot;issave&quot; дорівнює &quot;True&quot;, діалогове вікно діє, як
+&quot;Записати Як&quot;, в іншому разі воно відповідає &quot;Відчинити файл&quot;. Значення по
+умовчанню для обох змінних дорівнює &quot;False&quot;.
+
+Якщо вказане значення фільтра, воно повинне мати вид &apos;коментар (*.type *.type2 ...)&apos;.
+Наприклад &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Зверніться до документації по Qt для QFileDialog за детальним описом фільтрів.
+
+Приклад: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Приклад: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
     </message>
     <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
@@ -468,7 +746,40 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; ціле число
+
+Показує діалогове вікно з заголовком &quot;caption&quot;, повідомленням &quot;message&quot;, 
+та іконкою &quot;icon&quot; та до 3-х кнопок. По умовчанню іконка не використовується, 
+присутня лише проста кнопка &quot;Гаразд&quot;. Обов&apos;язковими являються лише 
+аргументи &quot;caption&quot; та &quot;message&quot;, хоча установка іконки та відповідних
+кнопок настійливо рекомендується. Текст повідомлення може містити
+просту розмітку по типу HTML.
+
+Повертає номер кнопки, натиснутої користувачем. Номера кнопок
+починаються з 1.
+
+Для іконок та кнопок існують наперед визначені константи з іменами 
+описаними в документації по Qt. Вони включають BUTTON_* та
+ICON_* константи, визначені в модулі. Додатково є ще дві константи,
+для яких може бути виконана бінарна логічна операція OR з константами
+кнопок
+    BUTTONOPT_DEFAULT  Натискування клавіші &quot;Ввід&quot; (Enter) натискує цю кнопку.
+    BUTTONOPT_ESCAPE    Натискування клавіші &quot;Відміна&quot; (Escape) натискує цю кнопку.
+
+Приклади використання:
+result = messageBox(&apos;Script failed&apos;,
+                    &apos;Цей скрипт працює лише при наявності вибраної текстової рамки.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Мавпи!&apos;, &apos;Сталося щось негарне! &lt;i&gt;Це була мавпа?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Визначені константи кнопок та іконок:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</translation>
     </message>
     <message>
         <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
@@ -478,7 +789,15 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>valueDialog(caption, message [,defaultvalue]) -&gt; строкова величина
+
+Показує стандартний &apos;Введіть строкову величину&apos; діалог та повертає
+отримане значення, як строкову величину
+Параметри: заголовок вікна, текст у вікні та необов&apos;язкове &apos;значення 
+по умовчанню&apos; (default).
+
+Приклад: valueDialog(&apos;заголовок&apos;, &apos;текст у вікні&apos;, &apos;необов&quot;язкове значення&apos;)
+</translation>
     </message>
     <message>
         <source>closeDoc()
@@ -487,14 +806,23 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished"></translation>
+        <translation>closeDoc()
+
+Зачиняє активний документ без запиту про запис.
+
+Може повернути помилку NoDocOpenError при відсутності
+документа для зачиняння
+</translation>
     </message>
     <message>
         <source>haveDoc() -&gt; bool
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>haveDoc() -&gt; булеве значення
+
+Повертає правдиве булеве значення при 
+наявності відчиненого документа.</translation>
     </message>
     <message>
         <source>openDoc(&quot;name&quot;)
@@ -503,7 +831,13 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>openDoc(&quot;name&quot;)
+
+Відчиняє документ &quot;name&quot;.
+
+Може повернути помилку ScribusError, якщо документ не можна
+було відчинити.
+</translation>
     </message>
     <message>
         <source>saveDoc()
@@ -514,7 +848,15 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDoc()
+
+Записує активний документ під його теперішнім іменем, повертає
+правдиве булеве значення при успішному завершенні операції.
+Якщо документ ще не був записаний, може викликати інтерактивний
+діалог збереження файла.
+
+В даний час неможливо визначити чи запис був успішним.
+</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;name&quot;)
@@ -524,7 +866,13 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;name&quot;)
+
+Записує активний документ під новим ім&apos;ям &quot;name&quot;, яке може бути
+повним або відносним шляхом.
+
+Може повернути помилку ScribusError, якщо запис не буде успішним.
+</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
@@ -532,7 +880,11 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; булеве значення
+
+Установлює опис документа. &quot;Author (&quot;Автор&quot;), &quot;Info&quot; (&quot;Інформація&quot;),
+&quot;Description&quot; (&quot;Опис&quot;) є строковими величинами.
+</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -541,7 +893,12 @@ Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMargins(lr, rr, tr, br)
+
+Установлює поля документа, Ліве (lr), Праве (rr), Верхнє (tr) та Нижнє (br)
+поля задаються в одиницях виміру документа - див. UNIT_&lt;type&gt;
+константи.
+</translation>
     </message>
     <message>
         <source>setUnit(type)
@@ -551,7 +908,14 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setUnit(type)
+
+Установлює одиницю виміру документа. Можливі значення для &quot;unit&quot; 
+визначаються як константи UNIT_&lt;type&gt;.
+
+Може повернути помилку ValueError, якщо було задано невірну одиницю
+виміру.
+</translation>
     </message>
     <message>
         <source>getUnit() -&gt; integer (Scribus unit constant)
@@ -560,7 +924,12 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getUnit() -&gt; integer (Scribus unit constant)
+
+Повертає одиниці виміру документа. Повернене значення буде однією з
+констант UNIT_* constants:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</translation>
     </message>
     <message>
         <source>loadStylesFromFile(&quot;filename&quot;)
@@ -568,7 +937,10 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadStylesFromFile(&quot;filename&quot;)
+
+Завантажує стилі абзаців з документу Scribus &quot;filename&quot; в активний документ.
+</translation>
     </message>
     <message>
         <source>setDocType(facingPages, firstPageLeft)
@@ -578,7 +950,13 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setDocType(facingPages, firstPageLeft)
+
+Установлює тип документа. Для задання книжкового розташування сторінок
+установіть перший параметр до FACINGPAGES, а для відміни замість facingPages 
+використайте NOFACINGPAGES. Щоб перша сторінка була зліва установіть
+другий параметр до FIRSTPAGELEFT, а справа - FIRSTPAGERIGHT.
+</translation>
     </message>
     <message>
         <source>getLineColor([&quot;name&quot;]) -&gt; string
@@ -586,7 +964,11 @@ a right page use FIRSTPAGERIGHT.
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineColor([&quot;name&quot;]) -&gt; строкове значення
+
+Повертає назву кольорі ліній об&apos;єкту &quot;name&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getLineWidth([&quot;name&quot;]) -&gt; integer
@@ -594,7 +976,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineWidth([&quot;name&quot;]) -&gt; ціле число
+
+Повертає товщину лінії об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot;
+не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getLineShade([&quot;name&quot;]) -&gt; integer
@@ -602,7 +988,11 @@ is not given the currently selected Item is used.
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineShade([&quot;name&quot;]) -&gt; ціле число
+
+Повертає значення затінення об&apos;єкта &quot;name&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
@@ -611,7 +1001,12 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineJoin([&quot;name&quot;]) -&gt; ціле число (див. умови)
+
+Повертає стиль з&apos;єднань ліній об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot; не
+задано, буде використано активний об&apos;єкт. Типи з&apos;єднать:
+JOIN_BEVEL (фасочне), JOIN_MITTER (фацеточне), JOIN_ROUND (закруглене)
+</translation>
     </message>
     <message>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
@@ -620,7 +1015,12 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineEnd([&quot;name&quot;]) -&gt; ціле число (див. умови)
+
+Повертає стиль кінців ліній об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot; не
+задано, буде використано активний об&apos;єкт. Типи кінців:
+CAP_FLAT (плаский), CAP_ROUND (заокруглений), CAP_SQUARE (квадратний)
+</translation>
     </message>
     <message>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
@@ -629,7 +1029,14 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineStyle([&quot;name&quot;]) -&gt; ціле число (див. обмеження)
+
+Повертає стиль ліній об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot; не задано, буде 
+використано активний об&apos;єкт. Обмеження типів ліній:
+LINE_DASH (пунктирна), LINE_DASHDOT (пунктир-крапка), 
+LINE_DASHDOTDOT (пунктир-крапка-крапка), LINE_DOT (крапка),
+LINE_SOLID (суцільна)
+</translation>
     </message>
     <message>
         <source>getFillShade([&quot;name&quot;]) -&gt; integer
@@ -637,7 +1044,11 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Повертає значення затінення кольору заповнення об&apos;єкта &quot;name&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
@@ -645,7 +1056,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Повертає тупль (x, y), який містить значення масштабу рамки для зображень
+&quot;name&quot;.  Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getImageName([&quot;name&quot;]) -&gt; string
@@ -653,7 +1068,11 @@ Returns a (x, y) tuple containing the scaling values of the image frame
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageName([&quot;name&quot;]) -&gt; строкове значення
+
+Повертає ім&apos;я файла для зображення в рамці для зображень. Якщо &quot;name&quot; 
+не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getSize([&quot;name&quot;]) -&gt; (width,height)
@@ -663,7 +1082,13 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSize([&quot;name&quot;]) -&gt; (ширина,висота)
+
+Повертає тупль (ширина,висота) з розміром об&apos;єкта &quot;name&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт. Розмір
+виражається в активних одиницях виміру документа - див.  UNIT_&lt;type&gt;
+для подальшої інформації.
+</translation>
     </message>
     <message>
         <source>getRotation([&quot;name&quot;]) -&gt; integer
@@ -672,14 +1097,22 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getRotation([&quot;name&quot;]) -&gt; ціле число
+
+Повертає кут повороту об&apos;єкта &quot;name&quot;. Значення виражається в градусах 
+і поворот по часовії стрілці є позитивним. Якщо &quot;name&quot; не задано, буде
+використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getAllObjects() -&gt; list
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllObjects() -&gt; список
+
+Повертає список, що містить імена всіх об&apos;єктів на активній сторінці.
+</translation>
     </message>
     <message>
         <source>moveObjectAbs(x, y [, &quot;name&quot;])
@@ -689,7 +1122,13 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Переміщує об&apos;єкт &quot;name&quot;  в нове місце. Координати виражаються в
+активних одиницях виміру документа (див. константи UNIT).  Якщо 
+&quot;name&quot; не задано, буде використано активний об&apos;єкт. Якщо об&apos;єкт 
+&quot;name&quot; є частиною групи, переміщається вся група.
+</translation>
     </message>
     <message>
         <source>rotateObject(rot [, &quot;name&quot;])
@@ -700,7 +1139,15 @@ default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObject(rot [, &quot;name&quot;])
+
+Відносно повертає об&apos;єкт &quot;name&quot; на &quot;rot&quot; градусів. Об&apos;єкт повертається
+навколо вортекса, який є активно вибраною точкою обертання. По
+умовчанню верхній лівий вортекс при нульовому куті повороту. 
+Позитивні значення означають поворот проти часової стрілки при
+використанні точки обертання по умовчанню. Якщо &quot;name&quot; не задано, 
+буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>sizeObject(width, height [, &quot;name&quot;])
@@ -708,7 +1155,11 @@ given the currently selected item is used.
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sizeObject(ширина, висота [, &quot;name&quot;])
+
+Змінює розмір об&apos;єкта &quot;name&quot; до вказаної висоти та ширини. Якщо 
+&quot;name&quot; не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getSelectedObject([nr]) -&gt; string
@@ -717,28 +1168,42 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSelectedObject([nr]) -&gt; строкова величина
+
+Повертає ім&apos;я вибраного об&apos;єкта. &quot;nr&quot;, якщо задано, вказує на індекс
+вибраного об&apos;єкта, напр. 0 означає перший вибраний об&apos;єкт, 1 означає
+другий вибраний об&apos;єкт і так далі.
+</translation>
     </message>
     <message>
         <source>selectionCount() -&gt; integer
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectionCount() -&gt; ціле число
+
+Повертає число вибраних об&apos;єктів.
+</translation>
     </message>
     <message>
         <source>selectObject(&quot;name&quot;)
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectObject(&quot;name&quot;)
+
+Повертає об&apos;єкт з даним іменем &quot;name&quot;.
+</translation>
     </message>
     <message>
         <source>deselectAll()
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deselectAll()
+
+Відмінює вибір всіх об&apos;єктів у всьому документі.
+</translation>
     </message>
     <message>
         <source>groupObjects(list)
@@ -747,13 +1212,21 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>groupObjects(list)
+
+Згруповує об&apos;єкти названі в списку &quot;list&quot;. &quot;list&quot; повинен містити імена
+об&apos;єктів, які будуть згруповані. Якщо &quot;list&quot; не задано, буде 
+використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation>unGroupObjects(&quot;name&quot;)
+
+Видаляє групу, яка містить об&apos;єкт з іменем &quot;name&quot;. Якщо &quot;name&quot; не задано, 
+буде використано активний об&apos;єкт.</translation>
     </message>
     <message>
         <source>scaleGroup(factor [,&quot;name&quot;])
@@ -766,7 +1239,16 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleGroup(factor [,&quot;name&quot;])
+
+Змінює розмір групи, яка містить об&apos;єкт &quot;name&quot;. Значення понад 1 збільшують 
+розмір, а значення менші за 1 його зменшують, напр. значення 0.5 змінює
+розмір групи до 50 % початкового, а значення 1.5 змінює розмір до 150 % 
+початкового. Значення &quot;factor&quot; повинне бути більшим за 0. Якщо &quot;name&quot; не
+задано, буде використано активний об&apos;єкт.
+
+Може повернути помилку ValueError, якщо задано недійсний фактор масштабу.
+</translation>
     </message>
     <message>
         <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
@@ -776,7 +1258,14 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+Завантажує зображення &quot;picture&quot; в рамку для зображень &quot;name&quot;. Якщо 
+&quot;name&quot; не задано, буде використано активний об&apos;єкт.
+
+Може повернути помилку WrongFrameTypeError, якщо рамка не є рамкою
+для зображень
+</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -787,7 +1276,15 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleImage(x, y [, &quot;name&quot;])
+
+Установлює масштаб зображення в рамці для зображень &quot;name&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт. Число 1
+дорівнює 100 %.
+
+Може повернути помилку WrongFrameTypeError, якщо рамка не є 
+рамкою для зображень 
+</translation>
     </message>
     <message>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
@@ -796,7 +1293,12 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>lockObject([&quot;name&quot;]) -&gt; bool
+
+Замикає об&apos;єкт &quot;name&quot;, якщо він незамкнений, і навпаки. Якщо 
+&quot;name&quot; не задано, буде використано активний об&apos;єкт. Повертає
+булеве значення &quot;true&quot;, якщо об&apos;єкт замкнений.
+</translation>
     </message>
     <message>
         <source>isLocked([&quot;name&quot;]) -&gt; bool
@@ -804,14 +1306,21 @@ if locked.
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLocked([&quot;name&quot;]) -&gt; bool
+
+Повертає булеве значення &quot;true&quot;, якщо об&apos;єкт замкнений. Якщо 
+&quot;name&quot; не задано, буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getFontNames() -&gt; list
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontNames() -&gt; list
+
+Повертає список з назвами доступних шрифтів.
+</translation>
     </message>
     <message>
         <source>getXFontNames() -&gt; list of tuples
@@ -819,7 +1328,12 @@ Returns a list with the names of all available fonts.
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getXFontNames() -&gt; список туплів
+
+Повертає додаткову інформацію про шрифти у вигляді списка туплів:
+[ (Назва шрифта в Scribus, гарнітура, справжня назва, вибірка (1|0), 
+вбудований PS (1|0), файл з шрифтом), (...), ... ]
+</translation>
     </message>
     <message>
         <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
@@ -830,14 +1344,25 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+Показує зображення шрифта &quot;name&quot; у вигляді заданого тексту
+&quot;sample&quot; розміром &quot;size&quot;. Зображення записується в файл &quot;filename&quot;. 
+Повертає булеве значення &quot;true&quot; у разі успішного завершення.
+
+Може повернути помилку NotFoundError, якщо вказаний шрифт не знайдено.
+Може повернути помилку ValueError, якщо задано пустий текст або назва файла.
+</translation>
     </message>
     <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayers() -&gt; list
+
+Повертає список з назвами всіх визначених планів.
+</translation>
     </message>
     <message>
         <source>setActiveLayer(&quot;name&quot;)
@@ -847,14 +1372,23 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setActiveLayer(&quot;name&quot;)
+
+Установлює &quot;name&quot;, як активний план.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>getActiveLayer() -&gt; string
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getActiveLayer() -&gt; string
+
+Повертає назву активного плану.
+</translation>
     </message>
     <message>
         <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
@@ -865,7 +1399,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+Переміщує об&apos;єкт &quot;name&quot; на план &quot;layer&quot;. План повинен існувати.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>setLayerVisible(&quot;layer&quot;, visible)
@@ -876,7 +1417,14 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerVisible(&quot;layer&quot;, visible)
+
+Змінює видимість плану &quot;layer&quot;. Якщо &quot;visible&quot; дорівнює булевому
+значенню &quot;false&quot; - план невидимий.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>setLayerPrintable(&quot;layer&quot;, printable)
@@ -887,7 +1435,14 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerPrintable(&quot;layer&quot;, printable)
+
+Змінює доступність плану &quot;layer&quot; для друку. Якщо &quot;printable&quot;
+дорівнює булевому значенню &quot;false&quot;, план не буде надруковано.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -899,7 +1454,15 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Повертає стан видимості плану &quot;layer&quot; - значення &quot;True&quot; означає, що
+план &quot;layer&quot; видимий, а значення &quot;False&quot; означає, що план &quot;layer&quot; 
+невидимий.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -911,7 +1474,14 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Повертає стан доступності для друку плану &quot;layer&quot;. При значенні &quot;True&quot;
+план &quot;layer&quot; може бути надрукований, а при значенні &quot;False&quot; - ні.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>deleteLayer(&quot;layer&quot;)
@@ -922,7 +1492,14 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteLayer(&quot;layer&quot;)
+
+Видаляє план з назвою &quot;layer&quot;. При відсутності плану або якщо це 
+останній план документа нічого не відбувається.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>createLayer(layer)
@@ -931,14 +1508,22 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLayer(layer)
+
+Створює новий план з назвою &quot;name&quot;.
+
+Може повернути помилку ValueError, якщо назва плану недопустима.
+</translation>
     </message>
     <message>
         <source>getGuiLanguage() -&gt; string
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getGuiLanguage() -&gt; строкова величина
+
+Повертає строкову величину, яка містить значення -lang.
+</translation>
     </message>
     <message>
         <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -951,7 +1536,17 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює новий еліпс на активній сторінці та повертає його назву.
+Координати задаються в активних одиницях виміру документа (див.
+константи UNIT). &quot;name&quot; повинне бути неповторним визначником
+об&apos;єкта, тому що воно служить для подальших звернень до нього.
+Якщо &quot;name&quot; не задано, Scribus створить його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+</translation>
     </message>
     <message>
         <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -964,7 +1559,17 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює нову рамку для зображень на активній сторінці та повертає
+її назву. Координати задаються в активних одиницях виміру документа.
+&quot;name&quot; повинне бути неповторним визначником об&apos;єкта, тому що воно 
+служить для подальших звернень до нього. Якщо &quot;name&quot; не задано, 
+Scribus створить його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+</translation>
     </message>
     <message>
         <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -977,7 +1582,18 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createText(x, y, width, height, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює нову текстову рамку на активній сторінці та повертає
+її назву. Координати задаються в активних одиницях виміру документа
+(див константи UNIT). &quot;name&quot; повинне бути неповторним визначником 
+об&apos;єкта, тому що воно служить для подальших звернень до нього. Якщо 
+&quot;name&quot; не задано, Scribus створить його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+
+</translation>
     </message>
     <message>
         <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
@@ -990,7 +1606,17 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює нову лінію від точки (x1, y1) до точки (x2, y2) та повертає
+її назву. Координати задаються в активних одиницях виміру документа
+(див константи UNIT). &quot;name&quot; повинне бути неповторним визначником 
+об&apos;єкта, тому що воно служить для подальших звернень до нього. Якщо 
+&quot;name&quot; не задано, Scribus створить його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+</translation>
     </message>
     <message>
         <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
@@ -1006,7 +1632,20 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolyLine(list, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює багатосегментну лінію та повертає її назву. Точки лінії 
+зберігаються в списку &quot;list&quot; у визначеному порядку [x1, y1, x2, y2...xn. yn]. 
+Координати задаються в активних одиницях виміру документа
+(див константи UNIT). &quot;name&quot; повинне бути неповторним визначником 
+об&apos;єкта, тому що воно служить для подальших звернень до нього. Якщо 
+&quot;name&quot; не задано, Scribus створить його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+Може повернути помилку ValueError, якщо задане недостатнє число точок
+або число заданих координат не відповідає числу точок.
+</translation>
     </message>
     <message>
         <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
@@ -1024,7 +1663,22 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolygon(list, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює полігон та повертає його назву. Точки кутів полігона
+зберігаються в списку &quot;list&quot; у визначеному порядку [x1, y1, x2, y2...xn. yn]. 
+Як мінімум мають бути задані три точки. Необхідності в повторенні першої
+точки для замикання полігона не існує. Полігон автоматично замикається
+з&apos;єднанням першої та останньої заданих точок. Координати задаються в 
+активних одиницях виміру документа (див константи UNIT). &quot;name&quot; повинне 
+бути неповторним визначником об&apos;єкта, тому що воно служить для подальших 
+звернень до нього. Якщо &quot;name&quot; не задано, Scribus створить його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+Може повернути помилку ValueError, якщо задане недостатнє число точок
+або число заданих координат не відповідає числу точок.
+</translation>
     </message>
     <message>
         <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
@@ -1043,7 +1697,23 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createBezierLine(list, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює нову криву Безьє  та повертає її назву. Точки кривої
+зберігаються в списку &quot;list&quot; у визначеному порядку 
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+В списку точок x та y відповідають координатам точки, а kx та ky 
+відповідають контрольним точкам кривої. Координати задаються 
+в активних одиницях виміру документа (див константи UNIT). 
+&quot;name&quot; повинне бути неповторним визначником об&apos;єкта, тому що 
+воно служить для подальших звернень до нього. Якщо &quot;name&quot; не 
+задано, Scribus створить його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+Може повернути помилку ValueError, якщо задане недостатнє число точок
+або число заданих координат не відповідає числу точок.
+</translation>
     </message>
     <message>
         <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
@@ -1057,7 +1727,20 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; строкова величина
+
+Створює новий текстовий шлях (pathText) через з&apos;єднання двох об&apos;єктів
+&quot;textbox&quot; та &quot;beziercurve&quot; та повертає його назву. Координати задаються 
+в активних одиницях виміру документа (див константи UNIT). &quot;name&quot; 
+повинне бути неповторним визначником об&apos;єкта, тому що воно служить 
+для подальших звернень до нього. Якщо &quot;name&quot; не задано, Scribus створить 
+його сам.
+
+Може повернути помилку NameExistsError при спробі задання вже
+використаної назви.
+Може повернути помилку NotFoundError, якщо один чи обидва названих
+базових об&apos;єкти не існують.
+</translation>
     </message>
     <message>
         <source>deleteObject([&quot;name&quot;])
@@ -1065,7 +1748,10 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteObject([&quot;name&quot;])
+
+Видаляє об&apos;єкт &quot;name&quot;. Якщо &quot;name&quot; не вказано, буде видалено вибраний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>textFlowsAroundFrame(&quot;name&quot; [, state])
@@ -1074,7 +1760,13 @@ Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;na
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
 is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textFlowsAroundFrame(&quot;name&quot; [, state])
+
+Вмикає/вимикає параметр &quot;Текст обтікає рамку&quot; об&apos;єкта &quot;name&quot;.
+При виклиці задається строковий параметр &quot;name&quot; та необов&apos;язковий
+булевий параметр &quot;state&quot;. Якщо &quot;state&quot; не задано, відбувається зміна
+стану параметра на протилежний.
+</translation>
     </message>
     <message>
         <source>objectExists([&quot;name&quot;]) -&gt; bool
@@ -1083,7 +1775,12 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>objectExists([&quot;name&quot;]) -&gt; булеве значення
+
+Перевіряє чи вказаний об&apos;єкт вже існує в документі. Назва об&apos;єкта є 
+необов&apos;язковим параметром. Якщо назва не задана, повертає булеве
+значення &quot;True&quot;, при наявності вибраного об&apos;єкта.
+</translation>
     </message>
     <message>
         <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
@@ -1091,14 +1788,21 @@ returns True if there is something selected.
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+Застосовує стиль &quot;style&quot; для об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot; не вказано, 
+буде використано вибраний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getAllStyles() -&gt; list
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllStyles() -&gt; список
+
+Повертає список всіх стилів абзаців в активному документі.
+</translation>
     </message>
     <message>
         <source>currentPage() -&gt; integer
@@ -1106,14 +1810,21 @@ Return a list of the names of all paragraph styles in the current document.
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>currentPage() -&gt; ціле число
+
+Повертає номер активної сторінки. Номери сторінок рахуються вгору від 1,
+незалежно від того, який номер показаний на першій сторінці документа.
+</translation>
     </message>
     <message>
         <source>redrawAll()
 
 Redraws all pages.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>redrawAll()
+
+Перерисовує всі сторінки.
+</translation>
     </message>
     <message>
         <source>savePageAsEPS(&quot;name&quot;)
@@ -1122,7 +1833,12 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>savePageAsEPS(&quot;name&quot;)
+
+Зберігає активну сторінку, як файл EPS з назвою &quot;name&quot;.
+
+Може повернути помилку ScribusError, якщо запис не був успішним.
+</translation>
     </message>
     <message>
         <source>deletePage(nr)
@@ -1133,7 +1849,15 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deletePage(nr)
+
+Видалає дану сторінку. Якщо в документі є лише одна сторінка - нічого
+не відбудеться. Номери сторінок рахуються вгору від 1, незалежно від 
+того, який номер показаний на першій сторінці документа.
+
+Може повернути помилку IndexError, якщо номер сторінки виходить за
+межі доступного діапазону
+</translation>
     </message>
     <message>
         <source>gotoPage(nr)
@@ -1144,14 +1868,25 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>gotoPage(nr)
+
+Переходить до сторінки номер &quot;nr&quot; (тобто робить сторінку номер &quot;nr&quot; активною). 
+Майте на увазі, що gotoPage лише установлює сторінку на якій буде оперувати
+сценарій і не змінює того, яка сторінка видима користувачу.
+
+Може повернути помилку IndexError, якщо номер сторінки виходить за межі 
+доступного діапазону.
+</translation>
     </message>
     <message>
         <source>pageCount() -&gt; integer
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>pageCount() -&gt; ціле число
+
+Повертає число сторінок в документі.
+</translation>
     </message>
     <message>
         <source>getHGuides() -&gt; list
@@ -1159,7 +1894,12 @@ Returns the number of pages in the document.
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getHGuides() -&gt; список
+
+Повертає список розміщення горизонтальних направляючих. Значення
+виражаються в активних одиницях виміру документа - див. константи
+UNIT_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <source>setHGuides(list)
@@ -1170,21 +1910,36 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setHGuides(list)
+
+Установлює горизонтальні направляючі. Вхідний параметр має бути заданий
+як список позицій направляючих, виражених в активних одиницях виміру
+документа - див. константи UNIT_&lt;type&gt;.
+
+Приклад: setHGuides(getHGuides() + [200.0, 210.0] # додати нові направляючі без
+заміщення існуючих
+         setHGuides([90,250]) # повністю замінити існуючі направляючі
+</translation>
     </message>
     <message>
         <source>getVGuides()
 
 See getHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getVGuides()
+
+Див. getHGuides.
+</translation>
     </message>
     <message>
         <source>setVGuides()
 
 See setHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setVGuides()
+
+Див. setHGuides.
+</translation>
     </message>
     <message>
         <source>getPageSize() -&gt; tuple
@@ -1192,7 +1947,11 @@ See setHGuides.
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageSize() -&gt; тупль
+
+Повертає тупль з розміром сторінки, вираженим в активних одиницях виміру
+документа. Див. константи UNIT_&lt;type&gt; та функцію getPageMargins()
+</translation>
     </message>
     <message>
         <source>getPageItems() -&gt; list
@@ -1202,7 +1961,12 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageItems() -&gt; список
+
+Повертає список туплів з об&apos;єктами, розташованими на активній сторінці.
+Тупль має вигляд (name, objectType, order).  Наприклад &apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+означає, що об&apos;єкт &apos;Text1&apos; є текстовою рамкою (тип 4) і є першим об&apos;єктом сторінки...
+</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -1210,7 +1974,11 @@ the page...
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Повертає поля сторінки у вигляді тупля (ліве, праве, верхнє, нижнє) в
+активних одиницях виміру. Див. константи UNIT_&lt;type&gt; та функцію getPageSize().
+</translation>
     </message>
     <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1219,7 +1987,12 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+Установлює колір заповнення &quot;color&quot; для об&apos;&apos;єкта &quot;name&quot;. &quot;color&quot;
+повинен бути попередньо визначеним. Якщо &quot;name&quot; не задано, 
+буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1227,7 +2000,11 @@ currently selected item is used.
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+Установлює колір &quot;color&quot; для об&apos;&apos;єкта &quot;name&quot;. Якщо &quot;name&quot; не задано, 
+буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setLineWidth(width, [&quot;name&quot;])
@@ -1238,7 +2015,15 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineWidth(width, [&quot;name&quot;])
+
+Установлює товщину об&apos;єкта &quot;name&quot; до &quot;width&quot;. &quot;width&quot; повинна бути в
+діапазоні від 0.0 до 12.0 включно і вимірюється в точках. Якщо &quot;name&quot; 
+не задано, буде використано активний об&apos;єкт. 
+
+Може повернути помилку ValueError, якщо товщина лінії виходить за
+доступний діапазон.
+</translation>
     </message>
     <message>
         <source>setLineShade(shade, [&quot;name&quot;])
@@ -1250,7 +2035,15 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineShade(shade, [&quot;name&quot;])
+
+Установлює тінь ліній об&apos;єкта &quot;name&quot; до &quot;shade&quot;. &quot;shade&quot; повинна бути 
+в діапазоні від 0 (найсвітліша) до 100 (повна насиченість кольору).
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт. 
+
+Може повернути помилку ValueError, якщо тінь виходить за 
+доступний діапазон.
+</translation>
     </message>
     <message>
         <source>setLineJoin(join, [&quot;name&quot;])
@@ -1259,7 +2052,12 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineJoin(join, [&quot;name&quot;])
+
+Установлює тип з&apos;єднань ліній об&apos;єкта &quot;name&quot; до стиля &quot;join&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+Існують попередньо визначені константи для &quot;join&quot; - JOIN_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <source>setLineEnd(endtype, [&quot;name&quot;])
@@ -1268,7 +2066,12 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineEnd(endtype, [&quot;name&quot;])
+
+Установлює тип кінцівок ліній об&apos;єкта &quot;name&quot; до стиля &quot;cap&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+Існують попередньо визначені константи для &quot;cap&quot; - CAP_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <source>setLineStyle(style, [&quot;name&quot;])
@@ -1277,7 +2080,12 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineStyle(style, [&quot;name&quot;])
+
+Установлює стиль ліній об&apos;єкта &quot;name&quot; до стиля &quot;style&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+Існують попередньо визначені константи для &quot;style&quot; - LINE_&lt;style&gt;.
+</translation>
     </message>
     <message>
         <source>setFillShade(shade, [&quot;name&quot;])
@@ -1289,7 +2097,16 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillShade(shade, [&quot;name&quot;])
+
+Установлює тінь заповнення об&apos;єкта &quot;name&quot; до &quot;shade&quot;. &quot;shade&quot; 
+повинна бути в діапазоні від 0 (найсвітліша) до 100 (повна 
+насиченість кольору). Якщо &quot;name&quot; не задано, буде використано 
+активний об&apos;єкт. 
+
+Може повернути помилку ValueError, якщо тінь виходить за 
+доступний діапазон.
+</translation>
     </message>
     <message>
         <source>setCornerRadius(radius, [&quot;name&quot;])
@@ -1299,7 +2116,13 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCornerRadius(radius, [&quot;name&quot;])
+
+Установлює радіус кутів об&apos;єкта &quot;name&quot;. Радіус виражається в точках.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт. 
+
+Може повернути помилку ValueError, якщо радіус негативний.
+</translation>
     </message>
     <message>
         <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
@@ -1309,7 +2132,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+Установлює стиль ліній об&apos;єкта &quot;name&quot; до стиля &quot;namedStyle&quot;.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+
+Може повернути помилку NotFoundError, якщо цей стиль ліній не існує.
+</translation>
     </message>
     <message>
         <source>progressReset()
@@ -1317,7 +2146,11 @@ May raise NotFoundError if the line style doesn&apos;t exist.
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressReset()
+
+Видалає попередні установки панелі прогресу. Викликається до нового
+використання панелі. Див. progressSet.
+</translation>
     </message>
     <message>
         <source>progressTotal(max)
@@ -1325,7 +2158,11 @@ new progress bar use. See progressSet.
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressTotal(max)
+
+Установлює максимальне значення для панелі прогресу до заданого
+число. Див. progressSet.
+</translation>
     </message>
     <message>
         <source>progressSet(nr)
@@ -1338,14 +2175,29 @@ total number of steps with progressTotal(). The current number of steps is set
 with progressSet(). The progress bar can be rewound to the beginning with
 progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressSet(nr)
+
+Установлює позицію панелі прогресу до значення &quot;nr&quot; відносно 
+попередньо вираженого значення progressTotal. Панель прогресу
+виражає концепцію сходинок - задається загальне число сходинок
+та число пройдених сходинок і панель буде показувати прогрес
+проходження сходинок у відсотках від завершення. Сумма сходинок
+задається значенням progressTotal(). Активне число сходинок
+установлюється за допомогою progressSet(). Панель прогресу може 
+бути повернена на початок за допомогою progressReset(). [основано
+на документації фірми Trolltech&apos;s по Qt]
+</translation>
     </message>
     <message>
         <source>setCursor()
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCursor()
+
+[НЕ ПІДТРИМУЄТЬСЯ!] Може призвести до помилок в роботі програми.
+Поки що не використовуйте.
+</translation>
     </message>
     <message>
         <source>docChanged(bool)
@@ -1354,7 +2206,12 @@ Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos
 useful to call this procedure when you&apos;re changing the document, because Scribus
 won&apos;t automatically notice when you change the document using a script.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>docChanged(булеве значення)
+
+Ввімкнути/вимкнути іконку запису на панелі іконокScribus та в меню &quot;Записати&quot;.
+Використовуйте цю функцію при зміні документа, тому що Scribus не реєструє
+змін автоматично при роботі сценарія.
+</translation>
     </message>
     <message>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
@@ -1365,7 +2222,16 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>defineColor(&quot;name&quot;, c, m, y, k)
+
+Визначає новий колір &quot;name&quot;. Значення кольору виражається чотирма
+складовими: c = Cyan (Салатовий), m = Magenta (Малиновий), 
+y = Yellow (Жовтий) та k = Black (Чорний). Складові кольору повинні
+бути в діапазоні від 0 до 255.
+
+Може повернути помилку ValueError, якщо була задана недійсна
+назва кольору.
+</translation>
     </message>
     <message>
         <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
@@ -1374,7 +2240,10 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getCornerRadius([&quot;name&quot;]) -&gt; ціле число
+
+Повертає радіус кутів об&apos;єкта &quot;name&quot;. Радіус виражається в точках.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.</translation>
     </message>
     <message>
         <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
@@ -1384,7 +2253,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Повертає тупль (x, y) з позицією об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot; 
+не задано, буде використано активний об&apos;єкт. Позиція виражається
+а активних точках виміру документа - див. UNIT_&lt;type&gt; для 
+довідки.
+</translation>
     </message>
     <message>
         <source>rotateObjectAbs(rot [, &quot;name&quot;])
@@ -1393,7 +2268,12 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Установлює кут повороту об&apos;єкта &quot;name&quot; до &quot;rot&quot;. Позитивні
+значення приводять до обертання проти годинникової стрілки.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт. 
+</translation>
     </message>
 </context>
 <context>
@@ -1603,14 +2483,22 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Про Scribus %1</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця панель показує версію, дату збірки та
+вбудовану підтримку бібліотек в Scribus.
+C-C-T означає C=littlecms C=CUPS T=TIFF
+підтримку. Відсутність певної бібліотеки
+вказується зірочкою (*)
+littlecms = бібліотека профілювання кольорів
+CUPS = бібліотека підтримки системи друку
+TIFF = бібліотека підтримки графічного формату
+tiff</translation>
     </message>
 </context>
 <context>
@@ -2412,11 +3300,11 @@ UCR найчастіше впливає на ті частини зображе�
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -2891,12 +3779,13 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви не можете створити колір під назвою &quot;%1&quot;.
+Це ім&apos;я зарезервоване для прозорого кольору</translation>
     </message>
 </context>
 <context>
@@ -3183,15 +4072,15 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -3880,11 +4769,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Розмір:</translation>
+        <translation>&amp;Розмір:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір зображень. 100% - без зміни, 200% для подвійного збільшення, і.т.д.</translation>
     </message>
 </context>
 <context>
@@ -4030,7 +4919,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
 </context>
 <context>
@@ -4156,11 +5045,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати вибраний шрифт в меню Стиль, Шрифт</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихід з попереднього перегляду</translation>
     </message>
 </context>
 <context>
@@ -4254,15 +5143,15 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміст</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Ссилка</translation>
+        <translation>Ссилка</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Допомога по Scribus на вебі</translation>
     </message>
 </context>
 <context>
@@ -5900,15 +6789,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Виконавчий</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Альбомний</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Бухгалтерський</translation>
     </message>
 </context>
 <context>
@@ -6790,11 +7679,11 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінку(и) вертикально</translation>
     </message>
 </context>
 <context>
@@ -6902,12 +7791,21 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод переходу від деяких відтінків сірого, які складаються
+з салатного, жовтого та малинового кольорів до використання
+чорного кольору.
+UCR найбільше впливає на частини зображень з нейтральними
+та темними тонами, близькими до сірого кольору. Його використання
+може покращити друк деяких зображень. Деяке експериментування
+та тестування може бути необхідним для досягнення потрібного
+результату. UCR знижує можливість перенасичення паперу CMY 
+чорнилами.</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Надає кращий вигляд шрифтам TrueType, OpenType, EPS, PDF та векторній графіці
+в попередньому перегляді за рахунок невеликого сповільнення процесу перегляду</translation>
     </message>
 </context>
 <context>
@@ -8305,27 +9203,27 @@ UCR найчастіше впливає на ті частини зображе�
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Виконавчий</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Альбомний</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Бухгалтерський</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Юридичний</translation>
+        <translation>Юридичний</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Лист</translation>
+        <translation>Лист</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Таблоїд</translation>
+        <translation>Таблоїд</translation>
     </message>
 </context>
 <context>
@@ -9082,566 +9980,581 @@ External Links
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Албанська</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Баскська</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Болгарська</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="unfinished"></translation>
+        <translation>Бразільська</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Каталанська</translation>
+        <translation>Каталанська</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Китайська</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Чешська</translation>
+        <translation>Чешська</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Датська</translation>
+        <translation>Датська</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">Голландська</translation>
+        <translation>Голландська</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Англійська</translation>
+        <translation>Англійська</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished"></translation>
+        <translation>Англійська (Британська)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Есперанто</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Німецька</translation>
+        <translation>Німецька</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Фінська</translation>
+        <translation>Фінська</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Французська</translation>
+        <translation>Французька</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation>Галицька</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Грецька</translation>
+        <translation>Грецька</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Венгерська</translation>
+        <translation>Венгерська</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Індонезійська</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Італійська</translation>
+        <translation>Італійська</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Корейська</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Литовська</translation>
+        <translation>Литовська</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
+        <translation>Норвезька (Букмааль)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
+        <translation>Норвезька (Нниорськ)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Норвезька</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Польська</translation>
+        <translation>Польська</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Російська</translation>
+        <translation>Російська</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Шведська</translation>
+        <translation>Шведська</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Іспанська</translation>
+        <translation>Іспанська</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Іспанська (Латинь)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Словацька</translation>
+        <translation>Словацька</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Словенська</translation>
+        <translation>Словенська</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Сербська</translation>
     </message>
     <message>
         <source>Tried to set progress &gt; maximum progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Була зроблена спроба установки показника 
+прогресу більшого ніж максимально можливий</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Про скрипт...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Про скрипт</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити розмір шрифта в нетекстовій рамці.
+</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити шрифт в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити розмір тексту в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити число колонок тексту в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити міжрядковий інтервал в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити дистанцію між колонками тексту в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо повернути текст з нетекстової рамки.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити текст в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо вставити текст в нетекстову рамку.</translation>
     </message>
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Індекс вставки виходить за доступний діапазон</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Вирівнювання виходить за доступний діапазон. Використайте
+одну з констант ALIGN*.</translation>
     </message>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити вирівнювання тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Розмір шрифта виходить за доступний діапазон - має бути 1 &lt;= розмір &lt;= 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити розмір шрифта в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити текст в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт не знайдено</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Міжрядковий інтервал виходить за доступний діапазон, має бути &gt;= 0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити міжрядковий інтервал в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Дистанція між колонками тексту виходить за доступний діапазон, має бути позитивною</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити число колонок тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Число колонок тексту виходить за доступний діапазон, має бути &gt; 1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити число колонок тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Індекс вибірки виходить за доступний діапазон</translation>
     </message>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо вибрати текст в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо видалити текст з нетекстової рамки</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити заповнення тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити виділення контурів знаків в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити тінь тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Лише текстові рамки можуть бути з&apos;єднані в ланцюжок</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Рамка призначення має бути пуста</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Рамка призначення зв&apos;язана з іншою рамкою</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Інша рамка зв&apos;язана з рамкою призначення</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Вихідна рамка і рамка призначення являються одним і тим самим об&apos;єктом</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо від&apos;єднати нетекстову рамку</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо розімкнути.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт являється останньою рамкою в серії, неможливо роз&apos;єднати. Роз&apos;єднайте попередню рамку натомість.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо конвертувати нетекстову рамку в контурні лінії</translation>
     </message>
     <message>
         <source>Failed to open document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Документ неможливо відкрити</translation>
     </message>
     <message>
         <source>Failed to save document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати документ</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Одиниця виходить за доступний діапазон. Використайте одну з
+scribus.UNIT_* констант.</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Рамка призначення не є рамкою для зображень.</translation>
     </message>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо змінити масштаб на 0%</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо прорисувати пустий зразок</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати файл з пустим ім&apos;ям</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не допускається пусте ім&apos;я плану</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>План не знайдено</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо видалити останній існуючий план</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо створити план без імені</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт з таким ім&apos;ям вже існує</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок має складатися, як мінімум, з двох точок (чотири значення)</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок має складатися з парного числа значень</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок має складатися, як мінімум, з трьох точок (шість значень)</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок має складатися, як мінімум, з чотирьох точок (вісім значень)</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок має складатися з шестикратного числа значень</translation>
     </message>
     <message>
         <source>Object not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт не знайдено</translation>
     </message>
     <message>
         <source>Style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Стиль не знайдено</translation>
     </message>
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити стиль в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати EPS (енкапсульований постскрипт)</translation>
     </message>
     <message>
         <source>Page number out of range</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Число сторінок виходить за доступний діапазон</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>аргумент не є списком: має бути списком дійсних чисел</translation>
     </message>
     <message>
         <source>argument contains non-numeric values: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>аргумент містить нечислові значення: має бути списком дійсних чисел</translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Товщина лінії виходить за межі дозволеного, має бути  0 &lt;= товщина_лінії &lt;= 12</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Тінь лінії виходить за межі дозволеного, має бути  0 &lt;= тінь &lt;= 100</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Тінь заповнення виходить за межі дозволеного, має бути  0 &lt;= тінь &lt;= 100</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Радіус кута повинен бути позитивним числом.</translation>
     </message>
     <message>
         <source>Line style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Стиль лінії не знайдено</translation>
     </message>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо повернути колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо змінити колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено в документі</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено в стандартних кольорах</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо створити колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо видалити колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо замінити колір з пустим ім&apos;ям.</translation>
     </message>
     <message>
         <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
 <byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
 <byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
 <byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
 <byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
 <byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
 <byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
 <byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
 <byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
 <byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
 <byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
 <byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
 <byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
 <byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
 <byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
 <byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
+        <translation>Модуль інтерфейса Scribus для мови програмування Пітон (Python).
+
+Цей модуль є інтерфейсом Scribus для Пітона. Він містить функції, які дозволяють
+керувати програмою scribus та маніпулювати об&apos;єктами на канві. Кожна функція
+має окреме описання. Декілька понять є загальними для більшої частини інтерфейса.
+Більшість функцій оперують рамками. Рамки визначаються за їх назвою, яка
+виражається строковою величиною, вони не є справжніми об&apos;єктами Пітону. Багато
+функій сприймають необов&apos;язковий параметр (не ключове слово) - назва рамки.
+Багато помилок (винятків) також є спільними для більшості функцій.
+- Багато функцій повернуть помилку NoDocOpenError, якщо їх виконати при відсутності
+відчиненого документа, яким вони могли б оперувати.
+- Якщо не передати назву рамки функції, яка потребує цей параметр, ця функція 
+використає вибрану рамку, якщо така є, або поверне помилку NoValidObjectError, якщо
+вона не зможе знайти відповідний об&apos;єкт.
+- Багато функцій повернуть помилку WrongFrameTypeError, якщо їх використати на 
+невірному типі рамки. Наприклад установка кольору тексту для рамки для зображень
+не має сенсу і приведе до повернення цієї помилки.
+- Помилки, які повертаються викликами до базового програмного інтерфейсу Пітона (Python API) будуть повертатися без змін. Це приводить то того, що список помилок, які
+можуть повертатися любою функцією, як вказано тут і в документаційній строці функції, є неповним. Довідка про помилки, які можуть бути повернені кожною функцією розміщена
+в документації по функції.</translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Імпортувати файл  &amp;OpenOffice.org Draw...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Всі файли (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>Документи OpenOffice.org Writer</translation>
     </message>
 </context>
 <context>
@@ -9870,39 +10783,39 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Розмір сторінки</translation>
+        <translation>Розмір сторінки</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Розмір:</translation>
+        <translation>Розмір:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нестандартний</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation type="unfinished">Орієнтація:</translation>
+        <translation>Орієнтація:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Вертикальна</translation>
+        <translation>Вертикальна</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Горизонтальна</translation>
+        <translation>Горизонтальна</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Товщина:</translation>
+        <translation>Товщина:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished">Висота:</translation>
+        <translation>Висота:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">Номер &amp;першої сторінки:</translation>
+        <translation>Номер &amp;першої сторінки:</translation>
     </message>
 </context>
 <context>
@@ -11193,7 +12106,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифтова система ініціалізована</translation>
     </message>
 </context>
 <context>
@@ -11384,7 +12297,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">О&amp;чистити</translation>
+        <translation>О&amp;чистити</translation>
     </message>
 </context>
 <context>
@@ -11822,17 +12735,35 @@ on front of the paragraph style name in Scribus</source>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо стиль абзацу імпортований з активного абзацу документа 
+OpenOffice.org вже існує, стиль в документі Scribus повинен бути
+відредагованим для співпадання з імпортованим стилем, або
+залишений незмінним</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки імпортера документів OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
+        <translation>Чи повинет імпортер завжди використовувати
+активне значення без підтверждення</translation>
+    </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation>Упакувати стилі абзаців</translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation>Згрупувати стилі абзаців за атрибутами. Це приводить до
+зменшення числа стилів абзаців, але викликає труднощі
+в їх контролі. Використовуйте, якщо відомо, що текст не
+повинен редагуватися після імпортування.</translation>
     </message>
 </context>
 <context>
@@ -11918,7 +12849,7 @@ never ask your confirmation again</source>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
+        <translation>Лівий В&amp;ідступ:</translation>
     </message>
 </context>
 <context>
