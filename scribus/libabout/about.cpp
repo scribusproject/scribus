@@ -87,13 +87,13 @@ About::About( QWidget* parent )
 	TextView1 = new QTextView( tab_2, "TextView1" );
 	TextView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
 										"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
-										"<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
+										"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" + 
 										"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 										"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 										"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 										"<tr><td>Riku Leino</td><td>riku.leino@gmail.com</td></tr>" +
+										"<tr>Craig Ringer<td></td><td>craig@postnewspapers.com.au</td></tr>" +
 										"<tr><td> </td><td> </td></tr>" +
-
 										"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 										"<tr><td>Niyam Bhushan</td><td></td></tr>" +
 										"<tr><td>Martin Costabel</td><td></td></tr>" +
