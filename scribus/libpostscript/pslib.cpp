@@ -263,15 +263,15 @@ bool PSLib::PS_set_file(QString fn)
 	return Spool.open(IO_WriteOnly);
 }
 
-void PSLib::PS_begin_doc(int Ori, double breite, double hoehe, int numpage)
+void PSLib::PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage)
 {
 	PutDoc(Header);
 	PutDoc("%%For: " + User + "\n");
 	PutDoc("%%Title: " + Titel + "\n");
 	PutDoc("%%Creator: " + Creator + "\n");
 	PutDoc("%%Pages: " + IToStr(numpage) + "\n");
-	BBox = "%%BoundingBox: 0 0 " + IToStr(qRound(breite)) + " " + IToStr(qRound(hoehe)) + "\n";
-	BBoxH = "%%HiResBoundingBox: 0 0 " + ToStr(breite) + " " + ToStr(hoehe) + "\n";
+	BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(breite)) + " " + IToStr(qRound(hoehe)) + "\n";
+	BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(breite) + " " + ToStr(hoehe) + "\n";
   	if (!Art)
 	{
 		PutDoc(BBox);

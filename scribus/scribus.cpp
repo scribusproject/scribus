@@ -6795,6 +6795,15 @@ void ScribusApp::ShowSubs()
 	setLpal(Prefs.Lpalv);
 	setSepal(Prefs.Sepalv);
 	setBookpal(Prefs.Bopalv);
+	MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
+	Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
+	Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
+	Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
+	Sepal->move(Prefs.Sepalx, Prefs.Sepaly);
+	BookPal->move(Prefs.Bopalx, Prefs.Bopaly);
+	ScBook->move(Prefs.SCpalx, Prefs.SCpaly);
+	ScBook->resize(Prefs.SCpalw, Prefs.SCpalh);
+	Npal->move(Prefs.Npalx, Prefs.Npaly);
 	setActiveWindow();
 	raise();
 }

@@ -967,13 +967,21 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 	int sepac;
 	double wideR;
 	QValueList<double> dum;
+	double gx, gy, gw, gh;
 	dum.clear();
 	ReOrderText(Doc, this);
 	p->PS_set_Info("Author", Doc->DocAutor);
 	p->PS_set_Info("Title", Doc->DocTitel);
 	if (!farb)
 		p->PS_setGray();
-	p->PS_begin_doc(Doc->PageOri, Doc->PageB, Doc->PageH, pageNs.size());
+	if ((!p->Art) && (Doc->ActPage->SelItem.count() != 0))
+	{
+		Doc->ActPage->setGroupRect();
+		Doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+		p->PS_begin_doc(Doc->PageOri, gx, Doc->PageH - (gy+gh), gx + gw, Doc->PageH - gy, pageNs.size());
+	}
+	else
+		p->PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->PageB, Doc->PageH, pageNs.size());
 	for (uint ap = 0; ap < MasterPages.count(); ++ap)
 	{
 		if (MasterPages.at(ap)->Items.count() != 0)
@@ -997,7 +1005,17 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 	while (aa < pageNs.size())
 	{
 		a = pageNs[aa]-1;
-		p->PS_begin_page(Doc->PageB, Doc->PageH, &Pages.at(a)->Margins, Prefs->ClipMargin);
+		if ((!p->Art) && (Doc->ActPage->SelItem.count() != 0))
+		{
+			struct Margs Ma;
+			Ma.Left = gx;
+			Ma.Top = gy;
+			Ma.Bottom = Doc->PageH - (gy + gh);
+			Ma.Right = Doc->PageB - (gx + gw);
+			p->PS_begin_page(Doc->PageB, Doc->PageH, &Ma, true);
+		}
+		else
+			p->PS_begin_page(Doc->PageB, Doc->PageH, &Pages.at(a)->Margins, Prefs->ClipMargin);
 		if (Hm)
 		{
 			p->PS_translate(Doc->PageB, 0);
@@ -1512,6 +1530,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 				if ((a->PageNam != "") && (c->PType == 4))
 					continue;
 				if ((a->PageNam != "") && (c->PType == 2) && ((sep) || (!farb)))
+					continue;
+				if ((!p->Art) && (Doc->ActPage->SelItem.count() != 0) && (!c->Select))
 					continue;
 				if (c->isPrintable)
 				{

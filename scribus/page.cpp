@@ -3696,7 +3696,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					QRegion apr = QRegion(p.xForm(Items.at(a)->Clip));
 					p.end();
 					if ((Sele.contains(apr.boundingRect())) && (Items.at(a)->LayerNr == doku->ActiveLayer))
-						SelectItemNr(a);
+						SelectItemNr(a, false);
 				}
 			}
 			HaveSelRect = false;
@@ -3722,6 +3722,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			}
 			else
 				EmitValues(b);
+			emit HaveSel(b->PType);
 		}
 	}
 	if (doku->AppMode == 6)
@@ -6001,7 +6002,7 @@ bool Page::SeleItem(QMouseEvent *m)
 	return false;
 }
 
-void Page::SelectItemNr(int nr)
+void Page::SelectItemNr(int nr, bool draw)
 {
 	PageItem *b = doku->ActPage->Items.at(nr);
 	if (!b->Select)
@@ -6054,18 +6055,21 @@ void Page::SelectItemNr(int nr)
 			bb->paintObj();
 		}
 	}
-	if (doku->ActPage->SelItem.count() > 1)
+	if (draw)
 	{
-		setGroupRect();
-		paintGroupRect();
-		double x, y, w, h;
-		getGroupRect(&x, &y, &w, &h);
-		emit ItemPos(x, y);
-		emit ItemGeom(w, h);
+		if (doku->ActPage->SelItem.count() > 1)
+		{
+			setGroupRect();
+			paintGroupRect();
+			double x, y, w, h;
+			getGroupRect(&x, &y, &w, &h);
+			emit ItemPos(x, y);
+			emit ItemGeom(w, h);
+		}
+		else
+			EmitValues(b);
+		emit HaveSel(b->PType);
 	}
-	else
-		EmitValues(b);
-	emit HaveSel(b->PType);
 }
 
 void Page::AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state)

@@ -72,7 +72,7 @@ public:
 	bool SeleItem(QMouseEvent *m);
 	bool SeleItemPos(QPoint m);
 	void Deselect(bool prop = true);
-	void SelectItemNr(int nr);
+	void SelectItemNr(int nr, bool draw = true);
 	void SetupDraw(int Nr);
 	void MoveItemI(double newX, double newY, int ite);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);

@@ -1,5 +1,10 @@
 Changes since Version 1.1.7
 
+04.07.2004
+	* bug     #844: selecting importet eps text very slow and not nice
+	* feature #578: one-click/keyboard for toggling off and on all dialogboxes+guides etc
+	* feature #845: Export Selection only to EPS
+
 03.07.2004
 	* feature #789: Calculating error
 	* feature #841: Implement the primary Dublin Core Metadata Element Set for RDF Implementation

@@ -34,7 +34,7 @@ public:
 	virtual ~PSLib() {};
 	virtual bool PS_set_file(QString fn);
 	virtual void PS_set_Info(QString art, QString was);
-	virtual void PS_begin_doc(int Ori, double breite, double hoehe, int numpage);
+	virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage);
 	virtual void PS_begin_page(double breite, double hoehe, struct Margs* Ma, bool Clipping);
 	virtual void PS_end_page();
 	virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -74,13 +74,13 @@ public:
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
 	virtual void PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
+	bool Art;
 private:
 	void PutSeite(QString c);
 	void PutDoc(QString c);
 	QString ToStr(double c);
 	QString IToStr(int c);
 	QString PSEncode(QString in);
-	bool Art;
 	QString Prolog;
 	QString Header;
 	QString Creator;
