@@ -205,10 +205,44 @@ bool ScrPopupMenu::repopulateLocalMenu()
 	return true;
 }
 
+bool ScrPopupMenu::generateEntryList(QStringList *actNames)
+{
+	QPtrListIterator<QObject> menuItemListIt(menuItemList);
+	QObject *object;
+	while ( (object = menuItemListIt.current()) != 0  ) 
+	{
+		QString menuItemListClassName=object->className();
+		if (menuItemListClassName=="ScrAction")
+		{
+			if(QString(object->name())==QString("separator_action"))
+				;
+			else
+			{
+				ScrAction *sca=dynamic_cast<ScrAction *>(object);
+				if (sca)
+				{
+					actNames->append(sca->name());
+					qDebug(sca->name());
+				}
+			}
+		}
+		else if (menuItemListClassName=="ScrPopupMenu")
+		{
+			ScrPopupMenu *scp=dynamic_cast<ScrPopupMenu *>(object);
+			if (scp)
+				scp->generateEntryList(actNames);
+		}
+		++menuItemListIt;
+	}
+	return true;
+	
+}
+
 bool ScrPopupMenu::clear()
 {
 	menuItemList.clear(); //CB TODO leaking separators here ?
 	localPopupMenu->clear();
+	return true;
 }
 
 bool ScrPopupMenu::insertMenuSeparator()
@@ -224,3 +258,4 @@ void ScrPopupMenu::setEnabled(bool menuEnabled)
 	enabled=menuEnabled;
 	localPopupMenu->setEnabled(enabled);
 }
+

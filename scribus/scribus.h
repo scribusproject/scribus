@@ -101,7 +101,7 @@ public:
 	const QString getGuiLanguage();
 
 	void SetShortCut();
-	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq);
+	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber);
 	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);

@@ -14,6 +14,7 @@
  ***************************************************************************/
 #include <qmenubar.h>
 #include <qdict.h>
+#include <qpopupmenu.h>
 #include "scribus.h"
 #include "menumanager.h"
 #include "scmenu.h"
@@ -260,5 +261,38 @@ void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
 		QPopupMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
 		if (popupmenu)
 			popupmenu->exec(position);
+	}
+}
+
+// Used to generate a list of entries from the menu system into the keyboard shortcut manager
+void MenuManager::generateKeyManList(QStringList *actionNames)
+{
+	if (actionNames)
+	{
+		if (scribusMenuBar)
+		{
+			for (uint menuBarCount=0; menuBarCount<scribusMenuBar->count(); ++menuBarCount)
+			{
+				int menuBarMenuID=scribusMenuBar->idAt(menuBarCount);
+				QMap<QString, ScrPopupMenu *>::Iterator menuListIt;
+				bool menuBarItemFound=false;			
+				for ( menuListIt = menuList.begin(); menuListIt!=menuList.end(); ++menuListIt)
+				{
+					if(menuListIt.data()->getMenuBarID()==menuBarMenuID)
+					{
+						menuBarItemFound=true;
+						break;
+					}
+				}
+				if (menuBarItemFound)
+				{
+					if (menuListIt.data())
+					{
+						ScrPopupMenu *currentMenu=menuListIt.data();
+						currentMenu->generateEntryList(actionNames);
+					}
+				}
+			}
+		}
 	}
 }

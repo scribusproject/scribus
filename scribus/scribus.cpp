@@ -212,7 +212,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		buildFontMenu();
 		initDefaultPrefs();
 		initArrowStyles();
-		initKeyboardShortcuts();		
 		resize(610, 600);
 		QVBox* vb = new QVBox( this );
 		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
@@ -223,6 +222,14 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		initPalettes();
 
 		fileWatcher = new FileWatcher(this);
+		
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Initializing Plugins"));
+		qApp->processEvents();
+		initPlugs();
+
+		initKeyboardShortcuts();
+			
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
@@ -247,11 +254,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 			splashScreen->setStatus( tr("Reading Scrapbook"));
 		initScrapbook();
 
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Initializing Plugins"));
-		qApp->processEvents();
-		initPlugs();
-		
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Setting up Shortcuts"));
 		qApp->processEvents();
@@ -641,135 +643,16 @@ void ScribusApp::initDefaultValues()
 void ScribusApp::initKeyboardShortcuts()
 {
 	//Set up key entries
-	//CB TODO Need to rewrite this key management stuff.. these would be much simpler done in the action themselves.
+	//CB TODO Maybe rewrite this key management stuff.. these would be much simpler done in the action themselves.
 
 	QDictIterator<ScrAction> it( scrActions );
 	for( ; it.current(); ++it )
-	{
-		SetKeyEntry(it.currentKey(), it.current()->cleanMenuText(), QString(it.current()->accel()));
-	}
-	
-	//FILE MENU
-	/*
-	SetKeyEntry("fileNew", scrActions["fileNew"]->cleanMenuText(), QString(scrActions["fileNew"]->accel()));
-	SetKeyEntry("fileOpen", scrActions["fileOpen"]->cleanMenuText(), QString(scrActions["fileOpen"]->accel()));
-	SetKeyEntry("fileClose", scrActions["fileClose"]->cleanMenuText(), QString(scrActions["fileClose"]->accel()));
-	SetKeyEntry("fileSave", scrActions["fileSave"]->cleanMenuText(), QString(scrActions["fileSave"]->accel()));
-	SetKeyEntry("fileSaveAs", scrActions["fileSaveAs"]->cleanMenuText(), QString(scrActions["fileSaveAs"]->accel()));
-	*/
-	/*
-	SetKeyEntry("fileOpen"]->cleanMenuText(), QString(scrActions["fileOpen"]->accel()));
-	SetKeyEntry("fileClose"]->cleanMenuText(), QString(scrActions["fileClose"]->accel()));
-	SetKeyEntry("fileSave"]->cleanMenuText(), QString(scrActions["fileSave"]->accel()));
-	SetKeyEntry("fileSaveAs"]->cleanMenuText(), QString(scrActions["fileSaveAs"]->accel()));
-	//SetKeyEntry(, scrActions["fileRevert"]->cleanMenuText(), QString(scrActions["fileRevert"]->accel()));
-	//SetKeyEntry(, scrActions["fileCollect"]->cleanMenuText(), QString(scrActions["fileCollect"]->accel()));
-	SetKeyEntry("fileDocSetup"]->cleanMenuText(), QString(scrActions["fileDocSetup"]->accel()));
-	SetKeyEntry("fileQuit"]->cleanMenuText(), QString(scrActions["fileQuit"]->accel()));
-	//Included import & export options
-	//SetKeyEntry(, scrActions["fileImportText"]->cleanMenuText(), QString(scrActions["fileImportText"]->accel()));
-	//SetKeyEntry(, scrActions["fileImportAppendText"]->cleanMenuText(), QString(scrActions["fileImportAppendText"]->accel()));
-	//SetKeyEntry(, scrActions["fileImportImage"]->cleanMenuText(), QString(scrActions["fileImportImage"]->accel()));
-	//SetKeyEntry(, scrActions["fileImportPage"]->cleanMenuText(), QString(scrActions["fileImportPage"]->accel()));
-	//SetKeyEntry(, scrActions["fileExportText"]->cleanMenuText(), QString(scrActions["fileExportText"]->accel()));
-	//SetKeyEntry(, scrActions["fileExportAsEPS"]->cleanMenuText(), QString(scrActions["fileExportAsEPS"]->accel()));
-	//SetKeyEntry(, scrActions["fileExportAsPDF"]->cleanMenuText(), QString(scrActions["fileExportAsPDF"]->accel()));
-	
-	//EDIT MENU
-	SetKeyEntry("editCut"]->cleanMenuText(), QString(scrActions["editCut"]->accel()));
-	SetKeyEntry("editCopy"]->cleanMenuText(), QString(scrActions["editCopy"]->accel()));
-	SetKeyEntry("editPaste"]->cleanMenuText(), QString(scrActions["editPaste"]->accel()));
-	SetKeyEntry("editClear"]->cleanMenuText(), QString(scrActions["editClear"]->accel()));
-	SetKeyEntry("editSelectAll"]->cleanMenuText(), QString(scrActions["editSelectAll"]->accel()));
-	SetKeyEntry("editColors"]->cleanMenuText(), QString(scrActions["editColors"]->accel()));
-	SetKeyEntry("editParaStyles"]->cleanMenuText(), QString(scrActions["editParaStyles"]->accel()));
-	SetKeyEntry("editTemplates"]->cleanMenuText(), QString(scrActions["editTemplates"]->accel()));
-	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), QString(scrActions["editSearchReplace"]->accel()));
-	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), QString(scrActions["editLineStyles"]->accel()));
-	
-	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), QString(scrActions["editFonts"]->accel()));
+		SetKeyEntry(it.currentKey(), it.current()->cleanMenuText(), QString(it.current()->accel()),0);
 	//SetKeyEntry(19, tr("Select New Font"), 0, 0);
-	
-	//ITEM MENU
-	SetKeyEntry("itemDuplicate"]->cleanMenuText(), QString(scrActions["itemDuplicate"]->accel()));
-	SetKeyEntry("itemMulDuplicate"]->cleanMenuText(), QString(scrActions["itemMulDuplicate"]->accel()));
-	SetKeyEntry("itemDelete"]->cleanMenuText(), QString(scrActions["itemDelete"]->accel()));
-	SetKeyEntry("itemGroup"]->cleanMenuText(), QString(scrActions["itemGroup"]->accel()));
-	SetKeyEntry("itemUngroup"]->cleanMenuText(), QString(scrActions["itemUngroup"]->accel()));
-	SetKeyEntry("itemSendToBack"]->cleanMenuText(), QString(scrActions["itemSendToBack"]->accel()));
-	SetKeyEntry("itemBringToFront"]->cleanMenuText(), QString(scrActions["itemBringToFront"]->accel()));
-	SetKeyEntry("itemLower"]->cleanMenuText(), QString(scrActions["itemLower"]->accel()));
-	SetKeyEntry("itemRaise"]->cleanMenuText(), QString(scrActions["itemRaise"]->accel()));
-	SetKeyEntry("itemAlignDist"]->cleanMenuText(), QString(scrActions["itemAlignDist"]->accel()));
-	SetKeyEntry("itemLock"]->cleanMenuText(), QString(scrActions["itemLock"]->accel()));
-
-	//SetKeyEntry(, scrActions["itemShapeEdit"]->cleanMenuText(), QString(scrActions["itemShapeEdit"]->accel()));
-		//CBSetKeyEntry(61, tr("Attach Text to Path"), M_ItemAttachTextToPath, 0);
-	//SetKeyEntry(, scrActions["itemAttachTextToPath"]->cleanMenuText(), QString(scrActions["itemAttachTextToPath"]->accel()));
-	//SetKeyEntry(, scrActions["itemDetachTextFromPath"]->cleanMenuText(), QString(scrActions["itemDetachTextFromPath"]->accel()));
-	//SetKeyEntry(, scrActions["itemCombinePolygons"]->cleanMenuText(), QString(scrActions["itemCombinePolygons"]->accel()));
-	//SetKeyEntry(, scrActions["itemSplitPolygons"]->cleanMenuText(), QString(scrActions["itemSplitPolygons"]->accel()));
-	//SetKeyEntry(, scrActions["itemConvertToOutlines"]->cleanMenuText(), QString(scrActions["itemConvertToOutlines"]->accel()));
-	
-	//PAGE MENU
-	SetKeyEntry("pageInsert"]->cleanMenuText(), QString(scrActions["pageInsert"]->accel()));
-	SetKeyEntry("pageDelete"]->cleanMenuText(), QString(scrActions["pageDelete"]->accel()));
-	SetKeyEntry("pageMove"]->cleanMenuText(), QString(scrActions["pageMove"]->accel()));
-	SetKeyEntry("pageApplyTemplate"]->cleanMenuText(), QString(scrActions["pageApplyTemplate"]->accel()));
-	SetKeyEntry("pageManageGuides"]->cleanMenuText(), QString(scrActions["pageManageGuides"]->accel()));
-	SetKeyEntry("pageCopy"]->cleanMenuText(), QString(scrActions["pageCopy"]->accel()));
-	
-	//VIEW MENU
-	SetKeyEntry("viewFitInWindow"]->cleanMenuText(), QString(scrActions["viewFitInWindow"]->accel()));
-	SetKeyEntry("viewFit50"]->cleanMenuText(), QString(scrActions["viewFit50"]->accel()));
-	SetKeyEntry("viewFit75"]->cleanMenuText(), QString(scrActions["viewFit75"]->accel()));
-	SetKeyEntry("viewFit100"]->cleanMenuText(), QString(scrActions["viewFit100"]->accel()));
-	SetKeyEntry("viewFit200"]->cleanMenuText(), QString(scrActions["viewFit200"]->accel()));
-	SetKeyEntry("viewFit20"]->cleanMenuText(), QString(scrActions["viewFit20"]->accel()));
-	SetKeyEntry("viewShowMargins"]->cleanMenuText(), QString(scrActions["viewShowMargins"]->accel()));
-	SetKeyEntry("viewShowFrames"]->cleanMenuText(), QString(scrActions["viewShowFrames"]->accel()));
-	SetKeyEntry("viewShowImages"]->cleanMenuText(), QString(scrActions["viewShowImages"]->accel()));
-	SetKeyEntry("viewShowGrid"]->cleanMenuText(), QString(scrActions["viewShowGrid"]->accel()));
-	SetKeyEntry("viewSnapToGrid"]->cleanMenuText(), QString(scrActions["viewSnapToGrid"]->accel()));
-	
-	//TOOLS MENU
-	SetKeyEntry("toolsProperties"]->cleanMenuText(), QString(scrActions["toolsProperties"]->accel()));
-	SetKeyEntry("toolsOutline"]->cleanMenuText(), QString(scrActions["toolsOutline"]->accel()));
-	SetKeyEntry("toolsScrapbook"]->cleanMenuText(), QString(scrActions["toolsScrapbook"]->accel()));
-	SetKeyEntry("toolsToolbarTools"]->cleanMenuText(), QString(scrActions["toolsToolbarTools"]->accel()));
-
 	//SetKeyEntry(55, tr("Tooltips"), tip, 0);
-	
-	
-	//EXTRAS MENU
-	SetKeyEntry("extrasManagePictures"]->cleanMenuText(), QString(scrActions["extrasManagePictures"]->accel()));
-	SetKeyEntry("extrasHyphenateText"]->cleanMenuText(), QString(scrActions["extrasHyphenateText"]->accel()));
-	
-	//HELP MENU
-	SetKeyEntry("helpAboutScribus"]->cleanMenuText(), QString(scrActions["helpAboutScribus"]->accel()));
-	SetKeyEntry("helpAboutQt"]->cleanMenuText(), QString(scrActions["helpAboutQt"]->accel()));
-	SetKeyEntry("helpManual"]->cleanMenuText(), QString(scrActions["helpManual"]->accel()));
-	
-	//EXTRAS
 	//SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
-	
-	SetKeyEntry("alignLeft"]->cleanMenuText(), QString(scrActions["alignLeft"]->accel()));
-	SetKeyEntry("alignRight"]->cleanMenuText(), QString(scrActions["alignRight"]->accel()));
-	SetKeyEntry("alignCenter"]->cleanMenuText(), QString(scrActions["alignCenter"]->accel()));
-	
 	//SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
-	
-
-	SetKeyEntry("toolsLayers"]->cleanMenuText(), QString(scrActions["toolsLayers"]->accel()));
-	
-	SetKeyEntry("editJavascripts"]->cleanMenuText(), QString(scrActions["editJavascripts"]->accel()));
-	SetKeyEntry("editUndoAction"]->cleanMenuText(), QString(scrActions["editUndoAction"]->accel()));
-	SetKeyEntry("editRedoAction"]->cleanMenuText(), QString(scrActions["editRedoAction"]->accel()));
-
-	SetKeyEntry("toolsPages"]->cleanMenuText(), QString(scrActions["toolsPages"]->accel()));
-
 	//SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
-	*/
 }
 
 void ScribusApp::initArrowStyles()
@@ -1094,20 +977,14 @@ void ScribusApp::initFileMenuActions()
 	scrActions.insert("fileImportText", new ScrAction(tr("Get Text..."), QKeySequence(), this, "fileImportText"));
 	scrActions.insert("fileImportAppendText", new ScrAction(tr("Append &Text..."), QKeySequence(), this, "fileImportAppendText"));
 	scrActions.insert("fileImportImage", new ScrAction(tr("Get Image..."), QKeySequence(), this, "fileImportImage"));
-	
-	scrActions.insert("fileImportEPS", new ScrAction(tr("Import EPS..."), QKeySequence(), this, "fileImportEPS"));
 	scrActions.insert("fileImportPage", new ScrAction(tr("Import Page(s)..."), QKeySequence(), this, "fileImportPage"));
-	scrActions.insert("fileImportOOorgDraw", new ScrAction(tr("Import OpenOffice.org Draw..."), QKeySequence(), this, "fileImportOOorgDraw"));
-	scrActions.insert("fileImportSVG", new ScrAction(tr("Import SVG..."), QKeySequence(), this, "fileImportSVG"));
 	
 	//File Export Menu
 	scrActions.insert("fileExportText", new ScrAction(tr("Save &Text..."), QKeySequence(), this, "fileExportText"));
 	scrActions.insert("fileExportAsEPS", new ScrAction(tr("Save Page as &EPS..."), QKeySequence(), this, "fileExportAsEPS"));
 	scrActions.insert("fileExportAsPDF", new ScrAction(loadIcon("acrobat.png"), tr("Save as P&DF..."), QKeySequence(), this, "fileExportAsPDF"));
-	scrActions.insert("fileExportAsImage", new ScrAction(tr("Save as &Image..."), QKeySequence(), this, "fileExportAsImage"));
-	scrActions.insert("fileExportAsSVG", new ScrAction(tr("Save Page as &SVG..."), QKeySequence(), this, "fileExportAsSVG"));
 	//Rest of File Menu
-	scrActions.insert("fileDocInfo", new ScrAction(loadIcon("documentinfo.png"), tr("Document &Information..."), CTRL+Key_I, this, "fileDocSetup"));
+	scrActions.insert("fileDocInfo", new ScrAction(loadIcon("documentinfo.png"), tr("Document &Information..."), CTRL+Key_I, this, "fileDocInfo"));
 	scrActions.insert("fileDocSetup", new ScrAction(tr("Document &Setup..."), QKeySequence(), this, "fileDocSetup"));
 	scrActions.insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), tr("&Print..."), CTRL+Key_P, this, "filePrint"));
 	scrActions.insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), tr("&Quit"), CTRL+Key_Q, this, "fileQuit"));
@@ -1150,14 +1027,14 @@ void ScribusApp::initFileMenuActions()
 void ScribusApp::initEditMenuActions()
 {
 	//Edit Menu
-	scrActions.insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), tr("&Undo"), CTRL+Key_Z, this, "editUndo",1));
-	scrActions.insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), tr("&Redo"), CTRL+SHIFT+Key_Z, this, "editRedo", 1));
+	scrActions.insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), tr("&Undo"), CTRL+Key_Z, this, "editUndoAction",1));
+	scrActions.insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), tr("&Redo"), CTRL+SHIFT+Key_Z, this, "editRedoAction", 1));
 	scrActions.insert("editActionMode", new ScrAction(tr("&Item Action Mode"), QKeySequence(), this, "editActionMode"));
 	scrActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut.png")), tr("Cu&t"), CTRL+Key_X, this, "editCut"));
 	scrActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), tr("&Copy"), CTRL+Key_C, this, "editCopy"));
 	scrActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), tr("&Paste"), CTRL+Key_V, this, "editPaste"));
 	scrActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editClear.png"), loadIcon("editClear.png")), tr("C&lear"), QKeySequence(), this, "editClear"));
-	scrActions.insert("editSelectAll", new ScrAction(tr("Select &All"), CTRL+Key_A, this, "editSelectall"));
+	scrActions.insert("editSelectAll", new ScrAction(tr("Select &All"), CTRL+Key_A, this, "editSelectAll"));
 	scrActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")),  tr("&Search/Replace..."), QKeySequence(), this, "editSearchReplace"));
 	
 	scrActions.insert("editColors", new ScrAction(tr("C&olors..."), QKeySequence(), this, "editColors"));
@@ -1169,7 +1046,7 @@ void ScribusApp::initEditMenuActions()
 		
 	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
-	//TODO connect( scrActions["editActionMode"], SIGNAL(activated()) , this, SLOT(RedoAction()) );
+	//TODO connect( scrActions["editActionMode"], SIGNAL(activated()) , this, SLOT(changeActionMode()) );
 	connect( scrActions["editCut"], SIGNAL(activated()) , this, SLOT(slotEditCut()) );
 	connect( scrActions["editCopy"], SIGNAL(activated()) , this, SLOT(slotEditCopy()) );
 	connect( scrActions["editPaste"], SIGNAL(activated()) , this, SLOT(slotEditPaste()) );
@@ -1312,7 +1189,7 @@ void ScribusApp::initItemMenuActions()
 void ScribusApp::initPageMenuActions()
 {
 	//Page menu
-	scrActions.insert("pageInsert", new ScrAction(tr("&Insert..."), QKeySequence(), this, "PageInsert"));
+	scrActions.insert("pageInsert", new ScrAction(tr("&Insert..."), QKeySequence(), this, "pageInsert"));
 	scrActions.insert("pageDelete", new ScrAction(tr("&Delete..."), QKeySequence(), this, "pageDelete"));
 	scrActions.insert("pageCopy", new ScrAction(tr("&Copy..."), QKeySequence(), this, "pageCopy"));
 	scrActions.insert("pageMove", new ScrAction(tr("&Move..."), QKeySequence(), this, "pageMove"));
@@ -1542,7 +1419,30 @@ void ScribusApp::initMenuBar()
 
 	//Style Menu
 	scrMenuMgr->createMenu("Style", tr("St&yle"));
+	//Color menu
+	// CB TODO
+	scrMenuMgr->createMenu("Color", tr("&Color"));
+	ColorMenC = new QComboBox(false);
+	ColorMenC->setEditable(false);
+	scrMenuMgr->addMenuItem(ColorMenC, "Color");
 	
+	//Text size menu
+	scrMenuMgr->createMenu("FontSize", tr("&Size"));
+	scrActionGroups["fontSize"]->addTo(scrMenuMgr->getLocalPopupMenu("FontSize"));
+		
+	//Shade menu
+	scrMenuMgr->createMenu("Shade", tr("&Shade"));
+	scrActionGroups["shade"]->addTo(scrMenuMgr->getLocalPopupMenu("Shade"));
+	
+	//Font menu
+	scrMenuMgr->createMenu("Font", tr("&Font"));
+	FontMenu = scrMenuMgr->getLocalPopupMenu("Font");
+	
+	//Type style menu
+	scrMenuMgr->createMenu("TypeEffects", tr("&Effects"));
+	scrActionGroups["typeEffects"]->addTo(scrMenuMgr->getLocalPopupMenu("TypeEffects"));
+	
+		
 	//Item Menu
 	scrMenuMgr->createMenu("Item", tr("&Item"));
 	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "Item");
@@ -1568,7 +1468,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "Item");
@@ -1678,30 +1577,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["alignBlock"], "Alignment");
 	scrMenuMgr->addMenuItem(scrActions["alignForced"], "Alignment");
 	
-	//Color menu
-	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
-	// CB TODO
-	scrMenuMgr->createMenu("Color", tr("&Color"));
-	ColorMenC = new QComboBox(false);
-	ColorMenC->setEditable(false);
-	scrMenuMgr->addMenuItem(ColorMenC, "Color");
-	
-	//Text size menu
-	scrMenuMgr->createMenu("FontSize", tr("&Size"));
-	scrActionGroups["fontSize"]->addTo(scrMenuMgr->getLocalPopupMenu("FontSize"));
-		
-	//Shade menu
-	scrMenuMgr->createMenu("Shade", tr("&Shade"));
-	scrActionGroups["shade"]->addTo(scrMenuMgr->getLocalPopupMenu("Shade"));
-	
-	//Font menu
-	scrMenuMgr->createMenu("Font", tr("&Font"));
-	FontMenu = scrMenuMgr->getLocalPopupMenu("Font");
-	
-	//Type style menu
-	scrMenuMgr->createMenu("TypeEffects", tr("&Effects"));
-	scrActionGroups["typeEffects"]->addTo(scrMenuMgr->getLocalPopupMenu("TypeEffects"));
-	
 	connect(undoManager, SIGNAL(newAction(UndoObject*, UndoState*)),
 	        this, SLOT(refreshUndoRedoItems()));
 	connect(undoManager, SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
@@ -1740,7 +1615,7 @@ void ScribusApp::ReportMP(double xp, double yp)
 	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
 }
 
-void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq)
+void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber)
 {
 	Keys ke;
 	if (actName!="")
@@ -1750,6 +1625,7 @@ void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString key
 			ke.actionName=actName;
 			ke.keySequence = keyseq;
 			ke.cleanMenuText=cleanMenuText;
+			ke.tableRow=rowNumber;
 			Prefs.KeyActions.insert(actName, ke);
 		}
 		else

@@ -2,8 +2,14 @@
 #include "keymanager.moc"
 #include <qaccel.h>
 #include <qstringlist.h>
+#include <qptrlist.h>
 #include <qmessagebox.h>
+#include <qptrlist.h>
 #include <qkeysequence.h>
+#include "menumanager.h"
+#include "scribus.h"
+
+extern ScribusApp* ScApp;
 
 KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( parent, "key" )
 {
@@ -15,19 +21,78 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	keyCode = 0;
 	keyManagerLayout = new QVBoxLayout( this, 11, 6); 
 	keyManagerLayout->setAlignment( Qt::AlignTop );
-
-	keyTable = new QTable( oldKeyMap.count(), 2, this, "keyTable" );
+	//CB TODO Remove third column when all done
+	keyTable = new QTable( oldKeyMap.count(), 3, this, "keyTable" );
+	int p=0;
+	for ( QMap<QString,Keys>::Iterator it = oldKeyMap.begin(); it != oldKeyMap.end(); ++it )
+	{
+		qDebug(QString("%1 %2 %2").arg(p++).arg(oldKeyMap.count()).arg(it.key()));
+		/*
+			QString cleanMenuText;
+			QString keySequence;
+			int tableRow;
+		*/
+	}
 	keyTable->setMaximumSize(QSize(500,200));
+	
+	//Generate our list of entries in the key manager from the menu system
+	QStringList menuKeys;
+	ScApp->scrMenuMgr->generateKeyManList(&menuKeys);
 	uint a=0;
+	//CB TODO Remove third column when all done
+	for ( QStringList::Iterator it = menuKeys.begin(); it != menuKeys.end(); ++it )
+	{
+		if (keyMap.contains(*it))
+		{
+			if (QString(keyMap[*it].actionName)!="" && QString(keyMap[*it].actionName)!=QString::null)
+			{
+				QTableItem *item = new QTableItem(keyTable, QTableItem::Never, keyMap[*it].cleanMenuText);
+				keyTable->setItem(a, 0, item);
+				QTableItem *item2 = new QTableItem(keyTable, QTableItem::Never, QString(keyMap[*it].keySequence));
+				keyTable->setItem(a, 1, item2);
+				QTableItem *item3 = new QTableItem(keyTable, QTableItem::Never, QString(keyMap[*it].actionName));
+				keyTable->setItem(a, 2, item3);
+	
+				keyMap[*it].tableRow=a;
+				++a;
+			}		
+		}
+	}
+	//CB TODO Add in non menu item ScrActions	
+	QDictIterator<ScrAction> it( ScApp->scrActions );
+	for( ; it.current(); ++it )
+	{
+		if (!menuKeys.contains(QString(it.currentKey())))
+		{
+			qDebug(it.current()->name());
+			QTableItem *item = new QTableItem(keyTable, QTableItem::Never, QString(it.current()->cleanMenuText()));
+			keyTable->setItem(a, 0, item);
+			QTableItem *item2 = new QTableItem(keyTable, QTableItem::Never, QString(it.current()->accel()));
+			keyTable->setItem(a, 1, item2);
+			QTableItem *item3 = new QTableItem(keyTable, QTableItem::Never, QString(it.current()->name()));
+			keyTable->setItem(a, 2, item3);
+	
+			keyMap[it.current()->name()].tableRow=a;
+			++a;
+			
+		}
+	}
+
+
+	/*
 	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
 	{
 		QTableItem *item = new QTableItem(keyTable, QTableItem::Never, it.data().cleanMenuText);
 		keyTable->setItem(a, 0, item);
 		QTableItem *item2 = new QTableItem(keyTable, QTableItem::Never, QString(it.data().keySequence));
 		keyTable->setItem(a, 1, item2);
+		QTableItem *item3 = new QTableItem(keyTable, QTableItem::Never, QString(it.data().actionName));
+		keyTable->setItem(a, 2, item3);
+
 		it.data().tableRow=a;
 		++a;
 	}
+	*/
 	keyTable->setSorting(false);
 	keyTable->setSelectionMode(QTable::NoSelection);
 	keyTable->setLeftMargin(0);
@@ -35,8 +100,10 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	header = keyTable->horizontalHeader();
 	header->setLabel(0, tr("Action"));
 	header->setLabel(1, tr("Current Key"));
+	header->setLabel(2, tr("Action Name"));
 	keyTable->adjustColumn(0);
 	keyTable->adjustColumn(1);
+	keyTable->adjustColumn(2);
 	keyTable->setColumnMovingEnabled(false);
 	keyTable->setRowMovingEnabled(false);
 	header->setMovingEnabled(false);

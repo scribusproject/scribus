@@ -47,6 +47,7 @@ class ScrPopupMenu : public QObject
 		bool removeSubMenu(ScrPopupMenu *subMenu);
 		bool removeMenuItem(ScrAction *menuAction);
 		
+		bool generateEntryList(QStringList *actNames);
 		
 	protected:
 		QPopupMenu *localPopupMenu;

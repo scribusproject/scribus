@@ -15,12 +15,14 @@
 #ifndef MENUMANAGER_H
 #define MENUMANAGER_H
 
-#include <qobject.h>
 #include <qaction.h>
-#include <qpopupmenu.h>
-#include <qstringlist.h>
+#include <qptrlist.h>
 #include <qpoint.h>
-#include "scmenu.h"
+
+class QPopupMenu;
+
+class ScrAction;
+class ScrPopupMenu;
 
 /**
 @author Craig Bradney
@@ -53,6 +55,8 @@ public:
 	bool removeMenuItem(ScrAction *menuAction, const QString &parent);
 	
 	void runMenuAtPos(const QString &, const QPoint);
+	
+	void generateKeyManList(QStringList *actionNames);
 
 private:
 	QMenuBar *scribusMenuBar;
