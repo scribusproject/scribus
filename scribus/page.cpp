@@ -6472,11 +6472,14 @@ void Page::DeleteItem()
 	  			{
 	  				b->BackBox->NextBox = b->NextBox;
 	  				if (b->NextBox != 0)
-	  				{
+	  					{
 	  					b->NextBox->BackBox = b->BackBox;
+	  					}
+					else
+						{
 	  					if (b->isAutoText)
 	  						doku->LastAuto = b->BackBox;
-	  				}
+						}
 	  				c = b->Ptext.count();
 	  				for (a = 0; a < c; ++a)
 	  					b->BackBox->Ptext.append(b->Ptext.take(0));

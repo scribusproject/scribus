@@ -4339,6 +4339,7 @@ void ScribusApp::DeletePage2(int pg)
 		}
 	if (view->Pages.at(pg)->SelItem.count() != 0)
 		view->Pages.at(pg)->DeleteItem();
+	disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
 	view->delPage(pg);
 	AdjustBM();
 	if (!doc->TemplateMode)
@@ -4362,6 +4363,7 @@ void ScribusApp::DeletePage()
 	int a, pg;
 	PageItem* ite;
 	NoFrameEdit();
+	doc->ActPage->Deselect(true);
 	DelPages *dia = new DelPages(this, doc->ActPage->PageNr+1, view->Pages.count());
 	if (dia->exec())
 		{
@@ -4370,6 +4372,7 @@ void ScribusApp::DeletePage()
 		pg = dia->FromPage->value()-1;
 		for (a = pg; a < dia->ToPage->value(); ++a)
 			{
+			disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
 			view->Pages.at(pg)->SelItem.clear();
 			for (uint d = 0; d < view->Pages.at(pg)->Items.count(); ++d)
 				{
