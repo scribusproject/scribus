@@ -3664,7 +3664,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	Mpressed = true;
 	Imoved = false;
 	SeRx = qRound(m->x()/Scale);
-	SeRy = qRound(m->x()/Scale);
+	SeRy = qRound(m->y()/Scale);
 	HaveSelRect = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
@@ -6333,12 +6333,12 @@ bool ScribusView::slotSetCurs(int x, int y)
 	PageItem *b;
 	if (GetItem(&b))
 	{
+		if (!((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame)))
+			return false;
 		QRect mpo;
 		int xP, yP;
 		xP = qRound(x / Scale);
 		yP = qRound(y / Scale);
-		if (!((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame)))
-			return false;
 		QPainter p;
 		QString chx;
 		p.begin(viewport());
