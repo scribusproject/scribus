@@ -23,6 +23,10 @@ if test "x$prefix" = "xNONE"; then
   ac_configure_args="$ac_configure_args --prefix $prefix"
 fi
 
+dnl Look for pkg-config, which we use to find fontconfig and
+dnl will probably need for other things in future.
+PKG_CONFIG=""
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 
 LIBART_LIBS=""
 LIBART_CFLAGS=""
@@ -67,36 +71,33 @@ else
   AC_MSG_ERROR([You need at least freetype 2.1.0])
 fi
 
+dnl Try to find fontconfig using fontconfig-config or pkg-config.
 LIBFONTCONFIG_LIBS=""
 LIBFONTCONFIG_CFLAGS=""
-
 FONTCONFIG_CONFIG=""
-AC_PATH_PROG(FONTCONFIG_CONFIG, fontconfig-config, [AC_MSG_WARN([Could not find libfontconfig anywhere])], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+AC_PATH_PROG(FONTCONFIG_CONFIG, fontconfig-config, [], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 hafontconfig=no
 if test -n "$FONTCONFIG_CONFIG"; then
+	dnl found fontconfig-config, use it's results
 	LIBFONTCONFIG_LIBS="`$FONTCONFIG_CONFIG --libs`"
 	LIBFONTCONFIG_CFLAGS="`$FONTCONFIG_CONFIG --cflags`"
-	AC_CHECK_LIB(fontconfig, FcPatternBuild, [hafontconfig=yes],[hafontconfig=no])
-	if test $hafontconfig = yes; then
-		AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
-	else
-		AC_MSG_WARN([Couldn't find a usable libfontconfig])
-	fi
-	AC_SUBST(LIBFONTCONFIG_LIBS)
-	AC_SUBST(LIBFONTCONFIG_CFLAGS)
+elif test -n "$PKG_CONFIG"; then
+	dnl Try to find fontconfig with pkg-config
+	LIBFONTCONFIG_LIBS="`$PKG_CONFIG fontconfig --libs`"
+	LIBFONTCONFIG_CFLAGS="`$PKG_CONFIG fontconfig --cflags`"
 else
-	PKG_CONFIG=""
-	AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
-	if test -n "$PKG_CONFIG"; then
-		LIBFONTCONFIG_LIBS="`$PKG_CONFIG fontconfig --libs`"
-		LIBFONTCONFIG_CFLAGS="`$PKG_CONFIG fontconfig --cflags`"
-		AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
-		AC_SUBST(LIBFONTCONFIG_LIBS)
-		AC_SUBST(LIBFONTCONFIG_CFLAGS)
-		hafontconfig=yes
-	fi
+	AC_MSG_WARN([Couldn't find fontconfig-config or pkg-config])
 fi
+AC_CHECK_LIB(fontconfig, FcPatternBuild, [hafontconfig=yes],[hafontconfig=no])
+if test $hafontconfig = yes; then
+	AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
+else
+	AC_MSG_WARN([Couldn't find a usable libfontconfig])
+fi
+AC_SUBST(LIBFONTCONFIG_LIBS)
+AC_SUBST(LIBFONTCONFIG_CFLAGS)
+
 
 XML_LIBS=""
 XML_CFLAGS=""

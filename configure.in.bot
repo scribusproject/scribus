@@ -5,6 +5,11 @@ if test $hafree = yes; then
 else
 	echo "FreeType2 installed: No"
 fi
+if test $hafontconfig = yes; then
+	echo "Fontconfig found:    Yes"
+else
+	echo "Fontconfig found:    No"
+fi
 if test $hacups = yes; then
 	echo "CUPS installed:      Yes"
 else
