@@ -3045,3 +3045,12 @@ msgstr "Pfadtext"
 msgid "Shape:"
 msgstr "Form:"
 
+msgid "Draws various Shapes"
+msgstr "Zeichnet verschiedene Formen"
+
+msgid "Rotates Group clockwise by 1°"
+msgstr "Rotiert Gruppe um 1° im Uhrzeigersinn"
+
+msgid "Rotates Group counter-clockwise by 1°"
+msgstr "Rotiert Gruppe um 1° gegen den Uhrzeigersinn"
+

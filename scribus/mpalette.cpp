@@ -267,15 +267,38 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     BottomRight->setText( tr( "" ) );
     Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
     RotationGroupLayout->addLayout( Layout12 );
-    Layout15_2 = new QVBoxLayout( 0, 3, 0, "Layout15_2");
-    Text3 = new QLabel( RotationGroup, "Text3" );
+
+    TabStackR = new QWidgetStack( RotationGroup, "TabStackR" );
+    TabStackR->setFrameShape( QWidgetStack::NoFrame );
+
+    pageRS = new QWidget( TabStackR, "pageRS" );
+    Layout15_2 = new QVBoxLayout( pageRS, 3, 0, "Layout15_2");
+    Text3 = new QLabel( pageRS, "Text3" );
     Text3->setText( tr( "by:" ) );
     Layout15_2->addWidget( Text3 );
-    Rot = new MSpinBox( RotationGroup, 2);
+    Rot = new MSpinBox( pageRS, 2);
     Rot->setSuffix(" °");
     Rot->setWrapping( true );
     Layout15_2->addWidget( Rot );
-    RotationGroupLayout->addLayout( Layout15_2 );
+    TabStackR->addWidget( pageRS, 0 );
+
+    pageRG = new QWidget( TabStackR, "pageRG" );
+    Layout1RG = new QHBoxLayout( pageRG, 0, 0, "Layout1RG");
+    RotCW = new QToolButton( pageRG, "RotCW" );
+    RotCW->setMaximumSize( QSize( 24, 24 ) );
+		RotCW->setAutoRepeat(true);
+    RotCW->setText("");
+    RotCW->setPixmap(loadIcon("rotate_cw.png"));
+    Layout1RG->addWidget( RotCW );
+    RotCCW = new QToolButton( pageRG, "RotCCW" );
+    RotCCW->setMaximumSize( QSize( 24, 24 ) );
+		RotCCW->setAutoRepeat(true);
+    RotCCW->setText("");
+    RotCCW->setPixmap(loadIcon("rotate_ccw.png"));
+    Layout1RG->addWidget( RotCCW );
+    TabStackR->addWidget( pageRG, 1 );
+    RotationGroupLayout->addWidget( TabStackR );
+
     layout60a->addWidget(RotationGroup);
     QSpacerItem* spacer12 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     layout60a->addItem( spacer12 );
@@ -733,22 +756,32 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout24->addLayout( Layout18 );
     pageLayout_4->addLayout( Layout24 );
 
- 		TextCms1 = new QLabel( page_4, "Text1" );
+    GroupBoxCM = new QGroupBox( page_4, "GroupBoxcm" );
+    GroupBoxCM->setTitle("");
+    GroupBoxCM->setColumnLayout(0, Qt::Vertical );
+    GroupBoxCM->layout()->setSpacing( 2 );
+    GroupBoxCM->layout()->setMargin( 5 );
+    GroupBoxCM->setFrameShape( QFrame::NoFrame );
+    GroupBoxCM->setFrameShadow( QFrame::Plain );
+    GroupBoxCMLayout = new QVBoxLayout( GroupBoxCM->layout() );
+    GroupBoxCMLayout->setAlignment( Qt::AlignTop );
+ 		TextCms1 = new QLabel( GroupBoxCM, "Text1" );
     TextCms1->setText( tr( "Input Profile:" ) );
-		pageLayout_4->addWidget( TextCms1 );
-    InputP = new QComboBox( true, page_4, "InputP" );
+		GroupBoxCMLayout->addWidget( TextCms1 );
+    InputP = new QComboBox( true, GroupBoxCM, "InputP" );
     InputP->setEditable(false);
-   	pageLayout_4->addWidget(InputP);
-    TextCms2 = new QLabel( page_4, "Text2" );
+   	GroupBoxCMLayout->addWidget(InputP);
+    TextCms2 = new QLabel( GroupBoxCM, "Text2" );
     TextCms2->setText( tr( "Rendering Intent:" ) );
-		pageLayout_4->addWidget(TextCms2);
-    MonitorI = new QComboBox( true, page_4, "MonitorI" );
+		GroupBoxCMLayout->addWidget(TextCms2);
+    MonitorI = new QComboBox( true, GroupBoxCM, "MonitorI" );
     MonitorI->insertItem( tr( "Perceptual" ) );
     MonitorI->insertItem( tr( "Relative Colorimetric" ) );
     MonitorI->insertItem( tr( "Saturation" ) );
     MonitorI->insertItem( tr( "Absolute Colorimetric" ) );
     MonitorI->setEditable(false);
-   	pageLayout_4->addWidget(MonitorI);
+   	GroupBoxCMLayout->addWidget(MonitorI);
+   	pageLayout_4->addWidget(GroupBoxCM);
 
     QSpacerItem* spacer9 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     pageLayout_4->addItem( spacer9 );
@@ -834,6 +867,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     QToolTip::add( ZBottom, tr( "Move to Back" ) );
     QToolTip::add( Locked, tr( "Locks or unlocks the Object" ) );
     QToolTip::add( NoPrint, tr( "Enables or disables printing of the Object" ) );
+    QToolTip::add( RotCW, tr( "Rotates Group clockwise by 1°" ) );
+    QToolTip::add( RotCCW, tr( "Rotates Group counter-clockwise by 1°" ) );
     connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
     connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
     connect(Width, SIGNAL(valueChanged(int)), this, SLOT(NewW()));
@@ -897,6 +932,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 		connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
     connect(LangCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
+    connect(RotCW, SIGNAL(clicked()), this, SLOT(NewRcw()));
+    connect(RotCCW, SIGNAL(clicked()), this, SLOT(NewRccw()));
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -904,6 +941,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 		Height->setValue(0);
 		Rot->setValue(0);
 		RoundRect->setValue(0);
+		TabStackR->raiseWidget(0);
 		TabStack->raiseWidget(0);
 		TabStack->widget(0)->setEnabled(false);
 		TabStack2->raiseWidget(0);
@@ -1122,9 +1160,19 @@ void Mpalette::NewSel(int nr)
 	int visID;
 	if (doc->ActPage->GroupSel)
 		{
+		TabStackR->raiseWidget(1);
 		double gx, gy, gh, gw;
 		doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
-		doc->ActPage->RCenter = FPoint(gx, gy);
+    if (TopLeft->isChecked())
+			doc->ActPage->RCenter = FPoint(gx, gy);
+    if (TopRight->isChecked())
+			doc->ActPage->RCenter = FPoint(gx + gw, gy);
+    if (Center->isChecked())
+			doc->ActPage->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+    if (BottomLeft->isChecked())
+			doc->ActPage->RCenter = FPoint(gx, gy + gh);
+    if (BottomRight->isChecked())
+			doc->ActPage->RCenter = FPoint(gx + gw, gy + gh);
     Text1->setText( tr( "X-Pos:" ) );
     Text2->setText( tr( "Width:" ) );
     Text1a->setText( tr( "Y-Pos:" ) );
@@ -1148,6 +1196,7 @@ void Mpalette::NewSel(int nr)
 		}
 	else
 		{
+		TabStackR->raiseWidget(0);
 		NameEdit->setEnabled(true);
 		FlipH->setEnabled(false);
 		FlipV->setEnabled(false);
@@ -1801,6 +1850,18 @@ void Mpalette::NewH()
 		}
 }
 
+void Mpalette::NewRcw()
+{
+	if ((HaveDoc) && (HaveItem))
+		doc->ActPage->RotateGroup(1.0);
+}
+
+void Mpalette::NewRccw()
+{
+	if ((HaveDoc) && (HaveItem))
+		doc->ActPage->RotateGroup(-1.0);
+}
+
 void Mpalette::NewR()
 {
 	if ((HaveDoc) && (HaveItem))
@@ -2133,8 +2194,27 @@ void Mpalette::DoBack()
 
 void Mpalette::NewRotMode(int m)
 {
+	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
-		doc->RotMode = m;
+		{
+		if (doc->ActPage->GroupSel)
+			{
+			doc->ActPage->setGroupRect();
+			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			if (m == 0)
+				doc->ActPage->RCenter = FPoint(gx, gy);
+			if (m == 1)
+				doc->ActPage->RCenter = FPoint(gx+gw, gy);
+			if (m == 2)
+				doc->ActPage->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+			if (m == 3)
+				doc->ActPage->RCenter = FPoint(gx, gy+gh);
+			if (m == 4)
+				doc->ActPage->RCenter = FPoint(gx+gw, gy+gh);
+			}
+		else
+			doc->RotMode = m;
+		}
 }
 
 void Mpalette::DoFlow()
@@ -2297,17 +2377,19 @@ void Mpalette::updateCmsList()
 		{
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
 			{
-			TextCms1->show();
+			GroupBoxCM->show();
+/*			TextCms1->show();
 			InputP->show();
 			TextCms2->show();
-			MonitorI->show();
+			MonitorI->show();     */
 			}
 		else
 			{
-			TextCms1->hide();
+			GroupBoxCM->hide();
+/*			TextCms1->hide();
 			TextCms2->hide();
 			InputP->hide();
-			MonitorI->hide();
+			MonitorI->hide();  */
 			return;
 			}
    	disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
@@ -2372,17 +2454,19 @@ void Mpalette::ShowCMS()
 		{
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
 			{
-			TextCms1->show();
+			GroupBoxCM->show();
+/*			TextCms1->show();
 			InputP->show();
 			TextCms2->show();
-			MonitorI->show();
+			MonitorI->show();    */
 			}
 		else
 			{
-			TextCms1->hide();
+			GroupBoxCM->hide();
+/*			TextCms1->hide();
 			TextCms2->hide();
 			InputP->hide();
-			MonitorI->hide();
+			MonitorI->hide();    */
 			}
 		}
 }

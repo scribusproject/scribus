@@ -3909,10 +3909,24 @@ void Page::mousePressEvent(QMouseEvent *m)
 				}
 			break;
 		case 12:
+			{
 			SeleItem(m);
 			Deselect(false);
 			z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
 			b = Items.at(z);
+			FPointArray cli = RegularPolygonF(b->Width, b->Height, PolyC, PolyS, PolyF, PolyR);
+			FPoint np = FPoint(cli.point(0));
+			b->PoLine.resize(2);
+			b->PoLine.setPoint(0, np);
+			b->PoLine.setPoint(1, np);
+			for (uint ax = 1; ax < cli.size(); ++ax)
+				{
+				np = FPoint(cli.point(ax));
+				b->PoLine.putPoints(b->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+				}
+			np = FPoint(cli.point(0));
+			b->PoLine.putPoints(b->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
+			b->Clip = FlattenPath(b->PoLine, b->Segments);
 			b->Select = true;
 			qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
 			SelItem.clear();
@@ -3927,6 +3941,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			emit ItemTrans(b->Transparency, b->TranspStroke);
 			emit HaveSel(6);
 			break;
+			}
 		case 13:
 			if (m->button() == RightButton)
 				break;

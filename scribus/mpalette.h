@@ -195,6 +195,12 @@ public:
 		QPopupMenu *TxFillSh;
     QLabel* SprachT;
     QComboBox* LangCombo;
+    QGroupBox* GroupBoxCM;
+    QWidgetStack* TabStackR;
+    QWidget* pageRG;
+    QWidget* pageRS;
+    QToolButton* RotCW;
+    QToolButton* RotCCW;
     PageItem *CurItem;
     bool HaveDoc;
     bool HaveItem;
@@ -238,6 +244,8 @@ private slots:
 		void NewY();
 		void NewW();
 		void NewH();
+		void NewRcw();
+		void NewRccw();
 		void NewR();
 		void NewRR();
 		void NewLsp();
@@ -325,10 +333,12 @@ protected:
     QGridLayout* GroupAlignLayout;
     QGridLayout* GroupBox3Layout;
     QVBoxLayout* GroupBox3aLayout;
+    QVBoxLayout* GroupBoxCMLayout;
     QHBoxLayout* layout22;
     QHBoxLayout* layout23;
     QHBoxLayout* layout24;
     QHBoxLayout* layoutLang;
+    QHBoxLayout* Layout1RG;
 };
 
 #endif
