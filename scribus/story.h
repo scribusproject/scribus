@@ -62,7 +62,6 @@ class SEditor : public QTextEdit
 public:
 	SEditor (QWidget* parent, ScribusDoc *docc);
 	~SEditor() {};
-	void keyPressEvent(QKeyEvent *k);
 	void setAlign(int style);
 	void saveItemText(PageItem* b);
 	void loadItemText(PageItem* b);
@@ -99,6 +98,10 @@ public:
 	QString tBuffer;
 	ChList cBuffer;
 
+protected:
+	void keyPressEvent(QKeyEvent *k);
+	QPopupMenu* createPopupMenu(const QPoint & pos);
+
 public slots:
 	void cut();
 	void copy();
@@ -117,13 +120,22 @@ class SideBar : public QLabel
 public: 
 	SideBar(QWidget *pa);
 	~SideBar() {};
-	void paintEvent(QPaintEvent *e);
 	int offs;
+	int CurrentPar;
 	SEditor *editor;
+	QPopupMenu *pmen;
 	bool noUpdt;
 	bool inRep;
 
+protected:
+	void paintEvent(QPaintEvent *e);
+	void mouseReleaseEvent(QMouseEvent *m);
+
+signals:
+	void ChangeStyle(int, int);
+
 public slots:
+	void setPStyle(int s);
 	void doMove(int x, int y);
 	void doRepaint();
 	void setRepaint(bool r);
@@ -302,6 +314,7 @@ public slots:
 	void newTxKern(double s);
 	void updateProps(int p, int ch);
 	void newAlign(int st);
+	void changeAlignSB(int pa, int align);
 	void updateStatus();
 	void Do_leave();
 	void Do_leave2();

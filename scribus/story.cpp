@@ -24,6 +24,7 @@
 #include <qhbox.h>
 #include <qcolordialog.h>
 #include <qfontdialog.h>
+#include <qcursor.h>
 #include "serializer.h"
 #include "customfdialog.h"
 #include "search.h"
@@ -42,15 +43,42 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
+void SideBar::mouseReleaseEvent(QMouseEvent *m)
+{
+	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
+	pmen = new QPopupMenu();
+	Spalette* Spal = new Spalette(this);
+	Spal->SetFormats(editor->doc);
+	if ((CurrentPar < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
+	{
+		if (editor->StyledText.at(CurrentPar)->count() > 0)
+			Spal->setFormat(editor->StyledText.at(CurrentPar)->at(0)->cab);
+		else
+			Spal->setFormat(0);
+	}
+	else
+		Spal->setFormat(0);
+	connect(Spal, SIGNAL(NewStyle(int)), this, SLOT(setPStyle(int)));
+	pmen->insertItem(Spal);
+	pmen->exec(QCursor::pos());
+	delete pmen;
+}
+
+void SideBar::setPStyle(int s)
+{
+	emit ChangeStyle(CurrentPar, s);
+	pmen->activateItemAt(0);
+}
+
 void SideBar::paintEvent(QPaintEvent *e)
 {
 	inRep = true;
 	QLabel::paintEvent(e);
-	int st = editor->CurrentABStil;
 	QPainter p;
 	p.begin(this);
 	if ((editor != 0) && (noUpdt))
 	{
+		int st = editor->CurrentABStil;
 		for (int pa = 0; pa < editor->paragraphs(); ++pa)
 		{
 			QRect re = editor->paragraphRect(pa);
@@ -1047,6 +1075,12 @@ void SEditor::setStyle(int Csty)
 		setUnderline(true);
 	else
 		setUnderline(false);
+	QFont f = currentFont();
+	if (Csty & 16)
+		f.setStrikeOut(true);
+	else
+		f.setStrikeOut(false);
+	setCurrentFont(f);
 	if (Csty & 1)
 		setVerticalAlignment(AlignSuperScript);
 	else if (Csty & 2)
@@ -1105,11 +1139,19 @@ void SEditor::paste()
 	int p, i;
 	getCursorPosition(&p, &i);
 	insStyledText();
-	insert(tBuffer);
-	for (int pa = p; pa < static_cast<int>(StyledText.count()); ++pa)
-		updateFromChars(pa);
+	updateAll();
 	emit SideBarUp(true);
 	emit SideBarUpdate();
+}
+
+QPopupMenu* SEditor::createPopupMenu(const QPoint & pos)
+{
+	QPopupMenu *p = QTextEdit::createPopupMenu(pos);
+	p->removeItemAt(0);
+	p->removeItemAt(0);
+	p->removeItemAt(0);
+	p->removeItemAt(3);
+	return p;
 }
 
 /* Toolbar for Fill Colour */
@@ -1492,6 +1534,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
 	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
+	connect(EditorBar, SIGNAL(ChangeStyle(int, int )), this, SLOT(changeAlignSB(int, int )));
 	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
@@ -1953,13 +1996,11 @@ void StoryEditor::Do_copy()
 void StoryEditor::Do_paste()
 {
 	Editor->paste();
-//	EditorBar->repaint();
 }
 
 void StoryEditor::Do_cut()
 {
 	Editor->cut();
-//	EditorBar->repaint();
 }
 
 void StoryEditor::Do_del()
@@ -2055,6 +2096,100 @@ void StoryEditor::newAlign(int st)
 {
 	Editor->CurrentABStil = st;
 	changeAlign(st);
+}
+
+void StoryEditor::changeAlignSB(int pa, int align)
+{
+	int p, i;
+	Editor->CurrentABStil = align;
+	Editor->getCursorPosition(&p, &i);
+	if (Editor->StyledText.count() != 0)
+	{
+		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		SEditor::ChList *chars;
+		(*Editor->ParagStyles.at(pa)) = Editor->CurrentABStil;
+		if (Editor->StyledText.at(pa)->count() > 0)
+		{
+			chars = Editor->StyledText.at(pa);
+			for (uint s = 0; s < chars->count(); ++s)
+			{
+				if (Editor->CurrentABStil > 4)
+				{
+					if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+					{
+						chars->at(s)->cfont = doc->Vorlagen[Editor->CurrentABStil].Font;
+						chars->at(s)->csize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
+						chars->at(s)->cstyle &= ~127;
+						chars->at(s)->cstyle |= doc->Vorlagen[Editor->CurrentABStil].FontEffect;
+						chars->at(s)->ccolor = doc->Vorlagen[Editor->CurrentABStil].FColor;
+						chars->at(s)->cshade = doc->Vorlagen[Editor->CurrentABStil].FShade;
+						chars->at(s)->cstroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
+						chars->at(s)->cshade2 = doc->Vorlagen[Editor->CurrentABStil].SShade;
+					}
+				}
+				if ((Editor->CurrentABStil < 5) && (chars->at(s)->cab > 4))
+				{
+					chars->at(s)->ccolor = CurrItem->TxtFill;
+					chars->at(s)->cshade = CurrItem->ShTxtFill;
+					chars->at(s)->cstroke = CurrItem->TxtStroke;
+					chars->at(s)->cshade2 = CurrItem->ShTxtStroke;
+					chars->at(s)->cfont = CurrItem->IFont;
+					chars->at(s)->csize = CurrItem->ISize;
+					chars->at(s)->cstyle &= ~127;
+					chars->at(s)->cstyle |= CurrItem->TxTStyle;
+				}
+				chars->at(s)->cab = Editor->CurrentABStil;
+			}
+			Editor->updateFromChars(pa);
+		}
+		Editor->setCursorPosition(p, i);
+		updateProps(p, i);
+		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+	}
+	else
+	{
+		if (Editor->CurrentABStil > 4)
+		{
+			if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+			{
+				Editor->CurrFont = doc->Vorlagen[Editor->CurrentABStil].Font;
+				Editor->CurrFontSize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
+				Editor->CurrentStyle = doc->Vorlagen[Editor->CurrentABStil].FontEffect;
+				Editor->CurrTextFill = doc->Vorlagen[Editor->CurrentABStil].FColor;
+				Editor->CurrTextFillSh = doc->Vorlagen[Editor->CurrentABStil].FShade;
+				Editor->CurrTextStroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
+				Editor->CurrTextStrokeSh = doc->Vorlagen[Editor->CurrentABStil].SShade;
+			}
+		}
+		else
+		{
+			Editor->CurrTextFill = CurrItem->TxtFill;
+			Editor->CurrTextFillSh = CurrItem->ShTxtFill;
+			Editor->CurrTextStroke = CurrItem->TxtStroke;
+			Editor->CurrTextStrokeSh = CurrItem->ShTxtStroke;
+			Editor->CurrFont = CurrItem->IFont;
+			Editor->CurrFontSize = CurrItem->ISize;
+			Editor->CurrentStyle = CurrItem->TxTStyle;
+			Editor->CurrTextKern = CurrItem->ExtraV;
+			Editor->CurrTextScale = CurrItem->TxtScale;
+		}
+		Editor->setStyle(Editor->CurrentStyle);
+		if (Editor->CurrentStyle & 4)
+		{
+			StrokeTools->TxStroke->setEnabled(true);
+			StrokeTools->PM1->setEnabled(true);
+		}
+		else
+		{
+			StrokeTools->TxStroke->setEnabled(false);
+			StrokeTools->PM1->setEnabled(false);
+		}
+		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
+		Editor->setCursorPosition(0, 0);
+		updateProps(0, 0);
+	}
+	modifiedText();
+	Editor->setFocus();
 }
 
 void StoryEditor::changeAlign(int align)
