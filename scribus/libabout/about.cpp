@@ -138,7 +138,7 @@ About::About( QWidget* parent )
 	tabLayout_2->setMargin( 10 );
 	TextView2 = new QTextView( tab_3, "TextView1_2" );
 	TextView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
-	                                      "<tr><td><b>" + QString("Afrikaans:").utf8()  + "</b></td><td></td></tr>" +
+	                                      "<tr><td><b>" + tr("Afrikaans:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Kobus Wolvaardt</td><td>kobuswolf@diewereld.co.za</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 									      "<tr><td><b>" + tr("Catalan:").utf8()  + "</b></td><td> </td></tr>" +
@@ -185,6 +185,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Portugese (Brazilian):").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Ludi Maciel</td><td>iludi@uol.com.br</td></tr>" +
+                                          "<tr><td>Frederico Gon&#231;alves</td><td></td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +	
 	                                      "<tr><td><b>" + tr("Russian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>" +
