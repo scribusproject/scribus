@@ -1,4 +1,8 @@
 Changes since Version 0.9.10
+27.05.2003	layers.cpp
+		seiten.cpp		Fixed Segfault when clicked on without any Document loaded.
+		scribus.cpp		Bookmarks Palette wasn't restored properly.
+
 26.05.2003	pageitem.cpp		Fixed a Bug with Styles and Linespacing
 					Textflow around Objects can now set to the BoundingBox of the Object.
 		page.cpp		Fixed a Bug when Doubleclicking during Object Creation.

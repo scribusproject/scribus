@@ -535,7 +535,6 @@ SeitenPal::SeitenPal(QWidget* parent)
     PageView->setSelectionMode(QTable::NoSelection);
     PageView->setColumnMovingEnabled(false);
     PageView->setRowMovingEnabled(false);
-//		PageView->setFocusStyle(QTable::FollowStyle);
 		PageView->setNumRows(1);
 		PageView->setNumCols(1);
 		PageView->setMinimumSize(QSize(130,120));
@@ -565,6 +564,8 @@ SeitenPal::SeitenPal(QWidget* parent)
     Layout1->addWidget( Trash );
     SeitenPalLayout->addLayout( Layout1 );
 		pix = loadIcon("document2.png");
+		Vie = 0;
+		Rebuild();
 		connect(TemplList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selTemplate()));
 		connect(TemplList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 		connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));

@@ -4924,6 +4924,7 @@ void ScribusApp::SavePrefs()
   Prefs.SCpalv = ScBook->isVisible();
   Prefs.Lpalv = Lpal->isVisible();
   Prefs.Sepalv = Sepal->isVisible();
+	Prefs.Bopalv = BookPal->isVisible();
   if (Mpal->isVisible())
   	{
 	  Prefs.Mpalx = abs(Mpal->pos().x());

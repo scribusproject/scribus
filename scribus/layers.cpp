@@ -19,6 +19,7 @@ LayerPalette::LayerPalette(QWidget* parent)
     LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
 
     Table = new QTable( this, "Table" );
+    Table->setNumRows( 0 );
     Table->setNumCols( 3 );
     Table->setTopMargin(0);
     Table->horizontalHeader()->hide();
@@ -79,12 +80,12 @@ LayerPalette::LayerPalette(QWidget* parent)
     QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1->addItem( spacer );
     LayerPaletteLayout->addLayout( Layout1 );
+		ClearInhalt();
 		connect(NewLayer, SIGNAL(clicked()), this, SLOT(addLayer()));
 		connect(DeleteLayer, SIGNAL(clicked()), this, SLOT(removeLayer()));
 		connect(RaiseLayer, SIGNAL(clicked()), this, SLOT(upLayer()));
 		connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
 		connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
-		connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
     connect(CloseB, SIGNAL(clicked()), this, SLOT(Verlassen()));
 }
 
@@ -103,13 +104,16 @@ void LayerPalette::ClearInhalt()
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	int b = Table->numRows()-1;
-	for (int a = b; a > 0; a--)
+	if (b > 0)
 		{
-		Table->removeRow(a);
+		for (int a = b; a > 0; a--)
+			{
+			Table->removeRow(a);
+			}
+		Table->clearCell(0, 0);
+		Table->clearCellWidget(0, 1);
+		Table->clearCellWidget(0, 2);
 		}
-	Table->clearCell(0, 0);
-	Table->clearCellWidget(0, 1);
-	Table->clearCellWidget(0, 2);
   FlagsPrint.clear();
   FlagsSicht.clear();
 	NewLayer->setEnabled(false);
