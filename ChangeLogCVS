@@ -1,4 +1,8 @@
 Changes since Version 1.0RC1
+09.07.2003	cpalette.cpp		Fixed a cosmetic issue with Gradients.
+		svgplugin.cpp		Made Translations work correct.
+					Updated Russian and Czech Translation.
+
 08.07.2003	scribus.cpp		Some small Changes for the Scripter Plugin.
 
 04.07.2003	page.cpp

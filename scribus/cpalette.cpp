@@ -88,7 +88,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
 	GradGroup = new QButtonGroup( this, "GradGroup" );
 	GradGroup->setFrameShape( QButtonGroup::NoFrame );
 	GradGroup->setFrameShadow( QButtonGroup::Plain );
-	GradGroup->setTitle( tr( "" ) );
+	GradGroup->setTitle("");
 	GradGroup->setColumnLayout(0, Qt::Vertical );
 	GradGroup->layout()->setSpacing( 5 );
 	GradGroup->layout()->setMargin( 0 );
@@ -240,7 +240,8 @@ void Cpalette::updateBoxS(QString Farbe)
 	int c = 0;
 	if ((Farbe != "None") && (Farbe != ""))
 		{
-		c++;
+		if (!GradientMode)
+			c++;
 		for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
 			{
 			if (it.key() == Farbe)
@@ -301,26 +302,21 @@ void Cpalette::slotGrad(int nr)
 
 void Cpalette::ChooseGrad(int nr)
 {
-	int h = 0;
 	switch (nr)
 		{
 		case 0:
-			if (!GradGroup->isHidden())
-				{
-				h += GradGroup->height();
-				GradGroup->hide();
-				ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
-				GradientMode = false;
-				updateCList();
-				updateGeometry();
-				repaint();
-				}
+			GradGroup->setEnabled(false);
+			GradientMode = false;
+			updateCList();
+			updateGeometry();
+			repaint();
 			updateShade(Shade3);
 			updateBoxS(Color3);
 			break;
 		default:
-			if (GradGroup->isHidden())
-				GradGroup->show();
+			GradGroup->setEnabled(true);
+			GradientMode = true;
+			updateCList();
 			if (GrColor1->isChecked())
 				{
 				updateShade(Shade);
@@ -331,8 +327,6 @@ void Cpalette::ChooseGrad(int nr)
 				updateShade(Shade2);
 				updateBoxS(Color2);
 				}
-			GradientMode = true;
-			updateCList();
 			break;
 		}
 	setFocus();
@@ -372,14 +366,17 @@ void Cpalette::UseTrans(bool b)
 
 void Cpalette::setActGradient(QString p, QString b, int shp, int shb, int typ)
 {
+  disconnect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	Color2 = b;
 	Color = p;
 	Shade = shp;
 	Shade2 = shb;
-	if (Mode == 1)
-		return;
-	GradCombo->setCurrentItem(typ);
-	ChooseGrad(typ);
+	if (Mode == 2)
+		{
+		GradCombo->setCurrentItem(typ);
+		ChooseGrad(typ);
+		}
+  connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 }
 
 int Cpalette::SetMen(int c)

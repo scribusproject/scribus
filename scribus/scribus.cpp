@@ -1876,7 +1876,6 @@ void ScribusApp::HaveNewSel(int Nr)
 			WerkTools->Textedit->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(false);
 			Mpal->Cpal->GradCombo->setCurrentItem(0);
-			Mpal->Cpal->ChooseGrad(0);
 			break;
 		case 2:
 			importMenu->changeItem(fid2, tr("Get Picture..."));
@@ -3235,7 +3234,6 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(ItemTextAttr(float)), Mpal, SLOT(setLsp(float)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextUSval(float)), Mpal, SLOT(setExtra(float)));
-//	connect(doc->ActPage, SIGNAL(HaveSel(int)), Mpal, SLOT(NewSel(int)));
 	connect(doc->ActPage, SIGNAL(SetLocalValues(float, float, float, float)), Mpal, SLOT(setLvalue(float, float, float, float)));
 	connect(doc->ActPage, SIGNAL(SetSizeValue(float)), Mpal, SLOT(setSvalue(float)));
 	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));

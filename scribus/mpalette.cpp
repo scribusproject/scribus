@@ -785,8 +785,6 @@ void Mpalette::SetCurItem(PageItem *i)
   DBottom->setValue(static_cast<int>(i->BExtra*10));
   DRight->setValue(static_cast<int>(i->RExtra*10));
   Revert->setOn(i->Reverse);
-	Cpal->GradCombo->setCurrentItem(i->GrType);
-	Cpal->ChooseGrad(i->GrType);
 	if (i->NamedLStyle == "")
 		{
 		StyledLine->setCurrentItem(0);
