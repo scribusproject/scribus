@@ -10,7 +10,7 @@ PyObject *scribus_setredraw(PyObject *self, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetRedraw(e)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setRedraw(e)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -24,7 +24,7 @@ PyObject *scribus_fontnames(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetFontNames()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFontNames()"));
 		return NULL;
 	}
 	int cc2 = 0;
@@ -52,7 +52,7 @@ PyObject *scribus_xfontnames(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetXFontNames()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getXFontNames()"));
 		return NULL;
 	}
 	PyObject *l = PyList_New(Carrier->Prefs.AvailFonts.count());
@@ -84,7 +84,7 @@ PyObject *scribus_renderfont(PyObject *self, PyObject* args)
 	bool ret = false;
 	if (!PyArg_ParseTuple(args, "sssi", &Name, &FileName, &Sample, &Size))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("RenderFont(name, filename, sample, size)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("renderFont(name, filename, sample, size)"));
 		return NULL;
 	}
 	if (!Carrier->Prefs.AvailFonts.find(QString(Name)))
@@ -102,7 +102,7 @@ PyObject *scribus_getlayers(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetLayers()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLayers()"));
 		return NULL;
 	}
 	PyObject *l;
@@ -124,7 +124,7 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetActiveLayer(layername)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setActiveLayer(layername)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -148,7 +148,7 @@ PyObject *scribus_getactlayer(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetActiveLayer()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getActiveLayer()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -162,7 +162,7 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 	char *Layer = "";
 	if (!PyArg_ParseTuple(args, "s|s", &Layer, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SentToLayer(layername [,obejctname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("sentToLayer(layername [,obejctname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -188,7 +188,7 @@ PyObject *scribus_layervisible(PyObject *self, PyObject* args)
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "si", &Name, &vis))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLayerVisible(layername, visible)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLayerVisible(layername, visible)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -211,7 +211,7 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "si", &Name, &vis))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLayerPrintable(layername, Printable)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLayerPrintable(layername, Printable)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -233,7 +233,7 @@ PyObject *scribus_glayervisib(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("IsLayerVisible(layername)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLayerVisible(layername)"));
 		return NULL;
 	}
 	if ((!Carrier->HaveDoc) || (Name == ""))
@@ -255,7 +255,7 @@ PyObject *scribus_glayerprint(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("IsLayerPrintable(layername)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLayerPrintable(layername)"));
 		return NULL;
 	}
 	if ((!Carrier->HaveDoc) || (Name == ""))
@@ -277,7 +277,7 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeleteLayer(layername)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteLayer(layername)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -314,7 +314,7 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateLayer(layername)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createLayer(layername)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -337,7 +337,7 @@ PyObject *scribus_getlanguage(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetGuiLanguage()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getGuiLanguage()"));
 		return NULL;
 	}
 	return PyString_FromString(Carrier->GuiLanguage);

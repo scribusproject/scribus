@@ -1,5 +1,12 @@
 Changes since 1.2 
 
+04.10.2004
+	* bug     #1187: Initial Esperanto translation
+	* feature #1178: Polish Translation Update
+
+03.10.2004
+	* feature # 354: Ability to script exporting to PDF
+
 02.10.2004
 	* bug     #1164: Korean Translation
 	* bug     #1165: Catalan Translation Update

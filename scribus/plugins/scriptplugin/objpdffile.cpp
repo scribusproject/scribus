@@ -1010,15 +1010,19 @@ static PyObject *PDFfile_save(PDFfile *self)
 //                         return NULL;
 //                 }
 //                 PresentVals.append(t);
+				// pv 10/03/2004 crashed when pt is null
+				if (ti)
+				{
+					// Do I Need to check if every PyInt_AsLong and PyList_GetItem funtion succeed???
+					t.EffektLen = PyInt_AsLong(PyList_GetItem(ti, 0));
+					t.AnzeigeLen = PyInt_AsLong(PyList_GetItem(ti, 1));
+					t.Effekt = PyInt_AsLong(PyList_GetItem(ti, 2));
+					t.Dm = PyInt_AsLong(PyList_GetItem(ti, 3));
+					t.M = PyInt_AsLong(PyList_GetItem(ti, 4));
+					t.Di = PyInt_AsLong(PyList_GetItem(ti, 5));
+					PresentVals.append(t);
+				} // if ti=NULL
 
-// Do I Need to check if every PyInt_AsLong and PyList_GetItem funtion succeed???
-                t.EffektLen = PyInt_AsLong(PyList_GetItem(ti, 0));
-                t.AnzeigeLen = PyInt_AsLong(PyList_GetItem(ti, 1));
-                t.Effekt = PyInt_AsLong(PyList_GetItem(ti, 2));
-                t.Dm = PyInt_AsLong(PyList_GetItem(ti, 3));
-                t.M = PyInt_AsLong(PyList_GetItem(ti, 4));
-                t.Di = PyInt_AsLong(PyList_GetItem(ti, 5));
-                PresentVals.append(t);
         }
 
         Carrier->doc->PDF_Optionen.PresentVals = PresentVals;
@@ -1146,6 +1150,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 
 static PyMethodDef PDFfile_methods[] = {
         {"Save", (PyCFunction)PDFfile_save, METH_NOARGS, "Save selected pages to pdf file"},
+        {"save", (PyCFunction)PDFfile_save, METH_NOARGS, "Save selected pages to pdf file"},
         {NULL} // sentinel
 };
 

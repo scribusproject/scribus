@@ -614,12 +614,20 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				{
 					if (!Doc->RePos)
 					{
-						double scp = QMAX(Doc->Scale, 1);
-						p->setPen(black, 1 / scp, SolidLine, FlatCap, MiterJoin);
+						double scp1 = 1 / QMAX(Doc->Scale, 1);
+						double scp16 = 16 * scp1;
+						double scp14 = 14 * scp1;
+						double scp3 = 3 * scp1;
+						double scpwidth16 = Width - scp16;
+						double scpheight16 = Height - scp16;
+						double scpwidth3 = Width - scp3;
+						double scpheight3 = Height - scp3;
+
+						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
 						p->setBrush(white);
-						p->drawRect(Width-16 / scp, Height-16 / scp, 14 / scp, 14 / scp);
-						p->drawLine(FPoint(Width-16 / scp, Height-16 / scp), FPoint(Width-3 / scp, Height-3 / scp));
-						p->drawLine(FPoint(Width-16 / scp, Height-3 / scp), FPoint(Width-3 / scp, Height-16 / scp));
+						p->drawRect(scpwidth16, scpheight16, scp14, scp14);
+						p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
+						p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
 					}
 				}
 				Dirty = false;
@@ -1524,12 +1532,20 @@ NoRoom: pf2.end();
 				{
 					if (!Doc->RePos)
 					{
-						double scp = QMAX(Doc->Scale, 1);
-						p->setPen(black, 1 / scp, SolidLine, FlatCap, MiterJoin);
+						double scp1 = 1.0/QMAX(Doc->Scale, 1);
+						double scp16 = 16.0*scp1;
+						double scp14 = 14.0*scp1;
+						double scp3 = 3.0*scp1;
+						double scpwidth16 = Width - scp16;
+						double scpheight16 = Height - scp16;
+						double scpwidth3 = Width - scp3;
+						double scpheight3 = Height - scp3;
+
+						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
 						p->setBrush(white);
-						p->drawRect(Width-16 / scp, Height-16 / scp, 14 / scp, 14 / scp);
-						p->drawLine(FPoint(Width-16 / scp, Height-16 / scp), FPoint(Width-3 / scp, Height-3 / scp));
-						p->drawLine(FPoint(Width-16 / scp, Height-3 / scp), FPoint(Width-3 / scp, Height-16 / scp));
+						p->drawRect(scpwidth16, scpheight16, scp14, scp14);
+						p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
+						p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
 					}
 				}
 				MaxChars = nrc;

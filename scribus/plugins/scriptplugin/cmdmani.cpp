@@ -14,7 +14,7 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 	char *Image;
 	if (!PyArg_ParseTuple(args, "s|s", &Image, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("LoadImage(filename [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("loadImage(filename [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -36,7 +36,7 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ScaleImage(x, y [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("scaleImage(x, y [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -57,7 +57,7 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("MoveObject(x, y [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("moveObject(x, y [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -80,7 +80,7 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("MoveObjectAbs(x, y [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("moveObjectAbs(x, y [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -108,7 +108,7 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 	double x;
 	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("RotateObject(angle [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("rotateObject(angle [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -126,7 +126,7 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 	double x;
 	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("RotateObjectAbs(angle [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("rotateObjectAbs(angle [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -144,7 +144,7 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SizeObject(x, y [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("sizeObject(x, y [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -164,7 +164,7 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 	PyObject *il = 0;
 	if (!PyArg_ParseTuple(args, "|O", &il))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GroupObjects([list_of_objectnames])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("groupObjects([list_of_objectnames])"));
 		return NULL;
 	}
 	Page *p = Carrier->doc->ActPage;
@@ -211,7 +211,7 @@ PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 	char *Name = "";;
 	if (!PyArg_ParseTuple(args, "|s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("UnGroupObject([objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("unGroupObject([objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -234,7 +234,7 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|s", &sc, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ScaleGroup(scale [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("scaleGroup(scale [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -261,7 +261,7 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 	int i = 0;
 	if (!PyArg_ParseTuple(args, "|i", &i))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetSelectedObject([objectnumber])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getSelectedObject([objectnumber])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -276,7 +276,7 @@ PyObject *scribus_selcount(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SelectionCount()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectionCount()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -289,7 +289,7 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SelectObject(objectname)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectObject(objectname)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -307,7 +307,7 @@ PyObject *scribus_deselect(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeselectAll()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deselectAll()"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -324,7 +324,7 @@ PyObject *scribus_lockobject(PyObject *self, PyObject* args)
 	char *name = "";
 	if (!PyArg_ParseTuple(args, "|s", &name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("LockObject([objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("lockObject([objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -350,7 +350,7 @@ PyObject *scribus_islocked(PyObject *self, PyObject* args)
 	char *name = "";
 	if (!PyArg_ParseTuple(args, "|s", &name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("IsLocked([objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLocked([objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)

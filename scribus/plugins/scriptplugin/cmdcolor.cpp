@@ -10,7 +10,7 @@ PyObject *scribus_colornames(PyObject *self, PyObject* args)
 	int cc = 0;
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetColorNames()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColorNames()"));
 		return NULL;
 	}
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
@@ -31,7 +31,7 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetColor(name)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColor(name)"));
 		return NULL;
 	}
 	if (Name == "")
@@ -50,7 +50,7 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ChangeColor(colorname, c, m, y, k)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("changeColor(colorname, c, m, y, k)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -78,7 +78,7 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DefineColor(colorname, c, m, y, k)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("defineColor(colorname, c, m, y, k)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -108,7 +108,7 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 	char *Repl = "None";
 	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeleteColor(colorname [, replacewithname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteColor(colorname [, replacewithname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -138,7 +138,7 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 	char *Repl = "None";
 	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ReplaceColor(colorname [, replacewithname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("replaceColor(colorname [, replacewithname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);

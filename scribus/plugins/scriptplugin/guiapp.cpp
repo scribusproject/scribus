@@ -15,7 +15,7 @@ PyObject *scribus_messagebartext(PyObject *self, PyObject* args)
 	char *aText;
 	if (!PyArg_ParseTuple(args, "s", &aText))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("MessagebarText(textstring)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("messagebarText(textstring)"));
 		return NULL;
 	}
 	Carrier->FMess->setText(QString(aText));
@@ -27,7 +27,7 @@ PyObject *scribus_progressreset(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ProgressReset()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("progressReset()"));
 		return NULL;
 	}
 	Carrier->FProg->reset();
@@ -41,7 +41,7 @@ PyObject *scribus_progresssettotalsteps(PyObject *self, PyObject* args)
 	int steps;
 	if (!PyArg_ParseTuple(args, "i", &steps))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ProgressTotal(number)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("progressTotal(number)"));
 		return NULL;
 	}
 	Carrier->FProg->setTotalSteps(steps);
@@ -56,7 +56,7 @@ PyObject *scribus_progresssetprogress(PyObject *self, PyObject* args)
 	int position;
 	if (!PyArg_ParseTuple(args, "i", &position))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ProgressSet(number)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("progressSet(number)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -74,7 +74,7 @@ PyObject *scribus_setcursor(PyObject *self, PyObject* args)
 	qDebug("WARNING! SetCursor() is not stable!");
 	if (!PyArg_ParseTuple(args, "s", &aCursor))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetCusrsor(string)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setCusrsor(string)"));
 		return NULL;
 	}
 	if (aCursor=="wait")
@@ -90,7 +90,7 @@ PyObject *scribus_docchanged(PyObject *self, PyObject* args)
 	int aValue;
 	if (!PyArg_ParseTuple(args, "i", &aValue))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DocChanged(number)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("docChanged(number)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);

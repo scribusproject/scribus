@@ -501,6 +501,7 @@ static PyObject *Printer_print(Printer *self)
 }
 
 static PyMethodDef Printer_methods[] = {
+		{"print", (PyCFunction)Printer_print, METH_NOARGS, "Prints selected pages."},
         {"Print", (PyCFunction)Printer_print, METH_NOARGS, "Prints selected pages."},
         {NULL} // sentinel
 };

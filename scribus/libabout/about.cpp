@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("01").arg("October").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("04").arg("October").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -152,6 +152,9 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 	                                      "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                        
+	                                      "<tr><td><b>" + tr("Esperanto:").utf8()  + "</b></td><td> </td></tr>" +
+	                                      "<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Finnish:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                      
@@ -180,7 +183,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td><b>" + tr("Korean:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Kitae Kim</td><td>neeum@yahoo.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +               
-					      "<tr><td><b>" + tr("Lithuanian:").utf8()  + "</b></td><td> </td></tr>" +
+	                                      "<tr><td><b>" + tr("Lithuanian:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Aivaras Kirejevas</td><td>kiras@mail.lt</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                      
 	                                      "<tr><td><b>" + tr("Norwegian:").utf8()  + "</b></td><td></td></tr>" +

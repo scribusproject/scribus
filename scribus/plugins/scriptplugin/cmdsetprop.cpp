@@ -11,7 +11,7 @@ PyObject *scribus_setgradfill(PyObject *self, PyObject* args)
 	int typ, shade1, shade2;
 	if (!PyArg_ParseTuple(args, "isisi|s", &typ, &Color1, &shade1, &Color2, &shade2, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetGradientFill(type, color1, shade1, color2, shade2 [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setGradientFill(type, color1, shade1, color2, shade2 [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -41,7 +41,7 @@ PyObject *scribus_setfillcolor(PyObject *self, PyObject* args)
 	char *Color;
 	if (!PyArg_ParseTuple(args, "s|s", &Color, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetFillColor(color [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFillColor(color [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -59,7 +59,7 @@ PyObject *scribus_setlinecolor(PyObject *self, PyObject* args)
 	char *Color;
 	if (!PyArg_ParseTuple(args, "s|s", &Color, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLineColor(color [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineColor(color [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -77,7 +77,7 @@ PyObject *scribus_setlinewidth(PyObject *self, PyObject* args)
 	double w;
 	if (!PyArg_ParseTuple(args, "d|s", &w, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLineWidth(width [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineWidth(width [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -95,7 +95,7 @@ PyObject *scribus_setlineshade(PyObject *self, PyObject* args)
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLineShade(shade [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineShade(shade [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -113,7 +113,7 @@ PyObject *scribus_setfillshade(PyObject *self, PyObject* args)
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetFillShade(shade [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFillShade(shade [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -131,7 +131,7 @@ PyObject *scribus_setlinejoin(PyObject *self, PyObject* args)
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLineJoin(jointype [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineJoin(jointype [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -149,7 +149,7 @@ PyObject *scribus_setlineend(PyObject *self, PyObject* args)
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLineEnd(endtype [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineEnd(endtype [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -167,7 +167,7 @@ PyObject *scribus_setlinestyle(PyObject *self, PyObject* args)
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetLineStyle(style [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineStyle(style [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -185,7 +185,7 @@ PyObject *scribus_setcornerrad(PyObject *self, PyObject* args)
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetCornerRadius(radius [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setCornerRadius(radius [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -212,7 +212,7 @@ PyObject *scribus_setmultiline(PyObject *self, PyObject* args)
 	char *Color;
 	if (!PyArg_ParseTuple(args, "s|s", &Color, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetMultiLine(color [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setMultiLine(color [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);

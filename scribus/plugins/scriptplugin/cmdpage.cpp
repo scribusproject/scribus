@@ -7,7 +7,7 @@ PyObject *scribus_actualpage(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CurrentPage()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("currentPage()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -19,7 +19,7 @@ PyObject *scribus_redraw(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("RedrawAll()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("redrawAll()"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -34,7 +34,7 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SavePageAsEPS(filename)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("savePageAsEPS(filename)"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -49,7 +49,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeletePage(pagenumber)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deletePage(pagenumber)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -68,7 +68,7 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GotoPage(pagenumber)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("gotoPage(pagenumber)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -88,7 +88,7 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 	char *name = "Normal";
 	if (!PyArg_ParseTuple(args, "i|s", &e, &name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("NewPage(pagenumber [, pagename])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("newPage(pagenumber [, pagename])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -111,7 +111,7 @@ PyObject *scribus_pagecount(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("PageCount()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("pageCount()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -123,7 +123,7 @@ PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("PageDimension()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageSize()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -144,7 +144,7 @@ PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetPageItems()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageItems()"));
 		return NULL;
 	}
 	if ((!Carrier->HaveDoc) || (Carrier->doc->ActPage->Items.count() == 0))
@@ -167,7 +167,7 @@ PyObject *scribus_getHguides(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetHGuides()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getHGuides()"));
 		return NULL;
 	}
 	int n;
@@ -194,7 +194,7 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetHGuides(guides)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setHGuides(guides)"));
 		return NULL;
 	}
 	if (!PyList_Check(l))
@@ -225,7 +225,7 @@ PyObject *scribus_getVguides(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetVGuides()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getVGuides()"));
 		return NULL;
 	}
 	int n;
@@ -252,7 +252,7 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetVGuides(guides)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setVGuides(guides)"));
 		return NULL;
 	}
 	if (!PyList_Check(l))
@@ -284,7 +284,7 @@ PyObject *scribus_getpagemargins(PyObject *self,  PyObject* args)
 	PyObject *margins = NULL;
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetPageMargins()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageMargins()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)

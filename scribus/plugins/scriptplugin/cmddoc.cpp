@@ -12,7 +12,7 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	        (!PyArg_ParseTuple(p, "dd", &b, &h)) ||
 	        (!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr)))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("NewDoc(size,margins,orientation,firstPageNumber,unit,FacingPages,FirstSideLeft)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("newDoc(size,margins,orientation,firstPageNumber,unit,FacingPages,FirstSideLeft)"));
 		return NULL;
 	}
 	b = ValToPts(b, unit);
@@ -37,7 +37,7 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args)
 	double lr, tpr, btr, rr;
 	if (!PyArg_ParseTuple(args, "dddd", &lr, &rr, &tpr, &btr))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetMargins(lr,rr,tr,br)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setMargins(lr,rr,tr,br)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -59,7 +59,7 @@ PyObject *scribus_closedoc(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CloseDoc()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("closeDoc()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -74,7 +74,7 @@ PyObject *scribus_havedoc(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("HaveDoc()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("haveDoc()"));
 		return NULL;
 	}
 	return PyInt_FromLong(static_cast<long>(Carrier->HaveDoc));
@@ -85,7 +85,7 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("OpenDoc(docname)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("openDoc(docname)"));
 		return NULL;
 	}
 	bool ret = Carrier->LadeDoc(QString(Name));
@@ -97,7 +97,7 @@ PyObject *scribus_savedoc(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SaveDoc()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("saveDoc()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -112,7 +112,7 @@ PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SaveDocAs(docname)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("saveDocAs(docname)"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -129,7 +129,7 @@ PyObject *scribus_setinfo(PyObject *self, PyObject* args)
 	char *Desc;
 	if (!PyArg_ParseTuple(args, "zzz", &Author, &Title, &Desc))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetInfo(Author,Info,Description)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setInfo(Author, Info, Description)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -147,7 +147,7 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args)
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetUnit(unit)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setUnit(unit)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -161,7 +161,7 @@ PyObject *scribus_getunit(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetUnit()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getUnit()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -174,7 +174,7 @@ PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args)
 	char *fileName;
 	if (!PyArg_ParseTuple(args, "s", &fileName))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("LoadStylesFromFile(filename)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("loadStylesFromFile(filename)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -189,7 +189,7 @@ PyObject *scribus_setdoctype(PyObject *self, PyObject* args)
 	int fp, fsl;
 	if (!PyArg_ParseTuple(args, "ii", &fp, &fsl))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetDocType(FacingPages, FirstPageLeft)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setDocType(FacingPages, FirstPageLeft)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);

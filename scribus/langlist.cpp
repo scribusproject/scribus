@@ -13,6 +13,7 @@ LangList::LangList()
 	insert("da_DK", "Danish");
 	insert("de", "German");
 	insert("en_GB", "British English");
+	insert("eo", "Esperanto");
 	insert("es", "Spanish");
 	insert("es_LA", "Latin Spanish");
 	insert("eu", "Basque");

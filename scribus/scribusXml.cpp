@@ -38,75 +38,27 @@ extern QString Path2Relative(QString Path);
 
 /*!
 	\fn ScriXmlDoc::IsScribus(QString fileName)
-	\author Frederic Dubuy <effediwhy@gmail.com>
-	\date august 17th 2004
-	\brief Preliminary Scribus file validator
+	\author Frederic Dubuy <effediwhy@gmail.com>, Petr Vanek
+	\date august 17th 2004, 10/03/2004
+	\brief Preliminary Scribus file validator. totally rewritten when fixing crash bug #1092. It's much simpler now.
 	\param Qtring filename of file to test
 	\retval true = Scribus format file, false : not Scribus
 */
 bool ScriXmlDoc::IsScribus(QString fileName)
 {
-	QString f = "";
-	QFile file(fileName);
-#ifdef HAVE_LIBZ
-	if(fileName.right(2) == "gz")
-	{
-		gzFile gzDoc;
-		char buff[17];
-		int i;
-		gzDoc = gzopen(fileName.latin1(),"rb");
-		if(gzDoc == NULL)
-			return false;
-		//read the beginning of the file
-		i = gzread(gzDoc,&buff,16);
-		gzclose(gzDoc);
-		if (i<16)
-			return false;
-		buff[i] = '\0';
-		f.append(buff);
-	}
-	else
-// a normal document
-	if ( file.open( IO_ReadOnly ) )
-		{
-		QTextStream stream( &file );
-		f = stream.readLine();
-		}
-	else
-	{
-		file.close();
+	QString fText = ReadDatei(fileName);
+	if ((fText == "") || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", TRUE) == 0))
 		return false;
-	}
-	file.close();
-
-#else
-	QFile file( FName );
-	if ( file.open( IO_ReadOnly ) )
-		{
-		QTextStream stream( &file );
-		f = stream.readLine();
-		}
-	else
-	{
-		file.close();
-		return false;
-	}
-	file.close();
-
-#endif
-	if (f.startsWith("<SCRIBUS"))
-		return true;
-	else
-		return false;
+	return true;
 }
 
+/**
+ * added to support gz docs
+ * 2.7.2002 C.Toepp
+ * <c.toepp@gmx.de>
+ */
 QString ScriXmlDoc::ReadDatei(QString fileName)
 {
-/**
-  * added to support gz docs
-  * 2.7.2002 C.Toepp
-  * <c.toepp@gmx.de>
-  */
 	QString f = "";
 #ifdef HAVE_LIBZ
 	if(fileName.right(2) == "gz")
@@ -1255,7 +1207,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	QDomDocument docu("scridoc");
 	QString f = "";
 	f = ReadDatei(fileName);
-	if ((f == "") || (!f.startsWith("<SCRIBUS")) || (!docu.setContent(f)))
+	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
+	FIXME: I've add test on containig tag PAGE but returning FALSE freezes S. in scribus.cpp need some hack too...  */
+	if (!docu.setContent(f))
 		return false;
 	doc->PageColors.clear();	
 	doc->Layers.clear();

@@ -13,7 +13,7 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateRect(x, y, w, h [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createRect(x, y, w, h [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -42,7 +42,7 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateEllipse(x, y, w, h [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createEllipse(x, y, w, h [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -72,7 +72,7 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateImage(x, y, w, h [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createImage(x, y, w, h [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -100,7 +100,7 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateText(x, y, w, h [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createText(x, y, w, h [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -132,7 +132,7 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateLine(x, y, w, h [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createLine(x, y, w, h [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -182,7 +182,7 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreatePolyLine(pointlist [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createPolyLine(pointlist [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -253,7 +253,7 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreatePolygon(pointlist [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createPolygon(pointlist [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -328,7 +328,7 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateBezierLine(pointlist [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createBezierLine(pointlist [, objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -414,7 +414,7 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	char *PolyB = "";
 	if (!PyArg_ParseTuple(args, "ddss|s", &x, &y, &TextB, &PolyB, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreatePathText(x, y, textbox, beziercurve [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createPathText(x, y, textbox, beziercurve [, objectname])"));
 		return NULL;
 	}
 	if ((!Carrier->HaveDoc) || ((TextB == "") || (PolyB == "")))
@@ -455,7 +455,7 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeleteObject([objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteObject([objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -488,7 +488,7 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 
 	if (!PyArg_ParseTuple(args, "s|i", &name, &state))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("TextFlowsAroundFrame(objectname [,state])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("textFlowsAroundFrame(objectname [,state])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -517,7 +517,7 @@ PyObject *scribus_objectexists(PyObject *self, PyObject* args)
 
 	if (!PyArg_ParseTuple(args, "|s", &name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ObjectExists([objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("objectExists([objectname])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -542,7 +542,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 	char *name = "";
 	if (!PyArg_ParseTuple(args, "s|s", &Style, &name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetStyle(style, [objectName])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setStyle(style, [objectName])"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -595,7 +595,7 @@ PyObject *scribus_getstylenames(PyObject *self, PyObject* args)
 	PyObject *styleList;
 	if (!PyArg_ParseTuple(args, ""))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetAllStyles()"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getAllStyles()"));
 		return NULL;
 	}
 	if (!Carrier->HaveDoc)
@@ -605,9 +605,10 @@ PyObject *scribus_getstylenames(PyObject *self, PyObject* args)
 	}
 	styleList = PyList_New(0);
 	/*
-	 * We start at 5 because the lower styles are internal names.
-	 * FIXME: this should be a constant
-	 */
+	We start at 5 because the lower styles are internal names.
+	pv - changet to get all (with system) objects
+	FIXME: this should be a constant
+	*/
 	for (uint i=0; i < Carrier->doc->Vorlagen.count(); ++i)
 	{
 		if (PyList_Append(styleList, PyString_FromString(Carrier->doc->Vorlagen[i].Vname)))
