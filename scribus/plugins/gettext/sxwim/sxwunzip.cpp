@@ -27,13 +27,7 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#ifdef unix
-# include <unistd.h>
-# include <utime.h>
-#else
-# include <direct.h>
-# include <io.h>
-#endif
+#include <utime.h>
 
 #include <iostream>
 #include "unzip.h"
@@ -254,19 +248,6 @@ int makedir (const char *newdir)
     tmu_date : the SAME new date at the tm_unz format */
 void change_file_date(const char* filename, uLong dosdate, tm_unz tmu_date)
 {
-#ifdef WIN32
-  HANDLE hFile;
-  FILETIME ftm,ftLocal,ftCreate,ftLastAcc,ftLastWrite;
-
-  hFile = CreateFile(filename,GENERIC_READ | GENERIC_WRITE,
-                      0,NULL,OPEN_EXISTING,0,NULL);
-  GetFileTime(hFile,&ftCreate,&ftLastAcc,&ftLastWrite);
-  DosDateTimeToFileTime((WORD)(dosdate>>16),(WORD)dosdate,&ftLocal);
-  LocalFileTimeToFileTime(&ftLocal,&ftm);
-  SetFileTime(hFile,&ftm,&ftLastAcc,&ftm);
-  CloseHandle(hFile);
-#else
-#ifdef unix
   struct utimbuf ut;
   struct tm newdate;
   newdate.tm_sec = tmu_date.tm_sec;
@@ -282,8 +263,6 @@ void change_file_date(const char* filename, uLong dosdate, tm_unz tmu_date)
 
   ut.actime=ut.modtime=mktime(&newdate);
   utime(filename,&ut);
-#endif
-#endif
 }
 
 #endif // HAVE_XML
