@@ -1908,7 +1908,7 @@ NoRoom: pf2.end();
 	FrameOnly = false;
 	p->restore();
 	pf.end();
-	checkChanges(); // check the changes for undo actions
+// 	checkChanges(); // check the changes for undo actions
 }
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
@@ -2036,7 +2036,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	Tinput = false;
 	FrameOnly = false;
 	p.end();
-	checkChanges(); // Check changes for undo actions
+// 	checkChanges(); // Check changes for undo actions
 }
 
 QString PageItem::ExpandToken(uint base)
@@ -2259,14 +2259,74 @@ void PageItem::setName(const QString& newName)
 	setUName(newName); // set the name for the UndoObject too
 }
 
+void PageItem::setFillColor(const QString &newColor)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFill,
+										  QString(Um::ColorFromTo).arg(Pcolor).arg(newColor),
+                                          Um::IFill);
+		ss->set("FILL", "fill");
+		ss->set("OLD_FILL", Pcolor);
+		ss->set("NEW_FILL", newColor);
+		undoManager->action(this, ss);
+	}
+	Pcolor = newColor;
+}
+
+void PageItem::setFillShade(int newShade)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetShade,
+										  QString(Um::ShadeFromTo).arg(Shade).arg(newShade),
+										  Um::IShade);
+		ss->set("SHADE", "shade");
+		ss->set("OLD_SHADE", Shade);
+		ss->set("NEW_SHADE", newShade);
+		undoManager->action(this, ss);
+	}
+	Shade = newShade;
+}
+
+void PageItem::setLineColor(const QString &newColor)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetLineColor,
+										  QString(Um::ColorFromTo).arg(Pcolor2).arg(newColor),
+										  Um::IFill);
+		ss->set("LINE_COLOR", "line_color");
+		ss->set("OLD_COLOR", Pcolor2);
+		ss->set("NEW_COLOR", newColor);
+		undoManager->action(this, ss);
+	}
+	Pcolor2 = newColor;
+}
+
+void PageItem::setLineShade(int newShade)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetLineShade,
+										  QString(Um::ShadeFromTo).arg(Shade).arg(newShade),
+										  Um::IShade);
+		ss->set("LINE_SHADE", "line_shade");
+		ss->set("OLD_SHADE", Shade2);
+		ss->set("NEW_SHADE", newShade);
+		undoManager->action(this, ss);
+	}
+	Shade2 = newShade;
+}
+
 void PageItem::checkChanges(bool force)
 {
-	// has the item been rotated
-	if ((force) || ((oldRot != Rot) && (shouldCheck())))
-		rotateUndoAction();
 	// has the item been resized
 	if ((force) || ((oldWidth != Width || oldHeight != Height) && (shouldCheck())))
 		resizeUndoAction();
+	// has the item been rotated
+	if ((force) || ((oldRot != Rot) && (shouldCheck())))
+		rotateUndoAction();
 	// has the item been moved
 	if ((force) || ((oldXpos != Xpos || oldYpos != Ypos) && (shouldCheck())))
 		moveUndoAction();
@@ -2281,6 +2341,8 @@ bool PageItem::shouldCheck()
 
 void PageItem::moveUndoAction()
 {
+	if (!shouldCheck())
+		return;
 	if (oldXpos == Xpos && oldYpos == Ypos)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2304,6 +2366,8 @@ void PageItem::moveUndoAction()
 
 void PageItem::resizeUndoAction()
 {
+	if (!shouldCheck())
+		return;
 	if (oldHeight == Height && oldWidth == Width)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2319,6 +2383,8 @@ void PageItem::resizeUndoAction()
 		ss->set("OLD_RYPOS", oldYpos);
 		ss->set("NEW_RXPOS", Xpos);
 		ss->set("NEW_RYPOS", Ypos);
+		ss->set("OLD_RROT", oldRot);
+		ss->set("NEW_RROT", Rot);
 		undoManager->action(this, ss);
 	}
 	oldXpos = Xpos;
@@ -2326,10 +2392,13 @@ void PageItem::resizeUndoAction()
 	oldHeight = Height;
 	oldWidth = Width;
 	oldOwnPage = OwnPage;
+	oldRot = Rot;
 }
 
 void PageItem::rotateUndoAction()
 {
+	if (!shouldCheck())
+		return;
 	if (oldRot == Rot)
 		return;
 	if (UndoManager::undoEnabled())
@@ -2343,12 +2412,18 @@ void PageItem::rotateUndoAction()
 		ss->set("OLD_RYPOS", oldYpos);
 		ss->set("NEW_RXPOS", Xpos);
 		ss->set("NEW_RYPOS", Ypos);
+		ss->set("OLD_RWIDTH", oldWidth);
+		ss->set("OLD_RHEIGHT", oldHeight);
+		ss->set("NEW_RWIDTH", Width);
+		ss->set("NEW_RHEIGHT", Height);
 		undoManager->action(this, ss);
 	}
 	oldRot = Rot;
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
+	oldWidth = Width;
+	oldHeight = Height;
 }
 
 void PageItem::restore(UndoState *state, bool isUndo)
@@ -2362,6 +2437,14 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreResize(ss, isUndo);
 		else if (ss->contains("OLD_ROT"))
 			restoreRotate(ss, isUndo);
+		else if (ss->contains("FILL"))
+			restoreFill(ss, isUndo);
+		else if (ss->contains("SHADE"))
+			restoreShade(ss, isUndo);
+		else if (ss->contains("LINE_COLOR"))
+			restoreLineColor(ss, isUndo);
+		else if (ss->contains("LINE_SHADE"))
+			restoreLineShade(ss, isUndo);
 	}
 }
 
@@ -2386,20 +2469,23 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 
 void PageItem::restoreResize(SimpleState *state, bool isUndo)
 {
-	double ow = state->getDouble("OLD_WIDTH");
-	double oh = state->getDouble("OLD_HEIGHT");
-	double  w = state->getDouble("NEW_WIDTH");
-	double  h = state->getDouble("NEW_HEIGHT");
-	double ox = state->getDouble("OLD_RXPOS");
-	double oy = state->getDouble("OLD_RYPOS");
-	double  x = state->getDouble("NEW_RXPOS");
-	double  y = state->getDouble("NEW_RYPOS");
-	double mx = ox - x;
-	double my = oy - y;
+	double  ow = state->getDouble("OLD_WIDTH");
+	double  oh = state->getDouble("OLD_HEIGHT");
+	double   w = state->getDouble("NEW_WIDTH");
+	double   h = state->getDouble("NEW_HEIGHT");
+	double  ox = state->getDouble("OLD_RXPOS");
+	double  oy = state->getDouble("OLD_RYPOS");
+	double   x = state->getDouble("NEW_RXPOS");
+	double   y = state->getDouble("NEW_RYPOS");
+	double ort = state->getDouble("OLD_RROT");
+	double  rt = state->getDouble("NEW_RROT");
+	double  mx = ox - x;
+	double  my = oy - y;
 	if (isUndo)
 	{
 		ScApp->view->SizeItem(ow, oh, this, false, true, true);
 		ScApp->view->MoveItem(mx, my, this, false);
+		ScApp->view->RotateItem(ort, this);
 	}
 	else
 	{
@@ -2407,28 +2493,35 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 		my = y - oy;
 		ScApp->view->SizeItem(w, h, this, false, true, true);
 		ScApp->view->MoveItem(mx, my, this, false);
+		ScApp->view->RotateItem(rt, this);
 	}
 	oldWidth = Width;
 	oldHeight = Height;
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
+	oldRot = Rot;
 }
 
 void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 {
 	double ort = state->getDouble("OLD_ROT");
 	double  rt = state->getDouble("NEW_ROT");
-	double ox = state->getDouble("OLD_RXPOS");
-	double oy = state->getDouble("OLD_RYPOS");
-	double  x = state->getDouble("NEW_RXPOS");
-	double  y = state->getDouble("NEW_RYPOS");
+	double  ox = state->getDouble("OLD_RXPOS");
+	double  oy = state->getDouble("OLD_RYPOS");
+	double   x = state->getDouble("NEW_RXPOS");
+	double   y = state->getDouble("NEW_RYPOS");
+	double  ow = state->getDouble("OLD_RWIDTH");
+	double  oh = state->getDouble("OLD_RHEIGHT");
+	double   w = state->getDouble("NEW_RWIDTH");
+	double   h = state->getDouble("NEW_RHEIGHT");
 	double mx = ox - x;
 	double my = oy - y;
 	if (isUndo)
 	{
 		ScApp->view->RotateItem(ort, this);
 		ScApp->view->MoveItem(mx, my, this, false);
+		ScApp->view->SizeItem(ow, oh, this, false, true, true);
 	}
 	else
 	{
@@ -2436,9 +2529,52 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		my = y - oy;
 		ScApp->view->RotateItem(rt, this);
 		ScApp->view->MoveItem(mx, my, this, false);
+		ScApp->view->SizeItem(w, h, this, false, true, true);
 	}
 	oldRot = Rot;
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
+	oldWidth = Width;
+	oldHeight = Height;
+}
+
+void PageItem::restoreFill(SimpleState *state, bool isUndo)
+{
+	QString fill = state->get("OLD_FILL");
+	if (!isUndo)
+		fill = state->get("NEW_FILL");
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(this);
+	ScApp->view->ItemBrush(fill);
+}
+
+void PageItem::restoreShade(SimpleState *state, bool isUndo)
+{
+	int shade = state->getInt("OLD_SHADE");
+	if (!isUndo)
+		shade = state->getInt("NEW_SHADE");
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(this);
+	ScApp->view->ItemBrushShade(shade);
+}
+
+void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
+{
+	QString fill = state->get("OLD_COLOR");
+	if (!isUndo)
+		fill = state->get("NEW_COLOR");
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(this);
+	ScApp->view->ItemPen(fill);
+}
+
+void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
+{
+	int shade = state->getInt("OLD_SHADE");
+	if (!isUndo)
+		shade = state->getInt("NEW_SHADE");
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(this);
+	ScApp->view->ItemPenShade(shade);
 }

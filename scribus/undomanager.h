@@ -412,6 +412,12 @@ public:
 	static const QString AlignDistribute;
 	static const QString ItemsInvolved;
 	static const QString Cancel;
+	static const QString SetFill;
+	static const QString ColorFromTo;
+	static const QString SetShade;
+	static const QString ShadeFromTo;
+	static const QString SetLineColor;
+	static const QString SetLineShade;
 	/*@}*/
 
 	/**
@@ -434,6 +440,8 @@ public:
 	static QPixmap *IGuides;
 	static QPixmap *ILockGuides;
 	static QPixmap *IAlignDistribute;
+	static QPixmap *IFill;
+	static QPixmap *IShade;
 	/*@}*/
 
 protected:

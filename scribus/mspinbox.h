@@ -42,8 +42,6 @@ public:
 	QLineEdit *ed;
 	void setDecimals( int deci );
 	bool isReadOnly() const;
-	/** @brief Returns true if there is a user action going on at the moment of the call. */
-	bool userActionOn();
 
 public slots:
 	void setMaxValue(double val);
@@ -58,21 +56,6 @@ protected:
 	void setParameters( int s );
 	bool readOnly;
 	int oldLineStep;
-	void timerEvent(QTimerEvent *e);
-
-private:
-	double oldValue;
-	int timerId;
-
-private slots:
-	void startTimer();
-
-signals:
-	/**
-	 * @brief Sent when value is no more changed after a user has released the mouse
-	 * @brief button or arrow keys on the widget.
-	 */
-	void changesDone();
 };
 
 #endif

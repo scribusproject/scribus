@@ -311,6 +311,26 @@ public:
 	 * @author Riku Leino
 	 */
 	void setName(const QString& newName);
+	/**
+	 * @brief Set the fill color of the object.
+	 * @param newColor fill color for the object
+	 */
+	void setFillColor(const QString &newColor);
+	/**
+	 * @brief Set the fill color shade.
+	 * @param newShade shade for the fill color
+	 */
+	void setFillShade(int newShade);
+	/**
+	 * @brief Set the line color of the object.
+	 * @param newFill line color for the object
+	 */
+	void setLineColor(const QString &newColor);
+	/**
+	 * @brief Set the line color shade.
+	 * @param newColor shade for the line color
+	 */
+	void setLineShade(int newShade);
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down
@@ -340,6 +360,10 @@ private:
 	void restoreMove(SimpleState *state, bool isUndo);
 	void restoreResize(SimpleState *state, bool isUndo);
 	void restoreRotate(SimpleState *state, bool isUndo);
+	void restoreFill(SimpleState *state, bool isUndo);
+	void restoreShade(SimpleState *state, bool isUndo);
+	void restoreLineColor(SimpleState *state, bool isUndo);
+	void restoreLineShade(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

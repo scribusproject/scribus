@@ -1167,8 +1167,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *b;
 	Mpressed = false;
-	for (uint i = 0; i < SelItem.count(); ++i)
-		SelItem.at(i)->checkChanges();
 	if (Doc->guidesSettings.guidesShown)
 	{
 		bool fg = false;
@@ -2674,6 +2672,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		undoManager->commit();
 		_groupTransactionStarted = false;
 	}
+
+	for (uint i = 0; i < SelItem.count(); ++i)
+		SelItem.at(i)->checkChanges();
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
@@ -9328,15 +9329,20 @@ void ScribusView::ItemPen(QString farbe)
 	if (SelItem.count() != 0)
 	{
 		PageItem *i;
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+										  Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
 			if ((i->PType == 5) && (farbe == "None"))
 				continue;
-			i->Pcolor2 = farbe;
+			i->setLineColor(farbe);
 			RefreshItem(i);
 			emit ItemFarben(i->Pcolor2, i->Pcolor, i->Shade2, i->Shade);
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9494,15 +9500,19 @@ void ScribusView::ItemBrush(QString farbe)
 
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+										  Um::IGroup, Um::SetFill, farbe, Um::IFill);
 		PageItem *b;
-
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			b->Pcolor = farbe;
+			b->setFillColor(farbe);
 			RefreshItem(b);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9510,14 +9520,20 @@ void ScribusView::ItemBrushShade(int sha)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+										  Um::IGroup, Um::SetShade, QString("%1").arg(sha),
+										  Um::IShade);
 		PageItem *b;
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			b->Shade = sha;
+			b->setFillShade(sha);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			RefreshItem(b);
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9526,12 +9542,17 @@ void ScribusView::ItemPenShade(int sha)
 	if (SelItem.count() != 0)
 	{
 		PageItem *i;
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+							Um::IGroup, Um::SetLineShade, QString("%1").arg(sha), Um::IShade);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
-			i->Shade2 = sha;
+			i->setLineShade(sha);
 			RefreshItem(i);
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 

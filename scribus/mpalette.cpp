@@ -836,15 +836,10 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	QToolTip::add( MonitorI, tr( "Rendering intent for the image" ) );
 
 	connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
-	connect(Xpos, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
-	connect(Ypos, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Width, SIGNAL(valueChanged(int)), this, SLOT(NewW()));
-	connect(Width, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Height, SIGNAL(valueChanged(int)), this, SLOT(NewH()));
-	connect(Height, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Rot, SIGNAL(valueChanged(int)), this, SLOT(NewR()));
-	connect(Rot, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(RoundRect, SIGNAL(valueChanged(int)), this, SLOT(NewRR()));
 	connect(LineSp, SIGNAL(valueChanged(int)), this, SLOT(NewLsp()));
 	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(NewSize()));
@@ -3328,31 +3323,8 @@ void Mpalette::HandleTLines()
 	}
 }
 
-void Mpalette::updateChanges()
-{
-	if (ScApp->view->groupTransactionStarted())
-	{
-		ScApp->view->setGroupTransactionStarted(false);
-		for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
-			ScApp->view->SelItem.at(i)->checkChanges(true);
-		UndoManager::instance()->commit();
-	}
-	else
-		for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
-			ScApp->view->SelItem.at(i)->checkChanges();
-}
-
 bool Mpalette::userActionOn()
 {
-	if (Xpos->userActionOn())
-		return true;
-	else if (Ypos->userActionOn())
-		return true;
-	else if (Width->userActionOn())
-		return true;
-	else if (Height->userActionOn())
-		return true;
-	else if (Rot->userActionOn())
-		return true;
-	return false;
+	// make this work!!! return true if a user is pressing a mouse button or an arrow on a mspinbox
+	return false; 
 }

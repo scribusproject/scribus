@@ -39,9 +39,6 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 	QSpinBox::setLineStep(Decimals);
 	oldLineStep=0;
 	readOnly=false;
-	oldValue = -1;
-	timerId = -1;
-	connect(this, SIGNAL(valueChanged(int)), this, SLOT(startTimer()));
 }
 /*!
  \fn MSpinBox(double minValue, double maxValue, QWidget *pa, int s)
@@ -63,9 +60,6 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
 	setMinValue(minValue);
 	setMaxValue(maxValue);
 	readOnly=false;
-	oldValue = -1;
-	timerId = -1;
-	connect(this, SIGNAL(valueChanged(int)), this, SLOT(startTimer()));
 }
 
 void MSpinBox::setParameters( int s )
@@ -344,28 +338,3 @@ bool MSpinBox::isReadOnly() const
 	return readOnly;
 }
 
-void MSpinBox::startTimer()
-{
-	if (timerId < 1)
-		timerId = QObject::startTimer(175);
-}
-
-void MSpinBox::timerEvent(QTimerEvent*)
-{
-	if (timerId > 0)
-	{
-		if (oldValue == value())
-		{
-			killTimer(timerId);
-			timerId = -1;
-			emit changesDone();
-		}
-		else
-			oldValue = value();
-	}
-}
-
-bool MSpinBox::userActionOn()
-{
-	return timerId > 0;
-}

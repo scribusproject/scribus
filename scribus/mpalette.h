@@ -92,7 +92,10 @@ public:
 	void ShowCMS();
 	void fillLangCombo(QMap<QString,QString> langMap);
 	/** @brief Returns true if there is a user action going on at the moment of call. */
-	bool userActionOn();
+	bool userActionOn(); // not yet implemented!!! This is needed badly.
+                         // When user releases the mouse button or arrow key, changes must be checked
+                         // and if in ScribusView a groupTransaction has been started it must be also
+                         // commmited
 
 	Autoforms* SCustom;
 	LabelButton* colgapLabel;
@@ -415,9 +418,6 @@ protected:
 	QHBoxLayout* layout22;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
-
-private slots:
-	void updateChanges();
 };
 
 #endif

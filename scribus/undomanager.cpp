@@ -583,6 +583,8 @@ void UndoManager::initIcons()
 	UndoManager::IAlignDistribute = new QPixmap(iconDir + "u_align.png");
 	UndoManager::IGuides          = new QPixmap(iconDir + "u_margins.png");
 	UndoManager::ILockGuides      = new QPixmap(iconDir + "u_margins_locked.png");
+	UndoManager::IFill            = new QPixmap(iconDir + "u_fill.png");
+	UndoManager::IShade           = new QPixmap(iconDir + "u_shade.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -606,6 +608,12 @@ const QString UndoManager::CreateTo          = tr("X: %1, Y: %2\nW: %3, H: %4");
 const QString UndoManager::AlignDistribute   = tr("Align/Distribute");
 const QString UndoManager::ItemsInvolved     = tr("Items involved");
 const QString UndoManager::Cancel            = tr("Cancel");
+const QString UndoManager::SetFill           = tr("Set fill color");
+const QString UndoManager::ColorFromTo       = tr("Color1: %1, Color2: %2");
+const QString UndoManager::SetShade          = tr("Set fill color shade");
+const QString UndoManager::ShadeFromTo       = tr("Shade1: %1, Shade2: %2");
+const QString UndoManager::SetLineColor      = tr("Set line color");
+const QString UndoManager::SetLineShade      = tr("Set line color shade");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -622,3 +630,5 @@ QPixmap *UndoManager::IRotate          = NULL;
 QPixmap *UndoManager::IGuides          = NULL;
 QPixmap *UndoManager::ILockGuides      = NULL;
 QPixmap *UndoManager::IAlignDistribute = NULL;
+QPixmap *UndoManager::IFill            = NULL;
+QPixmap *UndoManager::IShade           = NULL;
