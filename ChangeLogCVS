@@ -1,5 +1,10 @@
 Changes since 1.2 
 
+05.09.2004
+	* bug     #1029: Crash with empty text when pressing left cursor key
+	* bug     #1031: Bad version number in the sla files
+	* bug     #1035: Adjust Frame to Picture doesnt set dirty doc flag
+
 03.09.2004
 	* bug     #1028: Crash when editing a text frame with spaces at the beginning in Block mode
 	* feature #1024: Added Hyphenation Patterns for Afrikaans

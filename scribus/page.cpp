@@ -8210,8 +8210,8 @@ void Page::FrameToPic()
 		PageItem *b = SelItem.at(0);
 		if (b->PicAvail)
 		{
-			double w = static_cast<double>(b->pixm.width());
-			double h = static_cast<double>(b->pixm.height());
+			double w = static_cast<double>(b->pixm.width()) * b->LocalScX;
+			double h = static_cast<double>(b->pixm.height()) * b->LocalScY;
 			double x = b->LocalX * b->LocalScX;
 			double y = b->LocalY * b->LocalScY;
 			if (!b->isTableItem)
@@ -8222,6 +8222,7 @@ void Page::FrameToPic()
 				b->LocalY = 0;
 			}
 			update();
+			emit DocChanged();
 		}
 	}
 }
