@@ -10,7 +10,8 @@ PyObject *scribus_actualpage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("currentPage()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->PageNr + 1));
 }
 
@@ -21,7 +22,8 @@ PyObject *scribus_redraw(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("redrawAll()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	Carrier->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -35,7 +37,8 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("savePageAsEPS(filename)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	bool ret = Carrier->DoSaveAsEps(QString(Name));
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -48,7 +51,8 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deletePage(pagenumber)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
 	{
@@ -68,7 +72,8 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("gotoPage(pagenumber)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
 	{
@@ -89,7 +94,8 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("newPage(pagenumber [, pagename])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (e < 0)
 		Carrier->slotNewPageP(Carrier->view->Pages.count(), QString(name));
 	else
@@ -113,7 +119,8 @@ PyObject *scribus_pagecount(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("pageCount()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->view->Pages.count()));
 }
 
@@ -124,7 +131,8 @@ PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageSize()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PyObject *t;
 	t = Py_BuildValue(
 			"(dd)",
@@ -141,7 +149,8 @@ PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageItems()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (Carrier->doc->ActPage->Items.count() == 0)
 		return Py_BuildValue((char*)"[]");
 	PyObject *l = PyList_New(Carrier->doc->ActPage->Items.count());
@@ -165,7 +174,8 @@ PyObject *scribus_getHguides(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getHGuides()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	int n = Carrier->doc->ActPage->YGuides.count();
 	if (n == 0)
 	{
@@ -193,7 +203,8 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setHGuides(guides)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (!PyList_Check(l))
 	{
 		PyErr_SetString(PyExc_TypeError, QString("argument is not list: must be list of float values"));
@@ -223,7 +234,8 @@ PyObject *scribus_getVguides(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getVGuides()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	int n = Carrier->doc->ActPage->XGuides.count();
 	if (n == 0)
 	{
@@ -251,7 +263,8 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setVGuides(guides)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (!PyList_Check(l))
 	{
 		PyErr_SetString(PyExc_TypeError, QString("argument is not list: must be list of float values"));
@@ -282,7 +295,8 @@ PyObject *scribus_getpagemargins(PyObject *self,  PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageMargins()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	margins = Py_BuildValue("ffff", Carrier->doc->PageM.Top, Carrier->doc->PageM.Left,
 							 Carrier->doc->PageM.Right, Carrier->doc->PageM.Bottom);
 	if (margins == NULL)

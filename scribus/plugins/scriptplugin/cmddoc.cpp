@@ -40,7 +40,8 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setMargins(lr,rr,tr,br)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	tpr = ValueToPoint(tpr);
 	lr = ValueToPoint(lr);
 	rr = ValueToPoint(rr);
@@ -61,7 +62,8 @@ PyObject *scribus_closedoc(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("closeDoc()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	Carrier->doc->setUnModified();
 	bool ret = Carrier->slotFileClose();
 	qApp->processEvents();
@@ -97,7 +99,8 @@ PyObject *scribus_savedoc(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("saveDoc()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	Carrier->slotFileSave();
 	return PyInt_FromLong(0L);
 }
@@ -110,7 +113,8 @@ PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("saveDocAs(docname)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	bool ret = Carrier->DoFileSave(QString(Name));
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -125,8 +129,8 @@ PyObject *scribus_setinfo(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setInfo(Author, Info, Description)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	Carrier->doc->DocAutor = QString(Author);
 	Carrier->doc->DocTitel = QString(Title);
 	Carrier->doc->DocComments = QString(Desc);
@@ -143,7 +147,8 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setUnit(unit)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if ((e < 0) || (e > 3))
 		return Py_None; // TODO: exception! Invalidvalue?
 	Carrier->slotChangeUnit(e);
@@ -158,7 +163,8 @@ PyObject *scribus_getunit(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getUnit()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->Einheit));
 }
 
@@ -170,7 +176,8 @@ PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("loadStylesFromFile(filename)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	Carrier->doc->loadStylesFromFile(QString(fileName));
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -184,7 +191,8 @@ PyObject *scribus_setdoctype(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setDocType(FacingPages, FirstPageLeft)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (Carrier->doc->PageFP = fp)
 		Carrier->doc->FirstPageLeft = fsl;
 	Carrier->view->reformPages();

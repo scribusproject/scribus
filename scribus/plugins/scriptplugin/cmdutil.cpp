@@ -1,3 +1,5 @@
+#include <Python.h>
+#include "cmdvar.h"
 #include "cmdutil.h"
 
 ScribusApp* Carrier;
@@ -152,4 +154,19 @@ PageItem* GetUniqueItem(QString name)
 		} // for items
 	} // for pages
 	return NULL;
+}
+
+/*!
+ * Checks to see if there is a document open.
+ * If there is an open document, returns true.
+ * If there is no open document, sets a Python
+ * exception and returns false.
+ * 2004-10-27 Craig Ringer
+ */
+bool checkHaveDocument()
+{
+    if (Carrier->HaveDoc)
+        return true;
+    PyErr_SetString(NoDocOpenError, "Command does not make sense without an open document");
+    return false;
 }
