@@ -447,9 +447,27 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
 	connect( AdvOptButton, SIGNAL( clicked() ), this, SLOT( SetAdvOptions() ) );
+	connect(To, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+	connect(From, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 #ifdef HAVE_CUPS
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 #endif
+}
+
+void Druck::ChFrom()
+{
+	disconnect(To, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+	if (From->value() > To->value())
+		To->setValue(From->value());
+	connect(To, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+}
+
+void Druck::ChTo()
+{
+	disconnect(From, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
+	if (To->value() < From->value())
+		From->setValue(To->value());
+	connect(From, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 }
 
 void Druck::SetAdvOptions()

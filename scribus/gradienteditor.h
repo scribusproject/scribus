@@ -20,6 +20,9 @@
 
 #include <qlabel.h>
 #include <qvaluelist.h>
+#include <qspinbox.h>
+#include <qlayout.h>
+#include <qtooltip.h>
 #include "vgradient.h"
 
 class GradientPreview : public QLabel
@@ -38,6 +41,7 @@ public:
 	void updateDisplay();
 	void setActColor(QColor c, QString n, int s);
 	void setActTrans(double t);
+	void setActStep(double t);
 	VGradient fill_gradient;
 	QValueList<int> StopM;
 	bool Mpressed;
@@ -48,7 +52,31 @@ public:
 signals:
 	void selectedColor(QString, int);
 	void currTrans(double);
+	void currStep(double);
 	void gradientChanged();
+};
+
+class GradientEditor : public QLabel
+{
+	Q_OBJECT
+
+public:
+	GradientEditor(QWidget *pa);
+	~GradientEditor() {};
+	GradientPreview *Preview;
+	QLabel *Desc;
+	QSpinBox *Position;
+
+public slots:
+	void setPos(double);
+	void changePos(int);
+
+signals:
+	void gradientChanged();
+
+protected:
+	QVBoxLayout* Form1Layout;
+	QHBoxLayout* Layout1;
 };
 
 #endif

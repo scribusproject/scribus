@@ -520,7 +520,7 @@ void ScribusApp::initScribus()
 		connect(Mpal->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
 		connect(Mpal->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
 		connect(Mpal->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
-		connect(Mpal->Cpal->GradEdit, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
+		connect(Mpal->Cpal->GradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 		connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 		connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
 		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
@@ -5806,7 +5806,6 @@ void ScribusApp::setBrushShade(int sh)
 
 void ScribusApp::setGradFill(int typ)
 {
-	setActiveWindow();
 	if (HaveDoc)
 	{
 		doc->ActPage->ItemGradFill(typ);
@@ -5816,13 +5815,12 @@ void ScribusApp::setGradFill(int typ)
 
 void ScribusApp::updtGradFill()
 {
-	setActiveWindow();
 	if (HaveDoc)
 	{
 		if (doc->ActPage->SelItem.count() != 0)
 		{
 			PageItem *b = doc->ActPage->SelItem.at(0);
-			b->fill_gradient = Mpal->Cpal->GradEdit->fill_gradient;
+			b->fill_gradient = Mpal->Cpal->GradEdit->Preview->fill_gradient;
 			doc->ActPage->RefreshItem(b);
 			slotDocCh();
 		}
@@ -7553,6 +7551,34 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			a++;
 			if (dia != NULL)
 				dia->setProgress(a);
+		}
+		for (uint b=0; b<view->DocPages.count(); ++b)
+		{
+			for (uint c=0; c<view->DocPages.at(b)->Items.count(); ++c)
+			{
+				PageItem *ite = view->DocPages.at(b)->Items.at(c);
+				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				{
+					QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
+					ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+					cstops.at(cst)->color = tmpc;
+				}
+			}
+		}
+		for (uint b=0; b<view->MasterPages.count(); ++b)
+		{
+			for (uint c=0; c<view->MasterPages.at(b)->Items.count(); ++c)
+			{
+				PageItem *ite = view->MasterPages.at(b)->Items.at(c);
+				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				{
+					QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
+					ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+					cstops.at(cst)->color = tmpc;
+				}
+			}
 		}
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->updateCList();

@@ -7293,40 +7293,12 @@ void Page::ItemPenShade(int sha)
 	}
 }
 
-void Page::AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString col2, int sh2)
-{
-	QColor tmp;
-	b->fill_gradient.clearStops();
-	QString c1 = typ == 5 ? col2 : col1, c2 = typ == 5 ? col1 : col2;
-	int s1 = typ == 5 ? sh2 : sh1, s2 = typ == 5 ? sh1 : sh2;
-	b->SetFarbe(&tmp, c1, s1);
-	b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, c1, s1);
-	b->SetFarbe(&tmp, c2, s2);
-	b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, s2);
-	b->GrColor2 = col1;
-	b->GrShade2 = sh1;
-	b->GrColor = col2;
-	b->GrShade = sh2;
-	b->GrType = typ;
-	updateGradientVectors(b);
-}
-
 void Page::ItemGradFill(int typ)
 {
-	uint a;
 	PageItem *i;
-/*	QString col1c, col2c;
-	if ((col1 == "None") || (col1 == ""))
-		col1c = doku->PageColors.begin().key();
-	else
-		col1c = col1;
-	if ((col2 == "None") || (col2 == ""))
-		col2c = doku->PageColors.begin().key();
-	else
-		col2c = col2; */
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
 			i->GrType = typ;

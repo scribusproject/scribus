@@ -540,11 +540,8 @@ void PSLib::PS_GradientCol2(double c, double m, double y, double k)
 	GrColor2 = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
 }
 
-void PSLib::PS_MultiRadGradient(double w, double h, QValueList<double> Stops, QStringList Colors)
+void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors)
 {
-	double w2, h2;
-	w2 = w / 2.0;
-	h2 = h / 2.0;
 	bool first = true;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
@@ -563,7 +560,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, QValueList<double> Stops, QS
 			else
 				PutSeite("/Extend [false false]\n");
 		}
-		PutSeite("/Coords ["+ToStr(w2)+" "+ToStr(h2)+" "+ToStr((*Stops.at(c+1)))+" "+ToStr(w2)+" "+ToStr(h2)+" "+ToStr((*Stops.at(c)))+"]\n");
+		PutSeite("/Coords ["+ToStr(x)+" "+ToStr(y)+" "+ToStr((*Stops.at(c+1)))+" "+ToStr(x)+" "+ToStr(y)+" "+ToStr((*Stops.at(c)))+"]\n");
 		PutSeite("/Function\n");
 		PutSeite("<<\n");
 		PutSeite("/FunctionType 2\n");
@@ -673,18 +670,15 @@ void PSLib::PS_LinGradient(double w, double h, double x1, double y1, double x2, 
 	PutSeite("shfill\ncliprestore\n");
 }
 
-void PSLib::PS_RadGradient(double w, double h, int item)
+void PSLib::PS_RadGradient(double w, double h, double x, double y, double rad, int item)
 {
-	double w2, h2, rad;
-	w2 = w / 2.0;
-	h2 = h / 2.0;
 	rad = QMAX(w, fabs(h)) / 2.0;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
 	PutSeite("<<\n");
 	PutSeite("/ShadingType 3\n");
 	PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
-	PutSeite("/Coords ["+ToStr(w2)+" "+ToStr(h2)+" 0 "+ToStr(w2)+" "+ToStr(h2)+" "+ToStr(rad)+"]\n");
+	PutSeite("/Coords ["+ToStr(x)+" "+ToStr(y)+" 0 "+ToStr(x)+" "+ToStr(y)+" "+ToStr(rad)+"]\n");
 	PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
 	PutSeite("/Extend [true true]\n");
 	PutSeite("/Function\n");

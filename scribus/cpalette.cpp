@@ -24,10 +24,8 @@ extern QPixmap loadIcon(QString nam);
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 {
 	Color = "";
-	Color2 = "";
 	Color3 = "";
 	Shade = 100;
-	Shade2 = 100;
 	Shade3 = 100;
 	UseTransFeature = false;
 	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
@@ -95,7 +93,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradCombo->insertItem( tr("Free radial Gradient"));
 	GradCombo->setCurrentItem(0);
 	GradLayout->addWidget( GradCombo );
-	GradEdit = new GradientPreview(this);
+	GradEdit = new GradientEditor(this);
+	GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
 	GradLayout->addWidget(GradEdit, Qt::AlignHCenter);
 	frame8 = new QFrame( this, "frame8" );
 	frame8->setFrameShape( QFrame::NoFrame );
@@ -138,6 +137,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	ListBox1 = new QListBox(this, "ListBox1");
 	ListBox1->setMinimumSize( QSize( 150, 30 ) );
 	Form1Layout->addWidget(ListBox1);
+	Inhalt->setOn(true);
+	InnenButton();
 	setActGradient(0);
 	GradientMode = false;
 	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
@@ -156,8 +157,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(GradEdit, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
-	connect(GradEdit, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
+	connect(GradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
+	connect(GradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
+	connect(GradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 }
 
 void Cpalette::InhaltButton()
@@ -254,7 +256,7 @@ void Cpalette::selFarbe(QListBoxItem *c)
 		}
 		else
 		{
-			GradEdit->setActColor(SetFarbe(sFarbe, Shade), sFarbe, Shade);
+			GradEdit->Preview->setActColor(SetFarbe(sFarbe, Shade), sFarbe, Shade);
 			Color = sFarbe;
 			emit gradientChanged();
 		}
@@ -410,7 +412,7 @@ void Cpalette::slotTrans(int val)
 			emit NewTrans(static_cast<double>(100 - val) / 100.0);
 		else
 		{
-			GradEdit->setActTrans(static_cast<double>(val) / 100.0);
+			GradEdit->Preview->setActTrans(static_cast<double>(val) / 100.0);
 			emit gradientChanged();
 		}
 	}
@@ -488,7 +490,7 @@ void Cpalette::setActShade()
 		}
 		else
 		{
-			GradEdit->setActColor(SetFarbe(Color, b), Color, b);
+			GradEdit->Preview->setActColor(SetFarbe(Color, b), Color, b);
 			Shade = b;
 			emit gradientChanged();
 		}

@@ -2203,7 +2203,7 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
 	if ((c->GrType == 5) || (c->GrType == 7))
 	{
 		if (c->fill_gradient.Stops() == 2)
-			p->PS_RadGradient(w, -h, c->PType);
+			p->PS_RadGradient(w, -h, StartX, -StartY, sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2)), c->PType);
 		else
 		{
 			QValueList<double> StopVec;
@@ -2217,7 +2217,7 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
 				QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 				Gcolors.prepend(GCol);
 			}
-			p->PS_MultiRadGradient(w, -h, StopVec, Gcolors);
+			p->PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors);
 		}
 	}
 	else

@@ -349,6 +349,14 @@ void Farbmanager::delUnused()
 			for (uint c = 0; c < ScApp->view->MasterPages.at(b)->Items.count(); ++c)
 			{
 				ite = ScApp->view->MasterPages.at(b)->Items.at(c);
+				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				{
+					if (it.key() == cstops.at(cst)->name)
+						found = true;
+					if (found)
+						break;
+				}
 				if ((ite->PType == 4) || (ite->PType == 8))
 				{
 					for (uint d=0; d<ite->Ptext.count(); ++d)
@@ -362,8 +370,7 @@ void Farbmanager::delUnused()
 					}
 				}
 				/* PFJ - 29.02.04 - merged if's to one line */
-				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2) ||
-				        (it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
+				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
 					found = true;
 				if (found)
 					break;
@@ -381,6 +388,14 @@ void Farbmanager::delUnused()
 			for (uint c = 0; c < ScApp->view->DocPages.at(b)->Items.count(); ++c)
 			{
 				ite = ScApp->view->DocPages.at(b)->Items.at(c);
+				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				{
+					if (it.key() == cstops.at(cst)->name)
+						found = true;
+					if (found)
+						break;
+				}
 				if ((ite->PType == 4) || (ite->PType == 8))
 				{
 					for (uint d=0; d<ite->Ptext.count(); ++d)
@@ -394,8 +409,7 @@ void Farbmanager::delUnused()
 					}
 				}
 				/* PFJ - 29.02.04 - Merged if's */
-				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2) ||
-				        (it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
+				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
 					found = true;
 				if (found)
 					break;

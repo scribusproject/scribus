@@ -977,8 +977,8 @@ void Mpalette::SelTab(int t)
 		Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
 											CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
 											CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
-		Cpal->GradEdit->fill_gradient = CurItem->fill_gradient;
-		Cpal->GradEdit->updateDisplay();
+		Cpal->GradEdit->Preview->fill_gradient = CurItem->fill_gradient;
+		Cpal->GradEdit->Preview->updateDisplay();
 	}
 }
 
@@ -1060,8 +1060,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
 										  CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
 										  CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
-	Cpal->GradEdit->fill_gradient = CurItem->fill_gradient;
-	Cpal->GradEdit->updateDisplay();
+	Cpal->GradEdit->Preview->fill_gradient = CurItem->fill_gradient;
+	Cpal->GradEdit->Preview->updateDisplay();
 	if (i->FrameType == 0)
 		SCustom->setPixmap(SCustom->getIconPixmap(0));
 	if (i->FrameType == 1)

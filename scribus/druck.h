@@ -92,6 +92,8 @@ private slots:
 	void SelMode(bool e);
 	void SelFile();
 	void SelComm();
+	void ChFrom();
+	void ChTo();
 	
 private:
     QGroupBox* Drucker;

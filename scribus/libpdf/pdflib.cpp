@@ -2364,8 +2364,8 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QStringLis
 	bool first = true;
 	double w = b->Width;
 	double h = -b->Height;
-	double w2 = w / 2.0;
-	double h2 = h / 2.0;
+	double w2 = b->GrStartX;
+	double h2 = -b->GrStartY;
 	for (uint c = 0; c < Colors.count()-1; ++c)
 	{
 		StartObj(ObjCounter);

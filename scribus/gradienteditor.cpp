@@ -85,14 +85,9 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 			pw.setBrush(red);
 		else
 			pw.setBrush(blue);
-		if ((a == 0) || ( a == fill_gradient.Stops()-1))
-			pw.drawRect(QRect(center-4, 43, 8, 13));
-		else
-		{
-			QPointArray cr;
-			cr.setPoints(3, qRound(center), 43, qRound(center-4), 56, qRound(center+4), 56);
-			pw.drawPolygon(cr);
-		}
+		QPointArray cr;
+		cr.setPoints(3, qRound(center), 43, qRound(center-4), 56, qRound(center+4), 56);
+		pw.drawPolygon(cr);
 	}
 	pw.end();
 	QLabel::paintEvent(e);
@@ -112,6 +107,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 			ActStop = yg;
 			emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
 			emit currTrans(cstops.at(ActStop)->opacity);
+			emit currStep(cstops.at(ActStop)->rampPoint);
 			repaint();
 			onlyselect = true;
 			return;
@@ -131,6 +127,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 		QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
 		emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
 		emit currTrans(cstops.at(ActStop)->opacity);
+		emit currStep(cstops.at(ActStop)->rampPoint);
 	}
 	if ((m->y() < height()) && (m->y() > 43) && (m->x() > 0) && (m->x() < width()) && (ActStop == -1))
 	{
@@ -148,6 +145,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 				ActStop = yg;
 				emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
 				emit currTrans(cstops.at(ActStop)->opacity);
+				emit currStep(cstops.at(ActStop)->rampPoint);
 				repaint();
 				break;
 			}
@@ -170,18 +168,13 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 			fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
 			if (fpo.contains(m->pos()))
 			{
-				if ((yg == 0) || (yg == static_cast<int>(StopM.count())-1))
-					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-				else
-					qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 				return;
 			}
 		}
 	}
 	if ((Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 10) && (m->x() < width()-10) && (ActStop != -1))
 	{
-		if ((ActStop == 0) || (ActStop == static_cast<int>(StopM.count()-1)))
-			return;
 		qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 		double newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);
 		if (ActStop > 1)
@@ -197,6 +190,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		StopM[ActStop] = m->x();
 		QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
 		cstops.at(ActStop)->rampPoint = newStop;
+		emit currStep(cstops.at(ActStop)->rampPoint);
 		cstops.sort();
 		onlyselect = false;
 		repaint();
@@ -226,6 +220,7 @@ void GradientPreview::updateDisplay()
 	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
 	emit currTrans(cstops.at(ActStop)->opacity);
+	emit currStep(cstops.at(ActStop)->rampPoint);
 }
 
 void GradientPreview::setActColor(QColor c, QString n, int s)
@@ -246,4 +241,52 @@ void GradientPreview::setActTrans(double t)
 	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	cstops.at(ActStop)->opacity = t;
 	repaint();
+}
+
+void GradientPreview::setActStep(double t)
+{
+	if (ActStop == -1)
+		return;
+	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	cstops.at(ActStop)->rampPoint = t;
+	repaint();
+}
+
+GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
+{
+	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
+	Preview = new GradientPreview(this);
+	Form1Layout->addWidget(Preview);
+	Layout1 = new QHBoxLayout(0,0,0,"Layout1");
+	Layout1->setSpacing( 4 );
+	Layout1->setMargin( 0 );
+	Desc = new QLabel( this, "Desc" );
+	Desc->setText( tr( "Position:" ) );
+	Layout1->addWidget( Desc );
+	Position = new QSpinBox( this, "shspin" );
+	Position->setMinValue(0);
+	Position->setMaxValue(100);
+	Position->setLineStep(1);
+	Position->setSuffix( tr(" %"));
+	Position->setValue(0);
+	Layout1->addWidget(Position);
+	Form1Layout->addLayout(Layout1);
+	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
+	connect(Preview, SIGNAL(currStep(double)), this, SLOT(setPos(double)));
+	QToolTip::add( Preview, QRect(10,43, Preview->width()-20, 13), tr( "Here you can add, change or remove Color-Stops." ) );
+	resize(minimumSizeHint());
+}
+
+void GradientEditor::setPos(double p)
+{
+	disconnect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
+	Position->setValue(qRound(p * 100));
+	emit gradientChanged();
+	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
+}
+
+void GradientEditor::changePos(int v)
+{
+	Preview->setActStep(static_cast<double>(v) / 100.0);
+	emit gradientChanged();
 }

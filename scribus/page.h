@@ -125,7 +125,6 @@ public:
 	void ItemTextPen(QString farbe);
 	void ItemTextPenS(int sha);
 	void ItemTextScale(int sha);
-	void AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString col2, int sh2);
 	void AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state);
 	void setNewPos(PageItem *b, int oldPos, int len, int dir);
 	void ExpandSel(PageItem *b, int dir, int oldPos);

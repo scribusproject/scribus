@@ -1475,6 +1475,10 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
         <source> p</source>
         <translation> p</translation>
     </message>
+    <message>
+        <source>Free radial Gradient</source>
+        <translation>Freier kreisförmiger Verlauf</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>
@@ -2525,6 +2529,21 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>The quick brown fox jumps over the lazy dog</translation>
+    </message>
+</context>
+<context>
+    <name>GradientEditor</name>
+    <message>
+        <source>Position:</source>
+        <translation>Position:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Here you can add, change or remove Color-Stops.</source>
+        <translation>Hier können Sie Farben hinzufügen, ändern oder löschen.</translation>
     </message>
 </context>
 <context>

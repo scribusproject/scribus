@@ -50,7 +50,7 @@ public:
 	QToolButton *Innen;
 	QSpinBox *PM1;
 	QComboBox* GradCombo;
-	GradientPreview* GradEdit;
+	GradientEditor* GradEdit;
 	QFrame* frame8;
 	QLabel* GTextX1;
 	QLabel* GTextY1;
@@ -69,9 +69,7 @@ public:
 	CListe Farbliste;
 	bool CSichtbar;
 	QString Color;
-	QString Color2;
 	int Shade;
-	int Shade2;
 	QString Color3;
 	int Shade3;
 	bool UseTransFeature;

@@ -73,10 +73,6 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	TxTStyle = 0;
 	Shade = 100;
 	Shade2 = 100;
-	GrColor = Pcolor;
-	GrColor2 = Pcolor2;
-	GrShade = 100;
-	GrShade2 = 100;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
@@ -335,35 +331,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		FPointArray gra;
 		switch (GrType)
 		{
-/*			case 1:
-				gra.setPoints(2, 0, 0, Width, 0);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 2:
-				gra.setPoints(2, 0, 0, Height, 0);
-				grm.rotate(90);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 3:
-				gra.setPoints(2, 0, 0, Width, Height);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 4:
-				gra.setPoints(2, 0, Height, Width, 0);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-				if (Width > Height)
-					gv = FPoint(Width, Height / 2.0);
-				else
-					gv = FPoint(Width / 2.0, Height);
-				p->setGradient(VGradient::radial, FPoint(Width / 2.0,Height / 2.0), gv, 
-								FPoint(Width / 2.0,Height / 2.0));
-				break; */
 			case 1:
 			case 2:
 			case 3:

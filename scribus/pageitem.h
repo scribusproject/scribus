@@ -85,10 +85,6 @@ public:
 	QWidget *Parent;
   /** Enthaelt das Dokument */
 	ScribusDoc *Doc;
-	QString GrColor;
-	QString GrColor2;
-	int GrShade;
-	int GrShade2;
 	int GrType;
 	double GrStartX;
 	double GrStartY;

@@ -17,8 +17,18 @@ PyObject *scribus_setgradfill(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		{ 
-		Carrier->doc->ActPage->AdjItemGradient(Carrier->doc->ActPage->Items.at(i), typ, QString(Color1), shade1, QString(Color2), shade2);
-		Carrier->doc->ActPage->RefreshItem(Carrier->doc->ActPage->Items.at(i));
+		PageItem *b = Carrier->doc->ActPage->Items.at(i);
+		QColor tmp;
+		b->fill_gradient.clearStops();
+		QString c1 = QString(Color1);
+		QString c2 = QString(Color2);
+		b->SetFarbe(&tmp, c1, shade1);
+		b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, c1, shade1);
+		b->SetFarbe(&tmp, c2, shade2);
+		b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
+		b->GrType = typ;
+		Carrier->doc->ActPage->updateGradientVectors(b);
+		Carrier->doc->ActPage->RefreshItem(b);
 		}
 	return Py_None;
 }
