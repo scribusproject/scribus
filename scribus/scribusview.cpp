@@ -1011,6 +1011,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		}
 		else
 		{ */
+			for (uint as = 0; as < Doc->Items.count(); ++as)
+			{
+				Doc->Items.at(as)->Select = false;
+			}
 			uint ac = Doc->Items.count();
 			if ((!img) && (Doc->DraggedElem == 0))
 				emit LoadElem(QString(text), qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), false, false, Doc, this);

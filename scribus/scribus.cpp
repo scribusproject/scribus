@@ -156,6 +156,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 	BuFromApp = false;
 
+	PrefsPfad = getPreferencesLocation();
 	initFonts();
 
 	if (NoFonts)
@@ -499,7 +500,6 @@ void ScribusApp::initDefaultPrefs()
 
 void ScribusApp::initDefaultValues()
 {
-	PrefsPfad = getPreferencesLocation();
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
 	dirs = prefsFile->getContext("dirs");
 
@@ -1250,6 +1250,60 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	if ((kk == Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
+		PageItem *b;
+		if ((view->SelItem.count() != 0))
+		{
+			b = view->SelItem.at(0);
+			switch (doc->AppMode)
+			{
+				case 1:
+					b->Sizing = false;
+					if (doc->SubMode != -1)
+					{
+						view->Deselect(false);
+//						if (!doc->TemplateMode)
+//							Tpal->slotRemoveElement(doc->ActPage->PageNr, b->ItemNr);
+						doc->Items.remove(b->ItemNr);
+					}
+					break;
+				case 7:
+					break;
+				case 13:
+					b->PoLine.resize(b->PoLine.size()-2);
+					if (b->PoLine.size() < 4)
+					{
+						view->Deselect(false);
+//						if (!doc->TemplateMode)
+//							Tpal->slotRemoveElement(doc->ActPage->PageNr, b->ItemNr);
+						doc->Items.remove(b->ItemNr);
+					}
+					else
+					{
+						view->SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
+						view->SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
+						view->AdjustItemSize(b);
+						b->ContourLine = b->PoLine.copy();
+						b->ClipEdited = true;
+						b->FrameType = 3;
+						slotDocCh();
+					}
+					view->FirstPoly = true;
+					break;
+				default:
+					view->Deselect(false);
+//					if (!doc->TemplateMode)
+//						Tpal->slotRemoveElement(doc->ActPage->PageNr, b->ItemNr);
+					doc->Items.remove(b->ItemNr);
+					break;
+			}
+		}
+		view->Mpressed = false;
+		doc->DragP = false;
+		doc->leaveDrag = false;
+		view->Imoved = false;
+		view->mCG = false;
+		view->MidButt = false;
+		doc->SubMode = -1;
 		NoFrameEdit();
 		slotSelect();
 		return;
@@ -9143,7 +9197,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				}
 				if (chr == 30)
 				{
-					for (uint numco = 0x30; numco < 0x39; ++numco)
+					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
 						if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(numco))
 						{
@@ -9181,7 +9235,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				}
 				if (chr == 30)
 				{
-					for (uint numco = 0x30; numco < 0x39; ++numco)
+					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
 						if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(numco))
 						{
