@@ -3842,7 +3842,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>About</source>
-        <translation>Ynghylch</translation>
+        <translation type="obsolete">Ynghylch</translation>
     </message>
     <message>
         <source>Programming:</source>
@@ -3862,7 +3862,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Authors</source>
-        <translation>Awduron</translation>
+        <translation type="obsolete">Awduron</translation>
     </message>
     <message>
         <source>German:</source>
@@ -3946,11 +3946,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Translations</source>
-        <translation>Cyfieithiadau</translation>
+        <translation type="obsolete">Cyfieithiadau</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Cau</translation>
+        <translation type="obsolete">Cau</translation>
     </message>
     <message>
         <source>Slovenian:</source>
@@ -3974,7 +3974,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Online</source>
-        <translation>Ar-lein</translation>
+        <translation type="obsolete">Ar-lein</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
@@ -3982,6 +3982,26 @@ drag a Template to the Pageview below.</source>
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;uthors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Cau</translation>
     </message>
 </context>
 <context>
@@ -4109,15 +4129,27 @@ this can create huge files</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Gweithredu</translation>
+        <translation type="obsolete">Gweithredu</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4757,7 +4789,7 @@ this can create huge files</source>
     </message>
     <message>
         <source>Template:</source>
-        <translation>Patrymlun:</translation>
+        <translation type="obsolete">Patrymlun:</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -4765,23 +4797,47 @@ this can create huge files</source>
     </message>
     <message>
         <source>Apply to Current Page</source>
-        <translation>Gweithredu i&apos;r Dudalen Gyfredol</translation>
+        <translation type="obsolete">Gweithredu i&apos;r Dudalen Gyfredol</translation>
     </message>
     <message>
         <source>Apply from Page:</source>
-        <translation>Gweithredu o Dudalen:</translation>
+        <translation type="obsolete">Gweithredu o Dudalen:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>i:</translation>
+        <translation type="obsolete">i:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
+    </message>
+    <message>
+        <source>&amp;Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to &amp;Current Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply from &amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4792,43 +4848,43 @@ this can create huge files</source>
     </message>
     <message>
         <source>New</source>
-        <translation>Newydd</translation>
+        <translation type="obsolete">Newydd</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Cadw</translation>
+        <translation type="obsolete">Cadw</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Cadw fel...</translation>
+        <translation type="obsolete">Cadw fel...</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Llwytho...</translation>
+        <translation type="obsolete">Llwytho...</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Cau</translation>
+        <translation type="obsolete">Cau</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Bach</translation>
+        <translation type="obsolete">Bach</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Canolig</translation>
+        <translation type="obsolete">Canolig</translation>
     </message>
     <message>
         <source>Big</source>
-        <translation>Mawr</translation>
+        <translation type="obsolete">Mawr</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Ffeil</translation>
+        <translation type="obsolete">Ffeil</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Rhagolwg</translation>
+        <translation type="obsolete">Rhagolwg</translation>
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
@@ -4867,6 +4923,46 @@ Please choose another.</source>
     <message>
         <source>OK</source>
         <translation type="unfinished">Iawn</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Cadw</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Cau</translation>
+    </message>
+    <message>
+        <source>&amp;Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Ffeil</translation>
+    </message>
+    <message>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4990,7 +5086,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Activate Color Management</source>
-        <translation>Gweithredu Rheoli Lliw</translation>
+        <translation type="obsolete">Gweithredu Rheoli Lliw</translation>
     </message>
     <message>
         <source>System Profiles</source>
@@ -4998,19 +5094,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Pictures:</source>
-        <translation>Lluniau:</translation>
+        <translation type="obsolete">Lluniau:</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation>Lliwiau Solet:</translation>
+        <translation type="obsolete">Lliwiau Solet:</translation>
     </message>
     <message>
         <source>Monitor:</source>
-        <translation>Dangosydd:</translation>
+        <translation type="obsolete">Dangosydd:</translation>
     </message>
     <message>
         <source>Printer:</source>
-        <translation>Argraffydd:</translation>
+        <translation type="obsolete">Argraffydd:</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
@@ -5034,23 +5130,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
-        <translation>Efelychu Argraffydd ar y Sgrîn</translation>
+        <translation type="obsolete">Efelychu Argraffydd ar y Sgrîn</translation>
     </message>
     <message>
         <source>Mark Colors out of Gamut</source>
-        <translation>Nodi Lliwiau allan o Resaid</translation>
+        <translation type="obsolete">Nodi Lliwiau allan o Resaid</translation>
     </message>
     <message>
         <source>Use Blackpoint Compensation</source>
-        <translation>Defnyddio Cyfadferiad Pwynt-du</translation>
+        <translation type="obsolete">Defnyddio Cyfadferiad Pwynt-du</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Default color profile for imported images</source>
@@ -5101,6 +5197,54 @@ Mae proffilau manwl iawn yn hanfodol, a dylai hyn fod yn rybudd yn unig.</transl
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Mae Cyfadferiad Pwynt-du yn ddull o wella&apos;r gyferbyniad mewn ffotos.
 Argymhellir alluogi hyn os oes gennych ffotos yn eich dogfen.</translation>
+    </message>
+    <message>
+        <source>&amp;Activate Color Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Monitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;rinter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;onitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pr&amp;inter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sim&amp;ulate Printer on the Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark Colors out of &amp;Gamut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Blackpoint Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5400,7 +5544,7 @@ Missing library support is indicated by a *</source>
     <name>CustomFDialog</name>
     <message>
         <source>Compress File</source>
-        <translation>Cywasgu Ffeil</translation>
+        <translation type="obsolete">Cywasgu Ffeil</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -5413,7 +5557,11 @@ This can be set in the Preferences.</source>
   Gellir gosod hyn yn yr Hoffterau.</translation>
     </message>
     <message>
-        <source>Include Fonts</source>
+        <source>&amp;Compress File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include Fonts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5498,43 +5646,189 @@ This can be set in the Preferences.</source>
     <name>DocInfos</name>
     <message>
         <source>Document Info</source>
-        <translation>Gwybodaeth am y Ddogfen</translation>
+        <translation type="obsolete">Gwybodaeth am y Ddogfen</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation>Awdur:</translation>
+        <translation type="obsolete">Awdur:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Teitl:</translation>
+        <translation type="obsolete">Teitl:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Disgrifiad:</translation>
+        <translation type="obsolete">Disgrifiad:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Allweddeiriau:</translation>
+        <translation type="obsolete">Allweddeiriau:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Gellir mewnadeiladu y maes yma yn y ddogfen Scribus fel cyfeirnod, ac hefyd ym metadata PDF</translation>
+        <translation type="obsolete">Gellir mewnadeiladu y maes yma yn y ddogfen Scribus fel cyfeirnod, ac hefyd ym metadata PDF</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Mae&apos;r maes yma ar gyfer disgrifiad byr neu grynodeb y ddogfen.  Mewnadeiladir yn y PDF wrth allforio</translation>
+        <translation type="obsolete">Mae&apos;r maes yma ar gyfer disgrifiad byr neu grynodeb y ddogfen.  Mewnadeiladir yn y PDF wrth allforio</translation>
     </message>
     <message>
         <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Mae&apos;r maes yma ar gyfer allweddeiriau y ddogfen yr hoffech mewnadeiladu mewn PDF, er mwyn cynorthwyo chwilio a mynegeio ffeiliau PDF</translation>
+        <translation type="obsolete">Mae&apos;r maes yma ar gyfer allweddeiriau y ddogfen yr hoffech mewnadeiladu mewn PDF, er mwyn cynorthwyo chwilio a mynegeio ffeiliau PDF</translation>
+    </message>
+    <message>
+        <source>Document Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Author:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Keywords:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Descri&amp;ption:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;ublisher:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dat&amp;e:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>T&amp;ype:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;ormat:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identi&amp;fier:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Source:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Relation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Co&amp;verage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ri&amp;ghts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Further &amp;Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A name given to the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An account of the content of the document.
+This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document.
+This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making contributions to the content of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
+RFC2045,RFC2046 for MIME types are also useful here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The language in which the content of the document is written, usually a ISO-639 language code
+optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5577,11 +5871,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>To page:</source>
-        <translation>I dudalen:</translation>
+        <translation type="obsolete">I dudalen:</translation>
     </message>
     <message>
         <source>From page:</source>
-        <translation>O dudalen:</translation>
+        <translation type="obsolete">O dudalen:</translation>
     </message>
     <message>
         <source>Print range</source>
@@ -5593,11 +5887,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Print last page first</source>
-        <translation>Argraffu&apos;r dudalen olaf yn gyntaf</translation>
+        <translation type="obsolete">Argraffu&apos;r dudalen olaf yn gyntaf</translation>
     </message>
     <message>
         <source>Print first page first</source>
-        <translation>Argraffu&apos;r dudalen gyntaf yn gyntaf</translation>
+        <translation type="obsolete">Argraffu&apos;r dudalen gyntaf yn gyntaf</translation>
     </message>
     <message>
         <source>Number of copies:</source>
@@ -5669,6 +5963,12 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Print current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6075,7 +6375,11 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Scribus-Document</source>
-        <translation>Dogfen Scribus</translation>
+        <translation type="obsolete">Dogfen Scribus</translation>
+    </message>
+    <message>
+        <source>Scribus Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6086,23 +6390,23 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Append</source>
-        <translation>Atodi</translation>
+        <translation type="obsolete">Atodi</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Newydd</translation>
+        <translation type="obsolete">Newydd</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Golygu</translation>
+        <translation type="obsolete">Golygu</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Dyblygu</translation>
+        <translation type="obsolete">Dyblygu</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>Save</source>
@@ -6110,11 +6414,11 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Remove Unused</source>
-        <translation>Gwaredu nas Defnyddiwyd</translation>
+        <translation type="obsolete">Gwaredu nas Defnyddiwyd</translation>
     </message>
     <message>
         <source>Color Sets</source>
@@ -6126,7 +6430,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Save Color Set</source>
-        <translation>Cadw&apos;r Set Lliw</translation>
+        <translation type="obsolete">Cadw&apos;r Set Lliw</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -6162,7 +6466,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
@@ -6199,6 +6503,42 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Make the current colorset the default color set</source>
         <translation>Gwneud i&apos;r casgliad cyfredol o liwiau fod yn gasgliad rhagosod</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Golygu</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6257,27 +6597,27 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Newid...</translation>
+        <translation type="obsolete">Newid...</translation>
     </message>
     <message>
         <source>Add...</source>
-        <translation>Ychwanegu...</translation>
+        <translation type="obsolete">Ychwanegu...</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Gwaredu</translation>
+        <translation type="obsolete">Gwaredu</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -6294,6 +6634,30 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Additional &amp;Paths</source>
         <translation>Llwybrau &amp;Ychwanegol</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6350,15 +6714,15 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Lleoliad X:</translation>
+        <translation type="obsolete">Lleoliad X:</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Ychwanegu</translation>
+        <translation type="obsolete">Ychwanegu</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
@@ -6366,19 +6730,19 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Lleoliad Y:</translation>
+        <translation type="obsolete">Lleoliad Y:</translation>
     </message>
     <message>
         <source>Lock Guides</source>
-        <translation>Cloi Cyfeiryddion</translation>
+        <translation type="obsolete">Cloi Cyfeiryddion</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source> pt</source>
@@ -6395,6 +6759,42 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6435,7 +6835,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Fully Automatic</source>
-        <translation>Hollol Ymysgogol</translation>
+        <translation type="obsolete">Hollol Ymysgogol</translation>
     </message>
     <message>
         <source>If you uncheck this you will get a dialog
@@ -6445,7 +6845,7 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>Check during Typing</source>
-        <translation>Gwirio wrth Deipio</translation>
+        <translation type="obsolete">Gwirio wrth Deipio</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
@@ -6453,11 +6853,11 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Iaith:</translation>
+        <translation type="obsolete">Iaith:</translation>
     </message>
     <message>
         <source>Smallest Word:</source>
-        <translation>Gair Lleiaf:</translation>
+        <translation type="obsolete">Gair Lleiaf:</translation>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
@@ -6465,11 +6865,11 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -6477,13 +6877,41 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>Number of Hypenations allowed:</source>
-        <translation>Nifer o Gysylltnodiadau a chaniateir:</translation>
+        <translation type="obsolete">Nifer o Gysylltnodiadau a chaniateir:</translation>
     </message>
     <message>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
         <translation>Y nifer mwyaf o Gysylltnodiadau sy&apos;n dilyn eu gilydd.
 Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
+    </message>
+    <message>
+        <source>&amp;Fully Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Smallest Word:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number of Hypenations allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6568,19 +6996,19 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Golygu...</translation>
+        <translation type="obsolete">Golygu...</translation>
     </message>
     <message>
         <source>Add...</source>
-        <translation>Ychwanegu...</translation>
+        <translation type="obsolete">Ychwanegu...</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Cau</translation>
+        <translation type="obsolete">Cau</translation>
     </message>
     <message>
         <source>New Script:</source>
@@ -6610,6 +7038,22 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
         <source>Yes</source>
         <translation>Ydw</translation>
     </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Cau</translation>
+    </message>
 </context>
 <context>
     <name>KeyManager</name>
@@ -6631,11 +7075,11 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>No Key</source>
-        <translation>Dim Bysell</translation>
+        <translation type="obsolete">Dim Bysell</translation>
     </message>
     <message>
         <source>User Defined Key</source>
-        <translation>Bysell wedi&apos;i Diffinio gan y Defnyddiwr</translation>
+        <translation type="obsolete">Bysell wedi&apos;i Diffinio gan y Defnyddiwr</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
@@ -6643,15 +7087,15 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Set Key</source>
-        <translation>Gosod Bysell</translation>
+        <translation type="obsolete">Gosod Bysell</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Alt</source>
@@ -6683,7 +7127,31 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>This Key-Sequence is already in use</source>
-        <translation>Mae&apos;r Dilyniant Bysell yma mewn defnydd yn barod</translation>
+        <translation type="obsolete">Mae&apos;r Dilyniant Bysell yma mewn defnydd yn barod</translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This Key Sequence is already in use</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6729,31 +7197,31 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Atodi</translation>
+        <translation type="obsolete">Atodi</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Newydd</translation>
+        <translation type="obsolete">Newydd</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Golygu</translation>
+        <translation type="obsolete">Golygu</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Dyblygu</translation>
+        <translation type="obsolete">Dyblygu</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Cadw</translation>
+        <translation type="obsolete">Cadw</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -6793,7 +7261,39 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Golygu</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Cadw</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6839,23 +7339,59 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Number of Copies:</source>
-        <translation>Nifer o Gopïau:</translation>
+        <translation type="obsolete">Nifer o Gopïau:</translation>
     </message>
     <message>
         <source>Horizontal Shift:</source>
-        <translation>Syfliad Llorweddol:</translation>
+        <translation type="obsolete">Syfliad Llorweddol:</translation>
     </message>
     <message>
         <source>Vertical Shift:</source>
-        <translation>Syfliad Fertigol:</translation>
+        <translation type="obsolete">Syfliad Fertigol:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished">mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished">p</translation>
+    </message>
+    <message>
+        <source>&amp;Number of Copies:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6939,16 +7475,20 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
         <source>Hide &amp;Console</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MergeDoc</name>
     <message>
         <source>Import a Page</source>
-        <translation>Mewnforio Tudalen</translation>
+        <translation type="obsolete">Mewnforio Tudalen</translation>
     </message>
     <message>
         <source>Document to load:</source>
-        <translation>Dogfen i lwytho:</translation>
+        <translation type="obsolete">Dogfen i lwytho:</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -6956,11 +7496,11 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>Mae&apos;r ddogfen yn cynnwys: 0 Tudalen</translation>
+        <translation type="obsolete">Mae&apos;r ddogfen yn cynnwys: 0 Tudalen</translation>
     </message>
     <message>
         <source>Import Page Nr:</source>
-        <translation>Mewnforio Tudalen Rhif:</translation>
+        <translation type="obsolete">Mewnforio Tudalen Rhif:</translation>
     </message>
     <message>
         <source>Import</source>
@@ -6984,7 +7524,53 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
-        <translation>Mae&apos;r ddogfen yn cynnwys: %1 o Dudalennau</translation>
+        <translation type="obsolete">Mae&apos;r ddogfen yn cynnwys: %1 o Dudalennau</translation>
+    </message>
+    <message>
+        <source>Import Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> from 0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation type="unfinished">wedi Tudalen</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation type="unfinished">wrth Ddiwedd</translation>
+    </message>
+    <message>
+        <source> from %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7688,6 +8274,10 @@ Please choose another.</source>
         <source>Type of Line:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Use Contour Line</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -7782,19 +8372,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Append</source>
-        <translation>Atodi</translation>
+        <translation type="obsolete">Atodi</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Newydd</translation>
+        <translation type="obsolete">Newydd</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Dyblygu</translation>
+        <translation type="obsolete">Dyblygu</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -7838,7 +8428,27 @@ Please choose another.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation>Cau</translation>
+        <translation type="obsolete">Cau</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Cau</translation>
     </message>
 </context>
 <context>
@@ -7853,7 +8463,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Maint:</translation>
+        <translation type="obsolete">Maint:</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -7861,7 +8471,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Cyfeiriadaeth:</translation>
+        <translation type="obsolete">Cyfeiriadaeth:</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -7873,19 +8483,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Lled:</translation>
+        <translation type="obsolete">Lled:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Taldra:</translation>
+        <translation type="obsolete">Taldra:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Tudalennau Wynebu</translation>
+        <translation type="obsolete">Tudalennau Wynebu</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Tudalen Chwith yn gyntaf</translation>
+        <translation type="obsolete">Tudalen Chwith yn gyntaf</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -7893,19 +8503,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Chwith:</translation>
+        <translation type="obsolete">Chwith:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>De:</translation>
+        <translation type="obsolete">De:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Pen:</translation>
+        <translation type="obsolete">Pen:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Gwaelod:</translation>
+        <translation type="obsolete">Gwaelod:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -7913,11 +8523,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>First Page Number:</source>
-        <translation>Rhif y Dudalen Gyntaf:</translation>
+        <translation type="obsolete">Rhif y Dudalen Gyntaf:</translation>
     </message>
     <message>
         <source>Default Unit:</source>
-        <translation>Uned Rhagosod:</translation>
+        <translation type="obsolete">Uned Rhagosod:</translation>
     </message>
     <message>
         <source>Points (pts)</source>
@@ -7949,23 +8559,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Colofnau:</translation>
+        <translation type="obsolete">Colofnau:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Tu Mewn:</translation>
+        <translation type="obsolete">Tu Mewn:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Tu Allan:</translation>
+        <translation type="obsolete">Tu Allan:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -7985,11 +8595,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Automatic Text Frames</source>
-        <translation>Fframiau Testun Ymysgogol</translation>
+        <translation type="obsolete">Fframiau Testun Ymysgogol</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Bwlch:</translation>
+        <translation type="obsolete">Bwlch:</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -8066,6 +8676,82 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     <message>
         <source>Tabloid</source>
         <translation type="unfinished">Tabloid</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Default Unit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Automatic Text Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8195,6 +8881,10 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Pan frithir hyn, defnyddio Cyfesurynnau sy&apos;n berthnasol i&apos;r Dudalen;
 os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
+    <message>
+        <source>Edit Contour Line</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -8207,15 +8897,15 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     <name>PDF_Opts</name>
     <message>
         <source>Create PDF-File</source>
-        <translation>Creu Ffeil PDF</translation>
+        <translation type="obsolete">Creu Ffeil PDF</translation>
     </message>
     <message>
         <source>Output to File:</source>
-        <translation>Allosod i Ffeil:</translation>
+        <translation type="obsolete">Allosod i Ffeil:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Newid...</translation>
+        <translation type="obsolete">Newid...</translation>
     </message>
     <message>
         <source>Export Range</source>
@@ -8223,15 +8913,15 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>All Pages</source>
-        <translation>Pob Tudalen</translation>
+        <translation type="obsolete">Pob Tudalen</translation>
     </message>
     <message>
         <source>From:</source>
-        <translation>O:</translation>
+        <translation type="obsolete">O:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>i:</translation>
+        <translation type="obsolete">i:</translation>
     </message>
     <message>
         <source>File Options</source>
@@ -8239,11 +8929,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Compatibility:</source>
-        <translation>Cytunedd:</translation>
+        <translation type="obsolete">Cytunedd:</translation>
     </message>
     <message>
         <source>Binding:</source>
-        <translation>Rhwymiad:</translation>
+        <translation type="obsolete">Rhwymiad:</translation>
     </message>
     <message>
         <source>Left Margin</source>
@@ -8255,19 +8945,19 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Generate Thumbnails</source>
-        <translation>Creu Rhagolygon Cryno</translation>
+        <translation type="obsolete">Creu Rhagolygon Cryno</translation>
     </message>
     <message>
         <source>Save linked Text Frames as PDF-Articles</source>
-        <translation>Cadw Fframiau Testun cysylltiedig fel Erthyglau PDF</translation>
+        <translation type="obsolete">Cadw Fframiau Testun cysylltiedig fel Erthyglau PDF</translation>
     </message>
     <message>
         <source>Include Bookmarks</source>
-        <translation>Cynnwys Nodau Tudalen</translation>
+        <translation type="obsolete">Cynnwys Nodau Tudalen</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>Cydraniad:</translation>
+        <translation type="obsolete">Cydraniad:</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -8279,11 +8969,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
-        <translation>Lawr-enghreifftio Delweddau i:</translation>
+        <translation type="obsolete">Lawr-enghreifftio Delweddau i:</translation>
     </message>
     <message>
         <source>Compress Text and Vector Graphics</source>
-        <translation>Cywasgu Testun a Graffeg Fector</translation>
+        <translation type="obsolete">Cywasgu Testun a Graffeg Fector</translation>
     </message>
     <message>
         <source>General</source>
@@ -8291,7 +8981,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Embed all Fonts</source>
-        <translation>Mewnadeiladu pob Wynebfath</translation>
+        <translation type="obsolete">Mewnadeiladu pob Wynebfath</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -8303,11 +8993,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
@@ -8319,7 +9009,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
-        <translation>Galluogi Effeithiau Cyflwyniad</translation>
+        <translation type="obsolete">Galluogi Effeithiau Cyflwyniad</translation>
     </message>
     <message>
         <source>Page</source>
@@ -8327,7 +9017,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Show Page Previews</source>
-        <translation>Dangos Rhagolygon Tudalen</translation>
+        <translation type="obsolete">Dangos Rhagolygon Tudalen</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -8335,19 +9025,19 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Display Duration:</source>
-        <translation>Parhad Dangosiad:</translation>
+        <translation type="obsolete">Parhad Dangosiad:</translation>
     </message>
     <message>
         <source>Effect Duration:</source>
-        <translation>Parhad Effaith: </translation>
+        <translation type="obsolete">Parhad Effaith: </translation>
     </message>
     <message>
         <source>Effect Type:</source>
-        <translation>Math Effaith:</translation>
+        <translation type="obsolete">Math Effaith:</translation>
     </message>
     <message>
         <source>Moving Lines:</source>
-        <translation>Symud Llinellau:</translation>
+        <translation type="obsolete">Symud Llinellau:</translation>
     </message>
     <message>
         <source>from the:</source>
@@ -8355,7 +9045,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Direction:</source>
-        <translation>Cyfeiriad:</translation>
+        <translation type="obsolete">Cyfeiriad:</translation>
     </message>
     <message>
         <source> sec</source>
@@ -8427,7 +9117,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
-        <translation>Gweithredu&apos;r Effaith ar Bob Tudalen</translation>
+        <translation type="obsolete">Gweithredu&apos;r Effaith ar Bob Tudalen</translation>
     </message>
     <message>
         <source>Extras</source>
@@ -8435,7 +9125,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Use Encryption</source>
-        <translation>Defnyddio Cêl-ysgrifaeth</translation>
+        <translation type="obsolete">Defnyddio Cêl-ysgrifaeth</translation>
     </message>
     <message>
         <source>Passwords</source>
@@ -8443,11 +9133,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>User:</source>
-        <translation>Defnyddiwr:</translation>
+        <translation type="obsolete">Defnyddiwr:</translation>
     </message>
     <message>
         <source>Owner:</source>
-        <translation>Perchennog:</translation>
+        <translation type="obsolete">Perchennog:</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -8455,11 +9145,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Allow Printing the Document</source>
-        <translation>Caniatáu Argraffu&apos;r Ddogfen</translation>
+        <translation type="obsolete">Caniatáu Argraffu&apos;r Ddogfen</translation>
     </message>
     <message>
         <source>Allow Changing the Document</source>
-        <translation>Caniatáu Newid y Ddogfen</translation>
+        <translation type="obsolete">Caniatáu Newid y Ddogfen</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
@@ -8475,7 +9165,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Output intended for:</source>
-        <translation>Allbwn ar gyfer:</translation>
+        <translation type="obsolete">Allbwn ar gyfer:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
@@ -8535,11 +9225,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Info String:</source>
-        <translation>Llinyn Gwybodaeth:</translation>
+        <translation type="obsolete">Llinyn Gwybodaeth:</translation>
     </message>
     <message>
         <source>Output Profile:</source>
-        <translation>Proffil Allbwn:</translation>
+        <translation type="obsolete">Proffil Allbwn:</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -8555,7 +9245,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -8563,7 +9253,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
-        <translation>Ffeiliau-PDF (*.pdf);;Pob Ffeil (*)</translation>
+        <translation type="obsolete">Ffeiliau-PDF (*.pdf);;Pob Ffeil (*)</translation>
     </message>
     <message>
         <source>Image Settings</source>
@@ -8571,7 +9261,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Method:</source>
-        <translation>Dull:</translation>
+        <translation type="obsolete">Dull:</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -8591,7 +9281,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Quality:</source>
-        <translation>Ansawdd:</translation>
+        <translation type="obsolete">Ansawdd:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -8623,7 +9313,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>From the:</source>
-        <translation>O&apos;r:</translation>
+        <translation type="obsolete">O&apos;r:</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -8631,15 +9321,15 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>&amp;Security</source>
-        <translation>&amp;Diogelwch</translation>
+        <translation type="obsolete">&amp;Diogelwch</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation>&amp;Lliw</translation>
+        <translation type="obsolete">&amp;Lliw</translation>
     </message>
     <message>
         <source>&amp;PDF/X-3</source>
-        <translation>&amp;PDF/X-3</translation>
+        <translation type="obsolete">&amp;PDF/X-3</translation>
     </message>
     <message>
         <source> pt</source>
@@ -8659,7 +9349,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Cadw</translation>
+        <translation type="obsolete">Cadw</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
@@ -8671,11 +9361,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>Tudalen gyntaf i&apos;w hallforio wrth allforio amrediad</translation>
+        <translation type="obsolete">Tudalen gyntaf i&apos;w hallforio wrth allforio amrediad</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Tudalen olaf i&apos;w hallforio wrth allforio amrediad</translation>
+        <translation type="obsolete">Tudalen olaf i&apos;w hallforio wrth allforio amrediad</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
@@ -8889,14 +9579,6 @@ cydymffurfiad PDF/X-3.  Argymhellir defnyddio teitl y ddogfen.</translation>
         <translation>Pellter ar gyfer ymdoddi o dde y dudalen gorfforol</translation>
     </message>
     <message>
-        <source>Allow Copying Text and Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Allow Adding Annotations and Fields</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8918,6 +9600,224 @@ If un-checked, text and graphics cannot be copied.</source>
 If un-checked, editing annotations and fileds is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Create PDF File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hoose Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compatibilit&amp;y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Binding:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate &amp;Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;Linked Text Frames as PDF Articles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include Bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Com&amp;press Text and Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Downsample Images to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable &amp;Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Page Pre&amp;views</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effec&amp;t Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effect T&amp;ype:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Moving Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;rom the:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;irection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply Effect on all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Owner:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow &amp;Printing the Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow &amp;Changing the Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Cop&amp;ying Text and Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Adding &amp;Annotations and Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;ecurity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output &amp;Intended For:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Custom Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fre&amp;quency:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Angle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;pot Function:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simple Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished">Llinell</translation>
+    </message>
+    <message>
+        <source>Round</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ellipse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use ICC Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Info String:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output &amp;Profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-&amp;3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Cadw</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -8931,35 +9831,35 @@ If un-checked, editing annotations and fileds is prevented.</source>
     </message>
     <message>
         <source>Anti-alias Text</source>
-        <translation>Gwrthamgenu Testun</translation>
+        <translation type="obsolete">Gwrthamgenu Testun</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation>Gwrthamgenu Graffeg</translation>
+        <translation type="obsolete">Gwrthamgenu Graffeg</translation>
     </message>
     <message>
         <source>Display Transparency</source>
-        <translation>Dangos Tryloywder</translation>
+        <translation type="obsolete">Dangos Tryloywder</translation>
     </message>
     <message>
         <source>Display CMYK</source>
-        <translation>Dangos CMYK</translation>
+        <translation type="obsolete">Dangos CMYK</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>All</source>
@@ -9001,6 +9901,38 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>(An)alluogi y plât inc K (Du)</translation>
     </message>
+    <message>
+        <source>Anti-alias &amp;Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anti-alias &amp;Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Trans&amp;parency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display CMYK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -9018,55 +9950,55 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Paste</source>
-        <translation>Gludo</translation>
+        <translation type="obsolete">Gludo</translation>
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Cuddio Ymylon</translation>
+        <translation type="obsolete">Cuddio Ymylon</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation>Dangos Ymylon</translation>
+        <translation type="obsolete">Dangos Ymylon</translation>
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Cuddio Fframiau</translation>
+        <translation type="obsolete">Cuddio Fframiau</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Dangos Fframiau</translation>
+        <translation type="obsolete">Dangos Fframiau</translation>
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Cuddio Delweddau</translation>
+        <translation type="obsolete">Cuddio Delweddau</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation>Dangos Delweddau</translation>
+        <translation type="obsolete">Dangos Delweddau</translation>
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Cuddio Grid</translation>
+        <translation type="obsolete">Cuddio Grid</translation>
     </message>
     <message>
         <source>Show Grid</source>
-        <translation>Dangos Grid</translation>
+        <translation type="obsolete">Dangos Grid</translation>
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Cuddio Cyfeiryddion</translation>
+        <translation type="obsolete">Cuddio Cyfeiryddion</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation>Dangos Cyfeiryddion</translation>
+        <translation type="obsolete">Dangos Cyfeiryddion</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Neidio at y Grid</translation>
+        <translation type="obsolete">Neidio at y Grid</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Neidio at y Cyfeiryddion</translation>
+        <translation type="obsolete">Neidio at y Cyfeiryddion</translation>
     </message>
     <message>
         <source>Picture</source>
@@ -9078,11 +10010,11 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Original ppi: </source>
-        <translation>PPI gwreiddiol:</translation>
+        <translation type="obsolete">PPI gwreiddiol:</translation>
     </message>
     <message>
         <source>Actual ppi: </source>
-        <translation>PPI gwir:</translation>
+        <translation type="obsolete">PPI gwir:</translation>
     </message>
     <message>
         <source>Linked Text</source>
@@ -9122,19 +10054,19 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Info</source>
-        <translation>Gwybodaeth</translation>
+        <translation type="obsolete">Gwybodaeth</translation>
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Nôl Llun...</translation>
+        <translation type="obsolete">Nôl Llun...</translation>
     </message>
     <message>
         <source>Image Visible</source>
-        <translation>Delwedd yn Weladwy</translation>
+        <translation type="obsolete">Delwedd yn Weladwy</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Nôl Testun...</translation>
+        <translation type="obsolete">Nôl Testun...</translation>
     </message>
     <message>
         <source>Edit Text...</source>
@@ -9142,103 +10074,103 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Is PDF-Bookmark</source>
-        <translation>Yn Nôd Tudalen PDF</translation>
+        <translation type="obsolete">Yn Nôd Tudalen PDF</translation>
     </message>
     <message>
         <source>Is PDF-Annotation</source>
-        <translation>Yn Anodiad PDF</translation>
+        <translation type="obsolete">Yn Anodiad PDF</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
-        <translation>Priodweddau Anodiad</translation>
+        <translation type="obsolete">Priodweddau Anodiad</translation>
     </message>
     <message>
         <source>Field Properties</source>
-        <translation>Priodweddau Meysydd</translation>
+        <translation type="obsolete">Priodweddau Meysydd</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Casglu</translation>
+        <translation type="obsolete">Casglu</translation>
     </message>
     <message>
         <source>Un-group</source>
-        <translation>Datgasglu</translation>
+        <translation type="obsolete">Datgasglu</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation>Cloi</translation>
+        <translation type="obsolete">Cloi</translation>
     </message>
     <message>
         <source>Send to Back</source>
-        <translation>Anfon i&apos;r Cefn</translation>
+        <translation type="obsolete">Anfon i&apos;r Cefn</translation>
     </message>
     <message>
         <source>Bring to Front</source>
-        <translation>Anfon i&apos;r Blaen</translation>
+        <translation type="obsolete">Anfon i&apos;r Blaen</translation>
     </message>
     <message>
         <source>Lower</source>
-        <translation>Iselhau</translation>
+        <translation type="obsolete">Iselhau</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>Codi</translation>
+        <translation type="obsolete">Codi</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation>Datgloi</translation>
+        <translation type="obsolete">Datgloi</translation>
     </message>
     <message>
         <source>Send to Scrapbook</source>
-        <translation>Anfon i Lyfr Lloffion</translation>
+        <translation type="obsolete">Anfon i Lyfr Lloffion</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation>Anfon i Haen</translation>
+        <translation type="obsolete">Anfon i Haen</translation>
     </message>
     <message>
         <source>Picture Frame</source>
-        <translation>Ffrâm Llun</translation>
+        <translation type="obsolete">Ffrâm Llun</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Polygon</translation>
+        <translation type="obsolete">Polygon</translation>
     </message>
     <message>
         <source>Outlines</source>
-        <translation>Amlinellau</translation>
+        <translation type="obsolete">Amlinellau</translation>
     </message>
     <message>
         <source>Bezier Curve</source>
-        <translation>Cromlin Bezier</translation>
+        <translation type="obsolete">Cromlin Bezier</translation>
     </message>
     <message>
         <source>Convert to</source>
-        <translation>Trosi i</translation>
+        <translation type="obsolete">Trosi i</translation>
     </message>
     <message>
         <source>Show Properties...</source>
-        <translation>Dangos Priodweddau...</translation>
+        <translation type="obsolete">Dangos Priodweddau...</translation>
     </message>
     <message>
         <source>Hide Properties...</source>
-        <translation>Cuddio Priodweddau...</translation>
+        <translation type="obsolete">Cuddio Priodweddau...</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Torri</translation>
+        <translation type="obsolete">Torri</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Copïo</translation>
+        <translation type="obsolete">Copïo</translation>
     </message>
     <message>
         <source>Clear Contents</source>
-        <translation>Gwaredu Cynnwys</translation>
+        <translation type="obsolete">Gwaredu Cynnwys</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>None</source>
@@ -9246,43 +10178,43 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Cuddio Grid Gwaelodlin</translation>
+        <translation type="obsolete">Cuddio Grid Gwaelodlin</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Dangos Grid Gwaelodlin</translation>
+        <translation type="obsolete">Dangos Grid Gwaelodlin</translation>
     </message>
     <message>
         <source>Update Picture</source>
-        <translation>Diweddaru Llun</translation>
+        <translation type="obsolete">Diweddaru Llun</translation>
     </message>
     <message>
         <source>Edit Picture</source>
-        <translation>Golygu Llun</translation>
+        <translation type="obsolete">Golygu Llun</translation>
     </message>
     <message>
         <source>Adjust Frame to Picture</source>
-        <translation>Addasu Ffrâm i Lun</translation>
+        <translation type="obsolete">Addasu Ffrâm i Lun</translation>
     </message>
     <message>
         <source>Append Text...</source>
-        <translation>Atodi Testun...</translation>
+        <translation type="obsolete">Atodi Testun...</translation>
     </message>
     <message>
         <source>Insert Sample Text</source>
-        <translation>Mewnosod Testun Enghreifftiol</translation>
+        <translation type="obsolete">Mewnosod Testun Enghreifftiol</translation>
     </message>
     <message>
         <source>Lock object size</source>
-        <translation>Cloi maint y gwrthrych</translation>
+        <translation type="obsolete">Cloi maint y gwrthrych</translation>
     </message>
     <message>
         <source>Unlock object size</source>
-        <translation>Dadgloi maint y gwrthrych</translation>
+        <translation type="obsolete">Dadgloi maint y gwrthrych</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Lefel</translation>
+        <translation type="obsolete">Lefel</translation>
     </message>
     <message>
         <source>The Program</source>
@@ -9302,7 +10234,211 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>PDF-Options</source>
-        <translation type="unfinished">Dewisiadau PDF</translation>
+        <translation type="obsolete">Dewisiadau PDF</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">&amp;Gludo</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished">To&amp;rri</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Copïo</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9412,6 +10548,10 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
         <source>Status</source>
         <translation>Cyflwr</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PolygonProps</name>
@@ -9492,7 +10632,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Maint yr Wynebfath:</translation>
+        <translation type="obsolete">Maint yr Wynebfath:</translation>
     </message>
     <message>
         <source> pts</source>
@@ -9520,7 +10660,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Mouse-Settings</source>
-        <translation>Gosodiadau Llygoden</translation>
+        <translation type="obsolete">Gosodiadau Llygoden</translation>
     </message>
     <message>
         <source>Wheel-Jump</source>
@@ -9536,7 +10676,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Recent Documents:</source>
-        <translation>Dogfennau Diweddar:</translation>
+        <translation type="obsolete">Dogfennau Diweddar:</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
@@ -9548,19 +10688,19 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Documents:</source>
-        <translation>Dogfennau:</translation>
+        <translation type="obsolete">Dogfennau:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Newid...</translation>
+        <translation type="obsolete">Newid...</translation>
     </message>
     <message>
         <source>ICC-Profiles:</source>
-        <translation>Proffilau ICC:</translation>
+        <translation type="obsolete">Proffilau ICC:</translation>
     </message>
     <message>
         <source>Scripts:</source>
-        <translation>Sgriptiau:</translation>
+        <translation type="obsolete">Sgriptiau:</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -9568,7 +10708,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Cyfeiriadaeth:</translation>
+        <translation type="obsolete">Cyfeiriadaeth:</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -9584,23 +10724,23 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Size:</source>
-        <translation>Maint:</translation>
+        <translation type="obsolete">Maint:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Lled:</translation>
+        <translation type="obsolete">Lled:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Taldra:</translation>
+        <translation type="obsolete">Taldra:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Tudalennau Wynebu</translation>
+        <translation type="obsolete">Tudalennau Wynebu</translation>
     </message>
     <message>
         <source>Left Page First</source>
-        <translation>Tudalen Chwith yn Gyntaf</translation>
+        <translation type="obsolete">Tudalen Chwith yn Gyntaf</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -9608,19 +10748,19 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Gwaelod:</translation>
+        <translation type="obsolete">Gwaelod:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Pen:</translation>
+        <translation type="obsolete">Pen:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>De:</translation>
+        <translation type="obsolete">De:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Chwith:</translation>
+        <translation type="obsolete">Chwith:</translation>
     </message>
     <message>
         <source>Autosave</source>
@@ -9628,11 +10768,11 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Alluogir</translation>
+        <translation type="obsolete">Alluogir</translation>
     </message>
     <message>
         <source>Interval:</source>
-        <translation>Cyfnod:</translation>
+        <translation type="obsolete">Cyfnod:</translation>
     </message>
     <message>
         <source>min</source>
@@ -9644,15 +10784,15 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
-        <translation>Bylchu&apos;r Grid Lleiaf:</translation>
+        <translation type="obsolete">Bylchu&apos;r Grid Lleiaf:</translation>
     </message>
     <message>
         <source>Major Grid Spacing:</source>
-        <translation>Bylchu&apos;r Prif Grid:</translation>
+        <translation type="obsolete">Bylchu&apos;r Prif Grid:</translation>
     </message>
     <message>
         <source>Guide Snap Distance:</source>
-        <translation>Pellter Snap y Cyfeirydd:</translation>
+        <translation type="obsolete">Pellter Snap y Cyfeirydd:</translation>
     </message>
     <message>
         <source>Grid Colors</source>
@@ -9660,15 +10800,15 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Minor Grid Color:</source>
-        <translation>Lliw&apos;r Grid Lleiaf:</translation>
+        <translation type="obsolete">Lliw&apos;r Grid Lleiaf:</translation>
     </message>
     <message>
         <source>Major Grid Color:</source>
-        <translation>Lliw&apos;r Prif Grid:</translation>
+        <translation type="obsolete">Lliw&apos;r Prif Grid:</translation>
     </message>
     <message>
         <source>User Guides Color:</source>
-        <translation>Lliw Cyfeiryddion Defnyddiwr:</translation>
+        <translation type="obsolete">Lliw Cyfeiryddion Defnyddiwr:</translation>
     </message>
     <message>
         <source>Placing</source>
@@ -9676,11 +10816,11 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>In the Background</source>
-        <translation>Yn y Cefndir</translation>
+        <translation type="obsolete">Yn y Cefndir</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation>Yn y Blaendir</translation>
+        <translation type="obsolete">Yn y Blaendir</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -9688,7 +10828,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Scaling:</source>
-        <translation>Graddfa:</translation>
+        <translation type="obsolete">Graddfa:</translation>
     </message>
     <message>
         <source>Disp.:</source>
@@ -9712,27 +10852,27 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Automatic Line Spacing:</source>
-        <translation>Bylchu Llinellau Ymysgogol:</translation>
+        <translation type="obsolete">Bylchu Llinellau Ymysgogol:</translation>
     </message>
     <message>
         <source>Default Size:</source>
-        <translation>Maint Rhagosod:</translation>
+        <translation type="obsolete">Maint Rhagosod:</translation>
     </message>
     <message>
         <source>Default Font:</source>
-        <translation>Wynebfath Rhagosod:</translation>
+        <translation type="obsolete">Wynebfath Rhagosod:</translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation>Lliw Testun:</translation>
+        <translation type="obsolete">Lliw Testun:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Colofnau:</translation>
+        <translation type="obsolete">Colofnau:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Bwlch:</translation>
+        <translation type="obsolete">Bwlch:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -9744,15 +10884,15 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Line Color:</source>
-        <translation>Lliw&apos;r Llinell:</translation>
+        <translation type="obsolete">Lliw&apos;r Llinell:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation>Arlliw:</translation>
+        <translation type="obsolete">Arlliw:</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation>Lliw&apos;r Llenwad:</translation>
+        <translation type="obsolete">Lliw&apos;r Llenwad:</translation>
     </message>
     <message>
         <source>Linestyle:</source>
@@ -9760,7 +10900,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Lled y Llinell:</translation>
+        <translation type="obsolete">Lled y Llinell:</translation>
     </message>
     <message>
         <source>None</source>
@@ -9772,19 +10912,19 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Minimum:</source>
-        <translation>Lleiafswm:</translation>
+        <translation type="obsolete">Lleiafswm:</translation>
     </message>
     <message>
         <source>Maximum:</source>
-        <translation>Uchafswm:</translation>
+        <translation type="obsolete">Uchafswm:</translation>
     </message>
     <message>
         <source>Stepping:</source>
-        <translation>Camu:</translation>
+        <translation type="obsolete">Camu:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
-        <translation>Graddfa Rydd</translation>
+        <translation type="obsolete">Graddfa Rydd</translation>
     </message>
     <message>
         <source>Horizontal Scaling</source>
@@ -9796,27 +10936,27 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
-        <translation>Graddio Llun i Faint y Ffrâm</translation>
+        <translation type="obsolete">Graddio Llun i Faint y Ffrâm</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Cadw Cymhareb Agwedd</translation>
+        <translation type="obsolete">Cadw Cymhareb Agwedd</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Corneli:</translation>
+        <translation type="obsolete">Corneli:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Cylchdro:</translation>
+        <translation type="obsolete">Cylchdro:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Polygon Amgrwm</translation>
+        <translation type="obsolete">Polygon Amgrwm</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Ffactor:</translation>
+        <translation type="obsolete">Ffactor:</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -9840,7 +10980,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Big</source>
-        <translation>Mawr</translation>
+        <translation type="obsolete">Mawr</translation>
     </message>
     <message>
         <source>Display Frames</source>
@@ -9848,31 +10988,31 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Display Pages Side by Side</source>
-        <translation>Dangos Tudalennau Ochr wrth Ochr</translation>
+        <translation type="obsolete">Dangos Tudalennau Ochr wrth Ochr</translation>
     </message>
     <message>
         <source>Page-Colors</source>
-        <translation>Lliwiau&apos;r Dudalen</translation>
+        <translation type="obsolete">Lliwiau&apos;r Dudalen</translation>
     </message>
     <message>
         <source>Background:</source>
-        <translation>Cefndir:</translation>
+        <translation type="obsolete">Cefndir:</translation>
     </message>
     <message>
         <source>Margins:</source>
-        <translation>Ymylon:</translation>
+        <translation type="obsolete">Ymylon:</translation>
     </message>
     <message>
         <source>Display Unprintable Area in Margin Color</source>
-        <translation>Dangos yr Ardal Anargraffadwy yn Lliw&apos;r Ymyl</translation>
+        <translation type="obsolete">Dangos yr Ardal Anargraffadwy yn Lliw&apos;r Ymyl</translation>
     </message>
     <message>
         <source>Use PDF-1.4 Transparency Features</source>
-        <translation>Defnyddio Nodweddion Tryloywder PDF-1.4</translation>
+        <translation type="obsolete">Defnyddio Nodweddion Tryloywder PDF-1.4</translation>
     </message>
     <message>
         <source>Adjust Display Size</source>
-        <translation>Addasu Maint y Dangosiad</translation>
+        <translation type="obsolete">Addasu Maint y Dangosiad</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
@@ -9880,11 +11020,11 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -9892,11 +11032,11 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Tu Mewn:</translation>
+        <translation type="obsolete">Tu Mewn:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Tu Allan:</translation>
+        <translation type="obsolete">Tu Allan:</translation>
     </message>
     <message>
         <source> mm</source>
@@ -9920,15 +11060,15 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Theme:</source>
-        <translation>Thema:</translation>
+        <translation type="obsolete">Thema:</translation>
     </message>
     <message>
         <source>Wheel-Jump:</source>
-        <translation>Naid yr Olwyn:</translation>
+        <translation type="obsolete">Naid yr Olwyn:</translation>
     </message>
     <message>
         <source>Grab-Radius:</source>
-        <translation>Radiws Cipio:</translation>
+        <translation type="obsolete">Radiws Cipio:</translation>
     </message>
     <message>
         <source> px</source>
@@ -9940,35 +11080,35 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>On</source>
-        <translation>Arnodd</translation>
+        <translation type="obsolete">Arnodd</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation>I ffwrdd</translation>
+        <translation type="obsolete">I ffwrdd</translation>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation>Dadleoliad:</translation>
+        <translation type="obsolete">Dadleoliad:</translation>
     </message>
     <message>
         <source>Baseline Grid:</source>
-        <translation>Grid Gwaelodlin:</translation>
+        <translation type="obsolete">Grid Gwaelodlin:</translation>
     </message>
     <message>
         <source>Baseline Offset:</source>
-        <translation>Atred Gwaelodlin:</translation>
+        <translation type="obsolete">Atred Gwaelodlin:</translation>
     </message>
     <message>
         <source>Horizontal Scaling:</source>
-        <translation>Graddio Llorweddol:</translation>
+        <translation type="obsolete">Graddio Llorweddol:</translation>
     </message>
     <message>
         <source>Vertical Scaling:</source>
-        <translation>Graddio Fertigol:</translation>
+        <translation type="obsolete">Graddio Fertigol:</translation>
     </message>
     <message>
         <source>Save Contents on Changes</source>
-        <translation>Cadw Cynnwys ar ôl Newidiadau</translation>
+        <translation type="obsolete">Cadw Cynnwys ar ôl Newidiadau</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
@@ -9976,15 +11116,15 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Name of executable:</source>
-        <translation>Enw&apos;r gweithredeadwyn:</translation>
+        <translation type="obsolete">Enw&apos;r gweithredeadwyn:</translation>
     </message>
     <message>
         <source>Antialias Text</source>
-        <translation>Gwrthamgenu Testun</translation>
+        <translation type="obsolete">Gwrthamgenu Testun</translation>
     </message>
     <message>
         <source>Antialias Graphics</source>
-        <translation>Gwrthamgenu Graffeg</translation>
+        <translation type="obsolete">Gwrthamgenu Graffeg</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
@@ -9996,7 +11136,7 @@ graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translat
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation>Tocio i Ochrau&apos;r Dudalen</translation>
+        <translation type="obsolete">Tocio i Ochrau&apos;r Dudalen</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
@@ -10359,7 +11499,343 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
         <translation>Peidio â dangos gwrthrychau tu allan yr ymylon ar y dudalen argraffedig neu yn y ffeil a allforir</translation>
     </message>
     <message>
-        <source>Type of Line:</source>
+        <source>&amp;Theme:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mouse Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Wheel Jump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Grab Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Documents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Documents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;ICC Profiles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scripts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ch&amp;ange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;inor Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ma&amp;jor Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide &amp;Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min&amp;or Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Majo&amp;r Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Guides Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base&amp;line Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the &amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Fore&amp;ground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;n</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;ff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default &amp;Font:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default &amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Type of Line:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;x Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sa&amp;ve Contents on Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Pages &amp;Side by Side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use PDF 1.4 &amp;Transparency Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Display Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clip to Page &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utside:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11066,6 +12542,22 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
         <source>Import &amp;SVG...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Oook! Wrong arguments! Call: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11207,43 +12699,43 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Pen:</translation>
+        <translation type="obsolete">Pen:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Chwith:</translation>
+        <translation type="obsolete">Chwith:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Gwaelod:</translation>
+        <translation type="obsolete">Gwaelod:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>De:</translation>
+        <translation type="obsolete">De:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Tudalennau Wynebu</translation>
+        <translation type="obsolete">Tudalennau Wynebu</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Tudalen Chwith yn gyntaf</translation>
+        <translation type="obsolete">Tudalen Chwith yn gyntaf</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Tu Mewn:</translation>
+        <translation type="obsolete">Tu Mewn:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Tu Allan:</translation>
+        <translation type="obsolete">Tu Allan:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -11288,6 +12780,46 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Pellter rhwng y cyfeirydd ymyl de ac ochr y dudalen.
 Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr ymylon cywir ar gyfer rhwymo</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11669,7 +13201,7 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Gwir Faint</translation>
+        <translation type="obsolete">Gwir Faint</translation>
     </message>
     <message>
         <source>200%</source>
@@ -12318,10 +13850,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Insert &amp;Page...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12510,27 +14038,7 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide &amp;Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide &amp;Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide &amp;Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show &amp;Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Snap to &amp;Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide G&amp;uides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12583,10 +14091,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>Tooltips</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Preferences...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12710,15 +14214,51 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide &amp;Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide &amp;Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ghostscript : You cannot use EPS Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Page(s)...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>100%</source>
+        <translation type="unfinished">100%</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;references...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished">Mewnforio</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12765,11 +14305,11 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     <name>ScribusWin</name>
     <message>
         <source>Leave Anyway</source>
-        <translation>Gadael Serch Hynny</translation>
+        <translation type="obsolete">Gadael Serch Hynny</translation>
     </message>
     <message>
         <source>Close Anyway</source>
-        <translation>Cau Serch Hynny</translation>
+        <translation type="obsolete">Cau Serch Hynny</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -12785,11 +14325,27 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>Save Now</source>
-        <translation>Cadw Rwan</translation>
+        <translation type="obsolete">Cadw Rwan</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
+    </message>
+    <message>
+        <source>&amp;Leave Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lose Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save Now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12974,11 +14530,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
         <source>Selected Fields</source>
@@ -12986,11 +14542,27 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13023,31 +14595,31 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Append</source>
-        <translation>Atodi</translation>
+        <translation type="obsolete">Atodi</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Newydd</translation>
+        <translation type="obsolete">Newydd</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Golygu</translation>
+        <translation type="obsolete">Golygu</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Dyblygu</translation>
+        <translation type="obsolete">Dyblygu</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Dileu</translation>
+        <translation type="obsolete">Dileu</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Cadw</translation>
+        <translation type="obsolete">Cadw</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -13087,7 +14659,39 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Golygu</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Cadw</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13332,11 +14936,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -13345,6 +14949,14 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Add</source>
         <translation type="obsolete">Ychwanegu</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13629,15 +15241,15 @@ Please choose another.</source>
     </message>
     <message>
         <source>Insert</source>
-        <translation>Mewnosod</translation>
+        <translation type="obsolete">Mewnosod</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Gwaredu</translation>
+        <translation type="obsolete">Gwaredu</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Cau</translation>
+        <translation type="obsolete">Cau</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
@@ -13650,6 +15262,18 @@ Please choose another.</source>
     <message>
         <source>Close this dialog and return to text editing.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Cau</translation>
     </message>
 </context>
 <context>
@@ -13697,6 +15321,14 @@ Please choose another.</source>
     <message>
         <source>Author</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation type="unfinished">&amp;Agor</translation>
     </message>
 </context>
 <context>

@@ -162,7 +162,7 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	QToolTip::add( typeEdit, tr( "The nature or genre of the content of the document, eg. categories, functions, genres, etc" ) );
 	QToolTip::add( formatEdit, tr( "The physical or digital manifestation of the document. Media type and dimensions would be worth noting.\nRFC2045,RFC2046 for MIME types are also useful here" ) );
 	QToolTip::add( identifierEdit, tr( "An unambiguous reference to the document within a given context such as ISBN or URI" ) );
-	QToolTip::add( sourceEdit, tr( "A reference to a document from which the present document is derived, eg. ISDN or URI" ) );
+	QToolTip::add( sourceEdit, tr( "A reference to a document from which the present document is derived, eg. ISBN or URI" ) );
 	QToolTip::add( languageEdit, tr( "The language in which the content of the document is written, usually a ISO-639 language code\noptionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH" ) );
 	QToolTip::add( relationEdit, tr( "A reference to a related document, possibly using a formal identifier such as a ISBN or URI" ) );
 	QToolTip::add( coverageEdit, tr( "The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges" ) );

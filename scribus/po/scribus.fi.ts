@@ -7,11 +7,11 @@
     </message>
     <message>
         <source>About</source>
-        <translation>Ohje</translation>
+        <translation type="obsolete">Ohje</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sulje</translation>
+        <translation type="obsolete">Sulje</translation>
     </message>
     <message>
         <source>Brazilian:</source>
@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Translations</source>
-        <translation>Käännökset</translation>
+        <translation type="obsolete">Käännökset</translation>
     </message>
     <message>
         <source>Polish:</source>
@@ -65,7 +65,7 @@
     </message>
     <message>
         <source>Authors</source>
-        <translation>Tekijät</translation>
+        <translation type="obsolete">Tekijät</translation>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
@@ -145,7 +145,7 @@
     </message>
     <message>
         <source>Online</source>
-        <translation>Verkossa</translation>
+        <translation type="obsolete">Verkossa</translation>
     </message>
     <message>
         <source>Basque:</source>
@@ -174,6 +174,26 @@ Missing library support is indicated by a *</source>
 Scribukseen sisällytetyt tuet kirjastoille.
 C-C-T muodostuu seuraavasti C=CUPS, C=littlecms, T=TIFF support.
 Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;uthors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -239,7 +259,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source> in</source>
@@ -259,7 +279,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Käytä</translation>
+        <translation type="obsolete">Käytä</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -283,7 +303,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Right Sides</source>
@@ -312,6 +332,18 @@ luoda erittäin suuria tiedostoja</translation>
     <message>
         <source>between:</source>
         <translation>Kohde:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -943,19 +975,19 @@ luoda erittäin suuria tiedostoja</translation>
     <name>ApplyT</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>minne:</translation>
+        <translation type="obsolete">minne:</translation>
     </message>
     <message>
         <source>Template:</source>
-        <translation>Sivumalli:</translation>
+        <translation type="obsolete">Sivumalli:</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -963,7 +995,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Apply from Page:</source>
-        <translation>Käytä sivulta:</translation>
+        <translation type="obsolete">Käytä sivulta:</translation>
     </message>
     <message>
         <source>Apply Template</source>
@@ -971,38 +1003,62 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Apply to Current Page</source>
-        <translation>Käytä nykyiseen sivuun</translation>
+        <translation type="obsolete">Käytä nykyiseen sivuun</translation>
+    </message>
+    <message>
+        <source>&amp;Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to &amp;Current Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply from &amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
     <name>Biblio</name>
     <message>
         <source>Big</source>
-        <translation>Iso</translation>
+        <translation type="obsolete">Iso</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Uusi</translation>
+        <translation type="obsolete">Uusi</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Tiedosto</translation>
+        <translation type="obsolete">Tiedosto</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Tallenna</translation>
+        <translation type="obsolete">Tallenna</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sulje</translation>
+        <translation type="obsolete">Sulje</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Pieni</translation>
+        <translation type="obsolete">Pieni</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Lataa...</translation>
+        <translation type="obsolete">Lataa...</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1010,7 +1066,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Keskikokoinen</translation>
+        <translation type="obsolete">Keskikokoinen</translation>
     </message>
     <message>
         <source>Object</source>
@@ -1018,11 +1074,11 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Tallenna nimellä...</translation>
+        <translation type="obsolete">Tallenna nimellä...</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Esikatselu</translation>
+        <translation type="obsolete">Esikatselu</translation>
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
@@ -1057,6 +1113,46 @@ Valitse toinen nimi.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uusi</translation>
+    </message>
+    <message>
+        <source>&amp;Load...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Tallenna</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished">Tallenna &amp;nimellä...</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Tiedosto</translation>
+    </message>
+    <message>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1176,7 +1272,7 @@ Valitse toinen nimi.</translation>
     <name>CMSPrefs</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
@@ -1184,7 +1280,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
-        <translation>Jäljittele tulostinta näytöllä</translation>
+        <translation type="obsolete">Jäljittele tulostinta näytöllä</translation>
     </message>
     <message>
         <source>System Profiles</source>
@@ -1192,15 +1288,15 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Use Blackpoint Compensation</source>
-        <translation>Käytä Blackpoint Compensation</translation>
+        <translation type="obsolete">Käytä Blackpoint Compensation</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation>Tasaiset värit:</translation>
+        <translation type="obsolete">Tasaiset värit:</translation>
     </message>
     <message>
         <source>Mark Colors out of Gamut</source>
-        <translation>Merkitse tulostusalueen ulkopuoliset värit</translation>
+        <translation type="obsolete">Merkitse tulostusalueen ulkopuoliset värit</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
@@ -1208,7 +1304,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Color Management Settings</source>
@@ -1216,11 +1312,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Monitor:</source>
-        <translation>Näyttö:</translation>
+        <translation type="obsolete">Näyttö:</translation>
     </message>
     <message>
         <source>Printer:</source>
-        <translation>Tulostin:</translation>
+        <translation type="obsolete">Tulostin:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -1232,11 +1328,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Pictures:</source>
-        <translation>Kuvat:</translation>
+        <translation type="obsolete">Kuvat:</translation>
     </message>
     <message>
         <source>Activate Color Management</source>
-        <translation>Käytä värien hallintaa</translation>
+        <translation type="obsolete">Käytä värien hallintaa</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -1291,6 +1387,54 @@ perustuen käytettävään väriprofiiliin.</translation>
 This requires very accurate profiles and serves only as a warning.</source>
         <translation>Toiminto näyttää värit, jotka saattavat tulostua väärin.
 Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan varoituksena.</translation>
+    </message>
+    <message>
+        <source>&amp;Activate Color Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Monitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;rinter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;onitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pr&amp;inter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sim&amp;ulate Printer on the Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark Colors out of &amp;Gamut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Blackpoint Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -1592,14 +1736,18 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Compress File</source>
-        <translation>Pakkaa tiedosto</translation>
+        <translation type="obsolete">Pakkaa tiedosto</translation>
     </message>
     <message>
         <source>Encoding:</source>
         <translation>Koodaus:</translation>
     </message>
     <message>
-        <source>Include Fonts</source>
+        <source>&amp;Compress File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include Fonts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1680,44 +1828,190 @@ Voit määrittää sen asetuksissa.</translation>
     <name>DocInfos</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Avainsanat:</translation>
+        <translation type="obsolete">Avainsanat:</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Kuvaus:</translation>
+        <translation type="obsolete">Kuvaus:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Otsikko:</translation>
+        <translation type="obsolete">Otsikko:</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation>Tekijä:</translation>
+        <translation type="obsolete">Tekijä:</translation>
     </message>
     <message>
         <source>Document Info</source>
-        <translation>Asiakirjan tiedot</translation>
+        <translation type="obsolete">Asiakirjan tiedot</translation>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Kentän arvo voidaan upottaa Scribus-asiakirjaan viitteeksi kuten myös PDF:ään metadataksi</translation>
+        <translation type="obsolete">Kentän arvo voidaan upottaa Scribus-asiakirjaan viitteeksi kuten myös PDF:ään metadataksi</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Tämä kenttä on lyhyttä asiakirjan kuvausta varten. Se sisällytetään PDF:ään</translation>
+        <translation type="obsolete">Tämä kenttä on lyhyttä asiakirjan kuvausta varten. Se sisällytetään PDF:ään</translation>
     </message>
     <message>
         <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Tämä kenttä on asiakirjan avainsanoja varten, 
+        <translation type="obsolete">Tämä kenttä on asiakirjan avainsanoja varten, 
 jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden hakuja</translation>
+    </message>
+    <message>
+        <source>Document Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Author:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Keywords:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Descri&amp;ption:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;ublisher:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dat&amp;e:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>T&amp;ype:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;ormat:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identi&amp;fier:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Source:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Relation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Co&amp;verage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ri&amp;ghts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Further &amp;Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A name given to the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An account of the content of the document.
+This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document.
+This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making the document available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making contributions to the content of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
+RFC2045,RFC2046 for MIME types are also useful here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The language in which the content of the document is written, usually a ISO-639 language code
+optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -1748,7 +2042,7 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>To page:</source>
-        <translation>Sivulle:</translation>
+        <translation type="obsolete">Sivulle:</translation>
     </message>
     <message>
         <source>Print Normal</source>
@@ -1796,7 +2090,7 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>Print first page first</source>
-        <translation>Tulosta ensimmäinen sivu ensimmäiseksi</translation>
+        <translation type="obsolete">Tulosta ensimmäinen sivu ensimmäiseksi</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -1812,7 +2106,7 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>Print last page first</source>
-        <translation>Tulosta viimeinen sivu ensimmäiseksi</translation>
+        <translation type="obsolete">Tulosta viimeinen sivu ensimmäiseksi</translation>
     </message>
     <message>
         <source>Setup Printer</source>
@@ -1824,7 +2118,7 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>From page:</source>
-        <translation>Sivulta:</translation>
+        <translation type="obsolete">Sivulta:</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -1849,6 +2143,12 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     <message>
         <source>Print current page</source>
         <translation>Tulosta nykyinen sivu</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2223,22 +2523,26 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Scribus-Document</source>
-        <translation>Scribus-asiakirja</translation>
+        <translation type="obsolete">Scribus-asiakirja</translation>
     </message>
     <message>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
+    </message>
+    <message>
+        <source>Scribus Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Farbmanager</name>
     <message>
         <source>New</source>
-        <translation>Uusi</translation>
+        <translation type="obsolete">Uusi</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Muokkaa</translation>
+        <translation type="obsolete">Muokkaa</translation>
     </message>
     <message>
         <source>Open</source>
@@ -2250,11 +2554,11 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Tuo</translation>
+        <translation type="obsolete">Tuo</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -2262,7 +2566,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -2270,7 +2574,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Kopioi</translation>
+        <translation type="obsolete">Kopioi</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -2286,7 +2590,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Save Color Set</source>
-        <translation>Tallenna värisarja</translation>
+        <translation type="obsolete">Tallenna värisarja</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -2302,7 +2606,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Remove Unused</source>
-        <translation>Poista käyttämättömät</translation>
+        <translation type="obsolete">Poista käyttämättömät</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
@@ -2342,14 +2646,50 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uusi</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Muokkaa</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
     <name>FontPrefs</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -2361,15 +2701,15 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Add...</source>
-        <translation>Lisää...</translation>
+        <translation type="obsolete">Lisää...</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -2377,7 +2717,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
@@ -2393,7 +2733,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Muuta...</translation>
+        <translation type="obsolete">Muuta...</translation>
     </message>
     <message>
         <source>Embed in:</source>
@@ -2438,6 +2778,30 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     <message>
         <source>Additional &amp;Paths</source>
         <translation>Lisätyt &amp;polut</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2490,7 +2854,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source> in</source>
@@ -2506,23 +2870,23 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Lisää</translation>
+        <translation type="obsolete">Lisää</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Lock Guides</source>
-        <translation>Lukitse apuviivat</translation>
+        <translation type="obsolete">Lukitse apuviivat</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
@@ -2530,7 +2894,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Manage Guides</source>
@@ -2539,6 +2903,42 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     <message>
         <source>Vertical Guides</source>
         <translation>Pystysuorat apuviivat</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2571,7 +2971,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     <name>HySettings</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Hyphenator Settings</source>
@@ -2579,11 +2979,11 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Kieli:</translation>
+        <translation type="obsolete">Kieli:</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
@@ -2591,15 +2991,15 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Smallest Word:</source>
-        <translation>Lyhin sana:</translation>
+        <translation type="obsolete">Lyhin sana:</translation>
     </message>
     <message>
         <source>Check during Typing</source>
-        <translation>Tarkasta kirjoittaessa</translation>
+        <translation type="obsolete">Tarkasta kirjoittaessa</translation>
     </message>
     <message>
         <source>Fully Automatic</source>
-        <translation>Täysin automaattinen</translation>
+        <translation type="obsolete">Täysin automaattinen</translation>
     </message>
     <message>
         <source>If you uncheck this you will get a dialog
@@ -2613,13 +3013,41 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>Number of Hypenations allowed:</source>
-        <translation>Sallittu määrä tavutuksia:</translation>
+        <translation type="obsolete">Sallittu määrä tavutuksia:</translation>
     </message>
     <message>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
         <translation>Suurin määrä tavutuksia peräkkäin.
 0 tarkoittaa rajoittamatonta määrää tavutuksia.</translation>
+    </message>
+    <message>
+        <source>&amp;Fully Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Smallest Word:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number of Hypenations allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2700,15 +3128,15 @@ A value of 0 means unlimited hyphenations.</source>
     <name>JavaDocs</name>
     <message>
         <source>Close</source>
-        <translation>Sulje</translation>
+        <translation type="obsolete">Sulje</translation>
     </message>
     <message>
         <source>Add...</source>
-        <translation>Uusi...</translation>
+        <translation type="obsolete">Uusi...</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>New Script</source>
@@ -2716,7 +3144,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Muokkaa...</translation>
+        <translation type="obsolete">Muokkaa...</translation>
     </message>
     <message>
         <source>New Script:</source>
@@ -2742,12 +3170,28 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Yes</source>
         <translation>Kyllä</translation>
     </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>KeyManager</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Alt</source>
@@ -2771,7 +3215,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>User Defined Key</source>
-        <translation>Käyttäjän määrittämä oikopolku</translation>
+        <translation type="obsolete">Käyttäjän määrittämä oikopolku</translation>
     </message>
     <message>
         <source>Action</source>
@@ -2779,11 +3223,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>No Key</source>
-        <translation>Ei oikopolkua</translation>
+        <translation type="obsolete">Ei oikopolkua</translation>
     </message>
     <message>
         <source>Shift+</source>
@@ -2799,7 +3243,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Set Key</source>
-        <translation>Aseta näppäin</translation>
+        <translation type="obsolete">Aseta näppäin</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
@@ -2807,7 +3251,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>This Key-Sequence is already in use</source>
-        <translation>Tämä näppäinsarja on jo käytössä</translation>
+        <translation type="obsolete">Tämä näppäinsarja on jo käytössä</translation>
     </message>
     <message>
         <source>Current Key</source>
@@ -2816,6 +3260,30 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Warning</source>
         <translation>Varoitus</translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>This Key Sequence is already in use</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2857,7 +3325,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>New</source>
-        <translation>Uusi</translation>
+        <translation type="obsolete">Uusi</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -2865,7 +3333,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Muokkaa</translation>
+        <translation type="obsolete">Muokkaa</translation>
     </message>
     <message>
         <source>Open</source>
@@ -2873,7 +3341,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Save</source>
-        <translation>Tallenna</translation>
+        <translation type="obsolete">Tallenna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -2889,15 +3357,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Append</source>
-        <translation>Tuo</translation>
+        <translation type="obsolete">Tuo</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -2905,7 +3373,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Kopioi</translation>
+        <translation type="obsolete">Kopioi</translation>
     </message>
     <message>
         <source>New Style</source>
@@ -2921,7 +3389,39 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uusi</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Muokkaa</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Tallenna</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2963,7 +3463,7 @@ A value of 0 means unlimited hyphenations.</source>
     <name>Mdup</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Multiple Duplicate</source>
@@ -2971,19 +3471,55 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Horizontal Shift:</source>
-        <translation>Vaakasuora siirtymä:</translation>
+        <translation type="obsolete">Vaakasuora siirtymä:</translation>
     </message>
     <message>
         <source>Number of Copies:</source>
-        <translation>Kopioiden lukumäärä:</translation>
+        <translation type="obsolete">Kopioiden lukumäärä:</translation>
     </message>
     <message>
         <source>Vertical Shift:</source>
-        <translation>Pystysuora siirtymä:</translation>
+        <translation type="obsolete">Pystysuora siirtymä:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished"> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished"> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished"> p</translation>
+    </message>
+    <message>
+        <source>&amp;Number of Copies:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -3067,6 +3603,10 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Hide &amp;Console</source>
         <translation>Piilota &amp;Konsoli</translation>
     </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MergeDoc</name>
@@ -3080,11 +3620,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Import Page Nr:</source>
-        <translation>Tuo sivu numero:</translation>
+        <translation type="obsolete">Tuo sivu numero:</translation>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
-        <translation>Asiakirjan sivujen lukumäärä on %1</translation>
+        <translation type="obsolete">Asiakirjan sivujen lukumäärä on %1</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -3096,11 +3636,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>Asiakirjan sivujen lukumäärä on 0</translation>
+        <translation type="obsolete">Asiakirjan sivujen lukumäärä on 0</translation>
     </message>
     <message>
         <source>Document to load:</source>
-        <translation>Ladattava asiakirja:</translation>
+        <translation type="obsolete">Ladattava asiakirja:</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -3108,11 +3648,57 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Import a Page</source>
-        <translation>Tuo sivu</translation>
+        <translation type="obsolete">Tuo sivu</translation>
     </message>
     <message>
         <source>Change...</source>
         <translation>Muuta...</translation>
+    </message>
+    <message>
+        <source>Import Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> from 0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation type="unfinished">Ennen sivua</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation type="unfinished">Jälkeen sivun</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation type="unfinished">Loppuun</translation>
+    </message>
+    <message>
+        <source> from %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3755,6 +4341,10 @@ Valitse toinen nimi.</translation>
         <source>Type of Line:</source>
         <translation>Viivan tyyli:</translation>
     </message>
+    <message>
+        <source>Use Contour Line</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -3849,7 +4439,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Uusi</translation>
+        <translation type="obsolete">Uusi</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -3861,11 +4451,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Tuo</translation>
+        <translation type="obsolete">Tuo</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -3873,7 +4463,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Kopioi</translation>
+        <translation type="obsolete">Kopioi</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
@@ -3901,22 +4491,42 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sulje</translation>
+        <translation type="obsolete">Sulje</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uusi</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NewDoc</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Ylhäällä:</translation>
+        <translation type="obsolete">Ylhäällä:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Vasen:</translation>
+        <translation type="obsolete">Vasen:</translation>
     </message>
     <message>
         <source>Points (pts)</source>
@@ -3924,11 +4534,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Sisäpuoli:</translation>
+        <translation type="obsolete">Sisäpuoli:</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Koko:</translation>
+        <translation type="obsolete">Koko:</translation>
     </message>
     <message>
         <source>New Document</source>
@@ -3936,11 +4546,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>First Page Number:</source>
-        <translation>Ensimmäisen sivun numero:</translation>
+        <translation type="obsolete">Ensimmäisen sivun numero:</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -3952,15 +4562,15 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Oikea:</translation>
+        <translation type="obsolete">Oikea:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Leveys:</translation>
+        <translation type="obsolete">Leveys:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Palstoja:</translation>
+        <translation type="obsolete">Palstoja:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -3976,7 +4586,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Alhaalla:</translation>
+        <translation type="obsolete">Alhaalla:</translation>
     </message>
     <message>
         <source>Picas (p)</source>
@@ -3984,7 +4594,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Vasen sivu ensin</translation>
+        <translation type="obsolete">Vasen sivu ensin</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -3992,11 +4602,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Ulkopuoli:</translation>
+        <translation type="obsolete">Ulkopuoli:</translation>
     </message>
     <message>
         <source>Default Unit:</source>
-        <translation>Oletusyksikkö:</translation>
+        <translation type="obsolete">Oletusyksikkö:</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -4004,7 +4614,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Vastakkaiset sivut</translation>
+        <translation type="obsolete">Vastakkaiset sivut</translation>
     </message>
     <message>
         <source>Column Guides</source>
@@ -4012,11 +4622,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Korkeus:</translation>
+        <translation type="obsolete">Korkeus:</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Suunta:</translation>
+        <translation type="obsolete">Suunta:</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
@@ -4040,11 +4650,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Automatic Text Frames</source>
-        <translation>Automaattiset tekstikehykset</translation>
+        <translation type="obsolete">Automaattiset tekstikehykset</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Väli:</translation>
+        <translation type="obsolete">Väli:</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -4121,6 +4731,82 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Tabloid</source>
         <translation>Tabloid</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Default Unit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Automatic Text Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4250,6 +4936,10 @@ muulloin suhteessa kohteeseen.</translation>
         <source>Enlarges the Size of the Path by 10%</source>
         <translation>Suurenna polkua 10 %</translation>
     </message>
+    <message>
+        <source>Edit Contour Line</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -4266,11 +4956,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
         <source> in</source>
@@ -4290,7 +4980,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>mihin:</translation>
+        <translation type="obsolete">mihin:</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -4314,11 +5004,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Binding:</source>
-        <translation>Sidonta:</translation>
+        <translation type="obsolete">Sidonta:</translation>
     </message>
     <message>
         <source>From:</source>
-        <translation>mistä:</translation>
+        <translation type="obsolete">mistä:</translation>
     </message>
     <message>
         <source>Split</source>
@@ -4326,7 +5016,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>User:</source>
-        <translation>Käyttäjä:</translation>
+        <translation type="obsolete">Käyttäjä:</translation>
     </message>
     <message>
         <source>Dissolve</source>
@@ -4346,15 +5036,15 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Moving Lines:</source>
-        <translation>Viivojen siirtäminen:</translation>
+        <translation type="obsolete">Viivojen siirtäminen:</translation>
     </message>
     <message>
         <source>Use Encryption</source>
-        <translation>Käytä koodausta</translation>
+        <translation type="obsolete">Käytä koodausta</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
-        <translation>Heikennä kuvat:</translation>
+        <translation type="obsolete">Heikennä kuvat:</translation>
     </message>
     <message>
         <source>Export Range</source>
@@ -4370,7 +5060,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Effect Type:</source>
-        <translation>Efektin tyyppi:</translation>
+        <translation type="obsolete">Efektin tyyppi:</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
@@ -4378,15 +5068,15 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Create PDF-File</source>
-        <translation>Luo PDF-tiedosto</translation>
+        <translation type="obsolete">Luo PDF-tiedosto</translation>
     </message>
     <message>
         <source>Effect Duration:</source>
-        <translation>Efektin kesto:</translation>
+        <translation type="obsolete">Efektin kesto:</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>Tarkkuus:</translation>
+        <translation type="obsolete">Tarkkuus:</translation>
     </message>
     <message>
         <source>Left to Right</source>
@@ -4398,7 +5088,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Output Profile:</source>
-        <translation>Tulosteen profiili:</translation>
+        <translation type="obsolete">Tulosteen profiili:</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
@@ -4406,11 +5096,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Generate Thumbnails</source>
-        <translation>Muodosta esikatselukuvat</translation>
+        <translation type="obsolete">Muodosta esikatselukuvat</translation>
     </message>
     <message>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
-        <translation>PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
@@ -4422,7 +5112,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>No Effect</source>
@@ -4446,11 +5136,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Owner:</source>
-        <translation>Omistaja:</translation>
+        <translation type="obsolete">Omistaja:</translation>
     </message>
     <message>
         <source>Compress Text and Vector Graphics</source>
-        <translation>Pakkaa teksti ja vektorigrafiikka</translation>
+        <translation type="obsolete">Pakkaa teksti ja vektorigrafiikka</translation>
     </message>
     <message>
         <source>Outside</source>
@@ -4458,11 +5148,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Embed all Fonts</source>
-        <translation>Upota kaikki kirjasimet</translation>
+        <translation type="obsolete">Upota kaikki kirjasimet</translation>
     </message>
     <message>
         <source>Allow Changing the Document</source>
-        <translation>Salli asiakirjan muuttaminen</translation>
+        <translation type="obsolete">Salli asiakirjan muuttaminen</translation>
     </message>
     <message>
         <source>Printer</source>
@@ -4470,11 +5160,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Muuta...</translation>
+        <translation type="obsolete">Muuta...</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
-        <translation>Käytä efektejä kaikilla sivuilla</translation>
+        <translation type="obsolete">Käytä efektejä kaikilla sivuilla</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -4502,11 +5192,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Output to File:</source>
-        <translation>Tulosta tiedostoon:</translation>
+        <translation type="obsolete">Tulosta tiedostoon:</translation>
     </message>
     <message>
         <source>Display Duration:</source>
-        <translation>Näytön kesto:</translation>
+        <translation type="obsolete">Näytön kesto:</translation>
     </message>
     <message>
         <source>Passwords</source>
@@ -4514,7 +5204,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Show Page Previews</source>
-        <translation>Näytä sivun esikatselu</translation>
+        <translation type="obsolete">Näytä sivun esikatselu</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
@@ -4522,7 +5212,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Direction:</source>
-        <translation>Suunta:</translation>
+        <translation type="obsolete">Suunta:</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -4530,7 +5220,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
-        <translation>Käytä esitysefektejä</translation>
+        <translation type="obsolete">Käytä esitysefektejä</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -4546,7 +5236,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Save linked Text Frames as PDF-Articles</source>
-        <translation>Tallenna linkitetyt tekstikehykset PDF-artikkeleina</translation>
+        <translation type="obsolete">Tallenna linkitetyt tekstikehykset PDF-artikkeleina</translation>
     </message>
     <message>
         <source>General</source>
@@ -4558,11 +5248,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>All Pages</source>
-        <translation>Kaikki</translation>
+        <translation type="obsolete">Kaikki</translation>
     </message>
     <message>
         <source>Compatibility:</source>
-        <translation>Yhteensopivuus:</translation>
+        <translation type="obsolete">Yhteensopivuus:</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
@@ -4570,19 +5260,19 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Allow Printing the Document</source>
-        <translation>Salli asiakirjan tulostaminen</translation>
+        <translation type="obsolete">Salli asiakirjan tulostaminen</translation>
     </message>
     <message>
         <source>Output intended for:</source>
-        <translation>Tuloste on tarkoitettu:</translation>
+        <translation type="obsolete">Tuloste on tarkoitettu:</translation>
     </message>
     <message>
         <source>Info String:</source>
-        <translation>Infoteksti:</translation>
+        <translation type="obsolete">Infoteksti:</translation>
     </message>
     <message>
         <source>Include Bookmarks</source>
-        <translation>Sisällytä kirjanmerkit</translation>
+        <translation type="obsolete">Sisällytä kirjanmerkit</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
@@ -4602,7 +5292,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Method:</source>
-        <translation>Menetelmä:</translation>
+        <translation type="obsolete">Menetelmä:</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -4622,7 +5312,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Quality:</source>
-        <translation>Laatu:</translation>
+        <translation type="obsolete">Laatu:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -4646,7 +5336,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>From the:</source>
-        <translation>Mistä:</translation>
+        <translation type="obsolete">Mistä:</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
@@ -4658,11 +5348,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>Ensimmäinen vietävä sivu eli välin alaraja</translation>
+        <translation type="obsolete">Ensimmäinen vietävä sivu eli välin alaraja</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Viimeinen vietävä sivu eli välin yläraja</translation>
+        <translation type="obsolete">Viimeinen vietävä sivu eli välin yläraja</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
@@ -4863,19 +5553,19 @@ Suosittelemme käyttämään asiakirjan otsikkoa/nimeä.</translation>
     </message>
     <message>
         <source>&amp;Security</source>
-        <translation>&amp;Turvallisuus</translation>
+        <translation type="obsolete">&amp;Turvallisuus</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation>&amp;Väri</translation>
+        <translation type="obsolete">&amp;Väri</translation>
     </message>
     <message>
         <source>&amp;PDF/X-3</source>
-        <translation>&amp;PDF/X-3</translation>
+        <translation type="obsolete">&amp;PDF/X-3</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Tallenna</translation>
+        <translation type="obsolete">Tallenna</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -4907,11 +5597,229 @@ Jos kohta ei ole valittuna huomautuksia ja kenttiä ei voi lisätä.</translatio
     </message>
     <message>
         <source>Allow Copying Text and Graphics</source>
-        <translation>Salli tekstin ja grafiikan kopiointi</translation>
+        <translation type="obsolete">Salli tekstin ja grafiikan kopiointi</translation>
     </message>
     <message>
         <source>Allow Adding Annotations and Fields</source>
-        <translation>Salli huomautusten ja kenttien lisääminen</translation>
+        <translation type="obsolete">Salli huomautusten ja kenttien lisääminen</translation>
+    </message>
+    <message>
+        <source>Create PDF File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hoose Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compatibilit&amp;y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Binding:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate &amp;Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;Linked Text Frames as PDF Articles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include Bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Com&amp;press Text and Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Downsample Images to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable &amp;Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Page Pre&amp;views</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effec&amp;t Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effect T&amp;ype:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Moving Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;rom the:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;irection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply Effect on all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Owner:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow &amp;Printing the Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow &amp;Changing the Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Cop&amp;ying Text and Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Adding &amp;Annotations and Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;ecurity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output &amp;Intended For:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Custom Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fre&amp;quency:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Angle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;pot Function:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simple Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ellipse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use ICC Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Info String:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output &amp;Profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-&amp;3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Tallenna</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4926,35 +5834,35 @@ Jos kohta ei ole valittuna huomautuksia ja kenttiä ei voi lisätä.</translatio
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation>Antialisoi grafiikka</translation>
+        <translation type="obsolete">Antialisoi grafiikka</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
-        <translation>Antialisoi teksti</translation>
+        <translation type="obsolete">Antialisoi teksti</translation>
     </message>
     <message>
         <source>Display Transparency</source>
-        <translation>Näytä läpinäkyvyys</translation>
+        <translation type="obsolete">Näytä läpinäkyvyys</translation>
     </message>
     <message>
         <source>Display CMYK</source>
-        <translation>Näytä CMYK</translation>
+        <translation type="obsolete">Näytä CMYK</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
@@ -4992,24 +5900,56 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Näytä/Älä näytä K (Black) muste</translation>
     </message>
+    <message>
+        <source>Anti-alias &amp;Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anti-alias &amp;Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Trans&amp;parency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display CMYK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
     <message>
         <source>Cut</source>
-        <translation>Leikkaa</translation>
+        <translation type="obsolete">Leikkaa</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopioi</translation>
+        <translation type="obsolete">Kopioi</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation>Info</translation>
+        <translation type="obsolete">Info</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation>Lukitse</translation>
+        <translation type="obsolete">Lukitse</translation>
     </message>
     <message>
         <source>None</source>
@@ -5017,39 +5957,39 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Group</source>
-        <translation>Ryhmitä</translation>
+        <translation type="obsolete">Ryhmitä</translation>
     </message>
     <message>
         <source>Lower</source>
-        <translation>Vie alaspäin</translation>
+        <translation type="obsolete">Vie alaspäin</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>Tuo ylöspäin</translation>
+        <translation type="obsolete">Tuo ylöspäin</translation>
     </message>
     <message>
         <source>Send to Back</source>
-        <translation>Vie alimmaiseksi</translation>
+        <translation type="obsolete">Vie alimmaiseksi</translation>
     </message>
     <message>
         <source>Send to Scrapbook</source>
-        <translation>Vie leikekirjaan</translation>
+        <translation type="obsolete">Vie leikekirjaan</translation>
     </message>
     <message>
         <source>Bezier Curve</source>
-        <translation>Bezier-viiva</translation>
+        <translation type="obsolete">Bezier-viiva</translation>
     </message>
     <message>
         <source>Is PDF-Bookmark</source>
-        <translation>On PDF-kirjanmerkki</translation>
+        <translation type="obsolete">On PDF-kirjanmerkki</translation>
     </message>
     <message>
         <source>Un-group</source>
-        <translation>Pura ryhmä</translation>
+        <translation type="obsolete">Pura ryhmä</translation>
     </message>
     <message>
         <source>Picture Frame</source>
-        <translation>Kuvakehys</translation>
+        <translation type="obsolete">Kuvakehys</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5057,11 +5997,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Field Properties</source>
-        <translation>Kentän ominaisuudet</translation>
+        <translation type="obsolete">Kentän ominaisuudet</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>File: </source>
@@ -5069,7 +6009,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Unlock</source>
-        <translation>Vapauta</translation>
+        <translation type="obsolete">Vapauta</translation>
     </message>
     <message>
         <source>Text Frame</source>
@@ -5077,7 +6017,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Original ppi: </source>
-        <translation>Alkuperäinen ppi: </translation>
+        <translation type="obsolete">Alkuperäinen ppi: </translation>
     </message>
     <message>
         <source>Picture</source>
@@ -5085,15 +6025,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Monikulmio</translation>
+        <translation type="obsolete">Monikulmio</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
-        <translation>Huomautuksen asetukset</translation>
+        <translation type="obsolete">Huomautuksen asetukset</translation>
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Hae kuva...</translation>
+        <translation type="obsolete">Hae kuva...</translation>
     </message>
     <message>
         <source>Copy Here</source>
@@ -5101,11 +6041,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Bring to Front</source>
-        <translation>Tuo päällimmäiseksi</translation>
+        <translation type="obsolete">Tuo päällimmäiseksi</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation>Vie tasoon</translation>
+        <translation type="obsolete">Vie tasoon</translation>
     </message>
     <message>
         <source>Chars: </source>
@@ -5113,11 +6053,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Actual ppi: </source>
-        <translation>Todellinen ppi: </translation>
+        <translation type="obsolete">Todellinen ppi: </translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Hae teksti...</translation>
+        <translation type="obsolete">Hae teksti...</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -5129,15 +6069,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Outlines</source>
-        <translation>Ulkoreunat</translation>
+        <translation type="obsolete">Ulkoreunat</translation>
     </message>
     <message>
         <source>Convert to</source>
-        <translation>Tee kohteesta</translation>
+        <translation type="obsolete">Tee kohteesta</translation>
     </message>
     <message>
         <source>Image Visible</source>
-        <translation>Kuva näkyvissä</translation>
+        <translation type="obsolete">Kuva näkyvissä</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
@@ -5145,7 +6085,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Is PDF-Annotation</source>
-        <translation>On PDF-huomautus</translation>
+        <translation type="obsolete">On PDF-huomautus</translation>
     </message>
     <message>
         <source>Words: </source>
@@ -5157,55 +6097,55 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Paste</source>
-        <translation>Liitä</translation>
+        <translation type="obsolete">Liitä</translation>
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Piilota reunukset</translation>
+        <translation type="obsolete">Piilota reunukset</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation>Näytä reunukset</translation>
+        <translation type="obsolete">Näytä reunukset</translation>
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Piilota kehykset</translation>
+        <translation type="obsolete">Piilota kehykset</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Näytä kehykset</translation>
+        <translation type="obsolete">Näytä kehykset</translation>
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Piilota kuvat</translation>
+        <translation type="obsolete">Piilota kuvat</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation>Näytä kuvat</translation>
+        <translation type="obsolete">Näytä kuvat</translation>
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Piilota ruudukko</translation>
+        <translation type="obsolete">Piilota ruudukko</translation>
     </message>
     <message>
         <source>Show Grid</source>
-        <translation>Näytä ruudukko</translation>
+        <translation type="obsolete">Näytä ruudukko</translation>
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Piilota apuviivat</translation>
+        <translation type="obsolete">Piilota apuviivat</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation>Näytä apuviivat</translation>
+        <translation type="obsolete">Näytä apuviivat</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Kiinnittä ruudukkoon</translation>
+        <translation type="obsolete">Kiinnittä ruudukkoon</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Kiinnitä apuviivoihin</translation>
+        <translation type="obsolete">Kiinnitä apuviivoihin</translation>
     </message>
     <message>
         <source>Linked Text</source>
@@ -5213,15 +6153,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Show Properties...</source>
-        <translation>Ominaisuudet...</translation>
+        <translation type="obsolete">Ominaisuudet...</translation>
     </message>
     <message>
         <source>Hide Properties...</source>
-        <translation>Piilota ominaisuudet...</translation>
+        <translation type="obsolete">Piilota ominaisuudet...</translation>
     </message>
     <message>
         <source>Clear Contents</source>
-        <translation>Tyhjennä</translation>
+        <translation type="obsolete">Tyhjennä</translation>
     </message>
     <message>
         <source>Print: </source>
@@ -5237,15 +6177,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Update Picture</source>
-        <translation>Päivitä kuva</translation>
+        <translation type="obsolete">Päivitä kuva</translation>
     </message>
     <message>
         <source>Edit Picture</source>
-        <translation>Muokkaa kuvaa</translation>
+        <translation type="obsolete">Muokkaa kuvaa</translation>
     </message>
     <message>
         <source>Append Text...</source>
-        <translation>Jatka tekstiä...</translation>
+        <translation type="obsolete">Jatka tekstiä...</translation>
     </message>
     <message>
         <source>The Program</source>
@@ -5265,35 +6205,239 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Piilota peruslinja</translation>
+        <translation type="obsolete">Piilota peruslinja</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Näytä peruslinja</translation>
+        <translation type="obsolete">Näytä peruslinja</translation>
     </message>
     <message>
         <source>Adjust Frame to Picture</source>
-        <translation>Sovita kehys kuvaan</translation>
+        <translation type="obsolete">Sovita kehys kuvaan</translation>
     </message>
     <message>
         <source>Lock object size</source>
-        <translation>Lukitse koko</translation>
+        <translation type="obsolete">Lukitse koko</translation>
     </message>
     <message>
         <source>Unlock object size</source>
-        <translation>Vapauta koko</translation>
+        <translation type="obsolete">Vapauta koko</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Kerros</translation>
+        <translation type="obsolete">Kerros</translation>
     </message>
     <message>
         <source>Insert Sample Text</source>
-        <translation>Lisää esimerkkiteksti</translation>
+        <translation type="obsolete">Lisää esimerkkiteksti</translation>
     </message>
     <message>
         <source>PDF-Options</source>
-        <translation>PDF-asetukset</translation>
+        <translation type="obsolete">PDF-asetukset</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">L&amp;iitä</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished">Näytä &amp;reunukset</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished">Näytä &amp;kehykset</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished">Näytä &amp;kuvat</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished">Näytä ruu&amp;dukko</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished">Näytä &amp;apuviivat</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished">Näytä p&amp;eruslinja</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished">Kiinnitä a&amp;puviivoihin</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation type="unfinished">&amp;Hae teksti...</translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation type="unfinished">&amp;Lukitse</translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation type="unfinished">&amp;Vapauta</translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">&amp;Ryhmitä</translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation type="unfinished">Vie &amp;alimmaiseksi</translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation type="unfinished">Tuo &amp;päällimmäiseksi</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished">Vie a&amp;laspäin</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished">&amp;Tuo ylöspäin</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished">&amp;Leikkaa</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5403,6 +6547,10 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <source>Pictures</source>
         <translation>Kuvat</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
 </context>
 <context>
     <name>PolygonProps</name>
@@ -5451,7 +6599,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source> in</source>
@@ -5467,7 +6615,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Big</source>
-        <translation>Iso</translation>
+        <translation type="obsolete">Iso</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -5487,15 +6635,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Top:</source>
-        <translation>Ylhäällä:</translation>
+        <translation type="obsolete">Ylhäällä:</translation>
     </message>
     <message>
         <source>Minimum:</source>
-        <translation>Minimi:</translation>
+        <translation type="obsolete">Minimi:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Vasen:</translation>
+        <translation type="obsolete">Vasen:</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -5511,11 +6659,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Sisäpuoli:</translation>
+        <translation type="obsolete">Sisäpuoli:</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Koko:</translation>
+        <translation type="obsolete">Koko:</translation>
     </message>
     <message>
         <source>Small</source>
@@ -5531,11 +6679,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Major Grid Color:</source>
-        <translation>Pääruudukon väri:</translation>
+        <translation type="obsolete">Pääruudukon väri:</translation>
     </message>
     <message>
         <source>Minor Grid Color:</source>
-        <translation>Apuruudukon väri:</translation>
+        <translation type="obsolete">Apuruudukon väri:</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -5543,19 +6691,19 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Kupera monikulmio</translation>
+        <translation type="obsolete">Kupera monikulmio</translation>
     </message>
     <message>
         <source>Page-Colors</source>
-        <translation>Sivun värit</translation>
+        <translation type="obsolete">Sivun värit</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Säilytä sivujen suhde</translation>
+        <translation type="obsolete">Säilytä sivujen suhde</translation>
     </message>
     <message>
         <source>Use PDF-1.4 Transparency Features</source>
-        <translation>Käytä PDF-1.4:n läpinäkyvyysominaisuuksia</translation>
+        <translation type="obsolete">Käytä PDF-1.4:n läpinäkyvyysominaisuuksia</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -5563,7 +6711,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -5575,15 +6723,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Line Color:</source>
-        <translation>Viivan väri:</translation>
+        <translation type="obsolete">Viivan väri:</translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation>Tekstin väri:</translation>
+        <translation type="obsolete">Tekstin väri:</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation>Täyttöväri:</translation>
+        <translation type="obsolete">Täyttöväri:</translation>
     </message>
     <message>
         <source>Guides</source>
@@ -5603,11 +6751,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Viivan paksuus:</translation>
+        <translation type="obsolete">Viivan paksuus:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Oikea:</translation>
+        <translation type="obsolete">Oikea:</translation>
     </message>
     <message>
         <source>Document</source>
@@ -5615,15 +6763,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation>Etualalla</translation>
+        <translation type="obsolete">Etualalla</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Leveys:</translation>
+        <translation type="obsolete">Leveys:</translation>
     </message>
     <message>
         <source>Guide Snap Distance:</source>
-        <translation>Etäisyys apuviivoihin kiinnittymiselle:</translation>
+        <translation type="obsolete">Etäisyys apuviivoihin kiinnittymiselle:</translation>
     </message>
     <message>
         <source>Typography</source>
@@ -5631,11 +6779,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Kirjasimen koko:</translation>
+        <translation type="obsolete">Kirjasimen koko:</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Kulmat:</translation>
+        <translation type="obsolete">Kulmat:</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -5647,7 +6795,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Automatic Line Spacing:</source>
-        <translation>Automaattinen riviväli:</translation>
+        <translation type="obsolete">Automaattinen riviväli:</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -5663,7 +6811,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Change...</source>
-        <translation>Muuta...</translation>
+        <translation type="obsolete">Muuta...</translation>
     </message>
     <message>
         <source>Scrapbook</source>
@@ -5671,7 +6819,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Margins:</source>
-        <translation>Sivun reunukset:</translation>
+        <translation type="obsolete">Sivun reunukset:</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
@@ -5679,19 +6827,19 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>ICC-Profiles:</source>
-        <translation>ICC-profiilit:</translation>
+        <translation type="obsolete">ICC-profiilit:</translation>
     </message>
     <message>
         <source>Maximum:</source>
-        <translation>Maksimi:</translation>
+        <translation type="obsolete">Maksimi:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Alhaalla:</translation>
+        <translation type="obsolete">Alhaalla:</translation>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation>Skaalaus:</translation>
+        <translation type="obsolete">Skaalaus:</translation>
     </message>
     <message>
         <source>Picas (p)</source>
@@ -5707,35 +6855,35 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Display Pages Side by Side</source>
-        <translation>Näytä sivut vierekkäin</translation>
+        <translation type="obsolete">Näytä sivut vierekkäin</translation>
     </message>
     <message>
         <source>Display Unprintable Area in Margin Color</source>
-        <translation>Näytä tulostumaton alue reunuksen värillä</translation>
+        <translation type="obsolete">Näytä tulostumaton alue reunuksen värillä</translation>
     </message>
     <message>
         <source>Left Page First</source>
-        <translation>Vasen sivu ensin</translation>
+        <translation type="obsolete">Vasen sivu ensin</translation>
     </message>
     <message>
         <source>Mouse-Settings</source>
-        <translation>Hiiren asetukset</translation>
+        <translation type="obsolete">Hiiren asetukset</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Kierto:</translation>
+        <translation type="obsolete">Kierto:</translation>
     </message>
     <message>
         <source>Scripts:</source>
-        <translation>Skriptit:</translation>
+        <translation type="obsolete">Skriptit:</translation>
     </message>
     <message>
         <source>Interval:</source>
-        <translation>Aikaväli:</translation>
+        <translation type="obsolete">Aikaväli:</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
-        <translation>Skaalaa kuvat kehyksen kokoon</translation>
+        <translation type="obsolete">Skaalaa kuvat kehyksen kokoon</translation>
     </message>
     <message>
         <source>Points (pt)</source>
@@ -5751,11 +6899,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Major Grid Spacing:</source>
-        <translation>Pääruudukon välistys:</translation>
+        <translation type="obsolete">Pääruudukon välistys:</translation>
     </message>
     <message>
         <source>Adjust Display Size</source>
-        <translation>Aseta näytön koko</translation>
+        <translation type="obsolete">Aseta näytön koko</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -5763,15 +6911,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Documents:</source>
-        <translation>Asiakirjat:</translation>
+        <translation type="obsolete">Asiakirjat:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Käytä</translation>
+        <translation type="obsolete">Käytä</translation>
     </message>
     <message>
         <source>Stepping:</source>
-        <translation>Askellus:</translation>
+        <translation type="obsolete">Askellus:</translation>
     </message>
     <message>
         <source>Autosave</source>
@@ -5779,7 +6927,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Ulkopuoli:</translation>
+        <translation type="obsolete">Ulkopuoli:</translation>
     </message>
     <message>
         <source>Preferences</source>
@@ -5787,19 +6935,19 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Default Size:</source>
-        <translation>Oletuskoko:</translation>
+        <translation type="obsolete">Oletuskoko:</translation>
     </message>
     <message>
         <source>Default Font:</source>
-        <translation>Oletuskirjasin:</translation>
+        <translation type="obsolete">Oletuskirjasin:</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
-        <translation>Apuruudukon välistys:</translation>
+        <translation type="obsolete">Apuruudukon välistys:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
-        <translation>Vapaa skaalaus</translation>
+        <translation type="obsolete">Vapaa skaalaus</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -5807,7 +6955,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Vastakkaiset sivut</translation>
+        <translation type="obsolete">Vastakkaiset sivut</translation>
     </message>
     <message>
         <source>General</source>
@@ -5815,43 +6963,43 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Shading:</source>
-        <translation>Sävy:</translation>
+        <translation type="obsolete">Sävy:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Korkeus:</translation>
+        <translation type="obsolete">Korkeus:</translation>
     </message>
     <message>
         <source>Background:</source>
-        <translation>Tausta:</translation>
+        <translation type="obsolete">Tausta:</translation>
     </message>
     <message>
         <source>Recent Documents:</source>
-        <translation>Viimeisimmät asiakirjat:</translation>
+        <translation type="obsolete">Viimeisimmät asiakirjat:</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation>Taustalla</translation>
+        <translation type="obsolete">Taustalla</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Suunta:</translation>
+        <translation type="obsolete">Suunta:</translation>
     </message>
     <message>
         <source>User Guides Color:</source>
-        <translation>Apuviivojen väri:</translation>
+        <translation type="obsolete">Apuviivojen väri:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Palstoja:</translation>
+        <translation type="obsolete">Palstoja:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Väli:</translation>
+        <translation type="obsolete">Väli:</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Kerroin:</translation>
+        <translation type="obsolete">Kerroin:</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
@@ -5867,11 +7015,11 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Antialias Text</source>
-        <translation>Antialisoi teksti</translation>
+        <translation type="obsolete">Antialisoi teksti</translation>
     </message>
     <message>
         <source>Antialias Graphics</source>
-        <translation>Antialisoi grafiikka</translation>
+        <translation type="obsolete">Antialisoi grafiikka</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
@@ -5887,15 +7035,15 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation>Leikkaa reunukset</translation>
+        <translation type="obsolete">Leikkaa reunukset</translation>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation>Siirto:</translation>
+        <translation type="obsolete">Siirto:</translation>
     </message>
     <message>
         <source>Name of executable:</source>
-        <translation>Ajettava ohjelma:</translation>
+        <translation type="obsolete">Ajettava ohjelma:</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
@@ -6239,15 +7387,15 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Baseline Grid:</source>
-        <translation>Peruslinja:</translation>
+        <translation type="obsolete">Peruslinja:</translation>
     </message>
     <message>
         <source>Baseline Offset:</source>
-        <translation>Peruslinjan siirto:</translation>
+        <translation type="obsolete">Peruslinjan siirto:</translation>
     </message>
     <message>
         <source>Save Contents on Changes</source>
-        <translation>Tallenna sisältö muutoksien jälkeen</translation>
+        <translation type="obsolete">Tallenna sisältö muutoksien jälkeen</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
@@ -6259,23 +7407,23 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Theme:</source>
-        <translation>Teema:</translation>
+        <translation type="obsolete">Teema:</translation>
     </message>
     <message>
         <source>Wheel-Jump:</source>
-        <translation>Rullan askellus:</translation>
+        <translation type="obsolete">Rullan askellus:</translation>
     </message>
     <message>
         <source>Grab-Radius:</source>
-        <translation>Tarttumissäde:</translation>
+        <translation type="obsolete">Tarttumissäde:</translation>
     </message>
     <message>
         <source>Horizontal Scaling:</source>
-        <translation>Vaakasuora skaalaus:</translation>
+        <translation type="obsolete">Vaakasuora skaalaus:</translation>
     </message>
     <message>
         <source>Vertical Scaling:</source>
-        <translation>Pystysuora skaalaus:</translation>
+        <translation type="obsolete">Pystysuora skaalaus:</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -6283,11 +7431,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>On</source>
-        <translation>Käytössä</translation>
+        <translation type="obsolete">Käytössä</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation>Ei käytössä</translation>
+        <translation type="obsolete">Ei käytössä</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
@@ -6303,7 +7451,347 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation>Viivan tyyli:</translation>
+        <translation type="obsolete">Viivan tyyli:</translation>
+    </message>
+    <message>
+        <source>&amp;Theme:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mouse Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Wheel Jump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Grab Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Documents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Documents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished">&amp;Muuta...</translation>
+    </message>
+    <message>
+        <source>&amp;ICC Profiles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scripts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ch&amp;ange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;inor Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ma&amp;jor Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide &amp;Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min&amp;or Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Majo&amp;r Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Guides Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base&amp;line Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the &amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Fore&amp;ground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;n</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;ff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default &amp;Font:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default &amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Type of Line:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;x Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sa&amp;ve Contents on Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Pages &amp;Side by Side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use PDF 1.4 &amp;Transparency Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Display Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clip to Page &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7000,6 +8488,22 @@ Tarkasta polku ja tiedostonimi.</translation>
         <source>Import &amp;EPS/PS...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Oook! Wrong arguments! Call: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -7133,19 +8637,19 @@ Tarkasta polku ja tiedostonimi.</translation>
     <name>ReformDoc</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Ylhäällä:</translation>
+        <translation type="obsolete">Ylhäällä:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Vasen:</translation>
+        <translation type="obsolete">Vasen:</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Sisäpuoli:</translation>
+        <translation type="obsolete">Sisäpuoli:</translation>
     </message>
     <message>
         <source>Document Setup</source>
@@ -7153,11 +8657,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Oikea:</translation>
+        <translation type="obsolete">Oikea:</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -7165,19 +8669,19 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Alhaalla:</translation>
+        <translation type="obsolete">Alhaalla:</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Vasen sivu ensin</translation>
+        <translation type="obsolete">Vasen sivu ensin</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Ulkopuoli:</translation>
+        <translation type="obsolete">Ulkopuoli:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Vastakkaiset sivut</translation>
+        <translation type="obsolete">Vastakkaiset sivut</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -7222,6 +8726,46 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source> p</source>
         <translation> p</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7683,7 +9227,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Todellinen koko</translation>
+        <translation type="obsolete">Todellinen koko</translation>
     </message>
     <message>
         <source>Get Picture...</source>
@@ -8201,7 +9745,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Insert &amp;Page...</source>
-        <translation>Lisää &amp;sivu...</translation>
+        <translation type="obsolete">Lisää &amp;sivu...</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -8393,15 +9937,15 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Hide &amp;Margins</source>
-        <translation>Piilota &amp;reunukset</translation>
+        <translation type="obsolete">Piilota &amp;reunukset</translation>
     </message>
     <message>
         <source>Hide &amp;Frames</source>
-        <translation>Piilota &amp;kehykset</translation>
+        <translation type="obsolete">Piilota &amp;kehykset</translation>
     </message>
     <message>
         <source>Hide &amp;Images</source>
-        <translation>Piilota k&amp;uvat</translation>
+        <translation type="obsolete">Piilota k&amp;uvat</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
@@ -8409,11 +9953,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Snap to &amp;Grid</source>
-        <translation>&amp;Kiinnitä ruudukkoon</translation>
+        <translation type="obsolete">&amp;Kiinnitä ruudukkoon</translation>
     </message>
     <message>
         <source>Hide G&amp;uides</source>
-        <translation>Piilota &amp;apuviivat</translation>
+        <translation type="obsolete">Piilota &amp;apuviivat</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
@@ -8469,7 +10013,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Preferences...</source>
-        <translation>&amp;Asetukset...</translation>
+        <translation type="obsolete">&amp;Asetukset...</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
@@ -8589,15 +10133,59 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Hide &amp;Grid</source>
-        <translation>Piilota ruu&amp;dukko</translation>
+        <translation type="obsolete">Piilota ruu&amp;dukko</translation>
     </message>
     <message>
         <source>Hide &amp;Baseline Grid</source>
-        <translation>Piilota &amp;peruslinja</translation>
+        <translation type="obsolete">Piilota &amp;peruslinja</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
         <translation>Ghostscript: Et voi käyttää EPS-kuvia</translation>
+    </message>
+    <message>
+        <source>Import &amp;Page(s)...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>100%</source>
+        <translation type="unfinished">100%</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;references...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished">Tuo</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8635,11 +10223,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <name>ScribusWin</name>
     <message>
         <source>Leave Anyway</source>
-        <translation>Poistu</translation>
+        <translation type="obsolete">Poistu</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>has been changed since the last save.</source>
@@ -8647,7 +10235,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Save Now</source>
-        <translation>Tallenna nyt</translation>
+        <translation type="obsolete">Tallenna nyt</translation>
     </message>
     <message>
         <source>Document:</source>
@@ -8659,7 +10247,23 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Close Anyway</source>
-        <translation>Sulje</translation>
+        <translation type="obsolete">Sulje</translation>
+    </message>
+    <message>
+        <source>&amp;Leave Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lose Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save Now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -8832,19 +10436,19 @@ raahaa malli sivualueelle.</translation>
     <name>SelectFields</name>
     <message>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Available Fields</source>
@@ -8857,6 +10461,22 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Select Fields</source>
         <translation>Valitse kentät</translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -8889,7 +10509,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Uusi</translation>
+        <translation type="obsolete">Uusi</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -8897,7 +10517,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Muokkaa</translation>
+        <translation type="obsolete">Muokkaa</translation>
     </message>
     <message>
         <source>Open</source>
@@ -8905,7 +10525,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Tallenna</translation>
+        <translation type="obsolete">Tallenna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -8917,15 +10537,15 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Tuo</translation>
+        <translation type="obsolete">Tuo</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -8937,7 +10557,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Kopioi</translation>
+        <translation type="obsolete">Kopioi</translation>
     </message>
     <message>
         <source>New Style</source>
@@ -8953,7 +10573,39 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uusi</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Muokkaa</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Poista</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Tallenna</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -9150,11 +10802,19 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -9423,11 +11083,11 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <name>ZAuswahl</name>
     <message>
         <source>Clear</source>
-        <translation>Tyhjennä</translation>
+        <translation type="obsolete">Tyhjennä</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sulje</translation>
+        <translation type="obsolete">Sulje</translation>
     </message>
     <message>
         <source>Select Character:</source>
@@ -9435,7 +11095,7 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Insert</source>
-        <translation>Lisää</translation>
+        <translation type="obsolete">Lisää</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
@@ -9448,6 +11108,18 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>Close this dialog and return to text editing.</source>
         <translation>Sulje ikkuna ja palaa muokkaamaan tekstiä.</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Tyhjennä</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9495,6 +11167,14 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>Created with</source>
         <translation>Tehty</translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation type="unfinished">&amp;Avaa</translation>
     </message>
 </context>
 <context>

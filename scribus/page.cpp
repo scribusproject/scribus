@@ -1942,9 +1942,28 @@ void Page::MirrorPolyH()
 {
 	PageItem *b = SelItem.at(0);
 	QWMatrix ma;
-	ma.scale(1, -1);
 	if (EditContour)
+	{
+		FPoint tp, tp2;
+		tp2 = GetMinClipF(b->ContourLine);
+		tp = GetMaxClipF(b->ContourLine);
+		QRect rd = QRect(QPoint(qRound(tp2.x()-10), qRound(tp2.y()-10)), QPoint(qRound(tp.x()+20), qRound(tp.y()+20)));
+		ma.translate(qRound(tp.x()), 0);
+		ma.scale(-1, 1);
+		b->ContourLine.map(ma);
+		QPainter p;
+		p.begin(this);
+		Transform(b, &p);
+		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
+		p.end();
+		b->FrameOnly = true;
+		b->Tinput = true;
+		b->paintObj();
+		b->FrameOnly = false;
+		MarkClip(b);
 		return;
+	}
+	ma.scale(-1, 1);
 	b->PoLine.map(ma);
 	b->PoLine.translate(b->Width, 0);
 	if (b->PType == 8)
@@ -1959,9 +1978,28 @@ void Page::MirrorPolyV()
 {
 	PageItem *b = SelItem.at(0);
 	QWMatrix ma;
-	ma.scale(1, -1);
 	if (EditContour)
+	{
+		FPoint tp, tp2;
+		tp2 = GetMinClipF(b->ContourLine);
+		tp = GetMaxClipF(b->ContourLine);
+		QRect rd = QRect(QPoint(qRound(tp2.x()-10), qRound(tp2.y()-10)), QPoint(qRound(tp.x()+20), qRound(tp.y()+20)));
+		ma.translate(0, qRound(tp.y()));
+		ma.scale(1, -1);
+		b->ContourLine.map(ma);
+		QPainter p;
+		p.begin(this);
+		Transform(b, &p);
+		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
+		p.end();
+		b->FrameOnly = true;
+		b->Tinput = true;
+		b->paintObj();
+		b->FrameOnly = false;
+		MarkClip(b);
 		return;
+	}
+	ma.scale(1, -1);
 	b->PoLine.map(ma);
 	b->PoLine.translate(0, b->Height);
 	if (b->PType == 8)
@@ -1974,10 +2012,56 @@ void Page::MirrorPolyV()
 
 void Page::TransformPoly(int mode)
 {
-	if (EditContour)
-		return;
 	PageItem *b = SelItem.at(0);
 	QWMatrix ma;
+	if (EditContour)
+	{
+		FPoint tp, tp2;
+		tp2 = GetMinClipF(b->ContourLine);
+		tp = GetMaxClipF(b->ContourLine);
+		QRect rd = QRect(QPoint(qRound(tp2.x()-10), qRound(tp2.y()-10)), QPoint(qRound(tp.x()+20), qRound(tp.y()+20)));
+		b->ContourLine.translate(-qRound((tp.x() + tp2.x()) / 2.0), -qRound((tp.y() + tp2.y()) / 2.0));
+		switch (mode)
+		{
+		case 0:
+			ma.rotate(-1.0);
+			break;
+		case 1:
+			ma.rotate(1.0);
+			break;
+		case 2:
+			ma.scale(0.9, 0.9);
+			break;
+		case 3:
+			ma.scale(1.1, 1.1);
+			break;
+		case 4:
+			ma.shear(0.017455, 0);
+			break;
+		case 5:
+			ma.shear(-0.017455, 0);
+			break;
+		case 6:
+			ma.shear(0, -0.017455);
+			break;
+		case 7:
+			ma.shear(0, 0.017455);
+			break;
+		}
+		b->ContourLine.map(ma);
+		b->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
+		QPainter p;
+		p.begin(this);
+		Transform(b, &p);
+		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
+		p.end();
+		b->FrameOnly = true;
+		b->Tinput = true;
+		b->paintObj();
+		b->FrameOnly = false;
+		MarkClip(b);
+		return;
+	}
 	FPoint oldPos = FPoint(b->Xpos, b->Ypos);
 	double offsX = b->Width / 2.0;
 	double offsY = b->Height / 2.0;

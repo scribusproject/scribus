@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>About</source>
-        <translation>Програма</translation>
+        <translation type="obsolete">Програма</translation>
     </message>
     <message>
         <source>Programming:</source>
@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>Authors</source>
-        <translation>Автори</translation>
+        <translation type="obsolete">Автори</translation>
     </message>
     <message>
         <source>German:</source>
@@ -125,11 +125,11 @@
     </message>
     <message>
         <source>Translations</source>
-        <translation>Переклад</translation>
+        <translation type="obsolete">Переклад</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Зачинити</translation>
+        <translation type="obsolete">Зачинити</translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
@@ -145,7 +145,7 @@
     </message>
     <message>
         <source>Online</source>
-        <translation>Веб ресурси</translation>
+        <translation type="obsolete">Веб ресурси</translation>
     </message>
     <message>
         <source>Basque:</source>
@@ -167,6 +167,26 @@ Missing library support is indicated by a *</source>
 система керування кольором, T=TIFF - Підтримка
 формату зображень TIFF. При відсутності бібліотеки
 літера індикатор заміщається на *</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;uthors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Зачинити</translation>
     </message>
 </context>
 <context>
@@ -296,15 +316,27 @@ this can create huge files</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Застосувати</translation>
+        <translation type="obsolete">Застосувати</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -940,7 +972,7 @@ this can create huge files</source>
     </message>
     <message>
         <source>Template:</source>
-        <translation>Шаблон:</translation>
+        <translation type="obsolete">Шаблон:</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -948,23 +980,47 @@ this can create huge files</source>
     </message>
     <message>
         <source>Apply to Current Page</source>
-        <translation>Застосувати для цієї сторінки</translation>
+        <translation type="obsolete">Застосувати для цієї сторінки</translation>
     </message>
     <message>
         <source>Apply from Page:</source>
-        <translation>Застосувати з сторінки:</translation>
+        <translation type="obsolete">Застосувати з сторінки:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>до:</translation>
+        <translation type="obsolete">до:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
+    </message>
+    <message>
+        <source>&amp;Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to &amp;Current Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply from &amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -975,43 +1031,43 @@ this can create huge files</source>
     </message>
     <message>
         <source>New</source>
-        <translation>Новий</translation>
+        <translation type="obsolete">Новий</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Записати</translation>
+        <translation type="obsolete">Записати</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Записати як...</translation>
+        <translation type="obsolete">Записати як...</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Завантажити...</translation>
+        <translation type="obsolete">Завантажити...</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Зачинити</translation>
+        <translation type="obsolete">Зачинити</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Малий</translation>
+        <translation type="obsolete">Малий</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Середній</translation>
+        <translation type="obsolete">Середній</translation>
     </message>
     <message>
         <source>Big</source>
-        <translation>Великий</translation>
+        <translation type="obsolete">Великий</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Файл</translation>
+        <translation type="obsolete">Файл</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Попередній перегляд</translation>
+        <translation type="obsolete">Попередній перегляд</translation>
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
@@ -1050,6 +1106,46 @@ Please choose another.</source>
     <message>
         <source>OK</source>
         <translation>Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Новий</translation>
+    </message>
+    <message>
+        <source>&amp;Load...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Записати</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished">Записати &amp;як...</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Зачинити</translation>
+    </message>
+    <message>
+        <source>&amp;Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Файл</translation>
+    </message>
+    <message>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1173,7 +1269,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Activate Color Management</source>
-        <translation>Активувати установку палітри кольорів</translation>
+        <translation type="obsolete">Активувати установку палітри кольорів</translation>
     </message>
     <message>
         <source>System Profiles</source>
@@ -1181,19 +1277,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Pictures:</source>
-        <translation>Зображення:</translation>
+        <translation type="obsolete">Зображення:</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation>Однотонні кольори:</translation>
+        <translation type="obsolete">Однотонні кольори:</translation>
     </message>
     <message>
         <source>Monitor:</source>
-        <translation>Монітор:</translation>
+        <translation type="obsolete">Монітор:</translation>
     </message>
     <message>
         <source>Printer:</source>
-        <translation>Принтер:</translation>
+        <translation type="obsolete">Принтер:</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
@@ -1201,23 +1297,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
-        <translation>Симулювати принтер на екрані</translation>
+        <translation type="obsolete">Симулювати принтер на екрані</translation>
     </message>
     <message>
         <source>Mark Colors out of Gamut</source>
-        <translation>Помітити кольору, які не попадають в діапазон</translation>
+        <translation type="obsolete">Помітити кольору, які не попадають в діапазон</translation>
     </message>
     <message>
         <source>Use Blackpoint Compensation</source>
-        <translation>Використовувати компенсацію чорної точки</translation>
+        <translation type="obsolete">Використовувати компенсацію чорної точки</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -1286,6 +1382,54 @@ This requires very accurate profiles and serves only as a warning.</source>
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Компенсація точки чорного - це метод покращення контрастності фотографічних зображень.
 Її використаннярекомендується при наявності фотографічних зображень в документі.</translation>
+    </message>
+    <message>
+        <source>&amp;Activate Color Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Monitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;rinter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;onitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pr&amp;inter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sim&amp;ulate Printer on the Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark Colors out of &amp;Gamut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Blackpoint Compensation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -1599,7 +1743,7 @@ T=TIFF - Підтримка формату зображень TIFF.
     <name>CustomFDialog</name>
     <message>
         <source>Compress File</source>
-        <translation>Стиснути файл</translation>
+        <translation type="obsolete">Стиснути файл</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -1613,7 +1757,15 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Include Fonts</source>
-        <translation>Включити шрифти</translation>
+        <translation type="obsolete">Включити шрифти</translation>
+    </message>
+    <message>
+        <source>&amp;Compress File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include Fonts</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1713,11 +1865,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
@@ -1856,7 +2008,7 @@ RFC2045,RFC2046 for MIME types are also useful here</source>
     </message>
     <message>
         <source>A reference to a document from which the present document is derived, eg. ISDN or URI</source>
-        <translation>Ссилка на документ нащадком якого є активний документ. Наприклад ISDN чи URI</translation>
+        <translation type="obsolete">Ссилка на документ нащадком якого є активний документ. Наприклад ISDN чи URI</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code
@@ -1875,6 +2027,18 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     <message>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
         <translation>Інформація про права на документ. Наприклад копірайт, патент, чи торгова марка</translation>
+    </message>
+    <message>
+        <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -2395,7 +2559,11 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Scribus-Document</source>
-        <translation>Документ Scribus</translation>
+        <translation type="obsolete">Документ Scribus</translation>
+    </message>
+    <message>
+        <source>Scribus Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2406,27 +2574,27 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Append</source>
-        <translation>Зовнішній</translation>
+        <translation type="obsolete">Зовнішній</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Новий</translation>
+        <translation type="obsolete">Новий</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Редагувати</translation>
+        <translation type="obsolete">Редагувати</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Скопіювати</translation>
+        <translation type="obsolete">Скопіювати</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Color Sets</source>
@@ -2438,7 +2606,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Save Color Set</source>
-        <translation>Зберегти набір</translation>
+        <translation type="obsolete">Зберегти набір</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -2470,7 +2638,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Remove Unused</source>
-        <translation>Видалити невикористані</translation>
+        <translation type="obsolete">Видалити невикористані</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
@@ -2510,7 +2678,43 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Новий</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Редагування</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Дублювати</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -2549,27 +2753,27 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Змінити...</translation>
+        <translation type="obsolete">Змінити...</translation>
     </message>
     <message>
         <source>Add...</source>
-        <translation>Додати...</translation>
+        <translation type="obsolete">Додати...</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -2606,6 +2810,30 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>Additional &amp;Paths</source>
         <translation>Д&amp;одаткові шляхи до шрифтів</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="unfinished">Ви&amp;далити</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -2662,15 +2890,15 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Поз. У:</translation>
+        <translation type="obsolete">Поз. У:</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Додати</translation>
+        <translation type="obsolete">Додати</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
@@ -2678,19 +2906,19 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Поз. Х:</translation>
+        <translation type="obsolete">Поз. Х:</translation>
     </message>
     <message>
         <source>Lock Guides</source>
-        <translation>Замкнути направляючі</translation>
+        <translation type="obsolete">Замкнути направляючі</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source> pt</source>
@@ -2707,6 +2935,42 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source> p</source>
         <translation>п</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -2743,7 +3007,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Fully Automatic</source>
-        <translation>Повністю автоматичний</translation>
+        <translation type="obsolete">Повністю автоматичний</translation>
     </message>
     <message>
         <source>If you uncheck this you will get a dialog
@@ -2754,7 +3018,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Check during Typing</source>
-        <translation>Перевіряти під час друкування</translation>
+        <translation type="obsolete">Перевіряти під час друкування</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
@@ -2762,19 +3026,19 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Мова:</translation>
+        <translation type="obsolete">Мова:</translation>
     </message>
     <message>
         <source>Smallest Word:</source>
-        <translation>Найкоротше слово:</translation>
+        <translation type="obsolete">Найкоротше слово:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -2782,7 +3046,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Number of Hypenations allowed:</source>
-        <translation>Дозволене число переносів:</translation>
+        <translation type="obsolete">Дозволене число переносів:</translation>
     </message>
     <message>
         <source>Maximum number of Hyphenations following each other.
@@ -2790,6 +3054,34 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Максимальне число послідовних переносів.
 Нульове значення встановлює необмежену кількість
 переносів.</translation>
+    </message>
+    <message>
+        <source>&amp;Fully Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished">&amp;Мова:</translation>
+    </message>
+    <message>
+        <source>&amp;Smallest Word:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number of Hypenations allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -2870,19 +3162,19 @@ A value of 0 means unlimited hyphenations.</source>
     <name>JavaDocs</name>
     <message>
         <source>Edit...</source>
-        <translation>Редагування...</translation>
+        <translation type="obsolete">Редагування...</translation>
     </message>
     <message>
         <source>Add...</source>
-        <translation>Додати...</translation>
+        <translation type="obsolete">Додати...</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Зачинити</translation>
+        <translation type="obsolete">Зачинити</translation>
     </message>
     <message>
         <source>New Script:</source>
@@ -2912,6 +3204,22 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Yes</source>
         <translation>Так</translation>
     </message>
+    <message>
+        <source>&amp;Edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Зачинити</translation>
+    </message>
 </context>
 <context>
     <name>KeyManager</name>
@@ -2933,11 +3241,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>No Key</source>
-        <translation>Ніякої клавіші</translation>
+        <translation type="obsolete">Ніякої клавіші</translation>
     </message>
     <message>
         <source>User Defined Key</source>
-        <translation>Клавіша призначена користувачем</translation>
+        <translation type="obsolete">Клавіша призначена користувачем</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
@@ -2945,15 +3253,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Set Key</source>
-        <translation>Призначити клавішу</translation>
+        <translation type="obsolete">Призначити клавішу</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Alt</source>
@@ -2985,7 +3293,31 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>This Key-Sequence is already in use</source>
-        <translation>Ця гаряча клавіша вже використовується</translation>
+        <translation type="obsolete">Ця гаряча клавіша вже використовується</translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>This Key Sequence is already in use</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3027,31 +3359,31 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Append</source>
-        <translation>Зовнішній</translation>
+        <translation type="obsolete">Зовнішній</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Новий</translation>
+        <translation type="obsolete">Новий</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Редагування</translation>
+        <translation type="obsolete">Редагування</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Скопіювати</translation>
+        <translation type="obsolete">Скопіювати</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Записати</translation>
+        <translation type="obsolete">Записати</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -3091,7 +3423,39 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Новий</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Редагування</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Дублювати</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Записати</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -3137,23 +3501,23 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Number of Copies:</source>
-        <translation>Кількість копій:</translation>
+        <translation type="obsolete">Кількість копій:</translation>
     </message>
     <message>
         <source>Horizontal Shift:</source>
-        <translation>Горизонтальний зсув:</translation>
+        <translation type="obsolete">Горизонтальний зсув:</translation>
     </message>
     <message>
         <source>Vertical Shift:</source>
-        <translation>Вертикальний зсув:</translation>
+        <translation type="obsolete">Вертикальний зсув:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source> pt</source>
@@ -3170,6 +3534,26 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source> p</source>
         <translation>п</translation>
+    </message>
+    <message>
+        <source>&amp;Number of Copies:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -3999,6 +4383,10 @@ Please choose another.</source>
         <source>Type of Line:</source>
         <translation>Тип лінії:</translation>
     </message>
+    <message>
+        <source>Use Contour Line</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -4093,19 +4481,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Append</source>
-        <translation>Зовнішній</translation>
+        <translation type="obsolete">Зовнішній</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Новий</translation>
+        <translation type="obsolete">Новий</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Скопіювати</translation>
+        <translation type="obsolete">Скопіювати</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -4145,7 +4533,27 @@ Please choose another.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation>Зачинити</translation>
+        <translation type="obsolete">Зачинити</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Новий</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Дублювати</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Зачинити</translation>
     </message>
 </context>
 <context>
@@ -4160,7 +4568,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Розмір:</translation>
+        <translation type="obsolete">Розмір:</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -4168,7 +4576,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Орієнтація:</translation>
+        <translation type="obsolete">Орієнтація:</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -4180,19 +4588,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Ширина:</translation>
+        <translation type="obsolete">Ширина:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Висота:</translation>
+        <translation type="obsolete">Висота:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Суміжні сторінки</translation>
+        <translation type="obsolete">Суміжні сторінки</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Ліва сторінка перша</translation>
+        <translation type="obsolete">Ліва сторінка перша</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -4200,19 +4608,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Ліве:</translation>
+        <translation type="obsolete">Ліве:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Праве:</translation>
+        <translation type="obsolete">Праве:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Верхнє:</translation>
+        <translation type="obsolete">Верхнє:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Нижнє:</translation>
+        <translation type="obsolete">Нижнє:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -4220,11 +4628,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>First Page Number:</source>
-        <translation>Номер першої сторінки:</translation>
+        <translation type="obsolete">Номер першої сторінки:</translation>
     </message>
     <message>
         <source>Default Unit:</source>
-        <translation>Одиниця виміру по умовчанню:</translation>
+        <translation type="obsolete">Одиниця виміру по умовчанню:</translation>
     </message>
     <message>
         <source>Points (pts)</source>
@@ -4244,23 +4652,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Кількість стовпців:</translation>
+        <translation type="obsolete">Кількість стовпців:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Всередині:</translation>
+        <translation type="obsolete">Всередині:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Ззовні:</translation>
+        <translation type="obsolete">Ззовні:</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
@@ -4284,11 +4692,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Automatic Text Frames</source>
-        <translation>Автоматичні текстові рамки</translation>
+        <translation type="obsolete">Автоматичні текстові рамки</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Проміжок:</translation>
+        <translation type="obsolete">Проміжок:</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -4367,6 +4775,82 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Tabloid</source>
         <translation>Таблоїд</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Default Unit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Automatic Text Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4496,6 +4980,10 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Якщо вибрано, використувуються координати відносно до сторінки,
 в іншому випадку координати відносні до об&quot;екта.</translation>
     </message>
+    <message>
+        <source>Edit Contour Line</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -4508,15 +4996,15 @@ otherwise Coordinates are relative to the Object.</source>
     <name>PDF_Opts</name>
     <message>
         <source>Create PDF-File</source>
-        <translation>Запис PDF файла</translation>
+        <translation type="obsolete">Запис PDF файла</translation>
     </message>
     <message>
         <source>Output to File:</source>
-        <translation>Записати в файл:</translation>
+        <translation type="obsolete">Записати в файл:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Змінити...</translation>
+        <translation type="obsolete">Змінити...</translation>
     </message>
     <message>
         <source>Export Range</source>
@@ -4524,7 +5012,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>All Pages</source>
-        <translation>Всі сторінки</translation>
+        <translation type="obsolete">Всі сторінки</translation>
     </message>
     <message>
         <source>From:</source>
@@ -4540,11 +5028,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Compatibility:</source>
-        <translation>Сумісність:</translation>
+        <translation type="obsolete">Сумісність:</translation>
     </message>
     <message>
         <source>Binding:</source>
-        <translation>Перепліт:</translation>
+        <translation type="obsolete">Перепліт:</translation>
     </message>
     <message>
         <source>Left Margin</source>
@@ -4556,19 +5044,19 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Generate Thumbnails</source>
-        <translation>Створити мініатюрні зображення</translation>
+        <translation type="obsolete">Створити мініатюрні зображення</translation>
     </message>
     <message>
         <source>Save linked Text Frames as PDF-Articles</source>
-        <translation>Зберегти зв&apos;язані текстові рамки, як PDF-статтю</translation>
+        <translation type="obsolete">Зберегти зв&apos;язані текстові рамки, як PDF-статтю</translation>
     </message>
     <message>
         <source>Include Bookmarks</source>
-        <translation>Включити закладки</translation>
+        <translation type="obsolete">Включити закладки</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>Розрішення:</translation>
+        <translation type="obsolete">Розрішення:</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -4576,11 +5064,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Downsample Images to:</source>
-        <translation>Зменшити розрішення до:</translation>
+        <translation type="obsolete">Зменшити розрішення до:</translation>
     </message>
     <message>
         <source>Compress Text and Vector Graphics</source>
-        <translation>Стиснути текст та векторну графіку</translation>
+        <translation type="obsolete">Стиснути текст та векторну графіку</translation>
     </message>
     <message>
         <source>General</source>
@@ -4588,7 +5076,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Embed all Fonts</source>
-        <translation>Вкласти всі шрифти в документ</translation>
+        <translation type="obsolete">Вкласти всі шрифти в документ</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -4600,11 +5088,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
@@ -4612,7 +5100,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
-        <translation>Ввімкнути презентаційні ефекти</translation>
+        <translation type="obsolete">Ввімкнути презентаційні ефекти</translation>
     </message>
     <message>
         <source>Page</source>
@@ -4620,7 +5108,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Show Page Previews</source>
-        <translation>Показати чорнове зображення сторінок</translation>
+        <translation type="obsolete">Показати чорнове зображення сторінок</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -4628,23 +5116,23 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Display Duration:</source>
-        <translation>Час показу:</translation>
+        <translation type="obsolete">Час показу:</translation>
     </message>
     <message>
         <source>Effect Duration:</source>
-        <translation>Час дії ефекту:</translation>
+        <translation type="obsolete">Час дії ефекту:</translation>
     </message>
     <message>
         <source>Effect Type:</source>
-        <translation>Тип ефекту:</translation>
+        <translation type="obsolete">Тип ефекту:</translation>
     </message>
     <message>
         <source>Moving Lines:</source>
-        <translation>Переміщення ліній:</translation>
+        <translation type="obsolete">Переміщення ліній:</translation>
     </message>
     <message>
         <source>Direction:</source>
-        <translation>Напрямок:</translation>
+        <translation type="obsolete">Напрямок:</translation>
     </message>
     <message>
         <source> sec</source>
@@ -4668,11 +5156,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
-        <translation>Застосувати ефект на всіх сторінках</translation>
+        <translation type="obsolete">Застосувати ефект на всіх сторінках</translation>
     </message>
     <message>
         <source>Use Encryption</source>
-        <translation>Використовувати шифрування</translation>
+        <translation type="obsolete">Використовувати шифрування</translation>
     </message>
     <message>
         <source>Passwords</source>
@@ -4680,11 +5168,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>User:</source>
-        <translation>Користувач:</translation>
+        <translation type="obsolete">Користувач:</translation>
     </message>
     <message>
         <source>Owner:</source>
-        <translation>Власник:</translation>
+        <translation type="obsolete">Власник:</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -4692,15 +5180,15 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Allow Printing the Document</source>
-        <translation>Дозволити друк документа</translation>
+        <translation type="obsolete">Дозволити друк документа</translation>
     </message>
     <message>
         <source>Allow Changing the Document</source>
-        <translation>Дозволити внесення змін в документ</translation>
+        <translation type="obsolete">Дозволити внесення змін в документ</translation>
     </message>
     <message>
         <source>Output intended for:</source>
-        <translation>Призначення експортованого файла:</translation>
+        <translation type="obsolete">Призначення експортованого файла:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
@@ -4740,11 +5228,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Info String:</source>
-        <translation>Опис:</translation>
+        <translation type="obsolete">Опис:</translation>
     </message>
     <message>
         <source>Output Profile:</source>
-        <translation>Вихідний профіль:</translation>
+        <translation type="obsolete">Вихідний профіль:</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -4752,7 +5240,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -4760,7 +5248,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
-        <translation>PDF-файли (*.pdf);;Всі файли (*)</translation>
+        <translation type="obsolete">PDF-файли (*.pdf);;Всі файли (*)</translation>
     </message>
     <message>
         <source>No Effect</source>
@@ -4832,7 +5320,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Method:</source>
-        <translation>Метод:</translation>
+        <translation type="obsolete">Метод:</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -4852,7 +5340,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Quality:</source>
-        <translation>Якість:</translation>
+        <translation type="obsolete">Якість:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -4876,7 +5364,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>From the:</source>
-        <translation>Від:</translation>
+        <translation type="obsolete">Від:</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
@@ -5102,15 +5590,15 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>&amp;Security</source>
-        <translation>&amp;Безпека</translation>
+        <translation type="obsolete">&amp;Безпека</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation>&amp;Колір</translation>
+        <translation type="obsolete">&amp;Колір</translation>
     </message>
     <message>
         <source>&amp;PDF/X-3</source>
-        <translation>&amp;PDF/X-3</translation>
+        <translation type="obsolete">&amp;PDF/X-3</translation>
     </message>
     <message>
         <source> pt</source>
@@ -5130,7 +5618,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Save</source>
-        <translation>Записати</translation>
+        <translation type="obsolete">Записати</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -5164,15 +5652,15 @@ If un-checked, editing annotations and fileds is prevented.</source>
     </message>
     <message>
         <source>Allow Copying Text and Graphics</source>
-        <translation>Дозволити копіювання тексту і зображень</translation>
+        <translation type="obsolete">Дозволити копіювання тексту і зображень</translation>
     </message>
     <message>
         <source>Allow Adding Annotations and Fields</source>
-        <translation>Дозволити вставку анотацій та полів</translation>
+        <translation type="obsolete">Дозволити вставку анотацій та полів</translation>
     </message>
     <message>
         <source>Choose Pages</source>
-        <translation>Виберіть сторінки</translation>
+        <translation type="obsolete">Виберіть сторінки</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
@@ -5181,6 +5669,218 @@ a range of pages or a single page number.</source>
         <translation>Вмістити список елементів, розділений комами де елемент
 може *бути для всіх сторінок, 1-5 для діапазона сторінок, або
 номер окремої сторінки.</translation>
+    </message>
+    <message>
+        <source>Create PDF File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utput to File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hoose Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compatibilit&amp;y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Binding:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate &amp;Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;Linked Text Frames as PDF Articles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include Bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Com&amp;press Text and Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Downsample Images to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable &amp;Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Page Pre&amp;views</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effec&amp;t Duration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effect T&amp;ype:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Moving Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;rom the:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;irection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply Effect on all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Owner:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow &amp;Printing the Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow &amp;Changing the Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Cop&amp;ying Text and Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Adding &amp;Annotations and Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;ecurity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output &amp;Intended For:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Custom Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fre&amp;quency:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Angle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;pot Function:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simple Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished">Лінія</translation>
+    </message>
+    <message>
+        <source>Round</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ellipse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use ICC Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Info String:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output &amp;Profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-&amp;3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Записати</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5191,11 +5891,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Anti-alias Text</source>
-        <translation>Згладжування тексту</translation>
+        <translation type="obsolete">Згладжування тексту</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation>Згладжування зображень</translation>
+        <translation type="obsolete">Згладжування зображень</translation>
     </message>
     <message>
         <source>All</source>
@@ -5203,27 +5903,27 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Display Transparency</source>
-        <translation>Показ прозорісті</translation>
+        <translation type="obsolete">Показ прозорісті</translation>
     </message>
     <message>
         <source>Display CMYK</source>
-        <translation>Показ CMYK кольорів</translation>
+        <translation type="obsolete">Показ CMYK кольорів</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>С</translation>
+        <translation type="obsolete">С</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>М</translation>
+        <translation type="obsolete">М</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
@@ -5262,12 +5962,44 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Ввімкнути/вимкнути К (Чорну) чорнильну пластину</translation>
     </message>
+    <message>
+        <source>Anti-alias &amp;Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anti-alias &amp;Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Trans&amp;parency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display CMYK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
     <message>
         <source>Paste</source>
-        <translation>Вклеїти</translation>
+        <translation type="obsolete">Вклеїти</translation>
     </message>
     <message>
         <source>Hide Margins</source>
@@ -5275,7 +6007,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Show Margins</source>
-        <translation>Показати розмітку полів</translation>
+        <translation type="obsolete">Показати розмітку полів</translation>
     </message>
     <message>
         <source>Hide Frames</source>
@@ -5283,7 +6015,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Показати рамки</translation>
+        <translation type="obsolete">Показати рамки</translation>
     </message>
     <message>
         <source>Hide Images</source>
@@ -5291,7 +6023,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Show Images</source>
-        <translation>Показати зображення</translation>
+        <translation type="obsolete">Показати зображення</translation>
     </message>
     <message>
         <source>Hide Grid</source>
@@ -5299,7 +6031,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Show Grid</source>
-        <translation>Показати сітку</translation>
+        <translation type="obsolete">Показати сітку</translation>
     </message>
     <message>
         <source>Hide Guides</source>
@@ -5307,15 +6039,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Show Guides</source>
-        <translation>Показати розмітку</translation>
+        <translation type="obsolete">Показати розмітку</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Притягування до сітки</translation>
+        <translation type="obsolete">Притягування до сітки</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Притягування до розмітки</translation>
+        <translation type="obsolete">Притягування до розмітки</translation>
     </message>
     <message>
         <source>Picture</source>
@@ -5327,11 +6059,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Original ppi: </source>
-        <translation>Початкові тчк/д:</translation>
+        <translation type="obsolete">Початкові тчк/д:</translation>
     </message>
     <message>
         <source>Actual ppi: </source>
-        <translation>Реальні тчк/д:</translation>
+        <translation type="obsolete">Реальні тчк/д:</translation>
     </message>
     <message>
         <source>Linked Text</source>
@@ -5359,19 +6091,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Info</source>
-        <translation>Інформація</translation>
+        <translation type="obsolete">Інформація</translation>
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Вставити зображення ...</translation>
+        <translation type="obsolete">Вставити зображення ...</translation>
     </message>
     <message>
         <source>Image Visible</source>
-        <translation>Зображення видиме</translation>
+        <translation type="obsolete">Зображення видиме</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Вставити текст...</translation>
+        <translation type="obsolete">Вставити текст...</translation>
     </message>
     <message>
         <source>Edit Text...</source>
@@ -5379,103 +6111,103 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Is PDF-Bookmark</source>
-        <translation>Закладка PDF</translation>
+        <translation type="obsolete">Закладка PDF</translation>
     </message>
     <message>
         <source>Is PDF-Annotation</source>
-        <translation>Аннотація до PDF</translation>
+        <translation type="obsolete">Аннотація до PDF</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
-        <translation>Властивості аннотації</translation>
+        <translation type="obsolete">Властивості аннотації</translation>
     </message>
     <message>
         <source>Field Properties</source>
-        <translation>Властивості поля</translation>
+        <translation type="obsolete">Властивості поля</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Згрупувати</translation>
+        <translation type="obsolete">Згрупувати</translation>
     </message>
     <message>
         <source>Un-group</source>
-        <translation>Розгрупувати</translation>
+        <translation type="obsolete">Розгрупувати</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation>Замкнути</translation>
+        <translation type="obsolete">Замкнути</translation>
     </message>
     <message>
         <source>Send to Back</source>
-        <translation>Опустити на задній план</translation>
+        <translation type="obsolete">Опустити на задній план</translation>
     </message>
     <message>
         <source>Bring to Front</source>
-        <translation>Підняти на передній план</translation>
+        <translation type="obsolete">Підняти на передній план</translation>
     </message>
     <message>
         <source>Lower</source>
-        <translation>Вниз</translation>
+        <translation type="obsolete">Вниз</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>Вгору</translation>
+        <translation type="obsolete">Вгору</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation>Відімкнути</translation>
+        <translation type="obsolete">Відімкнути</translation>
     </message>
     <message>
         <source>Send to Scrapbook</source>
-        <translation>Послати в чорновик</translation>
+        <translation type="obsolete">Послати в чорновик</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation>Послати на план</translation>
+        <translation type="obsolete">Послати на план</translation>
     </message>
     <message>
         <source>Picture Frame</source>
-        <translation>Рамка для зображення</translation>
+        <translation type="obsolete">Рамка для зображення</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Полігон</translation>
+        <translation type="obsolete">Полігон</translation>
     </message>
     <message>
         <source>Outlines</source>
-        <translation>Обриси</translation>
+        <translation type="obsolete">Обриси</translation>
     </message>
     <message>
         <source>Bezier Curve</source>
-        <translation>Крива Безьє</translation>
+        <translation type="obsolete">Крива Безьє</translation>
     </message>
     <message>
         <source>Convert to</source>
-        <translation>Конвертувати до</translation>
+        <translation type="obsolete">Конвертувати до</translation>
     </message>
     <message>
         <source>Show Properties...</source>
-        <translation>Показати властивості...</translation>
+        <translation type="obsolete">Показати властивості...</translation>
     </message>
     <message>
         <source>Hide Properties...</source>
-        <translation>Сховати властивості...</translation>
+        <translation type="obsolete">Сховати властивості...</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Вирізати</translation>
+        <translation type="obsolete">Вирізати</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Копіювати</translation>
+        <translation type="obsolete">Копіювати</translation>
     </message>
     <message>
         <source>Clear Contents</source>
-        <translation>Очистити вміст</translation>
+        <translation type="obsolete">Очистити вміст</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>None</source>
@@ -5495,15 +6227,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Update Picture</source>
-        <translation>Поновити зображення</translation>
+        <translation type="obsolete">Поновити зображення</translation>
     </message>
     <message>
         <source>Edit Picture</source>
-        <translation>Редагувати зображення</translation>
+        <translation type="obsolete">Редагувати зображення</translation>
     </message>
     <message>
         <source>Append Text...</source>
-        <translation>Додати текст...</translation>
+        <translation type="obsolete">Додати текст...</translation>
     </message>
     <message>
         <source>The Program</source>
@@ -5527,27 +6259,27 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Показати базову сітку</translation>
+        <translation type="obsolete">Показати базову сітку</translation>
     </message>
     <message>
         <source>Adjust Frame to Picture</source>
-        <translation>Привести рамку у відповідність до зображення</translation>
+        <translation type="obsolete">Привести рамку у відповідність до зображення</translation>
     </message>
     <message>
         <source>Lock object size</source>
-        <translation>Замкнути розмір об&apos;єкта</translation>
+        <translation type="obsolete">Замкнути розмір об&apos;єкта</translation>
     </message>
     <message>
         <source>Unlock object size</source>
-        <translation>Відімкнути розмір об&apos;єкта</translation>
+        <translation type="obsolete">Відімкнути розмір об&apos;єкта</translation>
     </message>
     <message>
         <source>Insert Sample Text</source>
-        <translation>Вставити пробний текст</translation>
+        <translation type="obsolete">Вставити пробний текст</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>План</translation>
+        <translation type="obsolete">План</translation>
     </message>
     <message>
         <source>Copy Here</source>
@@ -5563,7 +6295,211 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>PDF-Options</source>
-        <translation>Установки PDF</translation>
+        <translation type="obsolete">Установки PDF</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">&amp;Вклеїти</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished">Показати &amp;розмітку полів</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished">Показати ра&amp;мки</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished">&amp;Показати зображення</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished">Показати &amp;сітку</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished">Показати розм&amp;ітку</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished">Показати &amp;базову сітку</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished">Притягування до розмітк&amp;и</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation type="unfinished">Вставити &amp;текст...</translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation type="unfinished">Зам&amp;кнути</translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation type="unfinished">&amp;Відімкнути</translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">З&amp;групувати</translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation type="unfinished">Опустити на &amp;задній план</translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation type="unfinished">Підняти на &amp;передній план</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished">&amp;Опустити</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished">&amp;Підняти</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Скопіювати</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5673,6 +6609,10 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <source>Status</source>
         <translation>Статус</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
 </context>
 <context>
     <name>PolygonProps</name>
@@ -5749,7 +6689,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Розмір шрифта:</translation>
+        <translation type="obsolete">Розмір шрифта:</translation>
     </message>
     <message>
         <source> pts</source>
@@ -5777,7 +6717,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Mouse-Settings</source>
-        <translation>Установки миші</translation>
+        <translation type="obsolete">Установки миші</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -5785,7 +6725,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Recent Documents:</source>
-        <translation>Недавно редаговані документи:</translation>
+        <translation type="obsolete">Недавно редаговані документи:</translation>
     </message>
     <message>
         <source>Paths</source>
@@ -5793,19 +6733,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Documents:</source>
-        <translation>Документи:</translation>
+        <translation type="obsolete">Документи:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Змінити...</translation>
+        <translation type="obsolete">Змінити...</translation>
     </message>
     <message>
         <source>ICC-Profiles:</source>
-        <translation>ICC-профілі:</translation>
+        <translation type="obsolete">ICC-профілі:</translation>
     </message>
     <message>
         <source>Scripts:</source>
-        <translation>Сценарії:</translation>
+        <translation type="obsolete">Сценарії:</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -5813,7 +6753,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Орієнтація:</translation>
+        <translation type="obsolete">Орієнтація:</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -5829,23 +6769,23 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Size:</source>
-        <translation>Розмір:</translation>
+        <translation type="obsolete">Розмір:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Ширина:</translation>
+        <translation type="obsolete">Ширина:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Висота:</translation>
+        <translation type="obsolete">Висота:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Суміжні сторінки</translation>
+        <translation type="obsolete">Суміжні сторінки</translation>
     </message>
     <message>
         <source>Left Page First</source>
-        <translation>Ліва сторінка перша</translation>
+        <translation type="obsolete">Ліва сторінка перша</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -5853,19 +6793,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Низ:</translation>
+        <translation type="obsolete">Низ:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Верх:</translation>
+        <translation type="obsolete">Верх:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Зправа:</translation>
+        <translation type="obsolete">Зправа:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Зліва:</translation>
+        <translation type="obsolete">Зліва:</translation>
     </message>
     <message>
         <source>Autosave</source>
@@ -5873,11 +6813,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Ввімкнене</translation>
+        <translation type="obsolete">Ввімкнене</translation>
     </message>
     <message>
         <source>Interval:</source>
-        <translation>Інтервал:</translation>
+        <translation type="obsolete">Інтервал:</translation>
     </message>
     <message>
         <source>min</source>
@@ -5889,15 +6829,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
-        <translation>Крок допоміжної сітки:</translation>
+        <translation type="obsolete">Крок допоміжної сітки:</translation>
     </message>
     <message>
         <source>Major Grid Spacing:</source>
-        <translation>Крок основної сітки:</translation>
+        <translation type="obsolete">Крок основної сітки:</translation>
     </message>
     <message>
         <source>Guide Snap Distance:</source>
-        <translation>Дистанція притягування до сітки:</translation>
+        <translation type="obsolete">Дистанція притягування до сітки:</translation>
     </message>
     <message>
         <source>Grid Colors</source>
@@ -5905,15 +6845,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Minor Grid Color:</source>
-        <translation>Колір допоміжної сітки:</translation>
+        <translation type="obsolete">Колір допоміжної сітки:</translation>
     </message>
     <message>
         <source>Major Grid Color:</source>
-        <translation>Колір основної сітки:</translation>
+        <translation type="obsolete">Колір основної сітки:</translation>
     </message>
     <message>
         <source>User Guides Color:</source>
-        <translation>Колір розмітки користувача:</translation>
+        <translation type="obsolete">Колір розмітки користувача:</translation>
     </message>
     <message>
         <source>Placing</source>
@@ -5921,11 +6861,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>In the Background</source>
-        <translation>На задньому плані</translation>
+        <translation type="obsolete">На задньому плані</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation>На передньому плані</translation>
+        <translation type="obsolete">На передньому плані</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -5933,7 +6873,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Scaling:</source>
-        <translation>Масштабування:</translation>
+        <translation type="obsolete">Масштабування:</translation>
     </message>
     <message>
         <source> %</source>
@@ -5953,27 +6893,27 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Automatic Line Spacing:</source>
-        <translation>Автоматична відстань між рядками:</translation>
+        <translation type="obsolete">Автоматична відстань між рядками:</translation>
     </message>
     <message>
         <source>Default Size:</source>
-        <translation>Стандартний кегль:</translation>
+        <translation type="obsolete">Стандартний кегль:</translation>
     </message>
     <message>
         <source>Default Font:</source>
-        <translation>Стандартний Шрифт:</translation>
+        <translation type="obsolete">Стандартний Шрифт:</translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation>Колір тексту:</translation>
+        <translation type="obsolete">Колір тексту:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Кількість стовпців:</translation>
+        <translation type="obsolete">Кількість стовпців:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Інтервал:</translation>
+        <translation type="obsolete">Інтервал:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -5985,19 +6925,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Line Color:</source>
-        <translation>Колір лінії:</translation>
+        <translation type="obsolete">Колір лінії:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation>Затінення:</translation>
+        <translation type="obsolete">Затінення:</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation>Колір заповнення:</translation>
+        <translation type="obsolete">Колір заповнення:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Товщина лінії:</translation>
+        <translation type="obsolete">Товщина лінії:</translation>
     </message>
     <message>
         <source>None</source>
@@ -6009,43 +6949,43 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Minimum:</source>
-        <translation>Мінімум:</translation>
+        <translation type="obsolete">Мінімум:</translation>
     </message>
     <message>
         <source>Maximum:</source>
-        <translation>Максимум:</translation>
+        <translation type="obsolete">Максимум:</translation>
     </message>
     <message>
         <source>Stepping:</source>
-        <translation>Крок:</translation>
+        <translation type="obsolete">Крок:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
-        <translation>Вільне масштабування</translation>
+        <translation type="obsolete">Вільне масштабування</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
-        <translation>Масштабувати зображення до розміру рамки</translation>
+        <translation type="obsolete">Масштабувати зображення до розміру рамки</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Зберегти відношення сторін</translation>
+        <translation type="obsolete">Зберегти відношення сторін</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Кутів:</translation>
+        <translation type="obsolete">Кутів:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Кут обертання:</translation>
+        <translation type="obsolete">Кут обертання:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Випуклий полігон</translation>
+        <translation type="obsolete">Випуклий полігон</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Фактор:</translation>
+        <translation type="obsolete">Фактор:</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -6065,35 +7005,35 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Big</source>
-        <translation>Великий</translation>
+        <translation type="obsolete">Великий</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
-        <translation>Показувати сторінки поруч</translation>
+        <translation type="obsolete">Показувати сторінки поруч</translation>
     </message>
     <message>
         <source>Page-Colors</source>
-        <translation>Кольори сторінки</translation>
+        <translation type="obsolete">Кольори сторінки</translation>
     </message>
     <message>
         <source>Background:</source>
-        <translation>Фон:</translation>
+        <translation type="obsolete">Фон:</translation>
     </message>
     <message>
         <source>Margins:</source>
-        <translation>Неробочі поля:</translation>
+        <translation type="obsolete">Неробочі поля:</translation>
     </message>
     <message>
         <source>Display Unprintable Area in Margin Color</source>
-        <translation>Показати недруковану область кольором поля</translation>
+        <translation type="obsolete">Показати недруковану область кольором поля</translation>
     </message>
     <message>
         <source>Use PDF-1.4 Transparency Features</source>
-        <translation>Використовувати прозорість формату PDF-1.4</translation>
+        <translation type="obsolete">Використовувати прозорість формату PDF-1.4</translation>
     </message>
     <message>
         <source>Adjust Display Size</source>
-        <translation>Відрегулювати розмір відображення</translation>
+        <translation type="obsolete">Відрегулювати розмір відображення</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
@@ -6101,11 +7041,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -6113,11 +7053,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Всередині:</translation>
+        <translation type="obsolete">Всередині:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Ззовні:</translation>
+        <translation type="obsolete">Ззовні:</translation>
     </message>
     <message>
         <source> mm</source>
@@ -6141,11 +7081,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Antialias Text</source>
-        <translation>Антиаліасинг текста</translation>
+        <translation type="obsolete">Антиаліасинг текста</translation>
     </message>
     <message>
         <source>Antialias Graphics</source>
-        <translation>Антиаліасинг зображень</translation>
+        <translation type="obsolete">Антиаліасинг зображень</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
@@ -6161,15 +7101,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation>Обрізати по полях сторінки</translation>
+        <translation type="obsolete">Обрізати по полях сторінки</translation>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation>Зміщення:</translation>
+        <translation type="obsolete">Зміщення:</translation>
     </message>
     <message>
         <source>Name of executable:</source>
-        <translation>Назва програми:</translation>
+        <translation type="obsolete">Назва програми:</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
@@ -6515,15 +7455,15 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Baseline Grid:</source>
-        <translation>Базова сітка:</translation>
+        <translation type="obsolete">Базова сітка:</translation>
     </message>
     <message>
         <source>Baseline Offset:</source>
-        <translation>Зміщення базової сітки:</translation>
+        <translation type="obsolete">Зміщення базової сітки:</translation>
     </message>
     <message>
         <source>Save Contents on Changes</source>
-        <translation>Зберегти вміст після кожної зміни</translation>
+        <translation type="obsolete">Зберегти вміст після кожної зміни</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
@@ -6535,15 +7475,15 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Theme:</source>
-        <translation>Тема:</translation>
+        <translation type="obsolete">Тема:</translation>
     </message>
     <message>
         <source>Wheel-Jump:</source>
-        <translation>Число рядків прокручування на кожний рух колеса миші:</translation>
+        <translation type="obsolete">Число рядків прокручування на кожний рух колеса миші:</translation>
     </message>
     <message>
         <source>Grab-Radius:</source>
-        <translation>Радіус захвату:</translation>
+        <translation type="obsolete">Радіус захвату:</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -6551,19 +7491,19 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>On</source>
-        <translation>Ввімкнути</translation>
+        <translation type="obsolete">Ввімкнути</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation>Вимкнути</translation>
+        <translation type="obsolete">Вимкнути</translation>
     </message>
     <message>
         <source>Horizontal Scaling:</source>
-        <translation>Горизонтальне масштабування:</translation>
+        <translation type="obsolete">Горизонтальне масштабування:</translation>
     </message>
     <message>
         <source>Vertical Scaling:</source>
-        <translation>Вертикальне масштабування:</translation>
+        <translation type="obsolete">Вертикальне масштабування:</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
@@ -6579,7 +7519,347 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation>Тип лінії:</translation>
+        <translation type="obsolete">Тип лінії:</translation>
+    </message>
+    <message>
+        <source>&amp;Theme:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mouse Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Wheel Jump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Grab Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Documents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Documents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished">&amp;Замінити...</translation>
+    </message>
+    <message>
+        <source>&amp;ICC Profiles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scripts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ch&amp;ange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>M&amp;inor Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ma&amp;jor Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide &amp;Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min&amp;or Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Majo&amp;r Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Guides Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base&amp;line Grid Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the &amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Fore&amp;ground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;n</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;ff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default &amp;Font:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default &amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Type of Line:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;x Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sa&amp;ve Contents on Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Pages &amp;Side by Side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use PDF 1.4 &amp;Transparency Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Display Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clip to Page &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>O&amp;utside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7434,43 +8714,43 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Верхнє:</translation>
+        <translation type="obsolete">Верхнє:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Ліве:</translation>
+        <translation type="obsolete">Ліве:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Нижнє:</translation>
+        <translation type="obsolete">Нижнє:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Праве:</translation>
+        <translation type="obsolete">Праве:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Суміжні сторінки</translation>
+        <translation type="obsolete">Суміжні сторінки</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Ліва сторінка перша</translation>
+        <translation type="obsolete">Ліва сторінка перша</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Всередині:</translation>
+        <translation type="obsolete">Всередині:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Ззовні:</translation>
+        <translation type="obsolete">Ззовні:</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -7517,6 +8797,46 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source> p</source>
         <translation>п</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left &amp;Page First</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outside:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7862,7 +9182,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Реальний розмір</translation>
+        <translation type="obsolete">Реальний розмір</translation>
     </message>
     <message>
         <source>200%</source>
@@ -8704,7 +10024,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Snap to &amp;Grid</source>
-        <translation>Притягування до с&amp;ітки</translation>
+        <translation type="obsolete">Притягування до с&amp;ітки</translation>
     </message>
     <message>
         <source>Hide G&amp;uides</source>
@@ -8764,7 +10084,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Preferences...</source>
-        <translation>&amp;Установки...</translation>
+        <translation type="obsolete">&amp;Установки...</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
@@ -8926,6 +10246,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Found nothing to import</source>
         <translation>Не знаходжу, що імпортувати</translation>
     </message>
+    <message>
+        <source>100%</source>
+        <translation type="unfinished">100%</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;references...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -8962,11 +10294,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>ScribusWin</name>
     <message>
         <source>Leave Anyway</source>
-        <translation>Ігнорувати і вийти</translation>
+        <translation type="obsolete">Ігнорувати і вийти</translation>
     </message>
     <message>
         <source>Close Anyway</source>
-        <translation>Зачинити в любому випадку</translation>
+        <translation type="obsolete">Зачинити в любому випадку</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -8982,11 +10314,27 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Save Now</source>
-        <translation>Записати зараз</translation>
+        <translation type="obsolete">Записати зараз</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
+    </message>
+    <message>
+        <source>&amp;Leave Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lose Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save Now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -9167,11 +10515,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
+        <translation type="obsolete">&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
+        <translation type="obsolete">&lt;&lt;</translation>
     </message>
     <message>
         <source>Selected Fields</source>
@@ -9179,11 +10527,27 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -9216,31 +10580,31 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Append</source>
-        <translation>Зовнішній</translation>
+        <translation type="obsolete">Зовнішній</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Новий</translation>
+        <translation type="obsolete">Новий</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Редагувати</translation>
+        <translation type="obsolete">Редагувати</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Копіювати</translation>
+        <translation type="obsolete">Копіювати</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Видалити</translation>
+        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Записати</translation>
+        <translation type="obsolete">Записати</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -9280,7 +10644,39 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Новий</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Редагування</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished">&amp;Дублювати</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Записати</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -9485,11 +10881,19 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -9762,15 +11166,15 @@ Please choose another.</source>
     </message>
     <message>
         <source>Insert</source>
-        <translation>Вставити</translation>
+        <translation type="obsolete">Вставити</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Очистити</translation>
+        <translation type="obsolete">Очистити</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Зачинити</translation>
+        <translation type="obsolete">Зачинити</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
@@ -9783,6 +11187,18 @@ Please choose another.</source>
     <message>
         <source>Close this dialog and return to text editing.</source>
         <translation>Зачинити цей діалог та повернутися до редагування тексту.</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">О&amp;чистити</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Зачинити</translation>
     </message>
 </context>
 <context>

@@ -809,7 +809,7 @@ void ScribusApp::initMenuBar()
 	tipsOn = true;
 	settingsMenu->setItemChecked(tip, tipsOn);
 	settingsMenu->insertSeparator();
-	MenID = settingsMenu->insertItem( tr("&Preferences..."), this , SLOT(slotPrefsOrg()));
+	MenID = settingsMenu->insertItem( tr("P&references..."), this , SLOT(slotPrefsOrg()));
 	MenID = settingsMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
 	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
 	settingsMenu->insertItem( tr("&Hyphenator..."), this, SLOT(configHyphenator()));
@@ -4937,7 +4937,6 @@ void ScribusApp::ToggleFrameEdit()
 		{
 			doc->ActPage->MarkClip(doc->ActPage->SelItem.at(0));
 			Npal->PolyStatus(doc->ActPage->SelItem.at(0)->PType, doc->ActPage->SelItem.at(0)->PoLine.size());
-			Npal->EditCont->setChecked(false);
 		}
 	}
 	ShapeMenu->setItemChecked(ShapeEdit, doc->EditClip);
@@ -4967,6 +4966,7 @@ void ScribusApp::NoFrameEdit()
 	if (HaveDoc)
 	{
 		doc->EditClip = false;
+		doc->ActPage->EditContour = false;
 		if (doc->ActPage->SelItem.count() != 0)
 		{
 			HaveNewSel(doc->ActPage->SelItem.at(0)->PType);

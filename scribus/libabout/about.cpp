@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("18").arg("July").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("19").arg("July").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -77,7 +77,7 @@ About::About( QWidget* parent )
 
 	BuildID->setText( tr("Scribus Version %1\n%2 %3").arg(VERSION).arg( tr("Build-ID:")).arg(bu));
 	tabLayout1->addWidget( BuildID );
-	TabWidget2->insertTab( tab, tr( "About" ) );
+	TabWidget2->insertTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( TabWidget2, "tab_2" );
 	tabLayout = new QHBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
@@ -108,7 +108,7 @@ About::About( QWidget* parent )
 	                                     "<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
 	TextView1->setTextFormat( QTextView::RichText );
 	tabLayout->addWidget( TextView1 );
-	TabWidget2->insertTab( tab_2, tr( "Authors" ) );
+	TabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
 	tab_3 = new QWidget( TabWidget2, "tab_3" );
 	tabLayout_2 = new QHBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
@@ -192,7 +192,7 @@ About::About( QWidget* parent )
 	                                      "</table>"));
 	TextView2->setTextFormat( QTextView::RichText );
 	tabLayout_2->addWidget( TextView2 );
-	TabWidget2->insertTab( tab_3, tr( "Translations" ) );
+	TabWidget2->insertTab( tab_3, tr( "&Translations" ) );
 
 	// online tab (03/04/2004 petr vanek)
 	tab_4 = new QWidget( TabWidget2, "tab_4" );
@@ -211,15 +211,14 @@ About::About( QWidget* parent )
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
 	tabLayout_4->addWidget( TextView4 );
-	TabWidget2->insertTab( tab_4, tr( "Online" ) );
+	TabWidget2->insertTab( tab_4, tr( "&Online" ) );
 	AboutLayout->addWidget( TabWidget2 );
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( this, "PushButton1" );
-	PushButton1->setText( tr( "Close" ) );
+	PushButton1 = new QPushButton( tr( "&Close" ), this, "PushButton1" );
 	PushButton1->setDefault( true );
 	Layout2->addWidget( PushButton1 );
 	AboutLayout->addLayout( Layout2 );

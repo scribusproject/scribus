@@ -82,7 +82,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 				Table1->setText(a, 4, "OpenType");
 		}
 		Table1->setText(a, 5, it.current()->Datei);
-		a++;
+		++a;
 	}
 	UsedFonts.sort();
 	Table1->sortColumn(0, true, true);
@@ -143,8 +143,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	Layout2a = new QHBoxLayout( 0, 0, 6, "Layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2a->addItem( spacer1 );
-	DelB = new QPushButton( tab, "DelB" );
-	DelB->setText( tr( "Delete" ) );
+	DelB = new QPushButton( tr( "&Delete" ), tab, "DelB" );
 	DelB->setEnabled(false);
 	Layout2a->addWidget( DelB );
 	QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -159,14 +158,11 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	PathList->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	tab3Layout->addWidget( PathList );
 	LayoutR = new QVBoxLayout( 0, 0, 6, "LayoutR");
-	ChangeB = new QPushButton( tab3, "ChangeB" );
-	ChangeB->setText( tr( "Change..." ) );
+	ChangeB = new QPushButton( tr( "C&hange..." ), tab3, "ChangeB" );
 	LayoutR->addWidget( ChangeB );
-	AddB = new QPushButton( tab3, "AddB" );
-	AddB->setText( tr( "Add..." ) );
+	AddB = new QPushButton( tr( "A&dd..." ), tab3, "AddB" );
 	LayoutR->addWidget( AddB );
-	RemoveB = new QPushButton( tab3, "RemoveB" );
-	RemoveB->setText( tr( "Remove" ) );
+	RemoveB = new QPushButton( tr( "&Remove" ), tab3, "RemoveB" );
 	LayoutR->addWidget( RemoveB );
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	LayoutR->addItem( spacer_2 );
@@ -184,11 +180,9 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( this, "PushButton1" );
-	PushButton1->setText( tr( "OK" ) );
+	PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
 	Layout2->addWidget( PushButton1 );
-	PushButton1_2 = new QPushButton( this, "PushButton1_2" );
-	PushButton1_2->setText( tr( "Cancel" ) );
+	PushButton1_2 = new QPushButton( tr( "&Cancel" ), this, "PushButton1_2" );
 	PushButton1_2->setDefault( true );
 	PushButton1_2->setFocus();
 	Layout2->addWidget( PushButton1_2 );
@@ -228,7 +222,7 @@ void FontPrefs::UpdateFliste()
 	{
 		if (FlagsUse.at(a)->isChecked())
 			UsedFonts.append(it.currentKey());
-		a++;
+		++a;
 	}
 	UsedFonts.sort();
 	for (uint b = 0; b < FlagsRepl.count(); ++b)

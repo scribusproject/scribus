@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.ca\n"
-"POT-Creation-Date: 2004-06-18 00:23+0200\n"
+"POT-Creation-Date: 2004-07-19 23:24+0200\n"
 "PO-Revision-Date: 2002-09-22 21:15+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <ca@li.org>\n"
@@ -66,13 +66,16 @@ msgstr ""
 msgid " p"
 msgstr ""
 
-msgid "OK"
+#, fuzzy
+msgid "&OK"
 msgstr "Bé"
 
-msgid "Apply"
+#, fuzzy
+msgid "&Apply"
 msgstr "Aplica"
 
-msgid "Cancel"
+#, fuzzy
+msgid "&Cancel"
 msgstr "Cancel.la"
 
 msgid "Field Properties"
@@ -449,6 +452,12 @@ msgstr "Script de càlcul propi:"
 msgid "Calculate"
 msgstr "Calcula"
 
+msgid "OK"
+msgstr "Bé"
+
+msgid "Cancel"
+msgstr "Cancel.la"
+
 msgid "Flag is ignored for PDF-1.3"
 msgstr ""
 
@@ -492,21 +501,22 @@ msgid "Apply Template"
 msgstr "Aplica Plantilla"
 
 #, fuzzy
-msgid "Template:"
+msgid "&Template:"
 msgstr "Plantilla nova"
 
 # New in Version 0.8
 #, fuzzy
-msgid "Apply to Current Page"
+msgid "Apply to &Current Page"
 msgstr "Aplica efectes a totes les pàgines"
 
 # New in Version 0.8
 #, fuzzy
-msgid "Apply from Page:"
+msgid "Apply from &Page:"
 msgstr "Aplica efectes a totes les pàgines"
 
-msgid "to:"
-msgstr "a:"
+#, fuzzy
+msgid "To:"
+msgstr "Superior:"
 
 msgid "Bookmarks"
 msgstr "Punts"
@@ -582,22 +592,26 @@ msgid "Color Management Settings"
 msgstr "Arranjament de l'administració del Color"
 
 #, fuzzy
-msgid "Activate Color Management"
+msgid "&Activate Color Management"
 msgstr "Activa l'Administració del Color"
 
 msgid "System Profiles"
 msgstr "Perfils del Sistema"
 
-msgid "Pictures:"
+#, fuzzy
+msgid "&Pictures:"
 msgstr "Imatges"
 
-msgid "Solid Colors:"
+#, fuzzy
+msgid "&Solid Colors:"
 msgstr "Colors Sòlids:"
 
-msgid "Monitor:"
+#, fuzzy
+msgid "&Monitor:"
 msgstr "Monitor:"
 
-msgid "Printer:"
+#, fuzzy
+msgid "P&rinter:"
 msgstr "Impressora:"
 
 msgid "Rendering Intents"
@@ -615,13 +629,22 @@ msgstr "Saturació"
 msgid "Absolute Colorimetric"
 msgstr "Colormetratge Absolut:"
 
-msgid "Simulate Printer on the Screen"
+#, fuzzy
+msgid "M&onitor:"
+msgstr "Monitor:"
+
+#, fuzzy
+msgid "Pr&inter:"
+msgstr "Impressora:"
+
+#, fuzzy
+msgid "Sim&ulate Printer on the Screen"
 msgstr "Simular Impressora a la Pantalla"
 
-msgid "Mark Colors out of Gamut"
+msgid "Mark Colors out of &Gamut"
 msgstr ""
 
-msgid "Use Blackpoint Compensation"
+msgid "Use &Blackpoint Compensation"
 msgstr ""
 
 msgid "Default color profile for imported images"
@@ -734,20 +757,28 @@ msgstr "El nom de l'Estil ja existeix"
 msgid "Colors"
 msgstr "Colors"
 
-msgid "Append"
+#, fuzzy
+msgid "&Append"
 msgstr "Adjunta"
 
-msgid "Edit"
+#, fuzzy
+msgid "&New"
+msgstr "Nou"
+
+#, fuzzy
+msgid "&Edit"
 msgstr "Edita"
 
-msgid "Duplicate"
+#, fuzzy
+msgid "D&uplicate"
 msgstr "Duplica"
 
-msgid "Delete"
+#, fuzzy
+msgid "&Delete"
 msgstr "Esborra..."
 
 #, fuzzy
-msgid "Remove Unused"
+msgid "&Remove Unused"
 msgstr "Esborra"
 
 #, fuzzy
@@ -759,7 +790,7 @@ msgid "Current Color Set:"
 msgstr "Color de text:"
 
 #, fuzzy
-msgid "Save Color Set"
+msgid "&Save Color Set"
 msgstr "Colormetratge Relatiu:"
 
 msgid "Choose a color set to load"
@@ -952,14 +983,16 @@ msgstr "Autor:"
 msgid "Unknown"
 msgstr "Desconegut"
 
-msgid "Scribus-Document"
+#, fuzzy
+msgid "Scribus Document"
 msgstr "Document de l'Scribus"
 
-msgid "Compress File"
+#, fuzzy
+msgid "&Compress File"
 msgstr "Comprimeix Fitxer"
 
 #, fuzzy
-msgid "Include Fonts"
+msgid "&Include Fonts"
 msgstr "Incloure Punts"
 
 #, fuzzy
@@ -990,28 +1023,158 @@ msgstr "Esborra pàgines"
 msgid "Delete from:"
 msgstr "Esborra des de:"
 
-msgid "Document Info"
+msgid "to:"
+msgstr "a:"
+
+#, fuzzy
+msgid "Document Information"
 msgstr "Informació"
 
-msgid "Description:"
-msgstr "Descripció:"
+#, fuzzy
+msgid "&Title:"
+msgstr "Títol:"
 
-msgid "Keywords:"
+#, fuzzy
+msgid "&Author:"
+msgstr "Autor:"
+
+msgid "&Keywords:"
 msgstr ""
 
+#, fuzzy
+msgid "Descri&ption:"
+msgstr "Descripció:"
+
+msgid "P&ublisher:"
+msgstr ""
+
+#, fuzzy
+msgid "&Contributors:"
+msgstr "Contribucions de:"
+
+#, fuzzy
+msgid "Dat&e:"
+msgstr "Data"
+
+#, fuzzy
+msgid "T&ype:"
+msgstr "Tipus:"
+
+#, fuzzy
+msgid "F&ormat:"
+msgstr "Format"
+
+#, fuzzy
+msgid "Identi&fier:"
+msgstr "Sangria Esquerra:"
+
+#, fuzzy
+msgid "&Source:"
+msgstr "Forçat"
+
+#, fuzzy
+msgid "&Language:"
+msgstr "Interval:"
+
+#, fuzzy
+msgid "&Relation:"
+msgstr "Resolució:"
+
+#, fuzzy
+msgid "Co&verage:"
+msgstr "promig"
+
+#, fuzzy
+msgid "Ri&ghts:"
+msgstr "Dreta:"
+
+#, fuzzy
+msgid "&Document"
+msgstr "Document "
+
+#, fuzzy
+msgid "Further &Information"
+msgstr "Formatant"
+
 msgid ""
+"The person or organisation primarily responsible for making the content of "
+"the document.\n"
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
 
 msgid ""
+"A name given to the document.\n"
+"This field can be embedded in the Scribus document for reference, as well as "
+"in the metadata of a PDF"
+msgstr ""
+
+msgid ""
+"An account of the content of the document.\n"
 "This field is for a brief description or abstract of the document. It is "
 "embedded in the PDF on export"
 msgstr ""
 
 msgid ""
+"The topic of the content of the document.\n"
 "This field is for document keywords you wish to embed in a PDF, to assist "
 "searches and indexing of PDF files"
+msgstr ""
+
+msgid "A person or organisation responsible for making the document available"
+msgstr ""
+
+msgid ""
+"A person or organisation responsible for making contributions to the content "
+"of the document"
+msgstr ""
+
+msgid ""
+"A date associated with an event in the life cycle of the document, in YYYY-"
+"MM-DD format, as per ISO 8601"
+msgstr ""
+
+msgid ""
+"The nature or genre of the content of the document, eg. categories, "
+"functions, genres, etc"
+msgstr ""
+
+msgid ""
+"The physical or digital manifestation of the document. Media type and "
+"dimensions would be worth noting.\n"
+"RFC2045,RFC2046 for MIME types are also useful here"
+msgstr ""
+
+msgid ""
+"An unambiguous reference to the document within a given context such as ISBN "
+"or URI"
+msgstr ""
+
+msgid ""
+"A reference to a document from which the present document is derived, eg. "
+"ISBN or URI"
+msgstr ""
+
+msgid ""
+"The language in which the content of the document is written, usually a ISO-"
+"639 language code\n"
+"optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-"
+"CH"
+msgstr ""
+
+msgid ""
+"A reference to a related document, possibly using a formal identifier such "
+"as a ISBN or URI"
+msgstr ""
+
+msgid ""
+"The extent or scope of the content of the document, possibly including "
+"location, time and jurisdiction ranges"
+msgstr ""
+
+msgid ""
+"Information about rights held in and over the document, eg. copyright, "
+"patent or trademark"
 msgstr ""
 
 #, fuzzy
@@ -1086,17 +1249,11 @@ msgstr "Imprimeix l'interval"
 msgid "Print range"
 msgstr "Imprimeix l'interval"
 
-msgid "From page:"
-msgstr "De la pàgina:"
-
-msgid "To page:"
-msgstr "A la pàgina:"
-
-msgid "Print last page first"
-msgstr "Primer la darrera pàgina"
-
-msgid "Print first page first"
-msgstr "Primer la primera pàgina"
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
 
 msgid "Number of copies:"
 msgstr "Número de còpies:"
@@ -1235,7 +1392,8 @@ msgstr "El nom de l'Estil ja existeix"
 msgid "Edit Styles"
 msgstr "Edita Estils"
 
-msgid "Save"
+#, fuzzy
+msgid "&Save"
 msgstr "Desa"
 
 msgid "New Style"
@@ -1280,6 +1438,9 @@ msgstr "Neteja"
 
 msgid "Get Field Names"
 msgstr "Aconseguir noms dels camps"
+
+msgid "Edit"
+msgstr "Edita"
 
 #, fuzzy
 msgid "Javascripts (*.js);;All Files (*)"
@@ -1336,8 +1497,17 @@ msgstr "Desplaçament"
 msgid "Font &Substitutions"
 msgstr ""
 
-msgid "Add..."
+#, fuzzy
+msgid "C&hange..."
+msgstr "Canvia..."
+
+#, fuzzy
+msgid "A&dd..."
 msgstr "Afegeix..."
+
+#, fuzzy
+msgid "&Remove"
+msgstr "Esborra"
 
 msgid "Additional &Paths"
 msgstr ""
@@ -1351,6 +1521,10 @@ msgstr "Nodes"
 #, fuzzy
 msgid "Absolute Coordinates"
 msgstr "Colormetratge Absolut:"
+
+#, fuzzy
+msgid "Edit Contour Line"
+msgstr "Edita color"
 
 #, fuzzy
 msgid "End Editing"
@@ -1437,15 +1611,35 @@ msgid "Horizontal Guides"
 msgstr "Volta horitzontal"
 
 #, fuzzy
-msgid "Add"
+msgid "&Y-Pos:"
+msgstr "Pos Y Local:"
+
+#, fuzzy
+msgid "&Add"
 msgstr "Afegeix..."
+
+#, fuzzy
+msgid "D&elete"
+msgstr "Esborra..."
 
 #, fuzzy
 msgid "Vertical Guides"
 msgstr "Espaiat vertical"
 
 #, fuzzy
-msgid "Lock Guides"
+msgid "&X-Pos:"
+msgstr "Pos X Local:"
+
+#, fuzzy
+msgid "A&dd"
+msgstr "Afegeix..."
+
+#, fuzzy
+msgid "De&lete"
+msgstr "Esborra..."
+
+#, fuzzy
+msgid "&Lock Guides"
 msgstr "Mostra les guies"
 
 msgid ""
@@ -1466,7 +1660,17 @@ msgstr ""
 msgid "Hyphenator Settings"
 msgstr "Arranjament de caràcter"
 
-msgid "Fully Automatic"
+#, fuzzy
+msgid "&Fully Automatic"
+msgstr "Caixa de text automàtica"
+
+msgid "Check &During Typing"
+msgstr ""
+
+msgid "&Smallest Word:"
+msgstr ""
+
+msgid "&Number of Hypenations allowed:"
 msgstr ""
 
 msgid ""
@@ -1474,23 +1678,10 @@ msgid ""
 "everytime a possible Hyphenation is found."
 msgstr ""
 
-msgid "Check during Typing"
-msgstr ""
-
 msgid "Enables automatic checking of your text while typing."
 msgstr ""
 
-#, fuzzy
-msgid "Language:"
-msgstr "Interval:"
-
-msgid "Smallest Word:"
-msgstr ""
-
 msgid "Length of the smallest word to be hyphenated."
-msgstr ""
-
-msgid "Number of Hypenations allowed:"
 msgstr ""
 
 msgid ""
@@ -1523,6 +1714,10 @@ msgid "Template (Left Page):"
 msgstr "Plantilla per aquesta pàgina:"
 
 #, fuzzy
+msgid "Template:"
+msgstr "Plantilla nova"
+
+#, fuzzy
 msgid "Template (Right Page):"
 msgstr "Plantilla per aquesta pàgina:"
 
@@ -1530,7 +1725,16 @@ msgstr "Plantilla per aquesta pàgina:"
 msgid "Edit JavaScripts"
 msgstr "Java Script"
 
-msgid "Close"
+#, fuzzy
+msgid "&Edit..."
+msgstr "Edita..."
+
+#, fuzzy
+msgid "&Add..."
+msgstr "Afegeix..."
+
+#, fuzzy
+msgid "&Close"
 msgstr "Tanca"
 
 msgid "New Script:"
@@ -1552,16 +1756,19 @@ msgstr "Tecla Assignada"
 msgid "Select a Key for this Action"
 msgstr "Selecciona una Tecla per aquesta Acció"
 
-msgid "No Key"
+#, fuzzy
+msgid "&No Key"
 msgstr "Sense Tecla"
 
-msgid "User Defined Key"
+#, fuzzy
+msgid "&User Defined Key"
 msgstr "Tecla Assignada per l'Usuari"
 
 msgid "ALT+SHIFT+T"
 msgstr ""
 
-msgid "Set Key"
+#, fuzzy
+msgid "Set &Key"
 msgstr "Defineix Tecla"
 
 #, fuzzy
@@ -1583,7 +1790,8 @@ msgstr ""
 msgid "Ctrl+"
 msgstr ""
 
-msgid "This Key-Sequence is already in use"
+#, fuzzy
+msgid "This Key Sequence is already in use"
 msgstr "Aquesta combinació de Tecles ja s'està usant"
 
 msgid "Layers"
@@ -1615,38 +1823,47 @@ msgstr "Edita Estils"
 msgid "Multiple Duplicate"
 msgstr "Duplicació múltiple"
 
-msgid "Number of Copies:"
+#, fuzzy
+msgid "&Number of Copies:"
 msgstr "Número de còpies:"
 
-msgid "Horizontal Shift:"
+#, fuzzy
+msgid "&Horizontal Shift:"
 msgstr "Dist. horitzontal:"
 
-msgid "Vertical Shift:"
+#, fuzzy
+msgid "&Vertical Shift:"
 msgstr "Dist. vertical:"
 
 #, fuzzy
-msgid "Import a Page"
+msgid "Import Template"
 msgstr "Importa Dades"
 
 #, fuzzy
-msgid "Document to load:"
-msgstr "Documentació:"
+msgid "Import Page(s)"
+msgstr "Importa Dades"
 
 #, fuzzy
-msgid "Document contains: 0 Page(s)"
-msgstr "Pàgines Document:"
+msgid "From Document:"
+msgstr "No document"
 
 #, fuzzy
-msgid "Import Page Nr:"
+msgid "Import Page(s):"
 msgstr "Importa Dades des de:"
+
+msgid " from 0"
+msgstr ""
+
+#, fuzzy
+msgid "Create Page(s)"
+msgstr "Esborra pàgines"
 
 #, fuzzy
 msgid "Import"
 msgstr "Importa..."
 
-#, fuzzy
-msgid "Document contains: %1 Page(s)"
-msgstr "Pàgines Document:"
+msgid " from %1"
+msgstr ""
 
 msgid "Missing Font"
 msgstr "Font absent"
@@ -1707,6 +1924,10 @@ msgstr "Text al voltant de la caixa"
 
 msgid "Use Bounding Box"
 msgstr ""
+
+#, fuzzy
+msgid "Use Contour Line"
+msgstr "Reinicialitza Punts de Control"
 
 #, fuzzy
 msgid "Shape:"
@@ -1771,6 +1992,10 @@ msgstr "Scripts Propis"
 #, fuzzy
 msgid "Kerning:"
 msgstr "Alerta"
+
+#, fuzzy
+msgid "Language:"
+msgstr "Interval:"
 
 msgid "Free Scaling"
 msgstr "Escalat lliure"
@@ -2117,6 +2342,10 @@ msgstr "Document nou"
 msgid "Page Size"
 msgstr "Format pàgina"
 
+#, fuzzy
+msgid "&Size:"
+msgstr "Mida:"
+
 msgid "Legal"
 msgstr ""
 
@@ -2127,23 +2356,51 @@ msgstr "Centre"
 msgid "Tabloid"
 msgstr "Tabloide"
 
-msgid "Orientation:"
+#, fuzzy
+msgid "Orie&ntation:"
 msgstr "Orientació:"
 
-msgid "Facing Pages"
+#, fuzzy
+msgid "&Width:"
+msgstr "Amplada:"
+
+#, fuzzy
+msgid "&Height:"
+msgstr "Alçada:"
+
+#, fuzzy
+msgid "&Facing Pages"
 msgstr "Pàgines acarades"
 
-msgid "Left Page first"
+#, fuzzy
+msgid "Left &Page First"
 msgstr "Primer pàgina esquerra"
 
 msgid "Margin Guides"
 msgstr "Marges de les guies"
 
 #, fuzzy
-msgid "First Page Number:"
+msgid "&Left:"
+msgstr "Esquerra:"
+
+#, fuzzy
+msgid "&Right:"
+msgstr "Dreta:"
+
+#, fuzzy
+msgid "&Top:"
+msgstr "Superior:"
+
+#, fuzzy
+msgid "&Bottom:"
+msgstr "Inferior:"
+
+#, fuzzy
+msgid "F&irst Page Number:"
 msgstr "Primer NúmPàgina:"
 
-msgid "Default Unit:"
+#, fuzzy
+msgid "&Default Unit:"
 msgstr "Unitat per defecte:"
 
 #, fuzzy
@@ -2161,11 +2418,18 @@ msgid "Picas (p)"
 msgstr "Piques (p)"
 
 #, fuzzy
-msgid "Automatic Text Frames"
+msgid "&Automatic Text Frames"
 msgstr "Caixa de text automàtica"
 
 msgid "Column Guides"
 msgstr "Columnes de les guies"
+
+msgid "&Gap:"
+msgstr ""
+
+#, fuzzy
+msgid "Colu&mns:"
+msgstr "Columnes:"
 
 msgid "Document page size, either a standard size or a custom size"
 msgstr ""
@@ -2221,10 +2485,12 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr ""
 
-msgid "Inside:"
+#, fuzzy
+msgid "&Inside:"
 msgstr "Interior:"
 
-msgid "Outside:"
+#, fuzzy
+msgid "O&utside:"
 msgstr "Exterior:"
 
 msgid "Left Page"
@@ -2239,48 +2505,39 @@ msgstr "Copia aquí"
 msgid "Move Here"
 msgstr "Mou aquí"
 
-msgid "Hide Margins"
-msgstr "Amaga els marges"
+#, fuzzy
+msgid "&Paste"
+msgstr "Enganxa"
 
-msgid "Show Margins"
+#, fuzzy
+msgid "Show &Margins"
 msgstr "Mostra els marges"
 
-msgid "Hide Frames"
-msgstr "Amaga Marcs"
-
-msgid "Show Frames"
+#, fuzzy
+msgid "Show &Frames"
 msgstr "Mostra Marcs"
 
-msgid "Hide Images"
-msgstr "Amaga les imatges"
-
-msgid "Show Images"
+#, fuzzy
+msgid "Show &Images"
 msgstr "Mostra les imatges"
 
 #, fuzzy
-msgid "Hide Grid"
-msgstr "Amaga les guies"
+msgid "Show &Grid"
+msgstr "Mostra les guies"
 
 #, fuzzy
-msgid "Show Grid"
+msgid "Show G&uides"
 msgstr "Mostra les guies"
 
-msgid "Hide Guides"
-msgstr "Amaga les guies"
-
-msgid "Show Guides"
-msgstr "Mostra les guies"
-
-msgid "Hide Baseline Grid"
+msgid "Show &Baseline Grid"
 msgstr ""
 
-msgid "Show Baseline Grid"
-msgstr ""
-
-msgid "Snap to Grid"
+#, fuzzy
+msgid "Sn&ap to Grid"
 msgstr "Ajusta a la reixa"
 
-msgid "Snap to Guides"
+#, fuzzy
+msgid "Sna&p to Guides"
 msgstr "Ajusta a les guies"
 
 #, fuzzy
@@ -2291,11 +2548,11 @@ msgstr "Imatge "
 msgid "File: "
 msgstr "Fitxer "
 
-msgid "Original ppi: "
+msgid "Original PPI: "
 msgstr ""
 
 #, fuzzy
-msgid "Actual ppi: "
+msgid "Actual PPI: "
 msgstr "Mida original"
 
 msgid "Linked Text"
@@ -2329,118 +2586,161 @@ msgstr "Editable"
 msgid "Disabled"
 msgstr "Visible"
 
-msgid "Info"
+msgid "In&fo"
 msgstr ""
 
-msgid "Get Picture..."
+#, fuzzy
+msgid "&Get Picture..."
 msgstr "Insereix imatge..."
 
 #, fuzzy
-msgid "Image Visible"
+msgid "I&mage Visible"
 msgstr "Imatge visible"
 
 #, fuzzy
-msgid "Update Picture"
+msgid "&Update Picture"
 msgstr "Administra imatges"
 
 #, fuzzy
-msgid "Edit Picture"
+msgid "&Edit Picture"
 msgstr "Imatge "
 
-msgid "Adjust Frame to Picture"
+msgid "&Adjust Frame to Picture"
 msgstr ""
 
-msgid "Get Text..."
+#, fuzzy
+msgid "&Get Text..."
 msgstr "Insereix text/imatge..."
 
 #, fuzzy
-msgid "Append Text..."
+msgid "&Append Text..."
 msgstr "Insereix text/imatge..."
+
+#, fuzzy
+msgid "&Edit Text..."
+msgstr "Insereix text/imatge..."
+
+#, fuzzy
+msgid "&Insert Sample Text"
+msgstr "Text de mostra"
+
+#, fuzzy
+msgid "Is PDF &Bookmark"
+msgstr "Punt PDF"
+
+#, fuzzy
+msgid "Is PDF A&nnotation"
+msgstr "Anotació PDF"
+
+#, fuzzy
+msgid "Annotation P&roperties"
+msgstr "Propietats de les Anotacions"
+
+#, fuzzy
+msgid "Field P&roperties"
+msgstr "Propietats Camp"
+
+#, fuzzy
+msgid "&PDF Options"
+msgstr "Opcions PDF"
 
 #, fuzzy
 msgid "Edit Text..."
 msgstr "Insereix text/imatge..."
 
-#, fuzzy
-msgid "Insert Sample Text"
-msgstr "Text de mostra"
-
-msgid "Is PDF-Bookmark"
-msgstr "Punt PDF"
-
-msgid "Is PDF-Annotation"
-msgstr "Anotació PDF"
-
-msgid "PDF-Options"
-msgstr "Opcions PDF"
-
-#, fuzzy
-msgid "Lock"
-msgstr "Bloc"
-
-#, fuzzy
-msgid "Unlock"
-msgstr "Bloc"
-
-msgid "Lock object size"
+msgid "&Lock"
 msgstr ""
 
 #, fuzzy
-msgid "Unlock object size"
+msgid "Un&lock"
+msgstr "Bloc"
+
+#, fuzzy
+msgid "Lock Object &Size"
 msgstr "Desfés Moure Objecte"
 
-msgid "Send to Scrapbook"
+#, fuzzy
+msgid "Unlock Object &Size"
+msgstr "Desfés Moure Objecte"
+
+#, fuzzy
+msgid "Send to S&crapbook"
 msgstr "Envia a l'àlbum de retalls"
 
 #, fuzzy
-msgid "Send to Layer"
+msgid "Send to La&yer"
 msgstr "Envia a Capa"
 
-msgid "Group"
+#, fuzzy
+msgid "&Group"
 msgstr "Agrupa"
 
 #, fuzzy
-msgid "Un-group"
+msgid "Un&group"
 msgstr "Desagrupa"
 
-msgid "Send to Back"
+#, fuzzy
+msgid "Le&vel"
+msgstr "Desa"
+
+#, fuzzy
+msgid "Send to &Back"
 msgstr "Envia al fons"
 
-msgid "Bring to Front"
+#, fuzzy
+msgid "Bring to &Front"
 msgstr "Envia al capdamunt"
 
-msgid "Lower"
+#, fuzzy
+msgid "&Lower"
 msgstr "Davall"
 
-msgid "Raise"
+#, fuzzy
+msgid "&Raise"
 msgstr "Damunt"
 
-msgid "Picture Frame"
+#, fuzzy
+msgid "&Picture Frame"
 msgstr "Marc Imatge"
 
-msgid "Polygon"
+#, fuzzy
+msgid "Pol&ygon"
 msgstr "Polígon"
 
 #, fuzzy
-msgid "Outlines"
+msgid "&Outlines"
 msgstr "Objectes"
 
-msgid "Bezier Curve"
+#, fuzzy
+msgid "&Text Frame"
+msgstr "Marc Text"
+
+#, fuzzy
+msgid "&Bezier Curve"
 msgstr "Corba Bèzier"
 
-msgid "Convert to"
+#, fuzzy
+msgid "Conve&rt to"
 msgstr "Converteix a"
 
 #, fuzzy
-msgid "Clear Contents"
+msgid "Cu&t"
+msgstr "Talla"
+
+#, fuzzy
+msgid "&Copy"
+msgstr "Copia"
+
+#, fuzzy
+msgid "C&lear Contents"
 msgstr "Continguts"
 
 #, fuzzy
-msgid "Show Properties..."
+msgid "Show P&roperties..."
 msgstr "Propietats..."
 
 #, fuzzy
-msgid "Hide Properties..."
+msgid "Hide P&roperties..."
 msgstr "Propietats..."
 
 #, fuzzy
@@ -2455,6 +2755,9 @@ msgstr "Absent"
 msgid "Copy of"
 msgstr "Copia de "
 
+msgid "Polygon"
+msgstr "Polígon"
+
 #, fuzzy
 msgid "Polyline"
 msgstr "Polígon"
@@ -2463,26 +2766,39 @@ msgstr "Polígon"
 msgid "PathText"
 msgstr "Camí"
 
-msgid "Create PDF-File"
+#, fuzzy
+msgid "Create PDF File"
 msgstr "Crea fitxer PDF"
 
-msgid "Output to File:"
+#, fuzzy
+msgid "O&utput to File:"
 msgstr "Sortida al Fitxer:"
+
+#, fuzzy
+msgid "Cha&nge..."
+msgstr "Canvia..."
 
 msgid "Export Range"
 msgstr "Exporta Àmbit"
 
-msgid "From:"
-msgstr "Des de:"
+#, fuzzy
+msgid "&All Pages"
+msgstr "Totes les Pàgines"
+
+#, fuzzy
+msgid "C&hoose Pages"
+msgstr "Mou pàgines"
 
 msgid "File Options"
 msgstr "Opcions del Fitxer"
 
-msgid "Compatibility:"
+#, fuzzy
+msgid "Compatibilit&y:"
 msgstr "Compatibilitat:"
 
-msgid "Binding:"
-msgstr ""
+#, fuzzy
+msgid "&Binding:"
+msgstr "Final Segm:"
 
 msgid "Left Margin"
 msgstr "Marge Esquerra"
@@ -2490,32 +2806,32 @@ msgstr "Marge Esquerra"
 msgid "Right Margin"
 msgstr "Marge Dret"
 
-msgid "Generate Thumbnails"
+#, fuzzy
+msgid "Generate &Thumbnails"
 msgstr "Generar Miniatures"
 
 #, fuzzy
-msgid "Save linked Text Frames as PDF-Articles"
+msgid "Save &Linked Text Frames as PDF Articles"
 msgstr "Desa Marcs de Text enllaçats com Articles PDF"
 
-msgid "Include Bookmarks"
+#, fuzzy
+msgid "&Include Bookmarks"
 msgstr "Incloure Punts"
-
-msgid "Resolution:"
-msgstr "Resolució:"
 
 msgid " dpi"
 msgstr ""
 
 #, fuzzy
-msgid "Compress Text and Vector Graphics"
+msgid "&Resolution:"
+msgstr "Resolució:"
+
+#, fuzzy
+msgid "Com&press Text and Vector Graphics"
 msgstr "Comprimeix el Text i els gràfics vectorials"
 
 #, fuzzy
 msgid "Image Settings"
 msgstr "Arranjaments dels dispositius"
-
-msgid "Method:"
-msgstr ""
 
 #, fuzzy
 msgid "Automatic"
@@ -2528,7 +2844,11 @@ msgid "Zip"
 msgstr ""
 
 #, fuzzy
-msgid "Quality:"
+msgid "&Method:"
+msgstr "&Vermell:"
+
+#, fuzzy
+msgid "&Quality:"
 msgstr "Surt"
 
 #, fuzzy
@@ -2550,14 +2870,16 @@ msgstr "Davall"
 msgid "Minimum"
 msgstr "mínim"
 
-msgid "Downsample Images to:"
+#, fuzzy
+msgid "&Downsample Images to:"
 msgstr "Rebaixa les imatge a:"
 
 #, fuzzy
 msgid "&General"
 msgstr "General"
 
-msgid "Embed all Fonts"
+#, fuzzy
+msgid "&Embed all Fonts"
 msgstr "Insereix totes les Fonts"
 
 msgid "Embedding"
@@ -2566,10 +2888,10 @@ msgstr "Inserint"
 msgid "Available Fonts:"
 msgstr "Fonts Disponibles:"
 
-msgid ">>"
+msgid "&>>"
 msgstr ""
 
-msgid "<<"
+msgid "&<<"
 msgstr ""
 
 msgid "Fonts to embed:"
@@ -2579,35 +2901,42 @@ msgstr "Fonts a inserir:"
 msgid "&Fonts"
 msgstr "&Font"
 
-msgid "Enable Presentation Effects"
+#, fuzzy
+msgid "Enable &Presentation Effects"
 msgstr "Habilita Efectes de Presentació"
 
 msgid "Page"
 msgstr "Pàgina"
 
-msgid "Show Page Previews"
+#, fuzzy
+msgid "Show Page Pre&views"
 msgstr "Mostra Previsualització de Pàgines"
 
 msgid "Effects"
 msgstr "Efectes"
 
-msgid "Display Duration:"
+#, fuzzy
+msgid "&Display Duration:"
 msgstr "Durada Projecció:"
 
-msgid "Effect Duration:"
+#, fuzzy
+msgid "Effec&t Duration:"
 msgstr "Durada Efecte:"
 
-msgid "Effect Type:"
+#, fuzzy
+msgid "Effect T&ype:"
 msgstr "Tipus d'Efecte:"
 
-msgid "Moving Lines:"
+#, fuzzy
+msgid "&Moving Lines:"
 msgstr "Moure Línies:"
 
 #, fuzzy
-msgid "From the:"
+msgid "F&rom the:"
 msgstr "Des de:"
 
-msgid "Direction:"
+#, fuzzy
+msgid "D&irection:"
 msgstr "Direcció:"
 
 msgid " sec"
@@ -2657,7 +2986,8 @@ msgid "Top-left to Bottom-Right"
 msgstr "Dalt-Esq a Baix-Dreta"
 
 # New in Version 0.8
-msgid "Apply Effect on all Pages"
+#, fuzzy
+msgid "&Apply Effect on all Pages"
 msgstr "Aplica efectes a totes les pàgines"
 
 #, fuzzy
@@ -2665,7 +2995,7 @@ msgid "E&xtras"
 msgstr "Extres"
 
 #, fuzzy
-msgid "Use Encryption"
+msgid "&Use Encryption"
 msgstr "Descripció:"
 
 #, fuzzy
@@ -2673,11 +3003,11 @@ msgid "Passwords"
 msgstr "Contrasenya"
 
 #, fuzzy
-msgid "User:"
+msgid "&User:"
 msgstr "Usa"
 
 #, fuzzy
-msgid "Owner:"
+msgid "&Owner:"
 msgstr "Altre:"
 
 #, fuzzy
@@ -2685,34 +3015,68 @@ msgid "Settings"
 msgstr "Arranjament del ratolí"
 
 #, fuzzy
-msgid "Allow Printing the Document"
+msgid "Allow &Printing the Document"
 msgstr "Imprimeix el document actual"
 
-msgid "Allow Changing the Document"
-msgstr ""
+#, fuzzy
+msgid "Allow &Changing the Document"
+msgstr "Imprimeix el document actual"
 
 #, fuzzy
-msgid "Allow Copying Text and Graphics"
+msgid "Allow Cop&ying Text and Graphics"
 msgstr "Comprimeix el Text i els gràfics vectorials"
 
-msgid "Allow Adding Annotations and Fields"
+msgid "Allow Adding &Annotations and Fields"
 msgstr ""
 
 #, fuzzy
-msgid "&Security"
+msgid "S&ecurity"
 msgstr "Scr&ipt"
 
 msgid "General"
 msgstr "General"
 
-msgid "Output intended for:"
-msgstr ""
+#, fuzzy
+msgid "Output &Intended For:"
+msgstr "Sortida al Fitxer:"
 
 msgid "Screen / Web"
 msgstr ""
 
 msgid "Printer"
 msgstr "Impressora"
+
+msgid "&Use Custom Rendering Settings"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering Settings"
+msgstr "Intents de Renderitzar"
+
+#, fuzzy
+msgid "Fre&quency:"
+msgstr "Francès:"
+
+#, fuzzy
+msgid "&Angle:"
+msgstr "Angle:"
+
+msgid "S&pot Function:"
+msgstr ""
+
+#, fuzzy
+msgid "Simple Dot"
+msgstr "Mostra"
+
+#, fuzzy
+msgid "Round"
+msgstr "Encapsulat Arrodonit"
+
+msgid "Ellipse"
+msgstr ""
+
+msgid "Solid Colors:"
+msgstr "Colors Sòlids:"
 
 #, fuzzy
 msgid "Use ICC-Profile"
@@ -2729,40 +3093,38 @@ msgstr "Intent de Renderitzar:"
 msgid "Images:"
 msgstr "Imatges:"
 
+#, fuzzy
+msgid "Use ICC Profile"
+msgstr "Perfils del Sistema"
+
 msgid "Don't use embedded ICC profiles"
 msgstr ""
 
 #, fuzzy
-msgid "&Color"
+msgid "C&olor"
 msgstr "Color"
 
 msgid "PDF/X-3 Output Intent"
 msgstr ""
 
-msgid "Info String:"
+msgid "&Info String:"
 msgstr ""
 
 #, fuzzy
-msgid "Output Profile:"
+msgid "Output &Profile:"
 msgstr "Sortida al Fitxer:"
 
 #, fuzzy
 msgid "Trim Box"
 msgstr "Caixa Llista"
 
-msgid "&PDF/X-3"
+msgid "PDF/X-&3"
 msgstr ""
 
 msgid "Export all pages to PDF"
 msgstr ""
 
 msgid "Export a range of pages to PDF"
-msgstr ""
-
-msgid "First page to export when exporting a range"
-msgstr ""
-
-msgid "Last page to export when exporting a range"
 msgstr ""
 
 msgid ""
@@ -2955,7 +3317,7 @@ msgid "Distance for bleed from the right of the physical page"
 msgstr ""
 
 #, fuzzy
-msgid "PDF-Files (*.pdf);;All Files (*)"
+msgid "PDF Files (*.pdf);;All Files (*)"
 msgstr "Fitxers de text (*.txt);;Tots els fitxers (*)"
 
 msgid "Result"
@@ -3003,14 +3365,40 @@ msgstr "Factor:"
 msgid "Document Setup"
 msgstr "Arranjament del document"
 
+#, fuzzy
+msgid "&Outside:"
+msgstr "Exterior:"
+
 msgid "Scrapbook"
 msgstr "Àlbum de retalls"
 
-msgid "Small"
+#, fuzzy
+msgid "&Load..."
+msgstr "Càrrega..."
+
+#, fuzzy
+msgid "Save &As..."
+msgstr "Desa com..."
+
+#, fuzzy
+msgid "&Small"
 msgstr "Petit"
 
-msgid "Big"
-msgstr "Gros"
+#, fuzzy
+msgid "&Medium"
+msgstr "Mitjà"
+
+#, fuzzy
+msgid "&Large"
+msgstr "Pàgina"
+
+#, fuzzy
+msgid "&File"
+msgstr "Fitxer"
+
+#, fuzzy
+msgid "&Preview"
+msgstr "Previsualitza"
 
 #, fuzzy
 msgid "Scrapbooks (*.scs);;All Files (*)"
@@ -3019,6 +3407,9 @@ msgstr "Àlbum de retalls (*.scs);; Tots els fitxers (*)"
 #, fuzzy
 msgid "Rename"
 msgstr "Esborra"
+
+msgid "Delete"
+msgstr "Esborra..."
 
 msgid "Object"
 msgstr "Objecte"
@@ -3131,10 +3522,6 @@ msgid "Initializing Plugins"
 msgstr ""
 
 #, fuzzy
-msgid "&New"
-msgstr "Nou"
-
-#, fuzzy
 msgid "&Open..."
 msgstr "Obre..."
 
@@ -3145,17 +3532,11 @@ msgstr "Obre un document"
 msgid "Open..."
 msgstr "Obre..."
 
-#, fuzzy
-msgid "&Close"
+msgid "Close"
 msgstr "Tanca"
 
-#, fuzzy
-msgid "&Save"
+msgid "Save"
 msgstr "Desa"
-
-#, fuzzy
-msgid "Save &As..."
-msgstr "Desa com..."
 
 #, fuzzy
 msgid "Re&vert to Saved"
@@ -3173,7 +3554,7 @@ msgid "Append &Text..."
 msgstr "Insereix text/imatge..."
 
 #, fuzzy
-msgid "Insert &Page..."
+msgid "Import &Page(s)..."
 msgstr "Insereix pàgina"
 
 #, fuzzy
@@ -3229,18 +3610,6 @@ msgid "&Undo"
 msgstr "Desfés"
 
 #, fuzzy
-msgid "Cu&t"
-msgstr "Talla"
-
-#, fuzzy
-msgid "&Copy"
-msgstr "Copia"
-
-#, fuzzy
-msgid "&Paste"
-msgstr "Enganxa"
-
-#, fuzzy
 msgid "C&lear"
 msgstr "Neteja"
 
@@ -3287,43 +3656,34 @@ msgstr "Java Script"
 msgid "Select New Font"
 msgstr "Selecciona font"
 
-#, fuzzy
-msgid "D&uplicate"
+msgid "Duplicate"
 msgstr "Duplica"
 
 #, fuzzy
 msgid "&Multiple Duplicate"
 msgstr "Duplicació múltiple"
 
-#, fuzzy
-msgid "&Delete"
-msgstr "Esborra..."
-
-#, fuzzy
-msgid "&Group"
+msgid "Group"
 msgstr "Agrupa"
 
 #, fuzzy
 msgid "&Ungroup"
 msgstr "Desagrupa"
 
-msgid "&Lock"
-msgstr ""
-
 #, fuzzy
-msgid "Send to &Back"
+msgid "Un-group"
+msgstr "Desagrupa"
+
+msgid "Send to Back"
 msgstr "Envia al fons"
 
-#, fuzzy
-msgid "Bring to &Front"
+msgid "Bring to Front"
 msgstr "Envia al capdamunt"
 
-#, fuzzy
-msgid "&Lower"
+msgid "Lower"
 msgstr "Davall"
 
-#, fuzzy
-msgid "&Raise"
+msgid "Raise"
 msgstr "Damunt"
 
 #, fuzzy
@@ -3413,8 +3773,8 @@ msgstr ""
 msgid "&100%"
 msgstr ""
 
-msgid "Actual Size"
-msgstr "Mida original"
+msgid "100%"
+msgstr ""
 
 msgid "200%"
 msgstr ""
@@ -3426,36 +3786,21 @@ msgstr "Miniatures"
 msgid "Thumbnails"
 msgstr "Miniatures"
 
-#, fuzzy
-msgid "Hide &Margins"
+msgid "Hide Margins"
 msgstr "Amaga els marges"
 
-#, fuzzy
-msgid "Hide &Frames"
+msgid "Hide Frames"
 msgstr "Amaga Marcs"
 
-#, fuzzy
-msgid "Hide &Images"
+msgid "Hide Images"
 msgstr "Amaga les imatges"
 
 #, fuzzy
-msgid "Show &Grid"
+msgid "Show Grid"
 msgstr "Mostra les guies"
 
-#, fuzzy
-msgid "Snap to &Grid"
+msgid "Snap to Grid"
 msgstr "Ajusta a la reixa"
-
-#, fuzzy
-msgid "Hide G&uides"
-msgstr "Amaga les guies"
-
-#, fuzzy
-msgid "Sna&p to Guides"
-msgstr "Ajusta a les guies"
-
-msgid "Show &Baseline Grid"
-msgstr ""
 
 #, fuzzy
 msgid "&Properties"
@@ -3517,7 +3862,7 @@ msgid "Tooltips"
 msgstr "Eines"
 
 #, fuzzy
-msgid "&Preferences..."
+msgid "P&references..."
 msgstr "Preferències..."
 
 #, fuzzy
@@ -3554,14 +3899,6 @@ msgstr "Manual de l'Scribus"
 
 msgid "Online-Help..."
 msgstr "Ajuda online..."
-
-#, fuzzy
-msgid "&File"
-msgstr "Fitxer"
-
-#, fuzzy
-msgid "&Edit"
-msgstr "Edita"
 
 #, fuzzy
 msgid "St&yle"
@@ -3640,13 +3977,16 @@ msgstr "Títol:"
 msgid "Get Text/Picture..."
 msgstr "Insereix text/imatge..."
 
+msgid "Get Picture..."
+msgstr "Insereix imatge..."
+
+#, fuzzy
+msgid "&Color"
+msgstr "Color"
+
 #, fuzzy
 msgid "&Invert"
 msgstr "Inverteix"
-
-#, fuzzy
-msgid "&Get Text..."
-msgstr "Insereix text/imatge..."
 
 msgid "&Font"
 msgstr "&Font"
@@ -3670,6 +4010,9 @@ msgstr "Intensitat"
 msgid "&Tabulators..."
 msgstr "Plantilles..."
 
+msgid "Get Text..."
+msgstr "Insereix text/imatge..."
+
 msgid "Font"
 msgstr "Font"
 
@@ -3686,8 +4029,26 @@ msgid "Shade"
 msgstr "Intensitat"
 
 #, fuzzy
-msgid "Un&lock"
-msgstr "Bloc"
+msgid "Importing Pages..."
+msgstr "Importa Dades"
+
+msgid ""
+"<p>You are trying to import more pages than there are available in the "
+"current document counting from the active page.</p>Choose one of the "
+"following:<br><ul><li><b>Create</b> missing pages</li><li><b>Import</b> "
+"pages until the last page</li><li><b>Cancel</b></li></ul><br>"
+msgstr ""
+
+#, fuzzy
+msgid "Create"
+msgstr "Caràcter"
+
+#, fuzzy
+msgid "Import done"
+msgstr "Importa..."
+
+msgid "Found nothing to import"
+msgstr ""
 
 msgid "Loading..."
 msgstr "Carregant..."
@@ -3732,27 +4093,10 @@ msgstr "Impressió avortada"
 msgid "Scribus Manual"
 msgstr "Manual de l'Scribus"
 
-#, fuzzy
-msgid "Show &Images"
-msgstr "Mostra les imatges"
+msgid "Hide Baseline Grid"
+msgstr ""
 
-#, fuzzy
-msgid "Show &Margins"
-msgstr "Mostra els marges"
-
-#, fuzzy
-msgid "Show &Frames"
-msgstr "Mostra Marcs"
-
-#, fuzzy
-msgid "Show G&uides"
-msgstr "Mostra les guies"
-
-#, fuzzy
-msgid "Hide &Grid"
-msgstr "Amaga les guies"
-
-msgid "Hide &Baseline Grid"
+msgid "Show Baseline Grid"
 msgstr ""
 
 msgid "The following Programs are missing:"
@@ -3774,6 +4118,14 @@ msgstr ""
 
 msgid "Unlock all"
 msgstr ""
+
+#, fuzzy
+msgid "Unlock"
+msgstr "Bloc"
+
+#, fuzzy
+msgid "Lock"
+msgstr "Bloc"
 
 #, fuzzy
 msgid "Loading:"
@@ -3876,11 +4228,12 @@ msgstr "Fons"
 msgid "Layer"
 msgstr "Capes"
 
-msgid "Leave Anyway"
+#, fuzzy
+msgid "&Leave Anyway"
 msgstr "Tanca sense desar"
 
 #, fuzzy
-msgid "Close Anyway"
+msgid "C&lose Anyway"
 msgstr "Tanca sense desar"
 
 #, fuzzy
@@ -3891,8 +4244,12 @@ msgstr "Document "
 msgid "has been changed since the last save."
 msgstr "El document s'ha modificat des del darrer cop que s'ha desat."
 
-msgid "Save Now"
+#, fuzzy
+msgid "&Save Now"
 msgstr "Desa ara"
+
+msgid "Show Page Previews"
+msgstr "Mostra Previsualització de Pàgines"
 
 msgid "Show Template Names"
 msgstr "Mostra noms de Plantilla"
@@ -3905,6 +4262,12 @@ msgstr "Plantilles Disponibles:"
 
 msgid "Document Pages:"
 msgstr "Pàgines Document:"
+
+msgid "Facing Pages"
+msgstr "Pàgines acarades"
+
+msgid "Left Page first"
+msgstr "Primer pàgina esquerra"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
 msgstr ""
@@ -4553,7 +4916,8 @@ msgstr ""
 msgid "Build-ID:"
 msgstr ""
 
-msgid "About"
+#, fuzzy
+msgid "&About"
 msgstr "Sobre"
 
 msgid "Programming:"
@@ -4569,7 +4933,8 @@ msgstr "Estil-Windows"
 msgid "Documentation:"
 msgstr "Documentació:"
 
-msgid "Authors"
+#, fuzzy
+msgid "A&uthors"
 msgstr "Autors"
 
 msgid "German:"
@@ -4646,7 +5011,8 @@ msgstr "Eslovac:"
 msgid "Basque:"
 msgstr "Basada en:"
 
-msgid "Translations"
+#, fuzzy
+msgid "&Translations"
 msgstr "Traduccions"
 
 msgid "Homepage and online reference"
@@ -4659,7 +5025,7 @@ msgid "Bugs and feature requests"
 msgstr ""
 
 #, fuzzy
-msgid "Online"
+msgid "&Online"
 msgstr "Objectes"
 
 msgid ""
@@ -4691,8 +5057,13 @@ msgstr ""
 msgid "GUI"
 msgstr "GUI"
 
-msgid "Theme:"
-msgstr ""
+#, fuzzy
+msgid "&Theme:"
+msgstr "Plantilla nova"
+
+#, fuzzy
+msgid "&Font Size:"
+msgstr "Cos font:"
 
 msgid "Units"
 msgstr "Unitats"
@@ -4700,25 +5071,27 @@ msgstr "Unitats"
 msgid "Points (pt)"
 msgstr "Punts (pt)"
 
-msgid "Mouse-Settings"
+#, fuzzy
+msgid "Mouse Settings"
 msgstr "Arranjament del ratolí"
 
 #, fuzzy
-msgid "Wheel-Jump:"
+msgid "&Wheel Jump:"
 msgstr "Distància de desplaçament"
-
-#, fuzzy
-msgid "Grab-Radius:"
-msgstr "Grab-Radi"
 
 msgid " px"
 msgstr ""
 
 #, fuzzy
+msgid "&Grab Radius:"
+msgstr "Grab-Radi"
+
+#, fuzzy
 msgid "Menus"
 msgstr "Menús"
 
-msgid "Recent Documents:"
+#, fuzzy
+msgid "&Recent Documents:"
 msgstr "Documents recents:"
 
 #, fuzzy
@@ -4726,165 +5099,257 @@ msgid "Paths"
 msgstr "Camí"
 
 #, fuzzy
-msgid "Documents:"
+msgid "&Documents:"
 msgstr "Document "
 
-msgid "ICC-Profiles:"
-msgstr ""
+#, fuzzy
+msgid "&Change..."
+msgstr "Canvia..."
 
 #, fuzzy
-msgid "Scripts:"
+msgid "&ICC Profiles:"
+msgstr "Imprimeix al fitxer:"
+
+#, fuzzy
+msgid "&Scripts:"
 msgstr "Script"
 
 #, fuzzy
-msgid "Left Page First"
-msgstr "Primer pàgina esquerra"
+msgid "Ch&ange..."
+msgstr "Canvia..."
 
 #, fuzzy
 msgid "Autosave"
 msgstr "Autors"
 
 #, fuzzy
-msgid "Interval:"
-msgstr "Insereix ovals"
+msgid "&Enabled"
+msgstr "Editable"
 
 msgid "min"
 msgstr ""
 
 #, fuzzy
+msgid "&Interval:"
+msgstr "Insereix ovals"
+
+#, fuzzy
 msgid "Grid Layout"
 msgstr "Disposició de la reixa:"
 
-msgid "Minor Grid Spacing:"
+#, fuzzy
+msgid "M&inor Grid Spacing:"
 msgstr "Interlineació de la menor:"
 
-msgid "Major Grid Spacing:"
+#, fuzzy
+msgid "Ma&jor Grid Spacing:"
 msgstr "Interlineació de la major:"
 
-msgid "Guide Snap Distance:"
+msgid "Guide &Snap Distance:"
 msgstr ""
 
 #, fuzzy
 msgid "Grid Colors"
 msgstr "Colors de la reixa:"
 
-msgid "Minor Grid Color:"
+#, fuzzy
+msgid "Min&or Grid Color:"
 msgstr "Color de la reixa menor:"
 
-msgid "Major Grid Color:"
+#, fuzzy
+msgid "Majo&r Grid Color:"
 msgstr "Color de la reixa major:"
 
 #, fuzzy
-msgid "User Guides Color:"
+msgid "&User Guides Color:"
 msgstr "Color de la reixa major:"
+
+#, fuzzy
+msgid "Base&line Grid Color:"
+msgstr "Color de la reixa menor:"
 
 #, fuzzy
 msgid "Placing"
 msgstr "Col.locació:"
 
-msgid "In the Background"
+#, fuzzy
+msgid "In the &Background"
 msgstr "Al fons"
 
-msgid "In the Foreground"
+#, fuzzy
+msgid "In the Fore&ground"
 msgstr "Al capdavant"
 
 msgid "Baseline Grid"
 msgstr ""
 
 #, fuzzy
-msgid "On"
+msgid "O&n"
 msgstr "Obre"
 
-msgid "Off"
+msgid "O&ff"
 msgstr ""
 
-msgid "Scaling:"
+#, fuzzy
+msgid "&Displacement:"
+msgstr "Desplaçament"
+
+#, fuzzy
+msgid "&Scaling:"
 msgstr "Escala:"
 
 #, fuzzy
-msgid "Displacement:"
+msgid "D&isplacement:"
 msgstr "Desplaçament"
 
-msgid "Baseline Grid:"
-msgstr ""
+#, fuzzy
+msgid "S&caling:"
+msgstr "Escala:"
 
-msgid "Baseline Offset:"
+#, fuzzy
+msgid "Sc&aling:"
+msgstr "Escala:"
+
+#, fuzzy
+msgid "Baseline &Grid:"
+msgstr "Amaga les guies"
+
+msgid "Baseline &Offset:"
 msgstr ""
 
 #, fuzzy
-msgid "Automatic Line Spacing:"
+msgid "Automatic &Line Spacing:"
 msgstr "Interlineació automàtica:"
 
-msgid "Default Size:"
-msgstr "Cos per defecte:"
-
-msgid "Default Font:"
+#, fuzzy
+msgid "Default &Font:"
 msgstr "Font per defecte:"
 
-msgid "Text Color:"
+#, fuzzy
+msgid "Default &Size:"
+msgstr "Cos per defecte:"
+
+#, fuzzy
+msgid "&Text Color:"
 msgstr "Color de text:"
 
 msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr ""
 
-msgid "Line Color:"
+#, fuzzy
+msgid "&Line Color:"
 msgstr "Color línia:"
 
-msgid "Shading:"
+#, fuzzy
+msgid "&Shading:"
 msgstr "Intensitat:"
 
 #, fuzzy
-msgid "Minimum:"
+msgid "&Fill Color:"
+msgstr "Color d'omplir:"
+
+#, fuzzy
+msgid "S&hading:"
+msgstr "Intensitat:"
+
+#, fuzzy
+msgid "&Type of Line:"
+msgstr "Perfils del Sistema"
+
+#, fuzzy
+msgid "Line &Width:"
+msgstr "Ample de línia:"
+
+#, fuzzy
+msgid "Mi&nimum:"
 msgstr "mínim"
 
 #, fuzzy
-msgid "Maximum:"
+msgid "Ma&ximum:"
 msgstr "màxim"
 
-msgid "Stepping:"
+#, fuzzy
+msgid "&Stepping:"
 msgstr "Seqüència:"
 
 #, fuzzy
-msgid "Horizontal Scaling:"
+msgid "&Free Scaling"
+msgstr "Escalat lliure"
+
+#, fuzzy
+msgid "&Horizontal Scaling:"
 msgstr "Escalat horitzontal"
 
 #, fuzzy
-msgid "Vertical Scaling:"
+msgid "&Vertical Scaling:"
 msgstr "Escalat vertical"
 
-msgid "Scale Picture to Frame Size"
+#, fuzzy
+msgid "&Scale Picture to Frame Size"
 msgstr "Imatge escalable a la mida del marc"
 
-msgid "Keep Aspect Ratio"
+#, fuzzy
+msgid "Keep Aspect &Ratio"
 msgstr "Mantenir l'aspecte actual"
+
+#, fuzzy
+msgid "F&ill Color:"
+msgstr "Color d'omplir:"
+
+#, fuzzy
+msgid "Corn&ers:"
+msgstr "Costats:"
+
+#, fuzzy
+msgid "&Rotation:"
+msgstr "Rotació:"
+
+#, fuzzy
+msgid "Conve&x Polygon"
+msgstr "Polígon Concex"
+
+#, fuzzy
+msgid "&Factor:"
+msgstr "Factor:"
 
 msgid "Other Options"
 msgstr "Altres opcions"
 
 #, fuzzy
-msgid "Save Contents on Changes"
+msgid "Sa&ve Contents on Changes"
 msgstr "Desa els continguts en sortir"
 
-msgid "Display Pages Side by Side"
+msgid "Small"
+msgstr "Petit"
+
+#, fuzzy
+msgid "Large"
+msgstr "promig"
+
+#, fuzzy
+msgid "Display Pages &Side by Side"
 msgstr "Visualitza pàgines costat per costat"
 
-msgid "Page-Colors"
+#, fuzzy
+msgid "Page Colors"
 msgstr "Color de les pàgines"
 
-msgid "Background:"
+#, fuzzy
+msgid "&Background:"
 msgstr "Fons:"
 
-msgid "Margins:"
+#, fuzzy
+msgid "&Margins:"
 msgstr "Marges:"
 
 #, fuzzy
-msgid "Display Unprintable Area in Margin Color"
+msgid "Display &Unprintable Area in Margin Color"
 msgstr "Mostra l'àrea no imprimible en el color del marge"
 
-msgid "Use PDF-1.4 Transparency Features"
+msgid "Use PDF 1.4 &Transparency Features"
 msgstr ""
 
-msgid "Adjust Display Size"
+msgid "&Adjust Display Size"
 msgstr ""
 
 msgid "To adjust the display drag the ruler below with the Slider."
@@ -4893,24 +5358,29 @@ msgstr ""
 msgid "Postscript Interpreter"
 msgstr ""
 
-msgid "Name of executable:"
+#, fuzzy
+msgid "&Name of Executable:"
+msgstr "Desfés Esborra Objecte"
+
+msgid "Antialias &Text"
 msgstr ""
 
-msgid "Antialias Text"
-msgstr ""
-
-msgid "Antialias Graphics"
+msgid "Antialias &Graphics"
 msgstr ""
 
 msgid "Image Processing Tool"
 msgstr ""
 
 #, fuzzy
+msgid "Name of &Executable:"
+msgstr "Desfés Esborra Objecte"
+
+#, fuzzy
 msgid "Printing"
 msgstr "Imprimint..."
 
 #, fuzzy
-msgid "Clip to Page Margins"
+msgid "Clip to Page &Margins"
 msgstr "Amaga els marges"
 
 msgid ""
@@ -5175,7 +5645,7 @@ msgid "Select Character:"
 msgstr "Caràcter"
 
 #, fuzzy
-msgid "Insert"
+msgid "&Insert"
 msgstr "Inverteix"
 
 msgid "Insert the characters at the cursor in the text"
@@ -5195,31 +5665,32 @@ msgstr "Previsualitza"
 msgid "Print Preview"
 msgstr "Previsualitza"
 
-msgid "Anti-alias Text"
+msgid "Anti-alias &Text"
 msgstr ""
 
-msgid "Anti-alias Graphics"
+msgid "Anti-alias &Graphics"
 msgstr ""
 
 #, fuzzy
-msgid "Display Transparency"
+msgid "Display Trans&parency"
 msgstr "Visualitza Marcs"
 
 #, fuzzy
-msgid "Display CMYK"
+msgid "&Display CMYK"
 msgstr "Visualitza"
 
-msgid "C"
+msgid "&C"
 msgstr ""
 
-msgid "M"
-msgstr ""
-
-msgid "Y"
+msgid "&M"
 msgstr ""
 
 #, fuzzy
-msgid "K"
+msgid "&Y"
+msgstr "Si"
+
+#, fuzzy
+msgid "&K"
 msgstr "Bé"
 
 msgid ""
@@ -5311,11 +5782,19 @@ msgid ""
 "scribus.net\">bugs.scribus.net</a> please."
 msgstr ""
 
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
 #, fuzzy
 msgid "Hide &Console"
 msgstr "Amaga les eines"
 
 msgid "Script Console"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
 msgstr ""
 
 msgid "Oook! You're calling an object doesn't exist!"
@@ -5327,16 +5806,25 @@ msgstr ""
 msgid "Oook! An object you're trying to textflow doesn't exist!"
 msgstr ""
 
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
 #, fuzzy
 msgid "Export as Image"
 msgstr "Exporta Àmbit"
 
 msgid "Export to directory:"
 msgstr ""
-
-#, fuzzy
-msgid "&Change..."
-msgstr "Canvia..."
 
 msgid "Alt+C"
 msgstr ""
@@ -5375,14 +5863,6 @@ msgstr ""
 msgid "Alt+I"
 msgstr ""
 
-#, fuzzy
-msgid "&OK"
-msgstr "Bé"
-
-#, fuzzy
-msgid "&Cancel"
-msgstr "Cancel.la"
-
 msgid "Change the output directory"
 msgstr ""
 
@@ -5398,6 +5878,12 @@ msgid "Export all pages to images"
 msgstr ""
 
 msgid "Export a range of pages to images"
+msgstr ""
+
+msgid "First page to export when exporting a range"
+msgstr ""
+
+msgid "Last page to export when exporting a range"
 msgstr ""
 
 msgid "The height of the output images in pixels"
@@ -5595,6 +6081,85 @@ msgstr "Personalitza"
 msgid "Save as &Template..."
 msgstr "Desa el text..."
 
+#~ msgid "From page:"
+#~ msgstr "De la pàgina:"
+
+#~ msgid "To page:"
+#~ msgstr "A la pàgina:"
+
+#~ msgid "Print last page first"
+#~ msgstr "Primer la darrera pàgina"
+
+#~ msgid "Print first page first"
+#~ msgstr "Primer la primera pàgina"
+
+#, fuzzy
+#~ msgid "Document to load:"
+#~ msgstr "Documentació:"
+
+#, fuzzy
+#~ msgid "Document contains: 0 Page(s)"
+#~ msgstr "Pàgines Document:"
+
+#, fuzzy
+#~ msgid "Document contains: %1 Page(s)"
+#~ msgstr "Pàgines Document:"
+
+#~ msgid "Show Margins"
+#~ msgstr "Mostra els marges"
+
+#~ msgid "Show Frames"
+#~ msgstr "Mostra Marcs"
+
+#~ msgid "Show Images"
+#~ msgstr "Mostra les imatges"
+
+#, fuzzy
+#~ msgid "Hide Grid"
+#~ msgstr "Amaga les guies"
+
+#~ msgid "Hide Guides"
+#~ msgstr "Amaga les guies"
+
+#~ msgid "Show Guides"
+#~ msgstr "Mostra les guies"
+
+#~ msgid "Snap to Guides"
+#~ msgstr "Ajusta a les guies"
+
+#~ msgid "From:"
+#~ msgstr "Des de:"
+
+#~ msgid "Big"
+#~ msgstr "Gros"
+
+#~ msgid "Actual Size"
+#~ msgstr "Mida original"
+
+#, fuzzy
+#~ msgid "Hide &Margins"
+#~ msgstr "Amaga els marges"
+
+#, fuzzy
+#~ msgid "Hide &Frames"
+#~ msgstr "Amaga Marcs"
+
+#, fuzzy
+#~ msgid "Hide &Images"
+#~ msgstr "Amaga les imatges"
+
+#, fuzzy
+#~ msgid "Snap to &Grid"
+#~ msgstr "Ajusta a la reixa"
+
+#, fuzzy
+#~ msgid "Hide G&uides"
+#~ msgstr "Amaga les guies"
+
+#, fuzzy
+#~ msgid "K"
+#~ msgstr "Bé"
+
 #, fuzzy
 #~ msgid "Insert Special"
 #~ msgstr "Insereix rectangles"
@@ -5613,9 +6178,6 @@ msgstr "Desa el text..."
 
 #~ msgid "W:"
 #~ msgstr "Am:"
-
-#~ msgid "No Document"
-#~ msgstr "No document"
 
 #~ msgid "Resolution for EPS-Images:"
 #~ msgstr "Resolució per les imatges EPS:"
@@ -5673,9 +6235,6 @@ msgstr "Desa el text..."
 
 #~ msgid "&Underline"
 #~ msgstr "&Subratlla"
-
-#~ msgid "Sample"
-#~ msgstr "Mostra"
 
 #~ msgid "Platinum-Style"
 #~ msgstr "Estil-Platí"

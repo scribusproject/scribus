@@ -55,7 +55,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	ComboBox1->setEditable(false);
 	TextLabel1->setBuddy(ComboBox1);
 	Layout6->addWidget(ComboBox1, 0, 1 );
-	TextLabel2 = new QLabel( tr( "&Orientation:" ), ButtonGroup1_2, "TextLabel2" );
+	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), ButtonGroup1_2, "TextLabel2" );
 	Layout6->addWidget( TextLabel2, 1, 0 );
 	ComboBox2 = new QComboBox( true, ButtonGroup1_2, "ComboBox2" );
 	ComboBox2->insertItem( tr( "Portrait" ) );
@@ -163,14 +163,14 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	GroupBox3->layout()->setMargin( 10 );
 	GroupBox3Layout = new QGridLayout( GroupBox3->layout() );
 	GroupBox3Layout->setAlignment( Qt::AlignTop );
-	TextLabel1_3 = new QLabel( tr( "First Page &Number:" ), GroupBox3, "TextLabel1_3" );
+	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox3, "TextLabel1_3" );
 	GroupBox3Layout->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
 	PgNr = new QSpinBox( GroupBox3, "PgNr" );
 	PgNr->setMaxValue( 1000 );
 	PgNr->setMinValue( 1 );
 	TextLabel1_3->setBuddy(PgNr);
 	GroupBox3Layout->addWidget( PgNr, 0, 2, Qt::AlignRight );
-	TextLabel2_3 = new QLabel( tr( "Default &Unit:" ), GroupBox3, "TextLabel2_3" );
+	TextLabel2_3 = new QLabel( tr( "&Default Unit:" ), GroupBox3, "TextLabel2_3" );
 	GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
 	ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
 	ComboBox3->insertItem( tr( "Points (pts)" ) );
@@ -485,6 +485,6 @@ void NewDoc::setDS()
 {
 	bool test = Doppelseiten->isChecked() ? false : true;
 	TextLabel6->setText(test == false ? tr("&Inside:") : tr("&Left:"));
-	TextLabel8->setText(test == false ? tr("&Outside:") : tr("&Right:"));
+	TextLabel8->setText(test == false ? tr("O&utside:") : tr("&Right:"));
 	ErsteSeite->setEnabled(test == false ? true : false);
 }

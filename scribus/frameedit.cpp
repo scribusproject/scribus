@@ -222,12 +222,15 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 void NodePalette::setDoc(ScribusDoc *dc)
 {
 	doc = dc;
+	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	char *tmp_abs[]={" pt", " mm", " in", "p"};
 	YSpin->setSuffix(tr(tmp_abs[doc->Einheit]));
 	XSpin->setSuffix(tr(tmp_abs[doc->Einheit]));
 	AbsMode->setChecked(false);
+	EditCont->setChecked(false);
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 }
 
 void NodePalette::SplitPoly()
@@ -409,16 +412,6 @@ void NodePalette::ToggleConMode()
 		{
 			BezierClose->setEnabled(false);
 			PolySplit->setEnabled(false);
-			PolyMirrorH->setEnabled(false);
-			PolyMirrorV->setEnabled(false);
-			PolyShearR->setEnabled(false);
-			PolyShearL->setEnabled(false);
-			PolyShearU->setEnabled(false);
-			PolyShearD->setEnabled(false);
-			RotateCCW->setEnabled(false);
-			RotateCW->setEnabled(false);
-			Crop->setEnabled(false);
-			Expand->setEnabled(false);
 			XSpin->setMinValue(-3000);
 			YSpin->setMinValue(-3000);
 		}
@@ -426,16 +419,6 @@ void NodePalette::ToggleConMode()
 		{
 			BezierClose->setEnabled(false);
 			PolySplit->setEnabled(true);
-			PolyMirrorH->setEnabled(true);
-			PolyMirrorV->setEnabled(true);
-			PolyShearR->setEnabled(true);
-			PolyShearL->setEnabled(true);
-			PolyShearU->setEnabled(true);
-			PolyShearD->setEnabled(true);
-			RotateCCW->setEnabled(true);
-			RotateCW->setEnabled(true);
-			Crop->setEnabled(false);
-			Expand->setEnabled(false);
 			XSpin->setMinValue(0);
 			YSpin->setMinValue(0);
 		}
@@ -531,7 +514,7 @@ void NodePalette::EndEdit()
 		MoveN();
 		doc->ActPage->ClRe = -1;
 		EditCont->setChecked(false);
-		doc->ActPage->EditContour = false;
+		ToggleConMode();
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );

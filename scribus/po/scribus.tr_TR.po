@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.8\n"
-"POT-Creation-Date: 2004-06-18 00:23+0200\n"
+"POT-Creation-Date: 2004-07-19 23:24+0200\n"
 "PO-Revision-Date: 2002-09-18 09:47+0300\n"
 "Last-Translator: erkan <Selamsana@uni.de>\n"
 "Language-Team: Türkçe <tr@li.org>\n"
@@ -66,13 +66,16 @@ msgstr ""
 msgid " p"
 msgstr ""
 
-msgid "OK"
+#, fuzzy
+msgid "&OK"
 msgstr "Tamam"
 
-msgid "Apply"
+#, fuzzy
+msgid "&Apply"
 msgstr "Uygula"
 
-msgid "Cancel"
+#, fuzzy
+msgid "&Cancel"
 msgstr "Vazgeç"
 
 msgid "Field Properties"
@@ -451,6 +454,12 @@ msgstr "Özel hesaplama scripti:"
 msgid "Calculate"
 msgstr "Hesapla"
 
+msgid "OK"
+msgstr "Tamam"
+
+msgid "Cancel"
+msgstr "Vazgeç"
+
 msgid "Flag is ignored for PDF-1.3"
 msgstr "PDF-1.3 için kullanılamaz"
 
@@ -496,19 +505,20 @@ msgid "Apply Template"
 msgstr "Geçici sayfayı uygula"
 
 #, fuzzy
-msgid "Template:"
+msgid "&Template:"
 msgstr "Yeni geçici sayfa"
 
 #, fuzzy
-msgid "Apply to Current Page"
+msgid "Apply to &Current Page"
 msgstr "Efekti bütün sayfalarda uygula"
 
 #, fuzzy
-msgid "Apply from Page:"
+msgid "Apply from &Page:"
 msgstr "Efekti bütün sayfalarda uygula"
 
-msgid "to:"
-msgstr "buraya:"
+#, fuzzy
+msgid "To:"
+msgstr "Üst:"
 
 msgid "Bookmarks"
 msgstr "Yer imleri"
@@ -583,22 +593,27 @@ msgstr "Sıfırla"
 msgid "Color Management Settings"
 msgstr "Renk yönetimi ayarları"
 
-msgid "Activate Color Management"
+#, fuzzy
+msgid "&Activate Color Management"
 msgstr "Renk yönetimi etkinleştir"
 
 msgid "System Profiles"
 msgstr "Sistem profili"
 
-msgid "Pictures:"
+#, fuzzy
+msgid "&Pictures:"
 msgstr "Resimler:"
 
-msgid "Solid Colors:"
+#, fuzzy
+msgid "&Solid Colors:"
 msgstr "Yoğun renkler:"
 
-msgid "Monitor:"
+#, fuzzy
+msgid "&Monitor:"
 msgstr "Monitör:"
 
-msgid "Printer:"
+#, fuzzy
+msgid "P&rinter:"
 msgstr "Yazıcı:"
 
 msgid "Rendering Intents"
@@ -616,13 +631,22 @@ msgstr "Gölgelendirme"
 msgid "Absolute Colorimetric"
 msgstr "Tam renk ölçer"
 
-msgid "Simulate Printer on the Screen"
+#, fuzzy
+msgid "M&onitor:"
+msgstr "Monitör:"
+
+#, fuzzy
+msgid "Pr&inter:"
+msgstr "Yazıcı:"
+
+#, fuzzy
+msgid "Sim&ulate Printer on the Screen"
 msgstr "Yazıcıyı ekranda simule et"
 
-msgid "Mark Colors out of Gamut"
+msgid "Mark Colors out of &Gamut"
 msgstr ""
 
-msgid "Use Blackpoint Compensation"
+msgid "Use &Blackpoint Compensation"
 msgstr ""
 
 msgid "Default color profile for imported images"
@@ -734,20 +758,28 @@ msgstr "Biçem ismi belirsiz"
 msgid "Colors"
 msgstr "Renk"
 
-msgid "Append"
+#, fuzzy
+msgid "&Append"
 msgstr "İliştir"
 
-msgid "Edit"
+#, fuzzy
+msgid "&New"
+msgstr "Yeni"
+
+#, fuzzy
+msgid "&Edit"
 msgstr "Düzenle"
 
-msgid "Duplicate"
+#, fuzzy
+msgid "D&uplicate"
 msgstr "Çift"
 
-msgid "Delete"
+#, fuzzy
+msgid "&Delete"
 msgstr "Sil"
 
 #, fuzzy
-msgid "Remove Unused"
+msgid "&Remove Unused"
 msgstr "Sil"
 
 #, fuzzy
@@ -759,7 +791,7 @@ msgid "Current Color Set:"
 msgstr "Metin rengi"
 
 #, fuzzy
-msgid "Save Color Set"
+msgid "&Save Color Set"
 msgstr "Göreceli renk ölçer"
 
 msgid "Choose a color set to load"
@@ -952,14 +984,16 @@ msgstr "Yazar:"
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-msgid "Scribus-Document"
+#, fuzzy
+msgid "Scribus Document"
 msgstr "Scribus-Belgesi"
 
-msgid "Compress File"
+#, fuzzy
+msgid "&Compress File"
 msgstr "Dosya sıklaştır"
 
 #, fuzzy
-msgid "Include Fonts"
+msgid "&Include Fonts"
 msgstr "Yer imleriyle birlikte kaydet"
 
 #, fuzzy
@@ -990,28 +1024,158 @@ msgstr "Sayfaları sil"
 msgid "Delete from:"
 msgstr "Silinen:"
 
-msgid "Document Info"
+msgid "to:"
+msgstr "buraya:"
+
+#, fuzzy
+msgid "Document Information"
 msgstr "Belge bilgileri"
 
-msgid "Description:"
-msgstr "Açıklama:"
+#, fuzzy
+msgid "&Title:"
+msgstr "Başlık:"
 
-msgid "Keywords:"
+#, fuzzy
+msgid "&Author:"
+msgstr "Yazar:"
+
+msgid "&Keywords:"
 msgstr ""
 
+#, fuzzy
+msgid "Descri&ption:"
+msgstr "Açıklama:"
+
+msgid "P&ublisher:"
+msgstr ""
+
+#, fuzzy
+msgid "&Contributors:"
+msgstr "Yardımda bulunan:"
+
+#, fuzzy
+msgid "Dat&e:"
+msgstr "Tarih"
+
+#, fuzzy
+msgid "T&ype:"
+msgstr "Tür:"
+
+#, fuzzy
+msgid "F&ormat:"
+msgstr "Biçem:"
+
+#, fuzzy
+msgid "Identi&fier:"
+msgstr "Sol:"
+
+#, fuzzy
+msgid "&Source:"
+msgstr "Gerekli Blok"
+
+#, fuzzy
+msgid "&Language:"
+msgstr "Yazdırma alanı:"
+
+#, fuzzy
+msgid "&Relation:"
+msgstr "Çözünüm:"
+
+#, fuzzy
+msgid "Co&verage:"
+msgstr "ortalama"
+
+#, fuzzy
+msgid "Ri&ghts:"
+msgstr "Sağ:"
+
+#, fuzzy
+msgid "&Document"
+msgstr "Belge"
+
+#, fuzzy
+msgid "Further &Information"
+msgstr "Biçemler"
+
 msgid ""
+"The person or organisation primarily responsible for making the content of "
+"the document.\n"
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
 
 msgid ""
+"A name given to the document.\n"
+"This field can be embedded in the Scribus document for reference, as well as "
+"in the metadata of a PDF"
+msgstr ""
+
+msgid ""
+"An account of the content of the document.\n"
 "This field is for a brief description or abstract of the document. It is "
 "embedded in the PDF on export"
 msgstr ""
 
 msgid ""
+"The topic of the content of the document.\n"
 "This field is for document keywords you wish to embed in a PDF, to assist "
 "searches and indexing of PDF files"
+msgstr ""
+
+msgid "A person or organisation responsible for making the document available"
+msgstr ""
+
+msgid ""
+"A person or organisation responsible for making contributions to the content "
+"of the document"
+msgstr ""
+
+msgid ""
+"A date associated with an event in the life cycle of the document, in YYYY-"
+"MM-DD format, as per ISO 8601"
+msgstr ""
+
+msgid ""
+"The nature or genre of the content of the document, eg. categories, "
+"functions, genres, etc"
+msgstr ""
+
+msgid ""
+"The physical or digital manifestation of the document. Media type and "
+"dimensions would be worth noting.\n"
+"RFC2045,RFC2046 for MIME types are also useful here"
+msgstr ""
+
+msgid ""
+"An unambiguous reference to the document within a given context such as ISBN "
+"or URI"
+msgstr ""
+
+msgid ""
+"A reference to a document from which the present document is derived, eg. "
+"ISBN or URI"
+msgstr ""
+
+msgid ""
+"The language in which the content of the document is written, usually a ISO-"
+"639 language code\n"
+"optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-"
+"CH"
+msgstr ""
+
+msgid ""
+"A reference to a related document, possibly using a formal identifier such "
+"as a ISBN or URI"
+msgstr ""
+
+msgid ""
+"The extent or scope of the content of the document, possibly including "
+"location, time and jurisdiction ranges"
+msgstr ""
+
+msgid ""
+"Information about rights held in and over the document, eg. copyright, "
+"patent or trademark"
 msgstr ""
 
 #, fuzzy
@@ -1182,17 +1346,11 @@ msgstr "Alanı yazdır"
 msgid "Print range"
 msgstr "Alanı yazdır"
 
-msgid "From page:"
-msgstr "Başlangıç:"
-
-msgid "To page:"
-msgstr "Bitiş:"
-
-msgid "Print last page first"
-msgstr "Son sayfayı en son yazdır"
-
-msgid "Print first page first"
-msgstr "Birinci sayfayı ilk önce yazdır"
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
 
 msgid "Number of copies:"
 msgstr "Kopya sayısı:"
@@ -1332,7 +1490,8 @@ msgstr "Biçem ismi belirsiz"
 msgid "Edit Styles"
 msgstr "Biçemleri düzenle"
 
-msgid "Save"
+#, fuzzy
+msgid "&Save"
 msgstr "Kaydet"
 
 msgid "New Style"
@@ -1377,6 +1536,9 @@ msgstr "Sil"
 
 msgid "Get Field Names"
 msgstr "Alan ismini seçin"
+
+msgid "Edit"
+msgstr "Düzenle"
 
 #, fuzzy
 msgid "Javascripts (*.js);;All Files (*)"
@@ -1434,8 +1596,17 @@ msgstr "Uzaklık"
 msgid "Font &Substitutions"
 msgstr ""
 
-msgid "Add..."
+#, fuzzy
+msgid "C&hange..."
+msgstr "Değiştir..."
+
+#, fuzzy
+msgid "A&dd..."
 msgstr "Ekle..."
+
+#, fuzzy
+msgid "&Remove"
+msgstr "Sil"
 
 msgid "Additional &Paths"
 msgstr ""
@@ -1449,6 +1620,10 @@ msgstr "Düğümler"
 #, fuzzy
 msgid "Absolute Coordinates"
 msgstr "Tam renk ölçer"
+
+#, fuzzy
+msgid "Edit Contour Line"
+msgstr "Renk düzenle"
 
 msgid "End Editing"
 msgstr "Bitir"
@@ -1528,15 +1703,35 @@ msgid "Horizontal Guides"
 msgstr "Dikey çevrildi"
 
 #, fuzzy
-msgid "Add"
+msgid "&Y-Pos:"
+msgstr "Yerel Y-Pos:"
+
+#, fuzzy
+msgid "&Add"
 msgstr "Ekle..."
+
+#, fuzzy
+msgid "D&elete"
+msgstr "Sil"
 
 #, fuzzy
 msgid "Vertical Guides"
 msgstr "Yatay boşluklar"
 
 #, fuzzy
-msgid "Lock Guides"
+msgid "&X-Pos:"
+msgstr "Yerel X-Pos:"
+
+#, fuzzy
+msgid "A&dd"
+msgstr "Ekle..."
+
+#, fuzzy
+msgid "De&lete"
+msgstr "Sil"
+
+#, fuzzy
+msgid "&Lock Guides"
 msgstr "Yardımcı çizgileri göster"
 
 msgid ""
@@ -1557,7 +1752,17 @@ msgstr ""
 msgid "Hyphenator Settings"
 msgstr "Karakter ayarları"
 
-msgid "Fully Automatic"
+#, fuzzy
+msgid "&Fully Automatic"
+msgstr "Otomatik metin kutuları"
+
+msgid "Check &During Typing"
+msgstr ""
+
+msgid "&Smallest Word:"
+msgstr ""
+
+msgid "&Number of Hypenations allowed:"
 msgstr ""
 
 msgid ""
@@ -1565,23 +1770,10 @@ msgid ""
 "everytime a possible Hyphenation is found."
 msgstr ""
 
-msgid "Check during Typing"
-msgstr ""
-
 msgid "Enables automatic checking of your text while typing."
 msgstr ""
 
-#, fuzzy
-msgid "Language:"
-msgstr "Yazdırma alanı:"
-
-msgid "Smallest Word:"
-msgstr ""
-
 msgid "Length of the smallest word to be hyphenated."
-msgstr ""
-
-msgid "Number of Hypenations allowed:"
 msgstr ""
 
 msgid ""
@@ -1614,6 +1806,10 @@ msgid "Template (Left Page):"
 msgstr "Bu sayfa için geçici dosya "
 
 #, fuzzy
+msgid "Template:"
+msgstr "Yeni geçici sayfa"
+
+#, fuzzy
 msgid "Template (Right Page):"
 msgstr "Bu sayfa için geçici dosya "
 
@@ -1621,7 +1817,16 @@ msgstr "Bu sayfa için geçici dosya "
 msgid "Edit JavaScripts"
 msgstr "Java Script"
 
-msgid "Close"
+#, fuzzy
+msgid "&Edit..."
+msgstr "Düzenle..."
+
+#, fuzzy
+msgid "&Add..."
+msgstr "Ekle..."
+
+#, fuzzy
+msgid "&Close"
 msgstr "Kapat"
 
 msgid "New Script:"
@@ -1643,16 +1848,19 @@ msgstr "Güncel tuş"
 msgid "Select a Key for this Action"
 msgstr "Bu eylem için bir anahtar seç"
 
-msgid "No Key"
+#, fuzzy
+msgid "&No Key"
 msgstr "Tuş yok"
 
-msgid "User Defined Key"
+#, fuzzy
+msgid "&User Defined Key"
 msgstr "Kullanıcı tanımlı anahtarlar"
 
 msgid "ALT+SHIFT+T"
 msgstr ""
 
-msgid "Set Key"
+#, fuzzy
+msgid "Set &Key"
 msgstr "Tuşları yerleştir"
 
 #, fuzzy
@@ -1674,7 +1882,8 @@ msgstr ""
 msgid "Ctrl+"
 msgstr ""
 
-msgid "This Key-Sequence is already in use"
+#, fuzzy
+msgid "This Key Sequence is already in use"
 msgstr "Bu anahtar kombinasyonu daha önceden tanımlanmış"
 
 msgid "Layers"
@@ -1706,38 +1915,47 @@ msgstr "Biçemleri düzenle"
 msgid "Multiple Duplicate"
 msgstr "Bir çok kere çiftleştir"
 
-msgid "Number of Copies:"
+#, fuzzy
+msgid "&Number of Copies:"
 msgstr "Kopya sayısı:"
 
-msgid "Horizontal Shift:"
+#, fuzzy
+msgid "&Horizontal Shift:"
 msgstr "Dikey Uzaklık:"
 
-msgid "Vertical Shift:"
+#, fuzzy
+msgid "&Vertical Shift:"
 msgstr "Yatay Uzaklık:"
 
 #, fuzzy
-msgid "Import a Page"
+msgid "Import Template"
 msgstr "Verileri içe aktar"
 
 #, fuzzy
-msgid "Document to load:"
-msgstr "Belgeleme:"
+msgid "Import Page(s)"
+msgstr "Verileri içe aktar"
 
 #, fuzzy
-msgid "Document contains: 0 Page(s)"
-msgstr "Belge sayfaları:"
+msgid "From Document:"
+msgstr "Belge yok"
 
 #, fuzzy
-msgid "Import Page Nr:"
+msgid "Import Page(s):"
 msgstr "Verileri burdan içe aktar:"
+
+msgid " from 0"
+msgstr ""
+
+#, fuzzy
+msgid "Create Page(s)"
+msgstr "Sayfaları sil"
 
 #, fuzzy
 msgid "Import"
 msgstr "İçe aktar..."
 
-#, fuzzy
-msgid "Document contains: %1 Page(s)"
-msgstr "Belge sayfaları:"
+msgid " from %1"
+msgstr ""
 
 msgid "Missing Font"
 msgstr "Eksik yazıtipi"
@@ -1799,6 +2017,10 @@ msgstr "Metin kutu etrafında"
 
 msgid "Use Bounding Box"
 msgstr ""
+
+#, fuzzy
+msgid "Use Contour Line"
+msgstr "Kontrol noktalarını sıfırla"
 
 #, fuzzy
 msgid "Shape:"
@@ -1864,6 +2086,10 @@ msgstr "Kullanıcı tanımlı"
 #, fuzzy
 msgid "Kerning:"
 msgstr "Uyarı"
+
+#, fuzzy
+msgid "Language:"
+msgstr "Yazdırma alanı:"
 
 msgid "Free Scaling"
 msgstr "Serbest ölçek"
@@ -2209,6 +2435,10 @@ msgstr "Yeni belge"
 msgid "Page Size"
 msgstr "Sayfa boyutu"
 
+#, fuzzy
+msgid "&Size:"
+msgstr "Boyut:"
+
 msgid "Legal"
 msgstr ""
 
@@ -2219,23 +2449,51 @@ msgstr "Ortala"
 msgid "Tabloid"
 msgstr "11 x 17 Zoll"
 
-msgid "Orientation:"
+#, fuzzy
+msgid "Orie&ntation:"
 msgstr "Konum:"
 
-msgid "Facing Pages"
+#, fuzzy
+msgid "&Width:"
+msgstr "Genişlik:"
+
+#, fuzzy
+msgid "&Height:"
+msgstr "Yükseklik:"
+
+#, fuzzy
+msgid "&Facing Pages"
 msgstr "Çift sayfalar"
 
-msgid "Left Page first"
+#, fuzzy
+msgid "Left &Page First"
 msgstr "İlk önce sol sayfa"
 
 msgid "Margin Guides"
 msgstr "Aralık"
 
 #, fuzzy
-msgid "First Page Number:"
+msgid "&Left:"
+msgstr "Sol:"
+
+#, fuzzy
+msgid "&Right:"
+msgstr "Sağ:"
+
+#, fuzzy
+msgid "&Top:"
+msgstr "Üst:"
+
+#, fuzzy
+msgid "&Bottom:"
+msgstr "Alt:"
+
+#, fuzzy
+msgid "F&irst Page Number:"
 msgstr "Birinci sayfa numarası:"
 
-msgid "Default Unit:"
+#, fuzzy
+msgid "&Default Unit:"
 msgstr "Öntanımlı birim:"
 
 #, fuzzy
@@ -2253,11 +2511,18 @@ msgid "Picas (p)"
 msgstr "Pixel (p)"
 
 #, fuzzy
-msgid "Automatic Text Frames"
+msgid "&Automatic Text Frames"
 msgstr "Otomatik metin kutuları"
 
 msgid "Column Guides"
 msgstr "Sütun dağılımı"
+
+msgid "&Gap:"
+msgstr ""
+
+#, fuzzy
+msgid "Colu&mns:"
+msgstr "Kolanlar:"
 
 msgid "Document page size, either a standard size or a custom size"
 msgstr ""
@@ -2313,10 +2578,12 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr ""
 
-msgid "Inside:"
+#, fuzzy
+msgid "&Inside:"
 msgstr "İç taraf:"
 
-msgid "Outside:"
+#, fuzzy
+msgid "O&utside:"
 msgstr "Dış taraf:"
 
 msgid "Left Page"
@@ -2331,48 +2598,39 @@ msgstr "Buraya kopyala"
 msgid "Move Here"
 msgstr "Buraya taşı"
 
-msgid "Hide Margins"
-msgstr "Kenarları sakla"
+#, fuzzy
+msgid "&Paste"
+msgstr "Yapıştır"
 
-msgid "Show Margins"
+#, fuzzy
+msgid "Show &Margins"
 msgstr "Kenarları göster"
 
-msgid "Hide Frames"
+#, fuzzy
+msgid "Show &Frames"
 msgstr "Çerçeveleri göster"
 
-msgid "Show Frames"
-msgstr "Çerçeveleri göster"
-
-msgid "Hide Images"
-msgstr "Resimleri sakla"
-
-msgid "Show Images"
+#, fuzzy
+msgid "Show &Images"
 msgstr "Resimleri göster"
 
 #, fuzzy
-msgid "Hide Grid"
-msgstr "Yardımcı çizgileri sakla"
+msgid "Show &Grid"
+msgstr "Yardımcı çizgileri göster"
 
 #, fuzzy
-msgid "Show Grid"
+msgid "Show G&uides"
 msgstr "Yardımcı çizgileri göster"
 
-msgid "Hide Guides"
-msgstr "Yardımcı çizgileri sakla"
-
-msgid "Show Guides"
-msgstr "Yardımcı çizgileri göster"
-
-msgid "Hide Baseline Grid"
+msgid "Show &Baseline Grid"
 msgstr ""
 
-msgid "Show Baseline Grid"
-msgstr ""
-
-msgid "Snap to Grid"
+#, fuzzy
+msgid "Sn&ap to Grid"
 msgstr "Yardımcı çizgi yerleştir"
 
-msgid "Snap to Guides"
+#, fuzzy
+msgid "Sna&p to Guides"
 msgstr "Manyetik yardımcı çizgiler"
 
 #, fuzzy
@@ -2383,11 +2641,11 @@ msgstr "Resim"
 msgid "File: "
 msgstr "Dosya"
 
-msgid "Original ppi: "
+msgid "Original PPI: "
 msgstr ""
 
 #, fuzzy
-msgid "Actual ppi: "
+msgid "Actual PPI: "
 msgstr "Orjinal boyut"
 
 msgid "Linked Text"
@@ -2421,119 +2679,161 @@ msgstr "Düzenlenebilir"
 msgid "Disabled"
 msgstr "Görünür"
 
-msgid "Info"
+msgid "In&fo"
 msgstr ""
 
-msgid "Get Picture..."
+#, fuzzy
+msgid "&Get Picture..."
 msgstr "Resim yükle..."
 
 #, fuzzy
-msgid "Image Visible"
+msgid "I&mage Visible"
 msgstr "Resim görülebilir"
 
 #, fuzzy
-msgid "Update Picture"
+msgid "&Update Picture"
 msgstr "Resimleri düzenle"
 
 #, fuzzy
-msgid "Edit Picture"
+msgid "&Edit Picture"
 msgstr "Resim"
 
-msgid "Adjust Frame to Picture"
+msgid "&Adjust Frame to Picture"
 msgstr ""
 
-msgid "Get Text..."
+#, fuzzy
+msgid "&Get Text..."
 msgstr "Metin yükle..."
 
 #, fuzzy
-msgid "Append Text..."
+msgid "&Append Text..."
 msgstr "Metin yükle..."
+
+#, fuzzy
+msgid "&Edit Text..."
+msgstr "Metin yükle..."
+
+#, fuzzy
+msgid "&Insert Sample Text"
+msgstr "Örnek Metin"
+
+#, fuzzy
+msgid "Is PDF &Bookmark"
+msgstr "PDF-yer imi"
+
+#, fuzzy
+msgid "Is PDF A&nnotation"
+msgstr "PDF-dipnotu"
+
+#, fuzzy
+msgid "Annotation P&roperties"
+msgstr "Dipnot özellikleri"
+
+#, fuzzy
+msgid "Field P&roperties"
+msgstr "Alan özellikleri"
+
+#, fuzzy
+msgid "&PDF Options"
+msgstr "PDF-Seçenekleri"
 
 #, fuzzy
 msgid "Edit Text..."
 msgstr "Metin yükle..."
 
-#, fuzzy
-msgid "Insert Sample Text"
-msgstr "Örnek Metin"
-
-msgid "Is PDF-Bookmark"
-msgstr "PDF-yer imi"
-
-msgid "Is PDF-Annotation"
-msgstr "PDF-dipnotu"
-
-msgid "PDF-Options"
-msgstr "PDF-Seçenekleri"
-
-#, fuzzy
-msgid "Lock"
-msgstr "Blok"
-
-#, fuzzy
-msgid "Unlock"
-msgstr "Blok"
-
-msgid "Lock object size"
+msgid "&Lock"
 msgstr ""
 
 #, fuzzy
-msgid "Unlock object size"
+msgid "Un&lock"
+msgstr "Blok"
+
+#, fuzzy
+msgid "Lock Object &Size"
 msgstr "Nesne taşımasını geri al"
 
 #, fuzzy
-msgid "Send to Scrapbook"
+msgid "Unlock Object &Size"
+msgstr "Nesne taşımasını geri al"
+
+#, fuzzy
+msgid "Send to S&crapbook"
 msgstr "Kütüphaneye kopyala"
 
 #, fuzzy
-msgid "Send to Layer"
+msgid "Send to La&yer"
 msgstr "Katmana gönder"
 
-msgid "Group"
+#, fuzzy
+msgid "&Group"
 msgstr "Grublaştır"
 
 #, fuzzy
-msgid "Un-group"
+msgid "Un&group"
 msgstr "Grublaştırmayı boz"
 
-msgid "Send to Back"
+#, fuzzy
+msgid "Le&vel"
+msgstr "Vurgulu"
+
+#, fuzzy
+msgid "Send to &Back"
 msgstr "Arka planda"
 
-msgid "Bring to Front"
+#, fuzzy
+msgid "Bring to &Front"
 msgstr "Ön planda"
 
-msgid "Lower"
+#, fuzzy
+msgid "&Lower"
 msgstr "Bir basamak aşağıya"
 
-msgid "Raise"
+#, fuzzy
+msgid "&Raise"
 msgstr "Bir basamak yukarıya"
 
-msgid "Picture Frame"
+#, fuzzy
+msgid "&Picture Frame"
 msgstr "Resim çerçevesi"
 
-msgid "Polygon"
+#, fuzzy
+msgid "Pol&ygon"
 msgstr "Çokgen"
 
 #, fuzzy
-msgid "Outlines"
+msgid "&Outlines"
 msgstr "Çıktı"
 
-msgid "Bezier Curve"
+#, fuzzy
+msgid "&Text Frame"
+msgstr "Metin çerçevesi"
+
+#, fuzzy
+msgid "&Bezier Curve"
 msgstr "Bezir eğrileri"
 
-msgid "Convert to"
+#, fuzzy
+msgid "Conve&rt to"
 msgstr "Dönüştürme"
 
 #, fuzzy
-msgid "Clear Contents"
+msgid "Cu&t"
+msgstr "Kes"
+
+#, fuzzy
+msgid "&Copy"
+msgstr "Kopyala"
+
+#, fuzzy
+msgid "C&lear Contents"
 msgstr "İçerik"
 
 #, fuzzy
-msgid "Show Properties..."
+msgid "Show P&roperties..."
 msgstr "Özellikler..."
 
 #, fuzzy
-msgid "Hide Properties..."
+msgid "Hide P&roperties..."
 msgstr "Özellikler..."
 
 #, fuzzy
@@ -2548,6 +2848,9 @@ msgstr "Eksik"
 msgid "Copy of"
 msgstr "Kopyası"
 
+msgid "Polygon"
+msgstr "Çokgen"
+
 #, fuzzy
 msgid "Polyline"
 msgstr "Çokgen"
@@ -2556,25 +2859,38 @@ msgstr "Çokgen"
 msgid "PathText"
 msgstr "Yol"
 
-msgid "Create PDF-File"
+#, fuzzy
+msgid "Create PDF File"
 msgstr "PDF-Dosyası oluştur"
 
-msgid "Output to File:"
+#, fuzzy
+msgid "O&utput to File:"
 msgstr "Çıktı dosyası:"
+
+#, fuzzy
+msgid "Cha&nge..."
+msgstr "Değiştir..."
 
 msgid "Export Range"
 msgstr "Kenarlar"
 
-msgid "From:"
-msgstr "Burdan:"
+#, fuzzy
+msgid "&All Pages"
+msgstr "Bütün sayfalar"
+
+#, fuzzy
+msgid "C&hoose Pages"
+msgstr "Sayfaları taşı"
 
 msgid "File Options"
 msgstr "Dosya seçenekleri"
 
-msgid "Compatibility:"
+#, fuzzy
+msgid "Compatibilit&y:"
 msgstr "Dosya biçemi:"
 
-msgid "Binding:"
+#, fuzzy
+msgid "&Binding:"
 msgstr "Bağlama:"
 
 msgid "Left Margin"
@@ -2583,30 +2899,32 @@ msgstr "Sol kenar"
 msgid "Right Margin"
 msgstr "Sağ kenar"
 
-msgid "Generate Thumbnails"
+#, fuzzy
+msgid "Generate &Thumbnails"
 msgstr "Göstermelik oluştur"
 
-msgid "Save linked Text Frames as PDF-Articles"
+#, fuzzy
+msgid "Save &Linked Text Frames as PDF Articles"
 msgstr "Bağlantılı metin çerçevesini PDF Dosyası olarak kaydet"
 
-msgid "Include Bookmarks"
+#, fuzzy
+msgid "&Include Bookmarks"
 msgstr "Yer imleriyle birlikte kaydet"
-
-msgid "Resolution:"
-msgstr "Çözünüm:"
 
 msgid " dpi"
 msgstr ""
 
-msgid "Compress Text and Vector Graphics"
+#, fuzzy
+msgid "&Resolution:"
+msgstr "Çözünüm:"
+
+#, fuzzy
+msgid "Com&press Text and Vector Graphics"
 msgstr "Metin ve Vektor grafikleri sıkıştır"
 
 #, fuzzy
 msgid "Image Settings"
 msgstr "Karakter ayarları"
-
-msgid "Method:"
-msgstr ""
 
 #, fuzzy
 msgid "Automatic"
@@ -2619,7 +2937,11 @@ msgid "Zip"
 msgstr ""
 
 #, fuzzy
-msgid "Quality:"
+msgid "&Method:"
+msgstr "K&ırmızı:"
+
+#, fuzzy
+msgid "&Quality:"
 msgstr "Çık"
 
 #, fuzzy
@@ -2641,14 +2963,16 @@ msgstr "Bir basamak aşağıya"
 msgid "Minimum"
 msgstr "asgari"
 
-msgid "Downsample Images to:"
+#, fuzzy
+msgid "&Downsample Images to:"
 msgstr "Resimlerin çözülümü:"
 
 #, fuzzy
 msgid "&General"
 msgstr "Genel"
 
-msgid "Embed all Fonts"
+#, fuzzy
+msgid "&Embed all Fonts"
 msgstr "Bütün yazıtiplerini yerleştir"
 
 msgid "Embedding"
@@ -2657,10 +2981,10 @@ msgstr "Yerleştir"
 msgid "Available Fonts:"
 msgstr "Mevcut yazıtipleri:"
 
-msgid ">>"
+msgid "&>>"
 msgstr ""
 
-msgid "<<"
+msgid "&<<"
 msgstr ""
 
 msgid "Fonts to embed:"
@@ -2670,35 +2994,42 @@ msgstr "Yerleştirilen yazıtipleri:"
 msgid "&Fonts"
 msgstr "&Yazıtipi"
 
-msgid "Enable Presentation Effects"
+#, fuzzy
+msgid "Enable &Presentation Effects"
 msgstr "Sunu Efektleri kullan"
 
 msgid "Page"
 msgstr "Sayfa"
 
-msgid "Show Page Previews"
+#, fuzzy
+msgid "Show Page Pre&views"
 msgstr "Sayfa önizlemeyi göster"
 
 msgid "Effects"
 msgstr "Efekt"
 
-msgid "Display Duration:"
+#, fuzzy
+msgid "&Display Duration:"
 msgstr "Gösterme süresi:"
 
-msgid "Effect Duration:"
+#, fuzzy
+msgid "Effec&t Duration:"
 msgstr "Efekt süresi:"
 
-msgid "Effect Type:"
+#, fuzzy
+msgid "Effect T&ype:"
 msgstr "Efekt türü:"
 
-msgid "Moving Lines:"
+#, fuzzy
+msgid "&Moving Lines:"
 msgstr "Hareketli çizgiler:"
 
 #, fuzzy
-msgid "From the:"
+msgid "F&rom the:"
 msgstr "burdan:"
 
-msgid "Direction:"
+#, fuzzy
+msgid "D&irection:"
 msgstr "Yön:"
 
 msgid " sec"
@@ -2747,7 +3078,8 @@ msgstr "Sağdan sola"
 msgid "Top-left to Bottom-Right"
 msgstr "Sol yukardan çapraz olarak sağ aşağıya"
 
-msgid "Apply Effect on all Pages"
+#, fuzzy
+msgid "&Apply Effect on all Pages"
 msgstr "Efekti bütün sayfalarda uygula"
 
 #, fuzzy
@@ -2755,7 +3087,7 @@ msgid "E&xtras"
 msgstr "Diğer"
 
 #, fuzzy
-msgid "Use Encryption"
+msgid "&Use Encryption"
 msgstr "Açıklama:"
 
 #, fuzzy
@@ -2763,11 +3095,11 @@ msgid "Passwords"
 msgstr "Şifre"
 
 #, fuzzy
-msgid "User:"
+msgid "&User:"
 msgstr "Kullan"
 
 #, fuzzy
-msgid "Owner:"
+msgid "&Owner:"
 msgstr "Diğer:"
 
 #, fuzzy
@@ -2775,34 +3107,68 @@ msgid "Settings"
 msgstr "Fare ayarları"
 
 #, fuzzy
-msgid "Allow Printing the Document"
+msgid "Allow &Printing the Document"
 msgstr "Güncel belgeyi yazdır"
 
-msgid "Allow Changing the Document"
-msgstr ""
+#, fuzzy
+msgid "Allow &Changing the Document"
+msgstr "Güncel belgeyi yazdır"
 
 #, fuzzy
-msgid "Allow Copying Text and Graphics"
+msgid "Allow Cop&ying Text and Graphics"
 msgstr "Metin ve Vektor grafikleri sıkıştır"
 
-msgid "Allow Adding Annotations and Fields"
+msgid "Allow Adding &Annotations and Fields"
 msgstr ""
 
 #, fuzzy
-msgid "&Security"
+msgid "S&ecurity"
 msgstr "&Script"
 
 msgid "General"
 msgstr "Genel"
 
-msgid "Output intended for:"
-msgstr ""
+#, fuzzy
+msgid "Output &Intended For:"
+msgstr "Çıktı dosyası:"
 
 msgid "Screen / Web"
 msgstr ""
 
 msgid "Printer"
 msgstr "Yazıcı"
+
+msgid "&Use Custom Rendering Settings"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering Settings"
+msgstr "Rendering amaçlar"
+
+#, fuzzy
+msgid "Fre&quency:"
+msgstr "Fransızca:"
+
+#, fuzzy
+msgid "&Angle:"
+msgstr "Açı:"
+
+msgid "S&pot Function:"
+msgstr ""
+
+#, fuzzy
+msgid "Simple Dot"
+msgstr "Örnek"
+
+#, fuzzy
+msgid "Round"
+msgstr "Yuvarlatılmış"
+
+msgid "Ellipse"
+msgstr ""
+
+msgid "Solid Colors:"
+msgstr "Yoğun renkler:"
 
 #, fuzzy
 msgid "Use ICC-Profile"
@@ -2819,40 +3185,38 @@ msgstr "Rendering amaçları:"
 msgid "Images:"
 msgstr "Resim:"
 
+#, fuzzy
+msgid "Use ICC Profile"
+msgstr "Sistem profili"
+
 msgid "Don't use embedded ICC profiles"
 msgstr ""
 
 #, fuzzy
-msgid "&Color"
+msgid "C&olor"
 msgstr "Renk"
 
 msgid "PDF/X-3 Output Intent"
 msgstr ""
 
-msgid "Info String:"
+msgid "&Info String:"
 msgstr ""
 
 #, fuzzy
-msgid "Output Profile:"
+msgid "Output &Profile:"
 msgstr "Renkprofili:"
 
 #, fuzzy
 msgid "Trim Box"
 msgstr "Liste kutusu"
 
-msgid "&PDF/X-3"
+msgid "PDF/X-&3"
 msgstr ""
 
 msgid "Export all pages to PDF"
 msgstr ""
 
 msgid "Export a range of pages to PDF"
-msgstr ""
-
-msgid "First page to export when exporting a range"
-msgstr ""
-
-msgid "Last page to export when exporting a range"
 msgstr ""
 
 msgid ""
@@ -3044,7 +3408,7 @@ msgid "Distance for bleed from the right of the physical page"
 msgstr ""
 
 #, fuzzy
-msgid "PDF-Files (*.pdf);;All Files (*)"
+msgid "PDF Files (*.pdf);;All Files (*)"
 msgstr "Metin dosyaları (*.txt);;Bütün dosyalar (*)"
 
 msgid "Result"
@@ -3092,14 +3456,136 @@ msgstr "Çarpan:"
 msgid "Document Setup"
 msgstr "Belge ayarları"
 
+#, fuzzy
+msgid "&Outside:"
+msgstr "Dış taraf:"
+
 msgid "Scrapbook"
 msgstr "Kütüphane"
 
-msgid "Small"
+#, fuzzy
+msgid "&Load..."
+msgstr "Yükle..."
+
+#, fuzzy
+msgid "Save &As..."
+msgstr "Farklı kaydet..."
+
+#, fuzzy
+msgid "&Small"
 msgstr "Küçük"
 
-msgid "Big"
-msgstr "Büyük"
+#, fuzzy
+msgid "&Medium"
+msgstr "Orta"
+
+#, fuzzy
+msgid "&Large"
+msgstr "Sayfa"
+
+# msgid "Use Icons"
+# msgstr "İkonları kullan"
+# msgid "Remove"
+# msgstr "Sil"
+# msgid "Pressed"
+# msgstr "Basıldı"
+# msgid "Roll Over"
+# msgstr "Roll Over"
+# msgid "Icon Placement..."
+# msgstr "Düzenle..."
+# msgid "Editable"
+# msgstr "Düzenlenebilir"
+# msgid "Submit to URL:"
+# msgstr "URL'ye gönder:"
+# msgid "Submit Data as HTML"
+# msgstr "Verileri HTML olarak gönder"
+# msgid "Layout:"
+# msgstr "Düzen:"
+# msgid "Caption only"
+# msgstr "Sadece metin"
+# msgid "Icon only"
+# msgstr "Sadece ikon"
+# msgid "Caption below Icon"
+# msgstr "Metin ikonun altında"
+# msgid "Caption above Icon"
+# msgstr "Metin ikonun üstünde"
+# msgid "Caption right to Icon"
+# msgstr "Metin ikonun sağında"
+# msgid "Caption left to Icon"
+# msgstr "Metin ikonun solunda"
+# msgid "Caption overlays Icon"
+# msgstr "Metin ikonun üstünde"
+# msgid "Scale When:"
+# msgstr "Ölçek:"
+# msgid "Always"
+# msgstr "Daima"
+# msgid "When Icon is too small"
+# msgstr "Eğer ikon çok küçükse"
+# msgid "When Icon is too big"
+# msgstr "Eğer ikon çok büyükse"
+# msgid "Never"
+# msgstr "Asla"
+# msgid "Scale How:"
+# msgstr "Ölçekleme yöntemi:"
+# msgid "Proportional"
+# msgstr "Orantılı"
+# msgid "Non Proportional"
+# msgstr "Orantısız"
+# msgid "Reset"
+# msgstr "Sıfırla"
+# msgid "You need at least the Icon for Normal to use Icons for Buttons"
+# msgstr "İkonları kullanabilmek için en azından normal olarak bu ikona ihtıyacınız var"
+# msgid "Save and Exit"
+# msgstr "Kaydet ve çık"
+# msgid "Exit without Saving"
+# msgstr "Kaydetmeden çık"
+# msgid "Get Field Names"
+# msgstr "Alan ismini seçin"
+# msgid "JavaScripts (*.js);; All Files (*)"
+# msgstr "JavaScripts (*.js);; Bütün dosyalar (*)"
+# msgid "Pick..."
+# msgstr "Seçin..."
+# msgid "Export Range"
+# msgstr "Kenarlar"
+# msgid "All Pages"
+# msgstr "Bütün sayfalar"
+# msgid "From:"
+# msgstr "Burdan:"
+# msgid "Insert PDF-Fields"
+# msgstr "PDF-alanları ekle"
+# msgid "Undo"
+# msgstr "Geri"
+# msgid "Redo"
+# msgstr "Tekrar oluştur"
+# msgid "Select Fields"
+# msgstr "Alan seçin"
+# msgid "Available Fields"
+# msgstr "Mevcut alanlar"
+# msgid "Selected Fields"
+# msgstr "Seçilen alanlar"
+# msgid "Field Properties"
+# msgstr "Alan özellikleri"
+# msgid "Global JavaScripts"
+# msgstr "Genel JavaScripts"
+# msgid "Add..."
+# msgstr "Ekle..."
+# msgid "New Script:"
+# msgstr "Yeni Script:"
+# msgid "New Script"
+# msgstr "Yeni Script"
+# msgid "Insert PDF-Annotations"
+# msgstr "PDF-Notu ekle"
+# msgid "Import Data"
+# msgstr "Verileri içe aktar"
+# msgid "Import Data from:"
+# msgstr "Veriler burdan içe aktar:"
+#, fuzzy
+msgid "&File"
+msgstr "Dosya"
+
+#, fuzzy
+msgid "&Preview"
+msgstr "Önizleme"
 
 #, fuzzy
 msgid "Scrapbooks (*.scs);;All Files (*)"
@@ -3107,6 +3593,9 @@ msgstr "Kütüphane (*.scs);; Bütün dosyalar (*)"
 
 #, fuzzy
 msgid "Rename"
+msgstr "Sil"
+
+msgid "Delete"
 msgstr "Sil"
 
 msgid "Object"
@@ -3220,10 +3709,6 @@ msgid "Initializing Plugins"
 msgstr ""
 
 #, fuzzy
-msgid "&New"
-msgstr "Yeni"
-
-#, fuzzy
 msgid "&Open..."
 msgstr "Aç..."
 
@@ -3234,17 +3719,11 @@ msgstr "Belge aç"
 msgid "Open..."
 msgstr "Aç..."
 
-#, fuzzy
-msgid "&Close"
+msgid "Close"
 msgstr "Kapat"
 
-#, fuzzy
-msgid "&Save"
+msgid "Save"
 msgstr "Kaydet"
-
-#, fuzzy
-msgid "Save &As..."
-msgstr "Farklı kaydet..."
 
 #, fuzzy
 msgid "Re&vert to Saved"
@@ -3262,7 +3741,7 @@ msgid "Append &Text..."
 msgstr "Metin yükle..."
 
 #, fuzzy
-msgid "Insert &Page..."
+msgid "Import &Page(s)..."
 msgstr "Sayfa ekle"
 
 #, fuzzy
@@ -3318,18 +3797,6 @@ msgid "&Undo"
 msgstr "Geri"
 
 #, fuzzy
-msgid "Cu&t"
-msgstr "Kes"
-
-#, fuzzy
-msgid "&Copy"
-msgstr "Kopyala"
-
-#, fuzzy
-msgid "&Paste"
-msgstr "Yapıştır"
-
-#, fuzzy
 msgid "C&lear"
 msgstr "Sil"
 
@@ -3376,43 +3843,34 @@ msgstr "Java Script"
 msgid "Select New Font"
 msgstr "Yazıtipi seç"
 
-#, fuzzy
-msgid "D&uplicate"
+msgid "Duplicate"
 msgstr "Çift"
 
 #, fuzzy
 msgid "&Multiple Duplicate"
 msgstr "Bir çok kere çiftleştir"
 
-#, fuzzy
-msgid "&Delete"
-msgstr "Sil"
-
-#, fuzzy
-msgid "&Group"
+msgid "Group"
 msgstr "Grublaştır"
 
 #, fuzzy
 msgid "&Ungroup"
 msgstr "Grublaştırmayı boz"
 
-msgid "&Lock"
-msgstr ""
-
 #, fuzzy
-msgid "Send to &Back"
+msgid "Un-group"
+msgstr "Grublaştırmayı boz"
+
+msgid "Send to Back"
 msgstr "Arka planda"
 
-#, fuzzy
-msgid "Bring to &Front"
+msgid "Bring to Front"
 msgstr "Ön planda"
 
-#, fuzzy
-msgid "&Lower"
+msgid "Lower"
 msgstr "Bir basamak aşağıya"
 
-#, fuzzy
-msgid "&Raise"
+msgid "Raise"
 msgstr "Bir basamak yukarıya"
 
 #, fuzzy
@@ -3502,8 +3960,8 @@ msgstr ""
 msgid "&100%"
 msgstr ""
 
-msgid "Actual Size"
-msgstr "Orjinal boyut"
+msgid "100%"
+msgstr ""
 
 msgid "200%"
 msgstr ""
@@ -3515,36 +3973,21 @@ msgstr "Minyatürleştir"
 msgid "Thumbnails"
 msgstr "Minyatürleştir"
 
-#, fuzzy
-msgid "Hide &Margins"
+msgid "Hide Margins"
 msgstr "Kenarları sakla"
 
-#, fuzzy
-msgid "Hide &Frames"
+msgid "Hide Frames"
 msgstr "Çerçeveleri göster"
 
-#, fuzzy
-msgid "Hide &Images"
+msgid "Hide Images"
 msgstr "Resimleri sakla"
 
 #, fuzzy
-msgid "Show &Grid"
+msgid "Show Grid"
 msgstr "Yardımcı çizgileri göster"
 
-#, fuzzy
-msgid "Snap to &Grid"
+msgid "Snap to Grid"
 msgstr "Yardımcı çizgi yerleştir"
-
-#, fuzzy
-msgid "Hide G&uides"
-msgstr "Yardımcı çizgileri sakla"
-
-#, fuzzy
-msgid "Sna&p to Guides"
-msgstr "Manyetik yardımcı çizgiler"
-
-msgid "Show &Baseline Grid"
-msgstr ""
 
 #, fuzzy
 msgid "&Properties"
@@ -3606,7 +4049,7 @@ msgid "Tooltips"
 msgstr "Araçlar"
 
 #, fuzzy
-msgid "&Preferences..."
+msgid "P&references..."
 msgstr "Ayarlar..."
 
 #, fuzzy
@@ -3643,110 +4086,6 @@ msgstr "Scribus Kılavuzu"
 
 msgid "Online-Help..."
 msgstr "Yardımcı kılavuz..."
-
-# msgid "Use Icons"
-# msgstr "İkonları kullan"
-# msgid "Remove"
-# msgstr "Sil"
-# msgid "Pressed"
-# msgstr "Basıldı"
-# msgid "Roll Over"
-# msgstr "Roll Over"
-# msgid "Icon Placement..."
-# msgstr "Düzenle..."
-# msgid "Editable"
-# msgstr "Düzenlenebilir"
-# msgid "Submit to URL:"
-# msgstr "URL'ye gönder:"
-# msgid "Submit Data as HTML"
-# msgstr "Verileri HTML olarak gönder"
-# msgid "Layout:"
-# msgstr "Düzen:"
-# msgid "Caption only"
-# msgstr "Sadece metin"
-# msgid "Icon only"
-# msgstr "Sadece ikon"
-# msgid "Caption below Icon"
-# msgstr "Metin ikonun altında"
-# msgid "Caption above Icon"
-# msgstr "Metin ikonun üstünde"
-# msgid "Caption right to Icon"
-# msgstr "Metin ikonun sağında"
-# msgid "Caption left to Icon"
-# msgstr "Metin ikonun solunda"
-# msgid "Caption overlays Icon"
-# msgstr "Metin ikonun üstünde"
-# msgid "Scale When:"
-# msgstr "Ölçek:"
-# msgid "Always"
-# msgstr "Daima"
-# msgid "When Icon is too small"
-# msgstr "Eğer ikon çok küçükse"
-# msgid "When Icon is too big"
-# msgstr "Eğer ikon çok büyükse"
-# msgid "Never"
-# msgstr "Asla"
-# msgid "Scale How:"
-# msgstr "Ölçekleme yöntemi:"
-# msgid "Proportional"
-# msgstr "Orantılı"
-# msgid "Non Proportional"
-# msgstr "Orantısız"
-# msgid "Reset"
-# msgstr "Sıfırla"
-# msgid "You need at least the Icon for Normal to use Icons for Buttons"
-# msgstr "İkonları kullanabilmek için en azından normal olarak bu ikona ihtıyacınız var"
-# msgid "Save and Exit"
-# msgstr "Kaydet ve çık"
-# msgid "Exit without Saving"
-# msgstr "Kaydetmeden çık"
-# msgid "Get Field Names"
-# msgstr "Alan ismini seçin"
-# msgid "JavaScripts (*.js);; All Files (*)"
-# msgstr "JavaScripts (*.js);; Bütün dosyalar (*)"
-# msgid "Pick..."
-# msgstr "Seçin..."
-# msgid "Export Range"
-# msgstr "Kenarlar"
-# msgid "All Pages"
-# msgstr "Bütün sayfalar"
-# msgid "From:"
-# msgstr "Burdan:"
-# msgid "Insert PDF-Fields"
-# msgstr "PDF-alanları ekle"
-# msgid "Undo"
-# msgstr "Geri"
-# msgid "Redo"
-# msgstr "Tekrar oluştur"
-# msgid "Select Fields"
-# msgstr "Alan seçin"
-# msgid "Available Fields"
-# msgstr "Mevcut alanlar"
-# msgid "Selected Fields"
-# msgstr "Seçilen alanlar"
-# msgid "Field Properties"
-# msgstr "Alan özellikleri"
-# msgid "Global JavaScripts"
-# msgstr "Genel JavaScripts"
-# msgid "Add..."
-# msgstr "Ekle..."
-# msgid "New Script:"
-# msgstr "Yeni Script:"
-# msgid "New Script"
-# msgstr "Yeni Script"
-# msgid "Insert PDF-Annotations"
-# msgstr "PDF-Notu ekle"
-# msgid "Import Data"
-# msgstr "Verileri içe aktar"
-# msgid "Import Data from:"
-# msgstr "Veriler burdan içe aktar:"
-#, fuzzy
-msgid "&File"
-msgstr "Dosya"
-
-#, fuzzy
-msgid "&Edit"
-msgstr "Düzenle"
 
 #, fuzzy
 msgid "St&yle"
@@ -3824,13 +4163,16 @@ msgstr "Başlık:"
 msgid "Get Text/Picture..."
 msgstr "Resim/Metin yükle..."
 
+msgid "Get Picture..."
+msgstr "Resim yükle..."
+
+#, fuzzy
+msgid "&Color"
+msgstr "Renk"
+
 #, fuzzy
 msgid "&Invert"
 msgstr "Tersi"
-
-#, fuzzy
-msgid "&Get Text..."
-msgstr "Metin yükle..."
 
 msgid "&Font"
 msgstr "&Yazıtipi"
@@ -3854,6 +4196,9 @@ msgstr "Gölge"
 msgid "&Tabulators..."
 msgstr "Geçici sayfalar..."
 
+msgid "Get Text..."
+msgstr "Metin yükle..."
+
 msgid "Font"
 msgstr "Yazıtipi"
 
@@ -3870,8 +4215,26 @@ msgid "Shade"
 msgstr "Gölge"
 
 #, fuzzy
-msgid "Un&lock"
-msgstr "Blok"
+msgid "Importing Pages..."
+msgstr "Verileri içe aktar"
+
+msgid ""
+"<p>You are trying to import more pages than there are available in the "
+"current document counting from the active page.</p>Choose one of the "
+"following:<br><ul><li><b>Create</b> missing pages</li><li><b>Import</b> "
+"pages until the last page</li><li><b>Cancel</b></li></ul><br>"
+msgstr ""
+
+#, fuzzy
+msgid "Create"
+msgstr "Karakter"
+
+#, fuzzy
+msgid "Import done"
+msgstr "İçe aktar..."
+
+msgid "Found nothing to import"
+msgstr ""
 
 msgid "Loading..."
 msgstr "Yükle..."
@@ -3917,27 +4280,10 @@ msgstr "Yazdırma iptal edildi"
 msgid "Scribus Manual"
 msgstr "Scribus Kılavuzu"
 
-#, fuzzy
-msgid "Show &Images"
-msgstr "Resimleri göster"
+msgid "Hide Baseline Grid"
+msgstr ""
 
-#, fuzzy
-msgid "Show &Margins"
-msgstr "Kenarları göster"
-
-#, fuzzy
-msgid "Show &Frames"
-msgstr "Çerçeveleri göster"
-
-#, fuzzy
-msgid "Show G&uides"
-msgstr "Yardımcı çizgileri göster"
-
-#, fuzzy
-msgid "Hide &Grid"
-msgstr "Yardımcı çizgileri sakla"
-
-msgid "Hide &Baseline Grid"
+msgid "Show Baseline Grid"
 msgstr ""
 
 msgid "The following Programs are missing:"
@@ -3959,6 +4305,14 @@ msgstr ""
 
 msgid "Unlock all"
 msgstr ""
+
+#, fuzzy
+msgid "Unlock"
+msgstr "Blok"
+
+#, fuzzy
+msgid "Lock"
+msgstr "Blok"
 
 #, fuzzy
 msgid "Loading:"
@@ -4062,11 +4416,12 @@ msgstr "Arka plan"
 msgid "Layer"
 msgstr "Katmanlar"
 
-msgid "Leave Anyway"
+#, fuzzy
+msgid "&Leave Anyway"
 msgstr "Terket"
 
 #, fuzzy
-msgid "Close Anyway"
+msgid "C&lose Anyway"
 msgstr "Terket"
 
 #, fuzzy
@@ -4077,8 +4432,12 @@ msgstr "Belge"
 msgid "has been changed since the last save."
 msgstr "Bu belge, en son kayıt olduğundan beri değişikliğe uğradı."
 
-msgid "Save Now"
+#, fuzzy
+msgid "&Save Now"
 msgstr "Şimdi kaydet"
+
+msgid "Show Page Previews"
+msgstr "Sayfa önizlemeyi göster"
 
 msgid "Show Template Names"
 msgstr "Geçici isimleri göster"
@@ -4091,6 +4450,12 @@ msgstr "Mevcut geçici dosyalar:"
 
 msgid "Document Pages:"
 msgstr "Belge sayfaları:"
+
+msgid "Facing Pages"
+msgstr "Çift sayfalar"
+
+msgid "Left Page first"
+msgstr "İlk önce sol sayfa"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
 msgstr "Çöpteki sayfaları veya şablonları sil."
@@ -4739,7 +5104,8 @@ msgstr ""
 msgid "Build-ID:"
 msgstr ""
 
-msgid "About"
+#, fuzzy
+msgid "&About"
 msgstr "Hakkında"
 
 msgid "Programming:"
@@ -4754,7 +5120,8 @@ msgstr ""
 msgid "Documentation:"
 msgstr "Belgeleme:"
 
-msgid "Authors"
+#, fuzzy
+msgid "A&uthors"
 msgstr "Yazarlar"
 
 msgid "German:"
@@ -4832,7 +5199,8 @@ msgstr "Slovak:"
 msgid "Basque:"
 msgstr "Örnek sayfa:"
 
-msgid "Translations"
+#, fuzzy
+msgid "&Translations"
 msgstr "Çeviri"
 
 msgid "Homepage and online reference"
@@ -4845,7 +5213,7 @@ msgid "Bugs and feature requests"
 msgstr ""
 
 #, fuzzy
-msgid "Online"
+msgid "&Online"
 msgstr "Çıktı"
 
 msgid ""
@@ -4878,8 +5246,12 @@ msgid "GUI"
 msgstr "Arayüz"
 
 #, fuzzy
-msgid "Theme:"
+msgid "&Theme:"
 msgstr "Tema"
+
+#, fuzzy
+msgid "&Font Size:"
+msgstr "Yazıtipi boyutu:"
 
 msgid "Units"
 msgstr "Birimler"
@@ -4887,25 +5259,27 @@ msgstr "Birimler"
 msgid "Points (pt)"
 msgstr "Noktalar (pt)"
 
-msgid "Mouse-Settings"
+#, fuzzy
+msgid "Mouse Settings"
 msgstr "Fare ayarları"
 
 #, fuzzy
-msgid "Wheel-Jump:"
+msgid "&Wheel Jump:"
 msgstr "Tekerlek-Sıçraması"
-
-#, fuzzy
-msgid "Grab-Radius:"
-msgstr "Yarıçap yakalaması"
 
 msgid " px"
 msgstr ""
 
 #, fuzzy
+msgid "&Grab Radius:"
+msgstr "Yarıçap yakalaması"
+
+#, fuzzy
 msgid "Menus"
 msgstr "Menüler"
 
-msgid "Recent Documents:"
+#, fuzzy
+msgid "&Recent Documents:"
 msgstr "En son belge:"
 
 #, fuzzy
@@ -4913,166 +5287,257 @@ msgid "Paths"
 msgstr "Yol"
 
 #, fuzzy
-msgid "Documents:"
+msgid "&Documents:"
 msgstr "Belge"
 
 #, fuzzy
-msgid "ICC-Profiles:"
+msgid "&Change..."
+msgstr "Değiştir..."
+
+#, fuzzy
+msgid "&ICC Profiles:"
 msgstr "Renkprofili:"
 
 #, fuzzy
-msgid "Scripts:"
+msgid "&Scripts:"
 msgstr "Script:"
 
 #, fuzzy
-msgid "Left Page First"
-msgstr "İlk önce sol sayfa"
+msgid "Ch&ange..."
+msgstr "Değiştir..."
 
 #, fuzzy
 msgid "Autosave"
 msgstr "Yazarlar"
 
 #, fuzzy
-msgid "Interval:"
-msgstr "Elips ekle"
+msgid "&Enabled"
+msgstr "Düzenlenebilir"
 
 msgid "min"
 msgstr ""
 
 #, fuzzy
+msgid "&Interval:"
+msgstr "Elips ekle"
+
+#, fuzzy
 msgid "Grid Layout"
 msgstr "Yardımcı çizgi düzeni:"
 
-msgid "Minor Grid Spacing:"
+#, fuzzy
+msgid "M&inor Grid Spacing:"
 msgstr "Bölüm çizginin boşluğu:"
 
-msgid "Major Grid Spacing:"
+#, fuzzy
+msgid "Ma&jor Grid Spacing:"
 msgstr "Ana çizgi boşluğu:"
 
-msgid "Guide Snap Distance:"
+msgid "Guide &Snap Distance:"
 msgstr ""
 
 #, fuzzy
 msgid "Grid Colors"
 msgstr "Yardımcı çizgi renkleri:"
 
-msgid "Minor Grid Color:"
+#, fuzzy
+msgid "Min&or Grid Color:"
 msgstr "Bölüm çizgi rengi:"
 
-msgid "Major Grid Color:"
+#, fuzzy
+msgid "Majo&r Grid Color:"
 msgstr "Ana çizgi rengi:"
 
 #, fuzzy
-msgid "User Guides Color:"
+msgid "&User Guides Color:"
 msgstr "Ana çizgi rengi:"
+
+#, fuzzy
+msgid "Base&line Grid Color:"
+msgstr "Bölüm çizgi rengi:"
 
 #, fuzzy
 msgid "Placing"
 msgstr "Yerleştir:"
 
-msgid "In the Background"
+#, fuzzy
+msgid "In the &Background"
 msgstr "Arka planda"
 
-msgid "In the Foreground"
+#, fuzzy
+msgid "In the Fore&ground"
 msgstr "Ön planda"
 
 msgid "Baseline Grid"
 msgstr ""
 
 #, fuzzy
-msgid "On"
+msgid "O&n"
 msgstr "Aç"
 
-msgid "Off"
+msgid "O&ff"
 msgstr ""
 
-msgid "Scaling:"
+#, fuzzy
+msgid "&Displacement:"
+msgstr "Uzaklık"
+
+#, fuzzy
+msgid "&Scaling:"
 msgstr "Boyut:"
 
 #, fuzzy
-msgid "Displacement:"
+msgid "D&isplacement:"
 msgstr "Uzaklık"
 
-msgid "Baseline Grid:"
-msgstr ""
+#, fuzzy
+msgid "S&caling:"
+msgstr "Boyut:"
 
-msgid "Baseline Offset:"
+#, fuzzy
+msgid "Sc&aling:"
+msgstr "Boyut:"
+
+#, fuzzy
+msgid "Baseline &Grid:"
+msgstr "Yardımcı çizgileri sakla"
+
+msgid "Baseline &Offset:"
 msgstr ""
 
 #, fuzzy
-msgid "Automatic Line Spacing:"
+msgid "Automatic &Line Spacing:"
 msgstr "Otomatik satır boşluğu:"
 
-msgid "Default Size:"
-msgstr "Öntanımlı boyut:"
-
-msgid "Default Font:"
+#, fuzzy
+msgid "Default &Font:"
 msgstr "Öntanımlı yazıtipi:"
 
-msgid "Text Color:"
+#, fuzzy
+msgid "Default &Size:"
+msgstr "Öntanımlı boyut:"
+
+#, fuzzy
+msgid "&Text Color:"
 msgstr "Metin rengi"
 
 msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr ""
 
-msgid "Line Color:"
+#, fuzzy
+msgid "&Line Color:"
 msgstr "Çizgi rengi:"
 
-msgid "Shading:"
+#, fuzzy
+msgid "&Shading:"
 msgstr "Gölge:"
 
 #, fuzzy
-msgid "Minimum:"
+msgid "&Fill Color:"
+msgstr "Doldurma rengi:"
+
+#, fuzzy
+msgid "S&hading:"
+msgstr "Gölge:"
+
+#, fuzzy
+msgid "&Type of Line:"
+msgstr "Sistem profili"
+
+#, fuzzy
+msgid "Line &Width:"
+msgstr "Çizgi genişliği:"
+
+#, fuzzy
+msgid "Mi&nimum:"
 msgstr "asgari"
 
 #, fuzzy
-msgid "Maximum:"
+msgid "Ma&ximum:"
 msgstr "azami"
 
-msgid "Stepping:"
+#, fuzzy
+msgid "&Stepping:"
 msgstr "Adım adım:"
 
 #, fuzzy
-msgid "Horizontal Scaling:"
+msgid "&Free Scaling"
+msgstr "Serbest ölçek"
+
+#, fuzzy
+msgid "&Horizontal Scaling:"
 msgstr "Dikey ölçek"
 
 #, fuzzy
-msgid "Vertical Scaling:"
+msgid "&Vertical Scaling:"
 msgstr "Yatay ölçek"
 
-msgid "Scale Picture to Frame Size"
+#, fuzzy
+msgid "&Scale Picture to Frame Size"
 msgstr "Resimleri çerçeve boyutuna ölçekle"
 
-msgid "Keep Aspect Ratio"
+#, fuzzy
+msgid "Keep Aspect &Ratio"
 msgstr "Uzun bağlantıları bırak"
+
+#, fuzzy
+msgid "F&ill Color:"
+msgstr "Doldurma rengi:"
+
+#, fuzzy
+msgid "Corn&ers:"
+msgstr "Köşe:"
+
+#, fuzzy
+msgid "&Rotation:"
+msgstr "Eğim:"
+
+#, fuzzy
+msgid "Conve&x Polygon"
+msgstr "Dış bükey çokgen"
+
+#, fuzzy
+msgid "&Factor:"
+msgstr "Çarpan:"
 
 msgid "Other Options"
 msgstr "Diğer seçenekler"
 
 #, fuzzy
-msgid "Save Contents on Changes"
+msgid "Sa&ve Contents on Changes"
 msgstr "Program bitiminde içeriği kaydet"
 
-msgid "Display Pages Side by Side"
+msgid "Small"
+msgstr "Küçük"
+
+#, fuzzy
+msgid "Large"
+msgstr "ortalama"
+
+#, fuzzy
+msgid "Display Pages &Side by Side"
 msgstr "Sayfaları yanyana göster"
 
-msgid "Page-Colors"
+#, fuzzy
+msgid "Page Colors"
 msgstr "Sayfa renkleri"
 
-msgid "Background:"
+#, fuzzy
+msgid "&Background:"
 msgstr "Arka plan:"
 
-msgid "Margins:"
+#, fuzzy
+msgid "&Margins:"
 msgstr "Aralık:"
 
 #, fuzzy
-msgid "Display Unprintable Area in Margin Color"
+msgid "Display &Unprintable Area in Margin Color"
 msgstr "Yazdırılmayan alanları kenar renginde göster"
 
-msgid "Use PDF-1.4 Transparency Features"
+msgid "Use PDF 1.4 &Transparency Features"
 msgstr ""
 
-msgid "Adjust Display Size"
+msgid "&Adjust Display Size"
 msgstr ""
 
 msgid "To adjust the display drag the ruler below with the Slider."
@@ -5081,24 +5546,29 @@ msgstr ""
 msgid "Postscript Interpreter"
 msgstr ""
 
-msgid "Name of executable:"
+#, fuzzy
+msgid "&Name of Executable:"
+msgstr "Silinen nesneyi geri al"
+
+msgid "Antialias &Text"
 msgstr ""
 
-msgid "Antialias Text"
-msgstr ""
-
-msgid "Antialias Graphics"
+msgid "Antialias &Graphics"
 msgstr ""
 
 msgid "Image Processing Tool"
 msgstr ""
 
 #, fuzzy
+msgid "Name of &Executable:"
+msgstr "Silinen nesneyi geri al"
+
+#, fuzzy
 msgid "Printing"
 msgstr "Yazılıyor..."
 
 #, fuzzy
-msgid "Clip to Page Margins"
+msgid "Clip to Page &Margins"
 msgstr "Kenarları sakla"
 
 msgid ""
@@ -5365,7 +5835,7 @@ msgid "Select Character:"
 msgstr "Karakter"
 
 #, fuzzy
-msgid "Insert"
+msgid "&Insert"
 msgstr "Derin"
 
 msgid "Insert the characters at the cursor in the text"
@@ -5385,31 +5855,32 @@ msgstr "Önizleme"
 msgid "Print Preview"
 msgstr "Önizleme"
 
-msgid "Anti-alias Text"
+msgid "Anti-alias &Text"
 msgstr ""
 
-msgid "Anti-alias Graphics"
+msgid "Anti-alias &Graphics"
 msgstr ""
 
 #, fuzzy
-msgid "Display Transparency"
+msgid "Display Trans&parency"
 msgstr "Çerçeveyi göster"
 
 #, fuzzy
-msgid "Display CMYK"
+msgid "&Display CMYK"
 msgstr "Göster"
 
-msgid "C"
+msgid "&C"
 msgstr ""
 
-msgid "M"
-msgstr ""
-
-msgid "Y"
+msgid "&M"
 msgstr ""
 
 #, fuzzy
-msgid "K"
+msgid "&Y"
+msgstr "Evet"
+
+#, fuzzy
+msgid "&K"
 msgstr "Tamam"
 
 msgid ""
@@ -5501,11 +5972,19 @@ msgid ""
 "scribus.net\">bugs.scribus.net</a> please."
 msgstr ""
 
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
 #, fuzzy
 msgid "Hide &Console"
 msgstr "Araçları sakla"
 
 msgid "Script Console"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
 msgstr ""
 
 msgid "Oook! You're calling an object doesn't exist!"
@@ -5517,16 +5996,25 @@ msgstr ""
 msgid "Oook! An object you're trying to textflow doesn't exist!"
 msgstr ""
 
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
 #, fuzzy
 msgid "Export as Image"
 msgstr "Kenarlar"
 
 msgid "Export to directory:"
 msgstr ""
-
-#, fuzzy
-msgid "&Change..."
-msgstr "Değiştir..."
 
 msgid "Alt+C"
 msgstr ""
@@ -5565,14 +6053,6 @@ msgstr ""
 msgid "Alt+I"
 msgstr ""
 
-#, fuzzy
-msgid "&OK"
-msgstr "Tamam"
-
-#, fuzzy
-msgid "&Cancel"
-msgstr "Vazgeç"
-
 msgid "Change the output directory"
 msgstr ""
 
@@ -5588,6 +6068,12 @@ msgid "Export all pages to images"
 msgstr ""
 
 msgid "Export a range of pages to images"
+msgstr ""
+
+msgid "First page to export when exporting a range"
+msgstr ""
+
+msgid "Last page to export when exporting a range"
 msgstr ""
 
 msgid "The height of the output images in pixels"
@@ -5785,6 +6271,85 @@ msgstr "Kullanıcı tanımlı"
 msgid "Save as &Template..."
 msgstr "Metni kaydet..."
 
+#~ msgid "From page:"
+#~ msgstr "Başlangıç:"
+
+#~ msgid "To page:"
+#~ msgstr "Bitiş:"
+
+#~ msgid "Print last page first"
+#~ msgstr "Son sayfayı en son yazdır"
+
+#~ msgid "Print first page first"
+#~ msgstr "Birinci sayfayı ilk önce yazdır"
+
+#, fuzzy
+#~ msgid "Document to load:"
+#~ msgstr "Belgeleme:"
+
+#, fuzzy
+#~ msgid "Document contains: 0 Page(s)"
+#~ msgstr "Belge sayfaları:"
+
+#, fuzzy
+#~ msgid "Document contains: %1 Page(s)"
+#~ msgstr "Belge sayfaları:"
+
+#~ msgid "Show Margins"
+#~ msgstr "Kenarları göster"
+
+#~ msgid "Show Frames"
+#~ msgstr "Çerçeveleri göster"
+
+#~ msgid "Show Images"
+#~ msgstr "Resimleri göster"
+
+#, fuzzy
+#~ msgid "Hide Grid"
+#~ msgstr "Yardımcı çizgileri sakla"
+
+#~ msgid "Hide Guides"
+#~ msgstr "Yardımcı çizgileri sakla"
+
+#~ msgid "Show Guides"
+#~ msgstr "Yardımcı çizgileri göster"
+
+#~ msgid "Snap to Guides"
+#~ msgstr "Manyetik yardımcı çizgiler"
+
+#~ msgid "From:"
+#~ msgstr "Burdan:"
+
+#~ msgid "Big"
+#~ msgstr "Büyük"
+
+#~ msgid "Actual Size"
+#~ msgstr "Orjinal boyut"
+
+#, fuzzy
+#~ msgid "Hide &Margins"
+#~ msgstr "Kenarları sakla"
+
+#, fuzzy
+#~ msgid "Hide &Frames"
+#~ msgstr "Çerçeveleri göster"
+
+#, fuzzy
+#~ msgid "Hide &Images"
+#~ msgstr "Resimleri sakla"
+
+#, fuzzy
+#~ msgid "Snap to &Grid"
+#~ msgstr "Yardımcı çizgi yerleştir"
+
+#, fuzzy
+#~ msgid "Hide G&uides"
+#~ msgstr "Yardımcı çizgileri sakla"
+
+#, fuzzy
+#~ msgid "K"
+#~ msgstr "Tamam"
+
 #, fuzzy
 #~ msgid "Insert Special"
 #~ msgstr "Dikdörtgen ekle"
@@ -5803,9 +6368,6 @@ msgstr "Metni kaydet..."
 
 #~ msgid "W:"
 #~ msgstr "B:"
-
-#~ msgid "No Document"
-#~ msgstr "Belge yok"
 
 #~ msgid "Resolution for EPS-Images:"
 #~ msgstr "EPS-Resimleri için çözünürlük:"
@@ -5863,9 +6425,6 @@ msgstr "Metni kaydet..."
 
 #~ msgid "&Underline"
 #~ msgstr "&Altı çizgili"
-
-#~ msgid "Sample"
-#~ msgstr "Örnek"
 
 #~ msgid "Printing-Error"
 #~ msgstr "Yazdırma hatası"
