@@ -1018,6 +1018,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
 	uint Tcoun;
+	int len;
 	if (keyrep)
 		return;
 	keyrep = true;
@@ -1136,6 +1137,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 							if (!b->Locked)
  								doc->ActPage->moveGroup(0, 1);
+								break;
  						default:
  							if (b->PType == 4)
  								{
@@ -1172,6 +1174,47 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  						doc->ActPage->slotDoCurs(false);
  						switch (kk)
  							{
+							case Key_Prior:
+								// go to begin of line
+								// position of character before the cursor
+								if ( b->CPos == 0 )
+									break; // at begin of frame
+								len = static_cast<int>(b->Ptext.count());
+								if ( b->CPos > 0 )
+								{
+									alty =  b->Ptext.at(b->CPos-1)->yp;
+									// check for yp at actual position
+									if ( b->CPos < len )
+									{
+										altx =  b->Ptext.at(b->CPos)->yp;
+										if ( altx > alty )
+										{
+											// we was at begin of line
+											break;
+										}
+									}
+									else if (  b->CPos != len )
+									{
+										break;
+									}
+								}
+								len = static_cast<int>(b->Ptext.count());
+								while (  b->CPos > 0 &&  b->Ptext.at(b->CPos-1)->yp == alty )
+									b->CPos--;
+								if ( buttonState & ShiftButton )
+										doc->ActPage->ExpandSel(b, -1, oldPos);
+								break;
+							case Key_Next:
+								// go to end of line
+								len = static_cast<int>(b->Ptext.count());
+								if ( b->CPos >= len )
+									break; // at end of frame
+								alty =  b->Ptext.at(b->CPos)->yp;
+								while (  b->CPos < len-1 &&  b->Ptext.at(b->CPos+1)->yp == alty )
+									b->CPos++;
+								if ( buttonState & ShiftButton )
+										doc->ActPage->ExpandSel(b, 1, oldPos);
+								break;
  							case Key_Down:
  								if (b->CPos != static_cast<int>(b->Ptext.count()))
  									{
