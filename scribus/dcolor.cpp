@@ -24,7 +24,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-DelColor::DelColor( QWidget* parent, CListe colorList, QString colorName, bool haveDoc)
+DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, bool haveDoc)
     : QDialog( parent, "dd", true, 0 )
 {
 	setName( "DelColor" );
@@ -44,7 +44,7 @@ DelColor::DelColor( QWidget* parent, CListe colorList, QString colorName, bool h
     	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
     	delColorLayout->addWidget( replaceLabel, 1, 0 );
     	replacementColData = new QComboBox(false, this);
-		CListe::Iterator it;
+		ColorList::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
 		colorList.remove(colorName);
 		replacementColData->insertItem(tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */

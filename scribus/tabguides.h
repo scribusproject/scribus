@@ -19,7 +19,7 @@ class TabGuides : public QWidget
 	Q_OBJECT
 
 public:
-	TabGuides( QWidget* parent, struct guidesStruct *prefsData, double unitBase, QString unit);
+	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, double unitBase, QString unit);
 	~TabGuides() {};
 
 	MSpinBox* majorSpace;

@@ -1,19 +1,16 @@
-EXTRA_DIST = ReadMe FontSample.py COPYING ChangeLog NEWS TODO
+####### kdevelop will overwrite this part!!! (begin)##########
+
+
+EXTRA_DIST = ReadMe FontSample.py 
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/scripts/
 	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/share/scribus/scripts/ReadMe
-	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/share/scribus/scripts/ChangeLog
-	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/share/scribus/scripts/NEWS
-	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/share/scribus/scripts/TODO
-	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/share/scribus/scripts/COPYING
 	$(INSTALL_DATA) $(srcdir)/FontSample.py $(prefix)/share/scribus/scripts/FontSample.py
 
 
 uninstall-local:
 	-rm -f $(prefix)/share/scribus/scripts/ReadMe
-	-rm -f $(prefix)/share/scribus/scripts/ChangeLog
-	-rm -f $(prefix)/share/scribus/scripts/NEWS
-	-rm -f $(prefix)/share/scribus/scripts/TODO
-	-rm -f $(prefix)/share/scribus/scripts/COPYING
 	-rm -f $(prefix)/share/scribus/scripts/FontSample.py
+
+####### kdevelop will overwrite this part!!! (end)############

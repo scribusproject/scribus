@@ -90,16 +90,16 @@ using namespace std;
 
 
 QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
-void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
+void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
 QStringList sortQStringList(QStringList aList);
 void ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
-void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
+void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
-void setBestEncoding(FT_Face face);
+int setBestEncoding(FT_Face face);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
-FPoint GetMaxClipF(FPointArray Clip);
-FPoint GetMinClipF(FPointArray Clip);
+FPoint getMaxClipF(FPointArray* Clip);
+FPoint getMinClipF(FPointArray* Clip);
 QPixmap FontSample(QString da, int s, QString ts, QColor back);
 QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
@@ -973,8 +973,8 @@ void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 	{
 		if (currentDoc->Layers[la2].Level == Level)
 		{
-			ll->Sichtbar = currentDoc->Layers[la2].Sichtbar;
-			ll->Drucken = currentDoc->Layers[la2].Drucken;
+			ll->isViewable = currentDoc->Layers[la2].isViewable;
+			ll->isPrintable = currentDoc->Layers[la2].isPrintable;
 			ll->LNr = currentDoc->Layers[la2].LNr;
 			break;
 		}
@@ -1323,7 +1323,7 @@ QString Path2Relative(QString Path)
 	return Ndir;
 }
 
-void setBestEncoding(FT_Face face)
+int setBestEncoding(FT_Face face)
 {
 	FT_ULong  charcode;
 	FT_UInt   gindex;
@@ -1331,6 +1331,7 @@ void setBestEncoding(FT_Face face)
 	int countUniCode = 0;
 	int chmapUniCode = 0;
 	int chmapCustom = 0;
+	int retVal = 0;
 	FT_CharMap defaultEncoding = face->charmap;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
@@ -1350,14 +1351,30 @@ void setBestEncoding(FT_Face face)
 		{
 			chmapCustom = u;
 			foundEncoding = true;
+			retVal = 1;
+			break;
+		}
+		else if (face->charmaps[u]->encoding == FT_ENCODING_MS_SYMBOL)
+		{
+			chmapCustom = u;
+			foundEncoding = true;
+			retVal = 2;
+			break;
 		}
 	}
 	if (countUniCode > 255)
+	{
 		FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
+		retVal = 0;
+	}
 	else if (foundEncoding)
 		FT_Set_Charmap(face, face->charmaps[chmapCustom]);
 	else
+	{
 		FT_Set_Charmap(face, defaultEncoding);
+		retVal = 0;
+	}
+	return retVal;
 }
 
 bool GlyNames(QMap<uint, QString> *GList, QString Dat)
@@ -1570,14 +1587,14 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 	return pts2;
 }
 
-FPoint GetMaxClipF(FPointArray Clip)
+FPoint getMaxClipF(FPointArray* Clip)
 {
 	FPoint np, rp;
 	double mx = 0;
 	double my = 0;
-	for (uint c = 0; c < Clip.size(); ++c)
+	for (uint c = 0; c < Clip->size(); ++c)
 	{
-		np = Clip.point(c);
+		np = Clip->point(c);
 		if (np.x() > 900000)
 			continue;
 		if (np.x() > mx)
@@ -1589,14 +1606,14 @@ FPoint GetMaxClipF(FPointArray Clip)
 	return rp;
 }
 
-FPoint GetMinClipF(FPointArray Clip)
+FPoint getMinClipF(FPointArray* Clip)
 {
 	FPoint np, rp;
 	double mx = 99999;
 	double my = 99999;
-	for (uint c = 0; c < Clip.size(); ++c)
+	for (uint c = 0; c < Clip->size(); ++c)
 	{
-		np = Clip.point(c);
+		np = Clip->point(c);
 		if (np.x() > 900000)
 			continue;
 		if (np.x() < mx)
@@ -1618,7 +1635,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
 	error = FT_New_Face( library, da, 0, &face );
-	setBestEncoding(face);
+	int encode = setBestEncoding(face);
 	double uniEM = static_cast<double>(face->units_per_EM);
 	int h = qRound(face->height / uniEM) * s + 1;
 	double a = static_cast<double>(face->descender) / uniEM * s + 1;
@@ -1633,22 +1650,54 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	p->setBrush(back);
 	p->drawRect(0.0, 0.0, static_cast<double>(w), static_cast<double>(h));
 	p->setBrush(Qt::black);
-	for (uint n = 0; n < ts.length(); ++n)
+	FPointArray gly;
+	uint dv;
+	dv = ts[0].unicode();
+	error = false;
+	gly = traceChar(face, dv, s, &x, &y, &error);
+	if ((encode != 0) || (error))
 	{
-		uint dv = ts[n].unicode();
 		error = false;
-		FPointArray gly = traceChar(face, dv, s, &x, &y, &error);
-		if (error)
-			break;
-		if (gly.size() > 3)
+		FT_ULong  charcode;
+		FT_UInt gindex;
+		gindex = 0;
+		charcode = FT_Get_First_Char(face, &gindex );
+		for (uint n = 0; n < ts.length(); ++n)
 		{
-			gly.translate(static_cast<double>(pen_x) / 64.0, a);
-			gp = GetMaxClipF(gly);
-			ymax = QMAX(ymax, gp.y());
-			p->setupPolygon(&gly);
-			p->fillPath();
+			gly = traceChar(face, charcode, s, &x, &y, &error);
+			if (error)
+				break;
+			if (gly.size() > 3)
+			{
+				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gp = getMaxClipF(&gly);
+				ymax = QMAX(ymax, gp.y());
+				p->setupPolygon(&gly);
+				p->fillPath();
+			}
+			pen_x += face->glyph->advance.x;
+			charcode = FT_Get_Next_Char(face, charcode, &gindex );
+			if (gindex == 0)
+				break;
 		}
-		pen_x += face->glyph->advance.x;
+	}
+	else
+	{
+		for (uint n = 0; n < ts.length(); ++n)
+		{
+			dv = ts[n].unicode();
+			error = false;
+			gly = traceChar(face, dv, s, &x, &y, &error);
+			if (gly.size() > 3)
+			{
+				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gp = getMaxClipF(&gly);
+				ymax = QMAX(ymax, gp.y());
+				p->setupPolygon(&gly);
+				p->fillPath();
+			}
+			pen_x += face->glyph->advance.x;
+		}
 	}
 	p->end();
 	pm.resize(QMIN(qRound(gp.x()), w), QMIN(qRound(ymax), h));
@@ -1671,16 +1720,20 @@ QPixmap fontSamples(QString da, int s, QString ts, QColor back)
 	ret.fill(back);
 	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it ) {
 		sample = FontSample(da, s, *it, back);
-		painter->drawPixmap(0, y, sample, 0, 0);
+		if (!sample.isNull())
+			painter->drawPixmap(0, y, sample, 0, 0);
 		y = y + sample.height();
 		if (x < sample.width())
 			x = sample.width();
 	} // for
 	delete(painter);
 	QPixmap final(x, y);
-	QPainter *fpainter = new QPainter(&final);
-	fpainter->drawPixmap(0, 0, ret, 0, 0, x, y);
-	delete(fpainter);
+	if ((x != 0) && (y != 0))
+	{
+		QPainter *fpainter = new QPainter(&final);
+		fpainter->drawPixmap(0, 0, ret, 0, 0, x, y);
+		delete(fpainter);
+	}
 	return final;
 }
 
@@ -1707,7 +1760,7 @@ bool overwrite(QWidget *parent, QString filename)
   return retval;
 }
 
-void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
+void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 {
 	uint a;
 	Buffer->PType = b->PType;
@@ -1799,29 +1852,29 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->Pfile2 = b->Pfile2;
 	Buffer->Pfile3 = b->Pfile3;
 	QString Text = "";
-	if (b->Ptext.count() != 0)
+	if (b->itemText.count() != 0)
 	{
-		for (a=0; a<b->Ptext.count(); ++a)
+		for (a=0; a<b->itemText.count(); ++a)
 		{
-			if( (b->Ptext.at(a)->ch == "\n") || (b->Ptext.at(a)->ch == "\r"))
+			if( (b->itemText.at(a)->ch == "\n") || (b->itemText.at(a)->ch == "\r"))
 				Text += QString(QChar(5))+"\t";
-			else if(b->Ptext.at(a)->ch == "\t")
+			else if(b->itemText.at(a)->ch == "\t")
 				Text += QString(QChar(4))+"\t";
 			else
-				Text += b->Ptext.at(a)->ch+"\t";
-			Text += b->Ptext.at(a)->cfont+"\t";
-			Text += QString::number(b->Ptext.at(a)->csize / 10.0)+"\t";
-			Text += b->Ptext.at(a)->ccolor+"\t";
-			Text += QString::number(b->Ptext.at(a)->cextra)+"\t";
-			Text += QString::number(b->Ptext.at(a)->cshade)+'\t';
-			Text += QString::number(b->Ptext.at(a)->cstyle)+'\t';
-			Text += QString::number(b->Ptext.at(a)->cab)+'\t';
-			Text += b->Ptext.at(a)->cstroke+"\t";
-			Text += QString::number(b->Ptext.at(a)->cshade2)+'\t';
-			Text += QString::number(b->Ptext.at(a)->cscale)+'\n';
+				Text += b->itemText.at(a)->ch+"\t";
+			Text += b->itemText.at(a)->cfont+"\t";
+			Text += QString::number(b->itemText.at(a)->csize / 10.0)+"\t";
+			Text += b->itemText.at(a)->ccolor+"\t";
+			Text += QString::number(b->itemText.at(a)->cextra)+"\t";
+			Text += QString::number(b->itemText.at(a)->cshade)+'\t';
+			Text += QString::number(b->itemText.at(a)->cstyle)+'\t';
+			Text += QString::number(b->itemText.at(a)->cab)+'\t';
+			Text += b->itemText.at(a)->cstroke+"\t";
+			Text += QString::number(b->itemText.at(a)->cshade2)+'\t';
+			Text += QString::number(b->itemText.at(a)->cscale)+'\n';
 		}
 	}
-	Buffer->Ptext = Text;
+	Buffer->itemText = Text;
 	Buffer->Clip = b->Clip.copy();
 	Buffer->PoLine = b->PoLine.copy();
 	Buffer->ContourLine = b->ContourLine.copy();
@@ -1833,7 +1886,7 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->BaseOffs = b->BaseOffs;
 	Buffer->Textflow = b->Textflow;
 	Buffer->Textflow2 = b->Textflow2;
-	Buffer->Ausrich = b->Ausrich;
+	Buffer->textAlignment = b->textAlignment;
 	Buffer->IFont = b->IFont;
 	Buffer->ISize = b->ISize;
 	Buffer->ExtraV = b->ExtraV;
@@ -1904,9 +1957,9 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 	}
 	while (nb != 0)
 	{
-  		for (uint a = 0; a < nb->Ptext.count(); ++a)
+  		for (uint a = 0; a < nb->itemText.count(); ++a)
   		{
-			QChar b = nb->Ptext.at(a)->ch[0];
+			QChar b = nb->itemText.at(a)->ch[0];
 			if (b == QChar(13))
 			{
 				if (a >= nb->MaxChars)
@@ -1931,13 +1984,13 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 		nbl = nb;
 		nb = nb->NextBox;
 	}
-	if (nbl->MaxChars < nbl->Ptext.count())
+	if (nbl->MaxChars < nbl->itemText.count())
 		paraN++;
 	else
 		para++;
 	if (Dat.isLetterOrNumber())
 	{
-		if (nbl->MaxChars < nbl->Ptext.count())
+		if (nbl->MaxChars < nbl->itemText.count())
 			wwN++;
 		else
 			ww++;
@@ -2007,7 +2060,7 @@ QStringList sortQStringList(QStringList aList)
 	return retList;
 }
 
-void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB)
+void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 {
 	QString tmp;
 	int x, y;

@@ -292,7 +292,7 @@ static const char* const image100_data[] =
     };
 
 
-MissingFont::MissingFont( QWidget* parent, QString fon, preV *Prefs )
+MissingFont::MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs )
 		: QDialog( parent, "mfont", true, 0 )
 {
 	QPixmap image0( ( const char** ) image100_data );

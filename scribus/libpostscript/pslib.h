@@ -34,12 +34,12 @@ class ScribusView;
 
 class PSLib {
 public:
-	PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf = false);
+	PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf = false);
 	virtual ~PSLib() {};
 	virtual bool PS_set_file(QString fn);
 	virtual void PS_set_Info(QString art, QString was);
 	virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage);
-	virtual void PS_begin_page(double breite, double hoehe, struct Margs* Ma, bool Clipping);
+	virtual void PS_begin_page(double breite, double hoehe, struct MarginStruct* Ma, bool Clipping);
 	virtual void PS_end_page();
 	virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
 	virtual void PS_moveto(double x, double y);

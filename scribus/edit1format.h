@@ -26,7 +26,7 @@ class EditStyle : public QDialog
 	Q_OBJECT
 
 public:
-	EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs,
+	EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, ApplicationPrefs *Prefs,
 	           double au, int dEin, ScribusDoc *doc);
 	~EditStyle() {};
 
@@ -62,8 +62,8 @@ public:
 	QSpinBox* DropLines;
 	QPushButton* Cancel;
 	QPushButton* OkButton;
-	struct StVorL *werte;
-	QValueList<StVorL> allV;
+	struct ParagraphStyle *werte;
+	QValueList<ParagraphStyle> allV;
 	QString OldName;
 	bool IsNew;
 	double AutoVal;

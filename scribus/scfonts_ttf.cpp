@@ -20,7 +20,7 @@
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
-extern void setBestEncoding(FT_Face face);
+extern int setBestEncoding(FT_Face face);
 
 QString Foi_ttf::RealName()
 {

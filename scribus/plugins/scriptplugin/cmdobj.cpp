@@ -1,7 +1,7 @@
 #include "cmdobj.h"
 #include "cmdutil.h"
 
-extern FPoint GetMinClipF(FPointArray Clip);
+extern FPoint getMinClipF(FPointArray* Clip);
 
 PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 {
@@ -113,7 +113,7 @@ PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
 	it->PoLine.setPoint(1, 0, 0);
 	it->PoLine.setPoint(2, b-x, h-y);
 	it->PoLine.setPoint(3, b-x, h-y);
-	FPoint np2 = GetMinClipF(it->PoLine);
+	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
@@ -186,7 +186,7 @@ PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, b-x, h-y);
-	FPoint np2 = GetMinClipF(it->PoLine);
+	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
@@ -266,7 +266,7 @@ PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, 0, 0);
 	it->PoLine.setPoint(pp-1, 0, 0);
-	FPoint np2 = GetMinClipF(it->PoLine);
+	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
@@ -352,7 +352,7 @@ PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, kx-x, ky-y);
-	FPoint np2 = GetMinClipF(it->PoLine);
+	FPoint np2 = getMinClipF(&it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
@@ -493,9 +493,9 @@ PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args)
 		bool found = false;
 		uint styleid = 0;
 		// We start at zero here because it's OK to match an internal name
-		for (uint i=0; i < Carrier->doc->Vorlagen.count(); ++i)
+		for (uint i=0; i < Carrier->doc->docParagraphStyles.count(); ++i)
 		{
-			if (Carrier->doc->Vorlagen[i].Vname == QString::fromUtf8(style)) {
+			if (Carrier->doc->docParagraphStyles[i].Vname == QString::fromUtf8(style)) {
 				found = true;
 				styleid = i;
 				break;
@@ -536,9 +536,9 @@ PyObject *scribus_getstylenames(PyObject */*self*/)
 	pv - changet to get all (with system) objects
 	FIXME: this should be a constant defined by the scribus core
 	*/
-	for (uint i=0; i < Carrier->doc->Vorlagen.count(); ++i)
+	for (uint i=0; i < Carrier->doc->docParagraphStyles.count(); ++i)
 	{
-		if (PyList_Append(styleList, PyString_FromString(Carrier->doc->Vorlagen[i].Vname.utf8())))
+		if (PyList_Append(styleList, PyString_FromString(Carrier->doc->docParagraphStyles[i].Vname.utf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return NULL;

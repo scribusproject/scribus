@@ -109,7 +109,7 @@ public:
 	void CallDLLbyMenu(int id);
 	void CallDLL(int ident);
 	bool DLLexists(int ident);
-	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
+	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
@@ -128,7 +128,7 @@ public:
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
 	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
-	struct CLBuf Buffer;
+	struct CopyPasteBuffer Buffer;
 	QString Buffer2;
 	QString Buffer3;
 	bool BuFromApp;
@@ -140,7 +140,7 @@ public:
 	bool NoFonts;
 	int HaveDoc;
 	PrefsContext* dirs;
-	struct preV Prefs;
+	struct ApplicationPrefs Prefs;
 	/** view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so
 	 * you can create your view according to your application's needs by
@@ -337,7 +337,7 @@ public slots:
 	void ToggleFrameEdit();
 	void slotSelect();
 	void ModeFromTB(int);
-	/** Switch AppMode */
+	/** Switch appMode */
 	void setAppMode(int mode);
 	/** Neues Dokument erzeugt */
 	void HaveNewDoc();

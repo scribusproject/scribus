@@ -13,7 +13,7 @@ extern double UmReFaktor;
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 
 
-EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au, int dEin, ScribusDoc *doc)
+EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, ApplicationPrefs *Prefs, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)
 {
 	parentDoc = doc;
@@ -72,7 +72,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	GroupFontLayout->addMultiCellWidget( EffeS, 1, 1, 3, 4, Qt::AlignLeft );
 
 	AligS = new AlignSelect(GroupFont);
-	AligS->setStyle(vor->Ausri);
+	AligS->setStyle(vor->textAlignment);
 	AligLabel = new QLabel( AligS, tr("&Alignment:"), GroupFont, "AligLabel" );
 	GroupFontLayout->addWidget( AligLabel, 2, 0 );
 	GroupFontLayout->addWidget( AligS, 2, 1, Qt::AlignLeft );
@@ -109,7 +109,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
 	TxFill->clear();
 	TxStroke->clear();
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	TxFill->insertItem( tr("None"));
 	TxStroke->insertItem( tr("None"));
@@ -243,8 +243,8 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	}
 	AboveV->setSuffix(ein);
 	BelowV->setSuffix(ein);
-	BelowV->setValue(vor->Anach * UmReFaktor);
-	AboveV->setValue(vor->Avor * UmReFaktor);
+	BelowV->setValue(vor->gapAfter * UmReFaktor);
+	AboveV->setValue(vor->gapBefore * UmReFaktor);
 	ColorChange();
 	updatePreview();
 }
@@ -308,12 +308,12 @@ void EditStyle::Verlassen()
 		}
 	}
 	werte->FontEffect = EffeS->getStyle();
-	werte->Ausri = AligS->getStyle();
+	werte->textAlignment = AligS->getStyle();
 	werte->LineSpa = LineSpVal->value();
 	werte->Indent = TabList->getLeftIndent();
 	werte->First = TabList->getFirstLine();
-	werte->Avor = AboveV->value() / UmReFaktor;
-	werte->Anach = BelowV->value() / UmReFaktor;
+	werte->gapBefore = AboveV->value() / UmReFaktor;
+	werte->gapAfter = BelowV->value() / UmReFaktor;
 	werte->Vname = Name->text();
 	werte->Font = FontC->currentText();
 	werte->FontSize = qRound(SizeC->value() * 10.0);

@@ -10,7 +10,7 @@
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
+StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *avail)
 		: QDialog( parent, "Formate", true, 0)
 {
 	resize( 327, 260 );
@@ -72,7 +72,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
-	TempVorl = doc->Vorlagen;
+	TempVorl = doc->docParagraphStyles;
 	UpdateFList();
 }
 
@@ -114,14 +114,14 @@ void StilFormate::selEditFormat(QListBoxItem *c)
 
 void StilFormate::dupFormat()
 {
-	struct StVorL sty;
+	struct ParagraphStyle sty;
 	sty.Vname = tr("Copy of %1").arg(TempVorl[sFnumber].Vname);
 	sty.LineSpa = TempVorl[sFnumber].LineSpa;
-	sty.Ausri = TempVorl[sFnumber].Ausri;
+	sty.textAlignment = TempVorl[sFnumber].textAlignment;
 	sty.Indent = TempVorl[sFnumber].Indent;
 	sty.First = TempVorl[sFnumber].First;
-	sty.Avor = TempVorl[sFnumber].Avor;
-	sty.Anach = TempVorl[sFnumber].Anach;
+	sty.gapBefore = TempVorl[sFnumber].gapBefore;
+	sty.gapAfter = TempVorl[sFnumber].gapAfter;
 	sty.Font = TempVorl[sFnumber].Font;
 	sty.FontSize = TempVorl[sFnumber].FontSize;
 	sty.TabValues = TempVorl[sFnumber].TabValues;
@@ -136,7 +136,7 @@ void StilFormate::dupFormat()
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
-	                                static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->Einheit, Docu);
+	                                static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -145,14 +145,14 @@ void StilFormate::dupFormat()
 
 void StilFormate::neuesFormat()
 {
-	struct StVorL sty;
+	struct ParagraphStyle sty;
 	sty.Vname = tr("New Style");
 	sty.LineSpa = ((Docu->Dsize / 10.0) * static_cast<double>(Docu->typographicSetttings.autoLineSpacing) / 100) + (Docu->Dsize / 10.0);
-	sty.Ausri = 0;
+	sty.textAlignment = 0;
 	sty.Indent = 0;
 	sty.First = 0;
-	sty.Avor = 0;
-	sty.Anach = 0;
+	sty.gapBefore = 0;
+	sty.gapAfter = 0;
 	sty.Font = Docu->Dfont;
 	sty.FontSize = Docu->Dsize;
 	sty.TabValues.clear();
@@ -166,7 +166,7 @@ void StilFormate::neuesFormat()
 	sty.BaseAdj = false;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->Einheit, Docu);
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -176,7 +176,7 @@ void StilFormate::neuesFormat()
 void StilFormate::editFormat()
 {
 	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon,
-	                               static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->Einheit, Docu);
+	                               static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);
 	dia->exec();
 	delete dia;
 	UpdateFList();

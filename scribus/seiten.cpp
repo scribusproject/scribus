@@ -654,7 +654,7 @@ void SeitenPal::HandleDS()
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp);
 	Vie->reformPages();
 	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->ActPage->PageNr);
+	Vie->GotoPage(Vie->Doc->currentPage->PageNr);
 	RebuildPage();
 	Vie->Doc->setModified();
 	LP->setEnabled(fp ? true : false);
@@ -672,7 +672,7 @@ void SeitenPal::HandleLP()
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp2);
 	Vie->reformPages();
 	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->ActPage->PageNr);
+	Vie->GotoPage(Vie->Doc->currentPage->PageNr);
 	RebuildPage();
 	Vie->Doc->setModified();
 }

@@ -10,10 +10,10 @@
 
 extern QPixmap loadIcon(QString nam);
 
-NewDoc::NewDoc( QWidget* parent, preV *Vor )
+NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 		: QDialog( parent, "newDoc", true, 0 )
 {
-	unitIndex = Vor->Einheit;
+	unitIndex = Vor->docUnitIndex;
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	int precision = unitGetPrecisionFromIndex(unitIndex);

@@ -62,7 +62,7 @@ void gtAction::setInfo(QString infoText)
 
 void gtAction::clearFrame()
 {
-	textFrame->Ptext.clear();
+	textFrame->itemText.clear();
 	textFrame->CPos = 0;
 }
 
@@ -77,12 +77,12 @@ void gtAction::write(const QString& text, gtStyle *style)
 				PageItem *nb = it->NextBox;
 				while (nb != 0)
 				{
-					nb->Ptext.clear();
+					nb->itemText.clear();
 					nb->CPos = 0;
 					nb = nb->NextBox;
 				}
 			}
-			it->Ptext.clear();
+			it->itemText.clear();
 			it->CPos = 0;
 		}
 	}
@@ -105,33 +105,33 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 
 	if (paragraphStyle == -1)
-		paragraphStyle = ScApp->doc->CurrentABStil;
+		paragraphStyle = ScApp->doc->currentParaStyle;
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font);
 	gtFont* font2 = new gtFont(*font);
-	font2->setName(ScApp->doc->Vorlagen[paragraphStyle].Font);
+	font2->setName(ScApp->doc->docParagraphStyles[paragraphStyle].Font);
 	QString fontName2 = validateFont(font2);
 	for (uint a = 0; a < text.length(); ++a)
 	{
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
 			continue;
-		struct Pti *hg = new Pti;
+		struct ScText *hg = new ScText;
 		hg->ch = text.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
 		if ((inPara) && (!overridePStyleFont))
 		{
-			if (ScApp->doc->Vorlagen[paragraphStyle].Font == "")
+			if (ScApp->doc->docParagraphStyles[paragraphStyle].Font == "")
 				hg->cfont = fontName2;
 			else
-				hg->cfont = ScApp->doc->Vorlagen[paragraphStyle].Font;
-			hg->csize = ScApp->doc->Vorlagen[paragraphStyle].FontSize;
-			hg->ccolor = ScApp->doc->Vorlagen[paragraphStyle].FColor;
-			hg->cshade = ScApp->doc->Vorlagen[paragraphStyle].FShade;
-			hg->cstroke = ScApp->doc->Vorlagen[paragraphStyle].SColor;
-			hg->cshade2 = ScApp->doc->Vorlagen[paragraphStyle].SShade;
-			hg->cstyle = ScApp->doc->Vorlagen[paragraphStyle].FontEffect;
+				hg->cfont = ScApp->doc->docParagraphStyles[paragraphStyle].Font;
+			hg->csize = ScApp->doc->docParagraphStyles[paragraphStyle].FontSize;
+			hg->ccolor = ScApp->doc->docParagraphStyles[paragraphStyle].FColor;
+			hg->cshade = ScApp->doc->docParagraphStyles[paragraphStyle].FShade;
+			hg->cstroke = ScApp->doc->docParagraphStyles[paragraphStyle].SColor;
+			hg->cshade2 = ScApp->doc->docParagraphStyles[paragraphStyle].SShade;
+			hg->cstyle = ScApp->doc->docParagraphStyles[paragraphStyle].FontEffect;
 		}
 		else
 		{
@@ -151,7 +151,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 		hg->yp = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
-		it->Ptext.append(hg);
+		it->itemText.append(hg);
 	}
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";
@@ -168,9 +168,9 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (uint i = 0; i < ScApp->doc->Vorlagen.size(); ++i)
+	for (uint i = 0; i < ScApp->doc->docParagraphStyles.size(); ++i)
 	{
-		if (ScApp->doc->Vorlagen[i].Vname == name)
+		if (ScApp->doc->docParagraphStyles[i].Vname == name)
 		{
 			pstyleIndex = i;
 			break;
@@ -185,7 +185,7 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 	if (pstyleIndex == -1)
 	{
 		createParagraphStyle(pstyle);
-		pstyleIndex = ScApp->doc->Vorlagen.size() - 1;
+		pstyleIndex = ScApp->doc->docParagraphStyles.size() - 1;
 	}
 	else if (updateParagraphStyles)
 	{
@@ -206,7 +206,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 // 	int pstyleIndex = findParagraphStyle(pstyle);
 // 	if (pstyleIndex == -1)
 // 		pstyleIndex = 0;
-// 	textFrame->Doc->CurrentABStil = pstyleIndex;
+// 	textFrame->Doc->currentParaStyle = pstyleIndex;
 
 	double linesp;
 	if (fstyle->getAutoLineSpacing())
@@ -246,14 +246,14 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	fstyle->setBgColor(textFrame->Pcolor);
 	fstyle->setBgShade(textFrame->Shade);
 	
-	struct StVorL vg = textFrame->Doc->Vorlagen[textFrame->Doc->CurrentABStil];
+	struct ParagraphStyle vg = textFrame->Doc->docParagraphStyles[textFrame->Doc->currentParaStyle];
 	fstyle->setName(vg.Vname);
 	fstyle->setLineSpacing(vg.LineSpa);
-	fstyle->setAlignment(vg.Ausri);
+	fstyle->setAlignment(vg.textAlignment);
 	fstyle->setIndent(vg.Indent);
 	fstyle->setFirstLineIndent(vg.First);
-	fstyle->setSpaceAbove(vg.Avor);
-	fstyle->setSpaceBelow(vg.Anach);
+	fstyle->setSpaceAbove(vg.gapBefore);
+	fstyle->setSpaceBelow(vg.gapAfter);
 	fstyle->setDropCap(vg.Drop);
 	fstyle->setDropCapHeight(vg.DropLin);
 	fstyle->setAdjToBaseline(vg.BaseAdj);
@@ -266,16 +266,16 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
-	if (textFrame->Doc->Vorlagen.size() > 5)
+	if (textFrame->Doc->docParagraphStyles.size() > 5)
 	{
-		for (uint i = 5; i < textFrame->Doc->Vorlagen.size(); ++i)
+		for (uint i = 5; i < textFrame->Doc->docParagraphStyles.size(); ++i)
 		{
-			if (textFrame->Doc->Vorlagen[i].Vname == pstyle->getName())
+			if (textFrame->Doc->docParagraphStyles[i].Vname == pstyle->getName())
 				return;
 		}
 	}
 	gtFont* font = pstyle->getFont();
-	struct StVorL vg;
+	struct ParagraphStyle vg;
 	vg.Vname = pstyle->getName();
 	double linesp;
 	if (pstyle->getAutoLineSpacing())
@@ -283,11 +283,11 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	else
 		linesp = pstyle->getLineSpacing();
 	vg.LineSpa = linesp;
-	vg.Ausri = pstyle->getAlignment();
+	vg.textAlignment = pstyle->getAlignment();
 	vg.Indent = pstyle->getIndent();
 	vg.First = pstyle->getFirstLineIndent();
-	vg.Avor = pstyle->getSpaceAbove();
-	vg.Anach = pstyle->getSpaceBelow();
+	vg.gapBefore = pstyle->getSpaceAbove();
+	vg.gapAfter = pstyle->getSpaceBelow();
 	vg.Font = validateFont(font);
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
@@ -305,7 +305,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
-	textFrame->Doc->Vorlagen.append(vg);
+	textFrame->Doc->docParagraphStyles.append(vg);
 	ScApp->Mpal->Spal->updateFormatList();
 }
 
@@ -318,8 +318,8 @@ void gtAction::removeParagraphStyle(const QString& name)
 
 void gtAction::removeParagraphStyle(int index)
 {
-	QValueList<StVorL>::iterator it = ScApp->doc->Vorlagen.at(index);
-	ScApp->doc->Vorlagen.remove(it);
+	QValueList<ParagraphStyle>::iterator it = ScApp->doc->docParagraphStyles.at(index);
+	ScApp->doc->docParagraphStyles.remove(it);
 }
 
 void gtAction::updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle)
@@ -332,7 +332,7 @@ void gtAction::updateParagraphStyle(const QString& pstyleName, gtParagraphStyle*
 void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 {
 	gtFont* font = pstyle->getFont();
-	struct StVorL vg;
+	struct ParagraphStyle vg;
 	vg.Vname = pstyle->getName();
 	double linesp;
 	if (pstyle->getAutoLineSpacing())
@@ -340,11 +340,11 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	else
 		linesp = pstyle->getLineSpacing();
 	vg.LineSpa = linesp;
-	vg.Ausri = pstyle->getAlignment();
+	vg.textAlignment = pstyle->getAlignment();
 	vg.Indent = pstyle->getIndent();
 	vg.First = pstyle->getFirstLineIndent();
-	vg.Avor = pstyle->getSpaceAbove();
-	vg.Anach = pstyle->getSpaceBelow();
+	vg.gapBefore = pstyle->getSpaceAbove();
+	vg.gapAfter = pstyle->getSpaceBelow();
 	vg.Font = validateFont(font);
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
@@ -362,7 +362,7 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
-	ScApp->doc->Vorlagen[pstyleIndex] = vg;
+	ScApp->doc->docParagraphStyles[pstyleIndex] = vg;
 }
 
 QString gtAction::validateFont(gtFont* font)
@@ -490,7 +490,7 @@ QString gtAction::parseColor(const QString &s)
 	if (s == "None")
 		return ret; // don't want None to become Black or any color
 	bool found = false;
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	for (it = ScApp->doc->PageColors.begin(); it != ScApp->doc->PageColors.end(); ++it)
 	{
 		if (it.key() == s)
@@ -564,8 +564,8 @@ QColor gtAction::parseColorN(const QString &rgbColor)
 
 void gtAction::finalize()
 {
-	if (ScApp->doc->Trenner->AutoCheck)
-		ScApp->doc->Trenner->slotHyphenate(textFrame);
+	if (ScApp->doc->docHyphenator->AutoCheck)
+		ScApp->doc->docHyphenator->slotHyphenate(textFrame);
 	ScApp->view->DrawNew();
 	ScApp->slotDocCh();
 }

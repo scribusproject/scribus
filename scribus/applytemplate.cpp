@@ -59,7 +59,7 @@ ApplyT::ApplyT( QWidget* parent, ScribusDoc *view, QString Nam)
 	FromPage = new QSpinBox( buttonGroup1, "FromPage" );
 	FromPage->setMinValue( 1 );
 	FromPage->setMaxValue(view->Pages.count());
-	FromPage->setValue(view->ActPage->PageNr+1);
+	FromPage->setValue(view->currentPage->PageNr+1);
 	layout2->addWidget( FromPage );
 	TextLabel2 = new QLabel( buttonGroup1, "textLabel1" );
 	TextLabel2->setText( tr( "To:" ) );

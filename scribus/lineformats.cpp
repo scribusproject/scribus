@@ -119,7 +119,7 @@ void LineFormate::dupFormat()
 
 void LineFormate::neuesFormat()
 {
-	struct singleLine sl;
+	struct SingleLine sl;
 	sl.Color = "Black";
 	sl.Shade = 100;
 	sl.Dash = SolidLine;

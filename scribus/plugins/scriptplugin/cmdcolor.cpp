@@ -3,11 +3,11 @@
 
 PyObject *scribus_colornames(PyObject */*self*/)
 {
-	CListe edc;
+	ColorList edc;
 	PyObject *l;
 	int cc = 0;
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
 	{
@@ -19,7 +19,7 @@ PyObject *scribus_colornames(PyObject */*self*/)
 
 PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args)
 {
-	CListe edc;
+	ColorList edc;
 	char *Name = const_cast<char*>("");
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))

@@ -26,10 +26,10 @@ PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if ((it->HasSel) && ((it->PType == FRAME_TEXT) || (it->PType == FRAME_PATHTEXT)))
 	{
-		for (uint b = 0; b < it->Ptext.count(); ++b)
+		for (uint b = 0; b < it->itemText.count(); ++b)
 		{
-			if (it->Ptext.at(b)->cselect)
-				return PyString_FromString(it->Ptext.at(b)->ccolor.utf8());
+			if (it->itemText.at(b)->cselect)
+				return PyString_FromString(it->itemText.at(b)->ccolor.utf8());
 		}
 	}
 	else
@@ -63,10 +63,10 @@ PyObject *scribus_getlineshade(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if ((it->HasSel) && ((it->PType == FRAME_TEXT) || (it->PType == FRAME_PATHTEXT)))
 	{
-		for (uint b = 0; b < it->Ptext.count(); ++b)
+		for (uint b = 0; b < it->itemText.count(); ++b)
 		{
-			if (it->Ptext.at(b)->cselect)
-				return PyInt_FromLong(static_cast<long>(it->Ptext.at(b)->cshade));
+			if (it->itemText.at(b)->cselect)
+				return PyInt_FromLong(static_cast<long>(it->itemText.at(b)->cshade));
 		}
 	}
 	else

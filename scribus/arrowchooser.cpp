@@ -6,7 +6,7 @@
 #include "scpainter.h"
 #include <qimage.h>
 
-extern FPoint GetMinClipF(FPointArray Clip);
+extern FPoint getMinClipF(FPointArray* Clip);
 
 ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 {
@@ -17,7 +17,7 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 	arrowDirection = direction;
 }
 
-void ArrowChooser::rebuildList(QValueList<arrowDesc> *arrowStyles)
+void ArrowChooser::rebuildList(QValueList<ArrowDesc> *arrowStyles)
 {
 	clear();
 	FPointArray Path;
@@ -33,7 +33,7 @@ void ArrowChooser::rebuildList(QValueList<arrowDesc> *arrowStyles)
 		painter->translate(3.0, 3.0);
 		Path.resize(0);
 		Path = (*arrowStyles->at(a)).points.copy();
-		FPoint min = GetMinClipF(Path);
+		FPoint min = getMinClipF(&Path);
 		Path.translate(-min.x(), -min.y());
 		FPoint max = Path.WidthHeight();
 		QWMatrix mm;

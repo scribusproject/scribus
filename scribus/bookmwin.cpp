@@ -118,9 +118,9 @@ void BookMView::AddPageItem(PageItem* ite)
 	QString bm = "";
 	QString bm2 = "";
 	QString cc;
-	for (uint d = 0; d < ite->Ptext.count(); ++d)
+	for (uint d = 0; d < ite->itemText.count(); ++d)
 	{
-		cc = ite->Ptext.at(d)->ch;
+		cc = ite->itemText.at(d)->ch;
 		if ((cc == QChar(13)) || (cc == QChar(10)))
 			break;
 		if (cc == QChar(29))
@@ -290,7 +290,8 @@ void BookMView::contentsDropEvent(QDropEvent *e)
 				if (DraggedI->Prev == 0)
 				{
 					ip = (BookMItem*)lv->nextSibling();
-					ip->Prev = 0;
+					if (ip)
+						ip->Prev = 0;
 				}
 				else
 				{
@@ -318,7 +319,8 @@ void BookMView::contentsDropEvent(QDropEvent *e)
 				if (DraggedI->Prev == 0)
 				{
 					ip = (BookMItem*)lv;
-					ip->Prev = 0;
+					if (ip)
+						ip->Prev = 0;
 				}
 				QListViewItemIterator it2(this);
 				for ( ; it2.current(); ++it2)
@@ -516,9 +518,9 @@ void BookMView::ChangeText(PageItem *b)
 	QString bm2 = "";
 	QString cc;
 	int nr = b->BMnr;
-	for (uint d = 0; d < b->Ptext.count(); ++d)
+	for (uint d = 0; d < b->itemText.count(); ++d)
 	{
-		cc = b->Ptext.at(d)->ch;
+		cc = b->itemText.at(d)->ch;
 		if ((cc == QChar(13)) || (cc == QChar(10)))
 			break;
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))

@@ -62,8 +62,8 @@ extern QString MaskToTxt14(QImage *im);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
-extern FPoint GetMaxClipF(FPointArray Clip);
-extern FPoint GetMinClipF(FPointArray Clip);
+extern FPoint getMaxClipF(FPointArray* Clip);
+extern FPoint getMinClipF(FPointArray* Clip);
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
@@ -408,7 +408,7 @@ QByteArray PDFlib::ComputeMD5(QString in)
 	return ComputeMD5Sum(&TBytes);
 }
 
-bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOpt *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi)
+bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi)
 {
   	Spool.setName(fn);
 	if (!Spool.open(IO_WriteOnly))
@@ -519,9 +519,9 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		pgit = doc->MasterItems.at(c);
 		if ((pgit->PType == 4) || (pgit->PType == 8))
 		{
-			for (uint e = 0; e < pgit->Ptext.count(); ++e)
+			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
-				ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont, DocFonts[pgit->itemText.at(e)->cfont]);
 			}
 		}
 	}
@@ -530,9 +530,9 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		pgit = doc->Items.at(d);
 		if ((pgit->PType == 4) || (pgit->PType == 8))
 		{
-			for (uint e = 0; e < pgit->Ptext.count(); ++e)
+			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
-				ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont, DocFonts[pgit->itemText.at(e)->cfont]);
 			}
 		}
 	}
@@ -580,8 +580,8 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					fon += "h f*\n";
 					StartObj(ObjCounter);
 					ObjCounter++;
-					np = GetMinClipF(gly);
-					np1 = GetMaxClipF(gly);
+					np = getMinClipF(&gly);
+					np1 = getMaxClipF(&gly);
 					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+
 						" "+FToStr(-np1.y())+" ]\n");
@@ -812,7 +812,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	{
 		StartObj(ObjCounter);
 		PutDoc("<<\n/Type /Halftone\n/HalftoneType 5\n");
-		QMap<QString,LPIset>::Iterator itlp;
+		QMap<QString,LPIData>::Iterator itlp;
 		for (itlp = Options->LPISettings.begin(); itlp != Options->LPISettings.end(); ++itlp)
 		{
 			PutDoc("/"+itlp.key()+"\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency ");
@@ -887,7 +887,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 	QPtrList<PageItem> PItems;
 	int Lnr = 0;
 	struct Layer ll;
-	ll.Drucken = false;
+	ll.isPrintable = false;
 	ll.LNr = 0;
 	Inhalt = "";
 	Seite.AObjects.clear();
@@ -895,7 +895,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 	{
 		Level2Layer(doc, &ll, Lnr);
 		PItems = doc->MasterItems;
-		if (ll.Drucken)
+		if (ll.isPrintable)
 		{
 			for (uint a = 0; a < PItems.count(); ++a)
 			{
@@ -1510,12 +1510,12 @@ void PDFlib::PDF_End_Page()
 	}
 	if (Options->PresentMode)
 	{
-		PutDoc("/Dur "+IToStr(Options->PresentVals[PgNr].AnzeigeLen)+"\n");
-		if (Options->PresentVals[PgNr].Effekt != 0)
+		PutDoc("/Dur "+IToStr(Options->PresentVals[PgNr].pageViewDuration)+"\n");
+		if (Options->PresentVals[PgNr].effectType != 0)
 		{
 			PutDoc("/Trans << /Type /Trans\n");
-			PutDoc("/D "+IToStr(Options->PresentVals[PgNr].EffektLen)+"\n");
-			switch (Options->PresentVals[PgNr].Effekt)
+			PutDoc("/D "+IToStr(Options->PresentVals[PgNr].pageEffectDuration)+"\n");
+			switch (Options->PresentVals[PgNr].effectType)
 			{
 				case 1:
 					PutDoc("/S /Blinds\n");
@@ -1594,7 +1594,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	QPtrList<PageItem> PItems;
 	int Lnr = 0;
 	struct Layer ll;
-	ll.Drucken = false;
+	ll.isPrintable = false;
 	ll.LNr = 0;
 	if (Options->UseLPI)
 		PutPage("/"+HTName+" gs\n");
@@ -1622,7 +1622,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 			{
 				Level2Layer(doc, &ll, Lnr);
 				Lnr++;
-				if (ll.Drucken)
+				if (ll.isPrintable)
 				{
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
@@ -1963,7 +1963,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 			}
 		}
 	}
-	ll.Drucken = false;
+	ll.isPrintable = false;
 	ll.LNr = 0;
 	Lnr = 0;
 	for (uint la = 0; la < doc->Layers.count(); ++la)
@@ -1973,7 +1973,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 			PItems = doc->MasterItems;
 		else
 			PItems = doc->Items;
-		if (ll.Drucken)
+		if (ll.isPrintable)
 		{
 			for (uint a = 0; a < PItems.count(); ++a)
 			{
@@ -2684,7 +2684,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	}
 }
 
-QString PDFlib::setStrokeMulti(struct singleLine *sl)
+QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 {
 	QString tmp = "";
 	if (Options->UseRGB)
@@ -2768,7 +2768,7 @@ QString PDFlib::setStrokeMulti(struct singleLine *sl)
 
 QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 {
-	struct Pti *hl;
+	struct ScText *hl;
 	QString tmp = "";
 	QString tmp2 = "";
 	QString FillColor = "";
@@ -2777,7 +2777,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		tmp += "BT\n";
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
-		hl = ite->Ptext.at(d);
+		hl = ite->itemText.at(d);
 		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 			continue;
 		if (hl->cstyle & 256)
@@ -2816,10 +2816,10 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					break;
 				za2--;
 			}
-			while (ite->Ptext.at(za2)->ch == QChar(30));
-			if (ite->Ptext.at(za2)->ch != QChar(30))
+			while (ite->itemText.at(za2)->ch == QChar(30));
+			if (ite->itemText.at(za2)->ch != QChar(30))
 				za2++;
-			while (ite->Ptext.at(za2+zae)->ch == QChar(30))
+			while (ite->itemText.at(za2+zae)->ch == QChar(30))
 			{
 				zae++;
 				if (za2+zae == ite->MaxChars)
@@ -3030,7 +3030,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				double wtr;
 				if (d < ite->MaxChars-1)
 				{
-					QString ctx = ite->Ptext.at(d+1)->ch;
+					QString ctx = ite->itemText.at(d+1)->ch;
 					if (ctx == QChar(29))
 						ctx = " ";
 					if (ctx == QChar(0xA0))
@@ -3553,9 +3553,9 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	double y = doc->PageH - ite->Ypos;
 	double x2 = ite->Xpos+ite->Width;
 	double y2 = doc->PageH-ite->Ypos-ite->Height;
-	for (uint d = 0; d < ite->Ptext.count(); ++d)
+	for (uint d = 0; d < ite->itemText.count(); ++d)
 	{
-		cc = ite->Ptext.at(d)->ch;
+		cc = ite->itemText.at(d)->ch;
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
 			bm += "\\";
 		if (cc == QChar(13))
@@ -3669,7 +3669,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					PutDoc("/FT /Tx\n");
 					PutDoc("/V "+EncString("("+bm+")",ObjCounter-1)+"\n");
 					PutDoc("/DV "+EncString("("+bm+")",ObjCounter-1)+"\n");
-					PutDoc("/Q "+IToStr(QMIN(ite->Ausrich,2))+"\n");
+					PutDoc("/Q "+IToStr(QMIN(ite->textAlignment,2))+"\n");
 					PutDoc("/AP << /N "+IToStr(ObjCounter)+" 0 R >>\n");
 					if (ite->AnMaxChar != -1)
 						PutDoc("/MaxLen "+IToStr(ite->AnMaxChar)+"\n");

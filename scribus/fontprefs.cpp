@@ -18,7 +18,7 @@
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, QString PPath )
+FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath )
 		: QDialog( parent, "fpre", true, 0 )
 {
 	setCaption( tr( "Global Font Settings" ) );

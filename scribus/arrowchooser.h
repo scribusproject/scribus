@@ -11,7 +11,7 @@ class ArrowChooser : public QComboBox
 public:
 	ArrowChooser(QWidget* pa, bool direction);
 	~ArrowChooser() {};
-	void rebuildList(QValueList<arrowDesc> *arrowStyles);
+	void rebuildList(QValueList<ArrowDesc> *arrowStyles);
 
 private:
 	bool arrowDirection;

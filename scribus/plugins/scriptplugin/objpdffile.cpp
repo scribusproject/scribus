@@ -359,9 +359,9 @@ static int PDFfile_init(PDFfile *self, PyObject *args, PyObject *kwds)
         int i;
         for (i = 0; i<num2; ++i) {
                 PyObject *tmp;
-                PreSet t = Carrier->doc->PDF_Optionen.PresentVals[i];
-                tmp = Py_BuildValue("[iiiiii]", t.EffektLen, t.AnzeigeLen,
-                                    t.Effekt, t.Dm, t.M, t.Di );
+                PDFPresentationData t = Carrier->doc->PDF_Optionen.PresentVals[i];
+                tmp = Py_BuildValue("[iiiiii]", t.pageEffectDuration, t.pageViewDuration,
+                                    t.effectType, t.Dm, t.M, t.Di );
                 if (tmp)
                         PyList_SetItem(effval, i, tmp);
                 else {
@@ -394,7 +394,7 @@ static int PDFfile_init(PDFfile *self, PyObject *args, PyObject *kwds)
                 PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
                 return -1;
         }
-        QMap<QString,LPIset>::Iterator it = Carrier->doc->PDF_Optionen.LPISettings.begin();
+        QMap<QString,LPIData>::Iterator it = Carrier->doc->PDF_Optionen.LPISettings.begin();
         while (it != Carrier->doc->PDF_Optionen.LPISettings.end()) {
                 PyObject *tmp;
                 tmp = Py_BuildValue("[siii]", it.key().ascii(), it.data().Frequency,
@@ -993,17 +993,17 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply presentation attribute
         Carrier->doc->PDF_Optionen.PresentMode = self->presentation;
 
-        QValueList<PreSet> PresentVals;
+        QValueList<PDFPresentationData> PresentVals;
         PresentVals.clear();
         int tmpnum;
         tmpnum=PyList_Size(self->effval);
         for (int i=0; i<tmpnum; ++i) {
-                PreSet t;
+                PDFPresentationData t;
 // How do I make this commented piece of code to work?
 // I always get an error here
                 PyObject *ti = PyList_GetItem(self->effval, i);
 //                 if (!PyArg_ParseTuple(ti , "[iiiiii]",
-//                                  &t.EffektLen, &t.AnzeigeLen, &t.Effekt, &t.Dm,
+//                                  &t.pageEffectDuration, &t.pageViewDuration, &t.effectType, &t.Dm,
 //                                  &t.M, &t.Di)) {
 //                         PyErr_SetString(PyExc_SystemError, "while parsing 'effval'. WHY THIS HAPPENED????");
 //                         return NULL;
@@ -1013,9 +1013,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 				if (ti)
 				{
 					// Do I Need to check if every PyInt_AsLong and PyList_GetItem funtion succeed???
-					t.EffektLen = PyInt_AsLong(PyList_GetItem(ti, 0));
-					t.AnzeigeLen = PyInt_AsLong(PyList_GetItem(ti, 1));
-					t.Effekt = PyInt_AsLong(PyList_GetItem(ti, 2));
+					t.pageEffectDuration = PyInt_AsLong(PyList_GetItem(ti, 0));
+					t.pageViewDuration = PyInt_AsLong(PyList_GetItem(ti, 1));
+					t.effectType = PyInt_AsLong(PyList_GetItem(ti, 2));
 					t.Dm = PyInt_AsLong(PyList_GetItem(ti, 3));
 					t.M = PyInt_AsLong(PyList_GetItem(ti, 4));
 					t.Di = PyInt_AsLong(PyList_GetItem(ti, 5));
@@ -1028,7 +1028,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply lpival
         int n2 = PyList_Size(self->lpival);
         for (int i=0; i<n2; ++i){
-                LPIset lpi;
+                LPIData lpi;
                 PyObject *t = PyList_GetItem(self->lpival, i);
 // This code always raise exception - WHY???
 //                char *s;

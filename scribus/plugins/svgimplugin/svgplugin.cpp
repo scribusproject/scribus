@@ -27,8 +27,8 @@ extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
-extern FPoint GetMaxClipF(FPointArray Clip);
-extern FPoint GetMinClipF(FPointArray Clip);
+extern FPoint getMaxClipF(FPointArray* Clip);
+extern FPoint getMinClipF(FPointArray* Clip);
 extern PrefsFile* prefsFile;
 
 /*!
@@ -297,8 +297,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
-	double BaseX = Doku->ActPage->Xoffset;
-	double BaseY = Doku->ActPage->Yoffset;
+	double BaseX = Doku->currentPage->Xoffset;
+	double BaseY = Doku->currentPage->Yoffset;
 	for( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		int z = -1;
@@ -353,7 +353,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			FPoint wh = GetMaxClipF(ite->PoLine);
+			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 		}
@@ -371,7 +371,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			FPoint wh = GetMaxClipF(ite->PoLine);
+			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 		}
@@ -388,7 +388,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			FPoint wh = GetMaxClipF(ite->PoLine);
+			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 		}
@@ -551,17 +551,9 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 						mv.translate(viewTransformX, viewTransformY);
 						mv.scale(viewScaleX, viewScaleY);
 						ite->PoLine.map(mv);
-						QWMatrix mv1;
-						FPoint tp, tp2;
-						tp2 = GetMinClipF(ite->PoLine);
-						tp = GetMaxClipF(ite->PoLine);
-						ite->PoLine.translate(-(tp.x() + tp2.x()) / 2.0, -(tp.y() + tp2.y()) / 2.0);
-						mv1.scale(0.8, 0.8);
-						ite->PoLine.map(mv1);
-						ite->PoLine.translate((tp.x() + tp2.x()) / 2.0, (tp.y() + tp2.y()) / 2.0);
 					}
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
-					FPoint wh = GetMaxClipF(ite->PoLine);
+					FPoint wh = getMaxClipF(&ite->PoLine);
 					ite->Width = wh.x();
 					ite->Height = wh.y();
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -1402,7 +1394,7 @@ QString SVGPlug::parseColor( const QString &s )
 		else
 			c = parseColorN( rgbColor );
 	}
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	bool found = false;
 	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
 	{
@@ -1857,7 +1849,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
  */
 QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 {
-	struct Pti *hg;
+	struct ScText *hg;
 	QPainter p;
 	QPtrList<PageItem> GElements;
 	p.begin(Prog->view->viewport());
@@ -1919,7 +1911,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->TxtScale = 100;
 			for (uint tt = 0; tt < Text.length(); ++tt)
 			{
-				hg = new Pti;
+				hg = new ScText;
 				hg->ch = Text.at(tt);
 				hg->cfont = gc->Family;
 				hg->csize = gc->FontSize;
@@ -1940,7 +1932,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				hg->PRot = 0;
 				hg->PtransX = 0;
 				hg->PtransY = 0;
-				ite->Ptext.append(hg);
+				ite->itemText.append(hg);
 				tempW += RealCWidth(Doku, hg->cfont, hg->ch, hg->csize)+1;
 				if (hg->ch == QChar(13))
 				{
@@ -2000,7 +1992,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		ite->TxtScale = 100;
 		for (uint cc = 0; cc<Text.length(); ++cc)
 		{
-			hg = new Pti;
+			hg = new ScText;
 			hg->ch = Text.at(cc);
 			hg->cfont = gc->Family;
 			hg->csize = gc->FontSize;
@@ -2021,7 +2013,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
-			ite->Ptext.append(hg);
+			ite->itemText.append(hg);
 			ite->Width += RealCWidth(Doku, hg->cfont, hg->ch, hg->csize)+1;
 			ite->Height = ite->LineSp+desc+2;
 		}

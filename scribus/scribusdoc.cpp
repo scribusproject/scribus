@@ -22,7 +22,7 @@
 #include "pageitem.h"
 #include <qfile.h> 
 
-ScribusDoc::ScribusDoc(struct preV *prefsData)
+ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 {
 	prefsValues = prefsData;
 	modified = false;
@@ -104,8 +104,8 @@ ScribusDoc::ScribusDoc(struct preV *prefsData)
 	MagMax = prefsData->MagMax;
 	MagStep = prefsData->MagStep;
 	Before = prefsData->Before;
-	Einheit = prefsData->Einheit;
-	RandFarbig = prefsData->RandFarbig;
+	docUnitIndex = prefsData->docUnitIndex;
+	marginColored = prefsData->marginColored;
 	Language = prefsData->Language;
 	MinWordLen = prefsData->MinWordLen;
 	HyCount = prefsData->HyCount;
@@ -139,15 +139,15 @@ ScribusDoc::ScribusDoc(struct preV *prefsData)
 	FirstAuto = 0;
 	DraggedElem = 0;
 	GroupCounter = 1;
-	Vorlagen.clear();
-	struct StVorL vg;
+	docParagraphStyles.clear();
+	struct ParagraphStyle vg;
 	vg.Vname = "Normal Internal";
 	vg.LineSpa = 15;
-	vg.Ausri = 0;
+	vg.textAlignment = 0;
 	vg.Indent = 0;
 	vg.First = 0;
-	vg.Avor = 0;
-	vg.Anach = 0;
+	vg.gapBefore = 0;
+	vg.gapAfter = 0;
 	vg.Font = "";
 	vg.FontSize = Dsize;
 	vg.TabValues.clear();
@@ -159,33 +159,33 @@ ScribusDoc::ScribusDoc(struct preV *prefsData)
 	vg.SColor = Dpen;
 	vg.SShade = Dshade2;
 	vg.BaseAdj = false;
-	Vorlagen.append(vg);
+	docParagraphStyles.append(vg);
 	vg.Vname = "Center Internal";
-	vg.Ausri = 1;
-	Vorlagen.append(vg);
+	vg.textAlignment = 1;
+	docParagraphStyles.append(vg);
 	vg.Vname = "Rechts Internal";
-	vg.Ausri = 2;
-	Vorlagen.append(vg);
+	vg.textAlignment = 2;
+	docParagraphStyles.append(vg);
 	vg.Vname = "Block Internal";
-	vg.Ausri = 3;
-	Vorlagen.append(vg);
+	vg.textAlignment = 3;
+	docParagraphStyles.append(vg);
 	vg.Vname = "EBlock Internal";
-	vg.Ausri = 4;
-	Vorlagen.append(vg);
+	vg.textAlignment = 4;
+	docParagraphStyles.append(vg);
 	Layers.clear();
 	struct Layer ll;
 	ll.LNr = 0;
 	ll.Level = 0;
 	ll.Name = QObject::tr("Background");
-	ll.Sichtbar = true;
-	ll.Drucken = true;
+	ll.isViewable = true;
+	ll.isPrintable = true;
 	Layers.append(ll);
 	ActiveLayer = 0;
 	JavaScripts.clear();
 	UnDoValid = false;
 	UnData.UnCode = -1;
 	CurrentStyle = 0;
-	CurrentABStil = 0;
+	currentParaStyle = 0;
 	TotalItems = 0;
 	TemplateMode = false;
 	PDF_Optionen.Thumbnails = false;
@@ -274,10 +274,10 @@ ScribusDoc::~ScribusDoc()
  * including plugins.
  * - 2004-09-14 Craig Ringer
  */
-void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<StVorL> *tempStyles)
+void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles)
 {
-	// This won't create the QValueList<StVorL> will it?
-	QValueList<StVorL> *wrkStyles = NULL;
+	// This won't create the QValueList<ParagraphStyle> will it?
+	QValueList<ParagraphStyle> *wrkStyles = NULL;
 	/*
 	 * Use the working styles struct if passed, or work directly
 	 * on the document styles otherwise. Note that tempStyles,
@@ -287,39 +287,39 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<StVorL> *tempSt
 	if (tempStyles != NULL)
 		wrkStyles = tempStyles;
 	 else
-		wrkStyles = &Vorlagen;
+		wrkStyles = &docParagraphStyles;
 	if (!fileName.isEmpty())
 	{
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		ss->Vorlagen.clear();
+		ss->docParagraphStyles.clear();
 		for (uint x = 5; x < wrkStyles->count(); ++x)
-			ss->Vorlagen.append((*wrkStyles)[x]);
+			ss->docParagraphStyles.append((*wrkStyles)[x]);
 		uint old = wrkStyles->count()-5;
 		if (ss->ReadStyles(fileName, this, prefsValues))
 		{
-			if (ss->Vorlagen.count() > old)
+			if (ss->docParagraphStyles.count() > old)
 			{
-				for (uint xx=old; xx<ss->Vorlagen.count(); ++xx)
+				for (uint xx=old; xx<ss->docParagraphStyles.count(); ++xx)
 				{
-					struct StVorL sty;
-					sty.Vname = ss->Vorlagen[xx].Vname;
-					sty.LineSpa = ss->Vorlagen[xx].LineSpa;
-					sty.Ausri = ss->Vorlagen[xx].Ausri;
-					sty.Indent = ss->Vorlagen[xx].Indent;
-					sty.First = ss->Vorlagen[xx].First;
-					sty.Avor = ss->Vorlagen[xx].Avor;
-					sty.Anach = ss->Vorlagen[xx].Anach;
-					sty.Font = ss->Vorlagen[xx].Font;
-					sty.FontSize = ss->Vorlagen[xx].FontSize;
-					sty.TabValues = ss->Vorlagen[xx].TabValues;
-					sty.Drop = ss->Vorlagen[xx].Drop;
-					sty.DropLin = ss->Vorlagen[xx].DropLin;
-					sty.FontEffect = ss->Vorlagen[xx].FontEffect;
-					sty.FColor = ss->Vorlagen[xx].FColor;
-					sty.FShade = ss->Vorlagen[xx].FShade;
-					sty.SColor = ss->Vorlagen[xx].SColor;
-					sty.SShade = ss->Vorlagen[xx].SShade;
-					sty.BaseAdj = ss->Vorlagen[xx].BaseAdj;
+					struct ParagraphStyle sty;
+					sty.Vname = ss->docParagraphStyles[xx].Vname;
+					sty.LineSpa = ss->docParagraphStyles[xx].LineSpa;
+					sty.textAlignment = ss->docParagraphStyles[xx].textAlignment;
+					sty.Indent = ss->docParagraphStyles[xx].Indent;
+					sty.First = ss->docParagraphStyles[xx].First;
+					sty.gapBefore = ss->docParagraphStyles[xx].gapBefore;
+					sty.gapAfter = ss->docParagraphStyles[xx].gapAfter;
+					sty.Font = ss->docParagraphStyles[xx].Font;
+					sty.FontSize = ss->docParagraphStyles[xx].FontSize;
+					sty.TabValues = ss->docParagraphStyles[xx].TabValues;
+					sty.Drop = ss->docParagraphStyles[xx].Drop;
+					sty.DropLin = ss->docParagraphStyles[xx].DropLin;
+					sty.FontEffect = ss->docParagraphStyles[xx].FontEffect;
+					sty.FColor = ss->docParagraphStyles[xx].FColor;
+					sty.FShade = ss->docParagraphStyles[xx].FShade;
+					sty.SColor = ss->docParagraphStyles[xx].SColor;
+					sty.SShade = ss->docParagraphStyles[xx].SShade;
+					sty.BaseAdj = ss->docParagraphStyles[xx].BaseAdj;
 					wrkStyles->append(sty);
 				}
 			}

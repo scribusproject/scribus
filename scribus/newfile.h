@@ -21,7 +21,7 @@ class NewDoc : public QDialog
     Q_OBJECT
 
 public:
-    NewDoc( QWidget* parent, preV *Vor );
+    NewDoc( QWidget* parent, ApplicationPrefs *Vor );
     ~NewDoc() {};
 
     QButtonGroup* ButtonGroup1_2;

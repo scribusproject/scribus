@@ -28,7 +28,7 @@
 
 extern QPixmap loadIcon(QString nam);
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
-extern void setBestEncoding(FT_Face face);
+extern int setBestEncoding(FT_Face face);
 
 QString Name()
 {
@@ -50,7 +50,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	if ((plug->HaveDoc) && (plug->view->SelItem.count() != 0))
 	{
 		PageItem *b = plug->view->SelItem.at(0);
-		if ((b->PType == 4) && ((plug->doc->AppMode == 7) || (plug->DLLinput != "")))
+		if ((b->PType == 4) && ((plug->doc->appMode == EditMode) || (plug->DLLinput != "")))
 		{
 			CharSelect *dia = new CharSelect(d, b, plug);
 			dia->exec();
@@ -297,10 +297,10 @@ void CharSelect::insChar()
 		delEdit();
 		return;
 	}
-	struct Pti *hg;
+	struct ScText *hg;
 	for (uint a=0; a<chToIns.length(); ++a)
 	{
-		hg = new Pti;
+		hg = new ScText;
 		hg->ch = chToIns.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
@@ -315,11 +315,11 @@ void CharSelect::insChar()
 		hg->cscale = ap->doc->CurrTextScale;
 		hg->cselect = false;
 		hg->cstyle = ap->doc->CurrentStyle;
-		hg->cab = ap->doc->CurrentABStil;
-		if (ap->doc->Vorlagen[ap->doc->CurrentABStil].Font != "")
+		hg->cab = ap->doc->currentParaStyle;
+		if (ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font != "")
 		{
-			hg->cfont = ap->doc->Vorlagen[ap->doc->CurrentABStil].Font;
-			hg->csize = ap->doc->Vorlagen[ap->doc->CurrentABStil].FontSize;
+			hg->cfont = ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font;
+			hg->csize = ap->doc->docParagraphStyles[ap->doc->currentParaStyle].FontSize;
 		}
 		hg->cextra = 0;
 		hg->cselect = false;
@@ -328,7 +328,7 @@ void CharSelect::insChar()
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
-		ite->Ptext.insert(ite->CPos, hg);
+		ite->itemText.insert(ite->CPos, hg);
 		ite->CPos += 1;
 	}
 	ap->view->DrawNew();

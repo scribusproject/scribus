@@ -24,7 +24,7 @@ extern PrefsFile* prefsFile;
 
 /* The Scrapbook View Class
  * inherited from QIconView */
-BibView::BibView(QWidget* parent, preV *prefs) : QIconView(parent)
+BibView::BibView(QWidget* parent, ApplicationPrefs *prefs) : QIconView(parent)
 {
 	Objekte.clear();
 	Prefs = prefs;
@@ -149,7 +149,7 @@ void BibView::RebuildView()
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio( QWidget* parent, preV *prefs)
+Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 		: QDialog( parent, "Sclib", false, 0 )
 {
 	resize( 230, 190 );

@@ -41,7 +41,7 @@ class PDFlib : public QObject
 public:
 	PDFlib();
 	~PDFlib() {};
-	bool PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOpt *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi);
+	bool PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
 	void PDF_TemplatePage(Page* pag, bool clip = false);
@@ -63,7 +63,7 @@ private:
 	QString FitKey(QString pass);
 	QString FToStr(double c);
 	QString IToStr(int c);
-	QString setStrokeMulti(struct singleLine *sl);
+	QString setStrokeMulti(struct SingleLine *sl);
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPath(PageItem *ite, bool poly = true);
 	QString SetFarbe(QString farbe, int Shade);
@@ -86,7 +86,7 @@ private:
 	ScribusDoc* doc;
 	ScribusView* view;
 	Page* ActPageP;
-	PDFOpt* Options;
+	PDFOptions* Options;
 	BookMView* Bvie;
 	QFile Spool;
 	int Dokument;

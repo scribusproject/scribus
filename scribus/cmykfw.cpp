@@ -21,7 +21,7 @@ extern bool CMSuse;
 #endif
 extern QPixmap loadIcon(QString nam);
 
-CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors, QStringList Cust  )
+CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, ColorList *Colors, QStringList Cust  )
 		: QDialog( parent, "fw", true, 0 )
 {
 	CMYKmode = true;
@@ -562,7 +562,7 @@ void CMYKChoose::SelSwatch(int n)
 			}
 		}
 		ColorSwatch->clear();
-		CListe::Iterator it;
+		ColorList::Iterator it;
 		QPixmap pm = QPixmap(30, 15);
 		for (it = CurrSwatch.begin(); it != CurrSwatch.end(); ++it)
 		{

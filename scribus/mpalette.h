@@ -81,7 +81,7 @@ class Mpalette : public QDialog
 	Q_OBJECT
 
 public:
-	Mpalette(QWidget* parent, preV *Prefs);
+	Mpalette(QWidget* parent, ApplicationPrefs *Prefs);
 	~Mpalette() {};
 	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);

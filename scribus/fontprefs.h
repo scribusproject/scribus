@@ -19,7 +19,7 @@ class FontPrefs : public QDialog
     Q_OBJECT
 
 public:
-    FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, preV *prefs, QString PPath );
+    FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath );
     ~FontPrefs() {};
 	void ReadPath();
 	void RebuildDialog();
@@ -42,7 +42,7 @@ public:
     QPtrList<QCheckBox> FlagsUse;
     QPtrList<QCheckBox> FlagsSub;
     QPtrList<QComboBox> FlagsRepl;
-  	preV *Prefs;
+  	ApplicationPrefs *Prefs;
 	QMap<QString,QString> RList;
 	QStringList UsedFonts;
 	QStringList ExtraFonts;

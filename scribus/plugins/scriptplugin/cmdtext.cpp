@@ -18,9 +18,9 @@ PyObject *scribus_getfontsize(PyObject */*self*/, PyObject* args)
 	}
 	if (it->HasSel)
 	{
-		for (uint b = 0; b < it->Ptext.count(); b++)
-			if (it->Ptext.at(b)->cselect)
-				return PyFloat_FromDouble(static_cast<double>(it->Ptext.at(b)->csize / 10.0));
+		for (uint b = 0; b < it->itemText.count(); b++)
+			if (it->itemText.at(b)->cselect)
+				return PyFloat_FromDouble(static_cast<double>(it->itemText.at(b)->csize / 10.0));
 	}
 	else
 		return PyFloat_FromDouble(static_cast<long>(it->ISize / 10.0));
@@ -43,9 +43,9 @@ PyObject *scribus_getfont(PyObject */*self*/, PyObject* args)
 	}
 	if (it->HasSel)
 	{
-		for (uint b = 0; b < it->Ptext.count(); b++)
-			if (it->Ptext.at(b)->cselect)
-				return PyString_FromString(it->Ptext.at(b)->cfont.utf8());
+		for (uint b = 0; b < it->itemText.count(); b++)
+			if (it->itemText.at(b)->cselect)
+				return PyString_FromString(it->itemText.at(b)->cfont.utf8());
 	}
 	else
 		return PyString_FromString(it->IFont.utf8());
@@ -66,7 +66,7 @@ PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text size of non-text frame.","python error"));
 		return NULL;
 	}
-	return PyInt_FromLong(static_cast<long>(i->Ptext.count()));
+	return PyInt_FromLong(static_cast<long>(i->itemText.count()));
 }
 
 PyObject *scribus_getcolumns(PyObject */*self*/, PyObject* args)
@@ -139,16 +139,16 @@ PyObject *scribus_getframetext(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error"));
 		return NULL;
 	}
-	for (uint a = 0; a < it->Ptext.count(); a++)
+	for (uint a = 0; a < it->itemText.count(); a++)
 	{
 		if (it->HasSel)
 		{
-			if (it->Ptext.at(a)->cselect)
-				text += it->Ptext.at(a)->ch;
+			if (it->itemText.at(a)->cselect)
+				text += it->itemText.at(a)->ch;
 		}
 		else
 		{
-			text += it->Ptext.at(a)->ch;
+			text += it->itemText.at(a)->ch;
 		}
 	}
 	return PyString_FromString(text.utf8());
@@ -187,16 +187,16 @@ PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
 		it = is;
 	} // while
 	///FIXME: What does this do? Could use a comment for explanation
-	for (uint a = 0; a < it->Ptext.count(); a++)
+	for (uint a = 0; a < it->itemText.count(); a++)
 	{
 		if (it->HasSel)
 		{
-			if (it->Ptext.at(a)->cselect)
-				text += it->Ptext.at(a)->ch;
+			if (it->itemText.at(a)->cselect)
+				text += it->itemText.at(a)->ch;
 		}
 		else
 		{
-			text += it->Ptext.at(a)->ch;
+			text += it->itemText.at(a)->ch;
 		}
 	} // for
 	// Scan forward through linked frames and ... what?
@@ -214,16 +214,16 @@ PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
 		}
 		it = is;
 		assert(it != NULL);
-		for (uint a = 0; a < it->Ptext.count(); a++)
+		for (uint a = 0; a < it->itemText.count(); a++)
 		{
 			if (it->HasSel)
 			{
-				if (it->Ptext.at(a)->cselect)
-					text += it->Ptext.at(a)->ch;
+				if (it->itemText.at(a)->cselect)
+					text += it->itemText.at(a)->ch;
 			}
 			else
 			{
-				text += it->Ptext.at(a)->ch;
+				text += it->itemText.at(a)->ch;
 			}
 		} // for
 	} // while
@@ -253,16 +253,16 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		PageItem *nb = it->NextBox;
 		while (nb != 0)
 		{
-			nb->Ptext.clear();
+			nb->itemText.clear();
 			nb->CPos = 0;
 			nb = nb->NextBox;
 		}
 	}
-	it->Ptext.clear();
+	it->itemText.clear();
 	it->CPos = 0;
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
-		struct Pti *hg = new Pti;
+		struct ScText *hg = new ScText;
 		hg->ch = Daten.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
@@ -276,13 +276,13 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
-		hg->cab = Carrier->doc->CurrentABStil;
+		hg->cab = Carrier->doc->currentParaStyle;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
-		it->Ptext.append(hg);
+		it->itemText.append(hg);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -307,14 +307,14 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 	}
 	QString Daten = QString::fromUtf8(Text);
 	PyMem_Free(Text);
-	if ((pos < 0) && (pos > static_cast<int>(it->Ptext.count())))
+	if ((pos < 0) && (pos > static_cast<int>(it->itemText.count())))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Insert index out of bounds","python error"));
 		return NULL;
 	}
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
-		struct Pti *hg = new Pti;
+		struct ScText *hg = new ScText;
 		hg->ch = Daten.at(Daten.length()-1-a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
@@ -328,13 +328,13 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
-		hg->cab = Carrier->doc->CurrentABStil;
+		hg->cab = Carrier->doc->currentParaStyle;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
-		it->Ptext.insert(pos, hg);
+		it->itemText.insert(pos, hg);
 	}
 	it->CPos = pos + Daten.length();
 	it->paintObj();
@@ -363,13 +363,13 @@ PyObject *scribus_setalign(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set text alignment on a non-text frame","python error"));
 		return NULL;
 	}
-	int Apm = Carrier->doc->AppMode;
+	int Apm = Carrier->doc->appMode;
 	Carrier->view->SelItem.clear();
 	Carrier->view->SelItem.append(i);
 	if (i->HasSel)
-		Carrier->doc->AppMode = 7;
+		Carrier->doc->appMode = EditMode;
 	Carrier->setNewAbStyle(alignment);
-	Carrier->doc->AppMode = Apm;
+	Carrier->doc->appMode = Apm;
 	Carrier->view->Deselect();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -397,13 +397,13 @@ PyObject *scribus_setfontsize(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set font size on a non-text frame","python error"));
 		return NULL;
 	}
-	int Apm = Carrier->doc->AppMode;
+	int Apm = Carrier->doc->appMode;
 	Carrier->view->SelItem.clear();
 	Carrier->view->SelItem.append(i);
 	if (i->HasSel)
-		Carrier->doc->AppMode = 7;
+		Carrier->doc->appMode = EditMode;
 	Carrier->view->chFSize(qRound(size * 10.0));
-	Carrier->doc->AppMode = Apm;
+	Carrier->doc->appMode = Apm;
 	Carrier->view->Deselect();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -427,13 +427,13 @@ PyObject *scribus_setfont(PyObject */*self*/, PyObject* args)
 	}
 	if (Carrier->Prefs.AvailFonts.find(QString::fromUtf8(Font)))
 	{
-		int Apm = Carrier->doc->AppMode;
+		int Apm = Carrier->doc->appMode;
 		Carrier->view->SelItem.clear();
 		Carrier->view->SelItem.append(i);
 		if (i->HasSel)
-			Carrier->doc->AppMode = 7;
+			Carrier->doc->appMode = EditMode;
 		Carrier->SetNewFont(QString::fromUtf8(Font));
-		Carrier->doc->AppMode = Apm;
+		Carrier->doc->appMode = Apm;
 		Carrier->view->Deselect();
 	}
 	else
@@ -534,7 +534,7 @@ PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((start < 0) || ((start + ende) > static_cast<int>(it->Ptext.count()-1)))
+	if ((start < 0) || ((start + ende) > static_cast<int>(it->itemText.count()-1)))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds","python error"));
 		return NULL;
@@ -551,8 +551,8 @@ PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 		return NULL;
 	}
 	*/
-	for (uint a = 0; a < it->Ptext.count(); ++a)
-		it->Ptext.at(a)->cselect = false;
+	for (uint a = 0; a < it->itemText.count(); ++a)
+		it->itemText.at(a)->cselect = false;
 	if (ende == 0)
 	{
 		it->HasSel = false;
@@ -560,7 +560,7 @@ PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 		return Py_None;
 	}
 	for (int aa = start; aa < (start + ende); ++aa)
-		it->Ptext.at(aa)->cselect = true;
+		it->itemText.at(aa)->cselect = true;
 	it->HasSel = true;
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -585,7 +585,7 @@ PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
 		Carrier->DeleteSel(it);
 	else
 	{
-		it->Ptext.clear();
+		it->itemText.clear();
 		it->CPos = 0;
 	}
 	Py_INCREF(Py_None);
@@ -610,15 +610,15 @@ PyObject *scribus_settextfill(PyObject */*self*/, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->Ptext.count(); b++)
+		for (uint b = 0; b < it->itemText.count(); b++)
 		{
 			if (it->HasSel)
 			{
-				if (it->Ptext.at(b)->cselect)
-					it->Ptext.at(b)->ccolor = QString::fromUtf8(Color);
+				if (it->itemText.at(b)->cselect)
+					it->itemText.at(b)->ccolor = QString::fromUtf8(Color);
 			}
 			else
-				it->Ptext.at(b)->ccolor = QString::fromUtf8(Color);
+				it->itemText.at(b)->ccolor = QString::fromUtf8(Color);
 		}
 		it->TxtFill = QString::fromUtf8(Color);
 	}
@@ -644,15 +644,15 @@ PyObject *scribus_settextstroke(PyObject */*self*/, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->Ptext.count(); b++)
+		for (uint b = 0; b < it->itemText.count(); b++)
 		{
 			if (it->HasSel)
 			{
-				if (it->Ptext.at(b)->cselect)
-					it->Ptext.at(b)->cstroke = QString::fromUtf8(Color);
+				if (it->itemText.at(b)->cselect)
+					it->itemText.at(b)->cstroke = QString::fromUtf8(Color);
 			}
 			else
-				it->Ptext.at(b)->cstroke = QString::fromUtf8(Color);
+				it->itemText.at(b)->cstroke = QString::fromUtf8(Color);
 		}
 		it->TxtStroke = QString::fromUtf8(Color);
 	}
@@ -683,15 +683,15 @@ PyObject *scribus_settextshade(PyObject */*self*/, PyObject* args)
 	}
 	else
 	{
-		for (uint b = 0; b < it->Ptext.count(); ++b)
+		for (uint b = 0; b < it->itemText.count(); ++b)
 		{
 			if (it->HasSel)
 			{
-				if (it->Ptext.at(b)->cselect)
-					it->Ptext.at(b)->cshade = w;
+				if (it->itemText.at(b)->cselect)
+					it->itemText.at(b)->cshade = w;
 			}
 			else
-				it->Ptext.at(b)->cshade = w;
+				it->itemText.at(b)->cshade = w;
 		}
 	it->ShTxtFill = w;
 	}
@@ -719,7 +719,7 @@ PyObject *scribus_linktextframes(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames","python error"));
 		return NULL;
 	}
-	if (toitem->Ptext.count())
+	if (toitem->itemText.count())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame must be empty","python error"));
 		return NULL;
@@ -778,14 +778,14 @@ PyObject *scribus_unlinktextframes(PyObject */*self*/, PyObject* args)
 	PageItem* nextbox = item->NextBox;
 	while (nextbox != 0)
 	{
-		uint a = nextbox->Ptext.count();
+		uint a = nextbox->itemText.count();
 		for (uint s=0; s<a; ++s)
-			item->Ptext.append(nextbox->Ptext.take(0));
+			item->itemText.append(nextbox->itemText.take(0));
 		nextbox = nextbox->NextBox;
 	} // while
-	uint a2 = item->Ptext.count();
+	uint a2 = item->itemText.count();
 	for (uint s = 0; s < a2; ++s)
-		item->BackBox->Ptext.append(item->Ptext.take(0));
+		item->BackBox->itemText.append(item->itemText.take(0));
 	item->BackBox->NextBox = 0;
 	item->BackBox = 0;
 	// enable 'save icon' stuff

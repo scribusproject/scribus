@@ -27,8 +27,8 @@ class PDF_Opts : public QDialog
 	Q_OBJECT
 
 public:
-	PDF_Opts( QWidget* parent, QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOpt *Optionen,
-	          QValueList<PreSet> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
+	PDF_Opts( QWidget* parent, QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOptions *Optionen,
+	          QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
 	~PDF_Opts();
 
 	QWidget* tabGeneral;
@@ -152,11 +152,11 @@ public:
 	QValueList<QString> FontsToEmbed;
 	QValueList<QString> FontsToSubset;
 	ScribusView *view;
-	QValueList<PreSet> EffVal;
+	QValueList<PDFPresentationData> EffVal;
 	int PgSel;
-	int Einheit;
+	int docUnitIndex;
 	QString SelLPIcolor;
-	PDFOpt *Opts;
+	PDFOptions *Opts;
 
 public slots:
 	void DoExport();

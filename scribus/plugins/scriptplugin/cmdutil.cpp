@@ -6,7 +6,7 @@ ScribusDoc* doc;
 double PointToValue(double Val)
 {
 	double ret = 0.0;
-	switch (Carrier->doc->Einheit)
+	switch (Carrier->doc->docUnitIndex)
 	{
 	case 0:
 		ret = Val;
@@ -47,7 +47,7 @@ double ValToPts(double Val, int ein)
 
 double ValueToPoint(double Val)
 {
-	return ValToPts(Val, Carrier->doc->Einheit);
+	return ValToPts(Val, Carrier->doc->docUnitIndex);
 }
 
 int GetItem(QString Name)
@@ -76,12 +76,12 @@ void ReplaceColor(QString col, QString rep)
 		PageItem *ite = Carrier->doc->Items.at(c);
 		if (ite->PType == 4)
 		{
-			for (uint d = 0; d < ite->Ptext.count(); d++)
+			for (uint d = 0; d < ite->itemText.count(); d++)
 			{
-				if (col == ite->Ptext.at(d)->ccolor)
-					ite->Ptext.at(d)->ccolor = rep;
-				if (col == ite->Ptext.at(d)->cstroke)
-					ite->Ptext.at(d)->cstroke = rep;
+				if (col == ite->itemText.at(d)->ccolor)
+					ite->itemText.at(d)->ccolor = rep;
+				if (col == ite->itemText.at(d)->cstroke)
+					ite->itemText.at(d)->cstroke = rep;
 			}
 		}
 		if (col == ite->Pcolor)
@@ -104,12 +104,12 @@ void ReplaceColor(QString col, QString rep)
 		PageItem *ite = Carrier->doc->MasterItems.at(c);
 		if (ite->PType == 4)
 		{
-			for (uint d = 0; d < ite->Ptext.count(); d++)
+			for (uint d = 0; d < ite->itemText.count(); d++)
 			{
-				if (col == ite->Ptext.at(d)->ccolor)
-					ite->Ptext.at(d)->ccolor = rep;
-				if (col == ite->Ptext.at(d)->cstroke)
-					ite->Ptext.at(d)->cstroke = rep;
+				if (col == ite->itemText.at(d)->ccolor)
+					ite->itemText.at(d)->ccolor = rep;
+				if (col == ite->itemText.at(d)->cstroke)
+					ite->itemText.at(d)->cstroke = rep;
 			}
 		}
 		if (col == ite->Pcolor)

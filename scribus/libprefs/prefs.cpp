@@ -30,44 +30,44 @@ extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
 extern ProfilesL InputProfiles;
 
-extern "C" void* Run(QWidget *d, preV *prefsData);
+extern "C" void* Run(QWidget *d, ApplicationPrefs *prefsData);
 
 /*!
- \fn void* Run(QWidget *d, preV *prefsData)
+ \fn void* Run(QWidget *d, ApplicationPrefs *prefsData)
  \author Franz Schmid
  \date
  \brief Creates Preferences dialog and returns pointer to it
  \param d QWidget * to Preferences dialog widget
- \param prefsData preV * struct
+ \param prefsData ApplicationPrefs * struct
  \retval dia * widget pointer
  */
-void* Run(QWidget *d, preV *prefsData)
+void* Run(QWidget *d, ApplicationPrefs *prefsData)
 {
 	Preferences *dia = new Preferences(d, prefsData);
 	return dia;
 }
 
 /*!
- \fn Preferences::Preferences( QWidget* parent, preV *prefsData)
+ \fn Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData)
  \author Franz Schmid
  \date
  \brief Constructor for Preferences dialog box
  \param parent QWidget pointer to parent window
- \param prefsData preV * struct
+ \param prefsData ApplicationPrefs * struct
  \retval Preferences dialog
  */
-Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( parent )
+Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsDialogBase( parent )
 {
 	int decimals;
 	fon = &prefsData->AvailFonts;
 	ap = (ScribusApp*)parent;
 	Umrech = 1.0;
-	Einheit = prefsData->Einheit;
+	docUnitIndex = prefsData->docUnitIndex;
 	int f[] = {2, 3, 4};
-	if (Einheit == 3)
+	if (docUnitIndex == 3)
 		decimals = f[0];
 	else
-		decimals = f[Einheit];
+		decimals = f[docUnitIndex];
 	DisScale = prefsData->DisScale;
 	setCaption( tr( "Preferences" ) );
 
@@ -231,7 +231,7 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	UnitCombo->insertItem( tr( "Inches (in)" ) );
 	UnitCombo->insertItem( tr( "Picas (p)" ) );
 	UnitCombo->setEditable(false);
-	UnitCombo->setCurrentItem(prefsData->Einheit);
+	UnitCombo->setCurrentItem(prefsData->docUnitIndex);
 	unitComboText = new QLabel( UnitCombo, tr( "Units:" ), GroupSize, "unitComboText" );
 	Layout6->addWidget( unitComboText, 2, 0 );
 	Layout6->addWidget( UnitCombo, 2, 1 );
@@ -417,7 +417,7 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	colorComboText->setEditable(false);
 	QPixmap pmT2;
 	pmT2 = QPixmap(15, 15);
-	CListe::Iterator itc;
+	ColorList::Iterator itc;
 	colorComboText->insertItem( tr("None"));
 	if (prefsData->DpenText == "None")
 		colorComboText->setCurrentItem(colorComboText->count()-1);
@@ -817,7 +817,7 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	checkUnprintable = new QCheckBox( pageBackground, "checkUnprintable" );
 	checkUnprintable->setText( tr( "Display &Unprintable Area in Margin Color" ) );
 	checkUnprintable->setAccel( QKeySequence( tr( "Alt+U" ) ) );
-	checkUnprintable->setChecked( prefsData->RandFarbig );
+	checkUnprintable->setChecked( prefsData->marginColored );
 	pageBackgroundLayout->addWidget( checkUnprintable );
 	tabViewLayout->addWidget( pageBackground );
 
@@ -1516,7 +1516,7 @@ void Preferences::unitChange()
 	oldH /= AltUmrech;
 	oldHM /= AltUmrech;
 	QString einh;
-	Einheit = UnitCombo->currentItem();
+	docUnitIndex = UnitCombo->currentItem();
 	switch (UnitCombo->currentItem())
 	{
 	case 0:
@@ -1619,7 +1619,7 @@ void Preferences::setDisScale()
 void Preferences::drawRuler()
 {
 	double xl, iter, iter2, maxi;
-	switch (Einheit)
+	switch (docUnitIndex)
 	{
 	case 0:
 		iter = 10.0;
@@ -1662,7 +1662,7 @@ void Preferences::drawRuler()
 		p.drawLine(static_cast<int>(xl), 6, static_cast<int>(xl), 19);
 		p.save();
 		p.scale(1.0 / DisScale, 1.0);
-		switch (Einheit)
+		switch (docUnitIndex)
 		{
 		case 2:
 			p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12,

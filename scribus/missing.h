@@ -14,7 +14,7 @@ class MissingFont : public QDialog
     Q_OBJECT
 
 public:
-    MissingFont( QWidget* parent, QString fon, preV *Prefs );
+    MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs );
     ~MissingFont() {};
 	
 	const QString getReplacementFont();

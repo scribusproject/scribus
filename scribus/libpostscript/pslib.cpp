@@ -51,15 +51,15 @@ extern bool CMSuse;
 extern QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
 #endif
 
-extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
+extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 
-void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf)
+void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf)
 {
 	PSLib *dia = new PSLib(psart, AllFonts, DocFonts, DocColors, pdf);
 	return dia;
 }
 
-PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf)
+PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf)
 {
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
@@ -90,7 +90,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 	GrayCalc += "              oldsetgray} bind def\n";
 	Farben = "%%CMYKCustomColor: ";
 	FNamen = "%%DocumentCustomColors: ";
-	CListe::Iterator itf;
+	ColorList::Iterator itf;
 	int c, m, y, k;
 	bool erst = true;
 	for (itf = DocColors.begin(); itf != DocColors.end(); ++itf)
@@ -336,7 +336,7 @@ void PSLib::PS_TemplateEnd()
 	PutDoc("} bind def\n");
 }
 
-void PSLib::PS_begin_page(double breite, double hoehe, struct Margs* Ma, bool Clipping)
+void PSLib::PS_begin_page(double breite, double hoehe, struct MarginStruct* Ma, bool Clipping)
 {
 	if (Clipping)
 	{
@@ -1033,12 +1033,12 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		{
 			int Lnr = 0;
 			struct Layer ll;
-			ll.Drucken = false;
+			ll.isPrintable = false;
 			ll.LNr = 0;
 			for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
 			{
 				Level2Layer(Doc, &ll, Lnr);
-				if (ll.Drucken)
+				if (ll.isPrintable)
 				{
 					for (uint api = 0; api < Doc->MasterItems.count(); ++api)
 					{
@@ -1073,7 +1073,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		a = pageNs[aa]-1;
 		if ((!Art) && (view->SelItem.count() != 0))
 		{
-			struct Margs Ma;
+			struct MarginStruct Ma;
 			Ma.Left = gx;
 			Ma.Top = gy;
 			Ma.Bottom = Doc->PageH - (gy + gh);
@@ -1110,10 +1110,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			int h, s, v, k, tsz;
 			QCString chxc;
 			QString chx;
-			struct Pti *hl;
+			struct ScText *hl;
 			int Lnr = 0;
 			struct Layer ll;
-			ll.Drucken = false;
+			ll.isPrintable = false;
 			ll.LNr = 0;
 			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages.at(a)->MPageNam]);
 			if (Doc->MasterItems.count() != 0)
@@ -1121,7 +1121,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 				for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
 				{
 					Level2Layer(Doc, &ll, Lnr);
-					if (ll.Drucken)
+					if (ll.isPrintable)
 					{
 						for (uint am = 0; am < Doc->Pages.at(a)->FromMaster.count(); ++am)
 						{
@@ -1240,7 +1240,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								}
 								for (uint d = 0; d < ite->MaxChars; ++d)
 								{
-									hl = ite->Ptext.at(d);
+									hl = ite->itemText.at(d);
 									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 										continue;
 									if (hl->cstyle & 256)
@@ -1267,10 +1267,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 													break;
 												za2--;
 											}
-											while (ite->Ptext.at(za2)->ch == QChar(30));
-											if (ite->Ptext.at(za2)->ch != QChar(30))
+											while (ite->itemText.at(za2)->ch == QChar(30));
+											if (ite->itemText.at(za2)->ch != QChar(30))
 												za2++;
-											while (ite->Ptext.at(za2+zae)->ch == QChar(30))
+											while (ite->itemText.at(za2+zae)->ch == QChar(30))
 											{
 												zae++;
 												if (za2+zae == ite->MaxChars)
@@ -1309,7 +1309,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 												PS_scale(-1, 1);
 												if (d < ite->MaxChars-1)
 												{
-													QString ctx = ite->Ptext.at(d+1)->ch;
+													QString ctx = ite->itemText.at(d+1)->ch;
 													if (ctx == QChar(29))
 														ctx = " ";
 													if (ctx == QChar(0xA0))
@@ -1350,7 +1350,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											PS_scale(-1, 1);
 											if (d < ite->MaxChars-1)
 											{
-												QString ctx = ite->Ptext.at(d+1)->ch;
+												QString ctx = ite->itemText.at(d+1)->ch;
 												if (ctx == QChar(29))
 													ctx = " ";
 												if (ctx == QChar(0xA0))
@@ -1585,7 +1585,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	int h, s, v, k, tsz;
 	uint d;
 	double wideR;
-	struct Pti *hl;
+	struct ScText *hl;
 	QValueList<double> dum;
 	dum.clear();
 	QString tmps, chx;
@@ -1683,11 +1683,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QString bm = "";
 				QString cc;
-				for (d = 0; d < c->Ptext.count(); ++d)
+				for (d = 0; d < c->itemText.count(); ++d)
 				{
-					if ((c->Ptext.at(d)->ch == QChar(13)) || (c->Ptext.at(d)->ch == QChar(10)) || (c->Ptext.at(d)->ch == QChar(28)))
+					if ((c->itemText.at(d)->ch == QChar(13)) || (c->itemText.at(d)->ch == QChar(10)) || (c->itemText.at(d)->ch == QChar(28)))
 						break;
-					bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
 				}
 				PDF_Bookmark(bm, a->PageNr+1);
 			}
@@ -1695,9 +1695,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QString bm = "";
 				QString cc;
-				for (d = 0; d < c->Ptext.count(); ++d)
+				for (d = 0; d < c->itemText.count(); ++d)
 				{
-					bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
 				}
 				PDF_Annotation(bm, 0, 0, c->Width, -c->Height);
 				break;
@@ -1723,7 +1723,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			for (d = 0; d < c->MaxChars; ++d)
 			{
-				hl = c->Ptext.at(d);
+				hl = c->itemText.at(d);
 				if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 					continue;
 				if (hl->cstyle & 256)
@@ -1750,10 +1750,10 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								break;
 							za2--;
 						}
-						while (c->Ptext.at(za2)->ch == QChar(30));
-						if (c->Ptext.at(za2)->ch != QChar(30))
+						while (c->itemText.at(za2)->ch == QChar(30));
+						if (c->itemText.at(za2)->ch != QChar(30))
 							za2++;
-						while (c->Ptext.at(za2+zae)->ch == QChar(30))
+						while (c->itemText.at(za2+zae)->ch == QChar(30))
 						{
 							zae++;
 							if (za2+zae == c->MaxChars)
@@ -1792,7 +1792,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_scale(-1, 1);
 							if (d < c->MaxChars-1)
 							{
-								QString ctx = c->Ptext.at(d+1)->ch;
+								QString ctx = c->itemText.at(d+1)->ch;
 								if (ctx == QChar(29))
 									ctx = " ";
 								if (ctx == QChar(0xA0))
@@ -1833,7 +1833,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						PS_scale(-1, 1);
 						if (d < c->MaxChars-1)
 						{
-							QString ctx = c->Ptext.at(d+1)->ch;
+							QString ctx = c->itemText.at(d+1)->ch;
 							if (ctx == QChar(29))
 								ctx = " ";
 							if (ctx == QChar(0xA0))
@@ -2187,7 +2187,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			for (d = 0; d < c->MaxChars; ++d)
 			{
-				hl = c->Ptext.at(d);
+				hl = c->itemText.at(d);
 				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 					continue;
 				tsz = hl->csize;
@@ -2230,7 +2230,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_scale(-1, 1);
 							if (d < c->MaxChars-1)
 							{
-								QString ctx = c->Ptext.at(d+1)->ch;
+								QString ctx = c->itemText.at(d+1)->ch;
 								if (ctx == QChar(29))
 									ctx = " ";
 								if (ctx == QChar(0xA0))
@@ -2280,7 +2280,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 	QPtrList<PageItem> PItems;
 	int Lnr = 0;
 	struct Layer ll;
-	ll.Drucken = false;
+	ll.isPrintable = false;
 	ll.LNr = 0;
 	for (uint la = 0; la < Doc->Layers.count(); ++la)
 	{
@@ -2289,7 +2289,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 			PItems = Doc->MasterItems;
 		else
 			PItems = Doc->Items;
-		if (ll.Drucken)
+		if (ll.isPrintable)
 		{
 			for (b = 0; b < PItems.count(); ++b)
 			{

@@ -210,7 +210,7 @@ PyObject *scribus_layervisible(PyObject */*self*/, PyObject* args)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			Carrier->doc->Layers[lam].Sichtbar = vis;
+			Carrier->doc->Layers[lam].isViewable = vis;
 			found = true;
 			break;
 		}
@@ -242,7 +242,7 @@ PyObject *scribus_layerprint(PyObject */*self*/, PyObject* args)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			Carrier->doc->Layers[lam].Drucken = vis;
+			Carrier->doc->Layers[lam].isPrintable = vis;
 			found = true;
 			break;
 		}
@@ -274,7 +274,7 @@ PyObject *scribus_glayervisib(PyObject */*self*/, PyObject* args)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			i = static_cast<int>(Carrier->doc->Layers[lam].Sichtbar);
+			i = static_cast<int>(Carrier->doc->Layers[lam].isViewable);
 			found = true;
 			break;
 		}
@@ -305,7 +305,7 @@ PyObject *scribus_glayerprint(PyObject */*self*/, PyObject* args)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			i = static_cast<int>(Carrier->doc->Layers[lam].Drucken);
+			i = static_cast<int>(Carrier->doc->Layers[lam].isPrintable);
 			found = true;
 			break;
 		}
@@ -391,8 +391,8 @@ PyObject *scribus_createlayer(PyObject */*self*/, PyObject* args)
 	ll.Level = Carrier->doc->Layers.count();
 	// FIXME: what if the name exists?
 	ll.Name = QString::fromUtf8(Name);
-	ll.Sichtbar = true;
-	ll.Drucken = true;
+	ll.isViewable = true;
+	ll.isPrintable = true;
 	Carrier->doc->Layers.append(ll);
 	Carrier->doc->ActiveLayer = ll.LNr;
 	Carrier->changeLayer(ll.LNr);

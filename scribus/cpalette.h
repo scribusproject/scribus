@@ -70,7 +70,7 @@ public:
 	QSpinBox* TransSpin;
 	int Mode;
 	QString sFarbe;
-	CListe colorList;
+	ColorList colorList;
 	bool CSichtbar;
 	QString Color;
 	int Shade;
@@ -82,7 +82,7 @@ public:
 public slots:
 	void InhaltButton();
 	void InnenButton();
-	void SetColors(CListe newColorList);
+	void SetColors(ColorList newColorList);
 	void updateCList();
 	void updateBoxS(QString Farbe);
 	void selectColor(QListBoxItem *c);

@@ -23,7 +23,7 @@
 	#include <zlib.h>
 #endif
 extern bool loadText(QString nam, QString *Buffer);
-extern void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
+extern void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
 extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
@@ -204,8 +204,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 
 bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
 {
-	struct CLBuf OB;
-	struct StVorL vg;
+	struct CopyPasteBuffer OB;
+	struct ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	int counter, Pgc;
@@ -254,7 +254,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
-		doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
+		doc->docUnitIndex = QStoInt(dc.attribute("UNITS","0"));
 		DoFonts.clear();
 		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
@@ -385,7 +385,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			doc->guidesSettings.guideColor = QColor(dc.attribute("GuideC"));
 		if (dc.hasAttribute("BaseC"))
 			doc->guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
-		doc->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
+		doc->marginColored = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 		doc->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
 		doc->guidesSettings.guideRad = QStoInt(dc.attribute("GuideRad","10"));
 		doc->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
@@ -412,9 +412,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.LineSpa = QStodouble(pg.attribute("LINESP"));
 				vg.Indent = QStodouble(pg.attribute("INDENT","0"));
 				vg.First = QStodouble(pg.attribute("FIRST","0"));
-				vg.Ausri = QStoInt(pg.attribute("ALIGN"));
-				vg.Avor = QStodouble(pg.attribute("VOR","0"));
-				vg.Anach = QStodouble(pg.attribute("NACH","0"));
+				vg.textAlignment = QStoInt(pg.attribute("ALIGN"));
+				vg.gapBefore = QStodouble(pg.attribute("VOR","0"));
+				vg.gapAfter = QStodouble(pg.attribute("NACH","0"));
 				tmpf = pg.attribute("FONT", doc->Dfont);
 				if (tmpf == "")
 					tmpf = doc->Dfont;
@@ -447,7 +447,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 				else
 					vg.TabValues.clear();
-				doc->Vorlagen.append(vg);
+				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")
 				doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -456,8 +456,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				la.LNr = QStoInt(pg.attribute("NUMMER"));
 				la.Level = QStoInt(pg.attribute("LEVEL"));
 				la.Name = pg.attribute("NAME");
-				la.Sichtbar = QStoInt(pg.attribute("SICHTBAR"));
-				la.Drucken = QStoInt(pg.attribute("DRUCKEN"));
+				la.isViewable = QStoInt(pg.attribute("SICHTBAR"));
+				la.isPrintable = QStoInt(pg.attribute("DRUCKEN"));
 				doc->Layers.append(la);
 			}
 			if(pg.tagName()=="Bookmark")
@@ -482,7 +482,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct singleLine sl;
+					struct SingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = QStoInt(MuL.attribute("Dash"));
 					sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
@@ -496,7 +496,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			}
 			if(pg.tagName()=="Arrows")
 			{
-				struct arrowDesc arrow;
+				struct ArrowDesc arrow;
 				arrow.name = pg.attribute("Name");
 				arrow.userArrow = true;
 				double xa, ya;
@@ -611,7 +611,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						doc->MasterP = true;
 					}
 					if (pg.attribute("OnMasterPage") != "")
-						doc->ActPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
+						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
 					if ((QStoInt(pg.attribute("NEXTITEM")) != -1) || (static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")))))
 					{
 						if (QStoInt(pg.attribute("BACKITEM")) == -1)
@@ -627,7 +627,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					if ((OB.isBookmark) && (doc->BookMarks.count() == 0))
 						doc->OldBM = true;
 					OB.BMnr = QStoInt(pg.attribute("BookNr","0"));
-					OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
+					OB.textAlignment = QStoInt(pg.attribute("ALIGN","0"));
 					tmpf = pg.attribute("IFONT", doc->Dfont);
 					if (tmpf == "")
 						tmpf = doc->Dfont;
@@ -670,7 +670,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 							tmp += GetItemText(&it, doc, view->Prefs, false, false);
 						IT=IT.nextSibling();
 					}
-					OB.Ptext = tmp;
+					OB.itemText = tmp;
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					if ((OB.PType == 5) && (OB.Height != 0))
@@ -765,7 +765,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					QDomElement pdfF = PFO.toElement();
 					if(pdfF.tagName() == "LPI")
 					{
-						struct LPIset lpo;
+						struct LPIData lpo;
 						lpo.Angle = QStoInt(pdfF.attribute("Angle"));
 						lpo.Frequency = QStoInt(pdfF.attribute("Frequency"));
 						lpo.SpotFunc = QStoInt(pdfF.attribute("SpotFunction"));
@@ -783,10 +783,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
-    					struct PreSet ef;
-    					ef.EffektLen = QStoInt(pdfF.attribute("EffektLen"));
-    					ef.AnzeigeLen = QStoInt(pdfF.attribute("AnzeigeLen"));
-    					ef.Effekt = QStoInt(pdfF.attribute("Effekt"));
+    					struct PDFPresentationData ef;
+    					ef.pageEffectDuration = QStoInt(pdfF.attribute("pageEffectDuration"));
+    					ef.pageViewDuration = QStoInt(pdfF.attribute("pageViewDuration"));
+    					ef.effectType = QStoInt(pdfF.attribute("effectType"));
     					ef.Dm = QStoInt(pdfF.attribute("Dm"));
     					ef.M = QStoInt(pdfF.attribute("M"));
 		    			ef.Di = QStoInt(pdfF.attribute("Di"));
@@ -832,8 +832,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		la.LNr = 0;
 		la.Level = 0;
 		la.Name = QObject::tr("Background");
-		la.Sichtbar = true;
-		la.Drucken = true;
+		la.isViewable = true;
+		la.isPrintable = true;
 		doc->Layers.append(la);
 	}
 	if (LFrames.count() != 0)
@@ -859,7 +859,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			Its->NextBox = 0;
 		}
 	}
-	switch (doc->Einheit)
+	switch (doc->docUnitIndex)
 	{
 	case 0:
 		view->UN->setText( QObject::tr("pt"));
@@ -878,7 +878,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	return true;
 }
 
-QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo)
+QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo)
 {
 	QString tmp2, tmf, tmpf, tmp3, tmp;
 	tmp = "";
@@ -922,7 +922,7 @@ QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, b
 	return tmp;
 }
 
-QString FileLoader::AskForFont(SCFonts &avail, QString fStr, preV *Prefs, ScribusDoc *doc)
+QString FileLoader::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *Prefs, ScribusDoc *doc)
 {
 	QFont fo;
 	QString tmpf = fStr;

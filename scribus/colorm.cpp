@@ -33,7 +33,7 @@ extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 extern PrefsFile* prefsFile;
 
-Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust )
+Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust )
 		: QDialog( parent, "dd", true, 0 )
 {
 	setName( "Farbmanager" );
@@ -183,7 +183,7 @@ void Farbmanager::saveDefaults()
 		{
 			QTextStream tsx(&fx);
 			QString tmp;
-			CListe::Iterator itc;
+			ColorList::Iterator itc;
 			tsx << "Color Set:"+dia->getEditText()+"\n";
 			int cp, mp, yp, kp;
 			for (itc = EditColors.begin(); itc != EditColors.end(); ++itc)
@@ -313,8 +313,8 @@ void Farbmanager::loadFarben()
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		if (ss->ReadColors(fileName))
 		{
-			CListe LColors = ss->Farben;
-			CListe::Iterator it;
+			ColorList LColors = ss->Farben;
+			ColorList::Iterator it;
 			for (it = LColors.begin(); it != LColors.end(); ++it)
 			{
 				if (!EditColors.contains(it.key()))
@@ -331,7 +331,7 @@ void Farbmanager::delUnused()
 	PageItem* ite;
 	bool found;
 	UsedC.clear();
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		found = false;
@@ -355,11 +355,11 @@ void Farbmanager::delUnused()
 			}
 			if ((ite->PType == 4) || (ite->PType == 8))
 			{
-				for (uint d=0; d<ite->Ptext.count(); ++d)
+				for (uint d=0; d<ite->itemText.count(); ++d)
 				{
-					if (it.key() == ite->Ptext.at(d)->ccolor)
+					if (it.key() == ite->itemText.at(d)->ccolor)
 						found = true;
-					if (it.key() == ite->Ptext.at(d)->cstroke)
+					if (it.key() == ite->itemText.at(d)->cstroke)
 						found = true;
 					if (found)
 						break;
@@ -389,11 +389,11 @@ void Farbmanager::delUnused()
 			}
 			if ((ite->PType == 4) || (ite->PType == 8))
 			{
-				for (uint d=0; d<ite->Ptext.count(); ++d)
+				for (uint d=0; d<ite->itemText.count(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->Ptext.at(d)->ccolor) ||
-							(it.key() == ite->Ptext.at(d)->cstroke))
+					if ((it.key() == ite->itemText.at(d)->ccolor) ||
+							(it.key() == ite->itemText.at(d)->cstroke))
 						found = true;
 					if (found)
 						break;
@@ -489,7 +489,7 @@ void Farbmanager::selEditFarbe(QListBoxItem *c)
 void Farbmanager::updateCList()
 {
 	ListBox1->clear();
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{

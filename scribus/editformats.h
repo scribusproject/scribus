@@ -15,7 +15,7 @@ class StilFormate : public QDialog
 	Q_OBJECT
 
 public:
-	StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail);
+	StilFormate( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *avail);
 	~StilFormate() {};
 
 	QListBox* ListBox1;
@@ -28,8 +28,8 @@ public:
 	QPushButton* ExitB;
 	QPushButton* CancelB;
 	int sFnumber;
-	QValueList<StVorL> TempVorl;
-	preV *fon;
+	QValueList<ParagraphStyle> TempVorl;
+	ApplicationPrefs *fon;
 	ScribusDoc *Docu;
 	void UpdateFList();
 

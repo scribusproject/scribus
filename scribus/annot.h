@@ -36,7 +36,7 @@ class Annot : public QDialog
     Q_OBJECT
 
 public:
-    Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie);
+    Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie);
     ~Annot();
 	void DecodeNum();
 	void DecodeVali();

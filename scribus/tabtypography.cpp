@@ -8,7 +8,7 @@
 #include "mspinbox.h"
 #include "scribusstructs.h"
 
-TabTypograpy::TabTypograpy( QWidget* parent, struct typoStruct *prefsData, double unitBase, QString unit) : QWidget( parent, "tabtypo", 0 )
+TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData, double unitBase, QString unit) : QWidget( parent, "tabtypo", 0 )
 {
 	tabTypoLayout = new QGridLayout( this, 1, 1, 11, 6, "tabTypoLayout");
 	groupBox1a = new QGroupBox( this, "groupBox1a" );

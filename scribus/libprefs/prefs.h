@@ -44,7 +44,7 @@ class Preferences : public PrefsDialogBase
     	Q_OBJECT
 
 public:
-	Preferences( QWidget* parent, preV *prefsData);
+	Preferences( QWidget* parent, ApplicationPrefs *prefsData);
 	~Preferences();
 
 	//const QString getSelectedGUILang( void );
@@ -238,7 +238,7 @@ public:
 	double RandB;
 	double RandL;
 	double RandR;
-	int Einheit;
+	int docUnitIndex;
 	double DisScale;
 	ScribusApp *ap;
 	QColor colorPaper;

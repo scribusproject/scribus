@@ -42,7 +42,7 @@ void Spalette::setFormat(int e)
 	if (e < 5)
 		setCurrentItem(0);
 	else
-		setCurrentText(currentDoc->Vorlagen[e].Vname);
+		setCurrentText(currentDoc->docParagraphStyles[e].Vname);
 }
 
 void Spalette::updateFormatList()
@@ -54,8 +54,8 @@ void Spalette::updateFormatList()
 		QStringList st;
 		st.clear();
 		insertItem( tr("No Style"));
-		for (uint x = 5; x < currentDoc->Vorlagen.count(); ++x)
-			st.append(currentDoc->Vorlagen[x].Vname);
+		for (uint x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
+			st.append(currentDoc->docParagraphStyles[x].Vname);
 		st.sort();
 		insertStringList(st);
 	}
@@ -70,9 +70,9 @@ void Spalette::selFormat(int e)
 		emit newStyle(0);
 		return;
 	}
-	for (uint x = 5; x < currentDoc->Vorlagen.count(); ++x)
+	for (uint x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
 	{
-		if (currentDoc->Vorlagen[x].Vname == currentText())
+		if (currentDoc->docParagraphStyles[x].Vname == currentText())
 		{
 			emit newStyle(x);
 			break;

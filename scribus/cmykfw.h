@@ -34,7 +34,7 @@ class CMYKChoose : public QDialog
 	Q_OBJECT
 
 public:
-	CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors, QStringList Cust );
+	CMYKChoose( QWidget* parent, CMYKColor orig, QString name, ColorList *Colors, QStringList Cust );
 	~CMYKChoose() {};
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	QColor CMYK2RGB(int c, int m, int y, int k);
@@ -79,8 +79,8 @@ public:
 	bool Wsave;
 	bool dynamic;
 	int BlackComp;
-	CListe *EColors;
-	CListe CurrSwatch;
+	ColorList *EColors;
+	ColorList CurrSwatch;
 	QStringList CColSet;
 	QString Fnam;
 

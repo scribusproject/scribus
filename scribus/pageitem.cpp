@@ -99,7 +99,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	IFont = Doc->Dfont;
 	ISize = Doc->Dsize;
 	LineSp = ((Doc->Dsize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (Doc->Dsize / 10.0);
-	Doc->Vorlagen[0].LineSpa = LineSp;
+	Doc->docParagraphStyles[0].LineSpa = LineSp;
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
@@ -108,8 +108,8 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	BExtra = 1;
 	RExtra = 1;
 	ExtraV = 0;
-	Ptext.clear();
-	Ptext.setAutoDelete(true);
+	itemText.clear();
+	itemText.setAutoDelete(true);
 	MaxChars = 0;
 	Pfile = "";
 	pixm = QImage();
@@ -151,7 +151,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
-	OwnPage = Doc->ActPage->PageNr;
+	OwnPage = Doc->currentPage->PageNr;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;
@@ -223,7 +223,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Textflow2 = false;
 	Tinput = false;
 	isAutoText = false;
-	Ausrich = 0;
+	textAlignment = 0;
 	Redrawn = false;
 	isRaster = false;
 	Sizing = false;
@@ -271,7 +271,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	isSingleSel = false;
 	Dirty = false;
 	ChangedMasterItem = false;
-	OnMasterPage = Doc->ActPage->PageNam;
+	OnMasterPage = Doc->currentPage->PageNam;
 	startArrowIndex = Doc->DstartArrow;
 	endArrowIndex = Doc->DendArrow;
 }
@@ -293,7 +293,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal, RTabX;
 	double sc = ScApp->view->Scale;
 	QString chx, chx2, chx3;
-	struct Pti *hl;
+	struct ScText *hl;
 	struct ZZ *Zli;
 	struct ZZ *Zli2;
 	QPtrList<ZZ> LiList;
@@ -321,13 +321,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	LiList.setAutoDelete(true);
 	for (int xxx=0; xxx<5; ++xxx)
 	{
-		Doc->Vorlagen[xxx].LineSpa = LineSp;
-		Doc->Vorlagen[xxx].FontSize = ISize;
-		Doc->Vorlagen[xxx].Indent = 0;
-		Doc->Vorlagen[xxx].First = 0;
-		Doc->Vorlagen[xxx].Avor = 0;
-		Doc->Vorlagen[xxx].Anach = 0;
-		Doc->Vorlagen[xxx].Ausri = xxx;
+		Doc->docParagraphStyles[xxx].LineSpa = LineSp;
+		Doc->docParagraphStyles[xxx].FontSize = ISize;
+		Doc->docParagraphStyles[xxx].Indent = 0;
+		Doc->docParagraphStyles[xxx].First = 0;
+		Doc->docParagraphStyles[xxx].gapBefore = 0;
+		Doc->docParagraphStyles[xxx].gapAfter = 0;
+		Doc->docParagraphStyles[xxx].textAlignment = xxx;
 	}
 	pf.begin(ScApp->view->viewport());
 	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
@@ -648,7 +648,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->drawImage(&pixm);
 				p->restore();
 			}
-			if ((Ptext.count() != 0) && (Dirty))
+			if ((itemText.count() != 0) && (Dirty))
 			{
 				if (flippedH % 2 != 0)
 				{
@@ -661,11 +661,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->scale(1, -1);
 				}
 				struct ZZ Zli3;
-				for (a = 0; a < Ptext.count(); ++a)
+				for (a = 0; a < itemText.count(); ++a)
 				{
 					if (a > MaxChars)
 						break;
-					hl = Ptext.at(a);
+					hl = itemText.at(a);
 					chx = hl->ch;
 					if (hl->ch == QChar(30))
 						chx = ExpandToken(a);
@@ -708,7 +708,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					}
 				}
-				if (Ptext.count() > MaxChars)
+				if (itemText.count() > MaxChars)
 				{
 					if (!Doc->RePos)
 					{
@@ -733,24 +733,24 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				p->restore();
 				break;
 			}
-			if ((Ptext.count() != 0) || (NextBox != 0))
+			if ((itemText.count() != 0) || (NextBox != 0))
 			{
 				if (NextBox != 0)
 				{
 					nb = NextBox;
 					while (nb != 0)
 					{
-						a = nb->Ptext.count();
+						a = nb->itemText.count();
 						for (uint s=0; s<a; ++s)
 						{
-							Ptext.append(nb->Ptext.take(0));
+							itemText.append(nb->itemText.take(0));
 						}
 						nb->MaxChars = 0;
 						nb = nb->NextBox;
 					}
 					nb = NextBox;
 				}
-				Doc->Vorlagen[0].LineSpa = LineSp;
+				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
 				for (a = 0; a < Doc->Items.count(); ++a)
 				{
@@ -807,15 +807,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 				ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 				CurX = ColBound.x();
-				if (Ptext.count() > 0)
+				if (itemText.count() > 0)
 				{
-					hl = Ptext.at(0);
-					if (Doc->Vorlagen[hl->cab].Drop)
+					hl = itemText.at(0);
+					if (Doc->docParagraphStyles[hl->cab].Drop)
 					{
-						if (Doc->Vorlagen[hl->cab].BaseAdj)
-							chs = qRound(Doc->typographicSetttings.valueBaseGrid  * Doc->Vorlagen[hl->cab].DropLin * 10);
+						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+							chs = qRound(Doc->typographicSetttings.valueBaseGrid  * Doc->docParagraphStyles[hl->cab].DropLin * 10);
 						else
-							chs = qRound(Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin * 10);
+							chs = qRound(Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin * 10);
 					}
 					else
 						chs = hl->csize;
@@ -825,7 +825,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				else
 				{
 					desc2 = -(*Doc->AllFonts)[IFont]->numDescender * (ISize / 10.0);
-					CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr-desc2;
+					CurY = Doc->docParagraphStyles[0].LineSpa+TExtra+lineCorr-desc2;
 				}
 				firstDes = desc2;
 				LiList.clear();
@@ -838,11 +838,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				aSpa = 0;
 				absa = 0;
 				MaxChars = 0;
-				MaxText = Ptext.count();
+				MaxText = itemText.count();
 				StartOfCol = true;
 				for (a = 0; a < MaxText; ++a)
 				{
-					hl = Ptext.at(a);
+					hl = itemText.at(a);
 					chx = hl->ch;
 					if (hl->ch == QChar(30))
 						chx = ExpandToken(a);
@@ -854,24 +854,24 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							nb = BackBox;
 							while (nb != 0)
 							{
-								if (nb->Ptext.count() != 0)
+								if (nb->itemText.count() != 0)
 								{
-									if (nb->Ptext.at(nb->Ptext.count()-1)->ch == QChar(13))
+									if (nb->itemText.at(nb->itemText.count()-1)->ch == QChar(13))
 									{
-										CurX += Doc->Vorlagen[absa].First;
-										CurX += Doc->Vorlagen[absa].Indent;
-										CurY += Doc->Vorlagen[absa].Avor;
+										CurX += Doc->docParagraphStyles[absa].First;
+										CurX += Doc->docParagraphStyles[absa].Indent;
+										CurY += Doc->docParagraphStyles[absa].gapBefore;
 										if (chx != QChar(13))
-											DropCmode = Doc->Vorlagen[absa].Drop;
+											DropCmode = Doc->docParagraphStyles[absa].Drop;
 										else
 											DropCmode = false;
 										if (DropCmode)
-											DropLines = Doc->Vorlagen[absa].DropLin;
+											DropLines = Doc->docParagraphStyles[absa].DropLin;
 										break;
 									}
 									else
 									{
-										CurX += Doc->Vorlagen[absa].Indent;
+										CurX += Doc->docParagraphStyles[absa].Indent;
 										break;
 									}
 								}
@@ -881,17 +881,17 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						else
 						{
 							if (chx != QChar(13))
-								DropCmode = Doc->Vorlagen[absa].Drop;
+								DropCmode = Doc->docParagraphStyles[absa].Drop;
 							else
 								DropCmode = false;
-							CurX += Doc->Vorlagen[absa].First;
-							CurX += Doc->Vorlagen[absa].Indent;
-							CurY += Doc->Vorlagen[absa].Avor;
+							CurX += Doc->docParagraphStyles[absa].First;
+							CurX += Doc->docParagraphStyles[absa].Indent;
+							CurY += Doc->docParagraphStyles[absa].gapBefore;
 							if (DropCmode)
-								DropLines = Doc->Vorlagen[absa].DropLin;
+								DropLines = Doc->docParagraphStyles[absa].DropLin;
 						}
 					}
-					if (((Doc->Vorlagen[absa].Ausri == 3) || (Doc->Vorlagen[absa].Ausri == 4)) && (LiList.count() == 0) && (hl->ch == " "))
+					if (((Doc->docParagraphStyles[absa].textAlignment == 3) || (Doc->docParagraphStyles[absa].textAlignment == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 					{
 						hl->cstyle |= 256;
 						continue;
@@ -900,36 +900,36 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						hl->cstyle &= 255;
 					if (LiList.count() == 0)
 					{
-						if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
+						if ((a > 0) && (itemText.at(a-1)->ch == QChar(13)))
 						{
-							CurX += Doc->Vorlagen[absa].First;
-							CurX += Doc->Vorlagen[absa].Indent;
-							CurY += Doc->Vorlagen[absa].Avor;
+							CurX += Doc->docParagraphStyles[absa].First;
+							CurX += Doc->docParagraphStyles[absa].Indent;
+							CurY += Doc->docParagraphStyles[absa].gapBefore;
 							if (chx != QChar(13))
-								DropCmode = Doc->Vorlagen[absa].Drop;
+								DropCmode = Doc->docParagraphStyles[absa].Drop;
 							else
 								DropCmode = false;
 							if (DropCmode)
 							{
-								DropLines = Doc->Vorlagen[absa].DropLin;
-								if (Doc->Vorlagen[hl->cab].BaseAdj)
+								DropLines = Doc->docParagraphStyles[absa].DropLin;
+								if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 									CurY += Doc->typographicSetttings.valueBaseGrid * (DropLines-1);
 								else
-									CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
+									CurY += Doc->docParagraphStyles[absa].LineSpa * (DropLines-1);
 							}
 						}
 					}
 					if (DropCmode)
 					{
-						if (Doc->Vorlagen[hl->cab].BaseAdj)
+						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
 							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
 							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
 						}
 						else
 						{
-							chsd = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
-							chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
+							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
 						}
 						hl->csize = chsd;
 					}
@@ -942,10 +942,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						chx2 = chx;
 					if (a < MaxText-1)
 					{
-						if (Ptext.at(a+1)->ch == QChar(29))
+						if (itemText.at(a+1)->ch == QChar(29))
 							chx3 = " ";
 						else
-							chx3 = Ptext.at(a+1)->ch;
+							chx3 = itemText.at(a+1)->ch;
 						wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
 					}
 					else
@@ -974,10 +974,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (StartOfCol)
 						{
 							CurY = asce+TExtra+lineCorr+1;
-							if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || (a == 0))
-								CurY += Doc->Vorlagen[hl->cab].Avor;
+							if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || (a == 0))
+							{
+								CurY += Doc->docParagraphStyles[hl->cab].gapBefore;
+								CurX += Doc->docParagraphStyles[hl->cab].First;
+								CurX += Doc->docParagraphStyles[hl->cab].Indent;
+							}
+							CurY = asce+TExtra+lineCorr+1;
 						}
-						if (Doc->Vorlagen[hl->cab].BaseAdj)
+						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
 							double by = Ypos;
 							if (OwnPage != -1)
@@ -998,10 +1003,23 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							{
 								fBorder = false;
 								if (StartOfCol)
+								{
+									if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || (a == 0))
+									{
+										CurX = ColBound.x();
+										CurX += Doc->docParagraphStyles[hl->cab].First;
+										CurX += Doc->docParagraphStyles[hl->cab].Indent;
+									}
+									else
+										CurX = ColBound.x();
 									CurY++;
+								}
 								else
-									CurY += Doc->Vorlagen[hl->cab].LineSpa;
-								if (Doc->Vorlagen[hl->cab].BaseAdj)
+								{
+									CurY += Doc->docParagraphStyles[hl->cab].LineSpa;
+									CurX = ColBound.x();
+								}
+								if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 								{
 									double by = Ypos;
 									if (OwnPage != -1)
@@ -1010,7 +1028,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
 									CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
 								}
-								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 								{
 									StartOfCol = true;
@@ -1023,28 +1040,28 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										CurX = ColBound.x();
 										ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 										CurY = asce+TExtra+lineCorr+1;
-										if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
+										if ((a > 0) && (itemText.at(a-1)->ch == QChar(13)))
 										{
 											if (chx != QChar(13))
-												DropCmode = Doc->Vorlagen[hl->cab].Drop;
+												DropCmode = Doc->docParagraphStyles[hl->cab].Drop;
 											else
 												DropCmode = false;
-											CurX += Doc->Vorlagen[hl->cab].First;
-											CurX += Doc->Vorlagen[hl->cab].Indent;
+											CurX += Doc->docParagraphStyles[hl->cab].First;
+											CurX += Doc->docParagraphStyles[hl->cab].Indent;
 											if (DropCmode)
 											{
-												if (Doc->Vorlagen[hl->cab].BaseAdj)
-													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->typographicSetttings.valueBaseGrid * Doc->Vorlagen[hl->cab].DropLin;
+												if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->typographicSetttings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
 												else
-													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin;
+													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin;
 											}
-											CurY += Doc->Vorlagen[hl->cab].Avor;
+											CurY += Doc->docParagraphStyles[hl->cab].gapBefore;
 											if (DropCmode)
-												DropLines = Doc->Vorlagen[hl->cab].DropLin;
+												DropLines = Doc->docParagraphStyles[hl->cab].DropLin;
 										}
 										else
-											CurX += Doc->Vorlagen[hl->cab].Indent;
-										if (Doc->Vorlagen[hl->cab].BaseAdj)
+											CurX += Doc->docParagraphStyles[hl->cab].Indent;
+										if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 										{
 											double by = Ypos;
 											if (OwnPage != -1)
@@ -1090,7 +1107,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							if (hl->cab < 5)
 								tTabValues = TabValues;
 							else
-								tTabValues = Doc->Vorlagen[hl->cab].TabValues;
+								tTabValues = Doc->docParagraphStyles[hl->cab].TabValues;
 							if (tTabValues.isEmpty())
 							{
 								if ((CurX - ColBound.x()) != 0)
@@ -1140,8 +1157,19 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						hl->xp = CurX;
 					if ((TabCode == 4) && (RTab))
 						CurX += (wide+kernVal) / 2;
-					pt1 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(CurY+desc));
-					pt2 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(ceil(CurY-asce)));
+					if ((hl->cstyle & 128) || (hl->ch == "-"))
+					{
+						if ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0))
+						{
+							pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize))), qRound(CurY+desc));
+							pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize))), qRound(ceil(CurY-asce)));
+						}
+					}
+					else
+					{
+						pt1 = QPoint(qRound(ceil(CurX+RExtra)), qRound(CurY+desc));
+						pt2 = QPoint(qRound(ceil(CurX+RExtra)), qRound(ceil(CurY-asce)));
+					}
 					if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
 						outs = true;
 					if (CurY > (Height - BExtra - lineCorr))
@@ -1168,7 +1196,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					{
 						if (a > 0)
 						{
-							if (Ptext.at(a-1)->ch !=  " ")   // || ((Doc->AppMode == 7) && (Ptext.at(QMAX(CPos-1,0))->yp == hl->yp) && (Select)))
+							if (itemText.at(a-1)->ch !=  " ")
 							{
 							LastXp = hl->xp;
 							LastSP = BuPos;
@@ -1201,8 +1229,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 						{
 								LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
-								Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
-								if (Ptext.at(StartRT2+rtx2)->xp < RTabX)
+								itemText.at(StartRT2+rtx2)->xp = QMAX(itemText.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
+								if (itemText.at(StartRT2+rtx2)->xp < RTabX)
 								{
 									RTab = false;
 									TabCode = 0;
@@ -1219,7 +1247,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						maxDX = CurX;
 						QPointArray tcli;
 						tcli.resize(4);
-						if (Doc->Vorlagen[hl->cab].BaseAdj)
+						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
 							CurY -= Doc->typographicSetttings.valueBaseGrid * (DropLines-1);
 							double by = Ypos;
@@ -1233,9 +1261,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 						else
 						{
-							CurY -= Doc->Vorlagen[absa].LineSpa * (DropLines-1);
-							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
-							tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
+							CurY -= Doc->docParagraphStyles[absa].LineSpa * (DropLines-1);
+							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->docParagraphStyles[absa].LineSpa)));
+							tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->docParagraphStyles[absa].LineSpa)));
 						}
 						tcli.setPoint(2, QPoint(qRound(hl->xp+wide), qRound(maxDY)));
 						tcli.setPoint(3, QPoint(qRound(hl->xp), qRound(maxDY)));
@@ -1252,25 +1280,25 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							{
 								a -= BuPos - LastSP;
 								a++;
-								if (Ptext.at(a)->cstyle & 128)
+								if (itemText.at(a)->cstyle & 128)
 								{
 									HyphenCount++;
-									Ptext.at(a)->cstyle |= 512;
+									itemText.at(a)->cstyle |= 512;
 									Zli = new ZZ;
 									Zli->Zeich = "-";
-									Zli->Farb = Ptext.at(a)->ccolor;
-									Zli->Farb2 = Ptext.at(a)->cstroke;
-									Zli->shade = Ptext.at(a)->cshade;
-									Zli->shade2 = Ptext.at(a)->cshade2;
-									Zli->xco = LastXp - Cwidth(Doc, Ptext.at(a)->cfont, "-", Ptext.at(a)->csize);
-									Zli->yco = Ptext.at(a)->yp;
-									Zli->Sele = Ptext.at(a)->cselect;
-									Zli->Siz = Ptext.at(a)->csize;
-									Zli->Style = Ptext.at(a)->cstyle;
-									Zli->ZFo = Ptext.at(a)->cfont;
-									Zli->wide = Cwidth(Doc, Ptext.at(a)->cfont, "-", Ptext.at(a)->csize);
-									Zli->kern = Ptext.at(a)->cextra;
-									Zli->scale = Ptext.at(a)->cscale;
+									Zli->Farb = itemText.at(a)->ccolor;
+									Zli->Farb2 = itemText.at(a)->cstroke;
+									Zli->shade = itemText.at(a)->cshade;
+									Zli->shade2 = itemText.at(a)->cshade2;
+									Zli->xco = LastXp - Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize);
+									Zli->yco = itemText.at(a)->yp;
+									Zli->Sele = itemText.at(a)->cselect;
+									Zli->Siz = itemText.at(a)->csize;
+									Zli->Style = itemText.at(a)->cstyle;
+									Zli->ZFo = itemText.at(a)->cfont;
+									Zli->wide = Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize);
+									Zli->kern = itemText.at(a)->cextra;
+									Zli->scale = itemText.at(a)->cscale;
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 								}
@@ -1280,7 +1308,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									hl->cstyle &= 511;
 								}
 								BuPos = LastSP+1;
-								if (Doc->Vorlagen[absa].Ausri != 0)
+								if (Doc->docParagraphStyles[absa].textAlignment != 0)
 								{
 									EndX = LastXp;
 									do
@@ -1290,11 +1318,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										EndX++;
 									}
 									while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
-									if (Doc->Vorlagen[absa].Ausri == 2)
+									if (Doc->docParagraphStyles[absa].textAlignment == 2)
 										OFs = EndX - LastXp;
-									if (Doc->Vorlagen[absa].Ausri == 1)
+									if (Doc->docParagraphStyles[absa].textAlignment == 1)
 										OFs = (EndX - LastXp) / 2;
-									if ((Doc->Vorlagen[absa].Ausri == 3) || (Doc->Vorlagen[absa].Ausri == 4))
+									if ((Doc->docParagraphStyles[absa].textAlignment == 3) || (Doc->docParagraphStyles[absa].textAlignment == 4))
 									{
 										aSpa = 0;
 										for (uint sof = 0; sof<BuPos-1; ++sof)
@@ -1336,7 +1364,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 						else
 						{
-							if (Doc->Vorlagen[absa].Ausri != 0)
+							if (Doc->docParagraphStyles[absa].textAlignment != 0)
 							{
 								EndX = CurX;
 								do
@@ -1346,13 +1374,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									EndX++;
 								}
 								while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
-								if (Doc->Vorlagen[absa].Ausri == 2)
+								if (Doc->docParagraphStyles[absa].textAlignment == 2)
 									OFs = EndX - CurX;
-								if (Doc->Vorlagen[absa].Ausri == 1)
+								if (Doc->docParagraphStyles[absa].textAlignment == 1)
 									OFs = (EndX - CurX) / 2;
-								if (Doc->Vorlagen[absa].Ausri == 3)
+								if (Doc->docParagraphStyles[absa].textAlignment == 3)
 									OFs = 0;
-								if (Doc->Vorlagen[absa].Ausri == 4)
+								if (Doc->docParagraphStyles[absa].textAlignment == 4)
 								{
 									aSpa = 0;
 									for (uint sof = 0; sof<LiList.count(); ++sof)
@@ -1402,7 +1430,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									if (CurX+RExtra+lineCorr > ColBound.y())
 									{
 										fromOut = false;
-										CurY += Doc->Vorlagen[hl->cab].LineSpa;
+										CurY += Doc->docParagraphStyles[hl->cab].LineSpa;
 										if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 										{
 											goNoRoom = true;
@@ -1421,10 +1449,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										else
 											CurX = ColBound.x();
 										if (hl->ch != QChar(13))
-											CurX += Doc->Vorlagen[hl->cab].Indent;
+											CurX += Doc->docParagraphStyles[hl->cab].Indent;
 										else
 										{
-											CurY += Doc->Vorlagen[hl->cab].Anach;
+											CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
 											if (BuPos3 > 0)
 												BuPos3 -= 1;
 										}
@@ -1444,7 +1472,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									if (CurY < maxDY)
 										CurY = maxDY;
 								}
-								CurY += Doc->Vorlagen[hl->cab].LineSpa;
+								CurY += Doc->docParagraphStyles[hl->cab].LineSpa;
 								if (AbsHasDrop)
 								{
 									if (CurY > maxDY)
@@ -1458,10 +1486,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								else
 									CurX = ColBound.x();
 								if (hl->ch != QChar(13))
-									CurX += Doc->Vorlagen[hl->cab].Indent;
+									CurX += Doc->docParagraphStyles[hl->cab].Indent;
 								else
 								{
-									CurY += Doc->Vorlagen[hl->cab].Anach;
+									CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
 									if (BuPos3 > 0)
 										BuPos3 -= 1;
 								}
@@ -1476,14 +1504,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							double wide2 = 0;
 							Zli2 = LiList.at(zc);
 							double xcoZli = Zli2->xco;
-							Ptext.at(startLin+zc)->xp = Zli2->xco;
-							Ptext.at(startLin+zc)->yp = Zli2->yco;
+							itemText.at(startLin+zc)->xp = Zli2->xco;
+							itemText.at(startLin+zc)->yp = Zli2->yco;
 							if (Zli2->Farb != "None")
 							{
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
 							}
-							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
+							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 							{
 								wide = Zli2->wide;
 								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
@@ -1525,7 +1553,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					}
 				}
-				if (Doc->Vorlagen[absa].Ausri != 0)
+				if (Doc->docParagraphStyles[absa].textAlignment != 0)
 				{
 					EndX = CurX;
 					do
@@ -1535,13 +1563,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						EndX++;
 					}
 					while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
-					if (Doc->Vorlagen[absa].Ausri == 2)
+					if (Doc->docParagraphStyles[absa].textAlignment == 2)
 						OFs = EndX - CurX;
-					if (Doc->Vorlagen[absa].Ausri == 1)
+					if (Doc->docParagraphStyles[absa].textAlignment == 1)
 						OFs = (EndX - CurX) / 2;
-					if (Doc->Vorlagen[absa].Ausri == 3)
+					if (Doc->docParagraphStyles[absa].textAlignment == 3)
 						OFs = 0;
-					if (Doc->Vorlagen[absa].Ausri == 4)
+					if (Doc->docParagraphStyles[absa].textAlignment == 4)
 					{
 						aSpa = 0;
 						for (uint sof = 0; sof<LiList.count(); ++sof)
@@ -1574,14 +1602,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					double wide2 = 0;
 					Zli2 = LiList.at(zc);
 					double xcoZli = Zli2->xco;
-					Ptext.at(startLin+zc)->xp = Zli2->xco;
-					Ptext.at(startLin+zc)->yp = Zli2->yco;
+					itemText.at(startLin+zc)->xp = Zli2->xco;
+					itemText.at(startLin+zc)->yp = Zli2->yco;
 					if (Zli2->Farb != "None")
 					{
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
 					}
-					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
+					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 					{
 						wide = Zli2->wide;
 						desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
@@ -1615,7 +1643,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				LastSP = 0;
 				outs = false;
 			}
-			MaxChars = Ptext.count();
+			MaxChars = itemText.count();
 			Redrawn = true;
 			pf2.end();
 			p->restore();
@@ -1623,20 +1651,20 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 NoRoom: pf2.end();
 				if (NextBox != 0)
 				{
-					nrc2 = Ptext.count();
+					nrc2 = itemText.count();
 					for (uint ss=nrc; ss<nrc2; ++ss)
 					{
-						NextBox->Ptext.append(Ptext.take(nrc));
+						NextBox->itemText.append(itemText.take(nrc));
 					}
 					if (uint(CPos) > nrc)
 					{
 						int nCP = CPos - nrc;
 						CPos = nrc;
-						if ((Doc->AppMode == 7) && (Tinput))
+						if ((Doc->appMode == EditMode) && (Tinput))
 						{
 //							OwnPage->Deselect(true);
 							NextBox->CPos = QMAX(nCP, 1);
-//							Doc->ActPage = NextBox->OwnPage;
+//							Doc->currentPage = NextBox->OwnPage;
 //							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 							break;
 						}
@@ -1683,8 +1711,8 @@ NoRoom: pf2.end();
 				doStroke = false;
 			cl = FlattenPath(PoLine, Segments);
 			CurX = Extra;
-			if (Ptext.count() != 0)
-				CurX += Ptext.at(0)->cextra;
+			if (itemText.count() != 0)
+				CurX += itemText.at(0)->cextra;
 			zae = 0;
 			wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 			while (wid < 1)
@@ -1692,16 +1720,16 @@ NoRoom: pf2.end();
 				zae++;
 				if (zae > cl.size()-2)
 				{
-					MaxChars = Ptext.count();
+					MaxChars = itemText.count();
 					break;
 				}
 				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0) + pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 			}
 			rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
-			for (a = 0; a < Ptext.count(); ++a)
+			for (a = 0; a < itemText.count(); ++a)
 			{
 				CurY = 0;
-				hl = Ptext.at(a);
+				hl = itemText.at(a);
 				chx = hl->ch;
 				if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
 					continue;
@@ -1711,12 +1739,12 @@ NoRoom: pf2.end();
 					chx2 = " ";
 				else
 					chx2 = chx;
-				if (a < Ptext.count()-1)
+				if (a < itemText.count()-1)
 				{
-					if (Ptext.at(a+1)->ch == QChar(29))
+					if (itemText.at(a+1)->ch == QChar(29))
 						chx3 = " ";
 					else
-						chx3 = Ptext.at(a+1)->ch;
+						chx3 = itemText.at(a+1)->ch;
 					wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
 				}
 				else
@@ -2005,13 +2033,13 @@ QString PageItem::ExpandToken(uint base)
 				break;
 			za2--;
 		}
-		while (Ptext.at(za2)->ch == QChar(30));
-		if (Ptext.at(za2)->ch != QChar(30))
+		while (itemText.at(za2)->ch == QChar(30));
+		if (itemText.at(za2)->ch != QChar(30))
 			za2++;
-		while (Ptext.at(za2+zae)->ch == QChar(30))
+		while (itemText.at(za2+zae)->ch == QChar(30))
 		{
 			zae++;
-			if (za2+zae == Ptext.count())
+			if (za2+zae == itemText.count())
 				break;
 		}
 		QString out="%1";
@@ -2040,7 +2068,7 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 	}
 }
 
-double PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
+double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 {
 	double retval = 0.0;
 	double asce = (*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0);

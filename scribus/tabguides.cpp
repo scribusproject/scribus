@@ -13,7 +13,7 @@
 #include "mspinbox.h"
 #include "scribusstructs.h"
 
-TabGuides::TabGuides( QWidget* parent, struct guidesStruct *prefsData, double unitBase, QString unit) : QWidget( parent, "tabguide", 0 )
+TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, double unitBase, QString unit) : QWidget( parent, "tabguide", 0 )
 {
 	tabGuidesLayout = new QVBoxLayout( this, 10, 5, "tabViewLayout");
 	checkGrid = new QGroupBox( this, "checkGrid" );

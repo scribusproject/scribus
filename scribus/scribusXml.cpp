@@ -40,7 +40,7 @@ extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
 extern QString Path2Relative(QString Path);
-extern void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
+extern void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
 extern QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
 
 /*!
@@ -98,7 +98,7 @@ QString ScriXmlDoc::ReadDatei(QString fileName)
 /** end changes */
 }
 
-QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo)
+QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo)
 {
 	QString tmp2, tmf, tmpf, tmp3, tmp;
 	tmp = "";
@@ -142,7 +142,7 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, b
 	return tmp;
 }
 
-QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, preV *Prefs, ScribusDoc *doc)
+QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *Prefs, ScribusDoc *doc)
 {
 	QFont fo;
 	QString tmpf = fStr;
@@ -394,7 +394,7 @@ bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct singleLine sl;
+					struct SingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = QStoInt(MuL.attribute("Dash"));
 					sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
@@ -421,7 +421,7 @@ bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 	return true;
 }
 
-void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL> &Vorlagen, ScribusDoc* doc, preV *Prefs, bool fl)
+void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, ApplicationPrefs *Prefs, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -431,9 +431,9 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL>
 	vg->LineSpa = QStodouble(pg->attribute("LINESP"));
 	vg->Indent = QStodouble(pg->attribute("INDENT","0"));
 	vg->First = QStodouble(pg->attribute("FIRST","0"));
-	vg->Ausri = QStoInt(pg->attribute("ALIGN"));
-	vg->Avor = QStodouble(pg->attribute("VOR","0"));
-	vg->Anach = QStodouble(pg->attribute("NACH","0"));
+	vg->textAlignment = QStoInt(pg->attribute("ALIGN"));
+	vg->gapBefore = QStodouble(pg->attribute("VOR","0"));
+	vg->gapAfter = QStodouble(pg->attribute("NACH","0"));
 	tmpf = pg->attribute("FONT", doc->Dfont);
 	if (tmpf == "")
 		tmpf = doc->Dfont;
@@ -466,27 +466,27 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL>
 	}
 	else
 		vg->TabValues.clear();
-	for (uint xx=0; xx<Vorlagen.count(); ++xx)
+	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
-		if (vg->Vname == Vorlagen[xx].Vname)
+		if (vg->Vname == docParagraphStyles[xx].Vname)
 		{
-			if ((vg->LineSpa == Vorlagen[xx].LineSpa) &&
-					(vg->Indent == Vorlagen[xx].Indent) &&
-					(vg->First == Vorlagen[xx].First) &&
-					(vg->Ausri == Vorlagen[xx].Ausri) &&
-					(vg->Avor == Vorlagen[xx].Avor) &&
-					(vg->Anach == Vorlagen[xx].Anach) &&
-					(vg->Font == Vorlagen[xx].Font) &&
-					(vg->TabValues == Vorlagen[xx].TabValues) &&
-					(vg->Drop == Vorlagen[xx].Drop) &&
-					(vg->DropLin == Vorlagen[xx].DropLin) &&
-					(vg->FontEffect == Vorlagen[xx].FontEffect) &&
-					(vg->FColor == Vorlagen[xx].FColor) &&
-					(vg->FShade == Vorlagen[xx].FShade) &&
-					(vg->SColor == Vorlagen[xx].SColor) &&
-					(vg->SShade == Vorlagen[xx].SShade) &&
-					(vg->BaseAdj == Vorlagen[xx].BaseAdj) &&
-					(vg->FontSize == Vorlagen[xx].FontSize))
+			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
+					(vg->Indent == docParagraphStyles[xx].Indent) &&
+					(vg->First == docParagraphStyles[xx].First) &&
+					(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
+					(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
+					(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
+					(vg->Font == docParagraphStyles[xx].Font) &&
+					(vg->TabValues == docParagraphStyles[xx].TabValues) &&
+					(vg->Drop == docParagraphStyles[xx].Drop) &&
+					(vg->DropLin == docParagraphStyles[xx].DropLin) &&
+					(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
+					(vg->FColor == docParagraphStyles[xx].FColor) &&
+					(vg->FShade == docParagraphStyles[xx].FShade) &&
+					(vg->SColor == docParagraphStyles[xx].SColor) &&
+					(vg->SShade == docParagraphStyles[xx].SShade) &&
+					(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
+					(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
 				if (fl)
 				{
@@ -497,7 +497,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL>
 			}
 			else
 			{
-				vg->Vname = "Copy of "+Vorlagen[xx].Vname;
+				vg->Vname = "Copy of "+docParagraphStyles[xx].Vname;
 				fou = false;
 			}
 			break;
@@ -505,27 +505,27 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL>
 	}
 	if (!fou)
 	{
-		for (uint xx=0; xx< Vorlagen.count(); ++xx)
+		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
-			if ((vg->LineSpa == Vorlagen[xx].LineSpa) &&
-				(vg->Indent == Vorlagen[xx].Indent) &&
-				(vg->First == Vorlagen[xx].First) &&
-				(vg->Ausri == Vorlagen[xx].Ausri) &&
-				(vg->Avor == Vorlagen[xx].Avor) &&
-				(vg->Anach == Vorlagen[xx].Anach) &&
-				(vg->Font == Vorlagen[xx].Font) &&
-				(vg->TabValues == Vorlagen[xx].TabValues) &&
-				(vg->Drop == Vorlagen[xx].Drop) &&
-				(vg->DropLin == Vorlagen[xx].DropLin) &&
-				(vg->FontEffect == Vorlagen[xx].FontEffect) &&
-				(vg->FColor == Vorlagen[xx].FColor) &&
-				(vg->FShade == Vorlagen[xx].FShade) &&
-				(vg->SColor == Vorlagen[xx].SColor) &&
-				(vg->SShade == Vorlagen[xx].SShade) &&
-				(vg->BaseAdj == Vorlagen[xx].BaseAdj) &&
-				(vg->FontSize == Vorlagen[xx].FontSize))
+			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
+				(vg->Indent == docParagraphStyles[xx].Indent) &&
+				(vg->First == docParagraphStyles[xx].First) &&
+				(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
+				(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
+				(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
+				(vg->Font == docParagraphStyles[xx].Font) &&
+				(vg->TabValues == docParagraphStyles[xx].TabValues) &&
+				(vg->Drop == docParagraphStyles[xx].Drop) &&
+				(vg->DropLin == docParagraphStyles[xx].DropLin) &&
+				(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
+				(vg->FColor == docParagraphStyles[xx].FColor) &&
+				(vg->FShade == docParagraphStyles[xx].FShade) &&
+				(vg->SColor == docParagraphStyles[xx].SColor) &&
+				(vg->SShade == docParagraphStyles[xx].SShade) &&
+				(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
+				(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
-				vg->Vname = Vorlagen[xx].Vname;
+				vg->Vname = docParagraphStyles[xx].Vname;
 				fou = true;
 				if (fl)
 				{
@@ -538,19 +538,19 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL>
 	}
 	if (!fou)
 	{
-		Vorlagen.append(*vg);
+		docParagraphStyles.append(*vg);
 		if (fl)
 		{
-			DoVorl[VorlC] = tmV.setNum(Vorlagen.count()-1);
+			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
 			VorlC++;
 		}
 	}
 	
 }
 
-bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
+bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, ApplicationPrefs *Prefs)
 {
-	struct StVorL vg;
+	struct ParagraphStyle vg;
 	QDomDocument docu("scridoc");
 	QString f = "";
 	QString tmpf, tmf;
@@ -572,7 +572,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 		{
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="STYLE")
-				GetStyle(&pg, &vg, Vorlagen, doc, Prefs, false);
+				GetStyle(&pg, &vg, docParagraphStyles, doc, Prefs, false);
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();
@@ -666,8 +666,8 @@ bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 
 bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage)
 {
-	struct CLBuf OB;
-	struct StVorL vg;
+	struct CopyPasteBuffer OB;
+	struct ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	struct Linked Link;
@@ -725,7 +725,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			}
 			if(pg.tagName()=="STYLE")
 			{
-				GetStyle(&pg, &vg, doc->Vorlagen, doc, view->Prefs, true);
+				GetStyle(&pg, &vg, doc->docParagraphStyles, doc, view->Prefs, true);
 				VorLFound = true;
 			}
 			if(pg.tagName()=="JAVA")
@@ -735,8 +735,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.LNr = QStoInt(pg.attribute("NUMMER"));
 				la.Level = QStoInt(pg.attribute("LEVEL"));
 				la.Name = pg.attribute("NAME");
-				la.Sichtbar = QStoInt(pg.attribute("SICHTBAR"));
-				la.Drucken = QStoInt(pg.attribute("DRUCKEN"));
+				la.isViewable = QStoInt(pg.attribute("SICHTBAR"));
+				la.isPrintable = QStoInt(pg.attribute("DRUCKEN"));
 				bool laex = false;
 				for (uint la2 = 0; la2 < doc->Layers.count(); ++la2)
 				{
@@ -768,7 +768,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct singleLine sl;
+					struct SingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = QStoInt(MuL.attribute("Dash"));
 					sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
@@ -790,7 +790,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			}
 			if ((pg.tagName()=="PAGE") && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 			{
-				a = doc->ActPage->PageNr;
+				a = doc->currentPage->PageNr;
 				if ((pg.attribute("NAM", "") == "") && (Mpage))
 				{
 					PAGE=PAGE.nextSibling();
@@ -865,7 +865,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					if ((OB.isBookmark) && (doc->BookMarks.count() == 0))
 						doc->OldBM = true;
 					OB.BMnr = QStoInt(obj.attribute("BookNr","0"));
-					OB.Ausrich = DoVorl[QStoInt(obj.attribute("ALIGN","0"))].toUInt();
+					OB.textAlignment = DoVorl[QStoInt(obj.attribute("ALIGN","0"))].toUInt();
 					tmpf = obj.attribute("IFONT", doc->Dfont);
 					if (tmpf == "")
 						tmpf = doc->Dfont;
@@ -908,7 +908,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						tmp += GetItemText(&it, doc, view->Prefs, VorLFound, true);
 					IT=IT.nextSibling();
 					}
-					OB.Ptext = tmp;
+					OB.itemText = tmp;
 					if ((OB.PType == 5) && (OB.Height != 0))
 					{
 						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/3.1415927);
@@ -994,8 +994,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 
 bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
 {
-	struct CLBuf OB;
-	struct StVorL vg;
+	struct CopyPasteBuffer OB;
+	struct ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	int counter, Pgc;
@@ -1049,7 +1049,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
-		doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
+		doc->docUnitIndex = QStoInt(dc.attribute("UNITS","0"));
 		doc->guidesSettings.gridShown = view->Prefs->guidesSettings.gridShown;
 		doc->guidesSettings.guidesShown = view->Prefs->guidesSettings.guidesShown;
 		doc->guidesSettings.framesShown = view->Prefs->guidesSettings.framesShown;
@@ -1147,9 +1147,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.LineSpa = QStodouble(pg.attribute("LINESP"));
 				vg.Indent = QStodouble(pg.attribute("INDENT","0"));
 				vg.First = QStodouble(pg.attribute("FIRST","0"));
-				vg.Ausri = QStoInt(pg.attribute("ALIGN"));
-				vg.Avor = QStodouble(pg.attribute("VOR","0"));
-				vg.Anach = QStodouble(pg.attribute("NACH","0"));
+				vg.textAlignment = QStoInt(pg.attribute("ALIGN"));
+				vg.gapBefore = QStodouble(pg.attribute("VOR","0"));
+				vg.gapAfter = QStodouble(pg.attribute("NACH","0"));
 				tmpf = pg.attribute("FONT", doc->Dfont);
 				if (tmpf == "")
 					tmpf = doc->Dfont;
@@ -1182,7 +1182,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				else
 					vg.TabValues.clear();
-				doc->Vorlagen.append(vg);
+				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")
 				doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -1191,8 +1191,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				la.LNr = QStoInt(pg.attribute("NUMMER"));
 				la.Level = QStoInt(pg.attribute("LEVEL"));
 				la.Name = pg.attribute("NAME");
-				la.Sichtbar = QStoInt(pg.attribute("SICHTBAR"));
-				la.Drucken = QStoInt(pg.attribute("DRUCKEN"));
+				la.isViewable = QStoInt(pg.attribute("SICHTBAR"));
+				la.isPrintable = QStoInt(pg.attribute("DRUCKEN"));
 				doc->Layers.append(la);
 			}
 			if(pg.tagName()=="Bookmark")
@@ -1217,7 +1217,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct singleLine sl;
+					struct SingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = QStoInt(MuL.attribute("Dash"));
 					sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
@@ -1319,7 +1319,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					if ((OB.isBookmark) && (doc->BookMarks.count() == 0))
 						doc->OldBM = true;
 					OB.BMnr = QStoInt(obj.attribute("BookNr","0"));
-					OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
+					OB.textAlignment = QStoInt(obj.attribute("ALIGN","0"));
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
 					tmpf = obj.attribute("IFONT", doc->Dfont);
@@ -1364,7 +1364,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							tmp += GetItemText(&it, doc, view->Prefs, false, false);
 						IT=IT.nextSibling();
 					}
-					OB.Ptext = tmp;
+					OB.itemText = tmp;
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					if ((OB.PType == 5) && (OB.Height != 0))
@@ -1489,7 +1489,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					QDomElement pdfF = PFO.toElement();
 					if(pdfF.tagName() == "LPI")
 					{
-						struct LPIset lpo;
+						struct LPIData lpo;
 						lpo.Angle = QStoInt(pdfF.attribute("Angle"));
 						lpo.Frequency = QStoInt(pdfF.attribute("Frequency"));
 						lpo.SpotFunc = QStoInt(pdfF.attribute("SpotFunction"));
@@ -1507,10 +1507,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
-    					struct PreSet ef;
-    					ef.EffektLen = QStoInt(pdfF.attribute("EffektLen"));
-    					ef.AnzeigeLen = QStoInt(pdfF.attribute("AnzeigeLen"));
-    					ef.Effekt = QStoInt(pdfF.attribute("Effekt"));
+    					struct PDFPresentationData ef;
+    					ef.pageEffectDuration = QStoInt(pdfF.attribute("pageEffectDuration"));
+    					ef.pageViewDuration = QStoInt(pdfF.attribute("pageViewDuration"));
+    					ef.effectType = QStoInt(pdfF.attribute("effectType"));
     					ef.Dm = QStoInt(pdfF.attribute("Dm"));
     					ef.M = QStoInt(pdfF.attribute("M"));
 		    			ef.Di = QStoInt(pdfF.attribute("Di"));
@@ -1533,8 +1533,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		la.LNr = 0;
 		la.Level = 0;
 		la.Name = tr("Background");
-		la.Sichtbar = true;
-		la.Drucken = true;
+		la.isViewable = true;
+		la.isPrintable = true;
 		doc->Layers.append(la);
 	}
 	if (LFrames.count() != 0)
@@ -1573,7 +1573,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			Its->NextBox = 0;
 		}
 	}
-	view->UN->setText(doc->Einheit == 0 ? "pt" : "mm");
+	view->UN->setText(doc->docUnitIndex == 0 ? "pt" : "mm");
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }
@@ -1614,10 +1614,10 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	return true;
 }
 
-bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, preV *Prefs, ScribusView *view)
+bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ApplicationPrefs *Prefs, ScribusView *view)
 {
-	struct CLBuf OB;
-	struct StVorL vg;
+	struct CopyPasteBuffer OB;
+	struct ParagraphStyle vg;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV, tmf;
 	QFont fo;
 	QMap<QString,QString> DoMul;
@@ -1691,7 +1691,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		{
 			if (QStoInt(pg.attribute("Index")) > startNumArrows)
 			{
-				struct arrowDesc arrow;
+				struct ArrowDesc arrow;
 				double xa, ya;
 				arrow.name = pg.attribute("Name");
 				arrow.userArrow = true;
@@ -1748,7 +1748,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			while(!MuLn.isNull())
 			{
 				QDomElement MuL = MuLn.toElement();
-				struct singleLine sl;
+				struct SingleLine sl;
 				sl.Color = MuL.attribute("Color");
 				sl.Dash = QStoInt(MuL.attribute("Dash"));
 				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
@@ -1763,7 +1763,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		}
 		if(pg.tagName()=="STYLE")
 		{
-			GetStyle(&pg, &vg, doc->Vorlagen, doc, Prefs, true);
+			GetStyle(&pg, &vg, doc->docParagraphStyles, doc, Prefs, true);
 			VorLFound = true;
 		}
 		DOC=DOC.nextSibling();
@@ -1784,7 +1784,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				OB.NamedLStyle = "";
 			OB.isBookmark = false;
 			OB.BMnr = 0;
-			OB.Ausrich = DoVorl[QStoInt(pg.attribute("ALIGN","0"))].toUInt();
+			OB.textAlignment = DoVorl[QStoInt(pg.attribute("ALIGN","0"))].toUInt();
 			tmf = pg.attribute("IFONT", doc->Dfont);
 			if (tmf == "")
 				tmf = doc->Dfont;
@@ -1827,7 +1827,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					tmp += GetItemText(&it, doc, Prefs, VorLFound, true);
 				IT=IT.nextSibling();
 			}
-			OB.Ptext = tmp;
+			OB.itemText = tmp;
 			if ((OB.PType == 5) && (OB.Height != 0))
 			{
 				OB.Rot += atan2(OB.Height,OB.Width)*(180.0/3.1415927);
@@ -1892,15 +1892,15 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	qHeapSort(ELL);
 	if (view->GroupSel)
 	{
-		elem.setAttribute("XP", view->GroupX - doc->ActPage->Xoffset);
-		elem.setAttribute("YP", view->GroupY - doc->ActPage->Yoffset);
+		elem.setAttribute("XP", view->GroupX - doc->currentPage->Xoffset);
+		elem.setAttribute("YP", view->GroupY - doc->currentPage->Yoffset);
 		elem.setAttribute("W", view->GroupW);
 		elem.setAttribute("H", view->GroupH);
 	}
 	else
 	{
-		elem.setAttribute("XP", item->Xpos - doc->ActPage->Xoffset);
-		elem.setAttribute("YP", item->Ypos - doc->ActPage->Yoffset);
+		elem.setAttribute("XP", item->Xpos - doc->currentPage->Xoffset);
+		elem.setAttribute("YP", item->Ypos - doc->currentPage->Yoffset);
 		elem.setAttribute("W", item->Width);
 		elem.setAttribute("H", item->Height);
 	}
@@ -1913,7 +1913,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		fn.setAttribute("NAME",itf.key());
 		elem.appendChild(fn);
 	}
-	CListe::Iterator itc;
+	ColorList::Iterator itc;
 	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 	{
 		QDomElement co=docu.createElement("COLOR");
@@ -1922,64 +1922,64 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		co.setAttribute("CMYK",doc->PageColors[itc.key()].name());
 		elem.appendChild(co);
 	}
-	QMap<int, StVorL> UsedStyles;
+	QMap<int, ParagraphStyle> UsedStyles;
 	QMap<int, int> UsedMapped2Saved;
 	int NewStylesNum = 5;
 	UsedStyles.clear();
 	UsedMapped2Saved.clear();
-	struct StVorL vg;
-	if (doc->Vorlagen.count() > 5)
+	struct ParagraphStyle vg;
+	if (doc->docParagraphStyles.count() > 5)
 	{
 		for (uint co=0; co<Selitems->count(); ++co)
 		{
 			item = doc->Items.at(ELL[co]);
-			if (item->Ausrich > 4)
+			if (item->textAlignment > 4)
 			{
-				vg.Vname = doc->Vorlagen[item->Ausrich].Vname;
-				vg.LineSpa = doc->Vorlagen[item->Ausrich].LineSpa;
-				vg.Ausri = doc->Vorlagen[item->Ausrich].Ausri;
-				vg.Indent = doc->Vorlagen[item->Ausrich].Indent;
-				vg.First = doc->Vorlagen[item->Ausrich].First;
-				vg.Avor = doc->Vorlagen[item->Ausrich].Avor;
-				vg.Anach = doc->Vorlagen[item->Ausrich].Anach;
-				vg.Font = doc->Vorlagen[item->Ausrich].Font;
-				vg.FontSize = doc->Vorlagen[item->Ausrich].FontSize;
-				vg.TabValues = doc->Vorlagen[item->Ausrich].TabValues;
-				vg.Drop = doc->Vorlagen[item->Ausrich].Drop;
-				vg.DropLin = doc->Vorlagen[item->Ausrich].DropLin;
-				vg.FontEffect = doc->Vorlagen[item->Ausrich].FontEffect;
-				vg.FColor = doc->Vorlagen[item->Ausrich].FColor;
-				vg.FShade = doc->Vorlagen[item->Ausrich].FShade;
-				vg.SColor = doc->Vorlagen[item->Ausrich].SColor;
-				vg.SShade = doc->Vorlagen[item->Ausrich].SShade;
-				vg.BaseAdj = doc->Vorlagen[item->Ausrich].BaseAdj;
-				UsedStyles[item->Ausrich] = vg;
+				vg.Vname = doc->docParagraphStyles[item->textAlignment].Vname;
+				vg.LineSpa = doc->docParagraphStyles[item->textAlignment].LineSpa;
+				vg.textAlignment = doc->docParagraphStyles[item->textAlignment].textAlignment;
+				vg.Indent = doc->docParagraphStyles[item->textAlignment].Indent;
+				vg.First = doc->docParagraphStyles[item->textAlignment].First;
+				vg.gapBefore = doc->docParagraphStyles[item->textAlignment].gapBefore;
+				vg.gapAfter = doc->docParagraphStyles[item->textAlignment].gapAfter;
+				vg.Font = doc->docParagraphStyles[item->textAlignment].Font;
+				vg.FontSize = doc->docParagraphStyles[item->textAlignment].FontSize;
+				vg.TabValues = doc->docParagraphStyles[item->textAlignment].TabValues;
+				vg.Drop = doc->docParagraphStyles[item->textAlignment].Drop;
+				vg.DropLin = doc->docParagraphStyles[item->textAlignment].DropLin;
+				vg.FontEffect = doc->docParagraphStyles[item->textAlignment].FontEffect;
+				vg.FColor = doc->docParagraphStyles[item->textAlignment].FColor;
+				vg.FShade = doc->docParagraphStyles[item->textAlignment].FShade;
+				vg.SColor = doc->docParagraphStyles[item->textAlignment].SColor;
+				vg.SShade = doc->docParagraphStyles[item->textAlignment].SShade;
+				vg.BaseAdj = doc->docParagraphStyles[item->textAlignment].BaseAdj;
+				UsedStyles[item->textAlignment] = vg;
 			}
-			if (((item->PType == 4) || (item->PType == 8)) && (item->Ptext.count() != 0))
+			if (((item->PType == 4) || (item->PType == 8)) && (item->itemText.count() != 0))
 			{
-				for (uint tx = 0; tx < item->Ptext.count(); ++tx)
+				for (uint tx = 0; tx < item->itemText.count(); ++tx)
 				{
-					if (item->Ptext.at(tx)->cab > 4)
+					if (item->itemText.at(tx)->cab > 4)
 					{
-						vg.Vname = doc->Vorlagen[item->Ptext.at(tx)->cab].Vname;
-						vg.LineSpa = doc->Vorlagen[item->Ptext.at(tx)->cab].LineSpa;
-						vg.Ausri = doc->Vorlagen[item->Ptext.at(tx)->cab].Ausri;
-						vg.Indent = doc->Vorlagen[item->Ptext.at(tx)->cab].Indent;
-						vg.First = doc->Vorlagen[item->Ptext.at(tx)->cab].First;
-						vg.Avor = doc->Vorlagen[item->Ptext.at(tx)->cab].Avor;
-						vg.Anach = doc->Vorlagen[item->Ptext.at(tx)->cab].Anach;
-						vg.Font = doc->Vorlagen[item->Ptext.at(tx)->cab].Font;
-						vg.FontSize = doc->Vorlagen[item->Ptext.at(tx)->cab].FontSize;
-						vg.TabValues = doc->Vorlagen[item->Ptext.at(tx)->cab].TabValues;
-						vg.Drop = doc->Vorlagen[item->Ptext.at(tx)->cab].Drop;
-						vg.DropLin = doc->Vorlagen[item->Ptext.at(tx)->cab].DropLin;
-						vg.FontEffect = doc->Vorlagen[item->Ptext.at(tx)->cab].FontEffect;
-						vg.FColor = doc->Vorlagen[item->Ptext.at(tx)->cab].FColor;
-						vg.FShade = doc->Vorlagen[item->Ptext.at(tx)->cab].FShade;
-						vg.SColor = doc->Vorlagen[item->Ptext.at(tx)->cab].SColor;
-						vg.SShade = doc->Vorlagen[item->Ptext.at(tx)->cab].SShade;
-						vg.BaseAdj = doc->Vorlagen[item->Ptext.at(tx)->cab].BaseAdj;
-						UsedStyles[item->Ptext.at(tx)->cab] = vg;
+						vg.Vname = doc->docParagraphStyles[item->itemText.at(tx)->cab].Vname;
+						vg.LineSpa = doc->docParagraphStyles[item->itemText.at(tx)->cab].LineSpa;
+						vg.textAlignment = doc->docParagraphStyles[item->itemText.at(tx)->cab].textAlignment;
+						vg.Indent = doc->docParagraphStyles[item->itemText.at(tx)->cab].Indent;
+						vg.First = doc->docParagraphStyles[item->itemText.at(tx)->cab].First;
+						vg.gapBefore = doc->docParagraphStyles[item->itemText.at(tx)->cab].gapBefore;
+						vg.gapAfter = doc->docParagraphStyles[item->itemText.at(tx)->cab].gapAfter;
+						vg.Font = doc->docParagraphStyles[item->itemText.at(tx)->cab].Font;
+						vg.FontSize = doc->docParagraphStyles[item->itemText.at(tx)->cab].FontSize;
+						vg.TabValues = doc->docParagraphStyles[item->itemText.at(tx)->cab].TabValues;
+						vg.Drop = doc->docParagraphStyles[item->itemText.at(tx)->cab].Drop;
+						vg.DropLin = doc->docParagraphStyles[item->itemText.at(tx)->cab].DropLin;
+						vg.FontEffect = doc->docParagraphStyles[item->itemText.at(tx)->cab].FontEffect;
+						vg.FColor = doc->docParagraphStyles[item->itemText.at(tx)->cab].FColor;
+						vg.FShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].FShade;
+						vg.SColor = doc->docParagraphStyles[item->itemText.at(tx)->cab].SColor;
+						vg.SShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].SShade;
+						vg.BaseAdj = doc->docParagraphStyles[item->itemText.at(tx)->cab].BaseAdj;
+						UsedStyles[item->itemText.at(tx)->cab] = vg;
 					}
 				}
 			}
@@ -1993,12 +1993,12 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			NewStylesNum++;
 			QDomElement fo=docu.createElement("STYLE");
 			fo.setAttribute("NAME",UsedStyles[actSt].Vname);
-			fo.setAttribute("ALIGN",UsedStyles[actSt].Ausri);
+			fo.setAttribute("ALIGN",UsedStyles[actSt].textAlignment);
 			fo.setAttribute("LINESP",UsedStyles[actSt].LineSpa);
 			fo.setAttribute("INDENT",UsedStyles[actSt].Indent);
 			fo.setAttribute("FIRST",UsedStyles[actSt].First);
-			fo.setAttribute("VOR",UsedStyles[actSt].Avor);
-			fo.setAttribute("NACH",UsedStyles[actSt].Anach);
+			fo.setAttribute("VOR",UsedStyles[actSt].gapBefore);
+			fo.setAttribute("NACH",UsedStyles[actSt].gapAfter);
 			fo.setAttribute("FONT",UsedStyles[actSt].Font);
 			fo.setAttribute("FONTSIZE",UsedStyles[actSt].FontSize / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(UsedStyles[actSt].Drop));
@@ -2038,9 +2038,9 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		}
 		elem.appendChild(MuL);
 	}
-	QMap<int, arrowDesc> usedArrows;
-	QMap<int, arrowDesc>::Iterator itar;
-	struct arrowDesc arrow;
+	QMap<int, ArrowDesc> usedArrows;
+	QMap<int, ArrowDesc>::Iterator itar;
+	struct ArrowDesc arrow;
 	for (uint co=0; co<Selitems->count(); ++co)
 	{
 		item = doc->Items.at(ELL[co]);
@@ -2085,10 +2085,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		QDir::setCurrent(QDir::homeDirPath());
 		item = doc->Items.at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
-		if (item->Ausrich > 4)
-			ob.setAttribute("ALIGN",UsedMapped2Saved[item->Ausrich]);
+		if (item->textAlignment > 4)
+			ob.setAttribute("ALIGN",UsedMapped2Saved[item->textAlignment]);
 		else
-			ob.setAttribute("ALIGN",item->Ausrich);
+			ob.setAttribute("ALIGN",item->textAlignment);
  		SetItemProps(&ob, item, false);
 		if (item->GrType != 0)
 		{
@@ -2108,30 +2108,30 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			ob.setAttribute("GRENDY", item->GrEndY);
 		}
 		QDir::setCurrent(CurDirP);
-		for(uint k=0;k<item->Ptext.count();++k)
+		for(uint k=0;k<item->itemText.count();++k)
 		{
 			QDomElement it=docu.createElement("ITEXT");
-			ts = item->Ptext.at(k)->csize / 10.0;
-			tf = item->Ptext.at(k)->cfont;
-			tc = item->Ptext.at(k)->ccolor;
-			te = item->Ptext.at(k)->cextra;
-			tsh = item->Ptext.at(k)->cshade;
-			tst = item->Ptext.at(k)->cstyle;
-			if (item->Ptext.at(k)->cab > 4)
-				tsb = UsedMapped2Saved[item->Ptext.at(k)->cab];
+			ts = item->itemText.at(k)->csize / 10.0;
+			tf = item->itemText.at(k)->cfont;
+			tc = item->itemText.at(k)->ccolor;
+			te = item->itemText.at(k)->cextra;
+			tsh = item->itemText.at(k)->cshade;
+			tst = item->itemText.at(k)->cstyle;
+			if (item->itemText.at(k)->cab > 4)
+				tsb = UsedMapped2Saved[item->itemText.at(k)->cab];
 			else
-				tsb = item->Ptext.at(k)->cab;
-			tcs = item->Ptext.at(k)->cstroke;
-			tshs = item->Ptext.at(k)->cshade2;
-			tsc = item->Ptext.at(k)->cscale;
-			if (item->Ptext.at(k)->ch == QChar(13))
+				tsb = item->itemText.at(k)->cab;
+			tcs = item->itemText.at(k)->cstroke;
+			tshs = item->itemText.at(k)->cshade2;
+			tsc = item->itemText.at(k)->cscale;
+			if (item->itemText.at(k)->ch == QChar(13))
 				text = QChar(5);
-			else if (item->Ptext.at(k)->ch == QChar(9))
+			else if (item->itemText.at(k)->ch == QChar(9))
 				text = QChar(4);
 			else
-				text = item->Ptext.at(k)->ch;
+				text = item->itemText.at(k)->ch;
 			k++;
-			if (k == item->Ptext.count())
+			if (k == item->itemText.count())
 			{
 				it.setAttribute("CH",text);
 				it.setAttribute("CSIZE",ts);
@@ -2147,19 +2147,19 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				ob.appendChild(it);
 				break;
 			}
-			ts2 = item->Ptext.at(k)->csize / 10.0;
-			tf2 = item->Ptext.at(k)->cfont;
-			tc2 = item->Ptext.at(k)->ccolor;
-			te2 = item->Ptext.at(k)->cextra;
-			tsh2 = item->Ptext.at(k)->cshade;
-			tst2 = item->Ptext.at(k)->cstyle;
-			if (item->Ptext.at(k)->cab > 4)
-				tsb2 = UsedMapped2Saved[item->Ptext.at(k)->cab];
+			ts2 = item->itemText.at(k)->csize / 10.0;
+			tf2 = item->itemText.at(k)->cfont;
+			tc2 = item->itemText.at(k)->ccolor;
+			te2 = item->itemText.at(k)->cextra;
+			tsh2 = item->itemText.at(k)->cshade;
+			tst2 = item->itemText.at(k)->cstyle;
+			if (item->itemText.at(k)->cab > 4)
+				tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
 			else
-				tsb2 = item->Ptext.at(k)->cab;
-			tcs2 = item->Ptext.at(k)->cstroke;
-			tshs2 = item->Ptext.at(k)->cshade2;
-			tsc2 = item->Ptext.at(k)->cscale;
+				tsb2 = item->itemText.at(k)->cab;
+			tcs2 = item->itemText.at(k)->cstroke;
+			tshs2 = item->itemText.at(k)->cshade2;
+			tsc2 = item->itemText.at(k)->cscale;
 			while ((ts2 == ts)
 							&& (tsb2 == tsb)
 							&& (tf2 == tf)
@@ -2171,28 +2171,28 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 							&& (tcs2 == tcs)
 							&& (tst2 == tst))
 			{
-				if (item->Ptext.at(k)->ch == QChar(13))
+				if (item->itemText.at(k)->ch == QChar(13))
 					text += QChar(5);
-				else if (item->Ptext.at(k)->ch == QChar(9))
+				else if (item->itemText.at(k)->ch == QChar(9))
 					text += QChar(4);
 				else
-					text += item->Ptext.at(k)->ch;
+					text += item->itemText.at(k)->ch;
 				k++;
-				if (k == item->Ptext.count())
+				if (k == item->itemText.count())
 					break;
-				ts2 = item->Ptext.at(k)->csize / 10.0;
-				tf2 = item->Ptext.at(k)->cfont;
-				tc2 = item->Ptext.at(k)->ccolor;
-				te2 = item->Ptext.at(k)->cextra;
-				tsh2 = item->Ptext.at(k)->cshade;
-				tst2 = item->Ptext.at(k)->cstyle;
-				if (item->Ptext.at(k)->cab > 4)
-					tsb2 = UsedMapped2Saved[item->Ptext.at(k)->cab];
+				ts2 = item->itemText.at(k)->csize / 10.0;
+				tf2 = item->itemText.at(k)->cfont;
+				tc2 = item->itemText.at(k)->ccolor;
+				te2 = item->itemText.at(k)->cextra;
+				tsh2 = item->itemText.at(k)->cshade;
+				tst2 = item->itemText.at(k)->cstyle;
+				if (item->itemText.at(k)->cab > 4)
+					tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
 				else
-					tsb2 = item->Ptext.at(k)->cab;
-				tcs2 = item->Ptext.at(k)->cstroke;
-				tshs2 = item->Ptext.at(k)->cshade2;
-				tsc2 = item->Ptext.at(k)->cscale;
+					tsb2 = item->itemText.at(k)->cab;
+				tcs2 = item->itemText.at(k)->cstroke;
+				tshs2 = item->itemText.at(k)->cshade2;
+				tsc2 = item->itemText.at(k)->cscale;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2208,10 +2208,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			k--;
 			ob.appendChild(it);
 		}
-		ob.setAttribute("NUMTEXT",item->Ptext.count());
+		ob.setAttribute("NUMTEXT",item->itemText.count());
 		QString txnu = "";
-		for(uint kt=0;kt<item->Ptext.count();++kt)
-			txnu += tmp.setNum(item->Ptext.at(kt)->xp) + " " + tmpy.setNum(item->Ptext.at(kt)->yp) + " ";
+		for(uint kt=0;kt<item->itemText.count();++kt)
+			txnu += tmp.setNum(item->itemText.at(kt)->xp) + " " + tmpy.setNum(item->itemText.at(kt)->yp) + " ";
 		ob.setAttribute("TEXTCOOR", txnu);
 		ob.setAttribute("BACKITEM", -1);
 		ob.setAttribute("BACKPAGE", -1);
@@ -2321,30 +2321,30 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			ob.setAttribute("GRENDX", item->GrEndX);
 			ob.setAttribute("GRENDY", item->GrEndY);
 		}
-		ob.setAttribute("ALIGN",item->Ausrich);
+		ob.setAttribute("ALIGN",item->textAlignment);
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		ob.setAttribute("BookNr", item->BMnr);
-		for(uint k=0;k<item->Ptext.count();++k)
+		for(uint k=0;k<item->itemText.count();++k)
 		{
 			QDomElement it=docu->createElement("ITEXT");
-			ts = item->Ptext.at(k)->csize / 10.0;
-			tf = item->Ptext.at(k)->cfont;
-			tc = item->Ptext.at(k)->ccolor;
-			te = item->Ptext.at(k)->cextra;
-			tsh = item->Ptext.at(k)->cshade;
-			tst = item->Ptext.at(k)->cstyle;
-			tsb = item->Ptext.at(k)->cab;
-			tcs = item->Ptext.at(k)->cstroke;
-			tshs = item->Ptext.at(k)->cshade2;
-			tsc = item->Ptext.at(k)->cscale;
-			if (item->Ptext.at(k)->ch == QChar(13))
+			ts = item->itemText.at(k)->csize / 10.0;
+			tf = item->itemText.at(k)->cfont;
+			tc = item->itemText.at(k)->ccolor;
+			te = item->itemText.at(k)->cextra;
+			tsh = item->itemText.at(k)->cshade;
+			tst = item->itemText.at(k)->cstyle;
+			tsb = item->itemText.at(k)->cab;
+			tcs = item->itemText.at(k)->cstroke;
+			tshs = item->itemText.at(k)->cshade2;
+			tsc = item->itemText.at(k)->cscale;
+			if (item->itemText.at(k)->ch == QChar(13))
 				text = QChar(5);
-			else if (item->Ptext.at(k)->ch == QChar(9))
+			else if (item->itemText.at(k)->ch == QChar(9))
 				text = QChar(4);
 			else
-				text = item->Ptext.at(k)->ch;
+				text = item->itemText.at(k)->ch;
 			k++;
-			if (k == item->Ptext.count())
+			if (k == item->itemText.count())
 			{
 				it.setAttribute("CH",text);
 				it.setAttribute("CSIZE",ts);
@@ -2360,16 +2360,16 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				ob.appendChild(it);
 				break;
 			}
-			ts2 = item->Ptext.at(k)->csize / 10.0;
-			tf2 = item->Ptext.at(k)->cfont;
-			tc2 = item->Ptext.at(k)->ccolor;
-			te2 = item->Ptext.at(k)->cextra;
-			tsh2 = item->Ptext.at(k)->cshade;
-			tst2 = item->Ptext.at(k)->cstyle;
-			tsb2 = item->Ptext.at(k)->cab;
-			tcs2 = item->Ptext.at(k)->cstroke;
-			tshs2 = item->Ptext.at(k)->cshade2;
-			tsc2 = item->Ptext.at(k)->cscale;
+			ts2 = item->itemText.at(k)->csize / 10.0;
+			tf2 = item->itemText.at(k)->cfont;
+			tc2 = item->itemText.at(k)->ccolor;
+			te2 = item->itemText.at(k)->cextra;
+			tsh2 = item->itemText.at(k)->cshade;
+			tst2 = item->itemText.at(k)->cstyle;
+			tsb2 = item->itemText.at(k)->cab;
+			tcs2 = item->itemText.at(k)->cstroke;
+			tshs2 = item->itemText.at(k)->cshade2;
+			tsc2 = item->itemText.at(k)->cscale;
 			while ((ts2 == ts)
 						&& (tsb2 == tsb)
 						&& (tf2 == tf)
@@ -2381,25 +2381,25 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 						&& (tcs2 == tcs)
 						&& (tst2 == tst))
 			{
-				if (item->Ptext.at(k)->ch == QChar(13))
+				if (item->itemText.at(k)->ch == QChar(13))
 					text += QChar(5);
-				else if (item->Ptext.at(k)->ch == QChar(9))
+				else if (item->itemText.at(k)->ch == QChar(9))
 					text += QChar(4);
 				else
-					text += item->Ptext.at(k)->ch;
+					text += item->itemText.at(k)->ch;
 				k++;
-				if (k == item->Ptext.count())
+				if (k == item->itemText.count())
 					break;
-				ts2 = item->Ptext.at(k)->csize / 10.0;
-				tf2 = item->Ptext.at(k)->cfont;
-				tc2 = item->Ptext.at(k)->ccolor;
-				te2 = item->Ptext.at(k)->cextra;
-				tsh2 = item->Ptext.at(k)->cshade;
-				tst2 = item->Ptext.at(k)->cstyle;
-				tsb2 = item->Ptext.at(k)->cab;
-				tcs2 = item->Ptext.at(k)->cstroke;
-				tshs2 = item->Ptext.at(k)->cshade2;
-				tsc2 = item->Ptext.at(k)->cscale;
+				ts2 = item->itemText.at(k)->csize / 10.0;
+				tf2 = item->itemText.at(k)->cfont;
+				tc2 = item->itemText.at(k)->ccolor;
+				te2 = item->itemText.at(k)->cextra;
+				tsh2 = item->itemText.at(k)->cshade;
+				tst2 = item->itemText.at(k)->cstyle;
+				tsb2 = item->itemText.at(k)->cab;
+				tcs2 = item->itemText.at(k)->cstroke;
+				tshs2 = item->itemText.at(k)->cshade2;
+				tsc2 = item->itemText.at(k)->cscale;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2455,7 +2455,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		dc.setAttribute("AUTOTEXT",1);
 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);
 	dc.setAttribute("ABSTSPALTEN",doc->PageSpa);
-	dc.setAttribute("UNITS",doc->Einheit);
+	dc.setAttribute("UNITS",doc->docUnitIndex);
 	dc.setAttribute("DFONT",doc->Dfont);
 	dc.setAttribute("DSIZE",doc->Dsize / 10.0);
 	dc.setAttribute("DCOL",doc->DCols);
@@ -2556,7 +2556,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("BACKG", static_cast<int>(doc->Before));
 	dc.setAttribute("PAGEC",doc->papColor.name());
 	dc.setAttribute("MARGC",doc->guidesSettings.margColor.name());
-	dc.setAttribute("RANDF", static_cast<int>(doc->RandFarbig));
+	dc.setAttribute("RANDF", static_cast<int>(doc->marginColored));
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
@@ -2577,7 +2577,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		}
 		dc.appendChild(MuL);
 	}
-	QValueList<arrowDesc>::Iterator itar;
+	QValueList<ArrowDesc>::Iterator itar;
 	for (itar = doc->arrowStyles.begin(); itar != doc->arrowStyles.end(); ++itar)
 	{
 		if ((*itar).userArrow)
@@ -2622,7 +2622,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		fn.setAttribute("Parent", (*itbm).Parent);
 		dc.appendChild(fn);
 	}
-	CListe::Iterator itc;
+	ColorList::Iterator itc;
 	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 	{
 		QDomElement co=docu.createElement("COLOR");
@@ -2631,35 +2631,35 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		co.setAttribute("CMYK",doc->PageColors[itc.key()].name());
 		dc.appendChild(co);
 	}
-	if (doc->Vorlagen.count() > 5)
+	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint ff = 5; ff < doc->Vorlagen.count(); ++ff)
+		for (uint ff = 5; ff < doc->docParagraphStyles.count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
-			fo.setAttribute("NAME",doc->Vorlagen[ff].Vname);
-			fo.setAttribute("ALIGN",doc->Vorlagen[ff].Ausri);
-			fo.setAttribute("LINESP",doc->Vorlagen[ff].LineSpa);
-			fo.setAttribute("INDENT",doc->Vorlagen[ff].Indent);
-			fo.setAttribute("FIRST",doc->Vorlagen[ff].First);
-			fo.setAttribute("VOR",doc->Vorlagen[ff].Avor);
-			fo.setAttribute("NACH",doc->Vorlagen[ff].Anach);
-			fo.setAttribute("FONT",doc->Vorlagen[ff].Font);
-			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
-			fo.setAttribute("DROP", static_cast<int>(doc->Vorlagen[ff].Drop));
-			fo.setAttribute("DROPLIN", doc->Vorlagen[ff].DropLin);
-			fo.setAttribute("EFFECT", doc->Vorlagen[ff].FontEffect);
-			fo.setAttribute("NUMTAB", static_cast<int>(doc->Vorlagen[ff].TabValues.count()));
+			fo.setAttribute("NAME",doc->docParagraphStyles[ff].Vname);
+			fo.setAttribute("ALIGN",doc->docParagraphStyles[ff].textAlignment);
+			fo.setAttribute("LINESP",doc->docParagraphStyles[ff].LineSpa);
+			fo.setAttribute("INDENT",doc->docParagraphStyles[ff].Indent);
+			fo.setAttribute("FIRST",doc->docParagraphStyles[ff].First);
+			fo.setAttribute("VOR",doc->docParagraphStyles[ff].gapBefore);
+			fo.setAttribute("NACH",doc->docParagraphStyles[ff].gapAfter);
+			fo.setAttribute("FONT",doc->docParagraphStyles[ff].Font);
+			fo.setAttribute("FONTSIZE",doc->docParagraphStyles[ff].FontSize / 10.0);
+			fo.setAttribute("DROP", static_cast<int>(doc->docParagraphStyles[ff].Drop));
+			fo.setAttribute("DROPLIN", doc->docParagraphStyles[ff].DropLin);
+			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].FontEffect);
+			fo.setAttribute("NUMTAB", static_cast<int>(doc->docParagraphStyles[ff].TabValues.count()));
 			QString tlp = "";
 			QString tmp = "";
 			QValueList<double>::Iterator tax;
-			for (tax = doc->Vorlagen[ff].TabValues.begin(); tax != doc->Vorlagen[ff].TabValues.end(); ++tax)
+			for (tax = doc->docParagraphStyles[ff].TabValues.begin(); tax != doc->docParagraphStyles[ff].TabValues.end(); ++tax)
 				tlp += tmp.setNum((*tax)) + " ";
 			fo.setAttribute("TABS", tlp);
-			fo.setAttribute("FCOLOR",doc->Vorlagen[ff].FColor);
-			fo.setAttribute("FSHADE",doc->Vorlagen[ff].FShade);
-			fo.setAttribute("SCOLOR",doc->Vorlagen[ff].SColor);
-			fo.setAttribute("SSHADE",doc->Vorlagen[ff].SShade);
-			fo.setAttribute("BASE", static_cast<int>(doc->Vorlagen[ff].BaseAdj));
+			fo.setAttribute("FCOLOR",doc->docParagraphStyles[ff].FColor);
+			fo.setAttribute("FSHADE",doc->docParagraphStyles[ff].FShade);
+			fo.setAttribute("SCOLOR",doc->docParagraphStyles[ff].SColor);
+			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].SShade);
+			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].BaseAdj));
 			dc.appendChild(fo);
 		}
 	}
@@ -2669,8 +2669,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		la.setAttribute("NUMMER",doc->Layers[lay].LNr);
 		la.setAttribute("LEVEL",doc->Layers[lay].Level);
 		la.setAttribute("NAME",doc->Layers[lay].Name);
-		la.setAttribute("SICHTBAR", static_cast<int>(doc->Layers[lay].Sichtbar));
-		la.setAttribute("DRUCKEN", static_cast<int>(doc->Layers[lay].Drucken));
+		la.setAttribute("SICHTBAR", static_cast<int>(doc->Layers[lay].isViewable));
+		la.setAttribute("DRUCKEN", static_cast<int>(doc->Layers[lay].isPrintable));
 		dc.appendChild(la);
 	}
 	QDomElement pdf = docu.createElement("PDF");
@@ -2723,15 +2723,15 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	for (uint pdoE = 0; pdoE < doc->PDF_Optionen.PresentVals.count(); ++pdoE)
 	{
 		QDomElement pdf3 = docu.createElement("Effekte");
-		pdf3.setAttribute("EffektLen", doc->PDF_Optionen.PresentVals[pdoE].EffektLen);
-		pdf3.setAttribute("AnzeigeLen", doc->PDF_Optionen.PresentVals[pdoE].AnzeigeLen);
-		pdf3.setAttribute("Effekt", doc->PDF_Optionen.PresentVals[pdoE].Effekt);
+		pdf3.setAttribute("pageEffectDuration", doc->PDF_Optionen.PresentVals[pdoE].pageEffectDuration);
+		pdf3.setAttribute("pageViewDuration", doc->PDF_Optionen.PresentVals[pdoE].pageViewDuration);
+		pdf3.setAttribute("effectType", doc->PDF_Optionen.PresentVals[pdoE].effectType);
 		pdf3.setAttribute("Dm", doc->PDF_Optionen.PresentVals[pdoE].Dm);
 		pdf3.setAttribute("M", doc->PDF_Optionen.PresentVals[pdoE].M);
 		pdf3.setAttribute("Di", doc->PDF_Optionen.PresentVals[pdoE].Di);
 		pdf.appendChild(pdf3);
 	}
-	QMap<QString,LPIset>::Iterator itlp;
+	QMap<QString,LPIData>::Iterator itlp;
 	for (itlp = doc->PDF_Optionen.LPISettings.begin(); itlp != doc->PDF_Optionen.LPISettings.end(); ++itlp)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
@@ -2790,7 +2790,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	return true;
 }
 
-void ScriXmlDoc::WritePref(preV *Vor, QString ho)
+void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 {
 	QDomDocument docu("scribusrc");
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
@@ -2801,7 +2801,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("RAD",Vor->Wheelval);
 	dc.setAttribute("APF",Vor->AppFontSize);
 	dc.setAttribute("GRAB",Vor->guidesSettings.grabRad);
-	dc.setAttribute("UNIT",Vor->Einheit);
+	dc.setAttribute("UNIT",Vor->docUnitIndex);
 	dc.setAttribute("RCD", Vor->RecentDCount);
 	dc.setAttribute("DOC", Vor->DocDir);
 	dc.setAttribute("PROFILES", Vor->ProfileDir);
@@ -2834,7 +2834,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	QDomElement dc1a=docu.createElement("PAGE");
 	dc1a.setAttribute("PAGEC",Vor->DpapColor.name());
 	dc1a.setAttribute("MARGC",Vor->guidesSettings.margColor.name());
-	dc1a.setAttribute("RANDF", static_cast<int>(Vor->RandFarbig));
+	dc1a.setAttribute("RANDF", static_cast<int>(Vor->marginColored));
 	dc1a.setAttribute("DScale",Vor->DisScale);
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
@@ -2996,7 +2996,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	rde.setAttribute("MODE", static_cast<int>(Vor->Automatic));
 	rde.setAttribute("INMODE", static_cast<int>(Vor->AutoCheck));
 	elem.appendChild(rde);
-	CListe::Iterator itc;
+	ColorList::Iterator itc;
 	for (itc = Vor->DColors.begin(); itc != Vor->DColors.end(); ++itc)
 	{
 		QDomElement co=docu.createElement("COLOR");
@@ -3052,7 +3052,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	f.close();
 }
 
-bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
+bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho)
 {
 	QDomDocument docu("scridoc");
 	QFile f(ho);
@@ -3078,7 +3078,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->GUI = dc.attribute("STILT","Default");
 			Vorein->Wheelval = QStoInt(dc.attribute("RAD"));
 			Vorein->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
-			Vorein->Einheit = QStoInt(dc.attribute("UNIT","0"));
+			Vorein->docUnitIndex = QStoInt(dc.attribute("UNIT","0"));
 			Vorein->AppFontSize = QStoInt(dc.attribute("APF","12"));
 			Vorein->RecentDCount = dc.attribute("RCD","5").toUInt();
 			Vorein->DocDir = dc.attribute("DOC","");
@@ -3119,7 +3119,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 		{
 			Vorein->DpapColor = QColor(dc.attribute("PAGEC"));
 			Vorein->guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
-			Vorein->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
+			Vorein->marginColored = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 			Vorein->DisScale = QStodouble(dc.attribute("DScale","1"));
 		}
 		if (dc.tagName()=="TYPO")

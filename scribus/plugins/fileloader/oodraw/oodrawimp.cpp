@@ -38,7 +38,7 @@ extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
-extern FPoint GetMaxClipF(FPointArray Clip);
+extern FPoint getMaxClipF(FPointArray* Clip);
 extern PrefsFile* prefsFile;
 
 /*!
@@ -290,8 +290,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 	double yGoff= 0;
 	bool HaveGradient = false;
 	int GradientType = 0;
-	double BaseX = Doku->ActPage->Xoffset;
-	double BaseY = Doku->ActPage->Yoffset;
+	double BaseX = Doku->currentPage->Xoffset;
+	double BaseY = Doku->currentPage->Yoffset;
 	double lwidth = 0;
 	double x, y, w, h;
 	double FillTrans = 0;
@@ -461,7 +461,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			ite->PoLine.setPoint(1, FPoint(x1, y1));
 			ite->PoLine.setPoint(2, FPoint(x2, y2));
 			ite->PoLine.setPoint(3, FPoint(x2, y2));
-			FPoint wh = GetMaxClipF(ite->PoLine);
+			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 			ite->ClipEdited = true;
@@ -478,7 +478,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
-			FPoint wh = GetMaxClipF(ite->PoLine);
+			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 			ite->ClipEdited = true;
@@ -495,7 +495,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
-			FPoint wh = GetMaxClipF(ite->PoLine);
+			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 			ite->ClipEdited = true;
@@ -534,7 +534,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				mat.translate(x, y);
 				mat.scale(w / vw, h / vh);
 				ite->PoLine.map(mat);
-				FPoint wh = GetMaxClipF(ite->PoLine);
+				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->Width = wh.x();
 				ite->Height = wh.y();
 				ite->ClipEdited = true;
@@ -606,7 +606,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				parseTransform(&ite->PoLine, b.attribute("draw:transform"));
 				ite->ClipEdited = true;
 				ite->FrameType = 3;
-				FPoint wh = GetMaxClipF(ite->PoLine);
+				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->Width = wh.x();
 				ite->Height = wh.y();
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -845,7 +845,7 @@ QString OODPlug::parseColor( const QString &s )
 		else
 			c = parseColorN( rgbColor );
 	}
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	bool found = false;
 	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
 	{

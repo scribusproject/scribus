@@ -58,7 +58,7 @@ public:
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
-	double SetZeichAttr(struct Pti *hl, int *chs, QString *chx);
+	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
 	void DrawPolyL(QPainter *p, QPointArray pts);
@@ -180,7 +180,7 @@ public:
   /** Cursorposition */
 	int CPos;
   /** Text des Elements */
-	QPtrList<Pti> Ptext;
+	QPtrList<ScText> itemText;
   /** Flag ob Element gedruckt wird */
 	bool isPrintable;
   /** Flag fuer PDF-Bookmark */
@@ -241,7 +241,7 @@ public:
 	int NextPg;
 	bool Tinput;
 	bool isAutoText;
-	int Ausrich;
+	int textAlignment;
 	uint MaxChars;
 	bool Redrawn;
 	double ExtraV;

@@ -36,7 +36,7 @@ public:
 	double Yoffset;
 	double Width;
 	double Height;
-	Margs Margins;
+	MarginStruct Margins;
   /** Nummer der Seite */
 	uint PageNr;
 	bool LeftPg;

@@ -245,8 +245,8 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	QString tmp_abs[]={" pt", " mm", " in", "p"};
-	YSpin->setSuffix(tr(tmp_abs[doc->Einheit]));
-	XSpin->setSuffix(tr(tmp_abs[doc->Einheit]));
+	YSpin->setSuffix(tr(tmp_abs[doc->docUnitIndex]));
+	XSpin->setSuffix(tr(tmp_abs[doc->docUnitIndex]));
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));

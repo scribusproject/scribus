@@ -32,7 +32,7 @@
 #endif
 
 extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
-extern void setBestEncoding(FT_Face face);
+extern int setBestEncoding(FT_Face face);
 extern bool loadText(QString nam, QString *Buffer);
 extern bool GlyNames(QMap<uint, QString> *GList, QString Dat);
 

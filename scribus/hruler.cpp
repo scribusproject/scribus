@@ -79,7 +79,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		}
 		if (ActCol == 0)
 			return;
-		if (doku->CurrentABStil > 4)
+		if (doku->currentParaStyle > 4)
 		{
 			Pos = (ItemPos+First+Indent+(ColWidth+ColGap)*(ActCol-1)+Offset+Extra+lineCorr)*Scaling-offs;
 			fpo = QRect(static_cast<int>(Pos)-3, 11, 6, 6);
@@ -159,12 +159,12 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					emit DocChanged(false);
 					break;
 				case 3:
-					doku->Vorlagen[doku->CurrentABStil].First = First;
+					doku->docParagraphStyles[doku->currentParaStyle].First = First;
 					emit DocChanged(false);
 					break;
 				case 4:
-					doku->Vorlagen[doku->CurrentABStil].Indent = Indent;
-					doku->Vorlagen[doku->CurrentABStil].First = First;
+					doku->docParagraphStyles[doku->currentParaStyle].Indent = Indent;
+					doku->docParagraphStyles[doku->currentParaStyle].First = First;
 					emit DocChanged(false);
 					break;
 				case 5:
@@ -174,8 +174,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 						if (TabValues[ActTab] > 4.0)
 							TabValues[ActTab] = 0.0;
 					}
-					if (doku->CurrentABStil > 4)
-						doku->Vorlagen[doku->CurrentABStil].TabValues = TabValues;
+					if (doku->currentParaStyle > 4)
+						doku->docParagraphStyles[doku->currentParaStyle].TabValues = TabValues;
 					else
 						view->SelItem.at(0)->TabValues = TabValues;
 					emit DocChanged(false);
@@ -193,8 +193,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				it = TabValues.remove(it);
 				TabValues.remove(it);
 				ActTab = 0;
-				if (doku->CurrentABStil > 4)
-					doku->Vorlagen[doku->CurrentABStil].TabValues = TabValues;
+				if (doku->currentParaStyle > 4)
+					doku->docParagraphStyles[doku->currentParaStyle].TabValues = TabValues;
 				else
 					view->SelItem.at(0)->TabValues = TabValues;
 				emit DocChanged(false);
@@ -303,9 +303,9 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				p.begin(view->viewport());
 				p.setRasterOp(XorROP);
 				p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-				QPoint out = view->contentsToViewport(QPoint(0, qRound(doku->ActPage->Yoffset*Scaling)));
-				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(doku->ActPage->Height * Scaling));
-				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(doku->ActPage->Height * Scaling));
+				QPoint out = view->contentsToViewport(QPoint(0, qRound(doku->currentPage->Yoffset*Scaling)));
+				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(doku->currentPage->Height * Scaling));
+				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(doku->currentPage->Height * Scaling));
 				p.end();
 				Markp = py.x();
 			}
@@ -322,7 +322,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 			QRect fpo;
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-			if (doku->CurrentABStil > 4)
+			if (doku->currentParaStyle > 4)
 			{
 				for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
 				{
@@ -386,7 +386,7 @@ void Hruler::paintEvent(QPaintEvent *)
 	QFont ff = font();
 	ff.setPointSize(8);
 	setFont(ff);
-	switch (doku->Einheit)
+	switch (doku->docUnitIndex)
 	{
 		case 0:
 			/* PFJ - 29.02.04 - Altered so the if isn't executed twice. Repeated */
@@ -480,7 +480,7 @@ void Hruler::paintEvent(QPaintEvent *)
 		for (xl = 0; xl < doku->PageB+(iter2/2); xl += iter2)
 		{
 			p.drawLine(qRound((xl+of)*sc), 11, qRound((xl+of)*sc), 24);
-			switch (doku->Einheit)
+			switch (doku->docUnitIndex)
 			{
 				case 2:
 				{
@@ -506,10 +506,10 @@ void Hruler::paintEvent(QPaintEvent *)
 					break;
 			}
 		}
-		if (((xx == 0) && (doku->ActPage->PageNr % 2 == 0) && (doku->FirstPageLeft))
-		    || ((xx == 1) && (doku->ActPage->PageNr % 2 != 0) && (doku->FirstPageLeft))
-		    || ((xx == 0) && (doku->ActPage->PageNr % 2 != 0) && (!doku->FirstPageLeft))
-		    || ((xx == 1) && (doku->ActPage->PageNr % 2 == 0) && (!doku->FirstPageLeft))
+		if (((xx == 0) && (doku->currentPage->PageNr % 2 == 0) && (doku->FirstPageLeft))
+		    || ((xx == 1) && (doku->currentPage->PageNr % 2 != 0) && (doku->FirstPageLeft))
+		    || ((xx == 0) && (doku->currentPage->PageNr % 2 != 0) && (!doku->FirstPageLeft))
+		    || ((xx == 1) && (doku->currentPage->PageNr % 2 == 0) && (!doku->FirstPageLeft))
 			|| (pc == 1))
 		{
 			if (ItemPosValid)
@@ -537,7 +537,7 @@ void Hruler::paintEvent(QPaintEvent *)
 					for (xl = Pos; xl < EndPos; xl += iter2)
 					{
 						p.drawLine(qRound(xl*sc), 11, qRound(xl*sc), 24);
-						switch (doku->Einheit)
+						switch (doku->docUnitIndex)
 						{
 							case 2:
 							{
@@ -597,7 +597,7 @@ void Hruler::paintEvent(QPaintEvent *)
 						p.drawLine(qRound(Pos*sc), 23, qRound((Pos+4/sc)*sc), 23);
 						p.drawLine(qRound(Pos*sc), 11, qRound((Pos+4/sc)*sc), 11);
 					}
-					if (doku->CurrentABStil > 4)
+					if (doku->currentParaStyle > 4)
 					{
 						p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 						double fpos = Pos+First+Indent;

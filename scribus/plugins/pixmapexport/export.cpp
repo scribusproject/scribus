@@ -32,7 +32,7 @@ void Run(QWidget *d, ScribusApp *plug)
 
 	// interval widgets handling
 	QString tmp;
-	dia->RangeVal->setText(tmp.setNum(plug->doc->ActPage->PageNr+1));
+	dia->RangeVal->setText(tmp.setNum(plug->doc->currentPage->PageNr+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
@@ -134,7 +134,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 
 bool ExportBitmap::exportActual()
 {
-	return exportPage(carrier->doc->ActPage->PageNr, TRUE);
+	return exportPage(carrier->doc->currentPage->PageNr, TRUE);
 }
 
 bool ExportBitmap::exportInterval(std::vector<int> &pageNs)

@@ -26,10 +26,10 @@ class Farbmanager : public QDialog
 	Q_OBJECT
 
 public:
-	Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust );
+	Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust );
 	~Farbmanager() {};
-	CListe EditColors;
-	CListe UsedC;
+	ColorList EditColors;
+	ColorList UsedC;
 	QMap<QString,QString> Ersatzliste;
 	QToolButton* LoadColSet;
 	QStringList CColSet;

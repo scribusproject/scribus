@@ -19,7 +19,7 @@
 
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QPixmap loadIcon(QString nam);
-extern FPoint GetMaxClipF(FPointArray Clip);
+extern FPoint getMaxClipF(FPointArray* Clip);
 extern PrefsFile* prefsFile;
 
 /*!
@@ -213,7 +213,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Prog->doc->PageSize = "Custom";
 	}
 	Doku = plug->doc;
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!Doku->PageColors.contains(it.key()))
@@ -397,10 +397,10 @@ void EPSPlug::parseOutput(QString fn)
 							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
 						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
-						ite->PoLine.translate(Doku->ActPage->Xoffset, Doku->ActPage->Yoffset);
+						ite->PoLine.translate(Doku->currentPage->Xoffset, Doku->currentPage->Yoffset);
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
-						FPoint wh = GetMaxClipF(ite->PoLine);
+						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->Width = wh.x();
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -436,14 +436,14 @@ void EPSPlug::parseOutput(QString fn)
 							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
 						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
-						ite->PoLine.translate(Doku->ActPage->Xoffset, Doku->ActPage->Yoffset);
+						ite->PoLine.translate(Doku->currentPage->Xoffset, Doku->currentPage->Yoffset);
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->PLineEnd = CapStyle;
 						ite->PLineJoin = JoinStyle;
 						ite->DashOffset = DashOffset;
 						ite->DashValues = DashPattern;
-						FPoint wh = GetMaxClipF(ite->PoLine);
+						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->Width = wh.x();
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -624,7 +624,7 @@ QString EPSPlug::parseColor(QString vals)
 	int Kc = static_cast<int>(k*255);
 	int hC, hM, hY, hK;
 	CMYKColor tmp = CMYKColor(Cc, Mc, Yc, Kc);
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	bool found = false;
 	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
 	{

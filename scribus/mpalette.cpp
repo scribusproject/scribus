@@ -83,7 +83,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", false, 0)
+Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent, "Mdouble", false, 0)
 {
 	setCaption( tr( "Properties" ) );
 	HaveDoc = false;
@@ -1480,9 +1480,9 @@ void Mpalette::UnitChange()
 	double newRR = RoundRect->value() / old * UmReFaktor;
 	double newRM = RoundRect->maxValue() / old * UmReFaktor;
 
-	if (doc->Einheit > 3)
-		doc->Einheit = 0;
-	QString ein = unitGetSuffixFromIndex(doc->Einheit);
+	if (doc->docUnitIndex > 3)
+		doc->docUnitIndex = 0;
+	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
 
 	Xpos->setSuffix( ein );
 	Ypos->setSuffix( ein );
@@ -1497,9 +1497,9 @@ void Mpalette::UnitChange()
 	DRight->setSuffix( ein );
 	RoundRect->setSuffix( ein );
 
-	int xywhdecimals = unitGetDecimalsFromIndex(doc->Einheit);
+	int xywhdecimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
 	int dp2[] = {10, 1000, 10000, 10};
-	int distdecimals = dp2[doc->Einheit];
+	int distdecimals = dp2[doc->docUnitIndex];
 
 	Xpos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newX );
 	Ypos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newY );
@@ -1538,7 +1538,7 @@ void Mpalette::UnitChange()
 	RoundRect->setMaxValue(newRM);
 	RoundRect->setValue(newRR);
 
-	Cpal->UnitChange(old, UmReFaktor, doc->Einheit);
+	Cpal->UnitChange(old, UmReFaktor, doc->docUnitIndex);
 	HaveItem = tmp;
 }
 
@@ -1595,8 +1595,8 @@ void Mpalette::setXY(double x, double y)
 	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 	if (tmp)
 	{
-		inX -= doc->ActPage->Xoffset;
-		inY -= doc->ActPage->Yoffset;
+		inX -= doc->currentPage->Xoffset;
+		inY -= doc->currentPage->Yoffset;
 	}
 	Xpos->setValue(inX*UmReFaktor);
 	Ypos->setValue(inY*UmReFaktor);
@@ -1917,8 +1917,8 @@ void Mpalette::NewX()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
-		x += doc->ActPage->Xoffset;
-		y += doc->ActPage->Yoffset;
+		x += doc->currentPage->Xoffset;
+		y += doc->currentPage->Yoffset;
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -1974,8 +1974,8 @@ void Mpalette::NewY()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
-		x += doc->ActPage->Xoffset;
-		y += doc->ActPage->Yoffset;
+		x += doc->currentPage->Xoffset;
+		y += doc->currentPage->Yoffset;
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2322,16 +2322,16 @@ void Mpalette::NewExtra()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if ((CurItem->HasSel) || (doc->AppMode == 1))
+		if ((CurItem->HasSel) || (doc->appMode == NormalMode))
 		{
 			ScApp->view->chKerning(Extra->value());
 			emit DocChanged();
 		}
 		else
 		{
-			if (uint(CurItem->CPos) != CurItem->Ptext.count())
+			if (uint(CurItem->CPos) != CurItem->itemText.count())
 			{
-				CurItem->Ptext.at(CurItem->CPos)->cextra = Extra->value();
+				CurItem->itemText.at(CurItem->CPos)->cextra = Extra->value();
 				ScApp->view->RefreshItem(CurItem);
 				emit DocChanged();
 			}
@@ -2563,7 +2563,7 @@ void Mpalette::NewAli(int a)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->CurrentABStil < 5)
+		if (doc->currentParaStyle < 5)
 			emit NewAbStyle(a);
 	}
 }
@@ -2839,9 +2839,9 @@ void Mpalette::toggleGradientEdit()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (Cpal->gradEditButton->isOn())
-			ScApp->setAppMode(25);
+			ScApp->setAppMode(EditGradientVectors);
 		else
-			ScApp->setAppMode(1);
+			ScApp->setAppMode(NormalMode);
 		ScApp->view->RefreshItem(CurItem);
 	}
 }
@@ -2953,7 +2953,7 @@ void Mpalette::updateCList()
 		return;
 	TxFill->clear();
 	TxStroke->clear();
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	TxFill->insertItem( tr("None"));
 	TxStroke->insertItem( tr("None"));
@@ -3095,7 +3095,7 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	int c = 0;
 	PM2->setValue(shb);
 	PM1->setValue(shp);
@@ -3298,7 +3298,7 @@ void Mpalette::ManageTabs()
 			ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
 		else
 			ColWidth = CurItem->Width;
-		TabManager *dia = new TabManager(this, doc->Einheit, CurItem->TabValues, ColWidth);
+		TabManager *dia = new TabManager(this, doc->docUnitIndex, CurItem->TabValues, ColWidth);
 		if (dia->exec())
 		{
 			CurItem->TabValues = dia->tmpTab;

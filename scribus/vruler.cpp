@@ -81,7 +81,7 @@ void Vruler::paintEvent(QPaintEvent *)
 	QFont ff = font();
 	ff.setPointSize(8);
 	setFont(ff);
-	switch (doku->Einheit)
+	switch (doku->docUnitIndex)
 	{
 		case 0:
 			if (sc > 1)
@@ -177,7 +177,7 @@ void Vruler::paintEvent(QPaintEvent *)
 			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))
 			{
 				p.drawLine(11, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
-				switch (doku->Einheit)
+				switch (doku->docUnitIndex)
 				{
 					case 2:
 					{

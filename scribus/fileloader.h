@@ -21,8 +21,8 @@ public:
 	QString ReadDatei(QString fileName);
 	bool LoadFile(ScribusApp* app);
 	bool ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2);
-	QString AskForFont(SCFonts &avail, QString fStr, preV *Prefs, ScribusDoc *doc);
-	QString GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo);
+	QString AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *Prefs, ScribusDoc *doc);
+	QString GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo);
 	QString FileName;
 	int FileType;
 	bool havePS;

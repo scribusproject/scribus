@@ -20,7 +20,7 @@ class DelColor : public QDialog
     Q_OBJECT
 
 public:
-    DelColor(QWidget* parent, CListe colorList, QString colorName, bool haveDoc );
+    DelColor(QWidget* parent, ColorList colorList, QString colorName, bool haveDoc );
     ~DelColor() {};
 	const QString getReplacementColor();
 

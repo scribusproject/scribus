@@ -50,7 +50,7 @@ class ScribusView : public QScrollView
 	Q_OBJECT
 
 public:
-    ScribusView(QWidget *parent=0, ScribusDoc *doc=0, preV *prefs=0);
+    ScribusView(QWidget *parent=0, ScribusDoc *doc=0, ApplicationPrefs *prefs=0);
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
 	MSpinBox* LE;
@@ -60,7 +60,7 @@ public:
 	Vruler *VR;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;
-	preV *Prefs;
+	ApplicationPrefs *Prefs;
 	double Scale;
 	double OldScale;
 	double GroupX;
@@ -248,7 +248,7 @@ public:
 	void LoadPict(QString fn, int ItNr);
 	void AdjustPreview(PageItem *b, bool reload = true);
 	void AdjustPictScale(PageItem *b, bool reload = true);
-	void PasteItem(struct CLBuf *Buffer, bool loading, bool drag = false);
+	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
 	void BuildAObj();
 	void doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx = 0.0);
 	void AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart);

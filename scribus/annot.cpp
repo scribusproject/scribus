@@ -23,7 +23,7 @@ extern QImage LoadPict(QString fn, bool *gray = 0);
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie)
+Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent, "AN", true, 0 )
 {
 	setCaption( tr( "Field Properties" ) );
@@ -146,7 +146,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	TextLabel40a->setText( tr( "Color:" ) );
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
 	BorderC = new QComboBox( true, GroupBox20, "BorderC" );
-	CListe::Iterator cit;
+	ColorList::Iterator cit;
 	QPixmap pm;
 	BorderC->insertItem( tr("None"));
 	if (item->AnBColor == "None")
@@ -1026,9 +1026,6 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	Layout1_2->addWidget( PushButton1 );
 	PushButton2 = new QPushButton( this, "PushButton2" );
 	PushButton2->setText( tr( "Cancel" ) );
-	Layout1_2->addWidget( PushButton2 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1_2->addItem( spacer );
 	AnnotLayout->addLayout( Layout1_2 );
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));

@@ -32,7 +32,7 @@ public:
 	ScribusDoc* Doku;
 	ScribusApp* Prog;
 	QPtrList<PageItem> Elements;
-	CListe CustColors;
+	ColorList CustColors;
 	double LineW, Opacity, DashOffset;
 	QValueList<double> DashPattern;
 	QString CurrColor;

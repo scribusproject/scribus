@@ -5,7 +5,7 @@ PyObject *scribus_actualpage(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->PageNr + 1));
+	return PyInt_FromLong(static_cast<long>(Carrier->doc->currentPage->PageNr + 1));
 }
 
 PyObject *scribus_redraw(PyObject */*self*/)
@@ -138,7 +138,7 @@ PyObject *scribus_getHguides(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	int n = Carrier->doc->ActPage->YGuides.count();
+	int n = Carrier->doc->currentPage->YGuides.count();
 	if (n == 0)
 		return Py_BuildValue((char*)"[]");
 	int i;
@@ -147,7 +147,7 @@ PyObject *scribus_getHguides(PyObject */*self*/)
 	l = PyList_New(0);
 	for (i=0; i<n; i++)
 	{
-		tmp = Carrier->doc->ActPage->YGuides[i];
+		tmp = Carrier->doc->currentPage->YGuides[i];
 		guide = Py_BuildValue("d", PointToValue(tmp));
 		PyList_Append(l, guide);
 	}
@@ -169,7 +169,7 @@ PyObject *scribus_setHguides(PyObject */*self*/, PyObject* args)
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
-	Carrier->doc->ActPage->YGuides.clear();
+	Carrier->doc->currentPage->YGuides.clear();
 	for (i=0; i<n; i++)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
@@ -177,7 +177,7 @@ PyObject *scribus_setHguides(PyObject */*self*/, PyObject* args)
 			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values","python error"));
 			return NULL;
 		}
-		Carrier->doc->ActPage->YGuides += ValueToPoint(guide);
+		Carrier->doc->currentPage->YGuides += ValueToPoint(guide);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -187,7 +187,7 @@ PyObject *scribus_getVguides(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	int n = Carrier->doc->ActPage->XGuides.count();
+	int n = Carrier->doc->currentPage->XGuides.count();
 	if (n == 0)
 		return Py_BuildValue((char*)"[]");
 	int i;
@@ -196,7 +196,7 @@ PyObject *scribus_getVguides(PyObject */*self*/)
 	l = PyList_New(0);
 	for (i=0; i<n; i++)
 	{
-		tmp = Carrier->doc->ActPage->XGuides[i];
+		tmp = Carrier->doc->currentPage->XGuides[i];
 		guide = Py_BuildValue("d", PointToValue(tmp));
 		PyList_Append(l, guide);
 	}
@@ -218,7 +218,7 @@ PyObject *scribus_setVguides(PyObject */*self*/, PyObject* args)
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
-	Carrier->doc->ActPage->XGuides.clear();
+	Carrier->doc->currentPage->XGuides.clear();
 	for (i=0; i<n; i++)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
@@ -226,7 +226,7 @@ PyObject *scribus_setVguides(PyObject */*self*/, PyObject* args)
 			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values","python error"));
 			return NULL;
 		}
-		Carrier->doc->ActPage->XGuides += ValueToPoint(guide);
+		Carrier->doc->currentPage->XGuides += ValueToPoint(guide);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

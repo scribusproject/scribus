@@ -25,7 +25,7 @@ class BibView : public QIconView
 	Q_OBJECT
 
 public:
-	BibView( QWidget* parent, preV *prefs);
+	BibView( QWidget* parent, ApplicationPrefs *prefs);
 	~BibView() {};
 	void keyPressEvent(QKeyEvent *k);
 	void AddObj(QString name, QString daten, QPixmap Bild);
@@ -38,7 +38,7 @@ public:
 		QPixmap Preview;
 	};
 	QMap<QString,Elem> Objekte;
-	preV *Prefs;
+	ApplicationPrefs *Prefs;
 
 signals:
 	void ToggleAllPalettes();
@@ -55,7 +55,7 @@ class Biblio : public QDialog
 	Q_OBJECT
 
 public:
-	Biblio( QWidget* parent, preV *prefs);
+	Biblio( QWidget* parent, ApplicationPrefs *prefs);
 	~Biblio() {};
 	void closeEvent(QCloseEvent *ce);
 	void AdjustMenu();
@@ -67,7 +67,7 @@ public:
 	QMenuBar* menuBar;
 	QFrame* Frame3;
 	BibView* BibWin;
-	preV *Prefs;
+	ApplicationPrefs *Prefs;
 	QString ScFilename;
 	QString OldName;
 	int fSave;

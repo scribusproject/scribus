@@ -33,7 +33,7 @@ extern bool CMSuse;
 extern bool CMSavail;
 extern PrefsFile* prefsFile;
 
-PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOpt *Optionen, QValueList<PreSet> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
+PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOptions *Optionen, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
 		: QDialog( parent, "pdf", true, 0 )
 {
 	setCaption( tr( "Create PDF File" ) );
@@ -42,7 +42,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	view = vie;
 	EffVal = Eff;
 	Opts = Optionen;
-	Einheit = view->Doc->Einheit;
+	docUnitIndex = view->Doc->docUnitIndex;
 	PDFOptsLayout = new QVBoxLayout( this );
 	PDFOptsLayout->setSpacing( 5 );
 	PDFOptsLayout->setMargin( 11 );
@@ -343,7 +343,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Pages = new QListBox( tabPresentation, "Pages" );
 	Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, Pages->sizePolicy().hasHeightForWidth() ) );
 	QString tmp;
-	struct PreSet ef;
+	struct PDFPresentationData ef;
 	if (EffVal.count() != 0)
 	{
 		for (uint pg2 = 0; pg2 < view->Doc->Pages.count(); ++pg2)
@@ -351,9 +351,9 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 			if (EffVal.count()-1 < pg2)
 			{
-				ef.EffektLen = 1;
-				ef.AnzeigeLen = 1;
-				ef.Effekt = 0;
+				ef.pageEffectDuration = 1;
+				ef.pageViewDuration = 1;
+				ef.effectType = 0;
 				ef.Dm = 0;
 				ef.M = 0;
 				ef.Di = 0;
@@ -366,9 +366,9 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		for (uint pg = 0; pg < view->Doc->Pages.count(); ++pg)
 		{
 			Pages->insertItem( tr("Page")+" "+tmp.setNum(pg+1));
-			ef.EffektLen = 1;
-			ef.AnzeigeLen = 1;
-			ef.Effekt = 0;
+			ef.pageEffectDuration = 1;
+			ef.pageViewDuration = 1;
+			ef.effectType = 0;
 			ef.Dm = 0;
 			ef.M = 0;
 			ef.Di = 0;
@@ -403,14 +403,14 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	PageTime->setSuffix( tr( " sec" ) );
 	PageTime->setMaxValue( 3600 );
 	PageTime->setMinValue( 1 );
-	PageTime->setValue(EffVal[0].AnzeigeLen);
+	PageTime->setValue(EffVal[0].pageViewDuration);
 	TextLabel1e->setBuddy(PageTime);
 	EffectsLayout->addWidget( PageTime, 0, 1 );
 	EffectTime = new QSpinBox( Effects, "EffectTime" );
 	EffectTime->setSuffix( tr( " sec" ) );
 	EffectTime->setMaxValue( 3600 );
 	EffectTime->setMinValue( 1 );
-	EffectTime->setValue(EffVal[0].EffektLen);
+	EffectTime->setValue(EffVal[0].pageEffectDuration);
 	TextLabel2e->setBuddy(EffectTime);
 	EffectsLayout->addWidget( EffectTime, 1, 1 );
 	EffectType = new QComboBox( true, Effects, "EffectType" );
@@ -534,7 +534,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	LPIgroupLayout->setAlignment( Qt::AlignTop );
 	LPIcolor = new QComboBox( true, LPIgroup, "LPIcolor" );
 	LPIcolor->setEditable(false);
-	QMap<QString,LPIset>::Iterator itlp;
+	QMap<QString,LPIData>::Iterator itlp;
 	for (itlp = Optionen->LPISettings.begin(); itlp != Optionen->LPISettings.end(); ++itlp)
 	{
 		LPIcolor->insertItem( itlp.key() );
@@ -743,7 +743,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	BleedGroupLayout->addItem( spacerPX2, 1, 4 );
 	tabPDFXLayout->addWidget( BleedGroup );
 	Options->insertTab( tabPDFX, tr( "PDF/X-&3" ) );
-	QString EinTxt = unitGetSuffixFromIndex(Einheit);
+	QString EinTxt = unitGetSuffixFromIndex(docUnitIndex);
 
 	BleedTop->setSuffix( EinTxt );
 	BleedTop->setMinValue(0);
@@ -782,9 +782,9 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	DoEffects();
 	if (CheckBox10->isChecked())
 	{
-		PageTime->setValue(EffVal[0].AnzeigeLen);
-		EffectTime->setValue(EffVal[0].EffektLen);
-		EffectType->setCurrentItem(EffVal[0].Effekt);
+		PageTime->setValue(EffVal[0].pageViewDuration);
+		EffectTime->setValue(EffVal[0].pageEffectDuration);
+		EffectType->setCurrentItem(EffVal[0].effectType);
 		EDirection->setCurrentItem(EffVal[0].Dm);
 		EDirection_2->setCurrentItem(EffVal[0].M);
 		EDirection_2_2->setCurrentItem(EffVal[0].Di);
@@ -931,9 +931,9 @@ void PDF_Opts::DoExport()
 	QString fn = Datei->text();
 	if (overwrite(this, fn))
 	{
-		EffVal[PgSel].AnzeigeLen = PageTime->value();
-		EffVal[PgSel].EffektLen = EffectTime->value();
-		EffVal[PgSel].Effekt = EffectType->currentItem();
+		EffVal[PgSel].pageViewDuration = PageTime->value();
+		EffVal[PgSel].pageEffectDuration = EffectTime->value();
+		EffVal[PgSel].effectType = EffectType->currentItem();
 		EffVal[PgSel].Dm = EDirection->currentItem();
 		EffVal[PgSel].M = EDirection_2->currentItem();
 		EffVal[PgSel].Di = EDirection_2_2->currentItem();
@@ -1118,9 +1118,9 @@ void PDF_Opts::EffectOnAll()
 {
 	for (uint pg = 0; pg < view->Doc->Pages.count(); ++pg)
 	{
-		EffVal[pg].AnzeigeLen = PageTime->value();
-		EffVal[pg].EffektLen = EffectTime->value();
-		EffVal[pg].Effekt = EffectType->currentItem();
+		EffVal[pg].pageViewDuration = PageTime->value();
+		EffVal[pg].pageEffectDuration = EffectTime->value();
+		EffVal[pg].effectType = EffectType->currentItem();
 		EffVal[pg].Dm = EDirection->currentItem();
 		EffVal[pg].M = EDirection_2->currentItem();
 		EffVal[pg].Di = EDirection_2_2->currentItem();
@@ -1156,16 +1156,16 @@ void PDF_Opts::SetPgEff(int nr)
 {
 	if (nr < 0)
 		return;
-	EffVal[PgSel].AnzeigeLen = PageTime->value();
-	EffVal[PgSel].EffektLen = EffectTime->value();
-	EffVal[PgSel].Effekt = EffectType->currentItem();
+	EffVal[PgSel].pageViewDuration = PageTime->value();
+	EffVal[PgSel].pageEffectDuration = EffectTime->value();
+	EffVal[PgSel].effectType = EffectType->currentItem();
 	EffVal[PgSel].Dm = EDirection->currentItem();
 	EffVal[PgSel].M = EDirection_2->currentItem();
 	EffVal[PgSel].Di = EDirection_2_2->currentItem();
-	SetEffOpts(EffVal[nr].Effekt);
-	PageTime->setValue(EffVal[nr].AnzeigeLen);
-	EffectTime->setValue(EffVal[nr].EffektLen);
-	EffectType->setCurrentItem(EffVal[nr].Effekt);
+	SetEffOpts(EffVal[nr].effectType);
+	PageTime->setValue(EffVal[nr].pageViewDuration);
+	EffectTime->setValue(EffVal[nr].pageEffectDuration);
+	EffectType->setCurrentItem(EffVal[nr].effectType);
 	EDirection->setCurrentItem(EffVal[nr].Dm);
 	EDirection_2->setCurrentItem(EffVal[nr].M);
 	EDirection_2_2->setCurrentItem(EffVal[nr].Di);

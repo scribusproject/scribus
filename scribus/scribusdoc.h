@@ -51,7 +51,7 @@ class ScribusDoc : public QObject
 {
 
 public:
-    ScribusDoc(struct preV *prefsData);
+    ScribusDoc(struct ApplicationPrefs *prefsData);
     ~ScribusDoc();
     void setModified();
     void setUnModified();
@@ -60,7 +60,7 @@ public:
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
 	void resetPage(double t, double l, double r, double bo, bool fp);
 	bool AddFont(QString name, QFont fo);
-	void loadStylesFromFile(QString fileName, QValueList<StVorL> *tempStyles = NULL);
+	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 
 
 protected:
@@ -94,7 +94,7 @@ public: // Public attributes
   /** Number of Pages */
 	int PageC;
   /** Margins */
-	Margs PageM;
+	MarginStruct PageM;
   /** Number of Columns */
 	double PageSp;
   /** Distance of Columns */
@@ -111,8 +111,8 @@ public: // Public attributes
   /** Flag fuer Rasterbenutzung */
 	bool useRaster;
   /** Im Dokument benutzte Farben */
-	CListe PageColors;
-	Page* ActPage;
+	ColorList PageColors;
+	Page* currentPage;
   /** InfoStrings fuer das aktuelle Dokument */
 	QString DocAutor;
 	QString DocTitel;
@@ -129,7 +129,7 @@ public: // Public attributes
 	QString DocCover;
 	QString DocRights;
 	QString DocContrib;
-	int AppMode;
+	int appMode;
 	int SubMode;
 	double *ShapeValues;
 	int ValCount;
@@ -153,12 +153,12 @@ public: // Public attributes
 	QString DocName;
 	QMap<QString,QFont> UsedFonts;
 	SCFonts *AllFonts;
-	preV *prefsValues;
+	ApplicationPrefs *prefsValues;
 	int Dsize;
 	QColor papColor;
 	int CurrentSel;
 	int CurrentStyle;
-	int CurrentABStil;
+	int currentParaStyle;
 	QString CurrFont;
 	int CurrFontSize;
 	QString CurrTextFill;
@@ -168,8 +168,8 @@ public: // Public attributes
 	int CurrTextScale;
 	bool EditClip;
 	int EditClipMode;
-	typoStruct typographicSetttings;
-	guidesStruct guidesSettings;
+	typoPrefs typographicSetttings;
+	guidesPrefs guidesSettings;
   /** Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
   /** Erstes Element fuer AutoTextrahmen */
@@ -184,19 +184,19 @@ public: // Public attributes
 	bool ScaleType;
 	bool AspectRatio;
 	bool Before;
-	int Einheit;
+	int docUnitIndex;
 	bool DragP;
 	bool leaveDrag;
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
 	QValueList<uint> DragElements;
-	QValueList<StVorL> Vorlagen;
+	QValueList<ParagraphStyle> docParagraphStyles;
 	QValueList<Layer> Layers;
 	bool MasterP;
 	bool FirstPageLeft;
-	bool RandFarbig;
+	bool marginColored;
 	int GroupCounter;
-	CMSset CMSSettings;
+	CMSData CMSSettings;
 	int ActiveLayer;
 #ifdef HAVE_CMS
 	cmsHPROFILE DocInputProf;
@@ -208,14 +208,14 @@ public: // Public attributes
 	bool UnDoValid;
 	UndoData UnData;
 	int TotalItems;
-	Hyphenator *Trenner;
+	Hyphenator *docHyphenator;
 	int MinWordLen;
 	int HyCount;
 	QString Language;
 	bool Automatic;
 	bool AutoCheck;
 	bool TemplateMode;
-	struct PDFOpt PDF_Optionen;
+	struct PDFOptions PDF_Optionen;
 	bool RePos;
 	struct BookMa { 
 					QString Title;
@@ -240,7 +240,7 @@ public: // Public attributes
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;
-	QValueList<arrowDesc> arrowStyles;
+	QValueList<ArrowDesc> arrowStyles;
 	QWidget* WinHan;
 	bool DoDrawing;
 	QValueList<int> OpenNodes;

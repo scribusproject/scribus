@@ -12,7 +12,7 @@
 #include "scribusview.h"
 
 extern QPixmap loadIcon(QString nam);
-extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
+extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b);
 
 MusterPages::MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString temp)
 		: QDialog( parent, "Muster", false, WDestructiveClose)
@@ -115,7 +115,7 @@ void MusterPages::duplicateTemplate()
 	QString templateName;
 	int nr;
 	bool atf;
-	struct CLBuf Buffer;
+	struct CopyPasteBuffer Buffer;
 	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Template"), currentDoc);
 	dia->Answer->setText( tr("Copy of %1").arg(sMuster));
 	dia->Answer->selectAll();
@@ -146,20 +146,20 @@ void MusterPages::duplicateTemplate()
 		TableItems.clear();
 		if (currentDoc->Pages.at(inde)->YGuides.count() != 0)
 		{
-			currentDoc->ActPage->YGuides.clear();
+			currentDoc->currentPage->YGuides.clear();
 			for (uint y = 0; y < currentDoc->Pages.at(inde)->YGuides.count(); ++y)
 			{
-				currentDoc->ActPage->YGuides.append(currentDoc->Pages.at(inde)->YGuides[y]);
+				currentDoc->currentPage->YGuides.append(currentDoc->Pages.at(inde)->YGuides[y]);
 			}
-			qHeapSort(currentDoc->ActPage->YGuides);
+			qHeapSort(currentDoc->currentPage->YGuides);
 		}
 		if (currentDoc->Pages.at(inde)->XGuides.count() != 0)
 		{
 			for (uint x = 0; x < currentDoc->Pages.at(inde)->XGuides.count(); ++x)
 			{
-				currentDoc->ActPage->XGuides.append(currentDoc->Pages.at(inde)->XGuides[x]);
+				currentDoc->currentPage->XGuides.append(currentDoc->Pages.at(inde)->XGuides[x]);
 			}
-			qHeapSort(currentDoc->ActPage->XGuides);
+			qHeapSort(currentDoc->currentPage->XGuides);
 		}
 		uint end = currentDoc->Items.count();
 		for (uint a = 0; a < end; ++a)

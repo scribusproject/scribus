@@ -14,7 +14,7 @@ class TabTypograpy : public QWidget
 	Q_OBJECT
 
 public:
-	TabTypograpy( QWidget* parent, struct typoStruct *prefsData, double unitBase, QString unit);
+	TabTypograpy( QWidget* parent, struct typoPrefs *prefsData, double unitBase, QString unit);
 	~TabTypograpy() {};
 
 	QGroupBox* groupBox1a;

@@ -47,7 +47,7 @@ void FontListItem::paint(QPainter *painter)
 	painter->drawText(3, fontMetrics.ascent() + fontMetrics.leading() / 2, fontName);
 }
 
-FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
+FontCombo::FontCombo(QWidget* pa, ApplicationPrefs *Prefs) : QComboBox(true, pa)
 {
 	setEditable(false);
 	QFont f(font());
@@ -68,7 +68,7 @@ FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
-void FontCombo::RebuildList(preV *Prefs, ScribusDoc *currentDoc)
+void FontCombo::RebuildList(ApplicationPrefs *Prefs, ScribusDoc *currentDoc)
 {
 	QStringList rlist;
 	clear();

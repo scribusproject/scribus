@@ -18,28 +18,28 @@
 #include "pageitem.h"
 
 /* Struktur fuer Pageitem Text */
-struct Pti
+struct ScText
 { 
-	QString ch;
-	double xp;
-	double yp;
-	int csize;
-	QString cfont;
-	QString ccolor;
-	QString cstroke;
 	bool cselect;
-	double cextra;
+	int csize;
 	int cshade;
 	int cshade2;
 	int cstyle;
 	int cab;
+	int cscale;
+	double cextra;
+	double xp;
+	double yp;
 	int PtransX;
 	int PtransY;
-	int cscale;
 	double PRot;
+	QString cfont;
+	QString ccolor;
+	QString cstroke;
+	QString ch;
 };
 
-struct CLBuf
+struct CopyPasteBuffer
 { 
 	int PType;
 	double Xpos;
@@ -134,7 +134,7 @@ struct CLBuf
 	QString EmProfile;
 	int IRender;
 	bool UseEmbedded;
-	QString Ptext;
+	QString itemText;
 	QPointArray Clip;
 	FPointArray PoLine;
 	FPointArray ContourLine;
@@ -143,7 +143,7 @@ struct CLBuf
 	bool Textflow;
 	bool Textflow2;
 	bool UseContour;
-	int Ausrich;
+	int textAlignment;
 	QString IFont;
 	int ISize;
 	QValueStack<int> Groups;
@@ -177,8 +177,8 @@ struct CLBuf
 	int endArrowIndex;
 };
 
-  /** Seitenraender */
-struct Margs
+  /** Pagemargins */
+struct MarginStruct
 { 
 	double Top;
 	double Left;
@@ -186,15 +186,15 @@ struct Margs
 	double Bottom;
 };
 
-struct StVorL
+struct ParagraphStyle
 { 
 	QString Vname;
 	double LineSpa;
-	int Ausri;
+	int textAlignment;
 	double Indent;
 	double First;
-	double Avor;
-	double Anach;
+	double gapBefore;
+	double gapAfter;
 	QString Font;
 	int FontSize;
 	QValueList<double> TabValues;
@@ -208,7 +208,7 @@ struct StVorL
 	bool BaseAdj;
 };
 
-struct CMSset
+struct CMSData
 {
 	QString DefaultMonitorProfile;
 	QString DefaultPrinterProfile;
@@ -242,7 +242,7 @@ struct UndoData
 	int UnCode;
 };
 
-struct singleLine
+struct SingleLine
 { 
 	double Width;
 	int Dash;
@@ -252,7 +252,7 @@ struct singleLine
 	int Shade;
 };
 
-struct arrowDesc
+struct ArrowDesc
 {
 	QString name;
 	bool userArrow;
@@ -264,28 +264,28 @@ struct Layer
 	int LNr;
 	int Level;
 	QString Name;
-	bool Sichtbar;
-	bool Drucken;
+	bool isPrintable;
+	bool isViewable;
 };
 
-struct PreSet
+struct PDFPresentationData
 { 
-	int EffektLen;
-	int AnzeigeLen;
-	int Effekt;
+	int pageEffectDuration;
+	int pageViewDuration;
+	int effectType;
 	int Dm;
 	int M;
 	int Di;
 };
 
-struct LPIset
+struct LPIData
 { 
 	int Frequency;
 	int Angle;
 	int SpotFunc;
 };
 
-struct PDFOpt
+struct PDFOptions
 { 
 	bool Thumbnails;
 	bool Articles;
@@ -304,13 +304,13 @@ struct PDFOpt
 	bool MirrorV;
 	int RotateDeg;
 	bool PresentMode;
-	QValueList<PreSet> PresentVals;
+	QValueList<PDFPresentationData> PresentVals;
 	QString Datei;
 	bool UseRGB;
 	bool UseProfiles;
 	bool UseProfiles2;
 	bool UseLPI;
-	QMap<QString,LPIset> LPISettings;
+	QMap<QString,LPIData> LPISettings;
 	QString SolidProf;
 	int SComp;
 	QString ImageProf;
@@ -337,9 +337,9 @@ struct Keys
 };
 
 /** Definition der Farbenlisten */
-typedef QMap<QString,CMYKColor> CListe;
+typedef QMap<QString,CMYKColor> ColorList;
 
-struct typoStruct
+struct typoPrefs
 {
 	int valueSuperScript;
 	int scalingSuperScript;
@@ -351,7 +351,7 @@ struct typoStruct
 	double offsetBaseGrid;
 };
 
-struct windowStruct
+struct windowPrefs
 {
 	int xPosition;
 	int yPosition;
@@ -361,7 +361,7 @@ struct windowStruct
 	bool docked;
 };
 
-struct guidesStruct
+struct guidesPrefs
 {
 	bool gridShown;
 	QColor majorColor;
@@ -381,19 +381,19 @@ struct guidesStruct
 	QColor margColor;
 };
 
-struct preV
+struct ApplicationPrefs
 { 
 	SCFonts AvailFonts;
-	QValueList<arrowDesc> arrowStyles;
+	QValueList<ArrowDesc> arrowStyles;
 	QString DefFont;
 	int DefSize;
-	CListe DColors;
+	ColorList DColors;
 	int Wheelval;
 	int AppFontSize;
 	QColor DpapColor;
 	QString GUI;
-	guidesStruct guidesSettings;
-	typoStruct typographicSetttings;
+	guidesPrefs guidesSettings;
+	typoPrefs typographicSetttings;
 	QString Dpen;
 	QString Dbrush;
 	int Dshade;
@@ -416,26 +416,26 @@ struct preV
 	double ScaleX;
 	double ScaleY;
 	bool Before;
-	int Einheit;
-	windowStruct mainToolBarSettings;
-	windowStruct pdfToolBarSettings;
-	windowStruct mPaletteSettings;
-	windowStruct measurePalSettings;
-	windowStruct treePalSettings;
-	windowStruct nodePalSettings;
-	windowStruct mainWinSettings;
-	windowStruct scrapPalSettings;
-	windowStruct layerPalSettings;
-	windowStruct pagePalSettings;
-	windowStruct bookmPalSettings;
+	int docUnitIndex;
+	windowPrefs mainToolBarSettings;
+	windowPrefs pdfToolBarSettings;
+	windowPrefs mPaletteSettings;
+	windowPrefs measurePalSettings;
+	windowPrefs treePalSettings;
+	windowPrefs nodePalSettings;
+	windowPrefs mainWinSettings;
+	windowPrefs scrapPalSettings;
+	windowPrefs layerPalSettings;
+	windowPrefs pagePalSettings;
+	windowPrefs bookmPalSettings;
 	bool SepalT;
 	bool SepalN;
 	int PSize;
 	bool SaveAtQ;
-	bool RandFarbig;
+	bool marginColored;
 	QStringList RecentDocs;
 	uint RecentDCount;
-	CMSset DCMSset;
+	CMSData DCMSset;
 	QMap<int,Keys> KeyActions;
 	int PolyC;
 	int PolyFd;
@@ -519,7 +519,35 @@ struct PrintOptions
 };
 
 typedef QMap<QString,QString> ProfilesL;
-typedef QValueVector<singleLine> multiLine;
+typedef QValueVector<SingleLine> multiLine;
+enum AppMode
+{
+	NormalMode,
+	DrawShapes,
+	StartStoryEditor,
+	DrawPicture,
+	DrawText,
+	Magnifier,
+	EditMode,
+	DrawLine,
+	Rotation,
+	LinkFrames,
+	UnlinkFrames,
+	DrawRegularPolygon,
+	DrawBezierLine,
+	InsertPDFButton,
+	InsertPDFTextfield,
+	InsertPDFCheckbox,
+	InsertPDFCombobox,
+	InsertPDFListbox,
+	InsertPDFTextAnnotation,
+	InsertPDFLinkAnnotation,
+	DrawFreehandLine,
+	DrawTable,
+	PanningMode,
+	MeasurementTool,
+	EditGradientVectors
+};
 
 #endif
 

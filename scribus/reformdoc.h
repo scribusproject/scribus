@@ -37,7 +37,7 @@ class ReformDoc : public PrefsDialogBase
 	Q_OBJECT
 
 public:
-	ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData );
+	ReformDoc( QWidget* parent, ScribusDoc* doc, ApplicationPrefs *prefsData );
 	~ReformDoc() {};
 	QWidget* tabPage;
 	QGroupBox* groupBox7;

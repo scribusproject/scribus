@@ -41,7 +41,7 @@ PyObject *scribus_setmargins(PyObject */*self*/, PyObject* args)
 	Carrier->doc->resetPage(tpr, lr, rr, btr, Carrier->doc->PageFP);
 	Carrier->view->reformPages();
 	Carrier->doc->setModified();
-	Carrier->view->GotoPage(Carrier->doc->ActPage->PageNr);
+	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr);
 	Carrier->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -143,7 +143,7 @@ PyObject *scribus_getunit(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->Einheit));
+	return PyInt_FromLong(static_cast<long>(Carrier->doc->docUnitIndex));
 }
 
 PyObject *scribus_loadstylesfromfile(PyObject */*self*/, PyObject *args)
@@ -168,7 +168,7 @@ PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args)
 	if (Carrier->doc->PageFP = fp)
 		Carrier->doc->FirstPageLeft = fsl;
 	Carrier->view->reformPages();
-	Carrier->view->GotoPage(Carrier->doc->ActPage->PageNr); // is this needed?
+	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr); // is this needed?
 	Carrier->view->DrawNew();   // is this needed?
 	Carrier->Sepal->RebuildPage(); // is this needed?
 	Carrier->slotDocCh();

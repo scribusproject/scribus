@@ -37,7 +37,7 @@ void Serializer::PutText(PageItem *Item)
 {
 	uint a;
 	QString Dat = "";
-	QPtrList<Pti> y = Item->Ptext;
+	QPtrList<ScText> y = Item->itemText;
 	for (a=0; a<y.count(); ++a)
 	{
 		QString b = y.at(a)->ch;
@@ -50,7 +50,7 @@ void Serializer::PutText(PageItem *Item)
 
 void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, bool Append)
 {
-	struct Pti *hg;
+	struct ScText *hg;
 	PageItem *nb;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->Doc;
@@ -68,7 +68,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		it = nb;
 		while (nb != 0)
 		{
-			nb->Ptext.clear();
+			nb->itemText.clear();
 			nb->CPos = 0;
 			nb = nb->NextBox;
 		}
@@ -77,19 +77,19 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	{
 		if ((Objekt.at(a) == QChar(0)) || (Objekt.at(a) == QChar(13)))
 			continue;
-		hg = new Pti;
+		hg = new ScText;
 		hg->ch = Objekt.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		if (doku->Vorlagen[Absatz].Font != "")
+		if (doku->docParagraphStyles[Absatz].Font != "")
 		{
-			hg->cfont = doku->Vorlagen[Absatz].Font;
-			hg->csize = doku->Vorlagen[Absatz].FontSize;
-			hg->cstyle = doku->Vorlagen[Absatz].FontEffect;
-			hg->ccolor = doku->Vorlagen[Absatz].FColor;
-			hg->cshade = doku->Vorlagen[Absatz].FShade;
-			hg->cstroke = doku->Vorlagen[Absatz].SColor;
-			hg->cshade2 = doku->Vorlagen[Absatz].SShade;
+			hg->cfont = doku->docParagraphStyles[Absatz].Font;
+			hg->csize = doku->docParagraphStyles[Absatz].FontSize;
+			hg->cstyle = doku->docParagraphStyles[Absatz].FontEffect;
+			hg->ccolor = doku->docParagraphStyles[Absatz].FColor;
+			hg->cshade = doku->docParagraphStyles[Absatz].FShade;
+			hg->cstroke = doku->docParagraphStyles[Absatz].SColor;
+			hg->cshade2 = doku->docParagraphStyles[Absatz].SShade;
 		}
 		else
 		{
@@ -111,9 +111,9 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		hg->PtransX = 0;
 		hg->PtransY = 0;
 		if (Append)
-			it->Ptext.insert(it->CPos, hg);
+			it->itemText.insert(it->CPos, hg);
 		else
-			it->Ptext.append(hg);
+			it->itemText.append(hg);
 		it->CPos += 1;
 	}
 }

@@ -64,7 +64,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	Linien->setToggleButton( true );
 	Linien->setPopup(LinM);
 	Linien->setPopupDelay(0);
-	LMode = 8;
+	LMode = DrawLine;
 	Rotiere = new QToolButton(loadIcon("Rotieren.xpm"), tr("Rotate Item"), QString::null, this, SLOT(ModeFromTB()), this);
 	Rotiere->setToggleButton( true );
 	Rotiere->setEnabled(false);
@@ -131,7 +131,7 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
-	emit NewMode(2);
+	emit NewMode(DrawShapes);
 }
 
 void WerkToolB::SelShape2()
@@ -150,7 +150,7 @@ void WerkToolB::SelShape2()
 	Polygon->setOn(false);
 	Measure->setOn(false);
 	Rechteck->setOn(true);
-	emit NewMode(2);
+	emit NewMode(DrawShapes);
 }
 
 void WerkToolB::ModeFromTB()
@@ -172,42 +172,42 @@ void WerkToolB::ModeFromTB()
 	if (Select == sender())
 	{
 		Select->setOn(true);
-		emit NewMode(1);
+		emit NewMode(NormalMode);
 	}
 	if (Rotiere == sender())
 	{
 		Rotiere->setOn(true);
-		emit NewMode(9);
+		emit NewMode(Rotation);
 	}
 	if (Textedit == sender())
 	{
 		Textedit->setOn(true);
-		emit NewMode(7);
+		emit NewMode(EditMode);
 	}
 	if (Textedit2 == sender())
 	{
 		Textedit2->setOn(true);
-		emit NewMode(3);
+		emit NewMode(StartStoryEditor);
 	}
 	if (Zoom == sender())
 	{
 		Zoom->setOn(true);
-		emit NewMode(6);
+		emit NewMode(Magnifier);
 	}
 	if (Texte == sender())
 	{
 		Texte->setOn(true);
-		emit NewMode(5);
+		emit NewMode(DrawText);
 	}
 	if (BildB == sender())
 	{
 		BildB->setOn(true);
-		emit NewMode(4);
+		emit NewMode(DrawPicture);
 	}
 	if (TableB == sender())
 	{
 		TableB->setOn(true);
-		emit NewMode(22);
+		emit NewMode(DrawTable);
 	}
 	if (Linien == sender())
 	{
@@ -217,22 +217,22 @@ void WerkToolB::ModeFromTB()
 	if (KetteEin == sender())
 	{
 		KetteEin->setOn(true);
-		emit NewMode(10);
+		emit NewMode(LinkFrames);
 	}
 	if (KetteAus == sender())
 	{
 		KetteAus->setOn(true);
-		emit NewMode(11);
+		emit NewMode(UnlinkFrames);
 	}
 	if (Polygon == sender())
 	{
 		Polygon->setOn(true);
-		emit NewMode(12);
+		emit NewMode(DrawRegularPolygon);
 	}
 	if (Measure == sender())
 	{
 		Measure->setOn(true);
-		emit NewMode(24);
+		emit NewMode(MeasurementTool);
 	}
 }
 
@@ -254,7 +254,7 @@ void WerkToolB::setLinMode(int id)
 	Measure->setOn(false);
 	int c = LinM->indexOf(id);
 	QString icn[] = {"Stift.xpm", "beziertool.png", "Stiftalt.xpm"};
-	int lm[] = {8, 13, 21};
+	int lm[] = {DrawLine, DrawBezierLine, DrawFreehandLine};
 	Linien->setPixmap(loadIcon(icn[c]));
 	LMode = lm[c];
 	emit NewMode(LMode);
@@ -304,7 +304,7 @@ void WerkToolBP::setPDFnotiz(int id)
 	}
 	PDFTool->setOn(false);
 	PDFaTool->setOn(true);
-	emit NewMode(19+PDFnotiz);
+	emit NewMode(InsertPDFTextAnnotation+PDFnotiz);
 }
 
 void WerkToolBP::setPDFtool(int id)
@@ -315,7 +315,7 @@ void WerkToolBP::setPDFtool(int id)
 	PDFTool->setPixmap(loadIcon(tmp[c]));
 	PDFTool->setOn(true);
 	PDFaTool->setOn(false);
-	emit NewMode(14+PDFwerkz);
+	emit NewMode(InsertPDFButton+PDFwerkz);
 }
 
 void WerkToolBP::Docken(QDockWindow::Place )
@@ -336,11 +336,11 @@ void WerkToolBP::ModeFromTB()
 	if (PDFTool == sender())
 	{
 		PDFTool->setOn(true);
-		emit NewMode(14+PDFwerkz);
+		emit NewMode(InsertPDFButton+PDFwerkz);
 	}
 	if (PDFaTool == sender())
 	{
 		PDFaTool->setOn(true);
-		emit NewMode(19+PDFnotiz);
+		emit NewMode(InsertPDFTextAnnotation+PDFnotiz);
 	}
 }

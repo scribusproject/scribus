@@ -1,7 +1,7 @@
 #include "cmsprefs.h"
 #include "cmsprefs.moc"
 
-CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
+CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent, "CMS" )
 {
 	prefs = Vor;

@@ -150,7 +150,7 @@ PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	uint ap = Carrier->doc->ActPage->PageNr;
+	uint ap = Carrier->doc->currentPage->PageNr;
 	if (il != 0)
 	{
 		int len = PyList_Size(il);

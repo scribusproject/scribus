@@ -138,9 +138,9 @@ SVGExPlug::SVGExPlug( ScribusApp *plug, QString fName )
 	Page *Seite;
 	GradCount = 0;
 	ClipCount = 0;
-	Seite = plug->doc->MasterPages.at(plug->doc->MasterNames[plug->doc->ActPage->MPageNam]);
+	Seite = plug->doc->MasterPages.at(plug->doc->MasterNames[plug->doc->currentPage->MPageNam]);
 	ProcessPage(plug, Seite, &docu, &elem);
-	Seite = plug->doc->ActPage;
+	Seite = plug->doc->currentPage;
 	ProcessPage(plug, Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
@@ -191,10 +191,10 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
 	uint d;
-	struct Pti *hl;
+	struct ScText *hl;
 	int Lnr = 0;
 	struct Layer ll;
-	ll.Drucken = false;
+	ll.isPrintable = false;
 	ll.LNr = 0;
 	QDomElement ob, gr, tp, tp2, defi, grad;
 	QDomText tp1;
@@ -202,8 +202,8 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 	gradi = "Grad";
 	Clipi = "Clip";
 	QPtrList<PageItem> Items;
-	Page* SavedAct = plug->doc->ActPage;
-	plug->doc->ActPage = Seite;
+	Page* SavedAct = plug->doc->currentPage;
+	plug->doc->currentPage = Seite;
 	if (Seite->PageNam == "")
 		Items = plug->doc->DocItems;
 	else
@@ -211,7 +211,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 	for (uint la = 0; la < plug->doc->Layers.count(); la++)
 		{
 		Level2Layer(plug->doc, &ll, Lnr);
-		if (ll.Drucken)
+		if (ll.isPrintable)
 			{
 			for(uint j = 0; j < Items.count(); ++j)
 			{
@@ -498,7 +498,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						ob = docu->createElement("text");
 						for (d = 0; d < Item->MaxChars; d++)
 						{
-							hl = Item->Ptext.at(d);
+							hl = Item->itemText.at(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 								continue;
 							if (hl->yp == 0)
@@ -558,7 +558,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						ob = docu->createElement("text");
 						for (d = 0; d < Item->MaxChars; d++)
 						{
-							hl = Item->Ptext.at(d);
+							hl = Item->itemText.at(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 								continue;
 							if (hl->ch == QChar(29))
@@ -588,7 +588,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 		}
 		Lnr++;
 	}
-	plug->doc->ActPage = SavedAct;
+	plug->doc->currentPage = SavedAct;
 }
 
 /*!
@@ -660,16 +660,16 @@ QString SVGExPlug::IToStr(int c)
 }
 
 /*!
- \fn void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
+ \fn void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusApp *plug)
  \author Franz Schmid
  \date
  \brief Set text properties
  \param tp QDomElement *
- \param hl struct Pti *
+ \param hl struct ScText *
  \param plug ScribusApp *
  \retval None
  */
-void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
+void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusApp *plug)
 {
 	int chst = hl->cstyle & 127;
 	if (hl->ccolor != "None")
@@ -729,16 +729,16 @@ QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
 }
 
 /*!
- \fn QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageItem *Item)
+ \fn QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageItem *Item)
  \author Franz Schmid
  \date
  \brief
  \param plug ScribusApp *
- \param sl struct singleLine *
+ \param sl struct SingleLine *
  \param Item PageItem *
  \retval QString Stroke settings
  */
-QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageItem *Item)
+QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageItem *Item)
 {
 	QString tmp = "fill:none; ";
 	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade, plug)+"; ";

@@ -86,7 +86,7 @@ public:
 	bool ready;
 	int UniCinC;
 	int CurrentStyle;
-	int CurrentABStil;
+	int currentParaStyle;
 	int CurrFontSize;
 	int CurrTextFillSh;
 	int CurrTextStrokeSh;

@@ -15,7 +15,7 @@ class CMSPrefs : public QWidget
     Q_OBJECT
 
 public:
-    CMSPrefs( QWidget* parent, CMSset *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
+    CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
     ~CMSPrefs() {};
 
     QCheckBox* checkBox1;
@@ -36,7 +36,7 @@ public:
     QCheckBox* simulate;
 	QCheckBox* gamutC;
 	QCheckBox* blackP;
-  	CMSset *prefs;
+  	CMSData *prefs;
   	bool changed;
 
 public slots:

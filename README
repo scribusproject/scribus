@@ -1,31 +1,42 @@
-This is Scribus Version 1.3.0
-The Scribus 1.3 version features a complete rewrite of the rendering Engine.
-All rendering is now done via libart and freetype2. 
+This is Scribus Version 1.2.1
+
+The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
+All rendering is done via libart and freetype2. 
 This requires that libart_lgpl and freetype2 are installed.
 
+Scribus 1.2.1 also has a new OpenOffice.org Writer and Draw importer. This 
+requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
+will import styles from the OpenOffice.org doc and will create similar styles
+within your Scribus document.
+
+
 Additionally Scribus uses now a different way to find fonts, sadly this gives
-some changes in the font names Scribus uses. To convert old documents follow the
-procedure below:
+some changes in the font names Scribus uses. To convert old documents follow
+the procedure below:
 
 1) Create a document with the old Version of Scribus containing all your Fonts.
 2) Open the new Scribus and go to the Font Substitution List.
-3) Clear out all current Substitutions.
-4) Open the Document created in 1) and substitute all the fonts with the correct new Fonts.
+3) Clear out all current substitutions.
+4) Open the Document created in 1) and substitute all the fonts with the 
+   correct new fonts.
 
-When you open now old Documents Scribus will convert all Font Names
+When you now open old documents Scribus will convert all Font Names
 automatically.
 
 For Changes please see the ChangeLog.
 
-To use Scribus in your native language be sure that the environment
-variable LANG is set correctly.
+To use Scribus in your native language be sure that the environment variable 
+LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option 
+of -l/--lang <lang> is set correctly.
 
-The new EPS/PS import feature in 1.3 uses advanced features of Ghostscript. We recommend
-ALL users update to the newest version of Ghostscript avialable for your distro.
+The new EPS/PS import feature in 1.2.x uses advanced features of Ghostscript.
+We recommend ALL users update to the newest version of Ghostscript available 
+for your distro. There are detailed hints on docs.scribus.net for installing
+GS 8.x in parallel to the GS installed by your distro.
 
-Special note for SuSE 8.1 users, you need the devel packages, at least
-xdevel.rpm, qtdevel.rpm and tiffdevel.rpm. In the Standard-Install they
-were not installed.
+Activating Color Management *requires* installation of CMYK and RGB ICC 
+profiles. Please see the included help files and http://docs.scribus.net for 
+details.
 
 Other notes/known issues at the time of release:
 
@@ -44,20 +55,30 @@ PostScript fonts please install either xfonts-scalable or gsfonts-x11.
 They are in the "Recommends" and will be installed by all sensible apt
 front-ends.
 
-For SuSE 9.0/9.1 Users.
+For SuSE 9.x Users:
 
-The littlecms libs 1.10, which shipped with 9.0 does not offer complete support
-for all the the latest CMS features in Scribus 1.2. There are updated
-SuSE 9.x RPM's available on the scribus.net site. We also recommend using the 
-latest version of lcms. 
+- The littlecms libs 1.10, which shipped with 9.0 does not offer complete 
+  support for all the the latest CMS features in Scribus 1.2. There are updated
+  SuSE 9.x RPM's available on the Scribus.net site. We also recommend using the 
+  latest version of lcms. 
 
-If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+ rpms.
-The -2+ versions have an important fix for drag and drop in Scribus. 
+- If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+
+  rpms. The -2+ versions have an important fix for drag and drop in Scribus. 
 
-Many other hints and info are on the www.scribus.net site. Full compile, install and FAQ's
-are available there.
+- To enable direct CUPS support which recommend, make sure both cups-devel and 
+  openssl-devel are installed. Suse enables ssl support in CUPS.
+
+For Fedora/RH using Qt 3.3.2-6+ has the same fixes.
+
+Many other hints and info are on the www.scribus.net and docs.scribus.net
+sites. Full compile, install and FAQ's are available there.
+
+There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
+and the mailing list. Mailing list info can be found at: 
+ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 
 Franz Schmid
-in August 2004
+Peter Linnell
+in January 2005

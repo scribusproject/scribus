@@ -51,10 +51,10 @@ private:
 class FontCombo : public QComboBox  
 {
 public:
-	FontCombo(QWidget* pa, preV *Prefs);
+	FontCombo(QWidget* pa, ApplicationPrefs *Prefs);
 	~FontCombo() {};
 
-	void RebuildList(preV *Prefs, ScribusDoc *currentDoc);
+	void RebuildList(ApplicationPrefs *Prefs, ScribusDoc *currentDoc);
 };
 
 #endif

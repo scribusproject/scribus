@@ -37,7 +37,7 @@ public:
 private:
 	double LocPageWidth;
 	double LocPageHeight;
-	int Einheit;
+	int docUnitIndex;
     QString tp[4];
 
 	int selHor;

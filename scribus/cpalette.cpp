@@ -230,7 +230,7 @@ void Cpalette::InnenButton()
 	emit QueryItem();
 }
 
-void Cpalette::SetColors(CListe newColorList)
+void Cpalette::SetColors(ColorList newColorList)
 {
 	colorList.clear();
 	colorList = newColorList;
@@ -242,7 +242,7 @@ void Cpalette::updateCList()
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
@@ -305,7 +305,7 @@ void Cpalette::updateBoxS(QString colorName)
 {
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	int c = 0;
 	if ((colorName != "None") && (colorName != ""))
 	{

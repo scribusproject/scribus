@@ -93,7 +93,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
 	Color = new QComboBox( true, Properties, "Color" );
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
@@ -221,7 +221,7 @@ void MultiLine::updateSList()
 void MultiLine::reSort()
 {
 	int cc = 0;
-	struct singleLine sl;
+	struct SingleLine sl;
 	sl.Color = TempVorl[CurLin].Color;
 	sl.Shade = TempVorl[CurLin].Shade;
 	sl.Dash = TempVorl[CurLin].Dash;
@@ -311,7 +311,7 @@ void MultiLine::NewName()
 
 void MultiLine::NewSubLine()
 {
-	struct singleLine sl;
+	struct SingleLine sl;
 	sl.Color = TempVorl[CurLin].Color;
 	sl.Shade = TempVorl[CurLin].Shade;
 	sl.Dash = TempVorl[CurLin].Dash;

@@ -70,8 +70,8 @@ GuideManager::GuideManager(
 	tp[3] = tr(" p");
 	int   dp[] = {100, 1000, 10000, 100};
 	
-	Einheit = Einh;
-	decimals = dp[Einheit];
+	docUnitIndex = Einh;
+	decimals = dp[docUnitIndex];
 	
 	LocHor = YGuides; // in page XGuides and YGuides are inverted
 	LocVer = XGuides;
@@ -388,7 +388,7 @@ void GuideManager::UnitChange()
 	
 QString GuideManager::GetUnit()
 {
-	QString tmp = tp[Einheit];
+	QString tmp = tp[docUnitIndex];
 	return tmp;
 }
 	

@@ -25,7 +25,7 @@ extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QImage LoadPict(QString fn, bool *gray = 0);
 extern ScribusApp* ScApp;
 
-ScPreview::ScPreview(preV *prefs)
+ScPreview::ScPreview(ApplicationPrefs *prefs)
 {
 	Prefs = prefs;
 	Farben.clear();
@@ -35,10 +35,10 @@ ScPreview::ScPreview(preV *prefs)
 
 QPixmap ScPreview::createPreview(QString data)
 {
-	struct CLBuf OB;
-	struct Pti *hg;
-	struct Pti *hl;
-	QPtrList<Pti> Ptexti;
+	struct CopyPasteBuffer OB;
+	struct ScText *hg;
+	struct ScText *hl;
+	QPtrList<ScText> Ptexti;
 	bool error;
 	CMYKColor lf = CMYKColor();
 	QFont fo;
@@ -61,7 +61,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QString chx;
 	uint a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
-	QValueList<arrowDesc> arrowStyles;
+	QValueList<ArrowDesc> arrowStyles;
 	arrowStyles = Prefs->arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
@@ -87,7 +87,7 @@ QPixmap ScPreview::createPreview(QString data)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="Arrows")
 		{
-			struct arrowDesc arrow;
+			struct ArrowDesc arrow;
 			double xa, ya;
 			arrow.name = pg.attribute("Name");
 			QString tmp = pg.attribute("Points");
@@ -156,7 +156,7 @@ QPixmap ScPreview::createPreview(QString data)
 			while(!MuLn.isNull())
 			{
 				QDomElement MuL = MuLn.toElement();
-				struct singleLine sl;
+				struct SingleLine sl;
 				sl.Color = MuL.attribute("Color");
 				sl.Dash = QStoInt(MuL.attribute("Dash"));
 				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
@@ -249,7 +249,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.RExtra = QStodouble(pg.attribute("REXTRA", "1"));
 			OB.PoShow = QStoInt(pg.attribute("PTLSHOW","0"));
 			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
-			OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
+			OB.textAlignment = QStoInt(pg.attribute("ALIGN","0"));
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
 			OB.ISize = qRound(QStodouble(pg.attribute("ISIZE","12")) * 10.0);
 			OB.Pfile = pg.attribute("PFILE");
@@ -333,10 +333,10 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				IT=IT.nextSibling();
 			}
-			OB.Ptext = tmpx;
-			if (OB.Ptext != "")
+			OB.itemText = tmpx;
+			if (OB.itemText != "")
 			{
-				QTextStream t(&OB.Ptext, IO_ReadOnly);
+				QTextStream t(&OB.itemText, IO_ReadOnly);
 				QString cc;
 				while (!t.atEnd())
 				{
@@ -347,7 +347,7 @@ QPixmap ScPreview::createPreview(QString data)
 					QStringList::Iterator it;
 					wt = QStringList::split("\t", cc);
 					it = wt.begin();
-					hg = new Pti;
+					hg = new ScText;
 					hg->ch = (*it);
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);

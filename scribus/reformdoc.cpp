@@ -21,15 +21,15 @@ extern double UmReFaktor;
 extern bool CMSavail;
 extern ProfilesL InputProfiles;
 
-ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : PrefsDialogBase( parent )
+ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, ApplicationPrefs *prefsData ) : PrefsDialogBase( parent )
 {
-	einheit = doc->Einheit;
+	einheit = doc->docUnitIndex;
 	docc = doc;
 	ap = (ScribusApp*)parent;
 	fon = &prefsData->AvailFonts;
 	Umrech = UmReFaktor;
-	QString ein = unitGetSuffixFromIndex(doc->Einheit);
-	decimals = unitGetDecimalsFromIndex(doc->Einheit);
+	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
+	decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
 	int i=-1;
 	pageWidth = doc->PageB * UmReFaktor;
 	pageHeight = doc->PageH * UmReFaktor;
@@ -98,7 +98,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	unitCombo->insertItem( tr( "Inches (in)" ) );
 	unitCombo->insertItem( tr( "Picas (p)" ) );
 	unitCombo->setEditable(false);
-	unitCombo->setCurrentItem(doc->Einheit);
+	unitCombo->setCurrentItem(doc->docUnitIndex);
 	unitQLabel = new QLabel(unitCombo, tr( "&Unit:" ), dsGroupBox7, "unitQLabel" );
 	dsLayout4->addWidget( unitQLabel, 2, 0 );
 	dsLayout4->addWidget( unitCombo, 2, 1 );
@@ -238,7 +238,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	checkUnprintable = new QCheckBox( pageBackground, "checkUnprintable" );
 	checkUnprintable->setText( tr( "Display &Unprintable Area in Margin Color" ) );
 	checkUnprintable->setAccel( QKeySequence( tr( "Alt+U" ) ) );
-	checkUnprintable->setChecked( doc->RandFarbig );
+	checkUnprintable->setChecked( doc->marginColored );
 	pageBackgroundLayout->addWidget( checkUnprintable );
 	tabViewLayout->addWidget( pageBackground );
 
@@ -391,7 +391,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	colorComboText->setEditable(false);
 	QPixmap pmT2;
 	pmT2 = QPixmap(15, 15);
-	CListe::Iterator itc;
+	ColorList::Iterator itc;
 	colorComboText->insertItem( tr("None"));
 	if (doc->DpenText == "None")
 		colorComboText->setCurrentItem(colorComboText->count()-1);
@@ -709,11 +709,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
-	tabHyphenator->verbose->setChecked(!doc->Trenner->Automatic);
-	tabHyphenator->input->setChecked(doc->Trenner->AutoCheck);
-	tabHyphenator->language->setCurrentText(ap->LangTransl[doc->Trenner->Language]);
-	tabHyphenator->wordLen->setValue(doc->Trenner->MinWordLen);
-	tabHyphenator->maxCount->setValue(doc->Trenner->HyCount);
+	tabHyphenator->verbose->setChecked(!doc->docHyphenator->Automatic);
+	tabHyphenator->input->setChecked(doc->docHyphenator->AutoCheck);
+	tabHyphenator->language->setCurrentText(ap->LangTransl[doc->docHyphenator->Language]);
+	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
+	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 	
 	int cmsTab = 0;

@@ -174,13 +174,13 @@ void LayerPalette::rebuildList()
 		Table->setText(layers->count()-(*it).Level-1, 0, (*it).Name);
 		QCheckBox *cp = new QCheckBox(this, tmp.setNum((*it).Level));
 		cp->setPixmap(loadIcon("DateiPrint16.png"));
-		cp->setChecked((*it).Drucken);
+		cp->setChecked((*it).isPrintable);
 		Table->setCellWidget(layers->count()-(*it).Level-1, 1, cp);
 		FlagsPrint.append(cp);
 		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
 		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum((*it).Level));
 		cp2->setPixmap(loadIcon("Layervisible.xpm"));
-		cp2->setChecked((*it).Sichtbar);
+		cp2->setChecked((*it).isViewable);
 		FlagsSicht.append(cp2);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
 		Table->setCellWidget(layers->count()-(*it).Level-1, 2, cp2);
@@ -198,8 +198,8 @@ void LayerPalette::addLayer()
 	ll.LNr = layers->last().LNr + 1;
 	ll.Level = layers->count();
 	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
-	ll.Sichtbar = true;
-	ll.Drucken = true;
+	ll.isViewable = true;
+	ll.isPrintable = true;
 	layers->append(ll);
 	rebuildList();
 	*Activ = ll.LNr;
@@ -323,7 +323,7 @@ void LayerPalette::visibleLayer()
 	{
 		if ((*it).Level == num)
 		{
-			(*it).Sichtbar = it2.current()->isChecked();
+			(*it).isViewable = it2.current()->isChecked();
 			emit LayerChanged();
 			ScApp->slotDocCh();
 		}
@@ -339,7 +339,7 @@ void LayerPalette::printLayer()
 	{
 		if ((*it).Level == num)
 		{
-			(*it).Drucken = it2.current()->isChecked();
+			(*it).isPrintable = it2.current()->isChecked();
 			ScApp->slotDocCh();
 		}
 	}

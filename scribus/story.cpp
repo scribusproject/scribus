@@ -81,7 +81,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 	p.begin(this);
 	if ((editor != 0) && (noUpdt))
 	{
-		int st = editor->CurrentABStil;
+		int st = editor->currentParaStyle;
 		for (int pa = 0; pa < editor->paragraphs(); ++pa)
 		{
 			QRect re = editor->paragraphRect(pa);
@@ -102,7 +102,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 						if (st < 5)
 							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 						else
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
 					}
 					else
 					{
@@ -110,16 +110,16 @@ void SideBar::paintEvent(QPaintEvent *e)
 						if (st < 5)
 							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 						else
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
 					}
 				}
 				else
 				{
-					st = editor->CurrentABStil;
+					st = editor->currentParaStyle;
 					if (st < 5)
 						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 					else
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
 				}
 			}
 		}
@@ -273,7 +273,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 									if (chars->count() > 0)
 										ca = chars->at(0)->cab;
 									else
-										ca = CurrentABStil;
+										ca = currentParaStyle;
 									for (int s = 0; s < a; ++s)
 									{
 										hg = chars2->take(0);
@@ -340,7 +340,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 							if (p >= static_cast<int>(StyledText.count()))
 							{
 								StyledText.append(chars);
-								ParagStyles.append(CurrentABStil);
+								ParagStyles.append(currentParaStyle);
 							}
 							else
 							{
@@ -351,13 +351,13 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 								chars->append(chars2->take(i));
 							}
 							StyledText.insert(p+1, chars);
-							ParagStyles.insert(ParagStyles.at(p+1), CurrentABStil);
+							ParagStyles.insert(ParagStyles.at(p+1), currentParaStyle);
 							}
 						}
 						else
 						{
 							StyledText.append(chars);
-							ParagStyles.append(CurrentABStil);
+							ParagStyles.append(currentParaStyle);
 						}
 					}
 					break;
@@ -417,14 +417,14 @@ void SEditor::insChars(QString t)
 		chars->clear();
 		p2 = static_cast<int>(StyledText.count());
 		StyledText.append(chars);
-		ParagStyles.append(CurrentABStil);
+		ParagStyles.append(currentParaStyle);
 	}
 	else
 		chars = StyledText.at(p);
 	if (chars->count() != 0)
 		ccab = chars->at(0)->cab;
 	else
-		ccab = CurrentABStil;
+		ccab = currentParaStyle;
 	for (uint a = 0; a < t.length(); ++a)
 	{
 		if (t[a] == QChar(13))
@@ -490,14 +490,14 @@ void SEditor::insStyledText()
 		chars->clear();
 		p2 = static_cast<int>(StyledText.count());
 		StyledText.append(chars);
-		ParagStyles.append(CurrentABStil);
+		ParagStyles.append(currentParaStyle);
 	}
 	else
 		chars = StyledText.at(p);
 	if (chars->count() != 0)
 		ccab = chars->at(0)->cab;
 	else
-		ccab = CurrentABStil;
+		ccab = currentParaStyle;
 	for (uint a = 0; a < cBuffer.count()-1; ++a)
 	{
 		struct PtiSmall *hg;
@@ -600,15 +600,15 @@ void SEditor::saveItemText(PageItem* b)
 {
 	ChList *chars;
 	b->CPos = 0;
-	b->Ptext.clear();
+	b->itemText.clear();
 	uint c = 0;
 	for (uint p = 0; p < StyledText.count(); ++p)
 	{
 		if (p != 0)
 		{
 			c = StyledText.at(p-1)->count()-1;
-			struct Pti *hg;
-			hg = new Pti;
+			struct ScText *hg;
+			hg = new ScText;
 			hg->ch = QChar(13);
 			chars = StyledText.at(p-1);
 			if (chars->count() != 0)
@@ -634,10 +634,10 @@ void SEditor::saveItemText(PageItem* b)
 				hg->cstyle = CurrentStyle;
 				hg->cextra = CurrTextKern;
 				hg->cscale = CurrTextScale;
-				if (doc->Vorlagen[ParagStyles[p-1]].Font != "")
+				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
 				{
-					hg->cfont = doc->Vorlagen[ParagStyles[p-1]].Font;
-					hg->csize = doc->Vorlagen[ParagStyles[p-1]].FontSize;
+					hg->cfont = doc->docParagraphStyles[ParagStyles[p-1]].Font;
+					hg->csize = doc->docParagraphStyles[ParagStyles[p-1]].FontSize;
 				}
 			}
 			hg->cab = ParagStyles[p-1];
@@ -647,13 +647,13 @@ void SEditor::saveItemText(PageItem* b)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
-			b->Ptext.append(hg);
+			b->itemText.append(hg);
 		}
 		chars = StyledText.at(p);
 		for (uint c = 0; c < chars->count(); ++c)
 		{
-			struct Pti *hg;
-			hg = new Pti;
+			struct ScText *hg;
+			hg = new ScText;
 			hg->ch = chars->at(c)->ch;
 			hg->cfont = chars->at(c)->cfont;
 			hg->csize = chars->at(c)->csize;
@@ -671,7 +671,7 @@ void SEditor::saveItemText(PageItem* b)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
-			b->Ptext.append(hg);
+			b->itemText.append(hg);
 		}
 	}
 }
@@ -680,7 +680,7 @@ void SEditor::setAlign(int style)
 {
 	int align = 0;
 	if (style > 4)
-		align = doc->Vorlagen[style].Ausri;
+		align = doc->docParagraphStyles[style].textAlignment;
 	else
 		align = style;
 	switch (align)
@@ -727,19 +727,19 @@ void SEditor::loadItemText(PageItem* b)
 	}
 	if (nb != 0)
 	{
-		if (nb->Ptext.count() != 0)
+		if (nb->itemText.count() != 0)
 		{
-			Ccol = nb->Ptext.at(0)->ccolor;
-			Csha = nb->Ptext.at(0)->cshade;
-			Csty = nb->Ptext.at(0)->cstyle;
-			Ali = nb->Ptext.at(0)->cab;
+			Ccol = nb->itemText.at(0)->ccolor;
+			Csha = nb->itemText.at(0)->cshade;
+			Csty = nb->itemText.at(0)->cstyle;
+			Ali = nb->itemText.at(0)->cab;
 		}
 		else
 		{
 			Ccol = b->TxtFill;
 			Csha = b->ShTxtFill;
 			Csha = b->TxTStyle;
-			Ali = b->Ausrich;
+			Ali = b->textAlignment;
 		}
 		setAlign(Ali);
 		setFarbe(Ccol, Csha);
@@ -747,13 +747,13 @@ void SEditor::loadItemText(PageItem* b)
 	}
 	while (nb != 0)
 	{
-		for (uint a = 0; a < nb->Ptext.count(); ++a)
+		for (uint a = 0; a < nb->itemText.count(); ++a)
 		{
-			if (nb->Ptext.at(a)->ch == QChar(13))
+			if (nb->itemText.at(a)->ch == QChar(13))
 			{
 				StyledText.append(chars);
-				ParagStyles.append(nb->Ptext.at(a)->cab);
-				Ali = nb->Ptext.at(a)->cab;
+				ParagStyles.append(nb->itemText.at(a)->cab);
+				Ali = nb->itemText.at(a)->cab;
 				chars = new ChList;
 				chars->setAutoDelete(true);
 				chars->clear();
@@ -762,17 +762,17 @@ void SEditor::loadItemText(PageItem* b)
 			else
 			{
 				hg = new PtiSmall;
-				hg->ch = nb->Ptext.at(a)->ch;
-				hg->cfont = nb->Ptext.at(a)->cfont;
-				hg->csize = nb->Ptext.at(a)->csize;
-				hg->ccolor = nb->Ptext.at(a)->ccolor;
-				hg->cshade = nb->Ptext.at(a)->cshade;
-				hg->cstroke = nb->Ptext.at(a)->cstroke;
-				hg->cshade2 = nb->Ptext.at(a)->cshade2;
-				hg->cscale = nb->Ptext.at(a)->cscale;
-				hg->cstyle = nb->Ptext.at(a)->cstyle;
-				hg->cab = nb->Ptext.at(a)->cab;
-				hg->cextra = nb->Ptext.at(a)->cextra;
+				hg->ch = nb->itemText.at(a)->ch;
+				hg->cfont = nb->itemText.at(a)->cfont;
+				hg->csize = nb->itemText.at(a)->csize;
+				hg->ccolor = nb->itemText.at(a)->ccolor;
+				hg->cshade = nb->itemText.at(a)->cshade;
+				hg->cstroke = nb->itemText.at(a)->cstroke;
+				hg->cshade2 = nb->itemText.at(a)->cshade2;
+				hg->cscale = nb->itemText.at(a)->cscale;
+				hg->cstyle = nb->itemText.at(a)->cstyle;
+				hg->cab = nb->itemText.at(a)->cab;
+				hg->cextra = nb->itemText.at(a)->cextra;
 				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(30))
@@ -827,7 +827,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 	chars = new ChList;
 	chars->setAutoDelete(true);
 	chars->clear();
-	setAlign(b->Ausrich);
+	setAlign(b->textAlignment);
 	setFarbe(b->TxtFill, b->ShTxtFill);
 	setStyle(b->TxTStyle);
 	for (uint a = 0; a < tx.length(); ++a)
@@ -835,7 +835,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 		if (tx[a] == QChar(13))
 		{
 			StyledText.append(chars);
-			ParagStyles.append(b->Ausrich);
+			ParagStyles.append(b->textAlignment);
 			chars = new ChList;
 			chars->setAutoDelete(true);
 			chars->clear();
@@ -853,7 +853,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 			hg->cshade2 = b->ShTxtStroke;
 			hg->cscale = b->TxtScale;
 			hg->cstyle = b->TxTStyle;
-			hg->cab = b->Ausrich;
+			hg->cab = b->textAlignment;
 			hg->cextra = 0;
 			Text += hg->ch;
 			chars->append(hg);
@@ -861,7 +861,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 	}
 	insert(Text);
 	StyledText.append(chars);
-	ParagStyles.append(b->Ausrich);
+	ParagStyles.append(b->textAlignment);
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setCursorPosition(0, 0);
@@ -893,7 +893,7 @@ void SEditor::updateAll()
 		Ccol = CurrTextFill;
 		Csha = CurrTextFillSh;
 		Csty = CurrentStyle;
-		Ali = CurrentABStil;
+		Ali = currentParaStyle;
 	}
 	setAlign(Ali);
 	setFarbe(Ccol, Csha);
@@ -1117,7 +1117,7 @@ void SEditor::deleteSel()
 				if (chars->count() > 0)
 					ca = chars->at(0)->cab;
 				else
-					ca = CurrentABStil;
+					ca = currentParaStyle;
 				for (int s = 0; s < a; ++s)
 				{
 					hg = chars2->take(0);
@@ -1267,7 +1267,7 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	TxFill->setEditable(false);
 	PM2 = new ShadeButton(this);
 	TxFill->clear();
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	TxFill->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -1311,7 +1311,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	TxStroke->setEditable(false);
 	PM1 = new ShadeButton(this);
 	TxStroke->clear();
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	TxStroke->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -1824,7 +1824,7 @@ void StoryEditor::newTxKern(double s)
 
 void StoryEditor::updateProps(int p, int ch)
 {
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	int c = 0;
 	struct PtiSmall *hg;
 	SEditor::ChList *chars;
@@ -1841,7 +1841,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrFont = CurrItem->IFont;
 			Editor->CurrFontSize = CurrItem->ISize;
 			Editor->CurrentStyle = CurrItem->TxTStyle;
-			Editor->CurrentABStil = CurrItem->Ausrich;
+			Editor->currentParaStyle = CurrItem->textAlignment;
 			Editor->CurrTextKern = CurrItem->ExtraV;
 			Editor->CurrTextScale = CurrItem->TxtScale;
 			c = 0;
@@ -1872,7 +1872,7 @@ void StoryEditor::updateProps(int p, int ch)
 				}
 			}
 			StrokeTools->SetColor(c);
-			AlignTools->SetAlign(CurrItem->Ausrich);
+			AlignTools->SetAlign(CurrItem->textAlignment);
 			StyleTools->SetKern(CurrItem->ExtraV);
 			StyleTools->SetStyle(CurrItem->TxTStyle);
 			FontTools->SetSize(CurrItem->ISize / 10.0);
@@ -1889,27 +1889,27 @@ void StoryEditor::updateProps(int p, int ch)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		Editor->setAlign(Editor->CurrentABStil);
+		Editor->setAlign(Editor->currentParaStyle);
 		Editor->setStyle(Editor->CurrentStyle);
 		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		firstSet = true;
 		return;
 	}
 	chars = Editor->StyledText.at(p);
-	Editor->CurrentABStil = Editor->ParagStyles[p];
+	Editor->currentParaStyle = Editor->ParagStyles[p];
 	if (chars->count() == 0)
 	{
-		if (Editor->CurrentABStil > 4)
+		if (Editor->currentParaStyle > 4)
 		{
-			Editor->CurrFont = doc->Vorlagen[Editor->CurrentABStil].Font;
-			Editor->CurrFontSize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
-			Editor->CurrentStyle = doc->Vorlagen[Editor->CurrentABStil].FontEffect;
-			Editor->CurrTextFill = doc->Vorlagen[Editor->CurrentABStil].FColor;
-			Editor->CurrTextFillSh = doc->Vorlagen[Editor->CurrentABStil].FShade;
-			Editor->CurrTextStroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
-			Editor->CurrTextStrokeSh = doc->Vorlagen[Editor->CurrentABStil].SShade;
+			Editor->CurrFont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
+			Editor->CurrFontSize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+			Editor->CurrentStyle = doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+			Editor->CurrTextFill = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
+			Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
+			Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
+			Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
 		}
-		Editor->setAlign(Editor->CurrentABStil);
+		Editor->setAlign(Editor->currentParaStyle);
 		Editor->setStyle(Editor->CurrentStyle);
 		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 	}
@@ -1978,7 +1978,7 @@ void StoryEditor::updateProps(int p, int ch)
 	FontTools->SetSize(Editor->CurrFontSize / 10.0);
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);
-	AlignTools->SetAlign(Editor->CurrentABStil);
+	AlignTools->SetAlign(Editor->currentParaStyle);
 	updateStatus();
 }
 
@@ -2187,17 +2187,17 @@ void StoryEditor::updateTextFrame()
 	PageItem* nb2 = nb;
 	while (nb2 != 0)
 	{
-		nb2->Ptext.clear();
+		nb2->itemText.clear();
 		nb2->CPos = 0;
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
 	}
 	Editor->saveItemText(nb);
-	if (doc->Trenner->AutoCheck)
+	if (doc->docHyphenator->AutoCheck)
 	{
-		if (doc->Trenner->Language != nb->Language)
-			doc->Trenner->slotNewDict(nb->Language);
-		doc->Trenner->slotHyphenate(nb);
+		if (doc->docHyphenator->Language != nb->Language)
+			doc->docHyphenator->slotNewDict(nb->Language);
+		doc->docHyphenator->slotHyphenate(nb);
 	}
 	bool rep = doc->RePos;
 	doc->RePos = true;
@@ -2243,7 +2243,7 @@ void StoryEditor::slotEditStyles()
 	disconnect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	emit EditSt();
 	AlignTools->Spal->setFormats(doc);
-	AlignTools->SetAlign(Editor->CurrentABStil);
+	AlignTools->SetAlign(Editor->currentParaStyle);
 	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	Editor->setCursorPosition(p, i);
@@ -2255,39 +2255,39 @@ void StoryEditor::slotEditStyles()
 
 void StoryEditor::newAlign(int st)
 {
-	Editor->CurrentABStil = st;
+	Editor->currentParaStyle = st;
 	changeAlign(st);
 }
 
 void StoryEditor::changeAlignSB(int pa, int align)
 {
-	Editor->CurrentABStil = align;
-	(*Editor->ParagStyles.at(pa)) = Editor->CurrentABStil;
+	Editor->currentParaStyle = align;
+	(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
 	if (Editor->StyledText.count() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 		SEditor::ChList *chars;
-		(*Editor->ParagStyles.at(pa)) = Editor->CurrentABStil;
+		(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
 		if (Editor->StyledText.at(pa)->count() > 0)
 		{
 			chars = Editor->StyledText.at(pa);
 			for (uint s = 0; s < chars->count(); ++s)
 			{
-				if (Editor->CurrentABStil > 4)
+				if (Editor->currentParaStyle > 4)
 				{
-					if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+					if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 					{
-						chars->at(s)->cfont = doc->Vorlagen[Editor->CurrentABStil].Font;
-						chars->at(s)->csize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
+						chars->at(s)->cfont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
+						chars->at(s)->csize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
 						chars->at(s)->cstyle &= ~127;
-						chars->at(s)->cstyle |= doc->Vorlagen[Editor->CurrentABStil].FontEffect;
-						chars->at(s)->ccolor = doc->Vorlagen[Editor->CurrentABStil].FColor;
-						chars->at(s)->cshade = doc->Vorlagen[Editor->CurrentABStil].FShade;
-						chars->at(s)->cstroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
-						chars->at(s)->cshade2 = doc->Vorlagen[Editor->CurrentABStil].SShade;
+						chars->at(s)->cstyle |= doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+						chars->at(s)->ccolor = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
+						chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
+						chars->at(s)->cstroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
+						chars->at(s)->cshade2 = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
 					}
 				}
-				if ((Editor->CurrentABStil < 5) && (chars->at(s)->cab > 4))
+				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
 				{
 					chars->at(s)->ccolor = CurrItem->TxtFill;
 					chars->at(s)->cshade = CurrItem->ShTxtFill;
@@ -2298,7 +2298,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 					chars->at(s)->cstyle &= ~127;
 					chars->at(s)->cstyle |= CurrItem->TxTStyle;
 				}
-				chars->at(s)->cab = Editor->CurrentABStil;
+				chars->at(s)->cab = Editor->currentParaStyle;
 			}
 			Editor->updateFromChars(pa);
 		}
@@ -2309,17 +2309,17 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	}
 	else
 	{
-		if (Editor->CurrentABStil > 4)
+		if (Editor->currentParaStyle > 4)
 		{
-			if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+			if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 			{
-				Editor->CurrFont = doc->Vorlagen[Editor->CurrentABStil].Font;
-				Editor->CurrFontSize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
-				Editor->CurrentStyle = doc->Vorlagen[Editor->CurrentABStil].FontEffect;
-				Editor->CurrTextFill = doc->Vorlagen[Editor->CurrentABStil].FColor;
-				Editor->CurrTextFillSh = doc->Vorlagen[Editor->CurrentABStil].FShade;
-				Editor->CurrTextStroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
-				Editor->CurrTextStrokeSh = doc->Vorlagen[Editor->CurrentABStil].SShade;
+				Editor->CurrFont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
+				Editor->CurrFontSize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+				Editor->CurrentStyle = doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+				Editor->CurrTextFill = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
+				Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
+				Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
+				Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
 			}
 		}
 		else
@@ -2379,27 +2379,27 @@ void StoryEditor::changeAlign(int )
 		}
 		for (int pa = PStart; pa < QMIN(PEnd+1, static_cast<int>(Editor->StyledText.count())); ++pa)
 		{
-			(*Editor->ParagStyles.at(pa)) = Editor->CurrentABStil;
+			(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
 			if (Editor->StyledText.at(pa)->count() > 0)
 			{
 				chars = Editor->StyledText.at(pa);
 				for (uint s = 0; s < chars->count(); ++s)
 				{
-					if (Editor->CurrentABStil > 4)
+					if (Editor->currentParaStyle > 4)
 					{
-						if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+						if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 						{
-							chars->at(s)->cfont = doc->Vorlagen[Editor->CurrentABStil].Font;
-							chars->at(s)->csize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
+							chars->at(s)->cfont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
+							chars->at(s)->csize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
 							chars->at(s)->cstyle &= ~127;
-							chars->at(s)->cstyle |= doc->Vorlagen[Editor->CurrentABStil].FontEffect;
-							chars->at(s)->ccolor = doc->Vorlagen[Editor->CurrentABStil].FColor;
-							chars->at(s)->cshade = doc->Vorlagen[Editor->CurrentABStil].FShade;
-							chars->at(s)->cstroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
-							chars->at(s)->cshade2 = doc->Vorlagen[Editor->CurrentABStil].SShade;
+							chars->at(s)->cstyle |= doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+							chars->at(s)->ccolor = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
+							chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
+							chars->at(s)->cstroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
+							chars->at(s)->cshade2 = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
 						}
 					}
-					if ((Editor->CurrentABStil < 5) && (chars->at(s)->cab > 4))
+					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
 					{
 						chars->at(s)->ccolor = CurrItem->TxtFill;
 						chars->at(s)->cshade = CurrItem->ShTxtFill;
@@ -2410,7 +2410,7 @@ void StoryEditor::changeAlign(int )
 						chars->at(s)->cstyle &= ~127;
 						chars->at(s)->cstyle |= CurrItem->TxTStyle;
 					}
-					chars->at(s)->cab = Editor->CurrentABStil;
+					chars->at(s)->cab = Editor->currentParaStyle;
 				}
 			Editor->updateFromChars(pa);
 			}
@@ -2424,17 +2424,17 @@ void StoryEditor::changeAlign(int )
 	}
 	else
 	{
-		if (Editor->CurrentABStil > 4)
+		if (Editor->currentParaStyle > 4)
 		{
-			if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+			if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 			{
-				Editor->CurrFont = doc->Vorlagen[Editor->CurrentABStil].Font;
-				Editor->CurrFontSize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
-				Editor->CurrentStyle = doc->Vorlagen[Editor->CurrentABStil].FontEffect;
-				Editor->CurrTextFill = doc->Vorlagen[Editor->CurrentABStil].FColor;
-				Editor->CurrTextFillSh = doc->Vorlagen[Editor->CurrentABStil].FShade;
-				Editor->CurrTextStroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
-				Editor->CurrTextStrokeSh = doc->Vorlagen[Editor->CurrentABStil].SShade;
+				Editor->CurrFont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
+				Editor->CurrFontSize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+				Editor->CurrentStyle = doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+				Editor->CurrTextFill = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
+				Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
+				Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
+				Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
 			}
 		}
 		else
