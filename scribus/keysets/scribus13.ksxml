@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shortcutset name="Scribus 1.3" >
+    <function shortcut="" name="ColorWheel" />
     <function shortcut="Ctrl+Shift+E" name="ExportAsImage" />
     <function shortcut="" name="ExportAsSVG" />
     <function shortcut="" name="FontsPreview" />
@@ -33,7 +34,6 @@
     <function shortcut="Ctrl+Z" name="editUndoAction" />
     <function shortcut="" name="extrasGenerateTableOfContents" />
     <function shortcut="" name="extrasHyphenateText" />
-    <function shortcut="" name="extrasInsertSpecial" />
     <function shortcut="" name="extrasManagePictures" />
     <function shortcut="Ctrl+W" name="fileClose" />
     <function shortcut="" name="fileCollect" />
@@ -70,6 +70,8 @@
     <function shortcut="" name="helpAboutScribus" />
     <function shortcut="F1" name="helpManual" />
     <function shortcut="" name="helpTooltips" />
+    <function shortcut="" name="insertSampleText" />
+    <function shortcut="" name="insertSpecialChar" />
     <function shortcut="" name="itemAlignDist" />
     <function shortcut="" name="itemAttachTextToPath" />
     <function shortcut="" name="itemAttributes" />
@@ -108,7 +110,7 @@
     <function shortcut="" name="shadeOther" />
     <function shortcut="Ctrl+Space" name="specialNonBreakingSpace" />
     <function shortcut="Ctrl+Alt+Shift+P" name="specialPageNumber" />
-    <function shortcut="Ctrl+-" name="specialSmartHyphen" />
+    <function shortcut="Ctrl+Shift+-" name="specialSmartHyphen" />
     <function shortcut="F11" name="specialToggleAllGuides" />
     <function shortcut="F10" name="specialToggleAllPalettes" />
     <function shortcut="" name="styleInvertPict" />
@@ -117,6 +119,7 @@
     <function shortcut="" name="toolsBookmarks" />
     <function shortcut="E" name="toolsEditContents" />
     <function shortcut="Ctrl+Y" name="toolsEditWithStoryEditor" />
+    <function shortcut="Y" name="toolsEyeDropper" />
     <function shortcut="B" name="toolsInsertBezier" />
     <function shortcut="F" name="toolsInsertFreehandLine" />
     <function shortcut="I" name="toolsInsertImageFrame" />
@@ -139,6 +142,8 @@
     <function shortcut="" name="toolsToolbarTools" />
     <function shortcut="U" name="toolsUnlinkTextFrame" />
     <function shortcut="Z" name="toolsZoom" />
+    <function shortcut="Ctrl++" name="toolsZoomIn" />
+    <function shortcut="Ctrl+-" name="toolsZoomOut" />
     <function shortcut="" name="typeEffectNormal" />
     <function shortcut="" name="typeEffectOutline" />
     <function shortcut="" name="typeEffectSmallCaps" />

@@ -252,6 +252,10 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
+		//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many 
+		//     have conflicts if they dont nuke their settings. muhahahhaha
+		importingFrom12=true;
+		//>>CB
 		ReadPrefs(importingFrom12);
 
 		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
@@ -1404,7 +1408,7 @@ void ScribusApp::initHelpMenuActions()
 void ScribusApp::initSpecialActions()
 {
 	//typography
-	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Smart &Hyphen"), CTRL+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
+	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Smart &Hyphen"), CTRL+SHIFT+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
 	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Non Breaking &Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
 	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Page &Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",0,0.0,"specialPageNumber"));
 	
