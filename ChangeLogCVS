@@ -1,7 +1,15 @@
-
-
 Scribus - 1.3.0cvs
 ==================
+] Scribus crashes when duplicating a template-page (fschmid)
+- 0001789: [Import / Export] lines in tables do not export properly when line size is less than 1.0 pt (fschmid)
+- 0000006: [User Interface] Ability to show some sort of indicator to show how a textframe chain flows (fschmid)
+- 0001290: [Story Editor / Text Frames] Caret invisible in new text frames (fschmid)
+- 0001535: [General] annotation settings issue (fschmid)
+- 0001792: [Default] Implement PDF 1.5 support for layers (fschmid)
+- 0001719: [Story Editor / Text Frames] Deleting first character of text frame leaves editing mode (fschmid)
+- 0001718: [Story Editor / Text Frames] Can edit first empty line of text frame (fschmid)
+- 0001784: [Internal] mistyped ScratchLeft in <DOCUMENT> (ringerc)
+- 0001732: [User Interface] in the rotation field of the xyz-tab after 360° comes 0° (fschmid)
 - 0001732: [User Interface] in the rotation field of the xyz-tab after 360° comes 0° (fschmid)
 - 0001719: [Story Editor / Text Frames] Deleting first character of text frame leaves editing mode (fschmid)
 - 0001765: [Picture Frames] selectin "goto" in the picture manager crashes scribus (fschmid)
