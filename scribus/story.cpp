@@ -1464,7 +1464,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	StoryEd2Layout = new QHBoxLayout( 0, 5, 5, "StoryEd2Layout");
 /* Setting up Menu Bar */
 	fmenu = new QPopupMenu();
-	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(Do_new()), CTRL+Key_N);
+	fmenu->insertItem(loadIcon("editdelete.png"), tr("&New"), this, SLOT(Do_new()), CTRL+Key_N);
 	fid52 = fmenu->insertItem(loadIcon("reload16.png"),  tr("&Reload Text from Frame"), this, SLOT(slotFileRevert()));
 	fmenu->insertSeparator();
 	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save to File..."), this, SLOT(SaveTextFile()));
@@ -1472,7 +1472,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	fmenu->insertItem(tr("Save &Document"), this, SLOT(Do_saveDocument()), CTRL+Key_S);
 	fmenu->insertSeparator();
 	/* changes to fit the #662 bug 05/28/04 petr vanek */
-	fmenu->insertItem(loadIcon("DateiClos16.png"),  tr("&Update Text Frame and Exit"), this, SLOT(Do_leave2()));
+	fmenu->insertItem(loadIcon("ok.png"),  tr("&Update Text Frame and Exit"), this, SLOT(Do_leave2()));
 	fmenu->insertItem(loadIcon("exit.png"),  tr("&Exit Without Updating Text Frame"), this, SLOT(Do_leave()));
 	/* end of changes */
 	emenu = new QPopupMenu();
@@ -1497,7 +1497,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar( tr("File"), this);
-	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Clear all Text"), QString::null, this, SLOT(Do_new()), FileTools);
+	DatNeu = new QToolButton(loadIcon("editdelete.png"), tr("Clear all Text"), QString::null, this, SLOT(Do_new()), FileTools);
 	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Load Text from File"), QString::null, this, SLOT(LoadTextFile()), FileTools);
 	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save Text to File"), QString::null, this, SLOT(SaveTextFile()), FileTools);
 	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Update Text Frame and Exit"), QString::null, this, SLOT(Do_leave2()), FileTools);

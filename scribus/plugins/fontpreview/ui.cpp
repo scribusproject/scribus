@@ -7,6 +7,7 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include <qstring.h>
 
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
@@ -47,7 +48,7 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 
 	FontPreviewLayout->addLayout( layout6, 0, 0 );
 	languageChange();
-	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
+	resize( QSize(800, 600).expandedTo(minimumSizeHint()) );
 	layout()->activate();
 	clearWState( WState_Polished );
 	SCFontsIterator fontIter(carrier->Prefs.AvailFonts);
@@ -107,8 +108,13 @@ Creates pixmap with font sample
 */
 void FontPreview::fontList_changed( QListBoxItem *item )
 {
+	uint size = 16;
+	QString t = tr("Woven silk pyjamas exchanged for blue quartz");
+	if (carrier->doc->Dsize && carrier->doc->Dsize < 28 && carrier->doc->Dsize > 10)
+		size = carrier->doc->Dsize;
+	t.replace('\n', " "); // remove French <NL> from translation...
 	QString da = carrier->Prefs.AvailFonts[item->text()]->Datei;
-	QPixmap pixmap = FontSample(da, 28, tr("Woven silk pyjamas exchanged for blue quartz"), paletteBackgroundColor());
+	QPixmap pixmap = FontSample(da, size, t, paletteBackgroundColor());
 	fontPreview->clear();
 	fontPreview->setPixmap(pixmap);
 }
