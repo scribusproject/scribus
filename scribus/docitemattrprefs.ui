@@ -35,7 +35,7 @@
                 </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout21</cstring>
+                        <cstring>attributesVBox</cstring>
                     </property>
                     <vbox>
                         <property name="name">
@@ -44,27 +44,34 @@
                         <widget class="QTable">
                             <column>
                                 <property name="text">
-                                    <string>Key</string>
-                                </property>
-                            </column>
-                            <column>
-                                <property name="text">
                                     <string>Name</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Type</string>
                                 </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Default Value</string>
                                 </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Default Parameter</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <property name="name">
@@ -74,12 +81,12 @@
                                 <number>0</number>
                             </property>
                             <property name="numCols">
-                                <number>5</number>
+                                <number>4</number>
                             </property>
                         </widget>
                         <widget class="QLayoutWidget">
                             <property name="name">
-                                <cstring>layout20</cstring>
+                                <cstring>attributesHBox</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
@@ -200,7 +207,7 @@
     <slot access="protected">tableItemChanged( int row, int col )</slot>
     <slot access="protected">addEntry()</slot>
     <slot access="protected">deleteEntry()</slot>
-    <slot>clearEntries()</slot>
+    <slot access="protected">clearEntries()</slot>
     <slot access="protected">copyEntry()</slot>
 </slots>
 <functions>

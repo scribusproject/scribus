@@ -24,7 +24,7 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout19</cstring>
+                <cstring>attributeVBox</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -35,32 +35,39 @@
                         <property name="text">
                             <string>Name</string>
                         </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
                     </column>
                     <column>
                         <property name="text">
                             <string>Type</string>
                         </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Default Value</string>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
                         </property>
                     </column>
                     <column>
                         <property name="text">
-                            <string>Default Parameter</string>
+                            <string>Value</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
                         </property>
                     </column>
-                    <row>
+                    <column>
                         <property name="text">
-                            <string>0</string>
+                            <string>Parameter</string>
                         </property>
-                    </row>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
                     <property name="name">
                         <cstring>attributesTable</cstring>
                     </property>
                     <property name="numRows">
-                        <number>1</number>
+                        <number>0</number>
                     </property>
                     <property name="numCols">
                         <number>4</number>
@@ -68,7 +75,7 @@
                 </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout18</cstring>
+                        <cstring>attributesHBox</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -191,6 +198,30 @@
         <receiver>PageItemAttributes</receiver>
         <slot>tableItemChanged(int,int)</slot>
     </connection>
+    <connection>
+        <sender>addButton</sender>
+        <signal>clicked()</signal>
+        <receiver>PageItemAttributes</receiver>
+        <slot>addEntry()</slot>
+    </connection>
+    <connection>
+        <sender>deleteButton</sender>
+        <signal>clicked()</signal>
+        <receiver>PageItemAttributes</receiver>
+        <slot>deleteEntry()</slot>
+    </connection>
+    <connection>
+        <sender>clearButton</sender>
+        <signal>clicked()</signal>
+        <receiver>PageItemAttributes</receiver>
+        <slot>clearEntries()</slot>
+    </connection>
+    <connection>
+        <sender>copyButton</sender>
+        <signal>clicked()</signal>
+        <receiver>PageItemAttributes</receiver>
+        <slot>copyEntry()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in declaration">pagestructs.h</include>
@@ -204,11 +235,16 @@
 <slots>
     <slot>setup( ObjAttrVector * docItemAttrs )</slot>
     <slot>tableItemChanged( int row, int col )</slot>
+    <slot access="protected">addEntry()</slot>
+    <slot access="protected">deleteEntry()</slot>
+    <slot access="protected">clearEntries()</slot>
+    <slot access="protected">copyEntry()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
     <function access="private" specifier="non virtual">destroy()</function>
-    <function returnType="ObjAttrVector*">getNewAttributes()</function>
+    <function returnType="ObjAttrVector *">getNewAttributes()</function>
+    <function access="protected">updateTable()</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

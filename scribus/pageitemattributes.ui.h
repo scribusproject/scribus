@@ -70,3 +70,89 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			break;
 	}
 }
+
+
+void PageItemAttributes::addEntry()
+{
+	ObjectAttribute blank;
+	localAttributes.append(blank);
+	updateTable();
+}
+
+
+void PageItemAttributes::deleteEntry()
+{
+	int currRow=attributesTable->currentRow();
+	bool found=false;
+	ObjAttrVector::Iterator it;
+	int count=0;
+	for(it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	{
+		if(count==currRow)
+		{
+			found=true;
+			break;
+		}
+		++count;
+	}
+	if (found)
+	{
+		localAttributes.erase(it);
+		updateTable();
+	}
+}
+
+
+void PageItemAttributes::clearEntries()
+{
+	localAttributes.clear();
+	updateTable();
+}
+
+
+void PageItemAttributes::copyEntry()
+{
+	int currRow=attributesTable->currentRow();
+	bool found=false;
+	ObjAttrVector::Iterator it;
+	int count=0;
+	for(it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	{
+		if(count==currRow)
+		{
+			found=true;
+			break;
+		}
+		++count;
+	}
+	if (found)
+	{
+		localAttributes.append((*it));
+		updateTable();
+	}
+}
+
+
+void PageItemAttributes::updateTable()
+{
+	attributesTable->setNumRows(localAttributes.count());
+	int row=0;
+	for(ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	{
+		uint i=0;
+		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).name);
+		attributesTable->setItem(row, i++, item1);
+		QTableItem *item2 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).type);
+		attributesTable->setItem(row, i++, item2);
+		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).value);
+		attributesTable->setItem(row, i++, item3);
+		QTableItem *item4 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).parameter);
+		attributesTable->setItem(row, i++, item4);
+		
+		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
+		row++;
+	}
+	deleteButton->setEnabled(localAttributes.count()!=0);
+	copyButton->setEnabled(localAttributes.count()!=0);
+	clearButton->setEnabled(localAttributes.count()!=0);
+}

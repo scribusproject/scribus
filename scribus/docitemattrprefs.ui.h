@@ -85,6 +85,7 @@ void DocumentItemAttributes::updateTable()
 	}
 	deleteButton->setEnabled(localAttributes.count()!=0);
 	copyButton->setEnabled(localAttributes.count()!=0);
+	clearButton->setEnabled(localAttributes.count()!=0);
 }
 
 
