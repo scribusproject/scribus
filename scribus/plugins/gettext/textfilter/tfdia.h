@@ -7,6 +7,9 @@
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qlayout.h>
+#include <qscrollview.h>
+#include <qvbox.h>
+#include <qevent.h>
 #include <prefscontext.h>
 #include "tffilter.h"
 
@@ -24,6 +27,8 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QString currentFilter;
+	QScrollView* qsv;
+	QFrame* vbox;
 	int currentIndex;
 	void clear();
 	void createLayout();
@@ -39,6 +44,7 @@ private slots:
 	void cancelClicked();
 	void deleteClicked();
 	void loadFilter(const QString& name);
+	void resizeEvent(QResizeEvent* e);
 public:
 	std::vector<tfFilter*> filters;
 	tfDia();
