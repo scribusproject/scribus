@@ -198,5 +198,10 @@ void DocumentItemAttributes::copyEntry()
 	}
 }
 
-
-
+QStringList DocumentItemAttributes::getDocAttributesNames()
+{
+	QStringList nameList;
+	for(ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+		nameList.append((*it).name);
+	return nameList;
+}

@@ -242,6 +242,14 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	
 	docItemAttributes = prefsData->defaultItemAttributes;
 	
+	docToCSetups.clear();/*
+	ToCSetup newToC;
+	newToC.name="My ToC";
+	newToC.itemAttrName="None";
+	newToC.frameName="None";
+	newToC.style="None";
+	docToCSetups.append(newToC);*/
+	
 	RePos = false;
 	BookMarks.clear();
 	OldBM = false;
@@ -552,4 +560,13 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 	else
 		FT_Done_Face( face );
 	return ret;
+}
+
+QStringList ScribusDoc::getItemAttributeNames()
+{
+	QStringList nameList;
+	
+	for(ObjAttrVector::Iterator it = docItemAttributes.begin(); it!= docItemAttributes.end(); ++it)
+		nameList.append((*it).name);
+	return nameList;
 }

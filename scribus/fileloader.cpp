@@ -725,6 +725,25 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					DIA = DIA.nextSibling();
 				}
 			}
+			if(pg.tagName()=="TablesOfContents")
+			{
+				QDomNode TOC = PAGE.firstChild();
+				doc->docToCSetups.clear();
+				while(!TOC.isNull())
+				{
+					QDomElement tocElem = TOC.toElement();
+					if(tocElem.tagName() == "TableOfContents")
+					{
+						ToCSetup tocsetup;
+						tocsetup.name=tocElem.attribute("Name");
+						tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
+						tocsetup.frameName=tocElem.attribute("FrameName");
+						tocsetup.style=tocElem.attribute("Style");
+						doc->docToCSetups.append(tocsetup);
+					}
+					TOC = TOC.nextSibling();
+				}
+			}
 			if ((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE"))
 			{
 				a = QStoInt(pg.attribute("NUM"));

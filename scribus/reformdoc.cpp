@@ -27,7 +27,7 @@ extern ProfilesL InputProfiles;
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
 {
 	einheit = doc->docUnitIndex;
-	docc = doc;
+	currDoc = doc;
 	ap = (ScribusApp*)parent;
 	Umrech = UmReFaktor;
 	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
@@ -325,10 +325,14 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 	
 	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
+	docAttributesList=tabDocItemAttributes->getDocAttributesNames();
 	tabDocItemAttributes->setup(&doc->docItemAttributes);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDocItemAttributes);
 
 	tabTOCIndexPrefs = new TOCIndexPrefs( prefsWidgets );
+	tabTOCIndexPrefs->setupItemAttrs( tabDocItemAttributes->getDocAttributesNames());
+	tabTOCIndexPrefs->setup(currDoc);
+	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
 	
 	int cmsTab = 0;
@@ -414,9 +418,9 @@ void ReformDoc::unitChange()
 	double invUnitConversion = 1.0 / AltUmrech * Umrech;
 
 	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, docc->PageB * Umrech);
+	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageB * Umrech);
 	heightMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, docc->PageH * Umrech);
+	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageH * Umrech);
 	topR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	topR->setValues(0, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	bottomR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -454,8 +458,8 @@ void ReformDoc::unitChange()
 	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabPDF->unitConv = Umrech;
-	pageWidth = docc->PageB * Umrech;
-	pageHeight = docc->PageH * Umrech;
+	pageWidth = currDoc->PageB * Umrech;
+	pageHeight = currDoc->PageH * Umrech;
 	rightR->setMaxValue(pageWidth - leftR->value());
 	leftR->setMaxValue(pageWidth - rightR->value());
 	topR->setMaxValue(pageHeight - bottomR->value());
@@ -518,4 +522,11 @@ void ReformDoc::setDS()
 void ReformDoc::switchCMS(bool enable)
 {
 	tabPDF->enableCMS(enable);
+}
+
+void ReformDoc::setTOCIndexData(QWidget *widgetToShow)
+{
+	//Update the attributes list in TOC setup 
+	if (widgetToShow==tabTOCIndexPrefs)
+		tabTOCIndexPrefs->setupItemAttrs( tabDocItemAttributes->getDocAttributesNames() );
 }

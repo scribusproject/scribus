@@ -46,56 +46,35 @@
                                 <property name="text">
                                     <string>Name</string>
                                 </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Type</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Value</string>
                                 </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Parameter</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Relationship</string>
                                 </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Relationship To</string>
                                 </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Auto Add To</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <property name="name">
@@ -243,6 +222,7 @@
     <function access="private" specifier="non virtual">destroy()</function>
     <function returnType="ObjAttrVector *">getNewAttributes()</function>
     <function access="protected">updateTable()</function>
+    <function returnType="QStringList">getDocAttributesNames()</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

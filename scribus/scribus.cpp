@@ -94,6 +94,7 @@
 #include "tabpdfoptions.h"
 #include "docitemattrprefs.h"
 #include "pageitemattributes.h"
+#include "tocindexprefs.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -1307,10 +1308,12 @@ void ScribusApp::initExtrasMenuActions()
 	scrActions.insert("extrasManagePictures", new ScrAction(tr("&Manage Pictures"), QKeySequence(), this, "extrasManagePictures"));
 	scrActions.insert("extrasHyphenateText", new ScrAction(tr("&Hyphenate Text"), QKeySequence(), this, "extrasHyphenateText"));
 	scrActions.insert("extrasInsertSpecial", new ScrAction(tr("&Insert Special"), QKeySequence(), this, "extrasInsertSpecial"));
+	scrActions.insert("extrasGenerateTableOfContents", new ScrAction(tr("&Generate Table Of Contents"), QKeySequence(), this, "extrasGenerateTableOfContents"));
 
 	connect( scrActions["extrasManagePictures"], SIGNAL(activated()) , this, SLOT(StatusPic()) );
 	connect( scrActions["extrasHyphenateText"], SIGNAL(activated()) , this, SLOT(doHyphenate()) );
 	connect( scrActions["extrasInsertSpecial"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
+	connect( scrActions["extrasGenerateTableOfContents"], SIGNAL(activated()) , this, SLOT(generateTableOfContents()) );
 }
 
 
@@ -1563,6 +1566,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["extrasManagePictures"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasInsertSpecial"], "Extras");
+	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras");
+	
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrActions["extrasHyphenateText"]->setEnabled(false);
 	scrActions["extrasInsertSpecial"]->setEnabled(false);
@@ -3488,6 +3493,7 @@ bool ScribusApp::SetupDoc()
 		}
 		
 		doc->docItemAttributes = *(dia->tabDocItemAttributes->getNewAttributes());
+		doc->docToCSetups = *(dia->tabTOCIndexPrefs->getNewToCs());
 		
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
@@ -10400,4 +10406,44 @@ void ScribusApp::objectAttributes()
 			delete pageItemAttrs;
 		}
 	}
+}
+
+void ScribusApp::generateTableOfContents()
+{
+	/*
+	if ((HaveDoc) && (view->SelItem.count() == 1))
+	{
+		PageItem *tocFrame=view->SelItem.at(0);
+		if (tocFrame!=NULL)
+		{
+			PageItem *currentDocItem;
+			QMap<QString, QString> tocMap;
+			tocMap.clear();
+			uint pageCounter[doc->PageC];
+			for (int i=0;i<=doc->PageC;++i)
+				pageCounter[i]=0;
+			
+			for (uint d = 0; d < doc->DocItems.count(); ++d)
+			{
+				currentDocItem = doc->DocItems.at(d);
+				if (currentDocItem!=NULL)
+				{
+					//Item not on a page, continue
+					if (currentDocItem->OwnPage==-1)
+						continue;
+					ObjectAttribute objattr=currentDocItem->getObjectAttribute("ToC");
+					if (objattr.name!=QString::null)
+					{
+						QString key=QString("page%1_item%2").arg(currentDocItem->OwnPage).arg(pageCounter[currentDocItem->OwnPage]++);
+						tocMap.insert(key, objattr.value);
+					}				
+				}
+			}
+			//echo to console our ToC
+			for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
+			{
+				qDebug(QString("Toc Entry: %1 : Entry Text : %2").arg(tocIt.key(), tocIt.data()));
+			}
+		}
+	}*/
 }

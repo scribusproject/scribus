@@ -97,7 +97,7 @@ public:
 	TOCIndexPrefs* tabTOCIndexPrefs;
 	
 	ScribusApp *ap;
-	ScribusDoc* docc;
+	ScribusDoc* currDoc;
 	int einheit;
 	int decimals;
 	double Umrech;
@@ -122,6 +122,8 @@ protected:
 	QVBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* layout10;
 	QHBoxLayout* groupAutoSaveLayout;
+	
+	QStringList docAttributesList;
 
 protected slots:
 	virtual void unitChange();
@@ -132,6 +134,7 @@ protected slots:
 	virtual void setLeft(int v);
 	virtual void setRight(int v);
 	virtual void switchCMS(bool enable);
+	virtual void setTOCIndexData(QWidget *widgetToShow);
 };
 
 #endif // REFORMDOC_H

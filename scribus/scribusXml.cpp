@@ -2504,7 +2504,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			docItemAttrs.appendChild(itemAttr);
 		}
 		ob.appendChild(docItemAttrs);
-	
+		
 		dc->appendChild(ob);
 	}
 }
@@ -2857,6 +2857,17 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		docItemAttrs.appendChild(itemAttr);
 	}
 	dc.appendChild(docItemAttrs);
+	QDomElement tocElem = docu.createElement("TablesOfContents");
+	for(ToCSetupVector::Iterator tocSetupIt = doc->docToCSetups.begin() ; tocSetupIt != doc->docToCSetups.end(); ++tocSetupIt )
+	{
+		QDomElement tocsetup = docu.createElement("TableOfContents");
+		tocsetup.setAttribute("Name", (*tocSetupIt).name);
+		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
+		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
+		tocsetup.setAttribute("Style", (*tocSetupIt).style);
+		tocElem.appendChild(tocsetup);
+	}
+	dc.appendChild(tocElem);
 	if (dia2 != 0)
 	{
 		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count());

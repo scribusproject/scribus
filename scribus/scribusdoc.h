@@ -87,6 +87,10 @@ public:
 	 * @author Riku Leino
 	 */
 	void setName(const QString& name);
+	/*!
+	 * @brief Returns a stringlist of the item attributes within the document
+	 */
+	QStringList getItemAttributeNames();
 
 protected:
     bool modified;
@@ -264,6 +268,7 @@ public: // Public attributes
 	QMap<int, errorCodes> masterItemErrors;
 	//Attributes to be applied to frames
 	ObjAttrVector docItemAttributes;
+	ToCSetupVector docToCSetups;
 };
 
 #endif

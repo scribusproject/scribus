@@ -423,6 +423,7 @@ public slots:
 	/** Richtet Objekte aus */
 	void ObjektAlign();
 	void objectAttributes();
+	void generateTableOfContents();
 	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
 	const bool GetAllFonts();
 	void buildFontMenu();
