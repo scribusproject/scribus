@@ -4871,13 +4871,13 @@ void ScribusApp::setAbsValue(int a)
 		{
 		AliMenu->setItemChecked(AliMenu->idAt(b), false);
 		}
-	if (a < 5)
+/*	if (a < 5)
 		{
 		Mpal->Spal->setCurrentItem(0);
 		AliMenu->setItemChecked(AliMenu->idAt(a), true);
 		}
 	else
-		Mpal->Spal->setCurrentItem(a-4);
+		Mpal->Spal->setCurrentItem(a-4); */
 }
 
 void ScribusApp::slotEditColors()

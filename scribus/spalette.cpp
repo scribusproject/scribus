@@ -40,7 +40,7 @@ void Spalette::setFormat(int e)
 	if (e < 5)
 		setCurrentItem(0);
 	else
-		setSelected(findItem(doc->Vorlagen[e].Vname), true);
+		setSelected(findItem(doc->Vorlagen[e].Vname, Qt::ExactMatch), true);
 }
 
 void Spalette::updateFList()
