@@ -3665,6 +3665,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(LevelChanged(uint )), Mpal, SLOT(setLevel(uint)));
 	connect(view, SIGNAL(callGimp()), this, SLOT(CallGimp()));
 	connect(view, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
+	connect(view, SIGNAL(AddObj(PageItem *)), Tpal, SLOT(slotAddElement(PageItem *)));
 /*	if (!doc->TemplateMode)
 	{
 		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
@@ -8721,6 +8722,7 @@ void ScribusApp::ManageTemp(QString temp)
 {
 	if (HaveDoc)
 	{
+		view->Deselect(true);
 		if (doc->TemplateMode)
 		{
 			ActWin->muster->updateTemplateList(temp);

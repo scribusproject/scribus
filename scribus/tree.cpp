@@ -30,6 +30,7 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", fals
 	reportDisplay->addColumn( tr("Element"));
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
+	reportDisplay->setSorting(-1);
 /*	reportDisplay->addColumn( tr("Type"));
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
@@ -58,6 +59,7 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", fals
 	polygonIcon = loadIcon("spline.png");
 	groupIcon = loadIcon("u_group.png");
 	selectionTriggered = false;
+	freeObjects = 0;
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 //	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
@@ -342,15 +344,49 @@ void Tree::setItemIcon(QListViewItem *item, int typ)
 	}
 }
 
-void Tree::slotAddElement(uint SNr, uint Nr)
+void Tree::slotAddElement(PageItem *item)
 {
-/*	if (ScApp->ScriptRunning)
+	if (ScApp->ScriptRunning)
 		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+	if (document->loading)
 		return;
-	PageObj.at(SNr)->Elemente.insert(Nr, new QListViewItem(Seiten.at(SNr), "Items"));
-	slotUpdateElement(SNr, Nr);
-	PageObj.at(SNr)->Elemente.at(Nr)->setRenameEnabled(0, true); */
+	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	QListViewItem * object;
+	if (item->OnMasterPage != "")
+	{
+		QListViewItem * page = templatePageMapRev[item->OnMasterPage];
+		object = new QListViewItem( page, 0 );
+		templateItemMap.insert(object, item->ItemNr);
+		templateItemMapRev.insert(item->ItemNr, object);
+	}
+	else
+	{
+		if (item->OwnPage != -1)
+		{
+			QListViewItem * page = pageMapRev[item->OwnPage];
+			object = new QListViewItem( page, 0 );
+			itemMap.insert(object, item->ItemNr);
+			itemMapRev.insert(item->ItemNr, object);
+		}
+		else
+		{
+			QListViewItem * page = freeObjects;
+			if (freeObjects == 0)
+			{
+				page = new QListViewItem( rootObject, 0 );
+				page->setText(0, tr("Free Objects"));
+				freeObjects = page;
+			}
+			object = new QListViewItem( page, 0 );
+			itemMap.insert(object, item->ItemNr);
+			itemMapRev.insert(item->ItemNr, object);
+		}
+	}
+	object->setText(0, item->itemName());
+	setItemIcon(object, item->itemType());
+	reportDisplay->clearSelection();
+	reportDisplay->setSelected(object, true);
+	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
 void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
@@ -538,8 +574,10 @@ void Tree::BuildTree(ScribusDoc *doc)
 	templateItemMapRev.clear();
 	QPtrList<PageItem> subGroupList;
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
+	rootObject = item;
 	item->setText( 0, doc->DocName.section( '/', -1 ) );
 	QListViewItem * pagep = 0;
+	freeObjects = 0;
 	PageItem* pgItem;
 	QString tmp;
 	for (uint b = 0; b < doc->MasterItems.count(); ++b)
@@ -644,6 +682,7 @@ void Tree::BuildTree(ScribusDoc *doc)
 	{
 		QListViewItem * page = new QListViewItem( item, pagep );
 		pagep = page;
+		freeObjects = page;
 		for (uint b = 0; b < doc->DocItems.count(); ++b)
 		{
 			pgItem = doc->DocItems.at(b);

@@ -175,6 +175,8 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 	if (ext == "pdf")
 	{
 		QStringList args;
+		xres = gsRes;
+		yres = gsRes;
 		args.append("-r"+QString::number(gsRes));
 		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
@@ -253,6 +255,8 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 			b = b * gsRes / 72.0;
 			h = h * gsRes / 72.0;
 			QStringList args;
+			xres = gsRes;
+			yres = gsRes;
 			args.append("-r"+QString::number(gsRes));
 			args.append("-sOutputFile="+tmpFile);
 			args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
@@ -395,7 +399,6 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 			TIFFClose(tif);
 			img.setDotsPerMeterX ((int) (xres / 0.0254));
 			img.setDotsPerMeterY ((int) (yres / 0.0254));
-
 		}
 	}
 #endif // HAVE_TIFF
@@ -403,6 +406,8 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 	{
 		if (img.load(fn))
 		{
+			xres = img.dotsPerMeterX() * 0.0254;
+			yres = img.dotsPerMeterY() * 0.0254;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
 #ifdef HAVE_CMS
@@ -543,6 +548,8 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 	}
 	if ((requestType == 0 || isCMYK) && !bilevel)
 		img.setAlphaBuffer(false);
+	img.setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
+	img.setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
 	return img;
 }
 

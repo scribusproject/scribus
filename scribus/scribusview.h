@@ -376,7 +376,6 @@ signals:
 	void ItemTextSca(int);
 	void ItemTextFarben(QString, QString, int, int);
 	void ItemTextStil(int);
-	void UpdtObj(uint, uint);
 	void ItemRadius(double);
 	void HasTextSel();
 	void HasNoTextSel();
@@ -407,5 +406,7 @@ signals:
 	void EditGuides();
 	void MousePos(double, double);
 	void callGimp();
+	void AddObj(PageItem *);
+	void UpdtObj(uint, uint);
 };
 #endif

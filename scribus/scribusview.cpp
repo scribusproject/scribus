@@ -2702,6 +2702,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		undoManager->commit(targetName, ite->getUPixmap(),
 							Um::Create + " " + ite->getUName(),  "", Um::ICreate);
 		_itemCreationTransactionStarted = false;
+		if (!Doc->loading)
+			emit AddObj(ite);
 	}
 }
 
@@ -9155,7 +9157,7 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 	if (!Doc->loading)
 	{
 		ite->paintObj();
-//		emit AddObj(PageNr, ite->ItemNr);
+//		emit AddObj(ite);
 	}
 	if (UndoManager::undoEnabled())
 	{
@@ -9206,7 +9208,7 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 	if (!Doc->loading)
 	{
 		ite->paintObj();
-//		emit AddObj(PageNr, ite->ItemNr);
+//		emit AddObj(ite);
 	}
 	if (UndoManager::undoEnabled())
 	{
@@ -9251,7 +9253,7 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 	if (!Doc->loading)
 	{
 		ite->paintObj();
-//		emit AddObj(PageNr, ite->ItemNr);
+//		emit AddObj(ite);
 	}
 	if (UndoManager::undoEnabled())
 	{
@@ -9296,7 +9298,7 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 	if (!Doc->loading)
 	{
 		ite->paintObj();
-//		emit AddObj(PageNr, ite->ItemNr);
+//		emit AddObj(ite);
 	}
 	if (UndoManager::undoEnabled())
 	{
@@ -9340,7 +9342,7 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 	if (!Doc->loading)
 	{
 		ite->paintObj();
-//		emit AddObj(PageNr, ite->ItemNr);
+//		emit AddObj(ite);
 	}
 	if (UndoManager::undoEnabled())
 	{
@@ -9382,7 +9384,7 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 	if (!Doc->loading)
 	{
 		ite->paintObj();
-//		emit AddObj(PageNr, ite->ItemNr);
+//		emit AddObj(ite);
 	}
 	if (UndoManager::undoEnabled())
 	{
@@ -9426,7 +9428,7 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 	if (!Doc->loading)
 	{
 		ite->paintObj();
-//		emit AddObj(PageNr, ite->ItemNr);
+//		emit AddObj(ite);
 	}
 	if (UndoManager::undoEnabled())
 	{

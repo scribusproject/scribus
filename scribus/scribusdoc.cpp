@@ -343,19 +343,38 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	                                DocOutputProf, TYPE_RGBA_8,
 	                                 IntentMonitor,
 	                                 dcmsFlags2);
-	stdProofCMYK = cmsCreateProofingTransform(DocPrinterProf, TYPE_CMYK_16,
-						  DocOutputProf, TYPE_RGB_16,
-						  DocPrinterProf,
-						  IntentPrinter,
-						  IntentMonitor, dcmsFlags);
-	stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
-					  DocPrinterProf, TYPE_CMYK_16,
-					  IntentPrinter,
-					  dcmsFlags2);
-	stdTransRGB = cmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
-					 DocInputProf, TYPE_RGB_16,
-					 IntentMonitor,
-					 dcmsFlags2);
+	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
+	{
+		stdProofCMYK = cmsCreateProofingTransform(DocPrinterProf, TYPE_CMYK_16,
+							DocOutputProf, TYPE_RGB_16,
+							DocPrinterProf,
+							IntentPrinter,
+							IntentMonitor, dcmsFlags);
+		stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
+						DocPrinterProf, TYPE_CMYK_16,
+						IntentPrinter,
+						dcmsFlags2);
+		stdTransRGB = cmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+						DocInputProf, TYPE_RGB_16,
+						IntentMonitor,
+						dcmsFlags2);
+	}
+	else
+	{
+		stdProofCMYK = cmsCreateProofingTransform(DocPrinterProf, TYPE_RGB_16,
+							DocOutputProf, TYPE_RGB_16,
+							DocPrinterProf,
+							IntentPrinter,
+							IntentMonitor, dcmsFlags);
+		stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
+						DocPrinterProf, TYPE_RGB_16,
+						IntentPrinter,
+						dcmsFlags2);
+		stdTransRGB = cmsCreateTransform(DocPrinterProf, TYPE_RGB_16,
+						DocInputProf, TYPE_RGB_16,
+						IntentMonitor,
+						dcmsFlags2);
+	}
 #endif
 }
 

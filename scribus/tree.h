@@ -53,6 +53,8 @@ public:
 	QMap<int, QListViewItem*> templateItemMapRev;
 	QMap<int, QListViewItem*> templateGroupMapRev;
 	QMap<QString, QListViewItem*> templatePageMapRev;
+	QListViewItem* freeObjects;
+	QListViewItem* rootObject;
 	ScribusDoc* document;
 	ScribusApp* ScApp;
 	QPixmap imageIcon;
@@ -69,7 +71,7 @@ public slots:
 	void slotShowSelect(uint SNr, int Nr);
 	void slotRemoveElement(uint SNr, uint Nr);
 	void slotUpdateElement(uint SNr, uint Nr);
-	void slotAddElement(uint SNr, uint Nr);
+	void slotAddElement(PageItem *item);
 	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
 	void slotDelPage(uint Nr);
 	void slotAddPage(uint Nr);
