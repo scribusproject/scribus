@@ -27,7 +27,7 @@
 #include FT_GLYPH_H
 
 extern QPixmap loadIcon(QString nam);
-extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
+extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 extern int setBestEncoding(FT_Face face);
 
 QString Name()
@@ -275,7 +275,7 @@ void CharSelect::newChar(int r, int c) // , int b, const QPoint &pp)
 	{
 		chToIns += QChar(characters[r*16+c]);
 		QString da = (*ap->doc->AllFonts)[font]->Datei;
-		sample->setPixmap(FontSample(da, 28, chToIns, paletteBackgroundColor()));
+		sample->setPixmap(FontSample(da, 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
 	}
 }

@@ -100,7 +100,7 @@ int setBestEncoding(FT_Face face);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
 FPoint getMaxClipF(FPointArray* Clip);
 FPoint getMinClipF(FPointArray* Clip);
-QPixmap FontSample(QString da, int s, QString ts, QColor back);
+QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h);
@@ -1625,7 +1625,7 @@ FPoint getMinClipF(FPointArray* Clip)
 	return rp;
 }
 
-QPixmap FontSample(QString da, int s, QString ts, QColor back)
+QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
 {
 	FT_Face face;
 	FT_Library library;
@@ -1655,7 +1655,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	dv = ts[0].unicode();
 	error = false;
 	gly = traceChar(face, dv, s, &x, &y, &error);
-	if ((encode != 0) || (error))
+	if (((encode != 0) || (error)) && (!force))
 	{
 		error = false;
 		FT_ULong  charcode;

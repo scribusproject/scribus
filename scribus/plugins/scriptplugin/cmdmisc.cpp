@@ -1,7 +1,7 @@
 #include "cmdmisc.h"
 #include "cmdutil.h"
 
-extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
+extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 
 PyObject *scribus_setredraw(PyObject */*self*/, PyObject* args)
 {
