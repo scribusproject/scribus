@@ -41,6 +41,9 @@ class ImIconProvider : public QFileIconProvider
     QPixmap pspm;
     QPixmap pdfpm;
     QPixmap txtpm;
+    QPixmap oosxdpm;
+    QPixmap oosxwpm;
+    QPixmap vectorpm;
 public:
     ImIconProvider(QWidget *pa);
     ~ImIconProvider() {};

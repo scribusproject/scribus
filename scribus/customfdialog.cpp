@@ -41,6 +41,9 @@ ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)
 	txtpm = loadIcon("txt.png");
 	docpm = loadIcon("doc.png");
 	pdfpm = loadIcon("pdf.png");
+	oosxdpm = loadIcon("ooo_draw.png");
+	oosxwpm = loadIcon("ooo_writer.png");
+	vectorpm = loadIcon("vectorgfx.png");
 }
 
 const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
@@ -50,16 +53,23 @@ const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
 		return &imagepm;
 	else
 	{
-		if (ext == "ps")
+		ext = fi.extension(true).lower();
+		if (ext.endsWith("ps"))
 			return &pspm;
-		if (ext == "txt")
+		if (ext.endsWith("txt"))
 			return &txtpm;
-		if (ext == "scd")
+		if (ext.endsWith("scd") || ext.endsWith("scd.gz"))
 			return &docpm;
-		if (ext == "sla")
+		if (ext.endsWith("sla") || ext.endsWith("sla.gz"))
 			return &docpm;
-		if (ext == "pdf")
+		if (ext.endsWith("pdf"))
 			return &pdfpm;
+		if (ext.endsWith("sxd"))
+			return &oosxdpm;
+		if (ext.endsWith("sxw"))
+			return &oosxwpm;
+		if (ext.endsWith("svg") || ext.endsWith("svgz"))
+			return &vectorpm;
 		return QFileIconProvider::pixmap(fi);
 	}
 }
@@ -68,6 +78,7 @@ FDialogPreview::FDialogPreview(QWidget *pa) : QLabel(pa)
 {
 	setAlignment(AlignLeft | AlignTop);
 	setMinimumSize( QSize( 100, 100 ) );
+	setMaximumSize( QSize( 300, 300 ) );
 	setScaledContents( false );
 	setEraseColor( white );
 	setFrameShape( QLabel::WinPanel );
@@ -94,37 +105,30 @@ void FDialogPreview::GenPreview(QString name)
 	updtPix();
 	int w = pixmap()->width();
 	int h = pixmap()->height();
-	QString ex = fi.extension(false).upper();
-	QStrList imfo = QImageIO::inputFormats();
-	if (ex == "JPG")
-		ex = "JPEG";
-	if ((imfo.contains(ex))||(ex=="PS")||(ex=="EPS")||(ex=="PDF")||(ex=="TIF"))
+	QImage im = LoadPict(name);
+	if (!im.isNull())
 	{
-		QImage im = LoadPict(name);
-		if (!im.isNull())
+		int ix = im.width();
+		int iy = im.height();
+		QString tmp = "";
+		QString tmp2 = "";
+		if ((im.width() > w-5) || (im.height() > h-20))
 		{
-			int ix = im.width();
-			int iy = im.height();
-			QString tmp = "";
-			QString tmp2 = "";
-			if ((im.width() > w-5) || (im.height() > h-20))
-			{
-				QImage im2;
-				double sx = im.width() / static_cast<double>(w-5);
-				double sy = im.height() / static_cast<double>(h-20);
-				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
-								 im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
-				im = im2;
-				im2.detach();
-			}
-			QPainter p;
-			pixmap()->fill(white);
-			p.begin(pixmap());
-			p.drawImage(0, 0, im);
-			p.drawText(2, h-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
-			p.end();
-			repaint();
+			QImage im2;
+			double sx = im.width() / static_cast<double>(w-5);
+			double sy = im.height() / static_cast<double>(h-20);
+			im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
+								im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+			im = im2;
+			im2.detach();
 		}
+		QPainter p;
+		pixmap()->fill(white);
+		p.begin(pixmap());
+		p.drawImage(0, 0, im);
+		p.drawText(2, h-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+		p.end();
+		repaint();
 	}
 	else
 	{

@@ -161,6 +161,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	setTextFormat(Qt::PlainText);
 	viewport()->setAcceptDrops(false);
 	ClipData = 0;
+	UniCinp = false;
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 }
