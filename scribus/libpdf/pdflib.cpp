@@ -457,8 +457,23 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		PutDoc("/OCProperties 9 0 R\n");
 	if (Options->Version == 12)
 		PutDoc("/OutputIntents [ "+IToStr(ObjCounter-1)+" 0 R ]\n");
-	PutDoc("/ViewerPreferences << /PageDirection ");
-	PutDoc( Options->Binding == 0 ? "/L2R" : "/R2L");
+	if (doc->PageFP)
+	{
+		PutDoc("/PageLayout ");
+		if (doc->FirstPageLeft)
+			PutDoc("/TwoColumnLeft\n");
+		else
+			PutDoc("/TwoColumnRight\n");
+	}
+	if (Options->PresentMode)
+		PutDoc("/PageMode /FullScreen\n");
+	else
+	{
+		if ((Options->Version == 15) && (Options->useLayers))
+			PutDoc("/PageMode /UseOC\n");
+	}
+	PutDoc("/ViewerPreferences\n<<\n/PageDirection ");
+	PutDoc( Options->Binding == 0 ? "/L2R\n" : "/R2L\n");
 	PutDoc(" >>\n>>\nendobj\n");
 	QString IDg = Datum;
 	IDg += Options->Datei;
