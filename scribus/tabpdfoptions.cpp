@@ -105,9 +105,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	TextLabel1->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel1, 0, 0 );
 	ComboBox1 = new QComboBox( true, GroupBox1, "ComboBox1" );
-	ComboBox1->insertItem("Acrobat 4.0");
-	ComboBox1->insertItem("Acrobat 5.0");
-	ComboBox1->insertItem("Acrobat 6.0");
+	ComboBox1->insertItem("PDF 1.3");
+	ComboBox1->insertItem("PDF 1.4");
+	ComboBox1->insertItem("PDF 1.5");
 #ifdef HAVE_CMS
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
 		ComboBox1->insertItem("PDF/X-3");
@@ -817,7 +817,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 		connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 		QToolTip::add( EmbedFonts, tr( "Embed fonts into the PDF. Embedding the fonts\nwill preserve the layout and appearance of your document." ) );
-		QToolTip::add( CheckBox10, tr( "Enables presentation effects when using Acrobat Reader in full screen mode." ) );
+		QToolTip::add( CheckBox10, tr( "Enables presentation effects when using Adobe&#0ae; Reader&#0ae; in full screen mode." ) );
 		QToolTip::add( PagePrev, tr( "Show page previews of each page listed above." ) );
 		QToolTip::add( PageTime, tr( "Length of time the page is shown before the presentation starts on the selected page." ) );
 		QToolTip::add( EffectTime, tr( "Length of time the effect runs.\nA shorter time will speed up the effect, a longer one will slow it down." ) );
@@ -851,11 +851,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			              "a token can be * for all the pages, 1-5 for\n"
 			              "a range of pages or a single page number.") );
 
-	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.\nChoose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management." ) );
+	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.\nChoose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management." ) );
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
-	QToolTip::add( useLayers, tr( "Layers in your document are exported to the PDF\nOnly available if Acrobat 6.0 is choosen." ) );
+	QToolTip::add( useLayers, tr( "Layers in your document are exported to the PDF\nOnly available if PDF 1.5 is choosen." ) );
 	QToolTip::add( CheckBM, tr( "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents." ) );
 	QToolTip::add( Resolution, tr( "Export resolution of text and vector graphics.\nThis does not affect the resolution of bitmap images like photos." ) );
 	QToolTip::add( Compression, tr( "Compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
@@ -863,7 +863,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( CQuality, tr( "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)" ) );
 	QToolTip::add( DSColor, tr( "Downsample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution." ) );
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
-	QToolTip::add( Encry, tr( "Enable the security features in your exported PDF.\nIf you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.\nIf you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.\nDisclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) );
+	QToolTip::add( Encry, tr( "Enable the security features in your exported PDF.\nIf you selected PDF 1.3, the PDF will be protected by 40 bit encryption.\nIf you selected PDF 1.4, the PDF will be protected by 128 bit encryption.\nDisclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) );
 	QToolTip::add( PassOwner, tr( "Choose a master password which enables or disables all the\nsecurity features in your exported PDF" ) );
 	QToolTip::add( PassUser, tr( "Choose a password for users to be able to read your PDF." ) );
 	QToolTip::add( PrintSec, tr( "Allow printing of the PDF. If un-checked, printing is prevented. " ) );
@@ -924,9 +924,9 @@ void TabPDFOptions::enableCMS(bool enable)
 	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
 	int a = ComboBox1->currentItem();
 	ComboBox1->clear();
-	ComboBox1->insertItem("Acrobat 4.0");
-	ComboBox1->insertItem("Acrobat 5.0");
-	ComboBox1->insertItem("Acrobat 6.0");
+	ComboBox1->insertItem("PDF 1.3");
+	ComboBox1->insertItem("PDF 1.4");
+	ComboBox1->insertItem("PDF 1.5");
 	if (enable)
 	{
 		cms = true;

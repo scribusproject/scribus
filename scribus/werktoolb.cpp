@@ -17,6 +17,7 @@
 
 #include <qtooltip.h>
 #include <qpopupmenu.h>
+#include <qpixmap.h>
 #include "werktoolb.h"
 #include "werktoolb.moc"
 #include "polyprops.h"
@@ -51,7 +52,9 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 		insertShapeButton->setPopupDelay(0);
 	Rechteck = new AutoformButtonGroup( NULL );
 	insertShapeButtonMenu->insertItem( Rechteck );
-	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(0), Rechteck->getIconPixmap(0)));
+	QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
+	newShapeIcon.smoothScale(16,16);
+	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon,Rechteck->getIconPixmap(0)));
 
 	ScApp->scrActions["toolsInsertPolygon"]->addTo(this);
 	ScApp->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
@@ -102,7 +105,9 @@ void WerkToolB::GetPolyProps()
 void WerkToolB::SelShape(int s, int c, double *vals)
 {
 	const QPixmap* newIcon = Rechteck->find(s)->pixmap();
-	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(*newIcon, *newIcon));
+	QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
+	newShapeIcon.smoothScale(16,16);
+	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;

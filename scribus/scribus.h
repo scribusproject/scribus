@@ -499,6 +499,7 @@ private:
 	void initEditMenuActions();
 	void initStyleMenuActions();
 	void initItemMenuActions();
+	void initInsertMenuActions();
 	void initPageMenuActions();
 	void initViewMenuActions();
 	void initToolsMenuActions();

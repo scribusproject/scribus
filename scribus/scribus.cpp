@@ -205,6 +205,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	initEditMenuActions();
 	initStyleMenuActions();
 	initItemMenuActions();
+	initInsertMenuActions();
 	initPageMenuActions();
 	initViewMenuActions();
 	initToolsMenuActions();
@@ -358,8 +359,8 @@ void ScribusApp::initFonts()
 	{
 		if (splashScreen!=NULL)
 			splashScreen->close(); // 10/10/2004 pv fix #1200
-		QString mess = tr("There are no Postscript fonts on your system");
-		mess += "\n" + tr("Exiting now");
+		QString mess = tr("There are no fonts found on your system.");
+		mess += "\n" + tr("Exiting now.");
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
 	}
 	else
@@ -1193,6 +1194,14 @@ void ScribusApp::initItemMenuActions()
 	connect( scrActions["itemConvertToOutlines"], SIGNAL(activated()) , this, SLOT(TraceText()) );
 }
 
+void ScribusApp::initInsertMenuActions()
+{
+	//Insert Menu
+	scrActions.insert("extrasInsertSpecial", new ScrAction(tr("Special Character..."), QKeySequence(), this, "extrasInsertSpecial"));
+	scrActions["extrasInsertSpecial"]->setText(tr("Insert Special Character"));
+	connect( scrActions["extrasInsertSpecial"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
+}
+
 void ScribusApp::initPageMenuActions()
 {
 	//Page menu
@@ -1281,14 +1290,25 @@ void ScribusApp::initToolsMenuActions()
 	
 	//toolbar only items
 	scrActions.insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), tr("Select Item"), QKeySequence(Key_C), this, "toolsSelect", NormalMode));
-	scrActions.insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text.xpm"), loadIcon("Text.xpm")), tr("Insert Text Frame"), QKeySequence(Key_T), this, "toolsInsertTextFrame", DrawText));
-	scrActions.insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild.xpm"), loadIcon("Bild.xpm")), tr("Insert Image Frame"), QKeySequence(Key_I), this, "toolsInsertImageFrame", DrawPicture));
-	scrActions.insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table.png"), loadIcon("frame_table.png")), tr("Insert Table"), QKeySequence(Key_A), this, "toolsInsertTableFrame", DrawTable));
-	scrActions.insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), tr("Insert Shape"), QKeySequence(Key_S), this, "toolsInsertShape", DrawShapes));
-	scrActions.insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline.png"), loadIcon("spline.png")), tr("Insert Polygon"), QKeySequence(Key_P), this, "toolsInsertPolygon", DrawRegularPolygon));
-	scrActions.insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift.xpm"), loadIcon("Stift.xpm")), tr("Insert Line"), QKeySequence(Key_L), this, "toolsInsertLine", DrawLine));
-	scrActions.insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool.png"), loadIcon("beziertool.png")), tr("Insert Bezier Curve"), QKeySequence(Key_B), this, "toolsInsertBezier", DrawBezierLine));
-	scrActions.insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt.xpm"), loadIcon("Stiftalt.xpm")), tr("Insert Freehand Line"), QKeySequence(Key_F), this, "toolsInsertFreehandLine", DrawFreehandLine));
+	
+	scrActions.insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text16.xpm"), loadIcon("Text.xpm")), tr("&Text Frame"), QKeySequence(Key_T), this, "toolsInsertTextFrame", DrawText));
+	scrActions.insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild16.xpm"), loadIcon("Bild.xpm")), tr("&Image Frame"), QKeySequence(Key_I), this, "toolsInsertImageFrame", DrawPicture));
+	scrActions.insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table16.png"), loadIcon("frame_table.png")), tr("T&able"), QKeySequence(Key_A), this, "toolsInsertTableFrame", DrawTable));
+	scrActions.insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), tr("&Shape"), QKeySequence(Key_S), this, "toolsInsertShape", DrawShapes));
+	scrActions.insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), tr("&Polygon"), QKeySequence(Key_P), this, "toolsInsertPolygon", DrawRegularPolygon));
+	scrActions.insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), tr("&Line"), QKeySequence(Key_L), this, "toolsInsertLine", DrawLine));
+	scrActions.insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), tr("&Bezier Curve"), QKeySequence(Key_B), this, "toolsInsertBezier", DrawBezierLine));
+	scrActions.insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), tr("&Freehand Line"), QKeySequence(Key_F), this, "toolsInsertFreehandLine", DrawFreehandLine));
+	
+	scrActions["toolsInsertTextFrame"]->setText(tr("Insert Text Frame"));
+	scrActions["toolsInsertImageFrame"]->setText(tr("Insert Image Frame"));
+	scrActions["toolsInsertTableFrame"]->setText(tr("Insert Table"));
+	scrActions["toolsInsertShape"]->setText(tr("Insert Shape"));
+	scrActions["toolsInsertPolygon"]->setText(tr("Insert Polygon"));
+	scrActions["toolsInsertLine"]->setText(tr("Insert Line"));
+	scrActions["toolsInsertBezier"]->setText(tr("Insert Bezier Curve"));
+	scrActions["toolsInsertFreehandLine"]->setText(tr("Insert Freehand Line"));
+	
 	scrActions.insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), tr("Rotate Item"), QKeySequence(Key_R), this, "toolsRotate", Rotation));
 	scrActions.insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), tr("Zoom in or out"), QKeySequence(Key_Z), this, "toolsZoom", Magnifier));
 	scrActions.insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), tr("Edit Contents of Frame"), QKeySequence(Key_E), this, "toolsEditContents", EditMode));
@@ -1341,12 +1361,10 @@ void ScribusApp::initExtrasMenuActions()
 {
 	scrActions.insert("extrasManagePictures", new ScrAction(tr("&Manage Pictures"), QKeySequence(), this, "extrasManagePictures"));
 	scrActions.insert("extrasHyphenateText", new ScrAction(tr("&Hyphenate Text"), QKeySequence(), this, "extrasHyphenateText"));
-	scrActions.insert("extrasInsertSpecial", new ScrAction(tr("&Insert Special"), QKeySequence(), this, "extrasInsertSpecial"));
 	scrActions.insert("extrasGenerateTableOfContents", new ScrAction(tr("&Generate Table Of Contents"), QKeySequence(), this, "extrasGenerateTableOfContents"));
 
 	connect( scrActions["extrasManagePictures"], SIGNAL(activated()) , this, SLOT(StatusPic()) );
 	connect( scrActions["extrasHyphenateText"], SIGNAL(activated()) , this, SLOT(doHyphenate()) );
-	connect( scrActions["extrasInsertSpecial"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
 	connect( scrActions["extrasGenerateTableOfContents"], SIGNAL(activated()) , this, SLOT(generateTableOfContents()) );
 }
 
@@ -1378,9 +1396,13 @@ void ScribusApp::initHelpMenuActions()
 void ScribusApp::initSpecialActions()
 {
 	//typography
-	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Smart Hyphen"), CTRL+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
-	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Non Breaking Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
-	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Page Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",0,0.0,"specialPageNumber"));
+	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Smart &Hyphen"), CTRL+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
+	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Non Breaking &Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
+	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Page &Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",0,0.0,"specialPageNumber"));
+	
+	scrActions["specialSmartHyphen"]->setText("Insert Smart Hyphen");
+	scrActions["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
+	scrActions["specialPageNumber"]->setText("Insert Page Number");
 
 	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
@@ -1547,6 +1569,23 @@ void ScribusApp::initMenuBar()
 	scrActions["itemLock"]->setEnabled(false);
 	scrActions["itemConvertToOutlines"]->setEnabled(false);
 
+	//Insert menu
+	scrMenuMgr->createMenu("Insert", tr("I&nsert"));
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertTextFrame"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertImageFrame"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertTableFrame"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertShape"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertPolygon"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertLine"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert");
+	scrMenuMgr->addMenuSeparator("Insert");
+	scrMenuMgr->addMenuItem(scrActions["extrasInsertSpecial"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "Insert");
+	scrActions["extrasInsertSpecial"]->setEnabled(false);
+	
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
 	scrMenuMgr->addMenuItem(scrActions["pageInsert"], "Page");
@@ -1599,12 +1638,10 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
 	scrMenuMgr->addMenuItem(scrActions["extrasManagePictures"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras");
-	scrMenuMgr->addMenuItem(scrActions["extrasInsertSpecial"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras");
 	
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrActions["extrasHyphenateText"]->setEnabled(false);
-	scrActions["extrasInsertSpecial"]->setEnabled(false);
 
 	//Window menu
 	scrMenuMgr->createMenu("Windows", tr("&Windows"));
@@ -1623,8 +1660,10 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuToMenuBar("Style");
 	scrMenuMgr->setMenuEnabled("Style", false);
 	scrMenuMgr->addMenuToMenuBar("Item");
-	scrMenuMgr->addMenuToMenuBar("Page");
 	scrMenuMgr->setMenuEnabled("Item", false);
+	scrMenuMgr->addMenuToMenuBar("Insert");
+	scrMenuMgr->setMenuEnabled("Insert", false);
+	scrMenuMgr->addMenuToMenuBar("Page");
 	scrMenuMgr->setMenuEnabled("Page", false);
 	scrMenuMgr->addMenuToMenuBar("View");
 	scrMenuMgr->setMenuEnabled("View", false);
@@ -3692,6 +3731,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["viewSnapToGrid"]->setOn(doc->useRaster);
 	scrActions["viewSnapToGuides"]->setOn(doc->SnapGuides);
 
+	scrMenuMgr->setMenuEnabled("Insert", true);
 	scrMenuMgr->setMenuEnabled("Windows", true);
 	scrMenuMgr->setMenuEnabled("Page", true);
 	scrMenuMgr->setMenuEnabled("Extras", true);
@@ -3823,9 +3863,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 			Nr = -1;
 	}
-
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["extrasInsertSpecial"]->setEnabled(false);
+	scrActions["specialSmartHyphen"]->setEnabled(false);
+	scrActions["specialNonBreakingSpace"]->setEnabled(false);
+	scrActions["specialPageNumber"]->setEnabled(false);
 	view->horizRuler->ItemPosValid = false;
 	view->horizRuler->repX = false;
 	view->horizRuler->repaint();
@@ -3923,6 +3965,9 @@ void ScribusApp::HaveNewSel(int Nr)
 			setTBvals(b);
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["extrasInsertSpecial"]->setEnabled(true);
+			scrActions["specialSmartHyphen"]->setEnabled(true);
+			scrActions["specialNonBreakingSpace"]->setEnabled(true);
+			scrActions["specialPageNumber"]->setEnabled(true);
 			view->horizRuler->ItemPos = b->Xpos - doc->ScratchLeft;
 			view->horizRuler->ItemEndPos = b->Xpos+b->Width - doc->ScratchLeft;
 			if (b->lineColor() != "None")
@@ -5173,6 +5218,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["viewSnapToGuides"]->setOn(false);
 		scrActions["viewSnapToGrid"]->setOn(false);
 
+		scrMenuMgr->setMenuEnabled("Insert", false);
 		scrMenuMgr->setMenuEnabled("Page", false);
 		scrMenuMgr->setMenuEnabled("Extras", false);
 		scrMenuMgr->setMenuEnabled("Style", false);
@@ -6433,6 +6479,9 @@ void ScribusApp::setAppMode(int mode)
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["extrasInsertSpecial"]->setEnabled(true);
+			scrActions["specialSmartHyphen"]->setEnabled(true);
+			scrActions["specialNonBreakingSpace"]->setEnabled(true);
+			scrActions["specialPageNumber"]->setEnabled(true);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))
