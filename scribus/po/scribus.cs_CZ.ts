@@ -10818,7 +10818,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
       <source>Outline</source>
-      <translation>Přehled</translation>
+      <translation>Obrys</translation>
     </message>
     <message>
       <source>Scrapbook</source>
