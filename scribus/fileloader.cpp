@@ -389,6 +389,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
 		doc->guidesSettings.guideRad = QStoInt(dc.attribute("GuideRad","10"));
 		doc->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
+		doc->LastAuto = 0;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())

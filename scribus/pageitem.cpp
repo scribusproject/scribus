@@ -1103,10 +1103,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							else
 							{
 								double tCurX = CurX - ColBound.x();
-								double oCurX = CurX - ColBound.x();
+								double oCurX = tCurX + wide;
 								for (int yg = static_cast<int>(tTabValues.count()-1); yg > 0; yg -= 2)
 								{
-									if (oCurX <= tTabValues[yg])
+									if (oCurX < tTabValues[yg])
 									{
 										tCurX = tTabValues[yg];
 										TabCode = static_cast<int>(tTabValues[yg-1]);
@@ -1116,7 +1116,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									RTab = false;
 								else
 									RTab = true;
-								if (tCurX == oCurX)
+								if (tCurX == oCurX-wide)
 									CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
 								else
 									CurX = ColBound.x() + tCurX;

@@ -1,5 +1,13 @@
 Changes since 1.2 
 
+28.12.2004
+	* bug     #1465: Scribus crashes on attached file
+	* bug     #1466: aligning tab stops not functioning
+
+27.12.2004
+	* bug     #1148: Scribus crashes with sig11 with font substitution dialog (again)
+	* bug     #1458: make dist fails on the cvs checkout
+
 26.12.2004
 	* bug     #1446: SVG doesnt import / render large files
 	* bug     #1449: Grouping text/bezier curve and then attach to path makes items disappear
