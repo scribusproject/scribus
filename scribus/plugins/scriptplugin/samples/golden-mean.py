@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """Golden Mean for Scribus.
 
 This script creates supplementary marks on the page to
@@ -38,8 +41,15 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 """
 
+import sys
+
+try:
+    from scribus import *
+except ImportError:
+    print "This script only runs from within Scribus."
+    sys.exit(1)
+
 from math import sqrt
-from scribus import *
 
 GMLAYER = "Golden Mean Layer"
 
@@ -58,8 +68,7 @@ def createMark(X=0, Y=0, aName=""):
          X-D, Y, X, Y-D, X, Y+D, X+D, Y], aName)
 
 
-# main
-if haveDoc():
+def main():
     # remember user settings
     unit = getUnit()
     layer = getActiveLayer()
@@ -89,3 +98,9 @@ if haveDoc():
     # restore user settings
     setUnit(unit)
     setActiveLayer(layer)
+
+if __name__ == '__main__':
+    if haveDoc():
+        main()
+    else:
+        messageBox("Golden Mean.py", "Please run this script with a document already open", ICON_INFORMATION);
