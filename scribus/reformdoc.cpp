@@ -17,6 +17,7 @@
 #include "units.h"
 #include "pagesize.h"
 #include "docitemattrprefs.h"
+#include "tocindexprefs.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
@@ -327,6 +328,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabDocItemAttributes->setup(&doc->docItemAttributes);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDocItemAttributes);
 
+	tabTOCIndexPrefs = new TOCIndexPrefs( prefsWidgets );
+	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
+	
 	int cmsTab = 0;
 	if (CMSavail)
 	{

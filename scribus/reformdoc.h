@@ -29,6 +29,7 @@ class TabCheckDoc;
 class TabPDFOptions;
 class FontPrefs;
 class DocumentItemAttributes;
+class TOCIndexPrefs;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -93,6 +94,8 @@ public:
 	QSpinBox* autoSaveTime;
 	QComboBox* unitCombo;
 	DocumentItemAttributes* tabDocItemAttributes;
+	TOCIndexPrefs* tabTOCIndexPrefs;
+	
 	ScribusApp *ap;
 	ScribusDoc* docc;
 	int einheit;
