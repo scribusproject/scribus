@@ -225,7 +225,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	QToolTip::add( EnableCMYK_M, tr( "Enable/disable the M (Magenta) ink plate" ) );
 	QToolTip::add( EnableCMYK_Y, tr( "Enable/disable the Y (Yellow) ink plate" ) );
 	QToolTip::add( EnableCMYK_K, tr( "Enable/disable the K (Black) ink plate" ) );
-	QToolTip::add( EnableGCR, tr( "A way of switching some of the gray shades which are composed\n"
+	QToolTip::add( EnableGCR, tr( "A way of switching off some of the gray shades which are composed\n"
 	                                             "of cyan, yellow and magenta and using black instead.\n"
                                                  "UCR most affects parts of images which are neutral and/or dark tones\n"
                                                  "which are close to the gray. Use of this may improve printing some images\n"
