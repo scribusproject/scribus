@@ -125,7 +125,7 @@ PyObject *scribus_getpageitems(PyObject */*self*/)
 	for (uint i = 0; i<Carrier->doc->Items.count(); ++i)
 	{
 		row = Py_BuildValue((char*)"(sii)",
-		                    Carrier->doc->Items.at(i)->AnName.ascii(),
+		                    Carrier->doc->Items.at(i)->itemName().ascii(),
 		                    Carrier->doc->Items.at(i)->PType,
 		                    Carrier->doc->Items.at(i)->ItemNr
 		                   );

@@ -3605,7 +3605,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 6:
 			Seite.FormObjects.append(ObjCounter-1);
 			PutDoc("/Subtype /Widget\n");
-			PutDoc("/T "+EncString("("+ite->AnName+")",ObjCounter-1)+"\n");
+			PutDoc("/T "+EncString("("+ite->itemName()+")",ObjCounter-1)+"\n");
 			if (ite->AnToolTip != "")
 				PutDoc("/TU "+EncString("("+PDFEncode(ite->AnToolTip)+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");

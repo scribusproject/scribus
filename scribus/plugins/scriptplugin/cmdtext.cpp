@@ -176,7 +176,7 @@ PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
 	// Scan backwards to find the first frame in a linked series
 	while (it->BackBox != 0)
 	{
-		is = GetUniqueItem(it->BackBox->AnName);
+		is = GetUniqueItem(it->BackBox->itemName());
 		if (is == NULL)
 		{
 			// While GetUniqueItem has already set an exception, we'll
@@ -204,7 +204,7 @@ PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
 	// Scan forward through linked frames and ... what?
 	while (it->NextBox != 0)
 	{
-		is = GetUniqueItem(it->NextBox->AnName);
+		is = GetUniqueItem(it->NextBox->itemName());
 		if (is == NULL)
 		{
 			// While GetUniqueItem has already set an exception, we'll

@@ -10711,11 +10711,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	{
 		if (!drag)
 		{
-			if (b->AnName == Buffer->AnName)
+			if (b->itemName() == Buffer->AnName)
 				b->AutoName = true;
 			else
 			{
-				b->setName(Buffer->AnName);
+				b->setItemName(Buffer->AnName);
 				b->AutoName = false;
 			}
 		}
@@ -10724,16 +10724,16 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			bool found = false;
 			for (uint c = 0; c < Doc->Items.count(); ++c)
 			{
-				if (Buffer->AnName == Doc->Items.at(c)->AnName)
+				if (Buffer->AnName == Doc->Items.at(c)->itemName())
 				{
 					found = true;
 					break;
 				}
 			}
 			if (found)
-				b->setName(tr("Copy of")+" "+Buffer->AnName);
+				b->setItemName(tr("Copy of")+" "+Buffer->AnName);
 			else
-				b->setName(Buffer->AnName);
+				b->setItemName(Buffer->AnName);
 			b->AutoName = false;
 		}
 	}
@@ -11241,7 +11241,7 @@ void ScribusView::TextToPath()
 			bb->LockRes = b->LockRes;
 			bb->Locked = b->Locked;
 			bb->NamedLStyle = b->NamedLStyle;
-			bb->setName(b->AnName+"+"+ccounter.setNum(a));
+			bb->setItemName(b->itemName()+"+"+ccounter.setNum(a));
 			bb->AutoName = false;
 			bb->PoLine = pts.copy();
 			bb->Rot = b->Rot;

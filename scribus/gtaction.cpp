@@ -462,7 +462,7 @@ double gtAction::getFrameWidth()
 
 QString gtAction::getFrameName()
 {
-	return QString(textFrame->AnName);
+	return QString(textFrame->itemName());
 }
 
 bool gtAction::getUpdateParagraphStyles()

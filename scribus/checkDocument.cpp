@@ -254,7 +254,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					bool itemError = false;
 					QListViewItem * object = new QListViewItem( page, 0 );
 					templateItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
-					object->setText(0, doc->MasterItems.at(it2.key())->AnName);
+					object->setText(0, doc->MasterItems.at(it2.key())->itemName());
 					errorCodes::Iterator it3;
 					if (it2.data().count() == 1)
 					{
@@ -382,7 +382,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					hasError = true;
 					bool itemError = false;
 					QListViewItem * object = new QListViewItem( page, 0 );
-					object->setText(0, doc->DocItems.at(it2.key())->AnName);
+					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
 					if (it2.data().count() == 1)
@@ -517,7 +517,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				{
 					hasError = true;
 					QListViewItem * object = new QListViewItem( page, 0 );
-					object->setText(0, doc->DocItems.at(it2.key())->AnName);
+					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
 					if (it2.data().count() == 1)

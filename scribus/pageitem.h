@@ -215,7 +215,6 @@ public:
 	QString An_F_act;
 	QString An_V_act;
 	QString An_C_act;
-	QString AnName;
 	bool AutoName;
 	QString AnToolTip;
 	QString AnRollOver;
@@ -305,12 +304,22 @@ public:
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
-	/** 
+	/**  @brief Get name of the item
+	 *
+	 * This is unrelated to QObject::name(); the pageItem's name is independent
+	 * of its Qt name.
+	 * See also PageItem::setItemName()
+	 */
+	const QString itemName();
+	/**
 	 * @brief Set name of the item
 	 * @param newName name for the item
 	 * @author Riku Leino
+	 *
+	 * Note that this is unrelated to QObject::setName()
+	 * See also PageItem::itemName()
 	 */
-	void setName(const QString& newName);
+	void setItemName(const QString& newName);
 	/**
 	 * @brief Set the fill color of the object.
 	 * @param newColor fill color for the object
@@ -362,7 +371,8 @@ public:
 	/*@}*/
 	/** @brief Required by the UndoObject */
 	void restore(UndoState *state, bool isUndo);
-private:
+
+protected:
 	/**
 	 * @name Restore helper methods
 	 * Split the restore method for easier handling.
@@ -391,6 +401,15 @@ private:
 	bool shouldCheck();
 	/** @brief Clears the current selection and selects this PageItem. */
 	void select();
+
+	// Protected members
+
+	/**
+	 * @brief Item name. Unicode. User visible (outline, property palette, etc).
+	 *
+	 * See PageItem::itemName(), PageItem::setItemName()
+	 * */
+	QString AnName;
 };
 
 #endif

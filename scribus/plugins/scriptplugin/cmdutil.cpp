@@ -72,7 +72,7 @@ int GetItem(QString Name)
 	{
 		for (uint a = 0; a < Carrier->doc->Items.count(); a++)
 		{
-			if (Carrier->doc->Items.at(a)->AnName == Name)
+			if (Carrier->doc->Items.at(a)->itemName() == Name)
 				return static_cast<int>(a);
 		}
 	}
@@ -158,7 +158,7 @@ PageItem* GetUniqueItem(QString name)
 		}
 	for (uint j = 0; j<Carrier->doc->Items.count(); j++)
 	{
-		if (name==Carrier->doc->Items.at(j)->AnName)
+		if (name==Carrier->doc->Items.at(j)->itemName())
 			return Carrier->doc->Items.at(j);
 	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found"));
@@ -177,7 +177,7 @@ bool ItemExists(QString name)
 		return false;
 	for (uint j = 0; j<Carrier->doc->Items.count(); j++)
 	{
-		if (name==Carrier->doc->Items.at(j)->AnName)
+		if (name==Carrier->doc->Items.at(j)->itemName())
 			return true;
 	} // for items
 	return false;

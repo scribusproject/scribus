@@ -587,7 +587,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				}
 			}
 			if( !b.attribute("id").isEmpty() )
-				ite->AnName += " "+b.attribute("id");
+				ite->setItemName(" "+b.attribute("id"));
 			ite->Transparency = gc->Transparency;
 			ite->TranspStroke = gc->TranspStroke;
 			ite->PLineEnd = gc->PLineEnd;
@@ -1976,7 +1976,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			Prog->view->Deselect();
 			ite->Ypos -= asce * mm.m22();
 			if( !e.attribute("id").isEmpty() )
-				ite->AnName += " "+e.attribute("id");
+				ite->setItemName(" "+e.attribute("id"));
 			ite->Transparency = gc->Transparency;
 			ite->TranspStroke = gc->TranspStroke;
 			ite->PLineEnd = gc->PLineEnd;
@@ -2044,7 +2044,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		}
 		Prog->view->SetRectFrame(ite);
 		if( !e.attribute("id").isEmpty() )
-			ite->AnName += " "+e.attribute("id");
+			ite->setItemName(" "+e.attribute("id"));
 		ite->Transparency = gc->Transparency;
 		ite->TranspStroke = gc->TranspStroke;
 		ite->PLineEnd = gc->PLineEnd;

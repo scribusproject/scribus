@@ -2253,7 +2253,12 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 	}
 }
 
-void PageItem::setName(const QString& newName)
+const QString PageItem::itemName()
+{
+	return AnName;
+}
+
+void PageItem::setItemName(const QString& newName)
 {
 	if (UndoManager::undoEnabled())
 	{
@@ -2675,9 +2680,9 @@ void PageItem::restoreName(SimpleState *state, bool isUndo)
 	QString oldName = state->get("OLD_NAME");
 	QString newName = state->get("NEW_NAME");
 	if (isUndo)
-		setName(oldName);
+		setItemName(oldName);
 	else
-		setName(newName);
+		setItemName(newName);
 }
 
 void PageItem::select()

@@ -229,7 +229,7 @@ PyObject *scribus_getselobjnam(PyObject */*self*/, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if ((i < static_cast<int>(Carrier->view->SelItem.count())) && (i > -1))
-		return PyString_FromString(Carrier->view->SelItem.at(i)->AnName.utf8());
+		return PyString_FromString(Carrier->view->SelItem.at(i)->itemName().utf8());
 	else
 		// FIXME: Should probably return None if no selection?
 		return PyString_FromString("");

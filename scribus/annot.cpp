@@ -92,9 +92,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Layout60->addWidget( Tip, 1, 1 );
 
 	Name = new NameWidget(GroupBox10);
-	Name->setText(item->AnName);
+	Name->setText(item->itemName());
 	Layout60->addWidget( Name, 0, 1 );
-	OldName = item->AnName;
+	OldName = item->itemName();
 
 	TextLabel30 = new QLabel( GroupBox10, "TextLabel3" );
 	TextLabel30->setText( tr( "Tool-Tip:" ) );
@@ -1097,7 +1097,7 @@ void Annot::NewName()
 	bool found = false;
 	for (uint b = 0; b < view->Doc->Items.count(); ++b)
 	{
-		if ((NameNew == view->Doc->Items.at(b)->AnName) && (view->Doc->Items.at(b) != item))
+		if ((NameNew == view->Doc->Items.at(b)->itemName()) && (view->Doc->Items.at(b) != item))
 		{
 			found = true;
 			break;
@@ -1271,7 +1271,7 @@ void Annot::GetRIcon()
 
 void Annot::SelectFelder()
 {
-	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->AnName, &view->Doc->Pages, 3);
+	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->itemName(), &view->Doc->Pages, 3);
 	if (dia->exec())
 		CalcFields->setText(dia->S_Fields);
 	delete dia;
@@ -1694,7 +1694,7 @@ void Annot::SetVals()
 	item->AnType = ComboBox1->currentItem()+2;
 	if (Name->text() != OldName)
 	{
-		item->setName(Name->text());
+		item->setItemName(Name->text());
 		item->AutoName = false;
 	}
 	item->AnToolTip = Tip->text();

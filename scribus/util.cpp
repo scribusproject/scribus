@@ -1837,7 +1837,7 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 	Buffer->An_C_act = b->An_C_act;
 	Buffer->An_Extern = b->An_Extern;
 	Buffer->AnZiel = b->AnZiel;
-	Buffer->AnName = b->AnName;
+	Buffer->AnName = b->itemName();
 	Buffer->AnActType = b->AnActType;
 	Buffer->AnToolTip = b->AnToolTip;
 	Buffer->AnBwid = b->AnBwid;

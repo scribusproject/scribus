@@ -211,12 +211,12 @@ PyObject *scribus_getallobj(PyObject */*self*/, PyObject* args)
 		{
 			if (Carrier->doc->Items.at(lam)->PType == typ)
 			{
-				PyList_SetItem(l, counter2, PyString_FromString(Carrier->doc->Items.at(lam)->AnName.utf8()));
+				PyList_SetItem(l, counter2, PyString_FromString(Carrier->doc->Items.at(lam)->itemName().utf8()));
 				counter2++;
 			}
 		}
 		else
-			PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->Items.at(lam)->AnName.utf8()));
+			PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->Items.at(lam)->itemName().utf8()));
 	}
 	return l;
 }

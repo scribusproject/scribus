@@ -1066,7 +1066,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		startArrow->setEnabled(false);
 		endArrow->setEnabled(false);
 	}
-	NameEdit->setText(i->AnName);
+	NameEdit->setText(i->itemName());
 	RoundRect->setValue(i->RadRect*UmReFaktor);
 	QString tm;
 	LevelTxt->setText(tm.setNum(i->ItemNr));
@@ -3249,7 +3249,7 @@ void Mpalette::NewName()
 {
 	if (ScApp->ScriptRunning)
 		return;
-	QString NameOld = CurItem->AnName;
+	QString NameOld = CurItem->itemName();
 	QString NameNew = NameEdit->text();
 	if (NameNew == "")
 	{
@@ -3259,7 +3259,7 @@ void Mpalette::NewName()
 	bool found = false;
 	for (uint b = 0; b < doc->Items.count(); ++b)
 	{
-		if ((NameNew == doc->Items.at(b)->AnName) && (doc->Items.at(b) != CurItem))
+		if ((NameNew == doc->Items.at(b)->itemName()) && (doc->Items.at(b) != CurItem))
 		{
 			found = true;
 			break;
@@ -3273,9 +3273,9 @@ void Mpalette::NewName()
 	}
 	else
 	{
-		if (CurItem->AnName != NameEdit->text())
+		if (CurItem->itemName() != NameEdit->text())
 		{
-			CurItem->setName(NameEdit->text());
+			CurItem->setItemName(NameEdit->text());
 			CurItem->AutoName = false;
 			emit DocChanged();
 		}
