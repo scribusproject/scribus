@@ -127,6 +127,7 @@
 #include "tree.h"
 #include "scrap.h"
 #include "pluginmanager.h"
+#include "scpaths.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -377,7 +378,7 @@ void ScribusApp::initDefaultPrefs()
 
 	/** Default colours **/
 	Prefs.DColors.clear();
-	QString pfadC = LIBDIR;
+	QString pfadC = ScPaths::instance().libDir();
 	QString pfadC2 = pfadC + "rgbscribus.txt";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
@@ -8151,7 +8152,7 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 	const char *error;
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 	sdem demo;
-	QString pfad = QString("%1/libs/libpostscript.%3").arg(LIBDIR).arg(PluginManager::platformDllExtension());
+	QString pfad = QString("%1/libs/libpostscript.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
 	PSDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PSDriver)
 	{
@@ -8261,7 +8262,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	void *PDFDriver;
 	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 	sdem demo;
-	QString pfad = QString("%1/libs/libpdf.%3").arg(LIBDIR).arg(PluginManager::platformDllExtension());
+	QString pfad = QString("%1/libs/libpdf.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
 	PDFDriver = dlopen(pfad, RTLD_NOW);
 	if (!PDFDriver)
 	{
@@ -9076,7 +9077,7 @@ void ScribusApp::GetCMSProfiles()
 	MonitorProfiles.clear();
 	PrinterProfiles.clear();
 	InputProfiles.clear();
-	QString pfad = LIBDIR;
+	QString pfad = ScPaths::instance().libDir();
 	pfad += "profiles/";
 	GetCMSProfilesDir(pfad);
 	if (Prefs.ProfileDir != "")
@@ -9370,7 +9371,7 @@ void ScribusApp::RedoAction()
 
 void ScribusApp::initHyphenator()
 {
-	QString pfad = LIBDIR;
+	QString pfad = ScPaths::instance().libDir();
 	QStringList L_German;
 	QStringList L_Polish;
 	QStringList L_English;
@@ -9559,7 +9560,7 @@ void ScribusApp::initHyphenator()
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
 	Prefs.Language = "English";
-	pfad = LIBDIR;
+	pfad = ScPaths::instance().libDir();
 	pfad += "dicts/";
 	QDir d(pfad, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))

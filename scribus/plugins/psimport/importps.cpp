@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include "undomanager.h"
 #include "pluginmanager.h"
+#include "scpaths.h"
 
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QPixmap loadIcon(QString nam);
@@ -342,7 +343,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 {
 	QString cmd1, cmd2, tmp, tmp2, tmp3, tmp4;
 	QString tmpFile = Prog->PrefsPfad+"/ps.out";
-	QString pfad = LIBDIR;
+	QString pfad = ScPaths::instance().libDir();
 	QString pfad2;
 	cmd1 = Prog->Prefs.gs_exe;
 	pfad2 = QDir::convertSeparators(pfad + "import.prolog");

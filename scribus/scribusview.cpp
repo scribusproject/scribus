@@ -65,6 +65,7 @@
 #include "units.h"
 #include "extimageprops.h"
 #include "pageitemattributes.h"
+#include "scpaths.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -7708,7 +7709,7 @@ void ScribusView::LoremIpsum()
 			if (t == QMessageBox::No)
 				return;
 		}
-		QString pfad = SAMPLESDIR;
+		QString pfad = ScPaths::instance().sampleScriptDir();
 		QString pfad2;
 		pfad2 = pfad + "LoremIpsum.txt";
 		Serializer *ss = new Serializer(pfad2);

@@ -36,6 +36,7 @@
 #include "md5.h"
 #include <setjmp.h>
 #include "qprocess.h"
+#include "scpaths.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -2501,7 +2502,7 @@ double QStodouble(QString in)
 
 QPixmap loadIcon(QString nam)
 {
-	QString iconFilePath = QString("%1/%2").arg(ICONDIR).arg(nam);
+	QString iconFilePath = QString("%1/%2").arg(ScPaths::instance().iconDir()).arg(nam);
 	QPixmap pm;
 	if (!QFile::exists(iconFilePath))
 		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());

@@ -32,6 +32,7 @@
 #include "scribus.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
+#include "scpaths.h"
 
 extern bool overwrite(QWidget *parent, QString filename);
 extern PrefsFile* prefsFile;
@@ -498,7 +499,7 @@ bool KeyManager::exportKeySet(QString filename)
 
 void KeyManager::resetKeySet()
 {
-	QString location=LIBDIR;
+	QString location=ScPaths::instance().libDir();
 	QString defaultKeySetFileName=QDir::convertSeparators(location+"keysets/scribus13.ksxml");
 	importKeySet(defaultKeySetFileName);	
 }
@@ -506,7 +507,7 @@ void KeyManager::resetKeySet()
 QStringList KeyManager::scanForSets()
 {
 	keySetList.clear();
-	QString location=LIBDIR;
+	QString location=ScPaths::instance().libDir();
 	QString keySetLocation=QDir::convertSeparators(location+"keysets/");
 	QDir keySetsDir(keySetLocation, "*.ksxml", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((keySetsDir.exists()) && (keySetsDir.count() != 0))

@@ -2,11 +2,12 @@
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "nftsettings.h"
+#include "scpaths.h"
 
 nftsettings::nftsettings(QString guilang, QString templateDir)
 {
 	lang = guilang;
-	scribusShare = TEMPLATEDIR;
+	scribusShare = ScPaths::instance().templateDir();
 	scribusUserHome = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
 	userTemplateDir = templateDir;
 	if (userTemplateDir.right(1) == "/")

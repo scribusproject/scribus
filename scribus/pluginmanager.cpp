@@ -9,6 +9,7 @@
 #include "mpalette.h"
 #include "tree.h"
 #include "prefsfile.h"
+#include "scpaths.h"
 
 extern ScribusApp *ScApp;
 extern PrefsFile *prefsFile;
@@ -38,7 +39,11 @@ void PluginManager::initPlugs()
 	int id = 0;
 	struct PluginData pda;
 	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
-	QDir dirList(PLUGINDIR, libPattern, QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
+
+	QDir dirList(ScPaths::instance().pluginDir(),
+				 libPattern, QDir::Name,
+				 QDir::Files | QDir::Executable | QDir::NoSymLinks);
+
 	if ((dirList.exists()) && (dirList.count() != 0))
 	{
 		ScApp->scrMenuMgr->addMenuSeparator("Extras");
@@ -117,7 +122,7 @@ void PluginManager::callDLL(int pluginID)
 	pda = pluginMap[pluginID];
 	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
 	sdem demo;
-	QString plugDir = PLUGINDIR;
+	QString plugDir = ScPaths::instance().pluginDir();
 	if (pda.type != 4 && pda.type !=5)
 	{
 		plugDir += pda.pluginFile;
@@ -180,7 +185,7 @@ bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type,
 	sdem2 demo2;
 	sdem3 demo3;
 	sdemID plugID;
-	QString plugName = PLUGINDIR;
+	QString plugName = ScPaths::instance().pluginDir();
 	plugName += name;
 
 	mo = dlopen(plugName, RTLD_LAZY | RTLD_GLOBAL);

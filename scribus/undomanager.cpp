@@ -26,6 +26,8 @@
 #include "prefsfile.h"
 #include <qvaluelist.h>
 
+#include "scpaths.h"
+
 extern PrefsFile *prefsFile;
 extern QPixmap loadIcon(QString nam);
 
@@ -756,7 +758,7 @@ UndoManager::TransactionState::~TransactionState()
 
 void UndoManager::initIcons()
 {
-	QString iconDir = ICONDIR;
+	QString iconDir = ScPaths::instance().iconDir();
 
 /*** Icons for UndoObjects *******************************************/
 	UndoManager::IImageFrame      = new QPixmap(iconDir + "Bild.xpm");

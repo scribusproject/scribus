@@ -31,6 +31,7 @@
 #include <qdir.h>
 #include <cstdlib>
 #include <string>
+#include "scpaths.h"
 #include "scribus.h"
 
 /*!
@@ -52,7 +53,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 	Automatic = doc->Automatic;
 	AutoCheck = doc->AutoCheck;
 	HyCount = doc->HyCount;
- 	QString pfad = LIBDIR;
+ 	QString pfad = ScPaths::instance().libDir();
 	if (Sap->Sprachen.contains(doc->Language))
 		Language = doc->Language;
 	else
@@ -110,7 +111,7 @@ void Hyphenator::slotNewDict(QString name)
 	char *filename = NULL;
 	if (hdict != NULL)
 		hnj_hyphen_free(hdict);
- 	QString pfad = LIBDIR;
+ 	QString pfad = ScPaths::instance().libDir();
 	Language = name;
 	doc->Language = name;
 	pfad += "dicts/" + Sap->Sprachen[Language];

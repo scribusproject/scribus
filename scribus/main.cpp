@@ -34,6 +34,7 @@
 #include "scribus.h"
 #include "langmgr.h"
 #include "prefsfile.h"
+#include "scpaths.h"
 
 
 
@@ -320,7 +321,7 @@ QStringList getLang(QString lang)
 void installTranslators(QApplication *app, QStringList langs)
 {
 	QTranslator *trans= new QTranslator(0);
-	QString path = LIBDIR;
+	QString path = ScPaths::instance().libDir();
 	path += BASE_QM;
 
 	bool loaded = false;
@@ -335,7 +336,7 @@ void installTranslators(QApplication *app, QStringList langs)
 	if (loaded)
 		app->installTranslator(trans);
 
-	path = PLUGINDIR;
+	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if (dir.exists() && (dir.count() != 0)) {
 		for (uint i = 0; i < dir.count(); ++i) {

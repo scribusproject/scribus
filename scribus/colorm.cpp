@@ -20,6 +20,7 @@
 #include "query.h"
 #include "scribus.h"
 #include "prefsfile.h"
+#include "scpaths.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -213,7 +214,7 @@ void Farbmanager::loadDefaults(int id)
 	LoadColSet->setText(CSets->text(id));
 	EditColors.clear();
 	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+CSets->text(id));
-	QString pfadC = LIBDIR;
+	QString pfadC = ScPaths::instance().libDir();
 	QString pfadC2 = pfadC + "rgbscribus.txt";
 	switch (c)
 	{

@@ -42,6 +42,8 @@
 #include <qsplitter.h>
 #include <qmime.h>
 
+#include "scpaths.h"
+
 #ifdef _MSC_VER
 #if (_MSC_VER >= 1200)
 #include "win-config.h"
@@ -194,7 +196,7 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 
 	if (jumpToFile=="") 
 	{
-		QString pfad = DOCDIR;
+		QString pfad = ScPaths::instance().docDir();
 		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
@@ -242,7 +244,7 @@ void HelpBrowser::loadHelp(QString filename)
 			toLoad=filename;
 		else 
 		{
-			QString pfad = DOCDIR;
+			QString pfad = ScPaths::instance().docDir();
 			toLoad = pfad + "en/index.html";
 			language="en";
 			fi = QFileInfo(toLoad);
@@ -268,7 +270,7 @@ void HelpBrowser::loadHelp(QString filename)
 
 void HelpBrowser::loadMenu()
 {
-	QString pfad = DOCDIR;
+	QString pfad = ScPaths::instance().docDir();
 	QString toLoad;
 	QString pfad2 = pfad + language + "/menu.xml";
 	QFileInfo fi = QFileInfo(pfad2);
@@ -400,7 +402,7 @@ void HelpBrowser::loadMenu()
 		//scan for installed tutorials
 		if (haveTutorials) 
 		{
-			QString path = DOCDIR;
+			QString path = ScPaths::instance().docDir();
 			path += language + "/tutorials/";
 			QDir dir(path, "*", QDir::Name, QDir::Dirs | QDir::NoSymLinks);
 
@@ -482,7 +484,7 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 		return;
 	if (item->text(1)!=QString::null)
 	{
-		QString pfad = DOCDIR;
+		QString pfad = ScPaths::instance().docDir();
 		loadHelp(pfad + language + "/" + item->text(1));
 	}
 }

@@ -44,6 +44,7 @@
 #include "tree.h"
 #include "menumanager.h"
 #include "scraction.h"
+#include "scpaths.h"
 
 
 #ifdef _MSC_VER
@@ -170,7 +171,7 @@ void cleanUpPlug()
 
 void run(QWidget */*d*/, ScribusApp */*plug*/)
 {
-	QString pfad = DOCDIR;
+	QString pfad = ScPaths::instance().docDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "en/Scripter/index.html");
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), Carrier->getGuiLanguage(), "scripter");
@@ -179,7 +180,7 @@ void run(QWidget */*d*/, ScribusApp */*plug*/)
 
 void MenuTest::buildScribusScriptsMenu()
 {
-	QString pfad = SCRIPTSDIR;
+	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad);
 	QDir ds(pfad2, "*.py", QDir::Name, QDir::Files | QDir::NoSymLinks);
@@ -286,7 +287,7 @@ void MenuTest::slotTest()
 
 void MenuTest::StdScript(QString basefilename)
 {
-	QString pfad = SCRIPTSDIR;
+	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad);
 	QString fn = pfad2+basefilename+".py";

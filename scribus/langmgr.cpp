@@ -23,6 +23,7 @@
 
 #include "config.h"
 #include "langmgr.h"
+#include "scpaths.h"
 
 void LanguageManager::init()
 {
@@ -84,7 +85,7 @@ void LanguageManager::generateLangList()
 
 void LanguageManager::generateInstalledLangList()
 {
-    QString path = LIBDIR;
+    QString path = ScPaths::instance().libDir();
     QString langAbbrev;
     QMap<QString, QString>::Iterator it;
 

@@ -22,6 +22,7 @@
 
 #include "gtgettext.h"
 #include "pluginmanager.h"
+#include "scpaths.h"
 #include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -60,7 +61,7 @@ void gtGetText::launchImporter(int importer, const QString& filename,
 
 void gtGetText::loadImporterPlugins()
 {
-	QString gtdir = PLUGINDIR;
+	QString gtdir = ScPaths::instance().pluginDir();
 	gtdir += "gettext";
 	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
 	QDir d(gtdir, libPattern, QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
@@ -122,7 +123,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 {
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 	sdem fp_GetText;
-	QString pluginFilePath = QString("%1/gettext/%2").arg(PLUGINDIR).arg(idata.soFilePath);
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(idata.soFilePath);
 	// This is the new, QLibrary based plugin loading code.
 	QLibrary gtplugin(pluginFilePath);
 	gtplugin.setAutoUnload(true);
@@ -143,7 +144,7 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 	typedef QStringList (*sdem1)();
 	sdem0 fp_FileFormatName;
 	sdem1 fp_FileExtensions;
-	QString pluginFilePath = QString("%1/gettext/%2").arg(PLUGINDIR).arg(name);
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(name);
 
 	QLibrary gtplugin(pluginFilePath);
 	gtplugin.setAutoUnload(true);

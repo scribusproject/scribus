@@ -14,6 +14,7 @@
 #else
  #include "config.h"
 #endif
+#include "scpaths.h"
 #ifdef HAVE_CMS
 extern bool SoftProofing;
 extern bool Gamut;
@@ -528,7 +529,7 @@ void CMYKChoose::SelSwatch(int n)
 		bool cus = false;
 		CurrSwatch.clear();
 		QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Swatches->currentText());
-		QString pfadC = LIBDIR;
+		QString pfadC = ScPaths::instance().libDir();
 		QString pfadC2 = pfadC + "rgbscribus.txt";
 		switch (n)
 		{
