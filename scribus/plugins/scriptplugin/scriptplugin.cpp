@@ -719,7 +719,7 @@ PyMethodDef scribus_methods[] = {
 	// end of aliases
 	{const_cast<char*>("retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
-	{NULL, NULL, NULL, NULL} /* sentinel */
+	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
 };
 
 void initscribus(ScribusApp *pl)
@@ -837,6 +837,30 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
+
+	// Export the Scribus version into the module namespace so scripts know what they're running in
+	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyString_FromString(const_cast<char*>(VERSION)));
+	// Now build a version tuple like that provided by Python in sys.version_info
+	// The tuple is of the form (major, minor, patchlevel, extraversion, reserved)
+	QRegExp version_re("(\\d+)\\.(\\d+)\\.(\\d+)(.*)");
+	int pos = version_re.search(QString(VERSION));
+	// We ignore errors, causing the scribus_version_info attribute to simply not be created.
+	// This will make acceses raise AttrbuteError.
+	if (pos > -1)
+	{
+		int majorVersion = version_re.cap(1).toInt();
+		int minorVersion = version_re.cap(2).toInt();
+		int patchVersion = version_re.cap(3).toInt();
+		QString extraVersion = version_re.cap(4);
+		PyObject* versionTuple = Py_BuildValue(const_cast<char*>("(iiisi)"),\
+				majorVersion, minorVersion, patchVersion, (const char*)extraVersion.utf8(), 0);
+		if (versionTuple != NULL)
+				PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
+		else
+				qDebug("Failed to build version tuple for version string '%s' in scripter", VERSION);
+	}
+	else
+			qDebug("Couldn't parse version string '%s' in scripter", VERSION);
 
 	Carrier = pl;
 	// Function aliases for compatibility
