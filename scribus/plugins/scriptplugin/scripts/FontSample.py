@@ -202,7 +202,7 @@ def setPropFont():
 
 def setPaperSize(paperSize):
     if paperSize == 1:              # A4 - 595 x 842 Points
-        paper.size = scribus.Paper_A4
+        paper.size = scribus.PAPER_A4
         paper.width = 595
         paper.height = 842
         paper.tmargin = 60
@@ -218,7 +218,7 @@ def setPaperSize(paperSize):
         paper.textheight = paper.height - paper.tmargin - paper.bmargin
         paper.margins = paper.lmargin, paper.rmargin, paper.tmargin, paper.bmargin
     if paperSize == 2:              # US Letter - 612 x 792 Points
-        paper.size = scribus.Paper_Letter
+        paper.size = scribus.PAPER_LETTER
         paper.width = 612
         paper.height = 792
         paper.tmargin = 27
@@ -399,7 +399,7 @@ def useSelection(fontList):
     tocList = []
     yPos = paper.tmargin + 1
     pageNum = 1
-    if scribus.newDoc(paper.size, paper.margins, scribus.Portrait, 1, scribus.Points, scribus.NoFacingPages, scribus.FirstPageRight):
+    if scribus.newDoc(paper.size, paper.margins, scribus.PORTRAIT, 1, scribus.UNIT_POINTS, scribus.NOFACINGPAGES, scribus.FIRSTPAGERIGHT):
         # We have a new page by default so set it up first...
         setOddEven(pageNum)
         if app.wantPageNum.get() == 1:
