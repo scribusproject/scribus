@@ -3012,11 +3012,11 @@ void PageItem::moveUndoAction()
 		if (oldOwnPage == -1)
 			oldp = Um::ScratchSpace;
 		else
-			oldp = QString("%1").arg(ScApp->doc->FirstPnum + oldOwnPage);
+			oldp = QString(Um::PageNmbr).arg(ScApp->doc->FirstPnum + oldOwnPage);
 		if (OwnPage == -1)
 			newp = Um::ScratchSpace;
 		else
-			newp = QString("%1").arg(ScApp->doc->FirstPnum + OwnPage);
+			newp = QString(Um::PageNmbr).arg(ScApp->doc->FirstPnum + OwnPage);
 		SimpleState *ss = new SimpleState(Um::Move,
                                           QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldp).
                                                                   arg(Xpos).arg(Ypos).arg(newp), Um::IMove);

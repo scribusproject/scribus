@@ -787,7 +787,7 @@ const QString UndoManager::UnlockGuides       = tr("Unlock guides");
 const QString UndoManager::Move               = tr("Move");
 const QString UndoManager::Resize             = tr("Resize");
 const QString UndoManager::Rotate             = tr("Rotate");
-const QString UndoManager::MoveFromTo         = tr("X1: %1, Y1: %2, Page %3\nX2: %4, Y2: %5, Page %6");
+const QString UndoManager::MoveFromTo         = tr("X1: %1, Y1: %2, %3\nX2: %4, Y2: %5, %6");
 const QString UndoManager::ResizeFromTo       = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
 const QString UndoManager::Selection          = tr("Selection");
 const QString UndoManager::Group              = tr("Group");
@@ -857,6 +857,7 @@ const QString UndoManager::ContourLine        = tr("Text flows around contour li
 const QString UndoManager::NoTextFlow         = tr("No text flow");
 const QString UndoManager::NoBoundingBox      = tr("No bounding box");
 const QString UndoManager::NoContourLine      = tr("No contour line");
+const QString UndoManager::PageNmbr           = tr("Page %1");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

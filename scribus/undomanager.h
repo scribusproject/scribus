@@ -523,6 +523,7 @@ public:
 	static const QString NoTextFlow;
 	static const QString NoBoundingBox;
 	static const QString NoContourLine;
+	static const QString PageNmbr;
 	/*@}*/
 
 	/**
