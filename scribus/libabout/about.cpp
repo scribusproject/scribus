@@ -1,4 +1,12 @@
-#include "about.h"
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+ #include "about.h"
 #include "about.moc"
 #include <qpixmap.h>
 #include <qtextstream.h>
@@ -58,7 +66,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("11").arg("November").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("16").arg("November").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else

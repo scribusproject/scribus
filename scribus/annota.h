@@ -1,11 +1,11 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Annot.ui'
-**
-** Created: Tue Feb 19 22:31:41 2002
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 #ifndef ANNOTA_H
 #define ANNOTA_H
 
@@ -25,34 +25,34 @@
 #include "scribusview.h"
 
 class Annota : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie);
-    ~Annota() {};
+	Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie);
+	~Annota() {};
 	QWidgetStack* Fram;
-    QLabel* TextLabel1;
-    QComboBox* ComboBox1;
-    QGroupBox* GroupBox1;
-    QLabel* TextLabel3;
-    QLabel* TextLabel4;
-    QLabel* TextLabel5;
+	QLabel* TextLabel1;
+	QComboBox* ComboBox1;
+	QGroupBox* GroupBox1;
+	QLabel* TextLabel3;
+	QLabel* TextLabel4;
+	QLabel* TextLabel5;
 	QLineEdit* Destfile;
 	QPushButton* ChFile;
-    Navigator* Pg;
-    QSpinBox* SpinBox1;
-    QSpinBox* SpinBox2;
-    QSpinBox* SpinBox3;
-    QFrame* Frame9;
-    QPushButton* PushButton1;
-    QPushButton* PushButton2;
-    PageItem* item;
-    ScribusView* view;
-    int Breite;
-    int Hoehe;
-    int OriBreite;
-    int OriHoehe;
+	Navigator* Pg;
+	QSpinBox* SpinBox1;
+	QSpinBox* SpinBox2;
+	QSpinBox* SpinBox3;
+	QFrame* Frame9;
+	QPushButton* PushButton1;
+	QPushButton* PushButton2;
+	PageItem* item;
+	ScribusView* view;
+	int Breite;
+	int Hoehe;
+	int OriBreite;
+	int OriHoehe;
 	int MaxSeite;
 
 public slots:
@@ -64,10 +64,10 @@ public slots:
 	void GetFile();
 
 protected:
-    QVBoxLayout* AnnotLayout;
-    QHBoxLayout* Layout1;
-    QGridLayout* GroupBox1Layout;
-    QHBoxLayout* Layout1_2;
+	QVBoxLayout* AnnotLayout;
+	QHBoxLayout* Layout1;
+	QGridLayout* GroupBox1Layout;
+	QHBoxLayout* Layout1_2;
 };
 
 #endif // ANNOT_H

@@ -876,8 +876,6 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 					m_path[ m_index ].code = ART_MOVETO;
 				else
 					m_path[ m_index ].code = ART_MOVETO_OPEN;
-/*				m_path[ m_index ].x3 = np.x();
-				m_path[ m_index ].y3 = np.y(); */
 				m_path[ m_index ].x3 = np.x() * m_zoomFactor;
 				m_path[ m_index ].y3 = np.y() * m_zoomFactor;
 				m_index++;
@@ -891,20 +889,12 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			if ((np == np1) && (np2 == np3))
 				{
 				m_path[ m_index ].code = ART_LINETO;
-/*				m_path[ m_index ].x3	= np3.x();
-				m_path[ m_index ].y3	= np3.y(); */
 				m_path[ m_index ].x3	= np3.x() * m_zoomFactor;
 				m_path[ m_index ].y3	= np3.y() * m_zoomFactor;
 				}
 			else
 				{
 				m_path[ m_index ].code = ART_CURVETO;
-/*				m_path[ m_index ].x1	= np1.x();
-				m_path[ m_index ].y1	= np1.y();
-				m_path[ m_index ].x2	= np2.x();
-				m_path[ m_index ].y2	= np2.y();
-				m_path[ m_index ].x3	= np3.x();
-				m_path[ m_index ].y3	= np3.y(); */
 				m_path[ m_index ].x1	= np1.x() * m_zoomFactor;
 				m_path[ m_index ].y1	= np1.y() * m_zoomFactor;
 				m_path[ m_index ].x2	= np2.x() * m_zoomFactor;
@@ -918,6 +908,58 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 		m_path[ m_index ].code = ART_END;
 		m_index++;
 		}
+}
+
+void ScPainter::setupTextPolygon(FPointArray *points)
+{
+	bool nPath = true;
+	FPoint np, np1, np2, np3;
+	newPath();
+	for (uint poi=0; poi<points->size()-3; poi += 4)
+	{
+		if (points->point(poi).x() > 900000)
+		{
+			nPath = true;
+			ensureSpace( m_index + 1 );
+			m_path[ m_index ].code = ART_END;
+			continue;
+		}
+		if (nPath)
+		{
+			np = points->point(poi);
+			ensureSpace( m_index + 1 );
+			m_path[ m_index ].code = ART_MOVETO;
+			m_path[ m_index ].x3 = np.x();
+			m_path[ m_index ].y3 = np.y();
+			m_index++;
+			nPath = false;
+		}
+		np = points->point(poi);
+		np1 = points->point(poi+1);
+		np2 = points->point(poi+3);
+		np3 = points->point(poi+2);
+		ensureSpace( m_index + 1 );
+		if ((np == np1) && (np2 == np3))
+		{
+			m_path[ m_index ].code = ART_LINETO;
+			m_path[ m_index ].x3	= np3.x();
+			m_path[ m_index ].y3	= np3.y();
+		}
+		else
+		{
+			m_path[ m_index ].code = ART_CURVETO;
+			m_path[ m_index ].x1	= np1.x();
+			m_path[ m_index ].y1	= np1.y();
+			m_path[ m_index ].x2	= np2.x();
+			m_path[ m_index ].y2	= np2.y();
+			m_path[ m_index ].x3	= np3.x();
+			m_path[ m_index ].y3	= np3.y();
+		}
+		m_index++;
+	}
+	ensureSpace( m_index + 1 );
+	m_path[ m_index ].code = ART_END;
+	m_index++;
 }
 
 void ScPainter::drawPolygon()

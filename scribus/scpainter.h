@@ -73,6 +73,7 @@ public:
 
 	virtual void drawImage( QImage *image );
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
+	virtual void setupTextPolygon(FPointArray *points);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);

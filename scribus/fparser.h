@@ -1,6 +1,6 @@
 /***************************************************************************\
-|* Function parser v2.63 by Warp                                           *|
-|* -----------------------------                                           *|
+|* Function parser v2.7 by Warp                                            *|
+|* ----------------------------                                            *|
 |* Parses and evaluates the given function with the given variable values. *|
 |*                                                                         *|
 \***************************************************************************/
@@ -11,7 +11,10 @@
 #include <string>
 #include <map>
 #include <vector>
+
+#ifdef FUNCTIONPARSER_SUPPORT_DEBUG_OUTPUT
 #include <iostream>
+#endif
 
 class FunctionParser
 {
@@ -53,9 +56,10 @@ public:
     FunctionParser& operator=(const FunctionParser&);
 
 
+#ifdef FUNCTIONPARSER_SUPPORT_DEBUG_OUTPUT
     // For debugging purposes only:
     void PrintByteCode(std::ostream& dest) const;
-
+#endif
 
 
 
@@ -136,6 +140,7 @@ private:
     int CompileFunctionParams(const char*, int, unsigned);
     int CompileElement(const char*, int);
     int CompilePow(const char*, int);
+    int CompileUnaryMinus(const char*, int);
     int CompileMult(const char*, int);
     int CompileAddition(const char*, int);
     int CompileComparison(const char*, int);
