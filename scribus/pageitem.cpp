@@ -2405,6 +2405,46 @@ void PageItem::setLineStyle(PenStyle newStyle)
 	PLineArt = newStyle;
 }
 
+void PageItem::setLineWidth(double newWidth)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::LineWidth,
+						QString(Um::FromTo).arg(Pwidth).arg(newWidth),Um::ILineStyle);
+		ss->set("LINE_WIDTH", "line_width");
+		ss->set("OLD_WIDTH", Pwidth);
+		ss->set("NEW_WIDTH", newWidth);
+		undoManager->action(this, ss);
+	}
+	Pwidth = newWidth;
+}
+
+void PageItem::setLineEnd(PenCapStyle newStyle)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::LineEnd,"",Um::ILineStyle);
+		ss->set("LINE_END", "line_end");
+		ss->set("OLD_STYLE", static_cast<int>(PLineEnd));
+		ss->set("NEW_STYLE", static_cast<int>(newStyle));
+		undoManager->action(this, ss);
+	}
+	PLineEnd = newStyle;
+}
+
+void PageItem::setLineJoin(PenJoinStyle newStyle)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::LineJoin,"",Um::ILineStyle);
+		ss->set("LINE_JOIN", "line_join");
+		ss->set("OLD_STYLE", static_cast<int>(PLineJoin));
+		ss->set("NEW_STYLE", static_cast<int>(newStyle));
+		undoManager->action(this, ss);
+	}
+	PLineJoin = newStyle;
+}
+
 void PageItem::flipImageH()
 {
 	if (UndoManager::undoEnabled())
@@ -2635,6 +2675,12 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLineTP(ss, isUndo);
 		else if (ss->contains("LINE_STYLE"))
 			restoreLineStyle(ss, isUndo);
+		else if (ss->contains("LINE_END"))
+			restoreLineEnd(ss, isUndo);
+		else if (ss->contains("LINE_JOIN"))
+			restoreLineJoin(ss, isUndo);
+		else if (ss->contains("LINE_WIDTH"))
+			restoreLineWidth(ss, isUndo);
 	}
 }
 
@@ -2791,6 +2837,33 @@ void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 		ps = static_cast<PenStyle>(state->getInt("NEW_STYLE"));
 	select();
 	ScApp->view->ChLineArt(ps);
+}
+
+void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
+{
+	PenCapStyle pcs = static_cast<PenCapStyle>(state->getInt("OLD_STYLE"));
+	if (!isUndo)
+		pcs = static_cast<PenCapStyle>(state->getInt("NEW_STYLE"));
+	select();
+	ScApp->view->ChLineEnd(pcs);
+}
+
+void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
+{
+	PenJoinStyle pjs = static_cast<PenJoinStyle>(state->getInt("OLD_STYLE"));
+	if (!isUndo)
+		pjs = static_cast<PenJoinStyle>(state->getInt("NEW_STYLE"));
+	select();
+	ScApp->view->ChLineJoin(pjs);
+}
+
+void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
+{
+	double w = state->getDouble("OLD_WIDTH");
+	if (!isUndo)
+		w = state->getDouble("NEW_WIDTH");
+	select();
+	ScApp->view->ChLineWidth(w);
 }
 
 void PageItem::restoreName(SimpleState *state, bool isUndo)

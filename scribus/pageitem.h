@@ -384,6 +384,23 @@ public:
 	 * @sa Qt::PenStyle
 	 */
 	void setLineStyle(PenStyle newStyle);
+	/**
+	 * @brief Set the width of line
+	 * @param newWidth width of line
+	 */
+	void setLineWidth(double newWidth);
+	/**
+	 * @brief Set the end style of line
+	 * @param newStyle end style of line
+	 * @sa Qt::PenCapStyle
+	 */
+	void setLineEnd(PenCapStyle newStyle);
+	/**
+	 * @brief Set the join style of line
+	 * @param newStyle join style of line
+	 * @sa Qt::PenJoinStyle
+	 */
+	void setLineJoin(PenJoinStyle newStyle);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 	/** @brief Flip an image vertically */
@@ -441,6 +458,9 @@ protected:
 	void restoreFillTP(SimpleState *state, bool isUndo);
 	void restoreLineTP(SimpleState *state, bool isUndo);
 	void restoreLineStyle(SimpleState *state, bool isUndo);
+	void restoreLineEnd(SimpleState *state, bool isUndo);
+	void restoreLineJoin(SimpleState *state, bool isUndo);
+	void restoreLineWidth(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

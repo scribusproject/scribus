@@ -9344,11 +9344,14 @@ void ScribusView::ChLineWidth(double w)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			PageItem *b = SelItem.at(a);
 			b->OldPwidth = b->Pwidth;
-			b->Pwidth = w;
+			b->setLineWidth(w);
 			if (b->PType == 7)
 				SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 			if (b->PType == 5)
@@ -9360,6 +9363,8 @@ void ScribusView::ChLineWidth(double w)
 			}
 			RefreshItem(b);
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9384,11 +9389,16 @@ void ScribusView::ChLineJoin(PenJoinStyle w)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->PLineJoin = w;
+			SelItem.at(a)->setLineJoin(w);
 			RefreshItem(SelItem.at(a));
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9396,11 +9406,16 @@ void ScribusView::ChLineEnd(PenCapStyle w)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->PLineEnd = w;
+			SelItem.at(a)->setLineEnd(w);
 			RefreshItem(SelItem.at(a));
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 

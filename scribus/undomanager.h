@@ -435,6 +435,9 @@ public:
 	static const QString Transparency;
 	static const QString LineTransparency;
 	static const QString LineStyle;
+	static const QString LineEnd;
+	static const QString LineJoin;
+	static const QString LineWidth;
 	/*@}*/
 
 	/**

@@ -661,6 +661,9 @@ const QString UndoManager::Cut               = tr("Cut");
 const QString UndoManager::Transparency      = tr("Set fill color transparency");
 const QString UndoManager::LineTransparency  = tr("Set line color transparency");
 const QString UndoManager::LineStyle         = tr("Set line style");
+const QString UndoManager::LineEnd           = tr("Set the style of line end");
+const QString UndoManager::LineJoin          = tr("Set the style of line join");
+const QString UndoManager::LineWidth         = tr("Set line width");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
