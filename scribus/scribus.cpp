@@ -7453,8 +7453,9 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 
 void ScribusApp::DeleteObjekt()
 {
-	if (!doc->EditClip)
-		view->DeleteItem();
+	 if (HaveDoc)
+	 	if (!doc->EditClip)
+			view->DeleteItem();
 }
 
 void ScribusApp::Objekt2Back()
