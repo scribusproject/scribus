@@ -6893,6 +6893,8 @@ void ScribusView::SetupDraw(int nr)
 {
 	PageItem* b = Doc->Items.at(nr);
 	b->Select = true;
+	b->IFont = Doc->Dfont;
+	b->ISize = Doc->Dsize;
 	mCG = true;
 	HowTo = 1;
 	qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
@@ -7216,7 +7218,10 @@ void ScribusView::LoremIpsum()
 		if (ss->Read(""))
 		{
 			int st = Doc->CurrentABStil;
-			ss->GetText(b, st, Doc->Vorlagen[st].Font, Doc->Vorlagen[st].FontSize);
+			if (st > 5)
+				ss->GetText(b, st, Doc->Vorlagen[st].Font, Doc->Vorlagen[st].FontSize);
+			else
+				ss->GetText(b, st, b->IFont, b->ISize);
 		}
 		delete ss;
 		if (Doc->Trenner->AutoCheck)

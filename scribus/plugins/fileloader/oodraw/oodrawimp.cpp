@@ -580,7 +580,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 				ite->LineSp = FontSize + FontSize * 0.2;
 				Serializer *ss = new Serializer("");
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-				ss->GetText(ite, AbsStyle, Doku->Dfont, FontSize, firstPa);
+				ss->GetText(ite, AbsStyle, Doku->Dfont, FontSize*10, firstPa);
 				delete ss;
 				firstPa = true;
 				if (ite->PType != 7)

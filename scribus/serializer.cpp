@@ -98,7 +98,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->cshade = it->ShTxtFill;
 			hg->cstroke = it->TxtStroke;
 			hg->cshade2 = it->ShTxtStroke;
-			hg->csize = size * 10;
+			hg->csize = size;
 			hg->cstyle = it->TxTStyle;
 		}
 		hg->cscale = it->TxtScale;
