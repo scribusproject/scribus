@@ -103,11 +103,7 @@ public:
 	ScribusApp();
 	/** destructor */
 	~ScribusApp() {};
-    /** init methods */
-	void initGui(bool showSplash);
-	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
-	void initStatusBar(); // setup the statusbar
-	void initToolBars(); // setup the toolbars
+	int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage);
 
 	void SetShortCut();
 	void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
@@ -124,8 +120,6 @@ public:
 	void ShowSubs();
 	void applyNewMaster(QString name);
 	void UpdateRecent(QString fn);
-	void initPlugs();
-	void initHyphenator();
 	QString GetLang(QString inLang);
 	void FinalizePlugs();
 	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr);
@@ -422,7 +416,7 @@ public slots:
 	/** Richtet Objekte aus */
 	void ObjektAlign();
 	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
-	void GetAllFonts();
+	const bool GetAllFonts();
 	void BuildFontMenu();
 	void slotFontOrg();
 	void slotPrefsOrg();
@@ -472,7 +466,15 @@ signals:
 
 private:
     /** init methods */
-	void initScribus();
+	void initSplash(bool showSplash);
+	void closeSplash();
+	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
+	void initStatusBar(); // setup the statusbar
+	void initToolBars(); // setup the toolbars
+	void initFonts(); // setup the toolbars
+	void initPlugs();
+	void initHyphenator();
+
 	QString getPreferencesLocation(); //Find preferences location
 	/** edit_menu contains all items of the menubar entry "Edit" */
 	QPopupMenu *editMenu;
@@ -617,3 +619,4 @@ private:
     			} PDef ;
 };
 #endif 
+

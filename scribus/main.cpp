@@ -212,16 +212,16 @@ int mainGui(int argc, char **argv)
 	QStringList langs = getLang(QString(lang));
 
 	ScribusApp *scribus = new ScribusApp();
+	if (!scribus)
+		exit(EXIT_FAILURE);
 	if (!langs.isEmpty())
 		installTranslators(&app, langs);
 
 	app.processEvents();
-
 	
-	scribus->initGui(showSplash);
-	if (scribus->NoFonts)
+	int scribusRetVal = scribus->initScribus(showSplash, lang);
+	if (scribusRetVal == 1)
 		exit(EXIT_FAILURE);
-	scribus->GuiLanguage = lang;
 	app.setMainWidget(scribus);
 	app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 

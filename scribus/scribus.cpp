@@ -128,28 +128,15 @@ PrefsFile* prefsFile;
 ScribusApp::ScribusApp()
 {} // ScribusApp::ScribusApp()
 
-void ScribusApp::initGui(bool showSplash)
+/*
+ * retval 0 - ok, 1 - no fonts, ...
+ */
+int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 {
-	if (showSplash)
-	{
-		splashScreen = new SplashScreen();
-		splashScreen->setStatus(QObject::tr("Initializing..."));
-	}
-	else
-		splashScreen = NULL;
+	int retVal=0;
+	GuiLanguage = newGuiLanguage;
+	initSplash(showSplash);
 
-	initScribus();
-
-	if (splashScreen!=NULL)
-	{
-		splashScreen->close();
-		delete splashScreen;
-		splashScreen = NULL;
-	}
-}
-
-void ScribusApp::initScribus()
-{
 	ScApp = this;
 	CurrStED = NULL;
 	setCaption( tr("Scribus " VERSION));
@@ -166,21 +153,13 @@ void ScribusApp::initScribus()
 	PrefsPfad = getPreferencesLocation();
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
 	dirs = prefsFile->getContext("dirs");
-	/** Erstelle Fontliste */
-	NoFonts = false;
+
 	BuFromApp = false;
-	if (splashScreen!=NULL)
-		splashScreen->setStatus( tr("Searching for Fonts"));
-	qApp->processEvents();
-	GetAllFonts();
+
+	initFonts();
+
 	if (NoFonts)
-	{
-		if (splashScreen!=NULL)
-			splashScreen->close(); // 10/10/2004 pv fix #1200
-		QString mess = tr("There are no Postscript fonts on your system");
-		mess += "\n" + tr("Exiting now");
-		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
-	}
+		retVal=1;
 	else
 	{
 		HaveDoc = 0;
@@ -587,6 +566,29 @@ void ScribusApp::initScribus()
 #endif
 		sigprocmask(SIG_UNBLOCK, &mask, 0);
 	}
+	closeSplash();
+	return retVal;
+}
+
+void ScribusApp::initSplash(bool showSplash)
+{
+	if (showSplash)
+	{
+		splashScreen = new SplashScreen();
+		splashScreen->setStatus(QObject::tr("Initializing..."));
+	}
+	else
+		splashScreen = NULL;
+}
+
+void ScribusApp::closeSplash()
+{
+	if (splashScreen!=NULL)
+	{
+		splashScreen->close();
+		delete splashScreen;
+		splashScreen = NULL;
+	}
 }
 
 void ScribusApp::initToolBars()
@@ -615,6 +617,22 @@ void ScribusApp::initToolBars()
 	WerkToolsP->Sichtbar = true;
 }
 
+void ScribusApp::initFonts()
+{
+	if (splashScreen!=NULL) {
+		splashScreen->setStatus( tr("Searching for Fonts"));
+		qApp->processEvents();
+	}
+	NoFonts=GetAllFonts();
+	if (NoFonts)
+	{
+		if (splashScreen!=NULL)
+			splashScreen->close(); // 10/10/2004 pv fix #1200
+		QString mess = tr("There are no Postscript fonts on your system");
+		mess += "\n" + tr("Exiting now");
+		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
+	}
+}
 
 /*!
  \fn QString ScribusApp::getPreferencesLocation()
@@ -6711,11 +6729,12 @@ void ScribusApp::BuildFontMenu()
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
-void ScribusApp::GetAllFonts()
+const bool ScribusApp::GetAllFonts()
 {
 	Prefs.AvailFonts.GetFonts(PrefsPfad);
 	if (Prefs.AvailFonts.isEmpty())
-		NoFonts = true;
+		return true;
+	return false;
 }
 
 void ScribusApp::slotFontOrg()
