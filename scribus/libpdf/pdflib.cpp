@@ -3108,7 +3108,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			Inhal = "";
 			Bmc++;
 			Inhal += IToStr(ip->ItemNr+Basis)+ " 0 obj\n";
-			Inhal += "<<\n/Title ("+ip->Titel+")\n";
+			Inhal += "<<\n/Title "+EncString("("+ip->Titel+")", ip->ItemNr+Basis)+"\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
 			else

@@ -1,4 +1,7 @@
 Changes since Version 1.0RC1
+02.07.2003	scribus.cpp		Fixed Bug with Bookmarks when switching Documents.
+		pdflib.cpp		Fixed Bug with Bookmarks and Encryption.
+
 01.07.2003	Added Czech Hyphenation Dictionary and updated the Czech Translation.
 		Various small Fixes from Paul.
 		scribus.cpp		Fixed unneeded Redraw when switching Windows.

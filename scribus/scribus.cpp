@@ -2401,6 +2401,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 					ite->paintObj();
 				}
 			}
+		RestoreBookMarks();
 		for (uint az=0; az<view->Pages.count(); az++)
 			{
 			for (uint azz=0; azz<view->Pages.at(az)->Items.count(); ++azz)
@@ -2422,6 +2423,9 @@ bool ScribusApp::LadeDoc(QString fileName)
 			}
 		if (doc->OldBM)
 			StoreBookmarks();
+		ActWin->NrItems = BookPal->BView->NrItems;
+		ActWin->First = BookPal->BView->First;
+		ActWin->Last = BookPal->BView->Last;
 		doc->RePos = false;
 		UpdateRecent(fileName);
   	FMess->setText(tr("Ready"));
@@ -3209,7 +3213,8 @@ void ScribusApp::slotNewPage(int w)
 		pageMenu->setItemEnabled(pgmd, 1);
 		pageMenu->setItemEnabled(pgmv, 1);
 		}
-	AdjustBM();
+	if (!doc->loading)
+		AdjustBM();
 	connect(doc->ActPage, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(doc->ActPage, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
 	connect(doc->ActPage, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
