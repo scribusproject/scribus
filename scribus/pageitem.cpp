@@ -919,9 +919,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									CurY += Doc->Vorlagen[hl->cab].LineSpa;
 								if (Doc->Vorlagen[hl->cab].BaseAdj)
 								{
-									int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+									double by = Ypos;
+									if (OwnPage != -1)
+										by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+									int ol1 = qRound((by + CurY - Doc->BaseOffs) * 10000.0);
 									int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
-									CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+									CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - by;
 								}
 								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
@@ -959,9 +962,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											CurX += Doc->Vorlagen[hl->cab].Indent;
 										if (Doc->Vorlagen[hl->cab].BaseAdj)
 										{
-											int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+											double by = Ypos;
+											if (OwnPage != -1)
+												by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+											int ol1 = qRound((by + CurY - Doc->BaseOffs) * 10000.0);
 											int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
-											CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+											CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - by;
 										}
 										}
 									else
@@ -1132,9 +1138,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
 						{
 							CurY -= Doc->BaseGrid * (DropLines-1);
-							int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+							double by = Ypos;
+							if (OwnPage != -1)
+								by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+							int ol1 = qRound((by + CurY - Doc->BaseOffs) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
-							CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+							CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - by;
 							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->BaseGrid)));
 							tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->BaseGrid)));
 						}
