@@ -724,7 +724,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(55, tr("Tool-Tips"), tip, 0);
   tipsOn = true;
   helpMenu->setItemChecked(tip, tipsOn);
-	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
+//	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 //	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem( tr("File"), fileMenu);
 	menuBar()->insertItem( tr("Edit"), editMenu);

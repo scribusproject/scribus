@@ -4671,7 +4671,7 @@ void Page::slotDoCurs(bool draw)
   	if ((b->PType != 4) || (b->Ptext.count() == 0)) { return; }
   	QPainter p;
   	QString chx;
-  	int xp, yp, yp1;
+  	int xp, yp, yp1, desc, asce;
   	p.begin(this);
 		p.setClipRegion(ViewReg());
 		Transform(b, &p);
@@ -4693,23 +4693,18 @@ void Page::slotDoCurs(bool draw)
   		if ((b->Ptext.at(b->CPos-1)->ch != QChar(13)) && (b->Ptext.at(b->CPos-1)->ch != QChar(9)))
   			xp += qRound(Cwidth(doku, b->Ptext.at(b->CPos-1)->cfont, chx, chs)*(b->Ptext.at(b->CPos-1)->cscale / 100.0));
   		yp = static_cast<int>(b->Ptext.at(b->CPos-1)->yp);
-			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numDescender * (-b->Ptext.at(b->CPos-1)->csize / 10.0));
-			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numAscent * (b->Ptext.at(b->CPos-1)->csize / 10.0));
-			yp1 = yp - asce;
-			yp += desc;
+			desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numDescender * (-b->Ptext.at(b->CPos-1)->csize / 10.0));
+			asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numAscent * (b->Ptext.at(b->CPos-1)->csize / 10.0));
   		}
   	else
 			{
-			xp = static_cast<int>(b->Extra);
-			xp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].First);
-			xp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].Indent);
-			yp = static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].LineSpa+b->Extra);
-			yp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].Avor);
-			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numDescender * (-b->Ptext.at(b->CPos)->csize / 10.0));
-			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numAscent * (b->Ptext.at(b->CPos)->csize / 10.0));
-			yp1 = yp - asce;
-			yp += desc;
+  		xp = static_cast<int>(b->Ptext.at(b->CPos)->xp);
+  		yp = static_cast<int>(b->Ptext.at(b->CPos)->yp);
+			desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numDescender * (-b->Ptext.at(b->CPos)->csize / 10.0));
+			asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numAscent * (b->Ptext.at(b->CPos)->csize / 10.0));
   		}
+		yp1 = yp - asce;
+		yp += desc;
   	if (draw)
   		{
   		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
