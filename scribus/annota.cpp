@@ -130,10 +130,10 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
 
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1_2->addItem( spacer );
-    PushButton1 = new QPushButton( "&OK", this, "PushButton1" );
+    PushButton1 = new QPushButton( tr("&OK"), this, "PushButton1" );
     PushButton1->setDefault( true );
     Layout1_2->addWidget( PushButton1 );
-    PushButton2 = new QPushButton( "&Cancel", this, "PushButton2" );
+    PushButton2 = new QPushButton( tr("&Cancel"), this, "PushButton2" );
     Layout1_2->addWidget( PushButton2 );
     AnnotLayout->addLayout( Layout1_2 );
 
