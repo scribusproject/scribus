@@ -4,6 +4,7 @@
 
 LangList::LangList()
 {
+    insert("af",    QObject::tr( "Afrikaans" ));
     insert("sq",    QObject::tr( "Albanian" ));
     insert("eu",    QObject::tr( "Basque" ));
     insert("bg",    QObject::tr( "Bulgarian" ));
@@ -46,5 +47,7 @@ LangList::LangList()
     insert("sk",    QObject::tr( "Slovak" ));
     insert("sl",    QObject::tr( "Slovenian" ));
     insert("sr",    QObject::tr( "Serbian" ));
+    insert("tr",    QObject::tr( "Turkish" ));
+    insert("uk",    QObject::tr( "Ukranian" ));
     insert("cy",    QObject::tr( "Welsh" ));
 }

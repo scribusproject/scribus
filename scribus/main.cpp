@@ -302,11 +302,7 @@ void installTranslators(QApplication *app, QStringList langs)
 
 	bool loaded = false;
 	for (QStringList::Iterator it = langs.begin(); it != langs.end() && !loaded; ++it) {
-		if ((*it).left(5) == "en_GB")
-			lang = "en_GB";
-		else
-			lang = (*it).left(2);
-
+		lang = (*it).left(5);
 		if (lang == "en")
 			break;
 		else if (loaded = trans->load(QString(path + '.' + lang), "."))
@@ -322,7 +318,7 @@ void installTranslators(QApplication *app, QStringList langs)
 		for (uint i = 0; i < dir.count(); ++i) {
 			QFileInfo file(path + dir[i]);
 			if ((file.extension(false).lower() == "qm")
-			&& (file.extension(true).lower().left(2) == lang)) {
+			&& (file.extension(true).lower().left(5) == lang)) {
 				trans = new QTranslator(0);
 				trans->load(QString(path + dir[i]), ".");
 				app->installTranslator(trans);
