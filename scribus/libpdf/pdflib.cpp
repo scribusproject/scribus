@@ -981,7 +981,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
-				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
+				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
@@ -1147,7 +1147,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -1157,6 +1157,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutDoc("<< /Type /ExtGState\n");
 								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
@@ -1171,7 +1172,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							arrowTrans.translate(ite->Width, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -1181,6 +1182,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutDoc("<< /Type /ExtGState\n");
 								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
@@ -1268,7 +1270,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -1278,6 +1280,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										PutDoc("<< /Type /ExtGState\n");
 										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
@@ -1303,7 +1306,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -1313,6 +1316,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										PutDoc("<< /Type /ExtGState\n");
 										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
@@ -1629,7 +1633,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								ite->BoundingY = OldBY;
 							}
 							PutPage("q\n");
-							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
+							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 								PDF_Transparenz(ite);
 							if (ite->fillColor() != "None")
 								PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
@@ -1751,7 +1755,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (!ite->isTableItem)
 							continue;
 						PutPage("q\n");
-						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
+						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 							PDF_Transparenz(ite);
 						if (ite->fillColor() != "None")
 							PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
@@ -1889,7 +1893,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
-				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
+				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
@@ -2095,7 +2099,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -2105,6 +2109,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutDoc("<< /Type /ExtGState\n");
 								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
@@ -2119,7 +2124,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							arrowTrans.translate(ite->Width, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -2129,6 +2134,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutDoc("<< /Type /ExtGState\n");
 								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
@@ -2216,7 +2222,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -2226,6 +2232,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 										PutDoc("<< /Type /ExtGState\n");
 										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
@@ -2251,7 +2258,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -2261,6 +2268,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 										PutDoc("<< /Type /ExtGState\n");
 										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
@@ -2327,7 +2335,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 						continue;
 					PutPage("q\n");
-					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
+					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 						PDF_Transparenz(ite);
 					if (!ite->isPrintable)
 					{
@@ -2997,6 +3005,7 @@ void PDFlib::PDF_Transparenz(PageItem *b)
 	PutDoc("<< /Type /ExtGState\n");
 	PutDoc("/CA "+FToStr(1.0 - b->lineTransparency())+"\n");
 	PutDoc("/ca "+FToStr(1.0 - b->fillTransparency())+"\n");
+	PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 	PutDoc("/BM /Normal\n>>\nendobj\n");
 	PutPage("/"+ShName+" gs\n");
 }
@@ -3104,7 +3113,7 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList
 	QString TRes = "";
 	for (uint c = 0; c < Colors.count()-1; ++c)
 	{
-		if ((Options->Version == 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
+		if ((Options->Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
 		{
 			StartObj(ObjCounter);
 			QString ShName = ResNam+IToStr(ResCount);

@@ -135,6 +135,7 @@ void MusterPages::duplicateTemplate()
 		atf = currentDoc->PageAT;
 		currentDoc->PageAT = false;
 		emit createNew(nr);
+		currentDoc->loading = true;
 		if (currentDoc->PageFP)
 			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
 		int inde = currentDoc->MasterNames[sMuster];
@@ -204,6 +205,8 @@ void MusterPages::duplicateTemplate()
 		updateTemplateList(templateName);
 		currentDoc->PageAT = atf;
 		currentDoc->MasterPages = currentDoc->Pages;
+		currentDoc->loading = false;
+		currentView->DrawNew();
 		emit updateTree(currentDoc);
 	}
 	delete dia;

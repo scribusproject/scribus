@@ -125,15 +125,15 @@ void MergeDoc::changeFile()
 	PrefsContext* dirs = prefsFile->getContext("dirs");
 	QString wdir = dirs->get("merge", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (fromDocData->text() != "")
-		dia.setSelection(fromDocData->text());
-	if (dia.exec() == QDialog::Accepted)
+		dia->setSelection(fromDocData->text());
+	if (dia->exec() == QDialog::Accepted)
 	{
-		fn = dia.selectedFile();
+		fn = dia->selectedFile();
 		if (!fn.isEmpty())
 		{
 			dirs->set("merge", fn.left(fn.findRev("/")));
@@ -181,6 +181,7 @@ void MergeDoc::changeFile()
 		if (!masterPages)
 			fromLabel->setText( tr(" from %1").arg(count));
 	}
+	delete dia;
 }
 
 void MergeDoc::checkDestPageStatus(int positionComboSelection)
