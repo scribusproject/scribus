@@ -4111,9 +4111,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case EditMode:
 			HowTo = 0;
 			HanMove = false;
-			slotDoCurs(false);
+//			slotDoCurs(false);
 			if (GetItem(&b))
 			{
+				slotDoCurs(false);
 				if (!b->locked())
 				{
 					p.begin(viewport());
@@ -4123,6 +4124,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					if (HowTo != 0)
 					{
 						HanMove = true;
+						slotDoCurs(true);
 						return;
 					}
 				}
@@ -6364,6 +6366,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			TransformM(b, &p);
 			uint a, i;
 			int xp, yp, w, h, chs;
+			CursVis = true;
 			for (a=0; a<b->itemText.count(); ++a)
 			{
 				xp = static_cast<int>(b->itemText.at(a)->xp);
@@ -6506,6 +6509,8 @@ void ScribusView::slotDoCurs(bool draw)
 			}
 			if (b->itemText.at(offs)->yp == 0)
 				return;
+			if (Doc->CurTimer != 0)
+				Doc->CurTimer->stop();
 			chx = b->itemText.at(offs)->ch;
 			if (chx == QChar(30))
 				chx = b->ExpandToken(offs);
@@ -6609,11 +6614,11 @@ void ScribusView::slotDoCurs(bool draw)
 		}
 		else
 		{
+			if (Doc->CurTimer != 0)
+				Doc->CurTimer->stop();
 			if (CursVis)
 				p.drawLine(xp, QMIN(QMAX(yp1,0),static_cast<int>(b->Height)), xp, QMIN(QMAX(yp,0),static_cast<int>(b->Height)));
 			CursVis = false;
-			if (Doc->CurTimer != 0)
-				Doc->CurTimer->stop();
 		}
 		p.end();
 	}

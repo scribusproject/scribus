@@ -1994,22 +1994,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (doc->SubMode != -1)
 					{
 						view->Deselect(false);
-//						if (!doc->TemplateMode)
-//							outlinePalette->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
 						doc->Items.remove(b->ItemNr);
 					}
 					break;
 				case LinkFrames:
 				case UnlinkFrames:
 				case EditMode:
+				case Rotation:
+						view->Deselect(false);
+				case PanningMode:
 					break;
 				case DrawBezierLine:
 					b->PoLine.resize(b->PoLine.size()-2);
 					if (b->PoLine.size() < 4)
 					{
 						view->Deselect(false);
-//						if (!doc->TemplateMode)
-//							outlinePalette->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
 						doc->Items.remove(b->ItemNr);
 					}
 					else
@@ -2026,8 +2025,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					break;
 				default:
 					view->Deselect(false);
-//					if (!doc->TemplateMode)
-//						outlinePalette->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
 					doc->Items.remove(b->ItemNr);
 					break;
 			}
@@ -2039,6 +2036,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		view->mCG = false;
 		view->MidButt = false;
 		doc->SubMode = -1;
+		doc->ElemToLink = NULL;
 		NoFrameEdit();
 		slotSelect();
 		return;
@@ -2370,10 +2368,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								// at end of paragraph and therefore line
 								break;
 							}
-							alty =  b->itemText.at(b->CPos)->yp;
-							while (  b->CPos < len-1 &&  b->itemText.at(b->CPos+1)->yp == alty )
+							QString nextCh = b->itemText.at(b->CPos)->ch;
+							int nextChs = b->itemText.at(b->CPos)->csize;
+							alty =  b->itemText.at(b->CPos)->yp - b->SetZeichAttr(b->itemText.at(b->CPos), &nextChs, &nextCh);
+							double nextY;
+							while (b->CPos < len-1)
+							{
+								nextCh = b->itemText.at(b->CPos+1)->ch;
+								nextChs = b->itemText.at(b->CPos+1)->csize;
+								nextY = b->itemText.at(b->CPos+1)->yp - b->SetZeichAttr(b->itemText.at(b->CPos+1), &nextChs, &nextCh);
+								if (fabs(nextY - alty) > 1.0)
+									break;
 								b->CPos++;
-
+								if ( b->CPos == len-1)
+									break;
+							}
 							if ( b->CPos < len -1 )
 								c = b->itemText.at(b->CPos+1)->ch.at(0).latin1();
 							else if ( b->CPos == len - 1 )
@@ -6562,22 +6571,47 @@ void ScribusApp::setAppMode(int mode)
 		switch (mode)
 		{
 			case DrawShapes:
+				if (view->SelItem.count() != 0)
+					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")), true);
 				break;
 			case DrawPicture:
+				if (view->SelItem.count() != 0)
+					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")), true);
 				break;
 			case DrawText:
+				if (view->SelItem.count() != 0)
+					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")), true);
 				break;
 			case DrawTable:
+				if (view->SelItem.count() != 0)
+					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawTable.xpm")), true);
 				break;
 			case DrawRegularPolygon:
+				if (view->SelItem.count() != 0)
+					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
 				break;
 			case Magnifier:
+				if (view->SelItem.count() != 0)
+					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+				break;
+			case DrawLine:
+			case InsertPDFButton:
+			case InsertPDFTextfield:
+			case InsertPDFCheckbox:
+			case InsertPDFCombobox:
+			case InsertPDFListbox:
+			case InsertPDFTextAnnotation:
+			case InsertPDFLinkAnnotation:
+			case DrawFreehandLine:
+				if (view->SelItem.count() != 0)
+					view->Deselect(true);
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				break;
 			default:
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
