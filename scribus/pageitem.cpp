@@ -758,6 +758,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc));
 							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 							}
+						oldCurY = CurY;
 						if (fBorder)
 							CurX += Extra+lineCorr;
 						fBorder = false;
@@ -893,6 +894,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						cm = QRegion(pf.xForm(QRect(qRound(hl->xp), qRound(hl->yp-DropLines*Doc->Vorlagen[absa].LineSpa), qRound(wide), qRound(DropLines*Doc->Vorlagen[absa].LineSpa))));
 						cl = cl.subtract(cm);
 						}
+					else
+						CurY = oldCurY;
 					if ((hl->ch == QChar(13)) || (outs))
 						{
 						RTab = false;
