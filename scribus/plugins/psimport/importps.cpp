@@ -279,10 +279,10 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 {
 	QString cmd1, cmd2, tmp, tmp2, tmp3, tmp4;
 	QString tmpFile = Prog->PrefsPfad+"/ps.out";
-	QString pfad = PREL;
+	QString pfad = LIBDIR;
 	QString pfad2;
 	cmd1 = Prog->Prefs.gs_exe;
-	pfad2 = QDir::convertSeparators(pfad + "/lib/scribus/import.prolog");
+	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
 	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
 	cmd1 += " -sOutputFile="+tmpFile+" "+pfad2+" ";

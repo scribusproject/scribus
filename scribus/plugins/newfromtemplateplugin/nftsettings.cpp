@@ -6,8 +6,7 @@
 nftsettings::nftsettings(QString guilang, QString templateDir)
 {
 	lang = guilang;
-	scribusShare = PREL;
-	scribusShare += "/share/scribus";
+	scribusShare = TEMPLATEDIR;
 	scribusUserHome = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
 	userTemplateDir = templateDir;
 	if (userTemplateDir.right(1) == "/")
@@ -21,7 +20,7 @@ void nftsettings::read()
 	reader = new QXmlSimpleReader();
 	reader->setContentHandler(handler);
 
-	addTemplates(scribusShare+"/templates");
+	addTemplates(scribusShare);
 	addTemplates(scribusUserHome+"/templates");
 	if ((userTemplateDir != NULL) && (userTemplateDir != ""))
 		addTemplates(userTemplateDir);

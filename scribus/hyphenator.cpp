@@ -52,7 +52,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 	Automatic = doc->Automatic;
 	AutoCheck = doc->AutoCheck;
 	HyCount = doc->HyCount;
- 	QString pfad = PREL;
+ 	QString pfad = LIBDIR;
 	if (Sap->Sprachen.contains(doc->Language))
 		Language = doc->Language;
 	else
@@ -60,7 +60,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 		Language = Sap->Prefs.Language;
 		doc->Language = Language;
 	}
-	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
+	pfad += "dicts/" + Sap->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -110,10 +110,10 @@ void Hyphenator::slotNewDict(QString name)
 	char *filename = NULL;
 	if (hdict != NULL)
 		hnj_hyphen_free(hdict);
- 	QString pfad = PREL;
+ 	QString pfad = LIBDIR;
 	Language = name;
 	doc->Language = name;
-	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
+	pfad += "dicts/" + Sap->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{

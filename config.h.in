@@ -129,9 +129,6 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
-/* Dataprefix */
-#undef PREL
-
 /* The size of a `char *', as computed by sizeof. */
 #undef SIZEOF_CHAR_P
 

@@ -56,8 +56,8 @@ void gtGetText::launchImporter(int importer, const QString& filename,
 
 void gtGetText::loadImporterPlugins()
 {
-	QString gtdir = PREL;
-	gtdir += "/lib/scribus/plugins/gettext";
+	QString gtdir = PLUGINDIR;
+	gtdir += "gettext";
 #if defined(__hpux)
 	QDir d(gtdir, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
 #else
@@ -123,8 +123,8 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	const char *error;
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 	sdem demo;
-	QString pfad = PREL;
-	pfad += "/lib/scribus/plugins/gettext" + idata.soFilePath;
+	QString pfad = PLUGINDIR;
+	pfad += "gettext" + idata.soFilePath;
 	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
 	if (!mo)
 		return;
@@ -151,8 +151,8 @@ bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings, vo
 	typedef QStringList (*sdem1)();
 	sdem0 demo;
 	sdem1 demo1;
-	QString pfad = PREL;
-	pfad += "/lib/scribus/plugins/gettext";
+	QString pfad = PLUGINDIR;
+	pfad += "gettext";
 	if (name.left(1) != "/")
 		pfad += "/";
 	pfad += name;
