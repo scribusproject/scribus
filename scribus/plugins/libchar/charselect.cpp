@@ -222,7 +222,6 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 	ZTabelle->MaxCount = MaxCount;
 
 	Zeichen = new QLabel( this, "Zeichen" );
-	DelEdit();
 	ZAuswahlLayout->addWidget( Zeichen );
 
 	Layout1 = new QHBoxLayout;
@@ -250,6 +249,7 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 	Layout1->addItem( spacer_4 );
 	ZAuswahlLayout->addLayout( Layout1 );
 	Zeichen->setMaximumSize(width(), 50);
+	DelEdit();
 
 	// signals and slots connections
 	connect(Close, SIGNAL(clicked()), this, SLOT(accept()));
@@ -270,6 +270,7 @@ void ZAuswahl::NeuesZeichen(int r, int c) // , int b, const QPoint &pp)
 		ChToIns += QChar(Zeich[r*32+c]);
 		QString da = (*ap->doc->AllFonts)[font]->Datei;
 		Zeichen->setPixmap(FontSample(da, 28, ChToIns, paletteBackgroundColor()));
+		Einf->setEnabled(true);
 	}
 }
 
@@ -279,13 +280,15 @@ void ZAuswahl::DelEdit()
 	QPixmap pm(1,28);
 	pm.fill(paletteBackgroundColor());
 	Zeichen->setPixmap(pm);
+	Einf->setEnabled(false);
 }
 
 void ZAuswahl::InsChar()
 {
 	if (ap->DLLinput != "")
 	{
-		ap->DLLReturn = ChToIns;
+		ap->DLLReturn += ChToIns;
+		DelEdit();
 		return;
 	}
 	struct Pti *hg;
