@@ -155,6 +155,7 @@ void ScribusApp::initScribus()
 	MenuItemsFile.clear();
 	initMenuBar();
 	initStatusBar();
+	qApp->processEvents();
 	WerkTools2 = new QToolBar( tr("File"), this);
 	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Create a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
 	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Open a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
@@ -210,6 +211,7 @@ void ScribusApp::initScribus()
 	NoFonts = false;
 	BuFromApp = false;
 	splash->setStatus( tr("Searching for Fonts"));
+	qApp->processEvents();
 	GetAllFonts();
 	if (NoFonts)
 	{
@@ -458,18 +460,22 @@ void ScribusApp::initScribus()
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
 		SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 		splash->setStatus( tr("Reading Preferences"));
+		qApp->processEvents();
+
 		ReadPrefs();
 		if (Prefs.DefFont == "")
 			Prefs.DefFont = it.currentKey();
 		splash->setStatus( tr("Getting ICC Profiles"));
 		GetCMSProfiles();
 		splash->setStatus( tr("Init Hyphenator"));
+		qApp->processEvents();
 		InitHyphenator();
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		Mpal->Fonts->RebuildList(&Prefs);
 		DocDir = Prefs.DocDir;
 		splash->setStatus("");
 		splash->setStatus( tr("Setting up Shortcuts"));
+		qApp->processEvents();
 		SetShortCut();
 		if (CMSavail)
 		{
@@ -504,6 +510,7 @@ void ScribusApp::initScribus()
 
 		}
 		splash->setStatus( tr("Reading Scrapbook"));
+		qApp->processEvents();
 		QString SCf = PrefsPfad+"/scrap.scs";
 		QFileInfo SCfi = QFileInfo(SCf);
 		if (SCfi.exists())
@@ -513,6 +520,7 @@ void ScribusApp::initScribus()
 		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
 		splash->setStatus( tr("Initializing Plugins"));
+		qApp->processEvents();
 		InitPlugs(splash);
 		ClipB = QApplication::clipboard();
 		PalettesStat[0] = false;
