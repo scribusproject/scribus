@@ -6,6 +6,7 @@
 #include <qvaluelist.h>
 
 #include "scrpalettebase.h"
+#include "undoobject.h"
 
 class QPushButton;
 class QLayout;
@@ -13,6 +14,8 @@ class QToolTip;
 class QPixmap;
 class QCheckBox;
 class QHeader;
+class UndoManager;
+class UndoState;
 
 class LayerTable : public QTable
 {
@@ -32,7 +35,7 @@ signals:
 	void updtName(int);
 };
 
-class LayerPalette : public ScrPaletteBase
+class LayerPalette : public ScrPaletteBase, public UndoObject
 {
 	Q_OBJECT
 
@@ -63,9 +66,11 @@ public slots:
 	void changeName(int row, int col);
 	void visibleLayer();
 	void printLayer();
+	void printLayer(int layerNr, bool isPrintable);
 	void setActiveLayer(int row);
 	void ClearInhalt();
 	void MarkActiveLayer(int l);
+	void restore(UndoState *state, bool isUndo);
 
 signals:
 	void LayerRemoved(int, bool);
@@ -76,6 +81,7 @@ signals:
 protected:
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
+	UndoManager *undoManager;
 
 protected slots:
 	//virtual void reject();

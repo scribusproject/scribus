@@ -16,6 +16,8 @@
 #include <qvaluelist.h>
 
 #include "scribus.h"
+#include "undomanager.h"
+#include "undostate.h"
 
 #include "layers.h"
 #include "layers.moc"
@@ -114,6 +116,8 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
 	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
+
+	undoManager = UndoManager::instance();
 }
 /*
 void LayerPalette::closeEvent(QCloseEvent *ce)
@@ -249,6 +253,13 @@ void LayerPalette::upLayer()
 {
 	if ((layers->count() < 2) || (Table->currentRow() == 0))
 		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::RaiseLayer, "", Um::IUp);
+		ss->set("UP_LAYER", "up_layer");
+		ss->set("ACTIVE", *Activ);
+		undoManager->action(this, ss, ScApp->doc->DocName, Um::IDocument);
+	}
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
@@ -272,9 +283,15 @@ void LayerPalette::upLayer()
 
 void LayerPalette::downLayer()
 {
-	if ((layers->count() < 2) || (Table->currentRow() == static_cast<int>(layers->count()) - 1)
-	   )
+	if ((layers->count() < 2) || (Table->currentRow() == static_cast<int>(layers->count()) - 1))
 		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::LowerLayer, "", Um::IDown);
+		ss->set("DOWN_LAYER", "down_layer");
+		ss->set("ACTIVE", *Activ);
+		undoManager->action(this, ss, ScApp->doc->DocName, Um::IDocument);
+	}
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
@@ -298,6 +315,7 @@ void LayerPalette::downLayer()
 
 void LayerPalette::changeName(int row, int col)
 {
+	
 	if (col == 2)
 	{
 		int num = layers->count()-1-row;
@@ -338,7 +356,32 @@ void LayerPalette::printLayer()
 	{
 		if ((*it).Level == num)
 		{
-			(*it).isPrintable = it2.current()->isChecked();
+			bool printable =  it2.current()->isChecked();
+			if (UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(printable ? Um::PrintLayer : Um::DoNotPrintLayer,
+						                          "", Um::IPrint);
+				ss->set("PRINT_LAYER", "print_layer");
+				ss->set("ACTIVE", (*it).LNr);
+				ss->set("PRINT", printable);
+				undoManager->action(this, ss, ScApp->doc->DocName, Um::IDocument);
+			}
+			(*it).isPrintable = printable;
+			ScApp->slotDocCh();
+		}
+	}
+}
+
+void LayerPalette::printLayer(int layerNr, bool isPrintable)
+{
+	QValueList<Layer>::iterator it;
+	QPtrListIterator<QCheckBox> it2(FlagsPrint);
+	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
+	{
+		if ((*it).LNr == layerNr)
+		{
+			(*it).isPrintable = isPrintable;
+			(*it2)->setChecked(isPrintable);
 			ScApp->slotDocCh();
 		}
 	}
@@ -365,4 +408,33 @@ void LayerPalette::setActiveLayer(int row)
 	}
 	*Activ = (*it).LNr;
 	emit LayerActivated(*Activ);
+}
+
+void LayerPalette::restore(UndoState *state, bool isUndo)
+{
+	SimpleState *ss = dynamic_cast<SimpleState*>(state);
+	if (ss)
+	{
+		if (ss->contains("UP_LAYER"))
+		{
+			MarkActiveLayer(ss->getInt("ACTIVE"));
+			if (isUndo)
+				downLayer();
+			else
+				upLayer();
+		}
+		else if (ss->contains("DOWN_LAYER"))
+		{
+			MarkActiveLayer(ss->getInt("ACTIVE"));
+			if (isUndo)
+				upLayer();
+			else
+				downLayer();
+		}
+		else if (ss->contains("PRINT_LAYER"))
+		{
+			bool print = ss->getBool("PRINT");
+			printLayer(ss->getInt("ACTIVE"), isUndo ? !print : print);
+		}
+	}
 }

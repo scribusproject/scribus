@@ -541,7 +541,11 @@ public:
 	static const QString AddLayer;
 	static const QString DeleteLayer;
 	static const QString RenameLayer;
+	static const QString RaiseLayer;
+	static const QString LowerLayer;
 	static const QString SendToLayer;
+	static const QString PrintLayer;
+	static const QString DoNotPrintLayer;
 	/*@}*/
 
 	/**
@@ -587,6 +591,9 @@ public:
 	static QPixmap *IBorder;
 	static QPixmap *IDocument;
 	static QPixmap *ILayerAction;
+	static QPixmap *IUp;
+	static QPixmap *IDown;
+	static QPixmap *IPrint;
 	/*@}*/
 
 protected:

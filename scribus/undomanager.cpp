@@ -798,6 +798,8 @@ void UndoManager::initIcons()
 	UndoManager::IDocument        = new QPixmap(iconDir + "DateiNeu.xpm");
 // 	UndoManager::ILayer           = new QPixmap(iconDir + "u_layer.png");
 // 	UndoManager::ILayerAction     = new QPixmap(iconDir + "u_layer_action.png");
+// 	UndoManager::IUp              = new QPixmap(iconDir + "u_up.png");
+// 	UndoManager::IDown            = new QPixmap(iconDir + "u_down.png");
 }
 
 const QString UndoManager::AddVGuide          = tr("Add vertical guide");
@@ -897,7 +899,11 @@ const QString UndoManager::DeletePages        = tr("Delete pages");
 const QString UndoManager::AddLayer           = tr("Add layer");
 const QString UndoManager::DeleteLayer        = tr("Delete layer");
 const QString UndoManager::RenameLayer        = tr("Rename layer");
+const QString UndoManager::RaiseLayer         = tr("Raise layer");
+const QString UndoManager::LowerLayer         = tr("Lower layer");
 const QString UndoManager::SendToLayer        = tr("Send to layer");
+const QString UndoManager::PrintLayer         = tr("Enable printing of layer");
+const QString UndoManager::DoNotPrintLayer    = tr("Disable printing of layer");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -937,4 +943,7 @@ QPixmap *UndoManager::IBorder          = NULL;
 QPixmap *UndoManager::IDocument        = NULL;
 QPixmap *UndoManager::ILayer           = NULL;
 QPixmap *UndoManager::ILayerAction     = NULL;
+QPixmap *UndoManager::IUp              = NULL;
+QPixmap *UndoManager::IDown            = NULL;
+QPixmap *UndoManager::IPrint           = NULL;
 
