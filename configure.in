@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.0RC2)
+AM_INIT_AUTOMAKE(scribus,1.0)
 
 dnl KDE_SET_PREFIX
 
@@ -33,18 +33,15 @@ LIBFREETYPE_CFLAGS=""
 FREETYPE_CONFIG=""
 AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, [AC_MSG_WARN([Could not find libfreetype anywhere, check http://www.freetype.org/])], [${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/X11/bin])
 
+hafree=yes
 if test -n "$FREETYPE_CONFIG"; then
-  vers=`$FREETYPE_CONFIG --version 2>/dev/null | sed -e 's/libfreetype //' | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
-  if test -n "$vers" && test "$vers" -ge 5000000
-  then
-     LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
-     LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
-		 AC_SUBST(LIBFREETYPE_LIBS)
-		 AC_SUBST(LIBFREETYPE_CFLAGS)
-     AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
-  else
-     AC_MSG_WARN([You need at least libfreetype 5.0])
-  fi
+	LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
+  LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
+	AC_CHECK_LIB(freetype, FT_Get_Next_Char, [AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])],[hafree=no])
+	AC_SUBST(LIBFREETYPE_LIBS)
+	AC_SUBST(LIBFREETYPE_CFLAGS)
+else
+  AC_MSG_WARN([You need at least libfreetype 5.0])
 fi
 
 AC_CHECK_LIB(socket,socket,
@@ -106,31 +103,14 @@ if test $hacups = yes; then
  AC_DEFINE_UNQUOTED(HAVE_CUPS, 1, [Cups])
 fi
 
-dnl AC_REQUIRE([KDE_CHECK_EXTRA_LIBS])
 all_libraries="$all_libraries $USER_LDFLAGS"
 all_includes="$all_includes $USER_INCLUDES"
 AC_SUBST(all_includes)
 AC_SUBST(all_libraries)
 
-dnl for NLS support. Call them in this order!
-dnl WITH_NLS is for the po files
-dnl AM_KDE_WITH_NLS
 
 AC_PATH_QT
 
-dnl Perform program name transformation
-dnl AC_ARG_PROGRAM
-
-dnl PACKAGE set before
-
-dnl KDE_CREATE_SUBDIRSLIST
-
-dnl add here all your Makefiles. This are created by configure
-dnl The following line is for Autoconf 2.13, Uncomment it, if you are using this old version
-dnl and delete all lines with AC_CONFIG_FILES
-dnl AC_OUTPUT(Makefile scribus/Makefile scribus/icons/Makefile scribus/libabout/Makefile scribus/libprefs/Makefile scribus/plugins/libchar/Makefile scribus/plugins/Makefile scribus/libpostscript/Makefile scribus/profiles/Makefile scribus/libpdf/Makefile scribus/dicts/Makefile scribus/po/Makefile scribus/qm/Makefile )
-
-dnl This stuff is for Autoconf 2.5 and above
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([scribus/Makefile])
 AC_CONFIG_FILES([scribus/icons/Makefile])
@@ -149,10 +129,10 @@ AC_CONFIG_FILES([scribus/po/Makefile])
 AC_OUTPUT
 echo "Configuration Summary:"
 echo ""
-if test -z "$LIBFREETYPE_LIBS"; then
-	echo "FreeType2 installed: No"
-else
+if test $hafree = yes; then
 	echo "FreeType2 installed: Yes"
+else
+	echo "FreeType2 installed: No"
 fi
 if test $hacups = yes; then
 	echo "CUPS installed: Yes"

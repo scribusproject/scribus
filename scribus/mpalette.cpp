@@ -709,6 +709,13 @@ void Mpalette::closeEvent(QCloseEvent *ce)
 void Mpalette::SelTab(int t)
 {
 	TabStack->raiseWidget(t);
+	if (HaveItem)
+		{
+		Cpal->GradCombo->setCurrentItem(CurItem->GrType);
+		Cpal->ChooseGrad(CurItem->GrType);
+		Cpal->updateGeometry();
+		Cpal->repaint();
+		}
 }
 
 void Mpalette::SetDoc(ScribusDoc *d)
@@ -778,6 +785,8 @@ void Mpalette::SetCurItem(PageItem *i)
   DBottom->setValue(static_cast<int>(i->BExtra*10));
   DRight->setValue(static_cast<int>(i->RExtra*10));
   Revert->setOn(i->Reverse);
+	Cpal->GradCombo->setCurrentItem(i->GrType);
+	Cpal->ChooseGrad(i->GrType);
 	if (i->NamedLStyle == "")
 		{
 		StyledLine->setCurrentItem(0);

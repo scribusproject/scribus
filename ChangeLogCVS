@@ -1,4 +1,6 @@
 Changes since Version 1.0RC1
+08.07.2003	scribus.cpp		Some small Changes for the Scripter Plugin.
+
 04.07.2003	page.cpp
 		pageitem.cpp		Fixed Redraw Issues with Text Chains.
 

@@ -568,6 +568,7 @@ public:
   QMap<QString,FT_Face> FFonts;
 #endif
 	QMap<QString,multiLine> MLineStyles;
+	QWidget* WinHan;
 };
 
 #endif

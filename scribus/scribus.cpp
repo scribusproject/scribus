@@ -1467,6 +1467,7 @@ bool ScribusApp::doFileNew(float b, float h, float tpr, float lr, float rr, floa
 	view = new ScribusView(w, doc, &Prefs);
 	w->setView(view);
 	ActWin = w;
+	doc->WinHan = w;
 	w->setCentralWidget(view);
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
@@ -2261,6 +2262,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		view = new ScribusView(w, doc, &Prefs);
 		w->setView(view);
 		ActWin = w;
+		doc->WinHan = w;
 		w->setCentralWidget(view);
   	ScriXmlDoc *ss = new ScriXmlDoc();
   	connect(ss, SIGNAL(NewPage(int)), this, SLOT(slotNewPage(int)));
