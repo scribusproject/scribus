@@ -240,15 +240,42 @@ private:
 	void doTransactionRedo(TransactionState *tstate);
 
 
+	/** @brief Stores the current position in the undo stack while undoing/redoing */
 	ActionList::iterator currentAction;
+
+	/**
+	 * @brief Returns the next <code>ActionPair</code> to undo.
+	 * @return next action to undo
+	 */
 	ActionPair& getNextUndoPair();
+
+	/**
+	 * @brief Returns the next <code>ActionPair</code> to redo.
+	 * @return next <code>ActionPair</code> to redo
+	 */
 	ActionPair& getNextRedoPair();
+
+	/**
+	 * @brief Sorts the stack after undo.
+	 * @param steps how many undo steps was taken
+	 */
 	void reorderUndoStack(int steps);
+
+	/**
+	 * @brief Sorts the stack after redo.
+	 * @param steps how many redo steps was taken
+	 */
 	void reorderRedoStack(int steps);
 
 public:
 	/** @brief Marks for a global undo mode where ever UndoOjbect id is requested. */
 	static const int GLOBAL_UNDO_MODE = -1;
+
+	/**
+	 * @brief When object specific mode is requested but no suitable object is selected
+	 * @brief this can be passed to showObject() to clear the undo stack representations.
+	 */
+	static const int NO_UNDO_STACK = -2;
 
 	/**
 	 * @brief Returns a pointer to the UndoManager instance
@@ -489,6 +516,7 @@ public:
 	static const QString ImportSVG;
 	static const QString ImportEPS;
 	static const QString ImportOOoDraw;
+	static const QString ScratchSpace;
 	/*@}*/
 
 	/**

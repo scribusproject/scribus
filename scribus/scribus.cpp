@@ -176,7 +176,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	PrefsPfad = getPreferencesLocation();
 	bool importingFrom12=convert12Preferences(PrefsPfad);
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
-	
+
 
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
@@ -193,14 +193,14 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	initScriptMenuActions();
 	initHelpMenuActions();
 	initSpecialActions();
-	
+
 	initMenuBar();
 	initStatusBar();
 	initToolBars();
 	qApp->processEvents();
 
 	BuFromApp = false;
-	
+
 	initFonts();
 
 	if (NoFonts)
@@ -221,14 +221,14 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		initPalettes();
 
 		fileWatcher = new FileWatcher(this);
-		
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
 		initPlugs();
 
 		initKeyboardShortcuts();
-			
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
@@ -257,9 +257,9 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 			splashScreen->setStatus( tr("Setting up Shortcuts"));
 		qApp->processEvents();
 		SetShortCut();
-		
+
 		emit prefsChanged();
-		
+
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
@@ -307,11 +307,11 @@ void ScribusApp::initToolBars()
 	scrActions["filePrint"]->addTo(WerkTools2);
 	scrActions["toolsPreflightVerifier"]->addTo(WerkTools2);
 	scrActions["fileExportAsPDF"]->addTo(WerkTools2);
-	
+
 	editToolBar = new QToolBar(tr("Edit"), this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
-	
+
 	WerkTools = new WerkToolB(this);
 	setDockEnabled(WerkTools, DockLeft, false);
 	setDockEnabled(WerkTools, DockRight, false);
@@ -345,7 +345,7 @@ void ScribusApp::initFonts()
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
 	}
 	else
-	if (splashScreen!=NULL) 
+	if (splashScreen!=NULL)
 	{
 		splashScreen->setStatus( tr("Font System Initialized"));
 		qApp->processEvents();
@@ -744,7 +744,7 @@ void ScribusApp::initPalettes()
 	undoManager->registerGui(undoPalette);
 	connect(undoPalette, SIGNAL(closePalette(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
-	
+
 	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
@@ -908,14 +908,14 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 	QString oldPR =QDir::convertSeparators(prefsLocation+"/scribus.rc");
 	QString oldPR2=QDir::convertSeparators(prefsLocation+"/scribusfont.rc");
 	QString oldPR3=QDir::convertSeparators(prefsLocation+"/scrap.scs");
-	QString oldPR4=QDir::convertSeparators(prefsLocation+"/prefs.xml");	
-	QString oldPR5=QDir::convertSeparators(prefsLocation+"/scripter.rc");	
+	QString oldPR4=QDir::convertSeparators(prefsLocation+"/prefs.xml");
+	QString oldPR5=QDir::convertSeparators(prefsLocation+"/scripter.rc");
 	QString newPR =QDir::convertSeparators(prefsLocation+"/scribus13.rc");
 	QString newPR2=QDir::convertSeparators(prefsLocation+"/scribusfont13.rc");
 	QString newPR3=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
 	QString newPR4=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
 	QString newPR5=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
-		
+
 	bool existsOldPR =QFile::exists(oldPR);
 	bool existsOldPR2=QFile::exists(oldPR2);
 	bool existsOldPR3=QFile::exists(oldPR3);
@@ -924,11 +924,11 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 	bool existsNewPR =QFile::exists(newPR);
 	bool existsNewPR2=QFile::exists(newPR2);
 	bool existsNewPR3=QFile::exists(newPR3);
-	bool existsNewPR4=QFile::exists(newPR4);	
-	bool existsNewPR5=QFile::exists(newPR5);	
-	
+	bool existsNewPR4=QFile::exists(newPR4);
+	bool existsNewPR5=QFile::exists(newPR5);
+
 	bool retVal=false;
-	
+
 	//Only check for these two as they will be autocreated if they dont exist.
 	if( (existsOldPR && !existsNewPR) || (existsOldPR4 && !existsNewPR4) )
 	{
@@ -949,8 +949,8 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 			if (existsOldPR4 && !existsNewPR4)
 				copyFile(oldPR4, newPR4);
 			if (existsOldPR5 && !existsNewPR5)
-				copyFile(oldPR5, newPR5);			
-			
+				copyFile(oldPR5, newPR5);
+
 		}
 		if (splashScreen)
 			splashScreen->show();
@@ -961,7 +961,7 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 void ScribusApp::initFileMenuActions()
 {
 	//File Menu
-	scrActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), tr("&New"), CTRL+Key_N, this, "fileNew"));	
+	scrActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), tr("&New"), CTRL+Key_N, this, "fileNew"));
 	scrActions.insert("fileOpen", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), tr("&Open..."), CTRL+Key_O, this, "fileOpen"));
 	scrActions.insert("fileClose", new ScrAction(QIconSet(loadIcon("DateiClos16.png"), loadIcon("DateiClose.png")), tr("&Close"), CTRL+Key_W, this, "fileClose"));
 	scrActions.insert("fileSave", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), tr("&Save"), CTRL+Key_S, this, "fileSave"));
@@ -973,7 +973,7 @@ void ScribusApp::initFileMenuActions()
 	scrActions.insert("fileImportAppendText", new ScrAction(tr("Append &Text..."), QKeySequence(), this, "fileImportAppendText"));
 	scrActions.insert("fileImportImage", new ScrAction(tr("Get Image..."), QKeySequence(), this, "fileImportImage"));
 	scrActions.insert("fileImportPage", new ScrAction(tr("Import Page(s)..."), QKeySequence(), this, "fileImportPage"));
-	
+
 	//File Export Menu
 	scrActions.insert("fileExportText", new ScrAction(tr("Save &Text..."), QKeySequence(), this, "fileExportText"));
 	scrActions.insert("fileExportAsEPS", new ScrAction(tr("Save Page as &EPS..."), QKeySequence(), this, "fileExportAsEPS"));
@@ -983,7 +983,7 @@ void ScribusApp::initFileMenuActions()
 	scrActions.insert("fileDocSetup", new ScrAction(tr("Document &Setup..."), QKeySequence(), this, "fileDocSetup"));
 	scrActions.insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), tr("&Print..."), CTRL+Key_P, this, "filePrint"));
 	scrActions.insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), tr("&Quit"), CTRL+Key_Q, this, "fileQuit"));
-	
+
 	//Set some tooltips, unsure yet whether to use these, probably not as they arent flexible like normal actions ones can be
 	/*
 	scrActions["fileNew"]->setToolTip(tr("Create a new document"));
@@ -1010,7 +1010,7 @@ void ScribusApp::initFileMenuActions()
 	//File Import Menu
 	connect( scrActions["fileImportText"], SIGNAL(activated()) , this, SLOT(slotFileOpen()) );
 	connect( scrActions["fileImportAppendText"], SIGNAL(activated()) , this, SLOT(slotFileAppend()) );
-	connect( scrActions["fileImportImage"], SIGNAL(activated()) , this, SLOT(slotFileOpen()) );	
+	connect( scrActions["fileImportImage"], SIGNAL(activated()) , this, SLOT(slotFileOpen()) );
 	connect( scrActions["fileImportPage"], SIGNAL(activated()) , this, SLOT(slotDocMerge()) );
 	//File Export Menu
 	connect( scrActions["fileExportText"], SIGNAL(activated()) , this, SLOT(SaveText()) );
@@ -1032,14 +1032,14 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editClear.png"), loadIcon("editClear.png")), tr("C&lear"), QKeySequence(), this, "editClear"));
 	scrActions.insert("editSelectAll", new ScrAction(tr("Select &All"), CTRL+Key_A, this, "editSelectAll"));
 	scrActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")),  tr("&Search/Replace..."), QKeySequence(), this, "editSearchReplace"));
-	
+
 	scrActions.insert("editColors", new ScrAction(tr("C&olors..."), QKeySequence(), this, "editColors"));
 	scrActions.insert("editParaStyles", new ScrAction(tr("&Paragraph Styles..."), QKeySequence(), this, "editParaStyles"));
 	scrActions.insert("editLineStyles", new ScrAction(tr("&Line Styles..."), QKeySequence(), this, "editLineStyles"));
 	scrActions.insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), this, "editTemplates"));
 	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
 	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
-	
+
 	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
 	connect( scrActions["editActionMode"], SIGNAL(toggled(bool)) , this, SLOT(setUndoMode(bool)) );
@@ -1063,7 +1063,7 @@ void ScribusApp::initStyleMenuActions()
 	scrActionGroups.insert("fontSize", new QActionGroup(this, "fontSize", true));
 	scrActions.insert("fontSizeOther", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Other..."), QKeySequence(), scrActionGroups["fontSize"], "fontSizeOther", -1));
 	connect(scrActions["fontSizeOther"], SIGNAL(activatedData(int)), this, SLOT(setItemFSize(int)));
-		
+
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
 	for (uint s = 0; s < f_size; ++s)
@@ -1073,28 +1073,28 @@ void ScribusApp::initStyleMenuActions()
 		scrActions[fontSizeName]->setToggleAction(true);
 		connect(scrActions[fontSizeName], SIGNAL(activatedData(int)), this, SLOT(setItemFSize(int)));
 	}
-	
-	
+
+
 	//Alignment actions
 	scrActions.insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Left"), QKeySequence(), this, "alignLeft", 0));
 	scrActions.insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Center"), QKeySequence(), this, "alignCenter", 1));
 	scrActions.insert("alignRight", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Right"), QKeySequence(), this, "alignRight", 2));
 	scrActions.insert("alignBlock", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Block"), QKeySequence(), this, "alignBlock", 3));
 	scrActions.insert("alignForced", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Forced"), QKeySequence(), this, "alignForced", 4));
-	
+
 	scrActions["alignLeft"]->setToggleAction(true);
 	scrActions["alignCenter"]->setToggleAction(true);
 	scrActions["alignRight"]->setToggleAction(true);
 	scrActions["alignBlock"]->setToggleAction(true);
 	scrActions["alignForced"]->setToggleAction(true);
-	
+
 	connect(scrActions["alignLeft"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignCenter"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignRight"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignBlock"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignForced"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
-	
-	
+
+
 	//Shade actions
 	scrActionGroups.insert("shade", new QActionGroup(this, "shade", true));
 	scrActions.insert("shadeOther", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Other..."), QKeySequence(), scrActionGroups["shade"], "shadeOther", -1));
@@ -1106,7 +1106,7 @@ void ScribusApp::initStyleMenuActions()
 		scrActions[shadeName]->setToggleAction(true);
 		connect(scrActions[shadeName], SIGNAL(activatedData(int)), this, SLOT(setItemShade(int)));
 	}
-	
+
 	//Type Effects actions
 	scrActionGroups.insert("typeEffects", new QActionGroup(this, "typeEffects", false));
 	scrActions.insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Normal"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectNormal", 0));
@@ -1130,7 +1130,7 @@ void ScribusApp::initStyleMenuActions()
 	connect(scrActions["typeEffectSuperscript"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
 	connect(scrActions["typeEffectSubscript"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
 	connect(scrActions["typeEffectOutline"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-	
+
 	//Other Style menu items that get added in various places
 	scrActions.insert("styleInvertPict", new ScrAction(tr("&Invert"), QKeySequence(), this, "styleInvertPict"));
 	scrActions.insert("styleTabulators", new ScrAction(tr("&Tabulators..."), QKeySequence(), this, "styleTabulators"));
@@ -1154,7 +1154,7 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(), this, "itemLower"));
 	scrActions.insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(), this, "itemRaise"));
 	scrActions.insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), this, "itemAlignDist"));
-	
+
 	scrActions.insert("itemShapeEdit", new ScrAction(tr("&Edit Shape..."), QKeySequence(), this, "itemShapeEdit"));
 	scrActions["itemShapeEdit"]->setToggleAction(true);
 	scrActions.insert("itemAttachTextToPath", new ScrAction(tr("&Attach Text to Path"), QKeySequence(), this, "itemAttachTextToPath"));
@@ -1162,7 +1162,7 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemCombinePolygons", new ScrAction(tr("&Combine Polygons"), QKeySequence(), this, "itemCombinePolygons"));
 	scrActions.insert("itemSplitPolygons", new ScrAction(tr("Split &Polygons"), QKeySequence(), this, "itemSplitPolygons"));
 	scrActions.insert("itemConvertToOutlines", new ScrAction(tr("C&onvert to Outlines"), QKeySequence(), this, "itemConvertToOutlines"));
-		
+
 	connect( scrActions["itemDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDup()) );
 	connect( scrActions["itemMulDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDupM()) );
 	connect( scrActions["itemDelete"], SIGNAL(activated()) , this, SLOT(DeleteObjekt()) );
@@ -1191,7 +1191,7 @@ void ScribusApp::initPageMenuActions()
 	scrActions.insert("pageMove", new ScrAction(tr("&Move..."), QKeySequence(), this, "pageMove"));
 	scrActions.insert("pageApplyTemplate", new ScrAction(tr("&Apply Template..."), QKeySequence(), this, "pageApplyTemplate"));
 	scrActions.insert("pageManageGuides", new ScrAction(tr("Manage &Guides..."), QKeySequence(), this, "pageManageGuides"));
-	
+
 	connect( scrActions["pageInsert"], SIGNAL(activated()) , this, SLOT(slotNewPageM()) );
 	connect( scrActions["pageDelete"], SIGNAL(activated()) , this, SLOT(DeletePage()) );
 	connect( scrActions["pageCopy"], SIGNAL(activated()) , this, SLOT(CopyPage()) );
@@ -1233,7 +1233,7 @@ void ScribusApp::initViewMenuActions()
 	scrActions["viewShowFrames"]->setOn(true);
 	scrActions["viewShowImages"]->setOn(true);
 	scrActions["viewShowGuides"]->setOn(true);
-		
+
 	connect( scrActions["viewFitInWindow"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
 	connect( scrActions["viewFit50"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
 	connect( scrActions["viewFit75"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
@@ -1266,7 +1266,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),tr("Preflight &Verifier"), QKeySequence(), this, "toolsPreflightVerifier"));
 	scrActions.insert("toolsToolbarTools", new ScrAction(tr("&Tools"), QKeySequence(), this, "toolsToolbarTools"));
 	scrActions.insert("toolsToolbarPDF", new ScrAction(tr("P&DF Tools"), QKeySequence(), this, "toolsToolbarPDF"));
-	
+
 	scrActions["toolsProperties"]->setToggleAction(true);
 	scrActions["toolsOutline"]->setToggleAction(true);
 	scrActions["toolsScrapbook"]->setToggleAction(true);
@@ -1277,7 +1277,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsPreflightVerifier"]->setToggleAction(true);
 	scrActions["toolsToolbarTools"]->setToggleAction(true);
 	scrActions["toolsToolbarPDF"]->setToggleAction(true);
-	
+
 	connect( scrActions["toolsProperties"], SIGNAL(activated()) , this, SLOT(ToggleMpal()) );
 	connect( scrActions["toolsOutline"], SIGNAL(activated()) , this, SLOT(ToggleTpal()) );
 	connect( scrActions["toolsScrapbook"], SIGNAL(activated()) , this, SLOT(ToggleBpal()) );
@@ -1288,8 +1288,8 @@ void ScribusApp::initToolsMenuActions()
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(toggleCheckPal(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(activated()) , this, SLOT(ToggleTools()) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(activated()) , this, SLOT(TogglePDFTools()) );
-	
-	
+
+
 }
 
 void ScribusApp::initExtrasMenuActions()
@@ -1297,11 +1297,11 @@ void ScribusApp::initExtrasMenuActions()
 	scrActions.insert("extrasManagePictures", new ScrAction(tr("&Manage Pictures"), QKeySequence(), this, "extrasManagePictures"));
 	scrActions.insert("extrasHyphenateText", new ScrAction(tr("&Hyphenate Text"), QKeySequence(), this, "extrasHyphenateText"));
 	scrActions.insert("extrasInsertSpecial", new ScrAction(tr("&Insert Special"), QKeySequence(), this, "extrasInsertSpecial"));
-	
+
 	connect( scrActions["extrasManagePictures"], SIGNAL(activated()) , this, SLOT(StatusPic()) );
 	connect( scrActions["extrasHyphenateText"], SIGNAL(activated()) , this, SLOT(doHyphenate()) );
 	connect( scrActions["extrasInsertSpecial"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
-}	
+}
 
 
 void ScribusApp::initWindowsMenuActions()
@@ -1376,7 +1376,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileQuit"], "File");
 
-	scrActions["fileClose"]->setEnabled(false);	
+	scrActions["fileClose"]->setEnabled(false);
 	scrActions["fileSave"]->setEnabled(false);
 	scrActions["fileSaveAs"]->setEnabled(false);
 	scrActions["fileRevert"]->setEnabled(false);
@@ -1392,7 +1392,7 @@ void ScribusApp::initMenuBar()
 	scrActions["fileDocInfo"]->setEnabled(false);
 	scrActions["fileDocSetup"]->setEnabled(false);
 	scrActions["filePrint"]->setEnabled(false);
-	
+
 	scrMenuMgr->createMenu("Edit", tr("&Edit"));
 	scrMenuMgr->addMenuItem(scrActions["editUndoAction"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editRedoAction"], "Edit");
@@ -1435,24 +1435,24 @@ void ScribusApp::initMenuBar()
 	ColorMenC = new QComboBox(false);
 	ColorMenC->setEditable(false);
 	scrMenuMgr->addMenuItem(ColorMenC, "Color");
-	
+
 	//Text size menu
 	scrMenuMgr->createMenu("FontSize", tr("&Size"));
 	scrActionGroups["fontSize"]->addTo(scrMenuMgr->getLocalPopupMenu("FontSize"));
-		
+
 	//Shade menu
 	scrMenuMgr->createMenu("Shade", tr("&Shade"));
 	scrActionGroups["shade"]->addTo(scrMenuMgr->getLocalPopupMenu("Shade"));
-	
+
 	//Font menu
 	scrMenuMgr->createMenu("Font", tr("&Font"));
 	FontMenu = scrMenuMgr->getLocalPopupMenu("Font");
-	
+
 	//Type style menu
 	scrMenuMgr->createMenu("TypeEffects", tr("&Effects"));
 	scrActionGroups["typeEffects"]->addTo(scrMenuMgr->getLocalPopupMenu("TypeEffects"));
-	
-		
+
+
 	//Item Menu
 	scrMenuMgr->createMenu("Item", tr("&Item"));
 	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "Item");
@@ -1491,7 +1491,7 @@ void ScribusApp::initMenuBar()
 	scrActions["itemSplitPolygons"]->setEnabled(false);
 	scrActions["itemLock"]->setEnabled(false);
 	scrActions["itemConvertToOutlines"]->setEnabled(false);
-	
+
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
 	scrMenuMgr->addMenuItem(scrActions["pageInsert"], "Page");
@@ -1502,7 +1502,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["pageManageGuides"], "Page");
 	scrActions["pageDelete"]->setEnabled(false);
 	scrActions["pageMove"]->setEnabled(false);
-	
+
 	//View menu
 	scrMenuMgr->createMenu("View", tr("&View"));
 	scrMenuMgr->addMenuItem(scrActions["viewFitInWindow"], "View");
@@ -1523,7 +1523,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "View");
 //	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
-	
+
 	//Tool menu
 	scrMenuMgr->createMenu("Tools", tr("&Tools"));
 	scrMenuMgr->addMenuItem(scrActions["toolsProperties"], "Tools");
@@ -1536,9 +1536,9 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Tools");
 	scrMenuMgr->addMenuSeparator("Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Tools");	
+	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Tools");
 	//scrActions["toolsPreflightVerifier"]->setEnabled(false);
-	
+
 	//Extra menu
 	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
 	scrMenuMgr->addMenuItem(scrActions["extrasManagePictures"], "Extras");
@@ -1547,11 +1547,11 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrActions["extrasHyphenateText"]->setEnabled(false);
 	scrActions["extrasInsertSpecial"]->setEnabled(false);
-	
+
 	//Window menu
 	scrMenuMgr->createMenu("Windows", tr("&Windows"));
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
-	
+
 	//Help menu
 	scrMenuMgr->createMenu("Help", tr("&Help"));
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
@@ -1559,7 +1559,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help");
-	
+
 	scrMenuMgr->addMenuToMenuBar("File");
 	scrMenuMgr->addMenuToMenuBar("Edit");
 	scrMenuMgr->addMenuToMenuBar("Style");
@@ -1578,7 +1578,7 @@ void ScribusApp::initMenuBar()
 	menuBar()->insertSeparator();
 	scrMenuMgr->addMenuToMenuBar("Help");
 
-	
+
 	//Alignment menu
 	scrMenuMgr->createMenu("Alignment", tr("&Alignment"));
 	scrMenuMgr->addMenuItem(scrActions["alignLeft"], "Alignment");
@@ -1720,7 +1720,7 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 	}
 }
 
-//Special keys assigned to actions are stolen by the action and not passed to 
+//Special keys assigned to actions are stolen by the action and not passed to
 //keyPressEvent so process them here.
 void ScribusApp::specialActionKeyEvent(QString actionName)
 {
@@ -1772,7 +1772,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 					b->itemText.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
 					b->Tinput = true;
 					view->RefreshItem(b);
-				}	
+				}
 			}
 		}
 	}
@@ -2566,7 +2566,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(b);
 							break;
 						}
-						
+
 						if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
 						{
 							hg = new ScText;
@@ -2731,14 +2731,14 @@ void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int s
 		if (tmp.find(",") == -1)
 		{
 			token = tmp;
-			tmp = "";	
+			tmp = "";
 		}
 		else
 		{
 			token = tmp.left(tmp.find(","));
 			tmp = tmp.right(tmp.length() - tmp.find(",") - 1);
 		}
-		
+
 		token = token.stripWhiteSpace();
 		if (token == "*") // Import all source doc pages
 		{
@@ -2977,15 +2977,15 @@ void ScribusApp::windowsMenuAboutToShow()
 {
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), "Windows");
-	
+
 	scrWindowsActions.clear();
 	scrMenuMgr->clearMenu("Windows");
-	
+
 	scrWindowsActions.insert("windowsCascade", new ScrAction(tr("&Cascade"), QKeySequence(), this, "windowsCascade"));
 	scrWindowsActions.insert("windowsTile", new ScrAction(tr("&Tile"), QKeySequence(), this, "windowstile"));
 	connect( scrWindowsActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
 	connect( scrWindowsActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
-	
+
 	scrMenuMgr->addMenuItem(scrWindowsActions["windowsCascade"], "Windows");
 	scrMenuMgr->addMenuItem(scrWindowsActions["windowsTile"], "Windows");
 	scrMenuMgr->addMenuSeparator("Windows");
@@ -2995,7 +2995,7 @@ void ScribusApp::windowsMenuAboutToShow()
 		scrWindowsActions["windowsCascade"]->setEnabled(false);
 		scrWindowsActions["windowsTile"]->setEnabled(false);
 	}
-	
+
 	QWidgetList windows = wsp->windowList();
 	for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 	{
@@ -3227,8 +3227,8 @@ bool ScribusApp::SetupDoc()
 			doc->ASaveTimer->start(doc->AutoSaveTime);
 		}
 		doc->docHyphenator->slotNewDict(dia->tabHyphenator->language->currentText());
-		doc->docHyphenator->slotNewSettings(dia->tabHyphenator->wordLen->value(), 
-																	!dia->tabHyphenator->verbose->isChecked(), 
+		doc->docHyphenator->slotNewSettings(dia->tabHyphenator->wordLen->value(),
+																	!dia->tabHyphenator->verbose->isChecked(),
 																	dia->tabHyphenator->input->isChecked(),
 																	dia->tabHyphenator->maxCount->value());
 		if (CMSavail)
@@ -3500,11 +3500,11 @@ void ScribusApp::SwitchWin()
 		scrActions["fileCollect"]->setEnabled(ActWin->MenuStat[3]);
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-		
+
 		bool setter = doc->Pages.count() > 1 ? true : false;
 		scrActions["pageDelete"]->setEnabled(setter);
 		scrActions["pageMove"]->setEnabled(setter);
-		
+
 		if (doc->isModified())
 			slotDocCh(false);
 		scrActions["fileSaveAs"]->setEnabled(true);
@@ -3534,7 +3534,7 @@ void ScribusApp::HaveNewDoc()
 		scrActions["PrintPreview"]->setEnabled(true);
 	if (scrActions["SaveAsTemplate"])
 		scrActions["SaveAsTemplate"]->setEnabled(true);
-	
+
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled(Buffer2 != "");
@@ -3543,7 +3543,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["editLineStyles"]->setEnabled(true);
 	scrActions["editTemplates"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
-		
+
 	scrMenuMgr->setMenuEnabled("View", true);
 	scrActions["viewSnapToGrid"]->setOn(doc->useRaster);
 	scrActions["viewSnapToGuides"]->setOn(doc->SnapGuides);
@@ -3551,14 +3551,14 @@ void ScribusApp::HaveNewDoc()
 	scrMenuMgr->setMenuEnabled("Windows", true);
 	scrMenuMgr->setMenuEnabled("Page", true);
 	scrMenuMgr->setMenuEnabled("Extras", true);
-	
+
 	WerkTools->setEnabled(true);
 	WerkToolsP->setEnabled(true);
-	
+
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-		
+
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	a = 0;
@@ -3678,7 +3678,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 			Nr = -1;
 	}
-	
+
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["extrasInsertSpecial"]->setEnabled(false);
 	view->HR->ItemPosValid = false;
@@ -3702,7 +3702,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
-		
+
 		WerkTools->KetteAus->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->Textedit->setEnabled(false);
@@ -3756,7 +3756,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		scrMenuMgr->addMenuToMenu("Shade","Style");
 		scrMenuMgr->addMenuItem(scrActions["styleTabulators"], "Style");
-		
+
 		WerkTools->Rotiere->setEnabled(true);
 		WerkTools->Textedit2->setEnabled(true);
 		if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -3927,7 +3927,7 @@ void ScribusApp::HaveNewSel(int Nr)
 				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (b->Groups.count() == 0))
 					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
-			
+
 		}
 	}
 	else
@@ -3951,7 +3951,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		if (b->locked())
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", false);
-			scrActions["itemAlignDist"]->setEnabled(false);			
+			scrActions["itemAlignDist"]->setEnabled(false);
 			scrActions["itemConvertToOutlines"]->setEnabled(false);
 			scrActions["itemSplitPolygons"]->setEnabled(false);
 			scrActions["itemAttachTextToPath"]->setEnabled(false);
@@ -4047,7 +4047,7 @@ void ScribusApp::updateRecent(QString fn)
 	}
 	rebuildRecentFileMenu();
 }
- 
+
 void ScribusApp::removeRecent(QString fn)
 {
 	if (RecentDocs.findIndex(fn) != -1)
@@ -4076,7 +4076,7 @@ void ScribusApp::rebuildRecentFileMenu()
 {
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentFileActions.begin(); it!=scrRecentFileActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
-	
+
 	scrRecentFileActions.clear();
 	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
@@ -4716,7 +4716,7 @@ void ScribusApp::slotFileOpen()
 /*!
  \fn void slotFileAppend()
  \author Franz Schmid
- \date  
+ \date
  \brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
  \param None
  \retval None
@@ -4952,7 +4952,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editTemplates"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
-		
+
 		//scrActions["toolsPreflightVerifier"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
@@ -5676,7 +5676,7 @@ void ScribusApp::slotNewPageM()
 	{
 		QString template2 = (doc->PageFP) ? dia->getTemplate2() : tr("Normal");
 
-		addNewPages(dia->getWherePage(), 
+		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
 		            dia->getCount(),
 		            dia->getTemplate(),
@@ -5807,7 +5807,7 @@ void ScribusApp::slotZoom(double zoomFactor)
 	//Zoom to %
 	else
 		finalZoomFactor = zoomFactor*Prefs.DisScale/100.0;
-	
+
 	view->Scale = finalZoomFactor;
 	view->slotDoZoom();
 }
@@ -6464,7 +6464,7 @@ void ScribusApp::Aktiv()
 void ScribusApp::setItemTypeStyle(int id)
 {
 	int b = 0;
-	
+
 	if (id == 0)
 	{
 		scrActions["typeEffectNormal"]->setOn(true);
@@ -6482,7 +6482,7 @@ void ScribusApp::setItemTypeStyle(int id)
 			scrActions["typeEffectSubscript"]->setOn(false);
 		if (id == 5)
 			scrActions["typeEffectSuperscript"]->setOn(false);
-		
+
 		if (scrActions["typeEffectUnderline"]->isOn())
 			b |= 8;
 		if (scrActions["typeEffectStrikeThrough"]->isOn())
@@ -8130,7 +8130,7 @@ void ScribusApp::ReadPrefs(bool import12)
 	PDef.Pname = Prefs.PrinterName;
 	PDef.Dname = Prefs.PrinterFile;
 	PDef.Command = Prefs.PrinterCommand;
-	
+
 	uint max = QMIN(Prefs.RecentDCount, Prefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
@@ -8919,13 +8919,13 @@ void ScribusApp::GroupObj(bool showLockDia)
 		ss->set("GROUP", "group");
 		ss->set("itemcount", view->SelItem.count());
 
-		
+
 		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
 			b = view->SelItem.at(a);
 			b->Groups.push(doc->GroupCounter);
 			ss->set(QString("item%1").arg(a), b->ItemNr);
-			
+
 		}
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
@@ -9021,8 +9021,8 @@ void ScribusApp::StatusPic()
 	}
 }
 
-QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, QString defNa, 
-                                bool Pre, bool mod, bool comp, bool cod, bool onlyDirs, 
+QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, QString defNa,
+                                bool Pre, bool mod, bool comp, bool cod, bool onlyDirs,
                                 bool *docom, bool *doFont)
 {
 	QString retval = "";
@@ -9107,7 +9107,7 @@ void ScribusApp::initPlugs()
 					qDebug(QString("Type %1 plugins not supported anymore").arg(ty));
 					break;
 				}
-					
+
 				pda.Name = nam;
 				pda.Datei = d[dc];
 				pda.Typ = ty;
@@ -9117,9 +9117,9 @@ void ScribusApp::initPlugs()
 				{
 					//Add in ScrAction based plugin linkage
 					//Insert DLL Action into Dictionary with values from plugin interface
-					
+
 					scrActions.insert(pda.actName, new ScrAction(ScrAction::DLL, QIconSet(), pda.Name, QKeySequence(pda.actKeySequence), this, pda.actName, id));
-					
+
 					if (scrActions[pda.actName])
 					{
 						scrActions[pda.actName]->setEnabled(pda.actEnabledOnStartup);
@@ -9148,9 +9148,9 @@ void ScribusApp::callDLLBySlot(int pluginID)
 		if (HaveDoc)
 			doc->OpenNodes = Tpal->buildReopenVals();
 	}
-	
+
 	CallDLL(pluginID);
-	
+
 	//Run old type 2 Import post call code
 	if (PluginMap[pluginID].Typ==7)
 	{
@@ -9280,7 +9280,7 @@ bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig, in
 			return false;
 		}
 		*actKeySequence = (*demo)();
-		dlerror();	
+		dlerror();
 		demo = (sdem0)dlsym(mo, "actionMenu");
 		if ((error = dlerror()) != NULL)
 		{
@@ -9288,7 +9288,7 @@ bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig, in
 			return false;
 		}
 		*actMenu = (*demo)();
-		dlerror();		
+		dlerror();
 		demo = (sdem0)dlsym(mo, "actionMenuAfterName");
 		if ((error = dlerror()) != NULL)
 		{
@@ -9393,7 +9393,7 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 		QString nam = "";
 		const char *Descriptor;
 		cmsHPROFILE hIn;
-		
+
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
 			QFileInfo fi(pfad + d[dc]);
@@ -9746,7 +9746,7 @@ void ScribusApp::initHyphenator()
 				translatedLang = trans->findMessage("ScribusApp", "Portuguese (BR)", "").translation();
 				if (translatedLang != "")
 					L_Portuguese_BR.append(translatedLang);
-				translatedLang = "";				
+				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Ukrainian", "").translation();
 				if (translatedLang != "")
 					L_Ukrainian.append(translatedLang);
@@ -10394,7 +10394,7 @@ void ScribusApp::scanDocument()
 				itemError.insert(4, 0);
 			else
 			{
-				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution)) 
+				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution))
 				           && (it->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
 				QFileInfo fi = QFileInfo(it->Pfile);
@@ -10617,9 +10617,9 @@ void ScribusApp::slotCharSelect()
 void ScribusApp::setUndoMode(bool isObjectSpecific)
 {
 	objectSpecificUndo = isObjectSpecific;
-	
+
 	if (!objectSpecificUndo && HaveDoc)
-		undoManager->showObject(-1);
+		undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 	else if (HaveDoc)
 	{
 		if (view->SelItem.count() == 1)
@@ -10627,7 +10627,7 @@ void ScribusApp::setUndoMode(bool isObjectSpecific)
 		else if (view->SelItem.count() == 0)
 			undoManager->showObject(doc->currentPage->getUId());
 		else
-			undoManager->showObject(-2);
+			undoManager->showObject(Um::NO_UNDO_STACK);
 	}
 }
 

@@ -326,7 +326,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 		oldIcon = target->getUPixmap();
 		target->setUPixmap(targetPixmap);
 	}
-	if (targetPixmap)
+
 	if (!_undoEnabled) // if so flush down the state
 	{
 		TransactionState *ts = dynamic_cast<TransactionState*>(state);
@@ -429,7 +429,7 @@ ActionPair& UndoManager::getNextUndoPair()
 		++currentAction;
 	else
 		for (; currentAction != stacks[currentDoc].second.end(); ++currentAction)
-			if ((*currentAction).first->getUId() == currentUndoObjectId)
+			if ((*currentAction).first->getUId() == static_cast<uint>(currentUndoObjectId))
 			{
 				++currentAction;
 				break;
@@ -454,7 +454,7 @@ void UndoManager::reorderUndoStack(int steps)
 		for (int i = 0; i < steps; ++i)
 		{
 			ActionList::iterator it = stacks[currentDoc].second.begin() + pos;
-			while ((*it).first->getUId() != currentUndoObjectId) ++it;
+			while ((*it).first->getUId() != static_cast<uint>(currentUndoObjectId)) ++it;
 			ActionPair pair = *it;
 			stacks[currentDoc].second.erase(it);
 			stacks[currentDoc].second.insert(stacks[currentDoc].second.begin() + pos, pair);
@@ -516,7 +516,7 @@ ActionPair& UndoManager::getNextRedoPair()
 		--currentAction;
 	else
 		for (--currentAction; currentAction != stacks[currentDoc].second.begin() - 1; --currentAction)
-			if ((*currentAction).first->getUId() == currentUndoObjectId)
+			if ((*currentAction).first->getUId() == static_cast<uint>(currentUndoObjectId))
 				break;
 
 	return *currentAction;
@@ -535,7 +535,7 @@ void UndoManager::reorderRedoStack(int steps)
 		for (int i = 0; i < steps; ++i)
 		{
 			ActionList::iterator it = stacks[currentDoc].second.begin() + pos - 1;
-			while ((*it).first->getUId() != currentUndoObjectId) --it;
+			while ((*it).first->getUId() != static_cast<uint>(currentUndoObjectId)) --it;
 			ActionPair pair = *it;
 			stacks[currentDoc].second.erase(it);
 			--pos;
@@ -850,6 +850,7 @@ const QString UndoManager::ConvertTo          = tr("Convert to");
 const QString UndoManager::ImportSVG          = tr("Import SVG image");
 const QString UndoManager::ImportEPS          = tr("Import EPS image");
 const QString UndoManager::ImportOOoDraw      = tr("Import OpenOffice draw image");
+const QString UndoManager::ScratchSpace       = tr("Scratch space");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

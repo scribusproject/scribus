@@ -293,7 +293,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 				else
 					b = SelItem.at(0);
 			}
-			if ((((Doc->appMode == LinkFrames) || (Doc->appMode == UnlinkFrames)) 
+			if ((((Doc->appMode == LinkFrames) || (Doc->appMode == UnlinkFrames))
 				   && (b->itemType() == PageItem::TextFrame)) || (Doc->guidesSettings.linkShown))
 			{
 				PageItem *nb = b;
@@ -313,7 +313,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 							x1mid = x11+(x12-x11)/2;
 							y1mid = y11+(y12-y11)/2;
 
-							if (nb->Rot!=0.000) 
+							if (nb->Rot!=0.000)
 							{
 								FPoint tempPoint = transformPoint(FPoint(0,0), x11, y11, nb->Rot, 1, 1);
 								x11=tempPoint.x();
@@ -325,7 +325,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 								x1mid=tempPoint.x();
 								y1mid=tempPoint.y();
 							}
-							
+
 
 							double a1, b1, a2, b2;
 							a1 = a2 = b1 = b2 = 0;
@@ -340,7 +340,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 								x2mid = x21+(x22-x21)/2;
 								y2mid = y21+(y22-y21)/2;
 
-								if (nb->NextBox->Rot!=0.000) 
+								if (nb->NextBox->Rot!=0.000)
 								{
 									FPoint tempPoint = transformPoint(FPoint(0,0), x21, y21, nb->NextBox->Rot, 1, 1);
 									x21=tempPoint.x();
@@ -352,7 +352,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 									x2mid=tempPoint.x();
 									y2mid=tempPoint.y();
 								}
-							
+
 								if (x22<x11) { a1 = x11; a2 = x22; }
 								if (x21>x12) { a1 = x12; a2 = x21; }
 								if (y22<y11) { b1 = y11; b2 = y22; }
@@ -595,8 +595,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 			Level2Layer(Doc, &ll, Lnr);
 			if (ll.isViewable)
 			{
-				QPtrListIterator<PageItem> docItem(Doc->Items);   
-				 while ( (b = docItem.current()) != 0 ) 
+				QPtrListIterator<PageItem> docItem(Doc->Items);
+				 while ( (b = docItem.current()) != 0 )
 				 {
         			++docItem;
 					if (b->LayerNr != ll.LNr)
@@ -650,8 +650,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 					}
 				}
-				QPtrListIterator<PageItem> docItem2(Doc->Items);   
-				 while ( (b = docItem2.current()) != 0 ) 
+				QPtrListIterator<PageItem> docItem2(Doc->Items);
+				 while ( (b = docItem2.current()) != 0 )
 				 {
         			++docItem2;
 					if (b->LayerNr != ll.LNr)
@@ -1183,7 +1183,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			for (uint yg = 0; yg < Doc->currentPage->YGuides.count(); ++yg)
 			{
-				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset < (ny+Doc->guidesSettings.grabRad)) && 
+				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset < (ny+Doc->guidesSettings.grabRad)) &&
 					 (Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset > (ny-Doc->guidesSettings.grabRad)))
 				{
 					fg = true;
@@ -1195,7 +1195,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			for (uint xg = 0; xg < Doc->currentPage->XGuides.count(); ++xg)
 			{
-				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset < (nx+Doc->guidesSettings.grabRad)) && 
+				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset < (nx+Doc->guidesSettings.grabRad)) &&
 					 (Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset > (nx-Doc->guidesSettings.grabRad)))
 				{
 					fg = true;
@@ -1843,7 +1843,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					QPoint np2;
 					if (m->state() & ControlButton)
 						np2 = QPoint(qRound(m->x()/sc), qRound(((gy+(gh * ((m->x()/sc-gx) / gw)))*sc)/sc));
-					else 
+					else
 						np2 = QPoint(qRound(m->x()/sc), qRound(m->y()/sc));
 					nx = np2.x();
 					ny = np2.y();
@@ -2695,7 +2695,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		PageItem *ite = SelItem.at(0);
 		ite->checkChanges(true);
-		undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
+		QString targetName = Um::ScratchSpace;
+		if (ite->OwnPage > -1)
+			targetName = Doc->Pages.at(ite->OwnPage)->getUName();
+		undoManager->commit(targetName, ite->getUPixmap(),
 							Um::Create + " " + ite->getUName(),  "", Um::ICreate);
 		_itemCreationTransactionStarted = false;
 	}
@@ -2764,7 +2767,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		PageItem *b = SelItem.at(0);
 		newX = m->x();
-		newY = m->y(); 
+		newY = m->y();
 		if (m->state() == LeftButton)
 		{
 			b->GrStartX -= (Mxp - newX) / Scale;
@@ -3920,7 +3923,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				if (edited)
 				{
-					if (b->itemType() != PageItem::PolyLine) 
+					if (b->itemType() != PageItem::PolyLine)
 						b->Clip = FlattenPath(b->PoLine, b->Segments);
 					AdjustItemSize(b);
 					updateContents();
@@ -6110,7 +6113,7 @@ void ScribusView::AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expa
 	}
 }
 
-// jjsa added on 15-mar-2004 
+// jjsa added on 15-mar-2004
 // calculate the end position while ctrl + arrow pressed
 
 void ScribusView::setNewPos(PageItem *b, int oldPos, int len, int dir)
@@ -6211,7 +6214,7 @@ void ScribusView::ExpandSel(PageItem *b, int dir, int oldPos)
 		}
 		else if ( !selMode )
 		{
-			if (leftSel||actSel||rightSel) 
+			if (leftSel||actSel||rightSel)
 				RefreshItem(b);
 		}
 	}
@@ -6805,7 +6808,7 @@ void ScribusView::selectionChanged()
 		else if (SelItem.count() == 0)
 			undoManager->showObject(Doc->currentPage->getUId());
 		else
-			undoManager->showObject(-2);
+			undoManager->showObject(Um::NO_UNDO_STACK);
 	}
 }
 
@@ -6877,7 +6880,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	}
 	if (m->state() == (ControlButton | AltButton))
 		Deselect(false);
-	
+
 	if ((m->state() == (ShiftButton | AltButton)) && (!Doc->MasterP) && (Doc->currentPage->FromMaster.count() != 0))
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[Doc->currentPage->MPageNam]);
@@ -7145,7 +7148,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		{
 			for (uint yg = 0; yg < Doc->currentPage->YGuides.count(); ++yg)
 			{
-				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset < (Myp+Doc->guidesSettings.grabRad)) && 
+				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset < (Myp+Doc->guidesSettings.grabRad)) &&
 					 (Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset > (Myp-Doc->guidesSettings.grabRad)))
 				{
 					GyM = yg;
@@ -7159,7 +7162,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		{
 			for (uint xg = 0; xg < Doc->currentPage->XGuides.count(); ++xg)
 			{
-				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset < (Mxp+Doc->guidesSettings.grabRad)) && 
+				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset < (Mxp+Doc->guidesSettings.grabRad)) &&
 					 (Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset > (Mxp-Doc->guidesSettings.grabRad)))
 				{
 					GxM = xg;
@@ -9153,7 +9156,10 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		UndoObject *target = Doc->Pages.at(0);
+		if (ite->OwnPage > -1)
+			target = target = Doc->Pages.at(ite->OwnPage);
+		undoManager->action(target, is);
 		if (!Mpressed) // commit the creation transaction if the item
 		{              // is not created by dragging with a mouse
 			ite->checkChanges(true);
@@ -9199,7 +9205,10 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		UndoObject *target = Doc->Pages.at(0);
+		if (ite->OwnPage > -1)
+			target = target = Doc->Pages.at(ite->OwnPage);
+		undoManager->action(target, is);
 		if (!Mpressed)
 		{
 			ite->checkChanges(true);
@@ -9241,7 +9250,10 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		UndoObject *target = Doc->Pages.at(0);
+		if (ite->OwnPage > -1)
+			target = target = Doc->Pages.at(ite->OwnPage);
+		undoManager->action(target, is);
 		if (!Mpressed)
 		{
 			ite->checkChanges(true);
@@ -9283,7 +9295,10 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		UndoObject *target = Doc->Pages.at(0);
+		if (ite->OwnPage > -1)
+			target = target = Doc->Pages.at(ite->OwnPage);
+		undoManager->action(target, is);
 		if (!Mpressed)
 		{
 			ite->checkChanges(true);
@@ -9324,7 +9339,10 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		UndoObject *target = Doc->Pages.at(0);
+		if (ite->OwnPage > -1)
+			target = target = Doc->Pages.at(ite->OwnPage);
+		undoManager->action(target, is);
 		if (!Mpressed)
 		{
 			ite->checkChanges(true);
@@ -9363,7 +9381,10 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		UndoObject *target = Doc->Pages.at(0);
+		if (ite->OwnPage > -1)
+			target = target = Doc->Pages.at(ite->OwnPage);
+		undoManager->action(target, is);
 		if (!Mpressed)
 		{
 			ite->checkChanges(true);
@@ -9404,7 +9425,10 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		UndoObject *target = Doc->Pages.at(0);
+		if (ite->OwnPage > -1)
+			target = target = Doc->Pages.at(ite->OwnPage);
+		undoManager->action(target, is);
 		if (!Mpressed)
 		{
 			ite->checkChanges(true);
@@ -11583,7 +11607,7 @@ void ScribusView::setObjectUndoMode()
 		if (SelItem.count() == 1)
 			undoManager->showObject(SelItem.at(0)->getUId());
 		else if (SelItem.count() > 1)
-			undoManager->showObject(-2);
+			undoManager->showObject(Um::NO_UNDO_STACK);
 		else if (SelItem.count() == 0)
 			undoManager->showObject(Doc->currentPage->getUId());
 	}
@@ -11595,13 +11619,13 @@ void ScribusView::setGlobalUndoMode()
 	{
 		ScApp->scrActions["editActionMode"]->setOn(!_isGlobalMode);
 		if (_isGlobalMode)
-			undoManager->showObject(-1);
+			undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 		else
 		{
 			if (SelItem.count() == 1)
 				undoManager->showObject(SelItem.at(0)->getUId());
 			else if (SelItem.count() > 1)
-				undoManager->showObject(-2);
+				undoManager->showObject(Um::NO_UNDO_STACK);
 			else if (SelItem.count() == 0)
 				undoManager->showObject(Doc->currentPage->getUId());
 		}
