@@ -56,7 +56,7 @@
 		<author>Petr Vaněk</author>
 		<email>petr@yarpen.cz</email>
 	</template>
-	<template category="Presentations">
+	<template category="PDF Presentations">
 		<name>ScPresentation</name>
 		<file>sc_presentation/presentation.sla.gz</file>
 		<tnail>sc_presentation/presentationtn.png</tnail>
