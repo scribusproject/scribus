@@ -1,11 +1,22 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'HelpBrowser.ui'
-**
-** Created: Sat Nov 6 22:08:59 2004
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
+/***************************************************************************
+*   Copyright (C) 2004 by Craig Bradney                                   *
+*   cbradney@zip.com.au                                                   *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+*   This program is distributed in the hope that it will be useful,       *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU General Public License for more details.                          *
+*                                                                         *
+*   You should have received a copy of the GNU General Public License     *
+*   along with this program; if not, write to the                         *
+*   Free Software Foundation, Inc.,                                       *
+*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+***************************************************************************/
 
 #ifndef HELPBROWSER_H
 #define HELPBROWSER_H
@@ -31,7 +42,7 @@ class HelpBrowser : public QWidget
 	Q_OBJECT
 
 public:
-	HelpBrowser( QWidget* parent, QString caption, QString guiLangage="en", QString jumpTo="", QString jumpToFile="");
+	HelpBrowser( QWidget* parent, QString caption, QString guiLangage="en", QString jumpToSection="", QString jumpToFile="");
 	~HelpBrowser();
 
 	QToolButton* homeButton;
@@ -53,15 +64,15 @@ protected:
 	struct histd {
 					QString Url;
 					QString Title;
-				 };
-    QMap<int, histd> mHistory;
+				};
+	QMap<int, histd> mHistory;
 
 protected slots:
 	virtual void languageChange();
 	void itemSelected( QListViewItem *);
 	void sourceChanged(const QString& url);
 	void histChosen(int i);
-	void jumpToHelpSection(QString guiLanguage, QString jumpTo, QString jumpToFile="");
+	void jumpToHelpSection(QString guiLanguage, QString jumpToSection, QString jumpToFile="");
 	void loadHelp(QString filename);
 	void loadMenu();
 };
