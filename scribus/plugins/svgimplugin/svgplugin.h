@@ -159,6 +159,11 @@ public:
 	QPtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	bool FirstM, WasM, PathClosed;
+	double viewTransformX;
+	double viewTransformY;
+	double viewScaleX;
+	double viewScaleY;
+	bool haveViewBox;
 };
 
 #endif
