@@ -586,6 +586,8 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 
 	int id1 = GetItem(QString(name1));
 	int id2 = GetItem(QString(name2));
+	if ((id1 == -1) || (id2 == -1))
+		return Py_None;
 
 	PageItem *item1 = Carrier->doc->ActPage->Items.at(id1);
 	PageItem *item2 = Carrier->doc->ActPage->Items.at(id2);
@@ -638,6 +640,8 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
 		return Py_None;
 
 	int id = GetItem(QString(name));
+	if (id == -1)
+		return Py_None;
 	PageItem *item = Carrier->doc->ActPage->Items.at(id);
 
 	// only linked

@@ -49,6 +49,9 @@
 #include <qpopupmenu.h>
 #include <qbuttongroup.h>
 #include <qlayout.h>
+#include <qevent.h>
+#include <qeventloop.h>
+#include <qprocess.h>
 
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
@@ -362,6 +365,7 @@ void Page::paintEvent(QPaintEvent *e)
 		return;
 	QPixmap pgPix(vr.width(), vr.height());
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+	painter->clear(doku->papColor);
 	painter->translate(0.5, 0.5);
 	if (doku->Before)
 		DrawPageMarks(painter, vr);
@@ -2231,7 +2235,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Get Picture..."), this, SIGNAL(LoadPic()));
 				int px = pmen->insertItem( tr("Image Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
-				pmen->insertItem( tr("Update Picture"), this, SLOT(UpdatePic()));
+				if (b->PicAvail)
+					pmen->insertItem( tr("Update Picture"), this, SLOT(UpdatePic()));
+				if (b->PicAvail && b->isRaster)
+    				pmen->insertItem( tr("Edit Picture"), this, SLOT(CallGimp()));
 			}
 			if (b->PType == 4)
 			{
@@ -6338,6 +6345,107 @@ void Page::UpdatePic()
 	}
 }
 
+// jjsa, added the following object for waiting on external process
+// and refreshing the main application
+
+class AppUserFilter : public QObject
+{
+	public:
+	AppUserFilter(QObject *o){};
+	protected:
+	bool eventFilter(QObject *o, QEvent *e );
+};
+
+static QProcess *proc = 0;
+static AppUserFilter *filter = 0;
+
+bool AppUserFilter::eventFilter(QObject *o, QEvent *e )
+{
+	switch(e->type())
+	{
+		case QEvent::KeyPress:
+		case QEvent::KeyRelease:
+		case QEvent::MouseButtonPress:
+		case QEvent::MouseButtonRelease:
+		case QEvent::MouseButtonDblClick:
+		case QEvent::MouseMove:
+		case QEvent::TabletPress:
+		case QEvent::TabletRelease:
+		case QEvent::TabletMove:
+		case QEvent::Enter:
+		case QEvent::Leave:
+		case QEvent::Close:
+		case QEvent::Quit:
+			return TRUE;
+			break;
+		default:
+			return false;
+			break;
+	}
+	return FALSE;
+}
+
+/* on exit of external programm, remove our event filter and */
+/* do the rest of the job */
+void Page::GimpExited()
+{
+	int ex;
+	if ( proc != 0 )
+		ex = proc->exitStatus();
+	if ( filter != 0 )
+		{
+		qApp->removeEventFilter(filter);
+		delete filter;
+		filter = 0;
+		}
+	if ( proc != 0 )
+		{
+		ex = proc->exitStatus();
+		delete proc;
+		proc = 0;
+		}
+	PageItem *b = SelItem.at(0);
+	if (b->PicAvail)
+		{
+		if ( ex == 0 )
+			{
+			LoadPict(b->Pfile, b->ItemNr);
+			AdjustPictScale(b);
+			AdjustPreview(b);
+			update();
+			}
+		}
+		qApp->mainWidget()->setEnabled(true);
+}
+
+/* call gimp and wait uppon completion */
+void Page::CallGimp()
+{
+	QStringList cmd;
+	if (SelItem.count() != 0)
+		{
+		PageItem *b = SelItem.at(0);
+		if (b->PicAvail)
+			{
+			b->pixmOrg = QImage();
+			proc = new QProcess(NULL);
+			cmd.append("gimp");
+			cmd.append(b->Pfile);
+			proc->setArguments(cmd);
+			if ( !proc->start() )
+				{
+				delete proc;
+				proc = 0;
+				return;
+				}
+			qApp->mainWidget()->setEnabled(false);
+			connect(proc, SIGNAL(processExited()), this, SLOT(GimpExited()));
+			filter = new AppUserFilter(this);
+			qApp->installEventFilter(filter);
+			}
+		}
+}
+
 void Page::FlipImageH()
 {
   if (SelItem.count() != 0)
@@ -7418,8 +7526,8 @@ void Page::LoadPict(QString fn, int ItNr)
 				ts2 >> dummy >> x >> y >> b >> h;
 				QStringList args;
 				args.append("-r72");
-				args.append("-sOutputFile="+tmpFile);
 				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
+				args.append("-sOutputFile="+tmpFile);
 				args.append(fn);
 				ret = callGS(args);
 				if (ret == 0)
@@ -7429,24 +7537,26 @@ void Page::LoadPict(QString fn, int ItNr)
 					image.load(tmpFile);
 				  	image = image.convertDepth(32);
 					image.setAlphaBuffer(true);
-					int wi = image.width();
-					int hi = image.height();
-				    for( int yi=0; yi < hi; ++yi )
+					if (ScApp->HavePngAlpha != 0)
+					{
+						int wi = image.width();
+						int hi = image.height();
+					    for( int yi=0; yi < hi; ++yi )
 						{
-						QRgb *s = (QRgb*)(image.scanLine( yi ));
-						for(int xi=0; xi < wi; ++xi )
+							QRgb *s = (QRgb*)(image.scanLine( yi ));
+							for(int xi=0; xi < wi; ++xi )
 							{
-							if((*s) == 0xffffffff)
-								(*s) &= 0x00ffffff;
-							s++;
+								if((*s) == 0xffffffff)
+									(*s) &= 0x00ffffff;
+								s++;
 							}
 				    	}
+					}
 					im4.setAlphaBuffer(true);
 					im4 = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 					image = ProofPict(&im4, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 					Items.at(ItNr)->pixm = image;
 					Items.at(ItNr)->pixmOrg = image.copy();
-					Items.at(ItNr)->Pfile = fi.absFilePath();
 					Items.at(ItNr)->PicAvail = true;
 					Items.at(ItNr)->PicArt = true;
 					Items.at(ItNr)->isRaster = false;
@@ -7458,6 +7568,7 @@ void Page::LoadPict(QString fn, int ItNr)
 					Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
 					Items.at(ItNr)->dpiX = 72.0;
 					Items.at(ItNr)->dpiY = 72.0;
+					Items.at(ItNr)->Pfile = fi.absFilePath();
 					unlink(tmpFile);
 					}
 				else

@@ -1,4 +1,7 @@
 Changes since Version 1.1.5
+29.02.2004	Added first Gimp Integration, contributed by Jean Jacques Sarton.
+		Improved the PrintPreview a little more.
+
 27.02.2004	Improved the PrintPreview, it now remembers the last used Settings.
 		Added some new Commands to the Scripter.
 

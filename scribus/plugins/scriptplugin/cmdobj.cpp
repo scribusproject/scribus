@@ -344,3 +344,34 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
+PyObject *scribus_textflow(PyObject *self, PyObject* args)
+{
+	char* name;
+	int id, state = -1;
+
+	if (!PyArg_ParseTuple(args, "s|i", &name, &state))
+		return NULL;
+	Py_INCREF(Py_None);
+	if (!Carrier->HaveDoc)
+		return Py_None;
+
+	id = GetItem(QString(name));
+	if (id == -1)
+		return Py_None;
+
+	if (state == -1)
+	{
+		Carrier->doc->ActPage->Items.at(id)->Textflow =
+			!Carrier->doc->ActPage->Items.at(id)->Textflow;
+	}
+	else
+	{
+		state
+			? Carrier->doc->ActPage->Items.at(id)->Textflow = true
+			: Carrier->doc->ActPage->Items.at(id)->Textflow = false;
+	} // if state null
+
+	Carrier->view->DrawNew();
+	Carrier->slotDocCh(true);
+	return Py_None;
+}

@@ -163,6 +163,7 @@ public:
 	bool ScriptRunning;
 	Autoforms* SCustom;
 	WerkToolB* WerkTools;
+	int HavePngAlpha;
 
 public slots:
 	void slotStoryEditor();

@@ -50,6 +50,7 @@ public:
 	bool CMode;
 	bool TxtAl;
 	bool GrAl;
+	bool Trans;
 
 public slots:
 	void ToSeite(int num);

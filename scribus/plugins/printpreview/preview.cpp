@@ -19,6 +19,8 @@
 #include <qimage.h>
 #include <cstdlib>
 #include <qcursor.h>
+#include <qpainter.h>
+#include <qcolor.h>
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
@@ -97,6 +99,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	CMode = false;
 	TxtAl = false;
 	GrAl = false;
+	Trans = false;
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
 	Layout5 = new QHBoxLayout;
@@ -302,7 +305,12 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
 	else
-		cmd1 += " -sDEVICE=png16m";
+		{
+		if ((!AliasTr->isChecked()) || (app->HavePngAlpha != 0))
+			cmd1 += " -sDEVICE=png16m";
+		else
+			cmd1 += " -sDEVICE=pngalpha";
+		}
 	if (AliasText->isChecked())
 		cmd1 += " -dTextAlphaBits=4";
 	if (AliasGr->isChecked())
@@ -329,7 +337,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
  	double b = app->doc->PageB * Res / 72;
  	double h = app->doc->PageH * Res / 72;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl))
+	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) 
+		|| (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl)
+		|| ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 	{
 		ret = RenderPreview(Seite, Res);
 		if (ret != 0)
@@ -343,6 +353,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	CMode = EnableCMYK->isChecked();
 	TxtAl = AliasText->isChecked();
 	GrAl = AliasGr->isChecked();
+	Trans = AliasTr->isChecked();
 	QImage image;
 	if (EnableCMYK->isChecked())
 	{
@@ -389,7 +400,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	{
 		image.load(app->PrefsPfad+"/sc.png");
 		image = image.convertDepth(32);
-		if (AliasTr->isChecked())
+		if ((AliasTr->isChecked()) && (app->HavePngAlpha == 0))
 		{
 			int wi = image.width();
 			int hi = image.height();
@@ -406,6 +417,17 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		}
 	}
 	image.setAlphaBuffer(true);
+	if (AliasTr->isChecked())
+	{
+		Bild = QPixmap(image.width(), image.height());
+		QPainter p;
+		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		p.begin(&Bild);
+		p.fillRect(0, 0, image.width(), image.height(), b);
+		p.drawImage(0, 0, image);
+		p.end();
+	}
+	else
 	Bild.convertFromImage(image);
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	return Bild;

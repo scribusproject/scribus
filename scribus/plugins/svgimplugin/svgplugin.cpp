@@ -471,16 +471,16 @@ void SVGPlug::parseGroup(const QDomElement &e)
 				case 4:
 					{
 					QWMatrix mm = gc->matrix;
-					ite->Xpos += mm.dx();
-					ite->Ypos += mm.dy();
-/*					Doku->ActPage->SelItem.append(ite);
+					ite->Xpos += mm.dx() / mm.m11();
+					ite->Ypos += mm.dy() / mm.m22();
+					Doku->ActPage->SelItem.append(ite);
 					Doku->ActPage->HowTo = 1;
 					Doku->ActPage->setGroupRect();
 					Doku->ActPage->scaleGroup(mm.m11(), mm.m22());
 					Doku->ActPage->Deselect();
-					ite->Ypos += ite->LineSp;   */
-					ite->Width = ite->Width * mm.m11();
-					ite->Height = ite->Height * mm.m22();
+//					ite->Ypos += ite->LineSp;
+//					ite->Width = ite->Width * mm.m11();
+//					ite->Height = ite->Height * mm.m22();
 					break;
 					}
 				default:
@@ -1600,7 +1600,7 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	p.setFont(ff);
 	int	desc = p.fontMetrics().descent();
-	QString Text = QString::fromUtf8(e.text());
+	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
 	QDomNode c = e.firstChild();
 	ite->LineSp = m_gc.current()->FontSize / 10.0 + 2;
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
@@ -1617,8 +1617,10 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 			Prog->SetNewFont(gc->Family);
 			double x = parseUnit( tspan.attribute( "x", "1" ) );
 			double y = parseUnit( tspan.attribute( "y", "1" ) );
+			ite->Xpos += x;
+			ite->Ypos += y;
 			if (!tspan.text().isNull())
-				Text = QString::fromUtf8(tspan.text());
+				Text = QString::fromUtf8(tspan.text()).stripWhiteSpace();
 			else
 				Text = " ";
 			for (uint tt = 0; tt < Text.length(); ++tt)
@@ -1639,13 +1641,13 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 				else
 					hg->cstyle = 0;
 				hg->cab = 0;
-				hg->xp = x;
-				hg->yp = y;
+				hg->xp = 0;
+				hg->yp = 0;
 				hg->PRot = 0;
 				hg->PtransX = 0;
 				hg->PtransY = 0;
 				ite->Ptext.append(hg);
-  			tempW += Cwidth(Doku, hg->cfont, hg->ch, hg->csize);
+				tempW += Cwidth(Doku, hg->cfont, hg->ch, hg->csize);
 				if (hg->ch == QChar(13))
 					{
 					ite->Height += ite->LineSp+desc;

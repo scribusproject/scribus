@@ -55,7 +55,7 @@ extern "C" {
 #endif
 }
 
-#include "scribusdoc.h"
+#include "scribus.h"
 #include "libpdf/pdflib.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -82,6 +82,7 @@ extern int IntentMonitor;
 extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
+extern ScribusApp* ScApp;
 
 void ReOrderText(ScribusDoc *doc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
@@ -243,6 +244,7 @@ int System(const QStringList & args)
 	proc->setArguments(args);
 	if ( !proc->start() )
 	{
+		delete proc;
 		return 1;
 	}
 	/* start was OK */
@@ -274,7 +276,12 @@ int callGS(const QStringList & args_in)
 	args.append("gs");
 	args.append("-q");
 	args.append("-dNOPAUSE");
-	args.append("-sDEVICE=png16m");
+	if (ScApp->HavePngAlpha != 0)
+		args.append("-sDEVICE=png16m");
+	else
+		args.append("-sDEVICE=pngalpha");
+	args.append("-dTextAlphaBits=4");
+	args.append("-dGraphicsAlphaBits=4");
 	
 	/* insert specific arguments */
 	QStringList p;
@@ -285,7 +292,6 @@ int callGS(const QStringList & args_in)
 	args.append("showpage");
 	args.append("-c");
 	args.append("quit");
-	
         return System(args);
 }
 
@@ -431,18 +437,21 @@ QImage LoadPict(QString fn, bool *gray)
 					image.load(tmpFile);
 				  	image = image.convertDepth(32);
 					image.setAlphaBuffer(true);
-					int wi = image.width();
-					int hi = image.height();
-				    for( int yi=0; yi < hi; ++yi )
+					if (ScApp->HavePngAlpha != 0)
+					{
+						int wi = image.width();
+						int hi = image.height();
+					    for( int yi=0; yi < hi; ++yi )
 						{
-						QRgb *s = (QRgb*)(image.scanLine( yi ));
-						for(int xi=0; xi < wi; ++xi )
+							QRgb *s = (QRgb*)(image.scanLine( yi ));
+							for(int xi=0; xi < wi; ++xi )
 							{
-							if((*s) == 0xffffffff)
-								(*s) &= 0x00ffffff;
-							s++;
+								if((*s) == 0xffffffff)
+									(*s) &= 0x00ffffff;
+								s++;
 							}
 				    	}
+					}
 					Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 					unlink(tmpFile);
 				}
@@ -582,18 +591,21 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 						image.load(tmpFile);
 					  	image = image.convertDepth(32);
 						image.setAlphaBuffer(true);
-						int wi = image.width();
-						int hi = image.height();
-					    for( int yi=0; yi < hi; ++yi )
+						if (ScApp->HavePngAlpha != 0)
+						{
+							int wi = image.width();
+							int hi = image.height();
+						    for( int yi=0; yi < hi; ++yi )
 							{
-							QRgb *s = (QRgb*)(image.scanLine( yi ));
-							for(int xi=0; xi < wi; ++xi )
+								QRgb *s = (QRgb*)(image.scanLine( yi ));
+								for(int xi=0; xi < wi; ++xi )
 								{
-								if((*s) == 0xffffffff)
-									(*s) &= 0x00ffffff;
-								s++;
+									if((*s) == 0xffffffff)
+										(*s) &= 0x00ffffff;
+									s++;
 								}
-					    	}
+							}
+					    }
 						Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 						unlink(tmpFile);
 						*realCMYK = false;

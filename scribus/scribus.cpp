@@ -471,6 +471,7 @@ void ScribusApp::initScribus()
 			}
 		ScBook->AdjustMenu();
 		HaveGS = system("gs -h > /dev/null 2>&1");
+		HavePngAlpha = system("gs -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
 		splash->setStatus( tr("Initializing Plugins"));
 		InitPlugs(splash);
 		ClipB = QApplication::clipboard();

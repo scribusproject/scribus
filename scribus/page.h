@@ -205,6 +205,8 @@ public slots:
 	void ToggleLock();
 	void TogglePic();
 	void UpdatePic();
+	void CallGimp();
+	void GimpExited();
 	void FlipImageH();
 	void FlipImageV();
 	void ItemFont(QString fon);

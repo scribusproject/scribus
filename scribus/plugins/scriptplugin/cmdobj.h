@@ -13,6 +13,14 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args);
 PyObject *scribus_bezierline(PyObject *self, PyObject* args);
 PyObject *scribus_pathtext(PyObject *self, PyObject* args);
 PyObject *scribus_deleteobj(PyObject *self, PyObject* args);
+/**
+Enables/disables "Text Flows Around Box" feature for object.
+Called with params string objectName and voluntary 1|0.
+When 1 set flowing to true (0 to false). When is second param
+empty flowing is reverted.
+02/28/2004 petr vanek
+ */
+PyObject *scribus_textflow(PyObject *self, PyObject* args);
 
 #endif
 

@@ -135,14 +135,21 @@ void
 ScPainter::clear()
 {
 	if( m_buffer )
-		memset( m_buffer, qRgba( 255, 255, 255, 255 ), m_width * m_height * 4 );
+		memset( m_buffer, 255, m_width * m_height * 4 );
 }
 
 void
 ScPainter::clear( const QColor &c )
 {
 	if( m_buffer )
-		memset( m_buffer, c.rgb(), m_width * m_height * 4 );
+	{
+		unsigned int *src = (unsigned int*)m_buffer;
+		unsigned int co = qRgba(c.blue(), c.green(),  c.red(), 255);
+		for(unsigned int cc = 0; cc < (m_width * m_height); ++cc)
+		{
+			*src++ = co;
+		}
+	}
 }
 
 void ScPainter::setWorldMatrix( const QWMatrix &mat )
