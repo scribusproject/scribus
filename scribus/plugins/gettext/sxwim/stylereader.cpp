@@ -181,6 +181,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  		pstyle = NULL;
  	QString align = NULL;
  	QString force = NULL;
+ 	bool hasColorTag = false;
  	for (int i = 0; i < attrs.count(); ++i)
  	{
  		if ((attrs.localName(i) == "style:font-name") && (!inList))
@@ -209,6 +210,16 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  				ppstyle = dynamic_cast<gtParagraphStyle*>(parentStyle);
  				pstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
  			}
+ 		}
+ 		else if (attrs.localName(i) == "fo:color")
+ 		{
+ 			currentStyle->getFont()->setColor(attrs.value(i));
+ 			hasColorTag = true;
+ 		}
+ 		else if ((attrs.localName(i) == "style:use-window-font-color") && (attrs.value(i) == "true"))
+ 		{
+ 			currentStyle->getFont()->setColor("Black");
+ 			hasColorTag = true;
  		}
  		else if ((attrs.localName(i) == "fo:font-weight") && (attrs.value(i) == "bold"))
  			currentStyle->getFont()->setWeight(BOLD);
@@ -277,6 +288,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  				pstyle->setAlignment(FORCED);
  		}
  	}
+	if (!hasColorTag)
+		currentStyle->getFont()->setColor("Black");
  }
  
  void StyleReader::styleStyle(const QXmlAttributes& attrs)
@@ -411,6 +424,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  	{
  		inList = false;
  	}
+
  	return true;
  }
  
@@ -449,6 +463,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  		nameByAttrs += QString("%1-").arg(s->getFirstLineIndent());
  		nameByAttrs += QString("%1-").arg(s->getAlignment());
  		nameByAttrs += QString("%1-").arg(s->hasDropCap());
+ 		nameByAttrs += QString("%1-").arg(s->getFont()->getColor());
+ 		nameByAttrs += QString("%1-").arg(s->getFont()->getStrokeColor());
  		QValueList<double>* tmp = s->getTabValues();
  		for (uint i = 0; i < tmp->count(); ++i)
  		{
@@ -542,6 +558,10 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  			pstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
  		}
  	}
+ 	else if (key == "fo:color")
+		style->getFont()->setColor(value);
+	else if ((key == "style:use-window-font-color") && (value == "true"))
+ 			style->getFont()->setColor("Black");
  	else if ((key == "fo:font-weight") && (value == "bold"))
  		style->getFont()->setWeight(BOLD);
  	else if ((key == "fo:font-style") && (value == "italic"))
