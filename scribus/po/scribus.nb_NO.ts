@@ -6762,7 +6762,7 @@ litt langsommere. Har kun effekt på Type 1 fonter</translation>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Gir en pener visning av True Type Fonter, Open Type Fonter, EPS, PDF og 
+        <translation type="obsolete">Gir en pener visning av True Type Fonter, Open Type Fonter, EPS, PDF og 
 vektor grafikk i forhåndsvisningen, men det går litt langsommere å forhåndsvise</translation>
     </message>
     <message>
@@ -6842,6 +6842,11 @@ UCR virker best på deler av bilder som er nøytrale og/eller mørke toner
 som ligger nært opptil grått. Bruk dette for å få utsftening enkelteoen bilder til å se bedre; 
 og noe eksperimentering og testing er nødvendig neste gang.
 UCR reduserer muligheten for overmettning med CMY farger.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8982,7 +8987,7 @@ Eksterne lenker</translation>
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>OpenOffice Writer dokumenter</translation>
+        <translation type="obsolete">OpenOffice Writer dokumenter</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -9134,11 +9139,11 @@ Eksterne lenker</translation>
     </message>
     <message>
         <source>Import &amp;Open Office Draw...</source>
-        <translation>Importer &amp;Open Office Draw ...</translation>
+        <translation type="obsolete">Importer &amp;Open Office Draw ...</translation>
     </message>
     <message>
         <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation>Open Office Draw (*.sxd);;Alle filtyper (*)</translation>
+        <translation type="obsolete">Open Office Draw (*.sxd);;Alle filtyper (*)</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -9545,6 +9550,18 @@ Eksterne lenker</translation>
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11679,7 +11696,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Innstillinger for import fra OpenOffice Writer</translation>
+        <translation type="obsolete">Innstillinger for import fra OpenOffice Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -11699,12 +11716,6 @@ on front of the paragraph style name in Scribus</source>
         <translation>Ikke spør igjen</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Greit</translation>
     </message>
@@ -11712,6 +11723,16 @@ never ask your confirmation again</source>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

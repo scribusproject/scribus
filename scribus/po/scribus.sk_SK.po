@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-10 21:57+0100\n"
+"POT-Creation-Date: 2004-12-12 18:24+0100\n"
 "PO-Revision-Date: 23.08.2004 19:41\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -5743,11 +5743,11 @@ msgstr "na výšku"
 msgid "custom"
 msgstr "vlastné"
 
-msgid "Import &Open Office Draw..."
+msgid "Import &OpenOffice.org Draw..."
 msgstr ""
 
 #, fuzzy
-msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "Textové súbory (*.txt);;Všetky súbory (*)"
 
 msgid "&Fonts Preview"
@@ -5875,11 +5875,11 @@ msgid "CSV_header"
 msgstr "Tieň"
 
 #, fuzzy
-msgid "OO.o Writer Documents"
+msgid "OpenOffice.org Writer Documents"
 msgstr "Textové dokumenty"
 
 #, fuzzy
-msgid "OO.o Writer Importer Options"
+msgid "OpenOffice.org Writer Importer Options"
 msgstr "Možnosti tlačiarne"
 
 #, fuzzy
@@ -5906,7 +5906,7 @@ msgstr ""
 
 msgid ""
 "Should the importer always use currently\n"
-"set value when importing OO.o document and\n"
+"set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
 
@@ -5965,8 +5965,9 @@ msgstr ""
 "Poskytuje krajší pohľad na textové položky v prehliadači, za čo zaplatíte\n"
 "miernym spomalením prezerania. Toto sa týka iba Type 1 písma"
 
+#, fuzzy
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
 "and\n"
 "vector graphics in the preview, at the expense of a slight slowdown in "
 "previewing"

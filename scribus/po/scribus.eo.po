@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-10 21:57+0100\n"
+"POT-Creation-Date: 2004-12-12 18:24+0100\n"
 "PO-Revision-Date: 2004-10-04 19:57+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -5749,11 +5749,11 @@ msgstr "vertikala"
 msgid "custom"
 msgstr "propra"
 
-msgid "Import &Open Office Draw..."
+msgid "Import &OpenOffice.org Draw..."
 msgstr ""
 
 #, fuzzy
-msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "Tekstodosieroj (*.txt);;Ĉiaj dosieroj (*)"
 
 msgid "&Fonts Preview"
@@ -5878,11 +5878,11 @@ msgid "CSV_header"
 msgstr "CSV-titoloj"
 
 #, fuzzy
-msgid "OO.o Writer Documents"
+msgid "OpenOffice.org Writer Documents"
 msgstr "Tekstodokumentoj"
 
 #, fuzzy
-msgid "OO.o Writer Importer Options"
+msgid "OpenOffice.org Writer Importer Options"
 msgstr "CSV-importil-opcioj"
 
 #, fuzzy
@@ -5909,7 +5909,7 @@ msgstr ""
 
 msgid ""
 "Should the importer always use currently\n"
-"set value when importing OO.o document and\n"
+"set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
 
@@ -5968,8 +5968,9 @@ msgstr ""
 "Donas pli plaĉan vidon, en la ekrano, de tekstaj elementoj, je la kosto\n"
 "de pli malrapida montro. Tio interesas nur Type1-tiparojn"
 
+#, fuzzy
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
 "and\n"
 "vector graphics in the preview, at the expense of a slight slowdown in "
 "previewing"

@@ -8670,7 +8670,7 @@ Funktioniert nur mit Type-1-Schriftarten</translation>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Stellt True Type Fonts, Open Type Fonts, EPS, PDF und Vektor-Grafiken 
+        <translation type="obsolete">Stellt True Type Fonts, Open Type Fonts, EPS, PDF und Vektor-Grafiken 
 auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
@@ -8755,6 +8755,11 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11693,7 +11698,7 @@ externe Links</translation>
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>OO.o Textverarbeitung</translation>
+        <translation type="obsolete">OO.o Textverarbeitung</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -11845,14 +11850,6 @@ externe Links</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12260,6 +12257,18 @@ externe Links</translation>
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15007,7 +15016,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Optionen für den OO.o-Importer</translation>
+        <translation type="obsolete">Optionen für den OO.o-Importer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -15040,7 +15049,7 @@ Namen der Ursprungsdatei tragen soll</translation>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>Aktivieren Sie diese Option, wenn Sie nicht mehr nach diesen Einstellungen gefragt werden möchten</translation>
+        <translation type="obsolete">Aktivieren Sie diese Option, wenn Sie nicht mehr nach diesen Einstellungen gefragt werden möchten</translation>
     </message>
     <message>
         <source>OK</source>
@@ -15059,6 +15068,16 @@ oder unverändert gelassen</translation>
 on front of the paragraph style name in Scribus</source>
         <translation>Name des Dokuments als Suffix an die Namen der
 Absatzstile anhängen</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-10 21:57+0100\n"
+"POT-Creation-Date: 2004-12-12 18:24+0100\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -5481,10 +5481,10 @@ msgstr ""
 msgid "custom"
 msgstr ""
 
-msgid "Import &Open Office Draw..."
+msgid "Import &OpenOffice.org Draw..."
 msgstr ""
 
-msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr ""
 
 msgid "&Fonts Preview"
@@ -5602,10 +5602,10 @@ msgid "CSV_header"
 msgstr ""
 
 #, fuzzy
-msgid "OO.o Writer Documents"
+msgid "OpenOffice.org Writer Documents"
 msgstr "기존문서 열기"
 
-msgid "OO.o Writer Importer Options"
+msgid "OpenOffice.org Writer Importer Options"
 msgstr ""
 
 #, fuzzy
@@ -5631,7 +5631,7 @@ msgstr ""
 
 msgid ""
 "Should the importer always use currently\n"
-"set value when importing OO.o document and\n"
+"set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
 
@@ -5688,7 +5688,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
 "and\n"
 "vector graphics in the preview, at the expense of a slight slowdown in "
 "previewing"

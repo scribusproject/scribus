@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-10 21:57+0100\n"
+"POT-Creation-Date: 2004-12-12 18:24+0100\n"
 "PO-Revision-Date: 2004-10-02 14:21+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -5786,11 +5786,11 @@ msgstr "verticale"
 msgid "custom"
 msgstr "personalizzato"
 
-msgid "Import &Open Office Draw..."
+msgid "Import &OpenOffice.org Draw..."
 msgstr ""
 
 #, fuzzy
-msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "File di testo (*.txt);;Tutti i file (*)"
 
 msgid "&Fonts Preview"
@@ -5916,11 +5916,11 @@ msgid "CSV_header"
 msgstr "Intestazioni CSV"
 
 #, fuzzy
-msgid "OO.o Writer Documents"
+msgid "OpenOffice.org Writer Documents"
 msgstr "Documenti di testo"
 
 #, fuzzy
-msgid "OO.o Writer Importer Options"
+msgid "OpenOffice.org Writer Importer Options"
 msgstr "Opzioni importatore CSV"
 
 #, fuzzy
@@ -5947,7 +5947,7 @@ msgstr ""
 
 msgid ""
 "Should the importer always use currently\n"
-"set value when importing OO.o document and\n"
+"set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
 
@@ -6008,8 +6008,9 @@ msgstr ""
 " rallentamento della visualizzazione. Questo effetto interessa solo i font "
 "Type 1"
 
+#, fuzzy
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
 "and\n"
 "vector graphics in the preview, at the expense of a slight slowdown in "
 "previewing"

@@ -6782,7 +6782,7 @@ generowania podglądu. Dotyczy to tylko czcionek Type 1</translation>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Polepsza wygląd czcionek True Type, Open Type, plików EPS, PDF i  grafik wektorowych 
+        <translation type="obsolete">Polepsza wygląd czcionek True Type, Open Type, plików EPS, PDF i  grafik wektorowych 
 w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
     <message>
@@ -6874,6 +6874,11 @@ lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektó
 obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
 przypadku.
 UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9036,7 +9041,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>Dokumenty w formacie programu OO.o Writer</translation>
+        <translation type="obsolete">Dokumenty w formacie programu OO.o Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -9192,11 +9197,11 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Import &amp;Open Office Draw...</source>
-        <translation>Importuj &amp;Open Office Draw...</translation>
+        <translation type="obsolete">Importuj &amp;Open Office Draw...</translation>
     </message>
     <message>
         <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation>Open Office Draw (*.sxd);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Open Office Draw (*.sxd);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -9603,6 +9608,18 @@ Zewnętrzne dowiązania
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11745,7 +11762,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Ustawienia importu z OO.o Writera</translation>
+        <translation type="obsolete">Ustawienia importu z OO.o Writera</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -11767,7 +11784,7 @@ przeciągnij szablon na widok strony na dole.</translation>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>Włącza domyślne używanie aktualnych ustawień
+        <translation type="obsolete">Włącza domyślne używanie aktualnych ustawień
 w trakcie importu dokumentów OO.o i wyłącza 
 pytanie o potwierdzenie przez użytkownika</translation>
     </message>
@@ -11783,6 +11800,16 @@ OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
         <translation>Zmień właściwości istniejącego stylu akapitu w Scribusie, 
 jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

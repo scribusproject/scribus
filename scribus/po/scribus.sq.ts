@@ -13351,11 +13351,6 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation type="unfinished">Shfaq tejdukshmëri dhe objekte të tejdukshëm në dokumentin tuaj. Lyp Ghostscript 7.07 ose të mëvonshëm</translation>
     </message>
@@ -13396,6 +13391,11 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     <message>
         <source>All</source>
         <translation type="unfinished">Tërë</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15640,14 +15640,6 @@ Check path and filename.</source>
         <translation type="unfinished">Importo &amp;SVG...</translation>
     </message>
     <message>
-        <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Comma Separated Value Files</source>
         <translation type="unfinished">Kartela Vlerash Ndarë me Presje (CSV)</translation>
     </message>
@@ -15671,10 +15663,6 @@ Check path and filename.</source>
         <source>
 External Links
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OO.o Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16090,6 +16078,18 @@ External Links
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18223,10 +18223,6 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Update paragraph styles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18250,14 +18246,18 @@ on front of the paragraph style name in Scribus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-10 21:57+0100\n"
+"POT-Creation-Date: 2004-12-12 18:24+0100\n"
 "PO-Revision-Date: 2004-11-23 17:37+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -5746,10 +5746,12 @@ msgstr "portrait (à la française)"
 msgid "custom"
 msgstr "sur mesure"
 
-msgid "Import &Open Office Draw..."
+#, fuzzy
+msgid "Import &OpenOffice.org Draw..."
 msgstr "Importer une illustration Open Office..."
 
-msgid "Open Office Draw (*.sxd);;All Files (*)"
+#, fuzzy
+msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "Illustrations Open Office (*.sxd);;Tous les fichiers (*)"
 
 msgid "&Fonts Preview"
@@ -5861,10 +5863,12 @@ msgstr "Données CSV"
 msgid "CSV_header"
 msgstr "En-tête CSV"
 
-msgid "OO.o Writer Documents"
+#, fuzzy
+msgid "OpenOffice.org Writer Documents"
 msgstr "Documents Openoffice"
 
-msgid "OO.o Writer Importer Options"
+#, fuzzy
+msgid "OpenOffice.org Writer Importer Options"
 msgstr "Options d'importations des fichiers Openoffice"
 
 msgid "Update paragraph styles"
@@ -5893,9 +5897,10 @@ msgstr ""
 msgid "Do not ask again"
 msgstr "Ne pas demander la prochaine fois"
 
+#, fuzzy
 msgid ""
 "Should the importer always use currently\n"
-"set value when importing OO.o document and\n"
+"set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
 "L'importateur doit-il toujours utiliser la valeur courante\n"
@@ -5958,8 +5963,9 @@ msgstr ""
 "ralentissement\n"
 "lors d'une prévisualisation. Fonctionne uniquement avec les polices Type 1"
 
+#, fuzzy
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
 "and\n"
 "vector graphics in the preview, at the expense of a slight slowdown in "
 "previewing"

@@ -6889,7 +6889,7 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Включить более качественное отображение шрифтов TrueType, Open Type Fonts, 
+        <translation type="obsolete">Включить более качественное отображение шрифтов TrueType, Open Type Fonts, 
 EPS, PDF и векторной графики при просмотре ценой замедления прорисовки.</translation>
     </message>
     <message>
@@ -6976,6 +6976,11 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9172,7 +9177,7 @@ External Links
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>Документы OO.o Writer</translation>
+        <translation type="obsolete">Документы OO.o Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -9324,14 +9329,6 @@ External Links
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9739,6 +9736,18 @@ External Links
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11885,7 +11894,7 @@ drag a Template to the Pageview below.</source>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Параметры импорта OO.o Writer</translation>
+        <translation type="obsolete">Параметры импорта OO.o Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -11903,7 +11912,7 @@ drag a Template to the Pageview below.</source>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>Использовать ли эти настройки в дальнейшем 
+        <translation type="obsolete">Использовать ли эти настройки в дальнейшем 
 и больше не запрашивать подтверждение при
 импорте документов OO.o Writer</translation>
     </message>
@@ -11926,6 +11935,16 @@ edited to match the one being imported, or left untouched</source>
 сопадает со стилем импортируемого документа OO.o Writer, 
 то этот стиль может быть обновлён до совпадения с 
 одноимённым стилем из импортируемого документа</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

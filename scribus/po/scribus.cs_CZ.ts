@@ -6784,7 +6784,7 @@ Týká se Type 1 písem</translation>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Zajistí hezčí vzhled True Type písem, Open Type písem, EPS, PDF
+        <translation type="obsolete">Zajistí hezčí vzhled True Type písem, Open Type písem, EPS, PDF
 a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     </message>
     <message>
@@ -6872,6 +6872,11 @@ způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání
 barvy při několika vrstvém (např. barevném) laserovém tisku.
 Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html
 a jiné.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9032,7 +9037,7 @@ Odkazy ven
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>OO.o Writer dokumenty</translation>
+        <translation type="obsolete">OO.o Writer dokumenty</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -9184,14 +9189,6 @@ Odkazy ven
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9599,6 +9596,18 @@ Odkazy ven
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11741,7 +11750,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Nastavení importu OO.o Writer</translation>
+        <translation type="obsolete">Nastavení importu OO.o Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -11759,7 +11768,7 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>Má si importer vždy pamatovat nastavenou hodnotu
+        <translation type="obsolete">Má si importer vždy pamatovat nastavenou hodnotu
 a nikdy znovu nevyžadovat potvrzení</translation>
     </message>
     <message>
@@ -11778,6 +11787,16 @@ OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
         <translation>Má být existující Scribus styl změněn, jestliže v importovaném dokumentu
 existuje styl se stejným jménem nebo se nemá změnit</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

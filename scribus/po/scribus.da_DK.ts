@@ -6819,7 +6819,7 @@ går lidt længere tid med at vise siden. Det gælder kun type 1 fonte</translat
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Giver en mere behagelig forhåndsvisning af &apos;True Type&apos; og &apos;Open Type&apos; fonte, 
+        <translation type="obsolete">Giver en mere behagelig forhåndsvisning af &apos;True Type&apos; og &apos;Open Type&apos; fonte, 
 EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</translation>
     </message>
     <message>
@@ -6903,6 +6903,11 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9068,7 +9073,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>OO.o Tekst dokumenter</translation>
+        <translation type="obsolete">OO.o Tekst dokumenter</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -9220,14 +9225,6 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9635,6 +9632,18 @@ Ekstern Lænker</translation>
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11781,7 +11790,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>OO.o Tekst import indstillinger</translation>
+        <translation type="obsolete">OO.o Tekst import indstillinger</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -11799,7 +11808,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>Skal importfiltret altid bruge det nuværende
+        <translation type="obsolete">Skal importfiltret altid bruge det nuværende
 sæt værdier, når der importeres OO.o dokumenter
 og aldrig spørge dig om, at bekræfte det igen</translation>
     </message>
@@ -11820,6 +11829,16 @@ edited to match the one being imported, or left untouched</source>
         <translation>Hvis der allerede findes en afsnits typografi med det samme navn som 
 det aktive OO.o dokuments afsnit, skal typografien i Scribus da ændres, så det 
 er i overensstemmelse med det importerede eller skal det forblive urørt</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
