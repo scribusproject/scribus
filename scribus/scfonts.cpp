@@ -585,7 +585,7 @@ void SCFonts::AddUserPath(QString pf)
 {
 	QFile fx(pf+"/scribusfont.rc");
 	ExtraPath="";
-	if ( fx.exists() )
+	if ((fx.exists()) && (fx.size() > 0))
 	{
 		if (fx.open(IO_ReadOnly))
 		{

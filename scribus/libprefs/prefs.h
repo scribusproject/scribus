@@ -9,7 +9,6 @@
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
-#include <qtabwidget.h>
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
@@ -41,7 +40,8 @@ public:
 
     QPushButton* buttonOK;
     QPushButton* buttonCancel;
-    QTabWidget* TabWidget3;
+    QWidgetStack* TabWidget3;
+		QListBox* TabListe;
     QWidget* tab;
     QGroupBox* Mouse;
     QLabel* TextLabel1_2;
@@ -270,6 +270,7 @@ public slots:
 
 protected:
     QVBoxLayout* PrefsLayout;
+    QHBoxLayout* PrefsLayout2;
     QGridLayout* tabLayout;
     QGridLayout* ButtonGroup1Layout;
     QHBoxLayout* GroupBox20Layout;

@@ -41,8 +41,23 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     PrefsLayout = new QVBoxLayout( this );
     PrefsLayout->setSpacing( 6 );
     PrefsLayout->setMargin( 11 );
-    TabWidget3 = new QTabWidget( this, "TabWidget3" );
+
+    PrefsLayout2 = new QHBoxLayout(0, 0, 6);
+
+		TabListe = new QListBox(this, "StyledL");
+    TabListe->insertItem( tr( "General" ) );
+    TabListe->insertItem( tr( "Document" ) );
+    TabListe->insertItem( tr( "Guides" ) );
+    TabListe->insertItem( tr( "Typographics" ) );
+    TabListe->insertItem( tr( "Tools" ) );
+    TabListe->insertItem( tr( "Scrapbook" ) );
+    TabListe->insertItem( tr( "Display" ) );
+		PrefsLayout2->addWidget(TabListe);
+
+    TabWidget3 = new QWidgetStack( this, "TabWidget3" );
     TabWidget3->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+    TabWidget3->setFrameShape( QWidgetStack::StyledPanel );
+    TabWidget3->setFrameShadow( QWidgetStack::Sunken );
     tab = new QWidget( TabWidget3, "tab" );
     tabLayout = new QGridLayout( tab );
     tabLayout->setSpacing( 6 );
@@ -183,7 +198,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox200Layout->addWidget( FileC );
     tabLayout->addMultiCellWidget( GroupBox200, 2, 2, 0, 1 );
 
-    TabWidget3->insertTab( tab, tr( "General" ) );
+    TabWidget3->addWidget( tab, 0 );
 
     tab_7 = new QWidget( TabWidget3, "tab_7" );
     tabLayout_7 = new QHBoxLayout( tab_7, 11, 6, "tabLayout_7");
@@ -381,7 +396,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     QSpacerItem* spacerDocb = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     Layout21b->addItem( spacerDocb );
     tabLayout_7->addLayout( Layout21b );
-    TabWidget3->insertTab( tab_7, tr( "Document" ) );
+    TabWidget3->addWidget( tab_7, 1 );
 
     tab_2 = new QWidget( TabWidget3, "tab_2" );
     tabLayout_2 = new QGridLayout( tab_2 );
@@ -543,7 +558,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout7->addWidget( RadioButton7 );
     ButtonGroup5Layout->addLayout( Layout7 );
     tabLayout_2->addWidget( ButtonGroup5, 0, 1 );
-    TabWidget3->insertTab( tab_2, tr( "Guides" ) );
+    TabWidget3->addWidget( tab_2, 2 );
 
     tab_4 = new QWidget( TabWidget3, "tab_4" );
     tabLayout_3 = new QGridLayout( tab_4 );
@@ -686,7 +701,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox4_3aLayout->addLayout( Layout14a );
     tabLayout_3->addWidget( GroupBox4_3a, 1, 1 );
 
-    TabWidget3->insertTab( tab_4, tr( "Typographics" ) );
+    TabWidget3->addWidget( tab_4, 3 );
 
     tab_3 = new QWidget( TabWidget3, "tab_3" );
     tabLayout_4 = new QHBoxLayout( tab_3 );
@@ -1333,7 +1348,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     UpdatePreView();
     Fram->addWidget(ToolFrame6, 6);
 
-    TabWidget3->insertTab( tab_3, tr( "Tools" ) );
+    TabWidget3->addWidget( tab_3, 4 );
 
     tab_5 = new QWidget( TabWidget3, "tab_5" );
     tabLayout_5 = new QGridLayout( tab_5 );
@@ -1398,7 +1413,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Frame6->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 
     tabLayout_5->addMultiCellWidget( Frame6, 0, 1, 1, 1 );
-    TabWidget3->insertTab( tab_5, tr( "Scrapbook" ) );
+    TabWidget3->addWidget( tab_5, 5 );
 
     tab_6 = new QWidget( TabWidget3, "tab_6" );
     tabLayout_6 = new QHBoxLayout( tab_6 );
@@ -1529,10 +1544,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox10Layout->addWidget( CaliGroup );
 
     tabLayout_6->addWidget( GroupBox10 );
-    TabWidget3->insertTab( tab_6, tr( "Display" ) );
+    TabWidget3->addWidget( tab_6, 6 );
     Fram->raiseWidget(1);
 
-    PrefsLayout->addWidget( TabWidget3 );
+		PrefsLayout2->addWidget( TabWidget3 );
+		PrefsLayout->addLayout(PrefsLayout2);
+
     Layout3 = new QHBoxLayout;
     Layout3->setSpacing( 6 );
     Layout3->setMargin( 0 );
@@ -1595,6 +1612,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 		connect(FileC, SIGNAL(clicked()), this, SLOT(ChangeDocs()));
     connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
+		connect(TabListe, SIGNAL(highlighted(int)), TabWidget3, SLOT(raiseWidget(int)));
 		setSize(Vor->PageFormat);
 		setOrien(Vor->Ausrichtung);
     UnitChange();

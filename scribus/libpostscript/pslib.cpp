@@ -441,13 +441,12 @@ void PSLib::PS_begin_doc(int Ori, float breite, float hoehe, int numpage)
 	if (GraySc)
 		PutDoc(GrayCalc);
 	PutDoc("%%EndSetup\n");
-  if ((Art) && (Ori != 0))
+/*  if ((Art) && (Ori != 0))
   	{
 		PutSeite("<< /PageSize [ "+ToStr(breite)+" "+ToStr(hoehe)+" ]\n");
-//		if (Ori != 0)
 		PutSeite("/Orientation 3\n");
 		PutSeite(">> setpagedevice\n");
-		}
+		}                    */
 	Prolog = "";
 	FontDesc = "";
 }

@@ -351,7 +351,7 @@ void ScribusView::reformPages()
 			addChild(PSeite, static_cast<int>(10*Doc->Scale), static_cast<int>((Doc->PageC-1)*(PSeite->height()+25*Doc->Scale)+10*Doc->Scale));
 		else
 			{
-			if ((Doc->PageFP) && (Prefs->PagesSbS))
+			if ((Doc->PageFP) && (Doc->PagesSbS))
 				{
  				if (a % 2 == 0)
  					{
@@ -377,7 +377,7 @@ void ScribusView::reformPages()
 			}
 		}
 	PSeite = Doc->ActPage->parentWidget();
-	if ((Doc->PageFP) && (Prefs->PagesSbS))
+	if ((Doc->PageFP) && (Doc->PagesSbS))
 		{
 		if (Doc->FirstPageLeft)
 			resizeContents(static_cast<int>(PSeite->width()*2+60*Doc->Scale),
@@ -428,7 +428,7 @@ void ScribusView::slotDoZoom()
 				addChild(PSeite, static_cast<int>(10*Doc->Scale), static_cast<int>((Doc->PageC-1)*(PSeite->height()+25*Doc->Scale)+10*Doc->Scale));
 			else
 				{
-				if ((Doc->PageFP) && (Prefs->PagesSbS))
+				if ((Doc->PageFP) && (Doc->PagesSbS))
 					{
  					if (a % 2 == 0)
  						{
@@ -453,7 +453,7 @@ void ScribusView::slotDoZoom()
 					addChild(PSeite, static_cast<int>(10*Doc->Scale), static_cast<int>(a*(PSeite->height()+25*Doc->Scale)+10*Doc->Scale));
 				}
 			}
-		if ((Doc->PageFP) && (Prefs->PagesSbS))
+		if ((Doc->PageFP) && (Doc->PagesSbS))
 			{
 			if (Doc->FirstPageLeft)
 					resizeContents(static_cast<int>(PSeite->width()*2+60*Doc->Scale),
@@ -595,6 +595,7 @@ void ScribusView::DrawNew()
 	HR->repaint();
 	VR->repaint();
 	Doc->ActPage = b;
+	LE->setText(QString::number(double(Doc->Scale/Prefs->DisScale*100), 'f', 2)+" %");
 }
 
 int ScribusView::CountElements()

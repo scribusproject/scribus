@@ -1,4 +1,10 @@
 Changes since Version 1.0RC1
+29.06.2003	fontprefs.cpp		Fixed Bug when deleting the last Extra Font Path.
+		prefs.cpp		Changed from the tabbed Layout to a more modern one.
+		pslib.cpp		Don't rotate Pages anymore when Landscape is selected.
+		scribusview.cpp		Fixed the bug that prevents proper Arrangement of the Pages when
+					Pages Side by Side was changed in the Preferences.
+
 28.06.2003	configure.in		Changed configure script to ensure proper recognition of lcms.h
 		customfdialog.cpp	Added CP1251 encoding and friends.
 

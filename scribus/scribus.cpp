@@ -4678,6 +4678,7 @@ void ScribusApp::slotPrefsOrg()
 {
 	void *mo;
 	char *error;
+	bool zChange = false;
 	typedef Preferences* (*sdem)(QWidget *d, preV *Vor);
 	sdem demo;
 	QString pfad = PREL;
@@ -4747,10 +4748,6 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.Ausrichtung = dia->GZComboO->currentItem();
 		Prefs.PageBreite = dia->Pagebr;
 		Prefs.PageHoehe = dia->Pageho;
-/*		Prefs.RandOben = dia->TopR->value() / UmReFaktor / 100;
-		Prefs.RandUnten = dia->BottomR->value() / UmReFaktor / 100;
-		Prefs.RandLinks = dia->LeftR->value() / UmReFaktor / 100;
-		Prefs.RandRechts = dia->RightR->value() / UmReFaktor / 100;   */
 		Prefs.RandOben = dia->RandT;
 		Prefs.RandUnten = dia->RandB;
 		Prefs.RandLinks = dia->RandL;
@@ -4758,11 +4755,16 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.DoppelSeiten = dia->Doppelseiten->isChecked();
 		Prefs.ErsteLinks = dia->Linkszuerst->isChecked();
 		Prefs.PDFTransparency = dia->UsePDFTrans->isChecked();
-		Prefs.DisScale = dia->DisScale;
+		if (Prefs.DisScale != dia->DisScale)
+			{
+			Prefs.DisScale = dia->DisScale;
+			zChange = true;
+			}
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		if (HaveDoc)
 			{
-			slotZoomAbs(doc->Scale*Prefs.DisScale);
+			if (zChange)
+				slotZoomAbs(doc->Scale*Prefs.DisScale);
 			doc->GrabRad = dia->SpinBox3_2->value();
 			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
 			doc->Dfont = dia->FontComb->currentText();

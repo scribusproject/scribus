@@ -331,7 +331,10 @@ void FontPrefs::DelPath()
 	QFile fx(HomeP+"/scribusfont.rc");
 	if (fx.open(IO_WriteOnly))
 		{
-		PathList->removeItem(PathList->currentItem());
+		if (PathList->count() == 1)
+			PathList->clear();
+		else
+			PathList->removeItem(PathList->currentItem());
 		QTextStream tsx(&fx);
 		for (uint a = 0; a < PathList->count(); ++a)
 			{
@@ -343,8 +346,16 @@ void FontPrefs::DelPath()
 		return;
 	CurrentPath = "";
 	RebuildDialog();
-	ChangeB->setEnabled(true);
-	RemoveB->setEnabled(true);
+	if (PathList->count() > 0)
+		{
+		ChangeB->setEnabled(true);
+		RemoveB->setEnabled(true);
+		}
+	else
+		{
+		ChangeB->setEnabled(false);
+		RemoveB->setEnabled(false);
+		}
 }
 
 void FontPrefs::RebuildDialog()
