@@ -11,13 +11,15 @@
 #include "scribus.h"
 extern QPixmap loadIcon(QString nam);
 
-Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QWidget( parent, "Tree")
+Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", false, 0 )
 {
 	ScApp = scApp;
-//	resize( 220, 240 );
+	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
-	setFont(qApp->font());
+	setCaption( tr( "Outline" ) );
+	setIcon(loadIcon("AppIcon.png"));
+
 	reportDisplay = new QListView( this, "ListView1" );
 
 	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
@@ -56,7 +58,6 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QWidget( parent, "Tree")
 	selectionTriggered = false;
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	clearWState( WState_Polished );
 //	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
 //	connect(reportDisplay, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
 }
@@ -90,7 +91,7 @@ void Tree::keyPressEvent(QKeyEvent *k)
 	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
 		emit CloseSpal();
 	*/
-	QWidget::keyPressEvent(k);
+	QDialog::keyPressEvent(k);
 }
 
 void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
@@ -492,6 +493,18 @@ void Tree::slotSelect(QListViewItem* ite)
 	selectionTriggered = false;
 }
 
+void Tree::closeEvent(QCloseEvent *ce)
+{
+	emit Schliessen();
+	ce->accept();
+}
+
+void Tree::reject()
+{
+	emit Schliessen();
+	QDialog::reject();
+}
+
 void Tree::resizeEvent(QResizeEvent *r)
 {
 	reportDisplay->resize(r->size());
@@ -502,7 +515,6 @@ void Tree::BuildTree(ScribusDoc *doc)
 	document = doc;
 	if (ScApp->ScriptRunning)
 		return;
-	setFont(qApp->font());
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	reportDisplay->clear();
 	itemMap.clear();

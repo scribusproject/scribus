@@ -1,7 +1,7 @@
 #ifndef LAYERPALETTE_H
 #define LAYERPALETTE_H
 
-#include <qwidget.h>
+#include <qdialog.h>
 #include <qtable.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
@@ -27,10 +27,11 @@ protected:
 
 signals:
 	void ToggleAllPalettes();
+	void Schliessen();
 	void updtName(int);
 };
 
-class LayerPalette : public QWidget
+class LayerPalette : public QDialog
 {
 	Q_OBJECT
 
@@ -45,6 +46,7 @@ public:
 	QPushButton* RaiseLayer;
 	QPushButton* LowerLayer;
 	QValueList<Layer> *layers;
+	void closeEvent(QCloseEvent *ce);
 	void setLayers(QValueList<Layer> *layin, int *act);
 	void rebuildList();
 	QPtrList<QCheckBox> FlagsPrint;
@@ -68,10 +70,14 @@ signals:
 	void LayerRemoved(int, bool);
 	void LayerChanged();
 	void LayerActivated(int);
+	void Schliessen();
 
 protected:
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
+
+protected slots:
+	virtual void reject();
 };
 
 #endif // LAYERPALETTE_H

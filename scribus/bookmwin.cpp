@@ -115,7 +115,6 @@ BookMView::BookMView(QWidget* parent) : QListView(parent)
 
 void BookMView::AddPageItem(PageItem* ite)
 {
-	setFont(qApp->font());
 	QString bm = "";
 	QString bm2 = "";
 	QString cc;
