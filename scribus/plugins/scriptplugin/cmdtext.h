@@ -302,5 +302,15 @@ currently selected item is used."));
 */
 PyObject *scribus_tracetext(PyObject * self, PyObject* args);
 
-#endif
+PyDoc_STRVAR(scribus_istextoverflowing__doc__,
+QT_TR_NOOP("textOverflows([\"name\"]) -> bool\n\
+\n\
+Returns true if the text in frame \"name\" overflows.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an text frame\n"));
+/** Check if is the text frame overflowind or not
+ 2005-02-04 petr vanek
+ */
+PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args);
 
+#endif

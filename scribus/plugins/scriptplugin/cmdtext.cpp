@@ -833,3 +833,30 @@ PyObject *scribus_tracetext(PyObject */*self*/, PyObject* args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if (item->PType != FRAME_TEXT)
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Only text frames can be checked for overflowing", "python error"));
+		return NULL;
+	}
+	/* walk through the items for overflow checking */
+	for (QMap<int, errorCodes>::Iterator errIter = Carrier->doc->docItemErrors.begin();
+			errIter != Carrier->doc->docItemErrors.end();
+			++errIter)
+	{
+		if (Carrier->doc->DocItems.at(errIter.key())->itemName() == item->itemName())
+			if (errIter.data().find(2) != errIter.data().end())
+				return PyBool_FromLong(static_cast<long>(true));
+	} // for error iterator
+	return PyBool_FromLong(static_cast<long>(false));
+}

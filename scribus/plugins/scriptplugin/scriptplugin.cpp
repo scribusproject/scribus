@@ -784,6 +784,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
 	{const_cast<char*>("unlinkTextFrames"), scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
 	{const_cast<char*>("valueDialog"), scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
+	{const_cast<char*>("textOverflows"), scribus_istextoverflowing, METH_VARARGS, tr(scribus_istextoverflowing__doc__)},
 	// end of aliases
 	{const_cast<char*>("retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
