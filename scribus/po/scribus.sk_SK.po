@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-01 20:39+0100\n"
+"POT-Creation-Date: 2005-02-08 13:01+0100\n"
 "PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
@@ -2327,6 +2327,9 @@ msgstr "Náhľad"
 msgid "Select"
 msgstr "Výber"
 
+msgid "Afrikaans"
+msgstr "Afrikánsky"
+
 msgid "Albanian"
 msgstr "Albánsky"
 
@@ -2405,6 +2408,10 @@ msgstr "Nórsky"
 msgid "Polish"
 msgstr "Poľský"
 
+#, fuzzy
+msgid "Portugese (Brazilian)"
+msgstr "Brazílsky"
+
 msgid "Russian"
 msgstr "Ruský"
 
@@ -2425,6 +2432,18 @@ msgstr "Slovinský"
 
 msgid "Serbian"
 msgstr "Srbsky"
+
+#, fuzzy
+msgid "Turkish"
+msgstr "Turecký:"
+
+#, fuzzy
+msgid "Ukranian"
+msgstr "Ukrajinský"
+
+#, fuzzy
+msgid "Welsh"
+msgstr "Welský:"
 
 msgid "Document Information"
 msgstr "Informácie o dokumente"
@@ -3367,14 +3386,15 @@ msgstr "Vrátiť s&päť zmenu objektu"
 msgid "Portuguese"
 msgstr "Portugalský"
 
+#, fuzzy
+msgid "Portuguese (BR)"
+msgstr "Portugalský"
+
 msgid "Ukrainian"
 msgstr "Ukrajinský"
 
 msgid "Irish"
 msgstr "Írsky"
-
-msgid "Afrikaans"
-msgstr "Afrikánsky"
 
 msgid "Scribus Crash"
 msgstr "Pád Scribusu"
@@ -6025,6 +6045,273 @@ msgstr "Nepodarilo sa uložiť dokument"
 msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
 msgstr "Jednotka je mimo rozsahu. Použiť jednu z scribus.UNIT_* konštánt."
 
+#, fuzzy
+msgid "Passed object is not callable"
+msgstr "Hodnota nie je vypočítaná"
+
+#, fuzzy
+msgid "Scribus - New Macro"
+msgstr "Scribus manuál"
+
+msgid ""
+"<qt>This is the Edit Macro / New Macro dialog box. Here you can change the "
+"source code to macros. Edit the source code to the macro in the text editing "
+"area below the \"Source Code\" label and click OK to save your changes to "
+"the macro.</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "Source Code:"
+msgstr "&Zdroj:"
+
+#, fuzzy
+msgid "Editing Macro:"
+msgstr "Končím"
+
+msgid "The name of the macro being edited."
+msgstr ""
+
+msgid ""
+"</qt>This item displays the name of the macro you are currently editing.<qt>"
+msgstr ""
+
+msgid "<qt>Discard all changes and exit.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Exit the editing dialog, discarding all changes you have made. If you "
+"want to exit without saving the macro but don't want to lose your changes, "
+"save your changes with \"Save Source As...\".</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Ok"
+msgstr "&OK"
+
+msgid "<qt>Save changes and exit.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Save changes to the macro and exit. If there is a problem with the "
+"macro, a message will be displayed and the editing dialog will not close.</"
+"qt>"
+msgstr ""
+
+msgid ""
+"<qt>This text area contains the source code of the macro. If you're creating "
+"a new macro there won't be anything in it, and if you're editing an existing "
+"macro the source code the macro was defined with will be shown here.</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Load Source ..."
+msgstr "Načí&tať..."
+
+#, fuzzy
+msgid "Alt+L"
+msgstr "Alt+"
+
+msgid "<qt>Replace the current source code with code from a file.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Load new source code into the editing area from \"file\". Any source "
+"code in the editing area is replaced. The loaded source must be a Scribus "
+"macro function. If you load any other script, you'll need to edit it so that "
+"it'll work as a scripter macro before saving it.</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Save Source As..."
+msgstr "Uložiť &ako..."
+
+#, fuzzy
+msgid "Alt+S"
+msgstr "Alt+"
+
+msgid "<qt>Save the source code being edited to a file.</qt>"
+msgstr ""
+
+msgid ""
+"Save the source code - the text - of the macro to a file. You can edit the "
+"saved source and load it again with \"Load Source...\"."
+msgstr ""
+
+msgid "Macro"
+msgstr ""
+
+#, fuzzy
+msgid "Edit"
+msgstr "&Upraviť"
+
+#, fuzzy
+msgid "Accel"
+msgstr "Akceptovať"
+
+#, fuzzy
+msgid "Scribus - Manage Macros"
+msgstr "Scribus manuál"
+
+msgid ""
+"<qt><p>This window is the Scribus Macro Manager. Here you can create macros, "
+"edit macros, etc. All changes are made using the buttons on the right hand "
+"side of the window.</p>\n"
+"<p>All changes made in this dialog take effect instantly - you cannot cancel "
+"the actions you make here.\n"
+"The table in the center of the dialog lists what macros are currently loaded "
+"and some information about them. Use \"What's this\" on the table for more "
+"information.</p></qt>"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+N"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "<qt>Create a new macro.</qt>"
+msgstr "Vytvorí nový dokument"
+
+msgid ""
+"<qt>Create a new macro by prompting for the macro name then bringing up the "
+"edit macro dialog box.</qt>"
+msgstr ""
+
+msgid "Close this dialog."
+msgstr ""
+
+#, fuzzy
+msgid "Return to Scribus."
+msgstr "O Scribuse"
+
+msgid ""
+"<p>This table lists the macros that are currently defined.</p>\n"
+"\n"
+"<p><b>Name:</b> The name of the macro, as shown in the menu bar and in other "
+"places around Scribus.</p>\n"
+"<p><b>Edit:</b> If the macro can be edited, \"Yes\" appears in this column. "
+"Usually if a macro cannot be edited it was created using the register_macro "
+"command in a script.</p>\n"
+"<p><b>Accel:</b> The menu shortcut key sequence, if any, associated with the "
+"macro. For example, CTRL-F8 means that you can press Control-F8 when in "
+"Scribus to run the macro.</p>\n"
+"<p><b>Description:</b> If the macro contains a \"docstring\", a special "
+"string at the start of its definition that describes it, that is shown here. "
+"If the docstring is long, only the beginning is shown - use \"What's This\" "
+"on the macro's entry in the Macro menu to see the full description.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Rena&me"
+msgstr "Premenovať"
+
+#, fuzzy
+msgid "Alt+M"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "Rename the selected macro."
+msgstr "Názov zvoleného objektu"
+
+msgid ""
+"<qt>Rename the selected macro. You will be prompted for the new name.</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+E"
+msgstr "Alt+"
+
+msgid ""
+"<qt>Edit the source of the selected macro, if the source is availible.</qt>"
+msgstr ""
+
+msgid ""
+"<p>Edit the selected macro. </p>\n"
+"<p>If this button is greyed out, either there is no selected macro or the "
+"macro manager does not have the source code for the macro you have selected "
+"(in which case <tt>No</tt> will be shown in the <tt>Edit </tt>column of the "
+"macro).</p>\n"
+"<p>If scribus doesn't have the source, the macro was probably created by a "
+"script.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+D"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "<qt>Delete the currently selected macro.</qt>"
+msgstr "Odstrániť aktuálne zvolenú farbu"
+
+msgid ""
+"<p>Delete the selected macro. This is instant, and there is no way to "
+"recover the macro once deleted. If the macro is created by a start-up "
+"script, it will reappear next time you load Scribus.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "&Set Accel"
+msgstr "Vybrať všetko"
+
+msgid "<qt>Set the keyboard shortcut for the selected macro.</qt>"
+msgstr ""
+
+msgid ""
+"<p>Set the keyboard shortcut (accelerator) key of the selected macro. You "
+"will be prompted for the new shortcut in a dialog box.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "E&xport"
+msgstr "&Export"
+
+#, fuzzy
+msgid "Alt+X"
+msgstr "Alt+"
+
+msgid "Export macros to a file."
+msgstr ""
+
+msgid ""
+"<p>Export macros to an external file. The file will be a Python script "
+"containing the scripter commands to re-create the macros. It can be run "
+"using <tt>Load extension script</tt> from the <tt>Script</tt> menu, or the "
+"import button in the macro manager.</p>\n"
+"<p>If you want a nice, human readable version of your macros, select the "
+"macro you want, press the <tt>Edit</tt>  button, and use the <tt>Save "
+"source</tt> button in the <tt>Edit Macro</tt> dialog. You won't be able to "
+"load that version with <tt>Load extension script</tt> - instead, create a "
+"new macro with the<tt> New</tt> button and use <tt>Load source</tt>.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Delete &All"
+msgstr "Odstrániť všetko"
+
+#, fuzzy
+msgid "Alt+A"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "Delete all macros."
+msgstr "Odstrániť všetky tabulátory"
+
+msgid ""
+"<p>Delete all registered macros. This is instant, and there is no way to "
+"recover the deleted macros. Any macros created by your start-up script will "
+"reappear next time you load Scribus.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+I"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "Import macros from a file."
+msgstr "Importovať dáta z:"
+
+msgid "<p>Loads macros from an external file.</p>"
+msgstr ""
+
 msgid "S&cripter Manual..."
 msgstr "S&cripter manuál..."
 
@@ -6034,17 +6321,38 @@ msgstr "&Scribus skripty"
 msgid "&Execute Script..."
 msgstr "&Spustiť skript..."
 
+msgid "Run a Python script from a file."
+msgstr ""
+
+#, fuzzy
+msgid "&Load Extension Script..."
+msgstr "&Spustiť skript..."
+
+msgid ""
+"Load a Python script as an extension. Used for loading macros and for "
+"advanced Python scripts that extend the Scribus user interface."
+msgstr ""
+
 msgid "&Recent Scripts"
 msgstr "&Posledné skripty"
 
 msgid "Show &Console"
 msgstr "Ukázať &konzolu"
 
+msgid ""
+"Display an interactive Python console where you can write and run Python "
+"programs that use the Scripter tools."
+msgstr ""
+
 msgid "&About Script..."
 msgstr "&O skripte..."
 
 msgid "S&cript"
 msgstr "Skr&ipt"
+
+#, fuzzy
+msgid "Scripter &Settings"
+msgstr "Nastavenie štýlu"
 
 msgid "Python Scripts (*.py);; All Files (*)"
 msgstr "Python skripty (*.py);;Všetky súbory (*)"
@@ -6065,6 +6373,22 @@ msgid ""
 msgstr ""
 "Táto správa je tiež vo vašej schránke (clipboard). Použite Ctrl+V a vložte "
 "ju do stopovača chýb (bug tracker)."
+
+#, fuzzy
+msgid "Scribus - Script Plugin"
+msgstr "&Scribus skripty"
+
+msgid ""
+"The 'Load Script' function of the script plugin is currently disabled.\n"
+"If you just want to run a normal script, you probably want to use\n"
+"'Execute Script...' instead.\n"
+"\n"
+"If you do actually want to load a Python extension script or macro, you\n"
+"need to go into the Scripter Settings in the Script menu and enable\n"
+"scripter extensions there.\n"
+"\n"
+"Please read the documentation on extension scripts first.\n"
+msgstr ""
 
 msgid "Hide &Console"
 msgstr "Skryť &konzolu"
@@ -6122,6 +6446,35 @@ msgid "argument contains non-numeric values: must be list of float values"
 msgstr ""
 "argument obsahuje nenumerické hodnoty: musí to byť zoznam plávajúcich hodnôt"
 
+msgid "Editing Macro: <b>"
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Macro Manager"
+msgstr "Scribus manuál"
+
+msgid ""
+"The file '%1' already exists.\n"
+"Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid ""
+"You have already edited this macro.\n"
+"Are you sure you want to discard all your changes?\n"
+msgstr ""
+
+msgid ""
+"A full traceback follows:\n"
+"\n"
+"%1\n"
+msgstr ""
+
+msgid ""
+"Compilation of the macro failed, so it can not \n"
+"be saved in its current form. The error was:\n"
+"%1\n"
+msgstr ""
+
 msgid "An object with the requested name already exists"
 msgstr "Objekt s požadovaným názvom už existuje"
 
@@ -6169,6 +6522,10 @@ msgstr "Cieľ nie je obrázkový rám."
 
 msgid "Can't scale by 0%"
 msgstr "Nie je možné zmeniť mierku o 0%"
+
+#, fuzzy
+msgid "Specified item not an image frame"
+msgstr "Cieľ nie je obrázkový rám."
 
 msgid "Cannot get font size of non-text frame."
 msgstr "Nie je možné získať veľkosť písma netextového rámu."
@@ -6308,6 +6665,128 @@ msgstr "Vložte hodnotu a potom stlačte OK"
 msgid "Send your value to the script"
 msgstr "Pošle vaše hodnoty skriptu"
 
+msgid "Renaming the macro failed because the name is already in use."
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Scripter Preferences"
+msgstr "&Scribus skripty"
+
+msgid "Enable Scripter Extensions"
+msgstr ""
+
+msgid "Turn on extension scripts and macros"
+msgstr ""
+
+msgid ""
+"<qt><p>Enabling scripter extensions turns on additional scripter "
+"functionality including Python macros and the option of loading a Python "
+"script at start-up. Turning on this option unlocks the <tt>Load Extension "
+"Script</tt> item in the Script menu.</p>\n"
+"<p>\n"
+"Only scripts written to be run as extension scripts should be used with "
+"<tt>Load Extension Script</tt> or as start-up scripts. See the scripter "
+"documentation for more details.</p></qt>"
+msgstr ""
+
+msgid "Use a Startup Script"
+msgstr ""
+
+msgid ""
+"<qt><p>If <tt>Use a Startup Script</tt> is checked, Scribus will load the "
+"script file specified here as an extension script at start-up. It is "
+"important that the script be written as an extension script, as if not "
+"written carefully it can potentially cause problems.</p>\n"
+"<p><tt>Use a Startup Script</tt> will be disabled if scripter extensions are "
+"off, as extension scripts cannot be loaded without scripter extensions "
+"enabled.</p></qt>"
+msgstr ""
+
+#, fuzzy
+msgid "Browse..."
+msgstr "Presunúť..."
+
+msgid "Browse for a new script file"
+msgstr ""
+
+msgid "<qt>Browse for a new script file</qt>"
+msgstr ""
+
+msgid "What script file to load at start-up"
+msgstr ""
+
+msgid ""
+"<qt><p>The file containing the Python script to run as an extension script "
+"at start-up.</p>\n"
+"<p>Note that when this script is run, Scribus has not completely started up "
+"and the workspace does not yet exist.</p></qt>"
+msgstr ""
+
+#, fuzzy
+msgid "Script File:"
+msgstr "Skript:"
+
+msgid "Close without saving changes"
+msgstr ""
+
+#, fuzzy
+msgid "Save changes and close"
+msgstr "Uloží aktuálny sadu farieb"
+
+msgid "Import All Names at Startup"
+msgstr ""
+
+msgid "Run 'from scribus import *' in the script console at start-up"
+msgstr ""
+
+msgid ""
+"<qt><p><tt>Import All Names at Startup</tt> is an advanced option. You "
+"should probably leave it checked unless you have read the documentation and "
+"know what you are doing.</p>\n"
+"<p>Unchecking this option will prevent the scripter from running its usual "
+"<tt>from scribus import *</tt> command when it initializes the main "
+"interpreter (used for the script console and extension scripts) at start-up."
+"</p>\n"
+"<p>This option does not take effect until Scribus is restarted.</p></qt>"
+msgstr ""
+
+msgid "Enable Legacy Name Aliases"
+msgstr ""
+
+msgid "<qt>Enable the use of OldStyle function names</qt>"
+msgstr ""
+
+msgid ""
+"<qt><p><tt>Enable Legacy Aliases</tt> is an advanced option. You should "
+"probably leave it how it is.</p>\n"
+"<p>If checked, this option will cause the scripter to create a large number "
+"of function and constant name aliases for 1.2.0 script compatibility. It "
+"defaults to checked.</p>\n"
+"<p>This option does not take effect until Scribus is restarted.</p></qt>"
+msgstr ""
+
+msgid "Use Fake Stdin"
+msgstr ""
+
+msgid ""
+"<qt>Replace sys.stdin with a fake file to prevent Scribus hanging when a "
+"script tries to read from stdin.</qt>"
+msgstr ""
+
+msgid ""
+"<qt><p><tt>Use Fake Stdin</tt> is an advanced option. You should probably "
+"leave it how it is.</p>\n"
+"<p>Normally, scribus will provide Python with a fake file object for <tt>sys."
+"stdin</tt>, so that reads from stdin always return an empty string. If the "
+"real <tt>sys.stdin</tt> is left in place, scripts that try to read from it "
+"will block - and in turn block scribus's execution, making the app appear to "
+"hang - until input arrives on stdin. It's unusual for GUI apps to expect "
+"anything on stdin, so mostly users will think scribus has crashed.</p>\n"
+"<p>You can disable this option if you want to accept input on stdin. "
+"Generally you should use <tt>os.popen</tt> to make a pipe instead, or use "
+"some other input mechanism, but this option is here just in case.</p></qt>"
+msgstr ""
+
 msgid "Can't render an empty sample"
 msgstr "Nie je možné vygenerovať prázdnu vzorku"
 
@@ -6353,6 +6832,69 @@ msgstr "Nie je možné odstrániť farbu bez názvu."
 
 msgid "Cannot replace a color with an empty name."
 msgstr "Nie je možné nahradiť farbu bez názvu."
+
+#, fuzzy
+msgid "The filename must be a string."
+msgstr "Cieľový rám musí byť prázdny"
+
+msgid "Cannot delete image type settings."
+msgstr ""
+
+msgid "The image type must be a string."
+msgstr ""
+
+msgid "'allTypes' attribute is READ-ONLY"
+msgstr ""
+
+#, fuzzy
+msgid "Failed to export image"
+msgstr "Nepodarilo sa otvoriť dokument"
+
+#, fuzzy
+msgid "Manage Macros"
+msgstr "Správa obrázkov"
+
+msgid ""
+"Brings up a graphical window for creating, deleting, editing, saving and "
+"loading macros."
+msgstr ""
+
+msgid "Create, edit and delete macros"
+msgstr ""
+
+msgid "&Macro"
+msgstr ""
+
+msgid "Unable to open the requested file: %1"
+msgstr ""
+
+msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid ""
+"<qt>The macro name you requested is already taken  by another macro.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Macro creation failed. The macro manager was unable to set up the macro."
+"</qt>"
+msgstr ""
+
+msgid ""
+"The macro '%1' has reported a minor error.\n"
+"The error is: %2\n"
+"A full traceback follows:\n"
+"\n"
+"%3\n"
+msgstr ""
+
+msgid ""
+"The macro '%1' failed to execute correctly.\n"
+"The error is: %2\n"
+"A full traceback follows:\n"
+"\n"
+"%3\n"
+msgstr ""
 
 msgid "Import &SVG..."
 msgstr "Import &SVG..."
@@ -6466,3 +7008,7 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
+
+#, fuzzy
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Portugalský"
