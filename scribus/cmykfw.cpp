@@ -29,7 +29,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     orig.getCMYK(&cc, &cm, &cy, &ck);
     resize( 498, 306 );
     setCaption( tr( "Edit Color" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     CMYKFarbenLayout = new QHBoxLayout( this );
     CMYKFarbenLayout->setSpacing( 6 );
     CMYKFarbenLayout->setMargin( 11 );

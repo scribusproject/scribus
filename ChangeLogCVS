@@ -1,4 +1,8 @@
 Changes since Version 1.1.1
+21.10.2003	Included the new Icons contributed by Sven Powalla.
+		Fixed issue with the "Find Picture" Command.
+		Locked Object can't be dragged anymore.
+
 20.10.2003	Included the Scripter Plugin into the main Package.
 		Fixed the ./configure script that libtiff is recognized
 		on a stock RH9 installation.

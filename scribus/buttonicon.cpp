@@ -7,7 +7,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 {
 		Item = ite;
     setCaption( tr( "Icon Placement" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     ButtonIconLayout = new QVBoxLayout( this, 11, 6, "ButtonIconLayout"); 
     Layout1 = new QGridLayout( 0, 0, 6, "Layout6");
     TextLabel1_2 = new QLabel( this, "TextLabel1_2" );

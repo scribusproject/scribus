@@ -120,7 +120,7 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
     setCaption( tr( "Select Character:" )+" "+pl->doc->CurrFont );
     ite = item;
     ap = pl;
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     ZAuswahlLayout = new QVBoxLayout( this );
     ZAuswahlLayout->setSpacing( 6 );
     ZAuswahlLayout->setMargin( 11 );

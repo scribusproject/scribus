@@ -16,7 +16,7 @@ extern QPixmap loadIcon(QString nam);
 MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString nam, bool ed, QMap<QString,multiLine> *Sty)
 				 : QDialog( parent, "Multiline", true, 0 )
 {
-	setIcon(loadIcon("AppIcon.xpm"));
+	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Edit Style" ) );
 	Docu = doc;
 	TempVorl = ml;

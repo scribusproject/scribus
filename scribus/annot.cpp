@@ -24,7 +24,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
             : QDialog( parent, "AN", true, 0 )
 {
     setCaption( tr( "Field Properties" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	item = it;
   	Breite = b;
   	Hoehe = h;

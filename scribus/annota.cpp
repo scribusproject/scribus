@@ -17,7 +17,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
             : QDialog( parent, "AN", true, 0 )
 {
     setCaption( tr( "Annotation Properties" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	item = it;
   	Breite = b;
   	Hoehe = h;

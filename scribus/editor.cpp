@@ -11,7 +11,7 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie)
 								: QDialog( parent, "editor", true, 0 )
 {
     setCaption( tr( "Editor" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
 		view = vie;
     EditorLayout = new QVBoxLayout( this, 0, 0, "EditorLayout");
     EditTex = new QTextEdit( this, "EditTex" );

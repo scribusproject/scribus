@@ -19,12 +19,13 @@
 #include "vruler.moc"
 #include "page.h"
 #include <qcursor.h>
+#include <qcolor.h>
+#include <qrect.h>
+#include <qpointarray.h>
 Vruler::Vruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	doku = doc;
-	rfont = font();
-	rfont.setPointSize(9);
 	offs = -12;
 	Markp = 0;
 	oldMark = 0;
@@ -81,7 +82,7 @@ void Vruler::paintEvent(QPaintEvent *)
 	p.translate(0, -offs);
 	p.setBrush(black);
 	p.setPen(black);
-	p.setFont(rfont);
+	p.setFont(font());
 	p.scale(1.0, sc);
 	if ((doku->PageFP) && (doku->PagesSbS))
 		{

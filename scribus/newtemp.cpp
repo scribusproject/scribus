@@ -15,7 +15,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
     : QDialog( parent, "newt", true, 0 )
 {
     setCaption( tr( titel ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     QueryLayout = new QVBoxLayout( this );
     QueryLayout->setSpacing( 6 );
     QueryLayout->setMargin( 11 );

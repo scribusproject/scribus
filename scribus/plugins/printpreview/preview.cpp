@@ -48,7 +48,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	app = pl;
 	APage = 0;
 	MPage = app->doc->PageC;
-	setIcon(loadIcon("AppIcon.xpm"));
+	setIcon(loadIcon("AppIcon.png"));
   PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing(6);

@@ -22,6 +22,7 @@
 #include <qtoolbutton.h>
 #include <qstringlist.h>
 #include <qtextstream.h>
+#include <qcursor.h>
 #include <cstdio>
 #include "picsearch.h"
 extern QPixmap loadIcon(QString nam);
@@ -32,7 +33,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
     uint p, i;
     QString tmp;
     setCaption( tr( "Pictures" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     doc = docu;
     view = viewi;
     ItemNrs.clear();
@@ -193,7 +194,10 @@ void PicStatus::SearchPic()
 	QString BildNam =	PicTable->text(ZNr, 0);
 	QString OldPfad =	PicTable->text(ZNr, 1);
 	QStringList Pfade;
-	FILE *fp = popen("find /home /cdrom /floppy -name " + BildNam, "r");
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->processEvents();
+	FILE *fp = popen("find /home -name " + BildNam, "r");
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	if (fp == NULL)
 		return;
 	QTextStream ts(fp, IO_ReadOnly);

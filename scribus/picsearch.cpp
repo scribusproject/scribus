@@ -9,7 +9,7 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
     : QDialog( parent, "pi2", true, 0 )
 {
     setCaption( tr( "Result" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	Bild = "";
     setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
     PicSearchLayout = new QVBoxLayout( this ); 

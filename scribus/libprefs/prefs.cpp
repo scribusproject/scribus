@@ -33,7 +33,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		DisScale = Vor->DisScale;
     KKC = Vor->KeyActions;
     setCaption( tr( "Preferences" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
     PrefsLayout = new QVBoxLayout( this );
     PrefsLayout->setSpacing( 6 );

@@ -8,7 +8,7 @@ Align::Align( QWidget* parent, int anz, int ein)
 {
     Anzahl = anz;
 		Anzahl > 2 ? setCaption(tr("Distribute/Align")) : setCaption(tr("Align"));
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     AlignLayout = new QVBoxLayout( this );
     AlignLayout->setSpacing( 0 );
     AlignLayout->setMargin( 0 );

@@ -17,7 +17,7 @@ About::About( QWidget* parent )
     : QDialog( parent, "About", true, 0 )
 {
     setCaption( tr( "About Scribus")+" "+VERSION );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     AboutLayout = new QVBoxLayout( this );
     AboutLayout->setSpacing( 6 );
     AboutLayout->setMargin( 10 );
@@ -32,7 +32,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = "20. October 2003 ";
+    QString bu = "21. October 2003 ";
 #ifdef HAVE_CMS
 		bu += "C";
 #else

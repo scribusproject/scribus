@@ -121,7 +121,7 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
 {
     resize( 230, 190 );
     setCaption( tr( "Scrapbook" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	ScFilename = "";
   	Prefs = prefs;
 		Changed = false;	

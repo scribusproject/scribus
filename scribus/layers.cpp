@@ -14,7 +14,7 @@ extern QPixmap loadIcon(QString nam);
 LayerPalette::LayerPalette(QWidget* parent)
     : QDialog( parent, "Layers", false, 0 )
 {
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     setCaption( tr( "Layers" ) );
     LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
 

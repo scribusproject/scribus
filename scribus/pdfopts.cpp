@@ -14,7 +14,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     : QDialog( parent, "pdf", true, 0 )
 {
     setCaption( tr( "Create PDF-File" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	FontsToEmbed.clear();
   	view = vie;
   	EffVal = Eff;

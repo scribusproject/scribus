@@ -7,7 +7,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     : QDialog( parent, "EditST", true, 0)
 {
     setCaption( tr( "Edit Style" ) );
- 		setIcon(loadIcon("AppIcon.xpm"));
+ 		setIcon(loadIcon("AppIcon.png"));
 		AutoVal = au;
     EditStyleLayout = new QGridLayout( this );
     EditStyleLayout->setSpacing( 6 );

@@ -99,7 +99,7 @@ QString DocDir;
 ScribusApp::ScribusApp(SplashScreen *splash)
 {
   setCaption(tr("Scribus " VERSION));
-  setIcon(loadIcon("AppIcon.xpm"));
+  setIcon(loadIcon("AppIcon.png"));
   initMenuBar();
   initStatusBar();
   WerkTools2 = new QToolBar(tr("File"), this);

@@ -19,11 +19,7 @@
 #define VRULER_H
 
 #include <qwidget.h>
-#include <qfont.h>
 #include <qpainter.h>
-#include <qcolor.h>
-#include <qrect.h>
-#include <qpointarray.h>
 #include <qscrollview.h>
 #include "scribusdoc.h"
 /**Vertikales Lineal
@@ -43,7 +39,6 @@ public:
 	int Markp;
 	int oldMark;
 	bool Mpressed;
-  QFont rfont;
 private: // Private attributes
   /** Zeichensatz des Lineals */
   ScribusDoc *doku;

@@ -9,7 +9,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 {
     resize( 327, 260 );
     setCaption( tr( "Edit Styles" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
 		fon = avail;
 		Docu = doc;
     StilFormateLayout = new QHBoxLayout( this ); 

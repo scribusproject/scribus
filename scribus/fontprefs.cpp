@@ -12,7 +12,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     : QDialog( parent, "fpre", true, 0 )
 {
     setCaption( tr( "Global Font Settings" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	Prefs = prefs;
 		RList = Prefs->GFontSub;
 		HomeP = PPath;

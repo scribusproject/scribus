@@ -28,7 +28,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 {
 	FlagsOpt.clear();
 	setCaption( tr( "Printer Options" ) );
- 	setIcon(loadIcon("AppIcon.xpm"));
+ 	setIcon(loadIcon("AppIcon.png"));
 	CupsOptionsLayout = new QVBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
 	CupsOptionsLayout->setMargin( 10 );

@@ -23,7 +23,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     if ( !name )
 	setName( "Query" );
     setCaption( tr( titel ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     QueryLayout = new QVBoxLayout( this );
     QueryLayout->setSpacing( 6 );
     QueryLayout->setMargin( 11 );

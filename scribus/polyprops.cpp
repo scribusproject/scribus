@@ -25,7 +25,7 @@ extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double 
 PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 {
     setCaption( tr( "Polygon Properties" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
 		Pre = new QPixmap(101, 101);
 		Pre->fill(white);
     PolygonPropsLayout = new QVBoxLayout( this, 10, 5, "PolygonPropsLayout");

@@ -502,7 +502,7 @@ SeitenPal::SeitenPal(QWidget* parent)
 //    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 { 
     setCaption( tr( "Arrange Pages" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     SeitenPalLayout = new QVBoxLayout( this ); 
     SeitenPalLayout->setSpacing( 5 );
     SeitenPalLayout->setMargin( 5 );

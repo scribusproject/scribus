@@ -1119,20 +1119,6 @@ while(!DOC.isNull())
 							tmp += tmp2.at(cxx)+tmp3;
 							}
 						}
-/*					else
-						{
-						tmp += QString(QChar(QStoInt(it.attribute("CH")))) + "\t";
-						tmp += DoFonts[it.attribute("CFONT")] + "\t";
-						tmp += it.attribute("CSIZE") + "\t";
-						tmp += it.attribute("CCOLOR") + "\t";
-						tmp += it.attribute("CEXTRA") + "\t";
-						tmp += it.attribute("CSHADE") + "\t";
-						tmp += it.attribute("CSTYLE") + "\t";
-						tmp += it.attribute("CAB","0") + "\t";
-						tmp += it.attribute("CSTROKE","None") + "\t";
-						tmp += it.attribute("CSHADE2","100") + "\t";
-						tmp += it.attribute("CSCALE","100") + "\n";
-						}               */
 					IT=IT.nextSibling();
 				}
 				OB.Ptext = tmp;

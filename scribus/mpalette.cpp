@@ -27,7 +27,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     HaveDoc = false;
     HaveItem = false;
 		Umrech = UmReFaktor;
-    setIcon( loadIcon("AppIcon.xpm") );
+    setIcon( loadIcon("AppIcon.png") );
     setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
     MpalLayout = new QVBoxLayout( this, 5, 1, "MpalLayout");

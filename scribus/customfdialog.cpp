@@ -164,7 +164,7 @@ void FDialogPreview::previewUrl( const QUrl &url )
 CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre, bool mod, bool comp, bool cod)
 						 : QFileDialog(QString::null, filter, pa, 0, true)
 {
- 	setIcon(loadIcon("AppIcon.xpm"));
+ 	setIcon(loadIcon("AppIcon.png"));
  	setCaption(cap);
 	cDir = QDir();
 	setDir(cDir);

@@ -36,7 +36,7 @@ HyAsk::HyAsk( QWidget* parent, QString HWort )
 {
     resize( 322, 73 ); 
     setCaption( tr( "Possible Hyphenation" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     HyAskLayout = new QVBoxLayout( this, 11, 6, "HyAskLayout"); 
 
     Wort = new WortEdit( this );

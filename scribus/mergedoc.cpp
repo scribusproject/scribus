@@ -19,7 +19,7 @@ extern QPixmap loadIcon(QString nam);
 MergeDoc::MergeDoc( QWidget* parent ) : QDialog( parent, "merge", true, 0 )
 {
 	setCaption( tr( "Import a Page" ) );
-	setIcon(loadIcon("AppIcon.xpm"));
+	setIcon(loadIcon("AppIcon.png"));
 	Count = 0;
 
 	MergeDocLayout = new QVBoxLayout( this, 11, 6, "MergeDocLayout"); 

@@ -14,7 +14,7 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     : QDialog( parent, "InsPage", true, 0 )
 {
     setCaption( tr( "Insert Page" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     DLayout = new QVBoxLayout( this );
     DLayout->setSpacing( 5 );
     DLayout->setMargin( 10 );

@@ -29,7 +29,7 @@ extern QPixmap loadIcon(QString nam);
 AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( parent, "prin", true, 0 )
 {
 	setCaption( tr( "Advanced Options" ) );
- 	setIcon(loadIcon("AppIcon.xpm"));
+ 	setIcon(loadIcon("AppIcon.png"));
 	AdvOptionsLayout = new QVBoxLayout( this );
 	AdvOptionsLayout->setSpacing( 5 );
 	AdvOptionsLayout->setMargin( 10 );
@@ -79,7 +79,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 {
 		PrinterOpts = "";
     setCaption( tr( "Setup Printer" ) );
- 		setIcon(loadIcon("AppIcon.xpm"));
+ 		setIcon(loadIcon("AppIcon.png"));
     DruckLayout = new QVBoxLayout( this ); 
     DruckLayout->setSpacing( 6 );
     DruckLayout->setMargin( 10 );

@@ -26,7 +26,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 		Breite = qRound(Pagebr * UmReFaktor * 100);
 		Hoehe = qRound(Pageho * UmReFaktor * 100);
     setCaption( tr( "Document Setup" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     ReformDocLayout = new QVBoxLayout( this );
     ReformDocLayout->setSpacing( 6 );
     ReformDocLayout->setMargin( 10 );

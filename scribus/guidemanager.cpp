@@ -8,7 +8,7 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
 {
 		QString tmp;
     setCaption( tr( "Manage Guides" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
 		Einheit = Einh;
 		XLocal = page->XGuides;
 		YLocal = page->YGuides;

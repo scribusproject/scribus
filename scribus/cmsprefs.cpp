@@ -15,7 +15,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
     : QDialog( parent, "CMS", true, 0 )
 {
     setCaption( tr( "Color Management Settings" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	Prefs = Vor;
   	Changed = false;
     CMSPrefsLayout = new QVBoxLayout( this ); 

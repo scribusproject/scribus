@@ -69,7 +69,7 @@ DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
     	setCaption( tr( "Missing Font" ) );
 		else
     	setCaption( tr( "Select Font" ) );
- 		setIcon(loadIcon("AppIcon.xpm"));
+ 		setIcon(loadIcon("AppIcon.png"));
     MissingFontLayout = new QHBoxLayout( this );
     MissingFontLayout->setSpacing( 0 );
     MissingFontLayout->setMargin( 10 );

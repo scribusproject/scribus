@@ -24,7 +24,7 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam)
 {
 		setName( "DelColor" );
     setCaption( tr( "Delete Color" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     DLayout = new QVBoxLayout( this );
     DLayout->setSpacing( 5 );
     DLayout->setMargin( 10 );

@@ -19,12 +19,13 @@
 #include "hruler.moc"
 #include "page.h"
 #include <qcursor.h>
+#include <qcolor.h>
+#include <qrect.h>
+#include <qpointarray.h>
 Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	doku = doc;
-	rfont = font();
-	rfont.setPointSize(rfont.pointSize()-1);
 	offs = -10;
 	Markp = 0;
 	repX = false;
@@ -92,7 +93,7 @@ void Hruler::paintEvent(QPaintEvent *)
 		}
 	p.setBrush(black);
 	p.setPen(black);
-	p.setFont(rfont);
+	p.setFont(font());
 	p.scale(sc, 1.0);
 	((doku->PageFP) && (doku->PagesSbS)) ? pc = 2 : pc = 1;
 	if (doku->MasterP)

@@ -8,7 +8,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
     : QDialog( parent, "Javadocs", true, 0 )
 {
     setCaption( tr( "Global JavaScripts" ) );
- 		setIcon(loadIcon("AppIcon.xpm"));
+ 		setIcon(loadIcon("AppIcon.png"));
     Doc = doc;
 		View = vie;
     JavaDocsLayout = new QHBoxLayout( this, 11, 6, "JavaDocsLayout"); 

@@ -9,7 +9,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 		QStringList lada;
     resize( 218, 103 ); 
     setCaption( tr( "Hyphenator Settings" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     HySettingsLayout = new QVBoxLayout( this, 11, 6, "HySettingsLayout"); 
 
     Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3"); 

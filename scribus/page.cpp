@@ -2507,7 +2507,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		{
 		newX = static_cast<int>(m->x()/sc);
 		newY = static_cast<int>(m->y()/sc);
-		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1))
+		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked))
 			{
 			if ((abs(Dxp - newX) > 3) || (abs(Dyp - newY) > 3))
 				{
@@ -6654,6 +6654,13 @@ void Page::LoadPict(QString fn, int ItNr)
 	bool found = false;
 	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
+	if (!fi.exists())
+		{
+		Items.at(ItNr)->Pfile = fi.absFilePath();
+		Items.at(ItNr)->PicAvail = false;
+		Items.at(ItNr)->PicArt = false;
+		return;
+		}
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 		{
@@ -6682,7 +6689,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			}
 		else
 			{
-			Items.at(ItNr)->Pfile = fn;
+			Items.at(ItNr)->Pfile = fi.absFilePath();
 			Items.at(ItNr)->PicAvail = false;
 			Items.at(ItNr)->PicArt = false;
 			}
@@ -6813,7 +6820,7 @@ void Page::LoadPict(QString fn, int ItNr)
 					}
 				else
 					{
-					Items.at(ItNr)->Pfile = fn;
+					Items.at(ItNr)->Pfile = fi.absFilePath();
 					Items.at(ItNr)->PicAvail = false;
 					Items.at(ItNr)->PicArt = false;
 					}
@@ -6821,7 +6828,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			}
 		else
 			{
-			Items.at(ItNr)->Pfile = fn;
+			Items.at(ItNr)->Pfile = fi.absFilePath();
 			Items.at(ItNr)->PicAvail = false;
 			Items.at(ItNr)->PicArt = false;
 			}

@@ -23,7 +23,7 @@ BookPalette::BookPalette(QWidget* parent)
 					 : QDialog( parent, "Books", false, 0 )
 //					 : QDialog( parent, "Books", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool )
 {
-	setIcon(loadIcon("AppIcon.xpm"));
+	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Bookmarks" ) );
   PaletteLayout = new QVBoxLayout( this, 0, 0, "PaletteLayout");
 	BView = new BookMView(this);

@@ -25,7 +25,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     	setCaption( tr( "Move Pages" ) );
     else
     	setCaption( tr( "Copy Page" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     DLayout = new QVBoxLayout( this );
     DLayout->setSpacing( 5 );
     DLayout->setMargin( 10 );

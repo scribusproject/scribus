@@ -32,7 +32,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco )
     setMinimumSize( QSize( 300, 260 ) );
     setSizeGripEnabled(true);
     setCaption( tr( "Colors" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     Layout2 = new QHBoxLayout( this );
     Layout2->setSpacing( 6 );
     Layout2->setMargin( 11 );

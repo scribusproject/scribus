@@ -31,7 +31,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
     setCaption( Capt );
 		mHistory.clear();
 		struct histd his;
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     HelpBrowserLayout = new QVBoxLayout( this ); 
     HelpBrowserLayout->setSpacing( 2 );
     HelpBrowserLayout->setMargin( 2 );

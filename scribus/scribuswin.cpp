@@ -24,7 +24,7 @@ extern QPixmap loadIcon(QString nam);
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
 											: QMainWindow(parent, "", WDestructiveClose)
 {
-  setIcon(loadIcon("AppIcon.xpm"));
+  setIcon(loadIcon("AppIcon.png"));
 	doc = ddoc;
 	muster = NULL;
 	NrItems = 0;

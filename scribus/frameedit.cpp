@@ -10,7 +10,7 @@ NodePalette::NodePalette( QWidget* parent)
 {
 //    resize( 155, 165 );
     setCaption( tr( "Nodes" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     NodePaletteLayout = new QVBoxLayout( this );
     NodePaletteLayout->setSpacing( 2 );
     NodePaletteLayout->setMargin( 5 );

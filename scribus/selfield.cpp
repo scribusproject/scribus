@@ -8,7 +8,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, QPtrLi
     : QDialog( parent, "sef", true, 0 )
 {
     setCaption( tr( "Select Fields" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
 		FTyp = Art;
     SelectFieldsLayout = new QVBoxLayout( this, 11, 6, "SelectFieldsLayout"); 
     Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");

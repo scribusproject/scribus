@@ -9,7 +9,7 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 {
     resize( 327, 260 );
     setCaption( tr( "Edit Line Styles" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
 		Docu = doc;
 		TempStyles = doc->MLineStyles;
     StilFormateLayout = new QHBoxLayout( this ); 

@@ -27,7 +27,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 		einheit = Vor->Einheit;
 		Orient = 0;
     setCaption( tr( "New Document" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     NewDocLayout = new QHBoxLayout( this, 10, 5, "NewDocLayout");
     Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
 

@@ -6,7 +6,7 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view)
     : QDialog( parent, "apply", true, 0)
 {
     setCaption( tr( "Apply Template" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     ApplyTLayout = new QVBoxLayout( this, 10, 8, "ApplyTLayout");
     layout3 = new QHBoxLayout( 0, 0, 6, "layout3");
     TextLabel1 = new QLabel( this, "TextLabel1" );

@@ -8,7 +8,7 @@ PConsole::PConsole( QWidget* parent )
 {
     resize( 431, 306 ); 
     setCaption( tr( "Script Console" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     PConsoleLayout = new QVBoxLayout( this, 11, 6, "PConsoleLayout");
     OutWin = new ConsWin(this);
     OutWin->setMinimumSize( QSize( 300, 0 ) );

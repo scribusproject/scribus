@@ -10,7 +10,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> Ke)
     : QDialog( parent, "key", true, 0 )
 {
     setCaption( tr( "Manage Keyboard Shortcuts" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	KK = Ke;
   	Part1 = "";
   	Part2 = "";

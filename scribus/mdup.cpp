@@ -14,7 +14,7 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
     : QDialog( parent, "m", true, 0 )
 {
     setCaption( tr( "Multiple Duplicate" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     MdupLayout = new QVBoxLayout( this );
     MdupLayout->setSpacing( 5 );
     MdupLayout->setMargin( 10 );

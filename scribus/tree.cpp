@@ -25,7 +25,7 @@ Tree::Tree( QWidget* parent, WFlags fl )
     setMinimumSize( QSize( 220, 240 ) );
     setMaximumSize( QSize( 800, 600 ) );
     setCaption( tr( "Outline" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
 
     ListView1 = new QListView( this, "ListView1" );
 

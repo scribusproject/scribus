@@ -9,7 +9,7 @@ MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view,
     : QDialog( parent, "Muster", false, WDestructiveClose)
 {
     setCaption( tr( "Edit Templates" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     Doc = doc;
     View = view;
     MusterSeitenLayout = new QHBoxLayout( this ); 
