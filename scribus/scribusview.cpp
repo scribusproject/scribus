@@ -1782,6 +1782,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			b->Clip = FlattenPath(b->PoLine, b->Segments);
 			AdjustItemSize(b);
 			b->ContourLine = b->PoLine.copy();
+			setRedrawBounding(b);
+			b->OwnPage = OnPage(b);
 			updateContents();
 		}
 		if (Doc->AppMode == 8)
@@ -1795,9 +1797,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			np = ApplyGrid(np);
 			b->Rot = xy2Deg(np.x(), np.y());
 			b->Width = sqrt(pow(np.x(),2.0)+pow(np.y(),2.0));
-			b->Height = 0;
+			b->Height = 1;
 			b->Sizing = false;
 			UpdateClip(b);
+			setRedrawBounding(b);
+			b->OwnPage = OnPage(b);
 			updateContents();
 		}
 		if (GetItem(&b))
@@ -2374,6 +2378,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					updateContents();
 					emit DocChanged();
 				}
+				setRedrawBounding(b);
+				b->OwnPage = OnPage(b);
 			}
 			if (Imoved)
 			{
@@ -2429,6 +2435,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				Imoved = false;
 				updateContents();
 				emit DocChanged();
+				setRedrawBounding(b);
+				b->OwnPage = OnPage(b);
 			}
 		}
 		if ((SelItem.count() == 0) && (HaveSelRect) && (!MidButt))
@@ -4602,6 +4610,8 @@ void ScribusView::setRedrawBounding(PageItem* b)
 	getBoundingRect(b, &b->BoundingX, &b->BoundingY, &bw, &bh);
 	b->BoundingW = bw - b->BoundingX;
 	b->BoundingH = bh - b->BoundingY;
+	if (b->PType == 5)
+		b->BoundingH = QMAX(b->BoundingH, 1);
 }
 
 void ScribusView::setGroupRect()
@@ -5544,7 +5554,7 @@ bool ScribusView::SizeItem(double newX, double newY, int ite, bool fromMP, bool 
 		{
 			b->Rot = atan2(b->Height,b->Width)*(180.0/3.1415927);
 			b->Width = sqrt(pow(b->Width,2)+pow(b->Height,2));
-			b->Height = 0;
+			b->Height = 1;
 			emit SetAngle(b->Rot);
 		}
 		b->Clip.setPoints(4, -ph,-ph, static_cast<int>(b->Width+ph),-ph,
@@ -5644,7 +5654,7 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 		MoveItem(newX.x(), newX.y(), b, fromMP);
 		b->Rot = xy2Deg(mx - b->Xpos, my - b->Ypos);
 		b->Width = sqrt(pow(mx - b->Xpos,2)+pow(my - b->Ypos,2));
-		b->Height = 0;
+		b->Height = 1;
 		UpdateClip(b);
 		setRedrawBounding(b);
 		QRect newR = getRedrawBounding(b);
@@ -10504,6 +10514,7 @@ void ScribusView::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->Clip.setPoints(4, -ph,-ph, static_cast<int>(b->Width+ph),-ph,
 		                  static_cast<int>(b->Width+ph),static_cast<int>(b->Height+ph),
 		                  -ph,static_cast<int>(b->Height+ph));
+		b->Height = 1;
 	}
 	if (b->PType == 1)
 		SetOvalFrame(b);

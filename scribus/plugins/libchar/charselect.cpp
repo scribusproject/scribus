@@ -28,6 +28,7 @@
 
 extern QPixmap loadIcon(QString nam);
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
+extern void setBestEncoding(FT_Face face);
 
 QString Name()
 {
@@ -172,40 +173,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	face = pl->doc->FFonts[font];
-	bool foundEncoding = false;
-	for(int u = 0; u < face->num_charmaps; u++)
-	{
-		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
-		{
-			FT_Set_Charmap(face,face->charmaps[u]);
-			foundEncoding = true;
-			break;
-		}
-	}
-	if (!foundEncoding)
-	{
-		for(int u = 0; u < face->num_charmaps; u++)
-		{
-			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
-			{
-				FT_Set_Charmap(face,face->charmaps[u]);
-				foundEncoding = true;
-				break;
-			}
-		}
-		if (!foundEncoding)
-		{
-			for(int u = 0; u < face->num_charmaps; u++)
-			{
-				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
-				{
-					FT_Set_Charmap(face,face->charmaps[u]);
-					foundEncoding = true;
-					break;
-				}
-			}
-		}
-	}
+	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
