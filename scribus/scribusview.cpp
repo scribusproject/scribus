@@ -614,29 +614,33 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 						if ((Doc->appMode == EditMode) && (b->Select) && (b->itemType() == PageItem::TextFrame))
 						{
-							horizRuler->ItemPos = b->Xpos - Doc->ScratchLeft;
-							horizRuler->ItemEndPos = (b->Xpos+b->Width) - Doc->ScratchLeft;
-							if (b->lineColor() != "None")
-								horizRuler->lineCorr = b->Pwidth / 2.0;
-							else
-								horizRuler->lineCorr = 0;
-							horizRuler->ColGap = b->ColGap;
-							horizRuler->Cols = b->Cols;
-							horizRuler->Extra = b->Extra;
-							horizRuler->RExtra = b->RExtra;
-							horizRuler->First = Doc->docParagraphStyles[Doc->currentParaStyle].First;
-							horizRuler->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].Indent;
-							if (b->imageFlippedH() || (b->Reverse))
-								horizRuler->Revers = true;
-							else
-								horizRuler->Revers = false;
-							horizRuler->ItemPosValid = true;
-							horizRuler->repX = false;
-							if (Doc->currentParaStyle < 5)
-								horizRuler->TabValues = b->TabValues;
-							else
-								horizRuler->TabValues = Doc->docParagraphStyles[Doc->currentParaStyle].TabValues;
-							horizRuler->repaint();
+							//CB 230305 Stop redrawing the horizontal ruler if it hasnt changed when typing text!!!
+							if ((qRound(horizRuler->ItemPos*10000) != qRound((b->Xpos - Doc->ScratchLeft)*10000)) || (qRound(horizRuler->ItemEndPos*10000) != qRound(((b->Xpos+b->Width) - Doc->ScratchLeft)*10000)))
+							{
+								horizRuler->ItemPos = b->Xpos - Doc->ScratchLeft;
+								horizRuler->ItemEndPos = (b->Xpos+b->Width) - Doc->ScratchLeft;
+								if (b->lineColor() != "None")
+									horizRuler->lineCorr = b->Pwidth / 2.0;
+								else
+									horizRuler->lineCorr = 0;
+								horizRuler->ColGap = b->ColGap;
+								horizRuler->Cols = b->Cols;
+								horizRuler->Extra = b->Extra;
+								horizRuler->RExtra = b->RExtra;
+								horizRuler->First = Doc->docParagraphStyles[Doc->currentParaStyle].First;
+								horizRuler->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].Indent;
+								if (b->imageFlippedH() || (b->Reverse))
+									horizRuler->Revers = true;
+								else
+									horizRuler->Revers = false;
+								horizRuler->ItemPosValid = true;
+								horizRuler->repX = false;
+								if (Doc->currentParaStyle < 5)
+									horizRuler->TabValues = b->TabValues;
+								else
+									horizRuler->TabValues = Doc->docParagraphStyles[Doc->currentParaStyle].TabValues;
+								horizRuler->repaint();
+							}
 						}
 					}
 				}
@@ -4252,6 +4256,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case LinkFrames:
 			b = Doc->ElemToLink;
+			if (b==NULL)
+				break;
 			SeleItem(m);
 			if (GetItem(&bb))
 			{
@@ -4276,7 +4282,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->ElemToLink = bb;
 			}
 			else
-				Doc->ElemToLink = 0;
+				Doc->ElemToLink = NULL;
 			break;
 		case UnlinkFrames:
 			SeleItem(m);

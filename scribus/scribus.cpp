@@ -3894,8 +3894,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			setTBvals(b);
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["extrasInsertSpecial"]->setEnabled(true);
-			view->horizRuler->ItemPos = b->Xpos;
-			view->horizRuler->ItemEndPos = b->Xpos+b->Width;
+			view->horizRuler->ItemPos = b->Xpos - doc->ScratchLeft;
+			view->horizRuler->ItemEndPos = b->Xpos+b->Width - doc->ScratchLeft;
 			if (b->lineColor() != "None")
 				view->horizRuler->lineCorr = b->Pwidth / 2.0;
 			else
