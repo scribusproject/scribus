@@ -4398,12 +4398,13 @@ void ScribusApp::slotFilePrint()
 bool ScribusApp::doPrint(PrintOptions *options)
 {
 	bool retw = false;
-	fileWatcher->forceScan();
-	fileWatcher->stop();
 	QMap<QString,QFont> ReallyUsed;
 	QString filename = options->filename;
 	ReallyUsed.clear();
-	GetUsedFonts(&ReallyUsed);
+	if (!GetUsedFonts(&ReallyUsed))
+		return false;
+	fileWatcher->forceScan();
+	fileWatcher->stop();
 	PSLib *dd = getPSDriver(true, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
 	if (dd != NULL)
 	{
@@ -7443,8 +7444,6 @@ void ScribusApp::closePSDriver()
 
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
-	fileWatcher->forceScan();
-	fileWatcher->stop();
 	bool return_value = true;
 	std::vector<int> pageNs;
 	pageNs.push_back(doc->currentPage->PageNr+1);
@@ -7452,7 +7451,10 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	GetUsedFonts(&ReallyUsed);
+	if (!GetUsedFonts(&ReallyUsed))
+		return false;
+	fileWatcher->forceScan();
+	fileWatcher->stop();
 	PSLib *dd = getPSDriver(false, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
 	if (dd != NULL)
 	{
@@ -7542,7 +7544,8 @@ void ScribusApp::SaveAsPDF()
 		doc->PDF_Optionen.Bookmarks = false; */
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	GetUsedFonts(&ReallyUsed);
+	if (!GetUsedFonts(&ReallyUsed))
+		return;
 	if (doc->PDF_Optionen.EmbedList.count() != 0)
 	{
 		QValueList<QString> tmpEm;
@@ -9245,11 +9248,14 @@ void ScribusApp::ReorgFonts()
 	buildFontMenu();
 }
 
-void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
+bool ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 {
 	PageItem* it;
 	FPointArray gly;
 	QString chx;
+	bool missing = false;
+	bool ret = true;
+	QMap<QString, QString> missingPlace;
 	for (uint d = 0; d < doc->MasterItems.count(); ++d)
 	{
 		it = doc->MasterItems.at(d);
@@ -9277,6 +9283,16 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 							gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
 							(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(numco, gly);
 						}
+						else
+						{
+							QString tmp;
+							missing = true;
+							if (it->OwnPage == -1)
+								tmp = tr("Free Object");
+							else
+								tmp = "on Template Page " + doc->MasterPages.at(it->OwnPage)->PageNam;
+							missingPlace.insert(it->AnName, tmp);
+						}
 					}
 					continue;
 				}
@@ -9284,6 +9300,16 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				{
 					gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
 					(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(chr, gly);
+				}
+				else
+				{
+					QString tmp;
+					missing = true;
+					if (it->OwnPage == -1)
+						tmp = tr("Free Object");
+					else
+						tmp = "on Template Page " + doc->MasterPages.at(it->OwnPage)->PageNam;
+					missingPlace.insert(it->AnName, tmp);
 				}
 			}
 		}
@@ -9315,6 +9341,16 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 							gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
 							(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(numco, gly);
 						}
+						else
+						{
+							QString tmp, tmp2;
+							missing = true;
+							if (it->OwnPage == -1)
+								tmp = tr("Free Object");
+							else
+								tmp = "on Page " + tmp2.setNum(it->OwnPage+1);
+							missingPlace.insert(it->AnName, tmp);
+						}
 					}
 					continue;
 				}
@@ -9323,9 +9359,38 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 					gly = (*doc->AllFonts)[it->itemText.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
 					(*doc->AllFonts)[it->itemText.at(e)->cfont]->RealGlyphs.insert(chr, gly);
 				}
+				else
+				{
+					QString tmp, tmp2;
+					missing = true;
+					if (it->OwnPage == -1)
+						tmp = tr("Free Object");
+					else
+						tmp = "on Page " + tmp2.setNum(it->OwnPage+1);
+					missingPlace.insert(it->AnName, tmp);
+				}
 			}
 		}
 	}
+	if (missing)
+	{
+		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		QString mess = tr("Detected some Objects with missing Glyphs:")+"\n\n";
+		QMap<QString,QString>::Iterator it;
+		for (it = missingPlace.begin(); it != missingPlace.end(); ++it)
+		{
+			mess += it.key() + "  "+ it.data() +"\n";
+		}
+		mess += "\n"+ tr("Do you really want to continue?");
+		int t = QMessageBox::warning(this, tr("Warning"), mess, tr("No"), tr("Yes"), 0, 0, 0);
+		if (t == 0)
+			ret = false;
+		else
+			ret = true;
+	}
+	else
+		ret = true;
+	return ret;
 }
 
 void ScribusApp::HaveRaster(bool art)

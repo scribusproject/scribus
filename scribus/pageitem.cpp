@@ -2162,8 +2162,9 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 	else
 	{
 		p->setLineWidth(1);
-		p->setPen(black);
-		p->setFillMode(0);
+		p->setPen(red);
+		p->setBrush(red);
+		p->setFillMode(1);
 		p->drawRect(hl->xco, hl->yco-(hl->Siz / 10.0), (hl->Siz / 10.0)*(hl->scale / 100.0), (hl->Siz / 10.0));
 	}
 }

@@ -126,7 +126,7 @@ public:
 	void RestoreBookMarks();
 	void AdjustBM();
 	void ReorgFonts();
-	void GetUsedFonts(QMap<QString,QFont> *Really);
+	bool GetUsedFonts(QMap<QString,QFont> *Really);
 	void ToggleAllGuides();
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
