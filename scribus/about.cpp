@@ -180,6 +180,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Portugese (Brazilian):").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Ludi Maciel</td><td>iludi@uol.com.br</td></tr>" +
+                                          "<tr><td>Frederico Gon&#231;alves</td><td></td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +			
 	                                      "<tr><td><b>" + tr("Russian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>" +
