@@ -177,10 +177,10 @@ private:
 	/** @brief Undo stacks for all open documents */
 	StackMap stacks;
 
-	/** @brief Maximum length of the undo stack */
+	/** @brief Maximum length of the undo stack. 0 marks for infinite length. */
 	int historyLength;
 
-	/** 
+	/**
 	 * @brief Initializes the UndoGui.
 	 * @param gui UndoGui to be initialized
 	 * @param uid UndoObject's id if in object specific mode or -1 to tell 
@@ -188,11 +188,37 @@ private:
 	 */
 	void setState(UndoGui* gui, int uid = -1);
 
+	/**
+	 * @brief Disconnect all attached UndoGui instances from signals provided by this
+	 * @brief class and other UndoGui objects.
+	 */
 	void connectGuis();
+	/**
+	 * @brief Connect all attached UndoGui instances to signals provided by this
+	 * @brief class and other UndoGui objects.
+	 */
 	void disconnectGuis();
+	/**
+	 * @brief Load icons needed for Action History window.
+	 */
 	void initIcons();
+	/**
+	 * @brief Checks the stack length against historyLength variable and removes
+	 * @brief actions until it is of right length.
+	 *
+	 * This method is used when a user alters the history length option in preferences
+	 * and whenever a new action is added to the stack.
+	 */
 	void checkStackLength();
+	/**
+	 * @brief Extracts actions from TransactionState object and undos them.
+	 * @param tstate TransactionState object from where the actions are going to be extracted.
+	 */
 	void doTransactionUndo(TransactionState *tstate);
+	/**
+	 * @brief Extracts actions from TransactionState object and redos them.
+	 * @param tstate TransactionState object from where the actions are going to be extracted.
+	 */
 	void doTransactionRedo(TransactionState *tstate);
 
 public:
@@ -233,7 +259,9 @@ public:
 	 * to the guis as a single undo action. Transaction can be named when starting it or
 	 * naming can be done when commiting it.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
-	 * @param targetPixmap pixmap for the target on which this transaction works
+	 * @param targetPixmap Icon for the target on which this transaction works.
+	 * this icon will be drawn first when the action is presented in Action History
+	 * window and icon for the action will be drawn over this one.
 	 * @param name name for the transaction (f.e. "Move" would make with the above
 	 * "Move Selection")
 	 * @param description description for the transaction
@@ -260,7 +288,9 @@ public:
 	 * widgets and it will show up there as a single undo action. Details used as a parameter
 	 * will be details shown in the gui widgets.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
-	 * @param targetPixmap pixmap for the target on which this transaction works
+	 * @param targetPixmap Icon for the target on which this transaction works.
+	 * this icon will be drawn first when the action is presented in Action History
+	 * window and icon for the action will be drawn over this one.
 	 * @param name name for the action
 	 * @param description description for the action
 	 * @param actionPixmap icon for the action performed by the transaction

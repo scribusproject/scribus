@@ -365,8 +365,11 @@ void UndoManager::doTransactionUndo(TransactionState *tstate)
 	for (int i = tstate->sizet() - 1; i > -1; --i)
 	{
 		ActionPair *pair = tstate->at(i);
-		if (pair && pair->first && pair->second)
+		TransactionState *ts = dynamic_cast<TransactionState*>(pair->second);
+		if (pair && pair->first && pair->second && !ts)
 			pair->first->restore(pair->second, true);
+		else if (pair && pair->second && ts)
+			doTransactionUndo(ts);
 	}
 }
 
@@ -403,11 +406,14 @@ void UndoManager::doRedo(int steps)
 
 void UndoManager::doTransactionRedo(TransactionState *tstate)
 {
-	ActionPair *pair = NULL;
 	for (uint i = 0; i < tstate->sizet(); ++i)
 	{
-		pair = tstate->at(i);
-		pair->first->restore(pair->second, false);
+		ActionPair *pair = tstate->at(i);
+		TransactionState *ts = dynamic_cast<TransactionState*>(pair->second);
+		if (pair && pair->first && pair->second && !ts)
+			pair->first->restore(pair->second, false);
+		else if (pair && pair->second && ts)
+			doTransactionRedo(ts);
 	}
 }
 
