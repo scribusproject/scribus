@@ -200,5 +200,6 @@ void CMSPrefs::slotCMSon()
 		slotSimula();
 	else
 		gamutC->setEnabled(setter);
+	emit cmsOn(setter);
 }
 

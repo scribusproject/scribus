@@ -86,6 +86,7 @@
 #include "charselect.h"
 #include "checkDocument.h"
 #include "tabcheckdoc.h"
+#include "tabpdfoptions.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -559,6 +560,46 @@ void ScribusApp::initDefaultPrefs()
 	checkerSettings.minResolution = 144.0;
 	Prefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
 	Prefs.curCheckProfile = tr("Postscript");
+	Prefs.PDF_Optionen.Thumbnails = false;
+	Prefs.PDF_Optionen.Articles = false;
+	Prefs.PDF_Optionen.Compress = true;
+	Prefs.PDF_Optionen.CompressMethod = 0;
+	Prefs.PDF_Optionen.Quality = 0;
+	Prefs.PDF_Optionen.RecalcPic = false;
+	Prefs.PDF_Optionen.Bookmarks = false;
+	Prefs.PDF_Optionen.PicRes = 300;
+	Prefs.PDF_Optionen.Version = 14;
+	Prefs.PDF_Optionen.Resolution = 300;
+	Prefs.PDF_Optionen.Binding = 0;
+	Prefs.PDF_Optionen.EmbedList.clear();
+	Prefs.PDF_Optionen.SubsetList.clear();
+	Prefs.PDF_Optionen.MirrorH = false;
+	Prefs.PDF_Optionen.MirrorV = false;
+	Prefs.PDF_Optionen.RotateDeg = 0;
+	Prefs.PDF_Optionen.PresentMode = false;
+	Prefs.PDF_Optionen.Datei = "";
+	Prefs.PDF_Optionen.PresentVals.clear();
+	Prefs.PDF_Optionen.UseRGB = true;
+	Prefs.PDF_Optionen.UseProfiles = false;
+	Prefs.PDF_Optionen.UseProfiles2 = false;
+	Prefs.PDF_Optionen.SolidProf = "";
+	Prefs.PDF_Optionen.SComp = 3;
+	Prefs.PDF_Optionen.ImageProf = "";
+	Prefs.PDF_Optionen.PrintProf = "";
+	Prefs.PDF_Optionen.Info = "";
+	Prefs.PDF_Optionen.Intent = 0;
+	Prefs.PDF_Optionen.Intent2 = 0;
+	Prefs.PDF_Optionen.BleedTop = 0;
+	Prefs.PDF_Optionen.BleedLeft = 0;
+	Prefs.PDF_Optionen.BleedRight = 0;
+	Prefs.PDF_Optionen.BleedBottom = 0;
+	Prefs.PDF_Optionen.EmbeddedI = false;
+	Prefs.PDF_Optionen.Encrypt = false;
+	Prefs.PDF_Optionen.PassOwner = "";
+	Prefs.PDF_Optionen.PassUser = "";
+	Prefs.PDF_Optionen.Permissions = -4;
+	Prefs.PDF_Optionen.UseLPI = false;
+	Prefs.PDF_Optionen.LPISettings.clear();
 }
 
 
@@ -3280,6 +3321,71 @@ bool ScribusApp::SetupDoc()
 				FProg->reset();
 			}
 		}
+		doc->PDF_Optionen.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
+		doc->PDF_Optionen.Compress = dia->tabPDF->Compression->isChecked();
+		doc->PDF_Optionen.CompressMethod = dia->tabPDF->CMethod->currentItem();
+		doc->PDF_Optionen.Quality = dia->tabPDF->CQuality->currentItem();
+		doc->PDF_Optionen.Resolution = dia->tabPDF->Resolution->value();
+		doc->PDF_Optionen.RecalcPic = dia->tabPDF->DSColor->isChecked();
+		doc->PDF_Optionen.PicRes = dia->tabPDF->ValC->value();
+		doc->PDF_Optionen.Bookmarks = dia->tabPDF->CheckBM->isChecked();
+		doc->PDF_Optionen.Binding = dia->tabPDF->ComboBind->currentItem();
+		doc->PDF_Optionen.MirrorH = dia->tabPDF->MirrorH->isOn();
+		doc->PDF_Optionen.MirrorV = dia->tabPDF->MirrorV->isOn();
+		doc->PDF_Optionen.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
+		doc->PDF_Optionen.Articles = dia->tabPDF->Article->isChecked();
+		doc->PDF_Optionen.Encrypt = dia->tabPDF->Encry->isChecked();
+		doc->PDF_Optionen.UseLPI = dia->tabPDF->UseLPI->isChecked();
+		doc->PDF_Optionen.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
+		doc->PDF_Optionen.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
+		doc->PDF_Optionen.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
+		doc->PDF_Optionen.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
+		if (dia->tabPDF->Encry->isChecked())
+		{
+			int Perm = -64;
+			if (dia->tabPDF->ComboBox1->currentItem() == 1)
+				Perm &= ~0x00240000;
+			if (dia->tabPDF->PrintSec->isChecked())
+				Perm += 4;
+			if (dia->tabPDF->ModifySec->isChecked())
+				Perm += 8;
+			if (dia->tabPDF->CopySec->isChecked())
+				Perm += 16;
+			if (dia->tabPDF->AddSec->isChecked())
+				Perm += 32;
+			doc->PDF_Optionen.Permissions = Perm;
+			doc->PDF_Optionen.PassOwner = dia->tabPDF->PassOwner->text();
+			doc->PDF_Optionen.PassUser = dia->tabPDF->PassUser->text();
+		}
+		if (dia->tabPDF->ComboBox1->currentItem() == 0)
+			doc->PDF_Optionen.Version = 13;
+		if (dia->tabPDF->ComboBox1->currentItem() == 1)
+			doc->PDF_Optionen.Version = 14;
+		if (dia->tabPDF->ComboBox1->currentItem() == 2)
+			doc->PDF_Optionen.Version = 12;
+		if (dia->tabPDF->OutCombo->currentItem() == 0)
+		{
+			doc->PDF_Optionen.UseRGB = true;
+			doc->PDF_Optionen.UseProfiles = false;
+			doc->PDF_Optionen.UseProfiles2 = false;
+		}
+		else
+		{
+			doc->PDF_Optionen.UseRGB = false;
+#ifdef HAVE_CMS
+			if (CMSuse)
+			{
+				doc->PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
+				doc->PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
+				doc->PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
+				doc->PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
+				doc->PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
+				doc->PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
+				doc->PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
+				doc->PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
+				}
+#endif
+		}
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -3299,10 +3405,6 @@ bool ScribusApp::SetupDoc()
 //		Sepal->RebuildPage();
 		slotDocCh();
 		ret = true;
-		doc->PDF_Optionen.BleedBottom = doc->PageM.Bottom;
-		doc->PDF_Optionen.BleedTop = doc->PageM.Top;
-		doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
-		doc->PDF_Optionen.BleedRight = doc->PageM.Right;
 	}
 	delete dia;
 	return ret;
@@ -7849,6 +7951,71 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.HyCount = dia->tabHyphenator->maxCount->value();
 		if (CMSavail)
 			dia->tabColorManagement->setValues();
+		Prefs.PDF_Optionen.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
+		Prefs.PDF_Optionen.Compress = dia->tabPDF->Compression->isChecked();
+		Prefs.PDF_Optionen.CompressMethod = dia->tabPDF->CMethod->currentItem();
+		Prefs.PDF_Optionen.Quality = dia->tabPDF->CQuality->currentItem();
+		Prefs.PDF_Optionen.Resolution = dia->tabPDF->Resolution->value();
+		Prefs.PDF_Optionen.RecalcPic = dia->tabPDF->DSColor->isChecked();
+		Prefs.PDF_Optionen.PicRes = dia->tabPDF->ValC->value();
+		Prefs.PDF_Optionen.Bookmarks = dia->tabPDF->CheckBM->isChecked();
+		Prefs.PDF_Optionen.Binding = dia->tabPDF->ComboBind->currentItem();
+		Prefs.PDF_Optionen.MirrorH = dia->tabPDF->MirrorH->isOn();
+		Prefs.PDF_Optionen.MirrorV = dia->tabPDF->MirrorV->isOn();
+		Prefs.PDF_Optionen.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
+		Prefs.PDF_Optionen.Articles = dia->tabPDF->Article->isChecked();
+		Prefs.PDF_Optionen.Encrypt = dia->tabPDF->Encry->isChecked();
+		Prefs.PDF_Optionen.UseLPI = dia->tabPDF->UseLPI->isChecked();
+		Prefs.PDF_Optionen.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
+		Prefs.PDF_Optionen.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
+		Prefs.PDF_Optionen.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
+		Prefs.PDF_Optionen.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
+		if (dia->tabPDF->Encry->isChecked())
+		{
+			int Perm = -64;
+			if (dia->tabPDF->ComboBox1->currentItem() == 1)
+				Perm &= ~0x00240000;
+			if (dia->tabPDF->PrintSec->isChecked())
+				Perm += 4;
+			if (dia->tabPDF->ModifySec->isChecked())
+				Perm += 8;
+			if (dia->tabPDF->CopySec->isChecked())
+				Perm += 16;
+			if (dia->tabPDF->AddSec->isChecked())
+				Perm += 32;
+			Prefs.PDF_Optionen.Permissions = Perm;
+			Prefs.PDF_Optionen.PassOwner = dia->tabPDF->PassOwner->text();
+			Prefs.PDF_Optionen.PassUser = dia->tabPDF->PassUser->text();
+		}
+		if (dia->tabPDF->ComboBox1->currentItem() == 0)
+			Prefs.PDF_Optionen.Version = 13;
+		if (dia->tabPDF->ComboBox1->currentItem() == 1)
+			Prefs.PDF_Optionen.Version = 14;
+		if (dia->tabPDF->ComboBox1->currentItem() == 2)
+			Prefs.PDF_Optionen.Version = 12;
+		if (dia->tabPDF->OutCombo->currentItem() == 0)
+		{
+			Prefs.PDF_Optionen.UseRGB = true;
+			Prefs.PDF_Optionen.UseProfiles = false;
+			Prefs.PDF_Optionen.UseProfiles2 = false;
+		}
+		else
+		{
+			Prefs.PDF_Optionen.UseRGB = false;
+#ifdef HAVE_CMS
+			if (CMSuse)
+			{
+				Prefs.PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
+				Prefs.PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
+				Prefs.PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
+				Prefs.PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
+				Prefs.PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
+				Prefs.PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
+				Prefs.PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
+				Prefs.PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
+				}
+#endif
+		}
 		GetCMSProfiles();
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
@@ -8262,49 +8429,49 @@ void ScribusApp::SaveAsPDF()
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		fn = dia->Datei->text();
 		doc->PDF_Optionen.Datei = fn;
-		doc->PDF_Optionen.Thumbnails = dia->CheckBox1->isChecked();
-		doc->PDF_Optionen.Compress = dia->Compression->isChecked();
-		doc->PDF_Optionen.CompressMethod = dia->CMethod->currentItem();
-		doc->PDF_Optionen.Quality = dia->CQuality->currentItem();
-		doc->PDF_Optionen.Resolution = dia->Resolution->value();
-		doc->PDF_Optionen.EmbedList = dia->FontsToEmbed;
-		doc->PDF_Optionen.SubsetList = dia->FontsToSubset;
-		doc->PDF_Optionen.RecalcPic = dia->DSColor->isChecked();
-		doc->PDF_Optionen.PicRes = dia->ValC->value();
-		doc->PDF_Optionen.Bookmarks = dia->CheckBM->isChecked();
-		doc->PDF_Optionen.Binding = dia->ComboBind->currentItem();
-		doc->PDF_Optionen.MirrorH = dia->MirrorH->isOn();
-		doc->PDF_Optionen.MirrorV = dia->MirrorV->isOn();
-		doc->PDF_Optionen.RotateDeg = dia->RotateDeg->currentItem() * 90;
-		doc->PDF_Optionen.PresentMode = dia->CheckBox10->isChecked();
+		doc->PDF_Optionen.Thumbnails = dia->Options->CheckBox1->isChecked();
+		doc->PDF_Optionen.Compress = dia->Options->Compression->isChecked();
+		doc->PDF_Optionen.CompressMethod = dia->Options->CMethod->currentItem();
+		doc->PDF_Optionen.Quality = dia->Options->CQuality->currentItem();
+		doc->PDF_Optionen.Resolution = dia->Options->Resolution->value();
+		doc->PDF_Optionen.EmbedList = dia->Options->FontsToEmbed;
+		doc->PDF_Optionen.SubsetList = dia->Options->FontsToSubset;
+		doc->PDF_Optionen.RecalcPic = dia->Options->DSColor->isChecked();
+		doc->PDF_Optionen.PicRes = dia->Options->ValC->value();
+		doc->PDF_Optionen.Bookmarks = dia->Options->CheckBM->isChecked();
+		doc->PDF_Optionen.Binding = dia->Options->ComboBind->currentItem();
+		doc->PDF_Optionen.MirrorH = dia->Options->MirrorH->isOn();
+		doc->PDF_Optionen.MirrorV = dia->Options->MirrorV->isOn();
+		doc->PDF_Optionen.RotateDeg = dia->Options->RotateDeg->currentItem() * 90;
+		doc->PDF_Optionen.PresentMode = dia->Options->CheckBox10->isChecked();
 		doc->PDF_Optionen.PresentVals = dia->EffVal;
-		doc->PDF_Optionen.Articles = dia->Article->isChecked();
-		doc->PDF_Optionen.Encrypt = dia->Encry->isChecked();
-		doc->PDF_Optionen.UseLPI = dia->UseLPI->isChecked();
-		if (dia->Encry->isChecked())
+		doc->PDF_Optionen.Articles = dia->Options->Article->isChecked();
+		doc->PDF_Optionen.Encrypt = dia->Options->Encry->isChecked();
+		doc->PDF_Optionen.UseLPI = dia->Options->UseLPI->isChecked();
+		if (dia->Options->Encry->isChecked())
 		{
 			int Perm = -64;
-			if (dia->ComboBox1->currentItem() == 1)
+			if (dia->Options->ComboBox1->currentItem() == 1)
 				Perm &= ~0x00240000;
-			if (dia->PrintSec->isChecked())
+			if (dia->Options->PrintSec->isChecked())
 				Perm += 4;
-			if (dia->ModifySec->isChecked())
+			if (dia->Options->ModifySec->isChecked())
 				Perm += 8;
-			if (dia->CopySec->isChecked())
+			if (dia->Options->CopySec->isChecked())
 				Perm += 16;
-			if (dia->AddSec->isChecked())
+			if (dia->Options->AddSec->isChecked())
 				Perm += 32;
 			doc->PDF_Optionen.Permissions = Perm;
-			doc->PDF_Optionen.PassOwner = dia->PassOwner->text();
-			doc->PDF_Optionen.PassUser = dia->PassUser->text();
+			doc->PDF_Optionen.PassOwner = dia->Options->PassOwner->text();
+			doc->PDF_Optionen.PassUser = dia->Options->PassUser->text();
 		}
-		if (dia->ComboBox1->currentItem() == 0)
+		if (dia->Options->ComboBox1->currentItem() == 0)
 			doc->PDF_Optionen.Version = 13;
-		if (dia->ComboBox1->currentItem() == 1)
+		if (dia->Options->ComboBox1->currentItem() == 1)
 			doc->PDF_Optionen.Version = 14;
-		if (dia->ComboBox1->currentItem() == 2)
+		if (dia->Options->ComboBox1->currentItem() == 2)
 			doc->PDF_Optionen.Version = 12;
-		if (dia->OutCombo->currentItem() == 0)
+		if (dia->Options->OutCombo->currentItem() == 0)
 		{
 			doc->PDF_Optionen.UseRGB = true;
 			doc->PDF_Optionen.UseProfiles = false;
@@ -8316,14 +8483,14 @@ void ScribusApp::SaveAsPDF()
 #ifdef HAVE_CMS
 			if (CMSuse)
 			{
-				doc->PDF_Optionen.UseProfiles = dia->EmbedProfs->isChecked();
-				doc->PDF_Optionen.UseProfiles2 = dia->EmbedProfs2->isChecked();
-				doc->PDF_Optionen.Intent = dia->IntendS->currentItem();
-				doc->PDF_Optionen.Intent2 = dia->IntendI->currentItem();
-				doc->PDF_Optionen.EmbeddedI = dia->NoEmbedded->isChecked();
-				doc->PDF_Optionen.SolidProf = dia->SolidPr->currentText();
-				doc->PDF_Optionen.ImageProf = dia->ImageP->currentText();
-				doc->PDF_Optionen.PrintProf = dia->PrintProfC->currentText();
+				doc->PDF_Optionen.UseProfiles = dia->Options->EmbedProfs->isChecked();
+				doc->PDF_Optionen.UseProfiles2 = dia->Options->EmbedProfs2->isChecked();
+				doc->PDF_Optionen.Intent = dia->Options->IntendS->currentItem();
+				doc->PDF_Optionen.Intent2 = dia->Options->IntendI->currentItem();
+				doc->PDF_Optionen.EmbeddedI = dia->Options->NoEmbedded->isChecked();
+				doc->PDF_Optionen.SolidProf = dia->Options->SolidPr->currentText();
+				doc->PDF_Optionen.ImageProf = dia->Options->ImageP->currentText();
+				doc->PDF_Optionen.PrintProf = dia->Options->PrintProfC->currentText();
 				if (doc->PDF_Optionen.Version == 12)
 				{
 					const char *Descriptor;
@@ -8338,11 +8505,11 @@ void ScribusApp::SaveAsPDF()
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
 						Components = 3;
 					cmsCloseProfile(hIn);
-					doc->PDF_Optionen.Info = dia->InfoString->text();
-					doc->PDF_Optionen.BleedTop = dia->BleedTop->value()/UmReFaktor;
-					doc->PDF_Optionen.BleedLeft = dia->BleedLeft->value()/UmReFaktor;
-					doc->PDF_Optionen.BleedRight = dia->BleedRight->value()/UmReFaktor;
-					doc->PDF_Optionen.BleedBottom = dia->BleedBottom->value()/UmReFaktor;
+					doc->PDF_Optionen.Info = dia->Options->InfoString->text();
+					doc->PDF_Optionen.BleedTop = dia->Options->BleedTop->value()/UmReFaktor;
+					doc->PDF_Optionen.BleedLeft = dia->Options->BleedLeft->value()/UmReFaktor;
+					doc->PDF_Optionen.BleedRight = dia->Options->BleedRight->value()/UmReFaktor;
+					doc->PDF_Optionen.BleedBottom = dia->Options->BleedBottom->value()/UmReFaktor;
 					doc->PDF_Optionen.Encrypt = false;
 					doc->PDF_Optionen.MirrorH = false;
 					doc->PDF_Optionen.MirrorV = false;
@@ -8362,10 +8529,10 @@ void ScribusApp::SaveAsPDF()
 #endif
 
 		}
-		if (dia->AllPages->isChecked())
+		if (dia->Options->AllPages->isChecked())
 			parsePagesString("*", &pageNs, doc->PageC);
 		else
-			parsePagesString(dia->PageNr->text(), &pageNs, doc->PageC);
+			parsePagesString(dia->Options->PageNr->text(), &pageNs, doc->PageC);
 		QMap<int,QPixmap> thumbs;
 		for (uint ap = 0; ap < pageNs.size(); ++ap)
 		{

@@ -32,6 +32,7 @@ class KeyManager;
 class TabGuides;
 class TabTools;
 class TabCheckDoc;
+class TabPDFOptions;
 
 #include "langmgr.h"
 
@@ -103,6 +104,7 @@ public:
 	HySettings* tabHyphenator;
 	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
+	TabPDFOptions* tabPDF;
 	KeyManager* tabKeys;
 
 	QLabel* textLabelP;
@@ -192,6 +194,7 @@ public slots:
 	void changePapColor();
 	void unitChange();
 	void setDisScale();
+	void switchCMS(bool enable);
 
 protected:
 	QGridLayout* tabLayout;

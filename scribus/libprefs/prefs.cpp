@@ -13,6 +13,7 @@
 #include <qrect.h>
 #include <qwmatrix.h>
 #include <cmath>
+#include "units.h"
 #include "langmgr.h"
 #include "tabtypography.h"
 #include "tabguides.h"
@@ -22,6 +23,7 @@
 #include "tabtools.h"
 #include "undomanager.h"
 #include "tabcheckdoc.h"
+#include "tabpdfoptions.h"
 
 using namespace std;
 
@@ -375,6 +377,20 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
+	QMap<QString,QFont> DocFonts;
+	DocFonts.clear();
+	tabPDF = new TabPDFOptions( prefsWidgets,
+																&prefsData->PDF_Optionen,
+																ap->Prefs.AvailFonts,
+																&ap->PDFXProfiles,
+																DocFonts,
+																prefsData->PDF_Optionen.PresentVals,
+																Umrech,
+																unitGetSuffixFromIndex(prefsData->docUnitIndex),
+																prefsData->PageHoehe,
+																prefsData->PageBreite,
+																0 );
+	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	tabKeys = new KeyManager(this, prefsData->KeyActions);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
@@ -686,6 +702,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeTemplates()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
+	if (CMSavail)
+		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 	setSize(prefsData->PageFormat);
 	setOrien(prefsData->Ausrichtung);
 	pageWidth->setValue(prefsData->PageBreite * Umrech);
@@ -1039,6 +1057,10 @@ void Preferences::unitChange()
 	bottomScratch->setSuffix(einh);
 	leftScratch->setSuffix(einh);
 	rightScratch->setSuffix(einh);
+	tabPDF->BleedBottom->setSuffix(einh);
+	tabPDF->BleedTop->setSuffix(einh);
+	tabPDF->BleedRight->setSuffix(einh);
+	tabPDF->BleedLeft->setSuffix(einh);
 	pageWidth->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
 	pageHeight->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
 	TopR->setValues(0, pageHeight->value() - RandB * Umrech, decimals, RandT * Umrech);
@@ -1067,6 +1089,15 @@ void Preferences::unitChange()
 	leftScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	rightScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedTop->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->BleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->unitConv = Umrech;
 	drawRuler();
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -1179,5 +1210,10 @@ void Preferences::setSelectedGUILang( const QString &newLang )
 void Preferences::setActionHistoryLength()
 {
   UndoManager::instance()->setHistoryLength(urSpinBox->value());
+}
+
+void Preferences::switchCMS(bool enable)
+{
+	tabPDF->enableCMS(enable);
 }
 

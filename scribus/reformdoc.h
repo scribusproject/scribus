@@ -26,6 +26,7 @@ class MSpinBox;
 class TabGuides;
 class TabTools;
 class TabCheckDoc;
+class TabPDFOptions;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -79,6 +80,7 @@ public:
 	HySettings* tabHyphenator;
 	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
+	TabPDFOptions* tabPDF;
 	QLabel* textLabel9;
 	QPushButton* backColor;
 	QButtonGroup* pageBackground;
@@ -123,6 +125,7 @@ protected slots:
 	virtual void setBottom(int v);
 	virtual void setLeft(int v);
 	virtual void setRight(int v);
+	virtual void switchCMS(bool enable);
 };
 
 #endif // REFORMDOC_H

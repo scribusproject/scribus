@@ -12,6 +12,7 @@
 #include "units.h"
 #include "mspinbox.h"
 #include "scribus.h"
+#include "tabpdfoptions.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
@@ -316,6 +317,19 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
+	
+	tabPDF = new TabPDFOptions( prefsWidgets,
+																&doc->PDF_Optionen,
+																ap->Prefs.AvailFonts,
+																&ap->PDFXProfiles,
+																doc->UsedFonts,
+																doc->PDF_Optionen.PresentVals,
+																UmReFaktor,
+																ein,
+																doc->PageH,
+																doc->PageB,
+																0 );
+	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	int cmsTab = 0;
 	if (CMSavail)
@@ -351,7 +365,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 
 	if (CMSavail)
+	{
 		prefsWidgets->raiseWidget(cmsTab);
+		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
+	}
 	arrangeIcons();
 	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
@@ -409,6 +426,10 @@ void ReformDoc::unitChange()
 	bottomScratch->setSuffix(einh);
 	leftScratch->setSuffix(einh);
 	rightScratch->setSuffix(einh);
+	tabPDF->BleedBottom->setSuffix(einh);
+	tabPDF->BleedTop->setSuffix(einh);
+	tabPDF->BleedRight->setSuffix(einh);
+	tabPDF->BleedLeft->setSuffix(einh);
 
 	double invUnitConversion = 1.0 / AltUmrech * Umrech;
 
@@ -444,7 +465,15 @@ void ReformDoc::unitChange()
 	leftScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	rightScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-
+	tabPDF->BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedTop->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->BleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabPDF->unitConv = Umrech;
 	pageWidth = docc->PageB * Umrech;
 	pageHeight = docc->PageH * Umrech;
 	rightR->setMaxValue(pageWidth - leftR->value());
@@ -504,4 +533,9 @@ void ReformDoc::setDS()
 		Rechts->setText( tr( "&Right:" ) );
 		firstPage->setEnabled(false);
 	}
+}
+
+void ReformDoc::switchCMS(bool enable)
+{
+	tabPDF->enableCMS(enable);
 }

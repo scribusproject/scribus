@@ -452,6 +452,7 @@ struct ApplicationPrefs
 	windowPrefs pagePalSettings;
 	windowPrefs bookmPalSettings;
 	windowPrefs checkPalSettings;
+	PDFOptions PDF_Optionen;
 	bool SepalT;
 	bool SepalN;
 	int PSize;
