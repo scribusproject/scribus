@@ -18,39 +18,38 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTMEASURE_H
-#define GTMEASURE_H
+#ifndef SXWIM_H
+#define SXWIM_H
 
 #include <qstring.h>
+#include <scribus.h>
+#include <gtwriter.h>
+#include "config.h"
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
-};
+extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
-class gtMeasure
+extern "C" QString FileFormatName();
+
+extern "C" QStringList FileExtensions();
+
+#ifdef HAVE_XML
+
+const QString STYLE   = "styles.xml";
+const QString CONTENT = "content.xml";
+
+class SxwIm
 {
 private:
-	gtMeasure();
-	static double ratio;
-	static void   init(Unit u);
-	static double convert(double value);
-	static double convert(int value);
-	static double convert2(double value);
-	static double convert2(int value);
-	static double parse(QString value);
+	gtWriter* writer;
+	QString filename;
+	QString stylePath;
+	QString contentPath;
+	bool decompress();
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(QString value, Unit to = PT);
+	SxwIm(QString fileName, gtWriter* w, bool textOnly);
+	~SxwIm();
 };
 
-#endif // GTMEASURE_H
+#endif // HAVE_XML
+
+#endif // SXWIM_H

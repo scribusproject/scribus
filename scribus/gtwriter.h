@@ -42,10 +42,15 @@ public:
 	void unsetFrameStyle();
 	void unsetParagraphStyle();
 	void unsetCharacterStyle();
-	void append(QString text); // Use the styles set beforehand
-	void append(QString text, gtStyle *style); // Use the style provided as a parameter
+	double getPreferredLineSpacing(int fontSize);
+	double getPreferredLineSpacing(double fontSize);
+	void append(const QString& text); // Use the styles set beforehand
+	void append(const QString& text, gtStyle *style); // Use the style provided as a parameter
+	void append(const QString& text, gtStyle *style, bool updatePStyle);
 	double getFrameWidth();
 	QString getFrameName();
+	bool getUpdateParagraphStyles();
+	void setUpdateParagraphStyles(bool newUPS);
 private:
 	gtAction *action;
 	gtFrameStyle* defaultStyle;

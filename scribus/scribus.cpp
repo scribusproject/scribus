@@ -3799,122 +3799,160 @@ bool ScribusApp::DoFileClose()
 
 void ScribusApp::slotFilePrint()
 {
-	QString fna, prn, cmd, scmd, cc, data, SepNam;
-	int Nr;
-	bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC, DoGCR;
-	PSfile = false;
+	//QString fna, prn, cmd, scmd, cc, data, SepNam;
+	//int Nr;
+	//bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC, DoGCR;
+	//PSfile = false;
+	PrintOptions options;
 	FMess->setText( tr("Printing..."));
 	if (PrinterUsed)
 	{
-		prn = PDef.Pname;
-		fna = PDef.Dname;
+		options.printer = PDef.Pname;
+		options.filename = PDef.Dname;
 	}
 	else
 	{
-		prn = "";
+		options.printer = "";
 		if (!doc->DocName.startsWith( tr("Document")))
 		{
 			QFileInfo fi(doc->DocName);
-			fna = fi.dirPath()+"/"+fi.baseName()+".ps";
+			options.filename = fi.dirPath()+"/"+fi.baseName()+".ps";
 		}
 		else
 		{
 			QDir di = QDir();
-			fna = di.currentDirPath()+"/"+doc->DocName+".ps";
+			options.filename = di.currentDirPath()+"/"+doc->DocName+".ps";
 		}
 	}
-	scmd = PDef.Command;
-	Druck *printer = new Druck(this, fna, prn, scmd, Prefs.GCRMode);
+	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, Prefs.GCRMode);
 	printer->setMinMax(1, view->Pages.count(), doc->ActPage->PageNr+1);
 	if (printer->exec())
 	{
-		std::vector<int> pageNs;
 		ReOrderText(doc, view);
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		prn = printer->printerName();
-		fna = printer->outputFileName();
-		fil = printer->outputToFile();
+		options.printer = printer->printerName();
+		options.filename = printer->outputFileName();
+		options.toFile = printer->outputToFile();
 		if (printer->CurrentPage->isChecked())
-			pageNs.push_back(doc->ActPage->PageNr+1);
+			options.pageNumbers.push_back(doc->ActPage->PageNr+1);
 		else
 		{
 			if (printer->RadioButton1->isChecked())
-				parsePagesString("*", &pageNs, doc->PageC);
+				parsePagesString("*", &options.pageNumbers, doc->PageC);
 			else
-				parsePagesString(printer->PageNr->text(), &pageNs, doc->PageC);
+				parsePagesString(printer->PageNr->text(), &options.pageNumbers, doc->PageC);
 		}
-		Nr = printer->numCopies();
-		sep = printer->outputSeparations();
-		SepNam = printer->separationName();
-		farbe = printer->color();
-		mirrorH = printer->MirrorH;
-		mirrorV = printer->MirrorV;
-		useICC = printer->ICCinUse;
-		DoGCR = printer->DoGCR;
-		PDef.Pname = prn;
-		PDef.Dname = fna;
+		options.copies = printer->numCopies();
+		options.outputSeparations = printer->outputSeparations();
+		options.separationName = printer->separationName();
+		options.useColor = printer->color();
+		options.mirrorH = printer->MirrorH;
+		options.mirrorV = printer->MirrorV;
+		options.useICC = printer->ICCinUse;
+		options.doGCR = printer->DoGCR;
+		options.PSLevel = printer->PSLevel;
+		PDef.Pname = options.printer;
+		PDef.Dname = options.filename;
 		if (printer->OtherCom->isChecked())
-			PDef.Command = printer->Command->text();
-		PrinterUsed = true;
-		QMap<QString,QFont> ReallyUsed;
-		ReallyUsed.clear();
-		GetUsedFonts(&ReallyUsed);
-		PSLib *dd = getPSDriver(true, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
-		if (dd != NULL)
 		{
-			if (fil)
-				PSfile = dd->PS_set_file(fna);
-			else
-			{
-				PSfile = dd->PS_set_file(PrefsPfad+"/tmp.ps");
-				fna = PrefsPfad+"/tmp.ps";
-			}
-			if (PSfile)
-			{
-				view->CreatePS(dd, pageNs, sep, SepNam, farbe, mirrorH, mirrorV, useICC, DoGCR);
-				if (printer->PSLevel != 3)
-				{
-					QString tmp;
-					QString opts = "-dDEVICEWIDTHPOINTS=";
-					opts += tmp.setNum(doc->PageB);
-					opts += " -dDEVICEHEIGHTPOINTS=";
-					opts += tmp.setNum(doc->PageH);
-					if (printer->PSLevel == 1)
-						system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
-					else
-						system("ps2ps "+opts+" \""+fna+"\" \""+fna+".tmp\"");
-					system("mv \""+fna+".tmp\" \""+fna+"\"");
-				}
-				if (!fil)
-				{
-					if (printer->OtherCom->isChecked())
-					{
-						cmd = printer->Command->text()+ " "+fna;
-						system(cmd);
-					}
-					else
-					{
-						cmd = "lpr -P" + prn;
-						if (Nr > 1)
-							cmd += " -#" + cc.setNum(Nr);
-#ifdef HAVE_CUPS
-						cmd += printer->PrinterOpts;
-#endif
-						cmd += " "+fna;
-						system(cmd);
-					}
-					unlink(fna);
-				}
-			}
-			else
-				QMessageBox::warning(this, tr("Warning"), tr("Printing failed!"), tr("OK"));
-			delete dd;
-			closePSDriver();
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			PDef.Command = printer->Command->text();
+			options.printerCommand = printer->Command->text();
+			options.useAltPrintCommand = true;
 		}
+		else
+		{
+			options.useAltPrintCommand = false;
+		}
+#ifdef HAVE_CUPS
+		options.printerOptions = printer->PrinterOpts;
+#endif
+#ifndef HAVE_CUPS
+		options.printerOptions = QString("");
+#endif
+		PrinterUsed = true;
+		if (!doPrint(&options))
+			QMessageBox::warning(this, tr("Warning"), tr("Printing failed!"), tr("OK"));
+		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete printer;
 	FMess->setText( tr("Ready"));
+}
+
+/*!
+ \fn ScribusApp::doPrint()
+ \author Franz Schmid
+ \date
+ \brief Generate and print PostScript from a doc
+ \param options PrintOptions struct to control all settings
+ \sa ScribusApp::slotFilePrint()
+ \retval True for success
+ */
+bool ScribusApp::doPrint(PrintOptions *options)
+{
+	bool retw = false;
+	QMap<QString,QFont> ReallyUsed;
+	QString filename = options->filename;
+	ReallyUsed.clear();
+	GetUsedFonts(&ReallyUsed);
+	PSLib *dd = getPSDriver(true, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
+	if (dd != NULL)
+	{
+		bool PSfile = false;
+		if (options->toFile)
+			PSfile = dd->PS_set_file(filename);
+		else
+		{
+			PSfile = dd->PS_set_file(PrefsPfad+"/tmp.ps");
+			filename = PrefsPfad+"/tmp.ps";
+		}
+		if (PSfile)
+		{
+			// Write the PS to a file
+			view->CreatePS(dd, options->pageNumbers, options->outputSeparations, options->separationName,
+			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR);
+			if (options->PSLevel != 3)
+			{
+				// use gs to convert our PS to a lower version
+				QString tmp;
+				QString opts = "-dDEVICEWIDTHPOINTS=";
+				opts += tmp.setNum(doc->PageB);
+				opts += " -dDEVICEHEIGHTPOINTS=";
+				opts += tmp.setNum(doc->PageH);
+				if (options->PSLevel == 1)
+					system("ps2ps -dLanguageLevel=1 "+opts+" \""+filename+"\" \""+filename+".tmp\"");
+				else
+					system("ps2ps "+opts+" \""+filename+"\" \""+filename+".tmp\"");
+				system("mv \""+filename+".tmp\" \""+filename+"\"");
+			}
+			if (!options->toFile)
+			{
+				// print and delete the PS file
+				QString cmd;
+				if (options->useAltPrintCommand)
+				{
+					cmd = options->printerCommand + " "+filename;
+					system(cmd);
+				}
+				else
+				{
+					QString cc;
+					cmd = "lpr -P" + options->printer;
+					if (options->copies > 1)
+						cmd += " -#" + cc.setNum(options->copies);
+					cmd += options->printerOptions;
+					cmd += " "+filename;
+					system(cmd);
+				}
+				unlink(filename);
+			}
+			retw = true;
+		}
+		else
+			retw = false;
+		delete dd;
+		closePSDriver();
+	}
+	return retw;
 }
 
 void ScribusApp::slotFileQuit()

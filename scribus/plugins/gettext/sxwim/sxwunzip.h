@@ -18,39 +18,26 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTMEASURE_H
-#define GTMEASURE_H
+#ifndef SXWUNZIP_H
+#define SXWUNZIP_H
 
+#include "config.h"
+
+#ifdef HAVE_XML
+
+#include <zlib.h>
 #include <qstring.h>
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
-};
-
-class gtMeasure
+class SxwUnzip
 {
 private:
-	gtMeasure();
-	static double ratio;
-	static void   init(Unit u);
-	static double convert(double value);
-	static double convert(int value);
-	static double convert2(double value);
-	static double convert2(int value);
-	static double parse(QString value);
+	QString zipFile;
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(QString value, Unit to = PT);
+	SxwUnzip(QString zipFilePath);
+	~SxwUnzip();
+	QString getFile(QString name);
 };
 
-#endif // GTMEASURE_H
+#endif // HAVE_XML
+
+#endif

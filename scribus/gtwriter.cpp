@@ -42,6 +42,7 @@ gtFrameStyle* gtWriter::getDefaultStyle()
 void gtWriter::setFrameStyle(gtFrameStyle *fStyle)
 {
 	frameStyle = fStyle;
+	action->applyFrameStyle(fStyle);
 }
 
 void gtWriter::setParagraphStyle(gtParagraphStyle *pStyle)
@@ -70,7 +71,17 @@ void gtWriter::unsetCharacterStyle()
 	characterStyle = NULL;
 }
 
-void gtWriter::append(QString text)
+double gtWriter::getPreferredLineSpacing(int fontSize)
+{
+	return action->getLineSpacing(fontSize);
+}
+
+double gtWriter::getPreferredLineSpacing(double fontSize)
+{
+	return getPreferredLineSpacing(static_cast<int>(fontSize * 10));
+}
+
+void gtWriter::append(const QString& text)
 {
 	if (text == NULL)
 		return;
@@ -100,7 +111,7 @@ QString gtWriter::getFrameName()
 	return action->getFrameName();
 }
 
-void gtWriter::append(QString text, gtStyle *style)
+void gtWriter::append(const QString& text, gtStyle *style)
 {
 	if (style == NULL)
 	{
@@ -113,12 +124,30 @@ void gtWriter::append(QString text, gtStyle *style)
 	currentStyle = NULL;
 }
 
+void gtWriter::append(const QString& text, gtStyle *style, bool updatePStyle)
+{
+	bool ups = action->getUpdateParagraphStyles();
+	action->setUpdateParagraphStyles(updatePStyle);
+	append(text, style);
+	action->setUpdateParagraphStyles(ups);
+}
+
 void gtWriter::setDefaultStyle()
 {
 	// @todo Get the style of the text frame we are appending to.
 	defaultStyle = new gtFrameStyle("Default style");
 	action->getFrameStyle(defaultStyle);
 	frameStyle = defaultStyle;
+}
+
+bool gtWriter::getUpdateParagraphStyles()
+{
+	return action->getUpdateParagraphStyles();
+}
+
+void gtWriter::setUpdateParagraphStyles(bool newUPS)
+{
+	action->setUpdateParagraphStyles(newUPS);
 }
 
 gtWriter::~gtWriter()

@@ -23,7 +23,7 @@ public:
 	bool IsScribus(QString fileName);
 	QString ReadDatei(QString fileName);
 	void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
-	void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item);
+	void SetItemProps(QDomElement *ob, PageItem* item);
 	QString GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo);
 	QString AskForFont(SCFonts &avail, QString fStr, preV *Prefs, ScribusDoc *doc);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
@@ -41,7 +41,7 @@ public:
 	bool WriteDoc(QString fileName, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePref(preV *Vor, QString ho);
 	bool ReadPref(struct preV *Vorein, QString ho);
-	QColor ScriXmlDoc::SetFarbe(ScribusDoc *doc, QString farbe, int shad);
+	QColor SetFarbe(ScribusDoc *doc, QString farbe, int shad);
 	CListe Farben;
 	QValueList<StVorL> Vorlagen;
 	struct Linked { 

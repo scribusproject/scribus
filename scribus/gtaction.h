@@ -32,19 +32,25 @@
 #include "gtparagraphstyle.h"
 #include "gtstyle.h"
 
+typedef QMap<QString, QString> FontFamilyMap;
+
 class gtAction
 {
 private:
 	PageItem *textFrame;
 	PageItem *it;
 	int lastParagraphStyle;
+	bool inPara;
 	bool lastCharWasLineChange;
+	bool updateParagraphStyles;
 	QString currentFrameStyle;
+	FontFamilyMap families;
+	int findParagraphStyle(const QString& name);
 	int findParagraphStyle(gtParagraphStyle* pstyle);
 	int applyParagraphStyle(gtParagraphStyle* pstyle);
-	void applyFrameStyle(gtFrameStyle* fstyle);
 	QString validateFont(gtFont* font);
 	QString findFontName(gtFont* font);
+	void updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
 	void finalize();
 public:
 	gtAction(bool append);
@@ -53,13 +59,20 @@ public:
 	void setProgressInfo();
 	void setProgressInfoDone();
 	void setInfo(QString infoText);
+	double getLineSpacing(int fontSize);
 	void clearFrame();
 	void getFrameFont(gtFont *font);
 	void getFrameStyle(gtFrameStyle *fstyle);
-	void write(QString text, gtStyle *style);
+	void write(const QString& text, gtStyle *style);
+	void applyFrameStyle(gtFrameStyle* fstyle);
 	void createParagraphStyle(gtParagraphStyle* pstyle);
+	void updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle);
+	void removeParagraphStyle(const QString& name);
+	void removeParagraphStyle(int index);
 	double getFrameWidth();
 	QString getFrameName();
+	bool getUpdateParagraphStyles();
+	void setUpdateParagraphStyles(bool newUPS);
 };
 
 #endif

@@ -18,39 +18,65 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTMEASURE_H
-#define GTMEASURE_H
+#ifndef CONTENTREADER_H
+#define CONTENTREADER_H
 
-#include <qstring.h>
+#include "config.h"
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
-};
+#ifdef HAVE_XML
 
-class gtMeasure
+#include <utility>
+#include <vector>
+#include <libxml/SAX2.h>
+#include <qxml.h>
+#include <qmap.h>
+#include <gtstyle.h>
+#include <gtwriter.h>
+#include "stylereader.h"
+
+typedef std::vector<std::pair<QString, QString> > Properties;
+typedef QMap<QString, Properties > TMap;
+
+class ContentReader
 {
 private:
-	gtMeasure();
-	static double ratio;
-	static void   init(Unit u);
-	static double convert(double value);
-	static double convert(int value);
-	static double convert2(double value);
-	static double convert2(int value);
-	static double parse(QString value);
+	static ContentReader *creader;
+	TMap tmap;
+	QString docname;
+	StyleReader* sreader;
+	gtWriter *writer;
+	gtStyle *defaultStyle;
+	gtStyle *currentStyle;
+	gtStyle *lastStyle;
+	gtStyle *pstyle;
+	bool importTextOnly;
+	bool append;
+	bool inList;
+	bool isOrdered;
+	bool inSpan;
+	int listLevel;
+	int listIndex;
+	std::vector<int> listIndex2;
+	std::vector<bool> isOrdered2;
+	bool inT;
+	std::vector<QString> styleNames;
+	QString tName;
+	QString currentList;
+	void write(const QString& text);
+	QString getName();
+	void getStyle();
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(QString value, Unit to = PT);
+	ContentReader(QString documentName, StyleReader* s, gtWriter *w, bool textOnly);
+	~ContentReader();
+	static void startElement(void *user_data, const xmlChar *fullname, const xmlChar ** atts);
+	static void endElement(void *user_data, const xmlChar *name);
+	static void characters(void *user_data, const xmlChar *ch, int len);
+	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
+	bool endElement(const QString&, const QString&, const QString &name);
+	bool characters(const QString &ch);
+	void parse(QString fileName);
 };
 
-#endif // GTMEASURE_H
+#endif // HAVE_XML
+
+#endif

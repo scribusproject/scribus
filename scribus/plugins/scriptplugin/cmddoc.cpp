@@ -9,26 +9,26 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	int unit, ds, fsl, fNr, ori;
 	PyObject *p, *m;
 	if ((!PyArg_ParseTuple(args, "OOiiiii", &p, &m, &ori, &fNr, &unit, &ds, &fsl)) ||
-		  (!PyArg_ParseTuple(p, "dd", &b, &h)) ||
-			(!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr)))
+	        (!PyArg_ParseTuple(p, "dd", &b, &h)) ||
+	        (!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr)))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("NewDoc(size, margins, orientation, firstPageNumber, unit, FacingPages, FirstSideLeft)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("NewDoc(size,margins,orientation,firstPageNumber,unit,FacingPages,FirstSideLeft)"));
 		return NULL;
 	}
 	b = ValToPts(b, unit);
 	h = ValToPts(h, unit);
 	if (ori == 1)
-		{
+	{
 		ebr = b;
 		b = h;
 		h = ebr;
-		}
+	}
 	tpr = ValToPts(tpr, unit);
 	lr = ValToPts(lr, unit);
 	rr = ValToPts(rr, unit);
 	btr = ValToPts(btr, unit);
 	bool ret = Carrier->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr);
-//	qApp->processEvents();
+	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -37,7 +37,7 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args)
 	double lr, tpr, btr, rr;
 	if (!PyArg_ParseTuple(args, "dddd", &lr, &rr, &tpr, &btr))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetMargins(lr, rr, tr, br)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetMargins(lr,rr,tr,br)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -89,7 +89,7 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 		return NULL;
 	}
 	bool ret = Carrier->LadeDoc(QString(Name));
-//	qApp->processEvents();
+	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -103,7 +103,7 @@ PyObject *scribus_savedoc(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	Carrier->slotFileSave();
-//	qApp->processEvents();
+	//	qApp->processEvents();
 	return PyInt_FromLong(0L);
 }
 
@@ -118,7 +118,7 @@ PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	bool ret = Carrier->DoFileSave(QString(Name));
-//	qApp->processEvents();
+	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -129,7 +129,7 @@ PyObject *scribus_setinfo(PyObject *self, PyObject* args)
 	char *Desc;
 	if (!PyArg_ParseTuple(args, "zzz", &Author, &Title, &Desc))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetInfo(Author, Info, Description)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetInfo(Author,Info,Description)"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
@@ -169,3 +169,38 @@ PyObject *scribus_getunit(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->Einheit));
 }
 
+PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args)
+{
+	char *fileName;
+	if (!PyArg_ParseTuple(args, "s", &fileName))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("LoadStylesFromFile(filename)"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	if (!Carrier->HaveDoc)
+		return Py_None;
+	Carrier->doc->loadStylesFromFile(QString(fileName));
+	return Py_None;
+}
+
+PyObject *scribus_setdoctype(PyObject *self, PyObject* args)
+{
+	int fp, fsl;
+	if (!PyArg_ParseTuple(args, "ii", &fp, &fsl))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetDocType(FacingPages, FirstPageLeft)"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	if (!Carrier->HaveDoc)
+		return Py_None;
+	if (Carrier->doc->PageFP = fp)
+		Carrier->doc->FirstPageLeft = fsl;
+	Carrier->view->reformPages();
+	Carrier->view->GotoPage(Carrier->doc->ActPage->PageNr); // is this needed?
+	Carrier->view->DrawNew();   // is this needed?
+	Carrier->Sepal->RebuildPage(); // is this needed?
+	Carrier->slotDocCh();
+	return Py_None;
+}

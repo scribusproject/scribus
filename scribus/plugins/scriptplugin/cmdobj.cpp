@@ -530,3 +530,91 @@ PyObject *scribus_objectexists(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(true));
 }
 
+/*
+ * Craig Ringer, 2004-09-09
+ * Apply the named style to the currently selected object.
+ * pv, 2004-09-13, optionaly param objectName + "check the page" stuff
+ * FIXME: should handled explicitly passed object name too.
+ */
+PyObject *scribus_setstyle(PyObject *self, PyObject* args)
+{
+	char *Style = "";
+	char *name = "";
+	if (!PyArg_ParseTuple(args, "s|s", &Style, &name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetStyle(style, [objectName])"));
+		return NULL;
+	}
+	if (!Carrier->HaveDoc)
+	{
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+	PageItem *item = GetUniqueItem(QString(name));
+	if ((item != NULL) && (item->PType == 4))
+	{
+		/*
+		 * First, find the style number associated with the requested style
+		 * by scanning through the styles looking for the name. If
+		 * we can't find it, raise PyExc_Exception.
+		 * FIXME: Should use a more specific exception.
+		 */
+		bool found = false;
+		uint styleid = 0;
+		// We start at zero here because it's OK to match an internal name
+		for (uint i=0; i < Carrier->doc->Vorlagen.count(); ++i)
+		{
+			if (Carrier->doc->Vorlagen[i].Vname == Style) {
+				found = true;
+				styleid = i;
+				break;
+			}
+		}
+		if (!found) {
+			// whoops, the user specified an invalid style, complain loudly.
+			PyErr_SetString(PyExc_Exception, ERRPARAM + QString("Style not found"));
+			return NULL;
+		}
+		// quick hack to always apply on the right frame - pv
+		Carrier->doc->ActPage = item->OwnPage;
+		Carrier->doc->ActPage->Deselect(true);
+		Carrier->doc->ActPage->SelectItemNr(item->ItemNr);
+		// Now apply the style.
+		Carrier->setNewAbStyle(styleid);
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
+ * Craig Ringer, 2004-09-09
+ * Enumerate all known paragraph styles
+ */
+PyObject *scribus_getstylenames(PyObject *self, PyObject* args)
+{
+	PyObject *styleList;
+	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetAllStyles()"));
+		return NULL;
+	}
+	if (!Carrier->HaveDoc)
+	{
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+	styleList = PyList_New(0);
+	/*
+	 * We start at 5 because the lower styles are internal names.
+	 * FIXME: this should be a constant
+	 */
+	for (uint i=0; i < Carrier->doc->Vorlagen.count(); ++i)
+	{
+		if (PyList_Append(styleList, PyString_FromString(Carrier->doc->Vorlagen[i].Vname)))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return NULL;
+		}
+	}
+	return styleList;
+}

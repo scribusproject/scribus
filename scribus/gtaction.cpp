@@ -27,6 +27,7 @@ gtAction::gtAction(bool append)
 	textFrame = ScApp->doc->ActPage->SelItem.at(0);
 	it = textFrame;
 	lastParagraphStyle = -1;
+	inPara = false;
 	lastCharWasLineChange = false;
 	currentFrameStyle = "";
 	if (!append)
@@ -44,6 +45,7 @@ gtAction::gtAction(bool append)
 		it->Ptext.clear();
 		it->CPos = 0;
 	}
+	updateParagraphStyles = false;
 }
 
 void gtAction::setProgressInfo()
@@ -51,6 +53,7 @@ void gtAction::setProgressInfo()
 	ScApp->FMess->setText(QObject::tr("Importing text"));
 	ScApp->FProg->reset();
 	ScApp->FProg->setTotalSteps(0);
+	ScApp->FProg->setProgress(0,0);
 }
 
 void gtAction::setProgressInfoDone()
@@ -70,9 +73,9 @@ void gtAction::clearFrame()
 	textFrame->CPos = 0;
 }
 
-void gtAction::write(QString text, gtStyle *style)
+void gtAction::write(const QString& text, gtStyle *style)
 {
-	int paragraphStyle = 0;
+	int paragraphStyle = -1;
 	if (style->target() == "paragraph")
 	{
 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(style);
@@ -83,6 +86,14 @@ void gtAction::write(QString text, gtStyle *style)
 		gtFrameStyle* fstyle = dynamic_cast<gtFrameStyle*>(style);
 		applyFrameStyle(fstyle);
 	}
+	
+	if ((inPara) && (!lastCharWasLineChange) && (text.left(1) != "\n") && (lastParagraphStyle != -1))
+		paragraphStyle = lastParagraphStyle;
+
+
+	if (paragraphStyle == -1)
+		paragraphStyle = ScApp->doc->CurrentABStil;
+
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font);
 	for (uint a = 0; a < text.length(); ++a)
@@ -103,31 +114,30 @@ void gtAction::write(QString text, gtStyle *style)
 		hg->cextra = font->getKerning();
 		hg->cselect = false;
 		hg->cstyle = font->getEffectsValue();
-		if ((paragraphStyle == -1) || ((a == 0) && (text.at(0) == '\n')))
-		{
-			if (lastParagraphStyle == -1)
-				hg->cab = ScApp->doc->CurrentABStil;
-			else
-				hg->cab = lastParagraphStyle;
-		}
-		else
-			hg->cab = paragraphStyle;
+		hg->cab = paragraphStyle;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
 		it->Ptext.append(hg);
-		lastParagraphStyle = hg->cab;
 	}
+	lastCharWasLineChange = text.right(1) == "\n";
+	inPara = style->target() == "paragraph";
+	lastParagraphStyle = paragraphStyle;
 }
 
 int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 {
+	return findParagraphStyle(pstyle->getName());
+}
+
+int gtAction::findParagraphStyle(const QString& name)
+{
 	int pstyleIndex = -1;
 	for (uint i = 0; i < ScApp->doc->Vorlagen.size(); ++i)
 	{
-		if (ScApp->doc->Vorlagen[i].Vname == pstyle->getName())
-		{	
+		if (ScApp->doc->Vorlagen[i].Vname == name)
+		{
 			pstyleIndex = i;
 			break;
 		}
@@ -143,7 +153,10 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 		createParagraphStyle(pstyle);
 		pstyleIndex = ScApp->doc->Vorlagen.size() - 1;
 	}
-
+	else if (updateParagraphStyles)
+	{
+		updateParagraphStyle(pstyleIndex, pstyle);
+	}
 	return pstyleIndex;
 }
 
@@ -155,11 +168,18 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->Shade = fstyle->getBgShade();
 	textFrame->TabValues = QValueList<double>(*(fstyle->getTabValues()));
 	
-	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
-	int pstyleIndex = findParagraphStyle(pstyle);
-	if (pstyleIndex == -1)
-		pstyleIndex = 0;
-	textFrame->Doc->CurrentABStil = pstyleIndex;
+// 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
+// 	int pstyleIndex = findParagraphStyle(pstyle);
+// 	if (pstyleIndex == -1)
+// 		pstyleIndex = 0;
+// 	textFrame->Doc->CurrentABStil = pstyleIndex;
+
+	double linesp;
+	if (fstyle->getAutoLineSpacing())
+		linesp = getLineSpacing(fstyle->getFont()->getSize());
+	else
+		linesp = fstyle->getLineSpacing();
+	textFrame->LineSp = linesp;
 
 	gtFont* font = fstyle->getFont();
 	QString fontName = validateFont(font);
@@ -170,6 +190,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->TxtStroke = font->getStrokeColor();
 	textFrame->ShTxtStroke = font->getStrokeShade();
 	textFrame->TxtScale = font->getHscale();
+	textFrame->ExtraV = font->getKerning();
 }
 
 void gtAction::getFrameFont(gtFont *font)
@@ -218,11 +239,16 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 			if (textFrame->Doc->Vorlagen[i].Vname == pstyle->getName())
 				return;
 		}
-	} 
+	}
 	gtFont* font = pstyle->getFont();
 	struct StVorL vg;
 	vg.Vname = pstyle->getName();
-	vg.LineSpa = pstyle->getLineSpacing();
+	double linesp;
+	if (pstyle->getAutoLineSpacing())
+		linesp = getLineSpacing(pstyle->getFont()->getSize());
+	else
+		linesp = pstyle->getLineSpacing();
+	vg.LineSpa = linesp;
 	vg.Ausri = pstyle->getAlignment();
 	vg.Indent = pstyle->getIndent();
 	vg.First = pstyle->getFirstLineIndent();
@@ -249,14 +275,79 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	ScApp->Mpal->Spal->updateFList();
 }
 
+void gtAction::removeParagraphStyle(const QString& name)
+{
+	int index = findParagraphStyle(name);
+	if (index != -1)
+		removeParagraphStyle(index);
+}
+
+void gtAction::removeParagraphStyle(int index)
+{
+	QValueList<StVorL>::iterator it = ScApp->doc->Vorlagen.at(index);
+	ScApp->doc->Vorlagen.remove(it);
+}
+
+void gtAction::updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle)
+{
+	int pstyleIndex = findParagraphStyle(pstyle->getName());
+	if (pstyleIndex != -1)
+		updateParagraphStyle(pstyleIndex, pstyle);
+}
+
+void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
+{
+	gtFont* font = pstyle->getFont();
+	struct StVorL vg;
+	vg.Vname = pstyle->getName();
+	double linesp;
+	if (pstyle->getAutoLineSpacing())
+		linesp = getLineSpacing(pstyle->getFont()->getSize());
+	else
+		linesp = pstyle->getLineSpacing();
+	vg.LineSpa = linesp;
+	vg.Ausri = pstyle->getAlignment();
+	vg.Indent = pstyle->getIndent();
+	vg.First = pstyle->getFirstLineIndent();
+	vg.Avor = pstyle->getSpaceAbove();
+	vg.Anach = pstyle->getSpaceBelow();
+	vg.Font = validateFont(font);
+	vg.FontSize = font->getSize();
+	vg.TabValues.clear();
+	QValueList<double> *tabs = pstyle->getTabValues();
+	for (uint i = 0; i < tabs->size(); ++i)
+	{
+		double tmp = (*tabs)[i];
+		vg.TabValues.append(tmp);
+	}
+	vg.Drop = pstyle->hasDropCap();
+	vg.DropLin = pstyle->getDropCapHeight();
+	vg.FontEffect = font->getEffectsValue();
+	vg.FColor = font->getColor();
+	vg.FShade = font->getShade();
+	vg.SColor = font->getStrokeColor();
+	vg.SShade = font->getStrokeShade();
+	vg.BaseAdj = pstyle->isAdjToBaseline();
+	ScApp->doc->Vorlagen[pstyleIndex] = vg;
+}
+
 QString gtAction::validateFont(gtFont* font)
 {
+	// Dirty hack for family Times New Roman
+	if (font->getFamily() == "Times New")
+	{
+		font->setFamily("Times New Roman");
+		if (font->getWeight() == "Roman")
+			font->setWeight("Regular");
+	}
+
 	QString useFont = font->getName();
 	if ((useFont == NULL) || (useFont == ""))
 		useFont = textFrame->IFont;
 	else if (ScApp->Prefs.AvailFonts[font->getName()] == 0)
 	{
 		bool found = false;
+		useFont == NULL;
 		QString tmpName = findFontName(font);
 		if (tmpName != NULL)
 		{
@@ -304,6 +395,7 @@ QString gtAction::validateFont(gtFont* font)
 			}
 		}
 	}
+
 	if(!ScApp->doc->UsedFonts.contains(useFont))
 		ScApp->doc->AddFont(useFont, ScApp->Prefs.AvailFonts[useFont]->Font);
 	return useFont;
@@ -324,6 +416,11 @@ QString gtAction::findFontName(gtFont* font)
 	return ret;
 }
 
+double gtAction::getLineSpacing(int fontSize)
+{
+	return ((fontSize / 10.0) * static_cast<double>(ScApp->doc->AutoLine) / 100) + (fontSize / 10.0);
+}
+
 double gtAction::getFrameWidth()
 {
 	return textFrame->Width;
@@ -332,6 +429,16 @@ double gtAction::getFrameWidth()
 QString gtAction::getFrameName()
 {
 	return QString(textFrame->AnName);
+}
+
+bool gtAction::getUpdateParagraphStyles()
+{
+	return updateParagraphStyles;
+}
+
+void gtAction::setUpdateParagraphStyles(bool newUPS)
+{
+	updateParagraphStyles = newUPS;
 }
 
 void gtAction::finalize()

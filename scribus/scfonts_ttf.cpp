@@ -74,6 +74,17 @@ bool Foi_ttf::ReadMetrics()
 	IsFixedPitch = face->face_flags & 4;
 	gindex = 0;
 	charcode = FT_Get_First_Char( face, &gindex );
+	if (face->num_glyphs < 257)
+	{
+		for(int u = 0; u < face->num_charmaps; u++)
+		{
+			if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+			{
+				FT_Set_Charmap(face,face->charmaps[u]);
+				break;
+			}
+		}
+	}
 	while ( gindex != 0 )
 	{
 		error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );

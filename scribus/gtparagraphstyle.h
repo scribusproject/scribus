@@ -56,9 +56,13 @@ protected:
 	bool dropCap;
 	int  dropCapHeight;
 	bool adjToBaseline;
+	bool autoLineSpacing;
+	bool isVisible;
 public:
 	double getLineSpacing();
 	void   setLineSpacing(double newLineSpacing);
+	bool   getAutoLineSpacing();
+	void   setAutoLineSpacing(bool newALS);
 	int    getAlignment();
 	void   setAlignment(Alignment newAlignment);
 	void   setAlignment(int newAlignment);

@@ -29,6 +29,7 @@
 #include "scriptplugin.moc"
 #include "cmdutil.h"
 #include "cmdvar.h"
+#include "objprinter.h"
 #include "guiapp.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
@@ -389,7 +390,12 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 }
 
 static PyMethodDef scribus_methods[] = {
-// petr's stuff
+	// 2004/09/13 pv
+	{"TraceText", scribus_tracetext, METH_VARARGS},
+	{"LoadStylesFromFile", scribus_loadstylesfromfile, METH_VARARGS},
+	{"SetStyle", scribus_setstyle, METH_VARARGS},
+	{"GetAllStyles", scribus_getstylenames, METH_VARARGS},
+	// before 2004/09/13 pv
 	{"LockObject", scribus_lockobject, METH_VARARGS},
 	{"IsLocked", scribus_islocked, METH_VARARGS},
 	{"ObjectExists",						scribus_objectexists,					METH_VARARGS},
@@ -514,11 +520,16 @@ static PyMethodDef scribus_methods[] = {
 	{"SentToLayer",						scribus_senttolayer,					METH_VARARGS},
 	{"SetLayerVisible",					scribus_layervisible,					METH_VARARGS},
 	{"SetLayerPrintable",				scribus_layerprint,						METH_VARARGS},
-	{"IsLayerVisible",					scribus_glayervisib,					METH_VARARGS},
-	{"IsLayerPrintable",				scribus_glayerprint,					METH_VARARGS},
+	{"IsLayerVisible",					scribus_glayervisib,						METH_VARARGS},
+	{"IsLayerPrintable",				scribus_glayerprint,						METH_VARARGS},
 	{"CreateLayer",						scribus_createlayer,					METH_VARARGS},
 	{"DeleteLayer",						scribus_removelayer,					METH_VARARGS},
 	{"GetGuiLanguage",				scribus_getlanguage,					METH_VARARGS},
+ 	{"GetHGuides",						scribus_getHguides,					METH_VARARGS},
+ 	{"SetHGuides",							scribus_setHguides,					METH_VARARGS},
+ 	{"GetVGuides", 						scribus_getVguides,					METH_VARARGS},
+	{"SetVGuides",							scribus_setVguides,				METH_VARARGS},
+	{"SetDocType", 						scribus_setdoctype,				METH_VARARGS},
 	{"retval",								scribus_retval,							METH_VARARGS},
 	{"getval",								scribus_getval,							METH_VARARGS},
 	{NULL,		NULL}		/* sentinel */
@@ -528,7 +539,10 @@ void initscribus(ScribusApp *pl)
 {
 	PyObject *m, *d;
 	PyImport_AddModule("scribus");
+	PyType_Ready(&Printer_Type);
 	m = Py_InitModule("scribus", scribus_methods);
+	Py_INCREF(&Printer_Type);
+	PyModule_AddObject(m, "Printer", (PyObject *) &Printer_Type);
 	d = PyModule_GetDict(m);
 	PyDict_SetItemString(d, "Points", 							Py_BuildValue("i", 0));
 	PyDict_SetItemString(d, "Millimeters", 					Py_BuildValue("i", 1));
@@ -553,22 +567,22 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, "SolidLine",		 				Py_BuildValue("i", Qt::SolidLine));
 	PyDict_SetItemString(d, "DashLine",			 			Py_BuildValue("i", Qt::DashLine));
 	PyDict_SetItemString(d, "DotLine",			 				Py_BuildValue("i", Qt::DotLine));
-	PyDict_SetItemString(d, "DashDotLine",	 				Py_BuildValue("i", Qt::DashDotLine));
-	PyDict_SetItemString(d, "DashDotDotLine",				Py_BuildValue("i", Qt::DashDotDotLine));
+	PyDict_SetItemString(d, "DashDotLine",	 			Py_BuildValue("i", Qt::DashDotLine));
+	PyDict_SetItemString(d, "DashDotDotLine",			Py_BuildValue("i", Qt::DashDotDotLine));
 	PyDict_SetItemString(d, "MiterJoin",		 				Py_BuildValue("i", Qt::MiterJoin));
 	PyDict_SetItemString(d, "BevelJoin",		 				Py_BuildValue("i", Qt::BevelJoin));
 	PyDict_SetItemString(d, "RoundJoin",		 				Py_BuildValue("i", Qt::RoundJoin));
 	PyDict_SetItemString(d, "FlatCap",			 				Py_BuildValue("i", Qt::FlatCap));
-	PyDict_SetItemString(d, "SquareCap",		 				Py_BuildValue("i", Qt::SquareCap));
+	PyDict_SetItemString(d, "SquareCap",		 			Py_BuildValue("i", Qt::SquareCap));
 	PyDict_SetItemString(d, "RoundCap",			 			Py_BuildValue("i", Qt::RoundCap));
 	PyDict_SetItemString(d, "NoButton",			 			Py_BuildValue("i", QMessageBox::NoButton));
-	PyDict_SetItemString(d, "Ok",			 					Py_BuildValue("i", QMessageBox::Ok));
+	PyDict_SetItemString(d, "Ok",			 						Py_BuildValue("i", QMessageBox::Ok));
 	PyDict_SetItemString(d, "Cancel",			 				Py_BuildValue("i", QMessageBox::Cancel));
-	PyDict_SetItemString(d, "Yes",			 					Py_BuildValue("i", QMessageBox::Yes));
+	PyDict_SetItemString(d, "Yes",			 						Py_BuildValue("i", QMessageBox::Yes));
 	PyDict_SetItemString(d, "No",			 						Py_BuildValue("i", QMessageBox::No));
 	PyDict_SetItemString(d, "Abort",			 					Py_BuildValue("i", QMessageBox::Abort));
 	PyDict_SetItemString(d, "Retry",			 					Py_BuildValue("i", QMessageBox::Retry));
-	PyDict_SetItemString(d, "Ignore",			 				Py_BuildValue("i", QMessageBox::Ignore));
+	PyDict_SetItemString(d, "Ignore",			 					Py_BuildValue("i", QMessageBox::Ignore));
 	PyDict_SetItemString(d, "NoIcon",			 				Py_BuildValue("i", QMessageBox::NoIcon));
 	PyDict_SetItemString(d, "Information",	 				Py_BuildValue("i", QMessageBox::Information));
 	PyDict_SetItemString(d, "Warning",			 				Py_BuildValue("i", QMessageBox::Warning));
@@ -595,7 +609,7 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, "Paper_B9", 						Py_BuildValue("(ff)", 125.0, 178.0));
 	PyDict_SetItemString(d, "Paper_B10", 					Py_BuildValue("(ff)", 89.0, 125.0));
 	PyDict_SetItemString(d, "Paper_C5E", 					Py_BuildValue("(ff)", 462.0, 649.0));
-	PyDict_SetItemString(d, "Paper_Comm10E", 			Py_BuildValue("(ff)", 298.0, 683.0));
+	PyDict_SetItemString(d, "Paper_Comm10E", 		Py_BuildValue("(ff)", 298.0, 683.0));
 	PyDict_SetItemString(d, "Paper_DLE", 					Py_BuildValue("(ff)", 312.0, 624.0));
 	PyDict_SetItemString(d, "Paper_Executive",			Py_BuildValue("(ff)", 542.0, 720.0));
 	PyDict_SetItemString(d, "Paper_Folio", 					Py_BuildValue("(ff)", 595.0, 935.0));

@@ -1,5 +1,15 @@
 Changes since 1.2 
 
+21.09.2004
+	* feature #1121: Danish Translation
+
+20.09.2004
+	* bug     #1084: Docs >Exporting to PDF >  PDF and PHP Forms: PHP script doesn't work
+	* feature # 117: HTML importer
+
+17.09.2004
+	* feature #1088: Please add link to Polish tutorial to community resources
+
 14.09.2004
 	* feature #1064: Polish Translation Update
 	* feature #1072: Make it possible to change the document templates directory in settings

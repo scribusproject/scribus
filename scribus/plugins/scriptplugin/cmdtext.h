@@ -30,6 +30,11 @@ PyObject *scribus_settextshade(PyObject *self, PyObject* args);
  */
 PyObject *scribus_linktextframes(PyObject *self, PyObject* args);
 PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args);
+/**
+ Trace text frames via Scripter.
+ 2004-09-07 (Craig Ringer)
+*/
+PyObject *scribus_tracetext(PyObject * self, PyObject* args);
 
 #endif
 

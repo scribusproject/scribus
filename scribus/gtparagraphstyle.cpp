@@ -36,6 +36,8 @@ gtParagraphStyle::gtParagraphStyle(const gtParagraphStyle& p) : gtStyle(p)
 	dropCap         = p.dropCap;
 	dropCapHeight   = p.dropCapHeight;
 	adjToBaseline   = p.adjToBaseline;
+	autoLineSpacing = p.autoLineSpacing;
+	isVisible       = p.isVisible;
 }
 
 gtParagraphStyle::gtParagraphStyle(const gtStyle& s) : gtStyle(s)
@@ -54,6 +56,8 @@ void gtParagraphStyle::init()
 	dropCap         = false;
 	dropCapHeight   = 2;
 	adjToBaseline   = false;
+	autoLineSpacing = false;
+	isVisible       = true;
 }
 
 QString gtParagraphStyle::target()
@@ -69,6 +73,16 @@ double gtParagraphStyle::getLineSpacing()
 void gtParagraphStyle::setLineSpacing(double newLineSpacing)
 {
 	lineSpacing = newLineSpacing;
+}
+
+bool gtParagraphStyle::getAutoLineSpacing()
+{
+	return autoLineSpacing;
+}
+
+void gtParagraphStyle::setAutoLineSpacing(bool newALS)
+{
+	autoLineSpacing = newALS;
 }
 
 int gtParagraphStyle::getAlignment()

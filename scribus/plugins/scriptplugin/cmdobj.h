@@ -47,6 +47,18 @@ ObjectName is now optional. When none set, search for selection...
 07/11/2004 pv
 */
 PyObject *scribus_objectexists(PyObject *self, PyObject* args);
+/**
+ Craig Ringer, 2004-09-09
+ Apply the named style to the currently selected object.
+ pv, 2004-09-13, optionaly param objectName + "check the page" stuff
+ FIXME: should handled explicitly passed object name too.
+ */
+PyObject *scribus_setstyle(PyObject *self, PyObject* args);
+/**
+ Craig Ringer, 2004-09-09
+ Enumerate all known paragraph styles
+*/
+PyObject *scribus_getstylenames(PyObject *self, PyObject* args);
 
 #endif
 

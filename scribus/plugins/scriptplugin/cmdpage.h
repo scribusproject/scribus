@@ -10,6 +10,10 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args);
 PyObject *scribus_deletepage(PyObject *self, PyObject* args);
 PyObject *scribus_gotopage(PyObject *self, PyObject* args);
 PyObject *scribus_pagecount(PyObject *self, PyObject* args);
+PyObject *scribus_getHguides(PyObject *self, PyObject* args);
+PyObject *scribus_setHguides(PyObject *self, PyObject* args);
+PyObject *scribus_getVguides(PyObject *self, PyObject* args);
+PyObject *scribus_setVguides(PyObject *self, PyObject* args);
 /** 
 returns a tuple with page domensions in used system
 e.g. when is the doc in picas returns picas ;)

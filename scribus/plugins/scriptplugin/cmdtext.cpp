@@ -666,3 +666,35 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
 	return Py_None;
 }
 
+/*
+ * Convert the selected text frame to outlines. TODO: Does not check
+ * frame type, and should also accept a passed object name.
+ *
+ * 2004-09-07 (Craig Ringer)
+   2004-09-14 pv frame type, optional frame name param
+ */
+PyObject *scribus_tracetext(PyObject *self, PyObject* args)
+{
+	char *name = "";
+	if (!PyArg_ParseTuple(args, "|s", &name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("TraceText([objectName])"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	if (!Carrier->HaveDoc)
+		return Py_None;
+	PageItem *item = GetUniqueItem(QString(name));
+	if (item != NULL && item->PType == 4)
+	{
+		Carrier->doc->ActPage = item->OwnPage;
+		Carrier->doc->ActPage->Deselect(true);
+		Carrier->doc->ActPage->SelectItemNr(item->ItemNr);
+		Carrier->doc->ActPage->TextToPath();
+		/* FIXME: this won't work. need to know why. maybe later...
+		item->OwnPage->Deselect(true);
+		item->OwnPage->SelectItemNr(item->ItemNr);
+		item->OwnPage->TextToPath(); */
+	}
+	return Py_None;
+}

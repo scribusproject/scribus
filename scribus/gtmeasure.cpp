@@ -51,6 +51,16 @@ double gtMeasure::convert(int value)
 	return value / ratio;
 }
 
+double gtMeasure::convert2(double value)
+{
+	return value * ratio;
+}
+
+double gtMeasure::convert2(int value)
+{
+	return value * ratio;
+}
+
 double gtMeasure::parse(QString value)
 {
 	QString lowerValue = value.lower();
@@ -63,41 +73,55 @@ double gtMeasure::parse(QString value)
 	else if (lowerValue.find("mm") != -1)
 	{
 		init(MM);
-		dbl = lowerValue.remove("pt");
+		dbl = lowerValue.remove("mm");
 	}
 	else if (lowerValue.find("in") != -1)
 	{
 		init(IN);
-		dbl = lowerValue.remove("pt");
+		dbl = lowerValue.remove("in");
 	}
 	else if (lowerValue.find("p") != -1)
 	{
 		init(P);
-		dbl = lowerValue.remove("pt");
+		dbl = lowerValue.remove("p");
 	}
 	else
 		init(PT);
 
 	dbl = dbl.stripWhiteSpace();
-	if (dbl.find(".") == -1)
-		dbl += ".0";
 	return dbl.toDouble();
 }
 
-double gtMeasure::d2d(double value, Unit from)
+double gtMeasure::convert(double value, Unit from, Unit to)
+{
+	return d2d(value, from, to);
+}
+
+double gtMeasure::convert(int value, Unit from, Unit to)
+{
+	return i2d(value, from, to);
+}
+
+double gtMeasure::d2d(double value, Unit from, Unit to)
 {
 	init(from);
-	return convert(value);
+	double tmp = convert(value);
+	init(to);
+	return convert2(tmp);
 }
 
 
-double gtMeasure::i2d(int value, Unit from)
+double gtMeasure::i2d(int value, Unit from, Unit to)
 {
 	init(from);
-	return convert(value);
+	double tmp = convert(value);
+	init(to);
+	return convert2(tmp);
 }
 
-double gtMeasure::qs2d(QString value)
+double gtMeasure::qs2d(QString value, Unit to)
 {
-	return convert(parse(value));
+	double tmp = convert(parse(value));
+	init(to);
+	return convert2(tmp);
 }

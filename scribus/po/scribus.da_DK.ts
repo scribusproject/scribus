@@ -2,8 +2,8 @@
 <context>
     <name>@@translation</name>
     <message>
-        <source>Project-Id-Version: Scribus 1.2</source>
-        <translation type="obsolete">Revision-Date: 2004-09-03 09:35:00 CET
+        <source>Project-Id-Version: Scribus 1.2.1</source>
+        <translation type="obsolete">Revision-Date: 2004-09-19 16:00:00 CET
 Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
@@ -172,6 +172,10 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Luk</translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation>Svensk:</translation>
     </message>
 </context>
 <context>
@@ -6746,6 +6750,18 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <source>Apply &amp;Under Color Removal</source>
         <translation>Anvend Reduktion af &amp;underliggende farve</translation>
     </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation>S&amp;kabeloner:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation>Væ&amp;lg...</translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation>Ekstra mappe for dokument skabeloner</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -7492,6 +7508,17 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>CSV_header</source>
         <translation>CSV_overskrift</translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation>Skabelon: </translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation>
+Ekstern Lænker</translation>
     </message>
 </context>
 <context>
@@ -8998,6 +9025,14 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>&amp;Edit Shape</source>
         <translation>&amp;Redigér form</translation>
+    </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>Filen %1 er ikke i Scribus format</translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation>Afrikaans</translation>
     </message>
 </context>
 <context>

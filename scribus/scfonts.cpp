@@ -201,12 +201,15 @@ class Foi_postscript : public Foi
 			StdVW = "1";
 			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp2.setNum(face->bbox.yMin)+" "+tmp3.setNum(face->bbox.xMax)+" "+tmp4.setNum(face->bbox.yMax);
 			IsFixedPitch = face->face_flags & 4;
-			for(int u = 0; u < face->num_charmaps; u++)
+			if (face->num_glyphs < 257)
 			{
-				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+				for(int u = 0; u < face->num_charmaps; u++)
 				{
-					FT_Set_Charmap(face,face->charmaps[u]);
-					break;
+					if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+					{
+						FT_Set_Charmap(face,face->charmaps[u]);
+						break;
+					}
 				}
 			}
 			gindex = 0;

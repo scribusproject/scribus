@@ -24,6 +24,9 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args);
 PyObject *scribus_setunit(PyObject *self, PyObject* args);
 /** Returns actual unit scale. */
 PyObject *scribus_getunit(PyObject *self, PyObject* args);
+/** Loads styles from another .sla file (craig r.)*/
+PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args);
+PyObject *scribus_setdoctype(PyObject *self, PyObject* args);
 
 #endif
 
