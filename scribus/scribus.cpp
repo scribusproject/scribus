@@ -470,7 +470,7 @@ void ScribusApp::initScribus()
 		qApp->processEvents();
 		InitHyphenator();
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
-		Mpal->Fonts->RebuildList(&Prefs);
+		Mpal->Fonts->RebuildList(&Prefs, 0);
 		DocDir = Prefs.DocDir;
 		splash->setStatus("");
 		splash->setStatus( tr("Setting up Shortcuts"));
@@ -3261,6 +3261,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			QMessageBox::warning(this, tr("Warning"), tr("File %1 is not in Scribus format").arg(FName), tr("OK"));
 			return false;
 		}
+		Prefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
 		doc=new ScribusDoc();
 		doc->AllFonts = &Prefs.AvailFonts;
 		doc->AddFont(Prefs.DefFont, Prefs.AvailFonts[Prefs.DefFont]->Font);
@@ -5564,7 +5565,7 @@ void ScribusApp::SetNewFont(QString nf)
 				PageItem *b = view->SelItem.at(0);
 				nf2 = b->IFont;
 			}
-			Mpal->Fonts->RebuildList(&Prefs);
+			Mpal->Fonts->RebuildList(&Prefs, doc);
 			BuildFontMenu();
 		}
 	}
@@ -6507,8 +6508,16 @@ void ScribusApp::slotFontOrg()
 		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-	FontSub->RebuildList(&Prefs);
-	Mpal->Fonts->RebuildList(&Prefs);
+	if (HaveDoc)
+	{
+		FontSub->RebuildList(&Prefs, doc);
+		Mpal->Fonts->RebuildList(&Prefs, doc);
+	}
+	else
+	{
+		FontSub->RebuildList(&Prefs, 0);
+		Mpal->Fonts->RebuildList(&Prefs, 0);
+	}
 	disconnect(dia, SIGNAL(ReReadPrefs()), this, SLOT(ReadPrefs()));
 	delete dia;
 	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
@@ -8739,8 +8748,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 		wdir = dirs->get("collect", Prefs.DocDir);
 	else
 		wdir = dirs->get("collect", ".");
-	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, 
-	                        false, false, true, &compressR, &withFontsR);
+	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
 	if (s != "")
 	{
 		if(s.right(1) != "/")

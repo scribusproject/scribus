@@ -6,6 +6,10 @@
 #include <qdict.h>
 #include <qfont.h>
 #include <qmap.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include FT_OUTLINE_H
+#include FT_GLYPH_H
 // #include <qpixmap.h>
 #include "fpointarray.h"
 #include "config.h"
@@ -70,6 +74,7 @@ class Foi
 		QString FontEnc;
 		bool IsFixedPitch;
 		QString FontBBox;
+		QString PrivateFont;
 		bool UseFont;
 		bool HasKern;
 		double uniEM;
@@ -100,12 +105,15 @@ class SCFonts : public QDict<Foi>
 		}
 		~SCFonts();
 		void GetFonts(QString pf);
+		void AddScalableFonts(const QString &path, QString DocName = "");
+		void removeFont(QString name);
 	private:
 		void AddPath(QString p);
-		void AddScalableFonts(const QString &path);
+		bool AddScalableFont(QString filename, FT_Library &library, QString DocName);
 		void AddUserPath(QString pf);
 		void AddXFontServerPath();
 		void AddXFontPath();
+		void AddFontconfigFonts();
 		QStrList FontPath;
 		QString ExtraPath;
 };

@@ -63,7 +63,7 @@ FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
-void FontCombo::RebuildList(preV *Prefs)
+void FontCombo::RebuildList(preV *Prefs, ScribusDoc *doc)
 {
 	QStringList rlist;
 	clear();
@@ -72,7 +72,15 @@ void FontCombo::RebuildList(preV *Prefs)
 	for ( ; it.current(); ++it)
 	{
 		if (it.current()->UseFont)
-			rlist.append(it.currentKey());
+		{
+			if (doc != 0)
+			{
+				if ((doc->DocName == it.current()->PrivateFont) || (it.current()->PrivateFont == ""))
+					rlist.append(it.currentKey());
+			}
+			else
+				rlist.append(it.currentKey());
+			}
 	}
 	rlist.sort();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)

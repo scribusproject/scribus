@@ -881,6 +881,14 @@ QColor CMYKChoose::CMYK2RGB(int c, int m, int y, int k)
 
 void CMYKChoose::Verlassen()
 {
+	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
+	if (Farbname->text() == "None" || Farbname->text() == tr("None"))
+	{
+		QMessageBox::information(this, tr("Warning"), tr("You cannot create a color named \"%1\".\nIt's a reserved name for transparent color").arg(Farbname->text()), 0);
+		Farbname->setFocus();
+		Farbname->selectAll();
+		return;
+	}
 	if (Fnam != Farbname->text())
 	{
 		if (EColors->contains(Farbname->text()))

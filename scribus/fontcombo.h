@@ -47,7 +47,7 @@ class FontCombo : public QComboBox
 {
 public:
 	FontCombo(QWidget* pa, preV *Prefs);
-	void RebuildList(preV *Prefs);
+	void RebuildList(preV *Prefs, ScribusDoc *doc);
 	~FontCombo() {};
 };
 

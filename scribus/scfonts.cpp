@@ -26,10 +26,11 @@
 #include <cstdlib>
 #include "scfonts.h"
 #include "scfonts_ttf.h"
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
+
+#ifdef HAVE_FONTCONFIG
+#include <fontconfig/fontconfig.h>
+#endif
+
 extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
 
 extern bool loadText(QString nam, QString *Buffer);
@@ -373,81 +374,94 @@ void SCFonts::AddPath(QString p)
 		FontPath.insert(FontPath.count(),p);
 }
 
-void SCFonts::AddScalableFonts(const QString &path)
+void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 {
-	FT_Face face;
-	FT_Library library;
-	QString ts, pathfile;
+	FT_Library library = NULL;
+	QString pathfile;
 	bool error;
 	error = FT_Init_FreeType( &library );        
 	QDir d(path, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
 	if ((d.exists()) && (d.count() != 0))
-		{
+	{
 		for (uint dc = 0; dc < d.count(); ++dc)
-			{
-			face = 0;
+		{
 			QFileInfo fi(path+d[dc]);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
 			if (fi.isSymLink())
-				{
+			{
 				QFileInfo fi3(fi.readLink());
 				if (fi3.isRelative())
 					pathfile = path+fi.readLink();
 				else
 					pathfile = fi3.absFilePath();
-				}
+			}
 			else
 				pathfile = path+d[dc];
 			QFileInfo fi2(pathfile);
 			QString ext = fi2.extension(false).lower();
 			if ((ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
-				error = FT_New_Face( library, pathfile, 0, &face );
+				error = AddScalableFont(pathfile,library, DocName);
 				if (error)
-				{
-					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(path+d[dc]));
-					continue;
-				}
-			}
-			else
-				continue;
-			ts = QString(face->family_name) + " " + QString(face->style_name);
-			if (!find(ts))
-				{
-				Foi *t=0;
-				if(ext == "pfa")
-					t = new Foi_pfa(ts, pathfile, true);
-				else if(ext == "pfb")
-					t = new Foi_pfb(ts, pathfile, true);
-				else if(ext == "ttf")
-					t = new Foi_ttf(ts, pathfile, true);
-				else if(ext == "otf")
-					t = new Foi_ttf(ts, pathfile, true);
-				if(t)
-					{
-					t->cached_RealName = QString(FT_Get_Postscript_Name(face));
-					t->Font = qApp->font();
-					t->Font.setPointSize(qApp->font().pointSize());
-					if (ext == "otf")
-						{
-						t->isOTF = true;
-						t->Subset = true;
-						}
-					insert(ts,t);
-					t->EmbedPS = true;
-					t->UseFont = true;
-					t->CharWidth[13] = 0;
-					t->CharWidth[28] = 0;
-					t->CharWidth[9] = 1;
-					t->Family = QString(face->family_name);
-					}
-				}
-			if (face != 0)
-				FT_Done_Face( face );
+					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
 			}
 		}
+	}
 	FT_Done_FreeType( library );
+}
+
+// Load a single font into the library from the passed filename. Returns true on error.
+bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString DocName)
+{
+	FT_Face face = NULL;
+	bool error = FT_New_Face( library, filename, 0, &face );
+	if (error)
+		return true;
+	QString ts = QString(face->family_name) + " " + QString(face->style_name);
+	if (!find(ts))
+	{
+		Foi *t=0;
+		// Yes, I realise we're checking the extension twice, but it's not
+		// a big cost, and nicer than passing it into this function.
+		//QFileInfo fi2(filename);
+		QString ext = QFileInfo(filename).extension(false).lower();
+		if(ext == "pfa")
+			t = new Foi_pfa(ts, filename, true);
+		else if(ext == "pfb")
+			t = new Foi_pfb(ts, filename, true);
+		else if(ext == "ttf")
+			t = new Foi_ttf(ts, filename, true);
+		else if(ext == "otf")
+			t = new Foi_ttf(ts, filename, true);
+		if(t)
+		{
+			t->cached_RealName = QString(FT_Get_Postscript_Name(face));
+			t->Font = qApp->font();
+			t->Font.setPointSize(qApp->font().pointSize());
+			if (ext == "otf")
+			{
+				t->isOTF = true;
+				t->Subset = true;
+			}
+			insert(ts,t);
+			t->EmbedPS = true;
+			t->UseFont = true;
+			t->CharWidth[13] = 0;
+			t->CharWidth[28] = 0;
+			t->CharWidth[9] = 1;
+			t->Family = QString(face->family_name);
+			t->PrivateFont = DocName;
+		}
+	}
+	if (face != 0)
+		FT_Done_Face( face );
+	return false;
+}
+
+void SCFonts::removeFont(QString name)
+{
+	remove(name);
 }
 
 void SCFonts::AddXFontPath()
@@ -545,4 +559,47 @@ void SCFonts::GetFonts(QString pf)
 	AddXFontServerPath();
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
 		AddScalableFonts(fpi.current());
+	AddFontconfigFonts();
+}
+
+// Use Fontconfig to locate and load fonts.
+void SCFonts::AddFontconfigFonts()
+{
+#ifdef HAVE_FONTCONFIG
+    // All-in-one library setup. Perhaps this should be in
+    // the SCFonts constructor.
+    FcConfig* FcInitLoadConfigAndFonts();
+    // The pattern controls what fonts to match. In this case we want to
+    // match all scalable fonts, but ignore bitmap fonts.
+    FcPattern* pat = FcPatternBuild(NULL,
+                                    FC_SCALABLE, FcTypeBool, true,
+                                    NULL);
+    // The ObjectSet tells FontConfig what information about each match to return.
+    // We currently just need FC_FILE, but other info like font family and style
+    // is availible - see "man fontconfig".
+    FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
+    // Now ask fontconfig to retrieve info as specified in 'os' about fonts
+    // matching pattern 'pat'.
+    FcFontSet* fs = FcFontList(0, pat, os);
+    FcObjectSetDestroy(os);
+    FcPatternDestroy(pat);
+    // Create the Freetype library
+    bool error;
+    FT_Library library = NULL;
+    error = FT_Init_FreeType( &library );
+    // Now iterate over the font files and load them
+    int i;
+    for (i = 0; i < fs->nfont; i++) {
+        FcChar8 *file = NULL;
+        if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
+        {
+            error = AddScalableFont(QString((char*)file), library, "");
+            if (error)
+                qDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
+        }
+        else
+            qDebug(QObject::tr("Failed to load a font - freetype couldn't find the font file"));
+    }
+    FT_Done_FreeType( library );
+#endif
 }

@@ -15,6 +15,9 @@
 /* Cups */
 #undef HAVE_CUPS
 
+/* Defines if your system has the libfontconfig library */
+#undef HAVE_FONTCONFIG
+
 /* Defines if your system has the libfreetype library */
 #undef HAVE_FREETYPE
 

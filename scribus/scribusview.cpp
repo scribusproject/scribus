@@ -199,7 +199,7 @@ void ScribusView::drawContents(QPainter *p, int clipx, int clipy, int clipw, int
 	if ((clipw > 0) && (cliph > 0))
 	{
 		QPixmap pm = QPixmap(clipw, cliph);
-		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
+		ScPainter *painter = new ScPainter(&pm, clipw, cliph);
 		painter->clear(paletteBackgroundColor());
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
@@ -298,7 +298,8 @@ void ScribusView::drawContents(QPainter *p, int clipx, int clipy, int clipw, int
 			painter->setZoomFactor(z);
 		}
 		painter->end();
-		p->drawPixmap(clipx, clipy, pm);
+		QPoint vr = contentsToViewport(QPoint(clipx, clipy));
+		bitBlt( viewport(), vr.x(), vr.y(), &pm, 0, 0, clipw, cliph );
 		delete painter;
 	}
 	if (SelItem.count() != 0)

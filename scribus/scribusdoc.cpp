@@ -197,6 +197,12 @@ ScribusDoc::~ScribusDoc()
 	DocPages.setAutoDelete(true);
 	MasterPages.clear();
 	DocPages.clear();
+	QMap<QString,QFont>::Iterator it3;
+	for (it3 = UsedFonts.begin(); it3 != UsedFonts.end(); ++it3)
+	{
+		if ((*AllFonts)[it3.key()]->PrivateFont != "")
+			(*AllFonts).removeFont(it3.key());
+	}
 	FT_Done_FreeType( library );
 }
 
