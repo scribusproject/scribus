@@ -170,7 +170,7 @@ AC_CHECK_HEADER(tiffvers.h, [], [LIBTIFF="";hastif=no])
 dnl Now attempt to check if libtiff is new enough
 AC_TRY_COMPILE([
 #include "tiffvers.h"
-#if TIFFLIB_VERSION < 20031226
+#if TIFFLIB_VERSION < 20031007
 #error libtiff is too old, need libtiff 3.6.0 or newer.
 #endif
 ], [], [], [LIBTIFF="";hastif=no])
