@@ -312,6 +312,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->BaseOffs = QStodouble(dc.attribute("BASEO", "0"));
 		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
 		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
+		doc->GridShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGRID", "0")));
+		doc->GuidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES", "1")));
+		doc->FramesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWFRAME", "1")));
+		doc->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN", "1")));
+		doc->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
+		doc->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())

@@ -1,7 +1,6 @@
 #ifndef REFORMDOC_H
 #define REFORMDOC_H
 
-#include <qdialog.h>
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
@@ -9,55 +8,65 @@
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <qcheckbox.h>
 #include "mspinbox.h"
+#include "prefsdialogbase.h"
+class ScribusDoc;
 
-class ReformDoc : public QDialog
-{ 
-    Q_OBJECT
+class ReformDoc : public PrefsDialogBase
+{
+	Q_OBJECT
 
 public:
-    ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, 
-				bool fp, bool fpe, int Einh, int ori, QString pageSize, int PageNr );
-    ~ReformDoc() {};
-
-    QGroupBox* GroupBox7;
-    QGroupBox* dsGroupBox7;
-    QLabel* TextLabel5;
-    QLabel* TextLabel7;
-    QLabel* TextLabel1_3;
-    QSpinBox* PgNr;
-    MSpinBox* TopR;
-    MSpinBox* BottomR;
-    MSpinBox* LeftR;
-    MSpinBox* RightR;
-    MSpinBox* widthMSpinBox;
-    MSpinBox* heightMSpinBox;
-    QCheckBox* Doppelseiten;
-    QCheckBox* ErsteSeite;
-    QLabel* Links;
-    QLabel* Rechts;
+	ReformDoc( QWidget* parent, ScribusDoc* doc );
+	~ReformDoc() {};
+	QWidget* tabPage;
+	QGroupBox* GroupBox7;
+	QGroupBox* dsGroupBox7;
+	QLabel* TextLabel5;
+	QLabel* TextLabel7;
+	QLabel* TextLabel1_3;
+	QSpinBox* PgNr;
+	MSpinBox* TopR;
+	MSpinBox* BottomR;
+	MSpinBox* LeftR;
+	MSpinBox* RightR;
+	MSpinBox* widthMSpinBox;
+	MSpinBox* heightMSpinBox;
+	QCheckBox* Doppelseiten;
+	QCheckBox* ErsteSeite;
+	QLabel* Links;
+	QLabel* Rechts;
 	QLabel*	widthQLabel;
 	QLabel*	heightQLabel;
 	QLabel*	sizeQLabel;
 	QLabel*	orientationQLabel;
 	QComboBox*	sizeQComboBox;
 	QComboBox*	orientationQComboBox;
-    QPushButton* OKButton;
-    QPushButton* CancelB;
+
+	QWidget* tabView;
+	QCheckBox* checkMargin;
+	QCheckBox* checkFrame;
+	QCheckBox* checkPictures;
+	QCheckBox* checkGrid;
+	QCheckBox* checkGuides;
+	QCheckBox* checkBaseline;
+
 	int einheit;
 	double Breite;
 	double Hoehe;
 
 protected:
-    QVBoxLayout* ReformDocLayout;
-    QHBoxLayout* dsGroupBox7Layout;
-    QHBoxLayout* GroupBox7Layout;
-    QGridLayout* dsLayout4;
-    QGridLayout* Layout4;
-    QHBoxLayout* Layout3;
+	QVBoxLayout* ReformDocLayout;
+	QHBoxLayout* dsGroupBox7Layout;
+	QHBoxLayout* GroupBox7Layout;
+	QGridLayout* dsLayout4;
+	QGridLayout* Layout4;
+	QHBoxLayout* Layout3;
+	QVBoxLayout* tabViewLayout;
 
 protected slots:
-    virtual void setDS();
+	virtual void setDS();
 	virtual void setTop(int v);
 	virtual void setBottom(int v);
 	virtual void setLeft(int v);

@@ -1048,6 +1048,12 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 		doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
+		doc->GridShown = view->Prefs->GridShown;
+		doc->GuidesShown = view->Prefs->GuidesShown;
+		doc->FramesShown = view->Prefs->FramesShown;
+		doc->MarginsShown = view->Prefs->MarginsShown;
+		doc->BaseShown = view->Prefs->BaseShown;
+		doc->ShowPic = true;
 		DoFonts.clear();
 		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
@@ -2421,6 +2427,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("BASEO", doc->BaseOffs);
 	dc.setAttribute("MINGRID", doc->minorGrid);
 	dc.setAttribute("MAJGRID", doc->majorGrid);
+	dc.setAttribute("SHOWGRID", static_cast<int>(doc->GridShown));
+	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->GuidesShown));
+	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->FramesShown));
+	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->MarginsShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(doc->BaseShown));
+	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{

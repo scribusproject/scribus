@@ -157,7 +157,7 @@ void Vruler::paintEvent(QPaintEvent *)
 		pc = doku->PageC;
 	for (xx = 0; xx < pc; ++xx)
 	{
-		of = xx * (doku->PageH+30.0);
+		of = xx * (doku->PageH+doku->ScratchBottom+doku->ScratchTop);
 		for (xl = 0; xl < doku->PageH; xl += iter)
 		{
 			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))

@@ -329,7 +329,7 @@ void NewDoc::setRight(int)
 	code_repeat(4);
 }
 
-void NewDoc::setDist(int v)
+void NewDoc::setDist(int)
 {
 	Dist = Distance->value() / Umrech;
 }

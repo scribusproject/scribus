@@ -569,6 +569,11 @@ public: // Public attributes
 	bool useRaster;
   /** Flag fuer Bilder */
 	bool ShowPic;
+	bool FramesShown;
+	bool GuidesShown;
+	bool MarginsShown;
+	bool GridShown;
+	bool BaseShown;
   /** Im Dokument benutzte Farben */
 	CListe PageColors;
 	Page* ActPage;

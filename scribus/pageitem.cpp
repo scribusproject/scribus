@@ -404,7 +404,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			}
 			if (Pfile == "")
 			{
-				if ((Frame) && (ScApp->Prefs.FramesShown))
+				if ((Frame) && (Doc->FramesShown))
 				{
 					p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
@@ -415,7 +415,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			{
 				if ((!PicArt) || (!PicAvail))
 				{
-					if ((Frame) && (ScApp->Prefs.FramesShown))
+					if ((Frame) && (Doc->FramesShown))
 					{
 						p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
 						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
@@ -1737,7 +1737,7 @@ NoRoom: pf2.end();
 	if ((!Tinput) && (!Doc->RePos))
 	{
 		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (ScApp->Prefs.FramesShown) && ((PType == 2) || (PType == 4)))
+		if ((Frame) && (Doc->FramesShown) && ((PType == 2) || (PType == 4)))
 		{
 			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
@@ -1750,7 +1750,7 @@ NoRoom: pf2.end();
 			p->setupPolygon(&PoLine);
 			p->drawPolyLine();
 		}
-		if ((ScApp->Prefs.FramesShown) && (UseContour) && (ContourLine.size() != 0))
+		if ((Doc->FramesShown) && (UseContour) && (ContourLine.size() != 0))
 		{
 			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
 			p->setupPolygon(&ContourLine);
@@ -1807,7 +1807,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	}
 	if ((!Tinput) && (!Doc->RePos))
 	{
-		if ((Frame) && (ScApp->Prefs.FramesShown))
+		if ((Frame) && (Doc->FramesShown))
 		{
 			p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
 			if ((isBookmark) || (isAnnotation))

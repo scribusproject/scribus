@@ -624,6 +624,7 @@ double SVGPlug::fromPercentage( const QString &s )
  */
 double SVGPlug::parseUnit(const QString &unit)
 {
+	bool noUnit = false;
 	QString unitval=unit;
 	if( unit.right( 2 ) == "pt" )
 		unitval.replace( "pt", "" );
@@ -635,6 +636,8 @@ double SVGPlug::parseUnit(const QString &unit)
 		unitval.replace( "in", "" );
 	else if( unit.right( 2 ) == "px" )
 		unitval.replace( "px", "" );
+	if (unitval == unit)
+		noUnit = true;
 	double value = unitval.toDouble();
 	if( unit.right( 2 ) == "pt" )
 		value = value;
@@ -645,7 +648,9 @@ double SVGPlug::parseUnit(const QString &unit)
 	else if( unit.right( 2 ) == "in" )
 		value = value * 72;
 	else if( unit.right( 2 ) == "px" )
-		value = value;
+		value = value * 1.25;
+	else if(noUnit)
+		value = value * 1.25;
 	return value;
 }
 
