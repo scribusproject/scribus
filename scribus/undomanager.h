@@ -454,6 +454,7 @@ public:
 	static const QString SetLineSpacing;
 	static const QString SetStyle;
 	static const QString SetLanguage;
+	static const QString AlignText;
 	/*@}*/
 
 	/**

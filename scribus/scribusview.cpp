@@ -9958,6 +9958,15 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 	}
 	else
 	{
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(
+					s > 4 ? Um::SetStyle : Um::AlignText, "", Um::IFont);
+			ss->set("PSTYLE", "pstyle");
+			ss->set("OLD_STYLE", b->textAlignment);
+			ss->set("NEW_STYLE", s);
+			undoManager->action(b, ss);
+		}
 		b->textAlignment = s;
 		if (b->itemText.count() != 0)
 		{

@@ -514,11 +514,6 @@ public:
 	 */
 	void setLineSpacing(double newSpacing);
 	/**
-	 * @brief Set a paragraph style for the frame
-	 * @param newStyle paragraph style for the frame
-	 */
-// 	void setParagraphStyle(const QString& newStyle);
-	/**
 	 * @brief Set the hyphenation language for the frame
 	 * @param newLanguage hyphenation language for the frame
 	 */
@@ -577,7 +572,7 @@ protected:
 	void restoreKerning(SimpleState *state, bool isUndo);
 	void restoreLineSpacing(SimpleState *state, bool isUndo);
 	void restoreLanguage(SimpleState *state, bool isUndo);
-// 	void restorePStyle(SimpleState *state, bool isUndo);
+	void restorePStyle(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -2750,11 +2750,6 @@ void PageItem::setLineSpacing(double newSpacing)
 	LineSp = newSpacing;
 }
 
-// void PageItem::setParagraphStyle(const QString& newStyle)
-// {
-// 	
-// }
-
 void PageItem::setLanguage(const QString& newLanguage)
 {
 	if (UndoManager::undoEnabled())
@@ -2956,7 +2951,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreKerning(ss, isUndo);
 		else if (ss->contains("SPACING"))
 			restoreLineSpacing(ss, isUndo);
-		
+		else if (ss->contains("PSTYLE"))
+			restorePStyle(ss, isUndo);
 	}
 }
 
@@ -3260,10 +3256,13 @@ void PageItem::restoreLanguage(SimpleState *state, bool isUndo)
 	setLanguage(lang);
 }
 
-// void restorePStyle(SimpleState *state, bool isUndo)
-// {
-// 	
-// }
+void PageItem::restorePStyle(SimpleState *state, bool isUndo)
+{
+	int styleid = state->getInt("OLD_STYLE");
+	if (!isUndo)
+		styleid = state->getInt("NEW_STYLE");
+	ScApp->view->chAbStyle(this, styleid);
+}
 
 void PageItem::select()
 {
