@@ -25,17 +25,17 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 	fromToLayout = new QHBoxLayout;
 	fromToLayout->setSpacing( 6 );
 	fromToLayout->setMargin( 5 );
-	fromQLabel = new QLabel( tr( "Delete From:" ), this, "fromQLabel" );
-	fromToLayout->addWidget( fromQLabel );
-	fromPageQSBox = new QSpinBox( 1, maxPage, 1, this, "fromPageQSBox" );
-	fromPageQSBox->setValue( currentPage );
-	fromToLayout->addWidget( fromPageQSBox );
-	toQLabel = new QLabel( this, "toQLabel" );
-	toQLabel->setText( tr( "to:" ) );
-	fromToLayout->addWidget( toQLabel );
-	toPageQSBox = new QSpinBox( 1, maxPage, 1, this, "toPageQSBox" );
-	toPageQSBox->setValue( currentPage );
-	fromToLayout->addWidget( toPageQSBox );
+	fromLabel = new QLabel( tr( "Delete From:" ), this, "fromLabel" );
+	fromToLayout->addWidget( fromLabel );
+	fromPageData = new QSpinBox( 1, maxPage, 1, this, "fromPageData" );
+	fromPageData->setValue( currentPage );
+	fromToLayout->addWidget( fromPageData );
+	toLabel = new QLabel( this, "toLabel" );
+	toLabel->setText( tr( "to:" ) );
+	fromToLayout->addWidget( toLabel );
+	toPageData = new QSpinBox( 1, maxPage, 1, this, "toPageData" );
+	toPageData->setValue( currentPage );
+	fromToLayout->addWidget( toPageData );
 	dialogLayout->addLayout( fromToLayout );
 
 	okCancelLayout = new QHBoxLayout;
@@ -43,45 +43,45 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okQPButton = new QPushButton( tr( "&OK" ), this, "okQPButton" );
-	okQPButton->setDefault( true );
-	okCancelLayout->addWidget(okQPButton);
-	cancelQPButton = new QPushButton( tr( "&Cancel" ), this, "cancelQPButton" );
-	cancelQPButton->setDefault( false );
-	okCancelLayout->addWidget(cancelQPButton);
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okButton->setDefault( true );
+	okCancelLayout->addWidget(okButton);
+	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	cancelButton->setDefault( false );
+	okCancelLayout->addWidget(cancelButton);
 	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
-	connect( okQPButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( cancelQPButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( fromPageQSBox, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
-	connect( toPageQSBox, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( fromPageData, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
+	connect( toPageData, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
 }
 
 void DelPages::fromChanged(int pageNumber)
 {
-	if (pageNumber > toPageQSBox->value())
-		toPageQSBox->setValue(pageNumber);
-	if ((pageNumber == 1) && (toPageQSBox->value() == toPageQSBox->maxValue()))
-		toPageQSBox->setValue(toPageQSBox->maxValue()-1);
+	if (pageNumber > toPageData->value())
+		toPageData->setValue(pageNumber);
+	if ((pageNumber == 1) && (toPageData->value() == toPageData->maxValue()))
+		toPageData->setValue(toPageData->maxValue()-1);
 }
 
 void DelPages::toChanged(int pageNumber)
 {
-	if (pageNumber < fromPageQSBox->value())
-		fromPageQSBox->setValue(pageNumber);
-	if ((fromPageQSBox->value() == 1) && (pageNumber == toPageQSBox->maxValue()))
-		fromPageQSBox->setValue(2);
+	if (pageNumber < fromPageData->value())
+		fromPageData->setValue(pageNumber);
+	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maxValue()))
+		fromPageData->setValue(2);
 }
 
 const int DelPages::getFromPage()
 {
-    return fromPageQSBox->value();
+    return fromPageData->value();
 }
 
 const int DelPages::getToPage()
 {
-    return toPageQSBox->value();
+    return toPageData->value();
 }
 

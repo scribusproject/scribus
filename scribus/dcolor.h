@@ -25,12 +25,12 @@ public:
 	const QString getReplacementColor();
 
 private:
-    QLabel* deleteQLabel;
-    QLabel* colorToDelQLabel;
-    QLabel* replaceQLabel;
-    QPushButton* okQPButton;
-    QPushButton* cancelQPButton;
-    QComboBox* replacementColQCBox;
+    QLabel* deleteLabel;
+    QLabel* colorToDelLabel;
+    QLabel* replaceLabel;
+    QPushButton* okButton;
+    QPushButton* cancelButton;
+    QComboBox* replacementColData;
     QVBoxLayout* dialogLayout;
     QGridLayout* delColorLayout;
     QHBoxLayout* okCancelLayout;

@@ -34,27 +34,27 @@ DelColor::DelColor( QWidget* parent, CListe colorList, QString colorName, bool h
     delColorLayout = new QGridLayout;
     delColorLayout->setSpacing( 6 );
     delColorLayout->setMargin( 5 );
-    deleteQLabel = new QLabel( tr( "Delete Color:" ), this, "deleteQLabel" );
-    delColorLayout->addWidget( deleteQLabel, 0, 0 );
-    colorToDelQLabel = new QLabel( colorName, this, "colorToDelQLabel" );
-    delColorLayout->addWidget( colorToDelQLabel, 0, 1 );
+    deleteLabel = new QLabel( tr( "Delete Color:" ), this, "deleteLabel" );
+    delColorLayout->addWidget( deleteLabel, 0, 0 );
+    colorToDelLabel = new QLabel( colorName, this, "colorToDelLabel" );
+    delColorLayout->addWidget( colorToDelLabel, 0, 1 );
 
 	if (haveDoc)
 	{
-    	replaceQLabel = new QLabel( tr( "Replace With:" ), this, "replaceQLabel" );
-    	delColorLayout->addWidget( replaceQLabel, 1, 0 );
-    	replacementColQCBox = new QComboBox(false, this);
+    	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
+    	delColorLayout->addWidget( replaceLabel, 1, 0 );
+    	replacementColData = new QComboBox(false, this);
 		CListe::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
 		colorList.remove(colorName);
-		replacementColQCBox->insertItem(tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */
+		replacementColData->insertItem(tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */
 		for (it = colorList.begin(); it != colorList.end(); ++it)
 		{
 			pm.fill(colorList[it.key()].getRGBColor());
-			replacementColQCBox->insertItem(pm, it.key());
+			replacementColData->insertItem(pm, it.key());
 		}
-    	delColorLayout->addWidget( replacementColQCBox, 1, 1 );
-    	replacementColor = replacementColQCBox->text(0);
+    	delColorLayout->addWidget( replacementColData, 1, 1 );
+    	replacementColor = replacementColData->text(0);
 	}
     dialogLayout->addLayout( delColorLayout );
 
@@ -63,23 +63,23 @@ DelColor::DelColor( QWidget* parent, CListe colorList, QString colorName, bool h
     okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     okCancelLayout->addItem( spacer );
-    okQPButton = new QPushButton( tr( "&OK" ), this, "okQPButton" );
-    okCancelLayout->addWidget( okQPButton );
-    cancelQPButton = new QPushButton( tr( "&Cancel" ), this, "PushButton13" );
-    cancelQPButton->setDefault( true );
-    okCancelLayout->addWidget( cancelQPButton );
+    okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+    okCancelLayout->addWidget( okButton );
+    cancelButton = new QPushButton( tr( "&Cancel" ), this, "PushButton13" );
+    cancelButton->setDefault( true );
+    okCancelLayout->addWidget( cancelButton );
     dialogLayout->addLayout( okCancelLayout );
     setMaximumSize(sizeHint());
 
-    connect( okQPButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-    connect( cancelQPButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+    connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	if (haveDoc)
-    	connect( replacementColQCBox, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
+    	connect( replacementColData, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 
 void DelColor::ReplaceColor(int id)
 {
-    replacementColor = replacementColQCBox->text(id);
+    replacementColor = replacementColData->text(id);
 }
 
 const QString DelColor::getReplacementColor()

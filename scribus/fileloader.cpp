@@ -26,7 +26,7 @@ extern bool loadText(QString nam, QString *Buffer);
 extern void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
 extern double QStodouble(QString in);
 extern int QStoInt(QString in);
-extern QColor SetFarbe(ScribusDoc *doc, QString farbe, int shad);
+extern QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
 
 /*!
  \fn FileLoader::FileLoader(QString fileName)
@@ -568,7 +568,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 							double ramp = QStodouble(it.attribute("RAMP","0.0"));
 							int shade = QStoInt(it.attribute("SHADE","100"));
 							double opa = QStodouble(it.attribute("TRANS","1"));
-							OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
+							OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
 							tmp += GetItemText(&it, doc, view->Prefs, false, false);

@@ -23,14 +23,14 @@ public:
 
 
 private:
-    QLabel* moveQLabel;
-    QLabel* toQLabel;
-    QSpinBox* fromPageQSBox;
-    QSpinBox* toPageQSBox;
-    QSpinBox* mvWherePageQSBox;
-    QComboBox* mvWhereQCBox;
-    QPushButton* okQPButton;
-    QPushButton* cancelQPButton;
+    QLabel* moveLabel;
+    QLabel* toLabel;
+    QSpinBox* fromPageData;
+    QSpinBox* toPageData;
+    QSpinBox* mvWherePageData;
+    QComboBox* mvWhereData;
+    QPushButton* okButton;
+    QPushButton* cancelButton;
     QVBoxLayout* dialogLayout;
     QGridLayout* fromToLayout;
     QHBoxLayout* okCancelLayout;
@@ -40,7 +40,7 @@ private:
 private slots:
     virtual void fromChanged(int);
     virtual void toChanged(int);
-	void mvWherePageQSBoxDisable(int index);
+	void mvWherePageDataDisable(int index);
 };
 
 #endif // MOVEPAGES_H

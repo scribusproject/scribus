@@ -41,7 +41,7 @@ extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
 extern QString Path2Relative(QString Path);
 extern void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
-extern QColor SetFarbe(ScribusDoc *doc, QString farbe, int shad);
+extern QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
 
 /*!
 	\fn ScriXmlDoc::IsScribus(QString fileName)
@@ -900,7 +900,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						double ramp = QStodouble(it.attribute("RAMP","0.0"));
 						int shade = QStoInt(it.attribute("SHADE","100"));
 						double opa = QStodouble(it.attribute("TRANS","1"));
-						OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
+						OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 					}
 					if (it.tagName()=="ITEXT")
 						tmp += GetItemText(&it, doc, view->Prefs, VorLFound, true);
@@ -1343,7 +1343,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							double ramp = QStodouble(it.attribute("RAMP","0.0"));
 							int shade = QStoInt(it.attribute("SHADE","100"));
 							double opa = QStodouble(it.attribute("TRANS","1"));
-							OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
+							OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
 							tmp += GetItemText(&it, doc, view->Prefs, false, false);
@@ -1779,7 +1779,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					double ramp = QStodouble(it.attribute("RAMP","0.0"));
 					int shade = QStoInt(it.attribute("SHADE","100"));
 					double opa = QStodouble(it.attribute("TRANS","1"));
-					OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
+					OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 				}
 				if (it.tagName()=="ITEXT")
 					tmp += GetItemText(&it, doc, Prefs, VorLFound, true);

@@ -29,44 +29,44 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	whereLayout = new QGridLayout;
 	whereLayout->setSpacing( 6 );
 	whereLayout->setMargin( 5 );
-	insCountQSBox = new QSpinBox( this, "insCountQSBox" );
-	insCountQSBox->setMinValue( 1 );
-	insCountQSBox->setValue( 1 );
-	insCountQLabel = new QLabel( insCountQSBox, tr( "&Insert" ), this, "insCountQLabel" );
-	whereLayout->addWidget( insCountQLabel, 0, 0 );
-	whereLayout->addWidget( insCountQSBox, 0, 1 );
-	pagesQLabel = new QLabel( tr( "Page(s)" ), this, "pagesQLabel" );
-	whereLayout->addWidget( pagesQLabel, 0, 2 );
+	insCountData = new QSpinBox( this, "insCountData" );
+	insCountData->setMinValue( 1 );
+	insCountData->setValue( 1 );
+	insCountLabel = new QLabel( insCountData, tr( "&Insert" ), this, "insCountLabel" );
+	whereLayout->addWidget( insCountLabel, 0, 0 );
+	whereLayout->addWidget( insCountData, 0, 1 );
+	pagesLabel = new QLabel( tr( "Page(s)" ), this, "pagesLabel" );
+	whereLayout->addWidget( pagesLabel, 0, 2 );
 
-	insWhereQCBox = new QComboBox( false, this, "insWhereQCBox" );
-	insWhereQCBox->insertItem( tr("before Page"));
-	insWhereQCBox->insertItem( tr("after Page"));
-	insWhereQCBox->insertItem( tr("at End"));
-	insWhereQCBox->setCurrentItem(2);
-	whereLayout->addMultiCellWidget( insWhereQCBox, 1, 1, 0, 1 );
+	insWhereData = new QComboBox( false, this, "insWhereData" );
+	insWhereData->insertItem( tr("before Page"));
+	insWhereData->insertItem( tr("after Page"));
+	insWhereData->insertItem( tr("at End"));
+	insWhereData->setCurrentItem(2);
+	whereLayout->addMultiCellWidget( insWhereData, 1, 1, 0, 1 );
 
-	insWherePageQSBox = new QSpinBox( 1, maxPages, 1, this, "insWherePageQSBox" );
-	insWherePageQSBox->setValue( currentPage+1 );
-	insWherePageQSBox->setDisabled( true );
+	insWherePageData = new QSpinBox( 1, maxPages, 1, this, "insWherePageData" );
+	insWherePageData->setValue( currentPage+1 );
+	insWherePageData->setDisabled( true );
 
-	whereLayout->addWidget( insWherePageQSBox, 1, 2 );
+	whereLayout->addWidget( insWherePageData, 1, 2 );
 
-	whereLayout->addColSpacing(0, insCountQLabel->fontMetrics().width( tr( "&Insert" )));
+	whereLayout->addColSpacing(0, insCountLabel->fontMetrics().width( tr( "&Insert" )));
 	dialogLayout->addLayout( whereLayout );
 	templLayout = new QHBoxLayout;
 	templLayout->setSpacing( 6 );
 	templLayout->setMargin( 0 );
 
-	templQCBox = new QComboBox(true, this, "templQCBox");
-	templQCBox->setEditable(false);
+	templData = new QComboBox(true, this, "templData");
+	templData->setEditable(false);
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-		templQCBox->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+		templData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 
-	templQLabel = new QLabel(templQCBox, (facingPages ? tr("Template (&Left Page):") : tr("&Template:")), this, "text");
+	templLabel = new QLabel(templData, (facingPages ? tr("Template (&Left Page):") : tr("&Template:")), this, "text");
 	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	templLayout->addWidget( templQLabel );
+	templLayout->addWidget( templLabel );
 	templLayout->addItem( spacer3 );
-	templLayout->addWidget(templQCBox);
+	templLayout->addWidget(templData);
 	dialogLayout->addLayout(templLayout);
 
 	if (facingPages)
@@ -74,14 +74,14 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 		templ2Layout = new QHBoxLayout;
 		templ2Layout->setSpacing( 6 );
 		templ2Layout->setMargin( 0 );
-		templ2QCBox = new QComboBox(false, this, "templ2QCBox");
+		templ2Data = new QComboBox(false, this, "templ2Data");
 		for (QMap<QString,int>::Iterator it2 = currentDoc->MasterNames.begin(); it2 != currentDoc->MasterNames.end(); ++it2)
-			templ2QCBox->insertItem(it2.key() == "Normal" ? tr("Normal") : it2.key());
-		templ2QLabel = new QLabel( templ2QCBox, tr("Template (&Right Page):"), this, "texta");
-		templ2Layout->addWidget( templ2QLabel );
+			templ2Data->insertItem(it2.key() == "Normal" ? tr("Normal") : it2.key());
+		templ2Label = new QLabel( templ2Data, tr("Template (&Right Page):"), this, "texta");
+		templ2Layout->addWidget( templ2Label );
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		templ2Layout->addItem( spacer2 );
-		templ2Layout->addWidget(templ2QCBox);
+		templ2Layout->addWidget(templ2Data);
 		dialogLayout->addLayout(templ2Layout);
 	}
 
@@ -91,48 +91,48 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 
-	okQPButton = new QPushButton( tr( "&OK" ), this, "okQPButton" );
-	okQPButton->setDefault( true );
-	okCancelLayout->addWidget( okQPButton );
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okButton->setDefault( true );
+	okCancelLayout->addWidget( okButton );
 
-	cancelQPButton = new QPushButton( tr( "&Cancel" ), this, "cancelQPButton" );
-	okCancelLayout->addWidget( cancelQPButton );
+	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	okCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
-	connect( insWhereQCBox, SIGNAL( activated(int) ), this, SLOT( insWherePageQSBoxDisable(int) ) );
-	connect( okQPButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( cancelQPButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
 
 const QString InsPage::getTemplate()
 {
-	return templQCBox->currentText();
+	return templData->currentText();
 }
 
 const QString InsPage::getTemplate2()
 {
-	return templ2QCBox->currentText();
+	return templ2Data->currentText();
 }
 
 const int InsPage::getWhere()
 {
-	return insWhereQCBox->currentItem();
+	return insWhereData->currentItem();
 }
 
 const int InsPage::getWherePage()
 {
-	return insWherePageQSBox->value();
+	return insWherePageData->value();
 }
 
 const int InsPage::getCount()
 {
-	return insCountQSBox->value();
+	return insCountData->value();
 }
 
-void InsPage::insWherePageQSBoxDisable(int index)
+void InsPage::insWherePageDataDisable(int index)
 {
-	insWherePageQSBox->setDisabled((index==2));
+	insWherePageData->setDisabled((index==2));
 }

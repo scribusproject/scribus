@@ -16,15 +16,6 @@ class QLabel;
 class QPushButton;
 class QSpinBox;
 class ScribusDoc;
-/*
-#include <qdialog.h>
-#include <qcombobox.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-#include "scribusdoc.h"
-*/
 
 class InsPage : public QDialog
 { 
@@ -41,17 +32,17 @@ public:
 	const int getCount();
 
 private:
-    QLabel* insCountQLabel;
-    QLabel* templQLabel;
-    QLabel* templ2QLabel;
-    QLabel* pagesQLabel;
-    QPushButton* cancelQPButton;
-    QPushButton* okQPButton;
-    QComboBox* insWhereQCBox;
-    QComboBox* templQCBox;
-    QComboBox* templ2QCBox;
-    QSpinBox* insWherePageQSBox;
-    QSpinBox* insCountQSBox;
+    QLabel* insCountLabel;
+    QLabel* templLabel;
+    QLabel* templ2Label;
+    QLabel* pagesLabel;
+    QPushButton* cancelButton;
+    QPushButton* okButton;
+    QComboBox* insWhereData;
+    QComboBox* templData;
+    QComboBox* templ2Data;
+    QSpinBox* insWherePageData;
+    QSpinBox* insCountData;
     QVBoxLayout* dialogLayout;
     QGridLayout* whereLayout;
     QHBoxLayout* templLayout;
@@ -59,7 +50,7 @@ private:
     QHBoxLayout* okCancelLayout;
 
 private slots:
-	void insWherePageQSBoxDisable (int index);
+	void insWherePageDataDisable (int index);
 };
 
 #endif // INSPAGE_H

@@ -71,28 +71,28 @@ extern "C" {
 #endif
 #ifdef HAVE_CMS
 	#include CMS_INC
-
-using namespace std;
-
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTrans;
-extern cmsHTRANSFORM stdProof;
-extern cmsHTRANSFORM stdTransImg;
-extern cmsHTRANSFORM stdProofImg;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-extern int IntentMonitor;
-extern int IntentPrinter;
+	extern cmsHPROFILE CMSoutputProf;
+	extern cmsHPROFILE CMSprinterProf;
+	extern cmsHTRANSFORM stdTrans;
+	extern cmsHTRANSFORM stdProof;
+	extern cmsHTRANSFORM stdTransImg;
+	extern cmsHTRANSFORM stdProofImg;
+	extern bool SoftProofing;
+	extern bool Gamut;
+	extern bool CMSuse;
+	extern int IntentMonitor;
+	extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
-QColor SetFarbe(ScribusDoc *doc, QString farbe, int shad);
+using namespace std;
+
+
+QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
 void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
 QStringList sortQStringList(QStringList aList);
-void ReOrderText(ScribusDoc *doc, ScribusView *view);
+void ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
@@ -101,7 +101,7 @@ FPoint GetMaxClipF(FPointArray Clip);
 QPixmap FontSample(QString da, int s, QString ts, QColor back);
 QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
-QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
+QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h);
 bool GlyNames(QMap<uint, QString> *GList, QString Dat);
 bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 QByteArray ComputeMD5Sum(QByteArray *in);
@@ -114,7 +114,7 @@ QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
 void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 QString MaskToTxt(QImage *im, bool PDF = true);
 QString MaskToTxt14(QImage *im);
-void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
+void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double xy2Deg(double x, double y);
 QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
@@ -122,17 +122,17 @@ QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor,
 FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 QPixmap loadIcon(QString nam);
 bool loadText(QString nam, QString *Buffer);
-double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
-double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
+double Cwidth(ScribusDoc *currentDoc, QString name, QString ch, int Siz, QString ch2 = " ");
+double RealCWidth(ScribusDoc *currentDoc, QString name, QString ch, int Siz);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
 QImage LoadPict(QString fn, bool *gray = 0);
 #ifdef HAVE_CMS
-QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
-QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
+	QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
+	QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
 #else
-QImage ProofPict(QImage *Im, QString Prof, int Rend);
+	QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 QImage ProofImage(QImage *Im);
 int System(const QStringList & args);
@@ -211,10 +211,10 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend)
 #endif
 }
 
-QImage ProofImage(QImage *Im)
+QImage ProofImage(QImage *Image)
 {
 #ifdef HAVE_CMS
-	QImage out = Im->copy();
+	QImage out = Image->copy();
 	if ((CMSuse) && (SoftProofing))
 	{
 		for (int i=0; i < out.height(); ++i)
@@ -236,7 +236,7 @@ QImage ProofImage(QImage *Im)
 	}
 	return out;
 #else
-	return Im->copy();
+	return Image->copy();
 #endif
 }
 
@@ -258,11 +258,10 @@ int System(const QStringList & args)
 		return 1;
 	}
 	/* start was OK */
-	while(proc->isRunning())
-	{
-		/* wait a little bit */
+	/* wait a little bit */
+	while( proc->isRunning() )
 		usleep(5000);
-	}
+
 	int ex = proc->exitStatus();
 	delete proc;
 	return ex;
@@ -342,13 +341,13 @@ int moveFile(QString source, QString target)
 	return 0;
 }
 
-QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
+QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QPixmap pm;
 	int ret = -1;
-	tmp.setNum(Seite);
+	tmp.setNum(Page);
 	QStringList args;
 	args.append("-r72");
 	args.append("-sOutputFile="+tmpFile);
@@ -799,20 +798,19 @@ QPixmap loadIcon(QString nam)
 	return pm;
 }
 
-bool loadText(QString nam, QString *Buffer)
+bool loadText(QString filename, QString *Buffer)
 {
-	QFile f(nam);
+	QFile f(filename);
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return false;
-	uint posi;
 	bool ret;
 	QByteArray bb(f.size());
 	if (f.open(IO_ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (posi = 0; posi < bb.size(); ++posi)
+		for (uint posi = 0; posi < bb.size(); ++posi)
 			*Buffer += bb[posi];
 		ret = true;
 	}
@@ -821,44 +819,44 @@ bool loadText(QString nam, QString *Buffer)
 	return ret;
 }
 
-double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
+double Cwidth(ScribusDoc *currentDoc, QString name, QString ch, int Size, QString ch2)
 {
-	double w;
+	double width;
 	FT_Vector  delta;
 	uint c1 = ch.at(0).unicode();
 	uint c2 = ch2.at(0).unicode();
-	Foi* fo = (*doc->AllFonts)[name];
+	Foi* fo = (*currentDoc->AllFonts)[name];
 	if (fo->CharWidth.contains(c1))
 	{
-		w = fo->CharWidth[c1]*(Siz / 10.0);
+		width = fo->CharWidth[c1]*(Size / 10.0);
 		if (fo->HasKern)
 		{
-			uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
-			uint cr = FT_Get_Char_Index(doc->FFonts[name], c2);
-			FT_Get_Kerning(doc->FFonts[name], cl, cr, ft_kerning_unscaled, &delta);
-			w += delta.x / fo->uniEM * (Siz / 10.0);
+			uint cl = FT_Get_Char_Index(currentDoc->FFonts[name], c1);
+			uint cr = FT_Get_Char_Index(currentDoc->FFonts[name], c2);
+			FT_Get_Kerning(currentDoc->FFonts[name], cl, cr, ft_kerning_unscaled, &delta);
+			width += delta.x / fo->uniEM * (Size / 10.0);
 		}
-		return w;
+		return width;
 	}
 	else
-		return static_cast<double>(Siz / 10.0);
+		return static_cast<double>(Size / 10.0);
 }
 
-double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz)
+double RealCWidth(ScribusDoc *currentDoc, QString name, QString ch, int Size)
 {
 	double w, ww;
 	uint c1 = ch.at(0).unicode();
-	Foi* fo = (*doc->AllFonts)[name];
+	Foi* fo = (*currentDoc->AllFonts)[name];
 	if (fo->CharWidth.contains(c1))
 	{
-		uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
-		FT_Load_Glyph( doc->FFonts[name], cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = (doc->FFonts[name]->glyph->metrics.width + fabs((double)doc->FFonts[name]->glyph->metrics.horiBearingX)) / fo->uniEM * (Siz / 10.0);
-		ww = doc->FFonts[name]->glyph->metrics.horiAdvance / fo->uniEM * (Siz / 10.0);
+		uint cl = FT_Get_Char_Index(currentDoc->FFonts[name], c1);
+		FT_Load_Glyph( currentDoc->FFonts[name], cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		w = (currentDoc->FFonts[name]->glyph->metrics.width + fabs((double)currentDoc->FFonts[name]->glyph->metrics.horiBearingX)) / fo->uniEM * (Size / 10.0);
+		ww = currentDoc->FFonts[name]->glyph->metrics.horiAdvance / fo->uniEM * (Size / 10.0);
 		return QMAX(ww, w);
 	}
 	else
-		return static_cast<double>(Siz / 10.0);
+		return static_cast<double>(Size / 10.0);
 }
 
 QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
@@ -961,15 +959,15 @@ void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 	return;
 }
 
-void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level)
+void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 {
-	for (uint la2 = 0; la2 < doc->Layers.count(); ++la2)
+	for (uint la2 = 0; la2 < currentDoc->Layers.count(); ++la2)
 	{
-		if (doc->Layers[la2].Level == Level)
+		if (currentDoc->Layers[la2].Level == Level)
 		{
-			ll->Sichtbar = doc->Layers[la2].Sichtbar;
-			ll->Drucken = doc->Layers[la2].Drucken;
-			ll->LNr = doc->Layers[la2].LNr;
+			ll->Sichtbar = currentDoc->Layers[la2].Sichtbar;
+			ll->Drucken = currentDoc->Layers[la2].Drucken;
+			ll->LNr = currentDoc->Layers[la2].LNr;
 			break;
 		}
 	}
@@ -1296,10 +1294,10 @@ QString Path2Relative(QString Path)
 	QStringList Pdir = QStringList::split("/", QDir::currentDirPath());
 	QFileInfo Bfi = QFileInfo(Path);
 	QStringList Bdir = QStringList::split("/", Bfi.dirPath(true));
-	bool ende = true;
+	bool end = true;
 	uint dcoun = 0;
 	uint dcoun2 = 0;
-	while (ende)
+	while (end)
 	{
 		if (Pdir[dcoun] == Bdir[dcoun])
 			dcoun++;
@@ -1907,27 +1905,27 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 	*cN = ccN;
 }
 
-void ReOrderText(ScribusDoc *doc, ScribusView *view)
+void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 {
 	double savScale = view->Scale;
 	view->Scale = 1.0;
-	doc->RePos = true;
+	currentDoc->RePos = true;
 	QPixmap pgPix(10, 10);
 	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-	for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
+	for (uint azz=0; azz<currentDoc->MasterItems.count(); ++azz)
 	{
-		PageItem *ite = doc->MasterItems.at(azz);
+		PageItem *ite = currentDoc->MasterItems.at(azz);
 		if (ite->PType == 8)
 			ite->DrawObj(painter, rd);
 	}
-	for (uint azz=0; azz<doc->Items.count(); ++azz)
+	for (uint azz=0; azz<currentDoc->Items.count(); ++azz)
 	{
-		PageItem *ite = doc->Items.at(azz);
+		PageItem *ite = currentDoc->Items.at(azz);
 		if ((ite->PType == 4) || (ite->PType == 8))
 			ite->DrawObj(painter, rd);
 	}
-	doc->RePos = false;
+	currentDoc->RePos = false;
 	view->Scale = savScale;
 	delete painter;
 }
@@ -2184,20 +2182,20 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB)
 	OB->DashOffset = QStodouble(obj->attribute("DASHOFF","0.0"));
 }
 
-QColor SetFarbe(ScribusDoc *doc, QString farbe, int shad)
+QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)
 {
 	int h, s, v, sneu;
 	QColor tmp;
-	doc->PageColors[farbe].getRGBColor().rgb(&h, &s, &v);
+	currentDoc->PageColors[color].getRGBColor().rgb(&h, &s, &v);
 	if ((h == s) && (s == v))
 	{
-		doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
+		currentDoc->PageColors[color].getRGBColor().hsv(&h, &s, &v);
 		sneu = 255 - ((255 - v) * shad / 100);
 		tmp.setHsv(h, s, sneu);
 	}
 	else
 	{
-		doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
+		currentDoc->PageColors[color].getRGBColor().hsv(&h, &s, &v);
 		sneu = s * shad / 100;
 		tmp.setHsv(h, sneu, v);
 	}

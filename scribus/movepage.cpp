@@ -26,33 +26,33 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout = new QGridLayout;
 	fromToLayout->setSpacing( 6 );
 	fromToLayout->setMargin( 5 );
-	moveQLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this, "moveQLabel" );
-	fromToLayout->addWidget( moveQLabel, 0, 0);
+	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this, "moveLabel" );
+	fromToLayout->addWidget( moveLabel, 0, 0);
 
-	fromPageQSBox = new QSpinBox( 1, maxPages, 1, this, "fromPageQSBox" );
-	fromPageQSBox->setValue( currentPage );
-	fromToLayout->addWidget( fromPageQSBox, 0, 1);
+	fromPageData = new QSpinBox( 1, maxPages, 1, this, "fromPageData" );
+	fromPageData->setValue( currentPage );
+	fromToLayout->addWidget( fromPageData, 0, 1);
 
 	if (move)
 	{
-		toQLabel = new QLabel( tr("to:"), this, "toQLabel" );
-		fromToLayout->addWidget( toQLabel, 0, 2);
-		toPageQSBox = new QSpinBox( 1, maxPages, 1, this, "toPageQSBox" );
-		toPageQSBox->setValue( currentPage );
-		fromToLayout->addWidget( toPageQSBox, 0, 3);
+		toLabel = new QLabel( tr("to:"), this, "toLabel" );
+		fromToLayout->addWidget( toLabel, 0, 2);
+		toPageData = new QSpinBox( 1, maxPages, 1, this, "toPageData" );
+		toPageData->setValue( currentPage );
+		fromToLayout->addWidget( toPageData, 0, 3);
 	}
 
-	mvWhereQCBox = new QComboBox( false, this, "mvWhereQCBox" );
-	mvWhereQCBox->insertItem( tr("Before Page"));
-	mvWhereQCBox->insertItem( tr("After Page"));
-	mvWhereQCBox->insertItem( tr("At End"));
-	mvWhereQCBox->setCurrentItem(2);
-	fromToLayout->addMultiCellWidget( mvWhereQCBox, 1, 1, 0, 1 );
-	mvWherePageQSBox = new QSpinBox( 1, maxPages, 1, this, "mvWherePageQSBox" );
-	mvWherePageQSBox->setValue( currentPage );
-	mvWherePageQSBox->setDisabled( true );
-	fromToLayout->addWidget( mvWherePageQSBox, 1, 3 );
-	fromToLayout->addColSpacing(0, moveQLabel->fontMetrics().width( tr( "Move Page(s):" )));
+	mvWhereData = new QComboBox( false, this, "mvWhereData" );
+	mvWhereData->insertItem( tr("Before Page"));
+	mvWhereData->insertItem( tr("After Page"));
+	mvWhereData->insertItem( tr("At End"));
+	mvWhereData->setCurrentItem(2);
+	fromToLayout->addMultiCellWidget( mvWhereData, 1, 1, 0, 1 );
+	mvWherePageData = new QSpinBox( 1, maxPages, 1, this, "mvWherePageData" );
+	mvWherePageData->setValue( currentPage );
+	mvWherePageData->setDisabled( true );
+	fromToLayout->addWidget( mvWherePageData, 1, 3 );
+	fromToLayout->addColSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
 	dialogLayout->addLayout( fromToLayout );
 
 	okCancelLayout = new QHBoxLayout;
@@ -60,65 +60,65 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okQPButton = new QPushButton( tr( "&OK" ), this, "okQPButton" );
-	okQPButton->setDefault( true );
-	okCancelLayout->addWidget(okQPButton);
-	cancelQPButton = new QPushButton( tr( "&Cancel" ), this, "cancelQPButton" );
-	okCancelLayout->addWidget(cancelQPButton);
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okButton->setDefault( true );
+	okCancelLayout->addWidget(okButton);
+	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	okCancelLayout->addWidget(cancelButton);
 	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
 	if (move)
-		connect( toPageQSBox, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
-	connect( mvWhereQCBox, SIGNAL( activated(int) ), this, SLOT( mvWherePageQSBoxDisable(int) ) );
-	connect( fromPageQSBox, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
-	connect( okQPButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( cancelQPButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+		connect( toPageData, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
+	connect( mvWhereData, SIGNAL( activated(int) ), this, SLOT( mvWherePageDataDisable(int) ) );
+	connect( fromPageData, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
 void MovePages::fromChanged(int pageNumber)
 {
 	if (move)
 	{
-		if (pageNumber > toPageQSBox->value())
-			toPageQSBox->setValue(pageNumber);
-		if ((pageNumber == 1) && (toPageQSBox->value() == toPageQSBox->maxValue()))
-			toPageQSBox->setValue(toPageQSBox->maxValue()-1);
+		if (pageNumber > toPageData->value())
+			toPageData->setValue(pageNumber);
+		if ((pageNumber == 1) && (toPageData->value() == toPageData->maxValue()))
+			toPageData->setValue(toPageData->maxValue()-1);
 	}
 }
 
 void MovePages::toChanged(int pageNumber)
 {
-	if (pageNumber < fromPageQSBox->value())
-		fromPageQSBox->setValue(pageNumber);
-	if ((fromPageQSBox->value() == 1) && (pageNumber == toPageQSBox->maxValue()))
-		fromPageQSBox->setValue(2);
+	if (pageNumber < fromPageData->value())
+		fromPageData->setValue(pageNumber);
+	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maxValue()))
+		fromPageData->setValue(2);
 }
 
-void MovePages::mvWherePageQSBoxDisable(int index)
+void MovePages::mvWherePageDataDisable(int index)
 {
-    mvWherePageQSBox->setDisabled((index==2));
+    mvWherePageData->setDisabled((index==2));
 }
 
 
 const int MovePages::getFromPage()
 {
-	return fromPageQSBox->value();
+	return fromPageData->value();
 }
 
 const int MovePages::getToPage()
 {
-	return toPageQSBox->value();
+	return toPageData->value();
 }
 
 const int MovePages::getWhere()
 {
-	return mvWhereQCBox->currentItem();
+	return mvWhereData->currentItem();
 }
 
 const int MovePages::getWherePage()
 {
-	return mvWherePageQSBox->value();
+	return mvWherePageData->value();
 }
 

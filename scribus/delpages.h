@@ -31,12 +31,12 @@ private:
     QHBoxLayout* fromToLayout;
     QHBoxLayout* okCancelLayout;
 
-    QPushButton* cancelQPButton;
-    QPushButton* okQPButton;
-    QLabel* fromQLabel;
-    QLabel* toQLabel;
-    QSpinBox* toPageQSBox;
-    QSpinBox* fromPageQSBox;
+    QPushButton* cancelButton;
+    QPushButton* okButton;
+    QLabel* fromLabel;
+    QLabel* toLabel;
+    QSpinBox* toPageData;
+    QSpinBox* fromPageData;
 
 private slots:
     virtual void fromChanged(int pageNumber);
