@@ -43,6 +43,7 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
 		CListe::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
 		farben.remove(Fnam);
+		Ersatz->insertItem(tr("None")); // 10/26/2004 pv - user can replace deleted color with "None"
 		for (it = farben.begin(); it != farben.end(); ++it)
 		{
 			pm.fill(farben[it.key()].getRGBColor());
