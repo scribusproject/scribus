@@ -48,6 +48,7 @@ public:
 
 	QWidget* tabGuides;
 	QWidget* tabView;
+	QWidget* tabTypo;
 	QLabel* textLabel1;
 	QLabel* textLabel2;
 	QLabel* textLabel3;
@@ -80,6 +81,26 @@ public:
 	QCheckBox* checkGuides;
 	QCheckBox* checkBaseline;
 	QCheckBox* checkLink;
+	QGroupBox* groupBox1a;
+	QLabel* textLabel1a;
+	QLabel* textLabel2a;
+	QSpinBox* subDisplacement;
+	QSpinBox* subScaling;
+	QGroupBox* groupBox2a;
+	QLabel* textLabel3a;
+	QLabel* textLabel4a;
+	QSpinBox* superDisplacement;
+	QSpinBox* superScaling;
+	QGroupBox* groupBox3a;
+	QLabel* textLabel5a;
+	QSpinBox* capsScaling;
+	QGroupBox* groupBox4a;
+	QLabel* textLabel6a;
+	QSpinBox* autoLine;
+	QLabel* textLabel7a;
+	MSpinBox* baseGrid;
+	MSpinBox* baseOffset;
+	QLabel* textLabel8a;
 
 	int einheit;
 	double Breite;
@@ -113,6 +134,11 @@ protected:
 	QHBoxLayout* layout10;
 	QSpacerItem* spacer3;
 	QGridLayout* layout12;
+	QGridLayout* tabTypoLayout;
+	QGridLayout* groupBox1aLayout;
+	QGridLayout* groupBox2aLayout;
+	QGridLayout* groupBox3aLayout;
+	QGridLayout* groupBox4aLayout;
 
 protected slots:
 	virtual void changeMajorColor();

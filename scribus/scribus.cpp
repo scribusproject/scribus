@@ -2433,6 +2433,14 @@ bool ScribusApp::SetupDoc()
 		doc->margColor = dia->colorMargin;
 		doc->guideColor = dia->colorGuides;
 		doc->baseColor = dia->colorBaselineGrid;
+		doc->VHoch = dia->superDisplacement->value();
+		doc->VHochSc = dia->superScaling->value();
+		doc->VTief = dia->subDisplacement->value();
+		doc->VTiefSc = dia->subScaling->value();
+		doc->VKapit = dia->capsScaling->value();
+		doc->AutoLine = dia->autoLine->value();
+		doc->BaseGrid = dia->baseGrid->value() / UmReFaktor;
+		doc->BaseOffs = dia->baseOffset->value() / UmReFaktor;
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);

@@ -3,7 +3,8 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include <qlistbox.h>
+#include <qiconview.h>
+#include <qmap.h>
 #include <qwidgetstack.h>
 #include <qwidget.h>
 
@@ -20,11 +21,18 @@ class PrefsDialogBase : public QDialog
 public:
 	PrefsDialogBase( QWidget* parent = 0 );
 	~PrefsDialogBase() {};
-
-	QListBox* prefsSelection;
+	void addItem(QString name, QPixmap icon, QWidget *tab);
 	QWidgetStack* prefsWidgets;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
+
+private:
+	QIconView* prefsSelection;
+	QMap<QIconViewItem*, int> itemMap;
+	int counter;
+
+private slots:
+	void itemSelected(QIconViewItem* ic);
 
 protected:
 	QVBoxLayout* prefsLayout;

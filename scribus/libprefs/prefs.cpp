@@ -570,7 +570,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	VTiefW->setSuffix( tr( " %" ) );
 	VTiefW->setMaxValue( 100 );
 	VTiefW->setMinValue( 1 );
-	VTiefW->setValue(ap->HaveDoc ? ap->doc->VTief : Vor->DVTief );
+	VTiefW->setValue(Vor->DVTief );
 	TextLabel1_5_2 = new QLabel( VTiefW, tr( "&Displacement:" ), GroupBox4_2, "TextLabel1_5_2" );
 	TextLabel1_5_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel1_5_2->sizePolicy().hasHeightForWidth() ) );
@@ -581,7 +581,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	VTiefWSc->setSuffix( tr( " %" ) );
 	VTiefWSc->setMaxValue( 100 );
 	VTiefWSc->setMinValue( 1 );
-	VTiefWSc->setValue(ap->HaveDoc ? ap->doc->VTiefSc : Vor->DVTiefSc );
+	VTiefWSc->setValue(Vor->DVTiefSc );
 	TextLabel2_3_2 = new QLabel( VTiefWSc, tr( "&Scaling:" ), GroupBox4_2, "TextLabel2_3_2" );
 	TextLabel2_3_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel2_3_2->sizePolicy().hasHeightForWidth() ) );
@@ -606,7 +606,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	VHochW->setSuffix( tr( " %" ) );
 	VHochW->setMaxValue( 100 );
 	VHochW->setMinValue( 1 );
-	VHochW->setValue(ap->HaveDoc ? ap->doc->VHoch : Vor->DVHoch );
+	VHochW->setValue(Vor->DVHoch );
 	TextLabel1_5 = new QLabel( VHochW, tr( "D&isplacement:" ), GroupBox4, "TextLabel1_5" );
 	TextLabel1_5->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel1_5->sizePolicy().hasHeightForWidth() ) );
@@ -616,7 +616,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	VHochWSc->setSuffix( tr( " %" ) );
 	VHochWSc->setMaxValue( 100 );
 	VHochWSc->setMinValue( 1 );
-	VHochWSc->setValue(ap->HaveDoc ? ap->doc->VHochSc : Vor->DVHochSc );
+	VHochWSc->setValue(Vor->DVHochSc );
 	TextLabel2_3 = new QLabel( VHochWSc, tr( "S&caling:" ), GroupBox4, "TextLabel2_3" );
 	TextLabel2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel2_3->sizePolicy().hasHeightForWidth() ) );
@@ -640,7 +640,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	SmallCaps->setSuffix( tr( " %" ) );
 	SmallCaps->setMaxValue( 100 );
 	SmallCaps->setMinValue( 1 );
-	SmallCaps->setValue(ap->HaveDoc ? ap->doc->VKapit : Vor->DVKapit );
+	SmallCaps->setValue(Vor->DVKapit );
 	TextLabel2_3_3 = new QLabel( SmallCaps, tr( "Sc&aling:" ), GroupBox4_3, "TextLabel2_3_3" );
 	TextLabel2_3_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel2_3_3->sizePolicy().hasHeightForWidth() ) );
@@ -662,7 +662,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	BaseGrid = new MSpinBox( 1, 100, GroupBox4_3a, 1 );
 	BaseGrid->setSuffix( tr( " pt" ) );
-	BaseGrid->setValue(ap->HaveDoc ? ap->doc->BaseGrid : Vor->BaseGrid );
+	BaseGrid->setValue(Vor->BaseGrid );
 	TextLabel2_3_3b = new QLabel( BaseGrid, tr( "Baseline &Grid:" ), GroupBox4_3a, "TextLabel2_3_3" );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3b, 0, 0 );
 	
@@ -670,7 +670,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	BaseOffs = new MSpinBox( 0, 1000, GroupBox4_3a, 1 );
 	BaseOffs->setSuffix( tr( " pt" ) );
-	BaseOffs->setValue(ap->HaveDoc ? ap->doc->BaseOffs : Vor->BaseOffs );
+	BaseOffs->setValue(Vor->BaseOffs );
 	TextLabel2_3_3c = new QLabel( BaseOffs, tr( "Baseline &Offset:" ), GroupBox4_3a, "TextLabel2_3_3" );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3c, 1, 0 );
 	GroupBox4_3aLayout->addWidget( BaseOffs, 1, 1 );
@@ -679,7 +679,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	AutoLineV->setSuffix( tr( " %" ) );
 	AutoLineV->setMaxValue( 100 );
 	AutoLineV->setMinValue( 1 );
-	AutoLineV->setValue(ap->HaveDoc ? ap->doc->AutoLine : Vor->AutoLine );
+	AutoLineV->setValue(Vor->AutoLine );
 	TextLabel2_3_3a = new QLabel( AutoLineV, tr( "Automatic &Line Spacing:" ), GroupBox4_3a, "TextLabel2_3_3" );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3a, 2, 0 );
 	GroupBox4_3aLayout->addWidget( AutoLineV, 2, 1 );
