@@ -1130,9 +1130,13 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished">scaleImage(x, y [, &quot;name&quot;])
+        <translation>scaleImage(x, y [, &quot;name&quot;])
 
-</translation>
+Nastaví velikost obrázku v obrázkovém rámu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Číslo 1 znamená 100%.
+
+Může vyvolat výjimku WrongFrameTypeError jestliže rámec není obrázkový</translation>
     </message>
     <message>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
@@ -1141,7 +1145,11 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>lockObject([&quot;name&quot;]) -&gt; bool
+
+Jestliže je objekt &quot;name&quot; zamčený, tak jej odemkne a naopak.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Vrátí true jestliže je objekt zamčený.</translation>
     </message>
     <message>
         <source>isLocked([&quot;name&quot;]) -&gt; bool
@@ -1149,14 +1157,19 @@ if locked.
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLocked([&quot;name&quot;]) -&gt; bool
+
+Vrátí true kdyý je objekt &quot;name&quot; zamčený.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getFontNames() -&gt; list
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontNames() -&gt; list
+
+Vrátí seznam se jmény dostupných písem.</translation>
     </message>
     <message>
         <source>getXFontNames() -&gt; list of tuples
@@ -1164,7 +1177,10 @@ Returns a list with the names of all available fonts.
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getXFontNames() -&gt; list of tuples
+
+Vrátí více informací o dostupných písmech. Seznam obsahuje tupple:
+[(Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]</translation>
     </message>
     <message>
         <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
@@ -1175,14 +1191,23 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+Vytvoří obrázkovou bitmapu s náhledem písma &quot;name&quot; s textem &quot;sample&quot;
+velikosti &quot;size&quot;. Obrázek je pak uložen jako &quot;filename&quot;. Vrátí true v případě
+úspěchu.
+
+Může vyvolat výjimky NotFoundError (nenajde písmo) a ValueError (prázdné
+filename nebo sample).</translation>
     </message>
     <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayers() -&gt; list
+
+Vrátí seznam se jmény všech vrstev.</translation>
     </message>
     <message>
         <source>setActiveLayer(&quot;name&quot;)
@@ -1192,14 +1217,21 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setActiveLayer(&quot;name&quot;)
+
+Přepne dokument na specifikovanou vrstvu &quot;name&quot;.
+
+Může vyvolat výjimky NotFoundError (vrstva nenalezena) a
+ValueError (nelze přepnout vrstvu).</translation>
     </message>
     <message>
         <source>getActiveLayer() -&gt; string
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getActiveLayer() -&gt; string
+
+Vrátí jméno aktuální vrstvy.</translation>
     </message>
     <message>
         <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
@@ -1210,7 +1242,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+Přesune objekt &quot;name&quot; do vrstvy &quot;layer&quot;. Vrstva musí existovat.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
+ValueError (nelze přepnout vrstvu).</translation>
     </message>
     <message>
         <source>setLayerVisible(&quot;layer&quot;, visible)
@@ -1221,7 +1259,13 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerVisible(&quot;layer&quot;, visible)
+
+Nastaví jestli má být vrstva &quot;layer&quot; viditelná nebo nemá. Je-li &quot;visible&quot;
+false, bude vrstva neviditelná.
+
+Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
+ValueError (nelze přepnout vrstvu).</translation>
     </message>
     <message>
         <source>setLayerPrintable(&quot;layer&quot;, printable)
@@ -1232,7 +1276,13 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerPrintable(&quot;layer&quot;, printable)
+
+Nastaví jestli má být vrstva &quot;layer&quot; tisknutelná nebo nemá. Je-li &quot;printable&quot;
+false, nebude vrstva tisknuta.
+
+Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
+ValueError (nelze přepnout vrstvu).</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -1244,7 +1294,13 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Vrátí příznak, zda jde vrstva &quot;layer&quot; viditelná nebo není. true znamená
+viditelná.
+
+Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
+ValueError (nelze přepnout vrstvu).</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -1256,7 +1312,13 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Vrátí příznak, zda jde vrstva &quot;layer&quot; tisknutelná nebo není. true znamená
+tisknutelná.
+
+Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
+ValueError (nelze přepnout vrstvu).</translation>
     </message>
     <message>
         <source>deleteLayer(&quot;layer&quot;)
@@ -1267,7 +1329,13 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteLayer(&quot;layer&quot;)
+
+Smaže vrstvu &quot;layer&quot;. Neudělá nic, jestliže je to poslední vrstva dokumentu
+nebo vrstva neexistuje.
+
+Může vyvolat výjimku NotFoundError (vrstva nenalezena) a
+ValueError (nelze přepnout vrstvu).</translation>
     </message>
     <message>
         <source>createLayer(layer)
@@ -1276,14 +1344,20 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLayer(layer)
+
+Vytvoří novou vrstvu se jménem &quot;layer&quot;.
+
+Může vyvolat výjimku ValueError v případě chyby.</translation>
     </message>
     <message>
         <source>getGuiLanguage() -&gt; string
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getGuiLanguage() -&gt; string
+
+Vrátí řetězec s kódem jazyka, ve kterém Scribus běží (viz. přepínač --lang xx).</translation>
     </message>
     <message>
         <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -1296,7 +1370,14 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Vytvoří novou elipsu na aktuální stránce dokumentu a vrátí její jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.</translation>
     </message>
     <message>
         <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -1309,7 +1390,14 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Vytvoří novoý obrázkový rám na aktuální stránce dokumentu a vrátí jeho jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.</translation>
     </message>
     <message>
         <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -1322,7 +1410,14 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Vytvoří nový textový rámec na aktuální stránce dokumentu a vrátí jeho jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.</translation>
     </message>
     <message>
         <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
@@ -1335,7 +1430,14 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+
+Vytvoří novou čáru na aktuální stránce dokumentu a vrátí její jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.</translation>
     </message>
     <message>
         <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
@@ -1351,7 +1453,16 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolyLine(list, [&quot;name&quot;]) -&gt; string
+
+Vytvoří novou lomenou čáru na aktuální stránce dokumentu a vrátí její jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+Seznam bodů má tvar: [x1, y1, x2, y2, ..., xn, yn].
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.
+Může vyvolat výjimku ValueError v případě špatných koordinátů.</translation>
     </message>
     <message>
         <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
@@ -1369,7 +1480,18 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolygon(list, [&quot;name&quot;]) -&gt; string
+
+Vytvoří nový mnohoúhelník na aktuální stránce dokumentu a vrátí jeho jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+Seznam bodů objeku má tvar: [x1, y1, x2, y2, ..., xn, yn] a jsou nutné alespoň
+tři body. Mnohoúhelník je automaticky uzavřen, takže není třeba zadávat poslední
+bod jako první.
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.
+Může vyvolat výjimku ValueError v případě špatných koordinátů.</translation>
     </message>
     <message>
         <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
@@ -1388,7 +1510,17 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createBezierLine(list, [&quot;name&quot;]) -&gt; string
+
+Vytvoří novou Bezierovou křivku na aktuální stránce dokumentu a vrátí jeho jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+Seznam bodů objeku má tvar: [x1, y1, kx1, ky1, x2, y2, kx2, ky2, ..., xn, yn, kxn, kyn].
+x a y jsou koordináty bodů, kx a ky jsou koordináty řídícího bodu křivky.
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.
+Může vyvolat výjimku ValueError v případě špatných koordinátů.</translation>
     </message>
     <message>
         <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
@@ -1402,7 +1534,17 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+
+Vytvoří nový text na křivce na aktuální stránce dokumentu a vrátí jeho jméno.
+Koordináty jsou zadávány v současných měrných jednotkách (viz. konstanty UNIT).
+Jméno &quot;name&quot; musí být unikátní řetězec.
+Jestliže není &quot;name&quot; uvedeno, Scribus jméno vytvoří sám.
+Text na křivce vyznikne ze dvou objektů - textového rámce &quot;textbox&quot; a Bezierovské
+křivky &quot;beziercurve&quot;.
+
+Může vyvolat výjimku NameExistsError když zadáte jméno, které již existuje.
+Může vyvolat výjimku NotFoundError v případě neexistujících objektů.</translation>
     </message>
     <message>
         <source>deleteObject([&quot;name&quot;])
@@ -1410,7 +1552,9 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteObject([&quot;name&quot;])
+
+Smaže objekt &quot;name&quot;. Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>textFlowsAroundFrame(&quot;name&quot; [, state])
@@ -1419,7 +1563,11 @@ Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;na
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
 is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textFlowsAroundFrame(&quot;name&quot; [, state])
+
+Povolí/zakáže vlastnost &quot;Text obtéká okolo rámu&quot; objektu &quot;name&quot;.
+Jestliže je &quot;state&quot; true, vlastnost povolí a naopak. V případě, že &quot;state&quot; není
+zadáno, stav se obrátí.</translation>
     </message>
     <message>
         <source>objectExists([&quot;name&quot;]) -&gt; bool
@@ -1428,7 +1576,10 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>objectExists([&quot;name&quot;]) -&gt; bool
+
+Vrátí příznak, zda objekt &quot;name&quot; v dokuemntu existuje. Když není &quot;name&quot;
+zadáno, vrátí true, jestliže je nějaký objekt vybrán.</translation>
     </message>
     <message>
         <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
@@ -1436,14 +1587,19 @@ returns True if there is something selected.
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+Aplikuje styl &quot;style&quot; na objekt &quot;name&quot;. Jestliže není &quot;name&quot; uvedeno,
+použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getAllStyles() -&gt; list
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllStyles() -&gt; list
+
+Vrátí seznam všech jmen stylů odstavce v dokumentu.</translation>
     </message>
     <message>
         <source>currentPage() -&gt; integer
@@ -1451,7 +1607,10 @@ Return a list of the names of all paragraph styles in the current document.
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>currentPage() -&gt; integer
+
+Vrátí číslo aktuální stránky dokumentu. Stránky jsou číslovány od 1, přičemž nezáleží
+na nastaveném čísle první stránky.</translation>
     </message>
     <message>
         <source>redrawAll()
@@ -1480,7 +1639,12 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deletePage(nr)
+
+Smaže zadanou stránku. Nedělá nic, jestliže dokument obsahuje jedinou stránku.
+Stránky jsou číslovány od 1, přičemž nezáleží na nastaveném čísle první stránky.
+
+Může vyvolat výjimku IndexError, jestliže není &quot;nr&quot; číslo existující stránky</translation>
     </message>
     <message>
         <source>gotoPage(nr)
@@ -1491,7 +1655,13 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>gotoPage(nr)
+
+Nastaví stránku &quot;nr&quot; jako aktuální. Pozor - procedura neposune zobrazení stránky
+uživateli, pouze přepne kontext Scripteru (t.j. na jaké stránce budou vykonávány
+příkazy).
+
+Může vyvolat výjimku IndexError, jestliže není &quot;nr&quot; číslo existující stránky.</translation>
     </message>
     <message>
         <source>pageCount() -&gt; integer
@@ -1506,7 +1676,10 @@ Returns the number of pages in the document.
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getHGuides() -&gt; list
+
+Vrátí seznam s pozicemi horizontálních vodítek. Hodnoty jsou v aktuálních
+měrných jednotkách. Viz. konstanty UNIT.</translation>
     </message>
     <message>
         <source>setHGuides(list)
@@ -1517,7 +1690,13 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setHGuides(list)
+
+Nastaví horizontální vodítka. Vstupní parametr je seznam jejich pozicí
+v aktuálních měrných jednotkách (viz. konstanty UNIT).
+Např.:
+     setHGuides(getHGuides()) + [200.0, 210.0] # prida voditka
+     setHGuides([90, 250]) # smaze stara a nastavi nova voditka</translation>
     </message>
     <message>
         <source>getVGuides()
@@ -1539,7 +1718,10 @@ See setHGuides.
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageSize() -&gt; tuple
+
+Vrátí tuple s rozměry stránky v aktuálních měrných jednotkách. Viz. konstanty UNIT
+a getPageMargins()</translation>
     </message>
     <message>
         <source>getPageItems() -&gt; list
@@ -1549,7 +1731,11 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageItems() -&gt; list
+
+Vrátí seznam tuple objektů na aktuální stránce: (jmeno, typ, poradi).
+Např.: [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)], což znamená, že objekt &quot;Text1&quot;
+je textový rámec (4) a je první v pořadí na stránce...</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -1557,7 +1743,10 @@ the page...
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Vrátí nastavení okrajů stránky (levý, pravý, horní, dolní) v aktuálních měrných
+jednotkách. Viz. koonstanty UNIT a getPageSize().</translation>
     </message>
     <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1566,7 +1755,11 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+Nastavý výplňovou barvu &quot;color&quot; objektu &quot;name&quot;. &quot;color&quot; je jméno
+jedné z definovaných barev. Jestliže není &quot;name&quot; uvedeno, použije 
+vybraný objekt.</translation>
     </message>
     <message>
         <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1574,7 +1767,10 @@ currently selected item is used.
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+Nastaví barvu &quot;color&quot; čar objetu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>setLineWidth(width, [&quot;name&quot;])
@@ -1585,7 +1781,13 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineWidth(width, [&quot;name&quot;])
+
+Nastaví šířku čáry objektu &quot;name&quot; na hodnotu &quot;width&quot;. &quot;width&quot; musí
+být v intervalu &lt;0.0; 12.0&gt; a je v bodech.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolatvýjimku ValueError, když není hodnota v intervalu.</translation>
     </message>
     <message>
         <source>setLineShade(shade, [&quot;name&quot;])
@@ -1597,7 +1799,13 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineShade(shade, [&quot;name&quot;])
+
+Nastaví stín čar objektu &quot;name&quot; na hodnotu &quot;shade&quot;. &quot;shade&quot; musí
+být celé číslo z intervalu &lt;0; 100&gt;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError, když je hodnota mimo interval.</translation>
     </message>
     <message>
         <source>setLineJoin(join, [&quot;name&quot;])
@@ -1606,7 +1814,11 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineJoin(join, [&quot;name&quot;])
+
+Nastaví typ spojení čar objektu &quot;name&quot; na styl &quot;join&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Viz. předdefinované konstanty JOIN_*.</translation>
     </message>
     <message>
         <source>setLineEnd(endtype, [&quot;name&quot;])
@@ -1615,7 +1827,11 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineEnd(endtype, [&quot;name&quot;])
+
+Nastaví styl konce čar objektu &quot;name&quot; na styl &quot;cap&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Viz. předdefinované konstanty CAP_*.</translation>
     </message>
     <message>
         <source>setLineStyle(style, [&quot;name&quot;])
@@ -1624,7 +1840,11 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineStyle(style, [&quot;name&quot;])
+
+Nastaví styl čáry objektu &quot;name&quot; na styl &quot;style&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Viz. předdefinované konstanty LINE_*.</translation>
     </message>
     <message>
         <source>setFillShade(shade, [&quot;name&quot;])
@@ -1636,7 +1856,13 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillShade(shade, [&quot;name&quot;])
+
+Nastaví stín výplně objektu &quot;name&quot; na hodnotu &quot;shade&quot;.
+&quot;shade&quot; musí být celé číslo z intervalu &lt;0; 100&gt;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError, jestliže je hodnota mimo interval.</translation>
     </message>
     <message>
         <source>setCornerRadius(radius, [&quot;name&quot;])
@@ -1646,7 +1872,12 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCornerRadius(radius, [&quot;name&quot;])
+
+Nastaví poloměr zaoblení rohů objektu &quot;name&quot;. Poloměr je vyjádřen v bodech.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError, když je poloměr negativní.</translation>
     </message>
     <message>
         <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
@@ -1656,7 +1887,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+Nastaví styl čar objektu &quot;name&quot; na definovaný styl &quot;namedStyle&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku NotFoundError, jestliže styl neexistuje.</translation>
     </message>
     <message>
         <source>progressReset()
@@ -1664,7 +1900,9 @@ May raise NotFoundError if the line style doesn&apos;t exist.
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressReset()
+
+Zruší předchozí nastavení progress baru. Je to vhodné použít před novým použitím P.B.</translation>
     </message>
     <message>
         <source>progressTotal(max)
@@ -1672,7 +1910,9 @@ new progress bar use. See progressSet.
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressTotal(max)
+
+Nastaví maximální možný počet kroků (zaplnění) progress baru.</translation>
     </message>
     <message>
         <source>progressSet(nr)
@@ -1685,7 +1925,12 @@ total number of steps with progressTotal(). The current number of steps is set
 with progressSet(). The progress bar can be rewound to the beginning with
 progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressSet(nr)
+
+Nastaví pozici progress baru na &quot;nr&quot;. Progress bar využívá koncept &quot;kroků&quot;.
+Musíte zadat maximální počet kroků (progressTotal()) a nastavovat je (progressSet()).
+Po použití P.B. je vhodné jej vynulovat, t.j. použít progressReset(). Viz. dokumentace
+Qt</translation>
     </message>
     <message>
         <source>setCursor()
@@ -1701,7 +1946,11 @@ Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos
 useful to call this procedure when you&apos;re changing the document, because Scribus
 won&apos;t automatically notice when you change the document using a script.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>docChanged(bool)
+
+Povolí/zakáže ikonu &quot;uložit&quot; a položku menu &quot;Uložit&quot; v hlavním okně Scribusu.
+Proceduru volejte, jestliže jste něco ve svém skriptu změnili, protože Scribus
+tuto akci nezajistí automaticky.</translation>
     </message>
     <message>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
@@ -1712,7 +1961,12 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>defineColor(&quot;name&quot;, c, m, y, k)
+
+Vytvoří novou barvu &quot;name&quot;. Barva je definována čtyřmi složkami modelu CMYK.
+Každá složka musí být z intervalu &lt;0; 255&gt;.
+
+Může vyvolat výjimku ValueError, v případě chybného jména barvy.</translation>
     </message>
     <message>
         <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
@@ -1721,7 +1975,10 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Vrátí poloměr zaoblení rohů objektu &quot;name&quot;. Poloměr je vyjádřen
+v bodech. Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
@@ -1731,7 +1988,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Vrátí (x, y) tuple s pozicí objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Pozice je vyjádřena v aktuálních měrných jednotkách dokumentu. Viz. konstanty UNIT*.</translation>
     </message>
     <message>
         <source>rotateObjectAbs(rot [, &quot;name&quot;])
@@ -1740,7 +2001,11 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Nastaví otočení objektu &quot;name&quot; na &quot;rot&quot;. Kladné hodnoty znamenají
+otočení po směru hodinových ručiček.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
 </context>
 <context>
