@@ -434,7 +434,7 @@ void UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 		TransactionState *ts = dynamic_cast<TransactionState*>(apair.second);
 		if (ts)
 			ts->replace(uid, newUndoObject);
-		else if (apair.first->getUId() == uid)
+		else if (apair.first && apair.first->getUId() == uid)
 			apair.first = newUndoObject;
 	}
 }
