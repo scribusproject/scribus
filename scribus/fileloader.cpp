@@ -795,11 +795,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					doc->DocPages = doc->Pages;
 				else
 				{
-				  Apage->setPageName(PgNam);
+					Apage->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
 					doc->MasterPages = doc->Pages;
 				}
-				doc->MasterP = false;
 				doc->PageC = Pgc+1;
 				doc->PageAT = AtFl;
 				Apage->LeftPg=QStoInt(pg.attribute("LEFT","0"));
@@ -813,8 +812,57 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				Apage->Yoffset = QStodouble(pg.attribute("PAGEYPOS"));
 				Apage->Width = QStodouble(pg.attribute("PAGEWITH"));
 				Apage->Height = QStodouble(pg.attribute("PAGEHEIGHT"));
-				Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
-				Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+				if (doc->PageFP)
+				{
+					if (doc->MasterP)
+					{
+						if (Apage->LeftPg)
+						{
+							Apage->Margins.Right = QStodouble(pg.attribute("BORDERLEFT"));
+							Apage->Margins.Left = QStodouble(pg.attribute("BORDERRIGHT"));
+						}
+						else
+						{
+							Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
+							Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+						}
+					}
+					else
+					{
+						if (a % 2 == 0)
+						{
+							if (doc->FirstPageLeft)
+							{
+								Apage->Margins.Right = QStodouble(pg.attribute("BORDERLEFT"));
+								Apage->Margins.Left = QStodouble(pg.attribute("BORDERRIGHT"));
+							}
+							else
+							{
+								Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
+								Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+							}
+						}
+						else
+						{
+							if (doc->FirstPageLeft)
+							{
+								Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
+								Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+							}
+							else
+							{
+								Apage->Margins.Right = QStodouble(pg.attribute("BORDERLEFT"));
+								Apage->Margins.Left = QStodouble(pg.attribute("BORDERRIGHT"));
+							}
+						}
+					}
+				}
+				else
+				{
+					Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
+					Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+				}
+				doc->MasterP = false;
 				Apage->Margins.Top = QStodouble(pg.attribute("BORDERTOP"));
 				Apage->Margins.Bottom = QStodouble(pg.attribute("BORDERBOTTOM"));
 				doc->PageB = Apage->Width;
