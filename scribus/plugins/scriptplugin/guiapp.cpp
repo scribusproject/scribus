@@ -14,10 +14,8 @@ PyObject *scribus_messagebartext(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_progressreset(PyObject *self, PyObject* args)
+PyObject *scribus_progressreset(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-		return NULL;
 	Carrier->FProg->reset();
 	qApp->processEvents();
 	Py_INCREF(Py_None);
@@ -57,9 +55,9 @@ PyObject *scribus_setcursor(PyObject *self, PyObject* args)
 {
 	char *aCursor;
 	qDebug("WARNING! SetCursor() is not stable!");
-	if (!PyArg_ParseTuple(args, "s", &aCursor))
+	if (!PyArg_ParseTuple(args, "es", "ascii", &aCursor))
 		return NULL;
-	if (aCursor=="wait")
+	if (strcmp(aCursor, "wait") == 0)
 		qApp->setOverrideCursor(Qt::WaitCursor);
 	else
 		qApp->restoreOverrideCursor();
