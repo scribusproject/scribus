@@ -7925,9 +7925,7 @@ void ScribusView::DeleteItem()
 					{
 						b->BackBox->NextBox = b->NextBox;
 						if (b->NextBox != 0)
-						{
 							b->NextBox->BackBox = b->BackBox;
-						}
 						else
 						{
 							if (b->isAutoText)
@@ -7936,6 +7934,14 @@ void ScribusView::DeleteItem()
 						c = b->itemText.count();
 						for (a = 0; a < c; ++a)
 							b->BackBox->itemText.append(b->itemText.take(0));
+					}
+				}
+				else
+				{
+					if (b->isAutoText)
+					{
+						Doc->LastAuto = 0;
+						Doc->FirstAuto = 0;
 					}
 				}
 			}
