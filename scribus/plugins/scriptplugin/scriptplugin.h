@@ -1,9 +1,10 @@
 #ifndef SCRIPTPLUG_H
 #define SCRIPTPLUG_H
 
-#include "scribus.h"
-#include "pconsole.h"
+#include "cmdvar.h"
 
+class ScribusApp;
+class QWidget;
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */
@@ -27,62 +28,8 @@ extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
 /** Possible CleanUpOperations when closing the Plugin */
 extern "C" void CleanUpPlug();
 
-extern "C" void initscribus(ScribusApp *pl);
-
 /** Some useful Subroutines */
 static PyObject *scribus_retval(PyObject *self, PyObject* args);
 static PyObject *scribus_getval(PyObject *self);
-QString RetString;
-QString InValue;
-int RetVal;
 
-static QPopupMenu* men;
-
-class MenuTest : public QObject
-{
-    Q_OBJECT
-
-public:
-	MenuTest(QWidget* /*parent*/) {};
-    ~MenuTest() {};
-		void ReadPlugPrefs();
-		void SavePlugPrefs();
-		void FinishScriptRun();
-		PConsole *pcon;
-		QPopupMenu* rmen;
-		QPopupMenu* smen;
-		int rmenid;
-		int smenid;
-		int cons;
-		int about;
-		QStringList SavedRecentScripts;
-		QStringList RecentScripts;
-		/// pref: Enable the "load script" menu item?
-		bool enableExtPython;
-		/// pref: Run 'from scribus import *' in the main interpreter at startup?
-		bool importAllNames;
-		/// pref: Make aliases of renamed functions for compatibility?
-		bool legacyAliases;
-		/// pref: Replace stdin with dummy cStringIO?
-		bool useDummyStdin;
-		/// pref: Run a script in the main interpreter at startup?
-		bool startupScriptEnable;
-		/// pref: Which script to run at startup, if enabled
-		QString startupScript;
-
-public slots:
-		void slotTest();
-		void loadScript();
-		void StdScript(int id);
-		void RecentScript(int id);
-		void slotRunScriptFile(QString fileName, bool inMainInterpreter = false);
-		QString slotRunScript(QString Script);
-		void slotInteractiveScript();
-		void slotExecute();
-		void aboutScript();
-		void preferencesDialog();
-};
-
-static MenuTest* Tes;
-
-#endif // CMSPLUG_H
+#endif

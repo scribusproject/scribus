@@ -22,6 +22,9 @@
 #define FRAME_POLYLINE 7
 #define FRAME_PATHTEXT 8
 
+// Foward declarations
+class ScripterCore;
+
 /* Static global Variables */
 // the QApplication instance passed to the plugin setup
 extern ScribusApp* Carrier;
@@ -41,6 +44,20 @@ extern PyObject* NotFoundError;
 extern PyObject* NameExistsError;
 /*! Raised when a normal script tries to run code reserved for extension scripts, or when extension scripts are disabled */
 extern PyObject* AccessDeniedError;
+
+// The following globals are used by the script console
+// to handle input and output.
+extern QString RetString;
+extern QString InValue;
+extern int RetVal;
+
+/// A global pointer to the class containing most of the scripter's core workings
+extern ScripterCore* scripterCore;
+
+/// initscribus, the module init function, must be defined here because the
+/// scriptercore needs to call it.
+
+extern "C" void initscribus(ScribusApp *pl);
 
 #endif
 

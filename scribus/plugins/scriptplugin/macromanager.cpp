@@ -3,6 +3,7 @@
 #include "macro.h"
 #include "editmacrodialog.h"
 #include "managemacrosdialog.h"
+#include "scriptercore.h"
 
 #include "qinputdialog.h"
 #include "qmessagebox.h"
@@ -412,16 +413,10 @@ void MacroManager::exportMacros(QString filePath)
 // and not intended for user editing. While this should so
 // more checking, currently it just runs the script in the
 // main namespace.
-void MacroManager::importMacros(QString /*filePath*/)
+void MacroManager::importMacros(QString filePath)
 {
-	// FIXME: this can't work until MenuTest is factored
-	// out of scriptplugin.cpp and into a separate class.
-	QMessageBox::warning(Carrier, tr("Scribus - Macro Manager"),
-			"<qt>Sorry, the macro importer doesn't currently work. "
-			"You can import saved macro files using Script->Load Extension Script... "
-			"and as start-up scripts.</qt>",
-			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+	// Use `load script from file' to execute the macro file
+	scripterCore->slotRunScriptFile(filePath, true);
 }
 
 
