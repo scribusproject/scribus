@@ -51,6 +51,17 @@ ScribusDoc::ScribusDoc()
 	DocAutor = "";
 	DocComments = "";
 	DocKeyWords = "";
+	DocPublisher = "";
+	DocDate = "";
+	DocType = "";
+	DocFormat = "";
+	DocIdent = "";
+	DocSource = "";
+	DocLangInfo = "";
+	DocRelation = "";
+	DocCover = "";
+	DocRights = "";
+	DocContrib = "";
 	PageC = 0;
 	LastAuto = 0;
 	FirstAuto = 0;

@@ -1,5 +1,9 @@
 Changes since Version 1.1.7
 
+03.07.2004
+	* feature #789: Calculating error
+	* feature #841: Implement the primary Dublin Core Metadata Element Set for RDF Implementation
+
 01.07.2004
 	* feature #678: check buttons instead of lock/unlock and hide/show
 	* feature #785: Add option to export PDFs with custom page numbers

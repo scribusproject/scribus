@@ -2855,11 +2855,20 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 						PutDoc(" 0 R >>\n");
 					}
 					PutDoc("/AA ");
-					int x = ite->AnType > 2 ? 2 : 1;
-					if (x == 2)
-						PutDoc(IToStr(ObjCounter + x + IconOb));
+					if (ite->AnType > 2)
+						{
+						if (ite->AnAction != "")
+							PutDoc(IToStr(ObjCounter+2+IconOb));
+						else
+							PutDoc(IToStr(ObjCounter+1+IconOb));
+						}
 					else
-						PutDoc(IToStr(x == 1 ? ObjCounter + 1 + IconOb : ObjCounter));
+						{
+						if (ite->AnAction != "")
+							PutDoc(IToStr(ObjCounter+1+IconOb));
+						else
+							PutDoc(IToStr(ObjCounter));
+						}
 					PutDoc(" 0 R\n");
 					if (ite->An_C_act != "")
 						CalcFields.append(ObjCounter-1+IconOb);

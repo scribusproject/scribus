@@ -538,6 +538,17 @@ public: // Public attributes
 	QString DocTitel;
 	QString DocComments;
 	QString DocKeyWords;
+	QString DocPublisher;
+	QString DocType;
+	QString DocDate;
+	QString DocFormat;
+	QString DocIdent;
+	QString DocSource;
+	QString DocLangInfo;
+	QString DocRelation;
+	QString DocCover;
+	QString DocRights;
+	QString DocContrib;
 	int AppMode;
 	int SubMode;
 	double *ShapeValues;

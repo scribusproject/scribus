@@ -464,6 +464,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					ite->Ypos += mm.dy();
 					ite->Width = ite->Width * mm.m11();
 					ite->Height = ite->Height * mm.m22();
+					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 					if (ite->PicAvail)
 					{
 						ite->LocalScX = ite->Width / ite->pixm.width();
@@ -475,6 +476,10 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					break;
 				}
 			case 4:
+				{
+					QWMatrix mm = gc->matrix;
+					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
+				}
 				break;
 			default:
 				{
@@ -482,6 +487,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					ite->FrameType = 3;
 					QWMatrix mm = gc->matrix;
 					ite->PoLine.map(mm);
+					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 					FPoint wh = GetMaxClipF(ite->PoLine);
 					ite->Width = wh.x();
 					ite->Height = wh.y();

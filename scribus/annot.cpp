@@ -1378,93 +1378,101 @@ void Annot::DecodeNum()
 	QString pfor = item->An_F_act;
 	int ss = pfor.find("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
-	QStringList pfol;
-	pfol = pfol.split(",", pfo);
+  QStringList pfol;
+  pfol = pfol.split(",", pfo);
 	if (item->AnFormat == 1)
-	{
-		Decim->setValue(pfol[0].toInt());
-		if (pfol[1].toInt() < 4)
-			FormNum = pfol[1].toInt();
-		switch (pfol[1].toInt())
 		{
-		case 0:
-			Format0->setChecked(true);
-			break;
-		case 1:
-			Format1->setChecked(true);;
-			break;
-		case 2:
-			Format2->setChecked(true);
-			break;
-		case 3:
-			Format3->setChecked(true);
-			break;
-		}
-		PreCurr->setChecked(pfol[5] == " true" ? true : false);
+		Decim->setValue(pfol[0].toInt());
+		switch (pfol[1].toInt())
+			{
+			case 0:
+				Format0->setChecked(true);
+				FormNum = 0;
+				break;
+			case 1:
+				Format1->setChecked(true);
+				FormNum = 1;
+				break;
+			case 2:
+				Format2->setChecked(true);
+				FormNum = 2;
+				break;
+			case 3:
+				Format3->setChecked(true);
+				FormNum = 3;
+				break;
+			}
+		if (pfol[5] == " true")
+			PreCurr->setChecked(true);
+		else
+			PreCurr->setChecked(false);
 		if (pfol[4].length() > 2)
-			//		{
-			CurSym->setText(pfol[4].mid(pfol[4].length() > 2 ? 2 : 3, pfol[4].length() - 4));
-		/*			if (PreCurr->isChecked())
-						CurSym->setText(pfol[4].mid(2,pfol[4].length()-4));
-					else
-						CurSym->setText(pfol[4].mid(3,pfol[4].length()-4));
-					}*/
+			{
+			if (PreCurr->isChecked())
+				CurSym->setText(pfol[4].mid(2,pfol[4].length()-4));
+			else
+				CurSym->setText(pfol[4].mid(3,pfol[4].length()-4));
+			}
 		else
 			CurSym->setText("");
 		if (CurSym->text() != "")
-		{
+			{
 			CurSym->setEnabled(true);
 			UseCurr->setEnabled(true);
 			UseCurr->setChecked(true);
 			PreCurr->setEnabled(true);
+			}
 		}
-	}
 	if (item->AnFormat == 2)
-	{
-		Decim2->setValue(pfol[0].toInt());
-		if (pfol[1].toInt() < 4)
-			FormNum = pfol[1].toInt();
-		switch (pfol[1].toInt())
 		{
-		case 0:
-			Format0a->setChecked(true);
-			break;
-		case 1:
-			Format1a->setChecked(true);
-			break;
-		case 2:
-			Format2a->setChecked(true);
-			break;
-		case 3:
-			Format3a->setChecked(true);
-			break;
+		Decim2->setValue(pfol[0].toInt());
+		switch (pfol[1].toInt())
+			{
+			case 0:
+				Format0a->setChecked(true);
+				FormNum = 0;
+				break;
+			case 1:
+				Format1a->setChecked(true);
+				FormNum = 1;
+				break;
+			case 2:
+				Format2a->setChecked(true);
+				FormNum = 2;
+				break;
+			case 3:
+				Format3a->setChecked(true);
+				FormNum = 3;
+				break;
+			}
 		}
-	}
 	if (item->AnFormat == 3)
-	{
+		{
 		Format0c->setCurrentText(pfol[0]);
 		setDateSample(pfol[0]);
-	}
-	if (item->AnFormat == 4)
-	{
-		if (pfol[0].toInt() < 4)
-			FormNum = pfol[0].toInt();
-		switch (pfol[0].toInt())
-		{
-		case 0:
-			Format0b->setChecked(true);
-			break;
-		case 1:
-			Format1b->setChecked(true);
-			break;
-		case 2:
-			Format2b->setChecked(true);
-			break;
-		case 3:
-			Format3b->setChecked(true);
-			break;
 		}
-	}
+	if (item->AnFormat == 4)
+		{
+		switch (pfol[0].toInt())
+			{
+			case 0:
+				Format0b->setChecked(true);
+				FormNum = 0;
+				break;
+			case 1:
+				Format1b->setChecked(true);
+				FormNum = 1;
+				break;
+			case 2:
+				Format2b->setChecked(true);
+				FormNum = 2;
+				break;
+			case 3:
+				Format3b->setChecked(true);
+				FormNum = 3;
+				break;
+			}
+		}
 }
 
 void Annot::SetFormNum()
@@ -1647,7 +1655,7 @@ void Annot::SetCross()
 
 void Annot::SetVals()
 {
-	QString tmp, tmp2;
+	QString tmp;
 	QString Nfo = "";
 	bool AAct = false;
 	item->AnType = ComboBox1->currentItem()+2;
@@ -1666,33 +1674,15 @@ void Annot::SetVals()
 	item->AnBColor = BorderC->currentText();
 	if (item->AnBColor == tr("None"))
 		item->AnBColor = "None";
-	item->Pcolor2 = item->AnBColor;
-	switch (item->AnBwid)
-	{
-		case 0:
-			item->Pwidth = 0;
-			break;
-		case 1:
-			item->Pwidth = 1;
-			break;
-		case 2:
-			item->Pwidth = 2;
-			break;
-		case 3:
-			item->Pwidth = 4;
-			break;
-	}
-	Limit->isChecked() ? item->AnMaxChar = MaxChars->value() : item->AnMaxChar = -1;
+  Limit->isChecked() ? item->AnMaxChar = MaxChars->value() : item->AnMaxChar = -1;
 	if (item->AnType == 2)
-	{
+		{
 		item->AnFlag += 65536;
 		if (item->Pfile == "")
 			item->AnUseIcons = false;
-		else
-			item->AnUseIcons = true;
-	}
+		}
 	else
-	{
+		{
 		item->AnUseIcons = false;
 		if (ReadOnly->isChecked())
 			item->AnFlag += 1;
@@ -1700,15 +1690,15 @@ void Annot::SetVals()
 			item->AnFlag += 2;
 		if (NoExport->isChecked())
 			item->AnFlag += 4;
-	}
+		}
 	if (item->AnType == 5)
-	{
+		{
 		item->AnFlag += 131072;
 		if (CanEdit->isChecked())
 			item->AnFlag += 262144;
-	}
+		}
 	if (item->AnType == 3)
-	{
+		{
 		if (MultiL->isChecked())
 			item->AnFlag += 4096;
 		if (Passwd->isChecked())
@@ -1717,9 +1707,9 @@ void Annot::SetVals()
 			item->AnFlag += 4194304;
 		if (NoScroll->isChecked())
 			item->AnFlag += 8388608;
-	}
+		}
 	if ((item->AnType == 3) || (item->AnType == 5))
-	{
+		{
 		if (NoValid->isChecked())
 			item->An_V_act = "";
 		if (SimpleValid->isChecked())
@@ -1729,132 +1719,167 @@ void Annot::SetVals()
 		if (NoCalc->isChecked())
 			item->An_C_act = "";
 		if (SimpleCalc->isChecked())
-		{
-			/* PFJ - 28/02/04 - Re-written. Much simpler this way! */
-			QString calc[] = {"\"SUM\", ", "\"PRD\", ", "\"AVG\" ,", "\"MIN\", ",
-			                  "\"MAX\", "};
-			item->An_C_act = "AFSimple_Calculate(" + calc[CalcArt->currentItem()];
+			{
+			item->An_C_act = "AFSimple_Calculate(";
+			switch (CalcArt->currentItem())
+				{
+				case 0:
+					item->An_C_act += "\"SUM\", ";
+					break;
+				case 1:
+					item->An_C_act += "\"PRD\", ";
+					break;
+				case 2:
+					item->An_C_act += "\"AVG\", ";
+					break;
+				case 3:
+					item->An_C_act += "\"MIN\", ";
+					break;
+				case 4:
+					item->An_C_act += "\"MAX\", ";
+					break;
+				}
+			item->An_C_act += "new Array (";
+			QStringList pfol;
+			pfol = pfol.split(",", CalcFields->text());
+			if (pfol.count() > 1)
+				{
+				item->An_C_act += "\""+pfol[0].stripWhiteSpace()+"\"";
+				for (uint cfx = 1; cfx < pfol.count(); cfx++)
+					{
+					item->An_C_act += ", \""+pfol[cfx].stripWhiteSpace()+"\"";
+					}
+				}
+			item->An_C_act += "))";
+			}
+		if (CustomCalc->isChecked())
+			item->An_C_act = CalcScript->text();
+		switch (TxFormat->currentItem())
+			{
+			case 0:
+				item->An_F_act = "";
+				item->An_K_act = "";
+				break;
+			case 1:
+				Nfo = tmp.setNum(Decim->value())+", "+tmp.setNum(FormNum)+", 0, 0, \"";
+				if (UseCurr->isChecked())
+					{
+					if (!PreCurr->isChecked())
+						Nfo += " ";
+					Nfo += CurSym->text().stripWhiteSpace();
+					if (PreCurr->isChecked())
+						Nfo += " ";
+					}
+				if (PreCurr->isChecked())
+					Nfo += "\", true)";
+				else
+					Nfo += "\", false)";
+				item->An_F_act = "AFNumber_Format("+Nfo;
+				item->An_K_act = "AFNumber_Keystroke("+Nfo;
+				break;
+			case 2:
+				Nfo = tmp.setNum(Decim2->value())+", "+tmp.setNum(FormNum)+")";
+				item->An_F_act = "AFPercent_Format("+Nfo;
+				item->An_K_act = "AFPercent_Keystroke("+Nfo;
+				break;
+			case 3:
+				Nfo = Format0c->currentText()+")";
+				item->An_F_act = "AFDate_FormatEx("+Nfo;
+				item->An_K_act = "AFDate_KeystrokeEx("+Nfo;
+				break;
+			case 4:
+				Nfo = tmp.setNum(FormNum)+")";
+				item->An_F_act = "AFTime_Format("+Nfo;
+				item->An_K_act = "AFTime_Keystroke("+Nfo;
+				break;
+			case 5:
+				item->An_F_act = FormatScript->text();
+				item->An_K_act = KeyScript->text();
+				break;
+			}
 		}
-		item->An_C_act += "new Array (";
-		QStringList pfol;
-		pfol = pfol.split(",", CalcFields->text());
-		if (pfol.count() > 1)
-		{
-			item->An_C_act += "\""+pfol[0].stripWhiteSpace()+"\"";
-			for (uint cfx = 1; cfx < pfol.count(); ++cfx)
-				item->An_C_act += ", \""+pfol[cfx].stripWhiteSpace()+"\"";
-		}
-		item->An_C_act += "))";
-	}
-	if (CustomCalc->isChecked())
-		item->An_C_act = CalcScript->text();
-	/* PFJ - 28/02/04 - Removed the repeated addition of +Nfo to outside of the
-	                    switch */
-	switch (TxFormat->currentItem())
-	{
-	case 0:
-		item->An_F_act = "";
-		item->An_K_act = "";
-		break;
-	case 1:
-		Nfo = tmp.setNum(Decim->value())+", "+tmp2.setNum(FormNum)+", 0, 0, \"";
-		if (UseCurr->isChecked())
-		{
-			if (!PreCurr->isChecked())
-				Nfo += " ";
-			Nfo += CurSym->text().stripWhiteSpace();
-			if (PreCurr->isChecked())
-				Nfo += " ";
-		}
-		if (PreCurr->isChecked())
-			Nfo += "\", true)";
-		else
-			Nfo += "\", false)";
-		break;
-	case 2:
-		Nfo = tmp.setNum(Decim2->value())+", "+tmp2.setNum(FormNum)+")";
-		break;
-	case 3:
-		Nfo = Format0c->currentText()+")";
-		break;
-	case 4:
-		Nfo = tmp.setNum(FormNum)+")";
-		break;
-	case 5:
-		item->An_F_act = FormatScript->text();
-		item->An_K_act = KeyScript->text();
-		break;
-	}
-	if (TxFormat->currentItem() > 0 && TxFormat->currentItem() < 5)
-	{
-		item->An_F_act = "AFTime_Format(" + Nfo;
-		item->An_K_act = "AFTime_Keystroke(" + Nfo;
-	}
 	item->AnAction = "";
 	switch (ActionCombo->currentItem())
-	{
-	case 0:
-		item->AnActType = 0;
-		break;
-	case 1:
-		item->AnActType = 1;
-		switch (ScrEdited)
 		{
 		case 0:
-			item->AnAction = EditJava->text();
+			item->AnActType = 0;
 			break;
 		case 1:
-			item->An_D_act = EditJava->text();
+			item->AnActType = 1;
+			switch (ScrEdited)
+				{
+				case 0:
+					item->AnAction = EditJava->text();
+					break;
+				case 1:
+					item->An_D_act = EditJava->text();
+					break;
+				case 2:
+					item->An_E_act = EditJava->text();
+					break;
+				case 3:
+					item->An_X_act = EditJava->text();
+					break;
+				case 4:
+					item->An_Fo_act = EditJava->text();
+					break;
+				case 5:
+					item->An_Bl_act = EditJava->text();
+					break;
+				case 6:
+					item->An_K_act = EditJava->text();
+					break;
+				}
 			break;
 		case 2:
-			item->An_E_act = EditJava->text();
+			if ((LExtern->isChecked()) && (Destfile->text() != ""))
+				{
+				item->An_Extern = Destfile->text();
+				item->AnActType = 7;
+				}
+			else
+				{
+				item->An_Extern = "";
+				item->AnActType = 2;
+				}
+			item->AnZiel = SpinBox11->value()-1;
+			item->AnAction = tmp.setNum(SpinBox21->value())+" "+tmp.setNum(Hoehe-SpinBox31->value())+" 0";
 			break;
 		case 3:
-			item->An_X_act = EditJava->text();
+			item->AnActType = 3;
+			item->AnAction = SubURL->text().stripWhiteSpace();
+			item->AnHTML = SubAsHtml->isChecked();
 			break;
 		case 4:
-			item->An_Fo_act = EditJava->text();
+			item->AnActType = 4;
 			break;
 		case 5:
-			item->An_Bl_act = EditJava->text();
-			break;
-		case 6:
-			item->An_K_act = EditJava->text();
+			item->AnActType = 5;
+			item->AnAction = SubURLa->text().stripWhiteSpace();
 			break;
 		}
-		break;
-	case 2:
-		if ((LExtern->isChecked()) && (Destfile->text() != ""))
-		{
-			item->An_Extern = Destfile->text();
-			item->AnActType = 7;
-		}
-		else
-		{
-			item->An_Extern = "";
-			item->AnActType = 2;
-		}
-		item->AnZiel = SpinBox11->value()-1;
-		item->AnAction = tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Hoehe-SpinBox31->value())+" 0";
-		break;
-	case 3:
-		item->AnActType = 3;
-		item->AnAction = SubURL->text().stripWhiteSpace();
-		item->AnHTML = SubAsHtml->isChecked();
-		break;
-	case 4:
-		item->AnActType = 4;
-		break;
-	case 5:
-		item->AnActType = 5;
-		item->AnAction = SubURLa->text().stripWhiteSpace();
-		break;
-	}
-	if (item->An_E_act != "" || item->An_X_act != "" || item->An_D_act != "" ||
-	        item->An_Fo_act != "" || item->An_Bl_act != "" || item->An_K_act != "" ||
-	        item->An_F_act != "" || item->An_V_act != "" || item->An_C_act != "")
+	if (item->An_E_act != "")
 		AAct = true;
-	item->AnAAact = AAct ? true : false;
+	if (item->An_X_act != "")
+		AAct = true;
+	if (item->An_D_act != "")
+		AAct = true;
+	if (item->An_Fo_act != "")
+		AAct = true;
+	if (item->An_Bl_act != "")
+		AAct = true;
+	if (item->An_K_act != "")
+		AAct = true;
+	if (item->An_F_act != "")
+		AAct = true;
+	if (item->An_V_act != "")
+		AAct = true;
+	if (item->An_C_act != "")
+		AAct = true;
+	if (AAct)
+		item->AnAAact = true;
+	else
+		item->AnAAact = false;
 	accept();
 }
 

@@ -9,37 +9,60 @@
 #ifndef DOCINFOS_H
 #define DOCINFOS_H
 
-#include <qdialog.h>
+#include <qtabdialog.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qmultilineedit.h>
-#include <qpushbutton.h>
+#include "scribusdoc.h"
 
-class DocInfos : public QDialog
+class DocInfos : public QTabDialog
 {
     Q_OBJECT
 
 public:
-    DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des, QString keyW );
-    ~DocInfos() {};
+	DocInfos( QWidget* parent, ScribusDoc* doc );
+	~DocInfos() {};
 
-    QLabel* TextLabel3;
-    QLineEdit* AutorInfo;
-    QLabel* TextLabel1;
-    QLineEdit* TitelInfo;
-    QMultiLineEdit* MultiLineEdit1;
-    QLabel* TextLabel2;
-    QLabel* TextLabel3a;
-    QMultiLineEdit* MultiLineEdit2;
-    QPushButton* Cancel;
-    QPushButton* OK;
+	QLineEdit* publisherEdit;
+	QLineEdit* dateEdit;
+	QLineEdit* typeEdit;
+	QLineEdit* formatEdit;
+	QLineEdit* identifierEdit;
+	QLineEdit* sourceEdit;
+	QLineEdit* languageEdit;
+	QLineEdit* relationEdit;
+	QLineEdit* coverageEdit;
+	QLineEdit* rightsEdit;
+	QMultiLineEdit* contributorsEdit;
+
+	QLineEdit* titleEdit;
+	QLineEdit* authorEdit;
+	QMultiLineEdit* descriptionEdit;
+	QMultiLineEdit* keywordsEdit;
 
 protected:
-    QVBoxLayout* DocInfosLayout;
-    QGridLayout* Layout1;
-    QHBoxLayout* Layout3;
+	QLabel* authorLabel;
+	QLabel* titleLabel;
+	QLabel* publisherLabel;
+	QLabel* dateLabel;
+	QLabel* typeLabel;
+	QLabel* formatLabel;
+	QLabel* identifierLabel;
+	QLabel* sourceLabel;
+	QLabel* languageLabel;
+	QLabel* relationLabel;
+	QLabel* coverageLabel;
+	QLabel* rightsLabel;
+	QLabel* descriptionLabel;
+	QLabel* keywordsLabel;
+	QLabel* contributorsLabel;
 
+	QGridLayout* layout1;
+	QGridLayout* layout2;
+
+	QWidget* page1;
+	QWidget* page2;
 };
 
 #endif // DOCINFOS_H

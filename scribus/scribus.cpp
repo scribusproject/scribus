@@ -6209,13 +6209,24 @@ void ScribusApp::SelectFromOutlS(int Page)
 
 void ScribusApp::InfoDoc()
 {
-	DocInfos *dia = new DocInfos(this, doc->DocAutor, doc->DocTitel, doc->DocComments, doc->DocKeyWords);
+	DocInfos *dia = new DocInfos(this, doc);
 	if (dia->exec())
 	{
-		doc->DocAutor = dia->AutorInfo->text();
-		doc->DocTitel = dia->TitelInfo->text();
-		doc->DocComments = dia->MultiLineEdit1->text();
-		doc->DocKeyWords = dia->MultiLineEdit2->text();
+		doc->DocAutor = dia->authorEdit->text();
+		doc->DocTitel = dia->titleEdit->text();
+		doc->DocComments = dia->descriptionEdit->text();
+		doc->DocKeyWords = dia->keywordsEdit->text();
+		doc->DocPublisher = dia->publisherEdit->text();
+		doc->DocDate = dia->dateEdit->text();
+		doc->DocType = dia->typeEdit->text();
+		doc->DocFormat = dia->formatEdit->text();
+		doc->DocIdent = dia->identifierEdit->text();
+		doc->DocSource = dia->sourceEdit->text();
+		doc->DocLangInfo = dia->languageEdit->text();
+		doc->DocRelation = dia->relationEdit->text();
+		doc->DocCover = dia->coverageEdit->text();
+		doc->DocRights = dia->rightsEdit->text();
+		doc->DocContrib = dia->contributorsEdit->text();
 		slotDocCh();
 	}
 	delete dia;
@@ -8322,6 +8333,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 				}
 				else
 					fn = s + doc->DocName+".sla";
+				doc->hasName = true;
 				if (compressR)
 				{
 					if (!fn.endsWith(".gz"))

@@ -18,6 +18,7 @@
 #ifndef SCRIBUSVIEW_H
 #define SCRIBUSVIEW_H
 
+#include <vector>
 // include files for QT
 #include <qscrollview.h>
 #include <qptrlist.h>
