@@ -7151,9 +7151,6 @@ void ScribusApp::SavePrefsXML()
 void ScribusApp::ReadPrefs()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	PrefsPfad = getPreferencesLocation();
-	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
-	dirs = prefsFile->getContext("dirs");
 	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus.rc");
 	delete ss;
 	if (!erg)
