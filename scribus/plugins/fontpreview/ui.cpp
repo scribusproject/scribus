@@ -101,6 +101,8 @@ void FontPreview::languageChange()
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
 	cancelButton->setText( tr( "&Cancel" ) );
 	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
+	QToolTip::add(okButton, tr("Append selected font into Style, Font menu"));
+	QToolTip::add(cancelButton,tr("Leave preview"));
 }
 
 /**
