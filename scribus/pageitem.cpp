@@ -162,7 +162,31 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	An_V_act = "";
 	An_C_act = "";
 	An_Extern = "";
-	AnName = "Item"+tmp.setNum(Doc->TotalItems)+" "+QDateTime::currentDateTime().toString();
+	switch (PType)
+	{
+	case 2:
+		AnName = tr("Image");
+		break;
+	case 4:
+		AnName = tr("Text");
+		break;
+	case 5:
+		AnName = tr("Line");
+		break;
+	case 6:
+		AnName = tr("Polygon");
+		break;
+	case 7:
+		AnName = tr("Polyline");
+		break;
+	case 8:
+		AnName = tr("PathText");
+		break;
+	default:
+		AnName = "Item";
+		break;
+	}
+	AnName += tmp.setNum(Doc->TotalItems)+" "+QDateTime::currentDateTime().toString();
 	AutoName = true;
 	Doc->TotalItems++;
 	AnToolTip = "";
@@ -403,11 +427,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					if ((LocalViewX != 1) || (LocalViewY != 1))
 						p->scale(LocalViewX, LocalViewY);
-					QImage ip = pixm.copy();
-					if (InvPict)
-						ip.invertPixels();
 					p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
-					p->drawImage(ip);
+					if (InvPict)
+					{
+						QImage ip = pixm.copy();
+						p->drawImage(ip);
+					}
+					else
+						p->drawImage(pixm);
 					p->restore();
 				}
 			}
@@ -1874,43 +1901,6 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		p->setPen(black);
 		p->setFillMode(0);
 		p->drawRect(hl->xco, hl->yco-(hl->Siz / 10.0), (hl->Siz / 10.0)*(hl->scale / 100.0), (hl->Siz / 10.0));
-	}
-}
-
-void PageItem::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm)
-{
-	if ((Pcolor != "None") || (GrType != 0) || (PType == 2) || (PType == 4))
-	{
-		QBitmap bm(static_cast<int>(Width), static_cast<int>(Height));
-		bm.fill(Qt::color0);
-		QPainter pbm;
-		pbm.begin(&bm);
-		pbm.setBrush(Qt::color1);
-		pbm.setPen(NoPen);
-		pbm.setRasterOp(XorROP);
-		QPointArray dr;
-		QValueList<uint>::Iterator it3;
-		uint FirstVal = 0;
-		for (it3 = Segments.begin(); it3 != Segments.end(); ++it3)
-		{
-			dr.resize(0);
-			dr.putPoints(0, (*it3)-FirstVal-1, pts, FirstVal);
-			pbm.drawPolygon(dr);
-			FirstVal = (*it3);
-		}
-		dr.resize(0);
-		dr.putPoints(0, pts.size()-FirstVal-1, pts, FirstVal);
-		pbm.drawPolygon(dr);
-		pbm.end();
-		if (bitm)
-			p->drawPixmap(0, 0, bm);
-		else
-		{
-			QPixmap ppm(static_cast<int>(Width), static_cast<int>(Height));
-			ppm.fill(BackF);
-			ppm.setMask(bm);
-			p->drawPixmap(0, 0, ppm);
-		}
 	}
 }
 

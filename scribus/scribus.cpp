@@ -2026,7 +2026,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->WinHan = w;
 	w->setCentralWidget(view);
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
+//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
 		{
 #ifdef HAVE_CMS
@@ -2107,10 +2107,12 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	return true;
 }
 
-void ScribusApp::DoSaveClose()
+bool ScribusApp::DoSaveClose()
 {
-	slotFileSave();    // slotFileSaveAs() --> slotFileSave();
-	DoFileClose();
+	bool ret = slotFileSave();    // slotFileSaveAs() --> slotFileSave();
+	if (ret)
+		DoFileClose();
+	return ret;
 }
 
 void ScribusApp::windowsMenuAboutToShow()
@@ -2988,7 +2990,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 #endif
 		HaveDoc++;
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-		connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
+//		connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 		if (!doc->HasCMS)
 			{
 			doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
@@ -3289,45 +3291,51 @@ void ScribusApp::slotAutoSaved()
 		}
 }
 
-void ScribusApp::slotFileSave()
+bool ScribusApp::slotFileSave()
 {
+	bool ret = false;
 	if (doc->hasName)
-		{
-  	QString fn = doc->DocName;
-		if (!DoFileSave(fn))
+	{
+		QString fn = doc->DocName;
+		ret = DoFileSave(fn);
+		if (!ret)
 			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
-		}
+	}
 	else
-		slotFileSaveAs();
+		ret = slotFileSaveAs();
+	return ret;
 }
 
-void ScribusApp::slotFileSaveAs()
+bool ScribusApp::slotFileSaveAs()
 {
+	bool ret = false;
 	QString fna;
-  if (doc->hasName)
-  	{
-  	QFileInfo fi(doc->DocName);
-  	fna = fi.dirPath()+"/"+fi.baseName()+".sla";
-  	}
-  else
-  	{
-  	QDir di = QDir();
-  	fna = di.currentDirPath()+"/"+doc->DocName+".sla";
-  	}
+	if (doc->hasName)
+	{
+		QFileInfo fi(doc->DocName);
+		fna = fi.dirPath()+"/"+fi.baseName()+".sla";
+	}
+	else
+	{
+		QDir di = QDir();
+		fna = di.currentDirPath()+"/"+doc->DocName+".sla";
+	}
 #ifdef HAVE_LIBZ
-  QString fn = CFileDialog( tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
+	QString fn = CFileDialog( tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
 #else
-  QString fn = CFileDialog( tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
+	QString fn = CFileDialog( tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
 #endif
-  if (!fn.isEmpty())
-  	{
+	if (!fn.isEmpty())
+	{
 		if (overwrite(this, fn))
-			{
-			if (!DoFileSave(fn))
+		{
+			ret = DoFileSave(fn);
+			if (!ret)
 				QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
-			}
-  	}
-  FMess->setText( tr("Ready"));
+		}
+	}
+	FMess->setText( tr("Ready"));
+	return ret;
 }
 
 bool ScribusApp::DoFileSave(QString fn)
@@ -8072,7 +8080,7 @@ void ScribusApp::emergencySave()
 				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
   			doc->ASaveTimer->stop();
 				disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
-				disconnect(ActWin, SIGNAL(SaveAndClose()), ScApp, SLOT(DoSaveClose()));
+//				disconnect(ActWin, SIGNAL(SaveAndClose()), ScApp, SLOT(DoSaveClose()));
  				ScriXmlDoc *ss = new ScriXmlDoc();
  				ss->WriteDoc(doc->DocName+".emergency", doc, view, 0);
  				delete ss;

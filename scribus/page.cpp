@@ -454,10 +454,10 @@ void Page::paintEvent(QPaintEvent *e)
 	painter->translate(0.5, 0.5);
 	if (doku->Before)
 		DrawPageMarks(painter, vr);
-	//	QTime tim;
-	//	tim.start();
+//	QTime tim;
+//	tim.start();
 	DrawPageItems(painter, vr);
-	//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
+//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 	if (!doku->Before)
 		DrawPageMarks(painter, vr);
 	painter->end();
@@ -692,8 +692,6 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						if (!((doku->EditClip) && (Mpressed)))
 							b->DrawObj(painter, rd);
 						b->Redrawn = true;
-//						if ((doku->AppMode == 7) && (b->Select))
-//							slotDoCurs(true);
 					}
 				}
 				for (a = 0; a < Items.count(); ++a)
@@ -1671,6 +1669,7 @@ void Page::sentToLayer(int id)
 	}
 	Deselect(true);
 	update();
+	emit DocChanged();
 }
 
 bool Page::PointOnLine(QPoint Start, QPoint Ende, QRect MArea)
@@ -3503,6 +3502,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				RefreshItem(b);
 			}
 		}
+		else
+			emit DocChanged();
 	}
 	if ((doku->AppMode == 13) && (m->button() == LeftButton))
 	{

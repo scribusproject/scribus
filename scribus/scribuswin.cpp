@@ -80,8 +80,10 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		switch (exit)
 		{
 		case 0:
-			emit SaveAndClose();
-			ce->accept();
+			if (ScApp->DoSaveClose())
+				ce->accept();
+			else
+				return;
 			break;
 		case 1:
 			break;

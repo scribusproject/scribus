@@ -39,20 +39,20 @@ public:
 				QString outline, ScribusDoc *doc);
 	~PageItem() {};
 	struct ZZ { 
+				double xco;
+				double yco;
+				double wide;
+				double kern;
+				int Siz;
+				int Style;
+				int scale;
+				int shade;
+				int shade2;
+				bool Sele;
 				QString Zeich;
 				QString Farb;
 				QString Farb2;
-				int shade;
-				int shade2;
 				QString ZFo;
-				double xco;
-				double yco;
-				bool Sele;
-				int Siz;
-				int Style;
-				double wide;
-				double kern;
-				int scale;
 			  };
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
@@ -60,7 +60,6 @@ public:
 	double SetZeichAttr(struct Pti *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
-	void DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm = false);
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
 	bool Locked;

@@ -832,10 +832,8 @@ void ScPainter::setClipPath()
 	affine[5] = m_matrix.dy();
 	ArtVpath *temp1 = art_vpath_affine_transform( vec, affine );
 	art_free( vec );
-	vec = temp1;
 	ArtSvpWriter *swr;
-	ArtSVP *temp;
-	temp = art_svp_from_vpath( vec );
+	ArtSVP *temp = art_svp_from_vpath( temp1 );
 	if( m_fillRule )
 		swr = art_svp_writer_rewind_new( ART_WIND_RULE_ODDEVEN );
 	else
@@ -843,7 +841,7 @@ void ScPainter::setClipPath()
 	art_svp_intersector( temp, swr );
 	m_clipPath = art_svp_writer_rewind_reap( swr );
 	art_svp_free( temp );
-	art_free( vec );
+	art_free( temp1 );
 }
 
 void ScPainter::drawImage( const QImage &image )

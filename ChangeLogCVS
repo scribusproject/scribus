@@ -1,8 +1,14 @@
 Changes since Version 1.1.6
 
 28.04.2004
+	* bug     #499: svg text and box import don't work correctly
 	* bug     #525: Insert page after any given page in a document causes a crash with signal 11
+	* bug     #530: Sending an object to another layer does not activate the save button
+	* bug     #534: Scribus closing: After cancel of 'Saving dialog', Scribus is closed, but data are lost
 	* bug     #537: Improve rendering speed of images
+	* feature #503: Item renaming in overview
+	* feature #531: Speaking names for objects
+	* feature #539: Add new Splash Screen and Icons
 
 27.04.2004
 	* feature #529: Polish TS/QM update

@@ -61,7 +61,6 @@ public slots:
 	
 signals:
 	void Schliessen();
-	void SaveAndClose();
 	void AutoSaved();
 };
 

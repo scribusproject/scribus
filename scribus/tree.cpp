@@ -87,6 +87,8 @@ void Tree::slotDoRename(QListViewItem* ite, int col)
 				{
 					QString NameOld = vie->Pages.at(sref)->Items.at(oref)->AnName;
 					QString NameNew = ite->text(col);
+					if (NameOld == NameNew)
+						break;
 					bool found = false;
 					for (uint a = 0; a < vie->Pages.count(); ++a)
 					{

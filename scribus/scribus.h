@@ -186,7 +186,7 @@ public slots:
 	void SetTransparS(double t);
 	void ReportMP(double xp, double yp);
 	bool DoFileClose();
-	void DoSaveClose();
+	bool DoSaveClose();
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
 	void windowsMenuActivated(int id);
@@ -223,9 +223,9 @@ public slots:
 	bool LadeDoc(QString fileName);
 	void slotAutoSaved();
 	/** save a document */
-	void slotFileSave();
+	bool slotFileSave();
 	/** save a document under a different filename*/
-	void slotFileSaveAs();
+	bool slotFileSaveAs();
 	void slotFileRevert();
 	/** Sichert den Text eines Elements */
 	void SaveText();
