@@ -113,6 +113,11 @@ QWidget* ScrAction::getWidgetAddedTo()
 	return widgetAddedTo;
 }
 
+QString ScrAction::cleanMenuText()
+{
+	return menuText().remove('&');
+}
+
 const int ScrAction::getMenuIndex()
 {
 	return menuIndex;

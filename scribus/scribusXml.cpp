@@ -3045,6 +3045,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	{
 		QDomElement kscc=docu.createElement("SHORTCUT");
 		kscc.setAttribute("CODE",Vor->KeyActions[ksc].KeyID);
+		kscc.setAttribute("ACTION",Vor->KeyActions[ksc].actionName);
 		kscc.setAttribute("NR", ksc);
 		elem.appendChild(kscc);
 	}
@@ -3270,7 +3271,10 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->nodePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
 		if (dc.tagName()=="SHORTCUT")
+		{
 			Vorein->KeyActions[QStoInt(dc.attribute("NR"))].KeyID = QStoInt(dc.attribute("CODE"));
+			Vorein->KeyActions[QStoInt(dc.attribute("NR"))].actionName = dc.attribute("ACTION","");
+		}
 		if (dc.tagName()=="RECENT")
 			Vorein->RecentDocs.append(dc.attribute("NAME"));
 		if (dc.tagName()=="DISTS")

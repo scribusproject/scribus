@@ -145,8 +145,18 @@ public:
 		\param None
 		\retval QWidget * Pointer to widget
 	*/
-	
 	QWidget *getWidgetAddedTo();
+			
+	/*!
+		\fn ScrAction::cleanMenuText()
+		\author Craig Bradney
+		\date Jan 2005
+		\brief Return a copy of the menu text, without the &s, possibility to remove ellipses in future.
+		\param None
+		\retval QString Stripped copy of the menu text
+	*/
+	QString cleanMenuText();
+				
 signals:
 	void activatedDLL(int);
 	void activatedRecentFile(QString);

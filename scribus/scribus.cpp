@@ -189,8 +189,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		buildFontMenu();
 		initDefaultPrefs();
 		initArrowStyles();
-		initKeyboardShortcuts();
-
+		initKeyboardShortcuts();		
 		resize(610, 600);
 		QVBox* vb = new QVBox( this );
 		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
@@ -222,12 +221,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		initHyphenator();
 
 		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Setting up Shortcuts"));
-		qApp->processEvents();
-
-		SetShortCut();
-
-		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Scrapbook"));
 		initScrapbook();
 
@@ -235,6 +228,12 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
 		initPlugs();
+		
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Setting up Shortcuts"));
+		qApp->processEvents();
+		SetShortCut();
+		
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
@@ -560,6 +559,49 @@ void ScribusApp::initDefaultValues()
 
 void ScribusApp::initKeyboardShortcuts()
 {
+	//Set up key entries
+	//CB TODO Need to rewrite this key management stuff.. these would be much simpler done in the action themselves.
+	
+	//FILE MENU
+	SetKeyEntry(0, scrActions["fileNew"]->cleanMenuText(), 0, scrActions["fileNew"]->accel(), "fileNew");
+	SetKeyEntry(1, scrActions["fileOpen"]->cleanMenuText(), 0, scrActions["fileOpen"]->accel(), "fileOpen");
+	SetKeyEntry(2, scrActions["fileClose"]->cleanMenuText(), 0, scrActions["fileClose"]->accel(), "fileClose");
+	SetKeyEntry(3, scrActions["fileSave"]->cleanMenuText(), 0, scrActions["fileSave"]->accel(), "fileSave");
+	SetKeyEntry(4, scrActions["fileSaveAs"]->cleanMenuText(), 0, scrActions["fileSaveAs"]->accel(), "fileSaveAs");
+	//SetKeyEntry(, scrActions["fileRevert"]->cleanMenuText(), 0, scrActions["fileRevert"]->accel(), "fileRevert");
+	//SetKeyEntry(, scrActions["fileCollect"]->cleanMenuText(), 0, scrActions["fileCollect"]->accel(), "fileCollect");
+	SetKeyEntry(6, scrActions["fileDocSetup"]->cleanMenuText(), 0, scrActions["fileDocSetup"]->accel(), "fileDocSetup");
+	SetKeyEntry(8, scrActions["fileQuit"]->cleanMenuText(), 0, scrActions["fileQuit"]->accel(), "fileQuit");
+	//Included import & export options
+	//SetKeyEntry(, scrActions["fileImportText"]->cleanMenuText(), 0, scrActions["fileImportText"]->accel(), "fileImportText");
+	//SetKeyEntry(, scrActions["fileImportAppendText"]->cleanMenuText(), 0, scrActions["fileImportAppendText"]->accel(), "fileImportAppendText");
+	//SetKeyEntry(, scrActions["fileImportImage"]->cleanMenuText(), 0, scrActions["fileImportImage"]->accel(), "fileImportImage");	
+	//SetKeyEntry(, scrActions["fileImportPage"]->cleanMenuText(), 0, scrActions["fileImportPage"]->accel(), "fileImportPage");
+	//SetKeyEntry(, scrActions["fileExportText"]->cleanMenuText(), 0, scrActions["fileExportText"]->accel(), "fileExportText");
+	//SetKeyEntry(, scrActions["fileExportAsEPS"]->cleanMenuText(), 0, scrActions["fileExportAsEPS"]->accel(), "fileExportAsEPS");
+	//SetKeyEntry(, scrActions["fileExportAsPDF"]->cleanMenuText(), 0, scrActions["fileExportAsPDF"]->accel(), "fileExportAsPDF");
+	
+	//EDIT MENU
+	//SetKeyEntry(, scrActions["editUndoAction"]->cleanMenuText(), 0, scrActions["editUndoAction]->accel(), "editUndoAction");
+	//SetKeyEntry(, scrActions["editRedoAction"]->cleanMenuText(), 0, scrActions["editRedoAction"]->accel(), "editRedoAction");
+
+	SetKeyEntry(9, scrActions["editCut"]->cleanMenuText(), 0, scrActions["editCut"]->accel(), "editCut");
+	SetKeyEntry(10, scrActions["editCopy"]->cleanMenuText(), 0, scrActions["editCopy"]->accel(), "editCopy");
+	SetKeyEntry(11, scrActions["editPaste"]->cleanMenuText(), 0, scrActions["editPaste"]->accel(), "editPaste");
+	SetKeyEntry(12, scrActions["editClear"]->cleanMenuText(), 0, scrActions["editClear"]->accel(), "editClear");
+	SetKeyEntry(13, scrActions["editSelectAll"]->cleanMenuText(), 0, scrActions["editSelectAll"]->accel(), "editSelectAll");
+	SetKeyEntry(14, scrActions["editColors"]->cleanMenuText(), 0, scrActions["editColors"]->accel(), "editColors");
+	SetKeyEntry(15, scrActions["editParaStyles"]->cleanMenuText(), 0, scrActions["editParaStyles"]->accel(), "editParaStyles");
+	SetKeyEntry(16, scrActions["editTemplates"]->cleanMenuText(), 0, scrActions["editTemplates"]->accel(), "editTemplates");
+	SetKeyEntry(17, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
+	
+	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), 0, scrActions["editSearchReplace"]->accel(), "editSearchReplace");
+	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), 0, scrActions["editLineStyles"]->accel(), "editLineStyles");
+	//SetKeyEntry(, scrActions["editJavascripts"]->cleanMenuText(), 0, scrActions["editJavascripts"]->accel(), "editJavascripts");
+	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
+
+	
+	//EXTRAS
 	SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 	SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
 	SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
@@ -860,7 +902,7 @@ void ScribusApp::convertToXMLPreferences(const QString prefsLocation)
 void ScribusApp::initFileMenuActions()
 {
 	//File Menu
-	scrActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), tr("&New"), CTRL+Key_N, this, "fileNew"));
+	scrActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), tr("&New"), CTRL+Key_N, this, "fileNew"));	
 	scrActions.insert("fileOpen", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), tr("&Open..."), CTRL+Key_O, this, "fileOpen"));
 	scrActions.insert("fileClose", new ScrAction(QIconSet(loadIcon("DateiClos16.png"), loadIcon("DateiClose.png")), tr("&Close"), CTRL+Key_W, this, "fileClose"));
 	scrActions.insert("fileSave", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), tr("&Save"), CTRL+Key_S, this, "fileSave"));
@@ -1003,15 +1045,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileQuit"], "File");
 
-	/*
-	SetKeyEntry(0, tr("New"), M_FileNew, CTRL+Key_N);
-	SetKeyEntry(1, tr("Open..."), M_FileOpen, CTRL+Key_O);
-	SetKeyEntry(2, tr("Close"), M_FileClose, CTRL+Key_W);
-	SetKeyEntry(3, tr("Save"), M_FileSave, CTRL+Key_S);
-	SetKeyEntry(4, tr("Save as..."), M_FileSaveAs, 0);
-	SetKeyEntry(6, tr("Document Setup..."), M_FileDocSetup, 0);
-	SetKeyEntry(8, tr("Quit"), M_FileQuit, CTRL+Key_Q);
-	*/
+	
 	scrActions["fileClose"]->setEnabled(false);	
 	scrActions["fileSave"]->setEnabled(false);
 	scrActions["fileSaveAs"]->setEnabled(false);
@@ -1065,18 +1099,6 @@ void ScribusApp::initMenuBar()
 	scrActions["editTemplates"]->setEnabled(false);
 	scrActions["editJavascripts"]->setEnabled(false);
 
-	/* CB TODO
-	SetKeyEntry(9, tr("Cut"), M_EditCut, CTRL+Key_X);
-	SetKeyEntry(10, tr("Copy"), M_EditCopy, CTRL+Key_C);
-	SetKeyEntry(11, tr("Paste"), M_EditPaste, CTRL+Key_V);
-	SetKeyEntry(12, tr("Clear"), M_editClear, 0);
-	SetKeyEntry(13, tr("Select all"), M_EditSelectAll, CTRL+Key_A);
-	SetKeyEntry(14, tr("Colors..."), MenID, 0);
-	SetKeyEntry(15, tr("Styles..."), M_EditParaStyles, 0);
-	SetKeyEntry(16, tr("Templates..."), M_EditTemplates, 0);
-	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
-	*/
-	
 	//Style Menu
 	StilMenu = new QPopupMenu();
 	itemMenu = new QPopupMenu();
@@ -1336,12 +1358,19 @@ void ScribusApp::ReportMP(double xp, double yp)
 	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
 }
 
-void ScribusApp::SetKeyEntry(int Nr, QString text, int Men, int KeyC)
+void ScribusApp::SetKeyEntry(int Nr, QString text, int Men, int KeyC, QString actName)
 {
 	Keys ke;
 	ke.Name = text;
 	ke.MenuID = Men;
 	ke.KeyID = KeyC;
+	if (actName!="")
+	{
+		if (scrActions[actName])
+			ke.actionName=actName;
+		else
+			qDebug(QString("Action Name: %1 does not exist").arg(actName));
+	}
 	Prefs.KeyActions.insert(Nr, ke);
 }
 
@@ -8749,17 +8778,24 @@ void ScribusApp::ModifyAnnot()
 void ScribusApp::SetShortCut()
 {
 	uint a;
-	/* CB TODO
+	/* CB TODO */
 	for (a = 0; a < 9; ++a)
 	{
-		fileMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
+		if (Prefs.KeyActions.contains(a))
+			if (Prefs.KeyActions[a].actionName!="")
+				if (scrActions[Prefs.KeyActions[a].actionName])
+					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
+	
 	for (a = 9; a < 17; ++a)
 	{
-		editMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
+		if (Prefs.KeyActions.contains(a))
+			if (Prefs.KeyActions[a].actionName!="")
+				if (scrActions[Prefs.KeyActions[a].actionName])
+					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
-	editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
-	*/
+	//CB TODO editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
+	
 	for (a = 20; a < 30; ++a)
 	{
 		itemMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);

@@ -96,7 +96,7 @@ public:
 	const QString getGuiLanguage();
 
 	void SetShortCut();
-	void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
+	void SetKeyEntry(int Nr, QString text, int Men, int KeyC, QString actName = "");
 	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);

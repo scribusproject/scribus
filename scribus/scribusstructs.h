@@ -336,6 +336,7 @@ struct Keys
 	QString Name;
 	int MenuID;
 	int KeyID;
+	QString actionName;
 };
 
 /** Definition der Farbenlisten */
