@@ -134,6 +134,8 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 			while (fom.height() > LE->ed->height());
 			LA->setFont(ff);
 			LY->setFont(ff);
+			HR->rfont = ff;
+			VR->rfont = ff;
 			}
 		QRect forec = fom.boundingRect("3200.00 %");
 		int sadj = forec.width() - LE->ed->width();

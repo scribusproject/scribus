@@ -105,7 +105,7 @@ if test $hacms = yes && test $hacmsh = yes; then
 fi
 LIBTIFF=""
 hastif=
-AC_CHECK_LIB(tiff, TIFFOpen, [LIBTIFF="-ltiff";hastif=yes],[LIBTIFF="";hastif=no])
+AC_CHECK_LIB(tiff, TIFFOpen, [LIBTIFF="-ltiff";hastif=yes],[LIBTIFF="";hastif=no],[-lm])
 AC_SUBST(LIBTIFF)
 if test $hastif = yes; then
  AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
@@ -123,6 +123,7 @@ AC_CHECK_COMPILERS
 AC_ENABLE_SHARED(yes)
 AC_ENABLE_STATIC(no)
 KDE_PROG_LIBTOOL
+KDE_CHECK_PYTHON(1.5)
 
 AC_CHECK_HEADER(cups/cups.h, [foo=""],[hacups=no])
 if test $hacups = yes; then
@@ -146,6 +147,10 @@ AC_CONFIG_FILES([scribus/plugins/libchar/Makefile])
 AC_CONFIG_FILES([scribus/plugins/svgexplugin/Makefile])
 AC_CONFIG_FILES([scribus/plugins/svgimplugin/Makefile])
 AC_CONFIG_FILES([scribus/plugins/printpreview/Makefile])
+AC_CONFIG_FILES([scribus/plugins/scriptplugin/Makefile])
+AC_CONFIG_FILES([scribus/plugins/scriptplugin/doc/Makefile])
+AC_CONFIG_FILES([scribus/plugins/scriptplugin/doc/en/Makefile])
+AC_CONFIG_FILES([scribus/plugins/scriptplugin/samples/Makefile])
 AC_CONFIG_FILES([scribus/plugins/Makefile])
 AC_CONFIG_FILES([scribus/libpostscript/Makefile])
 AC_CONFIG_FILES([scribus/profiles/Makefile])

@@ -1,4 +1,12 @@
 Changes since Version 1.1.1
+20.10.2003	Included the Scripter Plugin into the main Package.
+		Fixed the ./configure script that libtiff is recognized
+		on a stock RH9 installation.
+
+18.10.2003	Fixed some Bug when saving files under RH9.
+		Adjusted the Code for the Rulers to work with
+		Luxi Fonts from RH9.
+
 17.10.2003	The AutoSave Option is now working again.
 
 16.10.2003	Included Paul patches with only one small correction.

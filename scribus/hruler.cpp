@@ -24,7 +24,7 @@ Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 	setEraseColor(QColor(255,255,255));
 	doku = doc;
 	rfont = font();
-	rfont.setPointSize(9);
+	rfont.setPointSize(rfont.pointSize()-1);
 	offs = -10;
 	Markp = 0;
 	repX = false;

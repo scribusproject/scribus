@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-1 (1.69)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html>
+<head>
+<title>Manipulating Objects</title>
+<meta name="description" content="Manipulating Objects">
+<meta name="keywords" content="Manual">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Generator" content="LaTeX2HTML v2002-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="Manual.css">
+
+<link rel="next" href="node12.html">
+<link rel="previous" href="node10.html">
+<link rel="up" href="node6.html">
+<link rel="next" href="node12.html">
+</head>
+
+<body >
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html176"
+  href="node12.html">Handling Text Frames</a>
+<b> Up:</b> <a name="tex2html172"
+  href="node6.html">Object related Commands</a>
+<b> Previous:</b> <a name="tex2html166"
+  href="node10.html">Getting Object Properties</a>
+ &nbsp; <b>  <a name="tex2html174"
+  href="node19.html">Index</a></b> 
+<br>
+<br>
+<!--End of Navigation Panel-->
+
+<h2><a name="SECTION00335000000000000000">
+Manipulating Objects</a>
+</h2>
+
+<p>
+<dl>
+<dt><strong>GroupObjects<a name="365"></a>([<i>list</i>])</strong></dt>
+<dd>Groups the
+Objects in ``<i>list</i>'' together. ``<i>list</i>'' must
+contain the Names of the Objects to be grouped. If ``<i>list</i>''
+is not given the currently selected Items are used.
+</dd>
+<dt><strong>MoveObject<a name="375"></a>(dx,&nbsp;dy,&nbsp;[``name''])</strong></dt>
+<dd>Moves
+the Object ``name'' by dx and dy relative to its origin. The Distances
+are expressed in the actual Measurement Unit of the Document. If ``name''
+is not given the currently selected Item is used. If the Object ``name''
+belongs to a Group, the whole Group is moved.
+</dd>
+<dt><strong>MoveObjectAbs<a name="382"></a>(x,&nbsp;y,&nbsp;[``name''])</strong></dt>
+<dd>Moves
+the Object ``name'' to a new Location. The Coordinates are expressed
+in the actual Measurement Unit of the Document. If ``name'' is
+not given the currently selected Item is used. If the Object &#34;name&#34;
+belongs to a Group, the whole Group is moved.
+</dd>
+<dt><strong>RotateObject<a name="390"></a>(rot,&nbsp;[``name''])</strong></dt>
+<dd>Rotates
+the Object ``name'' by ``rot'' Degrees. Positve Values mean
+counter clockwise Rotation. If ``name'' is not given the currently
+selected Item is used.
+</dd>
+<dt><strong>RotateObjectAbs<a name="397"></a>(rot,&nbsp;[``name''])</strong></dt>
+<dd>Sets
+the Rotation of the Object ``name'' to ``rot''. Positve Values
+mean counter clockwise Rotation. If ``name'' is not given the
+currently selected Item is used.
+</dd>
+<dt><strong>ScaleGroup<a name="404"></a>(factor,&nbsp;[``name''])</strong></dt>
+<dd>Scales
+the Group the Object ``name'' belongs to. Values greater than
+1 enlarge the Group, Values smaller than 1 make the Group smaller
+e.g a Value of 0.5 scales the Group to 50 % of is original Size,
+a Value of 1.5 scales the Group to 150 % of its original Size. The
+Value for ``factor'' must be greater than 0. If ``name'' is
+not given the currently selected Item is used.
+</dd>
+<dt><strong>SizeObject<a name="411"></a>(width,&nbsp;height,&nbsp;[``name''])</strong></dt>
+<dd>Resizes
+the Object ``name'' to the given Width and Height. If ``name''
+is not given the currently selected Item is used.
+</dd>
+<dt><strong>UnGroupObject<a name="417"></a>([``name''])</strong></dt>
+<dd>Destructs
+the Group the Object ``name'' belongs to. If ``name'' is not
+given the currently selected Item is used.
+</dd>
+</dl>
+
+<p>
+<hr>
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html176"
+  href="node12.html">Handling Text Frames</a>
+<b> Up:</b> <a name="tex2html172"
+  href="node6.html">Object related Commands</a>
+<b> Previous:</b> <a name="tex2html166"
+  href="node10.html">Getting Object Properties</a>
+ &nbsp; <b>  <a name="tex2html174"
+  href="node19.html">Index</a></b> 
+<!--End of Navigation Panel-->
+
+</body>
+</html>

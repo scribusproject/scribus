@@ -384,7 +384,7 @@ void SCFonts::AddScalableFonts(const QString &path)
 					{
 					t->cached_RealName = QString(FT_Get_Postscript_Name(face));
 					t->Font = qApp->font();
-					t->Font.setPointSize(12);
+					t->Font.setPointSize(qApp->font().pointSize());
 					if (ext == "otf")
 						{
 						t->isOTF = true;

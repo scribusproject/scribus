@@ -43,6 +43,9 @@
    */
 #undef HAVE_PTHREAD_LINUXTHREADS_PTHREAD_H
 
+/* Define if you have the development files for python */
+#undef HAVE_PYTHON
+
 /* Define if you have the res_init function */
 #undef HAVE_RES_INIT
 

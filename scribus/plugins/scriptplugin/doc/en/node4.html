@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-1 (1.69)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html>
+<head>
+<title>Document related Commands</title>
+<meta name="description" content="Document related Commands">
+<meta name="keywords" content="Manual">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Generator" content="LaTeX2HTML v2002-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="Manual.css">
+
+<link rel="next" href="node5.html">
+<link rel="previous" href="node3.html">
+<link rel="up" href="node3.html">
+<link rel="next" href="node5.html">
+</head>
+
+<body >
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html86"
+  href="node5.html">Page related Commands</a>
+<b> Up:</b> <a name="tex2html82"
+  href="node3.html">The available Commands</a>
+<b> Previous:</b> <a name="tex2html76"
+  href="node3.html">The available Commands</a>
+ &nbsp; <b>  <a name="tex2html84"
+  href="node19.html">Index</a></b> 
+<br>
+<br>
+<!--End of Navigation Panel-->
+
+<h1><a name="SECTION00310000000000000000">
+Document related Commands</a>
+</h1>
+
+<p>
+<dl>
+<dt><strong>CloseDoc<a name="45"></a>()</strong></dt>
+<dd>Closes the actual Document. Returns
+true if successful.
+</dd>
+<dt><strong>GetUnit<a name="46"></a>()</strong></dt>
+<dd>Returns the Measurement Unit of the Document.
+Possible Values for Unit are:
+</dd>
+</dl>
+<blockquote>
+0 = Typographic Points
+</blockquote>
+<p>
+<blockquote>1 = Millimeters
+</blockquote>
+<p>
+<blockquote>2 = Inches
+</blockquote>
+<p>
+<blockquote>3 = Picas
+
+</blockquote>
+<dl>
+<dt><strong>HaveDoc<a name="51"></a>()</strong></dt>
+<dd>Returns true if there is a Document open.
+</dd>
+<dt><strong>NewDoc<a name="52"></a>(size,&nbsp;margins,&nbsp;orientation,&nbsp;firstPageNumber,&nbsp;unit,&nbsp;FacingPages,&nbsp;FirstSideLeft)</strong></dt>
+<dd>Creates
+a new Document. The Parameters have the following Meaning:
+</dd>
+</dl>
+<blockquote>
+<div align="LEFT">
+size = A Tuple (width, height) describing
+the Size of the Document.
+<br>
+margins = A Tuple (Left, Right, Top, Bottom) describing the Margins
+of the Document.
+<br>
+orientation = the Page Orientation, 0 means Portrait, 1 is Landscape
+<br>
+firstPageNumer is the Number of the first Page in the Document used
+for Pagenumbering
+<br>
+unit: this Value sets the Measurement Unit of the Document
+</div>
+
+<blockquote>
+<div align="LEFT">
+0 = Typograpic Points
+<br>
+1 = Millimeters
+<br>
+2 = Inches
+<br>
+3 = Picas
+</div>
+</blockquote>
+
+<div align="LEFT">
+FacingPages: 1 means FacingPages turned
+on, 0 means FacingPages turned off
+<br>
+FirstSideLeft: 1 means that the first Page in the Document is a left
+Page, 0 means a right Page as first Page
+<br>
+The values for Width, Height and the Margins are expressed in the
+given unit for the Document.
+</div>
+</blockquote>
+<dl>
+<dt><strong>OpenDoc<a name="65"></a>(``name'')</strong></dt>
+<dd>Opens the Document ``name''.
+Returns true if successful.
+</dd>
+<dt><strong>SaveDoc<a name="68"></a>()</strong></dt>
+<dd>Saves the Document under its actual Name,
+returns true if successful.
+</dd>
+<dt><strong>SaveDocAs<a name="69"></a>(``name'')</strong></dt>
+<dd>Saves the actual Document
+under the new Name ``name''. Returns true if successful.
+</dd>
+<dt><strong>SetInfo<a name="72"></a>(``Author'',&nbsp;''Info'',&nbsp;''Description'')</strong></dt>
+<dd>Sets
+the Document Information.
+</dd>
+<dt><strong>SetMargins<a name="74"></a>(lr,&nbsp;rr,&nbsp;tr,&nbsp;br)</strong></dt>
+<dd>Sets the Printmargins
+of the Document, Left(lr), Right(rr), Top(tr) and Bottom(br) Margins
+are given in the actual measurement Unit of the Document.
+</dd>
+<dt><strong><font color="#ff0000">SetDocType</font><a name="77"></a>(FacingPages,&nbsp;FirstSideLeft)</strong></dt>
+<dd>Sets
+the Type of the Documents, to get Facing Pages set the first Parameter
+to 1, to switch FacingPages off use 0 instead. If you want to be the
+first Page a left Side set the second Parameter to 1, for a right
+Page use 0.
+</dd>
+<dt><strong>SetUnit<a name="78"></a>(unit)</strong></dt>
+<dd>Changes the Measurement Unit of the
+Document. Possible Values for Unit are:
+</dd>
+</dl>
+<blockquote>
+0 = Typographic Points
+</blockquote>
+<p>
+<blockquote>1 = Millimeters
+</blockquote>
+<p>
+<blockquote>2 = Inches
+</blockquote>
+<p>
+<blockquote>3 = Picas
+
+</blockquote>
+
+<p>
+<hr>
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html86"
+  href="node5.html">Page related Commands</a>
+<b> Up:</b> <a name="tex2html82"
+  href="node3.html">The available Commands</a>
+<b> Previous:</b> <a name="tex2html76"
+  href="node3.html">The available Commands</a>
+ &nbsp; <b>  <a name="tex2html84"
+  href="node19.html">Index</a></b> 
+<!--End of Navigation Panel-->
+
+</body>
+</html>

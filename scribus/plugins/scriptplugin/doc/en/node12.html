@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-1 (1.69)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html>
+<head>
+<title>Handling Text Frames</title>
+<meta name="description" content="Handling text Frames">
+<meta name="keywords" content="Manual">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Generator" content="LaTeX2HTML v2002-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="Manual.css">
+
+<link rel="previous" href="node11.html">
+<link rel="up" href="node6.html">
+<link rel="next" href="node13.html">
+</head>
+
+<body >
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html186"
+  href="node13.html">Other Commands</a>
+<b> Up:</b> <a name="tex2html182"
+  href="node6.html">Object related Commands</a>
+<b> Previous:</b> <a name="tex2html178"
+  href="node11.html">Manipulating Objects</a>
+ &nbsp; <b>  <a name="tex2html184"
+  href="node19.html">Index</a></b> 
+<br>
+<br>
+<!--End of Navigation Panel-->
+
+<h2><a name="SECTION00336000000000000000">
+Handling Text Frames</a>
+</h2>
+
+<p>
+<dl>
+<dt><strong>DeleteText<a name="426"></a>([``name''])</strong></dt>
+<dd>Deletes the Text
+of the Textframe ``name''. If there is some Text selected, this
+Text will be deleted. If ``name'' is not given the currently selected
+Item is used.
+</dd>
+<dt><strong>GetLineSpacing<a name="432"></a>([``name''])</strong></dt>
+<dd>Gets the
+Linespacing of the Text Frame ``name'' expressed in Points. If
+``name'' is not given the currently selected Item is used.
+</dd>
+<dt><strong>GetFont<a name="438"></a>([``name''])</strong></dt>
+<dd>Returns the Font for
+the Textframe ``name''. If this Textframe has some Text selected
+the Value assigned to the first Character of the Selection is returned.
+If ``name'' is not given the currently selected Item is used.
+</dd>
+<dt><strong>GetFontSize<a name="444"></a>([``name''])</strong></dt>
+<dd>Returns the
+Fontsize for the Textframe ``name''. If this Textframe has some
+Text selected the Value assigned to the first Character of the Selection
+is returned. If ``name'' is not given the currently selected Item
+is used.
+</dd>
+<dt><strong>GetText<a name="450"></a>([``name''])</strong></dt>
+<dd>Returns the Text of
+the Textframe ``name''. If this Textframe has some Text selected,
+this Text is returned. If ``name'' is not given the currently
+selected Item is used.
+</dd>
+<dt><strong>GetTextColor<a name="456"></a>([``name''])</strong></dt>
+<dd>Returns the
+name of the Text Color of the Object ``name''. If this Textframe
+has some Text selected the Value assigned to the first Character of
+the Selection is returned. If ``name'' is not given the currently
+selected Item is used.
+</dd>
+<dt><strong>GetTextLength<a name="462"></a>([``name''])</strong></dt>
+<dd>Returns
+the Length of the Text in the Textframe ``name''. If ``name''
+is not given the currently selected Item is used.
+</dd>
+<dt><strong>GetTextShade<a name="468"></a>([``name''])</strong></dt>
+<dd>Returns the
+shading Value of the Text Color of the Object ``name''. If this
+Textframe has some Text selected the Value assigned to the first Character
+of the Selection is returned. If ``name'' is not given the currently
+selected Item is used.
+</dd>
+<dt><strong>InsertText<a name="474"></a>(``text'',&nbsp;pos,&nbsp;[``name''])</strong></dt>
+<dd>Inserts
+the Text ``text'' at the Position ``pos'' into the Textframe
+The first Character has an Index of 0. ``name'' If ``name''
+is not given the currently selected Item is used.
+</dd>
+<dt><strong>SetTextAlignment<a name="483"></a>(align,&nbsp;[``name''])</strong></dt>
+<dd>Sets
+the Textalignment of the Text Frame ``name'' to the specified
+Alignment. If ``name'' is not given the currently selected Item
+is used. ``align'' can have the following values:
+</dd>
+</dl>
+<blockquote>
+<div align="LEFT">
+0 = Left Aligned
+<br>
+1 = Centered
+<br>
+2 = Right Aligned
+<br>
+3 = Forced
+</div>
+</blockquote>
+<dl>
+<dt><strong>SelectText<a name="496"></a>(start,&nbsp;count,&nbsp;[``name''])</strong></dt>
+<dd>Selects
+``count'' Characters Text of the Textframe ``name'' starting
+from the Character ``start''. Character Counting starts at 0.
+If ``count'' is zero, any Text Selection will be cleared. If ``name''
+is not given the currently selected Item is used.
+</dd>
+<dt><strong>SetLineSpacing<a name="505"></a>(size,&nbsp;[``name''])</strong></dt>
+<dd>Sets
+the Linespacing of the Text Frame ``name'' to the Pointsize ``size''.
+If ``name'' is not given the currently selected Item is used.
+</dd>
+<dt><strong>SetFont<a name="512"></a>(''font'',&nbsp;[``name''])</strong></dt>
+<dd>Sets the
+Font of the Text Frame ``name'' to ``font'', if there is some
+Text selected only the selected Text is changed. If ``name'' is
+not given the currently selected Item is used.
+</dd>
+<dt><strong>SetFontSize<a name="519"></a>(size,&nbsp;[``name''])</strong></dt>
+<dd>Sets
+the Fontsize of the Text Frame ``name'' to the Pointsize ``size'',
+if there is some Text selected only the selected Text is changed.
+``size'' must be in the Range 1 to 512. If ``name'' is not
+given the currently selected Item is used.
+</dd>
+<dt><strong>SetText<a name="527"></a>(''text'',&nbsp;[``name''])</strong></dt>
+<dd>Sets the
+Text of the Text Frame ``name'' to the Text of the String ``text''.
+If ``name'' is not given the currently selected Item is used.
+</dd>
+<dt><strong>SetTextColor<a name="534"></a>(''color'',&nbsp;[``name''])</strong></dt>
+<dd>Sets
+the Text Color of the Object ``name'' to the Color ``color'',
+if there is some Text selected only the selected Text is changed.
+If ``name'' is not given the currently selected Item is used.
+</dd>
+<dt><strong>SetTextShade<a name="541"></a>(shade,&nbsp;[``name''])</strong></dt>
+<dd>Sets
+the shading of the Text Color of the Object ``name'' to ``shade'',
+if there is some Text selected only the selected Text is changed.
+``shade'' must be an Integer Value in the range from 0 (lightest)
+to 100 (full Color intensity). If ``name'' is not given the currently
+selected Item is used.
+</dd>
+</dl>
+
+<p>
+<hr>
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html186"
+  href="node13.html">Other Commands</a>
+<b> Up:</b> <a name="tex2html182"
+  href="node6.html">Object related Commands</a>
+<b> Previous:</b> <a name="tex2html178"
+  href="node11.html">Manipulating Objects</a>
+ &nbsp; <b>  <a name="tex2html184"
+  href="node19.html">Index</a></b> 
+<!--End of Navigation Panel-->
+
+</body>
+</html>

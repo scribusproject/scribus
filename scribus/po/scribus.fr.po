@@ -1376,7 +1376,7 @@ msgstr "Enregistrer"
 #: scribus/colorm.cpp:94
 #: scribus/mergedoc.cpp:89
 #: scribus/scribus.cpp:2141
-msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
 msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)"
 
 #: scribus/colorm.cpp:96
@@ -1774,7 +1774,7 @@ msgid "Save as"
 msgstr "Enregistrer sous"
 
 #: scribus/druck.cpp:583
-msgid "Postscript-Files (*.ps);;All Files (*)"
+msgid "Postscript-Files (*.ps);; All Files (*)"
 msgstr "Fichiers PS (*.ps);;Tous les fichiers (*)"
 
 #: scribus/edit1format.cpp:9
@@ -1964,7 +1964,7 @@ msgstr "Obtenir les noms des champs"
 
 #: scribus/editor.cpp:59
 #: scribus/editor.cpp:74
-msgid "JavaScripts (*.js);;All Files (*)"
+msgid "JavaScripts (*.js);; All Files (*)"
 msgstr "Javascripts (*.js);;Tous les fichiers (*)"
 
 #: scribus/fontprefs.cpp:14
@@ -3566,7 +3566,7 @@ msgstr "Grand"
 
 #: scribus/scrap.cpp:196
 #: scribus/scrap.cpp:208
-msgid "Scrapbooks (*.scs);;All Files (*)"
+msgid "Scrapbooks (*.scs);; All Files (*)"
 msgstr "Albums (*.scs);;Tous les fichiers (*)"
 
 #: scribus/scrap.cpp:323
@@ -4087,7 +4087,7 @@ msgid "Images"
 msgstr "Images"
 
 #: scribus/scribus.cpp:2472
-msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgid ");;Vectorimages (*.eps *.pdf);; All Files (*)"
 msgstr ");;Fichiers vectoriels (*.eps *.pdf);;Tous les fichiers (*)"
 
 #: scribus/scribus.cpp:2490
@@ -4109,7 +4109,7 @@ msgstr ""
 "%1"
 
 #: scribus/scribus.cpp:2539
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
 msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)"
 
 #: scribus/plugins/svgexplugin/svgexplugin.cpp:48
@@ -4202,7 +4202,7 @@ msgid "Ghostscript : You cannot use EPS-Images"
 msgstr "Ghostscript : vous ne pouvez pas utiliser d'images EPS"
 
 #: scribus/scribus.cpp:5253
-msgid "EPS-Files (*.eps);;All Files (*)"
+msgid "EPS-Files (*.eps);; All Files (*)"
 msgstr "Fichiers EPS (*.eps);;Tous les fichiers (*)"
 
 #: scribus/scribus.cpp:5788
@@ -4736,6 +4736,44 @@ msgid "Antialias Graphics"
 msgstr "Lisser les objets graphiques"
 
 #: scribus/plugins/svgexplugin/svgexplugin.cpp:41
-msgid "SVG-Images (*.svg);;All Files (*)"
+msgid "SVG-Images (*.svg);; All Files (*)"
 msgstr "Fichiers SVG (*.svg);;Tous les fichiers (*)"
 
+msgid "Execute Script..."
+msgstr "Démarrer un Script..."
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Python Scripts (*.py);; Tous les fichiers (*)"
+
+msgid "About Scripter"
+msgstr "À propos de Scripter"
+
+msgid "About Scripter..."
+msgstr "À propos de Scripter..."
+
+msgid "Scripter"
+msgstr "Scripter"
+
+msgid "This Plugin allows you to use Python as a"
+msgstr "Ce plugiciel est pour utiliser Python comme un"
+
+msgid "scripting Language for Scribus."
+msgstr "langage de script pour Scribus."
+
+msgid "Online Reference"
+msgstr "Référence en ligne"
+
+msgid "Online-Help"
+msgstr "Aide en ligne"
+
+msgid "Show Console"
+msgstr "Afficher la Console"
+
+msgid "Hide Console"
+msgstr "Masquer la Console"
+
+msgid "Script Console"
+msgstr "Console de Script"
+
+msgid "Recent Scripts"
+msgstr "Scripts récents"

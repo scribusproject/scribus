@@ -2910,3 +2910,41 @@ msgstr "Dodr¾et pomìr stran"
 msgid "Position:"
 msgstr "Pozice:"
 
+msgid "Execute Script..."
+msgstr "Vykonat skript..."
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Python skripty (*.py);; V¹echny soubory (*)"
+
+msgid "About Scripter"
+msgstr "O Scripteru"
+
+msgid "About Scripter..."
+msgstr "O Scripteru..."
+
+msgid "Scripter"
+msgstr "Scripter"
+
+msgid "This Plugin allows you to use Python as a"
+msgstr "Tento modul vám umo¾òuje pou¾ít Python jako"
+
+msgid "scripting Language for Scribus."
+msgstr "skriptovací jazyk programu Scribus."
+
+msgid "Online Reference"
+msgstr "Reference"
+
+msgid "Online-Help"
+msgstr "Nápovìda"
+
+msgid "Show Console"
+msgstr "Ukázat konzoli"
+
+msgid "Hide Console"
+msgstr "Skrýt konzoli"
+
+msgid "Script Console"
+msgstr "Konzole skriptù"
+
+msgid "Recent Scripts"
+msgstr "Naposledy u¾ité skripty"

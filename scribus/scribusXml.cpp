@@ -1662,7 +1662,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 {
 	int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
-	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp;
+	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
 	double te, te2, xf, yf;
 	PageItem *item;
 	QDomDocument docu("scribus");
@@ -1961,7 +1961,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		QString txnu = "";
 		for(uint kt=0;kt<item->Ptext.count();++kt)
 			{
-			txnu += tmp.setNum(item->Ptext.at(kt)->xp) + " " + tmp.setNum(item->Ptext.at(kt)->yp) + " ";
+			txnu += tmp.setNum(item->Ptext.at(kt)->xp) + " " + tmpy.setNum(item->Ptext.at(kt)->yp) + " ";
 			}
 		ob.setAttribute("TEXTCOOR", txnu);
 		ob.setAttribute("NUMGROUP",static_cast<int>(item->Groups.count()));
@@ -1977,7 +1977,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		for (uint nxx=0; nxx<item->PoLine.size(); ++nxx)
 			{
 			item->PoLine.point(nxx, &xf, &yf);
-			polp += tmp.setNum(xf) + " " + tmp.setNum(yf) + " ";
+			polp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 			}
 		ob.setAttribute("POCOOR", polp);
 		ob.setAttribute("BACKITEM", -1);
@@ -2046,7 +2046,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC)
 {
 int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
-QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, Ndir;
+QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
 double te, te2, xf, yf;
 uint ObCount = maxC;
 Page *page;
@@ -2343,7 +2343,7 @@ for(uint i=0;i<view->Pages.count();++i)
 		for (uint nxx=0; nxx<item->PoLine.size(); ++nxx)
 			{
 			item->PoLine.point(nxx, &xf, &yf);
-			polp += tmp.setNum(xf) + " " + tmp.setNum(yf) + " ";
+			polp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 			}
 		ob.setAttribute("POCOOR", polp);
 		if (item->BackBox != 0)

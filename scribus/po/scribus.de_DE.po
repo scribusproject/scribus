@@ -2927,3 +2927,41 @@ msgstr "Nichtdruckbaren Bereich mit Randfarbe einfärben"
 msgid "Lang.:"
 msgstr "Sprache:"
 
+msgid "Execute Script..."
+msgstr "Script ausführen..."
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Python Scripts (*.py);; Alle Dateien (*)"
+
+msgid "About Scripter"
+msgstr "Über Scripter"
+
+msgid "About Scripter..."
+msgstr "Über Scripter..."
+
+msgid "Scripter"
+msgstr "Scripter"
+
+msgid "This Plugin allows you to use Python as a"
+msgstr "Dieses Plugin erlaubt es Python als"
+
+msgid "scripting Language for Scribus."
+msgstr "Script Sprache für Scribus zu benutzen."
+
+msgid "Online Reference"
+msgstr "Scripter-Referenz"
+
+msgid "Online-Help"
+msgstr "Handbuch"
+
+msgid "Show Console"
+msgstr "Konsole zeigen"
+
+msgid "Hide Console"
+msgstr "Konsole verbergen"
+
+msgid "Script Console"
+msgstr "Script Konsole"
+
+msgid "Recent Scripts"
+msgstr "Letzte Scripte"

@@ -2894,7 +2894,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	QImage img;
-	QString im, tmp, dummy, cmd1, cmd2, BBox;
+	QString im, tmp, tmpy, dummy, cmd1, cmd2, BBox;
 	QChar tc;
 	bool found = false;
 	int ret = -1;
@@ -3026,7 +3026,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					h = h * aufl;
 					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile=/tmp/sc.png -g";
 					cmd2 = " -c showpage -c quit";
-					ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp.setNum(qRound(h)) + " " + fn + cmd2);
+					ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmpy.setNum(qRound(h)) + " " + fn + cmd2);
 					if (ret == 0)
 						{
 						QImage image;

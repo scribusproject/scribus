@@ -44,9 +44,9 @@ public:
 	int Markp;
 	bool repX;
 	bool Mpressed;
+  QFont rfont;
 private: // Private attributes
   /** Zeichensatz des Lineals */
-  QFont rfont;
   ScribusDoc *doku;
 public slots: // Public slots
   /** Zeichnet den Pfeil */

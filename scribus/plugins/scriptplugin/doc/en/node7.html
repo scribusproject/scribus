@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002-1 (1.69)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html>
+<head>
+<title>Creating and Destructing Objects</title>
+<meta name="description" content="Creating and Destructing Objects">
+<meta name="keywords" content="Manual">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Generator" content="LaTeX2HTML v2002-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="Manual.css">
+
+<link rel="next" href="node8.html">
+<link rel="previous" href="node6.html">
+<link rel="up" href="node6.html">
+<link rel="next" href="node8.html">
+</head>
+
+<body >
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html128"
+  href="node8.html">Selecting Objects</a>
+<b> Up:</b> <a name="tex2html124"
+  href="node6.html">Object related Commands</a>
+<b> Previous:</b> <a name="tex2html118"
+  href="node6.html">Object related Commands</a>
+ &nbsp; <b>  <a name="tex2html126"
+  href="node19.html">Index</a></b> 
+<br>
+<br>
+<!--End of Navigation Panel-->
+
+<h2><a name="SECTION00331000000000000000">
+Creating and Destructing Objects</a>
+</h2>
+
+<p>
+<dl>
+<dt><strong>CreateBezierLine<a name="106"></a>(<i>list</i>,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Bezier Curve and returns its Name. The Points for the Bezier
+Curve are stored in the List ``list'' in the following Order:
+x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn. Where x and
+y mean the x and y Coordinates of the Point and kx and ky meaning
+the Controlpoint for the Curve. The Coordinates are given in the actual
+measurement Unit of the Document. ``name'' should be a unique
+Identifier for the Object because you need this Name for further referencing
+of that Object. If ``name is not given Scribus will create one
+for you.
+</dd>
+<dt><strong>CreateEllipse<a name="113"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Ellipse on the actual Page and returns its Name. The Coordinates
+are given in the actual measurement Unit of the Document. ``name''
+should be a unique Identifier for the Object because you need this
+Name for further referencing of that Object. If ``name is not given
+Scribus will create one for you.
+</dd>
+<dt><strong>CreateImage<a name="118"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Picture on the actual Page and returns its Name. The Coordinates
+are given in the actual measurement Unit of the Document. ``name''
+should be a unique Identifier for the Object because you need this
+Name for further referencing of that Object. If ``name is not given
+Scribus will create one for you.
+</dd>
+<dt><strong>CreateLine<a name="123"></a>(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Line from the Point(x1, y1) to the Point(x2, y2) and returns
+its Name. The Coordinates are given in the actual measurement Unit
+of the Document. ``name'' should be a unique Identifier for the
+Object because you need this Name for further referencing of that
+Object. If ``name is not given Scribus will create one for you.
+</dd>
+<dt><strong>CreatePathText(x,&nbsp;y,&nbsp;``textbox'',&nbsp;''beziercurve'',&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a nex PathText by merging the 2 Objects ``textbox'' and ``beziercurve''
+and returns its Name. The Coordinates are given in the actual measurement
+Unit of the Document ``name'' should be a unique Identifier for
+the Object because you need this Name for further referencing of that
+Object. If ``name is not given Scribus will create one for you.
+</dd>
+<dt><strong>CreatePolygon<a name="135"></a>(<i>list</i>,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Polygon and returns its Name. The Points for the Polygon are
+stored in the List ``list'' in the following Order: x1, y1, x2,
+y2...xn. yn. At least three Points are required. There is no need
+to repeat the first Point to close the Polygon. The Polygon is automatically
+closed by connecting the first and the last Point. The Coordinates
+are given in the actual measurement Unit of the Document. ``name''
+should be a unique Identifier for the Object because you need this
+Name for further referencing of that Object. If ``name is not given
+Scribus will create one for you.
+</dd>
+<dt><strong>CreatePolyLine<a name="142"></a>(<i>list</i>,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Polyline and returns its Name. The Points for the Polyline are
+stored in the List ``list'' in the following Order: x1, y1, x2,
+y2...xn. yn. The Coordinates are given in the actual measurement Unit
+of the Document. ``name'' should be a unique Identifier for the
+Object because you need this Name for further referencing of that
+Object. If ``name is not given Scribus will create one for you.
+</dd>
+<dt><strong>CreateRect<a name="149"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Rectangle on the actual Page and returns its Name. The Coordinates
+are given in the actual measurement Unit of the Document. ``name''
+should be a unique Identifier for the Object because you need this
+Name for further referencing of that Object. If ``name is not given
+Scribus will create one for you.
+</dd>
+<dt><strong>CreateText<a name="154"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
+<dd>Creates
+a new Rectangle on the actual Page and returns its Name. The Coordinates
+are given in the actual measurement Unit of the Document. ``name''
+should be a unique Identifier for the Object because you need this
+Name for further referencing of that Object. If ``name is not given
+Scribus will create one for you.
+</dd>
+<dt><strong>DeleteObject<a name="159"></a>([``name''])</strong></dt>
+<dd>Deletes the
+Item with the Name ``name''. If ``name'' is not given the
+currently selected Item is deleted.
+</dd>
+</dl>
+
+<p>
+<hr>
+<!--Navigation Panel-->
+
+<b> Next:</b> <a name="tex2html128"
+  href="node8.html">Selecting Objects</a>
+<b> Up:</b> <a name="tex2html124"
+  href="node6.html">Object related Commands</a>
+<b> Previous:</b> <a name="tex2html118"
+  href="node6.html">Object related Commands</a>
+ &nbsp; <b>  <a name="tex2html126"
+  href="node19.html">Index</a></b> 
+<!--End of Navigation Panel-->
+
+</body>
+</html>
