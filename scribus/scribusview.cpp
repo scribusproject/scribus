@@ -6938,28 +6938,14 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						emit ItemGeom(b->Width, b->Height);
 					emit HaveSel(b->PType);
 				}
-				tx = p.xForm(QRect(static_cast<int>(b->Width-6), static_cast<int>(b->Height-6), 6, 6));
-				if (tx.contains(mpo))
+				if (SelItem.count() == 1)
 				{
-					mCG = true;
-					HowTo = 1;
-					qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+					HandleSizer(&p, b, mpo, m);
+					if (HowTo == 0)
+						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 				}
 				else
-				{
-					tx = p.xForm(QRect(0, 0, 6, 6));
-					if (tx.contains(mpo))
-					{
-						mCG = true;
-						HowTo = 2;
-						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-					}
-					else
-					{
-						mCG = false;
-						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
-					}
-				}
+					qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 				p.end();
 				return true;
 			}
@@ -10996,7 +10982,7 @@ void ScribusView::TextToPath()
 			if (b->flippedH % 2 != 0)
 				textX = b->Width - textX - wide;
 			if (b->flippedV % 2 != 0)
-				textY = b->Height - textY+ y;
+				textY = b->Height - textY+ y - (bb->Height - y);
 			npo = transformPoint(FPoint(textX+x, textY-y), 0.0, 0.0, b->Rot, 1.0, 1.0);
 			bb->Xpos = b->Xpos+npo.x();
 			bb->Ypos = b->Ypos+npo.y();
