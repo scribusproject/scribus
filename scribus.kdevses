@@ -1,13 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="1" >
-  <Doc0 NumberOfViews="1" URL="file:/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/libabout/about.cpp" >
-   <View0 line="57" Type="???" >
-    <AdditionalSettings Top="2" Width="958" Attach="1" Height="561" Left="2" MinMaxMode="0" />
-   </View0>
-  </Doc0>
- </DocsAndViews>
+ <DocsAndViews NumberOfDocuments="0" />
  <pluginList>
   <kdevvalgrind>
    <executable path="" params="" />

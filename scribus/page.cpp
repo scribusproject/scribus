@@ -295,9 +295,9 @@ void Page::dropEvent(QDropEvent *e)
 					{
 						int st = doku->CurrentABStil;
 						if (st > 5)
-							ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize);
+							ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize, true);
 						else
-							ss->GetText(b, st, b->IFont, b->ISize);
+							ss->GetText(b, st, b->IFont, b->ISize, true);
 						emit DocChanged();
 					}
 					delete ss;
@@ -5480,41 +5480,8 @@ void Page::mousePressEvent(QMouseEvent *m)
 		{
 			Deselect(true);
 			slotDoCurs(true);
-/*			if (!SeleItem(m))
-			{ */
-				emit Amode(1);
-				return;
-/*			}
-			else
-			{
-				b = doku->ActPage->SelItem.at(0);
-				if ((m->button() == MidButton) && (b->PType == 4))
-				{
-					Mpressed = false;
-					MidButt = false;
-					QString cc;
-					cc = QApplication::clipboard()->text(QClipboard::Selection);
-					if (cc.isNull())
-						cc = QApplication::clipboard()->text(QClipboard::Clipboard);
-					if (!cc.isNull())
-					{
-						Serializer *ss = new Serializer("");
-						ss->Objekt = cc;
-						int st = doku->CurrentABStil;
-						ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize, true);
-						delete ss;
-						if (doku->Trenner->AutoCheck)
-							doku->Trenner->slotHyphenate(b);
-					}
-					else
-					{
-						if (ScApp->Buffer2.startsWith("<SCRIBUSTEXT"))
-							ScApp->slotEditPaste();
-					}
-					RefreshItem(b);
-				}
-				return;
-			} */
+			emit Amode(1);
+			return;
 		}
 		b = doku->ActPage->SelItem.at(0);
 		oldCp = b->CPos;
@@ -5555,9 +5522,9 @@ void Page::mousePressEvent(QMouseEvent *m)
 					ss->Objekt = cc;
 					int st = doku->CurrentABStil;
 					if (st > 5)
-						ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize);
+						ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize, true);
 					else
-						ss->GetText(b, st, b->IFont, b->ISize);
+						ss->GetText(b, st, b->IFont, b->ISize, true);
 					delete ss;
 					if (doku->Trenner->AutoCheck)
 						doku->Trenner->slotHyphenate(b);
