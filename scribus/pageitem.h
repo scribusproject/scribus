@@ -240,6 +240,7 @@ public:
 	bool AspectRatio;
 	float Transparency;
   QValueStack<int> Groups;
+	bool InvPict;
 };
 
 #endif

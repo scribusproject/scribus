@@ -157,6 +157,7 @@ class ScribusApp : public QMainWindow
 		QString LoadEnc;
 
   public slots:
+		void InvertPict();
 		void Collect();
 		void ChBookmarks(int s, int e, int n);
 		void AddBookMark(PageItem *ite);

@@ -6084,6 +6084,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading)
 	b->Locked = Buffer->Locked;
 	b->Transparency = Buffer->Transparency;
 	b->Reverse = Buffer->Reverse;
+	b->InvPict = Buffer->InvPict;
 	if (Buffer->LayerNr != -1)
 		b->LayerNr = Buffer->LayerNr;
 	if (b->PType != 5)
@@ -6566,6 +6567,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->PicAvail = false;
 			Items.at(ItNr)->PicArt = false;
 			}
+		emit HaveSel(2);
 		return;
 		}
 	if ((ext == "eps") || (ext == "ps"))
@@ -6703,6 +6705,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->PicAvail = false;
 			Items.at(ItNr)->PicArt = false;
 			}
+		emit HaveSel(2);
 		return;
 		}
 #ifdef HAVE_TIFF
@@ -6845,6 +6848,7 @@ void Page::LoadPict(QString fn, int ItNr)
 		}
 	Items.at(ItNr)->flippedH = 0;
 	Items.at(ItNr)->flippedV = 0;
+	emit HaveSel(2);
 	emit DocChanged();
 }
 

@@ -64,7 +64,7 @@ extern int IntentPrinter;
 extern ProfilesL InputProfiles;
 
 QString Path2Relative(QString Path);
-QPixmap LoadPDF(QString fn, int Seite, int Size);
+QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
 bool GlyNames(QMap<uint, QString> *GList, QString Dat);
 bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 QByteArray ComputeMD5Sum(QByteArray *in);
@@ -199,7 +199,7 @@ QImage ProofImage(QImage *Im)
 #endif
 }
 
-QPixmap LoadPDF(QString fn, int Seite, int Size)
+QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
 	QPixmap pm;
@@ -214,6 +214,8 @@ QPixmap LoadPDF(QString fn, int Seite, int Size)
 		image.load("/tmp/sc.png");
 		system("rm -f /tmp/sc.png");
   	QImage im2;
+		*h = image.height();
+		*w = image.width();
 		float sx = image.width() / static_cast<float>(Size);
 		float sy = image.height() / static_cast<float>(Size);
 		if (sy < sx)

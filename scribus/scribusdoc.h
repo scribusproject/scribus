@@ -163,6 +163,7 @@ struct CLBuf { int PType;
 							 bool Locked;
 							 float Transparency;
 							 bool Reverse;
+							 bool InvPict;
 							};
 
   /** Seitenraender */

@@ -1,4 +1,7 @@
 Changes since Version 0.9.10
+30.05.2003	scribus.cpp		Now you can invert Images.
+		navigator.cpp		External PDF-Documents can have now a different Size.
+
 29.05.2003	annot.cpp
 		annota.cpp
 		pdflib.cpp		Added Support for Links to external PDF-Documents.

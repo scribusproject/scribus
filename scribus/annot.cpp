@@ -28,6 +28,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
   	item = it;
   	Breite = b;
   	Hoehe = h;
+  	OriBreite = b;
+  	OriHoehe = h;
   	view = vie;
 		MaxSeite = Seite;
     QStringList tl;
@@ -606,7 +608,6 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 		Destfile->setText(item->An_Extern);
 		Destfile->setReadOnly(true);
     GroupBox11Layout->addWidget( Destfile, 0, 1 );
-//    GroupBox11Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
 		ChFile = new QPushButton(GroupBox11, "Change");
 		ChFile->setText(tr("Change..."));
     GroupBox11Layout->addWidget( ChFile, 0, 2 );
@@ -652,7 +653,14 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 			LExtern->setChecked(false);
 			}
 		else
+			{
 			LExtern->setChecked(true);
+			if (Destfile->text() != "")
+				{
+				Breite = Pg1->Breite;
+				Hoehe = Pg1->Hoehe;
+				}
+			}
 
     tab4 = new QWidget( TabWidget2, "privateWidget" );
     Layout = new QVBoxLayout( tab4, 11, 6, "Layout");
@@ -1039,7 +1047,6 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1_2->addItem( spacer );
     AnnotLayout->addLayout( Layout1_2 );
-    SetCross();
     connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
     connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
     connect(EditFormat, SIGNAL(clicked()), this, SLOT(editFormatSc()));
@@ -1091,6 +1098,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     QToolTip::add(NoScroll, tr( "Flag is ignored for PDF-1.3" ) );
     QToolTip::add(CalcFields, tr( "Enter a comma separated list of Fields here" ) );
 		QToolTip::add(IconNR, tr("You need at least the Icon for Normal to use Icons for Buttons"));
+		SetPg(QMIN(SpinBox11->value(), MaxSeite));
+    SetCross();
 }
 
 Annot::~Annot()
@@ -1676,12 +1685,20 @@ void Annot::SetPg(int v)
 			SpinBox11->setValue(1);
 			Pg1->SetSeite(1, 100, Destfile->text());
 			}
+		Breite = Pg1->Breite;
+		Hoehe = Pg1->Hoehe;
+//		SetCo(0,0);
 		}
 	else
 		{
 		Pg1->SetSeite(v-1, 100);
 		SpinBox11->setValue(v);
+		Breite = OriBreite;
+		Hoehe = OriHoehe;
+//		SetCo(0,0);
 		}
+	SpinBox21->setMaxValue(Breite);
+	SpinBox31->setMaxValue(Hoehe);
 	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
 }
 
@@ -2091,6 +2108,7 @@ void Annot::SetActTyp(int it)
 				Destfile->setEnabled(true);
 				ChFile->setEnabled(true);
 				}
+			SetPg(QMIN(SpinBox11->value(), MaxSeite));
 			break;
 		case 1:
 			Fram2->raiseWidget(2);

@@ -205,6 +205,8 @@ public:
     ScribusView* view;
     int Breite;
     int Hoehe;
+    int OriBreite;
+    int OriHoehe;
 		int ScrEdited;
 		int FormNum;
 		QString JavaScr;

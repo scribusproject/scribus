@@ -415,6 +415,7 @@ while(!DOC.isNull())
 				OB.UseEmbedded = QStoInt(obj.attribute("EMBEDDED","1"));
 				OB.Locked = static_cast<bool>(QStoInt(obj.attribute("LOCK","0")));
 				OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
+				OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 				OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 				OB.Transparency = QStoFloat(obj.attribute("TransValue","0.0"));
 				if (obj.hasAttribute("NUMCLIP"))
@@ -916,6 +917,7 @@ while(!DOC.isNull())
 				OB.UseEmbedded = QStoInt(obj.attribute("EMBEDDED","1"));
 				OB.Locked = static_cast<bool>(QStoInt(obj.attribute("LOCK","0")));
 				OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
+				OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 				OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 				OB.Transparency = QStoFloat(obj.attribute("TransValue","0.0"));
 				if (obj.hasAttribute("NUMCLIP"))
@@ -1352,6 +1354,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.UseEmbedded = QStoInt(pg.attribute("EMBEDDED","1"));
 			OB.Locked = static_cast<bool>(QStoInt(pg.attribute("LOCK","0")));
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
+			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
 			OB.Transparency = QStoFloat(pg.attribute("TransValue","0.0"));
 			if (pg.hasAttribute("NUMCLIP"))
 				{
@@ -1643,6 +1646,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			ob.setAttribute("REVERS", 1);
 		else
 			ob.setAttribute("REVERS", 0);
+		if(item->InvPict)
+			ob.setAttribute("INVERS", 1);
+		else
+			ob.setAttribute("INVERS", 0);
 		ob.setAttribute("TransValue", item->Transparency);
 		for(uint k=0;k<item->Ptext.count();++k)
 			{
@@ -1958,6 +1965,10 @@ for(uint i=0;i<view->Pages.count();++i)
 			ob.setAttribute("REVERS", 1);
 		else
 			ob.setAttribute("REVERS", 0);
+		if(item->InvPict)
+			ob.setAttribute("INVERS", 1);
+		else
+			ob.setAttribute("INVERS", 0);
 		ob.setAttribute("TransValue", item->Transparency);
 		for(uint k=0;k<item->Ptext.count();++k)
 			{

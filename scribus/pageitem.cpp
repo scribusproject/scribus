@@ -191,6 +191,7 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	AspectRatio = true;
 	Transparency = 0.0;
 	Reverse = false;
+	InvPict = false;
 }
 
 /** Zeichnet das Item */
@@ -345,7 +346,14 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 
 							if ((LocalViewX != 1) || (LocalViewY != 1))
 								pd.scale(LocalViewX, LocalViewY);
-							pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
+							if (InvPict)
+								{
+								QImage ip = pixm.copy();
+								ip.invertPixels();
+								pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), ip);
+								}
+							else
+								pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
 							pd.restore();
 							pd.end();
 							}
@@ -411,6 +419,13 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 								}
 							if ((LocalViewX != 1) || (LocalViewY != 1))
 								p.scale(LocalViewX, LocalViewY);
+							if (InvPict)
+								{
+								QImage ip = pixm.copy();
+								ip.invertPixels();
+								p.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), ip);
+								}
+							else
 							p.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
 							p.restore();
 							}
@@ -1731,4 +1746,5 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 	Buffer->Locked = Locked;
 	Buffer->Transparency = Transparency;
 	Buffer->Reverse = Reverse;
+	Buffer->InvPict = InvPict;
 }

@@ -1882,7 +1882,8 @@ void ScribusApp::HaveNewSel(int Nr)
 #endif
 			StilMenu->clear();
 			StilMenu->insertItem(tr("Color"), ColorMenu);
-			StilMenu->insertItem(tr("Invert"));
+			if (doc->ActPage->SelItem.at(0)->isRaster)
+				StilMenu->insertItem(tr("Invert"), this, SLOT(InvertPict()));
 			WerkTools->KetteAus->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
 			WerkTools->Textedit->setEnabled(true);
@@ -6334,6 +6335,21 @@ void ScribusApp::SetTranspar(float t)
 		}
 }
 
+void ScribusApp::InvertPict()
+{
+	PageItem *b;
+	if (HaveDoc)
+		{
+  	if (doc->ActPage->SelItem.count() != 0)
+			{
+  		b = doc->ActPage->SelItem.at(0);
+			b->InvPict = !b->InvPict;
+			view->DrawNew();
+			slotDocCh();
+			}
+		}
+}
+
 void ScribusApp::Collect()
 {
 	QString s = QFileDialog::getExistingDirectory(QDir::currentDirPath(), this, "d", tr("Choose a Directory"), true);
@@ -6361,6 +6377,44 @@ void ScribusApp::Collect()
 								ite->Pfile = s + itf.fileName();
 								}
 							}
+						if (ite->PType == 4)
+							{
+							if (ite->isAnnotation)
+								{
+								QString cmd = "";
+								QFileInfo itf;
+								if (ite->Pfile != "")
+									{
+									itf = QFileInfo(ite->Pfile);
+									if (itf.exists())
+										{
+										cmd = "cp " + ite->Pfile + " " + s + itf.fileName();
+										system(cmd);
+										ite->Pfile = s + itf.fileName();
+										}
+									}
+								if (ite->Pfile2 != "")
+									{
+									itf = QFileInfo(ite->Pfile2);
+									if (itf.exists())
+										{
+										cmd = "cp " + ite->Pfile2 + " " + s + itf.fileName();
+										system(cmd);
+										ite->Pfile2 = s + itf.fileName();
+										}
+									}
+								if (ite->Pfile3 != "")
+									{
+									itf = QFileInfo(ite->Pfile3);
+									if (itf.exists())
+										{
+										cmd = "cp " + ite->Pfile3 + " " + s + itf.fileName();
+										system(cmd);
+										ite->Pfile3 = s + itf.fileName();
+										}
+									}
+								}
+							}
 						}
 					}
 				for (uint a = 0; a < view->DocPages.count(); ++a)
@@ -6378,6 +6432,44 @@ void ScribusApp::Collect()
 								ite->Pfile = s + itf.fileName();
 								}
 							}
+						if (ite->PType == 4)
+							{
+							if (ite->isAnnotation)
+								{
+								QString cmd = "";
+								QFileInfo itf;
+								if (ite->Pfile != "")
+									{
+									itf = QFileInfo(ite->Pfile);
+									if (itf.exists())
+										{
+										cmd = "cp " + ite->Pfile + " " + s + itf.fileName();
+										system(cmd);
+										ite->Pfile = s + itf.fileName();
+										}
+									}
+								if (ite->Pfile2 != "")
+									{
+									itf = QFileInfo(ite->Pfile2);
+									if (itf.exists())
+										{
+										cmd = "cp " + ite->Pfile2 + " " + s + itf.fileName();
+										system(cmd);
+										ite->Pfile2 = s + itf.fileName();
+										}
+									}
+								if (ite->Pfile3 != "")
+									{
+									itf = QFileInfo(ite->Pfile3);
+									if (itf.exists())
+										{
+										cmd = "cp " + ite->Pfile3 + " " + s + itf.fileName();
+										system(cmd);
+										ite->Pfile3 = s + itf.fileName();
+										}
+									}
+								}
+							}
 						}
 					}
 				QString fn;
@@ -6387,7 +6479,7 @@ void ScribusApp::Collect()
   				fn = s + fis.fileName();
 					}
 				else
-					fn = s + doc->DocName+".scd";
+					fn = s + doc->DocName+".sla";
 				if (!DoFileSave(fn))
 					QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
 				}

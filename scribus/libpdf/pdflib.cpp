@@ -1335,7 +1335,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
 							{
-							PDF_Image(ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
+							PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
 							}
 						PutPage("Q\n");
 						if (ite->Pcolor2 != "None")
@@ -2279,21 +2279,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		{
 		if (ite->Pfile != "")
 			{
-			PDF_Image(ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(ite->pixm.width())+" 0 0 "+IToStr(ite->pixm.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(ite->pixm.width(), ite->pixm.height(), cc);
 			}
 		if (ite->Pfile2 != "")
 			{
-			PDF_Image(ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite->InvPict, ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(img.width())+" 0 0 "+IToStr(img.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(img.width(), img.height(), cc);
 			}
 		if (ite->Pfile3 != "")
 			{
-			PDF_Image(ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite->InvPict, ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(img2.width())+" 0 0 "+IToStr(img2.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(img2.width(), img2.height(), cc);
@@ -2602,7 +2602,7 @@ void PDFlib::PDF_Bookmark(int nr, float ypos)
 	Bvie->SetAction(nr, "/XYZ 0 "+FToStr(ypos)+" 0]");
 }
 
-void PDFlib::PDF_Image(QString fn, float sx, float sy, float x, float y, bool fromAN, QString Profil, bool Embedded, int Intent)
+void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, float y, bool fromAN, QString Profil, bool Embedded, int Intent)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
@@ -2773,6 +2773,8 @@ void PDFlib::PDF_Image(QString fn, float sx, float sy, float x, float y, bool fr
 			}
 		aufl = 1;
 		}
+	if (inver)
+		img.invertPixels();
 	if (Options->UseRGB)
 		im = ImageToTxt(&img);
 	else

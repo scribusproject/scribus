@@ -18,6 +18,7 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwidgetstack.h>
+#include <qlineedit.h>
 #include <qframe.h>
 #include "pageitem.h"
 #include "navigator.h"
@@ -37,6 +38,8 @@ public:
     QLabel* TextLabel3;
     QLabel* TextLabel4;
     QLabel* TextLabel5;
+		QLineEdit* Destfile;
+		QPushButton* ChFile;
     Navigator* Pg;
     QSpinBox* SpinBox1;
     QSpinBox* SpinBox2;
@@ -48,6 +51,9 @@ public:
     ScribusView* view;
     int Breite;
     int Hoehe;
+    int OriBreite;
+    int OriHoehe;
+		int MaxSeite;
 
 public slots:
 		void SetCo(float x, float y);
@@ -55,6 +61,7 @@ public slots:
 		void SetCross();
 		void SetVals();
 		void SetZiel(int i);
+		void GetFile();
 
 protected:
     QVBoxLayout* AnnotLayout;

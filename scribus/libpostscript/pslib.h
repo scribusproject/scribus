@@ -66,7 +66,7 @@ public:
 	virtual void PS_show_xy(QCString ch, float x, float y);
 	virtual void PS_show(float x, float y);
 	virtual void PS_show_xyG(QString font, QString ch, float x, float y);
-	virtual void PS_image(float x, float y, QString fn, float scalex, float scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
+	virtual void PS_image(bool inver, float x, float y, QString fn, float scalex, float scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 	virtual void PS_plate(int nr);
 	virtual void PS_setGray();
 	virtual void PDF_Bookmark(QString text, uint Seite);
@@ -75,7 +75,7 @@ public:
 	virtual void PS_TemplateStart(QString Name, float breite, float hoehe);
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
-	virtual void PS_ImageData(QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
+	virtual void PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
 private:
 	void PutSeite(QString c);
 	void PutDoc(QString c);

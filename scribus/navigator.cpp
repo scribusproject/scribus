@@ -17,7 +17,7 @@
 
 #include "navigator.h"
 #include "navigator.moc"
-extern QPixmap LoadPDF(QString fn, int Seite, int Size);
+extern QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
 
 Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
 {
@@ -25,11 +25,11 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 	setAlignment(static_cast<int>( QLabel::AlignLeft | QLabel::AlignTop) );
 	if (fn != "")
 		{
-		QPixmap img = LoadPDF(fn, Seite, Size);
+		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())
 			pmx = img;
 		else
-			pmx = LoadPDF(fn, 1, Size);
+			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
 		}
 	else
 		pmx = vie->PageToPixmap(Seite, Size);
@@ -43,21 +43,21 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 void Navigator::mouseMoveEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit Coords(static_cast<float>(m->x())/static_cast<float>(width()),
-		    static_cast<float>(m->y())/static_cast<float>(height()));
+	emit Coords(static_cast<float>(m->x())/static_cast<float>(pmx.width()),
+		    static_cast<float>(m->y())/static_cast<float>(pmx.height()));
 }
 
 void Navigator::mousePressEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit Coords(static_cast<float>(m->x())/static_cast<float>(width()),
-		    static_cast<float>(m->y())/static_cast<float>(height()));
+	emit Coords(static_cast<float>(m->x())/static_cast<float>(pmx.width()),
+		    static_cast<float>(m->y())/static_cast<float>(pmx.height()));
 }
 
 void Navigator::mouseReleaseEvent(QMouseEvent *m)
 {
-	emit Coords(static_cast<float>(m->x())/static_cast<float>(width()),
-		    static_cast<float>(m->y())/static_cast<float>(height()));
+	emit Coords(static_cast<float>(m->x())/static_cast<float>(pmx.width()),
+		    static_cast<float>(m->y())/static_cast<float>(pmx.height()));
 }
 
 void Navigator::paintEvent(QPaintEvent *e)
@@ -73,6 +73,7 @@ void Navigator::drawMark(int x, int y)
 {
 	QPainter p;
 	p.begin(this);
+	p.setClipRect(pmx.rect());
 	p.drawPixmap(0, 0, pmx);
 	p.setPen(QPen(QColor(black), 1, SolidLine, FlatCap, MiterJoin));
 	p.drawLine(x-5, y-5, x-1, y-1);
@@ -87,14 +88,14 @@ bool Navigator::SetSeite(int Seite, int Size, QString fn)
 	bool ret = false;
 	if (fn != "")
 		{
-		QPixmap img = LoadPDF(fn, Seite, Size);
+		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())
 			{
 			pmx = img;
 			ret = true;
 			}
 		else
-			pmx = LoadPDF(fn, 1, Size);
+			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
 		}
 	else
 		{

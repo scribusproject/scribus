@@ -837,7 +837,7 @@ void PSLib::PS_show(float x, float y)
 	PutSeite("/hyphen glyphshow\n");
 }
 
-void PSLib::PS_ImageData(QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
+void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
 {
 	QString tmp;
 	QFileInfo fi = QFileInfo(fn);
@@ -865,16 +865,25 @@ void PSLib::PS_ImageData(QString fn, QString Name, QString Prof, bool UseEmbedde
 		image = LoadPict(fn);
 		image = image.convertDepth(32);
 		image2 = LoadPictCol(fn, Prof, UseEmbedded, &cmy);
+		if (inver)
+			{
+			image.invertPixels();
+			image2.invertPixels();
+			}
 		ImgStr = ImageToCMYK_PS(&image2, -1, cmy);
 		}
 	else
 		{
 		image = LoadPict(fn);
+		if (inver)
+			image.invertPixels();
 		ImgStr = ImageToCMYK_PS(&image, -1, false);
 		}
 #else
 	image = LoadPict(fn);
   image = image.convertDepth(32);
+	if (inver)
+		image.invertPixels();
 	ImgStr = ImageToCMYK_PS(&image, -1, false);
 #endif
 	if (CompAvail)
@@ -907,7 +916,7 @@ void PSLib::PS_ImageData(QString fn, QString Name, QString Prof, bool UseEmbedde
 		}
 }
 
-void PSLib::PS_image(float x, float y, QString fn, float scalex, float scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
+void PSLib::PS_image(bool inver, float x, float y, QString fn, float scalex, float scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
 {
 	QString tmp;
 	QFileInfo fi = QFileInfo(fn);
@@ -955,9 +964,16 @@ void PSLib::PS_image(float x, float y, QString fn, float scalex, float scaley, Q
 			image = LoadPict(fn);
 			image = image.convertDepth(32);
 			}
+		if (inver)
+			{
+			image.invertPixels();
+			image2.invertPixels();
+			}
 #else
 		image = LoadPict(fn);
   	image = image.convertDepth(32);
+		if (inver)
+			image.invertPixels();
 #endif
 		int w = image.width();
 		int h = image.height();

@@ -70,7 +70,7 @@ private:
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);
   void PDF_xForm(float w, float h, QString im);
-	void PDF_Image(QString fn, float sx, float sy, float x, float y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
+	void PDF_Image(bool inver, QString fn, float sx, float sy, float x, float y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
 	QString Inhalt;
   ScribusDoc* doc;
   ScribusView* view;

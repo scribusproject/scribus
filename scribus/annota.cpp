@@ -21,6 +21,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
   	item = it;
   	Breite = b;
   	Hoehe = h;
+  	OriBreite = b;
+  	OriHoehe = h;
   	view = vie;
 		MaxSeite = Seite;
     QStringList tl;
@@ -169,12 +171,18 @@ void Annota::SetPg(int v)
 			SpinBox1->setValue(1);
 			Pg->SetSeite(1, 100, Destfile->text());
 			}
+		Breite = Pg->Breite;
+		Hoehe = Pg->Hoehe;
 		}
 	else
 		{
 		Pg->SetSeite(v-1, 100);
 		SpinBox1->setValue(v);
+		Breite = OriBreite;
+		Hoehe = OriHoehe;
 		}
+	SpinBox2->setMaxValue(Breite);
+	SpinBox3->setMaxValue(Hoehe);
 	connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
 }
 
@@ -252,6 +260,7 @@ void Annota::SetZiel(int it)
 				Destfile->show();
 				ChFile->show();
 				}
+			SetPg(QMIN(SpinBox1->value(), MaxSeite));
 			break;
 		default:
     	Fram->raiseWidget(2);

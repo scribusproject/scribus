@@ -891,7 +891,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 					{
 					PageItem *it = MasterPages.at(ap)->Items.at(api);
 					if ((it->PType == 2) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable))
-						p->PS_ImageData(it->Pfile, it->AnName, it->IProfile, it->UseEmbedded, Ic);
+						p->PS_ImageData(it->InvPict, it->Pfile, it->AnName, it->IProfile, it->UseEmbedded, Ic);
 					}
 				} 
 			p->PS_TemplateStart(MasterPages.at(ap)->PageNam, Doc->PageB, Doc->PageH);
@@ -986,7 +986,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 								if ((ite->PicAvail) && (ite->Pfile != ""))
 									{
 									p->PS_translate(0, -ite->BBoxH*ite->LocalScY);
-									p->PS_image(-ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
+									p->PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 									}
 								p->PS_restore();
 								if (ite->Pcolor2 != "None")
@@ -1296,9 +1296,9 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								{
 								p->PS_translate(0, -c->BBoxH*c->LocalScY);
 								if (a->PageNam != "")
-									p->PS_image(-c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->AnName);
+									p->PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->AnName);
 								else
-									p->PS_image(-c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
+									p->PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
 								}
 							p->PS_restore();
 							if (c->Pcolor2 != "None")
