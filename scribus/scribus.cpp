@@ -3441,6 +3441,7 @@ bool ScribusApp::SetupDoc()
 		{
 			FT_Done_Face(doc->FFonts[it3.key()]);
 		}
+		doc->UsedFonts.clear();
 		QStringList::Iterator it3a;
 		for (it3a = uf.begin(); it3a != uf.end(); ++it3a)
 		{
@@ -4692,6 +4693,13 @@ bool ScribusApp::LadeDoc(QString fileName)
 				RecalcColors();
 				view->RecalcPictures(&InputProfiles);
 			}
+		}
+		else
+		{
+			doc->CMSSettings.CMSinUse = false;
+#ifdef HAVE_CMS
+			CMSuse = doc->CMSSettings.CMSinUse;
+#endif
 		}
 		propertiesPalette->Cpal->SetColors(doc->PageColors);
 		propertiesPalette->Cpal->ChooseGrad(0);
