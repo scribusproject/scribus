@@ -1042,7 +1042,7 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), tr("&Paste"), CTRL+Key_V, this, "editPaste"));
 	scrActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), tr("C&lear"), QKeySequence(), this, "editClear"));
 	scrActions.insert("editSelectAll", new ScrAction(tr("Select &All"), CTRL+Key_A, this, "editSelectAll"));
-	scrActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")),  tr("&Search/Replace..."), QKeySequence(), this, "editSearchReplace"));
+	scrActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")),  tr("&Search/Replace..."), QKeySequence(CTRL+Key_F), this, "editSearchReplace"));
 
 	scrActions.insert("editColors", new ScrAction(tr("C&olors..."), QKeySequence(), this, "editColors"));
 	scrActions.insert("editParaStyles", new ScrAction(tr("&Paragraph Styles..."), QKeySequence(), this, "editParaStyles"));
@@ -1156,7 +1156,7 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemDelete", new ScrAction(tr("&Delete"), CTRL+Key_K, this, "itemDelete"));
 	scrActions.insert("itemGroup", new ScrAction(tr("&Group"), CTRL+Key_G, this, "itemGroup"));
 	scrActions.insert("itemUngroup", new ScrAction(tr("&Ungroup"), CTRL+Key_U, this, "itemUngroup"));
-	scrActions.insert("itemLock", new ScrAction(tr("Is &Locked"), CTRL+Key_F, this, "itemLock"));
+	scrActions.insert("itemLock", new ScrAction(tr("Is &Locked"), CTRL+Key_L, this, "itemLock"));
 	scrActions["itemLock"]->setToggleAction(true);
 	scrActions.insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(), this, "itemSendToBack"));
 	scrActions.insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(), this, "itemBringToFront"));
@@ -1293,7 +1293,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), tr("Zoom in or out"), QKeySequence(Key_Z), this, "toolsZoom", Magnifier));
 	scrActions.insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), tr("Edit Contents of Frame"), QKeySequence(Key_E), this, "toolsEditContents", EditMode));
 	scrActions.insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), tr("Edit the text with the Story Editor"), QKeySequence(CTRL+Key_Y), this, "toolsEditWithStoryEditor", StartStoryEditor));
-	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_K), this, "toolsLinkTextFrame", LinkFrames));
+	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_N), this, "toolsLinkTextFrame", LinkFrames));
 	scrActions.insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), tr("Unlink Text Frames"), QKeySequence(Key_U), this, "toolsUnlinkTextFrame", UnlinkFrames));
 
 	scrActions["toolsProperties"]->setToggleAction(true);
