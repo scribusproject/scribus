@@ -194,7 +194,6 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
-			//toLoad+="index.html";
 			toLoad+=listView->firstChild()->text(1);
 			listView->setSelected( listView->firstChild(), true );
 		}
@@ -307,7 +306,7 @@ void HelpBrowser::loadMenu()
 					if (qlvi!=NULL && e.hasAttribute( "section" ))
 					{
 						QDomAttr sectionAttr = e.attributeNode( "section" );
-						if (sectionAttr.value()=="tutorials") 
+						if (sectionAttr.value()=="tutorials" && !haveTutorials) 
 						{
 							haveTutorials=true;
 							tutorialsMenuItem=qlvi;
@@ -338,7 +337,7 @@ void HelpBrowser::loadMenu()
 								if (qlvi3!=NULL && ec.hasAttribute( "section" ))
 								{
 									QDomAttr sectionAttr = e.attributeNode( "section" );
-									if (sectionAttr.value()=="tutorials")
+									if (sectionAttr.value()=="tutorials" && !haveTutorials)
 									{
 										haveTutorials=true;
 										tutorialsMenuItem=qlvi3;
@@ -368,7 +367,7 @@ void HelpBrowser::loadMenu()
 											if (qlvi5!=NULL && ecc.hasAttribute( "section" ))
 											{
 												QDomAttr sectionAttr = e.attributeNode( "section" );
-												if (sectionAttr.value()=="tutorials")
+												if (sectionAttr.value()=="tutorials" && !haveTutorials)
 												{
 													haveTutorials=true;
 													tutorialsMenuItem=qlvi5;
