@@ -187,6 +187,7 @@ void HelpBrowser::histChosen(int i)
 void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 {
 	QString toLoad;
+	bool noDocs=false;
 
 	if (jumpToFile=="") 
 	{
@@ -194,8 +195,13 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
-			toLoad+=listView->firstChild()->text(1);
-			listView->setSelected( listView->firstChild(), true );
+			if (listView->firstChild())
+			{
+				toLoad+=listView->firstChild()->text(1);
+				listView->setSelected( listView->firstChild(), true );
+			}
+			else
+				noDocs=true;
 		}
 		else if (jumpToSection=="scripter") 
 		{
@@ -214,7 +220,10 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 	else
 		toLoad=jumpToFile;
 
-	loadHelp(toLoad);
+	if (!noDocs)
+		loadHelp(toLoad);
+	else
+		textBrowser->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
 }
 
 void HelpBrowser::loadHelp(QString filename)
