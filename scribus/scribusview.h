@@ -297,7 +297,6 @@ public slots: // Public slots
 	void ToggleResize();
 	void sentToScrap();
 	void sentToLayer(int id);
-	void LoremIpsum();
 	void ToBack();
 	void ToFront();
 	void LowerItem();

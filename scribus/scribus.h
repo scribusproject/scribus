@@ -467,6 +467,7 @@ public slots:
 	void scanDocument();
 	void slotCheckDoc();
 	void setUndoMode(bool isObjectSpecific);
+	void insertSampleText();
 
 signals:
 	void TextISize(int);

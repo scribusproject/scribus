@@ -1681,8 +1681,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			}
-			if (b->itemType() == PageItem::TextFrame)
-				pmen->insertItem( tr("&Insert Sample Text"), this, SLOT(LoremIpsum()));
 			if (!b->locked())
 			{
 				if (SelItem.count() > 1)
@@ -7707,39 +7705,6 @@ void ScribusView::sentToLayer(int id)
 	Deselect(true);
 	updateContents();
 	emit DocChanged();
-}
-
-void ScribusView::LoremIpsum()
-{
-	if (SelItem.count() != 0)
-	{
-		PageItem *b = SelItem.at(0);
-		if (b->itemText.count() != 0)
-		{
-			int t = QMessageBox::warning(this, tr("Warning"),
-	                             tr("Do you really want to clear all your Text?"),
-	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-			if (t == QMessageBox::No)
-				return;
-		}
-		QString pfad = ScPaths::instance().sampleScriptDir();
-		QString pfad2;
-		pfad2 = pfad + "LoremIpsum.txt";
-		Serializer *ss = new Serializer(pfad2);
-		if (ss->Read(""))
-		{
-			int st = Doc->currentParaStyle;
-			if (st > 5)
-				ss->GetText(b, st, Doc->docParagraphStyles[st].Font, Doc->docParagraphStyles[st].FontSize, true);
-			else
-				ss->GetText(b, st, b->IFont, b->ISize, true);
-		}
-		delete ss;
-		if (Doc->docHyphenator->AutoCheck)
-			Doc->docHyphenator->slotHyphenate(b);
-		updateContents();
-		emit DocChanged();
-	}
 }
 
 void ScribusView::ToBack()

@@ -25,6 +25,7 @@
 #include <qfileinfo.h>
 #include <qdrawutil.h>
 #include <qbitmap.h>
+#include <qmessagebox.h>
 #include <cmath>
 #include "page.h"
 #include "scribus.h"
@@ -32,6 +33,8 @@
 #include "undomanager.h"
 #include "undostate.h"
 #include "mpalette.h"
+#include "serializer.h"
+#include "scpaths.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -3904,4 +3907,36 @@ ObjectAttribute PageItem::getObjectAttribute(QString attributeName)
 void PageItem::setObjectAttributes(ObjAttrVector* map)
 {
 	pageItemAttributes=*map;
+}
+
+bool PageItem::LoremIpsum()
+{
+	if (itemText.count() != 0)
+	{
+		QString text = tr("Do you really want to replace all your text\nin the frame named %1 with sample text?");
+		int t = QMessageBox::warning(ScApp, tr("Warning"),
+								QString(text).arg(AnName),
+								QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+		if (t == QMessageBox::No)
+			return false;
+	}
+	QString pfad = ScPaths::instance().sampleScriptDir();
+	QString pfad2;
+	pfad2 = pfad + "LoremIpsum.txt";
+	Serializer *ss = new Serializer(pfad2);
+	if (ss!=NULL)
+	{
+		if (ss->Read(""))
+		{
+			int st = Doc->currentParaStyle;
+			if (st > 5)
+				ss->GetText(this, st, Doc->docParagraphStyles[st].Font, Doc->docParagraphStyles[st].FontSize, true);
+			else
+				ss->GetText(this, st, IFont, ISize, true);
+		}
+		delete ss;
+	}
+	if (Doc->docHyphenator->AutoCheck)
+		Doc->docHyphenator->slotHyphenate(this);
+	return true;
 }

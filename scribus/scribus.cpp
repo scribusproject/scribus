@@ -1197,9 +1197,12 @@ void ScribusApp::initItemMenuActions()
 void ScribusApp::initInsertMenuActions()
 {
 	//Insert Menu
-	scrActions.insert("extrasInsertSpecial", new ScrAction(tr("Special Character..."), QKeySequence(), this, "extrasInsertSpecial"));
-	scrActions["extrasInsertSpecial"]->setText(tr("Insert Special Character"));
-	connect( scrActions["extrasInsertSpecial"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
+	scrActions.insert("insertSpecialChar", new ScrAction(tr("Special Character..."), QKeySequence(), this, "insertSpecialChar"));
+	scrActions["insertSpecialChar"]->setText(tr("Insert Special Character"));
+	scrActions.insert("insertSampleText", new ScrAction(tr("Sample Text"), QKeySequence(), this, "insertSampleText"));
+	
+	connect( scrActions["insertSpecialChar"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
+	connect( scrActions["insertSampleText"], SIGNAL(activated()) , this, SLOT(insertSampleText()) );
 }
 
 void ScribusApp::initPageMenuActions()
@@ -1583,11 +1586,13 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
-	scrMenuMgr->addMenuItem(scrActions["extrasInsertSpecial"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["insertSpecialChar"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "Insert");
-	scrActions["extrasInsertSpecial"]->setEnabled(false);
+	scrMenuMgr->addMenuSeparator("Insert");
+	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
+	scrActions["insertSpecialChar"]->setEnabled(false);
 	
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
@@ -3867,10 +3872,12 @@ void ScribusApp::HaveNewSel(int Nr)
 			Nr = -1;
 	}
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
-	scrActions["extrasInsertSpecial"]->setEnabled(false);
+	scrActions["insertSpecialChar"]->setEnabled(false);
 	scrActions["specialSmartHyphen"]->setEnabled(false);
 	scrActions["specialNonBreakingSpace"]->setEnabled(false);
 	scrActions["specialPageNumber"]->setEnabled(false);
+	scrActions["insertSampleText"]->setEnabled(false);
+	
 	view->horizRuler->ItemPosValid = false;
 	view->horizRuler->repX = false;
 	view->horizRuler->repaint();
@@ -3949,6 +3956,7 @@ void ScribusApp::HaveNewSel(int Nr)
 
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
+		scrActions["insertSampleText"]->setEnabled(true);
 		if ((b->NextBox != 0) || (b->BackBox != 0))
 		{
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
@@ -3967,7 +3975,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 			setTBvals(b);
 			scrActions["editSelectAll"]->setEnabled(true);
-			scrActions["extrasInsertSpecial"]->setEnabled(true);
+			scrActions["insertSpecialChar"]->setEnabled(true);
 			scrActions["specialSmartHyphen"]->setEnabled(true);
 			scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			scrActions["specialPageNumber"]->setEnabled(true);
@@ -6455,7 +6463,7 @@ void ScribusApp::setAppMode(int mode)
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
 			scrActions["editClear"]->setEnabled(false);
-			scrActions["extrasInsertSpecial"]->setEnabled(false);
+			scrActions["insertSpecialChar"]->setEnabled(false);
 			view->slotDoCurs(false);
 			if (b != 0)
 			{
@@ -6482,7 +6490,7 @@ void ScribusApp::setAppMode(int mode)
 				setTBvals(b);
 			}
 			scrActions["editPaste"]->setEnabled(false);
-			scrActions["extrasInsertSpecial"]->setEnabled(true);
+			scrActions["insertSpecialChar"]->setEnabled(true);
 			scrActions["specialSmartHyphen"]->setEnabled(true);
 			scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			scrActions["specialPageNumber"]->setEnabled(true);
@@ -10732,4 +10740,27 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 	if (sendToSuper)
 		QMainWindow::mouseReleaseEvent(m);
 
+}
+
+void ScribusApp::insertSampleText()
+{
+	if (HaveDoc)
+		if (view->SelItem.count() > 0)
+		{
+			bool inserted=false;
+			for (uint i = 0; i < view->SelItem.count(); ++i)
+			{
+				if (view->SelItem.at(i)!=NULL)
+					if (view->SelItem.at(i)->itemType() == PageItem::TextFrame)
+					{
+						if (view->SelItem.at(i)->LoremIpsum())
+							inserted=true;
+					}
+			}
+			if (inserted)
+			{
+				view->updateContents();
+				slotDocCh();
+			}
+		}
 }

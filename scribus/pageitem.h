@@ -754,6 +754,8 @@ public:
 	/*@}*/
 	/** @brief Required by the UndoObject */
 	void restore(UndoState *state, bool isUndo);
+	
+	bool LoremIpsum();
 
 protected:
 	/**
