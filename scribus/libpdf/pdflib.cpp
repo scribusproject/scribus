@@ -3842,6 +3842,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					img = LoadPicture(fn, Profil, Embedded, Intent, true, 2, afl);
 				else
 				{
+#ifdef HAVE_CMS
 					if ((CMSuse) && (Options->UseProfiles2))
 						img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 					else
@@ -3851,6 +3852,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 						else
 							img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, afl);
 					}
+#endif
 				}
 			}
 			else
