@@ -35,12 +35,13 @@
 extern QString Path2Relative(QString Path);
 extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 extern QByteArray ComputeMD5Sum(QByteArray *in);
-extern QImage LoadPict(QString fn);
+extern QImage LoadPict(QString fn, bool *gray = 0);
 extern bool loadText(QString nam, QString *Buffer);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString CompressStr(QString *in);
 extern QString ImageToTxt(QImage *im);
 extern QString ImageToCMYK(QImage *im);
+extern void Convert2JPG(QString fn, QImage *image, bool isCMYK);
 extern QString MaskToTxt(QImage *im, bool PDF = true);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
@@ -2775,6 +2776,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	QString im, tmp, tmpy, dummy, cmd1, cmd2, BBox;
 	QChar tc;
 	bool found = false;
+	bool gray = false;
 	int ret = -1;
 	int afl;
 	double x2, y2, b, h, ax, ay, a2, a1, sxn, syn;
@@ -2923,7 +2925,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	}
 	else
 	{
-		img = LoadPict(fn);
+		img = LoadPict(fn, &gray);
 		if (Options->RecalcPic)
 		{
 			double afl = QMIN(Options->PicRes, Options->Resolution);
@@ -2997,16 +2999,39 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	else
 	{
 #endif
-  		PutDoc(Options->UseRGB ? "/ColorSpace /DeviceRGB\n" : "/ColorSpace /DeviceCMYK\n");
+		if ((gray) && (Options->UseRGB))
+			PutDoc("/ColorSpace /DeviceGray\n");
+		else
+			PutDoc(Options->UseRGB ? "/ColorSpace /DeviceRGB\n" : "/ColorSpace /DeviceCMYK\n");
 #ifdef HAVE_CMS
 	}
 #endif
-	PutDoc("/BitsPerComponent 8\n");
-	PutDoc("/Length "+IToStr(im.length())+"\n");
-  	if (img.hasAlphaBuffer())
-		PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
-	if ((Options->Compress) && (CompAvail))
-		PutDoc("/Filter /FlateDecode\n");
+	if ((ext == "jpg") && (Options->UseRGB) && (!Options->RecalcPic))
+	{
+		im = "";
+		loadText(fn, &im);
+		PutDoc("/BitsPerComponent 8\n");
+		PutDoc("/Length "+IToStr(im.length())+"\n");
+		PutDoc("/Filter /DCTDecode\n");
+	}
+	else
+	{
+  		QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.jpg";
+		if ((Options->UseRGB) || (Options->UseProfiles2)) 
+			Convert2JPG(tmpFile, &img, false);
+		else
+			Convert2JPG(tmpFile, &img, true);
+		im = "";
+		loadText(tmpFile, &im);
+		system("rm -f "+tmpFile);
+		PutDoc("/BitsPerComponent 8\n");
+		PutDoc("/Length "+IToStr(im.length())+"\n");
+	  	if (img.hasAlphaBuffer())
+			PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
+		if ((Options->Compress) && (CompAvail))
+			PutDoc("/Filter /DCTDecode\n");
+//			PutDoc("/Filter /FlateDecode\n");
+	}
 	PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
 	Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 	if (!fromAN)

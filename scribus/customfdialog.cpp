@@ -24,7 +24,7 @@
 #include <qdir.h>
 #include <qdom.h>
 #include <qtextcodec.h>
-extern QImage LoadPict(QString fn);
+extern QImage LoadPict(QString fn, bool *gray = 0);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern QString DocDir;

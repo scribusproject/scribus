@@ -31,7 +31,7 @@
 #endif
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
-extern QImage LoadPict(QString fn);
+extern QImage LoadPict(QString fn, bool *gray = 0);
 
 QString Name()
 {

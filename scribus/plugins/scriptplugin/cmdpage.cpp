@@ -1,6 +1,7 @@
 #include <Python.h>
 #include "cmdpage.h"
 #include "cmdvar.h"
+#include "cmdutil.h"
 
 PyObject *scribus_actualpage(PyObject *self, PyObject* args)
 {
@@ -95,5 +96,24 @@ PyObject *scribus_pagecount(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	return PyInt_FromLong(static_cast<long>(Carrier->view->Pages.count()));
+}
+
+PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
+{
+/* #include "cmdutil.h" needed for PointToValue function */
+	if (!PyArg_ParseTuple(args, "")) {
+		return NULL;
+	}
+	if (!Carrier->HaveDoc) {
+		return PyInt_FromLong(0L);
+	}
+	
+	PyObject *t;
+	t = Py_BuildValue(
+		"(dd)",
+		PointToValue(Carrier->doc->PageB), // it's just view scale... * Carrier->doc->Scale),
+		PointToValue(Carrier->doc->PageH)  // * Carrier->doc->Scale)
+		);
+	return t;
 }
 

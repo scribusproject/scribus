@@ -1,4 +1,10 @@
 Changes since Version 1.1.5
+18.02.2004	Improved the PDF-Export, Images are now written as jpg into the PDF.
+	Fixed a problem with freetype > 2.1.4
+
+17.02.2004	Updated the Danish and Welsh Translation.
+	Added a new Command to the Scripter, contributed by Petr Vanek.
+
 15.02.2004	Fixed some mismatches in the German Translation.
 	Updated the Czech Translation.
 	Fixed Bug #268

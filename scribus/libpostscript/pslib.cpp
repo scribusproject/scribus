@@ -34,7 +34,7 @@
 #include <cmath>
 
 extern bool loadText(QString nam, QString *Buffer);
-extern QImage LoadPict(QString fn);
+extern QImage LoadPict(QString fn, bool *gray = 0);
 extern QString CompressStr(QString *in);
 extern QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
 extern QString MaskToTxt(QImage *im, bool PDF = true);

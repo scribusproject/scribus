@@ -222,7 +222,8 @@ void PicStatus::SearchPic()
 	QStringList Pfade;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	qApp->processEvents();
-	FILE *fp = popen("find /home -name " + BildNam, "r");
+	QString home = QString(getenv("HOME"));
+	FILE *fp = popen("find "+home+" -name " + BildNam, "r");
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	if (fp == NULL)
 		return;

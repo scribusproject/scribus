@@ -17,7 +17,7 @@
 #include <qimage.h>
 #include <qpixmap.h>
 
-extern QImage LoadPict(QString fn);
+extern QImage LoadPict(QString fn, bool *gray = 0);
 extern QPixmap loadIcon(QString nam);
 
 Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie)

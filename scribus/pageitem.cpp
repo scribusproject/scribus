@@ -1756,7 +1756,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				p->fillPath();
 			if ((hl->Style & 4) && (hl->Farb2 != "None"))
 			{
-				p->setLineWidth((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2);
+				p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2, 1));
 				p->strokePath();
 			}
 		}

@@ -32,12 +32,26 @@
 #include <cstdlib>
 #include <cmath>
 #include "md5.h"
+#include <setjmp.h>
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
 #else
  #include "config.h"
 #endif
+
+extern "C" {
+#define XMD_H           // shut JPEGlib up
+#if defined(Q_OS_UNIXWARE)
+#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
+#endif
+#include <jpeglib.h>
+#include <jerror.h>
+#undef HAVE_STDLIB_H
+#ifdef const
+#  undef const          // remove crazy C hackery in jconfig.h
+#endif
+}
 
 #include "scribusdoc.h"
 #include "libpdf/pdflib.h"
@@ -84,6 +98,7 @@ QString CompressStr(QString *in);
 QString ImageToTxt(QImage *im);
 QString ImageToCMYK(QImage *im);
 QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
+void Convert2JPG(QString fn, QImage *image, bool isCMYK);
 QString MaskToTxt(QImage *im, bool PDF = true);
 void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -97,7 +112,7 @@ double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = 
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
-QImage LoadPict(QString fn);
+QImage LoadPict(QString fn, bool *gray = 0);
 #ifdef HAVE_CMS
 QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
@@ -240,7 +255,7 @@ QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 	return pm;
 }
 
-QImage LoadPict(QString fn)
+QImage LoadPict(QString fn, bool *gray)
 {
 	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
@@ -371,6 +386,13 @@ QImage LoadPict(QString fn)
 	else
 	{
 		Bild.load(fn);
+		if (gray != 0)
+		{
+			if (Bild.depth() == 8)
+				*gray = true;
+			else
+				*gray = false;
+		}
   		Bild = Bild.convertDepth(32);
 	}
 	return Bild;
@@ -809,15 +831,17 @@ QString ImageToCMYK(QImage *im)
 		QRgb * s = (QRgb*)(im->scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
-			QRgb r=*s++;
+			QRgb r=*s;
 			int c = 255 - qRed(r);
 			int m = 255 - qGreen(r);
 			int y = 255 - qBlue(r);
 			int k = QMIN(QMIN(c, m), y);
+			*s = qRgba(m - k, y - k, k, c - k);
 			ImgStr += c - k;
 			ImgStr += m - k;
 			ImgStr += y - k;
 			ImgStr += k;
+			s++;
 		}
 	}
 	return ImgStr;
@@ -920,6 +944,95 @@ QString MaskToTxt(QImage *im, bool PDF)
 		}
 	}
 	return ImgStr;
+}
+
+typedef struct my_error_mgr
+{
+  struct jpeg_error_mgr pub;            /* "public" fields */
+  jmp_buf setjmp_buffer;  /* for return to caller */
+} *my_error_ptr;
+
+/*
+ * Here's the routine that will replace the standard error_exit method:
+ */
+
+static void my_error_exit (j_common_ptr cinfo)
+{
+  my_error_ptr myerr = (my_error_ptr) cinfo->err;
+  (*cinfo->err->output_message) (cinfo);
+  longjmp (myerr->setjmp_buffer, 1);
+}
+
+void Convert2JPG(QString fn, QImage *image, bool isCMYK)
+{
+	struct jpeg_compress_struct cinfo;
+	struct my_error_mgr         jerr;
+	FILE     *outfile;
+	JSAMPROW row_pointer[1];
+	row_pointer[0] = 0;
+	cinfo.err = jpeg_std_error (&jerr.pub);
+	jerr.pub.error_exit = my_error_exit;
+	outfile = NULL;
+	if (setjmp (jerr.setjmp_buffer))
+	{
+		jpeg_destroy_compress (&cinfo);
+		if (outfile)
+			fclose (outfile);
+		return;
+	}
+	jpeg_create_compress (&cinfo);
+	if ((outfile = fopen (fn, "wb")) == NULL)
+		return;
+	jpeg_stdio_dest (&cinfo, outfile);
+	cinfo.image_width  = image->width();
+	cinfo.image_height = image->height();
+	if (isCMYK)
+	{
+		cinfo.in_color_space = JCS_CMYK;
+		cinfo.input_components = 4;
+	}
+	else
+	{
+		cinfo.in_color_space = JCS_RGB;
+		cinfo.input_components = 3;
+	}
+	jpeg_set_defaults (&cinfo);
+	jpeg_set_quality (&cinfo, 75, true);
+	jpeg_start_compress (&cinfo, TRUE);
+	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
+	int w = cinfo.image_width;
+	while (cinfo.next_scanline < cinfo.image_height)
+	{
+		uchar *row = row_pointer[0];
+		if (isCMYK)
+		{
+			QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
+			for (int i=0; i<w; ++i)
+			{
+	 			*row++ = qAlpha(*rgba);
+	 			*row++ = qRed(*rgba);
+	 			*row++ = qGreen(*rgba);
+	 			*row++ = qBlue(*rgba);
+	 			++rgba;
+			}
+		}
+		else
+		{
+			QRgb* rgb = (QRgb*)image->scanLine(cinfo.next_scanline);
+			for (int i=0; i<w; i++)
+			{
+	 			*row++ = qRed(*rgb);
+	 			*row++ = qGreen(*rgb);
+	 			*row++ = qBlue(*rgb);
+	 			++rgb;
+			}
+		}
+		jpeg_write_scanlines (&cinfo, row_pointer, 1);
+	}
+	jpeg_finish_compress (&cinfo);
+	fclose (outfile);
+	jpeg_destroy_compress (&cinfo);
+	delete [] row_pointer[0];
 }
 
 QString CompressStr(QString *in)

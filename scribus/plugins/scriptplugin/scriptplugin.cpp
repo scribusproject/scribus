@@ -365,6 +365,7 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 }
 
 static PyMethodDef scribus_methods[] = {
+	{"PageDimension",	scribus_pagedimension,	METH_VARARGS},
 	{"NewDocDialog",			scribus_newdocdia,			METH_VARARGS},
 	{"FileDialog",				scribus_filedia,				METH_VARARGS},
 	{"StatusMessage",			scribus_mess,						METH_VARARGS},

@@ -17,7 +17,7 @@ extern int QStoInt(QString in);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
 extern double xy2Deg(double x, double y);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern QImage LoadPict(QString fn);
+extern QImage LoadPict(QString fn, bool *gray = 0);
 
 ScPreview::ScPreview(preV *prefs)
 {

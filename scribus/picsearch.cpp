@@ -2,7 +2,7 @@
 #include "picsearch.moc"
 #include <qimage.h>
 #include <qpixmap.h>
-extern QImage LoadPict(QString fn);
+extern QImage LoadPict(QString fn, bool *gray = 0);
 extern QPixmap loadIcon(QString nam);
 
 /*!
