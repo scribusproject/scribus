@@ -317,20 +317,8 @@ public slots:
 	/** Verschiebt Seiten */
 	void MovePage();
 	void CopyPage();
-	/** Ansicht absolut zoomen */
-	void slotZoomAbs(double z);
-	/** Ansicht ganzes Blatt) */
-	void slotZoomFit();
-	/** Ansicht 20 % */
-	void slotZoom20();
-	/** Ansicht 50 % */
-	void slotZoom50();
-	/** Ansicht 75 % */
-	void slotZoom75();
-	/** Ansicht 100 % */
-	void slotZoom100();
-	/** Ansicht 200 % */
-	void slotZoom200();
+	/** Zoom the view */
+	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit
 	/** Schaltet Raender ein/aus */
 	void ToggleMarks();
 	void ToggleFrames();

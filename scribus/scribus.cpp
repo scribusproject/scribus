@@ -1224,8 +1224,8 @@ void ScribusApp::initStyleMenuActions()
 	scrActions.insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Strike Through"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectStrikeThrough", 2));
 	scrActions.insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Small &Caps"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSmallCaps", 3));
 	scrActions.insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&perscript"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSuperscript", 4));
-	scrActions.insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Sub&script"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSubscript", 5));
-	scrActions.insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Outlined"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectOutline", 6));
+	scrActions.insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&bscript"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSubscript", 5));
+	scrActions.insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Outline"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectOutline", 6));
 	scrActions["typeEffectNormal"]->setToggleAction(true);
 	scrActions["typeEffectUnderline"]->setToggleAction(true);
 	scrActions["typeEffectStrikeThrough"]->setToggleAction(true);
@@ -1312,12 +1312,12 @@ void ScribusApp::initPageMenuActions()
 
 void ScribusApp::initViewMenuActions()
 {
-	scrActions.insert("viewFitInWindow", new ScrAction(tr("&Fit in window"), CTRL+Key_0, this, "viewFitInWindow"));
-	scrActions.insert("viewFit50", new ScrAction(tr("&50%"), QKeySequence(), this, "viewFit50"));
-	scrActions.insert("viewFit75", new ScrAction(tr("&75%"), QKeySequence(), this, "viewFit75"));
-	scrActions.insert("viewFit100", new ScrAction(tr("&100%"), CTRL+Key_1, this, "viewFit100"));
-	scrActions.insert("viewFit200", new ScrAction(tr("&200%"), QKeySequence(), this, "viewFit200"));
-	scrActions.insert("viewFit20", new ScrAction(tr("&Thumbnails"), QKeySequence(), this, "viewFit20"));
+	scrActions.insert("viewFitInWindow", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&Fit in window"), CTRL+Key_0, this, "viewFitInWindow", 0, -100.0));
+	scrActions.insert("viewFit50", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&50%"), QKeySequence(), this, "viewFit50", 0, 50.0));
+	scrActions.insert("viewFit75", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&75%"), QKeySequence(), this, "viewFit75", 0, 75.0));
+	scrActions.insert("viewFit100", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&100%"), CTRL+Key_1, this, "viewFit100", 0, 100.0));
+	scrActions.insert("viewFit200", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&200%"), QKeySequence(), this, "viewFit200", 0, 200.0));
+	scrActions.insert("viewFit20", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&Thumbnails"), QKeySequence(), this, "viewFit20", 0, 20.0));
 	scrActions.insert("viewShowMargins", new ScrAction(tr("Show &Margins"), QKeySequence(), this, "viewShowMargins"));
 	scrActions.insert("viewShowFrames", new ScrAction(tr("Show &Frames"), QKeySequence(), this, "viewShowFrames"));
 	scrActions.insert("viewShowImages", new ScrAction(tr("Show &Images"), QKeySequence(), this, "viewShowImages"));
@@ -1343,12 +1343,12 @@ void ScribusApp::initViewMenuActions()
 	scrActions["viewShowImages"]->setOn(true);
 	scrActions["viewShowGuides"]->setOn(true);
 		
-	connect( scrActions["viewFitInWindow"], SIGNAL(activated()) , this, SLOT(slotZoomFit()) );
-	connect( scrActions["viewFit50"], SIGNAL(activated()) , this, SLOT(slotZoom50()) );
-	connect( scrActions["viewFit75"], SIGNAL(activated()) , this, SLOT(slotZoom75()) );
-	connect( scrActions["viewFit100"], SIGNAL(activated()) , this, SLOT(slotZoom100()) );
-	connect( scrActions["viewFit200"], SIGNAL(activated()) , this, SLOT(slotZoom200()) );
-	connect( scrActions["viewFit20"], SIGNAL(activated()) , this, SLOT(slotZoom20()) );
+	connect( scrActions["viewFitInWindow"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
+	connect( scrActions["viewFit50"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
+	connect( scrActions["viewFit75"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
+	connect( scrActions["viewFit100"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
+	connect( scrActions["viewFit200"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
+	connect( scrActions["viewFit20"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
 	connect( scrActions["viewShowMargins"], SIGNAL(activated()) , this, SLOT(ToggleMarks()) );
 	connect( scrActions["viewShowFrames"], SIGNAL(activated()) , this, SLOT(ToggleFrames()) );
 	connect( scrActions["viewShowImages"], SIGNAL(activated()) , this, SLOT(TogglePics()) );
@@ -5796,53 +5796,32 @@ void ScribusApp::slotNewPage(int w)
 	slotDocCh(!doc->loading); */
 }
 
-/** Ansicht absolut zoomen */
-void ScribusApp::slotZoomAbs(double z)
+/*!
+	\fn void ScribusApp::slotZoom(double zoomFactor)
+	\author Craig Bradney
+	\date Sun 30 Jan 2005
+	\brief Take the ScApp zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+	\param zoomFactor Value stored in the ScrAction.
+ */
+void ScribusApp::slotZoom(double zoomFactor)
 {
-//	view->rememberPreviousSettings();
-	view->Scale = z;
-	view->slotDoZoom();
-}
-
-void ScribusApp::slotZoomFit()
-{
-	double dx = (view->width()-50) / (doc->PageB+30);
-	double dy = (view->height()-70) / (doc->PageH+30);
-//	view->rememberPreviousSettings();
-	if (dx > dy)
-		slotZoomAbs(dy);
+	double finalZoomFactor;
+	//Zoom to Fit
+	if (zoomFactor==-100.0)
+	{
+		double dx = (view->width()-50) / (doc->PageB+30);
+		double dy = (view->height()-70) / (doc->PageH+30);
+		if (dx > dy)
+			finalZoomFactor=dy;
+		else
+			finalZoomFactor=dx;
+	}
+	//Zoom to %
 	else
-		slotZoomAbs(dx);
-}
-
-/** Ansicht 20 % */
-void ScribusApp::slotZoom20()
-{
-	slotZoomAbs(0.2*Prefs.DisScale);
-}
-
-/** Ansicht 50 % */
-void ScribusApp::slotZoom50()
-{
-	slotZoomAbs(0.5*Prefs.DisScale);
-}
-
-/** Ansicht 75 % */
-void ScribusApp::slotZoom75()
-{
-	slotZoomAbs(0.75*Prefs.DisScale);
-}
-
-/** Ansicht 100 % */
-void ScribusApp::slotZoom100()
-{
-	slotZoomAbs(1.0*Prefs.DisScale);
-}
-
-/** Ansicht 200 % */
-void ScribusApp::slotZoom200()
-{
-	slotZoomAbs(2.0*Prefs.DisScale);
+		finalZoomFactor = zoomFactor*Prefs.DisScale/100.0;
+	
+	view->Scale = finalZoomFactor;
+	view->slotDoZoom();
 }
 
 void ScribusApp::ToggleAllPalettes()
@@ -6940,11 +6919,6 @@ void ScribusApp::setCSMenu(QString , QString l, int  , int ls)
 		if (ColorMenC->text(a) == la)
 			ColorMenC->setCurrentItem(a);
 	}
-	//for (a = 0; a < ShadeMenu->count(); ++a)
-	//{
-	//	ShadeMenu->setItemChecked(ShadeMenu->idAt(a), false);
-	//}
-	//ShadeMenu->setItemChecked(ShadeMenu->idAt(lb/10+1), true);
 	if (scrActions[QString("shade%1").arg(lb)])
 		scrActions[QString("shade%1").arg(lb)]->setOn(true);
 }
