@@ -13,7 +13,7 @@
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newpage__doc__,
-    "newPage(where [,template])\n\n\
+    "newPage(where [,\"template\"])\n\n\
 Creates a new page. If \"where\" is -1 the new Page is appended\
 to the document, otherwise the new page is inserted at \"where\".\
 The pagenumbers are counted from 1 upwards. The optional parameter\
@@ -38,14 +38,14 @@ PyObject *scribus_redraw(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savepageeps__doc__,
-    "savePageAsEPS(name) -> bool\n\n\
+    "savePageAsEPS(\"name\") -> bool\n\n\
 Saves the actual page as an EPS with name, returns true if successful.");
 /*! Export page as EPS file */
 PyObject *scribus_savepageeps(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_deletepage__doc__,
-    "deletePage(number)\n\n\
+    "deletePage(nr)\n\n\
 Deletes the given Page, does nothing if the Document contains\
 only one Page. Pagenumbers are counted from 1 upwards.");
 /*! Delete page */

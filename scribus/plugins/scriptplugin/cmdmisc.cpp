@@ -406,13 +406,14 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 		return NULL;
 	if (Name == "")
 	{
-		PyErr_SetString(ScribusException, QString("Can't remove the last layer"));
+		PyErr_SetString(ScribusException, QString("Can't create layer without a name"));
 		return NULL;
 	}
 	QString tmp;
 	struct Layer ll;
 	ll.LNr = Carrier->doc->Layers.last().LNr + 1;
 	ll.Level = Carrier->doc->Layers.count();
+    // FIXME: what if the name exists?
 	ll.Name = QString(Name);
 	ll.Sichtbar = true;
 	ll.Drucken = true;
@@ -427,3 +428,4 @@ PyObject *scribus_getlanguage(PyObject *self)
 {
 	return PyString_FromString(Carrier->GuiLanguage);
 }
+

@@ -9,12 +9,12 @@
 PyObject *scribus_messagebartext(PyObject *self, PyObject* args)
 {
 	char *aText;
-	if (!PyArg_ParseTuple(args, "s", &aText))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
 	{
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("messagebarText(textstring)"));
 		return NULL;
 	}
-	Carrier->FMess->setText(QString(aText));
+	Carrier->FMess->setText(QString::fromUtf8(aText));
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -89,15 +89,17 @@ PyObject *scribus_docchanged(PyObject *self, PyObject* args)
 	int aValue;
 	if (!PyArg_ParseTuple(args, "i", &aValue))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("docChanged(number)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("docChanged(bool)"));
 		return NULL;
 	}
 	if(!checkHaveDocument())
 		return NULL;
+    Carrier->slotDocCh(static_cast<bool>(aValue));
+    /*
 	if (aValue>0)
 		Carrier->slotDocCh(true);
 	else
-		Carrier->slotDocCh(false);
+		Carrier->slotDocCh(false);*/
 	Py_INCREF(Py_None);
 	return Py_None;
 }
