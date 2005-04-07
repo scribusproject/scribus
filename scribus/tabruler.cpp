@@ -14,7 +14,6 @@
 #include <qcolor.h>
 #include "units.h"
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
 RulerT::RulerT(QWidget *pa, int ein, QValueList<double> Tabs, bool ind, double wid) : QWidget(pa)
 {
@@ -433,6 +432,7 @@ void RulerT::moveLeftIndent(double t)
 
 Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double> Tabs, double wid ) : QWidget( parent )
 {
+	docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww;
 	ww = (wid < 0) ? 4000 : wid;
 	setName( "tabruler" );
@@ -565,37 +565,37 @@ void Tabruler::setType()
 void Tabruler::setTabData(double t)
 {
 	disconnect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
-	tabData->setValue(t * UmReFaktor);
+	tabData->setValue(t * docUnitRatio);
 	connect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
 }
 
 void Tabruler::setTab()
 {
-	ruler->moveTab(tabData->value() / UmReFaktor);
+	ruler->moveTab(tabData->value() / docUnitRatio);
 }
 
 void Tabruler::setFirstLineData(double t)
 {
 	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
-	firstLineData->setValue(t * UmReFaktor);
+	firstLineData->setValue(t * docUnitRatio);
 	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 }
 
 void Tabruler::setFirstLine()
 {
-	ruler->moveFirstLine(firstLineData->value() / UmReFaktor);
+	ruler->moveFirstLine(firstLineData->value() / docUnitRatio);
 }
 
 void Tabruler::setLeftIndentData(double t)
 {
 	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
-	leftIndentData->setValue(t * UmReFaktor);
+	leftIndentData->setValue(t * docUnitRatio);
 	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 }
 
 void Tabruler::setLeftIndent()
 {
-	ruler->moveLeftIndent(leftIndentData->value() / UmReFaktor);
+	ruler->moveLeftIndent(leftIndentData->value() / docUnitRatio);
 }
 
 QValueList<double> Tabruler::getTabVals()
@@ -605,10 +605,10 @@ QValueList<double> Tabruler::getTabVals()
 
 double Tabruler::getFirstLine()
 {
-	return firstLineData->value() / UmReFaktor;
+	return firstLineData->value() / docUnitRatio;
 }
 
 double Tabruler::getLeftIndent()
 {
-	return leftIndentData->value() / UmReFaktor;
+	return leftIndentData->value() / docUnitRatio;
 }

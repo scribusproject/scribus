@@ -9,7 +9,6 @@
 #include "styleselect.h"
 
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 
 
@@ -247,8 +246,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	}
 	AboveV->setSuffix(ein);
 	BelowV->setSuffix(ein);
-	BelowV->setValue(vor->gapAfter * UmReFaktor);
-	AboveV->setValue(vor->gapBefore * UmReFaktor);
+	BelowV->setValue(vor->gapAfter * parentDoc->unitRatio);
+	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio);
 	ColorChange();
 	updatePreview();
 }
@@ -316,8 +315,8 @@ void EditStyle::Verlassen()
 	werte->LineSpa = LineSpVal->value();
 	werte->Indent = TabList->getLeftIndent();
 	werte->First = TabList->getFirstLine();
-	werte->gapBefore = AboveV->value() / UmReFaktor;
-	werte->gapAfter = BelowV->value() / UmReFaktor;
+	werte->gapBefore = AboveV->value() / parentDoc->unitRatio;
+	werte->gapAfter = BelowV->value() / parentDoc->unitRatio;
 	werte->Vname = Name->text();
 	werte->Font = FontC->currentText();
 	werte->FontSize = qRound(SizeC->value() * 10.0);

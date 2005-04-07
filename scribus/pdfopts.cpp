@@ -23,7 +23,6 @@
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
-extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS
 extern bool CMSuse;

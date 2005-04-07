@@ -13,7 +13,6 @@
 #include "scribus.h"
 extern QPixmap loadIcon(QString nam);
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
-extern double UmReFaktor;
 extern ScribusApp* ScApp;
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )

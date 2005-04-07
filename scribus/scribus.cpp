@@ -162,7 +162,6 @@ int IntentPrinter;
 #endif
 bool CMSavail;
 ProfilesL InputProfiles;
-double UmReFaktor;
 QString DocDir;
 ScribusApp* ScApp;
 PrefsFile* prefsFile;
@@ -632,7 +631,6 @@ void ScribusApp::initDefaultValues()
 	DispX = 10;
 	DispY = 10;
 	DocNr = 1;
-	UmReFaktor = 1.0;
 	PrinterUsed = false;
 	PDef.Pname = "";
 	PDef.Dname = "";
@@ -1731,8 +1729,8 @@ void ScribusApp::ReportMP(double xp, double yp)
 	double divisor = static_cast<double>(multiplier);
 	int precision=precision = unitGetPrecisionFromIndex(doc->docUnitIndex);
 	QString tmp;
-	XDat->setText(tmp.setNum(qRound(xp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
-	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
+	XDat->setText(tmp.setNum(qRound(xp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
+	YDat->setText(tmp.setNum(qRound(yp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
 }
 
 void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber)
@@ -3302,10 +3300,10 @@ bool ScribusApp::SetupDoc()
 	if (dia->exec())
 	{
 		slotChangeUnit(dia->unitCombo->currentItem(), false);
-		tpr2 = dia->topR->value() / UmReFaktor;
-		lr2 = dia->leftR->value() / UmReFaktor;
-		rr2 = dia->rightR->value() / UmReFaktor;
-		br2 = dia->bottomR->value() / UmReFaktor;
+		tpr2 = dia->topR->value() / doc->unitRatio;
+		lr2 = dia->leftR->value() / doc->unitRatio;
+		rr2 = dia->rightR->value() / doc->unitRatio;
+		br2 = dia->bottomR->value() / doc->unitRatio;
 		fp = dia->facingPages->isChecked();
 		if (fp)
 			doc->FirstPageLeft = dia->firstPage->isChecked();
@@ -3322,9 +3320,9 @@ bool ScribusApp::SetupDoc()
 		doc->guidesSettings.showPic = dia->checkPictures->isChecked();
 		doc->guidesSettings.linkShown = dia->checkLink->isChecked();
 		doc->guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
-		doc->guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
-		doc->guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
-		doc->guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / UmReFaktor;
+		doc->guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / doc->unitRatio;
+		doc->guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / doc->unitRatio;
+		doc->guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / doc->unitRatio;
 		doc->guidesSettings.minorColor = dia->tabGuides->colorMinorGrid;
 		doc->guidesSettings.majorColor = dia->tabGuides->colorMajorGrid;
 		doc->guidesSettings.margColor = dia->tabGuides->colorMargin;
@@ -3338,8 +3336,8 @@ bool ScribusApp::SetupDoc()
 		doc->typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
 		doc->typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
 		doc->typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
-		doc->typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
-		doc->typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
+		doc->typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / doc->unitRatio;
+		doc->typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / doc->unitRatio;
 		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
 		doc->toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 		doc->toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
@@ -3349,7 +3347,7 @@ bool ScribusApp::SetupDoc()
 		if (doc->toolSettings.dPenText == tr("None"))
 			doc->toolSettings.dPenText = "None";
 		doc->toolSettings.dCols = dia->tabTools->columnsText->value();
-		doc->toolSettings.dGap = dia->tabTools->gapText->value() / UmReFaktor;
+		doc->toolSettings.dGap = dia->tabTools->gapText->value() / doc->unitRatio;
 		doc->toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
 		if (doc->toolSettings.dPen == tr("None"))
 			doc->toolSettings.dPen = "None";
@@ -3414,10 +3412,10 @@ bool ScribusApp::SetupDoc()
 		doc->toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
 		doc->toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
 		dia->tabTools->polyWidget->getValues(&doc->toolSettings.polyC, &doc->toolSettings.polyFd, &doc->toolSettings.polyF, &doc->toolSettings.polyS, &doc->toolSettings.polyR);
-		doc->ScratchBottom = dia->bottomScratch->value() / UmReFaktor;
-		doc->ScratchLeft = dia->leftScratch->value() / UmReFaktor;
-		doc->ScratchRight = dia->rightScratch->value() / UmReFaktor;
-		doc->ScratchTop = dia->topScratch->value() / UmReFaktor;
+		doc->ScratchBottom = dia->bottomScratch->value() / doc->unitRatio;
+		doc->ScratchLeft = dia->leftScratch->value() / doc->unitRatio;
+		doc->ScratchRight = dia->rightScratch->value() / doc->unitRatio;
+		doc->ScratchTop = dia->topScratch->value() / doc->unitRatio;
 		doc->AutoSave = dia->groupAutoSave->isChecked();
 		doc->AutoSaveTime = dia->autoSaveTime->value() * 60 * 1000;
 		if (doc->AutoSave)
@@ -3535,10 +3533,10 @@ bool ScribusApp::SetupDoc()
 		doc->PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
 		doc->PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
 		doc->PDF_Options.useLayers = dia->tabPDF->useLayers->isChecked();
-		doc->PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
-		doc->PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
-		doc->PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
-		doc->PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
+		doc->PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / doc->unitRatio;
+		doc->PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / doc->unitRatio;
+		doc->PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / doc->unitRatio;
+		doc->PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / doc->unitRatio;
 		if (dia->tabPDF->Encry->isChecked())
 		{
 			int Perm = -64;
@@ -7790,12 +7788,12 @@ void ScribusApp::ObjektDupM()
 		dy = doc->currentPage->Yoffset;
 	}
 	NoFrameEdit();
-	Mdup *dia = new Mdup(this, DispX * UmReFaktor, DispY * UmReFaktor, doc->docUnitIndex);
+	Mdup *dia = new Mdup(this, DispX * doc->unitRatio, DispY * doc->unitRatio, doc->docUnitIndex);
 	if (dia->exec())
 	{
 		int anz = dia->Ncopies->value();
-		double dH = dia->ShiftH->value() / UmReFaktor;
-		double dV = dia->ShiftV->value() / UmReFaktor;
+		double dH = dia->ShiftH->value() / doc->unitRatio;
+		double dV = dia->ShiftV->value() / doc->unitRatio;
 		double dH2 = dH;
 		double dV2 = dV;
 		int a;
@@ -7920,9 +7918,9 @@ void ScribusApp::ObjektAlign()
 
 	if (dia->exec())
 	{
-		xdp = dia->AHor->value() / UmReFaktor;
+		xdp = dia->AHor->value() / doc->unitRatio;
 		xa = (dia->CheckH->isChecked() || dia->VerteilenH->isChecked());
-		ydp = dia->AVert->value() / UmReFaktor;
+		ydp = dia->AVert->value() / doc->unitRatio;
 		ya = (dia->CheckV->isChecked() || dia->VerteilenV->isChecked());
 		xart = dia->VartH->currentItem();
 		yart = dia->VartV->currentItem();
@@ -7996,6 +7994,7 @@ const bool ScribusApp::GetAllFonts()
 void ScribusApp::slotPrefsOrg()
 {
 	//reset the appMode so we restore our tools shortcuts
+	double UmReFaktor;
 	setAppMode(NormalMode);
 	bool zChange = false;
 	Preferences *dia = new Preferences(this, &Prefs);
@@ -8743,10 +8742,10 @@ void ScribusApp::doSaveAsPDF()
 							Components = 3;
 						cmsCloseProfile(hIn);
 						doc->PDF_Options.Info = dia->Options->InfoString->text();
-						doc->PDF_Options.BleedTop = dia->Options->BleedTop->value()/UmReFaktor;
-						doc->PDF_Options.BleedLeft = dia->Options->BleedLeft->value()/UmReFaktor;
-						doc->PDF_Options.BleedRight = dia->Options->BleedRight->value()/UmReFaktor;
-						doc->PDF_Options.BleedBottom = dia->Options->BleedBottom->value()/UmReFaktor;
+						doc->PDF_Options.BleedTop = dia->Options->BleedTop->value()/doc->unitRatio;
+						doc->PDF_Options.BleedLeft = dia->Options->BleedLeft->value()/doc->unitRatio;
+						doc->PDF_Options.BleedRight = dia->Options->BleedRight->value()/doc->unitRatio;
+						doc->PDF_Options.BleedBottom = dia->Options->BleedBottom->value()/doc->unitRatio;
 						doc->PDF_Options.Encrypt = false;
 						doc->PDF_Options.MirrorH = false;
 						doc->PDF_Options.MirrorV = false;
@@ -8910,7 +8909,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 void ScribusApp::slotChangeUnit(int art, bool draw)
 {
 	doc->docUnitIndex = art;
-	UmReFaktor = unitGetRatioFromIndex( doc->docUnitIndex );
+	doc->unitRatio = unitGetRatioFromIndex( doc->docUnitIndex );
 	view->UN->setText( unitGetStrFromIndex( doc->docUnitIndex) );
 	propertiesPalette->UnitChange();
 	if (draw)

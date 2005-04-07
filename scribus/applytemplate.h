@@ -2,15 +2,17 @@
 #define APPLYT_H
 
 #include <qdialog.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qspinbox.h>
-#include <qradiobutton.h>
-#include <qbuttongroup.h>
+
+class QLabel;
+class QComboBox;
+class QButtonGroup;
+class QRadioButton;
+class QSpinBox;
+class QCheckBox;
+class QPushButton;
+class QHBoxLayout;
+class QVBoxLayout;
+	
 class ScribusDoc;
 
 class ApplyT : public QDialog
@@ -25,14 +27,16 @@ public:
 	QLabel* TextLabel2;
 	QComboBox* Templ;
 	QButtonGroup* buttonGroup1;
-	QRadioButton* SinglePage;
-	QRadioButton* PageRange;
-	QRadioButton* OddRange;
-	QRadioButton* EvenRange;
-	QSpinBox* FromPage;
-	QSpinBox* ToPage;
-	QPushButton* CancelB;
-	QPushButton* OKButton;
+	QRadioButton* singlePage;
+	QRadioButton* pageRange;
+	QRadioButton* oddRange;
+	QRadioButton* evenRange;
+	QSpinBox* fromPage;
+	QSpinBox* toPage;
+	QCheckBox* useRange;
+	QPushButton* cancelButton;
+	QPushButton* okButton;
+	
 
 public slots:
 	void RangeSel();

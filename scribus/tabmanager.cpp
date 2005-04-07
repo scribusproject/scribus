@@ -6,12 +6,14 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include "tabruler.h"
+#include "units.h"
 extern QPixmap loadIcon(QString nam);
 
 TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab, double wid) : QDialog( parent, "TabManager", true, 0 )
 {
 	setCaption( tr( "Manage Tabulators" ) );
 	setIcon(loadIcon("AppIcon.png"));
+	docUnitRatio=unitGetRatioFromIndex(dEin);
 	tmpTab = inTab;
 	TabManagerLayout = new QVBoxLayout( this, 5, 5, "TabManagerLayout");
 	TabList = new Tabruler(this, false, dEin, inTab, wid);

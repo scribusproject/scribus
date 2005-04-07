@@ -41,7 +41,6 @@ public:
 	QRadioButton* CheckV;
 	QRadioButton* CheckH;
 	int Anzahl;
-	ScribusDoc* doc;
 	ScribusView* view;
 	struct ItemPos {
 							int Nr;
@@ -65,6 +64,8 @@ protected:
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* ButtonGroup1_2Layout;
 	QHBoxLayout* Layout3;
+	
+	ScribusDoc* currDoc;
 };
 
 #endif // ALIGN_H

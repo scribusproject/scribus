@@ -23,7 +23,6 @@ using namespace std;
 extern QPixmap loadIcon(QString nam);
 // 10/07/2004 pv - utils.cpp - provides locale sorted list
 extern QStringList sortQStringList(QStringList aList);
-extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
@@ -93,7 +92,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	HaveDoc = false;
 	HaveItem = false;
 	RoVal = 0;
-	Umrech = UmReFaktor;
+	Umrech = 1.0;
 	QString ptSuffix = tr( " pt" );
 	setIcon( loadIcon("AppIcon.png") );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
@@ -967,9 +966,9 @@ void Mpalette::SelTab(int t)
 	if ((HaveDoc) && (HaveItem) && (t == 5))
 	{
 		Cpal->setActGradient(CurItem->GrType);
-		Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
-											CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
-											CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
+		Cpal->setSpecialGradient(CurItem->GrStartX * Umrech, CurItem->GrStartY * Umrech,
+											CurItem->GrEndX * Umrech, CurItem->GrEndY * Umrech,
+											CurItem->Width * Umrech, CurItem->Height * Umrech);
 		Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 		Cpal->gradEdit->Preview->updateDisplay();
 	}
@@ -978,15 +977,16 @@ void Mpalette::SelTab(int t)
 void Mpalette::SetDoc(ScribusDoc *d)
 {
 	doc = d;
-	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor;
-	double minXYVal=-3000 * UmReFaktor;
+	Umrech=doc->unitRatio;
+	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * Umrech;
+	double minXYVal=-3000 * Umrech;
 	HaveDoc = true;
 	HaveItem = false;
 
 	Xpos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
 	Ypos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
-	Width->setValues( UmReFaktor, maxXYWHVal, 100, UmReFaktor);
-	Height->setValues( UmReFaktor, maxXYWHVal, 100, UmReFaktor);
+	Width->setValues( Umrech, maxXYWHVal, 100, Umrech);
+	Height->setValues( Umrech, maxXYWHVal, 100, Umrech);
 	LXpos->setValues( -3000, maxXYWHVal, 100, 0);
 	LYpos->setValues( -3000, maxXYWHVal, 100, 0);
 
@@ -1032,9 +1032,9 @@ void Mpalette::SetCurItem(PageItem *i)
 	CurItem = i;
 	if (TabStack->id(TabStack->visibleWidget()) == 5)
 		Cpal->setActGradient(CurItem->GrType);
-	Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
-										  CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
-										  CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
+	Cpal->setSpecialGradient(CurItem->GrStartX * Umrech, CurItem->GrStartY * Umrech,
+										  CurItem->GrEndX * Umrech, CurItem->GrEndY * Umrech,
+										  CurItem->Width * Umrech, CurItem->Height * Umrech);
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 	Cpal->gradEdit->Preview->updateDisplay();
 	if (i->FrameType == 0)
@@ -1056,7 +1056,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		endArrow->setEnabled(false);
 	}
 	NameEdit->setText(i->itemName());
-	RoundRect->setValue(i->RadRect*UmReFaktor);
+	RoundRect->setValue(i->RadRect*Umrech);
 	QString tm;
 	LevelTxt->setText(tm.setNum(i->ItemNr));
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
@@ -1065,8 +1065,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	DCol->setValue(i->Cols);
 	if (colgapLabel->getState())
 	{
-		dGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
-		dGap->setValue(i->ColGap*UmReFaktor);
+		dGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*Umrech, 0));
+		dGap->setValue(i->ColGap*Umrech);
 	}
 	else
 	{
@@ -1076,13 +1076,13 @@ void Mpalette::SetCurItem(PageItem *i)
 		else
 			lineCorr = 0;
 		double ColWidth = (i->Width - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
-		dGap->setMaxValue(QMAX((i->Width / i->Cols)*UmReFaktor, 0));
-		dGap->setValue(ColWidth*UmReFaktor);
+		dGap->setMaxValue(QMAX((i->Width / i->Cols)*Umrech, 0));
+		dGap->setValue(ColWidth*Umrech);
 	}
-	DLeft->setValue(i->Extra*UmReFaktor);
-	DTop->setValue(i->TExtra*UmReFaktor);
-	DBottom->setValue(i->BExtra*UmReFaktor);
-	DRight->setValue(i->RExtra*UmReFaktor);
+	DLeft->setValue(i->Extra*Umrech);
+	DTop->setValue(i->TExtra*Umrech);
+	DBottom->setValue(i->BExtra*Umrech);
+	DRight->setValue(i->RExtra*Umrech);
 	Revert->setOn(i->Reverse);
 	disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 	disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
@@ -1451,13 +1451,13 @@ void Mpalette::NewSel(int nr)
 void Mpalette::UnitChange()
 {
 	double oldRatio = Umrech;
-	Umrech = UmReFaktor;
+	Umrech = doc->unitRatio;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor;
-	double minXYVal=-3000 * UmReFaktor;
+	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * Umrech;
+	double minXYVal=-3000 * Umrech;
 
-	double ratioDivisor = UmReFaktor / oldRatio;
+	double ratioDivisor = Umrech / oldRatio;
 	double newX = Xpos->value() * ratioDivisor;
 	double newY = Ypos->value() * ratioDivisor;
 	double newW = Width->value() * ratioDivisor;
@@ -1494,8 +1494,8 @@ void Mpalette::UnitChange()
 
 	Xpos->setValues( minXYVal, maxXYWHVal, decimals, newX );
 	Ypos->setValues( minXYVal, maxXYWHVal, decimals, newY );
-	Width->setValues( UmReFaktor, maxXYWHVal, decimals, newW );
-	Height->setValues( UmReFaktor, maxXYWHVal, decimals, newH );
+	Width->setValues( Umrech, maxXYWHVal, decimals, newW );
+	Height->setValues( Umrech, maxXYWHVal, decimals, newH );
 
 	LXpos->setDecimals(decimals);
 	LXpos->setMaxValue( maxXYWHVal );
@@ -1529,7 +1529,7 @@ void Mpalette::UnitChange()
 	RoundRect->setMaxValue(newRM);
 	RoundRect->setValue(newRR);
 
-	Cpal->UnitChange(oldRatio, UmReFaktor, doc->docUnitIndex);
+	Cpal->UnitChange(oldRatio, Umrech, doc->docUnitIndex);
 	HaveItem = tmp;
 }
 
@@ -1589,8 +1589,8 @@ void Mpalette::setXY(double x, double y)
 		inX -= doc->currentPage->Xoffset;
 		inY -= doc->currentPage->Yoffset;
 	}
-	Xpos->setValue(inX*UmReFaktor);
-	Ypos->setValue(inY*UmReFaktor);
+	Xpos->setValue(inX*Umrech);
+	Ypos->setValue(inY*Umrech);
 	if ((LMode) && (tmp))
 		setBH(CurItem->Width, CurItem->Height);
 	HaveItem = tmp;
@@ -1608,17 +1608,17 @@ void Mpalette::setBH(double x, double y)
 	QPoint dp;
 	if ((LMode) && (CurItem->itemType() == PageItem::Line))
 	{
-		ma.translate(static_cast<double>(Xpos->value()) / UmReFaktor, static_cast<double>(Ypos->value()) / UmReFaktor);
+		ma.translate(static_cast<double>(Xpos->value()) / Umrech, static_cast<double>(Ypos->value()) / Umrech);
 		ma.rotate(static_cast<double>(Rot->value())*(-1));
 		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
-		Width->setValue(dp.x()*UmReFaktor);
-		Height->setValue(dp.y()*UmReFaktor);
+		Width->setValue(dp.x()*Umrech);
+		Height->setValue(dp.y()*Umrech);
 	}
 	else
 	{
-		RoundRect->setMaxValue(QMIN(x, y)/2*UmReFaktor);
-		Width->setValue(x*UmReFaktor);
-		Height->setValue(y*UmReFaktor);
+		RoundRect->setMaxValue(QMIN(x, y)/2*Umrech);
+		Width->setValue(x*Umrech);
+		Height->setValue(y*Umrech);
 	}
 	HaveItem = tmp;
 }
@@ -1642,7 +1642,7 @@ void Mpalette::setRR(double r)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	RoundRect->setValue(r*UmReFaktor);
+	RoundRect->setValue(r*Umrech);
 	HaveItem = tmp;
 }
 
@@ -1653,14 +1653,14 @@ void Mpalette::setCols(int r, double g)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	DCol->setValue(r);
-	dGap->setValue(g*UmReFaktor);
+	dGap->setValue(g*Umrech);
 	if (tmp)
 	{
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
 		if (colgapLabel->getState())
 		{
-			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*UmReFaktor, 0));
-			dGap->setValue(CurItem->ColGap*UmReFaktor);
+			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*Umrech, 0));
+			dGap->setValue(CurItem->ColGap*Umrech);
 		}
 		else
 		{
@@ -1670,8 +1670,8 @@ void Mpalette::setCols(int r, double g)
 			else
 				lineCorr = 0;
 			double ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
-			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*UmReFaktor, 0));
-			dGap->setValue(ColWidth*UmReFaktor);
+			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*Umrech, 0));
+			dGap->setValue(ColWidth*Umrech);
 		}
 	}
 	DCol->setMinValue(1);
@@ -1695,10 +1695,10 @@ void Mpalette::setDvals(double left, double top, double bottom, double right)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	DLeft->setValue(left*UmReFaktor);
-	DTop->setValue(top*UmReFaktor);
-	DBottom->setValue(bottom*UmReFaktor);
-	DRight->setValue(right*UmReFaktor);
+	DLeft->setValue(left*Umrech);
+	DTop->setValue(top*Umrech);
+	DBottom->setValue(bottom*Umrech);
+	DRight->setValue(right*Umrech);
 	HaveItem = tmp;
 }
 
@@ -1761,8 +1761,8 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LXpos->setValue(x * UmReFaktor);
-	LYpos->setValue(y * UmReFaktor);
+	LXpos->setValue(x * Umrech);
+	LYpos->setValue(y * Umrech);
 	ScaleX->setValue(scx * 100);
 	ScaleY->setValue(scy * 100);
 	HaveItem = tmp;
@@ -1897,10 +1897,10 @@ void Mpalette::NewX()
 		return;
 	double x,y,w,h, gx, gy, gh, gw, base;
 	QWMatrix ma;
-	x = Xpos->value() / UmReFaktor;
-	y = Ypos->value() / UmReFaktor;
-	w = Width->value() / UmReFaktor;
-	h = Height->value() / UmReFaktor;
+	x = Xpos->value() / Umrech;
+	y = Ypos->value() / Umrech;
+	w = Width->value() / Umrech;
+	h = Height->value() / Umrech;
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -1954,10 +1954,10 @@ void Mpalette::NewY()
 		return;
 	double x,y,w,h, gx, gy, gh, gw, base;
 	QWMatrix ma;
-	x = Xpos->value() / UmReFaktor;
-	y = Ypos->value() / UmReFaktor;
-	w = Width->value() / UmReFaktor;
-	h = Height->value() / UmReFaktor;
+	x = Xpos->value() / Umrech;
+	y = Ypos->value() / Umrech;
+	w = Width->value() / Umrech;
+	h = Height->value() / Umrech;
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -2010,10 +2010,10 @@ void Mpalette::NewW()
 	if (ScApp->ScriptRunning)
 		return;
 	double x,y,w,h, gx, gy, gh, gw;
-	x = Xpos->value() / UmReFaktor;
-	y = Ypos->value() / UmReFaktor;
-	w = Width->value() / UmReFaktor;
-	h = Height->value() / UmReFaktor;
+	x = Xpos->value() / Umrech;
+	y = Ypos->value() / Umrech;
+	w = Width->value() / Umrech;
+	h = Height->value() / Umrech;
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (ScApp->view->GroupSel)
@@ -2107,10 +2107,10 @@ void Mpalette::NewH()
 	if (ScApp->ScriptRunning)
 		return;
 	double x,y,w,h, gx, gy, gh, gw;
-	x = Xpos->value() / UmReFaktor;
-	y = Ypos->value() / UmReFaktor;
-	w = Width->value() / UmReFaktor;
-	h = Height->value() / UmReFaktor;
+	x = Xpos->value() / Umrech;
+	y = Ypos->value() / Umrech;
+	w = Width->value() / Umrech;
+	h = Height->value() / Umrech;
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (ScApp->view->GroupSel)
@@ -2225,7 +2225,7 @@ void Mpalette::NewRR()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->RadRect = RoundRect->value() / UmReFaktor;
+		CurItem->RadRect = RoundRect->value() / Umrech;
 		ScApp->view->SetFrameRounded();
 		emit DocChanged();
 	}
@@ -2275,7 +2275,7 @@ void Mpalette::NewGap()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (colgapLabel->getState())
-			CurItem->ColGap = dGap->value() / UmReFaktor;
+			CurItem->ColGap = dGap->value() / Umrech;
 		else
 		{
 			double lineCorr;
@@ -2283,7 +2283,7 @@ void Mpalette::NewGap()
 				lineCorr = CurItem->Pwidth;
 			else
 				lineCorr = 0;
-			double newWidth = dGap->value() / UmReFaktor;
+			double newWidth = dGap->value() / Umrech;
 			double newGap = QMAX(((CurItem->Width - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
 			CurItem->ColGap = newGap;
 		}
@@ -2332,7 +2332,7 @@ void Mpalette::NewLocalXY()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->ChLocalXY(LXpos->value() / UmReFaktor, LYpos->value() / UmReFaktor);
+		ScApp->view->ChLocalXY(LXpos->value() / Umrech, LYpos->value() / Umrech);
 		emit DocChanged();
 	}
 }
@@ -2651,8 +2651,8 @@ void Mpalette::NewRotMode(int m)
 				inX = gx+gw;
 				inY = gy+gh;
 			}
-			Xpos->setValue(inX*UmReFaktor);
-			Ypos->setValue(inY*UmReFaktor);
+			Xpos->setValue(inX*Umrech);
+			Ypos->setValue(inY*Umrech);
 		}
 		else
 		{
@@ -2676,8 +2676,8 @@ void Mpalette::NewRotMode(int m)
 				n = FPoint(b, h);
 			inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-			Xpos->setValue(inX*UmReFaktor);
-			Ypos->setValue(inY*UmReFaktor);
+			Xpos->setValue(inX*Umrech);
+			Ypos->setValue(inY*Umrech);
 		}
 		HaveItem = true;
 		doc->RotMode = m;
@@ -2790,10 +2790,10 @@ void Mpalette::NewTDist()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->Extra = DLeft->value() / UmReFaktor;
-		CurItem->TExtra = DTop->value() / UmReFaktor;
-		CurItem->BExtra = DBottom->value() / UmReFaktor;
-		CurItem->RExtra = DRight->value() / UmReFaktor;
+		CurItem->Extra = DLeft->value() / Umrech;
+		CurItem->TExtra = DTop->value() / Umrech;
+		CurItem->BExtra = DBottom->value() / Umrech;
+		CurItem->RExtra = DRight->value() / Umrech;
 		setCols(CurItem->Cols, CurItem->ColGap);
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
@@ -2806,10 +2806,10 @@ void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->GrStartX = x1 / UmReFaktor;
-		CurItem->GrStartY = y1 / UmReFaktor;
-		CurItem->GrEndX = x2 / UmReFaktor;
-		CurItem->GrEndY = y2 / UmReFaktor;
+		CurItem->GrStartX = x1 / Umrech;
+		CurItem->GrStartY = y1 / Umrech;
+		CurItem->GrEndX = x2 / Umrech;
+		CurItem->GrEndY = y2 / Umrech;
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}

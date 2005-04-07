@@ -931,16 +931,11 @@ void TabPDFOptions::enableCMS(bool enable)
 	ComboBox1->insertItem("PDF 1.3");
 	ComboBox1->insertItem("PDF 1.4");
 	ComboBox1->insertItem("PDF 1.5");
+	cms=enable;
 	if (enable)
-	{
-		cms = true;
 		ComboBox1->insertItem("PDF/X-3");
-	}
 	else
-	{
-		cms = false;
 		a = QMIN(a, 3);
-	}
 	ComboBox1->setCurrentItem(a);
 	EnablePr(1);
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
@@ -948,10 +943,7 @@ void TabPDFOptions::enableCMS(bool enable)
 
 void TabPDFOptions::EnablePDFX(int a)
 {
-	if (a == 2)
-		useLayers->setEnabled(true);
-	else
-		useLayers->setEnabled(false);
+	useLayers->setEnabled(a == 2);
 	if (a != 3)
 	{
 		setTabEnabled(tabPDFX, false);

@@ -6,7 +6,6 @@
 #include "scribusview.h"
 #include "pageitem.h"
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
 Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* vie)
 	: QDialog( parent, "al", true, 0 )
@@ -95,9 +94,9 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* 
 	AVert->setEnabled(false);
 	TextLabelD2->setBuddy(AVert);
 
-	QString tmp = unitGetSuffixFromIndex(ein);
-	AHor->setSuffix(tmp);
-	AVert->setSuffix(tmp);
+	QString unitSuffix = unitGetSuffixFromIndex(ein);
+	AHor->setSuffix(unitSuffix);
+	AVert->setSuffix(unitSuffix);
 
 	ButtonGroup1_2Layout->addWidget( AVert, 3, 2, Qt::AlignRight);
 	VerteilenV = new QRadioButton( tr( "Distribute E&venly" ), ButtonGroup1_2, "VerteilenH" );
@@ -122,7 +121,7 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* 
 	AlignLayout->addLayout( Layout3 );
 	setMinimumSize(sizeHint());
 	struct ItemPos po;
-	doc = docc;
+	currDoc = docc;
 	view = vie;
 	for (uint x=0; x<view->SelItem.count(); ++x)
 	{
@@ -152,8 +151,8 @@ void Align::cancel()
 {
 	for (uint x=0; x < Backup.count(); ++x)
 	{
-		doc->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
-		doc->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
+		currDoc->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
+		currDoc->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
 		view->DrawNew();
 	}
 	reject();
@@ -175,9 +174,9 @@ void Align::DistVert()
 
 void Align::slotApplyDiag()
 {
-	double xdp = AHor->value() / UmReFaktor;
+	double xdp = AHor->value() / currDoc->unitRatio;
 	bool xa = (CheckH->isChecked() || VerteilenH->isChecked());
-	double ydp = AVert->value() / UmReFaktor;
+	double ydp = AVert->value() / currDoc->unitRatio;
 	bool ya = (CheckV->isChecked() || VerteilenV->isChecked());
 	int xart = VartH->currentItem();
 	int yart = VartV->currentItem();
@@ -187,8 +186,8 @@ void Align::slotApplyDiag()
 	{
 		for (uint x=0; x < Backup.count(); ++x)
 		{
-			doc->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
-			doc->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
+			currDoc->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
+			currDoc->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
 			view->DrawNew();
 		}
 	}

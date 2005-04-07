@@ -13,7 +13,6 @@
 using namespace std;
 
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
@@ -98,7 +97,7 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 	if (angle < 0)
 		rr = rr + 360;
 
-	double uXm = UmReFaktor * multiplier;
+	double uXm =  unitGetRatioFromIndex(unitIndex) * multiplier;
 
 	x1Data->setText(tmp.setNum(qRound(x1*uXm) / divisor, 'f', precision)+unitSuffix);
 	y1Data->setText(tmp.setNum(qRound(y1*uXm) / divisor, 'f', precision)+unitSuffix);

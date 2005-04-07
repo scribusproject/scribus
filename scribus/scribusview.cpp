@@ -93,7 +93,6 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 extern int callGS(const QStringList & args);
 extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
-extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *prefs) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
@@ -2794,9 +2793,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		Mxp = newX;
 		Myp = newY;
 		RefreshItem(b);
-		ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
-																 					 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
-																 					 b->Width * UmReFaktor, b->Height * UmReFaktor);
+		ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * Doc->unitRatio, b->GrStartY * Doc->unitRatio,
+															b->GrEndX * Doc->unitRatio, b->GrEndY * Doc->unitRatio,
+															b->Width * Doc->unitRatio, b->Height * Doc->unitRatio);
 		return;
 	}
 	if (Mpressed && (Doc->appMode == MeasurementTool))
@@ -7452,9 +7451,9 @@ void ScribusView::updateGradientVectors(PageItem *b)
 		default:
 			break;
 	}
-	ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
-																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
-																 b->Width * UmReFaktor, b->Height * UmReFaktor);
+	ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * Doc->unitRatio, b->GrStartY * Doc->unitRatio,
+														 b->GrEndX * Doc->unitRatio, b->GrEndY * Doc->unitRatio,
+														 b->Width * Doc->unitRatio, b->Height * Doc->unitRatio);
 }
 
 void ScribusView::SetupDraw(int nr)
@@ -7497,9 +7496,9 @@ void ScribusView::EmitValues(PageItem *b)
 		emit ItemTextFont(b->IFont);
 		emit ItemTextSize(b->ISize);
 	}
-	ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
-																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
-																 b->Width * UmReFaktor, b->Height * UmReFaktor);
+	ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * Doc->unitRatio, b->GrStartY * Doc->unitRatio,
+																 b->GrEndX * Doc->unitRatio, b->GrEndY * Doc->unitRatio,
+																 b->Width * Doc->unitRatio, b->Height * Doc->unitRatio);
 }
 
 void ScribusView::TogglePic()

@@ -1,5 +1,16 @@
 #include "applytemplate.h"
 #include "applytemplate.moc"
+
+#include <qcheckbox.h>
+#include <qcombobox.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qlayout.h>
+#include <qtooltip.h>
+#include <qspinbox.h>
+#include <qradiobutton.h>
+#include <qbuttongroup.h>
+
 #include "scribusdoc.h"
 #include "page.h"
 extern QPixmap loadIcon(QString nam);
@@ -39,90 +50,90 @@ ApplyT::ApplyT( QWidget* parent, ScribusDoc *view, QString Nam)
 	buttonGroup1Layout = new QVBoxLayout( buttonGroup1->layout() );
 	buttonGroup1Layout->setAlignment( Qt::AlignTop );
 
-	SinglePage = new QRadioButton( buttonGroup1, "radioButton1" );
+	singlePage = new QRadioButton( buttonGroup1, "radioButton1" );
 	/* PFJ - 28/02/04 - altered from TRUE to true */
-	SinglePage->setChecked( true );
-	SinglePage->setText( tr( "Apply to &Current Page" ) );
-	buttonGroup1Layout->addWidget( SinglePage );
-	EvenRange = new QRadioButton( buttonGroup1, "radioButton1" );
-	EvenRange->setText( tr( "Apply to all &even Pages" ) );
-	buttonGroup1Layout->addWidget( EvenRange );
+	singlePage->setChecked( true );
+	singlePage->setText( tr( "Apply to &current page" ) );
+	buttonGroup1Layout->addWidget( singlePage );
+	evenRange = new QRadioButton( buttonGroup1, "radioButton1" );
+	evenRange->setText( tr( "Apply to all &even pages" ) );
+	buttonGroup1Layout->addWidget( evenRange );
 	if (view->Pages.count() < 2)
-		EvenRange->setEnabled(false);
-	OddRange = new QRadioButton( buttonGroup1, "radioButton1" );
-	OddRange->setText( tr( "Apply to all &odd Pages" ) );
-	buttonGroup1Layout->addWidget( OddRange );
+		evenRange->setEnabled(false);
+	oddRange = new QRadioButton( buttonGroup1, "radioButton1" );
+	oddRange->setText( tr( "Apply to all &odd pages" ) );
+	buttonGroup1Layout->addWidget( oddRange );
 	layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
-	PageRange = new QRadioButton( buttonGroup1, "radioButton2" );
-	PageRange->setText( tr( "Apply from &Page:" ) );
-	layout2->addWidget( PageRange );
-	FromPage = new QSpinBox( buttonGroup1, "FromPage" );
-	FromPage->setMinValue( 1 );
-	FromPage->setMaxValue(view->Pages.count());
-	FromPage->setValue(view->currentPage->PageNr+1);
-	layout2->addWidget( FromPage );
+	pageRange = new QRadioButton( buttonGroup1, "radioButton2" );
+	pageRange->setText( tr( "Apply to &all pages:" ) );
+	layout2->addWidget( pageRange );
+	fromPage = new QSpinBox( buttonGroup1, "fromPage" );
+	fromPage->setMinValue( 1 );
+	fromPage->setMaxValue(view->Pages.count());
+	fromPage->setValue(view->currentPage->PageNr+1);
+	layout2->addWidget( fromPage );
 	TextLabel2 = new QLabel( buttonGroup1, "textLabel1" );
 	TextLabel2->setText( tr( "To:" ) );
 	layout2->addWidget( TextLabel2 );
-	ToPage = new QSpinBox( buttonGroup1, "toPage" );
-	ToPage->setMinValue( 1 );
-	ToPage->setMaxValue(view->Pages.count());
-	ToPage->setValue(view->Pages.count());
-	layout2->addWidget( ToPage );
+	toPage = new QSpinBox( buttonGroup1, "toPage" );
+	toPage->setMinValue( 1 );
+	toPage->setMaxValue(view->Pages.count());
+	toPage->setValue(view->Pages.count());
+	layout2->addWidget( toPage );
 	buttonGroup1Layout->addLayout( layout2 );
 	ApplyTLayout->addWidget( buttonGroup1 );
-	FromPage->setEnabled(false);
-	ToPage->setEnabled(false);
+	fromPage->setEnabled(false);
+	toPage->setEnabled(false);
 
 	Layout4 = new QHBoxLayout;
 	Layout4->setSpacing( 6 );
 	Layout4->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer );
-	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
-	OKButton->setDefault( true );
-	Layout4->addWidget( OKButton );
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
-	Layout4->addWidget( CancelB );
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okButton->setDefault( true );
+	Layout4->addWidget( okButton );
+	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	Layout4->addWidget( cancelButton );
 	ApplyTLayout->addLayout( Layout4 );
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect(SinglePage, SIGNAL(clicked()), this, SLOT(SingleSel()));
-	connect(EvenRange, SIGNAL(clicked()), this, SLOT(SingleSel()));
-	connect(OddRange, SIGNAL(clicked()), this, SLOT(SingleSel()));
-	connect(PageRange, SIGNAL(clicked()), this, SLOT(RangeSel()));
-	connect(FromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
-	connect(ToPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect(singlePage, SIGNAL(clicked()), this, SLOT(SingleSel()));
+	connect(evenRange, SIGNAL(clicked()), this, SLOT(SingleSel()));
+	connect(oddRange, SIGNAL(clicked()), this, SLOT(SingleSel()));
+	connect(pageRange, SIGNAL(clicked()), this, SLOT(RangeSel()));
+	connect(fromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
+	connect(toPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
 }
 
 void ApplyT::RangeSel()
 {
-	FromPage->setEnabled(true);
-	ToPage->setEnabled(true);
+	fromPage->setEnabled(true);
+	toPage->setEnabled(true);
 }
 
 void ApplyT::SingleSel()
 {
-	FromPage->setEnabled(false);
-	ToPage->setEnabled(false);
+	fromPage->setEnabled(false);
+	toPage->setEnabled(false);
 }
 
 void ApplyT::CheckRangeF()
 {
-	disconnect(FromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
-	disconnect(ToPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
-	if (FromPage->value() > ToPage->value())
-		ToPage->setValue(FromPage->value());
-	connect(FromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
-	connect(ToPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
+	disconnect(fromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
+	disconnect(toPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
+	if (fromPage->value() > toPage->value())
+		toPage->setValue(fromPage->value());
+	connect(fromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
+	connect(toPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
 }
 
 void ApplyT::CheckRangeT()
 {
-	disconnect(FromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
-	disconnect(ToPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
-	if (ToPage->value() < FromPage->value())
-		FromPage->setValue(ToPage->value());
-	connect(FromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
-	connect(ToPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
+	disconnect(fromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
+	disconnect(toPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
+	if (toPage->value() < fromPage->value())
+		fromPage->setValue(toPage->value());
+	connect(fromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
+	connect(toPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
 }

@@ -28,6 +28,8 @@ public slots:
 protected:
 	QVBoxLayout* TabManagerLayout;
 	QHBoxLayout* layout10;
+	
+	double docUnitRatio;
 };
 
 #endif // TABMANAGER_H

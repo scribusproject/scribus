@@ -10,7 +10,6 @@
 #include "units.h"
 
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
 Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 		: QDialog( parent, "m", true, 0 )

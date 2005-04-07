@@ -44,8 +44,9 @@
 #include "guidemanager.h"
 #include "guidemanager.moc"
 
+#include "units.h"
+
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
 GuideManager::GuideManager(
         QWidget* parent,
@@ -71,6 +72,7 @@ GuideManager::GuideManager(
 	int   dp[] = {100, 1000, 10000, 100};
 	
 	docUnitIndex = Einh;
+	docUnitRatio = unitGetRatioFromIndex(Einh);
 	decimals = dp[docUnitIndex];
 	
 	LocHor = YGuides; // in page XGuides and YGuides are inverted
@@ -306,7 +308,7 @@ void GuideManager::selHorIte(QListBoxItem *c)
 	VerList->clearSelection();
 	VerSpin->setEnabled(false);
 	HorSpin->setEnabled(true);
-	HorSpin->setValue(LocHor[selHor] * UmReFaktor);
+	HorSpin->setValue(LocHor[selHor] * docUnitRatio);
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 }
 	
@@ -319,7 +321,7 @@ void GuideManager::selVerIte(QListBoxItem *c)
 	HorList->clearSelection();
 	HorSpin->setEnabled(false);
 	VerSpin->setEnabled(true);
-	VerSpin->setValue(LocVer[selVer] * UmReFaktor);
+	VerSpin->setValue(LocVer[selVer] * docUnitRatio);
 	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
 }
 	
@@ -327,7 +329,7 @@ void GuideManager::ChangeHorVal()
 {
 	int n = static_cast<int>(LocHor.count());
 	int m = n;
-	double curHor = HorSpin->value() / UmReFaktor;
+	double curHor = HorSpin->value() / docUnitRatio;
 	
 	QValueList<double>::Iterator it = LocHor.at(selHor);
 	LocHor.remove(it);
@@ -355,7 +357,7 @@ void GuideManager::ChangeVerVal()
 {
 	int n = static_cast<int>(LocVer.count());
 	int m = n;
-	double curVer = VerSpin->value() / UmReFaktor;
+	double curVer = VerSpin->value() / docUnitRatio;
 	
 	QValueList<double>::Iterator it = LocVer.at(selVer);
 	LocVer.remove(it);
@@ -402,7 +404,7 @@ void GuideManager::UpdateHorList()
 	QString tmp;
 	
 	for (uint i = 0; i < LocHor.count(); ++ i)
-		HorList->insertItem(tmp.setNum(qRound(LocHor[i] * UmReFaktor * 10000.0) / 10000.0, 'f', 4) +
+		HorList->insertItem(tmp.setNum(qRound(LocHor[i] * docUnitRatio * 10000.0) / 10000.0, 'f', 4) +
 					 GetUnit());
 	if (LocHor.isEmpty())
 		selHor = -1;
@@ -410,7 +412,7 @@ void GuideManager::UpdateHorList()
 	if (selHor != -1)
 		HorList->setCurrentItem(selHor);
 	HorSpin->setEnabled(selHor != -1 ? true : false);
-	HorSpin->setValue(selHor != -1 ? (LocHor[selHor] * UmReFaktor * 10000.0) / 10000.0 : 0);
+	HorSpin->setValue(selHor != -1 ? (LocHor[selHor] * docUnitRatio * 10000.0) / 10000.0 : 0);
 
 	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
@@ -426,7 +428,7 @@ void GuideManager::UpdateVerList()
 	VerList->clear();
 	
 	for (uint i = 0; i < LocVer.count(); ++ i)
-		VerList->insertItem(tmp.setNum(qRound(LocVer[i] * UmReFaktor * 10000.0) / 10000.0, 'f', 4) +
+		VerList->insertItem(tmp.setNum(qRound(LocVer[i] * docUnitRatio * 10000.0) / 10000.0, 'f', 4) +
 					 GetUnit());
 	if (LocVer.isEmpty())
 		selVer = -1;
@@ -435,7 +437,7 @@ void GuideManager::UpdateVerList()
 		VerList->setCurrentItem(selVer);
 		
 	VerSpin->setEnabled(selVer != -1 ? true : false);
-	VerSpin->setValue(selVer != -1 ? (LocVer[selVer] * UmReFaktor * 10000.0) / 10000.0 : 0);
+	VerSpin->setValue(selVer != -1 ? (LocVer[selVer] * docUnitRatio * 10000.0) / 10000.0 : 0);
 
 	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
 	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));

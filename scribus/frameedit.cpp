@@ -8,7 +8,6 @@
 #include "undostate.h"
 
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {
@@ -394,7 +393,7 @@ void NodePalette::MovePoint()
 {
 	if (doc->EditClipMode == 0)
 	{
-		FPoint np = FPoint(XSpin->value()/UmReFaktor, YSpin->value()/UmReFaktor);
+		FPoint np = FPoint(XSpin->value()/doc->unitRatio, YSpin->value()/doc->unitRatio);
 		FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 		if (AbsMode->isChecked())
 			np -= zp;
@@ -419,8 +418,8 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
 		zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
-	XSpin->setValue((x + zp.x())*UmReFaktor);
-	YSpin->setValue((y + zp.y())*UmReFaktor);
+	XSpin->setValue((x + zp.x())*doc->unitRatio);
+	YSpin->setValue((y + zp.y())*doc->unitRatio);
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }
@@ -430,13 +429,13 @@ void NodePalette::ToggleAbsMode()
 	FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	FPoint np = FPoint(XSpin->value()/UmReFaktor, YSpin->value()/UmReFaktor);
+	FPoint np = FPoint(XSpin->value()/doc->unitRatio, YSpin->value()/doc->unitRatio);
 	if (AbsMode->isChecked())
 		np += zp;
 	else
 		np -= zp;
-	XSpin->setValue(np.x()*UmReFaktor);
-	YSpin->setValue(np.y()*UmReFaktor);
+	XSpin->setValue(np.x()*doc->unitRatio);
+	YSpin->setValue(np.y()*doc->unitRatio);
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }

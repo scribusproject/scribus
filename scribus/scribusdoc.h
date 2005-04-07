@@ -195,6 +195,7 @@ public: // Public attributes
   /** Erstes Element fuer AutoTextrahmen */
 	PageItem *FirstAuto;
 	int docUnitIndex;
+	double unitRatio;
 	bool DragP;
 	bool leaveDrag;
 	PageItem *DraggedElem;

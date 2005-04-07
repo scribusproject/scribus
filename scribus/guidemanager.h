@@ -79,6 +79,8 @@ private:
 	QHBoxLayout* Layout3;
 	
 	QHBoxLayout* Layout5;
+	
+	double docUnitRatio;
 
 private slots:
 

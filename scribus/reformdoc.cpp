@@ -20,7 +20,6 @@
 #include "tocindexprefs.h"
 
 extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 extern bool CMSavail;
 extern ProfilesL InputProfiles;
 
@@ -29,11 +28,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	einheit = doc->docUnitIndex;
 	currDoc = doc;
 	ap = (ScribusApp*)parent;
-	unitRatio = UmReFaktor;
+	unitRatio = doc->unitRatio;
 	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
-	pageWidth = doc->PageB * UmReFaktor;
-	pageHeight = doc->PageH * UmReFaktor;
+	pageWidth = doc->PageB * unitRatio;
+	pageHeight = doc->PageH * unitRatio;
 	setCaption( tr( "Document Setup" ) );
 	tabPage = new QWidget( prefsWidgets, "tab" );
 	reformDocLayout = new QVBoxLayout( tabPage );
@@ -117,7 +116,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	topR->setSuffix( ein );
 	topR->setDecimals( decimals );
 	topR->setMaxValue(pageHeight);
-	topR->setValue(doc->PageM.Top * UmReFaktor);
+	topR->setValue(doc->PageM.Top * unitRatio);
 	layout4->addWidget( topR, 0, 1 );
 	TextLabel5 = new QLabel( tr( "&Top:" ), groupBox7, "TextLabel5" );
 	TextLabel5->setBuddy(topR);
@@ -126,7 +125,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	leftR->setSuffix( ein );
 	leftR->setDecimals( decimals );
 	leftR->setMaxValue(pageWidth);
-	leftR->setValue(doc->PageM.Left * UmReFaktor);
+	leftR->setValue(doc->PageM.Left * unitRatio);
 	layout4->addWidget( leftR, 0, 3 );
 	Links = new QLabel( tr( "&Left:" ), groupBox7, "Links" );
 	Links->setBuddy(leftR);
@@ -135,7 +134,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	bottomR->setSuffix( ein );
 	bottomR->setDecimals( decimals );
 	bottomR->setMaxValue(pageHeight);
-	bottomR->setValue(doc->PageM.Bottom * UmReFaktor);
+	bottomR->setValue(doc->PageM.Bottom * unitRatio);
 	layout4->addWidget( bottomR, 1, 1 );
 	TextLabel7 = new QLabel( tr( "&Bottom:" ), groupBox7, "TextLabel7" );
 	TextLabel7->setBuddy(bottomR);
@@ -144,7 +143,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	rightR->setSuffix( ein );
 	rightR->setDecimals( decimals );
 	rightR->setMaxValue(pageWidth);
-	rightR->setValue(doc->PageM.Right * UmReFaktor);
+	rightR->setValue(doc->PageM.Right * unitRatio);
 	layout4->addWidget( rightR, 1, 3 );
 	Rechts = new QLabel( tr( "&Right:" ), groupBox7, "Rechts" );
 	Rechts->setBuddy(rightR);
@@ -267,7 +266,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	topScratch->setSuffix( ein );
 	topScratch->setDecimals( decimals );
 	topScratch->setMaxValue(1000);
-	topScratch->setValue(doc->ScratchTop * UmReFaktor);
+	topScratch->setValue(doc->ScratchTop * unitRatio);
 	layout4s->addWidget( topScratch, 0, 1 );
 	TextLabel5s = new QLabel(topScratch, tr( "&Top:" ), groupScratch, "TextLabel5" );
 	layout4s->addWidget( TextLabel5s, 0, 0 );
@@ -275,7 +274,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	leftScratch->setSuffix( ein );
 	leftScratch->setDecimals( decimals );
 	leftScratch->setMaxValue(1000);
-	leftScratch->setValue(doc->ScratchLeft * UmReFaktor);
+	leftScratch->setValue(doc->ScratchLeft * unitRatio);
 	layout4s->addWidget( leftScratch, 0, 3 );
 	Linkss = new QLabel(leftScratch, tr( "&Left:" ), groupScratch, "Links" );
 	layout4s->addWidget( Linkss, 0, 2 );
@@ -283,7 +282,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	bottomScratch->setSuffix( ein );
 	bottomScratch->setDecimals( decimals );
 	bottomScratch->setMaxValue(1000);
-	bottomScratch->setValue(doc->ScratchBottom * UmReFaktor);
+	bottomScratch->setValue(doc->ScratchBottom * unitRatio);
 	layout4s->addWidget( bottomScratch, 1, 1 );
 	TextLabel7s = new QLabel(bottomScratch, tr( "&Bottom:" ), groupScratch, "TextLabel7" );
 	layout4s->addWidget( TextLabel7s, 1, 0 );
@@ -291,7 +290,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	rightScratch->setSuffix( ein );
 	rightScratch->setDecimals( decimals );
 	rightScratch->setMaxValue(1000);
-	rightScratch->setValue(doc->ScratchRight * UmReFaktor);
+	rightScratch->setValue(doc->ScratchRight * unitRatio);
 	layout4s->addWidget( rightScratch, 1, 3 );
 	Rechtss = new QLabel(rightScratch, tr( "&Right:" ), groupScratch, "Rechts" );
 	layout4s->addWidget( Rechtss, 1, 2 );

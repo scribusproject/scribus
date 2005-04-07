@@ -97,6 +97,8 @@ protected:
 	MSpinBox* firstLineData;
 	MSpinBox* leftIndentData;
 	QPushButton* clearButton;
+	
+	double docUnitRatio;
 };
 
 #endif // TABRULER_H

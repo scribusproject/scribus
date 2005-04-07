@@ -97,7 +97,7 @@ protected:
 	QVBoxLayout* NodePaletteLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* Layout2;
-
+	
 signals:
 	void Schliessen();
 };
