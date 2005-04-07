@@ -5323,6 +5323,7 @@ void ScribusApp::slotFilePrint()
 			}
 		}
 	}
+	slotReallyPrint();
 }
 
 void ScribusApp::slotReallyPrint()
@@ -8501,6 +8502,7 @@ void ScribusApp::SaveAsEps()
 			}
 		}
 	}
+	reallySaveAsEps();
 }
 
 void ScribusApp::reallySaveAsEps()
