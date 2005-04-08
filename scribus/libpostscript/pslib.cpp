@@ -92,7 +92,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorL
 	bool erst = true;
 	for (itf = DocColors.begin(); itf != DocColors.end(); ++itf)
 	{
-		if ((itf.key() != "Cyan") && (itf.key() != "Magenta") && (itf.key() != "Yellow") && 
+		if ((itf.key() != "Cyan") && (itf.key() != "Magenta") && (itf.key() != "Yellow") &&
 			(itf.key() != "Black"))
 		{
 			DocColors[itf.key()].getCMYK(&c, &m, &y, &k);
@@ -101,9 +101,9 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorL
 				Farben += "%%+ ";
 				FNamen += "%%+ ";
 			}
-			Farben += ToStr(static_cast<double>(c) / 255) + " " +  
+			Farben += ToStr(static_cast<double>(c) / 255) + " " +
 					ToStr(static_cast<double>(m) / 255) + " ";
-			Farben += ToStr(static_cast<double>(y) / 255) + " " +  
+			Farben += ToStr(static_cast<double>(y) / 255) + " " +
 					ToStr(static_cast<double>(k) / 255) + " (" + itf.key() + ")\n";
 			FNamen += "(" + itf.key() + ")\n";
 			erst = false;
@@ -123,7 +123,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorL
 					" "+IToStr(AllFonts[it.key()]->RealGlyphs.count()+1)+" dict def\n";
 			FontDesc += AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+" begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
-			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); 
+			for (ig = AllFonts[it.key()]->RealGlyphs.begin();
 				ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
 			{
 				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
@@ -148,8 +148,8 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorL
 						np = ig.data().point(poi+1);
 						np1 = ig.data().point(poi+3);
 						np2 = ig.data().point(poi+2);
-						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " + 
-								ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " + 
+						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
+								ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " +
 								ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";
 					}
 				}
@@ -318,7 +318,7 @@ QString PSLib::PSEncode(QString in)
 	return tmp;
 }
 
-void PSLib::PS_TemplateStart(QString Name, double breite, double hoehe)
+void PSLib::PS_TemplateStart(QString Name, double /*breite*/, double /*hoehe*/)
 {
 	PutDoc("/"+PSEncode(Name)+"\n{\n");
 }
@@ -356,7 +356,7 @@ void PSLib::PS_end_page()
 
 void PSLib::PS_curve(double x1, double y1, double x2, double y2, double x3, double y3)
 {
-	PutSeite(ToStr(x1) + " " + ToStr(y1) + " " + ToStr(x2) + " " + ToStr(y2) + " " + ToStr(x3) + " " + 
+	PutSeite(ToStr(x1) + " " + ToStr(y1) + " " + ToStr(x2) + " " + ToStr(y2) + " " + ToStr(x3) + " " +
 			ToStr(y3) + " curveto\n");
 }
 
@@ -820,7 +820,7 @@ void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, do
 			PutSeite("   /ImageType 1\n");
 			PutSeite("   /Height    " + IToStr(h) + "\n");
 			PutSeite("   /Width     " + IToStr(w) + "\n");
-			PutSeite("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) 
+			PutSeite("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h)
 				+"]\n");
 			if (DoSep)
 				PutSeite("   /Decode [1 0]\n");
@@ -857,7 +857,7 @@ void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, do
 				PutSeite("   /Decode [1 0]\n");
 			else
 				PutSeite( GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n");
-			PutSeite("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + 
+			PutSeite("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) +
 					"]\n");
 			if (Name != "")
 			{
