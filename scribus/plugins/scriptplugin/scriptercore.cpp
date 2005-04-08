@@ -45,7 +45,7 @@ ScripterCore::ScripterCore(QWidget* parent) :
 	QObject::connect( scrScripterActions["scripterAboutScript"], SIGNAL(activated()) , this, SLOT(aboutScript()) );
 
 	menuMgr->createMenu("Scripter", QObject::tr("&Script"));
-	menuMgr->addMenuToMenuBarAfter("Scripter","Windows");
+	menuMgr->addMenuToMenuBarAfter("Scripter","Extras");
 	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
 	menuMgr->addMenuItem(scrScripterActions["scripterExecuteScript"], "Scripter");
 	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");
