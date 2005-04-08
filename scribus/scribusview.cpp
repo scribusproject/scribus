@@ -3613,7 +3613,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			HaveSelRect = true;
 		}
-		if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == NormalMode) && (!Doc->GuideLock) && (OnPage(m->x()/sc, m->y()/sc) != -1))
+		if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == NormalMode) && (!Doc->GuideLock) && (OnPage(m->x()/sc, m->y()/sc) != -1) && (!GetItem(&b)))
 		{
 			if (Doc->currentPage->YGuides.count() != 0)
 			{

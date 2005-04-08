@@ -6789,6 +6789,8 @@ void ScribusApp::DeletePage2(int pg)
 		ite = doc->Items.at(d);
 		if (ite->OwnPage == pg)
 		{
+			ite->setLocked(false);
+			ite->isSingleSel = false;
 //				if (ite->isBookmark)
 //					DelBookMark(ite);
 			view->SelItem.append(ite);
@@ -6850,6 +6852,8 @@ void ScribusApp::DeletePage(int from, int to)
 			ite = doc->Items.at(d);
 			if (ite->OwnPage == a)
 			{
+				ite->setLocked(false);
+				ite->isSingleSel = false;
 //				if (ite->isBookmark)
 //					DelBookMark(ite);
 				view->SelItem.append(ite);
