@@ -46,11 +46,11 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	Layout3 = new QHBoxLayout;
 	Layout3->setSpacing( 6 );
 	Layout3->setMargin( 0 );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout3->addItem( spacer );
 	PushButton12 = new QPushButton( tr( "&OK" ), this, "PushButton12" );
 	PushButton12->setDefault( true );
 	Layout3->addWidget( PushButton12 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer );
 	PushButton13 = new QPushButton( tr( "&Cancel" ), this, "PushButton13" );
 	Layout3->addWidget( PushButton13 );
 	MdupLayout->addLayout( Layout3 );
