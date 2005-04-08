@@ -189,7 +189,7 @@ public:
 	QLabel* bottomLabel;
 	QLabel* leftLabel;
 	QLabel* rightLabel;
-	QLabel* kerningLabel;
+	QLabel* trackingLabel;
 	QLabel* linespacingLabel;
 	QLabel* fontsizeLabel;
 	QLabel* yscaleLabel;

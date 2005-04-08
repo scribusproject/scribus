@@ -559,8 +559,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Extra->setSuffix( tr( " pt" ) );
 	GroupBox3Layout->addWidget( Extra, 0, 1 );
 
-	kerningLabel = new QLabel( Extra, tr( "&Kerning:" ), GroupBox3, "kerningLabel" );
-	GroupBox3Layout->addWidget( kerningLabel, 0, 0 );
+	trackingLabel = new QLabel( Extra, tr( "Trac&king:" ), GroupBox3, "trackingLabel" );
+	GroupBox3Layout->addWidget( trackingLabel, 0, 0 );
 
 	linespacingLabel = new QLabel( LineSp, tr( "L&ine Spacing:" ), GroupBox3, "linespacingLabel" );
 	GroupBox3Layout->addWidget( linespacingLabel, 1, 0 );
@@ -786,7 +786,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( PM1, tr( "Saturation of color of text stroke" ) );
 	QToolTip::add( PM2, tr( "Saturation of color of text fill" ) );
 	QToolTip::add( Revert, tr( "Right to Left Writing" ) );
-	QToolTip::add( Extra, tr( "Manual Kerning" ) );
+	QToolTip::add( Extra, tr( "Manual Tracking" ) );
 	QToolTip::add( LineSp, tr( "Line Spacing" ) );
 	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
 	QToolTip::add( langCombo, tr( "Hyphenation language of frame" ) );

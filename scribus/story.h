@@ -200,7 +200,7 @@ public:
 	SToolBStyle(QMainWindow* parent);
 	~SToolBStyle() {};
 	StyleSelect* SeStyle;
-	QLabel* kerningLabel;
+	QLabel* trackingLabel;
 	MSpinBox* Extra;
 
 public slots:

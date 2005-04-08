@@ -1351,11 +1351,11 @@ void SToolBColorS::newShadeHandler()
 SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings"), parent)
 {
 	SeStyle = new StyleSelect(this);
-	kerningLabel = new QLabel( tr( "Kerning:" ), this, "kerningLabel" );
+	trackingLabel = new QLabel( tr( "Tracking:" ), this, "trackingLabel" );
 	Extra = new MSpinBox( this, 1 );
 	Extra->setValues( -300, 300, 10, 0);
 	Extra->setSuffix( tr( " pt" ) );
-	QToolTip::add( Extra, tr( "Manual Kerning" ) );
+	QToolTip::add( Extra, tr( "Manual Tracking" ) );
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(NewStyle(int)));
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
 }
