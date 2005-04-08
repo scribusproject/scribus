@@ -239,7 +239,7 @@ public slots:
 	void LowerItem();
 	void RaiseItem();
 	void ClearItem();
-	void DeleteItem();
+	void DeleteItem(bool force = false);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void BlinkCurs();

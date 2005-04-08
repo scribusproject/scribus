@@ -5514,7 +5514,7 @@ void ScribusApp::DeletePage()
 					view->Pages.at(pg)->SelItem.append(ite);
 			}
 			if (view->Pages.at(pg)->SelItem.count() != 0)
-				view->Pages.at(pg)->DeleteItem();
+				view->Pages.at(pg)->DeleteItem(true);
 			view->delPage(pg);
 			AdjustBM();
 		}

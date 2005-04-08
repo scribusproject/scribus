@@ -2669,7 +2669,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				}
 			}
 		}
-		if ((fg) && (m->button() == RightButton))
+		if ((fg) && (m->button() == RightButton) && (!GetItem(&b)))
 		{
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			MoveGY = false;
@@ -4987,7 +4987,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			HaveSelRect = true;
 		}
-		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock))
+		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock) && (!GetItem(&b)))
 		{
 			if (YGuides.count() != 0)
 			{
@@ -8662,7 +8662,7 @@ void Page::ClearItem()
 	}
 }
 
-void Page::DeleteItem()
+void Page::DeleteItem(bool force)
 {
 	uint a, c, itnr, anz;
 	QPtrList<PageItem> delItems;
@@ -8675,10 +8675,13 @@ void Page::DeleteItem()
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = SelItem.at(offs);
-			if (((b->isTableItem) && (b->isSingleSel)) || (b->Locked))
+			if (!force)
 			{
-				offs++;
-				continue;
+				if (((b->isTableItem) && (b->isSingleSel)) || (b->Locked))
+				{
+					offs++;
+					continue;
+				}
 			}
 			delItems.append(SelItem.take(offs));
 		}
