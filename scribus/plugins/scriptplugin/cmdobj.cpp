@@ -508,12 +508,16 @@ PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args)
 			PyErr_SetString(NotFoundError, QObject::tr("Style not found","python error"));
 			return NULL;
 		}
+		
+		int Apm = Carrier->doc->AppMode;
+		if (item->HasSel)
+			Carrier->doc->AppMode = 7;
 		// quick hack to always apply on the right frame - pv
 		Carrier->doc->ActPage = item->OwnPage;
-		Carrier->doc->ActPage->Deselect(true);
 		Carrier->doc->ActPage->SelectItemNr(item->ItemNr);
-		// Now apply the style.
 		Carrier->setNewAbStyle(styleid);
+		Carrier->doc->AppMode = Apm;
+		Carrier->doc->ActPage->Deselect(true);
 	}
 	else
 	{
