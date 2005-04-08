@@ -55,6 +55,15 @@ Some testing has shown that this bug is not present in freetype 2.1.9, but
 we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
 distros can be quite difficult.
 
+Issue with gradients:
+
+If you have gradient (e.g. with black color) with 50% shade in both beginning 
+and end of gradient, you end up with darker center than edges. One expects the
+gradient to be with equal shade from beginning to end, especially if there is
+no other Color-Stops in-between them.
+
+This we believe is a libart issue and not fixable by us. The gradient will export
+and print properly.
 
 For Debian Users:
 
