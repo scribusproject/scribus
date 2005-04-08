@@ -3357,7 +3357,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("SIZE_LOCK"))
 		{
 			select();
-			ScApp->view->ToggleResize();
+			ScApp->view->ToggleSizeLock();
 		}
 		else if (ss->contains("NEW_NAME"))
 			restoreName(ss, isUndo);

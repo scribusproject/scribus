@@ -256,6 +256,7 @@ public slots:
 	void newActWin(QWidget *w);
 	void windowsMenuActivated(int id);
 	void ToggleObjLock();
+	void ToggleObjSizeLock();
 	void UnDoAction();
 	void RedoAction();
 	void doHyphenate();
@@ -266,7 +267,11 @@ public slots:
 	void noPfadtext();
 	void UniteOb();
 	void SplitUniteOb();
-	void TraceText();
+	void convertToBezierCurve();
+	void convertToImageFrame();
+	void convertToOutlines();
+	void convertToPolygon();
+	void convertToTextFrame();
 	void changeLayer(int l);
 	void showLayer();
 	void LayerRemove(int l, bool dl = false);

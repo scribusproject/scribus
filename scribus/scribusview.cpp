@@ -1659,14 +1659,16 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (b->itemType() == PageItem::PathText)
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
-			if (!b->locked())
-				pmen->insertItem( tr("&Lock"), this, SLOT(ToggleLock()));
-			else
-				pmen->insertItem( tr("Un&lock"), this, SLOT(ToggleLock()));
-			if (!b->sizeLocked())
-				pmen->insertItem( tr("Lock Object &Size"), this, SLOT(ToggleResize()));
-			else
-				pmen->insertItem( tr("Unlock Object &Size"), this, SLOT(ToggleResize()));
+			ScApp->scrActions["itemLock"]->addTo(pmen);
+			//if (!b->locked())
+			//	pmen->insertItem( tr("&Lock"), this, SLOT(ToggleLock()));
+			//else
+			//	pmen->insertItem( tr("Un&lock"), this, SLOT(ToggleLock()));
+			ScApp->scrActions["itemLockSize"]->addTo(pmen);
+			//if (!b->sizeLocked())
+			//	pmen->insertItem( tr("Lock Object &Size"), this, SLOT(ToggleSizeLock()));
+			//else
+			//	pmen->insertItem( tr("Unlock Object &Size"), this, SLOT(ToggleSizeLock()));
 			if (!b->isSingleSel)
 			{
 				pmen->insertItem( tr("Send to S&crapbook"), this, SLOT(sentToScrap()));
@@ -1701,43 +1703,62 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							isGroup = false;
 					}
 					if (!isGroup)
-						pmen->insertItem( tr("&Group"), this, SIGNAL(DoGroup()));
+						ScApp->scrActions["itemGroup"]->addTo(pmen);
+						//pmen->insertItem( tr("&Group"), this, SIGNAL(DoGroup()));
 				}
 				if (b->Groups.count() != 0)
-					pmen->insertItem( tr("Un&group"), this, SIGNAL(DoUnGroup()));
+					ScApp->scrActions["itemUngroup"]->addTo(pmen);
+					//pmen->insertItem( tr("Un&group"), this, SIGNAL(DoUnGroup()));
 				if ((!b->isTableItem) && (!b->isSingleSel))
 				{
 					pmen->insertItem( tr("Le&vel"), pmenLevel);
-					pmenLevel->insertItem( tr("Send to &Back"), this, SLOT(ToBack()));
-					pmenLevel->insertItem( tr("Bring to &Front"), this, SLOT(ToFront()));
-					pmenLevel->insertItem( tr("&Lower"), this, SLOT(LowerItem()));
-					pmenLevel->insertItem( tr("&Raise"), this, SLOT(RaiseItem()));
+					ScApp->scrActions["itemSendToBack"]->addTo(pmenLevel);
+					ScApp->scrActions["itemBringToFront"]->addTo(pmenLevel);
+					ScApp->scrActions["itemLower"]->addTo(pmenLevel);
+					ScApp->scrActions["itemRaise"]->addTo(pmenLevel);
+					//pmenLevel->insertItem( tr("Send to &Back"), this, SLOT(ToBack()));
+					//pmenLevel->insertItem( tr("Bring to &Front"), this, SLOT(ToFront()));
+					//pmenLevel->insertItem( tr("&Lower"), this, SLOT(LowerItem()));
+					//pmenLevel->insertItem( tr("&Raise"), this, SLOT(RaiseItem()));
 				}
 			}
-			if (((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::Polygon)) && (Doc->appMode != EditMode))
+			if (Doc->appMode != EditMode) //Create convertTo Menu
 			{
+				bool insertConvertToMenu=false;
 				if (b->itemType() == PageItem::TextFrame)
 				{
-					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
+					insertConvertToMenu=true;
+					ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					//pmen2->insertItem( tr("&Image Frame"), this, SLOT(ToPicFrame()));
 					if (!b->isTableItem)
 					{
-						pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
-						pmen2->insertItem( tr("&Outlines"), this, SLOT(TextToPath()));
+						ScApp->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+						ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						//pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
+						//pmen2->insertItem( tr("&Outlines"), this, SLOT(TextToPath()));
 					}
 				}
 				if (b->itemType() == PageItem::ImageFrame)
 				{
-					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
+					insertConvertToMenu=true;
+					ScApp->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					//pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
 					if (!b->isTableItem)
-						pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
+						ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						//pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
 				}
 				if (b->itemType() == PageItem::Polygon)
 				{
-					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
-					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
-					pmen2->insertItem( tr("&Bezier Curve"), this, SLOT(ToBezierFrame()));
+					insertConvertToMenu=true;
+					ScApp->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
+					ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					ScApp->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					//pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
+					//pmen2->insertItem( tr("&Image Frame"), this, SLOT(ToPicFrame()));
+					//pmen2->insertItem( tr("&Bezier Curve"), this, SLOT(ToBezierFrame()));
 				}
-				pmen->insertItem( tr("Conve&rt to"), pmen2);
+				if (insertConvertToMenu)
+					pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
 			if (!b->locked() && !(b->isTableItem && b->isSingleSel))
@@ -7696,7 +7717,7 @@ void ScribusView::ToggleLock()
 	}
 }
 
-void ScribusView::ToggleResize()
+void ScribusView::ToggleSizeLock()
 {
 	if (SelItem.count() != 0)
 	{

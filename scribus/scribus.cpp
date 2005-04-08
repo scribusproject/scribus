@@ -1163,7 +1163,9 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemGroup", new ScrAction(tr("&Group"), CTRL+Key_G, this, "itemGroup"));
 	scrActions.insert("itemUngroup", new ScrAction(tr("&Ungroup"), CTRL+Key_U, this, "itemUngroup"));
 	scrActions.insert("itemLock", new ScrAction(tr("Is &Locked"), CTRL+Key_L, this, "itemLock"));
+	scrActions.insert("itemLockSize", new ScrAction(tr("Si&ze is Locked"), CTRL+SHIFT+Key_L, this, "itemLockSize"));
 	scrActions["itemLock"]->setToggleAction(true);
+	scrActions["itemLockSize"]->setToggleAction(true);
 	scrActions.insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(), this, "itemSendToBack"));
 	scrActions.insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(), this, "itemBringToFront"));
 	scrActions.insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(), this, "itemLower"));
@@ -1177,7 +1179,11 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemDetachTextFromPath", new ScrAction(tr("&Detach Text from Path"), QKeySequence(), this, "itemDetachTextFromPath"));
 	scrActions.insert("itemCombinePolygons", new ScrAction(tr("&Combine Polygons"), QKeySequence(), this, "itemCombinePolygons"));
 	scrActions.insert("itemSplitPolygons", new ScrAction(tr("Split &Polygons"), QKeySequence(), this, "itemSplitPolygons"));
-	scrActions.insert("itemConvertToOutlines", new ScrAction(tr("C&onvert to Outlines"), QKeySequence(), this, "itemConvertToOutlines"));
+	scrActions.insert("itemConvertToBezierCurve", new ScrAction(tr("&Bezier Curve"), QKeySequence(), this, "itemConvertToBezierCurve"));
+	scrActions.insert("itemConvertToImageFrame", new ScrAction(tr("&Image Frame"), QKeySequence(), this, "itemConvertToImageFrame"));
+	scrActions.insert("itemConvertToOutlines", new ScrAction(tr("&Outlines"), QKeySequence(), this, "itemConvertToOutlines"));
+	scrActions.insert("itemConvertToPolygon", new ScrAction(tr("&Polygon"), QKeySequence(), this, "itemConvertToPolygon"));
+	scrActions.insert("itemConvertToTextFrame", new ScrAction(tr("&Text Frame"), QKeySequence(), this, "itemConvertToTextFrame"));
 
 	connect( scrActions["itemDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDup()) );
 	connect( scrActions["itemMulDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDupM()) );
@@ -1185,6 +1191,7 @@ void ScribusApp::initItemMenuActions()
 	connect( scrActions["itemGroup"], SIGNAL(activated()) , this, SLOT(GroupObj()) );
 	connect( scrActions["itemUngroup"], SIGNAL(activated()) , this, SLOT(UnGroupObj()) );
 	connect( scrActions["itemLock"], SIGNAL(activated()) , this, SLOT(ToggleObjLock()) );
+	connect( scrActions["itemLockSize"], SIGNAL(activated()) , this, SLOT(ToggleObjSizeLock()) );
 	connect( scrActions["itemSendToBack"], SIGNAL(activated()) , this, SLOT(Objekt2Back()) );
 	connect( scrActions["itemBringToFront"], SIGNAL(activated()) , this, SLOT(Objekt2Front()) );
 	connect( scrActions["itemLower"], SIGNAL(activated()) , this, SLOT(ObjektLower()) );
@@ -1196,7 +1203,11 @@ void ScribusApp::initItemMenuActions()
 	connect( scrActions["itemDetachTextFromPath"], SIGNAL(activated()) , this, SLOT(noPfadtext()) );
 	connect( scrActions["itemCombinePolygons"], SIGNAL(activated()) , this, SLOT(UniteOb()) );
 	connect( scrActions["itemSplitPolygons"], SIGNAL(activated()) , this, SLOT(SplitUniteOb()) );
-	connect( scrActions["itemConvertToOutlines"], SIGNAL(activated()) , this, SLOT(TraceText()) );
+	connect( scrActions["itemConvertToBezierCurve"], SIGNAL(activated()) , this, SLOT(convertToBezierCurve()) );
+	connect( scrActions["itemConvertToImageFrame"], SIGNAL(activated()) , this, SLOT(convertToImageFrame()) );
+	connect( scrActions["itemConvertToOutlines"], SIGNAL(activated()) , this, SLOT(convertToOutlines()) );
+	connect( scrActions["itemConvertToPolygon"], SIGNAL(activated()) , this, SLOT(convertToPolygon()) );
+	connect( scrActions["itemConvertToTextFrame"], SIGNAL(activated()) , this, SLOT(convertToTextFrame()) );
 }
 
 void ScribusApp::initInsertMenuActions()
@@ -1551,11 +1562,15 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemGroup"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemUngroup"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["itemSendToBack"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemBringToFront"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemLower"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "Item");
+	scrMenuMgr->createMenu("ItemLevel", tr("&Level"));
+	scrMenuMgr->addMenuToMenu("ItemLevel", "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemSendToBack"], "ItemLevel");
+	scrMenuMgr->addMenuItem(scrActions["itemBringToFront"], "ItemLevel");
+	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel");
+	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "ItemLevel");
+	
 	scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item");
@@ -1566,11 +1581,18 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(SCustom, "ItemShapes");
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
 	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
+	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"));
+	scrMenuMgr->addMenuToMenu("ItemConvertTo", "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemConvertToBezierCurve"], "ItemConvertTo");
+	scrMenuMgr->addMenuItem(scrActions["itemConvertToImageFrame"], "ItemConvertTo");
+	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "ItemConvertTo");
+	scrMenuMgr->addMenuItem(scrActions["itemConvertToPolygon"], "ItemConvertTo");
+	scrMenuMgr->addMenuItem(scrActions["itemConvertToTextFrame"], "ItemConvertTo");
+	
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "Item");
 	scrMenuMgr->setMenuEnabled("ItemShapes", false);
 	scrActions["itemAlignDist"]->setEnabled(false);
 	scrActions["itemGroup"]->setEnabled(false);
@@ -1580,7 +1602,13 @@ void ScribusApp::initMenuBar()
 	scrActions["itemCombinePolygons"]->setEnabled(false);
 	scrActions["itemSplitPolygons"]->setEnabled(false);
 	scrActions["itemLock"]->setEnabled(false);
+	scrActions["itemLockSize"]->setEnabled(false);
+	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
+	scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+	scrActions["itemConvertToImageFrame"]->setEnabled(false);
 	scrActions["itemConvertToOutlines"]->setEnabled(false);
+	scrActions["itemConvertToPolygon"]->setEnabled(false);
+	scrActions["itemConvertToTextFrame"]->setEnabled(false);
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", tr("I&nsert"));
@@ -3859,7 +3887,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
 	connect(view, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
-	connect(view, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
+	//connect(view, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
 	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(view, SIGNAL(LevelChanged(uint )), propertiesPalette, SLOT(setLevel(uint)));
 	connect(view, SIGNAL(callGimp()), this, SLOT(CallGimp()));
@@ -3906,7 +3934,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	view->horizRuler->repaint();
 	switch (Nr)
 	{
-	case -1:
+	case -1: // None
 		scrActions["fileImportText"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
@@ -3914,8 +3942,14 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
+		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
+		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
+		scrActions["itemConvertToPolygon"]->setEnabled(false);
+		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		scrActions["itemLock"]->setEnabled(false);
+		scrActions["itemLockSize"]->setEnabled(false);
 		scrActions["editCut"]->setEnabled(false);
 		scrActions["editCopy"]->setEnabled(false);
 		scrActions["editClear"]->setEnabled(false);
@@ -3932,7 +3966,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
 		outlinePalette->slotShowSelect(doc->currentPage->PageNr, -1);
 		break;
-	case 2:
+	case 2: //Image Frame
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileImportText"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(true);
@@ -3944,7 +3978,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(b->isTableItem && b->isSingleSel));
+		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
+		scrActions["itemConvertToPolygon"]->setEnabled(!b->isTableItem && doc->appMode != EditMode);
+		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != EditMode);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		if (b->isRaster)
@@ -3956,7 +3995,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		break;
-	case 4:
+	case 4: //Text Frame
 		scrActions["fileImportText"]->setEnabled(true);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
@@ -3969,7 +4008,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(b->isTableItem && b->isSingleSel));
-		scrActions["itemConvertToOutlines"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != EditMode);
+		scrActions["itemConvertToOutlines"]->setEnabled(!b->isTableItem && doc->appMode != EditMode);
+		scrActions["itemConvertToPolygon"]->setEnabled(!b->isTableItem && doc->appMode != EditMode);
+		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Font","Style");
 		scrMenuMgr->addMenuToMenu("FontSize","Style");
@@ -4047,7 +4091,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		doc->docParagraphStyles[0].LineSpa = b->LineSp;
 		doc->docParagraphStyles[0].textAlignment = b->textAlignment;
 		break;
-	case 8:
+	case 8: //Path Text
 		scrActions["fileImportText"]->setEnabled(true);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
@@ -4060,7 +4104,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
+		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
+		scrActions["itemConvertToPolygon"]->setEnabled(false);
+		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->setMenuEnabled("Style", true);
@@ -4110,8 +4159,16 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		scrMenuMgr->addMenuToMenu("Shade","Style");
-		if (Nr == 6)
+		if (Nr == 6) //Polygon
+		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);
+			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != EditMode);
+			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != EditMode);
+			scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemConvertToPolygon"]->setEnabled(false);
+			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != EditMode);
+		}
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
@@ -4128,7 +4185,11 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (view->SelItem.count() > 1)
 	{
 		scrActions["itemAlignDist"]->setEnabled(true);
+		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
+		scrActions["itemConvertToPolygon"]->setEnabled(false);
+		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		bool hPoly = true;
@@ -4172,6 +4233,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	{
 		propertiesPalette->textFlowsAroundFrame->setChecked(b->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
+		scrActions["itemLockSize"]->setEnabled(true);
 		if (b->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);
 		else
@@ -4183,7 +4245,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", false);
 			scrActions["itemAlignDist"]->setEnabled(false);
+			scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
+			scrActions["itemConvertToImageFrame"]->setEnabled(false);
 			scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemConvertToPolygon"]->setEnabled(false);
+			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 			scrActions["itemSplitPolygons"]->setEnabled(false);
 			scrActions["itemAttachTextToPath"]->setEnabled(false);
 			scrActions["itemDetachTextFromPath"]->setEnabled(false);
@@ -4196,14 +4263,10 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClear"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
-			scrActions["itemLower"]->setEnabled(false);
-			scrActions["itemLock"]->setOn(true);
 		}
 		else
 		{
-			scrActions["itemLock"]->setOn(false);
 			bool setter=!(b->isTableItem && b->isSingleSel);
-			scrActions["itemConvertToOutlines"]->setEnabled(setter);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(setter);
@@ -4212,6 +4275,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemRaise"]->setEnabled(setter);
 			scrActions["itemLower"]->setEnabled(setter);
 		}
+		scrActions["itemLock"]->setOn(b->locked());
+		scrActions["itemLockSize"]->setOn(b->sizeLocked());
 	}
 	propertiesPalette->NewSel(Nr);
 	if (Nr != -1)
@@ -4261,6 +4326,7 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 	{
 		PageItem* b = view->SelItem.at(0);
 		scrActions["itemLock"]->setOn(b->locked());
+		scrActions["itemLockSize"]->setOn(b->sizeLocked());
 	}
 }
 
@@ -9611,10 +9677,30 @@ void ScribusApp::SplitUniteOb()
 	view->SplitObj();
 }
 
-void ScribusApp::TraceText()
+void ScribusApp::convertToBezierCurve()
+{
+	view->ToBezierFrame();
+}
+
+void ScribusApp::convertToImageFrame()
+{
+	view->ToPicFrame();
+}
+
+void ScribusApp::convertToOutlines()
 {
 	NoFrameEdit();
 	view->TextToPath();
+}
+
+void ScribusApp::convertToPolygon()
+{
+	view->ToPolyFrame();
+}
+
+void ScribusApp::convertToTextFrame()
+{
+	view->ToTextFrame();
 }
 
 void ScribusApp::Pfadtext()
@@ -9981,6 +10067,12 @@ void ScribusApp::ToggleObjLock()
 {
 	if (HaveDoc)
 		view->ToggleLock();
+}
+
+void ScribusApp::ToggleObjSizeLock()
+{
+	if (HaveDoc)
+		view->ToggleSizeLock();
 }
 
 void ScribusApp::ManageGuides()

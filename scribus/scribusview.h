@@ -295,7 +295,7 @@ public slots: // Public slots
 	void ToggleBookmark();
 	void ToggleAnnotation();
 	void ToggleLock();
-	void ToggleResize();
+	void ToggleSizeLock();
 	void sentToScrap();
 	void sentToLayer(int id);
 	void ToBack();
@@ -386,7 +386,7 @@ signals:
 	void AppendText();
 	void EditText();
 	void DoGroup();
-	void DoUnGroup();
+	//void DoUnGroup();
 	void CutItem();
 	void CopyItem();
 	void Amode(int);
