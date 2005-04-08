@@ -1146,6 +1146,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case 7:
+				case 10:
+				case 11:
+						doc->ActPage->Deselect(false);
 					break;
 				case 13:
 					b->PoLine.resize(b->PoLine.size()-2);
@@ -1183,6 +1186,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		doc->ActPage->mCG = false;
 		doc->ActPage->MidButt = false;
 		doc->SubMode = -1;
+		doc->ElemToLink = NULL;
 		NoFrameEdit();
 		slotSelect();
 		return;
