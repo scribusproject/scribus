@@ -1486,7 +1486,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	if ((b->itemType() != PageItem::TextFrame) && (b->itemType() != PageItem::PathText))
 		b->IFont = doc->toolSettings.defFont;
 	b->GrType = QStoInt(obj->attribute("GRTYP","0"));
-	b->fill_gradient.clearStops();
 	QString GrColor;
 	QString GrColor2;
 	int GrShade;
@@ -1507,9 +1506,9 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	}
 	if (b->GrType != 0)
 	{
+		b->fill_gradient.clearStops();
 		if ((GrColor != "") && (GrColor2 != ""))
 		{
-			b->fill_gradient.clearStops();
 			if (b->GrType == 5)
 			{
 				if ((GrColor != "None") && (GrColor != ""))
