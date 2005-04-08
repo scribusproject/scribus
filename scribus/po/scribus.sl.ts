@@ -653,17 +653,6 @@ Returns a larger font info. It&apos;s a list of the tuples with:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-Image is saved into &quot;filename&quot;. Returns true when success.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
@@ -1414,6 +1403,45 @@ for the macro.
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB colour
+space. If no document is open, returns the value of the named color
+from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
+image data is returned as a string. The optional &quot;format&quot; argument
+specifies the image format to generate, and supports any format allowed
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
 Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
 that the layer &quot;layer&quot; is visible, a value of False means that the layer
 &quot;layer&quot; is invisible.
@@ -1424,14 +1452,22 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
 
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
 
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Returns true if the text frame &quot;name&quot; is a PDF bookmark.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1458,7 +1494,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3 </translation>
+        <translation type="obsolete">%1. %2 %3 </translation>
     </message>
     <message>
         <source>Galician:</source>
@@ -1650,7 +1686,15 @@ Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Portugese (Brazilian):</source>
+        <source>%1 %2 %3 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3701,6 +3745,26 @@ be saved in its current form. The error was:
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Python source files (.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save macro source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the source file to load</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -4903,6 +4967,14 @@ A full traceback follows:
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scribus - New Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter name for new macro: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
@@ -5095,6 +5167,50 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Macro Files (*.pymacro)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the macro file to load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save all macros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Rename Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Set Macro Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new shortcut: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Da</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Ne</translation>
     </message>
 </context>
 <context>
@@ -5594,7 +5710,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Ročno zgoščevanje</translation>
+        <translation type="obsolete">Ročno zgoščevanje</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
@@ -5852,7 +5968,7 @@ robovi:</translation>
     </message>
     <message>
         <source>&amp;Kerning:</source>
-        <translation>&amp;Zgoščevanje:</translation>
+        <translation type="obsolete">&amp;Zgoščevanje:</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
@@ -5937,6 +6053,14 @@ robovi:</translation>
     <message>
         <source>Right to Left Writing</source>
         <translation>Pisanje z leve na desno</translation>
+    </message>
+    <message>
+        <source>Trac&amp;king:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6476,6 +6600,61 @@ sicer glede na predmet.</translation>
     <message>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Pot razreži vodoravno proti desni</translation>
+    </message>
+</context>
+<context>
+    <name>OdtDialog</name>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished">Možnosti pri uvozu iz OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished">Posodobi sloge odstavka</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished">Če slog s tem imenom že obstaja lahko nastavite, ali naj se slog v 
+Scribusu uredi tako, da ustreza uvoženemu ali naj se ga pusti nedotaknjenega</translation>
+    </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished">Ime dokumenta uporabi kot predpono za sloge odstavka</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished">Nastavli ali naj uvoznik doda ime dokumenta 
+pred imena uvoženih slogov odstavka</translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished">Ne vprašaj več</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished">Naj pri uvozu vedno upoštevam trenutno 
+določene možnosti za dokumente OpenOffice.org 
+in nikoli več ne zahtevam potrditve</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">V redu</translation>
     </message>
 </context>
 <context>
@@ -9905,10 +10084,6 @@ function&apos;s documentation.</source>
         <translation type="unfinished">Afrikaansko</translation>
     </message>
     <message>
-        <source>Portugese (Brazilian)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Turkish</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9977,11 +10152,6 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot save to a blank filename.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -10128,6 +10298,39 @@ function&apos;s documentation.</source>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get a colour with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colour not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap.</source>
+        <comment>scripter error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set bookmark on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t get info from a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument Text Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10470,7 +10673,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>SToolBStyle</name>
     <message>
         <source>Kerning:</source>
-        <translation>Spodsekavanje:</translation>
+        <translation type="obsolete">Spodsekavanje:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10478,11 +10681,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Ročno spodsekavanje</translation>
+        <translation type="obsolete">Ročno spodsekavanje</translation>
     </message>
     <message>
         <source>Character Settings</source>
         <translation>Nastavitve znakov</translation>
+    </message>
+    <message>
+        <source>Tracking:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-04-08 13:58+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -2615,7 +2615,7 @@ msgid "Polish"
 msgstr ""
 
 #, fuzzy
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr "Ukrainos:"
 
 msgid "Russian"
@@ -4300,8 +4300,8 @@ msgid "Custom Spacing"
 msgstr "Nuosavas skriptas"
 
 #, fuzzy
-msgid "&Kerning:"
-msgstr "Dëmesio!"
+msgid "Trac&king:"
+msgstr "Dydis:"
 
 #, fuzzy
 msgid "L&ine Spacing:"
@@ -4498,7 +4498,8 @@ msgstr ""
 msgid "Right to Left Writing"
 msgstr "Ið deðinës kairën"
 
-msgid "Manual Kerning"
+#, fuzzy
+msgid "Manual Tracking"
 msgstr "Pasirinktinis kerningas"
 
 #, fuzzy
@@ -5027,8 +5028,8 @@ msgid "Character Settings"
 msgstr "Simboliai"
 
 #, fuzzy
-msgid "Kerning:"
-msgstr "Dëmesio!"
+msgid "Tracking:"
+msgstr "Áterpti:"
 
 #, fuzzy
 msgid "Style Settings"
@@ -5354,7 +5355,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "Apie Scribus"
 
-msgid "%1. %2 %3 "
+msgid "%1 %2 %3 "
 msgstr ""
 
 msgid ""
@@ -5392,6 +5393,9 @@ msgid "A&uthors"
 msgstr "Autoriai"
 
 msgid "Official Translations and Translators:"
+msgstr ""
+
+msgid "Afrikaans:"
 msgstr ""
 
 #, fuzzy
@@ -5437,7 +5441,7 @@ msgid "Polish:"
 msgstr ""
 
 #, fuzzy
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr "Ukrainos:"
 
 msgid "Russian:"
@@ -6511,7 +6515,7 @@ msgid "CSV_header"
 msgstr "Ðeðëlis"
 
 #, fuzzy
-msgid "OpenOffice.org Writer Documents"
+msgid "OpenDocument Text Documents"
 msgstr "Paskutiniai dokumentai"
 
 #, fuzzy
@@ -6555,6 +6559,10 @@ msgid ""
 "set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
+
+#, fuzzy
+msgid "OpenOffice.org Writer Documents"
+msgstr "Paskutiniai dokumentai"
 
 #, fuzzy
 msgid "Text Files"
@@ -7062,6 +7070,15 @@ msgstr "Apie Scribus"
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus - Macro Manager"
 msgstr "Scribus vadovas"
@@ -7069,6 +7086,12 @@ msgstr "Scribus vadovas"
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -7275,6 +7298,14 @@ msgid "Cannot convert a non-text frame to outlines."
 msgstr "Kà nors pakeisti rëmelyje"
 
 #, fuzzy
+msgid "Can't set bookmark on a non-text frame"
+msgstr "Kà nors pakeisti rëmelyje"
+
+#, fuzzy
+msgid "Can't get info from a non-text frame"
+msgstr "Kà nors pakeisti rëmelyje"
+
+#, fuzzy
 msgid "Insert value"
 msgstr "Áklijuoti puslapá"
 
@@ -7285,6 +7316,31 @@ msgid "Enter a value then press OK"
 msgstr ""
 
 msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr "Scribus vadovas"
+
+msgid "Select the macro file to load."
+msgstr ""
+
+#, fuzzy
+msgid "Save all macros"
+msgstr "Iðtrinti spalvà"
+
+#, fuzzy
+msgid "Scribus - Rename Macro"
+msgstr "Scribus vadovas"
+
+msgid "Enter new name: "
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Set Macro Shortcut"
+msgstr "Scribus vadovas"
+
+msgid "Enter new shortcut: "
 msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
@@ -7413,8 +7469,8 @@ msgid "Cannot render an empty sample."
 msgstr "Sukurk naujà dokumentà"
 
 #, fuzzy
-msgid "Cannot save to a blank filename."
-msgstr "Kà nors pakeisti rëmelyje"
+msgid "Unable to save pixmap."
+msgstr "Neámanoma áraðyti PDFo."
 
 #, fuzzy
 msgid "Cannot have an empty layer name."
@@ -7441,6 +7497,14 @@ msgstr "Kà nors pakeisti rëmelyje"
 
 #, fuzzy
 msgid "Color not found."
+msgstr "Sistemos ðablonai"
+
+#, fuzzy
+msgid "Cannot get a colour with an empty name."
+msgstr "Kà nors pakeisti rëmelyje"
+
+#, fuzzy
+msgid "Colour not found"
 msgstr "Sistemos ðablonai"
 
 #, fuzzy
@@ -7502,6 +7566,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""
@@ -7650,6 +7717,18 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
+
+#, fuzzy
+#~ msgid "&Kerning:"
+#~ msgstr "Dëmesio!"
+
+#, fuzzy
+#~ msgid "Kerning:"
+#~ msgstr "Dëmesio!"
+
+#, fuzzy
+#~ msgid "Cannot save to a blank filename."
+#~ msgstr "Kà nors pakeisti rëmelyje"
 
 #, fuzzy
 #~ msgid "Brazilian Portuguese"
@@ -7932,9 +8011,6 @@ msgstr ""
 
 #~ msgid " saved"
 #~ msgstr " iðsaugotas"
-
-#~ msgid "Unable to create PDF-File."
-#~ msgstr "Neámanoma áraðyti PDFo."
 
 #~ msgid "Error creating PDF-File.."
 #~ msgstr "Klaida PDFo áraðyme"

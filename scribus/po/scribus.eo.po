@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-04-08 13:58+0200\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -2422,7 +2422,7 @@ msgid "Polish"
 msgstr "Pola"
 
 #, fuzzy
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr "Brazila"
 
 msgid "Russian"
@@ -3920,8 +3920,9 @@ msgstr "Ti&pargrando:"
 msgid "Custom Spacing"
 msgstr "Propra spac-aranĝo"
 
-msgid "&Kerning:"
-msgstr "Liter&distanco:"
+#, fuzzy
+msgid "Trac&king:"
+msgstr "Sk&alado:"
 
 msgid "L&ine Spacing:"
 msgstr "Lini-distan&co:"
@@ -4092,7 +4093,8 @@ msgstr "Saturiteco de la koloro de la tekstoplenigo"
 msgid "Right to Left Writing"
 msgstr "De dekstre maldekstren"
 
-msgid "Manual Kerning"
+#, fuzzy
+msgid "Manual Tracking"
 msgstr "Neaŭtomata literdistanco"
 
 msgid "Line Spacing"
@@ -4557,8 +4559,9 @@ msgstr "Konturkolora agordaro"
 msgid "Character Settings"
 msgstr "Signoagordaro"
 
-msgid "Kerning:"
-msgstr "Literdistanco:"
+#, fuzzy
+msgid "Tracking:"
+msgstr "Situo"
 
 msgid "Style Settings"
 msgstr "Stil-agordaro"
@@ -4858,7 +4861,8 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "Pri Scribus%1"
 
-msgid "%1. %2 %3 "
+#, fuzzy
+msgid "%1 %2 %3 "
 msgstr "%1. %2 %3 "
 
 msgid ""
@@ -4895,6 +4899,10 @@ msgstr "Aŭ&toroj"
 
 msgid "Official Translations and Translators:"
 msgstr "Oficialaj tradukoj kaj tradukintoj:"
+
+#, fuzzy
+msgid "Afrikaans:"
+msgstr "Afrikanso"
 
 msgid "Catalan:"
 msgstr "Kataluna:"
@@ -4933,7 +4941,7 @@ msgid "Polish:"
 msgstr "Pola:"
 
 #, fuzzy
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr "Brazila"
 
 msgid "Russian:"
@@ -5907,8 +5915,9 @@ msgstr "CSV-datumoj"
 msgid "CSV_header"
 msgstr "CSV-titoloj"
 
-msgid "OpenOffice.org Writer Documents"
-msgstr "Dokumentoj de OpenOffice.org Writer"
+#, fuzzy
+msgid "OpenDocument Text Documents"
+msgstr "Tekstodokumentoj"
 
 msgid "OpenOffice.org Writer Importer Options"
 msgstr "Opcioj de importilo por OpenOffice.org Writer"
@@ -5958,6 +5967,9 @@ msgstr ""
 "La importilo devus ĉiam utiligi la aktualan ar-valoron\n"
 "dum importado de dokumentoj de OpenOffice.org kaj\n"
 "neniam plu peti konfirmon"
+
+msgid "OpenOffice.org Writer Documents"
+msgstr "Dokumentoj de OpenOffice.org Writer"
 
 msgid "Text Files"
 msgstr "Tekstodosieroj"
@@ -6511,6 +6523,15 @@ msgstr "Pri Scriptoj"
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus - Macro Manager"
 msgstr "Scribus-Manlibro"
@@ -6518,6 +6539,12 @@ msgstr "Scribus-Manlibro"
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -6732,6 +6759,14 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Ne eblas konverti ne-tekstan kadron al konturoj"
 
+#, fuzzy
+msgid "Can't set bookmark on a non-text frame"
+msgstr "Ne eblas agordi stilon en ne-tekstaj kadroj"
+
+#, fuzzy
+msgid "Can't get info from a non-text frame"
+msgstr "Ne eblas agordi tiparon en ne-teksta kadro"
+
 msgid "Insert value"
 msgstr "Enmetu valoron"
 
@@ -6743,6 +6778,31 @@ msgstr "Enmetu valoron kaj konfirmu"
 
 msgid "Send your value to the script"
 msgstr "Sendu la valoron al la skripto"
+
+#, fuzzy
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr "Scribus-Manlibro"
+
+msgid "Select the macro file to load."
+msgstr ""
+
+#, fuzzy
+msgid "Save all macros"
+msgstr "Forigu ĉiujn tabojn"
+
+#, fuzzy
+msgid "Scribus - Rename Macro"
+msgstr "Scribus-Manlibro"
+
+msgid "Enter new name: "
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Set Macro Shortcut"
+msgstr "Scribus-Manlibro"
+
+msgid "Enter new shortcut: "
+msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
 msgstr ""
@@ -6871,8 +6931,8 @@ msgid "Cannot render an empty sample."
 msgstr "Ne eblas montri malplenan ekzemplon"
 
 #, fuzzy
-msgid "Cannot save to a blank filename."
-msgstr "Ne eblas konservi ne enmetante dosiernomon"
+msgid "Unable to save pixmap."
+msgstr "EPS-konservo malsukcesis"
 
 #, fuzzy
 msgid "Cannot have an empty layer name."
@@ -6899,6 +6959,14 @@ msgstr "Ne eblas akiri koloron ne enmetante nomon."
 
 #, fuzzy
 msgid "Color not found."
+msgstr "Koloro ne trovita"
+
+#, fuzzy
+msgid "Cannot get a colour with an empty name."
+msgstr "Ne eblas akiri koloron ne enmetante nomon."
+
+#, fuzzy
+msgid "Colour not found"
 msgstr "Koloro ne trovita"
 
 msgid "Cannot change a color with an empty name."
@@ -6957,6 +7025,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""
@@ -7097,6 +7168,16 @@ msgstr ""
 "La importo de la dosiero:\n"
 "%1\n"
 "malsukcesis!"
+
+#~ msgid "&Kerning:"
+#~ msgstr "Liter&distanco:"
+
+#~ msgid "Kerning:"
+#~ msgstr "Literdistanco:"
+
+#, fuzzy
+#~ msgid "Cannot save to a blank filename."
+#~ msgstr "Ne eblas konservi ne enmetante dosiernomon"
 
 #~ msgid "Can't column gap on a non-text frame"
 #~ msgstr "Ne eblas agordi kolumnodistancon en ne-teksta kadro"

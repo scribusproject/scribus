@@ -2225,7 +2225,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; booleano
+        <translation type="obsolete">isLayerPrintable(&quot;capa&quot;) -&gt; booleano
 
 Devolve se a capa &quot;capa&quot; é visíbel ou non; o valor Verdadeiro significa
 que a capa &quot;capa&quot; é visíbelo, o valor Falso significa que a capa
@@ -2304,6 +2304,18 @@ Se non se dá un &quot;nome&quot; utilízase o elemento seleccionado nese moment
 
 Pode provocar un WrongFrameTypeErro se a moldura de destino non é unha moldura de texto</translation>
     </message>
+    <message>
+        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2313,7 +2325,7 @@ Pode provocar un WrongFrameTypeErro se a moldura de destino non é unha moldura 
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3 </translation>
+        <translation type="obsolete">%1. %2 %3 </translation>
     </message>
     <message>
         <source>Scribus Version %1
@@ -2551,7 +2563,19 @@ A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
         <source>Portugese (Brazilian):</source>
-        <translation>Portugués (Brasileiro):</translation>
+        <translation type="obsolete">Portugués (Brasileiro):</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4635,6 +4659,26 @@ O erro foi:
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation>Modificar o código fonte - o texto - da macro nun ficheiro. Pode modificar a fonte gardada e carregala de novo mediante &quot;Carregar Fonte...&quot;.</translation>
     </message>
+    <message>
+        <source>Python source files (.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save macro source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the source file to load</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -5882,6 +5926,14 @@ A seguir, o rexistro completo:
 
 %3</translation>
     </message>
+    <message>
+        <source>Scribus - New Macro</source>
+        <translation type="unfinished">Scribus - Macro Nova</translation>
+    </message>
+    <message>
+        <source>Enter name for new macro: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
@@ -6083,6 +6135,50 @@ The table in the center of the dialog lists what macros are currently loaded and
         <translation>&lt;p&gt;Modificar a macro seleccionada.&lt;/p&gt;
 &lt;p&gt;Se este botón está apagado, ora non hai unha macro seleccionada ou o xestor de macros non dispón do código fonte da macro que escolleu (en cuxo caso verá &lt;tt&gt;Non&lt;/tt&gt; na columna &lt;tt&gt;Modificar&lt;/tt&gt; da macro).&lt;/p&gt;
 &lt;p&gt;Se Scribus non dispón da fonte, a macro creouna moi posibelmente un guión.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scribus Macro Files (*.pymacro)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the macro file to load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save all macros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Rename Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Set Macro Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new shortcut: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Si</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Non</translation>
     </message>
 </context>
 <context>
@@ -6444,7 +6540,7 @@ un rango de páxinas ou unha única páxina.</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Axuste automático do Kerming</translation>
+        <translation type="obsolete">Axuste automático do Kerming</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
@@ -6844,7 +6940,7 @@ R&amp;edondeadas:</translation>
     </message>
     <message>
         <source>&amp;Kerning:</source>
-        <translation>&amp;Kerning:</translation>
+        <translation type="obsolete">&amp;Kerning:</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
@@ -6929,6 +7025,14 @@ R&amp;edondeadas:</translation>
     <message>
         <source>Right to Left Writing</source>
         <translation>Escrita da Direita para a Esquerda</translation>
+    </message>
+    <message>
+        <source>Trac&amp;king:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7472,6 +7576,65 @@ se non, as Coordenadas son relativas ao Obxecto.</translation>
     <message>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Recortar a Traxectoria Horizontalmente para a Direita</translation>
+    </message>
+</context>
+<context>
+    <name>OdtDialog</name>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished">Opcións do Importador do Writer de OpenOffice.org</translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished">Actualizar os estilos de parágrafo</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished">Se xa existe un estilo de parágrafo co mesmo nome que o parágrafo
+actual do documento de OpenOffice.org, deberíase modificar o estilo en Scribus
+para que equivalla ao que se importa ou non se debería tocar</translation>
+    </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation type="unfinished">Empacar os estilos de parágrafo</translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation type="unfinished">Agrupar os estilos de parágrafo polos seus atributos.
+Menos estilos de parágrafo, mais controlalos pode resultar máis difícil.
+Deberíase utilizar se se sabe que o texto non vai ser modificado
+após importalo.</translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished">Usar o nome do documento como prefixo dos estilos de parágrafo</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished">Debería o importador adicionar o nome do documento
+por diante do nome do estilo de parágrafo en Scribus</translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished">Non perguntar máis</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished">Debería o importador utilizar sempre o valor actualmente
+asignado ao importar un documento do OpenOffice.org
+e non pedir máis a súa configuración</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11316,7 +11479,7 @@ extensión de abreviacións:</translation>
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation>Portugués (Brasileiro)</translation>
+        <translation type="obsolete">Portugués (Brasileiro)</translation>
     </message>
     <message>
         <source>Turkish</source>
@@ -11681,6 +11844,14 @@ que non sexa de texto
 
 erro de python</translation>
     </message>
+    <message>
+        <source>Portuguese (Brazilian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12021,7 +12192,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     <name>SToolBStyle</name>
     <message>
         <source>Kerning:</source>
-        <translation>Kerning:</translation>
+        <translation type="obsolete">Kerning:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12029,11 +12200,19 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Kerning Manual</translation>
+        <translation type="obsolete">Kerning Manual</translation>
     </message>
     <message>
         <source>Character Settings</source>
         <translation>Configuración dos Caracteres</translation>
+    </message>
+    <message>
+        <source>Tracking:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

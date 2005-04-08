@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-04-08 13:58+0200\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -2322,7 +2322,7 @@ msgstr ""
 msgid "Polish"
 msgstr ""
 
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr ""
 
 msgid "Russian"
@@ -3758,7 +3758,7 @@ msgstr ""
 msgid "Custom Spacing"
 msgstr ""
 
-msgid "&Kerning:"
+msgid "Trac&king:"
 msgstr ""
 
 msgid "L&ine Spacing:"
@@ -3930,7 +3930,7 @@ msgstr ""
 msgid "Right to Left Writing"
 msgstr ""
 
-msgid "Manual Kerning"
+msgid "Manual Tracking"
 msgstr ""
 
 msgid "Line Spacing"
@@ -4394,7 +4394,7 @@ msgstr ""
 msgid "Character Settings"
 msgstr ""
 
-msgid "Kerning:"
+msgid "Tracking:"
 msgstr ""
 
 msgid "Style Settings"
@@ -4668,7 +4668,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "스크리부스"
 
-msgid "%1. %2 %3 "
+msgid "%1 %2 %3 "
 msgstr ""
 
 msgid ""
@@ -4702,6 +4702,9 @@ msgid "A&uthors"
 msgstr ""
 
 msgid "Official Translations and Translators:"
+msgstr ""
+
+msgid "Afrikaans:"
 msgstr ""
 
 msgid "Catalan:"
@@ -4741,7 +4744,7 @@ msgstr ""
 msgid "Polish:"
 msgstr ""
 
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr ""
 
 msgid "Russian:"
@@ -5689,7 +5692,7 @@ msgid "CSV_header"
 msgstr ""
 
 #, fuzzy
-msgid "OpenOffice.org Writer Documents"
+msgid "OpenDocument Text Documents"
 msgstr "기존문서 열기"
 
 msgid "OpenOffice.org Writer Importer Options"
@@ -5732,6 +5735,10 @@ msgid ""
 "set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
+
+#, fuzzy
+msgid "OpenOffice.org Writer Documents"
+msgstr "기존문서 열기"
 
 msgid "Text Files"
 msgstr ""
@@ -6205,12 +6212,27 @@ msgstr "사용자 설정 스크립트"
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 msgid "Scribus - Macro Manager"
 msgstr ""
 
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -6394,6 +6416,12 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr ""
 
+msgid "Can't set bookmark on a non-text frame"
+msgstr ""
+
+msgid "Can't get info from a non-text frame"
+msgstr ""
+
 #, fuzzy
 msgid "Insert value"
 msgstr "페이지 번호 삽입"
@@ -6405,6 +6433,27 @@ msgid "Enter a value then press OK"
 msgstr ""
 
 msgid "Send your value to the script"
+msgstr ""
+
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr ""
+
+msgid "Select the macro file to load."
+msgstr ""
+
+msgid "Save all macros"
+msgstr ""
+
+msgid "Scribus - Rename Macro"
+msgstr ""
+
+msgid "Enter new name: "
+msgstr ""
+
+msgid "Scribus - Set Macro Shortcut"
+msgstr ""
+
+msgid "Enter new shortcut: "
 msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
@@ -6529,7 +6578,7 @@ msgstr ""
 msgid "Cannot render an empty sample."
 msgstr ""
 
-msgid "Cannot save to a blank filename."
+msgid "Unable to save pixmap."
 msgstr ""
 
 msgid "Cannot have an empty layer name."
@@ -6553,6 +6602,13 @@ msgstr ""
 
 #, fuzzy
 msgid "Color not found."
+msgstr "현재 문서 닫기"
+
+msgid "Cannot get a colour with an empty name."
+msgstr ""
+
+#, fuzzy
+msgid "Colour not found"
 msgstr "현재 문서 닫기"
 
 msgid "Cannot change a color with an empty name."
@@ -6609,6 +6665,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""

@@ -2473,11 +2473,19 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>Portugese (Brazilian):</source>
-        <translation>Portugalski (Brazylijski):</translation>
+        <translation type="obsolete">Portugalski (Brazylijski):</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
         <translation>%1 %2 %3 </translation>
+    </message>
+    <message>
+        <source>Afrikaans:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4537,6 +4545,26 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation>Zapisuje kod źródłowy makra do pliku. Zapisany w ten sposób kod źródłowy można pobrać do dalszej edycji klikając na przycisk &quot;Pobierz kod źródłowy...&quot;.</translation>
     </message>
+    <message>
+        <source>Python source files (.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save macro source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the source file to load</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -5747,6 +5775,14 @@ Pełny zapis informacji śledzących poniżej:
 
 %3</translation>
     </message>
+    <message>
+        <source>Scribus - New Macro</source>
+        <translation type="unfinished">Scribus - Nowe Makro</translation>
+    </message>
+    <message>
+        <source>Enter name for new macro: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
@@ -5953,6 +5989,50 @@ Może on być wykonany za pomocą opcji &lt;tt&gt;Pobierz skrypt rozszerzający&
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Scribus Macro Files (*.pymacro)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the macro file to load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save all macros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Rename Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Set Macro Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new shortcut: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Tak</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Nie</translation>
     </message>
 </context>
 <context>
@@ -6314,7 +6394,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Manualne podcinanie</translation>
+        <translation type="obsolete">Manualne podcinanie</translation>
     </message>
     <message>
         <source>None</source>
@@ -6710,7 +6790,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Kerning:</source>
-        <translation>&amp;Podcięcie:</translation>
+        <translation type="obsolete">&amp;Podcięcie:</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
@@ -6795,6 +6875,14 @@ Corners:</source>
     <message>
         <source>Right to Left Writing</source>
         <translation>Pisanie od prawej do lewej</translation>
+    </message>
+    <message>
+        <source>Trac&amp;king:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11028,7 +11116,7 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation>Portugalski (Brazylijski)</translation>
+        <translation type="obsolete">Portugalski (Brazylijski)</translation>
     </message>
     <message>
         <source>Turkish</source>
@@ -11285,6 +11373,10 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
     <message>
         <source>OpenDocument Text Documents</source>
         <translation>OpenDocument Dokumenty tekstowe</translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11626,7 +11718,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <name>SToolBStyle</name>
     <message>
         <source>Kerning:</source>
-        <translation>Podcięcie:</translation>
+        <translation type="obsolete">Podcięcie:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -11634,11 +11726,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Manualne podcinanie</translation>
+        <translation type="obsolete">Manualne podcinanie</translation>
     </message>
     <message>
         <source>Character Settings</source>
         <translation>Ustawienia znaków</translation>
+    </message>
+    <message>
+        <source>Tracking:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

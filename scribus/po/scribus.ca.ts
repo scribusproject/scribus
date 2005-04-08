@@ -1372,7 +1372,7 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation>rendeFont(&quot;nom&quot;, &quot;nomFitxer&quot;, &quot;sample&quot;, mida) -&gt; bool
+        <translation type="obsolete">rendeFont(&quot;nom&quot;, &quot;nomFitxer&quot;, &quot;sample&quot;, mida) -&gt; bool
 
 Crea una imatge de previsualització de la font &quot;nom&quot; amb el text &quot;sample&quot; i mida.
 La imatge és desa en el fitxer &quot;nomFitxer&quot;. Retorna cert quan tot va bé.
@@ -2345,7 +2345,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerVisible(&quot;capa&quot;) -&gt;bool
+        <translation type="obsolete">isLayerVisible(&quot;capa&quot;) -&gt;bool
 
 Retorna si la capa &quot;capa&quot; és visible o no, un valor de cert significa
 que la capa &quot;capa&quot; és visible, un valor de fals significa que la capa
@@ -2375,6 +2375,65 @@ Pot generar NotFoundError si la capa no es pot trobar.
 Pot generar ValueError si el nom de la capa no és acceptable.
 </translation>
     </message>
+    <message>
+        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB colour
+space. If no document is open, returns the value of the named color
+from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
+image data is returned as a string. The optional &quot;format&quot; argument
+specifies the image format to generate, and supports any format allowed
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Returns true if the text frame &quot;name&quot; is a PDF bookmark.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2384,7 +2443,7 @@ Pot generar ValueError si el nom de la capa no és acceptable.
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3</translation>
+        <translation type="obsolete">%1. %2 %3</translation>
     </message>
     <message>
         <source>Scribus Version %1
@@ -2595,7 +2654,19 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Portugese (Brazilian):</source>
-        <translation>Portuguès (Brasil.ler):</translation>
+        <translation type="obsolete">Portuguès (Brasil.ler):</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4654,6 +4725,26 @@ es pot desar amb aquest formulari. L&apos;error és:
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation>Desa el codi font -el text- de la macro en un fitxer. Pots editar el  codi font i tornar-lo a carregar amb &quot;Carregar Codi Font...&quot;.</translation>
     </message>
+    <message>
+        <source>Python source files (.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save macro source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the source file to load</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -5867,6 +5958,14 @@ L&apos;error ve de:
 %3
 </translation>
     </message>
+    <message>
+        <source>Scribus - New Macro</source>
+        <translation type="unfinished">Scribus - Nova Macro</translation>
+    </message>
+    <message>
+        <source>Enter name for new macro: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
@@ -6069,6 +6168,50 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
         <translation>&lt;p&gt;Edita la macro seleccionada.&lt;/p&gt;
 &lt;p&gt;Si aquest botó està desactivat, és que no hi és o que el gestor de macros  no té el codi font  de la macro que has seleccionat (en aquest cas es veurà &lt;tt&gt;No&lt;/tt&gt; en la columna &lt;tt&gt;Edit&lt;/tt&gt; de la macro).&lt;/p&gt;
 &lt;p&gt;Si Scribus no té el codi font de la macro és perquè provablement ha estat creada per una seqüència.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scribus Macro Files (*.pymacro)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the macro file to load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save all macros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Rename Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Set Macro Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new shortcut: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Si</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">No</translation>
     </message>
 </context>
 <context>
@@ -6469,7 +6612,7 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>&amp;Kerning:</source>
-        <translation>&amp;Interlletratge:</translation>
+        <translation type="obsolete">&amp;Interlletratge:</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
@@ -6733,7 +6876,7 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Interlletratge Manual</translation>
+        <translation type="obsolete">Interlletratge Manual</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -6912,6 +7055,14 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Right to Left Writing</source>
         <translation>Escriptura d&apos;esquerra a dreta</translation>
+    </message>
+    <message>
+        <source>Trac&amp;king:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7451,6 +7602,65 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
 otherwise Coordinates are relative to the Object.</source>
         <translation>Si està clicat fa servir Coordenades Relatives de 
 Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
+    </message>
+</context>
+<context>
+    <name>OdtDialog</name>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished">Opcions de l&apos;Importador d&apos;OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished">Actualitza estils de paràgraf</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished">Si un estil de paràgraf ja existeix amb el mateix nom de l&apos;actual
+paràgraf del document OpenOffice.org, s&apos;ha d&apos;editar l&apos;estil per deixar-lo
+com el nou, o deixar-lo igual </translation>
+    </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation type="unfinished">Empaqueta estils de paràgraf</translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation type="unfinished">Agrupa els estils de paràgraf pels seus atributs.
+Hi haurà menys estils però controlar-los pot ser mes dur.
+S&apos;hauria de fer servir quan se sap que el text no s&apos;editarà
+després d&apos;importar-lo.</translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished">Fes servir el nom de document com estil de paràgraf</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished">L&apos;importador ha d&apos;afegir el nom del document
+davant de l&apos;estil de paràgraf de l&apos;Scribus</translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished">No ho tornis a preguntar</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished">L&apos;importador sempre fa servir el conjunt de 
+valors actual al importar documents OpenOffice.org i 
+mai tornarà a preguntar de nou</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">D&apos;acord</translation>
     </message>
 </context>
 <context>
@@ -11080,7 +11290,7 @@ la documentació de la funció.
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation>Portuguès (Brasil.ler)</translation>
+        <translation type="obsolete">Portuguès (Brasil.ler)</translation>
     </message>
     <message>
         <source>Turkish</source>
@@ -11157,7 +11367,7 @@ la documentació de la funció.
     <message>
         <source>Cannot save to a blank filename.</source>
         <comment>python error</comment>
-        <translation>No ho puc desar si no té nom.</translation>
+        <translation type="obsolete">No ho puc desar si no té nom.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
@@ -11303,6 +11513,39 @@ la documentació de la funció.
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>No es pot convertir un marc que no és de text a esquema.</translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get a colour with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colour not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap.</source>
+        <comment>scripter error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set bookmark on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t get info from a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11648,7 +11891,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Kerning:</source>
-        <translation>Interlletratge:</translation>
+        <translation type="obsolete">Interlletratge:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -11656,7 +11899,15 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Interlletratge Manual</translation>
+        <translation type="obsolete">Interlletratge Manual</translation>
+    </message>
+    <message>
+        <source>Tracking:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

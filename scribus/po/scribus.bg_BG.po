@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-04-08 13:58+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -2545,7 +2545,7 @@ msgid "Polish"
 msgstr ""
 
 #, fuzzy
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr "Украйнски:"
 
 msgid "Russian"
@@ -4194,8 +4194,8 @@ msgid "Custom Spacing"
 msgstr ""
 
 #, fuzzy
-msgid "&Kerning:"
-msgstr "Внимания"
+msgid "Trac&king:"
+msgstr "Мащабиране:"
 
 #, fuzzy
 msgid "L&ine Spacing:"
@@ -4384,7 +4384,8 @@ msgstr ""
 msgid "Right to Left Writing"
 msgstr ""
 
-msgid "Manual Kerning"
+#, fuzzy
+msgid "Manual Tracking"
 msgstr "Ръчено междубуквие"
 
 #, fuzzy
@@ -4900,8 +4901,8 @@ msgid "Character Settings"
 msgstr "Параметри на печатащото устройство"
 
 #, fuzzy
-msgid "Kerning:"
-msgstr "Внимания"
+msgid "Tracking:"
+msgstr "Поставяне:"
 
 #, fuzzy
 msgid "Style Settings"
@@ -5215,7 +5216,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "За Scribus"
 
-msgid "%1. %2 %3 "
+msgid "%1 %2 %3 "
 msgstr ""
 
 msgid ""
@@ -5253,6 +5254,9 @@ msgid "A&uthors"
 msgstr "Автори"
 
 msgid "Official Translations and Translators:"
+msgstr ""
+
+msgid "Afrikaans:"
 msgstr ""
 
 #, fuzzy
@@ -5296,7 +5300,7 @@ msgid "Polish:"
 msgstr ""
 
 #, fuzzy
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr "Украйнски:"
 
 msgid "Russian:"
@@ -6354,7 +6358,7 @@ msgid "CSV_header"
 msgstr "Сянка"
 
 #, fuzzy
-msgid "OpenOffice.org Writer Documents"
+msgid "OpenDocument Text Documents"
 msgstr "Документи"
 
 #, fuzzy
@@ -6398,6 +6402,10 @@ msgid ""
 "set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
+
+#, fuzzy
+msgid "OpenOffice.org Writer Documents"
+msgstr "Документи"
 
 #, fuzzy
 msgid "Text Files"
@@ -6900,6 +6908,15 @@ msgstr "За Scribus"
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus - Macro Manager"
 msgstr "Документация"
@@ -6907,6 +6924,12 @@ msgstr "Документация"
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -7111,6 +7134,14 @@ msgid "Cannot convert a non-text frame to outlines."
 msgstr "Редактиране на промените на рамката"
 
 #, fuzzy
+msgid "Can't set bookmark on a non-text frame"
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Can't get info from a non-text frame"
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
 msgid "Insert value"
 msgstr "Вмъкване на страница"
 
@@ -7121,6 +7152,31 @@ msgid "Enter a value then press OK"
 msgstr ""
 
 msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr "Документация"
+
+msgid "Select the macro file to load."
+msgstr ""
+
+#, fuzzy
+msgid "Save all macros"
+msgstr "Изтрий цвета"
+
+#, fuzzy
+msgid "Scribus - Rename Macro"
+msgstr "Документация"
+
+msgid "Enter new name: "
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Set Macro Shortcut"
+msgstr "Документация"
+
+msgid "Enter new shortcut: "
 msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
@@ -7249,8 +7305,8 @@ msgid "Cannot render an empty sample."
 msgstr "Създаване на нов документ"
 
 #, fuzzy
-msgid "Cannot save to a blank filename."
-msgstr "Редактиране на промените на рамката"
+msgid "Unable to save pixmap."
+msgstr "Неуспешно създаване на PDF"
 
 #, fuzzy
 msgid "Cannot have an empty layer name."
@@ -7277,6 +7333,14 @@ msgstr "Редактиране на промените на рамката"
 
 #, fuzzy
 msgid "Color not found."
+msgstr "Отпечатване на текущ документ"
+
+#, fuzzy
+msgid "Cannot get a colour with an empty name."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Colour not found"
 msgstr "Отпечатване на текущ документ"
 
 #, fuzzy
@@ -7338,6 +7402,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""
@@ -7481,6 +7548,18 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
+
+#, fuzzy
+#~ msgid "&Kerning:"
+#~ msgstr "Внимания"
+
+#, fuzzy
+#~ msgid "Kerning:"
+#~ msgstr "Внимания"
+
+#, fuzzy
+#~ msgid "Cannot save to a blank filename."
+#~ msgstr "Редактиране на промените на рамката"
 
 #, fuzzy
 #~ msgid "Brazilian Portuguese"
@@ -7717,9 +7796,6 @@ msgstr ""
 
 #~ msgid " saved"
 #~ msgstr " записан"
-
-#~ msgid "Unable to create PDF-File."
-#~ msgstr "Неуспешно създаване на PDF"
 
 #~ msgid "Error creating PDF-File.."
 #~ msgstr "Грешка при създаване на PDF файл"

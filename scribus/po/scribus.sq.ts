@@ -7628,7 +7628,7 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation>rendeFont(&quot;name&quot;, &quot;emër kartele&quot;, &quot;shembull&quot;, madhësi) -&gt; bool
+        <translation type="obsolete">rendeFont(&quot;name&quot;, &quot;emër kartele&quot;, &quot;shembull&quot;, madhësi) -&gt; bool
 
 Krijon një paraparje pamjeje të gërmave &quot;emër&quot; me tekstin e dhënë &quot;shembull&quot; dhe madhësinë.
 Pamjet ruhen te &quot;emër kartele&quot;. Përgjigjet me &quot;true&quot; në rast suksesi.
@@ -7737,7 +7737,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
 
 Përgjigjet nëse Shtresa &quot;shtresë&quot; është e dukshme ose jo, vlera True do të thotë 
 që shtresa &quot;shtresë&quot; është e dukshme, vlera False do të thotë 
@@ -7757,7 +7757,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
 
 Përgjigjet nëse Shtresa &quot;shtresë&quot; është e shtypshme ose jo, vlera True do të thotë 
 që shtresa &quot;shtresë&quot; është e shtypshme, vlera False do të thotë që shtypja e
@@ -8863,6 +8863,77 @@ Aktivizon/çaktivizon ikonë ruajtjesh te shtyllë ikonash të Scribus-it dhe pj
 nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit të një programthi.
 </translation>
     </message>
+    <message>
+        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB colour
+space. If no document is open, returns the value of the named color
+from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
+image data is returned as a string. The optional &quot;format&quot; argument
+specifies the image format to generate, and supports any format allowed
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Returns true if the text frame &quot;name&quot; is a PDF bookmark.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -8872,7 +8943,7 @@ nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit t
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3 </translation>
+        <translation type="obsolete">%1. %2 %3 </translation>
     </message>
     <message>
         <source>Scribus Version %1
@@ -9107,6 +9178,18 @@ Missing library support is indicated by a *</source>
  suport librarish përpiluar në Scribus
 C-C-T është e barazvlefshme me suport C=littlecms C=CUPS T=TIFF.
 Mungesë suporti librarish tregohet me një *</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11191,6 +11274,26 @@ të ruhet në formën e tanishme. Gabimi qe:
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation>Ruaj në një kartelë kodin burim - tekstin - e makros. Mund ta përpunoni kodin e ruajtur dhe ta ngarkoni sërish me &quot;Ngarko Burim...&quot;.</translation>
     </message>
+    <message>
+        <source>Python source files (.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save macro source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the source file to load</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -12437,6 +12540,14 @@ Vijon një gjurmues i plotë:
 %3
 </translation>
     </message>
+    <message>
+        <source>Scribus - New Macro</source>
+        <translation type="unfinished">Scribus - Makro e Re</translation>
+    </message>
+    <message>
+        <source>Enter name for new macro: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
@@ -12486,11 +12597,11 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
     </message>
     <message>
         <source>Close this dialog.</source>
-        <translation>Mbyll këtë dialog.</translation>
+        <translation type="obsolete">Mbyll këtë dialog.</translation>
     </message>
     <message>
         <source>Return to Scribus.</source>
-        <translation>Kthehu te Scribus.</translation>
+        <translation type="obsolete">Kthehu te Scribus.</translation>
     </message>
     <message>
         <source>Macro</source>
@@ -12554,7 +12665,7 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Përpunoni makron e përzgjedhur. &lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Përpunoni makron e përzgjedhur. &lt;/p&gt;
 &lt;p&gt;Nëse ky buton është gri, ose nuk është përzgjedhur makro, ose përgjegjësi i makrove nuk e ka kodin burim për makron që keni përzgjedhur (e në këtë rast do të shfaqet një &lt;tt&gt;Jo&lt;/tt&gt; te shtylla &lt;tt&gt;Përpunoni &lt;/tt&gt;e makros).&lt;/p&gt;
 &lt;p&gt;Nëse Scribus-i nuk nuk e ka kodin burim, makroja mbase qe krijuar nga një programth.&lt;/p&gt;</translation>
     </message>
@@ -12639,6 +12750,64 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ngarkon makro prej një kartele të jashtmee.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scribus Macro Files (*.pymacro)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the macro file to load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save all macros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Rename Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Set Macro Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new shortcut: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Po</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Jo</translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
+&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
+&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12743,27 +12912,27 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation>Gabim programthi</translation>
+        <translation type="obsolete">Gabim programthi</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation type="obsolete">Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
+        <translation type="obsolete">Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Shfaq &amp;Konsol</translation>
+        <translation type="obsolete">Shfaq &amp;Konsol</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Fshih &amp;Konsol</translation>
+        <translation type="obsolete">Fshih &amp;Konsol</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation>Scribus - Shtojcë Programthesh</translation>
+        <translation type="obsolete">Scribus - Shtojcë Programthesh</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -12776,7 +12945,7 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation>Funksioni &apos;Ngarko Programth&apos; për shtojcën e programtheve është e çaktivizuar për çastin.
+        <translation type="obsolete">Funksioni &apos;Ngarko Programth&apos; për shtojcën e programtheve është e çaktivizuar për çastin.
 Nëse doni thjesht të xhironi një programth normal, mbase doni të përdorni programin
 &apos;Ekzekuto Programth...&apos; më mirë.
 
@@ -13063,10 +13232,6 @@ të Rrumbullakët:</translation>
         <translation>Ndërvijë Vetjake</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>N&amp;dërvijë:</translation>
     </message>
@@ -13331,10 +13496,6 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Shkrim Së Prapthi</translation>
     </message>
     <message>
-        <source>Manual Kerning</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Line Spacing</source>
         <translation>Ndërvijë</translation>
     </message>
@@ -13511,6 +13672,14 @@ Ju lutem zgjidhni një tjetër.</translation>
     <message>
         <source>Right to Left Writing</source>
         <translation>Shkrim nga e Majt në të Djathtë</translation>
+    </message>
+    <message>
+        <source>Trac&amp;king:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14057,6 +14226,65 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
 </context>
 <context>
+    <name>OdtDialog</name>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished">Mundësi Importuesi për OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished">Përditëso stile paragrafësh</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished">Nëse një stil paragrafi me të njëjtin numër si paragrafi i dokumentit OpenOffice.org
+ekziston tashmë, stili në Scribus do të duhej të të përpunohej për përputhje me
+atë të importuar, ose të lihet i paprekur</translation>
+    </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation type="unfinished">Paketo stile pargrafësh</translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation type="unfinished">Grupo stile paragrafesh sipas atributesh.
+Më pak stile paragrafesh por kontrolli i tyre mund të jetë i vështirë.
+Do të duhej të përdorej nëse dihet që teksti nuk duhet përpunuar
+pas përpunimi.</translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished">Përdor emra dokumentesh si parashtesë për stile paragrafësh </translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished">Nëse do të duhej që importuesi të shtonte emrin e dokumentit
+në ballë të emrit të stilit të paragrafit në Scribus</translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished">Mos pyet sërish</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished">Nëse do të duhej që importuesi të përdorë përherë vlerën
+e vendosur për çastin kur importon dokument OpenOffice.org dhe
+të mos kërkojë ripohimin tuaj sërish</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
@@ -14407,7 +14635,7 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Funksion i panjohur</translation>
     </message>
     <message>
         <source>Simple Dot</source>
@@ -16756,7 +16984,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <name>QMainWindow</name>
     <message>
         <source>Line up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ngjitu</translation>
     </message>
     <message>
         <source>Customize...</source>
@@ -17016,23 +17244,23 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation>Programthe &amp;Scribus</translation>
+        <translation type="obsolete">Programthe &amp;Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Ekzekuto Programth...</translation>
+        <translation type="obsolete">&amp;Ekzekuto Programth...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>Programthe së &amp;Fundmi</translation>
+        <translation type="obsolete">Programthe së &amp;Fundmi</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Shfaq &amp;Konsol</translation>
+        <translation type="obsolete">Shfaq &amp;Konsol</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>P&amp;rogramth</translation>
+        <translation type="obsolete">P&amp;rogramth</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -17040,7 +17268,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Programthe Python (*.py);; Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Programthe Python (*.py);; Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -17172,7 +17400,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation>Portugeze (Braziliane)</translation>
+        <translation type="obsolete">Portugeze (Braziliane)</translation>
     </message>
     <message>
         <source>Russian</source>
@@ -17234,7 +17462,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Ngjyrë që s&apos;gjendet</translation>
+        <translation type="obsolete">Ngjyrë që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -17244,12 +17472,12 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Ngjyrë që s&apos;gjendet në dokument</translation>
+        <translation type="obsolete">Ngjyrë që s&apos;gjendet në dokument</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Ngjyrë që s&apos;gjendet në ngjyrat parazgjedhje</translation>
+        <translation type="obsolete">Ngjyrë që s&apos;gjendet në ngjyrat parazgjedhje</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -17294,47 +17522,47 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të ripërmasoj dot me 0%</translation>
+        <translation type="obsolete">S&apos;mund të ripërmasoj dot me 0%</translation>
     </message>
     <message>
         <source>Specified item not an image frame</source>
         <comment>python error</comment>
-        <translation>Objekti i treguar jo një kornizë pamje</translation>
+        <translation type="obsolete">Objekti i treguar jo një kornizë pamje</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Gërma që s&apos;gjenden</translation>
+        <translation type="obsolete">Gërma që s&apos;gjenden</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>S&apos;vizatoj dot një shembull bosh</translation>
+        <translation type="obsolete">S&apos;vizatoj dot një shembull bosh</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation>S&apos;ruaj dot te një kartelë bosh</translation>
+        <translation type="obsolete">S&apos;ruaj dot te një kartelë bosh</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të pranoj një emër bosh shtrese</translation>
+        <translation type="obsolete">S&apos;mund të pranoj një emër bosh shtrese</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>Shtresë që s&apos;gjenden</translation>
+        <translation type="obsolete">Shtresë që s&apos;gjenden</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>S&apos;heq dot shtresën e fundit</translation>
+        <translation type="obsolete">S&apos;heq dot shtresën e fundit</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>S&apos;krijoj dot shtresë pa emër</translation>
+        <translation type="obsolete">S&apos;krijoj dot shtresë pa emër</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -17472,11 +17700,6 @@ Kontrolloni shteg dhe emër kartele.</translation>
         <translation>S&apos;mund të fus tekst në një kornizë jo tekst.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Vendosje jashtë intervali. Përdorni një nga konstantet scribus.ALIGN* .</translation>
@@ -17484,52 +17707,52 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot drejtim teksti në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot drejtim teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Madhësi gërmash jashtë kufijsh - duhet të jetë 1 &lt;= size &lt;=512</translation>
+        <translation type="obsolete">Madhësi gërmash jashtë kufijsh - duhet të jetë 1 &lt;= size &lt;=512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot madhësi teksti në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot madhësi teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot tekst në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot tekst në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Hapësirë vije jashtë kufijsh, duhet të jetë &gt;= 0.1</translation>
+        <translation type="obsolete">Hapësirë vije jashtë kufijsh, duhet të jetë &gt;= 0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të fus ndërvijë në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të fus ndërvijë në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Hapësirë shtylle jashtë kufijsh, duhet të jetë pozitive</translation>
+        <translation type="obsolete">Hapësirë shtylle jashtë kufijsh, duhet të jetë pozitive</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të vendos hapësirë shtyllash në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të vendos hapësirë shtyllash në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Numër shtylle jashtë kufijsh, duhet të jetë &gt;1</translation>
+        <translation type="obsolete">Numër shtylle jashtë kufijsh, duhet të jetë &gt;1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të kem numër shtyllash në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të kem numër shtyllash në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -17539,72 +17762,67 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;përzgjedh dot tekst në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;përzgjedh dot tekst në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;fshij dot tekst prej një kornize jo tekst</translation>
+        <translation type="obsolete">S&apos;fshij dot tekst prej një kornize jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot mbushje teksti në një kornizë jo tekst</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">S&apos;caktoj dot mbushje teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot hije teksti në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot hije teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Mund të lidh vetëm korniza teksti</translation>
+        <translation type="obsolete">Mund të lidh vetëm korniza teksti</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>Korniza objektiv duhet të jetë bosh</translation>
+        <translation type="obsolete">Korniza objektiv duhet të jetë bosh</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>Korniza objektiv lidhet te një tjetër kornizë</translation>
+        <translation type="obsolete">Korniza objektiv lidhet te një tjetër kornizë</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>Korniza objektiv është lidhur te një tjetër kornizë</translation>
+        <translation type="obsolete">Korniza objektiv është lidhur te një tjetër kornizë</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>Pikënisja dhe objektivi janë i njëjti objekt</translation>
+        <translation type="obsolete">Pikënisja dhe objektivi janë i njëjti objekt</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të heq lidhje në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të heq lidhje në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>Objekti nuk është një kornizë tekst e lidhur, s&apos;heq dot  lidhje.</translation>
+        <translation type="obsolete">Objekti nuk është një kornizë tekst e lidhur, s&apos;heq dot  lidhje.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Objekti është korniza e fundit në një varg, nuk mund ta zgjidh. Zgjidhni atëherë kornizën e mëparshme.</translation>
+        <translation type="obsolete">Objekti është korniza e fundit në një varg, nuk mund ta zgjidh. Zgjidhni atëherë kornizën e mëparshme.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të shndërroj një kornizë jo tekst në jashtëvija</translation>
+        <translation type="obsolete">S&apos;mund të shndërroj një kornizë jo tekst në jashtëvija</translation>
     </message>
     <message>
         <source>Tried to set progress &gt; maximum progress</source>
@@ -17638,34 +17856,34 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation>Xhiro një programth Python prej një kartele.</translation>
+        <translation type="obsolete">Xhiro një programth Python prej një kartele.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation>&amp;Ngarko Programth Zgjerimi...</translation>
+        <translation type="obsolete">&amp;Ngarko Programth Zgjerimi...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation>Ngarko një programth Python si një zgjerim. Ipërdorur për ngarkim makrosh dhe për programthe të përparuar Python që zgjerojnë ndërfaqen e Scribus-it.</translation>
+        <translation type="obsolete">Ngarko një programth Python si një zgjerim. Ipërdorur për ngarkim makrosh dhe për programthe të përparuar Python që zgjerojnë ndërfaqen e Scribus-it.</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation>Shfaq një konsol ndërvepruese Python ku ju mund të shkruani dhe xhironi programe Python që përdorin mjetet Scripter.</translation>
+        <translation type="obsolete">Shfaq një konsol ndërvepruese Python ku ju mund të shkruani dhe xhironi programe Python që përdorin mjetet Scripter.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation>&amp;Rreth Programthi...</translation>
+        <translation type="obsolete">&amp;Rreth Programthi...</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation>&amp;Rregullimet Scripter-i</translation>
+        <translation type="obsolete">&amp;Rregullimet Scripter-i</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation>Rreth Programthi</translation>
+        <translation type="obsolete">Rreth Programthi</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -17795,6 +18013,219 @@ Lidhje të Jashtme
         <source>Text Files</source>
         <translation>Kartela Teksti</translation>
     </message>
+    <message>
+        <source>Portuguese (Brazilian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get a colour with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colour not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap.</source>
+        <comment>scripter error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set bookmark on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t get info from a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17894,7 +18325,7 @@ Lidhje të Jashtme
     </message>
     <message>
         <source>Restore Down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ul Volumin</translation>
     </message>
     <message>
         <source>Close</source>
@@ -18138,15 +18569,15 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
         <translation>Rregullimet Shenjash</translation>
     </message>
     <message>
-        <source>Kerning:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <source>Manual Kerning</source>
+        <source>Tracking:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19413,6 +19844,111 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
 </context>
 <context>
+    <name>ScripterCore</name>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished">Programthe &amp;Scribus</translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished">&amp;Ekzekuto Programth...</translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished">Xhiro një programth Python prej një kartele.</translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation type="unfinished">&amp;Ngarko Programth Zgjerimi...</translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished">Ngarko një programth Python si një zgjerim. Ipërdorur për ngarkim makrosh dhe për programthe të përparuar Python që zgjerojnë ndërfaqen e Scribus-it.</translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished">Shfaq &amp;Konsol</translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished">Shfaq një konsol ndërvepruese Python ku ju mund të shkruani dhe xhironi programe Python që përdorin mjetet Scripter.</translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished">&amp;Rreth Programthi...</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished">P&amp;rogramth</translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation type="unfinished">&amp;Rregullimet Scripter-i</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Hap</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Programthe Python (*.py);; Tërë Kartelat (*)</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished">Gabim programthi</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished">Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished">Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation type="unfinished">Scribus - Shtojcë Programthesh</translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation type="unfinished">Funksioni &apos;Ngarko Programth&apos; për shtojcën e programtheve është e çaktivizuar për çastin.
+Nëse doni thjesht të xhironi një programth normal, mbase doni të përdorni programin
+&apos;Ekzekuto Programth...&apos; më mirë.
+
+Nëse në fakt doni të ngarkoni një programth Python zgjerimi ose makro, 
+lipset të shkoni te Rregullime Programuesi te menuja Programthe dhe
+aktivizoni atje zgjerime programuesi.
+
+Ju lutem së pari lexoni dokumentimin mbi programthe zgjerimi.
+</translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished">Fshih &amp;Konsol</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished">Rreth Programthi</translation>
+    </message>
+</context>
+<context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
@@ -19601,11 +20137,11 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
     </message>
     <message>
         <source>Stroke Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ngjyrë sfondi:</translation>
     </message>
     <message>
         <source>Stroke Shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tejdukshmëri me nuancë (hije)</translation>
     </message>
     <message>
         <source>Left</source>

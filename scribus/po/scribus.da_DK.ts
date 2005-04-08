@@ -1141,7 +1141,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;lag&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;lag&quot;) -&gt; bool
 
 Returnerer hvorvidt laget &quot;lag&quot; er synligt eller ej, værdien &quot;True&quot; 
 betyder, at laget &quot;lag&quot; er synligt, værdien &quot;False&quot; betyder, at laget 
@@ -1161,7 +1161,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;lag&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;lag&quot;) -&gt; bool
 
 Returnerer hvorvidt laget &quot;lag&quot; kan udskrives eller ej, værdien &quot;True&quot; 
 betyder, at laget &quot;lag&quot; kan udskrives, værdien &quot;False&quot; betyder, at laget 
@@ -2311,6 +2311,50 @@ Kan rejse NotFoundError hvis den angivne font ikke findes.
 Kan rejse  ValueError hvis &quot;eksempel&quot; eller &quot;filnavn&quot; er tomt.
 </translation>
     </message>
+    <message>
+        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Returns true if the text frame &quot;name&quot; is a PDF bookmark.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2396,7 +2440,7 @@ Kan rejse  ValueError hvis &quot;eksempel&quot; eller &quot;filnavn&quot; er tom
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3 </translation>
+        <translation type="obsolete">%1. %2 %3 </translation>
     </message>
     <message>
         <source>Scribus Version %1
@@ -2516,7 +2560,19 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
     <message>
         <source>Portugese (Brazilian):</source>
-        <translation>Portugisisk (Brasiliansk):</translation>
+        <translation type="obsolete">Portugisisk (Brasiliansk):</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4584,6 +4640,26 @@ tekst redigerings området under &quot;Kildekode&quot; mærkaten og klik OK for 
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
         <translation>Gem makroens kildekode - tekst - til en fil. Du kan redigere den gemte kilde og indlæse den igen med &quot;Indlæs kilde...&quot;. </translation>
     </message>
+    <message>
+        <source>Python source files (.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save macro source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the source file to load</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -5804,6 +5880,14 @@ En fuldstændig tilbagesporing følger:
 %3
 </translation>
     </message>
+    <message>
+        <source>Scribus - New Macro</source>
+        <translation type="unfinished">Scribus - Ny makro</translation>
+    </message>
+    <message>
+        <source>Enter name for new macro: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
@@ -6007,6 +6091,50 @@ Tabellen i midten af vinduet viser de makroer, der for øjeblikket er indlæst o
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Indlæser makroer fra en ekstern fil.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Scribus Macro Files (*.pymacro)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the macro file to load.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save File Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save all macros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Rename Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Set Macro Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter new shortcut: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Nej</translation>
     </message>
 </context>
 <context>
@@ -6295,7 +6423,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Manuel knibning</translation>
+        <translation type="obsolete">Manuel knibning</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -6745,7 +6873,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>&amp;Kerning:</source>
-        <translation>&amp;Knibning:</translation>
+        <translation type="obsolete">&amp;Knibning:</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
@@ -6830,6 +6958,14 @@ hjørner:</translation>
     <message>
         <source>Right to Left Writing</source>
         <translation>Skrivning fra højre til venstre</translation>
+    </message>
+    <message>
+        <source>Trac&amp;king:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7373,6 +7509,65 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Shear the Path Horizontally to the Right</source>
         <translation>Forskyd mod højre</translation>
+    </message>
+</context>
+<context>
+    <name>OdtDialog</name>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation type="unfinished">OpenOffice.org Tekst import indstillinger</translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished">Opdatër afsnits typografier</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished">Hvis der allerede findes en afsnits typografi med det samme navn som 
+det aktive OO.o dokuments afsnit, skal typografien i Scribus da ændres, så det 
+er i overensstemmelse med det importerede eller skal det forblive urørt</translation>
+    </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation type="unfinished">Pak afsnits typografier</translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation type="unfinished">Gruppere afsnits typografier efter egenskaber.
+Færre afsnits typografier, men det kan være svært at styre.
+Bør bruges, hvis man ved, at teksten ikke må rettes, når den 
+er importeret.</translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished">Brug dokumentnavn som en forstavelse til afsnits typografier</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished">Skal importfiltret bruge dokumentets navn 
+som forstavelse til afsnits typografiens navn i Scribus</translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished">Spørg ikke igen</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation type="unfinished">Skal importfiltret altid bruge det nuværende
+sæt værdier, når der importeres OpenOffice.org dokumenter
+og aldrig spørge dig om, at bekræfte det igen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>
@@ -10461,7 +10656,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Farve ikke fundet</translation>
+        <translation type="obsolete">Farve ikke fundet</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10471,12 +10666,12 @@ Ekstern Lænker</translation>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Farve ikke fundet i dokument</translation>
+        <translation type="obsolete">Farve ikke fundet i dokument</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Farve ikke fundet i standard farver</translation>
+        <translation type="obsolete">Farve ikke fundet i standard farver</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10516,37 +10711,37 @@ Ekstern Lænker</translation>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>Kan ikke skalere med 0%</translation>
+        <translation type="obsolete">Kan ikke skalere med 0%</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Font ikke fundet</translation>
+        <translation type="obsolete">Font ikke fundet</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>Kan ikke gengive et tomt indhold</translation>
+        <translation type="obsolete">Kan ikke gengive et tomt indhold</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>Kan ikke have et lag uden navn</translation>
+        <translation type="obsolete">Kan ikke have et lag uden navn</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>Lag ikke fundet</translation>
+        <translation type="obsolete">Lag ikke fundet</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>Kan ikke fjerne det sidste lag</translation>
+        <translation type="obsolete">Kan ikke fjerne det sidste lag</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>Kan ikke oprette et lag uden navn</translation>
+        <translation type="obsolete">Kan ikke oprette et lag uden navn</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10686,7 +10881,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation>Indsæt index - uden for tilladte værdier</translation>
+        <translation type="obsolete">Indsæt index - uden for tilladte værdier</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -10696,52 +10891,52 @@ Ekstern Lænker</translation>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte tekst-justering i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte tekst-justering i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Font-størrelse uden for tilladt område - skal være 1 &lt;= størrelse &lt;= 512</translation>
+        <translation type="obsolete">Font-størrelse uden for tilladt område - skal være 1 &lt;= størrelse &lt;= 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte font-størrelse i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte font-størrelse i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte font i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte font i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Linie-afstand uden for tilladt område - skal være &gt;= 0.1</translation>
+        <translation type="obsolete">Linie-afstand uden for tilladt område - skal være &gt;= 0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte linie-afstand i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte linie-afstand i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Kolonne-afstand uden for tilladt område - skal være positiv</translation>
+        <translation type="obsolete">Kolonne-afstand uden for tilladt område - skal være positiv</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte kolonne-afstand i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte kolonne-afstand i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Kolonne-antal uden for tilladt område - skal være &gt; 1</translation>
+        <translation type="obsolete">Kolonne-antal uden for tilladt område - skal være &gt; 1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte kolonne-antal i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte kolonne-antal i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -10751,72 +10946,72 @@ Ekstern Lænker</translation>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke markere tekst i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke markere tekst i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke slette tekst i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke slette tekst i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte tekst-fyld i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte tekst-fyld i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte tekst-streg i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte tekst-streg i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte tekst-farvemætning i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke sætte tekst-farvemætning i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Kan kun sammenkæde tekst-rammer</translation>
+        <translation type="obsolete">Kan kun sammenkæde tekst-rammer</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>Mål-rammen skal være tom</translation>
+        <translation type="obsolete">Mål-rammen skal være tom</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>Mål-rammen har lænke til en anden ramme</translation>
+        <translation type="obsolete">Mål-rammen har lænke til en anden ramme</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>Mål-rammen har lænke fra en anden ramme</translation>
+        <translation type="obsolete">Mål-rammen har lænke fra en anden ramme</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>Kilde og mål er det samme objekt</translation>
+        <translation type="obsolete">Kilde og mål er det samme objekt</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>Kan ikke bryde lænke for andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke bryde lænke for andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>Objekt er ikke en sammkædet tekst-ramme, kan ikke bryde lænke.</translation>
+        <translation type="obsolete">Objekt er ikke en sammkædet tekst-ramme, kan ikke bryde lænke.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Objektet er den sidste i en serie. Bryd i stedet for lænken i den foregående ramme.</translation>
+        <translation type="obsolete">Objektet er den sidste i en serie. Bryd i stedet for lænken i den foregående ramme.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>Kan ikke konvertere til omrids i andet end tekst-ramme</translation>
+        <translation type="obsolete">Kan ikke konvertere til omrids i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
@@ -10832,7 +11027,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation>Portugisisk (Brasiliansk)</translation>
+        <translation type="obsolete">Portugisisk (Brasiliansk)</translation>
     </message>
     <message>
         <source>Welsh</source>
@@ -10846,7 +11041,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Specified item not an image frame</source>
         <comment>python error</comment>
-        <translation>Specificerede element er ikke en billedramme</translation>
+        <translation type="obsolete">Specificerede element er ikke en billedramme</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10976,7 +11171,210 @@ funktionens dokumentation. </translation>
     <message>
         <source>Unable to save pixmap</source>
         <comment>scripter error</comment>
-        <translation>Ikke i stand til at gemme pixmap</translation>
+        <translation type="obsolete">Ikke i stand til at gemme pixmap</translation>
+    </message>
+    <message>
+        <source>Portuguese (Brazilian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap.</source>
+        <comment>scripter error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set bookmark on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t get info from a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11322,7 +11720,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Kerning:</source>
-        <translation>Knibning:</translation>
+        <translation type="obsolete">Knibning:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -11330,7 +11728,15 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Manuel knibning</translation>
+        <translation type="obsolete">Manuel knibning</translation>
+    </message>
+    <message>
+        <source>Tracking:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12597,6 +13003,102 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annullér</translation>
+    </message>
+</context>
+<context>
+    <name>ScripterCore</name>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Åbn</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

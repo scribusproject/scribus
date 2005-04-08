@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-04-08 13:58+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -2615,7 +2615,7 @@ msgid "Polish"
 msgstr ""
 
 #, fuzzy
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr "Ucraniano:"
 
 msgid "Russian"
@@ -4299,8 +4299,8 @@ msgid "Custom Spacing"
 msgstr "Scripts Propios"
 
 #, fuzzy
-msgid "&Kerning:"
-msgstr "Alerta"
+msgid "Trac&king:"
+msgstr "Escala:"
 
 #, fuzzy
 msgid "L&ine Spacing:"
@@ -4496,7 +4496,8 @@ msgstr ""
 msgid "Right to Left Writing"
 msgstr "Derecha a Izquierda"
 
-msgid "Manual Kerning"
+#, fuzzy
+msgid "Manual Tracking"
 msgstr "Interletrado Manual"
 
 #, fuzzy
@@ -5025,8 +5026,8 @@ msgid "Character Settings"
 msgstr "Caracteres"
 
 #, fuzzy
-msgid "Kerning:"
-msgstr "Alerta"
+msgid "Tracking:"
+msgstr "Colocación:"
 
 #, fuzzy
 msgid "Style Settings"
@@ -5351,7 +5352,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "Sobre Scribus"
 
-msgid "%1. %2 %3 "
+msgid "%1 %2 %3 "
 msgstr ""
 
 msgid ""
@@ -5389,6 +5390,9 @@ msgid "A&uthors"
 msgstr "Autores"
 
 msgid "Official Translations and Translators:"
+msgstr ""
+
+msgid "Afrikaans:"
 msgstr ""
 
 #, fuzzy
@@ -5434,7 +5438,7 @@ msgid "Polish:"
 msgstr ""
 
 #, fuzzy
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr "Ucraniano:"
 
 msgid "Russian:"
@@ -6508,7 +6512,7 @@ msgid "CSV_header"
 msgstr "Intensidad"
 
 #, fuzzy
-msgid "OpenOffice.org Writer Documents"
+msgid "OpenDocument Text Documents"
 msgstr "Documentos Recientes"
 
 #, fuzzy
@@ -6552,6 +6556,10 @@ msgid ""
 "set value when importing OpenOffice.org document and\n"
 "never ask your confirmation again"
 msgstr ""
+
+#, fuzzy
+msgid "OpenOffice.org Writer Documents"
+msgstr "Documentos Recientes"
 
 #, fuzzy
 msgid "Text Files"
@@ -7059,6 +7067,15 @@ msgstr "Sobre Scribus"
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus - Macro Manager"
 msgstr "Manual de Scribus"
@@ -7066,6 +7083,12 @@ msgstr "Manual de Scribus"
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -7272,6 +7295,14 @@ msgid "Cannot convert a non-text frame to outlines."
 msgstr "Editar Contenidos del Marco"
 
 #, fuzzy
+msgid "Can't set bookmark on a non-text frame"
+msgstr "Editar Contenidos del Marco"
+
+#, fuzzy
+msgid "Can't get info from a non-text frame"
+msgstr "Editar Contenidos del Marco"
+
+#, fuzzy
 msgid "Insert value"
 msgstr "Insertar Página"
 
@@ -7282,6 +7313,31 @@ msgid "Enter a value then press OK"
 msgstr ""
 
 msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr "Manual de Scribus"
+
+msgid "Select the macro file to load."
+msgstr ""
+
+#, fuzzy
+msgid "Save all macros"
+msgstr "Borrar Color"
+
+#, fuzzy
+msgid "Scribus - Rename Macro"
+msgstr "Manual de Scribus"
+
+msgid "Enter new name: "
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Set Macro Shortcut"
+msgstr "Manual de Scribus"
+
+msgid "Enter new shortcut: "
 msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
@@ -7410,8 +7466,8 @@ msgid "Cannot render an empty sample."
 msgstr "Crea un Nuevo Documento"
 
 #, fuzzy
-msgid "Cannot save to a blank filename."
-msgstr "Editar Contenidos del Marco"
+msgid "Unable to save pixmap."
+msgstr "Incapaz de crear el archivo PDF."
 
 #, fuzzy
 msgid "Cannot have an empty layer name."
@@ -7438,6 +7494,14 @@ msgstr "Editar Contenidos del Marco"
 
 #, fuzzy
 msgid "Color not found."
+msgstr "Perfiles del Sistema"
+
+#, fuzzy
+msgid "Cannot get a colour with an empty name."
+msgstr "Editar Contenidos del Marco"
+
+#, fuzzy
+msgid "Colour not found"
 msgstr "Perfiles del Sistema"
 
 #, fuzzy
@@ -7499,6 +7563,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""
@@ -7647,6 +7714,18 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
+
+#, fuzzy
+#~ msgid "&Kerning:"
+#~ msgstr "Alerta"
+
+#, fuzzy
+#~ msgid "Kerning:"
+#~ msgstr "Alerta"
+
+#, fuzzy
+#~ msgid "Cannot save to a blank filename."
+#~ msgstr "Editar Contenidos del Marco"
 
 #, fuzzy
 #~ msgid "Brazilian Portuguese"
@@ -7929,9 +8008,6 @@ msgstr ""
 
 #~ msgid " saved"
 #~ msgstr " guardado"
-
-#~ msgid "Unable to create PDF-File."
-#~ msgstr "Incapaz de crear el archivo PDF."
 
 #~ msgid "Error creating PDF-File.."
 #~ msgstr "Error creando el archivo PDF"

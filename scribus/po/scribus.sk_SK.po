@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-04-08 13:58+0200\n"
 "PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
@@ -2409,7 +2409,7 @@ msgid "Polish"
 msgstr "Poľský"
 
 #, fuzzy
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr "Brazílsky"
 
 msgid "Russian"
@@ -3908,8 +3908,9 @@ msgstr "V&eľkosť písma:"
 msgid "Custom Spacing"
 msgstr "Vlastné medzery"
 
-msgid "&Kerning:"
-msgstr "Vyrovnávanie zna&kov (kerning):"
+#, fuzzy
+msgid "Trac&king:"
+msgstr "Zmen&a veľkosti:"
 
 msgid "L&ine Spacing:"
 msgstr "R&iadkovanie:"
@@ -4082,7 +4083,8 @@ msgstr "Sýtosť farby výplne textu"
 msgid "Right to Left Writing"
 msgstr "Písanie sprava doľava"
 
-msgid "Manual Kerning"
+#, fuzzy
+msgid "Manual Tracking"
 msgstr "Ručné párovanie znakov (Kerning)"
 
 msgid "Line Spacing"
@@ -4547,8 +4549,9 @@ msgstr "Nastavenia farby obrysu"
 msgid "Character Settings"
 msgstr "Nastavenia znakov"
 
-msgid "Kerning:"
-msgstr "Párovanie (kerning):"
+#, fuzzy
+msgid "Tracking:"
+msgstr "Umiestnenie"
 
 msgid "Style Settings"
 msgstr "Nastavenie štýlu"
@@ -4848,7 +4851,8 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "Scribus %1"
 
-msgid "%1. %2 %3 "
+#, fuzzy
+msgid "%1 %2 %3 "
 msgstr "%1. %2 %3 "
 
 msgid ""
@@ -4884,6 +4888,10 @@ msgstr "A&utori"
 
 msgid "Official Translations and Translators:"
 msgstr "Oficiálne preklady a prekladatelia:"
+
+#, fuzzy
+msgid "Afrikaans:"
+msgstr "Afrikánsky"
 
 msgid "Catalan:"
 msgstr "Katalánsky:"
@@ -4922,7 +4930,7 @@ msgid "Polish:"
 msgstr "Poľský:"
 
 #, fuzzy
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr "Brazílsky"
 
 msgid "Russian:"
@@ -5900,8 +5908,9 @@ msgstr "CSV_dáta"
 msgid "CSV_header"
 msgstr "CSV_hlavička"
 
-msgid "OpenOffice.org Writer Documents"
-msgstr "Dokument OpenOffice.org Writer"
+#, fuzzy
+msgid "OpenDocument Text Documents"
+msgstr "Textové dokumenty"
 
 msgid "OpenOffice.org Writer Importer Options"
 msgstr "Nastavenia importu OpenOffice.org Writer dokumentu"
@@ -5950,6 +5959,9 @@ msgstr ""
 "Má importér vždy použiť aktuálne nastavené hodnoty\n"
 "pri importovaní OpenOffice.org dokumentu\n"
 "a už sa nepýtať na potvrdenie?"
+
+msgid "OpenOffice.org Writer Documents"
+msgstr "Dokument OpenOffice.org Writer"
 
 msgid "Text Files"
 msgstr "Textové súbory"
@@ -6454,6 +6466,15 @@ msgstr "O skripte"
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus - Macro Manager"
 msgstr "Scribus manuál"
@@ -6461,6 +6482,12 @@ msgstr "Scribus manuál"
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -6676,6 +6703,14 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Nie je možné konvertovať netextový rám na obrysy"
 
+#, fuzzy
+msgid "Can't set bookmark on a non-text frame"
+msgstr "Nie je možné použiť štýl na netextový rám"
+
+#, fuzzy
+msgid "Can't get info from a non-text frame"
+msgstr "Nie je možné nastaviť písmo v netextovom ráme."
+
 msgid "Insert value"
 msgstr "Vložiť hodnotu"
 
@@ -6687,6 +6722,31 @@ msgstr "Vložte hodnotu a potom stlačte OK"
 
 msgid "Send your value to the script"
 msgstr "Pošle vaše hodnoty skriptu"
+
+#, fuzzy
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr "Scribus manuál"
+
+msgid "Select the macro file to load."
+msgstr ""
+
+#, fuzzy
+msgid "Save all macros"
+msgstr "Odstrániť všetky tabulátory"
+
+#, fuzzy
+msgid "Scribus - Rename Macro"
+msgstr "Scribus manuál"
+
+msgid "Enter new name: "
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Set Macro Shortcut"
+msgstr "Scribus manuál"
+
+msgid "Enter new shortcut: "
+msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
 msgstr ""
@@ -6815,8 +6875,8 @@ msgid "Cannot render an empty sample."
 msgstr "Nie je možné vygenerovať prázdnu vzorku"
 
 #, fuzzy
-msgid "Cannot save to a blank filename."
-msgstr "Nie je možné uložiť súbor bez názvu"
+msgid "Unable to save pixmap."
+msgstr "Nepodarilo sa uložiť EPS"
 
 #, fuzzy
 msgid "Cannot have an empty layer name."
@@ -6843,6 +6903,14 @@ msgstr "Nie je možné získať farbu bez názvu."
 
 #, fuzzy
 msgid "Color not found."
+msgstr "Farba nebola nájdená"
+
+#, fuzzy
+msgid "Cannot get a colour with an empty name."
+msgstr "Nie je možné získať farbu bez názvu."
+
+#, fuzzy
+msgid "Colour not found"
 msgstr "Farba nebola nájdená"
 
 msgid "Cannot change a color with an empty name."
@@ -6901,6 +6969,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""
@@ -7040,6 +7111,16 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
+
+#~ msgid "&Kerning:"
+#~ msgstr "Vyrovnávanie zna&kov (kerning):"
+
+#~ msgid "Kerning:"
+#~ msgstr "Párovanie (kerning):"
+
+#, fuzzy
+#~ msgid "Cannot save to a blank filename."
+#~ msgstr "Nie je možné uložiť súbor bez názvu"
 
 #~ msgid "Can't column gap on a non-text frame"
 #~ msgstr "Nie je možné nastaviť stĺpce v netextovom ráme"

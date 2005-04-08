@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-04-08 13:58+0200\n"
 "PO-Revision-Date: 2004-12-13 16:06+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -2433,7 +2433,7 @@ msgid "Polish"
 msgstr "Polonais"
 
 #, fuzzy
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr "Brésilien"
 
 msgid "Russian"
@@ -3933,8 +3933,9 @@ msgstr "&Corps :"
 msgid "Custom Spacing"
 msgstr "Espacement"
 
-msgid "&Kerning:"
-msgstr "Interlett&rage :"
+#, fuzzy
+msgid "Trac&king:"
+msgstr "Mise à l'éc&helle :"
 
 msgid "L&ine Spacing:"
 msgstr "I&nterlignage :"
@@ -4109,7 +4110,8 @@ msgstr "Saturation de la couleur du texte"
 msgid "Right to Left Writing"
 msgstr "Écriture de droite à gauche"
 
-msgid "Manual Kerning"
+#, fuzzy
+msgid "Manual Tracking"
 msgstr "Espacement entre les lettres"
 
 msgid "Line Spacing"
@@ -4576,8 +4578,9 @@ msgstr "Paramètres de couleur des contours du texte"
 msgid "Character Settings"
 msgstr "Paramètres des caractères"
 
-msgid "Kerning:"
-msgstr "Interlettrage :"
+#, fuzzy
+msgid "Tracking:"
+msgstr "Disposition"
 
 msgid "Style Settings"
 msgstr "Paramètres de paragraphe"
@@ -4877,7 +4880,8 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr "À propos de Scribus %1"
 
-msgid "%1. %2 %3 "
+#, fuzzy
+msgid "%1 %2 %3 "
 msgstr "%1. %2 %3 "
 
 msgid ""
@@ -4913,6 +4917,10 @@ msgstr "A&uteurs"
 
 msgid "Official Translations and Translators:"
 msgstr "Traducteur(rice)s officiel(le)s :"
+
+#, fuzzy
+msgid "Afrikaans:"
+msgstr "Afrikans"
 
 msgid "Catalan:"
 msgstr "Catalan :"
@@ -4951,7 +4959,7 @@ msgid "Polish:"
 msgstr "Polonais :"
 
 #, fuzzy
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr "Brésilien"
 
 msgid "Russian:"
@@ -5939,8 +5947,9 @@ msgstr "Données CSV"
 msgid "CSV_header"
 msgstr "En-tête CSV"
 
-msgid "OpenOffice.org Writer Documents"
-msgstr "Documents OpenOffice.org"
+#, fuzzy
+msgid "OpenDocument Text Documents"
+msgstr "Documents texte"
 
 msgid "OpenOffice.org Writer Importer Options"
 msgstr "Options d'importation des fichiers OpenOffice.org"
@@ -5989,6 +5998,9 @@ msgid ""
 msgstr ""
 "L'importateur doit-il toujours utiliser la valeur courante\n"
 "lors de l'importation d'un document OpenOffice.org ?"
+
+msgid "OpenOffice.org Writer Documents"
+msgstr "Documents OpenOffice.org"
 
 msgid "Text Files"
 msgstr "Fichiers texte"
@@ -6549,6 +6561,15 @@ msgstr "À propos du script"
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus - Macro Manager"
 msgstr "Manuel de Scribus"
@@ -6556,6 +6577,12 @@ msgstr "Manuel de Scribus"
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -6779,6 +6806,14 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Seul un cadre de texte peut être converti en contours"
 
+#, fuzzy
+msgid "Can't set bookmark on a non-text frame"
+msgstr "Un style ne peut être affecté qu'à un cadre de texte"
+
+#, fuzzy
+msgid "Can't get info from a non-text frame"
+msgstr "Une police ne peut être affectée qu'à un cadre de texte"
+
 msgid "Insert value"
 msgstr "Insérer une valeur"
 
@@ -6790,6 +6825,31 @@ msgstr "Saisir une valeur et appuyer sur OK"
 
 msgid "Send your value to the script"
 msgstr "Envoyer la valeur au script"
+
+#, fuzzy
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr "Manuel de Scribus"
+
+msgid "Select the macro file to load."
+msgstr ""
+
+#, fuzzy
+msgid "Save all macros"
+msgstr "Effacer toutes les tabulations"
+
+#, fuzzy
+msgid "Scribus - Rename Macro"
+msgstr "Manuel de Scribus"
+
+msgid "Enter new name: "
+msgstr ""
+
+#, fuzzy
+msgid "Scribus - Set Macro Shortcut"
+msgstr "Manuel de Scribus"
+
+msgid "Enter new shortcut: "
+msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
 msgstr ""
@@ -6918,8 +6978,8 @@ msgid "Cannot render an empty sample."
 msgstr "Impossible d'afficher le rendu d'un échantillon vide"
 
 #, fuzzy
-msgid "Cannot save to a blank filename."
-msgstr "Impossible d'enregistrer sans nom de fichier"
+msgid "Unable to save pixmap."
+msgstr "Impossible d'enregistrer le fichier EPS"
 
 #, fuzzy
 msgid "Cannot have an empty layer name."
@@ -6946,6 +7006,14 @@ msgstr "Impossible d'obtenir une couleur sans son nom."
 
 #, fuzzy
 msgid "Color not found."
+msgstr "Couleur introuvable"
+
+#, fuzzy
+msgid "Cannot get a colour with an empty name."
+msgstr "Impossible d'obtenir une couleur sans son nom."
+
+#, fuzzy
+msgid "Colour not found"
 msgstr "Couleur introuvable"
 
 msgid "Cannot change a color with an empty name."
@@ -7004,6 +7072,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""
@@ -7143,6 +7214,16 @@ msgid ""
 msgstr ""
 "Impossible d'importer le fichier suivant :\n"
 "%1"
+
+#~ msgid "&Kerning:"
+#~ msgstr "Interlett&rage :"
+
+#~ msgid "Kerning:"
+#~ msgstr "Interlettrage :"
+
+#, fuzzy
+#~ msgid "Cannot save to a blank filename."
+#~ msgstr "Impossible d'enregistrer sans nom de fichier"
 
 #~ msgid "Can't column gap on a non-text frame"
 #~ msgstr ""
