@@ -1166,10 +1166,10 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemLockSize", new ScrAction(tr("Si&ze is Locked"), CTRL+SHIFT+Key_L, this, "itemLockSize"));
 	scrActions["itemLock"]->setToggleAction(true);
 	scrActions["itemLockSize"]->setToggleAction(true);
-	scrActions.insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(), this, "itemSendToBack"));
-	scrActions.insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(), this, "itemBringToFront"));
-	scrActions.insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(), this, "itemLower"));
-	scrActions.insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(), this, "itemRaise"));
+	scrActions.insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(Key_End), this, "itemSendToBack"));
+	scrActions.insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(Key_Home), this, "itemBringToFront"));
+	scrActions.insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(Key_PageDown), this, "itemLower"));
+	scrActions.insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(Key_PageUp), this, "itemRaise"));
 	scrActions.insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), this, "itemAlignDist"));
 
 	scrActions.insert("itemAttributes", new ScrAction(tr("&Attributes..."), QKeySequence(), this, "itemAttributes"));
@@ -1369,18 +1369,21 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsEyeDropper"]->setToggleAction(true);
 	scrActions["toolsCopyProperties"]->setToggleAction(true);
 	
-	toolbarActionNames=new QStringList();
-	*toolbarActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
-	*toolbarActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
-	*toolbarActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
-	*toolbarActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
-	*toolbarActionNames << "toolsEyeDropper" << "toolsCopyProperties";
+	modeActionNames=new QStringList();
+	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
+	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
+	*modeActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
+	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
+	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 
+	nonEditActionNames=new QStringList();
+	*modeActionNames << "itemSendToBack" << "itemBringToFront" << "itemRaise" << "itemLower";
+	
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)) , this, SLOT(setPDFTools(bool)) );
 		
-	connectToolsActions();
+	connectModeActions();
 }
 
 void ScribusApp::initExtrasMenuActions()
@@ -6533,7 +6536,7 @@ void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
 void ScribusApp::setAppMode(int mode)
 {
 	//disconnect the tools actions so we dont fire them off
-	disconnectToolsActions();
+	disconnectModeActions();
 	//set the actions state based on incoming mode
 	scrActions["toolsSelect"]->setOn(mode==NormalMode);
 	scrActions["toolsInsertTextFrame"]->setOn(mode==DrawText);
@@ -6574,10 +6577,10 @@ void ScribusApp::setAppMode(int mode)
 			doc->CurTimer = NULL;
 		}
 		if (mode!=EditMode && oldMode==EditMode)
-			restoreToolsShortcuts();
+			restoreActionShortcutsPostEditMode();
 		else
 		if (mode==EditMode && oldMode!=EditMode)
-			saveToolsShortcuts();
+			saveActionShortcutsPreEditMode();
 		if (oldMode == EditMode)
 		{
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
@@ -6744,7 +6747,7 @@ void ScribusApp::setAppMode(int mode)
 		}
 	}
 
-	connectToolsActions();	
+	connectModeActions();	
 }
 
 void ScribusApp::Aktiv()
@@ -10902,28 +10905,33 @@ void ScribusApp::generateTableOfContents()
 	}
 }
 
-void ScribusApp::disconnectToolsActions()
+void ScribusApp::disconnectModeActions()
 {
-	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 		disconnect( scrActions[*it], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 }
 	
-void ScribusApp::connectToolsActions()
+void ScribusApp::connectModeActions()
 {
-	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 		connect( scrActions[*it], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 }
 	
-void ScribusApp::saveToolsShortcuts()
+void ScribusApp::saveActionShortcutsPreEditMode()
 {
-	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 		scrActions[*it]->saveShortcut();
+	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
+		scrActions[*it]->saveShortcut();	
+
 }
 
-void ScribusApp::restoreToolsShortcuts()
+void ScribusApp::restoreActionShortcutsPostEditMode()
 {
-	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 		scrActions[*it]->restoreShortcut();
+	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
+		scrActions[*it]->restoreShortcut();	
 }
 
 void ScribusApp::mouseReleaseEvent(QMouseEvent *m)

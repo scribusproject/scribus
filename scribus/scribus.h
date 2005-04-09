@@ -114,10 +114,10 @@ public:
 	void keyReleaseEvent(QKeyEvent *k);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void wheelEvent(QWheelEvent *w);
-	void disconnectToolsActions();
-	void connectToolsActions();
-	void saveToolsShortcuts();
-	void restoreToolsShortcuts();
+	void disconnectModeActions();
+	void connectModeActions();
+	void saveActionShortcutsPreEditMode();
+	void restoreActionShortcutsPostEditMode();
 	void DeleteSel(PageItem *b);
 	void setTBvals(PageItem *b);
 	void SavePrefs();
@@ -535,7 +535,8 @@ private:
 	QToolBar *WerkTools2;
 	QToolBar *editToolBar;
 	WerkToolBP* WerkToolsP;
-	QStringList *toolbarActionNames;
+	QStringList *modeActionNames;
+	QStringList *nonEditActionNames;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;
