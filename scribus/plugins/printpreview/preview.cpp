@@ -426,7 +426,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 			dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
-			dd->CreatePS(app->doc, app->view, pageNs, false, tr("All"), true, false, false, false, EnableGCR->isChecked());
+			dd->CreatePS(app->doc, app->view, pageNs, false, tr("All"), true, false, false, false, EnableGCR->isChecked(), false);
 			delete dd;
 			app->closePSDriver();
 		}

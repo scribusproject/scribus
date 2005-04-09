@@ -5450,6 +5450,7 @@ void ScribusApp::slotReallyPrint()
 		options.useICC = printer->ICCinUse;
 		options.doGCR = printer->DoGCR;
 		options.PSLevel = printer->PSLevel;
+		options.setDevParam = printer->doDev;
 		PDef.Pname = options.printer;
 		PDef.Dname = options.filename;
 		if (printer->OtherCom->isChecked())
@@ -5511,7 +5512,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 			// Write the PS to a file
 			CMYKColor::UseProf = options->useICC;
 			dd->CreatePS(doc, view, options->pageNumbers, options->outputSeparations, options->separationName,
-			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR);
+			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam);
 			CMYKColor::UseProf = true;
 			if (options->PSLevel != 3)
 			{
@@ -8533,7 +8534,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, true, Prefs.GCRMode);
+			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, true, Prefs.GCRMode, false);
 		else
 			return_value = false;
 		delete dd;

@@ -36,7 +36,7 @@ extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr) : QDialog( parent, "prin", true, 0 )
+AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev) : QDialog( parent, "prin", true, 0 )
 {
 	setCaption( tr( "Advanced Options" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -52,6 +52,9 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	GcR = new QCheckBox( tr("Apply Under Color &Removal"), this, "GCR");
 	GcR->setChecked(DoGcr);
 	AdvOptionsLayout->addWidget( GcR );
+	devPar = new QCheckBox( tr("Set Media Size"), this, "devPar");
+	devPar->setChecked(doDev);
+	AdvOptionsLayout->addWidget( devPar );
 #ifdef HAVE_CMS
 	if (CMSuse)
 	{
@@ -358,6 +361,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	MirrorV = prefs->getBool("MirrorV", false);
 	ICCinUse = prefs->getBool("ICCinUse", false);
 	DoGCR = prefs->getBool("DoGCR", gcr);
+	doDev = prefs->getBool("doDev", false);
 	PSLevel = prefs->getInt("PSLevel", 3);
 	AdvOptButton = new QPushButton( tr("Ad&vanced Options..."), ButtonGroup3_2, "Adv");
 	ButtonGroup3_2Layout->addWidget( AdvOptButton );
@@ -430,12 +434,13 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 
 void Druck::SetAdvOptions()
 {
-	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel, DoGCR);
+	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel, DoGCR, doDev);
 	if (dia->exec())
 	{
 		MirrorH = dia->MirrorH->isChecked();
 		MirrorV = dia->MirrorV->isChecked();
 		DoGCR = dia->GcR->isChecked();
+		doDev = dia->devPar->isChecked();
 #ifdef HAVE_CMS
 		if (CMSuse)
 		{

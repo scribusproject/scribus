@@ -29,12 +29,13 @@ class AdvOptions : public QDialog
 	Q_OBJECT
 
 public:
-	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr);
+	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev);
 	~AdvOptions() {};
 	QCheckBox* MirrorH;
 	QCheckBox* MirrorV;
 	QCheckBox* UseICC;
 	QCheckBox* GcR;
+	QCheckBox* devPar;
 	QButtonGroup* ButtonGroupP;
 	QRadioButton* PS3;
 	QRadioButton* PS2;
@@ -73,6 +74,7 @@ public:
 	bool MirrorV;
 	bool ICCinUse;
 	bool DoGCR;
+	bool doDev;
 	int PSLevel;
 
 public slots:

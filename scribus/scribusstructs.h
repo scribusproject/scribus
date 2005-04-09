@@ -527,6 +527,7 @@ struct PrintOptions
 	bool mirrorV;
 	bool useICC;
 	bool doGCR;
+	bool setDevParam;
 	int copies;
 	std::vector<int> pageNumbers;
 	QString printerOptions;

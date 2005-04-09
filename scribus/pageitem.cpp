@@ -950,13 +950,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
 						desc2 = 0;
 						desc = 0;
-						asce = qRound(hl->cfont->numAscent * (chs / 10.0));
+						asce = qRound(hl->cfont->numAscent * (hl->csize / 10.0));
 					}
 					else
 					{
-						desc2 = -hl->cfont->numDescender * (chs / 10.0);
-						desc = qRound(-hl->cfont->numDescender * (chs / 10.0));
-						asce = qRound(hl->cfont->numAscent * (chs / 10.0));
+						desc2 = -hl->cfont->numDescender * (hl->csize / 10.0);
+						desc = qRound(-hl->cfont->numDescender * (hl->csize / 10.0));
+						asce = qRound(hl->cfont->numAscent * (hl->csize / 10.0));
 					}
 					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;

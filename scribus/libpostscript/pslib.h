@@ -38,7 +38,7 @@ public:
 	virtual ~PSLib() {};
 	virtual bool PS_set_file(QString fn);
 	virtual void PS_set_Info(QString art, QString was);
-	virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage);
+	virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev);
 	virtual void PS_begin_page(double breite, double hoehe, struct MarginStruct* Ma, bool Clipping);
 	virtual void PS_end_page();
 	virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -78,7 +78,7 @@ public:
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
 	virtual void PS_ImageData(PageItem *c, bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
-	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr);
+	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev);
 	virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master);
 	virtual void ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 	virtual void SetClipPath(FPointArray *c, bool poly = true);

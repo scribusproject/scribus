@@ -265,7 +265,7 @@ bool PSLib::PS_set_file(QString fn)
 	return Spool.open(IO_WriteOnly);
 }
 
-void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, int numpage)
+void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, int numpage, bool doDev)
 {
 	PutDoc(Header);
 	PutDoc("%%For: " + User + "\n");
@@ -292,13 +292,12 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 	PutDoc(Fonts);
 	if (GraySc)
 		PutDoc(GrayCalc);
-	PutDoc("%%EndSetup\n");
-/*  if ((Art) && (Ori != 0))
+	if ((Art) && (doDev))
   	{
 		PutSeite("<< /PageSize [ "+ToStr(breite)+" "+ToStr(hoehe)+" ]\n");
-		PutSeite("/Orientation 3\n");
 		PutSeite(">> setpagedevice\n");
-		}                    */
+	}
+	PutDoc("%%EndSetup\n");
 	Prolog = "";
 	FontDesc = "";
 }
@@ -950,7 +949,7 @@ void PSLib::PS_insert(QString i)
 	PutDoc(i);
 }
 
-void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr)
+void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev)
 {
 	uint a;
 	int sepac;
@@ -969,10 +968,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		int pgNum = pageNs[0];
 		gx -= Doc->Pages.at(pgNum)->Xoffset;
 		gy -= Doc->Pages.at(pgNum)->Yoffset;
-		PS_begin_doc(Doc->PageOri, gx, Doc->PageH - (gy+gh), gx + gw, Doc->PageH - gy, 1);
+		PS_begin_doc(Doc->PageOri, gx, Doc->PageH - (gy+gh), gx + gw, Doc->PageH - gy, 1, false);
 	}
 	else
-		PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->PageB, Doc->PageH, pageNs.size());
+		PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->PageB, Doc->PageH, pageNs.size(), doDev);
 	for (uint ap = 0; ap < Doc->MasterPages.count(); ++ap)
 	{
 		if (Doc->MasterItems.count() != 0)
