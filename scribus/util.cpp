@@ -352,7 +352,7 @@ QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 	args.append("-sOutputFile="+tmpFile);
 	args.append("-dFirstPage="+tmp);
 	args.append("-dLastPage="+tmp);
-	args.append(fn);
+	args.append("\""+fn+"\"");
 	ret = callGS(args);
 	if (ret == 0)
 	{
@@ -396,7 +396,7 @@ QImage LoadPict(QString fn, bool *gray)
 		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append(fn);
+		args.append("\""+fn+"\"");
 		ret = callGS(args);
 		if (ret == 0)
 		{
@@ -447,7 +447,7 @@ QImage LoadPict(QString fn, bool *gray)
 				args.append("-r72");
 				args.append("-sOutputFile="+tmpFile);
 				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-				args.append(fn);
+				args.append("\""+fn+"\"");
 				ret = callGS(args);
 				if (ret == 0)
 				{
@@ -559,7 +559,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append(fn);
+		args.append("\""+fn+"\"");
 		ret = callGS(args);
 		if (ret == 0)
 		{
@@ -611,7 +611,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 					args.append("-r72");
 					args.append("-sOutputFile="+tmpFile);
 					args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-					args.append(fn);
+					args.append("\""+fn+"\"");
 					ret = callGS(args);
 					if (ret == 0)
 					{

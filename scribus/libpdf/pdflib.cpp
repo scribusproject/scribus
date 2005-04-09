@@ -3825,7 +3825,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				args.append("-sOutputFile="+tmpFile);
 				args.append("-dFirstPage=1");
 				args.append("-dLastPage=1");
-				args.append(fn);
+				args.append("\""+fn+"\"");
 				ret = callGS(args);
 				if (ret == 0)
 				{
@@ -3894,8 +3894,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 						args.append("-r"+IToStr(afl));
 						args.append("-sOutputFile="+tmpFile);
 						args.append("-g"+ tmp.setNum(qRound(b))+"x"+tmpy.setNum(qRound(h)));
-						args.append(fn);
-							ret = callGS(args);
+						args.append("\""+fn+"\"");
+						ret = callGS(args);
 						if (ret == 0)
 						{
 							QImage image;

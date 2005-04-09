@@ -2241,6 +2241,10 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	view = new ScribusView(w, doc, &Prefs);
 	w->setView(view);
 	ActWin = w;
+	BookPal->BView->NrItems = ActWin->NrItems;
+	BookPal->BView->First = ActWin->First;
+	BookPal->BView->Last = ActWin->Last;
+	RestoreBookMarks();
 	doc->WinHan = w;
 	w->setCentralWidget(view);
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
@@ -2309,7 +2313,6 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->OpenNodes.clear();
 	Tpal->BuildTree(view);
 	Sepal->Rebuild();
-	BookPal->BView->clear();
 	if ( wsp->windowList().isEmpty() )
 		w->showMaximized();
 	else
@@ -7275,6 +7278,8 @@ void ScribusApp::SaveAsPDF()
 	QString nam = "";
 	if (BookPal->BView->childCount() == 0)
 		doc->PDF_Optionen.Bookmarks = false;
+	else
+		doc->PDF_Optionen.Bookmarks = true;
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	GetUsedFonts(&ReallyUsed);

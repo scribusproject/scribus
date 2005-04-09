@@ -8740,7 +8740,7 @@ void Page::DeleteItem(bool force)
 				}
 			}
 			if (delItems.at(0)->isBookmark)
-				emit DelBM(SelItem.at(0));
+				emit DelBM(delItems.at(0));
 			if (anz == 1)
 				doku->UnData.Item = Items.take(delItems.at(0)->ItemNr);
 			else
@@ -9699,7 +9699,7 @@ void Page::LoadPict(QString fn, int ItNr)
 		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append(fn);
+		args.append("\""+fn+"\"");
 		ret = callGS(args);
 		if (ret == 0)
 		{
@@ -9805,7 +9805,7 @@ void Page::LoadPict(QString fn, int ItNr)
 				args.append("-r72");
 				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
 				args.append("-sOutputFile="+tmpFile);
-				args.append(fn);
+				args.append("\""+fn+"\"");
 				ret = callGS(args);
 				if (ret == 0)
 				{
