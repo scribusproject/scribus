@@ -265,7 +265,7 @@ bool PSLib::PS_set_file(QString fn)
 	return Spool.open(IO_WriteOnly);
 }
 
-void PSLib::PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage)
+void PSLib::PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev)
 {
 	PutDoc(Header);
 	PutDoc("%%For: " + User + "\n");
@@ -292,13 +292,12 @@ void PSLib::PS_begin_doc(int Ori, double x, double y, double breite, double hoeh
 	PutDoc(Fonts);
 	if (GraySc)
 		PutDoc(GrayCalc);
-	PutDoc("%%EndSetup\n");
-/*  if ((Art) && (Ori != 0))
+	if ((Art) && (doDev))
   	{
 		PutSeite("<< /PageSize [ "+ToStr(breite)+" "+ToStr(hoehe)+" ]\n");
-		PutSeite("/Orientation 3\n");
 		PutSeite(">> setpagedevice\n");
-		}                    */
+	}
+	PutDoc("%%EndSetup\n");
 	Prolog = "";
 	FontDesc = "";
 }

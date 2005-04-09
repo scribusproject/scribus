@@ -5,8 +5,8 @@
  <pluginList>
   <kdevdebugger>
    <breakpointList>
-    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:5493" type="1" condition="" enabled="1" />
-    <breakpoint1 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4622" type="1" condition="" enabled="1" />
+    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4637" type="1" condition="" enabled="1" />
+    <breakpoint1 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:5508" type="1" condition="" enabled="1" />
    </breakpointList>
   </kdevdebugger>
   <kdevbookmarks>

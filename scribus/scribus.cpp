@@ -212,7 +212,7 @@ void ScribusApp::initScribus()
 	if (NoFonts)
 	{
 		splash->close(); // 10/10/2004 pv fix #1200
-		QString mess = tr("There are no Postscript-Fonts on your System");
+		QString mess = tr("There are no suitable Fonts on your System");
 		mess += "\n" + tr("Exiting now");
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
 	}
@@ -3527,9 +3527,23 @@ bool ScribusApp::LadeDoc(QString fileName)
 				}
 			}
 		}
+		QListViewItemIterator it(BookPal->BView);
+		QPtrList<BookMItem> bml;
+		bml.clear();
+		bml.setAutoDelete(true);
+		for ( ; it.current(); ++it)
+		{
+			BookMItem* ip;
+			ip = (BookMItem*)it.current();
+			if (ip->Element == -1)
+			{
+				bml.append(ip);
+			}
+		}
+		if (bml.count() != 0)
+			bml.clear();
 		delete painter;
-		if (doc->OldBM)
-			StoreBookmarks();
+		StoreBookmarks();
 		ActWin->NrItems = BookPal->BView->NrItems;
 		ActWin->First = BookPal->BView->First;
 		ActWin->Last = BookPal->BView->Last;
@@ -3944,6 +3958,7 @@ void ScribusApp::slotFilePrint()
 		options.useICC = printer->ICCinUse;
 		options.doGCR = printer->DoGCR;
 		options.PSLevel = printer->PSLevel;
+		options.setDevParam = printer->doDev;
 		PDef.Pname = options.printer;
 		PDef.Dname = options.filename;
 		if (printer->OtherCom->isChecked())
@@ -4002,7 +4017,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		{
 			// Write the PS to a file
 			view->CreatePS(dd, options->pageNumbers, options->outputSeparations, options->separationName,
-			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR);
+			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam);
 			if (options->PSLevel != 3)
 			{
 				// use gs to convert our PS to a lower version
@@ -7199,7 +7214,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false, Prefs.GCRMode);
+			view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false, Prefs.GCRMode, false);
 		else
 			return_value = false;
 		delete dd;
@@ -7452,7 +7467,8 @@ void ScribusApp::BookMarkTxT(PageItem *ite)
 
 void ScribusApp::ChBookmarks(int s, int e, int n)
 {
-	view->Pages.at(s)->Items.at(e)->BMnr = n;
+	if (e != -1)
+		view->Pages.at(s)->Items.at(e)->BMnr = n;
 }
 
 void ScribusApp::RestoreBookMarks()

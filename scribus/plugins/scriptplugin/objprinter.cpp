@@ -451,7 +451,7 @@ static PyObject *Printer_print(Printer *self)
                 PSfile = dd->PS_set_file(fna);
                 if (PSfile)
                 {
-                        Carrier->view->CreatePS(dd, pageNs, sep, SepName, color, mirrorH, mirrorV, useICC, DoGCR);
+                        Carrier->view->CreatePS(dd, pageNs, sep, SepName, color, mirrorH, mirrorV, useICC, DoGCR, false);
                         if (PSLevel != 3)
                         {
                                 QString tmp;

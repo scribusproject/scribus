@@ -1454,7 +1454,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				bok.Aktion = pg.attribute("Aktion");
 				bok.ItemNr = QStoInt(pg.attribute("ItemNr"));
 				bok.Seite = QStoInt(pg.attribute("Seite"));
-				bok.Element = QStoInt(pg.attribute("Element"));
+				bok.Element = -1; // QStoInt(pg.attribute("Element"));
 				bok.First = QStoInt(pg.attribute("First"));
 				bok.Last = QStoInt(pg.attribute("Last"));
 				bok.Prev = QStoInt(pg.attribute("Prev"));

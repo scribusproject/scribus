@@ -978,7 +978,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 	return pm;
 }
 
-void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr)
+void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev)
 {
 	uint a;
 	int sepac;
@@ -995,10 +995,10 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 	{
 		Doc->ActPage->setGroupRect();
 		Doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
-		p->PS_begin_doc(Doc->PageOri, gx, Doc->PageH - (gy+gh), gx + gw, Doc->PageH - gy, pageNs.size());
+		p->PS_begin_doc(Doc->PageOri, gx, Doc->PageH - (gy+gh), gx + gw, Doc->PageH - gy, pageNs.size(), false);
 	}
 	else
-		p->PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->PageB, Doc->PageH, pageNs.size());
+		p->PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->PageB, Doc->PageH, pageNs.size(), doDev);
 	for (uint ap = 0; ap < MasterPages.count(); ++ap)
 	{
 		int Lnr = 0;

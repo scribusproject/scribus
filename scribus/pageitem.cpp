@@ -869,13 +869,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
 						desc2 = 0;
 						desc = 0;
-						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
 					}
 					else
 					{
-						desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
-						desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0));
-						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+						desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (hl->csize / 10.0);
+						desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (hl->csize / 10.0));
+						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
 					}
 					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;
