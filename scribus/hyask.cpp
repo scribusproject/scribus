@@ -72,6 +72,20 @@ HyAsk::HyAsk( QWidget* parent, QString HWort )
 	connect(Wort, SIGNAL(textChanged(const QString &)), this, SLOT(Check()));
 }
 
+void HyAsk::accept()
+{
+	xpos = pos().x();
+	ypos = pos().y();
+	QDialog::accept();
+}
+
+void HyAsk::reject()
+{
+	xpos = pos().x();
+	ypos = pos().y();
+	QDialog::reject();
+}
+
 void HyAsk::Check()
 {
 	disconnect(Wort, SIGNAL(textChanged(const QString &)), this, SLOT(Check()));

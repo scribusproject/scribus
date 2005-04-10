@@ -747,36 +747,112 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				}
 				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
-				for (a = 0; a < Doc->Items.count(); ++a)
+				if (OnMasterPage != "")
 				{
-					if (((Doc->Items.at(a)->ItemNr > ItemNr) && (Doc->Items.at(a)->LayerNr == LayerNr))
-										 || (Doc->Layers[Doc->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
+					Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
+					Page* Dp = Doc->Pages.at(OwnPage);
+					for (a = 0; a < Doc->MasterItems.count(); ++a)
 					{
-						if (Doc->Items.at(a)->textFlowsAroundFrame())
+						PageItem* docItem = Doc->MasterItems.at(a);
+						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr))
+											|| (Doc->Layers[docItem->LayerNr].Level > Doc->Layers[LayerNr].Level))
+						{
+							if (docItem->textFlowsAroundFrame())
+							{
+								pp.begin(ScApp->view->viewport());
+								pp.translate(docItem->Xpos - Mp->Xoffset + Dp->Xoffset, docItem->Ypos - Mp->Yoffset + Dp->Yoffset);
+								pp.rotate(docItem->Rot);
+								if (docItem->textFlowUsesBoundingBox())
+								{
+									QPointArray tcli;
+									tcli.resize(4);
+									tcli.setPoint(0, QPoint(0,0));
+									tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
+									tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
+									tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
+									cm = QRegion(pp.xForm(tcli));
+								}
+								else
+								{
+									if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+									{
+										QValueList<uint> Segs;
+										QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+										cm = QRegion(pp.xForm(Clip2));
+									}
+									else
+										cm = QRegion(pp.xForm(docItem->Clip));
+								}
+								pp.end();
+								cl = cl.subtract(cm);
+							}
+						}
+					}
+					for (a = 0; a < Doc->Items.count(); ++a)
+					{
+						PageItem* docItem = Doc->Items.at(a);
+						if (docItem->textFlowsAroundFrame())
 						{
 							pp.begin(ScApp->view->viewport());
-							pp.translate(Doc->Items.at(a)->Xpos, Doc->Items.at(a)->Ypos);
-							pp.rotate(Doc->Items.at(a)->Rot);
-							if (Doc->Items.at(a)->textFlowUsesBoundingBox())
+							pp.translate(docItem->Xpos, docItem->Ypos);
+							pp.rotate(docItem->Rot);
+							if (docItem->textFlowUsesBoundingBox())
 							{
 								QPointArray tcli;
 								tcli.resize(4);
 								tcli.setPoint(0, QPoint(0,0));
-								tcli.setPoint(1, QPoint(qRound(Doc->Items.at(a)->Width), 0));
-								tcli.setPoint(2, QPoint(qRound(Doc->Items.at(a)->Width), qRound(Doc->Items.at(a)->Height)));
-								tcli.setPoint(3, QPoint(0, qRound(Doc->Items.at(a)->Height)));
+								tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
+								tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
+								tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
 								cm = QRegion(pp.xForm(tcli));
 							}
 							else
 							{
-								if ((Doc->Items.at(a)->textFlowUsesContourLine()) && (Doc->Items.at(a)->ContourLine.size() != 0))
+								if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 								{
 									QValueList<uint> Segs;
-									QPointArray Clip2 = FlattenPath(Doc->Items.at(a)->ContourLine, Segs);
+									QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
 									cm = QRegion(pp.xForm(Clip2));
 								}
 								else
-									cm = QRegion(pp.xForm(Doc->Items.at(a)->Clip));
+									cm = QRegion(pp.xForm(docItem->Clip));
+							}
+							pp.end();
+							cl = cl.subtract(cm);
+						}
+					}
+				}
+				for (a = 0; a < Doc->Items.count(); ++a)
+				{
+					PageItem* docItem = Doc->Items.at(a);
+					if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr))
+										 || (Doc->Layers[docItem->LayerNr].Level > Doc->Layers[LayerNr].Level))
+					{
+						if (docItem->textFlowsAroundFrame())
+						{
+							pp.begin(ScApp->view->viewport());
+							pp.translate(docItem->Xpos, docItem->Ypos);
+							pp.rotate(docItem->Rot);
+							if (docItem->textFlowUsesBoundingBox())
+							{
+								QPointArray tcli;
+								tcli.resize(4);
+								tcli.setPoint(0, QPoint(0,0));
+								tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
+								tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
+								tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
+								cm = QRegion(pp.xForm(tcli));
+							}
+							else
+							{
+								if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+								{
+									QValueList<uint> Segs;
+									QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+									cm = QRegion(pp.xForm(Clip2));
+								}
+								else
+									cm = QRegion(pp.xForm(docItem->Clip));
 							}
 							pp.end();
 							cl = cl.subtract(cm);

@@ -2486,10 +2486,17 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						MoveItem(0, 0, b, false);
 				}
 				Imoved = false;
-				updateContents();
-				emit DocChanged();
 				setRedrawBounding(b);
 				b->OwnPage = OnPage(b);
+				if (b->OwnPage != -1)
+				{
+					Doc->currentPage = Doc->Pages.at(b->OwnPage);
+					setMenTxt(b->OwnPage);
+				}
+				emit HaveSel(b->itemType());
+				EmitValues(b);
+				updateContents();
+				emit DocChanged();
 			}
 		}
 		if ((SelItem.count() == 0) && (HaveSelRect) && (!MidButt))

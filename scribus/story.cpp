@@ -206,6 +206,39 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		case ControlButton|ShiftButton:
 		case ControlButton|Keypad:
 		case ControlButton|ShiftButton|Keypad:
+			switch (k->key())
+			{
+				case Key_Delete:
+					moveCursor(QTextEdit::MoveWordForward, true);
+					deleteSel();
+					break;
+				case Key_Backspace:
+					moveCursor(QTextEdit::MoveWordBackward, true);
+					deleteSel();
+					break;
+				case Key_K:
+					moveCursor(QTextEdit::MoveLineEnd, true);
+					deleteSel();
+					break;
+				case Key_D:
+					moveCursor(QTextEdit::MoveForward, true);
+					deleteSel();
+					break;
+				case Key_H:
+					moveCursor(QTextEdit::MoveBackward, true);
+					deleteSel();
+					break;
+				case Key_X:
+				case Key_Y:
+				case Key_Z:
+				case Key_V:
+					emit SideBarUp(true);
+					return;
+					break;
+				case Key_C:
+					copyStyledText();
+					break;
+			}
 			break;
 		case NoButton:
 		case Keypad:

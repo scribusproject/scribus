@@ -28,10 +28,14 @@ public:
     QPushButton* OK;
     QPushButton* Skip;
     QPushButton* Cancel;
+	int xpos;
+	int ypos;
 
 public slots:
 	void Check();
 	void DoSkip();
+	void accept();
+	void reject();
 
 protected:
     QVBoxLayout* HyAskLayout;

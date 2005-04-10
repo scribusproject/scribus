@@ -1522,6 +1522,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					view->PasteItem(&OB, true);
 					doc->GroupCounter = docGc;
 					Neu = doc->Items.at(last);
+					Neu->OnMasterPage = PgNam;
 					IT=OBJ.firstChild();
 					while(!IT.isNull())
 					{
