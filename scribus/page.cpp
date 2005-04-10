@@ -1050,24 +1050,24 @@ bool Page::ApplyGuides(double *x, double *y)
 				}
 			}
 		}
-		if ((doku->PageM.Left < (*x+doku->GuideRad)) && (doku->PageM.Left > (*x-doku->GuideRad)))
+		if ((Margins.Left < (*x+doku->GuideRad)) && (Margins.Left > (*x-doku->GuideRad)))
 		{
-			*x = doku->PageM.Left;
+			*x = Margins.Left;
 			ret = true;
 		}
-		if (((doku->PageB - doku->PageM.Right) < (*x+doku->GuideRad)) && ((doku->PageB - doku->PageM.Right) > (*x-doku->GuideRad)))
+		if (((doku->PageB - Margins.Right) < (*x+doku->GuideRad)) && ((doku->PageB - Margins.Right) > (*x-doku->GuideRad)))
 		{
-			*x = doku->PageB - doku->PageM.Right;
+			*x = doku->PageB - Margins.Right;
 			ret = true;
 		}
-		if ((doku->PageM.Top < (*y+doku->GuideRad)) && (doku->PageM.Top > (*y-doku->GuideRad)))
+		if ((Margins.Top < (*y+doku->GuideRad)) && (Margins.Top > (*y-doku->GuideRad)))
 		{
-			*y = doku->PageM.Top;
+			*y =Margins.Top;
 			ret = true;
 		}
-		if (((doku->PageH - doku->PageM.Bottom) < (*y+doku->GuideRad)) && ((doku->PageH - doku->PageM.Bottom) > (*y-doku->GuideRad)))
+		if (((doku->PageH - Margins.Bottom) < (*y+doku->GuideRad)) && ((doku->PageH - Margins.Bottom) > (*y-doku->GuideRad)))
 		{
-			*y = doku->PageH - doku->PageM.Bottom;
+			*y = doku->PageH - Margins.Bottom;
 			ret = true;
 		}
 	}
