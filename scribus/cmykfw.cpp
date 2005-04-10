@@ -161,6 +161,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, ColorList
 	Swatches->insertItem("X11 Grey-Set");
 	Swatches->insertItem("Gnome-Set");
 	Swatches->insertItem("SVG-Set");
+	Swatches->insertItem("OpenOffice.org-Set");
+
 	if (Cust.count() != 0)
 	{
 		QStringList realEx;
@@ -545,6 +547,9 @@ void CMYKChoose::SelSwatch(int n)
 		case 4:
 			pfadC2 = pfadC + "rgbsvg.txt";
 			break;
+		/*case 5:
+			pfadC2 = pfadC + "rgbscribusopenoffice.txt";
+			break; */
 		default:
 			pfadC2 = Cpfad;
 			cus = true;
