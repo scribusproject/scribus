@@ -243,7 +243,8 @@ void BookMView::contentsDropEvent(QDropEvent *e)
 				if (DraggedI->Prev == 0)
 				{
 					ip = (BookMItem*)lv;
-					ip->Prev = 0;
+					if (ip)
+						ip->Prev = 0;
 				}
 				QListViewItemIterator it(this);
 				for ( ; it.current(); ++it)
@@ -340,7 +341,7 @@ void BookMView::contentsDropEvent(QDropEvent *e)
   					ip->Prev = DraggedI->ItemNr;
   				}
   				else
-  					DraggedI->Next = 0;  	
+  					DraggedI->Next = 0;
   				lv = item->parent();
 				if (lv)
 				{

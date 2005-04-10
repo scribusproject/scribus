@@ -105,6 +105,7 @@ public:
 	bool Magnify;
 	bool MoveSym;
 	bool CursVis;
+	bool previewMode;
 	FPoint RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);

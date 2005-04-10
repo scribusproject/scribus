@@ -98,6 +98,8 @@ QString ScriXmlDoc::ReadDatei(QString fileName)
 		ff = QString::fromUtf8(f);
 	else if (f.startsWith("<SCRIBUS"))
 		ff = f;
+	if (ff.endsWith(QChar(10)) || ff.endsWith(QChar(13)))
+		ff.truncate(ff.length()-1);
 	return ff;
 /** end changes */
 }

@@ -164,6 +164,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	CursVis = false;
 	mCG = false;
 	MidButt = false;
+	previewMode = false;
 	Doc->SubMode = -1;
 	GroupX = 0;
 	GroupY = 0;
@@ -470,7 +471,10 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 			for (uint la = 0; la < Doc->Layers.count(); ++la)
 			{
 				Level2Layer(Doc, &ll, Lnr);
-				if (ll.isViewable)
+				bool pr = true;
+				if ((previewMode) && (!ll.isPrintable))
+					pr = false;
+				if ((ll.isViewable) && (pr))
 				{
 					for (uint a = 0; a < page->FromMaster.count(); ++a)
 					{
@@ -478,6 +482,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if (b->LayerNr != ll.LNr)
 							continue;
 						if ((b->OwnPage != -1) && (b->OwnPage != static_cast<int>(Mp->PageNr)))
+							continue;
+						if ((previewMode) && (!b->isPrintable))
 							continue;
 						uint OldOwn = b->OwnPage;
 						double OldX = b->Xpos;
@@ -582,13 +588,18 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 		for (uint la2 = 0; la2 < Doc->Layers.count(); ++la2)
 		{
 			Level2Layer(Doc, &ll, Lnr);
-			if (ll.isViewable)
+			bool pr = true;
+			if ((previewMode) && (!ll.isPrintable))
+				pr = false;
+			if ((ll.isViewable) && (pr))
 			{
 				QPtrListIterator<PageItem> docItem(Doc->Items);
 				 while ( (b = docItem.current()) != 0 )
 				 {
         			++docItem;
 					if (b->LayerNr != ll.LNr)
+						continue;
+					if ((previewMode) && (!b->isPrintable))
 						continue;
 					if ((Doc->MasterP) && ((b->OwnPage != -1) && (b->OwnPage != static_cast<int>(Doc->currentPage->PageNr))))
 						continue;
@@ -8969,6 +8980,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		}
 		Doc->guidesSettings.framesShown = false;
 		Scale = 1;
+		previewMode = true;
 		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 		painter->clear(white);
@@ -8994,6 +9006,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		else
 			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
 		delete painter;
+		previewMode = false;
 	}
 	return im;
 }
@@ -9012,6 +9025,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		bool frs = Doc->guidesSettings.framesShown;
 		Doc->guidesSettings.framesShown = false;
 		Scale = 1;
+		previewMode = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->Pages.at(Nr);
 		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
@@ -9036,6 +9050,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		else
 			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
 		delete painter;
+		previewMode = false;
 	}
 	return im;
 }
