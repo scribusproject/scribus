@@ -14,7 +14,7 @@
 TabCheckDoc::TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData, QString prefProfile ) : QWidget( parent, "tabcheckDoc", 0 )
 {
 	checkerProfile = prefsData;
-	TabCheckDocLayout = new QVBoxLayout( this, 10, 5, "TabCheckDocLayout");
+	TabCheckDocLayout = new QVBoxLayout( this, 0, 5, "TabCheckDocLayout");
 	TabCheckDocLayout->setAlignment( Qt::AlignTop );
 	curCheckProfile = new QComboBox( true, this, "Profiles" );
 	curCheckProfile->setEditable(true);

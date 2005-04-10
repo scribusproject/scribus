@@ -22,7 +22,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	
 	fon = &ScApp->Prefs.AvailFonts;
-	tabToolsLayout = new QHBoxLayout( this, 11, 6, "tabToolsLayout");
+	tabToolsLayout = new QHBoxLayout( this, 0, 5, "tabToolsLayout");
 	buttonGroupTools = new QButtonGroup( this, "buttonGroupTools" );
 	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
 	buttonGroupTools->setExclusive( true );

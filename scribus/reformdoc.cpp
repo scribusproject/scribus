@@ -36,8 +36,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	setCaption( tr( "Document Setup" ) );
 	tabPage = new QWidget( prefsWidgets, "tab" );
 	reformDocLayout = new QVBoxLayout( tabPage );
-	reformDocLayout->setSpacing( 6 );
-	reformDocLayout->setMargin( 10 );
+	reformDocLayout->setSpacing( 5 );
+	reformDocLayout->setMargin( 0 );
 	dsGroupBox7 = new QGroupBox( tabPage, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
@@ -205,7 +205,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
-	tabViewLayout = new QVBoxLayout( tabView, 10, 5, "tabViewLayout");
+	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
 	pageBackground = new QButtonGroup( tabView, "pageBackground" );
 	pageBackground->setTitle( tr( "Page Display" ) );
 	pageBackground->setColumnLayout(0, Qt::Vertical );

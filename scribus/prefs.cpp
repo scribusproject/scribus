@@ -62,8 +62,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	tab = new QWidget( prefsWidgets, "tab" );
 	tabLayout = new QGridLayout( tab );
-	tabLayout->setSpacing( 6 );
-	tabLayout->setMargin( 10 );
+	tabLayout->setSpacing( 5 );
+	tabLayout->setMargin( 0 );
 	tabLayout->setAlignment( Qt::AlignTop );
 
 	// GUI Group
@@ -173,7 +173,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	addItem( tr("General"), loadIcon("AppIcon.png"), tab);
 
 	tab_7 = new QWidget( prefsWidgets, "tab_7" );
-	tabLayout_7 = new QHBoxLayout( tab_7, 11, 6, "tabLayout_7");
+	tabLayout_7 = new QHBoxLayout( tab_7, 0, 5, "tabLayout_7");
 	Layout21 = new QVBoxLayout( 0, 0, 6, "Layout21");
 	GroupSize = new QButtonGroup( tr( "Page Size" ), tab_7, "GroupSize" );
 	GroupSize->setColumnLayout(0, Qt::Vertical );
@@ -401,8 +401,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	tab_5 = new QWidget( prefsWidgets, "tab_5" );
 	tabLayout_5 = new QGridLayout( tab_5 );
-	tabLayout_5->setSpacing( 6 );
-	tabLayout_5->setMargin( 11 );
+	tabLayout_5->setSpacing( 5 );
+	tabLayout_5->setMargin( 0 );
 	saving = new QGroupBox( tr( "Other Options" ), tab_5, "Saving" );
 	saving->setColumnLayout(0, Qt::Vertical );
 	saving->layout()->setSpacing( 0 );
@@ -437,7 +437,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	addItem(  tr("Scrapbook"), loadIcon("scrap.png"), tab_5);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
-	tabViewLayout = new QVBoxLayout( tabView, 10, 5, "tabViewLayout");
+	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
 	tabViewLayout->setAlignment( Qt::AlignTop );
 	pageBackground = new QButtonGroup( tabView, "pageBackground" );
 	pageBackground->setTitle( tr( "Page Display" ) );
@@ -559,7 +559,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
 	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
-	ExtToolLayout = new QVBoxLayout( ExtTool, 11, 6, "ExtToolLayout");
+	ExtToolLayout = new QVBoxLayout( ExtTool, 0, 5, "ExtToolLayout");
 	ExtToolLayout->setAlignment( Qt::AlignTop );
 	groupGS = new QGroupBox( tr( "Postscript Interpreter" ), ExtTool, "groupGS" );
 	groupGS->setColumnLayout(0, Qt::Vertical );
@@ -595,10 +595,10 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	ExtToolLayout->addWidget( groupGimp );
 	QSpacerItem* spacer_gs = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ExtToolLayout->addItem( spacer_gs );
-	addItem(  tr("External Tools."), loadIcon("misc.png"), ExtTool);
+	addItem(  tr("External Tools"), loadIcon("misc.png"), ExtTool);
 
 	Misc = new QWidget( prefsWidgets, "Misc" );
-	MiscLayout = new QVBoxLayout( Misc, 10, 5, "MiscLayout");
+	MiscLayout = new QVBoxLayout( Misc, 0, 5, "MiscLayout");
 	MiscLayout->setAlignment( Qt::AlignTop );
 	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
 	groupPrint->setColumnLayout(0, Qt::Vertical );
@@ -618,11 +618,11 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	MiscLayout->addWidget( AskForSubs );
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
-	addItem(  tr("Misc."), loadIcon("misc.png"), Misc);
+	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), Misc);
 
 	// plugin manager. pv.
 	pluginManagerWidget = new QWidget(prefsWidgets, "pluginManagerWidget");
-	pluginMainLayout = new QVBoxLayout( pluginManagerWidget, 10, 5, "pluginMainLayout");
+	pluginMainLayout = new QVBoxLayout( pluginManagerWidget, 0, 5, "pluginMainLayout");
 	pluginMainLayout->setAlignment( Qt::AlignTop );
 	plugGroupBox = new QGroupBox(tr("Plugin Manager"), pluginManagerWidget, "plugGroupBox");
 	plugGroupBox->setColumnLayout(0, Qt::Vertical);

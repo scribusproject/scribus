@@ -9,7 +9,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	cmsPrefsLayout = new QVBoxLayout( this ); 
 	cmsPrefsLayout->setAlignment( Qt::AlignTop );
 	cmsPrefsLayout->setSpacing( 5 );
-	cmsPrefsLayout->setMargin( 10 );
+	cmsPrefsLayout->setMargin( 0 );
 
 	checkBox1 = new QCheckBox( tr( "&Activate Color Management" ), this, "CheckBox1" );
 	checkBox1->setChecked(Vor->CMSinUse);

@@ -4,7 +4,7 @@
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {
 	QStringList lada;
-	layout3 = new QGridLayout( this, 1, 1, 11, 6, "Layout3");
+	layout3 = new QGridLayout( this, 1, 1, 0, 5, "Layout3");
 	layout3->setAlignment( Qt::AlignTop );
 	verbose = new QCheckBox(tr("&Hyphenation Suggestions"), this, "Verbose");
 	layout3->addMultiCellWidget(verbose, 0, 0, 0, 1);

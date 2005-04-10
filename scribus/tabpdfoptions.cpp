@@ -49,7 +49,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	tabGeneral = new QWidget( this, "tabGeneral" );
 	tabLayout = new QVBoxLayout( tabGeneral );
 	tabLayout->setSpacing( 5 );
-	tabLayout->setMargin( 10 );
+	tabLayout->setMargin( 0 );
 	Layout13 = new QHBoxLayout( 0, 0, 5, "Layout13");
 	RangeGroup = new QButtonGroup( tabGeneral, "RangeGroup" );
 	RangeGroup->setTitle( tr( "Export Range" ) );

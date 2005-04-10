@@ -10,7 +10,7 @@
 
 TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWidget( parent, "tabtypo", 0 )
 {
-	tabTypoLayout = new QGridLayout( this, 1, 1, 11, 6, "tabTypoLayout");
+	tabTypoLayout = new QGridLayout( this, 1, 1, 0, 6, "tabTypoLayout");
 	groupBox1a = new QGroupBox( this, "groupBox1a" );
 	groupBox1a->setColumnLayout(0, Qt::Vertical );
 	groupBox1a->layout()->setSpacing( 6 );
