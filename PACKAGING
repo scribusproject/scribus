@@ -46,7 +46,7 @@ Please remove all references to proprietary applications.
 We are still missing some locales, but in our testing it works properly. 
 We are awaiting IANA approval for our mime type.
 
-The command to install and refresh the mime database in a spec file 
+An example command to install and refresh the mime database in a spec file 
 (distro specfic macros might vary):
 
 %install
