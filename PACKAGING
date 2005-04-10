@@ -1,0 +1,79 @@
+Packagers notes:
+
+* All final release source tarballs are gpg signed to ensure their integrity. 
+You can verify them with:
+
+gpg --verify ./tarball.sig ./tarball.tar.bz2
+
+* The font sampler script, requires tkinter to run properly and optionally 
+python-imaging to enable print previews. Please consider adding these as 
+requires, even though configure does not explicitly check for them:
+
+* In the past some plug-ins were distributed separately which are now 
+part of the main package. Please consider adding:
+
+	Obsoletes:      scribus-svg
+	Obsoletes:      scribus-scripting
+	Obsoletes:      scribus-short-words
+	Obsoletes:	scribus-vnla
+
+to ensure these old packages are removed on upgrade.
+
+* Currently, the full en documentation is included in the tarball, however
+ it is licensed differently from the application source. We may separately 
+distribute them separately and they should also obsolete prior docs packages:
+
+	Obsoletes:      scribus-i18en
+	Obsoletes:      scribus-i18de
+	Obsoletes:      scribus-i18fr
+
+
+===============================================================================
+
+Recommended Spec File Description:
+
+%description
+Scribus is an desktop open source page layout program with the aim of producing 
+commerical grade output in PDF and Postscript, primarily, thought not exclusively for Linux. 
+
+Recommended Spec File Summary:        Scribus - Open Source Desktop Publishing 
+
+Please remove all references to proprietary applications.
+
+=============================================================================
+
+* We have included a scribus.xml file for updating the mime info database. 
+We are still missing some locales, but in our testing it works properly. 
+We are awaiting IANA approval for our mime type.
+
+The command to install and refresh the mime database in a spec file 
+(distro specfic macros might vary):
+
+%install
+
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_datadir}/mime/packages/}
+install scribus.xml $RPM_BUILD_ROOT%{_datadir}/mime/packages/scribus.xml
+
+%post
+umask 022
+[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1 ||:
+[ ! -x /usr/bin/update-mime-database ] || /usr/bin/update-mime-database %{_datadir}/mime >/dev/null 2>&1 ||:
+
+%postun 
+umask 022
+[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1
+[ ! -x /usr/bin/update-mime-database ] || /usr/bin/update-mime-database %{_datadir}/mime >/dev/null 2>&1 ||:
+
+=============================================================================
+
+We do appreciate the effort in maintaining packagers do for Scribus. 
+Please file issues or enhancement requests to http://bugs.scribus.net
+
+
+There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
+and the mailing list. Mailing list info can be found at: 
+ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
+
+For the Scribus Team,
+Peter Linnell
+in April 2005
