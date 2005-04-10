@@ -49,7 +49,7 @@ Fontconfig, if installed, will let Scribus find fonts using the same method as
 most other major desktop applications such as all KDE and GNOME applications.
 If fontconfig support is installed, Scribus will not search your X font path, X
 server configuration, or X font server configuration for fonts - it will only
-use conts found using fontconfig and any custom font locations configured in
+use fonts found using fontconfig and any custom font locations configured in
 the preferences.
 
 Python will be used to add scripting support to Scribus. If Python is not
@@ -197,6 +197,9 @@ the security updates that have been released.
 There are no packages for LittleCMS or a recent GhostScript in Fedora Core 3,
 though LittleCMS (lcms) is in Fedora Extras.
 
+There is a separate file, PACKAGING for detailed hints and denotes on building
+packages for Scribus.
+
 Additional information
 ======================
 
@@ -214,4 +217,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in March 2005
+in April 2005
