@@ -24,7 +24,6 @@ public:
 	~PrefsDialogBase() {};
 	int addItem(QString name, QPixmap icon, QWidget *tab);
 	void arrangeIcons();
-	QLabel* textLabel1;
 	QWidgetStack* prefsWidgets;
 	QPushButton* backToDefaults;
 	QPushButton* buttonOk;
@@ -41,6 +40,7 @@ protected:
 	QHBoxLayout* layout3;
 	QHBoxLayout* layout4;
 	QVBoxLayout* layout5;
+	QLabel* tabNameLabel;
 
 protected slots:
 	virtual void languageChange();

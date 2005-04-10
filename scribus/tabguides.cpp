@@ -22,7 +22,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	precision = unitGetPrecisionFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	
-	tabGuidesLayout = new QVBoxLayout( this, 10, 5, "tabViewLayout");
+	tabGuidesLayout = new QVBoxLayout( this, 0, 5, "tabViewLayout");
 
 	commonBox = new QGroupBox( this, "commonBox" );
 	commonBox->setTitle( tr( "Common Settings" ) );
@@ -203,7 +203,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineBoxLayout = new QGridLayout( baselineBox->layout() );
 	baselineBoxLayout->setAlignment( Qt::AlignTop );
 	checkBaseline = new QLabel( baselineBox, "checkBaseline" );
-	checkBaseline->setText( tr( "Show Baseline Grid" ) );
+	checkBaseline->setText( tr( "Color:" ) );
 	baselineBoxLayout->addWidget( checkBaseline, 0, 0 );
 	baselineColor = new QPushButton( baselineBox, "baselineColor" );
 	baselineColor->setMinimumSize( QSize( 60, 20 ) );
@@ -253,7 +253,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	QToolTip::add( majorGridColor, tr( "Color of the major grid lines" ) );
 	QToolTip::add( guideColor, tr( "Color of the guide lines you insert" ) );
 	QToolTip::add( marginColor, tr( "Color for the margin lines" ) );
-	QToolTip::add( baselineColor, tr( "Color for the basegrid lines" ) );
+	QToolTip::add( baselineColor, tr( "Color for the baseline grid" ) );
 	QToolTip::add( baselineBox, tr("Turns the basegrid on or off"));
 	QToolTip::add( checkGrid, tr("Turns the gridlines on or off"));
 	QToolTip::add( guideBox, tr("Turns the guides on or off"));

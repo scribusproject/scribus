@@ -28,13 +28,13 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	prefsSelection->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, prefsSelection->sizePolicy().hasHeightForWidth() ) );
 	layout3->addWidget( prefsSelection );
 	layout5 = new QVBoxLayout( 0, 0, 6, "layout5");
-	textLabel1 = new QLabel( this, "textLabel1" );
-	QFont f(textLabel1->font());
+	tabNameLabel = new QLabel( this, "tabNameLabel" );
+	QFont f(tabNameLabel->font());
 	f.setPointSize(f.pointSize()+4);
 	f.setBold(true);
-	textLabel1->setFont(f);
-	textLabel1->setText("");
-	layout5->addWidget( textLabel1 );
+	tabNameLabel->setFont(f);
+	tabNameLabel->setText("");
+	layout5->addWidget( tabNameLabel );
 	prefsWidgets = new QWidgetStack( this, "prefsWidgets" );
 	layout5->addWidget( prefsWidgets );
 	layout3->addLayout(layout5);
@@ -102,7 +102,7 @@ void PrefsDialogBase::itemSelected(QIconViewItem* ic)
 	if (itemMap.contains(ic))
 	{
 		prefsWidgets->raiseWidget(itemMap[ic]);
-		textLabel1->setText(ic->text());
+		tabNameLabel->setText(ic->text());
 	}
 }
 /*
