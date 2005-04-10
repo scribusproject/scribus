@@ -9,7 +9,7 @@
 
 class WortEdit : public QLineEdit
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
 	WortEdit(QWidget* parent);
 	~WortEdit() {};
@@ -17,25 +17,29 @@ public:
 };
 
 class HyAsk : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    HyAsk( QWidget* parent, QString HWort );
-    ~HyAsk() {};
+	HyAsk( QWidget* parent, QString HWort );
+	~HyAsk() {};
 
-    WortEdit* Wort;
-    QPushButton* OK;
-    QPushButton* Skip;
-    QPushButton* Cancel;
+	WortEdit* Wort;
+	QPushButton* OK;
+	QPushButton* Skip;
+	QPushButton* Cancel;
+	int xpos;
+	int ypos;
 
 public slots:
 	void Check();
 	void DoSkip();
+	void accept();
+	void reject();
 
 protected:
-    QVBoxLayout* HyAskLayout;
-    QHBoxLayout* Layout1;
+	QVBoxLayout* HyAskLayout;
+	QHBoxLayout* Layout1;
 };
 
 #endif // HYASK_H

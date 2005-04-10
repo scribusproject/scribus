@@ -667,41 +667,79 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				Doc->Vorlagen[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
 				for (a=0; a<OwnPage->Items.count(); ++a)
+				{
+					PageItem* ownItem = OwnPage->Items.at(a);
+					if (((ownItem->ItemNr > ItemNr) && (ownItem->LayerNr == LayerNr))
+   							|| (Doc->Layers[ownItem->LayerNr].Level > Doc->Layers[LayerNr].Level))
 					{
-					if (((OwnPage->Items.at(a)->ItemNr > ItemNr) && (OwnPage->Items.at(a)->LayerNr == LayerNr))
-   							|| (Doc->Layers[OwnPage->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
+						if (ownItem->Textflow)
 						{
-						if (OwnPage->Items.at(a)->Textflow)
-							{
 							pp.begin(Parent);
-							pp.translate(OwnPage->Items.at(a)->Xpos, OwnPage->Items.at(a)->Ypos);
-							pp.rotate(OwnPage->Items.at(a)->Rot);
-							if (OwnPage->Items.at(a)->Textflow2)
-								{
+							pp.translate(ownItem->Xpos, ownItem->Ypos);
+							pp.rotate(ownItem->Rot);
+							if (ownItem->Textflow2)
+							{
 								QPointArray tcli;
 								tcli.resize(4);
 								tcli.setPoint(0, QPoint(0,0));
-								tcli.setPoint(1, QPoint(qRound(OwnPage->Items.at(a)->Width), 0));
-								tcli.setPoint(2, QPoint(qRound(OwnPage->Items.at(a)->Width), qRound(OwnPage->Items.at(a)->Height)));
-								tcli.setPoint(3, QPoint(0, qRound(OwnPage->Items.at(a)->Height)));
+								tcli.setPoint(1, QPoint(qRound(ownItem->Width), 0));
+								tcli.setPoint(2, QPoint(qRound(ownItem->Width), qRound(ownItem->Height)));
+								tcli.setPoint(3, QPoint(0, qRound(ownItem->Height)));
 								cm = QRegion(pp.xForm(tcli));
-								}
+							}
 							else
 							{
-								if ((OwnPage->Items.at(a)->UseContour) && (OwnPage->Items.at(a)->ContourLine.size() != 0))
+								if ((ownItem->UseContour) && (ownItem->ContourLine.size() != 0))
 								{
 									QValueList<uint> Segs;
-									QPointArray Clip2 = FlattenPath(OwnPage->Items.at(a)->ContourLine, Segs);
+									QPointArray Clip2 = FlattenPath(ownItem->ContourLine, Segs);
 									cm = QRegion(pp.xForm(Clip2));
 								}
 								else
-									cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
+									cm = QRegion(pp.xForm(ownItem->Clip));
 							}
 							pp.end();
 							cl = cl.subtract(cm);
-							}
 						}
 					}
+				}
+				if (OwnPage->PageNam != "")
+				{
+					Page* par = (Page*)Parent;
+					for (a=0; a<par->Items.count(); ++a)
+					{
+						PageItem* parItem = par->Items.at(a);
+						if (parItem->Textflow)
+						{
+							pp.begin(Parent);
+							pp.translate(parItem->Xpos, parItem->Ypos);
+							pp.rotate(parItem->Rot);
+							if (parItem->Textflow2)
+							{
+								QPointArray tcli;
+								tcli.resize(4);
+								tcli.setPoint(0, QPoint(0,0));
+								tcli.setPoint(1, QPoint(qRound(parItem->Width), 0));
+								tcli.setPoint(2, QPoint(qRound(parItem->Width), qRound(parItem->Height)));
+								tcli.setPoint(3, QPoint(0, qRound(parItem->Height)));
+								cm = QRegion(pp.xForm(tcli));
+							}
+							else
+							{
+								if ((parItem->UseContour) && (parItem->ContourLine.size() != 0))
+								{
+									QValueList<uint> Segs;
+									QPointArray Clip2 = FlattenPath(parItem->ContourLine, Segs);
+									cm = QRegion(pp.xForm(Clip2));
+								}
+								else
+									cm = QRegion(pp.xForm(parItem->Clip));
+							}
+							pp.end();
+							cl = cl.subtract(cm);
+						}
+					}
+				}
 				if (flippedH % 2 != 0)
 				{
 					p->translate(Width * sc, 0);

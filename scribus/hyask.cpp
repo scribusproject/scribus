@@ -5,8 +5,7 @@
 extern QPixmap loadIcon(QString nam);
 
 WortEdit::WortEdit(QWidget* parent) : QLineEdit(parent)
-{
-}
+{}
 
 void WortEdit::keyPressEvent(QKeyEvent *k)
 {
@@ -32,44 +31,60 @@ void WortEdit::keyPressEvent(QKeyEvent *k)
 }
 
 HyAsk::HyAsk( QWidget* parent, QString HWort )
-    : QDialog( parent, "name", true, 0 )
+		: QDialog( parent, "name", true, 0 )
 {
-    resize( 322, 73 ); 
-    setCaption( tr( "Possible Hyphenation" ) );
-  	setIcon(loadIcon("AppIcon.png"));
-    HyAskLayout = new QVBoxLayout( this, 11, 6, "HyAskLayout"); 
+	resize( 322, 73 );
+	setCaption( tr( "Possible Hyphenation" ) );
+	setIcon(loadIcon("AppIcon.png"));
+	HyAskLayout = new QVBoxLayout( this, 11, 6, "HyAskLayout");
 
-    Wort = new WortEdit( this );
-    Wort->setMinimumSize( QSize( 300, 0 ) );
-    Wort->setDragEnabled( false );
-    Wort->setText( HWort );
-    HyAskLayout->addWidget( Wort );
+	Wort = new WortEdit( this );
+	Wort->setMinimumSize( QSize( 300, 0 ) );
+	Wort->setDragEnabled( false );
+	Wort->setText( HWort );
+	HyAskLayout->addWidget( Wort );
 
-    Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1"); 
-    QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1->addItem( spacer );
+	Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1");
+	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer );
 
-    OK = new QPushButton( this, "OK" );
-    OK->setText( tr( "Accept" ) );
-    OK->setDefault( true );
-    Layout1->addWidget( OK );
-    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1->addItem( spacer_2 );
-    Skip = new QPushButton( this, "cancel2" );
-    Skip->setText( tr( "Skip" ) );
-    Layout1->addWidget( Skip );
-    QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1->addItem( spacer_3 );
-    Cancel = new QPushButton( this, "cancel" );
-    Cancel->setText( tr( "Cancel" ) );
-    Layout1->addWidget( Cancel );
-    QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1->addItem( spacer_4 );
-    HyAskLayout->addLayout( Layout1 );
+	OK = new QPushButton( this, "OK" );
+	OK->setText( tr( "Accept" ) );
+	OK->setDefault( true );
+	Layout1->addWidget( OK );
+	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer_2 );
+	Skip = new QPushButton( this, "cancel2" );
+	Skip->setText( tr( "Skip" ) );
+	Layout1->addWidget( Skip );
+	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer_3 );
+	Cancel = new QPushButton( this, "cancel" );
+	Cancel->setText( tr( "Cancel" ) );
+	Layout1->addWidget( Cancel );
+	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer_4 );
+	HyAskLayout->addLayout( Layout1 );
 	connect(OK, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(Skip, SIGNAL(clicked()), this, SLOT(DoSkip()));
 	connect(Wort, SIGNAL(textChanged(const QString &)), this, SLOT(Check()));
+	xpos = pos().x();
+	ypos = pos().y();
+}
+
+void HyAsk::accept()
+{
+	xpos = pos().x();
+	ypos = pos().y();
+	QDialog::accept();
+}
+
+void HyAsk::reject()
+{
+	xpos = pos().x();
+	ypos = pos().y();
+	QDialog::reject();
 }
 
 void HyAsk::Check()

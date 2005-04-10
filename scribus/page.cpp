@@ -617,6 +617,13 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 		Page* Opa2;
 		if (Mp->Items.count() != 0)
 		{
+			for (a = 0; a < Mp->Items.count(); ++a)
+			{
+				b = Mp->Items.at(a);
+				Opa = b->Parent;
+				Opa2 = b->OwnPage;
+				b->Parent = this;
+			}
 			Lnr = 0;
 			for (uint la = 0; la < doku->Layers.count(); ++la)
 			{
@@ -628,10 +635,6 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						b = Mp->Items.at(a);
 						if (b->LayerNr != ll.LNr)
 							continue;
-						Opa = b->Parent;
-						Opa2 = b->OwnPage;
-						b->Parent = this;
-						b->OwnPage = this;
 						QPainter p;
 						p.begin(this);
 						Transform(b, &p);
@@ -640,8 +643,6 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						p.end();
 						if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 							b->DrawObj(painter, rd);
-						b->Parent = Opa;
-						b->OwnPage = Opa2;
 					}
 					for (a = 0; a < Mp->Items.count(); ++a)
 					{
@@ -650,10 +651,6 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 							continue;
 						if (!b->isTableItem)
 							continue;
-						Opa = b->Parent;
-						Opa2 = b->OwnPage;
-						b->Parent = this;
-						b->OwnPage = this;
 						QPainter p;
 						p.begin(this);
 						Transform(b, &p);
@@ -686,11 +683,14 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 							}
 							painter->restore();
 						}
-						b->Parent = Opa;
-						b->OwnPage = Opa2;
 					}
 				}
 				Lnr++;
+			}
+			for (a = 0; a < Mp->Items.count(); ++a)
+			{
+				b = Mp->Items.at(a);
+				b->Parent = Opa;
 			}
 		}
 	}

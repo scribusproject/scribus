@@ -32,7 +32,9 @@
 #include <cstdlib>
 #include <string>
 #include "scribus.h"
+#include "prefsfile.h"
 
+extern PrefsFile* prefsFile;
 /*!
  \fn Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app)
  \brief Constructor reads user configuration and sets hyphenator properties.
@@ -315,7 +317,12 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						}
 						outs += found2.right(1);
 						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						PrefsContext* prefs = prefsFile->getContext("hyhpen_options");
+						int xpos = prefs->getInt("Xposition", -9999);
+						int ypos = prefs->getInt("Yposition", -9999);
 						HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
+						if ((xpos != -9999) && (ypos != -9999))
+							dia->move(xpos, ypos);
 						qApp->processEvents();
 						if (dia->exec())
 						{
@@ -333,9 +340,13 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						else
 						{
 							free(buffer);
+							prefs->set("Xposition", dia->xpos);
+							prefs->set("Yposition", dia->ypos);
 							delete dia;
 							break;
 						}
+						prefs->set("Xposition", dia->xpos);
+						prefs->set("Yposition", dia->ypos);
 						delete dia;
   						qApp->setOverrideCursor(QCursor(waitCursor), true);
 					}
