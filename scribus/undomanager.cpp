@@ -296,6 +296,11 @@ void UndoManager::renameStack(const QString& newName)
 	if (currentDoc == newName)
 		return;
 
+	if (stacks[currentDoc].second.empty()) {
+		currentDoc = newName;
+		return;
+	}
+	
 	ActionPair pair = *(stacks[currentDoc].first);
 	StackPair tmp(stacks[currentDoc].first, stacks[currentDoc].second);
 	stacks.erase(currentDoc);
