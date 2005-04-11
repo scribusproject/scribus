@@ -241,8 +241,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	closeButton = new QPushButton( tr("&Close"), this, "closeButton" );
 	layout1->addWidget( closeButton );
 	zAuswahlLayout->addLayout( layout1 );
-	sample->setMaximumSize(width(), 52);
-	sample->setMinimumSize(width(), 52);
+	sample->setMinimumHeight(52);
 	delEdit();
 //tooltips
 	QToolTip::add( insertButton, tr( "Insert the characters at the cursor in the text" ) );
