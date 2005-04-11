@@ -27,11 +27,14 @@
   *@author Franz Schmid
   */
 
-class FPointArray : public QMemArray<FPoint>
+class FPointArray : private QMemArray<FPoint>
 {
 public: 
-	FPointArray() {};
-	FPointArray(int size) : QMemArray<FPoint>(size) {};
+	FPointArray() : count(0), capacity(0) {};
+	FPointArray(int size) : QMemArray<FPoint>(size), count(size), capacity(size) {};
+	FPointArray(const FPointArray &a) : QMemArray<FPoint>(a), count(a.count), capacity(a.capacity) {};
+	uint size() const;
+	bool resize(uint newCount);
 	void setPoint(uint i, double x, double y);
 	void setPoint(uint i, FPoint p);
 	bool setPoints( int nPoints, double firstx, double firsty, ... );
@@ -43,8 +46,8 @@ public:
 	void translate( double dx, double dy );
 	FPoint WidthHeight();
 	void map(QWMatrix m);
-	FPointArray &operator=( const FPointArray &a ) { return (FPointArray&)assign( a ); }
-	FPointArray copy() const { FPointArray tmp; return *((FPointArray*)&tmp.duplicate(*this)); }
+	FPointArray &operator=( const FPointArray &a );
+	FPointArray copy() const;
 	void setMarker();
 	void addPoint(double x, double y);
 	void addPoint(FPoint p);
@@ -55,6 +58,9 @@ public:
 	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n );
 	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 );
 	~FPointArray() {};
+private:
+	uint count;
+	uint capacity;
 };
 
 #endif

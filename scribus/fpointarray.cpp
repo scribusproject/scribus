@@ -21,20 +21,78 @@
 
 using namespace std;
 
+FPointArray FPointArray::copy() const
+{ 
+	FPointArray tmp; 
+	tmp.duplicate(*this);
+	tmp.count = count;
+	tmp.capacity = capacity;
+	return tmp; 
+}
+
+
+FPointArray & FPointArray::operator=( const FPointArray &a )
+{ 
+	assign( a );
+	count = a.count; 
+	capacity = a.capacity;
+	return *this; 
+}
+
+
+/* optimized for speed:
+ *   never shrink
+ *   when growing, try to double size
+ *   if capacity permits, just increase count
+ */
+bool FPointArray::resize(uint newCount)
+{
+	if (newCount <= capacity) {
+		if (newCount < 0) {
+			qDebug(QString("resize(): newcount=%1 this=%2").arg(newCount).arg(reinterpret_cast<long>(this), 0, 16));
+			count = 0;
+		}
+		else			
+			count = newCount;
+		return true;
+	}
+	else if (newCount <= 2*capacity && QMemArray<FPoint>::resize(2*capacity)) {
+		capacity *= 2;
+		count = newCount;
+		return true;
+	}
+	else if (QMemArray<FPoint>::resize(newCount)) {
+		capacity = newCount;
+		count = newCount;
+		return true;
+	}
+	else {
+		qDebug(QString("failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
+		return false;
+	}
+}
+
+uint FPointArray::size() const
+{ 
+	return count; 
+}
+
 void FPointArray::setPoint(uint i, double x, double y)
 {
-	QMemArray<FPoint>::at( i ) = FPoint( x, y );
+	FPoint *p = & QMemArray<FPoint>::at( i );
+	p->xp = x;
+	p->yp = y;
 }
 
 void FPointArray::setPoint(uint i, FPoint p)
 {
-	setPoint(i, p.x(), p.y());
+	setPoint(i, p.xp, p.yp);
 }
 
 bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 {
 	va_list ap;
-	if ( !resize(nPoints) )
+	if ( !FPointArray::resize(nPoints) )
 		return false;
 	setPoint( 0, firstx, firsty );
 	int i = 1;
@@ -54,9 +112,9 @@ bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 bool FPointArray::putPoints( int index, int nPoints, double firstx, double firsty,  ... )
 {
 	va_list ap;
-	if ( index + nPoints > static_cast<int>(size()) )
+	if ( index + nPoints > static_cast<int>(count) )
 	{
-		if ( !resize(index + nPoints) )
+		if ( !FPointArray::resize(index + nPoints) )
 			return false;
 	}
 	if ( nPoints <= 0 )
@@ -78,18 +136,20 @@ bool FPointArray::putPoints( int index, int nPoints, double firstx, double first
 
 bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, int fromIndex )
 {
-	if ( index + nPoints > static_cast<int>(size()) )
+	if ( index + nPoints > static_cast<int>(count) )
 	{	// extend array
-		if ( !resize(index + nPoints) )
+		if ( !FPointArray::resize(index + nPoints) )
 			return false;
 	}
 	if ( nPoints <= 0 )
 		return true;
-	int n = 0;
-	while( n < nPoints )
+	Iterator p = begin();
+	p += index;
+	ConstIterator q = from.begin();
+	q += fromIndex;
+	while( --nPoints >= 0 )
 	{
-		setPoint( index+n, from[fromIndex+n] );
-		n++;
+		*p++ = *q++;
     }
 	return true;
 }
@@ -117,112 +177,110 @@ QPoint FPointArray::pointQ(uint i)
 
 void FPointArray::translate( double dx, double dy )
 {
-	FPoint *p = data();
-	int i = size();
 	FPoint pt( dx, dy );
-	while ( i-- )
-    {
+	Iterator pend = begin();
+	pend += count;
+	for (Iterator p = begin(); p != pend; p++)
+	{
 		if (p->x() < 900000)
-     	*p += pt;
-    	p++;
-    }
+			*p += pt;
+	}
 }
 
 FPoint FPointArray::WidthHeight()
 {
-	if ( isEmpty() )
+	if ( count == 0 )
 		return FPoint( 0.0, 0.0 );		// null rectangle
-	FPoint *pd = data();
+	Iterator pd = begin();
+	Iterator pend = begin();
+	pend += count;
 	double minx, maxx, miny, maxy;
-	minx = maxx = pd->x();
-	miny = maxy = pd->y();
-	pd++;
-	for ( int i=1; i < static_cast<int>(size()); ++i )
+	minx = maxx = pd->xp;
+	miny = maxy = pd->yp;
+	for ( ++pd; pd != pend; ++pd )
 	{	// find min+max x and y
-		if (pd->x() > 900000)
+		if (pd->xp > 900000)
 		{
-			pd++;
 			continue;
 		}
-		if ( pd->x() < minx )
-			minx = pd->x();
+		if ( pd->xp < minx )
+			minx = pd->xp;
 		else
-			if ( pd->x() > maxx )
-		    	maxx = pd->x();
+			if ( pd->xp > maxx )
+		    	maxx = pd->xp;
 		if ( pd->y() < miny )
-			miny = pd->y();
+			miny = pd->yp;
 		else
-			if ( pd->y() > maxy )
-	    		maxy = pd->y();
-		pd++;
+			if ( pd->yp > maxy )
+	    		maxy = pd->yp;
     }
 	return FPoint(maxx - minx,maxy - miny);
 }
 
 void FPointArray::map( QWMatrix m )
 {
-	FPoint *p = data();
+	const double m11 = m.m11();
+	const double m12 = m.m12();
+	const double m21 = m.m21();
+	const double m22 = m.m22();
+	const double dx  = m.dx();
+	const double dy  = m.dy();
 	double mx, my;
-	int i = size();
-	while ( i-- )
+	Iterator pend = begin();
+	pend += count;
+	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->x() > 900000)
+		if (p->xp > 900000)
 		{
-			mx = p->x();
-			my = p->y();
+			mx = p->xp;
+			my = p->yp;
 		}
 		else
 		{
-			mx = m.m11() * p->x() + m.m21() * p->y() + m.dx();
-			my = m.m22() * p->y() + m.m12() * p->x() + m.dy();
+			mx = m11 * p->xp + m21 * p->yp + dx;
+			my = m22 * p->yp + m12 * p->xp + dy;
 		}
-		*p = FPoint(mx, my);
-		p++;
+		p->xp = mx;
+		p->yp = my;
 	}
 }
 
 void FPointArray::setMarker()
 {
-	addPoint(999999.0, 999999.0);
-	addPoint(999999.0, 999999.0);
-	addPoint(999999.0, 999999.0);
-	addPoint(999999.0, 999999.0);
+	addQuadPoint(999999.0, 999999.0,
+				999999.0, 999999.0,
+				999999.0, 999999.0,
+				999999.0, 999999.0);
 }
 
 void FPointArray::addPoint(double x, double y)
 {
-	resize(size()+1);
-	setPoint(size()-1, FPoint(x, y));
+	FPointArray::resize(count+1);
+	setPoint(count-1, x, y);
 }
 
 void FPointArray::addPoint(FPoint p)
 {
-	resize(size()+1);
-	setPoint(size()-1, p.x(), p.y());
+	FPointArray::resize(count+1);
+	setPoint(count-1, p);
 }
 
 void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
 {
-	resize(size()+1);
-	setPoint(size()-1, FPoint(x1, y1));
-	resize(size()+1);
-	setPoint(size()-1, FPoint(x2, y2));
-	resize(size()+1);
-	setPoint(size()-1, FPoint(x3, y3));
-	resize(size()+1);
-	setPoint(size()-1, FPoint(x4, y4));
+	FPointArray::resize(count+4);
+	setPoint(count-4, x1, y1);
+	setPoint(count-3, x2, y2);
+	setPoint(count-2, x3, y3);
+	setPoint(count-1, x4, y4);
 }
 
 void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
 {
-	resize(size()+1);
-	setPoint(size()-1, p1.x(), p1.y());
-	resize(size()+1);
-	setPoint(size()-1, p2.x(), p2.y());
-	resize(size()+1);
-	setPoint(size()-1, p3.x(), p3.y());
-	resize(size()+1);
-	setPoint(size()-1, p4.x(), p4.y());
+	FPointArray::resize(count+4);
+	setPoint(count-4, p1);
+	setPoint(count-3, p2);
+	setPoint(count-2, p3);
+	setPoint(count-1, p4);
 }
 
 double FPointArray::lenPathSeg(int seg)

@@ -2047,16 +2047,16 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				dx = wide / 2.0;
 				CurX += dx;
 				ext = false;
-				while ( (seg < PoLine.count()-3) && (CurX > fsx + segLen))
+				while ( (seg < PoLine.size()-3) && (CurX > fsx + segLen))
 				{
 					fsx += segLen;
 					seg += 4;
-					if (seg > PoLine.count()-3)
+					if (seg > PoLine.size()-3)
 						break;
 					segLen = PoLine.lenPathSeg(seg);
 					ext = true;
 				}
-				if (seg > PoLine.count()-3)
+				if (seg > PoLine.size()-3)
 					break;
 				if (CurX > fsx + segLen)
 					break;
@@ -2076,7 +2076,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				}
 				else
 				{
-					if( seg < PoLine.count()-3 )
+					if( seg < PoLine.size()-3 )
 					{
 						if (CurX > fsx + segLen)
 							break;
@@ -2364,7 +2364,10 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		QWMatrix chma, chma2, chma3, chma4, chma5;
 		chma.scale(csi, csi);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
+//qDebug(QString("DrawZeichenS(): before count=%1 capacity=%2").arg(hl->ZFo->GlyphArray[chr].Outlines.size()).arg(reinterpret_cast<QMemArray<FPoint>*>(&hl->ZFo->GlyphArray[chr].Outlines)->size()));
+		
 		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
+//qDebug(QString("DrawZeichenS(): after count=%1 capacity=%2").arg(gly.size()).arg(reinterpret_cast<QMemArray<FPoint>*>(&gly)->size()));
 		if (gly.size() > 3)
 		{
 			chma2.scale(hl->scale / 100.0, 1);

@@ -1165,10 +1165,10 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 						}
 						else
 						{
-							clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
-							clip2.addPoint(FPoint(frac2 * header.width, frac1 * header.height));
-							clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
-							clip2.addPoint(FPoint(frac6 * header.width, frac5 * header.height));
+							clip2.addPoint(frac4 * header.width, frac3 * header.height);
+							clip2.addPoint(frac2 * header.width, frac1 * header.height);
+							clip2.addPoint(frac4 * header.width, frac3 * header.height);
+							clip2.addPoint(frac6 * header.width, frac5 * header.height);
 						}
 						pathOpen = true;
 						first = false;
@@ -2489,7 +2489,7 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	double di = factor;
 	double mx = 0;
 	double my = 0;
-	FPointArray pts = FPointArray();
+	FPointArray pts;
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -3014,8 +3014,8 @@ int traceMoveto( FT_Vector *to, FPointArray *composite )
 	}
 	else
 		FirstM = false;
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
+	composite->addPoint(tox, toy);
+	composite->addPoint(tox, toy);
 	firstP = FPoint(tox, toy);
 	return 0;
 }
@@ -3037,10 +3037,10 @@ int traceLineto( FT_Vector *to, FPointArray *composite )
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return 0;
 	}
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
+	composite->addQuadPoint(tox, toy,
+				tox, toy,
+				tox, toy,
+				tox, toy);
 	return 0;
 }
 
@@ -3063,10 +3063,10 @@ int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *compos
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return 0;
 	}
-	composite->addPoint(FPoint(x2, y2));
-	composite->addPoint(FPoint(x1, y1));
-	composite->addPoint(FPoint(x2, y2));
-	composite->addPoint(FPoint(x2, y2));
+	composite->addQuadPoint(x2, y2,
+				x1, y1,
+				x2, y2,
+				x2, y2);
 	return 0;
 }
 
@@ -3092,10 +3092,10 @@ int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *co
 			return 0;
 	}
 	composite->setPoint(composite->size()-1, FPoint(x1, y1));
-	composite->addPoint(FPoint(x3, y3));
-	composite->addPoint(FPoint(x2, y2));
-	composite->addPoint(FPoint(x3, y3));
-	composite->addPoint(FPoint(x3, y3));
+	composite->addQuadPoint(x3, y3,
+				x2, y2,
+				x3, y3,
+				x3, y3);
 	return 0;
 }
 
@@ -3113,7 +3113,9 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 {
 	bool error = false;
 	FT_UInt glyphIndex;
-	FPointArray pts, pts2;
+	//AV: not threadsave, but tracechar is only used in ReadMetrics() and fontSample()
+	static FPointArray pts; 
+	FPointArray pts2;
 	pts.resize(0);
 	pts2.resize(0);
 	firstP = FPoint(0,0);
@@ -3149,6 +3151,7 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 	pts.map(ma);
 	pts.translate(0, chs);
 	pts2.putPoints(0, pts.size()-2, pts, 0);
+
 	return pts2;
 }
 

@@ -29,7 +29,9 @@ public:
 	FPoint() {};
 	FPoint(double x, double y);
 	FPoint(QPoint p);
-	~FPoint() {};
+	FPoint(const FPoint & p);
+//  ~FPoint() {};
+	FPoint &  operator=(const FPoint & rhs);
 	double x();
 	double y();
 	void setX(double x);
@@ -43,6 +45,7 @@ public:
 	friend inline const FPoint operator*( const FPoint &, const double & );
 	friend inline const FPoint operator*( const double &, const FPoint & );
 	friend inline const double  operator*( const FPoint &a, const FPoint &b );
+	friend class FPointArray;
 
 private:
 	double xp;

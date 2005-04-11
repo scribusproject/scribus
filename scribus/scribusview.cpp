@@ -1434,7 +1434,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			Clip = b->ContourLine;
 		else
 			Clip = b->PoLine;
-		for (uint a = 0; a < Clip.count(); ++a)
+		for (uint a = 0; a < Clip.size(); ++a)
 		{
 			if (Clip.point(a).x() > 900000)
 				continue;

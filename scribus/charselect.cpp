@@ -589,7 +589,6 @@ void CharSelect::generatePreview(int charClass)
 			QWMatrix chma;
 			chma.scale(1.6, 1.6);
 			FPointArray gly = (*ap->doc->AllFonts)[fontInUse]->GlyphArray[characters[cc]].Outlines.copy();
-			cc++;
 			if (gly.size() > 4)
 			{
 				gly.map(chma);
@@ -600,6 +599,7 @@ void CharSelect::generatePreview(int charClass)
 				p->setupPolygon(&gly);
 				p->fillPath();
 			}
+			cc++;
 			p->end();
 			delete p;
 			QTableItem *it = new QTableItem(zTabelle, QTableItem::Never, "", pixm);

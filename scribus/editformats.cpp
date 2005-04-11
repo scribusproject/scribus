@@ -2,6 +2,7 @@
 #include "editformats.moc"
 #include "edit1format.h"
 #include <qmessagebox.h>
+#include <qheader.h>
 
 #include "scribusdoc.h"
 #include "customfdialog.h"
@@ -10,8 +11,73 @@
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *avail)
-		: QDialog( parent, "Formate", true, 0)
+ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, QValueList<ParagraphStyle> *styleOld)
+ : QDialog( parent, "ChooseStyles", true, 0 )
+{
+	setCaption( tr( "Choose Styles" ) );
+	setIcon(loadIcon("AppIcon.png"));
+	ChooseStylesLayout = new QVBoxLayout( this, 10, 5, "ChooseStylesLayout");
+	StyleView = new QListView( this, "StyleView" );
+	StyleView->clear();
+	StyleView->addColumn( tr( "Available Styles" ) );
+	StyleView->header()->setClickEnabled( FALSE, StyleView->header()->count() - 1 );
+	StyleView->header()->setResizeEnabled( FALSE, StyleView->header()->count() - 1 );
+	StyleView->setSorting(-1);
+	int counter = 5;
+	for (uint x = 5; x < styleList->count(); ++x)
+	{
+		struct ParagraphStyle vg;
+		struct ParagraphStyle vg2;
+		vg = (*styleList)[x];
+		bool found = false;
+		for (uint xx=0; xx<styleOld->count(); ++xx)
+		{
+			vg2 = (*styleOld)[xx];
+			if (vg.Vname == vg2.Vname)
+			{
+				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
+					(vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&
+					(vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (vg.TabValues == vg2.TabValues) &&
+					(vg.Drop == vg2.Drop) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
+					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
+					(vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
+				{
+					found = true;
+				}
+				else
+				{
+					vg.Vname = "Copy of "+vg2.Vname;
+					found = false;
+				}
+				break;
+			}
+		}
+		if (!found)
+		{
+			QCheckListItem *item = new QCheckListItem (StyleView, vg.Vname, QCheckListItem::CheckBox);
+			item->setOn(true);
+			storedStyles.insert(item, counter);
+		}
+		counter++;
+	}
+	ChooseStylesLayout->addWidget( StyleView );
+	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
+	QSpacerItem* spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout2->addItem( spacer1 );
+	OkButton = new QPushButton( this, "OkButton" );
+	OkButton->setText( tr( "OK" ) );
+	layout2->addWidget( OkButton );
+	CancelButton = new QPushButton( this, "CancelButton" );
+	CancelButton->setText( tr( "Cancel" ) );
+	layout2->addWidget( CancelButton );
+	ChooseStylesLayout->addLayout( layout2 );
+	resize(230, 280);
+	clearWState( WState_Polished );
+	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(OkButton, SIGNAL(clicked()), this, SLOT(accept()));
+}
+
+StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *avail) : QDialog( parent, "Formate", true, 0)
 {
 	resize( 327, 260 );
 	setCaption( tr( "Edit Styles" ) );
@@ -213,7 +279,22 @@ void StilFormate::loadStyles()
 	{
 		QString selectedFile = dia.selectedFile();
 		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
-		Docu->loadStylesFromFile(selectedFile, &TempVorl);
+		QValueList<ParagraphStyle> TempVorl2;
+		for (uint x = 0; x < 5; ++x)
+		{
+			TempVorl2.append(TempVorl[x]);
+		}
+		Docu->loadStylesFromFile(selectedFile, &TempVorl2);
+		ChooseStyles* dia2 = new ChooseStyles(this, &TempVorl2, &TempVorl);
+		if (dia2->exec())
+		{
+			QMap<QCheckListItem*, int>::Iterator it;
+			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
+			{
+				if (it.key()->isOn())
+					TempVorl.append(TempVorl2[it.data()]);
+			}
+		}
 		UpdateFList();
 	}
 	else

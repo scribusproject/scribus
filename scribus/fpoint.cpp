@@ -17,16 +17,23 @@
 
 #include "fpoint.h"
 
-FPoint::FPoint(double x, double y)
+FPoint::FPoint(double x, double y) : xp(x), yp(y)
 {
-	xp = x;
-	yp = y;
 }
 
-FPoint::FPoint(QPoint p)
+FPoint::FPoint(QPoint p) : xp(p.x()), yp(p.y())
 {
-	xp = p.x();
-	yp = p.y();
+}
+
+FPoint::FPoint(const FPoint & p) : xp(p.xp), yp(p.yp)
+{
+}
+
+FPoint & FPoint::operator=(const FPoint & p)
+{
+	xp = p.xp;
+	yp = p.yp;
+	return *this;
 }
 
 double FPoint::x()

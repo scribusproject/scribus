@@ -654,7 +654,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, ApplicationPrefs 
 	if(!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
+	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
 		return false;
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
@@ -685,7 +685,7 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 	Farben.clear();
 	CMYKColor lf = CMYKColor();
 	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
+	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
 		return false;
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
