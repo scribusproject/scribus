@@ -7,9 +7,13 @@
 #include <qtooltip.h>
 #include "scribusdoc.h"
 #include "styleselect.h"
+#include "pageitem.h"
+#include "scribusdoc.h"
+#include "scribusstructs.h"
+#include "scpaths.h"
 
 extern QPixmap loadIcon(QString nam);
-extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
+extern bool loadText(QString nam, QString *Buffer);
 
 
 EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, ApplicationPrefs *Prefs, double au, int dEin, ScribusDoc *doc)
@@ -192,13 +196,23 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	layoutPreview = new QVBoxLayout;
 	layoutPreview->setSpacing(6);
 	layoutPreview->setMargin(0);
+	previewCaption = new QLabel(this, "previewCaption");
+	previewCaption->setText(tr("Preview of the Paragraph Style:"));
+	layoutPreview->addWidget(previewCaption);
 	previewText = new QLabel(this, "previewText");
-	previewText->setMaximumHeight(62);
-	previewText->setMinimumHeight(62);
+	previewText->setMinimumSize(640, 200);
+	previewText->setMaximumSize(640, 200);
 	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	previewText->setFrameShape(QFrame::Box);
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
 	layoutPreview->addWidget(previewText);
+	// preview setting - reading first paragraphs from LoremIpsum.txt etc.
+	previewItem = new PageItem(parentDoc, PageItem::TextFrame, 0, 0, previewText->width(), previewText->height(), 0, "None", parentDoc->toolSettings.dPenText);
+	previewItem->FrameType = PageItem::TextFrame;
+	if (!loadText(ScPaths::instance().sampleScriptDir() + "LoremIpsum.txt", &lorem))
+		qDebug("edit1format.cpp: Error reading sample text");
+	lorem = QString::fromUtf8(lorem);
+	lorem = lorem.section('\n', 0, 2);
 
 	Layout17 = new QHBoxLayout;
 	Layout17->setSpacing( 6 );
@@ -215,18 +229,18 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	werte = vor;
 	allV = v;
 	// tooltips
-	QToolTip::add( Name, tr( "Name of your paragraph style" ) );
-	QToolTip::add( FontC, tr( "Font of selected text or object" ) );
-	QToolTip::add( SizeC, tr( "Font Size" ) );
-	QToolTip::add( TxFill, tr( "Color of text fill" ) );
-	QToolTip::add( TxStroke, tr( "Color of text stroke" ) );
-	QToolTip::add( DropCaps, tr( "Provides an oversized first letter for a paragraph. Used for stylistic effect" ) );
-	QToolTip::add( DropLines, tr( "Determines the overall height, in line numbers, of the Drop Caps" ) );
-	QToolTip::add( BaseGrid, tr( "Align text to baseline grid" ) );
-	QToolTip::add( AboveV, tr( "Spacing above the paragraph" ) );
-	QToolTip::add( BelowV, tr( "Spacing below the paragraph" ) );
-	QToolTip::add( LineSpVal, tr( "Line Spacing" ) );
-	QToolTip::add( previewText, tr( "Sample text of this paragraph style" ) );
+	QToolTip::add( Name, "<qt>" + tr( "Name of your paragraph style" ) + "</qt>" );
+	QToolTip::add( FontC, "<qt>" + tr( "Font of selected text or object" ) + "</qt>" );
+	QToolTip::add( SizeC, "<qt>" + tr( "Font Size" ) + "</qt>" );
+	QToolTip::add( TxFill, "<qt>" + tr( "Color of text fill" ) + "</qt>" );
+	QToolTip::add( TxStroke, "<qt>" + tr( "Color of text stroke" ) + "</qt>" );
+	QToolTip::add( DropCaps, "<qt>" + tr( "Provides an oversized first letter for a paragraph. Used for stylistic effect" ) + "</qt>" );
+	QToolTip::add( DropLines, "<qt>" + tr( "Determines the overall height, in line numbers, of the Drop Caps" ) );
+	QToolTip::add( BaseGrid, "<qt>" + tr( "Align text to baseline grid" ) + "</qt>" );
+	QToolTip::add( AboveV, "<qt>" + tr( "Spacing above the paragraph" ) + "</qt>" );
+	QToolTip::add( BelowV, "<qt>" + tr( "Spacing below the paragraph" ) + "</qt>" );
+	QToolTip::add( LineSpVal, "<qt>" + tr( "Line Spacing" ) + "</qt>" );
+	QToolTip::add( previewText, "<qt>" + tr( "Sample text of this paragraph style" ) + "</qt>");
 
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
@@ -234,7 +248,20 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
 	connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
 	connect(EffeS, SIGNAL(State(int)), this, SLOT(ColorChange()));
-	connect(FontC, SIGNAL(activated(const QString &)), this, SLOT(FontC_activated(const QString &)));
+	// preview generators
+	connect(FontC, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
+	connect(LineSpVal, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(TabList, SIGNAL(tabrulerChanged()), this, SLOT(updatePreview()));
+	connect(AboveV, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(BelowV, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(AligS, SIGNAL(State(int)), this, SLOT(updatePreview()));
+	connect(TxStroke, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
+	connect(PM1, SIGNAL(clicked()), this, SLOT(updatePreview()));
+	connect(TxFill, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
+	connect(PM2, SIGNAL(clicked()), this, SLOT(updatePreview()));
+	connect(BaseGrid, SIGNAL(stateChanged(int)), this, SLOT(updatePreview()));
+	connect(DropLines, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
 	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
@@ -249,7 +276,6 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	BelowV->setValue(vor->gapAfter * parentDoc->unitRatio);
 	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio);
 	ColorChange();
-	updatePreview();
 }
 
 void EditStyle::ColorChange()
@@ -333,14 +359,70 @@ void EditStyle::Verlassen()
 
 void EditStyle::updatePreview()
 {
-	/* TODO: We need new functionality for "full featured" preview (Outlines etc.) */
-	previewText->setPixmap(fontSamples((*parentDoc->AllFonts)[FontC->currentText()]->Datei,
-						   qRound(SizeC->value()), //qRound(SizeC->value() * 10.0),
-						   tr( "Woven silk pyjamas exchanged\nfor blue quartz"),
-						   paletteBackgroundColor()));
-}
+	int x = previewText->width();
+	int y = previewText->height();
+	QPixmap pm(x, y);
+	ScPainter *painter = new ScPainter(&pm, x, y, 0, 0);
+	painter->clear(white);
+	pm.fill(white);
+	previewText->clear();
 
-void EditStyle::FontC_activated(const QString &)
-{
-	updatePreview();
+	ParagraphStyle tmpStyle;
+	tmpStyle.Vname = Name->text() + " (preview temporary)";
+	tmpStyle.FontEffect = EffeS->getStyle();
+	tmpStyle.textAlignment = AligS->getStyle();
+	tmpStyle.LineSpa = LineSpVal->value();
+	tmpStyle.Indent = TabList->getLeftIndent();
+	tmpStyle.First = TabList->getFirstLine();
+	tmpStyle.gapBefore = AboveV->value() / parentDoc->unitRatio;
+	tmpStyle.gapAfter = BelowV->value() / parentDoc->unitRatio;
+	tmpStyle.Font = FontC->currentText();
+	tmpStyle.FontSize = qRound(SizeC->value() * 10.0);
+	tmpStyle.Drop = DropCaps->isChecked();
+	tmpStyle.DropLin = DropLines->value();
+	tmpStyle.FColor = TxFill->currentText();
+	tmpStyle.FShade = PM2->getValue();
+	tmpStyle.SColor = TxStroke->currentText();
+	tmpStyle.SShade = PM1->getValue();
+	tmpStyle.BaseAdj = BaseGrid->isChecked();
+	tmpStyle.TabValues = TabList->getTabVals();
+
+	QFont fo = QFont(FontC->currentText());
+	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
+	parentDoc->AddFont(FontC->currentText(), fo);
+	parentDoc->docParagraphStyles.append(tmpStyle);
+	int tmpIndex = parentDoc->docParagraphStyles.count() - 1;
+	previewItem->itemText.clear();
+	previewItem->IFont = FontC->currentText();
+
+	for (uint i = 0; i < lorem.length(); ++i)
+	{
+		ScText *hg = new ScText;
+		hg->ch = lorem.at(i);
+		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
+			hg->ch = QChar(13);
+		hg->cfont = (*parentDoc->AllFonts)[FontC->currentText()];
+		hg->csize = tmpStyle.FontSize;
+		hg->ccolor = tmpStyle.FColor;
+		hg->cshade = tmpStyle.FShade;
+		hg->cstroke = tmpStyle.SColor;
+		hg->cshade2 = tmpStyle.SShade;
+		hg->cscale = 100;
+		hg->cselect = false;
+		hg->cstyle = tmpStyle.FontEffect;
+		hg->cab = tmpIndex;
+		hg->cextra = 0;
+		hg->xp = 0;
+		hg->yp = 0;
+		hg->PRot = 0;
+		hg->PtransX = 0;
+		hg->PtransY = 0;
+		previewItem->itemText.append(hg);
+	}
+
+	previewItem->DrawObj(painter, QRect(0, 0, x, y));
+	painter->end();
+	previewText->setPixmap(pm);
+	delete(painter);
+	parentDoc->docParagraphStyles.remove(parentDoc->docParagraphStyles.fromLast());
 }

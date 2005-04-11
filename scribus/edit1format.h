@@ -15,11 +15,14 @@
 #include "scribusstructs.h"
 #include "mspinbox.h"
 #include "fontcombo.h"
-class ScribusDoc;
 #include "alignselect.h"
-class StyleSelect;
 #include "shadebutton.h"
+
+class ScribusDoc;
+class StyleSelect;
 class Tabruler;
+class PageItem;
+
 
 class EditStyle : public QDialog
 {
@@ -70,6 +73,11 @@ public:
 	int DocsEin;
 	//! Label for holding "style preview" bitmap 12/30/2004 petr vanek
 	QLabel *previewText;
+	QLabel *previewCaption;
+	//! sample text for preview
+	QString lorem;
+	//! sample text frame
+	PageItem *previewItem;
 	//! Reference to the own ScribusDoc (preferences etc.) 12/30/2004 petr vanek
 	ScribusDoc *parentDoc;
 
@@ -78,12 +86,13 @@ private slots:
 	void FontChange();
 	void ManageDrops();
 	void ColorChange();
-	//! Refresh slot for "style preview" bitmap fonts 12/30/2004 petr vanek
-	void FontC_activated(const QString &);
-
-private:
-	/*! Refresh label for holding "style preview" bitmap.
-	12/30/2004 petr vanek */
+	/*! \brief Paragraph style preview generator.
+	It takes values from the UI form, creates a temporary style.
+	This style is appended into global styles list and removed from there
+	after finishing. Then is created an item to draw QPixmap with it.
+	\author Petr Vanek
+	\date 4/7/2005
+	*/
 	void updatePreview();
 
 protected:

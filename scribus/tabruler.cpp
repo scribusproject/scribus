@@ -534,6 +534,7 @@ void Tabruler::clearAll()
 	ruler->tabValues.clear();
 	ruler->repaint();
 	lastTabRemoved();
+	emit tabrulerChanged();
 }
 
 void Tabruler::tabAdded()
@@ -541,6 +542,7 @@ void Tabruler::tabAdded()
 	TypeCombo->setEnabled(true);
 	tabData->setEnabled(true);
 	clearButton->setEnabled(true);
+	emit tabrulerChanged();
 }
 
 void Tabruler::lastTabRemoved()
@@ -548,11 +550,13 @@ void Tabruler::lastTabRemoved()
 	TypeCombo->setEnabled(false);
 	tabData->setEnabled(false);
 	clearButton->setEnabled(false);
+	emit tabrulerChanged();
 }
 
 void Tabruler::setTabType(int t)
 {
 	TypeCombo->setCurrentItem(t);
+	emit tabrulerChanged();
 }
 
 void Tabruler::setType()
@@ -560,6 +564,7 @@ void Tabruler::setType()
 	disconnect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
 	ruler->changeTab(TypeCombo->currentItem());
 	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
+	emit tabrulerChanged();
 }
 
 void Tabruler::setTabData(double t)
@@ -567,11 +572,13 @@ void Tabruler::setTabData(double t)
 	disconnect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
 	tabData->setValue(t * docUnitRatio);
 	connect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
+	emit tabrulerChanged();
 }
 
 void Tabruler::setTab()
 {
 	ruler->moveTab(tabData->value() / docUnitRatio);
+	emit tabrulerChanged();
 }
 
 void Tabruler::setFirstLineData(double t)
@@ -579,11 +586,13 @@ void Tabruler::setFirstLineData(double t)
 	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 	firstLineData->setValue(t * docUnitRatio);
 	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
+	emit tabrulerChanged();
 }
 
 void Tabruler::setFirstLine()
 {
 	ruler->moveFirstLine(firstLineData->value() / docUnitRatio);
+	emit tabrulerChanged();
 }
 
 void Tabruler::setLeftIndentData(double t)
@@ -591,11 +600,13 @@ void Tabruler::setLeftIndentData(double t)
 	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 	leftIndentData->setValue(t * docUnitRatio);
 	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
+	emit tabrulerChanged();
 }
 
 void Tabruler::setLeftIndent()
 {
 	ruler->moveLeftIndent(leftIndentData->value() / docUnitRatio);
+	emit tabrulerChanged();
 }
 
 QValueList<double> Tabruler::getTabVals()

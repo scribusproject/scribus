@@ -82,6 +82,11 @@ public slots:
 	void setLeftIndentData(double t);
 	void setLeftIndent();
 
+signals:
+	/*! This signal is emited when is something changed in the tab ruler dialog/widget.
+	4/11/2005 pv */
+	void tabrulerChanged();
+
 protected:
 	QVBoxLayout* tabrulerLayout;
 	QHBoxLayout* layout2;
@@ -97,7 +102,7 @@ protected:
 	MSpinBox* firstLineData;
 	MSpinBox* leftIndentData;
 	QPushButton* clearButton;
-	
+
 	double docUnitRatio;
 };
 
