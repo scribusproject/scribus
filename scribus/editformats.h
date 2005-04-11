@@ -3,10 +3,30 @@
 
 #include <qdialog.h>
 #include <qlistbox.h>
+#include <qlistview.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include "scribusdoc.h"
+
+class ChooseStyles : public QDialog
+{
+	Q_OBJECT
+
+public:
+	ChooseStyles( QWidget* parent, QValueList<StVorL> *styleList, QValueList<StVorL> *styleOld );
+	~ChooseStyles() {};
+
+	QListView* StyleView;
+	QPushButton* OkButton;
+	QPushButton* CancelButton;
+	QMap<QCheckListItem*, int> storedStyles;
+
+protected:
+	QVBoxLayout* ChooseStylesLayout;
+	QHBoxLayout* layout2;
+
+};
 
 class StilFormate : public QDialog
 {
