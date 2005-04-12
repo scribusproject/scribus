@@ -7,6 +7,7 @@
 #include "scribusdoc.h"
 #include "customfdialog.h"
 #include "prefsfile.h"
+#include "scribusXml.h"
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
@@ -288,11 +289,36 @@ void StilFormate::loadStyles()
 		ChooseStyles* dia2 = new ChooseStyles(this, &TempVorl2, &TempVorl);
 		if (dia2->exec())
 		{
+			QStringList neededColors;
+			neededColors.clear();
 			QMap<QCheckListItem*, int>::Iterator it;
 			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
 			{
+				struct ParagraphStyle sty;
 				if (it.key()->isOn())
-					TempVorl.append(TempVorl2[it.data()]);
+				{
+					sty = TempVorl2[it.data()];
+					TempVorl.append(sty);
+					if ((!Docu->PageColors.contains(sty.SColor)) && (!neededColors.contains(sty.SColor)))
+						neededColors.append(sty.SColor);
+					if ((!Docu->PageColors.contains(sty.FColor)) && (!neededColors.contains(sty.FColor)))
+						neededColors.append(sty.FColor);
+				}
+			}
+			if (!neededColors.isEmpty())
+			{
+				ScriXmlDoc *ss = new ScriXmlDoc();
+				if (ss->ReadColors(selectedFile))
+				{
+					ColorList LColors = ss->Farben;
+					ColorList::Iterator itc;
+					for (itc = LColors.begin(); itc != LColors.end(); ++itc)
+					{
+						if (neededColors.contains(itc.key()))
+							Docu->PageColors.insert(itc.key(), itc.data());
+					}
+				}
+				delete ss;
 			}
 		}
 		UpdateFList();

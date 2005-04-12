@@ -2381,6 +2381,8 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				chma4.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
 			gly.map(chma * chma2 * chma3 * chma4 * chma5);
 			p->setFillMode(1);
+			bool fr = p->fillRule();
+			p->setFillRule(false);
 			p->setupTextPolygon(&gly);
 			if (hl->ZFo->isStroked)
 			{
@@ -2399,6 +2401,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 					p->strokePath();
 				}
 			}
+			p->setFillRule(fr);
 		}
 		if (hl->Style & 16)
 		{

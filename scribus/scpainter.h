@@ -75,6 +75,7 @@ public:
 	virtual void newPath();
 	virtual void fillPath();
 	virtual void setFillRule( bool fillRule );
+	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
 	virtual void strokePath();

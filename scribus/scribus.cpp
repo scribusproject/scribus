@@ -7552,6 +7552,21 @@ void ScribusApp::saveStyles(StilFormate *dia)
 		}
 	}
 	propertiesPalette->Spal->updateFormatList();
+	propertiesPalette->Cpal->SetColors(doc->PageColors);
+	propertiesPalette->updateCList();
+	ColorList::Iterator it;
+	ColorMenC->clear();
+	QPixmap pm = QPixmap(15, 15);
+	int ac = 0;
+	ColorMenC->insertItem( tr("None"));
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRGBColor());
+		ColorMenC->insertItem(pm, it.key());
+		if (it.key() == doc->toolSettings.dBrush)
+			ColorMenC->setCurrentItem(ac);
+		ac++;
+	}
 	view->DrawNew();
 	slotDocCh();
 }

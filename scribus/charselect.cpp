@@ -33,7 +33,7 @@ extern QPixmap loadIcon(QString nam);
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 extern int setBestEncoding(FT_Face face);
 
-Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorderEx | WType_Popup)
+Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder)
 {
 	int newwidth=pix.width()+2;
 	int newheight=pix.height()+20;
@@ -68,6 +68,7 @@ ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 	colA = 0;
 	ap = pl;
 	par = parent;
+	dia = 0;
 	QToolTip::add(this, tr("You can see a thumbnail if you press\nand hold down the right mouse button\n\nThe Insert key inserts a Glyph into the Selection below\nand the Delete key removes the last inserted one"));
 }
 
@@ -121,6 +122,7 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		dia = new Zoom(this, pixm, par->characters[r*16+c]);
 		QPoint ps = QCursor::pos();
 		dia->move(ps.x()-2, ps.y()-2);
+		dia->setModal(false);
 		dia->show();
 	}
 /*	if (e->button() == LeftButton)
@@ -138,8 +140,12 @@ void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
 	watchTimer->stop();
 	if ((e->button() == RightButton) && (mPressed))
 	{
-		dia->close();
-		delete dia;
+		if (dia)
+		{
+			dia->close();
+			delete dia;
+			dia = 0;
+		}
 	}
 	if ((e->button() == LeftButton) && (!alternate))
 		emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
@@ -608,12 +614,12 @@ void CharSelect::generatePreview(int charClass)
 				p->setFillMode(1);
 				p->setupPolygon(&gly);
 				p->fillPath();
+				QTableItem *it = new QTableItem(zTabelle, QTableItem::Never, "", pixm);
+				zTabelle->setItem(a, b, it);
 			}
 			cc++;
 			p->end();
 			delete p;
-			QTableItem *it = new QTableItem(zTabelle, QTableItem::Never, "", pixm);
-			zTabelle->setItem(a, b, it);
 			if (cc >= maxCount)
 				break;
 		}
