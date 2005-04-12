@@ -48,6 +48,7 @@ extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString CompressStr(QString *in);
 extern QString ImageToTxt(QImage *im);
 extern QString ImageToCMYK(QImage *im);
+extern bool isProgressive(QString fn);
 extern void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 extern QString MaskToTxt(QImage *im, bool PDF = true);
 extern QString MaskToTxt14(QImage *im);
@@ -4026,17 +4027,20 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 #ifdef HAVE_CMS
 	}
 #endif
-		if ((ext == "jpg") && (Options->UseRGB) && (!Options->RecalcPic))
+		int cm = Options->CompressMethod;
+		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
 		{
-			im = "";
-			loadText(fn, &im);
-			PutDoc("/BitsPerComponent 8\n");
-			PutDoc("/Length "+IToStr(im.length())+"\n");
-			PutDoc("/Filter /DCTDecode\n");
+			if ((Options->UseRGB || Options->UseProfiles2) && (!Options->RecalcPic) && (!isProgressive(fn)))
+			{
+				im = "";
+				loadText(fn, &im);
+				cm = 1;
+			}
+			else
+				cm = 2;
 		}
 		else
 		{
-			int cm = Options->CompressMethod;
 			if ((Options->CompressMethod == 1) || (Options->CompressMethod == 0))
 			{
 				QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
@@ -4064,22 +4068,22 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				}
 				system("rm -f "+tmpFile);
 			}
-			PutDoc("/BitsPerComponent 8\n");
-			PutDoc("/Length "+IToStr(im.length())+"\n");
-			if (alphaM)
-			{
-				if (Options->Version == 14)
-					PutDoc("/SMask "+IToStr(ObjCounter-2)+" 0 R\n");
-				else
-					PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
-			}
-			if (CompAvail)
-			{
-				if (cm == 1)
-					PutDoc("/Filter /DCTDecode\n");
-				else
-					PutDoc("/Filter /FlateDecode\n");
-			}
+		}
+		PutDoc("/BitsPerComponent 8\n");
+		PutDoc("/Length "+IToStr(im.length())+"\n");
+		if (CompAvail)
+		{
+			if (cm == 1)
+				PutDoc("/Filter /DCTDecode\n");
+			else if (cm != 3)
+				PutDoc("/Filter /FlateDecode\n");
+		}
+		if (alphaM)
+		{
+			if (Options->Version == 14)
+				PutDoc("/SMask "+IToStr(ObjCounter-2)+" 0 R\n");
+			else
+				PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
 		}
 		PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
 		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;

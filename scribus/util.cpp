@@ -108,6 +108,7 @@ QString CompressStr(QString *in);
 QString ImageToTxt(QImage *im);
 QString ImageToCMYK(QImage *im);
 QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
+bool isProgressive(QString fn);
 void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 QString MaskToTxt(QImage *im, bool PDF = true);
 QString MaskToTxt14(QImage *im);
@@ -1180,6 +1181,33 @@ static void my_error_exit (j_common_ptr cinfo)
   my_error_ptr myerr = (my_error_ptr) cinfo->err;
   (*cinfo->err->output_message) (cinfo);
   longjmp (myerr->setjmp_buffer, 1);
+}
+
+bool isProgressive(QString fn)
+{
+	struct jpeg_decompress_struct cinfo;
+	struct my_error_mgr         jerr;
+	FILE     *infile;
+	bool ret = false;
+	cinfo.err = jpeg_std_error (&jerr.pub);
+	jerr.pub.error_exit = my_error_exit;
+	infile = NULL;
+	if (setjmp (jerr.setjmp_buffer))
+	{
+		jpeg_destroy_decompress (&cinfo);
+		if (infile)
+			fclose (infile);
+		return ret;
+	}
+	jpeg_create_decompress (&cinfo);
+	if ((infile = fopen (fn, "rb")) == NULL)
+		return ret;
+	jpeg_stdio_src(&cinfo, infile);
+	jpeg_read_header(&cinfo, TRUE);
+	ret = jpeg_has_multiple_scans(&cinfo);
+	fclose (infile);
+	jpeg_destroy_decompress (&cinfo);
+	return ret;
 }
 
 void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK)
