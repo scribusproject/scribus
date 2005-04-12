@@ -33,13 +33,15 @@ extern QPixmap loadIcon(QString nam);
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 extern int setBestEncoding(FT_Face face);
 
-Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorderEx)
+Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorderEx | WType_Popup)
 {
-	QString tmp;
-	resize(pix.width()+2,pix.height()+20);
-	setMinimumSize(QSize(pix.width()+2,pix.height()+20));
-	setMaximumSize(QSize(pix.width()+2,pix.height()+20));
+	int newwidth=pix.width()+2;
+	int newheight=pix.height()+20;
+	resize(newwidth,newheight);
+	setMinimumSize(QSize(newwidth,newheight));
+	setMaximumSize(QSize(newwidth,newheight));
 	pixm = pix;
+	QString tmp;
 	tmp.sprintf("%04X", val);
 	valu = "0x"+tmp;
 }
@@ -296,6 +298,9 @@ void CharSelect::scanFont()
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
 	face = ap->doc->FFonts[fontInUse];
+	if (!face) {
+		return;
+	}
 	setBestEncoding(face);
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
@@ -568,6 +573,11 @@ void CharSelect::generatePreview(int charClass)
 	zTabelle->setNumRows( 0 );
 	characters = allClasses[charClass];
 	face = ap->doc->FFonts[fontInUse];
+	if (!face) {
+		maxCount = 0;
+		zTabelle->maxCount = 0;
+		return;
+	}
 	setBestEncoding(face);
 	maxCount = characters.count();
 	zTabelle->maxCount = maxCount;
