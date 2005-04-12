@@ -50,7 +50,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	}
 }
 
-Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorderEx)
+Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder)
 {
 	QString tmp;
 	resize(pix.width()+2,pix.height()+20);
