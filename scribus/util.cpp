@@ -2019,6 +2019,9 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			                                   CMSoutputProf, TYPE_RGBA_8, CMSprinterProf,
 			                                   IntentPrinter, rend, cmsFlags);
 			break;
+		case 3: // no Conversion just raw Data
+			xform = 0;
+			break;
 		}
 		if (xform)
 		{
@@ -2092,6 +2095,8 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 					}
 				}
 			}
+			break;
+		case 3:
 			break;
 		}
 	}

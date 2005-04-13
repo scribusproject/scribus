@@ -227,7 +227,7 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
 		QByteArray us(tmp.length());
 		QByteArray ou(tmp.length());
 		for (uint a = 0; a < tmp.length(); ++a)
-			us[a] = uchar(QChar(tmp.at(a)));                            
+			us[a] = uchar(QChar(tmp.at(a)));
 		QByteArray data(10);
 		if (KeyLen > 5)
 			data.resize(21);
@@ -271,7 +271,7 @@ QString PDFlib::EncString(QString in, int ObjNum)
 			us[a] = static_cast<uchar>(QChar(tmp.at(a)));
 		QByteArray data(10);
 		if (KeyLen > 5)
-			data.resize(21);          
+			data.resize(21);
 		for (int cd = 0; cd < KeyLen; ++cd)
 		{
   			data[cd] = EncryKey[cd];
@@ -3902,6 +3902,35 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 			}
 		}
 #endif
+/*		if ((ext == "pdf") && (Options->Version  >= 14))
+		{
+			StartObj(ObjCounter);
+			PutDoc("<<\n/Type /EmbeddedFile\n");
+			im = "";
+			loadText(fn, &im);
+			if ((Options->Compress) && (CompAvail))
+			{
+				PutDoc("/Filter /FlateDecode\n");
+				im = CompressStr(&im);
+			}
+			PutDoc("/Length "+IToStr(im.length())+"\n");
+			PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter)+"\nendstream\nendobj\n");
+			ObjCounter++;
+			StartObj(ObjCounter);
+			PutDoc("<<\n/Type /Filespec\n/Unix ("+fn+")\n/EF << /Unix "+IToStr(ObjCounter-1)+" 0 R >>\n");
+			PutDoc(">>\nendobj\n");
+			ObjCounter++;
+			StartObj(ObjCounter);
+			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
+			PutDoc("/BBox [ 0 0 "+FToStr(c->Width)+" "+FToStr(c->Height)+" ]\n");
+			PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]>>\n");
+			PutDoc("/Ref <<\n/Page 1\n/F "+IToStr(ObjCounter-1)+" 0 R\n>>\n");
+			PutDoc("/Length 0\n");
+			PutDoc(">>\nstream\nendstream\nendobj\n");
+			ObjCounter++;
+		}
+		else
+		{ */
 		if ((ext == "eps") || (ext == "pdf"))
 		{
 			QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
@@ -4007,7 +4036,7 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 			{
 #ifdef HAVE_CMS
 				if ((CMSuse) && (Options->UseProfiles2))
-					img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK, &c->imgInfo);
+					img = LoadPicture(fn, Profil, Embedded, Intent, true, 3, 72, &realCMYK, &c->imgInfo);
 				else
 				{
 #endif
@@ -4191,6 +4220,7 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 				PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
 		}
 		PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
+//		}
 		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 		ImRes = ResCount;
 		ImWid = img.width();
