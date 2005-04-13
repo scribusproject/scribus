@@ -47,7 +47,12 @@
 <dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
 <dd><code><a href="#-getLineShade">getLineShade</a>(["name"]) -&gt; integer</code>
 <p>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
-	
+
+<dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong></a>(...)</dt>
+<dd><code><a href="#-isPDFBookmark">isPDFBookmark</a>(["name"]) -&gt; bool</code>
+<p>Returns true if the text frame "name" is a PDF bookmark. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame.</p></dd>
+
 <dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
 <dd><code><a href="#-insertText">insertText</a>("text", pos, ["name"])</code>
 <p>Inserts the text "text" at the position "pos" into the text frame. Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. "name" If "name" is not given the currently selected Item is used.</p>
@@ -82,7 +87,12 @@
 <dd><code><a href="#-setLineSpacing">setLineSpacing</a>(size, ["name"])</code>
 <p>Sets the line spacing ("leading") of the text frame "name" to "size". "size" is a value in points. If "name" is not given the currently selected item is used.</p>
 <p>May throw ValueError if the line spacing is out of bounds.</p></dd>
-	
+
+<dt><a name="-setPDFBookmark"><strong>setPDFBookmark</strong></a>(...)</dt>
+<dd><code><a href="#-setPDFBookmark">setPDFBookmark</a>("toggle", ["name"])</code>
+<p>Sets wether (toggle = 1) the text frame "name" is a bookmark nor not. If "name" is not given the currently selected item is used.</p> 
+<p>May raise WrongFrameTypeError if the target frame is not a text frame.</p></dd>
+
 <dt><a name="-setText"><strong>setText</strong></a>(...)</dt>
 <dd><code><a href="#-setText">setText</a>("text", ["name"])</code>
 <p>Sets the text of the text frame "name" to the text of the string "text". Text must be UTF8 encoded - use e.g. unicode(text, 'iso-8859-2'). See the FAQ for more details. If "name" is not given the currently selected item is used.</p></dd>

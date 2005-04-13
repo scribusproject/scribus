@@ -25,6 +25,11 @@
 <p>Returns a tuple (C, M, Y, K) containing the four color components of the color "name" from the current document. If no document is open, returns the value of the named color from the default document colors.</p>
 <p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
 
+<dt><a name="-getColorAsRGB"><strong>getColorAsRGB</strong></a>(...)</dt>
+<dd><code><a href="#-getColorAsRGB">getColorAsRGB</a>("name") -&gt; tuple</code>
+<p>Returns a tuple (R,G,B) containing the three color components of the color "name" from the current document, converted to the RGB colour space. If no document is open, returns the value of the named color from the default document colors.</p>
+<p>May raise NotFoundError if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
 <dt><a name="-getColorNames"><strong>getColorNames</strong></a>(...)</dt>
 <dd><code><a href="#-getColorNames">getColorNames</a>() -&gt; list</code>
 <p>Returns a list containing the names of all defined colors in the document. If no document is open, returns a list of the default document colors.</p></dd>

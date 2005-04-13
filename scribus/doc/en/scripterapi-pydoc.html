@@ -279,6 +279,11 @@
 	<dt><a name="-getColor"><strong>getColor</strong></a>(...)</dt>
 	<dd><code><a href="#-getColor">getColor</a>("name") -&gt; tuple<br><br>Returns a tuple (C, M, Y, K) containing the four color components of the color "name" from the current document. If no document is open, returns the value of the named color from the default document colors.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the named color wasn't found.<br>May raise ValueError if an invalid color name is specified.</code></dd>
 
+	<dt><a name="-getColorAsRGB"><strong>getColorAsRGB</strong></a>(...)</dt>
+	<dd><code><a href="#-getColorAsRGB">getColorAsRGB</a>("name") -&gt; tuple</code>
+	<p>Returns a tuple (R,G,B) containing the three color components of the color "name" from the current document, converted to the RGB colour space. If no document is open, returns the value of the named color from the default document colors.</p>
+	<p>May raise NotFoundError if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
 	<dt><a name="-getColorNames"><strong>getColorNames</strong></a>(...)</dt>
 	<dd><code><a href="#-getColorNames">getColorNames</a>() -&gt; list<br><br>Returns a list containing the names of all defined colors in the document. If no document is open, returns a list of the default document colors.</code></dd>
 
@@ -408,6 +413,11 @@
 	<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
 	<dd><code><a href="#-isLocked">isLocked</a>(["name"]) -&gt; bool<br><br>Returns true if is the object "name" locked.  If "name" is not given the currently selected item is used.</code></dd>
 
+	<dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong></a>(...)</dt>
+	<dd><code><a href="#-isPDFBookmark">isPDFBookmark</a>(["name"]) -&gt; bool</code>
+	<p>Returns true if the text frame "name" is a PDF bookmark. If "name" is not given the currently selected item is used.</p>
+	<p>May raise WrongFrameTypeError if the target frame is not a text frame.</p></dd>
+
 	<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
 	<dd><code><a href="#-linkTextFrames">linkTextFrames</a>("fromname", "toname")<br><br>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The target frame must be an empty text frame and must not link to or be linked from any other frames already.<br /><br>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</code></dd>
 
@@ -517,7 +527,10 @@ Displays the "New Document" dialog box. Creates a new document if the user accep
 	<dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
 	<dd><code><a href="#-redrawAll">redrawAll</a>()<br><br>Redraws all pages.</code></dd>
 
-	<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt><dd><code>rendeFont("name", "filename", "sample", size) -&gt; bool<br><br>Creates an image preview of font "name" with given text "sample" and size. Image is saved into "filename". Returns true when success.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the specified font can't be found.<br>May raise ValueError if an empty sample or filename is passed.</code></dd>
+	<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt>
+	<dd><code>rendeFont("name", "filename", "sample", size, format="PPM") -&gt; bool</code>
+	<p>Creates an image preview of font "name" with given text "sample" and size. Image is saved into "filename". Returns true when success. The optional "format" argument specifies the image format to generate, and supports any format allowed by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.</p>
+	<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the specified font can't be found. May raise ValueError if an empty sample or filename is passed.</p></dd></dl>
 
 	<dt><a name="-replaceColor"><strong>replaceColor</strong></a>(...)</dt>
 	<dd><code><a href="#-replaceColor">replaceColor</a>("name", "replace")<br><br>Every occurence of the color "name" is replaced by the color "replace".<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if a named color wasn't found.<br>May raise ValueError if an invalid color name is specified.</code></dd>
@@ -624,11 +637,16 @@ Displays the "New Document" dialog box. Creates a new document if the user accep
 	<dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
 	<dd><code><a href="#-setMultiLine">setMultiLine</a>("namedStyle", ["name"])<br><br>Sets the line style of the object "name" to the named style "namedStyle". If "name" is not given the currently selected item is used.<br/><br/>May raise <a href="#NotFoundError">NotFoundError</a> if the line style doesn't exist.</code></dd>
 
+	<dt><a name="-setPDFBookmark"><strong>setPDFBookmark</strong></a>(...)</dt>
+	<dd><code><a href="#-setPDFBookmark">setPDFBookmark</a>("toggle", ["name"])</code>
+	<p>Sets wether (toggle = 1) the text frame "name" is a bookmark nor not. If "name" is not given the currently selected item is used.</p> 
+	<p>May raise WrongFrameTypeError if the target frame is not a text frame.</p></dd>
+
 	<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
 	<dd><code><a href="#-setRedraw">setRedraw</a>(bool)<br><br>Disables page redraw when bool = False, otherwise redrawing is enabled. This change will persist even after the script exits, so make sure to call <a href="#-setRedraw">setRedraw</a>(True) in a finally: clause at the top level of your script.</code></dd>
 
 	<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
-	<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(scaletoframe, proportional=None, name=<selection>)</code>
+	<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
 	<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
 	<p>May raise WrongFrameTypeError.</p></dd>
 
@@ -828,6 +846,6 @@ Displays the "New Document" dialog box. Creates a new document if the user accep
 <strong>Warning</strong> = 2<br>
 <strong>Yes</strong> = 3<br>
 <br>
-<strong>scribus_version</strong> = '1.2.1'<br>
-<strong>scribus_version_info</strong> = (1, 2, 1, '', 0)<br>
+<strong>scribus_version</strong> = '1.2.2'<br>
+<strong>scribus_version_info</strong> = (1, 2, 2, '', 0)<br>
 </qt>
