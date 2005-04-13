@@ -748,6 +748,7 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 		counter = 0;
 	if (Pages.count() != 0)
 	{
+		int fho, fvo;
 		for (a=0; a < Pages.count(); a++)
 		{
 			Doc->ActPage = Pages.at(a);
@@ -756,6 +757,8 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 				it = Pages.at(a)->Items.at(i);
 				if ((it->PType == 2) && (it->PicAvail))
 				{
+					fho = it->flippedH;
+					fvo = it->flippedV;
 					if (Pr->contains(it->IProfile))
 						Pages.at(a)->LoadPict(it->Pfile, i);
 					else
@@ -763,6 +766,8 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 						it->IProfile = Doc->CMSSettings.DefaultInputProfile;
 						Pages.at(a)->LoadPict(it->Pfile, i);
 					}
+					it->flippedH = fho;
+					it->flippedV = fvo;
 					it->Sizing = true;
 					Pages.at(a)->AdjustPreview(it);
 					it->Sizing = false;
