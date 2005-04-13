@@ -20,8 +20,8 @@ part of the main package. Please consider adding:
 to ensure these old packages are removed on upgrade.
 
 * Currently, the full en documentation is included in the tarball, however
- it is licensed differently from the application source. We may separately 
-distribute them separately and they should also obsolete prior docs packages:
+it is licensed differently from the application source. We may distribute
+them separately and they should also obsolete prior docs packages:
 
 	Obsoletes:      scribus-i18en
 	Obsoletes:      scribus-i18de
@@ -46,7 +46,7 @@ Please remove all references to proprietary applications.
 We are still missing some locales, but in our testing it works properly. 
 We are awaiting IANA approval for our mime type.
 
-The command to install and refresh the mime database in a spec file 
+An example command to install and refresh the mime database in a spec file 
 (distro specfic macros might vary):
 
 %install
