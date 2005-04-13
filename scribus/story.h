@@ -42,7 +42,7 @@
 #include "alignselect.h"
 #include "shadebutton.h"
 
-struct PtiSmall { 
+struct PtiSmall {
 		    int csize;
 		    int cshade;
 		    int cshade2;
@@ -124,11 +124,11 @@ signals:
 	void PasteAvail();
 };
 
-class SideBar : public QLabel  
+class SideBar : public QLabel
 {
 	Q_OBJECT
 
-public: 
+public:
 	SideBar(QWidget *pa);
 	~SideBar() {};
 	int offs;
@@ -144,19 +144,23 @@ protected:
 
 signals:
 	void ChangeStyle(int, int);
+	//! signal raised when user ask for style manager
+	void sigEditStyles();
 
 public slots:
 	void setPStyle(int s);
 	void doMove(int x, int y);
 	void doRepaint();
 	void setRepaint(bool r);
+	//! slot raising style manager
+	void editStyles();
 };
 
-class SToolBColorF : public QToolBar  
+class SToolBColorF : public QToolBar
 {
 	Q_OBJECT
 
-public: 
+public:
 	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
 	QLabel* FillIcon;
@@ -172,11 +176,11 @@ signals:
 	void NewColor(int, int);
 };
 
-class SToolBColorS : public QToolBar  
+class SToolBColorS : public QToolBar
 {
 	Q_OBJECT
 
-public: 
+public:
 	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
 	QLabel* StrokeIcon;
@@ -192,11 +196,11 @@ signals:
 	void NewColor(int, int);
 };
 
-class SToolBStyle : public QToolBar  
+class SToolBStyle : public QToolBar
 {
 	Q_OBJECT
 
-public: 
+public:
 	SToolBStyle(QMainWindow* parent);
 	~SToolBStyle() {};
 	StyleSelect* SeStyle;
@@ -213,11 +217,11 @@ signals:
 	void newStyle(int);
 };
 
-class SToolBAlign : public QToolBar  
+class SToolBAlign : public QToolBar
 {
 	Q_OBJECT
 
-public: 
+public:
 	SToolBAlign(QMainWindow* parent);
 	~SToolBAlign() {};
 	AlignSelect* GroupAlign;
@@ -232,11 +236,11 @@ signals:
 	void newStyle(int);
 };
 
-class SToolBFont : public QToolBar  
+class SToolBFont : public QToolBar
 {
 	Q_OBJECT
 
-public: 
+public:
 	SToolBFont(QMainWindow* parent);
 	~SToolBFont() {};
 	FontCombo* Fonts;

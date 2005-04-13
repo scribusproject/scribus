@@ -66,8 +66,14 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 		Spal->setFormat(0);
 	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
 	pmen->insertItem(Spal);
+	pmen->insertItem(tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
 	delete pmen;
+}
+
+void SideBar::editStyles()
+{
+	emit sigEditStyles();
 }
 
 void SideBar::setPStyle(int s)
@@ -1681,6 +1687,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
 	connect(EditorBar, SIGNAL(ChangeStyle(int, int )), this, SLOT(changeAlignSB(int, int )));
+	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
 	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
