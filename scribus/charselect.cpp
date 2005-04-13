@@ -33,7 +33,11 @@ extern QPixmap loadIcon(QString nam);
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 extern int setBestEncoding(FT_Face face);
 
+#ifdef QT_MAC
+Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder | WType_Popup)
+#else
 Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder)
+#endif
 {
 	int newwidth=pix.width()+2;
 	int newheight=pix.height()+20;
