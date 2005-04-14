@@ -3917,7 +3917,7 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 			PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter)+"\nendstream\nendobj\n");
 			ObjCounter++;
 			StartObj(ObjCounter);
-			PutDoc("<<\n/Type /Filespec\n/Unix ("+fn+")\n/EF << /Unix "+IToStr(ObjCounter-1)+" 0 R >>\n");
+			PutDoc("<<\n/Type /Filespec\n/F ("+fn+")\n/EF << /F "+IToStr(ObjCounter-1)+" 0 R >>\n");
 			PutDoc(">>\nendobj\n");
 			ObjCounter++;
 			StartObj(ObjCounter);

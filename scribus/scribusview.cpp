@@ -3975,6 +3975,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				if (edited)
 				{
+					b->FrameType = 3;
 					if (b->itemType() != PageItem::PolyLine)
 						b->Clip = FlattenPath(b->PoLine, b->Segments);
 					AdjustItemSize(b);
