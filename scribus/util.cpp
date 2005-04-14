@@ -1409,7 +1409,7 @@ int setBestEncoding(FT_Face face)
 			break;
 		}
 	}
-	if (countUniCode > 255)
+	if (countUniCode == face->num_glyphs-1)
 	{
 		FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
 		retVal = 0;

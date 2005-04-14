@@ -5309,6 +5309,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			}
 			if (edited)
 			{
+				b->FrameType = 3;
 				if (b->PType != 7)
 					b->Clip = FlattenPath(b->PoLine, b->Segments);
 				AdjustItemSize(b);
