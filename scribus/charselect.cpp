@@ -618,11 +618,11 @@ void CharSelect::generatePreview(int charClass)
 				p->setFillMode(1);
 				p->setupPolygon(&gly);
 				p->fillPath();
+				p->end();
 				QTableItem *it = new QTableItem(zTabelle, QTableItem::Never, "", pixm);
 				zTabelle->setItem(a, b, it);
 			}
 			cc++;
-			p->end();
 			delete p;
 			if (cc >= maxCount)
 				break;
