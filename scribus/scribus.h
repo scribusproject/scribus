@@ -231,7 +231,7 @@ public:
 	PluginManager* pluginManager;
 
 public slots:
-	void specialActionKeyEvent(QString actionName);
+	void specialActionKeyEvent(QString actionName, int unicodevalue);
 	void newView();
 	void ToggleAllGuides();
 	void ToggleAllPalettes();
@@ -537,6 +537,7 @@ private:
 	WerkToolBP* WerkToolsP;
 	QStringList *modeActionNames;
 	QStringList *nonEditActionNames;
+	QStringList *unicodeCharActionNames;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;

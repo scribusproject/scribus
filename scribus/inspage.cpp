@@ -29,8 +29,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	whereLayout = new QGridLayout;
 	whereLayout->setSpacing( 6 );
 	whereLayout->setMargin( 5 );
-	insCountData = new QSpinBox( this, "insCountData" );
-	insCountData->setMinValue( 1 );
+	insCountData = new QSpinBox( 1, 999, 1, this, "insCountData" );
 	insCountData->setValue( 1 );
 	insCountLabel = new QLabel( insCountData, tr( "&Insert" ), this, "insCountLabel" );
 	whereLayout->addWidget( insCountLabel, 0, 0 );

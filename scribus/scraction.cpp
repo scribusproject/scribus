@@ -28,14 +28,14 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	initScrAction();
 }
 
-ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
+ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
 {
 	initScrAction();
 	setIconSizes();
-	menuType=mType;
-	if (menuType!=Normal)
+	_actionType=aType;
+	if (_actionType!=Normal)
 		connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
-	switch (mType)
+	switch (_actionType)
 	{
 		case DataInt:
 			_dataInt=extraInt;
@@ -55,7 +55,10 @@ ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & men
 			windowID=extraInt;
 			break;
 		case RecentScript:
-			break;			
+			break;
+		case UnicodeChar:
+			_dataInt=extraInt;
+			break;	
 		case Normal:
 		default:
 			break;
@@ -70,7 +73,7 @@ ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySeque
 
 void ScrAction::initScrAction()
 {
-	menuType=ScrAction::Normal;
+	_actionType=ScrAction::Normal;
 	menuIndex=-1;
 	widgetAddedTo=NULL;
 	containerWidgetAddedTo=NULL;
@@ -94,40 +97,43 @@ void ScrAction::setIconSizes()
 
 void ScrAction::activatedToActivatedData()
 {
-	if (menuType==ScrAction::DataInt)
+	if (_actionType==ScrAction::DataInt)
 		emit activatedData(_dataInt);
-	if (menuType==ScrAction::DataDouble)
+	if (_actionType==ScrAction::DataDouble)
 		emit activatedData(_dataDouble);
-	if (menuType==ScrAction::DataQString)
+	if (_actionType==ScrAction::DataQString)
 		emit activatedData(_dataQString);
-	if (menuType==ScrAction::DLL)
+	if (_actionType==ScrAction::DLL)
 		emit activatedData(pluginID);
-	if (menuType==ScrAction::Window)
+	if (_actionType==ScrAction::Window)
 		emit activatedData(windowID);
-	if (menuType==ScrAction::RecentFile)
+	if (_actionType==ScrAction::RecentFile)
 		emit activatedData(menuText());
-	if (menuType==ScrAction::RecentScript)
+	if (_actionType==ScrAction::RecentScript)
 		emit activatedData(menuText());
+	if (_actionType==ScrAction::UnicodeChar)
+		activatedUnicodeShortcut(name(), _dataInt);
 }
 
 void ScrAction::toggledToToggledData(bool ison)
 {
 	if (isToggleAction())
 	{
-		if (menuType==ScrAction::DataInt)
+		if (_actionType==ScrAction::DataInt)
 			emit toggledData(ison, _dataInt);
-		if (menuType==ScrAction::DataDouble)
+		if (_actionType==ScrAction::DataDouble)
 			emit toggledData(ison, _dataDouble);
-		if (menuType==ScrAction::DataQString)
+		if (_actionType==ScrAction::DataQString)
 			emit toggledData(ison, _dataQString);
-		if (menuType==ScrAction::DLL)
+		if (_actionType==ScrAction::DLL)
 			emit toggledData(ison, pluginID);
-		if (menuType==ScrAction::Window)
+		if (_actionType==ScrAction::Window)
 			emit toggledData(ison, windowID);
-		if (menuType==ScrAction::RecentFile)
+		if (_actionType==ScrAction::RecentFile)
 			emit toggledData(ison, menuText());
-		if (menuType==ScrAction::RecentScript)
+		if (_actionType==ScrAction::RecentScript)
 			emit toggledData(ison, menuText());
+		// no toggle for UnicodeChar
 	}
 }
 
@@ -173,19 +179,19 @@ bool ScrAction::addTo ( QWidget * w )
 
 const bool ScrAction::isDLLAction()
 {
-	return menuType==ScrAction::DLL;
+	return _actionType==ScrAction::DLL;
 }
 
 const int ScrAction::dllID()
 {
-	if (menuType==ScrAction::DLL)
+	if (_actionType==ScrAction::DLL)
 		return pluginID;
 	return -1;
 }
 
 void ScrAction::setToggleAction(bool isToggle)
 {
-	if (menuType!=Normal)
+	if (_actionType!=Normal)
 	{
 		if(isToggle)
 			connect (this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
@@ -213,4 +219,24 @@ void ScrAction::restoreShortcut()
 		savedKeySequence=QKeySequence("");
 		shortcutSaved=false;
 	}
+}
+
+ScrAction::ActionType ScrAction::actionType()
+{
+	return _actionType;
+}
+
+const int ScrAction::actionInt()
+{
+	return _dataInt;
+}
+
+const double ScrAction::actionDouble()
+{
+	return _dataDouble;
+}
+
+const QString ScrAction::actionQString()
+{
+	return _dataQString;
 }

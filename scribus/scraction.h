@@ -26,7 +26,7 @@ class ScrAction : public QAction
 	Q_OBJECT
 
 public:
-	enum MenuType {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript };
+	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar } ActionType;
 	
 	/*!
 		\fn ScrAction::ScrAction( QObject * parent, const char * name )
@@ -65,7 +65,7 @@ public:
 		\param name Name of the action
 		\retval None
 	 */
-	ScrAction( MenuType mType, const QIconSet & icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+	ScrAction( ActionType mType, const QIconSet & icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
 		\fn ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
 		\author Craig Bradney
@@ -179,6 +179,27 @@ public:
 		\retval None
 	 */		
 	void restoreShortcut();	
+	/*!
+		\fn ScrAction::actionType()
+		\author Craig Bradney
+		\date Apr 2005
+		\brief Return the action data type
+		\param None
+		\retval None
+	 */		
+	ActionType actionType();
+	/*!
+		\fn ScrAction::actionInt()
+		\author Craig Bradney
+		\date Apr 2005
+		\brief Return the action data of int action type
+		\param None
+		\retval None
+	 */		
+	const int actionInt();	
+	const double actionDouble();	
+	const QString actionQString();	
+	
 signals:
 	void activatedData(int);
 	void activatedData(double);
@@ -186,6 +207,7 @@ signals:
 	void toggledData(bool, int);
 	void toggledData(bool, double);
 	void toggledData(bool, QString);
+	void activatedUnicodeShortcut(QString, int);
 	
 protected:
 	void initScrAction();
@@ -195,7 +217,7 @@ protected:
 	int _dataInt;
 	double _dataDouble;
 	QString _dataQString;
-	MenuType menuType;
+	ActionType _actionType;
 	QWidget *widgetAddedTo;
 	QWidget *containerWidgetAddedTo;
 	QPopupMenu *popupMenuAddedTo;

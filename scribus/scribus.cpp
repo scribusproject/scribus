@@ -1213,11 +1213,11 @@ void ScribusApp::initItemMenuActions()
 void ScribusApp::initInsertMenuActions()
 {
 	//Insert Menu
-	scrActions.insert("insertSpecialChar", new ScrAction(tr("Special Character..."), QKeySequence(), this, "insertSpecialChar"));
-	//scrActions["insertSpecialChar"]->setText(tr("Insert Special Character"));
+	scrActions.insert("insertGlyph", new ScrAction(tr("&Glyph..."), QKeySequence(), this, "insertGlyph"));
+	//scrActions["insertGlyph"]->setText(tr("Insert Special Character"));
 	scrActions.insert("insertSampleText", new ScrAction(tr("Sample Text"), QKeySequence(), this, "insertSampleText"));
 	
-	connect( scrActions["insertSpecialChar"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
+	connect( scrActions["insertGlyph"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
 	connect( scrActions["insertSampleText"], SIGNAL(activated()) , this, SLOT(insertSampleText()) );
 }
 
@@ -1425,18 +1425,39 @@ void ScribusApp::initHelpMenuActions()
 void ScribusApp::initSpecialActions()
 {
 	//typography
-	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Smart &Hyphen"), CTRL+SHIFT+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
-	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Non Breaking &Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
-	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Page &Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",0,0.0,"specialPageNumber"));
+	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Smart &Hyphen"), CTRL+SHIFT+Key_Minus, this, "specialSmartHyphen",-1));
+	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Non Breaking &Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",29));
+	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Page &Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",30));
+	scrActions.insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Copyright"), QKeySequence(), this, "specialCopyRight",169));
+	scrActions.insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Registered Trademark"), QKeySequence(), this, "specialRegdTM",174));
+	scrActions.insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Trademark"), QKeySequence(), this, "specialTM",8482));
+	scrActions.insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Bullet"), QKeySequence(), this, "specialBullet",8226));
+	scrActions.insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Em Dash"), QKeySequence(), this, "specialDashEm",8212));
+	scrActions.insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("En Dash"), QKeySequence(), this, "specialDashEn",8211));
+	scrActions.insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Figure Dash"), QKeySequence(), this, "specialDashFigure",8210));
+	scrActions.insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Quotation Dash"), QKeySequence(), this, "specialDashQuotation",8213));
 	
 	scrActions["specialSmartHyphen"]->setText("Insert Smart Hyphen");
 	scrActions["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
 	scrActions["specialPageNumber"]->setText("Insert Page Number");
 
-	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
-	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
-	connect( scrActions["specialPageNumber"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
+	
+	unicodeCharActionNames=new QStringList();
+	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
+	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
+	*unicodeCharActionNames << "specialBullet";
+	*unicodeCharActionNames << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
 
+	for ( QStringList::Iterator it = unicodeCharActionNames->begin(); it != unicodeCharActionNames->end(); ++it )
+		connect( scrActions[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
+
+	/*
+	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
+	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
+	connect( scrActions["specialPageNumber"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
+	connect( scrActions["specialCopyRight"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
+	*/
+	
 	//GUI
 	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
 	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
@@ -1624,13 +1645,29 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
-	scrMenuMgr->addMenuItem(scrActions["insertSpecialChar"], "Insert");
-	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "Insert");
-	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "Insert");
-	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
+	
+	scrMenuMgr->createMenu("InsertChar", tr("Character"));
+	scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
+	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "InsertChar");
+	scrMenuMgr->addMenuSeparator("Insert");
+	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialCopyRight"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialRegdTM"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialTM"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialBullet"], "InsertChar");
+	scrMenuMgr->addMenuSeparator("InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialDashEm"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialDashEn"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialDashFigure"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialDashQuotation"], "InsertChar");
+
+	scrMenuMgr->createMenu("InsertSpace", tr("Space"));
+	scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
+	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "InsertSpace");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
-	scrActions["insertSpecialChar"]->setEnabled(false);
+	scrActions["insertGlyph"]->setEnabled(false);
 	
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
@@ -1864,7 +1901,7 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 
 //Special keys assigned to actions are stolen by the action and not passed to
 //keyPressEvent so process them here.
-void ScribusApp::specialActionKeyEvent(QString actionName)
+void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 {
 	if (HaveDoc)
 	{
@@ -1875,14 +1912,16 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 				struct ScText *hg = new ScText;
 				PageItem *b = view->SelItem.at(0);
 				//bool insertChar=false; //unused CR 2005-03-21
-				if (actionName=="specialPageNumber" || actionName=="specialNonBreakingSpace")
+				if (unicodevalue!=-1)
 				{
+					/*
 					if (actionName=="specialPageNumber")
 						hg->ch = QString(QChar(30));
 					else
 						if (actionName=="specialNonBreakingSpace")
 							hg->ch = QString(QChar(29));
-
+					*/
+					hg->ch = QString(QChar(unicodevalue));
 					hg->cfont = (*doc->AllFonts)[doc->CurrFont];
 					hg->csize = doc->CurrFontSize;
 					hg->ccolor = doc->CurrTextFill;
@@ -1909,7 +1948,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 					b->Tinput = true;
 					view->RefreshItem(b);
 				}
-				else if (actionName=="specialSmartHyphen")
+				else if (actionName=="specialSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
 				{
 					b->itemText.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
 					b->Tinput = true;
@@ -2269,6 +2308,19 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ( (buttonState & ShiftButton) == 0 )
 							view->deselectAll(b);
 					}
+					/* ISO 14755
+					if ((buttonState & ControlButton) && (buttonState & ShiftButton))
+					{
+						if (!UniCinp)
+						{
+							UniCinp=true;
+							UniCinC = 0;
+							UniCinS = "";
+							keyrep = false;
+						}
+						qDebug(QString("%1 %2 %3 %4 %5").arg("uni").arg("c+s").arg(uc).arg(kk).arg(as));
+					}
+					*/
 					if (UniCinp)
 					{
 						int conv = 0;
@@ -3926,7 +3978,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	scrActions["editDeselectAll"]->setEnabled(Nr!=-1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
-	scrActions["insertSpecialChar"]->setEnabled(false);
+	scrActions["insertGlyph"]->setEnabled(false);
 	scrActions["specialSmartHyphen"]->setEnabled(false);
 	scrActions["specialNonBreakingSpace"]->setEnabled(false);
 	scrActions["specialPageNumber"]->setEnabled(false);
@@ -4048,7 +4100,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 			setTBvals(b);
 			scrActions["editSelectAll"]->setEnabled(true);
-			scrActions["insertSpecialChar"]->setEnabled(true);
+			scrActions["insertGlyph"]->setEnabled(true);
 			scrActions["specialSmartHyphen"]->setEnabled(true);
 			scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			scrActions["specialPageNumber"]->setEnabled(true);
@@ -6586,7 +6638,7 @@ void ScribusApp::setAppMode(int mode)
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
 			scrActions["editClear"]->setEnabled(false);
-			scrActions["insertSpecialChar"]->setEnabled(false);
+			scrActions["insertGlyph"]->setEnabled(false);
 			view->slotDoCurs(false);
 			if (b != 0)
 			{
@@ -6613,7 +6665,7 @@ void ScribusApp::setAppMode(int mode)
 				setTBvals(b);
 			}
 			scrActions["editPaste"]->setEnabled(false);
-			scrActions["insertSpecialChar"]->setEnabled(true);
+			scrActions["insertGlyph"]->setEnabled(true);
 			scrActions["specialSmartHyphen"]->setEnabled(true);
 			scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			scrActions["specialPageNumber"]->setEnabled(true);
@@ -10859,13 +10911,16 @@ void ScribusApp::generateTableOfContents()
 		{
 			bool found=false;
 			uint d;
-			PageItem* tocFrame;
+			PageItem* tocFrame=NULL;
 			for (d = 0; d < doc->DocItems.count(), found==false; ++d)
 			{
-				if (doc->DocItems.at(d)->itemType()==PageItem::TextFrame && doc->DocItems.at(d)->itemName()==(*tocSetupIt).frameName)
+				if (doc->DocItems.at(d) !=NULL ) 
 				{
-					found=true;
-					tocFrame=doc->DocItems.at(d);
+					if (doc->DocItems.at(d)->itemType()==PageItem::TextFrame && doc->DocItems.at(d)->itemName()==(*tocSetupIt).frameName)
+					{
+						found=true;
+						tocFrame=doc->DocItems.at(d);
+					}
 				}
 			}
 			if (found && tocFrame!=NULL)
