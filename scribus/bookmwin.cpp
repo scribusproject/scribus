@@ -130,7 +130,7 @@ void BookMView::AddPageItem(PageItem* ite)
 		bm += cc;
 		bm2 += cc;
 	}
-//	AddItem(bm, bm2, ite->OwnPage->PageNr, ite->ItemNr);
+	AddItem(bm, bm2, ite->OwnPage, ite->ItemNr);
 	ite->BMnr = NrItems;
 	Last = NrItems;
 }

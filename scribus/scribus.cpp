@@ -3937,8 +3937,8 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(ToScrap(QString)), this, SLOT(PutScrap(QString)));
 	connect(view, SIGNAL(EditGuides()), this, SLOT(ManageGuides()));
 	connect(view, SIGNAL(LoadElem(QString, int ,int, bool, bool, ScribusDoc *, ScribusView*)), this, SLOT(slotElemRead(QString, int, int, bool, bool, ScribusDoc *, ScribusView*)));
-/*	connect(doc->currentPage, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
-	connect(doc->currentPage, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *))); */
+	connect(view, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
+	connect(view, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
 	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
 	connect(view, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
@@ -6207,7 +6207,8 @@ void ScribusApp::slotNewPage(int w)
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-
+	if ((!doc->loading) && (!doc->TemplateMode))
+		AdjustBM();
 /*	if ((!doc->loading) && (!doc->TemplateMode))
 	{
 		AdjustBM();
@@ -6886,7 +6887,7 @@ void ScribusApp::AdjustBM()
 				BookMItem *ite = (BookMItem*)itn.current();
 				if (ite->ItemNr == it)
 				{
-//					ite->Seite = a;
+					ite->Seite = bb->OwnPage;
 					break;
 				}
 			}
@@ -6913,8 +6914,8 @@ void ScribusApp::DeletePage2(int pg)
 		{
 			ite->setLocked(false);
 			ite->isSingleSel = false;
-//				if (ite->isBookmark)
-//					DelBookMark(ite);
+			if (ite->isBookmark)
+				DelBookMark(ite);
 			view->SelItem.append(ite);
 		}
 	}
@@ -6936,7 +6937,7 @@ void ScribusApp::DeletePage2(int pg)
 	}
 	view->delPage(pg);
 	view->reformPages();
-//	AdjustBM();
+	AdjustBM();
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree(doc);
@@ -6976,12 +6977,12 @@ void ScribusApp::DeletePage(int from, int to)
 			{
 				ite->setLocked(false);
 				ite->isSingleSel = false;
-//				if (ite->isBookmark)
-//					DelBookMark(ite);
+				if (ite->isBookmark)
+					DelBookMark(ite);
 				view->SelItem.append(ite);
 			}
 		}
-//		AdjustBM();
+		AdjustBM();
 	}
 	if (view->SelItem.count() != 0)
 		view->DeleteItem();
@@ -7031,7 +7032,7 @@ void ScribusApp::MovePage()
 			view->movePage(from-1, to, wo-1, wie);
 		slotDocCh();
 		view->DrawNew();
-/*		AdjustBM(); */
+		AdjustBM();
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree(doc);
 		outlinePalette->reopenTree(doc->OpenNodes);
@@ -7072,9 +7073,9 @@ void ScribusApp::CopyPage()
 			Buffer.Xpos = Buffer.Xpos - from->Xoffset + Ziel->Xoffset;
 			Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;
 			view->PasteItem(&Buffer, true, true);
-//			if (doc->Items.at(ite)->isBookmark)
-//				AddBookMark(doc->Items.at(doc->Items.count()-1));
 			PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+			if (doc->Items.at(ite)->isBookmark)
+				AddBookMark(Neu);
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);
@@ -7129,7 +7130,7 @@ void ScribusApp::CopyPage()
 		slotDocCh();
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree(doc);
-//		AdjustBM();
+		AdjustBM();
 	}
 	delete dia;
 }

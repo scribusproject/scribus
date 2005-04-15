@@ -6834,6 +6834,11 @@ int ScribusView::OnPage(PageItem *b)
 			}
 		}
 	}
+	if ((retw == -1) && (b->isBookmark))
+	{
+		emit DelBM(b);
+		b->isBookmark = false;
+	}
 	return retw;
 }
 
@@ -7669,22 +7674,25 @@ void ScribusView::FrameToPic()
 
 void ScribusView::ToggleBookmark()
 {
-	uint a;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			bool old = SelItem.at(a)->isBookmark;
-			SelItem.at(a)->isBookmark = !SelItem.at(a)->isBookmark;
-			if (SelItem.at(a)->isBookmark)
+			PageItem* b = SelItem.at(a);
+			if (b->OwnPage != -1)
 			{
-				SelItem.at(a)->isAnnotation = false;
-				emit AddBM(SelItem.at(a));
-			}
-			else
-			{
-				if (old)
-					emit DelBM(SelItem.at(a));
+				bool old = b->isBookmark;
+				b->isBookmark = !b->isBookmark;
+				if (b->isBookmark)
+				{
+					b->isAnnotation = false;
+					emit AddBM(b);
+				}
+				else
+				{
+					if (old)
+						emit DelBM(b);
+				}
 			}
 		}
 		emit DocChanged();
@@ -7693,18 +7701,18 @@ void ScribusView::ToggleBookmark()
 
 void ScribusView::ToggleAnnotation()
 {
-	uint a;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			bool old = SelItem.at(a)->isBookmark;
-			SelItem.at(a)->isAnnotation = !SelItem.at(a)->isAnnotation;
-			if (SelItem.at(a)->isAnnotation)
+			PageItem* b = SelItem.at(a);
+			bool old = b->isBookmark;
+			b->isAnnotation = !b->isAnnotation;
+			if (b->isAnnotation)
 			{
 				if (old)
-					emit DelBM(SelItem.at(a));
-				SelItem.at(a)->isBookmark = false;
+					emit DelBM(b);
+				b->isBookmark = false;
 			}
 		}
 		emit DocChanged();
@@ -8210,13 +8218,8 @@ void ScribusView::DeleteItem()
 			}
 			if (b->isBookmark)
 				emit DelBM(SelItem.at(0));
-//			if (anz != 1)
-//			{
-				Doc->Items.remove(b->ItemNr);
-				b->Select = false;
-// 				delete b;
-//			}
-//			emit DelObj(PageNr, SelItem.at(0)->ItemNr);
+			Doc->Items.remove(b->ItemNr);
+			b->Select = false;
 			delItems.removeFirst();
 			for (a = 0; a < Doc->Items.count(); ++a)
 			{

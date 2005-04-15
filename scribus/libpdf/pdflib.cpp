@@ -984,7 +984,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
-					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
+					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
 				if (!ite->isPrintable || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
 				{
 					PutPage("Q\n");
@@ -1896,7 +1896,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
-					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
+					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
 				if (!ite->isPrintable || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
 				{
 					PutPage("Q\n");
