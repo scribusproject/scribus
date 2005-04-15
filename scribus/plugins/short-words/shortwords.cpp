@@ -23,14 +23,13 @@ or documentation
 #include <qdir.h>
 #include <qcheckbox.h>
 
-ShortWords* shortWords;
 extern ScribusApp *ScApp;
+
 
 QString name()
 {
 	return QObject::tr("Short &Words...", "short words plugin");
 }
-
 
 PluginManager::PluginType type()
 {
@@ -76,19 +75,12 @@ void run(QWidget */*d*/, ScribusApp */*plug*/)
 
 ShortWords::ShortWords()
 {
-	shortWords = this;
 	originalPage = ScApp->doc->currentPage->PageNr;
-	cfg = new Config();
 	VlnaDialog *dlg = new VlnaDialog(ScApp, "dlg", TRUE, 0);
-
-	cfg->userConfig ? dlg->userCheckBox->setChecked(TRUE) : dlg->userCheckBox->setChecked(FALSE);
-	dlg->selectAction(cfg->action);
 	if (dlg->exec() == QDialog::Accepted) {
 		parse = new Parse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		ScApp->FMess->setText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
-		dlg->userCheckBox->isChecked() ? cfg->userConfig = 1 : cfg->userConfig = 0;
-		cfg->action = dlg->actionSelected;
 		switch (dlg->actionSelected) {
 			case 0:
 				parse->parseSelection();
@@ -112,11 +104,9 @@ ShortWords::ShortWords()
 		ScApp->view->GotoPage(originalPage);
 	} // action
 	delete dlg;
-	cfg->saveConfig();
 } // constructor
 
 ShortWords::~ShortWords()
 {
-	delete cfg;
 	delete parse;
 }

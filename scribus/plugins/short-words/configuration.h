@@ -36,6 +36,8 @@ public:
 	uint action;
 	/** UI checkbox */
 	uint userConfig;
+	/** User's text editor */
+	QString editor;
 
 	/** returns all options for specified language */
 	QStringList getShortWords(QString lang);

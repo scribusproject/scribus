@@ -13,12 +13,13 @@ or documentation
 #include "shortwords.h"
 #include "parse.moc"
 #include "version.h"
+#include "configuration.h"
 
 #include "scribus.h"
 #include <qregexp.h>
 
 extern ScribusApp *ScApp;
-extern ShortWords *shortWords;
+
 
 Parse::Parse()
 {
@@ -42,6 +43,8 @@ void Parse::parseItem(PageItem *aFrame)
 	QString unbreak;
 	// the regexp
 	QRegExp rx(" ");
+	// cfg
+	Config *cfg = new Config();
 
 	// just textframes processed
 	if (aFrame->itemType() != PageItem::TextFrame)
@@ -50,9 +53,9 @@ void Parse::parseItem(PageItem *aFrame)
 	// an ugly hack to get the language code from the item language property
 	lang = aFrame->Language;
 	if (ScApp->Sprachen.contains(lang))
-		lang = shortWords->cfg->getLangCodeFromHyph(ScApp->Sprachen[lang]);
+		lang = cfg->getLangCodeFromHyph(ScApp->Sprachen[lang]);
 	// apply spaces after shorts
-	shorts = shortWords->cfg->getShortWords(lang);
+	shorts = cfg->getShortWords(lang);
 	if (shorts.count()==0)
 		return; // no changes
 
@@ -87,6 +90,8 @@ void Parse::parseItem(PageItem *aFrame)
 		aFrame->itemText.at(i)->ch = content.at(i);
 	if (content.contains(UNBREAKABLE_SPACE) > changes)
 		++modify;
+
+	delete(cfg);
 } // end of method
 
 void Parse::parseSelection()

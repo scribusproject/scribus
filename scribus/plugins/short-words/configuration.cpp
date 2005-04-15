@@ -24,7 +24,6 @@ or documentation
 #include <qstringlist.h>
 
 extern ScribusApp *ScApp;
-extern ShortWords *shortWords;
 extern PrefsFile *prefsFile;
 
 Config::Config()
@@ -32,6 +31,7 @@ Config::Config()
 	prefs = prefsFile->getPluginContext("short-words");
 	action = prefs->getUInt("action", 0);
 	userConfig = prefs->getUInt("userConfig", 0);
+	editor = prefs->get("editor", "");
 }
 
 Config::~Config()
@@ -42,6 +42,7 @@ void Config::saveConfig()
 {
 	prefs->set("action", action);
 	prefs->set("userConfig", userConfig);
+	prefs->set("editor", editor);
 }
 
 QStringList Config::getShortWordsFromFile(QString lang, QString filename)
