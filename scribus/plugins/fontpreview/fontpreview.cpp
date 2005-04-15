@@ -6,7 +6,7 @@
 
 QString name()
 {
-	return QObject::tr("&Fonts Preview");
+	return QObject::tr("&Fonts Preview...");
 }
 
 PluginManager::PluginType type()
