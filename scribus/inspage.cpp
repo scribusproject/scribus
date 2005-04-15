@@ -22,8 +22,7 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     Layout4 = new QGridLayout;
     Layout4->setSpacing( 6 );
     Layout4->setMargin( 5 );
-    NumPages = new QSpinBox( this, "NumPages" );
-    NumPages->setMinValue( 1 );
+    NumPages = new QSpinBox( 1, 999, 1, this, "NumPages" );
     NumPages->setValue( 1 );
     TextLabel1 = new QLabel( NumPages, tr( "&Inserting" ), this, "TextLabel1" );
     Layout4->addWidget( TextLabel1, 0, 0 );
