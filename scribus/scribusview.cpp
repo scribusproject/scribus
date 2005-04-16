@@ -3288,16 +3288,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							case 2:
 								if (b->itemType() == PageItem::Line)
 								{
-									p.begin(viewport());
-									Transform(b, &p);
-									mop = QPoint(m->x(), m->y());
-									npf = p.xFormDev(mop);
-									nx = np.x();
-									ny = np.y();
-									p.end();
 									double sav = Doc->SnapGuides;
-									npf2 = FPoint(nx-Mxp, ny-Myp);
-									erf = MoveSizeItem(npf, npf, b->ItemNr);
+									npf2 = FPoint(newX-Mxp, newY-Myp);
+									erf = MoveSizeItem(npf2, FPoint(0, 0), b->ItemNr);
 									Doc->SnapGuides = sav;
 									if (sav)
 										b->Sizing = true;
@@ -5870,8 +5863,8 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 		QWMatrix ma;
 		ma.translate(b->Xpos, b->Ypos);
 		ma.rotate(b->Rot);
-		double mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
-		double my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
+		double mx = ma.m11() * b->Width  + ma.dx();
+		double my = ma.m12() * b->Width + ma.dy();
 		MoveItem(newX.x(), newX.y(), b, fromMP);
 		b->Rot = xy2Deg(mx - b->Xpos, my - b->Ypos);
 		b->Width = sqrt(pow(mx - b->Xpos,2)+pow(my - b->Ypos,2));
