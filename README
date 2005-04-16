@@ -6,8 +6,8 @@ This requires that libart_lgpl and freetype2 are installed.
 
 Version 1.2.2 now includes the Short Words plug-in, which was previously 
 installed as a separate plug-in. To prevent upgrade problems, you might want to 
-uninstall if it was installed via a package or RPM. This was also shiped as the 
-scribus-vlna package in both source and rpm format.
+uninstall if it was installed via a package or RPM. This was also shipped as the 
+scribus-vlna package in both source and rpm format. See PACKAGING for more details.
 
 Scribus 1.2.2 also has a new OpenOffice.org Writer and Draw importer. This 
 requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
@@ -44,7 +44,9 @@ GS 8.x in parallel to the GS installed by your distro.
 
 Activating Color Management *requires* installation of CMYK and RGB ICC 
 profiles. Please see the included help files and http://docs.scribus.net for 
-details.
+details. Grey scale icc profiles in images are not supported in this release..
+
+
 
 Other notes/known issues at the time of release:
 
