@@ -1157,7 +1157,13 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								QPixmap pgPix(10, 10);
 								QRect rd = QRect(0,0,9,9);
 								ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+								Doc->Pages = Doc->MasterPages;
+								Doc->MasterP = true;
+								Doc->Items = Doc->MasterItems;
 								ite->DrawObj(painter, rd);
+								Doc->Pages = Doc->DocPages;
+								Doc->MasterP = false;
+								Doc->Items = Doc->DocItems;
 								Doc->RePos = false;
 								view->Scale = savScale;
 								delete painter;

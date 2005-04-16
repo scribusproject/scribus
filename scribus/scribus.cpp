@@ -4945,6 +4945,9 @@ bool ScribusApp::LadeDoc(QString fileName)
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+		doc->Pages = doc->MasterPages;
+		doc->MasterP = true;
+		doc->Items = doc->MasterItems;
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
@@ -4959,6 +4962,9 @@ bool ScribusApp::LadeDoc(QString fileName)
 			}
 		}
 //		RestoreBookMarks();
+		doc->Pages = doc->DocPages;
+		doc->MasterP = false;
+		doc->Items = doc->DocItems;
 		for (uint azz=0; azz<doc->Items.count(); ++azz)
 		{
 			PageItem *ite = doc->Items.at(azz);
@@ -4987,9 +4993,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 		delete painter;
 //		if (doc->OldBM)
 //			StoreBookmarks();
-//		ActWin->NrItems = bookmarkPalette->BView->NrItems;
-//		ActWin->First = bookmarkPalette->BView->First;
-//		ActWin->Last = bookmarkPalette->BView->Last;
 		doc->RePos = false;
 		doc->setUnModified();
 		updateRecent(FName);
@@ -5021,6 +5024,9 @@ bool ScribusApp::LadeDoc(QString fileName)
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(doc->AutoSaveTime);
 		scrActions["fileSave"]->setEnabled(false);
+//		ActWin->NrItems = bookmarkPalette->BView->NrItems;
+//		ActWin->First = bookmarkPalette->BView->First;
+//		ActWin->Last = bookmarkPalette->BView->Last;
 	}
 	else
 	{

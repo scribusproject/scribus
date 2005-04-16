@@ -1619,7 +1619,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 							if (painter!=NULL)
 							{
+								doc->Pages = doc->MasterPages;
+								doc->MasterP = true;
+								doc->Items = doc->MasterItems;
 								ite->DrawObj(painter, rd);
+								doc->Pages = doc->DocPages;
+								doc->MasterP = false;
+								doc->Items = doc->DocItems;
 								doc->RePos = false;
 								view->Scale = savScale;
 								delete painter;

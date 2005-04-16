@@ -257,6 +257,7 @@ public:
 	bool Frame;
   /** Seite zu der das Element gehoert */
 	int OwnPage;
+	int savedOwnPage;
 	/** @brief Old page number tracked for the move undo action */
 	int oldOwnPage;
   /** Darzustellendes Bild */
@@ -385,6 +386,7 @@ public:
 	QValueList<double> TabValues;
 	double DashOffset;
 	VGradient fill_gradient;
+	bool fillRule;
 	QString Language;
 /* Additions for Table Support */
 	PageItem* LeftLink;

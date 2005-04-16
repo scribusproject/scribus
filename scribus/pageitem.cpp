@@ -172,6 +172,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BaseOffs = 0;
 	OwnPage = Doc->currentPage->PageNr;
 	oldOwnPage = OwnPage;
+	savedOwnPage = OwnPage;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;
@@ -265,6 +266,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	DashValues.clear();
 	TabValues.clear();
 	DashOffset = 0;
+	fillRule = true;
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
 	if (fillColor() == "None")
@@ -750,7 +752,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				if (OnMasterPage != "")
 				{
 					Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
-					Page* Dp = Doc->Pages.at(OwnPage);
+					Page* Dp = Doc->Pages.at(savedOwnPage);
 					for (a = 0; a < Doc->MasterItems.count(); ++a)
 					{
 						PageItem* docItem = Doc->MasterItems.at(a);
@@ -2364,10 +2366,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		QWMatrix chma, chma2, chma3, chma4, chma5;
 		chma.scale(csi, csi);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
-//qDebug(QString("DrawZeichenS(): before count=%1 capacity=%2").arg(hl->ZFo->GlyphArray[chr].Outlines.size()).arg(reinterpret_cast<QMemArray<FPoint>*>(&hl->ZFo->GlyphArray[chr].Outlines)->size()));
-		
 		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
-//qDebug(QString("DrawZeichenS(): after count=%1 capacity=%2").arg(gly.size()).arg(reinterpret_cast<QMemArray<FPoint>*>(&gly)->size()));
 		if (gly.size() > 3)
 		{
 			chma2.scale(hl->scale / 100.0, 1);
