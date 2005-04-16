@@ -132,6 +132,7 @@ public:
 	bool Frame;
   /** Seite zu der das Element gehoert */
 	Page *OwnPage;
+	Page *savedOwnPage;
   /** Darzustellendes Bild */
 	QImage pixm;
 	QImage pixmOrg;

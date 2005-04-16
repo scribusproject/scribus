@@ -621,7 +621,8 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 			{
 				b = Mp->Items.at(a);
 				Opa = b->Parent;
-				Opa2 = b->OwnPage;
+				b->savedOwnPage = b->OwnPage;
+				b->OwnPage = this;
 				b->Parent = this;
 			}
 			Lnr = 0;
@@ -691,6 +692,7 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 			{
 				b = Mp->Items.at(a);
 				b->Parent = Opa;
+				b->OwnPage = b->savedOwnPage;
 			}
 		}
 	}

@@ -148,6 +148,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	PoShow = false;
 	BaseOffs = 0;
 	OwnPage = pa;
+	savedOwnPage = OwnPage;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;
@@ -666,9 +667,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					}
 				Doc->Vorlagen[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
-				for (a=0; a<OwnPage->Items.count(); ++a)
+				for (a=0; a<savedOwnPage->Items.count(); ++a)
 				{
-					PageItem* ownItem = OwnPage->Items.at(a);
+					PageItem* ownItem = savedOwnPage->Items.at(a);
 					if (((ownItem->ItemNr > ItemNr) && (ownItem->LayerNr == LayerNr))
    							|| (Doc->Layers[ownItem->LayerNr].Level > Doc->Layers[LayerNr].Level))
 					{
@@ -703,7 +704,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					}
 				}
-				if (OwnPage->PageNam != "")
+				if (savedOwnPage->PageNam != "")
 				{
 					Page* par = (Page*)Parent;
 					for (a=0; a<par->Items.count(); ++a)
