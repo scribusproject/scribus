@@ -614,7 +614,6 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 	{
 		Page* Mp = vi->MasterPages.at(vi->MasterNames[MPageNam]);
 		QWidget* Opa;
-		Page* Opa2;
 		if (Mp->Items.count() != 0)
 		{
 			for (a = 0; a < Mp->Items.count(); ++a)
@@ -1386,8 +1385,8 @@ bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 		QWMatrix ma;
 		ma.translate(b->Xpos, b->Ypos);
 		ma.rotate(b->Rot);
-		double mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
-		double my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
+		double mx = ma.m11() * b->Width + ma.dx();
+		double my = ma.m12() * b->Width + ma.dy();
 		MoveItem(newX.x(), newX.y(), b, fromMP);
 		b->Rot = xy2Deg(mx - b->Xpos, my - b->Ypos);
 		b->Width = sqrt(pow(mx - b->Xpos,2)+pow(my - b->Ypos,2));
@@ -4695,16 +4694,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							case 2:
 								if (b->PType == 5)
 								{
-									p.begin(this);
-									Transform(b, &p);
-									mop = QPoint(m->x(), m->y());
-									npf = p.xFormDev(mop);
-									nx = np.x();
-									ny = np.y();
-									p.end();
 									double sav = doku->SnapGuides;
-									npf2 = FPoint(nx-Mxp, ny-Myp);
-									erf = MoveSizeItem(npf, npf, b->ItemNr);
+									npf2 = FPoint(newX-Mxp, newY-Myp);
+									erf = MoveSizeItem(npf2, npf, b->ItemNr);
 									doku->SnapGuides = sav;
 									if (sav)
 										b->Sizing = true;
@@ -5967,6 +5959,11 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 			HowTo = 4;
 		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), 0))))
 			HowTo = 3;
+	}
+	else
+	{
+		if (mpo.contains(p->xForm(QPoint(0, 0))))
+			HowTo = 2;
 	}
 	HandleCurs(p, b, mpo);
 	storeUndoInf(b);

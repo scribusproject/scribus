@@ -8145,8 +8145,11 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 						InputProfiles[nam] = pfad + d[dc];
 					break;
 				case icSigDisplayClass:
-					MonitorProfiles[nam] = pfad + d[dc];
-					InputProfiles[nam] = pfad + d[dc];
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+					{
+						MonitorProfiles[nam] = pfad + d[dc];
+						InputProfiles[nam] = pfad + d[dc];
+					}
 					break;
 				case icSigOutputClass:
 					PrinterProfiles[nam] = pfad + d[dc];
