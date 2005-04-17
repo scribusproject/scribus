@@ -105,30 +105,48 @@ void FDialogPreview::GenPreview(QString name)
 	updtPix();
 	int w = pixmap()->width();
 	int h = pixmap()->height();
-	QImage im = LoadPict(name);
-	if (!im.isNull())
+	QString ext = fi.extension(false).lower();
+	QStringList formats;
+	formats = QStringList::fromStrList(QImageIO::inputFormats());
+	formats.append("jpg");
+#ifdef HAVE_TIFF
+	formats.append("tif");
+	formats.append("tiff");
+#endif
+	formats.append("eps");
+	formats.append("pdf");
+	formats.append("ps");
+	QString allFormats = formats.join( " " );
+	formats.clear();
+	allFormats = allFormats.lower();
+	formats = QStringList::split( " ", allFormats );
+	if (formats.contains(ext))
 	{
-		int ix = im.width();
-		int iy = im.height();
-		QString tmp = "";
-		QString tmp2 = "";
-		if ((im.width() > w-5) || (im.height() > h-20))
+		QImage im = LoadPict(name);
+		if (!im.isNull())
 		{
-			QImage im2;
-			double sx = im.width() / static_cast<double>(w-5);
-			double sy = im.height() / static_cast<double>(h-20);
-			im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
-								im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
-			im = im2;
-			im2.detach();
+			int ix = im.width();
+			int iy = im.height();
+			QString tmp = "";
+			QString tmp2 = "";
+			if ((im.width() > w-5) || (im.height() > h-20))
+			{
+				QImage im2;
+				double sx = im.width() / static_cast<double>(w-5);
+				double sy = im.height() / static_cast<double>(h-20);
+				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
+									im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+				im = im2;
+				im2.detach();
+			}
+			QPainter p;
+			pixmap()->fill(white);
+			p.begin(pixmap());
+			p.drawImage(0, 0, im);
+			p.drawText(2, h-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+			p.end();
+			repaint();
 		}
-		QPainter p;
-		pixmap()->fill(white);
-		p.begin(pixmap());
-		p.drawImage(0, 0, im);
-		p.drawText(2, h-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
-		p.end();
-		repaint();
 	}
 	else
 	{
@@ -156,7 +174,7 @@ void FDialogPreview::GenPreview(QString name)
 				Aut += au2;
 				setText( tr("Scribus Document")+"\n\n"+Tit+Aut);
 			}
-			else
+			else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
 				setText(Buffer.left(200));
 		}
 	}
