@@ -134,7 +134,6 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
 QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 QImage ProofImage(QImage *Im);
-int System(const QStringList & args);
 int callGS(const QStringList & args_in);
 int copyFile(QString source, QString target);
 int moveFile(QString source, QString target);
@@ -240,34 +239,6 @@ QImage ProofImage(QImage *Im)
 }
 
 /******************************************************************
- * Function System()
- *  
- * Create a new process via QProcess and wait until finished.
- * return the process exit code.
- *
- ******************************************************************/
-
-int System(const QStringList & args)
-{
-	QProcess *proc = new QProcess(NULL);
-	proc->setArguments(args);
-	if ( !proc->start() )
-	{
-		delete proc;
-		return 1;
-	}
-	/* start was OK */
-	while(proc->isRunning())
-	{
-		/* wait a little bit */
-		usleep(5000);
-	}
-	int ex = proc->exitStatus();
-	delete proc;
-	return ex;
-}
-
-/******************************************************************
  * Function callGS()
  *   build the complete list of arguments for the call of our
  *   System() function.
@@ -279,31 +250,19 @@ int System(const QStringList & args)
  
 int callGS(const QStringList & args_in)
 {
-	QStringList args;
-
-	/* these parameters are always the same */
-	args.append(ScApp->Prefs.gs_exe);
-	args.append("-q");
-	args.append("-dNOPAUSE");
+	QString cmd1 = ScApp->Prefs.gs_exe;
+	cmd1 += " -q -dNOPAUSE";
 	if (ScApp->HavePngAlpha != 0)
-		args.append("-sDEVICE=png16m");
+		cmd1 += " -sDEVICE=png16m";
 	else
-		args.append("-sDEVICE=pngalpha");
+		cmd1 += " -sDEVICE=pngalpha";
 	if (ScApp->Prefs.gs_antiText)
-		args.append("-dTextAlphaBits=4");
+		cmd1 += " -dTextAlphaBits=4";
 	if (ScApp->Prefs.gs_antiGraph)
-		args.append("-dGraphicsAlphaBits=4");
-	
-	/* insert specific arguments */
-	QStringList p;
-	p = args_in;
-	args += args_in;
-	/* insert last unspecific arguments */
-	args.append("-c");
-	args.append("showpage");
-	args.append("-c");
-	args.append("quit");
-        return System(args);
+		cmd1 += " -dGraphicsAlphaBits=4";
+	QString extArgs = args_in.join(" ");
+	cmd1 += " " + extArgs + " -c showpage -c quit";
+	return system(cmd1);
 }
 
 int copyFile(QString source, QString target)
