@@ -236,7 +236,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	QString missingImg = tr("Missing Image");
 	QString lowDPI = tr("Image has a DPI-Value less than %1 DPI").arg(qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution));
 	QString transpar = tr("Object has transparency");
-	QString annot = tr("Object is a PDF-Annotation or Field");
+	QString annot = tr("Object is a PDF Annotation or Field");
 	QString rasterPDF = tr("Object is a placed PDF");
 	reportDisplay->clear();
 	reportDisplay->setSorting(-1);

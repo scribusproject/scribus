@@ -65,7 +65,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData
 	pictResolutionLayout->addWidget( resolutionValue );
 	TabCheckDocLayout->addWidget( pictResolution );
 	rasterPDF = new QCheckBox( this, "rasterPDF" );
-	rasterPDF->setText( tr( "Check for placed PDF-Files" ) );
+	rasterPDF->setText( tr( "Check for placed PDF Files" ) );
 	TabCheckDocLayout->addWidget( rasterPDF );
 	useAnnotations = new QCheckBox( this, "useAnnotations" );
 	useAnnotations->setText( tr( "Check for PDF Annotations and Fields" ) );

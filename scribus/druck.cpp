@@ -583,7 +583,7 @@ void Druck::SelFile()
 {
 	PrefsContext* dirs = prefsFile->getContext("dirs");
 	QString wdir = dirs->get("druck", ".");
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("Postscript-Files (*.ps);;All Files (*)"), false, false);
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("Postscript Files (*.ps);;All Files (*)"), false, false);
 	if (LineEdit1->text() != "")
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)

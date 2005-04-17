@@ -560,9 +560,9 @@ void ScribusApp::initDefaultPrefs()
 	checkerSettings.checkRasterPDF = true;
 	checkerSettings.minResolution = 72.0;
 	Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-	Prefs.checkerProfiles.insert( tr("PDF-1.3"), checkerSettings);
+	Prefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 	checkerSettings.checkTransparency = false;
-	Prefs.checkerProfiles.insert( tr("PDF-1.4"), checkerSettings);
+	Prefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 	checkerSettings.checkTransparency = true;
 	checkerSettings.checkAnnotations = true;
 	checkerSettings.minResolution = 144.0;
@@ -1428,14 +1428,19 @@ void ScribusApp::initSpecialActions()
 	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Smart &Hyphen"), CTRL+SHIFT+Key_Minus, this, "specialSmartHyphen",-1));
 	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Non Breaking &Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",29));
 	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Page &Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",30));
-	scrActions.insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Copyright"), QKeySequence(), this, "specialCopyRight",169));
-	scrActions.insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Registered Trademark"), QKeySequence(), this, "specialRegdTM",174));
-	scrActions.insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Trademark"), QKeySequence(), this, "specialTM",8482));
-	scrActions.insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Bullet"), QKeySequence(), this, "specialBullet",8226));
-	scrActions.insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Em Dash"), QKeySequence(), this, "specialDashEm",8212));
-	scrActions.insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("En Dash"), QKeySequence(), this, "specialDashEn",8211));
-	scrActions.insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Figure Dash"), QKeySequence(), this, "specialDashFigure",8210));
-	scrActions.insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Quotation Dash"), QKeySequence(), this, "specialDashQuotation",8213));
+	scrActions.insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Copyright"), QKeySequence(), this, "specialCopyRight",0x0A9));
+	scrActions.insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Registered Trademark"), QKeySequence(), this, "specialRegdTM",0x00AE));
+	scrActions.insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Trademark"), QKeySequence(), this, "specialTM",0x2122));
+	scrActions.insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Bullet"), QKeySequence(), this, "specialBullet",0x2022));
+	scrActions.insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Em Dash"), QKeySequence(), this, "specialDashEm",0x2014));
+	scrActions.insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("En Dash"), QKeySequence(), this, "specialDashEn",0x2013));
+	scrActions.insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Figure Dash"), QKeySequence(), this, "specialDashFigure",0x2012));
+	scrActions.insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Quotation Dash"), QKeySequence(), this, "specialDashQuotation",0x2015));
+	
+	scrActions.insert("specialQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Double Left Quote"), QKeySequence(), this, "specialQuoteDoubleLeft",0x201C));
+	scrActions.insert("specialQuoteDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Double Right Quote"), QKeySequence(), this, "specialQuoteDoubleRight",0x201D));
+	scrActions.insert("specialQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Single Left Quote"), QKeySequence(), this, "specialQuoteSingleLeft",0x2018));
+	scrActions.insert("specialQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Single Right Quote"), QKeySequence(), this, "specialQuoteSingleRight",0x2019));
 	
 	scrActions["specialSmartHyphen"]->setText("Insert Smart Hyphen");
 	scrActions["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
@@ -1447,6 +1452,7 @@ void ScribusApp::initSpecialActions()
 	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
 	*unicodeCharActionNames << "specialBullet";
 	*unicodeCharActionNames << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
+	*unicodeCharActionNames << "specialQuoteDoubleLeft" << "specialQuoteDoubleRight" << "specialQuoteSingleLeft" << "specialQuoteSingleRight";
 
 	for ( QStringList::Iterator it = unicodeCharActionNames->begin(); it != unicodeCharActionNames->end(); ++it )
 		connect( scrActions[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
@@ -1661,6 +1667,11 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialDashEn"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashFigure"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashQuotation"], "InsertChar");
+	scrMenuMgr->addMenuSeparator("InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeft"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRight"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleLeft"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleRight"], "InsertChar");
 
 	scrMenuMgr->createMenu("InsertSpace", tr("Space"));
 	scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
@@ -4745,9 +4756,9 @@ bool ScribusApp::LadeDoc(QString fileName)
 			checkerSettings.checkRasterPDF = true;
 			checkerSettings.minResolution = 72.0;
 			doc->checkerProfiles.insert( tr("Postscript"), checkerSettings);
-			doc->checkerProfiles.insert( tr("PDF-1.3"), checkerSettings);
+			doc->checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 			checkerSettings.checkTransparency = false;
-			doc->checkerProfiles.insert( tr("PDF-1.4"), checkerSettings);
+			doc->checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 			checkerSettings.checkTransparency = true;
 			checkerSettings.checkAnnotations = true;
 			checkerSettings.minResolution = 144.0;
@@ -8517,9 +8528,9 @@ void ScribusApp::ReadPrefs(bool import12)
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.minResolution = 72.0;
 		Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-		Prefs.checkerProfiles.insert( tr("PDF-1.3"), checkerSettings);
+		Prefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 		checkerSettings.checkTransparency = false;
-		Prefs.checkerProfiles.insert( tr("PDF-1.4"), checkerSettings);
+		Prefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
