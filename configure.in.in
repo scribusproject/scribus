@@ -94,22 +94,37 @@ else
 fi
 
 dnl Try to find fontconfig using fontconfig-config or pkg-config.
+hafontconfig=no
 LIBFONTCONFIG_LIBS=""
 LIBFONTCONFIG_CFLAGS=""
 FONTCONFIG_CONFIG=""
-AC_PATH_PROG(FONTCONFIG_CONFIG, fontconfig-config, [], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
-hafontconfig=no
-if test -n "$FONTCONFIG_CONFIG"; then
-	dnl found fontconfig-config, use it's results
-	LIBFONTCONFIG_LIBS="`$FONTCONFIG_CONFIG --libs`"
-	LIBFONTCONFIG_CFLAGS="`$FONTCONFIG_CONFIG --cflags`"
-elif test -n "$PKG_CONFIG"; then
-	dnl Try to find fontconfig with pkg-config
+dnl Try to find fontconfig with pkg-config if we have pkg-config
+AC_MSG_CHECKING([Checking for fontconfig with pkg-config])
+if test -n "$PKG_CONFIG"; then
 	LIBFONTCONFIG_LIBS="`$PKG_CONFIG fontconfig --libs`"
 	LIBFONTCONFIG_CFLAGS="`$PKG_CONFIG fontconfig --cflags`"
+	if test -n "$LIBFONTCONFIG_LIBS" || test -n "$LIBFONTCONFIG_CFLAGS"; then
+		AC_MSG_RESULT([found])
+	else
+		AC_MSG_RESULT([not found])
+	fi
 else
-	AC_MSG_WARN([Couldn't find fontconfig-config or pkg-config])
+	AC_MSG_RESULT([failed: pkg-config not found])
+fi
+
+dnl If fontconfig not found with pkg-config, try to find fontconfig-config
+dnl and use that to look for fontconfig.
+if test -z "$LIBFONTCONFIG_LIBS" && test -z "$LIBFONTCONFIG_CFLAGS"; then
+	dnl Seems we didn't find fontconfig with pkg-config...
+	AC_PATH_PROG(FONTCONFIG_CONFIG, fontconfig-config, [], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+	if test -n "$FONTCONFIG_CONFIG"; then
+		dnl found fontconfig-config, use it's results
+		LIBFONTCONFIG_LIBS="`$FONTCONFIG_CONFIG --libs`"
+		LIBFONTCONFIG_CFLAGS="`$FONTCONFIG_CONFIG --cflags`"
+	else
+		AC_MSG_WARN([Couldn't find fontconfig-config or find fontconfig with pkg-config])
+	fi
 fi
 
 dnl Check to see if we can compile fontconfig
