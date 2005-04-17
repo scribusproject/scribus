@@ -388,13 +388,14 @@ void GuideManager::UpdateHorList()
 	disconnect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
 	disconnect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 	
-	HorList->clear();
-	
 	QString tmp;
-	
+	int precision=unitGetPrecisionFromIndex(docUnitIndex);
+	QString suffix=unitGetSuffixFromIndex(docUnitIndex);
+
+	HorList->clear();
+		
 	for (uint i = 0; i < LocHor.count(); ++ i)
-		HorList->insertItem(tmp.setNum(qRound(LocHor[i] * docUnitRatio * 10000.0) / 10000.0, 'f', 4) +
-					 unitGetSuffixFromIndex(docUnitIndex));
+		HorList->insertItem(tmp.setNum(qRound(LocHor[i] * docUnitRatio * 10000.0) / 10000.0, 'f', precision) + suffix);
 	if (LocHor.isEmpty())
 		selHor = -1;
 
@@ -413,12 +414,13 @@ void GuideManager::UpdateVerList()
 	disconnect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
 	
 	QString tmp;
+	int precision=unitGetPrecisionFromIndex(docUnitIndex);
+	QString suffix=unitGetSuffixFromIndex(docUnitIndex);
 	
 	VerList->clear();
 	
 	for (uint i = 0; i < LocVer.count(); ++ i)
-		VerList->insertItem(tmp.setNum(qRound(LocVer[i] * docUnitRatio * 10000.0) / 10000.0, 'f', 4) +
-					 unitGetSuffixFromIndex(docUnitIndex));
+		VerList->insertItem(tmp.setNum(qRound(LocVer[i] * docUnitRatio * 10000.0) / 10000.0, 'f', precision) + suffix);
 	if (LocVer.isEmpty())
 		selVer = -1;
 		
