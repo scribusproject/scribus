@@ -1457,13 +1457,6 @@ void ScribusApp::initSpecialActions()
 	for ( QStringList::Iterator it = unicodeCharActionNames->begin(); it != unicodeCharActionNames->end(); ++it )
 		connect( scrActions[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
 
-	/*
-	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
-	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
-	connect( scrActions["specialPageNumber"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
-	connect( scrActions["specialCopyRight"], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
-	*/
-	
 	//GUI
 	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
 	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
@@ -1922,16 +1915,8 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 			{
 				struct ScText *hg = new ScText;
 				PageItem *b = view->SelItem.at(0);
-				//bool insertChar=false; //unused CR 2005-03-21
 				if (unicodevalue!=-1)
 				{
-					/*
-					if (actionName=="specialPageNumber")
-						hg->ch = QString(QChar(30));
-					else
-						if (actionName=="specialNonBreakingSpace")
-							hg->ch = QString(QChar(29));
-					*/
 					hg->ch = QString(QChar(unicodevalue));
 					hg->cfont = (*doc->AllFonts)[doc->CurrFont];
 					hg->csize = doc->CurrFontSize;
@@ -3990,9 +3975,10 @@ void ScribusApp::HaveNewSel(int Nr)
 	scrActions["editDeselectAll"]->setEnabled(Nr!=-1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["insertGlyph"]->setEnabled(false);
-	scrActions["specialSmartHyphen"]->setEnabled(false);
-	scrActions["specialNonBreakingSpace"]->setEnabled(false);
-	scrActions["specialPageNumber"]->setEnabled(false);
+	//scrActions["specialSmartHyphen"]->setEnabled(false);
+	//scrActions["specialNonBreakingSpace"]->setEnabled(false);
+	//scrActions["specialPageNumber"]->setEnabled(false);
+	setEnabledActionStringList(unicodeCharActionNames, false);
 	scrActions["insertSampleText"]->setEnabled(false);
 	
 	view->horizRuler->ItemPosValid = false;
@@ -4112,9 +4098,10 @@ void ScribusApp::HaveNewSel(int Nr)
 			setTBvals(b);
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["insertGlyph"]->setEnabled(true);
-			scrActions["specialSmartHyphen"]->setEnabled(true);
-			scrActions["specialNonBreakingSpace"]->setEnabled(true);
-			scrActions["specialPageNumber"]->setEnabled(true);
+			//scrActions["specialSmartHyphen"]->setEnabled(true);
+			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
+			//scrActions["specialPageNumber"]->setEnabled(true);
+			setEnabledActionStringList(unicodeCharActionNames, true, true);
 			view->horizRuler->ItemPos = b->Xpos - doc->ScratchLeft;
 			view->horizRuler->ItemEndPos = b->Xpos+b->Width - doc->ScratchLeft;
 			if (b->lineColor() != "None")
@@ -6684,9 +6671,10 @@ void ScribusApp::setAppMode(int mode)
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
-			scrActions["specialSmartHyphen"]->setEnabled(true);
-			scrActions["specialNonBreakingSpace"]->setEnabled(true);
-			scrActions["specialPageNumber"]->setEnabled(true);
+			//scrActions["specialSmartHyphen"]->setEnabled(true);
+			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
+			//scrActions["specialPageNumber"]->setEnabled(true);
+			setEnabledActionStringList(unicodeCharActionNames, true, true);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))
@@ -11021,6 +11009,26 @@ void ScribusApp::restoreActionShortcutsPostEditMode()
 	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
 		scrActions[*it]->restoreShortcut();	
 }
+
+void ScribusApp::setEnabledActionStringList(QStringList *list, bool enabled, bool checkingUnicode)
+{
+	for ( QStringList::Iterator it = list->begin(); it != list->end(); ++it )
+	{
+		if(!checkingUnicode)
+			scrActions[*it]->setEnabled(enabled);
+		else
+		{
+			//For UnicodeChar actions, only enable when the current font has that character.
+			if (HaveDoc && scrActions[*it]->actionType()==ScrAction::UnicodeChar)
+			{
+				int charCode=scrActions[*it]->actionInt();
+				if(charCode==-1 || charCode==30 || (*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(charCode) )
+					scrActions[*it]->setEnabled(enabled);
+			}
+		}
+	}
+}
+
 
 void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 {

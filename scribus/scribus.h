@@ -118,6 +118,7 @@ public:
 	void connectModeActions();
 	void saveActionShortcutsPreEditMode();
 	void restoreActionShortcutsPostEditMode();
+	void setEnabledActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);
 	void DeleteSel(PageItem *b);
 	void setTBvals(PageItem *b);
 	void SavePrefs();
