@@ -61,6 +61,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 		}
 		counter++;
 	}
+	StyleView->setSorting(0);
 	ChooseStylesLayout->addWidget( StyleView );
 	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

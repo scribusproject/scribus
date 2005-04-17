@@ -4329,6 +4329,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			else
 				Doc->ElemToLink = NULL;
+			if (Doc->TemplateMode)
+				Doc->MasterItems = Doc->Items;
+			else
+				Doc->DocItems = Doc->Items;
 			break;
 		case UnlinkFrames:
 			SeleItem(m);
@@ -4356,6 +4360,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				emit DocChanged();
 				updateContents();
 			}
+			if (Doc->TemplateMode)
+				Doc->MasterItems = Doc->Items;
+			else
+				Doc->DocItems = Doc->Items;
 			break;
 		case DrawRegularPolygon:
 			{

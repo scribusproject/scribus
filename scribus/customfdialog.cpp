@@ -114,53 +114,71 @@ void FDialogPreview::GenPreview(QString name)
 	int w = pixmap()->width();
 	int h = pixmap()->height();
 	bool mode = false;
-	QImage im = LoadPicture(name, "", 0, false, false, 1, 72, &mode, &imgInfo);
-	if (!im.isNull())
+	QString ext = fi.extension(false).lower();
+	QStringList formats;
+	formats = QStringList::fromStrList(QImageIO::inputFormats());
+	formats.append("jpg");
+#ifdef HAVE_TIFF
+	formats.append("tif");
+	formats.append("tiff");
+#endif
+	formats.append("psd");
+	formats.append("eps");
+	formats.append("pdf");
+	formats.append("ps");
+	QString allFormats = formats.join( " " );
+	formats.clear();
+	allFormats = allFormats.lower();
+	formats = QStringList::split( " ", allFormats );
+	if (formats.contains(ext))
 	{
-		int ix = im.width();
-		int iy = im.height();
-		int xres = qRound(im.dotsPerMeterX() * 0.0254);
-		int yres = qRound(im.dotsPerMeterY() * 0.0254);
-		QString tmp = "";
-		QString tmp2 = "";
-		if ((im.width() > w-5) || (im.height() > h-44))
+		QImage im = LoadPicture(name, "", 0, false, false, 1, 72, &mode, &imgInfo);
+		if (!im.isNull())
 		{
-			QImage im2;
-			double sx = im.width() / static_cast<double>(w-5);
-			double sy = im.height() / static_cast<double>(h-44);
-			im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
-								im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
-			im = im2;
-			im2.detach();
-		}
-		QPainter p;
-		pixmap()->fill(white);
-		p.begin(pixmap());
-		p.drawImage(0, 0, im);
-		p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
-		p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
-		QString cSpace;
-		QString ext = fi.extension(false).lower();
-		if ((ext == "pdf") || (ext == "eps") || (ext == "ps"))
-			cSpace = tr("Unknown");
-		else
-		{
-			switch (imgInfo.colorspace)
+			int ix = im.width();
+			int iy = im.height();
+			int xres = qRound(im.dotsPerMeterX() * 0.0254);
+			int yres = qRound(im.dotsPerMeterY() * 0.0254);
+			QString tmp = "";
+			QString tmp2 = "";
+			if ((im.width() > w-5) || (im.height() > h-44))
 			{
-				case 0:
-					cSpace = tr("RGB");
-					break;
-				case 1:
-					cSpace = tr("CMYK");
-					break;
-				case 2:
-					cSpace = tr("Grayscale");
-					break;
+				QImage im2;
+				double sx = im.width() / static_cast<double>(w-5);
+				double sy = im.height() / static_cast<double>(h-44);
+				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
+									im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+				im = im2;
+				im2.detach();
 			}
+			QPainter p;
+			pixmap()->fill(white);
+			p.begin(pixmap());
+			p.drawImage(0, 0, im);
+			p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
+			QString cSpace;
+			if ((ext == "pdf") || (ext == "eps") || (ext == "ps"))
+				cSpace = tr("Unknown");
+			else
+			{
+				switch (imgInfo.colorspace)
+				{
+					case 0:
+						cSpace = tr("RGB");
+						break;
+					case 1:
+						cSpace = tr("CMYK");
+						break;
+					case 2:
+						cSpace = tr("Grayscale");
+						break;
+				}
+			}
+			p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
+			p.end();
+			repaint();
 		}
-		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
-		p.end();
-		repaint();
 	}
 	else
 	{
@@ -172,7 +190,7 @@ void FDialogPreview::GenPreview(QString name)
 				if(!docu.setContent(Buffer))
 					return;
 				QDomElement elem=docu.documentElement();
-				if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
+				if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
 					return;
 				QDomNode DOC=elem.firstChild();
 				QDomElement dc=DOC.toElement();
@@ -188,7 +206,7 @@ void FDialogPreview::GenPreview(QString name)
 				Aut += au2;
 				setText( tr("Scribus Document")+"\n\n"+Tit+Aut);
 			}
-			else
+			else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
 				setText(Buffer.left(200));
 		}
 	}

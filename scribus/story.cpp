@@ -749,6 +749,7 @@ void SEditor::setAlign(int style)
 
 void SEditor::loadItemText(PageItem* b)
 {
+	setUpdatesEnabled(false);
 	struct PtiSmall *hg;
 	QString Text = "";
 	QString Ccol = "";
@@ -858,11 +859,13 @@ void SEditor::loadItemText(PageItem* b)
 	ParagStyles.append(Ali);
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
+	setUpdatesEnabled(true);
 	setCursorPosition(0, 0);
 }
 
 void SEditor::loadText(QString tx, PageItem* b)
 {
+	setUpdatesEnabled(false);
 	struct PtiSmall *hg;
 	QString Text = "";
 	StyledText.clear();
@@ -908,6 +911,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 	ParagStyles.append(b->textAlignment);
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
+	setUpdatesEnabled(true);
 	setCursorPosition(0, 0);
 }
 
@@ -915,6 +919,7 @@ void SEditor::updateAll()
 {
 	if (StyledText.count() == 0)
 		return;
+	setUpdatesEnabled(false);
 	int p, i;
 	getCursorPosition(&p, &i);
 	clear();
@@ -988,6 +993,7 @@ void SEditor::updateAll()
 	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	insert(Text);
+	setUpdatesEnabled(true);
 	setCursorPosition(p, i);
 }
 
@@ -996,6 +1002,7 @@ void SEditor::updateFromChars(int pa)
 	ChList *chars = StyledText.at(pa);
 	if (chars->count() == 0)
 		return;
+	setUpdatesEnabled(false);
 	int SelStart = 0;
 	int SelEnd = 0;
 	int p, i;
@@ -1026,6 +1033,7 @@ void SEditor::updateFromChars(int pa)
 	setStyle(Csty);
 	removeSelection();
 	setAlign(chars->at(0)->cab);
+	setUpdatesEnabled(true);
 	setCursorPosition(p, i);
 }
 
@@ -1275,6 +1283,8 @@ void SEditor::paste()
 		}
 	}
 	updateAll();
+	sync();
+	repaintContents();
 	emit SideBarUp(true);
 	emit SideBarUpdate();
 }
@@ -2163,6 +2173,8 @@ void StoryEditor::slotFileRevert()
 	{
 		Editor->loadItemText(CurrItem);
 		updateStatus();
+		Editor->sync();
+		Editor->repaintContents();
 	}
 }
 
@@ -2298,6 +2310,8 @@ void StoryEditor::slotEditStyles()
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
+	Editor->sync();
+	Editor-> repaintContents();
 }
 
 void StoryEditor::newAlign(int st)
@@ -2396,6 +2410,8 @@ void StoryEditor::changeAlignSB(int pa, int align)
 		Editor->setCursorPosition(0, 0);
 		updateProps(0, 0);
 	}
+	Editor->sync();
+	Editor-> repaintContents();
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2512,6 +2528,8 @@ void StoryEditor::changeAlign(int )
 		updateProps(0, 0);
 	}
 	modifiedText();
+	Editor->sync();
+	Editor-> repaintContents();
 	Editor->setFocus();
 }
 
@@ -2564,6 +2582,8 @@ void StoryEditor::LoadTextFile()
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
 	}
+	Editor->sync();
+	Editor-> repaintContents();
 }
 
 void StoryEditor::SaveTextFile()

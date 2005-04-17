@@ -5098,8 +5098,8 @@ void ScribusApp::slotFileOpen()
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				view->LoadPict(fileName, b->ItemNr);
-				view->AdjustPictScale(b);
-				view->AdjustPreview(b);
+				view->AdjustPictScale(b, false);
+				view->AdjustPreview(b, false);
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();

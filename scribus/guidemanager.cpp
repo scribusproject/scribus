@@ -69,7 +69,8 @@ GuideManager::GuideManager(
 	tp[1] = tr(" mm"); 
 	tp[2] = tr(" in"); 
 	tp[3] = tr(" p");
-	int   dp[] = {100, 1000, 10000, 100};
+	tp[4] = tr(" cm");
+	int   dp[] = {100, 1000, 10000, 100, 1000};
 	
 	docUnitIndex = Einh;
 	docUnitRatio = unitGetRatioFromIndex(Einh);
