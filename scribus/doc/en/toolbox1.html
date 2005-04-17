@@ -1,21 +1,30 @@
 <qt>
-<title>Adobe Acrobat Reader</title>
-<h2>Adobe Acrobat Reader</h2>
-<h4>Using "Hidden" Features with Acrobat Reader and Scribus</h4>
+<title>Adobe Reader</title>
+<h2>Adobe Reader</h2>
+<h4>Using "Hidden" Features with Adobe Reader and Scribus</h4>
 
-<p>Adobe Acrobat Reader&#174; is in my experience one of the essential tools to have when using Scribus. Although mostly a simple viewer, it has some advanced features which no other PDF viewer has in the Linux,*nix world: full support for JavaScript with a PDF (You did not know a PDF was scriptable? Scribus is unique in the Linux/*nix world for the ability to create scriptable interactive PDF forms) and detailed information which is embedded in the PDF, but viewable only in Acro Reader. Moreover, while PDF is a published standard, Adobe invented PostScript cript on which PDF is based and has a commercial incentive to promote PDF on all platforms. At the time of this reading Adobe announced a public beta of Adobe Reader 7. If it is as good and feature complete as the Windows/Mac versions. this will be a big help on the Linux desktop.</p>
+<p>Adobe Reader&#174; 7 is in my experience one of the essential tools to have when using Scribus. Although mostly a simple viewer, it has some advanced features which no other PDF viewer has in the Linux,*nix world: full support for JavaScript with a PDF (You did not know a PDF was scriptable? Scribus is unique in the Linux/*nix world for the ability to create scriptable interactive PDF forms) and detailed information which is embedded in the PDF, but viewable only in Adobe Reader.</p>
+
+<p> Moreover, while PDF is a published standard, Adobe invented PostScript on which PDF is based and has a commercial incentive to promote PDF on all platforms.</p>
 <h3>Hints for Scribus users:</h3>
-<p>Note: There is a bug in Acrobat Reader 5.0.x, which will not display form fields properly, unless the user environment is set to lang=en. In addition, it will not even launch under newer distributions which have a UTF-8 locale (RH8+ for example), unless the locale variable is set to lang=en. Otherwise you will get an error message: <code>Warning: charset "UTF-8" not supported, using "ISO8859-1". > Aborted</code></p>
-<p>One other tip for some systems is to add this to the acroread launching script:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>MALLOC_CHECK_=0
-export MALLOC_CHECK_</pre>
-</small></td></tr></table></blockquote>
-<p>First, make sure you have version 5.0.8 or later for Linux. This version is vastly better than 4.0.5, even with above mentioned bugs - more stable, faster loading, better printing, and more accurate color. If you are running Red Hat 8.0 or newer+, the easiest way to install Acro Reader is to get the RPMS from Guru Labs. The place to get Acrobat Reader, if your distribution does not offer an rpm, deb or other package is from Adobe.</p>
-<p>Next, once you get it installed and working, open Acrobat Reader, click through the usual license stuff and select: <strong>Edit &#062; Preferences &#062; General</strong> and you will have a dialog like the one below:</p>
+<p><strong>We highly recommend upgrading to the latest Adobe Reader 7. </strong>Simply put, there is nothing else more capable of rendering PDF correctly. Whatever your objections were to older versions (and there were some substantial ones), this latest version 7 amelorates the vast majority of them. It is far more stable, bug free and now has a modern look and feel.  <strong>Any PDF rendering issues with Scribus exported PDF in other viewers should be cross-checked with Reader 7 before reporting bugs to us. </strong>We are aware of one color mismatches with RGB images and transparency in PDf 1.4. Yes, this has been duly reported as a bug to Adobe too. </p>
+
+<h3>Tweaking the Viewer Preferences</h3>
+
+<p>Right away, getting the preferences right in Reader is important to ensure the default preferences to set improve the reliability for our purposes with Scribus. There are a many preferences in Reader 7. The page display part is the most important. </p>
+
+
+
 <table width="100%"><tr><td align="center"><img src="images/acro1.png" alt="Acrobat Reader General Preferences" /></td></tr></table>
-<p>This dialog is <strong>very</strong> important to set up properly for optimized viewing Scribus created PDFs. <strong>Display Edge to Edge</strong> will give you a larger viewing area to view your PDF. <strong>Smooth Text, Smooth Line Art and Smooth Images</strong> applies a bit of anti-aliasing when viewing. If you send someone a Scribus created PDF and they complain the text or gradients) look like barbed wire or are "banded", advise the user to enable these settings which are common on all later versions of Acrobat Reader - regardless of platform. There are other cross- platform fonts hints in the PDF Export Options section. <strong>Cool Type</strong> is a feature specific for making PDF readable on LCD laptop screens. It is a way of adjusting the anti-aliasing and sub-pixel rendering. Otherwise, leave it unchecked.</p>
-<p>If you are creating Scribus files with transparency effects and export PDF 1.4 (PDF 1.3 does not support transparency), you can enable <strong>Show Transparency Grid</strong>. The other options are mostly for the web browser plug-in. I find splash screens a bother, so I leave that unchecked.</p>
+<p>This dialog is <strong>very</strong> important to set up properly for optimized viewing Scribus created PDFs.</p>
+
+<strong>Display Edge to Edge</strong> will give you a larger viewing area to view your PDF.
+
+ Ensure <strong>Smooth Text, Smooth Line Art and Smooth Images</strong> are enabled as they apply a bit of anti-aliasing when viewing. If you send someone a Scribus created PDF and they complain the text or gradients) look like barbed wire or are "banded", advise the user to enable these settings which are commonly available on all later versions of Acrobat Reader - regardless of platform. There are other cross- platform fonts hints in the PDF Export Options section. <strong>Cool Type</strong> is a feature specific for making PDF readable on LCD laptop screens. It is a way of adjusting the anti-aliasing and sub-pixel rendering. Otherwise, leave it unchecked.</p>
+<p>If you are creating Scribus files with transparency effects and export PDF 1.4 (PDF 1.3 does not support transparency), you can enable <strong>Show Transparency Grid</strong>. </p>
+<center><img src="images/acro2.png" width="806" height="639" border="0" /></center>
+
+The other options are mostly for the web browser plug-in. I find splash screens a bother, so I leave that unchecked.</p>
 <table width="100%"><tr><td align="center"><img src="images/acro3.png" alt="Acrobat Reader Screen shot" title="Acrobat Reader Screenshot" /></td></tr></table>
 <p>Next, looking at the Reader window above, there are 3 features which can be useful:</p>
 <ol>

@@ -4,9 +4,7 @@
 
 <h2>Short Words for Scribus</h2>
 
-
-
-<h2>What the Short Words Plug-in Does</h2>
+<h2>What the Short Words Plug-in Does:</h2>
 <p>Short Words for Scribus is a special plug-in for adding non-breaking spaces before or after, so called, short words.</p>
 <p>These short words are specific to every language's typography rules,  e.g. according to Czech, Polish, and Slovak typographical standards it is not allowed to leave one letter conjunctions at line ends, if the line contains more than 25 signs. A common issue are measure and weight units, where for obvious reasons non-breaking spaces should be put in-between the preceding numbers and the units. Last but not least, there are plenty of abbreviated academic degrees, military ranks etc, which should not be separated from their owners.</p>
 <p>Although Scribus team cannot individually address every one of these national standards, one of the Scribus core team developers, Petr Van&#283;k, decided to provide Scribus users with a plug-in, that can be easily customized to meet their specific needs.</p>
@@ -36,17 +34,6 @@
 <dt>Replace defaults by user config</dt>
 	<dd><p>When the user config file exists you can choose if you want to append your config to the global configuration by unchecked button. You can replace predefined values with yours with checked button too.</p></dd>
 </dl>
-<!--
-<h3>Installation</h3>
-<p>The easiest way of installing the plug-in is to check on the Scribus site (http://www.scribus.net), if there are installation packages available for your favourite distribution, e.g. Fedora, SuSE, Gentoo, Mandrake, or PLD.</p>
-<p>Should there be no suitable package for you, try to build the plug-in from source, which in most cases is the matter of the following three statements:</p>
-<pre>
-$./configure
-$ make
-# make install (as root)
-</pre>
-<p>You can specify <code>./configure --prefix=/path/to/scribus/previously/installed</code>. The default prefix is <code>/usr/local</code> which is the default target when you've installed Scribus from source. On my Gentoo, I  use <code>./configure --prefix=/usr</code> to fit my ebuild.</p>
-<p>If you fail to build the plug-in, check first, if you have all the required libraries</a>.</p>-->
 
 <h2>Configuration</h2>
 <p>Short Words for Scribus provides a system wide configuration file <code>scribus-short-words.rc</code>, which is usually located in the <code>$prefix/lib/scribus/plugins</code> directory (the actual directory depends on where you or your distribution installed Scribus). This configuration file is self explanatory, basically it contains a list of short words for a given language, preceded or followed by a space and separated by commas. The position of the space, before or after a short word, indicates to the plug-in, where the non-breaking space should be put. Every line with configuration settings has to start with the language it is meant for, e.g. en for English or cs for Czech:
