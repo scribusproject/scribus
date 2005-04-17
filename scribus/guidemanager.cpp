@@ -28,7 +28,6 @@
  *  just keep on clicking on delete; guides can be entered
  *  without using the mouse (click on add, write the measure, press
  *  tab, press space, enter the next guide)
- * .open questions: should i use GetUnit or directly access the array?
  *  why do the VerXXX variables refer to the horizontal guides? Should
  *  i change this? Should the precision depend on the unit used? Why are
  *  all the methods and properties public? Only LocHor and LocVer should
@@ -60,21 +59,13 @@ GuideManager::GuideManager(
 
 {
 	QString tmp;
-	int decimals;
 	setCaption(tr("Manage Guides"));
 	setIcon(loadIcon("AppIcon.png"));
 	
 	/* Initialise the global variables */
-	tp[0] = tr(" pt"); 
-	tp[1] = tr(" mm"); 
-	tp[2] = tr(" in"); 
-	tp[3] = tr(" p");
-	tp[4] = tr(" cm");
-	int   dp[] = {100, 1000, 10000, 100, 1000};
-	
 	docUnitIndex = Einh;
-	docUnitRatio = unitGetRatioFromIndex(Einh);
-	decimals = dp[docUnitIndex];
+	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
+	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	
 	LocHor = YGuides; // in page XGuides and YGuides are inverted
 	LocVer = XGuides;
@@ -384,15 +375,12 @@ void GuideManager::ChangeVerVal()
 	
 void GuideManager::UnitChange()
 {
-	QString tmp = GetUnit();
+	QString tmp = unitGetSuffixFromIndex(docUnitIndex);
 	HorSpin->setSuffix(tmp);
 	VerSpin->setSuffix(tmp);
-}
-	
-QString GuideManager::GetUnit()
-{
-	QString tmp = tp[docUnitIndex];
-	return tmp;
+	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
+	HorSpin->setDecimals(decimals);
+	VerSpin->setDecimals(decimals);
 }
 	
 void GuideManager::UpdateHorList()
@@ -406,7 +394,7 @@ void GuideManager::UpdateHorList()
 	
 	for (uint i = 0; i < LocHor.count(); ++ i)
 		HorList->insertItem(tmp.setNum(qRound(LocHor[i] * docUnitRatio * 10000.0) / 10000.0, 'f', 4) +
-					 GetUnit());
+					 unitGetSuffixFromIndex(docUnitIndex));
 	if (LocHor.isEmpty())
 		selHor = -1;
 
@@ -430,7 +418,7 @@ void GuideManager::UpdateVerList()
 	
 	for (uint i = 0; i < LocVer.count(); ++ i)
 		VerList->insertItem(tmp.setNum(qRound(LocVer[i] * docUnitRatio * 10000.0) / 10000.0, 'f', 4) +
-					 GetUnit());
+					 unitGetSuffixFromIndex(docUnitIndex));
 	if (LocVer.isEmpty())
 		selVer = -1;
 		

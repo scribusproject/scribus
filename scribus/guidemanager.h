@@ -38,7 +38,6 @@ private:
 	double LocPageWidth;
 	double LocPageHeight;
 	int docUnitIndex;
-    QString tp[5];
 
 	int selHor;
 	int selVer;
@@ -62,7 +61,6 @@ private:
 	QPushButton* OK;
 	QPushButton* Cancel;
 
-	QString GetUnit();
 	void UnitChange();
 
 	void UpdateHorList();
