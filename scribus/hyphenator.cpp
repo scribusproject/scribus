@@ -182,7 +182,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 
 	uint maxC = it->itemText.count() - 1;
 	QString found = text;
-	if (static_cast<int>(found.length()) > MinWordLen)
+	if (static_cast<int>(found.length()) > MinWordLen-1)
 	{
   		te = codec->fromUnicode( found );
 		word = te.data();
@@ -281,7 +281,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		if (lastC < 0)
 			lastC = static_cast<int>(text.length());
 		Ccount = lastC - firstC;
-		if (Ccount > MinWordLen)
+		if (Ccount > MinWordLen-1)
 		{
 			found = text.mid(firstC, Ccount).lower();
 			found2 = text.mid(firstC, Ccount);
