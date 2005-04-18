@@ -180,7 +180,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 
 	uint maxC = it->Ptext.count() - 1;
 	QString found = text;
-	if (static_cast<int>(found.length()) > MinWordLen)
+	if (static_cast<int>(found.length()) > MinWordLen-1)
 	{
   		te = codec->fromUnicode( found );
 		word = te.data();
@@ -269,8 +269,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString found2 = "";
 	uint maxC = nb1->Ptext.count() - 1;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && 
-			(lastC < static_cast<int>(text.length())))
+	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && (lastC < static_cast<int>(text.length())))
 	{
 		firstC = text.find(QRegExp("\\w"), firstC+Ccount);
 		if (firstC < 0)
@@ -279,7 +278,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		if (lastC < 0)
 			lastC = static_cast<int>(text.length());
 		Ccount = lastC - firstC;
-		if (Ccount > MinWordLen)
+		if (Ccount > MinWordLen-1)
 		{
 			found = text.mid(firstC, Ccount).lower();
 			found2 = text.mid(firstC, Ccount);
