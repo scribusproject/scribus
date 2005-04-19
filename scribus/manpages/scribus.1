@@ -71,10 +71,12 @@ Scribus preferences file - formatted in a custom xml schema. May eventually be r
 New format prefs file. As of time of writing (v1.2.x) this file was mostly unused.
 Configuration files for related programs:
 .TP
-.B $HOME/.fonts
+.B $HOME/.fonts/
+.TP
+.B $HOME/.fonts.conf
 .TP
 .B /etc/fonts
-Fontconfig, the library used by Scribus to locate fonts, is normally configured with files in /etc/fonts, mainly /etc/fonts/fonts.conf and /etc/fonts/local.conf . It may also use a config file in $HOME/.fonts/ . See fonts.conf(5) and the fontconfig documentation for more information. Note that Scribus may also use its internal font path to locate more fonts - see the Preferences dialog and scribus help.
+Fontconfig, the library used by Scribus to locate fonts, is normally configured with files in /etc/fonts, mainly /etc/fonts/fonts.conf and /etc/fonts/local.conf . It may also use a config file $HOME/.fonts.conf and fonts in $HOME/.fonts/ . See fonts.conf(5) and the fontconfig documentation for more information. Note that Scribus may also use its internal font path to locate more fonts - see the Preferences dialog and scribus help.
 .SH SEE ALSO
 The scribus documentation site http://docs.scribus.net/ and home page http://www.scribus.net/
 
