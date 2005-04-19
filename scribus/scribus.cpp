@@ -480,7 +480,6 @@ void ScribusApp::initScribus()
 		SetShortCut();
 		if (CMSavail)
 		{
-			settingsMenu->insertItem( tr("&Color Management..."), this , SLOT(SetCMSPrefs()));
 			ProfilesL::Iterator ip;
 			if ((Prefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile)))
 			{
@@ -848,6 +847,7 @@ void ScribusApp::initMenuBar()
 	MenID = settingsMenu->insertItem( tr("P&references..."), this , SLOT(slotPrefsOrg()));
 	MenID = settingsMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
 	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
+	settingsMenu->insertItem( tr("&Color Management..."), this , SLOT(SetCMSPrefs()));
 	settingsMenu->insertItem( tr("&Hyphenator..."), this, SLOT(configHyphenator()));
 	settingsMenu->insertItem( tr("&Keyboard Shortcuts..."), this, SLOT(DefKB()));
 
@@ -8167,7 +8167,21 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 void ScribusApp::SetCMSPrefs()
 {
 	struct CMSset *CM;
-	if (CMSavail)
+	if (!CMSavail)
+	{
+#if defined(HAVE_CMS)
+		QString messageText = \
+				tr("<qt>Colour management is supported but can not currently be enabled. "
+					"Make sure you have ISO colour profiles installed and that the "
+					"profile path in the preferences points to where they're installed.</qt>");
+#else
+		QString messageText = \
+				tr("<qt>Colour management is not supported by this Scribus build "
+					"(not compiled in).</qt>");
+#endif
+		QMessageBox::information(this, "Scribus: Color Management", messageText, QMessageBox::Ok);
+	}
+	else
 	{
 		if (HaveDoc)
 			CM = &doc->CMSSettings;
