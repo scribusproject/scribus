@@ -983,6 +983,7 @@ void PDF_Opts::EnablePDFX(int a)
 		CheckBox10->setEnabled(true);
 		EmbedFonts->setEnabled(true);
 		OutCombo->setEnabled(true);
+		OK->setEnabled(true);
 		return;
 	}
 	EmbedFonts->setChecked(true);
