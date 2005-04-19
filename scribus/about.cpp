@@ -89,13 +89,14 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	                                     "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 	                                     "<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 	                                     "<tr><td>Riku Leino</td><td>tsoots@gmail.com</td></tr>" +
+					     "<tr><td>Craig  Ringer</td><td>craig@postnewspapers.com.au</td></tr>" +
 	                                     "<tr><td> </td><td> </td></tr>" +
 	                                     "<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 	                                     "<tr><td>Niyam Bhushan</td><td></td></tr>" +
 	                                     "<tr><td>Martin Costabel</td><td></td></tr>" +
 	                                     "<tr><td>Steve Callcott</td><td>stotte@ntlworld.com</td></tr>" +
-										"<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
-										"<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
+					     "<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
+					     "<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
 	                                     "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
 	                                     "<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 	                                     "<tr><td>Marti Maria</td><td></td></tr>" +
@@ -118,7 +119,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	                                     "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
 	                                     "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 	                                     "<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
-	                                     "<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" + 
+	                                     "<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
+ 					     "<tr><td>Louis Desjardins</td><td>louisdesjardins@videotron.ca</td></tr>" + 
 	                                     "<tr><td> </td><td> </td></tr>" +
 	                                     "<tr><td><b>" + tr("Other Documentation:").utf8()  + "</b></td><td></td></tr>" +
 	                                     "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
