@@ -287,6 +287,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			wasMod = false;
 			switch (k->key())
 			{
+				case Key_Escape:
+					k->ignore();
+					break;
 				case Key_Shift:
 				case Key_Control:
 				case Key_Alt:
@@ -2606,3 +2609,12 @@ void StoryEditor::SaveTextFile()
 		delete ss;
 	}
 }
+
+void StoryEditor::keyPressEvent (QKeyEvent * e)
+{
+	if (e->key() == Qt::Key_Escape)
+		this->close();
+	else
+		return QMainWindow::keyReleaseEvent(e);
+}
+
