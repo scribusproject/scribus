@@ -267,6 +267,7 @@ public:
 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor() {};
 	void closeEvent(QCloseEvent *);
+	void keyPressEvent (QKeyEvent * e);
 	int exec();
 	void changeAlign(int align);
 	int result;

@@ -1151,7 +1151,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							}
 							else if (ite->itemType() == PageItem::TextFrame)
 							{
-								double savScale = view->Scale;
+/*								double savScale = view->Scale;
 								view->Scale = 1.0;
 								Doc->RePos = true;
 								QPixmap pgPix(10, 10);
@@ -1166,7 +1166,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								Doc->Items = Doc->DocItems;
 								Doc->RePos = false;
 								view->Scale = savScale;
-								delete painter;
+								delete painter; */
 								PS_save();
 								if (ite->fillColor() != "None")
 								{

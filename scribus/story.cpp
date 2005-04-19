@@ -1772,6 +1772,14 @@ void StoryEditor::closeEvent(QCloseEvent *)
 	qApp->exit_loop();
 }
 
+void StoryEditor::keyPressEvent (QKeyEvent * e)
+{
+	if (e->key() == Qt::Key_Escape)
+		close();
+	else
+		return QMainWindow::keyReleaseEvent(e);
+}
+
 void StoryEditor::setBackPref()
 {
 	QColor neu = QColor();
@@ -2610,13 +2618,5 @@ void StoryEditor::SaveTextFile()
 		ss->Write(LoadEnc);
 		delete ss;
 	}
-}
-
-void StoryEditor::keyPressEvent (QKeyEvent * e)
-{
-	if (e->key() == Qt::Key_Escape)
-		this->close();
-	else
-		return QMainWindow::keyReleaseEvent(e);
 }
 

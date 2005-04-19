@@ -1598,7 +1598,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage(name+" Do\n");
 						else
 						{
-							uint OldOwn = ite->OwnPage;
+/*							uint OldOwn = ite->OwnPage;
 							double OldX = ite->Xpos;
 							double OldY = ite->Ypos;
 							double OldBX = ite->BoundingX;
@@ -1637,7 +1637,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								ite->Ypos = OldY;
 								ite->BoundingX = OldBX;
 								ite->BoundingY = OldBY;
-							}
+							} */
 							PutPage("q\n");
 							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 								PDF_Transparenz(ite);
