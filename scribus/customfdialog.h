@@ -18,6 +18,10 @@
 #ifndef CUSTOMFDIALOG_H
 #define CUSTOMFDIALOG_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <qfiledialog.h>
 #include <qurl.h>
 #include <qlabel.h>
