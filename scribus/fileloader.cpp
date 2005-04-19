@@ -1197,7 +1197,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	QString Pcolor = obj->attribute("PCOLOR");
 	QString Pcolor2 = obj->attribute("PCOLOR2");
 	QColor tmpc;
-	PageItem* b;
+	PageItem *currItem;
 	QString tmp;
 	int xi;
 	double xf, yf;
@@ -1206,298 +1206,298 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	// OBSOLETE CR 2005-02-06
 	case PageItem::FrameType1:
 		z = view->PaintEllipse(x, y, w, h, pw, Pcolor, Pcolor2);
-		b = doc->Items.at(z);
+		currItem = doc->Items.at(z);
 		break;
 	//
 	case PageItem::ImageFrame:
 		z = view->PaintPict(x, y, w, h);
-		b = doc->Items.at(z);
-		b->LocalScX = scx;
-		b->LocalScY = scy;
-		b->LocalX = QStodouble(obj->attribute("LOCALX"));
-		b->LocalY = QStodouble(obj->attribute("LOCALY"));
-		b->Pfile = obj->attribute("PFILE");
-		b->IProfile = obj->attribute("PRFILE","");
-		b->EmProfile = obj->attribute("EPROF","");
-		b->IRender = QStoInt(obj->attribute("IRENDER","1"));
-		b->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
-		if (b->Pfile != "")
-			view->LoadPict(b->Pfile, z);
-		b->LocalScX = scx;
-		b->LocalScY = scy;
-		b->PicArt = QStoInt(obj->attribute("PICART"));
-		b->BBoxX = QStodouble(obj->attribute("BBOXX"));
-		b->BBoxH = QStodouble(obj->attribute("BBOXH"));
-		b->ScaleType = QStoInt(obj->attribute("SCALETYPE","1"));
-		b->AspectRatio = QStoInt(obj->attribute("RATIO","0"));
-		b->Pwidth = pw;
+		currItem = doc->Items.at(z);
+		currItem->LocalScX = scx;
+		currItem->LocalScY = scy;
+		currItem->LocalX = QStodouble(obj->attribute("LOCALX"));
+		currItem->LocalY = QStodouble(obj->attribute("LOCALY"));
+		currItem->Pfile = obj->attribute("PFILE");
+		currItem->IProfile = obj->attribute("PRFILE","");
+		currItem->EmProfile = obj->attribute("EPROF","");
+		currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
+		currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
+		if (currItem->Pfile != "")
+			view->LoadPict(currItem->Pfile, z);
+		currItem->LocalScX = scx;
+		currItem->LocalScY = scy;
+		currItem->PicArt = QStoInt(obj->attribute("PICART"));
+		currItem->BBoxX = QStodouble(obj->attribute("BBOXX"));
+		currItem->BBoxH = QStodouble(obj->attribute("BBOXH"));
+		currItem->ScaleType = QStoInt(obj->attribute("SCALETYPE","1"));
+		currItem->AspectRatio = QStoInt(obj->attribute("RATIO","0"));
+		currItem->Pwidth = pw;
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::FrameType3:
 		z = view->PaintRect(x, y, w, h, pw, Pcolor, Pcolor2);
-		b = doc->Items.at(z);
+		currItem = doc->Items.at(z);
 		break;
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
 		z = view->PaintText(x, y, w, h, pw, Pcolor);
-		b = doc->Items.at(z);
+		currItem = doc->Items.at(z);
 		if ((QStoInt(obj->attribute("ANNOTATION","0"))) && (static_cast<bool>(QStoInt(obj->attribute("ANICON","0")))))
 		{
-			b->LocalScX = scx;
-			b->LocalScY = scy;
-			b->LocalX = QStodouble(obj->attribute("LOCALX"));
-			b->LocalY = QStodouble(obj->attribute("LOCALY"));
-			b->Pfile = obj->attribute("PFILE");
-			b->Pfile2 = obj->attribute("PFILE2","");
-			b->Pfile3 = obj->attribute("PFILE3","");
-			b->IProfile = obj->attribute("PRFILE","");
-			b->EmProfile = obj->attribute("EPROF","");
-			b->IRender = QStoInt(obj->attribute("IRENDER","1"));
-			b->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
-			view->LoadPict(b->Pfile, z);
-			b->LocalScX = scx;
-			b->LocalScY = scy;
-			b->PicArt = QStoInt(obj->attribute("PICART"));
-			b->BBoxX = QStodouble(obj->attribute("BBOXX"));
-			b->BBoxH = QStodouble(obj->attribute("BBOXH"));
-			b->ScaleType = QStoInt(obj->attribute("SCALETYPE","1"));
-			b->AspectRatio = QStoInt(obj->attribute("RATIO","0"));
+			currItem->LocalScX = scx;
+			currItem->LocalScY = scy;
+			currItem->LocalX = QStodouble(obj->attribute("LOCALX"));
+			currItem->LocalY = QStodouble(obj->attribute("LOCALY"));
+			currItem->Pfile = obj->attribute("PFILE");
+			currItem->Pfile2 = obj->attribute("PFILE2","");
+			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->IProfile = obj->attribute("PRFILE","");
+			currItem->EmProfile = obj->attribute("EPROF","");
+			currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
+			currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
+			view->LoadPict(currItem->Pfile, z);
+			currItem->LocalScX = scx;
+			currItem->LocalScY = scy;
+			currItem->PicArt = QStoInt(obj->attribute("PICART"));
+			currItem->BBoxX = QStodouble(obj->attribute("BBOXX"));
+			currItem->BBoxH = QStodouble(obj->attribute("BBOXH"));
+			currItem->ScaleType = QStoInt(obj->attribute("SCALETYPE","1"));
+			currItem->AspectRatio = QStoInt(obj->attribute("RATIO","0"));
 		}
-		b->LineSp = QStodouble(obj->attribute("LINESP"));
-		b->convertTo(pt);
+		currItem->LineSp = QStodouble(obj->attribute("LINESP"));
+		currItem->convertTo(pt);
 		break;
 	case PageItem::Line:
 		z = view->PaintLine(x, y, w, h, pw, Pcolor2);
-		b = doc->Items.at(z);
+		currItem = doc->Items.at(z);
 		break;
 	case PageItem::Polygon:
 		z = view->PaintPoly(x, y, w, h, pw, Pcolor, Pcolor2);
-		b = doc->Items.at(z);
+		currItem = doc->Items.at(z);
 		break;
 	case PageItem::PolyLine:
 		z = view->PaintPolyLine(x, y, w, h, pw, Pcolor, Pcolor2);
-		b = doc->Items.at(z);
+		currItem = doc->Items.at(z);
 		break;
 	}
-	b->FrameType = QStoInt(obj->attribute("FRTYPE", "0"));
-	b->startArrowIndex =  QStoInt(obj->attribute("startArrowIndex","0"));
-	b->endArrowIndex =  QStoInt(obj->attribute("endArrowIndex","0"));
-	b->NamedLStyle = obj->attribute("NAMEDLST", "");
-	b->isBookmark = QStoInt(obj->attribute("BOOKMARK"));
-	if ((b->isBookmark) && (doc->BookMarks.count() == 0))
+	currItem->FrameType = QStoInt(obj->attribute("FRTYPE", "0"));
+	currItem->startArrowIndex =  QStoInt(obj->attribute("startArrowIndex","0"));
+	currItem->endArrowIndex =  QStoInt(obj->attribute("endArrowIndex","0"));
+	currItem->NamedLStyle = obj->attribute("NAMEDLST", "");
+	currItem->isBookmark = QStoInt(obj->attribute("BOOKMARK"));
+	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
 		doc->OldBM = true;
-	b->BMnr = QStoInt(obj->attribute("BookNr","0"));
-	b->textAlignment = QStoInt(obj->attribute("ALIGN","0"));
-	b->setImageFlippedH(QStoInt(obj->attribute("FLIPPEDH")));
-	b->setImageFlippedV(QStoInt(obj->attribute("FLIPPEDV")));
-	b->RadRect = QStodouble(obj->attribute("RADRECT","0"));
-	b->ClipEdited = QStoInt(obj->attribute("CLIPEDIT", "0"));
-	b->setFillColor(Pcolor);
-	b->setLineColor(Pcolor2);
-	b->setFillShade(QStoInt(obj->attribute("SHADE")));
-	b->setLineShade(QStoInt(obj->attribute("SHADE2")));
-	b->TxtStroke = obj->attribute("TXTSTROKE", "None");
-	b->TxtFill = obj->attribute("TXTFILL", "Black");
-	b->ShTxtStroke = QStoInt(obj->attribute("TXTSTRSH", "100"));
-	b->ShTxtFill = QStoInt(obj->attribute("TXTFILLSH", "100"));
-	b->TxtScale = QStoInt(obj->attribute("TXTSCALE", "100"));
-	b->TxTStyle = QStoInt(obj->attribute("TXTSTYLE", "0"));
-	b->Rot = QStodouble(obj->attribute("ROT"));
-	b->Extra = QStodouble(obj->attribute("EXTRA"));
-	b->TExtra = QStodouble(obj->attribute("TEXTRA", "1"));
-	b->BExtra = QStodouble(obj->attribute("BEXTRA", "1"));
-	b->RExtra = QStodouble(obj->attribute("REXTRA", "1"));
-	b->PLineArt = Qt::PenStyle(QStoInt(obj->attribute("PLINEART")));
-	b->PLineEnd = Qt::PenCapStyle(QStoInt(obj->attribute("PLINEEND","0")));
-	b->PLineJoin = Qt::PenJoinStyle(QStoInt(obj->attribute("PLINEJOIN","0")));
-	b->isPrintable = QStoInt(obj->attribute("PRINTABLE"));
-	b->isAnnotation = QStoInt(obj->attribute("ANNOTATION","0"));
-	b->AnType = QStoInt(obj->attribute("ANTYPE","0"));
+	currItem->BMnr = QStoInt(obj->attribute("BookNr","0"));
+	currItem->textAlignment = QStoInt(obj->attribute("ALIGN","0"));
+	currItem->setImageFlippedH(QStoInt(obj->attribute("FLIPPEDH")));
+	currItem->setImageFlippedV(QStoInt(obj->attribute("FLIPPEDV")));
+	currItem->RadRect = QStodouble(obj->attribute("RADRECT","0"));
+	currItem->ClipEdited = QStoInt(obj->attribute("CLIPEDIT", "0"));
+	currItem->setFillColor(Pcolor);
+	currItem->setLineColor(Pcolor2);
+	currItem->setFillShade(QStoInt(obj->attribute("SHADE")));
+	currItem->setLineShade(QStoInt(obj->attribute("SHADE2")));
+	currItem->TxtStroke = obj->attribute("TXTSTROKE", "None");
+	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
+	currItem->ShTxtStroke = QStoInt(obj->attribute("TXTSTRSH", "100"));
+	currItem->ShTxtFill = QStoInt(obj->attribute("TXTFILLSH", "100"));
+	currItem->TxtScale = QStoInt(obj->attribute("TXTSCALE", "100"));
+	currItem->TxTStyle = QStoInt(obj->attribute("TXTSTYLE", "0"));
+	currItem->Rot = QStodouble(obj->attribute("ROT"));
+	currItem->Extra = QStodouble(obj->attribute("EXTRA"));
+	currItem->TExtra = QStodouble(obj->attribute("TEXTRA", "1"));
+	currItem->BExtra = QStodouble(obj->attribute("BEXTRA", "1"));
+	currItem->RExtra = QStodouble(obj->attribute("REXTRA", "1"));
+	currItem->PLineArt = Qt::PenStyle(QStoInt(obj->attribute("PLINEART")));
+	currItem->PLineEnd = Qt::PenCapStyle(QStoInt(obj->attribute("PLINEEND","0")));
+	currItem->PLineJoin = Qt::PenJoinStyle(QStoInt(obj->attribute("PLINEJOIN","0")));
+	currItem->isPrintable = QStoInt(obj->attribute("PRINTABLE"));
+	currItem->isAnnotation = QStoInt(obj->attribute("ANNOTATION","0"));
+	currItem->AnType = QStoInt(obj->attribute("ANTYPE","0"));
 	QString AnName = obj->attribute("ANNAME","");
 	if (AnName != "")
 	{
-		if (b->itemName() == AnName)
-			b->AutoName = true;
+		if (currItem->itemName() == AnName)
+			currItem->AutoName = true;
 		else
 		{
-			b->setItemName(AnName);
-			b->AutoName = false;
+			currItem->setItemName(AnName);
+			currItem->AutoName = false;
 		}
 	}
-	b->AnAction = obj->attribute("ANACTION","");
-	b->An_E_act = obj->attribute("ANEACT","");
-	b->An_X_act = obj->attribute("ANXACT","");
-	b->An_D_act = obj->attribute("ANDACT","");
-	b->An_Fo_act = obj->attribute("ANFOACT","");
-	b->An_Bl_act = obj->attribute("ANBLACT","");
-	b->An_K_act = obj->attribute("ANKACT","");
-	b->An_F_act = obj->attribute("ANFACT","");
-	b->An_V_act = obj->attribute("ANVACT","");
-	b->An_C_act = obj->attribute("ANCACT","");
-	b->AnActType = QStoInt(obj->attribute("ANACTYP","0"));
-	b->An_Extern = obj->attribute("ANEXTERN","");
-	if ((b->An_Extern != "") && (b->AnActType != 8))
+	currItem->AnAction = obj->attribute("ANACTION","");
+	currItem->An_E_act = obj->attribute("ANEACT","");
+	currItem->An_X_act = obj->attribute("ANXACT","");
+	currItem->An_D_act = obj->attribute("ANDACT","");
+	currItem->An_Fo_act = obj->attribute("ANFOACT","");
+	currItem->An_Bl_act = obj->attribute("ANBLACT","");
+	currItem->An_K_act = obj->attribute("ANKACT","");
+	currItem->An_F_act = obj->attribute("ANFACT","");
+	currItem->An_V_act = obj->attribute("ANVACT","");
+	currItem->An_C_act = obj->attribute("ANCACT","");
+	currItem->AnActType = QStoInt(obj->attribute("ANACTYP","0"));
+	currItem->An_Extern = obj->attribute("ANEXTERN","");
+	if ((currItem->An_Extern != "") && (currItem->AnActType != 8))
 	{
-		QFileInfo efp(b->An_Extern);
-		b->An_Extern = efp.absFilePath();
+		QFileInfo efp(currItem->An_Extern);
+		currItem->An_Extern = efp.absFilePath();
 	}
-	b->AnZiel = QStoInt(obj->attribute("ANZIEL","0"));
-	b->AnToolTip = obj->attribute("ANTOOLTIP","");
-	b->AnRollOver = obj->attribute("ANROLL","");
-	b->AnDown = obj->attribute("ANDOWN","");
-	b->AnBwid = QStoInt(obj->attribute("ANBWID","1"));
-	b->AnBsty = QStoInt(obj->attribute("ANBSTY","0"));
-	b->AnFeed = QStoInt(obj->attribute("ANFEED","1"));
-	b->AnFlag = QStoInt(obj->attribute("ANFLAG","0"));
-	b->AnFont = QStoInt(obj->attribute("ANFONT","4"));
-	b->AnFormat = QStoInt(obj->attribute("ANFORMAT","0"));
-	b->AnVis = QStoInt(obj->attribute("ANVIS","0"));
-	b->AnIsChk = static_cast<bool>(QStoInt(obj->attribute("ANCHK","0")));
-	b->AnAAact = static_cast<bool>(QStoInt(obj->attribute("ANAA","0")));
-	b->AnHTML = static_cast<bool>(QStoInt(obj->attribute("ANHTML","0")));
-	b->AnUseIcons = static_cast<bool>(QStoInt(obj->attribute("ANICON","0")));
-	b->AnChkStil = QStoInt(obj->attribute("ANCHKS","0"));
-	b->AnMaxChar = QStoInt(obj->attribute("ANMC","-1"));
-	b->AnBColor = obj->attribute("ANBCOL","None");
-	b->AnIPlace = QStoInt(obj->attribute("ANPLACE","1"));
-	b->AnScaleW = QStoInt(obj->attribute("ANSCALE","0"));
-	b->TopLine = static_cast<bool>(QStoInt(obj->attribute("TopLine","0")));
-	b->LeftLine = static_cast<bool>(QStoInt(obj->attribute("LeftLine","0")));
-	b->RightLine = static_cast<bool>(QStoInt(obj->attribute("RightLine","0")));
-	b->BottomLine = static_cast<bool>(QStoInt(obj->attribute("BottomLine","0")));
-	b->isTableItem = static_cast<bool>(QStoInt(obj->attribute("isTableItem","0")));
-	b->TopLinkID =  QStoInt(obj->attribute("TopLINK","-1"));
-	b->LeftLinkID =  QStoInt(obj->attribute("LeftLINK","-1"));
-	b->RightLinkID =  QStoInt(obj->attribute("RightLINK","-1"));
-	b->BottomLinkID =  QStoInt(obj->attribute("BottomLINK","-1"));
-	b->PoShow = QStoInt(obj->attribute("PLTSHOW","0"));
-	b->BaseOffs = QStodouble(obj->attribute("BASEOF","0"));
-	b->setTextFlowsAroundFrame(QStoInt(obj->attribute("TEXTFLOW")));
-	b->setTextFlowUsesBoundingBox(QStoInt(obj->attribute("TEXTFLOW2","0")));
-	b->ISize = qRound(QStodouble(obj->attribute("ISIZE","12")) * 10);
-	b->ExtraV=QStodouble(obj->attribute("EXTRAV","0"));
-	b->DashOffset = QStodouble(obj->attribute("DASHOFF","0.0"));
-	b->Reverse = static_cast<bool>(QStoInt(obj->attribute("REVERS","0")));
-	b->InvPict = static_cast<bool>(QStoInt(obj->attribute("INVERS","0")));
-	b->setLocked(static_cast<bool>(QStoInt(obj->attribute("LOCK","0"))));
-	b->setSizeLocked(static_cast<bool>(QStoInt(obj->attribute("LOCKR","0"))));
-	b->setFillTransparency(QStodouble(obj->attribute("TransValue","0.0")));
+	currItem->AnZiel = QStoInt(obj->attribute("ANZIEL","0"));
+	currItem->AnToolTip = obj->attribute("ANTOOLTIP","");
+	currItem->AnRollOver = obj->attribute("ANROLL","");
+	currItem->AnDown = obj->attribute("ANDOWN","");
+	currItem->AnBwid = QStoInt(obj->attribute("ANBWID","1"));
+	currItem->AnBsty = QStoInt(obj->attribute("ANBSTY","0"));
+	currItem->AnFeed = QStoInt(obj->attribute("ANFEED","1"));
+	currItem->AnFlag = QStoInt(obj->attribute("ANFLAG","0"));
+	currItem->AnFont = QStoInt(obj->attribute("ANFONT","4"));
+	currItem->AnFormat = QStoInt(obj->attribute("ANFORMAT","0"));
+	currItem->AnVis = QStoInt(obj->attribute("ANVIS","0"));
+	currItem->AnIsChk = static_cast<bool>(QStoInt(obj->attribute("ANCHK","0")));
+	currItem->AnAAact = static_cast<bool>(QStoInt(obj->attribute("ANAA","0")));
+	currItem->AnHTML = static_cast<bool>(QStoInt(obj->attribute("ANHTML","0")));
+	currItem->AnUseIcons = static_cast<bool>(QStoInt(obj->attribute("ANICON","0")));
+	currItem->AnChkStil = QStoInt(obj->attribute("ANCHKS","0"));
+	currItem->AnMaxChar = QStoInt(obj->attribute("ANMC","-1"));
+	currItem->AnBColor = obj->attribute("ANBCOL","None");
+	currItem->AnIPlace = QStoInt(obj->attribute("ANPLACE","1"));
+	currItem->AnScaleW = QStoInt(obj->attribute("ANSCALE","0"));
+	currItem->TopLine = static_cast<bool>(QStoInt(obj->attribute("TopLine","0")));
+	currItem->LeftLine = static_cast<bool>(QStoInt(obj->attribute("LeftLine","0")));
+	currItem->RightLine = static_cast<bool>(QStoInt(obj->attribute("RightLine","0")));
+	currItem->BottomLine = static_cast<bool>(QStoInt(obj->attribute("BottomLine","0")));
+	currItem->isTableItem = static_cast<bool>(QStoInt(obj->attribute("isTableItem","0")));
+	currItem->TopLinkID =  QStoInt(obj->attribute("TopLINK","-1"));
+	currItem->LeftLinkID =  QStoInt(obj->attribute("LeftLINK","-1"));
+	currItem->RightLinkID =  QStoInt(obj->attribute("RightLINK","-1"));
+	currItem->BottomLinkID =  QStoInt(obj->attribute("BottomLINK","-1"));
+	currItem->PoShow = QStoInt(obj->attribute("PLTSHOW","0"));
+	currItem->BaseOffs = QStodouble(obj->attribute("BASEOF","0"));
+	currItem->setTextFlowsAroundFrame(QStoInt(obj->attribute("TEXTFLOW")));
+	currItem->setTextFlowUsesBoundingBox(QStoInt(obj->attribute("TEXTFLOW2","0")));
+	currItem->ISize = qRound(QStodouble(obj->attribute("ISIZE","12")) * 10);
+	currItem->ExtraV=QStodouble(obj->attribute("EXTRAV","0"));
+	currItem->DashOffset = QStodouble(obj->attribute("DASHOFF","0.0"));
+	currItem->Reverse = static_cast<bool>(QStoInt(obj->attribute("REVERS","0")));
+	currItem->InvPict = static_cast<bool>(QStoInt(obj->attribute("INVERS","0")));
+	currItem->setLocked(static_cast<bool>(QStoInt(obj->attribute("LOCK","0"))));
+	currItem->setSizeLocked(static_cast<bool>(QStoInt(obj->attribute("LOCKR","0"))));
+	currItem->setFillTransparency(QStodouble(obj->attribute("TransValue","0.0")));
 	if (obj->hasAttribute("TransValueS"))
-		b->setLineTransparency(QStodouble(obj->attribute("TransValueS","0.0")));
+		currItem->setLineTransparency(QStodouble(obj->attribute("TransValueS","0.0")));
 	else
-		b->setLineTransparency(QStodouble(obj->attribute("TransValue","0.0")));
+		currItem->setLineTransparency(QStodouble(obj->attribute("TransValue","0.0")));
 	if (QStoInt(obj->attribute("TRANSPARENT","0")) == 1)
-		b->setFillColor("None");
-	b->Cols = QStoInt(obj->attribute("COLUMNS","1"));
-	b->ColGap = QStodouble(obj->attribute("COLGAP","0.0"));
+		currItem->setFillColor("None");
+	currItem->Cols = QStoInt(obj->attribute("COLUMNS","1"));
+	currItem->ColGap = QStodouble(obj->attribute("COLGAP","0.0"));
 	if (QStoInt(obj->attribute("LAYER","0")) != -1)
-		b->LayerNr = QStoInt(obj->attribute("LAYER","0"));
-	b->setTextFlowUsesContourLine(QStoInt(obj->attribute("TEXTFLOW3","0")));
+		currItem->LayerNr = QStoInt(obj->attribute("LAYER","0"));
+	currItem->setTextFlowUsesContourLine(QStoInt(obj->attribute("TEXTFLOW3","0")));
 	tmp = "";
 	if ((obj->hasAttribute("GROUPS")) && (QStoInt(obj->attribute("NUMGROUP","0")) != 0))
 	{
 		tmp = obj->attribute("GROUPS");
 		QTextStream fg(&tmp, IO_ReadOnly);
-		b->Groups.clear();
+		currItem->Groups.clear();
 		for (int cx = 0; cx < QStoInt(obj->attribute("NUMGROUP","0")); ++cx)
 		{
 			fg >> xi;
-			b->Groups.push(xi);
+			currItem->Groups.push(xi);
 		}
 		tmp = "";
 	}
 	else
-		b->Groups.clear();
+		currItem->Groups.clear();
 	tmp = "";
 	if ((obj->hasAttribute("NUMTAB")) && (QStoInt(obj->attribute("NUMTAB","0")) != 0))
 	{
 		tmp = obj->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
-		b->TabValues.clear();
+		currItem->TabValues.clear();
 		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMTAB","0")); ++cxv)
 		{
 			tgv >> xf;
-			b->TabValues.append(xf);
+			currItem->TabValues.append(xf);
 		}
 		tmp = "";
 	}
 	else
-		b->TabValues.clear();
+		currItem->TabValues.clear();
 	if ((obj->hasAttribute("NUMDASH")) && (QStoInt(obj->attribute("NUMDASH","0")) != 0))
 	{
 		tmp = obj->attribute("DASHS");
 		QTextStream dgv(&tmp, IO_ReadOnly);
-		b->DashValues.clear();
+		currItem->DashValues.clear();
 		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMDASH","0")); ++cxv)
 		{
 			dgv >> xf;
-			b->DashValues.append(xf);
+			currItem->DashValues.append(xf);
 		}
 		tmp = "";
 	}
 	else
-		b->DashValues.clear();
+		currItem->DashValues.clear();
 	tmp = "";
 	if (obj->hasAttribute("NUMPO"))
 	{
-		b->PoLine.resize(obj->attribute("NUMPO").toUInt());
+		currItem->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
 		QTextStream fp(&tmp, IO_ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
-			b->PoLine.setPoint(cx, xf, yf);
+			currItem->PoLine.setPoint(cx, xf, yf);
 		}
 	}
 	else
-		b->PoLine.resize(0);
+		currItem->PoLine.resize(0);
 	tmp = "";
 	if (obj->hasAttribute("NUMCO"))
 	{
-		b->ContourLine.resize(obj->attribute("NUMCO").toUInt());
+		currItem->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
 		QTextStream fp(&tmp, IO_ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
-			b->ContourLine.setPoint(cx, xf, yf);
+			currItem->ContourLine.setPoint(cx, xf, yf);
 		}
 	}
 	else
-		b->ContourLine = b->PoLine.copy();
-	if (b->itemType() != PageItem::Line)
-		b->Clip = FlattenPath(b->PoLine, b->Segments);
+		currItem->ContourLine = currItem->PoLine.copy();
+	if (currItem->itemType() != PageItem::Line)
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{
-		int ph = static_cast<int>(QMAX(1.0, b->Pwidth / 2.0));
-		b->Segments.clear();
-		b->PoLine.resize(0);
-		b->Clip.setPoints(4, -ph,-ph, static_cast<int>(b->Width+ph),-ph,
-		                  static_cast<int>(b->Width+ph),static_cast<int>(b->Height+ph),
-		                  -ph,static_cast<int>(b->Height+ph));
-		b->Height = 1;
+		int ph = static_cast<int>(QMAX(1.0, currItem->Pwidth / 2.0));
+		currItem->Segments.clear();
+		currItem->PoLine.resize(0);
+		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->Width+ph),-ph,
+		                  static_cast<int>(currItem->Width+ph),static_cast<int>(currItem->Height+ph),
+		                  -ph,static_cast<int>(currItem->Height+ph));
+		currItem->Height = 1;
 	}
-	if (b->itemType() == PageItem::ImageFrame)
+	if (currItem->itemType() == PageItem::ImageFrame)
 	{
-		view->AdjustPictScale(b);
-		view->AdjustPreview(b, false);
+		view->AdjustPictScale(currItem);
+		view->AdjustPreview(currItem, false);
 	}
-	if ((b->itemType() != PageItem::TextFrame) && (b->itemType() != PageItem::PathText))
-		b->IFont = doc->toolSettings.defFont;
-	b->GrType = QStoInt(obj->attribute("GRTYP","0"));
+	if ((currItem->itemType() != PageItem::TextFrame) && (currItem->itemType() != PageItem::PathText))
+		currItem->IFont = doc->toolSettings.defFont;
+	currItem->GrType = QStoInt(obj->attribute("GRTYP","0"));
 	QString GrColor;
 	QString GrColor2;
 	int GrShade;
 	int GrShade2;
-	if (b->GrType != 0)
+	if (currItem->GrType != 0)
 	{
-		b->GrStartX = QStodouble(obj->attribute("GRSTARTX","0.0"));
-		b->GrStartY = QStodouble(obj->attribute("GRSTARTY","0.0"));
-		b->GrEndX = QStodouble(obj->attribute("GRENDX","0.0"));
-		b->GrEndY = QStodouble(obj->attribute("GRENDY","0.0"));
+		currItem->GrStartX = QStodouble(obj->attribute("GRSTARTX","0.0"));
+		currItem->GrStartY = QStodouble(obj->attribute("GRSTARTY","0.0"));
+		currItem->GrEndX = QStodouble(obj->attribute("GRENDX","0.0"));
+		currItem->GrEndY = QStodouble(obj->attribute("GRENDY","0.0"));
 		GrColor = obj->attribute("GRCOLOR","");
 		if (GrColor != "")
 		{
@@ -1506,33 +1506,33 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 			GrShade2 = QStoInt(obj->attribute("GRSHADE2","100"));
 		}
 	}
-	if (b->GrType != 0)
+	if (currItem->GrType != 0)
 	{
-		b->fill_gradient.clearStops();
+		currItem->fill_gradient.clearStops();
 		if ((GrColor != "") && (GrColor2 != ""))
 		{
-			if (b->GrType == 5)
+			if (currItem->GrType == 5)
 			{
 				if ((GrColor != "None") && (GrColor != ""))
-					b->SetFarbe(&tmpc, GrColor, GrShade);
-				b->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor, GrShade);
+					currItem->SetFarbe(&tmpc, GrColor, GrShade);
+				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor, GrShade);
 				if ((GrColor2 != "None") && (GrColor2 != ""))
-					b->SetFarbe(&tmpc, GrColor2, GrShade2);
-				b->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor2, GrShade2);
+					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
+				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor2, GrShade2);
 			}
 			else
 			{
 				if ((GrColor2 != "None") && (GrColor2 != ""))
-					b->SetFarbe(&tmpc, GrColor2, GrShade2);
-				b->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor2, GrShade2);
+					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
+				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor2, GrShade2);
 				if ((GrColor != "None") && (GrColor != ""))
-					b->SetFarbe(&tmpc, GrColor, GrShade);
-				b->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
+					currItem->SetFarbe(&tmpc, GrColor, GrShade);
+				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}
 		}
-		view->updateGradientVectors(b);
+		view->updateGradientVectors(currItem);
 	}
-	view->setRedrawBounding(b);
-	b->OwnPage = view->OnPage(b);
-	return b;
+	view->setRedrawBounding(currItem);
+	currItem->OwnPage = view->OnPage(currItem);
+	return currItem;
 }

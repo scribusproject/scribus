@@ -64,9 +64,9 @@ public:
 	SEditor (QWidget* parent, ScribusDoc *docc);
 	~SEditor() {};
 	void setAlign(int style);
-	void saveItemText(PageItem* b);
-	void loadItemText(PageItem* b);
-	void loadText(QString tx, PageItem* b);
+	void saveItemText(PageItem *currItem);
+	void loadItemText(PageItem *currItem);
+	void loadText(QString tx, PageItem *currItem);
 	void updateAll();
 	void updateFromChars(int p);
 	void updateSel(int code, struct PtiSmall *hg);
@@ -368,7 +368,6 @@ protected:
     QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* ButtonGroup2Layout;
-
 };
 
 #endif

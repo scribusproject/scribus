@@ -97,8 +97,8 @@ private:
 	QString PDFEncode(QString in);
 	QByteArray ComputeMD5(QString in);
 	void PDF_Bookmark(int nr, double ypos);
-	void PDF_Gradient(PageItem *b);
-	void PDF_Transparenz(PageItem *b);
+	void PDF_Gradient(PageItem *currItem);
+	void PDF_Transparenz(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);
   void PDF_xForm(double w, double h, QString im);

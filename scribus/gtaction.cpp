@@ -88,12 +88,12 @@ void gtAction::write(const QString& text, gtStyle *style)
 		{
 			if (it->NextBox != 0)
 			{
-				PageItem *nb = it->NextBox;
-				while (nb != 0)
+				PageItem *nextItem = it->NextBox;
+				while (nextItem != 0)
 				{
-					nb->itemText.clear();
-					nb->CPos = 0;
-					nb = nb->NextBox;
+					nextItem->itemText.clear();
+					nextItem->CPos = 0;
+					nextItem = nextItem->NextBox;
 				}
 			}
 			it->itemText.clear();

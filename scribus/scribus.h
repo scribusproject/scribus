@@ -119,8 +119,8 @@ public:
 	void saveActionShortcutsPreEditMode();
 	void restoreActionShortcutsPostEditMode();
 	void setEnabledActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);
-	void DeleteSel(PageItem *b);
-	void setTBvals(PageItem *b);
+	void DeleteSel(PageItem *currItem);
+	void setTBvals(PageItem *currItem);
 	void SavePrefs();
 	void SavePrefsXML();
 	void ShowSubs();

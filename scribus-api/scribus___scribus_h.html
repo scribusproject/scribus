@@ -115,8 +115,8 @@ class ScribusApp : public QMainWindow
     void closeEvent(QCloseEvent *ce);
     void keyPressEvent(QKeyEvent *k);
     void wheelEvent(QWheelEvent *w);
-    void DeleteSel(PageItem *b);
-    void setTBvals(PageItem *b);
+    void DeleteSel(PageItem *currItem);
+    void setTBvals(PageItem *currItem);
     void SavePrefs();
     void ShowSubs();
     void applyNewMaster(QString name);

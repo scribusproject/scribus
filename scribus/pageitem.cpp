@@ -575,7 +575,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 		{
 		//qDebug("DrawObj_TextFrame(ScPainter *p, QRect e)");
 			QPainter pp, pf2;
-			PageItem *nb;
+			PageItem *nextItem;
 			QPoint pt1, pt2;
 			FPoint ColBound;
 			QRegion cm;
@@ -734,18 +734,18 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			{
 				if (NextBox != 0)
 				{
-					nb = NextBox;
-					while (nb != 0)
+					nextItem = NextBox;
+					while (nextItem != 0)
 					{
-						a = nb->itemText.count();
+						a = nextItem->itemText.count();
 						for (uint s=0; s<a; ++s)
 						{
-							itemText.append(nb->itemText.take(0));
+							itemText.append(nextItem->itemText.take(0));
 						}
-						nb->MaxChars = 0;
-						nb = nb->NextBox;
+						nextItem->MaxChars = 0;
+						nextItem = nextItem->NextBox;
 					}
-					nb = NextBox;
+					nextItem = NextBox;
 				}
 				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
@@ -924,12 +924,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						if (BackBox != 0)
 						{
-							nb = BackBox;
-							while (nb != 0)
+							nextItem = BackBox;
+							while (nextItem != 0)
 							{
-								if (nb->itemText.count() != 0)
+								if (nextItem->itemText.count() != 0)
 								{
-									if (nb->itemText.at(nb->itemText.count()-1)->ch == QChar(13))
+									if (nextItem->itemText.at(nextItem->itemText.count()-1)->ch == QChar(13))
 									{
 										CurX += Doc->docParagraphStyles[absa].First;
 										CurX += Doc->docParagraphStyles[absa].Indent;
@@ -948,7 +948,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										break;
 									}
 								}
-								nb = nb->BackBox;
+								nextItem = nextItem->BackBox;
 							}
 						}
 						else

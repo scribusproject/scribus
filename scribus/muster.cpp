@@ -13,7 +13,7 @@
 #include "scribusview.h"
 
 extern QPixmap loadIcon(QString nam);
-extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b);
+extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem);
 
 MusterPages::MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString temp)
 		: QDialog( parent, "Muster", false, WDestructiveClose)

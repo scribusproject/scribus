@@ -512,16 +512,16 @@ void BookMView::SetAction(int nr, QString Act)
 	}
 }
 
-void BookMView::ChangeText(PageItem *b)
+void BookMView::ChangeText(PageItem *currItem)
 {
 	BookMItem *ite;
 	QString bm = "";
 	QString bm2 = "";
 	QString cc;
-	int nr = b->BMnr;
-	for (uint d = 0; d < b->itemText.count(); ++d)
+	int nr = currItem->BMnr;
+	for (uint d = 0; d < currItem->itemText.count(); ++d)
 	{
-		cc = b->itemText.at(d)->ch;
+		cc = currItem->itemText.at(d)->ch;
 		if ((cc == QChar(13)) || (cc == QChar(10)))
 			break;
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))

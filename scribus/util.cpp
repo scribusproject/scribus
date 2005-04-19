@@ -97,8 +97,8 @@ QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
 void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
 QStringList sortQStringList(QStringList aList);
 void ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
-void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
-void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b);
+void WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
+void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem);
 bool overwrite(QWidget *parent, QString filename);
 int setBestEncoding(FT_Face face);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
@@ -3342,183 +3342,183 @@ bool overwrite(QWidget *parent, QString filename)
 	return retval;
 }
 
-void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
+void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem)
 {
 	uint a;
-	Buffer->PType = b->itemType();
-	Buffer->Xpos = b->Xpos;
-	Buffer->Ypos = b->Ypos;
-	Buffer->Width = b->Width;
-	Buffer->Height = b->Height;
-	Buffer->RadRect = b->RadRect;
-	Buffer->FrameType = b->FrameType;
-	Buffer->ClipEdited = b->ClipEdited;
-	Buffer->Pwidth = b->Pwidth;
-	Buffer->Pcolor = b->fillColor();
-	Buffer->Pcolor2 = b->lineColor();
-	Buffer->Shade = b->fillShade();
-	Buffer->Shade2 = b->lineShade();
+	Buffer->PType = currItem->itemType();
+	Buffer->Xpos = currItem->Xpos;
+	Buffer->Ypos = currItem->Ypos;
+	Buffer->Width = currItem->Width;
+	Buffer->Height = currItem->Height;
+	Buffer->RadRect = currItem->RadRect;
+	Buffer->FrameType = currItem->FrameType;
+	Buffer->ClipEdited = currItem->ClipEdited;
+	Buffer->Pwidth = currItem->Pwidth;
+	Buffer->Pcolor = currItem->fillColor();
+	Buffer->Pcolor2 = currItem->lineColor();
+	Buffer->Shade = currItem->fillShade();
+	Buffer->Shade2 = currItem->lineShade();
 	Buffer->GrColor = "";
 	Buffer->GrColor2 = "";
 	Buffer->GrShade = 100;
 	Buffer->GrShade2 = 100;
-	Buffer->fill_gradient = b->fill_gradient;
-	Buffer->GrType = b->GrType;
-	Buffer->GrStartX = b->GrStartX;
-	Buffer->GrStartY = b->GrStartY;
-	Buffer->GrEndX = b->GrEndX;
-	Buffer->GrEndY = b->GrEndY;
-	Buffer->TxtStroke = b->TxtStroke;
-	Buffer->TxtFill = b->TxtFill;
-	Buffer->ShTxtStroke = b->ShTxtStroke;
-	Buffer->ShTxtFill = b->ShTxtFill;
-	Buffer->TxtScale = b->TxtScale;
-	Buffer->TxTStyle = b->TxTStyle;
-	Buffer->Rot = b->Rot;
-	Buffer->PLineArt = b->PLineArt;
-	Buffer->PLineEnd = b->PLineEnd;
-	Buffer->PLineJoin = b->PLineJoin;
-	Buffer->LineSp = b->LineSp;
-	Buffer->LocalScX = b->LocalScX;
-	Buffer->LocalScY = b->LocalScY;
-	Buffer->LocalX = b->LocalX;
-	Buffer->LocalY = b->LocalY;
-	Buffer->PicArt = b->PicArt;
-	Buffer->flippedH = b->imageFlippedH();
-	Buffer->flippedV = b->imageFlippedV();
-	Buffer->BBoxX = b->BBoxX;
-	Buffer->BBoxH = b->BBoxH;
-	Buffer->isPrintable = b->isPrintable;
-	Buffer->isBookmark = b->isBookmark;
-	Buffer->BMnr = b->BMnr;
-	Buffer->isAnnotation = b->isAnnotation;
-	Buffer->AnType = b->AnType;
-	Buffer->AnAction = b->AnAction;
-	Buffer->An_E_act = b->An_E_act;
-	Buffer->An_X_act = b->An_X_act;
-	Buffer->An_D_act = b->An_D_act;
-	Buffer->An_Fo_act = b->An_Fo_act;
-	Buffer->An_Bl_act = b->An_Bl_act;
-	Buffer->An_K_act = b->An_K_act;
-	Buffer->An_F_act = b->An_F_act;
-	Buffer->An_V_act = b->An_V_act;
-	Buffer->An_C_act = b->An_C_act;
-	Buffer->An_Extern = b->An_Extern;
-	Buffer->AnZiel = b->AnZiel;
-	Buffer->AnName = b->itemName();
-	Buffer->AnActType = b->AnActType;
-	Buffer->AnToolTip = b->AnToolTip;
-	Buffer->AnBwid = b->AnBwid;
-	Buffer->AnBsty = b->AnBsty;
-	Buffer->AnFeed = b->AnFeed;
-	Buffer->AnFlag = b->AnFlag;
-	Buffer->AnFont = b->AnFont;
-	Buffer->AnRollOver = b->AnRollOver;
-	Buffer->AnDown = b->AnDown;
-	Buffer->AnFormat = b->AnFormat;
-	Buffer->AnVis = b->AnVis;
-	Buffer->AnMaxChar = b->AnMaxChar;
-	Buffer->AnChkStil = b->AnChkStil;
-	Buffer->AnIsChk = b->AnIsChk;
-	Buffer->AnAAact = b->AnAAact;
-	Buffer->AnBColor = b->AnBColor;
-	Buffer->AnHTML = b->AnHTML;
-	Buffer->AnUseIcons = b->AnUseIcons;
-	Buffer->AnIPlace = b->AnIPlace;
-	Buffer->AnScaleW = b->AnScaleW;
-	Buffer->Extra = b->Extra;
-	Buffer->TExtra = b->TExtra;
-	Buffer->BExtra = b->BExtra;
-	Buffer->RExtra = b->RExtra;
-	Buffer->Pfile = b->Pfile;
-	Buffer->Pfile2 = b->Pfile2;
-	Buffer->Pfile3 = b->Pfile3;
+	Buffer->fill_gradient = currItem->fill_gradient;
+	Buffer->GrType = currItem->GrType;
+	Buffer->GrStartX = currItem->GrStartX;
+	Buffer->GrStartY = currItem->GrStartY;
+	Buffer->GrEndX = currItem->GrEndX;
+	Buffer->GrEndY = currItem->GrEndY;
+	Buffer->TxtStroke = currItem->TxtStroke;
+	Buffer->TxtFill = currItem->TxtFill;
+	Buffer->ShTxtStroke = currItem->ShTxtStroke;
+	Buffer->ShTxtFill = currItem->ShTxtFill;
+	Buffer->TxtScale = currItem->TxtScale;
+	Buffer->TxTStyle = currItem->TxTStyle;
+	Buffer->Rot = currItem->Rot;
+	Buffer->PLineArt = currItem->PLineArt;
+	Buffer->PLineEnd = currItem->PLineEnd;
+	Buffer->PLineJoin = currItem->PLineJoin;
+	Buffer->LineSp = currItem->LineSp;
+	Buffer->LocalScX = currItem->LocalScX;
+	Buffer->LocalScY = currItem->LocalScY;
+	Buffer->LocalX = currItem->LocalX;
+	Buffer->LocalY = currItem->LocalY;
+	Buffer->PicArt = currItem->PicArt;
+	Buffer->flippedH = currItem->imageFlippedH();
+	Buffer->flippedV = currItem->imageFlippedV();
+	Buffer->BBoxX = currItem->BBoxX;
+	Buffer->BBoxH = currItem->BBoxH;
+	Buffer->isPrintable = currItem->isPrintable;
+	Buffer->isBookmark = currItem->isBookmark;
+	Buffer->BMnr = currItem->BMnr;
+	Buffer->isAnnotation = currItem->isAnnotation;
+	Buffer->AnType = currItem->AnType;
+	Buffer->AnAction = currItem->AnAction;
+	Buffer->An_E_act = currItem->An_E_act;
+	Buffer->An_X_act = currItem->An_X_act;
+	Buffer->An_D_act = currItem->An_D_act;
+	Buffer->An_Fo_act = currItem->An_Fo_act;
+	Buffer->An_Bl_act = currItem->An_Bl_act;
+	Buffer->An_K_act = currItem->An_K_act;
+	Buffer->An_F_act = currItem->An_F_act;
+	Buffer->An_V_act = currItem->An_V_act;
+	Buffer->An_C_act = currItem->An_C_act;
+	Buffer->An_Extern = currItem->An_Extern;
+	Buffer->AnZiel = currItem->AnZiel;
+	Buffer->AnName = currItem->itemName();
+	Buffer->AnActType = currItem->AnActType;
+	Buffer->AnToolTip = currItem->AnToolTip;
+	Buffer->AnBwid = currItem->AnBwid;
+	Buffer->AnBsty = currItem->AnBsty;
+	Buffer->AnFeed = currItem->AnFeed;
+	Buffer->AnFlag = currItem->AnFlag;
+	Buffer->AnFont = currItem->AnFont;
+	Buffer->AnRollOver = currItem->AnRollOver;
+	Buffer->AnDown = currItem->AnDown;
+	Buffer->AnFormat = currItem->AnFormat;
+	Buffer->AnVis = currItem->AnVis;
+	Buffer->AnMaxChar = currItem->AnMaxChar;
+	Buffer->AnChkStil = currItem->AnChkStil;
+	Buffer->AnIsChk = currItem->AnIsChk;
+	Buffer->AnAAact = currItem->AnAAact;
+	Buffer->AnBColor = currItem->AnBColor;
+	Buffer->AnHTML = currItem->AnHTML;
+	Buffer->AnUseIcons = currItem->AnUseIcons;
+	Buffer->AnIPlace = currItem->AnIPlace;
+	Buffer->AnScaleW = currItem->AnScaleW;
+	Buffer->Extra = currItem->Extra;
+	Buffer->TExtra = currItem->TExtra;
+	Buffer->BExtra = currItem->BExtra;
+	Buffer->RExtra = currItem->RExtra;
+	Buffer->Pfile = currItem->Pfile;
+	Buffer->Pfile2 = currItem->Pfile2;
+	Buffer->Pfile3 = currItem->Pfile3;
 	QString Text = "";
-	if (b->itemText.count() != 0)
+	if (currItem->itemText.count() != 0)
 	{
-		for (a=0; a<b->itemText.count(); ++a)
+		for (a=0; a<currItem->itemText.count(); ++a)
 		{
-			if( (b->itemText.at(a)->ch == "\n") || (b->itemText.at(a)->ch == "\r"))
+			if( (currItem->itemText.at(a)->ch == "\n") || (currItem->itemText.at(a)->ch == "\r"))
 				Text += QString(QChar(5))+"\t";
-			else if(b->itemText.at(a)->ch == "\t")
+			else if(currItem->itemText.at(a)->ch == "\t")
 				Text += QString(QChar(4))+"\t";
 			else
-				Text += b->itemText.at(a)->ch+"\t";
-			Text += b->itemText.at(a)->cfont->SCName+"\t";
-			Text += QString::number(b->itemText.at(a)->csize / 10.0)+"\t";
-			Text += b->itemText.at(a)->ccolor+"\t";
-			Text += QString::number(b->itemText.at(a)->cextra)+"\t";
-			Text += QString::number(b->itemText.at(a)->cshade)+'\t';
-			Text += QString::number(b->itemText.at(a)->cstyle)+'\t';
-			Text += QString::number(b->itemText.at(a)->cab)+'\t';
-			Text += b->itemText.at(a)->cstroke+"\t";
-			Text += QString::number(b->itemText.at(a)->cshade2)+'\t';
-			Text += QString::number(b->itemText.at(a)->cscale)+'\n';
+				Text += currItem->itemText.at(a)->ch+"\t";
+			Text += currItem->itemText.at(a)->cfont->SCName+"\t";
+			Text += QString::number(currItem->itemText.at(a)->csize / 10.0)+"\t";
+			Text += currItem->itemText.at(a)->ccolor+"\t";
+			Text += QString::number(currItem->itemText.at(a)->cextra)+"\t";
+			Text += QString::number(currItem->itemText.at(a)->cshade)+'\t';
+			Text += QString::number(currItem->itemText.at(a)->cstyle)+'\t';
+			Text += QString::number(currItem->itemText.at(a)->cab)+'\t';
+			Text += currItem->itemText.at(a)->cstroke+"\t";
+			Text += QString::number(currItem->itemText.at(a)->cshade2)+'\t';
+			Text += QString::number(currItem->itemText.at(a)->cscale)+'\n';
 		}
 	}
 	Buffer->itemText = Text;
-	Buffer->Clip = b->Clip.copy();
-	Buffer->PoLine = b->PoLine.copy();
-	Buffer->ContourLine = b->ContourLine.copy();
-	Buffer->UseContour = b->textFlowUsesContourLine();
-	Buffer->TabValues = b->TabValues;
-	Buffer->DashValues = b->DashValues;
-	Buffer->DashOffset = b->DashOffset;
-	Buffer->PoShow = b->PoShow;
-	Buffer->BaseOffs = b->BaseOffs;
-	Buffer->Textflow = b->textFlowsAroundFrame();
-	Buffer->Textflow2 = b->textFlowUsesBoundingBox();
-	Buffer->textAlignment = b->textAlignment;
-	Buffer->IFont = b->IFont;
-	Buffer->ISize = b->ISize;
-	Buffer->ExtraV = b->ExtraV;
-	Buffer->Groups = b->Groups;
-	Buffer->IProfile = b->IProfile;
-	Buffer->IRender = b->IRender;
-	Buffer->UseEmbedded = b->UseEmbedded;
-	Buffer->EmProfile = b->EmProfile;
-	Buffer->LayerNr = b->LayerNr;
-	Buffer->ScaleType = b->ScaleType;
-	Buffer->AspectRatio = b->AspectRatio;
-	Buffer->Locked = b->locked();
-	Buffer->LockRes = b->sizeLocked();
-	Buffer->Transparency = b->fillTransparency();
-	Buffer->TranspStroke = b->lineTransparency();
-	Buffer->Reverse = b->Reverse;
-	Buffer->InvPict = b->InvPict;
-	Buffer->NamedLStyle = b->NamedLStyle;
-	Buffer->Language = b->Language;
-	Buffer->Cols = b->Cols;
-	Buffer->ColGap = b->ColGap;
-	Buffer->isTableItem = b->isTableItem;
-	Buffer->TopLine = b->TopLine;
-	Buffer->LeftLine = b->LeftLine;
-	Buffer->RightLine = b->RightLine;
-	Buffer->BottomLine = b->BottomLine;
-	if (b->isTableItem)
+	Buffer->Clip = currItem->Clip.copy();
+	Buffer->PoLine = currItem->PoLine.copy();
+	Buffer->ContourLine = currItem->ContourLine.copy();
+	Buffer->UseContour = currItem->textFlowUsesContourLine();
+	Buffer->TabValues = currItem->TabValues;
+	Buffer->DashValues = currItem->DashValues;
+	Buffer->DashOffset = currItem->DashOffset;
+	Buffer->PoShow = currItem->PoShow;
+	Buffer->BaseOffs = currItem->BaseOffs;
+	Buffer->Textflow = currItem->textFlowsAroundFrame();
+	Buffer->Textflow2 = currItem->textFlowUsesBoundingBox();
+	Buffer->textAlignment = currItem->textAlignment;
+	Buffer->IFont = currItem->IFont;
+	Buffer->ISize = currItem->ISize;
+	Buffer->ExtraV = currItem->ExtraV;
+	Buffer->Groups = currItem->Groups;
+	Buffer->IProfile = currItem->IProfile;
+	Buffer->IRender = currItem->IRender;
+	Buffer->UseEmbedded = currItem->UseEmbedded;
+	Buffer->EmProfile = currItem->EmProfile;
+	Buffer->LayerNr = currItem->LayerNr;
+	Buffer->ScaleType = currItem->ScaleType;
+	Buffer->AspectRatio = currItem->AspectRatio;
+	Buffer->Locked = currItem->locked();
+	Buffer->LockRes = currItem->sizeLocked();
+	Buffer->Transparency = currItem->fillTransparency();
+	Buffer->TranspStroke = currItem->lineTransparency();
+	Buffer->Reverse = currItem->Reverse;
+	Buffer->InvPict = currItem->InvPict;
+	Buffer->NamedLStyle = currItem->NamedLStyle;
+	Buffer->Language = currItem->Language;
+	Buffer->Cols = currItem->Cols;
+	Buffer->ColGap = currItem->ColGap;
+	Buffer->isTableItem = currItem->isTableItem;
+	Buffer->TopLine = currItem->TopLine;
+	Buffer->LeftLine = currItem->LeftLine;
+	Buffer->RightLine = currItem->RightLine;
+	Buffer->BottomLine = currItem->BottomLine;
+	if (currItem->isTableItem)
 	{
-		if (b->TopLink != 0)
-			Buffer->TopLinkID = b->TopLink->ItemNr;
+		if (currItem->TopLink != 0)
+			Buffer->TopLinkID = currItem->TopLink->ItemNr;
 		else
 			Buffer->TopLinkID = -1;
-		if (b->LeftLink != 0)
-			Buffer->LeftLinkID = b->LeftLink->ItemNr;
+		if (currItem->LeftLink != 0)
+			Buffer->LeftLinkID = currItem->LeftLink->ItemNr;
 		else
 			Buffer->LeftLinkID = -1;
-		if (b->RightLink != 0)
-			Buffer->RightLinkID = b->RightLink->ItemNr;
+		if (currItem->RightLink != 0)
+			Buffer->RightLinkID = currItem->RightLink->ItemNr;
 		else
 			Buffer->RightLinkID = -1;
-		if (b->BottomLink != 0)
-			Buffer->BottomLinkID = b->BottomLink->ItemNr;
+		if (currItem->BottomLink != 0)
+			Buffer->BottomLinkID = currItem->BottomLink->ItemNr;
 		else
 			Buffer->BottomLinkID = -1;
 	}
-	Buffer->startArrowIndex = b->startArrowIndex;
-	Buffer->endArrowIndex = b->endArrowIndex;
+	Buffer->startArrowIndex = currItem->startArrowIndex;
+	Buffer->endArrowIndex = currItem->endArrowIndex;
 }
 
-void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
+void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 {
 	QChar Dat = QChar(32);
 	int para = 0;
@@ -3528,43 +3528,43 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 	int wwN = 0;
 	int ccN = 0;
 	bool first = true;
-	PageItem *nb = b;
-	PageItem *nbl = b;
-	while (nb != 0)
+	PageItem *nextItem = currItem;
+	PageItem *nbl = currItem;
+	while (nextItem != 0)
 	{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
+		if (nextItem->BackBox != 0)
+			nextItem = nextItem->BackBox;
 		else
 			break;
 	}
-	while (nb != 0)
+	while (nextItem != 0)
 	{
-		for (uint a = 0; a < nb->itemText.count(); ++a)
+		for (uint a = 0; a < nextItem->itemText.count(); ++a)
 		{
-			QChar b = nb->itemText.at(a)->ch[0];
+			QChar b = nextItem->itemText.at(a)->ch[0];
 			if (b == QChar(13))
 			{
-				if (a >= nb->MaxChars)
+				if (a >= nextItem->MaxChars)
 					paraN++;
 				else
 					para++;
 			}
 			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
 			{
-				if (a >= nb->MaxChars)
+				if (a >= nextItem->MaxChars)
 					wwN++;
 				else
 					ww++;
 			}
-			if (a >= nb->MaxChars)
+			if (a >= nextItem->MaxChars)
 				ccN++;
 			else
 				cc++;
 			Dat = b;
 			first = false;
 		}
-		nbl = nb;
-		nb = nb->NextBox;
+		nbl = nextItem;
+		nextItem = nextItem->NextBox;
 	}
 	if (nbl->MaxChars < nbl->itemText.count())
 		paraN++;
@@ -3595,15 +3595,15 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	for (uint azz=0; azz<currentDoc->MasterItems.count(); ++azz)
 	{
-		PageItem *ite = currentDoc->MasterItems.at(azz);
-		if (ite->itemType() == PageItem::PathText)
-			ite->DrawObj(painter, rd);
+		PageItem *currItem = currentDoc->MasterItems.at(azz);
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->DrawObj(painter, rd);
 	}
 	for (uint azz=0; azz<currentDoc->Items.count(); ++azz)
 	{
-		PageItem *ite = currentDoc->Items.at(azz);
-		if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
-			ite->DrawObj(painter, rd);
+		PageItem *currItem = currentDoc->Items.at(azz);
+		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+			currItem->DrawObj(painter, rd);
 	}
 	currentDoc->RePos = false;
 	view->Scale = savScale;

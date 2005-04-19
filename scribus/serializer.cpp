@@ -51,26 +51,26 @@ void Serializer::PutText(PageItem *Item)
 void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, bool Append)
 {
 	struct ScText *hg;
-	PageItem *nb;
+	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->Doc;
 	uint a;
 	if (!Append)
 	{
-		nb = Item;
-		while (nb != 0)
+		nextItem = Item;
+		while (nextItem != 0)
 		{
-			if (nb->BackBox != 0)
-				nb = nb->BackBox;
+			if (nextItem->BackBox != 0)
+				nextItem = nextItem->BackBox;
 			else
 				break;
 		}
-		it = nb;
-		while (nb != 0)
+		it = nextItem;
+		while (nextItem != 0)
 		{
-			nb->itemText.clear();
-			nb->CPos = 0;
-			nb = nb->NextBox;
+			nextItem->itemText.clear();
+			nextItem->CPos = 0;
+			nextItem = nextItem->NextBox;
 		}
 	}
 	for (a=0; a<Objekt.length(); ++a)

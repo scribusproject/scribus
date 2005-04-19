@@ -240,41 +240,41 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
-	if (it == NULL)
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	if (currItem == NULL)
 		return NULL;
-	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
+	if ((currItem->itemType() != PageItem::TextFrame) && (currItem->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text of non-text frame.","python error"));
 		return NULL;
 	}
 	QString Daten = QString::fromUtf8(Text);
 	PyMem_Free(Text);
-	if (it->NextBox != 0)
+	if (currItem->NextBox != 0)
 	{
-		PageItem *nb = it->NextBox;
-		while (nb != 0)
+		PageItem *nextItem = currItem->NextBox;
+		while (nextItem != 0)
 		{
-			nb->itemText.clear();
-			nb->CPos = 0;
-			nb = nb->NextBox;
+			nextItem->itemText.clear();
+			nextItem->CPos = 0;
+			nextItem = nextItem->NextBox;
 		}
 	}
-	it->itemText.clear();
-	it->CPos = 0;
+	currItem->itemText.clear();
+	currItem->CPos = 0;
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
 		struct ScText *hg = new ScText;
 		hg->ch = Daten.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = (*Carrier->doc->AllFonts)[it->IFont];
-		hg->csize = it->ISize;
-		hg->ccolor = it->TxtFill;
-		hg->cshade = it->ShTxtFill;
-		hg->cstroke = it->TxtStroke;
-		hg->cshade2 = it->ShTxtStroke;
-		hg->cscale = it->TxtScale;
+		hg->cfont = (*Carrier->doc->AllFonts)[currItem->IFont];
+		hg->csize = currItem->ISize;
+		hg->ccolor = currItem->TxtFill;
+		hg->cshade = currItem->ShTxtFill;
+		hg->cstroke = currItem->TxtStroke;
+		hg->cshade2 = currItem->ShTxtStroke;
+		hg->cscale = currItem->TxtScale;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
@@ -284,7 +284,7 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
-		it->itemText.append(hg);
+		currItem->itemText.append(hg);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

@@ -11,20 +11,20 @@ PyObject *scribus_setgradfill(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *b = GetUniqueItem(QString::fromUtf8(Name));
-	if (b == NULL)
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	if (currItem == NULL)
 		return NULL;
 	QColor tmp;
-	b->fill_gradient.clearStops();
+	currItem->fill_gradient.clearStops();
 	QString c1 = QString::fromUtf8(Color1);
 	QString c2 = QString::fromUtf8(Color2);
-	b->SetFarbe(&tmp, c1, shade1);
-	b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, c1, shade1);
-	b->SetFarbe(&tmp, c2, shade2);
-	b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
-	b->GrType = typ;
-	Carrier->view->updateGradientVectors(b);
-	Carrier->view->RefreshItem(b);
+	currItem->SetFarbe(&tmp, c1, shade1);
+	currItem->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, c1, shade1);
+	currItem->SetFarbe(&tmp, c2, shade2);
+	currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
+	currItem->GrType = typ;
+	Carrier->view->updateGradientVectors(currItem);
+	Carrier->view->RefreshItem(currItem);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -185,18 +185,18 @@ PyObject *scribus_setcornerrad(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Corner radius must be a positive number.","python error"));
 		return NULL;
 	}
-	PageItem *b = GetUniqueItem(QString::fromUtf8(Name));
-	if (b == NULL)
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	if (currItem == NULL)
 		return NULL;
 	// FIXME: Doesn't seem to work, at least on rect/polygon frames
-	if ((b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::TextFrame))
+	if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 	{
-		b->RadRect = w;
+		currItem->RadRect = w;
 		if (w > 0)
-			Carrier->view->SetFrameRound(b);
+			Carrier->view->SetFrameRound(currItem);
 	}
 	else
-			Carrier->view->SetRectFrame(b);
+			Carrier->view->SetRectFrame(currItem);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -209,15 +209,15 @@ PyObject *scribus_setmultiline(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *b = GetUniqueItem(QString::fromUtf8(Name));
-	if (b == NULL)
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	if (currItem == NULL)
 		return NULL;
 	if (!Carrier->doc->MLineStyles.contains(QString::fromUtf8(Style)))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error"));
 		return NULL;
 	}
-	b->NamedLStyle = QString::fromUtf8(Style);
+	currItem->NamedLStyle = QString::fromUtf8(Style);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

@@ -215,24 +215,24 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
  */
 void Hyphenator::slotHyphenate(PageItem* it)
 {
-	PageItem *nb = it;
+	PageItem *nextItem = it;
 	PageItem *nb1;
-	while (nb != 0)
+	while (nextItem != 0)
 	{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
+		if (nextItem->BackBox != 0)
+			nextItem = nextItem->BackBox;
 		else
 			break;
 	}
-	nb1 = nb;
-	while (nb != 0)
+	nb1 = nextItem;
+	while (nextItem != 0)
 	{
-		uint a = nb->itemText.count();
+		uint a = nextItem->itemText.count();
 		for (uint s = 0; s < a; ++s)
-			nb1->itemText.append(nb->itemText.take(0));
-		nb->MaxChars = 0;
-		nb->CPos = 0;
-		nb = nb->NextBox;
+			nb1->itemText.append(nextItem->itemText.take(0));
+		nextItem->MaxChars = 0;
+		nextItem->CPos = 0;
+		nextItem = nextItem->NextBox;
 	}
 	if ((!useAble) || (nb1->itemType() != PageItem::TextFrame) || (nb1 ->itemText.count() == 0))
 		return;

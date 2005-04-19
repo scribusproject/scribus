@@ -136,7 +136,7 @@
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
-extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b);
+extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 extern int copyFile(QString source, QString target);
 extern int moveFile(QString source, QString target);
@@ -1823,59 +1823,59 @@ void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString key
 	}
 }
 
-void ScribusApp::DeleteSel(PageItem *b)
+void ScribusApp::DeleteSel(PageItem *currItem)
 {
 	int FirstSel = 0;
 	bool first = false;
-	for (ScText *it = b->itemText.first(); it != 0; it = b->itemText.next())
+	for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
 	{
 		if (it->cselect)
 		{
 			first = true;
-			b->itemText.remove();
-			it = b->itemText.prev();
+			currItem->itemText.remove();
+			it = currItem->itemText.prev();
 			if (it == 0)
-				it = b->itemText.first();
+				it = currItem->itemText.first();
 		}
 		if (!first)
 			FirstSel++;
 	}
-	if (b->itemText.count() != 0)
+	if (currItem->itemText.count() != 0)
 	{
-		if (b->itemText.first()->cselect)
+		if (currItem->itemText.first()->cselect)
 		{
-			b->itemText.remove();
-			b->CPos = 0;
+			currItem->itemText.remove();
+			currItem->CPos = 0;
 		}
 		else
-			b->CPos = FirstSel;
+			currItem->CPos = FirstSel;
 	}
 	else
-		b->CPos = 0;
-	b->HasSel = false;
+		currItem->CPos = 0;
+	currItem->HasSel = false;
 	DisableTxEdit();
 }
 
-void ScribusApp::setTBvals(PageItem *b)
+void ScribusApp::setTBvals(PageItem *currItem)
 {
-	if (b->itemText.count() != 0)
+	if (currItem->itemText.count() != 0)
 	{
-		int ChPos = QMIN(b->CPos, static_cast<int>(b->itemText.count()-1));
-		doc->CurrentStyle = b->itemText.at(ChPos)->cstyle & 127;
-		doc->currentParaStyle = b->itemText.at(ChPos)->cab;
+		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.count()-1));
+		doc->CurrentStyle = currItem->itemText.at(ChPos)->cstyle & 127;
+		doc->currentParaStyle = currItem->itemText.at(ChPos)->cab;
 		setAbsValue(doc->currentParaStyle);
 		propertiesPalette->setAli(doc->currentParaStyle);
-		doc->CurrFont = b->itemText.at(ChPos)->cfont->SCName;
-		doc->CurrFontSize = b->itemText.at(ChPos)->csize;
-		doc->CurrTextFill = b->itemText.at(ChPos)->ccolor;
-		doc->CurrTextFillSh = b->itemText.at(ChPos)->cshade;
-		doc->CurrTextStroke = b->itemText.at(ChPos)->cstroke;
-		doc->CurrTextStrokeSh = b->itemText.at(ChPos)->cshade2;
-		doc->CurrTextScale = b->itemText.at(ChPos)->cscale;
+		doc->CurrFont = currItem->itemText.at(ChPos)->cfont->SCName;
+		doc->CurrFontSize = currItem->itemText.at(ChPos)->csize;
+		doc->CurrTextFill = currItem->itemText.at(ChPos)->ccolor;
+		doc->CurrTextFillSh = currItem->itemText.at(ChPos)->cshade;
+		doc->CurrTextStroke = currItem->itemText.at(ChPos)->cstroke;
+		doc->CurrTextStrokeSh = currItem->itemText.at(ChPos)->cshade2;
+		doc->CurrTextScale = currItem->itemText.at(ChPos)->cscale;
 		emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 		emit TextIFont(doc->CurrFont);
 		emit TextISize(doc->CurrFontSize);
-		emit TextUSval(b->itemText.at(ChPos)->cextra);
+		emit TextUSval(currItem->itemText.at(ChPos)->cextra);
 		emit TextStil(doc->CurrentStyle);
 		emit TextScale(doc->CurrTextScale);
 	}
@@ -1914,7 +1914,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 			if (view->SelItem.count() == 1)
 			{
 				struct ScText *hg = new ScText;
-				PageItem *b = view->SelItem.at(0);
+				PageItem *currItem = view->SelItem.at(0);
 				if (unicodevalue!=-1)
 				{
 					hg->ch = QString(QChar(unicodevalue));
@@ -1939,16 +1939,16 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->PRot = 0;
 					hg->PtransX = 0;
 					hg->PtransY = 0;
-					b->itemText.insert(b->CPos, hg);
-					b->CPos += 1;
-					b->Tinput = true;
-					view->RefreshItem(b);
+					currItem->itemText.insert(currItem->CPos, hg);
+					currItem->CPos += 1;
+					currItem->Tinput = true;
+					view->RefreshItem(currItem);
 				}
 				else if (actionName=="specialSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
 				{
-					b->itemText.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
-					b->Tinput = true;
-					view->RefreshItem(b);
+					currItem->itemText.at(QMAX(currItem->CPos-1,0))->cstyle ^= 128;
+					currItem->Tinput = true;
+					view->RefreshItem(currItem);
 				}
 			}
 		}
@@ -2052,18 +2052,18 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	if ((kk == Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
-		PageItem *b;
+		PageItem *currItem;
 		if ((view->SelItem.count() != 0))
 		{
-			b = view->SelItem.at(0);
+			currItem = view->SelItem.at(0);
 			switch (doc->appMode)
 			{
 				case NormalMode:
-					b->Sizing = false;
+					currItem->Sizing = false;
 					if (doc->SubMode != -1)
 					{
 						view->Deselect(false);
-						doc->Items.remove(b->ItemNr);
+						doc->Items.remove(currItem->ItemNr);
 					}
 					break;
 				case LinkFrames:
@@ -2074,27 +2074,27 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				case PanningMode:
 					break;
 				case DrawBezierLine:
-					b->PoLine.resize(b->PoLine.size()-2);
-					if (b->PoLine.size() < 4)
+					currItem->PoLine.resize(currItem->PoLine.size()-2);
+					if (currItem->PoLine.size() < 4)
 					{
 						view->Deselect(false);
-						doc->Items.remove(b->ItemNr);
+						doc->Items.remove(currItem->ItemNr);
 					}
 					else
 					{
-						view->SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
-						view->SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
-						view->AdjustItemSize(b);
-						b->ContourLine = b->PoLine.copy();
-						b->ClipEdited = true;
-						b->FrameType = 3;
+						view->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
+						view->SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+						view->AdjustItemSize(currItem);
+						currItem->ContourLine = currItem->PoLine.copy();
+						currItem->ClipEdited = true;
+						currItem->FrameType = 3;
 						slotDocCh();
 					}
 					view->FirstPoly = true;
 					break;
 				default:
 					view->Deselect(false);
-					doc->Items.remove(b->ItemNr);
+					doc->Items.remove(currItem->ItemNr);
 					break;
 			}
 		}
@@ -2166,7 +2166,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		}
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = view->SelItem.at(0);
+			PageItem *currItem = view->SelItem.at(0);
 
 			switch (doc->appMode)
 			{
@@ -2179,15 +2179,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						view->DeleteItem();
 					break;
 				case Key_Prior:
-					if (!b->locked())
+					if (!currItem->locked())
 						view->RaiseItem();
 					break;
 				case Key_Next:
-					if (!b->locked())
+					if (!currItem->locked())
 						view->LowerItem();
 					break;
 				case Key_Left:
-					if (!b->locked())
+					if (!currItem->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(-10, 0);
@@ -2198,7 +2198,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Right:
-					if (!b->locked())
+					if (!currItem->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(10, 0);
@@ -2209,7 +2209,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Up:
-					if (!b->locked())
+					if (!currItem->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(0, -10);
@@ -2220,7 +2220,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Down:
-					if (!b->locked())
+					if (!currItem->locked())
 					{
 						if ( buttonState & ShiftButton )
 							view->moveGroup(0, 10);
@@ -2236,59 +2236,59 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				slotDocCh();
 				break;
 			case EditMode:
-				int oldPos = b->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
-				view->oldCp = b->CPos;
-				if (b->itemType() == PageItem::ImageFrame)
+				int oldPos = currItem->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
+				view->oldCp = currItem->CPos;
+				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					switch (kk)
 					{
 						case Key_Left:
-							if (!b->locked())
+							if (!currItem->locked())
 							{
 								if ( buttonState & ShiftButton )
-									view->MoveItemI(-10, 0, b->ItemNr, true);
+									view->MoveItemI(-10, 0, currItem->ItemNr, true);
 								else if ( buttonState & ControlButton )
-									view->MoveItemI(-0.1, 0, b->ItemNr, true);
+									view->MoveItemI(-0.1, 0, currItem->ItemNr, true);
 								else
-									view->MoveItemI(-1, 0, b->ItemNr, true);
+									view->MoveItemI(-1, 0, currItem->ItemNr, true);
 							}
 							break;
 						case Key_Right:
-							if (!b->locked())
+							if (!currItem->locked())
 							{
 								if ( buttonState & ShiftButton )
-									view->MoveItemI(10, 0, b->ItemNr, true);
+									view->MoveItemI(10, 0, currItem->ItemNr, true);
 								else if ( buttonState & ControlButton )
-									view->MoveItemI(0.1, 0, b->ItemNr, true);
+									view->MoveItemI(0.1, 0, currItem->ItemNr, true);
 								else
-									view->MoveItemI(1, 0, b->ItemNr, true);
+									view->MoveItemI(1, 0, currItem->ItemNr, true);
 							}
 							break;
 						case Key_Up:
-							if (!b->locked())
+							if (!currItem->locked())
 							{
 								if ( buttonState & ShiftButton )
-									view->MoveItemI(0, -10, b->ItemNr, true);
+									view->MoveItemI(0, -10, currItem->ItemNr, true);
 								else if ( buttonState & ControlButton )
-									view->MoveItemI(0, -0.1, b->ItemNr, true);
+									view->MoveItemI(0, -0.1, currItem->ItemNr, true);
 								else
-									view->MoveItemI(0, -1, b->ItemNr, true);
+									view->MoveItemI(0, -1, currItem->ItemNr, true);
 							}
 							break;
 						case Key_Down:
-							if (!b->locked())
+							if (!currItem->locked())
 							{
 								if ( buttonState & ShiftButton )
-									view->MoveItemI(0, 10, b->ItemNr, true);
+									view->MoveItemI(0, 10, currItem->ItemNr, true);
 								else if ( buttonState & ControlButton )
-									view->MoveItemI(0, 0.1, b->ItemNr, true);
+									view->MoveItemI(0, 0.1, currItem->ItemNr, true);
 								else
-									view->MoveItemI(0, 1, b->ItemNr, true);
+									view->MoveItemI(0, 1, currItem->ItemNr, true);
 							}
 							break;
 					}
 				}
-				if (b->itemType() == PageItem::TextFrame)
+				if (currItem->itemType() == PageItem::TextFrame)
 				{
 					view->slotDoCurs(false);
 					switch (kk)
@@ -2302,7 +2302,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					case Key_Up:
 					case Key_Down:
 						if ( (buttonState & ShiftButton) == 0 )
-							view->deselectAll(b);
+							view->deselectAll(currItem);
 					}
 					/* ISO 14755
 					if ((buttonState & ControlButton) && (buttonState & ShiftButton))
@@ -2339,8 +2339,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							UniCinS = "";
 							if (ok)
 							{
-								if (b->HasSel)
-									DeleteSel(b);
+								if (currItem->HasSel)
+									DeleteSel(currItem);
 								if (conv < 31)
 									conv = 32;
 								hg = new ScText;
@@ -2366,11 +2366,11 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->PRot = 0;
 								hg->PtransX = 0;
 								hg->PtransY = 0;
-								b->itemText.insert(b->CPos, hg);
-								b->CPos += 1;
-								b->Tinput = true;
-								setTBvals(b);
-								view->RefreshItem(b);
+								currItem->itemText.insert(currItem->CPos, hg);
+								currItem->CPos += 1;
+								currItem->Tinput = true;
+								setTBvals(currItem);
+								view->RefreshItem(currItem);
 								keyrep = false;
 								return;
 							}
@@ -2392,41 +2392,41 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						break;
 					case Key_Home:
 						// go to begin of line
-						if ( (pos = b->CPos) == 0 )
+						if ( (pos = currItem->CPos) == 0 )
 							break; // at begin of frame
-						len = static_cast<int>(b->itemText.count());
+						len = static_cast<int>(currItem->itemText.count());
 						if ( pos == len )
 							pos--;
 						if ( (buttonState & ControlButton) == 0 )
 						{
-							alty =  b->itemText.at(pos)->yp;
-							c = b->itemText.at(pos)->ch.at(0).latin1();
+							alty =  currItem->itemText.at(pos)->yp;
+							c = currItem->itemText.at(pos)->ch.at(0).latin1();
 							if ( c == 13 ) // new line, position is wrong
 								if ( --pos > 0 )
-									alty =  b->itemText.at(pos)->yp;
+									alty =  currItem->itemText.at(pos)->yp;
 							// check for yp at actual position
 							if ( pos < len )
 							{
-								altx =  b->itemText.at(pos)->yp;
+								altx =  currItem->itemText.at(pos)->yp;
 								if ( altx > alty )
 								{
 									// we was at begin of line
 									break;
 								}
 							}
-							while (  pos > 0 && b->itemText.at(pos-1)->yp == alty )
+							while (  pos > 0 && currItem->itemText.at(pos-1)->yp == alty )
 								pos--;
-							if ( b->itemText.at(pos)->ch.at(0).latin1() == 13 )
+							if ( currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
 								pos++;
 						}
 						else
 						{
 							// paragraph begin
 							if ( pos < len &&
-							        b->itemText.at(pos)->ch.at(0).latin1() == 13 )
+							        currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
 								pos--;
 							while(pos > 0 )
-								if ( b->itemText.at(pos)->ch.at(0).latin1() == 13 )
+								if ( currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
 								{
 									pos++;
 									break;
@@ -2434,345 +2434,345 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								else
 									pos--;
 						}
-						b->CPos = pos;
+						currItem->CPos = pos;
 						if ( buttonState & ShiftButton )
-							view->ExpandSel(b, -1, oldPos);
+							view->ExpandSel(currItem, -1, oldPos);
 						break;
 					case Key_End:
 						// go to end of line
-						len = static_cast<int>(b->itemText.count());
-						if ( b->CPos >= len )
+						len = static_cast<int>(currItem->itemText.count());
+						if ( currItem->CPos >= len )
 							break; // at end of frame
 						if ( (buttonState & ControlButton) == 0 )
 						{
-							if ((b->CPos < len) && ((b->itemText.at(b->CPos)->ch.at(0).latin1() == 13) || (b->itemText.at(b->CPos)->ch.at(0).latin1() == 28)))
+							if ((currItem->CPos < len) && ((currItem->itemText.at(currItem->CPos)->ch.at(0).latin1() == 13) || (currItem->itemText.at(currItem->CPos)->ch.at(0).latin1() == 28)))
 							{
 								// at end of paragraph and therefore line
 								break;
 							}
-							QString nextCh = b->itemText.at(b->CPos)->ch;
-							int nextChs = b->itemText.at(b->CPos)->csize;
-							alty =  b->itemText.at(b->CPos)->yp - b->SetZeichAttr(b->itemText.at(b->CPos), &nextChs, &nextCh);
+							QString nextCh = currItem->itemText.at(currItem->CPos)->ch;
+							int nextChs = currItem->itemText.at(currItem->CPos)->csize;
+							alty =  currItem->itemText.at(currItem->CPos)->yp - currItem->SetZeichAttr(currItem->itemText.at(currItem->CPos), &nextChs, &nextCh);
 							double nextY;
-							while (b->CPos < len-1)
+							while (currItem->CPos < len-1)
 							{
-								nextCh = b->itemText.at(b->CPos+1)->ch;
-								nextChs = b->itemText.at(b->CPos+1)->csize;
-								nextY = b->itemText.at(b->CPos+1)->yp - b->SetZeichAttr(b->itemText.at(b->CPos+1), &nextChs, &nextCh);
+								nextCh = currItem->itemText.at(currItem->CPos+1)->ch;
+								nextChs = currItem->itemText.at(currItem->CPos+1)->csize;
+								nextY = currItem->itemText.at(currItem->CPos+1)->yp - currItem->SetZeichAttr(currItem->itemText.at(currItem->CPos+1), &nextChs, &nextCh);
 								if (fabs(nextY - alty) > 1.0)
 									break;
-								b->CPos++;
-								if ( b->CPos == len-1)
+								currItem->CPos++;
+								if ( currItem->CPos == len-1)
 									break;
 							}
-							if ( b->CPos < len -1 )
-								c = b->itemText.at(b->CPos+1)->ch.at(0).latin1();
-							else if ( b->CPos == len - 1 )
+							if ( currItem->CPos < len -1 )
+								c = currItem->itemText.at(currItem->CPos+1)->ch.at(0).latin1();
+							else if ( currItem->CPos == len - 1 )
 								c = 13;
 							else
 								c = 0;
 							if (( c == 13 ) || (c = 28))
-								b->CPos++;
+								currItem->CPos++;
 						}
 						else
 						{
 							// go to end of paragraph
-							if ( b->itemText.at(b->CPos)->ch.at(0).latin1() == 13 )
+							if ( currItem->itemText.at(currItem->CPos)->ch.at(0).latin1() == 13 )
 							{
 								break;
 							}
-							pos = b->CPos;
+							pos = currItem->CPos;
 							while ( pos < len )
 							{
-								if ( b->itemText.at(pos)->ch.at(0).latin1() == 13 )
+								if ( currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
 									break;
 								else
 									pos++;
 							}
-							b->CPos = pos;
+							currItem->CPos = pos;
 						}
 						if ( buttonState & ShiftButton )
-							view->ExpandSel(b, 1, oldPos);
+							view->ExpandSel(currItem, 1, oldPos);
 						break;
 					case Key_Down:
-						if (b->CPos != static_cast<int>(b->itemText.count()))
+						if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
 						{
-							alty = b->itemText.at(b->CPos)->yp;
-							altx = b->itemText.at(b->CPos)->xp;
+							alty = currItem->itemText.at(currItem->CPos)->yp;
+							altx = currItem->itemText.at(currItem->CPos)->xp;
 							do
 							{
-								b->CPos += 1;
-								if (b->CPos == static_cast<int>(b->itemText.count()))
+								currItem->CPos += 1;
+								if (currItem->CPos == static_cast<int>(currItem->itemText.count()))
 									break;
-								if (b->itemText.at(b->CPos)->yp > alty)
+								if (currItem->itemText.at(currItem->CPos)->yp > alty)
 								{
-									if (b->itemText.at(b->CPos)->xp >= altx)
+									if (currItem->itemText.at(currItem->CPos)->xp >= altx)
 										break;
 								}
 							}
-							while (b->CPos < static_cast<int>(b->itemText.count()));
+							while (currItem->CPos < static_cast<int>(currItem->itemText.count()));
 							if ( buttonState & ShiftButton )
 							{
 								if ( buttonState & AltButton )
-									b->CPos = b->itemText.count();
-								view->ExpandSel(b, 1, oldPos);
+									currItem->CPos = currItem->itemText.count();
+								view->ExpandSel(currItem, 1, oldPos);
 							}
 							else
-								if (b->CPos == static_cast<int>(b->itemText.count()))
-									if (b->NextBox != 0)
+								if (currItem->CPos == static_cast<int>(currItem->itemText.count()))
+									if (currItem->NextBox != 0)
 									{
-										if (b->NextBox->itemText.count() != 0)
+										if (currItem->NextBox->itemText.count() != 0)
 										{
 											view->Deselect(true);
-											b->NextBox->CPos = 0;
-											view->SelectItemNr(b->NextBox->ItemNr);
-											b = b->NextBox;
+											currItem->NextBox->CPos = 0;
+											view->SelectItemNr(currItem->NextBox->ItemNr);
+											currItem = currItem->NextBox;
 										}
 									}
 						}
 						else
 						{
-							if (b->NextBox != 0)
+							if (currItem->NextBox != 0)
 							{
-								if (b->NextBox->itemText.count() != 0)
+								if (currItem->NextBox->itemText.count() != 0)
 								{
 									view->Deselect(true);
-									b->NextBox->CPos = 0;
-									view->SelectItemNr(b->NextBox->ItemNr);
-									b = b->NextBox;
+									currItem->NextBox->CPos = 0;
+									view->SelectItemNr(currItem->NextBox->ItemNr);
+									currItem = currItem->NextBox;
 								}
 							}
 						}
-						if ( b->HasSel )
-							view->RefreshItem(b);
-						setTBvals(b);
+						if ( currItem->HasSel )
+							view->RefreshItem(currItem);
+						setTBvals(currItem);
 						break;
 					case Key_Up:
-						if (b->CPos > 0)
+						if (currItem->CPos > 0)
 						{
-							if (b->CPos == static_cast<int>(b->itemText.count()))
-								b->CPos -= 1;
-							alty = b->itemText.at(b->CPos)->yp;
-							altx = b->itemText.at(b->CPos)->xp;
-							if (b->CPos > 0)
+							if (currItem->CPos == static_cast<int>(currItem->itemText.count()))
+								currItem->CPos -= 1;
+							alty = currItem->itemText.at(currItem->CPos)->yp;
+							altx = currItem->itemText.at(currItem->CPos)->xp;
+							if (currItem->CPos > 0)
 							{
 								do
 								{
-									b->CPos -= 1;
-									if (b->CPos == 0)
+									currItem->CPos -= 1;
+									if (currItem->CPos == 0)
 										break;
-									if  ( b->itemText.at(b->CPos)->ch.at(0).latin1() == 13 )
+									if  ( currItem->itemText.at(currItem->CPos)->ch.at(0).latin1() == 13 )
 										break;
-									if (b->itemText.at(b->CPos)->yp < alty)
+									if (currItem->itemText.at(currItem->CPos)->yp < alty)
 									{
-										if (b->itemText.at(b->CPos)->xp <= altx)
+										if (currItem->itemText.at(currItem->CPos)->xp <= altx)
 											break;
 									}
 								}
-								while (b->CPos > 0);
+								while (currItem->CPos > 0);
 							}
 							if ( buttonState & ShiftButton )
 							{
 								if ( buttonState & AltButton )
-									b->CPos = 0;
-								view->ExpandSel(b, -1, oldPos);
+									currItem->CPos = 0;
+								view->ExpandSel(currItem, -1, oldPos);
 							}
 							else
-								if (b->CPos == 0)
+								if (currItem->CPos == 0)
 								{
-									if (b->BackBox != 0)
+									if (currItem->BackBox != 0)
 									{
 										view->Deselect(true);
-										b->BackBox->CPos = b->BackBox->itemText.count();
-										view->SelectItemNr(b->BackBox->ItemNr);
-										b = b->BackBox;
+										currItem->BackBox->CPos = currItem->BackBox->itemText.count();
+										view->SelectItemNr(currItem->BackBox->ItemNr);
+										currItem = currItem->BackBox;
 									}
 								}
 						}
 						else
 						{
-							b->CPos = 0;
-							if (b->BackBox != 0)
+							currItem->CPos = 0;
+							if (currItem->BackBox != 0)
 							{
 								view->Deselect(true);
-								b->BackBox->CPos = b->BackBox->itemText.count();
-								view->SelectItemNr(b->BackBox->ItemNr);
-								b = b->BackBox;
+								currItem->BackBox->CPos = currItem->BackBox->itemText.count();
+								view->SelectItemNr(currItem->BackBox->ItemNr);
+								currItem = currItem->BackBox;
 							}
 						}
-						if ( b->HasSel )
-							view->RefreshItem(b);
-						setTBvals(b);
+						if ( currItem->HasSel )
+							view->RefreshItem(currItem);
+						setTBvals(currItem);
 						break;
 					case Key_Prior:
-						b->CPos = 0;
+						currItem->CPos = 0;
 						if ( buttonState & ShiftButton )
-							view->ExpandSel(b, -1, oldPos);
-						setTBvals(b);
+							view->ExpandSel(currItem, -1, oldPos);
+						setTBvals(currItem);
 						break;
 					case Key_Next:
-						b->CPos = static_cast<int>(b->itemText.count());
+						currItem->CPos = static_cast<int>(currItem->itemText.count());
 						if ( buttonState & ShiftButton )
-							view->ExpandSel(b, 1, oldPos);
-						setTBvals(b);
+							view->ExpandSel(currItem, 1, oldPos);
+						setTBvals(currItem);
 						break;
 					case Key_Left:
 						if ( buttonState & ControlButton )
 						{
-							view->setNewPos(b, oldPos, b->itemText.count(),-1);
+							view->setNewPos(currItem, oldPos, currItem->itemText.count(),-1);
 							if ( buttonState & ShiftButton )
-								view->ExpandSel(b, -1, oldPos);
+								view->ExpandSel(currItem, -1, oldPos);
 						}
 						else if ( buttonState & ShiftButton )
 						{
-							b->CPos--;
-							if ( b->CPos < 0 )
-								b->CPos = 0;
+							currItem->CPos--;
+							if ( currItem->CPos < 0 )
+								currItem->CPos = 0;
 							else
-								view->ExpandSel(b, -1, oldPos);
+								view->ExpandSel(currItem, -1, oldPos);
 						}
 						else
 						{
-							b->CPos -= 1;
-							if (b->CPos < 0)
+							currItem->CPos -= 1;
+							if (currItem->CPos < 0)
 							{
-								b->CPos = 0;
-								if (b->BackBox != 0)
+								currItem->CPos = 0;
+								if (currItem->BackBox != 0)
 								{
 									view->Deselect(true);
-									b->BackBox->CPos = b->BackBox->itemText.count();
-									view->SelectItemNr(b->BackBox->ItemNr);
-									b = b->BackBox;
+									currItem->BackBox->CPos = currItem->BackBox->itemText.count();
+									view->SelectItemNr(currItem->BackBox->ItemNr);
+									currItem = currItem->BackBox;
 								}
 							}
 						}
-						if ((b->CPos > 0) && (b->CPos == static_cast<int>(b->itemText.count())))
+						if ((currItem->CPos > 0) && (currItem->CPos == static_cast<int>(currItem->itemText.count())))
 						{
-							if (b->itemText.at(b->CPos-1)->cstyle & 256)
+							if (currItem->itemText.at(currItem->CPos-1)->cstyle & 256)
 							{
-								b->CPos -= 1;
-								while ((b->CPos > 0) && (b->itemText.at(b->CPos)->cstyle & 256))
+								currItem->CPos -= 1;
+								while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 256))
 								{
-									b->CPos--;
-									if (b->CPos == 0)
+									currItem->CPos--;
+									if (currItem->CPos == 0)
 										break;
 								}
 							}
 						}
 						else
 						{
-							while ((b->CPos > 0) && (b->itemText.at(b->CPos)->cstyle & 256))
+							while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 256))
 							{
-								b->CPos--;
-								if (b->CPos == 0)
+								currItem->CPos--;
+								if (currItem->CPos == 0)
 									break;
 							}
 						}
-						if ( b->HasSel )
-							view->RefreshItem(b);
-						setTBvals(b);
+						if ( currItem->HasSel )
+							view->RefreshItem(currItem);
+						setTBvals(currItem);
 						break;
 					case Key_Right:
 						if ( buttonState & ControlButton )
 						{
-							view->setNewPos(b, oldPos, b->itemText.count(),1);
+							view->setNewPos(currItem, oldPos, currItem->itemText.count(),1);
 							if ( buttonState & ShiftButton )
-								view->ExpandSel(b, 1, oldPos);
+								view->ExpandSel(currItem, 1, oldPos);
 						}
 						else if ( buttonState & ShiftButton )
 						{
-							b->CPos++;
-							if ( b->CPos > static_cast<int>(b->itemText.count()) )
-								b->CPos--;
+							currItem->CPos++;
+							if ( currItem->CPos > static_cast<int>(currItem->itemText.count()) )
+								currItem->CPos--;
 							else
-								view->ExpandSel(b, 1, oldPos);
+								view->ExpandSel(currItem, 1, oldPos);
 						}
 						else
 						{
-							b->CPos += 1; // new position within text ?
-							if (b->CPos > static_cast<int>(b->itemText.count()))
+							currItem->CPos += 1; // new position within text ?
+							if (currItem->CPos > static_cast<int>(currItem->itemText.count()))
 							{
-								b->CPos -= 1;
-								if (b->NextBox != 0)
+								currItem->CPos -= 1;
+								if (currItem->NextBox != 0)
 								{
-									if (b->NextBox->itemText.count() != 0)
+									if (currItem->NextBox->itemText.count() != 0)
 									{
 										view->Deselect(true);
-										b->NextBox->CPos = 0;
-										view->SelectItemNr(b->NextBox->ItemNr);
-										b = b->NextBox;
+										currItem->NextBox->CPos = 0;
+										view->SelectItemNr(currItem->NextBox->ItemNr);
+										currItem = currItem->NextBox;
 									}
 								}
 							}
 						}
-						if ( b->HasSel )
-							view->RefreshItem(b);
-						setTBvals(b);
+						if ( currItem->HasSel )
+							view->RefreshItem(currItem);
+						setTBvals(currItem);
 						break;
 					case Key_Delete:
-						if (b->CPos == static_cast<int>(b->itemText.count()))
+						if (currItem->CPos == static_cast<int>(currItem->itemText.count()))
 						{
-							if (b->HasSel)
+							if (currItem->HasSel)
 							{
-								DeleteSel(b);
-								setTBvals(b);
-								view->RefreshItem(b);
+								DeleteSel(currItem);
+								setTBvals(currItem);
+								view->RefreshItem(currItem);
 							}
 							keyrep = false;
 							return;
 						}
-						if (b->itemText.count() == 0)
+						if (currItem->itemText.count() == 0)
 						{
 							keyrep = false;
 							return;
 						}
-						cr = b->itemText.at(b->CPos)->ch;
-						if (b->HasSel)
-							DeleteSel(b);
+						cr = currItem->itemText.at(currItem->CPos)->ch;
+						if (currItem->HasSel)
+							DeleteSel(currItem);
 						else
-							b->itemText.remove(b->CPos);
-						b->Tinput = false;
-						if ((cr == QChar(13)) && (b->itemText.count() != 0))
+							currItem->itemText.remove(currItem->CPos);
+						currItem->Tinput = false;
+						if ((cr == QChar(13)) && (currItem->itemText.count() != 0))
 						{
-							view->chAbStyle(b, b->itemText.at(QMAX(b->CPos-1,0))->cab);
-							b->Tinput = false;
+							view->chAbStyle(currItem, currItem->itemText.at(QMAX(currItem->CPos-1,0))->cab);
+							currItem->Tinput = false;
 						}
-						setTBvals(b);
-						view->RefreshItem(b);
+						setTBvals(currItem);
+						view->RefreshItem(currItem);
 						break;
 					case Key_Backspace:
-						if (b->CPos == 0)
+						if (currItem->CPos == 0)
 						{
-							if (b->HasSel)
+							if (currItem->HasSel)
 							{
-								DeleteSel(b);
-								setTBvals(b);
-								view->RefreshItem(b);
+								DeleteSel(currItem);
+								setTBvals(currItem);
+								view->RefreshItem(currItem);
 							}
 							break;
 						}
-						if (b->itemText.count() == 0)
+						if (currItem->itemText.count() == 0)
 							break;
-						cr = b->itemText.at(QMAX(b->CPos-1,0))->ch;
-						if (b->HasSel)
-							DeleteSel(b);
+						cr = currItem->itemText.at(QMAX(currItem->CPos-1,0))->ch;
+						if (currItem->HasSel)
+							DeleteSel(currItem);
 						else
 						{
-							b->CPos -= 1;
-							b->itemText.remove(b->CPos);
+							currItem->CPos -= 1;
+							currItem->itemText.remove(currItem->CPos);
 						}
-						b->Tinput = false;
-						if ((cr == QChar(13)) && (b->itemText.count() != 0))
+						currItem->Tinput = false;
+						if ((cr == QChar(13)) && (currItem->itemText.count() != 0))
 						{
-							view->chAbStyle(b, b->itemText.at(QMAX(b->CPos-1,0))->cab);
-							b->Tinput = false;
+							view->chAbStyle(currItem, currItem->itemText.at(QMAX(currItem->CPos-1,0))->cab);
+							currItem->Tinput = false;
 						}
-						setTBvals(b);
-						view->RefreshItem(b);
+						setTBvals(currItem);
+						view->RefreshItem(currItem);
 						break;
 					default:
-						if ((b->HasSel) && (kk < 0x1000))
-							DeleteSel(b);
+						if ((currItem->HasSel) && (kk < 0x1000))
+							DeleteSel(currItem);
 						if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
 						{
 							hg = new ScText;
@@ -2801,10 +2801,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->PRot = 0;
 							hg->PtransX = 0;
 							hg->PtransY = 0;
-							b->itemText.insert(b->CPos, hg);
-							b->CPos += 1;
-							b->Tinput = true;
-							view->RefreshItem(b);
+							currItem->itemText.insert(currItem->CPos, hg);
+							currItem->CPos += 1;
+							currItem->Tinput = true;
+							view->RefreshItem(currItem);
 							break;
 						}
 						if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
@@ -2832,15 +2832,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->PRot = 0;
 							hg->PtransX = 0;
 							hg->PtransY = 0;
-							b->itemText.insert(b->CPos, hg);
-							b->CPos += 1;
-							if ((doc->docHyphenator->AutoCheck) && (b->CPos > 1))
+							currItem->itemText.insert(currItem->CPos, hg);
+							currItem->CPos += 1;
+							if ((doc->docHyphenator->AutoCheck) && (currItem->CPos > 1))
 							{
 								Twort = "";
 								Tcoun = 0;
-								for (int hych = b->CPos-1; hych > -1; hych--)
+								for (int hych = currItem->CPos-1; hych > -1; hych--)
 								{
-									Tcha = b->itemText.at(hych)->ch;
+									Tcha = currItem->itemText.at(hych)->ch;
 									if (Tcha == " ")
 									{
 										Tcoun = hych+1;
@@ -2850,13 +2850,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 								if (Twort != "")
 								{
-									if (doc->docHyphenator->Language != b->Language)
-										doc->docHyphenator->slotNewDict(b->Language);
-									doc->docHyphenator->slotHyphenateWord(b, Twort, Tcoun);
+									if (doc->docHyphenator->Language != currItem->Language)
+										doc->docHyphenator->slotNewDict(currItem->Language);
+									doc->docHyphenator->slotHyphenateWord(currItem, Twort, Tcoun);
 								}
 							}
-							b->Tinput = true;
-							view->RefreshItem(b);
+							currItem->Tinput = true;
+							view->RefreshItem(currItem);
 						}
 						break;
 					}
@@ -3960,13 +3960,13 @@ void ScribusApp::HaveNewDoc()
 
 void ScribusApp::HaveNewSel(int Nr)
 {
-	PageItem *b = NULL;
+	PageItem *currItem = NULL;
 	if (Nr != -1)
 	{
 		if (view->SelItem.count() != 0)
 		{
-			b = view->SelItem.at(0);
-			if (!b)
+			currItem = view->SelItem.at(0);
+			if (!currItem)
 				Nr=-1;
 		}
 		else
@@ -4029,20 +4029,20 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->setMenuEnabled("ItemShapes", !(b->isTableItem && b->isSingleSel));
+		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		scrActions["itemConvertToPolygon"]->setEnabled(!b->isTableItem && doc->appMode != EditMode);
+		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != EditMode);
 		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != EditMode);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Color","Style");
-		if (b->isRaster)
+		if (currItem->isRaster)
 			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-		scrActions["toolsEditContents"]->setEnabled(b->ScaleType);
+		scrActions["toolsEditContents"]->setEnabled(currItem->ScaleType);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
@@ -4055,16 +4055,16 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
 		scrActions["editClear"]->setEnabled(false);
-		scrActions["editSearchReplace"]->setEnabled(b->itemText.count() != 0);
+		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.count() != 0);
 		scrActions["extrasHyphenateText"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		scrMenuMgr->setMenuEnabled("ItemShapes", !(b->isTableItem && b->isSingleSel));
+		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != EditMode);
-		scrActions["itemConvertToOutlines"]->setEnabled(!b->isTableItem && doc->appMode != EditMode);
-		scrActions["itemConvertToPolygon"]->setEnabled(!b->isTableItem && doc->appMode != EditMode);
+		scrActions["itemConvertToOutlines"]->setEnabled(!currItem->isTableItem && doc->appMode != EditMode);
+		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != EditMode);
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Font","Style");
@@ -4079,70 +4079,70 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		scrActions["insertSampleText"]->setEnabled(true);
-		if ((b->NextBox != 0) || (b->BackBox != 0))
+		if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
 		{
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
-			if ((b->BackBox != 0) && (b->itemText.count() == 0))
+			if ((currItem->BackBox != 0) && (currItem->itemText.count() == 0))
 				scrActions["toolsEditContents"]->setEnabled(false);
 			else
 				scrActions["toolsEditContents"]->setEnabled(true);
 		}
 		else
 			scrActions["toolsEditContents"]->setEnabled(true);
-		if (b->NextBox == 0)
+		if (currItem->NextBox == 0)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
 		if (doc->MasterP)
 			scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == EditMode)
 		{
-			setTBvals(b);
+			setTBvals(currItem);
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["insertGlyph"]->setEnabled(true);
 			//scrActions["specialSmartHyphen"]->setEnabled(true);
 			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			//scrActions["specialPageNumber"]->setEnabled(true);
 			setEnabledActionStringList(unicodeCharActionNames, true, true);
-			view->horizRuler->ItemPos = b->Xpos - doc->ScratchLeft;
-			view->horizRuler->ItemEndPos = b->Xpos+b->Width - doc->ScratchLeft;
-			if (b->lineColor() != "None")
-				view->horizRuler->lineCorr = b->Pwidth / 2.0;
+			view->horizRuler->ItemPos = currItem->Xpos - doc->ScratchLeft;
+			view->horizRuler->ItemEndPos = currItem->Xpos+currItem->Width - doc->ScratchLeft;
+			if (currItem->lineColor() != "None")
+				view->horizRuler->lineCorr = currItem->Pwidth / 2.0;
 			else
 				view->horizRuler->lineCorr = 0;
-			view->horizRuler->ColGap = b->ColGap;
-			view->horizRuler->Cols = b->Cols;
-			view->horizRuler->Extra = b->Extra;
-			view->horizRuler->RExtra = b->RExtra;
+			view->horizRuler->ColGap = currItem->ColGap;
+			view->horizRuler->Cols = currItem->Cols;
+			view->horizRuler->Extra = currItem->Extra;
+			view->horizRuler->RExtra = currItem->RExtra;
 			view->horizRuler->First = doc->docParagraphStyles[doc->currentParaStyle].First;
 			view->horizRuler->Indent = doc->docParagraphStyles[doc->currentParaStyle].Indent;
-			if (b->imageFlippedH() || (b->Reverse))
+			if (currItem->imageFlippedH() || (currItem->Reverse))
 				view->horizRuler->Revers = true;
 			else
 				view->horizRuler->Revers = false;
 			view->horizRuler->ItemPosValid = true;
 			view->horizRuler->repX = false;
 			if (doc->currentParaStyle < 5)
-				view->horizRuler->TabValues = b->TabValues;
+				view->horizRuler->TabValues = currItem->TabValues;
 			else
 				view->horizRuler->TabValues = doc->docParagraphStyles[doc->currentParaStyle].TabValues;
 			view->horizRuler->repaint();
 		}
 		else
 		{
-			doc->CurrFont = b->IFont;
-			doc->CurrFontSize = b->ISize;
-			doc->CurrTextFill = b->TxtFill;
-			doc->CurrTextStroke = b->TxtStroke;
-			doc->CurrTextStrokeSh = b->ShTxtStroke;
-			doc->CurrTextFillSh = b->ShTxtFill;
-			doc->CurrTextScale = b->TxtScale;
+			doc->CurrFont = currItem->IFont;
+			doc->CurrFontSize = currItem->ISize;
+			doc->CurrTextFill = currItem->TxtFill;
+			doc->CurrTextStroke = currItem->TxtStroke;
+			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
+			doc->CurrTextFillSh = currItem->ShTxtFill;
+			doc->CurrTextScale = currItem->TxtScale;
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
-			doc->CurrentStyle = b->TxTStyle;
+			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
 			emit TextScale(doc->CurrTextScale);
 			setStilvalue(doc->CurrentStyle);
 		}
-		doc->docParagraphStyles[0].LineSpa = b->LineSp;
-		doc->docParagraphStyles[0].textAlignment = b->textAlignment;
+		doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
+		doc->docParagraphStyles[0].textAlignment = currItem->textAlignment;
 		break;
 	case 8: //Path Text
 		scrActions["fileImportText"]->setEnabled(true);
@@ -4179,18 +4179,18 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == EditMode)
-			setTBvals(b);
+			setTBvals(currItem);
 		else
 		{
-			doc->CurrFont = b->IFont;
-			doc->CurrFontSize = b->ISize;
-			doc->CurrTextFill = b->TxtFill;
-			doc->CurrTextStroke = b->TxtStroke;
-			doc->CurrTextStrokeSh = b->ShTxtStroke;
-			doc->CurrTextFillSh = b->ShTxtFill;
-			doc->CurrTextScale = b->TxtScale;
+			doc->CurrFont = currItem->IFont;
+			doc->CurrFontSize = currItem->ISize;
+			doc->CurrTextFill = currItem->TxtFill;
+			doc->CurrTextStroke = currItem->TxtStroke;
+			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
+			doc->CurrTextFillSh = currItem->ShTxtFill;
+			doc->CurrTextScale = currItem->TxtScale;
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
-			doc->CurrentStyle = b->TxTStyle;
+			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
 			emit TextScale(doc->CurrTextScale);
 			setStilvalue(doc->CurrentStyle);
@@ -4248,8 +4248,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		bool hPoly = true;
 		bool isGroup = true;
 		int firstElem = -1;
-		if (b->Groups.count() != 0)
-			firstElem = b->Groups.top();
+		if (currItem->Groups.count() != 0)
+			firstElem = currItem->Groups.top();
 		for (uint bx=0; bx<view->SelItem.count(); ++bx)
 		{
 			if (view->SelItem.at(bx)->itemType() != PageItem::Polygon)
@@ -4266,10 +4266,10 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
 		if (view->SelItem.count() == 2)
 		{
-			if (((b->itemType() == PageItem::TextFrame) || (view->SelItem.at(1)->itemType() == PageItem::TextFrame)) && ((b->itemType() == PageItem::PolyLine) || (view->SelItem.at(1)->itemType() == PageItem::PolyLine)))
+			if (((currItem->itemType() == PageItem::TextFrame) || (view->SelItem.at(1)->itemType() == PageItem::TextFrame)) && ((currItem->itemType() == PageItem::PolyLine) || (view->SelItem.at(1)->itemType() == PageItem::PolyLine)))
 			{
 				PageItem* bx = view->SelItem.at(1);
-				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (b->Groups.count() == 0))
+				if ((currItem->NextBox == 0) && (currItem->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (currItem->Groups.count() == 0))
 					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
 
@@ -4284,17 +4284,17 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	if (view->SelItem.count() != 0)
 	{
-		propertiesPalette->textFlowsAroundFrame->setChecked(b->textFlowsAroundFrame());
+		propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
-		if (b->Groups.count() != 0)
+		if (currItem->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);
 		else
 		{
 			scrActions["itemUngroup"]->setEnabled(false);
-			scrActions["itemSplitPolygons"]->setEnabled( (b->itemType() == PageItem::Polygon) && (b->Segments.count() != 0) );
+			scrActions["itemSplitPolygons"]->setEnabled( (currItem->itemType() == PageItem::Polygon) && (currItem->Segments.count() != 0) );
 		}
-		if (b->locked())
+		if (currItem->locked())
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", false);
 			scrActions["itemAlignDist"]->setEnabled(false);
@@ -4319,7 +4319,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		}
 		else
 		{
-			bool setter=!(b->isTableItem && b->isSingleSel);
+			bool setter=!(currItem->isTableItem && currItem->isSingleSel);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(setter);
@@ -4328,20 +4328,20 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemRaise"]->setEnabled(setter);
 			scrActions["itemLower"]->setEnabled(setter);
 		}
-		scrActions["itemLock"]->setOn(b->locked());
-		scrActions["itemLockSize"]->setOn(b->sizeLocked());
+		scrActions["itemLock"]->setOn(currItem->locked());
+		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
 	}
 	propertiesPalette->NewSel(Nr);
 	if (Nr != -1)
 	{
-		propertiesPalette->SetCurItem(b);
-		outlinePalette->slotShowSelect(b->OwnPage, b->ItemNr);
-		if (b->FrameType == 0)
+		propertiesPalette->SetCurItem(currItem);
+		outlinePalette->slotShowSelect(currItem->OwnPage, currItem->ItemNr);
+		if (currItem->FrameType == 0)
 			SCustom->setPixmap(SCustom->getIconPixmap(0));
-		if (b->FrameType == 1)
+		if (currItem->FrameType == 1)
 			SCustom->setPixmap(SCustom->getIconPixmap(1));
-		if (b->FrameType > 3)
-			SCustom->setPixmap(SCustom->getIconPixmap(b->FrameType-2));
+		if (currItem->FrameType > 3)
+			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
 	}
 }
 
@@ -4377,9 +4377,9 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 	*/
 	if (view->SelItem.count() != 0)
 	{
-		PageItem* b = view->SelItem.at(0);
-		scrActions["itemLock"]->setOn(b->locked());
-		scrActions["itemLockSize"]->setOn(b->sizeLocked());
+		PageItem *currItem = view->SelItem.at(0);
+		scrActions["itemLock"]->setOn(currItem->locked());
+		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
 	}
 }
 
@@ -5041,8 +5041,8 @@ void ScribusApp::slotFileOpen()
 {
 	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = view->SelItem.at(0);
-		if (b->itemType() == PageItem::ImageFrame)
+		PageItem *currItem = view->SelItem.at(0);
+		if (currItem->itemType() == PageItem::ImageFrame)
 		{
 			QString formats = "";
 			QString formatD = tr("All Supported Formats")+" (";
@@ -5088,16 +5088,16 @@ void ScribusApp::slotFileOpen()
 			if (!fileName.isEmpty())
 			{
 				dirs->set("images", fileName.left(fileName.findRev("/")));
-				b->EmProfile = "";
-				b->imgInfo.isRequest = false;
-				b->UseEmbedded = true;
-				b->IProfile = doc->CMSSettings.DefaultInputProfile;
-				b->IRender = doc->CMSSettings.DefaultIntentMonitor2;
+				currItem->EmProfile = "";
+				currItem->imgInfo.isRequest = false;
+				currItem->UseEmbedded = true;
+				currItem->IProfile = doc->CMSSettings.DefaultInputProfile;
+				currItem->IRender = doc->CMSSettings.DefaultIntentMonitor2;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-				view->LoadPict(fileName, b->ItemNr);
-				view->AdjustPictScale(b, false);
-				view->AdjustPreview(b, false);
+				view->LoadPict(fileName, currItem->ItemNr);
+				view->AdjustPictScale(currItem, false);
+				view->AdjustPreview(currItem, false);
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
@@ -5107,13 +5107,13 @@ void ScribusApp::slotFileOpen()
 				slotDocCh();
 			}
 		}
-		if (b->itemType() == PageItem::TextFrame)
+		if (currItem->itemType() == PageItem::TextFrame)
 		{
 			gtGetText* gt = new gtGetText();
 			gt->run(false);
 			delete gt;
 			if (doc->docHyphenator->AutoCheck)
-				doc->docHyphenator->slotHyphenate(b);
+				doc->docHyphenator->slotHyphenate(currItem);
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -5314,9 +5314,9 @@ bool ScribusApp::DoFileClose()
 	disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
 	for (uint a = 0; a < doc->Items.count(); ++a)
 	{
-		PageItem *b = doc->Items.at(a);
-		if (b->PicAvail)
-			fileWatcher->removeFile(b->Pfile);
+		PageItem *currItem = doc->Items.at(a);
+		if (currItem->PicAvail)
+			fileWatcher->removeFile(currItem->Pfile);
 	}
 	if (CMSavail)
 		doc->CloseCMSProfiles();
@@ -5642,61 +5642,61 @@ void ScribusApp::slotEditCut()
 											  view->SelItem.at(0)->getUPixmap(), Um::Cut, "", Um::ICut);
 		}
 		Buffer2 = "<SCRIBUSTEXT>";
-		PageItem *b = view->SelItem.at(0);
+		PageItem *currItem = view->SelItem.at(0);
 		if (doc->appMode == EditMode)
 		{
-			if ((b->itemText.count() == 0) || (!b->HasSel))
+			if ((currItem->itemText.count() == 0) || (!currItem->HasSel))
 				return;
-			PageItem *nb = b;
-			while (nb != 0)
+			PageItem *nextItem = currItem;
+			while (nextItem != 0)
 			{
-				if (nb->BackBox != 0)
-					nb = nb->BackBox;
+				if (nextItem->BackBox != 0)
+					nextItem = nextItem->BackBox;
 				else
 					break;
 			}
-			while (nb != 0)
+			while (nextItem != 0)
 			{
-				for (a = 0; a < nb->itemText.count(); ++a)
+				for (a = 0; a < nextItem->itemText.count(); ++a)
 				{
-					if (nb->itemText.at(a)->cselect)
+					if (nextItem->itemText.at(a)->cselect)
 					{
-						if (nb->itemText.at(a)->ch == QChar(13))
+						if (nextItem->itemText.at(a)->ch == QChar(13))
 						{
 							Buffer2 += QChar(5);
 							BufferI += QChar(10);
 						}
-						else if (nb->itemText.at(a)->ch == QChar(9))
+						else if (nextItem->itemText.at(a)->ch == QChar(9))
 						{
 							Buffer2 += QChar(4);
 							BufferI += QChar(9);
 						}
 						else
 						{
-							Buffer2 += nb->itemText.at(a)->ch;
-							BufferI += nb->itemText.at(a)->ch;
+							Buffer2 += nextItem->itemText.at(a)->ch;
+							BufferI += nextItem->itemText.at(a)->ch;
 						}
 						Buffer2 += "\t";
-						Buffer2 += nb->itemText.at(a)->cfont->SCName+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->csize)+"\t";
-						Buffer2 += nb->itemText.at(a)->ccolor+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cextra)+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cshade)+'\t';
-						Buffer2 += QString::number(nb->itemText.at(a)->cstyle)+'\t';
-						Buffer2 += QString::number(nb->itemText.at(a)->cab)+'\t';
-						Buffer2 += nb->itemText.at(a)->cstroke+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cshade2)+'\t';
-						Buffer2 += QString::number(nb->itemText.at(a)->cscale)+'\n';
+						Buffer2 += nextItem->itemText.at(a)->cfont->SCName+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->csize)+"\t";
+						Buffer2 += nextItem->itemText.at(a)->ccolor+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cextra)+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cstyle)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cab)+'\t';
+						Buffer2 += nextItem->itemText.at(a)->cstroke+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+'\n';
 					}
 				}
-				DeleteSel(nb);
-				nb = nb->NextBox;
+				DeleteSel(nextItem);
+				nextItem = nextItem->NextBox;
 			}
-			view->RefreshItem(b);
+			view->RefreshItem(currItem);
 		}
 		else
 		{
-			if (b->isTableItem && b->isSingleSel)
+			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&view->SelItem, doc, view);
@@ -5720,58 +5720,58 @@ void ScribusApp::slotEditCopy()
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
 		Buffer2 = "<SCRIBUSTEXT>";
-		PageItem *b = view->SelItem.at(0);
-		if ((doc->appMode == EditMode) && (b->HasSel))
+		PageItem *currItem = view->SelItem.at(0);
+		if ((doc->appMode == EditMode) && (currItem->HasSel))
 		{
 			Buffer2 += "";
-			PageItem *nb = b;
-			while (nb != 0)
+			PageItem *nextItem = currItem;
+			while (nextItem != 0)
 			{
-				if (nb->BackBox != 0)
-					nb = nb->BackBox;
+				if (nextItem->BackBox != 0)
+					nextItem = nextItem->BackBox;
 				else
 					break;
 			}
-			while (nb != 0)
+			while (nextItem != 0)
 			{
-				for (a = 0; a < nb->itemText.count(); ++a)
+				for (a = 0; a < nextItem->itemText.count(); ++a)
 				{
-					if (nb->itemText.at(a)->cselect)
+					if (nextItem->itemText.at(a)->cselect)
 					{
-						if (nb->itemText.at(a)->ch == QChar(13))
+						if (nextItem->itemText.at(a)->ch == QChar(13))
 						{
 							Buffer2 += QChar(5);
 							BufferI += QChar(10);
 						}
-						else if (nb->itemText.at(a)->ch == QChar(9))
+						else if (nextItem->itemText.at(a)->ch == QChar(9))
 						{
 							Buffer2 += QChar(4);
 							BufferI += QChar(9);
 						}
 						else
 						{
-							Buffer2 += nb->itemText.at(a)->ch;
-							BufferI += nb->itemText.at(a)->ch;
+							Buffer2 += nextItem->itemText.at(a)->ch;
+							BufferI += nextItem->itemText.at(a)->ch;
 						}
 						Buffer2 += "\t";
-						Buffer2 += nb->itemText.at(a)->cfont->SCName+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->csize)+"\t";
-						Buffer2 += nb->itemText.at(a)->ccolor+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cextra)+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cshade)+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cstyle)+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cab)+"\t";
-						Buffer2 += nb->itemText.at(a)->cstroke+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cshade2)+"\t";
-						Buffer2 += QString::number(nb->itemText.at(a)->cscale)+"\n";
+						Buffer2 += nextItem->itemText.at(a)->cfont->SCName+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->csize)+"\t";
+						Buffer2 += nextItem->itemText.at(a)->ccolor+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cextra)+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade)+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cstyle)+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cab)+"\t";
+						Buffer2 += nextItem->itemText.at(a)->cstroke+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+"\t";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\n";
 					}
 				}
-				nb = nb->NextBox;
+				nextItem = nextItem->NextBox;
 			}
 		}
 		else
 		{
-			if (b->isTableItem && b->isSingleSel)
+			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&view->SelItem, doc, view);
@@ -5794,9 +5794,9 @@ void ScribusApp::slotEditPaste()
 			return;
 		if (doc->appMode == EditMode)
 		{
-			PageItem *b = view->SelItem.at(0);
-			if (b->HasSel)
-				DeleteSel(b);
+			PageItem *currItem = view->SelItem.at(0);
+			if (currItem->HasSel)
+				DeleteSel(currItem);
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
 			{
 				QString Buf = Buffer2.mid(13);
@@ -5845,8 +5845,8 @@ void ScribusApp::slotEditPaste()
 						hg->cscale = 100;
 					else
 						hg->cscale = (*it).toInt();
-					b->itemText.insert(b->CPos, hg);
-					b->CPos += 1;
+					currItem->itemText.insert(currItem->CPos, hg);
+					currItem->CPos += 1;
 					hg->PRot = 0;
 					hg->PtransX = 0;
 					hg->PtransY = 0;
@@ -5858,14 +5858,14 @@ void ScribusApp::slotEditPaste()
 				ss->Objekt = Buffer2;
 				int st = doc->currentParaStyle;
 				if (st > 5)
-					ss->GetText(b, st, doc->docParagraphStyles[st].Font, doc->docParagraphStyles[st].FontSize, true);
+					ss->GetText(currItem, st, doc->docParagraphStyles[st].Font, doc->docParagraphStyles[st].FontSize, true);
 				else
-					ss->GetText(b, st, b->IFont, b->ISize, true);
+					ss->GetText(currItem, st, currItem->IFont, currItem->ISize, true);
 				delete ss;
 				if (doc->docHyphenator->AutoCheck)
-					doc->docHyphenator->slotHyphenate(b);
+					doc->docHyphenator->slotHyphenate(currItem);
 			}
-			view->RefreshItem(b);
+			view->RefreshItem(currItem);
 		}
 		else
 		{
@@ -5888,42 +5888,42 @@ void ScribusApp::SelectAll()
 {
 	if (doc->appMode == EditMode)
 	{
-		PageItem *b = view->SelItem.at(0);
-		PageItem *nb = b;
-		while (nb != 0)
+		PageItem *currItem = view->SelItem.at(0);
+		PageItem *nextItem = currItem;
+		while (nextItem != 0)
 		{
-			if (nb->BackBox != 0)
-				nb = nb->BackBox;
+			if (nextItem->BackBox != 0)
+				nextItem = nextItem->BackBox;
 			else
 				break;
 		}
-		while (nb != 0)
+		while (nextItem != 0)
 		{
-			for (uint a = 0; a < nb->itemText.count(); ++a)
+			for (uint a = 0; a < nextItem->itemText.count(); ++a)
 			{
-				nb->itemText.at(a)->cselect = true;
-				nb->HasSel = true;
+				nextItem->itemText.at(a)->cselect = true;
+				nextItem->HasSel = true;
 			}
-			nb = nb->NextBox;
+			nextItem = nextItem->NextBox;
 		}
 		view->DrawNew();
 		EnableTxEdit();
 	}
 	else
 	{
-		PageItem *b;
+		PageItem *currItem;
 		view->Deselect();
 		for (uint a = 0; a < doc->Items.count(); ++a)
 		{
-			b = doc->Items.at(a);
-			if (b->LayerNr == doc->ActiveLayer)
+			currItem = doc->Items.at(a);
+			if (currItem->LayerNr == doc->ActiveLayer)
 			{
-				if (!b->Select)
+				if (!currItem->Select)
 				{
-					view->SelItem.append(b);
-					b->Select = true;
-					b->FrameOnly = true;
-					b->paintObj();
+					view->SelItem.append(currItem);
+					currItem->Select = true;
+					currItem->FrameOnly = true;
+					currItem->paintObj();
 				}
 			}
 		}
@@ -5938,9 +5938,9 @@ void ScribusApp::SelectAll()
 		}
 		if (view->SelItem.count() > 0)
 		{
-			b = view->SelItem.at(0);
-			view->EmitValues(b);
-			HaveNewSel(b->itemType());
+			currItem = view->SelItem.at(0);
+			view->EmitValues(currItem);
+			HaveNewSel(currItem->itemType());
 		}
 	}
 }
@@ -5986,25 +5986,25 @@ void ScribusApp::ClipChange()
 
 void ScribusApp::DeleteText()
 {
-	PageItem *b = view->SelItem.at(0);
-	PageItem *nb = b;
-	while (nb != 0)
+	PageItem *currItem = view->SelItem.at(0);
+	PageItem *nextItem = currItem;
+	while (nextItem != 0)
 	{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
+		if (nextItem->BackBox != 0)
+			nextItem = nextItem->BackBox;
 		else
 			break;
 	}
-	while (nb != 0)
+	while (nextItem != 0)
 	{
-		for (uint a = 0; a < nb->itemText.count(); ++a)
+		for (uint a = 0; a < nextItem->itemText.count(); ++a)
 		{
-			DeleteSel(nb);
-			nb->CPos = 0;
+			DeleteSel(nextItem);
+			nextItem->CPos = 0;
 		}
-		nb = nb->NextBox;
+		nextItem = nextItem->NextBox;
 	}
-	view->RefreshItem(b);
+	view->RefreshItem(currItem);
 	slotDocCh();
 }
 
@@ -6525,11 +6525,11 @@ void ScribusApp::ToggleFrameEdit()
 		scrActions["itemDelete"]->setEnabled(false);
 		if (view->SelItem.count() != 0)
 		{
-			PageItem* b = view->SelItem.at(0);
-			view->MarkClip(b);
-			nodePalette->EditCont->setEnabled(b->ContourLine.size() != 0);
+			PageItem *currItem = view->SelItem.at(0);
+			view->MarkClip(currItem);
+			nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
 			nodePalette->ResetCont->setEnabled(false);
-			nodePalette->PolyStatus(b->itemType(), b->PoLine.size());
+			nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
 		}
 	}
 	scrActions["itemShapeEdit"]->setOn(doc->EditClip);
@@ -6613,15 +6613,15 @@ void ScribusApp::setAppMode(int mode)
 	scrActions["toolsEyeDropper"]->setOn(mode==EyeDropper);
 	scrActions["toolsCopyProperties"]->setOn(mode==CopyProperties);
 		
-	PageItem *b;
+	PageItem *currItem;
 	setActiveWindow();
 	//qDebug(QString("::setAppMode(%1)").arg(mode));
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
-			b = view->SelItem.at(0);
+			currItem = view->SelItem.at(0);
 		else
-			b = 0;
+			currItem = 0;
 		int oldMode = doc->appMode;
 		doc->appMode = mode;
 		if (oldMode == MeasurementTool)
@@ -6645,9 +6645,9 @@ void ScribusApp::setAppMode(int mode)
 			scrActions["editClear"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(false);
 			view->slotDoCurs(false);
-			if (b != 0)
+			if (currItem != 0)
 			{
-				view->RefreshItem(b);
+				view->RefreshItem(currItem);
 				scrMenuMgr->setMenuEnabled("Style", true);
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
@@ -6659,15 +6659,15 @@ void ScribusApp::setAppMode(int mode)
 		{
 			view->LE->setFocusPolicy(QWidget::NoFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::NoFocus);
-			if (b != 0)
+			if (currItem != 0)
 			{
-				if ((b->itemType() == PageItem::Polygon) || (b->itemType() == PageItem::PolyLine) || (b->itemType() == PageItem::PathText))
+				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))
 				{
 					doc->appMode = 1;
 					ToggleFrameEdit();
 					return;
 				}
-				setTBvals(b);
+				setTBvals(currItem);
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
@@ -6692,14 +6692,14 @@ void ScribusApp::setAppMode(int mode)
 				connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
 				doc->CurTimer->start(500);
 			}
-			if (b != 0)
+			if (currItem != 0)
 			{
-				scrActions["editCut"]->setEnabled(b->HasSel);
-				scrActions["editCopy"]->setEnabled(b->HasSel);
-				scrActions["editClear"]->setEnabled(b->HasSel);
+				scrActions["editCut"]->setEnabled(currItem->HasSel);
+				scrActions["editCopy"]->setEnabled(currItem->HasSel);
+				scrActions["editClear"]->setEnabled(currItem->HasSel);
 				scrActions["editSearchReplace"]->setEnabled(true);
 
-				view->RefreshItem(b);
+				view->RefreshItem(currItem);
 			}
 		}
 		if (mode == DrawBezierLine)
@@ -7176,8 +7176,8 @@ void ScribusApp::SetNewFont(QString nf)
 		{
 			if (view->SelItem.count() != 0)
 			{
-				PageItem *b = view->SelItem.at(0);
-				nf2 = b->IFont;
+				PageItem *currItem = view->SelItem.at(0);
+				nf2 = currItem->IFont;
 			}
 			propertiesPalette->Fonts->RebuildList(&Prefs, doc);
 			buildFontMenu();
@@ -7232,8 +7232,8 @@ void ScribusApp::setItemFarbe(int id)
 {
 	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = view->SelItem.at(0);
-		if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
+		PageItem *currItem = view->SelItem.at(0);
+		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 			view->ItemTextBrush(ColorMenC->text(id));
 		else
 			view->ItemBrush(ColorMenC->text(id));
@@ -7248,10 +7248,10 @@ void ScribusApp::setItemShade(int id)
 	bool ok = false;
 	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = view->SelItem.at(0);
+		PageItem *currItem = view->SelItem.at(0);
 		if (c != -1)
 		{
-			if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
+			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				view->ItemTextBrushS(c);
 			else
 				view->ItemBrushShade(c);
@@ -7264,7 +7264,7 @@ void ScribusApp::setItemShade(int id)
 				c = dia->getEditText().toInt(&ok);
 				if (ok)
 				{
-					if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
+					if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 						view->ItemTextBrushS(c);
 					else
 						view->ItemBrushShade(c);
@@ -7281,21 +7281,21 @@ void ScribusApp::setCSMenu(QString , QString l, int  , int ls)
 	uint a;
 	QString la;
 	int lb;
-	PageItem *b;
+	PageItem *currItem;
 	if (view->SelItem.count() != 0)
 	{
-		b = view->SelItem.at(0);
-		if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
+		currItem = view->SelItem.at(0);
+		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 		{
-			if ((doc->appMode == EditMode) && (b->itemText.count() != 0))
+			if ((doc->appMode == EditMode) && (currItem->itemText.count() != 0))
 			{
-				la = b->itemText.at(QMIN(b->CPos, static_cast<int>(b->itemText.count()-1)))->ccolor;
-				lb = b->itemText.at(QMIN(b->CPos, static_cast<int>(b->itemText.count()-1)))->cshade;
+				la = currItem->itemText.at(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.count()-1)))->ccolor;
+				lb = currItem->itemText.at(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.count()-1)))->cshade;
 			}
 			else
 			{
-				la = b->TxtFill;
-				lb = b->ShTxtFill;
+				la = currItem->TxtFill;
+				lb = currItem->ShTxtFill;
 			}
 		}
 		else
@@ -7637,8 +7637,8 @@ void ScribusApp::setNewAbStyle(int a)
 		view->SetAbStyle(a);
 		doc->currentParaStyle = a;
 		propertiesPalette->setAli(a);
-		PageItem *b = view->SelItem.at(0);
-		setTBvals(b);
+		PageItem *currItem = view->SelItem.at(0);
+		setTBvals(currItem);
 		slotDocCh();
 	}
 }
@@ -7828,9 +7828,9 @@ void ScribusApp::updtGradFill()
 	{
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = view->SelItem.at(0);
-			b->fill_gradient = propertiesPalette->Cpal->gradEdit->Preview->fill_gradient;
-			view->RefreshItem(b);
+			PageItem *currItem = view->SelItem.at(0);
+			currItem->fill_gradient = propertiesPalette->Cpal->gradEdit->Preview->fill_gradient;
+			view->RefreshItem(currItem);
 			slotDocCh();
 		}
 	}
@@ -7848,22 +7848,22 @@ void ScribusApp::GetBrushPen()
 
 void ScribusApp::MakeFrame(int f, int c, double *vals)
 {
-	PageItem *b = view->SelItem.at(0);
+	PageItem *currItem = view->SelItem.at(0);
 	switch (f)
 	{
 	case 0:
-		view->SetRectFrame(b);
+		view->SetRectFrame(currItem);
 		break;
 	case 1:
-		view->SetOvalFrame(b);
+		view->SetOvalFrame(currItem);
 		break;
 	default:
-		view->SetFrameShape(b, c, vals);
-		b->FrameType = f+2;
+		view->SetFrameShape(currItem, c, vals);
+		currItem->FrameType = f+2;
 		break;
 	}
-	propertiesPalette->SetCurItem(b);
-	view->RefreshItem(b);
+	propertiesPalette->SetCurItem(currItem);
+	view->RefreshItem(currItem);
 	slotDocCh();
 }
 
@@ -7980,29 +7980,29 @@ void ScribusApp::SelectFromOutl(int Page, int Item, bool single)
 	view->SelectItemNr(Item, true, single);
 	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = view->SelItem.at(0);
+		PageItem *currItem = view->SelItem.at(0);
 	 // jjsa 23-05-2004 added for centering of rotated objects
-		if ( b->Rot != 0.0 )
+		if ( currItem->Rot != 0.0 )
 		{
-			double y1 = sin(b->Rot/180.*M_PI) * b->Width;
-			double x1 = cos(b->Rot/180.*M_PI) * b->Width;
-			double y2 = sin((b->Rot+90.)/180*M_PI) * b->Height;
-			double x2 = cos((b->Rot+90.)/180*M_PI) * b->Height;
-			double mx = b->Xpos + ((x1 + x2)/2.0);
-			double my = b->Ypos + ((y1 + y2)/2.0);
-			if ((qRound((b->Xpos + QMAX(x1, x2)) * view->Scale) > view->contentsWidth()) ||
-				(qRound((b->Ypos + QMAX(y1, y2)) * view->Scale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((b->Xpos + QMAX(x1, x2)) * view->Scale), view->contentsWidth()),
-														  QMAX(qRound((b->Ypos + QMAX(y1, y2)) * view->Scale), view->contentsHeight()));
+			double y1 = sin(currItem->Rot/180.*M_PI) * currItem->Width;
+			double x1 = cos(currItem->Rot/180.*M_PI) * currItem->Width;
+			double y2 = sin((currItem->Rot+90.)/180*M_PI) * currItem->Height;
+			double x2 = cos((currItem->Rot+90.)/180*M_PI) * currItem->Height;
+			double mx = currItem->Xpos + ((x1 + x2)/2.0);
+			double my = currItem->Ypos + ((y1 + y2)/2.0);
+			if ((qRound((currItem->Xpos + QMAX(x1, x2)) * view->Scale) > view->contentsWidth()) ||
+				(qRound((currItem->Ypos + QMAX(y1, y2)) * view->Scale) > view->contentsHeight()))
+				view->resizeContents(QMAX(qRound((currItem->Xpos + QMAX(x1, x2)) * view->Scale), view->contentsWidth()),
+														  QMAX(qRound((currItem->Ypos + QMAX(y1, y2)) * view->Scale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
 		}
 		else
 		{
-			if ((qRound((b->Xpos + b->Width) * view->Scale) > view->contentsWidth()) ||
-				(qRound((b->Ypos + b->Height) * view->Scale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((b->Xpos + b->Width) * view->Scale), view->contentsWidth()),
-														  QMAX(qRound((b->Ypos + b->Height) * view->Scale), view->contentsHeight()));
-			view->SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
+			if ((qRound((currItem->Xpos + currItem->Width) * view->Scale) > view->contentsWidth()) ||
+				(qRound((currItem->Ypos + currItem->Height) * view->Scale) > view->contentsHeight()))
+				view->resizeContents(QMAX(qRound((currItem->Xpos + currItem->Width) * view->Scale), view->contentsWidth()),
+														  QMAX(qRound((currItem->Ypos + currItem->Height) * view->Scale), view->contentsHeight()));
+			view->SetCCPo(static_cast<int>(currItem->Xpos + currItem->Width/2), static_cast<int>(currItem->Ypos + currItem->Height/2));
 		}
 	}
 }
@@ -9212,7 +9212,7 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 			undoManager->action(doc->Pages.at(Snr), ss);
 		}
 	}
-	PageItem* b;
+	PageItem *currItem;
 	QString mna = in;
 	if (mna == tr("Normal"))
 		mna = "Normal";
@@ -9222,19 +9222,19 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 	Ap->MPageNam = mna;
 	int MpNr = doc->MasterNames[mna];
 	Page* Mp = doc->MasterPages.at(MpNr);
-	for (b = Ap->FromMaster.first(); b; b = Ap->FromMaster.next())
+	for (currItem = Ap->FromMaster.first(); currItem; currItem = Ap->FromMaster.next())
 	{
-		if (b->ChangedMasterItem)
+		if (currItem->ChangedMasterItem)
 		{
-			Ap->FromMaster.remove(b);
-			delete b;
+			Ap->FromMaster.remove(currItem);
+			delete currItem;
 		}
 	}
 	Ap->FromMaster.clear();
-	for (b = doc->MasterItems.first(); b; b = doc->MasterItems.next())
+	for (currItem = doc->MasterItems.first(); currItem; currItem = doc->MasterItems.next())
 	{
-		if (b->OwnPage == MpNr)
-			Ap->FromMaster.append(b);
+		if (currItem->OwnPage == MpNr)
+			Ap->FromMaster.append(currItem);
 	}
 	if (Mp->YGuides.count() != 0)
 	{
@@ -9266,7 +9266,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 {
 	if (HaveDoc)
 	{
-		PageItem* b;
+		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
 		int t = -1; // show locked dialog only once
@@ -9289,8 +9289,8 @@ void ScribusApp::GroupObj(bool showLockDia)
 
 			for (uint a=0; a<view->SelItem.count(); ++a)
 			{
-				b = view->SelItem.at(a);
-				if (b->locked())
+				currItem = view->SelItem.at(a);
+				if (currItem->locked())
 				{
 					for (uint c=0; c<view->SelItem.count(); ++c)
 					{
@@ -9298,7 +9298,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 						bool t1=(t==1);
 						bb->setLocked(t1);
 						scrActions["itemLock"]->setOn(t1);
-						tooltip += "\t" + b->getUName() + "\n";
+						tooltip += "\t" + currItem->getUName() + "\n";
 					}
 				}
 			}
@@ -9311,9 +9311,9 @@ void ScribusApp::GroupObj(bool showLockDia)
 
 		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
-			b = view->SelItem.at(a);
-			b->Groups.push(doc->GroupCounter);
-			ss->set(QString("item%1").arg(a), b->ItemNr);
+			currItem = view->SelItem.at(a);
+			currItem->Groups.push(doc->GroupCounter);
+			ss->set(QString("item%1").arg(a), currItem->ItemNr);
 
 		}
 		doc->GroupCounter++;
@@ -9336,18 +9336,18 @@ void ScribusApp::UnGroupObj()
 		ss->set("UNGROUP", "ungroup");
 		ss->set("itemcount", view->SelItem.count());
 		QString tooltip = Um::ItemsInvolved + "\n";
-		PageItem* b;
+		PageItem *currItem;
 		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
-			b = view->SelItem.at(a);
-			b->Groups.pop();
-			b->isTableItem = false;
-			b->LeftLink = 0;
-			b->RightLink = 0;
-			b->TopLink = 0;
-			b->BottomLink = 0;
-			ss->set(QString("item%1").arg(a), b->ItemNr);
-			tooltip += "\t" + b->getUName() + "\n";
+			currItem = view->SelItem.at(a);
+			currItem->Groups.pop();
+			currItem->isTableItem = false;
+			currItem->LeftLink = 0;
+			currItem->RightLink = 0;
+			currItem->TopLink = 0;
+			currItem->BottomLink = 0;
+			ss->set(QString("item%1").arg(a), currItem->ItemNr);
+			tooltip += "\t" + currItem->getUName() + "\n";
 		}
 		outlinePalette->BuildTree(doc);
 		slotDocCh();
@@ -9700,28 +9700,28 @@ void ScribusApp::ModifyAnnot()
 {
 	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = view->SelItem.at(0);
-		if ((b->AnType == 0) || (b->AnType == 1) || (b->AnType > 9))
+		PageItem *currItem = view->SelItem.at(0);
+		if ((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9))
 		{
-			int AnType = b->AnType;
-			int AnActType = b->AnActType;
-			QString AnAction = b->AnAction;
-			QString An_Extern = b->An_Extern;
-			Annota *dia = new Annota(this, b, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), view);
+			int AnType = currItem->AnType;
+			int AnActType = currItem->AnActType;
+			QString AnAction = currItem->AnAction;
+			QString An_Extern = currItem->An_Extern;
+			Annota *dia = new Annota(this, currItem, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), view);
 			if (dia->exec())
 				slotDocCh();
 			else
 			{
-				b->AnType = AnType;
-				b->AnActType = AnActType;
-				b->AnAction = AnAction;
-				b->An_Extern = An_Extern;
+				currItem->AnType = AnType;
+				currItem->AnActType = AnActType;
+				currItem->AnAction = AnAction;
+				currItem->An_Extern = An_Extern;
 			}
 			delete dia;
 		}
 		else
 		{
-			Annot *dia = new Annot(this, b, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), doc->PageColors, view);
+			Annot *dia = new Annot(this, currItem, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), doc->PageColors, view);
 			if (dia->exec())
 				slotDocCh();
 			delete dia;
@@ -10132,10 +10132,10 @@ void ScribusApp::doHyphenate()
 	{
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = view->SelItem.at(0);
-			if (doc->docHyphenator->Language != b->Language)
-				doc->docHyphenator->slotNewDict(b->Language);
-			doc->docHyphenator->slotHyphenate(b);
+			PageItem *currItem = view->SelItem.at(0);
+			if (doc->docHyphenator->Language != currItem->Language)
+				doc->docHyphenator->slotNewDict(currItem->Language);
+			doc->docHyphenator->slotHyphenate(currItem);
 		}
 	}
 }
@@ -10183,8 +10183,8 @@ void ScribusApp::SetTranspar(double t)
 	{
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = view->SelItem.at(0);
-			b->setFillTransparency(t);
+			PageItem *currItem = view->SelItem.at(0);
+			currItem->setFillTransparency(t);
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -10197,8 +10197,8 @@ void ScribusApp::SetTransparS(double t)
 	{
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = view->SelItem.at(0);
-			b->setLineTransparency(t);
+			PageItem *currItem = view->SelItem.at(0);
+			currItem->setLineTransparency(t);
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -10211,8 +10211,8 @@ void ScribusApp::InvertPict()
 	{
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = view->SelItem.at(0);
-			b->InvPict = !b->InvPict;
+			PageItem *currItem = view->SelItem.at(0);
+			currItem->InvPict = !currItem->InvPict;
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -10689,8 +10689,8 @@ void ScribusApp::HaveRaster(bool art)
 {
 	if (art && view->SelItem.count() != 0)
 	{
-		PageItem *b = view->SelItem.at(0);
-		if (b->itemType() == PageItem::ImageFrame)
+		PageItem *currItem = view->SelItem.at(0);
+		if (currItem->itemType() == PageItem::ImageFrame)
 		{
 			scrMenuMgr->clearMenu("Style");
 			scrMenuMgr->addMenuToMenu("Color","Style");
@@ -10703,8 +10703,8 @@ void ScribusApp::slotStoryEditor()
 {
 	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = view->SelItem.at(0);
-		StoryEditor* dia = new StoryEditor(this, doc, b);
+		PageItem *currItem = view->SelItem.at(0);
+		StoryEditor* dia = new StoryEditor(this, doc, currItem);
 		CurrStED = dia;
 		connect(dia, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		connect(dia, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
@@ -10774,12 +10774,12 @@ void ScribusApp::EditTabs()
 	{
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = view->SelItem.at(0);
-			TabManager *dia = new TabManager(this, doc->docUnitIndex, b->TabValues, b->Width);
+			PageItem *currItem = view->SelItem.at(0);
+			TabManager *dia = new TabManager(this, doc->docUnitIndex, currItem->TabValues, currItem->Width);
 			if (dia->exec())
 			{
-				b->TabValues = dia->tmpTab;
-				view->RefreshItem(b);
+				currItem->TabValues = dia->tmpTab;
+				view->RefreshItem(currItem);
 				slotDocCh();
 			}
 			delete dia;
@@ -10789,10 +10789,10 @@ void ScribusApp::EditTabs()
 
 void ScribusApp::SearchText()
 {
-	PageItem *b = view->SelItem.at(0);
+	PageItem *currItem = view->SelItem.at(0);
 	setAppMode(EditMode);
-	b->CPos = 0;
-	SearchReplace* dia = new SearchReplace(this, doc, &Prefs, b);
+	currItem->CPos = 0;
+	SearchReplace* dia = new SearchReplace(this, doc, &Prefs, currItem);
 	connect(dia, SIGNAL(NewFont(QString)), this, SLOT(SetNewFont(QString)));
 	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
 	dia->exec();
@@ -10826,13 +10826,13 @@ void ScribusApp::CallGimp()
 			QMessageBox::information(this, tr("Information"), mess, 1, 0, 0);
 			return;
 		}
-		PageItem *b = view->SelItem.at(0);
-		if (b->PicAvail)
+		PageItem *currItem = view->SelItem.at(0);
+		if (currItem->PicAvail)
 		{
-			b->pixmOrg = QImage();
+			currItem->pixmOrg = QImage();
 			ExternalApp = new QProcess(NULL);
             cmd = QStringList::split(" ", Prefs.gimp_exe);
-			cmd.append(b->Pfile);
+			cmd.append(currItem->Pfile);
 			ExternalApp->setArguments(cmd);
 			if ( !ExternalApp->start() )
 			{
@@ -10852,10 +10852,10 @@ void ScribusApp::slotCharSelect()
 {
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
-		PageItem *b = view->SelItem.at(0);
-		if ((b->itemType() == PageItem::TextFrame) && (doc->appMode == EditMode))
+		PageItem *currItem = view->SelItem.at(0);
+		if ((currItem->itemType() == PageItem::TextFrame) && (doc->appMode == EditMode))
 		{
-			CharSelect *dia = new CharSelect(this, b, this);
+			CharSelect *dia = new CharSelect(this, currItem, this);
 			dia->exec();
 			delete dia;
 		}

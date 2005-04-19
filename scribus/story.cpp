@@ -643,11 +643,11 @@ void SEditor::copyStyledText()
 	}
 }
 
-void SEditor::saveItemText(PageItem* b)
+void SEditor::saveItemText(PageItem *currItem)
 {
 	ChList *chars;
-	b->CPos = 0;
-	b->itemText.clear();
+	currItem->CPos = 0;
+	currItem->itemText.clear();
 	uint c = 0;
 	for (uint p = 0; p < StyledText.count(); ++p)
 	{
@@ -694,7 +694,7 @@ void SEditor::saveItemText(PageItem* b)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
-			b->itemText.append(hg);
+			currItem->itemText.append(hg);
 		}
 		chars = StyledText.at(p);
 		for (uint c = 0; c < chars->count(); ++c)
@@ -718,7 +718,7 @@ void SEditor::saveItemText(PageItem* b)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
-			b->itemText.append(hg);
+			currItem->itemText.append(hg);
 		}
 	}
 }
@@ -750,7 +750,7 @@ void SEditor::setAlign(int style)
 	}
 }
 
-void SEditor::loadItemText(PageItem* b)
+void SEditor::loadItemText(PageItem *currItem)
 {
 	setUpdatesEnabled(false);
 	struct PtiSmall *hg;
@@ -759,49 +759,49 @@ void SEditor::loadItemText(PageItem* b)
 	int Csha = 100;
 	int Csty = 0;
 	int Ali = 0;
-	PageItem *nb = b;
+	PageItem *nextItem = currItem;
 	StyledText.clear();
 	ParagStyles.clear();
 	ChList *chars;
 	chars = new ChList;
 	chars->setAutoDelete(true);
 	chars->clear();
-	while (nb != 0)
+	while (nextItem != 0)
 	{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
+		if (nextItem->BackBox != 0)
+			nextItem = nextItem->BackBox;
 		else
 			break;
 	}
-	if (nb != 0)
+	if (nextItem != 0)
 	{
-		if (nb->itemText.count() != 0)
+		if (nextItem->itemText.count() != 0)
 		{
-			Ccol = nb->itemText.at(0)->ccolor;
-			Csha = nb->itemText.at(0)->cshade;
-			Csty = nb->itemText.at(0)->cstyle;
-			Ali = nb->itemText.at(0)->cab;
+			Ccol = nextItem->itemText.at(0)->ccolor;
+			Csha = nextItem->itemText.at(0)->cshade;
+			Csty = nextItem->itemText.at(0)->cstyle;
+			Ali = nextItem->itemText.at(0)->cab;
 		}
 		else
 		{
-			Ccol = b->TxtFill;
-			Csha = b->ShTxtFill;
-			Csha = b->TxTStyle;
-			Ali = b->textAlignment;
+			Ccol = currItem->TxtFill;
+			Csha = currItem->ShTxtFill;
+			Csha = currItem->TxTStyle;
+			Ali = currItem->textAlignment;
 		}
 		setAlign(Ali);
 		setFarbe(Ccol, Csha);
 		setStyle(Csty);
 	}
-	while (nb != 0)
+	while (nextItem != 0)
 	{
-		for (uint a = 0; a < nb->itemText.count(); ++a)
+		for (uint a = 0; a < nextItem->itemText.count(); ++a)
 		{
-			if (nb->itemText.at(a)->ch == QChar(13))
+			if (nextItem->itemText.at(a)->ch == QChar(13))
 			{
 				StyledText.append(chars);
-				ParagStyles.append(nb->itemText.at(a)->cab);
-				Ali = nb->itemText.at(a)->cab;
+				ParagStyles.append(nextItem->itemText.at(a)->cab);
+				Ali = nextItem->itemText.at(a)->cab;
 				chars = new ChList;
 				chars->setAutoDelete(true);
 				chars->clear();
@@ -810,17 +810,17 @@ void SEditor::loadItemText(PageItem* b)
 			else
 			{
 				hg = new PtiSmall;
-				hg->ch = nb->itemText.at(a)->ch;
-				hg->cfont = nb->itemText.at(a)->cfont->SCName;
-				hg->csize = nb->itemText.at(a)->csize;
-				hg->ccolor = nb->itemText.at(a)->ccolor;
-				hg->cshade = nb->itemText.at(a)->cshade;
-				hg->cstroke = nb->itemText.at(a)->cstroke;
-				hg->cshade2 = nb->itemText.at(a)->cshade2;
-				hg->cscale = nb->itemText.at(a)->cscale;
-				hg->cstyle = nb->itemText.at(a)->cstyle;
-				hg->cab = nb->itemText.at(a)->cab;
-				hg->cextra = nb->itemText.at(a)->cextra;
+				hg->ch = nextItem->itemText.at(a)->ch;
+				hg->cfont = nextItem->itemText.at(a)->cfont->SCName;
+				hg->csize = nextItem->itemText.at(a)->csize;
+				hg->ccolor = nextItem->itemText.at(a)->ccolor;
+				hg->cshade = nextItem->itemText.at(a)->cshade;
+				hg->cstroke = nextItem->itemText.at(a)->cstroke;
+				hg->cshade2 = nextItem->itemText.at(a)->cshade2;
+				hg->cscale = nextItem->itemText.at(a)->cscale;
+				hg->cstyle = nextItem->itemText.at(a)->cstyle;
+				hg->cab = nextItem->itemText.at(a)->cab;
+				hg->cextra = nextItem->itemText.at(a)->cextra;
 				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(30))
@@ -852,7 +852,7 @@ void SEditor::loadItemText(PageItem* b)
 				chars->append(hg);
 			}
 		}
-		nb = nb->NextBox;
+		nextItem = nextItem->NextBox;
 	}
 	setAlign(Ali);
 	setFarbe(Ccol, Csha);
@@ -866,7 +866,7 @@ void SEditor::loadItemText(PageItem* b)
 	setCursorPosition(0, 0);
 }
 
-void SEditor::loadText(QString tx, PageItem* b)
+void SEditor::loadText(QString tx, PageItem *currItem)
 {
 	setUpdatesEnabled(false);
 	struct PtiSmall *hg;
@@ -877,15 +877,15 @@ void SEditor::loadText(QString tx, PageItem* b)
 	chars = new ChList;
 	chars->setAutoDelete(true);
 	chars->clear();
-	setAlign(b->textAlignment);
-	setFarbe(b->TxtFill, b->ShTxtFill);
-	setStyle(b->TxTStyle);
+	setAlign(currItem->textAlignment);
+	setFarbe(currItem->TxtFill, currItem->ShTxtFill);
+	setStyle(currItem->TxTStyle);
 	for (uint a = 0; a < tx.length(); ++a)
 	{
 		if (tx[a] == QChar(13))
 		{
 			StyledText.append(chars);
-			ParagStyles.append(b->textAlignment);
+			ParagStyles.append(currItem->textAlignment);
 			chars = new ChList;
 			chars->setAutoDelete(true);
 			chars->clear();
@@ -895,15 +895,15 @@ void SEditor::loadText(QString tx, PageItem* b)
 		{
 			hg = new PtiSmall;
 			hg->ch = tx[a];
-			hg->cfont = b->IFont;
-			hg->csize = b->ISize;
-			hg->ccolor = b->TxtFill;
-			hg->cshade = b->ShTxtFill;
-			hg->cstroke = b->TxtStroke;
-			hg->cshade2 = b->ShTxtStroke;
-			hg->cscale = b->TxtScale;
-			hg->cstyle = b->TxTStyle;
-			hg->cab = b->textAlignment;
+			hg->cfont = currItem->IFont;
+			hg->csize = currItem->ISize;
+			hg->ccolor = currItem->TxtFill;
+			hg->cshade = currItem->ShTxtFill;
+			hg->cstroke = currItem->TxtStroke;
+			hg->cshade2 = currItem->ShTxtStroke;
+			hg->cscale = currItem->TxtScale;
+			hg->cstyle = currItem->TxTStyle;
+			hg->cab = currItem->textAlignment;
 			hg->cextra = 0;
 			Text += hg->ch;
 			chars->append(hg);
@@ -911,7 +911,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 	}
 	insert(Text);
 	StyledText.append(chars);
-	ParagStyles.append(b->textAlignment);
+	ParagStyles.append(currItem->textAlignment);
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setUpdatesEnabled(true);
@@ -2248,15 +2248,15 @@ void StoryEditor::PasteAvail()
 
 void StoryEditor::updateTextFrame()
 {
-	PageItem *nb = CurrItem;
-	while (nb != 0)
+	PageItem *nextItem = CurrItem;
+	while (nextItem != 0)
 	{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
+		if (nextItem->BackBox != 0)
+			nextItem = nextItem->BackBox;
 		else
 			break;
 	}
-	PageItem* nb2 = nb;
+	PageItem* nb2 = nextItem;
 	while (nb2 != 0)
 	{
 		nb2->itemText.clear();
@@ -2264,23 +2264,23 @@ void StoryEditor::updateTextFrame()
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
 	}
-	Editor->saveItemText(nb);
+	Editor->saveItemText(nextItem);
 	if (doc->docHyphenator->AutoCheck)
 	{
-		if (doc->docHyphenator->Language != nb->Language)
-			doc->docHyphenator->slotNewDict(nb->Language);
-		doc->docHyphenator->slotHyphenate(nb);
+		if (doc->docHyphenator->Language != nextItem->Language)
+			doc->docHyphenator->slotNewDict(nextItem->Language);
+		doc->docHyphenator->slotHyphenate(nextItem);
 	}
 	bool rep = doc->RePos;
 	doc->RePos = true;
 	QPixmap pgPix(1, 1);
 	ScPainter *painter = new ScPainter(&pgPix, 1, 1);
 	painter->translate(0.5, 0.5);
-	nb->DrawObj(painter, QRect(0, 0, 1, 1));
+	nextItem->DrawObj(painter, QRect(0, 0, 1, 1));
 	painter->end();
 	delete painter;
 	doc->RePos = rep;
-	nb2 = nb;
+	nb2 = nextItem;
 	while (nb2 != 0)
 	{
 		nb2->Dirty = false;
