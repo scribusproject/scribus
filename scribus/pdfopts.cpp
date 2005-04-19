@@ -756,6 +756,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	BleedLeft->setMinValue(0);
 	BleedLeft->setMaxValue(view->Doc->PageB*UmReFaktor);
 	BleedLeft->setValue(Optionen->BleedLeft*UmReFaktor);
+/*
 #ifdef HAVE_CMS
 	if ((!CMSuse) || (!CMSavail))
 		Options->setTabEnabled(tabPDFX, false);
@@ -765,6 +766,38 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		Options->setTabEnabled(tabPDFX, false);
 #else
 	Options->setTabEnabled(tabPDFX, false);
+#endif
+*/
+#ifdef HAVE_CMS
+	if ((!CMSavail) || (!CMSuse) || (PDFXProfiles->isEmpty()))
+	{
+		Options->setTabToolTip(tabPDFX,
+			tr("<qt>Color management must be enabled to use PDF/X-3. "
+			   "You can enable color management from the Settings menu.</qt>"));
+		Options->setTabEnabled(tabPDFX, false);
+	}
+	else if (Optionen->Version == 12)
+	{
+		// PDF/X only possible with PDF 1.2, which has been selected so we enable
+		// access to the PDF/X UI.
+		// enablePDFX is usually triggered by a change in the PDF version combo box.
+		// 2 is the index of PDF/X-3 in the combo box.
+		EnablePDFX(2);
+	}
+	else
+	{
+		// PDF/X-3 is off since we're using another PDF version, so disable access
+		// to the PDF/X UI.
+		Options->setTabEnabled(tabPDFX, false);
+		Options->setTabToolTip(tabPDFX,
+			tr("<qt>PDF/X-3 is supported and enabled, but can not be used for "
+				"the selected PDF version. If you want to use PDF/X-3, you need "
+				"to set PDF/X-3 as your PDF version (compatibility level).</qt>"));
+	}
+#else
+	Options->setTabEnabled(tabPDFX, false);
+	Options->setTabToolTip(tabPDFX,
+		tr("<qt>PDF/X-3 is not supported by this Scribus build (CMS support not present).</qt>"));
 #endif
 	BleedChanged();
 	PgSel = 0;
@@ -854,7 +887,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( PrintSec, tr( "Allow printing of the PDF. If un-checked, printing is prevented. " ) );
 	QToolTip::add( ModifySec, tr( "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented." ) );
 	QToolTip::add( CopySec, tr( "Allow copying of text or graphics from the PDF. \nIf un-checked, text and graphics cannot be copied." ) );
-	QToolTip::add( AddSec, tr( "Allow adding annotations and fields to the PDF. \nIf un-checked, editing annotations and fileds is prevented." ) );
+	QToolTip::add( AddSec, tr( "Allow adding annotations and fields to the PDF. \nIf un-checked, editing annotations and fields is prevented." ) );
 	QToolTip::add( OutCombo, tr( "Color model for the output of your PDF.\nChoose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.\nChoose Printer when printing to a true 4 color CMYK printer." ) );
 	QToolTip::add( UseLPI, tr( "This is an advanced setting which is not enabled by default. This should only be enabled\nwhen specifically requested by your printer and they have given you the exact details needed.\nOtherwise, your exported PDF may not print properly and is truly not portable across systems." ) );
 	QToolTip::add( EmbedProfs, tr( "Embed a color profile for solid colors" ) );
@@ -973,12 +1006,18 @@ void PDF_Opts::BleedChanged()
 	p.end();
 }
 
-void PDF_Opts::EnablePDFX(int a)
+void PDF_Opts::EnablePDFX(int comboIndex)
 {
-	if (a != 2)
+	if (comboIndex != 2)
 	{
+		// Disable access to PDF/X settings and re-enable security settings
 		Options->setTabEnabled(tabPDFX, false);
+		Options->setTabToolTip(tabPDFX,
+			tr("<qt>PDF/X-3 is supported and enabled, but can not be used for "
+				"the selected PDF version. If you want to use PDF/X-3, you need "
+				"to set PDF/X-3 as your PDF version (compatibility level).</qt>"));
 		Options->setTabEnabled(tabSecurity, true);
+		Options->setTabToolTip(tabSecurity, tr("PDF security settings"));
 		EmbedProfs2->setEnabled(true);
 		CheckBox10->setEnabled(true);
 		EmbedFonts->setEnabled(true);
@@ -986,6 +1025,15 @@ void PDF_Opts::EnablePDFX(int a)
 		OK->setEnabled(true);
 		return;
 	}
+	// PDF/X-3 selected
+	// Let user tweak PDF/X settings and disable access to security settings
+	Options->setTabEnabled(tabPDFX, true);
+	Options->setTabToolTip(tabPDFX, tr("PDF/X-3 settings"));
+	Options->setTabEnabled(tabSecurity, false);
+	Options->setTabToolTip(tabSecurity,
+		tr("<qt>PDF security can not be used with PDF/X-3. If you want to turn "
+			"on security, change your PDF version (compatibility level) to "
+			"something other than PDF/X-3.</qt>"));
 	EmbedFonts->setChecked(true);
 	EmbedAll();
 	CheckBox10->setChecked(false);
@@ -998,8 +1046,6 @@ void PDF_Opts::EnablePDFX(int a)
 	CheckBox10->setEnabled(false);
 	EmbedFonts->setEnabled(false);
 	EnablePGI();
-	Options->setTabEnabled(tabPDFX, true);
-	Options->setTabEnabled(tabSecurity, false);
 	if (InfoString->text() == "")
 		OK->setEnabled(false);
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
