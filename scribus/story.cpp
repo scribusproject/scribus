@@ -278,6 +278,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			wasMod = false;
 			switch (k->key())
 			{
+				case Key_Escape:
+					k->ignore();
+					break;
 				case Key_Shift:
 				case Key_Control:
 				case Key_Alt:
@@ -1743,7 +1746,9 @@ void StoryEditor::closeEvent(QCloseEvent *)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
 									tr("Do you want to save your changes?"),
-									QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel);
+									QMessageBox::Yes|QMessageBox::Default,
+									QMessageBox::No,
+									QMessageBox::Cancel|QMessageBox::Escape);
 		if (t == QMessageBox::Yes)
 			result = QDialog::Accepted;
 		else if (t == QMessageBox::Cancel)
@@ -2593,4 +2598,12 @@ void StoryEditor::SaveTextFile()
 		ss->Write(LoadEnc);
 		delete ss;
 	}
+}
+
+void StoryEditor::keyPressEvent (QKeyEvent * e)
+{
+	if (e->key() == Qt::Key_Escape)
+		this->close();
+	else
+		return QMainWindow::keyReleaseEvent(e);
 }
