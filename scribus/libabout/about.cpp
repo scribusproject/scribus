@@ -58,7 +58,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1 %2 %3 ").arg("18").arg("April").arg("2005");
+	QString bu = tr("%1 %2 %3 ").arg("19").arg("April").arg("2005");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -91,8 +91,8 @@ About::About( QWidget* parent )
 										"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 										"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 										"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
-										"<tr><td>Riku Leino</td><td>riku.leino@gmail.com</td></tr>" +
-										"<tr>Craig Ringer<td></td><td>craig@postnewspapers.com.au</td></tr>" +
+										"<tr><td>Riku Leino</td><td>riku.leino@gmail.com</td></tr>"+
+										"<tr><td>Craig  Ringer</td><td>craig@postnewspapers.com.au</td></tr>" +
 										"<tr><td> </td><td> </td></tr>" +
 										"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 										"<tr><td>Niyam Bhushan</td><td></td></tr>" +
@@ -118,10 +118,11 @@ About::About( QWidget* parent )
  #endif
 #endif
 										"<tr><td><b>" + tr("Official Documentation:").utf8()  + "</b></td><td></td></tr>" +
-										"<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
+										"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" + 
 										"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 										"<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
 										"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" + 
+										"<tr><td>Louis Desjardins</td><td>louisdesjardins@videotron.ca</td></tr>" + 
 										"<tr><td> </td><td> </td></tr>" +
 
 										"<tr><td><b>" + tr("Other Documentation:").utf8()  + "</b></td><td></td></tr>" +
