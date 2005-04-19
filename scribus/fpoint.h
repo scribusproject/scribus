@@ -27,19 +27,20 @@ class FPoint
 {
 public: 
 	FPoint() {};
-	FPoint(double x, double y);
-	FPoint(QPoint p);
-	FPoint(const FPoint & p);
+	FPoint(double x, double y) : xp(x), yp(y) {};
+	FPoint(const QPoint & p) : xp(p.x()), yp(p.y()) {};
+	FPoint(const FPoint & p) : xp(p.xp), yp(p.yp) {};
 //  ~FPoint() {};
-	FPoint &  operator=(const FPoint & rhs);
-	double x();
-	double y();
-	void setX(double x);
-	void setY(double y);
-	bool operator==(const FPoint &rhs);
-	bool operator!=(const FPoint &rhs);
-	FPoint &operator+=( const FPoint &p );
-	FPoint &operator-=( const FPoint &p );
+	FPoint &  operator=(const FPoint & rhs)  { xp = rhs.xp; yp = rhs.yp; return *this; };
+	double x() const { return xp; };
+	double y() const { return yp; };
+	void setX(double x) { xp = x; };
+	void setY(double y) { yp = y; };
+	void setXY(double x, double y) { xp = x; yp = y; };
+	bool operator==(const FPoint &rhs) const;
+	bool operator!=(const FPoint &rhs) const;
+	FPoint &operator+=( const FPoint &p ) { xp += p.xp; yp += p.yp; return *this; };
+	FPoint &operator-=( const FPoint &p ) { xp -= p.xp; yp -= p.yp; return *this; };
 	friend inline const FPoint operator+( const FPoint &, const FPoint & );
 	friend inline const FPoint operator-( const FPoint &, const FPoint & );
 	friend inline const FPoint operator*( const FPoint &, const double & );

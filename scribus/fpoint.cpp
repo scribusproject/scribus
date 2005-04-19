@@ -17,65 +17,13 @@
 
 #include "fpoint.h"
 
-FPoint::FPoint(double x, double y) : xp(x), yp(y)
-{
-}
 
-FPoint::FPoint(QPoint p) : xp(p.x()), yp(p.y())
-{
-}
-
-FPoint::FPoint(const FPoint & p) : xp(p.xp), yp(p.yp)
-{
-}
-
-FPoint & FPoint::operator=(const FPoint & p)
-{
-	xp = p.xp;
-	yp = p.yp;
-	return *this;
-}
-
-double FPoint::x()
-{
-	return xp;
-}
-
-double FPoint::y()
-{
-	return yp;
-}
-
-void FPoint::setX(double x)
-{
-	xp = x;
-}
-
-void FPoint::setY(double y)
-{
-	yp = y;
-}
-
-bool FPoint::operator==(const FPoint &rhs)
+bool FPoint::operator==(const FPoint &rhs) const 
 {
 	return QABS(xp-rhs.xp) < 1E-10 && QABS(yp-rhs.yp) < 1E-10;
 }
 
-bool FPoint::operator!=(const FPoint &rhs)
+bool FPoint::operator!=(const FPoint &rhs) const
 {
 	return QABS(xp-rhs.xp) > 1E-10 || QABS(yp-rhs.yp) > 1E-10;
-}
-
-FPoint &FPoint::operator+=( const FPoint &p )
-{
-	xp += p.xp;
-	yp += p.yp;
-	return *this;
-}
-
-FPoint &FPoint::operator-=( const FPoint &p )
-{
-	xp -= p.xp;
-	yp -= p.yp;
-	return *this;
 }

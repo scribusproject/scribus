@@ -21,6 +21,7 @@
 
 using namespace std;
 
+
 FPointArray FPointArray::copy() const
 { 
 	FPointArray tmp; 
@@ -72,22 +73,6 @@ bool FPointArray::resize(uint newCount)
 	}
 }
 
-uint FPointArray::size() const
-{ 
-	return count; 
-}
-
-void FPointArray::setPoint(uint i, double x, double y)
-{
-	FPoint *p = & QMemArray<FPoint>::at( i );
-	p->xp = x;
-	p->yp = y;
-}
-
-void FPointArray::setPoint(uint i, FPoint p)
-{
-	setPoint(i, p.xp, p.yp);
-}
 
 bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 {
@@ -156,22 +141,22 @@ bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, i
 
 void FPointArray::point(uint i, double *x, double *y)
 {
-	FPoint p = QMemArray<FPoint>::at(i);
+//	FPoint p = QMemArray<FPoint>::at(i);
+	ConstIterator p = begin();
+	p += i;
 	if (x)
-		*x = p.x();
+		*x = p->xp;
 	if (y)
-		*y = p.y();
+		*y = p->yp;
 }
 
-FPoint FPointArray::point(uint i)
-{
-	return QMemArray<FPoint>::at(i);
-}
 
 QPoint FPointArray::pointQ(uint i)
 {
-	FPoint p = QMemArray<FPoint>::at(i);
-	QPoint r(qRound(p.x()),qRound(p.y()));
+//	FPoint p = QMemArray<FPoint>::at(i);
+	ConstIterator p = begin();
+	p += i;
+	QPoint r(qRound(p->xp),qRound(p->yp));
 	return r;
 }
 
@@ -182,7 +167,7 @@ void FPointArray::translate( double dx, double dy )
 	pend += count;
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->x() < 900000)
+		if (p->xp < 900000)
 			*p += pt;
 	}
 }
@@ -265,22 +250,54 @@ void FPointArray::addPoint(FPoint p)
 	setPoint(count-1, p);
 }
 
+
+bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+{
+	int i = count-4;
+	if (i < 0)
+		return false;
+	ConstIterator p = begin();
+	p += i;
+	if (p->xp != x1 || p->yp != y1)
+		return false;
+	++p; 
+	if (p->xp != x2 || p->yp != y2)
+		return false;
+	++p; 
+	if (p->xp != x3 || p->yp != y3)
+		return false;
+	++p; 
+	if (p->xp != x4 || p->yp != y4)
+		return false;
+	
+	return true;
+}
+
 void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
 {
+	const int i = count;
 	FPointArray::resize(count+4);
-	setPoint(count-4, x1, y1);
-	setPoint(count-3, x2, y2);
-	setPoint(count-2, x3, y3);
-	setPoint(count-1, x4, y4);
+	Iterator p = begin();
+	p += i;
+	p->setXY(x1, y1);
+	++p;
+	p->setXY(x2, y2);
+	++p;
+	p->setXY(x3, y3);
+	++p;
+	p->setXY(x4, y4);
 }
 
 void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
 {
+	const int i = count;
 	FPointArray::resize(count+4);
-	setPoint(count-4, p1);
-	setPoint(count-3, p2);
-	setPoint(count-2, p3);
-	setPoint(count-1, p4);
+	Iterator p = begin();
+	p += i;
+	*p++ = p1;
+	*p++ = p2;
+	*p++ = p3;
+	*p = p4;
 }
 
 double FPointArray::lenPathSeg(int seg)

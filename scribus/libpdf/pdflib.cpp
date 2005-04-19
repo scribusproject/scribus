@@ -3844,7 +3844,7 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 	double syn = 0;
 	x2 = 0;
 	double aufl = Options->Resolution / 72.0;
-	int ImRes, ImWid, ImHei;
+	int ImRes, ImWid, ImHei, origWidth, origHeight;
 	struct ShIm ImInfo;
 	if ((!SharedImages.contains(fn)) || (fromAN))
 	{
@@ -4059,6 +4059,8 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 				double afl = QMIN(Options->PicRes, Options->Resolution);
 				a2 = (72.0 / sx) / afl;
 				a1 = (72.0 / sy) / afl;
+				origWidth = img.width();
+				origHeight = img.height();
 				ax = img.width() / a2;
 				ay = img.height() / a1;
 				img = img.smoothScale(qRound(ax), qRound(ay));
@@ -4081,6 +4083,8 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 		{
 			sxn = sx * (1.0 / aufl);
 			syn = sy * (1.0 / aufl);
+			origWidth = img.width();
+			origHeight = img.height();
 		}
 		if (alphaM)
 		{
@@ -4091,8 +4095,8 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 			{
 				if ((Options->CompressMethod != 3) && (CompAvail))
 					im2 = CompressStr(&im2);
-				PutDoc("/Width "+IToStr(img.width())+"\n");
-				PutDoc("/Height "+IToStr(img.height())+"\n");
+				PutDoc("/Width "+IToStr(origWidth)+"\n");
+				PutDoc("/Height "+IToStr(origHeight)+"\n");
 				PutDoc("/ColorSpace /DeviceGray\n");
 				PutDoc("/BitsPerComponent 8\n");
 				PutDoc("/Length "+IToStr(im2.length())+"\n");
@@ -4101,8 +4105,8 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 			{
 				if ((Options->CompressMethod != 3) && (CompAvail))
 					im2 = CompressStr(&im2);
-				PutDoc("/Width "+IToStr(img.width())+"\n");
-				PutDoc("/Height "+IToStr(img.height())+"\n");
+				PutDoc("/Width "+IToStr(origWidth)+"\n");
+				PutDoc("/Height "+IToStr(origHeight)+"\n");
 				PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
 				PutDoc("/Length "+IToStr(im2.length())+"\n");
 			}

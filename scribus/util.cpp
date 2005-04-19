@@ -3021,7 +3021,7 @@ int traceMoveto( FT_Vector *to, FPointArray *composite )
 		FirstM = false;
 	composite->addPoint(tox, toy);
 	composite->addPoint(tox, toy);
-	firstP = FPoint(tox, toy);
+	firstP.setXY(tox, toy);
 	return 0;
 }
 
@@ -3029,7 +3029,7 @@ int traceLineto( FT_Vector *to, FPointArray *composite )
 {
 	double tox = ( to->x / 64.0 );
 	double toy = ( to->y / 64.0 );
-	if (composite->size() > 4)
+/*	if (composite->size() > 4)
 	{
 		FPoint b1 = composite->point(composite->size()-4);
 		FPoint b2 = composite->point(composite->size()-3);
@@ -3041,8 +3041,10 @@ int traceLineto( FT_Vector *to, FPointArray *composite )
 		FPoint n4 = FPoint(tox, toy);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return 0;
-	}
-	composite->addQuadPoint(tox, toy,
+	} */
+	if ( !composite->hasLastQuadPoint(tox, toy, tox, toy,
+						tox, toy, tox, toy))
+		composite->addQuadPoint(tox, toy,
 				tox, toy,
 				tox, toy,
 				tox, toy);
@@ -3055,7 +3057,7 @@ int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *compos
 	double y1 = ( control->y / 64.0 );
 	double x2 = ( to->x / 64.0 );
 	double y2 = ( to->y / 64.0 );
-	if (composite->size() > 4)
+/*	if (composite->size() > 4)
 	{
 		FPoint b1 = composite->point(composite->size()-4);
 		FPoint b2 = composite->point(composite->size()-3);
@@ -3067,8 +3069,10 @@ int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *compos
 		FPoint n4 = FPoint(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return 0;
-	}
-	composite->addQuadPoint(x2, y2,
+	} */
+	if ( !composite->hasLastQuadPoint(x2, y2, x1, y1, 
+						x2, y2, x2, y2))
+		composite->addQuadPoint(x2, y2,
 				x1, y1,
 				x2, y2,
 				x2, y2);
@@ -3083,7 +3087,7 @@ int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *co
 	double y2 = ( q->y / 64.0 );
 	double x3 = ( to->x / 64.0 );
 	double y3 = ( to->y / 64.0 );
-	if (composite->size() > 4)
+/*	if (composite->size() > 4)
 	{
 		FPoint b1 = composite->point(composite->size()-4);
 		FPoint b2 = composite->point(composite->size()-3);
@@ -3095,12 +3099,16 @@ int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *co
 		FPoint n4 = FPoint(x3, y3);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return 0;
-	}
-	composite->setPoint(composite->size()-1, FPoint(x1, y1));
-	composite->addQuadPoint(x3, y3,
+	} */
+	if ( !composite->hasLastQuadPoint(x3, y3, x2, y2,
+						x3, y3, x3, y3) )
+	{
+		composite->setPoint(composite->size()-1, FPoint(x1, y1));
+		composite->addQuadPoint(x3, y3,
 				x2, y2,
 				x3, y3,
 				x3, y3);
+	}
 	return 0;
 }
 
@@ -3175,7 +3183,7 @@ FPoint getMaxClipF(FPointArray* Clip)
 		if (np.y() > my)
 			my = np.y();
 	}
-	rp = FPoint(mx, my);
+	rp.setXY(mx, my);
 	return rp;
 }
 
@@ -3194,7 +3202,7 @@ FPoint getMinClipF(FPointArray* Clip)
 		if (np.y() < my)
 			my = np.y();
 	}
-	rp = FPoint(mx, my);
+	rp.setXY(mx, my);
 	return rp;
 }
 

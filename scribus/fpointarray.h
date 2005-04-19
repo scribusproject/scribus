@@ -33,15 +33,15 @@ public:
 	FPointArray() : count(0), capacity(0) {};
 	FPointArray(int size) : QMemArray<FPoint>(size), count(size), capacity(size) {};
 	FPointArray(const FPointArray &a) : QMemArray<FPoint>(a), count(a.count), capacity(a.capacity) {};
-	uint size() const;
+	uint size() const { return count; };
 	bool resize(uint newCount);
-	void setPoint(uint i, double x, double y);
-	void setPoint(uint i, FPoint p);
+	void setPoint(uint i, double x, double y) { Iterator p = begin(); p+=i; p->xp = x; p->yp = y; };
+	void setPoint(uint i, FPoint p) {	setPoint(i, p.xp, p.yp); };
 	bool setPoints( int nPoints, double firstx, double firsty, ... );
 	bool putPoints( int index, int nPoints, double firstx, double firsty,  ... );
 	bool putPoints( int index, int nPoints, const FPointArray & from, int fromIndex = 0 );
 	void point(uint i, double *x, double *y);
-	FPoint point(uint i);
+	const FPoint & point(uint i) { ConstIterator p = begin(); p+=i; return *p; };
 	QPoint pointQ(uint i);
 	void translate( double dx, double dy );
 	FPoint WidthHeight();
@@ -51,6 +51,7 @@ public:
 	void setMarker();
 	void addPoint(double x, double y);
 	void addPoint(FPoint p);
+	bool hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
 	void addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
 	void addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4);
 	double lenPathSeg(int seg);
