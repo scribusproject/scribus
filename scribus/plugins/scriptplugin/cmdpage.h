@@ -161,7 +161,7 @@ PyObject *scribus_getpageitems(PyObject */*self*/);
 PyDoc_STRVAR(scribus_getpagemargins__doc__,
 QT_TR_NOOP("getPageMargins()\n\
 \n\
-Returns the page margins as a (left, right, top, bottom) tuple in the current\n\
+Returns the page margins as a (top, left, right, bottom) tuple in the current\n\
 units. See UNIT_<type> constants and getPageSize().\n\
 "));
 /**
