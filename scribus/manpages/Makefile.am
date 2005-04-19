@@ -6,7 +6,7 @@ install-data-local:
 	$(mkinstalldirs) $(mandir)/pl
 	$(mkinstalldirs) $(mandir)/pl/man1
 	$(INSTALL_DATA) $(srcdir)/scribus.1 $(mandir)/man1/scribus.1
-	$(mkinstalldirs) $(prefix)/share/man/pl/man1
+	$(mkinstalldirs) $(mandir)/pl/man1
 	$(INSTALL_DATA) $(srcdir)/scribus.1.pl $(mandir)/pl/man1/scribus.1
 
 uninstall-local:
