@@ -100,6 +100,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 		CSets->insertItem("X11 Grey-Set");
 		CSets->insertItem("Gnome-Set");
 		CSets->insertItem("SVG-Set");
+		CSets->insertItem("OpenOffice.org-Set");
 		if (Cust.count() != 0)
 		{
 			QStringList realEx;
@@ -170,7 +171,7 @@ void Farbmanager::saveDefaults()
 	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/");
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
-	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set")
+	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
 	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
 		dia->setEditText("", false);
 	else
@@ -240,6 +241,10 @@ void Farbmanager::loadDefaults(int id)
 		break;
 	case 4:
 		pfadC2 = pfadC + "rgbsvg.txt";
+		break;
+	case 5:
+		pfadC2 = pfadC + "rgbscribusopenoffice.txt";
+		cus = true;
 		break;
 	default:
 		pfadC2 = Cpfad;

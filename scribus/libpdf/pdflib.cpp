@@ -53,6 +53,7 @@ extern QString Path2Relative(QString Path);
 extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 extern QByteArray ComputeMD5Sum(QByteArray *in);
 extern bool loadText(QString nam, QString *Buffer);
+extern QImage scaleImage(const QImage& src, int width, int height);
 extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern QString getAlpha(QString fn, bool PDF, bool pdf14);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
@@ -4063,8 +4064,13 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 				origHeight = img.height();
 				ax = img.width() / a2;
 				ay = img.height() / a1;
-				img = img.smoothScale(qRound(ax), qRound(ay));
-				img = img.convertDepth(32);
+				if ((Options->UseRGB) || (Options->isGrayscale) || ((Options->UseProfiles2) && !(c->imgInfo.colorspace == 1)) )
+				{
+					img = img.smoothScale(qRound(ax), qRound(ay));
+					img = img.convertDepth(32);
+				}
+				else
+					img = scaleImage(img, qRound(ax), qRound(ay));
 				sxn = sx * a2;
 				syn = sy * a1;
 			}

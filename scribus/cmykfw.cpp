@@ -547,9 +547,10 @@ void CMYKChoose::SelSwatch(int n)
 		case 4:
 			pfadC2 = pfadC + "rgbsvg.txt";
 			break;
-		/*case 5:
+		case 5:
 			pfadC2 = pfadC + "rgbscribusopenoffice.txt";
-			break; */
+			cus = true;
+			break;
 		default:
 			pfadC2 = Cpfad;
 			cus = true;
