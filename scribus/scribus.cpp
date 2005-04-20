@@ -8171,12 +8171,12 @@ void ScribusApp::SetCMSPrefs()
 	{
 #if defined(HAVE_CMS)
 		QString messageText = \
-				tr("<qt>Colour management is supported but can not currently be enabled. "
-					"Make sure you have ISO colour profiles installed and that the "
+				tr("<qt>Color management is supported but can not currently be enabled. "
+					"Make sure you have ICC color profiles installed and that the "
 					"profile path in the preferences points to where they're installed.</qt>");
 #else
 		QString messageText = \
-				tr("<qt>Colour management is not supported by this Scribus build "
+				tr("<qt>Color management is not supported by this Scribus build "
 					"(not compiled in).</qt>");
 #endif
 		QMessageBox::information(this, "Scribus: Color Management", messageText, QMessageBox::Ok);
