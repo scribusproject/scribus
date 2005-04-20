@@ -1044,7 +1044,7 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut.png")), tr("Cu&t"), CTRL+Key_X, this, "editCut"));
 	scrActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), tr("&Copy"), CTRL+Key_C, this, "editCopy"));
 	scrActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), tr("&Paste"), CTRL+Key_V, this, "editPaste"));
-	scrActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), tr("C&lear"), QKeySequence(), this, "editClear"));
+	scrActions.insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), tr("C&lear Contents"), QKeySequence(), this, "editClearContents"));
 	scrActions.insert("editSelectAll", new ScrAction(tr("Select &All"), CTRL+Key_A, this, "editSelectAll"));
 	scrActions.insert("editDeselectAll", new ScrAction(tr("&Deselect All"), CTRL+SHIFT+Key_A, this, "editDeselectAll"));
 	scrActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")),  tr("&Search/Replace..."), QKeySequence(CTRL+Key_F), this, "editSearchReplace"));
@@ -1062,7 +1062,7 @@ void ScribusApp::initEditMenuActions()
 	connect( scrActions["editCut"], SIGNAL(activated()) , this, SLOT(slotEditCut()) );
 	connect( scrActions["editCopy"], SIGNAL(activated()) , this, SLOT(slotEditCopy()) );
 	connect( scrActions["editPaste"], SIGNAL(activated()) , this, SLOT(slotEditPaste()) );
-	connect( scrActions["editClear"], SIGNAL(activated()) , this, SLOT(DeleteText()) );
+	connect( scrActions["editClearContents"], SIGNAL(activated()) , this, SLOT(clearContents()) );
 	connect( scrActions["editSelectAll"], SIGNAL(activated()) , this, SLOT(SelectAll()) );
 	connect( scrActions["editDeselectAll"], SIGNAL(activated()) , this, SLOT(deselectAll()) );
 	connect( scrActions["editSearchReplace"], SIGNAL(activated()), this, SLOT(SearchText()) );
@@ -1523,7 +1523,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editCut"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editClear"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editClearContents"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSelectAll"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editDeselectAll"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
@@ -1542,7 +1542,7 @@ void ScribusApp::initMenuBar()
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled(false);
-	scrActions["editClear"]->setEnabled(false);
+	scrActions["editClearContents"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(false);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editSearchReplace"]->setEnabled(false);
@@ -4004,7 +4004,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemLockSize"]->setEnabled(false);
 		scrActions["editCut"]->setEnabled(false);
 		scrActions["editCopy"]->setEnabled(false);
-		scrActions["editClear"]->setEnabled(false);
+		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
@@ -4024,7 +4024,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(true);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
-		scrActions["editClear"]->setEnabled(false);
+		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Style", true);
@@ -4054,7 +4054,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileExportText"]->setEnabled(true);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
-		scrActions["editClear"]->setEnabled(false);
+		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.count() != 0);
 		scrActions["extrasHyphenateText"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("Style", true);
@@ -4151,7 +4151,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileExportText"]->setEnabled(true);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
-		scrActions["editClear"]->setEnabled(false);
+		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Item", true);
@@ -4203,7 +4203,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileExportText"]->setEnabled(false);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
-		scrActions["editClear"]->setEnabled(false);
+		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
@@ -4314,7 +4314,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
 			scrActions["editCut"]->setEnabled(false);
-			scrActions["editClear"]->setEnabled(false);
+			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
 		}
 		else
@@ -5366,7 +5366,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["editCut"]->setEnabled(false);
 		scrActions["editCopy"]->setEnabled(false);
 		scrActions["editPaste"]->setEnabled(false);
-		scrActions["editClear"]->setEnabled(false);
+		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSelectAll"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editParaStyles"]->setEnabled(false);
@@ -5984,42 +5984,23 @@ void ScribusApp::ClipChange()
 	}
 }
 
-void ScribusApp::DeleteText()
+void ScribusApp::clearContents()
 {
-	PageItem *currItem = view->SelItem.at(0);
-	PageItem *nextItem = currItem;
-	while (nextItem != 0)
-	{
-		if (nextItem->BackBox != 0)
-			nextItem = nextItem->BackBox;
-		else
-			break;
-	}
-	while (nextItem != 0)
-	{
-		for (uint a = 0; a < nextItem->itemText.count(); ++a)
-		{
-			DeleteSel(nextItem);
-			nextItem->CPos = 0;
-		}
-		nextItem = nextItem->NextBox;
-	}
-	view->RefreshItem(currItem);
-	slotDocCh();
+	view->ClearItem();
 }
 
 void ScribusApp::EnableTxEdit()
 {
 	scrActions["editCut"]->setEnabled(true);
 	scrActions["editCopy"]->setEnabled(true);
-	scrActions["editClear"]->setEnabled(true);
+	//scrActions["editClearContents"]->setEnabled(true);
 }
 
 void ScribusApp::DisableTxEdit()
 {
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
-	scrActions["editClear"]->setEnabled(false);
+	//scrActions["editClearContents"]->setEnabled(false);
 }
 
 void ScribusApp::slotHelpAbout()
@@ -6642,7 +6623,7 @@ void ScribusApp::setAppMode(int mode)
 		{
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
-			scrActions["editClear"]->setEnabled(false);
+			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(false);
 			view->slotDoCurs(false);
 			if (currItem != 0)
@@ -6696,7 +6677,7 @@ void ScribusApp::setAppMode(int mode)
 			{
 				scrActions["editCut"]->setEnabled(currItem->HasSel);
 				scrActions["editCopy"]->setEnabled(currItem->HasSel);
-				scrActions["editClear"]->setEnabled(currItem->HasSel);
+				scrActions["editClearContents"]->setEnabled(currItem->HasSel);
 				scrActions["editSearchReplace"]->setEnabled(true);
 
 				view->RefreshItem(currItem);

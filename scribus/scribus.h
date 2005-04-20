@@ -320,7 +320,7 @@ public slots:
 	void SelectAll();
 	void deselectAll();
 	void ClipChange();
-	void DeleteText();
+	void clearContents();
 	/** shows an about dlg*/
 	void slotHelpAbout();
     void slotHelpAboutQt();

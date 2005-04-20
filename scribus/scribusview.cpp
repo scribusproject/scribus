@@ -1671,15 +1671,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (currItem->itemType() == PageItem::PathText)
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
 			ScApp->scrActions["itemLock"]->addTo(pmen);
-			//if (!currItem->locked())
-			//	pmen->insertItem( tr("&Lock"), this, SLOT(ToggleLock()));
-			//else
-			//	pmen->insertItem( tr("Un&lock"), this, SLOT(ToggleLock()));
 			ScApp->scrActions["itemLockSize"]->addTo(pmen);
-			//if (!currItem->sizeLocked())
-			//	pmen->insertItem( tr("Lock Object &Size"), this, SLOT(ToggleSizeLock()));
-			//else
-			//	pmen->insertItem( tr("Unlock Object &Size"), this, SLOT(ToggleSizeLock()));
 			if (!currItem->isSingleSel)
 			{
 				pmen->insertItem( tr("Send to S&crapbook"), this, SLOT(sentToScrap()));
@@ -1715,11 +1707,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					}
 					if (!isGroup)
 						ScApp->scrActions["itemGroup"]->addTo(pmen);
-						//pmen->insertItem( tr("&Group"), this, SIGNAL(DoGroup()));
 				}
 				if (currItem->Groups.count() != 0)
 					ScApp->scrActions["itemUngroup"]->addTo(pmen);
-					//pmen->insertItem( tr("Un&group"), this, SIGNAL(DoUnGroup()));
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
 					pmen->insertItem( tr("Le&vel"), pmenLevel);
@@ -1727,10 +1717,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					ScApp->scrActions["itemBringToFront"]->addTo(pmenLevel);
 					ScApp->scrActions["itemLower"]->addTo(pmenLevel);
 					ScApp->scrActions["itemRaise"]->addTo(pmenLevel);
-					//pmenLevel->insertItem( tr("Send to &Back"), this, SLOT(ToBack()));
-					//pmenLevel->insertItem( tr("Bring to &Front"), this, SLOT(ToFront()));
-					//pmenLevel->insertItem( tr("&Lower"), this, SLOT(LowerItem()));
-					//pmenLevel->insertItem( tr("&Raise"), this, SLOT(RaiseItem()));
 				}
 			}
 			if (Doc->appMode != EditMode) //Create convertTo Menu
@@ -1740,23 +1726,18 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					insertConvertToMenu=true;
 					ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-					//pmen2->insertItem( tr("&Image Frame"), this, SLOT(ToPicFrame()));
 					if (!currItem->isTableItem)
 					{
 						ScApp->scrActions["itemConvertToOutlines"]->addTo(pmen2);
 						ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
-						//pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
-						//pmen2->insertItem( tr("&Outlines"), this, SLOT(TextToPath()));
 					}
 				}
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					insertConvertToMenu=true;
 					ScApp->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
-					//pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
 					if (!currItem->isTableItem)
 						ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
-						//pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
 				}
 				if (currItem->itemType() == PageItem::Polygon)
 				{
@@ -1764,9 +1745,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					ScApp->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
 					ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 					ScApp->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
-					//pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
-					//pmen2->insertItem( tr("&Image Frame"), this, SLOT(ToPicFrame()));
-					//pmen2->insertItem( tr("&Bezier Curve"), this, SLOT(ToBezierFrame()));
 				}
 				if (insertConvertToMenu)
 					pmen->insertItem( tr("Conve&rt to"), pmen2);
@@ -1781,15 +1759,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (!currItem->locked() && (Doc->appMode != 7) && (!(currItem->isTableItem && currItem->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-				pmen->insertItem( tr("C&lear Contents"), this, SLOT(ClearItem()));
+				ScApp->scrActions["editClearContents"]->addTo(pmen);
 			pmen->insertSeparator();
 			ScApp->scrActions["toolsProperties"]->addTo(pmen);
-			/*
-			if (!ScApp->propertiesPalette->isVisible())
-				pmen->insertItem( tr("Show P&roperties..."), ScApp, SLOT(togglePropertiesPalette()));
-			else
-				pmen->insertItem( tr("Hide P&roperties..."), ScApp, SLOT(togglePropertiesPalette()));
-			*/
+
 			pmen->exec(QCursor::pos());
 			setGlobalUndoMode();
 			delete pmen;
