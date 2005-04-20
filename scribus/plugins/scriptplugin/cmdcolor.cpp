@@ -55,7 +55,7 @@ PyObject *scribus_getcolorasrgb(PyObject */*self*/, PyObject* args)
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Colour not found","python error"));
+		PyErr_SetString(NotFoundError, QObject::tr("Color not found","python error"));
 		return NULL;
 	}
 	QColor rgb = edc[col].getRGBColor();
