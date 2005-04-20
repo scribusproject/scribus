@@ -1,8 +1,8 @@
 #ifndef FONTPREVIEW_H
 #define FONTPREVIEW_H
 
-#include <qvariant.h>
-#include <qdialog.h>
+//#include <qvariant.h>
+//#include <qdialog.h>
 
 #include "scribus.h"
 
@@ -14,7 +14,7 @@ class QListViewItem;
 class QListBoxItem;
 class QPushButton;
 class QLabel;
-
+class QSpinBox;
 
 class FontPreview : public QDialog
 {
@@ -34,6 +34,8 @@ public:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLabel* fontPreview;
+	QLabel* sizeLabel;
+	QSpinBox* sizeSpin;
 	/** Font iteration */
 	QMap<QString,QFont> reallyUsedFonts;
 	/** Pixmaps for each font type */
@@ -43,7 +45,7 @@ public:
 	QPixmap okIcon;
 
 public slots:
-	virtual void fontList_changed(QListViewItem *);
+	virtual void fontList_changed();
 
 protected:
 	/** gui layout */
@@ -53,6 +55,8 @@ protected:
 	QHBoxLayout* layout5;
 	QVBoxLayout* layout2;
 	QVBoxLayout* layout1;
+	QHBoxLayout* sizeLayout;
+	QVBoxLayout* listLayout;
 	/** Configuration structure */
 	PrefsContext* prefs;
     /*! Column for sorting. */

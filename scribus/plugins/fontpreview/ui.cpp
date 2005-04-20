@@ -9,6 +9,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qstring.h>
+#include <qspinbox.h>
 
 #include <prefsfile.h>
 
@@ -52,10 +53,23 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	layout6->addLayout(searchLayout, 0);
 
 	layout5 = new QHBoxLayout(0, 0, 5, "layout5");
+
+	listLayout = new QVBoxLayout(0, 0, 5, "listLayout");
 	fontList = new QListView(this, "fontList" );
 	fontList->setAllColumnsShowFocus(true);
 	fontList->setShowSortIndicator(true);
-	layout5->addWidget(fontList);
+	listLayout->addWidget(fontList);
+
+	sizeLayout = new QHBoxLayout(0, 0, 5, "sizeLayout");
+	sizeLabel = new QLabel(this, "sizeLabel");
+	sizeLabel->setText(tr("Font Size:"));
+	sizeLayout->addWidget(sizeLabel);
+	sizeSpin = new QSpinBox(10, 72, 1, this, "sizeSpin");
+	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
+	sizeLayout->addWidget(sizeSpin);
+	listLayout->addLayout(sizeLayout, 0);
+
+	layout5->addLayout(listLayout);
 	// columns
 	fontList->addColumn(tr("Font Name", "font preview"));
 	fontList->addColumn(tr("Doc", "font preview"));
@@ -113,14 +127,15 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	}
 	if (item != 0)
 	{
-		fontList_changed(item);
 		fontList->setCurrentItem(item);
+		fontList_changed();
 	}
 
 	// signals and slots connections
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(fontList, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(fontList_changed(QListViewItem*)));
+	connect(fontList, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(fontList_changed()));
+	connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(fontList_changed()));
 	// searching
 	connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
 	connect(searchEdit, SIGNAL(textChanged(const QString &)), this, SLOT(searchEdit_textChanged(const QString &)));
@@ -153,20 +168,19 @@ void FontPreview::languageChange()
 	QToolTip::add(cancelButton,tr("Leave preview", "font preview"));
 	QToolTip::add(searchEdit, "<qt>" + tr("Typing the text here provides quick searching in the font names. E.g. 'bold' shows all fonts with Bold in name. Searching is case insensitive.") + "</qt>");
 	QToolTip::add(searchButton, tr("Start searching"));
+	QToolTip::add(sizeSpin, tr("Size of the selected font"));
 }
 
 /**
  * Creates pixmap with font sample
  */
-void FontPreview::fontList_changed(QListViewItem *item)
+void FontPreview::fontList_changed()
 {
-	uint size = 16;
 	QString t = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
-	if (carrier->doc->toolSettings.defSize && carrier->doc->toolSettings.defSize < 28 && carrier->doc->toolSettings.defSize > 10)
-		size = carrier->doc->toolSettings.defSize;
 	t.replace('\n', " "); // remove French <NL> from translation...
+	QListViewItem *item = fontList->currentItem();
 	QString da = carrier->Prefs.AvailFonts[item->text(0)]->Datei;
-	QPixmap pixmap = fontSamples(da, size, t, paletteBackgroundColor());
+	QPixmap pixmap = fontSamples(da, sizeSpin->value(), t, paletteBackgroundColor());
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
