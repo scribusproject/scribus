@@ -1,9 +1,6 @@
 #ifndef FONTPREVIEW_H
 #define FONTPREVIEW_H
 
-//#include <qvariant.h>
-//#include <qdialog.h>
-
 #include "scribus.h"
 
 class QVBoxLayout;
@@ -15,6 +12,7 @@ class QListBoxItem;
 class QPushButton;
 class QLabel;
 class QSpinBox;
+class QSpacerItem;
 
 class FontPreview : public QDialog
 {
@@ -50,13 +48,10 @@ public slots:
 protected:
 	/** gui layout */
 	QGridLayout* FontPreviewLayout;
+	QVBoxLayout* mainLayout;
 	QHBoxLayout* searchLayout;
-	QVBoxLayout* layout6;
-	QHBoxLayout* layout5;
-	QVBoxLayout* layout2;
-	QVBoxLayout* layout1;
 	QHBoxLayout* sizeLayout;
-	QVBoxLayout* listLayout;
+	QSpacerItem* buttonSpacer;
 	/** Configuration structure */
 	PrefsContext* prefs;
     /*! Column for sorting. */

@@ -39,7 +39,7 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	ysize = prefs->getUInt("ysize", 480);
 
 	FontPreviewLayout = new QGridLayout(this, 1, 1, 10, 5, "FontPreviewLayout");
-	layout6 = new QVBoxLayout(0, 0, 5, "layout6");
+	mainLayout = new QVBoxLayout( 0, 0, 5, "mainLayout");
 
 	// searching
 	searchLayout = new QHBoxLayout(0, 0, 5, "searchLayout");
@@ -50,26 +50,11 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	searchButton = new QPushButton(this, "searchButton");
 	searchLayout->addWidget(searchButton);
 
-	layout6->addLayout(searchLayout, 0);
+	mainLayout->addLayout(searchLayout, 0);
 
-	layout5 = new QHBoxLayout(0, 0, 5, "layout5");
-
-	listLayout = new QVBoxLayout(0, 0, 5, "listLayout");
 	fontList = new QListView(this, "fontList" );
 	fontList->setAllColumnsShowFocus(true);
 	fontList->setShowSortIndicator(true);
-	listLayout->addWidget(fontList);
-
-	sizeLayout = new QHBoxLayout(0, 0, 5, "sizeLayout");
-	sizeLabel = new QLabel(this, "sizeLabel");
-	sizeLabel->setText(tr("Font Size:"));
-	sizeLayout->addWidget(sizeLabel);
-	sizeSpin = new QSpinBox(10, 72, 1, this, "sizeSpin");
-	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
-	sizeLayout->addWidget(sizeSpin);
-	listLayout->addLayout(sizeLayout, 0);
-
-	layout5->addLayout(listLayout);
 	// columns
 	fontList->addColumn(tr("Font Name", "font preview"));
 	fontList->addColumn(tr("Doc", "font preview"));
@@ -79,24 +64,34 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	fontList->setColumnAlignment(3, Qt::AlignCenter);
 	fontList->addColumn(tr("Access", "font preview"));
 
-	layout2 = new QVBoxLayout(0, 0, 5, "layout2");
-	layout1 = new QVBoxLayout(0, 0, 5, "layout1");
-	okButton = new QPushButton(this, "okButton");
-	layout1->addWidget(okButton);
-	cancelButton = new QPushButton(this, "cancelButton");
-	layout1->addWidget(cancelButton);
-	QSpacerItem* spacer = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	layout2->addItem(spacer);
-	layout2->addLayout(layout1);
-	layout5->addLayout(layout2);
-	layout6->addLayout(layout5);
+	mainLayout->addWidget(fontList);
+
 	fontPreview = new QLabel(this, "fontPreview");
 	fontPreview->setMinimumSize(QSize(400, 90));
 	fontPreview->setFrameShape(QFrame::Box);
-	fontPreview->setPaletteBackgroundColor(paletteBackgroundColor());
-	layout6->addWidget(fontPreview);
+	fontPreview->setPaletteBackgroundColor(white /* MrB RFE ;) paletteBackgroundColor()*/);
+	mainLayout->addWidget(fontPreview);
 
-	FontPreviewLayout->addLayout(layout6, 0, 0);
+	sizeLayout = new QHBoxLayout(0, 0, 5, "sizeLayout");
+	sizeLabel = new QLabel(this, "sizeLabel");
+	sizeLabel->setText(tr("Font Size:"));
+	sizeLayout->addWidget(sizeLabel);
+	sizeSpin = new QSpinBox(10, 72, 1, this, "sizeSpin");
+	sizeSpin->setValue(prefs->getUInt("fontSize", 18));
+	sizeLayout->addWidget(sizeSpin);
+
+	buttonSpacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	sizeLayout->addItem(buttonSpacer);
+
+	okButton = new QPushButton(this, "okButton");
+	sizeLayout->addWidget(okButton);
+	cancelButton = new QPushButton(this, "cancelButton");
+	sizeLayout->addWidget(cancelButton);
+
+	mainLayout->addLayout(sizeLayout);
+
+	FontPreviewLayout->addLayout(mainLayout, 0, 0);
+
 	languageChange();
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
 	layout()->activate();
@@ -149,6 +144,7 @@ FontPreview::~FontPreview()
    prefs->set("sortColumn", fontList->sortColumn());
    prefs->set("xsize", width());
    prefs->set("ysize", height());
+   prefs->set("fontSize", sizeSpin->value());
 }
 
 /**
@@ -162,7 +158,7 @@ void FontPreview::languageChange()
 	okButton->setAccel(QKeySequence(tr("Alt+O", "font preview")));
 	searchLabel->setText(tr("Quick Search: "));
 	searchButton->setText(tr("&Search"));
-	cancelButton->setText(tr("&Cancel", "font preview"));
+	cancelButton->setText(tr("&Close", "font preview"));
 	cancelButton->setAccel(QKeySequence(tr("Alt+C", "font preview")));
 	QToolTip::add(okButton, "<qt>" + tr("Append selected font into Style, Font menu", "font preview") + "</qt>");
 	QToolTip::add(cancelButton,tr("Leave preview", "font preview"));
@@ -180,7 +176,7 @@ void FontPreview::fontList_changed()
 	t.replace('\n', " "); // remove French <NL> from translation...
 	QListViewItem *item = fontList->currentItem();
 	QString da = carrier->Prefs.AvailFonts[item->text(0)]->Datei;
-	QPixmap pixmap = fontSamples(da, sizeSpin->value(), t, paletteBackgroundColor());
+	QPixmap pixmap = fontSamples(da, sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
