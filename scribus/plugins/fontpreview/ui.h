@@ -28,9 +28,10 @@ public:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLabel* fontPreview;
+	QSpinBox* fontSizeSpinner;
 
 public slots:
-	virtual void fontList_changed( QListBoxItem * );
+	virtual void fontList_changed();
 
 protected:
 	/** gui layout */

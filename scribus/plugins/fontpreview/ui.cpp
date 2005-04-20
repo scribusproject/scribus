@@ -8,6 +8,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qstring.h>
+#include <qspinbox.h>
 
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
@@ -37,6 +38,11 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	layout1->addWidget( okButton );
 	cancelButton = new QPushButton( this, "cancelButton" );
 	layout1->addWidget( cancelButton );
+
+	fontSizeSpinner = new QSpinBox(this, "fontSizeSpinner" );
+	fontSizeSpinner->setValue(18);
+	layout1->addWidget( fontSizeSpinner );
+
 	layout2->addLayout( layout1 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout2->addItem( spacer );
@@ -74,14 +80,15 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	}
 	if (item != 0)
 	{
-		fontList_changed(item);
 		fontList->setCurrentItem(item);
+		fontList_changed();
 	}
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT(accept()));
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( fontList, SIGNAL( selectionChanged(QListBoxItem*) ), this, SLOT( fontList_changed(QListBoxItem*) ) );
+	connect( fontList, SIGNAL( selectionChanged(QListBoxItem*) ), this, SLOT( fontList_changed() ) );
+	connect( fontSizeSpinner, SIGNAL( valueChanged(int) ), this, SLOT(fontList_changed()));
 }
 
 /**
@@ -105,18 +112,19 @@ void FontPreview::languageChange()
 	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
 	QToolTip::add(okButton, tr("Append selected font into Style, Font menu"));
 	QToolTip::add(cancelButton,tr("Leave preview"));
+	QToolTip::add(fontSizeSpinner, tr("Size of the Font"));
 }
 
 /*
 Creates pixmap with font sample
 */
-void FontPreview::fontList_changed( QListBoxItem *item )
+void FontPreview::fontList_changed()
 {
-	uint size = 16;
+	uint size = fontSizeSpinner->value();
 	QString t = tr("Woven silk pyjamas exchanged for blue quartz");
-	QString da = carrier->Prefs.AvailFonts[item->text()]->Datei;
+	QString da = carrier->Prefs.AvailFonts[fontList->currentText()]->Datei;
 	QPixmap pixmap = fontSamples(da, size, t, paletteBackgroundColor());
 	fontPreview->clear();
 	if (!pixmap.isNull())
-	fontPreview->setPixmap(pixmap);
+		fontPreview->setPixmap(pixmap);
 }
