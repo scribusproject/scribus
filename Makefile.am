@@ -15,7 +15,11 @@ package-messages:
 	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common package-messages
 	$(MAKE) -C po merge
 
-EXTRA_DIST = AUTHORS admin COPYING configure.in.in ChangeLog INSTALL README TODO scribus.lsm scribus.desktop
+EXTRA_DIST = AUTHORS COPYING INSTALL README TODO NEWS PACKAGING ChangeLog ChangeLogCVS scribus.lsm scribus.desktop configure config.h.in configure.in configure.in.in configure.in.bot admin stamp-h1 subdirs configure.files
+
+# Prevent the KDE build system from piling stuff we don't want into the
+# toplevel dir of the "make dist" tarballs.
+KDE_OPTIONS = noautodist
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
