@@ -110,10 +110,10 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_inserttext__doc__,
 QT_TR_NOOP("insertText(\"text\", pos, [\"name\"])\n\
 \n\
-Inserts the text \"text\" at the position \"pos\" into the text frame. Text\n\
-must be UTF encoded (see setText() as reference) The first character has an\n\
-index of 0. \"name\" If \"name\" is not given the currently selected Item is\n\
-used.\n\
+Inserts the text \"text\" at the position \"pos\" into the text frame \"name\".\n\
+Text must be UTF encoded (see setText() as reference). The first character has\n\
+an index of 0. Inserting at position -1 appends text to the frame. If \"name\"\n\
+is not given the currently selected Item is used.\n\
 \n\
 May throw IndexError for an insertion out of bounds.\n\
 "));
