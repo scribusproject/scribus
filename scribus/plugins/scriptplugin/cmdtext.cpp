@@ -309,11 +309,13 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 	}
 	QString Daten = QString::fromUtf8(Text);
 	PyMem_Free(Text);
-	if ((pos < 0) && (pos > static_cast<int>(it->itemText.count())))
+	if ((pos < -1) || (pos > static_cast<int>(it->itemText.count())))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Insert index out of bounds.","python error"));
 		return NULL;
 	}
+	if (pos == -1)
+		pos = it->itemText.count();
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
 		struct ScText *hg = new ScText;
