@@ -130,6 +130,7 @@
 #include "pluginmanager.h"
 #include "scpaths.h"
 #include "pdfoptions.h"
+#include "actionmanager.h"
 
 //CB TODO include for toc testing for now
 #include "gtwriter.h"
@@ -199,22 +200,11 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
-
 	initDefaultValues();
-	initFileMenuActions();
-	initEditMenuActions();
-	initStyleMenuActions();
-	initItemMenuActions();
-	initInsertMenuActions();
-	initPageMenuActions();
-	initViewMenuActions();
-	initToolsMenuActions();
-	initExtrasMenuActions();
-	initWindowsMenuActions();
-	initScriptMenuActions();
-	initHelpMenuActions();
-	initSpecialActions();
-
+	modeActionNames=new QStringList();
+	nonEditActionNames=new QStringList();
+	unicodeCharActionNames=new QStringList();
+	actionManager = new ActionManager(this, "actionManager");
 	initMenuBar();
 	initStatusBar();
 	initToolBars();
@@ -982,509 +972,6 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 			splashScreen->show();
 	}
 	return retVal;
-}
-
-void ScribusApp::initFileMenuActions()
-{
-	//File Menu
-	scrActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), tr("&New"), CTRL+Key_N, this, "fileNew"));
-	scrActions.insert("fileOpen", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), tr("&Open..."), CTRL+Key_O, this, "fileOpen"));
-	scrActions.insert("fileClose", new ScrAction(QIconSet(loadIcon("DateiClos16.png"), loadIcon("DateiClose.png")), tr("&Close"), CTRL+Key_W, this, "fileClose"));
-	scrActions.insert("fileSave", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), tr("&Save"), CTRL+Key_S, this, "fileSave"));
-	scrActions.insert("fileSaveAs", new ScrAction(QPixmap(loadIcon("filesaveas.png")), tr("Save &As..."), CTRL+SHIFT+Key_S, this, "fileSaveAs"));
-	scrActions.insert("fileRevert", new ScrAction(QPixmap(loadIcon("revert.png")), tr("Re&vert to Saved"), QKeySequence(), this, "fileRevert"));
-	scrActions.insert("fileCollect", new ScrAction(tr("Collect for O&utput..."), QKeySequence(), this, "fileCollect"));
-	//File Import Menu
-	scrActions.insert("fileImportText", new ScrAction(tr("Get Text..."), QKeySequence(), this, "fileImportText"));
-	scrActions.insert("fileImportAppendText", new ScrAction(tr("Append &Text..."), QKeySequence(), this, "fileImportAppendText"));
-	scrActions.insert("fileImportImage", new ScrAction(tr("Get Image..."), QKeySequence(), this, "fileImportImage"));
-	scrActions.insert("fileImportPage", new ScrAction(tr("Import Page(s)..."), QKeySequence(), this, "fileImportPage"));
-
-	//File Export Menu
-	scrActions.insert("fileExportText", new ScrAction(tr("Save &Text..."), QKeySequence(), this, "fileExportText"));
-	scrActions.insert("fileExportAsEPS", new ScrAction(tr("Save Page as &EPS..."), QKeySequence(), this, "fileExportAsEPS"));
-	scrActions.insert("fileExportAsPDF", new ScrAction(loadIcon("acrobat.png"), tr("Save as P&DF..."), QKeySequence(), this, "fileExportAsPDF"));
-	//Rest of File Menu
-	scrActions.insert("fileDocInfo", new ScrAction(loadIcon("documentinfo.png"), tr("Document &Information..."), CTRL+Key_I, this, "fileDocInfo"));
-	scrActions.insert("fileDocSetup", new ScrAction(tr("Document &Setup..."), QKeySequence(), this, "fileDocSetup"));
-	scrActions.insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), tr("&Print..."), CTRL+Key_P, this, "filePrint"));
-	scrActions.insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), tr("&Quit"), CTRL+Key_Q, this, "fileQuit"));
-
-	//Connect our signals and slots
-	//File Menu
-	connect( scrActions["fileNew"], SIGNAL(activated()) , this, SLOT(slotFileNew()) );
-	connect( scrActions["fileOpen"], SIGNAL(activated()) , this, SLOT(slotDocOpen()) );
-	connect( scrActions["fileClose"], SIGNAL(activated()) , this, SLOT(slotFileClose()) );
-	connect( scrActions["filePrint"], SIGNAL(activated()) , this, SLOT(slotFilePrint()) );
-	connect( scrActions["fileSave"], SIGNAL(activated()) , this, SLOT(slotFileSave()) );
-	connect( scrActions["fileSaveAs"], SIGNAL(activated()) , this, SLOT(slotFileSaveAs()) );
-	connect( scrActions["fileDocInfo"], SIGNAL(activated()) , this, SLOT(InfoDoc()) );
-	connect( scrActions["fileDocSetup"], SIGNAL(activated()) , this, SLOT(SetupDoc()) );
-	connect( scrActions["fileRevert"], SIGNAL(activated()) , this, SLOT(slotFileRevert()) );
-	connect( scrActions["fileCollect"], SIGNAL(activated()) , this, SLOT(Collect()) );
-	connect( scrActions["fileQuit"], SIGNAL(activated()) , this, SLOT(slotFileQuit()) );
-	//File Import Menu
-	connect( scrActions["fileImportText"], SIGNAL(activated()) , this, SLOT(slotFileOpen()) );
-	connect( scrActions["fileImportAppendText"], SIGNAL(activated()) , this, SLOT(slotFileAppend()) );
-	connect( scrActions["fileImportImage"], SIGNAL(activated()) , this, SLOT(slotFileOpen()) );
-	connect( scrActions["fileImportPage"], SIGNAL(activated()) , this, SLOT(slotDocMerge()) );
-	//File Export Menu
-	connect( scrActions["fileExportText"], SIGNAL(activated()) , this, SLOT(SaveText()) );
-	connect( scrActions["fileExportAsEPS"], SIGNAL(activated()) , this, SLOT(SaveAsEps()) );
-	connect( scrActions["fileExportAsPDF"], SIGNAL(activated()) , this, SLOT(SaveAsPDF()) );
-	//The rest are plugins
-}
-
-void ScribusApp::initEditMenuActions()
-{
-	//Edit Menu
-	scrActions.insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), tr("&Undo"), CTRL+Key_Z, this, "editUndoAction",1));
-	scrActions.insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), tr("&Redo"), CTRL+SHIFT+Key_Z, this, "editRedoAction", 1));
-	scrActions.insert("editActionMode", new ScrAction(tr("&Item Action Mode"), QKeySequence(), this, "editActionMode"));
-	scrActions["editActionMode"]->setToggleAction(true);
-	scrActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut.png")), tr("Cu&t"), CTRL+Key_X, this, "editCut"));
-	scrActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), tr("&Copy"), CTRL+Key_C, this, "editCopy"));
-	scrActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), tr("&Paste"), CTRL+Key_V, this, "editPaste"));
-	scrActions.insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), tr("C&lear Contents"), QKeySequence(), this, "editClearContents"));
-	scrActions.insert("editSelectAll", new ScrAction(tr("Select &All"), CTRL+Key_A, this, "editSelectAll"));
-	scrActions.insert("editDeselectAll", new ScrAction(tr("&Deselect All"), CTRL+SHIFT+Key_A, this, "editDeselectAll"));
-	scrActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")),  tr("&Search/Replace..."), QKeySequence(CTRL+Key_F), this, "editSearchReplace"));
-
-	scrActions.insert("editColors", new ScrAction(tr("C&olors..."), QKeySequence(), this, "editColors"));
-	scrActions.insert("editParaStyles", new ScrAction(tr("&Paragraph Styles..."), QKeySequence(), this, "editParaStyles"));
-	scrActions.insert("editLineStyles", new ScrAction(tr("&Line Styles..."), QKeySequence(), this, "editLineStyles"));
-	scrActions.insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), this, "editTemplates"));
-	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
-	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
-
-	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
-	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
-	connect( scrActions["editActionMode"], SIGNAL(toggled(bool)) , this, SLOT(setUndoMode(bool)) );
-	connect( scrActions["editCut"], SIGNAL(activated()) , this, SLOT(slotEditCut()) );
-	connect( scrActions["editCopy"], SIGNAL(activated()) , this, SLOT(slotEditCopy()) );
-	connect( scrActions["editPaste"], SIGNAL(activated()) , this, SLOT(slotEditPaste()) );
-	connect( scrActions["editClearContents"], SIGNAL(activated()) , this, SLOT(clearContents()) );
-	connect( scrActions["editSelectAll"], SIGNAL(activated()) , this, SLOT(SelectAll()) );
-	connect( scrActions["editDeselectAll"], SIGNAL(activated()) , this, SLOT(deselectAll()) );
-	connect( scrActions["editSearchReplace"], SIGNAL(activated()), this, SLOT(SearchText()) );
-	connect( scrActions["editColors"], SIGNAL(activated()) , this, SLOT(slotEditColors()) );
-	connect( scrActions["editParaStyles"], SIGNAL(activated()) , this, SLOT(slotEditStyles()) );
-	connect( scrActions["editLineStyles"], SIGNAL(activated()) , this, SLOT(slotEditLineStyles()) );
-	connect( scrActions["editTemplates"], SIGNAL(activated()) , this, SLOT(ManageTemp()) );
-	connect( scrActions["editJavascripts"], SIGNAL(activated()) , this, SLOT(ManageJava()) );
-	connect( scrActions["editPreferences"], SIGNAL(activated()) , this, SLOT(slotPrefsOrg()) );
-}
-
-void ScribusApp::initStyleMenuActions()
-{
-	//Text Size actions
-	scrActionGroups.insert("fontSize", new QActionGroup(this, "fontSize", true));
-	scrActions.insert("fontSizeOther", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Other..."), QKeySequence(), scrActionGroups["fontSize"], "fontSizeOther", -1));
-	connect(scrActions["fontSizeOther"], SIGNAL(activatedData(int)), this, SLOT(setItemFSize(int)));
-
-	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
-	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
-	for (uint s = 0; s < f_size; ++s)
-	{
-		QString fontSizeName=QString("fontSize%1").arg(font_sizes[s]);
-		scrActions.insert(fontSizeName, new ScrAction(ScrAction::DataInt, QIconSet(), tr("%1 pt").arg(font_sizes[s]), QKeySequence(), scrActionGroups["fontSize"], fontSizeName, font_sizes[s]));
-		scrActions[fontSizeName]->setToggleAction(true);
-		connect(scrActions[fontSizeName], SIGNAL(activatedData(int)), this, SLOT(setItemFSize(int)));
-	}
-
-	//Alignment actions
-	scrActions.insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Left"), QKeySequence(), this, "alignLeft", 0));
-	scrActions.insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Center"), QKeySequence(), this, "alignCenter", 1));
-	scrActions.insert("alignRight", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Right"), QKeySequence(), this, "alignRight", 2));
-	scrActions.insert("alignBlock", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Block"), QKeySequence(), this, "alignBlock", 3));
-	scrActions.insert("alignForced", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Forced"), QKeySequence(), this, "alignForced", 4));
-
-	scrActions["alignLeft"]->setToggleAction(true);
-	scrActions["alignCenter"]->setToggleAction(true);
-	scrActions["alignRight"]->setToggleAction(true);
-	scrActions["alignBlock"]->setToggleAction(true);
-	scrActions["alignForced"]->setToggleAction(true);
-
-	connect(scrActions["alignLeft"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
-	connect(scrActions["alignCenter"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
-	connect(scrActions["alignRight"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
-	connect(scrActions["alignBlock"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
-	connect(scrActions["alignForced"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
-
-	//Shade actions
-	scrActionGroups.insert("shade", new QActionGroup(this, "shade", true));
-	scrActions.insert("shadeOther", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Other..."), QKeySequence(), scrActionGroups["shade"], "shadeOther", -1));
-	connect(scrActions["shadeOther"], SIGNAL(activatedData(int)), this, SLOT(setItemShade(int)));
-	for (uint i=0; i<=100 ; i+=10)
-	{
-		QString shadeName=QString("shade%1").arg(i);
-		scrActions.insert(shadeName, new ScrAction(ScrAction::DataInt, QIconSet(), tr("&%1 %").arg(i), QKeySequence(), scrActionGroups["shade"], shadeName, i));
-		scrActions[shadeName]->setToggleAction(true);
-		connect(scrActions[shadeName], SIGNAL(activatedData(int)), this, SLOT(setItemShade(int)));
-	}
-
-	//Type Effects actions
-	scrActionGroups.insert("typeEffects", new QActionGroup(this, "typeEffects", false));
-	scrActions.insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Normal"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectNormal", 0));
-	scrActions.insert("typeEffectUnderline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Underline"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectUnderline", 1));
-	scrActions.insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Strike Through"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectStrikeThrough", 2));
-	scrActions.insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Small &Caps"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSmallCaps", 3));
-	scrActions.insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&perscript"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSuperscript", 4));
-	scrActions.insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&bscript"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSubscript", 5));
-	scrActions.insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Outline"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectOutline", 6));
-	scrActions["typeEffectNormal"]->setToggleAction(true);
-	scrActions["typeEffectUnderline"]->setToggleAction(true);
-	scrActions["typeEffectStrikeThrough"]->setToggleAction(true);
-	scrActions["typeEffectSmallCaps"]->setToggleAction(true);
-	scrActions["typeEffectSuperscript"]->setToggleAction(true);
-	scrActions["typeEffectSubscript"]->setToggleAction(true);
-	scrActions["typeEffectOutline"]->setToggleAction(true);
-	connect(scrActions["typeEffectNormal"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-	connect(scrActions["typeEffectUnderline"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-	connect(scrActions["typeEffectStrikeThrough"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-	connect(scrActions["typeEffectSmallCaps"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-	connect(scrActions["typeEffectSuperscript"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-	connect(scrActions["typeEffectSubscript"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-	connect(scrActions["typeEffectOutline"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
-
-	//Other Style menu items that get added in various places
-	scrActions.insert("styleInvertPict", new ScrAction(tr("&Invert"), QKeySequence(), this, "styleInvertPict"));
-	scrActions.insert("styleTabulators", new ScrAction(tr("&Tabulators..."), QKeySequence(), this, "styleTabulators"));
-	connect(scrActions["styleInvertPict"], SIGNAL(activated()), this, SLOT(InvertPict()));
-	connect(scrActions["styleTabulators"], SIGNAL(activated()), this, SLOT(EditTabs()));
-
-}
-
-void ScribusApp::initItemMenuActions()
-{
-	//Item Menu
-	scrActions.insert("itemDuplicate", new ScrAction(tr("D&uplicate"), CTRL+Key_D, this, "itemDuplicate"));
-	scrActions.insert("itemMulDuplicate", new ScrAction(tr("&Multiple Duplicate"), QKeySequence(), this, "itemMulDuplicate"));
-	scrActions.insert("itemDelete", new ScrAction(tr("&Delete"), CTRL+Key_K, this, "itemDelete"));
-	scrActions.insert("itemGroup", new ScrAction(tr("&Group"), CTRL+Key_G, this, "itemGroup"));
-	scrActions.insert("itemUngroup", new ScrAction(tr("&Ungroup"), CTRL+Key_U, this, "itemUngroup"));
-	scrActions.insert("itemLock", new ScrAction(tr("Is &Locked"), CTRL+Key_L, this, "itemLock"));
-	scrActions.insert("itemLockSize", new ScrAction(tr("Si&ze is Locked"), CTRL+SHIFT+Key_L, this, "itemLockSize"));
-	scrActions["itemLock"]->setToggleAction(true);
-	scrActions["itemLockSize"]->setToggleAction(true);
-	scrActions.insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(Key_End), this, "itemSendToBack"));
-	scrActions.insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(Key_Home), this, "itemBringToFront"));
-	scrActions.insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(Key_PageDown), this, "itemLower"));
-	scrActions.insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(Key_PageUp), this, "itemRaise"));
-	scrActions.insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), this, "itemAlignDist"));
-	scrActions.insert("itemSendToScrapbook", new ScrAction(tr("Send to S&crapbook"), QKeySequence(), this, "itemSendToScrapbook"));
-	
-	scrActions.insert("itemAttributes", new ScrAction(tr("&Attributes..."), QKeySequence(), this, "itemAttributes"));
-	scrActions.insert("itemPDFIsBookmark", new ScrAction(tr("Is PDF &Bookmark"), QKeySequence(), this, "itemPDFIsBookmark"));
-	scrActions["itemPDFIsBookmark"]->setToggleAction(true);
-	scrActions.insert("itemPDFIsAnnotation", new ScrAction(tr("Is PDF A&nnotation"), QKeySequence(), this, "itemPDFIsAnnotation"));
-	scrActions["itemPDFIsAnnotation"]->setToggleAction(true);
-	scrActions.insert("itemPDFAnnotationProps", new ScrAction(tr("Annotation P&roperties"), QKeySequence(), this, "itemPDFAnnotationProps"));
-	scrActions.insert("itemPDFFieldProps", new ScrAction(tr("Field P&roperties"), QKeySequence(), this, "itemPDFFieldProps"));
-	
-	//CB TODO Make these work
-	scrActions["itemPDFIsBookmark"]->setEnabled(false);
-	scrActions["itemPDFIsAnnotation"]->setEnabled(false);
-	scrActions["itemPDFAnnotationProps"]->setEnabled(false);
-	scrActions["itemPDFFieldProps"]->setEnabled(false);
-		
-	scrActions.insert("itemShapeEdit", new ScrAction(tr("&Edit Shape..."), QKeySequence(), this, "itemShapeEdit"));
-	scrActions["itemShapeEdit"]->setToggleAction(true);
-	scrActions.insert("itemAttachTextToPath", new ScrAction(tr("&Attach Text to Path"), QKeySequence(), this, "itemAttachTextToPath"));
-	scrActions.insert("itemDetachTextFromPath", new ScrAction(tr("&Detach Text from Path"), QKeySequence(), this, "itemDetachTextFromPath"));
-	scrActions.insert("itemCombinePolygons", new ScrAction(tr("&Combine Polygons"), QKeySequence(), this, "itemCombinePolygons"));
-	scrActions.insert("itemSplitPolygons", new ScrAction(tr("Split &Polygons"), QKeySequence(), this, "itemSplitPolygons"));
-	scrActions.insert("itemConvertToBezierCurve", new ScrAction(tr("&Bezier Curve"), QKeySequence(), this, "itemConvertToBezierCurve"));
-	scrActions.insert("itemConvertToImageFrame", new ScrAction(tr("&Image Frame"), QKeySequence(), this, "itemConvertToImageFrame"));
-	scrActions.insert("itemConvertToOutlines", new ScrAction(tr("&Outlines"), QKeySequence(), this, "itemConvertToOutlines"));
-	scrActions.insert("itemConvertToPolygon", new ScrAction(tr("&Polygon"), QKeySequence(), this, "itemConvertToPolygon"));
-	scrActions.insert("itemConvertToTextFrame", new ScrAction(tr("&Text Frame"), QKeySequence(), this, "itemConvertToTextFrame"));
-
-	connect( scrActions["itemDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDup()) );
-	connect( scrActions["itemMulDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDupM()) );
-	connect( scrActions["itemDelete"], SIGNAL(activated()) , this, SLOT(DeleteObjekt()) );
-	connect( scrActions["itemGroup"], SIGNAL(activated()) , this, SLOT(GroupObj()) );
-	connect( scrActions["itemUngroup"], SIGNAL(activated()) , this, SLOT(UnGroupObj()) );
-	connect( scrActions["itemLock"], SIGNAL(activated()) , this, SLOT(ToggleObjLock()) );
-	connect( scrActions["itemLockSize"], SIGNAL(activated()) , this, SLOT(ToggleObjSizeLock()) );
-	connect( scrActions["itemPDFIsAnnotation"], SIGNAL(activated()) , this, SLOT(ToggleObjPDFAnnotation()) );
-	connect( scrActions["itemPDFIsBookmark"], SIGNAL(activated()) , this, SLOT(ToggleObjPDFBookmark()) );
-	connect( scrActions["itemPDFAnnotationProps"], SIGNAL(activated()) , this, SLOT(ModifyAnnot()) );
-	connect( scrActions["itemPDFFieldProps"], SIGNAL(activated()) , this, SLOT(ModifyAnnot()) );
-	connect( scrActions["itemSendToBack"], SIGNAL(activated()) , this, SLOT(Objekt2Back()) );
-	connect( scrActions["itemBringToFront"], SIGNAL(activated()) , this, SLOT(Objekt2Front()) );
-	connect( scrActions["itemLower"], SIGNAL(activated()) , this, SLOT(ObjektLower()) );
-	connect( scrActions["itemRaise"], SIGNAL(activated()) , this, SLOT(ObjektRaise()) );
-	connect( scrActions["itemAlignDist"], SIGNAL(activated()) , this, SLOT(ObjektAlign()) );
-	connect( scrActions["itemSendToScrapbook"], SIGNAL(activated()) , this, SLOT(PutScrap()) );
-	connect( scrActions["itemAttributes"], SIGNAL(activated()) , this, SLOT(objectAttributes()) );
-	connect( scrActions["itemShapeEdit"], SIGNAL(activated()) , this, SLOT(ToggleFrameEdit()) );
-	connect( scrActions["itemAttachTextToPath"], SIGNAL(activated()) , this, SLOT(Pfadtext()) );
-	connect( scrActions["itemDetachTextFromPath"], SIGNAL(activated()) , this, SLOT(noPfadtext()) );
-	connect( scrActions["itemCombinePolygons"], SIGNAL(activated()) , this, SLOT(UniteOb()) );
-	connect( scrActions["itemSplitPolygons"], SIGNAL(activated()) , this, SLOT(SplitUniteOb()) );
-	connect( scrActions["itemConvertToBezierCurve"], SIGNAL(activated()) , this, SLOT(convertToBezierCurve()) );
-	connect( scrActions["itemConvertToImageFrame"], SIGNAL(activated()) , this, SLOT(convertToImageFrame()) );
-	connect( scrActions["itemConvertToOutlines"], SIGNAL(activated()) , this, SLOT(convertToOutlines()) );
-	connect( scrActions["itemConvertToPolygon"], SIGNAL(activated()) , this, SLOT(convertToPolygon()) );
-	connect( scrActions["itemConvertToTextFrame"], SIGNAL(activated()) , this, SLOT(convertToTextFrame()) );
-}
-
-void ScribusApp::initInsertMenuActions()
-{
-	//Insert Menu
-	scrActions.insert("insertGlyph", new ScrAction(tr("&Glyph..."), QKeySequence(), this, "insertGlyph"));
-	//scrActions["insertGlyph"]->setText(tr("Insert Special Character"));
-	scrActions.insert("insertSampleText", new ScrAction(tr("Sample Text"), QKeySequence(), this, "insertSampleText"));
-	
-	connect( scrActions["insertGlyph"], SIGNAL(activated()) , this, SLOT(slotCharSelect()) );
-	connect( scrActions["insertSampleText"], SIGNAL(activated()) , this, SLOT(insertSampleText()) );
-}
-
-void ScribusApp::initPageMenuActions()
-{
-	//Page menu
-	scrActions.insert("pageInsert", new ScrAction(tr("&Insert..."), QKeySequence(), this, "pageInsert"));
-	scrActions.insert("pageDelete", new ScrAction(tr("&Delete..."), QKeySequence(), this, "pageDelete"));
-	scrActions.insert("pageCopy", new ScrAction(tr("&Copy..."), QKeySequence(), this, "pageCopy"));
-	scrActions.insert("pageMove", new ScrAction(tr("&Move..."), QKeySequence(), this, "pageMove"));
-	scrActions.insert("pageApplyTemplate", new ScrAction(tr("&Apply Template..."), QKeySequence(), this, "pageApplyTemplate"));
-	scrActions.insert("pageManageGuides", new ScrAction(tr("Manage &Guides..."), QKeySequence(), this, "pageManageGuides"));
-
-	connect( scrActions["pageInsert"], SIGNAL(activated()) , this, SLOT(slotNewPageM()) );
-	connect( scrActions["pageDelete"], SIGNAL(activated()) , this, SLOT(DeletePage()) );
-	connect( scrActions["pageCopy"], SIGNAL(activated()) , this, SLOT(CopyPage()) );
-	connect( scrActions["pageMove"], SIGNAL(activated()) , this, SLOT(MovePage()) );
-	connect( scrActions["pageApplyTemplate"], SIGNAL(activated()) , this, SLOT(ApplyTemp()) );
-	connect( scrActions["pageManageGuides"], SIGNAL(activated()) , this, SLOT(ManageGuides()) );
-}
-
-void ScribusApp::initViewMenuActions()
-{
-	scrActions.insert("viewFitInWindow", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&Fit in window"), CTRL+Key_0, this, "viewFitInWindow", 0, -100.0));
-	scrActions.insert("viewFit50", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&50%"), QKeySequence(), this, "viewFit50", 0, 50.0));
-	scrActions.insert("viewFit75", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&75%"), QKeySequence(), this, "viewFit75", 0, 75.0));
-	scrActions.insert("viewFit100", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&100%"), CTRL+Key_1, this, "viewFit100", 0, 100.0));
-	scrActions.insert("viewFit200", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&200%"), QKeySequence(), this, "viewFit200", 0, 200.0));
-	scrActions.insert("viewFit20", new ScrAction(ScrAction::DataDouble, QIconSet(), tr("&Thumbnails"), QKeySequence(), this, "viewFit20", 0, 20.0));
-	scrActions.insert("viewShowMargins", new ScrAction(tr("Show &Margins"), QKeySequence(), this, "viewShowMargins"));
-	scrActions.insert("viewShowFrames", new ScrAction(tr("Show &Frames"), QKeySequence(), this, "viewShowFrames"));
-	scrActions.insert("viewShowImages", new ScrAction(tr("Show &Images"), QKeySequence(), this, "viewShowImages"));
-	scrActions.insert("viewShowGrid", new ScrAction(tr("Show &Grid"), QKeySequence(), this, "viewShowGrid"));
-	scrActions.insert("viewShowGuides", new ScrAction(tr("Show G&uides"), QKeySequence(), this, "viewShowGuides"));
-	scrActions.insert("viewShowBaseline", new ScrAction(tr("Show &Baseline Grid"), QKeySequence(), this, "viewShowBaseline"));
-	scrActions.insert("viewShowTextChain", new ScrAction(tr("Show &Text Chain"), QKeySequence(), this, "viewShowTextChain"));
-	scrActions.insert("viewSnapToGrid", new ScrAction(tr("Sn&ap to Grid"), QKeySequence(), this, "viewSnapToGrid"));
-	scrActions.insert("viewSnapToGuides", new ScrAction(tr("Sna&p to Guides"), QKeySequence(), this, "viewSnapToGuides"));
-//	scrActions.insert("viewNewView", new ScrAction(tr("New View"), QKeySequence(), this, "viewNewView"));
-
-	scrActions["viewShowMargins"]->setToggleAction(true);
-	scrActions["viewShowFrames"]->setToggleAction(true);
-	scrActions["viewShowImages"]->setToggleAction(true);
-	scrActions["viewShowGrid"]->setToggleAction(true);
-	scrActions["viewShowGuides"]->setToggleAction(true);
-	scrActions["viewShowBaseline"]->setToggleAction(true);
-	scrActions["viewShowTextChain"]->setToggleAction(true);
-	scrActions["viewSnapToGrid"]->setToggleAction(true);
-	scrActions["viewSnapToGuides"]->setToggleAction(true);
-
-	scrActions["viewShowMargins"]->setOn(true);
-	scrActions["viewShowFrames"]->setOn(true);
-	scrActions["viewShowImages"]->setOn(true);
-	scrActions["viewShowGuides"]->setOn(true);
-
-	connect( scrActions["viewFitInWindow"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
-	connect( scrActions["viewFit50"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
-	connect( scrActions["viewFit75"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
-	connect( scrActions["viewFit100"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
-	connect( scrActions["viewFit200"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
-	connect( scrActions["viewFit20"], SIGNAL(activatedData(double)) , this, SLOT(slotZoom(double)) );
-	connect( scrActions["viewShowMargins"], SIGNAL(activated()) , this, SLOT(ToggleMarks()) );
-	connect( scrActions["viewShowFrames"], SIGNAL(activated()) , this, SLOT(ToggleFrames()) );
-	connect( scrActions["viewShowImages"], SIGNAL(activated()) , this, SLOT(TogglePics()) );
-	connect( scrActions["viewShowGrid"], SIGNAL(activated()) , this, SLOT(ToggleRaster()) );
-	connect( scrActions["viewShowGuides"], SIGNAL(activated()) , this, SLOT(ToggleGuides()) );
-	connect( scrActions["viewShowBaseline"], SIGNAL(activated()) , this, SLOT(ToggleBase()) );
-	connect( scrActions["viewShowTextChain"], SIGNAL(activated()) , this, SLOT(ToggleTextLinks()) );
-	connect( scrActions["viewSnapToGrid"], SIGNAL(activated()) , this, SLOT(ToggleURaster()) );
-	connect( scrActions["viewSnapToGuides"], SIGNAL(activated()) , this, SLOT(ToggleUGuides()) );
-//	connect( scrActions["viewNewView"], SIGNAL(activated()) , this, SLOT(newView()) );
-
-}
-
-void ScribusApp::initToolsMenuActions()
-{
-	//Tool menu
-	scrActions.insert("toolsProperties", new ScrAction(tr("&Properties"), QKeySequence(), this, "toolsProperties"));
-	scrActions.insert("toolsOutline", new ScrAction(tr("&Outline"), QKeySequence(), this, "toolsOutline"));
-	scrActions.insert("toolsScrapbook", new ScrAction(tr("&Scrapbook"), QKeySequence(), this, "toolsScrapbook"));
-	scrActions.insert("toolsLayers", new ScrAction(tr("&Layers"), QKeySequence(Key_F6), this, "toolsLayers"));
-	scrActions.insert("toolsPages", new ScrAction(tr("P&age Palette"), QKeySequence(), this, "toolsPages"));
-	scrActions.insert("toolsBookmarks", new ScrAction(tr("&Bookmarks"), QKeySequence(), this, "toolsBookmarks"));
-	scrActions.insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist.png")), tr("&Measurements"), QKeySequence(), this, "toolsMeasurements", MeasurementTool));
-	scrActions.insert("toolsActionHistory", new ScrAction(tr("Action &History"), QKeySequence(), this, "toolsActionHistory"));
-	scrActions.insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),tr("Preflight &Verifier"), QKeySequence(), this, "toolsPreflightVerifier"));
-	scrActions.insert("toolsToolbarTools", new ScrAction(tr("&Tools"), QKeySequence(), this, "toolsToolbarTools"));
-	scrActions.insert("toolsToolbarPDF", new ScrAction(tr("P&DF Tools"), QKeySequence(), this, "toolsToolbarPDF"));
-	
-	//toolbar only items
-	scrActions.insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), tr("Select Item"), QKeySequence(Key_C), this, "toolsSelect", NormalMode));
-	
-	scrActions.insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text16.xpm"), loadIcon("Text.xpm")), tr("&Text Frame"), QKeySequence(Key_T), this, "toolsInsertTextFrame", DrawText));
-	scrActions.insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild16.xpm"), loadIcon("Bild.xpm")), tr("&Image Frame"), QKeySequence(Key_I), this, "toolsInsertImageFrame", DrawPicture));
-	scrActions.insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table16.png"), loadIcon("frame_table.png")), tr("T&able"), QKeySequence(Key_A), this, "toolsInsertTableFrame", DrawTable));
-	scrActions.insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), tr("&Shape"), QKeySequence(Key_S), this, "toolsInsertShape", DrawShapes));
-	scrActions.insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), tr("&Polygon"), QKeySequence(Key_P), this, "toolsInsertPolygon", DrawRegularPolygon));
-	scrActions.insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), tr("&Line"), QKeySequence(Key_L), this, "toolsInsertLine", DrawLine));
-	scrActions.insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), tr("&Bezier Curve"), QKeySequence(Key_B), this, "toolsInsertBezier", DrawBezierLine));
-	scrActions.insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), tr("&Freehand Line"), QKeySequence(Key_F), this, "toolsInsertFreehandLine", DrawFreehandLine));
-		
-	scrActions["toolsInsertTextFrame"]->setText(tr("Insert Text Frame"));
-	scrActions["toolsInsertImageFrame"]->setText(tr("Insert Image Frame"));
-	scrActions["toolsInsertTableFrame"]->setText(tr("Insert Table"));
-	scrActions["toolsInsertShape"]->setText(tr("Insert Shape"));
-	scrActions["toolsInsertPolygon"]->setText(tr("Insert Polygon"));
-	scrActions["toolsInsertLine"]->setText(tr("Insert Line"));
-	scrActions["toolsInsertBezier"]->setText(tr("Insert Bezier Curve"));
-	scrActions["toolsInsertFreehandLine"]->setText(tr("Insert Freehand Line"));
-		
-	scrActions.insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), tr("Rotate Item"), QKeySequence(Key_R), this, "toolsRotate", Rotation));
-	scrActions.insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), tr("Zoom in or out"), QKeySequence(Key_Z), this, "toolsZoom", Magnifier));
-	scrActions.insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("Gross.xpm"), loadIcon("Gross.xpm")), tr("Zoom in"), QKeySequence(CTRL+Key_Plus), this, "toolsZoomIn"));
-	scrActions.insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("Klein.xpm"), loadIcon("Klein.xpm")), tr("Zoom out"), QKeySequence(CTRL+Key_Minus), this, "toolsZoomOut"));
-	scrActions.insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), tr("Edit Contents of Frame"), QKeySequence(Key_E), this, "toolsEditContents", EditMode));
-	scrActions.insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), tr("Text..."), QKeySequence(CTRL+Key_Y), this, "toolsEditWithStoryEditor", StartStoryEditor));
-	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_N), this, "toolsLinkTextFrame", LinkFrames));
-	scrActions.insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), tr("Unlink Text Frames"), QKeySequence(Key_U), this, "toolsUnlinkTextFrame", UnlinkFrames));
-	scrActions.insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), tr("&Eye Dropper"), QKeySequence(Key_Y), this, "toolsEyeDropper", EyeDropper));
-	scrActions.insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), tr("Copy Item Properties"), QKeySequence(), this, "toolsCopyProperties", CopyProperties));
-	
-	scrActions["toolsEditWithStoryEditor"]->setText(tr("Edit the text with the Story Editor"));
-
-	scrActions["toolsProperties"]->setToggleAction(true);
-	scrActions["toolsOutline"]->setToggleAction(true);
-	scrActions["toolsScrapbook"]->setToggleAction(true);
-	scrActions["toolsLayers"]->setToggleAction(true);
-	scrActions["toolsPages"]->setToggleAction(true);
-	scrActions["toolsBookmarks"]->setToggleAction(true);
-	scrActions["toolsMeasurements"]->setToggleAction(true);
-	scrActions["toolsActionHistory"]->setToggleAction(true);
-	scrActions["toolsPreflightVerifier"]->setToggleAction(true);
-	scrActions["toolsToolbarTools"]->setToggleAction(true);
-	scrActions["toolsToolbarPDF"]->setToggleAction(true);
-	
-	scrActions["toolsSelect"]->setToggleAction(true);
-	scrActions["toolsInsertTextFrame"]->setToggleAction(true);
-	scrActions["toolsInsertImageFrame"]->setToggleAction(true);
-	scrActions["toolsInsertTableFrame"]->setToggleAction(true);
-	scrActions["toolsInsertShape"]->setToggleAction(true);
-	scrActions["toolsInsertPolygon"]->setToggleAction(true);
-	scrActions["toolsInsertLine"]->setToggleAction(true);
-	scrActions["toolsInsertBezier"]->setToggleAction(true);
-	scrActions["toolsInsertFreehandLine"]->setToggleAction(true);
-	scrActions["toolsRotate"]->setToggleAction(true);
-	scrActions["toolsZoom"]->setToggleAction(true);
-	scrActions["toolsEditContents"]->setToggleAction(true);
-	scrActions["toolsEditWithStoryEditor"]->setToggleAction(true);
-	scrActions["toolsLinkTextFrame"]->setToggleAction(true);
-	scrActions["toolsUnlinkTextFrame"]->setToggleAction(true);
-	scrActions["toolsEyeDropper"]->setToggleAction(true);
-	scrActions["toolsCopyProperties"]->setToggleAction(true);
-	
-	modeActionNames=new QStringList();
-	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
-	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
-	*modeActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
-	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
-	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
-
-	nonEditActionNames=new QStringList();
-	*nonEditActionNames << "itemSendToBack" << "itemBringToFront" << "itemRaise" << "itemLower";
-	
-	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
-	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
-	connect( scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)) , this, SLOT(setPDFTools(bool)) );
-		
-	connectModeActions();
-}
-
-void ScribusApp::initExtrasMenuActions()
-{
-	scrActions.insert("extrasManagePictures", new ScrAction(tr("&Manage Pictures"), QKeySequence(), this, "extrasManagePictures"));
-	scrActions.insert("extrasHyphenateText", new ScrAction(tr("&Hyphenate Text"), QKeySequence(), this, "extrasHyphenateText"));
-	scrActions.insert("extrasGenerateTableOfContents", new ScrAction(tr("&Generate Table Of Contents"), QKeySequence(), this, "extrasGenerateTableOfContents"));
-
-	connect( scrActions["extrasManagePictures"], SIGNAL(activated()) , this, SLOT(StatusPic()) );
-	connect( scrActions["extrasHyphenateText"], SIGNAL(activated()) , this, SLOT(doHyphenate()) );
-	connect( scrActions["extrasGenerateTableOfContents"], SIGNAL(activated()) , this, SLOT(generateTableOfContents()) );
-}
-
-
-void ScribusApp::initWindowsMenuActions()
-{
-}
-
-void ScribusApp::initScriptMenuActions()
-{
-}
-
-void ScribusApp::initHelpMenuActions()
-{
-	scrActions.insert("helpAboutScribus", new ScrAction(tr("&About Scribus"), QKeySequence(), this, "helpAboutScribus"));
-	scrActions.insert("helpAboutQt", new ScrAction(tr("About &Qt"), QKeySequence(), this, "helpAboutQt"));
-	scrActions.insert("helpTooltips", new ScrAction(tr("Toolti&ps"), QKeySequence(), this, "helpTooltips"));
-	scrActions.insert("helpManual", new ScrAction(tr("Scribus &Manual..."), Key_F1, this, "helpManual"));
-
-	scrActions["helpTooltips"]->setToggleAction(true);
-	scrActions["helpTooltips"]->setOn(true);
-
-	connect( scrActions["helpAboutScribus"], SIGNAL(activated()) , this, SLOT(slotHelpAbout()) );
-	connect( scrActions["helpAboutQt"], SIGNAL(activated()) , this, SLOT(slotHelpAboutQt()) );
-	connect( scrActions["helpTooltips"], SIGNAL(activated()) , this, SLOT(ToggleTips()) );
-	connect( scrActions["helpManual"], SIGNAL(activated()) , this, SLOT(slotOnlineHelp()) );
-}
-
-void ScribusApp::initSpecialActions()
-{
-	//typography
-	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Smart &Hyphen"), CTRL+SHIFT+Key_Minus, this, "specialSmartHyphen",-1));
-	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Non Breaking &Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",29));
-	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Page &Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",30));
-	scrActions.insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Copyright"), QKeySequence(), this, "specialCopyRight",0x0A9));
-	scrActions.insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Registered Trademark"), QKeySequence(), this, "specialRegdTM",0x00AE));
-	scrActions.insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Trademark"), QKeySequence(), this, "specialTM",0x2122));
-	scrActions.insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Bullet"), QKeySequence(), this, "specialBullet",0x2022));
-	scrActions.insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Em Dash"), QKeySequence(), this, "specialDashEm",0x2014));
-	scrActions.insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("En Dash"), QKeySequence(), this, "specialDashEn",0x2013));
-	scrActions.insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Figure Dash"), QKeySequence(), this, "specialDashFigure",0x2012));
-	scrActions.insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Quotation Dash"), QKeySequence(), this, "specialDashQuotation",0x2015));
-	
-	scrActions.insert("specialQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Double Left Quote"), QKeySequence(), this, "specialQuoteDoubleLeft",0x201C));
-	scrActions.insert("specialQuoteDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Double Right Quote"), QKeySequence(), this, "specialQuoteDoubleRight",0x201D));
-	scrActions.insert("specialQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Single Left Quote"), QKeySequence(), this, "specialQuoteSingleLeft",0x2018));
-	scrActions.insert("specialQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), tr("Single Right Quote"), QKeySequence(), this, "specialQuoteSingleRight",0x2019));
-	
-	scrActions["specialSmartHyphen"]->setText("Insert Smart Hyphen");
-	scrActions["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
-	scrActions["specialPageNumber"]->setText("Insert Page Number");
-
-	
-	unicodeCharActionNames=new QStringList();
-	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
-	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
-	*unicodeCharActionNames << "specialBullet";
-	*unicodeCharActionNames << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
-	*unicodeCharActionNames << "specialQuoteDoubleLeft" << "specialQuoteDoubleRight" << "specialQuoteSingleLeft" << "specialQuoteSingleRight";
-
-	for ( QStringList::Iterator it = unicodeCharActionNames->begin(); it != unicodeCharActionNames->end(); ++it )
-		connect( scrActions[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), this, SLOT(specialActionKeyEvent(QString, int)) );
-
-	//GUI
-	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
-	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
-
-	connect( scrActions["specialToggleAllPalettes"], SIGNAL(activated()) , this, SLOT(ToggleAllPalettes()) );
-	connect( scrActions["specialToggleAllGuides"], SIGNAL(activated()) , this, SLOT(ToggleAllGuides()) );
 }
 
 void ScribusApp::initMenuBar()
@@ -4006,7 +3493,8 @@ void ScribusApp::HaveNewSel(int Nr)
 	//scrActions["specialSmartHyphen"]->setEnabled(false);
 	//scrActions["specialNonBreakingSpace"]->setEnabled(false);
 	//scrActions["specialPageNumber"]->setEnabled(false);
-	setEnabledActionStringList(unicodeCharActionNames, false);
+	if (currItem->itemType()==PageItem::TextFrame)
+		actionManager->setEnabledActionStringList(unicodeCharActionNames, false);
 	scrActions["insertSampleText"]->setEnabled(false);
 	
 	view->horizRuler->ItemPosValid = false;
@@ -4129,7 +3617,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			//scrActions["specialSmartHyphen"]->setEnabled(true);
 			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			//scrActions["specialPageNumber"]->setEnabled(true);
-			setEnabledActionStringList(unicodeCharActionNames, true, true);
+			if (currItem->itemType()==PageItem::TextFrame)
+				actionManager->setEnabledActionStringList(unicodeCharActionNames, true, true);
 			view->horizRuler->ItemPos = currItem->Xpos - doc->ScratchLeft;
 			view->horizRuler->ItemEndPos = currItem->Xpos+currItem->Width - doc->ScratchLeft;
 			if (currItem->lineColor() != "None")
@@ -6605,7 +6094,7 @@ void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
 void ScribusApp::setAppMode(int mode)
 {
 	//disconnect the tools actions so we dont fire them off
-	disconnectModeActions();
+	actionManager->disconnectModeActions();
 	//set the actions state based on incoming mode
 	scrActions["toolsSelect"]->setOn(mode==NormalMode);
 	scrActions["toolsInsertTextFrame"]->setOn(mode==DrawText);
@@ -6646,10 +6135,10 @@ void ScribusApp::setAppMode(int mode)
 			doc->CurTimer = NULL;
 		}
 		if (mode!=EditMode && oldMode==EditMode)
-			restoreActionShortcutsPostEditMode();
+			actionManager->restoreActionShortcutsPostEditMode();
 		else
 		if (mode==EditMode && oldMode!=EditMode)
-			saveActionShortcutsPreEditMode();
+			actionManager->saveActionShortcutsPreEditMode();
 		if (oldMode == EditMode)
 		{
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
@@ -6686,7 +6175,8 @@ void ScribusApp::setAppMode(int mode)
 			//scrActions["specialSmartHyphen"]->setEnabled(true);
 			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			//scrActions["specialPageNumber"]->setEnabled(true);
-			setEnabledActionStringList(unicodeCharActionNames, true, true);
+			if (currItem->itemType()==PageItem::TextFrame)
+				actionManager->setEnabledActionStringList(unicodeCharActionNames, true, true);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))
@@ -6817,7 +6307,7 @@ void ScribusApp::setAppMode(int mode)
 		}
 	}
 
-	connectModeActions();	
+	actionManager->connectModeActions();	
 }
 
 void ScribusApp::Aktiv()
@@ -11007,55 +10497,6 @@ void ScribusApp::generateTableOfContents()
 		}
 	}
 }
-
-void ScribusApp::disconnectModeActions()
-{
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
-		disconnect( scrActions[*it], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-}
-	
-void ScribusApp::connectModeActions()
-{
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
-		connect( scrActions[*it], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-}
-	
-void ScribusApp::saveActionShortcutsPreEditMode()
-{
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
-		scrActions[*it]->saveShortcut();
-	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
-		scrActions[*it]->saveShortcut();	
-
-}
-
-void ScribusApp::restoreActionShortcutsPostEditMode()
-{
-	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
-		scrActions[*it]->restoreShortcut();
-	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
-		scrActions[*it]->restoreShortcut();	
-}
-
-void ScribusApp::setEnabledActionStringList(QStringList *list, bool enabled, bool checkingUnicode)
-{
-	for ( QStringList::Iterator it = list->begin(); it != list->end(); ++it )
-	{
-		if(!checkingUnicode)
-			scrActions[*it]->setEnabled(enabled);
-		else
-		{
-			//For UnicodeChar actions, only enable when the current font has that character.
-			if (HaveDoc && scrActions[*it]->actionType()==ScrAction::UnicodeChar)
-			{
-				int charCode=scrActions[*it]->actionInt();
-				if(charCode==-1 || charCode==30 || (*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(charCode) )
-					scrActions[*it]->setEnabled(enabled);
-			}
-		}
-	}
-}
-
 
 void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 {

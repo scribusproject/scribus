@@ -85,6 +85,7 @@ class CheckDocument;
 class Tree;
 class Biblio;
 class PluginManager;
+class ActionManager;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -114,11 +115,6 @@ public:
 	void keyReleaseEvent(QKeyEvent *k);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void wheelEvent(QWheelEvent *w);
-	void disconnectModeActions();
-	void connectModeActions();
-	void saveActionShortcutsPreEditMode();
-	void restoreActionShortcutsPostEditMode();
-	void setEnabledActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);
 	void DeleteSel(PageItem *currItem);
 	void setTBvals(PageItem *currItem);
 	void SavePrefs();
@@ -226,9 +222,12 @@ public:
 	QMap<QString, QGuardedPtr<ScrAction> > scrActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
-
 	QDict<QActionGroup> scrActionGroups;
+	QStringList *modeActionNames;
+	QStringList *nonEditActionNames;
+	QStringList *unicodeCharActionNames;
 	MenuManager* scrMenuMgr;
+	ActionManager* actionManager;
 	PluginManager* pluginManager;
 
 public slots:
@@ -510,19 +509,6 @@ private:
 	void initArrowStyles();
 	void initScrapbook();
 	void initCMS();
-	void initFileMenuActions();
-	void initEditMenuActions();
-	void initStyleMenuActions();
-	void initItemMenuActions();
-	void initInsertMenuActions();
-	void initPageMenuActions();
-	void initViewMenuActions();
-	void initToolsMenuActions();
-	void initExtrasMenuActions();
-	void initWindowsMenuActions();
-	void initScriptMenuActions();
-	void initHelpMenuActions();
-	void initSpecialActions();
 
 	QString guiLanguage;
 	QString recentFileMenuName;
@@ -538,9 +524,6 @@ private:
 	QToolBar *WerkTools2;
 	QToolBar *editToolBar;
 	WerkToolBP* WerkToolsP;
-	QStringList *modeActionNames;
-	QStringList *nonEditActionNames;
-	QStringList *unicodeCharActionNames;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;
