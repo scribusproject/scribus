@@ -577,7 +577,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PDF_Options.RecalcPic = false;
 	Prefs.PDF_Options.Bookmarks = false;
 	Prefs.PDF_Options.PicRes = 300;
-	Prefs.PDF_Options.Version = 14;
+	Prefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
 	Prefs.PDF_Options.Resolution = 300;
 	Prefs.PDF_Options.Binding = 0;
 	Prefs.PDF_Options.EmbedList.clear();
@@ -3620,7 +3620,7 @@ bool ScribusApp::SetupDoc()
 		if (dia->tabPDF->Encry->isChecked())
 		{
 			int Perm = -64;
-			if (dia->tabPDF->ComboBox1->currentItem() == 1)
+			if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
 				Perm &= ~0x00240000;
 			if (dia->tabPDF->PrintSec->isChecked())
 				Perm += 4;
@@ -3634,14 +3634,14 @@ bool ScribusApp::SetupDoc()
 			doc->PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
 			doc->PDF_Options.PassUser = dia->tabPDF->PassUser->text();
 		}
-		if (dia->tabPDF->ComboBox1->currentItem() == 0)
-			doc->PDF_Options.Version = 13;
-		if (dia->tabPDF->ComboBox1->currentItem() == 1)
-			doc->PDF_Options.Version = 14;
-		if (dia->tabPDF->ComboBox1->currentItem() == 2)
-			doc->PDF_Options.Version = 15;
-		if (dia->tabPDF->ComboBox1->currentItem() == 3)
-			doc->PDF_Options.Version = 12;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 0)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_13;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_14;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 2)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_15;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 3)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
 			doc->PDF_Options.isGrayscale = false;
@@ -8342,7 +8342,7 @@ void ScribusApp::slotPrefsOrg()
 		if (dia->tabPDF->Encry->isChecked())
 		{
 			int Perm = -64;
-			if (dia->tabPDF->ComboBox1->currentItem() == 1)
+			if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
 				Perm &= ~0x00240000;
 			if (dia->tabPDF->PrintSec->isChecked())
 				Perm += 4;
@@ -8356,14 +8356,14 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
 			Prefs.PDF_Options.PassUser = dia->tabPDF->PassUser->text();
 		}
-		if (dia->tabPDF->ComboBox1->currentItem() == 0)
-			Prefs.PDF_Options.Version = 13;
-		if (dia->tabPDF->ComboBox1->currentItem() == 1)
-			Prefs.PDF_Options.Version = 14;
-		if (dia->tabPDF->ComboBox1->currentItem() == 2)
-			Prefs.PDF_Options.Version = 15;
-		if (dia->tabPDF->ComboBox1->currentItem() == 3)
-			Prefs.PDF_Options.Version = 12;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 0)
+			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_13;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
+			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 2)
+			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_15;
+		if (dia->tabPDF->PDFVersionCombo->currentItem() == 3)
+			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_X3;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
 			Prefs.PDF_Options.isGrayscale = false;
@@ -8803,7 +8803,7 @@ void ScribusApp::doSaveAsPDF()
 		if (dia->Options->Encry->isChecked())
 		{
 			int Perm = -64;
-			if (dia->Options->ComboBox1->currentItem() == 1)
+			if (dia->Options->PDFVersionCombo->currentItem() == 1)
 				Perm &= ~0x00240000;
 			if (dia->Options->PrintSec->isChecked())
 				Perm += 4;
@@ -8817,14 +8817,14 @@ void ScribusApp::doSaveAsPDF()
 			doc->PDF_Options.PassOwner = dia->Options->PassOwner->text();
 			doc->PDF_Options.PassUser = dia->Options->PassUser->text();
 		}
-		if (dia->Options->ComboBox1->currentItem() == 0)
-			doc->PDF_Options.Version = 13;
-		if (dia->Options->ComboBox1->currentItem() == 1)
-			doc->PDF_Options.Version = 14;
-		if (dia->Options->ComboBox1->currentItem() == 2)
-			doc->PDF_Options.Version = 15;
-		if (dia->Options->ComboBox1->currentItem() == 3)
-			doc->PDF_Options.Version = 12;
+		if (dia->Options->PDFVersionCombo->currentItem() == 0)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_13;
+		if (dia->Options->PDFVersionCombo->currentItem() == 1)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_14;
+		if (dia->Options->PDFVersionCombo->currentItem() == 2)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_15;
+		if (dia->Options->PDFVersionCombo->currentItem() == 3)
+			doc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
 		if (dia->Options->OutCombo->currentItem() == 0)
 		{
 			doc->PDF_Options.UseRGB = true;
@@ -8856,7 +8856,7 @@ void ScribusApp::doSaveAsPDF()
 					doc->PDF_Options.SolidProf = dia->Options->SolidPr->currentText();
 					doc->PDF_Options.ImageProf = dia->Options->ImageP->currentText();
 					doc->PDF_Options.PrintProf = dia->Options->PrintProfC->currentText();
-					if (doc->PDF_Options.Version == 12)
+					if (doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
 					{
 						const char *Descriptor;
 						cmsHPROFILE hIn;

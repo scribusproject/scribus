@@ -12,8 +12,19 @@
 #include <qvaluelist.h>
 #include "tabpdfoptions.h"
 
+/**
+ * @file pdfopts.h
+ * @brief PDF export GUI code
+ */
+
 class PDFOptions;
 
+/**
+ * @brief PDF export dialog
+ *
+ * Most of the guts of the dialog actually come from TabPDFOptions, which
+ * is also used by the preferences dialog.
+ */
 class PDF_Opts : public QDialog
 {
 	Q_OBJECT

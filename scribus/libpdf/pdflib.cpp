@@ -109,7 +109,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 			progresscount++;
 			dia2->setProgress(progresscount);
 		}
-		if (plug->doc->PDF_Options.Version == 12)
+		if (plug->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
 			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Options.PrintProf], nam, Components);
 		else
 			dia->PDF_End_Doc();

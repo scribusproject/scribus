@@ -1614,7 +1614,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->PDF_Options.RotateDeg = 0;
 				doc->PDF_Options.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
 				doc->PDF_Options.PicRes = QStoInt(pg.attribute("PicRes"));
-				doc->PDF_Options.Version = QStoInt(pg.attribute("Version"));
+				doc->PDF_Options.Version = (PDFOptions::PDFVersion)QStoInt(pg.attribute("Version"));
 				doc->PDF_Options.Resolution = QStoInt(pg.attribute("Resolution"));
 				doc->PDF_Options.Binding = QStoInt(pg.attribute("Binding"));
 				doc->PDF_Options.Datei = "";
@@ -3614,7 +3614,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->PDF_Options.RotateDeg = QStoInt(dc.attribute("RotateDeg","0"));
 			Vorein->PDF_Options.PresentMode = static_cast<bool>(QStoInt(dc.attribute("PresentMode")));
 			Vorein->PDF_Options.PicRes = QStoInt(dc.attribute("PicRes"));
-			Vorein->PDF_Options.Version = QStoInt(dc.attribute("Version"));
+			Vorein->PDF_Options.Version = (PDFOptions::PDFVersion)QStoInt(dc.attribute("Version"));
 			Vorein->PDF_Options.Resolution = QStoInt(dc.attribute("Resolution"));
 			Vorein->PDF_Options.Binding = QStoInt(dc.attribute("Binding"));
 			Vorein->PDF_Options.Datei = "";

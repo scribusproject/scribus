@@ -1048,11 +1048,12 @@ static PyObject *PDFfile_save(PDFfile *self)
 	Carrier->doc->PDF_Options.Encrypt = self->encrypt;
 	Carrier->doc->PDF_Options.UseLPI = self->uselpi;
 	self->version = minmaxi(self->version, 12, 14);
-	Carrier->doc->PDF_Options.Version = self->version;
+	// FIXME: Sanity check version
+	Carrier->doc->PDF_Options.Version = (PDFOptions::PDFVersion)self->version;
 	if (self->encrypt)
 	{
 		int Perm = -64;
-		if (Carrier->doc->PDF_Options.Version == 14)
+		if (Carrier->doc->PDF_Options.Version == PDFOptions::PDFVersion_14)
 			Perm &= ~0x00240000;
 		if (self->aprint)
 			Perm += 4;
@@ -1088,7 +1089,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 			Carrier->doc->PDF_Options.SolidProf = PyString_AsString(self->solidpr);
 			Carrier->doc->PDF_Options.ImageProf = PyString_AsString(self->imagepr);
 			Carrier->doc->PDF_Options.PrintProf = PyString_AsString(self->printprofc);
-			if (Carrier->doc->PDF_Options.Version == 12)
+			if (Carrier->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
 			{
 // Where does compiler find cms function when I have not included header for it
 				const char *Descriptor;

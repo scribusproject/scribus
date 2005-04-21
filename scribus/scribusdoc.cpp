@@ -206,7 +206,8 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	PDF_Options.RecalcPic = prefsData->PDF_Options.RecalcPic;
 	PDF_Options.Bookmarks = prefsData->PDF_Options.Bookmarks;
 	PDF_Options.PicRes = prefsData->PDF_Options.PicRes;
-	PDF_Options.Version = prefsData->PDF_Options.Version;
+	// Fixme: Check PDF version input
+	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData->PDF_Options.Version;
 	PDF_Options.Resolution = prefsData->PDF_Options.Resolution;
 	PDF_Options.Binding = prefsData->PDF_Options.Binding;
 	PDF_Options.EmbedList = prefsData->PDF_Options.EmbedList;

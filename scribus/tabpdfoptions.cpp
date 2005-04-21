@@ -105,35 +105,33 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	TextLabel1 = new QLabel( tr( "Compatibilit&y:" ), GroupBox1, "TextLabel1" );
 	TextLabel1->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel1, 0, 0 );
-	ComboBox1 = new QComboBox( true, GroupBox1, "ComboBox1" );
-	ComboBox1->insertItem("PDF 1.3");
-	ComboBox1->insertItem("PDF 1.4");
-	ComboBox1->insertItem("PDF 1.5");
+	PDFVersionCombo = new QComboBox( true, GroupBox1, "PDFVersionCombo" );
+	PDFVersionCombo->setEditable(false);
+	TextLabel1->setBuddy(PDFVersionCombo);
+	PDFVersionCombo->insertItem("PDF 1.3");
+	PDFVersionCombo->insertItem("PDF 1.4");
+	PDFVersionCombo->insertItem("PDF 1.5");
 #ifdef HAVE_CMS
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
-		ComboBox1->insertItem("PDF/X-3");
-#endif
-	ComboBox1->setEditable(false);
-	TextLabel1->setBuddy(ComboBox1);
-#ifdef HAVE_CMS
+		PDFVersionCombo->insertItem("PDF/X-3");
 	if ((CMSuse) && (CMSavail))
 	{
-		if (Optionen->Version == 12)
-			ComboBox1->setCurrentItem(3);
+		if (Optionen->Version == PDFOptions::PDFVersion_X3)
+			PDFVersionCombo->setCurrentItem(3);
 	}
 	else
-		ComboBox1->setCurrentItem(0);
+		PDFVersionCombo->setCurrentItem(0);
 	cms = CMSuse && CMSavail;
 #else
 	cms = false;
 #endif
-	if (Optionen->Version == 13)
-		ComboBox1->setCurrentItem(0);
-	if (Optionen->Version == 14)
-		ComboBox1->setCurrentItem(1);
-	if (Optionen->Version == 15)
-		ComboBox1->setCurrentItem(2);
-	GroupBox1Layout->addMultiCellWidget( ComboBox1, 0, 0, 1, 2, AlignLeft );
+	if (Optionen->Version == PDFOptions::PDFVersion_13)
+		PDFVersionCombo->setCurrentItem(0);
+	if (Optionen->Version == PDFOptions::PDFVersion_14)
+		PDFVersionCombo->setCurrentItem(1);
+	if (Optionen->Version == PDFOptions::PDFVersion_15)
+		PDFVersionCombo->setCurrentItem(2);
+	GroupBox1Layout->addMultiCellWidget( PDFVersionCombo, 0, 0, 1, 2, AlignLeft );
 	TextLabel1x = new QLabel( tr( "&Binding:" ), GroupBox1, "TextLabel1" );
 	TextLabel1x->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel1x, 1, 0 );
@@ -837,7 +835,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	connect(EmbedProfs, SIGNAL(clicked()), this, SLOT(EnablePG()));
 	connect(EmbedProfs2, SIGNAL(clicked()), this, SLOT(EnablePGI()));
 	connect(NoEmbedded, SIGNAL(clicked()), this, SLOT(EnablePGI2()));
-	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
+	connect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
 	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
 	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
 	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
@@ -852,7 +850,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			              "a token can be * for all the pages, 1-5 for\n"
 			              "a range of pages or a single page number.") );
 
-	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.\nChoose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management." ) );
+	QToolTip::add( PDFVersionCombo, tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.\nChoose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management." ) );
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
@@ -926,20 +924,20 @@ void TabPDFOptions::BleedChanged()
 
 void TabPDFOptions::enableCMS(bool enable)
 {
-	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
-	int a = ComboBox1->currentItem();
-	ComboBox1->clear();
-	ComboBox1->insertItem("PDF 1.3");
-	ComboBox1->insertItem("PDF 1.4");
-	ComboBox1->insertItem("PDF 1.5");
+	disconnect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
+	int a = PDFVersionCombo->currentItem();
+	PDFVersionCombo->clear();
+	PDFVersionCombo->insertItem("PDF 1.3");
+	PDFVersionCombo->insertItem("PDF 1.4");
+	PDFVersionCombo->insertItem("PDF 1.5");
 	cms=enable;
 	if (enable)
-		ComboBox1->insertItem("PDF/X-3");
+		PDFVersionCombo->insertItem("PDF/X-3");
 	else
 		a = QMIN(a, 3);
-	ComboBox1->setCurrentItem(a);
+	PDFVersionCombo->setCurrentItem(a);
 	EnablePr(1);
-	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
+	connect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
 }
 
 void TabPDFOptions::EnablePDFX(int a)

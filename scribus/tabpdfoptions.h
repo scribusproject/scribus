@@ -56,7 +56,7 @@ public:
 	QComboBox* CMethod;
 	QGroupBox* GroupBox1;
 	QLabel* TextLabel2;
-	QComboBox* ComboBox1;
+	QComboBox* PDFVersionCombo;
 	QLabel* TextLabel1x;
 	QComboBox* ComboBind;
 	QCheckBox* CheckBox1;

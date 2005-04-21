@@ -668,7 +668,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					doc->PDF_Options.RotateDeg = 0;
 				doc->PDF_Options.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
 				doc->PDF_Options.PicRes = QStoInt(pg.attribute("PicRes"));
-				doc->PDF_Options.Version = QStoInt(pg.attribute("Version"));
+				// Fixme: check input pdf version
+				doc->PDF_Options.Version = (PDFOptions::PDFVersion)QStoInt(pg.attribute("Version"));
 				doc->PDF_Options.Resolution = QStoInt(pg.attribute("Resolution"));
 				doc->PDF_Options.Binding = QStoInt(pg.attribute("Binding"));
 				doc->PDF_Options.Datei = "";

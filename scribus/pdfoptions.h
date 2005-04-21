@@ -38,6 +38,14 @@ public:
 		Verify_OtherError
 	};
 
+	enum PDFVersion
+	{
+		PDFVersion_13 = 13,
+		PDFVersion_14 = 14,
+		PDFVersion_15 = 15,
+		PDFVersion_X3 = 12,
+	};
+
 	/**
 	 * @author Craig Ringer
 	 * @brief Sanity check the options defined.
@@ -98,7 +106,7 @@ public:
 	bool RecalcPic;
 	bool Bookmarks;
 	int PicRes;
-	int Version;
+	PDFVersion Version;
 	int Resolution;
 	int Binding;
 	QValueList<QString> EmbedList;
