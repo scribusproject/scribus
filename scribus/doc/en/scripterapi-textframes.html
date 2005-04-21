@@ -50,7 +50,7 @@
 
 <dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
 <dd><code><a href="#-insertText">insertText</a>("text", pos, ["name"])</code>
-<p>Inserts the text "text" at the position "pos" into the text frame. Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. "name" If "name" is not given the currently selected Item is used.</p>
+<p>Inserts the text "text" at the position "pos" into the text frame. Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. Inserting text at position -1 appends it to the frame. "name" If "name" is not given the currently selected Item is used.</p>
 <p>May throw IndexError for an insertion out of bounds.</p></dd>
 
 <dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
