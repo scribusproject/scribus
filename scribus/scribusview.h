@@ -385,7 +385,6 @@ signals:
 	void PaintingDone();
 	void LoadPic();
 	void AppendText();
-	void EditText();
 	void DoGroup();
 	//void DoUnGroup();
 	void CutItem();

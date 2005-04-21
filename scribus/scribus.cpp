@@ -1172,8 +1172,22 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(Key_PageDown), this, "itemLower"));
 	scrActions.insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(Key_PageUp), this, "itemRaise"));
 	scrActions.insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), this, "itemAlignDist"));
-
+	scrActions.insert("itemSendToScrapbook", new ScrAction(tr("Send to S&crapbook"), QKeySequence(), this, "itemSendToScrapbook"));
+	
 	scrActions.insert("itemAttributes", new ScrAction(tr("&Attributes..."), QKeySequence(), this, "itemAttributes"));
+	scrActions.insert("itemPDFIsBookmark", new ScrAction(tr("Is PDF &Bookmark"), QKeySequence(), this, "itemPDFIsBookmark"));
+	scrActions["itemPDFIsBookmark"]->setToggleAction(true);
+	scrActions.insert("itemPDFIsAnnotation", new ScrAction(tr("Is PDF A&nnotation"), QKeySequence(), this, "itemPDFIsAnnotation"));
+	scrActions["itemPDFIsAnnotation"]->setToggleAction(true);
+	scrActions.insert("itemPDFAnnotationProps", new ScrAction(tr("Annotation P&roperties"), QKeySequence(), this, "itemPDFAnnotationProps"));
+	scrActions.insert("itemPDFFieldProps", new ScrAction(tr("Field P&roperties"), QKeySequence(), this, "itemPDFFieldProps"));
+	
+	//CB TODO Make these work
+	scrActions["itemPDFIsBookmark"]->setEnabled(false);
+	scrActions["itemPDFIsAnnotation"]->setEnabled(false);
+	scrActions["itemPDFAnnotationProps"]->setEnabled(false);
+	scrActions["itemPDFFieldProps"]->setEnabled(false);
+		
 	scrActions.insert("itemShapeEdit", new ScrAction(tr("&Edit Shape..."), QKeySequence(), this, "itemShapeEdit"));
 	scrActions["itemShapeEdit"]->setToggleAction(true);
 	scrActions.insert("itemAttachTextToPath", new ScrAction(tr("&Attach Text to Path"), QKeySequence(), this, "itemAttachTextToPath"));
@@ -1193,11 +1207,16 @@ void ScribusApp::initItemMenuActions()
 	connect( scrActions["itemUngroup"], SIGNAL(activated()) , this, SLOT(UnGroupObj()) );
 	connect( scrActions["itemLock"], SIGNAL(activated()) , this, SLOT(ToggleObjLock()) );
 	connect( scrActions["itemLockSize"], SIGNAL(activated()) , this, SLOT(ToggleObjSizeLock()) );
+	connect( scrActions["itemPDFIsAnnotation"], SIGNAL(activated()) , this, SLOT(ToggleObjPDFAnnotation()) );
+	connect( scrActions["itemPDFIsBookmark"], SIGNAL(activated()) , this, SLOT(ToggleObjPDFBookmark()) );
+	connect( scrActions["itemPDFAnnotationProps"], SIGNAL(activated()) , this, SLOT(ModifyAnnot()) );
+	connect( scrActions["itemPDFFieldProps"], SIGNAL(activated()) , this, SLOT(ModifyAnnot()) );
 	connect( scrActions["itemSendToBack"], SIGNAL(activated()) , this, SLOT(Objekt2Back()) );
 	connect( scrActions["itemBringToFront"], SIGNAL(activated()) , this, SLOT(Objekt2Front()) );
 	connect( scrActions["itemLower"], SIGNAL(activated()) , this, SLOT(ObjektLower()) );
 	connect( scrActions["itemRaise"], SIGNAL(activated()) , this, SLOT(ObjektRaise()) );
 	connect( scrActions["itemAlignDist"], SIGNAL(activated()) , this, SLOT(ObjektAlign()) );
+	connect( scrActions["itemSendToScrapbook"], SIGNAL(activated()) , this, SLOT(PutScrap()) );
 	connect( scrActions["itemAttributes"], SIGNAL(activated()) , this, SLOT(objectAttributes()) );
 	connect( scrActions["itemShapeEdit"], SIGNAL(activated()) , this, SLOT(ToggleFrameEdit()) );
 	connect( scrActions["itemAttachTextToPath"], SIGNAL(activated()) , this, SLOT(Pfadtext()) );
@@ -1334,11 +1353,13 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("Gross.xpm"), loadIcon("Gross.xpm")), tr("Zoom in"), QKeySequence(CTRL+Key_Plus), this, "toolsZoomIn"));
 	scrActions.insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("Klein.xpm"), loadIcon("Klein.xpm")), tr("Zoom out"), QKeySequence(CTRL+Key_Minus), this, "toolsZoomOut"));
 	scrActions.insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), tr("Edit Contents of Frame"), QKeySequence(Key_E), this, "toolsEditContents", EditMode));
-	scrActions.insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), tr("Edit the text with the Story Editor"), QKeySequence(CTRL+Key_Y), this, "toolsEditWithStoryEditor", StartStoryEditor));
+	scrActions.insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), tr("Text..."), QKeySequence(CTRL+Key_Y), this, "toolsEditWithStoryEditor", StartStoryEditor));
 	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_N), this, "toolsLinkTextFrame", LinkFrames));
 	scrActions.insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), tr("Unlink Text Frames"), QKeySequence(Key_U), this, "toolsUnlinkTextFrame", UnlinkFrames));
 	scrActions.insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), tr("&Eye Dropper"), QKeySequence(Key_Y), this, "toolsEyeDropper", EyeDropper));
 	scrActions.insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), tr("Copy Item Properties"), QKeySequence(), this, "toolsCopyProperties", CopyProperties));
+	
+	scrActions["toolsEditWithStoryEditor"]->setText(tr("Edit the text with the Story Editor"));
 
 	scrActions["toolsProperties"]->setToggleAction(true);
 	scrActions["toolsOutline"]->setToggleAction(true);
@@ -1378,7 +1399,7 @@ void ScribusApp::initToolsMenuActions()
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 
 	nonEditActionNames=new QStringList();
-	*modeActionNames << "itemSendToBack" << "itemBringToFront" << "itemRaise" << "itemLower";
+	*nonEditActionNames << "itemSendToBack" << "itemBringToFront" << "itemRaise" << "itemLower";
 	
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
@@ -1529,6 +1550,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editDeselectAll"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSearchReplace"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["toolsEditWithStoryEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
@@ -1594,10 +1616,16 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemBringToFront"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "ItemLevel");
-	
 	scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "ItemPDFOptions");
+	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
+	scrMenuMgr->addMenuToMenu("ItemPDFOptions", "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemPDFIsBookmark"], "ItemPDFOptions");
+	scrMenuMgr->addMenuItem(scrActions["itemPDFIsAnnotation"], "ItemPDFOptions");
+	scrMenuMgr->addMenuItem(scrActions["itemPDFAnnotationProps"], "ItemPDFOptions");
+	scrMenuMgr->addMenuItem(scrActions["itemPDFFieldProps"], "ItemPDFOptions");
 	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
 	// CB TODO
 	//Shape menu
@@ -3125,7 +3153,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	if (view!=NULL)
 	{
 		disconnect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
-		disconnect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
+		disconnect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );	
 	}
 	view = new ScribusView(w, doc, &Prefs);
 	view->Scale = 1.0*Prefs.DisScale;
@@ -3137,6 +3165,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	connect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
 	connect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
+
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
 	{
@@ -3931,13 +3960,11 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(LoadPic()), this, SLOT(slotFileOpen()));
 	connect(view, SIGNAL(AppendText()), this, SLOT(slotFileAppend()));
 	connect(view, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()));
-	connect(view, SIGNAL(ToScrap(QString)), this, SLOT(PutScrap(QString)));
 	connect(view, SIGNAL(EditGuides()), this, SLOT(ManageGuides()));
 	connect(view, SIGNAL(LoadElem(QString, int ,int, bool, bool, ScribusDoc *, ScribusView*)), this, SLOT(slotElemRead(QString, int, int, bool, bool, ScribusDoc *, ScribusView*)));
 	connect(view, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 	connect(view, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
 	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
-	connect(view, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
 	//connect(view, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
 	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
@@ -4288,6 +4315,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
+		
 		if (currItem->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);
 		else
@@ -4314,6 +4342,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemBringToFront"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
+			scrActions["itemSendToScrapbook"]->setEnabled(false);
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
@@ -4328,6 +4357,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemBringToFront"]->setEnabled(setter);
 			scrActions["itemRaise"]->setEnabled(setter);
 			scrActions["itemLower"]->setEnabled(setter);
+			scrActions["itemSendToScrapbook"]->setEnabled(setter);
 		}
 		scrActions["itemLock"]->setOn(currItem->locked());
 		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
@@ -9721,9 +9751,12 @@ void ScribusApp::SetShortCut()
 	}
 }
 
-void ScribusApp::PutScrap(QString t)
+void ScribusApp::PutScrap()
 {
-	scrapbookPalette->ObjFromMenu(t);
+	ScriXmlDoc *ss = new ScriXmlDoc();
+	QString objectString = ss->WriteElem(&(view->SelItem), doc, view);
+	scrapbookPalette->ObjFromMenu(objectString);
+	delete ss;
 }
 
 void ScribusApp::UniteOb()
@@ -10120,6 +10153,18 @@ void ScribusApp::doHyphenate()
 			doc->docHyphenator->slotHyphenate(currItem);
 		}
 	}
+}
+
+void ScribusApp::ToggleObjPDFAnnotation()
+{
+	if (HaveDoc)
+		view->ToggleAnnotation();
+}
+
+void ScribusApp::ToggleObjPDFBookmark()
+{
+	if (HaveDoc)
+		view->ToggleBookmark();
 }
 
 void ScribusApp::ToggleObjLock()

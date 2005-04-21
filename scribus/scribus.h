@@ -256,6 +256,8 @@ public slots:
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
 	void windowsMenuActivated(int id);
+	void ToggleObjPDFAnnotation();
+	void ToggleObjPDFBookmark();
 	void ToggleObjLock();
 	void ToggleObjSizeLock();
 	void UnDoAction();
@@ -263,7 +265,7 @@ public slots:
 	void doHyphenate();
 	void slotTest();
 	void slotTest2();
-	void PutScrap(QString t);
+	void PutScrap();
 	void Pfadtext();
 	void noPfadtext();
 	void UniteOb();

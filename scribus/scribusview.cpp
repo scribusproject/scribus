@@ -1633,7 +1633,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
-				//pmen->insertItem( tr("&Get Picture..."), this, SIGNAL(LoadPic()));
 				int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, currItem->PicArt);
 				if ((currItem->PicAvail) && (currItem->imgInfo.valid))
@@ -1649,32 +1648,39 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				ScApp->scrActions["fileImportText"]->addTo(pmen);
 				ScApp->scrActions["fileImportAppendText"]->addTo(pmen);
-				//pmen->insertItem( tr("&Get Text..."), this, SIGNAL(LoadPic()));
-				//pmen->insertItem( tr("&Append Text..."), this, SIGNAL(AppendText()));
-				pmen->insertItem( tr("&Edit Text..."), this, SIGNAL(EditText()));
+				ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
 				if (Doc->currentPage->PageNam == "")
 				{
 					int pxb = pmenPDF->insertItem( tr("Is PDF &Bookmark"), this, SLOT(ToggleBookmark()));
 					pmenPDF->setItemChecked(pxb, currItem->isBookmark);
 					pxb = pmenPDF->insertItem( tr("Is PDF A&nnotation"), this, SLOT(ToggleAnnotation()));
 					pmenPDF->setItemChecked(pxb, currItem->isAnnotation);
+
+					//ScApp->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
+					//ScApp->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
 					if (currItem->isAnnotation)
 					{
 						if ((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9))
+						{
+							//ScApp->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
 							pmenPDF->insertItem( tr("Annotation P&roperties"), this, SIGNAL(AnnotProps()));
+						}
 						else
+						{
+							//ScApp->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
 							pmenPDF->insertItem( tr("Field P&roperties"), this, SIGNAL(AnnotProps()));
+						}
 					}
 				}
 				pmen->insertItem( tr("&PDF Options"), pmenPDF);
 			}
 			if (currItem->itemType() == PageItem::PathText)
-				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
+				ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
 			ScApp->scrActions["itemLock"]->addTo(pmen);
 			ScApp->scrActions["itemLockSize"]->addTo(pmen);
 			if (!currItem->isSingleSel)
 			{
-				pmen->insertItem( tr("Send to S&crapbook"), this, SLOT(sentToScrap()));
+				ScApp->scrActions["itemSendToScrapbook"]->addTo(pmen);
 				if (Doc->Layers.count() > 1)
 				{
 					for (uint lam=0; lam < Doc->Layers.count(); ++lam)
@@ -7653,22 +7659,26 @@ void ScribusView::ToggleBookmark()
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			PageItem* currItem = SelItem.at(a);
-			if (currItem->OwnPage != -1)
+			if (currItem->itemType()==PageItem::TextFrame)
 			{
-				bool old = currItem->isBookmark;
-				currItem->isBookmark = !currItem->isBookmark;
-				if (currItem->isBookmark)
+				if (currItem->OwnPage != -1)
 				{
-					currItem->isAnnotation = false;
-					emit AddBM(currItem);
-				}
-				else
-				{
-					if (old)
-						emit DelBM(currItem);
+					bool old = currItem->isBookmark;
+					currItem->isBookmark = !currItem->isBookmark;
+					if (currItem->isBookmark)
+					{
+						currItem->isAnnotation = false;
+						emit AddBM(currItem);
+					}
+					else
+					{
+						if (old)
+							emit DelBM(currItem);
+					}
 				}
 			}
 		}
+		
 		emit DocChanged();
 	}
 }
@@ -7680,15 +7690,19 @@ void ScribusView::ToggleAnnotation()
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			PageItem* currItem = SelItem.at(a);
-			bool old = currItem->isBookmark;
-			currItem->isAnnotation = !currItem->isAnnotation;
-			if (currItem->isAnnotation)
+			if (currItem->itemType()==PageItem::TextFrame)
 			{
-				if (old)
-					emit DelBM(currItem);
-				currItem->isBookmark = false;
+				bool old = currItem->isBookmark;
+				currItem->isAnnotation = !currItem->isAnnotation;
+				if (currItem->isAnnotation)
+				{
+					if (old)
+						emit DelBM(currItem);
+					currItem->isBookmark = false;
+				}
 			}
 		}
+		
 		emit DocChanged();
 	}
 }
