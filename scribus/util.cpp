@@ -1099,16 +1099,23 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 	bool pathOpen = false;
 	FPoint firstPoint, firstControl;
 	FPointArray clip2;
-	while (offset < size)
+	while ((offset + 6)< size)
 	{
 		s >> signature;
 		offset += 4;
+		if(((signature >> 24)&0xff) != '8' ||
+		   ((signature >> 16)&0xff) != 'B' ||
+		   ((signature >> 8)&0xff) != 'I' ||
+		   ((signature )&0xff) != 'M' )
+		  break;
 		s >> resID;
 		offset += 2;
 		adj = s.device()->at();
 		resName = getPascalString(s);
 		offset += s.device()->at() - adj;
 		s >> resSize;
+		if(offset + resSize > size)
+		  break;
 		resBase = s.device()->at();
 		if ( (resID >= 0x07d0) && (resID <= 0x0bb6) )
 		{
@@ -1217,6 +1224,8 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 			offset += 1;
 		}
 	}
+	if(offset<size)
+	  s.device()->at( size );
 }
 
 static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img, ImageInfoRecord *info )
@@ -1698,6 +1707,153 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 	return retS;
 }
 
+#define ICC_MARKER  (JPEG_APP0 + 2)	/* JPEG marker code for ICC */
+#define PHOTOSHOP_MARKER  (JPEG_APP0 + 13)	/* JPEG marker code for PHOTOSHOP */
+#define ICC_OVERHEAD_LEN  14		/* size of non-profile data in APP2 */
+#define MAX_BYTES_IN_MARKER  65533	/* maximum data len of a JPEG marker */
+#define MAX_DATA_BYTES_IN_MARKER  (MAX_BYTES_IN_MARKER - ICC_OVERHEAD_LEN)
+
+static boolean
+marker_is_icc (jpeg_saved_marker_ptr marker)
+{
+  return
+    marker->marker == ICC_MARKER &&
+    marker->data_length >= ICC_OVERHEAD_LEN &&
+    /* verify the identifying string */
+    GETJOCTET(marker->data[0]) == 0x49 &&
+    GETJOCTET(marker->data[1]) == 0x43 &&
+    GETJOCTET(marker->data[2]) == 0x43 &&
+    GETJOCTET(marker->data[3]) == 0x5F &&
+    GETJOCTET(marker->data[4]) == 0x50 &&
+    GETJOCTET(marker->data[5]) == 0x52 &&
+    GETJOCTET(marker->data[6]) == 0x4F &&
+    GETJOCTET(marker->data[7]) == 0x46 &&
+    GETJOCTET(marker->data[8]) == 0x49 &&
+    GETJOCTET(marker->data[9]) == 0x4C &&
+    GETJOCTET(marker->data[10]) == 0x45 &&
+    GETJOCTET(marker->data[11]) == 0x0;
+}
+static boolean
+marker_is_photoshop (jpeg_saved_marker_ptr marker)
+{
+  return
+    marker->marker == PHOTOSHOP_MARKER &&
+    marker->data_length >= ICC_OVERHEAD_LEN &&
+    /* verify the identifying string */
+    GETJOCTET(marker->data[0]) == 0x50 &&
+    GETJOCTET(marker->data[1]) == 0x68 &&
+    GETJOCTET(marker->data[2]) == 0x6F &&
+    GETJOCTET(marker->data[3]) == 0x74 &&
+    GETJOCTET(marker->data[4]) == 0x6F &&
+    GETJOCTET(marker->data[5]) == 0x73 &&
+    GETJOCTET(marker->data[6]) == 0x68 &&
+    GETJOCTET(marker->data[7]) == 0x6F &&
+    GETJOCTET(marker->data[8]) == 0x70 &&
+    GETJOCTET(marker->data[9]) == 0x20 &&
+    GETJOCTET(marker->data[10]) == 0x33 &&
+    GETJOCTET(marker->data[11]) == 0x2E &&
+    GETJOCTET(marker->data[12]) == 0x30 &&
+    GETJOCTET(marker->data[13]) == 0x0;
+}
+/* Small modification of original read_icc_profile method from jpegicc of lcms project 
+ * to enable read of Photoshop marker 
+ */
+boolean
+read_jpeg_marker (UINT8 requestmarker,
+		  j_decompress_ptr cinfo,
+		  JOCTET **icc_data_ptr,
+		  unsigned int *icc_data_len)
+{
+  jpeg_saved_marker_ptr marker;
+  int num_markers = 0;
+  int seq_no;
+  JOCTET *icc_data;
+  unsigned int total_length;
+#define MAX_SEQ_NO  255		/* sufficient since marker numbers are bytes */
+  char marker_present[MAX_SEQ_NO+1];	  /* 1 if marker found */
+  unsigned int data_length[MAX_SEQ_NO+1]; /* size of profile data in marker */
+  unsigned int data_offset[MAX_SEQ_NO+1]; /* offset for data in marker */
+
+  *icc_data_ptr = NULL;		/* avoid confusion if FALSE return */
+  *icc_data_len = 0;
+
+  /* This first pass over the saved markers discovers whether there are
+   * any ICC markers and verifies the consistency of the marker numbering.
+   */
+
+  for (seq_no = 1; seq_no <= MAX_SEQ_NO; seq_no++)
+    marker_present[seq_no] = 0;
+  seq_no = 0;
+  for (marker = cinfo->marker_list; marker != NULL; marker = marker->next) {
+    if (requestmarker == ICC_MARKER && marker_is_icc(marker)) {
+      if (num_markers == 0)
+	num_markers = GETJOCTET(marker->data[13]);
+      else if (num_markers != GETJOCTET(marker->data[13]))
+	return FALSE;		/* inconsistent num_markers fields */
+      seq_no = GETJOCTET(marker->data[12]);
+      if (seq_no <= 0 || seq_no > num_markers)
+	return FALSE;		/* bogus sequence number */
+      if (marker_present[seq_no])
+	return FALSE;		/* duplicate sequence numbers */
+      marker_present[seq_no] = 1;
+      data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
+    } else if(requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker)) {
+      num_markers = ++seq_no;
+      marker_present[seq_no] = 1;
+      data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
+    }
+  }
+
+  if (num_markers == 0)
+    return FALSE;
+
+  /* Check for missing markers, count total space needed,
+   * compute offset of each marker's part of the data.
+   */
+
+  total_length = 0;
+  for (seq_no = 1; seq_no <= num_markers; seq_no++) {
+    if (marker_present[seq_no] == 0)
+      return FALSE;		/* missing sequence number */
+    data_offset[seq_no] = total_length;
+    total_length += data_length[seq_no];
+  }
+
+  if (total_length <= 0)
+    return FALSE;		/* found only empty markers? */
+
+  /* Allocate space for assembled data */
+  icc_data = (JOCTET *) malloc(total_length * sizeof(JOCTET));
+  if (icc_data == NULL)
+    return FALSE;		/* oops, out of memory */
+  seq_no=0;
+  /* and fill it in */
+  for (marker = cinfo->marker_list; marker != NULL; marker = marker->next) {
+    if ( (requestmarker == ICC_MARKER && marker_is_icc(marker)) || 
+	 (requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker))) {
+      JOCTET FAR *src_ptr;
+      JOCTET *dst_ptr;
+      unsigned int length;
+      if(requestmarker == ICC_MARKER)
+	seq_no = GETJOCTET(marker->data[12]);
+      else if(requestmarker == PHOTOSHOP_MARKER)
+	seq_no++;
+      dst_ptr = icc_data + data_offset[seq_no];
+      src_ptr = marker->data + ICC_OVERHEAD_LEN;
+      length = data_length[seq_no];
+      while (length--) {
+	*dst_ptr++ = *src_ptr++;
+      }
+    }
+  }
+
+  *icc_data_ptr = icc_data;
+  *icc_data_len = total_length;
+
+  return TRUE;
+}
+
+
 QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK, ImageInfoRecord *info)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof
@@ -2045,8 +2201,78 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 		if ((infile = fopen (fn, "rb")) == NULL)
 			return img;
 		jpeg_stdio_src(&cinfo, infile);
+		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
+		jpeg_save_markers(&cinfo, PHOTOSHOP_MARKER, 0xFFFF);
 		jpeg_read_header(&cinfo, TRUE);
 		jpeg_start_decompress(&cinfo);
+#ifdef HAVE_CMS
+		DWORD EmbedLen = 0;
+		LPBYTE EmbedBuffer;
+		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen) && useEmbedded && CMSuse && useProf)
+		  tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+		free(EmbedBuffer);
+#endif // HAVE_CMS
+		DWORD PhotoshopLen = 0;
+		LPBYTE PhotoshopBuffer;
+		        if ( cinfo.density_unit == 1 )
+			{
+				xres = cinfo.X_density;
+				yres = cinfo.Y_density;
+				img.setDotsPerMeterX( int(100. * cinfo.X_density / 2.54) );
+				img.setDotsPerMeterY( int(100. * cinfo.Y_density / 2.54) );
+			}
+			else if ( cinfo.density_unit == 2 )
+			{
+				xres = cinfo.X_density * 2.54;
+				yres = cinfo.Y_density * 2.54;
+				img.setDotsPerMeterX( int(100. * cinfo.X_density) );
+				img.setDotsPerMeterY( int(100. * cinfo.Y_density) );
+			}
+			if (info != 0)
+			{
+				if (isCMYK)
+					info->colorspace = 1;
+				else if (cinfo.output_components == 3)
+					info->colorspace = 0;
+				else if (cinfo.output_components == 1)
+					info->colorspace = 2;
+				info->progressive = jpeg_has_multiple_scans(&cinfo);
+			}
+
+		if (read_jpeg_marker(PHOTOSHOP_MARKER,&cinfo, &PhotoshopBuffer, &PhotoshopLen) ) 
+		{
+		  if (PhotoshopLen != 0)
+		  {
+		    QByteArray arrayPhot(PhotoshopLen);
+		    arrayPhot.assign((const char*)PhotoshopBuffer,PhotoshopLen);
+		    QDataStream strPhot(arrayPhot,IO_ReadOnly);
+		    strPhot.setByteOrder( QDataStream::BigEndian );
+		    PSDHeader fakeHeader;
+		    fakeHeader.width = cinfo.output_width;
+		    fakeHeader.height = cinfo.output_height;
+		    if(!info)
+		    {
+		      ImageInfoRecord imgInfo;
+		      imgInfo.xres = 72;
+		      imgInfo.yres = 72;
+		      info = &imgInfo;
+		    }
+		    if (cinfo.output_components == 4)
+		      info->colorspace = 1;
+		    else if (cinfo.output_components == 3)
+		      info->colorspace = 0;
+		    else if (cinfo.output_components == 1)
+		      info->colorspace = 2;
+		    info->progressive = jpeg_has_multiple_scans(&cinfo);
+		    parseRessourceData(strPhot, fakeHeader, PhotoshopLen, info);
+		    // Photoshop resolution is more accurate than jpeg header resolution		    
+		    xres = info->xres;
+		    yres = info->yres;
+		    img.setDotsPerMeterX( int(100. * info->xres / 2.54) );
+		    img.setDotsPerMeterY( int(100. * info->yres / 2.54) );		    
+		    info->valid = (info->PDSpathData.size())>0?true:false; // The only interest is vectormask 
+		  }
+		}
 		if ( cinfo.output_components == 3 || cinfo.output_components == 4)
 			img.create( cinfo.output_width, cinfo.output_height, 32 );
 		else if ( cinfo.output_components == 1 )
@@ -2120,30 +2346,6 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				isCMYK = false;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
-			if ( cinfo.density_unit == 1 )
-			{
-				xres = cinfo.X_density;
-				yres = cinfo.Y_density;
-				img.setDotsPerMeterX( int(100. * cinfo.X_density / 2.54) );
-				img.setDotsPerMeterY( int(100. * cinfo.Y_density / 2.54) );
-			}
-			else if ( cinfo.density_unit == 2 )
-			{
-				xres = cinfo.X_density * 2.54;
-				yres = cinfo.Y_density * 2.54;
-				img.setDotsPerMeterX( int(100. * cinfo.X_density) );
-				img.setDotsPerMeterY( int(100. * cinfo.Y_density) );
-			}
-			if (info != 0)
-			{
-				if (isCMYK)
-					info->colorspace = 1;
-				else if (cinfo.output_components == 3)
-					info->colorspace = 0;
-				else if (cinfo.output_components == 1)
-					info->colorspace = 2;
-				info->progressive = jpeg_has_multiple_scans(&cinfo);
-			}
 		}
 		(void) jpeg_finish_decompress(&cinfo);
 		fclose (infile);
@@ -2202,18 +2404,26 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 		{
 		case 0: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat,
-				                           CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
 			break;
 		case 1: // RGB
 			if (isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat,
-				                           CMSoutputProf, TYPE_RGBA_8, rend, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
 			break;
 		case 2: // RGB Proof
-			xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-			                                   CMSoutputProf, TYPE_RGBA_8, CMSprinterProf,
+			{
+			if (inputProfFormat==TYPE_CMYK_8)
+			  inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
+			else
+				 inputProfFormat=TYPE_BGRA_8;
+			if (SoftProofing)
+				xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
+			                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
 			                                   IntentPrinter, rend, cmsFlags);
+			else
+			  xform = cmsCreateTransform(inputProf, inputProfFormat,
+						     CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
+		  	}
 			break;
 		case 3: // no Conversion just raw Data
 			xform = 0;
@@ -3225,25 +3435,8 @@ int traceLineto( FT_Vector *to, FPointArray *composite )
 {
 	double tox = ( to->x / 64.0 );
 	double toy = ( to->y / 64.0 );
-/*	if (composite->size() > 4)
-	{
-		FPoint b1 = composite->point(composite->size()-4);
-		FPoint b2 = composite->point(composite->size()-3);
-		FPoint b3 = composite->point(composite->size()-2);
-		FPoint b4 = composite->point(composite->size()-1);
-		FPoint n1 = FPoint(tox, toy);
-		FPoint n2 = FPoint(tox, toy);
-		FPoint n3 = FPoint(tox, toy);
-		FPoint n4 = FPoint(tox, toy);
-		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
-			return 0;
-	} */
-	if ( !composite->hasLastQuadPoint(tox, toy, tox, toy,
-						tox, toy, tox, toy))
-		composite->addQuadPoint(tox, toy,
-				tox, toy,
-				tox, toy,
-				tox, toy);
+	if ( !composite->hasLastQuadPoint(tox, toy, tox, toy, tox, toy, tox, toy))
+		composite->addQuadPoint(tox, toy, tox, toy, tox, toy, tox, toy);
 	return 0;
 }
 
@@ -3253,25 +3446,8 @@ int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *compos
 	double y1 = ( control->y / 64.0 );
 	double x2 = ( to->x / 64.0 );
 	double y2 = ( to->y / 64.0 );
-/*	if (composite->size() > 4)
-	{
-		FPoint b1 = composite->point(composite->size()-4);
-		FPoint b2 = composite->point(composite->size()-3);
-		FPoint b3 = composite->point(composite->size()-2);
-		FPoint b4 = composite->point(composite->size()-1);
-		FPoint n1 = FPoint(x2, y2);
-		FPoint n2 = FPoint(x1, y1);
-		FPoint n3 = FPoint(x2, y2);
-		FPoint n4 = FPoint(x2, y2);
-		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
-			return 0;
-	} */
-	if ( !composite->hasLastQuadPoint(x2, y2, x1, y1, 
-						x2, y2, x2, y2))
-		composite->addQuadPoint(x2, y2,
-				x1, y1,
-				x2, y2,
-				x2, y2);
+	if ( !composite->hasLastQuadPoint(x2, y2, x1, y1, x2, y2, x2, y2))
+		composite->addQuadPoint(x2, y2, x1, y1, x2, y2, x2, y2);
 	return 0;
 }
 
@@ -3283,27 +3459,10 @@ int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *co
 	double y2 = ( q->y / 64.0 );
 	double x3 = ( to->x / 64.0 );
 	double y3 = ( to->y / 64.0 );
-/*	if (composite->size() > 4)
-	{
-		FPoint b1 = composite->point(composite->size()-4);
-		FPoint b2 = composite->point(composite->size()-3);
-		FPoint b3 = composite->point(composite->size()-2);
-		FPoint b4 = composite->point(composite->size()-1);
-		FPoint n1 = FPoint(x3, y3);
-		FPoint n2 = FPoint(x2, y2);
-		FPoint n3 = FPoint(x3, y3);
-		FPoint n4 = FPoint(x3, y3);
-		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
-			return 0;
-	} */
-	if ( !composite->hasLastQuadPoint(x3, y3, x2, y2,
-						x3, y3, x3, y3) )
+	if ( !composite->hasLastQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3) )
 	{
 		composite->setPoint(composite->size()-1, FPoint(x1, y1));
-		composite->addQuadPoint(x3, y3,
-				x2, y2,
-				x3, y3,
-				x3, y3);
+		composite->addQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3);
 	}
 	return 0;
 }
@@ -3417,6 +3576,10 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
 	int h = qRound(face->height / uniEM) * s + 1;
 	double a = static_cast<double>(face->descender) / uniEM * s + 1;
 	int w = qRound((face->bbox.xMax - face->bbox.xMin) / uniEM) * s * (ts.length()+1);
+	if (w < 1)
+		w = s * (ts.length()+1);
+	if (h < 1)
+		h = s;
 	QPixmap pm(w, h);
 	pm.fill();
 	pen_x = 0;

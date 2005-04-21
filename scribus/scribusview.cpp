@@ -7169,7 +7169,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			return false;
 		}
 		if ((Doc->MasterP)  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage->PageNr)))))
+		{
+			currItem = Doc->Items.prev();
 			continue;
+		}
 		if (currItem->LayerNr == Doc->ActiveLayer)
 		{
 			p.begin(this);
@@ -8880,7 +8883,7 @@ void ScribusView::ShowTemplate(int nr)
 	Doc->currentPage = Doc->Pages.at(nr);
 	PGS->setEnabled(false);
 	updateOn = false;
-	reformPages();
+//	reformPages();
 	slotDoZoom();
 	oldX = qRound(Doc->currentPage->Xoffset - 10);
 	oldY = qRound(Doc->currentPage->Yoffset - 10);

@@ -1182,7 +1182,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							if (tTabValues.isEmpty())
 							{
 								if ((CurX - ColBound.x()) != 0)
-									CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+								{
+									if (CurX == ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0)
+										CurX += 36.0;
+									else
+										CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+								}
 								else
 									CurX = ColBound.x() + 36.0;
 								TabCode = 0;

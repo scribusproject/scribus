@@ -19,7 +19,7 @@
  ***************************************************************************/
 
 #include "gtwriter.h"
-#include "scfonts.h"
+//#include "scfonts.h"
 #include "pageitem.h"
 
 gtWriter::gtWriter(bool append)
