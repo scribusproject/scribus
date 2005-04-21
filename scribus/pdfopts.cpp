@@ -12,6 +12,7 @@
 #include "customfdialog.h"
 #include "prefsfile.h"
 #include "units.h"
+#include "pdfoptions.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)

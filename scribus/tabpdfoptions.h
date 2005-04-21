@@ -22,6 +22,8 @@
 #include "bookmwin.h"
 #include "mspinbox.h"
 
+class PDFOptions;
+
 class TabPDFOptions : public QTabWidget
 {
 	Q_OBJECT

@@ -18,6 +18,7 @@
 #include "vgradient.h"
 #include "pageitem.h"
 #include "scraction.h"
+#include "pdfoptions.h"
 
 /* Struktur fuer Pageitem Text */
 struct ScText
@@ -271,52 +272,6 @@ struct LPIData
 	int SpotFunc;
 };
 
-struct PDFOptions
-{
-	bool Thumbnails;
-	bool Articles;
-	bool useLayers;
-	bool Compress;
-	int CompressMethod;
-	int Quality;
-	bool RecalcPic;
-	bool Bookmarks;
-	int PicRes;
-	int Version;
-	int Resolution;
-	int Binding;
-	QValueList<QString> EmbedList;
-	QValueList<QString> SubsetList;
-	bool MirrorH;
-	bool MirrorV;
-	int RotateDeg;
-	bool PresentMode;
-	QValueList<PDFPresentationData> PresentVals;
-	QString Datei;
-	bool isGrayscale;
-	bool UseRGB;
-	bool UseProfiles;
-	bool UseProfiles2;
-	bool UseLPI;
-	QMap<QString,LPIData> LPISettings;
-	QString SolidProf;
-	int SComp;
-	QString ImageProf;
-	bool EmbeddedI;
-	int Intent2;
-	QString PrintProf;
-	QString Info;
-	int Intent;
-	double BleedTop;
-	double BleedLeft;
-	double BleedRight;
-	double BleedBottom;
-	bool Encrypt;
-	QString PassOwner;
-	QString PassUser;
-	int Permissions;
-};
-
 struct Keys
 {
 	QString actionName;
@@ -446,7 +401,7 @@ struct ApplicationPrefs
 	windowPrefs mainToolBarSettings;
 	windowPrefs pdfToolBarSettings;
 	windowPrefs mainWinSettings;
-	
+
 	PDFOptions PDF_Options;
 	ObjAttrVector defaultItemAttributes;
 	ToCSetupVector defaultToCSetups;

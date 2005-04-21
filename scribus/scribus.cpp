@@ -129,6 +129,7 @@
 #include "scrap.h"
 #include "pluginmanager.h"
 #include "scpaths.h"
+#include "pdfoptions.h"
 
 //CB TODO include for toc testing for now
 #include "gtwriter.h"

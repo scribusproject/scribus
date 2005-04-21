@@ -45,6 +45,7 @@
 class Page;
 class UndoManager;
 class UndoState;
+class PDFOptions;
 
 
 /**

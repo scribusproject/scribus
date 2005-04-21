@@ -12,6 +12,8 @@
 #include <qvaluelist.h>
 #include "tabpdfoptions.h"
 
+class PDFOptions;
+
 class PDF_Opts : public QDialog
 {
 	Q_OBJECT
