@@ -3938,7 +3938,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				a1 = (72.0 / sy) / afl;
 				ax = img.width() / a2;
 				ay = img.height() / a1;
-				if ((Options->UseRGB || (Options->isGrayscale) || Options->UseProfiles2))
+				if ((Options->UseRGB || Options->UseProfiles2))
 				{
 					img = img.smoothScale(qRound(ax), qRound(ay));
 					img = img.convertDepth(32);
