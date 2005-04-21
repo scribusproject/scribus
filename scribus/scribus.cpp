@@ -373,10 +373,10 @@ void ScribusApp::initScribus()
 		Prefs.Ausrichtung = 0;
 		Prefs.PageBreite = 595;
 		Prefs.PageHoehe = 842;
-		Prefs.RandOben = 9;
+		Prefs.RandOben = 40;
 		Prefs.RandUnten = 40;
-		Prefs.RandLinks = 9;
-		Prefs.RandRechts = 9;
+		Prefs.RandLinks = 40;
+		Prefs.RandRechts = 40;
 		Prefs.DoppelSeiten = false;
 		Prefs.ErsteLinks = false;
 		Prefs.ScaleType = true;
