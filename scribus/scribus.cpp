@@ -495,10 +495,10 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.pageOrientation = 0;
 	Prefs.PageWidth = 595;
 	Prefs.PageHeight = 842;
-	Prefs.RandOben = 9;
+	Prefs.RandOben = 40;
 	Prefs.RandUnten = 40;
-	Prefs.RandLinks = 9;
-	Prefs.RandRechts = 9;
+	Prefs.RandLinks = 40;
+	Prefs.RandRechts = 40;
 	Prefs.FacingPages = false;
 	Prefs.LeftPageFirst = false;
 	Prefs.toolSettings.scaleType = true;
