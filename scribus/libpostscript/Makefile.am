@@ -19,12 +19,7 @@ install-data-local:
 uninstall-local:
 	-rm -f $(prefix)/include/scribus/libpostscript/pslib.h
 
-if COMPILE_DEBUG
- linkflag = 
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \

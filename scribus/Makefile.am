@@ -361,12 +361,7 @@ uninstall-local:
 
 scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) $(LIB_X11) $(LIBSOCKET) $(pixbuf_libs)
 
-if COMPILE_DEBUG
- linkflag = -export-dynamic
-else
- linkflag = -export-dynamic -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
+AM_LDFLAGS = -export-dynamic $(LIBFREETYPE_LIBS)
 # set the include path for X, qt and KDE
 INCLUDES= $(LIBART_CFLAGS) $(LIBFREETYPE_CFLAGS) $(LIBFONTCONFIG_CFLAGS) $(all_includes)
 

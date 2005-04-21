@@ -37,7 +37,8 @@ The simplest way to compile this package is:
   2. Type `make' to compile the package.
 
   3. Type `make install' to install the programs and any data files and
-     documentation.
+     documentation. If you prefer to strip the binaries, which makes them
+     slightly smaller, run `make install-strip' instead.
 
   4. You can remove the program binaries and object files from the
      source code directory by typing `make clean'.  

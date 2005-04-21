@@ -13,12 +13,7 @@ libsxwimplugin_la_SOURCES = sxwim.cpp sxwdia.cpp stylereader.cpp contentreader.c
 EXTRA_DIST = sxwim.cpp sxwim.h sxwdia.cpp sxwdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h
 
 KDE_OPTIONS = qtonly
-if COMPILE_DEBUG
- linkflag = 
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(XML_LIBS) $(MODULE_LINK_FLAGS)
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(XML_LIBS) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \

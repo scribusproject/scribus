@@ -13,12 +13,7 @@ libtxtim_la_SOURCES = txtim.cpp
 EXTRA_DIST = txtim.cpp txtim.h  
 
 KDE_OPTIONS = qtonly
-if COMPILE_DEBUG
- linkflag = 
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \

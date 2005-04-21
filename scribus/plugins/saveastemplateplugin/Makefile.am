@@ -13,12 +13,7 @@ libsaveastemplateplugin_la_SOURCES = satemplate.cpp satdialog.cpp
 EXTRA_DIST = satemplate.cpp satemplate.h satdialog.cpp satdialog.h
 
 KDE_OPTIONS = qtonly
-if COMPILE_DEBUG
- linkflag = 
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
