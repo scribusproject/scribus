@@ -34,7 +34,7 @@ extern PrefsFile* prefsFile;
 PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOptions *Optionen, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
 		: QDialog( parent, "pdf", true, 0 )
 {
-	setCaption( tr( "Create PDF File" ) );
+	setCaption( tr( "Save as PDF" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	EffVal = Eff;
 	Opts = Optionen;
