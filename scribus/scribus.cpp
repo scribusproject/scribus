@@ -201,9 +201,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
 	initDefaultValues();
-	modeActionNames=new QStringList();
-	nonEditActionNames=new QStringList();
-	unicodeCharActionNames=new QStringList();
+	
 	actionManager = new ActionManager(this, "actionManager");
 	initMenuBar();
 	initStatusBar();
@@ -1060,6 +1058,7 @@ void ScribusApp::initMenuBar()
 	scrActions["editLineStyles"]->setEnabled(false);
 	scrActions["editTemplates"]->setEnabled(false);
 	scrActions["editJavascripts"]->setEnabled(false);
+	scrActions["editTextWithStoryEditor"]->setEnabled(false);
 
 	//Style Menu
 	scrMenuMgr->createMenu("Style", tr("St&yle"));
@@ -3494,7 +3493,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	//scrActions["specialNonBreakingSpace"]->setEnabled(false);
 	//scrActions["specialPageNumber"]->setEnabled(false);
 	if (Nr!=-1 && currItem->itemType()==PageItem::TextFrame)
-		actionManager->setEnabledActionStringList(unicodeCharActionNames, false);
+		actionManager->enableUnicodeActions(false);
 	scrActions["insertSampleText"]->setEnabled(false);
 	
 	view->horizRuler->ItemPosValid = false;
@@ -3618,7 +3617,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			//scrActions["specialPageNumber"]->setEnabled(true);
 			if (currItem->itemType()==PageItem::TextFrame)
-				actionManager->setEnabledActionStringList(unicodeCharActionNames, true, true);
+				actionManager->enableUnicodeActions(true);
 			view->horizRuler->ItemPos = currItem->Xpos - doc->ScratchLeft;
 			view->horizRuler->ItemEndPos = currItem->Xpos+currItem->Width - doc->ScratchLeft;
 			if (currItem->lineColor() != "None")
@@ -6176,7 +6175,7 @@ void ScribusApp::setAppMode(int mode)
 			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
 			//scrActions["specialPageNumber"]->setEnabled(true);
 			if (currItem->itemType()==PageItem::TextFrame)
-				actionManager->setEnabledActionStringList(unicodeCharActionNames, true, true);
+				actionManager->enableUnicodeActions(true);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))

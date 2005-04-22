@@ -223,9 +223,6 @@ public:
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
 	QDict<QActionGroup> scrActionGroups;
-	QStringList *modeActionNames;
-	QStringList *nonEditActionNames;
-	QStringList *unicodeCharActionNames;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	PluginManager* pluginManager;

@@ -41,7 +41,8 @@ class ActionManager : public QObject
 		void connectModeActions();
 		void saveActionShortcutsPreEditMode();
 		void restoreActionShortcutsPostEditMode();
-		void setEnabledActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);
+		void enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);
+		void enableUnicodeActions(bool enabled);
 		
 	private:
 		void initFileMenuActions();

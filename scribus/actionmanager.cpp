@@ -24,9 +24,9 @@ ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject (
 	ScApp=(ScribusApp *)parent;
 	scrActions=&(ScApp->scrActions);
 	scrActionGroups=&(ScApp->scrActionGroups);
-	modeActionNames=ScApp->modeActionNames;
-	nonEditActionNames=ScApp->nonEditActionNames;
-	unicodeCharActionNames=ScApp->unicodeCharActionNames;
+	modeActionNames=new QStringList();
+	nonEditActionNames=new QStringList();
+	unicodeCharActionNames=new QStringList();
 	undoManager = UndoManager::instance();
 	
 	createActions();
@@ -531,7 +531,6 @@ void ActionManager::initSpecialActions()
 	(*scrActions)["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
 	(*scrActions)["specialPageNumber"]->setText("Insert Page Number");
 
-	
 	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
 	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
 	*unicodeCharActionNames << "specialBullet";
@@ -578,7 +577,7 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 		(*scrActions)[*it]->restoreShortcut();	
 }
 
-void ActionManager::setEnabledActionStringList(QStringList *list, bool enabled, bool checkingUnicode)
+void ActionManager::enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode)
 {
 	for ( QStringList::Iterator it = list->begin(); it != list->end(); ++it )
 	{
@@ -595,4 +594,9 @@ void ActionManager::setEnabledActionStringList(QStringList *list, bool enabled, 
 			}
 		}
 	}
+}
+
+void ActionManager::enableUnicodeActions(bool enabled)
+{
+	enableActionStringList(unicodeCharActionNames, enabled, enabled);
 }
