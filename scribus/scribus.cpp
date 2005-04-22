@@ -3493,7 +3493,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	//scrActions["specialSmartHyphen"]->setEnabled(false);
 	//scrActions["specialNonBreakingSpace"]->setEnabled(false);
 	//scrActions["specialPageNumber"]->setEnabled(false);
-	if (currItem->itemType()==PageItem::TextFrame)
+	if (Nr!=-1 && currItem->itemType()==PageItem::TextFrame)
 		actionManager->setEnabledActionStringList(unicodeCharActionNames, false);
 	scrActions["insertSampleText"]->setEnabled(false);
 	
