@@ -73,12 +73,14 @@ public:
 	virtual void lineTo( const double &, const double & );
 	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 );
 	virtual void newPath();
+	virtual void fillTextPath();
+	virtual void strokeTextPath();
 	virtual void fillPath();
+	virtual void strokePath();
 	virtual void setFillRule( bool fillRule );
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void strokePath();
 	virtual void setClipPath();
 
 	virtual void drawImage( QImage *image );
@@ -117,7 +119,7 @@ public:
 	VGradient stroke_gradient;
 
 private:
-	void drawVPath( struct _ArtVpath *vec, int mode );
+	void drawVPath( struct _ArtVpath *vec, int mode, bool preCal = false );
 	void applyGradient( _ArtSVP *, bool );
 //	void applyPattern( _ArtSVP *, bool );
 	_ArtGradientStop *buildStopArray( VGradient &gradient, int & );

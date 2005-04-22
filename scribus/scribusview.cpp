@@ -2411,10 +2411,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 					}
 					if (currItem->itemType() == PageItem::ImageFrame)
-					{
 						AdjustPictScale(currItem);
-						AdjustPreview(currItem, false);
-					}
 					UpdateClip(currItem);
 					emit ItemTextCols(currItem->Cols, currItem->ColGap);
 					Doc->SnapGuides = sav;
@@ -4944,8 +4941,7 @@ void ScribusView::ConvertClip(PageItem *currItem)
 		for (uint a = 1; a < currItem->Clip.size(); ++a)
 		{
 			np = FPoint(currItem->Clip.point(a));
-			currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(),
-			                    np.x(), np.y());
+			currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
 		}
 		np = FPoint(currItem->Clip.point(0));
 		currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
@@ -5745,10 +5741,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	}
 	currItem->RadRect = QMIN(currItem->RadRect, QMIN(currItem->Width,currItem->Height)/2);
 	if ((currItem->itemType() == PageItem::ImageFrame) && (!currItem->Sizing) && (!Doc->EditClip))
-	{
 		AdjustPictScale(currItem);
-		AdjustPreview(currItem, false);
-	}
 	if (currItem->itemType() == PageItem::Line)
 	{
 		if (!fromMP)
@@ -7410,8 +7403,6 @@ void ScribusView::Deselect(bool prop)
 			currItem = SelItem.at(a);
 			if ((currItem->itemType() == PageItem::TextFrame) && (currItem->isBookmark))
 				emit ChBMText(currItem);
-			if (currItem->itemType() == PageItem::ImageFrame)
-				AdjustPreview(currItem, !Doc->DragP);
 			currItem->Select = false;
 			currItem->isSingleSel = false;
 		}
@@ -7551,12 +7542,10 @@ void ScribusView::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			currItem->pixmOrg = QImage();
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			AdjustPictScale(currItem);
-			AdjustPreview(currItem, false);
 		}
 	}
 	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
@@ -7566,12 +7555,10 @@ void ScribusView::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			currItem->pixmOrg = QImage();
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			AdjustPictScale(currItem);
-			AdjustPreview(currItem, false);
 		}
 	}
 	updateContents();
@@ -7587,7 +7574,6 @@ void ScribusView::removePict(QString name)
 		{
 			currItem->PicAvail = false;
 			currItem->pixm = QImage();
-			currItem->pixmOrg = QImage();
 /*			if (currItem->itemType() == PageItem::ImageFrame)
 				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
 		}
@@ -7599,7 +7585,6 @@ void ScribusView::removePict(QString name)
 		{
 			currItem->PicAvail = false;
 			currItem->pixm = QImage();
-			currItem->pixmOrg = QImage();
 		}
 	}
 	updateContents();
@@ -7615,12 +7600,10 @@ void ScribusView::UpdatePic()
 		{
 			int fho = currItem->imageFlippedH();
 			int fvo = currItem->imageFlippedV();
-			currItem->pixmOrg = QImage();
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			AdjustPictScale(currItem);
-			AdjustPreview(currItem, false);
 			updateContents();
 		}
 	}
@@ -7633,13 +7616,8 @@ void ScribusView::FrameToPic()
 		PageItem *currItem = SelItem.at(0);
 		if (currItem->PicAvail)
 		{
-			AdjustPreview(currItem, false);
 			double w = static_cast<double>(currItem->pixm.width());
 			double h = static_cast<double>(currItem->pixm.height());
-			if (currItem->LocalViewX > 1.00)
-				w *= currItem->LocalViewX;
-			if (currItem->LocalViewY > 1.00)
-				h *= currItem->LocalViewY;
 			double x = currItem->LocalX * currItem->LocalScX;
 			double y = currItem->LocalY * currItem->LocalScY;
 			if (!currItem->isTableItem)
@@ -7681,7 +7659,6 @@ void ScribusView::ToggleBookmark()
 				}
 			}
 		}
-		
 		emit DocChanged();
 	}
 }
@@ -8106,13 +8083,10 @@ void ScribusView::ClearItem()
 			currItem->Pfile = "";
 			currItem->PicAvail = false;
 			currItem->pixm = QImage();
-			currItem->pixmOrg = QImage();
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
 				currItem->LocalScX = 1;
 				currItem->LocalScY = 1;
-				currItem->LocalViewX = 1;
-				currItem->LocalViewY = 1;
 				currItem->OrigW = 0;
 				currItem->OrigH = 0;
 				currItem->dpiX = 72.0;
@@ -8941,9 +8915,6 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 					it->IProfile = Doc->CMSSettings.DefaultInputProfile;
 					LoadPict(it->Pfile, i);
 				}
-				it->Sizing = true;
-				AdjustPreview(it);
-				it->Sizing = false;
 			}
 			counter++;
 			if (dia != NULL)
@@ -9724,18 +9695,12 @@ void ScribusView::ChLocalSc(double x, double y)
 {
 	if (SelItem.count() != 0)
 	{
-		double oldx, oldy;
 		PageItem *currItem;
-
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			currItem = SelItem.at(a);
-			oldx = currItem->LocalViewX / currItem->LocalScX;
-			oldy = currItem->LocalViewY / currItem->LocalScY;
 			currItem->LocalScX = x;
 			currItem->LocalScY = y;
-			currItem->LocalViewX = oldy * currItem->LocalScX;
-			currItem->LocalViewY = oldy * currItem->LocalScY;
 			RefreshItem(currItem);
 		}
 	}
@@ -9746,8 +9711,7 @@ void ScribusView::ItemFont(QString fon)
 	if (SelItem.count() != 0)
 	{
 		if (SelItem.count() > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFont,
-										 fon, Um::IFont);
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFont, fon, Um::IFont);
 		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *currItem = SelItem.at(aa);
@@ -10451,7 +10415,6 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		double xres = qRound(img.dotsPerMeterX() * 0.0254);
 		double yres = qRound(img.dotsPerMeterY() * 0.0254);
 		Item->pixm = img.copy();
-		Item->pixmOrg = img.copy();
 		Item->PicAvail = true;
 		Item->PicArt = true;
 		Item->BBoxX = 0;
@@ -10459,13 +10422,6 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		{
 			Item->LocalScX = 72.0 / xres;
 			Item->LocalScY = 72.0 / yres;
-			Item->LocalViewX = 72.0 / xres;
-			Item->LocalViewY = 72.0 / yres;
-		}
-		else
-		{
-			Item->LocalViewX = Item->LocalScX;
-			Item->LocalViewY = Item->LocalScY;
 		}
 		Item->Pfile = fi.absFilePath();
 		if (!reload)
@@ -10485,99 +10441,25 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 	emit DocChanged();
 }
 
-void ScribusView::AdjustPreview(PageItem *currItem, bool reload)
-{
-	int neww, newh;
-	bool savF, fho, fvo;
-	if ((currItem->LocalViewX < 1.0) || (currItem->LocalViewY < 1.0))
-	{
-		if ((currItem->Pfile != "") && (currItem->PicAvail))
-		{
-			if (!currItem->Sizing)
-			{
-				fho = currItem->imageFlippedH();
-				fvo = currItem->imageFlippedV();
-				savF = currItem->PicArt;
-				if ( !currItem->pixmOrg.isNull() )
-				{
-					currItem->pixm = currItem->pixmOrg.copy();
-					currItem->OrigW = currItem->pixm.width();
-					currItem->OrigH  = currItem->pixm.height();
-					currItem->LocalViewX = currItem->LocalScX;
-					currItem->LocalViewY = currItem->LocalScY;
-				}
-				else if (reload == false ) // jjsa begin
-				{
-					currItem->OrigW = currItem->pixm.width();
-					currItem->OrigH  = currItem->pixm.height();
-					currItem->LocalViewX = currItem->LocalScX;
-					currItem->LocalViewY = currItem->LocalScY; // jjsa end
-				}
-				else
-					LoadPict(currItem->Pfile, currItem->ItemNr, true);
-				currItem->setImageFlippedH(fho);
-				currItem->setImageFlippedV(fvo);
-				currItem->PicArt = savF;
-			}
-			neww = qRound(currItem->pixm.width() * currItem->LocalViewX);
-			newh = qRound(currItem->pixm.height() * currItem->LocalViewY);
-			currItem->pixm = currItem->pixm.smoothScale(neww, newh);
-			currItem->LocalViewX = 1;
-			currItem->LocalViewY = 1;
-		}
-	}
-}
-
-void ScribusView::AdjustPictScale(PageItem *currItem, bool reload)
+void ScribusView::AdjustPictScale(PageItem *currItem, bool )
 {
 	if (currItem->ScaleType)
 		return;
 	if ((currItem->OrigW == 0) || (currItem->OrigH == 0))
 		return;
-	bool savF;
 	currItem->LocalX = 0;
 	currItem->LocalY = 0;
 	double xs = currItem->Width / static_cast<double>(currItem->OrigW);
 	double ys = currItem->Height / static_cast<double>(currItem->OrigH);
-	if (!currItem->Sizing)
-	{
-		bool fho = currItem->imageFlippedH();
-		bool fvo = currItem->imageFlippedV();
-		savF = currItem->PicArt;
-		if (!currItem->pixmOrg.isNull())
-		{
-			currItem->pixm = currItem->pixmOrg.copy();
-			currItem->OrigW = currItem->pixm.width();
-			currItem->OrigH  = currItem->pixm.height();
-			currItem->LocalViewX = currItem->LocalScX;
-			currItem->LocalViewY = currItem->LocalScY;
-		}
-		else if ( reload == false ) // jjsa begin
-			{
-				currItem->OrigW = currItem->pixm.width();
-				currItem->OrigH  = currItem->pixm.height();
-				currItem->LocalViewX = currItem->LocalScX;
-				currItem->LocalViewY = currItem->LocalScY;
-			}
-		else // jjsa end
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
-		currItem->setImageFlippedH(fho);
-		currItem->setImageFlippedV(fvo);
-		currItem->PicArt = savF;
-	}
 	if (currItem->AspectRatio)
 	{
 		currItem->LocalScX = QMIN(xs, ys);
 		currItem->LocalScY = QMIN(xs, ys);
-		currItem->LocalViewX = QMIN(xs, ys);
-		currItem->LocalViewY = QMIN(xs, ys);
 	}
 	else
 	{
 		currItem->LocalScX = xs;
 		currItem->LocalScY = ys;
-		currItem->LocalViewX = xs;
-		currItem->LocalViewY = ys;
 	}
 	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 }
@@ -10879,12 +10761,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			SetRectFrame(currItem);
 		currItem->ClipEdited = true;
 	}
-	//
 	if (currItem->itemType() == PageItem::ImageFrame)
-	{
 		AdjustPictScale(currItem);
-		AdjustPreview(currItem, false);
-	}
 	if ((currItem->itemType() != PageItem::TextFrame) && (currItem->itemType() != PageItem::PathText))
 		currItem->IFont = Doc->toolSettings.defFont;
 	if (Buffer->GrType != 0)

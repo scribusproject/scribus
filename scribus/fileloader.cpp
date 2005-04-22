@@ -1482,10 +1482,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		currItem->Height = 1;
 	}
 	if (currItem->itemType() == PageItem::ImageFrame)
-	{
 		view->AdjustPictScale(currItem);
-		view->AdjustPreview(currItem, false);
-	}
 	if ((currItem->itemType() != PageItem::TextFrame) && (currItem->itemType() != PageItem::PathText))
 		currItem->IFont = doc->toolSettings.defFont;
 	currItem->GrType = QStoInt(obj->attribute("GRTYP","0"));

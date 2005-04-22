@@ -347,7 +347,6 @@ PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObj
 		item->AspectRatio = proportional > 0;
 	// Force the braindead app to notice the changes
 	Carrier->view->AdjustPictScale(item);
-	Carrier->view->AdjustPreview(item, false);
 	Carrier->view->RefreshItem(item);
 	Py_INCREF(Py_None);
 	return Py_None;

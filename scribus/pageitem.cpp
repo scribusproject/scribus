@@ -134,13 +134,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	MaxChars = 0;
 	Pfile = "";
 	pixm = QImage();
-	pixmOrg = QImage();
 	Pfile2 = "";
 	Pfile3 = "";
 	LocalScX = 1;
 	LocalScY = 1;
-	LocalViewX = 1;
-	LocalViewY = 1;
 	OrigW = 0;
 	OrigH = 0;
 	dpiX = 72.0;
@@ -541,8 +538,7 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 						p->translate(0, Height * sc);
 						p->scale(1, -1);
 					}
-					if ((LocalViewX != 1) || (LocalViewY != 1))
-						p->scale(LocalViewX, LocalViewY);
+					p->scale(LocalScX, LocalScY);
 					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
 					if (InvPict)
 					{
@@ -2368,7 +2364,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 	uint chr = ccx[0].unicode();
 	if (hl->ZFo->CharWidth.contains(chr))
 	{
-		QWMatrix chma, chma2, chma3, chma4, chma5;
+		QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
 		chma.scale(csi, csi);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
 		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
@@ -2850,8 +2846,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 		QString to = freeScale ? Um::FreeScaling : Um::FrameSize;
 		to += ", ";
 		to += keepRatio ? Um::KeepRatio : Um::BreakRatio;
-		SimpleState *ss = new SimpleState(Um::ImageScaling, QString(Um::FromTo).arg(from).arg(to),
-		                                  Um::IImageScaling);
+		SimpleState *ss = new SimpleState(Um::ImageScaling, QString(Um::FromTo).arg(from).arg(to), Um::IImageScaling);
 		if (freeScale != ScaleType)
 			ss->set("SCALE_TYPE", freeScale);
 		if (keepRatio != AspectRatio)
@@ -2861,7 +2856,6 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	ScaleType = freeScale;
 	AspectRatio = keepRatio;
 	ScApp->view->AdjustPictScale(this);
-	ScApp->view->AdjustPreview(this, false);
 	ScApp->view->RefreshItem(this);
 }
 

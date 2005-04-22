@@ -566,9 +566,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					{
 						ite->LocalScX = ite->Width / ite->pixm.width();
 						ite->LocalScY = ite->Height / ite->pixm.height();
-						ite->LocalViewX = ite->LocalScX;
-						ite->LocalViewY = ite->LocalScY;
-						Prog->view->AdjustPreview(ite);
 					}
 					break;
 				}

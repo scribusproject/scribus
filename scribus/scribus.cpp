@@ -4616,7 +4616,6 @@ void ScribusApp::slotFileOpen()
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				view->LoadPict(fileName, currItem->ItemNr);
 				view->AdjustPictScale(currItem, false);
-				view->AdjustPreview(currItem, false);
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
@@ -10345,7 +10344,6 @@ void ScribusApp::CallGimp()
 		PageItem *currItem = view->SelItem.at(0);
 		if (currItem->PicAvail)
 		{
-			currItem->pixmOrg = QImage();
 			ExternalApp = new QProcess(NULL);
             cmd = QStringList::split(" ", Prefs.gimp_exe);
 			cmd.append(currItem->Pfile);

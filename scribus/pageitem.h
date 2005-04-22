@@ -262,7 +262,6 @@ public:
 	int oldOwnPage;
   /** Darzustellendes Bild */
 	QImage pixm;
-	QImage pixmOrg;
 	ImageInfoRecord imgInfo;
   /** Dateiname des Bildes */
 	QString Pfile;
@@ -278,10 +277,8 @@ public:
 	bool PicAvail;
   /** Lokales Scaling x*/
 	double LocalScX;
-	double LocalViewX;
   /** Lokales Scaling y*/
 	double LocalScY;
-	double LocalViewY;
   /** Lokales X */
 	double LocalX;
   /** Lokales Y */

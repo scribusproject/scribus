@@ -1763,8 +1763,16 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 	HaveItem = false;
 	LXpos->setValue(x * Umrech);
 	LYpos->setValue(y * Umrech);
-	ScaleX->setValue(scx * 100);
-	ScaleY->setValue(scy * 100);
+	if (tmp)
+	{
+		ScaleX->setValue(scx * 100 / 72.0 * CurItem->dpiX);
+		ScaleY->setValue(scy * 100 / 72.0 * CurItem->dpiY);
+	}
+	else
+	{
+		ScaleX->setValue(scx * 100);
+		ScaleY->setValue(scy * 100);
+	}
 	HaveItem = tmp;
 }
 
@@ -2343,7 +2351,7 @@ void Mpalette::NewLocalSC()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->ChLocalSc(ScaleX->value() / 100.0, ScaleY->value() / 100.0);
+		ScApp->view->ChLocalSc(ScaleX->value() / 100.0 / CurItem->dpiX * 72.0, ScaleY->value() / 100.0 / CurItem->dpiY * 72.0);
 		emit DocChanged();
 	}
 }

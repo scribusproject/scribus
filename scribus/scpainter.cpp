@@ -323,9 +323,24 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 	fill_gradient.setFocalPoint(foc);
 }
 
+void ScPainter::fillTextPath()
+{
+	ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
+	drawVPath( path, 0, true );
+}
+
+void ScPainter::strokeTextPath()
+{
+	if( LineWidth == 0 )
+		return;
+	ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
+	drawVPath( path, 1, true );
+}
+
 void ScPainter::fillPath()
 {
-	if( m_index == 0 ) return;
+	if( m_index == 0 ) 
+		return;
 	if( fillMode != 0)
 	{
 		ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
@@ -494,21 +509,24 @@ void ScPainter::clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, i
 	y1 = QMIN( y1, static_cast<int>( m_height ) );
 }
 
-void ScPainter::drawVPath( ArtVpath *vec, int mode )
+void ScPainter::drawVPath( ArtVpath *vec, int mode, bool preCal )
 {
 	ArtSVP *strokeSvp = 0L;
 	ArtSVP *fillSvp = 0L;
 	// set up world matrix
-	double affine[6];
-	affine[0] = m_matrix.m11();
-	affine[1] = m_matrix.m12();
-	affine[2] = m_matrix.m21();
-	affine[3] = m_matrix.m22();
-	affine[4] = m_matrix.dx();
-	affine[5] = m_matrix.dy();
-	ArtVpath *temp1 = art_vpath_affine_transform( vec, affine );
-	art_free( vec );
-	vec = temp1;
+	if (!preCal)
+	{
+		double affine[6];
+		affine[0] = m_matrix.m11();
+		affine[1] = m_matrix.m12();
+		affine[2] = m_matrix.m21();
+		affine[3] = m_matrix.m22();
+		affine[4] = m_matrix.dx();
+		affine[5] = m_matrix.dy();
+		ArtVpath *temp1 = art_vpath_affine_transform( vec, affine );
+		art_free( vec );
+		vec = temp1;
+	}
 	int af = 0;
 	int as = 0;
 	art_u32 fillColor = 0;
