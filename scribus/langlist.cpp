@@ -11,6 +11,7 @@ LangList::LangList()
     insert("br",    QObject::tr( "Brazilian" ));
     insert("ca",    QObject::tr( "Catalan" ));
     insert("zh",    QObject::tr( "Chinese" ));
+    insert("hr",    QObject::tr( "Croatian" ));
     insert("cs",    QObject::tr( "Czech" ));
     insert("cs_CZ", QObject::tr( "Czech" ));
     insert("da",    QObject::tr( "Danish" ));

@@ -8583,6 +8583,7 @@ void ScribusApp::CanUndo()
 void ScribusApp::InitHyphenator()
 {
 	QString pfad = LIBDIR;
+	QStringList L_Croatian;
 	QStringList L_German;
 	QStringList L_Polish;
 	QStringList L_English;
@@ -8606,6 +8607,7 @@ void ScribusApp::InitHyphenator()
 	QStringList L_Swedish;
 	QStringList L_Slovenian;
 	QStringList L_Afrikaans;
+	L_Croatian.clear();
 	L_German.clear();
 	L_Polish.clear();
 	L_English.clear();
@@ -8642,6 +8644,10 @@ void ScribusApp::InitHyphenator()
     			QTranslator *trans = new QTranslator(0);
 				trans->load(pfad + d2[dc]);
 				QString translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Croatian", "").translation();
+				if (translatedLang != "")
+					L_Croatian.append(translatedLang);
+				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "German", "").translation();
 				if (translatedLang != "")
 					L_German.append(translatedLang);
@@ -8737,6 +8743,7 @@ void ScribusApp::InitHyphenator()
 			}
 		}
 	}
+	InstLang.insert("Croatian", L_Croatian);
 	InstLang.insert("German", L_German);
 	InstLang.insert("Polish", L_Polish);
 	InstLang.insert("English", L_English);
@@ -8773,6 +8780,8 @@ void ScribusApp::InitHyphenator()
 		{
 			if (d[dc] == "hyph_en.dic")
 				datein = tr("English");
+			if (d[dc] == "hyph_hr.dic")
+				datein = tr("Croatian");
 			if (d[dc] == "hyph_de.dic")
 				datein = tr("German");
 			if (d[dc] == "hyph_es.dic")
