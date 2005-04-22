@@ -9360,54 +9360,56 @@ void ScribusApp::RedoAction()
 void ScribusApp::initHyphenator()
 {
 	QString pfad = ScPaths::instance().libDir();
-	QStringList L_German;
-	QStringList L_Polish;
-	QStringList L_English;
-	QStringList L_Spanish;
-	QStringList L_Italian;
-	QStringList L_French;
-	QStringList L_Russian;
-	QStringList L_Danish;
-	QStringList L_Slovak;
-	QStringList L_Hungarian;
-	QStringList L_Czech;
-	QStringList L_Dutch;
-	QStringList L_Portuguese;
-	QStringList L_Portuguese_BR;
-	QStringList L_Ukrainian;
-	QStringList L_Greek;
-	QStringList L_Catalan;
-	QStringList L_Finnish;
-	QStringList L_Irish;
-	QStringList L_Lithuanian;
-	QStringList L_Swedish;
-	QStringList L_Slovenian;
 	QStringList L_Afrikaans;
 	QStringList L_Bulgarian;
-	L_German.clear();
-	L_Polish.clear();
-	L_English.clear();
-	L_Spanish.clear();
-	L_Italian.clear();
-	L_French.clear();
-	L_Russian.clear();
-	L_Danish.clear();
-	L_Slovak.clear();
-	L_Hungarian.clear();
-	L_Czech.clear();
-	L_Dutch.clear();
-	L_Portuguese.clear();
-	L_Portuguese_BR.clear();
-	L_Ukrainian.clear();
-	L_Greek.clear();
-	L_Catalan.clear();
-	L_Finnish.clear();
-	L_Irish.clear();
-	L_Lithuanian.clear();
-	L_Swedish.clear();
-	L_Slovenian.clear();
+	QStringList L_Catalan;
+	QStringList L_Croatian;
+	QStringList L_Czech;
+	QStringList L_Danish;
+	QStringList L_Dutch;
+	QStringList L_English;
+	QStringList L_Finnish;
+	QStringList L_French;
+	QStringList L_German;
+	QStringList L_Greek;
+	QStringList L_Hungarian;
+	QStringList L_Irish;
+	QStringList L_Italian;
+	QStringList L_Lithuanian;
+	QStringList L_Polish;
+	QStringList L_Portuguese;
+	QStringList L_Portuguese_BR;
+	QStringList L_Russian;
+	QStringList L_Slovak;
+	QStringList L_Slovenian;
+	QStringList L_Spanish;
+	QStringList L_Swedish;
+	QStringList L_Ukrainian;
 	L_Afrikaans.clear();
 	L_Bulgarian.clear();
+	L_Catalan.clear();
+	L_Croatian.clear();
+	L_Czech.clear();
+	L_Danish.clear();
+	L_Dutch.clear();
+	L_English.clear();
+	L_Finnish.clear();
+	L_French.clear();
+	L_German.clear();
+	L_Greek.clear();
+	L_Hungarian.clear();
+	L_Irish.clear();
+	L_Italian.clear();
+	L_Lithuanian.clear();
+	L_Polish.clear();
+	L_Portuguese.clear();
+	L_Portuguese_BR.clear();
+	L_Russian.clear();
+	L_Slovak.clear();
+	L_Slovenian.clear();
+	L_Spanish.clear();
+	L_Swedish.clear();
+	L_Ukrainian.clear();
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{
@@ -9421,6 +9423,10 @@ void ScribusApp::initHyphenator()
     			QTranslator *trans = new QTranslator(0);
 				trans->load(pfad + d2[dc]);
 				QString translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Croatian", "").translation();
+				if (translatedLang != "")
+					L_Croatian.append(translatedLang);
+				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "German", "").translation();
 				if (translatedLang != "")
 					L_German.append(translatedLang);
@@ -9520,30 +9526,31 @@ void ScribusApp::initHyphenator()
 			}
 		}
 	}
-	InstLang.insert("German", L_German);
-	InstLang.insert("Polish", L_Polish);
-	InstLang.insert("English", L_English);
-	InstLang.insert("Spanish", L_Spanish);
-	InstLang.insert("Italian", L_Italian);
-	InstLang.insert("French", L_French);
-	InstLang.insert("Russian", L_Russian);
-	InstLang.insert("Danish", L_Danish);
-	InstLang.insert("Slovak", L_Slovak);
-	InstLang.insert("Hungarian", L_Hungarian);
-	InstLang.insert("Czech", L_Czech);
-	InstLang.insert("Dutch", L_Dutch);
-	InstLang.insert("Portuguese", L_Portuguese);
-	InstLang.insert("Portuguese (BR)", L_Portuguese_BR);
-	InstLang.insert("Ukrainian", L_Ukrainian);
-	InstLang.insert("Greek", L_Greek);
-	InstLang.insert("Catalan", L_Catalan);
-	InstLang.insert("Finnish", L_Finnish);
-	InstLang.insert("Irish", L_Irish);
-	InstLang.insert("Lithuanian", L_Lithuanian);
-	InstLang.insert("Swedish", L_Swedish);
-	InstLang.insert("Slovenian", L_Slovenian);
 	InstLang.insert("Afrikaans", L_Afrikaans);
 	InstLang.insert("Bulgarian", L_Bulgarian);
+	InstLang.insert("Catalan", L_Catalan);
+	InstLang.insert("Croatian", L_Croatian);
+	InstLang.insert("Czech", L_Czech);
+	InstLang.insert("Danish", L_Danish);
+	InstLang.insert("Dutch", L_Dutch);
+	InstLang.insert("English", L_English);
+	InstLang.insert("Finnish", L_Finnish);
+	InstLang.insert("French", L_French);
+	InstLang.insert("German", L_German);
+	InstLang.insert("Greek", L_Greek);
+	InstLang.insert("Hungarian", L_Hungarian);
+	InstLang.insert("Irish", L_Irish);
+	InstLang.insert("Italian", L_Italian);
+	InstLang.insert("Lithuanian", L_Lithuanian);
+	InstLang.insert("Polish", L_Polish);
+	InstLang.insert("Portuguese (BR)", L_Portuguese_BR);
+	InstLang.insert("Portuguese", L_Portuguese);
+	InstLang.insert("Russian", L_Russian);
+	InstLang.insert("Slovak", L_Slovak);
+	InstLang.insert("Slovenian", L_Slovenian);
+	InstLang.insert("Spanish", L_Spanish);
+	InstLang.insert("Swedish", L_Swedish);
+	InstLang.insert("Ukrainian", L_Ukrainian);
 	QString datein = "";
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
@@ -9557,6 +9564,8 @@ void ScribusApp::initHyphenator()
 		{
 			if (d[dc] == "hyph_en.dic")
 				datein = tr("English");
+			if (d[dc] == "hyph_hr.dic")
+				datein = tr("Croatian");
 			if (d[dc] == "hyph_de.dic")
 				datein = tr("German");
 			if (d[dc] == "hyph_es.dic")
