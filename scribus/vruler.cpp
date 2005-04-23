@@ -177,14 +177,17 @@ void Vruler::paintEvent(QPaintEvent *)
 		of = xx * (doku->PageH+doku->ScratchBottom+doku->ScratchTop);
 		for (xl = 0; xl < doku->PageH; xl += iter)
 		{
-			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))
-				p.drawLine(18, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
+			int markerY=qRound((xl+of)*sc)+1;
+			if (( markerY > offs) && (markerY < offs+height()))
+				p.drawLine(18, markerY, 24, markerY);
 		}
 		for (xl = 0; xl < doku->PageH+(iter2/2); xl += iter2)
 		{
-			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))
+			int markerY=qRound((xl+of)*sc)+1;
+			if ((markerY > offs) && (markerY < offs+height()))
 			{
-				p.drawLine(11, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
+				p.drawLine(11, markerY, 24, markerY);
+				int textY=qRound((xl+of+10/sc) * sc);
 				switch (doku->docUnitIndex)
 				{
 					case 2:
@@ -200,17 +203,17 @@ void Vruler::paintEvent(QPaintEvent *)
 							tx += QChar(0xBD);
 						if ((frac > 0.74) && (frac < 0.76))
 							tx += QChar(0xBE);
-						p.drawText(9, qRound((xl+of+10/sc) * sc), tx);
+						p.drawText(9, textY, tx);
 						break;
 					}
 					case 3:
-						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / cor));
+						p.drawText(9, textY, QString::number(xl / iter / cor));
 						break;
 					case 4:
-						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / 10 / cor));
+						p.drawText(9, textY, QString::number(xl / iter / 10 / cor));
 						break;						
 					default:
-						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter * 10 / cor));
+						p.drawText(9, textY, QString::number(xl / iter * 10 / cor));
 						break;
 				}
 			}

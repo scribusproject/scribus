@@ -484,10 +484,15 @@ void Hruler::paintEvent(QPaintEvent *)
 		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
 		of = xx * doku->PageB;
 		for (xl = 0; xl < doku->PageB; xl += iter)
-			p.drawLine(qRound((xl+of)*sc), 18, qRound((xl+of)*sc), 24);
+		{
+			int markerX=qRound((xl+of)*sc)+1;
+			p.drawLine(markerX, 18, markerX, 24);
+		}
 		for (xl = 0; xl < doku->PageB+(iter2/2); xl += iter2)
 		{
-			p.drawLine(qRound((xl+of)*sc), 11, qRound((xl+of)*sc), 24);
+			int markerX=qRound((xl+of)*sc)+1;
+			p.drawLine(markerX, 11, markerX, 24);
+			int textX=qRound((xl+of+2/sc) * sc)+1;
 			switch (doku->docUnitIndex)
 			{
 				case 2:
@@ -503,17 +508,17 @@ void Hruler::paintEvent(QPaintEvent *)
 						tx += QChar(0xBD);
 					if ((frac > 0.74) && (frac < 0.76))
 						tx += QChar(0xBE);
-					p.drawText(qRound((xl+of+2/sc) * sc), 17, tx);
+					p.drawText(textX, 17, tx);
 					break;
 				}
 				case 3:
-					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter / cor));
+					p.drawText(textX, 17, QString::number(xl / iter / cor));
 					break;
 				case 4:
-					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter / 10 / cor));
+					p.drawText(textX, 17, QString::number(xl / iter / 10 / cor));
 					break;
 				default:
-					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter * 10 / cor));
+					p.drawText(textX, 17, QString::number(xl / iter * 10 / cor));
 					break;
 			}
 		}
