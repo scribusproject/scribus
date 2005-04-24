@@ -41,6 +41,10 @@
 #include <qdir.h>
 #include <qsplitter.h>
 #include <qmime.h>
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qaccel.h>
+#include <qinputdialog.h>
 
 #include "scpaths.h"
 
@@ -55,14 +59,14 @@
 extern QPixmap loadIcon(QString nam);
 
 
-HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage, QString jumpToSection, QString jumpToFile)
+HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
 	: QWidget( parent, "Help", WType_TopLevel | WDestructiveClose )
 {
 	QString fileName;
 	mHistory.clear();
 	struct histd his;
 	language = guiLanguage=="" ? "en" : guiLanguage.left(2);
-	helpBrowsermainLayout = new QVBoxLayout( this); 
+	helpBrowsermainLayout = new QVBoxLayout( this);
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
 	buttonLayout->setMargin( 2 );
@@ -89,7 +93,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	buttonLayout->addItem( spacer );
 	helpBrowsermainLayout->addLayout( buttonLayout );
 
-	helpBrowserLayout = new QHBoxLayout; 
+	helpBrowserLayout = new QHBoxLayout;
 	splitter = new QSplitter(this, "splitter");
 	splitter->setChildrenCollapsible( false );
 	helpBrowserLayout->addWidget( splitter );
@@ -99,7 +103,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	splitter->setResizeMode(tabWidget, QSplitter::Stretch );
 	tabWidget->setSizePolicy( QSizePolicy( QSizePolicy::Maximum, QSizePolicy::Expanding, false) );
 	tabContents = new QWidget( tabWidget, "tabContents" );
-	tabLayout = new QHBoxLayout( tabContents, 11, 6, "tabLayout"); 
+	tabLayout = new QHBoxLayout( tabContents, 11, 6, "tabLayout");
 
 	listView = new QListView( tabContents, "listView" );
 	listView->addColumn( tr( "Contents" ) );
@@ -113,9 +117,32 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	listView->setDefaultRenameAction(QListView::Reject);
 	listView->clear();
 	tabLayout->addWidget( listView );
-	
-	tabWidget->insertTab( tabContents, QString("Contents") );
+
+	tabWidget->insertTab( tabContents, tr("&Contents") );
 	//helpBrowserLayout->addWidget( tabWidget );
+
+	// searching
+	tabSearching = new QWidget(tabWidget, "tabSearching");
+	searchingMainLayout = new QVBoxLayout(tabSearching, 11, 6, "searchingMainLayout");
+	searchingButtonLayout = new QHBoxLayout;
+	searchingEdit = new QLineEdit(tabSearching, "searchingEdit");
+	searchingButton = new QPushButton(tabSearching, "searchingButton");
+	searchingButton->setText(tr("&Search"));
+	searchingButtonLayout->addWidget(searchingEdit);
+	searchingButtonLayout->addWidget(searchingButton);
+	searchingMainLayout->addLayout(searchingButtonLayout);
+	searchingView = new QListView(tabSearching, "searchingView");
+	searchingView->addColumn( tr( "Contents" ) );
+	searchingView->addColumn( tr( "Link" ) , 0 );
+	searchingView->setColumnWidthMode( 0, QListView::Maximum );
+	searchingView->setColumnWidthMode( 1, QListView::Manual );
+	searchingView->setSorting(-1,-1);
+	searchingView->setRootIsDecorated( true );
+	searchingView->setSelectionMode(QListView::Single);
+	searchingView->setDefaultRenameAction(QListView::Reject);
+	searchingView->clear();
+	searchingMainLayout->addWidget(searchingView);
+	tabWidget->insertTab(tabSearching, tr("S&earch"));
 
 	textBrowser = new QTextBrowser( splitter, "textBrowser" );
 	splitter->setResizeMode(textBrowser, QSplitter::Stretch);
@@ -132,13 +159,21 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	clearWState( WState_Polished );
 	loadMenu();
 	listView->header()->hide();
+	searchingView->header()->hide();
 	jumpToHelpSection(jumpToSection, jumpToFile );
+
+	QAccel *a = new QAccel( this, "a");
+	a->connectItem(a->insertItem(QAccel::stringToKey(tr("Ctrl+F"))), this, SLOT(find()));
+	a->connectItem(a->insertItem(QAccel::stringToKey(tr("F3"))), this, SLOT(findNext()));
 
 	connect( homeButton, SIGNAL( clicked() ), textBrowser, SLOT( home() ) );
 	connect( forwButton, SIGNAL( clicked() ), textBrowser, SLOT( forward() ) );
 	connect( backButton, SIGNAL( clicked() ), textBrowser, SLOT( backward() ) );
 	connect( histMenu, SIGNAL(activated(int)), this, SLOT(histChosen(int)));
 	connect( listView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSelected( QListViewItem *)));
+	// searching
+	connect(searchingView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
+	connect(searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
 }
 
 HelpBrowser::~HelpBrowser()
@@ -152,7 +187,7 @@ void HelpBrowser::languageChange()
 	listView->header()->setLabel( 0, tr( "Contents" ) );
 	listView->clear();
 
-	tabWidget->changeTab( tabContents, tr( "Contents" ) );
+	tabWidget->changeTab( tabContents, tr( "&Contents" ) );
 }
 
 
@@ -194,11 +229,11 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 	QString toLoad;
 	bool noDocs=false;
 
-	if (jumpToFile=="") 
+	if (jumpToFile=="")
 	{
 		QString pfad = ScPaths::instance().docDir();
 		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
-		if (jumpToSection=="") 
+		if (jumpToSection=="")
 		{
 			if (listView->firstChild())
 			{
@@ -208,11 +243,11 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 			else
 				noDocs=true;
 		}
-		else if (jumpToSection=="scripter") 
+		else if (jumpToSection=="scripter")
 		{
 			toLoad+="scripter1.html";
 			QListViewItemIterator it(listView);
-			while (it.current()) 
+			while (it.current())
 			{
 				if (it.current()->text(1)=="scripter1.html")
 					listView->setSelected( it.current(), true );
@@ -242,7 +277,7 @@ void HelpBrowser::loadHelp(QString filename)
 	{
 		if (fi.exists())
 			toLoad=filename;
-		else 
+		else
 		{
 			QString pfad = ScPaths::instance().docDir();
 			toLoad = pfad + "en/index.html";
@@ -255,9 +290,9 @@ void HelpBrowser::loadHelp(QString filename)
 			}
 		}
 	}
-	else 
+	else
 		Avail=false;
-	if (Avail) 
+	if (Avail)
 	{
 		textBrowser->setSource(toLoad);
 		his.Title = textBrowser->documentTitle();
@@ -291,7 +326,7 @@ void HelpBrowser::loadMenu()
 		QFile file( toLoad );
 		if ( !file.open( IO_ReadOnly ) )
 			return;
-		if ( !doc.setContent( &file ) ) 
+		if ( !doc.setContent( &file ) )
 		{
 			file.close();
 			return;
@@ -304,23 +339,23 @@ void HelpBrowser::loadMenu()
 		QListViewItem *tutorialsMenuItem;
 		bool haveTutorials=false;
 
-		while( !n.isNull() ) 
+		while( !n.isNull() )
 		{
 			QDomElement e = n.toElement(); // try to convert the node to an element.
-			if( !e.isNull() ) 
+			if( !e.isNull() )
 			{
-				if (e.hasAttribute( "text" ) && e.hasAttribute( "file" )) 
+				if (e.hasAttribute( "text" ) && e.hasAttribute( "file" ))
 				{
 					QDomAttr textAttr = e.attributeNode( "text" );
 					QDomAttr fileAttr = e.attributeNode( "file" );
 					if (qlvi2==NULL)
 						qlvi=new QListViewItem(listView, textAttr.value(), fileAttr.value());
-					else 
+					else
 						qlvi=new QListViewItem(listView, qlvi2, textAttr.value(), fileAttr.value());
 					if (qlvi!=NULL && e.hasAttribute( "section" ))
 					{
 						QDomAttr sectionAttr = e.attributeNode( "section" );
-						if (sectionAttr.value()=="tutorials" && !haveTutorials) 
+						if (sectionAttr.value()=="tutorials" && !haveTutorials)
 						{
 							haveTutorials=true;
 							tutorialsMenuItem=qlvi;
@@ -332,21 +367,21 @@ void HelpBrowser::loadMenu()
 				}
 
 				QDomNodeList nl=n.childNodes();
-				for(uint i=0 ; i<= nl.count() ; i++) 
+				for(uint i=0 ; i<= nl.count() ; i++)
 				{
 					QDomNode child=nl.item(i);
-					if (child.isElement()) 
+					if (child.isElement())
 					{
-						QDomElement ec = child.toElement();	
-						if (!ec.isNull()) 
+						QDomElement ec = child.toElement();
+						if (!ec.isNull())
 						{
-							if (ec.hasAttribute( "text" ) && ec.hasAttribute( "file" )) 
+							if (ec.hasAttribute( "text" ) && ec.hasAttribute( "file" ))
 							{
 								QDomAttr textAttr = ec.attributeNode( "text" );
 								QDomAttr fileAttr = ec.attributeNode( "file" );
 								if (qlvi4==NULL)
 									qlvi3=new QListViewItem(qlvi, textAttr.value(), fileAttr.value());
-								else 
+								else
 									qlvi3=new QListViewItem(qlvi, qlvi4, textAttr.value(), fileAttr.value());
 								if (qlvi3!=NULL && ec.hasAttribute( "section" ))
 								{
@@ -362,21 +397,21 @@ void HelpBrowser::loadMenu()
 							}
 							//3rd level
 							QDomNodeList nl2=child.childNodes();
-							for(uint i=0 ; i<= nl2.count() ; i++) 
+							for(uint i=0 ; i<= nl2.count() ; i++)
 							{
 								QDomNode childchild=nl2.item(i);
-								if (childchild.isElement()) 
+								if (childchild.isElement())
 								{
-									QDomElement ecc = childchild.toElement();	
-									if (!ecc.isNull()) 
+									QDomElement ecc = childchild.toElement();
+									if (!ecc.isNull())
 									{
-										if (ecc.hasAttribute( "text" ) && ecc.hasAttribute( "file" )) 
+										if (ecc.hasAttribute( "text" ) && ecc.hasAttribute( "file" ))
 										{
 											QDomAttr textAttr = ecc.attributeNode( "text" );
 											QDomAttr fileAttr = ecc.attributeNode( "file" );
 											if (qlvi6==NULL)
 												qlvi5=new QListViewItem(qlvi3, textAttr.value(), fileAttr.value());
-											else 
+											else
 												qlvi5=new QListViewItem(qlvi3, qlvi6, textAttr.value(), fileAttr.value());
 											if (qlvi5!=NULL && ecc.hasAttribute( "section" ))
 											{
@@ -400,15 +435,15 @@ void HelpBrowser::loadMenu()
 			n = n.nextSibling();
 		}
 		//scan for installed tutorials
-		if (haveTutorials) 
+		if (haveTutorials)
 		{
 			QString path = ScPaths::instance().docDir();
 			path += language + "/tutorials/";
 			QDir dir(path, "*", QDir::Name, QDir::Dirs | QDir::NoSymLinks);
 
-			if (dir.exists() && (dir.count() != 0)) 
+			if (dir.exists() && (dir.count() != 0))
 			{
-				for (uint i = 0; i < dir.count(); ++i) 
+				for (uint i = 0; i < dir.count(); ++i)
 				{
 					if (dir[i]!="." && dir[i]!="..")
 					{
@@ -420,7 +455,7 @@ void HelpBrowser::loadMenu()
 							QFile fileTutorialMenu( file.filePath() );
 							if ( !fileTutorialMenu.open( IO_ReadOnly ) )
 								break;
-							if ( !docTutorial.setContent( &fileTutorialMenu ) ) 
+							if ( !docTutorial.setContent( &fileTutorialMenu ) )
 							{
 								fileTutorialMenu.close();
 								break;
@@ -431,12 +466,12 @@ void HelpBrowser::loadMenu()
 							QDomNode nTutorial = docElemTutorial.firstChild();
 							QListViewItem *tutorialQLVI=NULL;
 
-							while( !nTutorial.isNull() ) 
+							while( !nTutorial.isNull() )
 							{
 								QDomElement eTutorial = nTutorial.toElement(); // try to convert the node to an element.
-								if( !eTutorial.isNull() ) 
+								if( !eTutorial.isNull() )
 								{
-									if (tutorialsMenuItem!=NULL && eTutorial.hasAttribute( "text" ) && eTutorial.hasAttribute( "file" )) 
+									if (tutorialsMenuItem!=NULL && eTutorial.hasAttribute( "text" ) && eTutorial.hasAttribute( "file" ))
 									{
 										QDomAttr textAttr = eTutorial.attributeNode( "text" );
 										QDomAttr fileAttr = eTutorial.attributeNode( "file" );
@@ -458,7 +493,7 @@ void HelpBrowser::loadMenu()
 													QDomAttr fileAttr = ec.attributeNode( "file" );
 													if (tutorialSubMenuItemLast==NULL)
 														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, textAttr.value(), tutorialdir + fileAttr.value());
-													else 
+													else
 														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, tutorialSubMenuItemLast, textAttr.value(), tutorialdir + fileAttr.value());
 													if (tutorialSubMenuItem!=NULL)
 														tutorialSubMenuItemLast=tutorialSubMenuItem;
@@ -487,4 +522,75 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 		QString pfad = ScPaths::instance().docDir();
 		loadHelp(pfad + language + "/" + item->text(1));
 	}
+}
+
+void HelpBrowser::itemSearchSelected(QListViewItem *item)
+{
+	if (item && item->text(1) != QString::null)
+	{
+		loadHelp(item->text(1));
+		findText = searchingEdit->text();
+		findNext();
+	}
+}
+
+void HelpBrowser::searchingInDirectory(QString aDir)
+{
+	QDir dir(aDir + "/");
+	QStringList lst = dir.entryList("*.html");
+	for (QStringList::Iterator it = lst.begin(); it != lst.end(); ++it)
+	{
+		QString fname(aDir + (*it));
+		QFile f(fname);
+		if (f.open(IO_ReadOnly))
+		{
+			QTextStream stream(&f);
+			QString str = stream.read().lower();
+			int cnt = str.contains(searchingEdit->text().lower());
+			if (cnt > 0)
+			{
+				// the remove() hack is here for itemSelected() handling
+				QString fullname = fname;
+				QString title;
+				QListViewItem *refItem = listView->findItem(fname.remove(ScPaths::instance().docDir()+"en/"), 1);
+				refItem ? title = refItem->text(0) : title = tr("unknown");
+				QListViewItem *item = new QListViewItem(searchingView, QString("%1x %2").arg(cnt).arg(title), fullname);
+				searchingView->insertItem(item);
+			}
+			f.close();
+		}
+	}
+	// get dirs - ugly recursion
+	QStringList dst = dir.entryList("*", QDir::Dirs);
+	for (QStringList::Iterator it = dst.begin(); it != dst.end(); ++it)
+		if ((*it)!="." && (*it)!="..")
+			searchingInDirectory(aDir + QString((*it)) + "/");
+}
+
+void HelpBrowser::searchingButton_clicked()
+{
+	searchingView->clear();
+	// root files
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	searchingInDirectory(ScPaths::instance().docDir() + "en/");
+	QApplication::restoreOverrideCursor();
+}
+
+void HelpBrowser::find()
+{
+	findText = QInputDialog::getText(tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0, this);
+	if (findText == QString::null)
+		return;
+	findNext();
+}
+
+void HelpBrowser::findNext()
+{
+	if (findText == QString::null)
+	{
+		find();
+		return;
+	}
+	// find it. finally
+	textBrowser->find(findText, false, false, true, 0, 0);
 }
