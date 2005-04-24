@@ -1686,19 +1686,24 @@ May raise WrongFrameTypeError if the target frame is not a text frame
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Здесь отображается версия, дата сборки и
+статус поддержки разных библиотек.
+Сокращение C-C-T обозначает: C=littlecms,
+C=CUPS, T=TIFF.
+Отсутствие поддержки обозначается 
+символом &quot;*&quot;.</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3 </translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Африкаанс:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальский (Бразилия):</translation>
     </message>
 </context>
 <context>
@@ -1774,6 +1779,10 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
 каждый отдельный случай требует особого рассмотрения. 
 При использовании этого способа также снижается 
 вероятность избыточной яркости изображения. </translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3001,6 +3010,25 @@ It&apos;s a reserved name for transparent color</source>
     </message>
 </context>
 <context>
+    <name>ChooseStyles</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation>Выберите стиль</translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation>Доступные стили</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>ОК</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отменить</translation>
+    </message>
+</context>
+<context>
     <name>Cpalette</name>
     <message>
         <source>Normal</source>
@@ -3652,73 +3680,83 @@ failed!</source>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменяется макрос: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Управление макросами</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &apos;%1&apos; уже существует.
+Вы хотите заменить его?
+</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Вы уже изменяете этот макрос.
+Вы действительно хотите отказаться ото всех изменений?
+</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Полный вывод следует далее:
+
+%1
+</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Сборка макроса не удалась, так что онне может быть
+сожранён в текущем виде. Вот ошибка:
+%1
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Новый макрос</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Это диалог редактирования и создания макросов. Здесь можно изменить исходный код макросов. Изменив исходный код, нажмите &quot;ОК&quot; для сохранения внесённых вами изменений.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Исходный код:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактируется макрос:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя изменяемого сейчас макроса.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/qt&gt;Здесь отображается имя макроса, который вы сейчас изменяете.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
+        <translation>О&amp;тменить</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+т</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Отказаться от изменений и выйти.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
@@ -3726,15 +3764,15 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+о</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Сохранить изменений и выйти.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
@@ -3746,15 +3784,15 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Загрузить исходный код...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+з</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Заменить текущий исходный код кодом из имеющегося файла.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
@@ -3762,15 +3800,15 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Сохранить исходный код...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+С</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Сохранить редактируемый исходный код в файл.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
@@ -3778,23 +3816,23 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>Python source files (.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы с исходным кодом на Python (.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Диалог сохранения файлов</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить исходный код макроса</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Диалог открытия файлов</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите загружаемый файл с исходным кодом</translation>
     </message>
 </context>
 <context>
@@ -4945,46 +4983,46 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Переданный объект невызываем</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Управление макросами</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Открывает диалог создания, удаления, изменения, сохранения и запуска макросов.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать, изменить и удалить макрос</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Макросы</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Управление макросами</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно открыть запрошенный файл: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Изменить макрос</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Макрос с таким именем уже существует.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Не удалось создать макрос.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -4993,7 +5031,12 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Макрос &apos;%1&apos; сообщил о незначительной ошибке:
+%2
+Вот полный вывод:
+
+%3
+</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -5002,30 +5045,35 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось корректно выполнить макрос &apos;%1&apos;.
+Ошибка: %2
+Вот полный вывод:
+
+%3
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Новый макрос</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation>Введите имя нового макроса:</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Управление макросами</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Макрос с таким именем уже существует.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Управление макросами</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
@@ -5035,15 +5083,15 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Новый</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+н</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Создать новый макрос.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
@@ -5051,27 +5099,27 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+о</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Макрос</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Сочетание</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Описание</translation>
+        <translation>Описание</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -5084,43 +5132,43 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Переименовать</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+п</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Переименовать выбранный макрос.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Переименовать выбранный макрос. Вас попросят указать новое имя макроса.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Изменить...</translation>
+        <translation>&amp;Изменить...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+и</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Изменить исходный код выбранного макроса, если код доступен.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Удалить</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+у</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Удалить выбранный макрос.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
@@ -5128,31 +5176,31 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>У&amp;казать акс.</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+к</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Указать горячие клавиши для выбранного макроса.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Указать горячие клавиши для выбранного макроса. Вам нужно будет ввести сочетание клавиш в диалоговом окне.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Экспортировать</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+э</translation>
     </message>
     <message>
         <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Экспортировать макрос в файл.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
@@ -5161,43 +5209,43 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить &amp;все</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+в</translation>
     </message>
     <message>
         <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить все макросы.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Удалить все зарегистрированные макросы. Это действие необратимо и способа восстановить удалённые макросы нет. Все макросы, созданные стартовым сценарием, появятся при следующей загрузке Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Импортировать</translation>
+        <translation>И&amp;мпортировать</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+м</translation>
     </message>
     <message>
         <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортировать макрос из файла.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Загрузить макрос из внешнего файла.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть этот диалог</translation>
     </message>
     <message>
         <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Вернуться в Scribus</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
@@ -5207,47 +5255,47 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы макросов Scribus (*.pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Диалог открытия файлов</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите исполняемый сценарий.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Диалог сохранения файлов</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить все макросы</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Смена имени макроса</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Введите новое имя:</translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Правка клавиш вызова макроса</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Введите новое сочетание:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Да</translation>
+        <translation>Да</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Нет</translation>
+        <translation>Нет</translation>
     </message>
 </context>
 <context>
@@ -6101,11 +6149,11 @@ Corners:</source>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>Тре&amp;кинг:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Ручной трекинг</translation>
     </message>
 </context>
 <context>
@@ -6668,31 +6716,31 @@ otherwise Coordinates are relative to the Object.</source>
     <name>OdtDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished">Параметры импорта из OpenOffice.org Writer</translation>
+        <translation type="obsolete">Параметры импорта из OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished">Обновить абзацные стили</translation>
+        <translation type="obsolete">Обновить абзацные стили</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished">Если в документе Scribus существует стиль, имя которого 
+        <translation type="obsolete">Если в документе Scribus существует стиль, имя которого 
 сопадает со стилем импортируемого документа OO.o Writer, 
 то этот стиль может быть обновлён до совпадения с 
 одноимённым стилем из импортируемого документа</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation type="unfinished">Сжать абзацные стили</translation>
+        <translation type="obsolete">Сжать абзацные стили</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation type="unfinished">Сгруппировать абзацные стили по атрибутам.
+        <translation type="obsolete">Сгруппировать абзацные стили по атрибутам.
 В результате количество стилей уменьшается, 
 но управлять стилевой разметкой становится сложнее.
 Рекомендуется использовать этот параметр только 
@@ -6700,30 +6748,30 @@ after importing.</source>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Добавить название документа в начало абзацного стиля</translation>
+        <translation type="obsolete">Добавить название документа в начало абзацного стиля</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished">При импорте документа можно добавлять название
+        <translation type="obsolete">При импорте документа можно добавлять название
 импортируемого документа в начало нового 
 абзацного стиля Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Больше не спрашивать</translation>
+        <translation type="obsolete">Больше не спрашивать</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished">Использовать ли эти настройки в дальнейшем
+        <translation type="obsolete">Использовать ли эти настройки в дальнейшем
 и больше не запрашивать подтверждение при
 импорте документов OO.o Writer</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">ОК</translation>
+        <translation type="obsolete">ОК</translation>
     </message>
 </context>
 <context>
@@ -8588,7 +8636,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation>Путь к графическому редактору</translation>
+        <translation type="obsolete">Путь к графическому редактору</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -9019,6 +9067,17 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>Tabloid</source>
         <translation>Tabloid</translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp
+and your distro includes it, we recommend &apos;gimp-remote&apos;,
+as it allows you to edit the image in an already running
+instance of gimp.</source>
+        <translation>Здесь указывается команда запуска графического редактора. 
+Если вы используете GIMP, мы рекомендуем указать команду 
+&apos;gimp-remote&apos;, поскольку тогда изображение откроется в 
+существующей сессии GIMP, и запускать редактор по новой 
+не придётся.</translation>
     </message>
 </context>
 <context>
@@ -10162,7 +10221,7 @@ External Links
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цвет не найден - ошибка интерпретатора Python</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10220,19 +10279,19 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Африкаанс</translation>
+        <translation>Африкаанс</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Турецкий</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Украинский</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Уэльский</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
@@ -10441,7 +10500,7 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальский (Бразилия)</translation>
     </message>
     <message>
         <source>Cannot get a colour with an empty name.</source>
@@ -10451,7 +10510,7 @@ function&apos;s documentation.</source>
     <message>
         <source>Colour not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цвет не найден</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
@@ -10466,10 +10525,6 @@ function&apos;s documentation.</source>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenDocument Text Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10830,11 +10885,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Трекинг:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Ручной трекинг</translation>
     </message>
 </context>
 <context>
@@ -10860,7 +10915,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>В вашей системе нет PostScript-шрифтов</translation>
+        <translation type="obsolete">В вашей системе нет PostScript-шрифтов</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -12034,7 +12089,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальский (Бр.)</translation>
+    </message>
+    <message>
+        <source>There are no suitable Fonts on your System</source>
+        <translation>В вашей системе подходящих шрифтов нет</translation>
     </message>
 </context>
 <context>
@@ -12103,77 +12162,77 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>ScripterCore</name>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">&amp;Сценарии</translation>
+        <translation>&amp;Сценарии Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Выполнить сненарий...</translation>
+        <translation>&amp;Выполнить сценарий...</translation>
     </message>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Выполнить сценарий на Python из файла.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Загрузить сценарий расширения...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить сценарий на Python как расширение. Используется для загрузки макросов и расширенных сценариев на Python, которые дополняют пользовательский интерфейс Scribus.</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Недавние сценарии</translation>
+        <translation>&amp;Недавние сценарии</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать &amp;консоль</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Показать интерактивную консоль Python, из которой можно записывать и выполнять сценарии на Python, использующие инструменты Сценариста.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">О сц&amp;енарии...</translation>
+        <translation>О сц&amp;енарии...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">С&amp;ценарии</translation>
+        <translation>С&amp;ценарии</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation type="unfinished"></translation>
+        <translation>Настроить &amp;Сценарист</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Открыть</translation>
+        <translation>Открыть</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Сценарии на Python (*.py);; Все файлы (*)</translation>
+        <translation>Сценарии на Python (*.py);; Все файлы (*)</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Ошибка сценария</translation>
+        <translation>Ошибка сценария</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Если вы пытались выполнить сценарий из стандартной поставки Scribus, 
+        <translation>Если вы пытались выполнить сценарий из стандартной поставки Scribus, 
 сообщите об ошибке на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;, пожалуйста.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Это сообщение скопировано в буфер обмена.
+        <translation>Это сообщение скопировано в буфер обмена.
 Нажмите Ctrl+V, чтобы вставить его в жалобную книгу.</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Сценарный модуль</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -12186,106 +12245,121 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Функция &apos;Загрузить сценарий&apos; сценарного модуля в настоящее 
+время отключена. Если вы хотите выполнить обычный сценарий, 
+скорее всего вам захочется вместо неё использовать команду 
+&apos;Выполнить сценарий...&apos;, доступную из меню &apos;Сценарии&apos;.
+
+Еслм вам нужно загрузить сценарий расширения или макрос, то 
+нужно вызвать диалог настрйоки Сценариста и включить в нём 
+сценарные расширения.
+
+Настоятельно рекомендуется предварительно прочитать 
+документацию о сценариях расширений.
+</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished">Спрятать &amp;консоль</translation>
+        <translation>Спрятать &amp;консоль</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">О сценарии</translation>
+        <translation>О сценарии</translation>
     </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Настройки Сценариста</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить расширения Сценариста</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить сценарии-расширения и макросы</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Включение сценариев расширений обеспечивает подключение дополнительной функциональности, включая макросы на языке Python и возможность запускать сценарий на Python при запуске программы. Включение этой возможности делает доступным пункт &lt;tt&gt;Загрузить сценарий расширения&lt;/tt&gt; в меню &quot;Сценарии&quot;.&lt;/p&gt;
+
+Сценарии расширений можно вызывать только через &lt;tt&gt;Загрузить сценарий расширения&lt;/tt&gt; или в качестве сценария, запускаемого при старте программы. Настоятельно рекомендуется предварительно прочитать документацию по Сценаристу.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Выполнить сценарий при запуске программы</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Если флажок &lt;tt&gt;Выполнить сценарий при запуске программы&lt;/tt&gt; выставлен, при запуске Scribus будет загружать и выполнять указанный сценарий на Python как сценарий расширения. Важно помнить, что сценарий будет записан именно как сценарий расширения, поэтому если он написан некорректно, это может стать источником головной боли у пользователя.&lt;/p&gt;
+&lt;p&gt;Флажок &lt;tt&gt;Выполнить сценарий при запуске программы&lt;/tt&gt; автоматически снимается при отключении сценарных расширений, поскольку сценарии расширения не могут быть загружены при отключенных сценарных расширениях.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Указать...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Указать файл сценария</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Указать файл сценария&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Какой сценарий выполнить при запуске программы</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Файл содержит сценарий на Python, исполняемый как сценарий расширения при запуске программы.&lt;/p&gt;
+&lt;p&gt;Помните, что запуск Scribus приостанавливается на время исполнения этого сценария и рабочего пространства по сути ещё не создаётся.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл сценария:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
+        <translation>О&amp;тменить</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+т</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть без сохранения изменений</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+о</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить и выйти</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Дополнительные параметры</translation>
+        <translation>Дополнительные параметры</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортировать все имена при запуске</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Запускать &apos;from scribus import *&apos; в консоли для сценариев при запуске</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
@@ -12295,11 +12369,11 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Разрешить устаревшие имена функций</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Разрешить использование имён функций в старом стиле&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
@@ -12309,11 +12383,11 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать псевдоинтерфейс Stdin</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Заменить sys.stdin псевдофайлом, чтобы Scribus не зависал при попытке чтения из stdin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
