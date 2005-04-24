@@ -126,8 +126,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	searchingMainLayout = new QVBoxLayout(tabSearching, 11, 6, "searchingMainLayout");
 	searchingButtonLayout = new QHBoxLayout;
 	searchingEdit = new QLineEdit(tabSearching, "searchingEdit");
-	searchingButton = new QPushButton(tabSearching, "searchingButton");
-	searchingButton->setText(tr("&Search"));
+	searchingButton = new QPushButton(tr("&Search"), tabSearching, "searchingButton");
 	searchingButtonLayout->addWidget(searchingEdit);
 	searchingButtonLayout->addWidget(searchingButton);
 	searchingMainLayout->addLayout(searchingButtonLayout);
@@ -172,8 +171,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	connect( histMenu, SIGNAL(activated(int)), this, SLOT(histChosen(int)));
 	connect( listView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSelected( QListViewItem *)));
 	// searching
-	connect(searchingView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
-	connect(searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
+	connect( searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
+	connect( searchingView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
+	connect( searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
 }
 
 HelpBrowser::~HelpBrowser()
@@ -231,8 +231,7 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 
 	if (jumpToFile=="")
 	{
-		QString pfad = ScPaths::instance().docDir();
-		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
+		toLoad = ScPaths::instance().docDir() + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="")
 		{
 			if (listView->firstChild())
@@ -279,8 +278,7 @@ void HelpBrowser::loadHelp(QString filename)
 			toLoad=filename;
 		else
 		{
-			QString pfad = ScPaths::instance().docDir();
-			toLoad = pfad + "en/index.html";
+			toLoad = QDir::convertSeparators(ScPaths::instance().docDir() + "en/index.html");
 			language="en";
 			fi = QFileInfo(toLoad);
 			if (!fi.exists())
@@ -307,14 +305,14 @@ void HelpBrowser::loadMenu()
 {
 	QString pfad = ScPaths::instance().docDir();
 	QString toLoad;
-	QString pfad2 = pfad + language + "/menu.xml";
+	QString pfad2 = QDir::convertSeparators(pfad + language + "/menu.xml");
 	QFileInfo fi = QFileInfo(pfad2);
 
 	if (fi.exists())
 		toLoad=pfad2;
 	else
 	{
-		toLoad = pfad + "en/menu.xml";
+		toLoad = QDir::convertSeparators(pfad + "en/menu.xml");
 		language="en";
 		fi = QFileInfo(toLoad);
 		qDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
@@ -447,8 +445,8 @@ void HelpBrowser::loadMenu()
 				{
 					if (dir[i]!="." && dir[i]!="..")
 					{
-						QString tutorialdir = "tutorials/" + dir[i] + "/";
-						QFileInfo file(path + dir[i] + "/menu.xml");
+						QString tutorialdir = QDir::convertSeparators("tutorials/" + dir[i] + "/");
+						QFileInfo file(QDir::convertSeparators(path + dir[i] + "/menu.xml"));
 						if (file.exists())  // menu.xml exists for tutorial
 						{
 							QDomDocument docTutorial( "tutorialmenuentries" );
@@ -520,7 +518,7 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 	if (item->text(1)!=QString::null)
 	{
 		QString pfad = ScPaths::instance().docDir();
-		loadHelp(pfad + language + "/" + item->text(1));
+		loadHelp(QDir::convertSeparators(pfad + language + "/" + item->text(1)));
 	}
 }
 
@@ -552,7 +550,7 @@ void HelpBrowser::searchingInDirectory(QString aDir)
 				// the remove() hack is here for itemSelected() handling
 				QString fullname = fname;
 				QString title;
-				QListViewItem *refItem = listView->findItem(fname.remove(ScPaths::instance().docDir()+"en/"), 1);
+				QListViewItem *refItem = listView->findItem(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")), 1);
 				refItem ? title = refItem->text(0) : title = tr("unknown");
 				QListViewItem *item = new QListViewItem(searchingView, QString("%1x %2").arg(cnt).arg(title), fullname);
 				searchingView->insertItem(item);
@@ -564,7 +562,7 @@ void HelpBrowser::searchingInDirectory(QString aDir)
 	QStringList dst = dir.entryList("*", QDir::Dirs);
 	for (QStringList::Iterator it = dst.begin(); it != dst.end(); ++it)
 		if ((*it)!="." && (*it)!="..")
-			searchingInDirectory(aDir + QString((*it)) + "/");
+			searchingInDirectory(QDir::convertSeparators(aDir + QString((*it)) + "/"));
 }
 
 void HelpBrowser::searchingButton_clicked()
@@ -572,7 +570,7 @@ void HelpBrowser::searchingButton_clicked()
 	searchingView->clear();
 	// root files
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	searchingInDirectory(ScPaths::instance().docDir() + "en/");
+	searchingInDirectory(ScPaths::instance().docDir() + language + "/");
 	QApplication::restoreOverrideCursor();
 }
 
