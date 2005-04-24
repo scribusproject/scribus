@@ -597,7 +597,7 @@ void CharSelect::generatePreview(int charClass)
 	if (ac != 0)
 		ab++;
 	zTabelle->setNumRows( ab );
-	int bh = 16 + qRound(-(*ap->doc->AllFonts)[fontInUse]->numDescender * 16) + 3;
+	int bh = QMAX(16 + qRound(-(*ap->doc->AllFonts)[fontInUse]->numDescender * 16) + 3, 16);
 	QPixmap pixm(bh,bh);
 	for (int a = 0; a < ab; ++a)
 	{

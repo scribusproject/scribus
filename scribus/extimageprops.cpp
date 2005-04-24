@@ -19,7 +19,7 @@ extern QPixmap loadIcon(QString nam);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern FPoint getMinClipF(FPointArray* Clip);
 
-ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )
+ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Extended Image Properties" ) );
@@ -138,7 +138,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		opacitySpinBox->setEnabled(true);
 		blendMode->setEnabled(true);
 		QString tmp;
-		QValueList<PSDLayer>::iterator it2;
+		QValueList<ScImage::PSDLayer>::iterator it2;
 		layerTable->setNumRows(info->layerInfo.count());
 		uint counter = 0;
 		for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
@@ -209,7 +209,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				pixm.fill(white);
 			FPointArray Path;
 			Path.resize(0);
-			Path = currentItem->imgInfo.PDSpathData[it.key()].copy();
+			Path = currentItem->pixm.imgInfo.PDSpathData[it.key()].copy();
 			FPoint min = getMinClipF(&Path);
 			Path.translate(-min.x(), -min.y());
 			FPoint max = Path.WidthHeight();
@@ -240,8 +240,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 
 void ExtImageProps::changedLayer()
 {
-	struct LoadRequest loadingInfo;
-	currentItem->imgInfo.isRequest = true;
+	struct ScImage::LoadRequest loadingInfo;
+	currentItem->pixm.imgInfo.isRequest = true;
 	for (int r = 0; r < layerTable->numRows(); ++r)
 	{
 		if (currentLayer == layerTable->numRows() - r - 1)
@@ -249,18 +249,18 @@ void ExtImageProps::changedLayer()
 			loadingInfo.blend = blendModesRev[blendMode->currentText()];
 			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
 		}
-		else if (currentItem->imgInfo.RequestProps.contains(layerTable->numRows() - r - 1))
+		else if (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->numRows() - r - 1))
 		{
-			loadingInfo.blend = currentItem->imgInfo.RequestProps[layerTable->numRows() - r - 1].blend;
-			loadingInfo.opacity = currentItem->imgInfo.RequestProps[layerTable->numRows() - r - 1].opacity;
+			loadingInfo.blend = currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - r - 1].blend;
+			loadingInfo.opacity = currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - r - 1].opacity;
 		}
 		else
 		{
-			loadingInfo.blend = currentItem->imgInfo.layerInfo[layerTable->numRows() - r - 1].blend;
-			loadingInfo.opacity = currentItem->imgInfo.layerInfo[layerTable->numRows() - r - 1].opacity;
+			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - r - 1].blend;
+			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - r - 1].opacity;
 		}
 		loadingInfo.visible = FlagsSicht.at(layerTable->numRows() - r - 1)->isChecked();
-		currentItem->imgInfo.RequestProps.insert(layerTable->numRows() - r - 1, loadingInfo);
+		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->numRows() - r - 1, loadingInfo);
 	}
 	viewWidget->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
 	viewWidget->updateContents();
@@ -270,15 +270,15 @@ void ExtImageProps::selLayer(int layer)
 {
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
-	if ((currentItem->imgInfo.isRequest) && (currentItem->imgInfo.RequestProps.contains(layerTable->numRows() - layer - 1)))
+	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->numRows() - layer - 1)))
 	{
-		opacitySpinBox->setValue(qRound(currentItem->imgInfo.RequestProps[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setCurrentText(blendModes[currentItem->imgInfo.RequestProps[layerTable->numRows() - layer - 1].blend]);
+		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
+		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - layer - 1].blend]);
 	}
 	else
 	{
-		opacitySpinBox->setValue(qRound(currentItem->imgInfo.layerInfo[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setCurrentText(blendModes[currentItem->imgInfo.layerInfo[layerTable->numRows() - layer - 1].blend]);
+		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
+		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - layer - 1].blend]);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);
@@ -289,10 +289,10 @@ void ExtImageProps::selLayer(int layer)
 
 void ExtImageProps::selPath(QListBoxItem *c)
 {
-	currentItem->PoLine = currentItem->imgInfo.PDSpathData[c->text()].copy();
-	currentItem->imgInfo.usedPath = c->text();
+	currentItem->PoLine = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
+	currentItem->pixm.imgInfo.usedPath = c->text();
 	QWMatrix cl;
-	cl.scale(72.0 / currentItem->dpiX, 72.0 / currentItem->dpiY);
+	cl.scale(72.0 / currentItem->pixm.imgInfo.xres, 72.0 / currentItem->pixm.imgInfo.yres);
 	currentItem->PoLine.map(cl);
 	currentItem->FrameType = 3;
 	currentItem->Clip = FlattenPath(currentItem->PoLine, currentItem->Segments);

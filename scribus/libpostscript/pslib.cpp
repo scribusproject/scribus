@@ -42,11 +42,8 @@ extern uint getDouble(QString in, bool raw);
 extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
 extern bool loadText(QString nam, QString *Buffer);
 extern QString CompressStr(QString *in);
-extern QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
-extern QString getAlpha(QString fn, bool PDF, bool pdf14);
 
 extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 
@@ -677,15 +674,17 @@ void PSLib::PS_ImageData(PageItem *c, bool inver, QString fn, QString Name, QStr
 		return;
 	}
   	QString ImgStr = "";
-	QImage image;
-	c->imgInfo.valid = false;
-	c->imgInfo.clipPath = "";
-	c->imgInfo.PDSpathData.clear();
-	c->imgInfo.layerInfo.clear();
-	image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy, &c->imgInfo);
+	ScImage image;
+	image.imgInfo.valid = false;
+	image.imgInfo.clipPath = "";
+	image.imgInfo.PDSpathData.clear();
+	image.imgInfo.layerInfo.clear();
+	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
+	image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy);
 	if (inver)
 		image.invertPixels();
-	ImgStr = ImageToCMYK_PS(&image, -1, true);
+	ImgStr = image.ImageToCMYK_PS(-1, true);
 	if (CompAvail)
 	{
 		PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
@@ -699,7 +698,7 @@ void PSLib::PS_ImageData(PageItem *c, bool inver, QString fn, QString Name, QStr
 	PutSeite("/"+PSEncode(Name)+"Bild exch def\n");
 	ImgStr = "";
 	QString iMask = "";
-	iMask = getAlpha(fn, false, false);
+	iMask = image.getAlpha(fn, false, false);
 	if (iMask != "")
 	{
 		if (CompAvail)
@@ -753,12 +752,14 @@ void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, do
 	else
 	{
 		QString ImgStr = "";
-		QImage image;
-		c->imgInfo.valid = false;
-		c->imgInfo.clipPath = "";
-		c->imgInfo.PDSpathData.clear();
-		c->imgInfo.layerInfo.clear();
-		image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy, &c->imgInfo);
+		ScImage image;
+		image.imgInfo.valid = false;
+		image.imgInfo.clipPath = "";
+		image.imgInfo.PDSpathData.clear();
+		image.imgInfo.layerInfo.clear();
+		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
+		image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy);
 		if (inver)
 			image.invertPixels();
 		int w = image.width();
@@ -772,13 +773,14 @@ void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, do
  		PutSeite(ToStr(scalex*w) + " " + ToStr(scaley*h) + " sc\n");
  		PutSeite(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
 		QString iMask = "";
-		iMask = getAlpha(fn, false, false);
+		ScImage img2;
+		iMask = img2.getAlpha(fn, false, false);
  		if (iMask != "")
  		{
 			if (DoSep)
-				ImgStr = ImageToCMYK_PS(&image, Plate, true);
+				ImgStr = image.ImageToCMYK_PS(Plate, true);
 			else
-				ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, true) : 	ImageToCMYK_PS(&image, -1, true);
+				ImgStr = GraySc ? image.ImageToCMYK_PS( -2, true) : image.ImageToCMYK_PS(-1, true);
 			if (Name == "")
 			{
 				if (CompAvail)
@@ -870,9 +872,9 @@ void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, do
 							"   /DataSource currentfile /ASCIIHexDecode filter >>\n");
 				PutSeite("image\n");
 				if (DoSep)
-					ImgStr = ImageToCMYK_PS(&image, Plate, true);
+					ImgStr = image.ImageToCMYK_PS(Plate, true);
 				else
-					ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, true) : ImageToCMYK_PS(&image, -1, true);
+					ImgStr = GraySc ? image.ImageToCMYK_PS(-2, true) : image.ImageToCMYK_PS(-1, true);
 				if (CompAvail)
 					ImgStr = CompressStr(&ImgStr);
 				ImgStr = String2Hex(&ImgStr);

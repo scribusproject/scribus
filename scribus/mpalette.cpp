@@ -1765,8 +1765,8 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 	LYpos->setValue(y * Umrech);
 	if (tmp)
 	{
-		ScaleX->setValue(scx * 100 / 72.0 * CurItem->dpiX);
-		ScaleY->setValue(scy * 100 / 72.0 * CurItem->dpiY);
+		ScaleX->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
+		ScaleY->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
 	}
 	else
 	{
@@ -2351,7 +2351,7 @@ void Mpalette::NewLocalSC()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->ChLocalSc(ScaleX->value() / 100.0 / CurItem->dpiX * 72.0, ScaleY->value() / 100.0 / CurItem->dpiY * 72.0);
+		ScApp->view->ChLocalSc(ScaleX->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, ScaleY->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
 		emit DocChanged();
 	}
 }

@@ -22,12 +22,12 @@
 #include <qwidget.h>
 #include <qpointarray.h>
 #include <qptrlist.h>
-#include <qimage.h>
 #include <qpixmap.h>
 #include <qvaluestack.h>
 #include <qvaluelist.h>
 #include "scpainter.h"
 #include "undoobject.h"
+#include "scimage.h"
 #include "pagestructs.h"
 class ScribusDoc;
 class UndoManager;
@@ -36,44 +36,6 @@ class Foi;
 /**
   *@author Franz Schmid
   */
-
-struct PSDLayer
-{
-	QValueList<uint> channelLen;
-	QValueList<int> channelType;
-	int xpos;
-	int ypos;
-	int width;
-	int height;
-	ushort opacity;
-	uchar clipping;
-	uchar flags;
-	QString layerName;
-	QString blend;
-	QImage thumb;
-};
-
-struct LoadRequest
-{
-	bool visible;
-	ushort opacity;
-	QString blend;
-};
-
-struct ImageInfoRecord
-{
-	int xres;
-	int yres;
-	int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
-	bool valid;
-	bool isRequest;
-	bool progressive;
-	QMap<QString, FPointArray> PDSpathData;
-	QMap<int, LoadRequest> RequestProps;
-	QString clipPath;
-	QString usedPath;
-	QValueList<PSDLayer> layerInfo;
-};
 
 class PageItem : public QObject, public UndoObject
 {
@@ -261,8 +223,7 @@ public:
 	/** @brief Old page number tracked for the move undo action */
 	int oldOwnPage;
   /** Darzustellendes Bild */
-	QImage pixm;
-	ImageInfoRecord imgInfo;
+	ScImage pixm;
   /** Dateiname des Bildes */
 	QString Pfile;
 	QString Pfile2;
@@ -285,8 +246,6 @@ public:
 	double LocalY;
 	int OrigW;
 	int OrigH;
-	double dpiX;
-	double dpiY;
   /** BoundigBox-X */
 	double BBoxX;
   /** BoundingBox-H */

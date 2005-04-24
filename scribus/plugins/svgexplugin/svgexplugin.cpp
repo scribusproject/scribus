@@ -40,7 +40,6 @@
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern PrefsFile* prefsFile;
 
 /*!
@@ -467,7 +466,8 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							cl.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.appendChild(cl);
 							gr.appendChild(ob);
-							QImage img = LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
+							ScImage img;
+							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
 							QFileInfo fi = QFileInfo(Item->Pfile);
 							img.save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");
@@ -607,6 +607,8 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							tp.appendChild(tp2);
 							ob.appendChild(tp);
 						}
+					break;
+				default:
 					break;
 				}
 				if (Item->GrType != 0)

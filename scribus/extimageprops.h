@@ -16,13 +16,14 @@ class QListBox;
 class QListBoxItem;
 class QCheckBox;
 #include "scribus.h"
+#include "scimage.h"
 
 class ExtImageProps : public QDialog
 {
 	Q_OBJECT
 
 public:
-	ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view );
+	ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view );
 	~ExtImageProps() {};
 
 	QTabWidget* propsTab;

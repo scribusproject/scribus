@@ -23,7 +23,6 @@ extern int QStoInt(QString in);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
 extern double xy2Deg(double x, double y);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern ScribusApp* ScApp;
 
 ScPreview::ScPreview(ApplicationPrefs *prefs)
@@ -534,7 +533,8 @@ QPixmap ScPreview::createPreview(QString data)
 							pS->translate(0, OB.Height);
 							pS->scale(1, -1);
 						}
-						QImage pixm = LoadPicture(OB.Pfile, "", 0, false, false, 1, 72);
+						ScImage pixm;
+						pixm.LoadPicture(OB.Pfile, "", 0, false, false, 1, 72);
 						if (OB.InvPict)
 							pixm.invertPixels();
 						pS->scale(OB.LocalScX, OB.LocalScY);

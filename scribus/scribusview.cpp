@@ -92,7 +92,6 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 extern int callGS(const QStringList & args);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern ProfilesL InputProfiles;
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *prefs) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
@@ -1561,7 +1560,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					InfoGroupLayout->addWidget( ParC, 1, 1 );
 					WordCT->setText( tr("Original PPI: "));
 					InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
-					WordC->setText(txtC.setNum(qRound(currItem->dpiX))+" x "+txtC2.setNum(qRound(currItem->dpiY)));
+					WordC->setText(txtC.setNum(qRound(currItem->pixm.imgInfo.xres))+" x "+txtC2.setNum(qRound(currItem->pixm.imgInfo.yres)));
 					InfoGroupLayout->addWidget( WordC, 2, 1 );
 					CharCT->setText( tr("Actual PPI: "));
 					InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
@@ -1635,7 +1634,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
 				int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, currItem->PicArt);
-				if ((currItem->PicAvail) && (currItem->imgInfo.valid))
+				if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
 					pmen->insertItem( tr("Extended Image Properties"), this, SLOT(useEmbeddedPath()));
 				if (currItem->PicAvail)
 					pmen->insertItem( tr("&Update Picture"), this, SLOT(UpdatePic()));
@@ -8089,8 +8088,6 @@ void ScribusView::ClearItem()
 				currItem->LocalScY = 1;
 				currItem->OrigW = 0;
 				currItem->OrigH = 0;
-				currItem->dpiX = 72.0;
-				currItem->dpiY = 72.0;
 				currItem->LocalX = 0;
 				currItem->LocalY = 0;
 				currItem->setImageFlippedH(false);
@@ -10367,9 +10364,9 @@ void ScribusView::useEmbeddedPath()
 	if (SelItem.count() != 0)
 	{
 		PageItem *Item = SelItem.at(0);
-		if (Item->imgInfo.valid)
+		if (Item->pixm.imgInfo.valid)
 		{
-			ExtImageProps* dia = new ExtImageProps(this, &Item->imgInfo, Item, this);
+			ExtImageProps* dia = new ExtImageProps(this, &Item->pixm.imgInfo, Item, this);
 			dia->exec();
 			delete dia;
 		}
@@ -10386,17 +10383,16 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 	bool dummy;
 	QFileInfo fi = QFileInfo(fn);
 	PageItem *Item = pageItem;
-	Item->imgInfo.valid = false;
-	Item->imgInfo.clipPath = "";
-	Item->imgInfo.PDSpathData.clear();
-	Item->imgInfo.layerInfo.clear();
+	Item->pixm.imgInfo.valid = false;
+	Item->pixm.imgInfo.clipPath = "";
+	Item->pixm.imgInfo.PDSpathData.clear();
+	Item->pixm.imgInfo.layerInfo.clear();
 	if (!reload)
 	{
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
 			ScApp->fileWatcher->removeFile(Item->Pfile);
 	}
-	QImage img = LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72, &dummy, &Item->imgInfo);
-	if (img.isNull())
+	if (!Item->pixm.LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72, &dummy))
 	{
 		Item->Pfile = fi.absFilePath();
 		Item->PicAvail = false;
@@ -10412,9 +10408,8 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 			ss->set("NEW_IMAGE_PATH", fn);
 			undoManager->action(Item, ss);
 		}
-		double xres = qRound(img.dotsPerMeterX() * 0.0254);
-		double yres = qRound(img.dotsPerMeterY() * 0.0254);
-		Item->pixm = img.copy();
+		double xres = Item->pixm.imgInfo.xres;
+		double yres = Item->pixm.imgInfo.yres;
 		Item->PicAvail = true;
 		Item->PicArt = true;
 		Item->BBoxX = 0;
@@ -10430,8 +10425,8 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		Item->OrigW = Item->pixm.width();
 		Item->OrigH = Item->pixm.height();
 		Item->isRaster = true;
-		Item->dpiX = xres;
-		Item->dpiY = yres;
+		Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
+		Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
 	}
 	if (!Doc->loading)
 	{

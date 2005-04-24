@@ -16,11 +16,10 @@
 #include "mpalette.h"
 #include <qstringlist.h>
 #include <qdatetime.h>
-#include <qimage.h>
 #include <qpixmap.h>
 #include "prefsfile.h"
+#include "scimage.h"
 
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
@@ -347,24 +346,24 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	else
 	{
 		QPixmap pmI1;
-		QImage im;
+		ScImage im;
 		if (item->Pfile != "")
 		{
-			im = LoadPicture(item->Pfile, "", 0, false, false, 1, 72);
+			im.LoadPicture(item->Pfile, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (item->Pfile2 != "")
 		{
-			im = LoadPicture(item->Pfile2, "", 0, false, false, 1, 72);
+			im.LoadPicture(item->Pfile2, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (item->Pfile3 != "")
 		{
-			im = LoadPicture(item->Pfile3, "", 0, false, false, 1, 72);
+			im.LoadPicture(item->Pfile3, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
@@ -1205,8 +1204,8 @@ void Annot::GetNIcon()
 	{
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
-		QImage im;
-		im = LoadPicture(fileName, "", 0, false, false, 1, 72);
+		ScImage im;
+		im.LoadPicture(fileName, "", 0, false, false, 1, 72);
 		pmI1.convertFromImage(im);
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
@@ -1239,8 +1238,8 @@ void Annot::GetPIcon()
 	{
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
-		QImage im;
-		im = LoadPicture(fileName, "", 0, false, false, 1, 72);
+		ScImage im;
+		im.LoadPicture(fileName, "", 0, false, false, 1, 72);
 		pmI1.convertFromImage(im);
 		PiconPrev->setPixmap(pmI1);
 		item->Pfile2 = fileName;
@@ -1262,8 +1261,8 @@ void Annot::GetRIcon()
 	{
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
-		QImage im;
-		im = LoadPicture(fileName, "", 0, false, false, 1, 72);
+		ScImage im;
+		im.LoadPicture(fileName, "", 0, false, false, 1, 72);
 		pmI1.convertFromImage(im);
 		RiconPrev->setPixmap(pmI1);
 		item->Pfile3 = fileName;

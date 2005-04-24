@@ -27,6 +27,7 @@
 #include <qbitmap.h>
 #include <qmessagebox.h>
 #include <cmath>
+#include "scpaths.h"
 #include "page.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -34,7 +35,6 @@
 #include "undostate.h"
 #include "mpalette.h"
 #include "serializer.h"
-#include "scpaths.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -133,15 +133,13 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	itemText.setAutoDelete(true);
 	MaxChars = 0;
 	Pfile = "";
-	pixm = QImage();
+	pixm = ScImage();
 	Pfile2 = "";
 	Pfile3 = "";
 	LocalScX = 1;
 	LocalScY = 1;
 	OrigW = 0;
 	OrigH = 0;
-	dpiX = 72.0;
-	dpiY = 72.0;
 	LocalX = 0;
 	LocalY = 0;
 	BBoxX = 0;
@@ -297,10 +295,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	startArrowIndex = Doc->toolSettings.dStartArrow;
 	endArrowIndex = Doc->toolSettings.dEndArrow;
 	undoManager = UndoManager::instance();
-	imgInfo.valid = false;
-	imgInfo.isRequest = false;
-	imgInfo.colorspace = 0;
-	imgInfo.progressive = false;
 	
 	//Page Item Attributes
 	pageItemAttributes.clear();

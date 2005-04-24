@@ -17,7 +17,6 @@
 
 #include "customfdialog.h"
 #include "customfdialog.moc"
-#include <qimage.h>
 #include <qpixmap.h>
 #include <qpainter.h>
 #include <qfileinfo.h>
@@ -25,7 +24,7 @@
 #include <qdom.h>
 #include <qtextcodec.h>
 #include "scribusstructs.h"
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
+#include "scimage.h"
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern QString DocDir;
@@ -100,13 +99,6 @@ void FDialogPreview::GenPreview(QString name)
 {
 	QPixmap pm;
 	QString Buffer = "";
-	ImageInfoRecord imgInfo;
-	imgInfo.valid = false;
-	imgInfo.clipPath = "";
-	imgInfo.PDSpathData.clear();
-	imgInfo.layerInfo.clear();
-	imgInfo.isRequest = false;
-	imgInfo.colorspace = 0;
 	QFileInfo fi = QFileInfo(name);
 	if (fi.isDir())
 		return;
@@ -132,29 +124,29 @@ void FDialogPreview::GenPreview(QString name)
 	formats = QStringList::split( " ", allFormats );
 	if (formats.contains(ext))
 	{
-		QImage im = LoadPicture(name, "", 0, false, false, 1, 72, &mode, &imgInfo);
-		if (!im.isNull())
+		ScImage im;
+		if (im.LoadPicture(name, "", 0, false, false, 1, 72, &mode))
 		{
 			int ix = im.width();
 			int iy = im.height();
-			int xres = qRound(im.dotsPerMeterX() * 0.0254);
-			int yres = qRound(im.dotsPerMeterY() * 0.0254);
+			int xres = im.imgInfo.xres;
+			int yres = im.imgInfo.yres;
 			QString tmp = "";
 			QString tmp2 = "";
+			QImage im2;
 			if ((im.width() > w-5) || (im.height() > h-44))
 			{
-				QImage im2;
 				double sx = im.width() / static_cast<double>(w-5);
 				double sy = im.height() / static_cast<double>(h-44);
 				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
 									im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
-				im = im2;
-				im2.detach();
 			}
+			else
+				im2 = im.copy();
 			QPainter p;
 			pixmap()->fill(white);
 			p.begin(pixmap());
-			p.drawImage(0, 0, im);
+			p.drawImage(0, 0, im2);
 			p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
 			QString cSpace;
@@ -162,7 +154,7 @@ void FDialogPreview::GenPreview(QString name)
 				cSpace = tr("Unknown");
 			else
 			{
-				switch (imgInfo.colorspace)
+				switch (im.imgInfo.colorspace)
 				{
 					case 0:
 						cSpace = tr("RGB");
