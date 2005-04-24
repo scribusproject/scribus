@@ -37,6 +37,9 @@ class QTextBrowser;
 class QToolButton;
 class QPopupMenu;
 class QSplitter;
+class QLabel;
+class QLineEdit;
+class QPushButton;
 
 class HelpBrowser : public QWidget
 {
@@ -51,16 +54,23 @@ protected:
 	QHBoxLayout* helpBrowserLayout;
 	QHBoxLayout* tabLayout;
 	QHBoxLayout* buttonLayout;
+	QVBoxLayout* searchingMainLayout;
+	QHBoxLayout* searchingButtonLayout;
 	QToolButton* homeButton;
 	QToolButton* backButton;
 	QToolButton* forwButton;
 
 	QTabWidget* tabWidget;
 	QWidget* tabContents;
+	QWidget* tabSearching;
 	QListView* listView;
 	QTextBrowser* textBrowser;
 	QSplitter* splitter;
 	QString language;
+	// searching
+	QLineEdit* searchingEdit;
+	QPushButton* searchingButton;
+	QListView* searchingView;
 
 	QPopupMenu* histMenu;
 	struct histd {
@@ -69,14 +79,43 @@ protected:
 				};
 	QMap<int, histd> mHistory;
 
+	/*! Text to be finded in document */
+	QString findText;
+	/*! \brief Search in doc files in spec. dir.
+	It uses directory-recursion. I hope that the documentation will have
+	only 2-3 level dir structure so it doesn't matter.
+	\author Petr Vanek <petr@yarpen.cz> */
+	void searchingInDirectory(QString);
+
 protected slots:
 	virtual void languageChange();
+
+	/*! Load doc file when user select filename in content view. */
 	void itemSelected( QListViewItem *);
+
+	/*! Load doc file when user select filename in search view.
+	Then it performs some doc-finding and highlighting.
+	\author Petr Vanek <petr@yarpen.cz> */
+	void itemSearchSelected( QListViewItem *);
 	void sourceChanged(const QString& url);
 	void histChosen(int i);
 	void jumpToHelpSection(QString jumpToSection, QString jumpToFile="");
 	void loadHelp(QString filename);
 	void loadMenu();
+
+	/*! \brief Performs searching in documentation.
+	It walks through installed documentation and searching in all text files
+	\author Petr Vanek <petr@yarpen.cz> */
+	void searchingButton_clicked();
+
+	/*! \brief Find text in one document.
+	Classical ctrl+f searching.
+	\author Petr Vanek <petr@yarpen.cz> */
+	void find();
+
+	/*! \brief Find next occurences of the text in one document.
+	\author Petr Vanek <petr@yarpen.cz> */
+	void findNext();
 };
 
 #endif // HELPBROWSER_H
