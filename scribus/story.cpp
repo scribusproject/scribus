@@ -1477,9 +1477,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Size = new MSpinBox( 1, 1024, this, 1 );
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
-	ChScale = new QSpinBox( this, "ChScale" );
-	ChScale->setMaxValue( 400 );
-	ChScale->setMinValue( 25 );
+	ChScale = new QSpinBox( 25, 400, 1, this, "ChScale" );
 	ChScale->setValue( 100 );
 	ChScale->setSuffix( tr( " %" ) );
 	QToolTip::add( Fonts, tr( "Font of selected text" ) );
@@ -1546,7 +1544,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(Do_del()), Key_Delete);
 	emenu->insertSeparator();
 	emenu->insertItem(loadIcon("find16.png"),  tr("&Search/Replace..."), this, SLOT(SearchText()));
-	emenu->insertItem( tr("&Insert Special..."), this , SLOT(Do_insSp()));
+	emenu->insertItem( tr("&Insert Glyph..."), this , SLOT(Do_insSp()));
 	emenu->insertSeparator();
 	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
 	emenu->insertItem( tr("&Fonts Preview..."), this , SLOT(Do_fontPrev()));
