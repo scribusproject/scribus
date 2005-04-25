@@ -294,15 +294,22 @@ void ExtImageProps::selPath(QListBoxItem *c)
 	QWMatrix cl;
 	cl.scale(72.0 / currentItem->pixm.imgInfo.xres, 72.0 / currentItem->pixm.imgInfo.yres);
 	currentItem->PoLine.map(cl);
-	currentItem->FrameType = 3;
 	currentItem->Clip = FlattenPath(currentItem->PoLine, currentItem->Segments);
 	currentItem->ClipEdited = true;
 	double lx = currentItem->Xpos;
 	double ly = currentItem->Ypos;
+	int oldFT = currentItem->FrameType;
+	currentItem->FrameType = 3;
 	currentItem->LocalX = 0;
 	currentItem->LocalY = 0;
 	viewWidget->AdjustItemSize(currentItem);
-	viewWidget->MoveItem(lx- currentItem->Xpos, ly - currentItem->Ypos, currentItem, false);
+	if (oldFT == 3)
+	{
+		viewWidget->MoveItem(lx- currentItem->Xpos, ly - currentItem->Ypos, currentItem, false);
+	}
+	currentItem->pixm.imgInfo.pathXoffset = currentItem->Xpos - lx;
+	currentItem->pixm.imgInfo.pathYoffset = currentItem->Ypos - ly;
 	viewWidget->setRedrawBounding(currentItem);
+	viewWidget->updateContents();
 }
 

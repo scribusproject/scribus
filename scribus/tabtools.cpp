@@ -463,6 +463,10 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabImageLayout->addWidget( shadingFillImage, 3, 1, Qt::AlignLeft );
 	textLabel20b = new QLabel(shadingFillImage, tr( "S&hading:" ), subTabImage, "textLabel20b" );
 	subTabImageLayout->addWidget( textLabel20b, 3, 0 );
+	checkHalfRes = new QCheckBox( subTabImage, "checkHalfRes" );
+	checkHalfRes->setText( tr( "Low Resolution Preview" ) );
+	checkHalfRes->setChecked(prefsData->halfRes);
+	subTabImageLayout->addMultiCellWidget( checkHalfRes, 4, 4, 0, 1 );
 	subStackTools->addWidget( subTabImage, 3 );
 
 	subTabPolygon = new QWidget( subStackTools, "subTabPolygon" );

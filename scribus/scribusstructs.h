@@ -377,6 +377,7 @@ struct toolPrefs
 	double scaleY;
 	bool scaleType;
 	bool aspectRatio;
+	bool halfRes;
 	/* Magnifier Tool */
 	int magMin;
 	int magMax;

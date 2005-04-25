@@ -97,6 +97,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	toolSettings.scaleY = prefsData->toolSettings.scaleY;
 	toolSettings.scaleType = prefsData->toolSettings.scaleType;
 	toolSettings.aspectRatio = prefsData->toolSettings.aspectRatio;
+	toolSettings.halfRes = prefsData->toolSettings.halfRes;
 	toolSettings.dCols = prefsData->toolSettings.dCols;
 	toolSettings.dGap = prefsData->toolSettings.dGap;
 	toolSettings.dLineArt = PenStyle(prefsData->toolSettings.dLineArt);

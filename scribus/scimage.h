@@ -46,6 +46,7 @@ public:
 	ScImage(QImage image);
 	ScImage( int width, int height );
 	~ScImage() {};
+	void initialize();
 	QString ImageToTxt();
 	QString ImageToCMYK();
 	QString ImageToGray();
@@ -54,6 +55,8 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
+	void swapRGBA();
+	void createHalfRes();
 	void scaleImage(int width, int height);
 	bool LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 	QString getAlpha(QString fn, bool PDF, bool pdf14);
@@ -113,6 +116,9 @@ struct ImageInfoRecord
 	bool valid;
 	bool isRequest;
 	bool progressive;
+	bool isHalfRes;
+	double pathXoffset;
+	double pathYoffset;
 	QMap<QString, FPointArray> PDSpathData;
 	QMap<int, LoadRequest> RequestProps;
 	QString clipPath;
@@ -140,5 +146,7 @@ private:
 	bool marker_is_icc (jpeg_saved_marker_ptr marker);
 	bool marker_is_photoshop (jpeg_saved_marker_ptr marker);
 	bool read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);
+	char* iccbuf;
+	uint icclen;
 };
 #endif

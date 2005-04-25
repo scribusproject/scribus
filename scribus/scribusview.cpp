@@ -7534,9 +7534,9 @@ void ScribusView::TogglePic()
 
 void ScribusView::updatePict(QString name)
 {
-	for (uint a = 0; a < Doc->Items.count(); ++a)
+	for (uint a = 0; a < Doc->DocItems.count(); ++a)
 	{
-		PageItem *currItem = Doc->Items.at(a);
+		PageItem *currItem = Doc->DocItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
 		{
 			bool fho = currItem->imageFlippedH();
@@ -7551,6 +7551,38 @@ void ScribusView::updatePict(QString name)
 	{
 		PageItem *currItem = Doc->MasterItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
+	updateContents();
+	emit DocChanged();
+}
+
+void ScribusView::RecalcPicturesRes()
+{
+	for (uint a = 0; a < Doc->DocItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->DocItems.at(a);
+		if (currItem->PicAvail)
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
+	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->MasterItems.at(a);
+		if (currItem->PicAvail)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
@@ -10428,6 +10460,8 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
 		Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
 	}
+	if (Doc->toolSettings.halfRes)
+		Item->pixm.createHalfRes();
 	if (!Doc->loading)
 	{
 		emit RasterPic(Item->isRaster);

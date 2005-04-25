@@ -3093,6 +3093,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc9.setAttribute("POLYS", static_cast<int>(Vor->toolSettings.polyS));
 	dc9.setAttribute("PSCALE", static_cast<int>(Vor->toolSettings.scaleType));
 	dc9.setAttribute("PASPECT", static_cast<int>(Vor->toolSettings.aspectRatio));
+	dc9.setAttribute("HalfRes", static_cast<int>(Vor->toolSettings.halfRes));
 	dc9.setAttribute("StartArrow", Vor->toolSettings.dStartArrow);
 	dc9.setAttribute("EndArrow", Vor->toolSettings.dEndArrow);
 	elem.appendChild(dc9);
@@ -3431,6 +3432,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->toolSettings.scaleY = QStodouble(dc.attribute("PICTSCY","1"));
 			Vorein->toolSettings.scaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
 			Vorein->toolSettings.aspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
+			Vorein->toolSettings.halfRes = static_cast<bool>(QStoInt(dc.attribute("HalfRes", "0")));
 			Vorein->toolSettings.polyC = QStoInt(dc.attribute("POLYC", "4"));
 			Vorein->toolSettings.polyF = QStodouble(dc.attribute("POLYF", "0.5"));
 			Vorein->toolSettings.polyR = QStodouble(dc.attribute("POLYR", "0"));

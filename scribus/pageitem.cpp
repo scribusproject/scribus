@@ -534,6 +534,8 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 					}
 					p->scale(LocalScX, LocalScY);
 					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
+					if (Doc->toolSettings.halfRes)
+						p->scale(2, 2);
 					if (InvPict)
 					{
 						QImage ip = pixm.copy();

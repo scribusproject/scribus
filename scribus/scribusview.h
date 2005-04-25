@@ -144,6 +144,7 @@ public:
 	QImage PageToPixmap(int Nr, int maxGr);
 	QImage MPageToPixmap(QString name, int maxGr);
 	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
+	void RecalcPicturesRes();
 	void FromHRuler(QMouseEvent *m);
 	void FromVRuler(QMouseEvent *m);
 	void SetYGuide(QMouseEvent *m, int oldIndex);

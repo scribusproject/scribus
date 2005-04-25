@@ -491,6 +491,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.LeftPageFirst = false;
 	Prefs.toolSettings.scaleType = true;
 	Prefs.toolSettings.aspectRatio = true;
+	Prefs.toolSettings.halfRes = false;
 	Prefs.MinWordLen = 3;
 	Prefs.HyCount = 2;
 	Prefs.Language = "";
@@ -3006,6 +3007,11 @@ bool ScribusApp::SetupDoc()
 		doc->toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
 		doc->toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
 		doc->toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
+		if (doc->toolSettings.halfRes != dia->tabTools->checkHalfRes->isChecked())
+		{
+			doc->toolSettings.halfRes = dia->tabTools->checkHalfRes->isChecked();
+			view->RecalcPicturesRes();
+		}
 		dia->tabTools->polyWidget->getValues(&doc->toolSettings.polyC, &doc->toolSettings.polyFd, &doc->toolSettings.polyF, &doc->toolSettings.polyS, &doc->toolSettings.polyR);
 		doc->ScratchBottom = dia->bottomScratch->value() / doc->unitRatio;
 		doc->ScratchLeft = dia->leftScratch->value() / doc->unitRatio;
@@ -7811,6 +7817,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
 		Prefs.toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
 		Prefs.toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
+		Prefs.toolSettings.halfRes = dia->tabTools->checkHalfRes->isChecked();
 		Prefs.AutoSave = dia->ASon->isChecked();
 		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
 		Prefs.MinWordLen = dia->tabHyphenator->wordLen->value();

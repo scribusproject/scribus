@@ -86,6 +86,7 @@ public:
 	LinkButton* chainButton;
 	QButtonGroup* buttonGroup5;
 	QCheckBox* checkRatioImage;
+	QCheckBox* checkHalfRes;
 	QWidget* subTabPolygon;
 	PolygonWidget* polyWidget;
 	QWidget* subTabZoom;

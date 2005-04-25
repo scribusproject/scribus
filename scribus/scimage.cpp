@@ -52,35 +52,20 @@ static QDataStream & operator>> ( QDataStream & s, ScImage::PSDHeader & header )
 
 ScImage::ScImage(QImage image) : QImage(image)
 {
-	imgInfo.xres = 72;
-	imgInfo.yres = 72;
-	imgInfo.colorspace = 0;
-	imgInfo.valid = false;
-	imgInfo.isRequest = false;
-	imgInfo.progressive = false;
-	imgInfo.PDSpathData.clear();
-	imgInfo.RequestProps.clear();
-	imgInfo.clipPath = "";
-	imgInfo.usedPath = "";
-	imgInfo.layerInfo.clear();
+	initialize();
 }
 
 ScImage::ScImage() : QImage()
 {
-	imgInfo.xres = 72;
-	imgInfo.yres = 72;
-	imgInfo.colorspace = 0;
-	imgInfo.valid = false;
-	imgInfo.isRequest = false;
-	imgInfo.progressive = false;
-	imgInfo.PDSpathData.clear();
-	imgInfo.RequestProps.clear();
-	imgInfo.clipPath = "";
-	imgInfo.usedPath = "";
-	imgInfo.layerInfo.clear();
+	initialize();
 }
 
 ScImage::ScImage( int width, int height ) : QImage( width, height, 32 )
+{
+	initialize();
+}
+
+void ScImage::initialize()
 {
 	imgInfo.xres = 72;
 	imgInfo.yres = 72;
@@ -88,11 +73,52 @@ ScImage::ScImage( int width, int height ) : QImage( width, height, 32 )
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.progressive = false;
+	imgInfo.isHalfRes = false;
 	imgInfo.PDSpathData.clear();
 	imgInfo.RequestProps.clear();
 	imgInfo.clipPath = "";
 	imgInfo.usedPath = "";
 	imgInfo.layerInfo.clear();
+	imgInfo.pathXoffset = 0.0;
+	imgInfo.pathYoffset = 0.0;
+}
+
+void ScImage::swapRGBA()
+{
+	for (int i = 0; i < height(); ++i)
+	{
+		unsigned int *ptr = (unsigned int *) scanLine(i);
+		unsigned char r, b;
+		for (int j = 0; j < width(); ++j)
+		{
+			unsigned char *p = (unsigned char *) ptr;
+			r = p[0];
+			b = p[2];
+			p[2] = r;
+			p[0] = b;
+			ptr++;
+		}
+	}
+}
+
+void ScImage::createHalfRes()
+{
+	int w = width() / 2;
+	int h = height() / 2;
+	QImage tmp = smoothScale(w, h);
+	create(w, h, 32);
+	for( int yi=0; yi < tmp.height(); ++yi )
+	{
+		QRgb *s = (QRgb*)(tmp.scanLine( yi ));
+		QRgb *d = (QRgb*)(scanLine( yi ));
+		for(int xi=0; xi < tmp.width(); ++xi )
+		{
+			(*d) = (*s);
+			s++;
+			d++;
+		}
+	}
+	imgInfo.isHalfRes = true;
 }
 
 void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
@@ -1332,6 +1358,14 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 					imgInfo.xres = qRound(hRes / 65536.0);
 					imgInfo.yres = qRound(vRes / 65536.0);
 					break;
+				case 0x040f:
+					{
+						icclen = resSize;
+						char* buffer = (char*)malloc(resSize);
+						iccbuf = buffer;
+						s.readRawBytes(buffer, resSize);
+					}
+					break;
 				default:
 					break;
 			}
@@ -2213,7 +2247,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 						bilevel = true;
 				}
 			}
-			*this = static_cast<ScImage>(swapRGB());
+			swapRGBA();
 #ifdef HAVE_CMS
 			DWORD EmbedLen = 0;
 			LPBYTE EmbedBuffer;
@@ -2223,15 +2257,33 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 				Descriptor = cmsTakeProductDesc(tiffProf);
 				imgInfo.profileName = QString(Descriptor);
+//				free(EmbedBuffer);
 			}
 			else
 				imgInfo.profileName = "";
 #endif // HAVE_CMS
-			uint32 ClipLen = 0;
-			uint8 ClipBuffer;
-			QString db;
-			if (TIFFGetField(tif, TIFFTAG_CLIPPATH, &ClipLen, &ClipBuffer))
-				qDebug("%s", db.setNum(ClipLen).ascii());
+			DWORD PhotoshopLen = 0;
+			LPBYTE PhotoshopBuffer;
+			if (TIFFGetField(tif, TIFFTAG_PHOTOSHOP, &PhotoshopLen, &PhotoshopBuffer) )
+			{
+				if (PhotoshopLen != 0)
+				{
+					QByteArray arrayPhot(PhotoshopLen);
+					arrayPhot.duplicate((const char*)PhotoshopBuffer,PhotoshopLen);
+					QDataStream strPhot(arrayPhot,IO_ReadOnly);
+					strPhot.setByteOrder( QDataStream::BigEndian );
+					PSDHeader fakeHeader;
+					fakeHeader.width = width();
+					fakeHeader.height = height();
+					parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
+					imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false;
+				}
+			}
+//			uint32 ClipLen = 0;
+//			uint8 ClipBuffer;
+//			QString db;
+//			if (TIFFGetField(tif, TIFFTAG_CLIPPATH, &ClipLen, &ClipBuffer))
+//				qDebug("%s", db.setNum(ClipLen).ascii());
 			TIFFClose(tif);
 			if (resolutionunit == RESUNIT_INCH)
 			{
@@ -2253,6 +2305,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				imgInfo.colorspace = 2;
 			else
 				imgInfo.colorspace = 0;
+			imgInfo.layerInfo.clear();
 		}
 	}
 #endif // HAVE_TIFF
@@ -2273,8 +2326,23 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			// Check if it's a supported format.
 			if( !IsSupported( header ) )
 				return ret;
+			iccbuf = 0;
+			icclen = 0;
 			if( !LoadPSD(s, header) )
 				return ret;
+#ifdef HAVE_CMS
+			if (icclen>0)
+			{
+				if (useEmbedded && CMSuse && useProf)
+				{
+					tiffProf = cmsOpenProfileFromMem(iccbuf, icclen);
+					const char *Descriptor;
+					Descriptor = cmsTakeProductDesc(tiffProf);
+					imgInfo.profileName = QString(Descriptor);
+				}
+				free(iccbuf);
+			}
+#endif // HAVE_CMS
 			if (header.color_mode == CM_CMYK)
 				isCMYK = true;
 			else
@@ -2329,10 +2397,10 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 			Descriptor = cmsTakeProductDesc(tiffProf);
 			imgInfo.profileName = QString(Descriptor);
+			free(EmbedBuffer);
 		}
 		else
 			imgInfo.profileName = "";
-		free(EmbedBuffer);
 #endif // HAVE_CMS
 		DWORD PhotoshopLen = 0;
 		LPBYTE PhotoshopBuffer;
@@ -2369,30 +2437,30 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 
 		if (read_jpeg_marker(PHOTOSHOP_MARKER,&cinfo, &PhotoshopBuffer, &PhotoshopLen) ) 
 		{
-		  if (PhotoshopLen != 0)
-		  {
-		    QByteArray arrayPhot(PhotoshopLen);
-		    arrayPhot.assign((const char*)PhotoshopBuffer,PhotoshopLen);
-		    QDataStream strPhot(arrayPhot,IO_ReadOnly);
-		    strPhot.setByteOrder( QDataStream::BigEndian );
-		    PSDHeader fakeHeader;
-		    fakeHeader.width = cinfo.output_width;
-		    fakeHeader.height = cinfo.output_height;
-		    if (cinfo.output_components == 4)
-		      imgInfo.colorspace = 1;
-		    else if (cinfo.output_components == 3)
-		      imgInfo.colorspace = 0;
-		    else if (cinfo.output_components == 1)
-		      imgInfo.colorspace = 2;
-		    imgInfo.progressive = jpeg_has_multiple_scans(&cinfo);
-		    parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
-		    // Photoshop resolution is more accurate than jpeg header resolution
-		    xres = imgInfo.xres;
-		    yres = imgInfo.yres;
-		    setDotsPerMeterX( int(100. * imgInfo.xres / 2.54) );
-		    setDotsPerMeterY( int(100. * imgInfo.yres / 2.54) );
-		    imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask 
-		  }
+			if (PhotoshopLen != 0)
+			{
+				QByteArray arrayPhot(PhotoshopLen);
+				arrayPhot.assign((const char*)PhotoshopBuffer,PhotoshopLen);
+				QDataStream strPhot(arrayPhot,IO_ReadOnly);
+				strPhot.setByteOrder( QDataStream::BigEndian );
+				PSDHeader fakeHeader;
+				fakeHeader.width = cinfo.output_width;
+				fakeHeader.height = cinfo.output_height;
+				if (cinfo.output_components == 4)
+					imgInfo.colorspace = 1;
+				else if (cinfo.output_components == 3)
+					imgInfo.colorspace = 0;
+				else if (cinfo.output_components == 1)
+					imgInfo.colorspace = 2;
+				imgInfo.progressive = jpeg_has_multiple_scans(&cinfo);
+				parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
+				// Photoshop resolution is more accurate than jpeg header resolution
+				xres = imgInfo.xres;
+				yres = imgInfo.yres;
+				setDotsPerMeterX( int(100. * imgInfo.xres / 2.54) );
+				setDotsPerMeterY( int(100. * imgInfo.yres / 2.54) );
+				imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask 
+			}
 		}
 		if ( cinfo.output_components == 3 || cinfo.output_components == 4)
 			create( cinfo.output_width, cinfo.output_height, 32 );
@@ -2486,6 +2554,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		(void) jpeg_finish_decompress(&cinfo);
 		fclose (infile);
 		jpeg_destroy_decompress (&cinfo);
+		imgInfo.layerInfo.clear();
 	}
 	else
 	{
