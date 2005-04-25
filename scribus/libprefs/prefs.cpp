@@ -211,10 +211,14 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ProPfad = new QLineEdit( GroupBox200, "Datei1" );
 	ProPfad->setMinimumSize( QSize( 268, 22 ) );
 	ProPfad->setText(Vor->ProfileDir);
+	if (ap->HaveDoc)
+		ProPfad->setEnabled(false);
 	PfadText2 = new QLabel( ProPfad, tr("&ICC Profiles:"), GroupBox200, "Pfadtext1" );
 	FileC2 = new QToolButton( GroupBox200, "FileC1" );
 	FileC2->setMinimumSize( QSize( 88, 24 ) );
 	FileC2->setText( tr( "C&hange..." ) );
+	if (ap->HaveDoc)
+		FileC2->setEnabled(false);
 	GroupBox200Layout->addWidget( PfadText2, 1, 0 );
 	GroupBox200Layout->addWidget( ProPfad, 1, 1 );
 	GroupBox200Layout->addWidget( FileC2, 1, 2 );
