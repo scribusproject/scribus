@@ -9551,72 +9551,26 @@ void ScribusApp::initHyphenator()
 	InstLang.insert("Spanish", L_Spanish);
 	InstLang.insert("Swedish", L_Swedish);
 	InstLang.insert("Ukrainian", L_Ukrainian);
-	QString datein = "";
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
 	Prefs.Language = "English";
-	pfad = ScPaths::instance().libDir();
-	pfad += "dicts/";
+	pfad = QDir::convertSeparators(ScPaths::instance().libDir() + "dicts/");
 	QDir d(pfad, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
+		LanguageManager langmgr;
+		langmgr.init(false);
+		QString datein = "";
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
-			if (d[dc] == "hyph_en.dic")
-				datein = tr("English");
-			if (d[dc] == "hyph_hr.dic")
-				datein = tr("Croatian");
-			if (d[dc] == "hyph_de.dic")
-				datein = tr("German");
-			if (d[dc] == "hyph_es.dic")
-				datein = tr("Spanish");
-			if (d[dc] == "hyph_it.dic")
-				datein = tr("Italian");
-			if (d[dc] == "hyph_fr.dic")
-				datein = tr("French");
-			if (d[dc] == "hyph_ru.dic")
-				datein = tr("Russian");
-			if (d[dc] == "hyph_da.dic")
-				datein = tr("Danish");
-			if (d[dc] == "hyph_sk.dic")
-				datein = tr("Slovak");
-			if (d[dc] == "hyph_hu.dic")
-				datein = tr("Hungarian");
-			if (d[dc] == "hyph_cs.dic")
-				datein = tr("Czech");
-			if (d[dc] == "hyph_nl.dic")
-				datein = tr("Dutch");
-			if (d[dc] == "hyph_pt.dic")
-				datein = tr("Portuguese");
-			if (d[dc] == "hyph_pt_BR.dic")
-				datein = tr("Portuguese (BR)");
-			if (d[dc] == "hyph_uk.dic")
-				datein = tr("Ukrainian");
-			if (d[dc] == "hyph_pl.dic")
-				datein = tr("Polish");
-			if (d[dc] == "hyph_el.dic")
-				datein = tr("Greek");
-			if (d[dc] == "hyph_ca.dic")
-				datein = tr("Catalan");
-			if (d[dc] == "hyph_fi.dic")
-				datein = tr("Finnish");
-			if (d[dc] == "hyph_ga.dic")
-				datein = tr("Irish");
-			if (d[dc] == "hyph_lt.dic")
-				datein = tr("Lithuanian");
-			if (d[dc] == "hyph_sv.dic")
-				datein = tr("Swedish");
-			if (d[dc] == "hyph_sl.dic")
-				datein = tr("Slovenian");
-			if (d[dc] == "hyph_af.dic")
-				datein = tr("Afrikaans");
-			if (d[dc] == "hyph_bg.dic")
-				datein = tr("Bulgarian");
+			QFileInfo fi(d[dc]);
+			QString fileLangAbbrev=fi.baseName().section('_', 1);
+			datein = langmgr.getLangFromAbbrev(fileLangAbbrev);
 			QString tDatein = datein;
 			datein = GetLang(datein);
 			LangTransl.insert(datein, tDatein);
 			Sprachen.insert(datein, d[dc]);
-			if (d[dc] == "hyph_"+lang+".dic")
+			if (fileLangAbbrev == lang)
 				Prefs.Language = datein;
 		}
 		if (datein == "")

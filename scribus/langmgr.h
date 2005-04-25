@@ -22,7 +22,9 @@
 class LanguageManager
 {
 public:
-	void init();
+	LanguageManager() {};
+	~LanguageManager() {};
+	void init(bool generateInstalledList = true);
 	const QString getLangFromAbbrev(QString);
 	const QString getAbbrevFromLang(QString);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);

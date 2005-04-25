@@ -25,10 +25,11 @@
 #include "langmgr.h"
 #include "scpaths.h"
 
-void LanguageManager::init()
+void LanguageManager::init(bool generateInstalledList)
 {
 	generateLangList();
-	generateInstalledLangList();
+	if (generateInstalledList)
+		generateInstalledLangList();
 }
 
 void LanguageManager::generateLangList()
@@ -52,6 +53,7 @@ void LanguageManager::generateLangList()
 	langList.insert("de",    QObject::tr( "German" ));
 	langList.insert("fi",    QObject::tr( "Finnish" ));
 	langList.insert("fr",    QObject::tr( "French" ));
+	langList.insert("ga", QObject::tr( "Galician" ));
 	langList.insert("galician", QObject::tr( "Galician" ));
 	langList.insert("gl",    QObject::tr( "Galician" ));
 	langList.insert("el",    QObject::tr( "Greek" ));
@@ -69,7 +71,8 @@ void LanguageManager::generateLangList()
 	langList.insert("no_NO", QObject::tr( "Norwegian" ));
 	langList.insert("pl",    QObject::tr( "Polish" ));
 	langList.insert("pl_PL", QObject::tr( "Polish" ));
-	langList.insert("pt_BR", QObject::tr( "Brazilian Portuguese" ));
+	langList.insert("pt",    QObject::tr( "Portuguese" ));
+	langList.insert("pt_BR", QObject::tr( "Portuguese (BR)" ));
 	langList.insert("ru",    QObject::tr( "Russian" ));
 	langList.insert("se",    QObject::tr( "Swedish" ));
 	langList.insert("es",    QObject::tr( "Spanish" ));
@@ -78,6 +81,7 @@ void LanguageManager::generateLangList()
 	langList.insert("sk",    QObject::tr( "Slovak" ));
 	langList.insert("sl",    QObject::tr( "Slovenian" ));
 	langList.insert("sr",    QObject::tr( "Serbian" ));
+	langList.insert("sv",    QObject::tr( "Swedish" ));
 	langList.insert("tr",    QObject::tr( "Turkish" ));
 	langList.insert("tr_TR", QObject::tr( "Turkish" ));
 	langList.insert("uk",    QObject::tr( "Ukranian" ));
@@ -110,7 +114,7 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev)
 	if ((it=langList.find(langAbbrev))!=langList.end())
 		return it.data();
 	else
-		return NULL;	
+		return "";	
 }
 
 const QString LanguageManager::getAbbrevFromLang(QString lang)
@@ -119,7 +123,7 @@ const QString LanguageManager::getAbbrevFromLang(QString lang)
 	for (it=langList.begin();it!=langList.end();++it)
 		if (it.data()==lang)
 			return it.key();
-	return NULL;	
+	return "";	
 }
 
 void LanguageManager::fillInstalledStringList(QStringList *stringListToFill, bool addDefaults) 
