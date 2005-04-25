@@ -2716,5 +2716,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		setAlphaBuffer(false);
 	setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
+	imgInfo.xres = QMAX(72, qRound(xres));
+	imgInfo.yres = QMAX(72, qRound(yres));
 	return true;
 }
