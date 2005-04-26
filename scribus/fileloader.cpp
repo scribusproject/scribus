@@ -452,6 +452,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->toolSettings.scaleY = QStodouble(dc.attribute("PICTSCY","1"));
 		doc->toolSettings.scaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
 		doc->toolSettings.aspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
+		doc->toolSettings.lowResType = QStoInt(dc.attribute("HalfRes", "1"));
 		if (dc.hasAttribute("PEN"))
 			doc->toolSettings.dPen = dc.attribute("PEN");
 		if (dc.hasAttribute("BRUSH"))

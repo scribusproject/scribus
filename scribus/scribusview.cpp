@@ -6405,10 +6405,10 @@ bool ScribusView::slotSetCurs(int x, int y)
 		yP = qRound(y / Scale);
 		QPainter p;
 		QString chx;
-		p.begin(viewport());
+		p.begin(this);
 //		ToView(&p);
 		Transform(currItem, &p);
-		mpo = QRect(xP - Doc->guidesSettings.grabRad, yP - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+		mpo = QRect(x - Doc->guidesSettings.grabRad, y - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 		if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->Width), static_cast<int>(currItem->Height))))).contains(mpo)) ||
 		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 		{
@@ -7647,8 +7647,8 @@ void ScribusView::FrameToPic()
 		PageItem *currItem = SelItem.at(0);
 		if (currItem->PicAvail)
 		{
-			double w = static_cast<double>(currItem->pixm.width());
-			double h = static_cast<double>(currItem->pixm.height());
+			double w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
+			double h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
 			double x = currItem->LocalX * currItem->LocalScX;
 			double y = currItem->LocalY * currItem->LocalScY;
 			if (!currItem->isTableItem)
@@ -10457,11 +10457,23 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		Item->OrigW = Item->pixm.width();
 		Item->OrigH = Item->pixm.height();
 		Item->isRaster = true;
-		Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
-		Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
+		if (Item->pixm.imgInfo.profileName != "")
+		{
+			Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
+			Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
+		}
 	}
-	if (Doc->toolSettings.halfRes)
-		Item->pixm.createHalfRes();
+	if (Doc->toolSettings.lowResType != 0)
+	{
+		double scaling = 1.0;
+		if (Doc->toolSettings.lowResType == 1)
+			scaling = Item->pixm.imgInfo.xres / 72.0;
+		else
+			scaling = Item->pixm.imgInfo.xres / 36.0;
+		Item->pixm.createLowRes(scaling);
+		Item->pixm.imgInfo.lowResScale = scaling;
+	}
+	Item->pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
 	if (!Doc->loading)
 	{
 		emit RasterPic(Item->isRaster);

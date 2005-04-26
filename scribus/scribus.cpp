@@ -492,7 +492,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.LeftPageFirst = false;
 	Prefs.toolSettings.scaleType = true;
 	Prefs.toolSettings.aspectRatio = true;
-	Prefs.toolSettings.halfRes = false;
+	Prefs.toolSettings.lowResType = 1;
 	Prefs.MinWordLen = 3;
 	Prefs.HyCount = 2;
 	Prefs.Language = "";
@@ -3008,9 +3008,16 @@ bool ScribusApp::SetupDoc()
 		doc->toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
 		doc->toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
 		doc->toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
-		if (doc->toolSettings.halfRes != dia->tabTools->checkHalfRes->isChecked())
+		int haRes = 0;
+		if (dia->tabTools->checkFullRes->isChecked())
+			haRes = 0;
+		if (dia->tabTools->checkNormalRes->isChecked())
+			haRes = 1;
+		if (dia->tabTools->checkHalfRes->isChecked())
+			haRes = 2;
+		if (doc->toolSettings.lowResType != haRes)
 		{
-			doc->toolSettings.halfRes = dia->tabTools->checkHalfRes->isChecked();
+			doc->toolSettings.lowResType = haRes;
 			view->RecalcPicturesRes();
 		}
 		dia->tabTools->polyWidget->getValues(&doc->toolSettings.polyC, &doc->toolSettings.polyFd, &doc->toolSettings.polyF, &doc->toolSettings.polyS, &doc->toolSettings.polyR);
@@ -6428,6 +6435,7 @@ void ScribusApp::DeletePage2(int pg)
 			ite->isSingleSel = false;
 			if (ite->isBookmark)
 				DelBookMark(ite);
+			ite->isBookmark = false;
 			view->SelItem.append(ite);
 		}
 	}
@@ -6491,6 +6499,7 @@ void ScribusApp::DeletePage(int from, int to)
 				ite->isSingleSel = false;
 				if (ite->isBookmark)
 					DelBookMark(ite);
+				ite->isBookmark = false;
 				view->SelItem.append(ite);
 			}
 		}
@@ -7804,7 +7813,14 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
 		Prefs.toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
 		Prefs.toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
-		Prefs.toolSettings.halfRes = dia->tabTools->checkHalfRes->isChecked();
+		int haRes = 0;
+		if (dia->tabTools->checkFullRes->isChecked())
+			haRes = 0;
+		if (dia->tabTools->checkNormalRes->isChecked())
+			haRes = 1;
+		if (dia->tabTools->checkHalfRes->isChecked())
+			haRes = 2;
+		Prefs.toolSettings.lowResType = haRes;
 		Prefs.AutoSave = dia->ASon->isChecked();
 		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
 		Prefs.MinWordLen = dia->tabHyphenator->wordLen->value();

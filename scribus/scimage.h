@@ -56,7 +56,7 @@ public:
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
 	void swapRGBA();
-	void createHalfRes();
+	void createLowRes(double scale);
 	void scaleImage(int width, int height);
 	bool LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 	QString getAlpha(QString fn, bool PDF, bool pdf14);
@@ -116,7 +116,8 @@ struct ImageInfoRecord
 	bool valid;
 	bool isRequest;
 	bool progressive;
-	bool isHalfRes;
+	int lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
+	double lowResScale;
 	double pathXoffset;
 	double pathYoffset;
 	QMap<QString, FPointArray> PDSpathData;

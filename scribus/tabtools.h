@@ -9,6 +9,7 @@
 #include <qbuttongroup.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
+#include <qradiobutton.h>
 #include <qwidgetstack.h>
 #include "scfonts.h"
 class LinkButton;
@@ -86,7 +87,10 @@ public:
 	LinkButton* chainButton;
 	QButtonGroup* buttonGroup5;
 	QCheckBox* checkRatioImage;
-	QCheckBox* checkHalfRes;
+	QButtonGroup* buttonGroupRes;
+	QRadioButton* checkFullRes;
+	QRadioButton* checkNormalRes;
+	QRadioButton* checkHalfRes;
 	QWidget* subTabPolygon;
 	PolygonWidget* polyWidget;
 	QWidget* subTabZoom;
@@ -121,6 +125,7 @@ protected:
 	QGridLayout* subTabImageLayout;
 	QGridLayout* buttonGroup3Layout;
 	QHBoxLayout* buttonGroup5Layout;
+	QVBoxLayout* buttonGroupResLayout;
 	QHBoxLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
 	

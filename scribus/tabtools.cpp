@@ -463,10 +463,36 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabImageLayout->addWidget( shadingFillImage, 3, 1, Qt::AlignLeft );
 	textLabel20b = new QLabel(shadingFillImage, tr( "S&hading:" ), subTabImage, "textLabel20b" );
 	subTabImageLayout->addWidget( textLabel20b, 3, 0 );
-	checkHalfRes = new QCheckBox( subTabImage, "checkHalfRes" );
+	buttonGroupRes = new QButtonGroup( subTabImage, "buttonGroup3" );
+	buttonGroupRes->setColumnLayout(0, Qt::Vertical );
+	buttonGroupRes->layout()->setSpacing( 6 );
+	buttonGroupRes->layout()->setMargin( 11 );
+	buttonGroupRes->setExclusive( true );
+	buttonGroupRes->setTitle( tr( "On Screen Preview" ) );
+	buttonGroupResLayout = new QVBoxLayout( buttonGroupRes->layout() );
+	buttonGroupResLayout->setAlignment( Qt::AlignTop );
+	checkFullRes = new QRadioButton( buttonGroupRes, "checkFullRes" );
+	checkFullRes->setText( tr( "Full Resolution Preview" ) );
+	buttonGroupResLayout->addWidget( checkFullRes );
+	checkNormalRes = new QRadioButton( buttonGroupRes, "checkNormalRes" );
+	checkNormalRes->setText( tr( "Normal Resolution Preview" ) );
+	buttonGroupResLayout->addWidget( checkNormalRes );
+	checkHalfRes = new QRadioButton( buttonGroupRes, "checkHalfRes" );
 	checkHalfRes->setText( tr( "Low Resolution Preview" ) );
-	checkHalfRes->setChecked(prefsData->halfRes);
-	subTabImageLayout->addMultiCellWidget( checkHalfRes, 4, 4, 0, 1 );
+	buttonGroupResLayout->addWidget( checkHalfRes );
+	switch (prefsData->lowResType)
+	{
+		case 0:
+			checkFullRes->setChecked(true);
+			break;
+		case 1:
+			checkNormalRes->setChecked(true);
+			break;
+		case 2:
+			checkHalfRes->setChecked(true);
+			break;
+	}
+	subTabImageLayout->addMultiCellWidget( buttonGroupRes, 4, 4, 0, 1 );
 	subStackTools->addWidget( subTabImage, 3 );
 
 	subTabPolygon = new QWidget( subStackTools, "subTabPolygon" );

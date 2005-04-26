@@ -73,7 +73,8 @@ void ScImage::initialize()
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.progressive = false;
-	imgInfo.isHalfRes = false;
+	imgInfo.lowResType = 1;
+	imgInfo.lowResScale = 1.0;
 	imgInfo.PDSpathData.clear();
 	imgInfo.RequestProps.clear();
 	imgInfo.clipPath = "";
@@ -101,10 +102,10 @@ void ScImage::swapRGBA()
 	}
 }
 
-void ScImage::createHalfRes()
+void ScImage::createLowRes(double scale)
 {
-	int w = width() / 2;
-	int h = height() / 2;
+	int w = qRound(width() / scale);
+	int h = qRound(height() / scale);
 	QImage tmp = smoothScale(w, h);
 	create(w, h, 32);
 	for( int yi=0; yi < tmp.height(); ++yi )
@@ -118,7 +119,6 @@ void ScImage::createHalfRes()
 			d++;
 		}
 	}
-	imgInfo.isHalfRes = true;
 }
 
 void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
@@ -2562,7 +2562,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		{
 			xres = dotsPerMeterX() * 0.0254;
 			yres = dotsPerMeterY() * 0.0254;
-			convertDepth(32);
+			*this = convertDepth(32);
 			setAlphaBuffer(true);
 			imgInfo.colorspace = 0;
 			imgInfo.xres = qRound(xres);

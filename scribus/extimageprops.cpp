@@ -291,6 +291,7 @@ void ExtImageProps::selPath(QListBoxItem *c)
 {
 	currentItem->PoLine = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
 	currentItem->pixm.imgInfo.usedPath = c->text();
+	viewWidget->MoveItem(currentItem->pixm.imgInfo.pathXoffset, currentItem->pixm.imgInfo.pathYoffset, currentItem, false);
 	QWMatrix cl;
 	cl.scale(72.0 / currentItem->pixm.imgInfo.xres, 72.0 / currentItem->pixm.imgInfo.yres);
 	currentItem->PoLine.map(cl);
@@ -303,12 +304,12 @@ void ExtImageProps::selPath(QListBoxItem *c)
 	currentItem->LocalX = 0;
 	currentItem->LocalY = 0;
 	viewWidget->AdjustItemSize(currentItem);
-	if (oldFT == 3)
+/*	if (oldFT == 3)
 	{
 		viewWidget->MoveItem(lx- currentItem->Xpos, ly - currentItem->Ypos, currentItem, false);
-	}
-	currentItem->pixm.imgInfo.pathXoffset = currentItem->Xpos - lx;
-	currentItem->pixm.imgInfo.pathYoffset = currentItem->Ypos - ly;
+	} */
+	currentItem->pixm.imgInfo.pathXoffset = lx- currentItem->Xpos;
+	currentItem->pixm.imgInfo.pathYoffset = ly - currentItem->Ypos;
 	viewWidget->setRedrawBounding(currentItem);
 	viewWidget->updateContents();
 }
