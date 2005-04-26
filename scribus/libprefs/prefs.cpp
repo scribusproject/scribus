@@ -1525,7 +1525,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( SpinBox3_2, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
 	QToolTip::add( Recen, tr( "Number of recently edited documents to show in the File menu" ) );
 	QToolTip::add( Docs, tr( "Default documents directory" ) );
-	QToolTip::add( ProPfad, tr( "Default ICC profiles directory" ) );
+	QToolTip::add( ProPfad, tr( "Default ICC profiles directory. This cannot\nbe changed with documents open." ) );
 	QToolTip::add( ScriptPfad, tr( "Default Scripter scripts directory" ) );
 	QToolTip::add( TemplateDir, tr( "Additional Directory for Document Templates" ) );
 
@@ -1550,8 +1550,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( GuideColor, tr( "Color of the guide lines you insert" ) );
 	QToolTip::add( RadioButton6, tr( "Place the grid behind your page objects" ) );
 	QToolTip::add( RadioButton7, tr( "Place the grid in front of your page objects" ) );
-	QToolTip::add( RadioButton8, tr("Turns on the basegrid"));
-	QToolTip::add( RadioButton9, tr("Turns off the basegrid"));
+	QToolTip::add( RadioButton8, tr("Turns on the base grid"));
+	QToolTip::add( RadioButton9, tr("Turns off the base grid"));
 
 	QToolTip::add( VHochW, tr( "Displacement above the baseline of the font on a line" ) );
 	QToolTip::add( VHochWSc, tr( "Relative size of the superscript compared to the normal font" ) );
@@ -1619,7 +1619,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( UsePDFTrans, tr( "Enable transparency features within PDF 1.4 export" ) );
 	QToolTip::add( CaliSlider, tr( "Set the default zoom level" ) );
 
-	QToolTip::add( GSName, tr( "Filesystem location for the Ghostscript interpreter" ) );
+	QToolTip::add( GSName, tr( "File system location for the Ghostscript interpreter" ) );
 	QToolTip::add( GSantiText, tr( "Antialias text for EPS and PDF onscreen rendering" ) );
 	QToolTip::add( GSantiGraph, tr( "Antialias graphics for EPS and PDF onscreen rendering" ) );
 	QToolTip::add( GimpName, tr( "File system location for graphics editor. If you use gimp\n"
