@@ -40,6 +40,7 @@ class QSplitter;
 class QLabel;
 class QLineEdit;
 class QPushButton;
+class QMenuBar;
 
 class HelpBrowser : public QWidget
 {
@@ -67,10 +68,12 @@ protected:
 	QTextBrowser* textBrowser;
 	QSplitter* splitter;
 	QString language;
-	// searching
+	//! searching
 	QLineEdit* searchingEdit;
 	QPushButton* searchingButton;
 	QListView* searchingView;
+	//! menu
+	QMenuBar *menuBar;
 
 	QPopupMenu* histMenu;
 	struct histd {
@@ -116,6 +119,17 @@ protected slots:
 	/*! \brief Find next occurences of the text in one document.
 	\author Petr Vanek <petr@yarpen.cz> */
 	void findNext();
+
+	/*! \brief Find previous occurences of the text in one document.
+	\author Petr Vanek <petr@yarpen.cz> */
+	void findPrevious();
+
+	/*! \brief Print the documentation.
+	Based on the Qt example.
+	*/
+	void print();
+
 };
 
 #endif // HELPBROWSER_H
+

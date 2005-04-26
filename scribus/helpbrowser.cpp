@@ -45,6 +45,12 @@
 #include <qlineedit.h>
 #include <qaccel.h>
 #include <qinputdialog.h>
+#include <qmenubar.h>
+#include <qpopupmenu.h>
+#include <qprinter.h>
+#include <qpainter.h>
+#include <qpaintdevicemetrics.h>
+#include <qsimplerichtext.h>
 
 #include "scpaths.h"
 
@@ -153,6 +159,26 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	//helpBrowserLayout->addWidget( textBrowser );
 	helpBrowsermainLayout->addLayout( helpBrowserLayout );
 
+	// menus
+	menuBar = new QMenuBar(this);
+	QPopupMenu *fileMenu = new QPopupMenu(this);
+	fileMenu->insertItem(loadIcon("DateiPrint.xpm"), tr("&Print..."), this, SLOT(print()), CTRL+Key_P);
+	fileMenu->insertSeparator();
+	fileMenu->insertItem(loadIcon("exit.png"), tr("E&xit"), this, SLOT(close()));
+	menuBar->insertItem("&File", fileMenu);
+	QPopupMenu *editMenu = new QPopupMenu(this);
+	editMenu->insertItem(loadIcon("find.png"), "&Find...", this, SLOT(find()), CTRL+Key_F);
+	editMenu->insertItem("Find &next", this, SLOT(findNext()), Key_F3);
+	editMenu->insertItem("Find &previous", this, SLOT(findPrevious()), SHIFT+Key_F3);
+	menuBar->insertItem("&Edit", editMenu);
+	helpBrowsermainLayout->setMenuBar(menuBar);
+/*
+	QAccel *a = new QAccel( this, "a");
+	a->connectItem(a->insertItem(QAccel::stringToKey(tr("Ctrl+F"))), this, SLOT(find()));
+	a->connectItem(a->insertItem(QAccel::stringToKey(tr("F3"))), this, SLOT(findNext(true)));
+	a->connectItem(a->insertItem(QAccel::stringToKey(tr("Shift+F3"))), this, SLOT(findNext(false)));
+	a->connectItem(a->insertItem(QAccel::stringToKey(tr("Ctrl+P"))), this, SLOT(print()));*/
+
 	languageChange();
 	resize( QSize(602, 491).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
@@ -160,10 +186,6 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	listView->header()->hide();
 	searchingView->header()->hide();
 	jumpToHelpSection(jumpToSection, jumpToFile );
-
-	QAccel *a = new QAccel( this, "a");
-	a->connectItem(a->insertItem(QAccel::stringToKey(tr("Ctrl+F"))), this, SLOT(find()));
-	a->connectItem(a->insertItem(QAccel::stringToKey(tr("F3"))), this, SLOT(findNext()));
 
 	connect( homeButton, SIGNAL( clicked() ), textBrowser, SLOT( home() ) );
 	connect( forwButton, SIGNAL( clicked() ), textBrowser, SLOT( forward() ) );
@@ -592,3 +614,48 @@ void HelpBrowser::findNext()
 	// find it. finally
 	textBrowser->find(findText, false, false, true, 0, 0);
 }
+
+void HelpBrowser::findPrevious()
+{
+	if (findText == QString::null)
+	{
+		find();
+		return;
+	}
+	// find it. finally
+	textBrowser->find(findText, false, false, false, 0, 0);
+}
+
+void HelpBrowser::print()
+{
+	QPrinter printer;
+	printer.setFullPage(true);
+	if (!printer.setup(this))
+		return;
+
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QPainter p(&printer);
+	QPaintDeviceMetrics metrics(p.device());
+	int dpix = metrics.logicalDpiX();
+	int dpiy = metrics.logicalDpiY();
+	const int margin = 72; // pt
+	QRect body(margin*dpix/72, margin*dpiy/72, metrics.width()-margin*dpix/72*2, metrics.height()-margin*dpiy/72*2);
+	QFont font("Helvetica");
+	QSimpleRichText richText( textBrowser->text(), font, textBrowser->context(), textBrowser->styleSheet(), textBrowser->mimeSourceFactory(), body.height());
+	richText.setWidth( &p, body.width());
+	QRect view(body);
+	int page = 1;
+	do {
+		richText.draw(&p, body.left(), body.top(), view, colorGroup());
+		view.moveBy(0, body.height());
+		p.translate(0 , -body.height());
+		p.setFont(font);
+		p.drawText(view.right() - p.fontMetrics().width(QString::number(page)), view.bottom() + p.fontMetrics().ascent() + 5, QString::number(page));
+		if (view.top()  >= body.top() + richText.height())
+			break;
+		printer.newPage();
+		page++;
+	} while (true);
+	QApplication::restoreOverrideCursor();
+}
+
