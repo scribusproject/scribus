@@ -244,8 +244,8 @@ public slots:
 	void ReadPrefs(bool import12);
 	void ReadPrefsXML();
 	void ManageGuides();
-	void SetTranspar(double t);
-	void SetTransparS(double t);
+	void setItemFillTransparency(double t);
+	void setItemLineTransparency(double t);
 	void ReportMP(double xp, double yp);
 	bool DoFileClose();
 	bool DoSaveClose();
@@ -262,15 +262,6 @@ public slots:
 	void slotTest();
 	void slotTest2();
 	void PutScrap();
-	void Pfadtext();
-	void noPfadtext();
-	void UniteOb();
-	void SplitUniteOb();
-	void convertToBezierCurve();
-	void convertToImageFrame();
-	void convertToOutlines();
-	void convertToPolygon();
-	void convertToTextFrame();
 	void changeLayer(int l);
 	void showLayer();
 	void LayerRemove(int l, bool dl = false);
@@ -414,14 +405,6 @@ public slots:
 	void MakeFrame(int f, int c, double *vals);
 	/** Loescht ein Element */
 	void DeleteObjekt();
-	/** Setzt das Element in den Hintergrund */
-	void Objekt2Back();
-	/** Setzt das Element in den Vordergrund */
-	void Objekt2Front();
-	/** Bewegt das Element eine Ebene nach oben */
-	void ObjektRaise();
-	/** Bewegt das Element nach unten */
-	void ObjektLower();
 	/** Dupliziert das Element */
 	void ObjektDup();
 	/** Dupliziert das Element mehrfach*/

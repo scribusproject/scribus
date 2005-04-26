@@ -24,6 +24,7 @@
 #include "scraction.h"
 
 class ScribusApp;
+class ScribusView;
 class UndoManager;
 /**
 @author Craig Bradney
@@ -39,6 +40,10 @@ class ActionManager : public QObject
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
+		void disconnectNewViewActions();
+		void connectNewViewActions(ScribusView *);
+		void disconnectNewSelectionActions();
+		void connectNewSelectionActions(ScribusView *);
 		void saveActionShortcutsPreEditMode();
 		void restoreActionShortcutsPostEditMode();
 		void enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);

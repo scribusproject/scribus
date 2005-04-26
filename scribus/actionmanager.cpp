@@ -17,6 +17,7 @@
 #include "actionmanager.moc"
 
 #include "scribus.h"
+#include "scribusview.h"
 #include "undomanager.h"
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name ) 
@@ -240,6 +241,7 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemSendToScrapbook", new ScrAction(tr("Send to S&crapbook"), QKeySequence(), ScApp, "itemSendToScrapbook"));
 	
 	scrActions->insert("itemAttributes", new ScrAction(tr("&Attributes..."), QKeySequence(), ScApp, "itemAttributes"));
+	scrActions->insert("itemImageIsVisible", new ScrAction(tr("I&mage Visible"), QKeySequence(), ScApp, "itemImageIsVisible"));
 	scrActions->insert("itemPDFIsBookmark", new ScrAction(tr("Is PDF &Bookmark"), QKeySequence(), ScApp, "itemPDFIsBookmark"));
 	(*scrActions)["itemPDFIsBookmark"]->setToggleAction(true);
 	scrActions->insert("itemPDFIsAnnotation", new ScrAction(tr("Is PDF A&nnotation"), QKeySequence(), ScApp, "itemPDFIsAnnotation"));
@@ -252,6 +254,8 @@ void ActionManager::initItemMenuActions()
 	(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
 	(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 	(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
+	
+	(*scrActions)["itemImageIsVisible"]->setToggleAction(true);
 		
 	scrActions->insert("itemShapeEdit", new ScrAction(tr("&Edit Shape..."), QKeySequence(), ScApp, "itemShapeEdit"));
 	(*scrActions)["itemShapeEdit"]->setToggleAction(true);
@@ -276,23 +280,23 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(activated()), ScApp, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(activated()), ScApp, SLOT(ModifyAnnot()) );
-	connect( (*scrActions)["itemSendToBack"], SIGNAL(activated()), ScApp, SLOT(Objekt2Back()) );
-	connect( (*scrActions)["itemBringToFront"], SIGNAL(activated()), ScApp, SLOT(Objekt2Front()) );
-	connect( (*scrActions)["itemLower"], SIGNAL(activated()), ScApp, SLOT(ObjektLower()) );
-	connect( (*scrActions)["itemRaise"], SIGNAL(activated()), ScApp, SLOT(ObjektRaise()) );
+	//connect( (*scrActions)["itemSendToBack"], SIGNAL(activated()), ScApp, SLOT(Objekt2Back()) );
+	//connect( (*scrActions)["itemBringToFront"], SIGNAL(activated()), ScApp, SLOT(Objekt2Front()) );
+	//connect( (*scrActions)["itemLower"], SIGNAL(activated()), ScApp, SLOT(ObjektLower()) );
+	//connect( (*scrActions)["itemRaise"], SIGNAL(activated()), ScApp, SLOT(ObjektRaise()) );
 	connect( (*scrActions)["itemAlignDist"], SIGNAL(activated()), ScApp, SLOT(ObjektAlign()) );
 	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(activated()), ScApp, SLOT(PutScrap()) );
 	connect( (*scrActions)["itemAttributes"], SIGNAL(activated()), ScApp, SLOT(objectAttributes()) );
 	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), ScApp, SLOT(ToggleFrameEdit()) );
-	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), ScApp, SLOT(Pfadtext()) );
-	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), ScApp, SLOT(noPfadtext()) );
-	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), ScApp, SLOT(UniteOb()) );
-	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(activated()), ScApp, SLOT(SplitUniteOb()) );
-	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(activated()), ScApp, SLOT(convertToBezierCurve()) );
-	connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(activated()), ScApp, SLOT(convertToImageFrame()) );
-	connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(activated()), ScApp, SLOT(convertToOutlines()) );
-	connect( (*scrActions)["itemConvertToPolygon"], SIGNAL(activated()), ScApp, SLOT(convertToPolygon()) );
-	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), ScApp, SLOT(convertToTextFrame()) );
+	//connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), ScApp, SLOT(Pfadtext()) );
+	//connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), ScApp, SLOT(noPfadtext()) );
+	//connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), ScApp, SLOT(UniteOb()) );
+	//connect( (*scrActions)["itemSplitPolygons"], SIGNAL(activated()), ScApp, SLOT(SplitUniteOb()) );
+	//connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(activated()), ScApp, SLOT(convertToBezierCurve()) );
+	//connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(activated()), ScApp, SLOT(convertToImageFrame()) );
+	//connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(activated()), ScApp, SLOT(convertToOutlines()) );
+	//connect( (*scrActions)["itemConvertToPolygon"], SIGNAL(activated()), ScApp, SLOT(convertToPolygon()) );
+	//connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), ScApp, SLOT(convertToTextFrame()) );
 }
 
 void ActionManager::initInsertMenuActions()
@@ -560,6 +564,56 @@ void ActionManager::connectModeActions()
 		connect( (*scrActions)[*it], SIGNAL(toggledData(bool, int)) , ScApp, SLOT(setAppModeByToggle(bool, int)) );
 }
 
+void ActionManager::disconnectNewViewActions()
+{
+	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
+	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
+	disconnect( (*scrActions)["itemSendToBack"], 0, 0, 0);
+	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
+	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
+	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
+	disconnect( (*scrActions)["itemCombinePolygons"], 0, 0, 0);
+	disconnect( (*scrActions)["itemSplitPolygons"], 0, 0, 0);
+	disconnect( (*scrActions)["itemConvertToBezierCurve"], 0, 0, 0);
+	disconnect( (*scrActions)["itemConvertToImageFrame"], 0, 0, 0);
+	disconnect( (*scrActions)["itemConvertToOutlines"], 0, 0, 0);
+	disconnect( (*scrActions)["itemConvertToPolygon"], 0, 0, 0);
+	disconnect( (*scrActions)["itemConvertToTextFrame"], 0, 0, 0);
+	disconnect( (*scrActions)["itemAttachTextToPath"], 0, 0, 0);
+	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
+}
+	
+void ActionManager::connectNewViewActions(ScribusView *currView)
+{
+	if (currView==NULL)
+		return;
+	connect( (*scrActions)["toolsZoomIn"], SIGNAL(activated()) , currView, SLOT(slotZoomIn()) );
+	connect( (*scrActions)["toolsZoomOut"], SIGNAL(activated()) , currView, SLOT(slotZoomOut()) );
+	connect( (*scrActions)["itemSendToBack"], SIGNAL(activated()), currView, SLOT(ToBack()) );
+	connect( (*scrActions)["itemBringToFront"], SIGNAL(activated()), currView, SLOT(ToFront()) );
+	connect( (*scrActions)["itemRaise"], SIGNAL(activated()), currView, SLOT(RaiseItem()) );
+	connect( (*scrActions)["itemLower"], SIGNAL(activated()), currView, SLOT(LowerItem()) );
+	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), currView, SLOT(UniteObj()) );
+	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(activated()), currView, SLOT(SplitObj()) );
+	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(activated()), currView, SLOT(ToBezierFrame()) );
+	connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(activated()), currView, SLOT(ToPicFrame()) );
+	connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(activated()), currView, SLOT(TextToPath()) );
+	connect( (*scrActions)["itemConvertToPolygon"], SIGNAL(activated()), currView, SLOT(ToPolyFrame()) );
+	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), currView, SLOT(ToTextFrame()) );
+	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), currView, SLOT(ToPathText()) );
+	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), currView, SLOT(FromPathText()) );
+}
+
+void ActionManager::disconnectNewSelectionActions()
+{
+	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
+}
+
+void ActionManager::connectNewSelectionActions(ScribusView *currView)
+{
+	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currView, SLOT(TogglePic()) );
+}
+	
 void ActionManager::saveActionShortcutsPreEditMode()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )

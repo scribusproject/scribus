@@ -259,10 +259,6 @@ public:
 	void doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx = 0.0);
 	void AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart);
 	void QueryFarben();
-	void ToPathText();
-	void FromPathText();
-	void UniteObj();
-	void SplitObj();
 	void rememberPreviousSettings(int mx=0, int my=0);
 	bool mousePressed();
 	bool groupTransactionStarted();
@@ -307,6 +303,10 @@ public slots: // Public slots
 	void ToPolyFrame();
 	void ToTextFrame();
 	void ToBezierFrame();
+	void ToPathText();
+	void FromPathText();
+	void UniteObj();
+	void SplitObj();
 	void Bezier2Poly();
 	void ClearItem();
 	void DeleteItem();

@@ -1632,8 +1632,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
-				int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
-				pmen->setItemChecked(px, currItem->PicArt);
+				ScApp->scrActions["itemImageIsVisible"]->addTo(pmen);
+				//int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
+				//pmen->setItemChecked(px, currItem->PicArt);
 				if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
 					pmen->insertItem( tr("Extended Image Properties"), this, SLOT(useEmbeddedPath()));
 				if (currItem->PicAvail)
@@ -11163,6 +11164,7 @@ void ScribusView::FromPathText()
 
 void ScribusView::TextToPath()
 {
+	ScApp->NoFrameEdit();
 	if (SelItem.count() > 0)
 	{
 		PageItem *bb;

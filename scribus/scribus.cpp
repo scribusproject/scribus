@@ -794,8 +794,8 @@ void ScribusApp::initPalettes()
 	connect(propertiesPalette->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
 	connect(propertiesPalette->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
 	connect(propertiesPalette->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewTrans(double)), this, SLOT(setItemFillTransparency(double)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewTransS(double)), this, SLOT(setItemLineTransparency(double)));
 	connect(propertiesPalette->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
 	connect(propertiesPalette->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(propertiesPalette->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
@@ -1097,6 +1097,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemUngroup"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->createMenu("ItemLevel", tr("&Level"));
 	scrMenuMgr->addMenuToMenu("ItemLevel", "Item");
@@ -1143,6 +1144,7 @@ void ScribusApp::initMenuBar()
 	scrActions["itemSplitPolygons"]->setEnabled(false);
 	scrActions["itemLock"]->setEnabled(false);
 	scrActions["itemLockSize"]->setEnabled(false);
+	scrActions["itemImageIsVisible"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 	scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 	scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -2639,21 +2641,17 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
-	{
-		disconnect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
-		disconnect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );	
-	}
+		actionManager->disconnectNewViewActions();
 	view = new ScribusView(w, doc, &Prefs);
 	view->Scale = 1.0*Prefs.DisScale;
+	actionManager->connectNewViewActions(view);
 	w->setView(view);
 	ActWin = w;
 	doc->WinHan = w;
 	w->setCentralWidget(view);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-	connect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
-	connect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
-
+	
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
 	{
@@ -2819,12 +2817,10 @@ void ScribusApp::newActWin(QWidget *w)
 		undoManager->switchStack(newDocName);
 
 	if (view!=NULL)
-	{
-		disconnect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
-		disconnect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
-	}
+		actionManager->disconnectNewViewActions();
 	doc = ActWin->doc;
 	view = ActWin->view;
+	actionManager->connectNewViewActions(view);
 	pagePalette->SetView(view);
 	ScribusWin* swin;
 	if (!doc->loading)
@@ -2844,10 +2840,7 @@ void ScribusApp::newActWin(QWidget *w)
 		setAppMode(doc->appMode);
 	}
 	w->setFocus();
-	if (w->isMaximized())
-		wsp->setScrollBarsEnabled(false);
-	else
-		wsp->setScrollBarsEnabled(true);
+	wsp->setScrollBarsEnabled(!(w->isMaximized()));
 	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -2873,9 +2866,6 @@ void ScribusApp::newActWin(QWidget *w)
 		else
 			HaveNewSel(-1);
 	}
-	
-	connect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
-	connect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
 }
 
 void ScribusApp::windowsMenuActivated( int id )
@@ -3466,7 +3456,6 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
 	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
-	//connect(view, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
 	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(view, SIGNAL(LevelChanged(uint )), propertiesPalette, SLOT(setLevel(uint)));
 	connect(view, SIGNAL(callGimp()), this, SLOT(CallGimp()));
@@ -3500,9 +3489,13 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 			Nr = -1;
 	}
+	actionManager->disconnectNewSelectionActions();
 	scrActions["editDeselectAll"]->setEnabled(Nr!=-1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["insertGlyph"]->setEnabled(false);
+	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
+	if (Nr!=PageItem::ImageFrame)
+		scrActions["itemImageIsVisible"]->setOn(false);
 	//scrActions["specialSmartHyphen"]->setEnabled(false);
 	//scrActions["specialNonBreakingSpace"]->setEnabled(false);
 	//scrActions["specialPageNumber"]->setEnabled(false);
@@ -3575,6 +3568,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
+		scrActions["itemImageIsVisible"]->setOn(currItem->PicArt);
 		break;
 	case 4: //Text Frame
 		scrActions["fileImportText"]->setEnabled(true);
@@ -3875,6 +3869,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			SCustom->setPixmap(SCustom->getIconPixmap(1));
 		if (currItem->FrameType > 3)
 			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
+		actionManager->connectNewSelectionActions(view);
 	}
 }
 
@@ -5806,7 +5801,7 @@ void ScribusApp::ToggleAllPalettes()
 
 void ScribusApp::toggleCheckPal()
 {
-PalettesStat[0] = false;
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setUndoPalette(bool visible)
@@ -5837,7 +5832,6 @@ void ScribusApp::toggleLayerPalette()
 
 void ScribusApp::setPagePalette(bool visible)
 {
-
 	if (!visible)
 	{
 		Prefs.SepalT = pagePalette->TemplList->Thumb;
@@ -7388,26 +7382,6 @@ void ScribusApp::DeleteObjekt()
 	 if (HaveDoc)
 	 	if (!doc->EditClip)
 			view->DeleteItem();
-}
-
-void ScribusApp::Objekt2Back()
-{
-	view->ToBack();
-}
-
-void ScribusApp::Objekt2Front()
-{
-	view->ToFront();
-}
-
-void ScribusApp::ObjektRaise()
-{
-	view->RaiseItem();
-}
-
-void ScribusApp::ObjektLower()
-{
-	view->LowerItem();
 }
 
 void ScribusApp::ObjektDup()
@@ -9257,52 +9231,6 @@ void ScribusApp::PutScrap()
 	delete ss;
 }
 
-void ScribusApp::UniteOb()
-{
-	view->UniteObj();
-}
-
-void ScribusApp::SplitUniteOb()
-{
-	view->SplitObj();
-}
-
-void ScribusApp::convertToBezierCurve()
-{
-	view->ToBezierFrame();
-}
-
-void ScribusApp::convertToImageFrame()
-{
-	view->ToPicFrame();
-}
-
-void ScribusApp::convertToOutlines()
-{
-	NoFrameEdit();
-	view->TextToPath();
-}
-
-void ScribusApp::convertToPolygon()
-{
-	view->ToPolyFrame();
-}
-
-void ScribusApp::convertToTextFrame()
-{
-	view->ToTextFrame();
-}
-
-void ScribusApp::Pfadtext()
-{
-	view->ToPathText();
-}
-
-void ScribusApp::noPfadtext()
-{
-	view->FromPathText();
-}
-
 void ScribusApp::changeLayer(int l)
 {
 	view->Deselect(true);
@@ -9665,7 +9593,7 @@ void ScribusApp::ManageGuides()
 	}
 }
 
-void ScribusApp::SetTranspar(double t)
+void ScribusApp::setItemFillTransparency(double t)
 {
 	if (HaveDoc)
 	{
@@ -9679,7 +9607,7 @@ void ScribusApp::SetTranspar(double t)
 	}
 }
 
-void ScribusApp::SetTransparS(double t)
+void ScribusApp::setItemLineTransparency(double t)
 {
 	if (HaveDoc)
 	{
@@ -10528,3 +10456,4 @@ void ScribusApp::insertSampleText()
 			}
 		}
 }
+

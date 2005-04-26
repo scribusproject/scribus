@@ -141,7 +141,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AbstandVLayout->setSpacing( 5 );
 	AbstandVLayout->setMargin( 10 );
 
-	BaseGrid = new QCheckBox( tr("Adjust to Baseline &Grid"), AbstandV, "BaseGrid" );
+	BaseGrid = new QCheckBox( tr("Align to Baseline &Grid"), AbstandV, "BaseGrid" );
 	BaseGrid->setChecked(vor->BaseAdj);
 	AbstandVLayout->addMultiCellWidget( BaseGrid, 0, 0, 0, 1 );
 	AboveV = new MSpinBox( 0, 300, AbstandV, 1 );

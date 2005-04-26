@@ -3649,7 +3649,7 @@ void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		tp = state->getDouble("NEW_TP");
 	select();
-	ScApp->SetTranspar(tp);
+	ScApp->setItemFillTransparency(tp);
 }
 
 void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
@@ -3658,7 +3658,7 @@ void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		tp = state->getDouble("NEW_TP");
 	select();
-	ScApp->SetTransparS(tp);
+	ScApp->setItemLineTransparency(tp);
 }
 
 
@@ -3840,10 +3840,10 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 		type = state->getInt("NEW_TYPE");
 	select();
 	switch (type) {
-		case 2: ScApp->view->ToPicFrame(); break;
-		case 4: ScApp->view->ToTextFrame(); break;
-		case 6: ScApp->view->ToPolyFrame(); break;
-		case 7: ScApp->view->ToBezierFrame(); break;
+		case ImageFrame: ScApp->view->ToPicFrame(); break;
+		case TextFrame: ScApp->view->ToTextFrame(); break;
+		case Polygon: ScApp->view->ToPolyFrame(); break;
+		case PolyLine: ScApp->view->ToBezierFrame(); break;
 	}
 	ScApp->setAppMode(NormalMode);
 }
