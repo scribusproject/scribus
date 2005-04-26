@@ -664,7 +664,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	}
 	plugLayout1->addWidget(pluginsList);
 	pluginWarning = new QLabel(plugGroupBox);
-	pluginWarning->setText("<qt>" + tr("You need to restart the application to promote the changes.") + "</qt>");
+	pluginWarning->setText("<qt>" + tr("You need to restart the application to apply the changes.") + "</qt>");
 	plugLayout1->addWidget(pluginWarning);
 	plugGroupBoxLayout->addLayout(plugLayout1, 0, 0);
 	pluginMainLayout->addWidget(plugGroupBox);
@@ -701,7 +701,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QToolTip::add( SpinBox3, tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) );
 	QToolTip::add( Recen, tr( "Number of recently edited documents to show in the File menu" ) );
 	QToolTip::add( Docs, tr( "Default documents directory" ) );
-	QToolTip::add( ProPfad, tr( "Default ICC profiles directory" ) );
+	QToolTip::add( ProPfad, tr( "Default ICC profiles directory. This cannot\nbe changed with a document open." ) );
 	QToolTip::add( ScriptPfad, tr( "Default Scripter scripts directory" ) );
 	QToolTip::add( TemplateDir, tr( "Additional Directory for Document Templates" ) );
 
