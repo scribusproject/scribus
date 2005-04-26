@@ -18,11 +18,14 @@
 #include "scribusdoc.h"
 #include "scribusXml.h"
 #include "scribus.h"
+
+#include <qfile.h>
+
 #include "page.h"
 #include "pageitem.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include <qfile.h>
+
 
 extern QPixmap loadIcon(QString nam);
 
@@ -132,21 +135,6 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	loading = false;
 	DocName = QObject::tr("Document")+"-";
 	CurrentSel = -1;
-	DocTitel = "";
-	DocAutor = "";
-	DocComments = "";
-	DocKeyWords = "";
-	DocPublisher = "";
-	DocDate = "";
-	DocType = "";
-	DocFormat = "";
-	DocIdent = "";
-	DocSource = "";
-	DocLangInfo = "";
-	DocRelation = "";
-	DocCover = "";
-	DocRights = "";
-	DocContrib = "";
 	PageC = 0;
 	LastAuto = 0;
 	FirstAuto = 0;

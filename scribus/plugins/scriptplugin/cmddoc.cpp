@@ -115,9 +115,9 @@ PyObject *scribus_setinfo(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->DocAutor = QString::fromUtf8(Author);
-	Carrier->doc->DocTitel = QString::fromUtf8(Title);
-	Carrier->doc->DocComments = QString::fromUtf8(Desc);
+	Carrier->doc->documentInfo.DocAutor = QString::fromUtf8(Author);
+	Carrier->doc->documentInfo.DocTitel = QString::fromUtf8(Title);
+	Carrier->doc->documentInfo.DocComments = QString::fromUtf8(Desc);
 	Carrier->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;

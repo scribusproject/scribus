@@ -959,8 +959,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	QValueList<double> dum;
 	double gx, gy, gw, gh;
 	dum.clear();
-	PS_set_Info("Author", Doc->DocAutor);
-	PS_set_Info("Title", Doc->DocTitel);
+	PS_set_Info("Author", Doc->documentInfo.DocAutor);
+	PS_set_Info("Title", Doc->documentInfo.DocTitel);
 	if (!farb)
 		PS_setGray();
 	if ((!Art) && (view->SelItem.count() != 0))

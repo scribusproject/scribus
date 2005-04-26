@@ -34,6 +34,7 @@
 #include <qtimer.h>
 
 #include "scribusstructs.h"
+#include "documentinformation.h"
 #include "undoobject.h"
 #include "hyphenator.h"
 #ifdef HAVE_CMS
@@ -150,6 +151,8 @@ public: // Public attributes
 	ColorList PageColors;
 	Page* currentPage;
   /** InfoStrings fuer das aktuelle Dokument */
+	DocumentInformation documentInfo;
+	/*
 	QString DocAutor;
 	QString DocTitel;
 	QString DocComments;
@@ -165,6 +168,7 @@ public: // Public attributes
 	QString DocCover;
 	QString DocRights;
 	QString DocContrib;
+	*/
 	int appMode;
 	int SubMode;
 	double *ShapeValues;

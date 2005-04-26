@@ -135,21 +135,21 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	addTab( page2, tr("Further &Information") );
 
 	//set values
-	titleEdit->setText(doc->DocTitel);
-	authorEdit->setText(doc->DocAutor);
-	descriptionEdit->setText(doc->DocComments);
-	keywordsEdit->setText(doc->DocKeyWords);
-	publisherEdit->setText(doc->DocPublisher);
-	dateEdit->setText(doc->DocDate);
-	typeEdit->setText(doc->DocType);
-	formatEdit->setText(doc->DocFormat);
-	identifierEdit->setText(doc->DocIdent);
-	sourceEdit->setText(doc->DocSource);
-	languageEdit->setText(doc->DocLangInfo);
-	relationEdit->setText(doc->DocRelation);
-	coverageEdit->setText(doc->DocCover);
-	rightsEdit->setText(doc->DocRights);
-	contributorsEdit->setText(doc->DocContrib);
+	titleEdit->setText(doc->documentInfo.DocTitel);
+	authorEdit->setText(doc->documentInfo.DocAutor);
+	descriptionEdit->setText(doc->documentInfo.DocComments);
+	keywordsEdit->setText(doc->documentInfo.DocKeyWords);
+	publisherEdit->setText(doc->documentInfo.DocPublisher);
+	dateEdit->setText(doc->documentInfo.DocDate);
+	typeEdit->setText(doc->documentInfo.DocType);
+	formatEdit->setText(doc->documentInfo.DocFormat);
+	identifierEdit->setText(doc->documentInfo.DocIdent);
+	sourceEdit->setText(doc->documentInfo.DocSource);
+	languageEdit->setText(doc->documentInfo.DocLangInfo);
+	relationEdit->setText(doc->documentInfo.DocRelation);
+	coverageEdit->setText(doc->documentInfo.DocCover);
+	rightsEdit->setText(doc->documentInfo.DocRights);
+	contributorsEdit->setText(doc->documentInfo.DocContrib);
 
 	//tooltips
 	QToolTip::add( authorEdit, tr( "The person or organisation primarily responsible for making the content of the document.\nThis field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );

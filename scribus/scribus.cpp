@@ -7528,21 +7528,21 @@ void ScribusApp::InfoDoc()
 	DocInfos *dia = new DocInfos(this, doc);
 	if (dia->exec())
 	{
-		doc->DocAutor = dia->authorEdit->text();
-		doc->DocTitel = dia->titleEdit->text();
-		doc->DocComments = dia->descriptionEdit->text();
-		doc->DocKeyWords = dia->keywordsEdit->text();
-		doc->DocPublisher = dia->publisherEdit->text();
-		doc->DocDate = dia->dateEdit->text();
-		doc->DocType = dia->typeEdit->text();
-		doc->DocFormat = dia->formatEdit->text();
-		doc->DocIdent = dia->identifierEdit->text();
-		doc->DocSource = dia->sourceEdit->text();
-		doc->DocLangInfo = dia->languageEdit->text();
-		doc->DocRelation = dia->relationEdit->text();
-		doc->DocCover = dia->coverageEdit->text();
-		doc->DocRights = dia->rightsEdit->text();
-		doc->DocContrib = dia->contributorsEdit->text();
+		doc->documentInfo.DocAutor = dia->authorEdit->text();
+		doc->documentInfo.DocTitel = dia->titleEdit->text();
+		doc->documentInfo.DocComments = dia->descriptionEdit->text();
+		doc->documentInfo.DocKeyWords = dia->keywordsEdit->text();
+		doc->documentInfo.DocPublisher = dia->publisherEdit->text();
+		doc->documentInfo.DocDate = dia->dateEdit->text();
+		doc->documentInfo.DocType = dia->typeEdit->text();
+		doc->documentInfo.DocFormat = dia->formatEdit->text();
+		doc->documentInfo.DocIdent = dia->identifierEdit->text();
+		doc->documentInfo.DocSource = dia->sourceEdit->text();
+		doc->documentInfo.DocLangInfo = dia->languageEdit->text();
+		doc->documentInfo.DocRelation = dia->relationEdit->text();
+		doc->documentInfo.DocCover = dia->coverageEdit->text();
+		doc->documentInfo.DocRights = dia->rightsEdit->text();
+		doc->documentInfo.DocContrib = dia->contributorsEdit->text();
 		slotDocCh();
 	}
 	delete dia;
