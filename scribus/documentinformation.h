@@ -22,23 +22,55 @@ class DocumentInformation
 {
 	public:
 		DocumentInformation();
-		~DocumentInformation();
-		QString DocAutor;
-		QString DocTitel;
-		QString DocComments;
-		QString DocKeyWords;
-		QString DocPublisher;
-		QString DocType;
-		QString DocDate;
-		QString DocFormat;
-		QString DocIdent;
-		QString DocSource;
-		QString DocLangInfo;
-		QString DocRelation;
-		QString DocCover;
-		QString DocRights;
-		QString DocContrib;
+		~DocumentInformation() {};
+		const QString getAuthor();
+		const QString getComments();
+		const QString getContrib();
+		const QString getCover();
+		const QString getDate();
+		const QString getFormat();
+		const QString getIdent();
+		const QString getKeywords();
+		const QString getLangInfo();
+		const QString getPublisher();
+		const QString getRelation();
+		const QString getRights();
+		const QString getSource();
+		const QString getTitle();
+		const QString getType();
+		
+		void setAuthor(const QString &_author);
+		void setComments(const QString &_comments);
+		void setContrib(const QString &_contrib);
+		void setCover(const QString &_cover);
+		void setDate(const QString &_date);
+		void setFormat(const QString &_format);
+		void setIdent(const QString &_ident);
+		void setKeywords(const QString &_keywords);
+		void setLangInfo(const QString &_langInfo);
+		void setPublisher(const QString &_publisher);
+		void setRelation(const QString &_relation);
+		void setRights(const QString &_rights);
+		void setSource(const QString &_source);
+		void setTitle(const QString &_title);
+		void setType(const QString &_type);
+		
 	private:
+		QString author;
+		QString comments;
+		QString contrib;
+		QString cover;
+		QString date;
+		QString format;
+		QString ident;
+		QString keywords;
+		QString langInfo;
+		QString publisher;
+		QString relation;
+		QString rights;
+		QString source;
+		QString title;
+		QString type;
 };
 
 #endif

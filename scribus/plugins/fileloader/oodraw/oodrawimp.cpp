@@ -222,22 +222,22 @@ void OODPlug::convert()
 		QDomElement mp = metaElem.namedItem( "office:meta" ).toElement();
 		mpg = mp.namedItem( "dc:title" );
 		if (!mpg.isNull())
-			Prog->doc->documentInfo.DocTitel = QString::fromUtf8(mpg.toElement().text());
+			Prog->doc->documentInfo.setTitle(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "meta:initial-creator" );
 		if (!mpg.isNull())
-			Prog->doc->documentInfo.DocAutor = QString::fromUtf8(mpg.toElement().text());
+			Prog->doc->documentInfo.setAuthor(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "dc:description" );
 		if (!mpg.isNull())
-			Prog->doc->documentInfo.DocComments = QString::fromUtf8(mpg.toElement().text());
+			Prog->doc->documentInfo.setComments(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "dc:language" );
 		if (!mpg.isNull())
-			Prog->doc->documentInfo.DocLangInfo = QString::fromUtf8(mpg.toElement().text());
+			Prog->doc->documentInfo.setLangInfo(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "meta:creation-date" );
 		if (!mpg.isNull())
-			Prog->doc->documentInfo.DocDate = QString::fromUtf8(mpg.toElement().text());
+			Prog->doc->documentInfo.setDate(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "dc:creator" );
 		if (!mpg.isNull())
-			Prog->doc->documentInfo.DocContrib = QString::fromUtf8(mpg.toElement().text());
+			Prog->doc->documentInfo.setContrib(QString::fromUtf8(mpg.toElement().text()));
 		mpg = mp.namedItem( "meta:keywords" );
 		if (!mpg.isNull())
 		{
@@ -247,7 +247,7 @@ void OODPlug::convert()
 				Keys += QString::fromUtf8(n.toElement().text())+", ";
 			}
 			if (Keys.length() > 2)
-				Prog->doc->documentInfo.DocKeyWords = Keys.left(Keys.length()-2);
+				Prog->doc->documentInfo.setKeywords(Keys.left(Keys.length()-2));
 		}
 	}
 	Doku = Prog->doc;

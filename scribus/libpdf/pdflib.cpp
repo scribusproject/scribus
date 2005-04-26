@@ -470,8 +470,8 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	IDg += Options->Datei;
 	IDg += "Scribus "+QString(VERSION);
 	IDg += "Libpdf for Scribus "+QString(VERSION);
-	IDg += doc->documentInfo.DocTitel;
-	IDg += doc->documentInfo.DocAutor;
+	IDg += doc->documentInfo.getTitle();
+	IDg += doc->documentInfo.getAuthor();
 	IDg += "/False";
 	FileID = ComputeMD5(IDg);
 	if (Options->Encrypt)
@@ -512,9 +512,9 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	StartObj(2);
 	PutDoc("<<\n/Creator "+EncString("(Scribus "+QString(VERSION)+")",2)+"\n");
 	PutDoc("/Producer "+EncString("(Libpdf for Scribus "+QString(VERSION)+")",2)+"\n");
-	PutDoc("/Title "+EncString("("+doc->documentInfo.DocTitel+")",2)+"\n");
-	PutDoc("/Author "+EncString("("+doc->documentInfo.DocAutor+")",2)+"\n");
-	PutDoc("/Keywords "+EncString("("+doc->documentInfo.DocKeyWords+")",2)+"\n");
+	PutDoc("/Title "+EncString("("+doc->documentInfo.getTitle()+")",2)+"\n");
+	PutDoc("/Author "+EncString("("+doc->documentInfo.getAuthor()+")",2)+"\n");
+	PutDoc("/Keywords "+EncString("("+doc->documentInfo.getKeywords()+")",2)+"\n");
 	PutDoc("/CreationDate "+EncString("("+Datum+")",2)+"\n");
 	PutDoc("/ModDate "+EncString("("+Datum+")",2)+"\n");
 	if (Options->Version == 12)

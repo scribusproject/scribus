@@ -14,16 +14,20 @@
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qmultilineedit.h>
-class ScribusDoc;
+
+#include "documentinformation.h"
 
 class DocInfos : public QTabDialog
 {
     Q_OBJECT
 
 public:
-	DocInfos( QWidget* parent, ScribusDoc* doc );
+	DocInfos( QWidget* parent, DocumentInformation& docInfo );
 	~DocInfos() {};
+	
+	DocumentInformation getDocInfo();
 
+protected:
 	QLineEdit* publisherEdit;
 	QLineEdit* dateEdit;
 	QLineEdit* typeEdit;
@@ -34,14 +38,13 @@ public:
 	QLineEdit* relationEdit;
 	QLineEdit* coverageEdit;
 	QLineEdit* rightsEdit;
-	QMultiLineEdit* contributorsEdit;
-
 	QLineEdit* titleEdit;
 	QLineEdit* authorEdit;
+	
 	QMultiLineEdit* descriptionEdit;
 	QMultiLineEdit* keywordsEdit;
+	QMultiLineEdit* contributorsEdit;
 
-protected:
 	QLabel* authorLabel;
 	QLabel* titleLabel;
 	QLabel* publisherLabel;

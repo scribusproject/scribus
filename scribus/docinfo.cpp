@@ -11,7 +11,7 @@
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
-#include "scribusdoc.h"
+#include "documentinformation.h"
 /*
  *  Constructs a DocInfos which is a child of 'parent', with the 
  *  name 'name' and widget flags set to 'f' 
@@ -19,7 +19,7 @@ extern QPixmap loadIcon(QString nam);
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  TRUE to construct a modal dialog.
  */
-DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
+DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 		: QTabDialog( parent, "i", true, 0 )
 {
 	setMaximumSize( QSize( 32767, 32767 ) );
@@ -135,21 +135,21 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	addTab( page2, tr("Further &Information") );
 
 	//set values
-	titleEdit->setText(doc->documentInfo.DocTitel);
-	authorEdit->setText(doc->documentInfo.DocAutor);
-	descriptionEdit->setText(doc->documentInfo.DocComments);
-	keywordsEdit->setText(doc->documentInfo.DocKeyWords);
-	publisherEdit->setText(doc->documentInfo.DocPublisher);
-	dateEdit->setText(doc->documentInfo.DocDate);
-	typeEdit->setText(doc->documentInfo.DocType);
-	formatEdit->setText(doc->documentInfo.DocFormat);
-	identifierEdit->setText(doc->documentInfo.DocIdent);
-	sourceEdit->setText(doc->documentInfo.DocSource);
-	languageEdit->setText(doc->documentInfo.DocLangInfo);
-	relationEdit->setText(doc->documentInfo.DocRelation);
-	coverageEdit->setText(doc->documentInfo.DocCover);
-	rightsEdit->setText(doc->documentInfo.DocRights);
-	contributorsEdit->setText(doc->documentInfo.DocContrib);
+	titleEdit->setText(docInfo.getTitle());
+	authorEdit->setText(docInfo.getAuthor());
+	descriptionEdit->setText(docInfo.getComments());
+	keywordsEdit->setText(docInfo.getKeywords());
+	publisherEdit->setText(docInfo.getPublisher());
+	dateEdit->setText(docInfo.getDate());
+	typeEdit->setText(docInfo.getType());
+	formatEdit->setText(docInfo.getFormat());
+	identifierEdit->setText(docInfo.getIdent());
+	sourceEdit->setText(docInfo.getSource());
+	languageEdit->setText(docInfo.getLangInfo());
+	relationEdit->setText(docInfo.getRelation());
+	coverageEdit->setText(docInfo.getCover());
+	rightsEdit->setText(docInfo.getRights());
+	contributorsEdit->setText(docInfo.getContrib());
 
 	//tooltips
 	QToolTip::add( authorEdit, tr( "The person or organisation primarily responsible for making the content of the document.\nThis field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );
@@ -174,4 +174,26 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	// signals and slots connections
 	connect( this, SIGNAL( applyButtonPressed() ), this, SLOT( accept() ) );
 	connect( this, SIGNAL( cancelButtonPressed() ), this, SLOT( reject() ) );
+}
+
+
+DocumentInformation DocInfos::getDocInfo()
+{
+	DocumentInformation docInfo;
+	docInfo.setAuthor(authorEdit->text());
+	docInfo.setComments(descriptionEdit->text());
+	docInfo.setContrib(contributorsEdit->text());
+	docInfo.setCover(coverageEdit->text());
+	docInfo.setDate(dateEdit->text());
+	docInfo.setFormat(formatEdit->text());
+	docInfo.setIdent(identifierEdit->text());
+	docInfo.setKeywords(keywordsEdit->text());
+	docInfo.setLangInfo(languageEdit->text());
+	docInfo.setPublisher(publisherEdit->text());
+	docInfo.setRelation(relationEdit->text());
+	docInfo.setRights(rightsEdit->text());
+	docInfo.setSource(sourceEdit->text());
+	docInfo.setTitle(titleEdit->text());
+	docInfo.setType(typeEdit->text());
+	return docInfo;
 }

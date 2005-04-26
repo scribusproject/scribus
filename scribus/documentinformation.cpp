@@ -17,23 +17,170 @@
 
 DocumentInformation::DocumentInformation()
 {
-	DocTitel = "";
-	DocAutor = "";
-	DocComments = "";
-	DocKeyWords = "";
-	DocPublisher = "";
-	DocDate = "";
-	DocType = "";
-	DocFormat = "";
-	DocIdent = "";
-	DocSource = "";
-	DocLangInfo = "";
-	DocRelation = "";
-	DocCover = "";
-	DocRights = "";
-	DocContrib = "";
+	author = "";
+	comments = "";
+	contrib = "";
+	cover = "";
+	date = "";
+	format = "";
+	ident = "";
+	keywords = "";
+	langInfo = "";
+	publisher = "";
+	relation = "";
+	rights = "";
+	source = "";
+	title = "";
+	type = "";
 }
 
-DocumentInformation::~DocumentInformation()
+const QString DocumentInformation::getAuthor()
 {
+	return author;
+}
+
+const QString DocumentInformation::getComments()
+{
+	return comments;
+}
+
+const QString DocumentInformation::getContrib()
+{
+	return contrib;
+}
+
+const QString DocumentInformation::getCover()
+{
+	return cover;
+}
+
+const QString DocumentInformation::getDate()
+{
+	return date;
+}
+
+const QString DocumentInformation::getFormat()
+{
+	return format;
+}
+
+const QString DocumentInformation::getIdent()
+{
+	return ident;
+}
+
+const QString DocumentInformation::getKeywords()
+{
+	return keywords;
+}
+
+const QString DocumentInformation::getLangInfo()
+{
+	return langInfo;
+}
+
+const QString DocumentInformation::getPublisher()
+{
+	return publisher;
+}
+
+const QString DocumentInformation::getRelation()
+{
+	return relation;
+}
+
+const QString DocumentInformation::getRights()
+{
+	return rights;
+}
+
+const QString DocumentInformation::getSource()
+{
+	return source;
+}
+
+const QString DocumentInformation::getTitle()
+{
+	return title;
+}
+
+const QString DocumentInformation::getType()
+{
+	return type;
+}
+
+
+void DocumentInformation::setAuthor(const QString &_author)
+{
+	author=_author;
+}
+
+void DocumentInformation::setComments(const QString &_comments)
+{
+	comments=_comments;
+}
+
+void DocumentInformation::setContrib(const QString &_contrib)
+{
+	contrib=_contrib;
+}
+
+void DocumentInformation::setCover(const QString &_cover)
+{
+	cover=_cover;
+}
+
+void DocumentInformation::setDate(const QString &_date)
+{
+	date=_date;
+}
+
+void DocumentInformation::setFormat(const QString &_format)
+{
+	format=_format;
+}
+
+void DocumentInformation::setIdent(const QString &_ident)
+{
+	ident=_ident;
+}
+
+void DocumentInformation::setKeywords(const QString &_keywords)
+{
+	keywords=_keywords;
+}
+
+void DocumentInformation::setLangInfo(const QString &_langInfo)
+{
+	langInfo=_langInfo;
+}
+
+void DocumentInformation::setPublisher(const QString &_publisher)
+{
+	publisher=_publisher;
+}
+
+void DocumentInformation::setRelation(const QString &_relation)
+{
+	relation=_relation;
+}
+
+void DocumentInformation::setRights(const QString &_rights)
+{
+	rights=_rights;
+}
+
+void DocumentInformation::setSource(const QString &_source)
+{
+	source=_source;
+}
+
+void DocumentInformation::setTitle(const QString &_title)
+{
+	title=_title;
+}
+
+void DocumentInformation::setType(const QString &_type)
+{
+	type=_type;
 }

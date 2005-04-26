@@ -1,6 +1,7 @@
 
 #include "cmddoc.h"
 #include "cmdutil.h"
+#include "documentinformation.h"
 
 PyObject *scribus_newdoc(PyObject */*self*/, PyObject* args)
 {
@@ -115,9 +116,9 @@ PyObject *scribus_setinfo(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->documentInfo.DocAutor = QString::fromUtf8(Author);
-	Carrier->doc->documentInfo.DocTitel = QString::fromUtf8(Title);
-	Carrier->doc->documentInfo.DocComments = QString::fromUtf8(Desc);
+	Carrier->doc->documentInfo.setAuthor(QString::fromUtf8(Author));
+	Carrier->doc->documentInfo.setTitle(QString::fromUtf8(Title));
+	Carrier->doc->documentInfo.setComments(QString::fromUtf8(Desc));
 	Carrier->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;

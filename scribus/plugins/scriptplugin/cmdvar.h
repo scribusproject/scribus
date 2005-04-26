@@ -6,7 +6,7 @@
 #endif
 
 #include <Python.h>
-#include "qstring.h"
+#include <qstring.h>
 #include "scribus.h"
 
 class ScripterCore;
