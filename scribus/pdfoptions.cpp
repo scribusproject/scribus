@@ -13,8 +13,6 @@ PDFOptions::VerifyResults PDFOptions::verify(QString* /*problemDescription*/)
 }
 
 
-
-
 const int PDFOptionsIO::formatVersion = 1300;
 
 PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
@@ -24,20 +22,26 @@ PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
 	this->opts = &opts;
 }
 
-// overload of bool PDFOptions::writeTo(QTextStream& outStream)
+// writeTo(Qtring) is implemented separately to writeTo(QTextStream)
+// because we don't want to clobber the output file until we know the
+// data has been generated ok, and we can't avoid clobbering the file
+// to create a QTextStream().
 bool PDFOptionsIO::writeTo(QString outFileName)
 {
+	QString xml = buildXMLString();
+	if (xml == QString::null)
+		return false;
 	QFile f(outFileName);
-	f.open(IO_WriteOnly|IO_Truncate);
+	if (!f.open(IO_WriteOnly|IO_Truncate))
+	{
+		error = QObject::tr("Couldn't open output file");
+		return false;
+	}
 	QTextStream ts(&f);
-	return writeTo(ts);
-}
-
-// overload of bool PDFOptions::writeTo(QTextStream& outStream)
-bool PDFOptionsIO::writeTo(FILE* outFilePtr)
-{
-	QTextStream ts(outFilePtr, IO_WriteOnly|IO_Truncate);
-	return writeTo(ts);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
+	ts << xml;
+	error = QString::null;
+	return true;
 }
 
 bool PDFOptionsIO::writeTo(QTextStream& outStream)
@@ -47,12 +51,23 @@ bool PDFOptionsIO::writeTo(QTextStream& outStream)
 		error = QObject::tr("Output stream not writeable");
 		return false;
 	}
+	QString xml = buildXMLString();
+	if (xml == QString::null)
+		return false;
+	outStream << xml;
+	error = QString::null;
+	return true;
+}
+
+QString PDFOptionsIO::buildXMLString()
+{
 	// Verify to make sure our settings are sane
-	PDFOptions::VerifyResults vr = opts->verify();
+	QString vrfyError;
+	PDFOptions::VerifyResults vr = opts->verify(&vrfyError);
 	if (vr != PDFOptions::Verify_NoError)
 	{
-		error = QObject::tr("Verification of settings failed: %1").arg(vr);
-		return false;
+		error = QObject::tr("Verification of settings failed: %1").arg(vrfyError);
+		return QString::null;
 	}
 	// Build the document. Initial implementation uses QDom.
 	root = doc.createElement("ScribusPDFOpts");
@@ -60,12 +75,10 @@ bool PDFOptionsIO::writeTo(QTextStream& outStream)
 	doc.appendChild(root);
 	// Fill the guts of the document
 	buildSettings();
-	// We're done - save it to the output stream
+	// We're done - return a string containing the document XML
 	QString xml = doc.toString();
-	outStream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	outStream << doc.toString();
-	error = QString::null;
-	return true;
+	xml.prepend("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+	return xml;
 }
 
 // Build up the stored settings into the passed DOM objects
@@ -184,13 +197,6 @@ bool PDFOptionsIO::readFrom(QTextStream& inStream)
 bool PDFOptionsIO::readFrom(QString inFileName)
 {
 	QTextStream ts(inFileName, IO_ReadOnly);
-	return readFrom(ts);
-}
-
-// overload of bool readFrom(QTextStream& inStream)
-bool PDFOptionsIO::readFrom(FILE* inFilePtr)
-{
-	QTextStream ts(inFilePtr, IO_ReadOnly);
 	return readFrom(ts);
 }
 

@@ -154,7 +154,6 @@ public:
 	 */
 	bool writeTo(QTextStream& outStream);
 	bool writeTo(QString outFileName);
-	bool writeTo(FILE* outFilePtr);
 
 	/**
 	 * @brief Load the PDF settings from a file or other data stream, overwriting
@@ -169,7 +168,6 @@ public:
 	 */
 	bool readFrom(QTextStream& inStream);
 	bool readFrom(QString inFileName);
-	bool readFrom(FILE* inFilePtr);
 
 	/**
 	 * @brief Return human-readable explanation of last error.
@@ -178,6 +176,11 @@ public:
 	const QString& lastError() const;
 
 protected:
+	// Build and return an XML representation of the settings.
+	// QString::null is returned on failure, in which case
+	// the error string is set.
+	QString PDFOptionsIO::buildXMLString();
+
 	// Populate the current DOM tree with the settings from the
 	// current PDFOptions instance.
 	void buildSettings();
