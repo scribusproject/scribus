@@ -11,25 +11,19 @@
 #include "qstring.h"
 #include "qmap.h"
 #include "qvaluelist.h"
-#include "qdom.h"
 
 struct LPIData;
 struct PDFPresentationData;
 
 /**
- * @brief PDF Options struture. Capable of saving and loading to/from file and verifying its self.
+ * @brief PDF Options struture. Capable of verifying its self, but otherwise largely
+ *        a dumb struct.
+ *
+ * @sa PDFOptionsIO
  */
 class PDFOptions
 {
 public:
-	// Note: A default constructor, copy constructor, and
-	// assignment operator must be defined so that this class
-	// can be used as a value.
-	// The automatically generated ones are quite sufficient.
-	//PDFOptions();
-	//PDFOptions(const PDFOptions& other);
-	//PDFOptions& operator=(const PDFOptions& other);
-	//~PDFOptions() {};
 
 	enum VerifyResults
 	{
@@ -51,7 +45,7 @@ public:
 	 * @author Craig Ringer
 	 * @brief Sanity check the options defined.
 	 *
-	 * Unimplemented, always returns Verify_OtherError
+	 * Unimplemented, always returns Verify_NoError
 	 *
 	 * Checks the PDF option structure for conflicts between mututally
 	 * exclusive options, ensures all options are within sane ranges,
@@ -61,8 +55,8 @@ public:
 	 * it will contain a human-readable description of the error on return.
 	 *
 	 * @warning DO NOT *EVER* TEST THE VALUE OF problemDescription. Rely on the
-	 *			return code instead. problemDescription is subject to
-	 *			translation and its contents may change without notice.
+	 *          return code instead. problemDescription is subject to
+	 *          translation and its contents may change without notice.
 	 *
 	 * @param problemDescription Error description
 	 * @return Verify_NoError for sane options, otherwise error code.
@@ -112,101 +106,6 @@ public:
 	QString PassOwner;
 	QString PassUser;
 	int Permissions;
-};
-
-/*
- * @brief Helper class for reading/writing PDFOptions
- * @author Craig Ringer
- *
- * PDFOptionsIO reads and writes PDFOptions to various
- * formats. Currently only a custom XML format is
- * supported, but support for reading/writing Adobe's
- * .joboptions (for example) might be added in future.
- *
- * Usage:
- *    // Writing:
- *    // where `opts' is an existing PDFOptions instance
- *    PDFOptionsIO io(opts);
- *    if (!io.writeTo("/path/to/file"))
- *       qDebug("Failed to save settings: %s", io.lastError.utf8());
- *
- *    // Reading:
- *    PDFOptions opts;
- *    PDFOptionsIO io(opts);
- *    if (!io.readFrom("/path/to/file"))
- *       qDebug("Failed to load settings: %s", io.lastError.utf8());
- */
-class PDFOptionsIO
-{
-public:
-	/**
-	 * @brief simple ctor
-	 */
-	PDFOptionsIO(PDFOptions& opts);
-
-	/**
-	 * @brief Save the PDF settings to a file or other stream
-	 *
-	 * @warning unimplemented, always fails.
-	 *
-	 * @param outStream QTextStream to write output to.
-	 * @return True for success.
-	 */
-	bool writeTo(QTextStream& outStream);
-	bool writeTo(QString outFileName);
-
-	/**
-	 * @brief Load the PDF settings from a file or other data stream, overwriting
-	 *        any current settings
-	 *
-	 * @warning unimplemented, always fails
-	 *
-	 * @warning on failure, struct contents are undefined.
-	 *
-	 * @param inStream QTextStream to settings data from.
-	 * @return True for success.
-	 */
-	bool readFrom(QTextStream& inStream);
-	bool readFrom(QString inFileName);
-
-	/**
-	 * @brief Return human-readable explanation of last error.
-	 * @warning Do not depend on particular values of this in your code.
-	 */
-	const QString& lastError() const;
-
-protected:
-	// Build and return an XML representation of the settings.
-	// QString::null is returned on failure, in which case
-	// the error string is set.
-	QString PDFOptionsIO::buildXMLString();
-
-	// Populate the current DOM tree with the settings from the
-	// current PDFOptions instance.
-	void buildSettings();
-
-	// Helper functions. Add elements under the root element
-	// with a single attribute "value=" set to the passed value.
-	void addElem(QString name, bool value);
-	void addElem(QString name, QString value);
-	void addElem(QString name, int value);
-	void addElem(QString name, double value);
-	void addList(QString name, QValueList<QString>& value);
-
-	// The QDomDocument used by the class for all its XML work
-	QDomDocument doc;
-	// The root element
-	QDomElement root;
-	// The PDFOptions instance we're operating on
-	PDFOptions* opts;
-
-	// Version, of the form Mmpr: Major, minor, patch, revision
-	// eg 1300 - 1.3.0r0
-	static const int formatVersion;
-
-	// Error explanation if a function fails
-	// For user only, do not depend on particular values of this.
-	QString error;
 };
 
 #endif
