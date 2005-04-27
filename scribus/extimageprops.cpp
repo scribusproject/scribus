@@ -209,7 +209,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 				pixm.fill(white);
 			FPointArray Path;
 			Path.resize(0);
-			Path = currentItem->pixm.imgInfo.PDSpathData[it.key()].copy();
+			Path = info->PDSpathData[it.key()].copy();
 			FPoint min = getMinClipF(&Path);
 			Path.translate(-min.x(), -min.y());
 			FPoint max = Path.WidthHeight();
@@ -225,9 +225,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 			p->end();
 			delete p;
 			pathList->insertItem(pixm, it.key());
+			if (it.key() == info->usedPath)
+				pathList->setSelected(pathList->count()-1, true);
 		}
 	}
 	tabLayout_2->addWidget( pathList );
+	resetPath = new QPushButton( tr("Don't use any Path"), tab_2, "reset");
+	tabLayout_2->addWidget( resetPath );
 	propsTab->insertTab( tab_2, tr( "Paths" ) );
 	ExtImagePropsLayout->addWidget( propsTab );
 	resize(330, 320);
@@ -236,6 +240,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	connect(layerTable, SIGNAL(currentChanged(int, int)), this, SLOT(selLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
+	connect(resetPath, SIGNAL(clicked()), this, SLOT(noPath()));
+	
 }
 
 void ExtImageProps::changedLayer()
@@ -287,30 +293,24 @@ void ExtImageProps::selLayer(int layer)
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 }
 
+void ExtImageProps::noPath()
+{
+	disconnect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	currentItem->imageClip.resize(0);
+	currentItem->pixm.imgInfo.usedPath = "";
+	pathList->clearSelection();
+	viewWidget->updateContents();
+	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+}
+
 void ExtImageProps::selPath(QListBoxItem *c)
 {
-	currentItem->PoLine = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
+	currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
 	currentItem->pixm.imgInfo.usedPath = c->text();
-	viewWidget->MoveItem(currentItem->pixm.imgInfo.pathXoffset, currentItem->pixm.imgInfo.pathYoffset, currentItem, false);
 	QWMatrix cl;
-	cl.scale(72.0 / currentItem->pixm.imgInfo.xres, 72.0 / currentItem->pixm.imgInfo.yres);
-	currentItem->PoLine.map(cl);
-	currentItem->Clip = FlattenPath(currentItem->PoLine, currentItem->Segments);
-	currentItem->ClipEdited = true;
-	double lx = currentItem->Xpos;
-	double ly = currentItem->Ypos;
-	int oldFT = currentItem->FrameType;
-	currentItem->FrameType = 3;
-	currentItem->LocalX = 0;
-	currentItem->LocalY = 0;
-	viewWidget->AdjustItemSize(currentItem);
-/*	if (oldFT == 3)
-	{
-		viewWidget->MoveItem(lx- currentItem->Xpos, ly - currentItem->Ypos, currentItem, false);
-	} */
-	currentItem->pixm.imgInfo.pathXoffset = lx- currentItem->Xpos;
-	currentItem->pixm.imgInfo.pathYoffset = ly - currentItem->Ypos;
-	viewWidget->setRedrawBounding(currentItem);
+	cl.translate(currentItem->LocalX*currentItem->LocalScX, currentItem->LocalY*currentItem->LocalScY);
+	cl.scale(currentItem->LocalScX, currentItem->LocalScY);
+	currentItem->imageClip.map(cl);
 	viewWidget->updateContents();
 }
 

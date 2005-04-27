@@ -378,6 +378,7 @@ struct toolPrefs
 	bool scaleType;
 	bool aspectRatio;
 	int lowResType;
+	bool useEmbeddedPath;
 	/* Magnifier Tool */
 	int magMin;
 	int magMax;

@@ -1761,15 +1761,17 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LXpos->setValue(x * Umrech);
-	LYpos->setValue(y * Umrech);
 	if (tmp)
 	{
+		LXpos->setValue(x * Umrech * CurItem->LocalScX);
+		LYpos->setValue(y * Umrech * CurItem->LocalScY);
 		ScaleX->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
 		ScaleY->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
 	}
 	else
 	{
+		LXpos->setValue(x * Umrech);
+		LYpos->setValue(y * Umrech);
 		ScaleX->setValue(scx * 100);
 		ScaleY->setValue(scy * 100);
 	}
@@ -2340,7 +2342,7 @@ void Mpalette::NewLocalXY()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->ChLocalXY(LXpos->value() / Umrech, LYpos->value() / Umrech);
+		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->LocalScX, LYpos->value() / Umrech / CurItem->LocalScY);
 		emit DocChanged();
 	}
 }
@@ -2352,6 +2354,7 @@ void Mpalette::NewLocalSC()
 	if ((HaveDoc) && (HaveItem))
 	{
 		ScApp->view->ChLocalSc(ScaleX->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, ScaleY->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
+		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->LocalScX, LYpos->value() / Umrech / CurItem->LocalScY);
 		emit DocChanged();
 	}
 }
@@ -3006,7 +3009,7 @@ void Mpalette::ChProf(const QString& prn)
 		/* PFJ - 29.02.04 - re-arranged the initialisation of EmbedP */
 		bool EmbedP = prn.startsWith("Embedded") ? true : false;
 		CurItem->UseEmbedded = EmbedP;
-		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr);
+		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
 		ScApp->view->RefreshItem(CurItem);
 	}
 }
@@ -3018,7 +3021,7 @@ void Mpalette::ChIntent()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->IRender = MonitorI->currentItem();
-		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr);
+		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
 		ScApp->view->RefreshItem(CurItem);
 	}
 }

@@ -15,6 +15,7 @@ class QTable;
 class QListBox;
 class QListBoxItem;
 class QCheckBox;
+class QPushButton;
 #include "scribus.h"
 #include "scimage.h"
 
@@ -35,6 +36,7 @@ public:
 	QTable* layerTable;
 	QWidget* tab_2;
 	QListBox* pathList;
+	QPushButton* resetPath;
 	QPtrList<QCheckBox> FlagsSicht;
 	ScribusView *viewWidget;
 	PageItem *currentItem;
@@ -46,6 +48,7 @@ public slots:
 	void changedLayer();
 	void selLayer(int layer);
 	void selPath(QListBoxItem *c);
+	void noPath();
 
 protected:
 	QVBoxLayout* ExtImagePropsLayout;

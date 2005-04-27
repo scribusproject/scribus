@@ -493,6 +493,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.toolSettings.scaleType = true;
 	Prefs.toolSettings.aspectRatio = true;
 	Prefs.toolSettings.lowResType = 1;
+	Prefs.toolSettings.useEmbeddedPath = false;
 	Prefs.MinWordLen = 3;
 	Prefs.HyCount = 2;
 	Prefs.Language = "";
@@ -3020,6 +3021,7 @@ bool ScribusApp::SetupDoc()
 		doc->toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
 		doc->toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
 		doc->toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
+		doc->toolSettings.useEmbeddedPath = dia->tabTools->embeddedPath->isChecked();
 		int haRes = 0;
 		if (dia->tabTools->checkFullRes->isChecked())
 			haRes = 0;
@@ -7802,6 +7804,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
 		Prefs.toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
 		Prefs.toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
+		Prefs.toolSettings.useEmbeddedPath = dia->tabTools->embeddedPath->isChecked();
 		int haRes = 0;
 		if (dia->tabTools->checkFullRes->isChecked())
 			haRes = 0;

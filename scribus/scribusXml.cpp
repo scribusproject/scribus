@@ -2452,6 +2452,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		}
 		SetItemProps(&ob, item, true);
 		ob.setAttribute("OnMasterPage", item->OnMasterPage);
+		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
@@ -2714,6 +2715,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PICTSCY",doc->toolSettings.scaleY);
 	dc.setAttribute("PSCALE", static_cast<int>(doc->toolSettings.scaleType));
 	dc.setAttribute("PASPECT", static_cast<int>(doc->toolSettings.aspectRatio));
+	dc.setAttribute("EmbeddedPath", static_cast<int>(doc->toolSettings.useEmbeddedPath));
 	dc.setAttribute("HalfRes", doc->toolSettings.lowResType);
 	dc.setAttribute("MINORC",doc->guidesSettings.minorColor.name());
 	dc.setAttribute("MAJORC",doc->guidesSettings.majorColor.name());
@@ -3094,6 +3096,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc9.setAttribute("POLYS", static_cast<int>(Vor->toolSettings.polyS));
 	dc9.setAttribute("PSCALE", static_cast<int>(Vor->toolSettings.scaleType));
 	dc9.setAttribute("PASPECT", static_cast<int>(Vor->toolSettings.aspectRatio));
+	dc9.setAttribute("EmbeddedPath", static_cast<int>(Vor->toolSettings.useEmbeddedPath));
 	dc9.setAttribute("HalfRes", Vor->toolSettings.lowResType);
 	dc9.setAttribute("StartArrow", Vor->toolSettings.dStartArrow);
 	dc9.setAttribute("EndArrow", Vor->toolSettings.dEndArrow);
@@ -3433,6 +3436,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->toolSettings.scaleY = QStodouble(dc.attribute("PICTSCY","1"));
 			Vorein->toolSettings.scaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
 			Vorein->toolSettings.aspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
+			Vorein->toolSettings.useEmbeddedPath = static_cast<bool>(QStoInt(dc.attribute("EmbeddedPath", "0")));
 			Vorein->toolSettings.lowResType = QStoInt(dc.attribute("HalfRes", "1"));
 			Vorein->toolSettings.polyC = QStoInt(dc.attribute("POLYC", "4"));
 			Vorein->toolSettings.polyF = QStodouble(dc.attribute("POLYF", "0.5"));

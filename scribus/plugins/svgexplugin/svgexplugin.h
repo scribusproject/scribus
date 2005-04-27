@@ -39,6 +39,7 @@ public:
 
 private:
 		void ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem);
+		QString SetClipPathImage(PageItem *ite);
 		QString SetClipPath(PageItem *ite);
 		QString FToStr(double c);
 		QString IToStr(int c);

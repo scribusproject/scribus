@@ -1079,7 +1079,10 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							}
 						}
 						PutPage("q\n");
-						PutPage(SetClipPath(ite));
+						if (ite->imageClip.size() != 0)
+							PutPage(SetClipPathImage(ite));
+						else
+							PutPage(SetClipPath(ite));
 						PutPage("h\nW*\nn\n");
 						if (ite->imageFlippedH())
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
@@ -1589,46 +1592,6 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage(name+" Do\n");
 						else
 						{
-/*							uint OldOwn = ite->OwnPage;
-							double OldX = ite->Xpos;
-							double OldY = ite->Ypos;
-							double OldBX = ite->BoundingX;
-							double OldBY = ite->BoundingY;
-							ite->OwnPage = pag->PageNr;
-							if (!ite->ChangedMasterItem)
-							{
-								ite->Xpos = OldX - mPage->Xoffset;
-								ite->Ypos = OldY - mPage->Yoffset;
-								ite->BoundingX = OldBX - mPage->Xoffset;
-								ite->BoundingY = OldBY - mPage->Yoffset;
-							}
-							double savScale = view->Scale;
-							view->Scale = 1.0;
-							doc->RePos = true;
-							QPixmap pgPix(10, 10);
-							QRect rd = QRect(0,0,9,9);
-							ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-							if (painter!=NULL)
-							{
-								doc->Pages = doc->MasterPages;
-								doc->MasterP = true;
-								doc->Items = doc->MasterItems;
-								ite->DrawObj(painter, rd);
-								doc->Pages = doc->DocPages;
-								doc->MasterP = false;
-								doc->Items = doc->DocItems;
-								doc->RePos = false;
-								view->Scale = savScale;
-								delete painter;
-							}
-							ite->OwnPage = OldOwn;
-							if (!ite->ChangedMasterItem)
-							{
-								ite->Xpos = OldX;
-								ite->Ypos = OldY;
-								ite->BoundingX = OldBX;
-								ite->BoundingY = OldBY;
-							} */
 							PutPage("q\n");
 							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 								PDF_Transparenz(ite);
@@ -1997,7 +1960,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							}
 						}
 						PutPage("q\n");
-						PutPage(SetClipPath(ite));
+						if (ite->imageClip.size() != 0)
+							PutPage(SetClipPathImage(ite));
+						else
+							PutPage(SetClipPath(ite));
 						PutPage("h\nW*\nn\n");
 						if (ite->imageFlippedH())
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
@@ -2923,6 +2889,38 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 #ifdef HAVE_CMS
 	}
 #endif
+	return tmp;
+}
+
+QString PDFlib::SetClipPathImage(PageItem *ite)
+{
+	bool nPath = true;
+	QString tmp = "";
+	FPoint np;
+	if (ite->imageClip.size() > 3)
+	{
+		for (uint poi=0; poi<ite->imageClip.size()-3; poi += 4)
+		{
+			if (ite->imageClip.point(poi).x() > 900000)
+			{
+				tmp += "h\n";
+				nPath = true;
+				continue;
+			}
+			if (nPath)
+			{
+				np = ite->imageClip.point(poi);
+				tmp += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
+				nPath = false;
+			}
+			np = ite->imageClip.point(poi+1);
+			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+			np = ite->imageClip.point(poi+3);
+			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+			np = ite->imageClip.point(poi+2);
+			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
+		}
+	}
 	return tmp;
 }
 

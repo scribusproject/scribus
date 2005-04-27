@@ -80,8 +80,6 @@ void ScImage::initialize()
 	imgInfo.clipPath = "";
 	imgInfo.usedPath = "";
 	imgInfo.layerInfo.clear();
-	imgInfo.pathXoffset = 0.0;
-	imgInfo.pathYoffset = 0.0;
 }
 
 void ScImage::swapRGBA()

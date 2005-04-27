@@ -162,6 +162,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	PoLine.resize(0);
 	ContourLine.resize(0);
+	imageClip.resize(0);
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
@@ -519,7 +520,10 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 				}
 				else
 				{
-					p->setupPolygon(&PoLine);
+					if (imageClip.size() != 0)
+						p->setupPolygon(&imageClip);
+					else
+						p->setupPolygon(&PoLine);
 					p->setClipPath();
 					p->save();
 					if (imageFlippedH())
@@ -532,8 +536,8 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 						p->translate(0, Height * sc);
 						p->scale(1, -1);
 					}
-					p->scale(LocalScX, LocalScY);
 					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
+					p->scale(LocalScX, LocalScY);
 					if (pixm.imgInfo.lowResType != 0)
 						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
 					if (InvPict)

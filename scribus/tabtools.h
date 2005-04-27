@@ -87,6 +87,7 @@ public:
 	LinkButton* chainButton;
 	QButtonGroup* buttonGroup5;
 	QCheckBox* checkRatioImage;
+	QCheckBox* embeddedPath;
 	QButtonGroup* buttonGroupRes;
 	QRadioButton* checkFullRes;
 	QRadioButton* checkNormalRes;

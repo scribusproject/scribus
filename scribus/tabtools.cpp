@@ -463,6 +463,10 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabImageLayout->addWidget( shadingFillImage, 3, 1, Qt::AlignLeft );
 	textLabel20b = new QLabel(shadingFillImage, tr( "S&hading:" ), subTabImage, "textLabel20b" );
 	subTabImageLayout->addWidget( textLabel20b, 3, 0 );
+	embeddedPath = new QCheckBox( subTabImage, "embeddedPath" );
+	embeddedPath->setText( tr( "Use embedded Clipping Path" ) );
+	embeddedPath->setChecked(prefsData->useEmbeddedPath);
+	subTabImageLayout->addMultiCellWidget( embeddedPath, 4, 4, 0, 1 );
 	buttonGroupRes = new QButtonGroup( subTabImage, "buttonGroup3" );
 	buttonGroupRes->setColumnLayout(0, Qt::Vertical );
 	buttonGroupRes->layout()->setSpacing( 6 );
@@ -492,7 +496,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 			checkHalfRes->setChecked(true);
 			break;
 	}
-	subTabImageLayout->addMultiCellWidget( buttonGroupRes, 4, 4, 0, 1 );
+	subTabImageLayout->addMultiCellWidget( buttonGroupRes, 5, 5, 0, 1 );
 	subStackTools->addWidget( subTabImage, 3 );
 
 	subTabPolygon = new QWidget( subStackTools, "subTabPolygon" );

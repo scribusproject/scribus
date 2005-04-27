@@ -463,7 +463,10 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob.setAttribute("clipPathUnits", "userSpaceOnUse");
 							ob.setAttribute("clip-rule", "evenodd");
 							QDomElement cl = docu->createElement("path");
-							cl.setAttribute("d", SetClipPath(Item)+"Z");
+							if (Item->imageClip.size() != 0)
+								cl.setAttribute("d", SetClipPathImage(Item)+"Z");
+							else
+								cl.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.appendChild(cl);
 							gr.appendChild(ob);
 							ScImage img;
@@ -656,6 +659,38 @@ QString SVGExPlug::SetClipPath(PageItem *ite)
 			np1 = ite->PoLine.point(poi+3);
 			tmp += FToStr(np1.x())+" "+FToStr(np1.y())+" ";
 			np2 = ite->PoLine.point(poi+2);
+			tmp += FToStr(np2.x())+" "+FToStr(np2.y())+" ";
+			}
+		}
+	return tmp;
+}
+
+QString SVGExPlug::SetClipPathImage(PageItem *ite)
+{
+	QString tmp = "";
+	FPoint np, np1, np2;
+	bool nPath = true;
+	if (ite->imageClip.size() > 3)
+		{
+		for (uint poi=0; poi<ite->imageClip.size()-3; poi += 4)
+			{
+			if (ite->imageClip.point(poi).x() > 900000)
+				{
+				tmp += "Z ";
+				nPath = true;
+				continue;
+				}
+			if (nPath)
+				{
+				np = ite->imageClip.point(poi);
+				tmp += "M"+FToStr(np.x())+" "+FToStr(np.y())+" ";
+				nPath = false;
+				}
+			np = ite->imageClip.point(poi+1);
+			tmp += "C"+FToStr(np.x())+" "+FToStr(np.y())+" ";
+			np1 = ite->imageClip.point(poi+3);
+			tmp += FToStr(np1.x())+" "+FToStr(np1.y())+" ";
+			np2 = ite->imageClip.point(poi+2);
 			tmp += FToStr(np2.x())+" "+FToStr(np2.y())+" ";
 			}
 		}

@@ -207,6 +207,7 @@ public:
 	QPointArray Clip;
 	FPointArray PoLine;
 	FPointArray ContourLine;
+	FPointArray imageClip;
 	QValueList<uint> Segments;
 	bool PoShow;
 	double BaseOffs;

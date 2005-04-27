@@ -118,8 +118,6 @@ struct ImageInfoRecord
 	bool progressive;
 	int lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
 	double lowResScale;
-	double pathXoffset;
-	double pathYoffset;
 	QMap<QString, FPointArray> PDSpathData;
 	QMap<int, LoadRequest> RequestProps;
 	QString clipPath;

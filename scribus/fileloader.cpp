@@ -453,6 +453,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->toolSettings.scaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
 		doc->toolSettings.aspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
 		doc->toolSettings.lowResType = QStoInt(dc.attribute("HalfRes", "1"));
+		doc->toolSettings.useEmbeddedPath = static_cast<bool>(QStoInt(dc.attribute("EmbeddedPath", "0")));
 		if (dc.hasAttribute("PEN"))
 			doc->toolSettings.dPen = dc.attribute("PEN");
 		if (dc.hasAttribute("BRUSH"))
@@ -1203,6 +1204,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	QString tmp;
 	int xi;
 	double xf, yf;
+	QString clPath;
 	switch (pt)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -1227,6 +1229,16 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 			view->LoadPict(currItem->Pfile, z);
 		currItem->LocalScX = scx;
 		currItem->LocalScY = scy;
+		clPath = obj->attribute("ImageClip", "");
+		if (currItem->pixm.imgInfo.PDSpathData.contains(clPath))
+		{
+			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[clPath].copy();
+			currItem->pixm.imgInfo.usedPath = clPath;
+			QWMatrix cl;
+			cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
+			cl.scale(currItem->LocalScX, currItem->LocalScY);
+			currItem->imageClip.map(cl);
+		}
 		currItem->PicArt = QStoInt(obj->attribute("PICART"));
 		currItem->BBoxX = QStodouble(obj->attribute("BBOXX"));
 		currItem->BBoxH = QStodouble(obj->attribute("BBOXH"));

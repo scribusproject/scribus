@@ -1097,7 +1097,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								}
 								else
 									PS_setcmykcolor_dummy();
-								SetClipPath(&ite->PoLine);
+								if (ite->imageClip.size() != 0)
+									SetClipPath(&ite->imageClip);
+								else
+									SetClipPath(&ite->PoLine);
 								PS_closepath();
 								PS_clip(false);
 								PS_save();
@@ -1580,7 +1583,10 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_newpath();
 			}
 			PS_save();
-			SetClipPath(&c->PoLine);
+			if (c->imageClip.size() != 0)
+				SetClipPath(&c->imageClip);
+			else
+				SetClipPath(&c->PoLine);
 			PS_closepath();
 			PS_clip(true);
 			if (c->imageFlippedH())

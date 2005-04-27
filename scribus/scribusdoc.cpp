@@ -100,6 +100,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	toolSettings.scaleY = prefsData->toolSettings.scaleY;
 	toolSettings.scaleType = prefsData->toolSettings.scaleType;
 	toolSettings.aspectRatio = prefsData->toolSettings.aspectRatio;
+	toolSettings.useEmbeddedPath = prefsData->toolSettings.useEmbeddedPath;
 	toolSettings.lowResType = prefsData->toolSettings.lowResType;
 	toolSettings.dCols = prefsData->toolSettings.dCols;
 	toolSettings.dGap = prefsData->toolSettings.dGap;

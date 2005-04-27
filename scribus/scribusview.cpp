@@ -3002,6 +3002,14 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
+				if (currItem->imageClip.size() != 0)
+				{
+					currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+					QWMatrix cl;
+					cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
+					cl.scale(currItem->LocalScX, currItem->LocalScY);
+					currItem->imageClip.map(cl);
+				}
 				MoveItemI((newX-Mxp)/currItem->LocalScX, (newY-Myp)/currItem->LocalScY, currItem->ItemNr);
 				Mxp = newX;
 				Myp = newY;
@@ -6170,6 +6178,8 @@ void ScribusView::AdjustItemSize(PageItem *currItem)
 	FPoint tp2 = getMinClipF(&Clip);
 	SizeItem(currItem->Width - tp2.x(), currItem->Height - tp2.y(), currItem->ItemNr, true, false, false);
 	Clip.translate(-tp2.x(), -tp2.y());
+//	if (currItem->imageClip.size() != 0)
+//		currItem->imageClip.translate(-tp2.x(), -tp2.y());
 	if (currItem->Rot != 0)
 	{
 		FPoint npv = FPoint(tp2.x(), tp2.y());
@@ -8114,7 +8124,7 @@ void ScribusView::ClearItem()
 				ScApp->fileWatcher->removeFile(currItem->Pfile);
 			currItem->Pfile = "";
 			currItem->PicAvail = false;
-			currItem->pixm = QImage();
+			currItem->pixm = ScImage();
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
 				currItem->LocalScX = 1;
@@ -8132,6 +8142,7 @@ void ScribusView::ClearItem()
 				currItem->setFillTransparency(0.0);
 				currItem->setLineTransparency(0.0);
 				currItem->InvPict = false;
+				currItem->imageClip.resize(0);
 /*				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
 			}
 			updateContents();
@@ -8939,11 +8950,11 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
 			{
 				if (Pr->contains(it->IProfile))
-					LoadPict(it->Pfile, i);
+					LoadPict(it->Pfile, i, true);
 				else
 				{
 					it->IProfile = Doc->CMSSettings.DefaultInputProfile;
-					LoadPict(it->Pfile, i);
+					LoadPict(it->Pfile, i, true);
 				}
 			}
 			counter++;
@@ -9716,6 +9727,14 @@ void ScribusView::ChLocalXY(double x, double y)
 			currItem = SelItem.at(a);
 			currItem->LocalX = x;
 			currItem->LocalY = y;
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
+				cl.scale(currItem->LocalScX, currItem->LocalScY);
+				currItem->imageClip.map(cl);
+			}
 			RefreshItem(currItem);
 		}
 	}
@@ -9731,6 +9750,14 @@ void ScribusView::ChLocalSc(double x, double y)
 			currItem = SelItem.at(a);
 			currItem->LocalScX = x;
 			currItem->LocalScY = y;
+			if (currItem->imageClip.size() != 0)
+			{
+				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+				QWMatrix cl;
+				cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
+				cl.scale(currItem->LocalScX, currItem->LocalScY);
+				currItem->imageClip.map(cl);
+			}
 			RefreshItem(currItem);
 		}
 	}
@@ -10416,10 +10443,13 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 	bool dummy;
 	QFileInfo fi = QFileInfo(fn);
 	PageItem *Item = pageItem;
+	QString clPath = Item->pixm.imgInfo.usedPath;
 	Item->pixm.imgInfo.valid = false;
 	Item->pixm.imgInfo.clipPath = "";
 	Item->pixm.imgInfo.PDSpathData.clear();
 	Item->pixm.imgInfo.layerInfo.clear();
+	Item->pixm.imgInfo.usedPath = "";
+	Item->imageClip.resize(0);
 	if (!reload)
 	{
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
@@ -10450,10 +10480,38 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		{
 			Item->LocalScX = 72.0 / xres;
 			Item->LocalScY = 72.0 / yres;
+			Item->LocalX = 0;
+			Item->LocalY = 0;
+			if ((Doc->toolSettings.useEmbeddedPath) && (Item->pixm.imgInfo.clipPath != ""))
+			{
+				Item->pixm.imgInfo.usedPath = Item->pixm.imgInfo.clipPath;
+				clPath = Item->pixm.imgInfo.clipPath;
+				if (Item->pixm.imgInfo.PDSpathData.contains(clPath))
+				{
+					Item->imageClip = Item->pixm.imgInfo.PDSpathData[clPath].copy();
+					Item->pixm.imgInfo.usedPath = clPath;
+					QWMatrix cl;
+					cl.translate(Item->LocalX*Item->LocalScX, Item->LocalY*Item->LocalScY);
+					cl.scale(Item->LocalScX, Item->LocalScY);
+					Item->imageClip.map(cl);
+				}
+			}
 		}
 		Item->Pfile = fi.absFilePath();
 		if (!reload)
 			ScApp->fileWatcher->addFile(Item->Pfile);
+		else
+		{
+			if (Item->pixm.imgInfo.PDSpathData.contains(clPath))
+			{
+				Item->imageClip = Item->pixm.imgInfo.PDSpathData[clPath].copy();
+				Item->pixm.imgInfo.usedPath = clPath;
+				QWMatrix cl;
+				cl.translate(Item->LocalX*Item->LocalScX, Item->LocalY*Item->LocalScY);
+				cl.scale(Item->LocalScX, Item->LocalScY);
+				Item->imageClip.map(cl);
+			}
+		}
 		Item->BBoxH = Item->pixm.height();
 		Item->OrigW = Item->pixm.width();
 		Item->OrigH = Item->pixm.height();
