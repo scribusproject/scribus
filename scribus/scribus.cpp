@@ -1168,8 +1168,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->createMenu("InsertChar", tr("Character"));
 	scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "InsertChar");
-	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "InsertChar");
+	scrMenuMgr->addMenuSeparator("InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialCopyRight"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialRegdTM"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialTM"], "InsertChar");
@@ -1179,11 +1179,33 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialDashEn"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashFigure"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashQuotation"], "InsertChar");
-	scrMenuMgr->addMenuSeparator("InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeft"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRight"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleLeft"], "InsertChar");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleRight"], "InsertChar");
+	
+	scrMenuMgr->createMenu("InsertQuote", tr("Quote"));
+	scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteApostrophe"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteStraight"], "InsertQuote");
+	scrMenuMgr->addMenuSeparator("InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleRight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRight"], "InsertQuote");
+	scrMenuMgr->addMenuSeparator("InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleReversed"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleReversed"], "InsertQuote");
+	scrMenuMgr->addMenuSeparator("InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleLeftGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleRightGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeftGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRightGuillemet"], "InsertQuote");
+	scrMenuMgr->addMenuSeparator("InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowSingleComma"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowDoubleComma"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleTurnedComma"], "InsertQuote");
+	scrMenuMgr->addMenuSeparator("InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleRight"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleLeft"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleRight"], "InsertQuote");
 
 	scrMenuMgr->createMenu("InsertSpace", tr("Space"));
 	scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
@@ -3497,10 +3519,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
 	if (Nr!=PageItem::ImageFrame)
 		scrActions["itemImageIsVisible"]->setOn(false);
-	//scrActions["specialSmartHyphen"]->setEnabled(false);
-	//scrActions["specialNonBreakingSpace"]->setEnabled(false);
-	//scrActions["specialPageNumber"]->setEnabled(false);
-	if (Nr!=-1 && currItem->itemType()==PageItem::TextFrame)
+	if ((Nr==-1) || (Nr!=-1 && currItem->itemType()!=PageItem::TextFrame))
 		actionManager->enableUnicodeActions(false);
 	scrActions["insertSampleText"]->setEnabled(false);
 	
@@ -3622,9 +3641,6 @@ void ScribusApp::HaveNewSel(int Nr)
 			setTBvals(currItem);
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["insertGlyph"]->setEnabled(true);
-			//scrActions["specialSmartHyphen"]->setEnabled(true);
-			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
-			//scrActions["specialPageNumber"]->setEnabled(true);
 			if (currItem->itemType()==PageItem::TextFrame)
 				actionManager->enableUnicodeActions(true);
 			view->horizRuler->ItemPos = currItem->Xpos - doc->ScratchLeft;
@@ -6180,9 +6196,6 @@ void ScribusApp::setAppMode(int mode)
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
-			//scrActions["specialSmartHyphen"]->setEnabled(true);
-			//scrActions["specialNonBreakingSpace"]->setEnabled(true);
-			//scrActions["specialPageNumber"]->setEnabled(true);
 			if (currItem->itemType()==PageItem::TextFrame)
 				actionManager->enableUnicodeActions(true);
 			if (!Buffer2.isNull())
