@@ -157,7 +157,7 @@ PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	Carrier->view->SizeItem(pageUnitXToDocX(x) - item->Xpos, pageUnitYToDocY(y) - item->Ypos, item->ItemNr);
+	Carrier->view->SizeItem(x, y, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
