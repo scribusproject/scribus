@@ -3434,6 +3434,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
 /*	connect(doc->currentPage, SIGNAL(DocChanged()), this, SLOT(slotDocCh())); */
+	connect(view, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 	connect(view, SIGNAL(MousePos(double, double)), this, SLOT(ReportMP(double, double)));
 	connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
@@ -3880,7 +3881,7 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 		for (uint upd = 0; upd < view->SelItem.count(); ++upd)
 			outlinePalette->slotUpdateElement(doc->currentPage->PageNr, view->SelItem.at(upd)->ItemNr);
 	} */
-	if (docCheckerPalette->isVisible())
+	if (!doc->loading && docCheckerPalette->isVisible())
 	{
 		scanDocument();
 		docCheckerPalette->buildErrorList(doc);
@@ -3897,18 +3898,19 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 		if (doc->hasName)
 			scrActions["fileRevert"]->setEnabled(true);
 	}
-/*
+
 	ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
 	ActWin->MenuStat[1] = scrActions["fileClose"]->isEnabled();
-	ActWin->MenuStat[2] = fileMenu->isItemEnabled(M_FileSave);
-	ActWin->MenuStat[3] = fileMenu->isItemEnabled(M_FileSaveAs);
-	*/
+	ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
+	ActWin->MenuStat[3] = scrActions["fileSaveAs"]->isEnabled();
+	/* Only need to do this when we HaveNewSel
 	if (view->SelItem.count() != 0)
 	{
 		PageItem *currItem = view->SelItem.at(0);
 		scrActions["itemLock"]->setOn(currItem->locked());
 		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
 	}
+	*/
 }
 
 void ScribusApp::updateRecent(QString fn)
@@ -4631,7 +4633,7 @@ void ScribusApp::slotFileOpen()
 				propertiesPalette->Cpal->SetColors(doc->PageColors);
 				propertiesPalette->updateCList();
 				propertiesPalette->ShowCMS();
-				slotDocCh();
+				//slotDocCh(); view->LoadPict does this now.
 			}
 		}
 		if (currItem->itemType() == PageItem::TextFrame)

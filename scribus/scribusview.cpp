@@ -10479,8 +10479,8 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 	{
 		emit RasterPic(Item->isRaster);
 //		emit UpdtObj(PageNr, ItNr);
+		emit DocChanged();
 	}
-	emit DocChanged();
 }
 
 void ScribusView::AdjustPictScale(PageItem *currItem, bool )

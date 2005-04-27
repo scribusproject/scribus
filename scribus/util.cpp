@@ -453,21 +453,22 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 	FT_Face      face;
 	uint c1 = ch.at(0).unicode();
 	uint c2 = ch2.at(0).unicode();
+	double size10=Size/10.0;
 	if (name->CharWidth.contains(c1))
 	{
-		width = name->CharWidth[c1]*(Size / 10.0);
+		width = name->CharWidth[c1]*size10;
 		if (name->HasKern)
 		{
 			face = currentDoc->FFonts[name->SCName];
 			uint cl = FT_Get_Char_Index(face, c1);
 			uint cr = FT_Get_Char_Index(face, c2);
 			FT_Get_Kerning(face, cl, cr, ft_kerning_unscaled, &delta);
-			width += delta.x / name->uniEM * (Size / 10.0);
+			width += delta.x / name->uniEM * size10;
 		}
 		return width;
 	}
 	else
-		return static_cast<double>(Size / 10.0);
+		return size10;
 }
 
 double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
