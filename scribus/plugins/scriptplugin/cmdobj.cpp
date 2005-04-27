@@ -16,9 +16,9 @@ PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	int i = Carrier->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y),
-									 pageUnitXToDocX(b), pageUnitYToDocY(h),
-									 Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush,
+	int i = Carrier->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+									 Carrier->doc->toolSettings.dWidth,
+									 Carrier->doc->toolSettings.dBrush,
 									 Carrier->doc->toolSettings.dPen);
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
@@ -35,9 +35,9 @@ PyObject *scribus_newellipse(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintEllipse(pageUnitXToDocX(x), pageUnitYToDocY(y),
-										pageUnitXToDocX(b), pageUnitYToDocY(h),
-										Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush,
+	int i = Carrier->view->PaintEllipse(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+										Carrier->doc->toolSettings.dWidth,
+										Carrier->doc->toolSettings.dBrush,
 										Carrier->doc->toolSettings.dPen);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
@@ -59,8 +59,7 @@ PyObject *scribus_newimage(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintPict(pageUnitXToDocX(x), pageUnitYToDocY(y),
-									 pageUnitXToDocX(b), pageUnitYToDocY(h));
+	int i = Carrier->view->PaintPict(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -81,9 +80,9 @@ PyObject *scribus_newtext(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintText(pageUnitXToDocX(x), pageUnitYToDocY(y),
-									 pageUnitXToDocX(b), pageUnitYToDocY(h),
-									 Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dPenText);
+	int i = Carrier->view->PaintText(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+									 Carrier->doc->toolSettings.dWidth,
+									 Carrier->doc->toolSettings.dPenText);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -104,7 +103,7 @@ PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	x =	pageUnitXToDocX(x);
+	x = pageUnitXToDocX(x);
 	y = pageUnitYToDocY(y);
 	b = pageUnitXToDocX(b);
 	h = pageUnitYToDocY(h);
