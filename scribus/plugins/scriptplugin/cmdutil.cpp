@@ -27,6 +27,12 @@ double pageUnitXToDocX(double pageUnitX)
 	return ValueToPoint(pageUnitX) + Carrier->doc->currentPage->Xoffset;
 }
 
+// Convert doc units to page units
+double docUnitXToPageX(double pageUnitX)
+{
+	return PointToValue(pageUnitX) - Carrier->doc->currentPage->Xoffset;
+}
+
 /// Convert a Y co-ordinate part in page units to a document co-ordinate
 /// in system units. The document co-ordinates have their origin somewere
 /// up and left of the first page, where page co-ordinates have their
@@ -34,6 +40,11 @@ double pageUnitXToDocX(double pageUnitX)
 double pageUnitYToDocY(double pageUnitY)
 {
 	return ValueToPoint(pageUnitY) + Carrier->doc->currentPage->Yoffset;
+}
+
+double docUnitYToPageY(double pageUnitY)
+{
+	return PointToValue(pageUnitY) - Carrier->doc->currentPage->Yoffset;
 }
 
 int GetItem(QString Name)

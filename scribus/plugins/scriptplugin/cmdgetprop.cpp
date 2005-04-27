@@ -157,7 +157,10 @@ PyObject *scribus_getposi(PyObject */*self*/, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return (i != NULL) ? Py_BuildValue("(ff)", PointToValue(i->Xpos), PointToValue(i->Ypos)) : NULL;
+	if (!i)
+		return NULL;
+	return Py_BuildValue("(ff)", docUnitXToPageX(i->Xpos),
+								 docUnitYToPageY(i->Ypos));
 }
 
 PyObject *scribus_getsize(PyObject */*self*/, PyObject* args)
