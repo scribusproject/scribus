@@ -102,7 +102,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	QToolTip::add( PS3, tr( "Creates PostScript Level 3" ) );
 	QToolTip::add( PS2, tr( "Creates PostScript Level 2 only, beware,\nthis can create huge files" ) );
 	QToolTip::add( PS1, tr( "Creates PostScript Level 1 only, beware,\nthis can create huge files" ) );
-	QToolTip::add( devPar, tr( "This enables you to explicitely set,\nthe media size of the PDF.\nNot recommended unless\n requested by your printer." ) );
+	QToolTip::add( devPar, tr( "This enables you to explicitely set,\nthe media size of the postscript file.\nNot recommended unless\n requested by your printer." ) );
 	QToolTip::add( GcR, tr( "A way of switching off some of the gray shades which are composed\n"
 	                                   "of cyan, yellow and magenta and using black instead.\n"
 									   "UCR most affects parts of images which are neutral and/or dark tones\n"
