@@ -4,46 +4,52 @@
 const int PDFOptionsIO::formatVersion = 1300;
 
 PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
-	doc("PDFSettings"),
-	error()
+	m_doc("PDFSettings"),
+	m_root(),
+	m_includePasswords(false),
+	m_error()
 {
-	this->opts = &opts;
+	this->m_opts = &opts;
 }
 
 // writeTo(QString) is implemented separately to writeTo(QTextStream)
 // because we don't want to clobber the output file until we know the
 // data has been generated ok, and we can't avoid clobbering the file
 // to create a QTextStream().
-bool PDFOptionsIO::writeTo(QString outFileName)
+bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 {
+	m_includePasswords = includePasswords;
 	QString xml = buildXMLString();
 	if (xml == QString::null)
 		return false;
 	QFile f(outFileName);
 	if (!f.open(IO_WriteOnly|IO_Truncate))
 	{
-		error = QObject::tr("Couldn't open output file");
+		m_error = QObject::tr("Couldn't open output file");
 		return false;
 	}
 	QTextStream ts(&f);
 	ts.setEncoding(QTextStream::UnicodeUTF8);
 	ts << xml;
-	error = QString::null;
+	m_includePasswords = false; // just to be paranoid
+	m_error = QString::null;
 	return true;
 }
 
-bool PDFOptionsIO::writeTo(QTextStream& outStream)
+bool PDFOptionsIO::writeTo(QTextStream& outStream, bool includePasswords)
 {
+	m_includePasswords = includePasswords;
 	if (!outStream.device()->isWritable())
 	{
-		error = QObject::tr("Output stream not writeable");
+		m_error = QObject::tr("Output stream not writeable");
 		return false;
 	}
 	QString xml = buildXMLString();
 	if (xml == QString::null)
 		return false;
 	outStream << xml;
-	error = QString::null;
+	m_includePasswords = false; // just to be paranoid
+	m_error = QString::null;
 	return true;
 }
 
@@ -52,20 +58,20 @@ QString PDFOptionsIO::buildXMLString()
 {
 	// Verify to make sure our settings are sane
 	QString vrfyError;
-	PDFOptions::VerifyResults vr = opts->verify(&vrfyError);
+	PDFOptions::VerifyResults vr = m_opts->verify(&vrfyError);
 	if (vr != PDFOptions::Verify_NoError)
 	{
-		error = QObject::tr("Verification of settings failed: %1").arg(vrfyError);
+		m_error = QObject::tr("Verification of settings failed: %1").arg(vrfyError);
 		return QString::null;
 	}
 	// Build the document. Initial implementation uses QDom.
-	root = doc.createElement("ScribusPDFOpts");
-	root.setAttribute("version", formatVersion);
-	doc.appendChild(root);
+	m_root = m_doc.createElement("ScribusPDFOptions");
+	m_root.setAttribute("version", formatVersion);
+	m_doc.appendChild(m_root);
 	// Fill the guts of the document
 	buildSettings();
 	// We're done - return a string containing the document XML
-	QString xml = doc.toString();
+	QString xml = m_doc.toString();
 	xml.prepend("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 	return xml;
 }
@@ -73,58 +79,58 @@ QString PDFOptionsIO::buildXMLString()
 // Build up the stored settings into the passed DOM objects
 void PDFOptionsIO::buildSettings()
 {
-	addElem(root, "thumbnails", opts->Thumbnails);
-	addElem(root, "articles", opts->Articles);
-	addElem(root, "useLayers", opts->useLayers);
-	addElem(root, "compress", opts->Compress);
-	addElem(root, "compressMethod", opts->CompressMethod);
-	addElem(root, "quality", opts->Quality);
-	addElem(root, "recalcPic", opts->RecalcPic);
-	addElem(root, "bookmarks", opts->Bookmarks);
-	addElem(root, "picRes", opts->PicRes);
+	addElem(m_root, "thumbnails", m_opts->Thumbnails);
+	addElem(m_root, "articles", m_opts->Articles);
+	addElem(m_root, "useLayers", m_opts->useLayers);
+	addElem(m_root, "compress", m_opts->Compress);
+	addElem(m_root, "compressMethod", m_opts->CompressMethod);
+	addElem(m_root, "quality", m_opts->Quality);
+	addElem(m_root, "recalcPic", m_opts->RecalcPic);
+	addElem(m_root, "bookmarks", m_opts->Bookmarks);
+	addElem(m_root, "picRes", m_opts->PicRes);
 	QString pdfVersString;
-	switch (opts->Version)
+	switch (m_opts->Version)
 	{
 		case PDFOptions::PDFVersion_X3:
 			pdfVersString = "X3";
 			break;
 		default:
-			pdfVersString = QString::number(opts->Version);
+			pdfVersString = QString::number(m_opts->Version);
 			break;
 	}
-	addElem(root, "pdfVersion", pdfVersString);
-	addElem(root, "resolution", opts->Resolution);
-	addElem(root, "binding", opts->Binding);
-	addList(root, "embedFonts", opts->EmbedList);
-	addList(root, "subsetFonts", opts->SubsetList);
-	addElem(root, "mirrorH", opts->MirrorH);
-	addElem(root, "mirrorV", opts->MirrorV);
-	addElem(root, "rotateDegrees", opts->RotateDeg);
-	addElem(root, "presentMode", opts->PresentMode);
+	addElem(m_root, "pdfVersion", pdfVersString);
+	addElem(m_root, "resolution", m_opts->Resolution);
+	addElem(m_root, "binding", m_opts->Binding);
+	addList(m_root, "embedFonts", m_opts->EmbedList);
+	addList(m_root, "subsetFonts", m_opts->SubsetList);
+	addElem(m_root, "mirrorH", m_opts->MirrorH);
+	addElem(m_root, "mirrorV", m_opts->MirrorV);
+	addElem(m_root, "rotateDegrees", m_opts->RotateDeg);
+	addElem(m_root, "presentMode", m_opts->PresentMode);
 	addPresentationData();
-	addElem(root, "filename", opts->Datei);
-	addElem(root, "isGrayscale", opts->isGrayscale);
-	addElem(root, "useRGB", opts->UseRGB);
-	addElem(root, "useProfiles", opts->UseProfiles);
-	addElem(root, "useProfiles2", opts->UseProfiles2);
-	addElem(root, "useLPI", opts->UseLPI);
+	addElem(m_root, "filename", m_opts->Datei);
+	addElem(m_root, "isGrayscale", m_opts->isGrayscale);
+	addElem(m_root, "useRGB", m_opts->UseRGB);
+	addElem(m_root, "useProfiles", m_opts->UseProfiles);
+	addElem(m_root, "useProfiles2", m_opts->UseProfiles2);
+	addElem(m_root, "useLPI", m_opts->UseLPI);
 	addLPISettings();
-	addElem(root, "solidProf", opts->SolidProf);
-	addElem(root, "sComp", opts->SComp);
-	addElem(root, "imageProf", opts->ImageProf);
-	addElem(root, "embeddedI", opts->EmbeddedI);
-	addElem(root, "intent2", opts->Intent2);
-	addElem(root, "printProf", opts->PrintProf);
-	addElem(root, "info", opts->Info);
-	addElem(root, "intent", opts->Intent);
-	addElem(root, "bleedTop", opts->BleedTop);
-	addElem(root, "bleedLeft", opts->BleedLeft);
-	addElem(root, "bleedRight", opts->BleedRight);
-	addElem(root, "bleedBottom", opts->BleedBottom);
-	addElem(root, "encrypt", opts->Encrypt);
-	addElem(root, "passOwner", opts->PassOwner);
-	addElem(root, "passUser", opts->PassUser);
-	addElem(root, "permissions", opts->Permissions);
+	addElem(m_root, "solidProf", m_opts->SolidProf);
+	addElem(m_root, "sComp", m_opts->SComp);
+	addElem(m_root, "imageProf", m_opts->ImageProf);
+	addElem(m_root, "embeddedI", m_opts->EmbeddedI);
+	addElem(m_root, "intent2", m_opts->Intent2);
+	addElem(m_root, "printProf", m_opts->PrintProf);
+	addElem(m_root, "info", m_opts->Info);
+	addElem(m_root, "intent", m_opts->Intent);
+	addElem(m_root, "bleedTop", m_opts->BleedTop);
+	addElem(m_root, "bleedLeft", m_opts->BleedLeft);
+	addElem(m_root, "bleedRight", m_opts->BleedRight);
+	addElem(m_root, "bleedBottom", m_opts->BleedBottom);
+	addElem(m_root, "encrypt", m_opts->Encrypt);
+	addElem(m_root, "passOwner", m_includePasswords ? m_opts->PassOwner : "");
+	addElem(m_root, "passUser", m_includePasswords ? m_opts->PassUser : "");
+	addElem(m_root, "permissions", m_opts->Permissions);
 }
 
 // Convenience functions to add a single-attribute element
@@ -132,28 +138,28 @@ void PDFOptionsIO::buildSettings()
 
 void PDFOptionsIO::addElem(QDomElement& addTo, QString name, bool value)
 {
-	QDomElement elem = doc.createElement(name);
+	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
 
 void PDFOptionsIO::addElem(QDomElement& addTo, QString name, QString value)
 {
-	QDomElement elem = doc.createElement(name);
+	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
 
 void PDFOptionsIO::addElem(QDomElement& addTo, QString name, int value)
 {
-	QDomElement elem = doc.createElement(name);
+	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
 
 void PDFOptionsIO::addElem(QDomElement& addTo, QString name, double value)
 {
-	QDomElement elem = doc.createElement(name);
+	QDomElement elem = m_doc.createElement(name);
 	elem.setAttribute("value",value);
 	addTo.appendChild(elem);
 }
@@ -163,7 +169,7 @@ void PDFOptionsIO::addElem(QDomElement& addTo, QString name, double value)
 void PDFOptionsIO::addList(QDomElement& addTo, QString name, QValueList<QString>& value)
 {
 	// List base element has no attributes, only children
-	QDomElement listbase = doc.createElement(name);
+	QDomElement listbase = m_doc.createElement(name);
 	addTo.appendChild(listbase);
 	QValueList<QString>::iterator it;
 	for (it = value.begin(); it != value.end(); ++it)
@@ -190,13 +196,13 @@ void PDFOptionsIO::addPresentationData()
 	//   </presentationSettingsEntry>
 	//   ...
 	// </presentationSettings>
-	QDomElement presentationSettings = doc.createElement("presentationSettings");
-	root.appendChild(presentationSettings);
+	QDomElement presentationSettings = m_doc.createElement("presentationSettings");
+	m_root.appendChild(presentationSettings);
 	QValueList<PDFPresentationData>::iterator it;
-	for (it = opts->PresentVals.begin(); it != opts->PresentVals.end(); ++it)
+	for (it = m_opts->PresentVals.begin(); it != m_opts->PresentVals.end(); ++it)
 	{
 		// Settings entry has no attributes, only children
-		QDomElement psEntry = doc.createElement("presentationSettingsEntry");
+		QDomElement psEntry = m_doc.createElement("presentationSettingsEntry");
 		presentationSettings.appendChild(psEntry);
 		// Children:
 		addElem(psEntry, "pageEffectDuration", (*it).pageEffectDuration);
@@ -225,13 +231,13 @@ void PDFOptionsIO::addLPISettings()
 	//   </lpiSettingsEntry>
 	//   ...
 	// </lpiSettings>
-	QDomElement lpiSettings = doc.createElement("lpiSettings");
-	root.appendChild(lpiSettings);
+	QDomElement lpiSettings = m_doc.createElement("lpiSettings");
+	m_root.appendChild(lpiSettings);
 	QMap<QString,LPIData>::iterator it;
-	for (it = opts->LPISettings.begin(); it != opts->LPISettings.end(); ++it)
+	for (it = m_opts->LPISettings.begin(); it != m_opts->LPISettings.end(); ++it)
 	{
 		// Settings entry has no attributes, only children
-		QDomElement lpiEntry = doc.createElement("lpiSettingsEntry");
+		QDomElement lpiEntry = m_doc.createElement("lpiSettingsEntry");
 		lpiEntry.setAttribute("name", it.key());
 		lpiSettings.appendChild(lpiEntry);
 		// Children:
@@ -259,5 +265,5 @@ bool PDFOptionsIO::readFrom(QString inFileName)
 
 const QString& PDFOptionsIO::lastError() const
 {
-	return error;
+	return m_error;
 }

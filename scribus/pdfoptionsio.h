@@ -49,8 +49,8 @@ public:
 	 * @param outStream QTextStream to write output to.
 	 * @return True for success.
 	 */
-	bool writeTo(QTextStream& outStream);
-	bool writeTo(QString outFileName);
+	bool writeTo(QTextStream& outStream, bool includePasswords = false);
+	bool writeTo(QString outFileName, bool includePasswords = false);
 
 	/**
 	 * @brief Load the PDF settings from a file or other data stream, overwriting
@@ -97,11 +97,13 @@ protected:
 
 
 	// The QDomDocument used by the class for all its XML work
-	QDomDocument doc;
+	QDomDocument m_doc;
 	// The root element
-	QDomElement root;
+	QDomElement m_root;
 	// The PDFOptions instance we're operating on
-	PDFOptions* opts;
+	PDFOptions* m_opts;
+	// Whether to save passwords when writing out settings
+	bool m_includePasswords;
 
 	// Version, of the form Mmpr: Major, minor, patch, revision
 	// eg 1300 - 1.3.0r0
@@ -109,7 +111,7 @@ protected:
 
 	// Error explanation if a function fails
 	// For user only, do not depend on particular values of this.
-	QString error;
+	QString m_error;
 };
 
 #endif
