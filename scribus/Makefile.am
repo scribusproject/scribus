@@ -109,6 +109,7 @@ scribus_SOURCES = \
 		pageselector.cpp\
 		pagesize.cpp\
 		pdfoptions.cpp\
+		pdfoptionsio.cpp\
 		pdfopts.cpp\
 		picsearch.cpp\
 		picstatus.cpp\
