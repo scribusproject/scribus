@@ -22,7 +22,7 @@ PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
 	this->opts = &opts;
 }
 
-// writeTo(Qtring) is implemented separately to writeTo(QTextStream)
+// writeTo(QString) is implemented separately to writeTo(QTextStream)
 // because we don't want to clobber the output file until we know the
 // data has been generated ok, and we can't avoid clobbering the file
 // to create a QTextStream().
@@ -59,6 +59,7 @@ bool PDFOptionsIO::writeTo(QTextStream& outStream)
 	return true;
 }
 
+// Construct and return an XML string representing the settings
 QString PDFOptionsIO::buildXMLString()
 {
 	// Verify to make sure our settings are sane
@@ -169,16 +170,17 @@ void PDFOptionsIO::addElem(QString name, double value)
 	root.appendChild(elem);
 }
 
+// Save a QValueList<String> or QStringList as a list of
+// <item value=""> elements
 void PDFOptionsIO::addList(QString name, QValueList<QString>& value)
 {
-	// Save a QValueList<String> or QStringList as a list of
-	// <item value=""> elements
 	// List base element has no attributes, only children
 	QDomElement listbase = doc.createElement(name);
 	root.appendChild(listbase);
 	QValueList<QString>::iterator it;
 	for (it = value.begin(); it != value.end(); ++it)
 	{
+		// Each child is of the form <item value="">
 		QDomElement child = doc.createElement("item");
 		child.setAttribute("value",*(it));
 		listbase.appendChild(child);
