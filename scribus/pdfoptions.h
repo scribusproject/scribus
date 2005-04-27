@@ -173,10 +173,16 @@ public:
 	bool readFrom(QString inFileName);
 	bool readFrom(FILE* inFilePtr);
 
+	/**
+	 * @brief Return human-readable explanation of last error.
+	 * @warning Do not depend on particular values of this in your code.
+	 */
+	const QString& lastError() const;
+
 protected:
 	// Populate the current DOM tree with the settings from the
 	// current PDFOptions instance.
-	bool buildSettings();
+	void buildSettings();
 
 	// Helper functions. Add elements under the root element
 	// with a single attribute "value=" set to the passed value.
@@ -184,6 +190,7 @@ protected:
 	void addElem(QString name, QString value);
 	void addElem(QString name, int value);
 	void addElem(QString name, double value);
+	void addList(QString name, QValueList<QString>& value);
 
 	// The QDomDocument used by the class for all its XML work
 	QDomDocument doc;
@@ -195,6 +202,10 @@ protected:
 	// Version, of the form Mmpr: Major, minor, patch, revision
 	// eg 1300 - 1.3.0r0
 	static const int formatVersion;
+
+	// Error explanation if a function fails
+	// For user only, do not depend on particular values of this.
+	QString error;
 };
 
 #endif

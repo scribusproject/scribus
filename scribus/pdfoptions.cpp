@@ -9,7 +9,7 @@ PDFOptions::VerifyResults PDFOptions::verify()
 PDFOptions::VerifyResults PDFOptions::verify(QString* /*problemDescription*/)
 {
 	// TODO: implement this method
-	return Verify_OtherError;
+	return Verify_NoError;
 }
 
 
@@ -18,7 +18,8 @@ PDFOptions::VerifyResults PDFOptions::verify(QString* /*problemDescription*/)
 const int PDFOptionsIO::formatVersion = 1300;
 
 PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
-	doc("PDFSettings")
+	doc("PDFSettings"),
+	error()
 {
 	this->opts = &opts;
 }
@@ -26,7 +27,9 @@ PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
 // overload of bool PDFOptions::writeTo(QTextStream& outStream)
 bool PDFOptionsIO::writeTo(QString outFileName)
 {
-	QTextStream ts(outFileName, IO_WriteOnly|IO_Truncate);
+	QFile f(outFileName);
+	f.open(IO_WriteOnly|IO_Truncate);
+	QTextStream ts(&f);
 	return writeTo(ts);
 }
 
@@ -40,13 +43,15 @@ bool PDFOptionsIO::writeTo(FILE* outFilePtr)
 bool PDFOptionsIO::writeTo(QTextStream& outStream)
 {
 	if (!outStream.device()->isWritable())
+	{
+		error = QObject::tr("Output stream not writeable");
 		return false;
+	}
 	// Verify to make sure our settings are sane
 	PDFOptions::VerifyResults vr = opts->verify();
 	if (vr != PDFOptions::Verify_NoError)
 	{
-		qDebug("PDFOptionsIO::writeTo(): "
-				"verify() failed [%i]", vr);
+		error = QObject::tr("Verification of settings failed: %1").arg(vr);
 		return false;
 	}
 	// Build the document. Initial implementation uses QDom.
@@ -54,21 +59,17 @@ bool PDFOptionsIO::writeTo(QTextStream& outStream)
 	root.setAttribute("version", formatVersion);
 	doc.appendChild(root);
 	// Fill the guts of the document
-	if (!buildSettings())
-	{
-		qDebug("PDFOptionsIO::writeTo(): "
-				"couldn't build settings file");
-		return false;
-	}
+	buildSettings();
 	// We're done - save it to the output stream
 	QString xml = doc.toString();
 	outStream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	outStream << doc.toString();
+	error = QString::null;
 	return true;
 }
 
 // Build up the stored settings into the passed DOM objects
-bool PDFOptionsIO::buildSettings()
+void PDFOptionsIO::buildSettings()
 {
 	addElem("thumbnails", opts->Thumbnails);
 	addElem("articles", opts->Articles);
@@ -92,20 +93,20 @@ bool PDFOptionsIO::buildSettings()
 	addElem("pdfVersion", pdfVersString);
 	addElem("resolution", opts->Resolution);
 	addElem("binding", opts->Binding);
-	// EmbedList
-	// SubsetList
+	addList("embedFonts", opts->EmbedList);
+	addList("subsetFonts", opts->SubsetList);
 	addElem("mirrorH", opts->MirrorH);
 	addElem("mirrorV", opts->MirrorV);
 	addElem("rotateDegrees", opts->RotateDeg);
 	addElem("presentMode", opts->PresentMode);
-	// PresentVals
+	// FIXME: Save opts->PresentVals
 	addElem("filename", opts->Datei);
 	addElem("isGrayscale", opts->isGrayscale);
 	addElem("useRGB", opts->UseRGB);
 	addElem("useProfiles", opts->UseProfiles);
 	addElem("useProfiles2", opts->UseProfiles2);
 	addElem("useLPI", opts->UseLPI);
-	// LPISettings
+	// FIXME: Save opts->LPISettings
 	addElem("solidProf", opts->SolidProf);
 	addElem("sComp", opts->SComp);
 	addElem("imageProf", opts->ImageProf);
@@ -122,7 +123,6 @@ bool PDFOptionsIO::buildSettings()
 	addElem("passOwner", opts->PassOwner);
 	addElem("passUser", opts->PassUser);
 	addElem("permissions", opts->Permissions);
-	return true;
 }
 
 // Convenience functions to add a single-attribute element
@@ -156,6 +156,21 @@ void PDFOptionsIO::addElem(QString name, double value)
 	root.appendChild(elem);
 }
 
+void PDFOptionsIO::addList(QString name, QValueList<QString>& value)
+{
+	// Save a QValueList<String> or QStringList as a list of
+	// <item value=""> elements
+	// List base element has no attributes, only children
+	QDomElement listbase = doc.createElement(name);
+	root.appendChild(listbase);
+	QValueList<QString>::iterator it;
+	for (it = value.begin(); it != value.end(); ++it)
+	{
+		QDomElement child = doc.createElement("item");
+		child.setAttribute("value",*(it));
+		listbase.appendChild(child);
+	}
+}
 
 bool PDFOptionsIO::readFrom(QTextStream& inStream)
 {
@@ -177,4 +192,9 @@ bool PDFOptionsIO::readFrom(FILE* inFilePtr)
 {
 	QTextStream ts(inFilePtr, IO_ReadOnly);
 	return readFrom(ts);
+}
+
+const QString& PDFOptionsIO::lastError() const
+{
+	return error;
 }
