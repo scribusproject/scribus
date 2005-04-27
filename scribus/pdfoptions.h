@@ -128,15 +128,13 @@ public:
  *    // where `opts' is an existing PDFOptions instance
  *    PDFOptionsIO io(opts);
  *    if (!io.writeTo("/path/to/file"))
- *       // handle error. Not like this:
- *       qDebug("Darn, it didn't work.");
+ *       qDebug("Failed to save settings: %s", io.lastError.utf8());
  *
  *    // Reading:
  *    PDFOptions opts;
  *    PDFOptionsIO io(opts);
  *    if (!io.readFrom("/path/to/file"))
- *       // handle error. Not like this:
- *       qDebug("incomprehensible gibberish");
+ *       qDebug("Failed to load settings: %s", io.lastError.utf8());
  */
 class PDFOptionsIO
 {
