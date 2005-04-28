@@ -31,6 +31,9 @@
  *    if (!io.readFrom("/path/to/file"))
  *       qDebug("Failed to load settings: %s", io.lastError.utf8());
  *
+ *  You should generally not keep PDFOptionsIO objects around;
+ *  just create an instance when you need it.
+ *
  * @sa PDFOptions
  */
 class PDFOptionsIO
@@ -49,7 +52,7 @@ public:
 	 * @param outStream QTextStream to write output to.
 	 * @return True for success.
 	 */
-	bool writeTo(QTextStream& outStream, bool includePasswords = false);
+	bool writeTo(QIODevice& outDevice, bool includePasswords = false);
 	bool writeTo(QString outFileName, bool includePasswords = false);
 
 	/**
@@ -63,7 +66,7 @@ public:
 	 * @param inStream QTextStream to settings data from.
 	 * @return True for success.
 	 */
-	bool readFrom(QTextStream& inStream);
+	bool readFrom(QIODevice& inStream);
 	bool readFrom(QString inFileName);
 
 	/**
@@ -95,6 +98,17 @@ protected:
 	// Helper: Add the LPI settings to the document
 	void addLPISettings();
 
+	// Helper: set the `opts' members from the current DOM tree
+	bool readSettings();
+
+	// Helper functions. Read various single elements into variables
+	// All of these return true for success. On failure, the passed
+	// value pointer is undefined.
+	bool readBool(QDomElement& parent, QString name, bool* value);
+
+	// Get a single element of the given name
+	QDomElement getUniqueElement(QDomElement& parent,QString name,
+								 bool hasValue = true);
 
 	// The QDomDocument used by the class for all its XML work
 	QDomDocument m_doc;

@@ -6,7 +6,7 @@
 const int PDFOptionsIO::formatVersion = 1300;
 
 PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
-	m_doc("PDFSettings"),
+	m_doc(),
 	m_root(),
 	m_includePasswords(false),
 	m_error()
@@ -27,7 +27,7 @@ bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 	QFile f(outFileName);
 	if (!f.open(IO_WriteOnly|IO_Truncate))
 	{
-		m_error = QObject::tr("Couldn't open output file %s")
+		m_error = QObject::tr("Couldn't open output file %1")
 			.arg(qApp->translate("QFile",f.errorString()));
 		return false;
 	}
@@ -39,10 +39,10 @@ bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 	return true;
 }
 
-bool PDFOptionsIO::writeTo(QTextStream& outStream, bool includePasswords)
+bool PDFOptionsIO::writeTo(QIODevice& outDevice, bool includePasswords)
 {
 	m_includePasswords = includePasswords;
-	if (!outStream.device()->isWritable())
+	if (!outDevice.isWritable())
 	{
 		m_error = QObject::tr("Output stream not writeable");
 		return false;
@@ -50,7 +50,9 @@ bool PDFOptionsIO::writeTo(QTextStream& outStream, bool includePasswords)
 	QString xml = buildXMLString();
 	if (xml == QString::null)
 		return false;
-	outStream << xml;
+	QTextStream ts(&outDevice);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
+	ts << xml;
 	m_includePasswords = false; // just to be paranoid
 	m_error = QString::null;
 	return true;
@@ -61,6 +63,7 @@ QString PDFOptionsIO::buildXMLString()
 {
 	// Verify to make sure our settings are sane
 	QString vrfyError;
+	// Initialise the DOM. We don't re-use any existing one in case
 	PDFOptions::VerifyResults vr = m_opts->verify(&vrfyError);
 	if (vr != PDFOptions::Verify_NoError)
 	{
@@ -257,21 +260,119 @@ bool PDFOptionsIO::readFrom(QString inFileName)
 	QFile f(inFileName);
 	if (!f.open(IO_ReadOnly))
 	{
-		m_error = QObject::tr("Couldn't open input file %s")
+		m_error = QObject::tr("Couldn't open input file %1")
 			.arg(qApp->translate("QFile",f.errorString()));
 		return false;
 	}
-	QTextStream ts(&f);
-	ts.setEncoding(QTextStream::UnicodeUTF8);
-	return readFrom(ts);
+	return readFrom(f);
 }
 
-bool PDFOptionsIO::readFrom(QTextStream& inStream)
+bool PDFOptionsIO::readFrom(QIODevice& inDevice)
 {
-	if (!inStream.device()->isReadable())
+	if (!inDevice.isReadable())
 		return false;
-	// TODO: implement this method
-	return false;
+	QString domError;
+	int errorLine, errorColumn;
+	if (!m_doc.setContent(&inDevice, &domError, &errorLine, &errorColumn))
+	{
+		m_error = QObject::tr("Unable to read settings XML:")
+			.arg(QObject::tr("%1 (line %2 col %3)", "Load PDF settings")
+				.arg(domError).arg(errorLine).arg(errorColumn)
+			);
+		return false;
+	}
+	if (!readSettings())
+		// m_error should already be set
+		return false;
+	m_error = QString::null;
+	return true;
+}
+
+// Helper for readFrom(...) to read settings from the DOM
+bool PDFOptionsIO::readSettings()
+{
+	// Get the root element
+	m_root = m_doc.documentElement();
+	if (m_root.isNull())
+	{
+		m_error = QObject::tr("Unable to read settings XML: %1")
+			.arg(QObject::tr("null root node", "Load PDF settings"));
+	}
+	// and start processing elements
+	if (!readBool(m_root, "thumbnails", &m_opts->Thumbnails))
+		return false;
+	return true;
+}
+
+// returns a null node on failure
+QDomElement PDFOptionsIO::getUniqueElement(QDomElement& parent, QString name, bool hasValue)
+{
+	QDomNodeList nodes = parent.elementsByTagName(name);
+	if (nodes.count() != 1)
+	{
+		m_error = QObject::tr("Unable to read settings XML:")
+			.arg(QObject::tr("found %1 <%2> nodes, need 1.", "Load PDF settings")
+				.arg(nodes.count()).arg(name)
+			);
+		return QDomNode().toElement();
+	}
+	QDomNode node = nodes.item(0);
+	if (node.isNull())
+	{
+		m_error = QObject::tr("Unable to read settings XML:")
+			.arg(QObject::tr("unexpected null <%2> node", "Load PDF settings")
+				.arg(name)
+			);
+		return QDomNode().toElement();
+	}
+	if (!node.isElement())
+	{
+		m_error = QObject::tr("Unable to read settings XML:")
+			.arg(QObject::tr("node <%1> not an element", "Load PDF settings")
+				.arg(name)
+			);
+		return QDomNode().toElement();
+	}
+	QDomElement elem = node.toElement();
+	if (hasValue)
+	{
+		// We need to check that it has a `value' attribute
+		if (!elem.hasAttribute("value"))
+		{
+			m_error = QObject::tr("Unable to read settings XML:")
+				.arg(QObject::tr("element <%1> lacks `value' attribute", "Load PDF settings")
+					.arg(name)
+				);
+			return QDomNode().toElement();
+		}
+	}
+	return elem;
+}
+
+bool PDFOptionsIO::readBool(QDomElement& parent, QString name, bool* value)
+{
+	QDomElement elem = getUniqueElement(parent, name);
+	if (elem.isNull())
+		return false;
+	QString elementText = elem.attribute("value");
+	if (elementText == "true")
+	{
+		(*value) = true;
+		return true;
+	}
+	else if (elementText == "false")
+	{
+		(*value) = false;
+		return true;
+	}
+	else
+	{
+		m_error = QObject::tr("Unable to read settings XML:")
+			.arg(QObject::tr("element <%1> value must be `true' or `false'", "Load PDF settings")
+				.arg(name)
+			);
+		return false;
+	}
 }
 
 const QString& PDFOptionsIO::lastError() const
