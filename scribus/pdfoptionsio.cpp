@@ -301,11 +301,125 @@ bool PDFOptionsIO::readSettings()
 	// and start processing elements
 	if (!readElem(m_root, "thumbnails", &m_opts->Thumbnails))
 		return false;
+	if (!readElem(m_root, "articles", &m_opts->Articles))
+		return false;
+	if (!readElem(m_root, "useLayers", &m_opts->useLayers))
+		return false;
+	if (!readElem(m_root, "compress", &m_opts->Compress))
+		return false;
+	if (!readElem(m_root, "compressMethod", &m_opts->CompressMethod))
+		return false;
+	if (!readElem(m_root, "quality", &m_opts->Quality))
+		return false;
+	if (!readElem(m_root, "recalcPic", &m_opts->RecalcPic))
+		return false;
+	if (!readElem(m_root, "bookmarks", &m_opts->Bookmarks))
+		return false;
+	if (!readElem(m_root, "picRes", &m_opts->PicRes))
+		return false;
+	readPDFVersion();
+	if (!readElem(m_root, "resolution", &m_opts->Resolution))
+		return false;
+	if (!readElem(m_root, "binding", &m_opts->Binding))
+		return false;
+	if (!readList(m_root, "embedFonts", &m_opts->EmbedList))
+		return false;
+	if (!readList(m_root, "subsetFonts", &m_opts->SubsetList))
+		return false;
+	if (!readElem(m_root, "mirrorH", &m_opts->MirrorH))
+		return false;
+	if (!readElem(m_root, "mirrorV", &m_opts->MirrorV))
+		return false;
+	if (!readElem(m_root, "rotateDegrees", &m_opts->RotateDeg))
+		return false;
+	if (!readElem(m_root, "presentMode", &m_opts->PresentMode))
+		return false;
+	if (!readPresentationData())
+		return false;
+	if (!readElem(m_root, "filename", &m_opts->Datei))
+		return false;
+	if (!readElem(m_root, "isGrayscale", &m_opts->isGrayscale))
+		return false;
+	if (!readElem(m_root, "useRGB", &m_opts->UseRGB))
+		return false;
+	if (!readElem(m_root, "useProfiles", &m_opts->UseProfiles))
+		return false;
+	if (!readElem(m_root, "useProfiles2", &m_opts->UseProfiles2))
+		return false;
+	if (!readElem(m_root, "useLPI", &m_opts->UseLPI))
+		return false;
+	if (!readLPISettings())
+		return false;
+	if (!readElem(m_root, "solidProf", &m_opts->SolidProf))
+		return false;
+	if (!readElem(m_root, "sComp", &m_opts->SComp))
+		return false;
+	if (!readElem(m_root, "imageProf", &m_opts->ImageProf))
+		return false;
+	if (!readElem(m_root, "embeddedI", &m_opts->EmbeddedI))
+		return false;
+	if (!readElem(m_root, "intent2", &m_opts->Intent2))
+		return false;
+	if (!readElem(m_root, "printProf", &m_opts->PrintProf))
+		return false;
+	if (!readElem(m_root, "info", &m_opts->Info))
+		return false;
+	if (!readElem(m_root, "intent", &m_opts->Intent))
+		return false;
+	if (!readElem(m_root, "bleedTop", &m_opts->BleedTop))
+		return false;
+	if (!readElem(m_root, "bleedLeft", &m_opts->BleedLeft))
+		return false;
+	if (!readElem(m_root, "bleedRight", &m_opts->BleedRight))
+		return false;
+	if (!readElem(m_root, "bleedBottom", &m_opts->BleedBottom))
+		return false;
+	if (!readElem(m_root, "encrypt", &m_opts->Encrypt))
+		return false;
+	if (!readElem(m_root, "passOwner", &m_opts->PassOwner))
+		return false;
+	if (!readElem(m_root, "passUser", &m_opts->PassUser))
+		return false;
+	if (!readElem(m_root, "permissions", &m_opts->Permissions))
+		return false;
 	return true;
 }
 
+bool PDFOptionsIO::readPDFVersion()
+{
+	QString pdfVersString;
+	if (!readElem(m_root, "pdfVersion", &pdfVersString))
+		return false;
+	if (pdfVersString == "X3")
+	{
+		m_opts->Version = PDFOptions::PDFVersion_X3;
+		return true;
+	}
+	else if (pdfVersString == "13")
+	{
+		m_opts->Version = PDFOptions::PDFVersion_13;
+		return true;
+	}
+	else if (pdfVersString == "14")
+	{
+		m_opts->Version = PDFOptions::PDFVersion_14;
+		return true;
+	}
+	else if (pdfVersString == "15")
+	{
+		m_opts->Version = PDFOptions::PDFVersion_15;
+		return true;
+	}
+	else
+	{
+		m_error = QObject::tr("Unable to read settings XML:")
+			.arg(QObject::tr("<pdfVersion> invalid", "Load PDF settings"));
+		return false;
+	}
+}
+
 // returns a null node on failure
-QDomElement PDFOptionsIO::getUniqueElement(QDomElement& parent, QString name, bool hasValue)
+QDomNode PDFOptionsIO::getUniqueNode(QDomElement& parent, QString name)
 {
 	QDomNodeList nodes = parent.elementsByTagName(name);
 	if (nodes.count() != 1)
@@ -314,9 +428,15 @@ QDomElement PDFOptionsIO::getUniqueElement(QDomElement& parent, QString name, bo
 			.arg(QObject::tr("found %1 <%2> nodes, need 1.", "Load PDF settings")
 				.arg(nodes.count()).arg(name)
 			);
-		return QDomNode().toElement();
+		return QDomNode();
 	}
-	QDomNode node = nodes.item(0);
+	return nodes.item(0);
+}
+
+// Return the node as a QDomElement iff it is a QDomElement with
+// a `value' attribute; otherwise return a null element.
+QDomElement PDFOptionsIO::getValueElement(QDomNode& node, QString name, bool isValue)
+{
 	if (node.isNull())
 	{
 		m_error = QObject::tr("Unable to read settings XML:")
@@ -334,7 +454,15 @@ QDomElement PDFOptionsIO::getUniqueElement(QDomElement& parent, QString name, bo
 		return QDomNode().toElement();
 	}
 	QDomElement elem = node.toElement();
-	if (hasValue)
+	if (elem.tagName() != name)
+	{
+		m_error = QObject::tr("Unable to read settings XML:")
+			.arg(QString("Internal error: element named <%1> not expected <%2>")
+					.arg(elem.tagName()).arg(name)
+			);
+		return QDomNode().toElement();
+	}
+	if (isValue)
 	{
 		// We need to check that it has a `value' attribute
 		if (!elem.hasAttribute("value"))
@@ -351,7 +479,8 @@ QDomElement PDFOptionsIO::getUniqueElement(QDomElement& parent, QString name, bo
 
 bool PDFOptionsIO::readElem(QDomElement& parent, QString name, bool* value)
 {
-	QDomElement elem = getUniqueElement(parent, name);
+	QDomNode node = getUniqueNode(parent, name);
+	QDomElement elem = getValueElement(node, name);
 	if (elem.isNull())
 		return false;
 	QString elementText = elem.attribute("value");
@@ -377,7 +506,8 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, bool* value)
 
 bool PDFOptionsIO::readElem(QDomElement& parent, QString name, int* value)
 {
-	QDomElement elem = getUniqueElement(parent, name);
+	QDomNode node = getUniqueNode(parent, name);
+	QDomElement elem = getValueElement(node, name);
 	if (elem.isNull())
 		return false;
 	bool ok = false;
@@ -389,7 +519,8 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, int* value)
 
 bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
 {
-	QDomElement elem = getUniqueElement(parent, name);
+	QDomNode node = getUniqueNode(parent, name);
+	QDomElement elem = getValueElement(node, name);
 	if (elem.isNull())
 		return false;
 	bool ok = false;
@@ -401,7 +532,8 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
 
 bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
 {
-	QDomElement elem = getUniqueElement(parent, name);
+	QDomNode node = getUniqueNode(parent, name);
+	QDomElement elem = getValueElement(node, name);
 	if (elem.isNull())
 		return false;
 	QString result = elem.attribute("value");
@@ -409,6 +541,115 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
 	if (ok)
 		(*value) = result;
 	return ok;
+}
+
+// Read a stringlist saved as a list of child <item value=""> elements
+bool PDFOptionsIO::readList(QDomElement& parent, QString name, QValueList<QString>* value)
+{
+	QDomNode basenode = getUniqueNode(parent, name);
+	QDomElement listbase = getValueElement(basenode, name, false);
+	if (listbase.isNull())
+		return false;
+	QValueList<QString> list;
+	for (QDomNode node = listbase.firstChild(); !node.isNull(); node = node.nextSibling())
+	{
+		QDomElement elem = getValueElement(node, "item");
+		if (elem.isNull())
+			return false;
+		list.append(elem.attribute("value"));
+	}
+	(*value) = list;
+	return true;
+}
+
+bool PDFOptionsIO::readPresentationData()
+{
+	// XML structure will be like this:
+	// <presentationSettings>
+	//   <presentationSettingsEntry>
+	//     <pageEffectDuration value="0"/>
+	//     <pageViewDuration value="0"/>
+	//     <effectType value="0"/>
+	//     <dm value="0"/>
+	//     <m value="0"/>
+	//     <di value="0"/>
+	//   </presentationSettingsEntry>
+	//   <presentationSettingsEntry>
+	//     ...
+	//   </presentationSettingsEntry>
+	//   ...
+	// </presentationSettings>
+	QDomNode basenode = getUniqueNode(m_root, "presentationSettings");
+	QDomElement pSettings = getValueElement(basenode, "presentationSettings", false);
+	if (pSettings.isNull())
+		return false;
+	QValueList<PDFPresentationData> pList;
+	for (QDomNode node = pSettings.firstChild(); !node.isNull(); node = node.nextSibling())
+	{
+		QDomElement elem = getValueElement(basenode, "presentationSettingsEntry", false);
+		if (elem.isNull())
+			return false;
+		PDFPresentationData pres;
+		if (!readElem(elem, "pageEffectDuration", &pres.pageEffectDuration))
+			return false;
+		if (!readElem(elem, "pageViewDuration", &pres.pageViewDuration))
+			return false;
+		if (!readElem(elem, "effectType", &pres.effectType))
+			return false;
+		if (!readElem(elem, "dm", &pres.Dm))
+			return false;
+		if (!readElem(elem, "m", &pres.M))
+			return false;
+		if (!readElem(elem, "di", &pres.Di))
+			return false;
+		pList.append(pres);
+	}
+	return true;
+}
+
+bool PDFOptionsIO::readLPISettings()
+{
+	// XML structure will be like this:
+	// <lpiSettings>
+	//   <lpiSettingsEntry name="blah">
+	//     <frequency value="0">
+	//     <angle value="0">
+	//     <spotFunc value="0">
+	//   </lpiSettingsEntry>
+	//   <lpiSettingsEntry name="blah2">
+	//     ...
+	//   </lpiSettingsEntry>
+	//   ...
+	// </lpiSettings>
+	QDomNode basenode = getUniqueNode(m_root, "lpiSettings");
+	QDomElement lpiSettings = getValueElement(basenode, "lpiSettings", false);
+	if (lpiSettings.isNull())
+		return false;
+	QMap<QString,LPIData> lpiMap;
+	for (QDomNode node = lpiSettings.firstChild(); !node.isNull(); node = node.nextSibling())
+	{
+		QDomElement elem = getValueElement(basenode, "lpiSettingsEntry", false);
+		if (elem.isNull())
+			return false;
+		QString name = elem.attribute("name");
+		if (name == QString::null)
+		{
+			m_error = QObject::tr("Unable to read settings XML:")
+				.arg(QObject::tr("element <lpiSettingsEntry> lacks `name' attribute", "Load PDF settings")
+					.arg(name)
+				);
+			return false;
+		}
+		LPIData lpi;
+		if (!readElem(elem, "frequency", &lpi.Frequency))
+			return false;
+		if (!readElem(elem, "angle", &lpi.Angle))
+			return false;
+		if (!readElem(elem, "spotFunc", &lpi.SpotFunc))
+			return false;
+		lpiMap[name] = lpi;
+	}
+	return true;
 }
 
 const QString& PDFOptionsIO::lastError() const

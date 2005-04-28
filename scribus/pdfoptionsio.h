@@ -108,10 +108,19 @@ protected:
 	bool readElem(QDomElement& parent, QString name, int* value);
 	bool readElem(QDomElement& parent, QString name, double* value);
 	bool readElem(QDomElement& parent, QString name, QString* value);
+	bool readList(QDomElement& parent, QString name, QValueList<QString>* value);
 
-	// Get a single element of the given name
-	QDomElement getUniqueElement(QDomElement& parent,QString name,
-								 bool hasValue = true);
+	bool readPDFVersion();
+	bool readPresentationData();
+	bool readLPISettings();
+
+	// Returns the named node under `parent' iff it's unique
+	QDomNode getUniqueNode(QDomElement& parent, QString name);
+
+	// Return a QDomElement corresponding to the passed node, ensuring it's a
+	// valid element, the only one of its name under `parent', it has name
+	// `name', and (by default) has a `value' attribute.
+	QDomElement getValueElement(QDomNode& node, QString name, bool isValue = true);
 
 	// The QDomDocument used by the class for all its XML work
 	QDomDocument m_doc;
