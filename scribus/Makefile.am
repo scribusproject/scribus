@@ -173,7 +173,7 @@ scribus_SOURCES = \
 INTERFACES =
 TRANSLATIONS =
 
-SUBDIRS = $(pixbuf_subdirs) dicts doc icons keysets libpdf libpostscript manpages plugins po profiles qm templates
+SUBDIRS = $(pixbuf_subdirs) dicts doc icons keysets libpdf libpostscript manpages plugins po profiles qm templates dtd
 
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using
