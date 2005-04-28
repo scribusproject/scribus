@@ -9214,6 +9214,10 @@ void Page::updateGradientVectors(PageItem *b)
 		default:
 			break;
 	}
+	b->GrEndX = QMIN(QMAX(b->GrEndX, 0), b->Width);
+	b->GrEndY = QMIN(QMAX(b->GrEndY, 0), b->Height);
+	b->GrStartX = QMIN(QMAX(b->GrStartX, 0), b->Width);
+	b->GrStartY = QMIN(QMAX(b->GrStartY, 0), b->Height);
 	ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
 																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
 																 b->Width * UmReFaktor, b->Height * UmReFaktor);

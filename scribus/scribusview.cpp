@@ -2541,10 +2541,10 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h, bool
 			break;
 		case 6:
 		case 7:
-			StartX = c->GrStartX;
-			StartY = c->GrStartY;
-			EndX = c->GrEndX;
-			EndY = c->GrEndY;
+			StartX = QMIN(QMAX(c->GrStartX, 0), c->Width);
+			StartY = QMIN(QMAX(c->GrStartY, 0), c->Height);
+			EndX = QMIN(QMAX(c->GrEndX, 0), c->Width);
+			EndY = QMIN(QMAX(c->GrEndY, 0), c->Height);
 			break;
 	}
 	QValueList<double> StopVec;
