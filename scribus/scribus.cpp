@@ -10438,12 +10438,35 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 					break;
 				}
 			}
-			/*
+			QString colorName=QString::null;
 			if (found)
-				qDebug("color found");
+			{
+				//qDebug(QString("color found %1").arg(it.key()));
+				colorName=it.key();
+			}
+			/*
 			else
 				qDebug("color not found");
 			*/
+			if (colorName!=QString::null && view->SelItem.count() > 0)
+			{
+				for (uint i = 0; i < view->SelItem.count(); ++i)
+				{
+					if (view->SelItem.at(i)!=NULL)
+					{
+						PageItem *currItem=view->SelItem.at(i);
+						if ((m->stateAfter() & Qt::ControlButton) && (currItem->itemType() == PageItem::TextFrame || currItem->itemType() == PageItem::PathText))
+							view->ItemTextBrush(it.key()); //Text colour
+						else
+						if (m->stateAfter() & Qt::AltButton) //Line colour
+							setPenFarbe(it.key());
+						else
+							view->ItemBrush(it.key()); //Fill colour
+					}
+				}
+			}
+			//propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+			//propertiesPalette->updateCList();
 			setAppMode(NormalMode);
 		}
 	}
