@@ -104,7 +104,10 @@ protected:
 	// Helper functions. Read various single elements into variables
 	// All of these return true for success. On failure, the passed
 	// value pointer is undefined.
-	bool readBool(QDomElement& parent, QString name, bool* value);
+	bool readElem(QDomElement& parent, QString name, bool* value);
+	bool readElem(QDomElement& parent, QString name, int* value);
+	bool readElem(QDomElement& parent, QString name, double* value);
+	bool readElem(QDomElement& parent, QString name, QString* value);
 
 	// Get a single element of the given name
 	QDomElement getUniqueElement(QDomElement& parent,QString name,

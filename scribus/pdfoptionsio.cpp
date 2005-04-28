@@ -299,7 +299,7 @@ bool PDFOptionsIO::readSettings()
 			.arg(QObject::tr("null root node", "Load PDF settings"));
 	}
 	// and start processing elements
-	if (!readBool(m_root, "thumbnails", &m_opts->Thumbnails))
+	if (!readElem(m_root, "thumbnails", &m_opts->Thumbnails))
 		return false;
 	return true;
 }
@@ -349,7 +349,7 @@ QDomElement PDFOptionsIO::getUniqueElement(QDomElement& parent, QString name, bo
 	return elem;
 }
 
-bool PDFOptionsIO::readBool(QDomElement& parent, QString name, bool* value)
+bool PDFOptionsIO::readElem(QDomElement& parent, QString name, bool* value)
 {
 	QDomElement elem = getUniqueElement(parent, name);
 	if (elem.isNull())
@@ -373,6 +373,42 @@ bool PDFOptionsIO::readBool(QDomElement& parent, QString name, bool* value)
 			);
 		return false;
 	}
+}
+
+bool PDFOptionsIO::readElem(QDomElement& parent, QString name, int* value)
+{
+	QDomElement elem = getUniqueElement(parent, name);
+	if (elem.isNull())
+		return false;
+	bool ok = false;
+	int result = elem.attribute("value").toInt(&ok);
+	if (ok)
+		(*value) = result;
+	return ok;
+}
+
+bool PDFOptionsIO::readElem(QDomElement& parent, QString name, double* value)
+{
+	QDomElement elem = getUniqueElement(parent, name);
+	if (elem.isNull())
+		return false;
+	bool ok = false;
+	double result = elem.attribute("value").toDouble(&ok);
+	if (ok)
+		(*value) = result;
+	return ok;
+}
+
+bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
+{
+	QDomElement elem = getUniqueElement(parent, name);
+	if (elem.isNull())
+		return false;
+	QString result = elem.attribute("value");
+	bool ok = result != QString::null;
+	if (ok)
+		(*value) = result;
+	return ok;
 }
 
 const QString& PDFOptionsIO::lastError() const
