@@ -1,6 +1,8 @@
 #include "pdfoptionsio.h"
 #include "scribusstructs.h"
 
+#include "qapplication.h"
+
 const int PDFOptionsIO::formatVersion = 1300;
 
 PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
@@ -25,7 +27,8 @@ bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 	QFile f(outFileName);
 	if (!f.open(IO_WriteOnly|IO_Truncate))
 	{
-		m_error = QObject::tr("Couldn't open output file");
+		m_error = QObject::tr("Couldn't open output file %s")
+			.arg(qApp->translate("QFile",f.errorString()));
 		return false;
 	}
 	QTextStream ts(&f);
@@ -248,19 +251,27 @@ void PDFOptionsIO::addLPISettings()
 
 }
 
+// overload of bool readFrom(QTextStream& inStream)
+bool PDFOptionsIO::readFrom(QString inFileName)
+{
+	QFile f(inFileName);
+	if (!f.open(IO_ReadOnly))
+	{
+		m_error = QObject::tr("Couldn't open input file %s")
+			.arg(qApp->translate("QFile",f.errorString()));
+		return false;
+	}
+	QTextStream ts(&f);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
+	return readFrom(ts);
+}
+
 bool PDFOptionsIO::readFrom(QTextStream& inStream)
 {
 	if (!inStream.device()->isReadable())
 		return false;
 	// TODO: implement this method
 	return false;
-}
-
-// overload of bool readFrom(QTextStream& inStream)
-bool PDFOptionsIO::readFrom(QString inFileName)
-{
-	QTextStream ts(inFileName, IO_ReadOnly);
-	return readFrom(ts);
 }
 
 const QString& PDFOptionsIO::lastError() const
