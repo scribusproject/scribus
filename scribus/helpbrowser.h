@@ -60,18 +60,27 @@ protected:
 	QToolButton* homeButton;
 	QToolButton* backButton;
 	QToolButton* forwButton;
+	//! bookmarks
+	QHBoxLayout* bookmarksButtonLayout;
+	QVBoxLayout* bookmarksMainLayout;
 
 	QTabWidget* tabWidget;
 	QWidget* tabContents;
-	QWidget* tabSearching;
 	QListView* listView;
 	QTextBrowser* textBrowser;
 	QSplitter* splitter;
 	QString language;
 	//! searching
+	QWidget* tabSearching;
 	QLineEdit* searchingEdit;
 	QPushButton* searchingButton;
 	QListView* searchingView;
+	//! bookmarks
+	QWidget* tabBookmarks;
+	QPushButton* bookmarkButton;
+	QPushButton* deleteBookmarkButton;
+	QPushButton* deleteAllBookmarkButton;
+	QListView* bookmarksView;
 	//! menu
 	QMenuBar *menuBar;
 
@@ -84,11 +93,15 @@ protected:
 
 	/*! Text to be finded in document */
 	QString findText;
+
 	/*! \brief Search in doc files in spec. dir.
 	It uses directory-recursion. I hope that the documentation will have
 	only 2-3 level dir structure so it doesn't matter.
 	\author Petr Vanek <petr@yarpen.cz> */
 	void searchingInDirectory(QString);
+
+	/*! Reads saved bookmarks from external file */
+	void readBookmarks();
 
 protected slots:
 	virtual void languageChange();
@@ -128,6 +141,15 @@ protected slots:
 	Based on the Qt example.
 	*/
 	void print();
+
+	/*! Add document into bookmarks. */
+	void bookmarkButton_clicked();
+
+	/*! Delete selected document from bookmarks. */
+	void deleteBookmarkButton_clicked();
+
+	/*! Delete all bookmarks */
+	void deleteAllBookmarkButton_clicked();
 
 };
 

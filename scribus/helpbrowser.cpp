@@ -51,6 +51,7 @@
 #include <qpainter.h>
 #include <qpaintdevicemetrics.h>
 #include <qsimplerichtext.h>
+#include <qxml.h>
 
 #include "scpaths.h"
 
@@ -63,6 +64,56 @@
 #endif
 
 extern QPixmap loadIcon(QString nam);
+
+
+/*! \brief Returns the name of the cfg file for bookmarks.
+A helper function
+\author Petr Vanek <petr@yarpen.cz>
+*/
+QString bookmarkFile()
+{
+	QString fname(QDir::homeDirPath()+ "/.scribus/doc/bookmarks.xml");
+	QFileInfo f(fname);
+	if (!f.exists())
+	{
+		QDir d(QDir::homeDirPath()+ "/.scribus/");
+		d.mkdir("doc");
+	}
+	return QDir::convertSeparators(fname);
+}
+
+
+/*! \brief XML parsef for documantation bookmarks.
+This is small helper class which reads saved bookmarks configuration
+from ~/.scribus/doc/bookmarks.xml file.
+\param QListView *view a reference to the list view with bookmarks
+\author Petr Vanek <petr@yarpen.cz>
+*/
+class BookmarkParser : public QXmlDefaultHandler
+{
+	public:
+		QListView* view;
+
+		bool startDocument()
+		{
+			return true;
+		}
+
+		bool startElement(const QString&, const QString&, const QString& qName, const QXmlAttributes& attrs)
+		{
+			if (qName == "item")
+			{
+				QListViewItem *item = new QListViewItem(view, attrs.value(0), attrs.value(1));
+				view->insertItem(item);
+			}
+			return true;
+		}
+
+		bool endElement(const QString&, const QString&, const QString&)
+		{
+			return true;
+		}
+};
 
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
@@ -149,6 +200,30 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	searchingMainLayout->addWidget(searchingView);
 	tabWidget->insertTab(tabSearching, tr("S&earch"));
 
+	// bookmarks
+	tabBookmarks = new QWidget(tabWidget, "tabBookmarks");
+	bookmarksMainLayout = new QVBoxLayout(tabBookmarks, 11, 6, "bookmarksMainLayout");
+	bookmarksView = new QListView(tabBookmarks, "bookmarksView");
+	bookmarksView->addColumn( tr( "Contents" ) );
+	bookmarksView->addColumn( tr( "Link" ) , 0 );
+	bookmarksView->setColumnWidthMode( 0, QListView::Maximum );
+	bookmarksView->setColumnWidthMode( 1, QListView::Manual );
+	bookmarksView->setSorting(-1,-1);
+	bookmarksView->setRootIsDecorated( true );
+	bookmarksView->setSelectionMode(QListView::Single);
+	bookmarksView->setDefaultRenameAction(QListView::Reject);
+	bookmarksView->clear();
+	bookmarksMainLayout->addWidget(bookmarksView);
+	bookmarksButtonLayout = new QHBoxLayout;
+	bookmarkButton = new QPushButton(tr("&Add Bookmark"), tabBookmarks, "bookmarkButton");
+	deleteBookmarkButton = new QPushButton(tr("&Delete"), tabBookmarks, "deleteBookmarkButton");
+	deleteAllBookmarkButton = new QPushButton(tr("D&elete All"), tabBookmarks, "deleteAllBookmarkButton");
+	bookmarksButtonLayout->addWidget(bookmarkButton);
+	bookmarksButtonLayout->addWidget(deleteBookmarkButton);
+	bookmarksButtonLayout->addWidget(deleteAllBookmarkButton);
+	bookmarksMainLayout->addLayout(bookmarksButtonLayout);
+	tabWidget->insertTab(tabBookmarks, tr("&Bookmarks"));
+
 	textBrowser = new QTextBrowser( splitter, "textBrowser" );
 	splitter->setResizeMode(textBrowser, QSplitter::Stretch);
 	//textBrowser = new QTextBrowser( this, "textBrowser" );
@@ -171,7 +246,12 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	editMenu->insertItem("Find &next", this, SLOT(findNext()), Key_F3);
 	editMenu->insertItem("Find &previous", this, SLOT(findPrevious()), SHIFT+Key_F3);
 	menuBar->insertItem("&Edit", editMenu);
+	QPopupMenu *bookmarkMenu = new QPopupMenu(this);
+	bookmarkMenu->insertItem("&Add Bookmark", this, SLOT(bookmarkButton_clicked()));
+	bookmarkMenu->insertItem("&Delete", this, SLOT(deleteBookmarkButton_clicked()));
+	bookmarkMenu->insertItem("D&elete All", this, SLOT(deleteAllBookmarkButton_clicked()));
 	helpBrowsermainLayout->setMenuBar(menuBar);
+	menuBar->insertItem("&Bookmarks", bookmarkMenu);
 /*
 	QAccel *a = new QAccel( this, "a");
 	a->connectItem(a->insertItem(QAccel::stringToKey(tr("Ctrl+F"))), this, SLOT(find()));
@@ -185,7 +265,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	loadMenu();
 	listView->header()->hide();
 	searchingView->header()->hide();
+	bookmarksView->header()->hide();
 	jumpToHelpSection(jumpToSection, jumpToFile );
+	readBookmarks();
 
 	connect( homeButton, SIGNAL( clicked() ), textBrowser, SLOT( home() ) );
 	connect( forwButton, SIGNAL( clicked() ), textBrowser, SLOT( forward() ) );
@@ -193,14 +275,33 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	connect( histMenu, SIGNAL(activated(int)), this, SLOT(histChosen(int)));
 	connect( listView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSelected( QListViewItem *)));
 	// searching
-	connect( searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
-	connect( searchingView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
-	connect( searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
+	connect(searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
+	connect(searchingView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
+	connect(searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
+	// bookmarks
+	connect(bookmarkButton, SIGNAL(clicked()), this, SLOT(bookmarkButton_clicked()));
+	connect(deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
+	connect(deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
+	connect(bookmarksView, SIGNAL(clicked(QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
 }
 
 HelpBrowser::~HelpBrowser()
 {
 	// no need to delete child widgets, Qt does it all for us
+	// bookmarks
+	QFile bookFile(bookmarkFile());
+	if (bookFile.open(IO_WriteOnly))
+	{
+		QTextStream stream(&bookFile);
+		stream.setEncoding(QTextStream::UnicodeUTF8);
+		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		stream << "<bookmarks>\n";
+		QListViewItemIterator it(bookmarksView);
+		for ( ; it.current(); ++it)
+			stream << "\t<item title=\"" << it.current()->text(0) << "\" url=\"" << it.current()->text(1) << "\" />\n";
+		stream << "</bookmarks>\n";
+		bookFile.close();
+	}
 }
 
 void HelpBrowser::languageChange()
@@ -659,3 +760,40 @@ void HelpBrowser::print()
 	QApplication::restoreOverrideCursor();
 }
 
+void HelpBrowser::bookmarkButton_clicked()
+{
+	QString title;
+	QString fname(QDir::cleanDirPath(textBrowser->source()));
+	QString fpath(QDir::cleanDirPath(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")));
+	QListViewItem *refItem = listView->findItem(fname.remove(fpath), 1);
+	refItem ? title = refItem->text(0) : title = tr("unknown");
+	title = QInputDialog::getText(tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
+	// user cancel
+	if (title == QString::null)
+		return;
+	QListViewItem *item = new QListViewItem(bookmarksView);
+	item->setText(0, title);
+	item->setText(1, textBrowser->source());
+	bookmarksView->insertItem(item);
+}
+
+void HelpBrowser::deleteBookmarkButton_clicked()
+{
+	delete(bookmarksView->currentItem());
+}
+
+void HelpBrowser::deleteAllBookmarkButton_clicked()
+{
+	bookmarksView->clear();
+}
+
+void HelpBrowser::readBookmarks()
+{
+	BookmarkParser handler;
+	handler.view = bookmarksView;
+	QFile xmlFile(bookmarkFile());
+	QXmlInputSource source(xmlFile);
+	QXmlSimpleReader reader;
+	reader.setContentHandler(&handler);
+	reader.parse( source );
+}
