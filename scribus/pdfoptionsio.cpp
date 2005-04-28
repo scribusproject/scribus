@@ -63,7 +63,7 @@ QString PDFOptionsIO::buildXMLString()
 {
 	// Verify to make sure our settings are sane
 	QString vrfyError;
-	// Initialise the DOM. We don't re-use any existing one in case
+	// Make sure the options are sane
 	PDFOptions::VerifyResults vr = m_opts->verify(&vrfyError);
 	if (vr != PDFOptions::Verify_NoError)
 	{
@@ -71,6 +71,7 @@ QString PDFOptionsIO::buildXMLString()
 		return QString::null;
 	}
 	// Build the document. Initial implementation uses QDom.
+	m_doc = QDomDocument();
 	m_root = m_doc.createElement("ScribusPDFOptions");
 	m_root.setAttribute("version", formatVersion);
 	m_doc.appendChild(m_root);
@@ -78,7 +79,10 @@ QString PDFOptionsIO::buildXMLString()
 	buildSettings();
 	// We're done - return a string containing the document XML
 	QString xml = m_doc.toString();
-	xml.prepend("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+	xml.prepend(
+		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+		"<!DOCTYPE ScribusPDFOptions SYSTEM 'scribuspdfoptions.dtd'>\n"
+		);
 	return xml;
 }
 
@@ -145,7 +149,7 @@ void PDFOptionsIO::buildSettings()
 void PDFOptionsIO::addElem(QDomElement& addTo, QString name, bool value)
 {
 	QDomElement elem = m_doc.createElement(name);
-	elem.setAttribute("value",value);
+	elem.setAttribute("value", value ? "true" : "false" );
 	addTo.appendChild(elem);
 }
 

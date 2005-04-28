@@ -19,6 +19,10 @@ struct PDFPresentationData;
  * @brief PDF Options struture. Capable of verifying its self, but otherwise largely
  *        a dumb struct.
  *
+ * If you change this class, please ensure that PDFOptionsIO is
+ * updated to match and scribus/dtd/scribuspdfoptions.dtd is tweaked
+ * if required.
+ *
  * @sa PDFOptionsIO
  */
 class PDFOptions
