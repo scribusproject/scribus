@@ -7480,6 +7480,10 @@ void ScribusView::updateGradientVectors(PageItem *currItem)
 		default:
 			break;
 	}
+	currItem->GrEndX = QMIN(QMAX(currItem->GrEndX, 0), currItem->Width);
+	currItem->GrEndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->Height);
+	currItem->GrStartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
+	currItem->GrStartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
 	ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * Doc->unitRatio, currItem->GrStartY * Doc->unitRatio,
 														 currItem->GrEndX * Doc->unitRatio, currItem->GrEndY * Doc->unitRatio,
 														 currItem->Width * Doc->unitRatio, currItem->Height * Doc->unitRatio);

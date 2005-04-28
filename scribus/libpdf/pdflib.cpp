@@ -3061,10 +3061,10 @@ void PDFlib::PDF_Gradient(PageItem *currItem)
 			break;
 		case 6:
 		case 7:
-			StartX = currItem->GrStartX;
-			StartY = currItem->GrStartY;
-			EndX = currItem->GrEndX;
-			EndY = currItem->GrEndY;
+			StartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
+			StartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
+			EndX = QMIN(QMAX(currItem->GrEndX, 0), currItem->Width);
+			EndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->Height);
 			break;
 	}
 	StopVec.clear();
@@ -3103,8 +3103,8 @@ void PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QVa
 	bool first = true;
 	double w = currItem->Width;
 	double h = -currItem->Height;
-	double w2 = currItem->GrStartX;
-	double h2 = -currItem->GrStartY;
+	double w2 = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
+	double h2 = -1.0 * QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
 	QString TRes = "";
 	for (uint c = 0; c < Colors.count()-1; ++c)
 	{
