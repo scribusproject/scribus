@@ -540,14 +540,7 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 					p->scale(LocalScX, LocalScY);
 					if (pixm.imgInfo.lowResType != 0)
 						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
-					if (InvPict)
-					{
-						QImage ip = pixm.copy();
-						ip.invertPixels();
-						p->drawImage(&ip);
-					}
-					else
-						p->drawImage(&pixm);
+					p->drawImage(&pixm);
 					p->restore();
 				}
 			}

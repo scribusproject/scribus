@@ -3002,14 +3002,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->itemType() == PageItem::ImageFrame)
 			{
-				if (currItem->imageClip.size() != 0)
-				{
-					currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-					QWMatrix cl;
-					cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
-					cl.scale(currItem->LocalScX, currItem->LocalScY);
-					currItem->imageClip.map(cl);
-				}
 				MoveItemI((newX-Mxp)/currItem->LocalScX, (newY-Myp)/currItem->LocalScY, currItem->ItemNr);
 				Mxp = newX;
 				Myp = newY;
@@ -4933,6 +4925,14 @@ void ScribusView::MoveItemI(double newX, double newY, int ite, bool redraw)
 		currItem->LocalY -= newY;
 	else
 		currItem->LocalY += newY;
+	if (currItem->imageClip.size() != 0)
+	{
+		currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+		QWMatrix cl;
+		cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
+		cl.scale(currItem->LocalScX, currItem->LocalScY);
+		currItem->imageClip.map(cl);
+	}
 	if (redraw)
 		updateContents(getRedrawBounding(currItem));
 	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY);
@@ -6178,8 +6178,6 @@ void ScribusView::AdjustItemSize(PageItem *currItem)
 	FPoint tp2 = getMinClipF(&Clip);
 	SizeItem(currItem->Width - tp2.x(), currItem->Height - tp2.y(), currItem->ItemNr, true, false, false);
 	Clip.translate(-tp2.x(), -tp2.y());
-//	if (currItem->imageClip.size() != 0)
-//		currItem->imageClip.translate(-tp2.x(), -tp2.y());
 	if (currItem->Rot != 0)
 	{
 		FPoint npv = FPoint(tp2.x(), tp2.y());
@@ -10519,7 +10517,11 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		Item->BBoxH = Item->pixm.height();
 		Item->OrigW = Item->pixm.width();
 		Item->OrigH = Item->pixm.height();
-		Item->isRaster = true;
+		QString ext = fi.extension(false).lower();
+		if ((ext == "pdf") || (ext == "ps") || (ext == "eps"))
+			Item->isRaster = false;
+		else
+			Item->isRaster = true;
 		if (Item->pixm.imgInfo.profileName != "")
 		{
 			Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
@@ -10537,6 +10539,8 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		Item->pixm.imgInfo.lowResScale = scaling;
 	}
 	Item->pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
+	if (Item->InvPict)
+		Item->pixm.invertPixels();
 	if (!Doc->loading)
 	{
 		emit RasterPic(Item->isRaster);
@@ -10564,6 +10568,14 @@ void ScribusView::AdjustPictScale(PageItem *currItem, bool )
 	{
 		currItem->LocalScX = xs;
 		currItem->LocalScY = ys;
+	}
+	if (currItem->imageClip.size() != 0)
+	{
+		currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
+		QWMatrix cl;
+		cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
+		cl.scale(currItem->LocalScX, currItem->LocalScY);
+		currItem->imageClip.map(cl);
 	}
 	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 }

@@ -9647,6 +9647,7 @@ void ScribusApp::InvertPict()
 		{
 			PageItem *currItem = view->SelItem.at(0);
 			currItem->InvPict = !currItem->InvPict;
+			currItem->pixm.invertPixels();
 			view->DrawNew();
 			slotDocCh();
 		}

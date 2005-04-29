@@ -4068,7 +4068,12 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 		if (im2 != "")
 			alphaM = true;
 		if (inver)
-			img.invertPixels();
+		{
+			if (img.imgInfo.colorspace == 1)
+				img.invertPixels(true);
+			else
+				img.invertPixels();
+		}
 		if (!Options->RecalcPic)
 		{
 			sxn = sx * (1.0 / aufl);
@@ -4166,7 +4171,27 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 				cm = 1;
 			}
 			else
-				cm = 2;
+			{
+				if (Options->CompressMethod == 1)
+				{
+					QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
+					if ((Options->UseRGB) || (Options->UseProfiles2) && (!realCMYK)) 
+						img.Convert2JPG(tmpFile, Options->Quality, false, false);
+					else
+					{
+						if (Options->isGrayscale)
+							img.Convert2JPG(tmpFile, Options->Quality, false, true);
+						else
+							img.Convert2JPG(tmpFile, Options->Quality, true, false);
+					}
+					im = "";
+					loadText(tmpFile, &im);
+					cm = 1;
+					system("rm -f "+tmpFile);
+				}
+				else
+					cm = 2;
+			}
 		}
 		else
 		{

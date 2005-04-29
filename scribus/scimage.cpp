@@ -82,6 +82,68 @@ void ScImage::initialize()
 	imgInfo.layerInfo.clear();
 }
 
+void ScImage::colorize(CMYKColor color, bool cmyk)
+{
+	int h = height();
+	int w = width();
+	int cc, cm, cy, ck;
+	if (cmyk)
+		color.getCMYK(&cc, &cm, &cy, &ck);
+	else
+	{
+		ck = 0;
+		color.getRGB(&cc, &cm, &cy);
+	}
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s;
+			double k;
+			if (cmyk)
+			{
+				k = (255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255)) / 255.0;
+				*s = qRgba(QMIN(qRound(cc*k), 255), QMIN(qRound(cm*k), 255), QMIN(qRound(cy*k), 255), QMIN(qRound(ck*k), 255));
+			}
+			else
+			{
+				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255) / 255.0;
+				int a = qAlpha(r);
+				*s = qRgba(QMIN(qRound(cc*k), 255), QMIN(qRound(cm*k), 255), QMIN(qRound(cy*k), 255), a);
+			}
+			s++;
+		}
+	}
+}
+
+void ScImage::toGrayscale(bool cmyk)
+{
+	int h = height();
+	int w = width();
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s;
+			int k;
+			if (cmyk)
+			{
+				k = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+				*s = qRgba(0, 0, 0, k);
+			}
+			else
+			{
+				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+				int a = qAlpha(r);
+				*s = qRgba(k, k, k, a);
+			}
+			s++;
+		}
+	}
+}
+
 void ScImage::swapRGBA()
 {
 	for (int i = 0; i < height(); ++i)
@@ -174,10 +236,10 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 			QRgb* rgba = (QRgb*)scanLine(cinfo.next_scanline);
 			for (int i=0; i<w; ++i)
 			{
-				*row++ = qAlpha(*rgba);
 				*row++ = qRed(*rgba);
 				*row++ = qGreen(*rgba);
 				*row++ = qBlue(*rgba);
+				*row++ = qAlpha(*rgba);
 				++rgba;
 			}
 		}
@@ -297,7 +359,7 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int m = qGreen(r);
 				int y = qBlue(r);
 				int k = qAlpha(r);
-				*s = qRgba(m, y, k, c);
+/*				*s = qRgba(m, y, k, c); */
 				ImgStr += c;
 				ImgStr += m;
 				ImgStr += y;
@@ -318,7 +380,8 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int m = 255 - qGreen(r);
 				int y = 255 - qBlue(r);
 				int k = QMIN(QMIN(c, m), y);
-				*s = qRgba(m, y, k, c);
+//				*s = qRgba(m, y, k, c);
+				*s = qRgba(c, m, y, k);
 				ImgStr += c - k;
 				ImgStr += m - k;
 				ImgStr += y - k;

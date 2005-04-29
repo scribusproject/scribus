@@ -22,6 +22,7 @@
 #include <qdir.h>
 #include <qstringlist.h>
 #include "fpointarray.h"
+#include "cmykcolor.h"
 extern "C"
 {
 #define XMD_H           // shut JPEGlib up
@@ -55,6 +56,8 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
+	void colorize(CMYKColor color, bool cmyk);
+	void toGrayscale(bool cmyk);
 	void swapRGBA();
 	void createLowRes(double scale);
 	void scaleImage(int width, int height);
