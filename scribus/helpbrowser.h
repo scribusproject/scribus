@@ -1,6 +1,8 @@
 /***************************************************************************
 *   Copyright (C) 2004 by Craig Bradney                                   *
 *   cbradney@zip.com.au                                                   *
+*   Copyright (C) 2005 by Petr Vanek                                      *
+*   petr@yarpen.cz                                                        *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
@@ -42,6 +44,15 @@ class QLineEdit;
 class QPushButton;
 class QMenuBar;
 
+
+//! A structure holding title/file url reference.
+struct histd {
+	QString url;
+	QString title;
+};
+
+
+/*! \brief This is the Help dialog for Scribus. */
 class HelpBrowser : public QWidget
 {
 	Q_OBJECT
@@ -50,25 +61,39 @@ public:
 	HelpBrowser( QWidget* parent, QString caption, QString guiLangage="en", QString jumpToSection="", QString jumpToFile="");
 	~HelpBrowser();
 
+	/*! History menu. It's public because of history reader - separate class */
+	QPopupMenu* histMenu;
+	/*! Mapping the documents for history. */
+	QMap<int, histd> mHistory;
+
 protected:
+	//! layouts
 	QVBoxLayout* helpBrowsermainLayout;
 	QHBoxLayout* helpBrowserLayout;
 	QHBoxLayout* tabLayout;
 	QHBoxLayout* buttonLayout;
 	QVBoxLayout* searchingMainLayout;
 	QHBoxLayout* searchingButtonLayout;
+	//! History tool buttons
 	QToolButton* homeButton;
+	//! Holds histMenu
 	QToolButton* backButton;
 	QToolButton* forwButton;
 	//! bookmarks
 	QHBoxLayout* bookmarksButtonLayout;
 	QVBoxLayout* bookmarksMainLayout;
 
+	//! Widget holding the listviews
 	QTabWidget* tabWidget;
+	//! Main table of contents - parent widget
 	QWidget* tabContents;
+	//! Main table of contents
 	QListView* listView;
+	//! There is documentation shown
 	QTextBrowser* textBrowser;
+	//! Rubber bar between ToC and browser
 	QSplitter* splitter;
+	//! Selected language is here. If there is no docs for this language, "en" is used.
 	QString language;
 	//! searching
 	QWidget* tabSearching;
@@ -84,13 +109,6 @@ protected:
 	//! menu
 	QMenuBar *menuBar;
 
-	QPopupMenu* histMenu;
-	struct histd {
-					QString Url;
-					QString Title;
-				};
-	QMap<int, histd> mHistory;
-
 	/*! Text to be finded in document */
 	QString findText;
 
@@ -103,6 +121,9 @@ protected:
 	/*! Reads saved bookmarks from external file */
 	void readBookmarks();
 
+	/*! Reads saved history of browsing. */
+	void readHistory();
+
 protected slots:
 	virtual void languageChange();
 
@@ -113,7 +134,6 @@ protected slots:
 	Then it performs some doc-finding and highlighting.
 	\author Petr Vanek <petr@yarpen.cz> */
 	void itemSearchSelected( QListViewItem *);
-	void sourceChanged(const QString& url);
 	void histChosen(int i);
 	void jumpToHelpSection(QString jumpToSection, QString jumpToFile="");
 	void loadHelp(QString filename);
