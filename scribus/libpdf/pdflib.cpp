@@ -4043,7 +4043,22 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				cm = 1;
 			}
 			else
-				cm = 2;
+			{
+				if (Options->CompressMethod == 1)
+				{
+					QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
+					if ((Options->UseRGB) || (Options->UseProfiles2))
+						Convert2JPG(tmpFile, &img, Options->Quality, false);
+					else
+						Convert2JPG(tmpFile, &img, Options->Quality, true);
+					im = "";
+					loadText(tmpFile, &im);
+					cm = 1;
+					system("rm -f "+tmpFile);
+				}
+				else
+					cm = 2;
+			}
 		}
 		else
 		{
