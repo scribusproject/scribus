@@ -8,14 +8,73 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qimage.h>
+#include <qcombobox.h>
+#include <qtextstream.h>
+#include "scribusdoc.h"
+#include "shadebutton.h"
+
 extern QPixmap loadIcon(QString nam);
 
-EffectsDialog::EffectsDialog( QWidget* parent, QValueList<PageItem::imageEffect> eList ) : QDialog( parent, "EffectsDialog", true, 0 )
+
+ColorEffectVals::ColorEffectVals( QWidget* parent, QString colorName, ScribusDoc* doc) : QDialog( parent, "dd", true, 0 )
+{
+	setCaption( tr( "Choose Color" ) );
+	setIcon(loadIcon("AppIcon.png"));
+	QString tmp = colorName;
+	QString col = tr("None");
+	int shading = 100;
+	QTextStream fp(&tmp, IO_ReadOnly);
+	fp >> col;
+	fp >> shading;
+	dialogLayout = new QVBoxLayout( this, 10, 5 );
+	layout1 = new QHBoxLayout;
+	layout1->setSpacing( 5 );
+	layout1->setMargin( 10 );
+	label1 = new QLabel( tr( "Color:" ), this, "Label" );
+	layout1->addWidget( label1 );
+	colData = new QComboBox(false, this);
+	ColorList::Iterator it;
+	QPixmap pm = QPixmap(15, 15);
+	colData->insertItem( tr("None"));
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRGBColor());
+		colData->insertItem(pm, it.key());
+		if (it.key() == col)
+			colData->setCurrentItem(colData->count()-1);
+	}
+	layout1->addWidget( colData );
+	label2 = new QLabel( tr( "Shade:" ), this, "Label2" );
+	layout1->addWidget( label2 );
+	shade = new ShadeButton(this);
+	shade->setValue(shading);
+	layout1->addWidget( shade );
+	dialogLayout->addLayout( layout1 );
+
+	okCancelLayout = new QHBoxLayout;
+	okCancelLayout->setSpacing( 6 );
+	okCancelLayout->setMargin( 0 );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	okCancelLayout->addItem( spacer );
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okCancelLayout->addWidget( okButton );
+	cancelButton = new QPushButton( tr( "&Cancel" ), this, "PushButton13" );
+	cancelButton->setDefault( true );
+	okCancelLayout->addWidget( cancelButton );
+	dialogLayout->addLayout( okCancelLayout );
+	setMaximumSize(sizeHint());
+
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+}
+
+EffectsDialog::EffectsDialog( QWidget* parent, QValueList<PageItem::imageEffect> eList, ScribusDoc* docc ) : QDialog( parent, "EffectsDialog", true, 0 )
 {
 	EffectsDialogLayout = new QVBoxLayout( this, 10, 5, "EffectsDialogLayout");
 	setCaption( tr( "Image Effects" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	effectsList = eList;
+	doc = docc;
 	layout10 = new QGridLayout( 0, 1, 1, 0, 5, "layout10");
 
 	layout2 = new QVBoxLayout( 0, 0, 5, "layout2");
@@ -26,6 +85,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, QValueList<PageItem::imageEffect>
 	availableEffects->clear();
 	availableEffects->insertItem( tr("Invert"));
 	availableEffects->insertItem( tr("Grayscale"));
+	availableEffects->insertItem( tr("Colorize"));
 	layout2->addWidget( availableEffects );
 	layout10->addLayout( layout2, 0, 0 );
 
@@ -50,12 +110,24 @@ EffectsDialog::EffectsDialog( QWidget* parent, QValueList<PageItem::imageEffect>
 	layout8->addWidget( textLabel2 );
 	usedEffects = new QListBox( this, "usedEffects" );
 	usedEffects->clear();
+	effectValMap.clear();
 	for (uint a = 0; a < effectsList.count(); ++a)
 	{
 		if ((*effectsList.at(a)).effectCode == 0)
+		{
 			usedEffects->insertItem( tr("Invert"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
+		}
 		if ((*effectsList.at(a)).effectCode == 1)
+		{
 			usedEffects->insertItem( tr("Grayscale"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
+		}
+		if ((*effectsList.at(a)).effectCode == 2)
+		{
+			usedEffects->insertItem( tr("Colorize"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
 	}
 	layout8->addWidget( usedEffects );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
@@ -124,16 +196,43 @@ void EffectsDialog::saveValues()
 			ef.effectParameters = "";
 			effectsList.append(ef);
 		}
+		if (usedEffects->item(e)->text() == tr("Colorize"))
+		{
+			ef.effectCode = 2;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+			effectsList.append(ef);
+		}
 	}
 }
 
 void EffectsDialog::moveToEffects()
 {
 	usedEffects->insertItem(availableEffects->currentText());
+	if (availableEffects->currentText() == tr("Invert"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
+	if (availableEffects->currentText() == tr("Grayscale"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
+	if (availableEffects->currentText() == tr("Colorize"))
+	{
+		QString efval = tr("None")+" 100";
+		ColorEffectVals* dia = new ColorEffectVals(this, efval, doc);
+		if (dia->exec())
+		{
+			efval = dia->colData->currentText();
+			if (efval == "None" || efval == tr("None"))
+				efval = "None";
+			QString tmp;
+			tmp.setNum(dia->shade->getValue());
+			efval += " "+tmp;
+		}
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+		delete dia;
+	}
 }
 
 void EffectsDialog::moveFromEffects()
 {
+	effectValMap.remove(usedEffects->item(usedEffects->currentItem()));
 	usedEffects->removeItem(usedEffects->currentItem());
 	if (usedEffects->count() == 0)
 	{
@@ -156,7 +255,30 @@ void EffectsDialog::moveEffectDown()
 
 void EffectsDialog::editEffect()
 {
-	qWarning( "EffectsDialog::editEffect(): Not implemented yet" );
+	if (usedEffects->currentText() == tr("Colorize"))
+	{
+		QString tmpstr = effectValMap[usedEffects->item(usedEffects->currentItem())];
+		QString col = "";
+		QString shading = "";
+		QTextStream fp(&tmpstr, IO_ReadOnly);
+		fp >> col;
+		fp >> shading;
+		if (col == "None" || col == tr("None"))
+			col = tr("None");
+		QString efval = col+" "+shading;
+		ColorEffectVals* dia = new ColorEffectVals(this, efval, doc);
+		if (dia->exec())
+		{
+			efval = dia->colData->currentText();
+			if (efval == "None" || efval == tr("None"))
+				efval = "None";
+			QString tmp;
+			tmp.setNum(dia->shade->getValue());
+			efval += " "+tmp;
+		}
+		effectValMap[usedEffects->item(usedEffects->currentItem())] = efval;
+		delete dia;
+	}
 }
 
 void EffectsDialog::selectEffect(QListBoxItem* c)
@@ -171,6 +293,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			effectOptions->setEnabled(false);
 		else if (c->text() == tr("Invert"))
 			effectOptions->setEnabled(false);
+		else if (c->text() == tr("Colorize"))
+			effectOptions->setEnabled(true);
 		else
 			effectOptions->setEnabled(true);
 	}

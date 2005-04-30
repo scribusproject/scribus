@@ -56,7 +56,8 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
-	void colorize(CMYKColor color, bool cmyk);
+	void invert(bool cmyk);
+	void colorize(CMYKColor color, int shade, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void swapRGBA();
 	void createLowRes(double scale);

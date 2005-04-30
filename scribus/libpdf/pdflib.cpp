@@ -3825,7 +3825,7 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 	double aufl = Options->Resolution / 72.0;
 	int ImRes, ImWid, ImHei, origWidth, origHeight;
 	struct ShIm ImInfo;
-	if ((!SharedImages.contains(fn)) || (fromAN))
+	if ((!SharedImages.contains(fn)) || (fromAN) || (c->effectsInUse.count() != 0))
 	{
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options->UseProfiles2))
@@ -4074,13 +4074,13 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 				if ((*c->effectsInUse.at(ae)).effectCode == 0)
 				{
 					if ((Options->UseRGB) || (Options->isGrayscale))
-						img.invertPixels(false);
+						img.invert(false);
 					else
 					{
-						if ((Options->UseProfiles2) && (img.imgInfo.colorspace == 1))
-							img.invertPixels(false);
+						if ((Options->UseProfiles2) && (img.imgInfo.colorspace != 1))
+							img.invert(false);
 						else
-							img.invertPixels();
+							img.invert(true);
 					}
 				}
 				if ((*c->effectsInUse.at(ae)).effectCode == 1)
@@ -4089,10 +4089,28 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 						img.toGrayscale(false);
 					else
 					{
-						if ((Options->UseProfiles2) && (img.imgInfo.colorspace == 1))
-							img.toGrayscale(true);
-						else
+						if ((Options->UseProfiles2) && (img.imgInfo.colorspace != 1))
 							img.toGrayscale(false);
+						else
+							img.toGrayscale(true);
+					}
+				}
+				if ((*c->effectsInUse.at(ae)).effectCode == 2)
+				{
+					QString tmpstr = (*c->effectsInUse.at(ae)).effectParameters;
+					QString col = "None";
+					int shading = 100;
+					QTextStream fp(&tmpstr, IO_ReadOnly);
+					fp >> col;
+					fp >> shading;
+					if ((Options->UseRGB) || (Options->isGrayscale))
+						img.colorize(c->Doc->PageColors[col], shading, false);
+					else
+					{
+						if ((Options->UseProfiles2) && (img.imgInfo.colorspace != 1))
+							img.colorize(c->Doc->PageColors[col], shading, false);
+						else
+							img.colorize(c->Doc->PageColors[col], shading, true);
 					}
 				}
 			}
@@ -4281,7 +4299,8 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 		ImInfo.sya = syn;
 		ImInfo.xa = sx;
 		ImInfo.ya = sy;
-		SharedImages.insert(fn, ImInfo);
+		if (c->effectsInUse.count() == 0)
+			SharedImages.insert(fn, ImInfo);
 		ResCount++;
 	}
 	else

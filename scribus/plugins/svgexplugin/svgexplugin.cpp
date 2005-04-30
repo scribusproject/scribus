@@ -471,6 +471,26 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							gr.appendChild(ob);
 							ScImage img;
 							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
+							if (Item->effectsInUse.count() != 0)
+							{
+								for (uint ae = 0; ae < Item->effectsInUse.count(); ++ae)
+								{
+									if ((*Item->effectsInUse.at(ae)).effectCode == 0)
+										img.invert(false);
+									if ((*Item->effectsInUse.at(ae)).effectCode == 1)
+										img.toGrayscale(false);
+									if ((*Item->effectsInUse.at(ae)).effectCode == 2)
+									{
+										QString tmpstr = (*Item->effectsInUse.at(ae)).effectParameters;
+										QString col = "None";
+										int shading = 100;
+										QTextStream fp(&tmpstr, IO_ReadOnly);
+										fp >> col;
+										fp >> shading;
+										img.colorize(Item->Doc->PageColors[col], shading, false);
+									}
+								}
+							}
 							QFileInfo fi = QFileInfo(Item->Pfile);
 							img.save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");

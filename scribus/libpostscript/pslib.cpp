@@ -687,9 +687,19 @@ void PSLib::PS_ImageData(PageItem *c, bool inver, QString fn, QString Name, QStr
 		for (uint ae = 0; ae < c->effectsInUse.count(); ++ae)
 		{
 			if ((*c->effectsInUse.at(ae)).effectCode == 0)
-				image.invertPixels();
+				image.invert(true);
 			if ((*c->effectsInUse.at(ae)).effectCode == 1)
 				image.toGrayscale(true);
+			if ((*c->effectsInUse.at(ae)).effectCode == 2)
+			{
+				QString tmpstr = (*c->effectsInUse.at(ae)).effectParameters;
+				QString col = "None";
+				int shading = 100;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> col;
+				fp >> shading;
+				image.colorize(c->Doc->PageColors[col], shading, true);
+			}
 		}
 	}
 	ImgStr = image.ImageToCMYK_PS(-1, true);
@@ -773,9 +783,19 @@ void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, do
 			for (uint ae = 0; ae < c->effectsInUse.count(); ++ae)
 			{
 				if ((*c->effectsInUse.at(ae)).effectCode == 0)
-					image.invertPixels();
+					image.invert(true);
 				if ((*c->effectsInUse.at(ae)).effectCode == 1)
 					image.toGrayscale(true);
+				if ((*c->effectsInUse.at(ae)).effectCode == 2)
+				{
+					QString tmpstr = (*c->effectsInUse.at(ae)).effectParameters;
+					QString col = "None";
+					int shading = 100;
+					QTextStream fp(&tmpstr, IO_ReadOnly);
+					fp >> col;
+					fp >> shading;
+					image.colorize(c->Doc->PageColors[col], shading, true);
+				}
 			}
 		}
 		int w = image.width();

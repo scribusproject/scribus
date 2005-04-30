@@ -82,17 +82,20 @@ void ScImage::initialize()
 	imgInfo.layerInfo.clear();
 }
 
-void ScImage::colorize(CMYKColor color, bool cmyk)
+void ScImage::colorize(CMYKColor color, int shade, bool cmyk)
 {
 	int h = height();
 	int w = width();
 	int cc, cm, cy, ck;
+	int hu, sa, v;
+	CMYKColor tmp2;
+	QColor tmpR;
 	if (cmyk)
-		color.getCMYK(&cc, &cm, &cy, &ck);
+		color.getShadeColorCMYK(&cc, &cm, &cy, &ck, shade);
 	else
 	{
 		ck = 0;
-		color.getRGB(&cc, &cm, &cy);
+		color.getShadeColorRGB(&cc, &cm, &cy, shade);
 	}
 	for( int yi=0; yi < h; ++yi )
 	{
@@ -100,18 +103,55 @@ void ScImage::colorize(CMYKColor color, bool cmyk)
 		for( int xi=0; xi < w; ++xi )
 		{
 			QRgb r=*s;
-			double k;
 			if (cmyk)
 			{
-				k = (255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255)) / 255.0;
+				double k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255) / 255.0;
 				*s = qRgba(QMIN(qRound(cc*k), 255), QMIN(qRound(cm*k), 255), QMIN(qRound(cy*k), 255), QMIN(qRound(ck*k), 255));
 			}
 			else
 			{
-				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255) / 255.0;
+				int k = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+				int cc2, cm2, cy2;
+				tmpR.setRgb(cc, cm, cy);
+				tmpR.hsv(&hu, &sa, &v);
+				if (cc == cm && cm == cy)
+					tmpR.setHsv(hu, sa, 255 - ((255 - v) * k / 255));
+				else
+					tmpR.setHsv(hu, sa * k / 255, v);
+				tmpR.getRgb(&cc2, &cm2, &cy2);
 				int a = qAlpha(r);
-				*s = qRgba(QMIN(qRound(cc*k), 255), QMIN(qRound(cm*k), 255), QMIN(qRound(cy*k), 255), a);
+				*s = qRgba(cc2, cm2, cy2, a);
 			}
+			s++;
+		}
+	}
+}
+
+void ScImage::invert(bool cmyk)
+{
+	int h = height();
+	int w = width();
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			if (cmyk)
+			{
+				unsigned char *p = (unsigned char *) s;
+				unsigned char c, m, y, k;
+				c = 255 - p[0];
+				m = 255 - p[1];
+				y = 255 - p[2];
+				k = 255 - p[3];
+				p[0] = c;
+				p[1] = m;
+				p[2] = y;
+/*				if (((c == 255) && (m == 255) && (y == 255)) || ((c == m) && (m == y)))
+					p[3] = k; */
+			}
+			else
+				*s ^= 0x00ffffff;
 			s++;
 		}
 	}
