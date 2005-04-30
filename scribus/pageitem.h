@@ -132,6 +132,12 @@ public:
 				Foi* ZFo;
 			  };
 
+	struct imageEffect
+	{
+		int effectCode;
+		QString effectParameters;
+	};
+
 	ObjAttrVector* getObjectAttributes();
 	/*!
 	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
@@ -209,6 +215,7 @@ public:
 	FPointArray ContourLine;
 	FPointArray imageClip;
 	QValueList<uint> Segments;
+	QValueList<imageEffect> effectsInUse;
 	bool PoShow;
 	double BaseOffs;
 	bool ClipEdited;

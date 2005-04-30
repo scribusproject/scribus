@@ -296,7 +296,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	startArrowIndex = Doc->toolSettings.dStartArrow;
 	endArrowIndex = Doc->toolSettings.dEndArrow;
 	undoManager = UndoManager::instance();
-	
+	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
 	for(ObjAttrVector::Iterator objAttrIt = Doc->docItemAttributes.begin() ; objAttrIt != Doc->docItemAttributes.end(); ++objAttrIt )

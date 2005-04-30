@@ -214,9 +214,9 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["typeEffectOutline"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 
 	//Other Style menu items that get added in various places
-	scrActions->insert("styleInvertPict", new ScrAction(tr("&Invert"), QKeySequence(), ScApp, "styleInvertPict"));
+	scrActions->insert("styleInvertPict", new ScrAction(tr("&Image Effects"), QKeySequence(), ScApp, "styleInvertPict"));
 	scrActions->insert("styleTabulators", new ScrAction(tr("&Tabulators..."), QKeySequence(), ScApp, "styleTabulators"));
-	connect( (*scrActions)["styleInvertPict"], SIGNAL(activated()), ScApp, SLOT(InvertPict()));
+	connect( (*scrActions)["styleInvertPict"], SIGNAL(activated()), ScApp, SLOT(ImageEffects()));
 	connect( (*scrActions)["styleTabulators"], SIGNAL(activated()), ScApp, SLOT(EditTabs()));
 
 }

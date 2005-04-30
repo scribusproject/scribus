@@ -130,7 +130,7 @@ void ScImage::toGrayscale(bool cmyk)
 			int k;
 			if (cmyk)
 			{
-				k = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 				*s = qRgba(0, 0, 0, k);
 			}
 			else

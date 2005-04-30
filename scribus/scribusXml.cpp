@@ -2238,6 +2238,16 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		else
 			ob.setAttribute("ALIGN",item->textAlignment);
  		SetItemProps(&ob, item, false);
+		if (item->effectsInUse.count() != 0)
+		{
+			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+			{
+				QDomElement imeff = docu.createElement("ImageEffect");
+				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
+				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
+				ob.appendChild(imeff);
+			}
+		}
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
@@ -2469,6 +2479,16 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			ob.setAttribute("GRSTARTY", item->GrStartY);
 			ob.setAttribute("GRENDX", item->GrEndX);
 			ob.setAttribute("GRENDY", item->GrEndY);
+		}
+		if (item->effectsInUse.count() != 0)
+		{
+			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+			{
+				QDomElement imeff = docu->createElement("ImageEffect");
+				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
+				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
+				ob.appendChild(imeff);
+			}
 		}
 		ob.setAttribute("ALIGN",item->textAlignment);
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);

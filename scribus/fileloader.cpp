@@ -1205,6 +1205,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	int xi;
 	double xf, yf;
 	QString clPath;
+	QDomNode IT;
 	switch (pt)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -1225,6 +1226,19 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
 		currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
+		IT = obj->firstChild();
+		while(!IT.isNull())
+		{
+			QDomElement it = IT.toElement();
+			if (it.tagName()=="ImageEffect")
+			{
+				struct PageItem::imageEffect ef;
+				ef.effectParameters = it.attribute("Param");
+				ef.effectCode = QStoInt(it.attribute("Code"));
+				currItem->effectsInUse.append(ef);
+			}
+			IT=IT.nextSibling();
+		}
 		if (currItem->Pfile != "")
 			view->LoadPict(currItem->Pfile, z);
 		currItem->LocalScX = scx;

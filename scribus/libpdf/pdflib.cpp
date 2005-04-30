@@ -4067,12 +4067,35 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 			im2 = img2.getAlpha(fn, true, false);
 		if (im2 != "")
 			alphaM = true;
-		if (inver)
+		if (c->effectsInUse.count() != 0)
 		{
-			if (img.imgInfo.colorspace == 1)
-				img.invertPixels(true);
-			else
-				img.invertPixels();
+			for (uint ae = 0; ae < c->effectsInUse.count(); ++ae)
+			{
+				if ((*c->effectsInUse.at(ae)).effectCode == 0)
+				{
+					if ((Options->UseRGB) || (Options->isGrayscale))
+						img.invertPixels(false);
+					else
+					{
+						if ((Options->UseProfiles2) && (img.imgInfo.colorspace == 1))
+							img.invertPixels(false);
+						else
+							img.invertPixels();
+					}
+				}
+				if ((*c->effectsInUse.at(ae)).effectCode == 1)
+				{
+					if ((Options->UseRGB) || (Options->isGrayscale))
+						img.toGrayscale(false);
+					else
+					{
+						if ((Options->UseProfiles2) && (img.imgInfo.colorspace == 1))
+							img.toGrayscale(true);
+						else
+							img.toGrayscale(false);
+					}
+				}
+			}
 		}
 		if (!Options->RecalcPic)
 		{
@@ -4164,7 +4187,7 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 		int cm = Options->CompressMethod;
 		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
 		{
-			if (((Options->UseRGB || Options->UseProfiles2) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!Options->RecalcPic))
+			if (((Options->UseRGB || Options->UseProfiles2) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!Options->RecalcPic))
 			{
 				im = "";
 				loadText(fn, &im);

@@ -682,8 +682,16 @@ void PSLib::PS_ImageData(PageItem *c, bool inver, QString fn, QString Name, QStr
 	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 	image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy);
-	if (inver)
-		image.invertPixels();
+	if (c->effectsInUse.count() != 0)
+	{
+		for (uint ae = 0; ae < c->effectsInUse.count(); ++ae)
+		{
+			if ((*c->effectsInUse.at(ae)).effectCode == 0)
+				image.invertPixels();
+			if ((*c->effectsInUse.at(ae)).effectCode == 1)
+				image.toGrayscale(true);
+		}
+	}
 	ImgStr = image.ImageToCMYK_PS(-1, true);
 	if (CompAvail)
 	{
@@ -760,8 +768,16 @@ void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, do
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy);
-		if (inver)
-			image.invertPixels();
+		if (c->effectsInUse.count() != 0)
+		{
+			for (uint ae = 0; ae < c->effectsInUse.count(); ++ae)
+			{
+				if ((*c->effectsInUse.at(ae)).effectCode == 0)
+					image.invertPixels();
+				if ((*c->effectsInUse.at(ae)).effectCode == 1)
+					image.toGrayscale(true);
+			}
+		}
 		int w = image.width();
 		int h = image.height();
 		if (ext == "pdf")

@@ -10539,8 +10539,16 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		Item->pixm.imgInfo.lowResScale = scaling;
 	}
 	Item->pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
-	if (Item->InvPict)
-		Item->pixm.invertPixels();
+	if (Item->effectsInUse.count() != 0)
+	{
+		for (uint a = 0; a < Item->effectsInUse.count(); ++a)
+		{
+			if ((*Item->effectsInUse.at(a)).effectCode == 0)
+				Item->pixm.invertPixels();
+			if ((*Item->effectsInUse.at(a)).effectCode == 1)
+				Item->pixm.toGrayscale(false);
+		}
+	}
 	if (!Doc->loading)
 	{
 		emit RasterPic(Item->isRaster);

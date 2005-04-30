@@ -49,6 +49,7 @@ scribus_SOURCES = \
 		edit1format.cpp\
 		editformats.cpp\
 		editor.cpp\
+		effectsdialog.cpp\
 		extimageprops.cpp\
 		fileloader.cpp\
 		fileunzip.cpp\

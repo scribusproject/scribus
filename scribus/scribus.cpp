@@ -132,6 +132,7 @@
 #include "pdfoptions.h"
 #include "actionmanager.h"
 #include "documentinformation.h"
+#include "effectsdialog.h"
 
 //CB TODO include for toc testing for now
 #include "gtwriter.h"
@@ -9640,16 +9641,20 @@ void ScribusApp::setItemLineTransparency(double t)
 	}
 }
 
-void ScribusApp::InvertPict()
+void ScribusApp::ImageEffects()
 {
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *currItem = view->SelItem.at(0);
-			currItem->InvPict = !currItem->InvPict;
-			currItem->pixm.invertPixels();
-			view->DrawNew();
+			EffectsDialog* dia = new EffectsDialog(this, currItem->effectsInUse);
+			if (dia->exec())
+			{
+				currItem->effectsInUse = dia->effectsList;
+				view->UpdatePic();
+			}
+			delete dia;
 			slotDocCh();
 		}
 	}

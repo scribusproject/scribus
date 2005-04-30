@@ -234,7 +234,7 @@ public slots:
 	void ToggleAllPalettes();
 	void slotStoryEditor();
 	void slotCharSelect();
-	void InvertPict();
+	void ImageEffects();
 	QString Collect(bool compress = false, bool withFonts = false);
 	void ChBookmarks(int s, int e, int n);
 	void AddBookMark(PageItem *ite);
