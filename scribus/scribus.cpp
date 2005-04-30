@@ -8591,7 +8591,8 @@ void ScribusApp::ManageTemp(QString temp)
 			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
-			connect(dia, SIGNAL(updateTree(ScribusDoc* )), outlinePalette, SLOT(BuildTree(ScribusDoc* )));
+			connect(dia, SIGNAL(docAltered(ScribusDoc* )), outlinePalette, SLOT(BuildTree(ScribusDoc* )));
+			connect(dia, SIGNAL(docAltered(ScribusDoc*)), SLOT(slotDocCh()));
 			scrActions["pageInsert"]->setEnabled(false);
 			scrActions["pageDelete"]->setEnabled(false);
 			scrActions["pageCopy"]->setEnabled(false);

@@ -110,7 +110,7 @@ void MusterPages::deleteTemplate()
 		sMuster = "Normal";
 		updateTemplateList(sMuster);
 		currentDoc->MasterPages = currentDoc->Pages;
-		emit updateTree(currentDoc);
+		emit docAltered(currentDoc);
 	}
 }
 
@@ -213,7 +213,7 @@ void MusterPages::duplicateTemplate()
 		currentDoc->MasterPages = currentDoc->Pages;
 		currentDoc->loading = false;
 		currentView->DrawNew();
-		emit updateTree(currentDoc);
+		emit docAltered(currentDoc);
 	}
 	delete dia;
 }
@@ -252,7 +252,7 @@ void MusterPages::newTemplate()
 		currentDoc->PageAT = atf;
 		currentView->ShowTemplate(currentDoc->MasterNames[templateName]);
 		currentDoc->MasterPages = currentDoc->Pages;
-		emit updateTree(currentDoc);
+		emit docAltered(currentDoc);
 	}
 	delete dia;
 }
@@ -290,7 +290,7 @@ void MusterPages::appendPage()
 		currentView->ShowTemplate(currentDoc->MasterNames[templateName2]);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		currentDoc->MasterPages = currentDoc->Pages;
-		emit updateTree(currentDoc);
+		emit docAltered(currentDoc);
 	}
 	delete dia;
 }
