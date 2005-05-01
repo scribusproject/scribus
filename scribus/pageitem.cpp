@@ -4063,7 +4063,6 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 		//     Copy of fred (5)
 		//     ^^^^^^^^^^^^  ^   (where ^ means captured)
 		QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
-		//rx.setMinimal(true);
 		int numMatches = rx.searchRev(newname);
 		// Add a (number) suffix to the end of the name. We start at the
 		// old suffix's value if there was one, or at 2 if there was not.
