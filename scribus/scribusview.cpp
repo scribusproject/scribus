@@ -2654,3 +2654,66 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 	}
 	w->accept();
 }
+
+bool ScribusView::nameExists(const QString itemName)
+{
+	bool found = false;
+	for (uint a = 0; a < Pages.count(); ++a)
+	{
+		for (uint c = 0; c < Pages.at(a)->Items.count(); ++c)
+		{
+			if (itemName == Pages.at(a)->Items.at(c)->AnName)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found)
+			break;
+	}
+	return found;
+}
+
+QString ScribusView::generateUniqueCopyName(const QString originalName)
+{
+	if (!nameExists(originalName))
+		return originalName;
+
+	// Start embellishing the name until we get an acceptable unique name
+	// first we prefix `Copy of' if it's not already there
+	QString newname(originalName);
+	if (!originalName.startsWith(tr("Copy of")))
+		newname.prepend(tr("Copy of")+" ");
+
+	// See if the name prefixed by "Copy of " is free
+	if (nameExists(newname))
+	{
+		// Search the string for (number) at the end and capture
+		// both the number and the text leading up to it sans brackets.
+		//     Copy of fred (5)
+		//     ^^^^^^^^^^^^  ^   (where ^ means captured)
+		QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
+		int numMatches = rx.searchRev(newname);
+		// Add a (number) suffix to the end of the name. We start at the
+		// old suffix's value if there was one, or at 2 if there was not.
+		int suffixnum = 2;
+		QString prefix(newname);
+		if (numMatches != -1)
+		{
+			// Already had a suffix; use the name w/o suffix for prefix and
+			// grab the old suffix value as a starting point.
+			QStringList matches = rx.capturedTexts();
+			prefix = matches[1];
+			suffixnum = matches[2].toInt();
+		}
+		// Keep on incrementing the suffix 'till we find a free name
+		do
+		{
+			newname = prefix + " (" + QString::number(suffixnum) + ")";
+			suffixnum ++;
+		}
+		while (nameExists(newname));
+	}
+	assert(!nameExists(newname));
+	return newname;
+}

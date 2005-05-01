@@ -9009,24 +9009,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		else
 		{
 			ScribusView* view = (ScribusView*)Anz;
-			bool found = false;
-			for (uint a = 0; a < view->Pages.count(); ++a)
-			{
-				for (uint c = 0; c < view->Pages.at(a)->Items.count(); ++c)
-				{
-					if (Buffer->AnName == view->Pages.at(a)->Items.at(c)->AnName)
-					{
-						found = true;
-						break;
-					}
-				}
-				if (found)
-					break;
-			}
-			if (found)
-				b->AnName = tr("Copy of")+" "+Buffer->AnName;
-			else
-				b->AnName = Buffer->AnName;
+			b->AnName = view->generateUniqueCopyName(Buffer->AnName);
 			b->AutoName = false;
 		}
 	}
@@ -10040,4 +10023,3 @@ void Page::LoadPict(QString fn, int ItNr)
 	}
 	emit DocChanged();
 }
-

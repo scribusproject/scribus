@@ -90,6 +90,13 @@ public:
 	ScribusDoc *Doc;
 	preV *Prefs;
 
+	// Return a PageItem name based on the passed name that's guaranteed
+	// to be unique to the document.
+	QString generateUniqueCopyName(const QString originalName);
+
+	// Return true iff a PageItem with the passed name exists in the document
+	bool nameExists(const QString itemName);
+
 public slots: // Public slots
   /** Fhrt die Vergr�erung/Verkleinerung aus; */
 	void slotDoZoom();
