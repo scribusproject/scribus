@@ -392,7 +392,6 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("LOCK", item->locked() ? 1 : 0);
 	ob->setAttribute("LOCKR", item->sizeLocked() ? 1 : 0);
 	ob->setAttribute("REVERS", item->Reverse ? 1 : 0);
-	ob->setAttribute("INVERS", item->InvPict ? 1 : 0);
 	ob->setAttribute("TransValue", item->fillTransparency());
 	ob->setAttribute("TransValueS", item->lineTransparency());
 	ob->setAttribute("isTableItem", static_cast<int>(item->isTableItem));

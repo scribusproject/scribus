@@ -262,7 +262,6 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.UseEmbedded = QStoInt(pg.attribute("EMBEDDED","1"));
 			OB.Locked = static_cast<bool>(QStoInt(pg.attribute("LOCK","0")));
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
-			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
 			OB.Transparency = QStodouble(pg.attribute("TransValue","0.0"));
 			if (pg.hasAttribute("TransValueS"))
 				OB.TranspStroke = QStodouble(pg.attribute("TransValueS","0.0"));
@@ -535,8 +534,6 @@ QPixmap ScPreview::createPreview(QString data)
 						}
 						ScImage pixm;
 						pixm.LoadPicture(OB.Pfile, "", 0, false, false, 1, 72);
-						if (OB.InvPict)
-							pixm.invertPixels();
 						pS->scale(OB.LocalScX, OB.LocalScY);
 						pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
 						pS->drawImage(&pixm);

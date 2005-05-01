@@ -18,41 +18,30 @@ class QPushButton;
 class QComboBox;
 class ScribusDoc;
 class ShadeButton;
-
-class ColorEffectVals : public QDialog
-{
-	Q_OBJECT
-
-public:
-	ColorEffectVals(QWidget* parent, QString colorName, ScribusDoc* doc );
-	~ColorEffectVals() {};
-
-	QLabel* label1;
-	QLabel* label2;
-	QPushButton* okButton;
-	QPushButton* cancelButton;
-	QComboBox* colData;
-	ShadeButton *shade;
-
-protected:
-	QVBoxLayout* dialogLayout;
-	QHBoxLayout* layout1;
-	QHBoxLayout* okCancelLayout;
-};
+class QWidgetStack;
+class QWidget;
 
 class EffectsDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	EffectsDialog( QWidget* parent, QValueList<PageItem::imageEffect> eList, ScribusDoc* docc );
+	EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc );
 	~EffectsDialog() {};
 
+	QLabel* pixmapLabel1;
+	QLabel* textLabel5;
+	QLabel* textLabel4;
+	QLabel* textLabel3;
+	QWidgetStack* optionStack;
+	QWidget* WStackPage;
+	QWidget* WStackPage_2;
+	QComboBox* colData;
+	ShadeButton *shade;
 	QLabel* textLabel2;
 	QListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
-	QPushButton* effectOptions;
 	QPushButton* toEffects;
 	QPushButton* fromEffects;
 	QLabel* textLabel1;
@@ -61,25 +50,34 @@ public:
 	QPushButton* cancelButton;
 	QValueList<PageItem::imageEffect> effectsList;
 	QMap<QListBoxItem*, QString> effectValMap;
+	QListBoxItem* currentOptions;
 	ScribusDoc* doc;
+	PageItem* currItem;
+	ScImage image;
 
 public slots:
+	virtual void leaveOK();
+	virtual void createPreview();
 	virtual void saveValues();
 	virtual void moveToEffects();
 	virtual void moveFromEffects();
 	virtual void moveEffectUp();
 	virtual void moveEffectDown();
-	virtual void editEffect();
 	virtual void selectEffect(QListBoxItem* c);
 	virtual void selectAvailEffect(QListBoxItem* c);
 
 protected:
-	QVBoxLayout* EffectsDialogLayout;
+	QHBoxLayout* EffectsDialogLayout;
+	QVBoxLayout* WStackPageLayout;
+	QHBoxLayout* layout17;
+	QHBoxLayout* layout19;
 	QGridLayout* layout10;
 	QVBoxLayout* layout8;
 	QHBoxLayout* layout7;
 	QVBoxLayout* layout1;
 	QVBoxLayout* layout2;
+	QVBoxLayout* layout16;
+	QVBoxLayout* layout18;
 	QHBoxLayout* layout9;
 };
 

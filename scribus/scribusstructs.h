@@ -158,7 +158,6 @@ struct CopyPasteBuffer
 	double Transparency;
 	double TranspStroke;
 	bool Reverse;
-	bool InvPict;
 	QString NamedLStyle;
 	QString Language;
 	QString guiLanguage;

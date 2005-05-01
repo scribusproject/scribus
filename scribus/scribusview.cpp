@@ -86,11 +86,6 @@ extern FPointArray RegularPolygonF(double w, double h, uint c, bool star, double
 extern FPoint getMaxClipF(FPointArray* Clip);
 extern FPoint getMinClipF(FPointArray* Clip);
 extern void WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
-#ifdef HAVE_CMS
-QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
-#else
-QImage ProofPict(QImage *Im, QString Prof, int Rend);
-#endif
 extern int callGS(const QStringList & args);
 extern ProfilesL InputProfiles;
 
@@ -8143,7 +8138,6 @@ void ScribusView::ClearItem()
 				currItem->AspectRatio = true;
 				currItem->setFillTransparency(0.0);
 				currItem->setLineTransparency(0.0);
-				currItem->InvPict = false;
 				currItem->imageClip.resize(0);
 /*				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
 			}
@@ -10839,7 +10833,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setFillTransparency(Buffer->Transparency);
 	currItem->setLineTransparency(Buffer->TranspStroke);
 	currItem->Reverse = Buffer->Reverse;
-	currItem->InvPict = Buffer->InvPict;
 	currItem->NamedLStyle = Buffer->NamedLStyle;
 	currItem->Language = ScApp->GetLang(Buffer->Language);
 	currItem->Cols = Buffer->Cols;

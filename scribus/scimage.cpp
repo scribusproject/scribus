@@ -140,15 +140,14 @@ void ScImage::invert(bool cmyk)
 			{
 				unsigned char *p = (unsigned char *) s;
 				unsigned char c, m, y, k;
-				c = 255 - p[0];
-				m = 255 - p[1];
-				y = 255 - p[2];
-				k = 255 - p[3];
-				p[0] = c;
-				p[1] = m;
-				p[2] = y;
-/*				if (((c == 255) && (m == 255) && (y == 255)) || ((c == m) && (m == y)))
-					p[3] = k; */
+				c = 255 - QMIN(255, p[0] + p[3]);
+				m = 255 - QMIN(255, p[1] + p[3]);
+				y = 255 - QMIN(255, p[2] + p[3]);
+				k = QMIN(QMIN(c, m), y);
+				p[0] = c - k;
+				p[1] = m - k;
+				p[2] = y - k;
+				p[3] = k;
 			}
 			else
 				*s ^= 0x00ffffff;

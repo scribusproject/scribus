@@ -257,7 +257,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ScaleType = true;
 	AspectRatio = true;
 	Reverse = false;
-	InvPict = false;
 	NamedLStyle = "";
 	DashValues.clear();
 	TabValues.clear();

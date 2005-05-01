@@ -9648,7 +9648,7 @@ void ScribusApp::ImageEffects()
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *currItem = view->SelItem.at(0);
-			EffectsDialog* dia = new EffectsDialog(this, currItem->effectsInUse, doc);
+			EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
 			if (dia->exec())
 			{
 				currItem->effectsInUse = dia->effectsList;

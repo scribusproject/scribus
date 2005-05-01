@@ -1089,8 +1089,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
-							PDF_Image(ite, ite->InvPict, ite->Pfile, ite->LocalScX,
-									 ite->LocalScY, ite->LocalX, -ite->LocalY,
+							PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY,
 									 false, ite->IProfile, ite->UseEmbedded,
 									  ite->IRender);
 						PutPage("Q\n");
@@ -1970,7 +1969,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
-							PDF_Image(ite, ite->InvPict, ite->Pfile, ite->LocalScX,
+							PDF_Image(ite, ite->Pfile, ite->LocalScX,
 									 ite->LocalScY, ite->LocalX, -ite->LocalY,
 									 false, ite->IProfile, ite->UseEmbedded,
 									  ite->IRender);
@@ -3581,21 +3580,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	{
 		if (ite->Pfile != "")
 		{
-			PDF_Image(ite, ite->InvPict, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(ite->pixm.width())+" 0 0 "+IToStr(ite->pixm.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(ite->pixm.width(), ite->pixm.height(), cc);
 		}
 		if (ite->Pfile2 != "")
 		{
-			PDF_Image(ite, ite->InvPict, ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite, ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(img.width())+" 0 0 "+IToStr(img.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(img.width(), img.height(), cc);
 		}
 		if (ite->Pfile3 != "")
 		{
-			PDF_Image(ite, ite->InvPict, ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite, ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(img2.width())+" 0 0 "+IToStr(img2.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(img2.width(), img2.height(), cc);
@@ -3807,7 +3806,7 @@ void PDFlib::PDF_Bookmark(int nr, double ypos)
 	BookMinUse = true;
 }
 
-void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
+void PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();

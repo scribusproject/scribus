@@ -128,87 +128,11 @@ double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
-#ifdef HAVE_CMS
-QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
-#else
-QImage ProofPict(QImage *Im, QString Prof, int Rend);
-#endif
 QImage ProofImage(QImage *Im);
 int System(const QStringList & args);
 int callGS(const QStringList & args_in);
 int copyFile(QString source, QString target);
 int moveFile(QString source, QString target);
-
-#ifdef HAVE_CMS
-QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr)
-#else
-QImage ProofPict(QImage *Im, QString Prof, int Rend)
-#endif
-{
-	bool emp = false;
-	if (Prof == "")
-		return Im->copy();
-#ifdef HAVE_CMS
-	QImage out = Im->copy();
-	if ((CMSuse) && (SoftProofing))
-	{
-		cmsHTRANSFORM xform;
-		cmsHPROFILE inputProf;
-		if (emPr != 0)
-			inputProf = emPr;
-		else
-		{
-			inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-			emp = true;
-		}
-		int dcmsFlags = 0;
-		dcmsFlags |= Gamut ? cmsFLAGS_GAMUTCHECK : cmsFLAGS_SOFTPROOFING;
-		xform = cmsCreateProofingTransform(inputProf, TYPE_RGBA_8,
-		                                   CMSoutputProf, TYPE_RGBA_8,
-		                                   CMSprinterProf,
-		                                   IntentPrinter,
-		                                   Rend, dcmsFlags);
-		for (int i=0; i < out.height(); ++i)
-		{
-			LPBYTE ptr = out.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, out.width());
-		}
-		cmsDeleteTransform(xform);
-		if (emp)
-			cmsCloseProfile(inputProf);
-	}
-	else
-	{
-		if (CMSuse)
-		{
-			cmsHTRANSFORM xform;
-			cmsHPROFILE inputProf;
-			if (emPr != 0)
-				inputProf = emPr;
-			else
-			{
-				inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-				emp = true;
-			}
-			xform = cmsCreateTransform(inputProf, TYPE_RGBA_8,
-			                           CMSoutputProf, TYPE_RGBA_8,
-			                           Rend,
-			                           0);
-			for (int i=0; i < out.height(); ++i)
-			{
-				LPBYTE ptr = out.scanLine(i);
-				cmsDoTransform(xform, ptr, ptr, out.width());
-			}
-			cmsDeleteTransform(xform);
-			if (emp)
-				cmsCloseProfile(inputProf);
-		}
-	}
-	return out;
-#else
-	return Im->copy();
-#endif
-}
 
 QImage ProofImage(QImage *Image)
 {
@@ -1236,7 +1160,6 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem)
 	Buffer->Transparency = currItem->fillTransparency();
 	Buffer->TranspStroke = currItem->lineTransparency();
 	Buffer->Reverse = currItem->Reverse;
-	Buffer->InvPict = currItem->InvPict;
 	Buffer->NamedLStyle = currItem->NamedLStyle;
 	Buffer->Language = currItem->Language;
 	Buffer->Cols = currItem->Cols;
@@ -1521,7 +1444,6 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->Locked = static_cast<bool>(QStoInt(obj->attribute("LOCK","0")));
 	OB->LockRes = static_cast<bool>(QStoInt(obj->attribute("LOCKR","0")));
 	OB->Reverse = static_cast<bool>(QStoInt(obj->attribute("REVERS","0")));
-	OB->InvPict = static_cast<bool>(QStoInt(obj->attribute("INVERS","0")));
 	OB->isTableItem = static_cast<bool>(QStoInt(obj->attribute("isTableItem","0")));
 	OB->TopLine = static_cast<bool>(QStoInt(obj->attribute("TopLine","0")));
 	OB->LeftLine = static_cast<bool>(QStoInt(obj->attribute("LeftLine","0")));

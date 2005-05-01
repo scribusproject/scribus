@@ -345,7 +345,6 @@ public:
 	bool ScaleType;
 	bool AspectRatio;
 	QValueStack<int> Groups;
-	bool InvPict;
 	QValueList<double> DashValues;
 	QValueList<double> TabValues;
 	double DashOffset;

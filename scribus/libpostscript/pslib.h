@@ -67,7 +67,7 @@ public:
 	virtual void PS_show(double x, double y);
 	virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 	virtual void PS_show_xyG(QString font, QString ch, double x, double y);
-	virtual void PS_image(PageItem *c, bool inver, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
+	virtual void PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 	virtual void PS_plate(int nr);
 	virtual void PS_setGray();
 	virtual void PDF_Bookmark(QString text, uint Seite);
@@ -77,7 +77,7 @@ public:
 	virtual void PS_TemplateStart(QString Name, double breite, double hoehe);
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
-	virtual void PS_ImageData(PageItem *c, bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
+	virtual void PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
 	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev);
 	virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master);
 	virtual void ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);

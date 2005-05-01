@@ -1407,7 +1407,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->ExtraV=QStodouble(obj->attribute("EXTRAV","0"));
 	currItem->DashOffset = QStodouble(obj->attribute("DASHOFF","0.0"));
 	currItem->Reverse = static_cast<bool>(QStoInt(obj->attribute("REVERS","0")));
-	currItem->InvPict = static_cast<bool>(QStoInt(obj->attribute("INVERS","0")));
 	currItem->setLocked(static_cast<bool>(QStoInt(obj->attribute("LOCK","0"))));
 	currItem->setSizeLocked(static_cast<bool>(QStoInt(obj->attribute("LOCKR","0"))));
 	currItem->setFillTransparency(QStodouble(obj->attribute("TransValue","0.0")));
