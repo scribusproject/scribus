@@ -1926,7 +1926,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 	{
 		if (load(fn))
 		{
-			convertDepth(32);
+			*this = convertDepth(32);
 			setAlphaBuffer(true);
 		}
 		else

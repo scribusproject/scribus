@@ -10522,34 +10522,37 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 			Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
 		}
 	}
-	if (Doc->toolSettings.lowResType != 0)
+	if (Item->PicAvail)
 	{
-		double scaling = 1.0;
-		if (Doc->toolSettings.lowResType == 1)
-			scaling = Item->pixm.imgInfo.xres / 72.0;
-		else
-			scaling = Item->pixm.imgInfo.xres / 36.0;
-		Item->pixm.createLowRes(scaling);
-		Item->pixm.imgInfo.lowResScale = scaling;
-	}
-	Item->pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
-	if (Item->effectsInUse.count() != 0)
-	{
-		for (uint a = 0; a < Item->effectsInUse.count(); ++a)
+		if (Doc->toolSettings.lowResType != 0)
 		{
-			if ((*Item->effectsInUse.at(a)).effectCode == 0)
-				Item->pixm.invertPixels();
-			if ((*Item->effectsInUse.at(a)).effectCode == 1)
-				Item->pixm.toGrayscale(false);
-			if ((*Item->effectsInUse.at(a)).effectCode == 2)
+			double scaling = 1.0;
+			if (Doc->toolSettings.lowResType == 1)
+				scaling = Item->pixm.imgInfo.xres / 72.0;
+			else
+				scaling = Item->pixm.imgInfo.xres / 36.0;
+			Item->pixm.createLowRes(scaling);
+			Item->pixm.imgInfo.lowResScale = scaling;
+		}
+		Item->pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
+		if (Item->effectsInUse.count() != 0)
+		{
+			for (uint a = 0; a < Item->effectsInUse.count(); ++a)
 			{
-				QString tmpstr = (*Item->effectsInUse.at(a)).effectParameters;
-				QString col = "None";
-				int shading = 100;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
-				fp >> col;
-				fp >> shading;
-				Item->pixm.colorize(Doc->PageColors[col], shading, false);
+				if ((*Item->effectsInUse.at(a)).effectCode == 0)
+					Item->pixm.invertPixels();
+				if ((*Item->effectsInUse.at(a)).effectCode == 1)
+					Item->pixm.toGrayscale(false);
+				if ((*Item->effectsInUse.at(a)).effectCode == 2)
+				{
+					QString tmpstr = (*Item->effectsInUse.at(a)).effectParameters;
+					QString col = "None";
+					int shading = 100;
+					QTextStream fp(&tmpstr, IO_ReadOnly);
+					fp >> col;
+					fp >> shading;
+					Item->pixm.colorize(Doc->PageColors[col], shading, false);
+				}
 			}
 		}
 	}

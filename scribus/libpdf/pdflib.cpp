@@ -1089,9 +1089,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
-							PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY,
-									 false, ite->IProfile, ite->UseEmbedded,
-									  ite->IRender);
+							PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
 						PutPage("Q\n");
 						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
