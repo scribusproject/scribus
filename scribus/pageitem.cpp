@@ -4029,3 +4029,62 @@ bool PageItem::LoremIpsum()
 		Doc->docHyphenator->slotHyphenate(this);
 	return true;
 }
+
+bool PageItem::nameExists(const QString itemName) const
+{
+	bool found = false;
+	for (uint c = 0; c < Doc->Items.count(); ++c)
+	{
+		if (itemName == Doc->Items.at(c)->itemName())
+		{
+			found = true;
+			break;
+		}
+	}
+	return found;
+}
+
+QString PageItem::generateUniqueCopyName(const QString originalName) const
+{
+	if (!nameExists(originalName))
+		return originalName;
+
+	// Start embellishing the name until we get an acceptable unique name
+	// first we prefix `Copy of' if it's not already there
+	QString newname(originalName);
+	if (!originalName.startsWith(tr("Copy of")))
+		newname.prepend(tr("Copy of")+" ");
+
+	// See if the name prefixed by "Copy of " is free
+	if (nameExists(newname))
+	{
+		// Search the string for (number) at the end and capture
+		// both the number and the text leading up to it sans brackets.
+		//     Copy of fred (5)
+		//     ^^^^^^^^^^^^  ^   (where ^ means captured)
+		QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
+		//rx.setMinimal(true);
+		int numMatches = rx.searchRev(newname);
+		// Add a (number) suffix to the end of the name. We start at the
+		// old suffix's value if there was one, or at 2 if there was not.
+		int suffixnum = 2;
+		QString prefix(newname);
+		if (numMatches != -1)
+		{
+			// Already had a suffix; use the name w/o suffix for prefix and
+			// grab the old suffix value as a starting point.
+			QStringList matches = rx.capturedTexts();
+			prefix = matches[1];
+			suffixnum = matches[2].toInt();
+		}
+		// Keep on incrementing the suffix 'till we find a free name
+		do
+		{
+			newname = prefix + " (" + QString::number(suffixnum) + ")";
+			suffixnum ++;
+		}
+		while (nameExists(newname));
+	}
+	assert(!nameExists(newname));
+	return newname;
+}

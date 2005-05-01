@@ -10798,19 +10798,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 		else
 		{
-			bool found = false;
-			for (uint c = 0; c < Doc->Items.count(); ++c)
-			{
-				if (Buffer->AnName == Doc->Items.at(c)->itemName())
-				{
-					found = true;
-					break;
-				}
-			}
-			if (found)
-				currItem->setItemName(tr("Copy of")+" "+Buffer->AnName);
-			else
-				currItem->setItemName(Buffer->AnName);
+			currItem->setItemName(currItem->generateUniqueCopyName(Buffer->AnName));
 			currItem->AutoName = false;
 		}
 	}
