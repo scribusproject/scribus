@@ -55,7 +55,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	importerLayout->addWidget(importerCombo);
 
 	textOnlyCheckBox = new QCheckBox(importerFrame, "textOnlyCB");
-	textOnlyCheckBox->setText(tr("Get text only"));
+	textOnlyCheckBox->setText(tr("Import Text Only"));
 	QToolTip::add(textOnlyCheckBox, tr("Import text without any formatting"));
 // 	                                   "\nNotice that not all importers provide this feature."));
 	importerLayout->addWidget(textOnlyCheckBox);
