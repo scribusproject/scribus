@@ -249,7 +249,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	searchingView->setDefaultRenameAction(QListView::Reject);
 	searchingView->clear();
 	searchingMainLayout->addWidget(searchingView);
-	tabWidget->insertTab(tabSearching, tr("S&earch"));
+	tabWidget->insertTab(tabSearching, tr("Se&arch"));
 
 	// bookmarks
 	tabBookmarks = new QWidget(tabWidget, "tabBookmarks");
@@ -266,14 +266,14 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	bookmarksView->clear();
 	bookmarksMainLayout->addWidget(bookmarksView);
 	bookmarksButtonLayout = new QHBoxLayout;
-	bookmarkButton = new QPushButton(tr("&Add"), tabBookmarks, "bookmarkButton");
+	bookmarkButton = new QPushButton(tr("&New"), tabBookmarks, "bookmarkButton");
 	deleteBookmarkButton = new QPushButton(tr("&Delete"), tabBookmarks, "deleteBookmarkButton");
-	deleteAllBookmarkButton = new QPushButton(tr("D&elete All"), tabBookmarks, "deleteAllBookmarkButton");
+	deleteAllBookmarkButton = new QPushButton(tr("De&lete All"), tabBookmarks, "deleteAllBookmarkButton");
 	bookmarksButtonLayout->addWidget(bookmarkButton);
 	bookmarksButtonLayout->addWidget(deleteBookmarkButton);
 	bookmarksButtonLayout->addWidget(deleteAllBookmarkButton);
 	bookmarksMainLayout->addLayout(bookmarksButtonLayout);
-	tabWidget->insertTab(tabBookmarks, tr("&Bookmarks"));
+	tabWidget->insertTab(tabBookmarks, tr("Book&marks"));
 
 	textBrowser = new QTextBrowser( splitter, "textBrowser" );
 	splitter->setResizeMode(textBrowser, QSplitter::Stretch);
@@ -293,8 +293,8 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	menuBar->insertItem("&File", fileMenu);
 	QPopupMenu *editMenu = new QPopupMenu(this);
 	editMenu->insertItem(loadIcon("find.png"), "&Find...", this, SLOT(find()), CTRL+Key_F);
-	editMenu->insertItem("Find &next", this, SLOT(findNext()), Key_F3);
-	editMenu->insertItem("Find &previous", this, SLOT(findPrevious()), SHIFT+Key_F3);
+	editMenu->insertItem("Find &Next", this, SLOT(findNext()), Key_F3);
+	editMenu->insertItem("Find &Previous", this, SLOT(findPrevious()), SHIFT+Key_F3);
 	menuBar->insertItem("&Edit", editMenu);
 	QPopupMenu *bookmarkMenu = new QPopupMenu(this);
 	bookmarkMenu->insertItem("&Add Bookmark", this, SLOT(bookmarkButton_clicked()), CTRL+Key_D);
