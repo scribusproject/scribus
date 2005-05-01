@@ -35,38 +35,30 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	QBoxLayout* layout = new QVBoxLayout(this);
 
 	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
-	updateCheck = new QCheckBox(tr("Update paragraph styles"), this, "updateCheck");
+	updateCheck = new QCheckBox(tr("Overwrite Paragraph Styles ?"), this, "updateCheck");
 	updateCheck->setChecked(update);
-	QToolTip::add(updateCheck, tr("If a paragraph style already exists with the same name as the current\n"
-	                              "OpenOffice.org document's paragraph, should the style in Scribus be\n"
-	                              "edited to match the one being imported, or left untouched"));
+	QToolTip::add(updateCheck, "<qt>" + tr("Enabling this will overwrite existing stlyes in the current Scribus document") + "</qt>");
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 
 	QBoxLayout* palayout = new QHBoxLayout(0,5,5, "palayout");
-	packCheck = new QCheckBox(tr("Pack paragraph styles"), this, "packCheck");
+	packCheck = new QCheckBox(tr("Merge Paragraph Styles"), this, "packCheck");
 	packCheck->setChecked(pack);
-	QToolTip::add(packCheck, tr("Group paragraph styles by attributes.\n"
-	                            "Less paragraph styles but controlling them may be hard.\n"
-	                            "Should be used if it is known that text must not be edited\n"
-	                            "after importing."));
+	QToolTip::add(packCheck, "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
 	palayout->addWidget(packCheck);
 	layout->addLayout(palayout);
 
 	QBoxLayout* playout = new QHBoxLayout(0, 5, 5, "playout");
 	prefixCheck = new QCheckBox(tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
 	prefixCheck->setChecked(prefix);
-	QToolTip::add(prefixCheck, tr("Should importer add the name of the document\n"
-	                              "on front of the paragraph style name in Scribus"));
+	QToolTip::add(prefixCheck, "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout");
-	doNotAskCheck = new QCheckBox(tr("Do not ask again"), this, "doNotAskCheck");
+	doNotAskCheck = new QCheckBox(tr("Do not ask again?"), this, "doNotAskCheck");
 	doNotAskCheck->setChecked(false);
-	QToolTip::add(doNotAskCheck, tr("Should the importer always use currently\n"
-	                                "set value when importing OpenOffice.org document and\n"
-	                                "never ask your confirmation again"));
+	QToolTip::add(doNotAskCheck, "<qt>" + tr("Make these settings the default and do not prompt again when importing an OASIS OpenDocument.") +"</qt>");
 	dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);
