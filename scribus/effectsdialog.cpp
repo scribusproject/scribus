@@ -261,6 +261,10 @@ void EffectsDialog::moveToEffects()
 		QString efval = it.key()+" 100";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
+	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	selectEffect(usedEffects->item(usedEffects->count()-1));
+	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
+	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 	createPreview();
 }
 
