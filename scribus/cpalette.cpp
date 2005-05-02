@@ -160,7 +160,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	QToolTip::add( gradientQCombo, tr( "Normal or gradient fill method" ) );
 	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
 	QToolTip::add( colorListQLBox, tr( "Color of selected object" ) );
-	QToolTip::add( gradEditButton, tr( "Move the start of the Gradient Vector with the left Mouse Button pressed and\nnove the end of the Gradient Vector with the right Mouse Button pressed" ) );
+	QToolTip::add( gradEditButton, "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
 
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
