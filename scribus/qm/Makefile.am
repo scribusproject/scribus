@@ -33,7 +33,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.se.qm $(libdir)/scribus/scribus.se.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sk.qm $(libdir)/scribus/scribus.sk.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sl.qm $(libdir)/scribus/scribus.sl.qm
-	$(INSTALL_DATA) $(srcdir)/scribus.sr.qm $(libdir)/scribus/scribus.sq.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.sq.qm $(libdir)/scribus/scribus.sq.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sr.qm $(libdir)/scribus/scribus.sr.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.tr.qm $(libdir)/scribus/scribus.tr.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.uk.qm $(libdir)/scribus/scribus.uk.qm
