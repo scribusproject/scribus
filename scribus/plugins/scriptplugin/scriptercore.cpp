@@ -142,7 +142,10 @@ void ScripterCore::FinishScriptRun()
 		Carrier->pagePalette->SetView(Carrier->view);
 		Carrier->pagePalette->Rebuild();
 		if (Carrier->view->SelItem.count() != 0)
+		{
+			Carrier->view->EmitValues(Carrier->view->SelItem.at(0));
 			Carrier->HaveNewSel(Carrier->view->SelItem.at(0)->itemType());
+		}
 		else
 			Carrier->HaveNewSel(-1);
 		Carrier->view->DrawNew();

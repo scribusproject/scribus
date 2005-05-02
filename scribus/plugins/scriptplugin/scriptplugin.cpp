@@ -192,6 +192,10 @@ char* tr(const char* docstringConstant)
 	// Alas, there's a lot of wasteful string copying going on
 	// here.
 	QString translated = QObject::tr(docstringConstant, "scripter docstring");
+	// pv - hack for ugly formating in console removing
+	translated.replace("\n\n", "<P>");
+	translated.replace('\n', " ");
+	translated.replace("<P>", "\n\n");
 	/*
 	 * Python doesn't support 'unicode' object docstrings in the PyMethodDef,
 	 * and has no way to specify what encoding docstrings are in. The passed C
