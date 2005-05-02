@@ -1,5 +1,6 @@
 #include "scimage.h"
 #include "scribus.h"
+#include <qtextstream.h>
 #ifdef HAVE_CMS
 	#include CMS_INC
 extern cmsHPROFILE CMSoutputProf;
@@ -80,6 +81,30 @@ void ScImage::initialize()
 	imgInfo.clipPath = "";
 	imgInfo.usedPath = "";
 	imgInfo.layerInfo.clear();
+}
+
+void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYKColor> colors, bool cmyk)
+{
+	if (effectsList.count() != 0)
+	{
+		for (uint a = 0; a < effectsList.count(); ++a)
+		{
+			if ((*effectsList.at(a)).effectCode == 0)
+				invert(cmyk);
+			if ((*effectsList.at(a)).effectCode == 1)
+				toGrayscale(cmyk);
+			if ((*effectsList.at(a)).effectCode == 2)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString col = "None";
+				int shading = 100;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> col;
+				fp >> shading;
+				colorize(colors[col], shading, cmyk);
+			}
+		}
+	}
 }
 
 void ScImage::colorize(CMYKColor color, int shade, bool cmyk)

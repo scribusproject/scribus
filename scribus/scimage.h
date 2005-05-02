@@ -47,6 +47,11 @@ public:
 	ScImage(QImage image);
 	ScImage( int width, int height );
 	~ScImage() {};
+	struct imageEffect
+	{
+		int effectCode;
+		QString effectParameters;
+	};
 	void initialize();
 	QString ImageToTxt();
 	QString ImageToCMYK();
@@ -56,6 +61,7 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
+	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYKColor> colors, bool cmyk);
 	void invert(bool cmyk);
 	void colorize(CMYKColor color, int shade, bool cmyk);
 	void toGrayscale(bool cmyk);

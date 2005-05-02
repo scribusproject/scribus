@@ -116,6 +116,7 @@ private:
 		int ObjNum;
 		int Thumb;
 		QMap<QString,int> XObjects;
+		QMap<QString,int> ImgObjects;
 		QMap<QString,int> FObjects;
 		QValueList<int> AObjects;
 		QValueList<int> FormObjects;

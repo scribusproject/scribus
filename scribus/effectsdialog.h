@@ -48,7 +48,7 @@ public:
 	QListBox* availableEffects;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
-	QValueList<PageItem::imageEffect> effectsList;
+	QValueList<ScImage::imageEffect> effectsList;
 	QMap<QListBoxItem*, QString> effectValMap;
 	QListBoxItem* currentOptions;
 	ScribusDoc* doc;

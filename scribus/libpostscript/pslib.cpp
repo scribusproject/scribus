@@ -682,26 +682,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 	image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy);
-	if (c->effectsInUse.count() != 0)
-	{
-		for (uint ae = 0; ae < c->effectsInUse.count(); ++ae)
-		{
-			if ((*c->effectsInUse.at(ae)).effectCode == 0)
-				image.invert(true);
-			if ((*c->effectsInUse.at(ae)).effectCode == 1)
-				image.toGrayscale(true);
-			if ((*c->effectsInUse.at(ae)).effectCode == 2)
-			{
-				QString tmpstr = (*c->effectsInUse.at(ae)).effectParameters;
-				QString col = "None";
-				int shading = 100;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
-				fp >> col;
-				fp >> shading;
-				image.colorize(c->Doc->PageColors[col], shading, true);
-			}
-		}
-	}
+	image.applyEffect(c->effectsInUse, c->Doc->PageColors, true);
 	ImgStr = image.ImageToCMYK_PS(-1, true);
 	if (CompAvail)
 	{
@@ -778,26 +759,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		image.LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy);
-		if (c->effectsInUse.count() != 0)
-		{
-			for (uint ae = 0; ae < c->effectsInUse.count(); ++ae)
-			{
-				if ((*c->effectsInUse.at(ae)).effectCode == 0)
-					image.invert(true);
-				if ((*c->effectsInUse.at(ae)).effectCode == 1)
-					image.toGrayscale(true);
-				if ((*c->effectsInUse.at(ae)).effectCode == 2)
-				{
-					QString tmpstr = (*c->effectsInUse.at(ae)).effectParameters;
-					QString col = "None";
-					int shading = 100;
-					QTextStream fp(&tmpstr, IO_ReadOnly);
-					fp >> col;
-					fp >> shading;
-					image.colorize(c->Doc->PageColors[col], shading, true);
-				}
-			}
-		}
+		image.applyEffect(c->effectsInUse, c->Doc->PageColors, true);
 		int w = image.width();
 		int h = image.height();
 		if (ext == "pdf")

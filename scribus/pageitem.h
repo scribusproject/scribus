@@ -132,11 +132,6 @@ public:
 				Foi* ZFo;
 			  };
 
-	struct imageEffect
-	{
-		int effectCode;
-		QString effectParameters;
-	};
 
 	ObjAttrVector* getObjectAttributes();
 	/*!
@@ -215,7 +210,7 @@ public:
 	FPointArray ContourLine;
 	FPointArray imageClip;
 	QValueList<uint> Segments;
-	QValueList<imageEffect> effectsInUse;
+	QValueList<ScImage::imageEffect> effectsInUse;
 	bool PoShow;
 	double BaseOffs;
 	bool ClipEdited;

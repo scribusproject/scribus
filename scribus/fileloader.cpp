@@ -1232,7 +1232,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 			QDomElement it = IT.toElement();
 			if (it.tagName()=="ImageEffect")
 			{
-				struct PageItem::imageEffect ef;
+				struct ScImage::imageEffect ef;
 				ef.effectParameters = it.attribute("Param");
 				ef.effectCode = QStoInt(it.attribute("Code"));
 				currItem->effectsInUse.append(ef);

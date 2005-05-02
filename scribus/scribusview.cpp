@@ -10535,26 +10535,7 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 			Item->pixm.imgInfo.lowResScale = scaling;
 		}
 		Item->pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
-		if (Item->effectsInUse.count() != 0)
-		{
-			for (uint a = 0; a < Item->effectsInUse.count(); ++a)
-			{
-				if ((*Item->effectsInUse.at(a)).effectCode == 0)
-					Item->pixm.invertPixels();
-				if ((*Item->effectsInUse.at(a)).effectCode == 1)
-					Item->pixm.toGrayscale(false);
-				if ((*Item->effectsInUse.at(a)).effectCode == 2)
-				{
-					QString tmpstr = (*Item->effectsInUse.at(a)).effectParameters;
-					QString col = "None";
-					int shading = 100;
-					QTextStream fp(&tmpstr, IO_ReadOnly);
-					fp >> col;
-					fp >> shading;
-					Item->pixm.colorize(Doc->PageColors[col], shading, false);
-				}
-			}
-		}
+		Item->pixm.applyEffect(Item->effectsInUse, Doc->PageColors, false);
 	}
 	if (!Doc->loading)
 	{

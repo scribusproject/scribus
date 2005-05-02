@@ -204,26 +204,7 @@ void EffectsDialog::createPreview()
 {
 	ScImage im = image.copy();
 	saveValues();
-	if (effectsList.count() != 0)
-	{
-		for (uint a = 0; a < effectsList.count(); ++a)
-		{
-			if ((*effectsList.at(a)).effectCode == 0)
-				im.invertPixels();
-			if ((*effectsList.at(a)).effectCode == 1)
-				im.toGrayscale(false);
-			if ((*effectsList.at(a)).effectCode == 2)
-			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
-				QString col = "None";
-				int shading = 100;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
-				fp >> col;
-				fp >> shading;
-				im.colorize(doc->PageColors[col], shading, false);
-			}
-		}
-	}
+	im.applyEffect(effectsList, doc->PageColors, false);
 	pixmapLabel1->setPixmap( im );
 }
 
@@ -242,7 +223,7 @@ void EffectsDialog::saveValues()
 		}
 	}
 	effectsList.clear();
-	struct PageItem::imageEffect ef;
+	struct ScImage::imageEffect ef;
 	for (uint e = 0; e < usedEffects->count(); ++e)
 	{
 		if (usedEffects->item(e)->text() == tr("Invert"))
