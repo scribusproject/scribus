@@ -133,6 +133,7 @@ PDFlib::PDFlib()
 	Seite.ObjNum = 0;
 	Seite.Thumb = 0;
 	Seite.XObjects.clear();
+	Seite.ImgObjects.clear();
 	Seite.FObjects.clear();
 	Seite.AObjects.clear();
 	Seite.FormObjects.clear();
@@ -215,7 +216,7 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
 		QByteArray us(tmp.length());
 		QByteArray ou(tmp.length());
 		for (uint a = 0; a < tmp.length(); ++a)
-			us[a] = uchar(QChar(tmp.at(a)));                            
+			us[a] = uchar(QChar(tmp.at(a)));
 		QByteArray data(10);
 		if (KeyLen > 5)
 			data.resize(21);
@@ -597,7 +598,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 						PutDoc("\n/Filter /FlateDecode");
 					PutDoc(" >>\nstream\n"+EncStream(&fon,	
 								 ObjCounter-1)+"\nendstream\nendobj\n");
-					Seite.XObjects[AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+IToStr(ig.key())] =
+					Seite.ImgObjects[AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+IToStr(ig.key())] =
 						 ObjCounter-1;
 					fon = "";
 				}
@@ -1199,11 +1200,11 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 				PutDoc("/BBox [ 0 0 "+FToStr(doc->PageB)+" "+FToStr(doc->PageH)+" ]\n");
 				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-				if (Seite.XObjects.count() != 0)
+				if (Seite.ImgObjects.count() != 0)
 				{
 					PutDoc("/XObject <<\n");
 					QMap<QString,int>::Iterator it;
-					for (it = Seite.XObjects.begin(); it != Seite.XObjects.end(); ++it)
+					for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
 						PutDoc("/"+it.key()+" "+IToStr(it.data())+" 0 R\n");
 					PutDoc(">>\n");
 				}
@@ -2961,7 +2962,7 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList
 			if ((Options->Compress) && (CompAvail))
 				PutDoc("/Filter /FlateDecode\n");
 			PutDoc(">>\nstream\n"+EncStream(&stre, ObjCounter-1)+"\nendstream\nendobj\n");
-			Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+			Seite.ImgObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 			ResCount++;
 			StartObj(ObjCounter);
 			QString GXName = ResNam+IToStr(ResCount);
@@ -3683,11 +3684,11 @@ void PDFlib::PDF_xForm(double w, double h, QString im)
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
 	PutDoc("/BBox [ 0 0 "+FToStr(w)+" "+FToStr(h)+" ]\n");
 	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if (Seite.XObjects.count() != 0)
+	if (Seite.ImgObjects.count() != 0)
 	{
 		PutDoc("/XObject <<\n");
 		QMap<QString,int>::Iterator it;
-		for (it = Seite.XObjects.begin(); it != Seite.XObjects.end(); ++it)
+		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
 			PutDoc("/"+it.key()+" "+IToStr(it.data())+" 0 R\n");
 		PutDoc(">>\n");
 	}
@@ -3702,7 +3703,7 @@ void PDFlib::PDF_xForm(double w, double h, QString im)
 	PutDoc(">>\n");
 	PutDoc("/Length "+IToStr(im.length())+"\n");
 	PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
-	Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+	Seite.ImgObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 }
 
 void PDFlib::PDF_Form(QString im)
@@ -3990,7 +3991,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			if ((Options->CompressMethod != 3) && (CompAvail))
 				PutDoc("/Filter /FlateDecode\n");
 			PutDoc(">>\nstream\n"+EncStream(&im2, ObjCounter-1)+"\nendstream\nendobj\n");
-			Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+			Seite.ImgObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 			ResCount++;
 		}
 		if (Options->UseRGB)
@@ -4107,7 +4108,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
 		}
 		PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+		Seite.ImgObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 		ImRes = ResCount;
 		ImWid = img.width();
 		ImHei = img.height();
@@ -4212,12 +4213,15 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	StartObj(ObjCounter);
 	ResO = ObjCounter;
 	PutDoc("<< /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-	if (Seite.XObjects.count() != 0)
+	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
 	{
 		PutDoc("/XObject <<\n");
 		QMap<QString,int>::Iterator it;
-		for (it = Seite.XObjects.begin(); it != Seite.XObjects.end(); ++it)
+		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
 			PutDoc("/"+it.key()+" "+IToStr(it.data())+" 0 R\n");
+		QMap<QString,int>::Iterator iti;
+		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
+			PutDoc("/"+iti.key()+" "+IToStr(iti.data())+" 0 R\n");
 		PutDoc(">>\n");
 	}
 	if (Seite.FObjects.count() != 0)
@@ -4458,6 +4462,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	PutDoc(IToStr(StX)+"\n%%EOF\n");
 	Spool.close();
 	Seite.XObjects.clear();
+	Seite.ImgObjects.clear();
 	Seite.FObjects.clear();
 	Seite.AObjects.clear();
 	Seite.FormObjects.clear();
