@@ -3209,9 +3209,14 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			else
 				pmen->insertItem( tr("Hide P&roperties..."), ScApp, SLOT(ToggleMpal()));
 			pmen->exec(QCursor::pos());
+			disconnect(pmen, 0, 0, 0);
+			disconnect(pmen2, 0, 0, 0);
+			disconnect(pmen3, 0, 0, 0);
+			disconnect(pmen4, 0, 0, 0);
+			disconnect(pmenLevel, 0, 0, 0);
+			disconnect(pmenPDF, 0, 0, 0);
 			delete pmen;
 			delete pmen2;
-			disconnect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			delete pmen3;
 			delete pmen4;
 			delete pmenLevel;
