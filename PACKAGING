@@ -19,9 +19,10 @@ part of the main package. Please consider adding:
 
 to ensure these old packages are removed on upgrade.
 
-* Currently, the full en documentation is included in the tarball, however
-it is licensed differently from the application source. We may distribute
-them separately and they should also obsolete prior docs packages:
+* Currently, the full en documentation is included in the tarball, note
+it is licensed differently from the application source. We may decide to 
+distribute them separately. In any case a monolithic scribus application
+plus docs package should also obsolete all prior docs packages.
 
 	Obsoletes:      scribus-i18en
 	Obsoletes:      scribus-i18de
@@ -33,7 +34,7 @@ them separately and they should also obsolete prior docs packages:
 Recommended Spec File Description:
 
 %description
-Scribus is an desktop open source page layout program with the aim of producing 
+Scribus is a desktop open source page layout program with the aim of producing 
 commerical grade output in PDF and Postscript, primarily, thought not exclusively for Linux. 
 
 Recommended Spec File Summary:        Scribus - Open Source Desktop Publishing 
@@ -66,14 +67,14 @@ umask 022
 
 =============================================================================
 
-We do appreciate the effort in maintaining packagers do for Scribus. 
-Please file issues or enhancement requests to http://bugs.scribus.net
+We do appreciate the effort in maintaining packagers make for Scribus. 
+Please file issues or enhancement requests at http://bugs.scribus.net
 
 
 There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
 and the mailing list. Mailing list info can be found at: 
- http://nashi.altmuehlnet.de/mailman/listinfo/scribus
+http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in April 2005
+in May 2005
