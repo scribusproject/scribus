@@ -43,7 +43,7 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	layout->addLayout(hlayout);
 
 	QBoxLayout* palayout = new QHBoxLayout(0,5,5, "palayout");
-	packCheck = new QCheckBox(tr("Pack paragraph styles"), this, "packCheck");
+	packCheck = new QCheckBox(tr("Merge Paragraph Styles"), this, "packCheck");
 	packCheck->setChecked(pack);
 	QToolTip::add(packCheck, "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
 	palayout->addWidget(packCheck);
