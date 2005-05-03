@@ -6,6 +6,23 @@ Scribus - 1.2.1
 
 Scribus - 1.2.2cvs
 ==================
+- 0001936: [Default] Some PDF files created by Scribus do not print from Acrobat Reader (fschmid)
+- 0001934: [Story Editor / Text Frames] Duplicating text frames with custom names hits name length limit (ringerc)
+- 0001932: [Website] ebuild for cvs doesn't work (plinnell)
+- 0001911: [Fonts] glyphs incorrectly displayed (fschmid)
+- 0001241: [Story Editor / Text Frames] Pasting or adding text into the Story Editor
+- 0001912: [Picture Frames] Crash on enabling profiles. (fschmid)
+- 0001916: [Translation] update of russian translation for upcoming 1.2.2 (cbradney)
+- 0001593: [Default] Paste in Story Editor leads to "reformating" in Storyeditor (fschmid)
+- 0001685: [Integration] Croatian hyphenation file (cbradney)
+- 0001235: [General] Custom page start number on new document and in document setup. (fschmid)
+- 0001278: [Story Editor / Text Frames] Cyrillic chars not visible (alexandre)
+- 0001670: [Story Editor / Text Frames] multipled tab spaces in story editor are ignored in text-frame (fschmid)
+- 0001910: [Translation] Brazilian Translation Update (cbradney)
+- 0001751: [User Interface] slider bug in the polygon-setting in preferences
+- 0001189: [Printing] Scribus should (optionally) set media size when printing PostScript to a file (fschmid)
+- 0001553: [Import / Export] Objects set as 'non printing' do not export to PDF but do export to PDF thumbnails (fschmid)
+- 0001669: [Story Editor / Text Frames] story editor always displays first line of text left justified when editing text (cbradney)
 - 0001674: [User Interface] export/save/create PDF wording (cbradney)
 - 0001695: [General] configure script ignores --manpath (ringerc)
 - 0001552: [Story Editor / Text Frames] Smallest word in Hyphenator Settings falls short by one letter (fschmid)
