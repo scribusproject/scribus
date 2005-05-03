@@ -15,7 +15,8 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	QBoxLayout* layout = new QVBoxLayout(this);
 
 	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
-	updateCheck = new QCheckBox(tr("Overwrite Paragraph Styles ?"), this, "updateCheck");
+	updateCheck = new QCheckBox(tr("Overwrite Paragraph Styles"), this,
+"updateCheck");
 	updateCheck->setChecked(update);
 	QToolTip::add(updateCheck, "<qt>" + tr("Enabling this will overwrite existing stlyes in the current Scribus document") + "</qt>");
 	hlayout->addWidget(updateCheck);
@@ -36,7 +37,8 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	layout->addLayout(playout);
 
 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout");
-	doNotAskCheck = new QCheckBox(tr("Do not ask again?"), this, "doNotAskCheck");
+	doNotAskCheck = new QCheckBox(tr("Do not ask again"), this,
+"doNotAskCheck");
 	doNotAskCheck->setChecked(false);
 	QToolTip::add(doNotAskCheck, "<qt>" + tr("Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.") +"</qt>");
 	dlayout->addStretch(10);
