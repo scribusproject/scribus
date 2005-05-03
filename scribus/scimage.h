@@ -13,6 +13,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <unistd.h>
+#include <valarray>
 #include <qimage.h>
 #include <qstring.h>
 #include <qdatastream.h>
@@ -47,6 +48,15 @@ public:
 	ScImage(QImage image);
 	ScImage( int width, int height );
 	~ScImage() {};
+	
+	enum ImageEffectCode
+	{
+		EF_INVERT = 0,
+		EF_GRAYSCALE = 1,
+		EF_COLORIZE = 2,
+		EF_BRIGHTNESS = 3,
+		EF_CONTRAST = 4
+	};
 	struct imageEffect
 	{
 		int effectCode;
@@ -62,6 +72,8 @@ public:
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
 	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYKColor> colors, bool cmyk);
+	void contrast(int contrastValue, bool cmyk);
+	void brightness(int brightnessValue, bool cmyk);
 	void invert(bool cmyk);
 	void colorize(CMYKColor color, int shade, bool cmyk);
 	void toGrayscale(bool cmyk);
@@ -137,6 +149,7 @@ struct ImageInfoRecord
 } imgInfo;
 
 private:
+	void applyCurve(bool cmyk);
 	bool IsValid( const PSDHeader & header );
 	bool IsSupported( const PSDHeader & header );
 	unsigned char INT_MULT ( unsigned char a, unsigned char b );
@@ -157,5 +170,6 @@ private:
 	bool read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);
 	char* iccbuf;
 	uint icclen;
+	std::valarray<int> curveTable;
 };
 #endif

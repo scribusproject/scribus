@@ -12,6 +12,7 @@
 #include <qtextstream.h>
 #include <qwidgetstack.h>
 #include <qwidget.h>
+#include <qslider.h>
 #include "scribusdoc.h"
 #include "shadebutton.h"
 
@@ -84,6 +85,43 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout19->addWidget( shade );
 	WStackPageLayout->addLayout( layout19 );
 	optionStack->addWidget( WStackPage_2, 1 );
+
+	WStackPage_3 = new QWidget( optionStack, "WStackPage_3" );
+	WStackPage3Layout = new QVBoxLayout( WStackPage_3, 5, 5, "WStackPageLayout");
+	WStackPage3Layout->setAlignment( Qt::AlignTop );
+	layout20 = new QHBoxLayout( 0, 0, 5, "layout7");
+	textLabel6 = new QLabel( tr( "Brightness:" ), WStackPage_3, "textLabel6" );
+	layout20->addWidget( textLabel6, Qt::AlignLeft );
+	textLabel7 = new QLabel( "0", WStackPage_3, "textLabel7" );
+	layout20->addWidget( textLabel7, Qt::AlignRight );
+	WStackPage3Layout->addLayout( layout20 );
+	brightnessSlider = new QSlider( WStackPage_3, "Slider1_2" );
+	brightnessSlider->setMinValue(-255);
+	brightnessSlider->setMaxValue(255);
+	brightnessSlider->setValue(0);
+	brightnessSlider->setOrientation( QSlider::Horizontal );
+	brightnessSlider->setTickmarks( QSlider::Below );
+	WStackPage3Layout->addWidget( brightnessSlider );
+	optionStack->addWidget( WStackPage_3, 2 );
+
+	WStackPage_4 = new QWidget( optionStack, "WStackPage_4" );
+	WStackPage4Layout = new QVBoxLayout( WStackPage_4, 5, 5, "WStackPageLayout");
+	WStackPage4Layout->setAlignment( Qt::AlignTop );
+	layout21 = new QHBoxLayout( 0, 0, 5, "layout7");
+	textLabel8 = new QLabel( tr( "Contrast:" ), WStackPage_4, "textLabel8" );
+	layout21->addWidget( textLabel8, Qt::AlignLeft );
+	textLabel9 = new QLabel( "0", WStackPage_4, "textLabel9" );
+	layout21->addWidget( textLabel9, Qt::AlignRight );
+	WStackPage4Layout->addLayout( layout21 );
+	contrastSlider = new QSlider( WStackPage_4, "Slider2" );
+	contrastSlider->setMinValue(-127);
+	contrastSlider->setMaxValue(127);
+	contrastSlider->setValue(0);
+	contrastSlider->setOrientation( QSlider::Horizontal );
+	contrastSlider->setTickmarks( QSlider::Below );
+	WStackPage4Layout->addWidget( contrastSlider );
+	optionStack->addWidget( WStackPage_4, 3 );
+	
 	layout16->addWidget( optionStack );
 	EffectsDialogLayout->addLayout( layout16 );
 
@@ -95,9 +133,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout2->addWidget( textLabel1 );
 	availableEffects = new QListBox( this, "availableEffects" );
 	availableEffects->clear();
-	availableEffects->insertItem( tr("Invert"));
-	availableEffects->insertItem( tr("Grayscale"));
+	availableEffects->insertItem( tr("Brightness"));
 	availableEffects->insertItem( tr("Colorize"));
+	availableEffects->insertItem( tr("Contrast"));
+	availableEffects->insertItem( tr("Grayscale"));
+	availableEffects->insertItem( tr("Invert"));
 	availableEffects->setMinimumSize(fontMetrics().width(tr( "Available Effects" ))+40, 180);
 	layout2->addWidget( availableEffects );
 	layout10->addLayout( layout2, 0, 0 );
@@ -127,19 +167,29 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	effectValMap.clear();
 	for (uint a = 0; a < effectsList.count(); ++a)
 	{
-		if ((*effectsList.at(a)).effectCode == 0)
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_INVERT)
 		{
 			usedEffects->insertItem( tr("Invert"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
-		if ((*effectsList.at(a)).effectCode == 1)
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_GRAYSCALE)
 		{
 			usedEffects->insertItem( tr("Grayscale"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
-		if ((*effectsList.at(a)).effectCode == 2)
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_COLORIZE)
 		{
 			usedEffects->insertItem( tr("Colorize"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_BRIGHTNESS)
+		{
+			usedEffects->insertItem( tr("Brightness"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_CONTRAST)
+		{
+			usedEffects->insertItem( tr("Contrast"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
 	}
@@ -192,12 +242,30 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( effectDown, SIGNAL( clicked() ), this, SLOT( moveEffectDown() ) );
 	connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
 	connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
+	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 }
 
 void EffectsDialog::leaveOK()
 {
 	saveValues();
 	accept();
+}
+
+void EffectsDialog::updateContrast(int val)
+{
+	QString tmp;
+	tmp.setNum(val);
+	textLabel9->setText(tmp);
+	createPreview();
+}
+
+void EffectsDialog::updateBright(int val)
+{
+	QString tmp;
+	tmp.setNum(val);
+	textLabel7->setText(tmp);
+	createPreview();
 }
 
 void EffectsDialog::createPreview()
@@ -221,6 +289,18 @@ void EffectsDialog::saveValues()
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
+		if (currentOptions->text() == tr("Brightness"))
+		{
+			QString tmp;
+			tmp.setNum(brightnessSlider->value());
+			effectValMap[currentOptions] = tmp;
+		}
+		if (currentOptions->text() == tr("Contrast"))
+		{
+			QString tmp;
+			tmp.setNum(contrastSlider->value());
+			effectValMap[currentOptions] = tmp;
+		}
 	}
 	effectsList.clear();
 	struct ScImage::imageEffect ef;
@@ -228,22 +308,30 @@ void EffectsDialog::saveValues()
 	{
 		if (usedEffects->item(e)->text() == tr("Invert"))
 		{
-			ef.effectCode = 0;
+			ef.effectCode = ScImage::EF_INVERT;
 			ef.effectParameters = "";
-			effectsList.append(ef);
 		}
 		if (usedEffects->item(e)->text() == tr("Grayscale"))
 		{
-			ef.effectCode = 1;
+			ef.effectCode = ScImage::EF_GRAYSCALE;
 			ef.effectParameters = "";
-			effectsList.append(ef);
 		}
 		if (usedEffects->item(e)->text() == tr("Colorize"))
 		{
-			ef.effectCode = 2;
+			ef.effectCode = ScImage::EF_COLORIZE;
 			ef.effectParameters = effectValMap[usedEffects->item(e)];
-			effectsList.append(ef);
 		}
+		if (usedEffects->item(e)->text() == tr("Brightness"))
+		{
+			ef.effectCode = ScImage::EF_BRIGHTNESS;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
+		if (usedEffects->item(e)->text() == tr("Contrast"))
+		{
+			ef.effectCode = ScImage::EF_CONTRAST;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
+		effectsList.append(ef);
 	}
 }
 
@@ -254,6 +342,10 @@ void EffectsDialog::moveToEffects()
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 	if (availableEffects->currentText() == tr("Grayscale"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
+	if (availableEffects->currentText() == tr("Brightness"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0");
+	if (availableEffects->currentText() == tr("Contrast"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0");
 	if (availableEffects->currentText() == tr("Colorize"))
 	{
 		ColorList::Iterator it;
@@ -270,6 +362,7 @@ void EffectsDialog::moveToEffects()
 
 void EffectsDialog::moveFromEffects()
 {
+	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 	effectValMap.remove(usedEffects->item(usedEffects->currentItem()));
 	usedEffects->removeItem(usedEffects->currentItem());
 	currentOptions = 0;
@@ -280,8 +373,10 @@ void EffectsDialog::moveFromEffects()
 		effectUp->setEnabled(false);
 		effectDown->setEnabled(false);
 	}
+	usedEffects->setSelected(usedEffects->item(usedEffects->currentItem()), true);
 	selectEffect(usedEffects->item(usedEffects->currentItem()));
 	createPreview();
+	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 }
 
 void EffectsDialog::moveEffectUp()
@@ -330,6 +425,18 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
+		if (currentOptions->text() == tr("Brightness"))
+		{
+			QString tmp;
+			tmp.setNum(brightnessSlider->value());
+			effectValMap[currentOptions] = tmp;
+		}
+		if (currentOptions->text() == tr("Contrast"))
+		{
+			QString tmp;
+			tmp.setNum(contrastSlider->value());
+			effectValMap[currentOptions] = tmp;
+		}
 	}
 	if (c)
 	{
@@ -363,6 +470,34 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
 		}
+		else if (c->text() == tr("Brightness"))
+		{
+			disconnect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
+			QString tmpstr = effectValMap[c];
+			int brightness;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			fp >> brightness;
+			brightnessSlider->setValue(brightness);
+			QString tmp;
+			tmp.setNum(brightness);
+			textLabel7->setText(tmp);
+			optionStack->raiseWidget(2);
+			connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
+		}
+		else if (c->text() == tr("Contrast"))
+		{
+			disconnect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
+			QString tmpstr = effectValMap[c];
+			int contrast;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			fp >> contrast;
+			contrastSlider->setValue(contrast);
+			QString tmp;
+			tmp.setNum(contrast);
+			textLabel9->setText(tmp);
+			optionStack->raiseWidget(3);
+			connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
+		}
 		else
 			optionStack->raiseWidget(0);
 		currentOptions = c;
@@ -392,6 +527,18 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			tmp.setNum(shade->getValue());
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Brightness"))
+		{
+			QString tmp;
+			tmp.setNum(brightnessSlider->value());
+			effectValMap[currentOptions] = tmp;
+		}
+		if (currentOptions->text() == tr("Contrast"))
+		{
+			QString tmp;
+			tmp.setNum(contrastSlider->value());
+			effectValMap[currentOptions] = tmp;
 		}
 	}
 	currentOptions = 0;

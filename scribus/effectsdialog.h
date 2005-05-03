@@ -20,6 +20,7 @@ class ScribusDoc;
 class ShadeButton;
 class QWidgetStack;
 class QWidget;
+class QSlider;
 
 class EffectsDialog : public QDialog
 {
@@ -30,21 +31,29 @@ public:
 	~EffectsDialog() {};
 
 	QLabel* pixmapLabel1;
-	QLabel* textLabel5;
-	QLabel* textLabel4;
+	QLabel* textLabel1;
+	QLabel* textLabel2;
 	QLabel* textLabel3;
+	QLabel* textLabel4;
+	QLabel* textLabel5;
+	QLabel* textLabel6;
+	QLabel* textLabel7;
+	QLabel* textLabel8;
+	QLabel* textLabel9;
 	QWidgetStack* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
 	QComboBox* colData;
 	ShadeButton *shade;
-	QLabel* textLabel2;
+	QWidget* WStackPage_3;
+	QSlider* brightnessSlider;
+	QWidget* WStackPage_4;
+	QSlider* contrastSlider;
 	QListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
 	QPushButton* toEffects;
 	QPushButton* fromEffects;
-	QLabel* textLabel1;
 	QListBox* availableEffects;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
@@ -57,6 +66,8 @@ public:
 
 public slots:
 	virtual void leaveOK();
+	virtual void updateContrast(int val);
+	virtual void updateBright(int val);
 	virtual void createPreview();
 	virtual void saveValues();
 	virtual void moveToEffects();
@@ -69,6 +80,10 @@ public slots:
 protected:
 	QHBoxLayout* EffectsDialogLayout;
 	QVBoxLayout* WStackPageLayout;
+	QVBoxLayout* WStackPage3Layout;
+	QHBoxLayout* layout20;
+	QVBoxLayout* WStackPage4Layout;
+	QHBoxLayout* layout21;
 	QHBoxLayout* layout17;
 	QHBoxLayout* layout19;
 	QGridLayout* layout10;

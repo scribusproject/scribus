@@ -89,11 +89,11 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYK
 	{
 		for (uint a = 0; a < effectsList.count(); ++a)
 		{
-			if ((*effectsList.at(a)).effectCode == 0)
+			if ((*effectsList.at(a)).effectCode == EF_INVERT)
 				invert(cmyk);
-			if ((*effectsList.at(a)).effectCode == 1)
+			if ((*effectsList.at(a)).effectCode == EF_GRAYSCALE)
 				toGrayscale(cmyk);
-			if ((*effectsList.at(a)).effectCode == 2)
+			if ((*effectsList.at(a)).effectCode == EF_COLORIZE)
 			{
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
 				QString col = "None";
@@ -103,6 +103,84 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYK
 				fp >> shading;
 				colorize(colors[col], shading, cmyk);
 			}
+			if ((*effectsList.at(a)).effectCode == EF_BRIGHTNESS)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				int brightnessValue = 0;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> brightnessValue;
+				brightness(brightnessValue, cmyk);
+			}
+			if ((*effectsList.at(a)).effectCode == EF_CONTRAST)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				int contrastValue = 0;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> contrastValue;
+				contrast(contrastValue, cmyk);
+			}
+		}
+	}
+}
+
+void ScImage::contrast(int contrastValue, bool cmyk)
+{
+	curveTable.resize(256);
+	QPoint p1(0,0 - contrastValue);
+	QPoint p2(256, 256 + contrastValue);
+	double mc = (p1.y() - p2.y()) / (double)(p1.x() - p2.x());
+	for (int i = 0; i < 256; ++i)
+	{
+		curveTable[i] = QMIN(255, QMAX(0, int(i * mc) + p1.y()));
+	}
+	applyCurve(cmyk);
+}
+
+void ScImage::brightness(int brightnessValue, bool cmyk)
+{
+	curveTable.resize(256);
+	QPoint p1(0,0 + brightnessValue);
+	QPoint p2(256, 256 + brightnessValue);
+	double mc = (p1.y() - p2.y()) / (double)(p1.x() - p2.x());
+	for (int i = 0; i < 256; ++i)
+	{
+		curveTable[i] = QMIN(255, QMAX(0, int(i * mc) + p1.y()));
+	}
+	applyCurve(cmyk);
+}
+
+void ScImage::applyCurve(bool cmyk)
+{
+	int h = height();
+	int w = width();
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s;
+			int c, m, y, k;
+			if (cmyk)
+			{
+				unsigned char *p = (unsigned char *) s;
+				unsigned char rc = 255 - QMIN(255, p[0] + p[3]);
+				unsigned char gc = 255 - QMIN(255, p[1] + p[3]);
+				unsigned char bc = 255 - QMIN(255, p[2] + p[3]);
+				c = 255 - curveTable[rc];
+				m = 255 - curveTable[gc];
+				y = 255 - curveTable[bc];
+				k = QMIN(QMIN(c, m), y);
+				*s = qRgba(y - k, m - k, c - k, k );
+			}
+			else
+			{
+				c = curveTable[qRed(r)];
+				m = curveTable[qGreen(r)];
+				y = curveTable[qBlue(r)];
+				k = qAlpha(r);
+				*s = qRgba(c, m, y, k);
+			}
+			s++;
 		}
 	}
 }
