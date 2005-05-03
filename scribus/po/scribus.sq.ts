@@ -284,7 +284,39 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(madhësi, mënjana, orientim, firstPageNumber,
+                   njësi, facingPages, firstSideLeft) -&gt; bool
+
+Krijon një dokument të ri dhe përgjigjet me true nëse ka sukses. Parametrat kanë
+domethëniet vijuese:
+
+    madhësi = Një dyshe (gjerësi, lartësi) që përshkruan madhësinë e dokumentit. Mund të përdorni
+    konstante të parapërcaktuara të emërtuara PAPER_&lt;tip_letre&gt; p.sh. PAPER_A4 etj.
+
+    mënjana = Një katërshe (majtas, djathtas, krye, fund) që përshkruan mënjanat
+    e dokumentit
+
+    orientim = orientim i faqes - konstante PORTRAIT, LANDSCAPE
+
+    firstPageNumer = është numri i faqes së parë te dokumenti i përdorur për
+    numërtim faqesh. Ndërkohë që zakonisht do ta donit 1, është e dobishme të keni numra
+    më të mëdhenj nëse po krijoni një dokument me disa pjesë.
+
+    njësi: kjo vlerë përcakton njësitë matëse përdorur nga dokumenti. Për këtë përdorni
+    një konstante të parapërcaktuar, një nga: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Vlerat për gjerësinë, lartësinë dhe mënjanat shprehen në njësitë e dhëna
+për dokumentin. Konstantet PAPER_* shprehen në pikë. Nëse dokumenti juaj
+nuk është në pikë, sigurohuni që i bëni llogaritë në pikë.
+
+shembull: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
     </message>
 </context>
 <context>
@@ -9591,7 +9623,7 @@ Mungesa e suportit në librari tregohet me a *</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Dyfishim i &amp;Shumëfishtë</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -9779,7 +9811,7 @@ Mungesa e suportit në librari tregohet me a *</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
@@ -11581,7 +11613,7 @@ dhe tasti Delete heq atë të futur së fundmi</translation>
     </message>
     <message>
         <source>General Punctuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Shenja të Përgjithshme Pikësimi</translation>
     </message>
     <message>
         <source>Super- and Subscripts</source>
@@ -13586,7 +13618,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     <message>
         <source>Doc</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dok</translation>
     </message>
     <message>
         <source>Type</source>
@@ -13601,7 +13633,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     <message>
         <source>Access</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hyrje</translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -13652,7 +13684,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtypja këtu e tekstit ofron kërkim të shpejtë nëpër emrat e gërmave. P.sh. &apos;bold&apos; shfaq tërë gërmat me Bold te emri. Kërkimi nuk ndikohet nga gërma të mëdha apo të vogla.</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -13851,7 +13883,7 @@ dokumente të përditësuar dhe www.scribus.net për shkarkime.</translation>
     </message>
     <message>
         <source>Searching is case unsensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Kërkimi nuk ndikohet nga gërma të mëdha apo të vogla</translation>
     </message>
     <message>
         <source>unknown</source>
@@ -14201,7 +14233,7 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupe të Ngarkueshëm Shkurtprerjesh</translation>
     </message>
     <message>
         <source>&amp;Load</source>
@@ -14221,27 +14253,27 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupe shkurtprerjesh tastierash të gatshëm për t´u ngarkuar</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngarko grupin e përzgjedhur të shkurtprerjeve</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo një grup shkurtprerjesh në formësimin e çastit</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksporto shkurtprerjet e çastit në një kartelë të importueshme</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ringarko shkurtprerjet Scribus parazgjedhje</translation>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartela Gupe Tastesh XML (*.ksxml)</translation>
     </message>
 </context>
 <context>
@@ -14916,7 +14948,9 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
         <source>Insert a comma separated list of tokens importWhereData
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni një listë objektesh importWhereData të ndarë(new line)
+me presje ku objekti mund të jetë * për tërë faqet,(new line)
+1-5 për një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
         <source>Before Page</source>
@@ -17436,7 +17470,7 @@ te korniza me emër %1 me tekstin shembull?</translation>
     </message>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished">Lidhet Me</translation>
+        <translation>Lidhet Me</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
@@ -17695,7 +17729,7 @@ te korniza me emër %1 me tekstin shembull?</translation>
     <name>PluginManager</name>
     <message>
         <source>Can&apos;t find Plug-in</source>
-        <translation type="unfinished">S&apos;mund të gjej Shtojcë</translation>
+        <translation>S&apos;mund të gjej Shtojcë</translation>
     </message>
     <message>
         <source>Persistent</source>
@@ -18848,7 +18882,7 @@ tejngopjeje me bojëra CMY.</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq Zinxhir Tekstesh</translation>
     </message>
     <message>
         <source>Show Frames</source>
@@ -18933,19 +18967,23 @@ Mundeni ende ta anashkaloni këtë duke përdor rresht urdhrash gjatë nisjes s�
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with a document open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Drejtori parazgjedhje profilesh ICC. Kjo nuk
+mund të ndryshohet me një dokument të hapur.</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps.
 If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cakton madhësinë në hapa të historikut të veprimeve.
+Në u vëntë 0, mund të ruhet një numër i pafund veprimesh.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vend sistemi kartelash për përpunuesët grafikë. Nëse përdorni
+Gimp-in dhe shpërndarja juaj e përmban atë, këshillojmë &apos;gimp-remote&apos;,
+meqë ju lejon të përpunoni pamjen në një instancë Gimp-i në xhirim e sipër.</translation>
     </message>
 </context>
 <context>
@@ -20477,7 +20515,7 @@ Lidhje të Jashtme
     <message>
         <source>unexpected null &lt;%2&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>nyje e papritur null &lt;%2&gt;</translation>
     </message>
     <message>
         <source>node &lt;%1&gt; not an element</source>
@@ -20666,107 +20704,107 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
     </message>
     <message>
         <source>Types matched, but setting property failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipet përputhen, por rregullimi i vetisë dashtoi.</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objekt i treguar jo në një kornizë pamjeje.</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të ripërmasoj me 0%.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk u gjetën gërmat.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të skicoj një shembull bosh.</translation>
     </message>
     <message>
         <source>Unable to save pixmap</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>I pazoti të ruaj pixmap</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të kem një emër bosh shtrese.</translation>
     </message>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk u gjet shtresë.</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të heq shtresën e fundit.</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të krijoj shtresë pa emër.</translation>
     </message>
     <message>
         <source>An object with the requested name already exists.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ka tashmë një objekt me emrin e kërkuar.</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë të paktën dy pika (katër vlera).</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë një numër çift vlerash.</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë të paktën tre pika (gjashtë vlera).</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë të paktën katër pika (tetë vlera).</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të ketë një shumëfish gjashtë vlerash.</translation>
     </message>
     <message>
         <source>Object not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk u gjetën objekt.</translation>
     </message>
     <message>
         <source>Style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk u gjet stil.</translation>
     </message>
     <message>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të caktoj stil në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dështova në ruajtjen e EPS-së.</translation>
     </message>
     <message>
         <source>Page number out of range.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Numër faqeje jashtë intervali.</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values.</source>
@@ -20786,22 +20824,22 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gjerësi vije jashtë caqesh, duhet të jetë 0 &lt;= gjerësi_vije &lt;= 12.</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hije vije jashtë caqesh, duhet të jetë 0 &lt;= hije &lt;= 100.</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mbushe hijeje jashtë caqesh, duhet të jetë 0 &lt;= hije &lt;= 100.</translation>
     </message>
     <message>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk u gjet stil vije.</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
@@ -20811,42 +20849,42 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të caktoj drejtim tekstil në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi gërmash jashtë caqesh, duhet të jetë 1 &lt;= madhësi &lt;= 512.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të caktoj madhësi gërmash në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të caktoj gërma në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hapësirë vije jashtë caqesh, duhet të jetë &gt;=0.1.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të caktoj hapësirë vije në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Boshllëk shtylle jashtë caqesh, duhet të jetë pozitiv.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të caktoj boshllëk shtyllash në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
@@ -20856,17 +20894,17 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të caktoj numër shtyllash në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të përzgjedh tekst në një kornizë jo për tekst</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të fshij tekst prej një kornize jo për tekst.</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
@@ -20886,17 +20924,17 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mund të lidh vetëm korniza teksti.</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korniza objektiv duhet të jetë bosh.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korniza objektiv lidhet te një tjetër kornizë.</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
@@ -20906,7 +20944,7 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pikënisja dhe objektivi janë i njëjti objekt.</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
@@ -20935,7 +20973,7 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Programth</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -20973,11 +21011,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Short Words Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>Doracak Fjalësh të Shkurtra</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumente Teksti OpenDocument</translation>
     </message>
 </context>
 <context>
@@ -21240,47 +21278,47 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Madhësi:</translation>
+        <translation>&amp;Madhësi:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Orie&amp;ntim:</translation>
+        <translation>Orie&amp;ntim:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Gjerësi:</translation>
+        <translation>&amp;Gjerësi:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Lartësi:</translation>
+        <translation>&amp;Lartësi:</translation>
     </message>
     <message>
         <source>&amp;Unit:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Njësi:</translation>
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Skemë</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetëruaj</translation>
     </message>
     <message>
         <source>min</source>
-        <translation type="unfinished">min</translation>
+        <translation>min</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Interval:</translation>
+        <translation>&amp;Interval:</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation type="unfinished">Udhëzuesa</translation>
+        <translation>Udhëzuesa</translation>
     </message>
     <message>
         <source>Page Display</source>
@@ -21288,27 +21326,27 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Ngjyrë:</translation>
+        <translation>Ngjyrë:</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished">Paraqit Zonë të &amp;Pashtypshme në Ngjyrë Mënjanash</translation>
+        <translation>Paraqit Zonë të &amp;Pashtypshme në Ngjyrë Mënjanash</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq Foto</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq Zinxhirë Tekstesh</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq Korniza</translation>
     </message>
     <message>
         <source>Scratch Space</source>
@@ -21316,43 +21354,43 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished">Shfaq</translation>
+        <translation>Shfaq</translation>
     </message>
     <message>
         <source>Typography</source>
-        <translation type="unfinished">Tipografi</translation>
+        <translation>Tipografi</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished">Mjete</translation>
+        <translation>Mjete</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndarës</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Gërma</translation>
     </message>
     <message>
         <source>Document Checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollues Dokumenti</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport PDF</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Veti Objekti Dokumenti</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabelë Përmbajtjeje dhe Treguesa</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Administrim Ngjyrash</translation>
     </message>
     <message>
         <source>Turns the of linked frames on or off</source>
@@ -21368,11 +21406,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Color for paper</source>
-        <translation type="unfinished">Ngjyrë për letrën</translation>
+        <translation>Ngjyrë për letrën</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Masko zonën jashtë mënjanash me ngjyrën e mënjanave</translation>
+        <translation>Masko zonën jashtë mënjanash me ngjyrën e mënjanave</translation>
     </message>
 </context>
 <context>
@@ -22759,7 +22797,7 @@ nuk është në një format të pranueshëm</translation>
     </message>
     <message>
         <source>Some ICC-Profiles used by this Document are not installed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Disa Profile ICC të përdorur nga ky Dokument nuk janë të instaluar:</translation>
     </message>
     <message>
         <source>(converted)</source>
@@ -22968,7 +23006,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Veti Shënimesh</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
@@ -23270,7 +23308,7 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
     </message>
     <message>
         <source>Forced</source>
-        <translation type="unfinished"></translation>
+        <translation>Detyrueshëm</translation>
     </message>
     <message>
         <source> pt</source>
@@ -23849,7 +23887,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontroll automatik para shtypjeje apo eksportimi</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
@@ -23885,7 +23923,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollo për Kartela PDF-sh të vendosura</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
@@ -23912,11 +23950,11 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation type="unfinished"></translation>
+        <translation>Në Sfond</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
+        <translation>Në Ballë</translation>
     </message>
     <message>
         <source>Snapping</source>
@@ -23928,7 +23966,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Grab Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Merr Rrënjë:</translation>
     </message>
     <message>
         <source> px</source>
@@ -23936,7 +23974,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq Udhëzuesa</translation>
     </message>
     <message>
         <source>Color:</source>
@@ -23944,15 +23982,15 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq Mënjana</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq Rrjetë Faqeje</translation>
     </message>
     <message>
         <source>Major Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Rrjetë e Madhe</translation>
     </message>
     <message>
         <source>Spacing:</source>
@@ -23960,7 +23998,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Rrjetë e Vogël</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
@@ -23996,11 +24034,11 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngjyrë e vijave të rrjetës së vogël</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngjyrë e vijave të rrjetës së madhe</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
@@ -24194,7 +24232,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gërma për t´u trupëzuar:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
@@ -24206,7 +24244,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizo Efekte &amp;Paraqitjesh</translation>
     </message>
     <message>
         <source>Page</source>
@@ -24362,7 +24400,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">Të përgjithshme</translation>
+        <translation>Të përgjithshme</translation>
     </message>
     <message>
         <source>Output &amp;Intended For:</source>
@@ -24382,15 +24420,15 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Përdor Rregullime Vetjake Vizatimi</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Rregullime Vizatimi</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
-        <translation type="unfinished"></translation>
+        <translation>Shpe&amp;shti:</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
@@ -24466,7 +24504,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
-        <translation type="unfinished"></translation>
+        <translation>Varg të &amp;Dhënash:</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
@@ -24521,7 +24559,7 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbato efektin e përzgjedhur te tërë faqet.</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
@@ -24535,7 +24573,9 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni një listë objektesh të ndarë me presje ku(new line)
+objekti mund të jetë * për tërë faqet, 1-5 për(new line)
+një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.
@@ -24561,12 +24601,14 @@ Disa parësa mund të përdorin figurëza për lundrim.</translation>
     <message>
         <source>Layers in your document are exported to the PDF
 Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shtresat në dokumentin tuaj janë u eksportuan te PDF-ja
+Të passhëm vetëm nëse zgjidhet PDF 1.5.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trupëzo faqerojtësit që krijuat në dokumentin tuaj.
+Këta janë të dobishëm për lundrim dokumentesh të gjatë PDF.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics.
@@ -24611,12 +24653,16 @@ Po e latë të pashenjuar dotë vizatohen me qartësinë origjinale.</translatio
 If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
 If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizoni karakteristika sigurie në PDF-të tuaja të eksportuara.
+Nëse përzgjodhët PDF 1.3, PDF-ja do të mbrohet me kodim 40 bitësh.
+Nëse përzgjodhët PDF 1.4, PDF-ja do të mbrohet me kodim 128 bitësh.
+Klauzolë: Kodimi PDF nuk është aq i besueshëm sa kodimi GPG ose PGP dhe ka disa kufizime.</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjidhni një fjalëkalim të përgjithshëm i cili aktivizon ose çaktivizon tërë
+karakteristikat e sigurisë në PDF-në tuaj të eksportuar</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
@@ -24633,12 +24679,14 @@ security features in your exported PDF</source>
     <message>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lejo kopjim teksti ose grafikash prej PDF-së. 
+Në u lëntë pa shenjuar, nuk do të mund të kopjohen tekste dhe grafika.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lejo shtim shënimesh dhe fushash te PDF-ja. 
+Në u lëntë pa shenjuar, pengohet përpunimi i shënimeve dhe fushave.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -24652,7 +24700,10 @@ Zgjidhni Shtypës kur shtypet vërtet me një shtypës 4 ngjyrësh CMYK.</transl
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ky është një rregullim i mëtejshëm i cili nuk është i aktivizuar paraprakishtt. Do të duhej 
+të aktivizohej vetëm kur kërkohet shprehimisht nga shtypësi juaj dhe ju kanë dhënë 
+hollësitë e sakta të nevojshme. Përndryshe, PDF-ja juaj e eksportuar mund të mos shtypet
+si duhet dhe të mos jetë vërtet e kalueshme nga një sistem në një tjetër.</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
@@ -24660,7 +24711,7 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Profil ngjyre për ngjyra të plota</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
@@ -24689,7 +24740,8 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vargu i detyrueshëm për PDF/X-3 ose PDF nuk do të plotësojë
+përputhshmëri me PDF/X-3. Këshillojmë të përdorni titullin e dokumentit.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -24932,7 +24984,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngopje ngjyre mbushjeje</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
@@ -25023,11 +25075,11 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ndërvijë Automatike</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërvijë:</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -25051,7 +25103,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rritje në përqindje mbi madhësi gërmash për ndërvijën</translation>
     </message>
 </context>
 <context>
@@ -25210,69 +25262,71 @@ Ju lutem zgjidhni një tjetër.</translation>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto udhëzues vertikal</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto udhëzues horizontal</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiq udhëzues vertikal</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiq udhëzues horizontal</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Lëviz udhëzues vertikal</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Lëviz udhëzues horizontal</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Kyç udhëzuesa</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Çkyç udhëzuesa</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Zhvendos</translation>
     </message>
     <message>
         <source>Resize</source>
-        <translation type="unfinished"></translation>
+        <translation>Ripërmaso</translation>
     </message>
     <message>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation>Rrotullo</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>W1: %1, H1: %2
+W2: %3, H2: %4</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzgjedhje</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Grup</translation>
     </message>
     <message>
         <source>Selection/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzgjedhje/Grup</translation>
     </message>
     <message>
         <source>Create</source>
@@ -25281,15 +25335,16 @@ W2: %3, H2: %4</source>
     <message>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+W: %3, H: %4</translation>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Drejto/Shpërnda</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekte të përfshirë</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -25297,11 +25352,11 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Set fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni ngjyrë mbushjeje</translation>
     </message>
     <message>
         <source>Color1: %1, Color2: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Color1: %1, Color2: %2</translation>
     </message>
     <message>
         <source>Set fill color shade</source>
@@ -25309,11 +25364,11 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Set line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni ngjyrë vijash</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni hije ngjyre vijash</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
@@ -25333,15 +25388,15 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Lock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Kyç madhësi</translation>
     </message>
     <message>
         <source>Unlock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Çkyç madhësi</translation>
     </message>
     <message>
         <source>Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>Çgrupo</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -25354,11 +25409,12 @@ W: %3, H: %4</source>
     <message>
         <source>From %1
 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nga %1
+te %2</translation>
     </message>
     <message>
         <source>Apply template</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbato Stampë</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -25370,15 +25426,15 @@ to %2</source>
     </message>
     <message>
         <source>Set fill color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Rregulloni tejdukshmërinë për ngjyrë mbushjeje</translation>
     </message>
     <message>
         <source>Set line color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Rregulloni tejdukshmërinë për ngjyrë vije</translation>
     </message>
     <message>
         <source>Set line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni stil vije</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
@@ -25390,11 +25446,11 @@ to %2</source>
     </message>
     <message>
         <source>Set line width</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni gjerësi vije</translation>
     </message>
     <message>
         <source>No style</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa Stil</translation>
     </message>
     <message>
         <source>Set custom line style</source>
@@ -25414,27 +25470,27 @@ to %2</source>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni tabelë</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Rreshta: %1, Shtylla: %2</translation>
     </message>
     <message>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni gërma</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni madhësi gërmash</translation>
     </message>
     <message>
         <source>Set font width</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni gjerësi gërmash</translation>
     </message>
     <message>
         <source>Set font fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni ngjyrë mbushjeje gërmash</translation>
     </message>
     <message>
         <source>Set font stroke color</source>
@@ -25454,23 +25510,23 @@ to %2</source>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni ndërvijë</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni stil paragrafi</translation>
     </message>
     <message>
         <source>Set language</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni gjuhë</translation>
     </message>
     <message>
         <source>Align text</source>
-        <translation type="unfinished"></translation>
+        <translation>Drejtoni tekstin</translation>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Caktoni efekte gërmash</translation>
     </message>
     <message>
         <source>Image frame</source>
@@ -25498,11 +25554,11 @@ to %2</source>
     </message>
     <message>
         <source>Import SVG image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo pamje SVG</translation>
     </message>
     <message>
         <source>Import EPS image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo pamje EPS</translation>
     </message>
     <message>
         <source>Import OpenOffice draw image</source>
@@ -25614,15 +25670,15 @@ to %2</source>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizo shtypje shtrese</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Çaktivizo shtypje shtrese</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndrysho emrin e shtresës</translation>
     </message>
     <message>
         <source>Get image</source>
@@ -25637,7 +25693,7 @@ to %2</source>
     </message>
     <message>
         <source>Show selected object only</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfaq vetëm objektin e përzgjedhur</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -25785,11 +25841,11 @@ duke vënë shenjë te butoni.</translation>
     </message>
     <message>
         <source>Edit &amp;system configuration...</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni formësim &amp;sistemi...</translation>
     </message>
     <message>
         <source>Edit &amp;user configuration...</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni formësim &amp;përdorues...</translation>
     </message>
     <message>
         <source>S&amp;etup editor...</source>
@@ -25801,7 +25857,7 @@ duke vënë shenjë te butoni.</translation>
     </message>
     <message>
         <source>&amp;Info and Languages...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Të dhëna dhe Gjuhë...</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -25814,19 +25870,20 @@ duke vënë shenjë te butoni.</translation>
     <message>
         <source>You are starting to edit read-only file.
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Po filloni të përpunoni një kartelë që vetëm mund të lexohet.
+%1</translation>
     </message>
     <message>
         <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gabim zbatimi &apos;%1&apos;. Nuk mund të fillohet.</translation>
     </message>
     <message>
         <source>Short Words setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Rregullim Fjalësh të Shkurtra</translation>
     </message>
     <message>
         <source>Enter name of the plain text editor executable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni emrin e të ekzekutueshmit për përpunues të thjeshtë tekstesh:</translation>
     </message>
 </context>
 <context>
