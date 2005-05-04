@@ -334,7 +334,7 @@ used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Vloží text &quot;text&quot; na pozici &quot;pos&quot; v textovém rámce &quot;name&quot;. Text musí být
 v UTF8 kódování (viz. setText()). První znak rámce má pozici 0.
@@ -1770,7 +1770,7 @@ je textový rámec (4) a je první v pořadí na stránce...</translation>
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation>getPageMargins()
+        <translation type="obsolete">getPageMargins()
 
 Vrátí nastavení okrajů stránky (levý, pravý, horní, dolní) v aktuálních měrných
 jednotkách. Viz. koonstanty UNIT a getPageSize().</translation>
@@ -2197,6 +2197,26 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame</translation>
     </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (top, left, right, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference). The first character has
+an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
+is not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2487,6 +2507,13 @@ a jiné.</translation>
     <message>
         <source>Set Media Size</source>
         <translation>Nastavit velikost média</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the postscript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3697,6 +3724,25 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
 It&apos;s a reserved name for transparent color</source>
         <translation>Nelze vytvořit barvu jménem &quot;%1&quot;.
 Název je rezervován pro transparentní barvu</translation>
+    </message>
+</context>
+<context>
+    <name>ChooseStyles</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Zrušit</translation>
     </message>
 </context>
 <context>
@@ -5102,6 +5148,10 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
         <source>Leave preview</source>
         <translation>Zavřít náhled písem</translation>
     </message>
+    <message>
+        <source>Size of the Font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -5204,6 +5254,38 @@ kde naleznete aktuální dokumentaci.</translation>
     <message>
         <source>Scribus Online Help</source>
         <translation>Scribus nápověda</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Hledat</translation>
+    </message>
+    <message>
+        <source>S&amp;earch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Term:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7340,29 +7422,29 @@ ke straně, v opačném případě k objektu.</translation>
     <name>OdtDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation>Nastavení importu OpenOffice.org Writer</translation>
+        <translation type="obsolete">Nastavení importu OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation>Aktualizovat styly odstavce</translation>
+        <translation type="obsolete">Aktualizovat styly odstavce</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation>Má být existující Scribus styl změněn, jestliže v importovaném dokumentu
+        <translation type="obsolete">Má být existující Scribus styl změněn, jestliže v importovaném dokumentu
 existuje styl se stejným jménem nebo se nemá změnit</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation>Zabalit styly odstavce</translation>
+        <translation type="obsolete">Zabalit styly odstavce</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation>Setřídit styly odstavce podle atributů.
+        <translation type="obsolete">Setřídit styly odstavce podle atributů.
 Výsledkem je méně stylů, ale mohou vzniknout problémy
 s jejich nastavením. Používejte, jestliže víte, že text nemusíte
 příliš upravovat.</translation>
@@ -7374,7 +7456,7 @@ příliš upravovat.</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation>Má importer přidávat jméno dokumentu před
+        <translation type="obsolete">Má importer přidávat jméno dokumentu před
 jméno stylu odstavce ve Scribusu</translation>
     </message>
     <message>
@@ -7385,12 +7467,40 @@ jméno stylu odstavce ve Scribusu</translation>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation>Má si importer vždy pamatovat nastavenou hodnotu
+        <translation type="obsolete">Má si importer vždy pamatovat nastavenou hodnotu
 a nikdy znovu nevyžadovat potvrzení</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>OpenDocument Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7862,12 +7972,12 @@ Jestliže není zatrženo, text a grafika nelze kopírovat.</translation>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation>Povolit přidávání poznámek a polí formulářů do PDF.
+        <translation type="obsolete">Povolit přidávání poznámek a polí formulářů do PDF.
 Jestliže není zatrženo, přidávání je zakázáno.</translation>
     </message>
     <message>
         <source>Create PDF File</source>
-        <translation>Vytvořit PDF soubor</translation>
+        <translation type="obsolete">Vytvořit PDF soubor</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -8117,6 +8227,39 @@ a nebudou plně přenositelné mezi systémy.</translation>
         <source>Mirror Page(s) vertically</source>
         <translation>Zrcadlit stranu(y) vertikálně</translation>
     </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fields is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF security settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-3 settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -8294,7 +8437,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Kopie</translation>
+        <translation type="obsolete">Kopie</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -8900,7 +9043,7 @@ Scribus používá jakékoli téma z Qt nebo KDE</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation>Implicitní adresář na ICC profily</translation>
+        <translation type="obsolete">Implicitní adresář na ICC profily</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -9190,7 +9333,7 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Umístění Ghostscript interpreteru na disku</translation>
+        <translation type="obsolete">Umístění Ghostscript interpreteru na disku</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -9202,7 +9345,7 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation>Umístění grafického editoru na disku</translation>
+        <translation type="obsolete">Umístění grafického editoru na disku</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -9214,11 +9357,11 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation>Zapnout pomocnou mřížku</translation>
+        <translation type="obsolete">Zapnout pomocnou mřížku</translation>
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation>Vypnout pomocnou mřížku</translation>
+        <translation type="obsolete">Vypnout pomocnou mřížku</translation>
     </message>
     <message>
         <source> px</source>
@@ -9626,6 +9769,30 @@ a jiné.</translation>
     <message>
         <source>Tabloid</source>
         <translation>Tabloid</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot
+be changed with documents open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns on the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns off the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the Ghostscript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp
+and your distro includes it, we recommend &apos;gimp-remote&apos;,
+as it allows you to edit the image in an already running
+instance of gimp.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10832,7 +10999,7 @@ Odkazy ven
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="obsolete">Barva nenalezena</translation>
+        <translation type="unfinished">Barva nenalezena</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -11226,7 +11393,7 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     <message>
         <source>Colour not found</source>
         <comment>python error</comment>
-        <translation>Barva nenalezena</translation>
+        <translation type="obsolete">Barva nenalezena</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
@@ -11246,6 +11413,10 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     <message>
         <source>OpenDocument Text Documents</source>
         <translation>OpenDocument dokumenty (OpenOffice 2)</translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12813,6 +12984,18 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <source>There are no suitable Fonts on your System</source>
         <translation>Váš systém neobsahuje žádná použitelná písma</translation>
     </message>
+    <message>
+        <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -12843,6 +13026,10 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Kopie</translation>
     </message>
 </context>
 <context>
@@ -13628,7 +13815,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     <name>SxwDialog</name>
     <message>
         <source>Update paragraph styles</source>
-        <translation>Aktualizovat styly odstavce</translation>
+        <translation type="obsolete">Aktualizovat styly odstavce</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -13645,14 +13832,14 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation>Má importer přidávat jméno dokumentu před
+        <translation type="obsolete">Má importer přidávat jméno dokumentu před
 jméno stylu odstavce ve Scribusu</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation>Má být existující Scribus styl změněn, jestliže v importovaném dokumentu
+        <translation type="obsolete">Má být existující Scribus styl změněn, jestliže v importovaném dokumentu
 existuje styl se stejným jménem nebo se nemá změnit</translation>
     </message>
     <message>
@@ -13663,22 +13850,46 @@ existuje styl se stejným jménem nebo se nemá změnit</translation>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation>Má si importer vždy pamatovat nastavenou hodnotu
+        <translation type="obsolete">Má si importer vždy pamatovat nastavenou hodnotu
 a nikdy znovu nevyžadovat potvrzení</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation>Zabalit styly odstavce</translation>
+        <translation type="obsolete">Zabalit styly odstavce</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation>Setřídit styly odstavce podle atributů.
+        <translation type="obsolete">Setřídit styly odstavce podle atributů.
 Výsledkem je méně stylů, ale mohou vzniknout problémy
 s jejich nastavením. Používejte, jestliže víte, že text nemusíte
 příliš upravovat.</translation>
+    </message>
+    <message>
+        <source>Update Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14122,7 +14333,7 @@ hodnoty nahradíte.</translation>
     </message>
     <message>
         <source>Get text only</source>
-        <translation>Pouze text</translation>
+        <translation type="obsolete">Pouze text</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
@@ -14135,6 +14346,10 @@ hodnoty nahradíte.</translation>
     <message>
         <source>Encoding:</source>
         <translation>Kódování:</translation>
+    </message>
+    <message>
+        <source>Import Text Only</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

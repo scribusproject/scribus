@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 13:58+0200\n"
+"POT-Creation-Date: 2005-05-04 21:29+0200\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -468,6 +468,9 @@ msgstr "p"
 msgid "All"
 msgstr "Ĉiuj"
 
+msgid "Copy of"
+msgstr "Kopio de "
+
 msgid "Copy Here"
 msgstr "Kopiu ĉi tie"
 
@@ -675,9 +678,6 @@ msgstr "La programo"
 msgid "is missing!"
 msgstr "mankas!"
 
-msgid "Copy of"
-msgstr "Kopio de "
-
 msgid "Page "
 msgstr "Paĝo"
 
@@ -765,8 +765,9 @@ msgstr "Elektu la uzotan importilon"
 msgid "Automatic"
 msgstr "Aŭtomata"
 
-msgid "Get text only"
-msgstr "Enmetu nur tekston"
+#, fuzzy
+msgid "Import Text Only"
+msgstr "Tekstoimportado"
 
 msgid "Import text without any formatting"
 msgstr "Importu neformatitan tekston"
@@ -895,8 +896,9 @@ msgstr "Nova nivelo"
 msgid "Do you want to delete all Objects on this Layer too?"
 msgstr "Ĉu vi vere intencas forigi ankaŭ ĉiujn objektojn sur ĉi tiu nivelo?"
 
-msgid "Create PDF File"
-msgstr "Kreu PDF-dosieron"
+#, fuzzy
+msgid "Save as PDF"
+msgstr "Konservu kiel P&DF..."
 
 msgid "O&utput to File:"
 msgstr "&Celdosiero:"
@@ -1208,6 +1210,22 @@ msgstr "Tranĉformato"
 msgid "PDF/X-&3"
 msgstr "PDF/X-&3"
 
+msgid ""
+"<qt>Color management must be enabled to use PDF/X-3. You can enable color "
+"management from the Settings menu.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is supported and enabled, but can not be used for the selected "
+"PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF "
+"version (compatibility level).</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is not supported by this Scribus build (CMS support not present)."
+"</qt>"
+msgstr ""
+
 msgid "&Save"
 msgstr "&Konservu"
 
@@ -1408,9 +1426,10 @@ msgstr ""
 "Permesas kopiadon de tekstoj kaj grafikaĵoj en la PDF-dosiero.\n"
 "Se ne markita ne eblas kopii tekston kaj grafikaĵojn."
 
+#, fuzzy
 msgid ""
 "Allow adding annotations and fields to the PDF. \n"
-"If un-checked, editing annotations and fileds is prevented."
+"If un-checked, editing annotations and fields is prevented."
 msgstr ""
 "Permesas aldonon de notoj kaj kampoj al PDF-dosiero.\n"
 "Se ne markita ne eblas aldoni notojn kaj kampojn."
@@ -1492,6 +1511,20 @@ msgstr "Reflektu paĝo(j)n"
 
 msgid "Mirror Page(s) vertically"
 msgstr "Renversu paĝo(j)n"
+
+#, fuzzy
+msgid "PDF security settings"
+msgstr "PDF-prezentaĵoj"
+
+#, fuzzy
+msgid "PDF/X-3 settings"
+msgstr "PDF-prezentaĵoj"
+
+msgid ""
+"<qt>PDF security can not be used with PDF/X-3. If you want to turn on "
+"security, change your PDF version (compatibility level) to something other "
+"than PDF/X-3.</qt>"
+msgstr ""
 
 msgid "Save as"
 msgstr "Konservu kiel"
@@ -2361,6 +2394,10 @@ msgstr "Kataluna"
 msgid "Chinese"
 msgstr "Ĉina"
 
+#, fuzzy
+msgid "Croatian"
+msgstr "Kataluna"
+
 msgid "Czech"
 msgstr "Ĉeĥa"
 
@@ -2771,7 +2808,8 @@ msgstr "Konservu ĉi tiun dokumenton kiel PDF"
 msgid "Searching for Fonts"
 msgstr "Serĉas tiparojn"
 
-msgid "There are no Postscript-Fonts on your System"
+#, fuzzy
+msgid "There are no suitable Fonts on your System"
 msgstr "Ne estas Postskript-tiparoj en via sistemo"
 
 msgid "Exiting now"
@@ -2830,9 +2868,6 @@ msgstr "Agordu vortdividilon"
 
 msgid "Setting up Shortcuts"
 msgstr "Agordu klavkombinojn"
-
-msgid "&Color Management..."
-msgstr "&Koloradministrado..."
 
 msgid "Reading Scrapbook"
 msgstr "Legas albumon"
@@ -3155,6 +3190,9 @@ msgstr "&Tiparoj..."
 msgid "Fonts..."
 msgstr "Tiparoj..."
 
+msgid "&Color Management..."
+msgstr "&Koloradministrado..."
+
 msgid "&Hyphenator..."
 msgstr "&Vortdividilo..."
 
@@ -3383,6 +3421,17 @@ msgstr "Ŝlosu"
 msgid "Loading:"
 msgstr "Ŝarganta:"
 
+msgid ""
+"<qt>Color management is supported but can not currently be enabled. Make "
+"sure you have ICC color profiles installed and that the profile path in the "
+"preferences points to where they're installed.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Color management is not supported by this Scribus build (not compiled "
+"in).</qt>"
+msgstr ""
+
 msgid "Adjusting Colors"
 msgstr "Agordas kolorojn"
 
@@ -3432,6 +3481,9 @@ msgstr "Ren&versu paĝo(j)n"
 msgid "Apply Under Color &Removal"
 msgstr "Apliku &forigon de la subaj koloroj (UCR)"
 
+msgid "Set Media Size"
+msgstr ""
+
 msgid "Apply &ICC Profiles"
 msgstr "Apliku &ICC-profilojn"
 
@@ -3460,6 +3512,13 @@ msgid ""
 msgstr ""
 "Kreas nur Postskript-nivelon 1, atentu,\n"
 "ĝi povus krei grandegajn dosierojn"
+
+msgid ""
+"This enables you to explicitely set,\n"
+"the media size of the postscript file.\n"
+"Not recommended unless\n"
+" requested by your printer."
+msgstr ""
 
 msgid ""
 "A way of switching off some of the gray shades which are composed\n"
@@ -4668,6 +4727,14 @@ msgstr "Movu legosignon"
 msgid "Insert Bookmark"
 msgstr "Enmetu legosignon"
 
+#, fuzzy
+msgid "Choose Styles"
+msgstr "Kontrolu stilon:"
+
+#, fuzzy
+msgid "Available Styles"
+msgstr "Disponeblaj tiparoj"
+
 msgid "Edit Styles"
 msgstr "Redaktu stilojn"
 
@@ -4778,6 +4845,21 @@ msgstr ""
 msgid "Contents"
 msgstr "Enteno"
 
+#, fuzzy
+msgid "&Contents"
+msgstr "Enteno"
+
+#, fuzzy
+msgid "S&earch"
+msgstr "Serĉu"
+
+#, fuzzy
+msgid "Ctrl+F"
+msgstr "Stir+"
+
+msgid "F3"
+msgstr ""
+
 msgid "Scribus Online Help"
 msgstr "Dialoga helpilo por Scribus"
 
@@ -4788,6 +4870,18 @@ msgid ""
 msgstr ""
 "Bedaŭrinde ne disponeblas manlibro! Bonvolu kontroli: http://docs.scribus."
 "net por ĝisdatigitaj dokumentoj kaj www.scribus.net por deŝutoj."
+
+#, fuzzy
+msgid "unknown"
+msgstr "Nekonata"
+
+#, fuzzy
+msgid "Find"
+msgstr "in"
+
+#, fuzzy
+msgid "Search Term:"
+msgstr "Serĉu:"
 
 msgid "Edit JavaScripts"
 msgstr "Redaktu ĝavaskriptojn"
@@ -5306,8 +5400,10 @@ msgstr "Nombro de la lastaj redaktitaj dokumentoj montrotaj en la dosiermenuo"
 msgid "Default documents directory"
 msgstr "Apriora dokumentdosierujo"
 
-msgid "Default ICC profiles directory"
-msgstr "Apriora ICC-profila dosierujo"
+msgid ""
+"Default ICC profiles directory. This cannot\n"
+"be changed with documents open."
+msgstr ""
 
 msgid "Default Scripter scripts directory"
 msgstr "Apriora dosierujo por la skriptoj de la Skriptilo"
@@ -5367,10 +5463,12 @@ msgstr "Loku la kradon malantaŭ la paĝobjektojn"
 msgid "Place the grid in front of your page objects"
 msgstr "Loku la kradon antaŭ la paĝobjektojn"
 
-msgid "Turns on the basegrid"
+#, fuzzy
+msgid "Turns on the base grid"
 msgstr "Igas videbla la bazlinian kradon"
 
-msgid "Turns off the basegrid"
+#, fuzzy
+msgid "Turns off the base grid"
 msgstr "Igas nevidebla la bazlinian kradon"
 
 msgid "Displacement above the baseline of the font on a line"
@@ -5508,7 +5606,8 @@ msgstr "Ebligu travideblecon por eksporto al PDF 1.4"
 msgid "Set the default zoom level"
 msgstr "Agordu la aprioran grandignivelon"
 
-msgid "Filesystem location for the Ghostscript interpreter"
+#, fuzzy
+msgid "File system location for the Ghostscript interpreter"
 msgstr "Dosierindiko de la Postskript-interpretilo"
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -5517,8 +5616,12 @@ msgstr "Glatigita teksto por ekranomontro de EPS kaj PDF "
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr "Glatigitaj grafikaĵoj por ekranomontro de EPS kaj PDF "
 
-msgid "Filesystem location for graphics editor"
-msgstr "Dosierindiko de grafik-redaktilo"
+msgid ""
+"File system location for graphics editor. If you use gimp\n"
+"and your distro includes it, we recommend 'gimp-remote',\n"
+"as it allows you to edit the image in an already running\n"
+"instance of gimp."
+msgstr ""
 
 msgid ""
 "Do not show objects outside the margins on the printed page or exported file"
@@ -5825,6 +5928,9 @@ msgstr "Aldonu la elektitan tiparon en la menuero Stilo, Tiparo"
 msgid "Leave preview"
 msgstr "Fermu antaŭrigardon"
 
+msgid "Size of the Font"
+msgstr ""
+
 msgid "Text Filters"
 msgstr "Tekstofiltriloj"
 
@@ -5919,39 +6025,34 @@ msgstr "CSV-titoloj"
 msgid "OpenDocument Text Documents"
 msgstr "Tekstodokumentoj"
 
-msgid "OpenOffice.org Writer Importer Options"
+#, fuzzy
+msgid "OpenDocument Importer Options"
 msgstr "Opcioj de importilo por OpenOffice.org Writer"
 
-msgid "Update paragraph styles"
+#, fuzzy
+msgid "Update paragraph Styles"
 msgstr "Ĝisdatigu la aline-stilojn"
 
 msgid ""
-"If a paragraph style already exists with the same name as the current\n"
-"OpenOffice.org document's paragraph, should the style in Scribus be\n"
-"edited to match the one being imported, or left untouched"
+"Enabling this will overwrite existing stlyes in the current Scribus document"
 msgstr ""
-"Se aline-stilo jam ekzistas kun la sama nomo kiel la aktuala\n"
-"alineo de la dokumento de OpenOffice.org, oni devus ŝanĝi la stilon\n"
-"en Scribus por ke la importota kongruu, aŭ lasi ĝin senŝanĝa"
 
 #, fuzzy
-msgid "Pack paragraph styles"
-msgstr "aline-stilo"
+msgid "Merge Paragraph Styles"
+msgstr "Aline-stilo"
 
 msgid ""
-"Group paragraph styles by attributes.\n"
-"Less paragraph styles but controlling them may be hard.\n"
-"Should be used if it is known that text must not be edited\n"
-"after importing."
+"Merge paragraph styles by attributes. This will result in fewer similar "
+"paragraph styles, will retain style attributes, even if the original "
+"document's styles are named differently."
 msgstr ""
 
 #, fuzzy
 msgid "Use document name as a prefix for paragraph styles"
 msgstr "Utiligu la dokumentnomon kiel komencaĵon por la aline-stiloj"
 
-msgid ""
-"Should importer add the name of the document\n"
-"on front of the paragraph style name in Scribus"
+#, fuzzy
+msgid "Prepend the document name to the paragraph style name in Scribus."
 msgstr ""
 "La importilo devus aldoni la nomon de la dokumento\n"
 "komence de la nomo de la aline-stilo en Scribus"
@@ -5960,16 +6061,24 @@ msgid "Do not ask again"
 msgstr "Ne plu demandu"
 
 msgid ""
-"Should the importer always use currently\n"
-"set value when importing OpenOffice.org document and\n"
-"never ask your confirmation again"
+"Make these settings the default and do not prompt again when importing an "
+"OASIS OpenDocument."
 msgstr ""
-"La importilo devus ĉiam utiligi la aktualan ar-valoron\n"
-"dum importado de dokumentoj de OpenOffice.org kaj\n"
-"neniam plu peti konfirmon"
 
 msgid "OpenOffice.org Writer Documents"
 msgstr "Dokumentoj de OpenOffice.org Writer"
+
+msgid "OpenOffice.org Writer Importer Options"
+msgstr "Opcioj de importilo por OpenOffice.org Writer"
+
+#, fuzzy
+msgid "Update Paragraph Styles"
+msgstr "Ĝisdatigu la aline-stilojn"
+
+msgid ""
+"Make these settings the default and do not prompt again when importing an "
+"OpenOffice.org 1.x document."
+msgstr ""
 
 msgid "Text Files"
 msgstr "Tekstodosieroj"
@@ -6966,7 +7075,7 @@ msgid "Cannot get a colour with an empty name."
 msgstr "Ne eblas akiri koloron ne enmetante nomon."
 
 #, fuzzy
-msgid "Colour not found"
+msgid "Color not found"
 msgstr "Koloro ne trovita"
 
 msgid "Cannot change a color with an empty name."
@@ -7168,6 +7277,44 @@ msgstr ""
 "La importo de la dosiero:\n"
 "%1\n"
 "malsukcesis!"
+
+#~ msgid "Get text only"
+#~ msgstr "Enmetu nur tekston"
+
+#~ msgid "Create PDF File"
+#~ msgstr "Kreu PDF-dosieron"
+
+#~ msgid "Default ICC profiles directory"
+#~ msgstr "Apriora ICC-profila dosierujo"
+
+#~ msgid "Filesystem location for graphics editor"
+#~ msgstr "Dosierindiko de grafik-redaktilo"
+
+#~ msgid ""
+#~ "If a paragraph style already exists with the same name as the current\n"
+#~ "OpenOffice.org document's paragraph, should the style in Scribus be\n"
+#~ "edited to match the one being imported, or left untouched"
+#~ msgstr ""
+#~ "Se aline-stilo jam ekzistas kun la sama nomo kiel la aktuala\n"
+#~ "alineo de la dokumento de OpenOffice.org, oni devus ŝanĝi la stilon\n"
+#~ "en Scribus por ke la importota kongruu, aŭ lasi ĝin senŝanĝa"
+
+#, fuzzy
+#~ msgid "Pack paragraph styles"
+#~ msgstr "aline-stilo"
+
+#~ msgid ""
+#~ "Should the importer always use currently\n"
+#~ "set value when importing OpenOffice.org document and\n"
+#~ "never ask your confirmation again"
+#~ msgstr ""
+#~ "La importilo devus ĉiam utiligi la aktualan ar-valoron\n"
+#~ "dum importado de dokumentoj de OpenOffice.org kaj\n"
+#~ "neniam plu peti konfirmon"
+
+#, fuzzy
+#~ msgid "Colour not found"
+#~ msgstr "Koloro ne trovita"
 
 #~ msgid "&Kerning:"
 #~ msgstr "Liter&distanco:"

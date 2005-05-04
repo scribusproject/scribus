@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 13:58+0200\n"
+"POT-Creation-Date: 2005-05-04 21:29+0200\n"
 "PO-Revision-Date: 2004-12-13 16:06+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -489,6 +489,9 @@ msgstr "p"
 msgid "All"
 msgstr "Tout"
 
+msgid "Copy of"
+msgstr "Copie de"
+
 msgid "Copy Here"
 msgstr "Copier ici"
 
@@ -696,9 +699,6 @@ msgstr "Le logiciel"
 msgid "is missing!"
 msgstr "est introuvable."
 
-msgid "Copy of"
-msgstr "Copie de"
-
 msgid "Page "
 msgstr "Page "
 
@@ -786,8 +786,9 @@ msgstr "Choisissez le filtre d'importation à utiliser"
 msgid "Automatic"
 msgstr "Automatique"
 
-msgid "Get text only"
-msgstr "Importer seulement le texte"
+#, fuzzy
+msgid "Import Text Only"
+msgstr "Importation de texte"
 
 msgid "Import text without any formatting"
 msgstr "Importer le texte sans aucune mise en forme"
@@ -915,8 +916,9 @@ msgstr "Nouveau calque"
 msgid "Do you want to delete all Objects on this Layer too?"
 msgstr "Supprimer également tous les objets de ce calque ?"
 
-msgid "Create PDF File"
-msgstr "Créer un fichier PDF"
+#, fuzzy
+msgid "Save as PDF"
+msgstr "Enregistrer en P&DF..."
 
 msgid "O&utput to File:"
 msgstr "&Sortie vers un fichier :"
@@ -1224,6 +1226,22 @@ msgstr "Cadre de découpe"
 msgid "PDF/X-&3"
 msgstr "PD&F/X-3"
 
+msgid ""
+"<qt>Color management must be enabled to use PDF/X-3. You can enable color "
+"management from the Settings menu.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is supported and enabled, but can not be used for the selected "
+"PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF "
+"version (compatibility level).</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is not supported by this Scribus build (CMS support not present)."
+"</qt>"
+msgstr ""
+
 msgid "&Save"
 msgstr "&Enregistrer"
 
@@ -1414,9 +1432,10 @@ msgstr ""
 "Si cochée, la copie des textes et des objets graphiques\n"
 "du fichier PDF est autorisée."
 
+#, fuzzy
 msgid ""
 "Allow adding annotations and fields to the PDF. \n"
-"If un-checked, editing annotations and fileds is prevented."
+"If un-checked, editing annotations and fields is prevented."
 msgstr ""
 "Si cochée, l'ajout d'annotations et de champs au fichier PDF est autorisé."
 
@@ -1495,6 +1514,20 @@ msgstr "Miroir horizontal des pages"
 
 msgid "Mirror Page(s) vertically"
 msgstr "Miroir vertical des pages"
+
+#, fuzzy
+msgid "PDF security settings"
+msgstr "Présentations PDF"
+
+#, fuzzy
+msgid "PDF/X-3 settings"
+msgstr "Présentations PDF"
+
+msgid ""
+"<qt>PDF security can not be used with PDF/X-3. If you want to turn on "
+"security, change your PDF version (compatibility level) to something other "
+"than PDF/X-3.</qt>"
+msgstr ""
 
 msgid "Save as"
 msgstr "Enregistrer sous"
@@ -2372,6 +2405,10 @@ msgstr "Catalan"
 msgid "Chinese"
 msgstr "Chinois"
 
+#, fuzzy
+msgid "Croatian"
+msgstr "Catalan"
+
 msgid "Czech"
 msgstr "Tchèque"
 
@@ -2780,7 +2817,8 @@ msgstr "Enregistrer le document courant en PDF"
 msgid "Searching for Fonts"
 msgstr "Recherche des polices"
 
-msgid "There are no Postscript-Fonts on your System"
+#, fuzzy
+msgid "There are no suitable Fonts on your System"
 msgstr "Il n'y a pas de police Postscript (Type 1) installée"
 
 msgid "Exiting now"
@@ -2839,9 +2877,6 @@ msgstr "Initialisation du module de césure"
 
 msgid "Setting up Shortcuts"
 msgstr "Activation des raccourcis clavier"
-
-msgid "&Color Management..."
-msgstr "Gestion des &couleurs..."
 
 msgid "Reading Scrapbook"
 msgstr "Lecture de l'album"
@@ -3164,6 +3199,9 @@ msgstr "&Polices..."
 msgid "Fonts..."
 msgstr "Polices..."
 
+msgid "&Color Management..."
+msgstr "Gestion des &couleurs..."
+
 msgid "&Hyphenator..."
 msgstr "&Césure..."
 
@@ -3393,6 +3431,17 @@ msgstr "Verrouiller"
 msgid "Loading:"
 msgstr "Chargement :"
 
+msgid ""
+"<qt>Color management is supported but can not currently be enabled. Make "
+"sure you have ICC color profiles installed and that the profile path in the "
+"preferences points to where they're installed.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Color management is not supported by this Scribus build (not compiled "
+"in).</qt>"
+msgstr ""
+
 msgid "Adjusting Colors"
 msgstr "Ajustement des couleurs"
 
@@ -3442,6 +3491,9 @@ msgstr "Miroir &vertical des pages"
 msgid "Apply Under Color &Removal"
 msgstr "&Retrait des sous-couleurs (UCR)"
 
+msgid "Set Media Size"
+msgstr ""
+
 msgid "Apply &ICC Profiles"
 msgstr "Appliquer un(des) profil(s) &ICC"
 
@@ -3470,6 +3522,13 @@ msgid ""
 msgstr ""
 "Crée un fichier PS niveau 1. Attention, le\n"
 "fichier créé peut être très volumineux"
+
+msgid ""
+"This enables you to explicitely set,\n"
+"the media size of the postscript file.\n"
+"Not recommended unless\n"
+" requested by your printer."
+msgstr ""
 
 msgid ""
 "A way of switching off some of the gray shades which are composed\n"
@@ -4687,6 +4746,14 @@ msgstr "Déplacer signet"
 msgid "Insert Bookmark"
 msgstr "Insérer signet"
 
+#, fuzzy
+msgid "Choose Styles"
+msgstr "Type de case :"
+
+#, fuzzy
+msgid "Available Styles"
+msgstr "Polices disponibles"
+
 msgid "Edit Styles"
 msgstr "Édition des styles"
 
@@ -4795,6 +4862,21 @@ msgstr ""
 msgid "Contents"
 msgstr "Contenu"
 
+#, fuzzy
+msgid "&Contents"
+msgstr "Contenu"
+
+#, fuzzy
+msgid "S&earch"
+msgstr "Rechercher"
+
+#, fuzzy
+msgid "Ctrl+F"
+msgstr "Ctrl+"
+
+msgid "F3"
+msgstr ""
+
 msgid "Scribus Online Help"
 msgstr "Aide en ligne"
 
@@ -4805,6 +4887,18 @@ msgid ""
 msgstr ""
 "Le manuel n'est pas installé. Allez sur le site http://docs.scribus.net pour "
 "le télécharger."
+
+#, fuzzy
+msgid "unknown"
+msgstr "Inconnu"
+
+#, fuzzy
+msgid "Find"
+msgstr "po"
+
+#, fuzzy
+msgid "Search Term:"
+msgstr "Rechercher :"
 
 msgid "Edit JavaScripts"
 msgstr "Modifier les JavaScripts"
@@ -5330,8 +5424,10 @@ msgstr "Nombre de documents récemment ouverts à afficher dans le menu Fichier"
 msgid "Default documents directory"
 msgstr "Dossier des documents"
 
-msgid "Default ICC profiles directory"
-msgstr "Dossier par défaut des profils ICC"
+msgid ""
+"Default ICC profiles directory. This cannot\n"
+"be changed with documents open."
+msgstr ""
 
 msgid "Default Scripter scripts directory"
 msgstr "Dossier par défaut pour les scripts"
@@ -5397,10 +5493,12 @@ msgstr "Placer la grille derrière les objets"
 msgid "Place the grid in front of your page objects"
 msgstr "Placer la grille devant les objets"
 
-msgid "Turns on the basegrid"
+#, fuzzy
+msgid "Turns on the base grid"
 msgstr "Affiche la grille typographique"
 
-msgid "Turns off the basegrid"
+#, fuzzy
+msgid "Turns off the base grid"
 msgstr "Masque la grille typographique"
 
 msgid "Displacement above the baseline of the font on a line"
@@ -5542,7 +5640,8 @@ msgstr "Activer les fonctions de transparence lors d'une exportation PDF 1.4"
 msgid "Set the default zoom level"
 msgstr "Définir le niveau d'échelle par défaut"
 
-msgid "Filesystem location for the Ghostscript interpreter"
+#, fuzzy
+msgid "File system location for the Ghostscript interpreter"
 msgstr "Emplacement de l'interpréteur Ghostscript"
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -5551,8 +5650,12 @@ msgstr "Lisser les textes pour l'affichage EPS et PDF"
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr "Lisser les objets graphiques pour l'affichage EPS et PDF"
 
-msgid "Filesystem location for graphics editor"
-msgstr "Emplacement de l'outil de retouche d'image"
+msgid ""
+"File system location for graphics editor. If you use gimp\n"
+"and your distro includes it, we recommend 'gimp-remote',\n"
+"as it allows you to edit the image in an already running\n"
+"instance of gimp."
+msgstr ""
 
 msgid ""
 "Do not show objects outside the margins on the printed page or exported file"
@@ -5857,6 +5960,9 @@ msgstr "Ajouter la police sélectionnée dans le menu Style, Polices"
 msgid "Leave preview"
 msgstr "Fermer la prévisualisation"
 
+msgid "Size of the Font"
+msgstr ""
+
 msgid "Text Filters"
 msgstr "Fichiers texte avec filtrage"
 
@@ -5951,39 +6057,34 @@ msgstr "En-tête CSV"
 msgid "OpenDocument Text Documents"
 msgstr "Documents texte"
 
-msgid "OpenOffice.org Writer Importer Options"
+#, fuzzy
+msgid "OpenDocument Importer Options"
 msgstr "Options d'importation des fichiers OpenOffice.org"
 
-msgid "Update paragraph styles"
+#, fuzzy
+msgid "Update paragraph Styles"
 msgstr "Mettre à jour les styles de paragraphe"
 
 msgid ""
-"If a paragraph style already exists with the same name as the current\n"
-"OpenOffice.org document's paragraph, should the style in Scribus be\n"
-"edited to match the one being imported, or left untouched"
+"Enabling this will overwrite existing stlyes in the current Scribus document"
 msgstr ""
-"Si un style de paragraphe porte le même nom qu'un style du\n"
-"document OpenOffice.org, le style du document Scribus doit-il être\n"
-"modifié pour correspondre à celui qui est importé ou laissé inchangé ?"
 
 #, fuzzy
-msgid "Pack paragraph styles"
-msgstr "style de paragraphe"
+msgid "Merge Paragraph Styles"
+msgstr "Style de paragraphe"
 
 msgid ""
-"Group paragraph styles by attributes.\n"
-"Less paragraph styles but controlling them may be hard.\n"
-"Should be used if it is known that text must not be edited\n"
-"after importing."
+"Merge paragraph styles by attributes. This will result in fewer similar "
+"paragraph styles, will retain style attributes, even if the original "
+"document's styles are named differently."
 msgstr ""
 
 msgid "Use document name as a prefix for paragraph styles"
 msgstr ""
 "Utiliser le nom du document comme préfixe pour les styles de paragraphe"
 
-msgid ""
-"Should importer add the name of the document\n"
-"on front of the paragraph style name in Scribus"
+#, fuzzy
+msgid "Prepend the document name to the paragraph style name in Scribus."
 msgstr ""
 "L'importateur doit-il ajouter le nom du document\n"
 "devant le nom du style de paragraphe"
@@ -5992,15 +6093,24 @@ msgid "Do not ask again"
 msgstr "Ne plus demander"
 
 msgid ""
-"Should the importer always use currently\n"
-"set value when importing OpenOffice.org document and\n"
-"never ask your confirmation again"
+"Make these settings the default and do not prompt again when importing an "
+"OASIS OpenDocument."
 msgstr ""
-"L'importateur doit-il toujours utiliser la valeur courante\n"
-"lors de l'importation d'un document OpenOffice.org ?"
 
 msgid "OpenOffice.org Writer Documents"
 msgstr "Documents OpenOffice.org"
+
+msgid "OpenOffice.org Writer Importer Options"
+msgstr "Options d'importation des fichiers OpenOffice.org"
+
+#, fuzzy
+msgid "Update Paragraph Styles"
+msgstr "Mettre à jour les styles de paragraphe"
+
+msgid ""
+"Make these settings the default and do not prompt again when importing an "
+"OpenOffice.org 1.x document."
+msgstr ""
 
 msgid "Text Files"
 msgstr "Fichiers texte"
@@ -7013,7 +7123,7 @@ msgid "Cannot get a colour with an empty name."
 msgstr "Impossible d'obtenir une couleur sans son nom."
 
 #, fuzzy
-msgid "Colour not found"
+msgid "Color not found"
 msgstr "Couleur introuvable"
 
 msgid "Cannot change a color with an empty name."
@@ -7214,6 +7324,43 @@ msgid ""
 msgstr ""
 "Impossible d'importer le fichier suivant :\n"
 "%1"
+
+#~ msgid "Get text only"
+#~ msgstr "Importer seulement le texte"
+
+#~ msgid "Create PDF File"
+#~ msgstr "Créer un fichier PDF"
+
+#~ msgid "Default ICC profiles directory"
+#~ msgstr "Dossier par défaut des profils ICC"
+
+#~ msgid "Filesystem location for graphics editor"
+#~ msgstr "Emplacement de l'outil de retouche d'image"
+
+#~ msgid ""
+#~ "If a paragraph style already exists with the same name as the current\n"
+#~ "OpenOffice.org document's paragraph, should the style in Scribus be\n"
+#~ "edited to match the one being imported, or left untouched"
+#~ msgstr ""
+#~ "Si un style de paragraphe porte le même nom qu'un style du\n"
+#~ "document OpenOffice.org, le style du document Scribus doit-il être\n"
+#~ "modifié pour correspondre à celui qui est importé ou laissé inchangé ?"
+
+#, fuzzy
+#~ msgid "Pack paragraph styles"
+#~ msgstr "style de paragraphe"
+
+#~ msgid ""
+#~ "Should the importer always use currently\n"
+#~ "set value when importing OpenOffice.org document and\n"
+#~ "never ask your confirmation again"
+#~ msgstr ""
+#~ "L'importateur doit-il toujours utiliser la valeur courante\n"
+#~ "lors de l'importation d'un document OpenOffice.org ?"
+
+#, fuzzy
+#~ msgid "Colour not found"
+#~ msgstr "Couleur introuvable"
 
 #~ msgid "&Kerning:"
 #~ msgstr "Interlett&rage :"

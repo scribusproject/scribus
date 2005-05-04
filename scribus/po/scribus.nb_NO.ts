@@ -973,14 +973,6 @@ the page...
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (left, right, top, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
 
 Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
@@ -1148,18 +1140,6 @@ Sets the text of the text frame &quot;name&quot; to the text of the string &quot
 Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1482,6 +1462,26 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (top, left, right, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference). The first character has
+an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
+is not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -1766,6 +1766,17 @@ UCR virker best på deler av bilder som er nøytrale og/eller mørke toner
 som ligger nært opptil grått. Bruk dette for å få utsftening enkelteoen bilder til å se bedre; 
 og noe eksperimentering og testing er nødvendig neste gang.
 UCR reduserer muligheten for overmettning med CMY farger.</translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the postscript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2977,6 +2988,25 @@ Det er smart å aktivere dette hvis du har fotografier i ditt dokumentet.</trans
 It&apos;s a reserved name for transparent color</source>
         <translation>Du kan ikke lage en farge med navn &quot;%1&quot;. 
 Dette navnet er reservert for transparente farger</translation>
+    </message>
+</context>
+<context>
+    <name>ChooseStyles</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Greit</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
     </message>
 </context>
 <context>
@@ -4375,6 +4405,10 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
         <source>Leave preview</source>
         <translation>Forlatt forhåndsvisning</translation>
     </message>
+    <message>
+        <source>Size of the Font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -4476,6 +4510,38 @@ and www.scribus.net for downloads.</source>
     <message>
         <source>Scribus Online Help</source>
         <translation>Scribus Online hjelp</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Søk</translation>
+    </message>
+    <message>
+        <source>S&amp;earch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Term:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6603,28 +6669,17 @@ ellers er Koordinater relative til Objektet.</translation>
     <name>OdtDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished">OpenOffice.org Writer importopsjoner</translation>
+        <translation type="obsolete">OpenOffice.org Writer importopsjoner</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished">Oppdater stilen på avsnittet</translation>
+        <translation type="obsolete">Oppdater stilen på avsnittet</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished">Hvis det allerede finnes en avsnittsstil med det samme navnet som avsnittet fra OpenOffice dokumentet, skal da stilen i Scribus endres slik at det passer avsnittet som importeres, eller skal være i fred?</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Hvis det allerede finnes en avsnittsstil med det samme navnet som avsnittet fra OpenOffice dokumentet, skal da stilen i Scribus endres slik at det passer avsnittet som importeres, eller skal være i fred?</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -6633,21 +6688,43 @@ after importing.</source>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished">Skal importverktøyet legge til navnet på dokumentet i avsnittsstilen?</translation>
+        <translation type="obsolete">Skal importverktøyet legge til navnet på dokumentet i avsnittsstilen?</translation>
     </message>
     <message>
         <source>Do not ask again</source>
         <translation type="unfinished">Ikke spør igjen</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
+        <source>OK</source>
+        <translation type="unfinished">Greit</translation>
+    </message>
+    <message>
+        <source>OpenDocument Importer Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="unfinished">Greit</translation>
+        <source>Update paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7051,7 +7128,7 @@ If un-checked, text and graphics cannot be copied.</source>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation>Tillat tilføyning av merknader og felter til PDFen.</translation>
+        <translation type="obsolete">Tillat tilføyning av merknader og felter til PDFen.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -7121,7 +7198,7 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</transl
     </message>
     <message>
         <source>Create PDF File</source>
-        <translation>Lag PDF-fil</translation>
+        <translation type="obsolete">Lag PDF-fil</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7369,6 +7446,39 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <source>Mirror Page(s) vertically</source>
         <translation>Speilvend siden(e) vertikalt</translation>
     </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fields is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF security settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-3 settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -7546,7 +7656,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Kopi av</translation>
+        <translation type="obsolete">Kopi av</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -8144,7 +8254,7 @@ Scribus kan bruke alle KDE og Qt temaer</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation>Standard ICC profil katalog</translation>
+        <translation type="obsolete">Standard ICC profil katalog</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -8238,11 +8348,11 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation>Vis Baseline gitter</translation>
+        <translation type="obsolete">Vis Baseline gitter</translation>
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation>Skjul Baseline gitter</translation>
+        <translation type="obsolete">Skjul Baseline gitter</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -8442,7 +8552,7 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Ghostscript behandlerens posisjon i filsystemet</translation>
+        <translation type="obsolete">Ghostscript behandlerens posisjon i filsystemet</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -8454,7 +8564,7 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation>Bildebehandlerens posisjon i filsystemet</translation>
+        <translation type="obsolete">Bildebehandlerens posisjon i filsystemet</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -8879,6 +8989,30 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <message>
         <source>Tabloid</source>
         <translation>Tabloid</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot
+be changed with documents open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns on the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns off the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the Ghostscript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp
+and your distro includes it, we recommend &apos;gimp-remote&apos;,
+as it allows you to edit the image in an already running
+instance of gimp.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10034,7 +10168,7 @@ Eksterne lenker</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="obsolete">Fargen ble ikke funnet</translation>
+        <translation type="unfinished">Fargen ble ikke funnet</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10193,11 +10327,6 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Cannot get a colour with an empty name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colour not found</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -10393,6 +10522,10 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10805,7 +10938,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>Det er ingen Postscript-skrifttyper installert</translation>
+        <translation type="obsolete">Det er ingen Postscript-skrifttyper installert</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -11957,6 +12090,22 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
         <source>Portuguese (BR)</source>
         <translation>Portugisisk (BR)</translation>
     </message>
+    <message>
+        <source>There are no suitable Fonts on your System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -11987,6 +12136,10 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     <message>
         <source>All</source>
         <translation>Alle</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Kopi av</translation>
     </message>
 </context>
 <context>
@@ -12761,7 +12914,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     <name>SxwDialog</name>
     <message>
         <source>Update paragraph styles</source>
-        <translation>Oppdater stilen på avsnittet</translation>
+        <translation type="obsolete">Oppdater stilen på avsnittet</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -12770,7 +12923,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation>Skal importverktøyet legge til navnet på dokumentet i avsnittsstilen?</translation>
+        <translation type="obsolete">Skal importverktøyet legge til navnet på dokumentet i avsnittsstilen?</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -12784,27 +12937,34 @@ on front of the paragraph style name in Scribus</source>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation>Hvis det allerede finnes en avsnittsstil med det samme navnet som avsnittet fra OpenOffice dokumentet, skal da stilen i Scribus endres slik at det passer avsnittet som importeres, eller skal være i fred?</translation>
+        <translation type="obsolete">Hvis det allerede finnes en avsnittsstil med det samme navnet som avsnittet fra OpenOffice dokumentet, skal da stilen i Scribus endres slik at det passer avsnittet som importeres, eller skal være i fred?</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>OpenOffice.org Writer importopsjoner</translation>
     </message>
     <message>
-        <source>Pack paragraph styles</source>
+        <source>Update Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13245,7 +13405,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Get text only</source>
-        <translation>Hent kun tekst</translation>
+        <translation type="obsolete">Hent kun tekst</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
@@ -13258,6 +13418,10 @@ with checked button too.</source>
     <message>
         <source>Encoding:</source>
         <translation>Kodering:</translation>
+    </message>
+    <message>
+        <source>Import Text Only</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

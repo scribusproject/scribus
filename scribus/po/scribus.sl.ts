@@ -1001,14 +1001,6 @@ the page...
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (left, right, top, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
 
 Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
@@ -1176,18 +1168,6 @@ Sets the text of the text frame &quot;name&quot; to the text of the string &quot
 Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1468,6 +1448,26 @@ Returns true if the text frame &quot;name&quot; is a PDF bookmark.
 If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (top, left, right, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference). The first character has
+an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
+is not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1769,6 +1769,17 @@ POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako
 lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
 narediti nekaj preiskusov. 
 POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the postscript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2980,6 +2991,25 @@ To zahteva zelo natančno izbiro vseh profilov.</translation>
 It&apos;s a reserved name for transparent color</source>
         <translation>Ne morete ustvariti barve z imenom &quot;%1&quot;,
 ker je to ime rezervirano za prosojno barvo</translation>
+    </message>
+</context>
+<context>
+    <name>ChooseStyles</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">V redu</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Prekliči</translation>
     </message>
 </context>
 <context>
@@ -4386,6 +4416,10 @@ uporabite 72 dpi</translation>
         <source>Leave preview</source>
         <translation>Zapusti predogled</translation>
     </message>
+    <message>
+        <source>Size of the Font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -4488,6 +4522,38 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
     <message>
         <source>Scribus Online Help</source>
         <translation>Scribusova pomoč na mreži</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Išči</translation>
+    </message>
+    <message>
+        <source>S&amp;earch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Term:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6606,29 +6672,18 @@ sicer glede na predmet.</translation>
     <name>OdtDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished">Možnosti pri uvozu iz OpenOffice.org Writer</translation>
+        <translation type="obsolete">Možnosti pri uvozu iz OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished">Posodobi sloge odstavka</translation>
+        <translation type="obsolete">Posodobi sloge odstavka</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished">Če slog s tem imenom že obstaja lahko nastavite, ali naj se slog v 
+        <translation type="obsolete">Če slog s tem imenom že obstaja lahko nastavite, ali naj se slog v 
 Scribusu uredi tako, da ustreza uvoženemu ali naj se ga pusti nedotaknjenega</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -6637,7 +6692,7 @@ after importing.</source>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished">Nastavli ali naj uvoznik doda ime dokumenta 
+        <translation type="obsolete">Nastavli ali naj uvoznik doda ime dokumenta 
 pred imena uvoženih slogov odstavka</translation>
     </message>
     <message>
@@ -6648,13 +6703,41 @@ pred imena uvoženih slogov odstavka</translation>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished">Naj pri uvozu vedno upoštevam trenutno 
+        <translation type="obsolete">Naj pri uvozu vedno upoštevam trenutno 
 določene možnosti za dokumente OpenOffice.org 
 in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>OK</source>
         <translation type="unfinished">V redu</translation>
+    </message>
+    <message>
+        <source>OpenDocument Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7125,12 +7208,12 @@ If un-checked, text and graphics cannot be copied.</source>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation>Dovolite dodajanje opomb in drugih polj v PDF.\n
+        <translation type="obsolete">Dovolite dodajanje opomb in drugih polj v PDF.\n
 Če ne izberete, bo dodajanje polj onemogočeno.</translation>
     </message>
     <message>
         <source>Create PDF File</source>
-        <translation>Ustvari datoteko PDF </translation>
+        <translation type="obsolete">Ustvari datoteko PDF </translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7380,6 +7463,39 @@ sistemih.</translation>
         <source>Mirror Page(s) vertically</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fields is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF security settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-3 settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -7538,7 +7654,7 @@ Predogled se na račun tega malce upočasni</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Kopija</translation>
+        <translation type="obsolete">Kopija</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -7998,7 +8114,7 @@ pozitivna pa izbočenost</translation>
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation>Položaj urejevalnika slik na sistemu</translation>
+        <translation type="obsolete">Položaj urejevalnika slik na sistemu</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -8208,7 +8324,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation>Vključi osnovno mrežo</translation>
+        <translation type="obsolete">Vključi osnovno mrežo</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
@@ -8348,7 +8464,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation>Izključi osnovno mrežo</translation>
+        <translation type="obsolete">Izključi osnovno mrežo</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
@@ -8360,7 +8476,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation>Privzeta mapa z ICC profili</translation>
+        <translation type="obsolete">Privzeta mapa z ICC profili</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
@@ -8440,7 +8556,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Položaj upodobljevalnika Ghostscript na sistemu</translation>
+        <translation type="obsolete">Položaj upodobljevalnika Ghostscript na sistemu</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -8911,6 +9027,30 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <source>Tabloid</source>
         <translation>Tabloidna</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot
+be changed with documents open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns on the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns off the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the Ghostscript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp
+and your distro includes it, we recommend &apos;gimp-remote&apos;,
+as it allows you to edit the image in an already running
+instance of gimp.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10310,11 +10450,6 @@ function&apos;s documentation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Colour not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
         <translation type="unfinished"></translation>
@@ -10331,6 +10466,15 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11043,7 +11187,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>Na vašem sistemu ni Postscriptnih pisav</translation>
+        <translation type="obsolete">Na vašem sistemu ni Postscriptnih pisav</translation>
     </message>
     <message>
         <source>Show Layers</source>
@@ -11896,6 +12040,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Portuguese (BR)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>There are no suitable Fonts on your System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -11926,6 +12086,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Layer</source>
         <translation>Sloj</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Kopija</translation>
     </message>
 </context>
 <context>
@@ -12711,7 +12875,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation>Posodobi sloge odstavka</translation>
+        <translation type="obsolete">Posodobi sloge odstavka</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -12736,14 +12900,14 @@ več za potrditev</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation>Nastavli ali naj uvoznik doda ime dokumenta 
+        <translation type="obsolete">Nastavli ali naj uvoznik doda ime dokumenta 
 pred imena uvoženih slogov odstavka</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation>Če slog s tem imenom že obstaja lahko nastavite, ali naj se slog v 
+        <translation type="obsolete">Če slog s tem imenom že obstaja lahko nastavite, ali naj se slog v 
 Scribusu uredi tako, da ustreza uvoženemu ali naj se ga pusti nedotaknjenega</translation>
     </message>
     <message>
@@ -12754,19 +12918,32 @@ Scribusu uredi tako, da ustreza uvoženemu ali naj se ga pusti nedotaknjenega</t
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation>Naj pri uvozu vedno upoštevam trenutno 
+        <translation type="obsolete">Naj pri uvozu vedno upoštevam trenutno 
 določene možnosti za dokumente OpenOffice.org 
 in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
-        <source>Pack paragraph styles</source>
+        <source>Update Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13211,7 +13388,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Get text only</source>
-        <translation>Najdi samo besedilo</translation>
+        <translation type="obsolete">Najdi samo besedilo</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
@@ -13224,6 +13401,10 @@ with checked button too.</source>
     <message>
         <source>Encoding:</source>
         <translation>Razpored znakov:</translation>
+    </message>
+    <message>
+        <source>Import Text Only</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

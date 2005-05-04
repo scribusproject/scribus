@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 13:58+0200\n"
+"POT-Creation-Date: 2005-05-04 21:29+0200\n"
 "PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
@@ -464,6 +464,9 @@ msgstr "p"
 msgid "All"
 msgstr "Všetky"
 
+msgid "Copy of"
+msgstr "Kópia z "
+
 msgid "Copy Here"
 msgstr "Kopírovať sem"
 
@@ -671,9 +674,6 @@ msgstr "Program"
 msgid "is missing!"
 msgstr "chýba!"
 
-msgid "Copy of"
-msgstr "Kópia z "
-
 msgid "Page "
 msgstr "Strana "
 
@@ -761,8 +761,9 @@ msgstr "Vyberte import, ktorý sa má použiť"
 msgid "Automatic"
 msgstr "Automatické"
 
-msgid "Get text only"
-msgstr "Iba text"
+#, fuzzy
+msgid "Import Text Only"
+msgstr "Importovanie textu"
 
 msgid "Import text without any formatting"
 msgstr "Importovať text bez formátovania"
@@ -889,8 +890,9 @@ msgstr "Nová vrstva"
 msgid "Do you want to delete all Objects on this Layer too?"
 msgstr "Skutočne chcete odstrániť všetky objekty v tejto vrstve?"
 
-msgid "Create PDF File"
-msgstr "Vytvoriť PDF-súbor"
+#, fuzzy
+msgid "Save as PDF"
+msgstr "Uložiť ako P&DF..."
 
 msgid "O&utput to File:"
 msgstr "Výst&up do súboru:"
@@ -1198,6 +1200,22 @@ msgstr "Orezanie"
 msgid "PDF/X-&3"
 msgstr "PDF/X-&3"
 
+msgid ""
+"<qt>Color management must be enabled to use PDF/X-3. You can enable color "
+"management from the Settings menu.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is supported and enabled, but can not be used for the selected "
+"PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF "
+"version (compatibility level).</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is not supported by this Scribus build (CMS support not present)."
+"</qt>"
+msgstr ""
+
 msgid "&Save"
 msgstr "&Uložiť"
 
@@ -1388,9 +1406,10 @@ msgstr ""
 "Povolí kopírovanie textu a grafiky z PDF.\n"
 "Ak je odznačené, kopírovanie textu a grafiky z PDF bude zakázané. "
 
+#, fuzzy
 msgid ""
 "Allow adding annotations and fields to the PDF. \n"
-"If un-checked, editing annotations and fileds is prevented."
+"If un-checked, editing annotations and fields is prevented."
 msgstr ""
 "Povolí pridávanie anotácií a polí do PDF.\n"
 " Ak je odznačené, úprava anotácií a polí bude zakázaná. "
@@ -1473,6 +1492,20 @@ msgstr "Vodorovne zrkadliť stranu(y)"
 
 msgid "Mirror Page(s) vertically"
 msgstr "Zvislo zrkadliť stranu(y)"
+
+#, fuzzy
+msgid "PDF security settings"
+msgstr "PDF prezentácie"
+
+#, fuzzy
+msgid "PDF/X-3 settings"
+msgstr "PDF prezentácie"
+
+msgid ""
+"<qt>PDF security can not be used with PDF/X-3. If you want to turn on "
+"security, change your PDF version (compatibility level) to something other "
+"than PDF/X-3.</qt>"
+msgstr ""
 
 msgid "Save as"
 msgstr "Uložiť ako"
@@ -2348,6 +2381,10 @@ msgstr "Katalánsky"
 msgid "Chinese"
 msgstr "Čínsky"
 
+#, fuzzy
+msgid "Croatian"
+msgstr "Katalánsky"
+
 msgid "Czech"
 msgstr "Český"
 
@@ -2759,7 +2796,8 @@ msgstr "Uložiť aktuálny dokument ako PDF"
 msgid "Searching for Fonts"
 msgstr "Hľadanie písem"
 
-msgid "There are no Postscript-Fonts on your System"
+#, fuzzy
+msgid "There are no suitable Fonts on your System"
 msgstr "Vo vašom systéme nie sú postscriptové písma"
 
 msgid "Exiting now"
@@ -2818,9 +2856,6 @@ msgstr "Inicializácia delenia slov"
 
 msgid "Setting up Shortcuts"
 msgstr "Nastavovanie klávesov"
-
-msgid "&Color Management..."
-msgstr "Správa &farieb..."
 
 msgid "Reading Scrapbook"
 msgstr "Načítavanie zápisníka"
@@ -3143,6 +3178,9 @@ msgstr "Písmo..."
 msgid "Fonts..."
 msgstr "Písmo..."
 
+msgid "&Color Management..."
+msgstr "Správa &farieb..."
+
 msgid "&Hyphenator..."
 msgstr "&Delenie slov..."
 
@@ -3371,6 +3409,17 @@ msgstr "Uzamknúť"
 msgid "Loading:"
 msgstr "Načítavanie:"
 
+msgid ""
+"<qt>Color management is supported but can not currently be enabled. Make "
+"sure you have ICC color profiles installed and that the profile path in the "
+"preferences points to where they're installed.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Color management is not supported by this Scribus build (not compiled "
+"in).</qt>"
+msgstr ""
+
 msgid "Adjusting Colors"
 msgstr "Prispôsobenie farieb"
 
@@ -3420,6 +3469,9 @@ msgstr "&Vertikálne zrkadlenie strán"
 msgid "Apply Under Color &Removal"
 msgstr "Aplikovať  Under Color &Removal"
 
+msgid "Set Media Size"
+msgstr ""
+
 msgid "Apply &ICC Profiles"
 msgstr "Použiť &ICC-profily"
 
@@ -3448,6 +3500,13 @@ msgid ""
 msgstr ""
 "Vytvorí iba  PostScript Level 1.\n"
 "Pozor! Môže vytvoriť veľké súbory"
+
+msgid ""
+"This enables you to explicitely set,\n"
+"the media size of the postscript file.\n"
+"Not recommended unless\n"
+" requested by your printer."
+msgstr ""
 
 msgid ""
 "A way of switching off some of the gray shades which are composed\n"
@@ -4658,6 +4717,14 @@ msgstr "Presunúť záložku"
 msgid "Insert Bookmark"
 msgstr "Vložiť záložku"
 
+#, fuzzy
+msgid "Choose Styles"
+msgstr "Overiť štýl:"
+
+#, fuzzy
+msgid "Available Styles"
+msgstr "Dostupné písma"
+
 msgid "Edit Styles"
 msgstr "Upraviť štýly"
 
@@ -4768,6 +4835,21 @@ msgstr ""
 msgid "Contents"
 msgstr "Obsahy"
 
+#, fuzzy
+msgid "&Contents"
+msgstr "Obsahy"
+
+#, fuzzy
+msgid "S&earch"
+msgstr "Hľadať"
+
+#, fuzzy
+msgid "Ctrl+F"
+msgstr "Ctrl+"
+
+msgid "F3"
+msgstr ""
+
 msgid "Scribus Online Help"
 msgstr "Scribus online pomocník"
 
@@ -4778,6 +4860,18 @@ msgid ""
 msgstr ""
 "Ľutujem, ale manuál nie je dostupný! Aktualizovanú dokumentáciu si môžete\n"
 "stiahnuť z http://docs.scribus.net."
+
+#, fuzzy
+msgid "unknown"
+msgstr "Neznámy"
+
+#, fuzzy
+msgid "Find"
+msgstr "in"
+
+#, fuzzy
+msgid "Search Term:"
+msgstr "Hľadať:"
 
 msgid "Edit JavaScripts"
 msgstr "Upraviť Java skripty"
@@ -5297,8 +5391,10 @@ msgstr ""
 msgid "Default documents directory"
 msgstr "Štandardný priečinok pre dokumenty"
 
-msgid "Default ICC profiles directory"
-msgstr "Štandardný priečinok pre ICC profily"
+msgid ""
+"Default ICC profiles directory. This cannot\n"
+"be changed with documents open."
+msgstr ""
 
 msgid "Default Scripter scripts directory"
 msgstr "Štandardný priečinok Scriptera pre skripty"
@@ -5359,10 +5455,12 @@ msgstr "Umiestniť mriežku za objekty"
 msgid "Place the grid in front of your page objects"
 msgstr "Umiestniť mriežku pred objekty"
 
-msgid "Turns on the basegrid"
+#, fuzzy
+msgid "Turns on the base grid"
 msgstr "Zapnúť základnú mriežku"
 
-msgid "Turns off the basegrid"
+#, fuzzy
+msgid "Turns off the base grid"
 msgstr "Vypnúť základnú mriežku"
 
 msgid "Displacement above the baseline of the font on a line"
@@ -5500,7 +5598,8 @@ msgstr "Povoliť vlastnosti priesvitnosť pri exporte do PDF 1.4"
 msgid "Set the default zoom level"
 msgstr "Nastavenie štandardnej úrovne zväčšenie"
 
-msgid "Filesystem location for the Ghostscript interpreter"
+#, fuzzy
+msgid "File system location for the Ghostscript interpreter"
 msgstr "Umiestnenie Ghostscript interpreta v súborovom systéme"
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -5509,8 +5608,12 @@ msgstr "Vyhladenie textu pre EPS a PDF pri generovaní na monitore"
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr "Vyhladenie grafiky pre EPS a PDF pri generovaní na monitore"
 
-msgid "Filesystem location for graphics editor"
-msgstr "Umiestnenie editora grafiky v súborovom systéme"
+msgid ""
+"File system location for graphics editor. If you use gimp\n"
+"and your distro includes it, we recommend 'gimp-remote',\n"
+"as it allows you to edit the image in an already running\n"
+"instance of gimp."
+msgstr ""
 
 msgid ""
 "Do not show objects outside the margins on the printed page or exported file"
@@ -5818,6 +5921,9 @@ msgstr "Pridať zvolené písmo do štýlu, ponuky písmo"
 msgid "Leave preview"
 msgstr "Zanechať náhľad"
 
+msgid "Size of the Font"
+msgstr ""
+
 msgid "Text Filters"
 msgstr "Textové filtre"
 
@@ -5912,38 +6018,33 @@ msgstr "CSV_hlavička"
 msgid "OpenDocument Text Documents"
 msgstr "Textové dokumenty"
 
-msgid "OpenOffice.org Writer Importer Options"
+#, fuzzy
+msgid "OpenDocument Importer Options"
 msgstr "Nastavenia importu OpenOffice.org Writer dokumentu"
 
-msgid "Update paragraph styles"
+#, fuzzy
+msgid "Update paragraph Styles"
 msgstr "Aktualizovať štýly odstavcov"
 
 msgid ""
-"If a paragraph style already exists with the same name as the current\n"
-"OpenOffice.org document's paragraph, should the style in Scribus be\n"
-"edited to match the one being imported, or left untouched"
+"Enabling this will overwrite existing stlyes in the current Scribus document"
 msgstr ""
-"Ak už existuje štýl odseku s rovnakým názvom ako je štýl odseku\n"
-"v aktuálnom OpenOffice.org dokumente, má sa Scribus štýl upraviť\n"
-"podľa importovaného, alebo zostať nezmenený?"
 
 #, fuzzy
-msgid "Pack paragraph styles"
-msgstr "štýl odstavca"
+msgid "Merge Paragraph Styles"
+msgstr "Štýl odstavca"
 
 msgid ""
-"Group paragraph styles by attributes.\n"
-"Less paragraph styles but controlling them may be hard.\n"
-"Should be used if it is known that text must not be edited\n"
-"after importing."
+"Merge paragraph styles by attributes. This will result in fewer similar "
+"paragraph styles, will retain style attributes, even if the original "
+"document's styles are named differently."
 msgstr ""
 
 msgid "Use document name as a prefix for paragraph styles"
 msgstr "Použiť názov dokumentu ako prefix pre štýl odsekov"
 
-msgid ""
-"Should importer add the name of the document\n"
-"on front of the paragraph style name in Scribus"
+#, fuzzy
+msgid "Prepend the document name to the paragraph style name in Scribus."
 msgstr ""
 "Má pridať importér pridať názov dokumentu\n"
 "na začiatok názvu štýlu odseku v Scribuse?"
@@ -5952,16 +6053,24 @@ msgid "Do not ask again"
 msgstr "Už sa znovu nepýtať"
 
 msgid ""
-"Should the importer always use currently\n"
-"set value when importing OpenOffice.org document and\n"
-"never ask your confirmation again"
+"Make these settings the default and do not prompt again when importing an "
+"OASIS OpenDocument."
 msgstr ""
-"Má importér vždy použiť aktuálne nastavené hodnoty\n"
-"pri importovaní OpenOffice.org dokumentu\n"
-"a už sa nepýtať na potvrdenie?"
 
 msgid "OpenOffice.org Writer Documents"
 msgstr "Dokument OpenOffice.org Writer"
+
+msgid "OpenOffice.org Writer Importer Options"
+msgstr "Nastavenia importu OpenOffice.org Writer dokumentu"
+
+#, fuzzy
+msgid "Update Paragraph Styles"
+msgstr "Aktualizovať štýly odstavcov"
+
+msgid ""
+"Make these settings the default and do not prompt again when importing an "
+"OpenOffice.org 1.x document."
+msgstr ""
 
 msgid "Text Files"
 msgstr "Textové súbory"
@@ -6910,7 +7019,7 @@ msgid "Cannot get a colour with an empty name."
 msgstr "Nie je možné získať farbu bez názvu."
 
 #, fuzzy
-msgid "Colour not found"
+msgid "Color not found"
 msgstr "Farba nebola nájdená"
 
 msgid "Cannot change a color with an empty name."
@@ -7111,6 +7220,44 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
+
+#~ msgid "Get text only"
+#~ msgstr "Iba text"
+
+#~ msgid "Create PDF File"
+#~ msgstr "Vytvoriť PDF-súbor"
+
+#~ msgid "Default ICC profiles directory"
+#~ msgstr "Štandardný priečinok pre ICC profily"
+
+#~ msgid "Filesystem location for graphics editor"
+#~ msgstr "Umiestnenie editora grafiky v súborovom systéme"
+
+#~ msgid ""
+#~ "If a paragraph style already exists with the same name as the current\n"
+#~ "OpenOffice.org document's paragraph, should the style in Scribus be\n"
+#~ "edited to match the one being imported, or left untouched"
+#~ msgstr ""
+#~ "Ak už existuje štýl odseku s rovnakým názvom ako je štýl odseku\n"
+#~ "v aktuálnom OpenOffice.org dokumente, má sa Scribus štýl upraviť\n"
+#~ "podľa importovaného, alebo zostať nezmenený?"
+
+#, fuzzy
+#~ msgid "Pack paragraph styles"
+#~ msgstr "štýl odstavca"
+
+#~ msgid ""
+#~ "Should the importer always use currently\n"
+#~ "set value when importing OpenOffice.org document and\n"
+#~ "never ask your confirmation again"
+#~ msgstr ""
+#~ "Má importér vždy použiť aktuálne nastavené hodnoty\n"
+#~ "pri importovaní OpenOffice.org dokumentu\n"
+#~ "a už sa nepýtať na potvrdenie?"
+
+#, fuzzy
+#~ msgid "Colour not found"
+#~ msgstr "Farba nebola nájdená"
 
 #~ msgid "&Kerning:"
 #~ msgstr "Vyrovnávanie zna&kov (kerning):"

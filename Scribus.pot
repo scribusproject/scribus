@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:41+0100\n"
+"POT-Creation-Date: 2005-05-04 22:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -450,6 +450,9 @@ msgstr ""
 msgid "All"
 msgstr ""
 
+msgid "Copy of"
+msgstr ""
+
 msgid "Copy Here"
 msgstr ""
 
@@ -657,9 +660,6 @@ msgstr ""
 msgid "is missing!"
 msgstr ""
 
-msgid "Copy of"
-msgstr ""
-
 msgid "Page "
 msgstr ""
 
@@ -747,7 +747,7 @@ msgstr ""
 msgid "Automatic"
 msgstr ""
 
-msgid "Get text only"
+msgid "Import Text Only"
 msgstr ""
 
 msgid "Import text without any formatting"
@@ -873,7 +873,7 @@ msgstr ""
 msgid "Do you want to delete all Objects on this Layer too?"
 msgstr ""
 
-msgid "Create PDF File"
+msgid "Save as PDF"
 msgstr ""
 
 msgid "O&utput to File:"
@@ -1182,6 +1182,22 @@ msgstr ""
 msgid "PDF/X-&3"
 msgstr ""
 
+msgid ""
+"<qt>Color management must be enabled to use PDF/X-3. You can enable color "
+"management from the Settings menu.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is supported and enabled, but can not be used for the selected "
+"PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF "
+"version (compatibility level).</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is not supported by this Scribus build (CMS support not present)."
+"</qt>"
+msgstr ""
+
 msgid "&Save"
 msgstr ""
 
@@ -1329,7 +1345,7 @@ msgstr ""
 
 msgid ""
 "Allow adding annotations and fields to the PDF. \n"
-"If un-checked, editing annotations and fileds is prevented."
+"If un-checked, editing annotations and fields is prevented."
 msgstr ""
 
 msgid ""
@@ -1395,6 +1411,18 @@ msgid "Mirror Page(s) horizontally"
 msgstr ""
 
 msgid "Mirror Page(s) vertically"
+msgstr ""
+
+msgid "PDF security settings"
+msgstr ""
+
+msgid "PDF/X-3 settings"
+msgstr ""
+
+msgid ""
+"<qt>PDF security can not be used with PDF/X-3. If you want to turn on "
+"security, change your PDF version (compatibility level) to something other "
+"than PDF/X-3.</qt>"
 msgstr ""
 
 msgid "Save as"
@@ -2254,6 +2282,9 @@ msgstr ""
 msgid "Chinese"
 msgstr ""
 
+msgid "Croatian"
+msgstr ""
+
 msgid "Czech"
 msgstr ""
 
@@ -2314,7 +2345,7 @@ msgstr ""
 msgid "Polish"
 msgstr ""
 
-msgid "Portugese (Brazilian)"
+msgid "Portuguese (Brazilian)"
 msgstr ""
 
 msgid "Russian"
@@ -2631,7 +2662,7 @@ msgstr ""
 msgid "Searching for Fonts"
 msgstr ""
 
-msgid "There are no Postscript-Fonts on your System"
+msgid "There are no suitable Fonts on your System"
 msgstr ""
 
 msgid "Exiting now"
@@ -2689,9 +2720,6 @@ msgid "Init Hyphenator"
 msgstr ""
 
 msgid "Setting up Shortcuts"
-msgstr ""
-
-msgid "&Color Management..."
 msgstr ""
 
 msgid "Reading Scrapbook"
@@ -3015,6 +3043,9 @@ msgstr ""
 msgid "Fonts..."
 msgstr ""
 
+msgid "&Color Management..."
+msgstr ""
+
 msgid "&Hyphenator..."
 msgstr ""
 
@@ -3237,6 +3268,17 @@ msgstr ""
 msgid "Loading:"
 msgstr ""
 
+msgid ""
+"<qt>Color management is supported but can not currently be enabled. Make "
+"sure you have ICC color profiles installed and that the profile path in the "
+"preferences points to where they're installed.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Color management is not supported by this Scribus build (not compiled "
+"in).</qt>"
+msgstr ""
+
 msgid "Adjusting Colors"
 msgstr ""
 
@@ -3285,6 +3327,9 @@ msgstr ""
 msgid "Apply Under Color &Removal"
 msgstr ""
 
+msgid "Set Media Size"
+msgstr ""
+
 msgid "Apply &ICC Profiles"
 msgstr ""
 
@@ -3308,6 +3353,13 @@ msgstr ""
 msgid ""
 "Creates PostScript Level 1 only, beware,\n"
 "this can create huge files"
+msgstr ""
+
+msgid ""
+"This enables you to explicitely set,\n"
+"the media size of the postscript file.\n"
+"Not recommended unless\n"
+" requested by your printer."
 msgstr ""
 
 msgid ""
@@ -3749,7 +3801,7 @@ msgstr ""
 msgid "Custom Spacing"
 msgstr ""
 
-msgid "&Kerning:"
+msgid "Trac&king:"
 msgstr ""
 
 msgid "L&ine Spacing:"
@@ -3921,7 +3973,7 @@ msgstr ""
 msgid "Right to Left Writing"
 msgstr ""
 
-msgid "Manual Kerning"
+msgid "Manual Tracking"
 msgstr ""
 
 msgid "Line Spacing"
@@ -4382,7 +4434,7 @@ msgstr ""
 msgid "Character Settings"
 msgstr ""
 
-msgid "Kerning:"
+msgid "Tracking:"
 msgstr ""
 
 msgid "Style Settings"
@@ -4490,6 +4542,12 @@ msgstr ""
 msgid "Insert Bookmark"
 msgstr ""
 
+msgid "Choose Styles"
+msgstr ""
+
+msgid "Available Styles"
+msgstr ""
+
 msgid "Edit Styles"
 msgstr ""
 
@@ -4580,6 +4638,18 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
+msgid "&Contents"
+msgstr ""
+
+msgid "S&earch"
+msgstr ""
+
+msgid "Ctrl+F"
+msgstr ""
+
+msgid "F3"
+msgstr ""
+
 msgid "Scribus Online Help"
 msgstr ""
 
@@ -4587,6 +4657,15 @@ msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
 "and www.scribus.net for downloads."
+msgstr ""
+
+msgid "unknown"
+msgstr ""
+
+msgid "Find"
+msgstr ""
+
+msgid "Search Term:"
 msgstr ""
 
 msgid "Edit JavaScripts"
@@ -4655,7 +4734,7 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr ""
 
-msgid "%1. %2 %3 "
+msgid "%1 %2 %3 "
 msgstr ""
 
 msgid ""
@@ -4688,6 +4767,9 @@ msgid "A&uthors"
 msgstr ""
 
 msgid "Official Translations and Translators:"
+msgstr ""
+
+msgid "Afrikaans:"
 msgstr ""
 
 msgid "Catalan:"
@@ -4726,7 +4808,7 @@ msgstr ""
 msgid "Polish:"
 msgstr ""
 
-msgid "Portugese (Brazilian):"
+msgid "Portuguese (Brazilian):"
 msgstr ""
 
 msgid "Russian:"
@@ -5084,7 +5166,9 @@ msgstr ""
 msgid "Default documents directory"
 msgstr ""
 
-msgid "Default ICC profiles directory"
+msgid ""
+"Default ICC profiles directory. This cannot\n"
+"be changed with documents open."
 msgstr ""
 
 msgid "Default Scripter scripts directory"
@@ -5142,10 +5226,10 @@ msgstr ""
 msgid "Place the grid in front of your page objects"
 msgstr ""
 
-msgid "Turns on the basegrid"
+msgid "Turns on the base grid"
 msgstr ""
 
-msgid "Turns off the basegrid"
+msgid "Turns off the base grid"
 msgstr ""
 
 msgid "Displacement above the baseline of the font on a line"
@@ -5283,7 +5367,7 @@ msgstr ""
 msgid "Set the default zoom level"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
+msgid "File system location for the Ghostscript interpreter"
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -5292,7 +5376,11 @@ msgstr ""
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr ""
 
-msgid "Filesystem location for graphics editor"
+msgid ""
+"File system location for graphics editor. If you use gimp\n"
+"and your distro includes it, we recommend 'gimp-remote',\n"
+"as it allows you to edit the image in an already running\n"
+"instance of gimp."
 msgstr ""
 
 msgid ""
@@ -5573,6 +5661,9 @@ msgstr ""
 msgid "Leave preview"
 msgstr ""
 
+msgid "Size of the Font"
+msgstr ""
+
 msgid "Text Filters"
 msgstr ""
 
@@ -5663,46 +5754,54 @@ msgstr ""
 msgid "CSV_header"
 msgstr ""
 
-msgid "OpenOffice.org Writer Documents"
+msgid "OpenDocument Text Documents"
 msgstr ""
 
-msgid "OpenOffice.org Writer Importer Options"
+msgid "OpenDocument Importer Options"
 msgstr ""
 
-msgid "Update paragraph styles"
-msgstr ""
-
-msgid ""
-"If a paragraph style already exists with the same name as the current\n"
-"OpenOffice.org document's paragraph, should the style in Scribus be\n"
-"edited to match the one being imported, or left untouched"
-msgstr ""
-
-msgid "Pack paragraph styles"
+msgid "Update paragraph Styles"
 msgstr ""
 
 msgid ""
-"Group paragraph styles by attributes.\n"
-"Less paragraph styles but controlling them may be hard.\n"
-"Should be used if it is known that text must not be edited\n"
-"after importing."
+"Enabling this will overwrite existing stlyes in the current Scribus document"
+msgstr ""
+
+msgid "Merge Paragraph Styles"
+msgstr ""
+
+msgid ""
+"Merge paragraph styles by attributes. This will result in fewer similar "
+"paragraph styles, will retain style attributes, even if the original "
+"document's styles are named differently."
 msgstr ""
 
 msgid "Use document name as a prefix for paragraph styles"
 msgstr ""
 
-msgid ""
-"Should importer add the name of the document\n"
-"on front of the paragraph style name in Scribus"
+msgid "Prepend the document name to the paragraph style name in Scribus."
 msgstr ""
 
 msgid "Do not ask again"
 msgstr ""
 
 msgid ""
-"Should the importer always use currently\n"
-"set value when importing OpenOffice.org document and\n"
-"never ask your confirmation again"
+"Make these settings the default and do not prompt again when importing an "
+"OASIS OpenDocument."
+msgstr ""
+
+msgid "OpenOffice.org Writer Documents"
+msgstr ""
+
+msgid "OpenOffice.org Writer Importer Options"
+msgstr ""
+
+msgid "Update Paragraph Styles"
+msgstr ""
+
+msgid ""
+"Make these settings the default and do not prompt again when importing an "
+"OpenOffice.org 1.x document."
 msgstr ""
 
 msgid "Text Files"
@@ -6162,12 +6261,27 @@ msgstr ""
 msgid "Editing Macro: <b>"
 msgstr ""
 
+msgid "Python source files (.py)"
+msgstr ""
+
+msgid "Save File Dialog"
+msgstr ""
+
+msgid "Save macro source"
+msgstr ""
+
 msgid "Scribus - Macro Manager"
 msgstr ""
 
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
+msgstr ""
+
+msgid "Open File Dialog"
+msgstr ""
+
+msgid "Select the source file to load"
 msgstr ""
 
 msgid ""
@@ -6351,6 +6465,12 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr ""
 
+msgid "Can't set bookmark on a non-text frame"
+msgstr ""
+
+msgid "Can't get info from a non-text frame"
+msgstr ""
+
 msgid "Insert value"
 msgstr ""
 
@@ -6361,6 +6481,27 @@ msgid "Enter a value then press OK"
 msgstr ""
 
 msgid "Send your value to the script"
+msgstr ""
+
+msgid "Scribus Macro Files (*.pymacro)"
+msgstr ""
+
+msgid "Select the macro file to load."
+msgstr ""
+
+msgid "Save all macros"
+msgstr ""
+
+msgid "Scribus - Rename Macro"
+msgstr ""
+
+msgid "Enter new name: "
+msgstr ""
+
+msgid "Scribus - Set Macro Shortcut"
+msgstr ""
+
+msgid "Enter new shortcut: "
 msgstr ""
 
 msgid "Renaming the macro failed because the name is already in use."
@@ -6484,7 +6625,7 @@ msgstr ""
 msgid "Cannot render an empty sample."
 msgstr ""
 
-msgid "Cannot save to a blank filename."
+msgid "Unable to save pixmap."
 msgstr ""
 
 msgid "Cannot have an empty layer name."
@@ -6506,6 +6647,12 @@ msgid "Cannot get a color with an empty name."
 msgstr ""
 
 msgid "Color not found."
+msgstr ""
+
+msgid "Cannot get a colour with an empty name."
+msgstr ""
+
+msgid "Color not found"
 msgstr ""
 
 msgid "Cannot change a color with an empty name."
@@ -6559,6 +6706,9 @@ msgid "Unable to open the requested file: %1"
 msgstr ""
 
 msgid "Scribus - Edit Macro"
+msgstr ""
+
+msgid "Enter name for new macro: "
 msgstr ""
 
 msgid ""

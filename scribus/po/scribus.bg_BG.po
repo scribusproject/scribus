@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-08 13:58+0200\n"
+"POT-Creation-Date: 2005-05-04 21:29+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -494,6 +494,10 @@ msgstr ""
 msgid "All"
 msgstr "Всички"
 
+#, fuzzy
+msgid "Copy of"
+msgstr "Копие на "
+
 msgid "Copy Here"
 msgstr "Копирай тук"
 
@@ -750,10 +754,6 @@ msgid "is missing!"
 msgstr "Липси"
 
 #, fuzzy
-msgid "Copy of"
-msgstr "Копие на "
-
-#, fuzzy
 msgid "Page "
 msgstr "Страница"
 
@@ -845,8 +845,9 @@ msgstr ""
 msgid "Automatic"
 msgstr "Автоматична текстова кутия"
 
-msgid "Get text only"
-msgstr ""
+#, fuzzy
+msgid "Import Text Only"
+msgstr "Вмъкване на страница"
 
 msgid "Import text without any formatting"
 msgstr ""
@@ -983,8 +984,8 @@ msgid "Do you want to delete all Objects on this Layer too?"
 msgstr "Наистина ли искате да изтриете този стил?"
 
 #, fuzzy
-msgid "Create PDF File"
-msgstr "Създай PDF-файл"
+msgid "Save as PDF"
+msgstr "Запиши като PDF..."
 
 #, fuzzy
 msgid "O&utput to File:"
@@ -1335,6 +1336,22 @@ msgstr ""
 msgid "PDF/X-&3"
 msgstr ""
 
+msgid ""
+"<qt>Color management must be enabled to use PDF/X-3. You can enable color "
+"management from the Settings menu.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is supported and enabled, but can not be used for the selected "
+"PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF "
+"version (compatibility level).</qt>"
+msgstr ""
+
+msgid ""
+"<qt>PDF/X-3 is not supported by this Scribus build (CMS support not present)."
+"</qt>"
+msgstr ""
+
 #, fuzzy
 msgid "&Save"
 msgstr "Запиши"
@@ -1483,7 +1500,7 @@ msgstr ""
 
 msgid ""
 "Allow adding annotations and fields to the PDF. \n"
-"If un-checked, editing annotations and fileds is prevented."
+"If un-checked, editing annotations and fields is prevented."
 msgstr ""
 
 msgid ""
@@ -1549,6 +1566,20 @@ msgid "Mirror Page(s) horizontally"
 msgstr ""
 
 msgid "Mirror Page(s) vertically"
+msgstr ""
+
+#, fuzzy
+msgid "PDF security settings"
+msgstr "Параметри на печатащото устройство"
+
+#, fuzzy
+msgid "PDF/X-3 settings"
+msgstr "Параметри на печатащото устройство"
+
+msgid ""
+"<qt>PDF security can not be used with PDF/X-3. If you want to turn on "
+"security, change your PDF version (compatibility level) to something other "
+"than PDF/X-3.</qt>"
 msgstr ""
 
 msgid "Save as"
@@ -2478,6 +2509,10 @@ msgstr ""
 msgid "Chinese"
 msgstr ""
 
+#, fuzzy
+msgid "Croatian"
+msgstr "Украйнски:"
+
 msgid "Czech"
 msgstr ""
 
@@ -2902,7 +2937,8 @@ msgstr "Заоис на текущ документ"
 msgid "Searching for Fonts"
 msgstr "Извади отпред"
 
-msgid "There are no Postscript-Fonts on your System"
+#, fuzzy
+msgid "There are no suitable Fonts on your System"
 msgstr "Липсват Postscript шрифтове в системата"
 
 msgid "Exiting now"
@@ -2963,9 +2999,6 @@ msgid "Init Hyphenator"
 msgstr ""
 
 msgid "Setting up Shortcuts"
-msgstr ""
-
-msgid "&Color Management..."
 msgstr ""
 
 #, fuzzy
@@ -3337,6 +3370,9 @@ msgstr "Шрифтове..."
 msgid "Fonts..."
 msgstr "Шрифтове..."
 
+msgid "&Color Management..."
+msgstr ""
+
 msgid "&Hyphenator..."
 msgstr ""
 
@@ -3599,6 +3635,17 @@ msgstr "Блок"
 msgid "Loading:"
 msgstr "Сянка:"
 
+msgid ""
+"<qt>Color management is supported but can not currently be enabled. Make "
+"sure you have ICC color profiles installed and that the profile path in the "
+"preferences points to where they're installed.</qt>"
+msgstr ""
+
+msgid ""
+"<qt>Color management is not supported by this Scribus build (not compiled "
+"in).</qt>"
+msgstr ""
+
 msgid "Adjusting Colors"
 msgstr ""
 
@@ -3654,6 +3701,9 @@ msgstr ""
 msgid "Apply Under Color &Removal"
 msgstr ""
 
+msgid "Set Media Size"
+msgstr ""
+
 #, fuzzy
 msgid "Apply &ICC Profiles"
 msgstr "Печат във файл:"
@@ -3681,6 +3731,13 @@ msgstr ""
 msgid ""
 "Creates PostScript Level 1 only, beware,\n"
 "this can create huge files"
+msgstr ""
+
+msgid ""
+"This enables you to explicitely set,\n"
+"the media size of the postscript file.\n"
+"Not recommended unless\n"
+" requested by your printer."
 msgstr ""
 
 msgid ""
@@ -5034,6 +5091,14 @@ msgstr ""
 msgid "Insert Bookmark"
 msgstr ""
 
+#, fuzzy
+msgid "Choose Styles"
+msgstr "Показване на стилове"
+
+#, fuzzy
+msgid "Available Styles"
+msgstr "Скриване на стилове"
+
 msgid "Edit Styles"
 msgstr "Редактиране на стилове"
 
@@ -5130,6 +5195,20 @@ msgid "Contents"
 msgstr "Съдържание"
 
 #, fuzzy
+msgid "&Contents"
+msgstr "Съдържание"
+
+#, fuzzy
+msgid "S&earch"
+msgstr "Търси"
+
+msgid "Ctrl+F"
+msgstr ""
+
+msgid "F3"
+msgstr ""
+
+#, fuzzy
 msgid "Scribus Online Help"
 msgstr "Помощ..."
 
@@ -5138,6 +5217,17 @@ msgid ""
 "docs\n"
 "and www.scribus.net for downloads."
 msgstr ""
+
+msgid "unknown"
+msgstr ""
+
+#, fuzzy
+msgid "Find"
+msgstr "Линия"
+
+#, fuzzy
+msgid "Search Term:"
+msgstr "Търси"
 
 msgid "Edit JavaScripts"
 msgstr ""
@@ -5726,7 +5816,9 @@ msgstr ""
 msgid "Default documents directory"
 msgstr ""
 
-msgid "Default ICC profiles directory"
+msgid ""
+"Default ICC profiles directory. This cannot\n"
+"be changed with documents open."
 msgstr ""
 
 msgid "Default Scripter scripts directory"
@@ -5784,10 +5876,10 @@ msgstr ""
 msgid "Place the grid in front of your page objects"
 msgstr ""
 
-msgid "Turns on the basegrid"
+msgid "Turns on the base grid"
 msgstr ""
 
-msgid "Turns off the basegrid"
+msgid "Turns off the base grid"
 msgstr ""
 
 msgid "Displacement above the baseline of the font on a line"
@@ -5928,7 +6020,7 @@ msgstr ""
 msgid "Set the default zoom level"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
+msgid "File system location for the Ghostscript interpreter"
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -5937,7 +6029,11 @@ msgstr ""
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr ""
 
-msgid "Filesystem location for graphics editor"
+msgid ""
+"File system location for graphics editor. If you use gimp\n"
+"and your distro includes it, we recommend 'gimp-remote',\n"
+"as it allows you to edit the image in an already running\n"
+"instance of gimp."
 msgstr ""
 
 msgid ""
@@ -6256,6 +6352,9 @@ msgstr ""
 msgid "Leave preview"
 msgstr "Преглед"
 
+msgid "Size of the Font"
+msgstr ""
+
 #, fuzzy
 msgid "Text Filters"
 msgstr "Файл:"
@@ -6362,50 +6461,57 @@ msgid "OpenDocument Text Documents"
 msgstr "Документи"
 
 #, fuzzy
-msgid "OpenOffice.org Writer Importer Options"
+msgid "OpenDocument Importer Options"
 msgstr "Други опции"
 
 #, fuzzy
-msgid "Update paragraph styles"
+msgid "Update paragraph Styles"
 msgstr "Стилове..."
 
 msgid ""
-"If a paragraph style already exists with the same name as the current\n"
-"OpenOffice.org document's paragraph, should the style in Scribus be\n"
-"edited to match the one being imported, or left untouched"
+"Enabling this will overwrite existing stlyes in the current Scribus document"
 msgstr ""
 
 #, fuzzy
-msgid "Pack paragraph styles"
+msgid "Merge Paragraph Styles"
 msgstr "Стилове..."
 
 msgid ""
-"Group paragraph styles by attributes.\n"
-"Less paragraph styles but controlling them may be hard.\n"
-"Should be used if it is known that text must not be edited\n"
-"after importing."
+"Merge paragraph styles by attributes. This will result in fewer similar "
+"paragraph styles, will retain style attributes, even if the original "
+"document's styles are named differently."
 msgstr ""
 
 msgid "Use document name as a prefix for paragraph styles"
 msgstr ""
 
-msgid ""
-"Should importer add the name of the document\n"
-"on front of the paragraph style name in Scribus"
+msgid "Prepend the document name to the paragraph style name in Scribus."
 msgstr ""
 
 msgid "Do not ask again"
 msgstr ""
 
 msgid ""
-"Should the importer always use currently\n"
-"set value when importing OpenOffice.org document and\n"
-"never ask your confirmation again"
+"Make these settings the default and do not prompt again when importing an "
+"OASIS OpenDocument."
 msgstr ""
 
 #, fuzzy
 msgid "OpenOffice.org Writer Documents"
 msgstr "Документи"
+
+#, fuzzy
+msgid "OpenOffice.org Writer Importer Options"
+msgstr "Други опции"
+
+#, fuzzy
+msgid "Update Paragraph Styles"
+msgstr "Стилове..."
+
+msgid ""
+"Make these settings the default and do not prompt again when importing an "
+"OpenOffice.org 1.x document."
+msgstr ""
 
 #, fuzzy
 msgid "Text Files"
@@ -7340,7 +7446,7 @@ msgid "Cannot get a colour with an empty name."
 msgstr "Редактиране на промените на рамката"
 
 #, fuzzy
-msgid "Colour not found"
+msgid "Color not found"
 msgstr "Отпечатване на текущ документ"
 
 #, fuzzy
@@ -7548,6 +7654,18 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Create PDF File"
+#~ msgstr "Създай PDF-файл"
+
+#, fuzzy
+#~ msgid "Pack paragraph styles"
+#~ msgstr "Стилове..."
+
+#, fuzzy
+#~ msgid "Colour not found"
+#~ msgstr "Отпечатване на текущ документ"
 
 #, fuzzy
 #~ msgid "&Kerning:"
@@ -7874,12 +7992,6 @@ msgstr ""
 
 #~ msgid "New Style:"
 #~ msgstr "Нов стил:"
-
-#~ msgid "Show Styles"
-#~ msgstr "Показване на стилове"
-
-#~ msgid "Hide Styles"
-#~ msgstr "Скриване на стилове"
 
 #~ msgid "Styles"
 #~ msgstr "Стилове"

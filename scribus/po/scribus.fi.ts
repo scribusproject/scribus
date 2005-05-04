@@ -1309,7 +1309,7 @@ the page...
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished">getPageMargins()
+        <translation type="obsolete">getPageMargins()
 
 </translation>
     </message>
@@ -1528,7 +1528,7 @@ used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 </translation>
     </message>
@@ -1859,6 +1859,26 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (top, left, right, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference). The first character has
+an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
+is not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2152,6 +2172,17 @@ UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
 olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
 tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
 testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-musteilla.</translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the postscript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3363,6 +3394,25 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
 It&apos;s a reserved name for transparent color</source>
         <translation>Väriä nimellä &quot;%1&quot; ei voi luoda.
 Nimi on varattu läpinäkyvälle värille</translation>
+    </message>
+</context>
+<context>
+    <name>ChooseStyles</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Peruuta</translation>
     </message>
 </context>
 <context>
@@ -4757,6 +4807,10 @@ joita on tarkoitus katsella näytöltä</translation>
         <source>Leave preview</source>
         <translation>Poistu esikatselusta</translation>
     </message>
+    <message>
+        <source>Size of the Font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -4860,6 +4914,38 @@ osoitteesta www.scribus.net.</translation>
     <message>
         <source>Scribus Online Help</source>
         <translation>Scribus ohje verkossa</translation>
+    </message>
+    <message>
+        <source>&amp;Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Etsi</translation>
+    </message>
+    <message>
+        <source>S&amp;earch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Term:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6978,29 +7064,18 @@ muulloin suhteessa kohteeseen.</translation>
     <name>OdtDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished">OpenOffice.org Writer tuojan asetukset</translation>
+        <translation type="obsolete">OpenOffice.org Writer tuojan asetukset</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished">Päivitä kappaletyylit</translation>
+        <translation type="obsolete">Päivitä kappaletyylit</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished">Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
+        <translation type="obsolete">Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
 kappaletyyli Scribuksessa vastaamaan tätä vai jätetäänkö se koskematta</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -7009,7 +7084,7 @@ after importing.</source>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished">Liitetäänkö asiakirjan nimi kappaletyylin eteen 
+        <translation type="obsolete">Liitetäänkö asiakirjan nimi kappaletyylin eteen 
 luotaessa uusi tyyli Scribuksessa</translation>
     </message>
     <message>
@@ -7020,13 +7095,41 @@ luotaessa uusi tyyli Scribuksessa</translation>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished">Käytetäänkö aina nyt valittuja asetuksia tuotaessa
+        <translation type="obsolete">Käytetäänkö aina nyt valittuja asetuksia tuotaessa
 OpenOffice.org asiakirjaa eikä kyselyä näytetätä enää
 uudestaan</translation>
     </message>
     <message>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>OpenDocument Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7496,7 +7599,7 @@ Jos kohta ei ole valittuna, kopiointi on estetty.</translation>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation>Salli PDF-huomautusten ja -kenttien lisääminen.
+        <translation type="obsolete">Salli PDF-huomautusten ja -kenttien lisääminen.
 Jos kohta ei ole valittuna huomautuksia ja kenttiä ei voi lisätä.</translation>
     </message>
     <message>
@@ -7529,7 +7632,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>Create PDF File</source>
-        <translation>Luo PDF-tiedosto</translation>
+        <translation type="obsolete">Luo PDF-tiedosto</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7751,6 +7854,39 @@ PDF-tiedosto ei välttämättä tulostu oikein eikä ole siirrettävissä muille
         <source>Mirror Page(s) vertically</source>
         <translation>Peilaa sivu(t) pystysuorasti</translation>
     </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fields is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF security settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-3 settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -7928,7 +8064,7 @@ vektorigrafiikalle esikatselussa esikatselun nopeuden kustannuksella</translatio
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Kopio</translation>
+        <translation type="obsolete">Kopio</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -8534,7 +8670,7 @@ mahdollisten KDE- ja QT-teemojen käytön</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation>Oletushakemisto ICC-profiileille</translation>
+        <translation type="obsolete">Oletushakemisto ICC-profiileille</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -8814,7 +8950,7 @@ aina valitun ajan kuluttua</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Ghostscript tulkin sijainti tiedostojärjestelmässä</translation>
+        <translation type="obsolete">Ghostscript tulkin sijainti tiedostojärjestelmässä</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -8840,7 +8976,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation>Grafiikkatyökalun sijainti tiedostojärjestelmässä</translation>
+        <translation type="obsolete">Grafiikkatyökalun sijainti tiedostojärjestelmässä</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -8848,11 +8984,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation>Ottaa peruslinjan käyttöön</translation>
+        <translation type="obsolete">Ottaa peruslinjan käyttöön</translation>
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation>Ottaa peruslinjan pois käytöstä</translation>
+        <translation type="obsolete">Ottaa peruslinjan pois käytöstä</translation>
     </message>
     <message>
         <source> px</source>
@@ -9260,6 +9396,30 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     <message>
         <source>Tabloid</source>
         <translation>Tabloid</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot
+be changed with documents open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns on the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns off the base grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the Ghostscript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp
+and your distro includes it, we recommend &apos;gimp-remote&apos;,
+as it allows you to edit the image in an already running
+instance of gimp.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10133,7 +10293,7 @@ External Links
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="obsolete">Väriä ei löydy</translation>
+        <translation type="unfinished">Väriä ei löydy</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10796,11 +10956,6 @@ function&apos;s documentation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Colour not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
         <translation type="unfinished"></translation>
@@ -10817,6 +10972,10 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11461,7 +11620,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>Järjestelmästäsi ei löydy postscript-kirjasimia</translation>
+        <translation type="obsolete">Järjestelmästäsi ei löydy postscript-kirjasimia</translation>
     </message>
     <message>
         <source>Show Layers</source>
@@ -12381,6 +12540,22 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <source>Portuguese (BR)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>There are no suitable Fonts on your System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -12411,6 +12586,10 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Kopio</translation>
     </message>
 </context>
 <context>
@@ -13184,7 +13363,7 @@ raahaa malli sivualueelle.</translation>
     <name>SxwDialog</name>
     <message>
         <source>Update paragraph styles</source>
-        <translation>Päivitä kappaletyylit</translation>
+        <translation type="obsolete">Päivitä kappaletyylit</translation>
     </message>
     <message>
         <source>OK</source>
@@ -13201,14 +13380,14 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation>Liitetäänkö asiakirjan nimi kappaletyylin eteen 
+        <translation type="obsolete">Liitetäänkö asiakirjan nimi kappaletyylin eteen 
 luotaessa uusi tyyli Scribuksessa</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation>Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
+        <translation type="obsolete">Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
 kappaletyyli Scribuksessa vastaamaan tätä vai jätetäänkö se koskematta</translation>
     </message>
     <message>
@@ -13219,19 +13398,32 @@ kappaletyyli Scribuksessa vastaamaan tätä vai jätetäänkö se koskematta</tr
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation>Käytetäänkö aina nyt valittuja asetuksia tuotaessa
+        <translation type="obsolete">Käytetäänkö aina nyt valittuja asetuksia tuotaessa
 OpenOffice.org asiakirjaa eikä kyselyä näytetätä enää
 uudestaan</translation>
     </message>
     <message>
-        <source>Pack paragraph styles</source>
+        <source>Update Paragraph Styles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13672,7 +13864,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Get text only</source>
-        <translation>Tuo ainoastaan teksti</translation>
+        <translation type="obsolete">Tuo ainoastaan teksti</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
@@ -13685,6 +13877,10 @@ with checked button too.</source>
     <message>
         <source>Encoding:</source>
         <translation>Koodaus:</translation>
+    </message>
+    <message>
+        <source>Import Text Only</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
