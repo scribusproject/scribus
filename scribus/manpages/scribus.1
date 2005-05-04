@@ -1,4 +1,4 @@
-.TH scribus "1" "Updated 2004-09-27"
+.TH scribus "1" "Updated 2005-05-04"
 .SH NAME
 scribus - open source X11-based WYSIWYG desktop publishing app
 .SH SYNOPSIS
@@ -64,12 +64,11 @@ of fonts. See gs(1) and the GhostScript HTML documentation for more information.
 .SH FILES
 .TP
 .B $HOME/.scribus/
-User preferences are stored in $HOME/.scribus/ . Most other paths are configurable from the Scribus preferences.
-.B $HOME/.scribus/scribus.rc
+User preferences are stored in $HOME/.scribus/ . Most other paths are configurable from the Scribus preferences. Scribus 1.3 preferences are separate from Scribus 1.2.x
+.B $HOME/.scribus/scribus13.rc
 Scribus preferences file - formatted in a custom xml schema. May eventually be retired in favour of new format prefs file.
-.B $HOME/.scribus/prefs.xml
-New format prefs file. As of time of writing (v1.2.x) this file was mostly unused.
-Configuration files for related programs:
+.B $HOME/.scribus/prefs13.xml
+Scribus 1.3 preferences are separate from Scribus 1.2.x
 .TP
 .B $HOME/.fonts/
 .TP
@@ -94,7 +93,6 @@ OpenClipArt - http://openclipart.org/
 
 Other affiliates may be listed in the footer on http://www.scribus.net/
 
-gimp(1) - http://www.gimp.org/
 
 .SH BUGS
 See
