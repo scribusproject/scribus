@@ -136,7 +136,10 @@ void ScripterCore::FinishScriptRun()
 		Carrier->Sepal->SetView(Carrier->view);
 		Carrier->Sepal->Rebuild();
 		if (Carrier->doc->ActPage->SelItem.count() != 0)
+		{
+			Carrier->doc->ActPage->EmitValues(Carrier->doc->ActPage->SelItem.at(0));
 			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
+		}
 		else
 			Carrier->HaveNewSel(-1);
 		Carrier->view->DrawNew();
