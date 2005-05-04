@@ -69,7 +69,7 @@ private:
 	UndoManager* undoManager;
 	void restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo);
-	void restoreTemplateApplying(SimpleState *state, bool isUndo);
+	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
 };
 
 #endif

@@ -52,35 +52,35 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 
 	whereLayout->addColSpacing(0, insCountLabel->fontMetrics().width( tr( "&Insert" )));
 	dialogLayout->addLayout( whereLayout );
-	templLayout = new QHBoxLayout;
-	templLayout->setSpacing( 6 );
-	templLayout->setMargin( 0 );
+	masterPageLayout = new QHBoxLayout;
+	masterPageLayout->setSpacing( 6 );
+	masterPageLayout->setMargin( 0 );
 
-	templData = new QComboBox(false, this, "templData");
+	masterPageData = new QComboBox(false, this, "masterPageData");
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-		templData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+		masterPageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 
-	templLabel = new QLabel(templData, (facingPages ? tr("Template (&Left Page):") : tr("&Template:")), this, "text");
+	masterPageLabel = new QLabel(masterPageData, (facingPages ? tr("Master Page (&Left Page):") : tr("&Master Page:")), this, "text");
 	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	templLayout->addWidget( templLabel );
-	templLayout->addItem( spacer3 );
-	templLayout->addWidget(templData);
-	dialogLayout->addLayout(templLayout);
+	masterPageLayout->addWidget( masterPageLabel );
+	masterPageLayout->addItem( spacer3 );
+	masterPageLayout->addWidget(masterPageData);
+	dialogLayout->addLayout(masterPageLayout);
 
 	if (facingPages)
 	{
-		templ2Layout = new QHBoxLayout;
-		templ2Layout->setSpacing( 6 );
-		templ2Layout->setMargin( 0 );
-		templ2Data = new QComboBox(false, this, "templ2Data");
+		masterPage2Layout = new QHBoxLayout;
+		masterPage2Layout->setSpacing( 6 );
+		masterPage2Layout->setMargin( 0 );
+		masterPage2Data = new QComboBox(false, this, "masterPage2Data");
 		for (QMap<QString,int>::Iterator it2 = currentDoc->MasterNames.begin(); it2 != currentDoc->MasterNames.end(); ++it2)
-			templ2Data->insertItem(it2.key() == "Normal" ? tr("Normal") : it2.key());
-		templ2Label = new QLabel( templ2Data, tr("Template (&Right Page):"), this, "texta");
-		templ2Layout->addWidget( templ2Label );
+			masterPage2Data->insertItem(it2.key() == "Normal" ? tr("Normal") : it2.key());
+		masterPage2Label = new QLabel( masterPage2Data, tr("Master Page (&Right Page):"), this, "texta");
+		masterPage2Layout->addWidget( masterPage2Label );
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-		templ2Layout->addItem( spacer2 );
-		templ2Layout->addWidget(templ2Data);
-		dialogLayout->addLayout(templ2Layout);
+		masterPage2Layout->addItem( spacer2 );
+		masterPage2Layout->addWidget(masterPage2Data);
+		dialogLayout->addLayout(masterPage2Layout);
 	}
 
 	okCancelLayout = new QHBoxLayout;
@@ -105,14 +105,14 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 }
 
 
-const QString InsPage::getTemplate()
+const QString InsPage::getMasterPage()
 {
-	return templData->currentText();
+	return masterPageData->currentText();
 }
 
-const QString InsPage::getTemplate2()
+const QString InsPage::getMasterPage2()
 {
-	return templ2Data->currentText();
+	return masterPage2Data->currentText();
 }
 
 const int InsPage::getWhere()

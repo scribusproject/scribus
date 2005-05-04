@@ -78,7 +78,7 @@ public:
 	QLineEdit* ScriptPfad;
 	QToolButton* FileC3;
 	QLabel* PfadText4;
-	QLineEdit* TemplateDir;
+	QLineEdit* DocumentTemplateDir;
 	QToolButton* FileC4;
 
 	TabGuides* tabGuides;
@@ -194,7 +194,7 @@ public slots:
 	void changeDocs();
 	void changeProfs();
 	void changeScripts();
-	void changeTemplates();
+	void changeDocumentTemplates();
 	void setDS();
 	void setPageWidth(int v);
 	void setPageHeight(int v);

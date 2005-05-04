@@ -37,8 +37,8 @@ public:
 	QPushButton* ignoreErrors;
 	QMap<QListViewItem*, int> itemMap;
 	QMap<QListViewItem*, int> pageMap;
-	QMap<QListViewItem*, QString> templatePageMap;
-	QMap<QListViewItem*, int> templateItemMap;
+	QMap<QListViewItem*, QString> masterPageMap;
+	QMap<QListViewItem*, int> masterPageItemMap;
 	bool noButton;
 	int checkMode;
 
@@ -51,8 +51,8 @@ signals:
 	//void closePal(bool);
 	void selectElement(int, int);
 	void selectPage(int);
-	void selectTemplatePage(QString);
-	void selectTemplateElement(QString, int);
+	void selectMasterPage(QString);
+	void selectMasterPageElement(QString, int);
 	void selectNormal();
 	void ignoreAllErrors();
 

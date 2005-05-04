@@ -4300,7 +4300,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			else
 				Doc->ElemToLink = NULL;
-			if (Doc->TemplateMode)
+			if (Doc->masterPageMode)
 				Doc->MasterItems = Doc->Items;
 			else
 				Doc->DocItems = Doc->Items;
@@ -4331,7 +4331,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				emit DocChanged();
 				updateContents();
 			}
-			if (Doc->TemplateMode)
+			if (Doc->masterPageMode)
 				Doc->MasterItems = Doc->Items;
 			else
 				Doc->DocItems = Doc->Items;
@@ -7838,7 +7838,7 @@ void ScribusView::ToBack()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
-		if (Doc->TemplateMode)
+		if (Doc->masterPageMode)
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
@@ -7876,7 +7876,7 @@ void ScribusView::ToFront()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
-		if (Doc->TemplateMode)
+		if (Doc->masterPageMode)
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
@@ -7933,7 +7933,7 @@ void ScribusView::LowerItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
-		if (Doc->TemplateMode)
+		if (Doc->masterPageMode)
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
@@ -7990,7 +7990,7 @@ void ScribusView::RaiseItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
-		if (Doc->TemplateMode)
+		if (Doc->masterPageMode)
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
@@ -8264,7 +8264,7 @@ void ScribusView::DeleteItem()
 		else
 			updateContents();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		if (Doc->TemplateMode)
+		if (Doc->masterPageMode)
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
@@ -8466,7 +8466,7 @@ void ScribusView::delPage(int Nr)
 	delete Seite;
 	Doc->PageC -= 1;
 	Doc->currentPage = Doc->Pages.at(0);
-	if (Doc->TemplateMode)
+	if (Doc->masterPageMode)
 		Doc->MasterPages = Doc->Pages;
 	else
 		Doc->DocPages = Doc->Pages;
@@ -8511,7 +8511,7 @@ void ScribusView::movePage(int from, int to, int ziel, int art)
 		}
 		break;
 	}
-	if (Doc->TemplateMode)
+	if (Doc->masterPageMode)
 		Doc->MasterPages = Doc->Pages;
 	else
 		Doc->DocPages = Doc->Pages;
@@ -8879,7 +8879,7 @@ void ScribusView::GotoPage(int Seite)
 		PGS->GotoPg(Seite);
 }
 
-void ScribusView::ShowTemplate(int nr)
+void ScribusView::showMasterPage(int nr)
 {
 	OldScale = Scale;
 	if (!Doc->MasterP)
@@ -8903,7 +8903,7 @@ void ScribusView::ShowTemplate(int nr)
 	DrawNew();
 }
 
-void ScribusView::HideTemplate()
+void ScribusView::hideMasterPage()
 {
 	Deselect(true);
 	Doc->MasterItems = Doc->Items;

@@ -42,7 +42,7 @@ protected:
 
 signals:
 	void selectPage(int);
-	void selectTemplatePage(QString);
+	void selectMasterPage(QString);
 };
 
 #endif // PICSTATUS_H

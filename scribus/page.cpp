@@ -179,7 +179,7 @@ void Page::setPageName(const QString& newName)
 {
 	PageNam = newName;
 	if (newName != "")
-		setUName(QObject::tr("Template ") + newName);
+		setUName(QObject::tr("Master Page ") + newName);
 }
 
 void Page::restore(UndoState* state, bool isUndo)
@@ -253,8 +253,8 @@ void Page::restore(UndoState* state, bool isUndo)
 			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
 			restorePageItemDeletion(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
-		else if (ss->contains("OLD_TEMPLATE"))
-			restoreTemplateApplying(ss, isUndo);
+		else if (ss->contains("OLD_MASTERPAGE"))
+			restoreMasterPageApplying(ss, isUndo);
 	}
 }
 
@@ -304,13 +304,13 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	}
 }
 
-void Page::restoreTemplateApplying(SimpleState *state, bool isUndo)
+void Page::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 {
 	int pageNumber = state->getInt("PAGE_NUMBER");
-	QString oldName = state->get("OLD_TEMPLATE");
-	QString newName = state->get("NEW_TEMPLATE");
+	QString oldName = state->get("OLD_MASTERPAGE");
+	QString newName = state->get("NEW_MASTERPAGE");
 	if (isUndo)
-		ScApp->Apply_Temp(oldName, pageNumber, false);
+		ScApp->Apply_MasterPage(oldName, pageNumber, false);
 	else
-		ScApp->Apply_Temp(newName, pageNumber, false);
+		ScApp->Apply_MasterPage(newName, pageNumber, false);
 }

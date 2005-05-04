@@ -187,7 +187,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	CurrentStyle = 0;
 	currentParaStyle = 0;
 	TotalItems = 0;
-	TemplateMode = false;
+	masterPageMode = false;
 	PDF_Options.Thumbnails = prefsData->PDF_Options.Thumbnails;
 	PDF_Options.Articles = prefsData->PDF_Options.Articles;
 	PDF_Options.Compress = prefsData->PDF_Options.Compress;

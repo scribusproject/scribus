@@ -1,8 +1,8 @@
 <!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>ApplyTemplate</class>
+<class>ApplyMasterPageDialog</class>
 <widget class="QDialog">
     <property name="name">
-        <cstring>ApplyTemplate</cstring>
+        <cstring>ApplyMasterPageDialog</cstring>
     </property>
     <property name="geometry">
         <rect>
@@ -19,7 +19,7 @@
         </size>
     </property>
     <property name="caption">
-        <string>Apply Template</string>
+        <string>Apply Master Page</string>
     </property>
     <vbox>
         <property name="name">
@@ -35,13 +35,13 @@
                 </property>
                 <widget class="QLabel">
                     <property name="name">
-                        <cstring>templateLabel</cstring>
+                        <cstring>masterPageLabel</cstring>
                     </property>
                     <property name="text">
-                        <string>&amp;Template:</string>
+                        <string>&amp;Master Page:</string>
                     </property>
                     <property name="buddy" stdset="0">
-                        <cstring>templateComboBox</cstring>
+                        <cstring>masterPageComboBox</cstring>
                     </property>
                 </widget>
                 <spacer>
@@ -63,7 +63,7 @@
                 </spacer>
                 <widget class="QComboBox">
                     <property name="name">
-                        <cstring>templateComboBox</cstring>
+                        <cstring>masterPageComboBox</cstring>
                     </property>
                 </widget>
             </hbox>
@@ -263,55 +263,55 @@
     <connection>
         <sender>useRangeCheckBox</sender>
         <signal>toggled(bool)</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>enableRange(bool)</slot>
     </connection>
     <connection>
         <sender>currentPageRadioButton</sender>
         <signal>clicked()</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>singleSelectable()</slot>
     </connection>
     <connection>
         <sender>evenPagesRadioButton</sender>
         <signal>clicked()</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>rangeSelectable()</slot>
     </connection>
     <connection>
         <sender>oddPagesRadioButton</sender>
         <signal>clicked()</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>rangeSelectable()</slot>
     </connection>
     <connection>
         <sender>allPagesRadioButton</sender>
         <signal>clicked()</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>rangeSelectable()</slot>
     </connection>
     <connection>
         <sender>fromPageSpinBox</sender>
         <signal>valueChanged(const QString&amp;)</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>checkRangeFrom()</slot>
     </connection>
     <connection>
         <sender>toPageSpinBox</sender>
         <signal>valueChanged(int)</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>checkRangeTo()</slot>
     </connection>
     <connection>
         <sender>okButton</sender>
         <signal>clicked()</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>accept()</slot>
     </connection>
     <connection>
         <sender>cancelButton</sender>
         <signal>clicked()</signal>
-        <receiver>ApplyTemplate</receiver>
+        <receiver>ApplyMasterPageDialog</receiver>
         <slot>reject()</slot>
     </connection>
 </connections>
@@ -331,7 +331,7 @@
 </slots>
 <functions>
     <function>setup( ScribusDoc * view, QString Nam )</function>
-    <function returnType="QString">getTemplateName()</function>
+    <function returnType="QString">getMasterPageName()</function>
     <function returnType="int">getPageSelection()</function>
     <function returnType="bool">usingRange()</function>
     <function returnType="int">getFromPage()</function>

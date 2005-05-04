@@ -297,9 +297,12 @@ QString GetAttr(QDomElement *el, QString at, QString def)
 
 int QStoInt(QString in)
 {
+	/* Dont need this, toInt returns 0 on failure, dont even need this function really.
 	bool ok = false;
 	int c = in.toInt(&ok);
 	return ok ? c : 0;
+	*/
+	return in.toInt();
 }
 
 double QStodouble(QString in)

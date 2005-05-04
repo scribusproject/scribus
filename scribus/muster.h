@@ -11,25 +11,25 @@ class QVBoxLayout;
 class ScribusDoc;
 class ScribusView;
 
-class MusterPages : public QDialog
+class MasterPagesPalette : public QDialog
 {
 	Q_OBJECT
 
 public:
-	MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString temp);
-	~MusterPages() {};
+	MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName);
+	~MasterPagesPalette() {};
 	void closeEvent(QCloseEvent *closeEvent);
-	void updateTemplateList(QString templateName);
+	void updateMasterPageList(QString MasterPageName);
 
 public slots:
-	void selectTemplate(QString name);
+	void selectMasterPage(QString name);
 
 protected slots:
 	void reject();
 
 private:
-	QListBox* templateData;
-	QPushButton* appendButton;
+	QListBox* masterPageData;
+	QPushButton* importButton;
 	QPushButton* newButton;
 	QPushButton* duplicateButton;
 	QPushButton* deleteButton;
@@ -39,15 +39,15 @@ private:
 	QString sMuster;
 
 protected:
-	QVBoxLayout* musterPagesLayout;
+	QVBoxLayout* masterPagesLayout;
 	QHBoxLayout* buttonLayout;
 
 private slots:
-	void duplicateTemplate();
-	void deleteTemplate();
-	void newTemplate();
+	void duplicateMasterPage();
+	void deleteMasterPage();
+	void newMasterPage();
 	void appendPage();
-	void selectTemplate(QListBoxItem *item);
+	void selectMasterPage(QListBoxItem *item);
 
 signals:
 	void createNew(int);

@@ -33,7 +33,7 @@ int ID()
 
 QString actionName()
 {
-	return "NewFromTemplate";
+	return "NewFromDocumentTemplate";
 }
 
 QString actionKeySequence()
@@ -61,7 +61,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Carrier = plug;
 	par = d;
 	Nft = new MenuNFT(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("New &from Template..."), -1, plug->fileMenu->indexOf(plug->scrActions["fileNew"]->getMenuIndex())+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("New &from Document Template..."), -1, plug->fileMenu->indexOf(plug->scrActions["fileNew"]->getMenuIndex())+1);
 	plug->fileMenu->connectItem(id, Nft, SLOT(RunNFTPlug()));
 	plug->fileMenu->setItemEnabled(id, 1);
 }
@@ -81,16 +81,16 @@ void run(QWidget *d, ScribusApp *plug)
 
 void MenuNFT::RunNFTPlug()
 {
-	nftdialog* nftdia = new nftdialog(par, Carrier->getGuiLanguage(), Carrier->Prefs.TemplateDir);
+	nftdialog* nftdia = new nftdialog(par, Carrier->getGuiLanguage(), Carrier->Prefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		Carrier->LadeDoc(QDir::cleanDirPath(nftdia->currentTemplate->file));
+		Carrier->LadeDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		Carrier->doc->hasName = false;
-		Carrier->doc->DocName = nftdia->currentTemplate->name;
-		Carrier->ActWin->setCaption(QObject::tr("Template: ") + nftdia->currentTemplate->name);
+		Carrier->doc->DocName = nftdia->currentDocumentTemplate->name;
+		Carrier->ActWin->setCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
 		QDir::setCurrent(Carrier->Prefs.DocDir);
-		Carrier->removeRecent(QDir::cleanDirPath(nftdia->currentTemplate->file));
+		Carrier->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;

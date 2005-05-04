@@ -114,11 +114,11 @@ public: // Public attributes
 	double ScratchBottom;
   /** List of Pages */
 	QPtrList<Page> Pages;
-  /** List of Template Pages */
+  /** List of Master Pages */
 	QPtrList<Page> MasterPages;
   /** List of Document Pages */
 	QPtrList<Page> DocPages;
-  /** Mapping Template Name to Template Page numbers */
+  /** Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
   /** List of Objects */
 	QPtrList<PageItem> Items;
@@ -239,7 +239,7 @@ public: // Public attributes
 	QString Language;
 	bool Automatic;
 	bool AutoCheck;
-	bool TemplateMode;
+	bool masterPageMode;
 	PDFOptions PDF_Options;
 	bool RePos;
 	struct BookMa { 

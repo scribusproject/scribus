@@ -136,7 +136,7 @@ public:
     TrashBin* Trash;
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
-    SeList* TemplList;
+    SeList* masterPageList;
     SeView* PageView;
 	QCheckBox* facingPagesChk;
 	QCheckBox* firstPageLeftChk;
@@ -155,7 +155,7 @@ public slots:
 	void RebuildTemp();
 	void RebuildPage();
 	void Rebuild();
-	void selTemplate();
+	void selMasterPage();
 	QPixmap CreateIcon(int nr, QPixmap ret);
 
 signals:

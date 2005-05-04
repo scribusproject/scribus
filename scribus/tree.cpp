@@ -44,15 +44,15 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree
 	itemMap.clear();
 	pageMap.clear();
 	groupMap.clear();
-	templateGroupMap.clear();
-	templatePageMap.clear();
-	templateItemMap.clear();
+	masterPageGroupMap.clear();
+	masterPageMap.clear();
+	masterPageItemMap.clear();
 	itemMapRev.clear();
 	pageMapRev.clear();
 	groupMapRev.clear();
-	templateGroupMapRev.clear();
-	templatePageMapRev.clear();
-	templateItemMapRev.clear();
+	masterPageGroupMapRev.clear();
+	masterPageMapRev.clear();
+	masterPageItemMapRev.clear();
 	imageIcon = loadIcon("Bild.xpm");
 	lineIcon = loadIcon("Stift.xpm");
 	textIcon = loadIcon("Text.xpm");
@@ -78,7 +78,7 @@ void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
 		return;
 	if (ScApp->ScriptRunning)
 		return;
-	if (vie->Doc->TemplateMode)
+	if (vie->Doc->masterPageMode)
 		return;
 	if (Seiten.containsRef(ite))
 		return;
@@ -96,7 +96,7 @@ void Tree::slotDoRename(QListViewItem* ite, int col)
 {
 /*	if (ScApp->ScriptRunning)
 		return;
-	if (vie->Doc->TemplateMode)
+	if (vie->Doc->masterPageMode)
 		return;
 	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
 	int sref, oref;
@@ -156,20 +156,20 @@ void Tree::slotDoRename(QListViewItem* ite, int col)
 QListViewItem* Tree::getListItem(uint SNr, int Nr)
 {
 	QListViewItem *retVal = 0;
-	if (document->TemplateMode)
+	if (document->masterPageMode)
 	{
 		if (Nr == -1)
-			retVal = templatePageMapRev[document->MasterPages.at(SNr)->PageNam];
+			retVal = masterPageMapRev[document->MasterPages.at(SNr)->PageNam];
 		else
 		{
 			if (document->MasterItems.at(Nr)->Groups.count() == 0)
-				retVal = templateItemMapRev[Nr];
+				retVal = masterPageItemMapRev[Nr];
 			else
 			{
 				if (document->MasterItems.at(Nr)->isSingleSel)
-					retVal = templateItemMapRev[Nr];
+					retVal = masterPageItemMapRev[Nr];
 				else
-					retVal = templateGroupMapRev[Nr];
+					retVal = masterPageGroupMapRev[Nr];
 			}
 		}
 	}
@@ -211,7 +211,7 @@ void Tree::slotRemoveElement(uint SNr, uint Nr)
 {
 /*	if (ScApp->ScriptRunning)
 		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
 		return;
 	if (PageObj.count() != 0)
 	{
@@ -235,7 +235,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 	}
 	PageItem* pgItem;
 	int itemType;
-	if (document->TemplateMode)
+	if (document->masterPageMode)
 		pgItem = document->MasterItems.at(Nr);
 	else
 		pgItem = document->DocItems.at(Nr);
@@ -243,7 +243,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 		return;
 	setItemIcon(item, pgItem->itemType());
 /*	QString cc, xp, yp, fon, GroupTxt;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
 		return;
 	if (SNr > Seiten.count()-1)
 		return;
@@ -328,10 +328,10 @@ void Tree::slotAddElement(PageItem *item)
 	QListViewItem * object;
 	if (item->OnMasterPage != "")
 	{
-		QListViewItem * page = templatePageMapRev[item->OnMasterPage];
+		QListViewItem * page = masterPageMapRev[item->OnMasterPage];
 		object = new QListViewItem( page, 0 );
-		templateItemMap.insert(object, item->ItemNr);
-		templateItemMapRev.insert(item->ItemNr, object);
+		masterPageItemMap.insert(object, item->ItemNr);
+		masterPageItemMapRev.insert(item->ItemNr, object);
 	}
 	else
 	{
@@ -367,7 +367,7 @@ void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
 {
 /*	if (ScApp->ScriptRunning)
 		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
 		return;
 	QListViewItem* tmp = PageObj.at(SNr)->Elemente.take(NrOld);
 	PageObj.at(SNr)->Elemente.insert(NrNew, tmp); */
@@ -390,7 +390,7 @@ void Tree::slotDelPage(uint Nr)
 {
 /*	if (ScApp->ScriptRunning)
 		return;
-	if (vie->Doc->TemplateMode)
+	if (vie->Doc->masterPageMode)
 		return;
 	if (Seiten.count() != 0)
 	{
@@ -457,7 +457,7 @@ void Tree::slotSelect(QListViewItem* ite)
 	selectionTriggered = true;
 	if (itemMap.contains(ite))
 	{
-		if (document->TemplateMode)
+		if (document->masterPageMode)
 			ScApp->ActWin->muster->close();
 		if (document->DocItems.at(itemMap[ite])->Groups.count() == 0)
 			emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite], false);
@@ -468,7 +468,7 @@ void Tree::slotSelect(QListViewItem* ite)
 	}
 	if (groupMap.contains(ite))
 	{
-		if (document->TemplateMode)
+		if (document->masterPageMode)
 			ScApp->ActWin->muster->close();
 		emit selectElement(document->DocItems.at(groupMap[ite])->OwnPage, groupMap[ite], false);
 		selectionTriggered = false;
@@ -476,34 +476,34 @@ void Tree::slotSelect(QListViewItem* ite)
 	}
 	if (pageMap.contains(ite))
 	{
-		if (document->TemplateMode)
+		if (document->masterPageMode)
 			ScApp->ActWin->muster->close();
 		emit selectPage(pageMap[ite]);
 		selectionTriggered = false;
 		return;
 	}
-	if (templatePageMap.contains(ite))
+	if (masterPageMap.contains(ite))
 	{
-		emit selectTemplatePage(templatePageMap[ite]);
+		emit selectMasterPage(masterPageMap[ite]);
 		selectionTriggered = false;
 		return;
 	}
-	if (templateItemMap.contains(ite))
+	if (masterPageItemMap.contains(ite))
 	{
-		if (!document->TemplateMode)
-			emit selectTemplatePage(document->MasterItems.at(templateItemMap[ite])->OnMasterPage);
-		if (document->MasterItems.at(templateItemMap[ite])->Groups.count() == 0)
-			emit selectElement(-1, templateItemMap[ite], false);
+		if (!document->masterPageMode)
+			emit selectMasterPage(document->MasterItems.at(masterPageItemMap[ite])->OnMasterPage);
+		if (document->MasterItems.at(masterPageItemMap[ite])->Groups.count() == 0)
+			emit selectElement(-1, masterPageItemMap[ite], false);
 		else
-			emit selectElement(-1, templateItemMap[ite], true);
+			emit selectElement(-1, masterPageItemMap[ite], true);
 		selectionTriggered = false;
 		return;
 	}
-	if (templateGroupMap.contains(ite))
+	if (masterPageGroupMap.contains(ite))
 	{
-		if (!document->TemplateMode)
-			emit selectTemplatePage(document->MasterItems.at(templateGroupMap[ite])->OnMasterPage);
-		emit selectElement(-1, templateGroupMap[ite], false);
+		if (!document->masterPageMode)
+			emit selectMasterPage(document->MasterItems.at(masterPageGroupMap[ite])->OnMasterPage);
+		emit selectElement(-1, masterPageGroupMap[ite], false);
 		selectionTriggered = false;
 		return;
 	}
@@ -538,15 +538,15 @@ void Tree::BuildTree(ScribusDoc *doc)
 	itemMap.clear();
 	pageMap.clear();
 	groupMap.clear();
-	templateGroupMap.clear();
-	templatePageMap.clear();
-	templateItemMap.clear();
+	masterPageGroupMap.clear();
+	masterPageMap.clear();
+	masterPageItemMap.clear();
 	itemMapRev.clear();
 	pageMapRev.clear();
 	groupMapRev.clear();
-	templateGroupMapRev.clear();
-	templatePageMapRev.clear();
-	templateItemMapRev.clear();
+	masterPageGroupMapRev.clear();
+	masterPageMapRev.clear();
+	masterPageItemMapRev.clear();
 	QPtrList<PageItem> subGroupList;
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	rootObject = item;
@@ -563,8 +563,8 @@ void Tree::BuildTree(ScribusDoc *doc)
 	{
 		QListViewItem * page = new QListViewItem( item, pagep );
 		QString pageNam = doc->MasterPages.at(a)->PageNam;
-		templatePageMap.insert(page, pageNam);
-		templatePageMapRev.insert(pageNam, page);
+		masterPageMap.insert(page, pageNam);
+		masterPageMapRev.insert(pageNam, page);
 		pagep = page;
 		for (uint b = 0; b < doc->MasterItems.count(); ++b)
 		{
@@ -574,8 +574,8 @@ void Tree::BuildTree(ScribusDoc *doc)
 				if (pgItem->Groups.count() == 0)
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
-					templateItemMap.insert(object, pgItem->ItemNr);
-					templateItemMapRev.insert(pgItem->ItemNr, object);
+					masterPageItemMap.insert(object, pgItem->ItemNr);
+					masterPageItemMapRev.insert(pgItem->ItemNr, object);
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem->itemType());
 					pgItem->Dirty = true;
@@ -593,8 +593,8 @@ void Tree::BuildTree(ScribusDoc *doc)
 							subGroupList.append(pgItem2);
 					}
 					parseSubGroup(1, object, &subGroupList, true);
-					templateGroupMap.insert(object, pgItem->ItemNr);
-					templateGroupMapRev.insert(pgItem->ItemNr, object);
+					masterPageGroupMap.insert(object, pgItem->ItemNr);
+					masterPageGroupMapRev.insert(pgItem->ItemNr, object);
 				}
 			}
 		}
@@ -703,7 +703,7 @@ void Tree::BuildTree(ScribusDoc *doc)
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
-void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onTemplate)
+void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onMasterPage)
 {
 	QPtrList<PageItem> *subGroup;
 	PageItem *pgItem;
@@ -718,10 +718,10 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 				QListViewItem *grp = new QListViewItem( object, 0 );
 				grp->setText(0, pgItem->itemName());
 				setItemIcon(grp, pgItem->itemType());
-				if (onTemplate)
+				if (onMasterPage)
 				{
-					templateItemMap.insert(grp, pgItem->ItemNr);
-					templateItemMapRev.insert(pgItem->ItemNr, grp);
+					masterPageItemMap.insert(grp, pgItem->ItemNr);
+					masterPageItemMapRev.insert(pgItem->ItemNr, grp);
 				}
 				else
 				{
@@ -744,12 +744,12 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 						(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))))
 						subGroup->append(pgItem2);
 				}
-				parseSubGroup(level+1, grp, subGroup, onTemplate);
+				parseSubGroup(level+1, grp, subGroup, onMasterPage);
 				delete subGroup;
-				if (onTemplate)
+				if (onMasterPage)
 				{
-					templateGroupMap.insert(grp, pgItem->ItemNr);
-					templateGroupMapRev.insert(pgItem->ItemNr, grp);
+					masterPageGroupMap.insert(grp, pgItem->ItemNr);
+					masterPageGroupMapRev.insert(pgItem->ItemNr, grp);
 				}
 				else
 				{

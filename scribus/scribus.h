@@ -266,11 +266,11 @@ public slots:
 	void showLayer();
 	void LayerRemove(int l, bool dl = false);
 	void ManageJava();
-	void ManageTemp(QString temp = "");
-	void ManTempEnd();
-	/** generate a new document in the actual view */
+	void manageMasterPages(QString temp = "");
+	void manageMasterPagesEnd();
+	/** generate a new document in the current view */
 	bool slotFileNew();
-	bool slotDocMerge();
+	bool slotPageImport();
 	bool LadeSeite(QString fileName, int Nr, bool Mpa);
 	/** open a document */
 	void slotFileOpen();
@@ -440,8 +440,8 @@ public slots:
 	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
-	void ApplyTemp();
-	void Apply_Temp(QString in, int Snr, bool reb = true);
+	void ApplyMasterPage();
+	void Apply_MasterPage(QString in, int Snr, bool reb = true);
 	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
 	void StatusPic();

@@ -152,8 +152,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	languageChange();
 	itemMap.clear();
 	pageMap.clear();
-	templatePageMap.clear();
-	templateItemMap.clear();
+	masterPageMap.clear();
+	masterPageItemMap.clear();
 	resize( QSize(306, 259).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 	connect(ignoreErrors, SIGNAL(clicked()), this, SIGNAL(ignoreAllErrors()));
@@ -175,28 +175,28 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 {
 	if (itemMap.contains(ite))
 	{
-		if (document->TemplateMode)
+		if (document->masterPageMode)
 			ScApp->ActWin->muster->close();
 		emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
 		return;
 	}
 	if (pageMap.contains(ite))
 	{
-		if (document->TemplateMode)
+		if (document->masterPageMode)
 			ScApp->ActWin->muster->close();
 		emit selectPage(pageMap[ite]);
 		return;
 	}
-	if (templatePageMap.contains(ite))
+	if (masterPageMap.contains(ite))
 	{
-		emit selectTemplatePage(templatePageMap[ite]);
+		emit selectMasterPage(masterPageMap[ite]);
 		return;
 	}
-	if (templateItemMap.contains(ite))
+	if (masterPageItemMap.contains(ite))
 	{
-		if (!document->TemplateMode)
-			emit selectTemplatePage(document->MasterItems.at(templateItemMap[ite])->OnMasterPage);
-		emit selectElement(-1, templateItemMap[ite]);
+		if (!document->masterPageMode)
+			emit selectMasterPage(document->MasterItems.at(masterPageItemMap[ite])->OnMasterPage);
+		emit selectElement(-1, masterPageItemMap[ite]);
 		return;
 	}
 }
@@ -214,8 +214,8 @@ void CheckDocument::clearErrorList()
 	reportDisplay->clear();
 	itemMap.clear();
 	pageMap.clear();
-	templatePageMap.clear();
-	templateItemMap.clear();
+	masterPageMap.clear();
+	masterPageItemMap.clear();
 }
 
 void CheckDocument::buildErrorList(ScribusDoc *doc)
@@ -260,7 +260,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			bool pageGraveError = false;
 			QListViewItem * page = new QListViewItem( item, pagep );
-			templatePageMap.insert(page, doc->MasterPages.at(a)->PageNam);
+			masterPageMap.insert(page, doc->MasterPages.at(a)->PageNam);
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
 			for (it2 = doc->masterItemErrors.begin(); it2 != doc->masterItemErrors.end(); ++it2)
@@ -270,7 +270,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					hasError = true;
 					bool itemError = false;
 					QListViewItem * object = new QListViewItem( page, 0 );
-					templateItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
+					masterPageItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
 					object->setText(0, doc->MasterItems.at(it2.key())->itemName());
 					errorCodes::Iterator it3;
 					if (it2.data().count() == 1)

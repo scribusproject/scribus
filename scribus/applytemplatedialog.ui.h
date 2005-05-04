@@ -17,7 +17,7 @@ enum {
 	AllPages
 };
 
-void ApplyTemplate::setup(ScribusDoc *view, QString Nam)
+void ApplyMasterPageDialog::setup(ScribusDoc *view, QString Nam)
 {
 	QString na = Nam == "Normal" ? tr("Normal") : Nam, in;
 	int cc = 0;
@@ -25,9 +25,9 @@ void ApplyTemplate::setup(ScribusDoc *view, QString Nam)
 	for (it = view->MasterNames.begin(); it != view->MasterNames.end(); ++it)
 	{
 		in = it.key() == "Normal" ? tr("Normal") : it.key();
-		templateComboBox->insertItem(in);
+		masterPageComboBox->insertItem(in);
 		if (in == na)
-			templateComboBox->setCurrentItem(cc);
+			masterPageComboBox->setCurrentItem(cc);
 		++cc;
 	}
 	if (view->Pages.count() < 2)
@@ -39,13 +39,13 @@ void ApplyTemplate::setup(ScribusDoc *view, QString Nam)
 }
 
 
-QString ApplyTemplate::getTemplateName()
+QString ApplyMasterPageDialog::getMasterPageName()
 {
-	return templateComboBox->currentText();
+	return masterPageComboBox->currentText();
 }
 
 
-int ApplyTemplate::getPageSelection()
+int ApplyMasterPageDialog::getPageSelection()
 {
 	if (currentPageRadioButton->isChecked())
 		return CurrentPage;
@@ -57,7 +57,7 @@ int ApplyTemplate::getPageSelection()
 		return AllPages;
 }
 
-void ApplyTemplate::checkRangeFrom()
+void ApplyMasterPageDialog::checkRangeFrom()
 {
 	disconnect(fromPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeFrom()));
 	disconnect(toPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeTo()));
@@ -67,7 +67,7 @@ void ApplyTemplate::checkRangeFrom()
 	connect(toPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeTo()));
 }
 
-void ApplyTemplate::checkRangeTo()
+void ApplyMasterPageDialog::checkRangeTo()
 {
 	disconnect(fromPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeFrom()));
 	disconnect(toPageSpinBox, SIGNAL(valueChanged(int)), this, SLOT(checkRangeTo()));
@@ -78,19 +78,19 @@ void ApplyTemplate::checkRangeTo()
 }
 
 
-void ApplyTemplate::enableRange( bool enabled )
+void ApplyMasterPageDialog::enableRange( bool enabled )
 {
 	fromPageSpinBox->setEnabled(enabled);
 	toPageSpinBox->setEnabled(enabled);
 }
 
-void ApplyTemplate::rangeSelectable()
+void ApplyMasterPageDialog::rangeSelectable()
 {
 	useRangeCheckBox->setEnabled(true);
 	enableRange(useRangeCheckBox->isChecked());
 }
 
-void ApplyTemplate::singleSelectable()
+void ApplyMasterPageDialog::singleSelectable()
 {
 	useRangeCheckBox->setEnabled(false);
 	fromPageSpinBox->setEnabled(false);
@@ -98,13 +98,13 @@ void ApplyTemplate::singleSelectable()
 }
 
 
-bool ApplyTemplate::usingRange()
+bool ApplyMasterPageDialog::usingRange()
 {
 	return useRangeCheckBox->isChecked();
 }
 
 
-int ApplyTemplate::getFromPage()
+int ApplyMasterPageDialog::getFromPage()
 {
 	if (useRangeCheckBox->isChecked())
 		return fromPageSpinBox->value();
@@ -112,7 +112,7 @@ int ApplyTemplate::getFromPage()
 }
 
 
-int ApplyTemplate::getToPage()
+int ApplyMasterPageDialog::getToPage()
 {
 	if (useRangeCheckBox->isChecked())
 		return toPageSpinBox->value();

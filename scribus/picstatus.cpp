@@ -200,10 +200,10 @@ void PicStatus::GotoPic()
 	QString pageText = PicTable->text(QString(sender()->name()).toInt(), 2);
 	bool ok = false;
 	int pageNum = pageText.toInt(&ok);
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 		ScApp->ActWin->muster->close();
 	if (!ok)
-		emit selectTemplatePage(pageText);
+		emit selectMasterPage(pageText);
 	else
 		emit selectPage(pageNum-1);
 }

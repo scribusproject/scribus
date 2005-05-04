@@ -34,7 +34,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
     QDialog( parent, "merge", true, 0 )
 {
 	masterPages = importMasterPages;
-	setCaption( (masterPages) ? tr("Import Template") : tr( "Import Page(s)" ) );
+	setCaption( (masterPages) ? tr("Import Master Page") : tr( "Import Page(s)" ) );
 	setIcon(loadIcon("AppIcon.png"));
 
 	count = 0;
@@ -51,7 +51,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	fromInfoLayout->addWidget( importPageLabel, 1, 0 );
 	if (masterPages)
 	{
-		importPageLabel->setText( tr("&Import Template") );
+		importPageLabel->setText( tr("&Import Master Page") );
 		masterPageNameData = new QComboBox( false, this, "masterPageNameData" );
 		masterPageNameData->setEnabled(false);
 		importPageLabel->setBuddy( masterPageNameData );

@@ -54,7 +54,7 @@ private:
 	void setupListItems();
 	void setupAbout();
 public:
-	nfttemplate* currentTemplate;
+	nfttemplate* currentDocumentTemplate;
 	nftdialog(QWidget* parent, QString lang, QString templateDir);
 	~nftdialog();
 private slots: 
@@ -65,7 +65,7 @@ private slots:
 	void setInfo(QIconViewItem* item);
 	void exitOK();
 	void exitCancel();
-	void getCurrentTemplate(QIconViewItem* item);
+	void getCurrentDocumentTemplate(QIconViewItem* item);
 	void showPopup(QIconViewItem* item, const QPoint& point);
 	void removeTemplate();
 };

@@ -37,23 +37,23 @@ public:
 	void reopenTree(QValueList<int> op);
 	QListViewItem* getListItem(uint SNr, int Nr);
 	void setItemIcon(QListViewItem *item, int typ);
-	void parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onTemplate);
+	void parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onMasterPage);
 	QValueList<int> buildReopenVals();
 
 	QListView* reportDisplay;
 	QMap<QListViewItem*, int> itemMap;
 	QMap<QListViewItem*, int> groupMap;
 	QMap<QListViewItem*, int> pageMap;
-	QMap<QListViewItem*, int> templateItemMap;
-	QMap<QListViewItem*, int> templateGroupMap;
-	QMap<QListViewItem*, QString> templatePageMap;
+	QMap<QListViewItem*, int> masterPageItemMap;
+	QMap<QListViewItem*, int> masterPageGroupMap;
+	QMap<QListViewItem*, QString> masterPageMap;
 /* Reverse mapping for selecting Listview Items */
 	QMap<int, QListViewItem*> itemMapRev;
 	QMap<int, QListViewItem*> groupMapRev;
 	QMap<int, QListViewItem*> pageMapRev;
-	QMap<int, QListViewItem*> templateItemMapRev;
-	QMap<int, QListViewItem*> templateGroupMapRev;
-	QMap<QString, QListViewItem*> templatePageMapRev;
+	QMap<int, QListViewItem*> masterPageItemMapRev;
+	QMap<int, QListViewItem*> masterPageGroupMapRev;
+	QMap<QString, QListViewItem*> masterPageMapRev;
 	QListViewItem* freeObjects;
 	QListViewItem* rootObject;
 	ScribusDoc* document;
@@ -86,8 +86,8 @@ signals:
 	//void CloseSpal();
 	void selectElement(int, int, bool);
 	void selectPage(int);
-	void selectTemplatePage(QString);
-	void selectTemplateElement(QString, int);
+	void selectMasterPage(QString);
+	void selectMasterPageElement(QString, int);
 
 protected slots:
 	//virtual void reject();

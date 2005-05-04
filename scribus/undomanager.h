@@ -480,7 +480,7 @@ public:
 	static const QString Delete;
 	static const QString Rename;
 	static const QString FromTo;
-	static const QString ApplyTemplate;
+	static const QString ApplyMasterPage;
 	static const QString Paste;
 	static const QString Cut;
 	static const QString Transparency;

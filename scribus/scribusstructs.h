@@ -437,7 +437,7 @@ struct ApplicationPrefs
 	QString DocDir;
 	QString ProfileDir;
 	QString ScriptDir;
-	QString TemplateDir;
+	QString documentTemplatesDir;
 	QMap<QString,QString> GFontSub;
 	bool AutoSave;
 	int AutoSaveTime;

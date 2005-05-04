@@ -25,28 +25,28 @@ public:
     InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages, bool facingPages );
     ~InsPage() {};
 
-	const QString getTemplate();
-	const QString getTemplate2();
+	const QString getMasterPage();
+	const QString getMasterPage2();
 	const int getWhere();
 	const int getWherePage();
 	const int getCount();
 
 private:
     QLabel* insCountLabel;
-    QLabel* templLabel;
-    QLabel* templ2Label;
+    QLabel* masterPageLabel;
+    QLabel* masterPage2Label;
     QLabel* pagesLabel;
     QPushButton* cancelButton;
     QPushButton* okButton;
     QComboBox* insWhereData;
-    QComboBox* templData;
-    QComboBox* templ2Data;
+    QComboBox* masterPageData;
+    QComboBox* masterPage2Data;
     QSpinBox* insWherePageData;
     QSpinBox* insCountData;
     QVBoxLayout* dialogLayout;
     QGridLayout* whereLayout;
-    QHBoxLayout* templLayout;
-    QHBoxLayout* templ2Layout;
+    QHBoxLayout* masterPageLayout;
+    QHBoxLayout* masterPage2Layout;
     QHBoxLayout* okCancelLayout;
 
 private slots:

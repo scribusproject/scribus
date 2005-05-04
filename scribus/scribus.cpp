@@ -506,7 +506,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.DocDir = QDir::homeDirPath();
 	Prefs.ProfileDir = "";
 	Prefs.ScriptDir = "";
-	Prefs.TemplateDir = "";
+	Prefs.documentTemplatesDir = "";
 	Prefs.CustomColorSets.clear();
 	Prefs.PrPr_Mode = false;
 	Prefs.Gcr_Mode = true;
@@ -805,18 +805,18 @@ void ScribusApp::initPalettes()
 	connect(docCheckerPalette, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(docCheckerPalette, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
+	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(outlinePalette, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
+	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(propertiesPalette->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(layerPalette, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
 	connect(layerPalette, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
-	connect(pagePalette, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
-	connect(pagePalette->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
+	connect(pagePalette, SIGNAL(EditTemp(QString)), this, SLOT(manageMasterPages(QString)));
+	connect(pagePalette->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_MasterPage(QString, int)));
 	connect(pagePalette->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
 	connect(pagePalette->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
 	connect(pagePalette, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
@@ -997,7 +997,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
-	scrMenuMgr->addMenuItem(scrActions["fileImportPage"], "FileImport");
 	scrMenuMgr->createMenu("FileExport", tr("&Export"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileExportText"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
@@ -1017,7 +1016,7 @@ void ScribusApp::initMenuBar()
 	scrActions["fileImportText"]->setEnabled(false);
 	scrActions["fileImportImage"]->setEnabled(false);
 	scrActions["fileImportAppendText"]->setEnabled(false);
-	scrActions["fileImportPage"]->setEnabled(false);
+	scrActions["pageImport"]->setEnabled(false);
 	scrActions["fileExportText"]->setEnabled(false);
 	scrActions["fileExportAsEPS"]->setEnabled(false);
 	scrActions["fileExportAsPDF"]->setEnabled(false);
@@ -1044,7 +1043,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editTemplates"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPreferences"], "Edit");
@@ -1060,7 +1059,7 @@ void ScribusApp::initMenuBar()
 	scrActions["editSearchReplace"]->setEnabled(false);
 	scrActions["editParaStyles"]->setEnabled(false);
 	scrActions["editLineStyles"]->setEnabled(false);
-	scrActions["editTemplates"]->setEnabled(false);
+	scrActions["editMasterPages"]->setEnabled(false);
 	scrActions["editJavascripts"]->setEnabled(false);
 	scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 
@@ -1219,10 +1218,11 @@ void ScribusApp::initMenuBar()
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
 	scrMenuMgr->addMenuItem(scrActions["pageInsert"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageImport"], "Page");	
 	scrMenuMgr->addMenuItem(scrActions["pageDelete"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageCopy"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageMove"], "Page");
-	scrMenuMgr->addMenuItem(scrActions["pageApplyTemplate"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageApplyMasterPage"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageManageGuides"], "Page");
 	scrActions["pageDelete"]->setEnabled(false);
 	scrActions["pageMove"]->setEnabled(false);
@@ -2859,7 +2859,7 @@ void ScribusApp::newActWin(QWidget *w)
 			if (swin->muster != NULL)
 				swin->muster->hide();
 		}
-		if (doc->TemplateMode)
+		if (doc->masterPageMode)
 			ActWin->muster->show();
 		setAppMode(doc->appMode);
 	}
@@ -2872,7 +2872,7 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
-	if (!doc->TemplateMode)
+	if (!doc->masterPageMode)
 		pagePalette->Rebuild();
 	outlinePalette->BuildTree(doc);
 //	outlinePalette->reopenTree(doc->OpenNodes);
@@ -3307,14 +3307,14 @@ void ScribusApp::SwitchWin()
 		ToggleFrameEdit();
 	}
 	scrActions["fileClose"]->setEnabled(true);
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 	{
 		scrActions["pageInsert"]->setEnabled(false);
 		scrActions["pageDelete"]->setEnabled(false);
 		scrActions["pageCopy"]->setEnabled(false);
 		scrActions["pageMove"]->setEnabled(false);
-		scrActions["pageApplyTemplate"]->setEnabled(false);
-		scrActions["editTemplates"]->setEnabled(false);
+		scrActions["pageApplyMasterPage"]->setEnabled(false);
+		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(doc->isModified());
 		scrActions["fileOpen"]->setEnabled(false);
@@ -3326,7 +3326,7 @@ void ScribusApp::SwitchWin()
 	else
 	{
 		scrMenuMgr->setMenuEnabled("Page", true);
-		scrActions["editTemplates"]->setEnabled(true);
+		scrActions["editMasterPages"]->setEnabled(true);
 		scrActions["fileNew"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(true);
 		scrActions["fileClose"]->setEnabled(true);
@@ -3363,7 +3363,7 @@ void ScribusApp::HaveNewDoc()
 	scrMenuMgr->setMenuEnabled("FileExport", true);
 	scrActions["fileExportAsEPS"]->setEnabled(true);
 	scrActions["fileExportAsPDF"]->setEnabled(true);
-	scrActions["fileImportPage"]->setEnabled(true);
+	scrActions["pageImport"]->setEnabled(true);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
 	if (scrActions["PrintPreview"])
@@ -3378,7 +3378,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editParaStyles"]->setEnabled(true);
 	scrActions["editLineStyles"]->setEnabled(true);
-	scrActions["editTemplates"]->setEnabled(true);
+	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
 
 	scrMenuMgr->setMenuEnabled("View", true);
@@ -3487,7 +3487,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(callGimp()), this, SLOT(CallGimp()));
 	connect(view, SIGNAL(UpdtObj(uint, uint)), outlinePalette, SLOT(slotUpdateElement(uint, uint)));
 	connect(view, SIGNAL(AddObj(PageItem *)), outlinePalette, SLOT(slotAddElement(PageItem *)));
-/*	if (!doc->TemplateMode)
+/*	if (!doc->masterPageMode)
 	{
 		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 		connect(doc->currentPage, SIGNAL(AddObj(uint, uint)), outlinePalette, SLOT(slotAddElement(uint, uint)));
@@ -3895,7 +3895,7 @@ void ScribusApp::HaveNewSel(int Nr)
 
 void ScribusApp::slotDocCh(bool /*reb*/)
 {
-/*	if ((reb) && (!doc->TemplateMode) && (view->SelItem.count() != 0))
+/*	if ((reb) && (!doc->masterPageMode) && (view->SelItem.count() != 0))
 	{
 		for (uint upd = 0; upd < view->SelItem.count(); ++upd)
 			outlinePalette->slotUpdateElement(doc->currentPage->PageNr, view->SelItem.at(upd)->ItemNr);
@@ -3911,7 +3911,7 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 	scrActions["fileSave"]->setEnabled(true);
 	scrActions["fileSaveAs"]->setEnabled(true);
 	scrActions["fileCollect"]->setEnabled(true);
-	if (!doc->TemplateMode)
+	if (!doc->masterPageMode)
 	{
 		scrActions["fileClose"]->setEnabled(true);
 		if (doc->hasName)
@@ -4022,7 +4022,7 @@ bool ScribusApp::slotDocOpen()
 	return ret;
 }
 
-bool ScribusApp::slotDocMerge()
+bool ScribusApp::slotPageImport()
 {
 	bool ret = false;
 	MergeDoc *dia = new MergeDoc(this, false, doc->PageC, doc->currentPage->PageNr + 1);
@@ -4034,7 +4034,7 @@ bool ScribusApp::slotDocMerge()
 		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
 		int startPage, nrToImport;
 		bool doIt = true;
-		if (doc->TemplateMode)
+		if (doc->masterPageMode)
 		{
 			if (pageNs.size() > 1)
 			{
@@ -4547,7 +4547,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		ret = true;
 		for (uint p = 0; p < doc->Pages.count(); ++p)
 		{
-			Apply_Temp(doc->Pages.at(p)->MPageNam, p, false);
+			Apply_MasterPage(doc->Pages.at(p)->MPageNam, p, false);
 		}
 		if (fl->FileType > 1)
 		{
@@ -4692,7 +4692,7 @@ void ScribusApp::slotFileAppend()
 
 void ScribusApp::slotFileRevert()
 {
-	if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
+	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode))
 	{
 		QString fn = doc->DocName;
 		QFileInfo fi(fn);
@@ -4833,7 +4833,7 @@ bool ScribusApp::DoFileClose()
 	if (doc->viewCount > 1)
 	{
 		doc->viewCount--;
-		if(doc->TemplateMode)
+		if(doc->masterPageMode)
 		{
 			ActWin->muster->close();
 			qApp->processEvents();
@@ -4849,7 +4849,7 @@ bool ScribusApp::DoFileClose()
 		return true;
 	}
 	undoManager->removeStack(doc->DocName);
-	if(doc->TemplateMode)
+	if(doc->masterPageMode)
 	{
 		ActWin->muster->close();
 		qApp->processEvents();
@@ -4907,7 +4907,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["fileImportText"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
-		scrActions["fileImportPage"]->setEnabled(false);
+		scrActions["pageImport"]->setEnabled(false);
 
 		scrActions["editUndoAction"]->setEnabled(false);
 		scrActions["editRedoAction"]->setEnabled(false);
@@ -4920,7 +4920,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["editParaStyles"]->setEnabled(false);
 		scrActions["editLineStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
-		scrActions["editTemplates"]->setEnabled(false);
+		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
 
 		//scrActions["toolsPreflightVerifier"]->setEnabled(false);
@@ -4949,8 +4949,8 @@ bool ScribusApp::DoFileClose()
 	delete view;
 	outlinePalette->itemMap.clear();
 	outlinePalette->pageMap.clear();
-	outlinePalette->templatePageMap.clear();
-	outlinePalette->templateItemMap.clear();
+	outlinePalette->masterPageMap.clear();
+	outlinePalette->masterPageItemMap.clear();
 	doc->loading = true;
 	outlinePalette->reportDisplay->clear();
 	layerPalette->ClearInhalt();
@@ -5595,7 +5595,7 @@ void ScribusApp::SaveText()
 
 void ScribusApp::applyNewMaster(QString name)
 {
-	Apply_Temp(name, doc->currentPage->PageNr);
+	Apply_MasterPage(name, doc->currentPage->PageNr);
 	view->DrawNew();
 	slotDocCh();
 	pagePalette->Rebuild();
@@ -5607,7 +5607,7 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 	view->Deselect(true);
 	slotNewPage(wo);
 	applyNewMaster(templ);
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
@@ -5623,13 +5623,13 @@ void ScribusApp::slotNewPageM()
 	InsPage *dia = new InsPage(this, doc, doc->currentPage->PageNr, doc->Pages.count(), doc->PageFP);
 	if (dia->exec())
 	{
-		QString template2 = (doc->PageFP) ? dia->getTemplate2() : tr("Normal");
+		QString MasterPage2 = (doc->PageFP) ? dia->getMasterPage2() : tr("Normal");
 
 		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
 		            dia->getCount(),
-		            dia->getTemplate(),
-		            template2);
+		            dia->getMasterPage(),
+		            MasterPage2);
 	}
 	delete dia;
 }
@@ -5717,7 +5717,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 		}
 		pagePalette->RebuildPage();
 		view->DrawNew();
-		if (doc->TemplateMode)
+		if (doc->masterPageMode)
 			doc->MasterPages = doc->Pages;
 		else
 			doc->DocPages = doc->Pages;
@@ -5728,21 +5728,21 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 
 void ScribusApp::slotNewPageT(int w)
 {
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 		slotNewPage(w);
 }
 
 void ScribusApp::slotNewPage(int w)
 {
 	view->addPage(w);
-/*	if ((!doc->loading) && (!doc->TemplateMode))
+/*	if ((!doc->loading) && (!doc->masterPageMode))
 		outlinePalette->BuildTree(doc); */
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-	if ((!doc->loading) && (!doc->TemplateMode))
+	if ((!doc->loading) && (!doc->masterPageMode))
 		AdjustBM();
-/*	if ((!doc->loading) && (!doc->TemplateMode))
+/*	if ((!doc->loading) && (!doc->masterPageMode))
 	{
 		AdjustBM();
 		if ((doc->PageAT) && (doc->PageC != 1))
@@ -5855,7 +5855,7 @@ void ScribusApp::setPagePalette(bool visible)
 {
 	if (!visible)
 	{
-		Prefs.SepalT = pagePalette->TemplList->Thumb;
+		Prefs.SepalT = pagePalette->masterPageList->Thumb;
 		Prefs.SepalN = pagePalette->PageView->Namen;
 	}
 }
@@ -6435,7 +6435,7 @@ void ScribusApp::DeletePage2(int pg)
 		return;
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
-/*	if (!doc->TemplateMode)
+/*	if (!doc->masterPageMode)
 		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
 	view->SelItem.clear();
 	for (uint d = 0; d < doc->Items.count(); ++d)
@@ -6458,7 +6458,7 @@ void ScribusApp::DeletePage2(int pg)
 		SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
 		ss->set("DELETE_PAGE", "delete_page");
 		ss->set("PAGENR", pg + 1);
-		ss->set("TEMPLATE", doc->Pages.at(pg)->MPageNam);
+		ss->set("MASTERPAGE", doc->Pages.at(pg)->MPageNam);
 		// replace the deleted page in the undostack by a dummy object that will
 		// replaced with the "undone" page if user choose to undo the action
 		DummyUndoObject *duo = new DummyUndoObject();
@@ -6526,7 +6526,7 @@ void ScribusApp::DeletePage(int from, int to)
 			SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
 			ss->set("DELETE_PAGE", "delete_page");
 			ss->set("PAGENR", a + 1);
-			ss->set("TEMPLATE", doc->Pages.at(a)->MPageNam);
+			ss->set("MASTERPAGE", doc->Pages.at(a)->MPageNam);
 			// replace the deleted page in the undostack by a dummy object that will
 			// replaced with the "undone" page if user choose to undo the action
 			DummyUndoObject *duo = new DummyUndoObject();
@@ -6863,7 +6863,7 @@ void ScribusApp::slotEditLineStyles()
 
 void ScribusApp::saveLStyles(LineFormate *dia)
 {
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
@@ -6917,7 +6917,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	ers.append(2);
 	ers.append(3);
 	ers.append(4);
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
@@ -7648,7 +7648,7 @@ void ScribusApp::slotPrefsOrg()
 		DocDir = Prefs.DocDir;
 		Prefs.ProfileDir = dia->ProPfad->text();
 		Prefs.ScriptDir = dia->ScriptPfad->text();
-		Prefs.TemplateDir = dia->TemplateDir->text();
+		Prefs.documentTemplatesDir = dia->DocumentTemplateDir->text();
 		switch (dia->PreviewSize->currentItem())
 		{
 		case 0:
@@ -8575,31 +8575,31 @@ void ScribusApp::ManageJava()
 	delete dia;
 }
 
-void ScribusApp::ManageTemp(QString temp)
+void ScribusApp::manageMasterPages(QString temp)
 {
 	if (HaveDoc)
 	{
 		view->Deselect(true);
-		if (doc->TemplateMode)
+		if (doc->masterPageMode)
 		{
-			ActWin->muster->updateTemplateList(temp);
-			ActWin->muster->selectTemplate(temp);
+			ActWin->muster->updateMasterPageList(temp);
+			ActWin->muster->selectMasterPage(temp);
 		}
 		else
 		{
-			doc->TemplateMode = true;
-			MusterPages *dia = new MusterPages(this, doc, view, temp);
+			doc->masterPageMode = true;
+			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
 			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
-			connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
+			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));
 			connect(dia, SIGNAL(docAltered(ScribusDoc* )), outlinePalette, SLOT(BuildTree(ScribusDoc* )));
 			connect(dia, SIGNAL(docAltered(ScribusDoc*)), SLOT(slotDocCh()));
 			scrActions["pageInsert"]->setEnabled(false);
 			scrActions["pageDelete"]->setEnabled(false);
 			scrActions["pageCopy"]->setEnabled(false);
 			scrActions["pageMove"]->setEnabled(false);
-			scrActions["pageApplyTemplate"]->setEnabled(false);
-			scrActions["editTemplates"]->setEnabled(false);
+			scrActions["pageApplyMasterPage"]->setEnabled(false);
+			scrActions["editMasterPages"]->setEnabled(false);
 			ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
 			ActWin->MenuStat[1] = scrActions["fileRevert"]->isEnabled();
 			ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
@@ -8619,10 +8619,10 @@ void ScribusApp::ManageTemp(QString temp)
 	}
 }
 
-void ScribusApp::ManTempEnd()
+void ScribusApp::manageMasterPagesEnd()
 {
-	view->HideTemplate();
-	scrActions["editTemplates"]->setEnabled(true);
+	view->hideMasterPage();
+	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["fileNew"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
@@ -8634,15 +8634,15 @@ void ScribusApp::ManTempEnd()
 
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
-	scrActions["pageApplyTemplate"]->setEnabled(true);
+	scrActions["pageApplyMasterPage"]->setEnabled(true);
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	for (uint c=0; c<doc->Pages.count(); ++c)
 	{
-		Apply_Temp(doc->Pages.at(c)->MPageNam, c, false);
+		Apply_MasterPage(doc->Pages.at(c)->MPageNam, c, false);
 	}
-	doc->TemplateMode = false;
+	doc->masterPageMode = false;
 	pagePalette->EnablePal();
 	pagePalette->RebuildTemp();
 	ActWin->muster = NULL;
@@ -8653,20 +8653,20 @@ void ScribusApp::ManTempEnd()
 //	slotDocCh();
 }
 /*!
- * @brief Apply template pages from the Apply Template dialog 
+ * @brief Apply master pages from the Apply Master Page dialog 
  * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
  */
-void ScribusApp::ApplyTemp()
+void ScribusApp::ApplyMasterPage()
 {
 	
-	ApplyTemplate *dia = new ApplyTemplate(this);
+	ApplyMasterPageDialog *dia = new ApplyMasterPageDialog(this);
 	dia->setup(doc, doc->currentPage->MPageNam);
 	if (dia->exec())
 	{
-		QString templateName = dia->getTemplateName();
+		QString masterPageName = dia->getMasterPageName();
 		int pageSelection = dia->getPageSelection(); //0=current, 1=even, 2=odd, 3=all
 		if (pageSelection==0) //current page only
-			Apply_Temp(templateName, doc->currentPage->PageNr, false);
+			Apply_MasterPage(masterPageName, doc->currentPage->PageNr, false);
 		else
 		{
 			int startPage, endPage;
@@ -8686,13 +8686,13 @@ void ScribusApp::ApplyTemp()
 				//Increment by 1 and not 2 even for even/odd application as user
 				//can select to eg apply to even pages with a single odd page selected
 				if (pageSelection==1 && pageNum%2!=0) //Even, %2!=0 as 1st page is numbered 0
-					Apply_Temp(templateName, pageNum, false);
+					Apply_MasterPage(masterPageName, pageNum, false);
 				else
 				if (pageSelection==2 && pageNum%2==0) //Odd, %2==0 as 1st page is numbered 0
-					Apply_Temp(templateName, pageNum, false);
+					Apply_MasterPage(masterPageName, pageNum, false);
 				else
 				if (pageSelection==3) //All
-					Apply_Temp(templateName, pageNum, false);
+					Apply_MasterPage(masterPageName, pageNum, false);
 			}
 		}
 	}
@@ -8702,17 +8702,17 @@ void ScribusApp::ApplyTemp()
 	delete dia;
 }
 
-void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
+void ScribusApp::Apply_MasterPage(QString in, int Snr, bool reb)
 {
 	if (UndoManager::undoEnabled())
 	{
 		if (doc->Pages.at(Snr)->MPageNam != in)
 		{
-		SimpleState *ss = new SimpleState(Um::ApplyTemplate,
+		SimpleState *ss = new SimpleState(Um::ApplyMasterPage,
 						QString(Um::FromTo).arg(doc->Pages.at(Snr)->MPageNam).arg(in));
 			ss->set("PAGE_NUMBER", Snr);
-			ss->set("OLD_TEMPLATE", doc->Pages.at(Snr)->MPageNam);
-			ss->set("NEW_TEMPLATE", in);
+			ss->set("OLD_MASTERPAGE", doc->Pages.at(Snr)->MPageNam);
+			ss->set("NEW_MASTERPAGE", in);
 			undoManager->action(doc->Pages.at(Snr), ss);
 		}
 	}
@@ -9004,7 +9004,7 @@ void ScribusApp::StatusPic()
 	{
 		PicStatus *dia = new PicStatus(this, doc, view);
 		connect(dia, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
-		connect(dia, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
+		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 		dia->exec();
 		delete dia;
 	}
@@ -9150,7 +9150,7 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 {
 	if (HaveDoc)
 	{
-		if (doc->TemplateMode)
+		if (doc->masterPageMode)
 			doc->MasterPages = doc->Pages;
 		else
 			doc->DocPages = doc->Pages;
@@ -9266,7 +9266,7 @@ void ScribusApp::showLayer()
 
 void ScribusApp::LayerRemove(int l, bool dl)
 {
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
@@ -9662,7 +9662,7 @@ void ScribusApp::ImageEffects()
 
 QString ScribusApp::Collect(bool compress, bool withFonts)
 {
-	if (doc->TemplateMode)
+	if (doc->masterPageMode)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
@@ -9843,7 +9843,7 @@ void ScribusApp::ReorgFonts()
 	QMap<QString,QFont> Really;
 	QMap<QString,QFont> DocF;
 	DocF = doc->UsedFonts;
-	if (!doc->TemplateMode)
+	if (!doc->masterPageMode)
 		doc->DocPages = doc->Pages;
 	for (uint d = 0; d < doc->MasterItems.count(); ++d)
 	{

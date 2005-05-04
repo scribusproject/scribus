@@ -27,7 +27,7 @@ int ID()
 
 QString actionName()
 {
-	return "SaveAsTemplate";
+	return "SaveAsDocumentTemplate";
 }
 
 QString actionKeySequence()
@@ -83,7 +83,7 @@ void MenuSAT::RunSATPlug()
 	QString currentFile = Carrier->doc->DocName;
 	bool hasName = Carrier->doc->hasName;
 	bool isModified = Carrier->doc->isModified();
-	QString userTemplatesDir = Carrier->Prefs.TemplateDir;
+	QString userTemplatesDir = Carrier->Prefs.documentTemplatesDir;
 	PrefsContext* dirs = prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";

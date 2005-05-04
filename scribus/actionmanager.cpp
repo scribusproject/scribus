@@ -64,7 +64,6 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert("fileImportText", new ScrAction(tr("Get Text..."), QKeySequence(), ScApp, "fileImportText"));
 	scrActions->insert("fileImportAppendText", new ScrAction(tr("Append &Text..."), QKeySequence(), ScApp, "fileImportAppendText"));
 	scrActions->insert("fileImportImage", new ScrAction(tr("Get Image..."), QKeySequence(), ScApp, "fileImportImage"));
-	scrActions->insert("fileImportPage", new ScrAction(tr("Import Page(s)..."), QKeySequence(), ScApp, "fileImportPage"));
 
 	//File Export Menu
 	scrActions->insert("fileExportText", new ScrAction(tr("Save &Text..."), QKeySequence(), ScApp, "fileExportText"));
@@ -93,7 +92,6 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileImportText"], SIGNAL(activated()), ScApp, SLOT(slotFileOpen()) );
 	connect( (*scrActions)["fileImportAppendText"], SIGNAL(activated()), ScApp, SLOT(slotFileAppend()) );
 	connect( (*scrActions)["fileImportImage"], SIGNAL(activated()), ScApp, SLOT(slotFileOpen()) );
-	connect( (*scrActions)["fileImportPage"], SIGNAL(activated()), ScApp, SLOT(slotDocMerge()) );
 	//File Export Menu
 	connect( (*scrActions)["fileExportText"], SIGNAL(activated()), ScApp, SLOT(SaveText()) );
 	connect( (*scrActions)["fileExportAsEPS"], SIGNAL(activated()), ScApp, SLOT(SaveAsEps()) );
@@ -119,7 +117,7 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert("editColors", new ScrAction(tr("C&olors..."), QKeySequence(), ScApp, "editColors"));
 	scrActions->insert("editParaStyles", new ScrAction(tr("&Paragraph Styles..."), QKeySequence(), ScApp, "editParaStyles"));
 	scrActions->insert("editLineStyles", new ScrAction(tr("&Line Styles..."), QKeySequence(), ScApp, "editLineStyles"));
-	scrActions->insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), ScApp, "editTemplates"));
+	scrActions->insert("editMasterPages", new ScrAction(tr("&Master Pages..."), QKeySequence(), ScApp, "editMasterPages"));
 	scrActions->insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), ScApp, "editJavascripts"));
 	scrActions->insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), ScApp, "editPreferences"));
 
@@ -136,7 +134,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editColors"], SIGNAL(activated()), ScApp, SLOT(slotEditColors()) );
 	connect( (*scrActions)["editParaStyles"], SIGNAL(activated()), ScApp, SLOT(slotEditStyles()) );
 	connect( (*scrActions)["editLineStyles"], SIGNAL(activated()), ScApp, SLOT(slotEditLineStyles()) );
-	connect( (*scrActions)["editTemplates"], SIGNAL(activated()), ScApp, SLOT(ManageTemp()) );
+	connect( (*scrActions)["editMasterPages"], SIGNAL(activated()), ScApp, SLOT(manageMasterPages()) );
 	connect( (*scrActions)["editJavascripts"], SIGNAL(activated()), ScApp, SLOT(ManageJava()) );
 	connect( (*scrActions)["editPreferences"], SIGNAL(activated()), ScApp, SLOT(slotPrefsOrg()) );
 }
@@ -314,17 +312,19 @@ void ActionManager::initPageMenuActions()
 {
 	//Page menu
 	scrActions->insert("pageInsert", new ScrAction(tr("&Insert..."), QKeySequence(), ScApp, "pageInsert"));
+	scrActions->insert("pageImport", new ScrAction(tr("Im&port..."), QKeySequence(), ScApp, "pageImport"));
 	scrActions->insert("pageDelete", new ScrAction(tr("&Delete..."), QKeySequence(), ScApp, "pageDelete"));
 	scrActions->insert("pageCopy", new ScrAction(tr("&Copy..."), QKeySequence(), ScApp, "pageCopy"));
 	scrActions->insert("pageMove", new ScrAction(tr("&Move..."), QKeySequence(), ScApp, "pageMove"));
-	scrActions->insert("pageApplyTemplate", new ScrAction(tr("&Apply Template..."), QKeySequence(), ScApp, "pageApplyTemplate"));
+	scrActions->insert("pageApplyMasterPage", new ScrAction(tr("&Apply Master Page..."), QKeySequence(), ScApp, "pageApplyMasterPage"));
 	scrActions->insert("pageManageGuides", new ScrAction(tr("Manage &Guides..."), QKeySequence(), ScApp, "pageManageGuides"));
 
 	connect( (*scrActions)["pageInsert"], SIGNAL(activated()), ScApp, SLOT(slotNewPageM()) );
+	connect( (*scrActions)["pageImport"], SIGNAL(activated()), ScApp, SLOT(slotPageImport()) );
 	connect( (*scrActions)["pageDelete"], SIGNAL(activated()), ScApp, SLOT(DeletePage()) );
 	connect( (*scrActions)["pageCopy"], SIGNAL(activated()), ScApp, SLOT(CopyPage()) );
 	connect( (*scrActions)["pageMove"], SIGNAL(activated()), ScApp, SLOT(MovePage()) );
-	connect( (*scrActions)["pageApplyTemplate"], SIGNAL(activated()), ScApp, SLOT(ApplyTemp()) );
+	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(activated()), ScApp, SLOT(ApplyMasterPage()) );
 	connect( (*scrActions)["pageManageGuides"], SIGNAL(activated()), ScApp, SLOT(ManageGuides()) );
 }
 

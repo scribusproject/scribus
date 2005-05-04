@@ -150,7 +150,7 @@ void SeView::contentsMouseReleaseEvent(QMouseEvent* e)
 	{
 		QPopupMenu *pmen = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		int px = pmen->insertItem( tr("Show Template Names"), this, SLOT(ToggleNam()));
+		int px = pmen->insertItem( tr("Show Master Page Names"), this, SLOT(ToggleNam()));
 		if (Namen)
 			pmen->setItemChecked(px, true);
 		pmen->exec(QCursor::pos());
@@ -489,12 +489,12 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
 	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
 	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
-	TextLabel1->setText( tr( "Available Templates:" ) );
+	TextLabel1->setText( tr( "Available Master Pages:" ) );
 	Layout2->addWidget( TextLabel1 );
-	TemplList = new SeList(privateLayoutWidget);
-	TemplList->setMinimumSize(QSize(130,70));
-	TemplList->Thumb = false;
-	Layout2->addWidget( TemplList );
+	masterPageList = new SeList(privateLayoutWidget);
+	masterPageList->setMinimumSize(QSize(130,70));
+	masterPageList->Thumb = false;
+	Layout2->addWidget( masterPageList );
 	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1, "Layout3" );
 	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
 	TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
@@ -540,16 +540,16 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	pix = loadIcon("document2.png");
 	Vie = 0;
 	Rebuild();
-	connect(TemplList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selTemplate()));
-	connect(TemplList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
+	connect(masterPageList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selMasterPage()));
+	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
 	connect(PageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
 	connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
 	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
-	QToolTip::add( Trash, tr( "Drag Pages or Template Pages onto the Trashbin to delete them." ) );
-	QToolTip::add( PageView, tr( "Previews all the pages of your document." ));
-	QToolTip::add( TemplList, tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
+	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
+	QToolTip::add(PageView, "<qt>" + tr("Previews all the pages of your document") + "</qt>");
+	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 }
 /*
 void SeitenPal::keyPressEvent(QKeyEvent *k)
@@ -627,7 +627,7 @@ void SeitenPal::GotoPage(int r, int c, int b)
 void SeitenPal::DisablePal()
 {
 	PageView->setEnabled(false);
-	TemplList->setEnabled(false);
+	masterPageList->setEnabled(false);
 	facingPagesChk->setEnabled(false);
 	firstPageLeftChk->setEnabled(false);
 }
@@ -635,7 +635,7 @@ void SeitenPal::DisablePal()
 void SeitenPal::EnablePal()
 {
 	PageView->setEnabled(true);
-	TemplList->setEnabled(true);
+	masterPageList->setEnabled(true);
 	facingPagesChk->setEnabled(true);
 	firstPageLeftChk->setEnabled(PageView->Doppel ? true : false);
 }
@@ -677,20 +677,20 @@ void SeitenPal::RebuildTemp()
 {
 	if (ScApp->ScriptRunning)
 		return;
-	TemplList->clear();
+	masterPageList->clear();
 	if (Vie == 0)
 		return;
 	QPixmap pm;
 	QMap<QString,int>::Iterator it;
 	for (it = Vie->Doc->MasterNames.begin(); it != Vie->Doc->MasterNames.end(); ++it)
 	{
-		if (TemplList->Thumb)
+		if (masterPageList->Thumb)
 		{
 			pm.convertFromImage(Vie->MPageToPixmap(it.key(),60));
-			TemplList->insertItem(pm, it.key() == "Normal" ? tr("Normal") : it.key());
+			masterPageList->insertItem(pm, it.key() == "Normal" ? tr("Normal") : it.key());
 		}
 		else
-			TemplList->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+			masterPageList->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 	}
 }
 
@@ -803,10 +803,10 @@ void SeitenPal::SetView(ScribusView *view)
 	Vie = view;
 }
 
-void SeitenPal::selTemplate()
+void SeitenPal::selMasterPage()
 {
-	if (TemplList->CurItem != 0)
-		emit EditTemp(TemplList->CurItem->text());
+	if (masterPageList->CurItem != 0)
+		emit EditTemp(masterPageList->CurItem->text());
 }
 
 QPixmap SeitenPal::CreateIcon(int nr, QPixmap ret)

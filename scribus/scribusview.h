@@ -138,8 +138,8 @@ public:
 	void movePage(int from, int to, int ziel, int art);
 	void reformPages();
 	void LaMenu();
-	void ShowTemplate(int nr);
-	void HideTemplate();
+	void showMasterPage(int nr);
+	void hideMasterPage();
 	int CountElements();
 	QImage PageToPixmap(int Nr, int maxGr);
 	QImage MPageToPixmap(QString name, int maxGr);

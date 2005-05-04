@@ -8,13 +8,13 @@
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newpage__doc__,
-QT_TR_NOOP("newPage(where [,\"template\"])\n\
+QT_TR_NOOP("newPage(where [,\"masterpage\"])\n\
 \n\
 Creates a new page. If \"where\" is -1 the new Page is appended to the\n\
 document, otherwise the new page is inserted before \"where\". Page numbers are\n\
 counted from 1 upwards, no matter what the displayed first page number of your\n\
-document is. The optional parameter \"template\" specifies the name of the\n\
-template page for the new page.\n\
+document is. The optional parameter \"masterpage\" specifies the name of the\n\
+master page for the new page.\n\
 \n\
 May raise IndexError if the page number is out of range\n\
 "));

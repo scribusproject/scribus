@@ -38,7 +38,7 @@ public:
 	void closeEvent(QCloseEvent *ce);
 	ScribusView* view;
 	ScribusDoc* doc;
-	MusterPages* muster;
+	MasterPagesPalette* muster;
 	bool MenuStat[7];
 	int winIndex;
 	

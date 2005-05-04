@@ -208,28 +208,28 @@ void nftdialog::setTNails()
 
 void nftdialog::setInfo(QIconViewItem* item) 
 {
-	getCurrentTemplate(item);
+	getCurrentDocumentTemplate(item);
 	QString infoText = "<b>"+tr("Name")+"</b><br>";
-	infoText += currentTemplate->name + "<br>";
+	infoText += currentDocumentTemplate->name + "<br>";
 	infoText += "<b>"+tr("Page Size")+"</b><br>";
-	infoText += currentTemplate->psize + "<br>";
+	infoText += currentDocumentTemplate->psize + "<br>";
 	infoText += "<b>"+tr("Colors")+"</b><br>";
-	infoText += currentTemplate->color + "<br>";
+	infoText += currentDocumentTemplate->color + "<br>";
 	infoText += "<b>"+tr("Description")+"</b><br>";
-	infoText += currentTemplate->descr + "<br>";
+	infoText += currentDocumentTemplate->descr + "<br>";
 	infoText += "<b>"+tr("Usage")+"</b><br>";
-	infoText += currentTemplate->usage + "<br>";
+	infoText += currentDocumentTemplate->usage + "<br>";
 	infoText += "<b>"+tr("Created with")+"</b><br>";
-	infoText += "Scribus " + currentTemplate->scribusVersion + "<br>";
+	infoText += "Scribus " + currentDocumentTemplate->scribusVersion + "<br>";
 	infoText += "<b>"+tr("Date")+"</b><br>";
-	infoText += currentTemplate->date + "<br>";
+	infoText += currentDocumentTemplate->date + "<br>";
 	infoText += "<b>"+tr("Author")+"</b><br>";
-	infoText += currentTemplate->author + "<br>";
-	infoText += currentTemplate->email + "<br>";
+	infoText += currentDocumentTemplate->author + "<br>";
+	infoText += currentDocumentTemplate->email + "<br>";
 	infoLabel->setText(infoText);
 	imgLabel->clear();
-	QPixmap tmplImg(currentTemplate->img);
-	QIconViewItem* qvi = new QIconViewItem(imgLabel,currentTemplate->name,tmplImg);
+	QPixmap tmplImg(currentDocumentTemplate->img);
+	QIconViewItem* qvi = new QIconViewItem(imgLabel,currentDocumentTemplate->name,tmplImg);
 	qvi->setRenameEnabled(false);
 	qvi->setDragEnabled(false);
 	qvi->setDropEnabled(false);
@@ -307,7 +307,7 @@ void nftdialog::exitCancel()
 
 void nftdialog::exitOK() 
 {
-	if (currentTemplate == NULL)
+	if (currentDocumentTemplate == NULL)
 		reject();
 	else
 		accept();
@@ -352,30 +352,30 @@ void nftdialog::showPopup(QIconViewItem* item, const QPoint& point)
 {
 	if (item != NULL) 
 	{
-		getCurrentTemplate(item);
-		if (currentTemplate->canWrite())
+		getCurrentDocumentTemplate(item);
+		if (currentDocumentTemplate->canWrite())
 			popUp->popup(point);
 	}
 }
 
 void nftdialog::removeTemplate()
 {
-	currentTemplate->isDeleted = true;
+	currentDocumentTemplate->isDeleted = true;
 	infoLabel->clear();
 	imgLabel->clear();
-	currentTemplate = NULL;
+	currentDocumentTemplate = NULL;
 	okButton->setEnabled(false);
 	setupListItems();
 	setupCategories();
 }
 
-void nftdialog::getCurrentTemplate(QIconViewItem* item)
+void nftdialog::getCurrentDocumentTemplate(QIconViewItem* item)
 {
 	for (uint i = 0; i < iconItems.size(); ++i)
 	{
 		if (iconItems[i]->second == item)
 		{
-			currentTemplate = iconItems[i]->first;
+			currentDocumentTemplate = iconItems[i]->first;
 			break;
 		}
 	}

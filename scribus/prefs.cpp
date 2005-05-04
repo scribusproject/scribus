@@ -163,15 +163,15 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GroupBox200Layout->addWidget( ScriptPfad, 2, 1 );
 	GroupBox200Layout->addWidget( FileC3, 2, 2 );
 
-	TemplateDir = new QLineEdit( GroupBox200, "Datei1" );
-	TemplateDir->setMinimumSize( QSize( 268, 22 ) );
-	TemplateDir->setText(prefsData->TemplateDir);
-	PfadText4 = new QLabel( TemplateDir, tr("T&emplates:"), GroupBox200, "Pfadtext1" );
+	DocumentTemplateDir = new QLineEdit( GroupBox200, "Datei1" );
+	DocumentTemplateDir->setMinimumSize( QSize( 268, 22 ) );
+	DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
+	PfadText4 = new QLabel( DocumentTemplateDir, tr("Document T&emplates:"), GroupBox200, "Pfadtext1" );
 	FileC4 = new QToolButton( GroupBox200, "FileC4" );
 	FileC4->setMinimumSize( QSize( 88, 24 ) );
 	FileC4->setText( tr( "Cha&nge..." ) );
 	GroupBox200Layout->addWidget( PfadText4, 3, 0 );
-	GroupBox200Layout->addWidget( TemplateDir, 3, 1 );
+	GroupBox200Layout->addWidget( DocumentTemplateDir, 3, 1 );
 	GroupBox200Layout->addWidget( FileC4, 3, 2 );
 	tabLayout->addWidget( GroupBox200, 1, 0 );
 	addItem( tr("General"), loadIcon("AppIcon.png"), tab);
@@ -681,8 +681,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QWidget::setTabOrder( ProPfad, FileC2  );
 	QWidget::setTabOrder( FileC2, ScriptPfad );
 	QWidget::setTabOrder( ScriptPfad, FileC3 );
-	QWidget::setTabOrder( FileC3, TemplateDir );
-	QWidget::setTabOrder( TemplateDir, FileC4 );
+	QWidget::setTabOrder( FileC3, DocumentTemplateDir );
+	QWidget::setTabOrder( DocumentTemplateDir, FileC4 );
 
 
 	QWidget::setTabOrder( TopR, BottomR );
@@ -691,7 +691,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
-	QToolTip::add( checkLink, tr("Turns the of linked frames on or off"));
+	QToolTip::add( checkLink, tr("Turns the display of linked frames on or off"));
 	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
 	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
 	QToolTip::add( guiLangCombo, tr( "Select your default language for Scribus to run with.\nLeave this blank to choose based on environment variables.\nYou can still override this by passing a command line option when starting Scribus" ) );
@@ -703,7 +703,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QToolTip::add( Docs, tr( "Default documents directory" ) );
 	QToolTip::add( ProPfad, tr( "Default ICC profiles directory. This cannot\nbe changed with a document open." ) );
 	QToolTip::add( ScriptPfad, tr( "Default Scripter scripts directory" ) );
-	QToolTip::add( TemplateDir, tr( "Additional Directory for Document Templates" ) );
+	QToolTip::add( DocumentTemplateDir, "<qt>"+tr("Additional directory for document templates")+"</qt>" );
 
 	QToolTip::add( GZComboF, tr( "Default page size, either a standard size or a custom size" ) );
 	QToolTip::add( GZComboO, tr( "Default orientation of document pages" ) );
@@ -758,7 +758,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
-	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeTemplates()));
+	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeDocumentTemplates()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	connect(pluginsList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
@@ -841,18 +841,18 @@ void Preferences::changeScripts()
 }
 
 /*!
- \fn void Preferences::ChangeTemplates()
+ \fn void Preferences::ChangeDocumentTemplates()
  \author Riku Leino
  \date
- \brief Runs QFileDialog to get Preferences (General) Path to Templates directory
+ \brief Runs QFileDialog to get Preferences (General) Path to Document Templates directory
  \param None
  \retval None
  */
-void Preferences::changeTemplates()
+void Preferences::changeDocumentTemplates()
 {
-	QString s = QFileDialog::getExistingDirectory(TemplateDir->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
-		TemplateDir->setText(s);
+		DocumentTemplateDir->setText(s);
 }
 
 /*!

@@ -192,8 +192,8 @@ class ScribusApp : public QMainWindow
 		void StoreBookmarks();
     void ReadPrefs();
 		void ManageGuides();
-		void SetTranspar(double t);
-		void SetTransparS(double t);
+		void setItemFillTransparency(double t);
+		void setItemLineTransparency(double t);
 		void ReportMP(double xp, double yp);
 		bool DoFileClose();
 		void DoSaveClose();
@@ -217,8 +217,8 @@ class ScribusApp : public QMainWindow
 		void LayerRemove(int l);
     void SetCMSPrefs();
 		void ManageJava();
-    void ManageTemp(QString temp = "");
-    void ManTempEnd();
+    void manageMasterPages(QString temp = "");
+    void manageMasterPagesEnd();
     /** generate a new document in the actual view */
     bool slotFileNew();
     bool slotDocMerge();
