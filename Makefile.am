@@ -35,7 +35,7 @@ KDE_OPTIONS = noautodist
 # *everything* in admin, including the CVS dirs etc.
 #
 
-EXTRA_DIST = AUTHORS COPYING INSTALL README TODO NEWS PACKAGING ChangeLog ChangeLogCVS \
+EXTRA_DIST = AUTHORS COPYING INSTALL README TODO NEWS PACKAGING BUILDING ChangeLog ChangeLogCVS \
 			 scribus.lsm scribus.desktop \
 			 configure config.h.in configure.in configure.in.in configure.in.bot Makefile.cvs \
 			 stamp-h1 subdirs configure.files \
