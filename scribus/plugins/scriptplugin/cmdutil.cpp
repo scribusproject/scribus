@@ -30,7 +30,7 @@ double pageUnitXToDocX(double pageUnitX)
 // Convert doc units to page units
 double docUnitXToPageX(double pageUnitX)
 {
-	return PointToValue(pageUnitX) - Carrier->doc->currentPage->Xoffset;
+	return PointToValue(pageUnitX - Carrier->doc->currentPage->Xoffset);
 }
 
 /// Convert a Y co-ordinate part in page units to a document co-ordinate
@@ -44,7 +44,7 @@ double pageUnitYToDocY(double pageUnitY)
 
 double docUnitYToPageY(double pageUnitY)
 {
-	return PointToValue(pageUnitY) - Carrier->doc->currentPage->Yoffset;
+	return PointToValue(pageUnitY - Carrier->doc->currentPage->Yoffset);
 }
 
 int GetItem(QString Name)

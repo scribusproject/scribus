@@ -16,7 +16,8 @@ PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	int i = Carrier->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+	int i = Carrier->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y),
+									 ValueToPoint(b), ValueToPoint(h),
 									 Carrier->doc->toolSettings.dWidth,
 									 Carrier->doc->toolSettings.dBrush,
 									 Carrier->doc->toolSettings.dPen);
