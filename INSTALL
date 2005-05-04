@@ -1,7 +1,9 @@
 Basic Installation
 ==================
 
-   These are generic installation instructions.
+   These are generic installation instructions. Scribus-specific
+notes including library requirements and special build instructions
+can be found in the BUILDING file.
 
    The `configure' shell script attempts to guess correct values for
 various system-dependent variables used during compilation.  It uses

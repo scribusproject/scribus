@@ -1,65 +1,6 @@
 This is Scribus Version 1.3.0cvs, the first release of the 1.3.x development
 series.
 
-REQUIREMENTS AND BUILDING
-=========================
-
-Install the below packages BEFORE running configure or compiling Scribus:
-
-Requirements:
-	Qt >= 3.3		(3.3.3 recommended)
-	Freetype >= 2.1.0 	(2.1.3+ recommended)
-	libart >= 2.3.8+ 	(2.3.16+ recommended)
-
-Recommended:
-	CUPS
-	libtiff >= 3.6.0
-	Fontconfig >= 2.0
-	LittleCMS = 1.12 (1.14+ recommended)
-	LibXML2 >= 2.6.0
-	GhostScript >= 8.0 (8.15 or greater preferred)
-	Python >= 2.3
-	tkinter for the font sampler script
-	python-imaging for the font sampler preview
-
-If any recommended libraries (and their dev/devel packages or headers) are not
-installed, some features will be disabled by configure. If you later install
-any of these dependencies, you will have to re-run configure and re-compile
-Scribus before the features are enabled.
-
-REQUIREMENTS - DETAILS
-======================
-
-We strongly recommend having Qt 3.3.3+. Qt 3.3 is now the *minimum*. Older
-versions of Qt are *not* supported. If you build Qt from sources, the
-recommended ./configure switches are the same as used by KDE. Use of other
-switches aside from those used by distro packages can make trouble shooting
-issues very difficult at times.
-See: http://developer.kde.org/build/compile_kde3_3.html
-
-Scribus requires Freetype. If you are compiling from source, you will need to
-have the freetype headers installed - these can usually be found in a -devel
-package for your distro.
-
-It is strongly recommended that you install the CUPS development packages if
-you are compiling Scribus. Without CUPS, Scribus will have significantly
-reduced printing functionality.
-
-Fontconfig, if installed, will let Scribus find fonts using the same method as
-most other major desktop applications such as all KDE and GNOME applications.
-If fontconfig support is installed, Scribus will not search your X font path, X
-server configuration, or X font server configuration for fonts - it will only
-use fonts found using fontconfig and any custom font locations configured in
-the preferences.
-
-Python will be used to add scripting support to Scribus. If Python is not
-found, or there are no header files for Python installed (usually because you
-haven't installed the development package), the scripting support will not be
-enabled.
-
-See the distro-specific notes below for more information on installing and
-using Scribus with your distro.
-
 CHANGES 1.2.x to 1.3.x
 ======================
 
@@ -128,7 +69,13 @@ no other Color-Stops in-between them.
 This we believe is a libart issue and not fixable by us. The gradient will export
 and print properly.
 
-DISTRO SPECIFIC NOTES
+BUILDING AND INSTALLING FROM SOURCE
+===================================
+
+Please see the files `BUILDING' and `INSTALL' for details on how to compile and
+install Scribus, library requirements, etc.
+
+DISTRO AND OS SPECIFIC NOTES
 =====================
 
 Debian
@@ -138,21 +85,6 @@ If Scribus does not start while complaining about the absence of
 PostScript fonts please install either xfonts-scalable or gsfonts-x11.
 They are in the "Recommends" and will be installed by all sensible apt
 front-ends.
-
-Recommended packages for compiling from source on Sarge (Debian 3.1):
-	libqt3-mt-dev (Required)
-	libfreetype6-dev (Required)
-	libart-2.0-dev (Required)
-	libcupsys2-dev
-	liblcms1-dev
-	libfontconfig1-dev
-	libtiff4-dev
-	libxml2-dev
-	python2.3-dev  or  python2.4-dev
-	gs-afpl
-
-You are unlikely to be able to compile Scribus 1.3.x on Debian 3.0 (Woody)
-without significant upgrades.
 
 SuSE 9.x
 ========
@@ -178,29 +110,36 @@ quality and have been created with close cooperation from Fedora maintainers
 and the Scribus Team. We recommend them for most users as they will ensure
 correct integration with the menuing system and mime types.
 
-Recommended packages for compiling from source on FC3:
-	qt-devel (Required)
-	freetype-devel (Required)
-	libart_lgpl-devel (Required)
-	fontconfig-devel
-	cups-devel
-	libtiff-devel
-	libxml2-devel
-	python-devel
-	lcms-devel
-
-You can install these packages with 'yum install packagename' as root. You may
-need to run up2date first to set up your yum configuration. Be patient - the
-first time you run yum it will take a long time to download the headers for all
-the security updates that have been released.
-
 There are no packages for LittleCMS or a recent GhostScript in Fedora Core 3,
 though LittleCMS (lcms) is in Fedora Extras. Please see the included help files
-and http://docs.scribus.net for details. 
+and http://docs.scribus.net for details.
 Grey scale icc profiles in images are not supported in this release..
 
 There is a separate file, PACKAGING for detailed hints and notes on building
 packages for Scribus.
+
+MacOS/X
+=======
+
+Scribus for MacOS/X is best obtained through fink. See:
+http://fink.sourceforge.net/
+
+There is also information about building and using Scribus on MacOS/X on the
+Scribus wiki: http://wiki.scribus.net/ .
+
+A MacOS/X native Aqua port is in early testing. No public builds are available
+yet. More information will be announced on the mailing list as progress
+continues.
+
+Microsoft Windows
+=================
+
+Some information on building Scribus for Cygwin under Windows is available on
+the Scribus Wiki: http://wiki.scribus.net/ .
+
+A native win32 port is in the early stages of development. There is no ETA.
+More information will be announced on the mailing list as progess continues.
+You can also follow development at http://scribusdev.blogspot.com/ .
 
 Additional information
 ======================
