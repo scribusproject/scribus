@@ -119,8 +119,148 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYK
 				fp >> contrastValue;
 				contrast(contrastValue, cmyk);
 			}
+			if ((*effectsList.at(a)).effectCode == EF_SHARPEN)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				double radius, sigma;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> radius;
+				fp >> sigma;
+				sharpen(radius, sigma);
+			}
 		}
 	}
+}
+
+bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double *kernel)
+{
+	long widthk;
+	double red, green, blue, alpha;
+	double normalize, *normal_kernel;
+	register const double *k;
+	register unsigned int *q;
+	int x, y, mx, my, sx, sy;
+	long i;
+	int mcx, mcy;
+	widthk = order;
+	if((widthk % 2) == 0)
+		return(false);
+	normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
+	if(!normal_kernel)
+		return(false);
+	dest->reset();
+	dest->create(width(), height(), 32);
+	normalize=0.0;
+	for(i=0; i < (widthk*widthk); i++)
+		normalize += kernel[i];
+	if(fabs(normalize) <= 1.0e-12)
+		normalize=1.0;
+	normalize=1.0/normalize;
+	for(i=0; i < (widthk*widthk); i++)
+		normal_kernel[i] = normalize*kernel[i];
+	unsigned int **jumpTablek = (unsigned int **)jumpTable();
+	for(y=0; y < dest->height(); ++y)
+	{
+		sy = y-(widthk/2);
+		q = (unsigned int *)dest->scanLine(y);
+		for(x=0; x < dest->width(); ++x)
+		{
+			k = normal_kernel;
+			red = green = blue = alpha = 0;
+			sy = y-(widthk/2);
+			for(mcy=0; mcy < widthk; ++mcy, ++sy)
+			{
+				my = sy < 0 ? 0 : sy > height()-1 ? height()-1 : sy;
+				sx = x+(-widthk/2);
+				for(mcx=0; mcx < widthk; ++mcx, ++sx)
+				{
+					mx = sx < 0 ? 0 : sx > width()-1 ? width()-1 : sx;
+					red += (*k)*(qRed(jumpTablek[my][mx])*257);
+					green += (*k)*(qGreen(jumpTablek[my][mx])*257);
+					blue += (*k)*(qBlue(jumpTablek[my][mx])*257);
+					alpha += (*k)*(qAlpha(jumpTablek[my][mx])*257);
+					++k;
+				}
+			}
+			red = red < 0 ? 0 : red > 65535 ? 65535 : red+0.5;
+			green = green < 0 ? 0 : green > 65535 ? 65535 : green+0.5;
+			blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue+0.5;
+			alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha+0.5;
+			*q++ = qRgba((unsigned char)(red/257UL),
+										(unsigned char)(green/257UL),
+										(unsigned char)(blue/257UL),
+										(unsigned char)(alpha/257UL));
+		}
+	}
+	if(normal_kernel)
+		free(normal_kernel);
+	return(true);
+}
+
+int ScImage::getOptimalKernelWidth(double radius, double sigma)
+{
+	double normalize, value;
+	long width;
+	register long u;
+	assert(sigma != 0.0);
+	if(radius > 0.0)
+		return((int)(2.0*ceil(radius)+1.0));
+	for(width=5; ;)
+	{
+		normalize=0.0;
+		for(u=(-width/2); u <= (width/2); u++)
+			normalize+=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma);
+		u=width/2;
+		value=exp(-((double) u*u)/(2.0*sigma*sigma))/(2.50662827463100024161235523934010416269302368164062*sigma)/normalize;
+		if((long)(65535*value) <= 0)
+			break;
+		width+=2;
+	}
+	return((int)width-2);
+}
+
+void ScImage::sharpen(double radius, double sigma)
+{
+	double alpha, normalize, *kernel;
+	int widthk;
+	register long i, u, v;
+	QImage dest;
+	if(sigma == 0.0)
+		return;
+	widthk = getOptimalKernelWidth(radius, sigma);
+	if(width() < widthk)
+		return;
+	kernel = (double *)malloc(widthk*widthk*sizeof(double));
+	if(!kernel)
+		return;
+	i = 0;
+	normalize=0.0;
+	for (v=(-widthk/2); v <= (widthk/2); v++)
+	{
+		for (u=(-widthk/2); u <= (widthk/2); u++)
+		{
+			alpha=exp(-((double) u*u+v*v)/(2.0*sigma*sigma));
+			kernel[i]=alpha/(2.0*3.14159265358979323846264338327950288419716939937510*sigma*sigma);
+			normalize+=kernel[i];
+			i++;
+		}
+	}
+	kernel[i/2]=(-2.0)*normalize;
+	convolveImage(&dest, widthk, kernel);
+	if(kernel)
+		free(kernel);
+	for( int yi=0; yi < dest.height(); ++yi )
+	{
+		QRgb *s = (QRgb*)(dest.scanLine( yi ));
+		QRgb *d = (QRgb*)(scanLine( yi ));
+		for(int xi=0; xi < dest.width(); ++xi )
+		{
+			(*d) = (*s);
+			s++;
+			d++;
+		}
+	}
+	return;
 }
 
 void ScImage::contrast(int contrastValue, bool cmyk)
@@ -977,6 +1117,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				while( count < pixel_count )
 				{
 					uchar c;
+				if(s.atEnd())
+					return false;
 					s >> c;
 					uint len = c;
 					if( len < 128 )
@@ -1319,6 +1461,8 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 			while( count < pixel_count )
 			{
 				uchar c;
+				if(s.atEnd())
+					return false;
 				s >> c;
 				uint len = c;
 				if( len < 128 )
@@ -1326,6 +1470,8 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 					// Copy next len+1 bytes literally.
 					len++;
 					count += len;
+					if ( count > pixel_count )
+						return false;
 					while( len != 0 )
 					{
 						if (header.color_mode == CM_CMYK)
@@ -1346,6 +1492,8 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 					len ^= 0xFF;
 					len += 2;
 					count += len;
+					if(s.atEnd() || count > pixel_count)
+						return false;
 					uchar val;
 					s >> val;
 					if (header.color_mode == CM_CMYK)

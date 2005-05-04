@@ -15,6 +15,7 @@
 #include <qslider.h>
 #include "scribusdoc.h"
 #include "shadebutton.h"
+#include "mspinbox.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -121,6 +122,25 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	contrastSlider->setTickmarks( QSlider::Below );
 	WStackPage4Layout->addWidget( contrastSlider );
 	optionStack->addWidget( WStackPage_4, 3 );
+
+	WStackPage_5 = new QWidget( optionStack, "WStackPage_5" );
+	WStackPage5Layout = new QVBoxLayout( WStackPage_5, 5, 5, "WStackPageLayout");
+	WStackPage5Layout->setAlignment( Qt::AlignTop );
+	layout22 = new QHBoxLayout( 0, 0, 5, "layout7");
+	textLabel10 = new QLabel( tr( "Radius:" ), WStackPage_5, "textLabel10" );
+	layout22->addWidget( textLabel10 );
+	shRadius = new MSpinBox( 0.0, 10.0, WStackPage_5, 1 );
+	shRadius->setValue(0);
+	layout22->addWidget( shRadius );
+	WStackPage5Layout->addLayout( layout22 );
+	layout23 = new QHBoxLayout( 0, 0, 5, "layout7");
+	textLabel11 = new QLabel( tr("Value:"), WStackPage_5, "textLabel11" );
+	layout23->addWidget( textLabel11 );
+	shValue = new MSpinBox( 0.0, 5.0, WStackPage_5, 1 );
+	shValue->setValue(1.0);
+	layout23->addWidget( shValue );
+	WStackPage5Layout->addLayout( layout23 );
+	optionStack->addWidget( WStackPage_5, 4 );
 	
 	layout16->addWidget( optionStack );
 	EffectsDialogLayout->addLayout( layout16 );
@@ -138,6 +158,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->insertItem( tr("Contrast"));
 	availableEffects->insertItem( tr("Grayscale"));
 	availableEffects->insertItem( tr("Invert"));
+	availableEffects->insertItem( tr("Sharpen"));
 	availableEffects->setMinimumSize(fontMetrics().width(tr( "Available Effects" ))+40, 180);
 	layout2->addWidget( availableEffects );
 	layout10->addLayout( layout2, 0, 0 );
@@ -192,6 +213,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			usedEffects->insertItem( tr("Contrast"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_SHARPEN)
+		{
+			usedEffects->insertItem( tr("Sharpen"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
 	}
 	layout8->addWidget( usedEffects );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
@@ -244,6 +270,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
 	connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
 	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
+	connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+	connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 }
 
 void EffectsDialog::leaveOK()
@@ -301,6 +329,16 @@ void EffectsDialog::saveValues()
 			tmp.setNum(contrastSlider->value());
 			effectValMap[currentOptions] = tmp;
 		}
+		if (currentOptions->text() == tr("Sharpen"))
+		{
+			QString efval = "";
+			QString tmp;
+			tmp.setNum(shRadius->value());
+			efval += tmp;
+			tmp.setNum(shValue->value());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
 	}
 	effectsList.clear();
 	struct ScImage::imageEffect ef;
@@ -331,6 +369,11 @@ void EffectsDialog::saveValues()
 			ef.effectCode = ScImage::EF_CONTRAST;
 			ef.effectParameters = effectValMap[usedEffects->item(e)];
 		}
+		if (usedEffects->item(e)->text() == tr("Sharpen"))
+		{
+			ef.effectCode = ScImage::EF_SHARPEN;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
 		effectsList.append(ef);
 	}
 }
@@ -346,6 +389,8 @@ void EffectsDialog::moveToEffects()
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0");
 	if (availableEffects->currentText() == tr("Contrast"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0");
+	if (availableEffects->currentText() == tr("Sharpen"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0 1");
 	if (availableEffects->currentText() == tr("Colorize"))
 	{
 		ColorList::Iterator it;
@@ -354,8 +399,8 @@ void EffectsDialog::moveToEffects()
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
-	selectEffect(usedEffects->item(usedEffects->count()-1));
 	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
+	selectEffect(usedEffects->item(usedEffects->count()-1));
 	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 	createPreview();
 }
@@ -437,6 +482,16 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			tmp.setNum(contrastSlider->value());
 			effectValMap[currentOptions] = tmp;
 		}
+		if (currentOptions->text() == tr("Sharpen"))
+		{
+			QString efval = "";
+			QString tmp;
+			tmp.setNum(shRadius->value());
+			efval += tmp;
+			tmp.setNum(shValue->value());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
 	}
 	if (c)
 	{
@@ -498,6 +553,21 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			optionStack->raiseWidget(3);
 			connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 		}
+		else if (c->text() == tr("Sharpen"))
+		{
+			disconnect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			disconnect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			QString tmpstr = effectValMap[c];
+			double radius, sigma;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			fp >> radius;
+			fp >> sigma;
+			shRadius->setValue(radius);
+			shValue->setValue(sigma);
+			optionStack->raiseWidget(4);
+			connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+		}
 		else
 			optionStack->raiseWidget(0);
 		currentOptions = c;
@@ -539,6 +609,16 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			QString tmp;
 			tmp.setNum(contrastSlider->value());
 			effectValMap[currentOptions] = tmp;
+		}
+		if (currentOptions->text() == tr("Sharpen"))
+		{
+			QString efval = "";
+			QString tmp;
+			tmp.setNum(shRadius->value());
+			efval += tmp;
+			tmp.setNum(shValue->value());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
 		}
 	}
 	currentOptions = 0;

@@ -21,6 +21,7 @@ class ShadeButton;
 class QWidgetStack;
 class QWidget;
 class QSlider;
+class MSpinBox;
 
 class EffectsDialog : public QDialog
 {
@@ -40,6 +41,8 @@ public:
 	QLabel* textLabel7;
 	QLabel* textLabel8;
 	QLabel* textLabel9;
+	QLabel* textLabel10;
+	QLabel* textLabel11;
 	QWidgetStack* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
@@ -49,6 +52,9 @@ public:
 	QSlider* brightnessSlider;
 	QWidget* WStackPage_4;
 	QSlider* contrastSlider;
+	QWidget* WStackPage_5;
+	MSpinBox* shRadius;
+	MSpinBox* shValue;
 	QListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
@@ -84,6 +90,9 @@ protected:
 	QHBoxLayout* layout20;
 	QVBoxLayout* WStackPage4Layout;
 	QHBoxLayout* layout21;
+	QVBoxLayout* WStackPage5Layout;
+	QHBoxLayout* layout22;
+	QHBoxLayout* layout23;
 	QHBoxLayout* layout17;
 	QHBoxLayout* layout19;
 	QGridLayout* layout10;

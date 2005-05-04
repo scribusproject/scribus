@@ -55,7 +55,8 @@ public:
 		EF_GRAYSCALE = 1,
 		EF_COLORIZE = 2,
 		EF_BRIGHTNESS = 3,
-		EF_CONTRAST = 4
+		EF_CONTRAST = 4,
+		EF_SHARPEN = 5
 	};
 	struct imageEffect
 	{
@@ -72,6 +73,7 @@ public:
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
 	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYKColor> colors, bool cmyk);
+	void sharpen(double radius= 0.0, double sigma = 1.0);
 	void contrast(int contrastValue, bool cmyk);
 	void brightness(int brightnessValue, bool cmyk);
 	void invert(bool cmyk);
@@ -149,6 +151,8 @@ struct ImageInfoRecord
 } imgInfo;
 
 private:
+	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
+	int getOptimalKernelWidth(double radius, double sigma);
 	void applyCurve(bool cmyk);
 	bool IsValid( const PSDHeader & header );
 	bool IsSupported( const PSDHeader & header );
