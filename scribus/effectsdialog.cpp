@@ -146,7 +146,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage6Layout = new QVBoxLayout( WStackPage_6, 5, 5, "WStackPageLayout");
 	WStackPage6Layout->setAlignment( Qt::AlignTop );
 	layout24 = new QHBoxLayout( 0, 0, 5, "layout7");
-	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_5, "textLabel10" );
+	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_6, "textLabel10" );
 	layout24->addWidget( textLabel12 );
 	blRadius = new MSpinBox( 0.0, 10.0, WStackPage_6, 1 );
 	blRadius->setValue(0);
@@ -160,6 +160,24 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout25->addWidget( blValue );
 	WStackPage6Layout->addLayout( layout25 );
 	optionStack->addWidget( WStackPage_6, 5 );
+
+	WStackPage_7 = new QWidget( optionStack, "WStackPage_4" );
+	WStackPage7Layout = new QVBoxLayout( WStackPage_7, 5, 5, "WStackPageLayout");
+	WStackPage7Layout->setAlignment( Qt::AlignTop );
+	layout26 = new QHBoxLayout( 0, 0, 5, "layout7");
+	textLabel14 = new QLabel( tr( "Posterize:" ), WStackPage_7, "textLabel8" );
+	layout26->addWidget( textLabel14, Qt::AlignLeft );
+	textLabel15 = new QLabel( "0", WStackPage_7, "textLabel9" );
+	layout26->addWidget( textLabel15, Qt::AlignRight );
+	WStackPage7Layout->addLayout( layout26 );
+	solarizeSlider = new QSlider( WStackPage_7, "Slider2" );
+	solarizeSlider->setMinValue(1);
+	solarizeSlider->setMaxValue(255);
+	solarizeSlider->setValue(255);
+	solarizeSlider->setOrientation( QSlider::Horizontal );
+	solarizeSlider->setTickmarks( QSlider::Below );
+	WStackPage7Layout->addWidget( solarizeSlider );
+	optionStack->addWidget( WStackPage_7, 6 );
 	
 	layout16->addWidget( optionStack );
 	EffectsDialogLayout->addLayout( layout16 );
@@ -178,6 +196,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->insertItem( tr("Contrast"));
 	availableEffects->insertItem( tr("Grayscale"));
 	availableEffects->insertItem( tr("Invert"));
+	availableEffects->insertItem( tr("Posterize"));
 	availableEffects->insertItem( tr("Sharpen"));
 	availableEffects->setMinimumSize(fontMetrics().width(tr( "Available Effects" ))+40, 180);
 	layout2->addWidget( availableEffects );
@@ -243,6 +262,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			usedEffects->insertItem( tr("Blur"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_SOLARIZE)
+		{
+			usedEffects->insertItem( tr("Posterize"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
 	}
 	layout8->addWidget( usedEffects );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
@@ -299,12 +323,21 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 }
 
 void EffectsDialog::leaveOK()
 {
 	saveValues();
 	accept();
+}
+
+void EffectsDialog::updateSolarize(int val)
+{
+	QString tmp;
+	tmp.setNum(val);
+	textLabel15->setText(tmp);
+	createPreview();
 }
 
 void EffectsDialog::updateContrast(int val)
@@ -376,6 +409,12 @@ void EffectsDialog::saveValues()
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
+		if (currentOptions->text() == tr("Posterize"))
+		{
+			QString tmp;
+			tmp.setNum(solarizeSlider->value());
+			effectValMap[currentOptions] = tmp;
+		}
 	}
 	effectsList.clear();
 	struct ScImage::imageEffect ef;
@@ -416,6 +455,11 @@ void EffectsDialog::saveValues()
 			ef.effectCode = ScImage::EF_BLUR;
 			ef.effectParameters = effectValMap[usedEffects->item(e)];
 		}
+		if (usedEffects->item(e)->text() == tr("Posterize"))
+		{
+			ef.effectCode = ScImage::EF_SOLARIZE;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
 		effectsList.append(ef);
 	}
 }
@@ -435,6 +479,8 @@ void EffectsDialog::moveToEffects()
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0 1");
 	if (availableEffects->currentText() == tr("Blur"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0 1");
+	if (availableEffects->currentText() == tr("Posterize"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "255");
 	if (availableEffects->currentText() == tr("Colorize"))
 	{
 		ColorList::Iterator it;
@@ -546,6 +592,12 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
+		if (currentOptions->text() == tr("Posterize"))
+		{
+			QString tmp;
+			tmp.setNum(solarizeSlider->value());
+			effectValMap[currentOptions] = tmp;
+		}
 	}
 	if (c)
 	{
@@ -637,6 +689,20 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 			connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 		}
+		else if (c->text() == tr("Posterize"))
+		{
+			disconnect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
+			QString tmpstr = effectValMap[c];
+			int solarize;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			fp >> solarize;
+			solarizeSlider->setValue(solarize);
+			QString tmp;
+			tmp.setNum(solarize);
+			textLabel15->setText(tmp);
+			optionStack->raiseWidget(6);
+			connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
+		}
 		else
 			optionStack->raiseWidget(0);
 		currentOptions = c;
@@ -698,6 +764,12 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			tmp.setNum(blValue->value());
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Posterize"))
+		{
+			QString tmp;
+			tmp.setNum(solarizeSlider->value());
+			effectValMap[currentOptions] = tmp;
 		}
 	}
 	currentOptions = 0;

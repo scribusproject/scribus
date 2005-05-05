@@ -137,6 +137,14 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYK
 				fp >> sigma;
 				blur(radius, sigma);
 			}
+			if ((*effectsList.at(a)).effectCode == EF_SOLARIZE)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				double sigma;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> sigma;
+				solarize(sigma, cmyk);
+			}
 		}
 	}
 }
@@ -148,6 +156,17 @@ void ScImage::liberateMemory(void **memory)
 		return;
 	free(*memory);
 	*memory=(void *) NULL;
+}
+
+void ScImage::solarize(double factor, bool cmyk)
+{
+	curveTable.resize(256);
+	int fk = qRound(255 / factor);
+	for (int i = 0; i < 256; ++i)
+	{
+		curveTable[i] = QMIN(255, static_cast<int>(i / fk) * fk);
+	}
+	applyCurve(cmyk);
 }
 
 void ScImage::blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns)

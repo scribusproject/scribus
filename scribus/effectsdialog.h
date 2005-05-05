@@ -45,6 +45,8 @@ public:
 	QLabel* textLabel11;
 	QLabel* textLabel12;
 	QLabel* textLabel13;
+	QLabel* textLabel14;
+	QLabel* textLabel15;
 	QWidgetStack* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
@@ -60,6 +62,8 @@ public:
 	QWidget* WStackPage_6;
 	MSpinBox* blRadius;
 	MSpinBox* blValue;
+	QWidget* WStackPage_7;
+	QSlider* solarizeSlider;
 	QListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
@@ -77,6 +81,7 @@ public:
 
 public slots:
 	virtual void leaveOK();
+	virtual void updateSolarize(int val);
 	virtual void updateContrast(int val);
 	virtual void updateBright(int val);
 	virtual void createPreview();
@@ -101,6 +106,8 @@ protected:
 	QVBoxLayout* WStackPage6Layout;
 	QHBoxLayout* layout24;
 	QHBoxLayout* layout25;
+	QVBoxLayout* WStackPage7Layout;
+	QHBoxLayout* layout26;
 	QHBoxLayout* layout17;
 	QHBoxLayout* layout19;
 	QGridLayout* layout10;
