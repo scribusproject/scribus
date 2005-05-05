@@ -2727,6 +2727,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PageC = doc->MasterPages.count();
 	bool atfb = doc->PageAT;
 	doc->PageAT = false;
+	doc->MasterP = true;
 	slotNewPage(0);
 	doc->PageAT = atfb;
 	doc->MasterNames["Normal"] = 0;
