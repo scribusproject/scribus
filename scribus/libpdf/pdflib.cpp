@@ -78,17 +78,27 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 	PDFlib *dia = new PDFlib();
 	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Options, plug->Prefs.AvailFonts,
 				 plug->doc->UsedFonts, plug->bookmarkPalette->BView))
+	{
+		QMap<int, int> pageNsMpa;
+		for (uint a = 0; a < pageNs.size(); ++a)
 		{
-			dia2->reset();
-			dia2->setTotalSteps(plug->doc->MasterPages.count()+pageNs.size());
-			dia2->setProgress(0);
-			for (uint ap = 0; ap < plug->doc->MasterPages.count(); ++ap)
+			pageNsMpa.insert(plug->doc->MasterNames[plug->doc->Pages.at(pageNs[a]-1)->MPageNam], 0);
+		}
+		dia2->reset();
+		dia2->setTotalSteps(pageNsMpa.count()+pageNs.size());
+		dia2->setProgress(0);
+		for (uint ap = 0; ap < plug->doc->MasterPages.count(); ++ap)
+		{
+			if (plug->doc->MasterItems.count() != 0)
 			{
-				if (plug->doc->MasterItems.count() != 0)
+				if (pageNsMpa.contains(ap))
+				{
 					dia->PDF_TemplatePage(plug->doc->MasterPages.at(ap));
-				progresscount++;
-				dia2->setProgress(progresscount);
+					progresscount++;
+				}
 			}
+			dia2->setProgress(progresscount);
+		}
 		for (uint a = 0; a < pageNs.size(); ++a)
 		{
 			if (plug->doc->PDF_Options.Thumbnails)
