@@ -66,6 +66,7 @@
 #include "extimageprops.h"
 #include "pageitemattributes.h"
 #include "scpaths.h"
+#include "actionmanager.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -1616,7 +1617,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
 
 				pmen4->insertItem(InfoGroup);
-
 				pmen->insertItem( tr("In&fo"), pmen4);
 			}
 			pmen->insertSeparator();
@@ -1628,8 +1628,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
 				ScApp->scrActions["itemImageIsVisible"]->addTo(pmen);
-				//int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
-				//pmen->setItemChecked(px, currItem->PicArt);
 				if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
 					pmen->insertItem( tr("Extended Image Properties"), this, SLOT(useEmbeddedPath()));
 				if (currItem->PicAvail)
@@ -1646,25 +1644,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
 				if (Doc->currentPage->PageNam == "")
 				{
-					int pxb = pmenPDF->insertItem( tr("Is PDF &Bookmark"), this, SLOT(ToggleBookmark()));
-					pmenPDF->setItemChecked(pxb, currItem->isBookmark);
-					pxb = pmenPDF->insertItem( tr("Is PDF A&nnotation"), this, SLOT(ToggleAnnotation()));
-					pmenPDF->setItemChecked(pxb, currItem->isAnnotation);
-
-					//ScApp->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
-					//ScApp->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
+					ScApp->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
+					ScApp->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
 					if (currItem->isAnnotation)
 					{
 						if ((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9))
-						{
-							//ScApp->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
-							pmenPDF->insertItem( tr("Annotation P&roperties"), this, SIGNAL(AnnotProps()));
-						}
+							ScApp->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
 						else
-						{
-							//ScApp->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
-							pmenPDF->insertItem( tr("Field P&roperties"), this, SIGNAL(AnnotProps()));
-						}
+							ScApp->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
 					}
 				}
 				pmen->insertItem( tr("&PDF Options"), pmenPDF);
@@ -7698,6 +7685,9 @@ void ScribusView::ToggleBookmark()
 				}
 			}
 		}
+		
+		ScApp->actionManager->setPDFActions(this);
+		
 		emit DocChanged();
 	}
 }
@@ -7721,6 +7711,8 @@ void ScribusView::ToggleAnnotation()
 				}
 			}
 		}
+		
+		ScApp->actionManager->setPDFActions(this);
 		
 		emit DocChanged();
 	}

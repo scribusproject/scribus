@@ -48,6 +48,7 @@ class ActionManager : public QObject
 		void restoreActionShortcutsPostEditMode();
 		void enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode=false);
 		void enableUnicodeActions(bool enabled);
+		void setPDFActions(ScribusView *);
 		
 	private:
 		void initFileMenuActions();

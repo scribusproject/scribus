@@ -247,7 +247,6 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemPDFAnnotationProps", new ScrAction(tr("Annotation P&roperties"), QKeySequence(), ScApp, "itemPDFAnnotationProps"));
 	scrActions->insert("itemPDFFieldProps", new ScrAction(tr("Field P&roperties"), QKeySequence(), ScApp, "itemPDFFieldProps"));
 	
-	//CB TODO Make these work
 	(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
 	(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
 	(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
@@ -274,8 +273,8 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemUngroup"], SIGNAL(activated()), ScApp, SLOT(UnGroupObj()) );
 	connect( (*scrActions)["itemLock"], SIGNAL(activated()), ScApp, SLOT(ToggleObjLock()) );
 	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), ScApp, SLOT(ToggleObjSizeLock()) );
-	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFAnnotation()) );
-	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
+	//connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFAnnotation()) );
+	//connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(activated()), ScApp, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(activated()), ScApp, SLOT(ModifyAnnot()) );
 	//connect( (*scrActions)["itemSendToBack"], SIGNAL(activated()), ScApp, SLOT(Objekt2Back()) );
@@ -628,11 +627,15 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 void ActionManager::disconnectNewSelectionActions()
 {
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
+	//disconnect( (*scrActions)["itemPDFIsBookmark"], 0, 0, 0);
+	//disconnect( (*scrActions)["itemPDFIsAnnotation"], 0, 0, 0);
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView *currView)
 {
 	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currView, SLOT(TogglePic()) );
+	//connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFAnnotation()) );
+	//connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
 }
 	
 void ActionManager::saveActionShortcutsPreEditMode()
@@ -677,4 +680,45 @@ void ActionManager::enableActionStringList(QStringList *list, bool enabled, bool
 void ActionManager::enableUnicodeActions(bool enabled)
 {
 	enableActionStringList(unicodeCharActionNames, enabled, enabled);
+}
+
+void ActionManager::setPDFActions(ScribusView *view)
+{
+	if (view==NULL)
+		return;
+	PageItem* currItem = view->SelItem.at(0);
+	if (currItem==NULL)
+		return;
+
+	disconnect( (*scrActions)["itemPDFIsBookmark"], 0, 0, 0);
+	disconnect( (*scrActions)["itemPDFIsAnnotation"], 0, 0, 0);
+	
+	if (currItem->itemType()!=PageItem::TextFrame)
+	{
+		(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
+		(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
+		(*scrActions)["itemPDFIsAnnotation"]->setOn(false);
+		(*scrActions)["itemPDFIsBookmark"]->setOn(false);
+		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
+		(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
+		return;
+	}
+
+	(*scrActions)["itemPDFIsAnnotation"]->setEnabled(true);
+	(*scrActions)["itemPDFIsBookmark"]->setEnabled(true);
+	(*scrActions)["itemPDFIsAnnotation"]->setOn(currItem->isAnnotation);
+	(*scrActions)["itemPDFIsBookmark"]->setOn(currItem->isBookmark);
+	if (currItem->isAnnotation)
+	{
+		bool setter=((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9));
+		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(setter);
+		(*scrActions)["itemPDFFieldProps"]->setEnabled(!setter);
+	}
+	else
+	{
+		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
+		(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
+	}
+	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFAnnotation()) );
+	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
 }

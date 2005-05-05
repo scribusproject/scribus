@@ -1112,8 +1112,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "ItemPDFOptions");
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
 	scrMenuMgr->addMenuToMenu("ItemPDFOptions", "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemPDFIsBookmark"], "ItemPDFOptions");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFIsAnnotation"], "ItemPDFOptions");
+	scrMenuMgr->addMenuItem(scrActions["itemPDFIsBookmark"], "ItemPDFOptions");	
 	scrMenuMgr->addMenuItem(scrActions["itemPDFAnnotationProps"], "ItemPDFOptions");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFFieldProps"], "ItemPDFOptions");
 	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
@@ -3829,6 +3829,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	if (view->SelItem.count() != 0)
 	{
+		actionManager->setPDFActions(view);
 		propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
