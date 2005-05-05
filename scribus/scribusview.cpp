@@ -1701,10 +1701,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
 					pmen->insertItem( tr("Le&vel"), pmenLevel);
-					ScApp->scrActions["itemSendToBack"]->addTo(pmenLevel);
-					ScApp->scrActions["itemBringToFront"]->addTo(pmenLevel);
-					ScApp->scrActions["itemLower"]->addTo(pmenLevel);
 					ScApp->scrActions["itemRaise"]->addTo(pmenLevel);
+					ScApp->scrActions["itemLower"]->addTo(pmenLevel);
+					ScApp->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
+					ScApp->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
 				}
 			}
 			if (Doc->appMode != EditMode) //Create convertTo Menu

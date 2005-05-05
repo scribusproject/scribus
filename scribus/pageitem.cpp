@@ -27,6 +27,7 @@
 #include <qbitmap.h>
 #include <qmessagebox.h>
 #include <cmath>
+#include <cassert>
 #include "scpaths.h"
 #include "page.h"
 #include "scribus.h"

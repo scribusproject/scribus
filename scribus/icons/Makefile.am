@@ -107,6 +107,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/listbox.png $(prefix)/share/scribus/icons/listbox.png
 	$(INSTALL_DATA) $(srcdir)/Lock.xpm $(prefix)/share/scribus/icons/Lock.xpm
 	$(INSTALL_DATA) $(srcdir)/locked.png $(prefix)/share/scribus/icons/locked.png
+	$(INSTALL_DATA) $(srcdir)/lower.png $(prefix)/share/scribus/icons/lower.png
+	$(INSTALL_DATA) $(srcdir)/lower-to-bottom.png $(prefix)/share/scribus/icons/lower-to-bottom.png
 	$(INSTALL_DATA) $(srcdir)/Lowerlayer.png $(prefix)/share/scribus/icons/Lowerlayer.png
 	$(INSTALL_DATA) $(srcdir)/Lupe.xpm $(prefix)/share/scribus/icons/Lupe.xpm
 	$(INSTALL_DATA) $(srcdir)/LupeZ.xpm $(prefix)/share/scribus/icons/LupeZ.xpm
@@ -133,6 +135,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/PolyCut.png $(prefix)/share/scribus/icons/PolyCut.png
 	$(INSTALL_DATA) $(srcdir)/postscript.png $(prefix)/share/scribus/icons/postscript.png
 	$(INSTALL_DATA) $(srcdir)/pushbutton.png $(prefix)/share/scribus/icons/pushbutton.png
+	$(INSTALL_DATA) $(srcdir)/raise.png $(prefix)/share/scribus/icons/raise.png
+	$(INSTALL_DATA) $(srcdir)/raise-to-top.png $(prefix)/share/scribus/icons/raise-to-top.png
 	$(INSTALL_DATA) $(srcdir)/Raiselayer.png $(prefix)/share/scribus/icons/Raiselayer.png
 	$(INSTALL_DATA) $(srcdir)/Rechtecke.xpm $(prefix)/share/scribus/icons/Rechtecke.xpm
 	$(INSTALL_DATA) $(srcdir)/reload.png $(prefix)/share/scribus/icons/reload.png
@@ -332,6 +336,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/listbox.png
 	-rm -f $(prefix)/share/scribus/icons/Lock.xpm
 	-rm -f $(prefix)/share/scribus/icons/locked.png
+	-rm -f $(prefix)/share/scribus/icons/lower.png
+	-rm -f $(prefix)/share/scribus/icons/lower-to-bottom.png
 	-rm -f $(prefix)/share/scribus/icons/Lowerlayer.png
 	-rm -f $(prefix)/share/scribus/icons/Lupe.xpm
 	-rm -f $(prefix)/share/scribus/icons/LupeZ.xpm
@@ -358,6 +364,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/PolyCut.png
 	-rm -f $(prefix)/share/scribus/icons/postscript.png
 	-rm -f $(prefix)/share/scribus/icons/pushbutton.png
+	-rm -f $(prefix)/share/scribus/icons/raise.png
+	-rm -f $(prefix)/share/scribus/icons/raise-to-top.png
 	-rm -f $(prefix)/share/scribus/icons/Raiselayer.png
 	-rm -f $(prefix)/share/scribus/icons/Rechtecke.xpm
 	-rm -f $(prefix)/share/scribus/icons/reload.png

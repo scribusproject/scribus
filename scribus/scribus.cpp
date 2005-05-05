@@ -1102,10 +1102,10 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->createMenu("ItemLevel", tr("&Level"));
 	scrMenuMgr->addMenuToMenu("ItemLevel", "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemSendToBack"], "ItemLevel");
-	scrMenuMgr->addMenuItem(scrActions["itemBringToFront"], "ItemLevel");
-	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "ItemLevel");
+	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel");
+	scrMenuMgr->addMenuItem(scrActions["itemRaiseToTop"], "ItemLevel");
+	scrMenuMgr->addMenuItem(scrActions["itemLowerToBottom"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
@@ -3856,8 +3856,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemDetachTextFromPath"]->setEnabled(false);
 			scrActions["itemCombinePolygons"]->setEnabled(false);
 			scrActions["itemDelete"]->setEnabled(false);
-			scrActions["itemSendToBack"]->setEnabled(false);
-			scrActions["itemBringToFront"]->setEnabled(false);
+			scrActions["itemLowerToBottom"]->setEnabled(false);
+			scrActions["itemRaiseToTop"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
 			scrActions["itemSendToScrapbook"]->setEnabled(false);
@@ -3871,8 +3871,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(setter);
-			scrActions["itemSendToBack"]->setEnabled(setter);
-			scrActions["itemBringToFront"]->setEnabled(setter);
+			scrActions["itemLowerToBottom"]->setEnabled(setter);
+			scrActions["itemRaiseToTop"]->setEnabled(setter);
 			scrActions["itemRaise"]->setEnabled(setter);
 			scrActions["itemLower"]->setEnabled(setter);
 			scrActions["itemSendToScrapbook"]->setEnabled(setter);

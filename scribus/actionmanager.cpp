@@ -231,10 +231,10 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemLockSize", new ScrAction(tr("Si&ze is Locked"), CTRL+SHIFT+Key_L, ScApp, "itemLockSize"));
 	(*scrActions)["itemLock"]->setToggleAction(true);
 	(*scrActions)["itemLockSize"]->setToggleAction(true);
-	scrActions->insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(Key_End), ScApp, "itemSendToBack"));
-	scrActions->insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(Key_Home), ScApp, "itemBringToFront"));
-	scrActions->insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(CTRL+Key_End), ScApp, "itemLower"));
-	scrActions->insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(CTRL+Key_Home), ScApp, "itemRaise"));
+	scrActions->insert("itemLowerToBottom", new ScrAction(QIconSet(loadIcon("lower-to-bottom.png"), loadIcon("lower-to-bottom.png")), tr("Lower to &Bottom"), QKeySequence(Key_End), ScApp, "itemLowerToBottom"));
+	scrActions->insert("itemRaiseToTop", new ScrAction(QIconSet(loadIcon("raise-to-top.png"), loadIcon("raise-to-top.png")), tr("Raise to &Top"), QKeySequence(Key_Home), ScApp, "itemRaiseToTop"));
+	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("lower.png"), loadIcon("lower.png")), tr("&Lower"), QKeySequence(CTRL+Key_End), ScApp, "itemLower"));
+	scrActions->insert("itemRaise", new ScrAction(QIconSet(loadIcon("raise.png"), loadIcon("raise.png")), tr("&Raise"), QKeySequence(CTRL+Key_Home), ScApp, "itemRaise"));
 	scrActions->insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), ScApp, "itemAlignDist"));
 	scrActions->insert("itemSendToScrapbook", new ScrAction(tr("Send to S&crapbook"), QKeySequence(), ScApp, "itemSendToScrapbook"));
 	
@@ -277,8 +277,8 @@ void ActionManager::initItemMenuActions()
 	//connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(activated()), ScApp, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(activated()), ScApp, SLOT(ModifyAnnot()) );
-	//connect( (*scrActions)["itemSendToBack"], SIGNAL(activated()), ScApp, SLOT(Objekt2Back()) );
-	//connect( (*scrActions)["itemBringToFront"], SIGNAL(activated()), ScApp, SLOT(Objekt2Front()) );
+	//connect( (*scrActions)["itemLowerToBottom"], SIGNAL(activated()), ScApp, SLOT(Objekt2Back()) );
+	//connect( (*scrActions)["itemRaiseToTop"], SIGNAL(activated()), ScApp, SLOT(Objekt2Front()) );
 	//connect( (*scrActions)["itemLower"], SIGNAL(activated()), ScApp, SLOT(ObjektLower()) );
 	//connect( (*scrActions)["itemRaise"], SIGNAL(activated()), ScApp, SLOT(ObjektRaise()) );
 	connect( (*scrActions)["itemAlignDist"], SIGNAL(activated()), ScApp, SLOT(ObjektAlign()) );
@@ -465,7 +465,7 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 
-	*nonEditActionNames << "itemSendToBack" << "itemBringToFront" << "itemRaise" << "itemLower";
+	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
 	
 	connect( (*scrActions)["toolsActionHistory"], SIGNAL(toggled(bool)), ScApp, SLOT(setUndoPalette(bool)) );
 	connect( (*scrActions)["toolsToolbarTools"], SIGNAL(toggled(bool)), ScApp, SLOT(setTools(bool)) );
@@ -588,7 +588,7 @@ void ActionManager::disconnectNewViewActions()
 {
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
-	disconnect( (*scrActions)["itemSendToBack"], 0, 0, 0);
+	disconnect( (*scrActions)["itemLowerToBottom"], 0, 0, 0);
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
 	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
@@ -609,8 +609,8 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 		return;
 	connect( (*scrActions)["toolsZoomIn"], SIGNAL(activated()) , currView, SLOT(slotZoomIn()) );
 	connect( (*scrActions)["toolsZoomOut"], SIGNAL(activated()) , currView, SLOT(slotZoomOut()) );
-	connect( (*scrActions)["itemSendToBack"], SIGNAL(activated()), currView, SLOT(ToBack()) );
-	connect( (*scrActions)["itemBringToFront"], SIGNAL(activated()), currView, SLOT(ToFront()) );
+	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(activated()), currView, SLOT(ToBack()) );
+	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(activated()), currView, SLOT(ToFront()) );
 	connect( (*scrActions)["itemRaise"], SIGNAL(activated()), currView, SLOT(RaiseItem()) );
 	connect( (*scrActions)["itemLower"], SIGNAL(activated()), currView, SLOT(LowerItem()) );
 	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), currView, SLOT(UniteObj()) );
