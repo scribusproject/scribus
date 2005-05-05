@@ -2260,7 +2260,10 @@ Może zwrócić błąd WrongFrameTypeError, jeśli ramka docelowa nie jest ramk�
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Zwraca marginesy strony jako krotkę (górny, lewy, prawy, dolny) w aktualnych 
+jednostkach. Zobacz stałe  UNIT_&lt;type&gt;  i  getPageSize().</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -2272,7 +2275,12 @@ is not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Wstawia tekst text &quot;text&quot; od pozycji &quot;pos&quot; w ramce tekstowej &quot;name&quot;.
+Tekst musi być zakodowany w UTF (zobacz też setText() dla porównania).
+Pierwszy znak ma indeks 0. Wstawienie na pozycji -1 dołącza tekst do ramki.
+Jesli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie wybrany obiekt.</translation>
     </message>
 </context>
 <context>
@@ -2501,11 +2509,11 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrykanerski:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugalski (Brazylijski):</translation>
     </message>
 </context>
 <context>
@@ -2583,14 +2591,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj rozmiar nośnika</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcja ta pozwala na podanie rozmiaru
+nośnika pliku postcriptowego. 
+Niezalecane, jeśli nie będzie wymagane
+przez drukarnię.</translation>
     </message>
 </context>
 <context>
@@ -3812,19 +3823,19 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz style</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostępne style</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
 </context>
 <context>
@@ -4597,23 +4608,23 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
     </message>
     <message>
         <source>Python source files (.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki źródłowe Pythona  (.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog zapisywania pliku</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz kod źródłowy makra</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog otwierania pliku</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz plik źródłowy</translation>
     </message>
 </context>
 <context>
@@ -5238,7 +5249,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozmiar czcionki</translation>
     </message>
 </context>
 <context>
@@ -5345,35 +5356,35 @@ proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.<
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zawartość</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Szukaj</translation>
+        <translation>&amp;Szukaj</translation>
     </message>
     <message>
         <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
+        <translation>Sz&amp;ukaj</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>F3</source>
-        <translation type="unfinished"></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>nieznany</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Znajdź</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation>Poszukiwane pojęcie:</translation>
     </message>
 </context>
 <context>
@@ -5863,11 +5874,11 @@ Pełny zapis informacji śledzących poniżej:
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished">Scribus - Nowe Makro</translation>
+        <translation>Scribus - Nowe Makro</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj nazwę nowego makra:</translation>
     </message>
 </context>
 <context>
@@ -6078,47 +6089,47 @@ Może on być wykonany za pomocą opcji &lt;tt&gt;Pobierz skrypt rozszerzający&
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki makr Scribusa  (*.pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog otwierania pliku</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz plik makra.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog zapisywania pliku</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz wszystkie makra</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Zmień nazwę makra</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj nową nazwę:</translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Podaj skrót makra</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Podaj nowy skrót klawiaturowy:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Tak</translation>
+        <translation>Tak</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Nie</translation>
+        <translation>Nie</translation>
     </message>
 </context>
 <context>
@@ -6964,11 +6975,11 @@ Corners:</source>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Podcinanie:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Manualne podcinanie</translation>
     </message>
 </context>
 <context>
@@ -7569,31 +7580,31 @@ nie pytać już więcej o potwierdzenie</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcje importu  z formatu OpenDocument</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizuj style akapitów</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Włączenie tej opcji spowoduje zastąpienie stylów istniejących w aktualnym dokumencie Scribusa</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Scal style akapitów</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scala style akapitów według ich właściwości. Wynikiem tej operacji będzie mniejsza ilość podobnych stylów akapitów. Właściwości styli zostaną zachowane, nawet jeśli w oryginalnym dokumencie miały one inne nazwy.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprzedź nazwę akapitu w Scribusie nazwą dokumentu.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz te ustawienia jako domyślne i pytaj więcej w trakcie importu dokumentu z formatu OASIS OpenDocument.</translation>
     </message>
 </context>
 <context>
@@ -8321,36 +8332,37 @@ W innym przypadku twój wyeksportowany plik PDF może sprawiać problemy przy dr
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Aby używać PDF/X-3, musi być włączone zarządzanie kolorami. Zarządzanie kolorami można włączyć w menu Ustawienia.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 jest wspierane i włączone, ale nie może być użyte dla wybranej wersji PDF. Jeśli chcesz użyć PDF/X-3, powinieneś ustawić PDF/X-3 jako twoją wersję PDF w opcjach pliku.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Obsługa PDF/X-3 nie jest obługiwana w tej kompilacji Scribusa (nie została wkompilowana obsługa CMS).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozwala na dodawanie adnotacji i edycję pól w PDF.
+Jeśli opcja nie zostanie zakreślona, edycja adnotacji i pól będzie zabroniona.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia bezpieczeństwa PDF</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia PDF/X-3</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zabezpieczenia PDF nie mogą być użyte w połączeniu z PDF/X-3. Jeśli chcesz włączyć zabezpieczenia, zmień wersję PDF w opcjach dokumentu na coś innego niż PDF/X-3.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -9890,26 +9902,30 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślny katalog profili ICC. Nie można go
+zmienić, kiedy w Scribusie są otwarte dokumenty.</translation>
     </message>
     <message>
         <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza siatkę linii pisma</translation>
     </message>
     <message>
         <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyłącza siatkę linii pisma</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Położenie interpretera Ghostscriptu w systemie plików</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Położenie edytora grafiki w systemie plików. Jeśli używasz gimpa
+i twoja dystrybucja zawiera go, najlepiej wpisz tutaj  &apos;gimp-remote&apos;,
+ponieważ pozwoli to na edycję obrazka w pracującym już gimpie, bez
+konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
 </context>
 <context>
@@ -11156,7 +11172,7 @@ Zewnętrzne dowiązania
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished">Nie znaleziono koloru</translation>
+        <translation>Nie znaleziono koloru</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -11546,12 +11562,12 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
         <translation>OpenDocument Dokumenty tekstowe</translation>
     </message>
     <message>
-        <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <source>Croatian</source>
+        <translation>Chorwacki</translation>
     </message>
     <message>
-        <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <source>Portuguese (Brazilian)</source>
+        <translation>Portugalski (Brazylijski)</translation>
     </message>
 </context>
 <context>
@@ -11909,11 +11925,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Podcinanie:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Manualne podcinanie</translation>
     </message>
 </context>
 <context>
@@ -13117,19 +13133,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>There are no suitable Fonts on your System</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak właściwych czcionek w twoim systemie</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zarządzanie kolorami jest wspierane, ale nie da się aktualnie włączyć. Upewnij się, czy zainstalowałeś profile ICC oraz czy ścieżka do profili w Ustawieniach wskazuje miejsce, w którym znajdują się twoje profile.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zarządzanie kolorami nie zostało wkompilowane w tę kompilację Scribusa&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Chorwacki</translation>
     </message>
 </context>
 <context>
@@ -13164,7 +13180,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Kopia</translation>
+        <translation>Kopia</translation>
     </message>
 </context>
 <context>
@@ -14030,27 +14046,27 @@ edytowany po zaimportowaniu.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizuj style akapitów</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Włączenie tej opcji spowoduje zastąpienie stylów istniejących w aktualnym dokumencie Scribusa</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Scal style akapitów</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scala style akapitów według ich właściwości. Wynikiem tej operacji będzie mniejsza ilość podobnych stylów akapitów. Właściwości styli zostaną zachowane, nawet jeśli w oryginalnym dokumencie miały one inne nazwy.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprzedź nazwę akapitu w Scribusie nazwą dokumentu.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz te ustawienia jako domyślne i pytaj więcej w trakcie importu dokumentu z formatu OASIS OpenDocument.</translation>
     </message>
 </context>
 <context>
@@ -14512,7 +14528,7 @@ czy też zastąpić domyślne ustawienia własnymi, zakreślając ją.</translat
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuj tylko tekst</translation>
     </message>
 </context>
 <context>
