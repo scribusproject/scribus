@@ -233,8 +233,8 @@ void ActionManager::initItemMenuActions()
 	(*scrActions)["itemLockSize"]->setToggleAction(true);
 	scrActions->insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(Key_End), ScApp, "itemSendToBack"));
 	scrActions->insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(Key_Home), ScApp, "itemBringToFront"));
-	scrActions->insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(Key_PageDown), ScApp, "itemLower"));
-	scrActions->insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(Key_PageUp), ScApp, "itemRaise"));
+	scrActions->insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(CTRL+Key_End), ScApp, "itemLower"));
+	scrActions->insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(CTRL+Key_Home), ScApp, "itemRaise"));
 	scrActions->insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), ScApp, "itemAlignDist"));
 	scrActions->insert("itemSendToScrapbook", new ScrAction(tr("Send to S&crapbook"), QKeySequence(), ScApp, "itemSendToScrapbook"));
 	
