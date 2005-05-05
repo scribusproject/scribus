@@ -56,7 +56,8 @@ public:
 		EF_COLORIZE = 2,
 		EF_BRIGHTNESS = 3,
 		EF_CONTRAST = 4,
-		EF_SHARPEN = 5
+		EF_SHARPEN = 5,
+		EF_BLUR = 6
 	};
 	struct imageEffect
 	{
@@ -73,6 +74,7 @@ public:
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
 	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYKColor> colors, bool cmyk);
+	void blur(double radius= 0.0, double sigma = 1.0);
 	void sharpen(double radius= 0.0, double sigma = 1.0);
 	void contrast(int contrastValue, bool cmyk);
 	void brightness(int brightnessValue, bool cmyk);
@@ -151,6 +153,9 @@ struct ImageInfoRecord
 } imgInfo;
 
 private:
+	void liberateMemory(void **memory);
+	void blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns);
+	int getBlurKernel(int width, double sigma, double **kernel);
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
 	int getOptimalKernelWidth(double radius, double sigma);
 	void applyCurve(bool cmyk);

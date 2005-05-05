@@ -141,6 +141,25 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout23->addWidget( shValue );
 	WStackPage5Layout->addLayout( layout23 );
 	optionStack->addWidget( WStackPage_5, 4 );
+
+	WStackPage_6 = new QWidget( optionStack, "WStackPage_6" );
+	WStackPage6Layout = new QVBoxLayout( WStackPage_6, 5, 5, "WStackPageLayout");
+	WStackPage6Layout->setAlignment( Qt::AlignTop );
+	layout24 = new QHBoxLayout( 0, 0, 5, "layout7");
+	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_5, "textLabel10" );
+	layout24->addWidget( textLabel12 );
+	blRadius = new MSpinBox( 0.0, 10.0, WStackPage_6, 1 );
+	blRadius->setValue(0);
+	layout24->addWidget( blRadius );
+	WStackPage6Layout->addLayout( layout24 );
+	layout25 = new QHBoxLayout( 0, 0, 5, "layout7");
+	textLabel13 = new QLabel( tr("Value:"), WStackPage_6, "textLabel11" );
+	layout25->addWidget( textLabel13 );
+	blValue = new MSpinBox( 0.0, 5.0, WStackPage_6, 1 );
+	blValue->setValue(1.0);
+	layout25->addWidget( blValue );
+	WStackPage6Layout->addLayout( layout25 );
+	optionStack->addWidget( WStackPage_6, 5 );
 	
 	layout16->addWidget( optionStack );
 	EffectsDialogLayout->addLayout( layout16 );
@@ -153,6 +172,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout2->addWidget( textLabel1 );
 	availableEffects = new QListBox( this, "availableEffects" );
 	availableEffects->clear();
+	availableEffects->insertItem( tr("Blur"));
 	availableEffects->insertItem( tr("Brightness"));
 	availableEffects->insertItem( tr("Colorize"));
 	availableEffects->insertItem( tr("Contrast"));
@@ -218,6 +238,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			usedEffects->insertItem( tr("Sharpen"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_BLUR)
+		{
+			usedEffects->insertItem( tr("Blur"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
 	}
 	layout8->addWidget( usedEffects );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
@@ -272,6 +297,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 	connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+	connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+	connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 }
 
 void EffectsDialog::leaveOK()
@@ -339,6 +366,16 @@ void EffectsDialog::saveValues()
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
+		if (currentOptions->text() == tr("Blur"))
+		{
+			QString efval = "";
+			QString tmp;
+			tmp.setNum(blRadius->value());
+			efval += tmp;
+			tmp.setNum(blValue->value());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
 	}
 	effectsList.clear();
 	struct ScImage::imageEffect ef;
@@ -374,6 +411,11 @@ void EffectsDialog::saveValues()
 			ef.effectCode = ScImage::EF_SHARPEN;
 			ef.effectParameters = effectValMap[usedEffects->item(e)];
 		}
+		if (usedEffects->item(e)->text() == tr("Blur"))
+		{
+			ef.effectCode = ScImage::EF_BLUR;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
 		effectsList.append(ef);
 	}
 }
@@ -390,6 +432,8 @@ void EffectsDialog::moveToEffects()
 	if (availableEffects->currentText() == tr("Contrast"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0");
 	if (availableEffects->currentText() == tr("Sharpen"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0 1");
+	if (availableEffects->currentText() == tr("Blur"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0 1");
 	if (availableEffects->currentText() == tr("Colorize"))
 	{
@@ -492,6 +536,16 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
+		if (currentOptions->text() == tr("Blur"))
+		{
+			QString efval = "";
+			QString tmp;
+			tmp.setNum(blRadius->value());
+			efval += tmp;
+			tmp.setNum(blValue->value());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
 	}
 	if (c)
 	{
@@ -568,6 +622,21 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 			connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 		}
+		else if (c->text() == tr("Blur"))
+		{
+			disconnect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			disconnect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			QString tmpstr = effectValMap[c];
+			double radius, sigma;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			fp >> radius;
+			fp >> sigma;
+			blRadius->setValue(radius);
+			blValue->setValue(sigma);
+			optionStack->raiseWidget(5);
+			connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+		}
 		else
 			optionStack->raiseWidget(0);
 		currentOptions = c;
@@ -617,6 +686,16 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			tmp.setNum(shRadius->value());
 			efval += tmp;
 			tmp.setNum(shValue->value());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Blur"))
+		{
+			QString efval = "";
+			QString tmp;
+			tmp.setNum(blRadius->value());
+			efval += tmp;
+			tmp.setNum(blValue->value());
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}

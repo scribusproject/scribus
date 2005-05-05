@@ -43,6 +43,8 @@ public:
 	QLabel* textLabel9;
 	QLabel* textLabel10;
 	QLabel* textLabel11;
+	QLabel* textLabel12;
+	QLabel* textLabel13;
 	QWidgetStack* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
@@ -55,6 +57,9 @@ public:
 	QWidget* WStackPage_5;
 	MSpinBox* shRadius;
 	MSpinBox* shValue;
+	QWidget* WStackPage_6;
+	MSpinBox* blRadius;
+	MSpinBox* blValue;
 	QListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
@@ -93,6 +98,9 @@ protected:
 	QVBoxLayout* WStackPage5Layout;
 	QHBoxLayout* layout22;
 	QHBoxLayout* layout23;
+	QVBoxLayout* WStackPage6Layout;
+	QHBoxLayout* layout24;
+	QHBoxLayout* layout25;
 	QHBoxLayout* layout17;
 	QHBoxLayout* layout19;
 	QGridLayout* layout10;

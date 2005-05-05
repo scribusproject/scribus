@@ -128,8 +128,268 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYK
 				fp >> sigma;
 				sharpen(radius, sigma);
 			}
+			if ((*effectsList.at(a)).effectCode == EF_BLUR)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				double radius, sigma;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> radius;
+				fp >> sigma;
+				blur(radius, sigma);
+			}
 		}
 	}
+}
+
+void ScImage::liberateMemory(void **memory)
+{
+	assert(memory != (void **)NULL);
+	if(*memory == (void *)NULL)
+		return;
+	free(*memory);
+	*memory=(void *) NULL;
+}
+
+void ScImage::blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns)
+{
+	register double *p;
+	unsigned int *q;
+	register int x;
+	register long i;
+	double red, green, blue, alpha;
+	double scale = 0.0;
+	if(width > columns)
+	{
+		for(x=0; x < columns; ++x)
+		{
+			scale = 0.0;
+			red = blue = green = alpha = 0.0;
+			p = kernel;
+			q = src;
+			for(i=0; i < columns; ++i)
+			{
+				if((i >= (x-width/2)) && (i <= (x+width/2)))
+				{
+					red += (*p)*(qRed(*q)*257);
+					green += (*p)*(qGreen(*q)*257);
+					blue += (*p)*(qBlue(*q)*257);
+					alpha += (*p)*(qAlpha(*q)*257);
+				}
+				if(((i+width/2-x) >= 0) && ((i+width/2-x) < width))
+					scale+=kernel[i+width/2-x];
+				p++;
+				q++;
+			}
+			scale = 1.0/scale;
+			red = scale*(red+0.5);
+			green = scale*(green+0.5);
+			blue = scale*(blue+0.5);
+			alpha = scale*(alpha+0.5);
+			red = red < 0 ? 0 : red > 65535 ? 65535 : red;
+			green = green < 0 ? 0 : green > 65535 ? 65535 : green;
+			blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
+			alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
+			dest[x] = qRgba((unsigned char)(red/257UL),
+			                (unsigned char)(green/257UL),
+			                (unsigned char)(blue/257UL),
+			                (unsigned char)(alpha/257UL));
+		}
+		return;
+	}
+
+	for(x=0; x < width/2; ++x)
+	{
+		scale = 0.0;
+		red = blue = green = alpha = 0.0;
+		p = kernel+width/2-x;
+		q = src;
+		for(i=width/2-x; i < width; ++i)
+		{
+			red += (*p)*(qRed(*q)*257);
+			green += (*p)*(qGreen(*q)*257);
+			blue += (*p)*(qBlue(*q)*257);
+			alpha += (*p)*(qAlpha(*q)*257);
+			scale += (*p);
+			p++;
+			q++;
+		}
+		scale=1.0/scale;
+		red = scale*(red+0.5);
+		green = scale*(green+0.5);
+		blue = scale*(blue+0.5);
+		alpha = scale*(alpha+0.5);
+		red = red < 0 ? 0 : red > 65535 ? 65535 : red;
+		green = green < 0 ? 0 : green > 65535 ? 65535 : green;
+		blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
+		alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
+		dest[x] = qRgba((unsigned char)(red/257UL),
+		                (unsigned char)(green/257UL),
+		                (unsigned char)(blue/257UL),
+		                (unsigned char)(alpha/257UL));
+	}
+	for(; x < columns-width/2; ++x)
+	{
+		red = blue = green = alpha = 0.0;
+		p = kernel;
+		q = src+(x-width/2);
+		for (i=0; i < (long) width; ++i)
+		{
+			red += (*p)*(qRed(*q)*257);
+			green += (*p)*(qGreen(*q)*257);
+			blue += (*p)*(qBlue(*q)*257);
+			alpha += (*p)*(qAlpha(*q)*257);
+			p++;
+			q++;
+		}
+		red = scale*(red+0.5);
+		green = scale*(green+0.5);
+		blue = scale*(blue+0.5);
+		alpha = scale*(alpha+0.5);
+		red = red < 0 ? 0 : red > 65535 ? 65535 : red;
+		green = green < 0 ? 0 : green > 65535 ? 65535 : green;
+		blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
+		alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
+		dest[x] = qRgba((unsigned char)(red/257UL),
+		                (unsigned char)(green/257UL),
+		                (unsigned char)(blue/257UL),
+		                (unsigned char)(alpha/257UL));
+	}
+	for(; x < columns; ++x)
+	{
+		red = blue = green = alpha = 0.0;
+		scale=0;
+		p = kernel;
+		q = src+(x-width/2);
+		for(i=0; i < columns-x+width/2; ++i)
+		{
+			red += (*p)*(qRed(*q)*257);
+			green += (*p)*(qGreen(*q)*257);
+			blue += (*p)*(qBlue(*q)*257);
+			alpha += (*p)*(qAlpha(*q)*257);
+			scale += (*p);
+			p++;
+			q++;
+		}
+		scale=1.0/scale;
+		red = scale*(red+0.5);
+		green = scale*(green+0.5);
+		blue = scale*(blue+0.5);
+		alpha = scale*(alpha+0.5);
+		red = red < 0 ? 0 : red > 65535 ? 65535 : red;
+		green = green < 0 ? 0 : green > 65535 ? 65535 : green;
+		blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
+		alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
+		dest[x] = qRgba((unsigned char)(red/257UL),
+		                (unsigned char)(green/257UL),
+		                (unsigned char)(blue/257UL),
+		                (unsigned char)(alpha/257UL));
+	}
+}
+
+int ScImage::getBlurKernel(int width, double sigma, double **kernel)
+{
+	double alpha, normalize;
+	register long i;
+	int bias;
+	assert(sigma != 0.0);
+	if(width == 0)
+		width = 3;
+	*kernel=(double *)malloc(width*sizeof(double));
+	if(*kernel == (double *)NULL)
+		return(0);
+	memset(*kernel, 0, width*sizeof(double));
+	bias = 3*width/2;
+	for(i=(-bias); i <= bias; i++)
+	{
+		alpha=exp(-((double) i*i)/(2.0*3*3*sigma*sigma));
+		(*kernel)[(i+bias)/3]+=alpha/(2.50662827463100024161235523934010416269302368164062*sigma);
+	}
+	normalize=0;
+	for(i=0; i < width; i++)
+		normalize+=(*kernel)[i];
+	for(i=0; i < width; i++)
+		(*kernel)[i]/=normalize;
+	return(width);
+}
+
+void ScImage::blur(double radius, double sigma)
+{
+	double *kernel;
+	QImage dest;
+	int widthk;
+	int x, y;
+	unsigned int *scanline, *temp;
+	unsigned int *p, *q;
+	if(sigma == 0.0)
+		return;
+	kernel=(double *) NULL;
+	if(radius > 0)
+		widthk=getBlurKernel((int) (2*ceil(radius)+1),sigma,&kernel);
+	else
+	{
+		double *last_kernel;
+		last_kernel=(double *) NULL;
+		widthk=getBlurKernel(3,sigma,&kernel);
+		while ((long) (255*kernel[0]) > 0)
+		{
+			if(last_kernel != (double *)NULL)
+			{
+				liberateMemory((void **) &last_kernel);
+			}
+			last_kernel=kernel;
+			kernel = (double *)NULL;
+			widthk = getBlurKernel(widthk+2, sigma, &kernel);
+		}
+		if(last_kernel != (double *) NULL)
+		{
+			liberateMemory((void **) &kernel);
+			widthk-=2;
+			kernel = last_kernel;
+		}
+	}
+	if(widthk < 3)
+	{
+		liberateMemory((void **) &kernel);
+		return;
+	}
+	dest.create(width(), height(), 32);
+	scanline = (unsigned int *)malloc(sizeof(unsigned int)*height());
+	temp = (unsigned int *)malloc(sizeof(unsigned int)*height());
+	for(y=0; y < height(); ++y)
+	{
+		p = (unsigned int *)scanLine(y);
+		q = (unsigned int *)dest.scanLine(y);
+		blurScanLine(kernel, widthk, p, q, width());
+	}
+	unsigned int **srcTable = (unsigned int **)jumpTable();
+	unsigned int **destTable = (unsigned int **)dest.jumpTable();
+	for(x=0; x < width(); ++x)
+	{
+		for(y=0; y < height(); ++y)
+		{
+			scanline[y] = srcTable[y][x];
+		}
+		blurScanLine(kernel, widthk, scanline, temp, height());
+		for(y=0; y < height(); ++y)
+		{
+			destTable[y][x] = temp[y];
+		}
+	}
+	liberateMemory((void **) &scanline);
+	liberateMemory((void **) &temp);
+	liberateMemory((void **) &kernel);
+	for( int yi=0; yi < dest.height(); ++yi )
+	{
+		QRgb *s = (QRgb*)(dest.scanLine( yi ));
+		QRgb *d = (QRgb*)(scanLine( yi ));
+		for(int xi=0; xi < dest.width(); ++xi )
+		{
+			(*d) = (*s);
+			s++;
+			d++;
+		}
+	}
+	return;
 }
 
 bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double *kernel)
@@ -187,13 +447,12 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 			blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue+0.5;
 			alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha+0.5;
 			*q++ = qRgba((unsigned char)(red/257UL),
-										(unsigned char)(green/257UL),
-										(unsigned char)(blue/257UL),
-										(unsigned char)(alpha/257UL));
+			             (unsigned char)(green/257UL),
+			             (unsigned char)(blue/257UL),
+			             (unsigned char)(alpha/257UL));
 		}
 	}
-	if(normal_kernel)
-		free(normal_kernel);
+	free(normal_kernel);
 	return(true);
 }
 
@@ -247,8 +506,7 @@ void ScImage::sharpen(double radius, double sigma)
 	}
 	kernel[i/2]=(-2.0)*normalize;
 	convolveImage(&dest, widthk, kernel);
-	if(kernel)
-		free(kernel);
+	liberateMemory((void **) &kernel);
 	for( int yi=0; yi < dest.height(); ++yi )
 	{
 		QRgb *s = (QRgb*)(dest.scanLine( yi ));
@@ -641,7 +899,7 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int m = qGreen(r);
 				int y = qBlue(r);
 				int k = qAlpha(r);
-/*				*s = qRgba(m, y, k, c); */
+				/*				*s = qRgba(m, y, k, c); */
 				ImgStr += c;
 				ImgStr += m;
 				ImgStr += y;
@@ -662,7 +920,7 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int m = 255 - qGreen(r);
 				int y = 255 - qBlue(r);
 				int k = QMIN(QMIN(c, m), y);
-//				*s = qRgba(m, y, k, c);
+				//				*s = qRgba(m, y, k, c);
 				*s = qRgba(c, m, y, k);
 				ImgStr += c - k;
 				ImgStr += m - k;
@@ -1117,8 +1375,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				while( count < pixel_count )
 				{
 					uchar c;
-				if(s.atEnd())
-					return false;
+					if(s.atEnd())
+						return false;
 					s >> c;
 					uint len = c;
 					if( len < 128 )
@@ -1221,7 +1479,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 	double sx = tmpImg.width() / 40.0;
 	double sy = tmpImg.height() / 40.0;
 	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
-							tmpImg2.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
+	      tmpImg2.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
 	layerInfo[layer].thumb = imt.copy();
 	bool visible = !(layerInfo[layer].flags & 2);
 	if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
@@ -1601,10 +1859,10 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 		s >> signature;
 		offset += 4;
 		if(((signature >> 24)&0xff) != '8' ||
-		   ((signature >> 16)&0xff) != 'B' ||
-		   ((signature >> 8)&0xff) != 'I' ||
-		   ((signature )&0xff) != 'M' )
-		  break;
+		        ((signature >> 16)&0xff) != 'B' ||
+		        ((signature >> 8)&0xff) != 'I' ||
+		        ((signature )&0xff) != 'M' )
+			break;
 		s >> resID;
 		offset += 2;
 		adj = s.device()->at();
@@ -1612,7 +1870,7 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 		offset += s.device()->at() - adj;
 		s >> resSize;
 		if(offset + resSize > size)
-		  break;
+			break;
 		resBase = s.device()->at();
 		if ( (resID >= 0x07d0) && (resID <= 0x0bb6) )
 		{
@@ -1649,40 +1907,40 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 				man6 = (data6 & 0xFF000000) >> 24;
 				switch (type)
 				{
-					case 0:
-					case 3:
-						if (pathOpen)
-						{
-							clip2.addPoint(firstPoint);
-							clip2.addPoint(firstControl);
-							clip2.setMarker();
-						}
-						pathOpen = false;
-						first = true;
-						break;
-					case 1:
-						if (first)
-						{
-							firstControl = FPoint(frac2 * header.width, frac1 * header.height);
-							firstPoint = FPoint(frac4 * header.width, frac3 * header.height);
-							clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
-							clip2.addPoint(FPoint(frac6 * header.width, frac5 * header.height));
-						}
-						else
-						{
-							clip2.addPoint(frac4 * header.width, frac3 * header.height);
-							clip2.addPoint(frac2 * header.width, frac1 * header.height);
-							clip2.addPoint(frac4 * header.width, frac3 * header.height);
-							clip2.addPoint(frac6 * header.width, frac5 * header.height);
-						}
-						pathOpen = true;
-						first = false;
-						break;
-					case 6:
-						first = true;
-						break;
-					default:
-						break;
+				case 0:
+				case 3:
+					if (pathOpen)
+					{
+						clip2.addPoint(firstPoint);
+						clip2.addPoint(firstControl);
+						clip2.setMarker();
+					}
+					pathOpen = false;
+					first = true;
+					break;
+				case 1:
+					if (first)
+					{
+						firstControl = FPoint(frac2 * header.width, frac1 * header.height);
+						firstPoint = FPoint(frac4 * header.width, frac3 * header.height);
+						clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
+						clip2.addPoint(FPoint(frac6 * header.width, frac5 * header.height));
+					}
+					else
+					{
+						clip2.addPoint(frac4 * header.width, frac3 * header.height);
+						clip2.addPoint(frac2 * header.width, frac1 * header.height);
+						clip2.addPoint(frac4 * header.width, frac3 * header.height);
+						clip2.addPoint(frac6 * header.width, frac5 * header.height);
+					}
+					pathOpen = true;
+					first = false;
+					break;
+				case 6:
+					first = true;
+					break;
+				default:
+					break;
 				}
 				offset2 += 26;
 			}
@@ -1690,35 +1948,35 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 			clip2.addPoint(firstControl);
 			imgInfo.PDSpathData.insert(resName, clip2.copy());
 		}
-		 else
-		 {
+		else
+		{
 			switch (resID)
 			{
-				case 0x0bb7:
-					adj = s.device()->at();
-					imgInfo.clipPath = getPascalString(s);
-					offset += s.device()->at() - adj;
-					break;
-				case 0x03ed:
-					s >> hRes;
-					s >> hResUnit;
-					s >> dummyW;
-					s >> vRes;
-					s >> vResUnit;
-					s >> dummyW;
-					imgInfo.xres = qRound(hRes / 65536.0);
-					imgInfo.yres = qRound(vRes / 65536.0);
-					break;
-				case 0x040f:
-					{
-						icclen = resSize;
-						char* buffer = (char*)malloc(resSize);
-						iccbuf = buffer;
-						s.readRawBytes(buffer, resSize);
-					}
-					break;
-				default:
-					break;
+			case 0x0bb7:
+				adj = s.device()->at();
+				imgInfo.clipPath = getPascalString(s);
+				offset += s.device()->at() - adj;
+				break;
+			case 0x03ed:
+				s >> hRes;
+				s >> hResUnit;
+				s >> dummyW;
+				s >> vRes;
+				s >> vResUnit;
+				s >> dummyW;
+				imgInfo.xres = qRound(hRes / 65536.0);
+				imgInfo.yres = qRound(vRes / 65536.0);
+				break;
+			case 0x040f:
+				{
+					icclen = resSize;
+					char* buffer = (char*)malloc(resSize);
+					iccbuf = buffer;
+					s.readRawBytes(buffer, resSize);
+				}
+				break;
+			default:
+				break;
 			}
 		}
 		s.device()->at( resBase + resSize );
@@ -1730,7 +1988,7 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 		}
 	}
 	if(offset<size)
-	  s.device()->at( size );
+		s.device()->at( size );
 }
 
 bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header )
@@ -2146,6 +2404,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 #else
 		qDebug("TIFF Support not available");
 #endif // HAVE_TIFF
+
 	}
 	else if (ext == "psd")
 	{
@@ -2230,137 +2489,145 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 
 bool ScImage::marker_is_icc (jpeg_saved_marker_ptr marker)
 {
-  return
-    marker->marker == ICC_MARKER &&
-    marker->data_length >= ICC_OVERHEAD_LEN &&
-    /* verify the identifying string */
-    GETJOCTET(marker->data[0]) == 0x49 &&
-    GETJOCTET(marker->data[1]) == 0x43 &&
-    GETJOCTET(marker->data[2]) == 0x43 &&
-    GETJOCTET(marker->data[3]) == 0x5F &&
-    GETJOCTET(marker->data[4]) == 0x50 &&
-    GETJOCTET(marker->data[5]) == 0x52 &&
-    GETJOCTET(marker->data[6]) == 0x4F &&
-    GETJOCTET(marker->data[7]) == 0x46 &&
-    GETJOCTET(marker->data[8]) == 0x49 &&
-    GETJOCTET(marker->data[9]) == 0x4C &&
-    GETJOCTET(marker->data[10]) == 0x45 &&
-    GETJOCTET(marker->data[11]) == 0x0;
+	return
+	    marker->marker == ICC_MARKER &&
+	    marker->data_length >= ICC_OVERHEAD_LEN &&
+	    /* verify the identifying string */
+	    GETJOCTET(marker->data[0]) == 0x49 &&
+	    GETJOCTET(marker->data[1]) == 0x43 &&
+	    GETJOCTET(marker->data[2]) == 0x43 &&
+	    GETJOCTET(marker->data[3]) == 0x5F &&
+	    GETJOCTET(marker->data[4]) == 0x50 &&
+	    GETJOCTET(marker->data[5]) == 0x52 &&
+	    GETJOCTET(marker->data[6]) == 0x4F &&
+	    GETJOCTET(marker->data[7]) == 0x46 &&
+	    GETJOCTET(marker->data[8]) == 0x49 &&
+	    GETJOCTET(marker->data[9]) == 0x4C &&
+	    GETJOCTET(marker->data[10]) == 0x45 &&
+	    GETJOCTET(marker->data[11]) == 0x0;
 }
 
 bool ScImage::marker_is_photoshop (jpeg_saved_marker_ptr marker)
 {
-  return
-    marker->marker == PHOTOSHOP_MARKER &&
-    marker->data_length >= ICC_OVERHEAD_LEN &&
-    /* verify the identifying string */
-    GETJOCTET(marker->data[0]) == 0x50 &&
-    GETJOCTET(marker->data[1]) == 0x68 &&
-    GETJOCTET(marker->data[2]) == 0x6F &&
-    GETJOCTET(marker->data[3]) == 0x74 &&
-    GETJOCTET(marker->data[4]) == 0x6F &&
-    GETJOCTET(marker->data[5]) == 0x73 &&
-    GETJOCTET(marker->data[6]) == 0x68 &&
-    GETJOCTET(marker->data[7]) == 0x6F &&
-    GETJOCTET(marker->data[8]) == 0x70 &&
-    GETJOCTET(marker->data[9]) == 0x20 &&
-    GETJOCTET(marker->data[10]) == 0x33 &&
-    GETJOCTET(marker->data[11]) == 0x2E &&
-    GETJOCTET(marker->data[12]) == 0x30 &&
-    GETJOCTET(marker->data[13]) == 0x0;
+	return
+	    marker->marker == PHOTOSHOP_MARKER &&
+	    marker->data_length >= ICC_OVERHEAD_LEN &&
+	    /* verify the identifying string */
+	    GETJOCTET(marker->data[0]) == 0x50 &&
+	    GETJOCTET(marker->data[1]) == 0x68 &&
+	    GETJOCTET(marker->data[2]) == 0x6F &&
+	    GETJOCTET(marker->data[3]) == 0x74 &&
+	    GETJOCTET(marker->data[4]) == 0x6F &&
+	    GETJOCTET(marker->data[5]) == 0x73 &&
+	    GETJOCTET(marker->data[6]) == 0x68 &&
+	    GETJOCTET(marker->data[7]) == 0x6F &&
+	    GETJOCTET(marker->data[8]) == 0x70 &&
+	    GETJOCTET(marker->data[9]) == 0x20 &&
+	    GETJOCTET(marker->data[10]) == 0x33 &&
+	    GETJOCTET(marker->data[11]) == 0x2E &&
+	    GETJOCTET(marker->data[12]) == 0x30 &&
+	    GETJOCTET(marker->data[13]) == 0x0;
 }
-/* Small modification of original read_icc_profile method from jpegicc of lcms project 
+/* Small modification of original read_icc_profile method from jpegicc of lcms project
  * to enable read of Photoshop marker 
  */
 bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len)
 {
-  jpeg_saved_marker_ptr marker;
-  int num_markers = 0;
-  int seq_no;
-  JOCTET *icc_data;
-  unsigned int total_length;
+	jpeg_saved_marker_ptr marker;
+	int num_markers = 0;
+	int seq_no;
+	JOCTET *icc_data;
+	unsigned int total_length;
 #define MAX_SEQ_NO  255		/* sufficient since marker numbers are bytes */
-  char marker_present[MAX_SEQ_NO+1];	  /* 1 if marker found */
-  unsigned int data_length[MAX_SEQ_NO+1]; /* size of profile data in marker */
-  unsigned int data_offset[MAX_SEQ_NO+1]; /* offset for data in marker */
+	char marker_present[MAX_SEQ_NO+1];	  /* 1 if marker found */
+	unsigned int data_length[MAX_SEQ_NO+1]; /* size of profile data in marker */
+	unsigned int data_offset[MAX_SEQ_NO+1]; /* offset for data in marker */
 
-  *icc_data_ptr = NULL;		/* avoid confusion if FALSE return */
-  *icc_data_len = 0;
+	*icc_data_ptr = NULL;		/* avoid confusion if FALSE return */
+	*icc_data_len = 0;
 
-  /* This first pass over the saved markers discovers whether there are
-   * any ICC markers and verifies the consistency of the marker numbering.
-   */
+	/* This first pass over the saved markers discovers whether there are
+	 * any ICC markers and verifies the consistency of the marker numbering.
+	 */
 
-  for (seq_no = 1; seq_no <= MAX_SEQ_NO; seq_no++)
-    marker_present[seq_no] = 0;
-  seq_no = 0;
-  for (marker = cinfo->marker_list; marker != NULL; marker = marker->next) {
-    if (requestmarker == ICC_MARKER && marker_is_icc(marker)) {
-      if (num_markers == 0)
-	num_markers = GETJOCTET(marker->data[13]);
-      else if (num_markers != GETJOCTET(marker->data[13]))
-	return FALSE;		/* inconsistent num_markers fields */
-      seq_no = GETJOCTET(marker->data[12]);
-      if (seq_no <= 0 || seq_no > num_markers)
-	return FALSE;		/* bogus sequence number */
-      if (marker_present[seq_no])
-	return FALSE;		/* duplicate sequence numbers */
-      marker_present[seq_no] = 1;
-      data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
-    } else if(requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker)) {
-      num_markers = ++seq_no;
-      marker_present[seq_no] = 1;
-      data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
-    }
-  }
+	for (seq_no = 1; seq_no <= MAX_SEQ_NO; seq_no++)
+		marker_present[seq_no] = 0;
+	seq_no = 0;
+	for (marker = cinfo->marker_list; marker != NULL; marker = marker->next)
+	{
+		if (requestmarker == ICC_MARKER && marker_is_icc(marker))
+		{
+			if (num_markers == 0)
+				num_markers = GETJOCTET(marker->data[13]);
+			else if (num_markers != GETJOCTET(marker->data[13]))
+				return FALSE;		/* inconsistent num_markers fields */
+			seq_no = GETJOCTET(marker->data[12]);
+			if (seq_no <= 0 || seq_no > num_markers)
+				return FALSE;		/* bogus sequence number */
+			if (marker_present[seq_no])
+				return FALSE;		/* duplicate sequence numbers */
+			marker_present[seq_no] = 1;
+			data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
+		}
+		else if(requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker))
+		{
+			num_markers = ++seq_no;
+			marker_present[seq_no] = 1;
+			data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
+		}
+	}
 
-  if (num_markers == 0)
-    return FALSE;
+	if (num_markers == 0)
+		return FALSE;
 
-  /* Check for missing markers, count total space needed,
-   * compute offset of each marker's part of the data.
-   */
+	/* Check for missing markers, count total space needed,
+	 * compute offset of each marker's part of the data.
+	 */
 
-  total_length = 0;
-  for (seq_no = 1; seq_no <= num_markers; seq_no++) {
-    if (marker_present[seq_no] == 0)
-      return FALSE;		/* missing sequence number */
-    data_offset[seq_no] = total_length;
-    total_length += data_length[seq_no];
-  }
+	total_length = 0;
+	for (seq_no = 1; seq_no <= num_markers; seq_no++)
+	{
+		if (marker_present[seq_no] == 0)
+			return FALSE;		/* missing sequence number */
+		data_offset[seq_no] = total_length;
+		total_length += data_length[seq_no];
+	}
 
-  if (total_length <= 0)
-    return FALSE;		/* found only empty markers? */
+	if (total_length <= 0)
+		return FALSE;		/* found only empty markers? */
 
-  /* Allocate space for assembled data */
-  icc_data = (JOCTET *) malloc(total_length * sizeof(JOCTET));
-  if (icc_data == NULL)
-    return FALSE;		/* oops, out of memory */
-  seq_no=0;
-  /* and fill it in */
-  for (marker = cinfo->marker_list; marker != NULL; marker = marker->next) {
-    if ( (requestmarker == ICC_MARKER && marker_is_icc(marker)) || 
-	 (requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker))) {
-      JOCTET FAR *src_ptr;
-      JOCTET *dst_ptr;
-      unsigned int length;
-      if(requestmarker == ICC_MARKER)
-	seq_no = GETJOCTET(marker->data[12]);
-      else if(requestmarker == PHOTOSHOP_MARKER)
-	seq_no++;
-      dst_ptr = icc_data + data_offset[seq_no];
-      src_ptr = marker->data + ICC_OVERHEAD_LEN;
-      length = data_length[seq_no];
-      while (length--) {
-	*dst_ptr++ = *src_ptr++;
-      }
-    }
-  }
+	/* Allocate space for assembled data */
+	icc_data = (JOCTET *) malloc(total_length * sizeof(JOCTET));
+	if (icc_data == NULL)
+		return FALSE;		/* oops, out of memory */
+	seq_no=0;
+	/* and fill it in */
+	for (marker = cinfo->marker_list; marker != NULL; marker = marker->next)
+	{
+		if ( (requestmarker == ICC_MARKER && marker_is_icc(marker)) ||
+		        (requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker)))
+		{
+			JOCTET FAR *src_ptr;
+			JOCTET *dst_ptr;
+			unsigned int length;
+			if(requestmarker == ICC_MARKER)
+				seq_no = GETJOCTET(marker->data[12]);
+			else if(requestmarker == PHOTOSHOP_MARKER)
+				seq_no++;
+			dst_ptr = icc_data + data_offset[seq_no];
+			src_ptr = marker->data + ICC_OVERHEAD_LEN;
+			length = data_length[seq_no];
+			while (length--)
+			{
+				*dst_ptr++ = *src_ptr++;
+			}
+		}
+	}
 
-  *icc_data_ptr = icc_data;
-  *icc_data_len = total_length;
+	*icc_data_ptr = icc_data;
+	*icc_data_len = total_length;
 
-  return TRUE;
+	return TRUE;
 }
 
 
@@ -2608,7 +2875,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 				Descriptor = cmsTakeProductDesc(tiffProf);
 				imgInfo.profileName = QString(Descriptor);
-//				free(EmbedBuffer);
+				//				free(EmbedBuffer);
 			}
 			else
 				imgInfo.profileName = "";
@@ -2630,11 +2897,11 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 					imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false;
 				}
 			}
-//			uint32 ClipLen = 0;
-//			uint8 ClipBuffer;
-//			QString db;
-//			if (TIFFGetField(tif, TIFFTAG_CLIPPATH, &ClipLen, &ClipBuffer))
-//				qDebug("%s", db.setNum(ClipLen).ascii());
+			//			uint32 ClipLen = 0;
+			//			uint8 ClipBuffer;
+			//			QString db;
+			//			if (TIFFGetField(tif, TIFFTAG_CLIPPATH, &ClipLen, &ClipBuffer))
+			//				qDebug("%s", db.setNum(ClipLen).ascii());
 			TIFFClose(tif);
 			if (resolutionunit == RESUNIT_INCH)
 			{
@@ -2786,7 +3053,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			imgInfo.colorspace = 2;
 		imgInfo.progressive = jpeg_has_multiple_scans(&cinfo);
 
-		if (read_jpeg_marker(PHOTOSHOP_MARKER,&cinfo, &PhotoshopBuffer, &PhotoshopLen) ) 
+		if (read_jpeg_marker(PHOTOSHOP_MARKER,&cinfo, &PhotoshopBuffer, &PhotoshopLen) )
 		{
 			if (PhotoshopLen != 0)
 			{
@@ -2810,7 +3077,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				yres = imgInfo.yres;
 				setDotsPerMeterX( int(100. * imgInfo.xres / 2.54) );
 				setDotsPerMeterY( int(100. * imgInfo.yres / 2.54) );
-				imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask 
+				imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask
 			}
 		}
 		if ( cinfo.output_components == 3 || cinfo.output_components == 4)
@@ -2969,18 +3236,18 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			break;
 		case 2: // RGB Proof
 			{
-			if (inputProfFormat==TYPE_CMYK_8)
-			  inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-			else
-				 inputProfFormat=TYPE_BGRA_8;
-			if (SoftProofing)
-				xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-			                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
-			                                   IntentPrinter, rend, cmsFlags);
-			else
-			  xform = cmsCreateTransform(inputProf, inputProfFormat,
-						     CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
-		  	}
+				if (inputProfFormat==TYPE_CMYK_8)
+					inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
+				else
+					inputProfFormat=TYPE_BGRA_8;
+				if (SoftProofing)
+					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
+					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
+					                                   IntentPrinter, rend, cmsFlags);
+				else
+					xform = cmsCreateTransform(inputProf, inputProfFormat,
+					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
+			}
 			break;
 		case 3: // no Conversion just raw Data
 			xform = 0;
