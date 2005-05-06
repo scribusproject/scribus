@@ -797,14 +797,17 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				app->slotNewPage(a);
 				Apage = doc->Pages.at(a);
 				if (PgNam == "")
+				{
 					doc->DocPages = doc->Pages;
+					doc->PageC = Pgc+1;
+				}
 				else
 				{
 					Apage->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
 					doc->MasterPages = doc->Pages;
+					doc->PageC = Pgc;
 				}
-				doc->PageC = Pgc+1;
 				doc->PageAT = AtFl;
 				Apage->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
