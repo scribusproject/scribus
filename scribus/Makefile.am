@@ -44,6 +44,7 @@ scribus_SOURCES = \
 		delpages.cpp\
 		docinfo.cpp\
 		docitemattrprefs.ui\
+		documentchecker.cpp\
 		documentinformation.cpp\
 		druck.cpp\
 		edit1format.cpp\
@@ -232,6 +233,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/delpages.h                    $(prefix)/include/scribus/delpages.h
 	$(INSTALL_DATA) $(srcdir)/docinfo.h                     $(prefix)/include/scribus/docinfo.h
 	$(INSTALL_DATA) $(srcdir)/docitemattrprefs.h            $(prefix)/include/scribus/docitemattrprefs.h
+	$(INSTALL_DATA) $(srcdir)/documentchecker.h             $(prefix)/include/scribus/documentchecker.h
 	$(INSTALL_DATA) $(srcdir)/documentinformation.h         $(prefix)/include/scribus/documentinformation.h
 	$(INSTALL_DATA) $(srcdir)/druck.h                       $(prefix)/include/scribus/druck.h
 	$(INSTALL_DATA) $(srcdir)/edit1format.h                 $(prefix)/include/scribus/edit1format.h
@@ -399,6 +401,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/delpages.h
 	-rm -f $(prefix)/include/scribus/docinfo.h
 	-rm -f $(prefix)/include/scribus/docitemattrprefs.h
+	-rm -f $(prefix)/include/scribus/documentchecker.h
 	-rm -f $(prefix)/include/scribus/documentinformation.h
 	-rm -f $(prefix)/include/scribus/druck.h
 	-rm -f $(prefix)/include/scribus/edit1format.h

@@ -16,6 +16,7 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "page.h"
+#include "documentchecker.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
@@ -205,7 +206,9 @@ void CheckDocument::newScan(const QString& name)
 {
 	clearErrorList();
 	document->curCheckProfile = name;
-	emit rescan();
+	DocumentChecker docChecker;
+	docChecker.checkDocument(document);
+	buildErrorList(document);
 }
 
 void CheckDocument::clearErrorList()

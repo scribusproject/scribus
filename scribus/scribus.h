@@ -452,7 +452,6 @@ public slots:
 	void CallGimp();
 	void docCheckToggle(bool visible);
 	void scanDocument();
-	void slotCheckDoc();
 	void setUndoMode(bool isObjectSpecific);
 	void insertSampleText();
 

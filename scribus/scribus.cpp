@@ -133,6 +133,7 @@
 #include "actionmanager.h"
 #include "documentinformation.h"
 #include "effectsdialog.h"
+#include "documentchecker.h"
 
 //CB TODO include for toc testing for now
 #include "gtwriter.h"
@@ -802,7 +803,6 @@ void ScribusApp::initPalettes()
 	connect(propertiesPalette->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(propertiesPalette->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(propertiesPalette->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
-	connect(docCheckerPalette, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
@@ -4832,6 +4832,7 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
+	actionManager->disconnectNewViewActions();
 	if (doc->viewCount > 1)
 	{
 		doc->viewCount--;
@@ -9963,145 +9964,10 @@ void ScribusApp::docCheckToggle(bool visible)
 	}
 }
 
-void ScribusApp::slotCheckDoc()
-{
-	scanDocument();
-	docCheckerPalette->buildErrorList(doc);
-}
-
 void ScribusApp::scanDocument()
 {
-	PageItem* it;
-	QString chx;
-	struct checkerPrefs checkerSettings;
-	checkerSettings.ignoreErrors = doc->checkerProfiles[doc->curCheckProfile].ignoreErrors;
-	checkerSettings.autoCheck = doc->checkerProfiles[doc->curCheckProfile].autoCheck;
-	checkerSettings.checkGlyphs = doc->checkerProfiles[doc->curCheckProfile].checkGlyphs;
-	checkerSettings.checkOrphans = doc->checkerProfiles[doc->curCheckProfile].checkOrphans;
-	checkerSettings.checkOverflow = doc->checkerProfiles[doc->curCheckProfile].checkOverflow;
-	checkerSettings.checkPictures = doc->checkerProfiles[doc->curCheckProfile].checkPictures;
-	checkerSettings.checkResolution = doc->checkerProfiles[doc->curCheckProfile].checkResolution;
-	checkerSettings.checkTransparency = doc->checkerProfiles[doc->curCheckProfile].checkTransparency;
-	checkerSettings.minResolution = doc->checkerProfiles[doc->curCheckProfile].minResolution;
-	checkerSettings.checkAnnotations = doc->checkerProfiles[doc->curCheckProfile].checkAnnotations;
-	checkerSettings.checkRasterPDF = doc->checkerProfiles[doc->curCheckProfile].checkRasterPDF;
-	doc->docItemErrors.clear();
-	doc->masterItemErrors.clear();
-	errorCodes itemError;
-	for (uint d = 0; d < doc->MasterItems.count(); ++d)
-	{
-		it = doc->MasterItems.at(d);
-		itemError.clear();
-		if (((it->isAnnotation) || (it->isBookmark)) && (checkerSettings.checkAnnotations))
-			itemError.insert(7, 0);
-		if (((it->fillTransparency() != 0.0) || (it->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
-			itemError.insert(6, 0);
-		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
-			itemError.insert(3, 0);
-		if (it->itemType() == PageItem::ImageFrame)
-		{
-		 	if ((!it->PicAvail) && (checkerSettings.checkPictures))
-				itemError.insert(4, 0);
-			else
-			{
-				if  (((qRound(72.0 / it->LocalScX) < checkerSettings.minResolution) || (qRound(72.0 / it->LocalScY) < checkerSettings.minResolution))
-				          && (it->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(5, 0);
-				QFileInfo fi = QFileInfo(it->Pfile);
-				QString ext = fi.extension(false).lower();
-				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
-					itemError.insert(8, 0);
-			}
-		}
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-		{
-			if ((it->itemText.count() > it->MaxChars) && (checkerSettings.checkOverflow))
-				itemError.insert(2, 0);
-			for (uint e = 0; e < it->itemText.count(); ++e)
-			{
-				uint chr = it->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
-					continue;
-				if (it->itemText.at(e)->cstyle & 64)
-				{
-					chx = it->itemText.at(e)->ch;
-					if (chx.upper() != it->itemText.at(e)->ch)
-						chx = chx.upper();
-					chr = chx[0].unicode();
-				}
-				if (chr == 30)
-				{
-					for (uint numco = 0x30; numco < 0x3A; ++numco)
-					{
-						if ((!it->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
-					}
-					continue;
-				}
-				if ((!it->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-					itemError.insert(1, 0);
-			}
-		}
-		if (itemError.count() != 0)
-			doc->masterItemErrors.insert(it->ItemNr, itemError);
-	}
-	for (uint d = 0; d < doc->DocItems.count(); ++d)
-	{
-		it = doc->DocItems.at(d);
-		itemError.clear();
-		if (((it->fillTransparency() != 0.0) || (it->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
-			itemError.insert(6, 0);
-		if (((it->isAnnotation) || (it->isBookmark)) && (checkerSettings.checkAnnotations))
-			itemError.insert(7, 0);
-		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
-			itemError.insert(3, 0);
-		if (it->itemType() == PageItem::ImageFrame)
-		{
-		 	if ((!it->PicAvail) && (checkerSettings.checkPictures))
-				itemError.insert(4, 0);
-			else
-			{
-				if  (((qRound(72.0 / it->LocalScX) < checkerSettings.minResolution) || (qRound(72.0 / it->LocalScY) < checkerSettings.minResolution))
-				           && (it->isRaster) && (checkerSettings.checkResolution))
-					itemError.insert(5, 0);
-				QFileInfo fi = QFileInfo(it->Pfile);
-				QString ext = fi.extension(false).lower();
-				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
-					itemError.insert(8, 0);
-			}
-		}
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-		{
-			if ((it->itemText.count() > it->MaxChars) && (checkerSettings.checkOverflow))
-				itemError.insert(2, 0);
-			for (uint e = 0; e < it->itemText.count(); ++e)
-			{
-				uint chr = it->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
-					continue;
-				if (it->itemText.at(e)->cstyle & 64)
-				{
-					chx = it->itemText.at(e)->ch;
-					if (chx.upper() != it->itemText.at(e)->ch)
-						chx = chx.upper();
-					chr = chx[0].unicode();
-				}
-				if (chr == 30)
-				{
-					for (uint numco = 0x30; numco < 0x3A; ++numco)
-					{
-						if ((!it->itemText.at(e)->cfont->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
-							itemError.insert(1, 0);
-					}
-					continue;
-				}
-				if ((!it->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
-					itemError.insert(1, 0);
-			}
-		}
-		if (itemError.count() != 0)
-			doc->docItemErrors.insert(it->ItemNr, itemError);
-	}
+	DocumentChecker docChecker;
+	docChecker.checkDocument(doc);
 }
 
 void ScribusApp::HaveRaster(bool art)
