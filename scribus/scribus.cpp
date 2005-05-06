@@ -8883,7 +8883,7 @@ void ScribusApp::restore(UndoState* state, bool isUndo)
 void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 {
 	uint pagenr   = state->getUInt("PAGENR");
-	QString tmpl = state->get("TEMPLATE");
+	QString tmpl = state->get("MASTERPAGE");
 	int where, wo;
 	if (pagenr == 1)
 	{
