@@ -1,8 +1,8 @@
-.TH "scribus" "1" "Updated 2004-12-16" "" ""
+.TH "scribus" "1" "Updated 2005-05-06"
 .SH "NAZWA"
 scribus \- program do sk³adu publikacji w trybie WYSIWYG dla ¶rodowiska X11 (wolne oprogramowanie na licencji GNU GPL)
 .SH "SK£ADNIA"
-scribus [\-h|\-\-help] [\-v|\-\-version] [\-l|\-\-lang jêzyk] [\-la|\-\-langs\-available] [\-f|\-\-file|\-\-] [nazwa pliku]
+scribus [\-h|\-\-help] [\-v|\-\-version] [\-l|\-\-lang jêzyk] [\-la|\-\-langs\-available] [nazwa pliku]
 .SH "OPIS"
 Scribus jest programem do sk³adu publikacji bêd±cym wolnym oprogramowaniem. Umo¿liwia edycjê w trybie WYSIWYG, doskona³y eksport do formatu PDF i szeroki wybór opcji importu i eksportu.
 
@@ -24,9 +24,6 @@ Wy¶wietla listê jêzyków, w których dostêpne jest t³umaczenie interfejsu. Aby wyb
 .TP 
 .B \-v, \-\-version
 Wy¶wietla numer wersji Scribusa.
-.TP 
-.B \-f, \-\-file
-Otwiera podany plik. Mo¿na równie¿ zamiast tego podaæ nazwê pliku jako niekwalifikowany argument, ale je¶li nazwa zaczyna siê od \-, nale¿y poprzedziæ j± \-\-, np. 'scribus \-\- \-myfile.sla'.
 .TP 
 .B \-h, \-\-help
 Wy¶wietla krótk± instrukcjê obs³ugi.
@@ -69,22 +66,20 @@ Ustawienia u¿ytkownika zapisywane s± w katalogu $HOME/.scribus/. Wiêkszo¶æ innyc
 Ustawienia Scribusa we w³asnym formacie xml. Mo¿e zostaæ zast±piony nowym formatem pliku ustawieñ.
 .TP 
 .B $HOME/.scribus/prefs.xml
-Plik ustawieñ w nowym formacie. W momencie tworzenia niniejszego dokumentu (wersja 1.2.x) plik ten jest jeszcze prawie ca³kowicie niewykorzystywany.
-Pliki konfiguracyjne powi±zanych programów:
-.TP 
-.B $HOME/.fonts
-.TP 
-.B /etc/fonts
-Fontconfig, biblioteka u¿ywana przez Scribusa do znajdowania czcionek, u¿ywa plików konfiguracyjnych znajduj±cych siê normalnie w katalogu /etc/fonts, g³ównie plików /etc/fonts/fonts.conf i /etc/fonts/local.conf. Mo¿e równie¿ u¿ywaæ pliku konfiguracyjnego w $HOME/.fonts/ . Zobacz fonts.conf(5) i dokumentacjê biblioteki fontconfig, aby uzyskaæ wiêcej informacji. Zwróæ uwagê, ¿e Scribus mo¿e równie¿ u¿ywaæ swoich w³asnych ¶cie¿ek do czcionek - zobacz  menu Ustawienia i pomoc wewn±trz Scribusa.
+Plik ustawieñ w nowym formacie. W momencie tworzenia niniejszego dokumentu (wersja 1.2.x) plik ten jest wykorzystywany do zapamiêtywania pozycji okien i u¿ywanych poprzednio katalogów.
+
 .SH "ZOBACZ TAK¯E"
-Strona z dokumentacj± Scribusa http://docs.scribus.net/ i strona domowa http://www.scribus.net/
+Strona z dokumentacj± Scribusa http://docs.scribus.net/ 
+
+Strona domowa http://www.scribus.net/
+
+Scribus Public Wiki http://wiki.scribus.net/
 
 gs(1), dokumentacja gs w html i strona http://www.ghostscript.com/
 
 .PP 
 Biblioteka QT \- http://www.trolltech.com/
 
-fonts\-conf(5) - informacje o konfiguracji biblioteki FontConfig
 .SH "POKREWNE OPROGRAMOWANIE I PARTNERZY"
 inkscape(1) \- http://inkscape.org/
 
