@@ -254,13 +254,13 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		DocDir = Prefs.DocDir;
 
 		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Getting ICC Profiles"));
+			splashScreen->setStatus( tr("Reading ICC Profiles"));
 		CMSavail = false;
 		GetCMSProfiles();
 		initCMS();
 
 		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Init Hyphenator"));
+			splashScreen->setStatus( tr("Initializing Hyphenator"));
 		qApp->processEvents();
 		initHyphenator();
 
@@ -3924,14 +3924,6 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 	ActWin->MenuStat[1] = scrActions["fileClose"]->isEnabled();
 	ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
 	ActWin->MenuStat[3] = scrActions["fileSaveAs"]->isEnabled();
-	/* Only need to do this when we HaveNewSel
-	if (view->SelItem.count() != 0)
-	{
-		PageItem *currItem = view->SelItem.at(0);
-		scrActions["itemLock"]->setOn(currItem->locked());
-		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
-	}
-	*/
 }
 
 void ScribusApp::updateRecent(QString fn)
@@ -4321,7 +4313,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		if (fl->ReplacedFonts.count() != 0)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QString mess = tr("Some Fonts used by this Document have been substituted:")+"\n\n";
+			QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
 			QMap<QString,QString>::Iterator it;
 			for (it = fl->ReplacedFonts.begin(); it != fl->ReplacedFonts.end(); ++it)
 			{
@@ -4400,7 +4392,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			if ((cmsWarning) && (doc->HasCMS))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
-				QString mess = tr("Some ICC-Profiles used by this Document are not installed:")+"\n\n";
+				QString mess = tr("Some ICC profiles used by this document are not installed:")+"\n\n";
 				for (uint m = 0; m < missing.count(); ++m)
 				{
 					mess += missing[m] + tr(" was replaced by: ")+replacement[m]+"\n";
@@ -4727,7 +4719,7 @@ bool ScribusApp::slotFileSave()
 		QString fn = doc->DocName;
 		ret = DoFileSave(fn);
 		if (!ret)
-			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("OK"));
 	}
 	else
 		ret = slotFileSaveAs();
@@ -4763,10 +4755,13 @@ bool ScribusApp::slotFileSaveAs()
 		fna += doc->DocName + ".sla";
 	}
 #ifdef HAVE_LIBZ
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
+	QString fileSpec=tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)");
+	bool setter=true;
 #else
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
+	QString fileSpec=tr("Documents (*.sla *.scd);;All Files (*)");
+	bool setter=false;
 #endif
+	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, false, false, setter);
 	if (!fn.isEmpty())
 	{
 		docContext->set("save_as", fn.left(fn.findRev("/")));
@@ -4778,7 +4773,7 @@ bool ScribusApp::slotFileSaveAs()
 		{
 			ret = DoFileSave(fna);
 			if (!ret)
-				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
+				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("OK"));
 			else
 				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
 		}
@@ -8052,7 +8047,7 @@ void ScribusApp::ShowSubs()
 	{
 		mess = tr("The following programs are missing:")+"\n\n";
 		if (HaveGS != 0)
-			mess += tr("Ghostscript : You cannot use EPS Images")+"\n\n";
+			mess += tr("Ghostscript : You cannot use EPS images")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
 
@@ -8080,14 +8075,14 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 	PSDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PSDriver)
 	{
-		std::cout << "Cannot find Plugin" << endl;
+		std::cout << "Cannot find the Scribus PostScript library plugin" << endl;
 		return NULL;
 	}
 	dlerror();
 	demo = (sdem)dlsym(PSDriver, "Run");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Cannot find Symbol" << endl;
+		std::cout << "Cannot find symbol" << endl;
 		dlclose(PSDriver);
 		return NULL;
 	}
@@ -8207,14 +8202,14 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	PDFDriver = dlopen(pfad, RTLD_NOW);
 	if (!PDFDriver)
 	{
-		std::cout << "Cannot find Plugin" << endl;
+		std::cout << "Cannot find the Scribus PDF plugin" << endl;
 		return false;
 	}
 	dlerror();
 	demo = (sdem)dlsym(PDFDriver, "Run");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Cannot find Symbol" << endl;
+		std::cout << "Cannot find symbol" << endl;
 		dlclose(PDFDriver);
 		return false;
 	}
@@ -8432,7 +8427,7 @@ void ScribusApp::doSaveAsPDF()
 		}
 		ReOrderText(doc, view);
 		if (!getPDFDriver(fn, nam, Components, pageNs, thumbs))
-			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("OK"));
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete dia;
@@ -9796,7 +9791,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 				}
 				if (!DoFileSave(fn))
 				{
-					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
+					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("OK"));
 					retVal = "";
 				}
 				if (withFontsR)
