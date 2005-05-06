@@ -2,7 +2,7 @@
 .SH NAME
 scribus - open source WYSIWYG desktop publishing app
 .SH SYNOPSIS
-scribus [-h|--help] [-v|--version] [-l|--lang language] [-la|--langs-available] [-f|--file|--] [filename]
+scribus [-h|--help] [-v|--version] [-l|--lang language] [-la|--langs-available] [filename]
 .SH DESCRIPTION
 Scribus is an open source desktop publishing program. It provides true WYSIWYG editing, excellent PDF export facilities, and a wide range of other input and output options.
 
@@ -25,9 +25,6 @@ Print a list of languages for which user interface translations are available. T
 .TP
 .B -v, --version
 Prints the Scribus version number and exits.
-.TP
-.B -f, --file
-Open the specified file. It's possible to simply pass the file name as an unqualified argument instead of using this, though if the name begins with a - you will need to use --, eg 'scribus -- -myfile.sla'.
 .TP
 .B -h, --help
 Print a brief usage summary.
@@ -65,35 +62,26 @@ of fonts. See gs(1) and the GhostScript HTML documentation for more information.
 .TP
 .B $HOME/.scribus/
 User preferences are stored in $HOME/.scribus/ . Most other paths are configurable from the Scribus preferences.
+.TP
 .B $HOME/.scribus/scribus.rc
 Scribus preferences file - formatted in a custom xml schema. May eventually be retired in favour of new format prefs file.
+.TP
 .B $HOME/.scribus/prefs.xml
-New format prefs file. As of time of writing (v1.2.x) this file was mostly unused.
-Configuration files for related programs:
-.TP
-.B $HOME/.fonts/
-.TP
-.B $HOME/.fonts.conf
-.TP
-.B /etc/fonts
-Fontconfig, the library used by Scribus to locate fonts, is normally configured with files in /etc/fonts, mainly /etc/fonts/fonts.conf and /etc/fonts/local.conf . It may also use a config file $HOME/.fonts.conf and fonts in $HOME/.fonts/ . See fonts.conf(5) and the fontconfig documentation for more information. Note that Scribus may also use its internal font path to locate more fonts - see the Preferences dialog and scribus help.
+New format prefs file. As of time of writing (v1.2.x) this file was mostly used for the storage of window locations and previously used directories.
 .SH SEE ALSO
 The scribus documentation site http://docs.scribus.net/ and home page http://www.scribus.net/
 
 gs(1), the gs html docs, and http://www.ghostscript.com/
 
-.PP
 The Qt library - http://www.trolltech.com/
-
-fonts-conf(5) for info on configuring FontConfig
 .SH RELATED SOFTWARE AND AFFILIATES
+gimp(1) - http://www.gimp.org/
 
 inkscape(1) - http://inkscape.org/
 
 OpenClipArt - http://openclipart.org/
 
 Other affiliates may be listed in the footer on http://www.scribus.net/
-
 
 .SH BUGS
 See
