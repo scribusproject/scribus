@@ -271,8 +271,8 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemDelete"], SIGNAL(activated()), ScApp, SLOT(DeleteObjekt()) );
 	connect( (*scrActions)["itemGroup"], SIGNAL(activated()), ScApp, SLOT(GroupObj()) );
 	connect( (*scrActions)["itemUngroup"], SIGNAL(activated()), ScApp, SLOT(UnGroupObj()) );
-	connect( (*scrActions)["itemLock"], SIGNAL(activated()), ScApp, SLOT(ToggleObjLock()) );
-	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), ScApp, SLOT(ToggleObjSizeLock()) );
+	//connect( (*scrActions)["itemLock"], SIGNAL(activated()), ScApp, SLOT(ToggleObjLock()) );
+	//connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), ScApp, SLOT(ToggleObjSizeLock()) );
 	//connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFAnnotation()) );
 	//connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(activated()), ScApp, SLOT(ModifyAnnot()) );
@@ -601,6 +601,8 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemConvertToTextFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAttachTextToPath"], 0, 0, 0);
 	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
+	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
+	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 }
 	
 void ActionManager::connectNewViewActions(ScribusView *currView)
@@ -622,20 +624,18 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), currView, SLOT(ToTextFrame()) );
 	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), currView, SLOT(ToPathText()) );
 	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), currView, SLOT(FromPathText()) );
+	connect( (*scrActions)["itemLock"], SIGNAL(activated()), currView, SLOT(ToggleLock()) );
+	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currView, SLOT(ToggleSizeLock()) );
 }
 
 void ActionManager::disconnectNewSelectionActions()
 {
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
-	//disconnect( (*scrActions)["itemPDFIsBookmark"], 0, 0, 0);
-	//disconnect( (*scrActions)["itemPDFIsAnnotation"], 0, 0, 0);
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView *currView)
 {
 	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currView, SLOT(TogglePic()) );
-	//connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFAnnotation()) );
-	//connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
 }
 	
 void ActionManager::saveActionShortcutsPreEditMode()
@@ -682,11 +682,11 @@ void ActionManager::enableUnicodeActions(bool enabled)
 	enableActionStringList(unicodeCharActionNames, enabled, enabled);
 }
 
-void ActionManager::setPDFActions(ScribusView *view)
+void ActionManager::setPDFActions(ScribusView *currView)
 {
-	if (view==NULL)
+	if (currView==NULL)
 		return;
-	PageItem* currItem = view->SelItem.at(0);
+	PageItem* currItem = currView->SelItem.at(0);
 	if (currItem==NULL)
 		return;
 
@@ -719,6 +719,6 @@ void ActionManager::setPDFActions(ScribusView *view)
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
 	}
-	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFAnnotation()) );
-	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), ScApp, SLOT(ToggleObjPDFBookmark()) );
+	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), currView, SLOT(ToggleAnnotation()) );
+	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), currView, SLOT(ToggleBookmark()) );
 }

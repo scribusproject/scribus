@@ -9566,30 +9566,6 @@ void ScribusApp::doHyphenate()
 	}
 }
 
-void ScribusApp::ToggleObjPDFAnnotation()
-{
-	if (HaveDoc)
-		view->ToggleAnnotation();
-}
-
-void ScribusApp::ToggleObjPDFBookmark()
-{
-	if (HaveDoc)
-		view->ToggleBookmark();
-}
-
-void ScribusApp::ToggleObjLock()
-{
-	if (HaveDoc)
-		view->ToggleLock();
-}
-
-void ScribusApp::ToggleObjSizeLock()
-{
-	if (HaveDoc)
-		view->ToggleSizeLock();
-}
-
 void ScribusApp::ManageGuides()
 {
 	if (HaveDoc)

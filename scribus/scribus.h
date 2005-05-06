@@ -252,10 +252,6 @@ public slots:
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
 	void windowsMenuActivated(int id);
-	void ToggleObjPDFAnnotation();
-	void ToggleObjPDFBookmark();
-	void ToggleObjLock();
-	void ToggleObjSizeLock();
 	void UnDoAction();
 	void RedoAction();
 	void doHyphenate();
