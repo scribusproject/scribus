@@ -1,6 +1,7 @@
 #include "scimage.h"
 #include "scribus.h"
 #include <qtextstream.h>
+#include <cassert>
 #ifdef HAVE_CMS
 	#include CMS_INC
 extern cmsHPROFILE CMSoutputProf;
@@ -2899,8 +2900,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			else
 				imgInfo.profileName = "";
 #endif // HAVE_CMS
-			DWORD PhotoshopLen = 0;
-			LPBYTE PhotoshopBuffer;
+			unsigned int PhotoshopLen = 0;
+			unsigned char* PhotoshopBuffer;
 			if (TIFFGetField(tif, TIFFTAG_PHOTOSHOP, &PhotoshopLen, &PhotoshopBuffer) )
 			{
 				if (PhotoshopLen != 0)
@@ -3039,8 +3040,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		else
 			imgInfo.profileName = "";
 #endif // HAVE_CMS
-		DWORD PhotoshopLen = 0;
-		LPBYTE PhotoshopBuffer;
+		unsigned int PhotoshopLen = 0;
+		unsigned char * PhotoshopBuffer;
 		if (cinfo.density_unit == 0)
 		{
 			xres = 72;
