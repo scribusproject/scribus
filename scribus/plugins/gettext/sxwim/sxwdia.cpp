@@ -18,7 +18,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	updateCheck = new QCheckBox(tr("Overwrite Paragraph Styles"), this,
 "updateCheck");
 	updateCheck->setChecked(update);
-	QToolTip::add(updateCheck, "<qt>" + tr("Enabling this will overwrite existing stlyes in the current Scribus document") + "</qt>");
+	QToolTip::add(updateCheck, "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 	
