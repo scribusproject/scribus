@@ -55,6 +55,7 @@ extern double RealCWidth(ScribusDoc *doc, Foi* name, QString ch, int Siz);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
+extern int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 extern ScribusApp* ScApp;
 
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline) 
@@ -738,6 +739,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				}
 				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
+				int LayerLev = Layer2Level(Doc, LayerNr);
 				if (OnMasterPage != "")
 				{
 					Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
@@ -745,8 +747,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					for (a = 0; a < Doc->MasterItems.count(); ++a)
 					{
 						PageItem* docItem = Doc->MasterItems.at(a);
-						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr))
-											|| (Doc->Layers[docItem->LayerNr].Level > Doc->Layers[LayerNr].Level))
+						int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
+						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 						{
 							if (docItem->textFlowsAroundFrame())
 							{
@@ -816,8 +818,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				for (a = 0; a < Doc->Items.count(); ++a)
 				{
 					PageItem* docItem = Doc->Items.at(a);
-					if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr))
-										 || (Doc->Layers[docItem->LayerNr].Level > Doc->Layers[LayerNr].Level))
+					int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
+					if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 					{
 						if (docItem->textFlowsAroundFrame())
 						{

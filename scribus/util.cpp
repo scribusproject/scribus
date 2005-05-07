@@ -115,6 +115,7 @@ char *toHex( uchar u );
 QString String2Hex(QString *in, bool lang = true);
 QString CompressStr(QString *in);
 void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level);
+int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double xy2Deg(double x, double y);
 QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
@@ -529,6 +530,16 @@ void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 			break;
 		}
 	}
+}
+
+int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
+{
+	for (uint la2 = 0; la2 < currentDoc->Layers.count(); ++la2)
+	{
+		if (currentDoc->Layers[la2].LNr == LayerNr)
+			return currentDoc->Layers[la2].Level;
+	}
+	return 0;
 }
 
 QString CompressStr(QString *in)

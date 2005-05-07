@@ -252,8 +252,7 @@ void LayerPalette::removeLayer(bool deleteItems)
 	int num2 = (*it2).LNr;
 	if (!num2)
 		return;
-	layers->remove
-			(it2);
+	layers->remove(it2);
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
