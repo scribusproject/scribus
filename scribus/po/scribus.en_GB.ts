@@ -7559,8 +7559,8 @@ otherwise Coordinates are relative to the Object.</translation>
       <translation>Update paragraph Styles</translation>
     </message>
     <message>
-      <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-      <translation>Enabling this will overwrite existing stlyes in the current Scribus document</translation>
+      <source>Enabling this will overwrite existing styles in the current Scribus document</source>
+      <translation>Enabling this will overwrite existing styles in the current Scribus document</translation>
     </message>
     <message>
       <source>Merge Paragraph Styles</source>
@@ -13629,8 +13629,8 @@ drag a Template to the Pageview below.</translation>
       <translation>Update Paragraph Styles</translation>
     </message>
     <message>
-      <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-      <translation>Enabling this will overwrite existing stlyes in the current Scribus document</translation>
+      <source>Enabling this will overwrite existing styles in the current Scribus document</source>
+      <translation>Enabling this will overwrite existing styles in the current Scribus document</translation>
     </message>
     <message>
       <source>Merge Paragraph Styles</source>

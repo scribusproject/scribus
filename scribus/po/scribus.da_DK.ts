@@ -7572,7 +7572,7 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>OpenDokument import indstillinger</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Ved aktivering overskrives eksisterende typografier i det aktive dokument</translation>
     </message>
     <message>
@@ -13657,7 +13657,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>OpenOffice.org Tekst import indstillinger</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Ved aktivering overskrives eksisterende typografier i det aktive dokument</translation>
     </message>
     <message>
