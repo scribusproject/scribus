@@ -2496,12 +2496,15 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				for (uint a = 0; a < Doc->Items.count(); ++a)
 				{
+					PageItem* docItem = Doc->Items.at(a);
 					p.begin(viewport());
-					Transform(Doc->Items.at(a), &p);
-					QRegion apr = QRegion(p.xForm(Doc->Items.at(a)->Clip));
-					QRect apr2 = getRedrawBounding(Doc->Items.at(a));
+					Transform(docItem, &p);
+					QRegion apr = QRegion(p.xForm(docItem->Clip));
+					QRect apr2 = getRedrawBounding(docItem);
 					p.end();
-					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (Doc->Items.at(a)->LayerNr == Doc->ActiveLayer))
+					if ((Doc->MasterP) && (docItem->OnMasterPage != Doc->currentPage->PageNam))
+						continue;
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->ActiveLayer))
 						SelectItemNr(a, false);
 				}
 			}
@@ -8665,6 +8668,7 @@ void ScribusView::setLayMenTxt(int l)
 {
 	QValueList<Layer>::iterator it;
 	QString lName;
+	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 	{
 		if ((*it).LNr == l)
@@ -8681,6 +8685,7 @@ void ScribusView::setLayMenTxt(int l)
 		lName += ".";
 	}
 	LY->setText(lName);
+	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
@@ -8810,25 +8815,26 @@ void ScribusView::LaMenu()
 {
 	uint a;
 	QValueList<Layer>::iterator it;
+	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
  	Laymen->clear();
  	if (Doc->Layers.count() != 0)
  	{
 		for (a=0; a < Doc->Layers.count(); a++)
  		{
-			int curr=0;
-			int n=0;
-			for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it,n++)
+			for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 			{
 				if (Doc->Layers.count()-(*it).Level-1 == a)
-				{
 					Laymen->insertItem((*it).Name);
-					if (Doc->ActiveLayer == n)
-						curr=Doc->Layers.count()-(*it).Level-1;
-				}
 			}
-			Laymen->setItemChecked(Laymen->idAt(curr), true);
  		}
  	}
+	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+	{
+		if ((*it).LNr == Doc->ActiveLayer)
+			break;
+	}
+	Laymen->setItemChecked(Laymen->idAt(Laymen->count()-1-(*it).Level), true);
+	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
 void ScribusView::GotoLa(int l)
@@ -8846,6 +8852,16 @@ void ScribusView::GotoLa(int l)
 			break;
 		}
 	}
+	for (uint al = 2; al < Laymen->count(); ++al)
+	{
+		Laymen->setItemChecked(Laymen->idAt(al), false);
+	}
+	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+	{
+		if ((*it).LNr == Doc->ActiveLayer)
+			break;
+	}
+	Laymen->setItemChecked(Laymen->idAt(Laymen->count()-1-(*it).Level), true);
 }
 
 void ScribusView::GotoPa(int Seite)

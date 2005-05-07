@@ -5419,7 +5419,13 @@ void ScribusApp::slotEditPaste()
 			{
 				view->Deselect(true);
 				uint ac = doc->Items.count();
+				bool savedAlignGrid = doc->useRaster;
+				bool savedAlignGuides = doc->SnapGuides;
+				doc->useRaster = false;
+				doc->SnapGuides = false;
 				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
+				doc->useRaster = savedAlignGrid;
+				doc->SnapGuides = savedAlignGuides;
 				for (uint as = ac; as < doc->Items.count(); ++as)
 				{
 					view->SelectItemNr(as);
@@ -7404,6 +7410,10 @@ void ScribusApp::ObjektDup()
 {
 	slotSelect();
 	double dx, dy;
+	bool savedAlignGrid = doc->useRaster;
+	bool savedAlignGuides = doc->SnapGuides;
+	doc->useRaster = false;
+	doc->SnapGuides = false;
 	if (view->SelItem.at(0)->OwnPage == -1)
 	{
 		dx = 0;
@@ -7424,6 +7434,8 @@ void ScribusApp::ObjektDup()
 		view->SelItem.at(b)->Ypos += dy;
 		view->MoveItem(DispX, DispY, view->SelItem.at(b));
 	}
+	doc->useRaster = savedAlignGrid;
+	doc->SnapGuides = savedAlignGuides;
 }
 
 void ScribusApp::ObjektDupM()
@@ -7444,6 +7456,10 @@ void ScribusApp::ObjektDupM()
 	Mdup *dia = new Mdup(this, DispX * doc->unitRatio, DispY * doc->unitRatio, doc->docUnitIndex);
 	if (dia->exec())
 	{
+		bool savedAlignGrid = doc->useRaster;
+		bool savedAlignGuides = doc->SnapGuides;
+		doc->useRaster = false;
+		doc->SnapGuides = false;
 		int anz = dia->Ncopies->value();
 		double dH = dia->ShiftH->value() / doc->unitRatio;
 		double dV = dia->ShiftV->value() / doc->unitRatio;
@@ -7472,6 +7488,8 @@ void ScribusApp::ObjektDupM()
 			slotDocCh();
 			view->Deselect(true);
 		}
+		doc->useRaster = savedAlignGrid;
+		doc->SnapGuides = savedAlignGuides;
 	}
 	delete dia;
 }
