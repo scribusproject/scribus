@@ -1300,7 +1300,7 @@ msgid ""
 "Maximum (95%)"
 msgstr ""
 "Livelli di compressione: Minima (25%), Bassa (50%), Media (75%), Alta "
-"(85%), Massima (95\%)"
+"(85%), Massima (95%)"
 
 msgid ""
 "Downsample your bitmap images to the selected DPI.\n"
