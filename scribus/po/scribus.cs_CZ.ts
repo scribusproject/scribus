@@ -7483,7 +7483,7 @@ a nikdy znovu nevyžadovat potvrzení</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -13872,7 +13872,7 @@ příliš upravovat.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

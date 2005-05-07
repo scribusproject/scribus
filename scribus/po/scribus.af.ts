@@ -6665,7 +6665,7 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12931,7 +12931,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

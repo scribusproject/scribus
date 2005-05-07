@@ -6705,7 +6705,7 @@ on front of the paragraph style name in Scribus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12896,7 +12896,7 @@ edited to match the one being imported, or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

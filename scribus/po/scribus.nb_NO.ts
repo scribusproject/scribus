@@ -6645,7 +6645,7 @@ ellers er Koordinater relative til Objektet.</translation>
       <translation type="unfinished" />
     </message>
     <message>
-      <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+      <source>Enabling this will overwrite existing styles in the current Scribus document</source>
       <translation type="unfinished" />
     </message>
     <message>
@@ -12664,7 +12664,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
       <translation>Oppdater avsnitsstiler</translation>
     </message>
     <message>
-      <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+      <source>Enabling this will overwrite existing styles in the current Scribus document</source>
       <translation type="unfinished" />
     </message>
     <message>

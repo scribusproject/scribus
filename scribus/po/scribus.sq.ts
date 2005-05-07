@@ -16119,7 +16119,7 @@ të mos kërkojë më ripohimin tuaj sërish</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23792,7 +23792,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

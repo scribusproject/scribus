@@ -7757,7 +7757,7 @@ mai tornarà a preguntar de nou</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -14200,7 +14200,7 @@ després d&apos;importar-lo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

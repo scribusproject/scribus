@@ -6034,7 +6034,7 @@ msgid "Update paragraph Styles"
 msgstr "Ĝisdatigu la aline-stilojn"
 
 msgid ""
-"Enabling this will overwrite existing stlyes in the current Scribus document"
+"Enabling this will overwrite existing styles in the current Scribus document"
 msgstr ""
 
 #, fuzzy

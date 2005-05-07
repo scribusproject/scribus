@@ -6027,7 +6027,7 @@ msgid "Update paragraph Styles"
 msgstr "Aktualizovať štýly odstavcov"
 
 msgid ""
-"Enabling this will overwrite existing stlyes in the current Scribus document"
+"Enabling this will overwrite existing styles in the current Scribus document"
 msgstr ""
 
 #, fuzzy

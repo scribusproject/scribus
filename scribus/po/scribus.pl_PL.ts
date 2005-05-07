@@ -7385,7 +7385,7 @@ w innym przypadku do obiektu.</translation>
       <translation>Aktualizuj style akapitów</translation>
     </message>
     <message>
-      <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+      <source>Enabling this will overwrite existing styles in the current Scribus document</source>
       <translation>Włączenie tej opcji spowoduje zastąpienie stylów istniejących w aktualnym dokumencie Scribusa</translation>
     </message>
     <message>
@@ -13455,7 +13455,7 @@ przeciągnij szablon na widok strony na dole.</translation>
       <translation>Aktualizuj style akapitów</translation>
     </message>
     <message>
-      <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+      <source>Enabling this will overwrite existing styles in the current Scribus document</source>
       <translation>Włączenie tej opcji spowoduje zastąpienie stylów istniejących w aktualnym dokumencie Scribusa</translation>
     </message>
     <message>
