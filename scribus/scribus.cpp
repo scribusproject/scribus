@@ -4306,11 +4306,17 @@ void ScribusApp::slotEditPaste()
 			{
 				doc->ActPage->Deselect(true);
 				uint ac = doc->ActPage->Items.count();
+				bool savedAlignGrid = doc->useRaster;
+				bool savedAlignGuides = doc->SnapGuides;
+				doc->useRaster = false;
+				doc->SnapGuides = false;
 				slotElemRead(Buffer2, 0, 0, false, true, doc);
 				for (uint as = ac; as < doc->ActPage->Items.count(); ++as)
 				{
 					doc->ActPage->SelectItemNr(as);
 				}
+				doc->useRaster = savedAlignGrid;
+				doc->SnapGuides = savedAlignGuides;
 			}
 		}
 		slotDocCh(false);
@@ -6451,6 +6457,10 @@ void ScribusApp::ObjektDup()
 {
 	slotSelect();
 	slotEditCopy();
+	bool savedAlignGrid = doc->useRaster;
+	bool savedAlignGuides = doc->SnapGuides;
+	doc->useRaster = false;
+	doc->SnapGuides = false;
 	doc->ActPage->Deselect(true);
 	slotEditPaste();
 	for (uint b=0; b<doc->ActPage->SelItem.count(); ++b)
@@ -6459,6 +6469,8 @@ void ScribusApp::ObjektDup()
 		doc->ActPage->MoveItem(DispX, DispY, doc->ActPage->SelItem.at(b));
 	}
 	doc->UnDoValid = false;
+	doc->useRaster = savedAlignGrid;
+	doc->SnapGuides = savedAlignGuides;
 	CanUndo();
 }
 
@@ -6478,6 +6490,10 @@ void ScribusApp::ObjektDupM()
 		if (anz>0)
 		{
 			slotEditCopy();
+			bool savedAlignGrid = doc->useRaster;
+			bool savedAlignGuides = doc->SnapGuides;
+			doc->useRaster = false;
+			doc->SnapGuides = false;
 			doc->ActPage->Deselect(true);
 			for (a=0; a<anz; ++a)
 			{
@@ -6493,6 +6509,8 @@ void ScribusApp::ObjektDupM()
 			DispX = dH;
 			DispY = dV;
 			slotDocCh();
+			doc->useRaster = savedAlignGrid;
+			doc->SnapGuides = savedAlignGuides;
 			doc->UnDoValid = false;
 			CanUndo();
 			doc->ActPage->Deselect(true);
