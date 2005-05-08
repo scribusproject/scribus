@@ -14377,10 +14377,6 @@ hodnoty nahradíte.</translation>
         <translation>Vyberte požadovaný import</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Remember association</source>
         <translation>Zapamatovat si asociaci</translation>
     </message>
