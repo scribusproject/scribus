@@ -1524,9 +1524,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								// at end of paragraph and therefore line
 								break;
 							}
-							alty =  b->Ptext.at(b->CPos)->yp;
-							while (  b->CPos < len-1 &&  b->Ptext.at(b->CPos+1)->yp == alty )
+							QString nextCh = b->Ptext.at(b->CPos)->ch;
+							int nextChs = b->Ptext.at(b->CPos)->csize;
+							alty =  b->Ptext.at(b->CPos)->yp - b->SetZeichAttr(b->Ptext.at(b->CPos), &nextChs, &nextCh);
+							double nextY;
+							while (b->CPos < len-1)
+							{
+								nextCh = b->Ptext.at(b->CPos+1)->ch;
+								nextChs = b->Ptext.at(b->CPos+1)->csize;
+								nextY = b->Ptext.at(b->CPos+1)->yp - b->SetZeichAttr(b->Ptext.at(b->CPos+1), &nextChs, &nextCh);
+								if (fabs(nextY - alty) > 1.0)
+									break;
 								b->CPos++;
+								if ( b->CPos == len-1)
+									break;
+							}
 							if ( b->CPos < len -1 )
 								c = b->Ptext.at(b->CPos+1)->ch.at(0).latin1();
 							else if ( b->CPos == len - 1 )
