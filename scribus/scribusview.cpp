@@ -469,28 +469,6 @@ void ScribusView::setMenTxt(int Seite)
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
-void ScribusView::setLayMenTxt(int l)
-{
-	QValueList<Layer>::iterator it;
-	QString lName;
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
-	{
-		if ((*it).LNr == l)
-			break;
-	}
-	lName=(*it).Name;
-	int len = lName.length();
-	while (LY->fontMetrics().width(lName) > LY->width()-25)
-	{
-		len--;
-		if (len == 0)
-			break;
-		lName.truncate(len);
-		lName += ".";
-	}
-	LY->setText(lName);
-}
-
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 {
@@ -583,6 +561,7 @@ void ScribusView::LaMenu()
 {
 	uint a;
 	QValueList<Layer>::iterator it;
+	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
  	Laymen->clear();
  	if (Doc->Layers.count() != 0)
  	{
@@ -601,23 +580,50 @@ void ScribusView::LaMenu()
 			Laymen->setItemChecked(Laymen->idAt(curr), true);
  		}
  	}
+	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+}
+
+void ScribusView::setLayMenTxt(int l)
+{
+	QValueList<Layer>::iterator it;
+	QString lName;
+	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+	{
+		if ((*it).LNr == l)
+			break;
+	}
+	lName=(*it).Name;
+	int len = lName.length();
+	while (LY->fontMetrics().width(lName) > LY->width()-25)
+	{
+		len--;
+		if (len == 0)
+			break;
+		lName.truncate(len);
+		lName += ".";
+	}
+	LY->setText(lName);
 }
 
 void ScribusView::GotoLa(int l)
 {
-	int a=0;
 	int d = Doc->Layers.count()-Laymen->indexOf(l)-1;
 	QValueList<Layer>::iterator it;
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it,a++)
+	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 	{
 		if ( d == (*it).Level )
 		{
-			Doc->ActiveLayer = a;
-			LY->setText(Doc->Layers[a].Name);
-			emit changeLA(a);
+			Doc->ActiveLayer = (*it).LNr;
+			setLayMenTxt((*it).LNr);
+			emit changeLA((*it).LNr);
 			break;
 		}
 	}
+	for (uint al = 0; al < Laymen->count(); ++al)
+	{
+		Laymen->setItemChecked(Laymen->idAt(al), false);
+	}
+	Laymen->setItemChecked(l, true);
 }
 
 void ScribusView::GotoPa(int Seite)

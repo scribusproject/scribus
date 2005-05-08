@@ -47,6 +47,7 @@ extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
+extern int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 extern ScribusApp* ScApp;
 
 PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline, ScribusDoc *doc) : QObject(pa)
@@ -670,8 +671,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				for (a=0; a<savedOwnPage->Items.count(); ++a)
 				{
 					PageItem* ownItem = savedOwnPage->Items.at(a);
-					if (((ownItem->ItemNr > ItemNr) && (ownItem->LayerNr == LayerNr))
-   							|| (Doc->Layers[ownItem->LayerNr].Level > Doc->Layers[LayerNr].Level))
+					int LayerLevItem = Layer2Level(Doc, ownItem->LayerNr);
+					int LayerLev = Layer2Level(Doc, LayerNr);
+					if (((ownItem->ItemNr > ItemNr) && (ownItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 					{
 						if (ownItem->Textflow)
 						{

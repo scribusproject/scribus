@@ -114,6 +114,7 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 QString MaskToTxt(QImage *im, bool PDF = true);
 QString MaskToTxt14(QImage *im);
 void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
+int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double xy2Deg(double x, double y);
 QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
@@ -1156,6 +1157,16 @@ void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level)
 			break;
 		}
 	}
+}
+
+int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
+{
+	for (uint la2 = 0; la2 < currentDoc->Layers.count(); ++la2)
+	{
+		if (currentDoc->Layers[la2].LNr == LayerNr)
+			return currentDoc->Layers[la2].Level;
+	}
+	return 0;
 }
 
 QString ImageToTxt(QImage *im)

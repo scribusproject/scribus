@@ -338,6 +338,7 @@ void LayerPalette::printLayer()
 
 void LayerPalette::MarkActiveLayer(int l)
 {
+	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
@@ -345,6 +346,7 @@ void LayerPalette::MarkActiveLayer(int l)
 			break;
 	}
 	Table->setCurrentCell(layers->count()-1-(*it).Level, 0);
+	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 }
 
 void LayerPalette::setActiveLayer(int row)
