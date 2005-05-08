@@ -165,15 +165,13 @@ PyObject *scribus_setactlayer(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
 	}
-	int i = -1;
 	bool found = false;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			i = static_cast<int>(lam);
-			Carrier->doc->ActiveLayer = i;
-			Carrier->changeLayer(i);
+			Carrier->doc->ActiveLayer = Carrier->doc->Layers[lam].LNr;
+			Carrier->changeLayer(Carrier->doc->Layers[lam].LNr);
 			found = true;
 			break;
 		}
@@ -191,7 +189,13 @@ PyObject *scribus_getactlayer(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyString_FromString(Carrier->doc->Layers[Carrier->doc->ActiveLayer].Name.utf8());
+	uint lam = 0;
+	for (lam=0; lam < Carrier->doc->Layers.count(); ++lam)
+	{
+		if (Carrier->doc->Layers[lam].LNr == Carrier->doc->ActiveLayer)
+			break;
+	}
+	return PyString_FromString(Carrier->doc->Layers[lam].Name.utf8());
 }
 
 PyObject *scribus_senttolayer(PyObject */*self*/, PyObject* args)

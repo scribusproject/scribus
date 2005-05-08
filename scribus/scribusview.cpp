@@ -8664,30 +8664,6 @@ void ScribusView::setMenTxt(int Seite)
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
-void ScribusView::setLayMenTxt(int l)
-{
-	QValueList<Layer>::iterator it;
-	QString lName;
-	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
-	{
-		if ((*it).LNr == l)
-			break;
-	}
-	lName=(*it).Name;
-	int len = lName.length();
-	while (LY->fontMetrics().width(lName) > LY->width()-25)
-	{
-		len--;
-		if (len == 0)
-			break;
-		lName.truncate(len);
-		lName += ".";
-	}
-	LY->setText(lName);
-	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-}
-
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 {
@@ -8837,31 +8813,49 @@ void ScribusView::LaMenu()
 	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
+void ScribusView::setLayMenTxt(int l)
+{
+	QValueList<Layer>::iterator it;
+	QString lName;
+	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+	{
+		if ((*it).LNr == l)
+			break;
+	}
+	lName=(*it).Name;
+	int len = lName.length();
+	while (LY->fontMetrics().width(lName) > LY->width()-25)
+	{
+		len--;
+		if (len == 0)
+			break;
+		lName.truncate(len);
+		lName += ".";
+	}
+	LY->setText(lName);
+	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+}
+
 void ScribusView::GotoLa(int l)
 {
-	int a=0;
 	int d = Doc->Layers.count()-Laymen->indexOf(l)-1;
 	QValueList<Layer>::iterator it;
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it,a++)
+	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 	{
 		if ( d == (*it).Level )
 		{
-			Doc->ActiveLayer = a;
-			LY->setText(Doc->Layers[a].Name);
-			emit changeLA(a);
+			Doc->ActiveLayer = (*it).LNr;
+			setLayMenTxt((*it).LNr);
+			emit changeLA((*it).LNr);
 			break;
 		}
 	}
-	for (uint al = 2; al < Laymen->count(); ++al)
+	for (uint al = 0; al < Laymen->count(); ++al)
 	{
 		Laymen->setItemChecked(Laymen->idAt(al), false);
 	}
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
-	{
-		if ((*it).LNr == Doc->ActiveLayer)
-			break;
-	}
-	Laymen->setItemChecked(Laymen->idAt(Laymen->count()-1-(*it).Level), true);
+	Laymen->setItemChecked(l, true);
 }
 
 void ScribusView::GotoPa(int Seite)
