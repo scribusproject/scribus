@@ -344,21 +344,16 @@ void NewDoc::setDist(int)
 
 void NewDoc::setUnit(int newUnitIndex)
 {
-	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
-//	int precision = unitGetPrecisionFromIndex(unitIndex);
-
-	double oldUnitRatio = unitRatio;
-	unitRatio = unitGetRatioFromIndex(newUnitIndex);
-	int decimals = unitGetDecimalsFromIndex(newUnitIndex);
-
-	double val, oldB, oldBM, oldH, oldHM;
-
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
 	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+		
+	double oldUnitRatio = unitRatio;
+	double val, oldB, oldBM, oldH, oldHM;
+	int decimals;
 	Breite->getValues(&oldB, &oldBM, &decimals, &val);
 	oldB /= oldUnitRatio;
 	oldBM /= oldUnitRatio;
@@ -366,7 +361,9 @@ void NewDoc::setUnit(int newUnitIndex)
 	oldH /= oldUnitRatio;
 	oldHM /= oldUnitRatio;
 
-	unitIndex = newUnitIndex;
+	unitIndex = newUnitIndex;	
+	unitRatio = unitGetRatioFromIndex(newUnitIndex);
+	decimals = unitGetDecimalsFromIndex(newUnitIndex);
 	if (ComboBox2->currentItem() == PORTRAIT)
 	{
 		Breite->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
@@ -382,6 +379,7 @@ void NewDoc::setUnit(int newUnitIndex)
 	TopR->setValues(0, Hoehe->value() - Bottom * unitRatio, decimals, Top * unitRatio);
 	BottomR->setValues(0, Hoehe->value() - Top * unitRatio, decimals, Bottom * unitRatio);
 	Distance->setValue(Dist * unitRatio);
+	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);	
 	TopR->setSuffix(unitSuffix);
 	BottomR->setSuffix(unitSuffix);
 	LeftR->setSuffix(unitSuffix);
