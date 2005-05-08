@@ -8144,7 +8144,7 @@ void ScribusView::ClearItem()
 
 void ScribusView::DeleteItem()
 {
-	uint a, c, itnr, anz;
+	uint a, c, anz;
 	QPtrList<PageItem> delItems;
 	PageItem *currItem;
 	if (SelItem.count() != 0)
@@ -8214,27 +8214,14 @@ void ScribusView::DeleteItem()
 				}
 			}
 			if (currItem->isBookmark)
-				emit DelBM(SelItem.at(0));
-			Doc->Items.remove(currItem->ItemNr);
+				emit DelBM(currItem);
+			Doc->Items.remove(currItem);
 			currItem->Select = false;
 			delItems.removeFirst();
-			for (a = 0; a < Doc->Items.count(); ++a)
-			{
-				itnr = Doc->Items.at(a)->ItemNr;
-				Doc->Items.at(a)->ItemNr = a;
-				if (Doc->Items.at(a)->isBookmark)
-					emit NewBMNr(Doc->Items.at(a)->BMnr, a);
-				for (uint dxx=0; dxx<delItems.count(); ++dxx)
-				{
-					if (delItems.at(dxx)->ItemNr == itnr)
-						delItems.at(dxx)->ItemNr = a;
-				}
-			}
 			// send the undo action to the UndoManager
 			if (UndoManager::undoEnabled())
 			{
-				ItemState<PageItem*> *is =
-						new ItemState<PageItem*>(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
+				ItemState<PageItem*> *is = new ItemState<PageItem*>(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
 				is->setItem(currItem);
 				is->set("DELETE_ITEM", "delete_item");
 				UndoObject *target;
@@ -8244,6 +8231,12 @@ void ScribusView::DeleteItem()
 					target = Doc->Pages.at(0);
 				undoManager->action(target, is, currItem->getUPixmap());
 			}
+		}
+		for (a = 0; a < Doc->Items.count(); ++a)
+		{
+			Doc->Items.at(a)->ItemNr = a;
+			if (Doc->Items.at(a)->isBookmark)
+				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
 
 		if (anz > 1)
