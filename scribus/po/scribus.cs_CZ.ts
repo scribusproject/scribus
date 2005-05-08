@@ -7496,7 +7496,7 @@ a nikdy znovu nevyžadovat potvrzení</translation>
         <translation>Aktualizovat styly odstavce</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Přepsat existující styly novými</translation>
     </message>
     <message>
@@ -13890,7 +13890,7 @@ příliš upravovat.</translation>
         <translation>Aktualizovat styly odstavce</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Přepsat existující styly novými</translation>
     </message>
     <message>
