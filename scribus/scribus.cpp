@@ -871,8 +871,8 @@ const QString ScribusApp::getGuiLanguage()
 bool ScribusApp::warningVersion(QWidget *parent)
 {
 	bool retval = false;
-	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"),
-								 QObject::tr("You are running a development version of Scribus 1.3.x.\nThe process of saving will make files originating from versions of\nScribus of 1.2.x or lower unusable again in those versions.\nAre you sure you wish to proceed with this operation?"),
+	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" + 
+								 QObject::tr("You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File->Save As. Are you sure you wish to proceed with this operation?") + "</qt>",
 								 QObject::tr("&Cancel"), QObject::tr("&Proceed"), "", 1, 0);
 	if (t == 1)
 		retval = true;
@@ -2620,6 +2620,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	if (HaveDoc)
 		doc->OpenNodes = outlinePalette->buildReopenVals();
 	doc = new ScribusDoc(&Prefs);
+	doc->is12doc=false;
 	docCheckerPalette->clearErrorList();
 	doc->docUnitIndex = einh;
 	if (fp)
@@ -4207,15 +4208,12 @@ bool ScribusApp::LadeDoc(QString fileName)
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
 		FileLoader *fl = new FileLoader(FName, this);
+		bool is12doc=false;
 		if (fl->TestFile() == 0)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			//Scribus 1.3.x warning, remove at a later stage
-			if (!warningVersion(this))
-			{
-				delete fl;
-				return false;
-			}
+			is12doc=true;
 		}
 		if (fl->TestFile() == -1)
 		{
@@ -4226,6 +4224,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		}
 		Prefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
 		doc=new ScribusDoc(&Prefs);
+		doc->is12doc=is12doc;
 		doc->appMode = NormalMode;
 		doc->HasCMS = false;
 		doc->ActiveLayer = 0;
@@ -4709,13 +4708,14 @@ void ScribusApp::slotAutoSaved()
 
 bool ScribusApp::slotFileSave()
 {
-	//Scribus 1.3.x warning, remove at a later stage
-	if (!warningVersion(this))
-		return false;
-	//
 	bool ret = false;
 	if (doc->hasName)
 	{
+		//Scribus 1.3.x warning, remove at a later stage
+		if (doc->is12doc)
+			if (!warningVersion(this))
+				return false;
+
 		QString fn = doc->DocName;
 		ret = DoFileSave(fn);
 		if (!ret)
@@ -4729,8 +4729,11 @@ bool ScribusApp::slotFileSave()
 bool ScribusApp::slotFileSaveAs()
 {
 	//Scribus 1.3.x warning, remove at a later stage
-	if (!warningVersion(this))
-		return false;
+	if (doc->is12doc)
+		if (!warningVersion(this))
+			return false;
+	//Turn off the warnings once the docs is saved.
+	doc->is12doc=false;
 	//
 	bool ret = false;
 	QString fna;

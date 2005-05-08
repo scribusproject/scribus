@@ -99,6 +99,7 @@ protected:
     UndoManager *undoManager;
 
 public: // Public attributes
+    bool is12doc; //public for now, it will be removed later
 	int NrItems;
 	int First;
 	int Last;
@@ -152,23 +153,6 @@ public: // Public attributes
 	Page* currentPage;
   /** InfoStrings fuer das aktuelle Dokument */
 	DocumentInformation documentInfo;
-	/*
-	QString DocAutor;
-	QString DocTitel;
-	QString DocComments;
-	QString DocKeyWords;
-	QString DocPublisher;
-	QString DocType;
-	QString DocDate;
-	QString DocFormat;
-	QString DocIdent;
-	QString DocSource;
-	QString DocLangInfo;
-	QString DocRelation;
-	QString DocCover;
-	QString DocRights;
-	QString DocContrib;
-	*/
 	int appMode;
 	int SubMode;
 	double *ShapeValues;
