@@ -204,7 +204,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
 	initDefaultValues();
-	
+
 	actionManager = new ActionManager(this, "actionManager");
 	initMenuBar();
 	initStatusBar();
@@ -243,7 +243,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
-		//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many 
+		//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
 		//     have conflicts if they dont nuke their settings. muhahahhaha
 		importingFrom12=true;
 		//>>CB
@@ -603,7 +603,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PDF_Options.Permissions = -4;
 	Prefs.PDF_Options.UseLPI = false;
 	Prefs.PDF_Options.LPISettings.clear();
-	
+
 	//Attribute setup
 	Prefs.defaultItemAttributes.clear();
 	Prefs.defaultToCSetups.clear();
@@ -871,7 +871,7 @@ const QString ScribusApp::getGuiLanguage()
 bool ScribusApp::warningVersion(QWidget *parent)
 {
 	bool retval = false;
-	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" + 
+	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
 								 QObject::tr("You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File->Save As. Are you sure you wish to proceed with this operation?") + "</qt>",
 								 QObject::tr("&Cancel"), QObject::tr("&Proceed"), "", 1, 0);
 	if (t == 1)
@@ -1113,7 +1113,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
 	scrMenuMgr->addMenuToMenu("ItemPDFOptions", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFIsAnnotation"], "ItemPDFOptions");
-	scrMenuMgr->addMenuItem(scrActions["itemPDFIsBookmark"], "ItemPDFOptions");	
+	scrMenuMgr->addMenuItem(scrActions["itemPDFIsBookmark"], "ItemPDFOptions");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFAnnotationProps"], "ItemPDFOptions");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFFieldProps"], "ItemPDFOptions");
 	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
@@ -1130,7 +1130,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToPolygon"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToTextFrame"], "ItemConvertTo");
-	
+
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
@@ -1165,7 +1165,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
-	
+
 	scrMenuMgr->createMenu("InsertChar", tr("Character"));
 	scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "InsertChar");
@@ -1180,7 +1180,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialDashEn"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashFigure"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashQuotation"], "InsertChar");
-	
+
 	scrMenuMgr->createMenu("InsertQuote", tr("Quote"));
 	scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteApostrophe"], "InsertQuote");
@@ -1214,11 +1214,11 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
 	scrActions["insertGlyph"]->setEnabled(false);
-	
+
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
 	scrMenuMgr->addMenuItem(scrActions["pageInsert"], "Page");
-	scrMenuMgr->addMenuItem(scrActions["pageImport"], "Page");	
+	scrMenuMgr->addMenuItem(scrActions["pageImport"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageDelete"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageCopy"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageMove"], "Page");
@@ -1269,7 +1269,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["extrasManagePictures"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras");
-	
+
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrActions["extrasHyphenateText"]->setEnabled(false);
 
@@ -1553,7 +1553,7 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 		else
 		if (currKeySeq == scrActions["fileQuit"]->accel())
 			scrActions["fileQuit"]->activate();
-		else			
+		else
 			retVal=false;
 	}
 	else
@@ -2646,7 +2646,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 	doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
 	doc->PDF_Options.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
-	
+
 	struct LPIData lpo;
 	lpo.Frequency = 75;
 	lpo.SpotFunc = 2;
@@ -2676,7 +2676,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	w->setCentralWidget(view);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-	
+
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
 	{
@@ -3223,10 +3223,10 @@ bool ScribusApp::SetupDoc()
 #endif
 				}
 		}
-		
+
 		doc->docItemAttributes = *(dia->tabDocItemAttributes->getNewAttributes());
 		doc->docToCSetups = *(dia->tabTOCIndexPrefs->getNewToCs());
-		
+
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -3527,7 +3527,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	if ((Nr==-1) || (Nr!=-1 && currItem->itemType()!=PageItem::TextFrame))
 		actionManager->enableUnicodeActions(false);
 	scrActions["insertSampleText"]->setEnabled(false);
-	
+
 	view->horizRuler->ItemPosValid = false;
 	view->horizRuler->repX = false;
 	view->horizRuler->repaint();
@@ -3834,7 +3834,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
-		
+
 		if (currItem->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);
 		else
@@ -6147,7 +6147,7 @@ void ScribusApp::setAppMode(int mode)
 	scrActions["toolsUnlinkTextFrame"]->setOn(mode==UnlinkFrames);
 	scrActions["toolsEyeDropper"]->setOn(mode==EyeDropper);
 	scrActions["toolsCopyProperties"]->setOn(mode==CopyProperties);
-		
+
 	PageItem *currItem;
 	setActiveWindow();
 	//qDebug(QString("::setAppMode(%1)").arg(mode));
@@ -6325,7 +6325,7 @@ void ScribusApp::setAppMode(int mode)
 		if (mode == EyeDropper)
 		{
 			grabMouse();
-			//grabKeyboard();	
+			//grabKeyboard();
 		}
 		if (mode == CopyProperties)
 		{
@@ -6338,7 +6338,7 @@ void ScribusApp::setAppMode(int mode)
 		}
 	}
 
-	actionManager->connectModeActions();	
+	actionManager->connectModeActions();
 }
 
 void ScribusApp::Aktiv()
@@ -7939,10 +7939,10 @@ void ScribusApp::slotPrefsOrg()
 #endif
 				}
 		}
-		
+
 		Prefs.defaultItemAttributes = *(dia->tabDefaultItemAttributes->getNewAttributes());
 		Prefs.defaultToCSetups = *(dia->tabDefaultTOCIndexPrefs->getNewToCs());
-		
+
 		GetCMSProfiles();
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
@@ -8672,12 +8672,12 @@ void ScribusApp::manageMasterPagesEnd()
 //	slotDocCh();
 }
 /*!
- * @brief Apply master pages from the Apply Master Page dialog 
+ * @brief Apply master pages from the Apply Master Page dialog
  * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
  */
 void ScribusApp::ApplyMasterPage()
 {
-	
+
 	ApplyMasterPageDialog *dia = new ApplyMasterPageDialog(this);
 	dia->setup(doc, doc->currentPage->MPageNam);
 	if (dia->exec())
@@ -8699,7 +8699,7 @@ void ScribusApp::ApplyMasterPage()
 				startPage = pageSelection==1 ? 1 : 0; //if even, startPage is 1 (real page 2)
 				endPage=doc->pageCount;
 			}
-				
+
 			for (int pageNum = startPage; pageNum < endPage; ++pageNum)// +=pageStep)
 			{
 				//Increment by 1 and not 2 even for even/odd application as user
@@ -8919,7 +8919,7 @@ void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 	if (isUndo)
 	{
 		addNewPages(wo, where, 1, tmpl, tmpl);
-		UndoObject *tmp = 
+		UndoObject *tmp =
 			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages.at(pagenr - 1));
 		delete tmp;
 	}
@@ -9588,14 +9588,18 @@ void ScribusApp::ManageGuides()
 	if (HaveDoc)
 	{
 		GuideManager *dia = new GuideManager(
-		                        this,
-		                        doc->currentPage->XGuides,
-		                        doc->currentPage->YGuides,
-		                        doc->currentPage->Width,
-		                        doc->currentPage->Height,
-		                        doc->GuideLock,
-		                        doc->docUnitIndex
-		                    );
+					this,
+					doc->currentPage->XGuides,
+					doc->currentPage->YGuides,
+					doc->currentPage->Width,
+					doc->currentPage->Height,
+					doc->pageMargins.Top,
+					doc->pageMargins.Bottom,
+					doc->pageMargins.Left,
+					doc->pageMargins.Right,
+					doc->GuideLock,
+					doc->docUnitIndex
+					);
 		if (dia->exec())
 		{
 			doc->currentPage->addXGuides(dia->LocVer);
@@ -10220,7 +10224,7 @@ void ScribusApp::generateTableOfContents()
 			PageItem* tocFrame=NULL;
 			for (d = 0; d < doc->DocItems.count(), found==false; ++d)
 			{
-				if (doc->DocItems.at(d) !=NULL ) 
+				if (doc->DocItems.at(d) !=NULL )
 				{
 					if (doc->DocItems.at(d)->itemType()==PageItem::TextFrame && doc->DocItems.at(d)->itemName()==(*tocSetupIt).frameName)
 					{
@@ -10254,16 +10258,16 @@ void ScribusApp::generateTableOfContents()
 							tocMap.insert(key, objattr.value);
 							if (objattr.value.length()>maxDataWidth)
 								maxDataWidth=objattr.value.length();
-						}				
+						}
 					}
 				}
 				gtWriter* writer = new gtWriter(false, tocFrame);
 				QString oldTocPage=QString::null;
 				for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
 				{
-					QString tocPage = tocIt.key().section( ',', 0, 0 ); 
+					QString tocPage = tocIt.key().section( ',', 0, 0 );
 					QString tocLine = tocIt.data();
-					//QString tocPageItemNo = tocIt.key().section( ',', 1, 1 ); 
+					//QString tocPageItemNo = tocIt.key().section( ',', 1, 1 );
 					if (oldTocPage!=tocPage)
 					{
 						oldTocPage=tocPage;
