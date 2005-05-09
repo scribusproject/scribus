@@ -7,7 +7,7 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation>getColorNames() -&gt; list(new line)
+        <translation>getColorNames() -&gt; list 
 
 Palauttaa listan värien nimistä, jotka on määritelty asiakirjassa.
 Jos asiakirjoja ei ole avoinna, palauttaa listan oletusväreistä.</translation>
@@ -220,7 +220,18 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_callable(name, callable, accel=&apos;&apos;)
+
+Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
+The passed callable must not require any arguments when called (it may take
+optional arguments, but will not be given any).
+If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
+for the macro.
+If the passed callable is a class, it will be rejected. Functions and bound
+methods are quite acceptable, as are instances of classes that provide a
+__call__ method with no arguments. There is no problem with registering
+a callable more than once, nor with registering multiple bound methods
+of a single instance.</translation>
     </message>
 </context>
 <context>
@@ -328,9 +339,23 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished">fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
-
-</translation>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename 
+ 
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered 
+with the filter string &quot;filter&quot;. A default filename or file path can also 
+supplied, leave this string empty when you don&apos;t want to use it.  A value of 
+True for haspreview enables a small preview widget in the FileSelect box.  When 
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog 
+otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the 
+opional parameters is False. 
+ 
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;. 
+For example &apos;Images (*.png *.xpm *.jpg)&apos;. 
+ 
+Refer to the Qt-Documentation for QFileDialog for details on filters. 
+ 
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;) 
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True) </translation>
     </message>
     <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
@@ -366,7 +391,38 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messageBox(&quot;caption&quot;, &quot;message&quot;, 
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT, 
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer 
+ 
+Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and 
+an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single 
+button, OK, is displayed. Only the caption and message arguments are required, 
+though setting an icon and appropriate button(s) is strongly 
+recommended. The message text may contain simple HTML-like markup. 
+ 
+Returns the number of the button the user pressed. Button numbers start 
+at 1. 
+ 
+For the icon and the button parameters there are predefined constants available 
+with the same names as in the Qt Documentation. These are the BUTTON_* and 
+ICON_* constants defined in the module. There are also two extra constants that 
+can be binary-ORed with button constants: 
+    BUTTONOPT_DEFAULT   Pressing enter presses this button. 
+    BUTTONOPT_ESCAPE    Pressing escape presses this button. 
+ 
+Usage examples: 
+result = messageBox(&apos;Script failed&apos;, 
+                    &apos;This script only works when you have a text frame selected.&apos;, 
+                    ICON_ERROR) 
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;, 
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT, 
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE) 
+ 
+Defined button and icon constants: 
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO, 
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL, 
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</translation>
     </message>
     <message>
         <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
@@ -510,7 +566,12 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished">setDocType(facingPages, firstPageLeft)
+        <translation>setDocType(facingPages, firstPageLeft) 
+ 
+Sets the document type. To get facing pages set the first parameter to 
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want 
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for 
+a right page use FIRSTPAGERIGHT.
 
 </translation>
     </message>
@@ -554,8 +615,11 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished">getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
-
+        <translation>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+ 
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given 
+the currently selected item is used.  The join types are: 
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND 
 </translation>
     </message>
     <message>
@@ -565,7 +629,11 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished">getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)</translation>
+        <translation>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
+ 
+Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the 
+currently selected item is used. The cap types are: 
+CAP_FLAT, CAP_ROUND, CAP_SQUARE </translation>
     </message>
     <message>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
@@ -574,8 +642,11 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished">getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
-
+        <translation>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+ 
+Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the 
+currently selected item is used. Line style constants are: 
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID 
 </translation>
     </message>
     <message>
@@ -584,8 +655,10 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getFillShade([&quot;name&quot;]) -&gt; integer
-
+        <translation>getFillShade([&quot;name&quot;]) -&gt; integer
+ 
+Returns the shading value of the fill color of the object &quot;name&quot;. 
+If &quot;name&quot; is not given the currently selected item is used.
 </translation>
     </message>
     <message>
@@ -595,8 +668,11 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getCornerRadius([&quot;name&quot;]) -&gt; integer
-
+        <translation>getCornerRadius([&quot;name&quot;]) -&gt; integer
+ 
+Returns the corner radius of the object &quot;name&quot;. The radius is 
+expressed in points. If &quot;name&quot; is not given the currently 
+selected item is used.
 </translation>
     </message>
     <message>
@@ -605,8 +681,10 @@ selected item is used.
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getImageScale([&quot;name&quot;]) -&gt; (x,y)
-
+        <translation>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+ 
+Returns a (x, y) tuple containing the scaling values of the image frame 
+&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </translation>
     </message>
     <message>
@@ -615,8 +693,10 @@ Returns a (x, y) tuple containing the scaling values of the image frame
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">getImageName([&quot;name&quot;]) -&gt; string
-
+        <translation>getImageName([&quot;name&quot;]) -&gt; string
+ 
+Returns the filename for the image in the image frame. If &quot;name&quot; is not 
+given the currently selected item is used.
 </translation>
     </message>
     <message>
@@ -627,8 +707,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished">getPosition([&quot;name&quot;]) -&gt; (x,y)
-
+        <translation>getPosition([&quot;name&quot;]) -&gt; (x,y)
+ 
+Returns a (x, y) tuple with the position of the object &quot;name&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. 
+The position is expressed in the actual measurement unit of the document 
+- see UNIT_&lt;type&gt; for reference.
 </translation>
     </message>
     <message>
@@ -639,8 +723,12 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished">getSize([&quot;name&quot;]) -&gt; (width,height)
-
+        <translation>getSize([&quot;name&quot;]) -&gt; (width,height)
+ 
+Returns a (width, height) tuple with the size of the object &quot;name&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. The size is 
+expressed in the current measurement unit of the document - see UNIT_&lt;type&gt; 
+for reference.
 </translation>
     </message>
     <message>
@@ -650,18 +738,20 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished">getRotation([&quot;name&quot;]) -&gt; integer
+        <translation>getRotation([&quot;name&quot;]) -&gt; integer
 
-</translation>
+Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees, 
+and clockwise is positive. If &quot;name&quot; is not given the currently selected item 
+is used.</translation>
     </message>
     <message>
         <source>getAllObjects() -&gt; list
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished">getAllObjects() -&gt; list
+        <translation>getAllObjects() -&gt; list
 
-</translation>
+Returns a list containing the names of all objects on the current page.</translation>
     </message>
     <message>
         <source>moveObjectAbs(x, y [, &quot;name&quot;])
@@ -671,8 +761,12 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished">moveObjectAbs(x, y [, &quot;name&quot;])
-
+        <translation>moveObjectAbs(x, y [, &quot;name&quot;])
+ 
+Moves the object &quot;name&quot; to a new location. The coordinates are expressed in 
+the current measurement unit of the document (see UNIT constants).  If &quot;name&quot; 
+is not given the currently selected item is used.  If the object &quot;name&quot; 
+belongs to a group, the whole group is moved.
 </translation>
     </message>
     <message>
@@ -684,8 +778,13 @@ default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">rotateObject(rot [, &quot;name&quot;])
-
+        <translation>rotateObject(rot [, &quot;name&quot;])
+ 
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is 
+rotated by the vertex that is currently selected as the rotation point - by 
+default, the top left vertext at zero rotation. Positive values mean counter 
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not 
+given the currently selected item is used.
 </translation>
     </message>
     <message>
@@ -695,8 +794,11 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">rotateObjectAbs(rot [, &quot;name&quot;])
-
+        <translation>rotateObjectAbs(rot [, &quot;name&quot;])
+ 
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values 
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently 
+selected item is used.
 </translation>
     </message>
     <message>
@@ -705,8 +807,10 @@ selected item is used.
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">sizeObject(width, height [, &quot;name&quot;])
-
+        <translation>sizeObject(width, height [, &quot;name&quot;])
+ 
+Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot; 
+is not given the currently selected item is used.
 </translation>
     </message>
     <message>
@@ -716,8 +820,11 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished">getSelectedObject([nr]) -&gt; string
-
+        <translation>getSelectedObject([nr]) -&gt; string
+ 
+Returns the name of the selected object. &quot;nr&quot; if given indicates the number 
+of the selected object, e.g. 0 means the first selected object, 1 means the 
+second selected Object and so on.
 </translation>
     </message>
     <message>
@@ -725,8 +832,9 @@ second selected Object and so on.
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished">selectionCount() -&gt; integer
-
+        <translation>selectionCount() -&gt; integer
+ 
+Returns the number of selected objects.
 </translation>
     </message>
     <message>
@@ -734,8 +842,9 @@ Returns the number of selected objects.
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished">selectObject(&quot;name&quot;)
-
+        <translation>selectObject(&quot;name&quot;)
+ 
+Selects the object with the given &quot;name&quot;.
 </translation>
     </message>
     <message>
@@ -743,8 +852,9 @@ Selects the object with the given &quot;name&quot;.
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished">deselectAll()
-
+        <translation>deselectAll()
+ 
+Deselects all objects in the whole document.
 </translation>
     </message>
     <message>
@@ -754,16 +864,20 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished">groupObjects(list)
-
+        <translation>groupObjects(list)
+ 
+Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names 
+of the objects to be grouped. If &quot;list&quot; is not given the currently selected 
+items are used.
 </translation>
     </message>
     <message>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished">unGroupObjects(&quot;name&quot;)
-
+        <translation>unGroupObjects(&quot;name&quot;)
+ 
+Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.
 </translation>
     </message>
     <message>
@@ -777,8 +891,15 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished">scaleGroup(factor [,&quot;name&quot;])
-
+        <translation>scaleGroup(factor [,&quot;name&quot;])
+ 
+Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge 
+the group, values smaller than 1 make the group smaller e.g a value of 0.5 
+scales the group to 50 % of its original size, a value of 1.5 scales the group 
+to 150 % of its original size.  The value for &quot;factor&quot; must be greater than 
+0. If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May raise ValueError if an invalid scale factor is passed.
 </translation>
     </message>
     <message>
@@ -789,8 +910,12 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished">loadImage(&quot;filename&quot; [, &quot;name&quot;])
-
+        <translation>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+ 
+Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is 
+not given the currently selected item is used. 
+ 
+May raise WrongFrameTypeError if the target frame is not an image frame
 </translation>
     </message>
     <message>
@@ -802,8 +927,13 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished">scaleImage(x, y [, &quot;name&quot;])
-
+        <translation>scaleImage(x, y [, &quot;name&quot;])
+ 
+Sets the scaling factors of the picture in the image frame &quot;name&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. A number of 1 
+means 100 %. 
+ 
+May raise WrongFrameTypeError if the target frame is not an image frame 
 </translation>
     </message>
     <message>
@@ -813,8 +943,11 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished">lockObject([&quot;name&quot;]) -&gt; bool
-
+        <translation>lockObject([&quot;name&quot;]) -&gt; bool
+ 
+Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked. 
+If &quot;name&quot; is not given the currently selected item is used. Returns true 
+if locked.
 </translation>
     </message>
     <message>
@@ -823,8 +956,10 @@ if locked.
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished">isLocked([&quot;name&quot;]) -&gt; bool
-
+        <translation>isLocked([&quot;name&quot;]) -&gt; bool
+ 
+Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the 
+currently selected item is used. 
 </translation>
     </message>
     <message>
@@ -832,8 +967,9 @@ currently selected item is used.
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished">getFontNames() -&gt; list
-
+        <translation>getFontNames() -&gt; list
+ 
+Returns a list with the names of all available fonts. 
 </translation>
     </message>
     <message>
@@ -842,21 +978,10 @@ Returns a list with the names of all available fonts.
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished">getXFontNames() -&gt; list of tuples
-
-</translation>
-    </message>
-    <message>
-        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-Image is saved into &quot;filename&quot;. Returns true when success.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="obsolete">rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
+        <translation>getXFontNames() -&gt; list of tuples
+ 
+Returns a larger font info. It&apos;s a list of the tuples with: 
+[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ] 
 </translation>
     </message>
     <message>
@@ -864,9 +989,10 @@ May raise ValueError if an empty sample or filename is passed.
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished">getLayers() -&gt; list
+        <translation>getLayers() -&gt; list
 
-</translation>
+ 
+Returns a list with the names of all defined layers. </translation>
     </message>
     <message>
         <source>setActiveLayer(&quot;name&quot;)
@@ -876,8 +1002,12 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setActiveLayer(&quot;name&quot;)
-
+        <translation>setActiveLayer(&quot;name&quot;)
+ 
+Sets the active layer to the layer named &quot;name&quot;. 
+ 
+May raise NotFoundError if the layer can&apos;t be found. 
+May raise ValueError if the layer name isn&apos;t acceptable. 
 </translation>
     </message>
     <message>
@@ -885,8 +1015,9 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished">getActiveLayer() -&gt; string
-
+        <translation>getActiveLayer() -&gt; string
+ 
+Returns the name of the current active layer. 
 </translation>
     </message>
     <message>
@@ -898,8 +1029,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
-
+        <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+ 
+Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist. 
+If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May raise NotFoundError if the layer can&apos;t be found. 
+May raise ValueError if the layer name isn&apos;t acceptable. 
 </translation>
     </message>
     <message>
@@ -911,8 +1047,13 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerVisible(&quot;layer&quot;, visible)
-
+        <translation>setLayerVisible(&quot;layer&quot;, visible)
+ 
+Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false 
+the layer is invisible. 
+ 
+May raise NotFoundError if the layer can&apos;t be found. 
+May raise ValueError if the layer name isn&apos;t acceptable. 
 </translation>
     </message>
     <message>
@@ -924,36 +1065,13 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">setLayerPrintable(&quot;layer&quot;, printable)
-
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
+        <translation>setLayerPrintable(&quot;layer&quot;, printable)
+ 
+Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to 
+false the layer won&apos;t be printed. 
+ 
+May raise NotFoundError if the layer can&apos;t be found. 
+May raise ValueError if the layer name isn&apos;t acceptable. 
 </translation>
     </message>
     <message>
@@ -965,9 +1083,14 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">deleteLayer(&quot;layer&quot;)
+        <translation>deleteLayer(&quot;layer&quot;)
 
-</translation>
+ 
+Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t 
+exists or if it&apos;s the only layer in the document. 
+ 
+May raise NotFoundError if the layer can&apos;t be found. 
+May raise ValueError if the layer name isn&apos;t acceptable. </translation>
     </message>
     <message>
         <source>createLayer(layer)
@@ -976,8 +1099,11 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished">createLayer(layer)
-
+        <translation>createLayer(layer)
+ 
+Creates a new layer with the name &quot;name&quot;. 
+ 
+May raise ValueError if the layer name isn&apos;t acceptable. 
 </translation>
     </message>
     <message>
@@ -985,8 +1111,9 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished">getGuiLanguage() -&gt; string
-
+        <translation>getGuiLanguage() -&gt; string
+ 
+Returns a string with the -lang value. 
 </translation>
     </message>
     <message>
@@ -1000,8 +1127,15 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
+        <translation>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+ 
+Creates a new ellipse on the current page and returns its name. 
+The coordinates are given in the current measurement units of the document 
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object 
+because you need this name for further referencing of that object. If &quot;name&quot; 
+is not given Scribus will create one for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
 </translation>
     </message>
     <message>
@@ -1015,8 +1149,15 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
+        <translation>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+ 
+Creates a new picture frame on the current page and returns its name. The 
+coordinates are given in the current measurement units of the document. 
+&quot;name&quot; should be a unique identifier for the object because you need this 
+name for further access to that object. If &quot;name&quot; is not given Scribus will 
+create one for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
 </translation>
     </message>
     <message>
@@ -1030,8 +1171,15 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
+        <translation>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+ 
+Creates a new text frame on the actual page and returns its name. 
+The coordinates are given in the actual measurement unit of the document (see 
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because 
+you need this name for further referencing of that object. If &quot;name&quot; is not 
+given Scribus will create one for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
 </translation>
     </message>
     <message>
@@ -1045,8 +1193,15 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished">createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
-
+        <translation>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+ 
+Creates a new line from the point(x1, y1) to the point(x2, y2) and returns 
+its name. The coordinates are given in the current measurement unit of the 
+document (see UNIT constants). &quot;name&quot; should be a unique identifier for the 
+object because you need this name for further access to that object. If 
+&quot;name&quot; is not given Scribus will create one for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
 </translation>
     </message>
     <message>
@@ -1063,8 +1218,18 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createPolyLine(list, [&quot;name&quot;]) -&gt; string
-
+        <translation>createPolyLine(list, [&quot;name&quot;]) -&gt; string
+ 
+Creates a new polyline and returns its name. The points for the polyline are 
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn]. 
+The coordinates are given in the current measurement units of the document (see 
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because 
+you need this name for further access to that object. If &quot;name&quot; is not given 
+Scribus will create one for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
+May raise ValueError if an insufficient number of points is passed or if 
+the number of values passed don&apos;t group into points without leftovers. 
 </translation>
     </message>
     <message>
@@ -1083,8 +1248,20 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createPolygon(list, [&quot;name&quot;]) -&gt; string
-
+        <translation>createPolygon(list, [&quot;name&quot;]) -&gt; string
+ 
+Creates a new polygon and returns its name. The points for the polygon are 
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn]. 
+At least three points are required. There is no need to repeat the first point 
+to close the polygon. The polygon is automatically closed by connecting the 
+first and the last point.  The coordinates are given in the current measurement 
+units of the document (see UNIT constants).  &quot;name&quot; should be a unique 
+identifier for the object because you need this name for further access to that 
+object. If &quot;name&quot; is not given Scribus will create one for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
+May raise ValueError if an insufficient number of points is passed or if 
+the number of values passed don&apos;t group into points without leftovers. 
 </translation>
     </message>
     <message>
@@ -1104,9 +1281,22 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished">createBezierLine(list, [&quot;name&quot;]) -&gt; string
+        <translation>createBezierLine(list, [&quot;name&quot;]) -&gt; string
 
-</translation>
+ 
+Creates a new bezier curve and returns its name. The points for the bezier 
+curve are stored in the list &quot;list&quot; in the following order: 
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn] 
+In the points list, x and y mean the x and y coordinates of the point and kx 
+and ky meaning the control point for the curve.  The coordinates are given in 
+the current measurement units of the document (see UNIT constants). &quot;name&quot; 
+should be a unique identifier for the object because you need this name for 
+further access to that object. If &quot;name&quot; is not given Scribus will create one 
+for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
+May raise ValueError if an insufficient number of points is passed or if 
+the number of values passed don&apos;t group into points without leftovers. </translation>
     </message>
     <message>
         <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
@@ -1120,8 +1310,16 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished">createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
-
+        <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+ 
+Creates a new pathText by merging the two objects &quot;textbox&quot; and 
+&quot;beziercurve&quot; and returns its name. The coordinates are given in the current 
+measurement unit of the document (see UNIT constants). &quot;name&quot; should be a 
+unique identifier for the object because you need this name for further access 
+to that object. If &quot;name&quot; is not given Scribus will create one for you. 
+ 
+May raise NameExistsError if you explicitly pass a name that&apos;s already used. 
+May raise NotFoundError if one or both of the named base object don&apos;t exist. 
 </translation>
     </message>
     <message>
@@ -1130,9 +1328,11 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished">deleteObject([&quot;name&quot;])
+        <translation>deleteObject([&quot;name&quot;])
 
-</translation>
+ 
+Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently 
+selected item is deleted. </translation>
     </message>
     <message>
         <source>textFlowsAroundFrame(&quot;name&quot; [, state])
@@ -1141,8 +1341,11 @@ Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;na
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
 is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished">textFlowsAroundFrame(&quot;name&quot; [, state])
-
+        <translation>textFlowsAroundFrame(&quot;name&quot; [, state])
+ 
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;. 
+Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot; 
+is not passed, text flow is toggled. 
 </translation>
     </message>
     <message>
@@ -1152,8 +1355,11 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished">objectExists([&quot;name&quot;]) -&gt; bool
-
+        <translation>objectExists([&quot;name&quot;]) -&gt; bool
+ 
+Test if an object with specified name really exists in the document. 
+The optional parameter is the object name. When no object name is given, 
+returns True if there is something selected. 
 </translation>
     </message>
     <message>
@@ -1162,8 +1368,10 @@ returns True if there is something selected.
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished">setStyle(&quot;style&quot; [, &quot;name&quot;])
-
+        <translation>setStyle(&quot;style&quot; [, &quot;name&quot;])
+ 
+Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name 
+given, it&apos;s applied on the selected object. 
 </translation>
     </message>
     <message>
@@ -1171,8 +1379,9 @@ given, it&apos;s applied on the selected object.
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished">getAllStyles() -&gt; list
-
+        <translation>getAllStyles() -&gt; list
+ 
+Return a list of the names of all paragraph styles in the current document. 
 </translation>
     </message>
     <message>
@@ -1181,8 +1390,10 @@ Return a list of the names of all paragraph styles in the current document.
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished">currentPage() -&gt; integer
-
+        <translation>currentPage() -&gt; integer
+ 
+Returns the number of the current working page. Page numbers are counted from 1 
+upwards, no matter what the displayed first page number of your document is. 
 </translation>
     </message>
     <message>
@@ -1190,8 +1401,9 @@ upwards, no matter what the displayed first page number of your document is.
 
 Redraws all pages.
 </source>
-        <translation type="unfinished">redrawAll()
-
+        <translation>redrawAll()
+ 
+Redraws all pages. 
 </translation>
     </message>
     <message>
@@ -1201,8 +1413,11 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished">savePageAsEPS(&quot;name&quot;)
-
+        <translation>savePageAsEPS(&quot;name&quot;)
+ 
+Saves the current page as an EPS to the file &quot;name&quot;. 
+ 
+May raise ScribusError if the save failed. 
 </translation>
     </message>
     <message>
@@ -1214,8 +1429,13 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished">deletePage(nr)
-
+        <translation>deletePage(nr)
+ 
+Deletes the given page. Does nothing if the document contains only one page. 
+Page numbers are counted from 1 upwards, no matter what the displayed first 
+page number is. 
+ 
+May raise IndexError if the page number is out of range 
 </translation>
     </message>
     <message>
@@ -1227,8 +1447,13 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished">gotoPage(nr)
-
+        <translation>gotoPage(nr)
+ 
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that 
+gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it 
+just sets the page that script commands will operates on. 
+ 
+May raise IndexError if the page number is out of range. 
 </translation>
     </message>
     <message>
@@ -1236,8 +1461,9 @@ May raise IndexError if the page number is out of range.
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished">pageCount() -&gt; integer
-
+        <translation>pageCount() -&gt; integer
+ 
+Returns the number of pages in the document. 
 </translation>
     </message>
     <message>
@@ -1246,8 +1472,10 @@ Returns the number of pages in the document.
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished">getHGuides() -&gt; list
-
+        <translation>getHGuides() -&gt; list
+ 
+Returns a list containing positions of the horizontal guides. Values are in the 
+document&apos;s current units - see UNIT_&lt;type&gt; constants. 
 </translation>
     </message>
     <message>
@@ -1259,8 +1487,13 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished">setHGuides(list)
-
+        <translation>setHGuides(list)
+ 
+Sets horizontal guides. Input parameter must be a list of guide positions 
+measured in the current document units - see UNIT_&lt;type&gt; constants. 
+ 
+Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost 
+         setHGuides([90,250]) # replace current guides entirely 
 </translation>
     </message>
     <message>
@@ -1268,8 +1501,9 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 
 See getHGuides.
 </source>
-        <translation type="unfinished">getVGuides()
-
+        <translation>getVGuides()
+ 
+See getHGuides. 
 </translation>
     </message>
     <message>
@@ -1277,9 +1511,10 @@ See getHGuides.
 
 See setHGuides.
 </source>
-        <translation type="unfinished">setVGuides()
+        <translation>setVGuides()
 
-</translation>
+ 
+See setHGuides. </translation>
     </message>
     <message>
         <source>getPageSize() -&gt; tuple
@@ -1287,8 +1522,10 @@ See setHGuides.
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished">getPageSize() -&gt; tuple
-
+        <translation>getPageSize() -&gt; tuple
+ 
+Returns a tuple with page dimensions measured in the document&apos;s current units. 
+See UNIT_&lt;type&gt; constants and getPageMargins() 
 </translation>
     </message>
     <message>
@@ -1299,18 +1536,12 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished">getPageItems() -&gt; list
-
-</translation>
-    </message>
-    <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (left, right, top, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="obsolete">getPageMargins()
-
+        <translation>getPageItems() -&gt; list
+ 
+Returns a list of tuples with items on the current page. The tuple is: 
+(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)] 
+means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at 
+the page... 
 </translation>
     </message>
     <message>
@@ -1320,8 +1551,11 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished">setFillColor(&quot;color&quot;, [&quot;name&quot;])
-
+        <translation>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+ 
+Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot; 
+is the name of one of the defined colors. If &quot;name&quot; is not given the 
+currently selected item is used. 
 </translation>
     </message>
     <message>
@@ -1330,8 +1564,10 @@ currently selected item is used.
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">setLineColor(&quot;color&quot;, [&quot;name&quot;])
-
+        <translation>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+ 
+Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot; 
+is not given the currently selected item is used. 
 </translation>
     </message>
     <message>
@@ -1343,8 +1579,13 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished">setLineWidth(width, [&quot;name&quot;])
-
+        <translation>setLineWidth(width, [&quot;name&quot;])
+ 
+Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the 
+range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not 
+given the currently selected item is used. 
+ 
+May raise ValueError if the line width is out of bounds. 
 </translation>
     </message>
     <message>
@@ -1357,8 +1598,14 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished">setLineShade(shade, [&quot;name&quot;])
-
+        <translation>setLineShade(shade, [&quot;name&quot;])
+ 
+Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;. 
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100 
+(full color intensity). If &quot;name&quot; is not given the currently selected item 
+is used. 
+ 
+May raise ValueError if the line shade is out of bounds. 
 </translation>
     </message>
     <message>
@@ -1368,8 +1615,11 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished">setLineJoin(join, [&quot;name&quot;])
-
+        <translation>setLineJoin(join, [&quot;name&quot;])
+ 
+Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. There are 
+predefined constants for join - JOIN_&lt;type&gt;. 
 </translation>
     </message>
     <message>
@@ -1379,8 +1629,11 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished">setLineEnd(endtype, [&quot;name&quot;])
-
+        <translation>setLineEnd(endtype, [&quot;name&quot;])
+ 
+Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. There are 
+predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;. 
 </translation>
     </message>
     <message>
@@ -1390,8 +1643,11 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished">setLineStyle(style, [&quot;name&quot;])
-
+        <translation>setLineStyle(style, [&quot;name&quot;])
+ 
+Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot; 
+is not given the currently selected item is used. There are predefined 
+constants for &quot;style&quot; - LINE_&lt;style&gt;. 
 </translation>
     </message>
     <message>
@@ -1404,8 +1660,14 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished">setFillShade(shade, [&quot;name&quot;])
-
+        <translation>setFillShade(shade, [&quot;name&quot;])
+ 
+Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;. 
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100 
+(full Color intensity). If &quot;name&quot; is not given the currently selected 
+Item is used. 
+ 
+May raise ValueError if the fill shade is out of bounds. 
 </translation>
     </message>
     <message>
@@ -1416,9 +1678,13 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished">setCornerRadius(radius, [&quot;name&quot;])
+        <translation>setCornerRadius(radius, [&quot;name&quot;])
 
-</translation>
+ 
+Sets the corner radius of the object &quot;name&quot;. The radius is expressed 
+in points. If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May raise ValueError if the corner radius is negative. </translation>
     </message>
     <message>
         <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
@@ -1428,8 +1694,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished">setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
-
+        <translation>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+ 
+Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May raise NotFoundError if the line style doesn&apos;t exist. 
 </translation>
     </message>
     <message>
@@ -1440,8 +1710,12 @@ has some text selected the value assigned to the first character
 of the selection is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getFont([&quot;name&quot;]) -&gt; string
-
+        <translation>getFont([&quot;name&quot;]) -&gt; string
+ 
+Returns the font name for the text frame &quot;name&quot;. If this text frame 
+has some text selected the value assigned to the first character 
+of the selection is returned. If &quot;name&quot; is not given the currently 
+selected item is used. 
 </translation>
     </message>
     <message>
@@ -1450,8 +1724,10 @@ selected item is used.
 Returns the length of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getTextLength([&quot;name&quot;]) -&gt; integer
-
+        <translation>getTextLength([&quot;name&quot;]) -&gt; integer
+ 
+Returns the length of the text in the text frame &quot;name&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. 
 </translation>
     </message>
     <message>
@@ -1462,8 +1738,12 @@ selected, the selected text is returned. All text in the frame, not just
 currently visible text, is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">getText([&quot;name&quot;]) -&gt; string
-
+        <translation>getText([&quot;name&quot;]) -&gt; string
+ 
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text 
+selected, the selected text is returned. All text in the frame, not just 
+currently visible text, is returned. If &quot;name&quot; is not given the currently 
+selected item is used. 
 </translation>
     </message>
     <message>
@@ -1474,9 +1754,13 @@ linked with this frame. If this textframe has some text selected, the selected
 text is returned. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">getAllText([&quot;name&quot;]) -&gt; string
+        <translation>getAllText([&quot;name&quot;]) -&gt; string
 
-</translation>
+ 
+Returns the text of the text frame &quot;name&quot; and of all text frames which are 
+linked with this frame. If this textframe has some text selected, the selected 
+text is returned. If &quot;name&quot; is not given the currently selected item is 
+used. </translation>
     </message>
     <message>
         <source>getLineSpacing([&quot;name&quot;]) -&gt; float
@@ -1484,8 +1768,10 @@ used.
 Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
 points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getLineSpacing([&quot;name&quot;]) -&gt; float
-
+        <translation>getLineSpacing([&quot;name&quot;]) -&gt; float
+ 
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in 
+points. If &quot;name&quot; is not given the currently selected item is used. 
 </translation>
     </message>
     <message>
@@ -1494,9 +1780,10 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
 &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished">getColumnGap([&quot;name&quot;]) -&gt; float
+        <translation>getColumnGap([&quot;name&quot;]) -&gt; float
 
-</translation>
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If 
+&quot;name&quot; is not given the currently selected item is used. </translation>
     </message>
     <message>
         <source>getColumns([&quot;name&quot;]) -&gt; integer
@@ -1504,7 +1791,10 @@ Returns the column gap size of the text frame &quot;name&quot; expressed in poin
 Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">getColumns([&quot;name&quot;]) -&gt; integer</translation>
+        <translation>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not 
+given the currently selected item is used. </translation>
     </message>
     <message>
         <source>setText(&quot;text&quot;, [&quot;name&quot;])
@@ -1514,22 +1804,12 @@ Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See 
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">setText(&quot;text&quot;, [&quot;name&quot;])
-
-</translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
+        <translation>setText(&quot;text&quot;, [&quot;name&quot;])
+ 
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;. 
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ 
+for more details. If &quot;name&quot; is not given the currently selected item is 
+used. 
 </translation>
     </message>
     <message>
@@ -1541,7 +1821,13 @@ currently selected item is used.
 
 May throw ValueError if the font cannot be found.
 </source>
-        <translation type="unfinished">setFont(&quot;font&quot;, [&quot;name&quot;])</translation>
+        <translation>setFont(&quot;font&quot;, [&quot;name&quot;])
+ 
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text 
+selected only the selected text is changed.  If &quot;name&quot; is not given the 
+currently selected item is used. 
+ 
+May throw ValueError if the font cannot be found. </translation>
     </message>
     <message>
         <source>setFontSize(size, [&quot;name&quot;])
@@ -1553,7 +1839,14 @@ currently selected item is used.
 
 May throw ValueError for a font size that&apos;s out of bounds.
 </source>
-        <translation type="unfinished">setFontSize(size, [&quot;name&quot;])</translation>
+        <translation>setFontSiz
+ 
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated 
+as a value in points. If there is some text selected only the selected text is 
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the 
+currently selected item is used. 
+ 
+May throw ValueError for a font size that&apos;s out of bounds. e(size, [&quot;name&quot;])</translation>
     </message>
     <message>
         <source>setLineSpacing(size, [&quot;name&quot;])
@@ -1564,7 +1857,13 @@ item is used.
 
 May throw ValueError if the line spacing is out of bounds.
 </source>
-        <translation type="unfinished">setLineSpacing(size, [&quot;name&quot;])</translation>
+        <translation>setLineSpacing(size, [&quot;name&quot;])
+ 
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;. 
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected 
+item is used. 
+ 
+May throw ValueError if the line spacing is out of bounds. </translation>
     </message>
     <message>
         <source>setColumnGap(size, [&quot;name&quot;])
@@ -1574,7 +1873,12 @@ Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&q
 
 May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
-        <translation type="unfinished">setColumnGap(size, [&quot;name&quot;])</translation>
+        <translation>setColumnGap(size, [&quot;name&quot;])
+ 
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If 
+&quot;name&quot; is not given the currently selected item is used. 
+ 
+May throw ValueError if the column gap is out of bounds (must be positive). </translation>
     </message>
     <message>
         <source>setColumns(nr, [&quot;name&quot;])
@@ -1584,7 +1888,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May throw ValueError if number of columns is not at least one.
 </source>
-        <translation type="unfinished">setColumns(nr, [&quot;name&quot;])</translation>
+        <translation>setColumns(nr, [&quot;name&quot;])
+ 
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;. 
+If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May throw ValueError if number of columns is not at least one. </translation>
     </message>
     <message>
         <source>setTextAlignment(align, [&quot;name&quot;])
@@ -1595,21 +1904,13 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).
 
 May throw ValueError for an invalid alignment constant.
 </source>
-        <translation type="unfinished">setTextAlignment(align, [&quot;name&quot;])</translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(start, count, [&quot;name&quot;])
-
-</translation>
+        <translation>setTextAlignment(align, [&quot;name&quot;])
+ 
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment. 
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should 
+be one of the ALIGN_ constants defined in this module - see dir(scribus). 
+ 
+May throw ValueError for an invalid alignment constant. </translation>
     </message>
     <message>
         <source>deleteText([&quot;name&quot;])
@@ -1618,9 +1919,12 @@ Deletes any text in the text frame &quot;name&quot;. If there is some text selec
 only the selected text will be deleted. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">deleteText([&quot;name&quot;])
+        <translation>deleteText([&quot;name&quot;])
 
-</translation>
+ 
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected, 
+only the selected text will be deleted. If &quot;name&quot; is not given the currently 
+selected item is used. </translation>
     </message>
     <message>
         <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1629,8 +1933,11 @@ Sets the text color of the text frame &quot;name&quot; to the color &quot;color&
 is some text selected only the selected text is changed. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished">setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
+        <translation>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+ 
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there 
+is some text selected only the selected text is changed. If &quot;name&quot; is not 
+given the currently selected item is used. 
 </translation>
     </message>
     <message>
@@ -1639,8 +1946,10 @@ given the currently selected item is used.
 Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished">setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
+        <translation>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+ 
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently 
+selected item is used. 
 </translation>
     </message>
     <message>
@@ -1652,8 +1961,13 @@ be an integer value in the range from 0 (lightest) to 100 (full color
 intensity). If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished">setTextShade(shade, [&quot;name&quot;])
-
+        <translation>setTextShade(shade, [&quot;name&quot;])
+ 
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If 
+there is some text selected only the selected text is changed. &quot;shade&quot; must 
+be an integer value in the range from 0 (lightest) to 100 (full color 
+intensity). If &quot;name&quot; is not given the currently selected item is 
+used. 
 </translation>
     </message>
     <message>
@@ -1665,8 +1979,13 @@ and must not link to or be linked from any other frames already.
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished">linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
+        <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+ 
+Link two text frames. The frame named &quot;fromname&quot; is linked to the 
+frame named &quot;toname&quot;. The target frame must be an empty text frame 
+and must not link to or be linked from any other frames already. 
+ 
+May throw ScribusException if linking rules are violated. 
 </translation>
     </message>
     <message>
@@ -1678,8 +1997,13 @@ connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unl
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished">unlinkTextFrames(&quot;name&quot;)
-
+        <translation>unlinkTextFrames(&quot;name&quot;)
+ 
+Remove the specified (named) object from the text frame flow/linkage. If the 
+frame was in the middle of a chain, the previous and next frames will be 
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos; 
+ 
+May throw ScribusException if linking rules are violated. 
 </translation>
     </message>
     <message>
@@ -1756,51 +2080,6 @@ On hyvä kutsua tätä funktiota, kun olet muokannut asiakirjaa. Scribus ei huom
 automaattisesti skriptin tekemiä muutoksia.</translation>
     </message>
     <message>
-        <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
-
-Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
-If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
-Both `scaletoframe&apos; and `proportional&apos; are boolean.
-
-May raise WrongFrameTypeError.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared. If &quot;count&quot; is -1, all text in the frame will
-be selected. If &quot;name&quot; is not given the currently selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
-
-Create a macro named &quot;name&quot; by evaluating the the source code &quot;sourcetext&quot;.
-&quot;sourcetext&quot; must follow the same rules as macros created in the GUI.
-If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
-for the macro.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
 
 Returns a tuple (R,G,B) containing the three color components of the
@@ -1811,7 +2090,32 @@ from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorAsRGB(&quot;name&quot;) -&gt; tuple 
+ 
+Returns a tuple (R,G,B) containing the three color components of the 
+color &quot;name&quot; from the current document, converted to the RGB colour 
+space. If no document is open, returns the value of the named color 
+from the default document colors. 
+ 
+May raise NotFoundError if the named color wasn&apos;t found. 
+May raise ValueError if an invalid color name is specified. </translation>
+    </message>
+    <message>
+        <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
+
+Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
+If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
+Both `scaletoframe&apos; and `proportional&apos; are boolean.
+
+May raise WrongFrameTypeError.
+</source>
+        <translation>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;) 
+ 
+Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;. 
+If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;. 
+Both `scaletoframe&apos; and `proportional&apos; are boolean. 
+ 
+May raise WrongFrameTypeError. </translation>
     </message>
     <message>
         <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
@@ -1825,7 +2129,50 @@ by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool 
+ 
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size. 
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise 
+image data is returned as a string. The optional &quot;format&quot; argument 
+specifies the image format to generate, and supports any format allowed 
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM. 
+ 
+May raise NotFoundError if the specified font can&apos;t be found. 
+May raise ValueError if an empty sample or filename is passed. </translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared. If &quot;count&quot; is -1, all text in the frame will
+be selected. If &quot;name&quot; is not given the currently selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation>selectText(start, count, [&quot;name&quot;]) 
+ 
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the 
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any 
+text selection will be cleared. If &quot;count&quot; is -1, all text in the frame will 
+be selected. If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May throw IndexError if the selection is outside the bounds of the text. </translation>
+    </message>
+    <message>
+        <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
+
+Create a macro named &quot;name&quot; by evaluating the the source code &quot;sourcetext&quot;.
+&quot;sourcetext&quot; must follow the same rules as macros created in the GUI.
+If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
+for the macro.
+</source>
+        <translation>register_macro_code(name, sourcetext, accel=&apos;&apos;) 
+ 
+Create a macro named &quot;name&quot; by evaluating the the source code &quot;sourcetext&quot;. 
+&quot;sourcetext&quot; must follow the same rules as macros created in the GUI. 
+If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut 
+for the macro. </translation>
     </message>
     <message>
         <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
@@ -1837,7 +2184,33 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerVisible(&quot;layer&quot;) -&gt; bool 
+ 
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means 
+that the layer &quot;layer&quot; is visible, a value of False means that the layer 
+&quot;layer&quot; is invisible. 
+ 
+May raise NotFoundError if the layer can&apos;t be found. 
+May raise ValueError if the layer name isn&apos;t acceptable. </translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool 
+ 
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means 
+that the layer &quot;layer&quot; can be printed, a value of False means that printing 
+the layer &quot;layer&quot; is disabled. 
+ 
+May raise NotFoundError if the layer can&apos;t be found. 
+May raise ValueError if the layer name isn&apos;t acceptable. </translation>
     </message>
     <message>
         <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
@@ -1847,7 +2220,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;]) 
+ 
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not. 
+If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May raise WrongFrameTypeError if the target frame is not a text frame </translation>
     </message>
     <message>
         <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
@@ -1857,7 +2235,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isPDFBookmark([&quot;name&quot;]) -&gt; bool 
+ 
+Returns true if the text frame &quot;name&quot; is a PDF bookmark. 
+If &quot;name&quot; is not given the currently selected item is used. 
+ 
+May raise WrongFrameTypeError if the target frame is not a text frame </translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -1865,19 +2248,29 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins() 
+ 
+Returns the page margins as a (top, left, right, bottom) tuple in the current 
+units. See UNIT_&lt;type&gt; constants and getPageSize(). </translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference). The first character has
-an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
-is not given the currently selected Item is used.
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;]) 
+ 
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text 
+must be UTF encoded (see setText() as reference) The first character has an 
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is 
+used. 
+ 
+May throw IndexError for an insertion out of bounds. </translation>
     </message>
 </context>
 <context>
@@ -1895,10 +2288,6 @@ May throw IndexError for an insertion out of bounds.
 %2 %3</source>
         <translation>Scribus versio %1
 %2 %3</translation>
-    </message>
-    <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
     </message>
     <message>
         <source>Galician:</source>
@@ -1983,16 +2372,6 @@ May throw IndexError for an insertion out of bounds.
     <message>
         <source>Slovenian:</source>
         <translation>Slovenia:</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Tämä sivu näyttää version, käännöspäivämäärän ja
-Scribukseen sisällytetyt tuet kirjastoille.
-C-C-T muodostuu seuraavasti C=CUPS, C=littlecms, T=TIFF support.
-Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2087,19 +2466,22 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Täällä näet version, käännöspäivämäärän sekä mukaan käännettyjen
+ohjelmakirjastojen tuen. C-C-T muodostuu seuraavasti:
+C=littlecms - C=CUPS - T=TIFF. Jos jokin näistä puuttuu,
+on sen kohdalla * merkkinä</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3 </translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaans:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugali (Brasilia):</translation>
     </message>
 </context>
 <context>
@@ -2175,14 +2557,16 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta kohteen koko</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
-the media size of the postscript file.
+the media size of the PDF.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voit asettaa PDF-kohteen koon.
+Tätä ei suositella, ellei painosi
+ole nimenomaan pyytänyt asettamaan kokoa.</translation>
     </message>
 </context>
 <context>
@@ -3400,19 +3784,19 @@ Nimi on varattu läpinäkyvälle värille</translation>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse tyylit</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytettävissä olevat tyylit</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Peruuta</translation>
+        <translation>Peruuta</translation>
     </message>
 </context>
 <context>
@@ -4042,149 +4426,154 @@ failed!</source>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Muokattava makro: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Makrojen hallinta</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedosto &apos;%1&apos; on jo olemassa. Haluatko ylikirjoittaa sen?</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Olet muokannut tätä makroa.
+Haluatko kumota tekemäsi muutokset?</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Pinolistaus: %1</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makron kääntäminen epäonnistui. Tästä johtuen
+sitä ei voida tallentaa nykyisessä muodossaan.
+Virhe oli:
+%1
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Uusi makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Tämä on Muokkaa makroa/Uusi makro ikkuna. Täällä voit muokata makrosi lähdekoodia ja tallentaa muutokset OK-painikkeella&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähdekoodi:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Makron muokkaus:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Muokattavana olevan makron nimi.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/qt&gt;Tämä näyttää muokattavana olevan makron nimen.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Peruuta</translation>
+        <translation>&amp;Peruuta</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Kumoa kaikki muutoksest ja poistu&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Poistu muokkausikkunasta ja kumoa kaikki muutokset. Jos haluat poistua tallentamatta makroa, mutta et halua menettää muutoksia, tallenna muutokset käyttäen &quot;Tallenna koodi nimellä...&quot;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Tallenna muutokset ja poistu&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Tallenna muutokset makroon ja poistu. Jos makron kanssa on ongelmia, saat tästä tiedon eikä muokkausikkunaa suljeta&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Tämä tekstikenttä sisältää makron lähdekoodin. Jos luot uuden makron tekstikenttä on tyhjä. Jos olet muokkaamassa olemassa olevaa makroa koodi, jossa makro määriteltiin näytetään tekstikentässä.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lataa koodi...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Korvaa tämänhetkinen koodi koodilla tiedostosta.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Lataa koodi muokkausta varten tiedostosta. Muokkausalueella oleva koodi korvataan. Ladattavan koodin täytyy olla Scribus makrofunktio. Jos lataat jonkin muun skriptin, täytyy sitä muokata ennen tallennusta siten, että se toimii makrona.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna koodi &amp;nimellä...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Tallenna muokattava koodi tiedostoon.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna makron lähdekoodi tiedostoon. Voit muokata tallennettua koodia lataamalla sen uudestaan käyttäen valikon kohtaa &quot;Lataa koodi...&quot;.</translation>
     </message>
     <message>
         <source>Python source files (.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python-tiedostot (*.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna tiedosto</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna makron koodi</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Avaa tiedosto</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse ladattava tiedosto</translation>
     </message>
 </context>
 <context>
@@ -4807,10 +5196,6 @@ joita on tarkoitus katsella näytöltä</translation>
         <source>Leave preview</source>
         <translation>Poistu esikatselusta</translation>
     </message>
-    <message>
-        <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -4914,38 +5299,6 @@ osoitteesta www.scribus.net.</translation>
     <message>
         <source>Scribus Online Help</source>
         <translation>Scribus ohje verkossa</translation>
-    </message>
-    <message>
-        <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Etsi</translation>
-    </message>
-    <message>
-        <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>F3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Find</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search Term:</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5367,46 +5720,46 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Välitetty olio ei oleva kutsuttavissa</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Makrojen hallinta</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Näyttää ikkunan makrojen luomiselle, poistamiselle, muokkaamiselle, tallentamiselle ja lataamiselle.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Luo, muokkaa ja poista makroja</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Makro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Makrojen hallinta</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Haluttua tiedostoa ei voida avata: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Muokkaa makroja</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Makron nimi on jo varattu&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Makron luonti epäonnistui. Makron hallinta ei pystynyt toteuttamaan makroa.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -5415,7 +5768,11 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makron &apos;%1&apos; suoritus aiheutti virheen.
+Virhe: %2
+
+%3
+</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -5424,76 +5781,89 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makron &apos;%1&apos; suoritus epäonnistui.
+Virhe: %2
+
+%3</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Uusi makro</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation>Anna nimi uudelle makrolle: </translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Makrojen hallinta</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Makron uudelleennimeäminen epäonnistui, koska samanniminen makro on jo olemassa.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Makrojen hallinta</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Scribuksen makron hallinan ikkuna. Voit luoda, muokata ja poistaa makroja. Kaikki toiminnot ovat käytettävissä ikkunan oikeassa reunassa olevien painikkeiden avulla.&lt;/p&gt;
+&lt;p&gt;Kaikki muutokset tulevat voimaan välittömästi eikä niitä ole mahdollista kumota.
+Taulukko ikkunan keskellä listaa kaikki ladatut makrot ja tietoa näistä.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uusi</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Luo uusi makro&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Luo uusi makro&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation>Sulje dialogi</translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation>Palaa Scribukseen</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Makro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Muokkaa</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisäpainike</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Kuvaus</translation>
+        <translation>Kuvaus</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -5502,174 +5872,174 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Tämä taulukko näyttää kaikki määritellyt makrot&lt;p&gt;
+
+&lt;p&gt;&lt;b&gt;Nimi:&lt;/b&gt; Makron nimi, jota käyttöliittymässä käytetään viitattaessa tähän makroon.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Muokkaa:&lt;/b&gt; Jos makroa voidaan muokata, tässä sarakkeessa on teksti &quot;Kyllä&quot;.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Näppäinyhdistelmä:&lt;/b&gt; Käytettävä näppäinoikopolku makroon. Esimkerkiksi CTRL-F8 tarkoittaa, että makroa voidaan kutsua Scribuksessa painamalla näppäimet CTRL ja F8 pohjaan.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Kuvaus:&lt;/b&gt; Jos makrossa on määritelty &quot;docstring&quot;, se näytetään tässä sarakkeessa. Jos &quot;docstring&quot; on liian pitkä käytä valikon kohtaa &quot;Mikä tämä on?&quot; nähdäksesi sen kokonaan.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nimeä uudelleen</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nimeä valittu makro uudelleen.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Nimeä valittu makro uudelleen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Muokkaa...</translation>
+        <translation>&amp;Muokkaa...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+S</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
-&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished">T&amp;uo</translation>
-    </message>
-    <message>
-        <source>Alt+I</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Muokkaa valitun makron lähdekoodia, jos se on saatavilla.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Muokkaa valittua makroa.&lt;/p&gt;
+&lt;p&gt;Jos painike on poissa käytöstä, valittuna ei ole yhtään makroa tai makron hallinnalla ei ole lähdekoodia valitulle makrolle.&lt;/p&gt;
+&lt;p&gt;Jos Scribus ei löydä makron lähdekoodia, makro luultavasti luotiin skriptillä.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Poista</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Poista valittu makro&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Poista valittu makro. Poistaminen tapahtuu välittömästi eikä sitä ole mahdollista kumota. Jos makro luotiin käynnistysskriptissä, se saadaan takaisin käyttöön seuraavalla Scribuksen käynnistyskerralla.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Set Accel</source>
+        <translation>&amp;Aseta lisäpainike</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Aseta näppäinoikopolku valitulle makrolle&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Aseta näppäinyhdistelmä (lisäpainike) valitulle makrolle.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>E&amp;xport</source>
+        <translation>&amp;Vie</translation>
+    </message>
+    <message>
+        <source>Alt+X</source>
+        <translation>Alt+X</translation>
+    </message>
+    <message>
+        <source>Export macros to a file.</source>
+        <translation>Tallenna makrot tiedostoon.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
+&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Vie makrot tiedostoon. Tiedosto käsittää Python-skriptin, joka sisältää komennot makron uudelleen luomiseksi. Tiedostoa voidaan käyttää &lt;tt&gt;laajennusskriptinä&lt;/tt&gt; &lt;tt&gt;Skriptivalikossa&lt;/tt&gt; tai tuotaessa makroa &quot;Tuo makro&quot;-painikkeella.&lt;/p&gt;
+&lt;p&gt;Jos haluat siistin ja luettavan version makrostasi, valitse makro ja paina &lt;tt&gt;muokkauspainiketta&lt;/tt&gt;. Tallenna koodi &lt;tt&gt;Muokkaa makroa&lt;/tt&gt; valikon kohdasta &lt;tt&gt;Tallenna koodi&lt;/p. Näin luotua makroa ei voida käyttää &lt;tt&gt;laajennusskriptinä&lt;/tt&gt;. Sen sijaan luo uusi makro ja lataa koodi siihen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Delete &amp;All</source>
+        <translation>Poista &amp;kaikki</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Delete all macros.</source>
+        <translation>Poista kaikki makrot.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Poista kaikki rekisteröidyt makrot. Poistaminen tapahtuu välittömästi eikä sitä ole mahdollista kumota. Käynnistysskriptissä määritellyt makrot saadaan uudestaan käyttöön seuraavalla Scribuksen käynnistyskerralla.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>T&amp;uo</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>Import macros from a file.</source>
+        <translation>Tuo makrot tiedostosta.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Lataa makrot tiedostosta&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus makrotiedostot (*pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Avaa tiedosto</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse ladattava makrotiedosto.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna tiedosto</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna kaikki makrot</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nimeä makro uudelleen</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Anna uusi nimi: </translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Aseta makron näppäinyhdistelmä</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Anna uusi näppäinyhdistelmä: </translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Kyllä</translation>
+        <translation>Kyllä</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Ei</translation>
+        <translation>Ei</translation>
     </message>
 </context>
 <context>
@@ -5768,29 +6138,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     <message>
         <source> p</source>
         <translation> p</translation>
-    </message>
-</context>
-<context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Skriptivirhe</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Jos ajat ohjelman mukana toimitettua skriptiä ilmoita siitä &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;. Kiitos.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Näytä &amp;Konsoli</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Piilota &amp;Konsoli</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Tämä viesti on myös leikepöydälläsi. Voit liittää sen virheilmoitukseesi näppäinyhdistelmällä CTRL+V.</translation>
     </message>
 </context>
 <context>
@@ -5994,10 +6341,6 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Show Curve</source>
         <translation>Näytä käyrä</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manuaalinen kirjasinvälistys</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -6425,10 +6768,6 @@ Corners:</source>
         <translation>&amp;Kirjasimen koko:</translation>
     </message>
     <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Kirjasinvälistys:</translation>
-    </message>
-    <message>
         <source>L&amp;ine Spacing:</source>
         <translation>&amp;Riviväli:</translation>
     </message>
@@ -6514,11 +6853,11 @@ Corners:</source>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kirjasinväli:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Oma kirjasinväli</translation>
     </message>
 </context>
 <context>
@@ -7064,72 +7403,58 @@ muulloin suhteessa kohteeseen.</translation>
     <name>OdtDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">OpenOffice.org Writer tuojan asetukset</translation>
+        <translation>OpenOffice.org Writer tuojan asetukset</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="obsolete">Päivitä kappaletyylit</translation>
+        <translation>Päivitä kappaletyylit</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
+        <translation>Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
 kappaletyyli Scribuksessa vastaamaan tätä vai jätetäänkö se koskematta</translation>
     </message>
     <message>
+        <source>Pack paragraph styles</source>
+        <translation>Pakkaa kappaletyylit</translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation>Ryhmitä kappaletyylit asetusten mukaan.
+Tuloksena on vähemmän kappaletyylejä, mutta niiden käsittely
+on hankalampaa. Tulisi käyttää ainoastaan silloin, kun on 
+tiedossa ettei tekstiä tarvitse muokata jälkeenpäin.</translation>
+    </message>
+    <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Käytä asiakirjan nimeä kappaletyylin edessä</translation>
+        <translation>Käytä asiakirjan nimeä kappaletyylin edessä</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Liitetäänkö asiakirjan nimi kappaletyylin eteen 
+        <translation>Liitetäänkö asiakirjan nimi kappaletyylin eteen 
 luotaessa uusi tyyli Scribuksessa</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Älä kysy uudestaan</translation>
+        <translation>Älä kysy uudestaan</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="obsolete">Käytetäänkö aina nyt valittuja asetuksia tuotaessa
+        <translation>Käytetäänkö aina nyt valittuja asetuksia tuotaessa
 OpenOffice.org asiakirjaa eikä kyselyä näytetätä enää
 uudestaan</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
-    </message>
-    <message>
-        <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -7597,12 +7922,6 @@ If un-checked, text and graphics cannot be copied.</source>
 Jos kohta ei ole valittuna, kopiointi on estetty.</translation>
     </message>
     <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Salli PDF-huomautusten ja -kenttien lisääminen.
-Jos kohta ei ole valittuna huomautuksia ja kenttiä ei voi lisätä.</translation>
-    </message>
-    <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -7629,10 +7948,6 @@ Pelkän sivunumeron lisäksi voit käyttää
     <message>
         <source>Ellipse</source>
         <translation>Ellipsi</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Luo PDF-tiedosto</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7855,37 +8170,38 @@ PDF-tiedosto ei välttämättä tulostu oikein eikä ole siirrettävissä muille
         <translation>Peilaa sivu(t) pystysuorasti</translation>
     </message>
     <message>
-        <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Värienhallinta täytyy olla käytössä, jotta PDF/X-3:a voidaan käyttää. Värienhallinta voidaan käynnistää &quot;Asetukset&quot;-valikosta.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 on tuettu ja käytössä, mutta sitä ei voida käyttää valitulle PDF-versiolle. Jos haluat käyttää PDF/X-3:a, täytyy PDF-versioksi asettaa PDF/X-3.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Tämä Scribuksen käännös ei tue PDF/X-3-tiedostomuotoa (värienhallinan tukea ei löydy).&lt;/qt&gt; </translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Salli kenttien ja huomautusten lisääminen PDF-tiedostoon.
+Jos kohtaa ei valita, kenttien ja huomautusten muokkaus on estetty.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF turvallisuusasetukset</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-3 asetukset</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF-tiedoston turvallisuusominaisuuksia ei voi käyttää PDF/X-3:n kanssa. Jos haluat käyttää niitä, PDF-versio täytyy vaihtaa muuksi kuin PDF/X-3:ksi.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>Create PDF File</source>
+        <translation>Luo PDF-tiedosto</translation>
     </message>
 </context>
 <context>
@@ -8064,7 +8380,7 @@ vektorigrafiikalle esikatselussa esikatselun nopeuden kustannuksella</translatio
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="obsolete">Kopio</translation>
+        <translation>Kopio</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -8508,7 +8824,7 @@ positiivinen kuperan</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Pienet isot kirjaimet</translation>
+        <translation>Kapiteelit</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -8670,7 +8986,7 @@ mahdollisten KDE- ja QT-teemojen käytön</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Oletushakemisto ICC-profiileille</translation>
+        <translation>Oletushakemisto ICC-profiileille</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -8950,7 +9266,7 @@ aina valitun ajan kuluttua</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Ghostscript tulkin sijainti tiedostojärjestelmässä</translation>
+        <translation>Ghostscript tulkin sijainti tiedostojärjestelmässä</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -8975,20 +9291,16 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <translation>Tallenna leikekirjan sisältö aina sen muuttuessa</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Grafiikkatyökalun sijainti tiedostojärjestelmässä</translation>
-    </message>
-    <message>
         <source>Baseline Grid</source>
         <translation>Peruslinja</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation type="obsolete">Ottaa peruslinjan käyttöön</translation>
+        <translation>Ottaa peruslinjan käyttöön</translation>
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation type="obsolete">Ottaa peruslinjan pois käytöstä</translation>
+        <translation>Ottaa peruslinjan pois käytöstä</translation>
     </message>
     <message>
         <source> px</source>
@@ -9398,28 +9710,13 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
         <translation>Tabloid</translation>
     </message>
     <message>
-        <source>Default ICC profiles directory. This cannot
-be changed with documents open.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuvan muokkaustyökalun sijainti tiedostojärjestelmässä. Jos käytät Gimpiä,
+suosittelemme tässä käytettäväksi &apos;gimp-remote&apos; -komentoa, joka sallii
+uuden kuvan avauksen jo ennestään auki olevaan Gimpiin.</translation>
     </message>
 </context>
 <context>
@@ -9888,20 +10185,12 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Alustetaan...</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python skriptit (*.py);;Kaikki tiedostot (*)</translation>
-    </message>
-    <message>
         <source>Document</source>
         <translation>Asiakirja</translation>
     </message>
     <message>
         <source>Background</source>
         <translation>Tausta</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">Sk&amp;riptit</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
@@ -10056,22 +10345,6 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Ohjeet &amp;skriptamiseen...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scribus skriptit</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Aja skripti...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">Vii&amp;meaikaiset skriptit</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Näytä &amp;konsoli</translation>
-    </message>
-    <message>
         <source>Save Page as &amp;SVG...</source>
         <translation>Tallenna sivu &amp;SVG:na...</translation>
     </message>
@@ -10140,14 +10413,6 @@ External Links
     <message>
         <source>Media Cases</source>
         <translation>Kannet</translation>
-    </message>
-    <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">&amp;Tietoja skriptistä...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">Tietoja skriptistä</translation>
     </message>
     <message>
         <source>Albanian</source>
@@ -10291,24 +10556,9 @@ External Links
         <translation>Haettavalla värillä täytyy olla nimi.</translation>
     </message>
     <message>
-        <source>Color not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished">Väriä ei löydy</translation>
-    </message>
-    <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Nimetöntä väriä ei voi muuttaa.</translation>
-    </message>
-    <message>
-        <source>Color not found in document</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Väriä ei löydy asiakirjasta</translation>
-    </message>
-    <message>
-        <source>Color not found in default colors</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Väriä ei löydy oletusväreistä</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10344,46 +10594,6 @@ External Links
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Kohde ei ole kuvakehys.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Skaalaus 0 % ei ole mahdollinen</translation>
-    </message>
-    <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kirjasinta ei löydy</translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tyhjää esimerkkiä ei voi esittää</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Ilman tiedostonimeä ei voi tallentaa</translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Taso ei voi olla nimetön</translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tasoa ei löydy</translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Viimeistä tasoa ei voi poistaa</translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Nimetöntä tasoa ei voi luoda</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10521,139 +10731,14 @@ External Links
         <translation>Tekstiä ei voi lisätä muuhun kuin tekstikehykseen.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tuonnin indexi rajojen ulkopuolella</translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Tasaus rajojen ulkopuolella. Käytä jotain scribus.ALIGN* vakioista.</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tekstin tasausta ei voi asettuu kuin tekstikehykselle</translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kirjasimen koko sallittujen rajojen ulkopuolla. Täytyy olla välillä 1 &lt;= koko &lt;=512</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kirjasimen kokoa ei voi asettaa muulle kuin tekstikehykselle</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kirjasinta ei voi asettaa muulle kuin tekstikehykselle</translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Riviväli sallittujen rajojen ulkopuolella. Täytyy olla &gt;=0.1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Riviväliä ei voi asettaa muulle kuin tekstikehykselle</translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Palstojen väli sallittujen rajojen ulkopuolella. Täytyy olla positiivinen</translation>
-    </message>
-    <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Palstojen väliä ei voi asettaa muulle kuin tekstikehykselle</translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Palstojen lukumäärä sallittujen rajojen ulkopuolella. Täytyy olla &gt; 1</translation>
-    </message>
-    <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Palstojen lukumäärää ei voi asettaa muulle kuin tekstikehykselle</translation>
-    </message>
-    <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Valinnan indeksi sallittujen rajojen ulkopuolella</translation>
-    </message>
-    <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tekstiä ei voi valita muusta kuin tekstikehyksestä</translation>
-    </message>
-    <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tekstiä ei voi poistaa muusta kuin tekstikehyksestä</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tekstin täyttöväriä ei voi asettaa muussa kuin tekstikehyksessä</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tekstin reunusta ei voi asettaa muulle kuin tekstikehykselle</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Tekstin värin sävyä ei voi asettaa muulle kuin tekstikehykselle</translation>
-    </message>
-    <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Ainoastaan tekstikehyksiä voi linkittää</translation>
-    </message>
-    <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kohdekehyksen täytyy olla tyhjä</translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kohdekehys on linkitetty toiseen kehykseen</translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kohdekehykseen on linkitetty toinen kehys</translation>
-    </message>
-    <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Alku- ja loppukehys ovat yksi ja sama kohde</translation>
-    </message>
-    <message>
-        <source>Can&apos;t unlink a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Linkkiä ei voi poistaa muusta kuin tekstikehyksestä</translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, can&apos;t unlink.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kohde ei ole linkitetty tekstikehys. Linkitys ei onnistu.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kohde on linkkiketjun viimeinen. Siitä ei voi poistaa linkkiä. Poista tämän sijaan linkki edellisestä kehyksestä.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t convert a non-text frame to outlines</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Ainoastaan tekstikehyksen voi muuntaa ääriviivoiksi</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
@@ -10668,9 +10753,55 @@ External Links
         <translation>OpenOffice.org Writer asiakirjat</translation>
     </message>
     <message>
+        <source>Afrikaans</source>
+        <translation>afrikaans</translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>turkki</translation>
+    </message>
+    <message>
+        <source>Ukranian</source>
+        <translation>ukraina</translation>
+    </message>
+    <message>
+        <source>Welsh</source>
+        <translation>wales</translation>
+    </message>
+    <message>
+        <source>Cannot get a colour with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Tyhjällä nimellä i voi hakea väriä</translation>
+    </message>
+    <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Väriä ei löydy - python virhe</translation>
+    </message>
+    <message>
+        <source>The filename must be a string.</source>
+        <comment>python error</comment>
+        <translation>Tiedostonimen täytyy olla string.</translation>
+    </message>
+    <message>
+        <source>Cannot delete image type settings.</source>
+        <comment>python error</comment>
+        <translation>Kuvan tyypin asetuksia ei voi poistaa</translation>
+    </message>
+    <message>
+        <source>The image type must be a string.</source>
+        <comment>python error</comment>
+        <translation>Kuvan tyypin täytyy olla string.</translation>
+    </message>
+    <message>
+        <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
+        <comment>python error</comment>
+        <translation>&apos;allTypes&apos; parametri on ainoastaana lukua varten</translation>
+    </message>
+    <message>
+        <source>Failed to export image</source>
+        <comment>python error</comment>
+        <translation>Kuvan vienti epäonnistui</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10698,285 +10829,264 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Python interface module 
+ 
+This module is the Python interface for Scribus. It provides functions 
+to control scribus and to manipulate objects on the canvas. Each 
+function is documented individually below. 
+ 
+A few things are common across most of the interface. 
+ 
+Most functions operate on frames. Frames are identified by their name, 
+a string - they are not real Python objects. Many functions take an 
+optional (non-keyword) parameter, a frame name. 
+Many exceptions are also common across most functions. These are 
+not currently documented in the docstring for each function. 
+- Many functions will raise a NoDocOpenError if you try to use themwithout a document to operate on. 
+- If you do not pass a frame name to a function that requires one,the function will use the currently selected frame, if any, orraise a NoValidObjectError if it can&apos;t find anything to operateon. 
+- Many functions will raise WrongFrameTypeError if you try to use them 
+on a frame type that they do not make sense with. For example, setting 
+the text colour on a graphics frame doesn&apos;t make sense, and will result 
+in this exception being raised. 
+- Errors resulting from calls to the underlying Python API will be 
+passed through unaltered. As such, the list of exceptions thrown by 
+any function as provided here and in its docstring is incomplete. 
+ 
+Details of what exceptions each function may throw are provided on the 
+function&apos;s documentation.</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Oma (valinnainen) asetus:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Perusasetus: </translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short &amp;Words...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short Words. Odota hetki...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short Words valmis.</translation>
     </message>
     <message>
-        <source>Afrikaans</source>
-        <translation type="unfinished">afrikaans</translation>
-    </message>
-    <message>
-        <source>Turkish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ukranian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Welsh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The filename must be a string.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot delete image type settings.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The image type must be a string.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to export image</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Portuguese (Brazilian)</source>
+        <translation>Portugali (Brasilia)</translation>
     </message>
     <message>
         <source>Color not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Väriä ei löydy.</translation>
     </message>
     <message>
         <source>Color not found in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Väriä ei löydy asiakirjasta.</translation>
     </message>
     <message>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Väriä ei löydy oletusväreistä</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kokoa ei voi skaalta 0 %:lla</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Valittu kohde ei ole kuvakehys.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kirjasinta ei löydy</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot have an empty layer name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layer not found.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot remove the last layer.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot create layer without a name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert index out of bounds.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text alignment on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set font size on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set font on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set line spacing on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set column gap on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set number of columns on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot delete text from a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text fill on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text stroke on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text shade on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can only link text frames.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame must be empty.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Source and target are the same object.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot unlink a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, cannot unlink.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot convert a non-text frame to outlines.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot get a colour with an empty name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tyhjää esimerkkiä ei voi renderöidä</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bittikarttakuvaa ei voida tallentaa.</translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation>Tasolla täytyy olla nimi</translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation>Tasoa ei löydy.</translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation>Viimeistä tasoa ei voi poistaa</translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation>Tasoa ei voi luoda ilman nimeä</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation>Lisäysindeksi virheellinen.</translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstin tasauksen voi asettaa ainoastaan tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation>Kirjasimen koko virheellinen. Täytyy olla 1 &lt;= koko &lt;= 512.</translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kirjasimen koon voi asettaa vain tekstikehyksessä</translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kirjasimen voi asettaa vain tekstikehyksessä</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation>Rivivälistys virheellinen. Täytyy olla &gt;= 0,1.</translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Rivivälistyksen voi asettaa ainoastaan tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation>Palstojen väli virheellinen. Täytyy olla &gt;= 0.</translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Palstojen välin voi asettaa ainoastaan tekstikehyksellä</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation>Palstojen lukumäärä virheellinen. Täytyy olla &gt; 1.</translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Palstojen lukumäärän voi asettaa ainoastaan tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tekstiä voi valita ainoastaan tekstikehyksestä</translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstiä ei voi poistaa muusta kuin tekstikehyksestä</translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstin täyttövärin voi asettaa ainoastaan tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstin reunuksen voi asettaa vain tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstin täyttövärin sävyn voi asettaa ainoastaan tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation>Ainoastaan tekstikehyksiä voi linkittää</translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation>Kohdekehyksen täytyy olla tyhjä.</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation>Kohdekehys linkitetään toiseen kehykseen.</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation>Kohdekehys on linkitetty toiseen kehykseen.</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation>Lähde ja kohde ovat samat.</translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Ainoastaan tekstikehyksestä linkitys voidaan poistaa</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation>Kohde ei ole linkitetty tekstikehys. Linkitystä ei voida poistaa.</translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation>Kohde on linkkiketjun viimeinen jäsen. Siitä ei voi poistaa linkitystä. Poista linkitys edellisestä kehyksestä viimeisen sijaan.</translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
+        <translation>Ainoastaan tekstikehyksen voi muuntaa ääriviivoiksi</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kirjanmerkkiä ei voi asettaa kuin tekstikehykselle</translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Informaatiota ei voi saada muista kuin tekstikehyksistä</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenDocument tekstiasiakirjat</translation>
     </message>
     <message>
-        <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <source>Colour not found</source>
+        <comment>python error</comment>
+        <translation>Väriä ei löydy</translation>
     </message>
 </context>
 <context>
@@ -11317,16 +11427,8 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
 <context>
     <name>SToolBStyle</name>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Kirjasinvälistys:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation> pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Manuaalinen kirjasinvälistys</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -11334,11 +11436,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjasinväli:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Oma kirjasinväli</translation>
     </message>
 </context>
 <context>
@@ -11544,7 +11646,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Pienet isot kirjaimet</translation>
+        <translation>Kapiteelit</translation>
     </message>
     <message>
         <source>Multiple Duplicate</source>
@@ -11617,10 +11719,6 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Normal</source>
         <translation>Ei mitään</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Järjestelmästäsi ei löydy postscript-kirjasimia</translation>
     </message>
     <message>
         <source>Show Layers</source>
@@ -12538,23 +12636,19 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>portugali (BR)</translation>
     </message>
     <message>
         <source>There are no suitable Fonts on your System</source>
-        <translation type="unfinished"></translation>
+        <translation>Järjestelmästä ei löytynyt sopivia kirjasimia</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;qt&gt;Colour management is supported but can not currently be enabled. Make sure you have ISO colour profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Värienhallinta on tuettu, mutta sitä ei voida käyttää tällä hetkellä. Varmista että sinulla on tarvittavat väriprofiilit asennettuna ja että profiilikansio on asetettu oikein asetuksissa.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;qt&gt;Colour management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Värien hallinta ei ole tuettu tässä Scribuksen käännöksessä.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -12586,10 +12680,6 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>p</source>
         <translation>p</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="unfinished">Kopio</translation>
     </message>
 </context>
 <context>
@@ -12627,75 +12717,75 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <name>ScripterCore</name>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">&amp;Scribus skriptit</translation>
+        <translation>&amp;Scribus skriptit</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Aja skripti...</translation>
+        <translation>&amp;Aja skripti...</translation>
     </message>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aja Python-skripti tiedostosta.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lataa laajennusskripti...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lataa Python-skripti laajennuksena. Tätä käytetään makroissa sekä muissa kehittyneissä Python-skripteissä, jotka laajentavat Scribuksen käyttöliittymää.</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">Vii&amp;meaikaiset skriptit</translation>
+        <translation>Vii&amp;meaikaiset skriptit</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Näytä &amp;konsoli</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Näytä interaktiivinen Python-konsoli, jossa voit ajaa Python-ohjelmia, jotka käyttävät skripteriä.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;Tietoja skriptistä...</translation>
+        <translation>&amp;Tietoja skriptistä...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">Sk&amp;riptit</translation>
+        <translation>Sk&amp;riptit</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation type="unfinished"></translation>
+        <translation>Skripterin &amp;asetukset</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Avaa</translation>
+        <translation>Avaa</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Python skriptit (*.py);;Kaikki tiedostot (*)</translation>
+        <translation>Python skriptit (*.py);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Skriptivirhe</translation>
+        <translation>Skriptivirhe</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Jos ajat ohjelman mukana toimitettua skriptiä ilmoita siitä &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;. Kiitos.</translation>
+        <translation>Jos ajat ohjelman mukana toimitettua skriptiä ilmoita siitä &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;. Kiitos.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Tämä viesti on myös leikepöydälläsi. Voit liittää sen virheilmoitukseesi näppäinyhdistelmällä CTRL+V.</translation>
+        <translation>Tämä viesti on myös leikepöydälläsi. Voit liittää sen virheilmoitukseesi näppäinyhdistelmällä CTRL+V.</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Skriptilaajennus</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -12708,140 +12798,154 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;Lataa skripti&apos;-toiminto on poissa käytöstä. Jos haluat ainoastaan
+suorittaa normaalin skriptin, tämä onnistuu käyttämällä &apos;Aja skripti&apos;:ä
+
+Jos haluat ladata Python-laajennusskriptin tai makron, täytyy skripterin
+asetuksista asettaa laajennukset käyttöön.
+
+Lue laajennusskriptien dokumentaatio ensin.</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished">Piilota &amp;Konsoli</translation>
+        <translation>Piilota &amp;Konsoli</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">Tietoja skriptistä</translation>
+        <translation>Tietoja skriptistä</translation>
     </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Skripterin asetukset</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä skripterin laajennuksia</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Salli laajennusskriptit ja makrot</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Laajennusskriptin käyttö mahdollistaa skripterin edistyneet ominaisuudet kuten Python-makrot ja mahdollisuuden ladata käynnistysskripti. Valitsemalla tämän ominaisuuden vapautat &lt;tt&gt;Lataa laajennusksripti&lt;/tt&gt; kohdan käytettäväksi &quot;Skripti&quot;-valikossa.&lt;/p&gt;
+&lt;p&gt;Ainoastaan laajennusskripteiksi suunniteltuja skriptejä tulisi käyttää käynnistysskripteinä tai &lt;tt&gt;Lataa laajennuskripti&lt;/tt&gt;-ominaisuuden kanssa. Asiasta lisää skripterin dokumentaatiossa.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä käynnistysskriptiä</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Jos &lt;tt&gt;Käytä käynnistysskritpiä&lt;/tt&gt; on käytössä, Scribus lataa laajennusskriptitiedoston käynnistyksen yhteydessä. On tärkeää, että käytettävä skripti on suunniteltu tätä käyttöä varten. Muussa tapauksessa ohjelman käytössä saattaa esiintyä ongelmia.&lt;/p&gt;
+&lt;p&gt;&lt;tt&gt;Käytä käynnistysskriptiä&lt;/tt&gt; ei ole käytettävissä, jos skripterin laajennukset ovat poissa käytöstä.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi uusi skriptitiedosto</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Etsi skriptitiedosto&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikä skriptitiedosto ladataan käynnistyksessä</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Tiedosto, joka sisältää Python-skriptin ajettavaksi käynnistysskriptinä.&lt;/p&gt;
+&lt;p&gt;Huomaa että tätä skriptiä ajettaessa Scribus ei vielä ole täysin valmiian ja työskentelyaluetta ei vielä ole olemassa&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriptitiedosto:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Peruuta</translation>
+        <translation>&amp;Peruuta</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sulje tallentamatta muutoksia</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna muutokset ja poistu</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Lisäasetukset</translation>
+        <translation>Lisäasetukset</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuo kaikki nimet käynnistettäessä</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Aja &apos;from scribus import *&apos; skripterin konsolissa käynnistyksen yhteydessä</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Tuo kaikki nimet käynnistyksessä&lt;/tt&gt; on erikoisominaisuus, joka tulisi jättää oletusarvoonsa. Tämän asetuksen muuttaminen vaatii runsasta tietoa sen käytöstä.&lt;/p&gt;
+&lt;p&gt;Toiminnon käytöstä poistaminen estää skripterin ajamasta tavallisen &lt;tt&gt;from scribus import *&lt;/tt&gt; -komennon alustettaessa tulkkia.&lt;/p&gt;
+&lt;p&gt;Muutos tulee voimaan Scribuksen uudelleenkäynnistyksen yhteydessä.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä sovitettuja nimiä</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Käytä VanhanTyylisiä funktion nimiä&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Käytä sovitettuja nimiä&lt;/tt&gt; on ominaisuus, jota käytetttäessä skripteri luo suuren määrän funktioita ja vakioita 1.2.0 yhteensopivuuden varmistamiseksi. Suurella todennäköisyydellä tämä pitäisi jättää oletusarvoonsa.&lt;/p&gt;
+&lt;p&gt;Muutos tulee voimaan Scribuksen uudelleenkäynnistyksen yhteydessä.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä simuloitua stdiniä</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Korvaa sys.stdin tiedostolla. Tämä estää Scribuksen lukkiutumisen, jos skripti yrittää lukea stdinistä.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Käytä simuloitua stdiniä&lt;/tt&gt; on edistynyt ominaisuus, joka tulis jättää oletusarvoonsa.&lt;/p&gt;
+&lt;p&gt;Oletuksena Scribus vie Pythonille tiedoston &lt;tt&gt;sys.stdin&lt;/tt&gt;:n käyttöön. Tämän johdosta lukeminen stdinistä palauttaa aina tyhjän stringin. Jos oikea &lt;tt&gt;sys.stdin&lt;/tt&gt; on käytössä, skriptit jotka yrittävät lukea siitä estävät ohjelman käytön kunnes stdin saa odottamansa syötteen.&lt;/p&gt;
+&lt;p&gt;Voit poistaa ominaisuuden käytöstä mahdollistaaksesi oikean stdinin käytön. Yleensä olisi suositeltvaa käyttää &lt;tt&gt;os.popen&lt;/tt&gt;:a tai jotain muuta keinoa syötteen saamiseksi.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13340,7 +13444,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Pienet isot kirjaimet</translation>
+        <translation>Kapiteelit</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -13363,7 +13467,7 @@ raahaa malli sivualueelle.</translation>
     <name>SxwDialog</name>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="obsolete">Päivitä kappaletyylit</translation>
+        <translation>Päivitä kappaletyylit</translation>
     </message>
     <message>
         <source>OK</source>
@@ -13380,14 +13484,14 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Liitetäänkö asiakirjan nimi kappaletyylin eteen 
+        <translation>Liitetäänkö asiakirjan nimi kappaletyylin eteen 
 luotaessa uusi tyyli Scribuksessa</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
+        <translation>Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
 kappaletyyli Scribuksessa vastaamaan tätä vai jätetäänkö se koskematta</translation>
     </message>
     <message>
@@ -13398,33 +13502,23 @@ kappaletyyli Scribuksessa vastaamaan tätä vai jätetäänkö se koskematta</tr
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="obsolete">Käytetäänkö aina nyt valittuja asetuksia tuotaessa
+        <translation>Käytetäänkö aina nyt valittuja asetuksia tuotaessa
 OpenOffice.org asiakirjaa eikä kyselyä näytetätä enää
 uudestaan</translation>
     </message>
     <message>
-        <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <source>Pack paragraph styles</source>
+        <translation>Pakkaa kappaletyylit</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation>Ryhmitä kappaletyylit asetusten mukaan.
+Tuloksena on vähemmän kappaletyylejä, mutta niiden käsittely
+on hankalampaa. Tulisi käyttää ainoastaan silloin, kun on 
+tiedossa ettei tekstiä tarvitse muokata jälkeenpäin.</translation>
     </message>
 </context>
 <context>
@@ -13618,48 +13712,48 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short Words</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Käytä sitovaa välilyöntiä:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Valitut kehykset</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Valittu &amp;sivu</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kaikki kohteet</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Peruuta</translation>
+        <translation>&amp;Peruuta</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tiedot ja kielet</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korvaa oletukset käyttäjän asetuksilla</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -13670,37 +13764,42 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kun käyttäjän asetustiedosto löytyy
+(%1)
+voit valita haluatko lisätä oman asetustiedostosi yleisiin
+asetuksiin merkkaamattomilla painikkeilla.
+
+Voit korvata esimääritellyt arvot omillasi valituilla painikkeilla.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ainoastaan valitut kehykset käyty läpi.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vain valittu sivu käyty läpi.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kaikki asiakirjan kohteet käyty läpi.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short Words Scribukselle</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Saatavilla seuraavilla kielillä</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tietoja Short Words:sta</translation>
     </message>
 </context>
 <context>
@@ -13864,7 +13963,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Get text only</source>
-        <translation type="obsolete">Tuo ainoastaan teksti</translation>
+        <translation>Tuo ainoastaan teksti</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
@@ -13877,10 +13976,6 @@ with checked button too.</source>
     <message>
         <source>Encoding:</source>
         <translation>Koodaus:</translation>
-    </message>
-    <message>
-        <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
