@@ -46,11 +46,12 @@ void TOCIndexPrefs::generatePageItemList()
 	itemDestFrameComboBox->insertItem(trNone);
 	if (currDoc!=NULL)
 	{
-		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
-		{
-			if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
-				itemDestFrameComboBox->insertItem(currDoc->DocItems.at(d)->itemName());
-		}
+		if (currDoc->DocItems.count()>0)
+			for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+			{
+				if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
+					itemDestFrameComboBox->insertItem(currDoc->DocItems.at(d)->itemName());
+			}
 	}
 	else
 		itemDestFrameComboBox->setEnabled(false);
