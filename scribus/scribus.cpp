@@ -753,7 +753,6 @@ void ScribusApp::initPalettes()
 	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
 	scrapbookPalette->setPrefsContext("ScrapbookPalette");
 	scrapbookPalette->installEventFilter(this);
-	scrapbookPalette->BibWin->installEventFilter(this);
 	pagePalette = new SeitenPal(this);
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setPagePalette(bool)) );
@@ -830,8 +829,8 @@ void ScribusApp::initScrapbook()
 	QString scrapbookFile = QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
-		scrapbookPalette->BibWin->ReadContents(scrapbookFile);
-	scrapbookPalette->ScFilename = scrapbookFile;
+		scrapbookPalette->readContents(scrapbookFile);
+	scrapbookPalette->setScrapbookFileName(scrapbookFile);
 	scrapbookPalette->AdjustMenu();
 }
 
@@ -2477,13 +2476,13 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		SavePrefs();
 		delete prefsFile;
 		UndoManager::deleteInstance();
-		if ((Prefs.SaveAtQ) && (scrapbookPalette->Changed == true))
+		if ((Prefs.SaveAtQ) && (scrapbookPalette->changed()))
 		{
-			if (scrapbookPalette->ScFilename.isEmpty())
-				scrapbookPalette->ScFilename = PrefsPfad+"/scrap13.scs";
+			if (scrapbookPalette->getScrapbookFileName().isEmpty())
+				scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
 			scrapbookPalette->Save();
 		}
-		if (scrapbookPalette->BibWin->Objekte.count() == 0)
+		if (scrapbookPalette->objectCount() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		Prefs.AvailFonts.~SCFonts();
 		exit(0);
@@ -2500,13 +2499,13 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		docCheckerPalette->hide();
 		SavePrefs();
 		UndoManager::deleteInstance();
-		if ((Prefs.SaveAtQ) && (scrapbookPalette->Changed == true))
+		if ((Prefs.SaveAtQ) && (scrapbookPalette->changed()))
 		{
-			if (scrapbookPalette->ScFilename.isEmpty())
-				scrapbookPalette->ScFilename = PrefsPfad+"/scrap13.scs";
+			if (scrapbookPalette->getScrapbookFileName().isEmpty())
+				scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
 			scrapbookPalette->Save();
 		}
-		if (scrapbookPalette->BibWin->Objekte.count() == 0)
+		if (scrapbookPalette->objectCount() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		Prefs.AvailFonts.~SCFonts();
@@ -5837,7 +5836,7 @@ void ScribusApp::setUndoPalette(bool visible)
 	undoPalette->setShown(visible);
 	scrActions["toolsActionHistory"]->setOn(visible);
 }
-
+/*
 void ScribusApp::togglePropertiesPalette()
 {
 	PalettesStat[0] = false;
@@ -5857,7 +5856,7 @@ void ScribusApp::toggleLayerPalette()
 {
 	PalettesStat[0] = false;
 }
-
+*/
 void ScribusApp::setPagePalette(bool visible)
 {
 	if (!visible)
@@ -5872,11 +5871,12 @@ void ScribusApp::togglePagePalette()
 	setPagePalette(!pagePalette->isVisible());
 	PalettesStat[0] = false;
 }
-
+/*
 void ScribusApp::toggleBookmarkPalette()
 {
 	PalettesStat[0] = false;
 }
+*/
 
 void ScribusApp::toggleUndoPalette()
 {
@@ -7681,7 +7681,7 @@ void ScribusApp::slotPrefsOrg()
 			break;
 		}
 		Prefs.SaveAtQ = dia->SaveAtQuit->isChecked();
-		scrapbookPalette->BibWin->RebuildView();
+		scrapbookPalette->rebuildView();
 		scrapbookPalette->AdjustMenu();
 		Prefs.guiLanguage=dia->selectedGUILang;
 		if (Prefs.GUI != dia->GUICombo->currentText())

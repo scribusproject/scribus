@@ -26,7 +26,7 @@ extern PrefsFile* prefsFile;
  * inherited from QIconView */
 BibView::BibView(QWidget* parent, ApplicationPrefs *prefs) : QIconView(parent)
 {
-	Objekte.clear();
+	objectMap.clear();
 	Prefs = prefs;
 }
 
@@ -49,7 +49,7 @@ void BibView::keyPressEvent(QKeyEvent *k)
 
 QDragObject *BibView::dragObject()
 {
-	QString dt = Objekte[currentItem()->text()].Data.utf8();
+	QString dt = objectMap[currentItem()->text()].Data.utf8();
 	QDragObject *dr = new QTextDrag(dt, this);
 	dr->setPixmap(loadIcon("DragPix.xpm"));
 	return dr;
@@ -60,7 +60,7 @@ void BibView::AddObj(QString name, QString daten, QPixmap Bild)
 	struct Elem DrElem;
 	DrElem.Data = daten;
 	DrElem.Preview = Bild;
-	Objekte.insert(name, DrElem);
+	objectMap.insert(name, DrElem);
 }
 
 void BibView::SaveContents(QString name)
@@ -69,7 +69,7 @@ void BibView::SaveContents(QString name)
 	QString st="<SCRIBUSSCRAPUTF8></SCRIBUSSCRAPUTF8>";
 	docu.setContent(st);
 	QDomElement ele=docu.documentElement();
-	for (QMap<QString,Elem>::Iterator itf = Objekte.begin(); itf != Objekte.end(); ++itf)
+	for (QMap<QString,Elem>::Iterator itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
 		QDomElement dc=docu.createElement("OBJEKT");
 		dc.setAttribute("NAME",itf.key());
@@ -102,7 +102,7 @@ void BibView::ReadContents(QString name)
 	if ((elem.tagName() != "SCRIBUSSCRAP") && (elem.tagName() != "SCRIBUSSCRAPUTF8"))
 		return;
 	clear();
-	Objekte.clear();
+	objectMap.clear();
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
 	{
@@ -116,7 +116,7 @@ void BibView::ReadContents(QString name)
 		DOC=DOC.nextSibling();
 	}
 	QMap<QString,Elem>::Iterator itf;
-	for (itf = Objekte.begin(); itf != Objekte.end(); ++itf)
+	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
 		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
 	}
@@ -126,7 +126,7 @@ void BibView::RebuildView()
 {
 	clear();
 	QMap<QString,Elem>::Iterator itf;
-	for (itf = Objekte.begin(); itf != Objekte.end(); ++itf)
+	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
 		ScPreview *pre = new ScPreview(Prefs);
 		itf.data().Preview = pre->createPreview(itf.data().Data);
@@ -193,27 +193,47 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
 }
-/*
-void Biblio::closeEvent(QCloseEvent *ce)
+
+void Biblio::setScrapbookFileName(QString fileName)
 {
-	emit Schliessen();
-	ce->accept();
+	ScFilename=fileName;
 }
 
-void Biblio::CloseWin()
+const QString Biblio::getScrapbookFileName()
 {
-	emit Schliessen();
+	return ScFilename;
 }
 
-void Biblio::reject()
+const bool Biblio::changed()
 {
-	emit Schliessen();
-	QDialog::reject();
+	return Changed;
 }
-*/
+
+const int Biblio::objectCount()
+{
+	return BibWin->objectMap.count();
+}
+
+void Biblio::rebuildView()
+{
+	BibWin->RebuildView();	
+}
+
+void Biblio::readContents(QString fileName)
+{
+	BibWin->ReadContents(fileName);
+}
+
+void Biblio::installEventFilter(const QObject *filterObj)
+{
+	ScrPaletteBase::installEventFilter(filterObj);
+	BibWin->installEventFilter(filterObj);
+}
+
+
 void Biblio::Save()
 {
-	if ((!ScFilename.isEmpty()) && (BibWin->Objekte.count() != 0))
+	if ((!ScFilename.isEmpty()) && (BibWin->objectMap.count() != 0))
 	{
 		BibWin->SaveContents(ScFilename);
 		Changed = false;
@@ -321,7 +341,7 @@ void Biblio::HandleMouse(QIconViewItem *ite)
 void Biblio::NewLib()
 {
 	Save();
-	BibWin->Objekte.clear();
+	BibWin->objectMap.clear();
 	BibWin->clear();
 	ScFilename = "";
 	setCaption( tr("Scrapbook"));
@@ -330,7 +350,7 @@ void Biblio::NewLib()
 
 void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 {
-	BibWin->Objekte.remove(name);
+	BibWin->objectMap.remove(name);
 	delete ite;
 	BibWin->sort(BibWin->sortDirection());
 	BibWin->arrangeItemsInGrid(true);
@@ -346,16 +366,16 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 	disconnect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	if (OldName != ite->text())
 	{
-		if (BibWin->Objekte.contains(ite->text()))
+		if (BibWin->objectMap.contains(ite->text()))
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(ite->text()), tr("OK"));
 			ite->setText(OldName);
 		}
 		else
 		{
-			ObjData = BibWin->Objekte[OldName].Data;
-			ObjPreview = BibWin->Objekte[OldName].Preview;
-			BibWin->Objekte.remove(OldName);
+			ObjData = BibWin->objectMap[OldName].Data;
+			ObjPreview = BibWin->objectMap[OldName].Preview;
+			BibWin->objectMap.remove(OldName);
 			BibWin->AddObj(ite->text(), ObjData, ObjPreview);
 			BibWin->sort(BibWin->sortDirection());
 			BibWin->arrangeItemsInGrid(true);
@@ -404,13 +424,13 @@ void Biblio::DropOn(QDropEvent *e)
 void Biblio::ObjFromMenu(QString text)
 {
 	QString nam, tmp;
-	nam = tr("Object") + tmp.setNum(BibWin->Objekte.count());
+	nam = tr("Object") + tmp.setNum(BibWin->objectMap.count());
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->setEditText(nam, true);
 	if (dia->exec())
 	{
 		nam = dia->getEditText();
-		while (BibWin->Objekte.contains(nam))
+		while (BibWin->objectMap.contains(nam))
 		{
 			if (!dia->exec())
 			{

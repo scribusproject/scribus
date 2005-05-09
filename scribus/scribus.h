@@ -340,14 +340,14 @@ public slots:
  	void setPDFTools(bool visible);
 	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
-	void togglePropertiesPalette();
+	//void togglePropertiesPalette();
 	/** Schaltet Uebersichtspalette ein/aus*/
-	void toggleOutlinePalette();
-	void toggleScrapbookPalette();
-	void toggleLayerPalette();
+	//void toggleOutlinePalette();
+	//void toggleScrapbookPalette();
+	//void toggleLayerPalette();
 	void togglePagePalette();
 	void setPagePalette(bool visible);
-	void toggleBookmarkPalette();
+	//void toggleBookmarkPalette();
 	void toggleUndoPalette();
 	void setUndoPalette(bool visible);
 	void toggleCheckPal();

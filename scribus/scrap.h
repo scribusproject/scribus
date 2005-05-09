@@ -37,7 +37,7 @@ public:
 		QString Data;
 		QPixmap Preview;
 	};
-	QMap<QString,Elem> Objekte;
+	QMap<QString,Elem> objectMap;
 	ApplicationPrefs *Prefs;
 
 signals:
@@ -57,25 +57,16 @@ class Biblio : public ScrPaletteBase
 public:
 	Biblio( QWidget* parent, ApplicationPrefs *prefs);
 	~Biblio() {};
-	//void closeEvent(QCloseEvent *ce);
 	void AdjustMenu();
 	void ObjFromMenu(QString text);
-
-	QPopupMenu* pmenu;
-	QPopupMenu* fmenu;
-	QPopupMenu* vmenu;
-	QMenuBar* menuBar;
-	QFrame* Frame3;
-	BibView* BibWin;
-	ApplicationPrefs *Prefs;
-	QString ScFilename;
-	QString OldName;
-	int fSave;
-	int vS;
-	int vM;
-	int vB;
-	bool Changed;
-
+	void setScrapbookFileName(QString);
+	const QString getScrapbookFileName();
+	const bool changed();
+	const int objectCount();
+	void rebuildView();
+	void readContents(QString);
+	void installEventFilter(const QObject *);
+	
 public slots:
 	void Save();
 
@@ -91,14 +82,22 @@ private slots:
 	void SetPreview(int id);
 
 protected:
+	QPopupMenu* pmenu;
+	QPopupMenu* fmenu;
+	QPopupMenu* vmenu;
+	QMenuBar* menuBar;
+	QFrame* Frame3;
 	QVBoxLayout* BiblioLayout;
 	QVBoxLayout* Frame3Layout;
-
-protected slots:
-	//virtual void reject();
-
-signals:
-	//void Schliessen();
+	QString ScFilename;
+	bool Changed;
+	BibView* BibWin;
+	ApplicationPrefs *Prefs;
+	QString OldName;
+	int fSave;
+	int vS;
+	int vM;
+	int vB;
 };
 
 #endif // BIBLIO_H
