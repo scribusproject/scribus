@@ -200,7 +200,7 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 	if (Carrier->HaveDoc)
 		// which one should I use ???
 		// new = Carrier->view->Pages.count()
-		num = Carrier->doc->PageC;
+		num = Carrier->doc->pageCount;
 	pages = PyList_New(num);
 	if (pages){
 		Py_DECREF(self->pages);
@@ -359,7 +359,7 @@ static int Printer_setpages(Printer *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > Carrier->doc->PageC || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > Carrier->doc->pageCount || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}
@@ -458,9 +458,9 @@ static PyObject *Printer_print(Printer *self)
 			{
 				QString tmp;
 				QString opts = "-dDEVICEWIDTHPOINTS=";
-				opts += tmp.setNum(Carrier->doc->PageB);
+				opts += tmp.setNum(Carrier->doc->pageWidth);
 				opts += " -dDEVICEHEIGHTPOINTS=";
-				opts += tmp.setNum(Carrier->doc->PageH);
+				opts += tmp.setNum(Carrier->doc->pageHeight);
 				if (PSLevel == 1)
 					system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
 				else

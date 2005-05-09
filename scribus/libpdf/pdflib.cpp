@@ -1065,7 +1065,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						PutPage("0 j\n");
 						break;
 				}
-				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
+				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->pageHeight - (ite->Ypos  - pag->Yoffset))+" cm\n");
 				if (ite->Rot != 0)
 				{
 					double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -1365,7 +1365,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				StartObj(ObjCounter);
 				ObjCounter++;
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-				PutDoc("/BBox [ 0 0 "+FToStr(doc->PageB)+" "+FToStr(doc->PageH)+" ]\n");
+				PutDoc("/BBox [ 0 0 "+FToStr(doc->pageWidth)+" "+FToStr(doc->pageHeight)+" ]\n");
 				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 				if (Seite.ImgObjects.count() != 0)
 				{
@@ -1456,9 +1456,9 @@ void PDFlib::PDF_End_Page()
 	WritePDFStream(&Inhalt);
 	StartObj(ObjCounter);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
-	PutDoc("/MediaBox [0 0 "+FToStr(doc->PageB)+" "+FToStr(doc->PageH)+"]\n");
+	PutDoc("/MediaBox [0 0 "+FToStr(doc->pageWidth)+" "+FToStr(doc->pageHeight)+"]\n");
 	PutDoc("/TrimBox ["+FToStr(Options->BleedLeft)+" "+FToStr(Options->BleedBottom)+
-		" "+FToStr(doc->PageB-Options->BleedRight)+" "+FToStr(doc->PageH-Options->BleedTop)+"]\n");
+		" "+FToStr(doc->pageWidth-Options->BleedRight)+" "+FToStr(doc->pageHeight-Options->BleedTop)+"]\n");
 	PutDoc("/Rotate "+IToStr(Options->RotateDeg)+"\n");
 	PutDoc("/Contents "+IToStr(Seite.ObjNum)+" 0 R\n");
 	if (Options->Thumbnails)
@@ -1561,18 +1561,18 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	if (Options->UseLPI)
 		PutPage("/"+HTName+" gs\n");
 	if ( (Options->MirrorH) && (pag->MPageNam != "") )
-		PutPage("-1 0 0 1 "+FToStr(doc->PageB)+" 0 cm\n");
+		PutPage("-1 0 0 1 "+FToStr(doc->pageWidth)+" 0 cm\n");
 	if ( (Options->MirrorV) && (pag->MPageNam != "") )
-		PutPage("1 0 0 -1 0 "+FToStr(doc->PageH)+" cm\n");
+		PutPage("1 0 0 -1 0 "+FToStr(doc->pageHeight)+" cm\n");
 	if (clip)
 	{
 		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(pag->Margins.Bottom) + " m\n");
-		PutPage(FToStr(doc->PageB - pag->Margins.Right) + " " + FToStr(pag->Margins.Bottom) + " l\n");
-		PutPage(FToStr(doc->PageB - pag->Margins.Right) + " " + FToStr(doc->PageH - pag->Margins.Top) + " l\n");
-		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(doc->PageH - pag->Margins.Top) + " l h W n\n");
+		PutPage(FToStr(doc->pageWidth - pag->Margins.Right) + " " + FToStr(pag->Margins.Bottom) + " l\n");
+		PutPage(FToStr(doc->pageWidth - pag->Margins.Right) + " " + FToStr(doc->pageHeight - pag->Margins.Top) + " l\n");
+		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(doc->pageHeight - pag->Margins.Top) + " l h W n\n");
 	}
 	else
-		PutPage("0 0 "+FToStr(doc->PageB)+" "+FToStr(doc->PageH)+" re W n\n");
+		PutPage("0 0 "+FToStr(doc->pageWidth)+" "+FToStr(doc->pageHeight)+" re W n\n");
 	if (pag->MPageNam != "")
 	{
 		Page* mPage = doc->MasterPages.at(doc->MasterNames[doc->Pages.at(PNr)->MPageNam]);
@@ -1662,7 +1662,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									PutPage("0 j\n");
 									break;
 							}
-							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset))+" cm\n");
+							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->pageHeight - (ite->Ypos  - mPage->Yoffset))+" cm\n");
 							if (ite->Rot != 0)
 							{
 								double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -1784,7 +1784,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("0 j\n");
 								break;
 						}
-						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset))+" cm\n");
+						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->pageHeight - (ite->Ypos  - mPage->Yoffset))+" cm\n");
 						if (ite->Rot != 0)
 						{
 							double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -1943,7 +1943,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage("0 j\n");
 						break;
 				}
-				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
+				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->pageHeight - (ite->Ypos  - pag->Yoffset))+" cm\n");
 				if (ite->Rot != 0)
 				{
 					double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -2372,7 +2372,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("0 j\n");
 							break;
 					}
-					PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
+					PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->pageHeight - (ite->Ypos  - pag->Yoffset))+" cm\n");
 					if (ite->Rot != 0)
 					{
 						double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -3284,7 +3284,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	for (uint a = 0; a < ar; ++a)
 		ind2PDFabr[a] = tmp[a];
 	double x = ite->Xpos - ActPageP->Xoffset;
-	double y = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
+	double y = doc->pageHeight - (ite->Ypos  - ActPageP->Yoffset);
 	double x2 = x+ite->Width;
 	double y2 = y-ite->Height;
 	for (uint d = 0; d < ite->itemText.count(); ++d)
@@ -3566,21 +3566,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			break;
 		case 90:
 			x = ite->Xpos - ActPageP->Xoffset;
-			y2 = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
+			y2 = doc->pageHeight - (ite->Ypos  - ActPageP->Yoffset);
 			x2 = x + ite->Height;
 			y = y2 + ite->Width;
 			break;
 		case 180:
 			x = ite->Xpos - ActPageP->Xoffset - ite->Width;
-			y2 = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
+			y2 = doc->pageHeight - (ite->Ypos  - ActPageP->Yoffset);
 			x2 = ite->Xpos - ActPageP->Xoffset;
 			y = y2 + ite->Height;
 			break;
 		case 270:
 			x = ite->Xpos - ActPageP->Xoffset - ite->Height;
-			y2 = doc->PageH - (ite->Ypos  - ActPageP->Yoffset) - ite->Width;
+			y2 = doc->pageHeight - (ite->Ypos  - ActPageP->Yoffset) - ite->Width;
 			x2 = ite->Xpos - ActPageP->Xoffset;
-			y = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
+			y = doc->pageHeight - (ite->Ypos  - ActPageP->Yoffset);
 			break;
 	}
 	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
@@ -4533,7 +4533,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 						ccb++;
 						bd.Page = PageTree.Kids[tel->OwnPage];
 						bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->Xoffset),
-									static_cast<int>(doc->PageH - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
+									static_cast<int>(doc->pageHeight - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
 									static_cast<int>(tel->Width),
 									static_cast<int>(tel->Height));
 						Beads.append(bd);
@@ -4547,7 +4547,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
 					bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->Xoffset), 
-								static_cast<int>(doc->PageH - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
+								static_cast<int>(doc->pageHeight - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
 								static_cast<int>(tel->Width),
 								static_cast<int>(tel->Height));
 					Beads.append(bd);

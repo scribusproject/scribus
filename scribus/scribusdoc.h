@@ -126,13 +126,13 @@ public: // Public attributes
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
   /** Pagewidth  */
-	double PageB;
+	double pageWidth;
   /** Pageheight */
-	double PageH;
+	double pageHeight;
   /** Number of Pages */
-	int PageC;
+	int pageCount;
   /** Margins */
-	MarginStruct PageM;
+	MarginStruct pageMargins;
   /** Number of Columns */
 	double PageSp;
   /** Distance of Columns */

@@ -95,7 +95,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	Ready = false;
 	updateOn = true;
 	Doc = doc;
-	Doc->PageC = 0;
+	Doc->pageCount = 0;
 	Prefs = prefs;
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);
@@ -8361,8 +8361,8 @@ void ScribusView::Zval()
 {
 	int x = qRound(QMAX(contentsX() / Scale, 0));
 	int y = qRound(QMAX(contentsY() / Scale, 0));
-	int w = qRound(QMIN(visibleWidth() / Scale, Doc->PageB));
-	int h = qRound(QMIN(visibleHeight() / Scale, Doc->PageH));
+	int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
+	int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
 	rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	Scale = LE->value() / 100.0 * Prefs->DisScale;
 	slotDoZoom();
@@ -8372,21 +8372,21 @@ void ScribusView::Zval()
 /** Adds a Page */
 Page* ScribusView::addPage(int nr)
 {
-	Page* fe = new Page(Doc->ScratchLeft, Doc->PageC*(Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop, Doc->PageB, Doc->PageH);
-	fe->Margins.Top = Doc->PageM.Top;
-	fe->Margins.Bottom = Doc->PageM.Bottom;
+	Page* fe = new Page(Doc->ScratchLeft, Doc->pageCount*(Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop, Doc->pageWidth, Doc->pageHeight);
+	fe->Margins.Top = Doc->pageMargins.Top;
+	fe->Margins.Bottom = Doc->pageMargins.Bottom;
 	fe->setPageNr(nr);
 	Doc->Pages.insert(nr, fe);
 	Doc->currentPage = fe;
-	Doc->PageC++;
-	PGS->setMaxValue(Doc->PageC);
+	Doc->pageCount++;
+	PGS->setMaxValue(Doc->pageCount);
 	reformPages();
 	if ((Doc->PageAT) && (!Doc->loading))
 	{
 		int z = PaintText(fe->Margins.Left+fe->Xoffset,
 		                  fe->Margins.Top+fe->Yoffset,
-		                  Doc->PageB-fe->Margins.Right-fe->Margins.Left,
-		                  Doc->PageH-fe->Margins.Bottom-fe->Margins.Top,
+		                  Doc->pageWidth-fe->Margins.Right-fe->Margins.Left,
+		                  Doc->pageHeight-fe->Margins.Bottom-fe->Margins.Top,
 		                  1, Doc->toolSettings.dPen);
 		Doc->Items.at(z)->isAutoText = true;
 		Doc->Items.at(z)->BackBox = Doc->LastAuto;
@@ -8434,9 +8434,9 @@ Page* ScribusView::addPage(int nr)
 /** Lscht eine Seite */
 void ScribusView::delPage(int Nr)
 {
-	if (Doc->PageC == 1)
+	if (Doc->pageCount == 1)
 		return;
-	if (Doc->PageC < Nr-1)
+	if (Doc->pageCount < Nr-1)
 		return;
 	Page* Seite;
 	Seite = Doc->Pages.at(Nr);
@@ -8452,13 +8452,13 @@ void ScribusView::delPage(int Nr)
 	Seite->FromMaster.clear();
 	Doc->Pages.remove(Nr);
 	delete Seite;
-	Doc->PageC -= 1;
+	Doc->pageCount -= 1;
 	Doc->currentPage = Doc->Pages.at(0);
 	if (Doc->masterPageMode)
 		Doc->MasterPages = Doc->Pages;
 	else
 		Doc->DocPages = Doc->Pages;
-	PGS->setMaxValue(Doc->PageC);
+	PGS->setMaxValue(Doc->pageCount);
 	PGS->GotoPg(0);
 }
 
@@ -8525,13 +8525,13 @@ void ScribusView::reformPages()
 			{
 				if (Seite->LeftPg)
 				{
-					Seite->Margins.Left = Doc->PageM.Right;
-					Seite->Margins.Right = Doc->PageM.Left;
+					Seite->Margins.Left = Doc->pageMargins.Right;
+					Seite->Margins.Right = Doc->pageMargins.Left;
 				}
 				else
 				{
-					Seite->Margins.Right = Doc->PageM.Right;
-					Seite->Margins.Left = Doc->PageM.Left;
+					Seite->Margins.Right = Doc->pageMargins.Right;
+					Seite->Margins.Left = Doc->pageMargins.Left;
 				}
 			}
 			else
@@ -8540,37 +8540,37 @@ void ScribusView::reformPages()
 				{
 					if (Doc->FirstPageLeft)
 					{
-						Seite->Margins.Left = Doc->PageM.Right;
-						Seite->Margins.Right = Doc->PageM.Left;
+						Seite->Margins.Left = Doc->pageMargins.Right;
+						Seite->Margins.Right = Doc->pageMargins.Left;
 					}
 					else
 					{
-						Seite->Margins.Right = Doc->PageM.Right;
-						Seite->Margins.Left = Doc->PageM.Left;
+						Seite->Margins.Right = Doc->pageMargins.Right;
+						Seite->Margins.Left = Doc->pageMargins.Left;
 					}
 				}
 				else
 				{
 					if (Doc->FirstPageLeft)
 					{
-						Seite->Margins.Right = Doc->PageM.Right;
-						Seite->Margins.Left = Doc->PageM.Left;
+						Seite->Margins.Right = Doc->pageMargins.Right;
+						Seite->Margins.Left = Doc->pageMargins.Left;
 					}
 					else
 					{
-						Seite->Margins.Left = Doc->PageM.Right;
-						Seite->Margins.Right = Doc->PageM.Left;
+						Seite->Margins.Left = Doc->pageMargins.Right;
+						Seite->Margins.Right = Doc->pageMargins.Left;
 					}
 				}
 			}
 		}
 		else
 		{
-			Seite->Margins.Right = Doc->PageM.Right;
-			Seite->Margins.Left = Doc->PageM.Left;
+			Seite->Margins.Right = Doc->pageMargins.Right;
+			Seite->Margins.Left = Doc->pageMargins.Left;
 		}
-		Seite->Margins.Top = Doc->PageM.Top;
-		Seite->Margins.Bottom = Doc->PageM.Bottom;
+		Seite->Margins.Top = Doc->pageMargins.Top;
+		Seite->Margins.Bottom = Doc->pageMargins.Bottom;
 		if (Doc->MasterP)
 		{
 			Seite->Xoffset = Doc->ScratchLeft;
@@ -8585,32 +8585,32 @@ void ScribusView::reformPages()
 					if (Doc->FirstPageLeft)
 					{
 						Seite->Xoffset = Doc->ScratchLeft;
-						Seite->Yoffset = a/2 * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+						Seite->Yoffset = a/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
 					}
 					else
 					{
-						Seite->Xoffset = Doc->ScratchLeft + Doc->PageB;
-						Seite->Yoffset = (a+1)/2 * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+						Seite->Xoffset = Doc->ScratchLeft + Doc->pageWidth;
+						Seite->Yoffset = (a+1)/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
 					}
 				}
 				else
 				{
 					if (Doc->FirstPageLeft)
 					{
-						Seite->Xoffset = Doc->ScratchLeft + Doc->PageB;
-						Seite->Yoffset = a/2 * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+						Seite->Xoffset = Doc->ScratchLeft + Doc->pageWidth;
+						Seite->Yoffset = a/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
 					}
 					else
 					{
 						Seite->Xoffset = Doc->ScratchLeft;
-						Seite->Yoffset = (a+1)/2 * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+						Seite->Yoffset = (a+1)/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
 					}
 				}
 			}
 			else
 			{
 				Seite->Xoffset = Doc->ScratchLeft;
-				Seite->Yoffset = a * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+				Seite->Yoffset = a * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
 			}
 		}
 	}
@@ -8634,12 +8634,12 @@ void ScribusView::reformPages()
 	if (Doc->PageFP)
 	{
 		if (Doc->FirstPageLeft)
-			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->PageC-1)/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 		else
-			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->PageC/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 	}
 	else
-		resizeContents(qRound((Doc->PageB+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->PageC * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+		resizeContents(qRound((Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 	if (!ScApp->ScriptRunning)
 		setContentsPos(qRound((Doc->currentPage->Xoffset-10) * Scale), qRound((Doc->currentPage->Yoffset-10) * Scale));
 	setRulerPos(contentsX(), contentsY());
@@ -8651,7 +8651,7 @@ void ScribusView::setMenTxt(int Seite)
 	if (ScApp->ScriptRunning)
 		return;
 	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	PGS->setMaxValue(Doc->PageC);
+	PGS->setMaxValue(Doc->pageCount);
 	if ((!Doc->loading) && (!Doc->MasterP))
 		PGS->GotoPg(Seite);
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
@@ -8670,12 +8670,12 @@ void ScribusView::slotDoZoom()
 	if (Doc->PageFP)
 	{
 		if (Doc->FirstPageLeft)
-			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->PageC-1)/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 		else
-			resizeContents(qRound((Doc->PageB*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->PageC/2 + 1) * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 	}
 	else
-		resizeContents(qRound((Doc->PageB+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->PageC * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+		resizeContents(qRound((Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
 	setRulerPos(contentsX(), contentsY());
 	if (SelItem.count() != 0)
 	{
@@ -8695,8 +8695,8 @@ void ScribusView::slotZoomIn(int mx,int my)
 	{
 		int x = qRound(QMAX(contentsX() / Scale, 0));
 		int y = qRound(QMAX(contentsY() / Scale, 0));
-		int w = qRound(QMIN(visibleWidth() / Scale, Doc->PageB));
-		int h = qRound(QMIN(visibleHeight() / Scale, Doc->PageH));
+		int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
+		int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
 		rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	}
 	else
@@ -8717,8 +8717,8 @@ void ScribusView::slotZoomOut(int mx,int my)
 	{
 		int x = qRound(QMAX(contentsX() / Scale, 0));
 		int y = qRound(QMAX(contentsY() / Scale, 0));
-		int w = qRound(QMIN(visibleWidth() / Scale, Doc->PageB));
-		int h = qRound(QMIN(visibleHeight() / Scale, Doc->PageH));
+		int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
+		int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
 		rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	}
 	else
@@ -8869,7 +8869,7 @@ void ScribusView::GotoPage(int Seite)
 	if (ScApp->ScriptRunning)
 		return;
 	SetCPo(qRound(Doc->currentPage->Xoffset-10), qRound(Doc->currentPage->Yoffset-10));
-	PGS->setMaxValue(Doc->PageC);
+	PGS->setMaxValue(Doc->pageCount);
 	if ((!Doc->loading) && (!Doc->MasterP))
 		PGS->GotoPg(Seite);
 }
@@ -8884,7 +8884,7 @@ void ScribusView::showMasterPage(int nr)
 		Doc->DocItems = Doc->Items;
 		Doc->Items = Doc->MasterItems;
 	}
-	Doc->PageC = 1;
+	Doc->pageCount = 1;
 	Doc->MasterP = true;
 	Doc->currentPage = Doc->Pages.at(nr);
 	PGS->setEnabled(false);
@@ -8904,7 +8904,7 @@ void ScribusView::hideMasterPage()
 	Doc->MasterItems = Doc->Items;
 	Doc->Items = Doc->DocItems;
 	Doc->MasterPages = Doc->Pages;
-	Doc->PageC = Doc->DocPages.count();
+	Doc->pageCount = Doc->DocPages.count();
 	Doc->Pages = Doc->DocPages;
 	Doc->MasterP = false;
 	Doc->currentPage = Doc->Pages.at(0);

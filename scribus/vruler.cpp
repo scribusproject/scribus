@@ -157,31 +157,31 @@ void Vruler::paintEvent(QPaintEvent *)
 	{
 		if (doku->FirstPageLeft)
 		{
-			if (doku->PageC % 2 == 0)
-				pc = doku->PageC / 2;
+			if (doku->pageCount % 2 == 0)
+				pc = doku->pageCount / 2;
 			else
-				pc = (doku->PageC+1) / 2;
+				pc = (doku->pageCount+1) / 2;
 		}
 		else
 		{
-			if (doku->PageC % 2 == 0)
-				pc = doku->PageC / 2 + 1;
+			if (doku->pageCount % 2 == 0)
+				pc = doku->pageCount / 2 + 1;
 			else
-				pc = doku->PageC / 2 + 1;
+				pc = doku->pageCount / 2 + 1;
 		}
 	}
 	else
-		pc = doku->PageC;
+		pc = doku->pageCount;
 	for (xx = 0; xx < pc; ++xx)
 	{
-		of = xx * (doku->PageH+doku->ScratchBottom+doku->ScratchTop);
-		for (xl = 0; xl < doku->PageH; xl += iter)
+		of = xx * (doku->pageHeight+doku->ScratchBottom+doku->ScratchTop);
+		for (xl = 0; xl < doku->pageHeight; xl += iter)
 		{
 			int markerY=qRound((xl+of)*sc)+1;
 			if (( markerY > offs) && (markerY < offs+height()))
 				p.drawLine(18, markerY, 24, markerY);
 		}
-		for (xl = 0; xl < doku->PageH+(iter2/2); xl += iter2)
+		for (xl = 0; xl < doku->pageHeight+(iter2/2); xl += iter2)
 		{
 			int markerY=qRound((xl+of)*sc)+1;
 			if ((markerY > offs) && (markerY < offs+height()))

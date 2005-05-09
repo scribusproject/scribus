@@ -2725,7 +2725,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	HaveNewDoc();
 	doc->DocPages = doc->Pages;
 	doc->Pages = doc->MasterPages;
-	doc->PageC = doc->MasterPages.count();
+	doc->pageCount = doc->MasterPages.count();
 	bool atfb = doc->PageAT;
 	doc->PageAT = false;
 	doc->MasterP = true;
@@ -2734,7 +2734,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->MasterNames["Normal"] = 0;
 	doc->Pages.at(0)->setPageName("Normal");
 	doc->MasterPages = doc->Pages;
-	doc->PageC = doc->DocPages.count();
+	doc->pageCount = doc->DocPages.count();
 	doc->Pages = doc->DocPages;
 	doc->MasterP = false;
 	doc->Pages.at(0)->MPageNam = "Normal";
@@ -3496,10 +3496,10 @@ void ScribusApp::HaveNewDoc()
 		connect(doc->currentPage, SIGNAL(UpdtObj(uint, uint)), outlinePalette, SLOT(slotUpdateElement(uint, uint)));
 		connect(doc->currentPage, SIGNAL(MoveObj(uint, uint, uint)), outlinePalette, SLOT(slotMoveElement(uint, uint, uint)));
 	} */
-	doc->PDF_Options.BleedBottom = doc->PageM.Bottom;
-	doc->PDF_Options.BleedTop = doc->PageM.Top;
-	doc->PDF_Options.BleedLeft = doc->PageM.Left;
-	doc->PDF_Options.BleedRight = doc->PageM.Right;
+	doc->PDF_Options.BleedBottom = doc->pageMargins.Bottom;
+	doc->PDF_Options.BleedTop = doc->pageMargins.Top;
+	doc->PDF_Options.BleedLeft = doc->pageMargins.Left;
+	doc->PDF_Options.BleedRight = doc->pageMargins.Right;
 	doc->CurTimer = NULL;
 }
 
@@ -4020,7 +4020,7 @@ bool ScribusApp::slotDocOpen()
 bool ScribusApp::slotPageImport()
 {
 	bool ret = false;
-	MergeDoc *dia = new MergeDoc(this, false, doc->PageC, doc->currentPage->PageNr + 1);
+	MergeDoc *dia = new MergeDoc(this, false, doc->pageCount, doc->currentPage->PageNr + 1);
 	if (dia->exec())
 	{
 		FMess->setText(tr("Importing Pages..."));
@@ -4045,7 +4045,7 @@ bool ScribusApp::slotPageImport()
 			else if (importWhere == 1)
 				startPage = dia->getImportWherePage() + 1;
 			else
-				startPage = doc->PageC + 1;
+				startPage = doc->pageCount + 1;
 			addNewPages(dia->getImportWherePage(), importWhere, pageNs.size());
 			nrToImport = pageNs.size();
 		}
@@ -4053,7 +4053,7 @@ bool ScribusApp::slotPageImport()
 		{
 			startPage = doc->currentPage->PageNr + 1;
 			nrToImport = pageNs.size();
-			if (pageNs.size() > (doc->PageC - doc->currentPage->PageNr))
+			if (pageNs.size() > (doc->pageCount - doc->currentPage->PageNr))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				QMessageBox mb( tr("Import Page(s)"),
@@ -4073,10 +4073,10 @@ bool ScribusApp::slotPageImport()
 				switch( mb.exec() ) {
 					case QMessageBox::Yes:
 						nrToImport = pageNs.size();
-						addNewPages(doc->PageC, 2, pageNs.size() - (doc->PageC - doc->currentPage->PageNr));
+						addNewPages(doc->pageCount, 2, pageNs.size() - (doc->pageCount - doc->currentPage->PageNr));
 					break;
 					case QMessageBox::No:
-						nrToImport = doc->PageC - doc->currentPage->PageNr;
+						nrToImport = doc->pageCount - doc->currentPage->PageNr;
 					break;
 					case QMessageBox::Cancel:
 						doIt = false;
@@ -4465,7 +4465,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		{
 			doc->DocPages = doc->Pages;
 			doc->Pages = doc->MasterPages;
-			doc->PageC = doc->MasterPages.count();
+			doc->pageCount = doc->MasterPages.count();
 			bool atf = doc->PageAT;
 			doc->PageAT = false;
 			slotNewPage(0);
@@ -4473,7 +4473,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			doc->MasterNames["Normal"] = 0;
 			doc->Pages.at(0)->setPageName("Normal");
 			doc->MasterPages = doc->Pages;
-			doc->PageC = doc->DocPages.count();
+			doc->pageCount = doc->DocPages.count();
 			doc->Pages = doc->DocPages;
 			doc->MasterP = false;
 		}
@@ -5045,9 +5045,9 @@ void ScribusApp::slotReallyPrint()
 		else
 		{
 			if (printer->RadioButton1->isChecked())
-				parsePagesString("*", &options.pageNumbers, doc->PageC);
+				parsePagesString("*", &options.pageNumbers, doc->pageCount);
 			else
-				parsePagesString(printer->PageNr->text(), &options.pageNumbers, doc->PageC);
+				parsePagesString(printer->PageNr->text(), &options.pageNumbers, doc->pageCount);
 		}
 		options.copies = printer->numCopies();
 		options.outputSeparations = printer->outputSeparations();
@@ -5127,9 +5127,9 @@ bool ScribusApp::doPrint(PrintOptions *options)
 				// use gs to convert our PS to a lower version
 				QString tmp;
 				QString opts = "-dDEVICEWIDTHPOINTS=";
-				opts += tmp.setNum(doc->PageB);
+				opts += tmp.setNum(doc->pageWidth);
 				opts += " -dDEVICEHEIGHTPOINTS=";
-				opts += tmp.setNum(doc->PageH);
+				opts += tmp.setNum(doc->pageHeight);
 				if (options->PSLevel == 1)
 					system("ps2ps -dLanguageLevel=1 "+opts+" \""+filename+"\" \""+filename+".tmp\"");
 				else
@@ -5752,7 +5752,7 @@ void ScribusApp::slotNewPage(int w)
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 	{
 		AdjustBM();
-		if ((doc->PageAT) && (doc->PageC != 1))
+		if ((doc->PageAT) && (doc->pageCount != 1))
 			outlinePalette->slotAddElement(w, 0);
 	}
 	slotDocCh(!doc->loading); */
@@ -5771,8 +5771,8 @@ void ScribusApp::slotZoom(double zoomFactor)
 	//Zoom to Fit
 	if (zoomFactor==-100.0)
 	{
-		double dx = (view->width()-50) / (doc->PageB+30);
-		double dy = (view->height()-70) / (doc->PageH+30);
+		double dx = (view->width()-50) / (doc->pageWidth+30);
+		double dy = (view->height()-70) / (doc->pageHeight+30);
 		if (dx > dy)
 			finalZoomFactor=dy;
 		else
@@ -8435,9 +8435,9 @@ void ScribusApp::doSaveAsPDF()
 			}
 		}
 		if (dia->Options->AllPages->isChecked())
-			parsePagesString("*", &pageNs, doc->PageC);
+			parsePagesString("*", &pageNs, doc->pageCount);
 		else
-			parsePagesString(dia->Options->PageNr->text(), &pageNs, doc->PageC);
+			parsePagesString(dia->Options->PageNr->text(), &pageNs, doc->pageCount);
 		QMap<int,QPixmap> thumbs;
 		for (uint ap = 0; ap < pageNs.size(); ++ap)
 		{
@@ -8697,7 +8697,7 @@ void ScribusApp::ApplyMasterPage()
 			else
 			{
 				startPage = pageSelection==1 ? 1 : 0; //if even, startPage is 1 (real page 2)
-				endPage=doc->PageC;
+				endPage=doc->pageCount;
 			}
 				
 			for (int pageNum = startPage; pageNum < endPage; ++pageNum)// +=pageStep)
@@ -9230,7 +9230,7 @@ void ScribusApp::ModifyAnnot()
 			int AnActType = currItem->AnActType;
 			QString AnAction = currItem->AnAction;
 			QString An_Extern = currItem->An_Extern;
-			Annota *dia = new Annota(this, currItem, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), view);
+			Annota *dia = new Annota(this, currItem, doc->pageCount, static_cast<int>(doc->pageWidth), static_cast<int>(doc->pageHeight), view);
 			if (dia->exec())
 				slotDocCh();
 			else
@@ -9244,7 +9244,7 @@ void ScribusApp::ModifyAnnot()
 		}
 		else
 		{
-			Annot *dia = new Annot(this, currItem, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), doc->PageColors, view);
+			Annot *dia = new Annot(this, currItem, doc->pageCount, static_cast<int>(doc->pageWidth), static_cast<int>(doc->pageHeight), doc->PageColors, view);
 			if (dia->exec())
 				slotDocCh();
 			delete dia;
@@ -10234,8 +10234,8 @@ void ScribusApp::generateTableOfContents()
 				PageItem *currentDocItem;
 				QMap<QString, QString> tocMap;
 				tocMap.clear();
-				uint pageCounter[doc->PageC];
-				for (int i=0;i<=doc->PageC;++i)
+				uint pageCounter[doc->pageCount];
+				for (int i=0;i<=doc->pageCount;++i)
 					pageCounter[i]=0;
 				unsigned int maxDataWidth=0;
 				for (uint d = 0; d < doc->DocItems.count(); ++d)

@@ -108,8 +108,8 @@ PyObject *scribus_pagedimension(PyObject */*self*/)
 	PyObject *t;
 	t = Py_BuildValue(
 			"(dd)",
-			PointToValue(Carrier->doc->PageB), // it's just view scale... * Carrier->doc->Scale),
-			PointToValue(Carrier->doc->PageH)  // * Carrier->doc->Scale)
+			PointToValue(Carrier->doc->pageWidth), // it's just view scale... * Carrier->doc->Scale),
+			PointToValue(Carrier->doc->pageHeight)  // * Carrier->doc->Scale)
 		);
 	return t;
 }
@@ -237,9 +237,9 @@ PyObject *scribus_getpagemargins(PyObject */*self*/)
 	PyObject *margins = NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	margins = Py_BuildValue("ffff", PointToValue(Carrier->doc->PageM.Top),
-									PointToValue(Carrier->doc->PageM.Left),
-									PointToValue(Carrier->doc->PageM.Right),
-									PointToValue(Carrier->doc->PageM.Bottom));
+	margins = Py_BuildValue("ffff", PointToValue(Carrier->doc->pageMargins.Top),
+									PointToValue(Carrier->doc->pageMargins.Left),
+									PointToValue(Carrier->doc->pageMargins.Right),
+									PointToValue(Carrier->doc->pageMargins.Bottom));
 	return margins;
 }

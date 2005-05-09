@@ -167,7 +167,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	setCaption( tr("Print Preview"));
 	app = pl;
 	APage = -1;
-	MPage = app->doc->PageC;
+	MPage = app->doc->pageCount;
 	CMode = false;
 	TxtAl = false;
 	GrAl = false;
@@ -433,8 +433,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 		else
 			return ret;
 	}
-	double b = app->doc->PageB * Res / 72;
-	double h = app->doc->PageH * Res / 72;
+	double b = app->doc->pageWidth * Res / 72;
+	double h = app->doc->pageHeight * Res / 72;
 	cmd1 = app->Prefs.gs_exe;
 	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
@@ -469,8 +469,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;
 	QPixmap Bild;
-	double b = app->doc->PageB * Res / 72;
-	double h = app->doc->PageH * Res / 72;
+	double b = app->doc->pageWidth * Res / 72;
+	double h = app->doc->pageHeight * Res / 72;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode)
 	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)

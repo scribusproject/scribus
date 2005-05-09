@@ -31,8 +31,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	unitRatio = doc->unitRatio;
 	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
-	pageWidth = doc->PageB * unitRatio;
-	pageHeight = doc->PageH * unitRatio;
+	pageWidth = doc->pageWidth * unitRatio;
+	pageHeight = doc->pageHeight * unitRatio;
 	setCaption( tr( "Document Setup" ) );
 	tabPage = new QWidget( prefsWidgets, "tab" );
 	reformDocLayout = new QVBoxLayout( tabPage );
@@ -116,7 +116,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	topR->setSuffix( ein );
 	topR->setDecimals( decimals );
 	topR->setMaxValue(pageHeight);
-	topR->setValue(doc->PageM.Top * unitRatio);
+	topR->setValue(doc->pageMargins.Top * unitRatio);
 	layout4->addWidget( topR, 0, 1 );
 	TextLabel5 = new QLabel( tr( "&Top:" ), groupBox7, "TextLabel5" );
 	TextLabel5->setBuddy(topR);
@@ -125,7 +125,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	leftR->setSuffix( ein );
 	leftR->setDecimals( decimals );
 	leftR->setMaxValue(pageWidth);
-	leftR->setValue(doc->PageM.Left * unitRatio);
+	leftR->setValue(doc->pageMargins.Left * unitRatio);
 	layout4->addWidget( leftR, 0, 3 );
 	Links = new QLabel( tr( "&Left:" ), groupBox7, "Links" );
 	Links->setBuddy(leftR);
@@ -134,7 +134,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	bottomR->setSuffix( ein );
 	bottomR->setDecimals( decimals );
 	bottomR->setMaxValue(pageHeight);
-	bottomR->setValue(doc->PageM.Bottom * unitRatio);
+	bottomR->setValue(doc->pageMargins.Bottom * unitRatio);
 	layout4->addWidget( bottomR, 1, 1 );
 	TextLabel7 = new QLabel( tr( "&Bottom:" ), groupBox7, "TextLabel7" );
 	TextLabel7->setBuddy(bottomR);
@@ -143,7 +143,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	rightR->setSuffix( ein );
 	rightR->setDecimals( decimals );
 	rightR->setMaxValue(pageWidth);
-	rightR->setValue(doc->PageM.Right * unitRatio);
+	rightR->setValue(doc->pageMargins.Right * unitRatio);
 	layout4->addWidget( rightR, 1, 3 );
 	Rechts = new QLabel( tr( "&Right:" ), groupBox7, "Rechts" );
 	Rechts->setBuddy(rightR);
@@ -320,7 +320,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	
 	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, ap->Prefs.AvailFonts,
 								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
-								einheit, doc->PageH, doc->PageB, 0 );
+								einheit, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 	
 	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
@@ -392,10 +392,10 @@ void ReformDoc::restoreDefaults()
 		pageNumber->setValue(currDoc->FirstPnum);
 		firstPage->setChecked( currDoc->FirstPageLeft );
 		facingPages->setChecked( currDoc->PageFP );
-		rightR->setValue(currDoc->PageM.Right * unitRatio);
-		bottomR->setValue(currDoc->PageM.Bottom * unitRatio);
-		leftR->setValue(currDoc->PageM.Left * unitRatio);
-		topR->setValue(currDoc->PageM.Top * unitRatio);
+		rightR->setValue(currDoc->pageMargins.Right * unitRatio);
+		bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
+		leftR->setValue(currDoc->pageMargins.Left * unitRatio);
+		topR->setValue(currDoc->pageMargins.Top * unitRatio);
 	}
 	else if (current == tabView)
 	{
@@ -475,9 +475,9 @@ void ReformDoc::unitChange()
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 
 	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageB * unitRatio);
+	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageWidth * unitRatio);
 	heightMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageH * unitRatio);
+	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageHeight * unitRatio);
 	topR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	topR->setValues(0, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	bottomR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -515,8 +515,8 @@ void ReformDoc::unitChange()
 	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabPDF->unitRatio = unitRatio;
-	pageWidth = currDoc->PageB * unitRatio;
-	pageHeight = currDoc->PageH * unitRatio;
+	pageWidth = currDoc->pageWidth * unitRatio;
+	pageHeight = currDoc->pageHeight * unitRatio;
 	rightR->setMaxValue(pageWidth - leftR->value());
 	leftR->setMaxValue(pageWidth - rightR->value());
 	topR->setMaxValue(pageHeight - bottomR->value());

@@ -95,7 +95,7 @@ void MasterPagesPalette::deleteMasterPage()
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 1)
 	{
-		currentDoc->PageC = currentDoc->Pages.count();
+		currentDoc->pageCount = currentDoc->Pages.count();
 		currentView->delPage(currentDoc->MasterNames[sMuster]);
 		currentView->reformPages();
 		currentDoc->MasterNames.clear();
@@ -106,7 +106,7 @@ void MasterPagesPalette::deleteMasterPage()
 			if (currentDoc->DocPages.at(b)->MPageNam == sMuster)
 				currentDoc->DocPages.at(b)->MPageNam = "Normal";
 		}
-		currentDoc->PageC = 1;
+		currentDoc->pageCount = 1;
 		sMuster = "Normal";
 		updateMasterPageList(sMuster);
 		currentDoc->MasterPages = currentDoc->Pages;
@@ -137,7 +137,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		nr = currentDoc->Pages.count();
 		currentDoc->MasterNames.insert(MasterPageName, nr);
-		currentDoc->PageC = 0;
+		currentDoc->pageCount = 0;
 		atf = currentDoc->PageAT;
 		currentDoc->PageAT = false;
 		emit createNew(nr);
@@ -240,7 +240,7 @@ void MasterPagesPalette::newMasterPage()
 		}
 		nr = currentDoc->Pages.count();
 		currentDoc->MasterNames.insert(MasterPageName, nr);
-		currentDoc->PageC = 0;
+		currentDoc->pageCount = 0;
 		atf = currentDoc->PageAT;
 		currentDoc->PageAT = false;
 		emit createNew(nr);
@@ -267,7 +267,7 @@ void MasterPagesPalette::appendPage()
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		nr = currentDoc->Pages.count();
-		currentDoc->PageC = 0;
+		currentDoc->pageCount = 0;
 		atf = currentDoc->PageAT;
 		currentDoc->PageAT = false;
 		emit createNew(nr);

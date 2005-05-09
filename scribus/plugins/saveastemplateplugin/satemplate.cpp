@@ -108,8 +108,8 @@ void MenuSAT::RunSATPlug()
 	if (currentFile !=  Carrier->doc->DocName)
 	{
 		satdialog* satdia = new satdialog(par,docName,
-                                          static_cast<int>(Carrier->doc->PageB + 0.5),
-                                          static_cast<int>(Carrier->doc->PageH + 0.5));
+                                          static_cast<int>(Carrier->doc->pageWidth + 0.5),
+                                          static_cast<int>(Carrier->doc->pageHeight + 0.5));
 		if (satdia->exec())
 		{
 			sat* s = new sat(Carrier, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
@@ -175,8 +175,8 @@ void sat::createImages()
 {
 	QString tnsmallName = dia->nameEdit->text() + "tn.png";
 	QString tnlargeName = dia->nameEdit->text() + ".png";
-	double pageh = sapp->doc->PageH;
-	double pagew = sapp->doc->PageB;
+	double pageh = sapp->doc->pageHeight;
+	double pagew = sapp->doc->pageWidth;
 	int pageSizeSmall = 0;
 	int pageSizeLarge = 0;
 	if (pageh > pagew)

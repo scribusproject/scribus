@@ -412,12 +412,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
 		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
-		doc->PageB=QStodouble(dc.attribute("PAGEWITH"));
-		doc->PageH=QStodouble(dc.attribute("PAGEHEIGHT"));
-		doc->PageM.Left=QStodouble(dc.attribute("BORDERLEFT"));
-		doc->PageM.Right=QStodouble(dc.attribute("BORDERRIGHT"));
-		doc->PageM.Top=QStodouble(dc.attribute("BORDERTOP"));
-		doc->PageM.Bottom=QStodouble(dc.attribute("BORDERBOTTOM"));
+		doc->pageWidth=QStodouble(dc.attribute("PAGEWITH"));
+		doc->pageHeight=QStodouble(dc.attribute("PAGEHEIGHT"));
+		doc->pageMargins.Left=QStodouble(dc.attribute("BORDERLEFT"));
+		doc->pageMargins.Right=QStodouble(dc.attribute("BORDERRIGHT"));
+		doc->pageMargins.Top=QStodouble(dc.attribute("BORDERTOP"));
+		doc->pageMargins.Bottom=QStodouble(dc.attribute("BORDERBOTTOM"));
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
@@ -778,18 +778,18 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				a = QStoInt(pg.attribute("NUM"));
 				PgNam = "";
 				PgNam = pg.attribute("NAM", "");
-				Pgc = doc->PageC;
+				Pgc = doc->pageCount;
 				AtFl = doc->PageAT;
 				if (PgNam == "")
 				{
-					doc->PageC = Pgc;
+					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
 					doc->PageAT = AtFl;
 					doc->MasterP = false;
 				}
 				else
 				{
-					doc->PageC = 0;
+					doc->pageCount = 0;
 					doc->PageAT = false;
 					doc->Pages = doc->MasterPages;
 					doc->MasterP = true;
@@ -799,14 +799,14 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				if (PgNam == "")
 				{
 					doc->DocPages = doc->Pages;
-					doc->PageC = Pgc+1;
+					doc->pageCount = Pgc+1;
 				}
 				else
 				{
 					Apage->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
 					doc->MasterPages = doc->Pages;
-					doc->PageC = Pgc;
+					doc->pageCount = Pgc;
 				}
 				doc->PageAT = AtFl;
 				Apage->LeftPg=QStoInt(pg.attribute("LEFT","0"));
@@ -873,12 +873,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				doc->MasterP = false;
 				Apage->Margins.Top = QStodouble(pg.attribute("BORDERTOP"));
 				Apage->Margins.Bottom = QStodouble(pg.attribute("BORDERBOTTOM"));
-				doc->PageB = Apage->Width;
-				doc->PageH = Apage->Height;
-				doc->PageM.Left = Apage->Margins.Left;
-				doc->PageM.Right = Apage->Margins.Right;
-				doc->PageM.Top = Apage->Margins.Top;
-				doc->PageM.Bottom = Apage->Margins.Bottom;
+				doc->pageWidth = Apage->Width;
+				doc->pageHeight = Apage->Height;
+				doc->pageMargins.Left = Apage->Margins.Left;
+				doc->pageMargins.Right = Apage->Margins.Right;
+				doc->pageMargins.Top = Apage->Margins.Top;
+				doc->pageMargins.Bottom = Apage->Margins.Bottom;
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
@@ -1061,7 +1061,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		}
 	}
 	doc->Pages = doc->DocPages;
-	doc->PageC = doc->Pages.count();
+	doc->pageCount = doc->Pages.count();
 	doc->Items = doc->DocItems;
 	doc->MasterP = false;
 //	view->reformPages();

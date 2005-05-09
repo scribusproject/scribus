@@ -77,9 +77,9 @@ void run(QWidget *d, ScribusApp *plug)
 		else
 		{
 			if (dia->AllPagesRadio->isChecked())
-				plug->parsePagesString("*", &pageNs, plug->doc->PageC);
+				plug->parsePagesString("*", &pageNs, plug->doc->pageCount);
 			else
-				plug->parsePagesString(dia->RangeVal->text(), &pageNs, plug->doc->PageC);
+				plug->parsePagesString(dia->RangeVal->text(), &pageNs, plug->doc->pageCount);
 			res = ex->exportInterval(pageNs);
 		}
 		plug->FProg->reset();
@@ -132,7 +132,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (!carrier->doc->Pages.at(pageNr))
 		return FALSE;
 
-	QImage im = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * enlargement / 100));
+	QImage im = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->pageHeight * enlargement / 100));
 	int dpi = qRound(100.0 / 2.54 * pageSize);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);

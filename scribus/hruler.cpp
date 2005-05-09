@@ -482,13 +482,13 @@ void Hruler::paintEvent(QPaintEvent *)
 	for (xx = 0; xx < pc; ++xx)
 	{
 		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-		of = xx * doku->PageB;
-		for (xl = 0; xl < doku->PageB; xl += iter)
+		of = xx * doku->pageWidth;
+		for (xl = 0; xl < doku->pageWidth; xl += iter)
 		{
 			int markerX=qRound((xl+of)*sc)+1;
 			p.drawLine(markerX, 18, markerX, 24);
 		}
-		for (xl = 0; xl < doku->PageB+(iter2/2); xl += iter2)
+		for (xl = 0; xl < doku->pageWidth+(iter2/2); xl += iter2)
 		{
 			int markerX=qRound((xl+of)*sc)+1;
 			p.drawLine(markerX, 11, markerX, 24);

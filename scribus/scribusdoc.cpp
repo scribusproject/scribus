@@ -136,7 +136,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	loading = false;
 	DocName = QObject::tr("Document")+"-";
 	CurrentSel = -1;
-	PageC = 0;
+	pageCount = 0;
 	LastAuto = 0;
 	FirstAuto = 0;
 	DraggedElem = 0;
@@ -494,12 +494,12 @@ bool ScribusDoc::isModified() const
 /** Setzt die Seitenattribute */
 void ScribusDoc::setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp)
 {
-	PageB = b;
-	PageH = h;
-	PageM.Top = t;
-	PageM.Left = l;
-	PageM.Right = r;
-	PageM.Bottom = bo;
+	pageWidth = b;
+	pageHeight = h;
+	pageMargins.Top = t;
+	pageMargins.Left = l;
+	pageMargins.Right = r;
+	pageMargins.Bottom = bo;
 	PageSp = sp;
 	PageSpa = ab;
 	PageFP = fp;
@@ -508,10 +508,10 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 
 void ScribusDoc::resetPage(double t, double l, double r, double bo, bool fp)
 {
-	PageM.Top = t;
-	PageM.Left = l;
-	PageM.Right = r;
-	PageM.Bottom = bo;
+	pageMargins.Top = t;
+	pageMargins.Left = l;
+	pageMargins.Right = r;
+	pageMargins.Bottom = bo;
 	PageFP = fp;
 }
 

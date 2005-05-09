@@ -74,8 +74,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 																DocFonts,
 																Eff,
 																vie->Doc->docUnitIndex,
-																vie->Doc->PageH,
-																vie->Doc->PageB,
+																vie->Doc->pageHeight,
+																vie->Doc->pageWidth,
 																vie );
 	PDFOptsLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;

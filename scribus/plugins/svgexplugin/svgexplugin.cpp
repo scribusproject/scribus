@@ -157,8 +157,8 @@ SVGExPlug::SVGExPlug( ScribusApp *plug, QString fName )
 	QString st = "<svg></svg>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("width", FToStr(plug->doc->PageB)+"pt");
-	elem.setAttribute("height", FToStr(plug->doc->PageH)+"pt");
+	elem.setAttribute("width", FToStr(plug->doc->pageWidth)+"pt");
+	elem.setAttribute("height", FToStr(plug->doc->pageHeight)+"pt");
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	Page *Seite;

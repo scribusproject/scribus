@@ -978,7 +978,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 {
 	doc = d;
 	Umrech=doc->unitRatio;
-	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * Umrech;
+	double maxXYWHVal=(QMAX(doc->pageWidth, doc->pageHeight) + QMAX(doc->pageWidth, doc->pageHeight) * 0.1) * Umrech;
 	double minXYVal=-3000 * Umrech;
 	HaveDoc = true;
 	HaveItem = false;
@@ -1454,7 +1454,7 @@ void Mpalette::UnitChange()
 	Umrech = doc->unitRatio;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * Umrech;
+	double maxXYWHVal=(QMAX(doc->pageWidth, doc->pageHeight) + QMAX(doc->pageWidth, doc->pageHeight) * 0.1) * Umrech;
 	double minXYVal=-3000 * Umrech;
 
 	double ratioDivisor = Umrech / oldRatio;

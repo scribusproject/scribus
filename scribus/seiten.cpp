@@ -584,16 +584,16 @@ void SeitenPal::DelMPage(QString tmp)
 		Seite->PageNr = aa;
 		if (Vie->Doc->PageFP)
 		{
-			Seite->Margins.Left = Seite->LeftPg ? Vie->Doc->PageM.Right : Vie->Doc->PageM.Left;
-			Seite->Margins.Right= Seite->LeftPg? Vie->Doc->PageM.Left : Vie->Doc->PageM.Right;
+			Seite->Margins.Left = Seite->LeftPg ? Vie->Doc->pageMargins.Right : Vie->Doc->pageMargins.Left;
+			Seite->Margins.Right= Seite->LeftPg? Vie->Doc->pageMargins.Left : Vie->Doc->pageMargins.Right;
 		}
 		else
 		{
-			Seite->Margins.Right = Vie->Doc->PageM.Right;
-			Seite->Margins.Left = Vie->Doc->PageM.Left;
+			Seite->Margins.Right = Vie->Doc->pageMargins.Right;
+			Seite->Margins.Left = Vie->Doc->pageMargins.Left;
 		}
-		Seite->Margins.Top = Vie->Doc->PageM.Top;
-		Seite->Margins.Bottom = Vie->Doc->PageM.Bottom;
+		Seite->Margins.Top = Vie->Doc->pageMargins.Top;
+		Seite->Margins.Bottom = Vie->Doc->pageMargins.Bottom;
 		Vie->Doc->MasterNames[Seite->PageNam] = aa;
 	}
 	for (uint b=0; b<Vie->Doc->DocPages.count(); ++b)
@@ -642,10 +642,10 @@ void SeitenPal::EnablePal()
 
 void SeitenPal::handleFacingPagesChk()
 {
-	double tpr = Vie->Doc->PageM.Top;
-	double lr = Vie->Doc->PageM.Left;
-	double rr = Vie->Doc->PageM.Right;
-	double br = Vie->Doc->PageM.Bottom;
+	double tpr = Vie->Doc->pageMargins.Top;
+	double lr = Vie->Doc->pageMargins.Left;
+	double rr = Vie->Doc->pageMargins.Right;
+	double br = Vie->Doc->pageMargins.Bottom;
 	bool fp = facingPagesChk->isChecked();
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp);
 	Vie->reformPages();
@@ -658,10 +658,10 @@ void SeitenPal::handleFacingPagesChk()
 
 void SeitenPal::handleFirstPageLeftChk()
 {
-	double tpr = Vie->Doc->PageM.Top;
-	double lr = Vie->Doc->PageM.Left;
-	double rr = Vie->Doc->PageM.Right;
-	double br = Vie->Doc->PageM.Bottom;
+	double tpr = Vie->Doc->pageMargins.Top;
+	double lr = Vie->Doc->pageMargins.Left;
+	double rr = Vie->Doc->pageMargins.Right;
+	double br = Vie->Doc->pageMargins.Bottom;
 	bool fp2 = Vie->Doc->PageFP;
 	if (fp2)
 		Vie->Doc->FirstPageLeft = firstPageLeftChk->isChecked();
@@ -732,12 +732,12 @@ void SeitenPal::RebuildPage()
 		cc = 1;
 		if (Vie->Doc->FirstPageLeft)
 		{
-			PageView->setNumRows(((Vie->Doc->PageC-1)/2 + 1) * 2 + 1);
+			PageView->setNumRows(((Vie->Doc->pageCount-1)/2 + 1) * 2 + 1);
 			cb = 1;
 		}
 		else
 		{
-			PageView->setNumRows((Vie->Doc->PageC/2 + 1) * 2 +1);
+			PageView->setNumRows((Vie->Doc->pageCount/2 + 1) * 2 +1);
 			cb = 3;
 		}
 		for (uint a = 0; a < Vie->Doc->Pages.count(); ++a)

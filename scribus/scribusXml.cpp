@@ -1157,12 +1157,12 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
-		doc->PageB=QStodouble(dc.attribute("PAGEWITH"));
-		doc->PageH=QStodouble(dc.attribute("PAGEHEIGHT"));
-		doc->PageM.Left=QStodouble(dc.attribute("BORDERLEFT"));
-		doc->PageM.Right=QStodouble(dc.attribute("BORDERRIGHT"));
-		doc->PageM.Top=QStodouble(dc.attribute("BORDERTOP"));
-		doc->PageM.Bottom=QStodouble(dc.attribute("BORDERBOTTOM"));
+		doc->pageWidth=QStodouble(dc.attribute("PAGEWITH"));
+		doc->pageHeight=QStodouble(dc.attribute("PAGEHEIGHT"));
+		doc->pageMargins.Left=QStodouble(dc.attribute("BORDERLEFT"));
+		doc->pageMargins.Right=QStodouble(dc.attribute("BORDERRIGHT"));
+		doc->pageMargins.Top=QStodouble(dc.attribute("BORDERTOP"));
+		doc->pageMargins.Bottom=QStodouble(dc.attribute("BORDERBOTTOM"));
 		doc->PageOri = QStoInt(dc.attribute("ORIENTATION","0"));
 		doc->PageSize = dc.attribute("PAGESIZE");
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
@@ -1373,11 +1373,11 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				a = QStoInt(pg.attribute("NUM"));
 				PgNam = "";
 				PgNam = pg.attribute("NAM", "");
-				Pgc = doc->PageC;
+				Pgc = doc->pageCount;
 				AtFl = doc->PageAT;
 				if (PgNam == "")
 				{
-					doc->PageC = Pgc;
+					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
 					doc->PageAT = AtFl;
 					doc->MasterP = false;
@@ -1385,7 +1385,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				else
 				{
-					doc->PageC = 0;
+					doc->pageCount = 0;
 					doc->PageAT = false;
 					doc->Pages = doc->MasterPages;
 					doc->MasterP = true;
@@ -1581,7 +1581,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->MasterItems = doc->Items;
 				}
 				doc->MasterP = false;
-				doc->PageC = Pgc+1;
+				doc->pageCount = Pgc+1;
 				doc->PageAT = AtFl;
 			}
 			PAGE=PAGE.nextSibling();
@@ -1679,7 +1679,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		DOC=DOC.nextSibling();
 	}
 	doc->Pages = doc->DocPages;
-	doc->PageC = doc->Pages.count();
+	doc->pageCount = doc->Pages.count();
 	doc->Items = doc->DocItems;
 	doc->MasterP = false;
 	view->reformPages();
@@ -2624,12 +2624,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	elem.setAttribute("Version", "1.3.0cvs");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",doc->DocPages.count());
-	dc.setAttribute("PAGEWITH",doc->PageB);
-	dc.setAttribute("PAGEHEIGHT",doc->PageH);
-	dc.setAttribute("BORDERLEFT",doc->PageM.Left);
-	dc.setAttribute("BORDERRIGHT",doc->PageM.Right);
-	dc.setAttribute("BORDERTOP",doc->PageM.Top);
-	dc.setAttribute("BORDERBOTTOM",doc->PageM.Bottom);
+	dc.setAttribute("PAGEWITH",doc->pageWidth);
+	dc.setAttribute("PAGEHEIGHT",doc->pageHeight);
+	dc.setAttribute("BORDERLEFT",doc->pageMargins.Left);
+	dc.setAttribute("BORDERRIGHT",doc->pageMargins.Right);
+	dc.setAttribute("BORDERTOP",doc->pageMargins.Top);
+	dc.setAttribute("BORDERBOTTOM",doc->pageMargins.Bottom);
 	dc.setAttribute("ORIENTATION",doc->PageOri);
 	dc.setAttribute("PAGESIZE",doc->PageSize);
 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
