@@ -368,7 +368,7 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 	{
 		if (BibWin->objectMap.contains(ite->text()))
 		{
-			QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(ite->text()), tr("OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(ite->text()), tr("&OK"));
 			ite->setText(OldName);
 		}
 		else

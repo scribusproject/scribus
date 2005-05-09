@@ -889,7 +889,7 @@ void CMYKChoose::Verlassen()
 	{
 		if (EColors->contains(Farbname->text()))
 		{
-			QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), tr("OK"), 0, 0, 0, QMessageBox::Ok);
+			QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), tr("&OK"), 0, 0, 0, QMessageBox::Ok);
 			Farbname->selectAll();
 			Farbname->setFocus();
 			return;

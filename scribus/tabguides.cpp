@@ -225,7 +225,9 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baseGridBox->layout()->setMargin( 10 );
 	baseGridBoxLayout = new QGridLayout( baseGridBox->layout() );
 	baseGridBoxLayout->setAlignment( Qt::AlignTop );
-	baseGrid = new MSpinBox( 1, 1000, baseGridBox, precision );
+	baseGrid = new MSpinBox( baseGridBox, precision );
+	baseGrid->setMaxValue(1000);
+	baseGrid->setMinValue(pts2value(1.0, unitIndex));
 	baseGrid->setSuffix( unit );
 	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
 	baseGridBoxLayout->addWidget( baseGrid, 0, 1 );

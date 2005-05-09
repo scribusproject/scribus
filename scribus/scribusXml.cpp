@@ -3202,7 +3202,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc8Pr.setAttribute("Black", static_cast<int>(Vor->PrPr_K));
 	elem.appendChild(dc8Pr);
 	QDomElement dc8Ex = docu.createElement("EXTERNAL");
-	dc8Ex.setAttribute("GIMP", Vor->gimp_exe);
+	dc8Ex.setAttribute("GIMP", Vor->imageEditorExecutable);
 	dc8Ex.setAttribute("GS", Vor->gs_exe);
 	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(Vor->gs_AntiAliasGraphics));
 	dc8Ex.setAttribute("AlphaText", static_cast<int>(Vor->gs_AntiAliasText));
@@ -3572,7 +3572,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->gs_exe = dc.attribute("GS", "gs");
 			Vorein->gs_AntiAliasText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
 			Vorein->gs_AntiAliasGraphics = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
-			Vorein->gimp_exe = dc.attribute("GIMP", "gimp");
+			Vorein->imageEditorExecutable = dc.attribute("GIMP", "gimp");
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

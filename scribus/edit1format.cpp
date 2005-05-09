@@ -314,7 +314,7 @@ void EditStyle::Verlassen()
 		{
 			if (Name->text() == allV[x].Vname)
 			{
-				QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("OK"),
+				QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("&OK"),
 				                         0, 0, 0, QMessageBox::Ok);
 				Name->selectAll();
 				Name->setFocus();
@@ -331,7 +331,7 @@ void EditStyle::Verlassen()
 				if (Name->text() == allV[x].Vname)
 				{
 					QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"),
-					                         tr("OK"),0, 0, 0, QMessageBox::Ok);
+					                         tr("&OK"),0, 0, 0, QMessageBox::Ok);
 					Name->selectAll();
 					Name->setFocus();
 					return;

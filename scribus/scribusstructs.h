@@ -456,7 +456,7 @@ struct ApplicationPrefs
 	QString gs_exe;
 	bool gs_AntiAliasText;
 	bool gs_AntiAliasGraphics;
-	QString gimp_exe;
+	QString imageEditorExecutable;
 	bool ClipMargin;
 	bool GCRMode;
 	QColor STEcolor;

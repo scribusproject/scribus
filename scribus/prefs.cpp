@@ -592,7 +592,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	groupGimpLayout = new QHBoxLayout( groupGimp->layout() );
 	groupGimpLayout->setAlignment( Qt::AlignTop );
 	GimpName = new QLineEdit( groupGimp, "GimpName" );
-	GimpName->setText(prefsData->gimp_exe);
+	GimpName->setText(prefsData->imageEditorExecutable);
 	GimpText = new QLabel( GimpName, tr( "Name of &Executable:" ), groupGimp, "GimpText" );
 	groupGimpLayout->addWidget( GimpText );
 	groupGimpLayout->addWidget( GimpName );

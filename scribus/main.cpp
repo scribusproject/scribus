@@ -235,7 +235,7 @@ int mainGui(int argc, char **argv)
 	scribus->show();
 	scribus->ShowSubs();
 	if (file != "")
-		scribus->LadeDoc(file);
+		scribus->loadDoc(file);
 
 	return app.exec();
 }

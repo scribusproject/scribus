@@ -109,7 +109,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 			PicTable->setCellWidget(Zeilen2, 4, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
 			if (doc->MasterItems.at(i)->PicAvail)
-				PicTable->setText(Zeilen2, 5, tr("OK"));
+				PicTable->setText(Zeilen2, 5, tr("&OK"));
 			else
 				PicTable->setText(Zeilen2, 5, tr("Missing"));
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
@@ -144,7 +144,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 			PicTable->setCellWidget(Zeilen2, 4, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
 			if (doc->Items.at(i)->PicAvail)
-				PicTable->setText(Zeilen2, 5, tr("OK"));
+				PicTable->setText(Zeilen2, 5, tr("&OK"));
 			else
 				PicTable->setText(Zeilen2, 5, tr("Missing"));
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));

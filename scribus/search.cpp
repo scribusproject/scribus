@@ -507,7 +507,7 @@ void SearchReplace::slotDoSearch()
 			ScApp->view->RefreshItem(Item);
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
-			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("OK"));
+			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("&OK"));
 			Item->CPos = 0;
 			NotFound = false;
 		}
@@ -634,7 +634,7 @@ void SearchReplace::slotDoSearch()
 				}
 				else
 				{
-					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("OK"));
+					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("&OK"));
 					NotFound = false;
 					ScApp->CurrStED->Editor->removeSelection();
 					ScApp->CurrStED->Editor->setCursorPosition(0, 0);

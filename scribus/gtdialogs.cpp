@@ -156,7 +156,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 
 	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout2");
 	blayout->addStretch(10);
-	okButton = new QPushButton(tr("OK"), this, "okButton2");
+	okButton = new QPushButton(tr("&OK"), this, "okButton2");
 	blayout->addWidget(okButton);
 	layout->addLayout(blayout);
 

@@ -107,7 +107,7 @@ public:
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
 	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber);
-	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
+	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
@@ -115,7 +115,7 @@ public:
 	void keyReleaseEvent(QKeyEvent *k);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void wheelEvent(QWheelEvent *w);
-	void DeleteSel(PageItem *currItem);
+	void deleteSelectedTextFromFrame(PageItem *currItem);
 	void setTBvals(PageItem *currItem);
 	void SavePrefs();
 	void SavePrefsXML();
@@ -246,7 +246,7 @@ public slots:
 	void ManageGuides();
 	void setItemFillTransparency(double t);
 	void setItemLineTransparency(double t);
-	void ReportMP(double xp, double yp);
+	void setMousePositionOnStatusBar(double xp, double yp);
 	bool DoFileClose();
 	bool DoSaveClose();
 	void windowsMenuAboutToShow();
@@ -267,7 +267,7 @@ public slots:
 	/** generate a new document in the current view */
 	bool slotFileNew();
 	bool slotPageImport();
-	bool LadeSeite(QString fileName, int Nr, bool Mpa);
+	bool loadPage(QString fileName, int Nr, bool Mpa);
 	/** open a document */
 	void slotFileOpen();
 	void slotFileAppend();
@@ -276,7 +276,7 @@ public slots:
 	void loadRecent(QString fn);
 	void rebuildRecentFileMenu();
 	bool slotDocOpen();
-	bool LadeDoc(QString fileName);
+	bool loadDoc(QString);
 	void slotAutoSaved();
 	/** save a document */
 	bool slotFileSave();
@@ -314,7 +314,7 @@ public slots:
 	/** Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);
 	void slotNewPageM();
-	void slotNewPageT(int w);
+	void slotNewMasterPage(int w);
 	void slotNewPage(int w);
 	/** Loescht die aktuelle Seite */
 	void DeletePage();
@@ -448,8 +448,8 @@ public slots:
 	void HaveRaster(bool art);
 	void EditTabs();
 	void SearchText();
-	void GimpExited();
-	void CallGimp();
+	void imageEditorExited();
+	void callImageEditor();
 	void docCheckToggle(bool visible);
 	void scanDocument();
 	void setUndoMode(bool isObjectSpecific);
