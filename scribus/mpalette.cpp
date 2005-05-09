@@ -108,56 +108,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 
-	proppalButtonGrp = new QButtonGroup( QString::null, this, "proppalButtonGrp" );
-	proppalButtonGrp->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, 0, 0, proppalButtonGrp->sizePolicy().hasHeightForWidth() ) );
-	proppalButtonGrp->setFrameShape( QButtonGroup::NoFrame );
-	proppalButtonGrp->setExclusive( true );
-	proppalButtonGrp->setColumnLayout(0, Qt::Vertical );
-	proppalButtonGrp->layout()->setSpacing( 0 );
-	proppalButtonGrp->layout()->setMargin( 0 );
-	proppalButtonGrpLayout = new QGridLayout( proppalButtonGrp->layout() );
-	proppalButtonGrpLayout->setAlignment( Qt::AlignTop );
-
-	SGeom = new QToolButton( proppalButtonGrp, "toolButton24" );
-	SGeom->setToggleButton( true );
-	SGeom->setOn( true );
-	SGeom->setFont(f);
-	SGeom->setText( tr( "X, Y, &Z" ) );
-	proppalButtonGrpLayout->addWidget( SGeom, 0, 0 );
-
-	SShape = new QToolButton( proppalButtonGrp, "toolButton25" );
-	SShape->setToggleButton( true );
-	SShape->setFont(f);
-	SShape->setText( tr( "&Shape" ) );
-	proppalButtonGrpLayout->addWidget( SShape, 0, 1 );
-
-	SText = new QToolButton( proppalButtonGrp, "toolButton26" );
-	SText->setToggleButton( true );
-	SText->setFont(f);
-	SText->setText( tr( "&Text" ) );
-	proppalButtonGrpLayout->addWidget( SText, 1, 0 );
-
-	SImage = new QToolButton( proppalButtonGrp, "toolButton27" );
-	SImage->setToggleButton( true );
-	SImage->setFont(f);
-	SImage->setText( tr( "&Image" ) );
-	proppalButtonGrpLayout->addWidget( SImage, 1, 1 );
-
-	SLine = new QToolButton( proppalButtonGrp, "toolButton28" );
-	SLine->setToggleButton( true );
-	SLine->setFont(f);
-	SLine->setText( tr( "&Line" ) );
-	proppalButtonGrpLayout->addWidget( SLine, 2, 0 );
-
-	SColor = new QToolButton( proppalButtonGrp, "toolButton29" );
-	SColor->setToggleButton( true );
-	SColor->setFont(f);
-	SColor->setText( tr( "&Colors" ) );
-	proppalButtonGrpLayout->addWidget( SColor, 2, 1 );
-
-	MpalLayout->addWidget( proppalButtonGrp );
-	TabStack = new QWidgetStack( this, "TabStack" );
-	TabStack->setFrameShape( QWidgetStack::NoFrame );
+	TabStack = new QToolBox( this, "TabStack" );
 
 	page = new QWidget( TabStack, "page" );
 	pageLayout = new QVBoxLayout( page, 0, 5, "pageLayout");
@@ -348,7 +299,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	QSpacerItem* spacer13 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout->addItem( spacer13 );
-	TabStack->addWidget( page, 0 );
+	TabStack->addItem( page, tr( "X, Y, &Z" ) );
 
 	page_2 = new QWidget( TabStack, "page_2" );
 	pageLayout_2 = new QVBoxLayout( page_2, 0, 5, "pageLayout_2");
@@ -478,7 +429,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_2->addItem( spacer6 );
-	TabStack->addWidget( page_2, 1 );
+	TabStack->addItem( page_2, tr( "&Shape" ) );
 
 	page_3 = new QWidget( TabStack, "page_3" );
 	pageLayout_3 = new QVBoxLayout( page_3, 0, 5, "pageLayout_3");
@@ -598,7 +549,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_3->addItem( spacer8 );
-	TabStack->addWidget( page_3, 2 );
+	TabStack->addItem( page_3, tr( "&Text" ) );
 
 	page_4 = new QWidget( TabStack, "page_4" );
 	pageLayout_4 = new QVBoxLayout( page_4, 0, 5, "pageLayout_4");
@@ -685,7 +636,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	QSpacerItem* spacer9 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_4->addItem( spacer9 );
-	TabStack->addWidget( page_4, 3 );
+	TabStack->addItem( page_4, tr( "&Image" ) );
 
 	page_5 = new QWidget( TabStack, "page_5" );
 	pageLayout_5 = new QVBoxLayout( page_5, 0, 5, "pageLayout_5");
@@ -706,37 +657,37 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2");
 	LStyle = new LineCombo(page_5);
 	linetypeLabel = new QLabel( LStyle, tr( "T&ype of Line:" ), page_5, "linetypeLabel" );
-	Layout12_2->addMultiCellWidget( linetypeLabel, 0, 0, 0, 1 );
-	Layout12_2->addMultiCellWidget( LStyle, 1, 1, 0, 1 );
+	Layout12_2->addWidget( linetypeLabel, 0, 0 );
+	Layout12_2->addWidget( LStyle, 0, 1 );
 	startArrow = new ArrowChooser(page_5, true);
-	Layout12_2->addWidget( startArrow, 3, 0 );
+	Layout12_2->addWidget( startArrow, 2, 0 );
 	endArrow = new ArrowChooser(page_5, false);
-	Layout12_2->addWidget( endArrow, 3, 1 );
+	Layout12_2->addWidget( endArrow, 2, 1 );
 	startArrowText = new QLabel( startArrow, tr( "Start Arrow:" ), page_5, "startArrowText" );
-	Layout12_2->addWidget( startArrowText, 2, 0 );
+	Layout12_2->addWidget( startArrowText, 1, 0 );
 	endArrowText = new QLabel( endArrow, tr( "End Arrow:" ), page_5, "endArrowText" );
-	Layout12_2->addWidget( endArrowText, 2, 1 );
+	Layout12_2->addWidget( endArrowText, 1, 1 );
 	LSize = new MSpinBox( page_5, 1 );
 	LSize->setSuffix( ptSuffix );
 	linewidthLabel = new QLabel(LSize, tr( "Line &Width:" ), page_5, "linewidthLabel" );
-	Layout12_2->addMultiCellWidget( linewidthLabel, 4, 4, 0, 1 );
-	Layout12_2->addMultiCellWidget( LSize, 5, 5, 0, 1 );
+	Layout12_2->addWidget( linewidthLabel, 3, 0 );
+	Layout12_2->addWidget( LSize, 3, 1 );
 	LJoinStyle = new QComboBox( true, page_5, "LJoin" );
 	LJoinStyle->setEditable(false);
 	LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
 	LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
 	LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 	edgesLabel = new QLabel( LJoinStyle, tr( "Ed&ges:" ), page_5, "edgesLabel" );
-	Layout12_2->addMultiCellWidget( edgesLabel, 6, 6, 0, 1 );
-	Layout12_2->addMultiCellWidget( LJoinStyle, 7, 7, 0, 1 );
+	Layout12_2->addWidget( edgesLabel, 4, 0 );
+	Layout12_2->addWidget( LJoinStyle, 4, 1 );
 	LEndStyle = new QComboBox( true, page_5, "LCap" );
 	LEndStyle->setEditable(false);
 	LEndStyle->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	LEndStyle->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
 	LEndStyle->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 	endingsLabel = new QLabel( LEndStyle, tr( "&Endings:" ), page_5, "endingsLabel" );
-	Layout12_2->addMultiCellWidget( endingsLabel, 8, 8, 0, 1 );
-	Layout12_2->addMultiCellWidget( LEndStyle, 9, 9, 0, 1 );
+	Layout12_2->addWidget( endingsLabel, 5, 0 );
+	Layout12_2->addWidget( LEndStyle, 5, 1 );
 	pageLayout_5->addLayout( Layout12_2 );
 
 	TabStack3 = new QWidgetStack( page_5, "TabStack3" );
@@ -772,9 +723,9 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	pageLayout_5b->addWidget(TLines);
 	TabStack3->addWidget( page_5b, 1 );
 	pageLayout_5->addWidget( TabStack3 );
-	TabStack->addWidget( page_5, 4 );
+	TabStack->addItem( page_5, tr( "&Line" ) );
 	Cpal = new Cpalette(this);
-	TabStack->addWidget(Cpal, 5);
+	TabStack->addItem(Cpal, tr( "&Colors" ));
 	MpalLayout->addWidget( TabStack );
 
 	QToolTip::add( NameEdit, tr( "Name of selected object" ) );
@@ -890,7 +841,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(DLeft, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(DRight, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
-	connect(proppalButtonGrp, SIGNAL(clicked(int)), this, SLOT(SelTab(int)));
+	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
@@ -927,42 +878,19 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	RoundRect->setValue(0);
 	TabStack3->raiseWidget(0);
 	TabStack2->raiseWidget(0);
-	TabStack->raiseWidget(0);
-	TabStack->widget(0)->setEnabled(false);
-	SGeom->setEnabled(false);
-	SShape->setEnabled(false);
-	SText->setEnabled(false);
-	SImage->setEnabled(false);
-	SLine->setEnabled(false);
-	SColor->setEnabled(false);
+	for (int ws = 1; ws < 6; ++ws)
+		TabStack->setItemEnabled(ws, false);
+	TabStack->setCurrentIndex(0);
+	TabStack->item(0)->setEnabled(false);
+	TabStack->setItemEnabled(0, false);
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
 	PM1->setEnabled(false);
 }
-
-/*
-void Mpalette::keyPressEvent(QKeyEvent *k)
-{
-	QDialog::keyPressEvent(k);
-}
-
-void Mpalette::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void Mpalette::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
-}
-*/
 void Mpalette::SelTab(int t)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	TabStack->raiseWidget(t);
 	if ((HaveDoc) && (HaveItem) && (t == 5))
 	{
 		Cpal->setActGradient(CurItem->GrType);
@@ -1030,7 +958,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	HaveItem = false;
 	CurItem = i;
-	if (TabStack->id(TabStack->visibleWidget()) == 5)
+	if (TabStack->currentIndex() == 5)
 		Cpal->setActGradient(CurItem->GrType);
 	Cpal->setSpecialGradient(CurItem->GrStartX * Umrech, CurItem->GrStartY * Umrech,
 										  CurItem->GrEndX * Umrech, CurItem->GrEndY * Umrech,
@@ -1258,8 +1186,9 @@ void Mpalette::NewSel(int nr)
 		Width->setEnabled(true);
 		Height->setEnabled(true);
 		Rot->setEnabled(true);
-		SGeom->setEnabled(true);
-		TabStack->widget(0)->setEnabled(true);
+		TabStack->setCurrentIndex(0);
+		TabStack->item(0)->setEnabled(true);
+		TabStack->setItemEnabled(0, true);
 		NameEdit->setEnabled(false);
 	}
 	else
@@ -1277,14 +1206,14 @@ void Mpalette::NewSel(int nr)
 		BottomLeft->setEnabled(true);
 		BottomRight->setEnabled(true);
 		Center->setEnabled(true);
-		visID = TabStack->id(TabStack->visibleWidget());
-		TabStack->widget(0)->setEnabled(true);
-		TabStack->widget(1)->setEnabled(false);
-		TabStack->widget(2)->setEnabled(false);
-		TabStack->widget(3)->setEnabled(false);
-		TabStack->widget(4)->setEnabled(false);
-		TabStack->widget(5)->setEnabled(true);
-		SColor->setEnabled(true);
+		visID = TabStack->currentIndex ();
+		TabStack->item(0)->setEnabled(true);
+		TabStack->setItemEnabled(0, true);
+		TabStack->setItemEnabled(1, false);
+		TabStack->setItemEnabled(2, false);
+		TabStack->setItemEnabled(3, false);
+		TabStack->setItemEnabled(4, false);
+		TabStack->setItemEnabled(5, true);
 		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 		FlipH->setOn(false);
@@ -1307,26 +1236,17 @@ void Mpalette::NewSel(int nr)
 			Height->setValue(0);
 			Rot->setValue(0);
 			RoundRect->setValue(0);
-			for (int ws = 0; ws < 6; ++ws)
-				TabStack->widget(ws)->setEnabled(false);
-			SGeom->setEnabled(false);
-			SShape->setEnabled(false);
-			SText->setEnabled(false);
-			SImage->setEnabled(false);
-			SLine->setEnabled(false);
-			SColor->setEnabled(false);
+			for (int ws = 1; ws < 6; ++ws)
+				TabStack->setItemEnabled(ws, false);
+			TabStack->setCurrentIndex(0);
+			TabStack->item(0)->setEnabled(false);
+			TabStack->setItemEnabled(0, false);
 			Cpal->ChooseGrad(0);
-			//				SGeom->setOn(true);
 			break;
 		case 2:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(true);
-			SText->setEnabled(false);
-			SImage->setEnabled(true);
-			SLine->setEnabled(true);
-			TabStack->widget(1)->setEnabled(true);
-			TabStack->widget(3)->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
+			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(3, true);
+			TabStack->setItemEnabled(4, true);
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
@@ -1334,21 +1254,13 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
 			if (visID == 2)
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
+				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 4:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(true);
-			SText->setEnabled(true);
-			SImage->setEnabled(false);
-			SLine->setEnabled(true);
-			TabStack->widget(1)->setEnabled(true);
-			TabStack->widget(2)->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
+			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(2, true);
+			TabStack->setItemEnabled(4, true);
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
@@ -1357,19 +1269,11 @@ void Mpalette::NewSel(int nr)
 			Distance->setEnabled(true);
 			EditShape->setEnabled(true);
 			if (visID == 3)
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
+				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 5:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(false);
-			SText->setEnabled(false);
-			SImage->setEnabled(false);
-			SLine->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
+			TabStack->setItemEnabled(4, true);
 			LineMode->setEnabled(true);
 			TopLeft->setEnabled(false);
 			TopRight->setEnabled(false);
@@ -1377,22 +1281,14 @@ void Mpalette::NewSel(int nr)
 			BottomRight->setEnabled(false);
 			Center->setEnabled(false);
 			if ((visID == 1) || (visID == 2) || (visID == 3))
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
+				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 1:
 		case 3:
 		case 6:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(true);
-			SText->setEnabled(false);
-			SImage->setEnabled(false);
-			SLine->setEnabled(true);
-			TabStack->widget(1)->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
+			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
 			EditShape->setEnabled(true);
 			FlipH->setEnabled(true);
@@ -1400,45 +1296,26 @@ void Mpalette::NewSel(int nr)
 			if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
+				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 7:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(true);
-			SText->setEnabled(false);
-			SImage->setEnabled(false);
-			SLine->setEnabled(true);
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
-			TabStack->widget(1)->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
+			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
+				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 8:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(true);
-			SText->setEnabled(true);
-			SImage->setEnabled(false);
-			SLine->setEnabled(true);
-			TabStack->widget(1)->setEnabled(true);
-			TabStack->widget(2)->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
+			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(2, true);
+			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
 			if (visID == 3)
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
+				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		}
@@ -2772,7 +2649,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 			return;
 		CurItem->convertTo(PageItem::Polygon);
 		NewSel(6);
-		TabStack->raiseWidget(1);
+		TabStack->setCurrentIndex(1);
 	}
 }
 

@@ -1668,7 +1668,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					for (uint lam=0; lam < Doc->Layers.count(); ++lam)
 					{
 						int lai = pmen3->insertItem(Doc->Layers[lam].Name);
-						if (static_cast<int>(lam) == Doc->ActiveLayer)
+						if (Doc->Layers[lam].LNr == Doc->ActiveLayer)
 							pmen3->setItemEnabled(lai, 0);
 					}
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
@@ -6400,7 +6400,6 @@ bool ScribusView::slotSetCurs(int x, int y)
 		QPainter p;
 		QString chx;
 		p.begin(this);
-//		ToView(&p);
 		Transform(currItem, &p);
 		mpo = QRect(x - Doc->guidesSettings.grabRad, y - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 		if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->Width), static_cast<int>(currItem->Height))))).contains(mpo)) ||
@@ -6408,7 +6407,6 @@ bool ScribusView::slotSetCurs(int x, int y)
 		{
 			if (currItem->itemType() == PageItem::ImageFrame)
 				return true;
-			TransformM(currItem, &p);
 			uint a, i;
 			int xp, yp, w, h, chs;
 			CursVis = true;
@@ -6428,7 +6426,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				else
 					w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, chs)*(currItem->itemText.at(a)->cscale / 100.0));
 				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa);
-				if (QRegion(p.xForm(QRect(xp-1, yp-h, w+1, h))).contains(QPoint(xP, yP)))
+				if (QRegion(p.xForm(QRect(xp-1, yp-h, w+1, h))).contains(QPoint(x, y)))
 				{
 					currItem->CPos = a;
 					p.end();
@@ -7780,8 +7778,16 @@ void ScribusView::sentToScrap()
 
 void ScribusView::sentToLayer(int id)
 {
-	int d = pmen3->indexOf(id);
-	int dd = Doc->Layers[d].LNr;
+	QString laName = pmen3->text(id);
+	int dd = 0;
+	for (uint lam=0; lam < Doc->Layers.count(); ++lam)
+	{
+		if (Doc->Layers[lam].Name == laName)
+		{
+			dd = Doc->Layers[lam].LNr;
+			break;
+		}
+	}
 	if (SelItem.count() != 0)
 	{
 		if (UndoManager::undoEnabled() && SelItem.count() > 1)

@@ -20,7 +20,7 @@
 #include <qlistbox.h>
 #include <qlineedit.h>
 #include <qtimer.h>
-
+#include <qtoolbox.h>
 #include "scrpalettebase.h"
 #include "mspinbox.h"
 #include "pageitem.h"
@@ -86,10 +86,6 @@ class Mpalette : public ScrPaletteBase
 public:
 	Mpalette(QWidget* parent, ApplicationPrefs *Prefs);
 	~Mpalette() {};
-	/*
-	void keyPressEvent(QKeyEvent *k);
-	void closeEvent(QCloseEvent *ce);
-	*/
 	void ToggleFlow();
 	void updateCList();
 	void updateCmsList();
@@ -122,24 +118,17 @@ public:
 	bool LMode;
 	double RoVal;
 
-	QButtonGroup* proppalButtonGrp;
 	QButtonGroup* RotationGroup;
 	QButtonGroup* ShapeGroup;
 
 	QPushButton* TabsButton;
 
-	QToolButton* SShape;
-	QToolButton* SText;
-	QToolButton* SImage;
-	QToolButton* SLine;
-	QToolButton* SGeom;
-	QToolButton* SColor;
 	QToolButton* Zup;
 	QToolButton* ZDown;
 	QToolButton* ZTop;
 	QToolButton* ZBottom;
 
-	QWidgetStack* TabStack;
+	QToolBox* TabStack;
 	QWidgetStack* TabStack2;
 	QWidgetStack* TabStack3;
 
@@ -373,9 +362,6 @@ protected slots:
 
 signals:
 	void ToggleAllPalettes();
-	//void Schliessen();
-	//void CloseBpal();
-	//void CloseTpal();
 	void DocChanged();
 	void NewAbStyle(int);
 	void BackHome();
@@ -387,7 +373,6 @@ signals:
 
 protected:
 	QVBoxLayout* MpalLayout;
-	QGridLayout* proppalButtonGrpLayout;
 	QVBoxLayout* pageLayout;
 	QVBoxLayout* pageLayout_2;
 	QVBoxLayout* pageLayout_2a;

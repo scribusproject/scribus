@@ -1709,7 +1709,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *currItem = view->SelItem.at(0);
-
 			switch (doc->appMode)
 			{
 			case NormalMode:
@@ -1718,15 +1717,24 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				case Key_Backspace:
 				case Key_Delete:
 					if (!doc->EditClip)
+					{
 						view->DeleteItem();
+						slotDocCh();
+					}
 					break;
 				case Key_Prior:
 					if (!currItem->locked())
+					{
 						view->RaiseItem();
+						slotDocCh();
+					}
 					break;
 				case Key_Next:
 					if (!currItem->locked())
+					{
 						view->LowerItem();
+						slotDocCh();
+					}
 					break;
 				case Key_Left:
 					if (!currItem->locked())
@@ -1737,6 +1745,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->moveGroup(-0.1, 0);
 						else
 							view->moveGroup(-1, 0);
+						slotDocCh();
 					}
 					break;
 				case Key_Right:
@@ -1748,6 +1757,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->moveGroup(0.1, 0);
 						else
 							view->moveGroup(1, 0);
+						slotDocCh();
 					}
 					break;
 				case Key_Up:
@@ -1759,6 +1769,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->moveGroup(0, -0.1);
 						else
 							view->moveGroup(0, -1);
+						slotDocCh();
 					}
 					break;
 				case Key_Down:
@@ -1770,12 +1781,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->moveGroup(0, 0.1);
 						else
 							view->moveGroup(0, 1);
+						slotDocCh();
 					}
 					break;
 				default:
 					break;
 				}
-				slotDocCh();
 				break;
 			case EditMode:
 				int oldPos = currItem->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
