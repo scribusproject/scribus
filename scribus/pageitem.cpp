@@ -948,8 +948,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								DropCmode = Doc->docParagraphStyles[absa].Drop;
 							else
 								DropCmode = false;
-							CurX += Doc->docParagraphStyles[absa].First;
-							CurX += Doc->docParagraphStyles[absa].Indent;
 							CurY += Doc->docParagraphStyles[absa].gapBefore;
 							if (DropCmode)
 								DropLines = Doc->docParagraphStyles[absa].DropLin;
@@ -964,10 +962,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						hl->cstyle &= 255;
 					if (LiList.count() == 0)
 					{
-						if ((a > 0) && (itemText.at(a-1)->ch == QChar(13)))
+						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
 						{
-							CurX += Doc->docParagraphStyles[absa].First;
-							CurX += Doc->docParagraphStyles[absa].Indent;
 							CurY += Doc->docParagraphStyles[absa].gapBefore;
 							if (chx != QChar(13))
 								DropCmode = Doc->docParagraphStyles[absa].Drop;
@@ -1038,12 +1034,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						if (StartOfCol)
 						{
 							CurY = asce+TExtra+lineCorr+1;
-							if ((a > 0) && (itemText.at(a-1)->ch == QChar(13)))
-							{
+							if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
 								CurY += Doc->docParagraphStyles[hl->cab].gapBefore;
-								CurX += Doc->docParagraphStyles[hl->cab].First;
-								CurX += Doc->docParagraphStyles[hl->cab].Indent;
-							}
 						}
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
@@ -1067,14 +1059,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								fBorder = false;
 								if (StartOfCol)
 								{
-									if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || (a == 0))
-									{
-										CurX = ColBound.x();
-										CurX += Doc->docParagraphStyles[hl->cab].First;
-										CurX += Doc->docParagraphStyles[hl->cab].Indent;
-									}
-									else
-										CurX = ColBound.x();
+									CurX = ColBound.x();
 									CurY++;
 								}
 								else
@@ -1103,14 +1088,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										CurX = ColBound.x();
 										ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 										CurY = asce+TExtra+lineCorr+1;
-										if ((a > 0) && (itemText.at(a-1)->ch == QChar(13)))
+										if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
 										{
 											if (chx != QChar(13))
 												DropCmode = Doc->docParagraphStyles[hl->cab].Drop;
 											else
 												DropCmode = false;
-											CurX += Doc->docParagraphStyles[hl->cab].First;
-											CurX += Doc->docParagraphStyles[hl->cab].Indent;
 											if (DropCmode)
 											{
 												if (Doc->docParagraphStyles[hl->cab].BaseAdj)
@@ -1121,8 +1104,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 											if (DropCmode)
 												DropLines = Doc->docParagraphStyles[hl->cab].DropLin;
 										}
-										else
-											CurX += Doc->docParagraphStyles[hl->cab].Indent;
 										if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 										{
 											double by = Ypos;
@@ -1145,6 +1126,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 						if ((fBorder) && (!AbsHasDrop))
 							CurX += Extra;
+						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
+						{
+							CurX += Doc->docParagraphStyles[hl->cab].First;
+						}
+						CurX += Doc->docParagraphStyles[hl->cab].Indent;
 						fBorder = false;
 					}
 					StartOfCol = false;
