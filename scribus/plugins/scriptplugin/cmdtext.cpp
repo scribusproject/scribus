@@ -595,7 +595,7 @@ PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
 		return NULL;
 	}
 	if (it->HasSel)
-		Carrier->DeleteSel(it);
+		Carrier->deleteSelectedTextFromFrame(it);
 	else
 	{
 		it->itemText.clear();

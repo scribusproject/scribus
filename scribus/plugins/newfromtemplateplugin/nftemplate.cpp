@@ -85,7 +85,7 @@ void MenuNFT::RunNFTPlug()
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		Carrier->LadeDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		Carrier->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		Carrier->doc->hasName = false;
 		Carrier->doc->DocName = nftdia->currentDocumentTemplate->name;
 		Carrier->ActWin->setCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);

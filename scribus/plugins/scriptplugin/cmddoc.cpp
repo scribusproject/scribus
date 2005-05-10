@@ -69,7 +69,7 @@ PyObject *scribus_opendoc(PyObject */*self*/, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
-	bool ret = Carrier->LadeDoc(QString::fromUtf8(Name));
+	bool ret = Carrier->loadDoc(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error"));
