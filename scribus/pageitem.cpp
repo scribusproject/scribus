@@ -570,7 +570,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			FPoint ColBound;
 			QRegion cm;
 			uint a, nrc, nrc2, startLin;
-			int desc, asce, absa, aSpa, chs, chsd, CurrCol;
+			int absa, aSpa, chs, chsd, CurrCol;
 			uint BuPos, LastSP, MaxText;
 			double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
 			QString chx, chx2, chx3;
@@ -588,7 +588,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			QValueList<double> tTabValues;
 			bool DropCmode = false;
 			bool AbsHasDrop = false;
-			double maxDY, firstDes, desc2, maxDX;
+			double desc, asce, maxDY, firstDes, desc2, maxDX;
 			int DropLines;
 			bool StartOfCol = true;
 			tTabValues.clear();
@@ -682,8 +682,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
-						desc = static_cast<int>(Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0));
-						asce = static_cast<int>(Zli3.ZFo->numAscent * (Zli3.Siz / 10.0));
+						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
+						asce = Zli3.ZFo->numAscent * (Zli3.Siz / 10.0);
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, &Zli3);
 						if (hl->cstyle & 512)
@@ -1024,8 +1024,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					else
 					{
 						desc2 = -hl->cfont->numDescender * (hl->csize / 10.0);
-						desc = qRound(-hl->cfont->numDescender * (hl->csize / 10.0));
-						asce = qRound(hl->cfont->numAscent * (hl->csize / 10.0));
+						desc = -hl->cfont->numDescender * (hl->csize / 10.0);
+						asce = hl->cfont->numAscent * (hl->csize / 10.0);
 					}
 					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;
@@ -1579,8 +1579,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
 							}
-							desc = static_cast<int>(Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0));
-							asce = static_cast<int>(Zli2->ZFo->numAscent * (Zli2->Siz / 10.0));
+							desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
+							asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 							{
 								wide = Zli2->wide;
@@ -1594,7 +1594,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									wide = Zli2->xco - xcoZli + Zli2->wide;
 								}
 								if (!Doc->RePos)
-									p->drawRect(xcoZli, Zli2->yco-asce, wide+1, asce+desc);
+									p->drawRect(xcoZli, Zli2->yco-asce, wide+1, qRound(asce+desc));
 								p->setBrush(white);
 							}
 							if (Zli2->Farb2 != "None")
@@ -1679,8 +1679,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
 					}
-					desc = qRound(Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0));
-					asce = qRound(Zli2->ZFo->numAscent * (Zli2->Siz / 10.0));
+					desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
+					asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 					{
 						wide = Zli2->wide;
@@ -1694,7 +1694,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							wide = Zli2->xco - xcoZli + Zli2->wide;
 						}
 						if (!Doc->RePos)
-							p->drawRect(xcoZli, Zli2->yco-asce, wide+1, asce+desc);
+							p->drawRect(xcoZli, Zli2->yco-asce, wide+1, qRound(asce+desc));
 						p->setBrush(white);
 					}
 					if (Zli2->Farb2 != "None")
