@@ -37,7 +37,7 @@ int ScribusQApp::init(bool /*useGUI*/, bool showSplash, QString lang, QString fi
 {
 	QStringList langs = getLang(QString(lang));
 
-	ScribusApp *scribus = new ScribusApp();
+	scribus = new ScribusApp();
 	if (!scribus)
 		exit(EXIT_FAILURE);
 	if (!langs.isEmpty())
@@ -141,7 +141,14 @@ QStringList ScribusQApp::getLang(QString lang)
 void ScribusQApp::installTranslators(QStringList langs)
 {
 	QString lang = "";
-	QTranslator *trans= new QTranslator(0);
+	static QTranslator *trans = 0;
+	
+	if ( trans )
+	{
+		removeTranslator( trans );
+		delete trans;
+	}
+	trans = new QTranslator(0);
 	QString path = ScPaths::instance().libDir();
 	path += "scribus";
 
@@ -156,7 +163,7 @@ void ScribusQApp::installTranslators(QStringList langs)
 
 	if (loaded)
 		installTranslator(trans);
-
+	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if (dir.exists() && (dir.count() != 0)) {
@@ -169,7 +176,7 @@ void ScribusQApp::installTranslators(QStringList langs)
 				installTranslator(trans);
 			}
 		}
-	}
+	}*/
 }
 
 void ScribusQApp::changeGUILanguage(QString newGUILang)

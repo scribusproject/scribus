@@ -174,7 +174,9 @@ ScribusQApp* ScQApp;
 PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
-{} // ScribusApp::ScribusApp()
+{
+	actionManager=NULL;	
+} // ScribusApp::ScribusApp()
 
 /*
  * retval 0 - ok, 1 - no fonts, ...
@@ -10379,4 +10381,10 @@ void ScribusApp::insertSampleText()
 				slotDocCh();
 			}
 		}
+}
+
+void ScribusApp::languageChange()
+{
+	if (actionManager!=NULL)
+		actionManager->languageChange();
 }

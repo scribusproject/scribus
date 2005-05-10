@@ -228,6 +228,7 @@ public:
 	PluginManager* pluginManager;
 
 public slots:
+	void languageChange();
 	void specialActionKeyEvent(QString actionName, int unicodevalue);
 	void newView();
 	void ToggleAllGuides();

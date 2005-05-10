@@ -18,15 +18,24 @@
 #include <qapplication.h>
 #include <qstring.h>
 
+class ScribusApp;
+
 class ScribusQApp : public QApplication
 {
 	Q_OBJECT
 
-public:
-	ScribusQApp ( int & argc, char ** argv );
-	int init(bool useGUI, bool showSplash, QString lang, QString file);
-	QStringList getLang(QString lang);
-	void installTranslators(QStringList langs);
-	void changeGUILanguage(QString);
+	public:
+		ScribusQApp ( int & argc, char ** argv );
+		int init(bool useGUI, bool showSplash, QString lang, QString file);
+		QStringList getLang(QString lang);
+		void installTranslators(QStringList langs);
+		void changeGUILanguage(QString);
+		
+	private:
+		ScribusApp *scribus;
+	/*
+	signals:
+		languageChanged();
+		*/
 };
 #endif

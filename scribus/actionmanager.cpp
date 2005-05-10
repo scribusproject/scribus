@@ -31,6 +31,7 @@ ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject (
 	undoManager = UndoManager::instance();
 	
 	createActions();
+	languageChange();
 }
 
 void ActionManager::createActions()
@@ -53,7 +54,7 @@ void ActionManager::createActions()
 void ActionManager::initFileMenuActions()
 {
 	//File Menu
-	scrActions->insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), tr("&New"), CTRL+Key_N, ScApp, "fileNew"));
+	scrActions->insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), "", CTRL+Key_N, ScApp, "fileNew"));
 	scrActions->insert("fileOpen", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), tr("&Open..."), CTRL+Key_O, ScApp, "fileOpen"));
 	scrActions->insert("fileClose", new ScrAction(QIconSet(loadIcon("DateiClos16.png"), loadIcon("DateiClose.png")), tr("&Close"), CTRL+Key_W, ScApp, "fileClose"));
 	scrActions->insert("fileSave", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), tr("&Save"), CTRL+Key_S, ScApp, "fileSave"));
@@ -721,4 +722,9 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	}
 	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), currView, SLOT(ToggleAnnotation()) );
 	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), currView, SLOT(ToggleBookmark()) );
+}
+
+void ActionManager::languageChange()
+{
+	(*scrActions)["fileNew"]->setMenuText(tr("&New"));
 }

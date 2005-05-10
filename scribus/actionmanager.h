@@ -50,6 +50,9 @@ class ActionManager : public QObject
 		void enableUnicodeActions(bool enabled);
 		void setPDFActions(ScribusView *);
 		
+	public slots:
+		void languageChange();
+		
 	private:
 		void initFileMenuActions();
 		void initEditMenuActions();
