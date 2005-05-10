@@ -1019,7 +1019,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
 						desc2 = 0;
 						desc = 0;
-						asce = qRound(hl->cfont->numAscent * (hl->csize / 10.0));
+						asce = hl->cfont->numAscent * (hl->csize / 10.0);
 					}
 					else
 					{
@@ -1602,7 +1602,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									wide = Zli2->xco - xcoZli + Zli2->wide;
 								}
 								if (!Doc->RePos)
-									p->drawRect(xcoZli, Zli2->yco-asce, wide+1, qRound(asce+desc));
+									p->drawRect(xcoZli, qRound(Zli2->yco-asce), wide+1, qRound(asce+desc));
 								p->setBrush(white);
 							}
 							if (Zli2->Farb2 != "None")
@@ -1702,7 +1702,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							wide = Zli2->xco - xcoZli + Zli2->wide;
 						}
 						if (!Doc->RePos)
-							p->drawRect(xcoZli, Zli2->yco-asce, wide+1, qRound(asce+desc));
+							p->drawRect(xcoZli, qRound(Zli2->yco-asce), wide+1, qRound(asce+desc));
 						p->setBrush(white);
 					}
 					if (Zli2->Farb2 != "None")
