@@ -40,6 +40,7 @@
 #include <string>
 
 
+#include "scribusapp.h"
 #include "scribus.h"
 #include "scribus.moc"
 #include "newfile.h"
@@ -169,6 +170,7 @@ bool CMSavail;
 ProfilesL InputProfiles;
 QString DocDir;
 ScribusApp* ScApp;
+ScribusQApp* ScQApp;
 PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
@@ -185,6 +187,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	initSplash(showSplash);
 	setUsesBigPixmaps(true);
 	ScApp = this;
+	ScQApp = (ScribusQApp*)qApp;
 	CurrStED = NULL;
 	setCaption( tr("Scribus " VERSION));
 	setKeyCompression(false);
@@ -7688,6 +7691,10 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.SaveAtQ = dia->SaveAtQuit->isChecked();
 		scrapbookPalette->rebuildView();
 		scrapbookPalette->AdjustMenu();
+		if (Prefs.guiLanguage!=dia->selectedGUILang)
+		{
+			ScQApp->changeGUILanguage(dia->selectedGUILang);
+		}
 		Prefs.guiLanguage=dia->selectedGUILang;
 		if (Prefs.GUI != dia->GUICombo->currentText())
 		{
@@ -10373,4 +10380,3 @@ void ScribusApp::insertSampleText()
 			}
 		}
 }
-

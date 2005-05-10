@@ -170,6 +170,7 @@ scribus_SOURCES = \
 		vruler.cpp\
 		werktoolb.cpp\
 		scribus.cpp\
+		scribusapp.cpp\
 		main.cpp
 
 INTERFACES =
@@ -325,6 +326,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scraction.h                   $(prefix)/include/scribus/scraction.h
 	$(INSTALL_DATA) $(srcdir)/scrap.h                       $(prefix)/include/scribus/scrap.h
 	$(INSTALL_DATA) $(srcdir)/scribus.h                     $(prefix)/include/scribus/scribus.h
+	$(INSTALL_DATA) $(srcdir)/scribusapp.h                  $(prefix)/include/scribus/scribusapp.h
 	$(INSTALL_DATA) $(srcdir)/scribusdoc.h                  $(prefix)/include/scribus/scribusdoc.h
 	$(INSTALL_DATA) $(srcdir)/scribusstructs.h              $(prefix)/include/scribus/scribusstructs.h
 	$(INSTALL_DATA) $(srcdir)/scribusview.h                 $(prefix)/include/scribus/scribusview.h
@@ -495,6 +497,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scraction.h
 	-rm -f $(prefix)/include/scribus/scrap.h
 	-rm -f $(prefix)/include/scribus/scribus.h
+	-rm -f $(prefix)/include/scribus/scribusapp.h
 	-rm -f $(prefix)/include/scribus/scribusdoc.h
 	-rm -f $(prefix)/include/scribus/scribusstructs.h
 	-rm -f $(prefix)/include/scribus/scribusview.h

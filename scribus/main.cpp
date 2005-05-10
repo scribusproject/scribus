@@ -31,6 +31,7 @@
 
 #define BASE_QM "scribus"
 
+#include "scribusapp.h"
 #include "scribus.h"
 #include "langmgr.h"
 #include "prefsfile.h"
@@ -73,10 +74,7 @@ QString file;
 
 void showUsage();
 void showAvailLangs();
-int mainGui(int argc, char **argv);
-QStringList getLang(QString lang);
-void installTranslators(QApplication *app, QStringList langs);
-
+int mainApp(int argc, char **argv);
 
 int main(int argc, char *argv[])
 {
@@ -130,8 +128,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (useGui)
-		return mainGui(argc, argv);
+	return mainApp(argc, argv);
 }
 
 /*!
@@ -212,141 +209,11 @@ void showAvailLangs()
 \param char *argv list of the arguments passed to Scribus
 \retval int Error code from the execution of Scribus
 */
-int mainGui(int argc, char **argv)
+int mainApp(int argc, char **argv)
 {
-	QApplication app(argc, argv);
-	QStringList langs = getLang(QString(lang));
-
-	ScribusApp *scribus = new ScribusApp();
-	if (!scribus)
-		exit(EXIT_FAILURE);
-	if (!langs.isEmpty())
-		installTranslators(&app, langs);
-
-	app.processEvents();
-	
-	int scribusRetVal = scribus->initScribus(showSplash, lang);
-	if (scribusRetVal == 1)
-		exit(EXIT_FAILURE);
-	scribus->initCrashHandler();
-	app.setMainWidget(scribus);
-	app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
-
-	scribus->show();
-	scribus->ShowSubs();
-	if (file != "")
-		scribus->loadDoc(file);
-
+	ScribusQApp app(argc, argv);
+	int appRetVal=app.init(useGui, showSplash, lang, file);
+	if (appRetVal==EXIT_FAILURE)
+		return(EXIT_FAILURE);
 	return app.exec();
-}
-
-/*!
-\fn void getLang(QString lang)
-\author Franz Schmid
-\author Alessandro Rimoldi
-\date Mon Feb  9 14:07:46 CET 2004
-\brief If the lang argument is empty, returns the value in the locales
-
-The lang is always a two character code, except for "en_GB" where
-the whole string is returned. For all the other locales starting
-with "en", no locale is returned.
-
-(Inspired from Klocale.cpp)
-
-\param lang QString a two letter string describing the lang environement
-\retval QString A string describing the language environement
-*/
-QStringList getLang(QString lang)
-{
-	QStringList langs;
-
-	// read the locales
-	if (lang != "")
-		langs.push_back(lang);
-	
-	//add in user preferences lang, only overridden by lang command line option
-	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
-	QFileInfo Pffi = QFileInfo(Pff);
-	if (Pffi.exists())
-	{
-		QString PrefsPfad;
-		if (Pffi.isDir())
-			PrefsPfad = Pff;
-		else
-			PrefsPfad = QDir::homeDirPath();
-		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs13.xml");
-		QFileInfo infoPrefsFile(prefsXMLFile);
-		if (infoPrefsFile.exists())
-		{
-			PrefsFile* prefsFile = new PrefsFile(prefsXMLFile);
-			if (prefsFile) {
-				PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-				if (userprefsContext) {
-					QString prefslang = userprefsContext->get("gui_language","");
-					if (prefslang!="")
-						langs.push_back(prefslang);
-				}
-			}
-		}
-	}
-
-	if ((lang = ::getenv("LC_ALL")) != "")
-		langs.push_back(lang);
-	if ((lang = ::getenv("LC_MESSAGES")) != "")
-		langs.push_back(lang);
-	if ((lang = ::getenv("LANG")) != "")
-		langs.push_back(lang);
-
-	langs.push_back(QString(QTextCodec::locale()));
-
-	// remove duplicate entries...
-	for (QStringList::Iterator it = langs.fromLast(); it != langs.begin(); --it)
-		if (langs.contains(*it) > 1)
-			it = langs.remove(it);
-
-	return langs;
-} 
-	
-
-/*!
-\fn void installTranslators(QApplication *app, QStringList langs)
-\author Franz Schmid
-\author Alessandro Rimoldi
-\date Mon Feb  9 14:07:46 CET 2004
-\brief Loads the translations for Scribus and for the Plugins
-\param app QApplication pointer to the application object
-\param lang QString a two letter string describing the lang environement
-\retval void
-*/
-void installTranslators(QApplication *app, QStringList langs)
-{
-	QTranslator *trans= new QTranslator(0);
-	QString path = ScPaths::instance().libDir();
-	path += BASE_QM;
-
-	bool loaded = false;
-	for (QStringList::Iterator it = langs.begin(); it != langs.end() && !loaded; ++it) {
-		lang=(*it).left(5);
-		if (lang == "en")
-			break;
-		else if (loaded = trans->load(QString(path + '.' + lang), "."))
-			loaded = true;
-	}
-
-	if (loaded)
-		app->installTranslator(trans);
-
-	path = ScPaths::instance().pluginDir();
-	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if (dir.exists() && (dir.count() != 0)) {
-		for (uint i = 0; i < dir.count(); ++i) {
-			QFileInfo file(path + dir[i]);
-			if ((file.extension(false).lower() == "qm")
-			&& (file.extension(true).lower().left(5) == lang)) {
-				trans = new QTranslator(0);
-				trans->load(QString(path + dir[i]), ".");
-				app->installTranslator(trans);
-			}
-		}
-	}
 }
