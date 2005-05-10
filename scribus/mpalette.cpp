@@ -444,7 +444,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Fonts->setMaximumSize(190, 30);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
-	Size = new MSpinBox( 1, 1024, page_3, 1 );
+	Size = new MSpinBox( 0.5, 1024, page_3, 1 );
 	Size->setPrefix( "" );
 	Size->setSuffix( ptSuffix );
 	fontsizeLabel = new QLabel( Size, tr("&Font Size:"), page_3, "fontsizeLabel" );
@@ -887,6 +887,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	TxStroke->setEnabled(false);
 	PM1->setEnabled(false);
 }
+
 void Mpalette::SelTab(int t)
 {
 	if (ScApp->ScriptRunning)
@@ -921,7 +922,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	Rot->setValues( 0, 359.99, 100, 0);
 	RoundRect->setValues( -300, 300, 10, 0);
 	Extra->setValues( -300, 300, 10, 0);
-	Size->setValues( 1, 1024, 10, 1);
+	Size->setValues( 0.5, 1024, 10, 1);
 	LineSp->setValues( 1, 300, 10, 1);
 	ScaleX->setValues( 1, 3000, 10, 1);
 	ScaleY->setValues( 1, 3000, 10, 1);
@@ -1154,6 +1155,7 @@ void Mpalette::NewSel(int nr)
 	if (ScApp->ScriptRunning)
 		return;
 	int visID;
+	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	if (ScApp->view->GroupSel)
 	{
 		RoVal = 0;
@@ -1255,6 +1257,8 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			if (visID == 2)
 				TabStack->setCurrentIndex(0);
+			else
+				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 4:
@@ -1270,6 +1274,8 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			if (visID == 3)
 				TabStack->setCurrentIndex(0);
+			else
+				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 5:
@@ -1282,6 +1288,8 @@ void Mpalette::NewSel(int nr)
 			Center->setEnabled(false);
 			if ((visID == 1) || (visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
+			else
+				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 1:
@@ -1297,6 +1305,8 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
+			else
+				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 7:
@@ -1307,6 +1317,8 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
+			else
+				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 8:
@@ -1316,6 +1328,8 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			if (visID == 3)
 				TabStack->setCurrentIndex(0);
+			else
+				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		}
@@ -1323,6 +1337,7 @@ void Mpalette::NewSel(int nr)
 	updateGeometry();
 	setFocus();
 	repaint();
+	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
 
 void Mpalette::UnitChange()

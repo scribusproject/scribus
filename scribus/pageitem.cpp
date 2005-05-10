@@ -1529,7 +1529,15 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
 								}
 								if (fromOut)
+								{
+									if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
+									{
+										goNoRoom = true;
+										break;
+									}
 									CurX--;
+									CurX = QMAX(CurX, 0);
+								}
 							}
 							else
 							{
