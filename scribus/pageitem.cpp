@@ -283,9 +283,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	FPoint gv, ColBound;
 	QRegion cm;
 	uint a, nrc, nrc2, startLin;
-	int desc, asce, absa, aSpa, chs, chsd, CurrCol;
+	int absa, aSpa, chs, chsd, CurrCol;
 	uint BuPos, LastSP, MaxText;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
+	double desc, asce, oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
 	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
@@ -610,8 +610,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
-						desc = qRound((*Doc->AllFonts)[Zli3.ZFo]->numDescender * (-Zli3.Siz / 10.0));
-						asce = qRound((*Doc->AllFonts)[Zli3.ZFo]->numAscent * (Zli3.Siz / 10.0));
+						desc = (*Doc->AllFonts)[Zli3.ZFo]->numDescender * (-Zli3.Siz / 10.0);
+						asce = (*Doc->AllFonts)[Zli3.ZFo]->numAscent * (Zli3.Siz / 10.0);
 						if (e.intersects(pf.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, &Zli3);
 						if (hl->cstyle & 512)
@@ -910,13 +910,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
 						desc2 = 0;
 						desc = 0;
-						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
+						asce = (*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0);
 					}
 					else
 					{
 						desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (hl->csize / 10.0);
-						desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (hl->csize / 10.0));
-						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
+						desc = -(*Doc->AllFonts)[hl->cfont]->numDescender * (hl->csize / 10.0);
+						asce = (*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0);
 					}
 					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;
@@ -1410,7 +1410,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
 									}
 								if (fromOut)
+									{
+									if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
+									{
+										goNoRoom = true;
+										break;
+									}
 									CurX--;
+									CurX = QMAX(CurX, 0);
+									}
 								}
 							else
 								{
@@ -1459,8 +1467,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
 							}
-							desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
-							asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
+							desc = (*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0);
+							asce = (*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0);
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
 							{
 								wide = Zli2->wide;
@@ -1474,7 +1482,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									wide = Zli2->xco - xcoZli + Zli2->wide;
 								}
 								if (!Doc->RePos)
-									p->drawRect(xcoZli, Zli2->yco-asce, wide+1, asce+desc);
+									p->drawRect(xcoZli, qRound(Zli2->yco-asce), wide+1, qRound(asce+desc));
 								p->setBrush(white);
 							}
 							if (Zli2->Farb2 != "None")
@@ -1557,13 +1565,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
 					}
-					desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
-					asce = qRound((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
+					desc = (*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0);
+					asce = (*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0);
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
 					{
 						wide = Zli2->wide;
-						desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
-						asce = qRound((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
+						desc = (*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0);
+						asce = (*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0);
 						p->setFillMode(1);
 						p->setBrush(darkBlue);
 						p->setLineWidth(0);
@@ -1574,7 +1582,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							wide = Zli2->xco - xcoZli + Zli2->wide;
 						}
 						if (!Doc->RePos)
-							p->drawRect(xcoZli, Zli2->yco-asce, wide+1, asce+desc);
+							p->drawRect(xcoZli, qRound(Zli2->yco-asce), wide+1, qRound(asce+desc));
 						p->setBrush(white);
 					}
 					if (Zli2->Farb2 != "None")

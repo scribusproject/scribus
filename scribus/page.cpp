@@ -1869,8 +1869,16 @@ void Page::sentToScrap()
 
 void Page::sentToLayer(int id)
 {
-	int d = pmen3->indexOf(id);
-	int dd = doku->Layers[d].LNr;
+	QString laName = pmen3->text(id);
+	int dd = 0;
+	for (uint lam=0; lam < doku->Layers.count(); ++lam)
+	{
+		if (doku->Layers[lam].Name == laName)
+		{
+			dd = doku->Layers[lam].LNr;
+			break;
+		}
+	}
 	if (SelItem.count() != 0)
 	{
 		for (uint a = 0; a < SelItem.count(); ++a)
@@ -3126,7 +3134,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					for (uint lam=0; lam < doku->Layers.count(); ++lam)
 					{
 						int lai = pmen3->insertItem(doku->Layers[lam].Name);
-						if (static_cast<int>(lam) == doku->ActiveLayer)
+						if (doku->Layers[lam].LNr == doku->ActiveLayer)
 							pmen3->setItemEnabled(lai, 0);
 					}
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
@@ -8669,7 +8677,7 @@ void Page::ClearItem()
 
 void Page::DeleteItem(bool force)
 {
-	uint a, c, itnr, anz;
+	uint a, c, anz;
 	QPtrList<PageItem> delItems;
 	delItems.clear();
 	PageItem *b;
@@ -8744,29 +8752,20 @@ void Page::DeleteItem(bool force)
 					}
 				}
 			}
-			if (delItems.at(0)->isBookmark)
-				emit DelBM(delItems.at(0));
+			if (b->isBookmark)
+				emit DelBM(b);
+			emit DelObj(PageNr, b->ItemNr);
 			if (anz == 1)
-				doku->UnData.Item = Items.take(delItems.at(0)->ItemNr);
+				doku->UnData.Item = Items.take(b->ItemNr);
 			else
-			{
-				b = Items.take(delItems.at(0)->ItemNr);
-				delete b;
-			}
-			emit DelObj(PageNr, delItems.at(0)->ItemNr);
+				Items.remove(b);
 			delItems.removeFirst();
-			for (a = 0; a < Items.count(); ++a)
-			{
-				itnr = Items.at(a)->ItemNr;
-				Items.at(a)->ItemNr = a;
-				if (Items.at(a)->isBookmark)
-					emit NewBMNr(Items.at(a)->BMnr, a);
-				for (uint dxx=0; dxx<delItems.count(); ++dxx)
-				{
-					if (delItems.at(dxx)->ItemNr == itnr)
-						delItems.at(dxx)->ItemNr = a;
-				}
-			}
+		}
+		for (a = 0; a < Items.count(); ++a)
+		{
+			Items.at(a)->ItemNr = a;
+			if (Items.at(a)->isBookmark)
+				emit NewBMNr(Items.at(a)->BMnr, a);
 		}
 		if (GroupSel)
 		{

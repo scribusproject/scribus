@@ -476,7 +476,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Fonts->setMaximumSize(190, 30);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
-	Size = new MSpinBox( 1, 1024, page_3, 1 );
+	Size = new MSpinBox( 0.5, 1024, page_3, 1 );
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
 	fontsizeLabel = new QLabel( Size, tr("&Font Size:"), page_3, "fontsizeLabel" );
@@ -988,7 +988,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	Rot->setValues( 0, 360, 100, 0);
 	RoundRect->setValues( -300, 300, 10, 0);
 	Extra->setValues( -300, 300, 10, 0);
-	Size->setValues( 1, 1024, 10, 1);
+	Size->setValues( 0.5, 1024, 10, 1);
 	LineSp->setValues( 1, 300, 10, 1);
 	ScaleX->setValues( 1, 3000, 10, 1);
 	ScaleY->setValues( 1, 3000, 10, 1);

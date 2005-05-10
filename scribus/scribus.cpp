@@ -1264,15 +1264,24 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				case Key_Backspace:
 				case Key_Delete:
 					if (!doc->EditClip)
+					{
 						doc->ActPage->DeleteItem();
+						slotDocCh();
+					}
 					break;
 				case Key_Prior:
 					if (!b->Locked)
+					{
 						doc->ActPage->RaiseItem();
+						slotDocCh();
+					}
 					break;
 				case Key_Next:
 					if (!b->Locked)
+					{
 						doc->ActPage->LowerItem();
+						slotDocCh();
+					}
 					break;
 				case Key_Left:
 					if (!k->isAutoRepeat())
@@ -1290,6 +1299,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							doc->ActPage->moveGroup(-0.1, 0);
 						else
 							doc->ActPage->moveGroup(-1, 0);
+						slotDocCh();
 					}
 					break;
 				case Key_Right:
@@ -1308,6 +1318,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							doc->ActPage->moveGroup(0.1, 0);
 						else
 							doc->ActPage->moveGroup(1, 0);
+						slotDocCh();
 					}
 					break;
 				case Key_Up:
@@ -1326,6 +1337,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							doc->ActPage->moveGroup(0, -0.1);
 						else
 							doc->ActPage->moveGroup(0, -1);
+						slotDocCh();
 					}
 					break;
 				case Key_Down:
@@ -1344,6 +1356,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							doc->ActPage->moveGroup(0, 0.1);
 						else
 							doc->ActPage->moveGroup(0, 1);
+						slotDocCh();
 					}
 					break;
 				default:
@@ -1354,23 +1367,25 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							setNewAbStyle(1);
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b);
+							slotDocCh();
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
 						{
 							setNewAbStyle(2);
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b);
+							slotDocCh();
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
 						{
 							setNewAbStyle(0);
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b);
+							slotDocCh();
 						}
 					}
 					break;
 				}
-				slotDocCh();
 				break;
 			case 7:
 				int oldPos = b->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
