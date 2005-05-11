@@ -6819,10 +6819,19 @@ void ScribusApp::slotPrefsOrg()
 		}
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		Prefs.BaseShown = dia->RadioButton8->isChecked();
+//>>
+// Pre 1.2.2, within the if (false) statement, this code is wrong as we dont swap these when the 
+// menu item is activated anyway. Not commenting the code out as it will change the strings
+if (false) 
+{
+//<<
 		if (Prefs.BaseShown)
 			viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
 		else
 			viewMenu->changeItem(Base, tr("Show Baseline Grid"));
+//>>
+}
+//<<
 		if (HaveDoc)
 		{
 			slotChangeUnit(dia->UnitCombo->currentItem(), false);
