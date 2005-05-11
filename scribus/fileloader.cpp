@@ -395,6 +395,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->typographicSetttings.valueBaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
 		doc->typographicSetttings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
 		doc->typographicSetttings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
+		doc->typographicSetttings.valueUnderlinePos = QStoInt(dc.attribute("UnderlinePos","-1"));
+		doc->typographicSetttings.valueUnderlineWidth = QStoInt(dc.attribute("UnderlineWidth","-1"));
+		doc->typographicSetttings.valueStrikeThruPos = QStoInt(dc.attribute("StrikeThruPos","-1"));
+		doc->typographicSetttings.valueStrikeThruWidth = QStoInt(dc.attribute("StrikeThruWidth","-1"));
 		doc->GroupCounter=QStoInt(dc.attribute("GROUPC","1"));
 		doc->HasCMS = static_cast<bool>(QStoInt(dc.attribute("HCMS","0")));
 		doc->CMSSettings.SoftProofOn = static_cast<bool>(QStoInt(dc.attribute("DPSo","0")));

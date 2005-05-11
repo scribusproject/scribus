@@ -444,6 +444,10 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.typographicSetttings.scalingSubScript = 100;
 	Prefs.typographicSetttings.valueSmallCaps = 75;
 	Prefs.typographicSetttings.autoLineSpacing = 20;
+	Prefs.typographicSetttings.valueUnderlinePos = -1;
+	Prefs.typographicSetttings.valueUnderlineWidth = -1;
+	Prefs.typographicSetttings.valueStrikeThruPos = -1;
+	Prefs.typographicSetttings.valueStrikeThruWidth = -1;
 	Prefs.typographicSetttings.valueBaseGrid = 14.4;
 	Prefs.typographicSetttings.offsetBaseGrid = 0.0;
 	Prefs.GUI = "Default";

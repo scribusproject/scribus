@@ -305,6 +305,10 @@ struct typoPrefs
 	int scalingSubScript;
 	int valueSmallCaps;
 	int autoLineSpacing;
+	int valueUnderlinePos;
+	int valueUnderlineWidth;
+	int valueStrikeThruPos;
+	int valueStrikeThruWidth;
 	double valueBaseGrid;
 	double offsetBaseGrid;
 };

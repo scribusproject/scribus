@@ -196,6 +196,7 @@ class Foi_postscript : public Foi
 			if (afm.exists())
 				error = FT_Attach_File(face, afm.name());
 			HasKern = FT_HAS_KERNING(face);
+			HasNames = FT_HAS_GLYPH_NAMES(face);
 			Ascent = tmp.setNum(face->ascender);
 			Descender = tmp.setNum(face->descender);
 			numDescender = face->descender / uniEM;

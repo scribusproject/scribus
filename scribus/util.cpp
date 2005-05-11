@@ -724,7 +724,7 @@ bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
 	{
-		FT_Get_Glyph_Name(face, gindex, buf, 50);
+		error = FT_Get_Glyph_Name(face, gindex, buf, 50);
 		gln.Code = counter1 + counter2;
 		gln.Name = "/"+QString(reinterpret_cast<char*>(buf));
 		GListInd->insert(charcode, gln);

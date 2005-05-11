@@ -2669,6 +2669,10 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("BASEGRID",doc->typographicSetttings.valueBaseGrid);
 	dc.setAttribute("BASEO", doc->typographicSetttings.offsetBaseGrid);
 	dc.setAttribute("AUTOL", doc->typographicSetttings.autoLineSpacing);
+	dc.setAttribute("UnderlinePos", doc->typographicSetttings.valueUnderlinePos);
+	dc.setAttribute("UnderlineWidth", doc->typographicSetttings.valueUnderlineWidth);
+	dc.setAttribute("StrikeThruPos", doc->typographicSetttings.valueStrikeThruPos);
+	dc.setAttribute("StrikeThruWidth", doc->typographicSetttings.valueStrikeThruWidth);
 	dc.setAttribute("GROUPC",doc->GroupCounter);
 	dc.setAttribute("HCMS", static_cast<int>(doc->HasCMS));
 	dc.setAttribute("DPSo", static_cast<int>(doc->CMSSettings.SoftProofOn));
@@ -3085,6 +3089,10 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc3.setAttribute("AUTOL", Vor->typographicSetttings.autoLineSpacing);
 	dc3.setAttribute("BASE", Vor->typographicSetttings.valueBaseGrid);
 	dc3.setAttribute("BASEO", Vor->typographicSetttings.offsetBaseGrid);
+	dc3.setAttribute("UnderlinePos", Vor->typographicSetttings.valueUnderlinePos);
+	dc3.setAttribute("UnderlineWidth", Vor->typographicSetttings.valueUnderlineWidth);
+	dc3.setAttribute("StrikeThruPos", Vor->typographicSetttings.valueStrikeThruPos);
+	dc3.setAttribute("StrikeThruWidth", Vor->typographicSetttings.valueStrikeThruWidth);
 	elem.appendChild(dc3);
 	QDomElement dc9=docu.createElement("TOOLS");
 	dc9.setAttribute("PEN",Vor->toolSettings.dPen);
@@ -3429,6 +3437,10 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->typographicSetttings.valueBaseGrid = QStodouble(dc.attribute("BASE", "12"));
 			Vorein->typographicSetttings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
 			Vorein->typographicSetttings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
+			Vorein->typographicSetttings.valueUnderlinePos = QStoInt(dc.attribute("UnderlinePos","-1"));
+			Vorein->typographicSetttings.valueUnderlineWidth = QStoInt(dc.attribute("UnderlineWidth","-1"));
+			Vorein->typographicSetttings.valueStrikeThruPos = QStoInt(dc.attribute("StrikeThruPos","-1"));
+			Vorein->typographicSetttings.valueStrikeThruWidth = QStoInt(dc.attribute("StrikeThruWidth","-1"));
 		}
 		if (dc.tagName()=="TOOLS")
 		{

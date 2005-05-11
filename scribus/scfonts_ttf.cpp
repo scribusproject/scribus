@@ -66,6 +66,7 @@ bool Foi_ttf::ReadMetrics()
 	}
 	uniEM = static_cast<double>(face->units_per_EM);
 	HasKern = FT_HAS_KERNING(face);
+	HasNames = FT_HAS_GLYPH_NAMES(face);
 	Ascent = tmp.setNum(face->ascender * 1000 / uniEM);
 	Descender = tmp.setNum(face->descender * 1000 / uniEM);
 	CapHeight = Ascent;

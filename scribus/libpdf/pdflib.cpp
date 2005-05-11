@@ -287,8 +287,7 @@ QString PDFlib::EncString(QString in, int ObjNum)
 		QByteArray step1(16);
 		step1 = ComputeMD5Sum(&data);
   		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
-  		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), 
-					reinterpret_cast<uchar*>(ou.data()), tmp.length());
+  		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 		QString uk = "";
 		for (uint cl = 0; cl < tmp.length(); ++cl)
 			uk += ou[cl];
@@ -580,7 +579,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	{
 		fd = QFileInfo(AllFonts[it.key()]->Datei);
 		fext = fd.extension(false).lower();
-		if ((AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset) || (Options->SubsetList.contains(it.key())))
+		if ((AllFonts[it.key()]->isOTF) || (!AllFonts[it.key()]->HasNames) || (AllFonts[it.key()]->Subset) || (Options->SubsetList.contains(it.key())))
 		{
 			QString fon = "";
 			QMap<uint,FPointArray>::Iterator ig;
@@ -2631,7 +2630,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			FillColor = "";
 			FillColor += putColor(hl->ccolor, hl->cshade, true);
 		}
-		if ((hl->cfont->isOTF) || (hl->cfont->Subset) || (Options->SubsetList.contains(hl->cfont->SCName)))
+		if ((hl->cfont->isOTF) || (!hl->cfont->HasNames) || (hl->cfont->Subset) || (Options->SubsetList.contains(hl->cfont->SCName)))
 		{
 			uint chr = chx[0].unicode();
 			if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))

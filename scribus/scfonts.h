@@ -78,6 +78,7 @@ class Foi
 		QString PrivateFont;
 		bool UseFont;
 		bool HasKern;
+		bool HasNames;
 		double uniEM;
 		double numAscent;
 		double numDescender;

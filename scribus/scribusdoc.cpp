@@ -93,6 +93,10 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	typographicSetttings.autoLineSpacing = prefsData->typographicSetttings.autoLineSpacing;
 	typographicSetttings.valueBaseGrid = prefsData->typographicSetttings.valueBaseGrid;
 	typographicSetttings.offsetBaseGrid = prefsData->typographicSetttings.offsetBaseGrid;
+	typographicSetttings.valueUnderlinePos = prefsData->typographicSetttings.valueUnderlinePos;
+	typographicSetttings.valueUnderlineWidth = prefsData->typographicSetttings.valueUnderlineWidth;
+	typographicSetttings.valueStrikeThruPos = prefsData->typographicSetttings.valueStrikeThruPos;
+	typographicSetttings.valueStrikeThruWidth = prefsData->typographicSetttings.valueStrikeThruWidth;
 	toolSettings.dShade = prefsData->toolSettings.dShade;
 	toolSettings.dShade2 = prefsData->toolSettings.dShade2;
 	toolSettings.shadePict = prefsData->toolSettings.shadePict;
