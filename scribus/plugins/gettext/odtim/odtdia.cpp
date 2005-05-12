@@ -61,7 +61,7 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 "doNotAskCheck");
 	doNotAskCheck->setChecked(false);
 	QToolTip::add(doNotAskCheck, "<qt>" + tr("Make these settings the default and do not prompt again when importing an OASIS OpenDocument.") +"</qt>");
-	dlayout->addStretch(10);
+	//dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);
 
