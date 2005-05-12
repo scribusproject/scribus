@@ -54,7 +54,6 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	prefixCheck->setChecked(prefix);
 	QToolTip::add(prefixCheck, "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
 	playout->addWidget(prefixCheck);
-	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout");
@@ -62,7 +61,7 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 "doNotAskCheck");
 	doNotAskCheck->setChecked(false);
 	QToolTip::add(doNotAskCheck, "<qt>" + tr("Make these settings the default and do not prompt again when importing an OASIS OpenDocument.") +"</qt>");
-	dlayout->addStretch(10);
+	//dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);
 
