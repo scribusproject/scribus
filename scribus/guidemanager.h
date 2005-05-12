@@ -10,6 +10,8 @@
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <qhbuttongroup.h>
+
 #include "mspinbox.h"
 #include "page.h"
 
@@ -19,20 +21,12 @@ class GuideManager : public QDialog
     Q_OBJECT
 
 public:
-	GuideManager(
-			QWidget* parent,
-			QValueList<double> XGuides,
-			QValueList<double> YGuides,
-			double PageB,
-			double PageH,
-			double topM,
-			double bottomM,
-			double leftM,
-			double rightM,
-			bool GuideLock,
-			int Einh
-		);
+	GuideManager(QWidget* parent);
 	~GuideManager() {};
+
+	/*! Refresh the guides in the document while the dialog is still opened.
+	    Or closed (of course). */
+	void refreshDoc();
 
 	QValueList<double> LocHor;
 	QValueList<double> LocVer;
@@ -45,6 +39,8 @@ private:
 	double LocBottom;
 	double LocRight;
 	double LocLeft;
+	double gx, gy, gw, gh;
+
 	int docUnitIndex;
 
 	int selHor;
@@ -66,7 +62,7 @@ private:
 
 	QSpinBox* ColSpin;
 	QSpinBox* RowSpin;
-	QCheckBox* Marg;
+	QHButtonGroup *BGroup;
 
 	QCheckBox* Lock;
 

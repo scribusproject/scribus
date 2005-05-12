@@ -175,7 +175,7 @@ PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
 {
-	actionManager=NULL;	
+	actionManager=NULL;
 } // ScribusApp::ScribusApp()
 
 /*
@@ -9605,27 +9605,9 @@ void ScribusApp::ManageGuides()
 {
 	if (HaveDoc)
 	{
-		GuideManager *dia = new GuideManager(
-					this,
-					doc->currentPage->XGuides,
-					doc->currentPage->YGuides,
-					doc->currentPage->Width,
-					doc->currentPage->Height,
-					doc->pageMargins.Top,
-					doc->pageMargins.Bottom,
-					doc->pageMargins.Left,
-					doc->pageMargins.Right,
-					doc->GuideLock,
-					doc->docUnitIndex
-					);
+		GuideManager *dia = new GuideManager(this);
 		if (dia->exec())
-		{
-			doc->currentPage->addXGuides(dia->LocVer);
-			doc->currentPage->addYGuides(dia->LocHor);
-			doc->lockGuides(dia->LocLocked);
-			view->DrawNew();
-//			slotDocCh();
-		}
+			dia->refreshDoc();
 		delete dia;
 	}
 }

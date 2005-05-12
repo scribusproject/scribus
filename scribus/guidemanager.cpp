@@ -40,45 +40,71 @@
  * - added the esc key
  ***************************************************************************/
 
+
+#include <qradiobutton.h>
+#include "scribus.h"
 #include "guidemanager.h"
 #include "guidemanager.moc"
 
 #include "units.h"
 
+
+extern ScribusApp *ScApp;
 extern QPixmap loadIcon(QString nam);
 
-GuideManager::GuideManager(
-			QWidget* parent,
-			QValueList<double> XGuides,
-			QValueList<double> YGuides,
-			double PageW,
-			double PageH,
-			double topM,
-			double bottomM,
-			double leftM,
-			double rightM,
-			bool GuideLock,
-			int Einh
-		) : QDialog(parent, "GuideManager", true, 0)
+GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", true, 0)
 {
+	// whatif selection settings
+	FPoint SelectionTopLeft = FPoint(0, 0);
+	FPoint SelectionBottomRight = FPoint(0, 0);
+	FPoint MarginTopLeft(ScApp->doc->pageMargins.Top, ScApp->doc->pageMargins.Bottom);
+	FPoint MarginBottomRight(ScApp->doc->pageMargins.Left, ScApp->doc->pageMargins.Right);
+
+	if (ScApp->view->SelItem.count() > 1)
+	{
+		SelectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->ScratchLeft,
+							   ScApp->view->GroupY - ScApp->doc->ScratchTop);
+		SelectionBottomRight.setXY(ScApp->view->GroupW,
+								   ScApp->view->GroupH);
+	}
+	else if (ScApp->view->SelItem.count() == 1)
+	{
+		PageItem *currItem = ScApp->view->SelItem.at(0);
+		SelectionTopLeft.setXY(currItem->BoundingX - ScApp->doc->ScratchLeft,
+							   currItem->BoundingY - ScApp->doc->ScratchTop);
+		SelectionBottomRight.setXY(currItem->BoundingW, currItem->BoundingH);
+	}
+
 	QString tmp;
 	setCaption(tr("Manage Guides"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	/* Initialise the global variables */
-	docUnitIndex = Einh;
+	docUnitIndex = ScApp->doc->docUnitIndex;
 	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
 	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 
-	LocHor = YGuides; // in page XGuides and YGuides are inverted
-	LocVer = XGuides;
-	LocPageWidth = PageW;
-	LocPageHeight = PageH;
-	LocLocked = GuideLock;
-	LocTop=topM;
-	LocBottom=bottomM;
-	LocRight=rightM;
-	LocLeft=leftM;
+	LocHor = ScApp->doc->currentPage->YGuides; // in page XGuides and YGuides are inverted
+	LocVer = ScApp->doc->currentPage->XGuides;
+	LocPageWidth = ScApp->doc->currentPage->Width;
+	LocPageHeight = ScApp->doc->currentPage->Height;
+	LocLocked = ScApp->doc->GuideLock;
+
+	LocLeft = MarginTopLeft.x();
+	LocTop = MarginTopLeft.y();
+	LocRight = MarginBottomRight.x();
+	LocBottom = MarginBottomRight.y();
+
+	bool selected = true;
+
+	if (SelectionBottomRight != FPoint(0, 0))
+	{
+		gy = SelectionTopLeft.y();
+		gx = SelectionTopLeft.x();
+		gw = SelectionBottomRight.x();
+		gh = SelectionBottomRight.y();
+	}
+	else selected=false;
 
 	selHor = selVer = -1;
 
@@ -201,8 +227,16 @@ GuideManager::GuideManager(
 	Layout9->addWidget(ColSet);
 
 	Layout10 = new QHBoxLayout(0, 0, 6, "Layout10");
-	Marg = new QCheckBox( tr( "&Follow Margins" ), HorGroup2, "marg");
-	Layout10->addWidget(Marg);
+	BGroup=new QHButtonGroup(HorGroup2,"bgroup");
+	BGroup->setFrameStyle(QFrame::NoFrame);
+	QLabel *TextLabel10 = new QLabel(tr("Refer to:"), HorGroup2, "TextLabel10");
+	Layout10->addWidget(TextLabel10);
+	QRadioButton *fPage = new QRadioButton( tr( "&Page" ), BGroup, "fpage");
+	fPage->setChecked(true);
+	(void) new QRadioButton( tr( "&Margins" ), BGroup, "fmargin");
+	QRadioButton *fSelect = new QRadioButton( tr( "&Selection" ), BGroup, "fselect");
+	fSelect->setEnabled(selected);
+	Layout10->addWidget(BGroup);
 
 	QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	Layout10->addItem(spacer2);
@@ -331,10 +365,15 @@ void GuideManager::AddRows()
 	double offset = 0;
 	double NewPageHeight = LocPageHeight;
 
-	if (Marg->isChecked())
+	if (BGroup->selectedId() == 1)
 	{
 		NewPageHeight = LocPageHeight - LocTop - LocBottom;
 		offset = LocTop;
+	}
+	else if (BGroup->selectedId() == 2)
+	{
+		offset=gy;
+		NewPageHeight=gh;
 	}
 
 	double spacing = NewPageHeight / n;
@@ -347,7 +386,7 @@ void GuideManager::AddRows()
 		int m = n;
 		double curHor = offset + spacing * i;
 
-		if (LocHor.contains(curHor))
+		if (LocHor.contains(curHor) || curHor < 0 || curHor > LocPageHeight)
 			continue;
 
 		for (int i = n - 1; i > 0; i--)
@@ -376,10 +415,16 @@ void GuideManager::AddCols()
 	double offset = 0;
 	double NewPageWidth = LocPageWidth;
 
-	if (Marg->isChecked())
+
+	if (BGroup->selectedId() == 1)
 	{
 		NewPageWidth=LocPageWidth-LocLeft-LocRight;
 		offset=LocLeft;
+	}
+	else if (BGroup->selectedId() == 2)
+	{
+		offset = gx;
+		NewPageWidth = gw;
 	}
 
 	double spacing = NewPageWidth/n;
@@ -392,7 +437,7 @@ void GuideManager::AddCols()
 		int m = n;
 		double curVer = offset + spacing * i;
 
-		if (LocVer.contains(curVer))
+		if (LocVer.contains(curVer) || curVer < 0 || curVer > LocPageWidth)
 			continue;
 
 		for (int i = n - 1; i > 0; i--)
@@ -557,6 +602,7 @@ void GuideManager::UpdateHorList()
 
 	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
+	refreshDoc();
 }
 
 void GuideManager::UpdateVerList()
@@ -583,4 +629,13 @@ void GuideManager::UpdateVerList()
 
 	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
 	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
+	refreshDoc();
+}
+
+void GuideManager::refreshDoc()
+{
+	ScApp->doc->currentPage->addXGuides(LocVer);
+	ScApp->doc->currentPage->addYGuides(LocHor);
+	ScApp->doc->lockGuides(LocLocked);
+	ScApp->view->DrawNew();
 }
