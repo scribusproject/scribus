@@ -237,7 +237,19 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_callable(name, callable, accel=&apos;&apos;)
+
+Створити новий макрос з іменем &quot;name&quot; з існуючим виконуваним 
+об&apos;єктом &quot;callable&quot;. Виконуваний об&apos;єкт не повинен вимагати ніяких 
+аргументів при його виклику (він може опрацьовувати необов&apos;язкові
+аргументи, але вони йому не будуть дані).
+Якщо задана, строкова величина &quot;accel&quot; буде використана для створення
+гарячої послідовності для макроса.
+Якщо виконуваний елемент являється класом, його буде відторгнено.
+Дозволяються функції та зв&apos;язані методи а також ініціалізовані класи 
+які мають метод __call__, що не приймає аргументів. Виконуваний об&apos;єкт
+можна реєстровати кілька разів. Також дозволяється реєструвати 
+декілька зв&apos;язаних методів одного ініціалізованого класу.</translation>
     </message>
 </context>
 <context>
@@ -2300,7 +2312,16 @@ Both `scaletoframe&apos; and `proportional&apos; are boolean.
 
 May raise WrongFrameTypeError.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
+
+Установлює масштабування зображення до розмірів рамки для вибраної
+або вказаної рамки для зображень до `scaletoframe&apos;. Вибір
+`proportional&apos; (пропорційне) значення встановлює фіксоване відношення 
+сторін зображення при масштабуванні. І `scaletoframe&apos; і `proportional&apos; являються
+булевими змінними.
+
+Може повернути помилку WrongFrameTypeError.
+</translation>
     </message>
     <message>
         <source>selectText(start, count, [&quot;name&quot;])
@@ -2312,7 +2333,17 @@ be selected. If &quot;name&quot; is not given the currently selected item is use
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectText(start, count, [&quot;name&quot;])
+
+Виділяє &quot;count&quot; знаків тексту в текстовій рамці &quot;name&quot; починаючи
+з знака &quot;start&quot;. Рахунок знаків починається з 0. Якщо &quot;count&quot; 
+дорівнює нулю вибірка тексту буде відмінена. Якщо &quot;count&quot; дорівнює
+ -1 - весь текст в рамці буде вибрано. Якщо &quot;name&quot; не задано буде
+використано ім&apos;я активного об&apos;єкта.
+
+Може повернути помилку IndexError, якщо вибірка виходить за допустимий
+діапазон тексту.
+</translation>
     </message>
     <message>
         <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
@@ -2322,7 +2353,14 @@ Create a macro named &quot;name&quot; by evaluating the the source code &quot;so
 If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
 for the macro.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_code(name, sourcetext, accel=&apos;&apos;)
+
+Створити макрос з іменем &quot;name&quot; методом оцінки програмного коду 
+&quot;sourcetext&quot;. &quot;sourcetext&quot;  код повинен відповідати тим же вимогам,
+що і макроси створені графічною оболонкою. Якщо задана, строкова
+величина &quot;accel&quot; то вона буде використана як гаряча комбінація
+клавіш для цього макроса.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -2334,7 +2372,15 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Повертає булеве значення, яке вказує на те чи можна друкувати план &quot;layer&quot;.
+True означає, що &quot;layer&quot; можна друкувати, False означає, що друк плана
+&quot;layer&quot; не дозволено.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+May raise ValueError при використанні недопустимої назви плана.
+</translation>
     </message>
     <message>
         <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
@@ -2347,7 +2393,18 @@ from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+
+Повертає тупль (R,G,B), який містить три компоненти кольору з
+назвою &quot;name&quot; з активного документа, конвертовані в область
+кольору RGB. При відсутності відчиненого документа повертає
+значення названого кольору з стандартної палітри документа.
+
+Може повернути помилку NotFoundError, якщо названий колір
+не було знайдено.
+Може повернути помилку ValueError, якщо було вказане невірне
+ім&apos;я кольору.
+</translation>
     </message>
     <message>
         <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
@@ -2361,7 +2418,21 @@ by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Створює растрове зображення шрифта з іменем &quot;name&quot; з заданим
+текстом &quot;sample&quot; та розміром &quot;size&quot;. Якщо &quot;filename&quot; не дорівнює &quot;&quot;, 
+зображення буде записане в файл з назвою &quot;filename&quot;. В протилежному
+випадку зображення буде повернене, як строкова величина.
+Необов&apos;язковий аргумент &quot;format&quot; вказує на те, який формат зображення
+генерувати і підтримує всі формати дозволені QPixmap.save(). Часто
+вживані формати включають PPM, JPEG, PNG та XPM.
+
+Може повернути помилку NotFoundError, якщо вказаний шрифт не
+було знайдено.
+Може повернути помилку ValueError, якщо функції був переданий пустий
+зразковий текст або ім&apos;я файла.
+</translation>
     </message>
     <message>
         <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
@@ -2373,7 +2444,14 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
+Повертає значення видимості плана &quot;layer&quot; - True означає, що
+план &quot;layer&quot; видимий, а False означає, що план &quot;layer&quot; невидимий.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана не допустима.
+</translation>
     </message>
     <message>
         <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
@@ -2383,7 +2461,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Установлює те чи (&quot;toggle&quot; = 1) текстова рамка &quot;name&quot; є закладкою.
+Якщо ім&apos;я &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+
+Може повернути помилку WrongFrameTypeError, якщо задана рамка не є 
+текстовою рамкою
+</translation>
     </message>
     <message>
         <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
@@ -2393,7 +2478,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Повертає булеве значення true, якщо текстова рамка &quot;name&quot; є закладкою PDF.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+
+Може повернути помилку WrongFrameTypeError, якщо задана рамка не
+являється текстовою
+</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -2401,7 +2493,10 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Повертає поля сторінки як тупль (верхнє, ліве, праве, нижнє) в активних одиницях. Дивіться UNIT_&lt;type&gt; константи та getPageSize().
+</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -2413,7 +2508,16 @@ is not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Вставляє текст &quot;text&quot; в позицію &quot;pos&quot; в текстовій рамці &quot;name&quot;.
+Текст повинен бути в кодуванні UTF (див. setText() для довідки). Перший
+знак повинен мати індекс 0. Вставка в позиції -1 добавляє текст в рамку.
+Якщо &quot;name&quot; не задано, буде використано активний об&apos;єкт.
+
+Може повернути помилку IndexError при вставці за межами доступного
+діапазону.
+</translation>
     </message>
 </context>
 <context>
@@ -2642,15 +2746,15 @@ tiff</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3 </translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Африкаанс:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальська (Бразильська):</translation>
     </message>
 </context>
 <context>
@@ -2728,14 +2832,17 @@ UCR найчастіше впливає на ті частини зображе�
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити розмір паперу</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволяє Вам явно установити
+розмір паперу постскрипт файлу.
+Не рекомендується, якщо не
+вимагається вашим друкарем.</translation>
     </message>
 </context>
 <context>
@@ -3955,19 +4062,19 @@ It&apos;s a reserved name for transparent color</source>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати стилі</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступні стилі</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Гаразд</translation>
+        <translation>Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Вихід</translation>
+        <translation>Вихід</translation>
     </message>
 </context>
 <context>
@@ -4615,149 +4722,160 @@ failed!</source>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагування макроса: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Менеджер макросів</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &apos;%1&apos; вже існує.
+Ви впевнені в тому, що Ви бажаєте його переписати?
+</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ви вже редагували цей макрос. Ви впевнені, що
+бажаєте відмінити всі внесені зміни?
+</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Повне описання помилки:
+
+%1
+</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Компіляція макроса не була успішною, тому він
+не може бути записаним в теперішній формі.
+Помилка:
+%1
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Новий макрос</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Це діалогове вікно Редагувати Макрос / Новий Макрос. Тут Ви можете змінити вихідний код макросів. Відредагуйте вихідний код макроса в зоні редагування тексту під етикеткою &quot;Вихідний код&quot; та натисніть на кнопку Гаразд, щоб зберегти зроблені зміни в макросі.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вихідний код:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагування Макроса:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я редагованого макроса.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/qt&gt;Цей об&apos;єкт вказує ім&apos;я редагованого макроса.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Відмінити всі зміни та вийти.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Вийти з діалога редагування відміняючи зроблені зміни. Якщо Ви бажаєте вийте без збереження цього макроса, але не хочете втратити зроблені зміни - збережіть Ваші зміни з допомогою &quot;Зберегти вихідний код як...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Записати зміни та вийти.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Записати зміни в макросі та вийти. Якщо в макросі є проблема Вам буде показано повідомлення і діалогове вікно редагування не буде зачинено.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ця текстова область містить вихідний код макроса. Якщо Ви створюєте новий макрос в ній ще нічого не буде, а якщо Ви редагуєте існуючий макрос, його вихідний код буде в ній показаним.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Завантажити вихідний код...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Замістити теперішній вихідний код кодом з файла.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Завантажити новий вихідний код в область редагування з файла &quot;file&quot;. Весь вихідний код в області редагування буде заміщено. Завантажений код повинен бути макро функцією Scribus. Якщо Ви завантажите любий інший тип скрипта, Вам прийдеться його відредагувати так, щоб він працював як макрос сценариста перед тим як Ви спробуєте його записати.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Записати вихідний код як...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Записати редагований вихідний код у файл.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати вихідний код макроса у файл. Ви зможете редагувати записаний вихідний код і завантажити його знову через &quot;Завантажити вихідний код...&quot;.</translation>
     </message>
     <message>
         <source>Python source files (.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли з вихідним кодом на мові Пітон (.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Діалогове вікно Записати Файл</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати вихідний код макроса</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Діалогове вікно Відчинити Файл</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати файл з вихідним кодом для завантаження</translation>
     </message>
 </context>
 <context>
@@ -5384,7 +5502,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд шрифта</translation>
     </message>
 </context>
 <context>
@@ -5490,35 +5608,35 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Зміст</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
+        <translation>&amp;Пошук</translation>
     </message>
     <message>
         <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
+        <translation>П&amp;ошук</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>F3</source>
-        <translation type="unfinished"></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>невідоме</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Шукати</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation>Термін для пошуку:</translation>
     </message>
 </context>
 <context>
@@ -5940,46 +6058,46 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Переданий об&apos;єкт не є виконуваним</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Керувати макросами</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відчиняє графічне вікно для створення, видалення, редагування, запису та завантаження макросів.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Створити, редагувати та видаляти макроси</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Макрос</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Менеджер макросів</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити вказаний файл: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Редагувати макрос</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Вибране ім&apos;я макроса вже було використане для іншого макроса.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Створення макроса не було успішним. Менеджер макросів не зміг ініціалізувати макрос.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -5988,7 +6106,12 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Макрос &apos;%1&apos; звітує про невелику помилку.
+Помилка: %2
+Повний текст помилки слідує:
+
+%3
+</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -5997,76 +6120,82 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Макрос &apos;%1&apos; не міг бути успішно виконаним.
+Помилка: %2
+Повний текст помилки слідує:
+
+%3
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Новий макрос</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть ім&apos;я нового макроса:</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Менеджер макросів</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменування макроса не було успішним, тому що вибране ім&apos;я вже зайняте.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Керувати макросами</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Це вікно менеджера макросів Scribus. Тут Ви можете створювати макроси, редагувати макроси і т.д. Всі зміни виконуються за допомогою кнопок з правої сторони вікна.&lt;/p&gt;
+&lt;p&gt;Всі зміни зроблені в цьому діалоговому вікні виконуютья миттєво - Ви не можете відмінити Ваші дії. Використовуйте &quot;Що це&quot; на таблиці для отримання додаткової інформації.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Новий</translation>
+        <translation>&amp;Новий</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Створити новий макрос.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Створити новий макрос - задати ім&apos;я макроса і відчинити діалогове вікно редагування макроса.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Макрос</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Пришвидшувач</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Опис</translation>
+        <translation>Опис</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -6075,174 +6204,182 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Ця таблиця містить попередньо визначені макроси.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Ім&apos;я:&lt;/b&gt; Ім&apos;я макроса так, як воно показується в меню та в інших частинах Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Ред.:&lt;/b&gt; Показує чи макрос може бути редагованим. В цій колонці повинне бути слово &quot;Так&quot;. Якщо макрос не може бути редагованим, це звичайно означає, що він був створений командою register_macro в сценарії.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Пришвидш.:&lt;/b&gt; Гаряча комбінація клавіш для пункта меню, яка зв&apos;язана з макросом. Наприклад, CTRL-F8 означає, що Ви можете натиснути Control-F8, щоб запустити макрос.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Опис:&lt;/b&gt; Якщо макрос містить &quot;пояснення&quot; - спеціальну строкову величину на початку сценарія, вона буде тут показана. Якщо &quot;пояснення&quot; дуже довге - буде показано лише його початок. Використовуйте інструмент &quot;Що це&quot; в меню Макросів для доступу до повного опису певного макроса.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Перейменувати</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменувати вибраний макрос.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Перейменувати вибраний макрос. Вас буде запитано про нове ім&apos;я.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Редагувати...</translation>
+        <translation>&amp;Редагувати...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Редагувати вихідний код вибраного макроса, якщо він є в наявності.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Видалити вибраний макрос.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Видалити вибраний макрос. Ця операція виконується відразу і відновити видалений макрос буде неможливо. Якщо макрос був створений сценарієм, що виконується при запуску Scribus він з&apos;явиться при наступному запуску Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Уст. Гар. Клавішу</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Установити гарячу комбінацію клавіш для вибраного макроса.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Установлює гарячу комбінацію клавіш для вибраного макроса. Вас буде запитано про нову комбінацію за допомогою діалогового вікна.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
+        <translation>Е&amp;кспорт</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+X</translation>
     </message>
     <message>
         <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати макрос в файл.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Експортувати макроси у зовнішній файл. Цей файл буде сценарієм Пітона, який буде містити команди сценариста для відтворення макросів. Він може бути виконаний за допомогою &lt;tt&gt;Завантажити додатковий сценарій&lt;/tt&gt; з меню &lt;tt&gt;Сценарії&lt;/tt&gt; або за допомогою кнопки імпорту в менеджері макросів.&lt;/p&gt;
+&lt;p&gt;Якщо Ви бажаєте отримати версію макросів форматовану для перегляду людиною, виберіть макрос і натисніть на кнопку &lt;tt&gt;Редагувати&lt;/tt&gt;  та використайте кнопку &lt;tt&gt;Записати вихідний код&lt;/tt&gt; в діалоговому вікні &lt;tt&gt;Редагувати Макрос&lt;/tt&gt;. Ви не зможете завантажити отриманий варіант макроса через &lt;tt&gt;Завантажити додатковий сценарій&lt;/tt&gt;. Натомість створіть новий макрос кнопкою &lt;tt&gt; Новий&lt;/tt&gt; та використайте &lt;tt&gt;Завантажити вихідний код&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити &amp;Все</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити всі макроси.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Видалити всі зареєстровані макроси. Ця операція виконується негайно і метода відновлення видалених макросів не існує. Любі макроси створені сценарієм, який виконується при запуску Scribus, будуть відновлені при наступному запуску Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">І&amp;мпортувати</translation>
+        <translation>І&amp;мпортувати</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати макроси з файла.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Імпортувати макроси із зовнішнього файла.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Зачинити це діалогове вікно</translation>
     </message>
     <message>
         <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернутися в Scribus </translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Редагувати вибраний макрос.&lt;/p&gt;
+&lt;p&gt;Якщо ця кнопка виділена сірим кольоров то Ви або не вибрали жодного макроса або менеджер макросів не містить вихідний код для вибраного макроса (в цьому випадку &lt;tt&gt;Ні&lt;/tt&gt; буде показано в колонці макроса &lt;tt&gt;Редагувати&lt;/tt&gt;).&lt;/p&gt;
+&lt;p&gt;Якщо в Scribus немає вихідного кода макроса то він, скоріше всього, був створений сценарієм.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли Макросів Scribus (*.pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Діалого вікно Відчинити Файл</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть файл з макросом для завантаження.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Діалогове вікно Записати Файл</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати всі макроси</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Перейменувати макрос</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть нове ім&apos;я :</translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Установити гарячу комбінацію клавіш для макроса</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Введіть нову комбінацію клавіш:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Так</translation>
+        <translation>Так</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Ні</translation>
+        <translation>Ні</translation>
     </message>
 </context>
 <context>
@@ -7089,11 +7226,11 @@ Corners:</source>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Слідкування:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Слідкування вручну</translation>
     </message>
 </context>
 <context>
@@ -7651,10 +7788,9 @@ otherwise Coordinates are relative to the Object.</source>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Якщо стиль абзацу імпортований з активного абзацу документа 
-OpenOffice.org вже існує, стиль в документі Scribus повинен бути
-відредагованим для співпадання з імпортованим стилем, або
-залишений незмінним</translation>
+        <translation type="obsolete">Якщо стиль активного абзацу документа OpenOffice.org вже існує, 
+стиль в документі Scribus повинет бути відредагованим для 
+співпадання з імпортованим стилем чи залишений незмінним</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
@@ -7667,12 +7803,12 @@ Should be used if it is known that text must not be edited
 after importing.</source>
         <translation type="obsolete">Згрупувати стилі абзаців за атрибутами. Це приводить до
 зменшення числа стилів абзаців, але викликає труднощі
-в їх контролі. Використовуйте, якщо відомо, що текст не
-повинен редагуватися після імпортування.</translation>
+для керування ними. Використовуйте, якщо відомо, що 
+текст не повинен редагуватися після імпортування.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Використовувати ім&quot;я документа, як префікс для стилів абзаців</translation>
+        <translation>Використовувати ім&quot;я документа, як префікс для стилів абзаців</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -7682,46 +7818,52 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Більше на запитувати</translation>
+        <translation>Більше на запитувати</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="obsolete">Чи повинет імпортер завжди використовувати
-активне значення без підтверждення</translation>
+        <translation type="obsolete">Чи повинен імпортер завжди використовувати
+вибране значення при імпорті документів OpenOffice.org 
+і більше не запитувати Вашого підтверждення</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Гаразд</translation>
+        <translation>Гаразд</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки імпортера документів OpenDocument</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Поновити стилі абзаців</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Активація цією установки приведе до перезапису існуючих стилів
+в активному документі Scribus</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єднати стилі абзаців</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єднати стилі абзаців по атрибутах. Це приведе до зменшення числа схожих
+стилів абзаців і збереже атрибути стилів навіть якщо стилі вихідного документу
+мали інші імена.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приєднати назву документа як префікс до імені стилю абзацу в
+Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити ці установки установками по умовчанню і не запитувати знову під
+час імпорту документу OASIS OpenDocument.</translation>
     </message>
 </context>
 <context>
@@ -8459,36 +8601,38 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати як PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Керування кольорами повинне бути активоване для використання PDF/X-3. Ви можете активувати керування кольорами в меню Установки.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 підтримується і активний, але не може бути використаним в вибраній версії PDF. Якщо Ви бажаєте використати PDF/X-3, Вам потрібно установити PDF/X-3, як версію PDF (рівень сумісності).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 не підтримується цією збіркою Scribus (CMS підтримка не була вбудована при збірці програми з сирців).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволити додавання аннотацій та полів в PDF.
+Якщо не ввімкнене, редагування аннотацій та полів
+не дозволяється.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки безпеки PDF</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки PDF/X-3</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Засоби безпеки PDF не можуть використовуватися в PDF/X-3. Якщо ви бажаєте ввімкнути засоби безпеки PDF, змініть версію (рівень сумісності) на якусь іншу крім PDF/X-3.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -10033,26 +10177,31 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Директорія профілів кольору ICC по умовчанню.
+Ця установка не може бути змінена при наявності
+відчинених документі.</translation>
     </message>
     <message>
         <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає базову сітку</translation>
     </message>
     <message>
         <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимикає базову сітку</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Розміщення інтерпретатора Ghostscript в файловій системі</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Розміщення графічного редактора. Якщо Ви використовуєте
+Gimp і Ваш дистрибутив його включає, ми рекомендуємо
+використання &apos;gimp-remote&apos;, так як воно дозволить Вам
+редагувати зображення у вже запущеному екземплярі Gimp.</translation>
     </message>
 </context>
 <context>
@@ -11293,7 +11442,7 @@ scribus.UNIT_* констант.</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished">Колір не знайдено</translation>
+        <translation>Колір не знайдено</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -11388,7 +11537,7 @@ scribus.UNIT_* констант.</translation>
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено - помилка Пітону</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -11416,285 +11565,318 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Модуль взаємодії Пітону та Scribus
+
+Цей модуль служить, як інтерфейс між Пітоном та Scribus. Він містить
+функції для контролю над scribus та для маніпуляції об&apos;єктами на канві.
+Кожна функція окремо описана нижче.
+
+Кілька загальних положень для цього інтерфейсу.
+
+Більшість функції оперують над рамками. Рамки визначаються за їх 
+іменами, які є строковими величинами, а не справжніми об&apos;єктами Пітону.
+Багато функцій приймають додатковий (не ключове слово) параметр -
+ім&apos;я рамки. 
+Багато помилок також є загальними для більшості функцій. Вони не 
+вказані в документаційній строці кожної функції.
+- Багато функції повернуть помилку NoDocOpenError, якщо Ви спробуєте
+використати їх при відсутності відчиненого документа.
+- Якщо Ви не передасте ім&apos;я рамки функції, яка його вимагає, ця функція
+використає вибрану рамку, якщо така існує, або поверне помилку 
+NoValidObjectError, якщо не зможе знайти жодного об&apos;єкта для маніпулювання.
+- Багато функцій повернуть помилку WrongFrameTypeError, якщо Ви спробуєте
+використати їх на невідповідному типові рамки. Наприклад, зміна кольору тексту
+в рамці зображень не має смислу і приведе до повернення цієї помилки.
+- Помилки, що повертаються викликами до базового програмного інтерфейсу
+Пітона будуть повернені без змін. Тому список можливих помилок для любої 
+функції залишається неповним.
+
+Деталі по помилках, які може повернути кожна функція надаються в
+документації по цій функції.</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нетипова (необов&apos;язкова) конфігурація:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Стандартна конфігурація:</translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Короткі &amp;Слова...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Опрацювання коротких слів. Будь-ласка почекайте...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Опрацювання коротких слів закінчено.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Африкаанс</translation>
+        <translation>Африкаанс</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Турецька</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Українська</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Уельська</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Назва файла повинна бути строковою величиною.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не можу видалити установки типу зображення.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Тип зображення повинен бути строковою величиною.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Атрибут &apos;allTypes&apos; може бути лише зчитаним</translation>
     </message>
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося експортувати зображення</translation>
     </message>
     <message>
         <source>Color not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено.</translation>
     </message>
     <message>
         <source>Color not found in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено в документі.</translation>
     </message>
     <message>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено в стандартних кольорах.</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Змінити масштаб на 0% неможливо.</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Вказаний об&apos;єкт не являється рамкою для зображень.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт не знайдено.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо заповнити пустий зразок.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо використати пусте ім&apos;я плану.</translation>
     </message>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>План не знайдено.</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо видалити останній план.</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо створити план без імені.</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Індекс вставки виходить за доступний діапазон.</translation>
     </message>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо встановити вирівнювання тексту в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Розмір шрифта виходить за доступний діапазон - повинен бути 1 &lt;= розмір &lt;= 512.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити розмір шрифта в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити шрифт в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Міжрядковий інтервал виходить за межі дозволеного, має бути  &gt;= 0.1.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити міжрядковий інтервал в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Дистанція між колонками тексту виходить за дозволений проміжок. Повинна бути позитивною.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити дистанцію між колонками тексту в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Число колонок тексту виходить за доступний діапазон - повинен бути &gt; 1.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити число колонок тексту в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо вибрати текст в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо видалити текст в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити заповнення текста в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити контур текста в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити тінь текста в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Установити зв&apos;язок можна лише між текстовими рамками.</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Рамка призначення повинна бути пустою.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Рамка призначення зв&apos;язана з іншою рамкою.</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Інша рамка зв&apos;язана з рамкою призначення.</translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Джерело та ціль є одним і тим же об&apos;єктом.</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Видалити зв&apos;язок можна лише між текстовими рамками.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, cannot unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо від&apos;єднати.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт являється останньою рамков в ряду - неможливо від&apos;єднати. Від&apos;єднайте
+попередню рамку натомість.</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо конвертувати нетекстову рамку в контур.</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальська (Бразильська)</translation>
     </message>
     <message>
         <source>Cannot get a colour with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити колір з пустим ім&apos;ям.</translation>
+    </message>
+    <message>
+        <source>Colour not found</source>
+        <comment>python error</comment>
+        <translation type="obsolete">Колір не знайдено</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати растрове зображення.</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити закладку в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо визначити інформацію з нетекстової рамки</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстові документи OpenDocument </translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Хорватська</translation>
     </message>
 </context>
 <context>
@@ -12054,11 +12236,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Слідкування:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Слідкування вручну</translation>
     </message>
 </context>
 <context>
@@ -13258,23 +13440,23 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальська (Бр)</translation>
     </message>
     <message>
         <source>There are no suitable Fonts on your System</source>
-        <translation type="unfinished"></translation>
+        <translation>У Вашій системі відсутні відповідні шрифти</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Керування кольорами підтримується програмою, але не може бути ввімкненим. Впевніться, що Ви маєте набір кольорових профілів ICC та шлях до цих профілів правильно вказаний в установках.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Керування кольорами не підтримується цією збіркою Scribus (CMS підтримка не була вбудована при збірці програми з сирців).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Хорватська</translation>
     </message>
 </context>
 <context>
@@ -13309,7 +13491,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Копія</translation>
+        <translation>Копія</translation>
     </message>
 </context>
 <context>
@@ -13347,76 +13529,76 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>ScripterCore</name>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">С&amp;ценарії Scribus</translation>
+        <translation>С&amp;ценарії Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Виконати сценарій...</translation>
+        <translation>&amp;Виконати сценарій...</translation>
     </message>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустити сценарій Пітона з файла.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Завантажити додатковий сценарій...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Завантажити сценарій Пітона, як додаток. Використовується для завантаження макросів та для більш складних сценаріїв на Пітоні, які розширюють інтерфейс користувача Scribus.</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Недавно виконані сценарії</translation>
+        <translation>&amp;Недавно виконані сценарії</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати &amp;Консоль</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Показати інтерактивну консоль Пітона в якій Ви можете писати та виконувати програми на Пітоні, які використовують інструментарій сценариста.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;Про скрипт...</translation>
+        <translation>&amp;Про скрипт...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">С&amp;ценарії</translation>
+        <translation>С&amp;ценарій</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Установки сценариста</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Відчинити</translation>
+        <translation>Відчинити</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
+        <translation>Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Помилка сценарія</translation>
+        <translation>Помилка сценарія</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Якщо ви використовуєте офіційний сценарій то, будь-ласка, повідомляйте про помилки на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Якщо ви використовуєте офіційний сценарій то, будь-ласка, повідомляйте про помилки на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Це повідомлення також розміщене в блоці копіювання. Використайте 
+        <translation>Це повідомлення також розміщене в блоці копіювання. Використайте 
 Ctrl-V для вставки його в систему обробітку програмних помилок.</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Модуль зі сценарієм</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -13429,140 +13611,158 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Функція &apos;Завантажити сценарій&apos; модуля сценаріїв в даний момент недоступна.
+Якщо Ви всього лиш бажаєте запустити звичайний сценарій - використовуйте
+функцію &apos;Виконати сценарй...&apos; натомість.
+
+Якщо Ви справді бажаєте завантажити додатковий сценарій на Пітоні чи макрос
+Вам необхідно зробити додаткові сценарії доступними в установках сценариста 
+в меню Сценарій.
+
+Будь-ласка спочатку прочитайте документацію по додаткових сценаріях.</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished">Сховати &amp;Консоль</translation>
+        <translation>Сховати &amp;Консоль</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">Про скрипт</translation>
+        <translation>Про скрипт</translation>
     </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Установки сценариста</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Активувати розширення сценариста</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Активувати додаткові сценарії та макроси</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Активація розширень сценариста вмикає додаткові функціональні можливості сценариста, включаючи макроси на Пітоні та можливість виконання сценарія на Пітоні при запуску програми.  Вмикання цієї установки розблоковує &lt;tt&gt;Завантажити додатковий сценарій&lt;/tt&gt; в меню Сценарії.&lt;/p&gt;
+&lt;p&gt;
+Лише сценарії написані для виконання як додаткові сценарії мають використовуватися з &lt;tt&gt;Завантажити додатковий сценарій&lt;/tt&gt; або як сценарії виконувані при запуску програми. Зверніться до документації по сценаристу за додатковою інформацією.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати сценарій виконуваний при запуску програми</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Якщо вибрати &lt;tt&gt;Використовувати сценарій виконуваний при запуску програми&lt;/tt&gt; Scribus буде виконувати вказаний сценарій, як додатковий сценарій. Якщо він містить помилки, вони можуть призвести до виникнення проблем.&lt;/p&gt;
+&lt;p&gt;&lt;tt&gt;Використовувати сценарій виконуваний при запуску програми&lt;/tt&gt; буде деактивовано, якщо розширення сценариста було вимкнено, тому що додаткові сценарії можуть бути завантажені лише при активних розширеннях сценариста.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Проглядати...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Проглядати директорії в пошуках нового файла сценарія</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Проглядати директорії в пошуках нового файла сценарія&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Який сценарій виконувати при запуску програми</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Файл з сценарієм на Пітоні, який буде виконано при запуску програми.&lt;/p&gt;
+&lt;p&gt;Майте на увазі, що Scribus ще не повністю запущений і робоче середовище не існує під час запуску цього сценарія.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл сценарія:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Зачинити без збереження змін</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати зміни і зачинити</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Додаткові установки</translation>
+        <translation>Додаткові установки</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати всі імена під час запуску</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Виконати &apos;from scribus import *&apos; в консолі сценариста під час запуску програми</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Імпортувати всі імена під час запуску програми&lt;/tt&gt; є продвинутою установкою Залиште її незмінною, якщо Ви ще не прочитали документацію і не впевнені чого хочете досягти. &lt;/p&gt;
+&lt;p&gt;Вимкнення цієї установки приведе до того, що сценарист не зможе виконати звичайної &lt;tt&gt;from scribus import *&lt;/tt&gt; команди при ініціалізації головного інтерпретарора (використовується для консолі сценариста та додаткових сценаріїв) під час запуску програми.&lt;/p&gt;
+&lt;p&gt;Ця установка не буде активована до перезапуску Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволити старі аліаси назв</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Дозволити використання старого стилю назв функцій&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Дозволити старі аліаси назв&lt;/tt&gt; є продвинутою установкою. Вам певно краще її зараз не чіпати.&lt;/p&gt;
+&lt;p&gt;Якщо ввімкнена, ця установка прмусить сценарист створити велику кількість аліасів для назв функцій та констант для сумісності з сценаріями версії Scribus 1.2.0. Ця установка ввімкнена по умовчанню.&lt;/p&gt;
+&lt;p&gt;Ця установка не буде активована до перезапуску Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати симульований буфер вводу/виводу</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Замінити sys.stdin симульованим файлом для попередження зависання Scribus при спробі сценарія зчитати щось із stdin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Використовувати симульований буфер вводу/виводу&lt;/tt&gt; є продвинутою установкою. Вам певно краще її зараз не чіпати.&lt;/p&gt;
+&lt;p&gt;Звичайно scribus створює симульований файловий об&apos;єкт для Пітона - &lt;tt&gt;sys.stdin&lt;/tt&gt;, щоб зчитування з stdin завжди повертали пусту строкову величину. Якщо &lt;tt&gt;sys.stdin&lt;/tt&gt; не чіпати, сценарї, що намагаються читати з нього будуть заблоковані і в свою чергу заблокують роботу scribus, що приведе до зависання програми до появи вхідних даних в stdin. Для графічної програми було б незвичайно очікувати що-небуть з stdin, тому для більшості користувачів це виглядатиме як зависання scribus.&lt;/p&gt;
+&lt;p&gt;Ви можете вимкнути цю установку, якщо Ви дійсно очікуєте ввід інформації через stdin. В більшості випадків краще звернутися до &lt;tt&gt;os.popen&lt;/tt&gt; для відкриття труби або використати якийсь інший механізм, але ця установка теж залишається доступною на всяк випадок.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -14161,27 +14361,32 @@ after importing.</source>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Поновити стилі абзаців</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Активація цією установки приведе до перезапису існуючих стилів
+в активному документі Scribus</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єднати стилі абзаців</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єднати стилі абзаців по атрибутах. Це приведе до зменшення числа схожих
+стилів абзаців і збереже атрибути стилів навіть якщо стилі вихідного документу
+мали інші імена.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Приєднати назву документа як префікс до імені стилю абзацу в
+Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити ці установки установками по умовчанню і не запитувати знову під
+час імпорту документу OASIS OpenDocument версій 1.х.</translation>
     </message>
 </context>
 <context>
@@ -14379,48 +14584,48 @@ Please choose another.</source>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Короткі слова</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Вставити нерозбиваємий інтервал в:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вибрані рамки</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Активна &amp;сторінка</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Всі &amp;Об&apos;єкти</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Інформація та мови</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Замінити значення по умочанню конфігурацією користувача</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -14431,37 +14636,44 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Якщо файл з конфігурацією користувача існує
+(%1)
+Ви можете зробити вибір щодо добавлення вашої 
+конфігурації до глобальної конфігурації деактивацією
+цієї установки.
+
+Ви можете замістити значення по умовчанню Вашими
+власними при натиснутій кнопці.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Обробляються лише вибрані рамки.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Обробляється лише активна сторінка.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Обробляються всі об&apos;єкти в документі.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Короткі Слова для Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Доступні для наступних мов</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Про Короткі Слова</translation>
     </message>
 </context>
 <context>
@@ -14641,7 +14853,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати лише текст</translation>
     </message>
 </context>
 <context>
