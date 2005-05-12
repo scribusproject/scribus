@@ -495,7 +495,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			doc->guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
 		doc->marginColored = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 		doc->guidesSettings.before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
-		doc->guidesSettings.guideRad = QStoInt(dc.attribute("GuideRad","10"));
+		doc->guidesSettings.guideRad = QStodouble(dc.attribute("GuideRad","10"));
 		doc->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
 		if (dc.hasAttribute("currentProfile"))
 		{
