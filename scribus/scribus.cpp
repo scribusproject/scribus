@@ -10372,5 +10372,8 @@ void ScribusApp::insertSampleText()
 void ScribusApp::languageChange()
 {
 	if (actionManager!=NULL)
+	{
 		actionManager->languageChange();
+		initKeyboardShortcuts();
+	}
 }
