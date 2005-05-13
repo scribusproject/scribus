@@ -329,6 +329,7 @@ private: // Private attributes
 	bool _groupTransactionStarted;
 	bool _itemCreationTransactionStarted;
 	bool _isGlobalMode;
+	bool evSpon;
 
 private slots:
 	void Zval();
@@ -338,6 +339,7 @@ private slots:
 	void setGlobalUndoMode();
 
 protected: // Protected methods
+	virtual void viewportPaintEvent ( QPaintEvent * p );
 	virtual void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	virtual void leaveEvent(QEvent *);
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);

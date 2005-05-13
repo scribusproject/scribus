@@ -183,6 +183,14 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	connect(Unitmen, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
+	evSpon = false;
+}
+
+void ScribusView::viewportPaintEvent ( QPaintEvent * p )
+{
+	if (p->spontaneous())
+		evSpon = true;
+	QScrollView::viewportPaintEvent(p);
 }
 
 void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int cliph)
@@ -445,6 +453,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		p.drawLine(QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)), QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)));
 		p.end();
 	}
+	evSpon = false;
 //	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 }
 
@@ -493,6 +502,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->Xoffset + page->Xoffset;
 							currItem->BoundingY = OldBY - Mp->Yoffset + page->Yoffset;
 						}
+						if (evSpon)
+							currItem->Dirty = true;
 						QRect oldR = getRedrawBounding(currItem);
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
@@ -606,6 +617,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					QRect oldR = getRedrawBounding(currItem);
 					if (clip.intersects(oldR))
 					{
+						if (evSpon)
+							currItem->Dirty = true;
 						if (!((Doc->EditClip) && (Mpressed)))
 							currItem->DrawObj(painter, clip);
 						currItem->Redrawn = true;
@@ -8361,6 +8374,7 @@ void ScribusView::setRulerPos(int x, int y)
 	horizRuler->repaint();
 	vertRuler->offs = y-static_cast<int>(Doc->ScratchTop*Scale)-1;
 	vertRuler->repaint();
+	evSpon = true;
 }
 
 void ScribusView::Zval()
@@ -11415,6 +11429,7 @@ void ScribusView::SplitObj()
 void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {
 	QScrollView::contentsWheelEvent(w);
+	evSpon = true;
 	if ((Mpressed) && (MidButt))
 	{
 		w->delta() > 0 ? slotZoomIn2() : slotZoomOut2();
