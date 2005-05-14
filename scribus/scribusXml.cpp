@@ -2462,6 +2462,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		SetItemProps(&ob, item, true);
 		ob.setAttribute("OnMasterPage", item->OnMasterPage);
 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
+		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();

@@ -1233,6 +1233,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
 		currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
+		currItem->pixm.imgInfo.lowResType = QStoInt(obj->attribute("ImageRes","1"));
 		IT = obj->firstChild();
 		while(!IT.isNull())
 		{

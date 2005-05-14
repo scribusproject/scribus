@@ -323,6 +323,7 @@ private: // Private attributes
 	QPopupMenu *Unitmen;
 	QPopupMenu *Laymen;
 	QPopupMenu *pmen3;
+	QPopupMenu *pmenResolution;
 	bool Ready;
 	int    oldX;
 	int    oldY;
@@ -337,6 +338,7 @@ private slots:
 	void selectionChanged();
 	void setObjectUndoMode();
 	void setGlobalUndoMode();
+	void changePreview(int id);
 
 protected: // Protected methods
 	virtual void viewportPaintEvent ( QPaintEvent * p );

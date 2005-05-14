@@ -136,6 +136,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	MaxChars = 0;
 	Pfile = "";
 	pixm = ScImage();
+	pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
 	Pfile2 = "";
 	Pfile3 = "";
 	LocalScX = 1;

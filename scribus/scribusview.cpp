@@ -1533,6 +1533,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			QPopupMenu *pmen4 = new QPopupMenu();
 			QPopupMenu *pmenLevel = new QPopupMenu();
 			QPopupMenu *pmenPDF = new QPopupMenu();
+			pmenResolution = new QPopupMenu();
 			setObjectUndoMode();
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
@@ -1641,6 +1642,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
 				ScApp->scrActions["itemImageIsVisible"]->addTo(pmen);
+				pmenResolution->insertItem( tr("Low Resolution"));
+				pmenResolution->insertItem( tr("Normal Resolution"));
+				pmenResolution->insertItem( tr("Full Resolution"));
+				pmen->insertItem( tr("Preview Settings"), pmenResolution);
+				pmenResolution->setItemChecked(pmenResolution->idAt(2 - currItem->pixm.imgInfo.lowResType), true);
+				connect(pmenResolution, SIGNAL(activated(int)), this, SLOT(changePreview(int)));
 				if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
 					pmen->insertItem( tr("Extended Image Properties"), this, SLOT(useEmbeddedPath()));
 				if (currItem->PicAvail)
@@ -1769,10 +1776,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			delete pmen;
 			delete pmen2;
 			disconnect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
+			disconnect(pmenResolution, SIGNAL(activated(int)), this, SLOT(changePreview(int)));
 			delete pmen3;
 			delete pmen4;
 			delete pmenLevel;
 			delete pmenPDF;
+			delete pmenResolution;
 		}
 		if (Doc->appMode == LinkFrames)
 		{
@@ -7528,151 +7537,6 @@ void ScribusView::EmitValues(PageItem *currItem)
 																 currItem->Width * Doc->unitRatio, currItem->Height * Doc->unitRatio);
 }
 
-void ScribusView::TogglePic()
-{
-	if (SelItem.count() != 0)
-	{
-		for (uint a = 0; a < SelItem.count(); ++a)
-		{
-			SelItem.at(a)->PicArt = !SelItem.at(a)->PicArt;
-			RefreshItem(SelItem.at(a));
-		}
-		emit DocChanged();
-	}
-}
-
-void ScribusView::updatePict(QString name)
-{
-	for (uint a = 0; a < Doc->DocItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->DocItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
-		}
-	}
-	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->MasterItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
-		}
-	}
-	updateContents();
-	emit DocChanged();
-}
-
-void ScribusView::RecalcPicturesRes()
-{
-	for (uint a = 0; a < Doc->DocItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->DocItems.at(a);
-		if (currItem->PicAvail)
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
-		}
-	}
-	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->MasterItems.at(a);
-		if (currItem->PicAvail)
-		{
-			bool fho = currItem->imageFlippedH();
-			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
-		}
-	}
-	updateContents();
-	emit DocChanged();
-}
-
-void ScribusView::removePict(QString name)
-{
-	for (uint a = 0; a < Doc->DocItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->DocItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			currItem->PicAvail = false;
-			currItem->pixm = QImage();
-/*			if (currItem->itemType() == PageItem::ImageFrame)
-				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
-		}
-	}
-	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
-	{
-		PageItem *currItem = Doc->MasterItems.at(a);
-		if ((currItem->PicAvail) && (currItem->Pfile == name))
-		{
-			currItem->PicAvail = false;
-			currItem->pixm = QImage();
-		}
-	}
-	updateContents();
-	emit DocChanged();
-}
-
-void ScribusView::UpdatePic()
-{
-	if (SelItem.count() != 0)
-	{
-		PageItem *currItem = SelItem.at(0);
-		if (currItem->PicAvail)
-		{
-			int fho = currItem->imageFlippedH();
-			int fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
-			updateContents();
-		}
-	}
-}
-
-void ScribusView::FrameToPic()
-{
-	if (SelItem.count() != 0)
-	{
-		PageItem *currItem = SelItem.at(0);
-		if (currItem->PicAvail)
-		{
-			double w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
-			double h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
-			double x = currItem->LocalX * currItem->LocalScX;
-			double y = currItem->LocalY * currItem->LocalScY;
-			if (!currItem->isTableItem)
-			{
-				SizeItem(w, h, currItem->ItemNr);
-				MoveItem(x, y, currItem);
-				currItem->LocalX = 0;
-				currItem->LocalY = 0;
-			}
-			updateContents();
-			emit DocChanged();
-		}
-	}
-}
-
 void ScribusView::ToggleBookmark()
 {
 	if (SelItem.count() != 0)
@@ -10539,17 +10403,16 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 	}
 	if (Item->PicAvail)
 	{
-		if (Doc->toolSettings.lowResType != 0)
+		if (Item->pixm.imgInfo.lowResType != 0)
 		{
 			double scaling = 1.0;
-			if (Doc->toolSettings.lowResType == 1)
+			if (Item->pixm.imgInfo.lowResType == 1)
 				scaling = Item->pixm.imgInfo.xres / 72.0;
 			else
 				scaling = Item->pixm.imgInfo.xres / 36.0;
 			Item->pixm.createLowRes(scaling);
 			Item->pixm.imgInfo.lowResScale = scaling;
 		}
-		Item->pixm.imgInfo.lowResType = Doc->toolSettings.lowResType;
 		Item->pixm.applyEffect(Item->effectsInUse, Doc->PageColors, false);
 	}
 	if (!Doc->loading)
@@ -10557,6 +10420,17 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		emit RasterPic(Item->isRaster);
 //		emit UpdtObj(PageNr, ItNr);
 		emit DocChanged();
+	}
+}
+
+void ScribusView::changePreview(int id)
+{
+	int d = pmenResolution->indexOf(id);
+	if (SelItem.count() != 0)
+	{
+		PageItem *Item = SelItem.at(0);
+		Item->pixm.imgInfo.lowResType = 2 - d;
+		UpdatePic();
 	}
 }
 
@@ -10589,6 +10463,151 @@ void ScribusView::AdjustPictScale(PageItem *currItem, bool )
 		currItem->imageClip.map(cl);
 	}
 	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+}
+
+void ScribusView::TogglePic()
+{
+	if (SelItem.count() != 0)
+	{
+		for (uint a = 0; a < SelItem.count(); ++a)
+		{
+			SelItem.at(a)->PicArt = !SelItem.at(a)->PicArt;
+			RefreshItem(SelItem.at(a));
+		}
+		emit DocChanged();
+	}
+}
+
+void ScribusView::updatePict(QString name)
+{
+	for (uint a = 0; a < Doc->DocItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->DocItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
+	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->MasterItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
+	updateContents();
+	emit DocChanged();
+}
+
+void ScribusView::RecalcPicturesRes()
+{
+	for (uint a = 0; a < Doc->DocItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->DocItems.at(a);
+		if (currItem->PicAvail)
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
+	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->MasterItems.at(a);
+		if (currItem->PicAvail)
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
+	updateContents();
+	emit DocChanged();
+}
+
+void ScribusView::removePict(QString name)
+{
+	for (uint a = 0; a < Doc->DocItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->DocItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			currItem->PicAvail = false;
+			currItem->pixm = QImage();
+/*			if (currItem->itemType() == PageItem::ImageFrame)
+				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
+		}
+	}
+	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->MasterItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			currItem->PicAvail = false;
+			currItem->pixm = QImage();
+		}
+	}
+	updateContents();
+	emit DocChanged();
+}
+
+void ScribusView::UpdatePic()
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *currItem = SelItem.at(0);
+		if (currItem->PicAvail)
+		{
+			int fho = currItem->imageFlippedH();
+			int fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+			updateContents();
+		}
+	}
+}
+
+void ScribusView::FrameToPic()
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *currItem = SelItem.at(0);
+		if (currItem->PicAvail)
+		{
+			double w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
+			double h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
+			double x = currItem->LocalX * currItem->LocalScX;
+			double y = currItem->LocalY * currItem->LocalScY;
+			if (!currItem->isTableItem)
+			{
+				SizeItem(w, h, currItem->ItemNr);
+				MoveItem(x, y, currItem);
+				currItem->LocalX = 0;
+				currItem->LocalY = 0;
+			}
+			updateContents();
+			emit DocChanged();
+		}
+	}
 }
 
 void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag)
