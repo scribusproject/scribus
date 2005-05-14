@@ -839,8 +839,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								DropCmode = Doc->Vorlagen[absa].Drop;
 							else
 								DropCmode = false;
-							CurX += Doc->Vorlagen[absa].First;
-							CurX += Doc->Vorlagen[absa].Indent;
 							CurY += Doc->Vorlagen[absa].Avor;
 							if (DropCmode)
 								DropLines = Doc->Vorlagen[absa].DropLin;
@@ -857,8 +855,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 						if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 							{
-							CurX += Doc->Vorlagen[absa].First;
-							CurX += Doc->Vorlagen[absa].Indent;
 							CurY += Doc->Vorlagen[absa].Avor;
 							if (chx != QChar(13))
 								DropCmode = Doc->Vorlagen[absa].Drop;
@@ -929,12 +925,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (StartOfCol)
 						{
 							CurY = asce+TExtra+lineCorr+1;
-							if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
-							{
+							if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
 								CurY += Doc->Vorlagen[hl->cab].Avor;
-								CurX += Doc->Vorlagen[hl->cab].First;
-								CurX += Doc->Vorlagen[hl->cab].Indent;
-							}
 						}
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
 						{
@@ -955,14 +947,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								fBorder = false;
 								if (StartOfCol)
 								{
-									if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || (a == 0))
-									{
-										CurX = ColBound.x();
-										CurX += Doc->Vorlagen[hl->cab].First;
-										CurX += Doc->Vorlagen[hl->cab].Indent;
-									}
-									else
-										CurX = ColBound.x();
+									CurX = ColBound.x();
 									CurY++;
 								}
 								else
@@ -994,8 +979,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 												DropCmode = Doc->Vorlagen[hl->cab].Drop;
 											else
 												DropCmode = false;
-											CurX += Doc->Vorlagen[hl->cab].First;
-											CurX += Doc->Vorlagen[hl->cab].Indent;
 											if (DropCmode)
 											{
 												if (Doc->Vorlagen[hl->cab].BaseAdj)
@@ -1006,8 +989,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											if (DropCmode)
 												DropLines = Doc->Vorlagen[hl->cab].DropLin;
 											}
-										else
-											CurX += Doc->Vorlagen[hl->cab].Indent;
 										if (Doc->Vorlagen[hl->cab].BaseAdj)
 										{
 											int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
@@ -1027,6 +1008,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 						if ((fBorder) && (!AbsHasDrop))
 							CurX += Extra;
+						if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
+						{
+							CurX += Doc->Vorlagen[hl->cab].First;
+						}
+						CurX += Doc->Vorlagen[hl->cab].Indent;
 						fBorder = false;
 						}
 					StartOfCol = false;

@@ -1026,7 +1026,6 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 					for (uint api = 0; api < MasterPages.at(ap)->Items.count(); ++api)
 					{
 						int h, s, v, k, tsz;
-						double wideR;
 						struct Pti *hl;
 						QString tmps, chx;
 						PageItem *c = MasterPages.at(ap)->Items.at(api);

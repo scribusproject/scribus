@@ -55,6 +55,7 @@ class Foi
 		bool isOTF;
 		bool Subset;
 		bool isStroked;
+		bool HasNames;
 		struct GlyphR { FPointArray Outlines;
 					 					double x;
 					 					double y;

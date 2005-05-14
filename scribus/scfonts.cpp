@@ -164,6 +164,8 @@ class Foi_postscript : public Foi
 			FT_ULong  charcode;
 			FT_UInt   gindex;
 			FT_Face   face;
+			char *buf[50];
+			QString glyName = "";
 			isStroked = false;
 			error = FT_Init_FreeType( &library );
 			if (error)
@@ -191,6 +193,7 @@ class Foi_postscript : public Foi
 			if (afm.exists())
 				error = FT_Attach_File(face, afm.name());
 			HasKern = FT_HAS_KERNING(face);
+			HasNames = FT_HAS_GLYPH_NAMES(face);
 			Ascent = tmp.setNum(face->ascender);
 			Descender = tmp.setNum(face->descender);
 			numDescender = face->descender / uniEM;
@@ -228,6 +231,12 @@ class Foi_postscript : public Foi
 					GRec.y = y;
 					GlyphArray.insert(charcode, GRec);
 				}
+/* The following lines are a check for some weired fonts which have invalid "post" tables */
+				FT_Get_Glyph_Name(face, gindex, buf, 50);
+				QString newName = QString(reinterpret_cast<char*>(buf));
+				if (newName == glyName)
+					HasNames = false;
+				glyName = newName;
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
 			FT_Done_FreeType( library );
