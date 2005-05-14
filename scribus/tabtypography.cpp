@@ -76,29 +76,56 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	underlineGroup->layout()->setMargin( 11 );
 	underlineGroupLayout = new QGridLayout( underlineGroup->layout() );
 	underlineGroupLayout->setAlignment( Qt::AlignTop );
-
 	textLabel1 = new QLabel( underlineGroup, "textLabel1" );
 	textLabel1->setText( tr( "Displacement:" ) );
 	underlineGroupLayout->addWidget( textLabel1, 0, 0 );
-
 	underlinePos = new QSpinBox( underlineGroup, "underlinePos" );
 	underlinePos->setMaxValue( 100 );
 	underlinePos->setMinValue( -1 );
+	underlinePos->setWrapping(true);
 	underlinePos->setSuffix( tr( " %" ) );
 	underlinePos->setSpecialValueText( tr( "Auto" ) );
 	underlineGroupLayout->addWidget( underlinePos, 0, 1 );
-
 	textLabel2 = new QLabel( underlineGroup, "textLabel2" );
 	textLabel2->setText( tr( "Line Width:" ) );
 	underlineGroupLayout->addWidget( textLabel2, 0, 2 );
-
 	underlineWidth = new QSpinBox( underlineGroup, "underlineWidth" );
 	underlineWidth->setMaxValue( 100 );
 	underlineWidth->setMinValue( -1 );
 	underlineWidth->setSuffix( tr( " %" ) );
+	underlineWidth->setWrapping(true);
 	underlineWidth->setSpecialValueText( tr( "Auto" ) );
 	underlineGroupLayout->addWidget( underlineWidth, 0, 3 );
 	tabTypoLayout->addWidget( underlineGroup, 3, 0 );
+
+	strikethruGroup = new QGroupBox( this, "strikethruGroup" );
+	strikethruGroup->setTitle( tr( "Strikethru" ) );
+	strikethruGroup->setColumnLayout(0, Qt::Vertical );
+	strikethruGroup->layout()->setSpacing( 6 );
+	strikethruGroup->layout()->setMargin( 11 );
+	strikethruGroupLayout = new QGridLayout( strikethruGroup->layout() );
+	strikethruGroupLayout->setAlignment( Qt::AlignTop );
+	textLabel1_2 = new QLabel( strikethruGroup, "textLabel1" );
+	textLabel1_2->setText( tr( "Displacement:" ) );
+	strikethruGroupLayout->addWidget( textLabel1_2, 0, 0 );
+	strikethruPos = new QSpinBox( strikethruGroup, "strikethruPos" );
+	strikethruPos->setMaxValue( 100 );
+	strikethruPos->setMinValue( -1 );
+	strikethruPos->setSuffix( tr( " %" ) );
+	strikethruPos->setSpecialValueText( tr( "Auto" ) );
+	strikethruPos->setWrapping(true);
+	strikethruGroupLayout->addWidget( strikethruPos, 0, 1 );
+	textLabel2_2 = new QLabel( strikethruGroup, "textLabel2" );
+	textLabel2_2->setText( tr( "Line Width:" ) );
+	strikethruGroupLayout->addWidget( textLabel2_2, 0, 2 );
+	strikethruWidth = new QSpinBox( strikethruGroup, "strikethruWidth" );
+	strikethruWidth->setMaxValue( 100 );
+	strikethruWidth->setMinValue( -1 );
+	strikethruWidth->setWrapping(true);
+	strikethruWidth->setSuffix( tr( " %" ) );
+	strikethruWidth->setSpecialValueText( tr( "Auto" ) );
+	strikethruGroupLayout->addWidget( strikethruWidth, 0, 3 );
+	tabTypoLayout->addWidget( strikethruGroup, 4, 0 );
 
 	groupBox4a = new QGroupBox( this, "groupBox3a" );
 	groupBox4a->setColumnLayout(0, Qt::Vertical );
@@ -114,7 +141,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox4aLayout->addWidget( autoLine, 1, 1 );
 	textLabel8a = new QLabel( autoLine, tr( "Line Spacing:" ), groupBox4a, "textLabel8a" );
 	groupBox4aLayout->addWidget( textLabel8a, 1, 0 );
-	tabTypoLayout->addWidget( groupBox4a, 4, 0 );
+	tabTypoLayout->addWidget( groupBox4a, 5, 0 );
 	restoreDefaults(prefsData);
 	QToolTip::add( superDisplacement, tr( "Displacement above the baseline of the font on a line" ) );
 	QToolTip::add( superScaling, tr( "Relative size of the superscript compared to the normal font" ) );
@@ -124,6 +151,8 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
 	QToolTip::add( underlinePos, tr( "Displacement below the baseline of the normal font expressed as a percentage of the fonts descender" ) );
 	QToolTip::add( underlineWidth, tr( "Line width expressed as a percentage of the font size" ) );
+	QToolTip::add( strikethruPos, tr( "Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender" ) );
+	QToolTip::add( strikethruWidth, tr( "Line width expressed as a percentage of the font size" ) );
 }
 
 void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
@@ -135,4 +164,6 @@ void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
 	autoLine->setValue( prefsData->autoLineSpacing );
 	underlinePos->setValue(prefsData->valueUnderlinePos);
 	underlineWidth->setValue(prefsData->valueUnderlineWidth);
+	strikethruPos->setValue(prefsData->valueStrikeThruPos);
+	strikethruWidth->setValue(prefsData->valueStrikeThruWidth);
 }

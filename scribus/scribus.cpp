@@ -2970,6 +2970,8 @@ bool ScribusApp::SetupDoc()
 		doc->typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / doc->unitRatio;
 		doc->typographicSetttings.valueUnderlinePos = dia->tabTypo->underlinePos->value();
 		doc->typographicSetttings.valueUnderlineWidth = dia->tabTypo->underlineWidth->value();
+		doc->typographicSetttings.valueStrikeThruPos = dia->tabTypo->strikethruPos->value();
+		doc->typographicSetttings.valueStrikeThruWidth = dia->tabTypo->strikethruWidth->value();
 		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
 		doc->toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 		doc->toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
@@ -7775,6 +7777,8 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
 		Prefs.typographicSetttings.valueUnderlinePos = dia->tabTypo->underlinePos->value();
 		Prefs.typographicSetttings.valueUnderlineWidth = dia->tabTypo->underlineWidth->value();
+		Prefs.typographicSetttings.valueStrikeThruPos = dia->tabTypo->strikethruPos->value();
+		Prefs.typographicSetttings.valueStrikeThruWidth = dia->tabTypo->strikethruWidth->value();
 		Prefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
 		if (Prefs.toolSettings.dPen == tr("None"))
 			Prefs.toolSettings.dPen = "None";

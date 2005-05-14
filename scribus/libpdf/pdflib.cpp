@@ -2850,12 +2850,31 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		if ((hl->cstyle & 16) && (chx != QChar(13)))
 		{
 			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-			double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
-			double Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+			double Upos, Uwid, kern;
+			if (hl->cstyle & 1024)
+				kern = 0;
+			else
+				kern = hl->cextra;
+			if ((doc->typographicSetttings.valueStrikeThruPos != -1) || (doc->typographicSetttings.valueStrikeThruWidth != -1))
+			{
+				if (doc->typographicSetttings.valueStrikeThruPos != -1)
+					Upos = (doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (tsz / 10.0));
+				else
+					Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+				if (doc->typographicSetttings.valueStrikeThruWidth != -1)
+					Uwid = (doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (tsz / 10.0);
+				else
+					Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+			}
+			else
+			{
+				Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+				Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+			}
 			if (hl->ccolor != "None")
 				tmp2 += putColor(hl->cstroke, hl->cshade, false);
 			tmp2 += FToStr(Uwid)+" w\n";
-			tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
+			tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
 			tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
 			tmp2 += "S\n";
 		}

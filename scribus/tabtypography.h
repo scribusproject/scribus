@@ -36,6 +36,11 @@ public:
 	QSpinBox* underlinePos;
 	QLabel* textLabel2;
 	QSpinBox* underlineWidth;
+    QGroupBox* strikethruGroup;
+    QLabel* textLabel1_2;
+    QSpinBox* strikethruPos;
+    QLabel* textLabel2_2;
+    QSpinBox* strikethruWidth;
 	QGroupBox* groupBox4a;
 	QLabel* textLabel8a;
 	QSpinBox* autoLine;
@@ -47,6 +52,7 @@ protected:
 	QGridLayout* groupBox3aLayout;
 	QGridLayout* groupBox4aLayout;
 	QGridLayout* underlineGroupLayout;
+    QGridLayout* strikethruGroupLayout;
 };
 
 #endif

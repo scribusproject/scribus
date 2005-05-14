@@ -1355,7 +1355,27 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									if ((hl->cstyle & 16) && (chx != QChar(13)))
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-										double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+										double Upos, lw, kern;
+										if (hl->cstyle & 1024)
+											kern = 0;
+										else
+											kern = hl->cextra;
+										if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
+										{
+											if (Doc->typographicSetttings.valueStrikeThruPos != -1)
+												Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (tsz / 10.0));
+											else
+												Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+											if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
+												lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (tsz / 10.0);
+											else
+												lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+										}
+										else
+										{
+											Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+											lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+										}
 										if (hl->ccolor != "None")
 										{
 											PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1363,8 +1383,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
-										PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
-										PS_moveto(hl->xp, -hl->yp+Upos);
+										PS_setlinewidth(lw);
+										PS_moveto(hl->xp-kern, -hl->yp+Upos);
 										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										PS_stroke();
 									}
@@ -1861,7 +1881,27 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if ((hl->cstyle & 16) && (chx != QChar(13)))
 				{
 					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+					double Upos, lw, kern;
+					if (hl->cstyle & 1024)
+						kern = 0;
+					else
+						kern = hl->cextra;
+					if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
+					{
+						if (Doc->typographicSetttings.valueStrikeThruPos != -1)
+							Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (tsz / 10.0));
+						else
+							Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+						if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
+							lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (tsz / 10.0);
+						else
+							lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+					}
+					else
+					{
+						Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+						lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+					}
 					if (hl->ccolor != "None")
 					{
 						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1869,8 +1909,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					}
-					PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
-					PS_moveto(hl->xp, -hl->yp+Upos);
+					PS_setlinewidth(lw);
+					PS_moveto(hl->xp-kern, -hl->yp+Upos);
 					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 					PS_stroke();
 				}

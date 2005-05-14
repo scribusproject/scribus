@@ -2404,9 +2404,25 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		}
 		if (hl->Style & 16)
 		{
+			double st, lw;
+			if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
+			{
+				if (Doc->typographicSetttings.valueStrikeThruPos != -1)
+					st = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->ZFo->numAscent * (hl->Siz / 10.0));
+				else
+					st = hl->ZFo->strikeout_pos * (hl->Siz / 10.0);
+				if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
+					lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->Siz / 10.0);
+				else
+					lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+			}
+			else
+			{
+				st = hl->ZFo->strikeout_pos * (hl->Siz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+			}
 			p->setPen(p->brush());
-			double st = hl->ZFo->strikeout_pos * (hl->Siz / 10.0);
-			p->setLineWidth(QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1));
+			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 		}
 		if (hl->Style & 8)
