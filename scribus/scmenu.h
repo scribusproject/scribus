@@ -29,7 +29,9 @@ class ScrPopupMenu : public QObject
 		~ScrPopupMenu ();
 		
 		const QString getMenuName();
+		const QString getParentMenuName();
 		const QString getMenuText();
+		void setMenuText(const QString pMenuText);
 		void setMenuBarID(int id);
 		int getMenuBarID();
 		void setEnabled(bool menuEnabled);
@@ -47,16 +49,21 @@ class ScrPopupMenu : public QObject
 		bool hasSubMenu(ScrPopupMenu *subMenu);
 		bool removeSubMenu(ScrPopupMenu *subMenu);
 		bool removeMenuItem(ScrAction *menuAction);
+		bool setSubMenuText(ScrAction *menuAction);
 		
 		bool generateEntryList(QStringList *actNames);
+		void setParentMenuID(int);
+		const int getParentMenuID();
 		
 	protected:
 		QPopupMenu *localPopupMenu;
 		QValueList< QGuardedPtr<QObject> > menuItemList;
 		QString menuName;
 		QString parentMenuName;
+		int parentMenuID;
 		QString menuText;
 		int menuBarID;
 		bool enabled;
 };
 #endif
+

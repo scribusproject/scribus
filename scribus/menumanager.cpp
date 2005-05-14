@@ -82,6 +82,21 @@ bool MenuManager::clearMenu(const QString &menuName)
 	return retVal;
 }
 
+void MenuManager::setMenuText(const QString &menuName, const QString &menuText)
+{
+	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+	{
+		menuList[menuName]->setMenuText(menuText);
+		QString parent=menuList[menuName]->getParentMenuName();
+		if (parent!=QString::null)
+			menuList[parent]->repopulateLocalMenu();
+		
+		int id=menuList[menuName]->getMenuBarID();
+		if (id!=-1)
+			scribusMenuBar->changeItem(id, menuText);
+	}
+}
+
 QPopupMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 {
 	if (menuList[menuName])
@@ -300,4 +315,9 @@ void MenuManager::generateKeyManList(QStringList *actionNames)
 			}
 		}
 	}
+}
+
+bool MenuManager::empty()
+{
+	return menuList.empty();
 }

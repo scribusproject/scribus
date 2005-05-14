@@ -19,6 +19,7 @@
 #include "scribus.h"
 #include "scribusview.h"
 #include "undomanager.h"
+#include "pluginmanager.h"
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name ) 
 {
@@ -936,5 +937,9 @@ void ActionManager::languageChange()
 
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setMenuText(tr("Toggle Palettes"));
-	(*scrActions)["specialToggleAllGuides"]->setMenuText(tr("Toggle Guides"));	
+	(*scrActions)["specialToggleAllGuides"]->setMenuText(tr("Toggle Guides"));
+	
+	//qDebug(ScApp->pluginManager->pluginMap[7].name);
+//	if ((ScrAction*)((*scrActions)["SaveAsDocumentTemplate"])!=NULL)
+//		(*scrActions)["SaveAsDocumentTemplate"]->setMenuText(ScApp->pluginManager->pluginMap[7].name);
 }

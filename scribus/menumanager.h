@@ -37,10 +37,11 @@ public:
 
 	enum MenuType {Normal, DLL};
 
-	bool createMenu(const QString &menuName, const QString &menuText, const QString parent = QString::null);
+	bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null);
 	bool addMenuToMenu(const QString & child, const QString &parent);
 	bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
 	bool clearMenu(const QString &menuName);
+	void setMenuText(const QString &menuName, const QString &menuText);
 	QPopupMenu *getLocalPopupMenu(const QString &menuName);
 	void setMenuEnabled(const QString &menuName, const bool enabled);
 	bool addMenuToMenuBar(const QString &menuName);
@@ -59,6 +60,7 @@ public:
 	void runMenuAtPos(const QString &, const QPoint);
 
 	void generateKeyManList(QStringList *actionNames);
+	bool empty();
 
 private:
 	QMenuBar *scribusMenuBar;

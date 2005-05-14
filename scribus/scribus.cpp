@@ -176,6 +176,7 @@ PrefsFile* prefsFile;
 ScribusApp::ScribusApp()
 {
 	actionManager=NULL;
+	scrMenuMgr=NULL;
 } // ScribusApp::ScribusApp()
 
 /*
@@ -651,7 +652,10 @@ void ScribusApp::initKeyboardShortcuts()
 {
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
 	{
-		SetKeyEntry(it.key(), it.data()->cleanMenuText(), QString(it.data()->accel()),0);
+		if ((ScrAction*)(it.data())!=NULL)
+			SetKeyEntry(it.key(), it.data()->cleanMenuText(), QString(it.data()->accel()),0);
+		//else
+		//	qDebug(it.key());
 		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.data()->cleanMenuText()).arg(QString(it.data()->accel())));
 	}
 }
@@ -3391,8 +3395,8 @@ void ScribusApp::HaveNewDoc()
 
 	if (scrActions["PrintPreview"])
 		scrActions["PrintPreview"]->setEnabled(true);
-	if (scrActions["SaveAsTemplate"])
-		scrActions["SaveAsTemplate"]->setEnabled(true);
+	if (scrActions["SaveAsDocumentTemplate"])
+		scrActions["SaveAsDocumentTemplate"]->setEnabled(true);
 
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
@@ -4919,8 +4923,8 @@ bool ScribusApp::DoFileClose()
 		scrActions["fileClose"]->setEnabled(false);
 		if (scrActions["PrintPreview"])
 			scrActions["PrintPreview"]->setEnabled(false);
-		if (scrActions["SaveAsTemplate"])
-			scrActions["SaveAsTemplate"]->setEnabled(false);
+		if (scrActions["SaveAsDocumentTemplate"])
+			scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileExport", false);
 		scrActions["fileExportAsPDF"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
@@ -10379,9 +10383,41 @@ void ScribusApp::insertSampleText()
 
 void ScribusApp::languageChange()
 {
+	//Update actions
 	if (actionManager!=NULL)
 	{
 		actionManager->languageChange();
 		initKeyboardShortcuts();
+	}
+	//Update menu texts
+	if (scrMenuMgr!=NULL && !scrMenuMgr->empty())
+	{
+		scrMenuMgr->setMenuText("File", tr("&File"));
+		scrMenuMgr->setMenuText(recentFileMenuName, tr("Open &Recent"));
+		scrMenuMgr->setMenuText("FileImport", tr("&Import"));
+		scrMenuMgr->setMenuText("FileExport", tr("&Export"));
+		scrMenuMgr->setMenuText("Edit", tr("&Edit"));
+		scrMenuMgr->setMenuText("Style", tr("St&yle"));
+		scrMenuMgr->setMenuText("Color", tr("&Color"));
+		scrMenuMgr->setMenuText("FontSize", tr("&Size"));
+		scrMenuMgr->setMenuText("Shade", tr("&Shade"));
+		scrMenuMgr->setMenuText("Font", tr("&Font"));
+		scrMenuMgr->setMenuText("TypeEffects", tr("&Effects"));
+		scrMenuMgr->setMenuText("Item", tr("&Item"));
+		scrMenuMgr->setMenuText("ItemLevel", tr("&Level"));
+		scrMenuMgr->setMenuText("ItemPDFOptions", tr("&PDF Options"));
+		scrMenuMgr->setMenuText("ItemShapes", tr("&Shape"));
+		scrMenuMgr->setMenuText("ItemConvertTo", tr("C&onvert To"));
+		scrMenuMgr->setMenuText("Insert", tr("I&nsert"));
+		scrMenuMgr->setMenuText("InsertChar", tr("Character"));
+		scrMenuMgr->setMenuText("InsertQuote", tr("Quote"));
+		scrMenuMgr->setMenuText("InsertSpace", tr("Space"));
+		scrMenuMgr->setMenuText("Page", tr("&Page"));
+		scrMenuMgr->setMenuText("View", tr("&View"));
+		scrMenuMgr->setMenuText("Tools", tr("&Tools"));
+		scrMenuMgr->setMenuText("Extras", tr("E&xtras"));
+		scrMenuMgr->setMenuText("Windows", tr("&Windows"));
+		scrMenuMgr->setMenuText("Help", tr("&Help"));
+		scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
 	}
 }

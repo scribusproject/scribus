@@ -23,6 +23,7 @@
 ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QString pMenuText, const QString parentName ) : QObject(parent, name)
 {
 	parentMenuName=parentName;
+	parentMenuID=-1;
 	menuText=pMenuText;
 	menuName=pMenuName;
 	menuBarID=-1;
@@ -41,9 +42,19 @@ const QString ScrPopupMenu::getMenuText()
 	return menuText;
 }
 
+void ScrPopupMenu::setMenuText(const QString pMenuText)
+{
+	menuText=pMenuText;
+}
+
 const QString ScrPopupMenu::getMenuName()
 {
 	return menuName;
+}
+
+const QString ScrPopupMenu::getParentMenuName()
+{
+	return parentMenuName;
 }
 
 void ScrPopupMenu::setMenuBarID(int id)
@@ -64,6 +75,17 @@ QPopupMenu *ScrPopupMenu::getLocalPopupMenu()
 bool ScrPopupMenu::hasSubMenu(ScrPopupMenu* subMenu)
 {
 	return menuItemList.contains(QGuardedPtr<QObject>(subMenu));
+}
+
+void ScrPopupMenu::setParentMenuID(int id)
+{
+	parentMenuID=id;
+}
+
+
+const int ScrPopupMenu::getParentMenuID()
+{
+	return parentMenuID;
 }
 
 bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
@@ -283,4 +305,3 @@ void ScrPopupMenu::setEnabled(bool menuEnabled)
 	enabled=menuEnabled;
 	localPopupMenu->setEnabled(enabled);
 }
-
