@@ -679,7 +679,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
 					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
-					Zli3.kern = hl->cextra;
+					if (hl->cstyle & 1024)
+						Zli3.kern = 0;
+					else
+						Zli3.kern = hl->cextra;
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
@@ -1199,9 +1202,15 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					hl->yp = CurY + oldCurY;
 					if (LiList.count() == 0)
+					{
+						itemText.at(a)->cstyle |= 1024;
 						kernVal = 0;
+					}
 					else
+					{
 						kernVal = hl->cextra;
+						itemText.at(a)->cstyle &= 1023;
+					}
 					if (!RTab)
 					{
 						hl->xp = CurX+kernVal;
@@ -2402,9 +2411,25 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		}
 		if (hl->Style & 8)
 		{
-			double st = hl->ZFo->underline_pos * (hl->Siz / 10.0);
+			double st, lw;
+			if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
+			{
+				if (Doc->typographicSetttings.valueUnderlinePos != -1)
+					st = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->ZFo->numDescender * (hl->Siz / 10.0));
+				else
+					st = hl->ZFo->underline_pos * (hl->Siz / 10.0);
+				if (Doc->typographicSetttings.valueUnderlineWidth != -1)
+					lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->Siz / 10.0);
+				else
+					lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+			}
+			else
+			{
+				st = hl->ZFo->underline_pos * (hl->Siz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+			}
 			p->setPen(p->brush());
-			p->setLineWidth(QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1));
+			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 		}
 	}

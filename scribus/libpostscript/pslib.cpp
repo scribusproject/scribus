@@ -1154,22 +1154,6 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							}
 							else if (ite->itemType() == PageItem::TextFrame)
 							{
-/*								double savScale = view->Scale;
-								view->Scale = 1.0;
-								Doc->RePos = true;
-								QPixmap pgPix(10, 10);
-								QRect rd = QRect(0,0,9,9);
-								ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-								Doc->Pages = Doc->MasterPages;
-								Doc->MasterP = true;
-								Doc->Items = Doc->MasterItems;
-								ite->DrawObj(painter, rd);
-								Doc->Pages = Doc->DocPages;
-								Doc->MasterP = false;
-								Doc->Items = Doc->DocItems;
-								Doc->RePos = false;
-								view->Scale = savScale;
-								delete painter; */
 								PS_save();
 								if (ite->fillColor() != "None")
 								{
@@ -1387,7 +1371,27 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									if ((hl->cstyle & 8) && (chx != QChar(13)))
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-										double Upos = hl->cfont->underline_pos * (tsz / 10.0);
+										double Upos, lw, kern;
+										if (hl->cstyle & 1024)
+											kern = 0;
+										else
+											kern = hl->cextra;
+										if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
+										{
+											if (Doc->typographicSetttings.valueUnderlinePos != -1)
+												Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (tsz / 10.0));
+											else
+												Upos = hl->cfont->underline_pos * (tsz / 10.0);
+											if (Doc->typographicSetttings.valueUnderlineWidth != -1)
+												lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (tsz / 10.0);
+											else
+												lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+										}
+										else
+										{
+											Upos = hl->cfont->underline_pos * (tsz / 10.0);
+											lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+										}
 										if (hl->ccolor != "None")
 										{
 											PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1395,8 +1399,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
-										PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
-										PS_moveto(hl->xp, -hl->yp+Upos);
+										PS_setlinewidth(lw);
+										PS_moveto(hl->xp-kern, -hl->yp+Upos);
 										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										PS_stroke();
 									}
@@ -1873,7 +1877,27 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if ((hl->cstyle & 8) && (chx != QChar(13)))
 				{
 					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					double Upos = hl->cfont->underline_pos * (tsz / 10.0);
+					double Upos, lw, kern;
+					if (hl->cstyle & 1024)
+						kern = 0;
+					else
+						kern = hl->cextra;
+					if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
+					{
+						if (Doc->typographicSetttings.valueUnderlinePos != -1)
+							Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (tsz / 10.0));
+						else
+							Upos = hl->cfont->underline_pos * (tsz / 10.0);
+						if (Doc->typographicSetttings.valueUnderlineWidth != -1)
+							lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (tsz / 10.0);
+						else
+							lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+					}
+					else
+					{
+						Upos = hl->cfont->underline_pos * (tsz / 10.0);
+						lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+					}
 					if (hl->ccolor != "None")
 					{
 						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1881,8 +1905,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					}
-					PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
-					PS_moveto(hl->xp, -hl->yp+Upos);
+					PS_setlinewidth(lw);
+					PS_moveto(hl->xp-kern, -hl->yp+Upos);
 					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 					PS_stroke();
 				}

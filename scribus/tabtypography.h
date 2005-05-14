@@ -31,6 +31,11 @@ public:
 	QGroupBox* groupBox3a;
 	QLabel* textLabel5a;
 	QSpinBox* capsScaling;
+	QGroupBox* underlineGroup;
+	QLabel* textLabel1;
+	QSpinBox* underlinePos;
+	QLabel* textLabel2;
+	QSpinBox* underlineWidth;
 	QGroupBox* groupBox4a;
 	QLabel* textLabel8a;
 	QSpinBox* autoLine;
@@ -41,6 +46,7 @@ protected:
 	QGridLayout* groupBox2aLayout;
 	QGridLayout* groupBox3aLayout;
 	QGridLayout* groupBox4aLayout;
+	QGridLayout* underlineGroupLayout;
 };
 
 #endif

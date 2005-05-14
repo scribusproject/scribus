@@ -2815,30 +2815,49 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 				}
 			}
-			if ((hl->cstyle & 8) && (chx != QChar(13)))
+		}
+		if ((hl->cstyle & 8) && (chx != QChar(13)))
+		{
+			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+			double Upos, Uwid, kern;
+			if (hl->cstyle & 1024)
+				kern = 0;
+			else
+				kern = hl->cextra;
+			if ((doc->typographicSetttings.valueUnderlinePos != -1) || (doc->typographicSetttings.valueUnderlineWidth != -1))
 			{
-				double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-				double Upos = hl->cfont->underline_pos * (tsz / 10.0);
-				double Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
-				if (hl->ccolor != "None")
-					tmp2 += putColor(hl->cstroke, hl->cshade, false);
-				tmp2 += FToStr(Uwid)+" w\n";
-				tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
-				tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
-				tmp2 += "S\n";
+				if (doc->typographicSetttings.valueUnderlinePos != -1)
+					Upos = (doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (tsz / 10.0));
+				else
+					Upos = hl->cfont->underline_pos * (tsz / 10.0);
+				if (doc->typographicSetttings.valueUnderlineWidth != -1)
+					Uwid = (doc->typographicSetttings.valueUnderlineWidth / 100.0) * (tsz / 10.0);
+				else
+					Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
 			}
-			if ((hl->cstyle & 16) && (chx != QChar(13)))
+			else
 			{
-				double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-				double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
-				double Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
-				if (hl->ccolor != "None")
-					tmp2 += putColor(hl->cstroke, hl->cshade, false);
-				tmp2 += FToStr(Uwid)+" w\n";
-				tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
-				tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
-				tmp2 += "S\n";
+				Upos = hl->cfont->underline_pos * (tsz / 10.0);
+				Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
 			}
+			if (hl->ccolor != "None")
+				tmp2 += putColor(hl->cstroke, hl->cshade, false);
+			tmp2 += FToStr(Uwid)+" w\n";
+			tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
+			tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
+			tmp2 += "S\n";
+		}
+		if ((hl->cstyle & 16) && (chx != QChar(13)))
+		{
+			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+			double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+			double Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+			if (hl->ccolor != "None")
+				tmp2 += putColor(hl->cstroke, hl->cshade, false);
+			tmp2 += FToStr(Uwid)+" w\n";
+			tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
+			tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
+			tmp2 += "S\n";
 		}
 		if (ite->itemType() == PageItem::PathText)
 		{
