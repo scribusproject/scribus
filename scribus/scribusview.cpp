@@ -1634,6 +1634,11 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 										double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+										double kern;
+										if (hl->cstyle & 1024)
+											kern = 0;
+										else
+											kern = hl->cextra;
 										if (hl->ccolor != "None")
 										{
 											p->PS_setcapjoin(FlatCap, MiterJoin);
@@ -1641,8 +1646,8 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
-										p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
-										p->PS_moveto(hl->xp, -hl->yp+Upos);
+										p->PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1));
+										p->PS_moveto(hl->xp-kern, -hl->yp+Upos);
 										p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										p->PS_stroke();
 									}
@@ -1650,6 +1655,11 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 										double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
+										double kern;
+										if (hl->cstyle & 1024)
+											kern = 0;
+										else
+											kern = hl->cextra;
 										if (hl->ccolor != "None")
 										{
 											p->PS_setcapjoin(FlatCap, MiterJoin);
@@ -1657,8 +1667,8 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
-										p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
-										p->PS_moveto(hl->xp, -hl->yp+Upos);
+										p->PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1));
+										p->PS_moveto(hl->xp-kern, -hl->yp+Upos);
 										p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										p->PS_stroke();
 									}
@@ -2138,6 +2148,11 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							{
 								double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 								double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+								double kern;
+								if (hl->cstyle & 1024)
+									kern = 0;
+								else
+									kern = hl->cextra;
 								if (hl->ccolor != "None")
 								{
 									p->PS_setcapjoin(FlatCap, MiterJoin);
@@ -2145,8 +2160,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
-								p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
-								p->PS_moveto(hl->xp, -hl->yp+Upos);
+								p->PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1));
+								p->PS_moveto(hl->xp-kern, -hl->yp+Upos);
 								p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 								p->PS_stroke();
 							}
@@ -2154,6 +2169,11 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							{
 								double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 								double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
+								double kern;
+								if (hl->cstyle & 1024)
+									kern = 0;
+								else
+									kern = hl->cextra;
 								if (hl->ccolor != "None")
 								{
 									p->PS_setcapjoin(FlatCap, MiterJoin);
@@ -2161,8 +2181,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
-								p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
-								p->PS_moveto(hl->xp, -hl->yp+Upos);
+								p->PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1));
+								p->PS_moveto(hl->xp-kern, -hl->yp+Upos);
 								p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 								p->PS_stroke();
 							}

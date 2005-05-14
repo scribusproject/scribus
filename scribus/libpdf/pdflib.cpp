@@ -2621,6 +2621,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 				double Upos = (*doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
 				double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
+				double kern;
+				if (hl->cstyle & 1024)
+					kern = 0;
+				else
+					kern = hl->cextra;
 				if (hl->ccolor != "None")
 				{
 					if (Options->UseRGB)
@@ -2639,7 +2644,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					}
 				}
 				tmp2 += FToStr(Uwid)+" w\n";
-				tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
+				tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
 				tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
 				tmp2 += "S\n";
 			}
@@ -2648,6 +2653,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 				double Upos = (*doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
 				double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
+				double kern;
+				if (hl->cstyle & 1024)
+					kern = 0;
+				else
+					kern = hl->cextra;
 				if (hl->ccolor != "None")
 				{
 					if (Options->UseRGB)
@@ -2666,7 +2676,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					}
 				}
 				tmp2 += FToStr(Uwid)+" w\n";
-				tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
+				tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
 				tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
 				tmp2 += "S\n";
 			}

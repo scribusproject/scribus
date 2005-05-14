@@ -606,7 +606,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
 					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
-					Zli3.kern = hl->cextra;
+					if (hl->cstyle & 1024)
+						Zli3.kern = 0;
+					else
+						Zli3.kern = hl->cextra;
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
@@ -1080,9 +1083,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					hl->yp = CurY + oldCurY;
 					if (LiList.count() == 0)
+					{
+						Ptext.at(a)->cstyle |= 1024;
 						kernVal = 0;
+					}
 					else
+					{
 						kernVal = hl->cextra;
+						Ptext.at(a)->cstyle &= 1023;
+					}
 					if (!RTab)
 						{
 						hl->xp = CurX+kernVal;
