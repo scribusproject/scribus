@@ -274,7 +274,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	if (lineColor() == "None")
 		fill_gradient.addStop(Doc->PageColors[Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, Doc->toolSettings.dPen, 100);
 	else
-	fill_gradient.addStop(Doc->PageColors[lineColor()].getRGBColor(), 1.0, 0.5, 1.0, lineColor(), 100);
+		fill_gradient.addStop(Doc->PageColors[lineColor()].getRGBColor(), 1.0, 0.5, 1.0, lineColor(), 100);
 	Language = Doc->Language;
 	Cols = Doc->toolSettings.dCols;
 	ColGap = Doc->toolSettings.dGap;

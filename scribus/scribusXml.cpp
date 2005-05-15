@@ -1014,6 +1014,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						int shade = QStoInt(it.attribute("SHADE","100"));
 						double opa = QStodouble(it.attribute("TRANS","1"));
 						OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+						OB.GrColor = "";
+						OB.GrColor2 = "";
 					}
 					if (it.tagName()=="ITEXT")
 						tmp += GetItemText(&it, doc, view->Prefs, VorLFound, true, false);
@@ -1505,20 +1507,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							int shade = QStoInt(it.attribute("SHADE","100"));
 							double opa = QStodouble(it.attribute("TRANS","1"));
 							OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+							OB.GrColor = "";
+							OB.GrColor2 = "";
 						}
 						IT=IT.nextSibling();
 					}
 					OB.itemText = "";
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
-/*					if ((OB.PType == 5) && (OB.Height != 0))
-					{
-						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
-						OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
-						OB.Height = 0;
-						OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
-											 static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
-					} */
 					uint last = doc->Items.count();
 					view->PasteItem(&OB, true);
 					doc->GroupCounter = docGc;
@@ -1977,6 +1973,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					int shade = QStoInt(it.attribute("SHADE","100"));
 					double opa = QStodouble(it.attribute("TRANS","1"));
 					OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+					OB.GrColor = "";
+					OB.GrColor2 = "";
 				}
 				if (it.tagName()=="ITEXT")
 					tmp += GetItemText(&it, doc, Prefs, VorLFound, true, false);
