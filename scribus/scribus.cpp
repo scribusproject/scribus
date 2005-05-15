@@ -6840,6 +6840,16 @@ if (false)
 			doc->GrabRad = dia->SpinBox3_2->value();
 			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor;
 			doc->Dfont = dia->FontComb->currentText();
+			if (!doc->UsedFonts.contains(doc->Dfont))
+			{
+				if (doc->AddFont(doc->Dfont, Prefs.AvailFonts[doc->Dfont]->Font))
+				{
+					int a = FontMenu->insertItem(new FmItem(doc->Dfont, Prefs.AvailFonts[doc->Dfont]->Font));
+					FontID.insert(a, Prefs.AvailFonts[doc->Dfont]->SCName);
+				}
+			}
+			Mpal->Fonts->RebuildList(&Prefs);
+			BuildFontMenu();
 			doc->Dsize = dia->SizeCombo->currentText().left(2).toInt() * 10;
 			doc->minorGrid = dia->SpinBox1->value() / UmReFaktor;
 			doc->majorGrid = dia->SpinBox2->value() / UmReFaktor;
