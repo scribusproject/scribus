@@ -2271,7 +2271,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			tc = item->itemText.at(k)->ccolor;
 			te = item->itemText.at(k)->cextra;
 			tsh = item->itemText.at(k)->cshade;
-			tst = item->itemText.at(k)->cstyle;
+			tst = item->itemText.at(k)->cstyle & 2047;
 			if (item->itemText.at(k)->cab > 4)
 				tsb = UsedMapped2Saved[item->itemText.at(k)->cab];
 			else
@@ -2307,7 +2307,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			tc2 = item->itemText.at(k)->ccolor;
 			te2 = item->itemText.at(k)->cextra;
 			tsh2 = item->itemText.at(k)->cshade;
-			tst2 = item->itemText.at(k)->cstyle;
+			tst2 = item->itemText.at(k)->cstyle & 2047;
 			if (item->itemText.at(k)->cab > 4)
 				tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
 			else
@@ -2340,7 +2340,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				tc2 = item->itemText.at(k)->ccolor;
 				te2 = item->itemText.at(k)->cextra;
 				tsh2 = item->itemText.at(k)->cshade;
-				tst2 = item->itemText.at(k)->cstyle;
+				tst2 = item->itemText.at(k)->cstyle & 2047;
 				if (item->itemText.at(k)->cab > 4)
 					tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
 				else
@@ -2499,7 +2499,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tc = item->itemText.at(k)->ccolor;
 			te = item->itemText.at(k)->cextra;
 			tsh = item->itemText.at(k)->cshade;
-			tst = item->itemText.at(k)->cstyle;
+			tst = item->itemText.at(k)->cstyle & 2047;
 			tsb = item->itemText.at(k)->cab;
 			tcs = item->itemText.at(k)->cstroke;
 			tshs = item->itemText.at(k)->cshade2;
@@ -2532,7 +2532,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tc2 = item->itemText.at(k)->ccolor;
 			te2 = item->itemText.at(k)->cextra;
 			tsh2 = item->itemText.at(k)->cshade;
-			tst2 = item->itemText.at(k)->cstyle;
+			tst2 = item->itemText.at(k)->cstyle & 2047;
 			tsb2 = item->itemText.at(k)->cab;
 			tcs2 = item->itemText.at(k)->cstroke;
 			tshs2 = item->itemText.at(k)->cshade2;
@@ -2562,7 +2562,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				tc2 = item->itemText.at(k)->ccolor;
 				te2 = item->itemText.at(k)->cextra;
 				tsh2 = item->itemText.at(k)->cshade;
-				tst2 = item->itemText.at(k)->cstyle;
+				tst2 = item->itemText.at(k)->cstyle & 2047;
 				tsb2 = item->itemText.at(k)->cab;
 				tcs2 = item->itemText.at(k)->cstroke;
 				tshs2 = item->itemText.at(k)->cshade2;

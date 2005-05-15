@@ -194,7 +194,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 			uint i = 0;
 		  	buffer[strlen(word)] = '\0';
 			for (i = 1; i < found.length()-1; ++i)
-				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 127;		// Delete any old Hyphens
+				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
 			for (i = 1; i < found.length()-1; ++i)
 			{
 				if(buffer[i] & 1)
@@ -295,7 +295,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	  			uint i = 0;
   				buffer[strlen(word)] = '\0';
 				for (i = 1; i < found.length()-1; ++i)
-					nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 127;		// Delete any old Hyphens
+					nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
 				bool hasHyphen = false;
 				for (i = 1; i < found.length()-1; ++i)
 				{

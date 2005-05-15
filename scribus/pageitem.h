@@ -121,6 +121,7 @@ public:
 				double wide;
 				double kern;
 				int Siz;
+				int realSiz;
 				int Style;
 				int scale;
 				int shade;

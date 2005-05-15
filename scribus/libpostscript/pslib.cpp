@@ -1184,7 +1184,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									hl = ite->itemText.at(d);
 									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 										continue;
-									if (hl->cstyle & 256)
+									if (hl->cstyle & 4096)
 										continue;
 									if (hl->yp == 0)
 										continue;
@@ -1222,6 +1222,11 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											out2 = out.arg(a+Doc->FirstPnum, -zae);
 											chx = out2.mid(d-za2, 1);
 										}
+									}
+									if (hl->cstyle & 32)
+									{
+										if (chx.upper() != chx)
+											chx = chx.upper();
 									}
 									if (hl->cstyle & 64)
 									{
@@ -1356,25 +1361,25 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 										double Upos, lw, kern;
-										if (hl->cstyle & 1024)
+										if (hl->cstyle & 16384)
 											kern = 0;
 										else
 											kern = hl->cextra;
 										if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
 										{
 											if (Doc->typographicSetttings.valueStrikeThruPos != -1)
-												Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (tsz / 10.0));
+												Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
 											else
-												Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+												Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
 											if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
-												lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (tsz / 10.0);
+												lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
 											else
-												lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+												lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 										}
 										else
 										{
-											Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
-											lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+											Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
+											lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 										}
 										if (hl->ccolor != "None")
 										{
@@ -1392,25 +1397,25 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 										double Upos, lw, kern;
-										if (hl->cstyle & 1024)
+										if (hl->cstyle & 16384)
 											kern = 0;
 										else
 											kern = hl->cextra;
 										if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
 										{
 											if (Doc->typographicSetttings.valueUnderlinePos != -1)
-												Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (tsz / 10.0));
+												Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
 											else
-												Upos = hl->cfont->underline_pos * (tsz / 10.0);
+												Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
 											if (Doc->typographicSetttings.valueUnderlineWidth != -1)
-												lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (tsz / 10.0);
+												lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
 											else
-												lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+												lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 										}
 										else
 										{
-											Upos = hl->cfont->underline_pos * (tsz / 10.0);
-											lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+											Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
+											lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 										}
 										if (hl->ccolor != "None")
 										{
@@ -1424,7 +1429,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										PS_stroke();
 									}
-									if (hl->cstyle & 512)
+									if (hl->cstyle & 8192)
 									{
 										int chs = hl->csize;
 										ite->SetZeichAttr(hl, &chs, &chx);
@@ -1710,7 +1715,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				hl = c->itemText.at(d);
 				if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 					continue;
-				if (hl->cstyle & 256)
+				if (hl->cstyle & 4096)
 					continue;
 				if (hl->yp == 0)
 					continue;
@@ -1748,6 +1753,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						out2 = out.arg(PNr-1+Doc->FirstPnum, -zae);
 						chx = out2.mid(d-za2, 1);
 					}
+				}
+				if (hl->cstyle & 32)
+				{
+					if (chx.upper() != chx)
+						chx = chx.upper();
 				}
 				if (hl->cstyle & 64)
 				{
@@ -1882,25 +1892,25 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 					double Upos, lw, kern;
-					if (hl->cstyle & 1024)
+					if (hl->cstyle & 16384)
 						kern = 0;
 					else
 						kern = hl->cextra;
 					if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
 					{
 						if (Doc->typographicSetttings.valueStrikeThruPos != -1)
-							Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (tsz / 10.0));
+							Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
 						else
-							Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+							Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
 						if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
-							lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (tsz / 10.0);
+							lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
 						else
-							lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+							lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 					}
 					else
 					{
-						Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
-						lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+						Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
+						lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 					}
 					if (hl->ccolor != "None")
 					{
@@ -1918,25 +1928,25 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 					double Upos, lw, kern;
-					if (hl->cstyle & 1024)
+					if (hl->cstyle & 16384)
 						kern = 0;
 					else
 						kern = hl->cextra;
 					if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
 					{
 						if (Doc->typographicSetttings.valueUnderlinePos != -1)
-							Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (tsz / 10.0));
+							Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
 						else
-							Upos = hl->cfont->underline_pos * (tsz / 10.0);
+							Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
 						if (Doc->typographicSetttings.valueUnderlineWidth != -1)
-							lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (tsz / 10.0);
+							lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
 						else
-							lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+							lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 					}
 					else
 					{
-						Upos = hl->cfont->underline_pos * (tsz / 10.0);
-						lw = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+						Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
+						lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 					}
 					if (hl->ccolor != "None")
 					{
@@ -1950,7 +1960,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 					PS_stroke();
 				}
-				if (hl->cstyle & 512)
+				if (hl->cstyle & 8192)
 				{
 					int chs = hl->csize;
 					c->SetZeichAttr(hl, &chs, &chx);
@@ -2224,6 +2234,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					chx = " ";
 				if (hl->ch == QChar(0xA0))
 					chx = " ";
+				if (hl->cstyle & 32)
+				{
+					if (chx.upper() != chx)
+						chx = chx.upper();
+				}
 				if (hl->cstyle & 64)
 				{
 					if (chx.upper() != chx)

@@ -676,10 +676,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.yco = hl->yp;
 					Zli3.Sele = hl->cselect;
 					Zli3.Siz = chs;
+					Zli3.realSiz = hl->csize;
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
 					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
-					if (hl->cstyle & 1024)
+					if (hl->cstyle & 16384)
 						Zli3.kern = 0;
 					else
 						Zli3.kern = hl->cextra;
@@ -690,7 +691,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						asce = Zli3.ZFo->numAscent * (Zli3.Siz / 10.0);
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, &Zli3);
-						if (hl->cstyle & 512)
+						if (hl->cstyle & 8192)
 						{
 							Zli3.Zeich = "-";
 							Zli3.xco = Zli3.xco + Cwidth(Doc, hl->cfont, chx, hl->csize);
@@ -959,11 +960,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					if (((Doc->docParagraphStyles[absa].textAlignment == 3) || (Doc->docParagraphStyles[absa].textAlignment == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 					{
-						hl->cstyle |= 256;
+						hl->cstyle |= 4096;
 						continue;
 					}
 					else
-						hl->cstyle &= 255;
+						hl->cstyle &= 4095;
 					if (LiList.count() == 0)
 					{
 						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
@@ -1203,13 +1204,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					hl->yp = CurY + oldCurY;
 					if (LiList.count() == 0)
 					{
-						itemText.at(a)->cstyle |= 1024;
+						itemText.at(a)->cstyle |= 16384;
 						kernVal = 0;
 					}
 					else
 					{
 						kernVal = hl->cextra;
-						itemText.at(a)->cstyle &= 1023;
+						itemText.at(a)->cstyle &= 16383;
 					}
 					if (!RTab)
 					{
@@ -1250,6 +1251,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						Zli->Siz = chsd;
 					else
 						Zli->Siz = chs;
+					Zli->realSiz = hl->csize;
 					Zli->Style = hl->cstyle;
 					Zli->ZFo = hl->cfont;
 					Zli->wide = wide;
@@ -1346,7 +1348,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								if (itemText.at(a)->cstyle & 128)
 								{
 									HyphenCount++;
-									itemText.at(a)->cstyle |= 512;
+									itemText.at(a)->cstyle |= 8192;
 									Zli = new ZZ;
 									Zli->Zeich = "-";
 									Zli->Farb = itemText.at(a)->ccolor;
@@ -1357,6 +1359,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->yco = itemText.at(a)->yp;
 									Zli->Sele = itemText.at(a)->cselect;
 									Zli->Siz = itemText.at(a)->csize;
+									Zli->realSiz = itemText.at(a)->csize;
 									Zli->Style = itemText.at(a)->cstyle;
 									Zli->ZFo = itemText.at(a)->cfont;
 									Zli->wide = Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize);
@@ -1368,7 +1371,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								else
 								{
 									HyphenCount = 0;
-									hl->cstyle &= 511;
+									hl->cstyle &= 8191;
 								}
 								BuPos = LastSP+1;
 								if (Doc->docParagraphStyles[absa].textAlignment != 0)
@@ -2134,6 +2137,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				Zli->yco = BaseOffs;
 				Zli->Sele = hl->cselect;
 				Zli->Siz = chs;
+				Zli->realSiz = hl->csize;
 				Zli->Style = hl->cstyle;
 				Zli->ZFo = hl->cfont;
 				Zli->wide = wide;
@@ -2327,7 +2331,7 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 {
 	double retval = 0.0;
 	double asce = hl->cfont->numAscent * (hl->csize / 10.0);
-	int chst = hl->cstyle & 127;
+	int chst = hl->cstyle & 1919;
 	if (chst != 0)
 	{
 		if (chst & 1)
@@ -2339,6 +2343,11 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 		{
 			retval += asce * Doc->typographicSetttings.valueSubScript / 100;
 			*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSetttings.scalingSubScript / 100), 1);
+		}
+		if (chst & 32)
+		{
+			if (chx->upper() != *chx)
+				*chx = chx->upper();
 		}
 		if (chst & 64)
 		{
@@ -2408,18 +2417,18 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
 			{
 				if (Doc->typographicSetttings.valueStrikeThruPos != -1)
-					st = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->ZFo->numAscent * (hl->Siz / 10.0));
+					st = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->ZFo->numAscent * (hl->realSiz / 10.0));
 				else
-					st = hl->ZFo->strikeout_pos * (hl->Siz / 10.0);
+					st = hl->ZFo->strikeout_pos * (hl->realSiz / 10.0);
 				if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
-					lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->Siz / 10.0);
+					lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->realSiz / 10.0);
 				else
-					lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+					lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
 			else
 			{
-				st = hl->ZFo->strikeout_pos * (hl->Siz / 10.0);
-				lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+				st = hl->ZFo->strikeout_pos * (hl->realSiz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
@@ -2431,18 +2440,18 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
 			{
 				if (Doc->typographicSetttings.valueUnderlinePos != -1)
-					st = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->ZFo->numDescender * (hl->Siz / 10.0));
+					st = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->ZFo->numDescender * (hl->realSiz / 10.0));
 				else
-					st = hl->ZFo->underline_pos * (hl->Siz / 10.0);
+					st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
 				if (Doc->typographicSetttings.valueUnderlineWidth != -1)
-					lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->Siz / 10.0);
+					lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->realSiz / 10.0);
 				else
-					lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+					lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
 			else
 			{
-				st = hl->ZFo->underline_pos * (hl->Siz / 10.0);
-				lw = QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0), 1);
+				st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
+				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
@@ -3108,7 +3117,7 @@ void PageItem::setFontEffects(int newEffects)
 		ss->set("NEW_EFFECT", newEffects);
 		undoManager->action(this, ss);
 	}
-	TxTStyle &= ~127;
+	TxTStyle &= ~1919;
 	TxTStyle |= newEffects;
 }
 

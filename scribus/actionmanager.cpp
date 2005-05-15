@@ -194,6 +194,7 @@ void ActionManager::initStyleMenuActions()
 	scrActions->insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Normal"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectNormal", 0));
 	scrActions->insert("typeEffectUnderline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Underline"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectUnderline", 1));
 	scrActions->insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Strike Through"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectStrikeThrough", 2));
+	scrActions->insert("typeEffectAllCaps", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&All Caps"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectAllCaps", 7));
 	scrActions->insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Small &Caps"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSmallCaps", 3));
 	scrActions->insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&perscript"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSuperscript", 4));
 	scrActions->insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&bscript"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSubscript", 5));
@@ -201,6 +202,7 @@ void ActionManager::initStyleMenuActions()
 	(*scrActions)["typeEffectNormal"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderline"]->setToggleAction(true);
 	(*scrActions)["typeEffectStrikeThrough"]->setToggleAction(true);
+	(*scrActions)["typeEffectAllCaps"]->setToggleAction(true);
 	(*scrActions)["typeEffectSmallCaps"]->setToggleAction(true);
 	(*scrActions)["typeEffectSuperscript"]->setToggleAction(true);
 	(*scrActions)["typeEffectSubscript"]->setToggleAction(true);
@@ -209,6 +211,7 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["typeEffectUnderline"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectStrikeThrough"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectSmallCaps"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectAllCaps"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectSuperscript"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectSubscript"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectOutline"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
@@ -771,6 +774,7 @@ void ActionManager::languageChange()
 	(*scrActions)["typeEffectNormal"]->setMenuText(tr("&Normal"));
 	(*scrActions)["typeEffectUnderline"]->setMenuText(tr("&Underline"));
 	(*scrActions)["typeEffectStrikeThrough"]->setMenuText(tr("&Strike Through"));
+	(*scrActions)["typeEffectAllCaps"]->setMenuText(tr("&All Caps"));
 	(*scrActions)["typeEffectSmallCaps"]->setMenuText(tr("Small &Caps"));
 	(*scrActions)["typeEffectSuperscript"]->setMenuText(tr("Su&perscript"));
 	(*scrActions)["typeEffectSubscript"]->setMenuText(tr("Su&bscript"));

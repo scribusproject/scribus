@@ -1416,7 +1416,7 @@ void ScribusApp::setTBvals(PageItem *currItem)
 	if (currItem->itemText.count() != 0)
 	{
 		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.count()-1));
-		doc->CurrentStyle = currItem->itemText.at(ChPos)->cstyle & 127;
+		doc->CurrentStyle = currItem->itemText.at(ChPos)->cstyle & 1919;
 		doc->currentParaStyle = currItem->itemText.at(ChPos)->cab;
 		setAbsValue(doc->currentParaStyle);
 		propertiesPalette->setAli(doc->currentParaStyle);
@@ -2214,10 +2214,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						if ((currItem->CPos > 0) && (currItem->CPos == static_cast<int>(currItem->itemText.count())))
 						{
-							if (currItem->itemText.at(currItem->CPos-1)->cstyle & 256)
+							if (currItem->itemText.at(currItem->CPos-1)->cstyle & 4096)
 							{
 								currItem->CPos -= 1;
-								while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 256))
+								while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 4096))
 								{
 									currItem->CPos--;
 									if (currItem->CPos == 0)
@@ -2227,7 +2227,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 256))
+							while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 4096))
 							{
 								currItem->CPos--;
 								if (currItem->CPos == 0)
@@ -6372,13 +6372,13 @@ void ScribusApp::Aktiv()
 void ScribusApp::setItemTypeStyle(int id)
 {
 	int b = 0;
-
 	if (id == 0)
 	{
 		scrActions["typeEffectNormal"]->setOn(true);
 		scrActions["typeEffectUnderline"]->setOn(false);
 		scrActions["typeEffectStrikeThrough"]->setOn(false);
 		scrActions["typeEffectSmallCaps"]->setOn(false);
+		scrActions["typeEffectAllCaps"]->setOn(false);
 		scrActions["typeEffectSuperscript"]->setOn(false);
 		scrActions["typeEffectSubscript"]->setOn(false);
 		scrActions["typeEffectOutline"]->setOn(false);
@@ -6390,11 +6390,16 @@ void ScribusApp::setItemTypeStyle(int id)
 			scrActions["typeEffectSubscript"]->setOn(false);
 		if (id == 5)
 			scrActions["typeEffectSuperscript"]->setOn(false);
-
+		if (id == 3)
+			scrActions["typeEffectAllCaps"]->setOn(false);
+		if (id == 7)
+			scrActions["typeEffectSmallCaps"]->setOn(false);
 		if (scrActions["typeEffectUnderline"]->isOn())
 			b |= 8;
 		if (scrActions["typeEffectStrikeThrough"]->isOn())
 			b |= 16;
+		if (scrActions["typeEffectAllCaps"]->isOn())
+			b |= 32;
 		if (scrActions["typeEffectSmallCaps"]->isOn())
 			b |= 64;
 		if (scrActions["typeEffectSuperscript"]->isOn())
@@ -6409,7 +6414,7 @@ void ScribusApp::setItemTypeStyle(int id)
 
 void ScribusApp::setStilvalue(int s)
 {
-	int c = s & 127;
+	int c = s & 1919;
 	doc->CurrentStyle = c;
 	scrActions["typeEffectNormal"]->setOn(c==0);
 	scrActions["typeEffectSuperscript"]->setOn(c & 1);
@@ -6417,6 +6422,7 @@ void ScribusApp::setStilvalue(int s)
 	scrActions["typeEffectOutline"]->setOn(c & 4);
 	scrActions["typeEffectUnderline"]->setOn(c & 8);
 	scrActions["typeEffectStrikeThrough"]->setOn(c & 16);
+	scrActions["typeEffectAllCaps"]->setOn(c & 32);
 	scrActions["typeEffectSmallCaps"]->setOn(c & 64);
 	emit TextStil(s);
 }
@@ -7015,9 +7021,9 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
 						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
 							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-						if ((ite->itemText.at(e)->cstyle & 127 ) == doc->docParagraphStyles[cabori].FontEffect)
+						if ((ite->itemText.at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
 						{
-							ite->itemText.at(e)->cstyle &= ~127;
+							ite->itemText.at(e)->cstyle &= ~1919;
 							ite->itemText.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
 						}
 						if (ite->itemText.at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
@@ -7036,7 +7042,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 						ite->itemText.at(e)->cstroke = ite->TxtStroke;
 						ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
 						ite->itemText.at(e)->csize = ite->ISize;
-						ite->itemText.at(e)->cstyle &= ~127;
+						ite->itemText.at(e)->cstyle &= ~1919;
 						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
 					}
 					ite->itemText.at(e)->cab = cabneu;
@@ -7061,9 +7067,9 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
 						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
 							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-						if ((ite->itemText.at(e)->cstyle & 127 ) == doc->docParagraphStyles[cabori].FontEffect)
+						if ((ite->itemText.at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
 						{
-							ite->itemText.at(e)->cstyle &= ~127;
+							ite->itemText.at(e)->cstyle &= ~1919;
 							ite->itemText.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
 						}
 						if (ite->itemText.at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
@@ -7082,7 +7088,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 						ite->itemText.at(e)->cstroke = ite->TxtStroke;
 						ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
 						ite->itemText.at(e)->csize = ite->ISize;
-						ite->itemText.at(e)->cstyle &= ~127;
+						ite->itemText.at(e)->cstyle &= ~1919;
 						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
 					}
 					ite->itemText.at(e)->cab = cabneu;
@@ -7112,9 +7118,9 @@ void ScribusApp::saveStyles(StilFormate *dia)
 								chars->at(e)->cfont = dia->TempVorl[cabneu].Font;
 							if (chars->at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
 								chars->at(e)->csize = dia->TempVorl[cabneu].FontSize;
-							if ((chars->at(e)->cstyle & 127 ) == doc->docParagraphStyles[cabori].FontEffect)
+							if ((chars->at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
 							{
-								chars->at(e)->cstyle &= ~127;
+								chars->at(e)->cstyle &= ~1919;
 								chars->at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
 							}
 							if (chars->at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
@@ -7133,7 +7139,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							chars->at(e)->cstroke = ite->TxtStroke;
 							chars->at(e)->cshade2 = ite->ShTxtStroke;
 							chars->at(e)->csize = ite->ISize;
-							chars->at(e)->cstyle &= ~127;
+							chars->at(e)->cstyle &= ~1919;
 							chars->at(e)->cstyle |= ite->TxTStyle;
 						}
 						chars->at(e)->cab = cabneu;
@@ -9913,7 +9919,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				uint chr = it->itemText.at(e)->ch[0].unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
 					continue;
-				if (it->itemText.at(e)->cstyle & 64)
+				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
 				{
 					chx = it->itemText.at(e)->ch;
 					if (chx.upper() != it->itemText.at(e)->ch)
@@ -9951,7 +9957,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				uint chr = it->itemText.at(e)->ch[0].unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
 					continue;
-				if (it->itemText.at(e)->cstyle & 64)
+				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
 				{
 					chx = it->itemText.at(e)->ch;
 					if (chx.upper() != it->itemText.at(e)->ch)

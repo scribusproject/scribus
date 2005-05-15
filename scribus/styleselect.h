@@ -8,7 +8,7 @@ class QLayout;
 class StyleSelect : public QWidget
 {
 
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	StyleSelect(QWidget* parent);
@@ -23,15 +23,18 @@ signals:
 	void State(int);
 
 protected:
-    QHBoxLayout* ssLayout;
-    QHBoxLayout* buttonGroupLayout;
-    QGroupBox* buttonGroup;
-    QToolButton* underlineButton;
-    QToolButton* subscriptButton;
-    QToolButton* superscriptButton;
-    QToolButton* smallcapsButton;
-    QToolButton* strikeoutButton;
-    QToolButton* outlineButton;
+	QHBoxLayout* ssLayout;
+	QHBoxLayout* buttonGroupLayout;
+	QHBoxLayout* buttonGroup2Layout;
+	QGroupBox* buttonGroup;
+	QGroupBox* buttonGroup2;
+	QToolButton* underlineButton;
+	QToolButton* subscriptButton;
+	QToolButton* superscriptButton;
+	QToolButton* smallcapsButton;
+	QToolButton* allcapsButton;
+	QToolButton* strikeoutButton;
+	QToolButton* outlineButton;
 };
 
 #endif

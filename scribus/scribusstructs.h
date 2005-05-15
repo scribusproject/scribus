@@ -28,6 +28,23 @@ struct ScText
 	short cshade;
 	short cshade2;
 	short cstyle;
+/*	Meaning of the values in cstyle
+	1 			= Superscript
+	2 			= Subscript
+	4 			= Outline
+	8 			= Underline
+	16 		= Strikethru
+	32 		= All Caps
+	64 		= Small Caps
+	128 		= Hypenation possible here (Smart Hyphen)
+	256 	= Shadowed (not implemented yet)
+	512 	= Underline Words (not implemented yet)
+	1024 	= Fake Italic (not implemented yet)
+	2048 	= free, not used in the moment
+	4096 	= internal use in PageItem (Suppresses spaces when in Block alignment)
+	8192 	= Smart Hyphen visible at line end
+	16384	= Start of Line
+*/
 	short cab;
 	short cscale;
 	float cextra;

@@ -2556,7 +2556,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		hl = ite->itemText.at(d);
 		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 			continue;
-		if (hl->cstyle & 256)
+		if (hl->cstyle & 4096)
 			continue;
 		if (ite->itemType() == PageItem::PathText)
 		{
@@ -2608,6 +2608,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		if (GlyphsIdxOfFont[hl->cfont->SCName].contains(cc))
 			idx = GlyphsIdxOfFont[hl->cfont->SCName][cc].Code;
 		uint idx1 = (idx >> 8) & 0xFF;
+		if (hl->cstyle & 32)
+		{
+			if (chx.upper() != chx)
+				chx = chx.upper();
+		}
 		if (hl->cstyle & 64)
 		{
 			if (chx.upper() != chx)
@@ -2704,7 +2709,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					}
 					tmp2 += "s\n";
 				}
-				if (hl->cstyle & 512)
+				if (hl->cstyle & 8192)
 				{
 					int chs = hl->csize;
 					double wtr = Cwidth(doc, hl->cfont, chx, chs);
@@ -2799,7 +2804,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 			if (ite->itemType() != PageItem::PathText)
 			{
-				if (hl->cstyle & 512)
+				if (hl->cstyle & 8192)
 				{
 					int chs = hl->csize;
 					double wtr = Cwidth(doc, hl->cfont, chx, chs);
@@ -2820,25 +2825,25 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		{
 			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 			double Upos, Uwid, kern;
-			if (hl->cstyle & 1024)
+			if (hl->cstyle & 16384)
 				kern = 0;
 			else
 				kern = hl->cextra;
 			if ((doc->typographicSetttings.valueUnderlinePos != -1) || (doc->typographicSetttings.valueUnderlineWidth != -1))
 			{
 				if (doc->typographicSetttings.valueUnderlinePos != -1)
-					Upos = (doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (tsz / 10.0));
+					Upos = (doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
 				else
-					Upos = hl->cfont->underline_pos * (tsz / 10.0);
+					Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
 				if (doc->typographicSetttings.valueUnderlineWidth != -1)
-					Uwid = (doc->typographicSetttings.valueUnderlineWidth / 100.0) * (tsz / 10.0);
+					Uwid = (doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
 				else
-					Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+					Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 			}
 			else
 			{
-				Upos = hl->cfont->underline_pos * (tsz / 10.0);
-				Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+				Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
+				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 			}
 			if (hl->ccolor != "None")
 				tmp2 += putColor(hl->cstroke, hl->cshade, false);
@@ -2851,25 +2856,25 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		{
 			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 			double Upos, Uwid, kern;
-			if (hl->cstyle & 1024)
+			if (hl->cstyle & 16384)
 				kern = 0;
 			else
 				kern = hl->cextra;
 			if ((doc->typographicSetttings.valueStrikeThruPos != -1) || (doc->typographicSetttings.valueStrikeThruWidth != -1))
 			{
 				if (doc->typographicSetttings.valueStrikeThruPos != -1)
-					Upos = (doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (tsz / 10.0));
+					Upos = (doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
 				else
-					Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
+					Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
 				if (doc->typographicSetttings.valueStrikeThruWidth != -1)
-					Uwid = (doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (tsz / 10.0);
+					Uwid = (doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
 				else
-					Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+					Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 			}
 			else
 			{
-				Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
-				Uwid = QMAX(hl->cfont->strokeWidth * (tsz / 10.0), 1);
+				Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
+				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 			}
 			if (hl->ccolor != "None")
 				tmp2 += putColor(hl->cstroke, hl->cshade, false);

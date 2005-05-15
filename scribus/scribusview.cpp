@@ -6565,7 +6565,7 @@ void ScribusView::slotDoCurs(bool draw)
 			offs = QMIN(currItem->CPos-1, static_cast<int>(currItem->itemText.count()-1));
 			if (currItem->CPos < static_cast<int>(currItem->itemText.count()-1))
 			{
-				if (currItem->itemText.at(offs+1)->cstyle & 256)
+				if (currItem->itemText.at(offs+1)->cstyle & 4096)
 				{
 					if (currItem->CPos < static_cast<int>(currItem->itemText.count()-1))
 					currItem->CPos++;
@@ -9974,7 +9974,7 @@ void ScribusView::chTyStyle(int s)
 					{
 						if (currItem->itemText.at(a)->cselect)
 						{
-							currItem->itemText.at(a)->cstyle &= ~127;
+							currItem->itemText.at(a)->cstyle &= ~1919;
 							currItem->itemText.at(a)->cstyle |= s;
 						}
 					}
@@ -9983,7 +9983,7 @@ void ScribusView::chTyStyle(int s)
 				{
 					for (uint a = 0; a < currItem->itemText.count(); ++a)
 					{
-						currItem->itemText.at(a)->cstyle &= ~127;
+						currItem->itemText.at(a)->cstyle &= ~1919;
 						currItem->itemText.at(a)->cstyle |= s;
 					}
 				}
@@ -10039,7 +10039,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					{
 						nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						nextItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
-						nextItem->itemText.at(a)->cstyle &= ~127;
+						nextItem->itemText.at(a)->cstyle &= ~1919;
 						nextItem->itemText.at(a)->cstyle |= Doc->docParagraphStyles[s].FontEffect;
 						nextItem->itemText.at(a)->ccolor = Doc->docParagraphStyles[s].FColor;
 						nextItem->itemText.at(a)->cshade = Doc->docParagraphStyles[s].FShade;
@@ -10055,7 +10055,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
 					nextItem->itemText.at(a)->csize = nextItem->ISize;
 					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->IFont];
-					nextItem->itemText.at(a)->cstyle &= ~127;
+					nextItem->itemText.at(a)->cstyle &= ~1919;
 					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
 				}
 				nextItem->itemText.at(a)->cab = s;
@@ -10083,7 +10083,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					{
 						nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						nextItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
-						nextItem->itemText.at(a)->cstyle &= ~127;
+						nextItem->itemText.at(a)->cstyle &= ~1919;
 						nextItem->itemText.at(a)->cstyle |= Doc->docParagraphStyles[s].FontEffect;
 						nextItem->itemText.at(a)->ccolor = Doc->docParagraphStyles[s].FColor;
 						nextItem->itemText.at(a)->cshade = Doc->docParagraphStyles[s].FShade;
@@ -10099,7 +10099,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
 					nextItem->itemText.at(a)->csize = nextItem->ISize;
 					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->IFont];
-					nextItem->itemText.at(a)->cstyle &= ~127;
+					nextItem->itemText.at(a)->cstyle &= ~1919;
 					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
 				}
 				nextItem->itemText.at(a)->cab = s;
@@ -10139,7 +10139,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					{
 						currItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						currItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
-						currItem->itemText.at(a)->cstyle &= ~127;
+						currItem->itemText.at(a)->cstyle &= ~1919;
 						currItem->itemText.at(a)->cstyle |= Doc->docParagraphStyles[s].FontEffect;
 						currItem->itemText.at(a)->ccolor = Doc->docParagraphStyles[s].FColor;
 						currItem->itemText.at(a)->cshade = Doc->docParagraphStyles[s].FShade;
@@ -10155,7 +10155,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					currItem->itemText.at(a)->cshade2 = currItem->ShTxtStroke;
 					currItem->itemText.at(a)->cfont = (*Doc->AllFonts)[currItem->IFont];
 					currItem->itemText.at(a)->csize = currItem->ISize;
-					currItem->itemText.at(a)->cstyle &= ~127;
+					currItem->itemText.at(a)->cstyle &= ~1919;
 					currItem->itemText.at(a)->cstyle |= currItem->TxTStyle;
 				}
 				currItem->itemText.at(a)->cab = s;
