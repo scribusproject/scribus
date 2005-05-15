@@ -24,6 +24,7 @@
 #include "scraction.h"
 
 class ScribusApp;
+class ScribusQApp;
 class ScribusView;
 class UndoManager;
 /**
@@ -34,7 +35,7 @@ class ActionManager : public QObject
 	Q_OBJECT
 
 	public:
-		ActionManager ( QObject * parent, const char * name );	
+		ActionManager ( QObject * parent, ScribusQApp* application, const char * name );	
 		~ActionManager() {};
 		
 		void createActions();
@@ -69,6 +70,7 @@ class ActionManager : public QObject
 		void initSpecialActions();
 	
 		ScribusApp *ScApp;
+		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
 		QMap<QString, QGuardedPtr<ScrAction> > *scrActions;
 		QDict<QActionGroup> *scrActionGroups;

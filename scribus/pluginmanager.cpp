@@ -57,6 +57,7 @@ void PluginManager::initPlugs()
 
 			if (DLLname(dirList[dc], &pda.name, &pda.type, &pda.index, &id, &pda.actName, &pda.actKeySequence, &pda.actMenu, &pda.actMenuAfterName, &pda.actEnabledOnStartup, pda.loadPlugin))
 			{
+				pda.actMenuText=pda.name;
 				if (ScApp->splashScreen != NULL)
 					ScApp->splashScreen->setStatus(tr(QString("Loading: %1").arg(pda.name), "plugin manager"));
 				if (pda.loadPlugin)

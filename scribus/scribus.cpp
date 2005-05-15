@@ -211,7 +211,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	pluginManager = new PluginManager();
 	initDefaultValues();
 
-	actionManager = new ActionManager(this, "actionManager");
+	actionManager = new ActionManager(this, ScQApp, "actionManager");
 	initMenuBar();
 	initStatusBar();
 	initToolBars();

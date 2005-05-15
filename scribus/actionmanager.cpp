@@ -17,13 +17,15 @@
 #include "actionmanager.moc"
 
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusview.h"
 #include "undomanager.h"
 #include "pluginmanager.h"
 
-ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name ) 
+ActionManager::ActionManager ( QObject * parent, ScribusQApp* application, const char * name ) : QObject ( parent, name ) 
 {
 	ScApp=(ScribusApp *)parent;
+	ScQApp=application;
 	scrActions=&(ScApp->scrActions);
 	scrActionGroups=&(ScApp->scrActionGroups);
 	modeActionNames=new QStringList();
@@ -191,14 +193,14 @@ void ActionManager::initStyleMenuActions()
 
 	//Type Effects actions
 	scrActionGroups->insert("typeEffects", new QActionGroup(ScApp, "typeEffects", false));
-	scrActions->insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Normal"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectNormal", 0));
-	scrActions->insert("typeEffectUnderline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Underline"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectUnderline", 1));
-	scrActions->insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Strike Through"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectStrikeThrough", 2));
-	scrActions->insert("typeEffectAllCaps", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&All Caps"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectAllCaps", 7));
-	scrActions->insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Small &Caps"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSmallCaps", 3));
-	scrActions->insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&perscript"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSuperscript", 4));
-	scrActions->insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&bscript"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSubscript", 5));
-	scrActions->insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Outline"), QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectOutline", 6));
+	scrActions->insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectNormal", 0));
+	scrActions->insert("typeEffectUnderline", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectUnderline", 1));
+	scrActions->insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectStrikeThrough", 2));
+	scrActions->insert("typeEffectAllCaps", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectAllCaps", 7));
+	scrActions->insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSmallCaps", 3));
+	scrActions->insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSuperscript", 4));
+	scrActions->insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSubscript", 5));
+	scrActions->insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectOutline", 6));
 	(*scrActions)["typeEffectNormal"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderline"]->setToggleAction(true);
 	(*scrActions)["typeEffectStrikeThrough"]->setToggleAction(true);
@@ -943,7 +945,12 @@ void ActionManager::languageChange()
 	(*scrActions)["specialToggleAllPalettes"]->setMenuText(tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setMenuText(tr("Toggle Guides"));
 	
-	//qDebug(ScApp->pluginManager->pluginMap[7].name);
-//	if ((ScrAction*)((*scrActions)["SaveAsDocumentTemplate"])!=NULL)
-//		(*scrActions)["SaveAsDocumentTemplate"]->setMenuText(ScApp->pluginManager->pluginMap[7].name);
+	//Plugun menu items
+	for (QMap<int, PluginManager::PluginData>::Iterator it = ScApp->pluginManager->pluginMap.begin(); it != ScApp->pluginManager->pluginMap.end(); ++it)
+	{
+		QString fromTranslator=ScQApp->translate(NULL, (*it).actMenuText);
+		ScrAction* pluginAction=(ScrAction*)((*scrActions)[(*it).actName]);
+		if (pluginAction!=NULL)
+			pluginAction->setMenuText(fromTranslator);
+	}
 }

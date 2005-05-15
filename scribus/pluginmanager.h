@@ -52,6 +52,7 @@ public:
 		PluginType type;
 		int menuID;
 		QString actName;
+		QString actMenuText;
 		QString actKeySequence;
 		QString actMenu;
 		QString actMenuAfterName;
