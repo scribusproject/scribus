@@ -138,13 +138,14 @@ void ScriXmlDoc::GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *O
 		OB->GrStartY = QStodouble(obj->attribute("GRSTARTY","0.0"));
 		OB->GrEndX = QStodouble(obj->attribute("GRENDX","0.0"));
 		OB->GrEndY = QStodouble(obj->attribute("GRENDY","0.0"));
-		OB->GrColor = obj->attribute("GRCOLOR","");
-		if (OB->GrColor != "")
-		{
-			OB->GrColor2 = obj->attribute("GRCOLOR2","");
-			OB->GrShade = QStoInt(obj->attribute("GRSHADE","100"));
-			OB->GrShade2 = QStoInt(obj->attribute("GRSHADE2","100"));
-		}
+		OB->GrColor = obj->attribute("GRCOLOR","Black");
+		if (OB->GrColor == "")
+			OB->GrColor = "Black";
+		OB->GrColor2 = obj->attribute("GRCOLOR2","Black");
+		if (OB->GrColor2 == "")
+			OB->GrColor2 = "Black";
+		OB->GrShade = QStoInt(obj->attribute("GRSHADE","100"));
+		OB->GrShade2 = QStoInt(obj->attribute("GRSHADE2","100"));
 	}
 	OB->Rot=QStodouble(obj->attribute("ROT"));
 	OB->PLineArt=Qt::PenStyle(QStoInt(obj->attribute("PLINEART")));
@@ -1118,6 +1119,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						int shade = QStoInt(it.attribute("SHADE","100"));
 						double opa = QStodouble(it.attribute("TRANS","1"));
 						OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
+						OB.GrColor = "";
+						OB.GrColor2 = "";
 					}
 					if (it.tagName()=="ITEXT")
 						tmp += GetItemText(&it, doc, view->Prefs, VorLFound, true);
@@ -1609,6 +1612,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							double ramp = QStodouble(it.attribute("RAMP","0.0"));
 							int shade = QStoInt(it.attribute("SHADE","100"));
 							double opa = QStodouble(it.attribute("TRANS","1"));
+							OB.GrColor = "";
+							OB.GrColor2 = "";
 							OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
@@ -2027,6 +2032,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					double ramp = QStodouble(it.attribute("RAMP","0.0"));
 					int shade = QStoInt(it.attribute("SHADE","100"));
 					double opa = QStodouble(it.attribute("TRANS","1"));
+					OB.GrColor = "";
+					OB.GrColor2 = "";
 					OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
 				}
 				if (it.tagName()=="ITEXT")
