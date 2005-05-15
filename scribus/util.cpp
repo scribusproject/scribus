@@ -1371,12 +1371,13 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 		OB->GrEndX = QStodouble(obj->attribute("GRENDX","0.0"));
 		OB->GrEndY = QStodouble(obj->attribute("GRENDY","0.0"));
 		OB->GrColor = obj->attribute("GRCOLOR","");
-		if (OB->GrColor != "")
-		{
-			OB->GrColor2 = obj->attribute("GRCOLOR2","");
-			OB->GrShade = QStoInt(obj->attribute("GRSHADE","100"));
-			OB->GrShade2 = QStoInt(obj->attribute("GRSHADE2","100"));
-		}
+		if (OB->GrColor == "")
+			OB->GrColor = "Black";
+		OB->GrColor2 = obj->attribute("GRCOLOR2","Black");
+		if (OB->GrColor2 == "")
+			OB->GrColor2 = "Black";
+		OB->GrShade = QStoInt(obj->attribute("GRSHADE","100"));
+		OB->GrShade2 = QStoInt(obj->attribute("GRSHADE2","100"));
 	}
 	OB->Rot=QStodouble(obj->attribute("ROT"));
 	OB->PLineArt=Qt::PenStyle(QStoInt(obj->attribute("PLINEART")));
