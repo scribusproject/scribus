@@ -1272,7 +1272,7 @@ void Annot::GetRIcon()
 
 void Annot::SelectFelder()
 {
-	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->itemName(), &view->Doc->Pages, 3);
+	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->itemName(), view->Doc, 3);
 	if (dia->exec())
 		CalcFields->setText(dia->S_Fields);
 	delete dia;

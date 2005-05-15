@@ -86,7 +86,6 @@ class Mpalette : public ScrPaletteBase
 public:
 	Mpalette(QWidget* parent, ApplicationPrefs *Prefs);
 	~Mpalette() {};
-	void ToggleFlow();
 	void updateCList();
 	void updateCmsList();
 	void ShowCMS();
@@ -155,7 +154,7 @@ public:
 	QGroupBox* GroupBox3;
 	QGroupBox* GroupBox3a;
 
-	QCheckBox* textFlowsAroundFrame;
+	QButtonGroup* textFlowsAroundFrame;
 	QCheckBox* textFlowUsesBoundingBox;
 	QCheckBox* Textflow3;
 	QCheckBox* Aspect;
@@ -332,9 +331,7 @@ private slots:
 	void DoFront();
 	void DoBack();
 	void NewRotMode(int m);
-	void DoFlow();
-	void DoFlow2();
-	void DoFlow3();
+	void DoFlow(int id);
 	void MakeIrre(int f, int c, double *vals);
 	void EditSh();
 	void NewTDist();
@@ -406,6 +403,7 @@ protected:
 	QGridLayout* GroupBox3Layout;
 	QGridLayout* GroupBox3aLayout;
 	QVBoxLayout* GroupBoxCMLayout;
+	QVBoxLayout* textFlowsAroundFrameLayout;
 	QHBoxLayout* layout22;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;

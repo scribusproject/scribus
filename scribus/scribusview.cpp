@@ -5250,7 +5250,7 @@ void ScribusView::MirrorPolyH()
 		ma.translate(qRound(tp.x()), 0);
 		ma.scale(-1, 1);
 		currItem->ContourLine.map(ma);
-		RefreshItem(currItem);
+		updateContents();
 		currItem->FrameOnly = true;
 		currItem->Tinput = true;
 		currItem->paintObj();
@@ -5297,7 +5297,7 @@ void ScribusView::MirrorPolyV()
 		ma.translate(0, qRound(tp.y()));
 		ma.scale(1, -1);
 		currItem->ContourLine.map(ma);
-		RefreshItem(currItem);
+		updateContents();
 		currItem->FrameOnly = true;
 		currItem->Tinput = true;
 		currItem->paintObj();
@@ -5364,7 +5364,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		}
 		currItem->ContourLine.map(ma);
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
-		RefreshItem(currItem);
+		updateContents();
 		currItem->FrameOnly = true;
 		currItem->Tinput = true;
 		currItem->paintObj();
@@ -5487,7 +5487,7 @@ void ScribusView::Reset1Control()
 	if (EditContour)
 	{
 		currItem->ContourLine.setPoint(ClRe, np);
-		RefreshItem(currItem);
+		updateContents();
 		currItem->FrameOnly = true;
 		currItem->Tinput = true;
 		currItem->paintObj();
@@ -5536,7 +5536,7 @@ void ScribusView::ResetControl()
 		AdjustItemSize(currItem);
 	else
 	{
-		RefreshItem(currItem);
+		updateContents();
 		currItem->FrameOnly = true;
 		currItem->Tinput = true;
 		currItem->paintObj();
@@ -5702,7 +5702,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 			AdjustItemSize(currItem);
 		else
 		{
-			RefreshItem(currItem);
+			updateContents();
 			currItem->FrameOnly = true;
 			currItem->Tinput = true;
 			currItem->paintObj();

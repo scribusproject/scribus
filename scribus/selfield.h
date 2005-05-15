@@ -11,21 +11,21 @@
 #include "scribusview.h"
 
 class SelectFields : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    SelectFields( QWidget* parent, QString Felder, QString Own, QPtrList<Page> *Seiten, int Art);
-    ~SelectFields() {};
+	SelectFields( QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art);
+	~SelectFields() {};
 
-    QLabel* Text1;
-    QListBox* AvailFields;
-    QPushButton* ToSel;
-    QPushButton* FromSel;
-    QLabel* Text2;
-    QListBox* SelFields;
-    QPushButton* OK;
-    QPushButton* Cancel;
+	QLabel* Text1;
+	QListBox* AvailFields;
+	QPushButton* ToSel;
+	QPushButton* FromSel;
+	QLabel* Text2;
+	QListBox* SelFields;
+	QPushButton* OK;
+	QPushButton* Cancel;
 	QString S_Fields;
 	int FTyp;
 
@@ -37,12 +37,12 @@ public slots:
 	void SelEField(QListBoxItem *c);
 
 protected:
-    QVBoxLayout* SelectFieldsLayout;
-    QHBoxLayout* Layout5;
-    QVBoxLayout* Layout1;
-    QVBoxLayout* Layout2;
-    QVBoxLayout* Layout3;
-    QHBoxLayout* Layout4;
+	QVBoxLayout* SelectFieldsLayout;
+	QHBoxLayout* Layout5;
+	QVBoxLayout* Layout1;
+	QVBoxLayout* Layout2;
+	QVBoxLayout* Layout3;
+	QHBoxLayout* Layout4;
 };
 
 #endif // SELECTFIELDS_H

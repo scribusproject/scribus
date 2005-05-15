@@ -417,15 +417,19 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	pageLayout_2->addWidget( TabStack2 );
 
-	textFlowsAroundFrame = new QCheckBox( page_2, "textFlowsAroundFrame" );
-	textFlowsAroundFrame->setText( tr( "Text &Flows Around Frame" ) );
+	textFlowsAroundFrame = new QButtonGroup( page_2, "textFlowsAroundFrame" );
+	textFlowsAroundFrame->setTitle( tr( "Text &Flows Around Frame" ) );
+	textFlowsAroundFrame->setColumnLayout(0, Qt::Vertical );
+	textFlowsAroundFrame->layout()->setSpacing( 5 );
+	textFlowsAroundFrame->layout()->setMargin( 10 );
+	textFlowsAroundFrameLayout = new QVBoxLayout( textFlowsAroundFrame->layout() );
+	textFlowsAroundFrameLayout->setAlignment( Qt::AlignTop );
+	textFlowsAroundFrame->setCheckable( true );
+	textFlowUsesBoundingBox = new QCheckBox( tr( "Use &Bounding Box" ), textFlowsAroundFrame, "textFlowUsesBoundingBox" );
+	textFlowsAroundFrameLayout->addWidget( textFlowUsesBoundingBox );
+	Textflow3 = new QCheckBox( tr( "&Use Contour Line" ), textFlowsAroundFrame, "Textflow3" );
+	textFlowsAroundFrameLayout->addWidget( Textflow3 );
 	pageLayout_2->addWidget( textFlowsAroundFrame );
-	textFlowUsesBoundingBox = new QCheckBox( page_2, "textFlowUsesBoundingBox" );
-	textFlowUsesBoundingBox->setText( tr( "Use &Bounding Box" ) );
-	pageLayout_2->addWidget( textFlowUsesBoundingBox );
-	Textflow3 = new QCheckBox( page_2, "Textflow3" );
-	Textflow3->setText( tr( "&Use Contour Line" ) );
-	pageLayout_2->addWidget( Textflow3 );
 
 	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_2->addItem( spacer6 );
@@ -830,9 +834,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(ZTop, SIGNAL(clicked()), this, SLOT(DoFront()));
 	connect(ZBottom, SIGNAL(clicked()), this, SLOT(DoBack()));
 	connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
-	connect(textFlowsAroundFrame, SIGNAL(clicked()), this, SLOT(DoFlow()));
-	connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
+	connect(textFlowsAroundFrame, SIGNAL(clicked(int)), this, SLOT(DoFlow(int)));
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
 	connect(dGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
@@ -1013,20 +1015,15 @@ void Mpalette::SetCurItem(PageItem *i)
 	DBottom->setValue(i->BExtra*Umrech);
 	DRight->setValue(i->RExtra*Umrech);
 	Revert->setOn(i->Reverse);
-	disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-	disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
 	Textflow3->setChecked(i->textFlowUsesContourLine());
-	connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 	FlipH->setOn(i->imageFlippedH());
 	FlipV->setOn(i->imageFlippedV());
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
-	ToggleFlow();
 	langCombo->setCurrentText(ScApp->LangTransl[i->Language]);
 	bool setter;
 	if (i->NamedLStyle == "")
@@ -1211,10 +1208,6 @@ void Mpalette::NewSel(int nr)
 		visID = TabStack->currentIndex ();
 		TabStack->item(0)->setEnabled(true);
 		TabStack->setItemEnabled(0, true);
-		TabStack->setItemEnabled(1, false);
-		TabStack->setItemEnabled(2, false);
-		TabStack->setItemEnabled(3, false);
-		TabStack->setItemEnabled(4, false);
 		TabStack->setItemEnabled(5, true);
 		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
@@ -1247,6 +1240,7 @@ void Mpalette::NewSel(int nr)
 			break;
 		case 2:
 			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(2, false);
 			TabStack->setItemEnabled(3, true);
 			TabStack->setItemEnabled(4, true);
 			FlipH->setEnabled(true);
@@ -1257,13 +1251,12 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			if (visID == 2)
 				TabStack->setCurrentIndex(0);
-			else
-				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 4:
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, true);
+			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
@@ -1274,11 +1267,12 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			if (visID == 3)
 				TabStack->setCurrentIndex(0);
-			else
-				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 5:
+			TabStack->setItemEnabled(1, false);
+			TabStack->setItemEnabled(2, false);
+			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			LineMode->setEnabled(true);
 			TopLeft->setEnabled(false);
@@ -1288,14 +1282,14 @@ void Mpalette::NewSel(int nr)
 			Center->setEnabled(false);
 			if ((visID == 1) || (visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
-			else
-				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 1:
 		case 3:
 		case 6:
 			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(2, false);
+			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			ShapeGroup->setEnabled(true);
 			EditShape->setEnabled(true);
@@ -1305,31 +1299,28 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
-			else
-				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 7:
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
 			TabStack->setItemEnabled(1, true);
+			TabStack->setItemEnabled(2, false);
+			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
-			else
-				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		case 8:
 			TabStack->setItemEnabled(1, true);
 			TabStack->setItemEnabled(2, true);
+			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
 			if (visID == 3)
 				TabStack->setCurrentIndex(0);
-			else
-				TabStack->setCurrentIndex(visID);
 			HaveItem = true;
 			break;
 		}
@@ -2587,52 +2578,38 @@ void Mpalette::NewRotMode(int m)
 	}
 }
 
-void Mpalette::DoFlow()
+void Mpalette::DoFlow(int id)
 {
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->setTextFlowsAroundFrame(textFlowsAroundFrame->isChecked());
+		switch (id)
+		{
+			case 0:
+				CurItem->setTextFlowsAroundFrame(textFlowsAroundFrame->isChecked());
+				textFlowUsesBoundingBox->setChecked(CurItem->textFlowUsesBoundingBox());
+				Textflow3->setChecked(CurItem->textFlowUsesContourLine());
+				break;
+			case 1:
+				CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
+				if (textFlowUsesBoundingBox->isChecked())
+				{
+					Textflow3->setChecked(!textFlowUsesBoundingBox->isChecked());
+					CurItem->setTextFlowUsesContourLine(Textflow3->isChecked());
+				}
+				break;
+			case 2:
+				CurItem->setTextFlowUsesContourLine(Textflow3->isChecked());
+				if (Textflow3->isChecked())
+				{
+					textFlowUsesBoundingBox->setChecked(!Textflow3->isChecked());
+					CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
+				}
+				break;
+		}
 		ScApp->view->DrawNew();
 		emit DocChanged();
-		ToggleFlow();
-	}
-}
-
-void Mpalette::DoFlow2()
-{
-	if (ScApp->ScriptRunning)
-		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-		CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
-		if (CurItem->textFlowUsesBoundingBox())
-			Textflow3->setChecked(false);
-		ScApp->view->DrawNew();
-		emit DocChanged();
-		connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-	}
-}
-
-void Mpalette::DoFlow3()
-{
-	if (ScApp->ScriptRunning)
-		return;
-	if ((HaveDoc) && (HaveItem))
-	{
-		disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-		CurItem->setTextFlowUsesContourLine(Textflow3->isChecked());
-		if (CurItem->textFlowUsesContourLine())
-			textFlowUsesBoundingBox->setChecked(false);
-		ScApp->view->DrawNew();
-		emit DocChanged();
-		connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	}
 }
 
@@ -3082,12 +3059,6 @@ void Mpalette::handleResize()
 		if (ScApp->view->SelItem.count() > 1)
 			ScApp->view->undoManager->commit();
 	}
-}
-
-void Mpalette::ToggleFlow()
-{
-	textFlowUsesBoundingBox->setEnabled(textFlowsAroundFrame->isChecked());
-	Textflow3->setEnabled(textFlowsAroundFrame->isChecked());
 }
 
 void Mpalette::handlePathLine()
