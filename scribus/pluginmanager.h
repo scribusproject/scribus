@@ -101,6 +101,7 @@ public:
 public slots:
 	/*! obsolete */
 	void callDLLBySlot(int pluginID);
+	void languageChange();
 
 private:
 	/** \brief Configuration structure */

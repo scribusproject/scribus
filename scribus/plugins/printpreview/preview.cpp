@@ -44,7 +44,7 @@ QWidget* par;
  */
 QString name()
 {
-	return QObject::tr("Print Preview");
+	return QObject::tr("Print Previe&w");
 }
 
 /*!

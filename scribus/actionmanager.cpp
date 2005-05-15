@@ -17,15 +17,13 @@
 #include "actionmanager.moc"
 
 #include "scribus.h"
-#include "scribusapp.h"
 #include "scribusview.h"
 #include "undomanager.h"
 #include "pluginmanager.h"
 
-ActionManager::ActionManager ( QObject * parent, ScribusQApp* application, const char * name ) : QObject ( parent, name ) 
+ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name ) 
 {
 	ScApp=(ScribusApp *)parent;
-	ScQApp=application;
 	scrActions=&(ScApp->scrActions);
 	scrActionGroups=&(ScApp->scrActionGroups);
 	modeActionNames=new QStringList();
@@ -946,11 +944,5 @@ void ActionManager::languageChange()
 	(*scrActions)["specialToggleAllGuides"]->setMenuText(tr("Toggle Guides"));
 	
 	//Plugun menu items
-	for (QMap<int, PluginManager::PluginData>::Iterator it = ScApp->pluginManager->pluginMap.begin(); it != ScApp->pluginManager->pluginMap.end(); ++it)
-	{
-		QString fromTranslator=ScQApp->translate(NULL, (*it).actMenuText);
-		ScrAction* pluginAction=(ScrAction*)((*scrActions)[(*it).actName]);
-		if (pluginAction!=NULL)
-			pluginAction->setMenuText(fromTranslator);
-	}
+	ScApp->pluginManager->languageChange();
 }

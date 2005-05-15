@@ -35,7 +35,7 @@ class ActionManager : public QObject
 	Q_OBJECT
 
 	public:
-		ActionManager ( QObject * parent, ScribusQApp* application, const char * name );	
+		ActionManager ( QObject * parent, const char * name );	
 		~ActionManager() {};
 		
 		void createActions();

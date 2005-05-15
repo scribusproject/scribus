@@ -3,6 +3,7 @@
 #include <dlfcn.h>
 #include <qdir.h>
 #include "scribus.h"
+#include "scribusapp.h"
 #include "menumanager.h"
 #include "scraction.h"
 #include "splash.h"
@@ -12,6 +13,7 @@
 #include "scpaths.h"
 
 extern ScribusApp *ScApp;
+extern ScribusQApp *ScQApp;
 extern PrefsFile *prefsFile;
 
 
@@ -354,4 +356,15 @@ QCString PluginManager::platformDllExtension()
 	// Generic *NIX
 	return "so";
 #endif
+}
+
+void PluginManager::languageChange()
+{
+	for (QMap<int, PluginData>::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	{
+		QString fromTranslator=ScQApp->translate("QObject", (*it).actMenuText);
+		ScrAction* pluginAction=ScApp->scrActions[(*it).actName];
+		if (pluginAction!=NULL)
+			pluginAction->setMenuText(fromTranslator);
+	}
 }
