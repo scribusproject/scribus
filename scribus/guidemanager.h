@@ -13,7 +13,6 @@
 #include <qhbuttongroup.h>
 
 #include "mspinbox.h"
-#include "page.h"
 
 
 class GuideManager : public QDialog
@@ -67,7 +66,13 @@ private:
 	QCheckBox* Lock;
 
 	QPushButton* OK;
-	QPushButton* Cancel;
+	//QPushButton* Cancel;
+
+	/*! Guide Gap widgets */
+	QCheckBox* useRowGap;
+	QCheckBox* useColGap;
+	QSpinBox* rowGap;
+	QSpinBox* colGap;
 
 	void UnitChange();
 
@@ -78,6 +83,8 @@ private:
 	QHBoxLayout* Layout8;
 	QHBoxLayout* Layout9;
 	QHBoxLayout* Layout10;
+	QHBoxLayout* hGapLayout;
+	QHBoxLayout* vGapLayout;
 
 
 	QVBoxLayout* GuideManagerLayout;
@@ -93,6 +100,21 @@ private:
 	QHBoxLayout* Layout5;
 
 	double docUnitRatio;
+
+	/*! Calculates the row position of the guide.
+	\param iter position in the sequence
+	\param offset an offset
+	\param spacing space between the guides
+	\param gap optional space between twoo gapped guides
+	*/
+	void addRowGap(int iter, double offset, double spacing, double gap);
+	/*! Calculates the row position of the guide.
+	\param iter position in the sequence
+	\param offset an offset
+	\param spacing space between the guides
+	\param gap optional space between twoo gapped guides
+	*/
+	void addColGap(int iter, double offset, double spacing, double gap);
 
 private slots:
 
@@ -111,6 +133,13 @@ private slots:
 	void ChangeVerVal();
 	void AddRows();
 	void AddCols();
+
+	/*! Gap related widget handling (enable/disable)
+	\param state enable/disable gaps */
+	void useRowGap_clicked(bool state);
+	/*! Gap related widget handling (enable/disable)
+	\param state enable/disable gaps */
+	void useColGap_clicked(bool state);
 };
 
 #endif // GUIDEMANAGER_H

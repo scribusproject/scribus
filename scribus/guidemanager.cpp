@@ -40,13 +40,12 @@
  * - added the esc key
  ***************************************************************************/
 
-
-#include <qradiobutton.h>
 #include "scribus.h"
 #include "guidemanager.h"
 #include "guidemanager.moc"
 
 #include "units.h"
+#include <qradiobutton.h>
 
 
 extern ScribusApp *ScApp;
@@ -191,9 +190,9 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	GuideManagerLayout->addLayout(Layout6);
 
-
 	Layout7 = new QHBoxLayout(0, 0, 6, "Layout7");
 
+	// auto guides
 	QGroupBox *HorGroup2 = new QGroupBox(this, "HorGroup");
 	HorGroup2->setTitle( tr("Rows and Columns"));
 	HorGroup2->setColumnLayout(0, Qt::Vertical);
@@ -201,6 +200,14 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	HorGroup2->layout()->setMargin(11);
 	QVBoxLayout *HorGroupLayout2 = new QVBoxLayout(HorGroup2->layout());
 	HorGroupLayout2->setAlignment(Qt::AlignTop);
+
+	QHBoxLayout *rGapLayout = new QHBoxLayout(0, 0, 6, "rGapLayout");
+	useRowGap = new QCheckBox(tr("Use Row Gap"), HorGroup2, "useRowGap");
+	useRowGap->setChecked(false);
+	rowGap = new QSpinBox(1, 100, 1, HorGroup2, "rowGap");
+	rowGap->setEnabled(false);
+	rGapLayout->addWidget(useRowGap);
+	rGapLayout->addWidget(rowGap);
 
 	Layout8 = new QHBoxLayout(0, 0, 6, "Layout8");
 	QLabel *TextLabel8 = new QLabel(tr("&Rows:"), HorGroup2, "TextLabel8");
@@ -213,6 +220,14 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	QPushButton *RowSet = new QPushButton( tr( "&Create" ), HorGroup2, "RowSet");
 	RowSet->setAutoDefault(false);
 	Layout8->addWidget(RowSet);
+
+	QHBoxLayout *cGapLayout = new QHBoxLayout(0, 0, 6, "rGapLayout");
+	useColGap = new QCheckBox(tr("Use Column Gap"), HorGroup2, "useColGap");
+	useColGap->setChecked(false);
+	colGap = new QSpinBox(1, 100, 1, HorGroup2, "rowGap");
+	colGap->setEnabled(false);
+	cGapLayout->addWidget(useColGap);
+	cGapLayout->addWidget(colGap);
 
 	Layout9 = new QHBoxLayout(0, 0, 6, "Layout9");
 	QLabel *TextLabel9 = new QLabel(tr("C&olumns:"), HorGroup2, "TextLabel9");
@@ -242,7 +257,9 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	Layout10->addItem(spacer2);
 
 	Layout7->addWidget(HorGroup2);
+	HorGroupLayout2->addLayout(rGapLayout);
 	HorGroupLayout2->addLayout(Layout8);
+	HorGroupLayout2->addLayout(cGapLayout);
 	HorGroupLayout2->addLayout(Layout9);
 	HorGroupLayout2->addLayout(Layout10);
 
@@ -259,10 +276,10 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	OK = new QPushButton( tr( "&OK" ), this, "OK");
 	OK->setAutoDefault(false);
 	Layout5->addWidget(OK );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel");
-	Cancel->setAccel(QKeySequence("Esc"));
-	Layout5->addWidget(Cancel);
-	Cancel->setAutoDefault(false);
+	//Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel");
+	//Cancel->setAccel(QKeySequence("Esc"));
+	//Layout5->addWidget(Cancel);
+	//Cancel->setAutoDefault(false);
 
 	GuideManagerLayout->addLayout(Layout5);
 
@@ -270,8 +287,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	UnitChange();
 
 	// Create signals and slots connections
-	connect( OK, SIGNAL(clicked()), this, SLOT(accept() ));
-	connect( Cancel, SIGNAL(clicked()), this, SLOT(reject()));
+	connect( OK, SIGNAL(clicked()), this, SLOT(accept()));
+	//connect( Cancel, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
 	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
 	connect(HorSet, SIGNAL(clicked()), this, SLOT(AddHorVal()));
@@ -284,6 +301,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	connect(VerDel, SIGNAL(clicked()), this, SLOT(DelVerVal()));
 	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
 	connect(Lock, SIGNAL(clicked()), this, SLOT(HandleLock()));
+	connect(useRowGap, SIGNAL(toggled(bool)), this, SLOT(useRowGap_clicked(bool)));
+	connect(useColGap, SIGNAL(toggled(bool)), this, SLOT(useColGap_clicked(bool)));
 
 	UpdateHorList();
 	UpdateVerList();
@@ -359,6 +378,34 @@ void GuideManager::AddHorVal()
 	HorSpin->selectAll();
 }
 
+void GuideManager::addRowGap(int iter, double offset, double spacing, double gap)
+{
+	int n = static_cast<int>(LocHor.count());
+	int m = n;
+	double curHor = offset + spacing * iter + gap;
+
+	if (LocHor.contains(curHor) || curHor < 0 || curHor > LocPageHeight)
+		return;
+
+	for (int i = n - 1; i > 0; i--)
+		if (curHor < LocHor[i - 1])
+			m = i;
+
+	int selHor = m - 1;
+
+	if (m == n)
+	{
+		LocHor.append(curHor);
+		selHor = m - 1;
+	}
+	else
+	{
+		QValueList<double>::Iterator it;
+		it = LocHor.at(selHor);
+		LocHor.insert(it, curHor);
+	}
+}
+
 void GuideManager::AddRows()
 {
 	int n = QString(RowSpin->text()).toInt();
@@ -372,41 +419,51 @@ void GuideManager::AddRows()
 	}
 	else if (BGroup->selectedId() == 2)
 	{
-		offset=gy;
-		NewPageHeight=gh;
+		offset = gy;
+		NewPageHeight = gh;
 	}
 
 	double spacing = NewPageHeight / n;
-	int selHor = 0;
-	QValueList<double>::Iterator it;
 
-	for (int i=1;i<n;i++)
+	for (int i = 1; i < n; ++i)
 	{
-		int n = static_cast<int>(LocHor.count());
-		int m = n;
-		double curHor = offset + spacing * i;
-
-		if (LocHor.contains(curHor) || curHor < 0 || curHor > LocPageHeight)
-			continue;
-
-		for (int i = n - 1; i > 0; i--)
-			if (curHor < LocHor[i - 1])
-				m = i;
-
-		selHor = m - 1;
-
-		if (m == n)
+		if (useRowGap->isChecked())
 		{
-			LocHor.append(curHor);
-			selHor = m - 1;
+			addRowGap(i, offset, spacing, rowGap->value() / 2);
+			addRowGap(i, offset, spacing, -rowGap->value() / 2);
 		}
 		else
-		{
-			it = LocHor.at(selHor);
-			LocHor.insert(it,curHor);
-		}
+			addRowGap(i, offset, spacing, 0.0);
 	}
 	UpdateHorList();
+}
+
+void GuideManager::addColGap(int iter, double offset, double spacing, double gap)
+{
+	int n = static_cast<int>(LocVer.count());
+	int m = n;
+	double curVer = offset + spacing * iter + gap;
+
+	if (LocVer.contains(curVer) || curVer < 0 || curVer > LocPageWidth)
+		return;
+
+	for (int i = n - 1; i > 0; --i)
+		if (curVer < LocVer[i - 1])
+			m = i;
+
+	selVer = m - 1;
+
+	if (m == n)
+	{
+		LocVer.append(curVer);
+		selVer = m - 1;
+	}
+	else
+	{
+		QValueList<double>::Iterator it;
+		it = LocVer.at(selVer);
+		LocVer.insert(it, curVer);
+	}
 }
 
 void GuideManager::AddCols()
@@ -418,8 +475,8 @@ void GuideManager::AddCols()
 
 	if (BGroup->selectedId() == 1)
 	{
-		NewPageWidth=LocPageWidth-LocLeft-LocRight;
-		offset=LocLeft;
+		NewPageWidth = LocPageWidth - LocLeft - LocRight;
+		offset = LocLeft;
 	}
 	else if (BGroup->selectedId() == 2)
 	{
@@ -427,35 +484,17 @@ void GuideManager::AddCols()
 		NewPageWidth = gw;
 	}
 
-	double spacing = NewPageWidth/n;
-	int selVer = 0;
-	QValueList<double>::Iterator it;
+	double spacing = NewPageWidth / n;
 
-	for (int i=1;i<n;i++)
+	for (int i = 1; i < n; ++i)
 	{
-		int n = static_cast<int>(LocVer.count());
-		int m = n;
-		double curVer = offset + spacing * i;
-
-		if (LocVer.contains(curVer) || curVer < 0 || curVer > LocPageWidth)
-			continue;
-
-		for (int i = n - 1; i > 0; i--)
-			if (curVer < LocVer[i - 1])
-				m = i;
-
-		selVer = m - 1;
-
-		if (m == n)
+		if (useColGap->isChecked())
 		{
-			LocVer.append(curVer);
-			selVer = m - 1;
+			addColGap(i, offset, spacing, colGap->value() / 2);
+			addColGap(i, offset, spacing, -colGap->value() / 2);
 		}
 		else
-		{
-			it = LocVer.at(selVer);
-			LocVer.insert(it,curVer);
-		}
+			addColGap(i, offset, spacing, 0.0);
 	}
 	UpdateVerList();
 }
@@ -638,4 +677,14 @@ void GuideManager::refreshDoc()
 	ScApp->doc->currentPage->addYGuides(LocHor);
 	ScApp->doc->lockGuides(LocLocked);
 	ScApp->view->DrawNew();
+}
+
+void GuideManager::useRowGap_clicked(bool state)
+{
+	rowGap->setEnabled(state);
+}
+
+void GuideManager::useColGap_clicked(bool state)
+{
+	colGap->setEnabled(state);
 }
