@@ -78,6 +78,7 @@ public slots:
 	void slotAddPage(uint Nr);
 	void slotSelect(QListViewItem* ite);
 	void BuildTree(ScribusDoc *doc);
+	void languageChange();
 
 signals:
 	void ToggleAllPalettes();
@@ -91,6 +92,9 @@ signals:
 
 protected slots:
 	//virtual void reject();
+
+private:
+	int idElemCol;
 };
 
 #endif // TREE_H

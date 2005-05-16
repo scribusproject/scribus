@@ -20,7 +20,6 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
-	setCaption( tr( "Outline" ) );
 	setIcon(loadIcon("AppIcon.png"));
 
 	reportDisplay = new QListView( this, "ListView1" );
@@ -28,7 +27,7 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree
 	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
 	reportDisplay->setMinimumSize( QSize( 220, 240 ) );
 	reportDisplay->setRootIsDecorated( true );
-	reportDisplay->addColumn( tr("Element"));
+	idElemCol=reportDisplay->addColumn("Element"); //Use width from initial untranslated string, translation is set with languageChange()
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->setSorting(-1);
@@ -61,6 +60,7 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree
 	groupIcon = loadIcon("u_group.png");
 	selectionTriggered = false;
 	freeObjects = 0;
+	languageChange();
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 //	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
@@ -808,3 +808,8 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 	}
 	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int))); */
 
+void Tree::languageChange()
+{
+	setCaption(tr("Outline"));
+	reportDisplay->setColumnText(idElemCol, tr("Element"));
+}
