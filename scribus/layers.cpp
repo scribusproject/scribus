@@ -14,6 +14,7 @@
 #include <qcheckbox.h>
 #include <qheader.h>
 #include <qvaluelist.h>
+#include <qtooltip.h>
 
 #include "scribus.h"
 #include "undomanager.h"
@@ -49,7 +50,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 		: ScrPaletteBase( parent, "Layers", false, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
-	setCaption( tr( "Layers" ) );
 	LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
 
 	Table = new LayerTable( this );
@@ -58,7 +58,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 	QHeader *header = Table->horizontalHeader();
 	header->setLabel(0, loadIcon("Layervisible.xpm"), "");
 	header->setLabel(1, loadIcon("DateiPrint16.png"), "");
-	header->setLabel(2, tr("Name"));
 	Table->setColumnReadOnly(0, true);
 	Table->setColumnReadOnly(1, true);
 	Table->setColumnWidth(0, 24);
@@ -81,7 +80,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 	NewLayer->setMaximumSize( QSize( 50, 24 ) );
 	NewLayer->setText( "" );
 	NewLayer->setPixmap(loadIcon("Newlayer.png"));
-	QToolTip::add( NewLayer, tr( "Add a new Layer" ) );
 	Layout1->addWidget( NewLayer );
 
 	DeleteLayer = new QPushButton( this, "DeleteLayer" );
@@ -89,7 +87,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 	DeleteLayer->setMaximumSize( QSize( 50, 24 ) );
 	DeleteLayer->setText( "" );
 	DeleteLayer->setPixmap(loadIcon("Deletelayer.png"));
-	QToolTip::add( DeleteLayer, tr( "Delete Layer" ) );
 	Layout1->addWidget( DeleteLayer );
 
 	RaiseLayer = new QPushButton( this, "RaiseLayer" );
@@ -97,7 +94,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 	RaiseLayer->setMaximumSize( QSize( 50, 24 ) );
 	RaiseLayer->setText( "" );
 	RaiseLayer->setPixmap(loadIcon("Raiselayer.png"));
-	QToolTip::add( RaiseLayer, tr( "Raise Layer" ) );
 	Layout1->addWidget( RaiseLayer );
 
 	LowerLayer = new QPushButton( this, "LowerLayer" );
@@ -105,11 +101,12 @@ LayerPalette::LayerPalette(QWidget* parent)
 	LowerLayer->setMaximumSize( QSize( 50, 24 ) );
 	LowerLayer->setText( "" );
 	LowerLayer->setPixmap(loadIcon("Lowerlayer.png"));
-	QToolTip::add( LowerLayer, tr( "Lower Layer" ) );
 	Layout1->addWidget( LowerLayer );
 
 	LayerPaletteLayout->addLayout( Layout1 );
 	ClearInhalt();
+	languageChange();
+	
 	connect(NewLayer, SIGNAL(clicked()), this, SLOT(addLayer()));
 	connect(DeleteLayer, SIGNAL(clicked()), this, SLOT(removeLayer()));
 	connect(RaiseLayer, SIGNAL(clicked()), this, SLOT(upLayer()));
@@ -560,4 +557,19 @@ void LayerPalette::restore(UndoState *state, bool isUndo)
 			changeName(row, col, name);
 		}
 	}
+}
+
+void LayerPalette::languageChange()
+{
+	setCaption( tr( "Layers" ) );
+	QHeader *header = Table->horizontalHeader();
+	header->setLabel(2, tr("Name"));
+	QToolTip::remove( NewLayer );
+	QToolTip::remove( DeleteLayer );
+	QToolTip::remove( RaiseLayer );
+	QToolTip::remove( LowerLayer );
+	QToolTip::add( NewLayer, tr( "Add a new Layer" ) );
+	QToolTip::add( DeleteLayer, tr( "Delete Layer" ) );
+	QToolTip::add( RaiseLayer, tr( "Raise Layer" ) );
+	QToolTip::add( LowerLayer, tr( "Lower Layer" ) );
 }

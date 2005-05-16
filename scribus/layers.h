@@ -73,6 +73,7 @@ public slots:
 	void ClearInhalt();
 	void MarkActiveLayer(int l);
 	void restore(UndoState *state, bool isUndo);
+	void languageChange();
 
 signals:
 	void LayerRemoved(int, bool);
