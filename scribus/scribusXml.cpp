@@ -1930,10 +1930,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			GetItemProps(newVersion, &pg, &OB);
 			OB.startArrowIndex =  arrowID[QStoInt(pg.attribute("startArrowIndex","0"))];
 			OB.endArrowIndex =  arrowID[QStoInt(pg.attribute("endArrowIndex","0"))];
+			OB.isBookmark=QStoInt(pg.attribute("BOOKMARK"));
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))
 				OB.NamedLStyle = "";
-			OB.isBookmark = false;
 			OB.BMnr = 0;
 			OB.textAlignment = DoVorl[QStoInt(pg.attribute("ALIGN","0"))].toUInt();
 			tmf = pg.attribute("IFONT", doc->toolSettings.defFont);
@@ -2235,6 +2235,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		else
 			ob.setAttribute("ALIGN",item->textAlignment);
  		SetItemProps(&ob, item, false);
+		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		if (item->effectsInUse.count() != 0)
 		{
 			for (uint a = 0; a < item->effectsInUse.count(); ++a)

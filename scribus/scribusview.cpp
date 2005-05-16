@@ -1127,6 +1127,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				SelItem.clear();
 				for (uint as = ac; as < Doc->Items.count(); ++as)
 				{
+					currItem = Doc->Items.at(as);
+					if (currItem->isBookmark)
+						emit AddBM(currItem);
 					SelectItemNr(as);
 				}
 				updateContents();
@@ -1503,7 +1506,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen->insertSeparator();
 		}
 		setObjectUndoMode();
-		pmen->insertSeparator();
 		ScApp->scrActions["editUndoAction"]->addTo(pmen);
 		ScApp->scrActions["editRedoAction"]->addTo(pmen);
 		pmen->insertSeparator();
@@ -8150,12 +8152,19 @@ void ScribusView::DeleteItem()
 
 void ScribusView::PasteToPage()
 {
+	uint ac = Doc->Items.count();
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(Doc->currentPage->getUName(), 0, Um::Paste, "", Um::IPaste);
 	emit LoadElem(ScApp->Buffer2, qRound(Mxp/Scale), qRound(Myp/Scale), false, false, Doc, this);
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();
+	for (uint as = ac; as < Doc->Items.count(); ++as)
+	{
+		PageItem* currItem = Doc->Items.at(as);
+		if (currItem->isBookmark)
+			emit AddBM(currItem);
+	}
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }

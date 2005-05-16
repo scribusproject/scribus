@@ -2899,9 +2899,9 @@ void ScribusApp::newActWin(QWidget *w)
 		pagePalette->Rebuild();
 	outlinePalette->BuildTree(doc);
 //	outlinePalette->reopenTree(doc->OpenNodes);
-	bookmarkPalette->BView->NrItems = doc->NrItems;
+/*	bookmarkPalette->BView->NrItems = doc->NrItems;
 	bookmarkPalette->BView->First = doc->First;
-	bookmarkPalette->BView->Last = doc->Last;
+	bookmarkPalette->BView->Last = doc->Last; */
 	RestoreBookMarks();
 	if (!doc->loading)
 	{
@@ -4588,9 +4588,9 @@ bool ScribusApp::loadDoc(QString fileName)
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(doc->AutoSaveTime);
 		scrActions["fileSave"]->setEnabled(false);
-//		ActWin->NrItems = bookmarkPalette->BView->NrItems;
-//		ActWin->First = bookmarkPalette->BView->First;
-//		ActWin->Last = bookmarkPalette->BView->Last;
+		doc->NrItems = bookmarkPalette->BView->NrItems;
+		doc->First = bookmarkPalette->BView->First;
+		doc->Last = bookmarkPalette->BView->Last;
 	}
 	else
 	{
@@ -5454,6 +5454,9 @@ void ScribusApp::slotEditPaste()
 				doc->SnapGuides = savedAlignGuides;
 				for (uint as = ac; as < doc->Items.count(); ++as)
 				{
+					PageItem* currItem = doc->Items.at(as);
+					if (currItem->isBookmark)
+						AddBookMark(currItem);
 					view->SelectItemNr(as);
 				}
 			}
@@ -8525,17 +8528,24 @@ void ScribusApp::RestoreBookMarks()
 {
 	QValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
 	bookmarkPalette->BView->clear();
+	bookmarkPalette->BView->NrItems = 0;
+	bookmarkPalette->BView->First = 1;
+	bookmarkPalette->BView->Last = 0;
 	if (doc->BookMarks.count() == 0)
 		return;
 	BookMItem* ip;
 	BookMItem* ip2 = NULL;
 	BookMItem* ip3 = NULL;
 	BookMItem *ite = new BookMItem(bookmarkPalette->BView, &(*it2));
+	bookmarkPalette->BView->NrItems++;
 	++it2;
 	for( ; it2 != doc->BookMarks.end(); ++it2 )
 	{
 		if ((*it2).Parent == 0)
+		{
 			ite = new BookMItem(bookmarkPalette->BView, ite, &(*it2));
+			bookmarkPalette->BView->NrItems++;
+		}
 		else
 		{
 			QListViewItemIterator it3(bookmarkPalette->BView);
@@ -8549,7 +8559,10 @@ void ScribusApp::RestoreBookMarks()
 				}
 			}
 			if ((*it2).Prev == 0)
+			{
 				(void) new BookMItem(ip2, &(*it2));
+				bookmarkPalette->BView->NrItems++;
+			}
 			else
 			{
 				QListViewItemIterator it4(bookmarkPalette->BView);
@@ -8563,9 +8576,11 @@ void ScribusApp::RestoreBookMarks()
 					}
 				}
 				(void) new BookMItem(ip2, ip3, &(*it2));
+				bookmarkPalette->BView->NrItems++;
 			}
 		}
 	}
+	bookmarkPalette->BView->Last = bookmarkPalette->BView->NrItems;
 }
 
 void ScribusApp::StoreBookmarks()
