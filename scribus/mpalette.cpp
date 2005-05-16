@@ -732,75 +732,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	TabStack->addItem(Cpal, tr( "&Colors" ));
 	MpalLayout->addWidget( TabStack );
 
-	QToolTip::add( NameEdit, tr( "Name of selected object" ) );
-	QToolTip::add( Xpos, tr( "Horizontal position of current basepoint" ) );
-	QToolTip::add( Ypos, tr( "Vertical position of current basepoint" ) );
-	QToolTip::add( Width, tr( "Width" ) );
-	QToolTip::add( Height, tr( "Height" ) );
-	QToolTip::add( Rot, tr( "Rotation of object at current basepoint" ) );
-	QToolTip::add( basepointLabel, tr( "Point from which measurements or rotation angles are referenced" ) );
-	QToolTip::add( TopLeft, tr( "Select top left for basepoint" ) );
-	QToolTip::add( TopRight, tr( "Select top right for basepoint" ) );
-	QToolTip::add( BottomLeft, tr( "Select bottom left for basepoint" ) );
-	QToolTip::add( BottomRight, tr( "Select bottom right for basepoint" ) );
-	QToolTip::add( Center, tr( "Select center for basepoint" ) );
-	QToolTip::add( FlipH, tr( "Flip Horizontal" ) );
-	QToolTip::add( FlipV, tr( "Flip Vertical" ) );
-	QToolTip::add( Zup, tr( "Move one level up" ) );
-	QToolTip::add( ZDown, tr( "Move one level down" ) );
-	QToolTip::add( ZTop, tr( "Move to front" ) );
-	QToolTip::add( ZBottom, tr( "Move to back" ) );
-	QToolTip::add( LevelTxt, tr( "Indicates the level the object is on, 0 means the object is at the bottom" ) );
-	QToolTip::add( Locked, tr( "Lock or unlock the object" ) );
-	QToolTip::add( NoResize, tr( "Lock or unlock the size of the object" ) );
-	QToolTip::add( NoPrint, tr( "Enable or disable printing of the object" ) );
-	QToolTip::add( textFlowsAroundFrame, tr( "Make text in lower frames flow around the object shape" ) );
-	QToolTip::add( textFlowUsesBoundingBox, tr( "Use a surrounding box instead of the frame's shape for text flow" ) );
-	QToolTip::add( Textflow3, tr( "Use a second line originally based on the frame's shape for text flow" ) );
-
-	QToolTip::add( Fonts, tr( "Font of selected text or object" ) );
-	QToolTip::add( Size, tr( "Font Size" ) );
-	QToolTip::add( ChScale, tr( "Scaling width of characters" ) );
-	QToolTip::add( TxStroke, tr( "Color of text stroke" ) );
-	QToolTip::add( TxFill, tr( "Color of text fill" ) );
-	QToolTip::add( PM1, tr( "Saturation of color of text stroke" ) );
-	QToolTip::add( PM2, tr( "Saturation of color of text fill" ) );
-	QToolTip::add( Revert, tr( "Right to Left Writing" ) );
-	QToolTip::add( Extra, tr( "Manual Tracking" ) );
-	QToolTip::add( LineSp, tr( "Line Spacing" ) );
-	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
-	QToolTip::add( langCombo, tr( "Hyphenation language of frame" ) );
-
-	QToolTip::add( LineMode, tr( "Change settings for left or end points" ) );
-	QToolTip::add( LStyle, tr( "Pattern of line" ) );
-	QToolTip::add( LSize, tr( "Thickness of line" ) );
-	QToolTip::add( LJoinStyle, tr( "Type of line joins" ) );
-	QToolTip::add( LEndStyle, tr( "Type of line end" ) );
-	QToolTip::add( StyledLine, tr( "Line style of current object" ) );
-
-	QToolTip::add( SCustom, tr( "Choose the shape of frame..." ) );
-	QToolTip::add( EditShape, tr( "Edit shape of the frame..." ) );
-	QToolTip::add( RoundRect, tr( "Set radius of corner rounding" ) );
-	QToolTip::add( DCol, tr( "Number of columns in text frame" ) );
-	QToolTip::add( colgapLabel, tr("Switches between Gap or Column width"));
-	QToolTip::add( dGap, tr( "Distance between columns" ) );
-	QToolTip::add( DTop, tr( "Distance of text from top of frame" ) );
-	QToolTip::add( DBottom, tr( "Distance of text from bottom of frame" ) );
-	QToolTip::add( DLeft, tr( "Distance of text from left of frame" ) );
-	QToolTip::add( DRight, tr( "Distance of text from right of frame" ) );
-	QToolTip::add( TabsButton, tr( "Edit tab settings of text frame..." ) );
-
-	QToolTip::add( FreeScale, tr( "Allow the image to be a different size to the frame" ) );
-	QToolTip::add( LXpos, tr( "Horizontal offset of image within frame" ) );
-	QToolTip::add( LYpos, tr( "Vertical offset of image within frame" ) );
-	QToolTip::add( ScaleX, tr( "Resize the image horizontally" ) );
-	QToolTip::add( ScaleY, tr( "Resize the image vertically" ) );
-	QToolTip::add( Kette, tr( "Keep the X and Y scaling the same" ) );
-	QToolTip::add( Kette2, tr( "Keep the aspect ratio" ) );
-	QToolTip::add( FrameScale, tr( "Make the image fit within the size of the frame" ) );
-	QToolTip::add( Aspect, tr( "Use image proportions rather than those of the frame" ) );
-	QToolTip::add( InputP, tr( "Source profile of the image" ) );
-	QToolTip::add( MonitorI, tr( "Rendering intent for the image" ) );
+	languageChange();
 
 	connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
 	connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
@@ -3237,6 +3169,262 @@ void Mpalette::mspinboxFinishUserAction()
 		UndoManager::instance()->commit();
 		ScApp->view->setGroupTransactionStarted(false);
 	}
+}
+
+void Mpalette::languageChange()
+{
+	setCaption(tr("Properties"));
+	GeoGroup->setTitle(tr("Geometry"));
+	xposLabel->setText(tr("&X-Pos:"));
+	yposLabel->setText(tr("&Y-Pos:"));
+	widthLabel->setText(tr("&Width:"));
+	heightLabel->setText(tr("&Height:"));
+	rotationLabel->setText(tr("&Rotation:"));
+	basepointLabel->setText(tr("Basepoint:"));
+	LayerGroup->setTitle(tr("Level"));
+	SRect->setText(tr("Shape:"));
+	EditShape->setText(tr("&Edit Shape..."));
+	rndcornersLabel->setText(tr("R&ound\nCorners:"));
+	Distance->setTitle(tr("Distance of Text"));
+	columnsLabel->setText(tr("Colu&mns:"));
+	colgapLabel->setTexts(tr("&Gap:"), tr("&Width:"));
+	topLabel->setText(tr("To&p:"));
+	bottomLabel->setText(tr("&Bottom:"));
+	leftLabel->setText(tr("&Left:"));
+	rightLabel->setText(tr("&Right:"));
+	TabsButton->setText(tr("T&abulators..."));
+	Distance2->setTitle(tr("Path Text Properties"));
+	showcurveCheckBox->setText(tr("Show Curve"));
+	startoffsetLabel->setText(tr("Start Offset:"));
+	distfromcurveLabel->setText(tr("Distance from Curve:"));	
+	textFlowsAroundFrame->setTitle(tr("Text &Flows Around Frame"));
+	textFlowUsesBoundingBox->setText(tr("Use &Bounding Box"));
+	Textflow3->setText(tr("&Use Contour Line"));
+	//TabStack->addItem(page_2, tr("&Shape"));
+	fontsizeLabel->setText(tr("&Font Size:"));
+	ScaleTxt->setText(tr("&Width:"));
+	QString shadeStr=tr("Shade:");
+	ShadeTxt1->setText(shadeStr);
+	ShadeTxt2->setText(shadeStr);
+	GroupBox3->setTitle(tr("Custom Spacing"));
+	trackingLabel->setText(tr("Trac&king:"));
+	linespacingLabel->setText(tr("L&ine Spacing:"));
+	styleLabel->setText(tr("St&yle:"));
+	langLabel->setText(tr("Lan&guage:"));
+	//TabStack->addItem(page_3, tr("&Text"));
+	FreeScale->setText(tr("&Free Scaling"));
+	xposImgLabel->setText(tr("&X-Pos:"));
+	yposImgLabel->setText(tr("&Y-Pos:"));
+	xscaleLabel->setText(tr("X-Sc&ale:"));
+	yscaleLabel->setText(tr("Y-Scal&e:"));
+	FrameScale->setText(tr("Scale &To Frame Size"));
+	Aspect->setText(tr("P&roportional"));
+	TextCms1->setText(tr("Input Profile:"));
+	TextCms2->setText(tr("Rendering Intent:"));
+	/*
+	MonitorI->insertItem(tr("Perceptual"));
+	MonitorI->insertItem(tr("Relative Colorimetric"));
+	MonitorI->insertItem(tr("Saturation"));
+	MonitorI->insertItem(tr("Absolute Colorimetric"));
+	TabStack->addItem(page_4, tr("&Image"));
+	LineMode->insertItem(tr("Left Point"));
+	LineMode->insertItem(tr("End Points"));
+	*/
+	LineModeT->setText(tr("&Basepoint:"));
+	linetypeLabel->setText(tr("T&ype of Line:"));
+	startArrowText->setText(tr("Start Arrow:"));
+	endArrowText->setText(tr("End Arrow:"));
+	linewidthLabel->setText(tr("Line &Width:"));
+	/*
+	LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr("Miter Join"));
+	LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr("Bevel Join"));
+	LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr("Round Join"));
+	*/
+	edgesLabel->setText(tr("Ed&ges:"));
+	/*
+	LEndStyle->insertItem(loadIcon("ButtCap.png"), tr("Flat Cap"));
+	LEndStyle->insertItem(loadIcon("SquareCap.png"), tr("Square Cap"));
+	LEndStyle->insertItem(loadIcon("RoundCap.png"), tr("Round Cap"));
+	*/
+	endingsLabel->setText(tr("&Endings:"));
+	//StyledLine->insertItem(tr("No Style"), 0);
+	TLines->setTitle(tr("Cell Lines"));
+	TopLine->setText(tr("Line at Top"));
+	LeftLine->setText(tr("Line at the Left"));
+	RightLine->setText(tr("Line at the Right "));
+	BottomLine->setText(tr("Line at Bottom"));
+	/*
+	TabStack->addItem(page_5, tr("&Line"));
+	TabStack->addItem(Cpal, tr("&Colors"));
+	*/
+	
+	QString pctSuffix=tr(" %");
+	ChScale->setSuffix(pctSuffix);
+	ScaleX->setSuffix(pctSuffix);
+	ScaleY->setSuffix(pctSuffix);
+	
+	QString ptSuffix = tr(" pt");
+	Dist->setSuffix(ptSuffix);
+	LineW->setSuffix(ptSuffix);
+	Size->setSuffix(ptSuffix);
+	LineSp->setSuffix(ptSuffix);
+	Extra->setSuffix(ptSuffix);
+	LSize->setSuffix(ptSuffix);
+
+	QString ein = (HaveDoc) ? unitGetSuffixFromIndex(doc->docUnitIndex) : ptSuffix;
+		
+	Xpos->setSuffix(ein);
+	Ypos->setSuffix(ein);
+	Width->setSuffix(ein);
+	Height->setSuffix(ein);
+	LXpos->setSuffix(ein);
+	LYpos->setSuffix(ein);
+	dGap->setSuffix(ein);
+	DLeft->setSuffix(ein);
+	DTop->setSuffix(ein);
+	DBottom->setSuffix(ein);
+	DRight->setSuffix(ein);
+	RoundRect->setSuffix(ein);
+
+	QToolTip::remove(NameEdit);
+	QToolTip::remove(Xpos);
+	QToolTip::remove(Ypos);
+	QToolTip::remove(Width);
+	QToolTip::remove(Height);
+	QToolTip::remove(Rot);
+	QToolTip::remove(basepointLabel);
+	QToolTip::remove(TopLeft);
+	QToolTip::remove(TopRight);
+	QToolTip::remove(BottomLeft);
+	QToolTip::remove(BottomRight);
+	QToolTip::remove(Center);
+	QToolTip::remove(FlipH);
+	QToolTip::remove(FlipV);
+	QToolTip::remove(Zup);
+	QToolTip::remove(ZDown);
+	QToolTip::remove(ZTop);
+	QToolTip::remove(ZBottom);
+	QToolTip::remove(LevelTxt);
+	QToolTip::remove(Locked);
+	QToolTip::remove(NoResize);
+	QToolTip::remove(NoPrint);
+	QToolTip::remove(textFlowsAroundFrame);
+	QToolTip::remove(textFlowUsesBoundingBox);
+	QToolTip::remove(Textflow3);
+
+	QToolTip::remove(Fonts);
+	QToolTip::remove(Size);
+	QToolTip::remove(ChScale);
+	QToolTip::remove(TxStroke);
+	QToolTip::remove(TxFill);
+	QToolTip::remove(PM1);
+	QToolTip::remove(PM2);
+	QToolTip::remove(Revert);
+	QToolTip::remove(Extra);
+	QToolTip::remove(LineSp);
+	QToolTip::remove(Spal);
+	QToolTip::remove(langCombo);
+
+	QToolTip::remove(LineMode);
+	QToolTip::remove(LStyle);
+	QToolTip::remove(LSize);
+	QToolTip::remove(LJoinStyle);
+	QToolTip::remove(LEndStyle);
+	QToolTip::remove(StyledLine);
+
+	QToolTip::remove(SCustom);
+	QToolTip::remove(EditShape);
+	QToolTip::remove(RoundRect);
+	QToolTip::remove(DCol);
+	QToolTip::remove(colgapLabel);
+	QToolTip::remove(dGap);
+	QToolTip::remove(DTop);
+	QToolTip::remove(DBottom);
+	QToolTip::remove(DLeft);
+	QToolTip::remove(DRight);
+	QToolTip::remove(TabsButton);
+	
+	QToolTip::remove(FreeScale);
+	QToolTip::remove(LXpos);
+	QToolTip::remove(LYpos);
+	QToolTip::remove(ScaleX);
+	QToolTip::remove(ScaleY);
+	QToolTip::remove(Kette);
+	QToolTip::remove(Kette2);
+	QToolTip::remove(FrameScale);
+	QToolTip::remove(Aspect);
+	QToolTip::remove(InputP);
+	QToolTip::remove(MonitorI);
+	
+	QToolTip::add(NameEdit, tr("Name of selected object"));
+	QToolTip::add(Xpos, tr("Horizontal position of current basepoint"));
+	QToolTip::add(Ypos, tr("Vertical position of current basepoint"));
+	QToolTip::add(Width, tr("Width"));
+	QToolTip::add(Height, tr("Height"));
+	QToolTip::add(Rot, tr("Rotation of object at current basepoint"));
+	QToolTip::add(basepointLabel, tr("Point from which measurements or rotation angles are referenced"));
+	QToolTip::add(TopLeft, tr("Select top left for basepoint"));
+	QToolTip::add(TopRight, tr("Select top right for basepoint"));
+	QToolTip::add(BottomLeft, tr("Select bottom left for basepoint"));
+	QToolTip::add(BottomRight, tr("Select bottom right for basepoint"));
+	QToolTip::add(Center, tr("Select center for basepoint"));
+	QToolTip::add(FlipH, tr("Flip Horizontal"));
+	QToolTip::add(FlipV, tr("Flip Vertical"));
+	QToolTip::add(Zup, tr("Move one level up"));
+	QToolTip::add(ZDown, tr("Move one level down"));
+	QToolTip::add(ZTop, tr("Move to front"));
+	QToolTip::add(ZBottom, tr("Move to back"));
+	QToolTip::add(LevelTxt, tr("Indicates the level the object is on, 0 means the object is at the bottom"));
+	QToolTip::add(Locked, tr("Lock or unlock the object"));
+	QToolTip::add(NoResize, tr("Lock or unlock the size of the object"));
+	QToolTip::add(NoPrint, tr("Enable or disable printing of the object"));
+	QToolTip::add(textFlowsAroundFrame, tr("Make text in lower frames flow around the object shape"));
+	QToolTip::add(textFlowUsesBoundingBox, tr("Use a surrounding box instead of the frame's shape for text flow"));
+	QToolTip::add(Textflow3, tr("Use a second line originally based on the frame's shape for text flow"));
+
+	QToolTip::add(Fonts, tr("Font of selected text or object"));
+	QToolTip::add(Size, tr("Font Size"));
+	QToolTip::add(ChScale, tr("Scaling width of characters"));
+	QToolTip::add(TxStroke, tr("Color of text stroke"));
+	QToolTip::add(TxFill, tr("Color of text fill"));
+	QToolTip::add(PM1, tr("Saturation of color of text stroke"));
+	QToolTip::add(PM2, tr("Saturation of color of text fill"));
+	QToolTip::add(Revert, tr("Right to Left Writing"));
+	QToolTip::add(Extra, tr("Manual Tracking"));
+	QToolTip::add(LineSp, tr("Line Spacing"));
+	QToolTip::add(Spal, tr("Style of current paragraph"));
+	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
+
+	QToolTip::add(LineMode, tr("Change settings for left or end points"));
+	QToolTip::add(LStyle, tr("Pattern of line"));
+	QToolTip::add(LSize, tr("Thickness of line"));
+	QToolTip::add(LJoinStyle, tr("Type of line joins"));
+	QToolTip::add(LEndStyle, tr("Type of line end"));
+	QToolTip::add(StyledLine, tr("Line style of current object"));
+
+	QToolTip::add(SCustom, tr("Choose the shape of frame..."));
+	QToolTip::add(EditShape, tr("Edit shape of the frame..."));
+	QToolTip::add(RoundRect, tr("Set radius of corner rounding"));
+	QToolTip::add(DCol, tr("Number of columns in text frame"));
+	QToolTip::add(colgapLabel, tr("Switches between Gap or Column width"));
+	QToolTip::add(dGap, tr("Distance between columns"));
+	QToolTip::add(DTop, tr("Distance of text from top of frame"));
+	QToolTip::add(DBottom, tr("Distance of text from bottom of frame"));
+	QToolTip::add(DLeft, tr("Distance of text from left of frame"));
+	QToolTip::add(DRight, tr("Distance of text from right of frame"));
+	QToolTip::add(TabsButton, tr("Edit tab settings of text frame..."));
+
+	QToolTip::add(FreeScale, tr("Allow the image to be a different size to the frame"));
+	QToolTip::add(LXpos, tr("Horizontal offset of image within frame"));
+	QToolTip::add(LYpos, tr("Vertical offset of image within frame"));
+	QToolTip::add(ScaleX, tr("Resize the image horizontally"));
+	QToolTip::add(ScaleY, tr("Resize the image vertically"));
+	QToolTip::add(Kette, tr("Keep the X and Y scaling the same"));
+	QToolTip::add(Kette2, tr("Keep the aspect ratio"));
+	QToolTip::add(FrameScale, tr("Make the image fit within the size of the frame"));
+	QToolTip::add(Aspect, tr("Use image proportions rather than those of the frame"));
+	QToolTip::add(InputP, tr("Source profile of the image"));
+	QToolTip::add(MonitorI, tr("Rendering intent for the image"));	
 }
 
 UserActionSniffer::UserActionSniffer() : QObject (this)

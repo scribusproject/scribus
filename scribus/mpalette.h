@@ -265,6 +265,7 @@ public:
 
 
 public slots:
+	void languageChange();
 	void SetDoc(ScribusDoc *d);
 	void UnsetDoc();
 	void NewSel(int nr);

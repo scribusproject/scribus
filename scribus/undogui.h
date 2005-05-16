@@ -345,10 +345,10 @@ public:
 	/** @brief Empties the undo stack for this widget. */
 	void clear();
 	
+public slots:
 	/** @brief Sets GUI strings on language change */
 	void languageChange();
 	
-public slots:
 	/**
 	 * @brief Insert a new undo item.
 	 * 

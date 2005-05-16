@@ -265,6 +265,7 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 
 public slots: // Public slots
+	void languageChange();
   /** Fhrt die Vergr�erung/Verkleinerung aus; */
 	void slotDoZoom();
   /** Vergr�ert die Ansicht */

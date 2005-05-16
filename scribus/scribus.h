@@ -488,7 +488,7 @@ private:
 
 	QString guiLanguage;
 	QString recentFileMenuName;
-
+	bool scribusInitialized;
 	QString getPreferencesLocation(); //Find preferences location
 	bool convert12Preferences(const QString prefsLocation); //convert 1.2 style rc prefs and possibly to .xml style
 	QComboBox *ColorMenC;

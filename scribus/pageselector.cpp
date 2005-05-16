@@ -34,7 +34,6 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	PageSelectorLayout->addWidget( Back );
 
 	Label1 = new QLabel( this, "Label1" );
-	Label1->setText( tr( "Page " ) );
 	PageSelectorLayout->addWidget( Label1 );
 	v = new QIntValidator(1, LastPG, this);
 	PageCombo = new QComboBox( true, this, "PageCombo" );
@@ -42,15 +41,12 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	PageCombo->setDuplicatesEnabled( false );
 	QString tmp;
 	for (int a = 0; a < LastPG; ++a)
-	{
 		PageCombo->insertItem(tmp.setNum(a+1));
-	}
 	PageCombo->setValidator(v);
 	PageCombo->setFocusPolicy(QWidget::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 
 	Label2 = new QLabel( this, "Label2" );
-	Label2->setText( tr( " of %1" ).arg(LastPG) );
 	PageSelectorLayout->addWidget( Label2 );
 
 	Forward = new QPushButton( this, "Forward" );
@@ -76,6 +72,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 		Last->setEnabled(false);
 	}
 
+	languageChange();
 	// signals and slots connections
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	connect( Back, SIGNAL( clicked() ), this, SLOT( goBk() ) );
@@ -155,4 +152,10 @@ void PageSelector::goFw()
 	if (APage > LastPG)
 		APage = LastPG;
 	GotoPgE(APage-1);
+}
+
+void PageSelector::languageChange()
+{
+	Label1->setText( tr( "Page " ) );
+	Label2->setText( tr( " of %1" ).arg(LastPG) );
 }

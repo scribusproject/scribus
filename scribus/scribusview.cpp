@@ -106,7 +106,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	fo.setPointSize(10);
 	LE = new MSpinBox( 10, 3200, this, 2 );
 	LE->setFont(fo);
-	LE->setSuffix( tr( " %" ) );
 	LE->setValue( 100 );
 	LE->setFocusPolicy(QWidget::ClickFocus);
 	zoomOutToolbarButton = new QPushButton(this);
@@ -122,20 +121,16 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	LY->setFont(fo);
 	Laymen = new QPopupMenu(this);
 	Laymen->setFont(fo);
-	LY->setText( tr("Layer")+" 0");
+
 	LY->setPopup(Laymen);
 	LY->setFocusPolicy(QWidget::NoFocus);
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
 	UN = new QToolButton(this);
 	Unitmen = new QPopupMenu(this);
-	//CB TODO Convert to actions later
-	for (int i=0;i<=unitGetMaxIndex();++i)
-		Unitmen->insertItem(unitGetStrFromIndex(i));
 	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
 	UN->setPopupDelay(10);
-	UN->setText(unitGetStrFromIndex(doc->docUnitIndex));
 	Ready = true;
 	viewport()->setMouseTracking(true);
 	setAcceptDrops(true);
@@ -175,6 +170,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	_itemCreationTransactionStarted = false;
 	_isGlobalMode = true;
 	undoManager = UndoManager::instance();
+	languageChange();
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
@@ -184,6 +180,18 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	evSpon = false;
+}
+
+void ScribusView::languageChange()
+{
+	LE->setSuffix( tr( " %" ) );
+	LY->setText( tr("Layer")+" 0");	
+	//CB TODO Convert to actions later
+	UN->setText(unitGetStrFromIndex(Doc->docUnitIndex));
+	Unitmen->clear();
+	for (int i=0;i<=unitGetMaxIndex();++i)
+		Unitmen->insertItem(unitGetStrFromIndex(i));
+
 }
 
 void ScribusView::viewportPaintEvent ( QPaintEvent * p )

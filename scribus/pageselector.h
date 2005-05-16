@@ -35,6 +35,7 @@ public:
 public slots:
 	virtual void GotoPg(int);
 	virtual void setMaxValue(int);
+	void languageChange();
 
 private slots:
 	virtual void GotoPgE(int);

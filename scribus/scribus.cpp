@@ -175,8 +175,10 @@ PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
 {
+	scribusInitialized=false;
 	actionManager=NULL;
 	scrMenuMgr=NULL;
+	undoManager=NULL;
 } // ScribusApp::ScribusApp()
 
 /*
@@ -293,6 +295,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		initCrashHandler();
 	}
 	closeSplash();
+	scribusInitialized=true;
 	return retVal;
 }
 
@@ -1336,8 +1339,8 @@ void ScribusApp::initStatusBar()
 	FProg->setCenterIndicator(true);
 	FProg->setFixedWidth( 100 );
 	FProg->reset();
-	XMess = new QLabel( tr("X-Pos:"), statusBar(), "xt");
-	YMess = new QLabel( tr("Y-Pos:"), statusBar(), "yt");
+	XMess = new QLabel( "X-Pos:", statusBar(), "xt");
+	YMess = new QLabel( "Y-Pos:", statusBar(), "yt");
 	XDat = new QLabel( "         ", statusBar(), "dt");
 	YDat = new QLabel( "         ", statusBar(), "ydt");
 
@@ -10412,6 +10415,8 @@ void ScribusApp::insertSampleText()
 
 void ScribusApp::languageChange()
 {
+	if (scribusInitialized)
+	{
 	//Update actions
 	if (actionManager!=NULL)
 	{
@@ -10448,5 +10453,11 @@ void ScribusApp::languageChange()
 		scrMenuMgr->setMenuText("Windows", tr("&Windows"));
 		scrMenuMgr->setMenuText("Help", tr("&Help"));
 		scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
+	}
+	if (undoManager!=NULL)
+		undoManager->languageChange();
+
+	XMess->setText(tr("X-Pos:"));
+	YMess->setText(tr("Y-Pos:"));
 	}
 }
