@@ -157,6 +157,7 @@ public slots:
 	void Rebuild();
 	void selMasterPage();
 	QPixmap CreateIcon(int nr, QPixmap ret);
+	void languageChange();
 
 signals:
 	//void ToggleAllPalettes();

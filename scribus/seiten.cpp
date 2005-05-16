@@ -479,7 +479,6 @@ void TrashBin::dropEvent(QDropEvent * e)
 SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 		//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
-	setCaption( tr( "Arrange Pages" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	SeitenPalLayout = new QVBoxLayout( this );
 	SeitenPalLayout->setSpacing( 5 );
@@ -489,7 +488,6 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
 	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
 	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
-	TextLabel1->setText( tr( "Available Master Pages:" ) );
 	Layout2->addWidget( TextLabel1 );
 	masterPageList = new SeList(privateLayoutWidget);
 	masterPageList->setMinimumSize(QSize(130,70));
@@ -498,7 +496,6 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1, "Layout3" );
 	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
 	TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
-	TextLabel2->setText( tr( "Document Pages:" ) );
 	Layout3->addWidget( TextLabel2 );
 	PageView = new SeView(privateLayoutWidget_2);
 	PageView->setLeftMargin(0);
@@ -523,10 +520,8 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	Layout4->setSpacing( 6 );
 	Layout4->setMargin( 0 );
 	facingPagesChk = new QCheckBox(this, "facingPagesChk");
-	facingPagesChk->setText( tr( "Facing Pages" ) );
 	Layout4->addWidget( facingPagesChk );
 	firstPageLeftChk = new QCheckBox(this, "firstPageLeftChk");
-	firstPageLeftChk->setText( tr( "Left Page first" ) );
 	Layout4->addWidget( firstPageLeftChk );
 	Layout1->addLayout( Layout4 );
 
@@ -540,6 +535,7 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	pix = loadIcon("document2.png");
 	Vie = 0;
 	Rebuild();
+	languageChange();
 	connect(masterPageList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
@@ -827,4 +823,13 @@ QPixmap SeitenPal::CreateIcon(int nr, QPixmap ret)
 		p.end();
 	}
 	return ret;
+}
+
+void SeitenPal::languageChange()
+{
+	setCaption( tr( "Arrange Pages" ) );
+	TextLabel1->setText( tr( "Available Master Pages:" ) );
+	TextLabel2->setText( tr( "Document Pages:" ) );
+	facingPagesChk->setText( tr( "Facing Pages" ) );
+	firstPageLeftChk->setText( tr( "Left Page First" ) );
 }
