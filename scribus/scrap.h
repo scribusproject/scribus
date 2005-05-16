@@ -69,6 +69,7 @@ public:
 	
 public slots:
 	void Save();
+	void languageChange();
 
 private slots:
 	void HandleMouse(QIconViewItem *ite);
@@ -82,6 +83,7 @@ private slots:
 	void SetPreview(int id);
 
 protected:
+//	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
 	QPopupMenu* pmenu;
 	QPopupMenu* fmenu;
 	QPopupMenu* vmenu;
@@ -94,10 +96,16 @@ protected:
 	BibView* BibWin;
 	ApplicationPrefs *Prefs;
 	QString OldName;
+	int mFile;
+	int mView;
+	int fNew;
+	int fLoad;
 	int fSave;
-	int vS;
-	int vM;
-	int vB;
+	int fSaveAs;
+	int fClose;
+	int vSmall;
+	int vMedium;
+	int vLarge;
 };
 
 #endif // BIBLIO_H

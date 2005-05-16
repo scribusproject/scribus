@@ -140,7 +140,6 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 		: ScrPaletteBase( parent, "Sclib", false, 0 )
 {
 	resize( 230, 190 );
-	setCaption( tr( "Scrapbook" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	ScFilename = "";
 	Prefs = prefs;
@@ -149,30 +148,30 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	BiblioLayout->setSpacing( 0 );
 	BiblioLayout->setMargin( 0 );
 	fmenu = new QPopupMenu();
-	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(NewLib()), CTRL+Key_N);
-	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load..."), this, SLOT(Load()), CTRL+Key_O);
-	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(Save()), CTRL+Key_S);
-	fmenu->insertItem( tr("Save &As..."), this, SLOT(SaveAs()));
-	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("&Close"), this, SLOT(close()));
+	fNew = fmenu->insertItem(loadIcon("DateiNeu16.png"), "", this, SLOT(NewLib()), CTRL+Key_N);
+	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
+	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), "", this, SLOT(Save()), CTRL+Key_S);
+	fSaveAs = fmenu->insertItem( "", this, SLOT(SaveAs()));
+	fClose = fmenu->insertItem(loadIcon("DateiClos16.png"), "", this, SLOT(close()));
 	vmenu = new QPopupMenu();
-	vS = vmenu->insertItem( tr( "&Small" ) );
-	vM = vmenu->insertItem( tr( "&Medium" ) );
-	vB = vmenu->insertItem( tr( "&Large" ) );
+	vSmall = vmenu->insertItem( "" );
+	vMedium = vmenu->insertItem( "" );
+	vLarge = vmenu->insertItem( "" );
 	switch (prefs->PSize)
 	{
 	case 40:
-		vmenu->setItemChecked(vS, true);
+		vmenu->setItemChecked(vSmall, true);
 		break;
 	case 60:
-		vmenu->setItemChecked(vM, true);
+		vmenu->setItemChecked(vMedium, true);
 		break;
 	case 80:
-		vmenu->setItemChecked(vB, true);
+		vmenu->setItemChecked(vLarge, true);
 		break;
 	}
 	menuBar = new QMenuBar(this);
-	menuBar->insertItem( tr("&File"), fmenu);
-	menuBar->insertItem( tr("&Preview"), vmenu);
+	mFile=menuBar->insertItem( "", fmenu);
+	mView=menuBar->insertItem( "", vmenu);
 	BiblioLayout->setMenuBar( menuBar );
 
 	Frame3 = new QFrame( this, "Frame3" );
@@ -188,6 +187,7 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	BibWin->setResizeMode(QIconView::Adjust);
 	Frame3Layout->addWidget( BibWin );
 	BiblioLayout->addWidget( Frame3 );
+	languageChange();
 	connect(BibWin, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 	connect(BibWin, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -298,19 +298,19 @@ void Biblio::SetPreview(int id)
 
 void Biblio::AdjustMenu()
 {
-	vmenu->setItemChecked(vS, false);
-	vmenu->setItemChecked(vM, false);
-	vmenu->setItemChecked(vB, false);
+	vmenu->setItemChecked(vSmall, false);
+	vmenu->setItemChecked(vMedium, false);
+	vmenu->setItemChecked(vLarge, false);
 	switch (Prefs->PSize)
 	{
 	case 40:
-		vmenu->setItemChecked(vS, true);
+		vmenu->setItemChecked(vSmall, true);
 		break;
 	case 60:
-		vmenu->setItemChecked(vM, true);
+		vmenu->setItemChecked(vMedium, true);
 		break;
 	case 80:
-		vmenu->setItemChecked(vB, true);
+		vmenu->setItemChecked(vLarge, true);
 		break;
 	}
 }
@@ -458,4 +458,20 @@ void Biblio::ObjFromMenu(QString text)
 	(void) new QIconViewItem(BibWin, nam, pm);
 	Changed = true;
 	delete pre;
+}
+
+void Biblio::languageChange()
+{
+	setCaption( tr( "Scrapbook" ) );
+	menuBar->changeItem( mFile, tr("&File"));
+	menuBar->changeItem( mView, tr("&Preview"));
+
+	fmenu->changeItem(fNew, tr("&New"));
+	fmenu->changeItem(fLoad, tr("&Load..."));
+	fmenu->changeItem(fSave, tr("&Save"));
+	fmenu->changeItem(fSaveAs, tr("Save &As..."));
+	fmenu->changeItem(fClose, tr("&Close"));
+	vmenu->changeItem(vSmall, tr("&Small" ));
+	vmenu->changeItem(vMedium, tr("&Medium" ));
+	vmenu->changeItem(vLarge, tr("&Large" ));
 }
