@@ -230,10 +230,9 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 {
 	currentSelection = 0;
 	redoItems = 0;
-	setCaption(tr("Action History"));
 	QVBoxLayout* layout = new QVBoxLayout(this, 5, 5, "layout");
 
-	QCheckBox* objectBox = new QCheckBox(tr("Show selected object only"), this, "objectBox");
+	objectBox = new QCheckBox(this, "objectBox");
 	layout->addWidget(objectBox);
 // 	objectBox->setEnabled(false);
 
@@ -242,23 +241,19 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	undoList->setSelectionMode(QListBox::Single);
 	layout->addWidget(undoList);
 	
-	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout");
-	undoButton = new QPushButton(loadIcon("u_undo.png"),
-                                         tr("&Undo"), this,
-                                         "undoButton");
+	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout"); 
+	undoButton = new QPushButton(loadIcon("u_undo.png"), "", this, "undoButton");
 	buttonLayout->addWidget(undoButton);
-	redoButton = new QPushButton(loadIcon("u_redo.png"),
-                                         tr("&Redo"), this,
-                                         "redoButton");
+	redoButton = new QPushButton(loadIcon("u_redo.png"), "", this, "redoButton");
+	buttonLayout->addWidget(redoButton);
 	//Save the translated key sequence - hopefully we get the translated one here!
 	initialUndoKS = undoButton->accel();
 	initialRedoKS = redoButton->accel();
-	
-	buttonLayout->addWidget(redoButton);
 	layout->addLayout(buttonLayout);
 
 	undoPrefs = prefsFile->getContext("undo");
 	updateFromPrefs();
+	languageChange();
 	connect(ScApp, SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
@@ -305,6 +300,14 @@ void UndoPalette::updateFromPrefs()
 {
 	undoButton->setAccel(ScApp->scrActions["editUndoAction"]->accel());
 	redoButton->setAccel(ScApp->scrActions["editRedoAction"]->accel());
+}
+
+void UndoPalette::languageChange()
+{
+	setCaption(tr("Action History"));	
+	objectBox->setText(tr("Show selected object only"));
+	undoButton->setText(tr("&Undo"));
+	redoButton->setText(tr("&Redo"));
 }
 
 void UndoPalette::hideEvent(QHideEvent*)

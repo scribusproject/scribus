@@ -126,17 +126,16 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
-	textLabel1->setText( tr( "Current Profile:" ) );
 	layout1->addWidget( textLabel1 );
 	curCheckProfile = new QComboBox( true, this, "Profiles" );
 	curCheckProfile->setEditable(false);
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
 	reportDisplay = new QListView( this, "reportDisplay" );
-	reportDisplay->addColumn( tr( "Items" ) );
+	reportDisplay->addColumn("Items");
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->addColumn( tr( "Problems" ) );
+	reportDisplay->addColumn("Problems");
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->setSorting(-1);
@@ -144,7 +143,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	layout2 = new QHBoxLayout( 0, 0, 5, "layou2");
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer );
-	ignoreErrors = new QPushButton( tr( "&Ignore Errors" ), this, "ignoreErrors" );
+	ignoreErrors = new QPushButton(this, "ignoreErrors" );
 	layout2->addWidget( ignoreErrors );
 	checkDocumentLayout->addLayout( layout2 );
 	ignoreErrors->hide();
@@ -667,5 +666,8 @@ void CheckDocument::languageChange()
 	setCaption( tr( "Preflight Verifier" ) );
 	reportDisplay->header()->setLabel( 0, tr( "Items" ) );
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
+	
+	textLabel1->setText(tr("Current Profile:"));
+	ignoreErrors->setText(tr( "&Ignore Errors" ));
 }
 

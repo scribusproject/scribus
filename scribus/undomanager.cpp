@@ -76,6 +76,7 @@ UndoManager::UndoManager()
 		historyLength = 10;
 	transaction = NULL;
 	transactionTarget = NULL;
+	languageChange();
 }
 
 void UndoManager::beginTransaction(const QString &targetName,
@@ -681,6 +682,10 @@ UndoManager::~UndoManager()
 			((*it).second)[i].second = NULL;
 		}
 	}
+}
+
+void UndoManager::languageChange()
+{
 }
 
 /*** UndoManager::TransactionState *****************************************************/

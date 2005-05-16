@@ -33,6 +33,7 @@
 #include <qpixmap.h>
 #include <qpopupmenu.h>
 
+class QCheckBox;
 class PrefsContext;
 
 /**
@@ -245,6 +246,7 @@ private:
 	int currentSelection;
 	int redoItems;
 	QListBox* undoList;
+	QCheckBox* objectBox;
 	QPushButton* undoButton;
 	QPushButton* redoButton;
 	QKeySequence initialUndoKS;
@@ -342,7 +344,10 @@ public:
 
 	/** @brief Empties the undo stack for this widget. */
 	void clear();
-
+	
+	/** @brief Sets GUI strings on language change */
+	void languageChange();
+	
 public slots:
 	/**
 	 * @brief Insert a new undo item.

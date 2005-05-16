@@ -626,6 +626,11 @@ private slots:
 
 public slots:
 	/**
+	 * @brief Updates strings when the GUI language is changed.
+	 */
+	void languageChange();
+	
+	/**
 	 * @brief Adds a new action to the undo stack.
 	 *
 	 * If _unodEnabled is true the action will be stored otherwise it will
