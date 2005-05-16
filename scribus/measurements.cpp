@@ -57,14 +57,15 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	angleData->setMinimumSize(textWidth, 12);
 	lengthData->setMinimumSize(textWidth, 12);
 
-	x1Data->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	y1Data->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	x2Data->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	y2Data->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	dXData->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	dYData->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	angleData->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	lengthData->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
+	int labelAlignment=int( QLabel::AlignVCenter | QLabel::AlignRight );
+	x1Data->setAlignment( labelAlignment );
+	y1Data->setAlignment( labelAlignment );
+	x2Data->setAlignment( labelAlignment );
+	y2Data->setAlignment( labelAlignment );
+	dXData->setAlignment( labelAlignment );
+	dYData->setAlignment( labelAlignment );
+	angleData->setAlignment( labelAlignment );
+	lengthData->setAlignment( labelAlignment );
 
 	measurementsLayout->addWidget( x1Data, 0, 1 );
 	measurementsLayout->addWidget( y1Data, 1, 1 );
@@ -75,7 +76,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	measurementsLayout->addWidget( angleData, 6, 1 );
 	measurementsLayout->addWidget( lengthData, 7, 1 );
 
-	changeLanguage();
+	languageChange();
 
 }
 /*
@@ -109,7 +110,7 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 	lengthData->setText(tmp.setNum(qRound(len*uXm) / divisor, 'f', precision)+unitSuffix);
 }
 
-void Measurements::changeLanguage()
+void Measurements::languageChange()
 {
 	x1Label->setText( tr( "X1:" ) );
 	y1Label->setText( tr( "Y1:" ) );

@@ -23,7 +23,7 @@ signals:
 
 public slots:
 	void setValues(double x1, double y1, double x2, double y2, double angle, double length, int unitIndex);
-	void changeLanguage();
+	void languageChange();
 
 protected:
 	QGridLayout* measurementsLayout;
