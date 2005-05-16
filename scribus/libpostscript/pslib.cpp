@@ -1393,7 +1393,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										PS_stroke();
 									}
-									if ((hl->cstyle & 8) && (chx != QChar(13)))
+									if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 										double Upos, lw, kern;
@@ -1924,7 +1924,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 					PS_stroke();
 				}
-				if ((hl->cstyle & 8) && (chx != QChar(13)))
+				if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
 				{
 					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 					double Upos, lw, kern;

@@ -444,7 +444,7 @@ void SearchReplace::slotDoSearch()
 			}
 			if (SEffect->isChecked())
 				{
-				if ((Item->itemText.at(a)->cstyle & 127) != sEff)
+				if ((Item->itemText.at(a)->cstyle & 1919) != sEff)
 					found = false;
 				}
 			if (SFill->isChecked())
@@ -568,7 +568,7 @@ void SearchReplace::slotDoSearch()
 									found = false;
 								if ((SFillS->isChecked()) && (hg->cshade != sFillSh))
 									found = false;
-								if ((SEffect->isChecked()) && ((hg->cstyle & 127) != sEff))
+								if ((SEffect->isChecked()) && ((hg->cstyle & 1919) != sEff))
 									found = false;
 								if ((SFill->isChecked()) && (hg->ccolor != fCol))
 									found = false;
@@ -604,7 +604,7 @@ void SearchReplace::slotDoSearch()
 								found = false;
 							if ((SFillS->isChecked()) && (hg->cshade != sFillSh))
 								found = false;
-							if ((SEffect->isChecked()) && ((hg->cstyle & 127) != sEff))
+							if ((SEffect->isChecked()) && ((hg->cstyle & 1919) != sEff))
 								found = false;
 							if ((SFill->isChecked()) && (hg->ccolor != fCol))
 								found = false;
@@ -757,7 +757,7 @@ void SearchReplace::slotDoReplace()
 					{
 					if (Item->itemText.at(a)->cselect)
 						{
-						Item->itemText.at(a)->cstyle &= ~127;
+						Item->itemText.at(a)->cstyle &= ~1919;
 						Item->itemText.at(a)->cstyle |= s;
 						}
 					}

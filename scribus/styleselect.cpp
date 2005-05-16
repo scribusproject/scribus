@@ -12,12 +12,27 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 {
 	ssLayout = new QHBoxLayout( this, 0, 0, "ssLayout");
 
-	underlineButton = new QToolButton( this, "underlineButton" );
+	buttonGroup3 = new QGroupBox( this, "buttonGroup" );
+	buttonGroup3->setFrameShape( QGroupBox::NoFrame );
+	buttonGroup3->setTitle("");
+	buttonGroup3->setColumnLayout(0, Qt::Vertical );
+	buttonGroup3->layout()->setSpacing( 0 );
+	buttonGroup3->layout()->setMargin( 0 );
+	buttonGroup3Layout = new QHBoxLayout( buttonGroup3->layout() );
+	buttonGroup3Layout->setAlignment( Qt::AlignTop );
+	underlineButton = new QToolButton( buttonGroup3, "underlineButton" );
 	underlineButton->setText( "" );
 	underlineButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineButton->setPixmap(loadIcon("Unter.xpm"));
 	underlineButton->setToggleButton( true );
-	ssLayout->addWidget( underlineButton );
+	buttonGroup3Layout->addWidget( underlineButton );
+	underlineWordButton = new QToolButton( buttonGroup3, "underlineButton" );
+	underlineWordButton->setText( "" );
+	underlineWordButton->setMaximumSize( QSize( 22, 22 ) );
+	underlineWordButton->setPixmap(loadIcon("wordsOnly.png"));
+	underlineWordButton->setToggleButton( true );
+	buttonGroup3Layout->addWidget( underlineWordButton );
+	ssLayout->addWidget( buttonGroup3 );
 
 	buttonGroup = new QGroupBox( this, "buttonGroup" );
 	buttonGroup->setFrameShape( QGroupBox::NoFrame );
@@ -27,14 +42,12 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup->layout()->setMargin( 0 );
 	buttonGroupLayout = new QHBoxLayout( buttonGroup->layout() );
 	buttonGroupLayout->setAlignment( Qt::AlignTop );
-
 	subscriptButton = new QToolButton( buttonGroup, "subscriptButton" );
 	subscriptButton->setText( "" );
 	subscriptButton->setMaximumSize( QSize( 22, 22 ) );
 	subscriptButton->setPixmap(loadIcon("Tief.xpm"));
 	subscriptButton->setToggleButton( true );
 	buttonGroupLayout->addWidget( subscriptButton );
-
 	superscriptButton = new QToolButton( buttonGroup, "superscriptButton" );
 	superscriptButton->setText( "" );
 	superscriptButton->setMaximumSize( QSize( 22, 22 ) );
@@ -51,14 +64,12 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup2->layout()->setMargin( 0 );
 	buttonGroup2Layout = new QHBoxLayout( buttonGroup2->layout() );
 	buttonGroup2Layout->setAlignment( Qt::AlignTop );
-
 	allcapsButton = new QToolButton( buttonGroup2, "allcapsButton" );
 	allcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	allcapsButton->setText("");
 	allcapsButton->setPixmap(loadIcon("AllCaps.png"));
 	allcapsButton->setToggleButton( true );
 	buttonGroup2Layout->addWidget( allcapsButton );
-
 	smallcapsButton = new QToolButton( buttonGroup2, "smallcapsButton" );
 	smallcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	smallcapsButton->setText("");
@@ -82,6 +93,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	ssLayout->addWidget( outlineButton );
 
 	QToolTip::add( underlineButton, tr( "Underline" ) );
+	QToolTip::add( underlineWordButton, tr( "Underline Words only" ) );
 	QToolTip::add( allcapsButton, tr( "All Caps" ) );
 	QToolTip::add( smallcapsButton, tr( "Small Caps" ) );
 	QToolTip::add( subscriptButton, tr( "Subscript" ) );
@@ -92,6 +104,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	connect(allcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(smallcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(underlineButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+	connect(underlineWordButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(subscriptButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(strikeoutButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(superscriptButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
@@ -106,6 +119,7 @@ void StyleSelect::setStyle(int s)
 	subscriptButton->setOn(false);
 	strikeoutButton->setOn(false);
 	underlineButton->setOn(false);
+	underlineWordButton->setOn(false);
 	allcapsButton->setOn(false);
 	smallcapsButton->setOn(false);
 	outlineButton->setOn(false);
@@ -123,6 +137,8 @@ void StyleSelect::setStyle(int s)
 		allcapsButton->setOn(true);
 	if (s & 64)
 		smallcapsButton->setOn(true);
+	if (s & 512)
+		underlineWordButton->setOn(true);
 }
 
 int StyleSelect::getStyle()
@@ -142,6 +158,8 @@ int StyleSelect::getStyle()
 		ret |= 32;
 	if (smallcapsButton->isOn())
 		ret |= 64;
+	if (underlineWordButton->isOn())
+		ret |= 512;
 	return ret;
 }
 
@@ -155,6 +173,10 @@ void StyleSelect::setTypeStyle()
 		smallcapsButton->setOn(false);
 	if (smallcapsButton == sender())
 		allcapsButton->setOn(false);
+	if (underlineWordButton == sender())
+		underlineButton->setOn(false);
+	if (underlineButton == sender())
+		underlineWordButton->setOn(false);
 	emit State(getStyle());
 }
 

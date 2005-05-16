@@ -6376,6 +6376,7 @@ void ScribusApp::setItemTypeStyle(int id)
 	{
 		scrActions["typeEffectNormal"]->setOn(true);
 		scrActions["typeEffectUnderline"]->setOn(false);
+		scrActions["typeEffectUnderlineWords"]->setOn(false);
 		scrActions["typeEffectStrikeThrough"]->setOn(false);
 		scrActions["typeEffectSmallCaps"]->setOn(false);
 		scrActions["typeEffectAllCaps"]->setOn(false);
@@ -6394,8 +6395,14 @@ void ScribusApp::setItemTypeStyle(int id)
 			scrActions["typeEffectAllCaps"]->setOn(false);
 		if (id == 7)
 			scrActions["typeEffectSmallCaps"]->setOn(false);
+		if (id == 8)
+			scrActions["typeEffectUnderline"]->setOn(false);
+		if (id == 1)
+			scrActions["typeEffectUnderlineWords"]->setOn(false);
 		if (scrActions["typeEffectUnderline"]->isOn())
 			b |= 8;
+		if (scrActions["typeEffectUnderlineWords"]->isOn())
+			b |= 512;
 		if (scrActions["typeEffectStrikeThrough"]->isOn())
 			b |= 16;
 		if (scrActions["typeEffectAllCaps"]->isOn())
@@ -6424,6 +6431,7 @@ void ScribusApp::setStilvalue(int s)
 	scrActions["typeEffectStrikeThrough"]->setOn(c & 16);
 	scrActions["typeEffectAllCaps"]->setOn(c & 32);
 	scrActions["typeEffectSmallCaps"]->setOn(c & 64);
+	scrActions["typeEffectUnderlineWords"]->setOn(c & 512);
 	emit TextStil(s);
 }
 

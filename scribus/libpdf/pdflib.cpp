@@ -2821,7 +2821,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				}
 			}
 		}
-		if ((hl->cstyle & 8) && (chx != QChar(13)))
+		if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
 		{
 			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 			double Upos, Uwid, kern;

@@ -2434,7 +2434,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 		}
-		if (hl->Style & 8)
+		if ((hl->Style & 8) || ((hl->Style & 512) && (!ccx[0].isSpace())))
 		{
 			double st, lw;
 			if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))

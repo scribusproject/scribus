@@ -26,9 +26,12 @@ protected:
 	QHBoxLayout* ssLayout;
 	QHBoxLayout* buttonGroupLayout;
 	QHBoxLayout* buttonGroup2Layout;
+	QHBoxLayout* buttonGroup3Layout;
 	QGroupBox* buttonGroup;
 	QGroupBox* buttonGroup2;
+	QGroupBox* buttonGroup3;
 	QToolButton* underlineButton;
+	QToolButton* underlineWordButton;
 	QToolButton* subscriptButton;
 	QToolButton* superscriptButton;
 	QToolButton* smallcapsButton;

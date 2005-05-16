@@ -1090,7 +1090,7 @@ void SEditor::updateSel(int code, struct PtiSmall *hg)
 					chars->at(ca)->csize = hg->csize;
 					break;
 				case 4:
-					chars->at(ca)->cstyle &= ~127;
+					chars->at(ca)->cstyle &= ~1919;
 					chars->at(ca)->cstyle |= hg->cstyle;
 					break;
 				case 5:
@@ -1998,7 +1998,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextStrokeSh = hg->cshade2;
 		Editor->CurrFont = hg->cfont;
 		Editor->CurrFontSize = hg->csize;
-		Editor->CurrentStyle = hg->cstyle & 127;
+		Editor->CurrentStyle = hg->cstyle & 1919;
 		Editor->CurrTextKern = hg->cextra;
 		Editor->CurrTextScale = hg->cscale;
 	}
@@ -2351,7 +2351,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 					{
 						chars->at(s)->cfont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
 						chars->at(s)->csize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-						chars->at(s)->cstyle &= ~127;
+						chars->at(s)->cstyle &= ~1919;
 						chars->at(s)->cstyle |= doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
 						chars->at(s)->ccolor = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
 						chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
@@ -2367,7 +2367,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 					chars->at(s)->cshade2 = CurrItem->ShTxtStroke;
 					chars->at(s)->cfont = CurrItem->IFont;
 					chars->at(s)->csize = CurrItem->ISize;
-					chars->at(s)->cstyle &= ~127;
+					chars->at(s)->cstyle &= ~1919;
 					chars->at(s)->cstyle |= CurrItem->TxTStyle;
 				}
 				chars->at(s)->cab = Editor->currentParaStyle;
@@ -2465,7 +2465,7 @@ void StoryEditor::changeAlign(int )
 						{
 							chars->at(s)->cfont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
 							chars->at(s)->csize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-							chars->at(s)->cstyle &= ~127;
+							chars->at(s)->cstyle &= ~1919;
 							chars->at(s)->cstyle |= doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
 							chars->at(s)->ccolor = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
 							chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
@@ -2481,7 +2481,7 @@ void StoryEditor::changeAlign(int )
 						chars->at(s)->cshade2 = CurrItem->ShTxtStroke;
 						chars->at(s)->cfont = CurrItem->IFont;
 						chars->at(s)->csize = CurrItem->ISize;
-						chars->at(s)->cstyle &= ~127;
+						chars->at(s)->cstyle &= ~1919;
 						chars->at(s)->cstyle |= CurrItem->TxTStyle;
 					}
 					chars->at(s)->cab = Editor->currentParaStyle;
