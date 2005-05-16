@@ -425,6 +425,9 @@ void Page::dropEvent(QDropEvent *e)
 				doku->ActPage->SelItem.clear();
 				for (uint as = ac; as < doku->ActPage->Items.count(); ++as)
 				{
+					PageItem* currItem = doku->ActPage->Items.at(as);
+					if (currItem->isBookmark)
+						emit AddBM(currItem);
 					doku->ActPage->SelectItemNr(as);
 				}
 				update();
@@ -2641,9 +2644,16 @@ void Page::scaleGroup(double scx, double scy)
 
 void Page::PasteToPage()
 {
+	uint ac = Items.count();
 	emit LoadElem(ScApp->Buffer2, qRound(Mxp/doku->Scale), qRound(Myp/doku->Scale), false, false, doku);
 	doku->DraggedElem = 0;
 	doku->DragElements.clear();
+	for (uint as = ac; as < Items.count(); ++as)
+	{
+		PageItem* currItem = Items.at(as);
+		if (currItem->isBookmark)
+			emit AddBM(currItem);
+	}
 	update();
 }
 
@@ -8667,8 +8677,19 @@ void Page::ClearItem()
 			b->PicAvail = false;
 			b->pixm = QImage();
 			b->pixmOrg = QImage();
+			b->LocalX = 0;
+			b->LocalY = 0;
+			b->LocalViewX = 1;
+			b->LocalViewY = 1;
+			b->LocalScX = 1;
+			b->LocalScY = 1;
+			b->ScaleType = true;
+			b->AspectRatio = true;
 			if (b->PType == 2)
+			{
 				emit UpdtObj(PageNr, b->ItemNr);
+				emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY );
+			}
 			update();
 			emit DocChanged();
 		}
@@ -9151,8 +9172,6 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		emit DocChanged();
 		update();
 	}
-	if ((b->isBookmark) && (!loading))
-		emit NewBMNr(b->BMnr, z);
 }
 
 void Page::updateGradientVectors(PageItem *b)

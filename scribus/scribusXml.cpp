@@ -1993,7 +1993,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))
 				OB.NamedLStyle = "";
-			OB.isBookmark = false;
+			OB.isBookmark=QStoInt(pg.attribute("BOOKMARK"));
 			OB.BMnr = 0;
 			OB.Ausrich = DoVorl[QStoInt(pg.attribute("ALIGN","0"))].toUInt();
 			tmf = pg.attribute("IFONT", doc->Dfont);
@@ -2406,6 +2406,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("BACKPAGE", -1);
 		ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("NEXTPAGE", -1);
+		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		elem.appendChild(ob);
 	}
 	return docu.toString().utf8();

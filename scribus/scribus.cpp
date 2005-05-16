@@ -4340,6 +4340,9 @@ void ScribusApp::slotEditPaste()
 				slotElemRead(Buffer2, 0, 0, false, true, doc);
 				for (uint as = ac; as < doc->ActPage->Items.count(); ++as)
 				{
+					PageItem* currItem = doc->ActPage->Items.at(as);
+					if (currItem->isBookmark)
+						AddBookMark(currItem);
 					doc->ActPage->SelectItemNr(as);
 				}
 				doc->useRaster = savedAlignGrid;
@@ -7539,17 +7542,24 @@ void ScribusApp::RestoreBookMarks()
 {
 	QValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
 	BookPal->BView->clear();
+	BookPal->BView->NrItems = 0;
+	BookPal->BView->First = 1;
+	BookPal->BView->Last = 0;
 	if (doc->BookMarks.count() == 0)
 		return;
 	BookMItem* ip;
 	BookMItem* ip2 = NULL;
 	BookMItem* ip3 = NULL;
 	BookMItem *ite = new BookMItem(BookPal->BView, &(*it2));
+	BookPal->BView->NrItems++;
 	++it2;
 	for( ; it2 != doc->BookMarks.end(); ++it2 )
 	{
 		if ((*it2).Parent == 0)
+		{
 			ite = new BookMItem(BookPal->BView, ite, &(*it2));
+			BookPal->BView->NrItems++;
+		}
 		else
 		{
 			QListViewItemIterator it3(BookPal->BView);
@@ -7563,7 +7573,10 @@ void ScribusApp::RestoreBookMarks()
 				}
 			}
 			if ((*it2).Prev == 0)
+			{
 				(void) new BookMItem(ip2, &(*it2));
+				BookPal->BView->NrItems++;
+			}
 			else
 			{
 				QListViewItemIterator it4(BookPal->BView);
@@ -7577,9 +7590,11 @@ void ScribusApp::RestoreBookMarks()
 					}
 				}
 				(void) new BookMItem(ip2, ip3, &(*it2));
+				BookPal->BView->NrItems++;
 			}
 		}
 	}
+	BookPal->BView->Last = BookPal->BView->NrItems;
 }
 
 void ScribusApp::StoreBookmarks()
