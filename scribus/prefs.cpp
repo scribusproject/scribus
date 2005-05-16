@@ -525,6 +525,11 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	rightScratch->setMaxValue(1000);
 	rightScratch->setValue(prefsData->ScratchRight * unitRatio);
 	Layout4s->addWidget( rightScratch, 1, 3 );
+	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
+	topScratch->setSuffix(unitSuffix);
+	bottomScratch->setSuffix(unitSuffix);
+	leftScratch->setSuffix(unitSuffix);
+	rightScratch->setSuffix(unitSuffix);
 	Rechtss = new QLabel(rightScratch, tr( "&Right:" ), groupScratch, "Rechts" );
 	Layout4s->addWidget( Rechtss, 1, 2 );
 	groupScratchLayout->addLayout( Layout4s );
