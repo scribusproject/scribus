@@ -28,8 +28,8 @@
 #include "pageitem.h"
 
 /**
-  *@author Franz Schmid
-  */
+*@author Franz Schmid
+*/
 
 class BookMItem : public QListViewItem
 {
@@ -38,17 +38,17 @@ public:
 	BookMItem(QListViewItem* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
 	BookMItem(QListView* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
 	BookMItem(QListView* parent, struct ScribusDoc::BookMa *Bm);
-    BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int el);
-    BookMItem(QListView* parent, int nr, int s, int el);
-    ~BookMItem() {};
+	BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int el);
+	BookMItem(QListView* parent, int nr, int s, int el);
+	~BookMItem() {};
 	void SetUp(struct ScribusDoc::BookMa *Bm);
-    virtual QString key(int, bool) const;
-    int ItemNr;
-    int Seite;
-    int Element;
-    int PdfObj;
-    QString Action;
-    QString Titel;
+	virtual QString key(int, bool) const;
+	int ItemNr;
+	int Seite;
+	int Element;
+	int PdfObj;
+	QString Action;
+	QString Titel;
 	int First;
 	int Last;
 	int Prev;
@@ -58,25 +58,26 @@ public:
 
 class BookMView : public QListView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    BookMView(QWidget* parent);
-    ~BookMView() {};
-    void AddItem(QString text, QString Tit, int s, int el);
-    void DeleteItem(int nr);
-    void SetAction(int nr, QString Act);
-    int NrItems;
-    bool Mpressed;
-    QPoint Mpos;
-    BookMItem *DraggedI;
-    int First;
-    int Last;
+	BookMView(QWidget* parent);
+	~BookMView() {};
+	void AddItem(QString text, QString Tit, int s, int el);
+	void DeleteItem(int nr);
+	void SetAction(int nr, QString Act);
+	int NrItems;
+	bool Mpressed;
+	QPoint Mpos;
+	BookMItem *DraggedI;
+	int First;
+	int Last;
 
 public slots:
 	void AddPageItem(PageItem* ite);
 	void ChangeItem(int nr, int itnr);
 	void ChangeText(PageItem *currItem);
+	void languageChange();
 
 signals:
 	void MarkMoved();
@@ -84,11 +85,14 @@ signals:
 	void SelectElement(int, int);
 
 protected:
-    void contentsMouseReleaseEvent(QMouseEvent *m);
-    void contentsMousePressEvent(QMouseEvent* e);
-    void contentsMouseMoveEvent(QMouseEvent* e);
-    void contentsDropEvent(QDropEvent *e);
-    void contentsDragMoveEvent(QDragMoveEvent *e);
+	void contentsMouseReleaseEvent(QMouseEvent *m);
+	void contentsMousePressEvent(QMouseEvent* e);
+	void contentsMouseMoveEvent(QMouseEvent* e);
+	void contentsDropEvent(QDropEvent *e);
+	void contentsDragMoveEvent(QDragMoveEvent *e);
+	
+private:
+	int idBookMarkCol;
 };
 
 #endif

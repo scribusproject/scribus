@@ -35,6 +35,9 @@ public:
 	//void keyPressEvent(QKeyEvent *k);
 	//void closeEvent(QCloseEvent *ce);
 	BookMView	*BView;
+	
+public slots:
+	void languageChange();
 
 signals:
 	//void ToggleAllPalettes();

@@ -107,10 +107,11 @@ BookMView::BookMView(QWidget* parent) : QListView(parent)
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
 	setRootIsDecorated(true);
-	addColumn( tr("Bookmarks"));
+	idBookMarkCol=addColumn("Bookmarks");
 	setResizeMode(QListView::AllColumns);
 	setSelectionMode(QListView::NoSelection);
 	setSorting(-1,1);
+	languageChange();
 }
 
 void BookMView::AddPageItem(PageItem* ite)
@@ -542,3 +543,7 @@ void BookMView::ChangeText(PageItem *currItem)
 	}
 }
 
+void BookMView::languageChange()
+{
+	setColumnText(idBookMarkCol, tr("Bookmarks"));
+}

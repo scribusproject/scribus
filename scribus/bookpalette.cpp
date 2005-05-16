@@ -31,11 +31,11 @@ extern QPixmap loadIcon(QString nam);
 BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
-	setCaption( tr( "Bookmarks" ) );
 	PaletteLayout = new QVBoxLayout( this, 0, 0, "PaletteLayout");
 	BView = new BookMView(this);
 	BView->setMinimumSize(QSize(100,150));
 	PaletteLayout->addWidget( BView );
+	languageChange();
 }
 
 /*!
@@ -65,3 +65,7 @@ void BookPalette::reject()
 }
 */
 
+void BookPalette::languageChange()
+{
+	setCaption( tr( "Bookmarks" ) );	
+}
