@@ -1683,19 +1683,22 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu so napisane različica, datum izgradnje in
+vključene knjižnice.
+C-C-T pomeni: C=littlecms C=CUPS T=TIFF.
+Manjkajoča knjižnica je označena s *</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3</translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaansko:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugalsko (Brazilsko):</translation>
     </message>
 </context>
 <context>
@@ -1772,14 +1775,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavi velikost medija</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tu lahko izrecno nastavite velikost
+medija v postscript datoteki.
+To ni priporočljivo, razen
+če vaš tiskalnik to zahteva.</translation>
     </message>
 </context>
 <context>
@@ -2997,19 +3003,19 @@ ker je to ime rezervirano za prosojno barvo</translation>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberi sloge</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostopni slogi</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">V redu</translation>
+        <translation>V redu</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Prekliči</translation>
+        <translation>Prekliči</translation>
     </message>
 </context>
 <context>
@@ -3651,149 +3657,155 @@ ni uspel!</translation>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Urejanje makra: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Urejevalnik makrov</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteka &apos;%1&apos; že obstaja.
+Jo res želite prepisati?</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ta makro ste že urejali.
+Ali res želite zanemarite spremembe?</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Sledi celotna sled:
+
+%1</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makra nisem uspel prevesti, zato ga v trenutni obliki
+ne morem shraniti. Napaka je bila:
+%1</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nov makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;To je pogovorno okno za urejanje makrov. Tu lahko popravljate izvorno kodo makrov, v urejevalniku spodaj. Ko končate kliknite &quot;V redu&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvorna koda:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Urejanje makra:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ime makra, ki se trenutno ureja.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/qt&gt;Tu je izpisano ime makra, ki ga trenutno urejate.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zanemare vse spremembe in zapri.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zapre pogovorno okno in zanemari vse opravljene spremembe. Če želite zapreti, a nočete izgubiti popravkov, shranite spremembe z &quot;Shrani kodo kot...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Shrani spremembe in zapri.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Shrani spremembe v makro in zapre okno. Če je z makrom kaka težava, se po pokazalo opozorilo in okno se ne bo zaprlo.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;To polje vsebuje izvorno kodo makra. Če pripravljate novega je to polje prazno, sicer pa bo tu izvorna koda odprtega makra.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Naloži vir...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zamenjaj trenutno izvorno kodo z novo iz datoteke.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Naloži novo izvorno kodo v urejevalnik in &quot;datoteke&quot;. Vsak koda ki je trenutno v urejevalniku se bo nadomestila z novo. Naložen vir mora biti Scribusov makro, katerokoli drugo skripto boste morali popraviti tako, da bo delovala, preden jo boste shranili.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Shrani vir kot...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Shrani urejano izvorno kodo v datoteko.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani izvorno kodo - besedilo - makra v datoteko. Potem jo lahko ponovno naložit in urjate z ukazom &quot;Naloži vir...&quot;.</translation>
     </message>
     <message>
         <source>Python source files (.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python datoteke (.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno za shranjevanje</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani izvorno kodo makra</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno za odpiranje</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite datoteko s kodo</translation>
     </message>
 </context>
 <context>
@@ -4418,7 +4430,7 @@ uporabite 72 dpi</translation>
     </message>
     <message>
         <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost pisave</translation>
     </message>
 </context>
 <context>
@@ -4525,35 +4537,35 @@ najnovejše datototeke za prenos pa na www.scribus.net.</translation>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vsebina</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Išči</translation>
+        <translation>&amp;Išči</translation>
     </message>
     <message>
         <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
+        <translation>I&amp;šči</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>F3</source>
-        <translation type="unfinished"></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>neznano</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Najdi</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation>Izraz za iskanje:</translation>
     </message>
 </context>
 <context>
@@ -4974,46 +4986,46 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Poslan predmet ni raztegljiv</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravljaj makre</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaže okno za ustvarjanje, brisanje, urejanje, shranjevanje in nalaganje makrojev.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustvari, uredi alki zbriši makro</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Makro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Urejevalnik makrov</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nisem mogel naložiti datoteke: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Uredi makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;To ime ima že nek drug makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Neuspešna priprava makra. Upravljalnik makrojev ni mogel pripraviti makra.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -5022,7 +5034,11 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makro &apos;%1&apos; je javil manjšo napako:
+Napaka je bila: &apos;%2&apos;
+Sledi celotna sled:
+
+%3</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -5031,76 +5047,82 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makro &apos;%1&apos; se ni pravilno zagnal.
+Napaka je bila: &apos;%2&apos;
+Sledi celotna sled:
+
+%3</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nov makro</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vnesite ime novega makra:</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Urejevalnik makrov</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Preimenujem makro, ker je to ime že uporabljeno.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Upravljaj makre</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;To okno je Scribusov upravljalnik makrov. Tu lahko ustvarjate in urejate makre. Spreminjate ga lahko z gumbi na desni strani okna.&lt;/p&gt;
+&lt;p&gt;Vse spremembe ki jih naredite imajo takojšen učinek - dejanj ki jih naredite ne morete preklicati.
+Tabela v sredini okna prikazuje spisek trenutno naložnih makrojev in osnovnih informacij o njih. Uporabite orodje &quot;Kaj je to&quot; za več podatkov.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nova</translation>
+        <translation>&amp;Nova</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ustvari nov makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ustvari nov makro, tako da vpraša za ime, nato pa pokaže urejevalnik izvorne kode.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Makro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Uredi</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Bližnjica</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Opis</translation>
+        <translation>Opis</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -5109,174 +5131,182 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;V tej tabeli so trenutno določeni makri.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Ime:&lt;/b&gt; Ime makra, kor je prikazano v menijih.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Uredi:&lt;/b&gt; Če se makro lahko ureja, bo tu pisalo &apos;Da&apos;. Če se ga ne da urejati, to običajno pomeni, da je bil priprabljen z ukazom register_macro.&lt;/p&gt;(new line)
+&lt;p&gt;&lt;b&gt;Bližnjica:&lt;/b&gt; Kombinacija tipk, ki naj požene makro.&lt;/p&gt;(new line)
+&lt;p&gt;&lt;b&gt;Opis:&lt;/b&gt; Če makro vsebuje &apos;docstring&apos;, poseben zapis na začetku makra, ki opisuje njegovo delovanje, se tu izpiše. Če je ta opis dolg, bo tu naveden le začetek. Za celoten opis uporabite orodje &apos;Kaj je to&apos;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;reimenuj</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Preimenuj izbrani makro.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Preimenuj izbrani makro. Morali oste vnesti novo ime.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Uredi...</translation>
+        <translation>&amp;Uredi...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Uredi kodo izbranega makra, če je na voljo.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Zbriši</translation>
+        <translation>&amp;Zbriši</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Izbriši trenutno izbrani makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Izbriše izbrani makro. To se zgodi takoj in ne boste ga mogli povrniti. Če gre za makro, ki se pripravi ob zagonu, se bo ponovno pojavil, ko boste ponovno zagnali Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nastavi bližnjico</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Nastavi bližnjico tipkovnice za izbrani makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Nastavi bližnjico za izbrani makro. V pogovorno okno boste lahko vpisali željeno bližnjico.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Izvoz</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+X</translation>
     </message>
     <message>
         <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvozi makre v datoteko.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Izvozi makro v datoteko. Ta datoteka bo Python skripta, ki bo vsebovala ukaze za ponovno pripravo makra. Lahko jo boste naložili z ukazom &lt;tt&gt;Naloži razširitveno skripto&lt;/tt&gt; v meniju &lt;tt&gt;Skripta&lt;/tt&gt;, ali z gumbom Uvozi v urejevalniku makrov.&lt;/p&gt;
+&lt;p&gt;Če želite prijazno, berljivo različico makra, ga izbeite in pritisnite gumb &lt;tt&gt;Edit&lt;/tt&gt;, nato pa shranite z gumbom &lt;tt&gt;Shrani vir&lt;/tt&gt; v pogovornem oknu &lt;tt&gt;Uredi makro&lt;/tt&gt;. Te različice sicer ne boste mogli naložiti z &lt;tt&gt;Naloži razširitveno skripto&lt;/tt&gt;, namesto tega ustvarite nov makro z gumbom &lt;tt&gt;Nov&lt;/tt&gt; in uporabite &lt;tt&gt;Naloži vir&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši &amp;vse</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Izbriši vse makre.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Izbriše vse makre. To se zgodi takoj in ne boste ga mogli povrniti. Makri, ki se pripravijo ob zagonu, se bodo ponovno pojavili, ko boste ponovno zagnali Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Uvozi</translation>
+        <translation>&amp;Uvozi</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi makre iz datoteke.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Naloži makre iz datoteke.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapri to okno</translation>
     </message>
     <message>
         <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrni se v Scribus</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Uredi izbrani makro.&lt;/p&gt;
+&lt;p&gt;Če je ta gumb neaktiven, potem ni izbranih makrov ali pa upravljalnik makrov nima izvorne kode za izbrani makro (v tem primeri bo v stolpcu &lt;tt&gt;Uredi&lt;/tt&gt; pisalo &lt;tt&gt;Ne&lt;/tt&gt;).&lt;/p&gt;
+&lt;p&gt;Če Scribus nima izvorne kode je bil makro najverjetneje pripravljen s skripto.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus makro datoteke (*.pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno za datoteke</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberite datoteko z makri.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Pogovorno okno za shranjevanje</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani vse makre</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Preimenuj makro</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vnesite novo ime:</translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nastavi bližnjico za makro</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vnesite novo bližnjico:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Da</translation>
+        <translation>Da</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Ne</translation>
+        <translation>Ne</translation>
     </message>
 </context>
 <context>
@@ -6122,11 +6152,11 @@ robovi:</translation>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>Razma&amp;k besed:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Ročno razmikanje besed</translation>
     </message>
 </context>
 <context>
@@ -6687,7 +6717,7 @@ Scribusu uredi tako, da ustreza uvoženemu ali naj se ga pusti nedotaknjenega</t
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Ime dokumenta uporabi kot predpono za sloge odstavka</translation>
+        <translation>Ime dokumenta uporabi kot predpono za sloge odstavka</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -6697,7 +6727,7 @@ pred imena uvoženih slogov odstavka</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Ne vprašaj več</translation>
+        <translation>Ne vprašaj več</translation>
     </message>
     <message>
         <source>Should the importer always use currently
@@ -6709,35 +6739,35 @@ in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">V redu</translation>
+        <translation>V redu</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Možnosti uvoza vrste OpenDocument</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Posodobi sloge odstavka</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation>Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Združi sloge odstavka</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Združuj sloge odstavka po lastnostih. Tako boste dobili manj sorodnih slogov odstavka, ki bodo obdržali pravilne lastnosti, čeprav se različno imenujejo.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj ime dokumenta k imeu sloga odstavka v Scribusu.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Naj bodo te nastavitve privzete in ne sprašuj več ob uvažanju OASIS OpenDocument.</translation>
     </message>
 </context>
 <context>
@@ -7465,36 +7495,36 @@ sistemih.</translation>
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani kot PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Da lahko uporabite PDF/X-3 morate vključiti upravljanje barv. To storite v meniju &apos;Nastavitve&apos;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 je podprt in vključen, a ga ne morete uporabiti z izbrano različico PDF. Če ga želite, ga morate izbrati kot uporabljeno različico PDF (raven združljivosti).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 ni podprt v tej izgradnji (ni podpore za upravljanje barv).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dovoli dodajanje opomb in polj v PDF.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Varnostne nastavitve PDF</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavitve PDF/X-3</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Varnostne nastavitve niso mogoče z različico PDF/X-3. Če jih želite uporabiti, izberite kako druge različico PDF.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -9031,26 +9061,29 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzet imenik za ICC profile. Tega ne morete 
+spremeniti, če imate odprte dokumente.</translation>
     </message>
     <message>
         <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Vključi osnovno mrežo</translation>
     </message>
     <message>
         <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Izključi osnovno mrežo</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokacija upodobljevalnika Ghostscript na sistemu</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokacija grafičnega urejevalnika. Če uporabljate gimp,
+ki je vključen v distribucijo, predlagamo uporabo
+&apos;gimp-remote&apos;, ki omogoča uporabo že zagnanega gimpa.</translation>
     </message>
 </context>
 <context>
@@ -9962,209 +9995,209 @@ Povezave navzven
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti barve brez imena.</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem spremeniti barve brez imena.</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem ustvariti barve brez imena.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem zbrisati barve brez imena.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem zamenjati barve brez imena.</translation>
     </message>
     <message>
         <source>Failed to open document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neuspešno odpiranje dokumenta</translation>
     </message>
     <message>
         <source>Failed to save document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neuspešno shranjevanje dokumenta</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Enota izven obsega. Uporabite konstante scribus.UNIT_* .</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cilj ni slikovni okvir.</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Predmet z zahtevanim imenom že obstaja</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spisek točk mora vsebovati vsaj dve točki (štiri vrednosti)</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spisek točk mora vsebovati sodo število vrednosti</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spisek točk mora vsebovati vsaj tri točke (šest vrednosti)</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spisek točk mora vsebovati vsaj štiri točke (osem vrednosti)</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spisek točk mora vsebovati večkratnik od šest vrednosti</translation>
     </message>
     <message>
         <source>Object not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznan predmet</translation>
     </message>
     <message>
         <source>Style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznan slog</translation>
     </message>
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti sloga na nebesedilnem okvirju</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neuspešno shranjevanje v EPS</translation>
     </message>
     <message>
         <source>Page number out of range</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Številka strani izven obsega</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>argumenta ni v spisku: mora biti spisek vrednosti float</translation>
     </message>
     <message>
         <source>argument contains non-numeric values: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>argument vsebuje neštevilčne vrednosti: mora biti spisek vrednosti float</translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Širina črte izven dosega, mora biti med 0 in 12</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Senca črte izven dosega, mora biti med 0 in 100</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Senca polnila izven dosega, mora biti med 0 in 100</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Polmer kota mora biti pozitiven.</translation>
     </message>
     <message>
         <source>Line style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznan slog črte</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti velikosti pisave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti pisave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti velikosti besedila na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti števila stolpcev na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti razmaka vrstic na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti razmika stolpcev na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti besedila na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem določiti besedila nebesedilnemu okvirju.</translation>
     </message>
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem vnesti besedila v nebesedilni okvir.</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Poravnava izven obsega. Uporabite konstante scribus.ALIGN_* .</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Izbira izven dosega</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd);; Vse datoteke (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenti OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznana barva - napaka python</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10197,285 +10230,285 @@ function&apos;s documentation.</source>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Posebne nastavitve:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Standardne nastavitve:</translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kratke &amp;besede...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Urejam kratke besede. Prosim počakajte...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Urejam kratke besede. Opravljeno.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Afrikaansko</translation>
+        <translation>Afrikaansko</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turško</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukrajinsko</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Valižansko</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ime datoteke mora biti beseda.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne more izbrisati nastavitev vrste slike.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vrsta slike mora biti beseda.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>lastnost &apos;allTypes&apos; je samo za branje</translation>
     </message>
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neuspešen izvoz slike</translation>
     </message>
     <message>
         <source>Color not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznana barva.</translation>
     </message>
     <message>
         <source>Color not found in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Barve ni v dokumentu.</translation>
     </message>
     <message>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Barve ni med privzetimi barvami.</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem umeriti za 0%.</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Izbran predmet ni slikovni okvir.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznana pisava.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem upodobiti praznega vzorca.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ime sloja ne more biti prazno.</translation>
     </message>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznan sloj.</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem odstarniti zadnjega sloja.</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem ustvariti sloja brez imena.</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vnosni indeks izmen dosega.</translation>
     </message>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti poravnave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Velikost pisave izven dosega - mora biti med 1 in 512.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti velikosti pisave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti pisave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Razmik vrstic izven dosega. Mora biti &gt;= 0.1.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti razmaka vrstic na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Razmik stolpcev izven dosega. Mora biti pozitiven.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti razmika stolpcev na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Število stolpcev izven dosega. Mora biti &gt;= 1.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti števila stolpcev na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem izbrati besedila na nebesedilnem okvirju</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem izbrisati besedila na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti barve pisave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti obrisa pisave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti sence pisave na nebesedilnem okvirju.</translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lahko poveže le besedilne okvirje.</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ciljni okvir mora biti prazen.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ciljni okvir je povezan naprej.</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ciljni okvir je že povezan od drugod.</translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Začetek in cilj sta isti predmet.</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem razvezati nebesedilnega okvirja.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, cannot unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Predmet ni povezan besedilni okvir.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Predmet je zadnji v verigi. Razvežite prejšnjega.</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem pretvoriti nebesedilnega okvirja v črte.</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugalščina (Brazilska)</translation>
     </message>
     <message>
         <source>Cannot get a colour with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti barve brez imena.</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neuspešno shranjevanje slike.</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem nastaviti opombe na nebesedilnem okvirju</translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne morem dobiti podatkov o nebesedilnem okvirju</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Besedilni dokumenti OpenDocument</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Hrvaščina</translation>
     </message>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Neznana barva</translation>
     </message>
 </context>
 <context>
@@ -10833,11 +10866,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Razmak besed:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Ročno razmikanje besed</translation>
     </message>
 </context>
 <context>
@@ -12038,23 +12071,23 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugalščina (BR)</translation>
     </message>
     <message>
         <source>There are no suitable Fonts on your System</source>
-        <translation type="unfinished"></translation>
+        <translation>Na sistemu ni sprejemljivih pisav</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Upravljanje barv je podprto, a ga trenutno ni mogoče vključiti. Preverite, če imate naložene ICC barvne profile in nastavljeno pravilno pot do njih.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Upravljanje barv v tej izgradnji ni vključeno.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Hrvaščina</translation>
     </message>
 </context>
 <context>
@@ -12089,7 +12122,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Kopija</translation>
+        <translation>Kopija</translation>
     </message>
 </context>
 <context>
@@ -12127,75 +12160,75 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>ScripterCore</name>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">&amp;Skribusove skripte</translation>
+        <translation>&amp;Skribusove skripte</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Poženi skripto...</translation>
+        <translation>&amp;Poženi skripto...</translation>
     </message>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Poženi Python skripto iz datoteke.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Naloži razširitveno skripto...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Naloži Python skripto kot razširitev. To se uporablja za napredne skripte, ki nadgradijo Scribusov vmesnik.</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Nedavne skripte</translation>
+        <translation>&amp;Nedavne skripte</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži &amp;konzolo</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pokaži interaktivno Python konzolo, v kateri lahko poganjate python programe.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;O skriptah...</translation>
+        <translation>&amp;O skriptah...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">Skripta</translation>
+        <translation>S&amp;kripta</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nastavitve skript</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Odpri</translation>
+        <translation>Odpri</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Python Skripte (*.py);; Vse datoteke (*)</translation>
+        <translation>Python Skripte (*.py);; Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Napaka skripte</translation>
+        <translation>Napaka skripte</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Če ste pognali uradno skipto, prosimo sporočite napako na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Če ste pognali uradno skipto, prosimo sporočite napako na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Tudi to sporočilo je v odložišču. Uporabite Ctrl+V da ga prilepite v slednika hroščev.</translation>
+        <translation>Tudi to sporočilo je v odložišču. Uporabite Ctrl+V da ga prilepite v slednika hroščev.</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Dodatek za skripte</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -12208,30 +12241,36 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Možnost &apos;Naloži skripto&apos; dodatka za skripte je trenutno izključena.
+Če želite le zagnati običajno skripto, uporabite raje &apos;Zaženi skripto...&apos;.
+
+Če zares želite naložiti Python razširitveno skripto ali makro, 
+morate to v nastavitvah za skripte v meniju &apos;Skripta&apos; vključiti.
+
+Prosimo, preberite najprej dokumentacijo o raziširitvenih skriptah.</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished">Skrij k&amp;onzolo</translation>
+        <translation>Skrij k&amp;onzolo</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">O skriptah</translation>
+        <translation>O skriptah</translation>
     </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nastavitve skript</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Omogoči razširitvene skripte</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Vključi razširitvene skripte in makroje</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
@@ -12241,7 +12280,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi zagonsko skripto</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
@@ -12250,19 +12289,19 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Brskaj...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Poišči novo skripno datoteko</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Poišči novo skripno datoteko&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Katera datoteka naj se naloži ob zagonu</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
@@ -12271,43 +12310,43 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriptna datoteka:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapri brez shranjevanja</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Shrani spremembe in zapri</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Napredne možnosti</translation>
+        <translation>Napredne možnosti</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Ob zagonu naloži vsa imena</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Ob zagonu požene &apos;from scribus import *&apos;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
@@ -12331,7 +12370,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi lažni vhod stdin</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
@@ -12924,27 +12963,27 @@ in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Posodobi sloge odstavka</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <translation>Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Združi sloge odstavka</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Združuj sloge odstavka po lastnostih. Tako boste dobili manj sorodnih slogov odstavka, ki bodo obdržali pravilne lastnosti, čeprav se različno imenujejo.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj ime dokumenta k imeu sloga odstavka v Scribusu.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Naj bodo te nastavitve privzete in ne sprašuj več ob uvažanju dokumentov OpenOffice.org 1.x.</translation>
     </message>
 </context>
 <context>
@@ -13142,48 +13181,49 @@ Prosim, izberite drugo.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kratke besede</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi nedeljivi presledek na:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Izbrani okvirji</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Trenutna &amp;stran</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vsi gradniki</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;V redu</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Prekli&amp;či</translation>
+        <translation>Prekli&amp;či</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Podatki in
+jeziki</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nadomesti privzete vrednosti z uporabnikovimi</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -13194,37 +13234,43 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Če obstaja uporabniška nastavitvena datoteka
+(%1)
+lahko izberete med lastnimi ali globalnimi
+nastavitvami z obkljukanjem gumba.
+
+Privzete vrednosti lahko tako tudi nadomesite 
+s svojimi.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uredil samo izrane okvirje.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uredil samo dejansko stran.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uredil vse gradnike dokumenta.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kratke besede za Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Omogočeno v naslednjih jezikih</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>O kratkih besedah</translation>
     </message>
 </context>
 <context>
@@ -13404,7 +13450,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozi samo besedilo</translation>
     </message>
 </context>
 <context>
