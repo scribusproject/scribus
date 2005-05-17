@@ -92,7 +92,6 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	HaveItem = false;
 	RoVal = 0;
 	Umrech = 1.0;
-	QString ptSuffix = tr( " pt" );
 	setIcon( loadIcon("AppIcon.png") );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
@@ -318,7 +317,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Layout13 = new QHBoxLayout( 0, 0, 2, "Layout13");
 
 	RoundRect = new MSpinBox( page_2, 1 );
-	rndcornersLabel = new QLabel( RoundRect, tr( "R&ound\nCorners:" ), page_2, "rndcornersLabel" );
+	rndcornersLabel = new QLabel( RoundRect, "R&ound\nCorners:", page_2, "rndcornersLabel" );
 	Layout13->addWidget( rndcornersLabel );
 	Layout13->addWidget( RoundRect );
 	pageLayout_2->addLayout( Layout13 );
@@ -338,37 +337,37 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	DCol = new QSpinBox(Distance, "Cols" );
     DCol->setMaxValue( 3000 );
     DCol->setMinValue( 1 );
-	columnsLabel = new QLabel( DCol, tr( "Colu&mns:" ), Distance, "columnsLabel" );
+	columnsLabel = new QLabel( DCol, "Colu&mns:", Distance, "columnsLabel" );
 	DistanceLayout->addWidget( columnsLabel, 0, 0 );
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
 	dGap = new MSpinBox( 0, 300, Distance, 1 );
-	colgapLabel = new LabelButton( Distance, tr("&Gap:"), tr("&Width:"));
+	colgapLabel = new LabelButton( Distance, "&Gap:", "&Width:");
 	colgapLabel->setBuddy(dGap);
 	DistanceLayout->addWidget( colgapLabel, 1, 0 );
 	DistanceLayout->addWidget( dGap, 1, 1 );
 
 	DTop = new MSpinBox( 0, 300, Distance, 1 );
-	topLabel = new QLabel( DTop, tr( "To&p:" ), Distance, "topLabel" );
+	topLabel = new QLabel( DTop, "To&p:", Distance, "topLabel" );
 	DistanceLayout->addWidget( topLabel, 2, 0 );
 	DistanceLayout->addWidget( DTop, 2, 1 );
 
 	DBottom = new MSpinBox( 0, 300, Distance, 1 );
-	bottomLabel = new QLabel( DBottom, tr( "&Bottom:" ), Distance, "bottomLabel" );
+	bottomLabel = new QLabel( DBottom, "&Bottom:", Distance, "bottomLabel" );
 	DistanceLayout->addWidget( bottomLabel, 3, 0 );
 	DistanceLayout->addWidget( DBottom, 3, 1 );
 
 	DLeft = new MSpinBox( 0, 300, Distance, 1 );
-	leftLabel = new QLabel( DLeft, tr( "&Left:" ), Distance, "leftLabel" );
+	leftLabel = new QLabel( DLeft, "&Left:", Distance, "leftLabel" );
 	DistanceLayout->addWidget( leftLabel, 4, 0 );
 	DistanceLayout->addWidget( DLeft, 4, 1 );
 
 	DRight = new MSpinBox( 0, 300, Distance, 1 );
-	rightLabel = new QLabel( DRight, tr( "&Right:" ), Distance, "rightLabel" );
+	rightLabel = new QLabel( DRight, "&Right:", Distance, "rightLabel" );
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
 
-	TabsButton = new QPushButton( tr("T&abulators..."), Distance, "Tabul" );
+	TabsButton = new QPushButton( "T&abulators...", Distance, "Tabul" );
 	TabsButton->setDefault( false );
 	TabsButton->setAutoDefault( false );
 	DistanceLayout->addMultiCellWidget( TabsButton, 6, 6, 0, 1 );
@@ -377,22 +376,22 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	page_2b = new QWidget( TabStack2, "page" );
 	pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
-	Distance2 = new QGroupBox( tr( "Path Text Properties" ), page_2b, "Distance" );
+	Distance2 = new QGroupBox( "Path Text Properties", page_2b, "Distance" );
 	Distance2->setColumnLayout(0, Qt::Vertical );
 	Distance2->layout()->setSpacing( 2 );
 	Distance2->layout()->setMargin( 5 );
 	DistanceLayout2 = new QGridLayout( Distance2->layout() );
 	DistanceLayout2->setAlignment( Qt::AlignTop );
 	showcurveCheckBox = new QCheckBox( Distance2, "showcurveCheckBox" );
-	showcurveCheckBox->setText( tr( "Show Curve" ) );
+	showcurveCheckBox->setText( "Show Curve" );
 	DistanceLayout2->addMultiCellWidget( showcurveCheckBox, 0, 0, 0, 1 );
-	startoffsetLabel = new QLabel( tr( "Start Offset:" ), Distance2, "startoffsetLabel" );
+	startoffsetLabel = new QLabel( "Start Offset:", Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
 	Dist = new MSpinBox( 0, 30000, Distance2, 1 );
 	Dist->setLineStep(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
 
-	distfromcurveLabel = new QLabel( tr( "Distance from Curve:" ), Distance2, "distfromcurveLabel" );
+	distfromcurveLabel = new QLabel( "Distance from Curve:", Distance2, "distfromcurveLabel" );
 	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
 	LineW = new MSpinBox( -300, 300, Distance2, 1 );
 	LineW->setLineStep(10);
@@ -403,16 +402,15 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	pageLayout_2->addWidget( TabStack2 );
 
 	textFlowsAroundFrame = new QButtonGroup( page_2, "textFlowsAroundFrame" );
-	textFlowsAroundFrame->setTitle( tr( "Text &Flows Around Frame" ) );
 	textFlowsAroundFrame->setColumnLayout(0, Qt::Vertical );
 	textFlowsAroundFrame->layout()->setSpacing( 5 );
 	textFlowsAroundFrame->layout()->setMargin( 10 );
 	textFlowsAroundFrameLayout = new QVBoxLayout( textFlowsAroundFrame->layout() );
 	textFlowsAroundFrameLayout->setAlignment( Qt::AlignTop );
 	textFlowsAroundFrame->setCheckable( true );
-	textFlowUsesBoundingBox = new QCheckBox( tr( "Use &Bounding Box" ), textFlowsAroundFrame, "textFlowUsesBoundingBox" );
+	textFlowUsesBoundingBox = new QCheckBox( "Use &Bounding Box", textFlowsAroundFrame, "textFlowUsesBoundingBox" );
 	textFlowsAroundFrameLayout->addWidget( textFlowUsesBoundingBox );
-	Textflow3 = new QCheckBox( tr( "&Use Contour Line" ), textFlowsAroundFrame, "Textflow3" );
+	Textflow3 = new QCheckBox( "&Use Contour Line", textFlowsAroundFrame, "Textflow3" );
 	textFlowsAroundFrameLayout->addWidget( Textflow3 );
 	pageLayout_2->addWidget( textFlowsAroundFrame );
 
@@ -435,7 +433,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	Size = new MSpinBox( 0.5, 1024, page_3, 1 );
 	Size->setPrefix( "" );
-	fontsizeLabel = new QLabel( Size, tr("&Font Size:"), page_3, "fontsizeLabel" );
+	fontsizeLabel = new QLabel( Size, "&Font Size:", page_3, "fontsizeLabel" );
 	layout41->addWidget( fontsizeLabel, 1, 0 );
 	layout41->addWidget( Size, 1, 1 );
 	layout46->addLayout( layout41 );
@@ -445,7 +443,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	ChScale->setMaxValue( 400 );
 	ChScale->setMinValue( 25 );
 	ChScale->setValue( 100 );
-	ScaleTxt = new QLabel( ChScale, tr("&Width:"), page_3, "ScaleTxt" );
+	ScaleTxt = new QLabel( ChScale, "&Width:", page_3, "ScaleTxt" );
 	layout22->addWidget( ScaleTxt );
 	layout22->addWidget( ChScale );
 	layout46->addLayout( layout22 );
@@ -499,7 +497,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	GroupAlign = new AlignSelect(page_3);
 	pageLayout_3->addWidget( GroupAlign );
 
-	GroupBox3 = new QGroupBox( tr( "Custom Spacing" ), page_3, "GroupBox3" );
+	GroupBox3 = new QGroupBox( "Custom Spacing", page_3, "GroupBox3" );
 	GroupBox3->setColumnLayout(0, Qt::Vertical );
 	GroupBox3->layout()->setSpacing( 2 );
 	GroupBox3->layout()->setMargin( 5 );
@@ -512,22 +510,22 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Extra = new MSpinBox( GroupBox3, 1 );
 	GroupBox3Layout->addWidget( Extra, 0, 1 );
 
-	trackingLabel = new QLabel( Extra, tr( "Trac&king:" ), GroupBox3, "trackingLabel" );
+	trackingLabel = new QLabel( Extra, "Trac&king:", GroupBox3, "trackingLabel" );
 	GroupBox3Layout->addWidget( trackingLabel, 0, 0 );
 
-	linespacingLabel = new QLabel( LineSp, tr( "L&ine Spacing:" ), GroupBox3, "linespacingLabel" );
+	linespacingLabel = new QLabel( LineSp, "L&ine Spacing:", GroupBox3, "linespacingLabel" );
 	GroupBox3Layout->addWidget( linespacingLabel, 1, 0 );
 
 	pageLayout_3->addWidget( GroupBox3 );
 
 	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
 	Spal = new Spalette(page_3);
-	styleLabel = new QLabel( Spal, tr("St&yle:"), page_3, "styleLabel" );
+	styleLabel = new QLabel( Spal, "St&yle:", page_3, "styleLabel" );
 	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
 	GroupBox3aLayout->addWidget( Spal, 0, 1 );
 	langCombo = new QComboBox( true, page_3, "Lang" );
 	langCombo->setEditable(false);
-	langLabel = new QLabel( langCombo, tr("Lan&guage:"), page_3, "langLabel" );
+	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
 	GroupBox3aLayout->addWidget( langCombo, 1, 1 );
 	pageLayout_3->addLayout(GroupBox3aLayout);
@@ -539,25 +537,25 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	page_4 = new QWidget( TabStack, "page_4" );
 	pageLayout_4 = new QVBoxLayout( page_4, 0, 5, "pageLayout_4");
 
-	FreeScale = new QRadioButton( tr( "&Free Scaling" ), page_4, "FreeScale" );
+	FreeScale = new QRadioButton( "&Free Scaling", page_4, "FreeScale" );
 	FreeScale->setChecked( true );
 	pageLayout_4->addWidget( FreeScale );
 
 	layout43 = new QGridLayout( 0, 1, 1, 0, 5, "layout43");
 	LXpos = new MSpinBox( page_4, 2 );
-	xposImgLabel = new QLabel( LXpos, tr( "&X-Pos:" ), page_4, "xposImgLabel" );
+	xposImgLabel = new QLabel( LXpos, "&X-Pos:", page_4, "xposImgLabel" );
 	layout43->addWidget( xposImgLabel, 0, 0 );
 	layout43->addWidget( LXpos, 0, 1 );
 	LYpos = new MSpinBox( page_4, 2 );
-	yposImgLabel = new QLabel( LYpos, tr( "&Y-Pos:" ), page_4, "yposImgLabel" );
+	yposImgLabel = new QLabel( LYpos, "&Y-Pos:", page_4, "yposImgLabel" );
 	layout43->addWidget( yposImgLabel, 1, 0 );
 	layout43->addWidget( LYpos, 1, 1 );
 	ScaleX = new MSpinBox( page_4, 1 );
-	xscaleLabel = new QLabel( ScaleX, tr( "X-Sc&ale:" ), page_4, "xscaleLabel" );
+	xscaleLabel = new QLabel( ScaleX, "X-Sc&ale:", page_4, "xscaleLabel" );
 	layout43->addWidget( xscaleLabel, 2, 0 );
 	layout43->addWidget( ScaleX, 2, 1 );
 	ScaleY = new MSpinBox( page_4, 1 );
-	yscaleLabel = new QLabel( ScaleY, tr( "Y-Scal&e:" ), page_4, "yscaleLabel" );
+	yscaleLabel = new QLabel( ScaleY, "Y-Scal&e:", page_4, "yscaleLabel" );
 	layout43->addWidget( yscaleLabel, 3, 0 );
 	layout43->addWidget( ScaleY, 3, 1 );
 	Kette = new LinkButton( page_4 );
@@ -570,7 +568,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Layout24 = new QVBoxLayout( 0, 0, 3, "Layout24");
 
 	FrameScale = new QRadioButton( page_4, "FixedScale" );
-	FrameScale->setText( tr( "Scale &To Frame Size" ) );
+	FrameScale->setText( "Scale &To Frame Size" );
 	Layout24->addWidget( FrameScale );
 
 	Layout18 = new QHBoxLayout( 0, 0, 6, "Layout18");
@@ -584,7 +582,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	Aspect = new QCheckBox( page_4, "Aspect" );
 	Aspect->setEnabled( false );
-	Aspect->setText( tr( "P&roportional" ) );
+	Aspect->setText( "P&roportional" );
 	Aspect->setChecked( true );
 
 	Layout18->addWidget( Aspect );
@@ -607,12 +605,6 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	TextCms2 = new QLabel( GroupBoxCM, "TextCms2" );
 	GroupBoxCMLayout->addWidget(TextCms2);
 	MonitorI = new QComboBox( true, GroupBoxCM, "MonitorI" );
-	/*
-	MonitorI->insertItem( tr( "Perceptual" ) );
-	MonitorI->insertItem( tr( "Relative Colorimetric" ) );
-	MonitorI->insertItem( tr( "Saturation" ) );
-	MonitorI->insertItem( tr( "Absolute Colorimetric" ) );
-	*/
 	MonitorI->setEditable(false);
 	GroupBoxCMLayout->addWidget(MonitorI);
 	pageLayout_4->addWidget(GroupBoxCM);
@@ -627,11 +619,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
 	LineMode = new QComboBox( true, page_5, "LMode" );
 	LineMode->setEditable(false);
-	/*
-	LineMode->insertItem( tr( "Left Point" ) );
-	LineMode->insertItem( tr( "End Points" ) );
-	*/
-	LineModeT = new QLabel( LineMode, tr( "&Basepoint:" ), page_5, "LModeText" );
+	LineModeT = new QLabel( LineMode, "&Basepoint:", page_5, "LModeText" );
 	Layout13_2->addWidget( LineModeT );
 	Layout13_2->addWidget( LineMode );
 	LMode = false;
@@ -658,21 +646,11 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Layout12_2->addWidget( LSize, 3, 1 );
 	LJoinStyle = new QComboBox( true, page_5, "LJoin" );
 	LJoinStyle->setEditable(false);
-	/*
-	LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
-	LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
-	LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
-	*/
 	edgesLabel = new QLabel( LJoinStyle, "Ed&ges:", page_5, "edgesLabel" );
 	Layout12_2->addWidget( edgesLabel, 4, 0 );
 	Layout12_2->addWidget( LJoinStyle, 4, 1 );
 	LEndStyle = new QComboBox( true, page_5, "LCap" );
 	LEndStyle->setEditable(false);
-	/*
-	LEndStyle->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
-	LEndStyle->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
-	LEndStyle->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
-	*/
 	endingsLabel = new QLabel( LEndStyle, "&Endings:", page_5, "endingsLabel" );
 	Layout12_2->addWidget( endingsLabel, 5, 0 );
 	Layout12_2->addWidget( LEndStyle, 5, 1 );
@@ -684,29 +662,29 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	page_5a = new QWidget( TabStack3, "page" );
 	pageLayout_5a = new QVBoxLayout( page_5a, 0, 5, "pageLayout_5a");
 	StyledLine = new QListBox(page_5a, "StyledL");
-	StyledLine->insertItem( tr("No Style"), 0);
+	StyledLine->insertItem( "No Style", 0);
 	pageLayout_5a->addWidget(StyledLine);
 	TabStack3->addWidget( page_5a, 0 );
 
 	page_5b = new QWidget( TabStack3, "page" );
 	pageLayout_5b = new QVBoxLayout( page_5b, 0, 5, "pageLayout_5a");
-	TLines = new QGroupBox( tr( "Cell Lines" ), page_5b, "Distance" );
+	TLines = new QGroupBox( "Cell Lines", page_5b, "Distance" );
 	TLines->setColumnLayout(0, Qt::Vertical );
 	TLines->layout()->setSpacing( 2 );
 	TLines->layout()->setMargin( 5 );
 	TLineLayout = new QVBoxLayout( TLines->layout() );
 	TLineLayout->setAlignment( Qt::AlignTop );
 	TopLine = new QCheckBox( TLines, "TopLine" );
-	TopLine->setText( tr( "Line at Top" ) );
+	TopLine->setText( "Line at Top" );
 	TLineLayout->addWidget(TopLine);
 	LeftLine = new QCheckBox( TLines, "TopLine" );
-	LeftLine->setText( tr( "Line at the Left" ) );
+	LeftLine->setText( "Line at the Left" );
 	TLineLayout->addWidget(LeftLine);
 	RightLine = new QCheckBox( TLines, "TopLine" );
-	RightLine->setText( tr( "Line at the Right " ) );
+	RightLine->setText( "Line at the Right " );
 	TLineLayout->addWidget(RightLine);
 	BottomLine = new QCheckBox( TLines, "TopLine" );
-	BottomLine->setText( tr( "Line at Bottom" ) );
+	BottomLine->setText( "Line at Bottom" );
 	TLineLayout->addWidget(BottomLine);
 	pageLayout_5b->addWidget(TLines);
 	TabStack3->addWidget( page_5b, 1 );
