@@ -56,12 +56,11 @@ private:
 	bool importTextOnly;
 	bool append;
 	bool inList;
-	bool isOrdered;
 	bool inSpan;
 	int listLevel;
 	int listIndex;
+	ListStyle *currentListStyle;
 	std::vector<int> listIndex2;
-	std::vector<bool> isOrdered2;
 	bool inT;
 	std::vector<QString> styleNames;
 	QString tName;

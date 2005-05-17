@@ -41,8 +41,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	importTextOnly = textOnly;
  	usePrefix    = prefix;
 	packStyles   = combineStyles;
- 	currentStyle = NULL;
- 	parentStyle  = NULL;
+ 	currentStyle = 0;
+	currentListStyle = 0;
+ 	parentStyle  = 0;
  	inList       = false;
  	currentList  = "";
 	defaultStyleCreated = false;
@@ -73,17 +74,26 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		for (int i = 0; i < attrs.count(); ++i)
  			if (attrs.localName(i) == "style:name")
  				currentList = attrs.value(i);
+		currentListStyle = new ListStyle(currentList);
  		inList = true;
  	}
  	else if (((name == "text:list-level-style-bullet") ||
  	          (name == "text:list-level-style-number") ||
  	          (name == "text:list-level-style-image")) && (inList))
  	{
+		BulletType bstyle = Bullet;
+		QString prefix = "";
+		QString suffix = "";
+		QString bullet = "-";
+		uint ulevel = 0;
+		uint displayLevels = 1;
+		uint startAt = 0;
  		QString level = "";
  		for (int i = 0; i < attrs.count(); ++i)
  		{
  			if (attrs.localName(i) == "text:level")
  			{
+				ulevel = QString(attrs.value(i)).toUInt();
  				gtStyle *plist;
  				if (attrs.value(i) == "1")
  				{
@@ -112,7 +122,42 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				}
  				currentStyle->setName(currentList + "_" + attrs.value(i));
  			}
+			else if (attrs.localName(i) == "style:num-prefix")
+				prefix = attrs.value(i);
+			else if (attrs.localName(i) == "style:num-suffix")
+				suffix = attrs.value(i);
+			/*else if (attrs.localName(i) == "text:bullet-char")
+				bullet = attrs.value(i);*/
+			else if (attrs.localName(i) == "style:num-format") {
+				QString tmp = attrs.value(i);
+				if (tmp == "i")
+					bstyle = LowerRoman;
+				else if (tmp == "I")
+					bstyle = UpperRoman;
+				else if (tmp == "a")
+					bstyle = LowerAlpha;
+				else if (tmp == "A")
+					bstyle = UpperAlpha;
+				else if (tmp == "1")
+					bstyle = Number;
+			}
+			else if (attrs.localName(i) == "text:start-value") {
+				startAt = QString(attrs.value(i)).toUInt();
+				if (startAt > 0)
+					--startAt;
+			}
+			else if (attrs.localName(i) == "text:display-levels") {
+				displayLevels = QString(attrs.value(i)).toUInt();
+				if (displayLevels == 0)
+					displayLevels = 1;
+			}
  		}
+		if (bstyle == Bullet) {
+			prefix = "";
+			suffix = "";
+		}
+		ListLevel *llevel = new ListLevel(ulevel, bstyle, prefix, suffix, bullet, displayLevels, startAt);
+		currentListStyle->addLevel(ulevel, llevel);
  		readProperties = true;
  	}
  	else if ((name == "style:drop-cap") && (readProperties))
@@ -266,9 +311,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		}
  		else if ((attrs.localName(i) == "text:space-before") && (pstyle != NULL))
  		{
- 			if (inList)
+ 			/*if (inList)
  				pstyle->setIndent(pstyle->getIndent() + getSize(attrs.value(i)));
- 			else
+ 			else*/
  				pstyle->setIndent(getSize(attrs.value(i)));
  		}
  		else if ((attrs.localName(i) == "fo:text-indent") && (pstyle != NULL))
@@ -426,6 +471,10 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	}
  	else if (name == "text:list-style")
  	{
+		if (currentListStyle) {
+			lists[currentListStyle->name()] = currentListStyle;
+			currentListStyle = 0;
+		}
  		inList = false;
  	}
 
@@ -532,6 +581,14 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	delete fstyle;
  }
  
+ListStyle* StyleReader::getList(const QString &name)
+{
+	ListStyle *tmp = 0;
+	if (lists.contains(name))
+		tmp = lists[name];
+	return tmp;
+}
+
  bool StyleReader::updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value)
  {
  	gtParagraphStyle* pstyle = NULL;
@@ -763,5 +820,219 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	nname = new QString(nname->lower());
  	sreader->endElement(NULL, NULL, *nname);
  }
- 
- #endif
+
+/*** ListLevel *****************************************************************************************/
+
+const QString ListLevel::lowerUnits[10] = {"", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix"};
+const QString ListLevel::lowerTens[10] = {"", "x", "xx", "xxx", "xl", "l", "lx", "lxx", "lxxx", "xc"};
+const QString ListLevel::lowerHundreds[10] = {"", "c", "cc", "ccc", "cd", "d", "dc", "dcc", "dccc", "cm"};
+const QString ListLevel::lowerThousands[4] = {"", "m", "mm", "mmm"};
+const QString ListLevel::upperUnits[10] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+const QString ListLevel::upperTens[10] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+const QString ListLevel::upperHundreds[10] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCC", "CM"};
+const QString ListLevel::upperThousands[4] = {"", "M", "MM", "MMM"};
+const QString ListLevel::lowerAlphabets[27] = {"", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+                                    "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+const QString ListLevel::upperAlphabets[27] = {"", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                                    "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+ListLevel::ListLevel(uint level,
+	                 BulletType btype,
+	                 const QString &prefix,
+	                 const QString &suffix,
+	                 const QString &bullet,
+	                 uint displayLevels,
+	                 uint startValue) :
+m_level(level),
+m_btype(btype),
+m_prefix(prefix),
+m_suffix(suffix),
+m_bullet(bullet),
+m_displayLevels(displayLevels),
+m_next(startValue)
+{
+
+}
+
+QString ListLevel::bulletString()
+{
+	QString tmp;
+	switch (m_btype) {
+	case Bullet:
+		tmp = m_bullet;
+		break;
+	case Number:
+		tmp = QString("%1").arg(m_next);
+		break;
+	case LowerRoman:
+		tmp = lowerRoman(m_next);
+		break;
+	case UpperRoman:
+		tmp = upperRoman(m_next);
+		break;
+	case LowerAlpha:
+		tmp = lowerAlpha(m_next);
+		break;
+	case UpperAlpha:
+		tmp = upperAlpha(m_next);
+		break;
+	case Graphic:
+		tmp = "*";
+		break;
+	default:
+		tmp = "";
+	};
+	return tmp;
+}
+
+QString ListLevel::bullet()
+{
+	
+	return QString(m_prefix + bulletString() + m_suffix);
+}
+
+QString ListLevel::prefix()
+{
+	return m_prefix;
+}
+
+QString ListLevel::suffix()
+{
+	return m_suffix;
+}
+
+void ListLevel::advance()
+{
+	++m_next;
+}
+
+uint ListLevel::level()
+{
+	return m_level;
+}
+
+uint ListLevel::displayLevels()
+{
+	return m_displayLevels;
+}
+
+void ListLevel::reset()
+{
+	m_next = 0;
+}
+
+QString ListLevel::lowerRoman(uint n)
+{
+	return QString(lowerThousands[(n / 1000)] +
+	               lowerHundreds[(n / 100) % 10] +
+	               lowerTens[(n / 10) % 10] +
+	               lowerUnits[(n) % 10]);
+}
+
+QString ListLevel::upperRoman(uint n)
+{
+	return QString(upperThousands[(n / 1000)] +
+	               upperHundreds[(n / 100) % 10] +
+	               upperTens[(n / 10) % 10] +
+	               upperUnits[(n) % 10]);
+}
+
+QString ListLevel::lowerAlpha(uint n)
+{
+	QString tmp;
+	uint rounds = static_cast<uint>(n / 26);
+	if (rounds > 26)
+		rounds = 0;
+	uint leftover = n % 26;
+	return QString(lowerAlphabets[rounds] + lowerAlphabets[leftover]);
+}
+
+QString ListLevel::upperAlpha(uint n)
+{
+	QString tmp;
+	uint rounds = static_cast<uint>(n / 26);
+	if (rounds > 26)
+		rounds = 0;
+	uint leftover = n % 26;
+	return QString(upperAlphabets[rounds] + upperAlphabets[leftover]);
+}
+
+ListLevel::~ListLevel()
+{
+
+}
+
+/*** ListStyle **********************************************************************************/
+
+ListStyle::ListStyle(const QString &name, bool consecutiveNumbering, uint currentLevel) :
+m_name(name),
+m_consecutiveNumbering(consecutiveNumbering),
+m_currentLevel(currentLevel),
+m_count(0)
+{
+	for (uint i = 0; i < 11; ++i)
+		levels[i] = 0;
+}
+
+void ListStyle::addLevel(uint level, ListLevel *llevel)
+{
+	if (level > 0 && level < 11)
+		levels[level] = llevel;
+}
+
+QString ListStyle::bullet()
+{
+	uint displayLevels = levels[m_currentLevel]->displayLevels();
+	if (displayLevels == 1)
+		return QString(levels[m_currentLevel]->bullet() + " ");
+
+	QString prefix = levels[m_currentLevel]->prefix();
+	QString suffix = levels[m_currentLevel]->suffix();
+	QString bullet = "";
+	int start = m_currentLevel - displayLevels + 1;
+	if (start < 1)
+		return QString(levels[m_currentLevel]->bullet() + " ");
+	while (static_cast<uint>(start) <= m_currentLevel)
+	{
+		if (static_cast<uint>(start) == m_currentLevel)
+			bullet += levels[start]->bulletString();
+		else
+			bullet += levels[start]->bulletString() + ".";
+		++start;
+	}
+	return QString(prefix + bullet + suffix + " ");
+}
+
+void ListStyle::advance()
+{
+	++m_count;
+	if (levels[m_currentLevel])
+		levels[m_currentLevel]->advance();
+}
+
+void ListStyle::setLevel(uint level)
+{
+	if (level > 0 && level < 11)
+		m_currentLevel = level;
+}
+
+void ListStyle::resetLevel()
+{
+	levels[m_currentLevel]->reset();
+}
+
+QString& ListStyle::name()
+{
+	return m_name;
+}
+
+ListStyle::~ListStyle()
+{
+	for (uint i = 0; i < 11; ++i)
+	{
+		delete levels[i];
+		levels[i] = 0;
+	}
+}
+
+#endif
