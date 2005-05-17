@@ -5,6 +5,8 @@ You can verify them with:
 
 gpg --verify ./tarball.sig ./tarball.tar.bz2
 
+While we also note md5sums, gpg --verify is more secure and reliable.
+
 * The font sampler script, requires tkinter to run properly and optionally 
 python-imaging to enable print previews. Please consider adding these as 
 requires, even though configure does not explicitly check for them:
@@ -35,9 +37,10 @@ Recommended Spec File Description:
 
 %description
 Scribus is a desktop open source page layout program with the aim of producing 
-commerical grade output in PDF and Postscript, primarily, thought not exclusively for Linux. 
+commerical grade output in PDF and Postscript, primarily, though not exclusively
+for Linux. 
 
-Recommended Spec File Summary:        Scribus - Open Source Desktop Publishing 
+Recommended Spec File Summary: Scribus - Open Source Desktop Publishing 
 
 Please remove all references to proprietary applications.
 
