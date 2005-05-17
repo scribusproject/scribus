@@ -8,6 +8,8 @@
 # 2004/08/25 Slovak by Zdenko Podobny
 # 2004/09/13 more polish by Mikolaj Machowski <mikmach@wp.pl>  (vim-LaTeX-Suite)
 # 2005/02/07 Brazilian Portguese by Ludi Maciel & Frederico Guimarães
+# 2005/05/17 Claudio Beccari <claudio.beccari@polito.it> notices about
+#            ISO regulations in the case of the physics
 #
 # Use UTF8 as coding of this file!
 # Character "#" begins a comment line, empty lines ignored too.
@@ -21,7 +23,8 @@
 
 #  English stuff START here
 en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
-en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+# claudio's fix en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+en= kg, g, mg, oz, lb, cwt, km, m, cm, mm,
 #  English stuff - THE END
 
 
