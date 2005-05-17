@@ -3250,7 +3250,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	{
 		QDomElement kscc=docu.createElement("SHORTCUT");
 		kscc.setAttribute("ACTION",ksc.data().actionName);
-		kscc.setAttribute("SEQUENCE",QString(ksc.data().keySequence));
+		kscc.setAttribute("SEQUENCE",QString(ksc.data().keySequence).utf8());
 		elem.appendChild(kscc);
 	}
 	QMap<QString,QString>::Iterator itfsu;
