@@ -558,6 +558,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	}
 	else
 		vg->TabValues.clear();
+	vg->tabFillChar = pg->attribute("TabFill", "");
 	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg->Vname == docParagraphStyles[xx].Vname)
@@ -578,6 +579,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					(vg->SColor == docParagraphStyles[xx].SColor) &&
 					(vg->SShade == docParagraphStyles[xx].SShade) &&
 					(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
+					(vg->tabFillChar == docParagraphStyles[xx].tabFillChar) &&
 					(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
 				if (fl)
@@ -615,6 +617,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				(vg->SColor == docParagraphStyles[xx].SColor) &&
 				(vg->SShade == docParagraphStyles[xx].SShade) &&
 				(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
+				(vg->tabFillChar == docParagraphStyles[xx].tabFillChar) &&
 				(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
 				vg->Vname = docParagraphStyles[xx].Vname;
@@ -1318,6 +1321,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				else
 					vg.TabValues.clear();
+				vg.tabFillChar = "";
 				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")
@@ -2098,6 +2102,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				vg.SColor = doc->docParagraphStyles[item->textAlignment].SColor;
 				vg.SShade = doc->docParagraphStyles[item->textAlignment].SShade;
 				vg.BaseAdj = doc->docParagraphStyles[item->textAlignment].BaseAdj;
+				vg.tabFillChar = doc->docParagraphStyles[item->textAlignment].tabFillChar;
 				UsedStyles[item->textAlignment] = vg;
 			}
 			if (((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText)) && (item->itemText.count() != 0))
@@ -2124,6 +2129,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 						vg.SColor = doc->docParagraphStyles[item->itemText.at(tx)->cab].SColor;
 						vg.SShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].SShade;
 						vg.BaseAdj = doc->docParagraphStyles[item->itemText.at(tx)->cab].BaseAdj;
+						vg.tabFillChar = doc->docParagraphStyles[item->itemText.at(tx)->cab].tabFillChar;
 						UsedStyles[item->itemText.at(tx)->cab] = vg;
 					}
 				}
@@ -2159,6 +2165,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			fo.setAttribute("FSHADE",UsedStyles[actSt].FShade);
 			fo.setAttribute("SCOLOR",UsedStyles[actSt].SColor);
 			fo.setAttribute("SSHADE",UsedStyles[actSt].SShade);
+			fo.setAttribute("TabFill",UsedStyles[actSt].tabFillChar);
 			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].BaseAdj));
 			elem.appendChild(fo);
 		}
@@ -2646,6 +2653,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("DSIZE",doc->toolSettings.defSize / 10.0);
 	dc.setAttribute("DCOL",doc->toolSettings.dCols);
 	dc.setAttribute("DGAP",doc->toolSettings.dGap);
+	dc.setAttribute("TabFill",doc->toolSettings.tabFillChar);
 	dc.setAttribute("AUTHOR",doc->documentInfo.getAuthor());
 	dc.setAttribute("COMMENTS",doc->documentInfo.getComments());
 	dc.setAttribute("KEYWORDS",doc->documentInfo.getKeywords());
@@ -2871,6 +2879,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			fo.setAttribute("SCOLOR",doc->docParagraphStyles[ff].SColor);
 			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].SShade);
 			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].BaseAdj));
+			fo.setAttribute("TabFill",doc->docParagraphStyles[ff].tabFillChar);
 			dc.appendChild(fo);
 		}
 	}
@@ -3102,6 +3111,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc9.setAttribute("StrokeText",Vor->toolSettings.dStrokeText);
 	dc9.setAttribute("TEXTCOL",Vor->toolSettings.dCols);
 	dc9.setAttribute("TEXTGAP",Vor->toolSettings.dGap);
+	dc9.setAttribute("TabFill",Vor->toolSettings.tabFillChar);
 	dc9.setAttribute("STIL",Vor->toolSettings.dLineArt);
 	dc9.setAttribute("STILLINE",Vor->toolSettings.dLstyleLine);
 	dc9.setAttribute("WIDTH",Vor->toolSettings.dWidth);
@@ -3451,6 +3461,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->toolSettings.dStrokeText = dc.attribute("StrokeText", Vorein->toolSettings.dPenText);
 			Vorein->toolSettings.dCols = QStoInt(dc.attribute("TEXTCOL", "1"));
 			Vorein->toolSettings.dGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
+			Vorein->toolSettings.tabFillChar = dc.attribute("TabFill", "");
 			Vorein->toolSettings.dLineArt = QStoInt(dc.attribute("STIL"));
 			Vorein->toolSettings.dLstyleLine = QStoInt(dc.attribute("STILLINE"));
 			Vorein->toolSettings.dWidth = QStodouble(dc.attribute("WIDTH"));

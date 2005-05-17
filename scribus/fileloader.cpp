@@ -478,6 +478,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->toolSettings.magMin = QStoInt(dc.attribute("MAGMIN","10"));
 		doc->toolSettings.magMax = QStoInt(dc.attribute("MAGMAX","3200"));
 		doc->toolSettings.magStep = QStoInt(dc.attribute("MAGSTEP","25"));
+		doc->toolSettings.tabFillChar = dc.attribute("TabFill","");
 		if (dc.hasAttribute("CPICT"))
 			doc->toolSettings.dBrushPict = dc.attribute("CPICT");
 		doc->toolSettings.shadePict = QStoInt(dc.attribute("PICTSHADE","100"));
@@ -588,6 +589,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 				else
 					vg.TabValues.clear();
+				vg.tabFillChar = pg.attribute("TabFill", "");
 				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")

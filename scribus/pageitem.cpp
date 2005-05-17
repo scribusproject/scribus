@@ -564,7 +564,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 	{
 		case TextFrame:
 		{
-		//qDebug("DrawObj_TextFrame(ScPainter *p, QRect e)");
 			QPainter pp, pf2;
 			PageItem *nextItem;
 			QPoint pt1, pt2;
@@ -589,7 +588,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			QValueList<double> tTabValues;
 			bool DropCmode = false;
 			bool AbsHasDrop = false;
-			double desc, asce, maxDY, firstDes, desc2, maxDX;
+			double desc, asce, maxDY, firstDes, desc2, maxDX, tabDist;
 			int DropLines;
 			bool StartOfCol = true;
 			tTabValues.clear();
@@ -603,6 +602,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				Doc->docParagraphStyles[xxx].gapBefore = 0;
 				Doc->docParagraphStyles[xxx].gapAfter = 0;
 				Doc->docParagraphStyles[xxx].textAlignment = xxx;
+				Doc->docParagraphStyles[xxx].tabFillChar = Doc->toolSettings.tabFillChar;
 			}
 			
 			QPtrList<ZZ> LiList;
@@ -645,6 +645,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					p->scale(1, -1);
 				}
 				struct ZZ Zli3;
+				CurrCol = 0;
+				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+				ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+				tabDist = ColBound.x();
 				for (a = 0; a < itemText.count(); ++a)
 				{
 					if (a > MaxChars)
@@ -667,6 +672,34 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					chs = hl->csize;
 					oldCurY = SetZeichAttr(hl, &chs, &chx);
+					if ((chx == QChar(9)) && (!Doc->RePos) && (Doc->docParagraphStyles[hl->cab].tabFillChar != ""))
+					{
+						double wt = Cwidth(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].tabFillChar, chs);
+						int coun = static_cast<int>((hl->xp - tabDist) / wt);
+						double sPos = hl->xp - (hl->xp - tabDist) + 1;
+						desc = hl->cfont->numDescender * (-chs / 10.0);
+						asce = hl->cfont->numAscent * (chs / 10.0);
+						Zli3.Zeich = Doc->docParagraphStyles[hl->cab].tabFillChar;
+						Zli3.Farb = hl->ccolor;
+						Zli3.Farb2 = hl->cstroke;
+						Zli3.shade = hl->cshade;
+						Zli3.shade2 = hl->cshade2;
+						Zli3.yco = hl->yp;
+						Zli3.Sele = hl->cselect;
+						Zli3.Siz = chs;
+						Zli3.realSiz = hl->csize;
+						Zli3.Style = hl->cstyle;
+						Zli3.ZFo = hl->cfont;
+						Zli3.wide = wt;
+						Zli3.kern = 0;
+						Zli3.scale = 100;
+						for (int cx = 0; cx < coun; ++cx)
+						{
+							Zli3.xco =  sPos + wt * cx;
+							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+								DrawZeichenS(p, &Zli3);
+						}
+					}
 					Zli3.Zeich = chx;
 					Zli3.Farb = hl->ccolor;
 					Zli3.Farb2 = hl->cstroke;
@@ -699,6 +732,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								DrawZeichenS(p, &Zli3);
 						}
 					}
+					tabDist = Zli3.xco+Zli3.wide;
 				}
 				if (itemText.count() > MaxChars)
 				{
@@ -907,6 +941,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				aSpa = 0;
 				absa = 0;
 				MaxChars = 0;
+				tabDist = 0;
 				MaxText = itemText.count();
 				StartOfCol = true;
 				for (a = 0; a < MaxText; ++a)
@@ -1141,9 +1176,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					StartOfCol = false;
 					if (RTab)
 					{
-						if (((hl->ch == ".") && (TabCode == 2)) ||
-												((hl->ch == ",") && (TabCode == 3)) ||
-												(hl->ch == QChar(9)))
+						if (((hl->ch == ".") && (TabCode == 2)) || ((hl->ch == ",") && (TabCode == 3)) || (hl->ch == QChar(9)))
 						{
 							RTab = false;
 							TabCode = 0;
@@ -1573,6 +1606,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						hl->yp = CurY;
 						LiList.at(LiList.count()-1)->xco = hl->xp;
 						LiList.at(LiList.count()-1)->yco = hl->yp;
+						tabDist = ColBound.x();
 						for (uint zc = 0; zc<BuPos3; ++zc)
 						{
 							double wide2 = 0;
@@ -1612,9 +1646,38 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 							if (!Doc->RePos)
 							{
+								if ((Zli2->Zeich == QChar(9)) && (Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].tabFillChar != ""))
+								{
+									double wt = Cwidth(Doc, Zli2->ZFo, Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].tabFillChar, Zli2->Siz);
+									int coun = static_cast<int>((Zli2->xco - tabDist) / wt);
+									double sPos = Zli2->xco - (Zli2->xco - tabDist) + 1;
+									Zli = new ZZ;
+									Zli->Zeich = Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].tabFillChar;
+									Zli->Farb = Zli2->Farb;
+									Zli->Farb2 = Zli2->Farb2;
+									Zli->shade = Zli2->shade;
+									Zli->shade2 = Zli2->shade2;
+									Zli->yco = Zli2->yco;
+									Zli->Sele = Zli2->Sele;
+									Zli->Siz = Zli2->Siz;
+									Zli->realSiz = Zli2->realSiz;
+									Zli->Style = Zli2->Style;
+									Zli->ZFo = Zli2->ZFo;
+									Zli->wide = wt;
+									Zli->kern = 0;
+									Zli->scale = 100;
+									for (int cx = 0; cx < coun; ++cx)
+									{
+										Zli->xco = sPos + wt * cx;
+										if (e2.intersects(pf2.xForm(QRect(qRound(Zli->xco),qRound(Zli->yco-asce), qRound(Zli->wide+1), qRound(asce+desc)))))
+											DrawZeichenS(p, Zli);
+									}
+									delete Zli;
+								}
 								if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 									DrawZeichenS(p, Zli2);
 							}
+							tabDist = Zli2->xco+Zli2->wide;
 						}
 						LiList.clear();
 						BuPos = 0;
@@ -1673,6 +1736,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 					}
 				}
+				tabDist = ColBound.x();
 				for (uint zc = 0; zc<LiList.count(); ++zc)
 				{
 					double wide2 = 0;
@@ -1712,9 +1776,38 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					if (!Doc->RePos)
 					{
+						if ((Zli2->Zeich == QChar(9)) && (Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].tabFillChar != ""))
+						{
+							double wt = Cwidth(Doc, Zli2->ZFo, Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].tabFillChar, Zli2->Siz);
+							int coun = static_cast<int>((Zli2->xco - tabDist) / wt);
+							double sPos = Zli2->xco - (Zli2->xco - tabDist) + 1;
+							Zli = new ZZ;
+							Zli->Zeich = Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].tabFillChar;
+							Zli->Farb = Zli2->Farb;
+							Zli->Farb2 = Zli2->Farb2;
+							Zli->shade = Zli2->shade;
+							Zli->shade2 = Zli2->shade2;
+							Zli->yco = Zli2->yco;
+							Zli->Sele = Zli2->Sele;
+							Zli->Siz = Zli2->Siz;
+							Zli->realSiz = Zli2->realSiz;
+							Zli->Style = Zli2->Style;
+							Zli->ZFo = Zli2->ZFo;
+							Zli->wide = wt;
+							Zli->kern = 0;
+							Zli->scale = 100;
+							for (int cx = 0; cx < coun; ++cx)
+							{
+								Zli->xco =  sPos + wt * cx;
+								if (e2.intersects(pf2.xForm(QRect(qRound(Zli->xco),qRound(Zli->yco-asce), qRound(Zli->wide+1), qRound(asce+desc)))))
+									DrawZeichenS(p, Zli);
+							}
+							delete Zli;
+						}
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, Zli2);
 					}
+					tabDist = Zli2->xco+Zli2->wide;
 				}
 				LiList.clear();
 				BuPos = 0;

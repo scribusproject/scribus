@@ -38,7 +38,7 @@ struct ScText
 	64 		= Small Caps
 	128 		= Hypenation possible here (Smart Hyphen)
 	256 	= Shadowed (not implemented yet)
-	512 	= Underline Words (not implemented yet)
+	512 	= Underline Words
 	1024 	= Fake Italic (not implemented yet)
 	2048 	= free, not used in the moment
 	4096 	= internal use in PageItem (Suppresses spaces when in Block alignment)
@@ -218,6 +218,7 @@ struct ParagraphStyle
 	QString Font;
 	int FontSize;
 	QValueList<double> TabValues;
+	QString tabFillChar;
 	bool Drop;
 	int DropLin;
 	int FontEffect;
@@ -370,6 +371,7 @@ struct toolPrefs
 	QString dStrokeText;
 	int dCols;
 	double dGap;
+	QString tabFillChar;
 	/* ShapeTool */
 	QString dPen;
 	QString dBrush;

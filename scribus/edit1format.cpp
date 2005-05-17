@@ -93,6 +93,24 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	bool enable = vor->Drop ? true : false;
 	DropLines->setEnabled(enable);
 	CapLabel->setEnabled(enable);
+	
+	tabFillCombo = new QComboBox( true, GroupFont, "tabFillCombo" );
+	tabFillCombo->setEditable(false);
+	tabFillCombo->insertItem( tr("None"));
+	tabFillCombo->insertItem( "...");
+	tabFillCombo->insertItem( "---");
+	tabFillCombo->insertItem( "___");
+	if (vor->tabFillChar == "")
+		tabFillCombo->setCurrentItem(0);
+	if (vor->tabFillChar == ".")
+		tabFillCombo->setCurrentItem(1);
+	if (vor->tabFillChar == "-")
+		tabFillCombo->setCurrentItem(2);
+	if (vor->tabFillChar == "_")
+		tabFillCombo->setCurrentItem(3);
+	GroupFontLayout->addWidget( tabFillCombo, 3, 4 );
+	tabFillComboT = new QLabel(tabFillCombo, tr( "Tab Fill Char:" ), GroupFont, "textLabel3b2t" );
+	GroupFontLayout->addWidget( tabFillComboT, 3, 3 );
 
 	TxFill = new QComboBox( true, GroupFont, "TxFill" );
 	TxFill->setEditable(false);
@@ -357,6 +375,21 @@ void EditStyle::Verlassen()
 	werte->SShade = PM1->getValue();
 	werte->BaseAdj = BaseGrid->isChecked();
 	werte->TabValues = TabList->getTabVals();
+	switch (tabFillCombo->currentItem())
+	{
+		case 0:
+			werte->tabFillChar = "";
+			break;
+		case 1:
+			werte->tabFillChar = ".";
+			break;
+		case 2:
+			werte->tabFillChar = "-";
+			break;
+		case 3:
+			werte->tabFillChar = "_";
+			break;
+	}
 	accept();
 }
 
@@ -389,6 +422,21 @@ void EditStyle::updatePreview()
 	tmpStyle.SShade = PM1->getValue();
 	tmpStyle.BaseAdj = BaseGrid->isChecked();
 	tmpStyle.TabValues = TabList->getTabVals();
+	switch (tabFillCombo->currentItem())
+	{
+		case 0:
+			tmpStyle.tabFillChar = "";
+			break;
+		case 1:
+			tmpStyle.tabFillChar = ".";
+			break;
+		case 2:
+			tmpStyle.tabFillChar = "-";
+			break;
+		case 3:
+			tmpStyle.tabFillChar = "_";
+			break;
+	}
 
 	QFont fo = QFont(FontC->currentText());
 	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
@@ -397,7 +445,7 @@ void EditStyle::updatePreview()
 	int tmpIndex = parentDoc->docParagraphStyles.count() - 1;
 	previewItem->itemText.clear();
 	previewItem->IFont = FontC->currentText();
-
+	previewItem->Cols = 1;
 	for (uint i = 0; i < lorem.length(); ++i)
 	{
 		ScText *hg = new ScText;

@@ -41,7 +41,7 @@ SeItem::SeItem(QTable* parent, QString text, QPixmap Pix, bool ss)
 	setWordWrap(true);
 }
 
-void SeItem::paint(QPainter *p, const QColorGroup &cg, const QRect &cr, bool selected)
+void SeItem::paint(QPainter *p, const QColorGroup &, const QRect &cr, bool )
 {
 	int px = pixmap().width();
 	int py = pixmap().height();
@@ -334,7 +334,7 @@ void SeView::contentsDragEnterEvent(QDragEnterEvent *e)
 		e->accept();
 }
 
-void SeView::contentsDragLeaveEvent(QDragLeaveEvent *e)
+void SeView::contentsDragLeaveEvent(QDragLeaveEvent *)
 {
 	ClearPix();
 }

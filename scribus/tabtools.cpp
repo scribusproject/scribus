@@ -156,23 +156,40 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addMultiCellWidget( colorComboStrokeText, 3, 3, 1, 3, Qt::AlignLeft );
 	textLabel3b2 = new QLabel(colorComboStrokeText, tr( "Stroke Color:" ), subTabText, "textLabel3b2" );
 	subTabTextLayout->addWidget( textLabel3b2, 3, 0 );
+	tabFillCombo = new QComboBox( true, subTabText, "tabFillCombo" );
+	tabFillCombo->setEditable(false);
+	tabFillCombo->insertItem( tr("None"));
+	tabFillCombo->insertItem( "...");
+	tabFillCombo->insertItem( "---");
+	tabFillCombo->insertItem( "___");
+	if (prefsData->tabFillChar == "")
+		tabFillCombo->setCurrentItem(0);
+	if (prefsData->tabFillChar == ".")
+		tabFillCombo->setCurrentItem(1);
+	if (prefsData->tabFillChar == "-")
+		tabFillCombo->setCurrentItem(2);
+	if (prefsData->tabFillChar == "_")
+		tabFillCombo->setCurrentItem(3);
+	subTabTextLayout->addMultiCellWidget( tabFillCombo, 4, 4, 1, 3, Qt::AlignLeft );
+	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );
+	subTabTextLayout->addWidget( textLabel3b2t, 4, 0 );
 	columnsText = new QSpinBox( subTabText, "columnsText" );
 	columnsText->setMinValue( 1 );
 	columnsText->setMaxValue(100);
 	columnsText->setValue(prefsData->dCols);
-	subTabTextLayout->addWidget( columnsText, 4, 1, Qt::AlignLeft );
+	subTabTextLayout->addWidget( columnsText, 5, 1, Qt::AlignLeft );
 	textLabel4b = new QLabel(columnsText, tr("Colu&mns:"), subTabText, "TextCol");
-	subTabTextLayout->addWidget( textLabel4b, 4, 0 );
+	subTabTextLayout->addWidget( textLabel4b, 5, 0 );
 	gapText = new MSpinBox( 0, 200, subTabText, precision );
 	gapText->setSuffix( unit );
 	gapText->setValue(prefsData->dGap * unitRatio);
-	subTabTextLayout->addWidget( gapText, 4, 3, Qt::AlignLeft );
+	subTabTextLayout->addWidget( gapText, 5, 3, Qt::AlignLeft );
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
-	subTabTextLayout->addWidget( textLabel5b, 4, 2 );
+	subTabTextLayout->addWidget( textLabel5b, 5, 2 );
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
 	previewText->setMinimumSize( QSize( 280, 70 ) );
 	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
-	subTabTextLayout->addMultiCellWidget( previewText, 5, 5, 0, 3 );
+	subTabTextLayout->addMultiCellWidget( previewText, 6, 6, 0, 3 );
 	subStackTools->addWidget( subTabText, 0 );
 
 	subTabShape = new QWidget( subStackTools, "subTabShape" );

@@ -464,6 +464,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.toolSettings.dPenLine = "Black";
 	Prefs.toolSettings.dPenText = "Black";
 	Prefs.toolSettings.dStrokeText = "Black";
+	Prefs.toolSettings.tabFillChar = "";
 	Prefs.DpapColor = QColor(white);
 	Prefs.toolSettings.dCols = 1;
 	Prefs.toolSettings.dGap = 0.0;
@@ -2982,6 +2983,21 @@ bool ScribusApp::SetupDoc()
 		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
 		doc->toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 		doc->toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
+		switch (dia->tabTools->tabFillCombo->currentItem())
+		{
+			case 0:
+				doc->toolSettings.tabFillChar = "";
+				break;
+			case 1:
+				doc->toolSettings.tabFillChar = ".";
+				break;
+			case 2:
+				doc->toolSettings.tabFillChar = "-";
+				break;
+			case 3:
+				doc->toolSettings.tabFillChar = "_";
+				break;
+		}
 		if (doc->toolSettings.dStrokeText == tr("None"))
 			doc->toolSettings.dStrokeText = "None";
 		doc->toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
@@ -7005,6 +7021,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					(doc->docParagraphStyles[a].SColor == dia->TempVorl[b].SColor) &&
 					(doc->docParagraphStyles[a].SShade == dia->TempVorl[b].SShade) &&
 					(doc->docParagraphStyles[a].BaseAdj == dia->TempVorl[b].BaseAdj) &&
+					(doc->docParagraphStyles[a].tabFillChar == dia->TempVorl[b].tabFillChar) &&
 					(doc->docParagraphStyles[a].FontSize == dia->TempVorl[b].FontSize))
 				{
 				nr = b;
@@ -7819,6 +7836,21 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.toolSettings.dBrush = "None";
 		Prefs.toolSettings.dShade = dia->tabTools->shadingFillShape->value();
 		Prefs.toolSettings.dShade2 = dia->tabTools->shadingLineShape->value();
+		switch (dia->tabTools->tabFillCombo->currentItem())
+		{
+			case 0:
+				Prefs.toolSettings.tabFillChar = "";
+				break;
+			case 1:
+				Prefs.toolSettings.tabFillChar = ".";
+				break;
+			case 2:
+				Prefs.toolSettings.tabFillChar = "-";
+				break;
+			case 3:
+				Prefs.toolSettings.tabFillChar = "_";
+				break;
+		}
 		switch (dia->tabTools->comboStyleShape->currentItem())
 		{
 		case 0:

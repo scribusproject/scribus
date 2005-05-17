@@ -63,6 +63,8 @@ public:
 	QCheckBox* BaseGrid;
 	QLabel* CapLabel;
 	QSpinBox* DropLines;
+	QComboBox* tabFillCombo;
+	QLabel* tabFillComboT;
 	QPushButton* Cancel;
 	QPushButton* OkButton;
 	struct ParagraphStyle *werte;

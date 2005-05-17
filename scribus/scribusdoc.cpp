@@ -29,8 +29,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
-: UndoObject(QObject::tr("Document"))
+ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject::tr("Document"))
 {
 	prefsValues = prefsData;
 	modified = false;
@@ -46,6 +45,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	AddFont(prefsData->toolSettings.defFont, prefsData->AvailFonts[prefsData->toolSettings.defFont]->Font);
 	toolSettings.defFont = prefsData->toolSettings.defFont;
 	toolSettings.defSize = prefsData->toolSettings.defSize;
+	toolSettings.tabFillChar = prefsData->toolSettings.tabFillChar;
 	guidesSettings.marginsShown = prefsData->guidesSettings.marginsShown;
 	guidesSettings.framesShown = prefsData->guidesSettings.framesShown;
 	guidesSettings.gridShown = prefsData->guidesSettings.gridShown;
@@ -165,6 +165,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	vg.SColor = toolSettings.dPen;
 	vg.SShade = toolSettings.dShade2;
 	vg.BaseAdj = false;
+	vg.tabFillChar = toolSettings.tabFillChar;
 	docParagraphStyles.append(vg);
 	vg.Vname = "Center Internal";
 	vg.textAlignment = 1;

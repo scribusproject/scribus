@@ -41,6 +41,7 @@ public:
 	QWidget* subTabText;
 	QLabel* textLabel3b;
 	QLabel* textLabel3b2;
+	QLabel* textLabel3b2t;
 	QLabel* textLabel1b;
 	QLabel* textLabel2b;
 	QLabel* textLabel4b;
@@ -50,6 +51,7 @@ public:
 	QComboBox* sizeComboText;
 	QComboBox* colorComboText;
 	QComboBox* colorComboStrokeText;
+	QComboBox* tabFillCombo;
 	QLabel* textLabel5b;
 	MSpinBox* gapText;
 	QWidget* subTabShape;
