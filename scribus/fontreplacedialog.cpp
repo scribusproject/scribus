@@ -22,7 +22,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, ApplicationPrefs *Prefs, 
 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setAlignment( int( QLabel::AlignVCenter ) );
-	textLabel1->setText( tr( "This Document contains some Fonts that are not installed on your System,\nplease choose a suitable replacement for them." ) );
+	textLabel1->setText( tr( "This document contains some fonts that are not installed on your system,\nplease choose a suitable replacement for them." ) );
 	FontReplaceDialogLayout->addWidget( textLabel1 );
 
 	replacementTable = new QTable( this, "replacementTable" );
@@ -55,7 +55,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, ApplicationPrefs *Prefs, 
 	spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer1 );
 	okButton = new QPushButton( this, "okButton" );
-	okButton->setText( tr( "OK" ) );
+	okButton->setText( tr( "&OK" ) );
 	layout1->addWidget( okButton );
 	FontReplaceDialogLayout->addLayout( layout1 );
 	resize( QSize(474, 247).expandedTo(minimumSizeHint()) );

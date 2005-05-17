@@ -816,7 +816,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 		connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 		QToolTip::add( EmbedFonts, tr( "Embed fonts into the PDF. Embedding the fonts\nwill preserve the layout and appearance of your document." ) );
-		QToolTip::add( CheckBox10, tr( "<qt>Enables presentation effects when using Adobe&#174; Reader&#174; in full screen mode.</qt>" ) );
+		QToolTip::add( CheckBox10, "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; in full screen mode." ) + "</qt>");
 		QToolTip::add( PagePrev, tr( "Show page previews of each page listed above." ) );
 		QToolTip::add( PageTime, tr( "Length of time the page is shown before the presentation starts on the selected page." ) );
 		QToolTip::add( EffectTime, tr( "Length of time the effect runs.\nA shorter time will speed up the effect, a longer one will slow it down." ) );

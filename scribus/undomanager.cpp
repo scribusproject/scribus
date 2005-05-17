@@ -1,4 +1,4 @@
-/***************************************************************************
+$/***************************************************************************
  *   Copyright (C) 2005 by Riku Leino                                      *
  *   tsoots@gmail.com                                                      *
  *                                                                         *
@@ -760,7 +760,7 @@ void UndoManager::languageChange()
 	UndoManager::ConvertTo          = tr("Convert to");
 	UndoManager::ImportSVG          = tr("Import SVG image");
 	UndoManager::ImportEPS          = tr("Import EPS image");
-	UndoManager::ImportOOoDraw      = tr("Import OpenOffice draw image");
+	UndoManager::ImportOOoDraw      = tr("Import OpenOffice.org Draw image");
 	UndoManager::ScratchSpace       = tr("Scratch space");
 	UndoManager::TextFlow           = tr("Text flows around the frame");
 	UndoManager::BoundingBox        = tr("Text flows around bounding box");
@@ -1104,7 +1104,7 @@ const QString UndoManager::Polyline           = tr("Polyline");
 const QString UndoManager::ConvertTo          = tr("Convert to");
 const QString UndoManager::ImportSVG          = tr("Import SVG image");
 const QString UndoManager::ImportEPS          = tr("Import EPS image");
-const QString UndoManager::ImportOOoDraw      = tr("Import OpenOffice draw image");
+const QString UndoManager::ImportOOoDraw      = tr("Import OpenOffice.org Draw image");
 const QString UndoManager::ScratchSpace       = tr("Scratch space");
 const QString UndoManager::TextFlow           = tr("Text flows around the frame");
 const QString UndoManager::BoundingBox        = tr("Text flows around bounding box");

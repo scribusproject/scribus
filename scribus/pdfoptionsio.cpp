@@ -27,7 +27,7 @@ bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 	QFile f(outFileName);
 	if (!f.open(IO_WriteOnly|IO_Truncate))
 	{
-		m_error = QObject::tr("Couldn't open output file %1")
+		m_error = QObject::tr("Could not open output file %1")
 			.arg(qApp->translate("QFile",f.errorString()));
 		return false;
 	}
@@ -264,7 +264,7 @@ bool PDFOptionsIO::readFrom(QString inFileName)
 	QFile f(inFileName);
 	if (!f.open(IO_ReadOnly))
 	{
-		m_error = QObject::tr("Couldn't open input file %1")
+		m_error = QObject::tr("Could not open input file %1")
 			.arg(qApp->translate("QFile",f.errorString()));
 		return false;
 	}

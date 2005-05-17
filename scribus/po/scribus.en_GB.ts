@@ -109,28 +109,6 @@ May raise NameExistsError if you explicitly pass a name that's already used.
 </translation>
     </message>
     <message>
-      <source>newPage(where [,&quot;template&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;template&quot; specifies the name of the
-template page for the new page.
-
-May raise IndexError if the page number is out of range
-</source>
-      <translation>newPage(where [,&quot;template&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;template&quot; specifies the name of the
-template page for the new page.
-
-May raise IndexError if the page number is out of range
-</translation>
-    </message>
-    <message>
       <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
 
 Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
@@ -171,7 +149,7 @@ following meaning:
 
     orientation = the page orientation - constants PORTRAIT, LANDSCAPE
 
-    firstPageNumber = is the number of the first page in the document used for
+    firstPageNumer = is the number of the first page in the document used for
     pagenumbering. While you'll usually want 1, it's useful to have higher
     numbers if you're creating a document in several parts.
 
@@ -204,7 +182,7 @@ following meaning:
 
     orientation = the page orientation - constants PORTRAIT, LANDSCAPE
 
-    firstPageNumber = is the number of the first page in the document used for
+    firstPageNumer = is the number of the first page in the document used for
     pagenumbering. While you'll usually want 1, it's useful to have higher
     numbers if you're creating a document in several parts.
 
@@ -225,31 +203,25 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
 </translation>
     </message>
     <message>
-      <source>register_macro_callable(name, callable, accel='')
+      <source>newPage(where [,&quot;masterpage&quot;])
 
-Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
-The passed callable must not require any arguments when called (it may take
-optional arguments, but will not be given any).
-If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
-for the macro.
-If the passed callable is a class, it will be rejected. Functions and bound
-methods are quite acceptable, as are instances of classes that provide a
-__call__ method with no arguments. There is no problem with registering
-a callable more than once, nor with registering multiple bound methods
-of a single instance.
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;masterpage&quot; specifies the name of the
+master page for the new page.
+
+May raise IndexError if the page number is out of range
 </source>
-      <translation>register_macro_callable(name, callable, accel='')
+      <translation>newPage(where [,&quot;masterpage&quot;])
 
-Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
-The passed callable must not require any arguments when called (it may take
-optional arguments, but will not be given any).
-If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
-for the macro.
-If the passed callable is a class, it will be rejected. Functions and bound
-methods are quite acceptable, as are instances of classes that provide a
-__call__ method with no arguments. There is no problem with registering
-a callable more than once, nor with registering multiple bound methods
-of a single instance.
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;masterpage&quot; specifies the name of the
+master page for the new page.
+
+May raise IndexError if the page number is out of range
 </translation>
     </message>
   </context>
@@ -2096,68 +2068,6 @@ won't automatically notice when you change the document using a script.
 </translation>
     </message>
     <message>
-      <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-      <source>getCornerRadius([&quot;name&quot;]) -> integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>getCornerRadius([&quot;name&quot;]) -> integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getPosition([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type> for reference.
-</source>
-      <translation>getPosition([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type> for reference.
-</translation>
-    </message>
-    <message>
-      <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
       <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection>)
 
 Sets the scale to frame on the selected or specified image frame to `scaletoframe'.
@@ -2173,42 +2083,6 @@ If `proportional' is specified, set fixed aspect ratio scaling to `proportional'
 Both `scaletoframe' and `proportional' are boolean.
 
 May raise WrongFrameTypeError.
-</translation>
-    </message>
-    <message>
-      <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared. If &quot;count&quot; is -1, all text in the frame will
-be selected. If &quot;name&quot; is not given the currently selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-      <translation>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared. If &quot;count&quot; is -1, all text in the frame will
-be selected. If &quot;name&quot; is not given the currently selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</translation>
-    </message>
-    <message>
-      <source>register_macro_code(name, sourcetext, accel='')
-
-Create a macro named &quot;name&quot; by evaluating the the source code &quot;sourcetext&quot;.
-&quot;sourcetext&quot; must follow the same rules as macros created in the GUI.
-If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
-for the macro.
-</source>
-      <translation>register_macro_code(name, sourcetext, accel='')
-
-Create a macro named &quot;name&quot; by evaluating the the source code &quot;sourcetext&quot;.
-&quot;sourcetext&quot; must follow the same rules as macros created in the GUI.
-If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
-for the macro.
 </translation>
     </message>
     <message>
@@ -2229,28 +2103,6 @@ the layer &quot;layer&quot; is disabled.
 
 May raise NotFoundError if the layer can't be found.
 May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>getColorAsRGB(&quot;name&quot;) -> tuple
-
-Returns a tuple (R,G,B) containing the three color components of the
-color &quot;name&quot; from the current document, converted to the RGB colour
-space. If no document is open, returns the value of the named color
-from the default document colors.
-
-May raise NotFoundError if the named color wasn't found.
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>getColorAsRGB(&quot;name&quot;) -> tuple
-
-Returns a tuple (R,G,B) containing the three color components of the
-color &quot;name&quot; from the current document, converted to the RGB colour
-space. If no document is open, returns the value of the named color
-from the default document colors.
-
-May raise NotFoundError if the named color wasn't found.
-May raise ValueError if an invalid color name is specified.
 </translation>
     </message>
     <message>
@@ -2275,26 +2127,6 @@ by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 
 May raise NotFoundError if the specified font can't be found.
 May raise ValueError if an empty sample or filename is passed.
-</translation>
-    </message>
-    <message>
-      <source>isLayerVisible(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>isLayerVisible(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
 </translation>
     </message>
     <message>
@@ -2342,23 +2174,267 @@ units. See UNIT_&lt;type> constants and getPageSize().
 </translation>
     </message>
     <message>
+      <source>getColorAsRGB(&quot;name&quot;) -> tuple
+
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB color
+space. If no document is open, returns the value of the named color
+from the default document colors.
+
+May raise NotFoundError if the named color wasn't found.
+May raise ValueError if an invalid color name is specified.
+</source>
+      <translation>getColorAsRGB(&quot;name&quot;) -> tuple
+
+Returns a tuple (R,G,B) containing the three colour components of the
+colour &quot;name&quot; from the current document, converted to the RGB colour
+space. If no document is open, returns the value of the named colour
+from the default document colours.
+
+May raise NotFoundError if the named colour wasn't found.
+May raise ValueError if an invalid colour name is specified.
+</translation>
+    </message>
+    <message>
+      <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yello and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+      <translation>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
+c = Cyan, m = Magenta, y = Yello and k = Black. Colour components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid colour name is specified.
+</translation>
+    </message>
+    <message>
+      <source>getCornerRadius([&quot;name&quot;]) -> integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
+</source>
+      <translation>getCornerRadius([&quot;name&quot;]) -> integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
+</translation>
+    </message>
+    <message>
+      <source>getPosition([&quot;name&quot;]) -> (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type> for reference.
+</source>
+      <translation>getPosition([&quot;name&quot;]) -> (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type> for reference.
+</translation>
+    </message>
+    <message>
+      <source>getPropertyCType(object, property, includesuper=True)
+
+Returns the name of the C type of `property' of `object'. See getProperty()
+for details of arguments.
+
+If `includesuper' is true, search inherited properties too.
+</source>
+      <translation>getPropertyCType(object, property, includesuper=True)
+
+Returns the name of the C type of `property' of `object'. See getProperty()
+for details of arguments.
+
+If `includesuper' is true, search inherited properties too.
+</translation>
+    </message>
+    <message>
+      <source>getPropertyNames(object, includesuper=True)
+
+Return a list of property names supported by `object'.
+If `includesuper' is true, return properties supported
+by parent classes as well.
+</source>
+      <translation>getPropertyNames(object, includesuper=True)
+
+Return a list of property names supported by `object'.
+If `includesuper' is true, return properties supported
+by parent classes as well.
+</translation>
+    </message>
+    <message>
+      <source>getProperty(object, property)
+
+Return the value of the property `property' of the passed `object'.
+
+The `object' argument may be a string, in which case the named PageItem
+is searched for. It may also be a PyCObject, which may point to any
+C++ QObject instance.
+
+The `property' argument must be a string, and is the name of the property
+to look up on `object'.
+
+The return value varies depending on the type of the property.
+</source>
+      <translation>getProperty(object, property)
+
+Return the value of the property `property' of the passed `object'.
+
+The `object' argument may be a string, in which case the named PageItem
+is searched for. It may also be a PyCObject, which may point to any
+C++ QObject instance.
+
+The `property' argument must be a string, and is the name of the property
+to look up on `object'.
+
+The return value varies depending on the type of the property.
+</translation>
+    </message>
+    <message>
+      <source>setProperty(object, property, value)
+
+Set `property' of `object' to `value'. If `value' cannot be converted to a type
+compatible with the type of `property', an exception is raised. An exception may
+also be raised if the underlying setter fails.
+
+See getProperty() for more information.
+</source>
+      <translation>setProperty(object, property, value)
+
+Set `property' of `object' to `value'. If `value' cannot be converted to a type
+compatible with the type of `property', an exception is raised. An exception may
+also be raised if the underlying setter fails.
+
+See getProperty() for more information.
+</translation>
+    </message>
+    <message>
+      <source>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
+
+Return a list of children of `object', possibly restricted to children
+of class named `ofclass' or children named `ofname'. If `recursive' is true,
+search recursively through children, grandchildren, etc.
+
+See QObject::children() in the Qt docs for more information.
+</source>
+      <translation>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
+
+Return a list of children of `object', possibly restricted to children
+of class named `ofclass' or children named `ofname'. If `recursive' is true,
+search recursively through children, grandchildren, etc.
+
+See QObject::children() in the Qt docs for more information.
+</translation>
+    </message>
+    <message>
+      <source>getChild(object, childname, ofclass=None, recursive=True)
+
+Return the first child of `object' named `childname', possibly restricting
+the search to children of type name `ofclass'. If `recursive' is true,
+search recursively through children, grandchildren, etc.
+</source>
+      <translation>getChild(object, childname, ofclass=None, recursive=True)
+
+Return the first child of `object' named `childname', possibly restricting
+the search to children of type name `ofclass'. If `recursive' is true,
+search recursively through children, grandchildren, etc.
+</translation>
+    </message>
+    <message>
+      <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+      <translation>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</translation>
+    </message>
+    <message>
+      <source>isLayerPrintable(&quot;layer&quot;) -> bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can't be found.
+May raise ValueError if the layer name isn't acceptable.
+</source>
+      <translation>isLayerPrintable(&quot;layer&quot;) -> bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can't be found.
+May raise ValueError if the layer name isn't acceptable.
+</translation>
+    </message>
+    <message>
       <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference). The first character has
-an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
-is not given the currently selected Item is used.
+Text must be UTF encoded (see setText() as reference) The first character has an
+index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
+not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
       <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference). The first character has
-an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
-is not given the currently selected Item is used.
+Text must be UTF encoded (see setText() as reference) The first character has an
+index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
+not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
+</translation>
+    </message>
+    <message>
+      <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+      <translation>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</translation>
+    </message>
+    <message>
+      <source>textOverflows([&quot;name&quot;, nolinks]) -> integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn't
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+      <translation>textOverflows([&quot;name&quot;, nolinks]) -> integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn't
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
 </translation>
     </message>
   </context>
@@ -2377,90 +2453,6 @@ May throw IndexError for an insertion out of bounds.
     <message>
       <source>Contributions from:</source>
       <translation>Contributions from:</translation>
-    </message>
-    <message>
-      <source>Windows port:</source>
-      <translation>Windows port:</translation>
-    </message>
-    <message>
-      <source>German:</source>
-      <translation>German:</translation>
-    </message>
-    <message>
-      <source>French:</source>
-      <translation>French:</translation>
-    </message>
-    <message>
-      <source>Italian:</source>
-      <translation>Italian:</translation>
-    </message>
-    <message>
-      <source>Hungarian:</source>
-      <translation>Hungarian:</translation>
-    </message>
-    <message>
-      <source>Ukrainian:</source>
-      <translation>Ukrainian:</translation>
-    </message>
-    <message>
-      <source>Bulgarian:</source>
-      <translation>Bulgarian:</translation>
-    </message>
-    <message>
-      <source>Galician:</source>
-      <translation>Galician:</translation>
-    </message>
-    <message>
-      <source>Turkish:</source>
-      <translation>Turkish:</translation>
-    </message>
-    <message>
-      <source>Lithuanian:</source>
-      <translation>Lithuanian:</translation>
-    </message>
-    <message>
-      <source>Polish:</source>
-      <translation>Polish:</translation>
-    </message>
-    <message>
-      <source>Czech:</source>
-      <translation>Czech:</translation>
-    </message>
-    <message>
-      <source>Slovak:</source>
-      <translation>Slovak:</translation>
-    </message>
-    <message>
-      <source>Danish:</source>
-      <translation>Danish:</translation>
-    </message>
-    <message>
-      <source>Norwegian:</source>
-      <translation>Norwegian:</translation>
-    </message>
-    <message>
-      <source>Welsh:</source>
-      <translation>Welsh:</translation>
-    </message>
-    <message>
-      <source>Russian:</source>
-      <translation>Russian:</translation>
-    </message>
-    <message>
-      <source>Brazilian:</source>
-      <translation>Brazilian:</translation>
-    </message>
-    <message>
-      <source>Finnish:</source>
-      <translation>Finnish:</translation>
-    </message>
-    <message>
-      <source>Basque:</source>
-      <translation>Basque:</translation>
-    </message>
-    <message>
-      <source>Slovenian:</source>
-      <translation>Slovenian:</translation>
     </message>
     <message>
       <source>&amp;About</source>
@@ -2495,14 +2487,6 @@ May throw IndexError for an insertion out of bounds.
       <translation>Other Documentation:</translation>
     </message>
     <message>
-      <source>English (British):</source>
-      <translation>English (British):</translation>
-    </message>
-    <message>
-      <source>Swedish:</source>
-      <translation>Swedish:</translation>
-    </message>
-    <message>
       <source>Homepage</source>
       <translation>Homepage</translation>
     </message>
@@ -2523,54 +2507,745 @@ May throw IndexError for an insertion out of bounds.
       <translation>Official Translations and Translators:</translation>
     </message>
     <message>
-      <source>Esperanto:</source>
-      <translation>Esperanto:</translation>
-    </message>
-    <message>
-      <source>Korean:</source>
-      <translation>Korean:</translation>
-    </message>
-    <message>
-      <source>Serbian:</source>
-      <translation>Serbian:</translation>
-    </message>
-    <message>
-      <source>Spanish:</source>
-      <translation>Spanish:</translation>
-    </message>
-    <message>
       <source>Previous Translation Contributors:</source>
       <translation>Previous Translation Contributors:</translation>
-    </message>
-    <message>
-      <source>Catalan:</source>
-      <translation>Catalan:</translation>
     </message>
     <message>
       <source>About Scribus %1</source>
       <translation>About Scribus %1</translation>
     </message>
     <message>
-      <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
-Missing library support is indicated by a *</source>
-      <translation>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
-Missing library support is indicated by a *</translation>
-    </message>
-    <message>
       <source>%1 %2 %3 </source>
       <translation>%1 %2 %3 </translation>
     </message>
     <message>
-      <source>Afrikaans:</source>
-      <translation>Afrikaans:</translation>
+      <source>Windows Port:</source>
+      <translation>Windows Port:</translation>
     </message>
     <message>
-      <source>Portuguese (Brazilian):</source>
-      <translation>Portuguese (Brazilian):</translation>
+      <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.
+Missing library support is indicated by a *</source>
+      <translation>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.
+Missing library support is indicated by a *</translation>
+    </message>
+  </context>
+  <context>
+    <name>ActionManager</name>
+    <message>
+      <source>&amp;Image Effects</source>
+      <translation>&amp;Image Effects</translation>
+    </message>
+    <message>
+      <source>&amp;Tabulators...</source>
+      <translation>&amp;Tabulators...</translation>
+    </message>
+    <message>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
+    </message>
+    <message>
+      <source>&amp;Open...</source>
+      <translation>&amp;Open...</translation>
+    </message>
+    <message>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
+    </message>
+    <message>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
+    </message>
+    <message>
+      <source>Save &amp;As...</source>
+      <translation>Save &amp;As...</translation>
+    </message>
+    <message>
+      <source>Re&amp;vert to Saved</source>
+      <translation>Re&amp;vert to Saved</translation>
+    </message>
+    <message>
+      <source>Collect for O&amp;utput...</source>
+      <translation>Collect for O&amp;utput...</translation>
+    </message>
+    <message>
+      <source>Get Text...</source>
+      <translation>Get Text...</translation>
+    </message>
+    <message>
+      <source>Append &amp;Text...</source>
+      <translation>Append &amp;Text...</translation>
+    </message>
+    <message>
+      <source>Get Image...</source>
+      <translation>Get Image...</translation>
+    </message>
+    <message>
+      <source>Save &amp;Text...</source>
+      <translation>Save &amp;Text...</translation>
+    </message>
+    <message>
+      <source>Save Page as &amp;EPS...</source>
+      <translation>Save Page as &amp;EPS...</translation>
+    </message>
+    <message>
+      <source>Save as P&amp;DF...</source>
+      <translation>Save as P&amp;DF...</translation>
+    </message>
+    <message>
+      <source>Document &amp;Information...</source>
+      <translation>Document &amp;Information...</translation>
+    </message>
+    <message>
+      <source>Document &amp;Setup...</source>
+      <translation>Document &amp;Setup...</translation>
+    </message>
+    <message>
+      <source>&amp;Print...</source>
+      <translation>&amp;Print...</translation>
+    </message>
+    <message>
+      <source>&amp;Quit</source>
+      <translation>&amp;Quit</translation>
+    </message>
+    <message>
+      <source>&amp;Undo</source>
+      <translation>&amp;Undo</translation>
+    </message>
+    <message>
+      <source>&amp;Redo</source>
+      <translation>&amp;Redo</translation>
+    </message>
+    <message>
+      <source>&amp;Item Action Mode</source>
+      <translation>&amp;Item Action Mode</translation>
+    </message>
+    <message>
+      <source>Cu&amp;t</source>
+      <translation>Cu&amp;t</translation>
+    </message>
+    <message>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
+    </message>
+    <message>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
+    </message>
+    <message>
+      <source>C&amp;lear Contents</source>
+      <translation>C&amp;lear Contents</translation>
+    </message>
+    <message>
+      <source>Select &amp;All</source>
+      <translation>Select &amp;All</translation>
+    </message>
+    <message>
+      <source>&amp;Deselect All</source>
+      <translation>&amp;Deselect All</translation>
+    </message>
+    <message>
+      <source>&amp;Search/Replace...</source>
+      <translation>&amp;Search/Replace...</translation>
+    </message>
+    <message>
+      <source>C&amp;olors...</source>
+      <translation>C&amp;olours...</translation>
+    </message>
+    <message>
+      <source>&amp;Paragraph Styles...</source>
+      <translation>&amp;Paragraph Styles...</translation>
+    </message>
+    <message>
+      <source>&amp;Line Styles...</source>
+      <translation>&amp;Line Styles...</translation>
+    </message>
+    <message>
+      <source>&amp;Master Pages...</source>
+      <translation>&amp;Master Pages...</translation>
+    </message>
+    <message>
+      <source>&amp;Javascripts...</source>
+      <translation>&amp;Javascripts...</translation>
+    </message>
+    <message>
+      <source>P&amp;references...</source>
+      <translation>P&amp;references...</translation>
+    </message>
+    <message>
+      <source>%1 pt</source>
+      <translation>%1 pt</translation>
+    </message>
+    <message>
+      <source>&amp;Other...</source>
+      <translation>&amp;Other...</translation>
+    </message>
+    <message>
+      <source>&amp;Left</source>
+      <translation>&amp;Left</translation>
+    </message>
+    <message>
+      <source>&amp;Center</source>
+      <translation>&amp;Centre</translation>
+    </message>
+    <message>
+      <source>&amp;Right</source>
+      <translation>&amp;Right</translation>
+    </message>
+    <message>
+      <source>&amp;Block</source>
+      <translation>&amp;Block</translation>
+    </message>
+    <message>
+      <source>&amp;Forced</source>
+      <translation>&amp;Forced</translation>
+    </message>
+    <message>
+      <source>&amp;%1 %</source>
+      <translation>&amp;%1 %</translation>
+    </message>
+    <message>
+      <source>&amp;Normal</source>
+      <translation>&amp;Normal</translation>
+    </message>
+    <message>
+      <source>&amp;Underline</source>
+      <translation>&amp;Underline</translation>
+    </message>
+    <message>
+      <source>Underline &amp;Words</source>
+      <translation>Underline &amp;Words</translation>
+    </message>
+    <message>
+      <source>&amp;Strike Through</source>
+      <translation>&amp;Strike Through</translation>
+    </message>
+    <message>
+      <source>&amp;All Caps</source>
+      <translation>&amp;All Caps</translation>
+    </message>
+    <message>
+      <source>Small &amp;Caps</source>
+      <translation>Small &amp;Caps</translation>
+    </message>
+    <message>
+      <source>Su&amp;perscript</source>
+      <translation>Su&amp;perscript</translation>
+    </message>
+    <message>
+      <source>Su&amp;bscript</source>
+      <translation>Su&amp;bscript</translation>
+    </message>
+    <message>
+      <source>&amp;Outline</source>
+      <translation>&amp;Outline</translation>
+    </message>
+    <message>
+      <source>D&amp;uplicate</source>
+      <translation>D&amp;uplicate</translation>
+    </message>
+    <message>
+      <source>&amp;Multiple Duplicate</source>
+      <translation>&amp;Multiple Duplicate</translation>
+    </message>
+    <message>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
+    </message>
+    <message>
+      <source>&amp;Group</source>
+      <translation>&amp;Group</translation>
+    </message>
+    <message>
+      <source>&amp;Ungroup</source>
+      <translation>&amp;Ungroup</translation>
+    </message>
+    <message>
+      <source>Is &amp;Locked</source>
+      <translation>Is &amp;Locked</translation>
+    </message>
+    <message>
+      <source>Si&amp;ze is Locked</source>
+      <translation>Si&amp;ze is Locked</translation>
+    </message>
+    <message>
+      <source>Lower to &amp;Bottom</source>
+      <translation>Lower to &amp;Bottom</translation>
+    </message>
+    <message>
+      <source>Raise to &amp;Top</source>
+      <translation>Raise to &amp;Top</translation>
+    </message>
+    <message>
+      <source>&amp;Lower</source>
+      <translation>&amp;Lower</translation>
+    </message>
+    <message>
+      <source>&amp;Raise</source>
+      <translation>&amp;Raise</translation>
+    </message>
+    <message>
+      <source>Distribute/&amp;Align...</source>
+      <translation>Distribute/&amp;Align...</translation>
+    </message>
+    <message>
+      <source>Send to S&amp;crapbook</source>
+      <translation>Send to S&amp;crapbook</translation>
+    </message>
+    <message>
+      <source>&amp;Attributes...</source>
+      <translation>&amp;Attributes...</translation>
+    </message>
+    <message>
+      <source>I&amp;mage Visible</source>
+      <translation>I&amp;mage Visible</translation>
+    </message>
+    <message>
+      <source>Is PDF &amp;Bookmark</source>
+      <translation>Is PDF &amp;Bookmark</translation>
+    </message>
+    <message>
+      <source>Is PDF A&amp;nnotation</source>
+      <translation>Is PDF A&amp;nnotation</translation>
+    </message>
+    <message>
+      <source>Annotation P&amp;roperties</source>
+      <translation>Annotation P&amp;roperties</translation>
+    </message>
+    <message>
+      <source>Field P&amp;roperties</source>
+      <translation>Field P&amp;roperties</translation>
+    </message>
+    <message>
+      <source>&amp;Edit Shape...</source>
+      <translation>&amp;Edit Shape...</translation>
+    </message>
+    <message>
+      <source>&amp;Attach Text to Path</source>
+      <translation>&amp;Attach Text to Path</translation>
+    </message>
+    <message>
+      <source>&amp;Detach Text from Path</source>
+      <translation>&amp;Detach Text from Path</translation>
+    </message>
+    <message>
+      <source>&amp;Combine Polygons</source>
+      <translation>&amp;Combine Polygons</translation>
+    </message>
+    <message>
+      <source>Split &amp;Polygons</source>
+      <translation>Split &amp;Polygons</translation>
+    </message>
+    <message>
+      <source>&amp;Bezier Curve</source>
+      <translation>&amp;Bezier Curve</translation>
+    </message>
+    <message>
+      <source>&amp;Image Frame</source>
+      <translation>&amp;Image Frame</translation>
+    </message>
+    <message>
+      <source>&amp;Outlines</source>
+      <translation>&amp;Outlines</translation>
+    </message>
+    <message>
+      <source>&amp;Polygon</source>
+      <translation>&amp;Polygon</translation>
+    </message>
+    <message>
+      <source>&amp;Text Frame</source>
+      <translation>&amp;Text Frame</translation>
+    </message>
+    <message>
+      <source>&amp;Glyph...</source>
+      <translation>&amp;Glyph...</translation>
+    </message>
+    <message>
+      <source>Sample Text</source>
+      <translation>Sample Text</translation>
+    </message>
+    <message>
+      <source>&amp;Insert...</source>
+      <translation>&amp;Insert...</translation>
+    </message>
+    <message>
+      <source>Im&amp;port...</source>
+      <translation>Im&amp;port...</translation>
+    </message>
+    <message>
+      <source>&amp;Delete...</source>
+      <translation>&amp;Delete...</translation>
+    </message>
+    <message>
+      <source>&amp;Copy...</source>
+      <translation>&amp;Copy...</translation>
+    </message>
+    <message>
+      <source>&amp;Move...</source>
+      <translation>&amp;Move...</translation>
+    </message>
+    <message>
+      <source>&amp;Apply Master Page...</source>
+      <translation>&amp;Apply Master Page...</translation>
+    </message>
+    <message>
+      <source>Manage &amp;Guides...</source>
+      <translation>Manage &amp;Guides...</translation>
+    </message>
+    <message>
+      <source>&amp;Fit in window</source>
+      <translation>&amp;Fit in window</translation>
+    </message>
+    <message>
+      <source>&amp;50%</source>
+      <translation>&amp;50%</translation>
+    </message>
+    <message>
+      <source>&amp;75%</source>
+      <translation>&amp;75%</translation>
+    </message>
+    <message>
+      <source>&amp;100%</source>
+      <translation>&amp;100%</translation>
+    </message>
+    <message>
+      <source>&amp;200%</source>
+      <translation>&amp;200%</translation>
+    </message>
+    <message>
+      <source>&amp;Thumbnails</source>
+      <translation>&amp;Thumbnails</translation>
+    </message>
+    <message>
+      <source>Show &amp;Margins</source>
+      <translation>Show &amp;Margins</translation>
+    </message>
+    <message>
+      <source>Show &amp;Frames</source>
+      <translation>Show &amp;Frames</translation>
+    </message>
+    <message>
+      <source>Show &amp;Images</source>
+      <translation>Show &amp;Images</translation>
+    </message>
+    <message>
+      <source>Show &amp;Grid</source>
+      <translation>Show &amp;Grid</translation>
+    </message>
+    <message>
+      <source>Show G&amp;uides</source>
+      <translation>Show G&amp;uides</translation>
+    </message>
+    <message>
+      <source>Show &amp;Baseline Grid</source>
+      <translation>Show &amp;Baseline Grid</translation>
+    </message>
+    <message>
+      <source>Show &amp;Text Chain</source>
+      <translation>Show &amp;Text Chain</translation>
+    </message>
+    <message>
+      <source>Sn&amp;ap to Grid</source>
+      <translation>Sn&amp;ap to Grid</translation>
+    </message>
+    <message>
+      <source>Sna&amp;p to Guides</source>
+      <translation>Sna&amp;p to Guides</translation>
+    </message>
+    <message>
+      <source>&amp;Properties</source>
+      <translation>&amp;Properties</translation>
+    </message>
+    <message>
+      <source>&amp;Scrapbook</source>
+      <translation>&amp;Scrapbook</translation>
+    </message>
+    <message>
+      <source>&amp;Layers</source>
+      <translation>&amp;Layers</translation>
+    </message>
+    <message>
+      <source>P&amp;age Palette</source>
+      <translation>P&amp;age Palette</translation>
+    </message>
+    <message>
+      <source>&amp;Bookmarks</source>
+      <translation>&amp;Bookmarks</translation>
+    </message>
+    <message>
+      <source>&amp;Measurements</source>
+      <translation>&amp;Measurements</translation>
+    </message>
+    <message>
+      <source>Action &amp;History</source>
+      <translation>Action &amp;History</translation>
+    </message>
+    <message>
+      <source>Preflight &amp;Verifier</source>
+      <translation>Preflight &amp;Verifier</translation>
+    </message>
+    <message>
+      <source>&amp;Tools</source>
+      <translation>&amp;Tools</translation>
+    </message>
+    <message>
+      <source>P&amp;DF Tools</source>
+      <translation>P&amp;DF Tools</translation>
+    </message>
+    <message>
+      <source>Select Item</source>
+      <translation>Select Item</translation>
+    </message>
+    <message>
+      <source>T&amp;able</source>
+      <translation>T&amp;able</translation>
+    </message>
+    <message>
+      <source>&amp;Shape</source>
+      <translation>&amp;Shape</translation>
+    </message>
+    <message>
+      <source>&amp;Line</source>
+      <translation>&amp;Line</translation>
+    </message>
+    <message>
+      <source>&amp;Freehand Line</source>
+      <translation>&amp;Freehand Line</translation>
+    </message>
+    <message>
+      <source>Rotate Item</source>
+      <translation>Rotate Item</translation>
+    </message>
+    <message>
+      <source>Zoom in or out</source>
+      <translation>Zoom in or out</translation>
+    </message>
+    <message>
+      <source>Zoom in</source>
+      <translation>Zoom in</translation>
+    </message>
+    <message>
+      <source>Zoom out</source>
+      <translation>Zoom out</translation>
+    </message>
+    <message>
+      <source>Edit Contents of Frame</source>
+      <translation>Edit Contents of Frame</translation>
+    </message>
+    <message>
+      <source>Text...</source>
+      <translation>Text...</translation>
+    </message>
+    <message>
+      <source>Link Text Frames</source>
+      <translation>Link Text Frames</translation>
+    </message>
+    <message>
+      <source>Unlink Text Frames</source>
+      <translation>Unlink Text Frames</translation>
+    </message>
+    <message>
+      <source>&amp;Eye Dropper</source>
+      <translation>&amp;Eye Dropper</translation>
+    </message>
+    <message>
+      <source>Copy Item Properties</source>
+      <translation>Copy Item Properties</translation>
+    </message>
+    <message>
+      <source>Edit the text with the Story Editor</source>
+      <translation>Edit the text with the Story Editor</translation>
+    </message>
+    <message>
+      <source>Insert Text Frame</source>
+      <translation>Insert Text Frame</translation>
+    </message>
+    <message>
+      <source>Insert Image Frame</source>
+      <translation>Insert Image Frame</translation>
+    </message>
+    <message>
+      <source>Insert Table</source>
+      <translation>Insert Table</translation>
+    </message>
+    <message>
+      <source>Insert Shape</source>
+      <translation>Insert Shape</translation>
+    </message>
+    <message>
+      <source>Insert Polygon</source>
+      <translation>Insert Polygon</translation>
+    </message>
+    <message>
+      <source>Insert Line</source>
+      <translation>Insert Line</translation>
+    </message>
+    <message>
+      <source>Insert Bezier Curve</source>
+      <translation>Insert Bezier Curve</translation>
+    </message>
+    <message>
+      <source>Insert Freehand Line</source>
+      <translation>Insert Freehand Line</translation>
+    </message>
+    <message>
+      <source>&amp;Manage Pictures</source>
+      <translation>&amp;Manage Pictures</translation>
+    </message>
+    <message>
+      <source>&amp;Hyphenate Text</source>
+      <translation>&amp;Hyphenate Text</translation>
+    </message>
+    <message>
+      <source>&amp;Generate Table Of Contents</source>
+      <translation>&amp;Generate Table Of Contents</translation>
+    </message>
+    <message>
+      <source>&amp;About Scribus</source>
+      <translation>&amp;About Scribus</translation>
+    </message>
+    <message>
+      <source>About &amp;Qt</source>
+      <translation>About &amp;Qt</translation>
+    </message>
+    <message>
+      <source>Toolti&amp;ps</source>
+      <translation>Toolti&amp;ps</translation>
+    </message>
+    <message>
+      <source>Scribus &amp;Manual...</source>
+      <translation>Scribus &amp;Manual...</translation>
+    </message>
+    <message>
+      <source>Smart &amp;Hyphen</source>
+      <translation>Smart &amp;Hyphen</translation>
+    </message>
+    <message>
+      <source>Non Breaking &amp;Space</source>
+      <translation>Non Breaking &amp;Space</translation>
+    </message>
+    <message>
+      <source>Page &amp;Number</source>
+      <translation>Page &amp;Number</translation>
+    </message>
+    <message>
+      <source>Copyright</source>
+      <translation>Copyright</translation>
+    </message>
+    <message>
+      <source>Registered Trademark</source>
+      <translation>Registered Trademark</translation>
+    </message>
+    <message>
+      <source>Trademark</source>
+      <translation>Trademark</translation>
+    </message>
+    <message>
+      <source>Bullet</source>
+      <translation>Bullet</translation>
+    </message>
+    <message>
+      <source>Em Dash</source>
+      <translation>Em Dash</translation>
+    </message>
+    <message>
+      <source>En Dash</source>
+      <translation>En Dash</translation>
+    </message>
+    <message>
+      <source>Figure Dash</source>
+      <translation>Figure Dash</translation>
+    </message>
+    <message>
+      <source>Quotation Dash</source>
+      <translation>Quotation Dash</translation>
+    </message>
+    <message>
+      <source>Apostrophe</source>
+      <translation>Apostrophe</translation>
+    </message>
+    <message>
+      <source>Straight Double</source>
+      <translation>Straight Double</translation>
+    </message>
+    <message>
+      <source>Single Left</source>
+      <translation>Single Left</translation>
+    </message>
+    <message>
+      <source>Single Right</source>
+      <translation>Single Right</translation>
+    </message>
+    <message>
+      <source>Double Left</source>
+      <translation>Double Left</translation>
+    </message>
+    <message>
+      <source>Double Right</source>
+      <translation>Double Right</translation>
+    </message>
+    <message>
+      <source>Single Reversed</source>
+      <translation>Single Reversed</translation>
+    </message>
+    <message>
+      <source>Double Reversed</source>
+      <translation>Double Reversed</translation>
+    </message>
+    <message>
+      <source>Single Left Guillemet</source>
+      <translation>Single Left Guillemet</translation>
+    </message>
+    <message>
+      <source>Single Right Guillemet</source>
+      <translation>Single Right Guillemet</translation>
+    </message>
+    <message>
+      <source>Double Left Guillemet</source>
+      <translation>Double Left Guillemet</translation>
+    </message>
+    <message>
+      <source>Double Right Guillemet</source>
+      <translation>Double Right Guillemet</translation>
+    </message>
+    <message>
+      <source>Low Single Comma</source>
+      <translation>Low Single Comma</translation>
+    </message>
+    <message>
+      <source>Low Double Comma</source>
+      <translation>Low Double Comma</translation>
+    </message>
+    <message>
+      <source>Double Turned Comma</source>
+      <translation>Double Turned Comma</translation>
+    </message>
+    <message>
+      <source>CJK Single Left</source>
+      <translation>CJK Single Left</translation>
+    </message>
+    <message>
+      <source>CJK Single Right</source>
+      <translation>CJK Single Right</translation>
+    </message>
+    <message>
+      <source>CJK Double Left</source>
+      <translation>CJK Double Left</translation>
+    </message>
+    <message>
+      <source>CJK Double Right</source>
+      <translation>CJK Double Right</translation>
+    </message>
+    <message>
+      <source>Toggle Palettes</source>
+      <translation>Toggle Palettes</translation>
+    </message>
+    <message>
+      <source>Toggle Guides</source>
+      <translation>Toggle Guides</translation>
     </message>
   </context>
   <context>
@@ -2649,16 +3324,6 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
       <source>Set Media Size</source>
       <translation>Set Media Size</translation>
     </message>
-    <message>
-      <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-      <translation>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</translation>
-    </message>
   </context>
   <context>
     <name>Align</name>
@@ -2697,18 +3362,6 @@ Not recommended unless
     <message>
       <source>Bottom Sides</source>
       <translation>Bottom Sides</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation>mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation>in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation>p</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -2753,10 +3406,6 @@ Not recommended unless
     <message>
       <source>Dis&amp;placement</source>
       <translation>Dis&amp;placement</translation>
-    </message>
-    <message>
-      <source> pt</source>
-      <translation> pt</translation>
     </message>
     <message>
       <source>Distribute E&amp;venly</source>
@@ -3393,6 +4042,89 @@ Not recommended unless
     </message>
   </context>
   <context>
+    <name>ApplyMasterPageDialog</name>
+    <message>
+      <source>Normal</source>
+      <translation>Normal</translation>
+    </message>
+    <message>
+      <source>Apply Master Page</source>
+      <translation>Apply Master Page</translation>
+    </message>
+    <message>
+      <source>&amp;Master Page:</source>
+      <translation>&amp;Master Page:</translation>
+    </message>
+    <message>
+      <source>Apply To</source>
+      <translation>Apply To</translation>
+    </message>
+    <message>
+      <source>Current &amp;page</source>
+      <translation>Current &amp;page</translation>
+    </message>
+    <message>
+      <source>Alt+P</source>
+      <translation>Alt+P</translation>
+    </message>
+    <message>
+      <source>&amp;Even pages</source>
+      <translation>&amp;Even pages</translation>
+    </message>
+    <message>
+      <source>Alt+E</source>
+      <translation>Alt+E</translation>
+    </message>
+    <message>
+      <source>O&amp;dd pages</source>
+      <translation>O&amp;dd pages</translation>
+    </message>
+    <message>
+      <source>Alt+D</source>
+      <translation>Alt+D</translation>
+    </message>
+    <message>
+      <source>&amp;All pages</source>
+      <translation>&amp;All pages</translation>
+    </message>
+    <message>
+      <source>Alt+A</source>
+      <translation>Alt+A</translation>
+    </message>
+    <message>
+      <source>&amp;Within range</source>
+      <translation>&amp;Within range</translation>
+    </message>
+    <message>
+      <source>Alt+W</source>
+      <translation>Alt+W</translation>
+    </message>
+    <message>
+      <source>&lt;qt>Apply the selected template to even, odd or all pages within the following range&lt;/qt></source>
+      <translation>&lt;qt>Apply the selected template to even, odd or all pages within the following range&lt;/qt></translation>
+    </message>
+    <message>
+      <source>to</source>
+      <translation>to</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>Alt+O</source>
+      <translation>Alt+O</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Alt+C</source>
+      <translation>Alt+C</translation>
+    </message>
+  </context>
+  <context>
     <name>ApplyT</name>
     <message>
       <source>Apply Template</source>
@@ -3407,14 +4139,6 @@ Not recommended unless
       <translation>&amp;Template:</translation>
     </message>
     <message>
-      <source>Apply to &amp;Current Page</source>
-      <translation>Apply to &amp;Current Page</translation>
-    </message>
-    <message>
-      <source>Apply from &amp;Page:</source>
-      <translation>Apply from &amp;Page:</translation>
-    </message>
-    <message>
       <source>To:</source>
       <translation>To:</translation>
     </message>
@@ -3427,12 +4151,27 @@ Not recommended unless
       <translation>&amp;Cancel</translation>
     </message>
     <message>
-      <source>Apply to all &amp;even Pages</source>
-      <translation>Apply to all &amp;even Pages</translation>
+      <source>Apply to &amp;current page</source>
+      <translation>Apply to &amp;current page</translation>
     </message>
     <message>
-      <source>Apply to all &amp;odd Pages</source>
-      <translation>Apply to all &amp;odd Pages</translation>
+      <source>Apply to all &amp;even pages</source>
+      <translation>Apply to all &amp;even pages</translation>
+    </message>
+    <message>
+      <source>Apply to all &amp;odd pages</source>
+      <translation>Apply to all &amp;odd pages</translation>
+    </message>
+    <message>
+      <source>Apply to &amp;all pages:</source>
+      <translation>Apply to &amp;all pages:</translation>
+    </message>
+  </context>
+  <context>
+    <name>ArrowChooser</name>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
     </message>
   </context>
   <context>
@@ -3470,10 +4209,6 @@ Not recommended unless
 Please choose another.</source>
       <translation>Name &quot;%1&quot; isn't unique.
 Please choose another.</translation>
-    </message>
-    <message>
-      <source>OK</source>
-      <translation>OK</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -3518,6 +4253,10 @@ Please choose another.</translation>
     <message>
       <source>&amp;Name:</source>
       <translation>&amp;Name:</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
   </context>
   <context>
@@ -3636,10 +4375,6 @@ Please choose another.</translation>
   <context>
     <name>CMSPrefs</name>
     <message>
-      <source>Color Management Settings</source>
-      <translation>Colour Management Settings</translation>
-    </message>
-    <message>
       <source>System Profiles</source>
       <translation>System Profiles</translation>
     </message>
@@ -3753,14 +4488,6 @@ This requires very accurate profiles and serves only as a warning.</translation>
       <source>Use &amp;Blackpoint Compensation</source>
       <translation>Use &amp;Blackpoint Compensation</translation>
     </message>
-    <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
-    </message>
   </context>
   <context>
     <name>CMYKChoose</name>
@@ -3787,10 +4514,6 @@ This requires very accurate profiles and serves only as a warning.</translation>
     <message>
       <source>Old</source>
       <translation>Old</translation>
-    </message>
-    <message>
-      <source>OK</source>
-      <translation>OK</translation>
     </message>
     <message>
       <source>C:</source>
@@ -3872,6 +4595,247 @@ It's a reserved name for transparent colour</translation>
     </message>
   </context>
   <context>
+    <name>ChTable</name>
+    <message>
+      <source>You can see a thumbnail if you press
+and hold down the right mouse button
+
+The Insert key inserts a Glyph into the Selection below
+and the Delete key removes the last inserted one</source>
+      <translation>You can see a thumbnail if you press
+and hold down the right mouse button
+
+The Insert key inserts a Glyph into the Selection below
+and the Delete key removes the last inserted one</translation>
+    </message>
+  </context>
+  <context>
+    <name>CharSelect</name>
+    <message>
+      <source>Select Character:</source>
+      <translation>Select Character:</translation>
+    </message>
+    <message>
+      <source>Font:</source>
+      <translation>Font:</translation>
+    </message>
+    <message>
+      <source>Character Class:</source>
+      <translation>Character Class:</translation>
+    </message>
+    <message>
+      <source>&amp;Insert</source>
+      <translation>&amp;Insert</translation>
+    </message>
+    <message>
+      <source>C&amp;lear</source>
+      <translation>C&amp;lear</translation>
+    </message>
+    <message>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
+    </message>
+    <message>
+      <source>Insert the characters at the cursor in the text</source>
+      <translation>Insert the characters at the cursor in the text</translation>
+    </message>
+    <message>
+      <source>Delete the current selection(s).</source>
+      <translation>Delete the current selection(s).</translation>
+    </message>
+    <message>
+      <source>Close this dialog and return to text editing.</source>
+      <translation>Close this dialog and return to text editing.</translation>
+    </message>
+    <message>
+      <source>Full Character Set</source>
+      <translation>Full Character Set</translation>
+    </message>
+    <message>
+      <source>Basic Latin</source>
+      <translation>Basic Latin</translation>
+    </message>
+    <message>
+      <source>Latin-1 Supplement</source>
+      <translation>Latin-1 Supplement</translation>
+    </message>
+    <message>
+      <source>Latin Extended-A</source>
+      <translation>Latin Extended-A</translation>
+    </message>
+    <message>
+      <source>Latin Extended-B</source>
+      <translation>Latin Extended-B</translation>
+    </message>
+    <message>
+      <source>General Punctuation</source>
+      <translation>General Punctuation</translation>
+    </message>
+    <message>
+      <source>Super- and Subscripts</source>
+      <translation>Super- and Subscripts</translation>
+    </message>
+    <message>
+      <source>Currency Symbols</source>
+      <translation>Currency Symbols</translation>
+    </message>
+    <message>
+      <source>Letterlike Symbols</source>
+      <translation>Letterlike Symbols</translation>
+    </message>
+    <message>
+      <source>Number Forms</source>
+      <translation>Number Forms</translation>
+    </message>
+    <message>
+      <source>Arrows</source>
+      <translation>Arrows</translation>
+    </message>
+    <message>
+      <source>Mathematical Operators</source>
+      <translation>Mathematical Operators</translation>
+    </message>
+    <message>
+      <source>Box Drawing</source>
+      <translation>Box Drawing</translation>
+    </message>
+    <message>
+      <source>Block Elements</source>
+      <translation>Block Elements</translation>
+    </message>
+    <message>
+      <source>Geometric Shapes</source>
+      <translation>Geometric Shapes</translation>
+    </message>
+    <message>
+      <source>Miscellaneous Symbols</source>
+      <translation>Miscellaneous Symbols</translation>
+    </message>
+    <message>
+      <source>Dingbats</source>
+      <translation>Dingbats</translation>
+    </message>
+    <message>
+      <source>Small Form Variants</source>
+      <translation>Small Form Variants</translation>
+    </message>
+    <message>
+      <source>Ligatures</source>
+      <translation>Ligatures</translation>
+    </message>
+    <message>
+      <source>Specials</source>
+      <translation>Specials</translation>
+    </message>
+    <message>
+      <source>Greek</source>
+      <translation>Greek</translation>
+    </message>
+    <message>
+      <source>Greek Extended</source>
+      <translation>Greek Extended</translation>
+    </message>
+    <message>
+      <source>Cyrillic</source>
+      <translation>Cyrillic</translation>
+    </message>
+    <message>
+      <source>Cyrillic Supplement</source>
+      <translation>Cyrillic Supplement</translation>
+    </message>
+    <message>
+      <source>Arabic</source>
+      <translation>Arabic</translation>
+    </message>
+    <message>
+      <source>Arabic Extended A</source>
+      <translation>Arabic Extended A</translation>
+    </message>
+    <message>
+      <source>Arabic Extended B</source>
+      <translation>Arabic Extended B</translation>
+    </message>
+    <message>
+      <source>Hebrew</source>
+      <translation>Hebrew</translation>
+    </message>
+  </context>
+  <context>
+    <name>CheckDocument</name>
+    <message>
+      <source>Glyphs missing</source>
+      <translation>Glyphs missing</translation>
+    </message>
+    <message>
+      <source>Text overflow</source>
+      <translation>Text overflow</translation>
+    </message>
+    <message>
+      <source>Object is not on a Page</source>
+      <translation>Object is not on a Page</translation>
+    </message>
+    <message>
+      <source>Missing Image</source>
+      <translation>Missing Image</translation>
+    </message>
+    <message>
+      <source>Image has a DPI-Value less than %1 DPI</source>
+      <translation>Image has a DPI-Value less than %1 DPI</translation>
+    </message>
+    <message>
+      <source>Object has transparency</source>
+      <translation>Object has transparency</translation>
+    </message>
+    <message>
+      <source>Object is a PDF Annotation or Field</source>
+      <translation>Object is a PDF Annotation or Field</translation>
+    </message>
+    <message>
+      <source>Object is a placed PDF</source>
+      <translation>Object is a placed PDF</translation>
+    </message>
+    <message>
+      <source>Document</source>
+      <translation>Document</translation>
+    </message>
+    <message>
+      <source>No Problems found</source>
+      <translation>No Problems found</translation>
+    </message>
+    <message>
+      <source>Page </source>
+      <translation>Page </translation>
+    </message>
+    <message>
+      <source>Free Objects</source>
+      <translation>Free Objects</translation>
+    </message>
+    <message>
+      <source>Problems found</source>
+      <translation>Problems found</translation>
+    </message>
+    <message>
+      <source>Preflight Verifier</source>
+      <translation>Preflight Verifier</translation>
+    </message>
+    <message>
+      <source>Items</source>
+      <translation>Items</translation>
+    </message>
+    <message>
+      <source>Problems</source>
+      <translation>Problems</translation>
+    </message>
+    <message>
+      <source>Current Profile:</source>
+      <translation>Current Profile:</translation>
+    </message>
+    <message>
+      <source>&amp;Ignore Errors</source>
+      <translation>&amp;Ignore Errors</translation>
+    </message>
+  </context>
+  <context>
     <name>ChooseStyles</name>
     <message>
       <source>Choose Styles</source>
@@ -3888,6 +4852,132 @@ It's a reserved name for transparent colour</translation>
     <message>
       <source>Cancel</source>
       <translation>Cancel</translation>
+    </message>
+  </context>
+  <context>
+    <name>ColorWheel</name>
+    <message>
+      <source>Monochromatic</source>
+      <translation>Monochromatic</translation>
+    </message>
+    <message>
+      <source>Analogous</source>
+      <translation>Analogous</translation>
+    </message>
+    <message>
+      <source>Complementary</source>
+      <translation>Complementary</translation>
+    </message>
+    <message>
+      <source>Split Complementary</source>
+      <translation>Split Complementary</translation>
+    </message>
+    <message>
+      <source>Triadic</source>
+      <translation>Triadic</translation>
+    </message>
+    <message>
+      <source>Tetradic (Double Complementary)</source>
+      <translation>Tetradic (Double Complementary)</translation>
+    </message>
+  </context>
+  <context>
+    <name>ColorWheelDialog</name>
+    <message>
+      <source>Color Wheel</source>
+      <translation>Colour Wheel</translation>
+    </message>
+    <message>
+      <source>Color</source>
+      <translation>Colour</translation>
+    </message>
+    <message>
+      <source>Name</source>
+      <translation>Name</translation>
+    </message>
+    <message>
+      <source>C</source>
+      <translation>C</translation>
+    </message>
+    <message>
+      <source>M</source>
+      <translation>M</translation>
+    </message>
+    <message>
+      <source>Y</source>
+      <translation>Y</translation>
+    </message>
+    <message>
+      <source>K</source>
+      <translation>K</translation>
+    </message>
+    <message>
+      <source>Select Method:</source>
+      <translation>Select Method:</translation>
+    </message>
+    <message>
+      <source>Angle (0 - 90 degrees):</source>
+      <translation>Angle (0 - 90 degrees):</translation>
+    </message>
+    <message>
+      <source>&amp;Merge Colors</source>
+      <translation>&amp;Merge Colours</translation>
+    </message>
+    <message>
+      <source>&amp;Replace Colors</source>
+      <translation>&amp;Replace Colours</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Merge created colors into the document colors</source>
+      <translation>Merge created colours into the document colours</translation>
+    </message>
+    <message>
+      <source>Replace created colors in the document colors</source>
+      <translation>Replace created colours in the document colours</translation>
+    </message>
+    <message>
+      <source>Leave colors untouched</source>
+      <translation>Leave colours untouched</translation>
+    </message>
+    <message>
+      <source>Difference between selected value and counted ones. See documentation for more info</source>
+      <translation>Difference between selected value and counted ones. See documentation for more info</translation>
+    </message>
+    <message>
+      <source>Click the wheel to get base color</source>
+      <translation>Click the wheel to get base colour</translation>
+    </message>
+    <message>
+      <source>Here you have the sample color schema</source>
+      <translation>Here you have the sample colour schema</translation>
+    </message>
+    <message>
+      <source>Select one of the method to create color schema. See documentation for more info</source>
+      <translation>Select one of the method to create colour schema. See documentation for more info</translation>
+    </message>
+    <message>
+      <source>Here you have the color of your chosen color schema</source>
+      <translation>Here you have the colour of your chosen colour schema</translation>
+    </message>
+    <message>
+      <source>Merging colors</source>
+      <translation>Merging colours</translation>
+    </message>
+    <message>
+      <source>Error: </source>
+      <translation>Error: </translation>
+    </message>
+    <message>
+      <source>Now opening the color manager.</source>
+      <translation>Now opening the colour manager.</translation>
+    </message>
+    <message>
+      <source>Color Merging</source>
+      <translation>Colour Merging</translation>
     </message>
   </context>
   <context>
@@ -3985,16 +5075,12 @@ It's a reserved name for transparent colour</translation>
       <translation>Y2:</translation>
     </message>
     <message>
-      <source> mm</source>
-      <translation> mm</translation>
+      <source>Move Vector</source>
+      <translation>Move Vector</translation>
     </message>
     <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
+      <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
+      <translation>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</translation>
     </message>
   </context>
   <context>
@@ -4147,18 +5233,6 @@ This can be set in the Preferences.</translation>
       <translation>Delete Colour</translation>
     </message>
     <message>
-      <source>?</source>
-      <translation>?</translation>
-    </message>
-    <message>
-      <source>Replace it with:</source>
-      <translation>Replace it with:</translation>
-    </message>
-    <message>
-      <source>Delete color:</source>
-      <translation>Delete colour:</translation>
-    </message>
-    <message>
       <source>None</source>
       <translation>None</translation>
     </message>
@@ -4170,16 +5244,20 @@ This can be set in the Preferences.</translation>
       <source>&amp;Cancel</source>
       <translation>&amp;Cancel</translation>
     </message>
+    <message>
+      <source>Delete Color:</source>
+      <translation>Delete Colour:</translation>
+    </message>
+    <message>
+      <source>Replace With:</source>
+      <translation>Replace With:</translation>
+    </message>
   </context>
   <context>
     <name>DelPages</name>
     <message>
       <source>Delete Pages</source>
       <translation>Delete Pages</translation>
-    </message>
-    <message>
-      <source>Delete from:</source>
-      <translation>Delete from:</translation>
     </message>
     <message>
       <source>to:</source>
@@ -4193,28 +5271,9 @@ This can be set in the Preferences.</translation>
       <source>&amp;Cancel</source>
       <translation>&amp;Cancel</translation>
     </message>
-  </context>
-  <context>
-    <name>DmF</name>
     <message>
-      <source>Missing Font</source>
-      <translation>Missing Font</translation>
-    </message>
-    <message>
-      <source>The Font %1 is not installed.</source>
-      <translation>The Font %1 is not installed.</translation>
-    </message>
-    <message>
-      <source>Use</source>
-      <translation>Use</translation>
-    </message>
-    <message>
-      <source>instead</source>
-      <translation>instead</translation>
-    </message>
-    <message>
-      <source>OK</source>
-      <translation>OK</translation>
+      <source>Delete From:</source>
+      <translation>Delete From:</translation>
     </message>
   </context>
   <context>
@@ -4373,6 +5432,109 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
   </context>
   <context>
+    <name>DocumentItemAttributes</name>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
+    </message>
+    <message>
+      <source>Relates To</source>
+      <translation>Relates To</translation>
+    </message>
+    <message>
+      <source>Is Parent Of</source>
+      <translation>Is Parent Of</translation>
+    </message>
+    <message>
+      <source>Is Child Of</source>
+      <translation>Is Child Of</translation>
+    </message>
+    <message>
+      <source>Text Frames</source>
+      <translation>Text Frames</translation>
+    </message>
+    <message>
+      <source>Image Frames</source>
+      <translation>Image Frames</translation>
+    </message>
+    <message>
+      <source>Boolean</source>
+      <translation>Boolean</translation>
+    </message>
+    <message>
+      <source>Integer</source>
+      <translation>Integer</translation>
+    </message>
+    <message>
+      <source>String</source>
+      <translation>String</translation>
+    </message>
+    <message>
+      <source>Document Item Attributes</source>
+      <translation>Document Item Attributes</translation>
+    </message>
+    <message>
+      <source>Name</source>
+      <translation>Name</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Value</translation>
+    </message>
+    <message>
+      <source>Parameter</source>
+      <translation>Parameter</translation>
+    </message>
+    <message>
+      <source>Relationship</source>
+      <translation>Relationship</translation>
+    </message>
+    <message>
+      <source>Relationship To</source>
+      <translation>Relationship To</translation>
+    </message>
+    <message>
+      <source>Auto Add To</source>
+      <translation>Auto Add To</translation>
+    </message>
+    <message>
+      <source>&amp;Add</source>
+      <translation>&amp;Add</translation>
+    </message>
+    <message>
+      <source>Alt+A</source>
+      <translation>Alt+A</translation>
+    </message>
+    <message>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
+    </message>
+    <message>
+      <source>Alt+C</source>
+      <translation>Alt+C</translation>
+    </message>
+    <message>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
+    </message>
+    <message>
+      <source>Alt+D</source>
+      <translation>Alt+D</translation>
+    </message>
+    <message>
+      <source>C&amp;lear</source>
+      <translation>C&amp;lear</translation>
+    </message>
+    <message>
+      <source>Alt+L</source>
+      <translation>Alt+L</translation>
+    </message>
+  </context>
+  <context>
     <name>Druck</name>
     <message>
       <source>Setup Printer</source>
@@ -4393,10 +5555,6 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     <message>
       <source>Save as</source>
       <translation>Save as</translation>
-    </message>
-    <message>
-      <source>Postscript-Files (*.ps);;All Files (*)</source>
-      <translation>Postscript-Files (*.ps);;All Files (*)</translation>
     </message>
     <message>
       <source>Cyan</source>
@@ -4500,6 +5658,10 @@ to utilize additional printing options</source>
       <translation>Use an alternative print manager, such as kprinter or gtklp,
 to utilise additional printing options</translation>
     </message>
+    <message>
+      <source>Postscript Files (*.ps);;All Files (*)</source>
+      <translation>Postscript Files (*.ps);;All Files (*)</translation>
+    </message>
   </context>
   <context>
     <name>EPSPlug</name>
@@ -4514,165 +5676,6 @@ failed!</translation>
     <message>
       <source>Fatal Error</source>
       <translation>Fatal Error</translation>
-    </message>
-  </context>
-  <context>
-    <name>EditMacroDialog</name>
-    <message>
-      <source>Editing Macro: &lt;b></source>
-      <translation>Editing Macro: &lt;b></translation>
-    </message>
-    <message>
-      <source>Scribus - Macro Manager</source>
-      <translation>Scribus - Macro Manager</translation>
-    </message>
-    <message>
-      <source>The file '%1' already exists.
-Are you sure you want to overwrite it?
-</source>
-      <translation>The file '%1' already exists.
-Are you sure you want to overwrite it?
-</translation>
-    </message>
-    <message>
-      <source>You have already edited this macro.
-Are you sure you want to discard all your changes?
-</source>
-      <translation>You have already edited this macro.
-Are you sure you want to discard all your changes?
-</translation>
-    </message>
-    <message>
-      <source>A full traceback follows:
-
-%1
-</source>
-      <translation>A full traceback follows:
-
-%1
-</translation>
-    </message>
-    <message>
-      <source>Compilation of the macro failed, so it can not 
-be saved in its current form. The error was:
-%1
-</source>
-      <translation>Compilation of the macro failed, so it can not 
-be saved in its current form. The error was:
-%1
-</translation>
-    </message>
-    <message>
-      <source>Scribus - New Macro</source>
-      <translation>Scribus - New Macro</translation>
-    </message>
-    <message>
-      <source>&lt;qt>This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt></source>
-      <translation>&lt;qt>This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Source Code:</source>
-      <translation>Source Code:</translation>
-    </message>
-    <message>
-      <source>Editing Macro:</source>
-      <translation>Editing Macro:</translation>
-    </message>
-    <message>
-      <source>The name of the macro being edited.</source>
-      <translation>The name of the macro being edited.</translation>
-    </message>
-    <message>
-      <source>&lt;/qt>This item displays the name of the macro you are currently editing.&lt;qt></source>
-      <translation>&lt;/qt>This item displays the name of the macro you are currently editing.&lt;qt></translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
-    </message>
-    <message>
-      <source>Alt+C</source>
-      <translation>Alt+C</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Discard all changes and exit.&lt;/qt></source>
-      <translation>&lt;qt>Discard all changes and exit.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don't want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt></source>
-      <translation>&lt;qt>Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don't want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&amp;Ok</source>
-      <translation>&amp;Ok</translation>
-    </message>
-    <message>
-      <source>Alt+O</source>
-      <translation>Alt+O</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Save changes and exit.&lt;/qt></source>
-      <translation>&lt;qt>Save changes and exit.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt></source>
-      <translation>&lt;qt>Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>This text area contains the source code of the macro. If you're creating a new macro there won't be anything in it, and if you're editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt></source>
-      <translation>&lt;qt>This text area contains the source code of the macro. If you're creating a new macro there won't be anything in it, and if you're editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&amp;Load Source ...</source>
-      <translation>&amp;Load Source ...</translation>
-    </message>
-    <message>
-      <source>Alt+L</source>
-      <translation>Alt+L</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Replace the current source code with code from a file.&lt;/qt></source>
-      <translation>&lt;qt>Replace the current source code with code from a file.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you'll need to edit it so that it'll work as a scripter macro before saving it.&lt;/qt></source>
-      <translation>&lt;qt>Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you'll need to edit it so that it'll work as a scripter macro before saving it.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&amp;Save Source As...</source>
-      <translation>&amp;Save Source As...</translation>
-    </message>
-    <message>
-      <source>Alt+S</source>
-      <translation>Alt+S</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Save the source code being edited to a file.&lt;/qt></source>
-      <translation>&lt;qt>Save the source code being edited to a file.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-      <translation>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</translation>
-    </message>
-    <message>
-      <source>Python source files (.py)</source>
-      <translation>Python source files (.py)</translation>
-    </message>
-    <message>
-      <source>Save File Dialog</source>
-      <translation>Save File Dialog</translation>
-    </message>
-    <message>
-      <source>Save macro source</source>
-      <translation>Save macro source</translation>
-    </message>
-    <message>
-      <source>Open File Dialog</source>
-      <translation>Open File Dialog</translation>
-    </message>
-    <message>
-      <source>Select the source file to load</source>
-      <translation>Select the source file to load</translation>
     </message>
   </context>
   <context>
@@ -4704,10 +5707,6 @@ be saved in its current form. The error was:
     <message>
       <source>Line Spacing</source>
       <translation>Line Spacing</translation>
-    </message>
-    <message>
-      <source>OK</source>
-      <translation>OK</translation>
     </message>
     <message>
       <source>Warning</source>
@@ -4758,18 +5757,6 @@ be saved in its current form. The error was:
       <translation>Spacing below the paragraph</translation>
     </message>
     <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
       <source>Tabulators and Indentation</source>
       <translation>Tabulators and Indentation</translation>
     </message>
@@ -4806,10 +5793,6 @@ be saved in its current form. The error was:
       <translation>St&amp;roke Colour:</translation>
     </message>
     <message>
-      <source>Adjust to Baseline &amp;Grid</source>
-      <translation>Adjust to Baseline &amp;Grid</translation>
-    </message>
-    <message>
       <source>Line &amp;Spacing:</source>
       <translation>Line &amp;Spacing:</translation>
     </message>
@@ -4828,6 +5811,18 @@ be saved in its current form. The error was:
     <message>
       <source>&amp;Cancel</source>
       <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Align to Baseline &amp;Grid</source>
+      <translation>Align to Baseline &amp;Grid</translation>
+    </message>
+    <message>
+      <source>Preview of the Paragraph Style:</source>
+      <translation>Preview of the Paragraph Style:</translation>
+    </message>
+    <message>
+      <source>Sample text of this paragraph style</source>
+      <translation>Sample text of this paragraph style</translation>
     </message>
   </context>
   <context>
@@ -4895,6 +5890,101 @@ be saved in its current form. The error was:
     <message>
       <source>&amp;Edit</source>
       <translation>&amp;Edit</translation>
+    </message>
+  </context>
+  <context>
+    <name>EffectsDialog</name>
+    <message>
+      <source>Image Effects</source>
+      <translation>Image Effects</translation>
+    </message>
+    <message>
+      <source>Options:</source>
+      <translation>Options:</translation>
+    </message>
+    <message>
+      <source>Color:</source>
+      <translation>Colour:</translation>
+    </message>
+    <message>
+      <source>Shade:</source>
+      <translation>Shade:</translation>
+    </message>
+    <message>
+      <source>Brightness:</source>
+      <translation>Brightness:</translation>
+    </message>
+    <message>
+      <source>Contrast:</source>
+      <translation>Contrast:</translation>
+    </message>
+    <message>
+      <source>Radius:</source>
+      <translation>Radius:</translation>
+    </message>
+    <message>
+      <source>Value:</source>
+      <translation>Value:</translation>
+    </message>
+    <message>
+      <source>Posterize:</source>
+      <translation>Posterise:</translation>
+    </message>
+    <message>
+      <source>Available Effects</source>
+      <translation>Available Effects</translation>
+    </message>
+    <message>
+      <source>Blur</source>
+      <translation>Blur</translation>
+    </message>
+    <message>
+      <source>Brightness</source>
+      <translation>Brightness</translation>
+    </message>
+    <message>
+      <source>Colorize</source>
+      <translation>Colourise</translation>
+    </message>
+    <message>
+      <source>Contrast</source>
+      <translation>Contrast</translation>
+    </message>
+    <message>
+      <source>Grayscale</source>
+      <translation>Greyscale</translation>
+    </message>
+    <message>
+      <source>Invert</source>
+      <translation>Invert</translation>
+    </message>
+    <message>
+      <source>Posterize</source>
+      <translation>Posterise</translation>
+    </message>
+    <message>
+      <source>Sharpen</source>
+      <translation>Sharpen</translation>
+    </message>
+    <message>
+      <source>>></source>
+      <translation>>></translation>
+    </message>
+    <message>
+      <source>&lt;&lt;</source>
+      <translation>&lt;&lt;</translation>
+    </message>
+    <message>
+      <source>Effects in use</source>
+      <translation>Effects in use</translation>
+    </message>
+    <message>
+      <source>OK</source>
+      <translation>OK</translation>
+    </message>
+    <message>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
   </context>
   <context>
@@ -5021,6 +6111,117 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
   </context>
   <context>
+    <name>ExtImageProps</name>
+    <message>
+      <source>Extended Image Properties</source>
+      <translation>Extended Image Properties</translation>
+    </message>
+    <message>
+      <source>Normal</source>
+      <translation>Normal</translation>
+    </message>
+    <message>
+      <source>Darken</source>
+      <translation>Darken</translation>
+    </message>
+    <message>
+      <source>Lighten</source>
+      <translation>Lighten</translation>
+    </message>
+    <message>
+      <source>Hue</source>
+      <translation>Hue</translation>
+    </message>
+    <message>
+      <source>Saturation</source>
+      <translation>Saturation</translation>
+    </message>
+    <message>
+      <source>Color</source>
+      <translation>Colour</translation>
+    </message>
+    <message>
+      <source>Luminosity</source>
+      <translation>Luminosity</translation>
+    </message>
+    <message>
+      <source>Multiply</source>
+      <translation>Multiply</translation>
+    </message>
+    <message>
+      <source>Screen</source>
+      <translation>Screen</translation>
+    </message>
+    <message>
+      <source>Dissolve</source>
+      <translation>Dissolve</translation>
+    </message>
+    <message>
+      <source>Overlay</source>
+      <translation>Overlay</translation>
+    </message>
+    <message>
+      <source>Hard Light</source>
+      <translation>Hard Light</translation>
+    </message>
+    <message>
+      <source>Soft Light</source>
+      <translation>Soft Light</translation>
+    </message>
+    <message>
+      <source>Difference</source>
+      <translation>Difference</translation>
+    </message>
+    <message>
+      <source>Exlusion</source>
+      <translation>Exclusion</translation>
+    </message>
+    <message>
+      <source>Color Dodge</source>
+      <translation>Colour Dodge</translation>
+    </message>
+    <message>
+      <source>Color Burn</source>
+      <translation>Colour Burn</translation>
+    </message>
+    <message>
+      <source>Blend Mode:</source>
+      <translation>Blend Mode:</translation>
+    </message>
+    <message>
+      <source>Opacity:</source>
+      <translation>Opacity:</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>Name</source>
+      <translation>Name</translation>
+    </message>
+    <message>
+      <source>Background</source>
+      <translation>Background</translation>
+    </message>
+    <message>
+      <source>Layers</source>
+      <translation>Layers</translation>
+    </message>
+    <message>
+      <source>Don't use any Path</source>
+      <translation>Don't use any Path</translation>
+    </message>
+    <message>
+      <source>Paths</source>
+      <translation>Paths</translation>
+    </message>
+    <message>
+      <source>Exclusion</source>
+      <translation>Exclusion</translation>
+    </message>
+  </context>
+  <context>
     <name>FDialogPreview</name>
     <message>
       <source>Size:</source>
@@ -5045,6 +6246,30 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
       <source>Scribus Document</source>
       <translation>Scribus Document</translation>
+    </message>
+    <message>
+      <source>Resolution:</source>
+      <translation>Resolution:</translation>
+    </message>
+    <message>
+      <source>DPI</source>
+      <translation>DPI</translation>
+    </message>
+    <message>
+      <source>RGB</source>
+      <translation>RGB</translation>
+    </message>
+    <message>
+      <source>CMYK</source>
+      <translation>CMYK</translation>
+    </message>
+    <message>
+      <source>Grayscale</source>
+      <translation>Greyscale</translation>
+    </message>
+    <message>
+      <source>Colorspace:</source>
+      <translation>Colourspace:</translation>
     </message>
   </context>
   <context>
@@ -5169,10 +6394,6 @@ Use 72 dpi for Images intended for the Screen</translation>
   <context>
     <name>FontPrefs</name>
     <message>
-      <source>Global Font Settings</source>
-      <translation>Global Font Settings</translation>
-    </message>
-    <message>
       <source>Available Fonts</source>
       <translation>Available Fonts</translation>
     </message>
@@ -5189,32 +6410,8 @@ Use 72 dpi for Images intended for the Screen</translation>
       <translation>Postscript</translation>
     </message>
     <message>
-      <source>Yes</source>
-      <translation>Yes</translation>
-    </message>
-    <message>
       <source>Font Name</source>
       <translation>Font Name</translation>
-    </message>
-    <message>
-      <source>Use Font</source>
-      <translation>Use Font</translation>
-    </message>
-    <message>
-      <source>Embed in:</source>
-      <translation>Embed in:</translation>
-    </message>
-    <message>
-      <source>Subset</source>
-      <translation>Subset</translation>
-    </message>
-    <message>
-      <source>Type</source>
-      <translation>Type</translation>
-    </message>
-    <message>
-      <source>Path to Font File</source>
-      <translation>Path to Font File</translation>
     </message>
     <message>
       <source>Replacement</source>
@@ -5253,51 +6450,160 @@ Use 72 dpi for Images intended for the Screen</translation>
       <translation>&amp;Remove</translation>
     </message>
     <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
+      <source>Font Name</source>
+      <comment>font preview</comment>
+      <translation>Font Name</translation>
     </message>
     <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
+      <source>Use Font</source>
+      <comment>font preview</comment>
+      <translation>Use Font</translation>
+    </message>
+    <message>
+      <source>Embed in:</source>
+      <comment>font preview</comment>
+      <translation>Embed in:</translation>
+    </message>
+    <message>
+      <source>Subset</source>
+      <comment>font preview</comment>
+      <translation>Subset</translation>
+    </message>
+    <message>
+      <source>Path to Font File</source>
+      <comment>font preview</comment>
+      <translation>Path to Font File</translation>
     </message>
   </context>
   <context>
     <name>FontPreview</name>
     <message>
+      <source>Font Name</source>
+      <comment>font preview</comment>
+      <translation>Font Name</translation>
+    </message>
+    <message>
+      <source>Doc</source>
+      <comment>font preview</comment>
+      <translation>Doc</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <comment>font preview</comment>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Subset</source>
+      <comment>font preview</comment>
+      <translation>Subset</translation>
+    </message>
+    <message>
+      <source>Access</source>
+      <comment>font preview</comment>
+      <translation>Access</translation>
+    </message>
+    <message>
+      <source>Font Size:</source>
+      <translation>Font Size:</translation>
+    </message>
+    <message>
+      <source>Fonts Preview</source>
+      <comment>font preview</comment>
+      <translation>Fonts Preview</translation>
+    </message>
+    <message>
       <source>&amp;OK</source>
+      <comment>font preview</comment>
       <translation>&amp;OK</translation>
     </message>
     <message>
       <source>Alt+O</source>
+      <comment>font preview</comment>
       <translation>Alt+O</translation>
     </message>
     <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
+      <source>Quick Search: </source>
+      <translation>Quick Search: </translation>
+    </message>
+    <message>
+      <source>&amp;Search</source>
+      <translation>&amp;Search</translation>
+    </message>
+    <message>
+      <source>&amp;Close</source>
+      <comment>font preview</comment>
+      <translation>&amp;Close</translation>
     </message>
     <message>
       <source>Alt+C</source>
+      <comment>font preview</comment>
       <translation>Alt+C</translation>
     </message>
     <message>
-      <source>Woven silk pyjamas exchanged for blue quartz</source>
-      <translation>Woven silk pyjamas exchanged for blue quartz</translation>
-    </message>
-    <message>
-      <source>Fonts Preview</source>
-      <translation>Fonts Preview</translation>
-    </message>
-    <message>
       <source>Append selected font into Style, Font menu</source>
+      <comment>font preview</comment>
       <translation>Append selected font into Style, Font menu</translation>
     </message>
     <message>
       <source>Leave preview</source>
+      <comment>font preview</comment>
       <translation>Leave preview</translation>
     </message>
     <message>
-      <source>Size of the Font</source>
-      <translation>Size of the Font</translation>
+      <source>Typing the text here provides quick searching in the font names. E.g. 'bold' shows all fonts with Bold in name. Searching is case insensitive.</source>
+      <translation>Typing the text here provides quick searching in the font names. E.g. 'bold' shows all fonts with Bold in name. Searching is case insensitive.</translation>
+    </message>
+    <message>
+      <source>Start searching</source>
+      <translation>Start searching</translation>
+    </message>
+    <message>
+      <source>Size of the selected font</source>
+      <translation>Size of the selected font</translation>
+    </message>
+    <message>
+      <source>Woven silk pyjamas exchanged for blue quartz</source>
+      <comment>font preview</comment>
+      <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+    </message>
+    <message>
+      <source>User</source>
+      <comment>font preview</comment>
+      <translation>User</translation>
+    </message>
+    <message>
+      <source>System</source>
+      <comment>font preview</comment>
+      <translation>System</translation>
+    </message>
+  </context>
+  <context>
+    <name>FontReplaceDialog</name>
+    <message>
+      <source>Font Substitution</source>
+      <translation>Font Substitution</translation>
+    </message>
+    <message>
+      <source>Original Font</source>
+      <translation>Original Font</translation>
+    </message>
+    <message>
+      <source>Substitution Font</source>
+      <translation>Substitution Font</translation>
+    </message>
+    <message>
+      <source>Make these substitutions permanent</source>
+      <translation>Make these substitutions permanent</translation>
+    </message>
+    <message>
+      <source>This document contains some fonts that are not installed on your system,
+please choose a suitable replacement for them.</source>
+      <translation>This document contains some fonts that are not installed on your system,
+please choose a suitable replacement for them.</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
   </context>
   <context>
@@ -5330,22 +6636,6 @@ Use 72 dpi for Images intended for the Screen</translation>
       <translation>Vertical Guides</translation>
     </message>
     <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
       <source>&amp;Y-Pos:</source>
       <translation>&amp;Y-Pos:</translation>
     </message>
@@ -5374,12 +6664,56 @@ Use 72 dpi for Images intended for the Screen</translation>
       <translation>&amp;Lock Guides</translation>
     </message>
     <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
+      <source>Rows and Columns</source>
+      <translation>Rows and Columns</translation>
     </message>
     <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
+      <source>&amp;Rows:</source>
+      <translation>&amp;Rows:</translation>
+    </message>
+    <message>
+      <source>C&amp;olumns:</source>
+      <translation>C&amp;olumns:</translation>
+    </message>
+    <message>
+      <source>R.&amp;Gap</source>
+      <translation>R.&amp;Gap</translation>
+    </message>
+    <message>
+      <source>C.Ga&amp;p</source>
+      <translation>C.Ga&amp;p</translation>
+    </message>
+    <message>
+      <source>&amp;Create</source>
+      <translation>&amp;Create</translation>
+    </message>
+    <message>
+      <source>Cr&amp;eate</source>
+      <translation>Cr&amp;eate</translation>
+    </message>
+    <message>
+      <source>Dele&amp;te</source>
+      <translation>Dele&amp;te</translation>
+    </message>
+    <message>
+      <source>Refer to:</source>
+      <translation>Refer to:</translation>
+    </message>
+    <message>
+      <source>&amp;Page</source>
+      <translation>&amp;Page</translation>
+    </message>
+    <message>
+      <source>&amp;Margins</source>
+      <translation>&amp;Margins</translation>
+    </message>
+    <message>
+      <source>&amp;Selection</source>
+      <translation>&amp;Selection</translation>
+    </message>
+    <message>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
   </context>
   <context>
@@ -5411,18 +6745,6 @@ and www.scribus.net for downloads.</translation>
       <translation>&amp;Search</translation>
     </message>
     <message>
-      <source>S&amp;earch</source>
-      <translation>S&amp;earch</translation>
-    </message>
-    <message>
-      <source>Ctrl+F</source>
-      <translation>Ctrl+F</translation>
-    </message>
-    <message>
-      <source>F3</source>
-      <translation>F3</translation>
-    </message>
-    <message>
       <source>unknown</source>
       <translation>unknown</translation>
     </message>
@@ -5433,6 +6755,46 @@ and www.scribus.net for downloads.</translation>
     <message>
       <source>Search Term:</source>
       <translation>Search Term:</translation>
+    </message>
+    <message>
+      <source>Se&amp;arch</source>
+      <translation>Se&amp;arch</translation>
+    </message>
+    <message>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
+    </message>
+    <message>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
+    </message>
+    <message>
+      <source>De&amp;lete All</source>
+      <translation>De&amp;lete All</translation>
+    </message>
+    <message>
+      <source>Book&amp;marks</source>
+      <translation>Book&amp;marks</translation>
+    </message>
+    <message>
+      <source>&amp;Print...</source>
+      <translation>&amp;Print...</translation>
+    </message>
+    <message>
+      <source>E&amp;xit</source>
+      <translation>E&amp;xit</translation>
+    </message>
+    <message>
+      <source>Searching is case unsensitive</source>
+      <translation>Searching is case unsensitive</translation>
+    </message>
+    <message>
+      <source>New Bookmark</source>
+      <translation>New Bookmark</translation>
+    </message>
+    <message>
+      <source>New Bookmark's Title:</source>
+      <translation>New Bookmark's Title:</translation>
     </message>
   </context>
   <context>
@@ -5457,10 +6819,6 @@ and www.scribus.net for downloads.</translation>
   <context>
     <name>HySettings</name>
     <message>
-      <source>Hyphenator Settings</source>
-      <translation>Hyphenator Settings</translation>
-    </message>
-    <message>
       <source>Length of the smallest word to be hyphenated.</source>
       <translation>Length of the smallest word to be hyphenated.</translation>
     </message>
@@ -5477,14 +6835,6 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
       <source>&amp;Smallest Word:</source>
       <translation>&amp;Smallest Word:</translation>
-    </message>
-    <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
     </message>
     <message>
       <source>&amp;Hyphenation Suggestions</source>
@@ -5514,10 +6864,6 @@ A value of 0 means unlimited hyphenations.</translation>
       <translation>Insert Page</translation>
     </message>
     <message>
-      <source>Inserting</source>
-      <translation>Inserting</translation>
-    </message>
-    <message>
       <source>before Page</source>
       <translation>before Page</translation>
     </message>
@@ -5534,24 +6880,8 @@ A value of 0 means unlimited hyphenations.</translation>
       <translation>Normal</translation>
     </message>
     <message>
-      <source>Template (Right Page):</source>
-      <translation>Template (Right Page):</translation>
-    </message>
-    <message>
-      <source>&amp;Inserting</source>
-      <translation>&amp;Inserting</translation>
-    </message>
-    <message>
       <source>Page(s)</source>
       <translation>Page(s)</translation>
-    </message>
-    <message>
-      <source>&amp;Template (Left Page):</source>
-      <translation>&amp;Template (Left Page):</translation>
-    </message>
-    <message>
-      <source>&amp;Template:</source>
-      <translation>&amp;Template:</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -5561,6 +6891,22 @@ A value of 0 means unlimited hyphenations.</translation>
       <source>&amp;Cancel</source>
       <translation>&amp;Cancel</translation>
     </message>
+    <message>
+      <source>&amp;Insert</source>
+      <translation>&amp;Insert</translation>
+    </message>
+    <message>
+      <source>Master Page (&amp;Left Page):</source>
+      <translation>Master Page (&amp;Left Page):</translation>
+    </message>
+    <message>
+      <source>&amp;Master Page:</source>
+      <translation>&amp;Master Page:</translation>
+    </message>
+    <message>
+      <source>Master Page (&amp;Right Page):</source>
+      <translation>Master Page (&amp;Right Page):</translation>
+    </message>
   </context>
   <context>
     <name>InsertTable</name>
@@ -5569,20 +6915,20 @@ A value of 0 means unlimited hyphenations.</translation>
       <translation>Insert Table</translation>
     </message>
     <message>
-      <source>Number of Rows:</source>
-      <translation>Number of Rows:</translation>
+      <source>Number of rows:</source>
+      <translation>Number of rows:</translation>
     </message>
     <message>
-      <source>Number of Columns:</source>
-      <translation>Number of Columns:</translation>
+      <source>Number of columns:</source>
+      <translation>Number of columns:</translation>
     </message>
     <message>
-      <source>OK</source>
-      <translation>OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-      <source>Cancel</source>
-      <translation>Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
   </context>
   <context>
@@ -5634,10 +6980,6 @@ A value of 0 means unlimited hyphenations.</translation>
   </context>
   <context>
     <name>KeyManager</name>
-    <message>
-      <source>Manage Keyboard Shortcuts</source>
-      <translation>Manage Keyboard Shortcuts</translation>
-    </message>
     <message>
       <source>Action</source>
       <translation>Action</translation>
@@ -5699,12 +7041,52 @@ A value of 0 means unlimited hyphenations.</translation>
       <translation>&amp;OK</translation>
     </message>
     <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
-    </message>
-    <message>
       <source>This Key Sequence is already in use</source>
       <translation>This Key Sequence is already in use</translation>
+    </message>
+    <message>
+      <source>Loadable Shortcut Sets</source>
+      <translation>Loadable Shortcut Sets</translation>
+    </message>
+    <message>
+      <source>&amp;Load</source>
+      <translation>&amp;Load</translation>
+    </message>
+    <message>
+      <source>&amp;Import...</source>
+      <translation>&amp;Import...</translation>
+    </message>
+    <message>
+      <source>&amp;Export...</source>
+      <translation>&amp;Export...</translation>
+    </message>
+    <message>
+      <source>&amp;Reset</source>
+      <translation>&amp;Reset</translation>
+    </message>
+    <message>
+      <source>Keyboard shortcut sets available to load</source>
+      <translation>Keyboard shortcut sets available to load</translation>
+    </message>
+    <message>
+      <source>Load the selected shortcut set</source>
+      <translation>Load the selected shortcut set</translation>
+    </message>
+    <message>
+      <source>Import a shortcut set into the current configuration</source>
+      <translation>Import a shortcut set into the current configuration</translation>
+    </message>
+    <message>
+      <source>Export the current shortcuts into an importable file</source>
+      <translation>Export the current shortcuts into an importable file</translation>
+    </message>
+    <message>
+      <source>Reload the default Scribus shortcuts</source>
+      <translation>Reload the default Scribus shortcuts</translation>
+    </message>
+    <message>
+      <source>Key Set XML Files (*.ksxml)</source>
+      <translation>Key Set XML Files (*.ksxml)</translation>
     </message>
   </context>
   <context>
@@ -5736,6 +7118,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
       <source>Do you want to delete all Objects on this Layer too?</source>
       <translation>Do you want to delete all Objects on this Layer too?</translation>
+    </message>
+    <message>
+      <source>Name</source>
+      <translation>Name</translation>
     </message>
   </context>
   <context>
@@ -5814,368 +7200,70 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
   </context>
   <context>
-    <name>MSpinBox</name>
+    <name>MasterPagesPalette</name>
     <message>
-      <source> pt</source>
-      <translation> pt</translation>
+      <source>Edit Master Pages</source>
+      <translation>Edit Master Pages</translation>
     </message>
     <message>
-      <source>pt</source>
-      <translation>pt</translation>
+      <source>Duplicates the selected master page</source>
+      <translation>Duplicates the selected master page</translation>
     </message>
     <message>
-      <source>mm</source>
-      <translation>mm</translation>
+      <source>Deletes the selected master page</source>
+      <translation>Deletes the selected master page</translation>
     </message>
     <message>
-      <source>in</source>
-      <translation>in</translation>
+      <source>Adds a new master page</source>
+      <translation>Adds a new master page</translation>
     </message>
     <message>
-      <source>p</source>
-      <translation>p</translation>
+      <source>Imports master pages from another document</source>
+      <translation>Imports master pages from another document</translation>
     </message>
     <message>
-      <source> mm</source>
-      <translation> mm</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-      <source> in</source>
-      <translation> in</translation>
+      <source>Do you really want to delete this master page?</source>
+      <translation>Do you really want to delete this master page?</translation>
     </message>
     <message>
-      <source> p</source>
-      <translation> p</translation>
+      <source>&amp;No</source>
+      <translation>&amp;No</translation>
     </message>
-  </context>
-  <context>
-    <name>Macro</name>
-    <message>
-      <source>Passed object is not callable</source>
-      <comment>python error</comment>
-      <translation>Passed object is not callable</translation>
-    </message>
-  </context>
-  <context>
-    <name>MacroManager</name>
-    <message>
-      <source>Manage Macros</source>
-      <translation>Manage Macros</translation>
-    </message>
-    <message>
-      <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-      <translation>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</translation>
-    </message>
-    <message>
-      <source>Create, edit and delete macros</source>
-      <translation>Create, edit and delete macros</translation>
-    </message>
-    <message>
-      <source>&amp;Macro</source>
-      <translation>&amp;Macro</translation>
-    </message>
-    <message>
-      <source>Scribus - Macro Manager</source>
-      <translation>Scribus - Macro Manager</translation>
-    </message>
-    <message>
-      <source>Unable to open the requested file: %1</source>
-      <translation>Unable to open the requested file: %1</translation>
-    </message>
-    <message>
-      <source>Scribus - Edit Macro</source>
-      <translation>Scribus - Edit Macro</translation>
-    </message>
-    <message>
-      <source>&lt;qt>The macro name you requested is already taken  by another macro.&lt;/qt></source>
-      <translation>&lt;qt>The macro name you requested is already taken  by another macro.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt></source>
-      <translation>&lt;qt>Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>The macro '%1' has reported a minor error.
-The error is: %2
-A full traceback follows:
-
-%3
-</source>
-      <translation>The macro '%1' has reported a minor error.
-The error is: %2
-A full traceback follows:
-
-%3
-</translation>
-    </message>
-    <message>
-      <source>The macro '%1' failed to execute correctly.
-The error is: %2
-A full traceback follows:
-
-%3
-</source>
-      <translation>The macro '%1' failed to execute correctly.
-The error is: %2
-A full traceback follows:
-
-%3
-</translation>
-    </message>
-    <message>
-      <source>Scribus - New Macro</source>
-      <translation>Scribus - New Macro</translation>
-    </message>
-    <message>
-      <source>Enter name for new macro: </source>
-      <translation>Enter name for new macro: </translation>
-    </message>
-  </context>
-  <context>
-    <name>ManageMacrosDialog</name>
-    <message>
-      <source>Scribus - Macro Manager</source>
-      <translation>Scribus - Macro Manager</translation>
-    </message>
-    <message>
-      <source>Renaming the macro failed because the name is already in use.</source>
-      <translation>Renaming the macro failed because the name is already in use.</translation>
-    </message>
-    <message>
-      <source>Scribus - Manage Macros</source>
-      <translation>Scribus - Manage Macros</translation>
-    </message>
-    <message>
-      <source>&lt;qt>&lt;p>This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p>
-&lt;p>All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
-The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What's this&quot; on the table for more information.&lt;/p>&lt;/qt></source>
-      <translation>&lt;qt>&lt;p>This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p>
-&lt;p>All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
-The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What's this&quot; on the table for more information.&lt;/p>&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&amp;New</source>
-      <translation>&amp;New</translation>
-    </message>
-    <message>
-      <source>Alt+N</source>
-      <translation>Alt+N</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Create a new macro.&lt;/qt></source>
-      <translation>&lt;qt>Create a new macro.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt></source>
-      <translation>&lt;qt>Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&amp;Ok</source>
-      <translation>&amp;Ok</translation>
-    </message>
-    <message>
-      <source>Alt+O</source>
-      <translation>Alt+O</translation>
-    </message>
-    <message>
-      <source>Macro</source>
-      <translation>Macro</translation>
-    </message>
-    <message>
-      <source>Edit</source>
-      <translation>Edit</translation>
-    </message>
-    <message>
-      <source>Accel</source>
-      <translation>Accel</translation>
-    </message>
-    <message>
-      <source>Description</source>
-      <translation>Description</translation>
-    </message>
-    <message>
-      <source>&lt;p>This table lists the macros that are currently defined.&lt;/p>
-
-&lt;p>&lt;b>Name:&lt;/b> The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p>
-&lt;p>&lt;b>Edit:&lt;/b> If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p>
-&lt;p>&lt;b>Accel:&lt;/b> The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p>
-&lt;p>&lt;b>Description:&lt;/b> If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What's This&quot; on the macro's entry in the Macro menu to see the full description.&lt;/p></source>
-      <translation>&lt;p>This table lists the macros that are currently defined.&lt;/p>
-
-&lt;p>&lt;b>Name:&lt;/b> The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p>
-&lt;p>&lt;b>Edit:&lt;/b> If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p>
-&lt;p>&lt;b>Accel:&lt;/b> The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p>
-&lt;p>&lt;b>Description:&lt;/b> If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What's This&quot; on the macro's entry in the Macro menu to see the full description.&lt;/p></translation>
-    </message>
-    <message>
-      <source>Rena&amp;me</source>
-      <translation>Rena&amp;me</translation>
-    </message>
-    <message>
-      <source>Alt+M</source>
-      <translation>Alt+M</translation>
-    </message>
-    <message>
-      <source>Rename the selected macro.</source>
-      <translation>Rename the selected macro.</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Rename the selected macro. You will be prompted for the new name.&lt;/qt></source>
-      <translation>&lt;qt>Rename the selected macro. You will be prompted for the new name.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&amp;Edit...</source>
-      <translation>&amp;Edit...</translation>
-    </message>
-    <message>
-      <source>Alt+E</source>
-      <translation>Alt+E</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Edit the source of the selected macro, if the source is availible.&lt;/qt></source>
-      <translation>&lt;qt>Edit the source of the selected macro, if the source is availible.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&amp;Delete</source>
-      <translation>&amp;Delete</translation>
-    </message>
-    <message>
-      <source>Alt+D</source>
-      <translation>Alt+D</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Delete the currently selected macro.&lt;/qt></source>
-      <translation>&lt;qt>Delete the currently selected macro.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;p>Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p></source>
-      <translation>&lt;p>Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p></translation>
-    </message>
-    <message>
-      <source>&amp;Set Accel</source>
-      <translation>&amp;Set Accel</translation>
-    </message>
-    <message>
-      <source>Alt+S</source>
-      <translation>Alt+S</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Set the keyboard shortcut for the selected macro.&lt;/qt></source>
-      <translation>&lt;qt>Set the keyboard shortcut for the selected macro.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;p>Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p></source>
-      <translation>&lt;p>Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p></translation>
-    </message>
-    <message>
-      <source>E&amp;xport</source>
-      <translation>E&amp;xport</translation>
-    </message>
-    <message>
-      <source>Alt+X</source>
-      <translation>Alt+X</translation>
-    </message>
-    <message>
-      <source>Export macros to a file.</source>
-      <translation>Export macros to a file.</translation>
-    </message>
-    <message>
-      <source>&lt;p>Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt>Load extension script&lt;/tt> from the &lt;tt>Script&lt;/tt> menu, or the import button in the macro manager.&lt;/p>
-&lt;p>If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt>Edit&lt;/tt>  button, and use the &lt;tt>Save source&lt;/tt> button in the &lt;tt>Edit Macro&lt;/tt> dialog. You won't be able to load that version with &lt;tt>Load extension script&lt;/tt> - instead, create a new macro with the&lt;tt> New&lt;/tt> button and use &lt;tt>Load source&lt;/tt>.&lt;/p></source>
-      <translation>&lt;p>Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt>Load extension script&lt;/tt> from the &lt;tt>Script&lt;/tt> menu, or the import button in the macro manager.&lt;/p>
-&lt;p>If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt>Edit&lt;/tt>(sp)(sp)button, and use the &lt;tt>Save source&lt;/tt> button in the &lt;tt>Edit Macro&lt;/tt> dialog. You won't be able to load that version with &lt;tt>Load extension script&lt;/tt> - instead, create a new macro with the&lt;tt> New&lt;/tt> button and use &lt;tt>Load source&lt;/tt>.&lt;/p></translation>
-    </message>
-    <message>
-      <source>Delete &amp;All</source>
-      <translation>Delete &amp;All</translation>
-    </message>
-    <message>
-      <source>Alt+A</source>
-      <translation>Alt+A</translation>
-    </message>
-    <message>
-      <source>Delete all macros.</source>
-      <translation>Delete all macros.</translation>
-    </message>
-    <message>
-      <source>&lt;p>Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p></source>
-      <translation>&lt;p>Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p></translation>
-    </message>
-    <message>
-      <source>&amp;Import</source>
-      <translation>&amp;Import</translation>
-    </message>
-    <message>
-      <source>Alt+I</source>
-      <translation>Alt+I</translation>
-    </message>
-    <message>
-      <source>Import macros from a file.</source>
-      <translation>Import macros from a file.</translation>
-    </message>
-    <message>
-      <source>&lt;p>Loads macros from an external file.&lt;/p></source>
-      <translation>&lt;p>Loads macros from an external file.&lt;/p></translation>
-    </message>
-    <message>
-      <source>Close this dialog</source>
-      <translation>Close this dialog</translation>
-    </message>
-    <message>
-      <source>Return to Scribus</source>
-      <translation>Return to Scribus</translation>
-    </message>
-    <message>
-      <source>&lt;p>Edit the selected macro. &lt;/p>
-&lt;p>If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt>No&lt;/tt> will be shown in the &lt;tt>Edit &lt;/tt>column of the macro).&lt;/p>
-&lt;p>If Scribus doesn't have the source, the macro was probably created by a script.&lt;/p></source>
-      <translation>&lt;p>Edit the selected macro. &lt;/p>
-&lt;p>If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt>No&lt;/tt> will be shown in the &lt;tt>Edit &lt;/tt>column of the macro).&lt;/p>
-&lt;p>If Scribus doesn't have the source, the macro was probably created by a script.&lt;/p></translation>
-    </message>
-    <message>
-      <source>Scribus Macro Files (*.pymacro)</source>
-      <translation>Scribus Macro Files (*.pymacro)</translation>
-    </message>
-    <message>
-      <source>Open File Dialog</source>
-      <translation>Open File Dialog</translation>
-    </message>
-    <message>
-      <source>Select the macro file to load.</source>
-      <translation>Select the macro file to load.</translation>
-    </message>
     <message>
-      <source>Save File Dialog</source>
-      <translation>Save File Dialog</translation>
+      <source>&amp;Yes</source>
+      <translation>&amp;Yes</translation>
     </message>
     <message>
-      <source>Save all macros</source>
-      <translation>Save all macros</translation>
+      <source>&amp;Name:</source>
+      <translation>&amp;Name:</translation>
     </message>
     <message>
-      <source>Scribus - Rename Macro</source>
-      <translation>Scribus - Rename Macro</translation>
+      <source>New Master Page</source>
+      <translation>New Master Page</translation>
     </message>
     <message>
-      <source>Enter new name: </source>
-      <translation>Enter new name: </translation>
+      <source>Copy of %1</source>
+      <translation>Copy of %1</translation>
     </message>
     <message>
-      <source>Scribus - Set Macro Shortcut</source>
-      <translation>Scribus - Set Macro Shortcut</translation>
+      <source>Name:</source>
+      <translation>Name:</translation>
     </message>
     <message>
-      <source>Enter new shortcut: </source>
-      <translation>Enter new shortcut: </translation>
+      <source>New MasterPage</source>
+      <translation>New MasterPage</translation>
     </message>
     <message>
-      <source>Yes</source>
-      <translation>Yes</translation>
+      <source>Copy #%1 of </source>
+      <translation>Copy #%1 of </translation>
     </message>
     <message>
-      <source>No</source>
-      <translation>No</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
   </context>
   <context>
@@ -6183,22 +7271,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     <message>
       <source>Multiple Duplicate</source>
       <translation>Multiple Duplicate</translation>
-    </message>
-    <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
     </message>
     <message>
       <source>&amp;Number of Copies:</source>
@@ -6260,36 +7332,12 @@ The table in the center of the dialog lists what macros are currently loaded and
       <translation>Length:</translation>
     </message>
     <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
+      <source>pt</source>
+      <translation>pt</translation>
     </message>
   </context>
   <context>
     <name>MergeDoc</name>
-    <message>
-      <source>Change...</source>
-      <translation>Change...</translation>
-    </message>
-    <message>
-      <source>Import</source>
-      <translation>Import</translation>
-    </message>
-    <message>
-      <source>Cancel</source>
-      <translation>Cancel</translation>
-    </message>
     <message>
       <source>Open</source>
       <translation>Open</translation>
@@ -6303,28 +7351,8 @@ The table in the center of the dialog lists what macros are currently loaded and
       <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
-      <source>Import Template</source>
-      <translation>Import Template</translation>
-    </message>
-    <message>
       <source>Import Page(s)</source>
       <translation>Import Page(s)</translation>
-    </message>
-    <message>
-      <source>From Document:</source>
-      <translation>From Document:</translation>
-    </message>
-    <message>
-      <source>Import Page(s):</source>
-      <translation>Import Page(s):</translation>
-    </message>
-    <message>
-      <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-      <translation>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</translation>
     </message>
     <message>
       <source> from 0</source>
@@ -6335,20 +7363,75 @@ a range of pages or a single page number.</translation>
       <translation>Create Page(s)</translation>
     </message>
     <message>
-      <source>before Page</source>
-      <translation>before Page</translation>
-    </message>
-    <message>
-      <source>after Page</source>
-      <translation>after Page</translation>
-    </message>
-    <message>
-      <source>at End</source>
-      <translation>at End</translation>
-    </message>
-    <message>
       <source> from %1</source>
       <translation> from %1</translation>
+    </message>
+    <message>
+      <source>Import Master Page</source>
+      <translation>Import Master Page</translation>
+    </message>
+    <message>
+      <source>&amp;From Document:</source>
+      <translation>&amp;From Document:</translation>
+    </message>
+    <message>
+      <source>Chan&amp;ge...</source>
+      <translation>Chan&amp;ge...</translation>
+    </message>
+    <message>
+      <source>&amp;Import Page(s):</source>
+      <translation>&amp;Import Page(s):</translation>
+    </message>
+    <message>
+      <source>&amp;Import Master Page</source>
+      <translation>&amp;Import Master Page</translation>
+    </message>
+    <message>
+      <source>Before Page</source>
+      <translation>Before Page</translation>
+    </message>
+    <message>
+      <source>After Page</source>
+      <translation>After Page</translation>
+    </message>
+    <message>
+      <source>At End</source>
+      <translation>At End</translation>
+    </message>
+    <message>
+      <source>&amp;Import</source>
+      <translation>&amp;Import</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+      <translation>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</translation>
+    </message>
+  </context>
+  <context>
+    <name>MissingFont</name>
+    <message>
+      <source>Missing Font</source>
+      <translation>Missing Font</translation>
+    </message>
+    <message>
+      <source>The Font %1 is not installed.</source>
+      <translation>The Font %1 is not installed.</translation>
+    </message>
+    <message>
+      <source>Use</source>
+      <translation>Use</translation>
+    </message>
+    <message>
+      <source>instead</source>
+      <translation>instead</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
   </context>
   <context>
@@ -6370,24 +7453,28 @@ a range of pages or a single page number.</translation>
       <translation>to:</translation>
     </message>
     <message>
-      <source>before Page</source>
-      <translation>before Page</translation>
-    </message>
-    <message>
-      <source>after Page</source>
-      <translation>after Page</translation>
-    </message>
-    <message>
-      <source>at End</source>
-      <translation>at End</translation>
-    </message>
-    <message>
       <source>&amp;OK</source>
       <translation>&amp;OK</translation>
     </message>
     <message>
       <source>&amp;Cancel</source>
       <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Move Page(s)</source>
+      <translation>Move Page(s)</translation>
+    </message>
+    <message>
+      <source>Before Page</source>
+      <translation>Before Page</translation>
+    </message>
+    <message>
+      <source>After Page</source>
+      <translation>After Page</translation>
+    </message>
+    <message>
+      <source>At End</source>
+      <translation>At End</translation>
     </message>
   </context>
   <context>
@@ -6525,10 +7612,6 @@ a range of pages or a single page number.</translation>
 Please choose another.</source>
       <translation>Name &quot;%1&quot; isn't unique.
 Please choose another.</translation>
-    </message>
-    <message>
-      <source>OK</source>
-      <translation>OK</translation>
     </message>
     <message>
       <source>Shade:</source>
@@ -6763,18 +7846,6 @@ Please choose another.</translation>
       <translation>Line at Bottom</translation>
     </message>
     <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
       <source>Keep the aspect ratio</source>
       <translation>Keep the aspect ratio</translation>
     </message>
@@ -6996,6 +8067,18 @@ Corners:</translation>
       <source>Manual Tracking</source>
       <translation>Manual Tracking</translation>
     </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>Start Arrow:</source>
+      <translation>Start Arrow:</translation>
+    </message>
+    <message>
+      <source>End Arrow:</source>
+      <translation>End Arrow:</translation>
+    </message>
   </context>
   <context>
     <name>MultiLine</name>
@@ -7087,73 +8170,6 @@ Please choose another.</translation>
     </message>
   </context>
   <context>
-    <name>MusterSeiten</name>
-    <message>
-      <source>Edit Templates</source>
-      <translation>Edit Templates</translation>
-    </message>
-    <message>
-      <source>Warning</source>
-      <translation>Warning</translation>
-    </message>
-    <message>
-      <source>Name:</source>
-      <translation>Name:</translation>
-    </message>
-    <message>
-      <source>New Template</source>
-      <translation>New Template</translation>
-    </message>
-    <message>
-      <source>Copy of %1</source>
-      <translation>Copy of %1</translation>
-    </message>
-    <message>
-      <source>Copy #%1 of </source>
-      <translation>Copy #%1 of </translation>
-    </message>
-    <message>
-      <source>Normal</source>
-      <translation>Normal</translation>
-    </message>
-    <message>
-      <source>&amp;Append</source>
-      <translation>&amp;Append</translation>
-    </message>
-    <message>
-      <source>&amp;New</source>
-      <translation>&amp;New</translation>
-    </message>
-    <message>
-      <source>D&amp;uplicate</source>
-      <translation>D&amp;uplicate</translation>
-    </message>
-    <message>
-      <source>&amp;Delete</source>
-      <translation>&amp;Delete</translation>
-    </message>
-    <message>
-      <source>&amp;Close</source>
-      <translation>&amp;Close</translation>
-    </message>
-    <message>
-      <source>&amp;No</source>
-      <translation>&amp;No</translation>
-    </message>
-    <message>
-      <source>&amp;Yes</source>
-      <translation>&amp;Yes</translation>
-    </message>
-    <message>
-      <source>&amp;Name:</source>
-      <translation>&amp;Name:</translation>
-    </message>
-    <message>
-      <source>Do you really want to delete this Template?</source>
-      <translation>Do you really want to delete this Template?</translation>
-    </message>
-  </context>
-  <context>
     <name>NewDoc</name>
     <message>
       <source>New Document</source>
@@ -7162,10 +8178,6 @@ Please choose another.</translation>
     <message>
       <source>Page Size</source>
       <translation>Page Size</translation>
-    </message>
-    <message>
-      <source>Custom</source>
-      <translation>Custom</translation>
     </message>
     <message>
       <source>Portrait</source>
@@ -7184,40 +8196,8 @@ Please choose another.</translation>
       <translation>Options</translation>
     </message>
     <message>
-      <source>Points (pts)</source>
-      <translation>Points (pts)</translation>
-    </message>
-    <message>
-      <source>Millimetres (mm)</source>
-      <translation>Millimetres (mm)</translation>
-    </message>
-    <message>
-      <source>Inches (in)</source>
-      <translation>Inches (in)</translation>
-    </message>
-    <message>
-      <source>Picas (p)</source>
-      <translation>Picas (p)</translation>
-    </message>
-    <message>
       <source>Column Guides</source>
       <translation>Column Guides</translation>
-    </message>
-    <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
     </message>
     <message>
       <source>Document page size, either a standard size or a custom size</source>
@@ -7282,18 +8262,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Number of columns to create in automatically created text frames</source>
       <translation>Number of columns to create in automatically created text frames</translation>
-    </message>
-    <message>
-      <source>Legal</source>
-      <translation>Legal</translation>
-    </message>
-    <message>
-      <source>Letter</source>
-      <translation>Letter</translation>
-    </message>
-    <message>
-      <source>Tabloid</source>
-      <translation>Tabloid</translation>
     </message>
     <message>
       <source>&amp;Size:</source>
@@ -7371,18 +8339,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <source>O&amp;utside:</source>
       <translation>O&amp;utside:</translation>
     </message>
-    <message>
-      <source>Executive</source>
-      <translation>Executive</translation>
-    </message>
-    <message>
-      <source>Folio</source>
-      <translation>Folio</translation>
-    </message>
-    <message>
-      <source>Ledger</source>
-      <translation>Ledger</translation>
-    </message>
   </context>
   <context>
     <name>NewTm</name>
@@ -7432,12 +8388,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Reset this Control Point</source>
       <translation>Reset this Control Point</translation>
-    </message>
-    <message>
-      <source>When checked use Coordinates relative to the Page,
-otherwise Coordinates are relative to the Object.</source>
-      <translation>When checked use Coordinates relative to the Page,
-otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
       <source>&amp;Absolute Coordinates</source>
@@ -7535,6 +8485,14 @@ otherwise Coordinates are relative to the Object.</translation>
       <source>Shear the Path Horizontally to the Right</source>
       <translation>Shear the Path Horizontally to the Right</translation>
     </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
+      <translation>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</translation>
+    </message>
   </context>
   <context>
     <name>OdtDialog</name>
@@ -7549,14 +8507,6 @@ otherwise Coordinates are relative to the Object.</translation>
     <message>
       <source>OK</source>
       <translation>OK</translation>
-    </message>
-    <message>
-      <source>OpenDocument Importer Options</source>
-      <translation>OpenDocument Importer Options</translation>
-    </message>
-    <message>
-      <source>Update paragraph Styles</source>
-      <translation>Update paragraph Styles</translation>
     </message>
     <message>
       <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -7578,6 +8528,14 @@ otherwise Coordinates are relative to the Object.</translation>
       <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
       <translation>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</translation>
     </message>
+    <message>
+      <source>OpenOffice.org Writer Importer Options</source>
+      <translation>OpenOffice.org Writer Importer Options</translation>
+    </message>
+    <message>
+      <source>Overwrite Paragraph Styles</source>
+      <translation>Overwrite Paragraph Styles</translation>
+    </message>
   </context>
   <context>
     <name>PConsole</name>
@@ -7589,460 +8547,8 @@ otherwise Coordinates are relative to the Object.</translation>
   <context>
     <name>PDF_Opts</name>
     <message>
-      <source>Export Range</source>
-      <translation>Export Range</translation>
-    </message>
-    <message>
-      <source>File Options</source>
-      <translation>File Options</translation>
-    </message>
-    <message>
-      <source>Left Margin</source>
-      <translation>Left Margin</translation>
-    </message>
-    <message>
-      <source>Right Margin</source>
-      <translation>Right Margin</translation>
-    </message>
-    <message>
-      <source> dpi</source>
-      <translation> dpi</translation>
-    </message>
-    <message>
-      <source>General</source>
-      <translation>General</translation>
-    </message>
-    <message>
-      <source>Embedding</source>
-      <translation>Embedding</translation>
-    </message>
-    <message>
-      <source>Available Fonts:</source>
-      <translation>Available Fonts:</translation>
-    </message>
-    <message>
-      <source>Fonts to embed:</source>
-      <translation>Fonts to embed:</translation>
-    </message>
-    <message>
-      <source>Page</source>
-      <translation>Page</translation>
-    </message>
-    <message>
-      <source>Effects</source>
-      <translation>Effects</translation>
-    </message>
-    <message>
-      <source> sec</source>
-      <translation> sec</translation>
-    </message>
-    <message>
-      <source>No Effect</source>
-      <translation>No Effect</translation>
-    </message>
-    <message>
-      <source>Blinds</source>
-      <translation>Blinds</translation>
-    </message>
-    <message>
-      <source>Box</source>
-      <translation>Box</translation>
-    </message>
-    <message>
-      <source>Dissolve</source>
-      <translation>Dissolve</translation>
-    </message>
-    <message>
-      <source>Glitter</source>
-      <translation>Glitter</translation>
-    </message>
-    <message>
-      <source>Split</source>
-      <translation>Split</translation>
-    </message>
-    <message>
-      <source>Wipe</source>
-      <translation>Wipe</translation>
-    </message>
-    <message>
-      <source>Horizontal</source>
-      <translation>Horizontal</translation>
-    </message>
-    <message>
-      <source>Vertical</source>
-      <translation>Vertical</translation>
-    </message>
-    <message>
-      <source>Inside</source>
-      <translation>Inside</translation>
-    </message>
-    <message>
-      <source>Outside</source>
-      <translation>Outside</translation>
-    </message>
-    <message>
-      <source>Left to Right</source>
-      <translation>Left to Right</translation>
-    </message>
-    <message>
-      <source>Top to Bottom</source>
-      <translation>Top to Bottom</translation>
-    </message>
-    <message>
-      <source>Bottom to Top</source>
-      <translation>Bottom to Top</translation>
-    </message>
-    <message>
-      <source>Right to Left</source>
-      <translation>Right to Left</translation>
-    </message>
-    <message>
-      <source>Top-left to Bottom-Right</source>
-      <translation>Top-left to Bottom-Right</translation>
-    </message>
-    <message>
-      <source>Passwords</source>
-      <translation>Passwords</translation>
-    </message>
-    <message>
-      <source>Settings</source>
-      <translation>Settings</translation>
-    </message>
-    <message>
-      <source>Screen / Web</source>
-      <translation>Screen / Web</translation>
-    </message>
-    <message>
-      <source>Printer</source>
-      <translation>Printer</translation>
-    </message>
-    <message>
-      <source>Solid Colors:</source>
-      <translation>Solid Colours:</translation>
-    </message>
-    <message>
-      <source>Profile:</source>
-      <translation>Profile:</translation>
-    </message>
-    <message>
-      <source>Rendering-Intent:</source>
-      <translation>Rendering-Intent:</translation>
-    </message>
-    <message>
-      <source>Perceptual</source>
-      <translation>Perceptual</translation>
-    </message>
-    <message>
-      <source>Relative Colorimetric</source>
-      <translation>Relative Colourimetric</translation>
-    </message>
-    <message>
-      <source>Saturation</source>
-      <translation>Saturation</translation>
-    </message>
-    <message>
-      <source>Absolute Colorimetric</source>
-      <translation>Absolute Colourimetric</translation>
-    </message>
-    <message>
-      <source>Images:</source>
-      <translation>Images:</translation>
-    </message>
-    <message>
-      <source>Don't use embedded ICC profiles</source>
-      <translation>Don't use embedded ICC profiles</translation>
-    </message>
-    <message>
-      <source>PDF/X-3 Output Intent</source>
-      <translation>PDF/X-3 Output Intent</translation>
-    </message>
-    <message>
-      <source>Trim Box</source>
-      <translation>Trim Box</translation>
-    </message>
-    <message>
       <source>Save as</source>
       <translation>Save as</translation>
-    </message>
-    <message>
-      <source>Image Settings</source>
-      <translation>Image Settings</translation>
-    </message>
-    <message>
-      <source>Automatic</source>
-      <translation>Automatic</translation>
-    </message>
-    <message>
-      <source>JPEG</source>
-      <translation>JPEG</translation>
-    </message>
-    <message>
-      <source>Zip</source>
-      <translation>Zip</translation>
-    </message>
-    <message>
-      <source>None</source>
-      <translation>None</translation>
-    </message>
-    <message>
-      <source>Maximum</source>
-      <translation>Maximum</translation>
-    </message>
-    <message>
-      <source>High</source>
-      <translation>High</translation>
-    </message>
-    <message>
-      <source>Medium</source>
-      <translation>Medium</translation>
-    </message>
-    <message>
-      <source>Low</source>
-      <translation>Low</translation>
-    </message>
-    <message>
-      <source>Minimum</source>
-      <translation>Minimum</translation>
-    </message>
-    <message>
-      <source>Export all pages to PDF</source>
-      <translation>Export all pages to PDF</translation>
-    </message>
-    <message>
-      <source>Export a range of pages to PDF</source>
-      <translation>Export a range of pages to PDF</translation>
-    </message>
-    <message>
-      <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-      <translation>Length of time the page is shown before the presentation starts on the selected page.</translation>
-    </message>
-    <message>
-      <source>Length of time the effect runs.
-A shorter time will speed up the effect, a longer one will slow it down.</source>
-      <translation>Length of time the effect runs.
-A shorter time will speed up the effect, a longer one will slow it down.</translation>
-    </message>
-    <message>
-      <source>Apply the selected effect to all pages.</source>
-      <translation>Apply the selected effect to all pages.</translation>
-    </message>
-    <message>
-      <source>Choose a master password which enables or disables all the
-security features in your exported PDF</source>
-      <translation>Choose a master password which enables or disables all the
-security features in your exported PDF</translation>
-    </message>
-    <message>
-      <source>Embed a color profile for solid colors</source>
-      <translation>Embed a colour profile for solid colours</translation>
-    </message>
-    <message>
-      <source>Embed a color profile for images</source>
-      <translation>Embed a colour profile for images</translation>
-    </message>
-    <message>
-      <source>Do not use color profiles that are embedded in source images</source>
-      <translation>Do not use colour profiles that are embedded in source images</translation>
-    </message>
-    <message>
-      <source>Distance for bleed from the top of the physical page</source>
-      <translation>Distance for bleed from the top of the physical page</translation>
-    </message>
-    <message>
-      <source>Distance for bleed from the bottom of the physical page</source>
-      <translation>Distance for bleed from the bottom of the physical page</translation>
-    </message>
-    <message>
-      <source>Distance for bleed from the left of the physical page</source>
-      <translation>Distance for bleed from the left of the physical page</translation>
-    </message>
-    <message>
-      <source>Distance for bleed from the right of the physical page</source>
-      <translation>Distance for bleed from the right of the physical page</translation>
-    </message>
-    <message>
-      <source>&amp;General</source>
-      <translation>&amp;General</translation>
-    </message>
-    <message>
-      <source>&amp;Fonts</source>
-      <translation>&amp;Fonts</translation>
-    </message>
-    <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
-      <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-      <translation>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated colour management.</translation>
-    </message>
-    <message>
-      <source>Determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</source>
-      <translation>Determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</translation>
-    </message>
-    <message>
-      <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-      <translation>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</translation>
-    </message>
-    <message>
-      <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-      <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
-    </message>
-    <message>
-      <source>Embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</source>
-      <translation>Embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</translation>
-    </message>
-    <message>
-      <source>Export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</source>
-      <translation>Export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</translation>
-    </message>
-    <message>
-      <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-      <translation>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</translation>
-    </message>
-    <message>
-      <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-      <translation>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colours.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</translation>
-    </message>
-    <message>
-      <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-      <translation>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</translation>
-    </message>
-    <message>
-      <source>DPI (Dots Per Inch) for image export.</source>
-      <translation>DPI (Dots Per Inch) for image export.</translation>
-    </message>
-    <message>
-      <source>Embed fonts into the PDF. Embedding the fonts
-will preserve the layout and appearance of your document.</source>
-      <translation>Embed fonts into the PDF. Embedding the fonts
-will preserve the layout and appearance of your document.</translation>
-    </message>
-    <message>
-      <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-      <translation>Enables presentation effects when using Acrobat Reader in full screen mode.</translation>
-    </message>
-    <message>
-      <source>Show page previews of each page listed above.</source>
-      <translation>Show page previews of each page listed above.</translation>
-    </message>
-    <message>
-      <source>Type of the display effect.</source>
-      <translation>Type of the display effect.</translation>
-    </message>
-    <message>
-      <source>Direction of the effect of moving lines for the split and blind effects.</source>
-      <translation>Direction of the effect of moving lines for the split and blind effects.</translation>
-    </message>
-    <message>
-      <source>Starting position for the box and split effects.</source>
-      <translation>Starting position for the box and split effects.</translation>
-    </message>
-    <message>
-      <source>Direction of the glitter or wipe effects.</source>
-      <translation>Direction of the glitter or wipe effects.</translation>
-    </message>
-    <message>
-      <source>Enable the security features in your exported PDF.
-If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
-If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-      <translation>Enable the security features in your exported PDF.
-If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
-If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</translation>
-    </message>
-    <message>
-      <source>Color model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 color CMYK printer.</source>
-      <translation>Colour model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 colour CMYK printer.</translation>
-    </message>
-    <message>
-      <source>Color profile for solid colors</source>
-      <translation>Colour profile for solid colours</translation>
-    </message>
-    <message>
-      <source>Rendering intent for solid colors</source>
-      <translation>Rendering intent for solid colours</translation>
-    </message>
-    <message>
-      <source>Color profile for images</source>
-      <translation>Colour profile for images</translation>
-    </message>
-    <message>
-      <source>Rendering intent for images</source>
-      <translation>Rendering intent for images</translation>
-    </message>
-    <message>
-      <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-      <translation>Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
-    </message>
-    <message>
-      <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-      <translation>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</translation>
-    </message>
-    <message>
-      <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-      <translation>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
-    </message>
-    <message>
-      <source>Choose a password for users to be able to read your PDF.</source>
-      <translation>Choose a password for users to be able to read your PDF.</translation>
-    </message>
-    <message>
-      <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-      <translation>Allow printing of the PDF. If un-checked, printing is prevented. </translation>
-    </message>
-    <message>
-      <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-      <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
-    </message>
-    <message>
-      <source>Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</source>
-      <translation>Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</translation>
     </message>
     <message>
       <source>O&amp;utput to File:</source>
@@ -8053,186 +8559,6 @@ If un-checked, text and graphics cannot be copied.</translation>
       <translation>Cha&amp;nge...</translation>
     </message>
     <message>
-      <source>&amp;All Pages</source>
-      <translation>&amp;All Pages</translation>
-    </message>
-    <message>
-      <source>C&amp;hoose Pages</source>
-      <translation>C&amp;hoose Pages</translation>
-    </message>
-    <message>
-      <source>Compatibilit&amp;y:</source>
-      <translation>Compatibilit&amp;y:</translation>
-    </message>
-    <message>
-      <source>&amp;Binding:</source>
-      <translation>&amp;Binding:</translation>
-    </message>
-    <message>
-      <source>Generate &amp;Thumbnails</source>
-      <translation>Generate &amp;Thumbnails</translation>
-    </message>
-    <message>
-      <source>Save &amp;Linked Text Frames as PDF Articles</source>
-      <translation>Save &amp;Linked Text Frames as PDF Articles</translation>
-    </message>
-    <message>
-      <source>&amp;Include Bookmarks</source>
-      <translation>&amp;Include Bookmarks</translation>
-    </message>
-    <message>
-      <source>&amp;Resolution:</source>
-      <translation>&amp;Resolution:</translation>
-    </message>
-    <message>
-      <source>&amp;Method:</source>
-      <translation>&amp;Method:</translation>
-    </message>
-    <message>
-      <source>&amp;Quality:</source>
-      <translation>&amp;Quality:</translation>
-    </message>
-    <message>
-      <source>&amp;Downsample Images to:</source>
-      <translation>&amp;Downsample Images to:</translation>
-    </message>
-    <message>
-      <source>&amp;Embed all Fonts</source>
-      <translation>&amp;Embed all Fonts</translation>
-    </message>
-    <message>
-      <source>&amp;>></source>
-      <translation>&amp;>></translation>
-    </message>
-    <message>
-      <source>&amp;&lt;&lt;</source>
-      <translation>&amp;&lt;&lt;</translation>
-    </message>
-    <message>
-      <source>Show Page Pre&amp;views</source>
-      <translation>Show Page Pre&amp;views</translation>
-    </message>
-    <message>
-      <source>&amp;Display Duration:</source>
-      <translation>&amp;Display Duration:</translation>
-    </message>
-    <message>
-      <source>Effec&amp;t Duration:</source>
-      <translation>Effec&amp;t Duration:</translation>
-    </message>
-    <message>
-      <source>Effect T&amp;ype:</source>
-      <translation>Effect T&amp;ype:</translation>
-    </message>
-    <message>
-      <source>&amp;Moving Lines:</source>
-      <translation>&amp;Moving Lines:</translation>
-    </message>
-    <message>
-      <source>F&amp;rom the:</source>
-      <translation>F&amp;rom the:</translation>
-    </message>
-    <message>
-      <source>D&amp;irection:</source>
-      <translation>D&amp;irection:</translation>
-    </message>
-    <message>
-      <source>&amp;Apply Effect on all Pages</source>
-      <translation>&amp;Apply Effect on all Pages</translation>
-    </message>
-    <message>
-      <source>&amp;Use Encryption</source>
-      <translation>&amp;Use Encryption</translation>
-    </message>
-    <message>
-      <source>&amp;User:</source>
-      <translation>&amp;User:</translation>
-    </message>
-    <message>
-      <source>&amp;Owner:</source>
-      <translation>&amp;Owner:</translation>
-    </message>
-    <message>
-      <source>Allow &amp;Printing the Document</source>
-      <translation>Allow &amp;Printing the Document</translation>
-    </message>
-    <message>
-      <source>Allow &amp;Changing the Document</source>
-      <translation>Allow &amp;Changing the Document</translation>
-    </message>
-    <message>
-      <source>Allow Cop&amp;ying Text and Graphics</source>
-      <translation>Allow Cop&amp;ying Text and Graphics</translation>
-    </message>
-    <message>
-      <source>Allow Adding &amp;Annotations and Fields</source>
-      <translation>Allow Adding &amp;Annotations and Fields</translation>
-    </message>
-    <message>
-      <source>S&amp;ecurity</source>
-      <translation>S&amp;ecurity</translation>
-    </message>
-    <message>
-      <source>Output &amp;Intended For:</source>
-      <translation>Output &amp;Intended For:</translation>
-    </message>
-    <message>
-      <source>&amp;Use Custom Rendering Settings</source>
-      <translation>&amp;Use Custom Rendering Settings</translation>
-    </message>
-    <message>
-      <source>Rendering Settings</source>
-      <translation>Rendering Settings</translation>
-    </message>
-    <message>
-      <source>Fre&amp;quency:</source>
-      <translation>Fre&amp;quency:</translation>
-    </message>
-    <message>
-      <source>&amp;Angle:</source>
-      <translation>&amp;Angle:</translation>
-    </message>
-    <message>
-      <source>S&amp;pot Function:</source>
-      <translation>S&amp;pot Function:</translation>
-    </message>
-    <message>
-      <source>Simple Dot</source>
-      <translation>Simple Dot</translation>
-    </message>
-    <message>
-      <source>Line</source>
-      <translation>Line</translation>
-    </message>
-    <message>
-      <source>Round</source>
-      <translation>Round</translation>
-    </message>
-    <message>
-      <source>Ellipse</source>
-      <translation>Ellipse</translation>
-    </message>
-    <message>
-      <source>Use ICC Profile</source>
-      <translation>Use ICC Profile</translation>
-    </message>
-    <message>
-      <source>C&amp;olor</source>
-      <translation>C&amp;olour</translation>
-    </message>
-    <message>
-      <source>&amp;Info String:</source>
-      <translation>&amp;Info String:</translation>
-    </message>
-    <message>
-      <source>Output &amp;Profile:</source>
-      <translation>Output &amp;Profile:</translation>
-    </message>
-    <message>
-      <source>PDF/X-&amp;3</source>
-      <translation>PDF/X-&amp;3</translation>
-    </message>
-    <message>
       <source>&amp;Save</source>
       <translation>&amp;Save</translation>
     </message>
@@ -8241,90 +8567,12 @@ If un-checked, text and graphics cannot be copied.</translation>
       <translation>&amp;Cancel</translation>
     </message>
     <message>
-      <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-      <translation>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</translation>
-    </message>
-    <message>
       <source>PDF Files (*.pdf);;All Files (*)</source>
       <translation>PDF Files (*.pdf);;All Files (*)</translation>
     </message>
     <message>
-      <source>This is an advanced setting which is not enabled by default. This should only be enabled
-when specifically requested by your printer and they have given you the exact details needed.
-Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-      <translation>This is an advanced setting which is not enabled by default. This should only be enabled
-when specifically requested by your printer and they have given you the exact details needed.
-Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
-    </message>
-    <message>
-      <source>Compress Text and &amp;Vector Graphics</source>
-      <translation>Compress Text and &amp;Vector Graphics</translation>
-    </message>
-    <message>
-      <source>En&amp;able Presentation Effects</source>
-      <translation>En&amp;able Presentation Effects</translation>
-    </message>
-    <message>
-      <source>&amp;Presentation</source>
-      <translation>&amp;Presentation</translation>
-    </message>
-    <message>
-      <source>&amp;Rotation:</source>
-      <translation>&amp;Rotation:</translation>
-    </message>
-    <message>
-      <source>&amp;Subset all Fonts</source>
-      <translation>&amp;Subset all Fonts</translation>
-    </message>
-    <message>
-      <source>Fonts to subset:</source>
-      <translation>Fonts to subset:</translation>
-    </message>
-    <message>
-      <source>Mirror Page(s) horizontally</source>
-      <translation>Mirror Page(s) horizontally</translation>
-    </message>
-    <message>
-      <source>Mirror Page(s) vertically</source>
-      <translation>Mirror Page(s) vertically</translation>
-    </message>
-    <message>
       <source>Save as PDF</source>
       <translation>Save as PDF</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt></source>
-      <translation>&lt;qt>Colour management must be enabled to use PDF/X-3. You can enable colour management from the Settings menu.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt></source>
-      <translation>&lt;qt>PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt></source>
-      <translation>&lt;qt>PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fields is prevented.</source>
-      <translation>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fields is prevented.</translation>
-    </message>
-    <message>
-      <source>PDF security settings</source>
-      <translation>PDF security settings</translation>
-    </message>
-    <message>
-      <source>PDF/X-3 settings</source>
-      <translation>PDF/X-3 settings</translation>
-    </message>
-    <message>
-      <source>&lt;qt>PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt></source>
-      <translation>&lt;qt>PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt></translation>
     </message>
   </context>
   <context>
@@ -8423,292 +8671,23 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
       <translation>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
     </message>
-  </context>
-  <context>
-    <name>Page</name>
-    <message>
-      <source>Copy Here</source>
-      <translation>Copy Here</translation>
-    </message>
-    <message>
-      <source>Move Here</source>
-      <translation>Move Here</translation>
-    </message>
-    <message>
-      <source>Cancel</source>
-      <translation>Cancel</translation>
-    </message>
-    <message>
-      <source>Picture</source>
-      <translation>Picture</translation>
-    </message>
-    <message>
-      <source>File: </source>
-      <translation>File </translation>
-    </message>
-    <message>
-      <source>Linked Text</source>
-      <translation>Linked Text</translation>
-    </message>
-    <message>
-      <source>Text Frame</source>
-      <translation>Text Frame</translation>
-    </message>
-    <message>
-      <source>Text on a Path</source>
-      <translation>Text on a Path</translation>
-    </message>
-    <message>
-      <source>Paragraphs: </source>
-      <translation>Paragraphs: </translation>
-    </message>
-    <message>
-      <source>Words: </source>
-      <translation>Words: </translation>
-    </message>
-    <message>
-      <source>Chars: </source>
-      <translation>Chars: </translation>
-    </message>
-    <message>
-      <source>Print: </source>
-      <translation>Print: </translation>
-    </message>
-    <message>
-      <source>Enabled</source>
-      <translation>Enabled</translation>
-    </message>
-    <message>
-      <source>Disabled</source>
-      <translation>Disabled</translation>
-    </message>
-    <message>
-      <source>Edit Text...</source>
-      <translation>Edit Text...</translation>
-    </message>
-    <message>
-      <source>None</source>
-      <translation>None</translation>
-    </message>
-    <message>
-      <source>The Program</source>
-      <translation>The Program</translation>
-    </message>
-    <message>
-      <source>is missing!</source>
-      <translation>is missing!</translation>
-    </message>
     <message>
       <source>Warning</source>
       <translation>Warning</translation>
     </message>
     <message>
-      <source>&amp;Paste</source>
-      <translation>&amp;Paste</translation>
+      <source>Detected some Errors.
+Consider using the Preflight Checker to correct them</source>
+      <translation>Detected some Errors.
+Consider using the Preflight Checker to correct them</translation>
     </message>
     <message>
-      <source>Show &amp;Margins</source>
-      <translation>Show &amp;Margins</translation>
+      <source>Abort</source>
+      <translation>Abort</translation>
     </message>
     <message>
-      <source>Show &amp;Frames</source>
-      <translation>Show &amp;Frames</translation>
-    </message>
-    <message>
-      <source>Show &amp;Images</source>
-      <translation>Show &amp;Images</translation>
-    </message>
-    <message>
-      <source>Show &amp;Grid</source>
-      <translation>Show &amp;Grid</translation>
-    </message>
-    <message>
-      <source>Show G&amp;uides</source>
-      <translation>Show G&amp;uides</translation>
-    </message>
-    <message>
-      <source>Show &amp;Baseline Grid</source>
-      <translation>Show &amp;Baseline Grid</translation>
-    </message>
-    <message>
-      <source>Sn&amp;ap to Grid</source>
-      <translation>Sn&amp;ap to Grid</translation>
-    </message>
-    <message>
-      <source>Sna&amp;p to Guides</source>
-      <translation>Sna&amp;p to Guides</translation>
-    </message>
-    <message>
-      <source>Original PPI: </source>
-      <translation>Original PPI: </translation>
-    </message>
-    <message>
-      <source>Actual PPI: </source>
-      <translation>Actual PPI: </translation>
-    </message>
-    <message>
-      <source>In&amp;fo</source>
-      <translation>In&amp;fo</translation>
-    </message>
-    <message>
-      <source>&amp;Get Picture...</source>
-      <translation>&amp;Get Picture...</translation>
-    </message>
-    <message>
-      <source>I&amp;mage Visible</source>
-      <translation>I&amp;mage Visible</translation>
-    </message>
-    <message>
-      <source>&amp;Update Picture</source>
-      <translation>&amp;Update Picture</translation>
-    </message>
-    <message>
-      <source>&amp;Edit Picture</source>
-      <translation>&amp;Edit Picture</translation>
-    </message>
-    <message>
-      <source>&amp;Adjust Frame to Picture</source>
-      <translation>&amp;Adjust Frame to Picture</translation>
-    </message>
-    <message>
-      <source>&amp;Get Text...</source>
-      <translation>&amp;Get Text...</translation>
-    </message>
-    <message>
-      <source>&amp;Append Text...</source>
-      <translation>&amp;Append Text...</translation>
-    </message>
-    <message>
-      <source>&amp;Edit Text...</source>
-      <translation>&amp;Edit Text...</translation>
-    </message>
-    <message>
-      <source>&amp;Insert Sample Text</source>
-      <translation>&amp;Insert Sample Text</translation>
-    </message>
-    <message>
-      <source>Is PDF &amp;Bookmark</source>
-      <translation>Is PDF &amp;Bookmark</translation>
-    </message>
-    <message>
-      <source>Is PDF A&amp;nnotation</source>
-      <translation>Is PDF A&amp;nnotation</translation>
-    </message>
-    <message>
-      <source>Annotation P&amp;roperties</source>
-      <translation>Annotation P&amp;roperties</translation>
-    </message>
-    <message>
-      <source>Field P&amp;roperties</source>
-      <translation>Field P&amp;roperties</translation>
-    </message>
-    <message>
-      <source>&amp;PDF Options</source>
-      <translation>&amp;PDF Options</translation>
-    </message>
-    <message>
-      <source>&amp;Lock</source>
-      <translation>&amp;Lock</translation>
-    </message>
-    <message>
-      <source>Un&amp;lock</source>
-      <translation>Un&amp;lock</translation>
-    </message>
-    <message>
-      <source>Lock Object &amp;Size</source>
-      <translation>Lock Object &amp;Size</translation>
-    </message>
-    <message>
-      <source>Unlock Object &amp;Size</source>
-      <translation>Unlock Object &amp;Size</translation>
-    </message>
-    <message>
-      <source>Send to S&amp;crapbook</source>
-      <translation>Send to S&amp;crapbook</translation>
-    </message>
-    <message>
-      <source>Send to La&amp;yer</source>
-      <translation>Send to La&amp;yer</translation>
-    </message>
-    <message>
-      <source>&amp;Group</source>
-      <translation>&amp;Group</translation>
-    </message>
-    <message>
-      <source>Un&amp;group</source>
-      <translation>Un&amp;group</translation>
-    </message>
-    <message>
-      <source>Le&amp;vel</source>
-      <translation>Le&amp;vel</translation>
-    </message>
-    <message>
-      <source>Send to &amp;Back</source>
-      <translation>Send to &amp;Back</translation>
-    </message>
-    <message>
-      <source>Bring to &amp;Front</source>
-      <translation>Bring to &amp;Front</translation>
-    </message>
-    <message>
-      <source>&amp;Lower</source>
-      <translation>&amp;Lower</translation>
-    </message>
-    <message>
-      <source>&amp;Raise</source>
-      <translation>&amp;Raise</translation>
-    </message>
-    <message>
-      <source>&amp;Picture Frame</source>
-      <translation>&amp;Picture Frame</translation>
-    </message>
-    <message>
-      <source>Pol&amp;ygon</source>
-      <translation>Pol&amp;ygon</translation>
-    </message>
-    <message>
-      <source>&amp;Outlines</source>
-      <translation>&amp;Outlines</translation>
-    </message>
-    <message>
-      <source>&amp;Text Frame</source>
-      <translation>&amp;Text Frame</translation>
-    </message>
-    <message>
-      <source>&amp;Bezier Curve</source>
-      <translation>&amp;Bezier Curve</translation>
-    </message>
-    <message>
-      <source>Conve&amp;rt to</source>
-      <translation>Conve&amp;rt to</translation>
-    </message>
-    <message>
-      <source>Cu&amp;t</source>
-      <translation>Cu&amp;t</translation>
-    </message>
-    <message>
-      <source>&amp;Copy</source>
-      <translation>&amp;Copy</translation>
-    </message>
-    <message>
-      <source>&amp;Delete</source>
-      <translation>&amp;Delete</translation>
-    </message>
-    <message>
-      <source>C&amp;lear Contents</source>
-      <translation>C&amp;lear Contents</translation>
-    </message>
-    <message>
-      <source>Show P&amp;roperties...</source>
-      <translation>Show P&amp;roperties...</translation>
-    </message>
-    <message>
-      <source>Hide P&amp;roperties...</source>
-      <translation>Hide P&amp;roperties...</translation>
-    </message>
-    <message>
-      <source>Do you really want to clear all your Text?</source>
-      <translation>Do you really want to clear all your Text?</translation>
+      <source>Ignore</source>
+      <translation>Ignore</translation>
     </message>
   </context>
   <context>
@@ -8737,6 +8716,107 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
       <source>PathText</source>
       <translation>PathText</translation>
     </message>
+    <message>
+      <source>Do you really want to replace all your text
+in the frame named %1 with sample text?</source>
+      <translation>Do you really want to replace all your text
+in the frame named %1 with sample text?</translation>
+    </message>
+    <message>
+      <source>Warning</source>
+      <translation>Warning</translation>
+    </message>
+    <message>
+      <source>Copy of</source>
+      <translation>Copy of</translation>
+    </message>
+  </context>
+  <context>
+    <name>PageItemAttributes</name>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
+    </message>
+    <message>
+      <source>Relates To</source>
+      <translation>Relates To</translation>
+    </message>
+    <message>
+      <source>Is Parent Of</source>
+      <translation>Is Parent Of</translation>
+    </message>
+    <message>
+      <source>Is Child Of</source>
+      <translation>Is Child Of</translation>
+    </message>
+    <message>
+      <source>Page Item Attributes</source>
+      <translation>Page Item Attributes</translation>
+    </message>
+    <message>
+      <source>Name</source>
+      <translation>Name</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Value</source>
+      <translation>Value</translation>
+    </message>
+    <message>
+      <source>Parameter</source>
+      <translation>Parameter</translation>
+    </message>
+    <message>
+      <source>Relationship</source>
+      <translation>Relationship</translation>
+    </message>
+    <message>
+      <source>Relationship To</source>
+      <translation>Relationship To</translation>
+    </message>
+    <message>
+      <source>&amp;Add</source>
+      <translation>&amp;Add</translation>
+    </message>
+    <message>
+      <source>Alt+A</source>
+      <translation>Alt+A</translation>
+    </message>
+    <message>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
+    </message>
+    <message>
+      <source>Alt+C</source>
+      <translation>Alt+C</translation>
+    </message>
+    <message>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
+    </message>
+    <message>
+      <source>Alt+D</source>
+      <translation>Alt+D</translation>
+    </message>
+    <message>
+      <source>C&amp;lear</source>
+      <translation>C&amp;lear</translation>
+    </message>
+    <message>
+      <source>Alt+L</source>
+      <translation>Alt+L</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
   </context>
   <context>
     <name>PageSelector</name>
@@ -8747,6 +8827,97 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
       <source> of %1</source>
       <translation> of %1</translation>
+    </message>
+  </context>
+  <context>
+    <name>PageSize</name>
+    <message>
+      <source>Quarto</source>
+      <translation>Quarto</translation>
+    </message>
+    <message>
+      <source>Foolscap</source>
+      <translation>Foolscap</translation>
+    </message>
+    <message>
+      <source>Letter</source>
+      <translation>Letter</translation>
+    </message>
+    <message>
+      <source>Government Letter</source>
+      <translation>Government Letter</translation>
+    </message>
+    <message>
+      <source>Legal</source>
+      <translation>Legal</translation>
+    </message>
+    <message>
+      <source>Ledger</source>
+      <translation>Ledger</translation>
+    </message>
+    <message>
+      <source>Executive</source>
+      <translation>Executive</translation>
+    </message>
+    <message>
+      <source>Post</source>
+      <translation>Post</translation>
+    </message>
+    <message>
+      <source>Crown</source>
+      <translation>Crown</translation>
+    </message>
+    <message>
+      <source>Large Post</source>
+      <translation>Large Post</translation>
+    </message>
+    <message>
+      <source>Demy</source>
+      <translation>Demy</translation>
+    </message>
+    <message>
+      <source>Medium</source>
+      <translation>Medium</translation>
+    </message>
+    <message>
+      <source>Royal</source>
+      <translation>Royal</translation>
+    </message>
+    <message>
+      <source>Elephant</source>
+      <translation>Elephant</translation>
+    </message>
+    <message>
+      <source>Double Demy</source>
+      <translation>Double Demy</translation>
+    </message>
+    <message>
+      <source>Quad Demy</source>
+      <translation>Quad Demy</translation>
+    </message>
+    <message>
+      <source>STMT</source>
+      <translation>STMT</translation>
+    </message>
+    <message>
+      <source>A</source>
+      <translation>A</translation>
+    </message>
+    <message>
+      <source>B</source>
+      <translation>B</translation>
+    </message>
+    <message>
+      <source>C</source>
+      <translation>C</translation>
+    </message>
+    <message>
+      <source>D</source>
+      <translation>D</translation>
+    </message>
+    <message>
+      <source>E</source>
+      <translation>E</translation>
     </message>
   </context>
   <context>
@@ -8824,15 +8995,49 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
   </context>
   <context>
+    <name>PluginManager</name>
+    <message>
+      <source>Persistent</source>
+      <comment>plugin manager</comment>
+      <translation>Persistent</translation>
+    </message>
+    <message>
+      <source>Import</source>
+      <comment>plugin manager</comment>
+      <translation>Import</translation>
+    </message>
+    <message>
+      <source>Standard</source>
+      <comment>plugin manager</comment>
+      <translation>Standard</translation>
+    </message>
+    <message>
+      <source>Unknown</source>
+      <comment>plugin manager</comment>
+      <translation>Unknown</translation>
+    </message>
+    <message>
+      <source>Cannot find plugin</source>
+      <translation>Cannot find plugin</translation>
+    </message>
+  </context>
+  <context>
     <name>PolygonProps</name>
     <message>
       <source>Polygon Properties</source>
       <translation>Polygon Properties</translation>
     </message>
     <message>
-      <source> %</source>
-      <translation> %</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+  </context>
+  <context>
+    <name>PolygonWidget</name>
     <message>
       <source>Corn&amp;ers:</source>
       <translation>Corn&amp;ers:</translation>
@@ -8842,16 +9047,16 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
       <translation>&amp;Rotation:</translation>
     </message>
     <message>
+      <source>Apply &amp;Factor</source>
+      <translation>Apply &amp;Factor</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
       <source>&amp;Factor:</source>
       <translation>&amp;Factor:</translation>
-    </message>
-    <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
     </message>
     <message>
       <source>Number of corners for polygons</source>
@@ -8862,16 +9067,12 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
       <translation>Degrees of rotation for polygons</translation>
     </message>
     <message>
-      <source>Sample Polygon</source>
-      <translation>Sample Polygon</translation>
-    </message>
-    <message>
-      <source>Apply &amp;Factor</source>
-      <translation>Apply &amp;Factor</translation>
-    </message>
-    <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
       <translation>Apply Convex/Concave Factor to change shape of Polygons</translation>
+    </message>
+    <message>
+      <source>Sample Polygon</source>
+      <translation>Sample Polygon</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped),
@@ -8919,30 +9120,6 @@ a positive value will make it convex</translation>
       <translation>GUI</translation>
     </message>
     <message>
-      <source>Units</source>
-      <translation>Units</translation>
-    </message>
-    <message>
-      <source>Points (pt)</source>
-      <translation>Points (pt)</translation>
-    </message>
-    <message>
-      <source>Millimetres (mm)</source>
-      <translation>Millimetres (mm)</translation>
-    </message>
-    <message>
-      <source>Inches (in)</source>
-      <translation>Inches (in)</translation>
-    </message>
-    <message>
-      <source>Picas (p)</source>
-      <translation>Picas (p)</translation>
-    </message>
-    <message>
-      <source>Menus</source>
-      <translation>Menus</translation>
-    </message>
-    <message>
       <source>Paths</source>
       <translation>Paths</translation>
     </message>
@@ -8975,48 +9152,8 @@ a positive value will make it convex</translation>
       <translation>min</translation>
     </message>
     <message>
-      <source>Grid Layout</source>
-      <translation>Grid Layout</translation>
-    </message>
-    <message>
-      <source>Grid Colors</source>
-      <translation>Grid Colours</translation>
-    </message>
-    <message>
-      <source>Placing</source>
-      <translation>Placing</translation>
-    </message>
-    <message>
-      <source>Subscript</source>
-      <translation>Subscript</translation>
-    </message>
-    <message>
-      <source> %</source>
-      <translation> %</translation>
-    </message>
-    <message>
-      <source>Superscript</source>
-      <translation>Superscript</translation>
-    </message>
-    <message>
-      <source>Small Caps</source>
-      <translation>Small Caps</translation>
-    </message>
-    <message>
-      <source>Other</source>
-      <translation>Other</translation>
-    </message>
-    <message>
       <source> pt</source>
       <translation> pt</translation>
-    </message>
-    <message>
-      <source>Woven silk pyjamas exchanged for blue quartz</source>
-      <translation>Woven silk pyjamas exchanged for blue quartz</translation>
-    </message>
-    <message>
-      <source>None</source>
-      <translation>None</translation>
     </message>
     <message>
       <source>Other Options</source>
@@ -9043,24 +9180,8 @@ a positive value will make it convex</translation>
       <translation>Choose a Directory</translation>
     </message>
     <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
       <source>External Tools</source>
       <translation>External Tools</translation>
-    </message>
-    <message>
-      <source>Misc.</source>
-      <translation>Misc.</translation>
     </message>
     <message>
       <source>Postscript Interpreter</source>
@@ -9091,10 +9212,6 @@ Scribus inherits any available KDE or Qt themes</translation>
     <message>
       <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
       <translation>Number of lines Scribus will scroll for each move of the mouse wheel</translation>
-    </message>
-    <message>
-      <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-      <translation>Radius of the area where Scribus will allow you to grab an objects handles</translation>
     </message>
     <message>
       <source>Number of recently edited documents to show in the File menu</source>
@@ -9163,224 +9280,16 @@ each time the time period elapses</translation>
       <translation>Time period between saving automatically</translation>
     </message>
     <message>
-      <source>Distance between the minor grid lines</source>
-      <translation>Distance between the minor grid lines</translation>
-    </message>
-    <message>
-      <source>Distance between the major grid lines</source>
-      <translation>Distance between the major grid lines</translation>
-    </message>
-    <message>
-      <source>Distance within which an object will snap to your placed guides</source>
-      <translation>Distance within which an object will snap to your placed guides</translation>
-    </message>
-    <message>
-      <source>Color of the minor grid lines</source>
-      <translation>Colour of the minor grid lines</translation>
-    </message>
-    <message>
-      <source>Color of the major grid lines</source>
-      <translation>Colour of the major grid lines</translation>
-    </message>
-    <message>
-      <source>Color of the guide lines you insert</source>
-      <translation>Colour of the guide lines you insert</translation>
-    </message>
-    <message>
-      <source>Place the grid behind your page objects</source>
-      <translation>Place the grid behind your page objects</translation>
-    </message>
-    <message>
-      <source>Place the grid in front of your page objects</source>
-      <translation>Place the grid in front of your page objects</translation>
-    </message>
-    <message>
-      <source>Displacement above the baseline of the font on a line</source>
-      <translation>Displacement above the baseline of the font on a line</translation>
-    </message>
-    <message>
-      <source>Relative size of the superscript compared to the normal font</source>
-      <translation>Relative size of the superscript compared to the normal font</translation>
-    </message>
-    <message>
-      <source>Displacement below the baseline of the normal font on a line</source>
-      <translation>Displacement below the baseline of the normal font on a line</translation>
-    </message>
-    <message>
-      <source>Relative size of the subscript compared to the normal font</source>
-      <translation>Relative size of the subscript compared to the normal font</translation>
-    </message>
-    <message>
-      <source>Relative size of the small caps font compared to the normal font</source>
-      <translation>Relative size of the small caps font compared to the normal font</translation>
-    </message>
-    <message>
-      <source>Percentage increase over the font size for the line spacing</source>
-      <translation>Percentage increase over the font size for the line spacing</translation>
-    </message>
-    <message>
-      <source>Text Frame Properties</source>
-      <translation>Text Frame Properties</translation>
-    </message>
-    <message>
-      <source>Picture Frame Properties</source>
-      <translation>Picture Frame Properties</translation>
-    </message>
-    <message>
-      <source>Shape Drawing Properties</source>
-      <translation>Shape Drawing Properties</translation>
-    </message>
-    <message>
-      <source>Magnification Level Defaults</source>
-      <translation>Magnification Level Defaults</translation>
-    </message>
-    <message>
-      <source>Line Drawing Properties</source>
-      <translation>Line Drawing Properties</translation>
-    </message>
-    <message>
-      <source>Polygon Drawing Properties</source>
-      <translation>Polygon Drawing Properties</translation>
-    </message>
-    <message>
-      <source>Font for new text frames</source>
-      <translation>Font for new text frames</translation>
-    </message>
-    <message>
-      <source>Size of font for new text frames</source>
-      <translation>Size of font for new text frames</translation>
-    </message>
-    <message>
-      <source>Color of font</source>
-      <translation>Colour of font</translation>
-    </message>
-    <message>
-      <source>Number of columns in a text frame</source>
-      <translation>Number of columns in a text frame</translation>
-    </message>
-    <message>
-      <source>Gap between text frame columns</source>
-      <translation>Gap between text frame columns</translation>
-    </message>
-    <message>
-      <source>Sample of your font</source>
-      <translation>Sample of your font</translation>
-    </message>
-    <message>
-      <source>Picture frames allow pictures to scale to any size</source>
-      <translation>Picture frames allow pictures to scale to any size</translation>
-    </message>
-    <message>
-      <source>Horizontal scaling of images</source>
-      <translation>Horizontal scaling of images</translation>
-    </message>
-    <message>
-      <source>Vertical scaling of images</source>
-      <translation>Vertical scaling of images</translation>
-    </message>
-    <message>
-      <source>Keep horizontal and vertical scaling the same</source>
-      <translation>Keep horizontal and vertical scaling the same</translation>
-    </message>
-    <message>
-      <source>Pictures in picture frames are scaled to the size of the frame</source>
-      <translation>Pictures in picture frames are scaled to the size of the frame</translation>
-    </message>
-    <message>
-      <source>Automatically scaled pictures keep their original proportions</source>
-      <translation>Automatically scaled pictures keep their original proportions</translation>
-    </message>
-    <message>
-      <source>Fill color of picture frames</source>
-      <translation>Fill colour of picture frames</translation>
-    </message>
-    <message>
-      <source>Saturation of color of fill</source>
-      <translation>Saturation of colour of fill</translation>
-    </message>
-    <message>
-      <source>Line color of shapes</source>
-      <translation>Line colour of shapes</translation>
-    </message>
-    <message>
-      <source>Saturation of color of lines</source>
-      <translation>Saturation of colour of lines</translation>
-    </message>
-    <message>
-      <source>Fill color of shapes</source>
-      <translation>Fill colour of shapes</translation>
-    </message>
-    <message>
-      <source>Line style of shapes</source>
-      <translation>Line style of shapes</translation>
-    </message>
-    <message>
-      <source>Line width of shapes</source>
-      <translation>Line width of shapes</translation>
-    </message>
-    <message>
-      <source>Minimum magnification allowed</source>
-      <translation>Minimum magnification allowed</translation>
-    </message>
-    <message>
-      <source>Maximum magnification allowed</source>
-      <translation>Maximum magnification allowed</translation>
-    </message>
-    <message>
-      <source>Change in magnification for each zoom operation</source>
-      <translation>Change in magnification for each zoom operation</translation>
-    </message>
-    <message>
-      <source>Color of lines</source>
-      <translation>Colour of lines</translation>
-    </message>
-    <message>
-      <source>Saturation of color</source>
-      <translation>Saturation of colour</translation>
-    </message>
-    <message>
-      <source>Style of lines</source>
-      <translation>Style of lines</translation>
-    </message>
-    <message>
-      <source>Width of lines</source>
-      <translation>Width of lines</translation>
-    </message>
-    <message>
-      <source>Number of corners for polygons</source>
-      <translation>Number of corners for polygons</translation>
-    </message>
-    <message>
-      <source>Degrees of rotation for polygons</source>
-      <translation>Degrees of rotation for polygons</translation>
-    </message>
-    <message>
-      <source>Sample Polygon</source>
-      <translation>Sample Polygon</translation>
-    </message>
-    <message>
       <source>Choose the size of the preview in the scrapbook palette</source>
       <translation>Choose the size of the preview in the scrapbook palette</translation>
-    </message>
-    <message>
-      <source>When using facing pages, show the two pages side by side</source>
-      <translation>When using facing pages, show the two pages side by side</translation>
     </message>
     <message>
       <source>Color for paper</source>
       <translation>Colour for paper</translation>
     </message>
     <message>
-      <source>Color for the margin lines</source>
-      <translation>Colour for the margin lines</translation>
-    </message>
-    <message>
       <source>Mask the area outside the margins in the margin color</source>
       <translation>Mask the area outside the margins in the margin colour</translation>
-    </message>
-    <message>
-      <source>Enable transparency features within PDF 1.4 export</source>
-      <translation>Enable transparency features within PDF 1.4 export</translation>
     </message>
     <message>
       <source>Set the default zoom level</source>
@@ -9403,14 +9312,6 @@ each time the time period elapses</translation>
       <translation>Save the scrapbook contents everytime after a change</translation>
     </message>
     <message>
-      <source> px</source>
-      <translation> px</translation>
-    </message>
-    <message>
-      <source>Baseline Grid</source>
-      <translation>Baseline Grid</translation>
-    </message>
-    <message>
       <source>&amp;Theme:</source>
       <translation>&amp;Theme:</translation>
     </message>
@@ -9419,16 +9320,8 @@ each time the time period elapses</translation>
       <translation>&amp;Font Size:</translation>
     </message>
     <message>
-      <source>Mouse Settings</source>
-      <translation>Mouse Settings</translation>
-    </message>
-    <message>
       <source>&amp;Wheel Jump:</source>
       <translation>&amp;Wheel Jump:</translation>
-    </message>
-    <message>
-      <source>&amp;Grab Radius:</source>
-      <translation>&amp;Grab Radius:</translation>
     </message>
     <message>
       <source>&amp;Recent Documents:</source>
@@ -9507,174 +9400,6 @@ each time the time period elapses</translation>
       <translation>&amp;Interval:</translation>
     </message>
     <message>
-      <source>M&amp;inor Grid Spacing:</source>
-      <translation>M&amp;inor Grid Spacing:</translation>
-    </message>
-    <message>
-      <source>Ma&amp;jor Grid Spacing:</source>
-      <translation>Ma&amp;jor Grid Spacing:</translation>
-    </message>
-    <message>
-      <source>Guide &amp;Snap Distance:</source>
-      <translation>Guide &amp;Snap Distance:</translation>
-    </message>
-    <message>
-      <source>Min&amp;or Grid Color:</source>
-      <translation>Min&amp;or Grid Colour:</translation>
-    </message>
-    <message>
-      <source>Majo&amp;r Grid Color:</source>
-      <translation>Majo&amp;r Grid Colour:</translation>
-    </message>
-    <message>
-      <source>&amp;User Guides Color:</source>
-      <translation>&amp;User Guides Colour:</translation>
-    </message>
-    <message>
-      <source>Base&amp;line Grid Color:</source>
-      <translation>Base&amp;line Grid Colour:</translation>
-    </message>
-    <message>
-      <source>In the &amp;Background</source>
-      <translation>In the &amp;Background</translation>
-    </message>
-    <message>
-      <source>In the Fore&amp;ground</source>
-      <translation>In the Fore&amp;ground</translation>
-    </message>
-    <message>
-      <source>O&amp;n</source>
-      <translation>O&amp;n</translation>
-    </message>
-    <message>
-      <source>O&amp;ff</source>
-      <translation>O&amp;ff</translation>
-    </message>
-    <message>
-      <source>&amp;Displacement:</source>
-      <translation>&amp;Displacement:</translation>
-    </message>
-    <message>
-      <source>&amp;Scaling:</source>
-      <translation>&amp;Scaling:</translation>
-    </message>
-    <message>
-      <source>D&amp;isplacement:</source>
-      <translation>D&amp;isplacement:</translation>
-    </message>
-    <message>
-      <source>S&amp;caling:</source>
-      <translation>S&amp;caling:</translation>
-    </message>
-    <message>
-      <source>Sc&amp;aling:</source>
-      <translation>Sc&amp;aling:</translation>
-    </message>
-    <message>
-      <source>Baseline &amp;Grid:</source>
-      <translation>Baseline &amp;Grid:</translation>
-    </message>
-    <message>
-      <source>Baseline &amp;Offset:</source>
-      <translation>Baseline &amp;Offset:</translation>
-    </message>
-    <message>
-      <source>Automatic &amp;Line Spacing:</source>
-      <translation>Automatic &amp;Line Spacing:</translation>
-    </message>
-    <message>
-      <source>Default &amp;Font:</source>
-      <translation>Default &amp;Font:</translation>
-    </message>
-    <message>
-      <source>Default &amp;Size:</source>
-      <translation>Default &amp;Size:</translation>
-    </message>
-    <message>
-      <source>&amp;Text Color:</source>
-      <translation>&amp;Text Colour:</translation>
-    </message>
-    <message>
-      <source>Colu&amp;mns:</source>
-      <translation>Colu&amp;mns:</translation>
-    </message>
-    <message>
-      <source>&amp;Gap:</source>
-      <translation>&amp;Gap:</translation>
-    </message>
-    <message>
-      <source>&amp;Line Color:</source>
-      <translation>&amp;Line Colour:</translation>
-    </message>
-    <message>
-      <source>&amp;Shading:</source>
-      <translation>&amp;Shading:</translation>
-    </message>
-    <message>
-      <source>&amp;Fill Color:</source>
-      <translation>&amp;Fill Colour:</translation>
-    </message>
-    <message>
-      <source>S&amp;hading:</source>
-      <translation>S&amp;hading:</translation>
-    </message>
-    <message>
-      <source>&amp;Type of Line:</source>
-      <translation>&amp;Type of Line:</translation>
-    </message>
-    <message>
-      <source>Line &amp;Width:</source>
-      <translation>Line &amp;Width:</translation>
-    </message>
-    <message>
-      <source>Mi&amp;nimum:</source>
-      <translation>Mi&amp;nimum:</translation>
-    </message>
-    <message>
-      <source>Ma&amp;ximum:</source>
-      <translation>Ma&amp;ximum:</translation>
-    </message>
-    <message>
-      <source>&amp;Stepping:</source>
-      <translation>&amp;Stepping:</translation>
-    </message>
-    <message>
-      <source>&amp;Free Scaling</source>
-      <translation>&amp;Free Scaling</translation>
-    </message>
-    <message>
-      <source>&amp;Horizontal Scaling:</source>
-      <translation>&amp;Horizontal Scaling:</translation>
-    </message>
-    <message>
-      <source>&amp;Vertical Scaling:</source>
-      <translation>&amp;Vertical Scaling:</translation>
-    </message>
-    <message>
-      <source>&amp;Scale Picture to Frame Size</source>
-      <translation>&amp;Scale Picture to Frame Size</translation>
-    </message>
-    <message>
-      <source>Keep Aspect &amp;Ratio</source>
-      <translation>Keep Aspect &amp;Ratio</translation>
-    </message>
-    <message>
-      <source>F&amp;ill Color:</source>
-      <translation>F&amp;ill Colour:</translation>
-    </message>
-    <message>
-      <source>Corn&amp;ers:</source>
-      <translation>Corn&amp;ers:</translation>
-    </message>
-    <message>
-      <source>&amp;Rotation:</source>
-      <translation>&amp;Rotation:</translation>
-    </message>
-    <message>
-      <source>&amp;Factor:</source>
-      <translation>&amp;Factor:</translation>
-    </message>
-    <message>
       <source>Sa&amp;ve Contents on Changes</source>
       <translation>Sa&amp;ve Contents on Changes</translation>
     </message>
@@ -9683,28 +9408,8 @@ each time the time period elapses</translation>
       <translation>Large</translation>
     </message>
     <message>
-      <source>Display Pages &amp;Side by Side</source>
-      <translation>Display Pages &amp;Side by Side</translation>
-    </message>
-    <message>
-      <source>Page Colors</source>
-      <translation>Page Colours</translation>
-    </message>
-    <message>
-      <source>&amp;Background:</source>
-      <translation>&amp;Background:</translation>
-    </message>
-    <message>
-      <source>&amp;Margins:</source>
-      <translation>&amp;Margins:</translation>
-    </message>
-    <message>
       <source>Display &amp;Unprintable Area in Margin Color</source>
       <translation>Display &amp;Unprintable Area in Margin Colour</translation>
-    </message>
-    <message>
-      <source>Use PDF 1.4 &amp;Transparency Features</source>
-      <translation>Use PDF 1.4 &amp;Transparency Features</translation>
     </message>
     <message>
       <source>&amp;Adjust Display Size</source>
@@ -9731,14 +9436,6 @@ each time the time period elapses</translation>
       <translation>Clip to Page &amp;Margins</translation>
     </message>
     <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
-    </message>
-    <message>
       <source>&amp;Inside:</source>
       <translation>&amp;Inside:</translation>
     </message>
@@ -9751,30 +9448,8 @@ each time the time period elapses</translation>
       <translation>Apply &amp;Under Colour Removal</translation>
     </message>
     <message>
-      <source>T&amp;emplates:</source>
-      <translation>T&amp;emplates:</translation>
-    </message>
-    <message>
       <source>Cha&amp;nge...</source>
       <translation>Cha&amp;nge...</translation>
-    </message>
-    <message>
-      <source>Apply &amp;Factor</source>
-      <translation>Apply &amp;Factor</translation>
-    </message>
-    <message>
-      <source>Additional Directory for Document Templates</source>
-      <translation>Additional Directory for Document Templates</translation>
-    </message>
-    <message>
-      <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation>Apply Convex/Concave Factor to change shape of Polygons</translation>
-    </message>
-    <message>
-      <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-      <translation>A negative value will make the polygon concave (or star shaped),
-a positive value will make it convex</translation>
     </message>
     <message>
       <source>A way of switching off some of the gray shades which are composed
@@ -9791,48 +9466,6 @@ and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
-      <source>Executive</source>
-      <translation>Executive</translation>
-    </message>
-    <message>
-      <source>Folio</source>
-      <translation>Folio</translation>
-    </message>
-    <message>
-      <source>Ledger</source>
-      <translation>Ledger</translation>
-    </message>
-    <message>
-      <source>Legal</source>
-      <translation>Legal</translation>
-    </message>
-    <message>
-      <source>Letter</source>
-      <translation>Letter</translation>
-    </message>
-    <message>
-      <source>Tabloid</source>
-      <translation>Tabloid</translation>
-    </message>
-    <message>
-      <source>Default ICC profiles directory. This cannot
-be changed with documents open.</source>
-      <translation>Default ICC profiles directory. This cannot
-be changed with documents open.</translation>
-    </message>
-    <message>
-      <source>Turns on the base grid</source>
-      <translation>Turns on the base grid</translation>
-    </message>
-    <message>
-      <source>Turns off the base grid</source>
-      <translation>Turns off the base grid</translation>
-    </message>
-    <message>
-      <source>File system location for the Ghostscript interpreter</source>
-      <translation>File system location for the Ghostscript interpreter</translation>
-    </message>
-    <message>
       <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend 'gimp-remote',
 as it allows you to edit the image in an already running
@@ -9841,6 +9474,193 @@ instance of gimp.</source>
 and your distro includes it, we recommend 'gimp-remote',
 as it allows you to edit the image in an already running
 instance of gimp.</translation>
+    </message>
+    <message>
+      <source>&amp;Language:</source>
+      <translation>&amp;Language:</translation>
+    </message>
+    <message>
+      <source>Document T&amp;emplates:</source>
+      <translation>Document T&amp;emplates:</translation>
+    </message>
+    <message>
+      <source>Units:</source>
+      <translation>Units:</translation>
+    </message>
+    <message>
+      <source>Undo/Redo</source>
+      <translation>Undo/Redo</translation>
+    </message>
+    <message>
+      <source>Action history length</source>
+      <translation>Action history length</translation>
+    </message>
+    <message>
+      <source>Hyphenator</source>
+      <translation>Hyphenator</translation>
+    </message>
+    <message>
+      <source>Fonts</source>
+      <translation>Fonts</translation>
+    </message>
+    <message>
+      <source>Document Checker</source>
+      <translation>Document Checker</translation>
+    </message>
+    <message>
+      <source>Color Management</source>
+      <translation>Colour Management</translation>
+    </message>
+    <message>
+      <source>PDF Export</source>
+      <translation>PDF Export</translation>
+    </message>
+    <message>
+      <source>Document Item Attributes</source>
+      <translation>Document Item Attributes</translation>
+    </message>
+    <message>
+      <source>Table of Contents and Indexes</source>
+      <translation>Table of Contents and Indexes</translation>
+    </message>
+    <message>
+      <source>Keyboard Shortcuts</source>
+      <translation>Keyboard Shortcuts</translation>
+    </message>
+    <message>
+      <source>Page Display</source>
+      <translation>Page Display</translation>
+    </message>
+    <message>
+      <source>Color:</source>
+      <translation>Colour:</translation>
+    </message>
+    <message>
+      <source>Alt+U</source>
+      <translation>Alt+U</translation>
+    </message>
+    <message>
+      <source>Show Pictures</source>
+      <translation>Show Pictures</translation>
+    </message>
+    <message>
+      <source>Show Text Chains</source>
+      <translation>Show Text Chains</translation>
+    </message>
+    <message>
+      <source>Show Frames</source>
+      <translation>Show Frames</translation>
+    </message>
+    <message>
+      <source>Scratch Space</source>
+      <translation>Scratch Space</translation>
+    </message>
+    <message>
+      <source>Miscellaneous</source>
+      <translation>Miscellaneous</translation>
+    </message>
+    <message>
+      <source>Plugin Manager</source>
+      <translation>Plugin Manager</translation>
+    </message>
+    <message>
+      <source>Plugin</source>
+      <translation>Plugin</translation>
+    </message>
+    <message>
+      <source>How to run</source>
+      <translation>How to run</translation>
+    </message>
+    <message>
+      <source>Type</source>
+      <translation>Type</translation>
+    </message>
+    <message>
+      <source>Load it?</source>
+      <translation>Load it?</translation>
+    </message>
+    <message>
+      <source>Plugin ID</source>
+      <translation>Plugin ID</translation>
+    </message>
+    <message>
+      <source>File</source>
+      <translation>File</translation>
+    </message>
+    <message>
+      <source>Yes</source>
+      <translation>Yes</translation>
+    </message>
+    <message>
+      <source>No</source>
+      <translation>No</translation>
+    </message>
+    <message>
+      <source>You need to restart the application to apply the changes.</source>
+      <translation>You need to restart the application to apply the changes.</translation>
+    </message>
+    <message>
+      <source>Plugins</source>
+      <translation>Plugins</translation>
+    </message>
+    <message>
+      <source>Turns the display of linked frames on or off</source>
+      <translation>Turns the display of linked frames on or off</translation>
+    </message>
+    <message>
+      <source>Turns the display of frames on or off</source>
+      <translation>Turns the display of frames on or off</translation>
+    </message>
+    <message>
+      <source>Turns the display of pictures on or off</source>
+      <translation>Turns the display of pictures on or off</translation>
+    </message>
+    <message>
+      <source>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</source>
+      <translation>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</translation>
+    </message>
+    <message>
+      <source>Default ICC profiles directory. This cannot
+be changed with a document open.</source>
+      <translation>Default ICC profiles directory. This cannot
+be changed with a document open.</translation>
+    </message>
+    <message>
+      <source>Additional directory for document templates</source>
+      <translation>Additional directory for document templates</translation>
+    </message>
+    <message>
+      <source>Set the length of the action history in steps.
+If set to 0 infinite amount of actions will be stored.</source>
+      <translation>Set the length of the action history in steps.
+If set to 0 infinite amount of actions will be stored.</translation>
+    </message>
+    <message>
+      <source>Filesystem location for the Ghostscript interpreter</source>
+      <translation>Filesystem location for the Ghostscript interpreter</translation>
+    </message>
+    <message>
+      <source>Always ask before fonts are replaced when loading a document</source>
+      <translation>Always ask before fonts are replaced when loading a document</translation>
+    </message>
+  </context>
+  <context>
+    <name>PrefsDialogBase</name>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>&amp;Defaults</source>
+      <translation>&amp;Defaults</translation>
     </message>
   </context>
   <context>
@@ -10322,10 +10142,6 @@ Check path and filename.</translation>
       <translation>Save as Image</translation>
     </message>
     <message>
-      <source>Error writting the output file(s).</source>
-      <translation>Error writting the output file(s).</translation>
-    </message>
-    <message>
       <source>Error writing the output file(s).</source>
       <translation>Error writing the output file(s).</translation>
     </message>
@@ -10352,14 +10168,6 @@ Check path and filename.</translation>
     <message>
       <source>All Files (*)</source>
       <translation>All Files (*)</translation>
-    </message>
-    <message>
-      <source>&amp;Fonts Preview</source>
-      <translation>&amp;Fonts Preview</translation>
-    </message>
-    <message>
-      <source>&amp;Insert Special</source>
-      <translation>&amp;Insert Special</translation>
     </message>
     <message>
       <source>New &amp;from Template...</source>
@@ -10482,10 +10290,6 @@ Check path and filename.</translation>
       <translation>Import &amp;SVG...</translation>
     </message>
     <message>
-      <source>Print Preview</source>
-      <translation>Print Preview</translation>
-    </message>
-    <message>
       <source>Importing text</source>
       <translation>Importing text</translation>
     </message>
@@ -10520,10 +10324,6 @@ Check path and filename.</translation>
     <message>
       <source>Font %1 is broken, discarding it</source>
       <translation>Font %1 is broken, discarding it</translation>
-    </message>
-    <message>
-      <source>Template: </source>
-      <translation>Template: </translation>
     </message>
     <message>
       <source>
@@ -10673,10 +10473,6 @@ External Links</translation>
       <translation>Serbian</translation>
     </message>
     <message>
-      <source>Tried to set progress > maximum progress</source>
-      <translation>Tried to set progress > maximum progress</translation>
-    </message>
-    <message>
       <source>Cannot get font size of non-text frame.</source>
       <comment>python error</comment>
       <translation>Cannot get font size of non-text frame.</translation>
@@ -10732,16 +10528,6 @@ External Links</translation>
       <translation>Selection index out of bounds</translation>
     </message>
     <message>
-      <source>Failed to open document</source>
-      <comment>python error</comment>
-      <translation>Failed to open document</translation>
-    </message>
-    <message>
-      <source>Failed to save document</source>
-      <comment>python error</comment>
-      <translation>Failed to save document</translation>
-    </message>
-    <message>
       <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
       <comment>python error</comment>
       <translation>Unit out of range. Use one of the scribus.UNIT_* constants.</translation>
@@ -10752,94 +10538,9 @@ External Links</translation>
       <translation>Target is not an image frame.</translation>
     </message>
     <message>
-      <source>An object with the requested name already exists</source>
-      <comment>python error</comment>
-      <translation>An object with the requested name already exists</translation>
-    </message>
-    <message>
-      <source>Point list must contain at least two points (four values)</source>
-      <comment>python error</comment>
-      <translation>Point list must contain at least two points (four values)</translation>
-    </message>
-    <message>
-      <source>Point list must contain an even number of values</source>
-      <comment>python error</comment>
-      <translation>Point list must contain an even number of values</translation>
-    </message>
-    <message>
-      <source>Point list must contain at least three points (six values)</source>
-      <comment>python error</comment>
-      <translation>Point list must contain at least three points (six values)</translation>
-    </message>
-    <message>
-      <source>Point list must contain at least four points (eight values)</source>
-      <comment>python error</comment>
-      <translation>Point list must contain at least four points (eight values)</translation>
-    </message>
-    <message>
-      <source>Point list must have a multiple of six values</source>
-      <comment>python error</comment>
-      <translation>Point list must have a multiple of six values</translation>
-    </message>
-    <message>
-      <source>Object not found</source>
-      <comment>python error</comment>
-      <translation>Object not found</translation>
-    </message>
-    <message>
-      <source>Style not found</source>
-      <comment>python error</comment>
-      <translation>Style not found</translation>
-    </message>
-    <message>
-      <source>Can't set style on a non-text frame</source>
-      <comment>python error</comment>
-      <translation>Can't set style on a non-text frame</translation>
-    </message>
-    <message>
-      <source>Failed to save EPS</source>
-      <comment>python error</comment>
-      <translation>Failed to save EPS</translation>
-    </message>
-    <message>
-      <source>Page number out of range</source>
-      <comment>python error</comment>
-      <translation>Page number out of range</translation>
-    </message>
-    <message>
-      <source>argument is not list: must be list of float values</source>
-      <comment>python error</comment>
-      <translation>argument is not list: must be list of float values</translation>
-    </message>
-    <message>
-      <source>argument contains non-numeric values: must be list of float values</source>
-      <comment>python error</comment>
-      <translation>argument contains non-numeric values: must be list of float values</translation>
-    </message>
-    <message>
-      <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
-      <comment>python error</comment>
-      <translation>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</translation>
-    </message>
-    <message>
-      <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-      <comment>python error</comment>
-      <translation>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</translation>
-    </message>
-    <message>
-      <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-      <comment>python error</comment>
-      <translation>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</translation>
-    </message>
-    <message>
       <source>Corner radius must be a positive number.</source>
       <comment>python error</comment>
       <translation>Corner radius must be a positive number.</translation>
-    </message>
-    <message>
-      <source>Line style not found</source>
-      <comment>python error</comment>
-      <translation>Line style not found</translation>
     </message>
     <message>
       <source>Cannot get a color with an empty name.</source>
@@ -10882,58 +10583,6 @@ External Links</translation>
       <source>Color not found - python error</source>
       <comment>python error</comment>
       <translation>Colour not found - python error</translation>
-    </message>
-    <message>
-      <source>Scribus Python interface module
-
-This module is the Python interface for Scribus. It provides functions
-to control scribus and to manipulate objects on the canvas. Each
-function is documented individually below.
-
-A few things are common across most of the interface.
-
-Most functions operate on frames. Frames are identified by their name,
-a string - they are not real Python objects. Many functions take an
-optional (non-keyword) parameter, a frame name.
-Many exceptions are also common across most functions. These are
-not currently documented in the docstring for each function.
-- Many functions will raise a NoDocOpenError if you try to use themwithout a document to operate on.
-- If you do not pass a frame name to a function that requires one,the function will use the currently selected frame, if any, orraise a NoValidObjectError if it can't find anything to operateon.
-- Many functions will raise WrongFrameTypeError if you try to use them
-on a frame type that they do not make sense with. For example, setting
-the text colour on a graphics frame doesn't make sense, and will result
-in this exception being raised.
-- Errors resulting from calls to the underlying Python API will be
-passed through unaltered. As such, the list of exceptions thrown by
-any function as provided here and in its docstring is incomplete.
-
-Details of what exceptions each function may throw are provided on the
-function's documentation.</source>
-      <translation>Scribus Python interface module
-
-This module is the Python interface for Scribus. It provides functions
-to control scribus and to manipulate objects on the canvas. Each
-function is documented individually below.
-
-A few things are common across most of the interface.
-
-Most functions operate on frames. Frames are identified by their name,
-a string - they are not real Python objects. Many functions take an
-optional (non-keyword) parameter, a frame name.
-Many exceptions are also common across most functions. These are
-not currently documented in the docstring for each function.
-- Many functions will raise a NoDocOpenError if you try to use themwithout a document to operate on.
-- If you do not pass a frame name to a function that requires one,the function will use the currently selected frame, if any, orraise a NoValidObjectError if it can't find anything to operateon.
-- Many functions will raise WrongFrameTypeError if you try to use them
-on a frame type that they do not make sense with. For example, setting
-the text colour on a graphics frame doesn't make sense, and will result
-in this exception being raised.
-- Errors resulting from calls to the underlying Python API will be
-passed through unaltered. As such, the list of exceptions thrown by
-any function as provided here and in its docstring is incomplete.
-(new line)
-Details of what exceptions each function may throw are provided on the
-function's documentation.</translation>
     </message>
     <message>
       <source>Custom (optional) configuration: </source>
@@ -11167,33 +10816,9 @@ function's documentation.</translation>
       <translation>Cannot unlink a non-text frame.</translation>
     </message>
     <message>
-      <source>Object is not a linked text frame, cannot unlink.</source>
-      <comment>python error</comment>
-      <translation>Object is not a linked text frame, cannot unlink.</translation>
-    </message>
-    <message>
-      <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
-      <comment>python error</comment>
-      <translation>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</translation>
-    </message>
-    <message>
       <source>Cannot convert a non-text frame to outlines.</source>
       <comment>python error</comment>
       <translation>Cannot convert a non-text frame to outlines.</translation>
-    </message>
-    <message>
-      <source>Portuguese (Brazilian)</source>
-      <translation>Portuguese (Brazilian)</translation>
-    </message>
-    <message>
-      <source>Cannot get a colour with an empty name.</source>
-      <comment>python error</comment>
-      <translation>Cannot get a colour with an empty name.</translation>
-    </message>
-    <message>
-      <source>Unable to save pixmap.</source>
-      <comment>scripter error</comment>
-      <translation>Unable to save pixmap.</translation>
     </message>
     <message>
       <source>Can't set bookmark on a non-text frame</source>
@@ -11214,9 +10839,471 @@ function's documentation.</translation>
       <translation>Croatian</translation>
     </message>
     <message>
-      <source>Color not found</source>
+      <source>Portuguese</source>
+      <translation>Portuguese</translation>
+    </message>
+    <message>
+      <source>Portuguese (BR)</source>
+      <translation>Portuguese (BR)</translation>
+    </message>
+    <message>
+      <source>Custom</source>
+      <translation>Custom</translation>
+    </message>
+    <message>
+      <source>Page</source>
+      <translation>Page</translation>
+    </message>
+    <message>
+      <source>Master Page </source>
+      <translation>Master Page </translation>
+    </message>
+    <message>
+      <source>4A0</source>
+      <translation>4A0</translation>
+    </message>
+    <message>
+      <source>2A0</source>
+      <translation>2A0</translation>
+    </message>
+    <message>
+      <source>Comm10E</source>
+      <translation>Comm10E</translation>
+    </message>
+    <message>
+      <source>DLE</source>
+      <translation>DLE</translation>
+    </message>
+    <message>
+      <source>Output stream not writeable</source>
+      <translation>Output stream not writeable</translation>
+    </message>
+    <message>
+      <source>Verification of settings failed: %1</source>
+      <translation>Verification of settings failed: %1</translation>
+    </message>
+    <message>
+      <source>Unable to read settings XML:</source>
+      <translation>Unable to read settings XML:</translation>
+    </message>
+    <message>
+      <source>%1 (line %2 col %3)</source>
+      <comment>Load PDF settings</comment>
+      <translation>%1 (line %2 col %3)</translation>
+    </message>
+    <message>
+      <source>Unable to read settings XML: %1</source>
+      <translation>Unable to read settings XML: %1</translation>
+    </message>
+    <message>
+      <source>null root node</source>
+      <comment>Load PDF settings</comment>
+      <translation>null root node</translation>
+    </message>
+    <message>
+      <source>&lt;pdfVersion> invalid</source>
+      <comment>Load PDF settings</comment>
+      <translation>&lt;pdfVersion> invalid</translation>
+    </message>
+    <message>
+      <source>found %1 &lt;%2> nodes, need 1.</source>
+      <comment>Load PDF settings</comment>
+      <translation>found %1 &lt;%2> nodes, need 1.</translation>
+    </message>
+    <message>
+      <source>unexpected null &lt;%2> node</source>
+      <comment>Load PDF settings</comment>
+      <translation>unexpected null &lt;%2> node</translation>
+    </message>
+    <message>
+      <source>node &lt;%1> not an element</source>
+      <comment>Load PDF settings</comment>
+      <translation>node &lt;%1> not an element</translation>
+    </message>
+    <message>
+      <source>element &lt;%1> lacks `value' attribute</source>
+      <comment>Load PDF settings</comment>
+      <translation>element &lt;%1> lacks `value' attribute</translation>
+    </message>
+    <message>
+      <source>element &lt;%1> value must be `true' or `false'</source>
+      <comment>Load PDF settings</comment>
+      <translation>element &lt;%1> value must be `true' or `false'</translation>
+    </message>
+    <message>
+      <source>element &lt;lpiSettingsEntry> lacks `name' attribute</source>
+      <comment>Load PDF settings</comment>
+      <translation>element &lt;lpiSettingsEntry> lacks `name' attribute</translation>
+    </message>
+    <message>
+      <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+      <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
+    </message>
+    <message>
+      <source>Failed to load a font - freetype couldn't find the font file</source>
+      <translation>Failed to load a font - freetype couldn't find the font file</translation>
+    </message>
+    <message>
+      <source>Scribus Development Version</source>
+      <translation>Scribus Development Version</translation>
+    </message>
+    <message>
+      <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File->Save As. Are you sure you wish to proceed with this operation?</source>
+      <translation>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File->Save As. Are you sure you wish to proceed with this operation?</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>&amp;Proceed</source>
+      <translation>&amp;Proceed</translation>
+    </message>
+    <message>
+      <source> pt</source>
+      <translation> pt</translation>
+    </message>
+    <message>
+      <source> mm</source>
+      <translation> mm</translation>
+    </message>
+    <message>
+      <source> in</source>
+      <translation> in</translation>
+    </message>
+    <message>
+      <source> p</source>
+      <translation> p</translation>
+    </message>
+    <message>
+      <source> cm</source>
+      <translation> cm</translation>
+    </message>
+    <message>
+      <source>pt</source>
+      <translation>pt</translation>
+    </message>
+    <message>
+      <source>mm</source>
+      <translation>mm</translation>
+    </message>
+    <message>
+      <source>in</source>
+      <translation>in</translation>
+    </message>
+    <message>
+      <source>p</source>
+      <translation>p</translation>
+    </message>
+    <message>
+      <source>cm</source>
+      <translation>cm</translation>
+    </message>
+    <message>
+      <source>Points (pt)</source>
+      <translation>Points (pt)</translation>
+    </message>
+    <message>
+      <source>Millimeters (mm)</source>
+      <translation>Millimetres (mm)</translation>
+    </message>
+    <message>
+      <source>Inches (in)</source>
+      <translation>Inches (in)</translation>
+    </message>
+    <message>
+      <source>Picas (p)</source>
+      <translation>Picas (p)</translation>
+    </message>
+    <message>
+      <source>Centimeters (cm)</source>
+      <translation>Centimetres (cm)</translation>
+    </message>
+    <message>
+      <source>File exists</source>
+      <translation>File exists</translation>
+    </message>
+    <message>
+      <source>A file named '%1' already exists.
+Do you want to replace it with the file you are saving?</source>
+      <translation>A file named '%1' already exists.
+Do you want to replace it with the file you are saving?</translation>
+    </message>
+    <message>
+      <source>&amp;Replace</source>
+      <translation>&amp;Replace</translation>
+    </message>
+    <message>
+      <source>All</source>
+      <translation>All</translation>
+    </message>
+    <message>
+      <source>&amp;Color Wheel...</source>
+      <translation>&amp;Colour Wheel...</translation>
+    </message>
+    <message>
+      <source>&amp;Fonts Preview...</source>
+      <translation>&amp;Fonts Preview...</translation>
+    </message>
+    <message>
+      <source>Document Template: </source>
+      <translation>Document Template: </translation>
+    </message>
+    <message>
+      <source>Failed to open document.</source>
       <comment>python error</comment>
-      <translation>Colour not found</translation>
+      <translation>Failed to open document.</translation>
+    </message>
+    <message>
+      <source>Failed to save document.</source>
+      <comment>python error</comment>
+      <translation>Failed to save document.</translation>
+    </message>
+    <message>
+      <source>Argument must be page item name, or PyCObject instance</source>
+      <translation>Argument must be page item name, or PyCObject instance</translation>
+    </message>
+    <message>
+      <source>Property not found</source>
+      <translation>Property not found</translation>
+    </message>
+    <message>
+      <source>Child not found</source>
+      <translation>Child not found</translation>
+    </message>
+    <message>
+      <source>Couldn't convert result type '%1'.</source>
+      <translation>Couldn't convert result type '%1'.</translation>
+    </message>
+    <message>
+      <source>Property type '%1' not supported</source>
+      <translation>Property type '%1' not supported</translation>
+    </message>
+    <message>
+      <source>Couldn't convert '%1' to property type '%2'</source>
+      <translation>Couldn't convert '%1' to property type '%2'</translation>
+    </message>
+    <message>
+      <source>Types matched, but setting property failed.</source>
+      <translation>Types matched, but setting property failed.</translation>
+    </message>
+    <message>
+      <source>Unable to save pixmap</source>
+      <comment>scripter error</comment>
+      <translation>Unable to save pixmap</translation>
+    </message>
+    <message>
+      <source>An object with the requested name already exists.</source>
+      <comment>python error</comment>
+      <translation>An object with the requested name already exists.</translation>
+    </message>
+    <message>
+      <source>Point list must contain at least two points (four values).</source>
+      <comment>python error</comment>
+      <translation>Point list must contain at least two points (four values).</translation>
+    </message>
+    <message>
+      <source>Point list must contain an even number of values.</source>
+      <comment>python error</comment>
+      <translation>Point list must contain an even number of values.</translation>
+    </message>
+    <message>
+      <source>Point list must contain at least three points (six values).</source>
+      <comment>python error</comment>
+      <translation>Point list must contain at least three points (six values).</translation>
+    </message>
+    <message>
+      <source>Point list must contain at least four points (eight values).</source>
+      <comment>python error</comment>
+      <translation>Point list must contain at least four points (eight values).</translation>
+    </message>
+    <message>
+      <source>Point list must have a multiple of six values.</source>
+      <comment>python error</comment>
+      <translation>Point list must have a multiple of six values.</translation>
+    </message>
+    <message>
+      <source>Object not found.</source>
+      <comment>python error</comment>
+      <translation>Object not found.</translation>
+    </message>
+    <message>
+      <source>Style not found.</source>
+      <comment>python error</comment>
+      <translation>Style not found.</translation>
+    </message>
+    <message>
+      <source>Cannot set style on a non-text frame.</source>
+      <comment>python error</comment>
+      <translation>Cannot set style on a non-text frame.</translation>
+    </message>
+    <message>
+      <source>Failed to save EPS.</source>
+      <comment>python error</comment>
+      <translation>Failed to save EPS.</translation>
+    </message>
+    <message>
+      <source>Page number out of range.</source>
+      <comment>python error</comment>
+      <translation>Page number out of range.</translation>
+    </message>
+    <message>
+      <source>argument is not list: must be list of float values.</source>
+      <comment>python error</comment>
+      <translation>argument is not list: must be list of float values.</translation>
+    </message>
+    <message>
+      <source>argument contains non-numeric values: must be list of float values.</source>
+      <comment>python error</comment>
+      <translation>argument contains non-numeric values: must be list of float values.</translation>
+    </message>
+    <message>
+      <source>argument contains no-numeric values: must be list of float values.</source>
+      <comment>python error</comment>
+      <translation>argument contains no-numeric values: must be list of float values.</translation>
+    </message>
+    <message>
+      <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
+      <comment>python error</comment>
+      <translation>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</translation>
+    </message>
+    <message>
+      <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
+      <comment>python error</comment>
+      <translation>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</translation>
+    </message>
+    <message>
+      <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
+      <comment>python error</comment>
+      <translation>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</translation>
+    </message>
+    <message>
+      <source>Line style not found.</source>
+      <comment>python error</comment>
+      <translation>Line style not found.</translation>
+    </message>
+    <message>
+      <source>Object is not a linked text frame, can't unlink.</source>
+      <comment>python error</comment>
+      <translation>Object is not a linked text frame, can't unlink.</translation>
+    </message>
+    <message>
+      <source>Object the last frame in a series, can't unlink. Unlink the previous frame instead.</source>
+      <comment>python error</comment>
+      <translation>Object the last frame in a series, can't unlink. Unlink the previous frame instead.</translation>
+    </message>
+    <message>
+      <source>Only text frames can be checked for overflowing</source>
+      <comment>python error</comment>
+      <translation>Only text frames can be checked for overflowing</translation>
+    </message>
+    <message>
+      <source>&amp;Execute Script...</source>
+      <translation>&amp;Execute Script...</translation>
+    </message>
+    <message>
+      <source>Show &amp;Console</source>
+      <translation>Show &amp;Console</translation>
+    </message>
+    <message>
+      <source>&amp;About Script...</source>
+      <translation>&amp;About Script...</translation>
+    </message>
+    <message>
+      <source>&amp;Script</source>
+      <translation>&amp;Script</translation>
+    </message>
+    <message>
+      <source>&amp;Scribus Scripts</source>
+      <translation>&amp;Scribus Scripts</translation>
+    </message>
+    <message>
+      <source>&amp;Recent Scripts</source>
+      <translation>&amp;Recent Scripts</translation>
+    </message>
+    <message>
+      <source>Python Scripts (*.py);; All Files (*)</source>
+      <translation>Python Scripts (*.py);; All Files (*)</translation>
+    </message>
+    <message>
+      <source>About Script</source>
+      <translation>About Script</translation>
+    </message>
+    <message>
+      <source>Scribus Python interface module
+
+This module is the Python interface for Scribus. It provides functions
+to control scribus and to manipulate objects on the canvas. Each
+function is documented individually below.
+
+A few things are common across most of the interface.
+
+Most functions operate on frames. Frames are identified by their name,
+a string - they are not real Python objects. Many functions take an
+optional (non-keyword) parameter, a frame name.
+Many exceptions are also common across most functions. These are
+not currently documented in the docstring for each function.
+- Many functions will raise a NoDocOpenError if you try to use them
+without a document to operate on.
+- If you do not pass a frame name to a function that requires one,
+the function will use the currently selected frame, if any, or
+raise a NoValidObjectError if it can't find anything to operate
+on.
+- Many functions will raise WrongFrameTypeError if you try to use them
+on a frame type that they do not make sense with. For example, setting
+the text color on a graphics frame doesn't make sense, and will result
+in this exception being raised.
+- Errors resulting from calls to the underlying Python API will be
+passed through unaltered. As such, the list of exceptions thrown by
+any function as provided here and in its docstring is incomplete.
+
+Details of what exceptions each function may throw are provided on the
+function's documentation, though as with most Python code this list
+is not exhaustive due to exceptions from called functions.
+</source>
+      <translation>Scribus Python interface module
+
+This module is the Python interface for Scribus. It provides functions
+to control scribus and to manipulate objects on the canvas. Each
+function is documented individually below.
+
+A few things are common across most of the interface.
+
+Most functions operate on frames. Frames are identified by their name,
+a string - they are not real Python objects. Many functions take an
+optional (non-keyword) parameter, a frame name.
+Many exceptions are also common across most functions. These are
+not currently documented in the docstring for each function.
+- Many functions will raise a NoDocOpenError if you try to use them
+without a document to operate on.
+- If you do not pass a frame name to a function that requires one,
+the function will use the currently selected frame, if any, or
+raise a NoValidObjectError if it can't find anything to operate
+on.
+- Many functions will raise WrongFrameTypeError if you try to use them
+on a frame type that they do not make sense with. For example, setting
+the text colour on a graphics frame doesn't make sense, and will result
+in this exception being raised.
+- Errors resulting from calls to the underlying Python API will be
+passed through unaltered. As such, the list of exceptions thrown by
+any function as provided here and in its docstring is incomplete.
+
+Details of what exceptions each function may throw are provided on the
+function's documentation, though as with most Python code this list
+is not exhaustive due to exceptions from called functions.
+</translation>
+    </message>
+    <message>
+      <source>Short Words Manual</source>
+      <translation>Short Words Manual</translation>
+    </message>
+    <message>
+      <source>Could not open output file %1</source>
+      <translation>Could not open output file %1</translation>
+    </message>
+    <message>
+      <source>Could not open input file %1</source>
+      <translation>Could not open input file %1</translation>
     </message>
   </context>
   <context>
@@ -11386,22 +11473,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
       <source>&amp;Top:</source>
       <translation>&amp;Top:</translation>
     </message>
@@ -11426,14 +11497,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Left &amp;Page First</translation>
     </message>
     <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
-    </message>
-    <message>
       <source>&amp;Inside:</source>
       <translation>&amp;Inside:</translation>
     </message>
@@ -11446,16 +11509,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Page Size</translation>
     </message>
     <message>
-      <source>Size:</source>
-      <translation>Size:</translation>
-    </message>
-    <message>
       <source>Custom</source>
       <translation>Custom</translation>
-    </message>
-    <message>
-      <source>Orientation:</source>
-      <translation>Orientation:</translation>
     </message>
     <message>
       <source>Portrait</source>
@@ -11466,16 +11521,144 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Landscape</translation>
     </message>
     <message>
-      <source>Width:</source>
-      <translation>Width:</translation>
-    </message>
-    <message>
-      <source>Height:</source>
-      <translation>Height:</translation>
-    </message>
-    <message>
       <source>F&amp;irst Page Number:</source>
       <translation>F&amp;irst Page Number:</translation>
+    </message>
+    <message>
+      <source>&amp;Size:</source>
+      <translation>&amp;Size:</translation>
+    </message>
+    <message>
+      <source>Orie&amp;ntation:</source>
+      <translation>Orie&amp;ntation:</translation>
+    </message>
+    <message>
+      <source>&amp;Width:</source>
+      <translation>&amp;Width:</translation>
+    </message>
+    <message>
+      <source>&amp;Height:</source>
+      <translation>&amp;Height:</translation>
+    </message>
+    <message>
+      <source>&amp;Unit:</source>
+      <translation>&amp;Unit:</translation>
+    </message>
+    <message>
+      <source>Layout</source>
+      <translation>Layout</translation>
+    </message>
+    <message>
+      <source>Autosave</source>
+      <translation>Autosave</translation>
+    </message>
+    <message>
+      <source>min</source>
+      <translation>min</translation>
+    </message>
+    <message>
+      <source>&amp;Interval:</source>
+      <translation>&amp;Interval:</translation>
+    </message>
+    <message>
+      <source>Document</source>
+      <translation>Document</translation>
+    </message>
+    <message>
+      <source>Guides</source>
+      <translation>Guides</translation>
+    </message>
+    <message>
+      <source>Page Display</source>
+      <translation>Page Display</translation>
+    </message>
+    <message>
+      <source>Color:</source>
+      <translation>Colour:</translation>
+    </message>
+    <message>
+      <source>Display &amp;Unprintable Area in Margin Color</source>
+      <translation>Display &amp;Unprintable Area in Margin Colour</translation>
+    </message>
+    <message>
+      <source>Alt+U</source>
+      <translation>Alt+U</translation>
+    </message>
+    <message>
+      <source>Show Pictures</source>
+      <translation>Show Pictures</translation>
+    </message>
+    <message>
+      <source>Show Text Chains</source>
+      <translation>Show Text Chains</translation>
+    </message>
+    <message>
+      <source>Show Frames</source>
+      <translation>Show Frames</translation>
+    </message>
+    <message>
+      <source>Scratch Space</source>
+      <translation>Scratch Space</translation>
+    </message>
+    <message>
+      <source>Display</source>
+      <translation>Display</translation>
+    </message>
+    <message>
+      <source>Typography</source>
+      <translation>Typography</translation>
+    </message>
+    <message>
+      <source>Tools</source>
+      <translation>Tools</translation>
+    </message>
+    <message>
+      <source>Hyphenator</source>
+      <translation>Hyphenator</translation>
+    </message>
+    <message>
+      <source>Fonts</source>
+      <translation>Fonts</translation>
+    </message>
+    <message>
+      <source>Document Checker</source>
+      <translation>Document Checker</translation>
+    </message>
+    <message>
+      <source>PDF Export</source>
+      <translation>PDF Export</translation>
+    </message>
+    <message>
+      <source>Document Item Attributes</source>
+      <translation>Document Item Attributes</translation>
+    </message>
+    <message>
+      <source>Table of Contents and Indexes</source>
+      <translation>Table of Contents and Indexes</translation>
+    </message>
+    <message>
+      <source>Color Management</source>
+      <translation>Colour Management</translation>
+    </message>
+    <message>
+      <source>Turns the of linked frames on or off</source>
+      <translation>Turns the of linked frames on or off</translation>
+    </message>
+    <message>
+      <source>Turns the display of frames on or off</source>
+      <translation>Turns the display of frames on or off</translation>
+    </message>
+    <message>
+      <source>Turns the display of pictures on or off</source>
+      <translation>Turns the display of pictures on or off</translation>
+    </message>
+    <message>
+      <source>Color for paper</source>
+      <translation>Colour for paper</translation>
+    </message>
+    <message>
+      <source>Mask the area outside the margins in the margin color</source>
+      <translation>Mask the area outside the margins in the margin colour</translation>
     </message>
   </context>
   <context>
@@ -11583,6 +11766,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <source>Background</source>
       <translation>Background</translation>
     </message>
+    <message>
+      <source>Postscript</source>
+      <translation>Postscript</translation>
+    </message>
   </context>
   <context>
     <name>ScribusApp</name>
@@ -11595,68 +11782,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Searching for Fonts</translation>
     </message>
     <message>
-      <source>Exiting now</source>
-      <translation>Exiting now</translation>
-    </message>
-    <message>
       <source>Fatal Error</source>
       <translation>Fatal Error</translation>
     </message>
     <message>
-      <source>Smart Hyphen</source>
-      <translation>Smart Hyphen</translation>
-    </message>
-    <message>
-      <source>Align Left</source>
-      <translation>Align Left</translation>
-    </message>
-    <message>
-      <source>Align Right</source>
-      <translation>Align Right</translation>
-    </message>
-    <message>
-      <source>Align Center</source>
-      <translation>Align Centre</translation>
-    </message>
-    <message>
-      <source>Insert Page Number</source>
-      <translation>Insert Page Number</translation>
-    </message>
-    <message>
-      <source>Attach Text to Path</source>
-      <translation>Attach Text to Path</translation>
-    </message>
-    <message>
-      <source>Show Layers</source>
-      <translation>Show Layers</translation>
-    </message>
-    <message>
-      <source>Javascripts...</source>
-      <translation>Javascripts...</translation>
-    </message>
-    <message>
-      <source>Undo</source>
-      <translation>Undo</translation>
-    </message>
-    <message>
-      <source>Show Page Palette</source>
-      <translation>Show Page Palette</translation>
-    </message>
-    <message>
-      <source>Lock/Unlock</source>
-      <translation>Lock/Unlock</translation>
-    </message>
-    <message>
-      <source>Non Breaking Space</source>
-      <translation>Non Breaking Space</translation>
-    </message>
-    <message>
       <source>Reading Preferences</source>
       <translation>Reading Preferences</translation>
-    </message>
-    <message>
-      <source>Init Hyphenator</source>
-      <translation>Init Hyphenator</translation>
     </message>
     <message>
       <source>Setting up Shortcuts</source>
@@ -11671,256 +11802,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Initialising Plugins</translation>
     </message>
     <message>
-      <source>New</source>
-      <translation>New</translation>
-    </message>
-    <message>
-      <source>Open...</source>
-      <translation>Open...</translation>
-    </message>
-    <message>
-      <source>Close</source>
-      <translation>Close</translation>
-    </message>
-    <message>
-      <source>Save</source>
-      <translation>Save</translation>
-    </message>
-    <message>
-      <source>Save as...</source>
-      <translation>Save as...</translation>
-    </message>
-    <message>
-      <source>Get Text/Picture...</source>
-      <translation>Get Text/Picture...</translation>
-    </message>
-    <message>
-      <source>Document Info...</source>
-      <translation>Document Info...</translation>
-    </message>
-    <message>
-      <source>Document Setup...</source>
-      <translation>Document Setup...</translation>
-    </message>
-    <message>
-      <source>Print...</source>
-      <translation>Print...</translation>
-    </message>
-    <message>
-      <source>Quit</source>
-      <translation>Quit</translation>
-    </message>
-    <message>
-      <source>Cut</source>
-      <translation>Cut</translation>
-    </message>
-    <message>
-      <source>Copy</source>
-      <translation>Copy</translation>
-    </message>
-    <message>
-      <source>Paste</source>
-      <translation>Paste</translation>
-    </message>
-    <message>
-      <source>Clear</source>
-      <translation>Clear</translation>
-    </message>
-    <message>
-      <source>Select all</source>
-      <translation>Select all</translation>
-    </message>
-    <message>
-      <source>Colors...</source>
-      <translation>Colours...</translation>
-    </message>
-    <message>
-      <source>Styles...</source>
-      <translation>Styles...</translation>
-    </message>
-    <message>
-      <source>Templates...</source>
-      <translation>Templates...</translation>
-    </message>
-    <message>
-      <source>Fonts...</source>
-      <translation>Fonts...</translation>
-    </message>
-    <message>
-      <source>Select New Font</source>
-      <translation>Select New Font</translation>
-    </message>
-    <message>
-      <source>Duplicate</source>
-      <translation>Duplicate</translation>
-    </message>
-    <message>
-      <source>Multiple Duplicate</source>
-      <translation>Multiple Duplicate</translation>
-    </message>
-    <message>
-      <source>Delete</source>
-      <translation>Delete</translation>
-    </message>
-    <message>
-      <source>Group</source>
-      <translation>Group</translation>
-    </message>
-    <message>
-      <source>Un-group</source>
-      <translation>Un-group</translation>
-    </message>
-    <message>
-      <source>Lock</source>
-      <translation>Lock</translation>
-    </message>
-    <message>
-      <source>Send to Back</source>
-      <translation>Send to Back</translation>
-    </message>
-    <message>
-      <source>Bring to Front</source>
-      <translation>Bring to Front</translation>
-    </message>
-    <message>
-      <source>Lower</source>
-      <translation>Lower</translation>
-    </message>
-    <message>
-      <source>Raise</source>
-      <translation>Raise</translation>
-    </message>
-    <message>
-      <source>Distribute/Align...</source>
-      <translation>Distribute/Align...</translation>
-    </message>
-    <message>
-      <source>Insert...</source>
-      <translation>Insert...</translation>
-    </message>
-    <message>
-      <source>Delete...</source>
-      <translation>Delete...</translation>
-    </message>
-    <message>
-      <source>Move...</source>
-      <translation>Move...</translation>
-    </message>
-    <message>
-      <source>Apply Template...</source>
-      <translation>Apply Template...</translation>
-    </message>
-    <message>
-      <source>Manage Guides...</source>
-      <translation>Manage Guides...</translation>
-    </message>
-    <message>
-      <source>Fit in Window</source>
-      <translation>Fit in Window</translation>
-    </message>
-    <message>
-      <source>50%</source>
-      <translation>50%</translation>
-    </message>
-    <message>
-      <source>75%</source>
-      <translation>75%</translation>
-    </message>
-    <message>
-      <source>200%</source>
-      <translation>200%</translation>
-    </message>
-    <message>
-      <source>Thumbnails</source>
-      <translation>Thumbnails</translation>
-    </message>
-    <message>
-      <source>Hide Margins</source>
-      <translation>Hide Margins</translation>
-    </message>
-    <message>
-      <source>Hide Frames</source>
-      <translation>Hide Frames</translation>
-    </message>
-    <message>
-      <source>Hide Images</source>
-      <translation>Hide Images</translation>
-    </message>
-    <message>
-      <source>Show Grid</source>
-      <translation>Show Grid</translation>
-    </message>
-    <message>
-      <source>Snap to Grid</source>
-      <translation>Snap to Grid</translation>
-    </message>
-    <message>
-      <source>Tools</source>
-      <translation>Tools</translation>
-    </message>
-    <message>
-      <source>Properties</source>
-      <translation>Properties</translation>
-    </message>
-    <message>
-      <source>Outline</source>
-      <translation>Outline</translation>
-    </message>
-    <message>
-      <source>Scrapbook</source>
-      <translation>Scrapbook</translation>
-    </message>
-    <message>
-      <source>Manage Pictures</source>
-      <translation>Manage Pictures</translation>
-    </message>
-    <message>
-      <source>Hyphenate Text</source>
-      <translation>Hyphenate Text</translation>
-    </message>
-    <message>
-      <source>About Scribus</source>
-      <translation>About Scribus</translation>
-    </message>
-    <message>
       <source>About Qt</source>
       <translation>About Qt</translation>
     </message>
     <message>
-      <source>Online-Help...</source>
-      <translation>Online-Help...</translation>
-    </message>
-    <message>
-      <source>Style</source>
-      <translation>Style</translation>
-    </message>
-    <message>
       <source>Normal</source>
       <translation>Normal</translation>
-    </message>
-    <message>
-      <source>Underline</source>
-      <translation>Underline</translation>
-    </message>
-    <message>
-      <source>Strikethru</source>
-      <translation>Strikeout</translation>
-    </message>
-    <message>
-      <source>Small Caps</source>
-      <translation>Small Caps</translation>
-    </message>
-    <message>
-      <source>Superscript</source>
-      <translation>Superscript</translation>
-    </message>
-    <message>
-      <source>Subscript</source>
-      <translation>Subscript</translation>
-    </message>
-    <message>
-      <source>Outlined</source>
-      <translation>Outlined</translation>
     </message>
     <message>
       <source>X-Pos:</source>
@@ -11939,26 +11826,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>None</translation>
     </message>
     <message>
-      <source>Get Picture...</source>
-      <translation>Get Picture...</translation>
-    </message>
-    <message>
-      <source>Color</source>
-      <translation>Colour</translation>
-    </message>
-    <message>
-      <source>Invert</source>
-      <translation>Invert</translation>
-    </message>
-    <message>
-      <source>Get Text...</source>
-      <translation>Get Text...</translation>
-    </message>
-    <message>
-      <source>Font</source>
-      <translation>Font</translation>
-    </message>
-    <message>
       <source>Size</source>
       <translation>Size</translation>
     </message>
@@ -11967,16 +11834,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Shade</translation>
     </message>
     <message>
-      <source>Unlock</source>
-      <translation>Unlock</translation>
-    </message>
-    <message>
       <source>Open</source>
       <translation>Open</translation>
-    </message>
-    <message>
-      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
       <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -12001,16 +11860,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Warning</source>
       <translation>Warning</translation>
-    </message>
-    <message>
-      <source>Can't write the File: 
-%1</source>
-      <translation>Can't write the File: 
-%1</translation>
-    </message>
-    <message>
-      <source>OK</source>
-      <translation>OK</translation>
     </message>
     <message>
       <source>Save as</source>
@@ -12041,20 +11890,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Scribus Manual</translation>
     </message>
     <message>
-      <source>The following Programs are missing:</source>
-      <translation>The following Programs are missing:</translation>
-    </message>
-    <message>
       <source>All</source>
       <translation>All</translation>
-    </message>
-    <message>
-      <source>EPS-Files (*.eps);;All Files (*)</source>
-      <translation>EPS-Files (*.eps);;All Files (*)</translation>
-    </message>
-    <message>
-      <source>Loading:</source>
-      <translation>Loading:</translation>
     </message>
     <message>
       <source>Adjusting Colors</source>
@@ -12145,30 +11982,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Scribus crashes due to Signal #%1</translation>
     </message>
     <message>
-      <source>Create a new Document</source>
-      <translation>Create a new Document</translation>
-    </message>
-    <message>
-      <source>Open a Document</source>
-      <translation>Open a Document</translation>
-    </message>
-    <message>
-      <source>Save the current Document</source>
-      <translation>Save the current Document</translation>
-    </message>
-    <message>
-      <source>Close the current Document</source>
-      <translation>Close the current Document</translation>
-    </message>
-    <message>
-      <source>Print the current Document</source>
-      <translation>Print the current Document</translation>
-    </message>
-    <message>
-      <source>Save the current Document as PDF</source>
-      <translation>Save the current Document as PDF</translation>
-    </message>
-    <message>
       <source>&amp;File</source>
       <translation>&amp;File</translation>
     </message>
@@ -12205,64 +12018,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>&amp;Help</translation>
     </message>
     <message>
-      <source>Show Baseline Grid</source>
-      <translation>Show Baseline Grid</translation>
-    </message>
-    <message>
-      <source>Hide Baseline Grid</source>
-      <translation>Hide Baseline Grid</translation>
-    </message>
-    <message>
       <source>Some Objects are locked.</source>
       <translation>Some Objects are locked.</translation>
-    </message>
-    <message>
-      <source>Cancel</source>
-      <translation>Cancel</translation>
-    </message>
-    <message>
-      <source>Lock all</source>
-      <translation>Lock all</translation>
-    </message>
-    <message>
-      <source>Unlock all</source>
-      <translation>Unlock all</translation>
-    </message>
-    <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
-      <source>pt</source>
-      <translation>pt</translation>
-    </message>
-    <message>
-      <source>mm</source>
-      <translation>mm</translation>
-    </message>
-    <message>
-      <source>in</source>
-      <translation>in</translation>
-    </message>
-    <message>
-      <source>p</source>
-      <translation>p</translation>
-    </message>
-    <message>
-      <source>&amp;Settings</source>
-      <translation>&amp;Settings</translation>
     </message>
     <message>
       <source>Lithuanian</source>
@@ -12277,332 +12034,24 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Slovenian</translation>
     </message>
     <message>
-      <source>&amp;Color Management...</source>
-      <translation>&amp;Colour Management...</translation>
-    </message>
-    <message>
-      <source>&amp;New</source>
-      <translation>&amp;New</translation>
-    </message>
-    <message>
-      <source>&amp;Open...</source>
-      <translation>&amp;Open...</translation>
-    </message>
-    <message>
       <source>Open &amp;Recent</source>
       <translation>Open &amp;Recent</translation>
-    </message>
-    <message>
-      <source>&amp;Close</source>
-      <translation>&amp;Close</translation>
-    </message>
-    <message>
-      <source>&amp;Save</source>
-      <translation>&amp;Save</translation>
-    </message>
-    <message>
-      <source>Save &amp;As...</source>
-      <translation>Save &amp;As...</translation>
-    </message>
-    <message>
-      <source>Re&amp;vert to Saved</source>
-      <translation>Re&amp;vert to Saved</translation>
-    </message>
-    <message>
-      <source>Collect for O&amp;utput...</source>
-      <translation>Collect for O&amp;utput...</translation>
-    </message>
-    <message>
-      <source>&amp;Get Text/Picture...</source>
-      <translation>&amp;Get Text/Picture...</translation>
-    </message>
-    <message>
-      <source>Append &amp;Text...</source>
-      <translation>Append &amp;Text...</translation>
     </message>
     <message>
       <source>&amp;Import</source>
       <translation>&amp;Import</translation>
     </message>
     <message>
-      <source>Save &amp;Text...</source>
-      <translation>Save &amp;Text...</translation>
-    </message>
-    <message>
-      <source>Save Page as &amp;EPS...</source>
-      <translation>Save Page as &amp;EPS...</translation>
-    </message>
-    <message>
-      <source>Save as P&amp;DF...</source>
-      <translation>Save as P&amp;DF...</translation>
-    </message>
-    <message>
       <source>&amp;Export</source>
       <translation>&amp;Export</translation>
-    </message>
-    <message>
-      <source>Document &amp;Setup...</source>
-      <translation>Document &amp;Setup...</translation>
-    </message>
-    <message>
-      <source>&amp;Print...</source>
-      <translation>&amp;Print...</translation>
-    </message>
-    <message>
-      <source>&amp;Quit</source>
-      <translation>&amp;Quit</translation>
-    </message>
-    <message>
-      <source>&amp;Undo</source>
-      <translation>&amp;Undo</translation>
-    </message>
-    <message>
-      <source>Cu&amp;t</source>
-      <translation>Cu&amp;t</translation>
-    </message>
-    <message>
-      <source>&amp;Copy</source>
-      <translation>&amp;Copy</translation>
-    </message>
-    <message>
-      <source>&amp;Paste</source>
-      <translation>&amp;Paste</translation>
-    </message>
-    <message>
-      <source>C&amp;lear</source>
-      <translation>C&amp;lear</translation>
-    </message>
-    <message>
-      <source>Select &amp;All</source>
-      <translation>Select &amp;All</translation>
-    </message>
-    <message>
-      <source>&amp;Search/Replace...</source>
-      <translation>&amp;Search/Replace...</translation>
-    </message>
-    <message>
-      <source>C&amp;olors...</source>
-      <translation>C&amp;olours...</translation>
-    </message>
-    <message>
-      <source>&amp;Paragraph Styles...</source>
-      <translation>&amp;Paragraph Styles...</translation>
-    </message>
-    <message>
-      <source>&amp;Line Styles...</source>
-      <translation>&amp;Line Styles...</translation>
-    </message>
-    <message>
-      <source>&amp;Templates...</source>
-      <translation>&amp;Templates...</translation>
-    </message>
-    <message>
-      <source>&amp;Javascripts...</source>
-      <translation>&amp;Javascripts...</translation>
-    </message>
-    <message>
-      <source>D&amp;uplicate</source>
-      <translation>D&amp;uplicate</translation>
-    </message>
-    <message>
-      <source>&amp;Multiple Duplicate</source>
-      <translation>&amp;Multiple Duplicate</translation>
-    </message>
-    <message>
-      <source>&amp;Delete</source>
-      <translation>&amp;Delete</translation>
-    </message>
-    <message>
-      <source>&amp;Group</source>
-      <translation>&amp;Group</translation>
-    </message>
-    <message>
-      <source>&amp;Ungroup</source>
-      <translation>&amp;Ungroup</translation>
-    </message>
-    <message>
-      <source>&amp;Lock</source>
-      <translation>&amp;Lock</translation>
-    </message>
-    <message>
-      <source>Send to &amp;Back</source>
-      <translation>Send to &amp;Back</translation>
-    </message>
-    <message>
-      <source>Bring to &amp;Front</source>
-      <translation>Bring to &amp;Front</translation>
-    </message>
-    <message>
-      <source>&amp;Lower</source>
-      <translation>&amp;Lower</translation>
-    </message>
-    <message>
-      <source>&amp;Raise</source>
-      <translation>&amp;Raise</translation>
-    </message>
-    <message>
-      <source>Distribute/&amp;Align...</source>
-      <translation>Distribute/&amp;Align...</translation>
     </message>
     <message>
       <source>&amp;Shape</source>
       <translation>&amp;Shape</translation>
     </message>
     <message>
-      <source>&amp;Attach Text to Path</source>
-      <translation>&amp;Attach Text to Path</translation>
-    </message>
-    <message>
-      <source>&amp;Detach Text from Path</source>
-      <translation>&amp;Detach Text from Path</translation>
-    </message>
-    <message>
-      <source>&amp;Combine Polygons</source>
-      <translation>&amp;Combine Polygons</translation>
-    </message>
-    <message>
-      <source>Split &amp;Polygons</source>
-      <translation>Split &amp;Polygons</translation>
-    </message>
-    <message>
-      <source>C&amp;onvert to Outlines</source>
-      <translation>C&amp;onvert to Outlines</translation>
-    </message>
-    <message>
-      <source>&amp;Insert...</source>
-      <translation>&amp;Insert...</translation>
-    </message>
-    <message>
-      <source>&amp;Delete...</source>
-      <translation>&amp;Delete...</translation>
-    </message>
-    <message>
-      <source>&amp;Move...</source>
-      <translation>&amp;Move...</translation>
-    </message>
-    <message>
-      <source>&amp;Apply Template...</source>
-      <translation>&amp;Apply Template...</translation>
-    </message>
-    <message>
-      <source>&amp;Fit in Window</source>
-      <translation>&amp;Fit in Window</translation>
-    </message>
-    <message>
-      <source>&amp;100%</source>
-      <translation>&amp;100%</translation>
-    </message>
-    <message>
-      <source>&amp;Thumbnails</source>
-      <translation>&amp;Thumbnails</translation>
-    </message>
-    <message>
-      <source>Show &amp;Grid</source>
-      <translation>Show &amp;Grid</translation>
-    </message>
-    <message>
-      <source>Sna&amp;p to Guides</source>
-      <translation>Sna&amp;p to Guides</translation>
-    </message>
-    <message>
-      <source>Show &amp;Baseline Grid</source>
-      <translation>Show &amp;Baseline Grid</translation>
-    </message>
-    <message>
-      <source>&amp;Properties</source>
-      <translation>&amp;Properties</translation>
-    </message>
-    <message>
-      <source>&amp;Outline</source>
-      <translation>&amp;Outline</translation>
-    </message>
-    <message>
-      <source>&amp;Scrapbook</source>
-      <translation>&amp;Scrapbook</translation>
-    </message>
-    <message>
-      <source>&amp;Layers</source>
-      <translation>&amp;Layers</translation>
-    </message>
-    <message>
-      <source>P&amp;age Palette</source>
-      <translation>P&amp;age Palette</translation>
-    </message>
-    <message>
-      <source>&amp;Bookmarks</source>
-      <translation>&amp;Bookmarks</translation>
-    </message>
-    <message>
-      <source>&amp;Manage Pictures</source>
-      <translation>&amp;Manage Pictures</translation>
-    </message>
-    <message>
-      <source>&amp;Hyphenate Text</source>
-      <translation>&amp;Hyphenate Text</translation>
-    </message>
-    <message>
-      <source>Toolti&amp;ps</source>
-      <translation>Toolti&amp;ps</translation>
-    </message>
-    <message>
-      <source>P&amp;DF Tools</source>
-      <translation>P&amp;DF Tools</translation>
-    </message>
-    <message>
-      <source>Tooltips</source>
-      <translation>Tooltips</translation>
-    </message>
-    <message>
-      <source>&amp;Fonts...</source>
-      <translation>&amp;Fonts...</translation>
-    </message>
-    <message>
-      <source>&amp;Hyphenator...</source>
-      <translation>&amp;Hyphenator...</translation>
-    </message>
-    <message>
-      <source>&amp;Keyboard Shortcuts...</source>
-      <translation>&amp;Keyboard Shortcuts...</translation>
-    </message>
-    <message>
-      <source>&amp;About Scribus</source>
-      <translation>&amp;About Scribus</translation>
-    </message>
-    <message>
-      <source>About &amp;Qt</source>
-      <translation>About &amp;Qt</translation>
-    </message>
-    <message>
-      <source>Scribus &amp;Manual...</source>
-      <translation>Scribus &amp;Manual...</translation>
-    </message>
-    <message>
       <source>St&amp;yle</source>
       <translation>St&amp;yle</translation>
-    </message>
-    <message>
-      <source>&amp;Left</source>
-      <translation>&amp;Left</translation>
-    </message>
-    <message>
-      <source>&amp;Center</source>
-      <translation>&amp;Centre</translation>
-    </message>
-    <message>
-      <source>&amp;Right</source>
-      <translation>&amp;Right</translation>
-    </message>
-    <message>
-      <source>&amp;Block</source>
-      <translation>&amp;Block</translation>
-    </message>
-    <message>
-      <source>&amp;Forced</source>
-      <translation>&amp;Forced</translation>
-    </message>
-    <message>
-      <source>&amp;Other...</source>
-      <translation>&amp;Other...</translation>
     </message>
     <message>
       <source>&amp;Cascade</source>
@@ -12615,14 +12064,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>&amp;Color</source>
       <translation>&amp;Colour</translation>
-    </message>
-    <message>
-      <source>&amp;Invert</source>
-      <translation>&amp;Invert</translation>
-    </message>
-    <message>
-      <source>&amp;Get Text...</source>
-      <translation>&amp;Get Text...</translation>
     </message>
     <message>
       <source>&amp;Font</source>
@@ -12643,50 +12084,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>&amp;Shade</source>
       <translation>&amp;Shade</translation>
-    </message>
-    <message>
-      <source>&amp;Tabulators...</source>
-      <translation>&amp;Tabulators...</translation>
-    </message>
-    <message>
-      <source>Un&amp;lock</source>
-      <translation>Un&amp;lock</translation>
-    </message>
-    <message>
-      <source>Show &amp;Images</source>
-      <translation>Show &amp;Images</translation>
-    </message>
-    <message>
-      <source>Show &amp;Margins</source>
-      <translation>Show &amp;Margins</translation>
-    </message>
-    <message>
-      <source>Show &amp;Frames</source>
-      <translation>Show &amp;Frames</translation>
-    </message>
-    <message>
-      <source>Show G&amp;uides</source>
-      <translation>Show G&amp;uides</translation>
-    </message>
-    <message>
-      <source>Ghostscript : You cannot use EPS Images</source>
-      <translation>Ghostscript : You cannot use EPS Images</translation>
-    </message>
-    <message>
-      <source>Import &amp;Page(s)...</source>
-      <translation>Import &amp;Page(s)...</translation>
-    </message>
-    <message>
-      <source>100%</source>
-      <translation>100%</translation>
-    </message>
-    <message>
-      <source>Sn&amp;ap to Grid</source>
-      <translation>Sn&amp;ap to Grid</translation>
-    </message>
-    <message>
-      <source>P&amp;references...</source>
-      <translation>P&amp;references...</translation>
     </message>
     <message>
       <source>Importing Pages...</source>
@@ -12717,44 +12114,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Found nothing to import</translation>
     </message>
     <message>
-      <source>Getting ICC Profiles</source>
-      <translation>Getting ICC Profiles</translation>
-    </message>
-    <message>
-      <source>Manage &amp;Guides...</source>
-      <translation>Manage &amp;Guides...</translation>
-    </message>
-    <message>
       <source>&amp;Size:</source>
       <translation>&amp;Size:</translation>
     </message>
     <message>
       <source>&amp;Shade:</source>
       <translation>&amp;Shade:</translation>
-    </message>
-    <message>
-      <source>Document &amp;Information...</source>
-      <translation>Document &amp;Information...</translation>
-    </message>
-    <message>
-      <source>&amp;Undo Delete Object</source>
-      <translation>&amp;Undo Delete Object</translation>
-    </message>
-    <message>
-      <source>&amp;Undo Object Move</source>
-      <translation>&amp;Undo Object Move</translation>
-    </message>
-    <message>
-      <source>&amp;Undo Object Change</source>
-      <translation>&amp;Undo Object Change</translation>
-    </message>
-    <message>
-      <source>&amp;Edit Shape</source>
-      <translation>&amp;Edit Shape</translation>
-    </message>
-    <message>
-      <source>File %1 is not in Scribus format</source>
-      <translation>File %1 is not in Scribus format</translation>
     </message>
     <message>
       <source>Afrikaans</source>
@@ -12769,20 +12134,206 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Portuguese (BR)</translation>
     </message>
     <message>
-      <source>There are no suitable Fonts on your System</source>
-      <translation>There are no suitable Fonts on your System</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they're installed.&lt;/qt></source>
-      <translation>&lt;qt>Colour management is supported but can not currently be enabled. Make sure you have ICC colour profiles installed and that the profile path in the preferences points to where they're installed.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>Color management is not supported by this Scribus build (not compiled in).&lt;/qt></source>
-      <translation>&lt;qt>Colour management is not supported by this Scribus build (not compiled in).&lt;/qt></translation>
-    </message>
-    <message>
       <source>Croatian</source>
       <translation>Croatian</translation>
+    </message>
+    <message>
+      <source>Reading ICC Profiles</source>
+      <translation>Reading ICC Profiles</translation>
+    </message>
+    <message>
+      <source>Initializing Hyphenator</source>
+      <translation>Initialising Hyphenator</translation>
+    </message>
+    <message>
+      <source>Edit</source>
+      <translation>Edit</translation>
+    </message>
+    <message>
+      <source>There are no fonts found on your system.</source>
+      <translation>There are no fonts found on your system.</translation>
+    </message>
+    <message>
+      <source>Exiting now.</source>
+      <translation>Exiting now.</translation>
+    </message>
+    <message>
+      <source>Postscript</source>
+      <translation>Postscript</translation>
+    </message>
+    <message>
+      <source>PDF 1.3</source>
+      <translation>PDF 1.3</translation>
+    </message>
+    <message>
+      <source>PDF 1.4</source>
+      <translation>PDF 1.4</translation>
+    </message>
+    <message>
+      <source>PDF/X-3</source>
+      <translation>PDF/X-3</translation>
+    </message>
+    <message>
+      <source>Migrate Old Scribus Settings?</source>
+      <translation>Migrate Old Scribus Settings?</translation>
+    </message>
+    <message>
+      <source>Scribus has detected existing Scribus 1.2 preferences files.
+Do you want to migrate them to the new Scribus version?</source>
+      <translation>Scribus has detected existing Scribus 1.2 preferences files.
+Do you want to migrate them to the new Scribus version?</translation>
+    </message>
+    <message>
+      <source>&amp;Level</source>
+      <translation>&amp;Level</translation>
+    </message>
+    <message>
+      <source>&amp;PDF Options</source>
+      <translation>&amp;PDF Options</translation>
+    </message>
+    <message>
+      <source>C&amp;onvert To</source>
+      <translation>C&amp;onvert To</translation>
+    </message>
+    <message>
+      <source>I&amp;nsert</source>
+      <translation>I&amp;nsert</translation>
+    </message>
+    <message>
+      <source>Character</source>
+      <translation>Character</translation>
+    </message>
+    <message>
+      <source>Quote</source>
+      <translation>Quote</translation>
+    </message>
+    <message>
+      <source>Space</source>
+      <translation>Space</translation>
+    </message>
+    <message>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
+    </message>
+    <message>
+      <source>Documents (*.sla *.scd);;</source>
+      <translation>Documents (*.sla *.scd);;</translation>
+    </message>
+    <message>
+      <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
+      <translation>Postscript Files (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+      <source>SVG Images (*.svg *.svgz);;</source>
+      <translation>SVG Images (*.svg *.svgz);;</translation>
+    </message>
+    <message>
+      <source>SVG Images (*.svg);;</source>
+      <translation>SVG Images (*.svg);;</translation>
+    </message>
+    <message>
+      <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+      <translation>OpenOffice.org Draw (*.sxd);;All Files (*)</translation>
+    </message>
+    <message>
+      <source>File %1 
+is not in an acceptable format</source>
+      <translation>File %1 
+is not in an acceptable format</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>Some fonts used by this document have been substituted:</source>
+      <translation>Some fonts used by this document have been substituted:</translation>
+    </message>
+    <message>
+      <source> was replaced by: </source>
+      <translation> was replaced by: </translation>
+    </message>
+    <message>
+      <source>Some ICC profiles used by this document are not installed:</source>
+      <translation>Some ICC profiles used by this document are not installed:</translation>
+    </message>
+    <message>
+      <source>(converted)</source>
+      <translation>(converted)</translation>
+    </message>
+    <message>
+      <source>Cannot write the file: 
+%1</source>
+      <translation>Cannot write the file: 
+%1</translation>
+    </message>
+    <message>
+      <source>Save As</source>
+      <translation>Save As</translation>
+    </message>
+    <message>
+      <source>Detected some Errors.
+Consider using the Preflight Checker to correct them</source>
+      <translation>Detected some Errors.
+Consider using the Preflight Checker to correct them</translation>
+    </message>
+    <message>
+      <source>Abort</source>
+      <translation>Abort</translation>
+    </message>
+    <message>
+      <source>Ignore</source>
+      <translation>Ignore</translation>
+    </message>
+    <message>
+      <source>The following programs are missing:</source>
+      <translation>The following programs are missing:</translation>
+    </message>
+    <message>
+      <source>Ghostscript : You cannot use EPS images</source>
+      <translation>Ghostscript : You cannot use EPS images</translation>
+    </message>
+    <message>
+      <source>EPS Files (*.eps);;All Files (*)</source>
+      <translation>EPS Files (*.eps);;All Files (*)</translation>
+    </message>
+    <message>
+      <source>Detected some Errors.
+Consider using the Preflight Verifier to correct them</source>
+      <translation>Detected some Errors.
+Consider using the Preflight Verifier to correct them</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>&amp;Lock All</source>
+      <translation>&amp;Lock All</translation>
+    </message>
+    <message>
+      <source>&amp;Unlock All</source>
+      <translation>&amp;Unlock All</translation>
+    </message>
+    <message>
+      <source>Bulgarian</source>
+      <translation>Bulgarian</translation>
+    </message>
+    <message>
+      <source>The program</source>
+      <translation>The program</translation>
+    </message>
+    <message>
+      <source>is already running!</source>
+      <translation>is already running!</translation>
+    </message>
+    <message>
+      <source>Information</source>
+      <translation>Information</translation>
+    </message>
+    <message>
+      <source>is missing!</source>
+      <translation>is missing!</translation>
     </message>
   </context>
   <context>
@@ -12796,28 +12347,140 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Layer</translation>
     </message>
     <message>
-      <source>All</source>
-      <translation>All</translation>
+      <source>Copy Here</source>
+      <translation>Copy Here</translation>
     </message>
     <message>
-      <source>pt</source>
-      <translation>pt</translation>
+      <source>Move Here</source>
+      <translation>Move Here</translation>
     </message>
     <message>
-      <source>mm</source>
-      <translation>mm</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-      <source>in</source>
-      <translation>in</translation>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
     </message>
     <message>
-      <source>p</source>
-      <translation>p</translation>
+      <source>Picture</source>
+      <translation>Picture</translation>
     </message>
     <message>
-      <source>Copy of</source>
-      <translation>Copy of</translation>
+      <source>File: </source>
+      <translation>File </translation>
+    </message>
+    <message>
+      <source>Original PPI: </source>
+      <translation>Original PPI: </translation>
+    </message>
+    <message>
+      <source>Actual PPI: </source>
+      <translation>Actual PPI: </translation>
+    </message>
+    <message>
+      <source>Linked Text</source>
+      <translation>Linked Text</translation>
+    </message>
+    <message>
+      <source>Text Frame</source>
+      <translation>Text Frame</translation>
+    </message>
+    <message>
+      <source>Text on a Path</source>
+      <translation>Text on a Path</translation>
+    </message>
+    <message>
+      <source>Paragraphs: </source>
+      <translation>Paragraphs: </translation>
+    </message>
+    <message>
+      <source>Words: </source>
+      <translation>Words: </translation>
+    </message>
+    <message>
+      <source>Chars: </source>
+      <translation>Chars: </translation>
+    </message>
+    <message>
+      <source>Print: </source>
+      <translation>Print: </translation>
+    </message>
+    <message>
+      <source>Enabled</source>
+      <translation>Enabled</translation>
+    </message>
+    <message>
+      <source>Disabled</source>
+      <translation>Disabled</translation>
+    </message>
+    <message>
+      <source>In&amp;fo</source>
+      <translation>In&amp;fo</translation>
+    </message>
+    <message>
+      <source>Low Resolution</source>
+      <translation>Low Resolution</translation>
+    </message>
+    <message>
+      <source>Normal Resolution</source>
+      <translation>Normal Resolution</translation>
+    </message>
+    <message>
+      <source>Full Resolution</source>
+      <translation>Full Resolution</translation>
+    </message>
+    <message>
+      <source>Preview Settings</source>
+      <translation>Preview Settings</translation>
+    </message>
+    <message>
+      <source>Extended Image Properties</source>
+      <translation>Extended Image Properties</translation>
+    </message>
+    <message>
+      <source>&amp;Update Picture</source>
+      <translation>&amp;Update Picture</translation>
+    </message>
+    <message>
+      <source>&amp;Edit Picture</source>
+      <translation>&amp;Edit Picture</translation>
+    </message>
+    <message>
+      <source>&amp;Adjust Frame to Picture</source>
+      <translation>&amp;Adjust Frame to Picture</translation>
+    </message>
+    <message>
+      <source>&amp;PDF Options</source>
+      <translation>&amp;PDF Options</translation>
+    </message>
+    <message>
+      <source>Send to La&amp;yer</source>
+      <translation>Send to La&amp;yer</translation>
+    </message>
+    <message>
+      <source>Le&amp;vel</source>
+      <translation>Le&amp;vel</translation>
+    </message>
+    <message>
+      <source>Conve&amp;rt to</source>
+      <translation>Conve&amp;rt to</translation>
+    </message>
+    <message>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
+    </message>
+    <message>
+      <source>Warning</source>
+      <translation>Warning</translation>
+    </message>
+    <message>
+      <source>Do you really want to clear all your Text?</source>
+      <translation>Do you really want to clear all your Text?</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
     </message>
   </context>
   <context>
@@ -12854,62 +12517,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
   <context>
     <name>ScripterCore</name>
     <message>
-      <source>&amp;Scribus Scripts</source>
-      <translation>&amp;Scribus Scripts</translation>
-    </message>
-    <message>
-      <source>&amp;Execute Script...</source>
-      <translation>&amp;Execute Script...</translation>
-    </message>
-    <message>
-      <source>Run a Python script from a file.</source>
-      <comment>scripter</comment>
-      <translation>Run a Python script from a file.</translation>
-    </message>
-    <message>
-      <source>&amp;Load Extension Script...</source>
-      <translation>&amp;Load Extension Script...</translation>
-    </message>
-    <message>
-      <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-      <comment>scripter</comment>
-      <translation>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</translation>
-    </message>
-    <message>
-      <source>&amp;Recent Scripts</source>
-      <translation>&amp;Recent Scripts</translation>
-    </message>
-    <message>
-      <source>Show &amp;Console</source>
-      <translation>Show &amp;Console</translation>
-    </message>
-    <message>
-      <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-      <comment>scripter</comment>
-      <translation>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</translation>
-    </message>
-    <message>
-      <source>&amp;About Script...</source>
-      <translation>&amp;About Script...</translation>
-    </message>
-    <message>
-      <source>S&amp;cript</source>
-      <translation>S&amp;cript</translation>
-    </message>
-    <message>
-      <source>Scripter &amp;Settings</source>
-      <comment>script menu</comment>
-      <translation>Scripter &amp;Settings</translation>
-    </message>
-    <message>
-      <source>Open</source>
-      <translation>Open</translation>
-    </message>
-    <message>
-      <source>Python Scripts (*.py);; All Files (*)</source>
-      <translation>Python Scripts (*.py);; All Files (*)</translation>
-    </message>
-    <message>
       <source>Script error</source>
       <translation>Script error</translation>
     </message>
@@ -12920,175 +12527,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
       <translation>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</translation>
-    </message>
-    <message>
-      <source>Scribus - Script Plugin</source>
-      <translation>Scribus - Script Plugin</translation>
-    </message>
-    <message>
-      <source>The 'Load Script' function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-'Execute Script...' instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-      <translation>The 'Load Script' function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-'Execute Script...' instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</translation>
-    </message>
-    <message>
-      <source>Hide &amp;Console</source>
-      <translation>Hide &amp;Console</translation>
-    </message>
-    <message>
-      <source>About Script</source>
-      <translation>About Script</translation>
-    </message>
-  </context>
-  <context>
-    <name>ScripterPreferences</name>
-    <message>
-      <source>Scribus - Scripter Preferences</source>
-      <translation>Scribus - Scripter Preferences</translation>
-    </message>
-    <message>
-      <source>Enable Scripter Extensions</source>
-      <translation>Enable Scripter Extensions</translation>
-    </message>
-    <message>
-      <source>Turn on extension scripts and macros</source>
-      <translation>Turn on extension scripts and macros</translation>
-    </message>
-    <message>
-      <source>&lt;qt>&lt;p>Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt>Load Extension Script&lt;/tt> item in the Script menu.&lt;/p>
-&lt;p>
-Only scripts written to be run as extension scripts should be used with &lt;tt>Load Extension Script&lt;/tt> or as start-up scripts. See the scripter documentation for more details.&lt;/p>&lt;/qt></source>
-      <translation>&lt;qt>&lt;p>Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt>Load Extension Script&lt;/tt> item in the Script menu.&lt;/p>
-&lt;p>
-Only scripts written to be run as extension scripts should be used with &lt;tt>Load Extension Script&lt;/tt> or as start-up scripts. See the scripter documentation for more details.&lt;/p>&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Use a Startup Script</source>
-      <translation>Use a Startup Script</translation>
-    </message>
-    <message>
-      <source>&lt;qt>&lt;p>If &lt;tt>Use a Startup Script&lt;/tt> is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p>
-&lt;p>&lt;tt>Use a Startup Script&lt;/tt> will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p>&lt;/qt></source>
-      <translation>&lt;qt>&lt;p>If &lt;tt>Use a Startup Script&lt;/tt> is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p>
-&lt;p>&lt;tt>Use a Startup Script&lt;/tt> will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p>&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Browse...</source>
-      <translation>Browse...</translation>
-    </message>
-    <message>
-      <source>Browse for a new script file</source>
-      <translation>Browse for a new script file</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Browse for a new script file&lt;/qt></source>
-      <translation>&lt;qt>Browse for a new script file&lt;/qt></translation>
-    </message>
-    <message>
-      <source>What script file to load at start-up</source>
-      <translation>What script file to load at start-up</translation>
-    </message>
-    <message>
-      <source>&lt;qt>&lt;p>The file containing the Python script to run as an extension script at start-up.&lt;/p>
-&lt;p>Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p>&lt;/qt></source>
-      <translation>&lt;qt>&lt;p>The file containing the Python script to run as an extension script at start-up.&lt;/p>
-&lt;p>Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p>&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Script File:</source>
-      <translation>Script File:</translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
-    </message>
-    <message>
-      <source>Alt+C</source>
-      <translation>Alt+C</translation>
-    </message>
-    <message>
-      <source>Close without saving changes</source>
-      <translation>Close without saving changes</translation>
-    </message>
-    <message>
-      <source>&amp;Ok</source>
-      <translation>&amp;Ok</translation>
-    </message>
-    <message>
-      <source>Alt+O</source>
-      <translation>Alt+O</translation>
-    </message>
-    <message>
-      <source>Save changes and close</source>
-      <translation>Save changes and close</translation>
-    </message>
-    <message>
-      <source>Advanced Options</source>
-      <translation>Advanced Options</translation>
-    </message>
-    <message>
-      <source>Import All Names at Startup</source>
-      <translation>Import All Names at Startup</translation>
-    </message>
-    <message>
-      <source>Run 'from scribus import *' in the script console at start-up</source>
-      <translation>Run 'from scribus import *' in the script console at start-up</translation>
-    </message>
-    <message>
-      <source>&lt;qt>&lt;p>&lt;tt>Import All Names at Startup&lt;/tt> is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p>
-&lt;p>Unchecking this option will prevent the scripter from running its usual &lt;tt>from scribus import *&lt;/tt> command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p>
-&lt;p>This option does not take effect until Scribus is restarted.&lt;/p>&lt;/qt></source>
-      <translation>&lt;qt>&lt;p>&lt;tt>Import All Names at Startup&lt;/tt> is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p>
-&lt;p>Unchecking this option will prevent the scripter from running its usual &lt;tt>from scribus import *&lt;/tt> command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p>
-&lt;p>This option does not take effect until Scribus is restarted.&lt;/p>&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Enable Legacy Name Aliases</source>
-      <translation>Enable Legacy Name Aliases</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Enable the use of OldStyle function names&lt;/qt></source>
-      <translation>&lt;qt>Enable the use of OldStyle function names&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>&lt;p>&lt;tt>Enable Legacy Aliases&lt;/tt> is an advanced option. You should probably leave it how it is.&lt;/p>
-&lt;p>If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p>
-&lt;p>This option does not take effect until Scribus is restarted.&lt;/p>&lt;/qt></source>
-      <translation>&lt;qt>&lt;p>&lt;tt>Enable Legacy Aliases&lt;/tt> is an advanced option. You should probably leave it how it is.&lt;/p>
-&lt;p>If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p>
-&lt;p>This option does not take effect until Scribus is restarted.&lt;/p>&lt;/qt></translation>
-    </message>
-    <message>
-      <source>Use Fake Stdin</source>
-      <translation>Use Fake Stdin</translation>
-    </message>
-    <message>
-      <source>&lt;qt>Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt></source>
-      <translation>&lt;qt>Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt></translation>
-    </message>
-    <message>
-      <source>&lt;qt>&lt;p>&lt;tt>Use Fake Stdin&lt;/tt> is an advanced option. You should probably leave it how it is.&lt;/p>
-&lt;p>Normally, scribus will provide Python with a fake file object for &lt;tt>sys.stdin&lt;/tt>, so that reads from stdin always return an empty string. If the real &lt;tt>sys.stdin&lt;/tt> is left in place, scripts that try to read from it will block - and in turn block scribus's execution, making the app appear to hang - until input arrives on stdin. It's unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p>
-&lt;p>You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt>os.popen&lt;/tt> to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p>&lt;/qt></source>
-      <translation>&lt;qt>&lt;p>&lt;tt>Use Fake Stdin&lt;/tt> is an advanced option. You should probably leave it how it is.&lt;/p>
-&lt;p>Normally, scribus will provide Python with a fake file object for &lt;tt>sys.stdin&lt;/tt>, so that reads from stdin always return an empty string. If the real &lt;tt>sys.stdin&lt;/tt> is left in place, scripts that try to read from it will block - and in turn block scribus's execution, making the app appear to hang - until input arrives on stdin. It's unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p>
-&lt;p>You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt>os.popen&lt;/tt> to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p>&lt;/qt></translation>
     </message>
   </context>
   <context>
@@ -13101,8 +12539,8 @@ Only scripts written to be run as extension scripts should be used with &lt;tt>L
   <context>
     <name>SeView</name>
     <message>
-      <source>Show Template Names</source>
-      <translation>Show Template Names</translation>
+      <source>Show Master Page Names</source>
+      <translation>Show Master Page Names</translation>
     </message>
   </context>
   <context>
@@ -13188,10 +12626,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt>L
       <translation>Search finished</translation>
     </message>
     <message>
-      <source>OK</source>
-      <translation>OK</translation>
-    </message>
-    <message>
       <source>&amp;Whole Word</source>
       <translation>&amp;Whole Word</translation>
     </message>
@@ -13219,16 +12653,16 @@ Only scripts written to be run as extension scripts should be used with &lt;tt>L
       <source>C&amp;lear</source>
       <translation>C&amp;lear</translation>
     </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
   </context>
   <context>
     <name>SeitenPal</name>
     <message>
       <source>Arrange Pages</source>
       <translation>Arrange Pages</translation>
-    </message>
-    <message>
-      <source>Available Templates:</source>
-      <translation>Available Templates:</translation>
     </message>
     <message>
       <source>Document Pages:</source>
@@ -13239,26 +12673,28 @@ Only scripts written to be run as extension scripts should be used with &lt;tt>L
       <translation>Facing Pages</translation>
     </message>
     <message>
-      <source>Left Page first</source>
-      <translation>Left Page first</translation>
-    </message>
-    <message>
-      <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-      <translation>Drag Pages or Template Pages onto the Trashbin to delete them.</translation>
-    </message>
-    <message>
-      <source>Here are all your Templates, to create a new Page
-drag a Template to the Pageview below.</source>
-      <translation>Here are all your Templates, to create a new Page
-drag a Template to the Pageview below.</translation>
-    </message>
-    <message>
       <source>Normal</source>
       <translation>Normal</translation>
     </message>
     <message>
-      <source>Previews all the pages of your document.</source>
-      <translation>Previews all the pages of your document.</translation>
+      <source>Drag pages or master pages onto the trashbin to delete them</source>
+      <translation>Drag pages or master pages onto the trashbin to delete them</translation>
+    </message>
+    <message>
+      <source>Previews all the pages of your document</source>
+      <translation>Previews all the pages of your document</translation>
+    </message>
+    <message>
+      <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
+      <translation>Here are all your master pages. To create a new page, drag a master page to the page view below</translation>
+    </message>
+    <message>
+      <source>Available Master Pages:</source>
+      <translation>Available Master Pages:</translation>
+    </message>
+    <message>
+      <source>Left Page First</source>
+      <translation>Left Page First</translation>
     </message>
   </context>
   <context>
@@ -13312,6 +12748,10 @@ drag a Template to the Pageview below.</translation>
     <message>
       <source>No Style</source>
       <translation>No Style</translation>
+    </message>
+    <message>
+      <source>Edit Styles...</source>
+      <translation>Edit Styles...</translation>
     </message>
   </context>
   <context>
@@ -13495,10 +12935,6 @@ drag a Template to the Pageview below.</translation>
       <translation>C&amp;lear</translation>
     </message>
     <message>
-      <source>&amp;Insert Special...</source>
-      <translation>&amp;Insert Special...</translation>
-    </message>
-    <message>
       <source>&amp;Update Text Frame</source>
       <translation>&amp;Update Text Frame</translation>
     </message>
@@ -13578,6 +13014,10 @@ drag a Template to the Pageview below.</translation>
       <source>&amp;Smart text selection</source>
       <translation>&amp;Smart text selection</translation>
     </message>
+    <message>
+      <source>&amp;Insert Glyph...</source>
+      <translation>&amp;Insert Glyph...</translation>
+    </message>
   </context>
   <context>
     <name>StyleSelect</name>
@@ -13598,12 +13038,20 @@ drag a Template to the Pageview below.</translation>
       <translation>Superscript</translation>
     </message>
     <message>
-      <source>Outline Text</source>
-      <translation>Outline Text</translation>
-    </message>
-    <message>
       <source>Strike Out</source>
       <translation>Strike Out</translation>
+    </message>
+    <message>
+      <source>Underline Words only</source>
+      <translation>Underline Words only</translation>
+    </message>
+    <message>
+      <source>All Caps</source>
+      <translation>All Caps</translation>
+    </message>
+    <message>
+      <source>Outline</source>
+      <translation>Outline</translation>
     </message>
   </context>
   <context>
@@ -13625,10 +13073,6 @@ drag a Template to the Pageview below.</translation>
       <translation>OpenOffice.org Writer Importer Options</translation>
     </message>
     <message>
-      <source>Update Paragraph Styles</source>
-      <translation>Update Paragraph Styles</translation>
-    </message>
-    <message>
       <source>Enabling this will overwrite existing styles in the current Scribus document</source>
       <translation>Enabling this will overwrite existing styles in the current Scribus document</translation>
     </message>
@@ -13648,6 +13092,251 @@ drag a Template to the Pageview below.</translation>
       <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
       <translation>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</translation>
     </message>
+    <message>
+      <source>Overwrite Paragraph Styles</source>
+      <translation>Overwrite Paragraph Styles</translation>
+    </message>
+  </context>
+  <context>
+    <name>TOCIndexPrefs</name>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
+    </message>
+    <message>
+      <source>Table of Contents and Indexes</source>
+      <translation>Table of Contents and Indexes</translation>
+    </message>
+    <message>
+      <source>Table Of Contents</source>
+      <translation>Table Of Contents</translation>
+    </message>
+    <message>
+      <source>&amp;Add</source>
+      <translation>&amp;Add</translation>
+    </message>
+    <message>
+      <source>Alt+A</source>
+      <translation>Alt+A</translation>
+    </message>
+    <message>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
+    </message>
+    <message>
+      <source>Alt+D</source>
+      <translation>Alt+D</translation>
+    </message>
+    <message>
+      <source>Item Attribute Name:</source>
+      <translation>Item Attribute Name:</translation>
+    </message>
+    <message>
+      <source>Style:</source>
+      <translation>Style:</translation>
+    </message>
+    <message>
+      <source>Basic</source>
+      <translation>Basic</translation>
+    </message>
+    <message>
+      <source>Destination Frame:</source>
+      <translation>Destination Frame:</translation>
+    </message>
+    <message>
+      <source>Index</source>
+      <translation>Index</translation>
+    </message>
+  </context>
+  <context>
+    <name>TabCheckDoc</name>
+    <message>
+      <source>Ignore all errors</source>
+      <translation>Ignore all errors</translation>
+    </message>
+    <message>
+      <source>Automatic check before printing or exporting</source>
+      <translation>Automatic check before printing or exporting</translation>
+    </message>
+    <message>
+      <source>Check for missing glyphs</source>
+      <translation>Check for missing glyphs</translation>
+    </message>
+    <message>
+      <source>Check for objects not on a page</source>
+      <translation>Check for objects not on a page</translation>
+    </message>
+    <message>
+      <source>Check for overflow in text frames</source>
+      <translation>Check for overflow in text frames</translation>
+    </message>
+    <message>
+      <source>Check for transparencies used</source>
+      <translation>Check for transparencies used</translation>
+    </message>
+    <message>
+      <source>Check for missing images</source>
+      <translation>Check for missing images</translation>
+    </message>
+    <message>
+      <source>Check image resolution</source>
+      <translation>Check image resolution</translation>
+    </message>
+    <message>
+      <source>Lowest allowed resolution</source>
+      <translation>Lowest allowed resolution</translation>
+    </message>
+    <message>
+      <source> dpi</source>
+      <translation> dpi</translation>
+    </message>
+    <message>
+      <source>Check for placed PDF Files</source>
+      <translation>Check for placed PDF Files</translation>
+    </message>
+    <message>
+      <source>Check for PDF Annotations and Fields</source>
+      <translation>Check for PDF Annotations and Fields</translation>
+    </message>
+    <message>
+      <source>Add Profile</source>
+      <translation>Add Profile</translation>
+    </message>
+    <message>
+      <source>Remove Profile</source>
+      <translation>Remove Profile</translation>
+    </message>
+  </context>
+  <context>
+    <name>TabGuides</name>
+    <message>
+      <source>Common Settings</source>
+      <translation>Common Settings</translation>
+    </message>
+    <message>
+      <source>Placing in Documents</source>
+      <translation>Placing in Documents</translation>
+    </message>
+    <message>
+      <source>In the Background</source>
+      <translation>In the Background</translation>
+    </message>
+    <message>
+      <source>In the Foreground</source>
+      <translation>In the Foreground</translation>
+    </message>
+    <message>
+      <source>Snapping</source>
+      <translation>Snapping</translation>
+    </message>
+    <message>
+      <source>Snap Distance:</source>
+      <translation>Snap Distance:</translation>
+    </message>
+    <message>
+      <source>Grab Radius:</source>
+      <translation>Grab Radius:</translation>
+    </message>
+    <message>
+      <source> px</source>
+      <translation> px</translation>
+    </message>
+    <message>
+      <source>Show Guides</source>
+      <translation>Show Guides</translation>
+    </message>
+    <message>
+      <source>Color:</source>
+      <translation>Colour:</translation>
+    </message>
+    <message>
+      <source>Show Margins</source>
+      <translation>Show Margins</translation>
+    </message>
+    <message>
+      <source>Show Page Grid</source>
+      <translation>Show Page Grid</translation>
+    </message>
+    <message>
+      <source>Major Grid</source>
+      <translation>Major Grid</translation>
+    </message>
+    <message>
+      <source>Spacing:</source>
+      <translation>Spacing:</translation>
+    </message>
+    <message>
+      <source>Minor Grid</source>
+      <translation>Minor Grid</translation>
+    </message>
+    <message>
+      <source>Show Baseline Grid</source>
+      <translation>Show Baseline Grid</translation>
+    </message>
+    <message>
+      <source>Baseline Settings</source>
+      <translation>Baseline Settings</translation>
+    </message>
+    <message>
+      <source>Baseline &amp;Grid:</source>
+      <translation>Baseline &amp;Grid:</translation>
+    </message>
+    <message>
+      <source>Baseline &amp;Offset:</source>
+      <translation>Baseline &amp;Offset:</translation>
+    </message>
+    <message>
+      <source>Distance between the minor grid lines</source>
+      <translation>Distance between the minor grid lines</translation>
+    </message>
+    <message>
+      <source>Distance between the major grid lines</source>
+      <translation>Distance between the major grid lines</translation>
+    </message>
+    <message>
+      <source>Distance within which an object will snap to your placed guides</source>
+      <translation>Distance within which an object will snap to your placed guides</translation>
+    </message>
+    <message>
+      <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+      <translation>Radius of the area where Scribus will allow you to grab an objects handles</translation>
+    </message>
+    <message>
+      <source>Color of the minor grid lines</source>
+      <translation>Colour of the minor grid lines</translation>
+    </message>
+    <message>
+      <source>Color of the major grid lines</source>
+      <translation>Colour of the major grid lines</translation>
+    </message>
+    <message>
+      <source>Color of the guide lines you insert</source>
+      <translation>Colour of the guide lines you insert</translation>
+    </message>
+    <message>
+      <source>Color for the margin lines</source>
+      <translation>Colour for the margin lines</translation>
+    </message>
+    <message>
+      <source>Color for the baseline grid</source>
+      <translation>Colour for the baseline grid</translation>
+    </message>
+    <message>
+      <source>Turns the basegrid on or off</source>
+      <translation>Turns the basegrid on or off</translation>
+    </message>
+    <message>
+      <source>Turns the gridlines on or off</source>
+      <translation>Turns the gridlines on or off</translation>
+    </message>
+    <message>
+      <source>Turns the guides on or off</source>
+      <translation>Turns the guides on or off</translation>
+    </message>
+    <message>
+      <source>Turns the margins on or off</source>
+      <translation>Turns the margins on or off</translation>
+    </message>
   </context>
   <context>
     <name>TabManager</name>
@@ -13662,6 +13351,1063 @@ drag a Template to the Pageview below.</translation>
     <message>
       <source>&amp;Cancel</source>
       <translation>&amp;Cancel</translation>
+    </message>
+  </context>
+  <context>
+    <name>TabPDFOptions</name>
+    <message>
+      <source>Export Range</source>
+      <translation>Export Range</translation>
+    </message>
+    <message>
+      <source>&amp;All Pages</source>
+      <translation>&amp;All Pages</translation>
+    </message>
+    <message>
+      <source>C&amp;hoose Pages</source>
+      <translation>C&amp;hoose Pages</translation>
+    </message>
+    <message>
+      <source>&amp;Rotation:</source>
+      <translation>&amp;Rotation:</translation>
+    </message>
+    <message>
+      <source>File Options</source>
+      <translation>File Options</translation>
+    </message>
+    <message>
+      <source>Compatibilit&amp;y:</source>
+      <translation>Compatibilit&amp;y:</translation>
+    </message>
+    <message>
+      <source>&amp;Binding:</source>
+      <translation>&amp;Binding:</translation>
+    </message>
+    <message>
+      <source>Left Margin</source>
+      <translation>Left Margin</translation>
+    </message>
+    <message>
+      <source>Right Margin</source>
+      <translation>Right Margin</translation>
+    </message>
+    <message>
+      <source>Generate &amp;Thumbnails</source>
+      <translation>Generate &amp;Thumbnails</translation>
+    </message>
+    <message>
+      <source>Save &amp;Linked Text Frames as PDF Articles</source>
+      <translation>Save &amp;Linked Text Frames as PDF Articles</translation>
+    </message>
+    <message>
+      <source>&amp;Include Bookmarks</source>
+      <translation>&amp;Include Bookmarks</translation>
+    </message>
+    <message>
+      <source>Include Layers</source>
+      <translation>Include Layers</translation>
+    </message>
+    <message>
+      <source> dpi</source>
+      <translation> dpi</translation>
+    </message>
+    <message>
+      <source>&amp;Resolution for EPS Graphics:</source>
+      <translation>&amp;Resolution for EPS Graphics:</translation>
+    </message>
+    <message>
+      <source>Com&amp;press Text and Vector Graphics</source>
+      <translation>Com&amp;press Text and Vector Graphics</translation>
+    </message>
+    <message>
+      <source>Image Settings</source>
+      <translation>Image Settings</translation>
+    </message>
+    <message>
+      <source>Automatic</source>
+      <translation>Automatic</translation>
+    </message>
+    <message>
+      <source>JPEG</source>
+      <translation>JPEG</translation>
+    </message>
+    <message>
+      <source>Zip</source>
+      <translation>Zip</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
+    </message>
+    <message>
+      <source>&amp;Method:</source>
+      <translation>&amp;Method:</translation>
+    </message>
+    <message>
+      <source>&amp;Quality:</source>
+      <translation>&amp;Quality:</translation>
+    </message>
+    <message>
+      <source>Maximum</source>
+      <translation>Maximum</translation>
+    </message>
+    <message>
+      <source>High</source>
+      <translation>High</translation>
+    </message>
+    <message>
+      <source>Medium</source>
+      <translation>Medium</translation>
+    </message>
+    <message>
+      <source>Low</source>
+      <translation>Low</translation>
+    </message>
+    <message>
+      <source>Minimum</source>
+      <translation>Minimum</translation>
+    </message>
+    <message>
+      <source>Resample Images to:</source>
+      <translation>Resample Images to:</translation>
+    </message>
+    <message>
+      <source>&amp;General</source>
+      <translation>&amp;General</translation>
+    </message>
+    <message>
+      <source>&amp;Embed all Fonts</source>
+      <translation>&amp;Embed all Fonts</translation>
+    </message>
+    <message>
+      <source>&amp;Subset all Fonts</source>
+      <translation>&amp;Subset all Fonts</translation>
+    </message>
+    <message>
+      <source>Embedding</source>
+      <translation>Embedding</translation>
+    </message>
+    <message>
+      <source>Available Fonts:</source>
+      <translation>Available Fonts:</translation>
+    </message>
+    <message>
+      <source>&amp;>></source>
+      <translation>&amp;>></translation>
+    </message>
+    <message>
+      <source>&amp;&lt;&lt;</source>
+      <translation>&amp;&lt;&lt;</translation>
+    </message>
+    <message>
+      <source>Fonts to embed:</source>
+      <translation>Fonts to embed:</translation>
+    </message>
+    <message>
+      <source>Fonts to subset:</source>
+      <translation>Fonts to subset:</translation>
+    </message>
+    <message>
+      <source>&amp;Fonts</source>
+      <translation>&amp;Fonts</translation>
+    </message>
+    <message>
+      <source>Enable &amp;Presentation Effects</source>
+      <translation>Enable &amp;Presentation Effects</translation>
+    </message>
+    <message>
+      <source>Page</source>
+      <translation>Page</translation>
+    </message>
+    <message>
+      <source>Show Page Pre&amp;views</source>
+      <translation>Show Page Pre&amp;views</translation>
+    </message>
+    <message>
+      <source>Effects</source>
+      <translation>Effects</translation>
+    </message>
+    <message>
+      <source>&amp;Display Duration:</source>
+      <translation>&amp;Display Duration:</translation>
+    </message>
+    <message>
+      <source>Effec&amp;t Duration:</source>
+      <translation>Effec&amp;t Duration:</translation>
+    </message>
+    <message>
+      <source>Effect T&amp;ype:</source>
+      <translation>Effect T&amp;ype:</translation>
+    </message>
+    <message>
+      <source>&amp;Moving Lines:</source>
+      <translation>&amp;Moving Lines:</translation>
+    </message>
+    <message>
+      <source>F&amp;rom the:</source>
+      <translation>F&amp;rom the:</translation>
+    </message>
+    <message>
+      <source>D&amp;irection:</source>
+      <translation>D&amp;irection:</translation>
+    </message>
+    <message>
+      <source> sec</source>
+      <translation> sec</translation>
+    </message>
+    <message>
+      <source>No Effect</source>
+      <translation>No Effect</translation>
+    </message>
+    <message>
+      <source>Blinds</source>
+      <translation>Blinds</translation>
+    </message>
+    <message>
+      <source>Box</source>
+      <translation>Box</translation>
+    </message>
+    <message>
+      <source>Dissolve</source>
+      <translation>Dissolve</translation>
+    </message>
+    <message>
+      <source>Glitter</source>
+      <translation>Glitter</translation>
+    </message>
+    <message>
+      <source>Split</source>
+      <translation>Split</translation>
+    </message>
+    <message>
+      <source>Wipe</source>
+      <translation>Wipe</translation>
+    </message>
+    <message>
+      <source>Horizontal</source>
+      <translation>Horizontal</translation>
+    </message>
+    <message>
+      <source>Vertical</source>
+      <translation>Vertical</translation>
+    </message>
+    <message>
+      <source>Inside</source>
+      <translation>Inside</translation>
+    </message>
+    <message>
+      <source>Outside</source>
+      <translation>Outside</translation>
+    </message>
+    <message>
+      <source>Left to Right</source>
+      <translation>Left to Right</translation>
+    </message>
+    <message>
+      <source>Top to Bottom</source>
+      <translation>Top to Bottom</translation>
+    </message>
+    <message>
+      <source>Bottom to Top</source>
+      <translation>Bottom to Top</translation>
+    </message>
+    <message>
+      <source>Right to Left</source>
+      <translation>Right to Left</translation>
+    </message>
+    <message>
+      <source>Top-left to Bottom-Right</source>
+      <translation>Top-left to Bottom-Right</translation>
+    </message>
+    <message>
+      <source>&amp;Apply Effect on all Pages</source>
+      <translation>&amp;Apply Effect on all Pages</translation>
+    </message>
+    <message>
+      <source>E&amp;xtras</source>
+      <translation>E&amp;xtras</translation>
+    </message>
+    <message>
+      <source>&amp;Use Encryption</source>
+      <translation>&amp;Use Encryption</translation>
+    </message>
+    <message>
+      <source>Passwords</source>
+      <translation>Passwords</translation>
+    </message>
+    <message>
+      <source>&amp;User:</source>
+      <translation>&amp;User:</translation>
+    </message>
+    <message>
+      <source>&amp;Owner:</source>
+      <translation>&amp;Owner:</translation>
+    </message>
+    <message>
+      <source>Settings</source>
+      <translation>Settings</translation>
+    </message>
+    <message>
+      <source>Allow &amp;Printing the Document</source>
+      <translation>Allow &amp;Printing the Document</translation>
+    </message>
+    <message>
+      <source>Allow &amp;Changing the Document</source>
+      <translation>Allow &amp;Changing the Document</translation>
+    </message>
+    <message>
+      <source>Allow Cop&amp;ying Text and Graphics</source>
+      <translation>Allow Cop&amp;ying Text and Graphics</translation>
+    </message>
+    <message>
+      <source>Allow Adding &amp;Annotations and Fields</source>
+      <translation>Allow Adding &amp;Annotations and Fields</translation>
+    </message>
+    <message>
+      <source>S&amp;ecurity</source>
+      <translation>S&amp;ecurity</translation>
+    </message>
+    <message>
+      <source>General</source>
+      <translation>General</translation>
+    </message>
+    <message>
+      <source>Output &amp;Intended For:</source>
+      <translation>Output &amp;Intended For:</translation>
+    </message>
+    <message>
+      <source>Screen / Web</source>
+      <translation>Screen / Web</translation>
+    </message>
+    <message>
+      <source>Printer</source>
+      <translation>Printer</translation>
+    </message>
+    <message>
+      <source>Grayscale</source>
+      <translation>Greyscale</translation>
+    </message>
+    <message>
+      <source>&amp;Use Custom Rendering Settings</source>
+      <translation>&amp;Use Custom Rendering Settings</translation>
+    </message>
+    <message>
+      <source>Rendering Settings</source>
+      <translation>Rendering Settings</translation>
+    </message>
+    <message>
+      <source>Fre&amp;quency:</source>
+      <translation>Fre&amp;quency:</translation>
+    </message>
+    <message>
+      <source>&amp;Angle:</source>
+      <translation>&amp;Angle:</translation>
+    </message>
+    <message>
+      <source>S&amp;pot Function:</source>
+      <translation>S&amp;pot Function:</translation>
+    </message>
+    <message>
+      <source>Simple Dot</source>
+      <translation>Simple Dot</translation>
+    </message>
+    <message>
+      <source>Line</source>
+      <translation>Line</translation>
+    </message>
+    <message>
+      <source>Round</source>
+      <translation>Round</translation>
+    </message>
+    <message>
+      <source>Ellipse</source>
+      <translation>Ellipse</translation>
+    </message>
+    <message>
+      <source>Solid Colors:</source>
+      <translation>Solid Colours:</translation>
+    </message>
+    <message>
+      <source>Use ICC Profile</source>
+      <translation>Use ICC Profile</translation>
+    </message>
+    <message>
+      <source>Profile:</source>
+      <translation>Profile:</translation>
+    </message>
+    <message>
+      <source>Rendering-Intent:</source>
+      <translation>Rendering-Intent:</translation>
+    </message>
+    <message>
+      <source>Perceptual</source>
+      <translation>Perceptual</translation>
+    </message>
+    <message>
+      <source>Relative Colorimetric</source>
+      <translation>Relative Colourimetric</translation>
+    </message>
+    <message>
+      <source>Saturation</source>
+      <translation>Saturation</translation>
+    </message>
+    <message>
+      <source>Absolute Colorimetric</source>
+      <translation>Absolute Colourimetric</translation>
+    </message>
+    <message>
+      <source>Images:</source>
+      <translation>Images:</translation>
+    </message>
+    <message>
+      <source>Don't use embedded ICC profiles</source>
+      <translation>Don't use embedded ICC profiles</translation>
+    </message>
+    <message>
+      <source>C&amp;olor</source>
+      <translation>C&amp;olour</translation>
+    </message>
+    <message>
+      <source>PDF/X-3 Output Intent</source>
+      <translation>PDF/X-3 Output Intent</translation>
+    </message>
+    <message>
+      <source>&amp;Info String:</source>
+      <translation>&amp;Info String:</translation>
+    </message>
+    <message>
+      <source>Output &amp;Profile:</source>
+      <translation>Output &amp;Profile:</translation>
+    </message>
+    <message>
+      <source>Trim Box</source>
+      <translation>Trim Box</translation>
+    </message>
+    <message>
+      <source>PDF/X-&amp;3</source>
+      <translation>PDF/X-&amp;3</translation>
+    </message>
+    <message>
+      <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+      <translation>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</translation>
+    </message>
+    <message>
+      <source>Show page previews of each page listed above.</source>
+      <translation>Show page previews of each page listed above.</translation>
+    </message>
+    <message>
+      <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+      <translation>Length of time the page is shown before the presentation starts on the selected page.</translation>
+    </message>
+    <message>
+      <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+      <translation>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</translation>
+    </message>
+    <message>
+      <source>Type of the display effect.</source>
+      <translation>Type of the display effect.</translation>
+    </message>
+    <message>
+      <source>Direction of the effect of moving lines for the split and blind effects.</source>
+      <translation>Direction of the effect of moving lines for the split and blind effects.</translation>
+    </message>
+    <message>
+      <source>Starting position for the box and split effects.</source>
+      <translation>Starting position for the box and split effects.</translation>
+    </message>
+    <message>
+      <source>Direction of the glitter or wipe effects.</source>
+      <translation>Direction of the glitter or wipe effects.</translation>
+    </message>
+    <message>
+      <source>Apply the selected effect to all pages.</source>
+      <translation>Apply the selected effect to all pages.</translation>
+    </message>
+    <message>
+      <source>Export all pages to PDF</source>
+      <translation>Export all pages to PDF</translation>
+    </message>
+    <message>
+      <source>Export a range of pages to PDF</source>
+      <translation>Export a range of pages to PDF</translation>
+    </message>
+    <message>
+      <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+      <translation>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</translation>
+    </message>
+    <message>
+      <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.
+Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+      <translation>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.
+Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated colour management.</translation>
+    </message>
+    <message>
+      <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+      <translation>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</translation>
+    </message>
+    <message>
+      <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+      <translation>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</translation>
+    </message>
+    <message>
+      <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+      <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
+    </message>
+    <message>
+      <source>Layers in your document are exported to the PDF
+Only available if PDF 1.5 is choosen.</source>
+      <translation>Layers in your document are exported to the PDF
+Only available if PDF 1.5 is choosen.</translation>
+    </message>
+    <message>
+      <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+      <translation>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</translation>
+    </message>
+    <message>
+      <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+      <translation>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</translation>
+    </message>
+    <message>
+      <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+      <translation>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</translation>
+    </message>
+    <message>
+      <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+      <translation>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colours.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</translation>
+    </message>
+    <message>
+      <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+      <translation>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
+    </message>
+    <message>
+      <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+      <translation>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</translation>
+    </message>
+    <message>
+      <source>DPI (Dots Per Inch) for image export.</source>
+      <translation>DPI (Dots Per Inch) for image export.</translation>
+    </message>
+    <message>
+      <source>Enable the security features in your exported PDF.
+If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
+If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+      <translation>Enable the security features in your exported PDF.
+If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
+If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</translation>
+    </message>
+    <message>
+      <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+      <translation>Choose a master password which enables or disables all the
+security features in your exported PDF</translation>
+    </message>
+    <message>
+      <source>Choose a password for users to be able to read your PDF.</source>
+      <translation>Choose a password for users to be able to read your PDF.</translation>
+    </message>
+    <message>
+      <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+      <translation>Allow printing of the PDF. If un-checked, printing is prevented. </translation>
+    </message>
+    <message>
+      <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+      <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
+    </message>
+    <message>
+      <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+      <translation>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</translation>
+    </message>
+    <message>
+      <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+      <translation>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</translation>
+    </message>
+    <message>
+      <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+      <translation>Colour model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 colour CMYK printer.</translation>
+    </message>
+    <message>
+      <source>This is an advanced setting which is not enabled by default. This should only be enabled
+when specifically requested by your printer and they have given you the exact details needed.
+Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+      <translation>This is an advanced setting which is not enabled by default. This should only be enabled
+when specifically requested by your printer and they have given you the exact details needed.
+Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
+    </message>
+    <message>
+      <source>Embed a color profile for solid colors</source>
+      <translation>Embed a colour profile for solid colours</translation>
+    </message>
+    <message>
+      <source>Color profile for solid colors</source>
+      <translation>Colour profile for solid colours</translation>
+    </message>
+    <message>
+      <source>Rendering intent for solid colors</source>
+      <translation>Rendering intent for solid colours</translation>
+    </message>
+    <message>
+      <source>Embed a color profile for images</source>
+      <translation>Embed a colour profile for images</translation>
+    </message>
+    <message>
+      <source>Do not use color profiles that are embedded in source images</source>
+      <translation>Do not use colour profiles that are embedded in source images</translation>
+    </message>
+    <message>
+      <source>Color profile for images</source>
+      <translation>Colour profile for images</translation>
+    </message>
+    <message>
+      <source>Rendering intent for images</source>
+      <translation>Rendering intent for images</translation>
+    </message>
+    <message>
+      <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+      <translation>Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
+    </message>
+    <message>
+      <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+      <translation>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the top of the physical page</source>
+      <translation>Distance for bleed from the top of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the bottom of the physical page</source>
+      <translation>Distance for bleed from the bottom of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the left of the physical page</source>
+      <translation>Distance for bleed from the left of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the right of the physical page</source>
+      <translation>Distance for bleed from the right of the physical page</translation>
+    </message>
+    <message>
+      <source>Mirror Page(s) horizontally</source>
+      <translation>Mirror Page(s) horizontally</translation>
+    </message>
+    <message>
+      <source>Mirror Page(s) vertically</source>
+      <translation>Mirror Page(s) vertically</translation>
+    </message>
+    <message>
+      <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
+      <translation>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</translation>
+    </message>
+  </context>
+  <context>
+    <name>TabTools</name>
+    <message>
+      <source>Font:</source>
+      <translation>Font:</translation>
+    </message>
+    <message>
+      <source> pt</source>
+      <translation> pt</translation>
+    </message>
+    <message>
+      <source>Size:</source>
+      <translation>Size:</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
+    </message>
+    <message>
+      <source>Fill Color:</source>
+      <translation>Fill Colour:</translation>
+    </message>
+    <message>
+      <source>Stroke Color:</source>
+      <translation>Stroke Colour:</translation>
+    </message>
+    <message>
+      <source>Colu&amp;mns:</source>
+      <translation>Colu&amp;mns:</translation>
+    </message>
+    <message>
+      <source>&amp;Gap:</source>
+      <translation>&amp;Gap:</translation>
+    </message>
+    <message>
+      <source>Woven silk pyjamas exchanged for blue quartz</source>
+      <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+    </message>
+    <message>
+      <source>&amp;Line Color:</source>
+      <translation>&amp;Line Colour:</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>&amp;Shading:</source>
+      <translation>&amp;Shading:</translation>
+    </message>
+    <message>
+      <source>&amp;Fill Color:</source>
+      <translation>&amp;Fill Colour:</translation>
+    </message>
+    <message>
+      <source>S&amp;hading:</source>
+      <translation>S&amp;hading:</translation>
+    </message>
+    <message>
+      <source>Line Style:</source>
+      <translation>Line Style:</translation>
+    </message>
+    <message>
+      <source>Line &amp;Width:</source>
+      <translation>Line &amp;Width:</translation>
+    </message>
+    <message>
+      <source>Line S&amp;tyle:</source>
+      <translation>Line S&amp;tyle:</translation>
+    </message>
+    <message>
+      <source>Arrows:</source>
+      <translation>Arrows:</translation>
+    </message>
+    <message>
+      <source>Start:</source>
+      <translation>Start:</translation>
+    </message>
+    <message>
+      <source>End:</source>
+      <translation>End:</translation>
+    </message>
+    <message>
+      <source>&amp;Free Scaling</source>
+      <translation>&amp;Free Scaling</translation>
+    </message>
+    <message>
+      <source>&amp;Horizontal Scaling:</source>
+      <translation>&amp;Horizontal Scaling:</translation>
+    </message>
+    <message>
+      <source>&amp;Vertical Scaling:</source>
+      <translation>&amp;Vertical Scaling:</translation>
+    </message>
+    <message>
+      <source>&amp;Scale Picture to Frame Size</source>
+      <translation>&amp;Scale Picture to Frame Size</translation>
+    </message>
+    <message>
+      <source>Keep Aspect &amp;Ratio</source>
+      <translation>Keep Aspect &amp;Ratio</translation>
+    </message>
+    <message>
+      <source>F&amp;ill Color:</source>
+      <translation>F&amp;ill Colour:</translation>
+    </message>
+    <message>
+      <source>Use embedded Clipping Path</source>
+      <translation>Use embedded Clipping Path</translation>
+    </message>
+    <message>
+      <source>On Screen Preview</source>
+      <translation>On Screen Preview</translation>
+    </message>
+    <message>
+      <source>Full Resolution Preview</source>
+      <translation>Full Resolution Preview</translation>
+    </message>
+    <message>
+      <source>Normal Resolution Preview</source>
+      <translation>Normal Resolution Preview</translation>
+    </message>
+    <message>
+      <source>Low Resolution Preview</source>
+      <translation>Low Resolution Preview</translation>
+    </message>
+    <message>
+      <source>Mi&amp;nimum:</source>
+      <translation>Mi&amp;nimum:</translation>
+    </message>
+    <message>
+      <source>Ma&amp;ximum:</source>
+      <translation>Ma&amp;ximum:</translation>
+    </message>
+    <message>
+      <source>&amp;Stepping:</source>
+      <translation>&amp;Stepping:</translation>
+    </message>
+    <message>
+      <source>Text Frame Properties</source>
+      <translation>Text Frame Properties</translation>
+    </message>
+    <message>
+      <source>Picture Frame Properties</source>
+      <translation>Picture Frame Properties</translation>
+    </message>
+    <message>
+      <source>Shape Drawing Properties</source>
+      <translation>Shape Drawing Properties</translation>
+    </message>
+    <message>
+      <source>Magnification Level Defaults</source>
+      <translation>Magnification Level Defaults</translation>
+    </message>
+    <message>
+      <source>Line Drawing Properties</source>
+      <translation>Line Drawing Properties</translation>
+    </message>
+    <message>
+      <source>Polygon Drawing Properties</source>
+      <translation>Polygon Drawing Properties</translation>
+    </message>
+    <message>
+      <source>Font for new text frames</source>
+      <translation>Font for new text frames</translation>
+    </message>
+    <message>
+      <source>Size of font for new text frames</source>
+      <translation>Size of font for new text frames</translation>
+    </message>
+    <message>
+      <source>Color of font</source>
+      <translation>Colour of font</translation>
+    </message>
+    <message>
+      <source>Number of columns in a text frame</source>
+      <translation>Number of columns in a text frame</translation>
+    </message>
+    <message>
+      <source>Gap between text frame columns</source>
+      <translation>Gap between text frame columns</translation>
+    </message>
+    <message>
+      <source>Sample of your font</source>
+      <translation>Sample of your font</translation>
+    </message>
+    <message>
+      <source>Picture frames allow pictures to scale to any size</source>
+      <translation>Picture frames allow pictures to scale to any size</translation>
+    </message>
+    <message>
+      <source>Horizontal scaling of images</source>
+      <translation>Horizontal scaling of images</translation>
+    </message>
+    <message>
+      <source>Vertical scaling of images</source>
+      <translation>Vertical scaling of images</translation>
+    </message>
+    <message>
+      <source>Keep horizontal and vertical scaling the same</source>
+      <translation>Keep horizontal and vertical scaling the same</translation>
+    </message>
+    <message>
+      <source>Pictures in picture frames are scaled to the size of the frame</source>
+      <translation>Pictures in picture frames are scaled to the size of the frame</translation>
+    </message>
+    <message>
+      <source>Automatically scaled pictures keep their original proportions</source>
+      <translation>Automatically scaled pictures keep their original proportions</translation>
+    </message>
+    <message>
+      <source>Fill color of picture frames</source>
+      <translation>Fill colour of picture frames</translation>
+    </message>
+    <message>
+      <source>Saturation of color of fill</source>
+      <translation>Saturation of colour of fill</translation>
+    </message>
+    <message>
+      <source>Line color of shapes</source>
+      <translation>Line colour of shapes</translation>
+    </message>
+    <message>
+      <source>Saturation of color of lines</source>
+      <translation>Saturation of colour of lines</translation>
+    </message>
+    <message>
+      <source>Fill color of shapes</source>
+      <translation>Fill colour of shapes</translation>
+    </message>
+    <message>
+      <source>Line style of shapes</source>
+      <translation>Line style of shapes</translation>
+    </message>
+    <message>
+      <source>Line width of shapes</source>
+      <translation>Line width of shapes</translation>
+    </message>
+    <message>
+      <source>Minimum magnification allowed</source>
+      <translation>Minimum magnification allowed</translation>
+    </message>
+    <message>
+      <source>Maximum magnification allowed</source>
+      <translation>Maximum magnification allowed</translation>
+    </message>
+    <message>
+      <source>Change in magnification for each zoom operation</source>
+      <translation>Change in magnification for each zoom operation</translation>
+    </message>
+    <message>
+      <source>Color of lines</source>
+      <translation>Colour of lines</translation>
+    </message>
+    <message>
+      <source>Saturation of color</source>
+      <translation>Saturation of colour</translation>
+    </message>
+    <message>
+      <source>Style of lines</source>
+      <translation>Style of lines</translation>
+    </message>
+    <message>
+      <source>Width of lines</source>
+      <translation>Width of lines</translation>
+    </message>
+  </context>
+  <context>
+    <name>TabTypograpy</name>
+    <message>
+      <source>Subscript</source>
+      <translation>Subscript</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>&amp;Displacement:</source>
+      <translation>&amp;Displacement:</translation>
+    </message>
+    <message>
+      <source>&amp;Scaling:</source>
+      <translation>&amp;Scaling:</translation>
+    </message>
+    <message>
+      <source>Superscript</source>
+      <translation>Superscript</translation>
+    </message>
+    <message>
+      <source>D&amp;isplacement:</source>
+      <translation>D&amp;isplacement:</translation>
+    </message>
+    <message>
+      <source>S&amp;caling:</source>
+      <translation>S&amp;caling:</translation>
+    </message>
+    <message>
+      <source>Small Caps</source>
+      <translation>Small Caps</translation>
+    </message>
+    <message>
+      <source>Sc&amp;aling:</source>
+      <translation>Sc&amp;aling:</translation>
+    </message>
+    <message>
+      <source>Underline</source>
+      <translation>Underline</translation>
+    </message>
+    <message>
+      <source>Displacement:</source>
+      <translation>Displacement:</translation>
+    </message>
+    <message>
+      <source>Auto</source>
+      <translation>Auto</translation>
+    </message>
+    <message>
+      <source>Line Width:</source>
+      <translation>Line Width:</translation>
+    </message>
+    <message>
+      <source>Strikethru</source>
+      <translation>Strikeout</translation>
+    </message>
+    <message>
+      <source>Automatic &amp;Line Spacing</source>
+      <translation>Automatic &amp;Line Spacing</translation>
+    </message>
+    <message>
+      <source>Line Spacing:</source>
+      <translation>Line Spacing:</translation>
+    </message>
+    <message>
+      <source>Displacement above the baseline of the font on a line</source>
+      <translation>Displacement above the baseline of the font on a line</translation>
+    </message>
+    <message>
+      <source>Relative size of the superscript compared to the normal font</source>
+      <translation>Relative size of the superscript compared to the normal font</translation>
+    </message>
+    <message>
+      <source>Displacement below the baseline of the normal font on a line</source>
+      <translation>Displacement below the baseline of the normal font on a line</translation>
+    </message>
+    <message>
+      <source>Relative size of the subscript compared to the normal font</source>
+      <translation>Relative size of the subscript compared to the normal font</translation>
+    </message>
+    <message>
+      <source>Relative size of the small caps font compared to the normal font</source>
+      <translation>Relative size of the small caps font compared to the normal font</translation>
+    </message>
+    <message>
+      <source>Percentage increase over the font size for the line spacing</source>
+      <translation>Percentage increase over the font size for the line spacing</translation>
+    </message>
+    <message>
+      <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
+      <translation>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</translation>
+    </message>
+    <message>
+      <source>Line width expressed as a percentage of the font size</source>
+      <translation>Line width expressed as a percentage of the font size</translation>
+    </message>
+    <message>
+      <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
+      <translation>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</translation>
     </message>
   </context>
   <context>
@@ -13703,22 +14449,6 @@ drag a Template to the Pageview below.</translation>
       <translation>Delete all Tabulators</translation>
     </message>
     <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
       <source>&amp;Position:</source>
       <translation>&amp;Position:</translation>
     </message>
@@ -13742,70 +14472,474 @@ drag a Template to the Pageview below.</translation>
       <translation>Element</translation>
     </message>
     <message>
-      <source>Type</source>
-      <translation>Type</translation>
+      <source>Group </source>
+      <translation>Group </translation>
     </message>
     <message>
-      <source>Information</source>
-      <translation>Information</translation>
+      <source>Free Objects</source>
+      <translation>Free Objects</translation>
     </message>
     <message>
-      <source>X:</source>
-      <translation>X:</translation>
+      <source>Page </source>
+      <translation>Page </translation>
+    </message>
+  </context>
+  <context>
+    <name>UndoManager</name>
+    <message>
+      <source>Add vertical guide</source>
+      <translation>Add vertical guide</translation>
     </message>
     <message>
-      <source>Y:</source>
-      <translation>Y:</translation>
+      <source>Add horizontal guide</source>
+      <translation>Add horizontal guide</translation>
     </message>
     <message>
-      <source>Font:</source>
-      <translation>Font:</translation>
+      <source>Remove vertical guide</source>
+      <translation>Remove vertical guide</translation>
     </message>
     <message>
-      <source>Image</source>
-      <translation>Image</translation>
+      <source>Remove horizontal guide</source>
+      <translation>Remove horizontal guide</translation>
     </message>
     <message>
-      <source>Text</source>
-      <translation>Text</translation>
+      <source>Move vertical guide</source>
+      <translation>Move vertical guide</translation>
     </message>
     <message>
-      <source>Line</source>
-      <translation>Line</translation>
+      <source>Move horizontal guide</source>
+      <translation>Move horizontal guide</translation>
+    </message>
+    <message>
+      <source>Lock guides</source>
+      <translation>Lock guides</translation>
+    </message>
+    <message>
+      <source>Unlock guides</source>
+      <translation>Unlock guides</translation>
+    </message>
+    <message>
+      <source>Move</source>
+      <translation>Move</translation>
+    </message>
+    <message>
+      <source>Resize</source>
+      <translation>Resize</translation>
+    </message>
+    <message>
+      <source>Rotate</source>
+      <translation>Rotate</translation>
+    </message>
+    <message>
+      <source>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</source>
+      <translation>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</translation>
+    </message>
+    <message>
+      <source>W1: %1, H1: %2
+W2: %3, H2: %4</source>
+      <translation>W1: %1, H1: %2
+W2: %3, H2: %4</translation>
+    </message>
+    <message>
+      <source>Selection</source>
+      <translation>Selection</translation>
+    </message>
+    <message>
+      <source>Group</source>
+      <translation>Group</translation>
+    </message>
+    <message>
+      <source>Selection/Group</source>
+      <translation>Selection/Group</translation>
+    </message>
+    <message>
+      <source>Create</source>
+      <translation>Create</translation>
+    </message>
+    <message>
+      <source>X: %1, Y: %2
+W: %3, H: %4</source>
+      <translation>X: %1, Y: %2
+W: %3, H: %4</translation>
+    </message>
+    <message>
+      <source>Align/Distribute</source>
+      <translation>Align/Distribute</translation>
+    </message>
+    <message>
+      <source>Items involved</source>
+      <translation>Items involved</translation>
+    </message>
+    <message>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
+    </message>
+    <message>
+      <source>Set fill color</source>
+      <translation>Set fill colour</translation>
+    </message>
+    <message>
+      <source>Color1: %1, Color2: %2</source>
+      <translation>Colour1: %1, Colour2: %2</translation>
+    </message>
+    <message>
+      <source>Set fill color shade</source>
+      <translation>Set fill colour shade</translation>
+    </message>
+    <message>
+      <source>Set line color</source>
+      <translation>Set line colour</translation>
+    </message>
+    <message>
+      <source>Set line color shade</source>
+      <translation>Set line colour shade</translation>
+    </message>
+    <message>
+      <source>Flip horizontally</source>
+      <translation>Flip horizontally</translation>
+    </message>
+    <message>
+      <source>Flip vertically</source>
+      <translation>Flip vertically</translation>
+    </message>
+    <message>
+      <source>Lock</source>
+      <translation>Lock</translation>
+    </message>
+    <message>
+      <source>Unlock</source>
+      <translation>Unlock</translation>
+    </message>
+    <message>
+      <source>Lock size</source>
+      <translation>Lock size</translation>
+    </message>
+    <message>
+      <source>Unlock size</source>
+      <translation>Unlock size</translation>
+    </message>
+    <message>
+      <source>Ungroup</source>
+      <translation>Ungroup</translation>
+    </message>
+    <message>
+      <source>Delete</source>
+      <translation>Delete</translation>
+    </message>
+    <message>
+      <source>Rename</source>
+      <translation>Rename</translation>
+    </message>
+    <message>
+      <source>From %1
+to %2</source>
+      <translation>From %1
+to %2</translation>
+    </message>
+    <message>
+      <source>Apply Master Page</source>
+      <translation>Apply Master Page</translation>
+    </message>
+    <message>
+      <source>Paste</source>
+      <translation>Paste</translation>
+    </message>
+    <message>
+      <source>Cut</source>
+      <translation>Cut</translation>
+    </message>
+    <message>
+      <source>Set fill color transparency</source>
+      <translation>Set fill colour transparency</translation>
+    </message>
+    <message>
+      <source>Set line color transparency</source>
+      <translation>Set line colour transparency</translation>
+    </message>
+    <message>
+      <source>Set line style</source>
+      <translation>Set line style</translation>
+    </message>
+    <message>
+      <source>Set the style of line end</source>
+      <translation>Set the style of line end</translation>
+    </message>
+    <message>
+      <source>Set the style of line join</source>
+      <translation>Set the style of line join</translation>
+    </message>
+    <message>
+      <source>Set line width</source>
+      <translation>Set line width</translation>
+    </message>
+    <message>
+      <source>No style</source>
+      <translation>No style</translation>
+    </message>
+    <message>
+      <source>Set custom line style</source>
+      <translation>Set custom line style</translation>
+    </message>
+    <message>
+      <source>Do not use custom line style</source>
+      <translation>Do not use custom line style</translation>
+    </message>
+    <message>
+      <source>Set start arrow</source>
+      <translation>Set start arrow</translation>
+    </message>
+    <message>
+      <source>Set end arrow</source>
+      <translation>Set end arrow</translation>
+    </message>
+    <message>
+      <source>Create table</source>
+      <translation>Create table</translation>
+    </message>
+    <message>
+      <source>Rows: %1, Cols: %2</source>
+      <translation>Rows: %1, Cols: %2</translation>
+    </message>
+    <message>
+      <source>Set font</source>
+      <translation>Set font</translation>
+    </message>
+    <message>
+      <source>Set font size</source>
+      <translation>Set font size</translation>
+    </message>
+    <message>
+      <source>Set font width</source>
+      <translation>Set font width</translation>
+    </message>
+    <message>
+      <source>Set font fill color</source>
+      <translation>Set font fill colour</translation>
+    </message>
+    <message>
+      <source>Set font stroke color</source>
+      <translation>Set font stroke colour</translation>
+    </message>
+    <message>
+      <source>Set font fill color shade</source>
+      <translation>Set font fill colour shade</translation>
+    </message>
+    <message>
+      <source>Set font stroke color shade</source>
+      <translation>Set font stroke colour shade</translation>
+    </message>
+    <message>
+      <source>Set kerning</source>
+      <translation>Set kerning</translation>
+    </message>
+    <message>
+      <source>Set line spacing</source>
+      <translation>Set line spacing</translation>
+    </message>
+    <message>
+      <source>Set paragraph style</source>
+      <translation>Set paragraph style</translation>
+    </message>
+    <message>
+      <source>Set language</source>
+      <translation>Set language</translation>
+    </message>
+    <message>
+      <source>Align text</source>
+      <translation>Align text</translation>
+    </message>
+    <message>
+      <source>Set font effect</source>
+      <translation>Set font effect</translation>
+    </message>
+    <message>
+      <source>Image frame</source>
+      <translation>Image frame</translation>
+    </message>
+    <message>
+      <source>Text frame</source>
+      <translation>Text frame</translation>
     </message>
     <message>
       <source>Polygon</source>
       <translation>Polygon</translation>
     </message>
     <message>
+      <source>Bezier curve</source>
+      <translation>Bezier curve</translation>
+    </message>
+    <message>
       <source>Polyline</source>
       <translation>Polyline</translation>
     </message>
     <message>
-      <source>PathText</source>
-      <translation>PathText</translation>
+      <source>Convert to</source>
+      <translation>Convert to</translation>
     </message>
     <message>
-      <source>Page</source>
-      <translation>Page</translation>
+      <source>Import SVG image</source>
+      <translation>Import SVG image</translation>
     </message>
     <message>
-      <source>Warning</source>
-      <translation>Warning</translation>
+      <source>Import EPS image</source>
+      <translation>Import EPS image</translation>
     </message>
     <message>
-      <source>Name &quot;%1&quot; isn't unique.
-Please choose another.</source>
-      <translation>Name &quot;%1&quot; isn't unique.
-Please choose another.</translation>
+      <source>Scratch space</source>
+      <translation>Scratch space</translation>
     </message>
     <message>
-      <source>OK</source>
-      <translation>OK</translation>
+      <source>Text flows around the frame</source>
+      <translation>Text flows around the frame</translation>
     </message>
     <message>
-      <source>Group </source>
-      <translation>Group </translation>
+      <source>Text flows around bounding box</source>
+      <translation>Text flows around bounding box</translation>
+    </message>
+    <message>
+      <source>Text flows around contour line</source>
+      <translation>Text flows around contour line</translation>
+    </message>
+    <message>
+      <source>No text flow</source>
+      <translation>No text flow</translation>
+    </message>
+    <message>
+      <source>No bounding box</source>
+      <translation>No bounding box</translation>
+    </message>
+    <message>
+      <source>No contour line</source>
+      <translation>No contour line</translation>
+    </message>
+    <message>
+      <source>Page %1</source>
+      <translation>Page %1</translation>
+    </message>
+    <message>
+      <source>Set image scaling</source>
+      <translation>Set image scaling</translation>
+    </message>
+    <message>
+      <source>Frame size</source>
+      <translation>Frame size</translation>
+    </message>
+    <message>
+      <source>Free scaling</source>
+      <translation>Free scaling</translation>
+    </message>
+    <message>
+      <source>Keep aspect ratio</source>
+      <translation>Keep aspect ratio</translation>
+    </message>
+    <message>
+      <source>Break aspect ratio</source>
+      <translation>Break aspect ratio</translation>
+    </message>
+    <message>
+      <source>Edit contour line</source>
+      <translation>Edit contour line</translation>
+    </message>
+    <message>
+      <source>Edit shape</source>
+      <translation>Edit shape</translation>
+    </message>
+    <message>
+      <source>Reset contour line</source>
+      <translation>Reset contour line</translation>
+    </message>
+    <message>
+      <source>Add page</source>
+      <translation>Add page</translation>
+    </message>
+    <message>
+      <source>Add pages</source>
+      <translation>Add pages</translation>
+    </message>
+    <message>
+      <source>Delete page</source>
+      <translation>Delete page</translation>
+    </message>
+    <message>
+      <source>Delete pages</source>
+      <translation>Delete pages</translation>
+    </message>
+    <message>
+      <source>Add layer</source>
+      <translation>Add layer</translation>
+    </message>
+    <message>
+      <source>Delete layer</source>
+      <translation>Delete layer</translation>
+    </message>
+    <message>
+      <source>Rename layer</source>
+      <translation>Rename layer</translation>
+    </message>
+    <message>
+      <source>Raise layer</source>
+      <translation>Raise layer</translation>
+    </message>
+    <message>
+      <source>Lower layer</source>
+      <translation>Lower layer</translation>
+    </message>
+    <message>
+      <source>Send to layer</source>
+      <translation>Send to layer</translation>
+    </message>
+    <message>
+      <source>Enable printing of layer</source>
+      <translation>Enable printing of layer</translation>
+    </message>
+    <message>
+      <source>Disable printing of layer</source>
+      <translation>Disable printing of layer</translation>
+    </message>
+    <message>
+      <source>Change name of the layer</source>
+      <translation>Change name of the layer</translation>
+    </message>
+    <message>
+      <source>Get image</source>
+      <translation>Get image</translation>
+    </message>
+    <message>
+      <source>Import OpenOffice.org Draw image</source>
+      <translation>Import OpenOffice.org Draw image</translation>
+    </message>
+  </context>
+  <context>
+    <name>UndoPalette</name>
+    <message>
+      <source>Initial State</source>
+      <translation>Initial State</translation>
+    </message>
+    <message>
+      <source>Action History</source>
+      <translation>Action History</translation>
+    </message>
+    <message>
+      <source>Show selected object only</source>
+      <translation>Show selected object only</translation>
+    </message>
+    <message>
+      <source>&amp;Undo</source>
+      <translation>&amp;Undo</translation>
+    </message>
+    <message>
+      <source>&amp;Redo</source>
+      <translation>&amp;Redo</translation>
+    </message>
+  </context>
+  <context>
+    <name>UndoWidget</name>
+    <message>
+      <source>%1: %2</source>
+      <comment>undo target: action (f.e. Text frame: Resize)</comment>
+      <translation>%1: %2</translation>
     </message>
   </context>
   <context>
@@ -13873,13 +15007,6 @@ Please choose another.</translation>
       <translation>&amp;Cancel</translation>
     </message>
     <message>
-      <source>&amp;Info and
-Languages</source>
-      <comment>short words plugin</comment>
-      <translation>&amp;Info and
-Languages</translation>
-    </message>
-    <message>
       <source>Replace defaults by user config</source>
       <comment>short words plugin</comment>
       <translation>Replace defaults by user config</translation>
@@ -13931,6 +15058,52 @@ with checked button too.</translation>
       <comment>short words plugin</comment>
       <translation>About Short Words</translation>
     </message>
+    <message>
+      <source>Edit &amp;system configuration...</source>
+      <translation>Edit &amp;system configuration...</translation>
+    </message>
+    <message>
+      <source>Edit &amp;user configuration...</source>
+      <translation>Edit &amp;user configuration...</translation>
+    </message>
+    <message>
+      <source>S&amp;etup editor...</source>
+      <translation>S&amp;etup editor...</translation>
+    </message>
+    <message>
+      <source>&amp;Edit</source>
+      <translation>&amp;Edit</translation>
+    </message>
+    <message>
+      <source>&amp;Info and Languages...</source>
+      <translation>&amp;Info and Languages...</translation>
+    </message>
+    <message>
+      <source>&amp;Help</source>
+      <translation>&amp;Help</translation>
+    </message>
+    <message>
+      <source>Short Words</source>
+      <translation>Short Words</translation>
+    </message>
+    <message>
+      <source>You are starting to edit read-only file.
+%1</source>
+      <translation>You are starting to edit read-only file.
+%1</translation>
+    </message>
+    <message>
+      <source>Application '%1' error. Cannot be started.</source>
+      <translation>Application '%1' error. Cannot be started.</translation>
+    </message>
+    <message>
+      <source>Short Words setup</source>
+      <translation>Short Words setup</translation>
+    </message>
+    <message>
+      <source>Enter name of the plain text editor executable:</source>
+      <translation>Enter name of the plain text editor executable:</translation>
+    </message>
   </context>
   <context>
     <name>WerkToolB</name>
@@ -13939,72 +15112,8 @@ with checked button too.</translation>
       <translation>Tools</translation>
     </message>
     <message>
-      <source>Select Items</source>
-      <translation>Select Items</translation>
-    </message>
-    <message>
-      <source>Insert Text Frame</source>
-      <translation>Insert Text Frame</translation>
-    </message>
-    <message>
-      <source>Insert Picture</source>
-      <translation>Insert Picture</translation>
-    </message>
-    <message>
       <source>Properties...</source>
       <translation>Properties...</translation>
-    </message>
-    <message>
-      <source>Insert Polygons</source>
-      <translation>Insert Polygons</translation>
-    </message>
-    <message>
-      <source>Insert Lines</source>
-      <translation>Insert Lines</translation>
-    </message>
-    <message>
-      <source>Insert Bezier Curves</source>
-      <translation>Insert Bezier Curves</translation>
-    </message>
-    <message>
-      <source>Insert Freehand Line</source>
-      <translation>Insert Freehand Line</translation>
-    </message>
-    <message>
-      <source>Rotate Item</source>
-      <translation>Rotate Item</translation>
-    </message>
-    <message>
-      <source>Edit Contents of Frame</source>
-      <translation>Edit Contents of Frame</translation>
-    </message>
-    <message>
-      <source>Link Text Frames</source>
-      <translation>Link Text Frames</translation>
-    </message>
-    <message>
-      <source>Unlink Text Frames</source>
-      <translation>Unlink Text Frames</translation>
-    </message>
-    <message>
-      <source>Zoom in or out</source>
-      <translation>Zoom in or out</translation>
-    </message>
-    <message>
-      <source>Edit the text with the Story Editor</source>
-      <translation>Edit the text with the Story Editor</translation>
-    </message>
-    <message>
-      <source>Draw various Shapes</source>
-      <translation>Draw various Shapes</translation>
-    </message>
-    <message>
-      <source>Insert Table</source>
-      <translation>Insert Table</translation>
-    </message>
-    <message>
-      <source>Do measurements</source>
-      <translation>Do measurements</translation>
     </message>
   </context>
   <context>
@@ -14048,37 +15157,6 @@ with checked button too.</translation>
     <message>
       <source>Insert PDF Annotations</source>
       <translation>Insert PDF Annotations</translation>
-    </message>
-  </context>
-  <context>
-    <name>ZAuswahl</name>
-    <message>
-      <source>Select Character:</source>
-      <translation>Select Character:</translation>
-    </message>
-    <message>
-      <source>Insert the characters at the cursor in the text</source>
-      <translation>Insert the characters at the cursor in the text</translation>
-    </message>
-    <message>
-      <source>Delete the current selection(s).</source>
-      <translation>Delete the current selection(s).</translation>
-    </message>
-    <message>
-      <source>Close this dialog and return to text editing.</source>
-      <translation>Close this dialog and return to text editing.</translation>
-    </message>
-    <message>
-      <source>&amp;Insert</source>
-      <translation>&amp;Insert</translation>
-    </message>
-    <message>
-      <source>C&amp;lear</source>
-      <translation>C&amp;lear</translation>
-    </message>
-    <message>
-      <source>&amp;Close</source>
-      <translation>&amp;Close</translation>
     </message>
   </context>
   <context>
@@ -14131,8 +15209,8 @@ and do not ask again to select an importer for
 files of this type.</translation>
     </message>
     <message>
-      <source>OK</source>
-      <translation>OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
   </context>
   <context>

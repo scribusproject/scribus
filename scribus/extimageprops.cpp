@@ -42,7 +42,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	blendModes.insert("hLit", tr("Hard Light"));
 	blendModes.insert("sLit", tr("Soft Light"));
 	blendModes.insert("diff", tr("Difference"));
-	blendModes.insert("smud", tr("Exlusion"));
+	blendModes.insert("smud", tr("Exclusion"));
 	blendModes.insert("div ", tr("Color Dodge"));
 	blendModes.insert("idiv", tr("Color Burn"));
 	blendModesRev.clear();

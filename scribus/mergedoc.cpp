@@ -62,9 +62,9 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 		pageNumberData = new QLineEdit( this, "pageNumberData" );
 		pageNumberData->setEnabled(false);
 		importPageLabel->setBuddy( pageNumberData );
-		QToolTip::add( pageNumberData, tr( "Insert a comma separated list of tokens importWhereData\n"
-		                           "a token can be * for all the pages, 1-5 for\n"
-		                           "a range of pages or a single page number.") );
+		QToolTip::add( pageNumberData, "<qt>" + tr( "Insert a comma separated list of tokens import where "
+		                           "a token can be * for all the pages, 1-5 for "
+		                           "a range of pages or a single page number.") + "</qt>");
 		fromInfoLayout->addWidget( pageNumberData, 1, 1 );
 		fromLabel = new QLabel(this, "fromLabel");
 		fromLabel->setText(tr(" from 0"));

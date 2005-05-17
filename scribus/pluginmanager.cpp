@@ -132,7 +132,7 @@ void PluginManager::callDLL(int pluginID)
 		mo = dlopen(plugDir, RTLD_LAZY | RTLD_GLOBAL);
 		if (!mo)
 		{
-			qDebug(tr("Can't find Plug-in"), "plugin manager");
+			qDebug(tr("Cannot find plugin"), "plugin manager");
 			return;
 		}
 	}
@@ -142,7 +142,7 @@ void PluginManager::callDLL(int pluginID)
 	demo = (sdem)dlsym(mo, "run");
 	if ((error = dlerror()) != NULL)
 	{
-		qDebug(tr(QString("Can't find Symbol (%1)").arg(error)), "plugin manager");
+		qDebug(tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
 		dlclose(mo);
 		return;
 	}

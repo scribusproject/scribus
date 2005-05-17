@@ -622,7 +622,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	DoGCR->setChecked(prefsData->GCRMode);
 	groupPrintLayout->addWidget( DoGCR );
 	MiscLayout->addWidget( groupPrint );
-	AskForSubs = new QCheckBox( tr( "Always ask before Fonts are replaced when loading a Document" ), Misc, "askforSubs" );
+	AskForSubs = new QCheckBox( tr( "Always ask before fonts are replaced when loading a document" ), Misc, "askforSubs" );
 	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
 	MiscLayout->addWidget( AskForSubs );
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
