@@ -8,13 +8,21 @@
 #include <qlistbox.h>
 #include <qpushbutton.h>
 #include <qcheckbox.h>
-#include <qlayout.h>
 #include <qtooltip.h>
 #include <qhbuttongroup.h>
 
 #include "mspinbox.h"
 
 
+/*! \brief GuideManager is the dialog for guides managing ;).
+Its public interface is used in scrubus.cpp
+ScribusApp::ManageGuides() via refreshDoc().
+Guides are applied via void Page::addXGuides(QValueList<double>& guides)
+and void Page::addYGuides(QValueList<double>& guides).
+\author Petr Vanek <petr@yarpen.cz>
+\author Alessandro Rimoldi
+\author Franz Schmid
+*/
 class GuideManager : public QDialog
 {
     Q_OBJECT
@@ -27,11 +35,14 @@ public:
 	    Or closed (of course). */
 	void refreshDoc();
 
-	QValueList<double> LocHor;
-	QValueList<double> LocVer;
-	bool LocLocked;
-
 private:
+	/*! A list with horizontal guides */
+	QValueList<double> horizontalGuides;
+	/*! A list with vertical guides */
+	QValueList<double> verticalGuides;
+	/*! "Guides are locked" indicator */
+	bool lockedGuides;
+
 	double LocPageWidth;
 	double LocPageHeight;
 	double LocTop;
@@ -65,56 +76,38 @@ private:
 
 	QCheckBox* Lock;
 
-	QPushButton* OK;
-	//QPushButton* Cancel;
+	QPushButton* okButton;
 
 	/*! Guide Gap widgets */
 	QCheckBox* useRowGap;
 	QCheckBox* useColGap;
-	QSpinBox* rowGap;
-	QSpinBox* colGap;
 
-	void UnitChange();
+	/*! Gaps between guides.
+	User can create automatic guides with an optional twoo gapped instead one guide.
+	For example: 100mm size - guide - 100mm size will be 95mm size - guide - 10mm gap
+	- guide - 95mm size (with 10mm gap) */
+	MSpinBox* rowGap;
+	MSpinBox* colGap;
+
+	/*! Initialise the units. Spin boxes gets pt/mm/etc. extensions here. */
+	void unitChange();
 
 	void UpdateHorList();
 	void UpdateVerList();
 
-	QHBoxLayout* Layout7;
-	QHBoxLayout* Layout8;
-	QHBoxLayout* Layout9;
-	QHBoxLayout* Layout10;
-	QHBoxLayout* hGapLayout;
-	QHBoxLayout* vGapLayout;
-
-
-	QVBoxLayout* GuideManagerLayout;
-	QHBoxLayout* Layout6;
-	QVBoxLayout* VerGroupLayout;
-	QHBoxLayout* Layout2;
-	QHBoxLayout* Layout1;
-
-	QVBoxLayout* HorGroupLayout;
-	QHBoxLayout* Layout4;
-	QHBoxLayout* Layout3;
-
-	QHBoxLayout* Layout5;
-
 	double docUnitRatio;
 
 	/*! Calculates the row position of the guide.
-	\param iter position in the sequence
-	\param offset an offset
-	\param spacing space between the guides
-	\param gap optional space between twoo gapped guides
+	This algorithm is used for guides creating and deleting too.
+	\retval QValueList<double> a list with guides positions
 	*/
-	void addRowGap(int iter, double offset, double spacing, double gap);
-	/*! Calculates the row position of the guide.
-	\param iter position in the sequence
-	\param offset an offset
-	\param spacing space between the guides
-	\param gap optional space between twoo gapped guides
+	QValueList<double> getRowValues();
+
+	/*! Calculates the column position of the guide.
+	This algorithm is used for guides creating and deleting too.
+	\retval QValueList<double> a list with guides positions
 	*/
-	void addColGap(int iter, double offset, double spacing, double gap);
+	QValueList<double> getColValues();
 
 private slots:
 
@@ -131,12 +124,20 @@ private slots:
 
 	void ChangeHorVal();
 	void ChangeVerVal();
-	void AddRows();
-	void AddCols();
+
+	/*! Create automatic vertical guides. */
+	void addRows();
+	/*! Create automatic horizontal guides. */
+	void addCols();
+	/*! Erase automatic vertical guides. */
+	void delRows();
+	/*! Erase automatic horizantal guides. */
+	void delCols();
 
 	/*! Gap related widget handling (enable/disable)
 	\param state enable/disable gaps */
 	void useRowGap_clicked(bool state);
+
 	/*! Gap related widget handling (enable/disable)
 	\param state enable/disable gaps */
 	void useColGap_clicked(bool state);
