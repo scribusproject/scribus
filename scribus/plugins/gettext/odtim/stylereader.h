@@ -35,9 +35,83 @@
 #include <gtstyle.h>
 #include <gtwriter.h>
 
+
+enum BulletType {
+	Bullet,
+	Number,
+	LowerRoman,
+	UpperRoman,
+	LowerAlpha,
+	UpperAlpha,
+	Graphic
+};
+
+class ListLevel
+{
+public:
+	ListLevel(uint level,
+	          BulletType btype,
+	          const QString &prefix,
+	          const QString &suffix,
+	          const QString &bullet,
+	          uint displayLevels = 1,
+	          uint startValue = 0);
+	~ListLevel();
+	QString bulletString();
+	QString bullet();
+	QString prefix();
+	QString suffix();
+	void advance();
+	void reset();
+	uint level();
+	uint displayLevels();
+private:
+	uint m_level;
+	BulletType m_btype;
+	QString m_prefix;
+	QString m_suffix;
+	QString m_bullet;
+	uint m_displayLevels;
+	uint m_next;
+	static const QString lowerUnits[10];
+	static const QString lowerTens[10];
+	static const QString lowerHundreds[10];
+	static const QString lowerThousands[4];
+	static const QString upperUnits[10];
+	static const QString upperTens[10];
+	static const QString upperHundreds[10];
+	static const QString upperThousands[4];
+	static const QString lowerAlphabets[27];
+	static const QString upperAlphabets[27];
+	QString lowerRoman(uint n);
+	QString upperRoman(uint n);
+	QString lowerAlpha(uint n);
+	QString upperAlpha(uint n);
+};
+
+class ListStyle
+{
+public:
+	ListStyle(const QString &name, bool consecutiveNumbering = false, uint currentLevel = 1);
+	~ListStyle();
+	void addLevel(uint level, ListLevel *llevel);
+	QString bullet();
+	void advance();
+	void setLevel(uint level);
+	void resetLevel();
+	QString& name();
+private:
+	QString m_name;
+	bool m_consecutiveNumbering;
+	uint m_currentLevel;
+	uint m_count;
+	ListLevel* levels[11];
+};
+
 typedef QMap<QString, gtStyle*> StyleMap;
 typedef QMap<QString, QString> FontMap;
 typedef QMap<QString, int> CounterMap;
+typedef QMap<QString, ListStyle*> ListMap;
 
 class StyleReader
 {
@@ -54,10 +128,12 @@ private:
 	StyleMap attrsStyles;
 	CounterMap pstyleCounts;
 	FontMap fonts;
+	ListMap lists;
 	gtStyle* currentStyle;
 	gtStyle* parentStyle;
 	bool inList;
 	QString currentList;
+	ListStyle *currentListStyle;
 	bool defaultStyleCreated;
 	double getSize(QString s, double parentSize = -1);
 	void styleProperties(const QXmlAttributes& attrs);
@@ -77,6 +153,7 @@ public:
 	gtStyle* getStyle(const QString& name);
 	void setStyle(const QString& name, gtStyle* style);
 	QString getFont(const QString& key);
+	ListStyle *getList(const QString &name);
 };
 
 #endif // HAVE_XML

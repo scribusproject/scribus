@@ -37,11 +37,11 @@ ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, 
 	currentStyle = NULL;
 	append = false;
 	inList = false;
-	isOrdered = false;
 	inSpan = false;
 	listIndex = 0;
 	listLevel = 0;
 	currentList = "";
+	currentListStyle = 0;
 	inT = false;
 	tName = "";
 }
@@ -93,9 +93,7 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		else
 			currentStyle = tmp;
 	}
-	else if ((name == "text:unordered-list") ||
-	         (name == "text:ordered-list") ||
-	         (name == "text:list"))
+	else if (name == "text:list")
 	{
 		inList = true;
 		++listLevel;
@@ -107,35 +105,15 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 				currentList = attrs.value(i);
 		}
 		currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
+		currentListStyle = sreader->getList(currentList);
+		currentListStyle->setLevel(listLevel);
 		styleNames.clear();
 		styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
-		if (name == "text:ordered-list")
-		{
-			isOrdered = true;
-			isOrdered2.push_back(true);
-			qDebug("isOrdered2.push_back(true);");
-		}
-		else
-		{
-			isOrdered = false;
-			isOrdered2.push_back(false);
-			qDebug("isOrdered2.push_back(false);");
-		}
 	}
 	else if (name == "text:list-item")
 	{
-		qDebug(QString("isOrdered2.size() == %1").arg(isOrdered2.size()));
-		if (isOrdered2[listLevel - 1])
-		{
-			++listIndex;
-			++listIndex2[listLevel - 1];
-			if (listLevel == 1)
-				write(QString("%1. ").arg(listIndex2[listLevel - 1]));
-			else
-				write(QString("%1. ").arg(listIndex2[listLevel - 1]));
-		}
-		else
-			write("- ");
+		currentListStyle->advance();
+		write(currentListStyle->bullet());
 	}
 	else if (name == "style:style")
 	{
@@ -219,9 +197,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		write(QChar(28));
 	else if (name == "text:tab")
 		write("\t");
-	else if ((name == "text:unordered-list") || 
-	         (name == "text:ordered-list") ||
-	         (name == "text:list"))
+	else if (name == "text:list")
 	{
 		--listLevel;
 		styleNames.clear();
@@ -229,11 +205,15 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 		{
 			inList = false;
 			listIndex2.clear();
+			currentListStyle = 0;
 		}
 		else
 		{
 			currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
 			styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
+			currentListStyle->resetLevel();
+			currentListStyle = sreader->getList(currentList);
+			currentListStyle->setLevel(listLevel);
 		}
 	}
 	else if ((name == "style:style") && (inT))
