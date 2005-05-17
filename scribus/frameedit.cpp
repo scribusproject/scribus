@@ -11,7 +11,6 @@ extern QPixmap loadIcon(QString nam);
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {
-	setCaption( tr( "Nodes" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	NodePaletteLayout = new QVBoxLayout( this );
 	NodePaletteLayout->setSpacing( 2 );
@@ -146,7 +145,6 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	Crop->setPixmap(loadIcon("crop.png"));
 	ButtonGroup1Layout->addWidget( Crop, 5, 1 );
 	ScaleVal = new QSpinBox( ButtonGroup1, "RotVal");
-	ScaleVal->setSuffix(" %");
 	ScaleVal->setMinValue(1);
 	ScaleVal->setMaxValue(100);
 	ScaleVal->setValue(10);
@@ -156,7 +154,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	    ButtonGroup4Layout->addItem( spacer_2 );  */
 	NodePaletteLayout->addWidget( ButtonGroup1 );
 
-	AbsMode = new QCheckBox( tr( "&Absolute Coordinates" ), this, "Textflow" );
+	AbsMode = new QCheckBox( "&Absolute Coordinates", this, "Textflow" );
 	AbsMode->setChecked(false);
 	NodePaletteLayout->addWidget( AbsMode );
 
@@ -167,50 +165,27 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	YSpin = new MSpinBox( this, 2 );
 	YSpin->setMaxValue(30000);
 	YSpin->setEnabled(false);
-	TextLabel1 = new QLabel( XSpin, tr( "&X-Pos:" ), this, "TextLabel1" );
-	TextLabel2 = new QLabel( YSpin, tr( "&Y-Pos:"), this, "TextLabel2" );
+	TextLabel1 = new QLabel( XSpin, "&X-Pos:", this, "TextLabel1" );
+	TextLabel2 = new QLabel( YSpin, "&Y-Pos:", this, "TextLabel2" );
 	Layout2->addWidget( TextLabel1, 0, 0 );
 	Layout2->addWidget( TextLabel2, 1, 0 );
 	Layout2->addWidget( XSpin, 0, 1 );
 	Layout2->addWidget( YSpin, 1, 1 );
 	NodePaletteLayout->addLayout( Layout2 );
 
-	EditCont = new QCheckBox( tr("Edit &Contour Line"), this, "EditCont" );
+	EditCont = new QCheckBox( "Edit &Contour Line", this, "EditCont" );
 	EditCont->setChecked(false);
 	NodePaletteLayout->addWidget( EditCont );
 
-	ResetCont = new QPushButton( tr("&Reset Contour Line"), this, "PushButton1" );
+	ResetCont = new QPushButton( "&Reset Contour Line", this, "PushButton1" );
 	NodePaletteLayout->addWidget( ResetCont );
 
-	PushButton1 = new QPushButton( tr( "&End Editing"), this, "PushButton1" );
+	PushButton1 = new QPushButton( "&End Editing", this, "PushButton1" );
 	PushButton1->setDefault(true);
 	NodePaletteLayout->addWidget( PushButton1 );
-	QToolTip::add(  MoveNode, tr( "Move Nodes" ) );
-	QToolTip::add(  MoveControl, tr( "Move Control Points" ) );
-	QToolTip::add(  AddNode, tr( "Add Nodes" ) );
-	QToolTip::add(  DeleteNode, tr( "Delete Nodes" ) );
-	QToolTip::add(  AsymMove, tr( "Move Control Points Independently" ) );
-	QToolTip::add(  SymMove, tr( "Move Control Points Symmetrical" ) );
-	QToolTip::add(  ResNode, tr( "Reset Control Points" ) );
-	QToolTip::add(  Res1Node, tr( "Reset this Control Point" ) );
-	QToolTip::add(  PolySplit, tr( "Open a Polygon or Cuts a Bezier Curve" ) );
-	QToolTip::add(  BezierClose, tr( "Close this Bezier Curve" ) );
-	QToolTip::add(  PolyMirrorH, tr( "Mirror the Path Horizontally" ) );
-	QToolTip::add(  PolyMirrorV, tr( "Mirror the Path Vertically" ) );
-	QToolTip::add(  PolyShearR, tr( "Shear the Path Horizontally to the Right" ) );
-	QToolTip::add(  PolyShearL, tr( "Shear the Path Horizontally to the Left" ) );
-	QToolTip::add(  PolyShearU, tr( "Shear the Path Vertically Up" ) );
-	QToolTip::add(  PolyShearD, tr( "Shear the Path Vertically Down" ) );
-	QToolTip::add(  RotateCCW, tr( "Rotate the Path Counter-Clockwise" ) );
-	QToolTip::add(  RotateCW, tr( "Rotate the Path Clockwise" ) );
-	QToolTip::add(  Crop, tr( "Reduce the Size of the Path by shown %" ) );
-	QToolTip::add(  Expand, tr( "Enlarge the Size of the Path by shown %" ) );
-	QToolTip::add(  RotVal, tr( "Angle of Rotation" ) );
-	QToolTip::add(  ScaleVal, tr( "% to Enlarge or Reduce By" ) );
-	QToolTip::add(  EditCont, tr( "Activate Contour Line Editing Mode" ) );
-	QToolTip::add(  ResetCont, tr( "Reset the Contour Line to the Original Shape of the Frame" ) );
-	QToolTip::add(  AbsMode,  tr( "When checked use Coordinates relative to the Page,\notherwise Coordinates are relative to the Object." ) );
 
+	languageChange();
+	
 	// signals and slots connections
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(EndEdit()));
 	connect(DeleteNode, SIGNAL(clicked()), this, SLOT(DelN()));
@@ -560,4 +535,42 @@ void NodePalette::EndEdit()
 	BezierClose->setEnabled( false );
 	EditCont->setChecked(false);
 	emit Schliessen();
+}
+
+void NodePalette::languageChange()
+{
+	setCaption( tr( "Nodes" ) );
+	ScaleVal->setSuffix(tr(" %"));
+	
+	AbsMode->setText(tr("&Absolute Coordinates"));
+	TextLabel1->setText(tr("&X-Pos:"));
+	TextLabel2->setText(tr("&Y-Pos:"));
+	EditCont->setText(tr("Edit &Contour Line"));
+	ResetCont->setText(tr("&Reset Contour Line"));
+	PushButton1->setText(tr("&End Editing"));
+	QToolTip::add(MoveNode, tr("Move Nodes"));
+	QToolTip::add(MoveControl, tr("Move Control Points"));
+	QToolTip::add(AddNode, tr("Add Nodes"));
+	QToolTip::add(DeleteNode, tr("Delete Nodes"));
+	QToolTip::add(AsymMove, tr("Move Control Points Independently"));
+	QToolTip::add(SymMove, tr("Move Control Points Symmetrical"));
+	QToolTip::add(ResNode, tr("Reset Control Points"));
+	QToolTip::add(Res1Node, tr("Reset this Control Point"));
+	QToolTip::add(PolySplit, tr("Open a Polygon or Cuts a Bezier Curve"));
+	QToolTip::add(BezierClose, tr("Close this Bezier Curve"));
+	QToolTip::add(PolyMirrorH, tr("Mirror the Path Horizontally"));
+	QToolTip::add(PolyMirrorV, tr("Mirror the Path Vertically"));
+	QToolTip::add(PolyShearR, tr("Shear the Path Horizontally to the Right"));
+	QToolTip::add(PolyShearL, tr("Shear the Path Horizontally to the Left"));
+	QToolTip::add(PolyShearU, tr("Shear the Path Vertically Up"));
+	QToolTip::add(PolyShearD, tr("Shear the Path Vertically Down"));
+	QToolTip::add(RotateCCW, tr("Rotate the Path Counter-Clockwise"));
+	QToolTip::add(RotateCW, tr("Rotate the Path Clockwise"));
+	QToolTip::add(Crop, tr("Reduce the Size of the Path by shown %"));
+	QToolTip::add(Expand, tr("Enlarge the Size of the Path by shown %"));
+	QToolTip::add(RotVal, tr("Angle of Rotation"));
+	QToolTip::add(ScaleVal, tr("% to Enlarge or Reduce By"));
+	QToolTip::add(EditCont, tr("Activate Contour Line Editing Mode"));
+	QToolTip::add(ResetCont, tr("Reset the Contour Line to the Original Shape of the Frame"));
+	QToolTip::add(AbsMode,  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.") + "</qt>");
 }

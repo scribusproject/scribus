@@ -92,6 +92,7 @@ public slots:
 	void HaveNode(bool have, bool mov);
 	void IsOpen();
 	void PolyStatus(int typ, uint size);
+	void languageChange();
 
 protected:
 	QVBoxLayout* NodePaletteLayout;
