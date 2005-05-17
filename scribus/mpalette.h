@@ -411,6 +411,13 @@ protected:
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(MSpinBox *spinBox);
+	
+	int idXYZItem;
+	int idShapeItem;
+	int idTextItem;
+	int idImageItem;
+	int idLineItem;
+	int idColorsItem;
 };
 
 class UserActionSniffer : public QObject

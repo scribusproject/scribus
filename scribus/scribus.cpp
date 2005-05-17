@@ -10459,5 +10459,8 @@ void ScribusApp::languageChange()
 
 	XMess->setText(tr("X-Pos:"));
 	YMess->setText(tr("Y-Pos:"));
+	XDat->setText("         ");
+	YDat->setText("         ");
+	FMess->setText(tr("Ready"));
 	}
 }

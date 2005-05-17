@@ -100,6 +100,7 @@ public slots:
 	void slotTrans(int val);
 	void UseTrans(bool b);
 	void UnitChange(double old, double neww, int ein);
+	void languageChange();
 
 signals:
 	void NewPen(QString);

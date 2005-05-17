@@ -65,23 +65,19 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Layout1->addWidget(Innen, 0, 1);
 	Mode = 2;
 	ShadeTxt = new QLabel( this, "ShadeTxt" );
-	ShadeTxt->setText( tr( "Shade:" ) );
 	Layout1->addWidget( ShadeTxt, 0, 2 );
 	PM1 = new QSpinBox( this, "shspin" );
 	PM1->setMinValue(0);
 	PM1->setMaxValue(100);
 	PM1->setLineStep(10);
-	PM1->setSuffix( tr(" %"));
 	PM1->setValue(100);
 	Layout1->addWidget(PM1, 0, 3);
 	TransTxt = new QLabel( this, "Transtxt" );
-	TransTxt->setText( tr( "Opacity:" ) );
 	Layout1->addWidget( TransTxt, 1, 2 );
 	TransSpin = new QSpinBox( this, "traspin" );
 	TransSpin->setMinValue(0);
 	TransSpin->setMaxValue(100);
 	TransSpin->setLineStep(10);
-	TransSpin->setSuffix( tr(" %"));
 	TransSpin->setValue(100);
 	Layout1->addWidget(TransSpin, 1, 3);
 	Form1Layout->addLayout(Layout1);
@@ -91,15 +87,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	gradientQCombo = new QComboBox( true, this, "gradientQCombo" );
 	gradientQCombo->setEditable(false);
 	gradientQCombo->setFont(fo);
-	gradientQCombo->insertItem( tr("Normal"));
-	gradientQCombo->insertItem( tr("Horizontal Gradient"));
-	gradientQCombo->insertItem( tr("Vertical Gradient"));
-	gradientQCombo->insertItem( tr("Diagonal Gradient"));
-	gradientQCombo->insertItem( tr("Cross Diagonal Gradient"));
-	gradientQCombo->insertItem( tr("Radial Gradient"));
-	gradientQCombo->insertItem( tr("Free linear Gradient"));
-	gradientQCombo->insertItem( tr("Free radial Gradient"));
-	gradientQCombo->setCurrentItem(0);
 	GradLayout->addWidget( gradientQCombo );
 	gradEdit = new GradientEditor(this);
 	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
@@ -108,40 +95,35 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	freeGradientQFrame->setFrameShape( QFrame::NoFrame );
 	freeGradientQFrame->setFrameShadow( QFrame::Plain );
 	freeGradientLayout = new QGridLayout( freeGradientQFrame, 1, 1, 5, 5, "freeGradientLayout");
-	GTextX1 = new QLabel( tr( "X1:"), freeGradientQFrame, "GTextX1" );
+	GTextX1 = new QLabel("X1:", freeGradientQFrame, "GTextX1" );
 	freeGradientLayout->addWidget( GTextX1, 0, 0 );
-	GTextY1 = new QLabel( tr( "Y1:" ), freeGradientQFrame, "GTextY1" );
+	GTextY1 = new QLabel("Y1:", freeGradientQFrame, "GTextY1" );
 	freeGradientLayout->addWidget( GTextY1, 1, 0 );
 	gX1 = new MSpinBox( freeGradientQFrame, 2);
 	gX1->setDecimals(100);
-	gX1->setSuffix( tr( " pt" ) );
 	gX1->setMinValue(0);
 	gX1->setMaxValue(3000);
 	freeGradientLayout->addWidget( gX1, 0, 1 );
 	gY1 = new MSpinBox( freeGradientQFrame, 2 );
-	gY1->setSuffix( tr( " pt" ) );
 	gY1->setDecimals(100);
 	gY1->setMinValue(0);
 	gY1->setMaxValue(3000);
 	freeGradientLayout->addWidget( gY1, 1, 1 );
-	GTextX2 = new QLabel( tr( "X2:" ), freeGradientQFrame, "GTextX2" );
+	GTextX2 = new QLabel("X2:", freeGradientQFrame, "GTextX2" );
 	freeGradientLayout->addWidget( GTextX2, 0, 2 );
-	GTextY2 = new QLabel( tr( "Y2:" ), freeGradientQFrame, "GTextY2" );
+	GTextY2 = new QLabel("Y2:", freeGradientQFrame, "GTextY2" );
 	freeGradientLayout->addWidget( GTextY2, 1, 2 );
 	gX2 = new MSpinBox( freeGradientQFrame, 2 );
-	gX2->setSuffix( tr( " pt" ) );
 	gX2->setDecimals(100);
 	gX2->setMinValue(0);
 	gX2->setMaxValue(3000);
 	freeGradientLayout->addWidget( gX2, 0, 3 );
 	gY2 = new MSpinBox( freeGradientQFrame, 2 );
-	gY2->setSuffix( tr( " pt" ) );
 	gY2->setDecimals(100);
 	gY2->setMinValue(0);
 	gY2->setMaxValue(3000);
 	freeGradientLayout->addWidget( gY2, 1, 3 );
 	gradEditButton = new QToolButton(freeGradientQFrame, "t1");
-	gradEditButton->setText( tr("Move Vector"));
 	gradEditButton->setToggleButton(true);
 	freeGradientLayout->addMultiCellWidget(gradEditButton, 2, 2, 0, 3);
 	GradLayout->addWidget( freeGradientQFrame );
@@ -152,16 +134,11 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Form1Layout->addWidget(colorListQLBox);
 	Inhalt->setOn(true);
 	InnenButton();
-	setActGradient(0);
 	GradientMode = false;
-	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
-	QToolTip::add( Innen, tr( "Edit Fill Color Properties" ) );
-	QToolTip::add( PM1, tr( "Saturation of color" ) );
-	QToolTip::add( gradientQCombo, tr( "Normal or gradient fill method" ) );
-	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
-	QToolTip::add( colorListQLBox, tr( "Color of selected object" ) );
-	QToolTip::add( gradEditButton, "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
-
+	
+	languageChange();
+	setActGradient(0);
+	
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
@@ -563,4 +540,44 @@ void Cpalette::UnitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+}
+
+void Cpalette::languageChange()
+{
+	QString ptSuffix=tr(" pt");
+	gX1->setSuffix(ptSuffix);
+	gY1->setSuffix(ptSuffix);
+	gX2->setSuffix(ptSuffix);
+	gY2->setSuffix(ptSuffix);
+	QString pctSuffix=tr(" %");
+	PM1->setSuffix(pctSuffix);	
+	TransSpin->setSuffix(pctSuffix);
+	
+	ShadeTxt->setText( tr( "Shade:" ) );
+	TransTxt->setText( tr( "Opacity:" ) );
+	GTextX1->setText( tr( "X1:"));
+	GTextY1->setText( tr( "Y1:" ));
+	GTextX2->setText( tr( "X2:" ));
+	GTextY2->setText( tr( "Y2:" ));
+	gradEditButton->setText( tr("Move Vector"));
+	
+	int oldGradient=gradientQCombo->currentItem();
+	gradientQCombo->clear();
+	gradientQCombo->insertItem( tr("Normal"));
+	gradientQCombo->insertItem( tr("Horizontal Gradient"));
+	gradientQCombo->insertItem( tr("Vertical Gradient"));
+	gradientQCombo->insertItem( tr("Diagonal Gradient"));
+	gradientQCombo->insertItem( tr("Cross Diagonal Gradient"));
+	gradientQCombo->insertItem( tr("Radial Gradient"));
+	gradientQCombo->insertItem( tr("Free linear Gradient"));
+	gradientQCombo->insertItem( tr("Free radial Gradient"));
+	gradientQCombo->setCurrentItem(oldGradient);
+
+	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
+	QToolTip::add( Innen, tr( "Edit Fill Color Properties" ) );
+	QToolTip::add( PM1, tr( "Saturation of color" ) );
+	QToolTip::add( gradientQCombo, tr( "Normal or gradient fill method" ) );
+	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
+	QToolTip::add( colorListQLBox, tr( "Color of selected object" ) );
+	QToolTip::add( gradEditButton, "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
 }

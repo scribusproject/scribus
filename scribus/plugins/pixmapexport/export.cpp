@@ -86,7 +86,7 @@ void run(QWidget *d, ScribusApp *plug)
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(plug, QObject::tr("Save as Image"), QObject::tr("Error writting the output file(s)."));
+			QMessageBox::warning(plug, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
 			plug->FMess->setText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
