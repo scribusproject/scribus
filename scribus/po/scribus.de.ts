@@ -7548,7 +7548,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
         <translation>Absatzstile aktualisieren</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Existierende Stile im aktuellen Dokument überschreiben</translation>
     </message>
     <message>
@@ -13946,7 +13946,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
         <translation>Absatzstile aktualisieren</translation>
     </message>
     <message>
-        <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>Damit werden bereits vorhandene Stile im aktuellen Dokument überschrieben</translation>
     </message>
     <message>
