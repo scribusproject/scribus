@@ -70,6 +70,7 @@ private:
 	QString SetFarbe(QString farbe, int Shade);
 	QString putColor(QString color, int Shade, bool fill);
 	QString setTextSt(PageItem *ite, uint PNr);
+	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, struct ScText *hl);
 	void PutDoc(QString in);
 	void PutPage(QString in);
 	void StartObj(int nr);

@@ -732,7 +732,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								DrawZeichenS(p, &Zli3);
 						}
 					}
-					tabDist = Zli3.xco+Zli3.wide;
+					if (hl->cstyle & 16384)
+						tabDist = ColBound.x();
+					else
+						tabDist = Zli3.xco+Zli3.wide;
 				}
 				if (itemText.count() > MaxChars)
 				{
