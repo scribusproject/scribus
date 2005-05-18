@@ -19,7 +19,6 @@
 #include "scribus.h"
 #include "scribusview.h"
 #include "undomanager.h"
-#include "pluginmanager.h"
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name ) 
 {
@@ -946,7 +945,4 @@ void ActionManager::languageChange()
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setMenuText(tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setMenuText(tr("Toggle Guides"));
-	
-	//Plugun menu items
-	ScApp->pluginManager->languageChange();
 }

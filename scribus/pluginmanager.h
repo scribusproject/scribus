@@ -67,6 +67,7 @@ public:
 	void initPlugs();
 	/*! \brief Run plugin by its id from pluginMap */
 	void callDLL(int pluginID);
+	QString callDLLForNewLanguage(int pluginID);
 	/*! \brief Checks if is the plug in plugin map.
 	 * \return bool
 	 */
@@ -99,9 +100,10 @@ public:
 	static QCString platformDllExtension();
 
 public slots:
-	/*! obsolete */
+	/*! not at all obsolete! */
 	void callDLLBySlot(int pluginID);
 	void languageChange();
+
 
 private:
 	/** \brief Configuration structure */

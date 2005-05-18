@@ -23,6 +23,7 @@ extern "C" QString actionKeySequence();
 extern "C" QString actionMenu();
 extern "C" QString actionMenuAfterName();
 extern "C" bool actionEnabledOnStartup();
+extern "C" void languageChange();
 
 /** Initializes the Plugin if it's a Plugin of Type 4 */
 extern "C" void initPlug(QWidget *d, ScribusApp *plug);

@@ -123,6 +123,12 @@ bool actionEnabledOnStartup()
 	return true;
 }
 
+void languageChange()
+{
+	if (scripterCore)
+		scripterCore->languageChange();
+}
+
 void initPlug(QWidget *d, ScribusApp *plug)
 {
 	QString cm;

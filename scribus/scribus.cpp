@@ -296,6 +296,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	}
 	closeSplash();
 	scribusInitialized=true;
+	//pluginManager->languageChange();
 	return retVal;
 }
 
@@ -10449,50 +10450,51 @@ void ScribusApp::languageChange()
 {
 	if (scribusInitialized)
 	{
-	//Update actions
-	if (actionManager!=NULL)
-	{
-		actionManager->languageChange();
-		initKeyboardShortcuts();
-	}
-	//Update menu texts
-	if (scrMenuMgr!=NULL && !scrMenuMgr->empty())
-	{
-		scrMenuMgr->setMenuText("File", tr("&File"));
-		scrMenuMgr->setMenuText(recentFileMenuName, tr("Open &Recent"));
-		scrMenuMgr->setMenuText("FileImport", tr("&Import"));
-		scrMenuMgr->setMenuText("FileExport", tr("&Export"));
-		scrMenuMgr->setMenuText("Edit", tr("&Edit"));
-		scrMenuMgr->setMenuText("Style", tr("St&yle"));
-		scrMenuMgr->setMenuText("Color", tr("&Color"));
-		scrMenuMgr->setMenuText("FontSize", tr("&Size"));
-		scrMenuMgr->setMenuText("Shade", tr("&Shade"));
-		scrMenuMgr->setMenuText("Font", tr("&Font"));
-		scrMenuMgr->setMenuText("TypeEffects", tr("&Effects"));
-		scrMenuMgr->setMenuText("Item", tr("&Item"));
-		scrMenuMgr->setMenuText("ItemLevel", tr("&Level"));
-		scrMenuMgr->setMenuText("ItemPDFOptions", tr("&PDF Options"));
-		scrMenuMgr->setMenuText("ItemShapes", tr("&Shape"));
-		scrMenuMgr->setMenuText("ItemConvertTo", tr("C&onvert To"));
-		scrMenuMgr->setMenuText("Insert", tr("I&nsert"));
-		scrMenuMgr->setMenuText("InsertChar", tr("Character"));
-		scrMenuMgr->setMenuText("InsertQuote", tr("Quote"));
-		scrMenuMgr->setMenuText("InsertSpace", tr("Space"));
-		scrMenuMgr->setMenuText("Page", tr("&Page"));
-		scrMenuMgr->setMenuText("View", tr("&View"));
-		scrMenuMgr->setMenuText("Tools", tr("&Tools"));
-		scrMenuMgr->setMenuText("Extras", tr("E&xtras"));
-		scrMenuMgr->setMenuText("Windows", tr("&Windows"));
-		scrMenuMgr->setMenuText("Help", tr("&Help"));
-		scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
-	}
-	if (undoManager!=NULL)
-		undoManager->languageChange();
-
-	XMess->setText(tr("X-Pos:"));
-	YMess->setText(tr("Y-Pos:"));
-	XDat->setText("         ");
-	YDat->setText("         ");
-	FMess->setText(tr("Ready"));
+		//Update actions
+		if (actionManager!=NULL)
+		{
+			actionManager->languageChange();
+			pluginManager->languageChange();
+			initKeyboardShortcuts();
+		}
+		//Update menu texts
+		if (scrMenuMgr!=NULL && !scrMenuMgr->empty())
+		{
+			scrMenuMgr->setMenuText("File", tr("&File"));
+			scrMenuMgr->setMenuText(recentFileMenuName, tr("Open &Recent"));
+			scrMenuMgr->setMenuText("FileImport", tr("&Import"));
+			scrMenuMgr->setMenuText("FileExport", tr("&Export"));
+			scrMenuMgr->setMenuText("Edit", tr("&Edit"));
+			scrMenuMgr->setMenuText("Style", tr("St&yle"));
+			scrMenuMgr->setMenuText("Color", tr("&Color"));
+			scrMenuMgr->setMenuText("FontSize", tr("&Size"));
+			scrMenuMgr->setMenuText("Shade", tr("&Shade"));
+			scrMenuMgr->setMenuText("Font", tr("&Font"));
+			scrMenuMgr->setMenuText("TypeEffects", tr("&Effects"));
+			scrMenuMgr->setMenuText("Item", tr("&Item"));
+			scrMenuMgr->setMenuText("ItemLevel", tr("&Level"));
+			scrMenuMgr->setMenuText("ItemPDFOptions", tr("&PDF Options"));
+			scrMenuMgr->setMenuText("ItemShapes", tr("&Shape"));
+			scrMenuMgr->setMenuText("ItemConvertTo", tr("C&onvert To"));
+			scrMenuMgr->setMenuText("Insert", tr("I&nsert"));
+			scrMenuMgr->setMenuText("InsertChar", tr("Character"));
+			scrMenuMgr->setMenuText("InsertQuote", tr("Quote"));
+			scrMenuMgr->setMenuText("InsertSpace", tr("Space"));
+			scrMenuMgr->setMenuText("Page", tr("&Page"));
+			scrMenuMgr->setMenuText("View", tr("&View"));
+			scrMenuMgr->setMenuText("Tools", tr("&Tools"));
+			scrMenuMgr->setMenuText("Extras", tr("E&xtras"));
+			scrMenuMgr->setMenuText("Windows", tr("&Windows"));
+			scrMenuMgr->setMenuText("Help", tr("&Help"));
+			scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
+		}
+		if (undoManager!=NULL)
+			undoManager->languageChange();
+	
+		XMess->setText(tr("X-Pos:"));
+		YMess->setText(tr("Y-Pos:"));
+		XDat->setText("         ");
+		YDat->setText("         ");
+		FMess->setText(tr("Ready"));
 	}
 }

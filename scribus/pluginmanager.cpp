@@ -154,6 +154,57 @@ void PluginManager::callDLL(int pluginID)
 		ScApp->view->DrawNew();
 }
 
+QString PluginManager::callDLLForNewLanguage(int pluginID)
+{
+	void *mo;
+	const char *error;
+	struct PluginData pda;
+	pda = pluginMap[pluginID];
+	typedef QString (*sdem)();
+	typedef void (*sdem0)();
+	sdem demo;
+	sdem0 demo0;
+	QString plugDir = ScPaths::instance().pluginDir();
+	if (pda.type != 4 && pda.type !=5)
+	{
+		plugDir += pda.pluginFile;
+		mo = dlopen(plugDir, RTLD_LAZY | RTLD_GLOBAL);
+		if (!mo)
+		{
+			qDebug(tr("Cannot find plugin"), "plugin manager");
+			return QString::null;
+		}
+	}
+	else
+		mo = pda.index;
+	dlerror();
+	// Grab the menu string from the plugin again
+	demo = (sdem)dlsym(mo, "name");
+	if ((error = dlerror()) != NULL)
+	{
+		qDebug(tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
+		//dlclose(mo);
+		return QString::null;
+	}
+	QString retVal=(*demo)();	
+	//If scripter, get it to update its scrActions.
+	if (pluginID==8)
+	{
+		dlerror();
+		demo0 = (sdem0)dlsym(mo, "languageChange");
+		if ((error = dlerror()) != NULL)
+		{
+			dlclose(mo);
+			return false;
+		}
+		(*demo0)();
+	}
+
+	if (pda.type != 4 && pda.type != 5)
+		dlclose(mo);
+	return retVal;
+}
+
 bool PluginManager::DLLexists(int pluginID)
 {
 	return pluginMap.contains(pluginID);
@@ -362,7 +413,7 @@ void PluginManager::languageChange()
 {
 	for (QMap<int, PluginData>::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		QString fromTranslator=ScQApp->translate("QObject", (*it).actMenuText);
+		QString fromTranslator=callDLLForNewLanguage(it.key());
 		ScrAction* pluginAction=ScApp->scrActions[(*it).actName];
 		if (pluginAction!=NULL)
 			pluginAction->setMenuText(fromTranslator);

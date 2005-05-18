@@ -478,3 +478,14 @@ void ScripterCore::runStartupScript()
 	}
 }
 
+QString ScripterCore::languageChange()
+{
+	scrScripterActions["scripterExecuteScript"]->setMenuText(QObject::tr("&Execute Script..."));
+	scrScripterActions["scripterShowConsole"]->setMenuText(QObject::tr("Show &Console"));
+	scrScripterActions["scripterAboutScript"]->setMenuText(QObject::tr("&About Script..."));	
+	
+	menuMgr->setMenuText("Scripter", QObject::tr("&Script"));
+	menuMgr->setMenuText("ScribusScripts", QObject::tr("&Scribus Scripts"));
+	menuMgr->setMenuText("RecentScripts", QObject::tr("&Recent Scripts"));
+	return QString::null;
+}
