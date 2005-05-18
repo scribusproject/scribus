@@ -602,7 +602,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				Doc->docParagraphStyles[xxx].gapBefore = 0;
 				Doc->docParagraphStyles[xxx].gapAfter = 0;
 				Doc->docParagraphStyles[xxx].textAlignment = xxx;
-				Doc->docParagraphStyles[xxx].tabFillChar = Doc->toolSettings.tabFillChar;
 			}
 			
 			QPtrList<ZZ> LiList;
@@ -732,10 +731,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								DrawZeichenS(p, &Zli3);
 						}
 					}
-					if (hl->cstyle & 16384)
-						tabDist = ColBound.x();
-					else
-						tabDist = Zli3.xco+Zli3.wide;
+					tabDist = Zli3.xco+Zli3.wide;
 				}
 				if (itemText.count() > MaxChars)
 				{

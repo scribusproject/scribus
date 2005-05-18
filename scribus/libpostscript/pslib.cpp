@@ -953,7 +953,6 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 {
 	uint a;
 	int sepac;
-	double wideR = 0;
 	QValueList<double> dum;
 	double gx, gy, gw, gh;
 	dum.clear();
@@ -1055,10 +1054,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		}
 		if (Doc->Pages.at(a)->MPageNam != "")
 		{
-			int h, s, v, k, tsz;
+			int h, s, v, k;
 			QCString chxc;
 			QString chx;
-			struct ScText *hl;
 			int Lnr = 0;
 			struct Layer ll;
 			ll.isPrintable = false;
@@ -1179,287 +1177,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									PS_translate(0, -ite->Height);
 									PS_scale(1, -1);
 								}
-								for (uint d = 0; d < ite->MaxChars; ++d)
-								{
-									hl = ite->itemText.at(d);
-									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
-										continue;
-									if (hl->cstyle & 4096)
-										continue;
-									if (hl->yp == 0)
-										continue;
-									tsz = hl->csize;
-									chx = hl->ch;
-									if (hl->ch == QChar(29))
-										chx = " ";
-									if (hl->ch == QChar(0xA0))
-										chx = " ";
-									if (hl->ch == QChar(30))
-									{
-										if (Doc->MasterP)
-											chx = "#";
-										else
-										{
-											uint zae = 0;
-											uint za2 = d;
-											do
-											{
-												if (za2 == 0)
-													break;
-												za2--;
-											}
-											while (ite->itemText.at(za2)->ch == QChar(30));
-											if (ite->itemText.at(za2)->ch != QChar(30))
-												za2++;
-											while (ite->itemText.at(za2+zae)->ch == QChar(30))
-											{
-												zae++;
-												if (za2+zae == ite->MaxChars)
-													break;
-											}
-											QString out="%1";
-											QString out2;
-											out2 = out.arg(a+Doc->FirstPnum, -zae);
-											chx = out2.mid(d-za2, 1);
-										}
-									}
-									if (hl->cstyle & 32)
-									{
-										if (chx.upper() != chx)
-											chx = chx.upper();
-									}
-									if (hl->cstyle & 64)
-									{
-										if (chx.upper() != chx)
-										{
-											tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
-											chx = chx.upper();
-										}
-									}
-									if (hl->cstyle & 1)
-										tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-									if (hl->cstyle & 2)
-										tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-									/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-									QFileInfo fd = QFileInfo(hl->cfont->Datei);
-									QString fext = fd.extension(false).lower();
-									if ((fext == "ttf") || (hl->cfont->isOTF) || (hl->cfont->Subset))
-									{
-										uint chr = chx[0].unicode();
-										if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
-										{
-											PS_save();
-											if (ite->Reverse)
-											{
-												PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-												PS_scale(-1, 1);
-												if (d < ite->MaxChars-1)
-												{
-													QString ctx = ite->itemText.at(d+1)->ch;
-													if (ctx == QChar(29))
-														ctx = " ";
-													if (ctx == QChar(0xA0))
-														ctx = " ";
-													wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
-												}
-												else
-													wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
-												PS_translate(wideR, 0);
-											}
-											else
-												PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-											if (hl->cscale != 100)
-												PS_scale(hl->cscale / 100.0, 1);
-											if (hl->ccolor != "None")
-											{
-												SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-												PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
-											}
-											PS_restore();
-										}
-									}
-									else
-									{
-										PS_selectfont(hl->cfont->SCName, tsz / 10.0);
-										if (hl->ccolor != "None")
-										{
-											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										}
-										PS_save();
-										if (ite->Reverse)
-										{
-											int chs = hl->csize;
-											ite->SetZeichAttr(hl, &chs, &chx);
-											PS_translate(hl->xp, -hl->yp);
-											PS_scale(-1, 1);
-											if (d < ite->MaxChars-1)
-											{
-												QString ctx = ite->itemText.at(d+1)->ch;
-												if (ctx == QChar(29))
-													ctx = " ";
-												if (ctx == QChar(0xA0))
-													ctx = " ";
-												wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
-												PS_translate(wideR, 0);
-											}
-											else
-											{
-												wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
-												PS_translate(wideR, 0);
-											}
-											if (hl->cscale != 100)
-												PS_scale(hl->cscale / 100.0, 1);
-											PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
-										}
-										else
-										{
-											PS_translate(hl->xp, -hl->yp);
-											if (hl->cscale != 100)
-												PS_scale(hl->cscale / 100.0, 1);
-											PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
-										}
-										PS_restore();
-									}
-									if ((hl->cstyle & 4) && (chx != QChar(13)))
-									{
-										uint chr = chx[0].unicode();
-										if (hl->cfont->CharWidth.contains(chr))
-										{
-											FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-											QWMatrix chma;
-											chma.scale(tsz / 100.0, tsz / 100.0);
-											gly.map(chma);
-											chma = QWMatrix();
-											chma.scale(hl->cscale / 100.0, 1);
-											gly.map(chma);
-											if (ite->Reverse)
-											{
-												chma = QWMatrix();
-												chma.scale(-1, 1);
-												chma.translate(wideR, 0);
-												gly.map(chma);
-											}
-											if (hl->cstroke != "None")
-											{
-												PS_save();
-												PS_setlinewidth(QMAX(hl->cfont->strokeWidth / 2 * (tsz / 10.0), 1));
-												PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-												PS_setdash(Qt::SolidLine, 0, dum);
-												PS_translate(hl->xp, (hl->yp - tsz) * -1);
-												SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
-												PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												SetClipPath(&gly);
-												PS_closepath();
-												PS_stroke();
-												PS_restore();
-											}
-										}
-									}
-									if ((hl->cstyle & 16) && (chx != QChar(13)))
-									{
-										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-										double Upos, lw, kern;
-										if (hl->cstyle & 16384)
-											kern = 0;
-										else
-											kern = hl->cextra;
-										if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
-										{
-											if (Doc->typographicSetttings.valueStrikeThruPos != -1)
-												Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
-											else
-												Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-											if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
-												lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
-											else
-												lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-										}
-										else
-										{
-											Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-											lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-										}
-										if (hl->ccolor != "None")
-										{
-											PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-											PS_setdash(Qt::SolidLine, 0, dum);
-											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										}
-										PS_setlinewidth(lw);
-										PS_moveto(hl->xp-kern, -hl->yp+Upos);
-										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
-										PS_stroke();
-									}
-									if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
-									{
-										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-										double Upos, lw, kern;
-										if (hl->cstyle & 16384)
-											kern = 0;
-										else
-											kern = hl->cextra;
-										if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
-										{
-											if (Doc->typographicSetttings.valueUnderlinePos != -1)
-												Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
-											else
-												Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-											if (Doc->typographicSetttings.valueUnderlineWidth != -1)
-												lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
-											else
-												lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-										}
-										else
-										{
-											Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-											lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-										}
-										if (hl->ccolor != "None")
-										{
-											PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-											PS_setdash(Qt::SolidLine, 0, dum);
-											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										}
-										PS_setlinewidth(lw);
-										PS_moveto(hl->xp-kern, -hl->yp+Upos);
-										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
-										PS_stroke();
-									}
-									if (hl->cstyle & 8192)
-									{
-										int chs = hl->csize;
-										ite->SetZeichAttr(hl, &chs, &chx);
-										double wide = Cwidth(Doc, hl->cfont, chx, chs);
-										chx = "-";
-										uint chr = chx[0].unicode();
-										if (hl->cfont->CharWidth.contains(chr))
-										{
-											FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-											QWMatrix chma;
-											chma.scale(tsz / 100.0, tsz / 100.0);
-											gly.map(chma);
-											chma = QWMatrix();
-											chma.scale(hl->cscale / 100.0, 1);
-											gly.map(chma);
-											if (hl->ccolor != "None")
-											{
-												PS_save();
-												PS_newpath();
-												PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
-												SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-												PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												SetClipPath(&gly);
-												PS_closepath();
-												PS_fill();
-												PS_restore();
-											}
-										}
-									}
-								}
+								setTextSt(Doc, ite, gcr, a);
 								if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
@@ -1570,7 +1288,6 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 {
 	int h, s, v, k, tsz;
 	uint d;
-	double wideR;
 	struct ScText *hl;
 	QValueList<double> dum;
 	dum.clear();
@@ -1710,287 +1427,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_translate(0, -c->Height);
 				PS_scale(1, -1);
 			}
-			for (d = 0; d < c->MaxChars; ++d)
-			{
-				hl = c->itemText.at(d);
-				if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
-					continue;
-				if (hl->cstyle & 4096)
-					continue;
-				if (hl->yp == 0)
-					continue;
-				tsz = hl->csize;
-				chx = hl->ch;
-				if (hl->ch == QChar(29))
-					chx = " ";
-				if (hl->ch == QChar(0xA0))
-					chx = " ";
-				if (hl->ch == QChar(30))
-				{
-					if (Doc->MasterP)
-						chx = "#";
-					else
-					{
-						uint zae = 0;
-						uint za2 = d;
-						do
-						{
-							if (za2 == 0)
-								break;
-							za2--;
-						}
-						while (c->itemText.at(za2)->ch == QChar(30));
-						if (c->itemText.at(za2)->ch != QChar(30))
-							za2++;
-						while (c->itemText.at(za2+zae)->ch == QChar(30))
-						{
-							zae++;
-							if (za2+zae == c->MaxChars)
-								break;
-						}
-						QString out="%1";
-						QString out2;
-						out2 = out.arg(PNr-1+Doc->FirstPnum, -zae);
-						chx = out2.mid(d-za2, 1);
-					}
-				}
-				if (hl->cstyle & 32)
-				{
-					if (chx.upper() != chx)
-						chx = chx.upper();
-				}
-				if (hl->cstyle & 64)
-				{
-					if (chx.upper() != chx)
-					{
-						tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
-						chx = chx.upper();
-					}
-				}
-				if (hl->cstyle & 1)
-					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-				if (hl->cstyle & 2)
-					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				QFileInfo fd = QFileInfo(hl->cfont->Datei);
-				QString fext = fd.extension(false).lower();
-				if ((fext == "ttf") || (hl->cfont->isOTF) || (hl->cfont->Subset))
-				{
-					uint chr = chx[0].unicode();
-					if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
-					{
-						PS_save();
-						if (c->Reverse)
-						{
-							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-							PS_scale(-1, 1);
-							if (d < c->MaxChars-1)
-							{
-								QString ctx = c->itemText.at(d+1)->ch;
-								if (ctx == QChar(29))
-									ctx = " ";
-								if (ctx == QChar(0xA0))
-									ctx = " ";
-								wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
-							}
-							else
-								wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
-							PS_translate(wideR, 0);
-						}
-						else
-							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-						if (hl->cscale != 100)
-							PS_scale(hl->cscale / 100.0, 1);
-						if (hl->ccolor != "None")
-						{
-							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
-						}
-						PS_restore();
-					}
-				}
-				else
-				{
-					PS_selectfont(hl->cfont->SCName, tsz / 10.0);
-					if (hl->ccolor != "None")
-					{
-						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					}
-					PS_save();
-					if (c->Reverse)
-					{
-						int chs = hl->csize;
-						c->SetZeichAttr(hl, &chs, &chx);
-						PS_translate(hl->xp, -hl->yp);
-						PS_scale(-1, 1);
-						if (d < c->MaxChars-1)
-						{
-							QString ctx = c->itemText.at(d+1)->ch;
-							if (ctx == QChar(29))
-								ctx = " ";
-							if (ctx == QChar(0xA0))
-								ctx = " ";
-							wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
-							PS_translate(wideR, 0);
-						}
-						else
-						{
-							wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
-							PS_translate(wideR, 0);
-						}
-						if (hl->cscale != 100)
-							PS_scale(hl->cscale / 100.0, 1);
-						PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
-					}
-					else
-					{
-						PS_translate(hl->xp, -hl->yp);
-						if (hl->cscale != 100)
-							PS_scale(hl->cscale / 100.0, 1);
-						PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
-					}
-					PS_restore();
-				}
-				if ((hl->cstyle & 4) && (chx != QChar(13)))
-				{
-					uint chr = chx[0].unicode();
-					if (hl->cfont->CharWidth.contains(chr))
-					{
-						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-						QWMatrix chma;
-						chma.scale(tsz / 100.0, tsz / 100.0);
-						gly.map(chma);
-						chma = QWMatrix();
-						chma.scale(hl->cscale / 100.0, 1);
-						gly.map(chma);
-						if (c->Reverse)
-						{
-							chma = QWMatrix();
-							chma.scale(-1, 1);
-							chma.translate(wideR, 0);
-							gly.map(chma);
-						}
-						if (hl->cstroke != "None")
-						{
-							PS_save();
-							PS_setlinewidth(QMAX(hl->cfont->strokeWidth / 2 * (tsz / 10.0), 1));
-							PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-							PS_setdash(Qt::SolidLine, 0, dum);
-							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-							SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							SetClipPath(&gly);
-							PS_closepath();
-							PS_stroke();
-							PS_restore();
-						}
-					}
-				}
-				if ((hl->cstyle & 16) && (chx != QChar(13)))
-				{
-					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					double Upos, lw, kern;
-					if (hl->cstyle & 16384)
-						kern = 0;
-					else
-						kern = hl->cextra;
-					if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
-					{
-						if (Doc->typographicSetttings.valueStrikeThruPos != -1)
-							Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
-						else
-							Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-						if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
-							lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
-						else
-							lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-					}
-					else
-					{
-						Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-						lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-					}
-					if (hl->ccolor != "None")
-					{
-						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-						PS_setdash(Qt::SolidLine, 0, dum);
-						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					}
-					PS_setlinewidth(lw);
-					PS_moveto(hl->xp-kern, -hl->yp+Upos);
-					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
-					PS_stroke();
-				}
-				if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
-				{
-					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					double Upos, lw, kern;
-					if (hl->cstyle & 16384)
-						kern = 0;
-					else
-						kern = hl->cextra;
-					if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
-					{
-						if (Doc->typographicSetttings.valueUnderlinePos != -1)
-							Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
-						else
-							Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-						if (Doc->typographicSetttings.valueUnderlineWidth != -1)
-							lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
-						else
-							lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-					}
-					else
-					{
-						Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-						lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
-					}
-					if (hl->ccolor != "None")
-					{
-						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-						PS_setdash(Qt::SolidLine, 0, dum);
-						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					}
-					PS_setlinewidth(lw);
-					PS_moveto(hl->xp-kern, -hl->yp+Upos);
-					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
-					PS_stroke();
-				}
-				if (hl->cstyle & 8192)
-				{
-					int chs = hl->csize;
-					c->SetZeichAttr(hl, &chs, &chx);
-					double wide = Cwidth(Doc, hl->cfont, chx, chs);
-					chx = "-";
-					uint chr = chx[0].unicode();
-					if (hl->cfont->CharWidth.contains(chr))
-					{
-						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-						QWMatrix chma;
-						chma.scale(tsz / 100.0, tsz / 100.0);
-						gly.map(chma);
-						chma = QWMatrix();
-						chma.scale(hl->cscale / 100.0, 1);
-						gly.map(chma);
-						if (hl->ccolor != "None")
-						{
-							PS_save();
-							PS_newpath();
-							PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
-							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							SetClipPath(&gly);
-							PS_closepath();
-							PS_fill();
-							PS_restore();
-						}
-					}
-				}
-			}
+			setTextSt(Doc, c, gcr, PNr-1);
 			if (((c->lineColor() != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 			{
 				SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
@@ -2265,27 +1702,6 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 					{
 						PS_save();
-/*						PS_translate(hl->PtransX, -hl->PtransY);
-						PS_rotate(-hl->PRot);
-						if (c->Reverse)
-						{
-							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-							PS_scale(-1, 1);
-							if (d < c->MaxChars-1)
-							{
-								QString ctx = c->itemText.at(d+1)->ch;
-								if (ctx == QChar(29))
-									ctx = " ";
-								if (ctx == QChar(0xA0))
-									ctx = " ";
-								wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
-							}
-							else
-								wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
-							PS_translate(wideR, 0);
-						}
-						else
-							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1); */
 						if (hl->cscale != 100)
 							PS_scale(hl->cscale / 100.0, 1);
 						if (hl->ccolor != "None")
@@ -2548,6 +1964,338 @@ void PSLib::SetFarbe(ScribusDoc* Doc, QString farb, int shade, int *h, int *s, i
 	*s = s1 * shade / 100;
 	*v = v1 * shade / 100;
 	*k = k1 * shade / 100;
+}
+
+void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
+{
+	struct ScText *hl;
+	double tabDist;
+	if (ite->lineColor() != "None")
+		tabDist = ite->Extra + ite->Pwidth / 2.0;
+	else
+		tabDist = ite->Extra;
+	for (uint d = 0; d < ite->MaxChars; ++d)
+	{
+		hl = ite->itemText.at(d);
+		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)))
+			continue;
+		if (hl->cstyle & 4096)
+			continue;
+		if (hl->yp == 0)
+			continue;
+		if (hl->ch == QChar(9))
+		{
+			if (Doc->docParagraphStyles[hl->cab].tabFillChar != "")
+			{
+				struct ScText hl2;
+				double wt = Cwidth(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].tabFillChar, hl->csize);
+				int coun = static_cast<int>((hl->xp - tabDist) / wt);
+				double sPos = hl->xp - (hl->xp - tabDist) + 1;
+				hl2.ch = Doc->docParagraphStyles[hl->cab].tabFillChar;
+				hl2.ccolor = hl->ccolor;
+				hl2.cstroke = hl->cstroke;
+				hl2.cshade = hl->cshade;
+				hl2.cshade2 = hl->cshade2;
+				hl2.yp = hl->yp;
+				hl2.cselect = hl->cselect;
+				hl2.csize = hl->csize;
+				hl2.cstyle = hl->cstyle;
+				hl2.cfont = hl->cfont;
+				hl2.cextra = 0;
+				hl2.cscale = 100;
+				for (int cx = 0; cx < coun; ++cx)
+				{
+					hl2.xp =  sPos + wt * cx;
+					setTextCh(Doc, ite, gcr, a, d, &hl2);
+				}
+				continue;
+			}
+			else
+				continue;
+		}
+		setTextCh(Doc, ite, gcr, a, d, hl);
+		tabDist = hl->xp + Cwidth(Doc, hl->cfont, hl->ch, hl->csize);
+	}
+}
+
+void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, struct ScText *hl)
+{
+	QString chx;
+	int h, s, v, k, tsz;
+	double wideR;
+	QValueList<double> dum;
+	dum.clear();
+	tsz = hl->csize;
+	chx = hl->ch;
+	if (hl->ch == QChar(29))
+		chx = " ";
+	if (hl->ch == QChar(0xA0))
+		chx = " ";
+	if (hl->ch == QChar(30))
+	{
+		if (Doc->MasterP)
+			chx = "#";
+		else
+		{
+			uint zae = 0;
+			uint za2 = d;
+			do
+			{
+				if (za2 == 0)
+					break;
+				za2--;
+			}
+			while (ite->itemText.at(za2)->ch == QChar(30));
+			if (ite->itemText.at(za2)->ch != QChar(30))
+				za2++;
+			while (ite->itemText.at(za2+zae)->ch == QChar(30))
+			{
+				zae++;
+				if (za2+zae == ite->MaxChars)
+					break;
+			}
+			QString out="%1";
+			QString out2;
+			out2 = out.arg(a+Doc->FirstPnum, -zae);
+			chx = out2.mid(d-za2, 1);
+		}
+	}
+	if (hl->cstyle & 32)
+	{
+		if (chx.upper() != chx)
+			chx = chx.upper();
+	}
+	if (hl->cstyle & 64)
+	{
+		if (chx.upper() != chx)
+		{
+			tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
+			chx = chx.upper();
+		}
+	}
+	if (hl->cstyle & 1)
+		tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+	if (hl->cstyle & 2)
+		tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+	/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+	QFileInfo fd = QFileInfo(hl->cfont->Datei);
+	QString fext = fd.extension(false).lower();
+	if ((fext == "ttf") || (hl->cfont->isOTF) || (hl->cfont->Subset))
+	{
+		uint chr = chx[0].unicode();
+		if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
+		{
+			PS_save();
+			if (ite->Reverse)
+			{
+				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+				PS_scale(-1, 1);
+				if (d < ite->MaxChars-1)
+				{
+					QString ctx = ite->itemText.at(d+1)->ch;
+					if (ctx == QChar(29))
+						ctx = " ";
+					if (ctx == QChar(0xA0))
+						ctx = " ";
+					wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
+				}
+				else
+					wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
+				PS_translate(wideR, 0);
+			}
+			else
+				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+			if (hl->cscale != 100)
+				PS_scale(hl->cscale / 100.0, 1);
+			if (hl->ccolor != "None")
+			{
+				SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
+			}
+			PS_restore();
+		}
+	}
+	else
+	{
+		PS_selectfont(hl->cfont->SCName, tsz / 10.0);
+		if (hl->ccolor != "None")
+		{
+			SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		PS_save();
+		if (ite->Reverse)
+		{
+			int chs = hl->csize;
+			ite->SetZeichAttr(hl, &chs, &chx);
+			PS_translate(hl->xp, -hl->yp);
+			PS_scale(-1, 1);
+			if (d < ite->MaxChars-1)
+			{
+				QString ctx = ite->itemText.at(d+1)->ch;
+				if (ctx == QChar(29))
+					ctx = " ";
+				if (ctx == QChar(0xA0))
+					ctx = " ";
+				wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
+				PS_translate(wideR, 0);
+			}
+			else
+			{
+				wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
+				PS_translate(wideR, 0);
+			}
+			if (hl->cscale != 100)
+				PS_scale(hl->cscale / 100.0, 1);
+			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
+		}
+		else
+		{
+			PS_translate(hl->xp, -hl->yp);
+			if (hl->cscale != 100)
+				PS_scale(hl->cscale / 100.0, 1);
+			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
+		}
+		PS_restore();
+	}
+	if ((hl->cstyle & 4) && (chx != QChar(13)))
+	{
+		uint chr = chx[0].unicode();
+		if (hl->cfont->CharWidth.contains(chr))
+		{
+			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+			QWMatrix chma;
+			chma.scale(tsz / 100.0, tsz / 100.0);
+			gly.map(chma);
+			chma = QWMatrix();
+			chma.scale(hl->cscale / 100.0, 1);
+			gly.map(chma);
+			if (ite->Reverse)
+			{
+				chma = QWMatrix();
+				chma.scale(-1, 1);
+				chma.translate(wideR, 0);
+				gly.map(chma);
+			}
+			if (hl->cstroke != "None")
+			{
+				PS_save();
+				PS_setlinewidth(QMAX(hl->cfont->strokeWidth / 2 * (tsz / 10.0), 1));
+				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+				PS_setdash(Qt::SolidLine, 0, dum);
+				PS_translate(hl->xp, (hl->yp - tsz) * -1);
+				SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				SetClipPath(&gly);
+				PS_closepath();
+				PS_stroke();
+				PS_restore();
+			}
+		}
+	}
+	if ((hl->cstyle & 16) && (chx != QChar(13)))
+	{
+		double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+		double Upos, lw, kern;
+		if (hl->cstyle & 16384)
+			kern = 0;
+		else
+			kern = hl->cextra;
+		if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
+		{
+			if (Doc->typographicSetttings.valueStrikeThruPos != -1)
+				Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
+			else
+				Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
+			if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
+				lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
+			else
+				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+		}
+		else
+		{
+			Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
+			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+		}
+		if (hl->ccolor != "None")
+		{
+			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+			PS_setdash(Qt::SolidLine, 0, dum);
+			SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		PS_setlinewidth(lw);
+		PS_moveto(hl->xp-kern, -hl->yp+Upos);
+		PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
+		PS_stroke();
+	}
+	if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
+	{
+		double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+		double Upos, lw, kern;
+		if (hl->cstyle & 16384)
+			kern = 0;
+		else
+			kern = hl->cextra;
+		if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
+		{
+			if (Doc->typographicSetttings.valueUnderlinePos != -1)
+				Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
+			else
+				Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
+			if (Doc->typographicSetttings.valueUnderlineWidth != -1)
+				lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
+			else
+				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+		}
+		else
+		{
+			Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
+			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+		}
+		if (hl->ccolor != "None")
+		{
+			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+			PS_setdash(Qt::SolidLine, 0, dum);
+			SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		PS_setlinewidth(lw);
+		PS_moveto(hl->xp-kern, -hl->yp+Upos);
+		PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
+		PS_stroke();
+	}
+	if (hl->cstyle & 8192)
+	{
+		int chs = hl->csize;
+		ite->SetZeichAttr(hl, &chs, &chx);
+		double wide = Cwidth(Doc, hl->cfont, chx, chs);
+		chx = "-";
+		uint chr = chx[0].unicode();
+		if (hl->cfont->CharWidth.contains(chr))
+		{
+			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+			QWMatrix chma;
+			chma.scale(tsz / 100.0, tsz / 100.0);
+			gly.map(chma);
+			chma = QWMatrix();
+			chma.scale(hl->cscale / 100.0, 1);
+			gly.map(chma);
+			if (hl->ccolor != "None")
+			{
+				PS_save();
+				PS_newpath();
+				PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
+				SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				SetClipPath(&gly);
+				PS_closepath();
+				PS_fill();
+				PS_restore();
+			}
+		}
+	}
 }
 
 void PSLib::SetClipPath(FPointArray *c, bool poly)

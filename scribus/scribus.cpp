@@ -2999,6 +2999,10 @@ bool ScribusApp::SetupDoc()
 				doc->toolSettings.tabFillChar = "_";
 				break;
 		}
+		for (int xxx=0; xxx<5; ++xxx)
+		{
+			doc->docParagraphStyles[xxx].tabFillChar = doc->toolSettings.tabFillChar;
+		}
 		if (doc->toolSettings.dStrokeText == tr("None"))
 			doc->toolSettings.dStrokeText = "None";
 		doc->toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
@@ -4520,6 +4524,10 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->pageCount = doc->DocPages.count();
 			doc->Pages = doc->DocPages;
 			doc->MasterP = false;
+		}
+		for (int xxx=0; xxx<5; ++xxx)
+		{
+			doc->docParagraphStyles[xxx].tabFillChar = doc->toolSettings.tabFillChar;
 		}
 		doc->loading = false;
 		view->slotDoZoom();
@@ -9976,14 +9984,15 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 			{
 				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
 				uint chr = it->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+				if ((chr == 13) || (chr == 32) || (chr == 29))
 					continue;
-				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+				if ((chr == 9) && (doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar != ""))
 				{
-					chx = it->itemText.at(e)->ch;
-					if (chx.upper() != it->itemText.at(e)->ch)
-						chx = chx.upper();
+					chx = doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar;
 					chr = chx[0].unicode();
+					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					continue;
 				}
 				if (chr == 30)
 				{
@@ -9996,6 +10005,13 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 						}
 					}
 					continue;
+				}
+				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+				{
+					chx = it->itemText.at(e)->ch;
+					if (chx.upper() != it->itemText.at(e)->ch)
+						chx = chx.upper();
+					chr = chx[0].unicode();
 				}
 				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
 				{
@@ -10014,14 +10030,15 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 			{
 				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
 				uint chr = it->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+				if ((chr == 13) || (chr == 32) || (chr == 29))
 					continue;
-				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+				if ((chr == 9) && (doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar != ""))
 				{
-					chx = it->itemText.at(e)->ch;
-					if (chx.upper() != it->itemText.at(e)->ch)
-						chx = chx.upper();
+					chx = doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar;
 					chr = chx[0].unicode();
+					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					continue;
 				}
 				if (chr == 30)
 				{
@@ -10034,6 +10051,13 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 						}
 					}
 					continue;
+				}
+				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+				{
+					chx = it->itemText.at(e)->ch;
+					if (chx.upper() != it->itemText.at(e)->ch)
+						chx = chx.upper();
+					chr = chx[0].unicode();
 				}
 				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
 				{

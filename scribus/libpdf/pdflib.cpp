@@ -2547,12 +2547,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 	struct ScText *hl;
 	QString tmp = "";
 	QString tmp2 = "";
-	double tabDistS, tabDist;
+	double tabDist;
 	if (ite->lineColor() != "None")
-		tabDistS = ite->Extra + ite->Pwidth / 2.0;
+		tabDist = ite->Extra + ite->Pwidth / 2.0;
 	else
-		tabDistS = ite->Extra;
-	tabDist = tabDistS;
+		tabDist = ite->Extra;
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "BT\n";
 	for (uint d = 0; d < ite->MaxChars; ++d)
@@ -2566,10 +2565,6 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			continue;
 		if (hl->ch == QChar(9))
 		{
-			for (int xxx=0; xxx<5; ++xxx)
-			{
-				doc->docParagraphStyles[xxx].tabFillChar = doc->toolSettings.tabFillChar;
-			}
 			if (doc->docParagraphStyles[hl->cab].tabFillChar != "")
 			{
 				struct ScText hl2;
@@ -2593,15 +2588,13 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					hl2.xp =  sPos + wt * cx;
 					setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 				}
+				continue;
 			}
 			else
 				continue;
 		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl);
-		if (hl->cstyle & 16384)
-			tabDist = tabDistS;
-		else
-			tabDist = hl->xp + Cwidth(doc, hl->cfont, hl->ch, hl->csize);
+		tabDist = hl->xp + Cwidth(doc, hl->cfont, hl->ch, hl->csize);
 	}
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "ET\n"+tmp2;

@@ -84,6 +84,8 @@ public:
 	virtual void SetClipPath(FPointArray *c, bool poly = true);
 	virtual void HandleGradient(ScribusDoc* Doc, PageItem *c, double w, double h, bool gcr);
 	virtual void SetFarbe(ScribusDoc* Doc, QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
+	virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a);
+	virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, struct ScText *hl);
 	bool Art;
 private:
 	void PutSeite(QString c);
