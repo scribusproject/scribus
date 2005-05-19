@@ -46,11 +46,13 @@ public slots:
 	void Verbergen(bool vis);
 	void GetPolyProps();
 	void SelShape(int s, int c, double *vals);
+	void languageChange();
 		
 protected:
 	AutoformButtonGroup* Rechteck;
 	QPopupMenu* insertShapeButtonMenu;
 	QPopupMenu* insertPolygonButtonMenu;
+	int idInsertPolygonButtonMenu;
 	
 signals:
 	void Schliessen();
@@ -77,6 +79,7 @@ public slots:
 	void Docken(QDockWindow::Place p);
 	void Verbergen(bool vis);
 	void ModeFromTB();
+	void languageChange();
 
 signals:
 	void Schliessen();

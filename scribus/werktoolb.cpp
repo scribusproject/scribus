@@ -60,7 +60,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	ScApp->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
 	insertPolygonButtonMenu=ScApp->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
 	ScApp->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", ScApp->scrActions["toolsInsertPolygon"]);
-	insertPolygonButtonMenu->insertItem( tr("Properties..."), this, SLOT(GetPolyProps()));
+	idInsertPolygonButtonMenu=insertPolygonButtonMenu->insertItem( "Properties...", this, SLOT(GetPolyProps()));
 	
 	QToolButton *insertPolygonButton = dynamic_cast<QToolButton*>(ScApp->scrActions["toolsInsertPolygon"]->getWidgetAddedTo());
 	if (insertPolygonButton)
@@ -80,6 +80,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	ScApp->scrActions["toolsEyeDropper"]->addTo(this);
 
 	setCloseMode(QDockWindow::Undocked);
+	languageChange();
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
@@ -117,29 +118,28 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	ScApp->scrActions["toolsInsertShape"]->setOn(true);
 }
 
+void WerkToolB::languageChange()
+{
+	insertPolygonButtonMenu->changeItem(idInsertPolygonButtonMenu, tr("Properties..."));
+}
+
 
 WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 {
 	PDFM = new QPopupMenu();
-	QString tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
-	QString tmp_txt[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
-	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
-	for (uint a = 0; a < ar_tmp; ++a)
-		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
-	PDFTool = new QToolButton(loadIcon("pushbutton.png"), tr("Insert PDF Fields"), QString::null, this, SLOT(ModeFromTB()), this);
+	PDFTool = new QToolButton(loadIcon("pushbutton.png"), "Insert PDF Fields", QString::null, this, SLOT(ModeFromTB()), this);
 	PDFTool->setToggleButton(true);
 	PDFTool->setPopup(PDFM);
 	PDFTool->setPopupDelay(0);
 	PDFwerkz = 0;
 	PDFA = new QPopupMenu();
-	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
-	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
-	PDFaTool = new QToolButton(loadIcon("charset.png"), tr("Insert PDF Annotations"), QString::null, this, SLOT(ModeFromTB()), this);
+	PDFaTool = new QToolButton(loadIcon("charset.png"), "Insert PDF Annotations", QString::null, this, SLOT(ModeFromTB()), this);
 	PDFaTool->setToggleButton(true);
 	PDFaTool->setPopup(PDFA);
 	PDFaTool->setPopupDelay(0);
 	PDFnotiz = 0;
 	setCloseMode(QDockWindow::Undocked);
+	languageChange();
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
@@ -200,4 +200,20 @@ void WerkToolBP::ModeFromTB()
 		PDFaTool->setOn(true);
 		emit NewMode(InsertPDFTextAnnotation+PDFnotiz);
 	}
+}
+
+void WerkToolBP::languageChange()
+{
+	PDFM->clear();
+	QString tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
+	QString tmp_txt[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
+	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
+	for (uint a = 0; a < ar_tmp; ++a)
+		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
+		
+	PDFTool->setTextLabel(tr("Insert PDF Fields"));
+	PDFaTool->setTextLabel(tr("Insert PDF Annotations"));
+	PDFA->clear();
+	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
+	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
 }
