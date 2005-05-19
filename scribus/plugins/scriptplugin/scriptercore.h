@@ -34,7 +34,7 @@ public slots:
 	void initExtensionScripts();
 	/*** Runs the startup script, if enabled */
 	void runStartupScript();
-	QString languageChange();
+	void languageChange();
 
 protected:
 	// Private helper functions

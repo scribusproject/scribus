@@ -10,19 +10,22 @@
 
 class PConsole : public QWidget
 { 
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    PConsole( QWidget* parent );
-    ~PConsole() {};
-    void closeEvent(QCloseEvent *ce);
-    ConsWin* OutWin;
+	PConsole( QWidget* parent );
+	~PConsole() {};
+	void closeEvent(QCloseEvent *ce);
+	ConsWin* OutWin;
 
+public slots:
+	void languageChange();
+	
 signals:
 		void paletteShown(bool);
 
 protected:
-    QVBoxLayout* PConsoleLayout;
+	QVBoxLayout* PConsoleLayout;
 };
 
 #endif // PCONSOLE_H

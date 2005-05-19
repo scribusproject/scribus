@@ -1183,8 +1183,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
 
-	scrMenuMgr->createMenu("InsertChar", tr("Character"));
-	scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
+	scrMenuMgr->createMenu("InsertChar", tr("Character"), "Insert");
+	//scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "InsertChar");
 	scrMenuMgr->addMenuSeparator("InsertChar");
@@ -1198,8 +1198,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialDashFigure"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashQuotation"], "InsertChar");
 
-	scrMenuMgr->createMenu("InsertQuote", tr("Quote"));
-	scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
+	scrMenuMgr->createMenu("InsertQuote", tr("Quote"), "Insert");
+	//scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteApostrophe"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteStraight"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
@@ -1225,8 +1225,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleRight"], "InsertQuote");
 
-	scrMenuMgr->createMenu("InsertSpace", tr("Space"));
-	scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
+	scrMenuMgr->createMenu("InsertSpace", tr("Space"), "Insert");
+	//scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "InsertSpace");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
