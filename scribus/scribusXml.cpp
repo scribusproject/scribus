@@ -157,7 +157,7 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 		QString fcolor = it->attribute("CCOLOR");
 		double extra = QStodouble(it->attribute("CEXTRA"));
 		int shade = QStoInt(it->attribute("CSHADE"));
-		int style = QStoInt(it->attribute("CSTYLE"));
+		int style = QStoInt(it->attribute("CSTYLE")) & 255;
 		int ab = QStoInt(it->attribute("CAB","0"));
 		QString stroke = it->attribute("CSTROKE","None");
 		int shade2 = QStoInt(it->attribute("CSHADE2","100"));
@@ -208,7 +208,8 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	tmp3 += it->attribute("CCOLOR") + "\t";
 	tmp3 += it->attribute("CEXTRA") + "\t";
 	tmp3 += it->attribute("CSHADE") + "\t";
-	tmp3 += it->attribute("CSTYLE") + "\t";
+	QString tmp4;
+	tmp3 += tmp4.setNum(QStoInt(it->attribute("CSTYLE")) & 255) + "\t";
 	if (impo)
 	{
 		if (VorLFound)

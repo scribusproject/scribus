@@ -655,6 +655,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						break;
 					hl = itemText.at(a);
 					chx = hl->ch;
+					if (hl->yp == 0)
+						continue;
 					if (hl->ch == QChar(30))
 						chx = ExpandToken(a);
 					if (hl->ccolor != "None")
