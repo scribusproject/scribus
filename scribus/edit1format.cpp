@@ -302,7 +302,11 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 void EditStyle::ColorChange()
 {
 	int s = EffeS->getStyle();
-	bool enabled = (s & 4) ? true : false;
+	bool enabled;
+	if ((s & 4) || (s & 256))
+		enabled = true;
+	else
+		enabled = false;
 	StrokeIcon->setEnabled(enabled);
 	PM1->setEnabled(enabled);
 	TxStroke->setEnabled(enabled);

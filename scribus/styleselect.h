@@ -38,6 +38,7 @@ protected:
 	QToolButton* allcapsButton;
 	QToolButton* strikeoutButton;
 	QToolButton* outlineButton;
+	QToolButton* shadowButton;
 };
 
 #endif

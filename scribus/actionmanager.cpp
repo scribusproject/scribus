@@ -199,6 +199,7 @@ void ActionManager::initStyleMenuActions()
 	scrActions->insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSuperscript", 4));
 	scrActions->insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSubscript", 5));
 	scrActions->insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectOutline", 6));
+	scrActions->insert("typeEffectShadow", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectShadow", 9));
 	(*scrActions)["typeEffectNormal"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderline"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderlineWords"]->setToggleAction(true);
@@ -208,6 +209,7 @@ void ActionManager::initStyleMenuActions()
 	(*scrActions)["typeEffectSuperscript"]->setToggleAction(true);
 	(*scrActions)["typeEffectSubscript"]->setToggleAction(true);
 	(*scrActions)["typeEffectOutline"]->setToggleAction(true);
+	(*scrActions)["typeEffectShadow"]->setToggleAction(true);
 	connect( (*scrActions)["typeEffectNormal"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectUnderline"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectUnderlineWords"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
@@ -217,6 +219,7 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["typeEffectSuperscript"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectSubscript"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectOutline"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectShadow"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 
 	//Other Style menu items that get added in various places
 	scrActions->insert("styleInvertPict", new ScrAction(tr("&Image Effects"), QKeySequence(), ScApp, "styleInvertPict"));
@@ -782,6 +785,7 @@ void ActionManager::languageChange()
 	(*scrActions)["typeEffectSuperscript"]->setMenuText(tr("Su&perscript"));
 	(*scrActions)["typeEffectSubscript"]->setMenuText(tr("Su&bscript"));
 	(*scrActions)["typeEffectOutline"]->setMenuText(tr("&Outline"));
+	(*scrActions)["typeEffectShadow"]->setMenuText(tr("S&hadow"));
 
 	(*scrActions)["styleInvertPict"]->setMenuText(tr("&Image Effects"));
 	(*scrActions)["styleTabulators"]->setMenuText(tr("&Tabulators..."));

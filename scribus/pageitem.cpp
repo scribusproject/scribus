@@ -2496,7 +2496,19 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			else
 			{
 				if (hl->Farb != "None")
+				{
+					if ((hl->Style & 256) && (hl->Farb2 != "None"))
+					{
+						p->save();
+						p->translate(hl->Siz / 200.0, hl->Siz / 200.0);
+						QColor tmp = p->brush();
+						p->setBrush(p->pen());
+						p->fillPath();
+						p->setBrush(tmp);
+						p->restore();
+					}
 					p->fillPath();
+				}
 				if ((hl->Style & 4) && (hl->Farb2 != "None"))
 				{
 					p->setLineWidth(QMAX(hl->ZFo->strokeWidth * (hl->Siz / 10.0) / 2, 1));

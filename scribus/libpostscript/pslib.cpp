@@ -1997,7 +1997,6 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.cshade = hl->cshade;
 				hl2.cshade2 = hl->cshade2;
 				hl2.yp = hl->yp;
-				hl2.cselect = hl->cselect;
 				hl2.csize = hl->csize;
 				hl2.cstyle = hl->cstyle;
 				hl2.cfont = hl->cfont;
@@ -2012,6 +2011,23 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			}
 			else
 				continue;
+		}
+		if ((hl->cstyle & 256) && (hl->cstroke != "None"))
+		{
+			struct ScText hl2;
+			hl2.ch = hl->ch;
+			hl2.ccolor = hl->cstroke;
+			hl2.cstroke = hl->cstroke;
+			hl2.cshade = hl->cshade2;
+			hl2.cshade2 = hl->cshade2;
+			hl2.yp = hl->yp + hl->csize / 200.0 ;
+			hl2.xp = hl->xp + hl->csize / 200.0 ;
+			hl2.csize = hl->csize;
+			hl2.cstyle = hl->cstyle;
+			hl2.cfont = hl->cfont;
+			hl2.cscale = hl->cscale;
+			hl2.cextra = hl->cextra;
+			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl);
 		tabDist = hl->xp + Cwidth(Doc, hl->cfont, hl->ch, hl->csize);
@@ -2184,7 +2200,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 				PS_setlinewidth(QMAX(hl->cfont->strokeWidth / 2 * (tsz / 10.0), 1));
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 				PS_setdash(Qt::SolidLine, 0, dum);
-				PS_translate(hl->xp, (hl->yp - tsz) * -1);
+				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
 				SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				SetClipPath(&gly);

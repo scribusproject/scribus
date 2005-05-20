@@ -1633,7 +1633,7 @@ void Mpalette::setStil(int s)
 	TxStroke->setEnabled(false);
 	PM1->setEnabled(false);
 	SeStyle->setStyle(s);
-	if (s & 4)
+	if ((s & 4) || (s & 256))
 	{
 		StrokeIcon->setEnabled(true);
 		TxStroke->setEnabled(true);

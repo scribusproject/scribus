@@ -6414,6 +6414,7 @@ void ScribusApp::setItemTypeStyle(int id)
 		scrActions["typeEffectSuperscript"]->setOn(false);
 		scrActions["typeEffectSubscript"]->setOn(false);
 		scrActions["typeEffectOutline"]->setOn(false);
+		scrActions["typeEffectShadow"]->setOn(false);
 	}
 	else
 	{
@@ -6434,6 +6435,8 @@ void ScribusApp::setItemTypeStyle(int id)
 			b |= 8;
 		if (scrActions["typeEffectUnderlineWords"]->isOn())
 			b |= 512;
+		if (scrActions["typeEffectShadow"]->isOn())
+			b |= 256;
 		if (scrActions["typeEffectStrikeThrough"]->isOn())
 			b |= 16;
 		if (scrActions["typeEffectAllCaps"]->isOn())
@@ -6462,6 +6465,7 @@ void ScribusApp::setStilvalue(int s)
 	scrActions["typeEffectStrikeThrough"]->setOn(c & 16);
 	scrActions["typeEffectAllCaps"]->setOn(c & 32);
 	scrActions["typeEffectSmallCaps"]->setOn(c & 64);
+	scrActions["typeEffectShadow"]->setOn(c & 256);
 	scrActions["typeEffectUnderlineWords"]->setOn(c & 512);
 	emit TextStil(s);
 }

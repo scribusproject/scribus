@@ -92,6 +92,13 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	outlineButton->setToggleButton( true );
 	ssLayout->addWidget( outlineButton );
 
+	shadowButton = new QToolButton( this, "shadowButton" );
+	shadowButton->setText( "" );
+	shadowButton->setMaximumSize( QSize( 22, 22 ) );
+	shadowButton->setPixmap(loadIcon("shadow.png"));
+	shadowButton->setToggleButton( true );
+	ssLayout->addWidget( shadowButton );
+
 	QToolTip::add( underlineButton, tr( "Underline" ) );
 	QToolTip::add( underlineWordButton, tr( "Underline Words only" ) );
 	QToolTip::add( allcapsButton, tr( "All Caps" ) );
@@ -100,6 +107,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	QToolTip::add( superscriptButton, tr( "Superscript" ) );
 	QToolTip::add( strikeoutButton, tr( "Strike Out" ) );
 	QToolTip::add( outlineButton, tr( "Outline" ) );
+	QToolTip::add( shadowButton, tr( "Shadow" ) );
 
 	connect(allcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(smallcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
@@ -109,6 +117,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	connect(strikeoutButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(superscriptButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(outlineButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+	connect(shadowButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 
 	resize(minimumSizeHint());
 }
@@ -123,6 +132,7 @@ void StyleSelect::setStyle(int s)
 	allcapsButton->setOn(false);
 	smallcapsButton->setOn(false);
 	outlineButton->setOn(false);
+	shadowButton->setOn(false);
 	if (s & 1)
 		superscriptButton->setOn(true);
 	if (s & 2)
@@ -137,6 +147,8 @@ void StyleSelect::setStyle(int s)
 		allcapsButton->setOn(true);
 	if (s & 64)
 		smallcapsButton->setOn(true);
+	if (s & 256)
+		shadowButton->setOn(true);
 	if (s & 512)
 		underlineWordButton->setOn(true);
 }
@@ -158,6 +170,8 @@ int StyleSelect::getStyle()
 		ret |= 32;
 	if (smallcapsButton->isOn())
 		ret |= 64;
+	if (shadowButton->isOn())
+		ret |= 256;
 	if (underlineWordButton->isOn())
 		ret |= 512;
 	return ret;

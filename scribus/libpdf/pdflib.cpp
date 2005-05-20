@@ -2593,6 +2593,23 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			else
 				continue;
 		}
+		if ((hl->cstyle & 256) && (hl->cstroke != "None"))
+		{
+			struct ScText hl2;
+			hl2.ch = hl->ch;
+			hl2.ccolor = hl->cstroke;
+			hl2.cstroke = hl->cstroke;
+			hl2.cshade = hl->cshade2;
+			hl2.cshade2 = hl->cshade2;
+			hl2.yp = hl->yp + hl->csize / 200.0 ;
+			hl2.xp = hl->xp + hl->csize / 200.0 ;
+			hl2.csize = hl->csize;
+			hl2.cstyle = hl->cstyle;
+			hl2.cfont = hl->cfont;
+			hl2.cscale = hl->cscale;
+			hl2.cextra = hl->cextra;
+			setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
+		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl);
 		tabDist = hl->xp + Cwidth(doc, hl->cfont, hl->ch, hl->csize);
 	}
@@ -2814,7 +2831,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				tmp2 += FillColor;
 		}
 		if (hl->cstyle & 4)
-			tmp += FToStr(hl->cfont->strokeWidth * tsz / 20.0) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
+			tmp += FToStr(QMAX(hl->cfont->strokeWidth * tsz / 20.0, 1)) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
 		else
 			tmp += "0 Tr\n";
 		if (ite->itemType() != PageItem::PathText)
