@@ -420,33 +420,53 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	page_3 = new QWidget( TabStack, "page_3" );
 	pageLayout_3 = new QVBoxLayout( page_3, 0, 5, "pageLayout_3");
+	pageLayout_3->setAlignment( Qt::AlignLeft );
 
 	layout47 = new QHBoxLayout( 0, 0, 5, "layout47");
 
 	layout46 = new QVBoxLayout( 0, 0, 5, "layout46");
 
 	layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
+	layout41->setAlignment( Qt::AlignLeft );
 
 	Fonts = new FontCombo(page_3, Prefs);
 	Fonts->setMaximumSize(190, 30);
-	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
+	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 3 );
 
 	Size = new MSpinBox( 0.5, 1024, page_3, 1 );
 	Size->setPrefix( "" );
-	fontsizeLabel = new QLabel( Size, "&Font Size:", page_3, "fontsizeLabel" );
+	fontsizeLabel = new QLabel( "", page_3, "fontsizeLabel" );
+	fontsizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
 	layout41->addWidget( fontsizeLabel, 1, 0 );
 	layout41->addWidget( Size, 1, 1 );
-	layout46->addLayout( layout41 );
+	ChBase = new QSpinBox( page_3, "ChBase" );
+	ChBase->setMaxValue( 100 );
+	ChBase->setMinValue( -100 );
+	ChBase->setValue( 0 );
+	ChBase->setEnabled(false);
+	ChBaseTxt = new QLabel("", page_3, "ChBaseTxt" );
+	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
+	ChBaseTxt->setEnabled(false);
+	layout41->addWidget( ChBaseTxt, 1, 2 );
+	layout41->addWidget( ChBase, 1, 3 );
 
-	layout22 = new QHBoxLayout( 0, 0, 5, "layout22");
 	ChScale = new QSpinBox( page_3, "ChScale" );
 	ChScale->setMaxValue( 400 );
-	ChScale->setMinValue( 25 );
+	ChScale->setMinValue( 10 );
 	ChScale->setValue( 100 );
-	ScaleTxt = new QLabel( ChScale, "&Width:", page_3, "ScaleTxt" );
-	layout22->addWidget( ScaleTxt );
-	layout22->addWidget( ChScale );
-	layout46->addLayout( layout22 );
+	ScaleTxt = new QLabel("", page_3, "ScaleTxt" );
+	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
+	layout41->addWidget( ScaleTxt, 2, 0 );
+	layout41->addWidget( ChScale, 2 , 1 );
+	ChScaleV = new QSpinBox( page_3, "ChScaleV" );
+	ChScaleV->setMaxValue( 100 );
+	ChScaleV->setMinValue( 10 );
+	ChScaleV->setValue( 100 );
+	ScaleTxtV = new QLabel("", page_3, "ScaleTxtV" );
+	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
+	layout41->addWidget( ScaleTxtV, 2, 2 );
+	layout41->addWidget( ChScaleV, 2, 3 );
+	layout46->addLayout( layout41 );
 
 	layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
 	StrokeIcon = new QLabel( "", page_3, "StrokeIcon" );
@@ -480,6 +500,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	layout46->addLayout( layout24 );
 
 	Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1");
+	Layout1->setAlignment( Qt::AlignLeft );
 	SeStyle = new StyleSelect(page_3);
 	Layout1->addWidget(SeStyle);
 	Revert = new QToolButton( page_3, "Bold" );
@@ -502,7 +523,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	GroupBox3->layout()->setSpacing( 2 );
 	GroupBox3->layout()->setMargin( 5 );
 	GroupBox3Layout = new QGridLayout( GroupBox3->layout() );
-	GroupBox3Layout->setAlignment( Qt::AlignTop );
+	GroupBox3Layout->setAlignment( Qt::AlignLeft );
 
 	LineSp = new MSpinBox( GroupBox3, 1 );
 	GroupBox3Layout->addWidget( LineSp, 1, 1 );
@@ -519,6 +540,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	pageLayout_3->addWidget( GroupBox3 );
 
 	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
+	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
 	Spal = new Spalette(page_3);
 	styleLabel = new QLabel( Spal, "St&yle:", page_3, "styleLabel" );
 	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
@@ -745,6 +767,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(PM1, SIGNAL(clicked()), this, SLOT(setActShade()));
 	connect(PM2, SIGNAL(clicked()), this, SLOT(setActShade()));
 	connect(ChScale, SIGNAL(valueChanged(int)), this, SLOT(NewTScale()));
+	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SLOT(NewTScaleV()));
 	connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
 	connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
 	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleResize()));
@@ -1656,6 +1679,26 @@ void Mpalette::setAli(int e)
 		GroupAlign->setEnabled(false);
 	Spal->setFormat(e);
 	HaveItem = tmp;
+}
+
+void Mpalette::setTScaleV(int e)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	bool tmp = HaveItem;
+	HaveItem = false;
+	ChScaleV->setValue(e);
+	HaveItem = tmp;
+}
+
+void Mpalette::NewTScaleV()
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->ItemTextScaleV(ChScaleV->value());
+		doc->CurrTextScaleV = ChScaleV->value();
+		emit DocChanged();
+	}
 }
 
 void Mpalette::setTScale(int e)
@@ -3171,8 +3214,6 @@ void Mpalette::languageChange()
 	textFlowsAroundFrame->setTitle(tr("Text &Flows Around Frame"));
 	textFlowUsesBoundingBox->setText(tr("Use &Bounding Box"));
 	Textflow3->setText(tr("&Use Contour Line"));
-	fontsizeLabel->setText(tr("&Font Size:"));
-	ScaleTxt->setText(tr("&Width:"));
 	ShadeTxt1->setText(tr( "Shade:" ));
 	ShadeTxt2->setText(tr( "Shade:" ));
 	GroupBox3->setTitle(tr("Custom Spacing"));
@@ -3238,7 +3279,9 @@ void Mpalette::languageChange()
 	BottomLine->setText(tr("Line at Bottom"));
 
 	QString pctSuffix=tr(" %");
+	ChBase->setSuffix(pctSuffix);
 	ChScale->setSuffix(pctSuffix);
+	ChScaleV->setSuffix(pctSuffix);
 	ScaleX->setSuffix(pctSuffix);
 	ScaleY->setSuffix(pctSuffix);
 	
@@ -3297,7 +3340,9 @@ void Mpalette::languageChange()
 
 	QToolTip::remove(Fonts);
 	QToolTip::remove(Size);
+	QToolTip::remove(ChBase);
 	QToolTip::remove(ChScale);
+	QToolTip::remove(ChScaleV);
 	QToolTip::remove(TxStroke);
 	QToolTip::remove(TxFill);
 	QToolTip::remove(PM1);
@@ -3367,7 +3412,9 @@ void Mpalette::languageChange()
 
 	QToolTip::add(Fonts, tr("Font of selected text or object"));
 	QToolTip::add(Size, tr("Font Size"));
+	QToolTip::add(ChBase, tr("Offset to baseline of characters"));
 	QToolTip::add(ChScale, tr("Scaling width of characters"));
+	QToolTip::add(ChScaleV, tr("Scaling height of characters"));
 	QToolTip::add(TxStroke, tr("Color of text stroke"));
 	QToolTip::add(TxFill, tr("Color of text fill"));
 	QToolTip::add(PM1, tr("Saturation of color of text stroke"));

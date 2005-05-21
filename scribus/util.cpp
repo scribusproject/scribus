@@ -1062,6 +1062,7 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem)
 	Buffer->ShTxtStroke = currItem->ShTxtStroke;
 	Buffer->ShTxtFill = currItem->ShTxtFill;
 	Buffer->TxtScale = currItem->TxtScale;
+	Buffer->TxtScaleV = currItem->TxtScaleV;
 	Buffer->TxTStyle = currItem->TxTStyle;
 	Buffer->Rot = currItem->Rot;
 	Buffer->PLineArt = currItem->PLineArt;
@@ -1359,6 +1360,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->ShTxtFill=QStoInt(obj->attribute("TXTFILLSH", "100"));
 	OB->ShTxtStroke=QStoInt(obj->attribute("TXTSTRSH", "100"));
 	OB->TxtScale=QStoInt(obj->attribute("TXTSCALE", "100"));
+	OB->TxtScaleV=QStoInt(obj->attribute("TXTSCALEV", "100"));
 	OB->TxTStyle=QStoInt(obj->attribute("TXTSTYLE", "0"));
 	OB->Cols = QStoInt(obj->attribute("COLUMNS","1"));
 	OB->ColGap = QStodouble(obj->attribute("COLGAP","0.0"));

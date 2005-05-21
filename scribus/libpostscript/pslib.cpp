@@ -2002,6 +2002,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.cfont = hl->cfont;
 				hl2.cextra = 0;
 				hl2.cscale = 100;
+				hl2.cscalev = 100;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2026,6 +2027,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.cstyle = hl->cstyle;
 			hl2.cfont = hl->cfont;
 			hl2.cscale = hl->cscale;
+			hl2.cscalev = hl->cscalev;
 			hl2.cextra = hl->cextra;
 			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
@@ -2123,6 +2125,11 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
 			if (hl->cscale != 100)
 				PS_scale(hl->cscale / 100.0, 1);
+			if (hl->cscalev != 100)
+			{
+				PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 100.0)));
+				PS_scale(1, hl->cscalev / 100.0);
+			}
 			if (hl->ccolor != "None")
 			{
 				SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
@@ -2164,6 +2171,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			}
 			if (hl->cscale != 100)
 				PS_scale(hl->cscale / 100.0, 1);
+			if (hl->cscalev != 100)
+				PS_scale(1, hl->cscalev / 100.0);
 			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 		}
 		else
@@ -2171,6 +2180,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			PS_translate(hl->xp, -hl->yp);
 			if (hl->cscale != 100)
 				PS_scale(hl->cscale / 100.0, 1);
+			if (hl->cscalev != 100)
+				PS_scale(1, hl->cscalev / 100.0);
 			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 		}
 		PS_restore();
@@ -2185,7 +2196,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);
 			chma = QWMatrix();
-			chma.scale(hl->cscale / 100.0, 1);
+			chma.scale(hl->cscale / 100.0, hl->cscalev / 100.0);
 			gly.map(chma);
 			if (ite->Reverse)
 			{
@@ -2201,6 +2212,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 				PS_setdash(Qt::SolidLine, 0, dum);
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+				if (hl->cscalev != 100)
+					PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 100.0)));
 				SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				SetClipPath(&gly);
@@ -2296,7 +2309,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);
 			chma = QWMatrix();
-			chma.scale(hl->cscale / 100.0, 1);
+			chma.scale(hl->cscale / 100.0, hl->cscalev / 100.0);
 			gly.map(chma);
 			if (hl->ccolor != "None")
 			{

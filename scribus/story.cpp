@@ -514,6 +514,7 @@ void SEditor::insChars(QString t)
 			hg->cab = ccab;
 			hg->cextra = CurrTextKern;
 			hg->cscale = CurrTextScale;
+			hg->cscalev = CurrTextScaleV;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -587,6 +588,7 @@ void SEditor::insStyledText()
 			hg->cab = ccab;
 			hg->cextra = cBuffer.at(a)->cextra;
 			hg->cscale = cBuffer.at(a)->cscale;
+			hg->cscalev = cBuffer.at(a)->cscalev;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -622,6 +624,7 @@ void SEditor::copyStyledText()
 			hg->cstroke = chars->at(ca)->cstroke;
 			hg->cshade2 = chars->at(ca)->cshade2;
 			hg->cscale = chars->at(ca)->cscale;
+			hg->cscalev = chars->at(ca)->cscalev;
 			hg->cstyle = chars->at(ca)->cstyle;
 			hg->cab = chars->at(ca)->cab;
 			hg->cextra = chars->at(ca)->cextra;
@@ -636,6 +639,7 @@ void SEditor::copyStyledText()
 		hg->cstroke = "";
 		hg->cshade2 = 1;
 		hg->cscale = 0;
+		hg->cscalev = 0;
 		hg->cstyle = 0;
 		hg->cab = 0;
 		hg->cextra = 0;
@@ -667,6 +671,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cstroke = chars->at(c)->cstroke;
 				hg->cshade2 = chars->at(c)->cshade2;
 				hg->cscale = chars->at(c)->cscale;
+				hg->cscalev = chars->at(c)->cscalev;
 				hg->cstyle = chars->at(c)->cstyle;
 				hg->cextra = chars->at(c)->cextra;
 			}
@@ -681,6 +686,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cstyle = CurrentStyle;
 				hg->cextra = CurrTextKern;
 				hg->cscale = CurrTextScale;
+				hg->cscalev = CurrTextScaleV;
 				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
 				{
 					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
@@ -709,6 +715,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->cstroke = chars->at(c)->cstroke;
 			hg->cshade2 = chars->at(c)->cshade2;
 			hg->cscale = chars->at(c)->cscale;
+			hg->cscalev = chars->at(c)->cscalev;
 			hg->cstyle = chars->at(c)->cstyle;
 			hg->cab = chars->at(c)->cab;
 			hg->cextra = chars->at(c)->cextra;
@@ -818,6 +825,7 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->cstroke = nextItem->itemText.at(a)->cstroke;
 				hg->cshade2 = nextItem->itemText.at(a)->cshade2;
 				hg->cscale = nextItem->itemText.at(a)->cscale;
+				hg->cscalev = nextItem->itemText.at(a)->cscalev;
 				hg->cstyle = nextItem->itemText.at(a)->cstyle;
 				hg->cab = nextItem->itemText.at(a)->cab;
 				hg->cextra = nextItem->itemText.at(a)->cextra;
@@ -902,6 +910,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 			hg->cstroke = currItem->TxtStroke;
 			hg->cshade2 = currItem->ShTxtStroke;
 			hg->cscale = currItem->TxtScale;
+			hg->cscalev = currItem->TxtScaleV;
 			hg->cstyle = currItem->TxTStyle;
 			hg->cab = currItem->textAlignment;
 			hg->cextra = 0;
@@ -1049,6 +1058,7 @@ void SEditor::updateFromChars(int pa)
 	4 = Character Style
 	5 = Character Scaling
 	6 = Kerning
+	7 = Character Scaling Vertical
  */
 void SEditor::updateSel(int code, struct PtiSmall *hg)
 {
@@ -1098,6 +1108,9 @@ void SEditor::updateSel(int code, struct PtiSmall *hg)
 					break;
 				case 6:
 					chars->at(ca)->cextra = hg->cextra;
+					break;
+				case 7:
+					chars->at(ca)->cscalev = hg->cscalev;
 					break;
 				default:
 					break;
@@ -1477,13 +1490,22 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Size = new MSpinBox( 1, 1024, this, 1 );
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
-	ChScale = new QSpinBox( 25, 400, 1, this, "ChScale" );
+	ScaleTxt = new QLabel("", this, "ScaleTxt" );
+	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
+	ChScale = new QSpinBox( 10, 400, 1, this, "ChScale" );
 	ChScale->setValue( 100 );
 	ChScale->setSuffix( tr( " %" ) );
+	ScaleTxtV = new QLabel("", this, "ScaleTxtV" );
+	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
+	ChScaleV = new QSpinBox( 10, 100, 1, this, "ChScaleV" );
+	ChScaleV->setValue( 100 );
+	ChScaleV->setSuffix( tr( " %" ) );
 	QToolTip::add( Fonts, tr( "Font of selected text" ) );
 	QToolTip::add( Size, tr( "Font Size" ) );
 	QToolTip::add( ChScale, tr( "Scaling width of characters" ) );
+	QToolTip::add( ChScaleV, tr( "Scaling height of characters" ) );
 	connect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
+	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
 	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(newSizeHandler()));
 }
@@ -1507,6 +1529,13 @@ void SToolBFont::SetScale(int s)
 	disconnect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
 	ChScale->setValue(s);
 	connect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
+}
+
+void SToolBFont::SetScaleV(int s)
+{
+	disconnect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
+	ChScaleV->setValue(s);
+	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
 }
 
 void SToolBFont::newSizeHandler()
@@ -1706,6 +1735,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(FontTools, SIGNAL(NewSize(double )), this, SLOT(newTxSize(double)));
 	connect(FontTools, SIGNAL(NewFont(const QString& )), this, SLOT(newTxFont(const QString& )));
 	connect(FontTools, SIGNAL(NewScale(int )), this, SLOT(newTxScale(int )));
+	connect(FontTools, SIGNAL(NewScaleV(int )), this, SLOT(newTxScaleV(int )));
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	Editor->setFocus();
@@ -1878,6 +1908,16 @@ void StoryEditor::newTxScale(int s)
 	Editor->setFocus();
 }
 
+void StoryEditor::newTxScaleV(int s)
+{
+	Editor->CurrTextScaleV = s;
+	struct PtiSmall hg;
+	hg.cscalev = Editor->CurrTextScaleV;
+	Editor->updateSel(7, &hg);
+	modifiedText();
+	Editor->setFocus();
+}
+
 void StoryEditor::newTxKern(double s)
 {
 	Editor->CurrTextKern = s;
@@ -1910,6 +1950,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->currentParaStyle = CurrItem->textAlignment;
 			Editor->CurrTextKern = CurrItem->ExtraV;
 			Editor->CurrTextScale = CurrItem->TxtScale;
+			Editor->CurrTextScaleV = CurrItem->TxtScaleV;
 			c = 0;
 			StrokeTools->SetShade(CurrItem->ShTxtStroke);
 			FillTools->SetShade(CurrItem->ShTxtFill);
@@ -1944,6 +1985,7 @@ void StoryEditor::updateProps(int p, int ch)
 			FontTools->SetSize(CurrItem->ISize / 10.0);
 			FontTools->SetFont(CurrItem->IFont);
 			FontTools->SetScale(CurrItem->TxtScale);
+			FontTools->SetScaleV(CurrItem->TxtScaleV);
 		}
 		if (Editor->CurrentStyle & 4)
 		{
@@ -2001,6 +2043,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrentStyle = hg->cstyle & 1919;
 		Editor->CurrTextKern = hg->cextra;
 		Editor->CurrTextScale = hg->cscale;
+		Editor->CurrTextScaleV = hg->cscalev;
 	}
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);
@@ -2044,6 +2087,7 @@ void StoryEditor::updateProps(int p, int ch)
 	FontTools->SetSize(Editor->CurrFontSize / 10.0);
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);
+	FontTools->SetScaleV(Editor->CurrTextScaleV);
 	AlignTools->SetAlign(Editor->currentParaStyle);
 	updateStatus();
 }
@@ -2405,6 +2449,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->CurrentStyle = CurrItem->TxTStyle;
 			Editor->CurrTextKern = CurrItem->ExtraV;
 			Editor->CurrTextScale = CurrItem->TxtScale;
+			Editor->CurrTextScaleV = CurrItem->TxtScaleV;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
@@ -2522,6 +2567,7 @@ void StoryEditor::changeAlign(int )
 			Editor->CurrentStyle = CurrItem->TxTStyle;
 			Editor->CurrTextKern = CurrItem->ExtraV;
 			Editor->CurrTextScale = CurrItem->TxtScale;
+			Editor->CurrTextScaleV = CurrItem->TxtScaleV;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)

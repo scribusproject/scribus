@@ -49,6 +49,7 @@ struct PtiSmall {
 		    int cstyle;
 		    int cab;
 			int cscale;
+			int cscalev;
 		    double cextra;
 			QString ch;
 		    QString cfont;
@@ -91,6 +92,7 @@ public:
 	int CurrTextFillSh;
 	int CurrTextStrokeSh;
 	int CurrTextScale;
+	int CurrTextScaleV;
 	double CurrTextKern;
 	QString CurrTextStroke;
 	QString CurrTextFill;
@@ -246,17 +248,22 @@ public:
 	FontCombo* Fonts;
 	MSpinBox* Size;
 	QSpinBox* ChScale;
+	QSpinBox* ChScaleV;
+	QLabel* ScaleTxt;
+	QLabel* ScaleTxtV;
 
 public slots:
 	void SetFont(QString f);
 	void SetSize(double s);
 	void SetScale(int s);
+	void SetScaleV(int s);
 	void newSizeHandler();
 
 signals:
 	void NewFont(const QString &);
 	void NewSize(double);
 	void NewScale(int);
+	void NewScaleV(int);
 };
 
 class StoryEditor : public QMainWindow
@@ -329,6 +336,7 @@ public slots:
 	void newTxFont(const QString &f);
 	void newTxSize(double s);
 	void newTxScale(int s);
+	void newTxScaleV(int s);
 	void newTxStyle(int s);
 	void newTxKern(double s);
 	void updateProps(int p, int ch);

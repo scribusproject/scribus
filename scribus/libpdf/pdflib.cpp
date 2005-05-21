@@ -2583,6 +2583,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				hl2.cfont = hl->cfont;
 				hl2.cextra = 0;
 				hl2.cscale = 100;
+				hl2.cscalev = 100;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2607,6 +2608,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			hl2.cstyle = hl->cstyle;
 			hl2.cfont = hl->cfont;
 			hl2.cscale = hl->cscale;
+			hl2.cscalev = hl->cscalev;
 			hl2.cextra = hl->cextra;
 			setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 		}
@@ -2730,9 +2732,11 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			{
 				if (ite->BaseOffs != 0)
 					tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
-				tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(((tsz / 10.0)))+" cm\n";
+				tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(tsz / 10.0)+" cm\n";
 			}
-			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 25), 400) / 100.0)+" 0 0 1 0 0 cm\n";
+			if (hl->cscalev != 100)
+				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 100.0)) / (tsz / 10.0)) * -1)+" cm\n";
+			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 100) / 100.0)+" 0 0 cm\n";
 			tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
 			if (hl->cstyle & 4)
 			{
@@ -2852,13 +2856,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				else
 					wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 				tmp += "-1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
+				tmp +=  FToStr(-QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 100) / 100.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp)+" Tm\n";
 			}
 			else
-				tmp += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr(-hl->yp)+" Tm\n";
+				tmp +=  FToStr(QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 100) / 100.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp)+" Tm\n";
 		}
 		else
-			tmp += "1 0 0 1 0 0 Tm\n";
-		tmp += IToStr(QMIN(QMAX(hl->cscale, 25), 400)) + " Tz\n";
+			tmp += FToStr(QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 100) / 100.0)+" 0 0 Tm\n";
+//		tmp += IToStr(QMIN(QMAX(hl->cscale, 25), 400)) + " Tz\n";
 		uchar idx2 = idx & 0xFF;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 		if (ite->itemType() != PageItem::PathText)

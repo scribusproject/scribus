@@ -209,7 +209,9 @@ public:
 	QLabel* TextCms1;
 	QLabel* TextCms2;
 	QLabel* edgesLabel;
+	QLabel* ChBaseTxt;
 	QLabel* ScaleTxt;
+	QLabel* ScaleTxtV;
 	QLabel* startArrowText;
 	QLabel* endArrowText;
 
@@ -238,6 +240,8 @@ public:
 	MSpinBox* LSize;
 
 	QSpinBox* ChScale;
+	QSpinBox* ChScaleV;
+	QSpinBox* ChBase;
 	QSpinBox* DCol;
 
 	QRadioButton* TopLeft;
@@ -289,6 +293,8 @@ public slots:
 	void setAli(int e);
 	void setTScale(int e);
 	void NewTScale();
+	void NewTScaleV();
+	void setTScaleV(int e);
 	void SetLineFormats(ScribusDoc *dd);
 	void SetSTline(QListBoxItem *c);
 	void NewTFont(int);
@@ -405,7 +411,6 @@ protected:
 	QGridLayout* GroupBox3aLayout;
 	QVBoxLayout* GroupBoxCMLayout;
 	QVBoxLayout* textFlowsAroundFrameLayout;
-	QHBoxLayout* layout22;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
 	bool _userActionOn;

@@ -104,6 +104,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ShTxtStroke = 100;
 	ShTxtFill = 100;
 	TxtScale = 100;
+	TxtScaleV = 100;
 	TxTStyle = 0;
 	GrType = 0;
 	GrStartX = 0;
@@ -719,6 +720,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					else
 						Zli3.kern = hl->cextra;
 					Zli3.scale = hl->cscale;
+					Zli3.scalev = hl->cscalev;
 					if (!Doc->RePos)
 					{
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
@@ -1065,6 +1067,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						asce = hl->cfont->numAscent * (hl->csize / 10.0);
 					}
 					wide = wide * (hl->cscale / 100.0);
+					desc2 = desc2 * (hl->cscalev / 100.0);
+					desc = desc * (hl->cscalev / 100.0);
+					asce = asce * (hl->cscalev / 100.0);
 					fBorder = false;
 					if (LiList.isEmpty())
 					{
@@ -1291,6 +1296,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli->wide = wide;
 					Zli->kern = kernVal;
 					Zli->scale = hl->cscale;
+					Zli->scalev = hl->cscalev;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 					{
 						if (a > 0)
@@ -1399,6 +1405,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->wide = Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize);
 									Zli->kern = itemText.at(a)->cextra;
 									Zli->scale = itemText.at(a)->cscale;
+									Zli->scalev = itemText.at(a)->cscalev;
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 								}
@@ -1623,6 +1630,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 							desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
 							asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
+							desc = desc * (Zli2->scalev / 100.0);
+							asce = asce * (Zli2->scalev / 100.0);
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 							{
 								wide = Zli2->wide;
@@ -1667,6 +1676,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->wide = wt;
 									Zli->kern = 0;
 									Zli->scale = 100;
+									Zli->scalev = 100;
 									for (int cx = 0; cx < coun; ++cx)
 									{
 										Zli->xco = sPos + wt * cx;
@@ -1753,6 +1763,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
 					asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
+					desc = desc * (Zli2->scalev / 100.0);
+					asce = asce * (Zli2->scalev / 100.0);
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 					{
 						wide = Zli2->wide;
@@ -1797,6 +1809,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							Zli->wide = wt;
 							Zli->kern = 0;
 							Zli->scale = 100;
+							Zli->scalev = 100;
 							for (int cx = 0; cx < coun; ++cx)
 							{
 								Zli->xco =  sPos + wt * cx;
@@ -2237,6 +2250,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				Zli->wide = wide;
 				Zli->kern = hl->cextra;
 				Zli->scale = hl->cscale;
+				Zli->scalev = hl->cscalev;
 				if (!Doc->RePos)
 					DrawZeichenS(p, Zli);
 				delete Zli;
@@ -2472,15 +2486,15 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
 		if (gly.size() > 3)
 		{
-			chma2.scale(hl->scale / 100.0, 1);
+			chma2.scale(hl->scale / 100.0, hl->scalev / 100.0);
 			if (Reverse)
 			{
 				chma3.scale(-1, 1);
 				chma3.translate(-hl->wide, 0);
-				chma4.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
+				chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 100.0)));
 			}
 			else
-				chma4.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
+				chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 100.0)));
 			gly.map(chma * chma2 * chma3 * chma4 * chma5);
 			p->setFillMode(1);
 			bool fr = p->fillRule();
@@ -3099,6 +3113,27 @@ void PageItem::setFontSize(int newSize)
 		undoManager->action(this, ss);
 	}
 	ISize = newSize;
+}
+
+int PageItem::fontHeight() const
+{
+	return TxtScaleV;
+}
+
+void PageItem::setFontHeight(int newHeight)
+{
+	if (TxtScaleV == newHeight)
+		return; // nothing to do -> return
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontHeight,
+										  QString(Um::FromTo).arg(TxtScaleV).arg(newHeight), Um::IFont);
+		ss->set("SET_FONT_HEIGHT", "setfontheight");
+		ss->set("OLD_HEIGHT", TxtScaleV);
+		ss->set("NEW_HEIGHT", newHeight);
+		undoManager->action(this, ss);
+	}
+	TxtScaleV = newHeight;
 }
 
 int PageItem::fontWidth() const

@@ -710,6 +710,7 @@ void CharSelect::insChar()
 		hg->cstroke = ap->doc->CurrTextStroke;
 		hg->cshade2 = ap->doc->CurrTextStrokeSh;
 		hg->cscale = ap->doc->CurrTextScale;
+		hg->cscalev = ap->doc->CurrTextScaleV;
 		hg->cselect = false;
 		hg->cstyle = ap->doc->CurrentStyle;
 		hg->cab = ap->doc->currentParaStyle;

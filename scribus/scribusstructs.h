@@ -47,6 +47,7 @@ struct ScText
 */
 	short cab;
 	short cscale;
+	short cscalev;
 	float cextra;
 	float xp;
 	float yp;
@@ -89,6 +90,7 @@ struct CopyPasteBuffer
 	int ShTxtStroke;
 	int ShTxtFill;
 	int TxtScale;
+	int TxtScaleV;
 	int TxTStyle;
 	double Rot;
 	int PLineArt;

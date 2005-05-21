@@ -124,6 +124,7 @@ public:
 				int realSiz;
 				int Style;
 				int scale;
+				int scalev;
 				int shade;
 				int shade2;
 				bool Sele;
@@ -192,6 +193,7 @@ public:
 	int ShTxtStroke;
 	int ShTxtFill;
 	int TxtScale;
+	int TxtScaleV;
 	int TxTStyle;
 	int Cols;
 	double ColGap;
@@ -551,6 +553,14 @@ public:
 	 * @param newSize font size
 	 */
 	void setFontSize(int newSize);
+
+	/** @brief Get the PageItem-wide character height scaling percentage */
+	int fontHeight() const;
+	/**
+	 * @brief Set scaling height of character
+	 * @param newWidth width of character
+	 */
+	void setFontHeight(int newHeight);
 
 	/** @brief Get the PageItem-wide character width scaling percentage */
 	int fontWidth() const;

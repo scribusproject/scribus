@@ -290,6 +290,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		connect(this, SIGNAL(TextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
 		connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
 		connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
+		connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 
 		initCrashHandler();
@@ -1432,12 +1433,14 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		doc->CurrTextStroke = currItem->itemText.at(ChPos)->cstroke;
 		doc->CurrTextStrokeSh = currItem->itemText.at(ChPos)->cshade2;
 		doc->CurrTextScale = currItem->itemText.at(ChPos)->cscale;
+		doc->CurrTextScaleV = currItem->itemText.at(ChPos)->cscalev;
 		emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 		emit TextIFont(doc->CurrFont);
 		emit TextISize(doc->CurrFontSize);
 		emit TextUSval(currItem->itemText.at(ChPos)->cextra);
 		emit TextStil(doc->CurrentStyle);
 		emit TextScale(doc->CurrTextScale);
+		emit TextScaleV(doc->CurrTextScaleV);
 	}
 }
 
@@ -1485,6 +1488,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->cstroke = doc->CurrTextStroke;
 					hg->cshade2 = doc->CurrTextStrokeSh;
 					hg->cscale = doc->CurrTextScale;
+					hg->cscalev = doc->CurrTextScaleV;
 					hg->cselect = false;
 					hg->cstyle = doc->CurrentStyle;
 					hg->cab = doc->currentParaStyle;
@@ -1923,6 +1927,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->cstroke = doc->CurrTextStroke;
 								hg->cshade2 = doc->CurrTextStrokeSh;
 								hg->cscale = doc->CurrTextScale;
+								hg->cscalev = doc->CurrTextScaleV;
 								hg->cselect = false;
 								hg->cstyle = doc->CurrentStyle;
 								hg->cab = doc->currentParaStyle;
@@ -2358,6 +2363,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cstroke = doc->CurrTextStroke;
 							hg->cshade2 = doc->CurrTextStrokeSh;
 							hg->cscale = doc->CurrTextScale;
+							hg->cscalev = doc->CurrTextScaleV;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
 							hg->cab = doc->currentParaStyle;
@@ -2388,6 +2394,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cstroke = doc->CurrTextStroke;
 							hg->cshade2 = doc->CurrTextStrokeSh;
 							hg->cscale = doc->CurrTextScale;
+							hg->cscalev = doc->CurrTextScaleV;
 							hg->csize = doc->CurrFontSize;
 							hg->cextra = 0;
 							hg->cselect = false;
@@ -3729,10 +3736,12 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
 			doc->CurrTextFillSh = currItem->ShTxtFill;
 			doc->CurrTextScale = currItem->TxtScale;
+			doc->CurrTextScaleV = currItem->TxtScaleV;
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
 			emit TextScale(doc->CurrTextScale);
+			emit TextScaleV(doc->CurrTextScaleV);
 			setStilvalue(doc->CurrentStyle);
 		}
 		doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
@@ -3783,10 +3792,12 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
 			doc->CurrTextFillSh = currItem->ShTxtFill;
 			doc->CurrTextScale = currItem->TxtScale;
+			doc->CurrTextScaleV = currItem->TxtScaleV;
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
 			emit TextScale(doc->CurrTextScale);
+			emit TextScaleV(doc->CurrTextScaleV);
 			setStilvalue(doc->CurrentStyle);
 		}
 		break;

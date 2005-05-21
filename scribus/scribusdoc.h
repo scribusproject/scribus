@@ -172,6 +172,7 @@ public: // Public attributes
 	QString CurrTextStroke;
 	int CurrTextStrokeSh;
 	int CurrTextScale;
+	int CurrTextScaleV;
 	bool EditClip;
 	int EditClipMode;
 	typoPrefs typographicSetttings;

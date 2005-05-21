@@ -499,6 +499,7 @@ public:
 	static QString SetFont;
 	static QString SetFontSize;
 	static QString SetFontWidth;
+	static QString SetFontHeight;
 	static QString SetFontFill;
 	static QString SetFontStroke;
 	static QString SetFontFillShade;

@@ -2417,6 +2417,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							emit ItemTextCols(currItem->Cols, currItem->ColGap);
 							emit ItemTextSize(currItem->ISize);
 							emit ItemTextSca(currItem->TxtScale);
+							emit ItemTextScaV(currItem->TxtScaleV);
 							for (uint aa = 0; aa < currItem->itemText.count(); ++aa)
 							{
 								currItem->itemText.at(aa)->csize = QMAX(qRound(currItem->itemText.at(aa)->csize*scy), 1);
@@ -6469,7 +6470,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextStroke = currItem->itemText.at(a)->cstroke;
 					Doc->CurrTextStrokeSh = currItem->itemText.at(a)->cshade2;
 					Doc->CurrTextScale = currItem->itemText.at(a)->cscale;
+					Doc->CurrTextScaleV = currItem->itemText.at(a)->cscalev;
 					emit ItemTextSca(currItem->itemText.at(a)->cscale);
+					emit ItemTextScaV(currItem->itemText.at(a)->cscalev);
 					emit ItemTextFont(currItem->itemText.at(a)->cfont->SCName);
 					emit ItemTextSize(currItem->itemText.at(a)->csize);
 					emit ItemTextUSval(currItem->itemText.at(a)->cextra);
@@ -6500,7 +6503,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextStroke = currItem->itemText.at(i)->cstroke;
 					Doc->CurrTextStrokeSh = currItem->itemText.at(i)->cshade2;
 					Doc->CurrTextScale = currItem->itemText.at(i)->cscale;
+					Doc->CurrTextScaleV = currItem->itemText.at(i)->cscalev;
 					emit ItemTextSca(currItem->itemText.at(i)->cscale);
+					emit ItemTextScaV(currItem->itemText.at(i)->cscalev);
 					emit ItemTextFarben(currItem->itemText.at(i)->cstroke, currItem->itemText.at(i)->ccolor, currItem->itemText.at(i)->cshade2, currItem->itemText.at(i)->cshade);
 					emit ItemTextFont(currItem->itemText.at(i)->cfont->SCName);
 					emit ItemTextSize(currItem->itemText.at(i)->csize);
@@ -6520,7 +6525,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 				Doc->CurrTextStroke = currItem->itemText.at(currItem->CPos-1)->cstroke;
 				Doc->CurrTextStrokeSh = currItem->itemText.at(currItem->CPos-1)->cshade2;
 				Doc->CurrTextScale = currItem->itemText.at(currItem->CPos-1)->cscale;
+				Doc->CurrTextScaleV = currItem->itemText.at(currItem->CPos-1)->cscalev;
 				emit ItemTextSca(currItem->itemText.at(currItem->CPos-1)->cscale);
+				emit ItemTextScaV(currItem->itemText.at(currItem->CPos-1)->cscalev);
 				emit ItemTextFarben(currItem->itemText.at(currItem->CPos-1)->cstroke, currItem->itemText.at(currItem->CPos-1)->ccolor, currItem->itemText.at(currItem->CPos-1)->cshade2, currItem->itemText.at(currItem->CPos-1)->cshade);
 				emit ItemTextFont(currItem->itemText.at(currItem->CPos-1)->cfont->SCName);
 				emit ItemTextSize(currItem->itemText.at(currItem->CPos-1)->csize);
@@ -6539,7 +6546,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 				Doc->CurrTextStroke = currItem->TxtStroke;
 				Doc->CurrTextStrokeSh = currItem->ShTxtStroke;
 				Doc->CurrTextScale = currItem->TxtScale;
+				Doc->CurrTextScaleV = currItem->TxtScaleV;
 				emit ItemTextSca(currItem->TxtScale);
+				emit ItemTextScaV(currItem->TxtScaleV);
 				emit ItemTextFarben(currItem->TxtStroke, currItem->TxtFill, currItem->ShTxtStroke, currItem->ShTxtFill);
 				emit ItemTextFont(currItem->IFont);
 				emit ItemTextSize(currItem->ISize);
@@ -9861,6 +9870,38 @@ void ScribusView::ItemTextPenS(int sha)
 	}
 }
 
+void ScribusView::ItemTextScaleV(int sha)
+{
+	if (SelItem.count() != 0)
+	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontHeight, QString("%1").arg(sha), Um::IFont);
+		PageItem *currItem;
+		for (uint a = 0; a < SelItem.count(); ++a)
+		{
+			currItem = SelItem.at(a);
+			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+			{
+				if (Doc->appMode != EditMode)
+					currItem->setFontHeight(sha);
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (Doc->appMode == EditMode)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->cscalev = sha;
+					}
+					else
+						currItem->itemText.at(i)->cscalev = sha;
+				}
+			}
+			RefreshItem(currItem);
+		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
+	}
+}
+
 void ScribusView::ItemTextScale(int sha)
 {
 	if (SelItem.count() != 0)
@@ -10738,7 +10779,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				if (it == NULL)
 					hg->cscale = 100;
 				else
-					hg->cscale = QMIN(QMAX((*it).toInt(), 25), 400);
+					hg->cscale = QMIN(QMAX((*it).toInt(), 10), 400);
+				it++;
+				if (it == NULL)
+					hg->cscalev = 100;
+				else
+					hg->cscalev = QMIN(QMAX((*it).toInt(), 10), 100);
 				hg->xp = 0;
 				hg->yp = 0;
 				hg->PRot = 0;
@@ -10775,6 +10821,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->ShTxtStroke = Buffer->ShTxtStroke;
 	currItem->ShTxtFill = Buffer->ShTxtFill;
 	currItem->TxtScale = Buffer->TxtScale;
+	currItem->TxtScaleV = Buffer->TxtScaleV;
 	currItem->TxTStyle = Buffer->TxTStyle;
 	currItem->Rot = Buffer->Rot;
 	currItem->Extra = Buffer->Extra;
@@ -11317,7 +11364,7 @@ void ScribusView::TextToPath()
 			y = currItem->itemText.at(a)->cfont->GlyphArray[chr].y * csi;
 			pts.map(chma);
 			chma = QWMatrix();
-			chma.scale(currItem->itemText.at(a)->cscale / 100.0, 1);
+			chma.scale(currItem->itemText.at(a)->cscale / 100.0, currItem->itemText.at(a)->cscalev / 100.0);
 			pts.map(chma);
 			chma = QWMatrix();
 			if (currItem->imageFlippedH() && (!currItem->Reverse))

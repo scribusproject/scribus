@@ -742,6 +742,7 @@ void UndoManager::languageChange()
 	UndoManager::SetFont            = tr("Set font");
 	UndoManager::SetFontSize        = tr("Set font size");
 	UndoManager::SetFontWidth       = tr("Set font width");
+	UndoManager::SetFontHeight       = tr("Set font height");
 	UndoManager::SetFontFill        = tr("Set font fill color");
 	UndoManager::SetFontStroke      = tr("Set font stroke color");
 	UndoManager::SetFontFillShade   = tr("Set font fill color shade");
@@ -981,6 +982,7 @@ QString UndoManager::RowsCols           = "";
 QString UndoManager::SetFont            = "";
 QString UndoManager::SetFontSize        = "";
 QString UndoManager::SetFontWidth       = "";
+QString UndoManager::SetFontHeight       = "";
 QString UndoManager::SetFontFill        = "";
 QString UndoManager::SetFontStroke      = "";
 QString UndoManager::SetFontFillShade   = "";
