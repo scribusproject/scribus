@@ -1782,14 +1782,17 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Указать размер бумаги</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Самостоятельно задать формат 
+листа в файле Postscript.
+Не рекомендуется включать, 
+если того не требует принтер.</translation>
     </message>
 </context>
 <context>
@@ -3767,7 +3770,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Закрыть диалог, отказавшись ото всех внесённых изменений. Если необходимо закрыть диалог, не сохраняя макрос, но и не теряя изменения, воспользуйтесь функцией сохранения исходного кда во внешнйи файл (кнопка &quot;Сохранить исходный код...&quot;).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
@@ -3783,11 +3786,11 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Сохранить изменения в макросе и закрыть диалог. Если в макросе есть ошибка, вас об этом уведомят и откажут в выходе из диалога.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Здесь содержится исходный код макроса. Если вы создаёте новый макрос, в текстовой области изначально будет пусто.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
@@ -3803,7 +3806,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Загрузить новый исходный код в область редактирования из внешнего файла. Новый исходный код заменит собой любой уже находящийся в области редактирования. Загружаемый код обязательно должен быть макрофункцией Scribus, иначе этот код придётся переписать.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
@@ -3819,7 +3822,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить исходный код - текст макроса во внешний файл. Сохранённый файл можно изменить извне и повторно загрузить.</translation>
     </message>
     <message>
         <source>Python source files (.py)</source>
@@ -4468,7 +4471,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Кегль</translation>
     </message>
 </context>
 <context>
@@ -4576,35 +4579,35 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Содержание</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Искать</translation>
+        <translation>&amp;Искать</translation>
     </message>
     <message>
         <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
+        <translation>Ис&amp;кать</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>F3</source>
-        <translation type="unfinished"></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>неизвестно</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Искать</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation>Искать слово:</translation>
     </message>
 </context>
 <context>
@@ -6791,7 +6794,7 @@ after importing.</source>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Добавить название документа в начало абзацного стиля</translation>
+        <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -6802,7 +6805,7 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Больше не спрашивать</translation>
+        <translation>Больше не спрашивать</translation>
     </message>
     <message>
         <source>Should the importer always use currently
@@ -6814,35 +6817,35 @@ never ask your confirmation again</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">ОК</translation>
+        <translation>ОК</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры импорта OpenDocument</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить абзацные стили</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Существующие стили в документе Scribus будут перезаписаны</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Объединить абзацные стили</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Объединить абзацные стили по атрибутам. В результате схожих абзацных стилей станет меньше, атрибуты будут унаследованы, даже если в оригинальном документе стили называются иначе.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить название документа в начало абзацного стиля документа Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сделать эти настройки стандартными и больше никогда про них не спрашивать.</translation>
     </message>
 </context>
 <context>
@@ -7608,36 +7611,38 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить как PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Для использования PDF/X-3 должно быть включено управление цветом. Оно включается через меню &quot;Настройки&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Стандарт PDF/X-3 поддерживается и может быть использован, но не с указанной версией PDF. Для использования PDF/X-3 выберите сам PDF/X-3 в качестве версии PDF (параметр &quot;Совместимость&quot; на вкладке &quot;Общие&quot;).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 не поддерживается в этой сборке Scribus (нет поддержки управления цветом).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Разрешить добавление аннотаций и полей в PDF.
+Если параметр отключён, редактирование 
+аннотаций и полей также запрещён.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки безопасности PDF</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки PDF/X-3</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Функции безопасности в PDF не могут использоваться с PDF/X-3. Для их использования смените версию PDF на любую другую (параметр &quot;Совместимость&quot; на вкладке &quot;Общие&quot;).&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -8858,11 +8863,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>M&amp;inor Grid Spacing:</source>
-        <translation>Ширина маленьких ячеек</translation>
+        <translation>Ширина &amp;маленьких ячеек:</translation>
     </message>
     <message>
         <source>Ma&amp;jor Grid Spacing:</source>
-        <translation>Ширина большиих ячеек</translation>
+        <translation>Ширина &amp;больших ячеек:</translation>
     </message>
     <message>
         <source>Guide &amp;Snap Distance:</source>
@@ -9186,19 +9191,21 @@ instance of gimp.</source>
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартный каталог с ICC-профилями.
+Если открыт хотя бы один документ, 
+его нельзя изменить.</translation>
     </message>
     <message>
         <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить опорную сетку</translation>
     </message>
     <message>
         <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Выключить опорную сетку</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Местоположение интерпретатора Ghostscript в системе</translation>
     </message>
 </context>
 <context>
@@ -9829,7 +9836,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation type="unfinished">Просмотреть пе&amp;чать</translation>
+        <translation>Просмотреть пе&amp;чать</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -9985,7 +9992,7 @@ External Links
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished">Галицийский</translation>
+        <translation>Галицийский</translation>
     </message>
     <message>
         <source>Greek</source>
@@ -10075,7 +10082,7 @@ External Links
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished">Цвет не найден</translation>
+        <translation>Цвет не найден</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10467,7 +10474,7 @@ function&apos;s documentation.</source>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Файл шрифта не найден.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
@@ -10482,17 +10489,17 @@ function&apos;s documentation.</source>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Слой не найден.</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно удалить последний слой.</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно создать слой без имени.</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
@@ -10650,11 +10657,11 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Хорватский</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстовые документы OpenDocument</translation>
     </message>
 </context>
 <context>
@@ -12226,15 +12233,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Управление цветом поддерживается, но не включено. Проверьте, установлены ли ICC-профили и корректно ли указан путь к ним.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Управление цветом не поддерживается в этой сборке Scribus.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Хорватский</translation>
     </message>
 </context>
 <context>
@@ -12269,7 +12276,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Копия</translation>
+        <translation>Копия</translation>
     </message>
 </context>
 <context>
@@ -13121,27 +13128,27 @@ after importing.</source>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить абзацные стили</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Включение этой функции приведёт к перезаписи существующих стилей в текущем документе</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Объединить абзацные сили</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Объединить абзацные стили по атрибутам. В результате схожих абзацных стилей станет меньше, атрибуты будут унаследованы, даже если в оригинальном документе стили называются иначе.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить название документа в начало абзацного стиля документа Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сделать эти настройки стандартными и больше никогда про них не спрашивать.</translation>
     </message>
 </context>
 <context>
@@ -13603,7 +13610,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортировать только текст</translation>
     </message>
 </context>
 <context>
