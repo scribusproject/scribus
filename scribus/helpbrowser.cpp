@@ -210,8 +210,6 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	helpBrowserLayout->addWidget( splitter );
 
 	tabWidget = new QTabWidget( splitter, "tabWidget" );
-	splitter->setResizeMode(tabWidget, QSplitter::Stretch );
-	tabWidget->setSizePolicy( QSizePolicy( QSizePolicy::Maximum, QSizePolicy::Expanding, false) );
 	tabContents = new QWidget( tabWidget, "tabContents" );
 	tabLayout = new QHBoxLayout( tabContents, 11, 6, "tabLayout");
 
@@ -276,13 +274,11 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	tabWidget->insertTab(tabBookmarks, tr("Book&marks"));
 
 	textBrowser = new QTextBrowser( splitter, "textBrowser" );
-	splitter->setResizeMode(textBrowser, QSplitter::Stretch);
-	textBrowser->setSizePolicy( QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Expanding, false ) );
+	textBrowser->setSizePolicy( QSizePolicy( QSizePolicy::Maximum, QSizePolicy::Maximum, false ) );
 	textBrowser->setFrameShape( QTextBrowser::StyledPanel );
 	QMimeSourceFactory *textBrowserMSF=textBrowser->mimeSourceFactory();
 	textBrowserMSF->setExtensionType("html", "text/html;charset=UTF-8");
 	helpBrowsermainLayout->addLayout( helpBrowserLayout );
-	textBrowser->resize(textBrowser->maximumSize());
 
 	// menus
 	menuBar = new QMenuBar(this);
