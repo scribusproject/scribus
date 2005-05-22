@@ -76,7 +76,12 @@ private:
 
 	QCheckBox* Lock;
 
+	//! Set the guides and exit
 	QPushButton* okButton;
+	//! Exit without setting
+	QPushButton* cancelButton;
+	//! Set the guides and keep the dialog open
+	QPushButton* setButton;
 
 	/*! Guide Gap widgets */
 	QCheckBox* useRowGap;
@@ -129,10 +134,6 @@ private slots:
 	void addRows();
 	/*! Create automatic horizontal guides. */
 	void addCols();
-	/*! Erase automatic vertical guides. */
-	void delRows();
-	/*! Erase automatic horizantal guides. */
-	void delCols();
 
 	/*! Gap related widget handling (enable/disable)
 	\param state enable/disable gaps */
@@ -141,6 +142,12 @@ private slots:
 	/*! Gap related widget handling (enable/disable)
 	\param state enable/disable gaps */
 	void useColGap_clicked(bool state);
+
+	/*! Commits all chasnges on exit */
+	void commitChanges();
+
+	/*! Commits all chasnges and keep the dialog open */
+	void commitEditChanges();
 };
 
 #endif // GUIDEMANAGER_H

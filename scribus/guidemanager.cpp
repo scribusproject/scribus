@@ -23,6 +23,7 @@
 #include "units.h"
 #include <qradiobutton.h>
 #include <qlayout.h>
+#include <qcursor.h>
 
 
 extern ScribusApp *ScApp;
@@ -171,7 +172,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	// auto guides
 	QGroupBox *HorGroup2 = new QGroupBox(this, "HorGroup");
-	HorGroup2->setTitle( tr("Rows and Columns"));
+	HorGroup2->setTitle( tr("Rows and Columns - Automatic Guides"));
 	HorGroup2->setColumnLayout(0, Qt::Vertical);
 	HorGroup2->layout()->setSpacing(6);
 	HorGroup2->layout()->setMargin(11);
@@ -194,14 +195,14 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	rcLayout->addWidget(ColSpin);
 
 	// auto guides gaps
-	useRowGap = new QCheckBox(tr("R.&Gap"), HorGroup2, "useRowGap");
+	useRowGap = new QCheckBox(tr("Row &Gap"), HorGroup2, "useRowGap");
 	useRowGap->setChecked(false);
 	rowGap = new MSpinBox(0, 100, HorGroup2, 4);
 	rowGap->setValue(0);
 	rowGap->setDecimals(decimals);
 	rowGap->setEnabled(false);
 
-	useColGap = new QCheckBox(tr("C.Ga&p"), HorGroup2, "useColGap");
+	useColGap = new QCheckBox(tr("Colum&n Gap"), HorGroup2, "useColGap");
 	useColGap->setChecked(false);
 	colGap = new MSpinBox(0, 100, HorGroup2, 4);
 	colGap->setValue(0);
@@ -214,38 +215,10 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	rcGapLayout->addWidget(useColGap);
 	rcGapLayout->addWidget(colGap);
 
-	// auto guides buttons
-	QPushButton *RowSet = new QPushButton( tr( "&Create" ), HorGroup2, "RowSet");
-	RowSet->setAutoDefault(false);
-	QPushButton *rowDel = new QPushButton( tr( "De&lete" ), HorGroup2, "rowDel");
-	rowDel->setAutoDefault(false);
-
-	QHBoxLayout *rowBtnLayout = new QHBoxLayout(0, 0, 6, "rowBtnLayout");
-	rowBtnLayout->addWidget(RowSet);
-	rowBtnLayout->addWidget(rowDel);
-
-	QPushButton *ColSet = new QPushButton( tr( "Cr&eate" ), HorGroup2, "ColSet");
-	ColSet->setAutoDefault(false);
-	QPushButton *colDel = new QPushButton( tr( "Dele&te" ), HorGroup2, "colDel");
-	colDel->setAutoDefault(false);
-
-	QHBoxLayout *colBtnLayout = new QHBoxLayout(0, 0, 6, "rowBtnLayout");
-	colBtnLayout->addWidget(ColSet);
-	colBtnLayout->addWidget(colDel);
-
-	QSpacerItem* btnSpacer1 = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	QSpacerItem* btnSpacer2 = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	QVBoxLayout *rcBtnLayout = new QVBoxLayout(0, 0, 6, "rcBtnLayout");
-	rcBtnLayout->addItem(btnSpacer1);
-	rcBtnLayout->addLayout(rowBtnLayout);
-	rcBtnLayout->addItem(btnSpacer2);
-	rcBtnLayout->addLayout(colBtnLayout);
-
 	// auto guides formating
 	QHBoxLayout *autoGuidesLayout = new QHBoxLayout(0, 0, 6, "autoGuidesLayout");
 	autoGuidesLayout->addLayout(rcLayout);
 	autoGuidesLayout->addLayout(rcGapLayout);
-	autoGuidesLayout->addLayout(rcBtnLayout);
 
 	QHBoxLayout *Layout10 = new QHBoxLayout(0, 0, 6, "Layout10");
 	BGroup = new QHButtonGroup(HorGroup2,"bgroup");
@@ -276,25 +249,31 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	Layout5->addItem(spacer);
 
-	okButton = new QPushButton( tr( "&Close" ), this, "okButton");
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton");
 	okButton->setAutoDefault(false);
-	okButton->setAccel(QKeySequence("Esc"));
+	cancelButton = new QPushButton( tr( "&Close" ), this, "cancelButton");
+	cancelButton->setAutoDefault(false);
+	cancelButton->setAccel(QKeySequence("Esc"));
+	setButton = new QPushButton(tr("&Update"), this, "setButton");
+	setButton->setAutoDefault(false);
+	Layout5->addWidget(setButton);
 	Layout5->addWidget(okButton);
+	Layout5->addWidget(cancelButton);
 
 	GuideManagerLayout->addLayout(Layout5);
 
 	unitChange();
 
+	//tooltips
+	QToolTip::add( setButton, "<qt>" + tr("Set the guides in document. Guide manager is still opened but the changes are persistant", "guide manager") + "</qt>");
+
 	// Create signals and slots connections
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(commitChanges()));
+	connect(setButton, SIGNAL(clicked()), this, SLOT(commitEditChanges()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
 	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
 	connect(HorSet, SIGNAL(clicked()), this, SLOT(AddHorVal()));
-	connect(RowSet, SIGNAL(clicked()), this, SLOT(addRows()));
-	connect(ColSet, SIGNAL(clicked()), this, SLOT(addCols()));
-	connect(rowDel, SIGNAL(clicked()), this, SLOT(delRows()));
-	connect(colDel, SIGNAL(clicked()), this, SLOT(delCols()));
-
 	connect(HorDel, SIGNAL(clicked()), this, SLOT(DelHorVal()));
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 	connect(VerSet, SIGNAL(clicked()), this, SLOT(AddVerVal()));
@@ -329,6 +308,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 		}
 	}
 }
+
 void GuideManager::DelHorVal()
 {
 	QValueList<double>::Iterator it;
@@ -454,15 +434,6 @@ void GuideManager::addRows()
 	UpdateHorList();
 }
 
-void GuideManager::delRows()
-{
-	QValueList<double>::iterator it;
-	QValueList<double> list = getRowValues();
-	for (it = list.begin(); it != list.end(); ++it)
-		horizontalGuides.remove((*it));
-	UpdateHorList();
-}
-
 void GuideManager::addCols()
 {
 	QValueList<double>::iterator it;
@@ -472,15 +443,6 @@ void GuideManager::addCols()
 		if (!verticalGuides.contains((*it)))
 			verticalGuides.append((*it));
 	}
-	UpdateVerList();
-}
-
-void GuideManager::delCols()
-{
-	QValueList<double>::iterator it;
-	QValueList<double> list = getColValues();
-	for (it = list.begin(); it != list.end(); ++it)
-		verticalGuides.remove((*it));
 	UpdateVerList();
 }
 
@@ -629,7 +591,6 @@ void GuideManager::UpdateHorList()
 
 	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
-	refreshDoc();
 }
 
 void GuideManager::UpdateVerList()
@@ -656,7 +617,6 @@ void GuideManager::UpdateVerList()
 
 	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
 	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
-	refreshDoc();
 }
 
 void GuideManager::refreshDoc()
@@ -675,4 +635,21 @@ void GuideManager::useRowGap_clicked(bool state)
 void GuideManager::useColGap_clicked(bool state)
 {
 	colGap->setEnabled(state);
+}
+
+void GuideManager::commitChanges()
+{
+	commitEditChanges();
+	return accept();
+}
+
+void GuideManager::commitEditChanges()
+{
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	if (RowSpin->value() > 1)
+		addRows();
+	if (ColSpin->value() > 1)
+		addCols();
+	refreshDoc();
+	QApplication::restoreOverrideCursor();
 }

@@ -9719,8 +9719,7 @@ void ScribusApp::ManageGuides()
 	if (HaveDoc)
 	{
 		GuideManager *dia = new GuideManager(this);
-		if (dia->exec())
-			dia->refreshDoc();
+		dia->exec();
 		delete dia;
 	}
 }
@@ -10542,7 +10541,7 @@ void ScribusApp::languageChange()
 		}
 		if (undoManager!=NULL)
 			undoManager->languageChange();
-	
+
 		XMess->setText(tr("X-Pos:"));
 		YMess->setText(tr("Y-Pos:"));
 		XDat->setText("         ");
