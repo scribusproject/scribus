@@ -1391,9 +1391,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											}
 										else
 											CurX = ColBound.x();
-										if (hl->ch != QChar(13))
-											CurX += Doc->Vorlagen[hl->cab].Indent;
-										else
+										if (hl->ch == QChar(13))
 											{
 											CurY += Doc->Vorlagen[hl->cab].Anach;
 											if (BuPos3 > 0)
@@ -1437,9 +1435,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									}
 								else
 									CurX = ColBound.x();
-								if (hl->ch != QChar(13))
-									CurX += Doc->Vorlagen[hl->cab].Indent;
-								else
+								if (hl->ch == QChar(13))
 									{
 									CurY += Doc->Vorlagen[hl->cab].Anach;
 									if (BuPos3 > 0)
