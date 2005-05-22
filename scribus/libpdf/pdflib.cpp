@@ -2572,9 +2572,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				int coun = static_cast<int>((hl->xp - tabDist) / wt);
 				double sPos = hl->xp - (hl->xp - tabDist) + 1;
 				hl2.ch = doc->docParagraphStyles[hl->cab].tabFillChar;
-				hl2.ccolor = hl->cstroke;
+				hl2.ccolor = hl->ccolor;
 				hl2.cstroke = hl->cstroke;
-				hl2.cshade = hl->cshade2;
+				hl2.cshade = hl->cshade;
 				hl2.cshade2 = hl->cshade2;
 				hl2.yp = hl->yp;
 				hl2.cselect = hl->cselect;
@@ -2592,9 +2592,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					{
 						struct ScText hl3;
 						hl3.ch = hl2.ch;
-						hl3.ccolor = hl2.ccolor;
+						hl3.ccolor = hl2.cstroke;
 						hl3.cstroke = hl2.cstroke;
-						hl3.cshade = hl2.cshade;
+						hl3.cshade = hl2.cshade2;
 						hl3.cshade2 = hl2.cshade2;
 						hl3.yp = hl2.yp + hl2.csize / 200.0 ;
 						hl3.xp = hl2.xp + hl2.csize / 200.0 ;
