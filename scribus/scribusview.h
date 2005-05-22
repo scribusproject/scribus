@@ -241,6 +241,7 @@ public:
 	void ItemTextPenS(int sha);
 	void ItemTextScaleV(int sha);
 	void ItemTextScale(int sha);
+	void setItemTextBase(int sha);
 	void ItemBrush(QString farbe);
 	void ItemBrushShade(int sha);
 	void ItemPenShade(int sha);
@@ -383,6 +384,7 @@ signals:
 	void ItemTextSize(int);
 	void ItemTextSca(int);
 	void ItemTextScaV(int);
+	void ItemTextBase(int);
 	void ItemTextFarben(QString, QString, int, int);
 	void ItemTextStil(int);
 	void ItemRadius(double);

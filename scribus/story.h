@@ -50,6 +50,7 @@ struct PtiSmall {
 		    int cab;
 			int cscale;
 			int cscalev;
+			int cbase;
 		    double cextra;
 			QString ch;
 		    QString cfont;
@@ -93,6 +94,7 @@ public:
 	int CurrTextStrokeSh;
 	int CurrTextScale;
 	int CurrTextScaleV;
+	int CurrTextBase;
 	double CurrTextKern;
 	QString CurrTextStroke;
 	QString CurrTextFill;

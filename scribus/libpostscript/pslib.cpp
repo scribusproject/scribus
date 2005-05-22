@@ -2003,6 +2003,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.cextra = 0;
 				hl2.cscale = 100;
 				hl2.cscalev = 100;
+				hl2.cbase = hl->cbase;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2022,6 +2023,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 						hl3.cscale = hl2.cscale;
 						hl3.cscalev = hl2.cscalev;
 						hl3.cextra = hl2.cextra;
+						hl3.cbase = hl2.cbase;
 						setTextCh(Doc, ite, gcr, a, d, &hl3);
 					}
 					setTextCh(Doc, ite, gcr, a, d, &hl2);
@@ -2047,6 +2049,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.cscale = hl->cscale;
 			hl2.cscalev = hl->cscalev;
 			hl2.cextra = hl->cextra;
+			hl2.cbase = hl->cbase;
 			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl);
@@ -2141,6 +2144,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			}
 			else
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+			if (hl->cbase != 0)
+				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 100.0));
 			if (hl->cscale != 100)
 				PS_scale(hl->cscale / 100.0, 1);
 			if (hl->cscalev != 100)
@@ -2187,6 +2192,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 				wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 				PS_translate(wideR, 0);
 			}
+			if (hl->cbase != 0)
+				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 100.0));
 			if (hl->cscale != 100)
 				PS_scale(hl->cscale / 100.0, 1);
 			if (hl->cscalev != 100)
@@ -2196,6 +2203,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		else
 		{
 			PS_translate(hl->xp, -hl->yp);
+			if (hl->cbase != 0)
+				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 100.0));
 			if (hl->cscale != 100)
 				PS_scale(hl->cscale / 100.0, 1);
 			if (hl->cscalev != 100)
@@ -2210,12 +2219,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if (hl->cfont->CharWidth.contains(chr))
 		{
 			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-			QWMatrix chma;
+			QWMatrix chma, chma2, chma3;
 			chma.scale(tsz / 100.0, tsz / 100.0);
-			gly.map(chma);
-			chma = QWMatrix();
-			chma.scale(hl->cscale / 100.0, hl->cscalev / 100.0);
-			gly.map(chma);
+			chma2.scale(hl->cscale / 100.0, hl->cscalev / 100.0);
+			if (hl->cbase != 0)
+				chma3.translate(0, -(hl->csize / 10.0) * (hl->cbase / 100.0));
+			gly.map(chma * chma2 * chma3);
 			if (ite->Reverse)
 			{
 				chma = QWMatrix();
@@ -2265,6 +2274,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
 			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
+		if (hl->cbase != 0)
+			Upos += (hl->csize / 10.0) * (hl->cbase / 100.0);
 		if (hl->ccolor != "None")
 		{
 			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -2301,6 +2312,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
 			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
+		if (hl->cbase != 0)
+			Upos += (hl->csize / 10.0) * (hl->cbase / 100.0);
 		if (hl->ccolor != "None")
 		{
 			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);

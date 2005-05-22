@@ -464,6 +464,7 @@ signals:
 	void TextFarben(QString, QString, int, int);
 	void TextScale(int);
 	void TextScaleV(int);
+	void TextBase(int);
 
 	void prefsChanged();
 

@@ -528,6 +528,7 @@ void SEditor::insChars(QString t)
 			hg->cextra = CurrTextKern;
 			hg->cscale = CurrTextScale;
 			hg->cscalev = CurrTextScaleV;
+			hg->cbase = CurrTextBase;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -602,6 +603,7 @@ void SEditor::insStyledText()
 			hg->cextra = cBuffer.at(a)->cextra;
 			hg->cscale = cBuffer.at(a)->cscale;
 			hg->cscalev = cBuffer.at(a)->cscalev;
+			hg->cbase = cBuffer.at(a)->cbase;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -641,6 +643,7 @@ void SEditor::copyStyledText()
 			hg->cstyle = chars->at(ca)->cstyle;
 			hg->cab = chars->at(ca)->cab;
 			hg->cextra = chars->at(ca)->cextra;
+			hg->cbase = chars->at(ca)->cbase;
 			cBuffer.append(hg);
 		}
 		hg = new PtiSmall;
@@ -656,6 +659,7 @@ void SEditor::copyStyledText()
 		hg->cstyle = 0;
 		hg->cab = 0;
 		hg->cextra = 0;
+		hg->cbase = 0;
 		cBuffer.append(hg);
 	}
 }
@@ -687,6 +691,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cscalev = chars->at(c)->cscalev;
 				hg->cstyle = chars->at(c)->cstyle;
 				hg->cextra = chars->at(c)->cextra;
+				hg->cbase = chars->at(c)->cbase;
 			}
 			else
 			{
@@ -700,6 +705,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cextra = CurrTextKern;
 				hg->cscale = CurrTextScale;
 				hg->cscalev = CurrTextScaleV;
+				hg->cbase = CurrTextBase;
 				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
 				{
 					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
@@ -732,6 +738,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->cstyle = chars->at(c)->cstyle;
 			hg->cab = chars->at(c)->cab;
 			hg->cextra = chars->at(c)->cextra;
+			hg->cbase = chars->at(c)->cbase;
 			hg->cselect = false;
 			hg->xp = 0;
 			hg->yp = 0;
@@ -842,6 +849,7 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->cstyle = nextItem->itemText.at(a)->cstyle;
 				hg->cab = nextItem->itemText.at(a)->cab;
 				hg->cextra = nextItem->itemText.at(a)->cextra;
+				hg->cbase = nextItem->itemText.at(a)->cbase;
 				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(30))
@@ -924,6 +932,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 			hg->cshade2 = currItem->ShTxtStroke;
 			hg->cscale = currItem->TxtScale;
 			hg->cscalev = currItem->TxtScaleV;
+			hg->cbase = currItem->TxtBase;
 			hg->cstyle = currItem->TxTStyle;
 			hg->cab = currItem->textAlignment;
 			hg->cextra = 0;
@@ -2060,6 +2069,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextKern = hg->cextra;
 		Editor->CurrTextScale = hg->cscale;
 		Editor->CurrTextScaleV = hg->cscalev;
+		Editor->CurrTextBase = hg->cbase;
 	}
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);

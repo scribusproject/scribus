@@ -173,6 +173,7 @@ public: // Public attributes
 	int CurrTextStrokeSh;
 	int CurrTextScale;
 	int CurrTextScaleV;
+	int CurrTextBase;
 	bool EditClip;
 	int EditClipMode;
 	typoPrefs typographicSetttings;

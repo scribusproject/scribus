@@ -291,6 +291,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
 		connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
 		connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
+		connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 
 		initCrashHandler();
@@ -1434,6 +1435,7 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		doc->CurrTextStrokeSh = currItem->itemText.at(ChPos)->cshade2;
 		doc->CurrTextScale = currItem->itemText.at(ChPos)->cscale;
 		doc->CurrTextScaleV = currItem->itemText.at(ChPos)->cscalev;
+		doc->CurrTextBase = currItem->itemText.at(ChPos)->cbase;
 		emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 		emit TextIFont(doc->CurrFont);
 		emit TextISize(doc->CurrFontSize);
@@ -1441,6 +1443,7 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		emit TextStil(doc->CurrentStyle);
 		emit TextScale(doc->CurrTextScale);
 		emit TextScaleV(doc->CurrTextScaleV);
+		emit TextBase(doc->CurrTextBase);
 	}
 }
 
@@ -1489,6 +1492,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->cshade2 = doc->CurrTextStrokeSh;
 					hg->cscale = doc->CurrTextScale;
 					hg->cscalev = doc->CurrTextScaleV;
+					hg->cbase = doc->CurrTextBase;
 					hg->cselect = false;
 					hg->cstyle = doc->CurrentStyle;
 					hg->cab = doc->currentParaStyle;
@@ -1928,6 +1932,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->cshade2 = doc->CurrTextStrokeSh;
 								hg->cscale = doc->CurrTextScale;
 								hg->cscalev = doc->CurrTextScaleV;
+								hg->cbase = doc->CurrTextBase;
 								hg->cselect = false;
 								hg->cstyle = doc->CurrentStyle;
 								hg->cab = doc->currentParaStyle;
@@ -2364,6 +2369,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cshade2 = doc->CurrTextStrokeSh;
 							hg->cscale = doc->CurrTextScale;
 							hg->cscalev = doc->CurrTextScaleV;
+							hg->cbase = doc->CurrTextBase;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
 							hg->cab = doc->currentParaStyle;
@@ -2396,6 +2402,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cscale = doc->CurrTextScale;
 							hg->cscalev = doc->CurrTextScaleV;
 							hg->csize = doc->CurrFontSize;
+							hg->cbase = doc->CurrTextBase;
 							hg->cextra = 0;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
@@ -3522,6 +3529,8 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
 	connect(view, SIGNAL(ItemTextStil(int)), propertiesPalette, SLOT(setStil(int)));
 	connect(view, SIGNAL(ItemTextSca(int)), propertiesPalette, SLOT(setTScale(int)));
+	connect(view, SIGNAL(ItemTextScaV(int)), propertiesPalette, SLOT(setTScaleV(int)));
+	connect(view, SIGNAL(ItemTextBase(int)), propertiesPalette, SLOT(setTBase(int)));
 	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
 	connect(view, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
@@ -3737,11 +3746,13 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextFillSh = currItem->ShTxtFill;
 			doc->CurrTextScale = currItem->TxtScale;
 			doc->CurrTextScaleV = currItem->TxtScaleV;
+			doc->CurrTextBase = currItem->TxtBase;
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
 			emit TextScale(doc->CurrTextScale);
 			emit TextScaleV(doc->CurrTextScaleV);
+			emit TextBase(doc->CurrTextBase);
 			setStilvalue(doc->CurrentStyle);
 		}
 		doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
@@ -3793,11 +3804,13 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextFillSh = currItem->ShTxtFill;
 			doc->CurrTextScale = currItem->TxtScale;
 			doc->CurrTextScaleV = currItem->TxtScaleV;
+			doc->CurrTextBase = currItem->TxtBase;
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
 			emit TextScale(doc->CurrTextScale);
 			emit TextScaleV(doc->CurrTextScaleV);
+			emit TextBase(doc->CurrTextBase);
 			setStilvalue(doc->CurrentStyle);
 		}
 		break;

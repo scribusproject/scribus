@@ -106,6 +106,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	TxtScale = 100;
 	TxtScaleV = 100;
 	TxTStyle = 0;
+	TxtBase = 0;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
@@ -721,6 +722,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						Zli3.kern = hl->cextra;
 					Zli3.scale = hl->cscale;
 					Zli3.scalev = hl->cscalev;
+					Zli3.base = hl->cbase;
 					if (!Doc->RePos)
 					{
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
@@ -1067,9 +1069,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						asce = hl->cfont->numAscent * (hl->csize / 10.0);
 					}
 					wide = wide * (hl->cscale / 100.0);
-					desc2 = desc2 * (hl->cscalev / 100.0);
-					desc = desc * (hl->cscalev / 100.0);
-					asce = asce * (hl->cscalev / 100.0);
 					fBorder = false;
 					if (LiList.isEmpty())
 					{
@@ -1297,6 +1296,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli->kern = kernVal;
 					Zli->scale = hl->cscale;
 					Zli->scalev = hl->cscalev;
+					Zli->base = hl->cbase;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 					{
 						if (a > 0)
@@ -1406,6 +1406,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->kern = itemText.at(a)->cextra;
 									Zli->scale = itemText.at(a)->cscale;
 									Zli->scalev = itemText.at(a)->cscalev;
+									Zli->base = itemText.at(a)->cbase;
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 								}
@@ -1631,8 +1632,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 							desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
 							asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
-							desc = desc * (Zli2->scalev / 100.0);
-							asce = asce * (Zli2->scalev / 100.0);
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 							{
 								wide = Zli2->wide;
@@ -1678,6 +1677,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->kern = 0;
 									Zli->scale = 100;
 									Zli->scalev = 100;
+									Zli->base = Zli2->base;
 									for (int cx = 0; cx < coun; ++cx)
 									{
 										Zli->xco = sPos + wt * cx;
@@ -1764,8 +1764,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
 					asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
-					desc = desc * (Zli2->scalev / 100.0);
-					asce = asce * (Zli2->scalev / 100.0);
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 					{
 						wide = Zli2->wide;
@@ -1811,6 +1809,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							Zli->kern = 0;
 							Zli->scale = 100;
 							Zli->scalev = 100;
+							Zli->base = Zli2->base;
 							for (int cx = 0; cx < coun; ++cx)
 							{
 								Zli->xco =  sPos + wt * cx;
@@ -1831,6 +1830,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			}
 			MaxChars = itemText.count();
 			Redrawn = true;
+			Dirty = false;
 			pf2.end();
 			p->restore();
 			break;
@@ -1901,6 +1901,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 	FrameOnly = false;
 	p->restore();
 	pf.end();
+	Dirty = false;
 }
 
 /** Zeichnet das Item */
@@ -2252,6 +2253,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				Zli->kern = hl->cextra;
 				Zli->scale = hl->cscale;
 				Zli->scalev = hl->cscalev;
+				Zli->base = hl->cbase;
 				if (!Doc->RePos)
 					DrawZeichenS(p, Zli);
 				delete Zli;
@@ -2496,7 +2498,9 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			}
 			else
 				chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 100.0)));
-			gly.map(chma * chma2 * chma3 * chma4 * chma5);
+			if (hl->base != 0)
+				chma6.translate(0, -(hl->Siz / 10.0) * (hl->base / 100.0) * p->zoomFactor());
+			gly.map(chma * chma2 * chma3 * chma4 * chma5 * chma6);
 			p->setFillMode(1);
 			bool fr = p->fillRule();
 			p->setFillRule(false);
@@ -2515,7 +2519,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 					if ((hl->Style & 256) && (hl->Farb2 != "None"))
 					{
 						p->save();
-						p->translate(hl->Siz / 200.0, hl->Siz / 200.0);
+						p->translate((hl->Siz / 200.0) * p->zoomFactor(), (hl->Siz / 200.0) * p->zoomFactor());
 						QColor tmp = p->brush();
 						p->setBrush(p->pen());
 						p->fillPath();
@@ -2551,6 +2555,8 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				st = hl->ZFo->strikeout_pos * (hl->realSiz / 10.0);
 				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
+			if (hl->base != 0)
+				st += (hl->Siz / 10.0) * (hl->base / 100.0);
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
@@ -2574,6 +2580,8 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
 				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
+			if (hl->base != 0)
+				st += (hl->Siz / 10.0) * (hl->base / 100.0);
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));

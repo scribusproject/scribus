@@ -697,6 +697,7 @@ void SearchReplace::slotDoReplace()
 							hg->cstroke = Doc->CurrTextStroke;
 						hg->cshade2 = Doc->CurrTextStrokeSh;
 						hg->cscale = Doc->CurrTextScale;
+						hg->cbase = Doc->CurrTextBase;
 						hg->cselect = true;
 						hg->cstyle = Doc->CurrentStyle;
 						if (RStyle->isChecked())

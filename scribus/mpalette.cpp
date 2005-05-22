@@ -443,10 +443,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	ChBase->setMaxValue( 100 );
 	ChBase->setMinValue( -100 );
 	ChBase->setValue( 0 );
-	ChBase->setEnabled(false);
 	ChBaseTxt = new QLabel("", page_3, "ChBaseTxt" );
 	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
-	ChBaseTxt->setEnabled(false);
 	layout41->addWidget( ChBaseTxt, 1, 2 );
 	layout41->addWidget( ChBase, 1, 3 );
 
@@ -459,7 +457,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	layout41->addWidget( ScaleTxt, 2, 0 );
 	layout41->addWidget( ChScale, 2 , 1 );
 	ChScaleV = new QSpinBox( page_3, "ChScaleV" );
-	ChScaleV->setMaxValue( 100 );
+	ChScaleV->setMaxValue( 400 );
 	ChScaleV->setMinValue( 10 );
 	ChScaleV->setValue( 100 );
 	ScaleTxtV = new QLabel("", page_3, "ScaleTxtV" );
@@ -768,6 +766,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(PM2, SIGNAL(clicked()), this, SLOT(setActShade()));
 	connect(ChScale, SIGNAL(valueChanged(int)), this, SLOT(NewTScale()));
 	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SLOT(NewTScaleV()));
+	connect(ChBase, SIGNAL(valueChanged(int)), this, SLOT(NewTBase()));
 	connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
 	connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
 	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleResize()));
@@ -1701,6 +1700,16 @@ void Mpalette::NewTScaleV()
 	}
 }
 
+void Mpalette::NewTBase()
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->setItemTextBase(ChBase->value());
+		doc->CurrTextBase = ChBase->value();
+		emit DocChanged();
+	}
+}
+
 void Mpalette::setTScale(int e)
 {
 	if (ScApp->ScriptRunning)
@@ -1708,6 +1717,16 @@ void Mpalette::setTScale(int e)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	ChScale->setValue(e);
+	HaveItem = tmp;
+}
+
+void Mpalette::setTBase(int e)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	bool tmp = HaveItem;
+	HaveItem = false;
+	ChBase->setValue(e);
 	HaveItem = tmp;
 }
 

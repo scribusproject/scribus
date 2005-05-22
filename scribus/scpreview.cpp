@@ -202,6 +202,8 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.ShTxtFill = QStoInt(pg.attribute("TXTFILLSH", "100"));
 			OB.ShTxtStroke = QStoInt(pg.attribute("TXTSTRSH", "100"));
 			OB.TxtScale = QStoInt(pg.attribute("TXTSCALE", "100"));
+			OB.TxtScaleV = QStoInt(pg.attribute("TXTSCALEV", "100"));
+			OB.TxTBase = QStoInt(pg.attribute("TXTBASE", "0"));
 			OB.TxTStyle = QStoInt(pg.attribute("TXTSTYLE", "0"));
 			OB.GrType = QStoInt(pg.attribute("GRTYP","0"));
 			OB.fill_gradient.clearStops();

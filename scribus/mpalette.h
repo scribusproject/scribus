@@ -294,7 +294,9 @@ public slots:
 	void setTScale(int e);
 	void NewTScale();
 	void NewTScaleV();
+	void NewTBase();
 	void setTScaleV(int e);
+	void setTBase(int e);
 	void SetLineFormats(ScribusDoc *dd);
 	void SetSTline(QListBoxItem *c);
 	void NewTFont(int);
