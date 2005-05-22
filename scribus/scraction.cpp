@@ -163,7 +163,7 @@ QWidget* ScrAction::getWidgetAddedTo()
 
 QString ScrAction::cleanMenuText()
 {
-	return menuText().remove('&');
+	return menuText().remove('&').remove("...");
 }
 
 const int ScrAction::getMenuIndex()
@@ -239,4 +239,11 @@ const double ScrAction::actionDouble()
 const QString ScrAction::actionQString()
 {
 	return _dataQString;
+}
+
+void ScrAction::setTexts(const QString &newText, bool setTextToo)
+{
+	QAction::setMenuText(newText);
+	if (setTextToo)
+		QAction::setText(cleanMenuText());
 }

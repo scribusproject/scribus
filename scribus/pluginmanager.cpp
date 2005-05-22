@@ -415,6 +415,8 @@ void PluginManager::languageChange()
 	{
 		QString fromTranslator=callDLLForNewLanguage(it.key());
 		ScrAction* pluginAction=ScApp->scrActions[(*it).actName];
+		if (fromTranslator!=QString::null)
+			(*it).name=fromTranslator;
 		if (pluginAction!=NULL)
 			pluginAction->setMenuText(fromTranslator);
 	}

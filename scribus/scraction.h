@@ -200,6 +200,9 @@ public:
 	const double actionDouble();	
 	const QString actionQString();	
 	
+	/*! \brief Set up text and menuText at the same time */
+	void setTexts(const QString &newText, bool setTextToo = true);
+	
 signals:
 	void activatedData(int);
 	void activatedData(double);

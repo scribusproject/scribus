@@ -67,6 +67,7 @@ public:
 	void initPlugs();
 	/*! \brief Run plugin by its id from pluginMap */
 	void callDLL(int pluginID);
+	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */	
 	QString callDLLForNewLanguage(int pluginID);
 	/*! \brief Checks if is the plug in plugin map.
 	 * \return bool
