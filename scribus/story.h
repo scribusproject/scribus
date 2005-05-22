@@ -109,6 +109,7 @@ public:
 
 protected:
 	void keyPressEvent(QKeyEvent *k);
+	void imEndEvent(QIMEvent *e);
 	void focusOutEvent(QFocusEvent *e);
 	QPopupMenu* createPopupMenu(const QPoint & pos);
 

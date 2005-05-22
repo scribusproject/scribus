@@ -1057,6 +1057,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					emit LoadElem(ur.path(), qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), true, false, Doc, this);
 				else
 					emit LoadElem(QString(text), qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), false, false, Doc, this);
+				SelItem.clear();
+				for (uint as = ac; as < Doc->Items.count(); ++as)
+				{
+					currItem = Doc->Items.at(as);
+					if (currItem->isBookmark)
+						emit AddBM(currItem);
+					SelectItemNr(as);
+				}
 			}
 			else
 			{

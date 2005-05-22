@@ -158,6 +158,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			hg->cstyle = font->getEffectsValue();
 		}
 		hg->cscale = font->getHscale();
+		hg->cscalev = 100;
 		hg->cextra = font->getKerning();
 		hg->cselect = false;
 		hg->cab = paragraphStyle;

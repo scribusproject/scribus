@@ -26,6 +26,7 @@
 #include <qcolordialog.h>
 #include <qfontdialog.h>
 #include <qcursor.h>
+#include <qtextcodec.h>
 #include "serializer.h"
 #include "customfdialog.h"
 #include "search.h"
@@ -173,6 +174,18 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	UniCinp = false;
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
+}
+
+void SEditor::imEndEvent(QIMEvent *e)
+{
+	QString uc = e->text();
+	if ((uc != "") && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
+	{
+		insChars(e->text());
+		QTextEdit::imEndEvent(e);
+		emit SideBarUp(true);
+		emit SideBarUpdate();
+	}
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
@@ -1771,6 +1784,9 @@ int StoryEditor::exec()
 	clearWFlags( WDestructiveClose );
 	setWFlags( WShowModal );
 	result = 0;
+	QTextCodec * cdc;
+	cdc = QTextCodec::codecForCStrings();
+	cdc = QTextCodec::codecForLocale();
 	show();
 	Editor->setFocus();
 	qApp->enter_loop();

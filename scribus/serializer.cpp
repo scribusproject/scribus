@@ -102,6 +102,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->cstyle = it->TxTStyle;
 		}
 		hg->cscale = it->TxtScale;
+		hg->cscalev = it->TxtScaleV;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cab = Absatz;

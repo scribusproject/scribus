@@ -1562,6 +1562,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 											CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
 											if (BuPos3 > 0)
 												BuPos3 -= 1;
+											HyphenCount = 0;
 										}
 										break;
 									}

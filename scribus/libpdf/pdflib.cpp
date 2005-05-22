@@ -2572,9 +2572,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				int coun = static_cast<int>((hl->xp - tabDist) / wt);
 				double sPos = hl->xp - (hl->xp - tabDist) + 1;
 				hl2.ch = doc->docParagraphStyles[hl->cab].tabFillChar;
-				hl2.ccolor = hl->ccolor;
+				hl2.ccolor = hl->cstroke;
 				hl2.cstroke = hl->cstroke;
-				hl2.cshade = hl->cshade;
+				hl2.cshade = hl->cshade2;
 				hl2.cshade2 = hl->cshade2;
 				hl2.yp = hl->yp;
 				hl2.cselect = hl->cselect;
@@ -2587,6 +2587,24 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
+					if ((hl2.cstyle & 256) && (hl2.cstroke != "None"))
+					{
+						struct ScText hl3;
+						hl3.ch = hl2.ch;
+						hl3.ccolor = hl2.ccolor;
+						hl3.cstroke = hl2.cstroke;
+						hl3.cshade = hl2.cshade;
+						hl3.cshade2 = hl2.cshade2;
+						hl3.yp = hl2.yp + hl2.csize / 200.0 ;
+						hl3.xp = hl2.xp + hl2.csize / 200.0 ;
+						hl3.csize = hl2.csize;
+						hl3.cstyle = hl2.cstyle;
+						hl3.cfont = hl2.cfont;
+						hl3.cscale = hl2.cscale;
+						hl3.cscalev = hl2.cscalev;
+						hl3.cextra = hl2.cextra;
+						setTextCh(ite, PNr, d, tmp, tmp2, &hl3);
+					}
 					setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 				}
 				continue;
@@ -2910,7 +2928,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
 		if (hl->ccolor != "None")
-			tmp2 += putColor(hl->cstroke, hl->cshade, false);
+			tmp2 += putColor(hl->ccolor, hl->cshade, false);
 		tmp2 += FToStr(Uwid)+" w\n";
 		tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
 		tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
@@ -2941,7 +2959,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
 		if (hl->ccolor != "None")
-			tmp2 += putColor(hl->cstroke, hl->cshade, false);
+			tmp2 += putColor(hl->ccolor, hl->cshade, false);
 		tmp2 += FToStr(Uwid)+" w\n";
 		tmp2 += FToStr(hl->xp-kern)+" "+FToStr(-hl->yp+Upos)+" m\n";
 		tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";

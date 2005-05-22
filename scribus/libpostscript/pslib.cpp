@@ -2006,6 +2006,24 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
+					if ((hl2.cstyle & 256) && (hl2.cstroke != "None"))
+					{
+						struct ScText hl3;
+						hl3.ch = hl2.ch;
+						hl3.ccolor = hl2.cstroke;
+						hl3.cstroke = hl2.cstroke;
+						hl3.cshade = hl2.cshade2;
+						hl3.cshade2 = hl2.cshade2;
+						hl3.yp = hl2.yp + hl2.csize / 200.0 ;
+						hl3.xp = hl2.xp + hl2.csize / 200.0 ;
+						hl3.csize = hl2.csize;
+						hl3.cstyle = hl2.cstyle;
+						hl3.cfont = hl2.cfont;
+						hl3.cscale = hl2.cscale;
+						hl3.cscalev = hl2.cscalev;
+						hl3.cextra = hl2.cextra;
+						setTextCh(Doc, ite, gcr, a, d, &hl3);
+					}
 					setTextCh(Doc, ite, gcr, a, d, &hl2);
 				}
 				continue;
