@@ -15,6 +15,9 @@
 *                                                                         *
 ***************************************************************************/
 
+#include <iostream>
+#include <cstdlib>
+
 #include <qfont.h>
 #include <qstring.h>
 #include <qtranslator.h>
@@ -22,41 +25,146 @@
 #include <qfile.h>
 #include <qdir.h>
 #include <qtextcodec.h>
-#include <cstdlib>
 
 #include "scribusapp.h"
 #include "scribus.h"
 #include "scpaths.h"
 #include "prefsfile.h"
+#include "langmgr.h"
+
+#define ARG_VERSION "--version"
+#define ARG_HELP "--help"
+#define ARG_LANG "--lang"
+#define ARG_AVAILLANG "--langs-available"
+#define ARG_NOSPLASH "--no-splash"
+#define ARG_NOGUI "--no-gui"
+#define ARG_DISPLAY "--display"
+
+#define ARG_VERSION_SHORT "-v"
+#define ARG_HELP_SHORT "-h"
+#define ARG_LANG_SHORT "-l"
+#define ARG_AVAILLANG_SHORT "-la"
+#define ARG_NOSPLASH_SHORT "-ns"
+#define ARG_NOGUI_SHORT "-g"
+#define ARG_DISPLAY_SHORT "-d"
+
+// Qt wants -display not --display or -d
+#define ARG_DISPLAY_QT "-display"
 
 ScribusQApp::ScribusQApp ( int & argc, char ** argv ) : QApplication(argc, argv)
 {
+	lang="";
 }
 
-int ScribusQApp::init(bool /*useGUI*/, bool showSplash, QString lang, QString file)
+void ScribusQApp::initLang()
 {
 	QStringList langs = getLang(QString(lang));
 
-	scribus = new ScribusApp();
-	if (!scribus)
-		exit(EXIT_FAILURE);
 	if (!langs.isEmpty())
 		installTranslators(langs);
+}
 
+void ScribusQApp::parseCommandLine()
+{
+	useGUI=true;
+	showSplash=true;
+	QString arg = "";
+	bool usage=false;
+	bool header=false;
+	bool availlangs=false;
+	bool version=false;
+
+	//Parse for command line information options, and lang
+	for(int i = 1; i < argc(); i++) 
+	{
+		arg = argv()[i];
+		
+		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
+			lang = argv()[i];
+		}
+		else if (arg == ARG_VERSION || arg == ARG_VERSION_SHORT) {
+			header=true;
+			version=true;
+		} else if (arg == ARG_HELP || arg == ARG_HELP_SHORT) {
+			header=true;
+			usage=true;
+		} else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT) {
+			header=true;
+			availlangs=true;
+		}
+	}
+	//Init translations
+	initLang();	
+	//Show command line help
+	if (header)
+		showHeader();
+	if (version)
+		showVersion();
+	if (availlangs)
+		showAvailLangs();
+	if (usage)
+		showUsage();
+	//Dont run the GUI init process called from main.cpp, and return
+	if (header)
+	{
+		useGUI=false;
+		return;
+	}
+	//We are going to run something other than command line help
+	for(int i = 1; i < argc(); i++) {
+		arg = argv()[i];
+		
+		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
+		}
+		else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
+			showSplash = false;
+		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
+			useGUI=false;
+		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argc()) {
+			// allow setting of display, QT expect the option -display <display_name> so we discard the
+			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
+			// around this.
+		} else if (strncmp(arg,"-psn_",4) == 0)
+		{
+			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
+		} else {
+			file = QFile::decodeName(argv()[i]);
+			if (!QFileInfo(file).exists()) {
+				showHeader();
+				if (file.left(1) == "-" || file.left(2) == "--") {
+					std::cout << QObject::tr("Invalid argument: ") << file << std::endl;
+				} else {
+					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file) << std::endl;
+				}
+				showUsage();
+				useGUI=false;
+				return;
+			}
+		}
+	}
+}
+
+int ScribusQApp::init()
+{
 	processEvents();
+	if (useGUI)
+	{
+		scribus = new ScribusApp();
+		if (!scribus)
+			exit(EXIT_FAILURE);
+		int scribusRetVal = scribus->initScribus(showSplash, lang);
+		if (scribusRetVal == 1)
+			return(EXIT_FAILURE);
+		scribus->initCrashHandler();
+		setMainWidget(scribus);
+		connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
 	
-	int scribusRetVal = scribus->initScribus(showSplash, lang);
-	if (scribusRetVal == 1)
-		return(EXIT_FAILURE);
-	scribus->initCrashHandler();
-	setMainWidget(scribus);
-	connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
-
-	scribus->show();
-	scribus->ShowSubs();
-	if (file != "")
-		scribus->loadDoc(file);
-	return 0;
+		scribus->show();
+		scribus->ShowSubs();
+		if (file != "")
+			scribus->loadDoc(file);
+	}
+	return EXIT_SUCCESS;
 }
 
 /*!
@@ -187,4 +295,76 @@ void ScribusQApp::changeGUILanguage(QString newGUILang)
 	else
 		newLangs.append(newGUILang);
 	installTranslators(newLangs);
+}
+
+
+/*!
+\fn void showUsage()
+\author Franz Schmid
+\author Alessandro Rimoldi
+\date Mon Feb  9 14:07:46 CET 2004
+\brief If no argument specified the lang, returns the one in the locales
+\param lang QString a two letter string describing the lang environement
+\retval QString A string describing the language environement
+*/
+
+void ScribusQApp::showUsage()
+{
+	std::cout << QObject::tr("Usage: scribus [option ... ] [file]") << std::endl;
+	std::cout << QObject::tr("Options:") << std::endl;
+	std::cout << "  " << ARG_HELP_SHORT      << ",  " << ARG_HELP      << "             " << QObject::tr("Print help (this message) and exit")     << std::endl;
+	std::cout << "  " << ARG_LANG_SHORT      << ",  " << ARG_LANG      << "             " << QObject::tr("Uses xx as shortcut for a language")     << std::endl;
+	std::cout << "  " << ARG_AVAILLANG_SHORT << ", "  << ARG_AVAILLANG << "  "            << QObject::tr("Lists the currently installed interface languages") << std::endl;
+	std::cout << "  " << ARG_NOSPLASH_SHORT  << ", "  << ARG_NOSPLASH  << "        "      << QObject::tr("Do not show the splashscreen on startup")     << std::endl;
+	std::cout << "  " << ARG_VERSION_SHORT   << ",  " << ARG_VERSION   << "          "    << QObject::tr("Output version information and exit")       << std::endl;
+/*
+	std::cout << "-file|-- name Open file 'name'" << std::endl;
+	std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
+	std::cout << "QT specific options as -display ..." << std::endl;
+*/
+	std::cout << std::endl;
+}
+
+/*!
+\fn void showAvailLangs()
+\author Craig Bradney
+\date Wed Nov 18 2004
+\brief Instantiates the Language Manager and prints installed languages with brief instructions around
+\param None
+\retval None
+*/
+
+void ScribusQApp::showAvailLangs()
+{
+	std::cout << QObject::tr("Installed interface languages for Scribus are as follows:") << std::endl;
+	std::cout << std::endl;
+
+	LanguageManager langMgr;
+	langMgr.init();
+	langMgr.printInstalledList();
+
+	std::cout << std::endl;
+	std::cout << QObject::tr("To override the default language choice:") << std::endl;
+	std::cout << QObject::tr("scribus -l xx or scribus --lang xx, where xx is the language of choice.") << std::endl;
+}
+
+void ScribusQApp::showVersion()
+{
+	std::cout << QObject::tr("Scribus Version ") << VERSION << std::endl;
+}
+
+void ScribusQApp::showHeader()
+{
+	std::cout << std::endl;
+	std::cout << QObject::tr("Scribus, Open Source Desktop Publishing") << std::endl;
+	std::cout << QObject::tr("---------------------------------------") << std::endl;
+	std::cout << QObject::tr("Homepage:       http://www.scribus.net ") << std::endl;
+	std::cout << QObject::tr("Documentation:  http://docs.scribus.net") << std::endl;
+	std::cout << QObject::tr("Issues:         http://bugs.scribus.net") << std::endl;
+	std::cout << std::endl;	
+}
+
+const bool ScribusQApp::usingGUI()
+{
+	return useGUI;
 }

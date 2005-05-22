@@ -26,16 +26,25 @@ class ScribusQApp : public QApplication
 
 	public:
 		ScribusQApp ( int & argc, char ** argv );
-		int init(bool useGUI, bool showSplash, QString lang, QString file);
+		int init();
+		void initLang();
+		void parseCommandLine();
 		QStringList getLang(QString lang);
 		void installTranslators(QStringList langs);
 		void changeGUILanguage(QString);
+		const bool usingGUI();
+
 		
 	private:
 		ScribusApp *scribus;
-	/*
-	signals:
-		languageChanged();
-		*/
+		void showHeader();
+		void showVersion();
+		void showUsage();
+		void showAvailLangs();
+		
+		QString lang;
+		bool showSplash;
+		bool useGUI;
+		QString file;
 };
 #endif
