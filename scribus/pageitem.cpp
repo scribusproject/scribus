@@ -1556,9 +1556,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										}
 										else
 											CurX = ColBound.x();
-										if (hl->ch != QChar(13))
-											CurX += Doc->docParagraphStyles[hl->cab].Indent;
-										else
+										if (hl->ch == QChar(13))
 										{
 											CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
 											if (BuPos3 > 0)
@@ -1602,9 +1600,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								}
 								else
 									CurX = ColBound.x();
-								if (hl->ch != QChar(13))
-									CurX += Doc->docParagraphStyles[hl->cab].Indent;
-								else
+								if (hl->ch == QChar(13))
 								{
 									CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
 									if (BuPos3 > 0)
