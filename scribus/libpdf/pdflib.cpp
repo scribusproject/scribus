@@ -2582,8 +2582,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				hl2.cstyle = hl->cstyle;
 				hl2.cfont = hl->cfont;
 				hl2.cextra = 0;
-				hl2.cscale = 100;
-				hl2.cscalev = 100;
+				hl2.cscale = 1000;
+				hl2.cscalev = 1000;
 				hl2.cbase = hl->cbase;
 				for (int cx = 0; cx < coun; ++cx)
 				{
@@ -2740,15 +2740,15 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			{
 				if (ite->Reverse)
 				{
-					double wid = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->cbase / 100.0)))+" cm\n";
+					double wid = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
+					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->cbase / 1000.0)))+" cm\n";
 					tmp2 += "-1 0 0 1 0 0 cm\n";
 					tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
 					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 0 cm\n";
 				}
 				else
 				{
-					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->cbase / 100.0)))+" cm\n";
+					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->cbase / 1000.0)))+" cm\n";
 				}
 			}
 			else
@@ -2757,9 +2757,9 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 					tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
 				tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(tsz / 10.0)+" cm\n";
 			}
-			if (hl->cscalev != 100)
-				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 100.0)) / (tsz / 10.0)) * -1)+" cm\n";
-			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 400) / 100.0)+" 0 0 cm\n";
+			if (hl->cscalev != 1000)
+				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
+			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 cm\n";
 			tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
 			if (hl->cstyle & 4)
 			{
@@ -2874,19 +2874,18 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 						ctx = " ";
 					if (ctx == QChar(0xA0))
 						ctx = " ";
-					wtr = Cwidth(doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
+					wtr = Cwidth(doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 1000.0);
 				}
 				else
-					wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
+					wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 				tmp += "-1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
-				tmp +=  FToStr(-QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 400) / 100.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 100.0))+" Tm\n";
+				tmp +=  FToStr(-QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
 			}
 			else
-				tmp +=  FToStr(QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 400) / 100.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 100.0))+" Tm\n";
+				tmp +=  FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
 		}
 		else
-			tmp += FToStr(QMIN(QMAX(hl->cscale, 10), 400) / 100.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 10), 400) / 100.0)+" 0 0 Tm\n";
-//		tmp += IToStr(QMIN(QMAX(hl->cscale, 25), 400)) + " Tz\n";
+			tmp += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 Tm\n";
 		uchar idx2 = idx & 0xFF;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 		if (ite->itemType() != PageItem::PathText)
@@ -2910,7 +2909,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
 	{
-		double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+		double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 		double Upos, Uwid, kern;
 		if (hl->cstyle & 16384)
 			kern = 0;
@@ -2933,7 +2932,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
 		if (hl->cbase != 0)
-			Upos += (hl->csize / 10.0) * (hl->cbase / 100.0);
+			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
 		if (hl->ccolor != "None")
 			tmp2 += putColor(hl->ccolor, hl->cshade, false);
 		tmp2 += FToStr(Uwid)+" w\n";
@@ -2943,7 +2942,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if ((hl->cstyle & 16) && (chx != QChar(13)))
 	{
-		double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+		double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 		double Upos, Uwid, kern;
 		if (hl->cstyle & 16384)
 			kern = 0;
@@ -2966,7 +2965,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
 		if (hl->cbase != 0)
-			Upos += (hl->csize / 10.0) * (hl->cbase / 100.0);
+			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
 		if (hl->ccolor != "None")
 			tmp2 += putColor(hl->ccolor, hl->cshade, false);
 		tmp2 += FToStr(Uwid)+" w\n";

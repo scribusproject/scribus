@@ -250,8 +250,8 @@ public:
 	~SToolBFont() {};
 	FontCombo* Fonts;
 	MSpinBox* Size;
-	QSpinBox* ChScale;
-	QSpinBox* ChScaleV;
+	MSpinBox* ChScale;
+	MSpinBox* ChScaleV;
 	QLabel* ScaleTxt;
 	QLabel* ScaleTxtV;
 

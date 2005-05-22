@@ -1156,9 +1156,9 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 	int ab = QStoInt(it->attribute("CAB","0"));
 	QString stroke = it->attribute("CSTROKE","None");
 	int shade2 = QStoInt(it->attribute("CSHADE2","100"));
-	int scale = QStoInt(it->attribute("CSCALE","100"));
-	int scalev = QStoInt(it->attribute("CSCALEV","100"));
-	int base = QStoInt(it->attribute("CBASE","0"));
+	int scale = qRound(QStodouble(it->attribute("CSCALE","100")) * 10);
+	int scalev = qRound(QStodouble(it->attribute("CSCALEV","100")) * 10);
+	int base = qRound(QStodouble(it->attribute("CBASE","0")) * 10);
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		hg = new ScText;
@@ -1180,8 +1180,8 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 		hg->cab = ab;
 		hg->cstroke = stroke;
 		hg->cshade2 = shade2;
-		hg->cscale = QMIN(QMAX(scale, 10), 400);
-		hg->cscalev = QMIN(QMAX(scalev, 10), 400);
+		hg->cscale = QMIN(QMAX(scale, 100), 4000);
+		hg->cscalev = QMIN(QMAX(scalev, 100), 4000);
 		hg->cbase = base;
 		hg->xp = 0;
 		hg->yp = 0;
@@ -1337,9 +1337,9 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
 	currItem->ShTxtStroke = QStoInt(obj->attribute("TXTSTRSH", "100"));
 	currItem->ShTxtFill = QStoInt(obj->attribute("TXTFILLSH", "100"));
-	currItem->TxtScale = QStoInt(obj->attribute("TXTSCALE", "100"));
-	currItem->TxtScaleV = QStoInt(obj->attribute("TXTSCALEV", "100"));
-	currItem->TxtBase = QStoInt(obj->attribute("TXTBASE", "0"));
+	currItem->TxtScale=qRound(QStodouble(obj->attribute("TXTSCALE", "100")) * 10);
+	currItem->TxtScaleV=qRound(QStodouble(obj->attribute("TXTSCALEV", "100")) * 10);
+	currItem->TxtBase=qRound(QStodouble(obj->attribute("TXTBASE", "0")) * 10);
 	currItem->TxTStyle = QStoInt(obj->attribute("TXTSTYLE", "0"));
 	currItem->Rot = QStodouble(obj->attribute("ROT"));
 	currItem->Extra = QStodouble(obj->attribute("EXTRA"));

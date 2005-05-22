@@ -239,9 +239,9 @@ public:
 	MSpinBox* ScaleX;
 	MSpinBox* LSize;
 
-	QSpinBox* ChScale;
-	QSpinBox* ChScaleV;
-	QSpinBox* ChBase;
+	MSpinBox* ChScale;
+	MSpinBox* ChScaleV;
+	MSpinBox* ChBase;
 	QSpinBox* DCol;
 
 	QRadioButton* TopLeft;

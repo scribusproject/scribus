@@ -1702,8 +1702,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 					{
 						PS_save();
-						if (hl->cscale != 100)
-							PS_scale(hl->cscale / 100.0, 1);
+						if (hl->cscale != 1000)
+							PS_scale(hl->cscale / 1000.0, 1);
 						if (hl->ccolor != "None")
 						{
 							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
@@ -2001,8 +2001,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.cstyle = hl->cstyle;
 				hl2.cfont = hl->cfont;
 				hl2.cextra = 0;
-				hl2.cscale = 100;
-				hl2.cscalev = 100;
+				hl2.cscale = 1000;
+				hl2.cscalev = 1000;
 				hl2.cbase = hl->cbase;
 				for (int cx = 0; cx < coun; ++cx)
 				{
@@ -2136,22 +2136,22 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 						ctx = " ";
 					if (ctx == QChar(0xA0))
 						ctx = " ";
-					wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
+					wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 1000.0);
 				}
 				else
-					wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
+					wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 1000.0);
 				PS_translate(wideR, 0);
 			}
 			else
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
 			if (hl->cbase != 0)
-				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 100.0));
+				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 1000.0));
 			if (hl->cscale != 100)
-				PS_scale(hl->cscale / 100.0, 1);
+				PS_scale(hl->cscale / 1000.0, 1);
 			if (hl->cscalev != 100)
 			{
-				PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 100.0)));
-				PS_scale(1, hl->cscalev / 100.0);
+				PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 1000.0)));
+				PS_scale(1, hl->cscalev / 1000.0);
 			}
 			if (hl->ccolor != "None")
 			{
@@ -2184,31 +2184,31 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 					ctx = " ";
 				if (ctx == QChar(0xA0))
 					ctx = " ";
-				wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
+				wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 1000.0);
 				PS_translate(wideR, 0);
 			}
 			else
 			{
-				wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
+				wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 				PS_translate(wideR, 0);
 			}
 			if (hl->cbase != 0)
-				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 100.0));
-			if (hl->cscale != 100)
-				PS_scale(hl->cscale / 100.0, 1);
-			if (hl->cscalev != 100)
-				PS_scale(1, hl->cscalev / 100.0);
+				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 1000.0));
+			if (hl->cscale != 1000)
+				PS_scale(hl->cscale / 1000.0, 1);
+			if (hl->cscalev != 1000)
+				PS_scale(1, hl->cscalev / 1000.0);
 			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 		}
 		else
 		{
 			PS_translate(hl->xp, -hl->yp);
 			if (hl->cbase != 0)
-				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 100.0));
-			if (hl->cscale != 100)
-				PS_scale(hl->cscale / 100.0, 1);
-			if (hl->cscalev != 100)
-				PS_scale(1, hl->cscalev / 100.0);
+				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 1000.0));
+			if (hl->cscale != 1000)
+				PS_scale(hl->cscale / 1000.0, 1);
+			if (hl->cscalev != 1000)
+				PS_scale(1, hl->cscalev / 1000.0);
 			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 		}
 		PS_restore();
@@ -2221,9 +2221,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
 			QWMatrix chma, chma2, chma3;
 			chma.scale(tsz / 100.0, tsz / 100.0);
-			chma2.scale(hl->cscale / 100.0, hl->cscalev / 100.0);
+			chma2.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
 			if (hl->cbase != 0)
-				chma3.translate(0, -(hl->csize / 10.0) * (hl->cbase / 100.0));
+				chma3.translate(0, -(hl->csize / 10.0) * (hl->cbase / 1000.0));
 			gly.map(chma * chma2 * chma3);
 			if (ite->Reverse)
 			{
@@ -2239,8 +2239,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 				PS_setdash(Qt::SolidLine, 0, dum);
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-				if (hl->cscalev != 100)
-					PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 100.0)));
+				if (hl->cscalev != 1000)
+					PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 1000.0)));
 				SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				SetClipPath(&gly);
@@ -2252,7 +2252,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if ((hl->cstyle & 16) && (chx != QChar(13)))
 	{
-		double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+		double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 		double Upos, lw, kern;
 		if (hl->cstyle & 16384)
 			kern = 0;
@@ -2275,7 +2275,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
 		if (hl->cbase != 0)
-			Upos += (hl->csize / 10.0) * (hl->cbase / 100.0);
+			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
 		if (hl->ccolor != "None")
 		{
 			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -2290,7 +2290,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if (((hl->cstyle & 8) && (chx != QChar(13)))  || ((hl->cstyle & 512) && (!chx[0].isSpace())))
 	{
-		double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+		double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 		double Upos, lw, kern;
 		if (hl->cstyle & 16384)
 			kern = 0;
@@ -2313,7 +2313,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}
 		if (hl->cbase != 0)
-			Upos += (hl->csize / 10.0) * (hl->cbase / 100.0);
+			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
 		if (hl->ccolor != "None")
 		{
 			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -2340,7 +2340,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);
 			chma = QWMatrix();
-			chma.scale(hl->cscale / 100.0, hl->cscalev / 100.0);
+			chma.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
 			gly.map(chma);
 			if (hl->ccolor != "None")
 			{

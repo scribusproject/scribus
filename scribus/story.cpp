@@ -654,8 +654,8 @@ void SEditor::copyStyledText()
 		hg->cshade = 1;
 		hg->cstroke = "";
 		hg->cshade2 = 1;
-		hg->cscale = 0;
-		hg->cscalev = 0;
+		hg->cscale = 10;
+		hg->cscalev = 10;
 		hg->cstyle = 0;
 		hg->cab = 0;
 		hg->cextra = 0;
@@ -1514,12 +1514,12 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Size->setSuffix( tr( " pt" ) );
 	ScaleTxt = new QLabel("", this, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
-	ChScale = new QSpinBox( 10, 400, 1, this, "ChScale" );
+	ChScale = new MSpinBox( 10, 400,  this, 1 );
 	ChScale->setValue( 100 );
 	ChScale->setSuffix( tr( " %" ) );
 	ScaleTxtV = new QLabel("", this, "ScaleTxtV" );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
-	ChScaleV = new QSpinBox( 10, 100, 1, this, "ChScaleV" );
+	ChScaleV = new MSpinBox( 10, 400, this, 1 );
 	ChScaleV->setValue( 100 );
 	ChScaleV->setSuffix( tr( " %" ) );
 	QToolTip::add( Fonts, tr( "Font of selected text" ) );
@@ -1542,21 +1542,21 @@ void SToolBFont::SetFont(QString f)
 void SToolBFont::SetSize(double s)
 {
 	disconnect(Size, SIGNAL(valueChanged(int)), this, SLOT(newSizeHandler()));
-	Size->setValue(s);
+	Size->setValue(s / 10.0);
 	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(newSizeHandler()));
 }
 
 void SToolBFont::SetScale(int s)
 {
 	disconnect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
-	ChScale->setValue(s);
+	ChScale->setValue(s / 10.0);
 	connect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
 }
 
 void SToolBFont::SetScaleV(int s)
 {
 	disconnect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
-	ChScaleV->setValue(s);
+	ChScaleV->setValue(s / 10.0);
 	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
 }
 
@@ -1923,9 +1923,10 @@ void StoryEditor::newTxStyle(int s)
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxScale(int s)
+void StoryEditor::newTxScale(int )
 {
-	Editor->CurrTextScale = s;
+	int ss = qRound(FontTools->ChScale->value() * 10);
+	Editor->CurrTextScale = ss;
 	struct PtiSmall hg;
 	hg.cscale = Editor->CurrTextScale;
 	Editor->updateSel(5, &hg);
@@ -1933,9 +1934,10 @@ void StoryEditor::newTxScale(int s)
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxScaleV(int s)
+void StoryEditor::newTxScaleV(int )
 {
-	Editor->CurrTextScaleV = s;
+	int ss = qRound(FontTools->ChScaleV->value() * 10);
+	Editor->CurrTextScaleV = ss;
 	struct PtiSmall hg;
 	hg.cscalev = Editor->CurrTextScaleV;
 	Editor->updateSel(7, &hg);

@@ -1948,7 +1948,9 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->ShTxtStroke = 100;
 			ite->ISize = gc->FontSize;
 			ite->TxTStyle = 0;
-			ite->TxtScale = 100;
+			ite->TxtScale = 1000;
+			ite->TxtScaleV = 1000;
+			ite->TxtBase = 0;
 			for (uint tt = 0; tt < Text.length(); ++tt)
 			{
 				hg = new ScText;
@@ -1960,8 +1962,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				hg->cshade = 100;
 				hg->cstroke = gc->StrokeCol;
 				hg->cshade2 = 100;
-				hg->cscale = 100;
-				hg->cscalev = 100;
+				hg->cscale = 1000;
+				hg->cscalev = 1000;
 				hg->cbase = 0;
 				hg->cselect = false;
 				if( !tspan.attribute( "stroke" ).isEmpty() )
@@ -2031,8 +2033,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		ite->ShTxtStroke = 100;
 		ite->ISize = gc->FontSize;
 		ite->TxTStyle = 0;
-		ite->TxtScale = 100;
-		ite->TxtScaleV = 100;
+		ite->TxtScale = 1000;
+		ite->TxtScaleV = 1000;
 		ite->TxtBase = 0;
 		for (uint cc = 0; cc<Text.length(); ++cc)
 		{
@@ -2045,8 +2047,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			hg->cshade = 100;
 			hg->cstroke = gc->StrokeCol;
 			hg->cshade2 = 100;
-			hg->cscalev = 100;
-			hg->cscale = 100;
+			hg->cscalev = 1000;
+			hg->cscale = 1000;
 			hg->cbase = 0;
 			hg->cselect = false;
 			if( !e.attribute( "stroke" ).isEmpty() )

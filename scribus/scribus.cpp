@@ -5310,7 +5310,9 @@ void ScribusApp::slotEditCut()
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cab)+'\t';
 						Buffer2 += nextItem->itemText.at(a)->cstroke+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+'\t';
-						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+'\n';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\t";
+						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\n';
 					}
 				}
 				deleteSelectedTextFromFrame(nextItem);
@@ -5387,7 +5389,9 @@ void ScribusApp::slotEditCopy()
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cab)+"\t";
 						Buffer2 += nextItem->itemText.at(a)->cstroke+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+"\t";
-						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\n";
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\t";
+						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\n';
 					}
 				}
 				nextItem = nextItem->NextBox;
@@ -5466,9 +5470,16 @@ void ScribusApp::slotEditPaste()
 						hg->cshade2 = (*it).toInt();
 					it++;
 					if (it == NULL)
-						hg->cscale = 100;
+						hg->cscale = 1000;
 					else
 						hg->cscale = (*it).toInt();
+					it++;
+					if (it == NULL)
+						hg->cscalev = 1000;
+					else
+						hg->cscalev = QMIN(QMAX((*it).toInt(), 100), 4000);
+					it++;
+					hg->cbase = it == NULL ? 0 : (*it).toInt();
 					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;

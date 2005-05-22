@@ -439,26 +439,20 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	fontsizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
 	layout41->addWidget( fontsizeLabel, 1, 0 );
 	layout41->addWidget( Size, 1, 1 );
-	ChBase = new QSpinBox( page_3, "ChBase" );
-	ChBase->setMaxValue( 100 );
-	ChBase->setMinValue( -100 );
+	ChBase = new MSpinBox( -100, 100, page_3, 1 );
 	ChBase->setValue( 0 );
 	ChBaseTxt = new QLabel("", page_3, "ChBaseTxt" );
 	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
 	layout41->addWidget( ChBaseTxt, 1, 2 );
 	layout41->addWidget( ChBase, 1, 3 );
 
-	ChScale = new QSpinBox( page_3, "ChScale" );
-	ChScale->setMaxValue( 400 );
-	ChScale->setMinValue( 10 );
+	ChScale = new MSpinBox( 10, 400, page_3, 1 );
 	ChScale->setValue( 100 );
 	ScaleTxt = new QLabel("", page_3, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
 	layout41->addWidget( ScaleTxt, 2, 0 );
 	layout41->addWidget( ChScale, 2 , 1 );
-	ChScaleV = new QSpinBox( page_3, "ChScaleV" );
-	ChScaleV->setMaxValue( 400 );
-	ChScaleV->setMinValue( 10 );
+	ChScaleV = new MSpinBox( 10, 400, page_3, 1 );
 	ChScaleV->setValue( 100 );
 	ScaleTxtV = new QLabel("", page_3, "ScaleTxtV" );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
@@ -1686,7 +1680,7 @@ void Mpalette::setTScaleV(int e)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	ChScaleV->setValue(e);
+	ChScaleV->setValue(e / 10.0);
 	HaveItem = tmp;
 }
 
@@ -1694,8 +1688,8 @@ void Mpalette::NewTScaleV()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->ItemTextScaleV(ChScaleV->value());
-		doc->CurrTextScaleV = ChScaleV->value();
+		ScApp->view->ItemTextScaleV(qRound(ChScaleV->value() * 10));
+		doc->CurrTextScaleV = qRound(ChScaleV->value() * 10);
 		emit DocChanged();
 	}
 }
@@ -1704,8 +1698,8 @@ void Mpalette::NewTBase()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->setItemTextBase(ChBase->value());
-		doc->CurrTextBase = ChBase->value();
+		ScApp->view->setItemTextBase(qRound(ChBase->value() * 10));
+		doc->CurrTextBase = qRound(ChBase->value() * 10);
 		emit DocChanged();
 	}
 }
@@ -1716,7 +1710,7 @@ void Mpalette::setTScale(int e)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	ChScale->setValue(e);
+	ChScale->setValue(e / 10.0);
 	HaveItem = tmp;
 }
 
@@ -1726,7 +1720,7 @@ void Mpalette::setTBase(int e)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	ChBase->setValue(e);
+	ChBase->setValue(e / 10.0);
 	HaveItem = tmp;
 }
 
@@ -1734,8 +1728,8 @@ void Mpalette::NewTScale()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->ItemTextScale(ChScale->value());
-		doc->CurrTextScale = ChScale->value();
+		ScApp->view->ItemTextScale(qRound(ChScale->value() * 10));
+		doc->CurrTextScale = qRound(ChScale->value() * 10);
 		emit DocChanged();
 	}
 }

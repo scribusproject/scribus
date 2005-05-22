@@ -1362,9 +1362,9 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->TxtStroke=obj->attribute("TXTSTROKE", "None");
 	OB->ShTxtFill=QStoInt(obj->attribute("TXTFILLSH", "100"));
 	OB->ShTxtStroke=QStoInt(obj->attribute("TXTSTRSH", "100"));
-	OB->TxtScale=QStoInt(obj->attribute("TXTSCALE", "100"));
-	OB->TxtScaleV=QStoInt(obj->attribute("TXTSCALEV", "100"));
-	OB->TxTBase=QStoInt(obj->attribute("TXTBASE", "0"));
+	OB->TxtScale=qRound(QStodouble(obj->attribute("TXTSCALE", "100")) * 10);
+	OB->TxtScaleV=qRound(QStodouble(obj->attribute("TXTSCALEV", "100")) * 10);
+	OB->TxTBase=qRound(QStodouble(obj->attribute("TXTBASE", "0")) * 10);
 	OB->TxTStyle=QStoInt(obj->attribute("TXTSTYLE", "0"));
 	OB->Cols = QStoInt(obj->attribute("COLUMNS","1"));
 	OB->ColGap = QStodouble(obj->attribute("COLGAP","0.0"));

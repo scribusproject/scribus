@@ -2431,7 +2431,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							for (uint aa = 0; aa < currItem->itemText.count(); ++aa)
 							{
 								currItem->itemText.at(aa)->csize = QMAX(qRound(currItem->itemText.at(aa)->csize*scy), 1);
-								currItem->itemText.at(aa)->cscale = QMAX(QMIN(qRound(currItem->itemText.at(aa)->cscale*scx), 400), 25);
+								currItem->itemText.at(aa)->cscale = QMAX(QMIN(qRound(currItem->itemText.at(aa)->cscale*scx), 4000), 100);
 							}
 						}
 					}
@@ -6467,7 +6467,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				if ((chx == QChar(13)) || (chx == QChar(9)))
 					w = 1;
 				else
-					w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, chs)*(currItem->itemText.at(a)->cscale / 100.0));
+					w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, chs)*(currItem->itemText.at(a)->cscale / 1000.0));
 				h = static_cast<int>(Doc->docParagraphStyles[currItem->itemText.at(a)->cab].LineSpa);
 				if (QRegion(p.xForm(QRect(xp-1, yp-h, w+1, h))).contains(QPoint(x, y)))
 				{
@@ -6627,7 +6627,7 @@ void ScribusView::slotDoCurs(bool draw)
 					xp = static_cast<int>(currItem->itemText.at(currItem->CPos-1)->xp);
 					chs = currItem->itemText.at(currItem->CPos-1)->csize;
 					chx = currItem->itemText.at(currItem->CPos-1)->ch;
-					xp += qRound(Cwidth(Doc, currItem->itemText.at(currItem->CPos-1)->cfont, chx, chs)*(currItem->itemText.at(currItem->CPos-1)->cscale / 100.0));
+					xp += qRound(Cwidth(Doc, currItem->itemText.at(currItem->CPos-1)->cfont, chx, chs)*(currItem->itemText.at(currItem->CPos-1)->cscale / 1000.0));
 				}
 				else
 					xp = static_cast<int>(currItem->itemText.at(offs+1)->xp);
@@ -6639,7 +6639,7 @@ void ScribusView::slotDoCurs(bool draw)
 				{
 					chs = currItem->itemText.at(offs)->csize;
 					chx = currItem->itemText.at(offs)->ch;
-					xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 100.0));
+					xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 1000.0));
 				}
 			}
 			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
@@ -6653,7 +6653,7 @@ void ScribusView::slotDoCurs(bool draw)
 						xp = static_cast<int>(currItem->itemText.at(offs)->xp);
 						chs = currItem->itemText.at(offs)->csize;
 						chx = currItem->itemText.at(offs)->ch;
-						xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 100.0));
+						xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 1000.0));
 					}
 					else
 						xp = static_cast<int>(currItem->itemText.at(offs)->xp);
@@ -10824,14 +10824,14 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				hg->cshade2 = it == NULL ? 100 : (*it).toInt();
 				it++;
 				if (it == NULL)
-					hg->cscale = 100;
+					hg->cscale = 1000;
 				else
-					hg->cscale = QMIN(QMAX((*it).toInt(), 10), 400);
+					hg->cscale = QMIN(QMAX((*it).toInt(), 100), 4000);
 				it++;
 				if (it == NULL)
-					hg->cscalev = 100;
+					hg->cscalev = 1000;
 				else
-					hg->cscalev = QMIN(QMAX((*it).toInt(), 10), 400);
+					hg->cscalev = QMIN(QMAX((*it).toInt(), 100), 4000);
 				it++;
 				hg->cbase = it == NULL ? 0 : (*it).toInt();
 				hg->xp = 0;
@@ -11413,7 +11413,7 @@ void ScribusView::TextToPath()
 			y = currItem->itemText.at(a)->cfont->GlyphArray[chr].y * csi;
 			pts.map(chma);
 			chma = QWMatrix();
-			chma.scale(currItem->itemText.at(a)->cscale / 100.0, currItem->itemText.at(a)->cscalev / 100.0);
+			chma.scale(currItem->itemText.at(a)->cscale / 1000.0, currItem->itemText.at(a)->cscalev / 1000.0);
 			pts.map(chma);
 			chma = QWMatrix();
 			if (currItem->imageFlippedH() && (!currItem->Reverse))

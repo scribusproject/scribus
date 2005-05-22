@@ -103,8 +103,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	TxtStroke = Doc->toolSettings.dStrokeText;
 	ShTxtStroke = 100;
 	ShTxtFill = 100;
-	TxtScale = 100;
-	TxtScaleV = 100;
+	TxtScale = 1000;
+	TxtScaleV = 1000;
 	TxTStyle = 0;
 	TxtBase = 0;
 	GrType = 0;
@@ -695,7 +695,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						Zli3.ZFo = hl->cfont;
 						Zli3.wide = wt;
 						Zli3.kern = 0;
-						Zli3.scale = 100;
+						Zli3.scale = 1000;
+						Zli3.scalev = 1000;
+						Zli3.base = hl->cbase;
 						for (int cx = 0; cx < coun; ++cx)
 						{
 							Zli3.xco =  sPos + wt * cx;
@@ -1068,7 +1070,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						desc = -hl->cfont->numDescender * (hl->csize / 10.0);
 						asce = hl->cfont->numAscent * (hl->csize / 10.0);
 					}
-					wide = wide * (hl->cscale / 100.0);
+					wide = wide * (hl->cscale / 1000.0);
 					fBorder = false;
 					if (LiList.isEmpty())
 					{
@@ -1671,8 +1673,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->ZFo = Zli2->ZFo;
 									Zli->wide = wt;
 									Zli->kern = 0;
-									Zli->scale = 100;
-									Zli->scalev = 100;
+									Zli->scale = 1000;
+									Zli->scalev = 1000;
 									Zli->base = Zli2->base;
 									for (int cx = 0; cx < coun; ++cx)
 									{
@@ -1803,8 +1805,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							Zli->ZFo = Zli2->ZFo;
 							Zli->wide = wt;
 							Zli->kern = 0;
-							Zli->scale = 100;
-							Zli->scalev = 100;
+							Zli->scale = 1000;
+							Zli->scalev = 1000;
 							Zli->base = Zli2->base;
 							for (int cx = 0; cx < coun; ++cx)
 							{
@@ -2153,7 +2155,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				}
 				else
 					wide = Cwidth(Doc, hl->cfont, chx2, chs);
-				wide = wide * (hl->cscale / 100.0);
+				wide = wide * (hl->cscale / 1000.0);
 				dx = wide / 2.0;
 				CurX += dx;
 				ext = false;
@@ -2485,17 +2487,17 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		FPointArray gly = hl->ZFo->GlyphArray[chr].Outlines.copy();
 		if (gly.size() > 3)
 		{
-			chma2.scale(hl->scale / 100.0, hl->scalev / 100.0);
+			chma2.scale(hl->scale / 1000.0, hl->scalev / 1000.0);
 			if (Reverse)
 			{
 				chma3.scale(-1, 1);
 				chma3.translate(-hl->wide, 0);
-				chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 100.0)));
+				chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 1000.0)));
 			}
 			else
-				chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 100.0)));
+				chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 1000.0)));
 			if (hl->base != 0)
-				chma6.translate(0, -(hl->Siz / 10.0) * (hl->base / 100.0) * p->zoomFactor());
+				chma6.translate(0, -(hl->Siz / 10.0) * (hl->base / 1000.0) * p->zoomFactor());
 			gly.map(chma * chma2 * chma3 * chma4 * chma5 * chma6);
 			p->setFillMode(1);
 			bool fr = p->fillRule();
@@ -2552,7 +2554,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
 			if (hl->base != 0)
-				st += (hl->Siz / 10.0) * (hl->base / 100.0);
+				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
@@ -2577,7 +2579,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}
 			if (hl->base != 0)
-				st += (hl->Siz / 10.0) * (hl->base / 100.0);
+				st += (hl->Siz / 10.0) * (hl->base / 1000.0);
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
@@ -2589,7 +2591,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		p->setPen(red);
 		p->setBrush(red);
 		p->setFillMode(1);
-		p->drawRect(hl->xco, hl->yco-(hl->Siz / 10.0), (hl->Siz / 10.0)*(hl->scale / 100.0), (hl->Siz / 10.0));
+		p->drawRect(hl->xco, hl->yco-(hl->Siz / 10.0), (hl->Siz / 10.0)*(hl->scale / 1000.0), (hl->Siz / 10.0));
 	}
 }
 

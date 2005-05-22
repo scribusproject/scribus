@@ -462,8 +462,8 @@ void EditStyle::updatePreview()
 		hg->cshade = tmpStyle.FShade;
 		hg->cstroke = tmpStyle.SColor;
 		hg->cshade2 = tmpStyle.SShade;
-		hg->cscale = 100;
-		hg->cscalev = 100;
+		hg->cscale = 1000;
+		hg->cscalev = 1000;
 		hg->cbase = 0;
 		hg->cselect = false;
 		hg->cstyle = tmpStyle.FontEffect;
