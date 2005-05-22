@@ -1620,7 +1620,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 												p->PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth / 2 * (tsz / 10.0), 1));
 												p->PS_setcapjoin(FlatCap, MiterJoin);
 												p->PS_setdash(SolidLine, 0, dum);
-												p->PS_translate(hl->xp, (hl->yp - tsz) * -1);
+												p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
 												SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
 												p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 												SetClipPath(p, &gly);

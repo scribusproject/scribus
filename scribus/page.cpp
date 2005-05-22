@@ -347,7 +347,16 @@ void Page::dropEvent(QDropEvent *e)
 		{
 			uint ac = Items.count();
 			if ((!img) && (doku->DraggedElem == 0))
+			{
 				emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
+				for (uint as = ac; as < doku->ActPage->Items.count(); ++as)
+				{
+					PageItem* currItem = doku->ActPage->Items.at(as);
+					if (currItem->isBookmark)
+						emit AddBM(currItem);
+					doku->ActPage->SelectItemNr(as);
+				}
+			}
 			else
 			{
 				if (doku->DraggedElem != 0)

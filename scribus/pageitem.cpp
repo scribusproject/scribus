@@ -1398,6 +1398,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											CurY += Doc->Vorlagen[hl->cab].Anach;
 											if (BuPos3 > 0)
 												BuPos3 -= 1;
+											HyphenCount = 0;
 											}
 										break;
 										}
@@ -1443,6 +1444,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									CurY += Doc->Vorlagen[hl->cab].Anach;
 									if (BuPos3 > 0)
 										BuPos3 -= 1;
+									HyphenCount = 0;
 									}
 								}
 							}
