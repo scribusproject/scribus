@@ -529,6 +529,8 @@ void SEditor::insChars(QString t)
 			hg->cscale = CurrTextScale;
 			hg->cscalev = CurrTextScaleV;
 			hg->cbase = CurrTextBase;
+			hg->cshadowx = CurrTextShadowX;
+			hg->cshadowy = CurrTextShadowY;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -604,6 +606,8 @@ void SEditor::insStyledText()
 			hg->cscale = cBuffer.at(a)->cscale;
 			hg->cscalev = cBuffer.at(a)->cscalev;
 			hg->cbase = cBuffer.at(a)->cbase;
+			hg->cshadowx = cBuffer.at(a)->cshadowx;
+			hg->cshadowy = cBuffer.at(a)->cshadowy;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -644,6 +648,8 @@ void SEditor::copyStyledText()
 			hg->cab = chars->at(ca)->cab;
 			hg->cextra = chars->at(ca)->cextra;
 			hg->cbase = chars->at(ca)->cbase;
+			hg->cshadowx = chars->at(ca)->cshadowx;
+			hg->cshadowy = chars->at(ca)->cshadowy;
 			cBuffer.append(hg);
 		}
 		hg = new PtiSmall;
@@ -660,6 +666,8 @@ void SEditor::copyStyledText()
 		hg->cab = 0;
 		hg->cextra = 0;
 		hg->cbase = 0;
+		hg->cshadowx = 50;
+		hg->cshadowy = -50;
 		cBuffer.append(hg);
 	}
 }
@@ -692,6 +700,8 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cstyle = chars->at(c)->cstyle;
 				hg->cextra = chars->at(c)->cextra;
 				hg->cbase = chars->at(c)->cbase;
+				hg->cshadowx = chars->at(c)->cshadowx;
+				hg->cshadowy = chars->at(c)->cshadowy;
 			}
 			else
 			{
@@ -706,6 +716,8 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cscale = CurrTextScale;
 				hg->cscalev = CurrTextScaleV;
 				hg->cbase = CurrTextBase;
+				hg->cshadowx = CurrTextShadowX;
+				hg->cshadowy = CurrTextShadowY;
 				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
 				{
 					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
@@ -739,6 +751,8 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->cab = chars->at(c)->cab;
 			hg->cextra = chars->at(c)->cextra;
 			hg->cbase = chars->at(c)->cbase;
+			hg->cshadowx = chars->at(c)->cshadowx;
+			hg->cshadowy = chars->at(c)->cshadowy;
 			hg->cselect = false;
 			hg->xp = 0;
 			hg->yp = 0;
@@ -850,6 +864,8 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->cab = nextItem->itemText.at(a)->cab;
 				hg->cextra = nextItem->itemText.at(a)->cextra;
 				hg->cbase = nextItem->itemText.at(a)->cbase;
+				hg->cshadowx = nextItem->itemText.at(a)->cshadowx;
+				hg->cshadowy = nextItem->itemText.at(a)->cshadowy;
 				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(30))
@@ -933,6 +949,8 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 			hg->cscale = currItem->TxtScale;
 			hg->cscalev = currItem->TxtScaleV;
 			hg->cbase = currItem->TxtBase;
+			hg->cshadowx = currItem->TxtShadowX;
+			hg->cshadowy = currItem->TxtShadowY;
 			hg->cstyle = currItem->TxTStyle;
 			hg->cab = currItem->textAlignment;
 			hg->cextra = 0;
@@ -1509,7 +1527,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 {
 	Fonts = new FontCombo(this, &ScApp->Prefs);
 	Fonts->setMaximumSize(190, 30);
-	Size = new MSpinBox( 1, 1024, this, 1 );
+	Size = new MSpinBox( 0.5, 2048, this, 1 );
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
 	ScaleTxt = new QLabel("", this, "ScaleTxt" );
@@ -2072,6 +2090,8 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextScale = hg->cscale;
 		Editor->CurrTextScaleV = hg->cscalev;
 		Editor->CurrTextBase = hg->cbase;
+		Editor->CurrTextShadowX = hg->cshadowx;
+		Editor->CurrTextShadowY = hg->cshadowy;
 	}
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);

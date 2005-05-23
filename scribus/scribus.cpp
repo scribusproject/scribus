@@ -292,6 +292,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
 		connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
 		connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
+		connect(this, SIGNAL(TextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 
 		initCrashHandler();
@@ -1434,6 +1435,9 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		doc->CurrTextScale = currItem->itemText.at(ChPos)->cscale;
 		doc->CurrTextScaleV = currItem->itemText.at(ChPos)->cscalev;
 		doc->CurrTextBase = currItem->itemText.at(ChPos)->cbase;
+		doc->CurrTextShadowX = currItem->itemText.at(ChPos)->cshadowx;
+		doc->CurrTextShadowY = currItem->itemText.at(ChPos)->cshadowy;
+		emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 		emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 		emit TextIFont(doc->CurrFont);
 		emit TextISize(doc->CurrFontSize);
@@ -1491,6 +1495,8 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->cscale = doc->CurrTextScale;
 					hg->cscalev = doc->CurrTextScaleV;
 					hg->cbase = doc->CurrTextBase;
+					hg->cshadowx = doc->CurrTextShadowX;
+					hg->cshadowy = doc->CurrTextShadowY;
 					hg->cselect = false;
 					hg->cstyle = doc->CurrentStyle;
 					hg->cab = doc->currentParaStyle;
@@ -1931,6 +1937,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->cscale = doc->CurrTextScale;
 								hg->cscalev = doc->CurrTextScaleV;
 								hg->cbase = doc->CurrTextBase;
+								hg->cshadowx = doc->CurrTextShadowX;
+								hg->cshadowy = doc->CurrTextShadowY;
 								hg->cselect = false;
 								hg->cstyle = doc->CurrentStyle;
 								hg->cab = doc->currentParaStyle;
@@ -2368,6 +2376,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cscale = doc->CurrTextScale;
 							hg->cscalev = doc->CurrTextScaleV;
 							hg->cbase = doc->CurrTextBase;
+							hg->cshadowx = doc->CurrTextShadowX;
+							hg->cshadowy = doc->CurrTextShadowY;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
 							hg->cab = doc->currentParaStyle;
@@ -2401,6 +2411,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cscalev = doc->CurrTextScaleV;
 							hg->csize = doc->CurrFontSize;
 							hg->cbase = doc->CurrTextBase;
+							hg->cshadowx = doc->CurrTextShadowX;
+							hg->cshadowy = doc->CurrTextShadowY;
 							hg->cextra = 0;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
@@ -3529,6 +3541,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(ItemTextSca(int)), propertiesPalette, SLOT(setTScale(int)));
 	connect(view, SIGNAL(ItemTextScaV(int)), propertiesPalette, SLOT(setTScaleV(int)));
 	connect(view, SIGNAL(ItemTextBase(int)), propertiesPalette, SLOT(setTBase(int)));
+	connect(view, SIGNAL(ItemTextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
 	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
 	connect(view, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
@@ -3745,6 +3758,9 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextScale = currItem->TxtScale;
 			doc->CurrTextScaleV = currItem->TxtScaleV;
 			doc->CurrTextBase = currItem->TxtBase;
+			doc->CurrTextShadowX = currItem->TxtShadowX;
+			doc->CurrTextShadowY = currItem->TxtShadowY;
+			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
@@ -3803,6 +3819,9 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextScale = currItem->TxtScale;
 			doc->CurrTextScaleV = currItem->TxtScaleV;
 			doc->CurrTextBase = currItem->TxtBase;
+			doc->CurrTextShadowX = currItem->TxtShadowX;
+			doc->CurrTextShadowY = currItem->TxtShadowY;
+			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
 			emit TextStil(doc->CurrentStyle);
@@ -5309,7 +5328,9 @@ void ScribusApp::slotEditCut()
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+'\t';
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\t";
 						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\n';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\n';
 					}
 				}
 				deleteSelectedTextFromFrame(nextItem);
@@ -5388,7 +5409,9 @@ void ScribusApp::slotEditCopy()
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\t";
 						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\n';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\n';
 					}
 				}
 				nextItem = nextItem->NextBox;
@@ -5477,6 +5500,10 @@ void ScribusApp::slotEditPaste()
 						hg->cscalev = QMIN(QMAX((*it).toInt(), 100), 4000);
 					it++;
 					hg->cbase = it == NULL ? 0 : (*it).toInt();
+					it++;
+					hg->cshadowx = it == NULL ? 50 : (*it).toInt();
+					it++;
+					hg->cshadowy = it == NULL ? -50 : (*it).toInt();
 					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;

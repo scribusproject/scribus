@@ -4,6 +4,25 @@
 class QGroupBox;
 class QToolButton;
 class QLayout;
+class MSpinBox;
+class QLabel;
+class QPopupMenu;
+
+class ShadowValues : public QGroupBox
+{
+    Q_OBJECT
+
+public:
+	ShadowValues( QWidget* parent );
+	~ShadowValues() {};
+	MSpinBox* Xoffset;
+	MSpinBox* Yoffset;
+	QLabel* XoffsetTxt;
+	QLabel* YoffsetTxt;
+
+protected:
+	QGridLayout* group1Layout;
+};
 
 class StyleSelect : public QWidget
 {
@@ -15,6 +34,7 @@ public:
 	~StyleSelect() {};
 	void setStyle(int s);
 	int getStyle();
+	ShadowValues* ShadowVal;
 
 private slots:
 	void setTypeStyle();
@@ -39,6 +59,7 @@ protected:
 	QToolButton* strikeoutButton;
 	QToolButton* outlineButton;
 	QToolButton* shadowButton;
+	QPopupMenu* ShadowPop;
 };
 
 #endif

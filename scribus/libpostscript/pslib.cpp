@@ -2004,6 +2004,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.cscale = 1000;
 				hl2.cscalev = 1000;
 				hl2.cbase = hl->cbase;
+				hl2.cshadowx = hl->cshadowx;
+				hl2.cshadowy = hl->cshadowy;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2015,8 +2017,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 						hl3.cstroke = hl2.cstroke;
 						hl3.cshade = hl2.cshade2;
 						hl3.cshade2 = hl2.cshade2;
-						hl3.yp = hl2.yp + hl2.csize / 200.0 ;
-						hl3.xp = hl2.xp + hl2.csize / 200.0 ;
+						hl3.yp = hl2.yp - (hl2.csize * hl2.cshadowy / 10000.0);
+						hl3.xp = hl2.xp + (hl2.csize * hl2.cshadowx / 10000.0);
 						hl3.csize = hl2.csize;
 						hl3.cstyle = hl2.cstyle;
 						hl3.cfont = hl2.cfont;
@@ -2041,8 +2043,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.cstroke = hl->cstroke;
 			hl2.cshade = hl->cshade2;
 			hl2.cshade2 = hl->cshade2;
-			hl2.yp = hl->yp + hl->csize / 200.0 ;
-			hl2.xp = hl->xp + hl->csize / 200.0 ;
+			hl2.yp = hl->yp - (hl->csize * hl->cshadowy / 10000.0);
+			hl2.xp = hl->xp + (hl->csize * hl->cshadowx / 10000.0);
 			hl2.csize = hl->csize;
 			hl2.cstyle = hl->cstyle;
 			hl2.cfont = hl->cfont;
@@ -2050,6 +2052,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.cscalev = hl->cscalev;
 			hl2.cextra = hl->cextra;
 			hl2.cbase = hl->cbase;
+			hl2.cshadowx = hl->cshadowx;
+			hl2.cshadowy = hl->cshadowy;
 			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl);

@@ -174,6 +174,8 @@ public: // Public attributes
 	int CurrTextScale;
 	int CurrTextScaleV;
 	int CurrTextBase;
+	int CurrTextShadowX;
+	int CurrTextShadowY;
 	bool EditClip;
 	int EditClipMode;
 	typoPrefs typographicSetttings;

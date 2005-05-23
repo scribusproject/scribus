@@ -291,6 +291,7 @@ public slots:
 	void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
 	void setStil(int s);
 	void setAli(int e);
+	void setShadowOffs(int x, int y);
 	void setTScale(int e);
 	void NewTScale();
 	void NewTScaleV();
@@ -334,6 +335,7 @@ private slots:
 	void NewLEnd();
 	void NewAli(int a);
 	void setTypeStyle(int s);
+	void newShadowOffs();
 	void NewLMode();
 	void DoLower();
 	void DoRaise();

@@ -59,7 +59,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	}
 	TextF1->setBuddy(FontC);
 	GroupFontLayout->addMultiCellWidget( FontC, 0, 0, 1, 4 );
-	SizeC = new MSpinBox( 1, 1024, GroupFont, 1 );
+	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );
 	SizeC->setMinimumSize( QSize( 70, 22 ) );
 	SizeC->setSuffix( tr( " pt" ) );
 	SizeC->setValue(vor->FontSize / 10.0);
@@ -465,6 +465,8 @@ void EditStyle::updatePreview()
 		hg->cscale = 1000;
 		hg->cscalev = 1000;
 		hg->cbase = 0;
+		hg->cshadowx = 50;
+		hg->cshadowy = -50;
 		hg->cselect = false;
 		hg->cstyle = tmpStyle.FontEffect;
 		hg->cab = tmpIndex;

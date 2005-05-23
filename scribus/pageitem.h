@@ -127,6 +127,8 @@ public:
 				int scalev;
 				int shade;
 				int shade2;
+				int shadowX;
+				int shadowY;
 				int base;
 				bool Sele;
 				QString Zeich;
@@ -197,6 +199,8 @@ public:
 	int TxtScaleV;
 	int TxTStyle;
 	int TxtBase;
+	int TxtShadowX;
+	int TxtShadowY;
 	int Cols;
 	double ColGap;
   /** Strichstaerke */

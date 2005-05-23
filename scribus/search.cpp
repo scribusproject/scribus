@@ -100,8 +100,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, ApplicationPrefs
 	SearchLayout->addWidget( SFontVal, 2, 1 );
 	SSizeVal = new MSpinBox( Search, 1 );
 	SSizeVal->setSuffix( tr( " pt" ) );
-	SSizeVal->setMinValue( 1 );
-	SSizeVal->setMaxValue( 1024 );
+	SSizeVal->setMinValue( 0.5 );
+	SSizeVal->setMaxValue( 2048 );
 	SSizeVal->setValue( doc->CurrFontSize / 10.0 );
 	SSizeVal->setEnabled(false);
 	SearchLayout->addWidget( SSizeVal, 3, 1 );
@@ -198,8 +198,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, ApplicationPrefs
 	ReplaceLayout->addWidget( RFontVal, 2, 1 );
 	RSizeVal = new MSpinBox( Replace, 1 );
 	RSizeVal->setSuffix( tr( " pt" ) );
-	RSizeVal->setMinValue( 1 );
-	RSizeVal->setMaxValue( 1024 );
+	RSizeVal->setMinValue( 0.5 );
+	RSizeVal->setMaxValue( 2048 );
 	RSizeVal->setValue( doc->CurrFontSize / 10.0 );
 	RSizeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RSizeVal, 3, 1 );
@@ -698,6 +698,8 @@ void SearchReplace::slotDoReplace()
 						hg->cshade2 = Doc->CurrTextStrokeSh;
 						hg->cscale = Doc->CurrTextScale;
 						hg->cbase = Doc->CurrTextBase;
+						hg->cshadowx = Doc->CurrTextShadowX;
+						hg->cshadowy = Doc->CurrTextShadowY;
 						hg->cselect = true;
 						hg->cstyle = Doc->CurrentStyle;
 						if (RStyle->isChecked())

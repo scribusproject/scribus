@@ -164,6 +164,8 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 		int scale = qRound(QStodouble(it->attribute("CSCALE","100")) * 10);
 		int scalev = qRound(QStodouble(it->attribute("CSCALEV","100")) * 10);
 		int base = qRound(QStodouble(it->attribute("CBASE","0")) * 10);
+		int shX = qRound(QStodouble(it->attribute("CSHX","5")) * 10);
+		int shY = qRound(QStodouble(it->attribute("CSHY","-5")) * 10);
 		for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 		{
 			hg = new ScText;
@@ -188,6 +190,8 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 			hg->cscale = QMIN(QMAX(scale, 100), 4000);
 			hg->cscalev = QMIN(QMAX(scalev, 100), 4000);
 			hg->cbase = base;
+			hg->cshadowx = shX;
+			hg->cshadowy = shY;
 			hg->xp = 0;
 			hg->yp = 0;
 			hg->PRot = 0;
@@ -233,9 +237,13 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	int scale = qRound(QStodouble(it->attribute("CSCALE","100")) * 10);
 	int scalev = qRound(QStodouble(it->attribute("CSCALEV","100")) * 10);
 	int base = qRound(QStodouble(it->attribute("CBASE","0")) * 10);
+	int shX = qRound(QStodouble(it->attribute("CSHX","5")) * 10);
+	int shY = qRound(QStodouble(it->attribute("CSHY","-5")) * 10);
 	tmp3 += tmp4.setNum(scale) + "\t";
 	tmp3 += tmp4.setNum(scalev) + "\t";
-	tmp3 += tmp4.setNum(base) + "\n";
+	tmp3 += tmp4.setNum(base) + "\t";
+	tmp3 += tmp4.setNum(shX) + "\t";
+	tmp3 += tmp4.setNum(shY) + "\n";
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 		tmp += tmp2.at(cxx)+tmp3;
 	return tmp;
@@ -305,6 +313,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("TXTSCALE",item->TxtScale / 10.0);
 	ob->setAttribute("TXTSCALEV",item->TxtScaleV / 10.0);
 	ob->setAttribute("TXTBASE",item->TxtBase / 10.0);
+	ob->setAttribute("TXTSHX",item->TxtShadowX / 10.0);
+	ob->setAttribute("TXTSHY",item->TxtShadowY / 10.0);
 	ob->setAttribute("TXTSTYLE",item->TxTStyle);
 	ob->setAttribute("COLUMNS", item->Cols);
 	ob->setAttribute("COLGAP", item->ColGap);
@@ -2040,7 +2050,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 {
 	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double te, te2, ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2;
+	double te, te2, ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -2301,6 +2311,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			tsc = item->itemText.at(k)->cscale / 10.0;
 			tscv = item->itemText.at(k)->cscalev / 10.0;
 			tb = item->itemText.at(k)->cbase / 10.0;
+			tsx = item->itemText.at(k)->cshadowx / 10.0;
+			tsy = item->itemText.at(k)->cshadowy / 10.0;
 			if (item->itemText.at(k)->ch == QChar(13))
 				text = QChar(5);
 			else if (item->itemText.at(k)->ch == QChar(9))
@@ -2323,6 +2335,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				it.setAttribute("CSCALE",tsc);
 				it.setAttribute("CSCALEV",tscv);
 				it.setAttribute("CBASE",tb);
+				it.setAttribute("CSHX",tsx);
+				it.setAttribute("CSHY",tsy);
 				ob.appendChild(it);
 				break;
 			}
@@ -2341,6 +2355,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			tsc2 = item->itemText.at(k)->cscale / 10.0;
 			tscv2 = item->itemText.at(k)->cscalev / 10.0;
 			tb2 = item->itemText.at(k)->cbase / 10.0;
+			tsx2 = item->itemText.at(k)->cshadowx / 10.0;
+			tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 			while ((ts2 == ts)
 							&& (tsb2 == tsb)
 							&& (tf2 == tf)
@@ -2352,6 +2368,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 							&& (tscv2 == tscv)
 							&& (tcs2 == tcs)
 							&& (tb2 == tb)
+							&& (tsx2 == tsx)
+							&& (tsy2 == tsy)
 							&& (tst2 == tst))
 			{
 				if (item->itemText.at(k)->ch == QChar(13))
@@ -2378,6 +2396,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				tsc2 = item->itemText.at(k)->cscale / 10.0;
 				tscv2 = item->itemText.at(k)->cscalev / 10.0;
 				tb2 = item->itemText.at(k)->cbase / 10.0;
+				tsx2 = item->itemText.at(k)->cshadowx / 10.0;
+				tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2392,6 +2412,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			it.setAttribute("CSCALE",tsc);
 			it.setAttribute("CSCALEV",tscv);
 			it.setAttribute("CBASE",tb);
+			it.setAttribute("CSHX",tsx);
+			it.setAttribute("CSHY",tsy);
 			k--;
 			ob.appendChild(it);
 		}
@@ -2465,7 +2487,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 {
 	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
-	double ts, ts2, te, te2, tsc, tsc2, tscv, tscv2, tb, tb2;
+	double ts, ts2, te, te2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2;
 	uint ObCount = maxC;
 	PageItem *item;
 	QDomElement ob;
@@ -2538,6 +2560,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tsc = item->itemText.at(k)->cscale / 10.0;
 			tscv = item->itemText.at(k)->cscalev / 10.0;
 			tb = item->itemText.at(k)->cbase / 10.0;
+			tsx = item->itemText.at(k)->cshadowx / 10.0;
+			tsy = item->itemText.at(k)->cshadowy / 10.0;
 			if (item->itemText.at(k)->ch == QChar(13))
 				text = QChar(5);
 			else if (item->itemText.at(k)->ch == QChar(9))
@@ -2560,6 +2584,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				it.setAttribute("CSCALE",tsc);
 				it.setAttribute("CSCALEV",tscv);
 				it.setAttribute("CBASE",tb);
+				it.setAttribute("CSHX",tsx);
+				it.setAttribute("CSHY",tsy);
 				ob.appendChild(it);
 				break;
 			}
@@ -2575,6 +2601,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tsc2 = item->itemText.at(k)->cscale / 10.0;
 			tscv2 = item->itemText.at(k)->cscalev / 10.0;
 			tb2 = item->itemText.at(k)->cbase / 10.0;
+			tsx2 = item->itemText.at(k)->cshadowx / 10.0;
+			tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 			while ((ts2 == ts)
 						&& (tsb2 == tsb)
 						&& (tf2 == tf)
@@ -2586,6 +2614,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 						&& (tscv2 == tscv)
 						&& (tcs2 == tcs)
 						&& (tb2 == tb)
+						&& (tsx2 == tsx)
+						&& (tsy2 == tsy)
 						&& (tst2 == tst))
 			{
 				if (item->itemText.at(k)->ch == QChar(13))
@@ -2609,6 +2639,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				tsc2 = item->itemText.at(k)->cscale / 10.0;
 				tscv2 = item->itemText.at(k)->cscalev / 10.0;
 				tb2 = item->itemText.at(k)->cbase / 10.0;
+				tsx2 = item->itemText.at(k)->cshadowx / 10.0;
+				tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2623,6 +2655,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			it.setAttribute("CSCALE",tsc);
 			it.setAttribute("CSCALEV",tscv);
 			it.setAttribute("CBASE",tb);
+			it.setAttribute("CSHX",tsx);
+			it.setAttribute("CSHY",tsy);
 			k--;
 			ob.appendChild(it);
 		}

@@ -44,13 +44,15 @@
 
 struct PtiSmall {
 		    int csize;
-		    int cshade;
-		    int cshade2;
-		    int cstyle;
-		    int cab;
-			int cscale;
-			int cscalev;
-			int cbase;
+		    short cshade;
+		    short cshade2;
+		    short cstyle;
+		    short cab;
+			short cscale;
+			short cscalev;
+			short cbase;
+			short cshadowx;
+			short cshadowy;
 		    double cextra;
 			QString ch;
 		    QString cfont;
@@ -95,6 +97,8 @@ public:
 	int CurrTextScale;
 	int CurrTextScaleV;
 	int CurrTextBase;
+	int CurrTextShadowX;
+	int CurrTextShadowY;
 	double CurrTextKern;
 	QString CurrTextStroke;
 	QString CurrTextFill;

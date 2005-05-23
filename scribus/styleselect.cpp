@@ -2,11 +2,39 @@
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <qpopupmenu.h>
+#include <qlabel.h>
+#include "mspinbox.h"
 
 #include "styleselect.h"
 #include "styleselect.moc"
 
 extern QPixmap loadIcon(QString nam);
+
+ShadowValues::ShadowValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
+{
+	this->setFrameShape( QGroupBox::NoFrame );
+	this->setTitle("");
+	this->setColumnLayout(0, Qt::Vertical );
+	this->layout()->setSpacing( 0 );
+	this->layout()->setMargin( 0 );
+	group1Layout = new QGridLayout( this->layout() );
+	group1Layout->setAlignment( Qt::AlignTop );
+	group1Layout->setSpacing( 3 );
+	group1Layout->setMargin( 0 );
+	Xoffset = new MSpinBox( -100, 100, this, 1 );
+	Xoffset->setSuffix( tr(" %"));
+	Xoffset->setValue( 5 );
+	XoffsetTxt = new QLabel( tr("X-Offset"), this, "XoffsetTxt" );
+	group1Layout->addWidget( Xoffset, 0, 1 );
+	group1Layout->addWidget( XoffsetTxt, 0 , 0 );
+	Yoffset = new MSpinBox( -100, 100, this, 1 );
+	Yoffset->setSuffix( tr(" %"));
+	Yoffset->setValue( 5 );
+	YoffsetTxt = new QLabel( tr("Y-Offset"), this, "YoffsetTxt" );
+	group1Layout->addWidget( Yoffset, 1, 1 );
+	group1Layout->addWidget( YoffsetTxt, 1 , 0 );
+}
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 {
@@ -92,11 +120,16 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	outlineButton->setToggleButton( true );
 	ssLayout->addWidget( outlineButton );
 
+	ShadowVal = new ShadowValues( NULL );
+	ShadowPop = new QPopupMenu();
+	ShadowPop->insertItem(ShadowVal);
 	shadowButton = new QToolButton( this, "shadowButton" );
 	shadowButton->setText( "" );
 	shadowButton->setMaximumSize( QSize( 22, 22 ) );
 	shadowButton->setPixmap(loadIcon("shadow.png"));
 	shadowButton->setToggleButton( true );
+	shadowButton->setPopup(ShadowPop);
+	shadowButton->setPopupDelay(400);
 	ssLayout->addWidget( shadowButton );
 
 	QToolTip::add( underlineButton, tr( "Underline" ) );

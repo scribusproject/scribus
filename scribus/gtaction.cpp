@@ -160,6 +160,8 @@ void gtAction::write(const QString& text, gtStyle *style)
 		hg->cscale = font->getHscale() * 10;
 		hg->cscalev = 1000;
 		hg->cbase = 0;
+		hg->cshadowx = 50;
+		hg->cshadowy = -50;
 		hg->cextra = font->getKerning();
 		hg->cselect = false;
 		hg->cab = paragraphStyle;
@@ -242,6 +244,8 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->TxtScale = font->getHscale() * 10;
 	textFrame->TxtScaleV = 0;
 	textFrame->TxtBase = 0;
+	textFrame->TxtShadowX = 50;
+	textFrame->TxtShadowY = -50;
 	textFrame->ExtraV = font->getKerning();
 }
 

@@ -433,7 +433,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Fonts->setMaximumSize(190, 30);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 3 );
 
-	Size = new MSpinBox( 0.5, 1024, page_3, 1 );
+	Size = new MSpinBox( 0.5, 2048, page_3, 1 );
 	Size->setPrefix( "" );
 	fontsizeLabel = new QLabel( "", page_3, "fontsizeLabel" );
 	fontsizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
@@ -734,6 +734,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
 	connect(Revert, SIGNAL(clicked()), this, SLOT(DoRevert()));
 	connect(SeStyle, SIGNAL(State(int)), this, SLOT(setTypeStyle(int)));
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 	connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
@@ -834,7 +836,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	Rot->setValues( 0, 359.99, 100, 0);
 	RoundRect->setValues( -300, 300, 10, 0);
 	Extra->setValues( -300, 300, 10, 0);
-	Size->setValues( 0.5, 1024, 10, 1);
+	Size->setValues( 0.5, 2048, 10, 1);
 	LineSp->setValues( 1, 300, 10, 1);
 	ScaleX->setValues( 1, 3000, 10, 1);
 	ScaleY->setValues( 1, 3000, 10, 1);
@@ -2405,6 +2407,31 @@ void Mpalette::setTypeStyle(int s)
 		return;
 	emit Stellung(s);
 	emit BackHome();
+}
+
+void Mpalette::newShadowOffs()
+{
+	int x = qRound(SeStyle->ShadowVal->Xoffset->value() * 10.0);
+	int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->setItemTextShadow(x, y);
+		doc->CurrTextShadowX = x;
+		doc->CurrTextShadowY = y;
+		emit DocChanged();
+	}
+}
+
+void Mpalette::setShadowOffs(int x, int y)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+	SeStyle->ShadowVal->Xoffset->setValue(x / 10.0);
+	SeStyle->ShadowVal->Yoffset->setValue(y / 10.0);
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 }
 
 void Mpalette::DoLower()

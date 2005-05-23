@@ -105,6 +105,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ShTxtFill = 100;
 	TxtScale = 1000;
 	TxtScaleV = 1000;
+	TxtShadowX = 50;
+	TxtShadowY = -50;
 	TxTStyle = 0;
 	TxtBase = 0;
 	GrType = 0;
@@ -697,6 +699,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						Zli3.kern = 0;
 						Zli3.scale = 1000;
 						Zli3.scalev = 1000;
+						Zli3.shadowX = hl->cshadowx;
+						Zli3.shadowY = hl->cshadowy;
 						Zli3.base = hl->cbase;
 						for (int cx = 0; cx < coun; ++cx)
 						{
@@ -725,6 +729,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.scale = hl->cscale;
 					Zli3.scalev = hl->cscalev;
 					Zli3.base = hl->cbase;
+					Zli3.shadowX = hl->cshadowx;
+					Zli3.shadowY = hl->cshadowy;
 					if (!Doc->RePos)
 					{
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
@@ -1299,6 +1305,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli->scale = hl->cscale;
 					Zli->scalev = hl->cscalev;
 					Zli->base = hl->cbase;
+					Zli->shadowX = hl->cshadowx;
+					Zli->shadowY = hl->cshadowy;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 					{
 						if (a > 0)
@@ -1409,6 +1417,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->scale = itemText.at(a)->cscale;
 									Zli->scalev = itemText.at(a)->cscalev;
 									Zli->base = itemText.at(a)->cbase;
+									Zli->shadowX = itemText.at(a)->cshadowx;
+									Zli->shadowY = itemText.at(a)->cshadowy;
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 								}
@@ -1676,6 +1686,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->scale = 1000;
 									Zli->scalev = 1000;
 									Zli->base = Zli2->base;
+									Zli->shadowX = Zli2->shadowX;
+									Zli->shadowY = Zli2->shadowY;
 									for (int cx = 0; cx < coun; ++cx)
 									{
 										Zli->xco = sPos + wt * cx;
@@ -1808,6 +1820,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							Zli->scale = 1000;
 							Zli->scalev = 1000;
 							Zli->base = Zli2->base;
+							Zli->shadowX = Zli2->shadowX;
+							Zli->shadowY = Zli2->shadowY;
 							for (int cx = 0; cx < coun; ++cx)
 							{
 								Zli->xco =  sPos + wt * cx;
@@ -2252,6 +2266,8 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				Zli->scale = hl->cscale;
 				Zli->scalev = hl->cscalev;
 				Zli->base = hl->cbase;
+				Zli->shadowX = hl->cshadowx;
+				Zli->shadowY = hl->cshadowx;
 				if (!Doc->RePos)
 					DrawZeichenS(p, Zli);
 				delete Zli;
@@ -2517,7 +2533,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 					if ((hl->Style & 256) && (hl->Farb2 != "None"))
 					{
 						p->save();
-						p->translate((hl->Siz / 200.0) * p->zoomFactor(), (hl->Siz / 200.0) * p->zoomFactor());
+						p->translate((hl->Siz * hl->shadowX / 10000.0) * p->zoomFactor(), -(hl->Siz * hl->shadowY / 10000.0) * p->zoomFactor());
 						QColor tmp = p->brush();
 						p->setBrush(p->pen());
 						p->fillPath();
