@@ -9,7 +9,7 @@
 #ifndef DOCINFOS_H
 #define DOCINFOS_H
 
-#include <qtabdialog.h>
+#include <qtabwidget.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
@@ -17,15 +17,28 @@
 
 #include "documentinformation.h"
 
-class DocInfos : public QTabDialog
+/*! The DocInfos class is now part of the ReformDoc multi widgets storage.
+See reformdoc.h as reference. The return values are handled via. getDocInfo()
+method. It can be used as standalone widget. */
+class DocInfos : public QTabWidget
 {
     Q_OBJECT
 
 public:
 	DocInfos( QWidget* parent, DocumentInformation& docInfo );
 	~DocInfos() {};
-	
+
+	/*! Class wide DocumentInformation& docInfo reference. */
+	DocumentInformation infos;
+
+	/*! Returns the changed values.
+	Used e.g. in ScribusApp::SetupDoc().
+	\retval DocumentInformation structure */
 	DocumentInformation getDocInfo();
+
+	/*! (Re)loads the document informations.
+	See e.g. ReformDoc::restoreDefaults() */
+	void restoreDefaults();
 
 protected:
 	QLineEdit* publisherEdit;
@@ -40,7 +53,7 @@ protected:
 	QLineEdit* rightsEdit;
 	QLineEdit* titleEdit;
 	QLineEdit* authorEdit;
-	
+
 	QMultiLineEdit* descriptionEdit;
 	QMultiLineEdit* keywordsEdit;
 	QMultiLineEdit* contributorsEdit;

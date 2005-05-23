@@ -20,7 +20,7 @@
 #include "scribusview.h"
 #include "undomanager.h"
 
-ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name ) 
+ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name )
 {
 	ScApp=(ScribusApp *)parent;
 	scrActions=&(ScApp->scrActions);
@@ -29,7 +29,7 @@ ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject (
 	nonEditActionNames=new QStringList();
 	unicodeCharActionNames=new QStringList();
 	undoManager = UndoManager::instance();
-	
+
 	createActions();
 	languageChange();
 }
@@ -71,7 +71,6 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert("fileExportAsEPS", new ScrAction(ScApp, "fileExportAsEPS"));
 	scrActions->insert("fileExportAsPDF", new ScrAction(loadIcon("acrobat.png"), "", QKeySequence(), ScApp, "fileExportAsPDF"));
 	//Rest of File Menu
-	scrActions->insert("fileDocInfo", new ScrAction(loadIcon("documentinfo.png"), "", CTRL+Key_I, ScApp, "fileDocInfo"));
 	scrActions->insert("fileDocSetup", new ScrAction(ScApp, "fileDocSetup"));
 	scrActions->insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), "", CTRL+Key_P, ScApp, "filePrint"));
 	scrActions->insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), "", CTRL+Key_Q, ScApp, "fileQuit"));
@@ -84,7 +83,6 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["filePrint"], SIGNAL(activated()), ScApp, SLOT(slotFilePrint()) );
 	connect( (*scrActions)["fileSave"], SIGNAL(activated()), ScApp, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(activated()), ScApp, SLOT(slotFileSaveAs()) );
-	connect( (*scrActions)["fileDocInfo"], SIGNAL(activated()), ScApp, SLOT(InfoDoc()) );
 	connect( (*scrActions)["fileDocSetup"], SIGNAL(activated()), ScApp, SLOT(SetupDoc()) );
 	connect( (*scrActions)["fileRevert"], SIGNAL(activated()), ScApp, SLOT(slotFileRevert()) );
 	connect( (*scrActions)["fileCollect"], SIGNAL(activated()), ScApp, SLOT(Collect()) );
@@ -247,7 +245,7 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemRaise", new ScrAction(QIconSet(loadIcon("raise.png"), loadIcon("raise.png")), "", QKeySequence(CTRL+Key_Home), ScApp, "itemRaise"));
 	scrActions->insert("itemAlignDist", new ScrAction(ScApp, "itemAlignDist"));
 	scrActions->insert("itemSendToScrapbook", new ScrAction(ScApp, "itemSendToScrapbook"));
-	
+
 	scrActions->insert("itemAttributes", new ScrAction(ScApp, "itemAttributes"));
 	scrActions->insert("itemImageIsVisible", new ScrAction(ScApp, "itemImageIsVisible"));
 	scrActions->insert("itemPDFIsBookmark", new ScrAction(ScApp, "itemPDFIsBookmark"));
@@ -256,14 +254,14 @@ void ActionManager::initItemMenuActions()
 	(*scrActions)["itemPDFIsAnnotation"]->setToggleAction(true);
 	scrActions->insert("itemPDFAnnotationProps", new ScrAction(ScApp, "itemPDFAnnotationProps"));
 	scrActions->insert("itemPDFFieldProps", new ScrAction(ScApp, "itemPDFFieldProps"));
-	
+
 	(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
 	(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
 	(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 	(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
-	
+
 	(*scrActions)["itemImageIsVisible"]->setToggleAction(true);
-		
+
 	scrActions->insert("itemShapeEdit", new ScrAction(ScApp, "itemShapeEdit"));
 	(*scrActions)["itemShapeEdit"]->setToggleAction(true);
 	scrActions->insert("itemAttachTextToPath", new ScrAction(ScApp, "itemAttachTextToPath"));
@@ -311,7 +309,7 @@ void ActionManager::initInsertMenuActions()
 	//Insert Menu
 	scrActions->insert("insertGlyph", new ScrAction(ScApp, "insertGlyph"));
 	scrActions->insert("insertSampleText", new ScrAction(ScApp, "insertSampleText"));
-	
+
 	connect( (*scrActions)["insertGlyph"], SIGNAL(activated()), ScApp, SLOT(slotCharSelect()) );
 	connect( (*scrActions)["insertSampleText"], SIGNAL(activated()), ScApp, SLOT(insertSampleText()) );
 }
@@ -403,10 +401,10 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),"", QKeySequence(), ScApp, "toolsPreflightVerifier"));
 	scrActions->insert("toolsToolbarTools", new ScrAction(ScApp, "toolsToolbarTools"));
 	scrActions->insert("toolsToolbarPDF", new ScrAction(ScApp, "toolsToolbarPDF"));
-	
+
 	//toolbar only items
 	scrActions->insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), "", QKeySequence(Key_C), ScApp, "toolsSelect", NormalMode));
-	
+
 	scrActions->insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text16.xpm"), loadIcon("Text.xpm")), "", QKeySequence(Key_T), ScApp, "toolsInsertTextFrame", DrawText));
 	scrActions->insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild16.xpm"), loadIcon("Bild.xpm")), "", QKeySequence(Key_I), ScApp, "toolsInsertImageFrame", DrawPicture));
 	scrActions->insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table16.png"), loadIcon("frame_table.png")), "", QKeySequence(Key_A), ScApp, "toolsInsertTableFrame", DrawTable));
@@ -415,7 +413,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", QKeySequence(Key_L), ScApp, "toolsInsertLine", DrawLine));
 	scrActions->insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", QKeySequence(Key_B), ScApp, "toolsInsertBezier", DrawBezierLine));
 	scrActions->insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), "", QKeySequence(Key_F), ScApp, "toolsInsertFreehandLine", DrawFreehandLine));
-		
+
 	scrActions->insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", QKeySequence(Key_R), ScApp, "toolsRotate", Rotation));
 	scrActions->insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", QKeySequence(Key_Z), ScApp, "toolsZoom", Magnifier));
 	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("Gross.xpm"), loadIcon("Gross.xpm")), "", QKeySequence(CTRL+Key_Plus), ScApp, "toolsZoomIn"));
@@ -426,7 +424,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), "", QKeySequence(Key_U), ScApp, "toolsUnlinkTextFrame", UnlinkFrames));
 	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), "", QKeySequence(Key_Y), ScApp, "toolsEyeDropper", EyeDropper));
 	scrActions->insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", QKeySequence(), ScApp, "toolsCopyProperties", CopyProperties));
-	
+
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);
 	(*scrActions)["toolsScrapbook"]->setToggleAction(true);
@@ -438,7 +436,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsPreflightVerifier"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
-	
+
 	(*scrActions)["toolsSelect"]->setToggleAction(true);
 	(*scrActions)["toolsInsertTextFrame"]->setToggleAction(true);
 	(*scrActions)["toolsInsertImageFrame"]->setToggleAction(true);
@@ -456,7 +454,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsUnlinkTextFrame"]->setToggleAction(true);
 	(*scrActions)["toolsEyeDropper"]->setToggleAction(true);
 	(*scrActions)["toolsCopyProperties"]->setToggleAction(true);
-	
+
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
@@ -464,11 +462,11 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 
 	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
-	
+
 	connect( (*scrActions)["toolsActionHistory"], SIGNAL(toggled(bool)), ScApp, SLOT(setUndoPalette(bool)) );
 	connect( (*scrActions)["toolsToolbarTools"], SIGNAL(toggled(bool)), ScApp, SLOT(setTools(bool)) );
 	connect( (*scrActions)["toolsToolbarPDF"], SIGNAL(toggled(bool)), ScApp, SLOT(setPDFTools(bool)) );
-		
+
 	connectModeActions();
 }
 
@@ -522,7 +520,7 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialDashEn",0x2013));
 	scrActions->insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialDashFigure",0x2012));
 	scrActions->insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialDashQuotation",0x2015));
-	
+
 	scrActions->insert("specialQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteApostrophe",0x0027));
 	scrActions->insert("specialQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteStraight",0x0022));
 	scrActions->insert("specialQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteSingleLeft",0x2018));
@@ -542,7 +540,7 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialQuoteCJKSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKSingleRight",0x300D));
 	scrActions->insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleLeft",0x300E));
 	scrActions->insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleRight",0x300F));
-	
+
 	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
 	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
 	*unicodeCharActionNames << "specialBullet";
@@ -553,7 +551,7 @@ void ActionManager::initSpecialActions()
 	*unicodeCharActionNames << "specialQuoteSingleLeftGuillemet" << "specialQuoteSingleRightGuillemet" << "specialQuoteDoubleLeftGuillemet" << "specialQuoteDoubleRightGuillemet";
 	*unicodeCharActionNames << "specialQuoteLowSingleComma" << "specialQuoteLowDoubleComma" << "specialQuoteDoubleTurnedComma";
 	*unicodeCharActionNames << "specialQuoteCJKSingleLeft" << "specialQuoteCJKSingleRight" << "specialQuoteCJKDoubleLeft" << "specialQuoteCJKDoubleRight";
-	
+
 	for ( QStringList::Iterator it = unicodeCharActionNames->begin(); it != unicodeCharActionNames->end(); ++it )
 		connect( (*scrActions)[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), ScApp, SLOT(specialActionKeyEvent(QString, int)) );
 	enableUnicodeActions(false);
@@ -571,7 +569,7 @@ void ActionManager::disconnectModeActions()
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 		disconnect( (*scrActions)[*it], SIGNAL(toggledData(bool, int)) , ScApp, SLOT(setAppModeByToggle(bool, int)) );
 }
-	
+
 void ActionManager::connectModeActions()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
@@ -598,7 +596,7 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 }
-	
+
 void ActionManager::connectNewViewActions(ScribusView *currView)
 {
 	if (currView==NULL)
@@ -631,13 +629,13 @@ void ActionManager::connectNewSelectionActions(ScribusView *currView)
 {
 	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currView, SLOT(TogglePic()) );
 }
-	
+
 void ActionManager::saveActionShortcutsPreEditMode()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 		(*scrActions)[*it]->saveShortcut();
 	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
-		(*scrActions)[*it]->saveShortcut();	
+		(*scrActions)[*it]->saveShortcut();
 
 }
 
@@ -646,7 +644,7 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
 		(*scrActions)[*it]->restoreShortcut();
 	for ( QStringList::Iterator it = nonEditActionNames->begin(); it != nonEditActionNames->end(); ++it )
-		(*scrActions)[*it]->restoreShortcut();	
+		(*scrActions)[*it]->restoreShortcut();
 }
 
 void ActionManager::enableActionStringList(QStringList *list, bool enabled, bool checkingUnicode)
@@ -661,9 +659,9 @@ void ActionManager::enableActionStringList(QStringList *list, bool enabled, bool
 			if (ScApp->HaveDoc && (*scrActions)[*it]->actionType()==ScrAction::UnicodeChar)
 			{
 				int charCode=(*scrActions)[*it]->actionInt();
-				if(charCode==-1 || 
-				   charCode==29 || 
-				   charCode==30 || 
+				if(charCode==-1 ||
+				   charCode==29 ||
+				   charCode==30 ||
 				   (*ScApp->doc->AllFonts)[ScApp->doc->CurrFont]->CharWidth.contains(charCode) )
 					(*scrActions)[*it]->setEnabled(enabled);
 			}
@@ -686,7 +684,7 @@ void ActionManager::setPDFActions(ScribusView *currView)
 
 	disconnect( (*scrActions)["itemPDFIsBookmark"], 0, 0, 0);
 	disconnect( (*scrActions)["itemPDFIsAnnotation"], 0, 0, 0);
-	
+
 	if (currItem->itemType()!=PageItem::TextFrame)
 	{
 		(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
@@ -733,7 +731,6 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportText"]->setTexts(tr("Save &Text..."));
 	(*scrActions)["fileExportAsEPS"]->setTexts(tr("Save Page as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts(tr("Save as P&DF..."));
-	(*scrActions)["fileDocInfo"]->setTexts(tr("Document &Information..."));
 	(*scrActions)["fileDocSetup"]->setTexts(tr("Document &Setup..."));
 	(*scrActions)["filePrint"]->setTexts(tr("&Print..."));
 	(*scrActions)["fileQuit"]->setTexts(tr("&Quit"));
@@ -754,7 +751,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editMasterPages"]->setTexts(tr("&Master Pages..."));
 	(*scrActions)["editJavascripts"]->setTexts(tr("&Javascripts..."));
 	(*scrActions)["editPreferences"]->setTexts(tr("P&references..."));
-	
+
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
 	for (uint s = 0; s < f_size; ++s)
@@ -789,7 +786,7 @@ void ActionManager::languageChange()
 
 	(*scrActions)["styleInvertPict"]->setTexts(tr("&Image Effects"));
 	(*scrActions)["styleTabulators"]->setTexts(tr("&Tabulators..."));
-		
+
 	//Item Menu
 	(*scrActions)["itemDuplicate"]->setTexts(tr("D&uplicate"));
 	(*scrActions)["itemMulDuplicate"]->setTexts(tr("&Multiple Duplicate"));
@@ -824,7 +821,7 @@ void ActionManager::languageChange()
 	//Insert Menu
 	(*scrActions)["insertGlyph"]->setTexts(tr("&Glyph..."));
 	(*scrActions)["insertSampleText"]->setTexts(tr("Sample Text"));
-	
+
 	//Page menu
 	(*scrActions)["pageInsert"]->setTexts(tr("&Insert..."));
 	(*scrActions)["pageImport"]->setTexts(tr("Im&port..."));
@@ -833,7 +830,7 @@ void ActionManager::languageChange()
 	(*scrActions)["pageMove"]->setTexts(tr("&Move..."));
 	(*scrActions)["pageApplyMasterPage"]->setTexts(tr("&Apply Master Page..."));
 	(*scrActions)["pageManageGuides"]->setTexts(tr("Manage &Guides..."));
-	
+
 	//View Menu
 	(*scrActions)["viewFitInWindow"]->setTexts(tr("&Fit in window"));
 	(*scrActions)["viewFit50"]->setTexts(tr("&50%"));
@@ -864,7 +861,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsPreflightVerifier"]->setTexts(tr("Preflight &Verifier"));
 	(*scrActions)["toolsToolbarTools"]->setTexts(tr("&Tools"));
 	(*scrActions)["toolsToolbarPDF"]->setTexts(tr("P&DF Tools"));
-	
+
 	//toolbar only items
 	(*scrActions)["toolsSelect"]->setTexts(tr("Select Item"));
 	(*scrActions)["toolsInsertTextFrame"]->setMenuText(tr("&Text Frame"));
@@ -885,9 +882,9 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsUnlinkTextFrame"]->setTexts(tr("Unlink Text Frames"));
 	(*scrActions)["toolsEyeDropper"]->setTexts(tr("&Eye Dropper"));
 	(*scrActions)["toolsCopyProperties"]->setTexts(tr("Copy Item Properties"));
-	
+
 	(*scrActions)["toolsEditWithStoryEditor"]->setText(tr("Edit the text with the Story Editor"));
-	
+
 	(*scrActions)["toolsInsertTextFrame"]->setText(tr("Insert Text Frame"));
 	(*scrActions)["toolsInsertImageFrame"]->setText(tr("Insert Image Frame"));
 	(*scrActions)["toolsInsertTableFrame"]->setText(tr("Insert Table"));
@@ -908,7 +905,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpTooltips"]->setTexts(tr("Toolti&ps"));
 	(*scrActions)["helpManual"]->setTexts(tr("Scribus &Manual..."));
 
-	
+
 	//typography
 	(*scrActions)["specialSmartHyphen"]->setMenuText(tr("Smart &Hyphen"));
 	(*scrActions)["specialNonBreakingSpace"]->setMenuText(tr("Non Breaking &Space"));
@@ -921,7 +918,7 @@ void ActionManager::languageChange()
 	(*scrActions)["specialDashEn"]->setTexts(tr("En Dash"));
 	(*scrActions)["specialDashFigure"]->setTexts(tr("Figure Dash"));
 	(*scrActions)["specialDashQuotation"]->setTexts(tr("Quotation Dash"));
-	
+
 	(*scrActions)["specialQuoteApostrophe"]->setTexts(tr("Apostrophe"));
 	(*scrActions)["specialQuoteStraight"]->setTexts(tr("Straight Double"));
 	(*scrActions)["specialQuoteSingleLeft"]->setTexts(tr("Single Left"));
@@ -941,7 +938,7 @@ void ActionManager::languageChange()
 	(*scrActions)["specialQuoteCJKSingleRight"]->setTexts(tr("CJK Single Right"));
 	(*scrActions)["specialQuoteCJKDoubleLeft"]->setTexts(tr("CJK Double Left"));
 	(*scrActions)["specialQuoteCJKDoubleRight"]->setTexts(tr("CJK Double Right"));
-	
+
 	(*scrActions)["specialSmartHyphen"]->setText("Insert Smart Hyphen");
 	(*scrActions)["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
 	(*scrActions)["specialPageNumber"]->setText("Insert Page Number");

@@ -4,6 +4,7 @@
 #include <qspinbox.h>
 #include <qcolordialog.h>
 #include "tabtypography.h"
+#include "docinfo.h"
 #include "tabguides.h"
 #include "tabtools.h"
 #include "tabcheckdoc.h"
@@ -57,7 +58,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	QStringList pageSizes=ps->getPageSizeList();
 	sizeQComboBox->insertStringList(pageSizes);
 	sizeQComboBox->insertItem( tr( "Custom" ) );
-	
+
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	//set Custom if we dont have one already as old docs wont have this attribute
 	if (sizeIndex!=-1)
@@ -65,7 +66,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	else
 		sizeQComboBox->setCurrentItem(sizeQComboBox->count()-1);
 	sizeQComboBox->setEnabled(false);
-	
+
 	dsLayout4->addWidget( sizeQLabel, 0, 0 );
 	dsLayout4->addWidget( sizeQComboBox, 0, 1 );
 	orientationQComboBox = new QComboBox( true, dsGroupBox7, "orientationQComboBox" );
@@ -201,8 +202,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	reformDocLayout->addWidget( groupAutoSave );
 	addItem( tr("Document"), loadIcon("page.png"), tabPage);
 
+	docInfos = new DocInfos(prefsWidgets, doc->documentInfo);
+	addItem(tr("Document Informations"), loadIcon("documentinfo.png"), docInfos);
+
 	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSetttings, einheit);
-	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
+	addItem(tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
 	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
@@ -311,18 +315,18 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
-	
+
 	tabFonts = new FontPrefs(  prefsWidgets, ap->Prefs.AvailFonts, true, &ap->Prefs, ap->PrefsPfad, doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Document Checker"), loadIcon("checkdoc.png"), tabDocChecker);
-	
+
 	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, ap->Prefs.AvailFonts,
 								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								einheit, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
-	
+
 	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
 	docAttributesList=tabDocItemAttributes->getDocAttributesNames();
 	tabDocItemAttributes->setup(&doc->docItemAttributes);
@@ -333,7 +337,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTOCIndexPrefs->setup(&(currDoc->docToCSetups), currDoc);
 	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
-	
+
 	int cmsTab = 0;
 	if (CMSavail)
 	{
@@ -346,17 +350,17 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	topR->setMaxValue(pageHeight - bottomR->value());
 	bottomR->setMaxValue(pageHeight - topR->value());
 	//tooltips
-	QToolTip::add( checkLink, tr("Turns the of linked frames on or off"));
-	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
-	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
-	QToolTip::add( backColor, tr( "Color for paper" ) );
-	QToolTip::add( checkUnprintable, tr( "Mask the area outside the margins in the margin color" ) );
-	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
-	QToolTip::add( firstPage, tr( "Make the first page the left page of the document" ) );
-	QToolTip::add( topR, tr( "Distance between the top margin guide and the edge of the page" ) );
-	QToolTip::add( bottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
-	QToolTip::add( leftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-	QToolTip::add( rightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
+	QToolTip::add( checkLink, "<qt>" + tr("Turns the of linked frames on or off") + "</qt>");
+	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
+	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
+	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>" );
+	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
+	QToolTip::add( facingPages, "<qt>" + tr( "Enable single or spread based layout" ) + "</qt>" );
+	QToolTip::add( firstPage, "<qt>" + tr( "Make the first page the left page of the document" ) + "</qt>" );
+	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>" );
+	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>" );
+	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" )  + "</qt>");
+	QToolTip::add( rightR, "<qt>" + tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) + "</qt>" );
 
 	// signals and slots connections
 	connect( facingPages, SIGNAL( clicked() ), this, SLOT( setDS() ) );
@@ -434,6 +438,8 @@ void ReformDoc::restoreDefaults()
 		tabPDF->restoreDefaults();
 	else if (current == tabColorManagement)
 		tabColorManagement->restoreDefaults();
+	else if (current == docInfos)
+		docInfos->restoreDefaults();
 }
 
 void ReformDoc::unitChange()
@@ -583,7 +589,7 @@ void ReformDoc::switchCMS(bool enable)
 
 void ReformDoc::setTOCIndexData(QWidget *widgetToShow)
 {
-	//Update the attributes list in TOC setup 
+	//Update the attributes list in TOC setup
 	if (widgetToShow==tabTOCIndexPrefs)
 		tabTOCIndexPrefs->setupItemAttrs( tabDocItemAttributes->getDocAttributesNames() );
 }

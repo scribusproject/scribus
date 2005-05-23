@@ -23,6 +23,7 @@ class TabTypograpy;
 class HySettings;
 class CMSPrefs;
 class MSpinBox;
+class DocInfos;
 class TabGuides;
 class TabTools;
 class TabCheckDoc;
@@ -76,6 +77,7 @@ public:
 	QCheckBox* checkFrame;
 	QCheckBox* checkPictures;
 
+	DocInfos* docInfos;
 	TabGuides* tabGuides;
 	QWidget* tabView;
 	TabTypograpy* tabTypo;
@@ -95,7 +97,7 @@ public:
 	QComboBox* unitCombo;
 	DocumentItemAttributes* tabDocItemAttributes;
 	TOCIndexPrefs* tabTOCIndexPrefs;
-	
+
 	ScribusApp *ap;
 	ScribusDoc* currDoc;
 	int einheit;
@@ -122,7 +124,7 @@ protected:
 	QVBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* layout10;
 	QHBoxLayout* groupAutoSaveLayout;
-	
+
 	QStringList docAttributesList;
 
 protected slots:

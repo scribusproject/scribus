@@ -1021,7 +1021,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport");
 	scrMenuMgr->addMenuSeparator("File");
-	scrMenuMgr->addMenuItem(scrActions["fileDocInfo"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File");
 	scrMenuMgr->addMenuItem(scrActions["filePrint"], "File");
 	scrMenuMgr->addMenuSeparator("File");
@@ -1040,7 +1039,6 @@ void ScribusApp::initMenuBar()
 	scrActions["fileExportAsEPS"]->setEnabled(false);
 	scrActions["fileExportAsPDF"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("FileExport", false);
-	scrActions["fileDocInfo"]->setEnabled(false);
 	scrActions["fileDocSetup"]->setEnabled(false);
 	scrActions["filePrint"]->setEnabled(false);
 
@@ -3287,6 +3285,7 @@ bool ScribusApp::SetupDoc()
 				}
 		}
 
+		doc->documentInfo = dia->docInfos->getDocInfo();
 		doc->docItemAttributes = *(dia->tabDocItemAttributes->getNewAttributes());
 		doc->docToCSetups = *(dia->tabTOCIndexPrefs->getNewToCs());
 
@@ -3421,7 +3420,6 @@ void ScribusApp::HaveNewDoc()
 	scrActions["fileSave"]->setEnabled(false);
 	scrActions["fileClose"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
-	scrActions["fileDocInfo"]->setEnabled(true);
 	scrActions["fileRevert"]->setEnabled(false);
 	scrActions["fileCollect"]->setEnabled(true);
 	scrActions["fileSaveAs"]->setEnabled(true);
@@ -4966,7 +4964,6 @@ bool ScribusApp::DoFileClose()
 		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
 #endif
 		scrActions["fileDocSetup"]->setEnabled(false);
-		scrActions["fileDocInfo"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileSaveAs"]->setEnabled(false);
@@ -7649,17 +7646,6 @@ void ScribusApp::SelectFromOutlS(int Page)
 	if (Page < 0)
 		return;
 	view->GotoPage(Page);
-}
-
-void ScribusApp::InfoDoc()
-{
-	DocInfos *dia = new DocInfos(this, doc->documentInfo);
-	if (dia->exec())
-	{
-		doc->documentInfo=dia->getDocInfo();
-		slotDocCh();
-	}
-	delete dia;
 }
 
 void ScribusApp::ObjektAlign()

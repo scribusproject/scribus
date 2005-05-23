@@ -319,8 +319,8 @@ public slots:
 	void slotNewPage(int w);
 	/** Loescht die aktuelle Seite */
 	void DeletePage();
-	/** 
-	 * Delete pages 
+	/**
+	 * Delete pages
 	 * @param from First page to delete
 	 * @param to Last page to delete
 	 */
@@ -406,8 +406,6 @@ public slots:
 	void ObjektDup();
 	/** Dupliziert das Element mehrfach*/
 	void ObjektDupM();
-	/** Setzt die Infos fuer das Dokument */
-	void InfoDoc();
 	/** Reformatiert das Dokument */
 	bool SetupDoc();
 	/** Richtet Objekte aus */
