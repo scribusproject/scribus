@@ -364,7 +364,7 @@ void EditStyle::Verlassen()
 	werte->FontEffect = EffeS->getStyle();
 	werte->textAlignment = AligS->getStyle();
 	werte->LineSpa = LineSpVal->value();
-	werte->Indent = TabList->getLeftIndent();
+	werte->Indent = QMAX(TabList->getLeftIndent(), 0.0);
 	werte->First = TabList->getFirstLine();
 	werte->gapBefore = AboveV->value() / parentDoc->unitRatio;
 	werte->gapAfter = BelowV->value() / parentDoc->unitRatio;

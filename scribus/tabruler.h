@@ -48,6 +48,7 @@ signals:
 	void firstLineMoved(double);
 	void noTabs();
 	void newTab();
+	void mouseReleased();
 
 protected:
 	virtual void paintEvent(QPaintEvent *);

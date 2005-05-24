@@ -975,8 +975,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								{
 									if (nextItem->itemText.at(nextItem->itemText.count()-1)->ch == QChar(13))
 									{
-										CurX += Doc->docParagraphStyles[absa].First;
-										CurX += Doc->docParagraphStyles[absa].Indent;
 										CurY += Doc->docParagraphStyles[absa].gapBefore;
 										if (chx != QChar(13))
 											DropCmode = Doc->docParagraphStyles[absa].Drop;
@@ -987,10 +985,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										break;
 									}
 									else
-									{
-										CurX += Doc->docParagraphStyles[absa].Indent;
 										break;
-									}
 								}
 								nextItem = nextItem->BackBox;
 							}
@@ -1179,9 +1174,20 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 						if ((fBorder) && (!AbsHasDrop))
 							CurX += Extra;
-						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
+						if (a > 0)
 						{
-							CurX += Doc->docParagraphStyles[hl->cab].First;
+							if (itemText.at(a-1)->ch == QChar(13))
+								CurX += Doc->docParagraphStyles[hl->cab].First;
+						}
+						else
+						{
+							if (BackBox == 0)
+								CurX += Doc->docParagraphStyles[hl->cab].First;
+							else
+							{
+								if (BackBox->itemText.at(BackBox->itemText.count()-1)->ch == QChar(13))
+									CurX += Doc->docParagraphStyles[hl->cab].First;
+							}
 						}
 						CurX += Doc->docParagraphStyles[hl->cab].Indent;
 						fBorder = false;

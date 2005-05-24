@@ -217,12 +217,15 @@ public:
 	MSpinBox* Extra;
 
 public slots:
+	void newShadowHandler();
 	void newKernHandler();
+	void SetShadow(int x, int y);
 	void SetStyle(int s);
 	void SetKern(double k);
 
 signals:
 	void NewKern(double);
+	void NewShadow(int, int);
 	void newStyle(int);
 };
 
@@ -346,6 +349,7 @@ public slots:
 	void newTxScaleV(int s);
 	void newTxStyle(int s);
 	void newTxKern(double s);
+	void newShadowOffs(int x, int y);
 	void updateProps(int p, int ch);
 	void newAlign(int st);
 	void changeAlignSB(int pa, int align);

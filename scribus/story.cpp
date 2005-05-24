@@ -1152,6 +1152,10 @@ void SEditor::updateSel(int code, struct PtiSmall *hg)
 				case 7:
 					chars->at(ca)->cscalev = hg->cscalev;
 					break;
+				case 8:
+					chars->at(ca)->cshadowx = hg->cshadowx;
+					chars->at(ca)->cshadowy = hg->cshadowy;
+					break;
 				default:
 					break;
 			}
@@ -1466,11 +1470,30 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	QToolTip::add( Extra, tr( "Manual Tracking" ) );
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+}
+
+void SToolBStyle::newShadowHandler()
+{
+	int x = qRound(SeStyle->ShadowVal->Xoffset->value() * 10.0);
+	int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
+	emit NewShadow(x, y);
 }
 
 void SToolBStyle::newKernHandler()
 {
 	emit NewKern(Extra->value());
+}
+
+void SToolBStyle::SetShadow(int x, int y)
+{
+	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+	SeStyle->ShadowVal->Xoffset->setValue(x / 10.0);
+	SeStyle->ShadowVal->Yoffset->setValue(y / 10.0);
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
 }
 
 void SToolBStyle::SetStyle(int s)
@@ -1778,6 +1801,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(FontTools, SIGNAL(NewScaleV(int )), this, SLOT(newTxScaleV(int )));
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
+	connect(StyleTools, SIGNAL(NewShadow(int, int)), this, SLOT(newShadowOffs(int, int)));
 	Editor->setFocus();
 }
 
@@ -1970,6 +1994,18 @@ void StoryEditor::newTxKern(double s)
 	Editor->setFocus();
 }
 
+void StoryEditor::newShadowOffs(int x, int y)
+{
+	struct PtiSmall hg;
+	hg.cshadowx = x;
+	hg.cshadowy = y;
+	Editor->CurrTextShadowX = x;
+	Editor->CurrTextShadowY = y;
+	Editor->updateSel(8, &hg);
+	modifiedText();
+	Editor->setFocus();
+}
+
 void StoryEditor::updateProps(int p, int ch)
 {
 	ColorList::Iterator it;
@@ -1993,6 +2029,9 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrTextKern = CurrItem->ExtraV;
 			Editor->CurrTextScale = CurrItem->TxtScale;
 			Editor->CurrTextScaleV = CurrItem->TxtScaleV;
+			Editor->CurrTextBase = CurrItem->TxtBase;
+			Editor->CurrTextShadowX = CurrItem->TxtShadowX;
+			Editor->CurrTextShadowY = CurrItem->TxtShadowY;
 			c = 0;
 			StrokeTools->SetShade(CurrItem->ShTxtStroke);
 			FillTools->SetShade(CurrItem->ShTxtFill);
@@ -2024,7 +2063,8 @@ void StoryEditor::updateProps(int p, int ch)
 			AlignTools->SetAlign(CurrItem->textAlignment);
 			StyleTools->SetKern(CurrItem->ExtraV);
 			StyleTools->SetStyle(CurrItem->TxTStyle);
-			FontTools->SetSize(CurrItem->ISize / 10.0);
+			StyleTools->SetShadow(CurrItem->TxtShadowX, CurrItem->TxtShadowY);
+			FontTools->SetSize(CurrItem->ISize);
 			FontTools->SetFont(CurrItem->IFont);
 			FontTools->SetScale(CurrItem->TxtScale);
 			FontTools->SetScaleV(CurrItem->TxtScaleV);
@@ -2129,7 +2169,8 @@ void StoryEditor::updateProps(int p, int ch)
 	}
 	StyleTools->SetKern(Editor->CurrTextKern);
 	StyleTools->SetStyle(Editor->CurrentStyle);
-	FontTools->SetSize(Editor->CurrFontSize / 10.0);
+	StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
+	FontTools->SetSize(Editor->CurrFontSize);
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);
 	FontTools->SetScaleV(Editor->CurrTextScaleV);

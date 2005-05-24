@@ -249,6 +249,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	rulerCode = 0;
+	emit mouseReleased();
 }
 
 void RulerT::mouseMoveEvent(QMouseEvent *m)
@@ -504,6 +505,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double
 	{
 		connect(ruler, SIGNAL(firstLineMoved(double)) , this, SLOT(setFirstLineData(double)));
 		connect(ruler, SIGNAL(leftIndentMoved(double)) , this, SLOT(setLeftIndentData(double)));
+		connect(ruler, SIGNAL(mouseReleased()), this, SIGNAL(tabrulerChanged()));
 		connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 		connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 		QToolTip::add( firstLineData, tr( "Indentation for first line of the paragraph" ) );
@@ -572,7 +574,8 @@ void Tabruler::setTabData(double t)
 	disconnect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
 	tabData->setValue(t * docUnitRatio);
 	connect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
-	emit tabrulerChanged();
+	if (!ruler->mousePressed)
+		emit tabrulerChanged();
 }
 
 void Tabruler::setTab()
@@ -586,7 +589,8 @@ void Tabruler::setFirstLineData(double t)
 	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 	firstLineData->setValue(t * docUnitRatio);
 	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
-	emit tabrulerChanged();
+	if (!ruler->mousePressed)
+		emit tabrulerChanged();
 }
 
 void Tabruler::setFirstLine()
@@ -600,7 +604,8 @@ void Tabruler::setLeftIndentData(double t)
 	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 	leftIndentData->setValue(t * docUnitRatio);
 	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
-	emit tabrulerChanged();
+	if (!ruler->mousePressed)
+		emit tabrulerChanged();
 }
 
 void Tabruler::setLeftIndent()

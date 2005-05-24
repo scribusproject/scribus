@@ -157,7 +157,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			hg->cshade2 = font->getStrokeShade();
 			hg->cstyle = font->getEffectsValue();
 		}
-		hg->cscale = font->getHscale() * 10;
+		hg->cscale = font->getHscale();
 		hg->cscalev = 1000;
 		hg->cbase = 0;
 		hg->cshadowx = 50;
@@ -241,8 +241,8 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->ShTxtFill = font->getShade();
 	textFrame->TxtStroke = parseColor(font->getStrokeColor());
 	textFrame->ShTxtStroke = font->getStrokeShade();
-	textFrame->TxtScale = font->getHscale() * 10;
-	textFrame->TxtScaleV = 0;
+	textFrame->TxtScale = font->getHscale();
+	textFrame->TxtScaleV = 1000;
 	textFrame->TxtBase = 0;
 	textFrame->TxtShadowX = 50;
 	textFrame->TxtShadowY = -50;
