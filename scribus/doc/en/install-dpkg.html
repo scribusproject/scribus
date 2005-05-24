@@ -1,50 +1,70 @@
 <qt>
 <title>How to use the Scribus Debian Repository</title>
 <h2>How to use the Scribus Debian Repository</h2>
-<p><em>These notes are kindly provided by our Debian package maintainer, Alex Moskalenko.</em>  malex at tagancha.org. Please direct questions related to Scribus on Debian to the above email.</p>
+<p><em>These notes are kindly provided by our Debian package maintainer,
+    Oleksandr Moskalenko.</em>  <malex at tagancha.org>. Please direct
+questions related to Scribus on Debian to the above email.</p>
 
 <p>Note: Use apt. It is the proper way to install debian packages both binary
 and source. Make sure you have dpkg-dev installed if you intend to build
 your own package from source.</p>
 
+<h3>Preparation:</h3>
 <p>Add the following lines to your <code>/etc/apt/sources.list</code> :</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
-deb http://debian.scribus.net/debian/unstable/
-deb-src http://debian.scribus.net/unstable/Sources
+deb         http://debian.scribus.net/debian/ unstable/
+deb-src     http://debian.scribus.net/debian/ unstable/
 </pre>
 </small></td></tr></table></blockquote>
-<p>Update the apt database.</p>
+<p>Update the package database.</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre> apt-get update</pre>
 </small></td></tr></table></blockquote>
 
-<p>You are now ready to either:<br>
-Install the binary package.</p>
+<h3>Available packages:</h3>
+Available packages include scribus (1.2.xcvs), scribus-cvs (1.3cvs),
+scribus-doc (Documentation for the official Debian 1.2.x package), and
+scribus-template (Extra templates distributed in Debian).
+
+<h3>Binary package installation:</h3>
+<p>Once you modified your <code>/etc/apt/sources.list</code> you are ready to
+Install a binary package via</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre> apt-get install scribus</pre>
+<pre> apt-get install "package(s)" </pre>
 </small></td></tr></table></blockquote>
-OR<br>
-<p>You can also build your own package from the source, in case your CPU
-architecture is different or for any other reason. Get the source package:</p>
+"package(s)" must be in the "Available packages" list above.
+
+<h3>Building from the source packages:</h3>
+<p>You can also build your own package from the available source packages, in
+case your CPU architecture is different, you have different library version
+because you are running Ubuntu or Knoppix, or for any other reason you can
+think of. The most straightforward way to rebuild a source package is probably
+to run. 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre> apt-get source -b scribus scribus-cvs</pre>
+</small></td></tr></table></blockquote>
+</p>
+to get both 1.2cvs and 1.3cvs source packages and build binary packages from
+them. Don't forget to remove downloaded source packages and the directories
+they were unpacked into to clean up after you are done. Install the resulting
+packages with "dpkg -i "package"".
+<p>
+You can also get the source package:</p> <blockquote><table width="100%" border="1"
+        bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
-apt-get source scribus
-cd scribus-1.2.2cvs
+apt-get source "package"
 </pre>
 </small></td></tr></table></blockquote>
-<p>Build the package.</p>
+change to the directory where the package was unpacked.
+<p>Build the package with</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td
 border="0"><small>
 <pre>dpkg-buildpackage -rfakeroot -b</pre>
 </small></td></tr></table></blockquote>
-<p>Install the package you built.</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>dpkg -i ../scribus_1.2.2cvs-1_i386.deb</pre>
-</small></td></tr></table></blockquote>
-<p><em>This is the name for x86 arch. Change it to whatever the name is on your system.</em>
-</p>
+<p>Install the package you built. with dpkg -i ../"package"
 
+<h3>References:</h3>
 <p>Note: these instructions are also partially available at:</p>
 <a href="http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html">http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html</a>
 <p>See section 6.13 "How do I install a source package?" and section 6.14 "How do I build binary packages from a source package?"</p>
