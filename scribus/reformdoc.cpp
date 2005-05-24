@@ -203,7 +203,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Document"), loadIcon("page.png"), tabPage);
 
 	docInfos = new DocInfos(prefsWidgets, doc->documentInfo);
-	addItem(tr("Document Informations"), loadIcon("documentinfo.png"), docInfos);
+	addItem(tr("Document Information"), loadIcon("documentinfo.png"), docInfos);
 
 	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSetttings, einheit);
 	addItem(tr("Guides"), loadIcon("guides.png"), tabGuides);
