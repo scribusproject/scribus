@@ -17,13 +17,15 @@ public:
 	void setStyle(int s);
 	int getStyle();
 
-    QButtonGroup* GroupAlign;
-    QToolButton* TextL;
-    QToolButton* TextR;
-    QToolButton* TextC;
-    QToolButton* TextB;
-    QToolButton* TextF;
+	QButtonGroup* GroupAlign;
+	QToolButton* TextL;
+	QToolButton* TextR;
+	QToolButton* TextC;
+	QToolButton* TextB;
+	QToolButton* TextF;
 
+public slots:
+	void languageChange();
 		
 private slots:
 	void setTypeStyle(int a);
@@ -32,7 +34,7 @@ signals:
 	void State(int);
 
 protected:
-    QGridLayout* GroupAlignLayout;
+	QGridLayout* GroupAlignLayout;
 
 };
 

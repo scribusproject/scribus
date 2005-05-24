@@ -44,11 +44,6 @@ AlignSelect::AlignSelect(QWidget* parent) : QButtonGroup(parent, "AlignSelect")
 	TextF->setPixmap(loadIcon("text_force.png"));
 	TextF->setToggleButton( true );
 	GroupAlignLayout->addWidget( TextF, 0, 4 );
-	QToolTip::add( TextL, tr( "Align Text Left" ) );
-	QToolTip::add( TextR, tr( "Align Text Right" ) );
-	QToolTip::add( TextC, tr( "Align Text Center" ) );
-	QToolTip::add( TextB, tr( "Align Text Justified" ) );
-	QToolTip::add( TextF, tr( "Align Text Forced Justified" ) );
 	resize(minimumSizeHint());
 	connect(this, SIGNAL(clicked(int)), this, SLOT(setTypeStyle(int)));
 }
@@ -77,4 +72,19 @@ int AlignSelect::getStyle()
 void AlignSelect::setTypeStyle(int a)
 {
 	emit State(a);
+}
+
+void AlignSelect::languageChange()
+{
+	QToolTip::remove(TextL);
+	QToolTip::remove(TextR);
+	QToolTip::remove(TextC);
+	QToolTip::remove(TextB);
+	QToolTip::remove(TextF);
+
+	QToolTip::add(TextL, tr("Align Text Left"));
+	QToolTip::add(TextR, tr("Align Text Right"));
+	QToolTip::add(TextC, tr("Align Text Center"));
+	QToolTip::add(TextB, tr("Align Text Justified"));
+	QToolTip::add(TextF, tr("Align Text Forced Justified"));
 }

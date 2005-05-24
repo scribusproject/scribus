@@ -23,17 +23,27 @@ ShadowValues::ShadowValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
 	Xoffset = new MSpinBox( -100, 100, this, 1 );
-	Xoffset->setSuffix( tr(" %"));
 	Xoffset->setValue( 5 );
-	XoffsetTxt = new QLabel( tr("X-Offset"), this, "XoffsetTxt" );
+	XoffsetTxt = new QLabel( "X-Offset", this, "XoffsetTxt" );
 	group1Layout->addWidget( Xoffset, 0, 1 );
 	group1Layout->addWidget( XoffsetTxt, 0 , 0 );
 	Yoffset = new MSpinBox( -100, 100, this, 1 );
-	Yoffset->setSuffix( tr(" %"));
 	Yoffset->setValue( 5 );
-	YoffsetTxt = new QLabel( tr("Y-Offset"), this, "YoffsetTxt" );
+	YoffsetTxt = new QLabel( "Y-Offset", this, "YoffsetTxt" );
 	group1Layout->addWidget( Yoffset, 1, 1 );
 	group1Layout->addWidget( YoffsetTxt, 1 , 0 );
+	
+	languageChange();
+}
+
+void ShadowValues::languageChange()
+{
+	Xoffset->setSuffix(tr(" %"));
+	XoffsetTxt->setText(tr("X-Offset"));
+	Yoffset->setSuffix(tr(" %"));
+	YoffsetTxt->setText(tr("Y-Offset"));
+	XoffsetTxt->adjustSize();
+	YoffsetTxt->adjustSize();
 }
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
@@ -132,15 +142,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	shadowButton->setPopupDelay(400);
 	ssLayout->addWidget( shadowButton );
 
-	QToolTip::add( underlineButton, tr( "Underline" ) );
-	QToolTip::add( underlineWordButton, tr( "Underline Words only" ) );
-	QToolTip::add( allcapsButton, tr( "All Caps" ) );
-	QToolTip::add( smallcapsButton, tr( "Small Caps" ) );
-	QToolTip::add( subscriptButton, tr( "Subscript" ) );
-	QToolTip::add( superscriptButton, tr( "Superscript" ) );
-	QToolTip::add( strikeoutButton, tr( "Strike Out" ) );
-	QToolTip::add( outlineButton, tr( "Outline" ) );
-	QToolTip::add( shadowButton, tr( "Shadow" ) );
+	languageChange();
 
 	connect(allcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 	connect(smallcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
@@ -153,6 +155,31 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	connect(shadowButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
 
 	resize(minimumSizeHint());
+}
+
+void StyleSelect::languageChange()
+{
+	ShadowVal->languageChange();
+
+	QToolTip::remove(underlineButton);
+	QToolTip::remove(underlineWordButton);
+	QToolTip::remove(allcapsButton);
+	QToolTip::remove(smallcapsButton);
+	QToolTip::remove(subscriptButton);
+	QToolTip::remove(superscriptButton);
+	QToolTip::remove(strikeoutButton);
+	QToolTip::remove(outlineButton);
+	QToolTip::remove(shadowButton);
+
+	QToolTip::add(underlineButton, tr("Underline"));
+	QToolTip::add(underlineWordButton, tr("Underline Words Only"));
+	QToolTip::add(allcapsButton, tr("All Caps"));
+	QToolTip::add(smallcapsButton, tr("Small Caps"));
+	QToolTip::add(subscriptButton, tr("Subscript"));
+	QToolTip::add(superscriptButton, tr("Superscript"));
+	QToolTip::add(strikeoutButton, tr("Strike Out"));
+	QToolTip::add(outlineButton, tr("Outline"));
+	QToolTip::add(shadowButton, tr("Shadow"));
 }
 
 void StyleSelect::setStyle(int s)

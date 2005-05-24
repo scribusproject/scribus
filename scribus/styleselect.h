@@ -20,6 +20,9 @@ public:
 	QLabel* XoffsetTxt;
 	QLabel* YoffsetTxt;
 
+public slots:
+	void languageChange();
+	
 protected:
 	QGridLayout* group1Layout;
 };
@@ -35,6 +38,9 @@ public:
 	void setStyle(int s);
 	int getStyle();
 	ShadowValues* ShadowVal;
+
+public slots:
+	void languageChange();
 
 private slots:
 	void setTypeStyle();

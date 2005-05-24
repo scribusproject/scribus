@@ -3348,6 +3348,9 @@ void Mpalette::languageChange()
 	DRight->setSuffix(ein);
 	RoundRect->setSuffix(ein);
 	
+	SeStyle->languageChange();
+	GroupAlign->languageChange();
+	
 	StyledLine->changeItem( tr("No Style"), 0);
 	updateCList();
 	updateCmsList();
