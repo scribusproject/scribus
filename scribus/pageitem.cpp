@@ -816,8 +816,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									{
 									if (nb->Ptext.at(nb->Ptext.count()-1)->ch == QChar(13))
 										{
-										CurX += Doc->Vorlagen[absa].First;
-										CurX += Doc->Vorlagen[absa].Indent;
 										CurY += Doc->Vorlagen[absa].Avor;
 										if (chx != QChar(13))
 											DropCmode = Doc->Vorlagen[absa].Drop;
@@ -828,10 +826,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										break;
 										}
 									else
-										{
-										CurX += Doc->Vorlagen[absa].Indent;
 										break;
-										}
 									}
 								nb = nb->BackBox;
 								}
@@ -1011,9 +1006,20 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 						if ((fBorder) && (!AbsHasDrop))
 							CurX += Extra;
-						if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
+						if (a > 0)
 						{
-							CurX += Doc->Vorlagen[hl->cab].First;
+							if (Ptext.at(a-1)->ch == QChar(13))
+								CurX += Doc->Vorlagen[hl->cab].First;
+						}
+						else
+						{
+							if (BackBox == 0)
+								CurX += Doc->Vorlagen[hl->cab].First;
+							else
+							{
+								if (BackBox->Ptext.at(BackBox->Ptext.count()-1)->ch == QChar(13))
+									CurX += Doc->Vorlagen[hl->cab].First;
+							}
 						}
 						CurX += Doc->Vorlagen[hl->cab].Indent;
 						fBorder = false;
