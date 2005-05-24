@@ -1811,9 +1811,6 @@ int StoryEditor::exec()
 	clearWFlags( WDestructiveClose );
 	setWFlags( WShowModal );
 	result = 0;
-	QTextCodec * cdc;
-	cdc = QTextCodec::codecForCStrings();
-	cdc = QTextCodec::codecForLocale();
 	show();
 	Editor->setFocus();
 	qApp->enter_loop();
