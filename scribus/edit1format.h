@@ -75,7 +75,7 @@ public:
 	int DocsEin;
 	//! Label for holding "style preview" bitmap 12/30/2004 petr vanek
 	QLabel *previewText;
-	QLabel *previewCaption;
+	QCheckBox *previewCaption;
 	//! sample text for preview
 	QString lorem;
 	//! sample text frame
@@ -95,6 +95,7 @@ private slots:
 	\author Petr Vanek
 	\date 4/7/2005
 	*/
+	void togglePreview();
 	void updatePreview();
 
 protected:

@@ -214,8 +214,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	layoutPreview = new QVBoxLayout;
 	layoutPreview->setSpacing(6);
 	layoutPreview->setMargin(0);
-	previewCaption = new QLabel(this, "previewCaption");
-	previewCaption->setText(tr("Preview of the Paragraph Style:"));
+	previewCaption = new QCheckBox( tr("Preview of the Paragraph Style"), this, "previewCaption" );
+	previewCaption->setChecked(true);
 	layoutPreview->addWidget(previewCaption);
 	previewText = new QLabel(this, "previewText");
 	previewText->setMinimumSize(640, 200);
@@ -261,7 +261,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	QToolTip::add( AboveV, "<qt>" + tr( "Spacing above the paragraph" ) + "</qt>" );
 	QToolTip::add( BelowV, "<qt>" + tr( "Spacing below the paragraph" ) + "</qt>" );
 	QToolTip::add( LineSpVal, "<qt>" + tr( "Line Spacing" ) + "</qt>" );
-	QToolTip::add( previewText, "<qt>" + tr( "Sample text of this paragraph style" ) + "</qt>");
+	QToolTip::add( previewText, "<qt>" + tr( "Toggles sample text of this paragraph style" ) + "</qt>");
 
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
@@ -282,6 +282,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(PM2, SIGNAL(clicked()), this, SLOT(updatePreview()));
 	connect(BaseGrid, SIGNAL(stateChanged(int)), this, SLOT(updatePreview()));
 	connect(DropLines, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(previewCaption, SIGNAL( clicked() ), this, SLOT( togglePreview() ) );
 
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
@@ -297,6 +298,23 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	BelowV->setValue(vor->gapAfter * parentDoc->unitRatio);
 	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio);
 	ColorChange();
+}
+
+void EditStyle::togglePreview()
+{
+	if (previewCaption->isChecked())
+	{
+		previewText->show();
+		previewText->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
+		updatePreview();
+	}
+	else
+	{
+		previewText->hide();
+		previewText->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+	}
+	layout()->activate();
+	resize(minimumSizeHint());
 }
 
 void EditStyle::ColorChange()
@@ -399,6 +417,8 @@ void EditStyle::Verlassen()
 
 void EditStyle::updatePreview()
 {
+	if (!previewCaption->isChecked())
+		return;
 	int x = previewText->width();
 	int y = previewText->height();
 	QPixmap pm(x, y);

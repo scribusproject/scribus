@@ -1405,8 +1405,8 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->LocalX=QStodouble(obj->attribute("LOCALX"));
 	OB->LocalY=QStodouble(obj->attribute("LOCALY"));
 	OB->PicArt=QStoInt(obj->attribute("PICART"));
-	OB->flippedH = QStoInt(obj->attribute("FLIPPEDH"));
-	OB->flippedV = QStoInt(obj->attribute("FLIPPEDV"));
+	OB->flippedH = QStoInt(obj->attribute("FLIPPEDH")) % 2;
+	OB->flippedV = QStoInt(obj->attribute("FLIPPEDV")) % 2;
 	OB->BBoxX=QStodouble(obj->attribute("BBOXX"));
 	OB->BBoxH=QStodouble(obj->attribute("BBOXH"));
 	OB->ScaleType = QStoInt(obj->attribute("SCALETYPE","1"));
