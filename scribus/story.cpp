@@ -531,6 +531,7 @@ void SEditor::insChars(QString t)
 			hg->cbase = CurrTextBase;
 			hg->cshadowx = CurrTextShadowX;
 			hg->cshadowy = CurrTextShadowY;
+			hg->coutline = CurrTextOutline;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -608,6 +609,7 @@ void SEditor::insStyledText()
 			hg->cbase = cBuffer.at(a)->cbase;
 			hg->cshadowx = cBuffer.at(a)->cshadowx;
 			hg->cshadowy = cBuffer.at(a)->cshadowy;
+			hg->coutline = cBuffer.at(a)->coutline;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -650,6 +652,7 @@ void SEditor::copyStyledText()
 			hg->cbase = chars->at(ca)->cbase;
 			hg->cshadowx = chars->at(ca)->cshadowx;
 			hg->cshadowy = chars->at(ca)->cshadowy;
+			hg->coutline = chars->at(ca)->coutline;
 			cBuffer.append(hg);
 		}
 		hg = new PtiSmall;
@@ -668,6 +671,7 @@ void SEditor::copyStyledText()
 		hg->cbase = 0;
 		hg->cshadowx = 50;
 		hg->cshadowy = -50;
+		hg->coutline = 10;
 		cBuffer.append(hg);
 	}
 }
@@ -702,6 +706,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cbase = chars->at(c)->cbase;
 				hg->cshadowx = chars->at(c)->cshadowx;
 				hg->cshadowy = chars->at(c)->cshadowy;
+				hg->coutline = chars->at(c)->coutline;
 			}
 			else
 			{
@@ -718,6 +723,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cbase = CurrTextBase;
 				hg->cshadowx = CurrTextShadowX;
 				hg->cshadowy = CurrTextShadowY;
+				hg->coutline = CurrTextOutline;
 				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
 				{
 					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
@@ -753,6 +759,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->cbase = chars->at(c)->cbase;
 			hg->cshadowx = chars->at(c)->cshadowx;
 			hg->cshadowy = chars->at(c)->cshadowy;
+			hg->coutline = chars->at(c)->coutline;
 			hg->cselect = false;
 			hg->xp = 0;
 			hg->yp = 0;
@@ -866,6 +873,7 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->cbase = nextItem->itemText.at(a)->cbase;
 				hg->cshadowx = nextItem->itemText.at(a)->cshadowx;
 				hg->cshadowy = nextItem->itemText.at(a)->cshadowy;
+				hg->coutline = nextItem->itemText.at(a)->coutline;
 				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(30))
@@ -951,6 +959,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 			hg->cbase = currItem->TxtBase;
 			hg->cshadowx = currItem->TxtShadowX;
 			hg->cshadowy = currItem->TxtShadowY;
+			hg->coutline = currItem->TxtOutline;
 			hg->cstyle = currItem->TxTStyle;
 			hg->cab = currItem->textAlignment;
 			hg->cextra = 0;
@@ -1099,6 +1108,8 @@ void SEditor::updateFromChars(int pa)
 	5 = Character Scaling
 	6 = Kerning
 	7 = Character Scaling Vertical
+	8 = Character Shadow
+	9 = Character Outline
  */
 void SEditor::updateSel(int code, struct PtiSmall *hg)
 {
@@ -1155,6 +1166,9 @@ void SEditor::updateSel(int code, struct PtiSmall *hg)
 				case 8:
 					chars->at(ca)->cshadowx = hg->cshadowx;
 					chars->at(ca)->cshadowy = hg->cshadowy;
+					break;
+				case 9:
+					chars->at(ca)->coutline = hg->coutline;
 					break;
 				default:
 					break;
@@ -1472,6 +1486,13 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
 	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
+}
+
+void SToolBStyle::newOutlineHandler()
+{
+	int x = qRound(SeStyle->OutlineVal->LWidth->value() * 10.0);
+	emit newOutline(x);
 }
 
 void SToolBStyle::newShadowHandler()
@@ -1484,6 +1505,13 @@ void SToolBStyle::newShadowHandler()
 void SToolBStyle::newKernHandler()
 {
 	emit NewKern(Extra->value());
+}
+
+void SToolBStyle::setOutline(int x)
+{
+	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
+	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
 }
 
 void SToolBStyle::SetShadow(int x, int y)
@@ -1802,6 +1830,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	connect(StyleTools, SIGNAL(NewShadow(int, int)), this, SLOT(newShadowOffs(int, int)));
+	connect(StyleTools, SIGNAL(newOutline(int )), this, SLOT(newTxtOutline(int )));
 	Editor->setFocus();
 }
 
@@ -2006,6 +2035,16 @@ void StoryEditor::newShadowOffs(int x, int y)
 	Editor->setFocus();
 }
 
+void StoryEditor::newTxtOutline(int o)
+{
+	Editor->CurrTextOutline = o;
+	struct PtiSmall hg;
+	hg.coutline = Editor->CurrTextOutline;
+	Editor->updateSel(9, &hg);
+	modifiedText();
+	Editor->setFocus();
+}
+
 void StoryEditor::updateProps(int p, int ch)
 {
 	ColorList::Iterator it;
@@ -2032,6 +2071,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrTextBase = CurrItem->TxtBase;
 			Editor->CurrTextShadowX = CurrItem->TxtShadowX;
 			Editor->CurrTextShadowY = CurrItem->TxtShadowY;
+			Editor->CurrTextOutline = CurrItem->TxtOutline;
 			c = 0;
 			StrokeTools->SetShade(CurrItem->ShTxtStroke);
 			FillTools->SetShade(CurrItem->ShTxtFill);
@@ -2064,6 +2104,7 @@ void StoryEditor::updateProps(int p, int ch)
 			StyleTools->SetKern(CurrItem->ExtraV);
 			StyleTools->SetStyle(CurrItem->TxTStyle);
 			StyleTools->SetShadow(CurrItem->TxtShadowX, CurrItem->TxtShadowY);
+			StyleTools->setOutline(CurrItem->TxtOutline);
 			FontTools->SetSize(CurrItem->ISize);
 			FontTools->SetFont(CurrItem->IFont);
 			FontTools->SetScale(CurrItem->TxtScale);
@@ -2129,6 +2170,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextBase = hg->cbase;
 		Editor->CurrTextShadowX = hg->cshadowx;
 		Editor->CurrTextShadowY = hg->cshadowy;
+		Editor->CurrTextOutline = hg->coutline;
 	}
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);
@@ -2170,6 +2212,7 @@ void StoryEditor::updateProps(int p, int ch)
 	StyleTools->SetKern(Editor->CurrTextKern);
 	StyleTools->SetStyle(Editor->CurrentStyle);
 	StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
+	StyleTools->setOutline(Editor->CurrTextOutline);
 	FontTools->SetSize(Editor->CurrFontSize);
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);

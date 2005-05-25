@@ -293,6 +293,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
 		connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
 		connect(this, SIGNAL(TextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
+		connect(this, SIGNAL(TextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 
 		initCrashHandler();
@@ -1442,6 +1443,7 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		doc->CurrTextBase = currItem->itemText.at(ChPos)->cbase;
 		doc->CurrTextShadowX = currItem->itemText.at(ChPos)->cshadowx;
 		doc->CurrTextShadowY = currItem->itemText.at(ChPos)->cshadowy;
+		doc->CurrTextOutline = currItem->itemText.at(ChPos)->coutline;
 		emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 		emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 		emit TextIFont(doc->CurrFont);
@@ -1451,6 +1453,7 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		emit TextScale(doc->CurrTextScale);
 		emit TextScaleV(doc->CurrTextScaleV);
 		emit TextBase(doc->CurrTextBase);
+		emit TextOutline(doc->CurrTextOutline);
 	}
 }
 
@@ -1502,6 +1505,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->cbase = doc->CurrTextBase;
 					hg->cshadowx = doc->CurrTextShadowX;
 					hg->cshadowy = doc->CurrTextShadowY;
+					hg->coutline = doc->CurrTextOutline;
 					hg->cselect = false;
 					hg->cstyle = doc->CurrentStyle;
 					hg->cab = doc->currentParaStyle;
@@ -1944,6 +1948,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->cbase = doc->CurrTextBase;
 								hg->cshadowx = doc->CurrTextShadowX;
 								hg->cshadowy = doc->CurrTextShadowY;
+								hg->coutline = doc->CurrTextOutline;
 								hg->cselect = false;
 								hg->cstyle = doc->CurrentStyle;
 								hg->cab = doc->currentParaStyle;
@@ -2383,6 +2388,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cbase = doc->CurrTextBase;
 							hg->cshadowx = doc->CurrTextShadowX;
 							hg->cshadowy = doc->CurrTextShadowY;
+							hg->coutline = doc->CurrTextOutline;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
 							hg->cab = doc->currentParaStyle;
@@ -2418,6 +2424,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cbase = doc->CurrTextBase;
 							hg->cshadowx = doc->CurrTextShadowX;
 							hg->cshadowy = doc->CurrTextShadowY;
+							hg->coutline = doc->CurrTextOutline;
 							hg->cextra = 0;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
@@ -3547,6 +3554,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(ItemTextScaV(int)), propertiesPalette, SLOT(setTScaleV(int)));
 	connect(view, SIGNAL(ItemTextBase(int)), propertiesPalette, SLOT(setTBase(int)));
 	connect(view, SIGNAL(ItemTextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
+	connect(view, SIGNAL(ItemTextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
 	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
 	connect(view, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
@@ -3778,6 +3786,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextBase = currItem->TxtBase;
 			doc->CurrTextShadowX = currItem->TxtShadowX;
 			doc->CurrTextShadowY = currItem->TxtShadowY;
+			doc->CurrTextOutline = currItem->TxtOutline;
 			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
@@ -3785,6 +3794,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			emit TextScale(doc->CurrTextScale);
 			emit TextScaleV(doc->CurrTextScaleV);
 			emit TextBase(doc->CurrTextBase);
+			emit TextOutline(doc->CurrTextOutline);
 			setStilvalue(doc->CurrentStyle);
 		}
 		doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
@@ -3839,6 +3849,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextBase = currItem->TxtBase;
 			doc->CurrTextShadowX = currItem->TxtShadowX;
 			doc->CurrTextShadowY = currItem->TxtShadowY;
+			doc->CurrTextOutline = currItem->TxtOutline;
 			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
@@ -3846,6 +3857,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			emit TextScale(doc->CurrTextScale);
 			emit TextScaleV(doc->CurrTextScaleV);
 			emit TextBase(doc->CurrTextBase);
+			emit TextOutline(doc->CurrTextOutline);
 			setStilvalue(doc->CurrentStyle);
 		}
 		break;
@@ -5348,7 +5360,8 @@ void ScribusApp::slotEditCut()
 						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\n';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\n';
 					}
 				}
 				deleteSelectedTextFromFrame(nextItem);
@@ -5429,7 +5442,8 @@ void ScribusApp::slotEditCopy()
 						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\n';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\n';
 					}
 				}
 				nextItem = nextItem->NextBox;
@@ -5522,6 +5536,8 @@ void ScribusApp::slotEditPaste()
 					hg->cshadowx = it == NULL ? 50 : (*it).toInt();
 					it++;
 					hg->cshadowy = it == NULL ? -50 : (*it).toInt();
+					it++;
+					hg->coutline = it == NULL ? 10 : (*it).toInt();
 					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;

@@ -106,6 +106,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		hg->cbase = it->TxtBase;
 		hg->cshadowx = it->TxtShadowX;
 		hg->cshadowy = it->TxtShadowY;
+		hg->coutline = it->TxtOutline;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cab = Absatz;

@@ -464,6 +464,7 @@ signals:
 	void TextScaleV(int);
 	void TextBase(int);
 	void TextShadow(int, int);
+	void TextOutline(int);
 
 	void prefsChanged();
 

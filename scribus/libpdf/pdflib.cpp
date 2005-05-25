@@ -2587,6 +2587,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				hl2.cbase = hl->cbase;
 				hl2.cshadowx = hl->cshadowx;
 				hl2.cshadowy = hl->cshadowy;
+				hl2.coutline = hl->coutline;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2607,6 +2608,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 						hl3.cscalev = hl2.cscalev;
 						hl3.cextra = hl2.cextra;
 						hl3.cbase = hl2.cbase;
+						hl3.coutline = hl2.coutline;
 						setTextCh(ite, PNr, d, tmp, tmp2, &hl3);
 					}
 					setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
@@ -2635,6 +2637,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			hl2.cbase = hl->cbase;
 			hl2.cshadowx = hl->cshadowx;
 			hl2.cshadowy = hl->cshadowy;
+			hl2.coutline = hl->coutline;
 			setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl);
@@ -2728,7 +2731,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		{
 			if ((hl->cstroke != "None") && (hl->cstyle & 4))
 			{
-				tmp2 += FToStr(QMAX(hl->cfont->strokeWidth * tsz / 20.0, 10) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
+				tmp2 += FToStr((tsz * hl->coutline / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
 				tmp2 += StrokeColor;
 			}
 			if (hl->ccolor != "None")
@@ -2862,7 +2865,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				tmp2 += FillColor;
 		}
 		if (hl->cstyle & 4)
-			tmp += FToStr(QMAX(hl->cfont->strokeWidth * tsz / 20.0, 1)) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
+			tmp += FToStr(tsz * hl->coutline / 10000.0) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
 		else
 			tmp += "0 Tr\n";
 		if (ite->itemType() != PageItem::PathText)

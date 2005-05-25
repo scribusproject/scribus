@@ -292,6 +292,8 @@ public slots:
 	void setStil(int s);
 	void setAli(int e);
 	void setShadowOffs(int x, int y);
+	void setOutlineW(int x);
+	void newOutlineW();
 	void setTScale(int e);
 	void NewTScale();
 	void NewTScaleV();

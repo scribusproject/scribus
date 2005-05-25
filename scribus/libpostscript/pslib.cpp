@@ -2006,6 +2006,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.cbase = hl->cbase;
 				hl2.cshadowx = hl->cshadowx;
 				hl2.cshadowy = hl->cshadowy;
+				hl2.coutline = hl->coutline;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2026,6 +2027,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 						hl3.cscalev = hl2.cscalev;
 						hl3.cextra = hl2.cextra;
 						hl3.cbase = hl2.cbase;
+						hl3.coutline = hl2.coutline;
 						setTextCh(Doc, ite, gcr, a, d, &hl3);
 					}
 					setTextCh(Doc, ite, gcr, a, d, &hl2);
@@ -2054,6 +2056,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.cbase = hl->cbase;
 			hl2.cshadowx = hl->cshadowx;
 			hl2.cshadowy = hl->cshadowy;
+			hl2.coutline = hl->coutline;
 			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl);
@@ -2236,10 +2239,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 				chma.translate(wideR, 0);
 				gly.map(chma);
 			}
-			if (hl->cstroke != "None")
+			if ((hl->cstroke != "None") && ((tsz * hl->coutline / 10000.0) != 0))
 			{
 				PS_save();
-				PS_setlinewidth(QMAX(hl->cfont->strokeWidth / 2 * (tsz / 10.0), 1));
+				PS_setlinewidth(tsz * hl->coutline / 10000.0);
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 				PS_setdash(Qt::SolidLine, 0, dum);
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);

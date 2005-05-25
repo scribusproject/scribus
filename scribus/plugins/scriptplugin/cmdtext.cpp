@@ -279,6 +279,7 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		hg->cbase = currItem->TxtBase;
 		hg->cshadowx = currItem->TxtShadowX;
 		hg->cshadowy = currItem->TxtShadowY;
+		hg->coutline = currItem->TxtOutline;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
@@ -337,6 +338,7 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 		hg->cbase = it->TxtBase;
 		hg->cshadowx = it->TxtShadowX;
 		hg->cshadowy = it->TxtShadowY;
+		hg->coutline = it->TxtOutline;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;

@@ -1161,6 +1161,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 	int base = qRound(QStodouble(it->attribute("CBASE","0")) * 10);
 	int shX = qRound(QStodouble(it->attribute("CSHX","5")) * 10);
 	int shY = qRound(QStodouble(it->attribute("CSHY","-5")) * 10);
+	int outL = qRound(QStodouble(it->attribute("COUT","1")) * 10);
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		hg = new ScText;
@@ -1187,6 +1188,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 		hg->cbase = base;
 		hg->cshadowx = shX;
 		hg->cshadowy = shY;
+		hg->coutline = outL;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;
@@ -1346,6 +1348,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->TxtBase=qRound(QStodouble(obj->attribute("TXTBASE", "0")) * 10);
 	currItem->TxtShadowX=qRound(QStodouble(obj->attribute("TXTSHX", "5")) * 10);
 	currItem->TxtShadowY=qRound(QStodouble(obj->attribute("TXTSHY", "-5")) * 10);
+	currItem->TxtOutline=qRound(QStodouble(obj->attribute("TXTOUT", "1")) * 10);
 	currItem->TxTStyle = QStoInt(obj->attribute("TXTSTYLE", "0"));
 	currItem->Rot = QStodouble(obj->attribute("ROT"));
 	currItem->Extra = QStodouble(obj->attribute("EXTRA"));

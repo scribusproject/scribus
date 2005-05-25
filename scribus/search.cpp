@@ -700,6 +700,7 @@ void SearchReplace::slotDoReplace()
 						hg->cbase = Doc->CurrTextBase;
 						hg->cshadowx = Doc->CurrTextShadowX;
 						hg->cshadowy = Doc->CurrTextShadowY;
+						hg->coutline = Doc->CurrTextOutline;
 						hg->cselect = true;
 						hg->cstyle = Doc->CurrentStyle;
 						if (RStyle->isChecked())

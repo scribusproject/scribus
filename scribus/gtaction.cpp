@@ -162,6 +162,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 		hg->cbase = 0;
 		hg->cshadowx = 50;
 		hg->cshadowy = -50;
+		hg->coutline = 10;
 		hg->cextra = font->getKerning();
 		hg->cselect = false;
 		hg->cab = paragraphStyle;
@@ -246,6 +247,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->TxtBase = 0;
 	textFrame->TxtShadowX = 50;
 	textFrame->TxtShadowY = -50;
+	textFrame->TxtOutline = 10;
 	textFrame->ExtraV = font->getKerning();
 }
 

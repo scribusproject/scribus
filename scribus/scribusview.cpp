@@ -2421,6 +2421,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							Doc->CurrTextBase = currItem->TxtBase;
 							Doc->CurrTextShadowX = currItem->TxtShadowX;
 							Doc->CurrTextShadowY = currItem->TxtShadowY;
+							Doc->CurrTextOutline = currItem->TxtOutline;
+							emit ItemTextOutline(currItem->TxtOutline);
 							emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
 							emit ItemTextAttr(currItem->LineSp);
 							emit ItemTextCols(currItem->Cols, currItem->ColGap);
@@ -6484,6 +6486,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextBase = currItem->itemText.at(a)->cbase;
 					Doc->CurrTextShadowX = currItem->itemText.at(a)->cshadowx;
 					Doc->CurrTextShadowY = currItem->itemText.at(a)->cshadowy;
+					Doc->CurrTextOutline = currItem->itemText.at(a)->coutline;
+					emit ItemTextOutline(currItem->itemText.at(a)->coutline);
 					emit ItemTextShadow(currItem->itemText.at(a)->cshadowx, currItem->itemText.at(a)->cshadowy);
 					emit ItemTextBase(currItem->itemText.at(a)->cbase);
 					emit ItemTextSca(currItem->itemText.at(a)->cscale);
@@ -6522,6 +6526,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextBase = currItem->itemText.at(i)->cbase;
 					Doc->CurrTextShadowX = currItem->itemText.at(i)->cshadowx;
 					Doc->CurrTextShadowY = currItem->itemText.at(i)->cshadowy;
+					Doc->CurrTextOutline = currItem->itemText.at(i)->coutline;
+					emit ItemTextOutline(currItem->itemText.at(i)->coutline);
 					emit ItemTextShadow(currItem->itemText.at(i)->cshadowx, currItem->itemText.at(i)->cshadowy);
 					emit ItemTextSca(currItem->itemText.at(i)->cscale);
 					emit ItemTextScaV(currItem->itemText.at(i)->cscalev);
@@ -6531,7 +6537,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 					emit ItemTextUSval(currItem->itemText.at(i)->cextra);
 					emit ItemTextStil(currItem->itemText.at(i)->cstyle);
 					emit ItemTextAbs(currItem->itemText.at(i)->cab);
-					emit ItemTextBase(currItem->itemText.at(a)->cbase);
+					emit ItemTextBase(currItem->itemText.at(i)->cbase);
 					return true;
 				}
 			}
@@ -6549,6 +6555,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 				Doc->CurrTextBase = currItem->itemText.at(currItem->CPos-1)->cbase;
 				Doc->CurrTextShadowX = currItem->itemText.at(currItem->CPos-1)->cshadowx;
 				Doc->CurrTextShadowY = currItem->itemText.at(currItem->CPos-1)->cshadowy;
+				Doc->CurrTextOutline = currItem->itemText.at(currItem->CPos-1)->coutline;
+				emit ItemTextOutline(currItem->itemText.at(currItem->CPos-1)->coutline);
 				emit ItemTextShadow(currItem->itemText.at(currItem->CPos-1)->cshadowx, currItem->itemText.at(currItem->CPos-1)->cshadowy);
 				emit ItemTextSca(currItem->itemText.at(currItem->CPos-1)->cscale);
 				emit ItemTextScaV(currItem->itemText.at(currItem->CPos-1)->cscalev);
@@ -6575,6 +6583,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 				Doc->CurrTextBase = currItem->TxtBase;
 				Doc->CurrTextShadowX = currItem->TxtShadowX;
 				Doc->CurrTextShadowY = currItem->TxtShadowY;
+				Doc->CurrTextOutline = currItem->TxtOutline;
+				emit ItemTextOutline(currItem->TxtOutline);
 				emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
 				emit ItemTextSca(currItem->TxtScale);
 				emit ItemTextScaV(currItem->TxtScaleV);
@@ -10031,6 +10041,34 @@ void ScribusView::setItemTextBase(int sha)
 	}
 }
 
+void ScribusView::setItemTextOutline(int sha)
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < SelItem.count(); ++a)
+		{
+			currItem = SelItem.at(a);
+			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+			{
+				if (Doc->appMode != EditMode)
+					currItem->TxtOutline = sha;
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (Doc->appMode == EditMode)
+					{
+						if (currItem->itemText.at(i)->cselect)
+							currItem->itemText.at(i)->coutline = sha;
+					}
+					else
+						currItem->itemText.at(i)->coutline = sha;
+				}
+			}
+			RefreshItem(currItem);
+		}
+	}
+}
+
 void ScribusView::ItemBrush(QString farbe)
 {
 	if (farbe == tr("None"))
@@ -10895,6 +10933,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				hg->cshadowx = it == NULL ? 50 : (*it).toInt();
 				it++;
 				hg->cshadowy = it == NULL ? -50 : (*it).toInt();
+				it++;
+				hg->coutline = it == NULL ? 10 : (*it).toInt();
 				hg->xp = 0;
 				hg->yp = 0;
 				hg->PRot = 0;
@@ -10935,6 +10975,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->TxTStyle = Buffer->TxTStyle;
 	currItem->TxtShadowX = Buffer->TxtShadowX;
 	currItem->TxtShadowY = Buffer->TxtShadowY;
+	currItem->TxtOutline = Buffer->TxtOutline;
 	currItem->Rot = Buffer->Rot;
 	currItem->Extra = Buffer->Extra;
 	currItem->TExtra = Buffer->TExtra;
@@ -11507,7 +11548,7 @@ void ScribusView::TextToPath()
 				bb->lineColor() = "None";
 				bb->setLineShade(100);
 			}
-			bb->Pwidth = QMAX(currItem->itemText.at(a)->cfont->strokeWidth * chs / 2.0, 1);
+			bb->Pwidth = chs * currItem->itemText.at(a)->coutline / 10000.0;
 			FPoint tp2 = getMinClipF(&bb->PoLine);
 			bb->PoLine.translate(-tp2.x(), -tp2.y());
 			FPoint tp = getMaxClipF(&bb->PoLine);

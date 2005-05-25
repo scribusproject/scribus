@@ -736,6 +736,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(SeStyle, SIGNAL(State(int)), this, SLOT(setTypeStyle(int)));
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
 	connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
@@ -2432,6 +2433,26 @@ void Mpalette::setShadowOffs(int x, int y)
 	SeStyle->ShadowVal->Yoffset->setValue(y / 10.0);
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+}
+
+void Mpalette::setOutlineW(int x)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
+	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
+}
+
+void Mpalette::newOutlineW()
+{
+	int x = qRound(SeStyle->OutlineVal->LWidth->value() * 10.0);
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->setItemTextOutline(x);
+		doc->CurrTextOutline = x;
+		emit DocChanged();
+	}
 }
 
 void Mpalette::DoLower()

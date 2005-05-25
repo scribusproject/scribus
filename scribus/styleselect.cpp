@@ -11,6 +11,32 @@
 
 extern QPixmap loadIcon(QString nam);
 
+OutlineValues::OutlineValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
+{
+	this->setFrameShape( QGroupBox::NoFrame );
+	this->setTitle("");
+	this->setColumnLayout(0, Qt::Vertical );
+	this->layout()->setSpacing( 0 );
+	this->layout()->setMargin( 0 );
+	group1Layout = new QGridLayout( this->layout() );
+	group1Layout->setAlignment( Qt::AlignTop );
+	group1Layout->setSpacing( 3 );
+	group1Layout->setMargin( 0 );
+	LWidth = new MSpinBox( 0, 100, this, 1 );
+	LWidth->setValue( 1 );
+	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
+	group1Layout->addWidget( LWidth, 0, 1 );
+	group1Layout->addWidget( LWidthTxt, 0 , 0 );
+	languageChange();
+}
+
+void OutlineValues::languageChange()
+{
+	LWidth->setSuffix(tr(" %"));
+	LWidthTxt->setText(tr("Linewidth"));
+	LWidthTxt->adjustSize();
+}
+
 ShadowValues::ShadowValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
 {
 	this->setFrameShape( QGroupBox::NoFrame );
@@ -123,11 +149,16 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	strikeoutButton->setToggleButton( true );
 	ssLayout->addWidget( strikeoutButton );
 
+	OutlineVal = new OutlineValues( NULL );
+	OutlinePop = new QPopupMenu();
+	OutlinePop->insertItem(OutlineVal);
 	outlineButton = new QToolButton( this, "outlineButton" );
 	outlineButton->setText( "" );
 	outlineButton->setMaximumSize( QSize( 22, 22 ) );
 	outlineButton->setPixmap(loadIcon("outlined.png"));
 	outlineButton->setToggleButton( true );
+	outlineButton->setPopup(OutlinePop);
+	outlineButton->setPopupDelay(400);
 	ssLayout->addWidget( outlineButton );
 
 	ShadowVal = new ShadowValues( NULL );

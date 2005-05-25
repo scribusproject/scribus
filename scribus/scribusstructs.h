@@ -37,9 +37,9 @@ struct ScText
 	32 		= All Caps
 	64 		= Small Caps
 	128 		= Hypenation possible here (Smart Hyphen)
-	256 	= Shadowed (not implemented yet)
+	256 	= Shadowed
 	512 	= Underline Words
-	1024 	= Fake Italic (not implemented yet)
+	1024 	= free, not used in the moment
 	2048 	= free, not used in the moment
 	4096 	= internal use in PageItem (Suppresses spaces when in Block alignment)
 	8192 	= Smart Hyphen visible at line end
@@ -51,6 +51,7 @@ struct ScText
 	short cbase;
 	short cshadowx;
 	short cshadowy;
+	short coutline;
 	float cextra;
 	float xp;
 	float yp;
@@ -98,6 +99,7 @@ struct CopyPasteBuffer
 	int TxTBase;
 	int TxtShadowX;
 	int TxtShadowY;
+	int TxtOutline;
 	double Rot;
 	int PLineArt;
 	int PLineJoin;
