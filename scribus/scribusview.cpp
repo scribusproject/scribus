@@ -1660,12 +1660,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
 				ScApp->scrActions["itemImageIsVisible"]->addTo(pmen);
-				pmenResolution->insertItem( tr("Low Resolution"));
-				pmenResolution->insertItem( tr("Normal Resolution"));
-				pmenResolution->insertItem( tr("Full Resolution"));
 				pmen->insertItem( tr("Preview Settings"), pmenResolution);
-				pmenResolution->setItemChecked(pmenResolution->idAt(2 - currItem->pixm.imgInfo.lowResType), true);
-				connect(pmenResolution, SIGNAL(activated(int)), this, SLOT(changePreview(int)));
+				ScApp->scrActions["itemPreviewLow"]->addTo(pmenResolution);
+				ScApp->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
+				ScApp->scrActions["itemPreviewFull"]->addTo(pmenResolution);
 				if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
 					pmen->insertItem( tr("Extended Image Properties"), this, SLOT(useEmbeddedPath()));
 				if (currItem->PicAvail)
@@ -1794,7 +1792,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			delete pmen;
 			delete pmen2;
 			disconnect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
-			disconnect(pmenResolution, SIGNAL(activated(int)), this, SLOT(changePreview(int)));
 			delete pmen3;
 			delete pmen4;
 			delete pmenLevel;
@@ -10582,12 +10579,20 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 
 void ScribusView::changePreview(int id)
 {
-	int d = pmenResolution->indexOf(id);
 	if (SelItem.count() != 0)
 	{
 		PageItem *Item = SelItem.at(0);
-		Item->pixm.imgInfo.lowResType = 2 - d;
+		Item->pixm.imgInfo.lowResType = id;
 		UpdatePic();
+		disconnect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
+		ScApp->scrActions["itemPreviewLow"]->setOn(Item->pixm.imgInfo.lowResType==ScApp->scrActions["itemPreviewLow"]->actionInt());
+		ScApp->scrActions["itemPreviewNormal"]->setOn(Item->pixm.imgInfo.lowResType==ScApp->scrActions["itemPreviewNormal"]->actionInt());
+		ScApp->scrActions["itemPreviewFull"]->setOn(Item->pixm.imgInfo.lowResType==ScApp->scrActions["itemPreviewFull"]->actionInt());
+		connect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , this, SLOT(changePreview(int)) );
+		connect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , this, SLOT(changePreview(int)) );
+		connect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , this, SLOT(changePreview(int)) );
 	}
 }
 

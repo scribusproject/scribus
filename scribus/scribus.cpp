@@ -1116,9 +1116,14 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemUngroup"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->createMenu("ItemLevel", tr("&Level"));
+	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "Item");
+	scrMenuMgr->createMenu("ItemPreviewSettings", "Preview Settings", "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemPreviewLow"], "ItemPreviewSettings");
+	scrMenuMgr->addMenuItem(scrActions["itemPreviewNormal"], "ItemPreviewSettings");
+	scrMenuMgr->addMenuItem(scrActions["itemPreviewFull"], "ItemPreviewSettings");
+	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->createMenu("ItemLevel", "Level");
 	scrMenuMgr->addMenuToMenu("ItemLevel", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel");
@@ -1127,7 +1132,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "ItemPDFOptions");
+	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item");
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
 	scrMenuMgr->addMenuToMenu("ItemPDFOptions", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFIsAnnotation"], "ItemPDFOptions");
@@ -3597,8 +3602,16 @@ void ScribusApp::HaveNewSel(int Nr)
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["insertGlyph"]->setEnabled(false);
 	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["itemPreviewLow"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
 	if (Nr!=PageItem::ImageFrame)
+	{
 		scrActions["itemImageIsVisible"]->setOn(false);
+		scrActions["itemPreviewLow"]->setOn(false);
+		scrActions["itemPreviewNormal"]->setOn(false);
+		scrActions["itemPreviewFull"]->setOn(false);
+	}
 	if ((Nr==-1) || (Nr!=-1 && currItem->itemType()!=PageItem::TextFrame))
 		actionManager->enableUnicodeActions(false);
 	scrActions["insertSampleText"]->setEnabled(false);
@@ -3669,6 +3682,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["itemImageIsVisible"]->setOn(currItem->PicArt);
+
+		scrActions["itemPreviewLow"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
+		scrActions["itemPreviewNormal"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
+		scrActions["itemPreviewFull"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewFull"]->actionInt());
+		
 		break;
 	case PageItem::TextFrame: //Text Frame
 		scrActions["fileImportText"]->setEnabled(true);
@@ -10548,6 +10566,7 @@ void ScribusApp::languageChange()
 			scrMenuMgr->setMenuText("TypeEffects", tr("&Effects"));
 			scrMenuMgr->setMenuText("Item", tr("&Item"));
 			scrMenuMgr->setMenuText("ItemLevel", tr("&Level"));
+			scrMenuMgr->setMenuText("ItemPreviewSettings", "Previe&w Settings");
 			scrMenuMgr->setMenuText("ItemPDFOptions", tr("&PDF Options"));
 			scrMenuMgr->setMenuText("ItemShapes", tr("&Shape"));
 			scrMenuMgr->setMenuText("ItemConvertTo", tr("C&onvert To"));

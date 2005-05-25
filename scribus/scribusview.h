@@ -319,6 +319,7 @@ public slots: // Public slots
 	void BlinkCurs();
 	void updatePict(QString name);
 	void removePict(QString name);
+	void changePreview(int id);
 
 private: // Private attributes
 	QPushButton *zoomOutToolbarButton;
@@ -342,7 +343,6 @@ private slots:
 	void selectionChanged();
 	void setObjectUndoMode();
 	void setGlobalUndoMode();
-	void changePreview(int id);
 
 protected: // Protected methods
 	virtual void viewportPaintEvent ( QPaintEvent * p );

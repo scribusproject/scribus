@@ -33,6 +33,7 @@ ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & m
 	initScrAction();
 	setIconSizes();
 	_actionType=aType;
+
 	if (_actionType!=Normal)
 		connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 	switch (_actionType)
@@ -193,10 +194,10 @@ void ScrAction::setToggleAction(bool isToggle)
 {
 	if (_actionType!=Normal)
 	{
-		if(isToggle)
-			connect (this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
+		if (isToggle)
+			connect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
 		else
-			disconnect (this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
+			disconnect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
 	}
 	QAction::setToggleAction(isToggle);
 }

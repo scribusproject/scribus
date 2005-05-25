@@ -220,8 +220,8 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["typeEffectShadow"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemTypeStyle(int)));
 
 	//Other Style menu items that get added in various places
-	scrActions->insert("styleInvertPict", new ScrAction(tr("&Image Effects"), QKeySequence(), ScApp, "styleInvertPict"));
-	scrActions->insert("styleTabulators", new ScrAction(tr("&Tabulators..."), QKeySequence(), ScApp, "styleTabulators"));
+	scrActions->insert("styleInvertPict", new ScrAction(ScApp, "styleInvertPict"));
+	scrActions->insert("styleTabulators", new ScrAction(ScApp, "styleTabulators"));
 	connect( (*scrActions)["styleInvertPict"], SIGNAL(activated()), ScApp, SLOT(ImageEffects()));
 	connect( (*scrActions)["styleTabulators"], SIGNAL(activated()), ScApp, SLOT(EditTabs()));
 
@@ -248,6 +248,9 @@ void ActionManager::initItemMenuActions()
 
 	scrActions->insert("itemAttributes", new ScrAction(ScApp, "itemAttributes"));
 	scrActions->insert("itemImageIsVisible", new ScrAction(ScApp, "itemImageIsVisible"));
+	scrActions->insert("itemPreviewLow", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewLow", 2));
+	scrActions->insert("itemPreviewNormal", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewNormal", 1));
+	scrActions->insert("itemPreviewFull", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewFull", 0));
 	scrActions->insert("itemPDFIsBookmark", new ScrAction(ScApp, "itemPDFIsBookmark"));
 	(*scrActions)["itemPDFIsBookmark"]->setToggleAction(true);
 	scrActions->insert("itemPDFIsAnnotation", new ScrAction(ScApp, "itemPDFIsAnnotation"));
@@ -261,6 +264,9 @@ void ActionManager::initItemMenuActions()
 	(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
 
 	(*scrActions)["itemImageIsVisible"]->setToggleAction(true);
+	(*scrActions)["itemPreviewLow"]->setToggleAction(true);
+	(*scrActions)["itemPreviewNormal"]->setToggleAction(true);
+	(*scrActions)["itemPreviewFull"]->setToggleAction(true);
 
 	scrActions->insert("itemShapeEdit", new ScrAction(ScApp, "itemShapeEdit"));
 	(*scrActions)["itemShapeEdit"]->setToggleAction(true);
@@ -582,6 +588,9 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLowerToBottom"], 0, 0, 0);
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
+	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)), 0, 0 );
+	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)), 0,0 );
+	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)), 0, 0 );
 	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
 	disconnect( (*scrActions)["itemCombinePolygons"], 0, 0, 0);
@@ -623,11 +632,17 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 void ActionManager::disconnectNewSelectionActions()
 {
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
+	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
+	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
+	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView *currView)
 {
 	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)) , currView, SLOT(TogglePic()) );
+	connect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
+	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
+	connect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , currView, SLOT(changePreview(int)) );
 }
 
 void ActionManager::saveActionShortcutsPreEditMode()
@@ -803,6 +818,9 @@ void ActionManager::languageChange()
 	(*scrActions)["itemSendToScrapbook"]->setTexts(tr("Send to S&crapbook"));
 	(*scrActions)["itemAttributes"]->setTexts(tr("&Attributes..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts(tr("I&mage Visible"));
+	(*scrActions)["itemPreviewLow"]->setTexts(tr("&Low Resolution"));
+	(*scrActions)["itemPreviewNormal"]->setTexts(tr("&Normal Resolution"));
+	(*scrActions)["itemPreviewFull"]->setTexts(tr("&Full Resolution"));
 	(*scrActions)["itemPDFIsBookmark"]->setTexts(tr("Is PDF &Bookmark"));
 	(*scrActions)["itemPDFIsAnnotation"]->setTexts(tr("Is PDF A&nnotation"));
 	(*scrActions)["itemPDFAnnotationProps"]->setTexts(tr("Annotation P&roperties"));
@@ -947,3 +965,4 @@ void ActionManager::languageChange()
 	(*scrActions)["specialToggleAllPalettes"]->setTexts(tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setTexts(tr("Toggle Guides"));
 }
+
