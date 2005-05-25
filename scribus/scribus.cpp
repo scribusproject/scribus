@@ -1058,6 +1058,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSearchReplace"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["toolsEditWithStoryEditor"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
@@ -1119,6 +1120,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item");
 	scrMenuMgr->createMenu("ItemPreviewSettings", "Preview Settings", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewLow"], "ItemPreviewSettings");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewNormal"], "ItemPreviewSettings");
@@ -3610,9 +3612,11 @@ void ScribusApp::HaveNewSel(int Nr)
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["insertGlyph"]->setEnabled(false);
 	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["itemAdjustFrameToImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
 	scrActions["itemPreviewLow"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["editEditWithImageEditor"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
 	if (Nr!=PageItem::ImageFrame)
 	{
 		scrActions["itemImageIsVisible"]->setOn(false);

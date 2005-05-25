@@ -1669,9 +1669,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->PicAvail)
 					pmen->insertItem( tr("&Update Picture"), this, SLOT(UpdatePic()));
 				if (currItem->PicAvail && currItem->isRaster)
-					pmen->insertItem( tr("&Edit Picture"), this, SIGNAL(callGimp()));
+					ScApp->scrActions["editEditWithImageEditor"]->addTo(pmen);
 				if ((currItem->PicAvail) && (!currItem->isTableItem))
-					pmen->insertItem( tr("&Adjust Frame to Picture"), this, SLOT(FrameToPic()));
+					ScApp->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
 			}
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
@@ -10788,22 +10788,34 @@ void ScribusView::UpdatePic()
 
 void ScribusView::FrameToPic()
 {
-	if (SelItem.count() != 0)
+	if (SelItem.count() > 0)
 	{
-		PageItem *currItem = SelItem.at(0);
-		if (currItem->PicAvail)
+		bool toUpdate=false;
+		for (uint i = 0; i < SelItem.count(); ++i)
 		{
-			double w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
-			double h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
-			double x = currItem->LocalX * currItem->LocalScX;
-			double y = currItem->LocalY * currItem->LocalScY;
-			if (!currItem->isTableItem)
-			{
-				SizeItem(w, h, currItem->ItemNr);
-				MoveItem(x, y, currItem);
-				currItem->LocalX = 0;
-				currItem->LocalY = 0;
-			}
+			if (SelItem.at(i)!=NULL)
+				if (SelItem.at(i)->itemType() == PageItem::ImageFrame)
+				{
+					PageItem *currItem = SelItem.at(i);
+					if (currItem->PicAvail)
+					{
+						double w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
+						double h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
+						double x = currItem->LocalX * currItem->LocalScX;
+						double y = currItem->LocalY * currItem->LocalScY;
+						if (!currItem->isTableItem)
+						{
+							SizeItem(w, h, currItem->ItemNr);
+							MoveItem(x, y, currItem);
+							currItem->LocalX = 0;
+							currItem->LocalY = 0;
+						}
+						toUpdate=true;
+					}
+				}
+		}
+		if (toUpdate)
+		{
 			updateContents();
 			emit DocChanged();
 		}

@@ -112,6 +112,8 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert("editSelectAll", new ScrAction("", CTRL+Key_A, ScApp, "editSelectAll"));
 	scrActions->insert("editDeselectAll", new ScrAction("", CTRL+SHIFT+Key_A, ScApp, "editDeselectAll"));
 	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")), "", QKeySequence(CTRL+Key_F), ScApp, "editSearchReplace"));
+	
+	scrActions->insert("editEditWithImageEditor", new ScrAction(ScApp, "editEditWithImageEditor"));
 
 	scrActions->insert("editColors", new ScrAction(ScApp, "editColors"));
 	scrActions->insert("editParaStyles", new ScrAction(ScApp, "editParaStyles"));
@@ -130,6 +132,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editSelectAll"], SIGNAL(activated()), ScApp, SLOT(SelectAll()) );
 	connect( (*scrActions)["editDeselectAll"], SIGNAL(activated()), ScApp, SLOT(deselectAll()) );
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(activated()), ScApp, SLOT(SearchText()) );
+	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(activated()), ScApp, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editColors"], SIGNAL(activated()), ScApp, SLOT(slotEditColors()) );
 	connect( (*scrActions)["editParaStyles"], SIGNAL(activated()), ScApp, SLOT(slotEditStyles()) );
 	connect( (*scrActions)["editLineStyles"], SIGNAL(activated()), ScApp, SLOT(slotEditLineStyles()) );
@@ -248,6 +251,7 @@ void ActionManager::initItemMenuActions()
 
 	scrActions->insert("itemAttributes", new ScrAction(ScApp, "itemAttributes"));
 	scrActions->insert("itemImageIsVisible", new ScrAction(ScApp, "itemImageIsVisible"));
+	scrActions->insert("itemAdjustFrameToImage", new ScrAction(ScApp, "itemAdjustFrameToImage"));
 	scrActions->insert("itemPreviewLow", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewLow", 2));
 	scrActions->insert("itemPreviewNormal", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewNormal", 1));
 	scrActions->insert("itemPreviewFull", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewFull", 0));
@@ -604,6 +608,7 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
+	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
 }
 
 void ActionManager::connectNewViewActions(ScribusView *currView)
@@ -627,6 +632,7 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), currView, SLOT(FromPathText()) );
 	connect( (*scrActions)["itemLock"], SIGNAL(activated()), currView, SLOT(ToggleLock()) );
 	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currView, SLOT(ToggleSizeLock()) );
+	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(activated()), currView, SLOT(FrameToPic()) );
 }
 
 void ActionManager::disconnectNewSelectionActions()
@@ -760,6 +766,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editSelectAll"]->setTexts(tr("Select &All"));
 	(*scrActions)["editDeselectAll"]->setTexts(tr("&Deselect All"));
 	(*scrActions)["editSearchReplace"]->setTexts(tr("&Search/Replace..."));
+	(*scrActions)["editEditWithImageEditor"]->setTexts(tr("Edit Image..."));
 	(*scrActions)["editColors"]->setTexts(tr("C&olors..."));
 	(*scrActions)["editParaStyles"]->setTexts(tr("&Paragraph Styles..."));
 	(*scrActions)["editLineStyles"]->setTexts(tr("&Line Styles..."));
@@ -818,6 +825,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemSendToScrapbook"]->setTexts(tr("Send to S&crapbook"));
 	(*scrActions)["itemAttributes"]->setTexts(tr("&Attributes..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts(tr("I&mage Visible"));
+	(*scrActions)["itemAdjustFrameToImage"]->setTexts(tr("Adjust Frame to Image"));
 	(*scrActions)["itemPreviewLow"]->setTexts(tr("&Low Resolution"));
 	(*scrActions)["itemPreviewNormal"]->setTexts(tr("&Normal Resolution"));
 	(*scrActions)["itemPreviewFull"]->setTexts(tr("&Full Resolution"));
@@ -895,7 +903,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsZoomIn"]->setTexts(tr("Zoom in"));
 	(*scrActions)["toolsZoomOut"]->setTexts(tr("Zoom out"));
 	(*scrActions)["toolsEditContents"]->setTexts(tr("Edit Contents of Frame"));
-	(*scrActions)["toolsEditWithStoryEditor"]->setMenuText(tr("Text..."));
+	(*scrActions)["toolsEditWithStoryEditor"]->setMenuText(tr("Edit Text..."));
 	(*scrActions)["toolsLinkTextFrame"]->setTexts(tr("Link Text Frames"));
 	(*scrActions)["toolsUnlinkTextFrame"]->setTexts(tr("Unlink Text Frames"));
 	(*scrActions)["toolsEyeDropper"]->setTexts(tr("&Eye Dropper"));
