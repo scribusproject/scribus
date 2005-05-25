@@ -290,7 +290,7 @@ public slots: // Public slots
 	void ChgUnit(int art);
 	void SetCPo(int x, int y);
 	void SetCCPo(int x, int y);
-	void useEmbeddedPath();
+	void editExtendedImageProperties();
 	void TogglePic();
 	void UpdatePic();
 	void FrameToPic();

@@ -1665,9 +1665,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScApp->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
 				ScApp->scrActions["itemPreviewFull"]->addTo(pmenResolution);
 				if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
-					pmen->insertItem( tr("Extended Image Properties"), this, SLOT(useEmbeddedPath()));
+					ScApp->scrActions["itemExtendedImageProperties"]->addTo(pmen);
 				if (currItem->PicAvail)
-					pmen->insertItem( tr("&Update Picture"), this, SLOT(UpdatePic()));
+					ScApp->scrActions["itemUpdateImage"]->addTo(pmen);
 				if (currItem->PicAvail && currItem->isRaster)
 					ScApp->scrActions["editEditWithImageEditor"]->addTo(pmen);
 				if ((currItem->PicAvail) && (!currItem->isTableItem))
@@ -10486,7 +10486,7 @@ void ScribusView::FlipImageV()
 	}
 }
 
-void ScribusView::useEmbeddedPath()
+void ScribusView::editExtendedImageProperties()
 {
 	if (SelItem.count() != 0)
 	{
@@ -10770,19 +10770,29 @@ void ScribusView::removePict(QString name)
 
 void ScribusView::UpdatePic()
 {
-	if (SelItem.count() != 0)
+	if (SelItem.count() > 0)
 	{
-		PageItem *currItem = SelItem.at(0);
-		if (currItem->PicAvail)
+		bool toUpdate=false;
+		for (uint i = 0; i < SelItem.count(); ++i)
 		{
-			int fho = currItem->imageFlippedH();
-			int fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
-			currItem->setImageFlippedH(fho);
-			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
-			updateContents();
+			if (SelItem.at(i)!=NULL)
+				if (SelItem.at(i)->itemType() == PageItem::ImageFrame)
+				{
+					PageItem *currItem = SelItem.at(0);
+					if (currItem->PicAvail)
+					{
+						int fho = currItem->imageFlippedH();
+						int fvo = currItem->imageFlippedV();
+						LoadPict(currItem->Pfile, currItem->ItemNr, true);
+						currItem->setImageFlippedH(fho);
+						currItem->setImageFlippedV(fvo);
+						AdjustPictScale(currItem);
+						toUpdate=true;
+					}
+				}
 		}
+		if (toUpdate)
+			updateContents();
 	}
 }
 

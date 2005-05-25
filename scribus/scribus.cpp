@@ -1120,7 +1120,9 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item");
 	scrMenuMgr->createMenu("ItemPreviewSettings", "Preview Settings", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewLow"], "ItemPreviewSettings");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewNormal"], "ItemPreviewSettings");
@@ -3612,7 +3614,9 @@ void ScribusApp::HaveNewSel(int Nr)
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["insertGlyph"]->setEnabled(false);
 	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["itemUpdateImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
 	scrActions["itemAdjustFrameToImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
+	scrActions["itemExtendedImageProperties"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->pixm.imgInfo.valid);
 	scrActions["itemPreviewLow"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);

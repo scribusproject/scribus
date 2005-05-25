@@ -251,7 +251,9 @@ void ActionManager::initItemMenuActions()
 
 	scrActions->insert("itemAttributes", new ScrAction(ScApp, "itemAttributes"));
 	scrActions->insert("itemImageIsVisible", new ScrAction(ScApp, "itemImageIsVisible"));
+	scrActions->insert("itemUpdateImage", new ScrAction(ScApp, "itemUpdateImage"));
 	scrActions->insert("itemAdjustFrameToImage", new ScrAction(ScApp, "itemAdjustFrameToImage"));
+	scrActions->insert("itemExtendedImageProperties", new ScrAction(ScApp, "itemExtendedImageProperties"));
 	scrActions->insert("itemPreviewLow", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewLow", 2));
 	scrActions->insert("itemPreviewNormal", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewNormal", 1));
 	scrActions->insert("itemPreviewFull", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewFull", 0));
@@ -609,6 +611,8 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
+	disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
+	disconnect( (*scrActions)["itemExtendedImageProperties"], 0, 0, 0 );
 }
 
 void ActionManager::connectNewViewActions(ScribusView *currView)
@@ -633,6 +637,8 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["itemLock"], SIGNAL(activated()), currView, SLOT(ToggleLock()) );
 	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currView, SLOT(ToggleSizeLock()) );
 	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(activated()), currView, SLOT(FrameToPic()) );
+	connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currView, SLOT(UpdatePic()) );
+	connect( (*scrActions)["itemExtendedImageProperties"], SIGNAL(activated()), currView, SLOT(editExtendedImageProperties()) );
 }
 
 void ActionManager::disconnectNewSelectionActions()
@@ -825,7 +831,9 @@ void ActionManager::languageChange()
 	(*scrActions)["itemSendToScrapbook"]->setTexts(tr("Send to S&crapbook"));
 	(*scrActions)["itemAttributes"]->setTexts(tr("&Attributes..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts(tr("I&mage Visible"));
+	(*scrActions)["itemUpdateImage"]->setTexts(tr("&Update Image"));
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts(tr("Adjust Frame to Image"));
+	(*scrActions)["itemExtendedImageProperties"]->setTexts(tr("Extended Image Properties"));
 	(*scrActions)["itemPreviewLow"]->setTexts(tr("&Low Resolution"));
 	(*scrActions)["itemPreviewNormal"]->setTexts(tr("&Normal Resolution"));
 	(*scrActions)["itemPreviewFull"]->setTexts(tr("&Full Resolution"));
