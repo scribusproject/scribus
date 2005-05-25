@@ -98,6 +98,7 @@ void TextFilter::write()
 				replace(&replaceWith);
 			QString pstyle = (*filters)[i]->getPStyleName();
 			QRegExp rx = QRegExp(regExp);
+			rx.setMinimal(true);
 			switch (action)
 			{
 				case REMOVE: 
