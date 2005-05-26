@@ -715,6 +715,8 @@ void CharSelect::insChar()
 		hg->cshadowx = ap->doc->CurrTextShadowX;
 		hg->cshadowy = ap->doc->CurrTextShadowY;
 		hg->coutline = ap->doc->CurrTextOutline;
+		hg->cunderpos = ap->doc->CurrTextUnderPos;
+		hg->cunderwidth = ap->doc->CurrTextUnderWidth;
 		hg->cselect = false;
 		hg->cstyle = ap->doc->CurrentStyle;
 		hg->cab = ap->doc->currentParaStyle;

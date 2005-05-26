@@ -11,6 +11,44 @@
 
 extern QPixmap loadIcon(QString nam);
 
+UnderlineValues::UnderlineValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
+{
+	this->setFrameShape( QGroupBox::NoFrame );
+	this->setTitle("");
+	this->setColumnLayout(0, Qt::Vertical );
+	this->layout()->setSpacing( 0 );
+	this->layout()->setMargin( 0 );
+	group1Layout = new QGridLayout( this->layout() );
+	group1Layout->setAlignment( Qt::AlignTop );
+	group1Layout->setSpacing( 3 );
+	group1Layout->setMargin( 0 );
+	LPos = new MSpinBox( -0.1, 100, this, 1 );
+	LPos->setValue( -0.1 );
+	LPos->setWrapping(true);
+	LPos->setSpecialValueText( tr( "Auto" ) );
+	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
+	group1Layout->addWidget( LPos, 0, 1 );
+	group1Layout->addWidget( LPosTxt, 0 , 0 );
+	LWidth = new MSpinBox( -0.1, 100, this, 1 );
+	LWidth->setValue( -0.1 );
+	LWidth->setWrapping(true);
+	LWidth->setSpecialValueText( tr( "Auto" ) );
+	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
+	group1Layout->addWidget( LWidth, 1, 1 );
+	group1Layout->addWidget( LWidthTxt, 1 , 0 );
+	languageChange();
+}
+
+void UnderlineValues::languageChange()
+{
+	LPos->setSuffix(tr(" %"));
+	LPosTxt->setText(tr("Displacement"));
+	LWidth->setSuffix(tr(" %"));
+	LWidthTxt->setText(tr("Linewidth"));
+	LPosTxt->adjustSize();
+	LWidthTxt->adjustSize();
+}
+
 OutlineValues::OutlineValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
 {
 	this->setFrameShape( QGroupBox::NoFrame );
@@ -58,7 +96,6 @@ ShadowValues::ShadowValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues
 	YoffsetTxt = new QLabel( "Y-Offset", this, "YoffsetTxt" );
 	group1Layout->addWidget( Yoffset, 1, 1 );
 	group1Layout->addWidget( YoffsetTxt, 1 , 0 );
-	
 	languageChange();
 }
 
@@ -84,17 +121,24 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup3->layout()->setMargin( 0 );
 	buttonGroup3Layout = new QHBoxLayout( buttonGroup3->layout() );
 	buttonGroup3Layout->setAlignment( Qt::AlignTop );
+	UnderlineVal = new UnderlineValues( NULL );
+	UnderlinePop = new QPopupMenu();
+	UnderlinePop->insertItem(UnderlineVal);
 	underlineButton = new QToolButton( buttonGroup3, "underlineButton" );
 	underlineButton->setText( "" );
 	underlineButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineButton->setPixmap(loadIcon("Unter.xpm"));
 	underlineButton->setToggleButton( true );
+	underlineButton->setPopup(UnderlinePop);
+	underlineButton->setPopupDelay(400);
 	buttonGroup3Layout->addWidget( underlineButton );
 	underlineWordButton = new QToolButton( buttonGroup3, "underlineButton" );
 	underlineWordButton->setText( "" );
 	underlineWordButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineWordButton->setPixmap(loadIcon("wordsOnly.png"));
 	underlineWordButton->setToggleButton( true );
+	underlineWordButton->setPopup(UnderlinePop);
+	underlineWordButton->setPopupDelay(400);
 	buttonGroup3Layout->addWidget( underlineWordButton );
 	ssLayout->addWidget( buttonGroup3 );
 

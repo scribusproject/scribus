@@ -167,6 +167,8 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 		int shX = qRound(QStodouble(it->attribute("CSHX","5")) * 10);
 		int shY = qRound(QStodouble(it->attribute("CSHY","-5")) * 10);
 		int outL = qRound(QStodouble(it->attribute("COUT","1")) * 10);
+		int ulp = qRound(QStodouble(it->attribute("CULP","-0.1")) * 10);
+		int ulw = qRound(QStodouble(it->attribute("CULW","-0.1")) * 10);
 		for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 		{
 			hg = new ScText;
@@ -194,6 +196,8 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 			hg->cshadowx = shX;
 			hg->cshadowy = shY;
 			hg->coutline = outL;
+			hg->cunderpos = ulp;
+			hg->cunderwidth = ulw;
 			hg->xp = 0;
 			hg->yp = 0;
 			hg->PRot = 0;
@@ -242,12 +246,16 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	int shX = qRound(QStodouble(it->attribute("CSHX","5")) * 10);
 	int shY = qRound(QStodouble(it->attribute("CSHY","-5")) * 10);
 	int outL = qRound(QStodouble(it->attribute("COUT","1")) * 10);
+	int ulp = qRound(QStodouble(it->attribute("CULP","-0.1")) * 10);
+	int ulw = qRound(QStodouble(it->attribute("CULW","-0.1")) * 10);
 	tmp3 += tmp4.setNum(scale) + "\t";
 	tmp3 += tmp4.setNum(scalev) + "\t";
 	tmp3 += tmp4.setNum(base) + "\t";
 	tmp3 += tmp4.setNum(shX) + "\t";
 	tmp3 += tmp4.setNum(shY) + "\t";
-	tmp3 += tmp4.setNum(outL) + "\n";
+	tmp3 += tmp4.setNum(outL) + "\t";
+	tmp3 += tmp4.setNum(ulp) + "\t";
+	tmp3 += tmp4.setNum(ulw) + "\n";
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 		tmp += tmp2.at(cxx)+tmp3;
 	return tmp;
@@ -320,6 +328,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("TXTSHX",item->TxtShadowX / 10.0);
 	ob->setAttribute("TXTSHY",item->TxtShadowY / 10.0);
 	ob->setAttribute("TXTOUT",item->TxtOutline / 10.0);
+	ob->setAttribute("TXTULP",item->TxtUnderPos / 10.0);
+	ob->setAttribute("TXTULW",item->TxtUnderWidth / 10.0);
 	ob->setAttribute("TXTSTYLE",item->TxTStyle);
 	ob->setAttribute("COLUMNS", item->Cols);
 	ob->setAttribute("COLGAP", item->ColGap);
@@ -2055,7 +2065,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 {
 	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double te, te2, ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2;
+	double te, te2, ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -2319,6 +2329,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			tsx = item->itemText.at(k)->cshadowx / 10.0;
 			tsy = item->itemText.at(k)->cshadowy / 10.0;
 			tout = item->itemText.at(k)->coutline / 10.0;
+			tulp = item->itemText.at(k)->cunderpos / 10.0;
+			tulw = item->itemText.at(k)->cunderwidth / 10.0;
 			if (item->itemText.at(k)->ch == QChar(13))
 				text = QChar(5);
 			else if (item->itemText.at(k)->ch == QChar(9))
@@ -2344,6 +2356,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				it.setAttribute("CSHX",tsx);
 				it.setAttribute("CSHY",tsy);
 				it.setAttribute("COUT",tout);
+				it.setAttribute("CULP",tulp);
+				it.setAttribute("CULW",tulw);
 				ob.appendChild(it);
 				break;
 			}
@@ -2365,6 +2379,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			tsx2 = item->itemText.at(k)->cshadowx / 10.0;
 			tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 			tout2 = item->itemText.at(k)->coutline / 10.0;
+			tulp2 = item->itemText.at(k)->cunderpos / 10.0;
+			tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
 			while ((ts2 == ts)
 							&& (tsb2 == tsb)
 							&& (tf2 == tf)
@@ -2379,6 +2395,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 							&& (tsx2 == tsx)
 							&& (tsy2 == tsy)
 							&& (tout2 == tout)
+							&& (tulp2 == tulp)
+							&& (tulw2 == tulw)
 							&& (tst2 == tst))
 			{
 				if (item->itemText.at(k)->ch == QChar(13))
@@ -2408,6 +2426,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				tsx2 = item->itemText.at(k)->cshadowx / 10.0;
 				tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 				tout2 = item->itemText.at(k)->coutline / 10.0;
+				tulp2 = item->itemText.at(k)->cunderpos / 10.0;
+				tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2425,6 +2445,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			it.setAttribute("CSHX",tsx);
 			it.setAttribute("CSHY",tsy);
 			it.setAttribute("COUT",tout);
+			it.setAttribute("CULP",tulp);
+			it.setAttribute("CULW",tulw);
 			k--;
 			ob.appendChild(it);
 		}
@@ -2498,7 +2520,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 {
 	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
-	double ts, ts2, te, te2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2;
+	double ts, ts2, te, te2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2;
 	uint ObCount = maxC;
 	PageItem *item;
 	QDomElement ob;
@@ -2574,6 +2596,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tsx = item->itemText.at(k)->cshadowx / 10.0;
 			tsy = item->itemText.at(k)->cshadowy / 10.0;
 			tout = item->itemText.at(k)->coutline / 10.0;
+			tulp = item->itemText.at(k)->cunderpos / 10.0;
+			tulw = item->itemText.at(k)->cunderwidth / 10.0;
 			if (item->itemText.at(k)->ch == QChar(13))
 				text = QChar(5);
 			else if (item->itemText.at(k)->ch == QChar(9))
@@ -2599,6 +2623,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				it.setAttribute("CSHX",tsx);
 				it.setAttribute("CSHY",tsy);
 				it.setAttribute("COUT",tout);
+				it.setAttribute("CULP",tulp);
+				it.setAttribute("CULW",tulw);
 				ob.appendChild(it);
 				break;
 			}
@@ -2617,6 +2643,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tsx2 = item->itemText.at(k)->cshadowx / 10.0;
 			tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 			tout2 = item->itemText.at(k)->coutline / 10.0;
+			tulp2 = item->itemText.at(k)->cunderpos / 10.0;
+			tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
 			while ((ts2 == ts)
 						&& (tsb2 == tsb)
 						&& (tf2 == tf)
@@ -2631,6 +2659,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 						&& (tsx2 == tsx)
 						&& (tsy2 == tsy)
 						&& (tout2 == tout)
+						&& (tulp2 == tulp)
+						&& (tulw2 == tulw)
 						&& (tst2 == tst))
 			{
 				if (item->itemText.at(k)->ch == QChar(13))
@@ -2657,6 +2687,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				tsx2 = item->itemText.at(k)->cshadowx / 10.0;
 				tsy2 = item->itemText.at(k)->cshadowy / 10.0;
 				tout2 = item->itemText.at(k)->coutline / 10.0;
+				tulp2 = item->itemText.at(k)->cunderpos / 10.0;
+				tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2674,6 +2706,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			it.setAttribute("CSHX",tsx);
 			it.setAttribute("CSHY",tsy);
 			it.setAttribute("COUT",tout);
+			it.setAttribute("CULP",tulp);
+			it.setAttribute("CULW",tulw);
 			k--;
 			ob.appendChild(it);
 		}
@@ -3185,8 +3219,14 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc3.setAttribute("AUTOL", Vor->typographicSetttings.autoLineSpacing);
 	dc3.setAttribute("BASE", Vor->typographicSetttings.valueBaseGrid);
 	dc3.setAttribute("BASEO", Vor->typographicSetttings.offsetBaseGrid);
-	dc3.setAttribute("UnderlinePos", Vor->typographicSetttings.valueUnderlinePos);
-	dc3.setAttribute("UnderlineWidth", Vor->typographicSetttings.valueUnderlineWidth);
+	if (Vor->typographicSetttings.valueUnderlinePos == -1)
+		dc3.setAttribute("UnderlinePos", Vor->typographicSetttings.valueUnderlinePos);
+	else
+		dc3.setAttribute("UnderlinePos", Vor->typographicSetttings.valueUnderlinePos / 10.0);
+	if (Vor->typographicSetttings.valueUnderlineWidth == -1)
+		dc3.setAttribute("UnderlineWidth", Vor->typographicSetttings.valueUnderlineWidth);
+	else
+		dc3.setAttribute("UnderlineWidth", Vor->typographicSetttings.valueUnderlineWidth / 10.0);
 	dc3.setAttribute("StrikeThruPos", Vor->typographicSetttings.valueStrikeThruPos);
 	dc3.setAttribute("StrikeThruWidth", Vor->typographicSetttings.valueStrikeThruWidth);
 	elem.appendChild(dc3);
@@ -3534,8 +3574,16 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->typographicSetttings.valueBaseGrid = QStodouble(dc.attribute("BASE", "12"));
 			Vorein->typographicSetttings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
 			Vorein->typographicSetttings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
-			Vorein->typographicSetttings.valueUnderlinePos = QStoInt(dc.attribute("UnderlinePos","-1"));
-			Vorein->typographicSetttings.valueUnderlineWidth = QStoInt(dc.attribute("UnderlineWidth","-1"));
+			double ulp = QStodouble(dc.attribute("UnderlinePos","-1"));
+			if (ulp != -1)
+				Vorein->typographicSetttings.valueUnderlinePos = qRound(ulp * 10);
+			else
+				Vorein->typographicSetttings.valueUnderlinePos = -1;
+			double ulw = QStodouble(dc.attribute("UnderlineWidth","-1"));
+			if (ulw != -1)
+				Vorein->typographicSetttings.valueUnderlineWidth = qRound(ulw * 10);
+			else
+				Vorein->typographicSetttings.valueUnderlineWidth = -1;
 			Vorein->typographicSetttings.valueStrikeThruPos = QStoInt(dc.attribute("StrikeThruPos","-1"));
 			Vorein->typographicSetttings.valueStrikeThruWidth = QStoInt(dc.attribute("StrikeThruWidth","-1"));
 		}

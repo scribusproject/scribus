@@ -131,6 +131,8 @@ public:
 				int shadowY;
 				int outline;
 				int base;
+				int underpos;
+				int underwidth;
 				bool Sele;
 				QString Zeich;
 				QString Farb;
@@ -203,6 +205,8 @@ public:
 	int TxtShadowX;
 	int TxtShadowY;
 	int TxtOutline;
+	int TxtUnderPos;
+	int TxtUnderWidth;
 	int Cols;
 	double ColGap;
   /** Strichstaerke */

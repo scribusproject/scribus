@@ -488,6 +488,8 @@ void EditStyle::updatePreview()
 		hg->cshadowx = 50;
 		hg->cshadowy = -50;
 		hg->coutline = 10;
+		hg->cunderpos = -1;
+		hg->cunderwidth = -1;
 		hg->cselect = false;
 		hg->cstyle = tmpStyle.FontEffect;
 		hg->cab = tmpIndex;

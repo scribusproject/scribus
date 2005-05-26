@@ -2007,6 +2007,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.cshadowx = hl->cshadowx;
 				hl2.cshadowy = hl->cshadowy;
 				hl2.coutline = hl->coutline;
+				hl2.cunderpos = hl->cunderpos;
+				hl2.cunderwidth = hl->cunderwidth;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2028,6 +2030,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 						hl3.cextra = hl2.cextra;
 						hl3.cbase = hl2.cbase;
 						hl3.coutline = hl2.coutline;
+						hl3.cunderpos = hl2.cunderpos;
+						hl3.cunderwidth = hl2.cunderwidth;
 						setTextCh(Doc, ite, gcr, a, d, &hl3);
 					}
 					setTextCh(Doc, ite, gcr, a, d, &hl2);
@@ -2057,6 +2061,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.cshadowx = hl->cshadowx;
 			hl2.cshadowy = hl->cshadowy;
 			hl2.coutline = hl->coutline;
+			hl2.cunderpos = hl->cunderpos;
+			hl2.cunderwidth = hl->cunderwidth;
 			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl);
@@ -2292,14 +2298,14 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			kern = 0;
 		else
 			kern = hl->cextra;
-		if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
+		if ((hl->cunderpos != -1) || (hl->cunderwidth != -1))
 		{
-			if (Doc->typographicSetttings.valueUnderlinePos != -1)
-				Upos = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
+			if (hl->cunderpos != -1)
+				Upos = (hl->cunderpos / 1000.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
 			else
 				Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-			if (Doc->typographicSetttings.valueUnderlineWidth != -1)
-				lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
+			if (hl->cunderwidth != -1)
+				lw = (hl->cunderwidth / 1000.0) * (hl->csize / 10.0);
 			else
 				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}

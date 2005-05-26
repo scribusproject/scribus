@@ -110,6 +110,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	TxtOutline = 10;
 	TxTStyle = 0;
 	TxtBase = 0;
+	TxtUnderWidth = Doc->typographicSetttings.valueUnderlineWidth;
+	TxtUnderPos = Doc->typographicSetttings.valueUnderlinePos;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
@@ -704,6 +706,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						Zli3.shadowY = hl->cshadowy;
 						Zli3.outline = hl->coutline;
 						Zli3.base = hl->cbase;
+						Zli3.underpos = hl->cunderpos;
+						Zli3.underwidth = hl->cunderwidth;
 						for (int cx = 0; cx < coun; ++cx)
 						{
 							Zli3.xco =  sPos + wt * cx;
@@ -734,6 +738,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.shadowX = hl->cshadowx;
 					Zli3.shadowY = hl->cshadowy;
 					Zli3.outline = hl->coutline;
+					Zli3.underpos = hl->cunderpos;
+					Zli3.underwidth = hl->cunderwidth;
 					if (!Doc->RePos)
 					{
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
@@ -1317,6 +1323,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli->shadowX = hl->cshadowx;
 					Zli->shadowY = hl->cshadowy;
 					Zli->outline = hl->coutline;
+					Zli->underpos = hl->cunderpos;
+					Zli->underwidth = hl->cunderwidth;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 					{
 						if (a > 0)
@@ -1430,6 +1438,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->shadowX = itemText.at(a)->cshadowx;
 									Zli->shadowY = itemText.at(a)->cshadowy;
 									Zli->outline = itemText.at(a)->coutline;
+									Zli->underpos = itemText.at(a)->cunderpos;
+									Zli->underwidth = itemText.at(a)->cunderwidth;
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 								}
@@ -1700,6 +1710,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->shadowX = Zli2->shadowX;
 									Zli->shadowY = Zli2->shadowY;
 									Zli->outline = Zli2->outline;
+									Zli->underpos = Zli2->underpos;
+									Zli->underwidth = Zli2->underwidth;
 									for (int cx = 0; cx < coun; ++cx)
 									{
 										Zli->xco = sPos + wt * cx;
@@ -1835,6 +1847,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							Zli->shadowX = Zli2->shadowX;
 							Zli->shadowY = Zli2->shadowY;
 							Zli->outline = Zli2->outline;
+							Zli->underpos = Zli2->underpos;
+							Zli->underwidth = Zli2->underwidth;
 							for (int cx = 0; cx < coun; ++cx)
 							{
 								Zli->xco =  sPos + wt * cx;
@@ -2282,6 +2296,8 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				Zli->shadowX = hl->cshadowx;
 				Zli->shadowY = hl->cshadowx;
 				Zli->outline = hl->coutline;
+				Zli->underpos = hl->cunderpos;
+				Zli->underwidth = hl->cunderwidth;
 				if (!Doc->RePos)
 					DrawZeichenS(p, Zli);
 				delete Zli;
@@ -2590,14 +2606,14 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		if ((hl->Style & 8) || ((hl->Style & 512) && (!ccx[0].isSpace())))
 		{
 			double st, lw;
-			if ((Doc->typographicSetttings.valueUnderlinePos != -1) || (Doc->typographicSetttings.valueUnderlineWidth != -1))
+			if ((hl->underpos != -1) || (hl->underwidth != -1))
 			{
-				if (Doc->typographicSetttings.valueUnderlinePos != -1)
-					st = (Doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->ZFo->numDescender * (hl->realSiz / 10.0));
+				if (hl->underpos != -1)
+					st = (hl->underpos / 1000.0) * (hl->ZFo->numDescender * (hl->realSiz / 10.0));
 				else
 					st = hl->ZFo->underline_pos * (hl->realSiz / 10.0);
-				if (Doc->typographicSetttings.valueUnderlineWidth != -1)
-					lw = (Doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->realSiz / 10.0);
+				if (hl->underwidth != -1)
+					lw = (hl->underwidth / 1000.0) * (hl->realSiz / 10.0);
 				else
 					lw = QMAX(hl->ZFo->strokeWidth * (hl->realSiz / 10.0), 1);
 			}

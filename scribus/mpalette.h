@@ -292,6 +292,8 @@ public slots:
 	void setStil(int s);
 	void setAli(int e);
 	void setShadowOffs(int x, int y);
+	void setUnderline(int p, int w);
+	void newUnderline();
 	void setOutlineW(int x);
 	void newOutlineW();
 	void setTScale(int e);

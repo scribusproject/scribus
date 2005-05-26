@@ -79,9 +79,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel1 = new QLabel( underlineGroup, "textLabel1" );
 	textLabel1->setText( tr( "Displacement:" ) );
 	underlineGroupLayout->addWidget( textLabel1, 0, 0 );
-	underlinePos = new QSpinBox( underlineGroup, "underlinePos" );
-	underlinePos->setMaxValue( 100 );
-	underlinePos->setMinValue( -1 );
+	underlinePos = new MSpinBox( -0.1, 100, underlineGroup, 1 );
 	underlinePos->setWrapping(true);
 	underlinePos->setSuffix( tr( " %" ) );
 	underlinePos->setSpecialValueText( tr( "Auto" ) );
@@ -89,9 +87,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel2 = new QLabel( underlineGroup, "textLabel2" );
 	textLabel2->setText( tr( "Line Width:" ) );
 	underlineGroupLayout->addWidget( textLabel2, 0, 2 );
-	underlineWidth = new QSpinBox( underlineGroup, "underlineWidth" );
-	underlineWidth->setMaxValue( 100 );
-	underlineWidth->setMinValue( -1 );
+	underlineWidth = new MSpinBox( -0.1, 100, underlineGroup, 1 );
 	underlineWidth->setSuffix( tr( " %" ) );
 	underlineWidth->setWrapping(true);
 	underlineWidth->setSpecialValueText( tr( "Auto" ) );

@@ -2588,6 +2588,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				hl2.cshadowx = hl->cshadowx;
 				hl2.cshadowy = hl->cshadowy;
 				hl2.coutline = hl->coutline;
+				hl2.cunderpos = hl->cunderpos;
+				hl2.cunderwidth = hl->cunderwidth;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2609,6 +2611,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 						hl3.cextra = hl2.cextra;
 						hl3.cbase = hl2.cbase;
 						hl3.coutline = hl2.coutline;
+						hl3.cunderpos = hl2.cunderpos;
+						hl3.cunderwidth = hl2.cunderwidth;
 						setTextCh(ite, PNr, d, tmp, tmp2, &hl3);
 					}
 					setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
@@ -2638,6 +2642,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			hl2.cshadowx = hl->cshadowx;
 			hl2.cshadowy = hl->cshadowy;
 			hl2.coutline = hl->coutline;
+			hl2.cunderpos = hl->cunderpos;
+			hl2.cunderwidth = hl->cunderwidth;
 			setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl);
@@ -2923,14 +2929,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			kern = 0;
 		else
 			kern = hl->cextra;
-		if ((doc->typographicSetttings.valueUnderlinePos != -1) || (doc->typographicSetttings.valueUnderlineWidth != -1))
+		if ((hl->cunderpos != -1) || (hl->cunderwidth != -1))
 		{
-			if (doc->typographicSetttings.valueUnderlinePos != -1)
-				Upos = (doc->typographicSetttings.valueUnderlinePos / 100.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
+			if (hl->cunderpos != -1)
+				Upos = (hl->cunderpos / 1000.0) * (hl->cfont->numDescender * (hl->csize / 10.0));
 			else
 				Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-			if (doc->typographicSetttings.valueUnderlineWidth != -1)
-				Uwid = (doc->typographicSetttings.valueUnderlineWidth / 100.0) * (hl->csize / 10.0);
+			if (hl->cunderwidth != -1)
+				Uwid = (hl->cunderwidth / 1000.0) * (hl->csize / 10.0);
 			else
 				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}

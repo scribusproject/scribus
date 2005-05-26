@@ -52,6 +52,8 @@ struct ScText
 	short cshadowx;
 	short cshadowy;
 	short coutline;
+	short cunderpos;
+	short cunderwidth;
 	float cextra;
 	float xp;
 	float yp;
@@ -100,6 +102,8 @@ struct CopyPasteBuffer
 	int TxtShadowX;
 	int TxtShadowY;
 	int TxtOutline;
+	int TxtUnderPos;
+	int TxtUnderWidth;
 	double Rot;
 	int PLineArt;
 	int PLineJoin;

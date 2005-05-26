@@ -294,6 +294,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
 		connect(this, SIGNAL(TextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
 		connect(this, SIGNAL(TextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
+		connect(this, SIGNAL(TextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 
 		initCrashHandler();
@@ -1448,6 +1449,9 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		doc->CurrTextShadowX = currItem->itemText.at(ChPos)->cshadowx;
 		doc->CurrTextShadowY = currItem->itemText.at(ChPos)->cshadowy;
 		doc->CurrTextOutline = currItem->itemText.at(ChPos)->coutline;
+		doc->CurrTextUnderPos = currItem->itemText.at(ChPos)->cunderpos;
+		doc->CurrTextUnderWidth = currItem->itemText.at(ChPos)->cunderwidth;
+		emit TextUnderline(doc->CurrTextUnderPos, doc->CurrTextUnderWidth);
 		emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 		emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 		emit TextIFont(doc->CurrFont);
@@ -1510,6 +1514,8 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->cshadowx = doc->CurrTextShadowX;
 					hg->cshadowy = doc->CurrTextShadowY;
 					hg->coutline = doc->CurrTextOutline;
+					hg->cunderpos = doc->CurrTextUnderPos;
+					hg->cunderwidth = doc->CurrTextUnderWidth;
 					hg->cselect = false;
 					hg->cstyle = doc->CurrentStyle;
 					hg->cab = doc->currentParaStyle;
@@ -1953,6 +1959,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->cshadowx = doc->CurrTextShadowX;
 								hg->cshadowy = doc->CurrTextShadowY;
 								hg->coutline = doc->CurrTextOutline;
+								hg->cunderpos = doc->CurrTextUnderPos;
+								hg->cunderwidth = doc->CurrTextUnderWidth;
 								hg->cselect = false;
 								hg->cstyle = doc->CurrentStyle;
 								hg->cab = doc->currentParaStyle;
@@ -2393,6 +2401,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cshadowx = doc->CurrTextShadowX;
 							hg->cshadowy = doc->CurrTextShadowY;
 							hg->coutline = doc->CurrTextOutline;
+							hg->cunderpos = doc->CurrTextUnderPos;
+							hg->cunderwidth = doc->CurrTextUnderWidth;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
 							hg->cab = doc->currentParaStyle;
@@ -2429,6 +2439,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cshadowx = doc->CurrTextShadowX;
 							hg->cshadowy = doc->CurrTextShadowY;
 							hg->coutline = doc->CurrTextOutline;
+							hg->cunderpos = doc->CurrTextUnderPos;
+							hg->cunderwidth = doc->CurrTextUnderWidth;
 							hg->cextra = 0;
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
@@ -3017,8 +3029,8 @@ bool ScribusApp::SetupDoc()
 		doc->typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
 		doc->typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / doc->unitRatio;
 		doc->typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / doc->unitRatio;
-		doc->typographicSetttings.valueUnderlinePos = dia->tabTypo->underlinePos->value();
-		doc->typographicSetttings.valueUnderlineWidth = dia->tabTypo->underlineWidth->value();
+		doc->typographicSetttings.valueUnderlinePos = qRound(dia->tabTypo->underlinePos->value() * 10);
+		doc->typographicSetttings.valueUnderlineWidth = qRound(dia->tabTypo->underlineWidth->value() * 10);
 		doc->typographicSetttings.valueStrikeThruPos = dia->tabTypo->strikethruPos->value();
 		doc->typographicSetttings.valueStrikeThruWidth = dia->tabTypo->strikethruWidth->value();
 		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
@@ -3558,6 +3570,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(ItemTextScaV(int)), propertiesPalette, SLOT(setTScaleV(int)));
 	connect(view, SIGNAL(ItemTextBase(int)), propertiesPalette, SLOT(setTBase(int)));
 	connect(view, SIGNAL(ItemTextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
+	connect(view, SIGNAL(ItemTextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
 	connect(view, SIGNAL(ItemTextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
 	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
@@ -3795,6 +3808,9 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextShadowX = currItem->TxtShadowX;
 			doc->CurrTextShadowY = currItem->TxtShadowY;
 			doc->CurrTextOutline = currItem->TxtOutline;
+			doc->CurrTextUnderPos = currItem->TxtUnderPos;
+			doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
+			emit TextUnderline(doc->CurrTextUnderPos, doc->CurrTextUnderWidth);
 			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
@@ -3858,6 +3874,9 @@ void ScribusApp::HaveNewSel(int Nr)
 			doc->CurrTextShadowX = currItem->TxtShadowX;
 			doc->CurrTextShadowY = currItem->TxtShadowY;
 			doc->CurrTextOutline = currItem->TxtOutline;
+			doc->CurrTextUnderPos = currItem->TxtUnderPos;
+			doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
+			emit TextUnderline(doc->CurrTextUnderPos, doc->CurrTextUnderWidth);
 			emit TextShadow(doc->CurrTextShadowX, doc->CurrTextShadowY);
 			emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
 			doc->CurrentStyle = currItem->TxTStyle;
@@ -5369,7 +5388,9 @@ void ScribusApp::slotEditCut()
 						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\n';
+						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cunderpos)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cunderwidth)+'\n';
 					}
 				}
 				deleteSelectedTextFromFrame(nextItem);
@@ -5451,7 +5472,9 @@ void ScribusApp::slotEditCopy()
 						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
 						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\n';
+						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cunderpos)+'\t';
+						Buffer2 += QString::number(currItem->itemText.at(a)->cunderwidth)+'\n';
 					}
 				}
 				nextItem = nextItem->NextBox;
@@ -5546,6 +5569,10 @@ void ScribusApp::slotEditPaste()
 					hg->cshadowy = it == NULL ? -50 : (*it).toInt();
 					it++;
 					hg->coutline = it == NULL ? 10 : (*it).toInt();
+					it++;
+					hg->cunderpos = it == NULL ? -1 : (*it).toInt();
+					it++;
+					hg->cunderwidth = it == NULL ? -1 : (*it).toInt();
 					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;
@@ -7919,8 +7946,8 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
 		Prefs.typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
 		Prefs.typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
-		Prefs.typographicSetttings.valueUnderlinePos = dia->tabTypo->underlinePos->value();
-		Prefs.typographicSetttings.valueUnderlineWidth = dia->tabTypo->underlineWidth->value();
+		Prefs.typographicSetttings.valueUnderlinePos = qRound(dia->tabTypo->underlinePos->value() * 10);
+		Prefs.typographicSetttings.valueUnderlineWidth = qRound(dia->tabTypo->underlineWidth->value() * 10);
 		Prefs.typographicSetttings.valueStrikeThruPos = dia->tabTypo->strikethruPos->value();
 		Prefs.typographicSetttings.valueStrikeThruWidth = dia->tabTypo->strikethruWidth->value();
 		Prefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();

@@ -33,9 +33,9 @@ public:
 	QSpinBox* capsScaling;
 	QGroupBox* underlineGroup;
 	QLabel* textLabel1;
-	QSpinBox* underlinePos;
+	MSpinBox* underlinePos;
 	QLabel* textLabel2;
-	QSpinBox* underlineWidth;
+	MSpinBox* underlineWidth;
     QGroupBox* strikethruGroup;
     QLabel* textLabel1_2;
     QSpinBox* strikethruPos;

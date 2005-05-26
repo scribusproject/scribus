@@ -737,6 +737,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
+	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
 	connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
@@ -2433,6 +2435,31 @@ void Mpalette::setShadowOffs(int x, int y)
 	SeStyle->ShadowVal->Yoffset->setValue(y / 10.0);
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
 	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+}
+
+void Mpalette::newUnderline()
+{
+	int x = qRound(SeStyle->UnderlineVal->LPos->value() * 10.0);
+	int y = qRound(SeStyle->UnderlineVal->LWidth->value() * 10.0);
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->setItemTextUnderline(x, y);
+		doc->CurrTextUnderPos = x;
+		doc->CurrTextUnderWidth = y;
+		emit DocChanged();
+	}
+}
+
+void Mpalette::setUnderline(int p, int w)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+	SeStyle->UnderlineVal->LPos->setValue(p / 10.0);
+	SeStyle->UnderlineVal->LWidth->setValue(w / 10.0);
+	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
 }
 
 void Mpalette::setOutlineW(int x)

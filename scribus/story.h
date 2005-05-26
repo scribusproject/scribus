@@ -54,6 +54,8 @@ struct PtiSmall {
 			short cshadowx;
 			short cshadowy;
 			short coutline;
+			short cunderpos;
+			short cunderwidth;
 		    double cextra;
 			QString ch;
 		    QString cfont;
@@ -101,6 +103,8 @@ public:
 	int CurrTextShadowX;
 	int CurrTextShadowY;
 	int CurrTextOutline;
+	int CurrTextUnderPos;
+	int CurrTextUnderWidth;
 	double CurrTextKern;
 	QString CurrTextStroke;
 	QString CurrTextFill;
@@ -219,10 +223,12 @@ public:
 	MSpinBox* Extra;
 
 public slots:
+	void newUnderlineHandler();
 	void newOutlineHandler();
 	void newShadowHandler();
 	void newKernHandler();
 	void SetShadow(int x, int y);
+	void setUnderline(int p, int w);
 	void setOutline(int o);
 	void SetStyle(int s);
 	void SetKern(double k);
@@ -231,6 +237,7 @@ signals:
 	void NewKern(double);
 	void NewShadow(int, int);
 	void newOutline(int);
+	void newUnderline(int, int);
 	void newStyle(int);
 };
 
@@ -356,6 +363,7 @@ public slots:
 	void newTxKern(double s);
 	void newShadowOffs(int x, int y);
 	void newTxtOutline(int o);
+	void newTxtUnderline(int p, int w);
 	void updateProps(int p, int ch);
 	void newAlign(int st);
 	void changeAlignSB(int pa, int align);

@@ -701,6 +701,8 @@ void SearchReplace::slotDoReplace()
 						hg->cshadowx = Doc->CurrTextShadowX;
 						hg->cshadowy = Doc->CurrTextShadowY;
 						hg->coutline = Doc->CurrTextOutline;
+						hg->cunderpos = Doc->CurrTextUnderPos;
+						hg->cunderwidth = Doc->CurrTextUnderWidth;
 						hg->cselect = true;
 						hg->cstyle = Doc->CurrentStyle;
 						if (RStyle->isChecked())
