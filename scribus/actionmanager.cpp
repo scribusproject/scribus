@@ -71,7 +71,7 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert("fileExportAsEPS", new ScrAction(ScApp, "fileExportAsEPS"));
 	scrActions->insert("fileExportAsPDF", new ScrAction(loadIcon("acrobat.png"), "", QKeySequence(), ScApp, "fileExportAsPDF"));
 	//Rest of File Menu
-	scrActions->insert("fileDocSetup", new ScrAction(ScApp, "fileDocSetup"));
+	scrActions->insert("fileDocSetup", new ScrAction(QPixmap(loadIcon("documentinfo.png")), "", 0, ScApp, "fileDocSetup"));
 	scrActions->insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), "", CTRL+Key_P, ScApp, "filePrint"));
 	scrActions->insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), "", CTRL+Key_Q, ScApp, "fileQuit"));
 
@@ -112,7 +112,7 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert("editSelectAll", new ScrAction("", CTRL+Key_A, ScApp, "editSelectAll"));
 	scrActions->insert("editDeselectAll", new ScrAction("", CTRL+SHIFT+Key_A, ScApp, "editDeselectAll"));
 	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")), "", QKeySequence(CTRL+Key_F), ScApp, "editSearchReplace"));
-	
+
 	scrActions->insert("editEditWithImageEditor", new ScrAction(ScApp, "editEditWithImageEditor"));
 
 	scrActions->insert("editColors", new ScrAction(ScApp, "editColors"));
