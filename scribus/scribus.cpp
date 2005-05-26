@@ -7841,33 +7841,32 @@ void ScribusApp::GroupObj()
 	PageItem* b;
 	PageItem* bb;
 	double x, y, w, h;
+	int t = -1; // show locked dialog only once
 	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
 	{
-		b = doc->ActPage->SelItem.at(a);
-		if (b->Locked)
+		if (t == -1 && doc->ActPage->SelItem.at(a)->Locked)
+			t = QMessageBox::warning(this, tr("Warning"),
+									 tr("Some Objects are locked."),
+									 tr("&Cancel"),
+									 tr("&Lock All"),
+									 tr("&Unlock All"), 0, 0);
+		if (t != -1)
+			break; // already have an answer free to leave the loop
+	}
+	if (t == 0)
+		return; // user chose cancel -> do not group but return
+	for (uint c=0; c<doc->ActPage->SelItem.count(); ++c)
+	{
+		bb = doc->ActPage->SelItem.at(c);
+		if (t == 1)
 		{
-			int t = QMessageBox::warning(this, tr("Warning"),
-			                             tr("Some Objects are locked."),
-			                             tr("Cancel"),
-			                             tr("Lock all"),
-			                             tr("Unlock all"), 0, 0);
-			if (t != 0)
-			{
-				for (uint c=0; c<doc->ActPage->SelItem.count(); ++c)
-				{
-					bb = doc->ActPage->SelItem.at(c);
-					if (t == 1)
-					{
-						bb->Locked = true;
-						ObjMenu->changeItem(LockOb, tr("Unlock"));
-					}
-					else
-					{
-						bb->Locked = false;
-						ObjMenu->changeItem(LockOb, tr("Lock"));
-					}
-				}
-			}
+			bb->Locked = true;
+			ObjMenu->changeItem(LockOb, tr("Unlock"));
+		}
+		else
+		{
+			bb->Locked = false;
+			ObjMenu->changeItem(LockOb, tr("Lock"));
 		}
 	}
 	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
