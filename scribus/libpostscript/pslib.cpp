@@ -2172,17 +2172,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	else
 	{
 		PS_selectfont(hl->cfont->SCName, tsz / 10.0);
-		if (hl->ccolor != "None")
-		{
-			SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-		}
 		PS_save();
+		PS_translate(hl->xp, -hl->yp);
 		if (ite->Reverse)
 		{
 			int chs = hl->csize;
 			ite->SetZeichAttr(hl, &chs, &chx);
-			PS_translate(hl->xp, -hl->yp);
 			PS_scale(-1, 1);
 			if (d < ite->MaxChars-1)
 			{
@@ -2199,23 +2194,17 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 				wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 				PS_translate(wideR, 0);
 			}
-			if (hl->cbase != 0)
-				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 1000.0));
-			if (hl->cscale != 1000)
-				PS_scale(hl->cscale / 1000.0, 1);
-			if (hl->cscalev != 1000)
-				PS_scale(1, hl->cscalev / 1000.0);
-			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 		}
-		else
+		if (hl->cbase != 0)
+			PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 1000.0));
+		if (hl->cscale != 1000)
+			PS_scale(hl->cscale / 1000.0, 1);
+		if (hl->cscalev != 1000)
+			PS_scale(1, hl->cscalev / 1000.0);
+		if (hl->ccolor != "None")
 		{
-			PS_translate(hl->xp, -hl->yp);
-			if (hl->cbase != 0)
-				PS_translate(0, (hl->csize / 10.0) * (hl->cbase / 1000.0));
-			if (hl->cscale != 1000)
-				PS_scale(hl->cscale / 1000.0, 1);
-			if (hl->cscalev != 1000)
-				PS_scale(1, hl->cscalev / 1000.0);
+			SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 		}
 		PS_restore();

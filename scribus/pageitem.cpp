@@ -2542,20 +2542,18 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			}
 			else
 			{
-				if (hl->Farb != "None")
+				if ((hl->Style & 256) && (hl->Farb2 != "None"))
 				{
-					if ((hl->Style & 256) && (hl->Farb2 != "None"))
-					{
-						p->save();
-						p->translate((hl->Siz * hl->shadowX / 10000.0) * p->zoomFactor(), -(hl->Siz * hl->shadowY / 10000.0) * p->zoomFactor());
-						QColor tmp = p->brush();
-						p->setBrush(p->pen());
-						p->fillPath();
-						p->setBrush(tmp);
-						p->restore();
-					}
+					p->save();
+					p->translate((hl->Siz * hl->shadowX / 10000.0) * p->zoomFactor(), -(hl->Siz * hl->shadowY / 10000.0) * p->zoomFactor());
+					QColor tmp = p->brush();
+					p->setBrush(p->pen());
 					p->fillPath();
+					p->setBrush(tmp);
+					p->restore();
 				}
+				if (hl->Farb != "None")
+					p->fillPath();
 				if ((hl->Style & 4) && (hl->Farb2 != "None") && ((hl->Siz * hl->outline / 10000.0) != 0))
 				{
 					p->setLineWidth(hl->Siz * hl->outline / 10000.0);

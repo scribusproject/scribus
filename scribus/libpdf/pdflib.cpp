@@ -2767,7 +2767,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->cscalev != 1000)
 				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
 			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 cm\n";
-			tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
+			if (hl->ccolor != "None")
+				tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
 			if (hl->cstyle & 4)
 			{
 				FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
