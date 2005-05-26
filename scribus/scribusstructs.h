@@ -503,6 +503,7 @@ struct ApplicationPrefs
 	double ScratchTop;
 	double ScratchBottom;
 	bool askBeforeSubstituite;
+	bool haveStylePreview;
 };
 
 struct PrintOptions

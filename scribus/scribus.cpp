@@ -561,6 +561,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.ScratchTop = 20;
 	Prefs.ScratchBottom = 20;
 	Prefs.askBeforeSubstituite = true;
+	Prefs.haveStylePreview = true;
 	struct checkerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = false;
 	checkerSettings.autoCheck = true;
@@ -7905,6 +7906,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		Prefs.marginColored = dia->checkUnprintable->isChecked();
 		Prefs.askBeforeSubstituite = dia->AskForSubs->isChecked();
+		Prefs.haveStylePreview = dia->stylePreview->isChecked();
 		if (Prefs.DisScale != dia->DisScale)
 		{
 			Prefs.DisScale = dia->DisScale;

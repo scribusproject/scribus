@@ -24,6 +24,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	setIcon(loadIcon("AppIcon.png"));
 	AutoVal = au;
 	DocsEin = dEin;
+	PrefsData = Prefs;
 	EditStyleLayout = new QGridLayout( this );
 	EditStyleLayout->setSpacing( 6 );
 	EditStyleLayout->setMargin( 10 );
@@ -215,7 +216,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	layoutPreview->setSpacing(6);
 	layoutPreview->setMargin(0);
 	previewCaption = new QCheckBox( tr("Preview of the Paragraph Style"), this, "previewCaption" );
-	previewCaption->setChecked(true);
+	previewCaption->setChecked(Prefs->haveStylePreview);
 	layoutPreview->addWidget(previewCaption);
 	previewText = new QLabel(this, "previewText");
 	previewText->setMinimumSize(640, 200);
@@ -298,6 +299,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	BelowV->setValue(vor->gapAfter * parentDoc->unitRatio);
 	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio);
 	ColorChange();
+	togglePreview();
 }
 
 void EditStyle::togglePreview()
@@ -313,6 +315,7 @@ void EditStyle::togglePreview()
 		previewText->hide();
 		previewText->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	}
+	PrefsData->haveStylePreview = previewCaption->isChecked();
 	layout()->activate();
 	resize(minimumSizeHint());
 }

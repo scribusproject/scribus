@@ -169,6 +169,7 @@ public:
 	QCheckBox* ClipMarg;
 	QCheckBox* DoGCR;
 	QCheckBox* AskForSubs;
+	QCheckBox* stylePreview;
 	// plugin manager
 	QWidget* pluginManagerWidget;
 	QGroupBox* plugGroupBox;

@@ -625,6 +625,9 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	AskForSubs = new QCheckBox( tr( "Always ask before fonts are replaced when loading a document" ), Misc, "askforSubs" );
 	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
 	MiscLayout->addWidget( AskForSubs );
+	stylePreview = new QCheckBox( tr( "Preview of current Paragraph Style visible when editing Styles" ), Misc, "stylePreview" );
+	stylePreview->setChecked(prefsData->haveStylePreview);
+	MiscLayout->addWidget( stylePreview );
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), Misc);

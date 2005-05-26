@@ -82,6 +82,7 @@ public:
 	PageItem *previewItem;
 	//! Reference to the own ScribusDoc (preferences etc.) 12/30/2004 petr vanek
 	ScribusDoc *parentDoc;
+	ApplicationPrefs *PrefsData;
 
 private slots:
 	void Verlassen();
