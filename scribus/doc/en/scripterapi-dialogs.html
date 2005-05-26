@@ -6,7 +6,7 @@
 
 <dt><a name="-fileDialog"><strong>fileDialog</strong></a>(...)</dt>
 <dd><code><a href="#-fileDialog">fileDialog</a>("caption", ["filter", "defaultname",haspreview, issave])<br> -&gt; string with filename</code>
-<p>Shows a File Open dialog box with the caption "caption". Files are filtered with the filter string "filter". A default filename or file path can also supplied, leave this string empty when you don't want to use it. A value of True for haspreview enables a small preview widget in the FileSelect box. When the issave parameter is set to True the dialog acts like a "Save As" dialog otherwise it acts like a "File Open Dialog". The default for both of the opional parameters is False.<p> 
+<p>Shows a File Open dialog box with the caption "caption". Files are filtered with the filter string "filter". A default filename or file path can also supplied, leave this string empty when you don't want to use it. A value of True for haspreview enables a small preview widget in the FileSelect box. When the issave parameter is set to True the dialog acts like a "Save As" dialog otherwise it acts like a "File Open Dialog". When the isdir parameter is True the dialog shows and returns only directories. The default for all of the opional parameters is False.<p> 
 <p>The filter, if specified, takes the form 'comment (*.type *.type2 ...)'. For example 'Images (*.png *.xpm *.jpg)'.</p> 
 <p>Refer to the Qt-Documentation for QFileDialog for details on filters.</p>
 <p>Example: <a href="#-fileDialog">fileDialog</a>('Open input', 'CSV files (*.csv)')<br>

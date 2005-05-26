@@ -20,17 +20,36 @@ PyObject *scribus_filedia(PyObject */*self*/, PyObject* args, PyObject* kw)
 	char *defName = const_cast<char*>("");
 	int haspreview = 0;
 	int issave = 0;
+	int isdir = 0;
+	// FIXME: parsing named params failure. e.g. fileDialog(caption="foo", issave=True)
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("filter"),
 						const_cast<char*>("defaultname"), const_cast<char*>("haspreview"),
-						const_cast<char*>("issave"), NULL};
-	if (!PyArg_ParseTupleAndKeywords(args, kw, "es|esesii", kwargs,
+						const_cast<char*>("issave"), const_cast<char*>("isdir"),
+						NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "es|esesiii", kwargs,
 									 "utf-8", &caption, "utf-8", &filter, "utf-8", &defName,
-									 &haspreview, &issave))
+									 &haspreview, &issave, &isdir))
+	{
+		qDebug("1");
 		return NULL;
+	}
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	QString fName = Carrier->CFileDialog(".", QString::fromUtf8(caption), QString::fromUtf8(filter),
-										 QString::fromUtf8(defName), static_cast<bool>(haspreview),
-										 static_cast<bool>(issave), 0, 0);
+	/* nobool = Nothing doing boolean for CFileDialog last attrs.
+	Due the 'isdir' parameter. CFileDialog needs the last 2 pointers
+	initialized. */
+	bool nobool = false;
+	QString fName = Carrier->CFileDialog(".",
+										 QString::fromUtf8(caption),
+										 QString::fromUtf8(filter),
+										 QString::fromUtf8(defName),
+										 static_cast<bool>(haspreview),
+										 static_cast<bool>(issave),
+										 false,
+										 false,
+										 static_cast<bool>(isdir),
+										 &nobool,
+										 &nobool
+										);
 	QApplication::restoreOverrideCursor();
 	// FIXME: filename return unicode OK?
 	return PyString_FromString(fName.utf8());
@@ -61,7 +80,7 @@ PyObject *scribus_valdialog(PyObject */*self*/, PyObject* args)
 {
 	char *caption = const_cast<char*>("");
 	char *message = const_cast<char*>("");
-	char *value = "";
+	char *value = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", &caption, "utf-8", &message, "utf-8", &value))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));

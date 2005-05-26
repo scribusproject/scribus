@@ -19,14 +19,15 @@ PyObject *scribus_newdocdia(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_filedia__doc__,
-QT_TR_NOOP("fileDialog(\"caption\", [\"filter\", \"defaultname\" ,haspreview, issave]) -> string with filename\n\
+QT_TR_NOOP("fileDialog(\"caption\", [\"filter\", \"defaultname\", haspreview, issave, isdir]) -> string with filename\n\
 \n\
 Shows a File Open dialog box with the caption \"caption\". Files are filtered\n\
 with the filter string \"filter\". A default filename or file path can also\n\
 supplied, leave this string empty when you don't want to use it.  A value of\n\
 True for haspreview enables a small preview widget in the FileSelect box.  When\n\
 the issave parameter is set to True the dialog acts like a \"Save As\" dialog\n\
-otherwise it acts like a \"File Open Dialog\". The default for both of the\n\
+otherwise it acts like a \"File Open Dialog\". When the isdir parameter is True\n\
+the dialog shows and returns only directories. The default for all of the\n\
 opional parameters is False.\n\
 \n\
 The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.\n\
