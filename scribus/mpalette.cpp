@@ -2755,7 +2755,7 @@ void Mpalette::DoRevert()
 		}
 		else
 		{
-			CurItem->setImageFlippedV(false);
+			CurItem->setImageFlippedH(false);
 			CurItem->Reverse = false;
 		}
 		ScApp->view->RefreshItem(CurItem);
