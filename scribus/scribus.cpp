@@ -7847,9 +7847,9 @@ void ScribusApp::GroupObj()
 		if (t == -1 && doc->ActPage->SelItem.at(a)->Locked)
 			t = QMessageBox::warning(this, tr("Warning"),
 									 tr("Some Objects are locked."),
-									 tr("&Cancel"),
-									 tr("&Lock All"),
-									 tr("&Unlock All"), 0, 0);
+									 tr("Cancel"),
+									 tr("Lock all"),
+									 tr("Unlock all"), 0, 0);
 		if (t != -1)
 			break; // already have an answer free to leave the loop
 	}
