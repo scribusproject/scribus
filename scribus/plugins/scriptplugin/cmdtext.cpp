@@ -282,6 +282,8 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		hg->coutline = currItem->TxtOutline;
 		hg->cunderpos = currItem->TxtUnderPos;
 		hg->cunderwidth = currItem->TxtUnderWidth;
+		hg->cstrikepos = currItem->TxtStrikePos;
+		hg->cstrikewidth = currItem->TxtStrikeWidth;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
@@ -343,6 +345,8 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 		hg->coutline = it->TxtOutline;
 		hg->cunderpos = it->TxtUnderPos;
 		hg->cunderwidth = it->TxtUnderWidth;
+		hg->cstrikepos = it->TxtStrikePos;
+		hg->cstrikewidth = it->TxtStrikeWidth;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;

@@ -534,6 +534,8 @@ void SEditor::insChars(QString t)
 			hg->coutline = CurrTextOutline;
 			hg->cunderpos = CurrTextUnderPos;
 			hg->cunderwidth =CurrTextUnderWidth;
+			hg->cstrikepos = CurrTextStrikePos;
+			hg->cstrikewidth =CurrTextStrikeWidth;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -614,6 +616,8 @@ void SEditor::insStyledText()
 			hg->coutline = cBuffer.at(a)->coutline;
 			hg->cunderpos = cBuffer.at(a)->cunderpos;
 			hg->cunderwidth = cBuffer.at(a)->cunderwidth;
+			hg->cstrikepos = cBuffer.at(a)->cstrikepos;
+			hg->cstrikewidth = cBuffer.at(a)->cstrikewidth;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -659,6 +663,8 @@ void SEditor::copyStyledText()
 			hg->coutline = chars->at(ca)->coutline;
 			hg->cunderpos = chars->at(ca)->cunderpos;
 			hg->cunderwidth = chars->at(ca)->cunderwidth;
+			hg->cstrikepos = chars->at(ca)->cstrikepos;
+			hg->cstrikewidth = chars->at(ca)->cstrikewidth;
 			cBuffer.append(hg);
 		}
 		hg = new PtiSmall;
@@ -680,6 +686,8 @@ void SEditor::copyStyledText()
 		hg->coutline = 10;
 		hg->cunderpos = -1;
 		hg->cunderwidth = -1;
+		hg->cstrikepos = -1;
+		hg->cstrikewidth = -1;
 		cBuffer.append(hg);
 	}
 }
@@ -717,6 +725,8 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->coutline = chars->at(c)->coutline;
 				hg->cunderpos = chars->at(c)->cunderpos;
 				hg->cunderwidth = chars->at(c)->cunderwidth;
+				hg->cstrikepos = chars->at(c)->cstrikepos;
+				hg->cstrikewidth = chars->at(c)->cstrikewidth;
 			}
 			else
 			{
@@ -736,6 +746,8 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->coutline = CurrTextOutline;
 				hg->cunderpos = CurrTextUnderPos;
 				hg->cunderwidth = CurrTextUnderWidth;
+				hg->cstrikepos = CurrTextStrikePos;
+				hg->cstrikewidth = CurrTextStrikeWidth;
 				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
 				{
 					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
@@ -774,6 +786,8 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->coutline = chars->at(c)->coutline;
 			hg->cunderpos = chars->at(c)->cunderpos;
 			hg->cunderwidth = chars->at(c)->cunderwidth;
+			hg->cstrikepos = chars->at(c)->cstrikepos;
+			hg->cstrikewidth = chars->at(c)->cstrikewidth;
 			hg->cselect = false;
 			hg->xp = 0;
 			hg->yp = 0;
@@ -890,6 +904,8 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->coutline = nextItem->itemText.at(a)->coutline;
 				hg->cunderpos = nextItem->itemText.at(a)->cunderpos;
 				hg->cunderwidth = nextItem->itemText.at(a)->cunderwidth;
+				hg->cstrikepos = nextItem->itemText.at(a)->cstrikepos;
+				hg->cstrikewidth = nextItem->itemText.at(a)->cstrikewidth;
 				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(30))
@@ -978,6 +994,8 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 			hg->coutline = currItem->TxtOutline;
 			hg->cunderpos = currItem->TxtUnderPos;
 			hg->cunderwidth = currItem->TxtUnderWidth;
+			hg->cstrikepos = currItem->TxtStrikePos;
+			hg->cstrikewidth = currItem->TxtStrikeWidth;
 			hg->cstyle = currItem->TxTStyle;
 			hg->cab = currItem->textAlignment;
 			hg->cextra = 0;
@@ -1129,6 +1147,7 @@ void SEditor::updateFromChars(int pa)
 	8 = Character Shadow
 	9 = Character Outline
 	10 = Character Underline
+	11 = Character Strikethru
  */
 void SEditor::updateSel(int code, struct PtiSmall *hg)
 {
@@ -1192,6 +1211,10 @@ void SEditor::updateSel(int code, struct PtiSmall *hg)
 				case 10:
 					chars->at(ca)->cunderpos = hg->cunderpos;
 					chars->at(ca)->cunderwidth = hg->cunderwidth;
+					break;
+				case 11:
+					chars->at(ca)->cstrikepos = hg->cstrikepos;
+					chars->at(ca)->cstrikewidth = hg->cstrikewidth;
 					break;
 				default:
 					break;
@@ -1512,6 +1535,15 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
 	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
 	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+}
+
+void SToolBStyle::newStrikeHandler()
+{
+	int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
+	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
+	emit newUnderline(x, y);
 }
 
 void SToolBStyle::newUnderlineHandler()
@@ -1544,6 +1576,16 @@ void SToolBStyle::setOutline(int x)
 	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
 	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
 	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
+}
+
+void SToolBStyle::setStrike(int p, int w)
+{
+	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	SeStyle->StrikeVal->LWidth->setValue(w / 10.0);
+	SeStyle->StrikeVal->LPos->setValue(p / 10.0);
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
 }
 
 void SToolBStyle::setUnderline(int p, int w)
@@ -1873,7 +1915,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	connect(StyleTools, SIGNAL(NewShadow(int, int)), this, SLOT(newShadowOffs(int, int)));
 	connect(StyleTools, SIGNAL(newOutline(int )), this, SLOT(newTxtOutline(int )));
-	connect(StyleTools, SIGNAL(newUnderline(int )), this, SLOT(newTxtUnderline(int, int)));
+	connect(StyleTools, SIGNAL(newUnderline(int, int)), this, SLOT(newTxtUnderline(int, int)));
+	connect(StyleTools, SIGNAL(newStrike(int, int )), this, SLOT(newTxtStrike(int, int)));
 	Editor->setFocus();
 }
 
@@ -2100,6 +2143,18 @@ void StoryEditor::newTxtUnderline(int p, int w)
 	Editor->setFocus();
 }
 
+void StoryEditor::newTxtStrike(int p, int w)
+{
+	struct PtiSmall hg;
+	hg.cstrikepos = p;
+	hg.cstrikewidth = w;
+	Editor->CurrTextStrikePos = p;
+	Editor->CurrTextStrikeWidth = w;
+	Editor->updateSel(11, &hg);
+	modifiedText();
+	Editor->setFocus();
+}
+
 void StoryEditor::updateProps(int p, int ch)
 {
 	ColorList::Iterator it;
@@ -2129,6 +2184,8 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrTextOutline = CurrItem->TxtOutline;
 			Editor->CurrTextUnderPos = CurrItem->TxtUnderPos;
 			Editor->CurrTextUnderWidth = CurrItem->TxtUnderWidth;
+			Editor->CurrTextStrikePos = CurrItem->TxtStrikePos;
+			Editor->CurrTextStrikeWidth = CurrItem->TxtStrikeWidth;
 			c = 0;
 			StrokeTools->SetShade(CurrItem->ShTxtStroke);
 			FillTools->SetShade(CurrItem->ShTxtFill);
@@ -2163,6 +2220,7 @@ void StoryEditor::updateProps(int p, int ch)
 			StyleTools->SetShadow(CurrItem->TxtShadowX, CurrItem->TxtShadowY);
 			StyleTools->setOutline(CurrItem->TxtOutline);
 			StyleTools->setUnderline(CurrItem->TxtUnderPos, CurrItem->TxtUnderWidth);
+			StyleTools->setStrike(CurrItem->TxtStrikePos, CurrItem->TxtStrikeWidth);
 			FontTools->SetSize(CurrItem->ISize);
 			FontTools->SetFont(CurrItem->IFont);
 			FontTools->SetScale(CurrItem->TxtScale);
@@ -2231,6 +2289,8 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextOutline = hg->coutline;
 		Editor->CurrTextUnderPos = hg->cunderpos;
 		Editor->CurrTextUnderWidth = hg->cunderwidth;
+		Editor->CurrTextStrikePos = hg->cstrikepos;
+		Editor->CurrTextStrikeWidth = hg->cstrikewidth;
 	}
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);
@@ -2274,6 +2334,7 @@ void StoryEditor::updateProps(int p, int ch)
 	StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
 	StyleTools->setOutline(Editor->CurrTextOutline);
 	StyleTools->setUnderline(Editor->CurrTextUnderPos, Editor->CurrTextUnderWidth);
+	StyleTools->setStrike(CurrItem->TxtStrikePos, CurrItem->TxtStrikeWidth);
 	FontTools->SetSize(Editor->CurrFontSize);
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);
@@ -2646,6 +2707,8 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->CurrTextOutline = CurrItem->TxtOutline;
 			Editor->CurrTextUnderPos = CurrItem->TxtUnderPos;
 			Editor->CurrTextUnderWidth = CurrItem->TxtUnderWidth;
+			Editor->CurrTextStrikePos = CurrItem->TxtStrikePos;
+			Editor->CurrTextStrikeWidth = CurrItem->TxtStrikeWidth;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
@@ -2770,6 +2833,8 @@ void StoryEditor::changeAlign(int )
 			Editor->CurrTextOutline = CurrItem->TxtOutline;
 			Editor->CurrTextUnderPos = CurrItem->TxtUnderPos;
 			Editor->CurrTextUnderWidth = CurrItem->TxtUnderWidth;
+			Editor->CurrTextStrikePos = CurrItem->TxtStrikePos;
+			Editor->CurrTextStrikeWidth = CurrItem->TxtStrikeWidth;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)

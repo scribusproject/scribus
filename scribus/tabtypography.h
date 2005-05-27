@@ -36,11 +36,11 @@ public:
 	MSpinBox* underlinePos;
 	QLabel* textLabel2;
 	MSpinBox* underlineWidth;
-    QGroupBox* strikethruGroup;
-    QLabel* textLabel1_2;
-    QSpinBox* strikethruPos;
-    QLabel* textLabel2_2;
-    QSpinBox* strikethruWidth;
+	QGroupBox* strikethruGroup;
+	QLabel* textLabel1_2;
+	MSpinBox* strikethruPos;
+	QLabel* textLabel2_2;
+	MSpinBox* strikethruWidth;
 	QGroupBox* groupBox4a;
 	QLabel* textLabel8a;
 	QSpinBox* autoLine;

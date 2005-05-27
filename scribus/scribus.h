@@ -466,6 +466,7 @@ signals:
 	void TextShadow(int, int);
 	void TextOutline(int);
 	void TextUnderline(int, int);
+	void TextStrike(int, int);
 
 	void prefsChanged();
 

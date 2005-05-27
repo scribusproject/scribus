@@ -8,6 +8,25 @@ class MSpinBox;
 class QLabel;
 class QPopupMenu;
 
+class StrikeValues : public QGroupBox
+{
+    Q_OBJECT
+
+public:
+	StrikeValues( QWidget* parent );
+	~StrikeValues() {};
+	MSpinBox* LPos;
+	MSpinBox* LWidth;
+	QLabel* LPosTxt;
+	QLabel* LWidthTxt;
+
+public slots:
+	void languageChange();
+	
+protected:
+	QGridLayout* group1Layout;
+};
+
 class UnderlineValues : public QGroupBox
 {
     Q_OBJECT
@@ -76,6 +95,7 @@ public:
 	ShadowValues* ShadowVal;
 	OutlineValues* OutlineVal;
 	UnderlineValues* UnderlineVal;
+	StrikeValues* StrikeVal;
 
 public slots:
 	void languageChange();
@@ -106,6 +126,7 @@ protected:
 	QPopupMenu* ShadowPop;
 	QPopupMenu* OutlinePop;
 	QPopupMenu* UnderlinePop;
+	QPopupMenu* StrikePop;
 };
 
 #endif

@@ -703,6 +703,8 @@ void SearchReplace::slotDoReplace()
 						hg->coutline = Doc->CurrTextOutline;
 						hg->cunderpos = Doc->CurrTextUnderPos;
 						hg->cunderwidth = Doc->CurrTextUnderWidth;
+						hg->cstrikepos = Doc->CurrTextStrikePos;
+						hg->cstrikewidth = Doc->CurrTextStrikeWidth;
 						hg->cselect = true;
 						hg->cstyle = Doc->CurrentStyle;
 						if (RStyle->isChecked())

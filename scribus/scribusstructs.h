@@ -54,6 +54,8 @@ struct ScText
 	short coutline;
 	short cunderpos;
 	short cunderwidth;
+	short cstrikepos;
+	short cstrikewidth;
 	float cextra;
 	float xp;
 	float yp;
@@ -104,6 +106,8 @@ struct CopyPasteBuffer
 	int TxtOutline;
 	int TxtUnderPos;
 	int TxtUnderWidth;
+	int TxtStrikePos;
+	int TxtStrikeWidth;
 	double Rot;
 	int PLineArt;
 	int PLineJoin;

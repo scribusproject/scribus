@@ -11,6 +11,44 @@
 
 extern QPixmap loadIcon(QString nam);
 
+StrikeValues::StrikeValues( QWidget* parent ) : QGroupBox( parent, "StrikeValues" )
+{
+	this->setFrameShape( QGroupBox::NoFrame );
+	this->setTitle("");
+	this->setColumnLayout(0, Qt::Vertical );
+	this->layout()->setSpacing( 0 );
+	this->layout()->setMargin( 0 );
+	group1Layout = new QGridLayout( this->layout() );
+	group1Layout->setAlignment( Qt::AlignTop );
+	group1Layout->setSpacing( 3 );
+	group1Layout->setMargin( 0 );
+	LPos = new MSpinBox( -0.1, 100, this, 1 );
+	LPos->setValue( -0.1 );
+	LPos->setWrapping(true);
+	LPos->setSpecialValueText( tr( "Auto" ) );
+	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
+	group1Layout->addWidget( LPos, 0, 1 );
+	group1Layout->addWidget( LPosTxt, 0 , 0 );
+	LWidth = new MSpinBox( -0.1, 100, this, 1 );
+	LWidth->setValue( -0.1 );
+	LWidth->setWrapping(true);
+	LWidth->setSpecialValueText( tr( "Auto" ) );
+	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
+	group1Layout->addWidget( LWidth, 1, 1 );
+	group1Layout->addWidget( LWidthTxt, 1 , 0 );
+	languageChange();
+}
+
+void StrikeValues::languageChange()
+{
+	LPos->setSuffix(tr(" %"));
+	LPosTxt->setText(tr("Displacement"));
+	LWidth->setSuffix(tr(" %"));
+	LWidthTxt->setText(tr("Linewidth"));
+	LPosTxt->adjustSize();
+	LWidthTxt->adjustSize();
+}
+
 UnderlineValues::UnderlineValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
 {
 	this->setFrameShape( QGroupBox::NoFrame );
@@ -186,11 +224,16 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup2Layout->addWidget( smallcapsButton );
 	ssLayout->addWidget( buttonGroup2 );
 
+	StrikeVal = new StrikeValues( NULL );
+	StrikePop = new QPopupMenu();
+	StrikePop->insertItem(StrikeVal);
 	strikeoutButton = new QToolButton( this, "strikeoutButton" );
 	strikeoutButton->setText( "" );
 	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
 	strikeoutButton->setPixmap(loadIcon("Strike.xpm"));
 	strikeoutButton->setToggleButton( true );
+	strikeoutButton->setPopup(StrikePop);
+	strikeoutButton->setPopupDelay(400);
 	ssLayout->addWidget( strikeoutButton );
 
 	OutlineVal = new OutlineValues( NULL );

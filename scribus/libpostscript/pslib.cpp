@@ -2009,6 +2009,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 				hl2.coutline = hl->coutline;
 				hl2.cunderpos = hl->cunderpos;
 				hl2.cunderwidth = hl->cunderwidth;
+				hl2.cstrikepos = hl->cstrikepos;
+				hl2.cstrikewidth = hl->cstrikewidth;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2032,6 +2034,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 						hl3.coutline = hl2.coutline;
 						hl3.cunderpos = hl2.cunderpos;
 						hl3.cunderwidth = hl2.cunderwidth;
+						hl3.cstrikepos = hl2.cstrikepos;
+						hl3.cstrikewidth = hl2.cstrikewidth;
 						setTextCh(Doc, ite, gcr, a, d, &hl3);
 					}
 					setTextCh(Doc, ite, gcr, a, d, &hl2);
@@ -2063,6 +2067,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.coutline = hl->coutline;
 			hl2.cunderpos = hl->cunderpos;
 			hl2.cunderwidth = hl->cunderwidth;
+			hl2.cstrikepos = hl->cstrikepos;
+			hl2.cstrikewidth = hl->cstrikewidth;
 			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl);
@@ -2260,14 +2266,14 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			kern = 0;
 		else
 			kern = hl->cextra;
-		if ((Doc->typographicSetttings.valueStrikeThruPos != -1) || (Doc->typographicSetttings.valueStrikeThruWidth != -1))
+		if ((hl->cstrikepos != -1) || (hl->cstrikewidth != -1))
 		{
-			if (Doc->typographicSetttings.valueStrikeThruPos != -1)
-				Upos = (Doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
+			if (hl->cstrikepos != -1)
+				Upos = (hl->cstrikepos / 1000.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
 			else
 				Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-			if (Doc->typographicSetttings.valueStrikeThruWidth != -1)
-				lw = (Doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
+			if (hl->cstrikewidth != -1)
+				lw = (hl->cstrikewidth / 1000.0) * (hl->csize / 10.0);
 			else
 				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}

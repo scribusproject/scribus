@@ -2424,6 +2424,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							Doc->CurrTextOutline = currItem->TxtOutline;
 							Doc->CurrTextUnderPos = currItem->TxtUnderPos;
 							Doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
+							Doc->CurrTextStrikePos = currItem->TxtStrikePos;
+							Doc->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
+							emit ItemTextStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
 							emit ItemTextUnderline(currItem->TxtUnderPos, currItem->TxtUnderWidth);
 							emit ItemTextOutline(currItem->TxtOutline);
 							emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
@@ -6492,6 +6495,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextOutline = currItem->itemText.at(a)->coutline;
 					Doc->CurrTextUnderPos = currItem->itemText.at(a)->cunderpos;
 					Doc->CurrTextUnderWidth = currItem->itemText.at(a)->cunderwidth;
+					Doc->CurrTextStrikePos = currItem->itemText.at(a)->cstrikepos;
+					Doc->CurrTextStrikeWidth = currItem->itemText.at(a)->cstrikewidth;
+					emit ItemTextStrike(currItem->itemText.at(a)->cstrikepos, currItem->itemText.at(a)->cstrikewidth);
 					emit ItemTextUnderline(currItem->itemText.at(a)->cunderpos, currItem->itemText.at(a)->cunderwidth);
 					emit ItemTextOutline(currItem->itemText.at(a)->coutline);
 					emit ItemTextShadow(currItem->itemText.at(a)->cshadowx, currItem->itemText.at(a)->cshadowy);
@@ -6535,6 +6541,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 					Doc->CurrTextOutline = currItem->itemText.at(i)->coutline;
 					Doc->CurrTextUnderPos = currItem->itemText.at(i)->cunderpos;
 					Doc->CurrTextUnderWidth = currItem->itemText.at(i)->cunderwidth;
+					Doc->CurrTextStrikePos = currItem->itemText.at(i)->cstrikepos;
+					Doc->CurrTextStrikeWidth = currItem->itemText.at(i)->cstrikewidth;
+					emit ItemTextStrike(currItem->itemText.at(i)->cstrikepos, currItem->itemText.at(i)->cstrikewidth);
 					emit ItemTextUnderline(currItem->itemText.at(i)->cunderpos, currItem->itemText.at(i)->cunderwidth);
 					emit ItemTextOutline(currItem->itemText.at(i)->coutline);
 					emit ItemTextShadow(currItem->itemText.at(i)->cshadowx, currItem->itemText.at(i)->cshadowy);
@@ -6567,6 +6576,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 				Doc->CurrTextOutline = currItem->itemText.at(currItem->CPos-1)->coutline;
 				Doc->CurrTextUnderPos = currItem->itemText.at(currItem->CPos-1)->cunderpos;
 				Doc->CurrTextUnderWidth = currItem->itemText.at(currItem->CPos-1)->cunderwidth;
+				Doc->CurrTextStrikePos = currItem->itemText.at(currItem->CPos-1)->cstrikepos;
+				Doc->CurrTextStrikeWidth = currItem->itemText.at(currItem->CPos-1)->cstrikewidth;
+				emit ItemTextStrike(currItem->itemText.at(currItem->CPos-1)->cstrikepos, currItem->itemText.at(currItem->CPos-1)->cstrikewidth);
 				emit ItemTextUnderline(currItem->itemText.at(currItem->CPos-1)->cunderpos, currItem->itemText.at(currItem->CPos-1)->cunderwidth);
 				emit ItemTextOutline(currItem->itemText.at(currItem->CPos-1)->coutline);
 				emit ItemTextShadow(currItem->itemText.at(currItem->CPos-1)->cshadowx, currItem->itemText.at(currItem->CPos-1)->cshadowy);
@@ -6598,6 +6610,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 				Doc->CurrTextOutline = currItem->TxtOutline;
 				Doc->CurrTextUnderPos = currItem->TxtUnderPos;
 				Doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
+				Doc->CurrTextStrikePos = currItem->TxtStrikePos;
+				Doc->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
+				emit ItemTextStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
 				emit ItemTextUnderline(currItem->TxtUnderPos, currItem->TxtUnderWidth);
 				emit ItemTextOutline(currItem->TxtOutline);
 				emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
@@ -10065,6 +10080,43 @@ void ScribusView::setItemTextUnderline(int pos, int wid)
 	}
 }
 
+void ScribusView::setItemTextStrike(int pos, int wid)
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < SelItem.count(); ++a)
+		{
+			currItem = SelItem.at(a);
+			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+			{
+				if (Doc->appMode != EditMode)
+				{
+					currItem->TxtStrikePos = pos;
+					currItem->TxtStrikeWidth = wid;
+				}
+				for (uint i=0; i<currItem->itemText.count(); ++i)
+				{
+					if (Doc->appMode == EditMode)
+					{
+						if (currItem->itemText.at(i)->cselect)
+						{
+							currItem->itemText.at(i)->cstrikepos = pos;
+							currItem->itemText.at(i)->cstrikewidth = wid;
+						}
+					}
+					else
+					{
+						currItem->itemText.at(i)->cstrikepos = pos;
+						currItem->itemText.at(i)->cstrikewidth = wid;
+					}
+				}
+			}
+			RefreshItem(currItem);
+		}
+	}
+}
+
 void ScribusView::setItemTextBase(int sha)
 {
 	if (SelItem.count() != 0)
@@ -11013,6 +11065,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				hg->cunderpos = it == NULL ? -1 : (*it).toInt();
 				it++;
 				hg->cunderwidth = it == NULL ? -1 : (*it).toInt();
+				it++;
+				hg->cstrikepos = it == NULL ? -1 : (*it).toInt();
+				it++;
+				hg->cstrikewidth = it == NULL ? -1 : (*it).toInt();
 				hg->xp = 0;
 				hg->yp = 0;
 				hg->PRot = 0;
@@ -11056,6 +11112,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->TxtOutline = Buffer->TxtOutline;
 	currItem->TxtUnderPos = Buffer->TxtUnderPos;
 	currItem->TxtUnderWidth = Buffer->TxtUnderWidth;
+	currItem->TxtStrikePos = Buffer->TxtStrikePos;
+	currItem->TxtStrikeWidth = Buffer->TxtStrikeWidth;
 	currItem->Rot = Buffer->Rot;
 	currItem->Extra = Buffer->Extra;
 	currItem->TExtra = Buffer->TExtra;

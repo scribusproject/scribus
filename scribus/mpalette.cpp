@@ -739,6 +739,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
 	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
 	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
 	connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
@@ -2460,6 +2462,31 @@ void Mpalette::setUnderline(int p, int w)
 	SeStyle->UnderlineVal->LWidth->setValue(w / 10.0);
 	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
 	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+}
+
+void Mpalette::newStrike()
+{
+	int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
+	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->setItemTextStrike(x, y);
+		doc->CurrTextStrikePos = x;
+		doc->CurrTextStrikeWidth = y;
+		emit DocChanged();
+	}
+}
+
+void Mpalette::setStrike(int p, int w)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
+	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
+	SeStyle->StrikeVal->LPos->setValue(p / 10.0);
+	SeStyle->StrikeVal->LWidth->setValue(w / 10.0);
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
 }
 
 void Mpalette::setOutlineW(int x)

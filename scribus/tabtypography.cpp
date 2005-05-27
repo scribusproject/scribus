@@ -104,9 +104,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel1_2 = new QLabel( strikethruGroup, "textLabel1" );
 	textLabel1_2->setText( tr( "Displacement:" ) );
 	strikethruGroupLayout->addWidget( textLabel1_2, 0, 0 );
-	strikethruPos = new QSpinBox( strikethruGroup, "strikethruPos" );
-	strikethruPos->setMaxValue( 100 );
-	strikethruPos->setMinValue( -1 );
+	strikethruPos = new MSpinBox( -0.1, 100, strikethruGroup, 1 );
 	strikethruPos->setSuffix( tr( " %" ) );
 	strikethruPos->setSpecialValueText( tr( "Auto" ) );
 	strikethruPos->setWrapping(true);
@@ -114,9 +112,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel2_2 = new QLabel( strikethruGroup, "textLabel2" );
 	textLabel2_2->setText( tr( "Line Width:" ) );
 	strikethruGroupLayout->addWidget( textLabel2_2, 0, 2 );
-	strikethruWidth = new QSpinBox( strikethruGroup, "strikethruWidth" );
-	strikethruWidth->setMaxValue( 100 );
-	strikethruWidth->setMinValue( -1 );
+	strikethruWidth = new MSpinBox( -0.1, 100, strikethruGroup, 1 );
 	strikethruWidth->setWrapping(true);
 	strikethruWidth->setSuffix( tr( " %" ) );
 	strikethruWidth->setSpecialValueText( tr( "Auto" ) );

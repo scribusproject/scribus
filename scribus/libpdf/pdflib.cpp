@@ -2590,6 +2590,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				hl2.coutline = hl->coutline;
 				hl2.cunderpos = hl->cunderpos;
 				hl2.cunderwidth = hl->cunderwidth;
+				hl2.cstrikepos = hl->cstrikepos;
+				hl2.cstrikewidth = hl->cstrikewidth;
 				for (int cx = 0; cx < coun; ++cx)
 				{
 					hl2.xp =  sPos + wt * cx;
@@ -2613,6 +2615,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 						hl3.coutline = hl2.coutline;
 						hl3.cunderpos = hl2.cunderpos;
 						hl3.cunderwidth = hl2.cunderwidth;
+						hl3.cstrikepos = hl2.cstrikepos;
+						hl3.cstrikewidth = hl2.cstrikewidth;
 						setTextCh(ite, PNr, d, tmp, tmp2, &hl3);
 					}
 					setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
@@ -2644,6 +2648,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			hl2.coutline = hl->coutline;
 			hl2.cunderpos = hl->cunderpos;
 			hl2.cunderwidth = hl->cunderwidth;
+			hl2.cstrikepos = hl->cstrikepos;
+			hl2.cstrikewidth = hl->cstrikewidth;
 			setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl);
@@ -2962,14 +2968,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			kern = 0;
 		else
 			kern = hl->cextra;
-		if ((doc->typographicSetttings.valueStrikeThruPos != -1) || (doc->typographicSetttings.valueStrikeThruWidth != -1))
+		if ((hl->cstrikepos != -1) || (hl->cstrikewidth != -1))
 		{
-			if (doc->typographicSetttings.valueStrikeThruPos != -1)
-				Upos = (doc->typographicSetttings.valueStrikeThruPos / 100.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
+			if (hl->cstrikepos != -1)
+				Upos = (hl->cstrikepos / 1000.0) * (hl->cfont->numAscent * (hl->csize / 10.0));
 			else
 				Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-			if (doc->typographicSetttings.valueStrikeThruWidth != -1)
-				Uwid = (doc->typographicSetttings.valueStrikeThruWidth / 100.0) * (hl->csize / 10.0);
+			if (hl->cstrikewidth != -1)
+				Uwid = (hl->cstrikewidth / 1000.0) * (hl->csize / 10.0);
 			else
 				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
 		}

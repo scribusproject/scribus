@@ -1070,6 +1070,8 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem)
 	Buffer->TxtOutline = currItem->TxtOutline;
 	Buffer->TxtUnderPos = currItem->TxtUnderPos;
 	Buffer->TxtUnderWidth = currItem->TxtUnderWidth;
+	Buffer->TxtStrikePos = currItem->TxtStrikePos;
+	Buffer->TxtStrikeWidth = currItem->TxtStrikeWidth;
 	Buffer->Rot = currItem->Rot;
 	Buffer->PLineArt = currItem->PLineArt;
 	Buffer->PLineEnd = currItem->PLineEnd;
@@ -1156,7 +1158,9 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem)
 			Text += QString::number(currItem->itemText.at(a)->cshadowy)+'\t';
 			Text += QString::number(currItem->itemText.at(a)->coutline)+'\t';
 			Text += QString::number(currItem->itemText.at(a)->cunderpos)+'\t';
-			Text += QString::number(currItem->itemText.at(a)->cunderwidth)+'\n';
+			Text += QString::number(currItem->itemText.at(a)->cunderwidth)+'\t';
+			Text += QString::number(currItem->itemText.at(a)->cstrikepos)+'\t';
+			Text += QString::number(currItem->itemText.at(a)->cstrikewidth)+'\n';
 		}
 	}
 	Buffer->itemText = Text;
@@ -1381,6 +1385,8 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->TxtOutline=qRound(QStodouble(obj->attribute("TXTOUT", "1")) * 10);
 	OB->TxtUnderPos=qRound(QStodouble(obj->attribute("TXTULP", "-0.1")) * 10);
 	OB->TxtUnderWidth=qRound(QStodouble(obj->attribute("TXTULW", "-0.1")) * 10);
+	OB->TxtStrikePos=qRound(QStodouble(obj->attribute("TXTSTP", "-0.1")) * 10);
+	OB->TxtStrikeWidth=qRound(QStodouble(obj->attribute("TXTSTW", "-0.1")) * 10);
 	OB->Cols = QStoInt(obj->attribute("COLUMNS","1"));
 	OB->ColGap = QStodouble(obj->attribute("COLGAP","0.0"));
 	OB->GrType = QStoInt(obj->attribute("GRTYP","0"));

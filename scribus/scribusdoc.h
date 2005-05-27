@@ -179,6 +179,8 @@ public: // Public attributes
 	int CurrTextOutline;
 	int CurrTextUnderPos;
 	int CurrTextUnderWidth;
+	int CurrTextStrikePos;
+	int CurrTextStrikeWidth;
 	bool EditClip;
 	int EditClipMode;
 	typoPrefs typographicSetttings;

@@ -133,6 +133,8 @@ public:
 				int base;
 				int underpos;
 				int underwidth;
+				int strikepos;
+				int strikewidth;
 				bool Sele;
 				QString Zeich;
 				QString Farb;
@@ -207,6 +209,8 @@ public:
 	int TxtOutline;
 	int TxtUnderPos;
 	int TxtUnderWidth;
+	int TxtStrikePos;
+	int TxtStrikeWidth;
 	int Cols;
 	double ColGap;
   /** Strichstaerke */
