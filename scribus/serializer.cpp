@@ -90,6 +90,13 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->cshade = doku->docParagraphStyles[Absatz].FShade;
 			hg->cstroke = doku->docParagraphStyles[Absatz].SColor;
 			hg->cshade2 = doku->docParagraphStyles[Absatz].SShade;
+			hg->cshadowx = doku->docParagraphStyles[Absatz].txtShadowX;
+			hg->cshadowy = doku->docParagraphStyles[Absatz].txtShadowY;
+			hg->coutline = doku->docParagraphStyles[Absatz].txtOutline;
+			hg->cunderpos = doku->docParagraphStyles[Absatz].txtUnderPos;
+			hg->cunderwidth = doku->docParagraphStyles[Absatz].txtUnderWidth;
+			hg->cstrikepos = doku->docParagraphStyles[Absatz].txtStrikePos;
+			hg->cstrikewidth = doku->docParagraphStyles[Absatz].txtStrikeWidth;
 		}
 		else
 		{
@@ -100,17 +107,17 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->cshade2 = it->ShTxtStroke;
 			hg->csize = size;
 			hg->cstyle = it->TxTStyle;
+			hg->cshadowx = it->TxtShadowX;
+			hg->cshadowy = it->TxtShadowY;
+			hg->coutline = it->TxtOutline;
+			hg->cunderpos = it->TxtUnderPos;
+			hg->cunderwidth = it->TxtUnderWidth;
+			hg->cstrikepos = it->TxtStrikePos;
+			hg->cstrikewidth = it->TxtStrikeWidth;
 		}
 		hg->cscale = it->TxtScale;
 		hg->cscalev = it->TxtScaleV;
 		hg->cbase = it->TxtBase;
-		hg->cshadowx = it->TxtShadowX;
-		hg->cshadowy = it->TxtShadowY;
-		hg->coutline = it->TxtOutline;
-		hg->cunderpos = it->TxtUnderPos;
-		hg->cunderwidth = it->TxtUnderWidth;
-		hg->cstrikepos = it->TxtStrikePos;
-		hg->cstrikewidth = it->TxtStrikeWidth;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cab = Absatz;

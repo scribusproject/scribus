@@ -7191,6 +7191,13 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					(doc->docParagraphStyles[a].SShade == dia->TempVorl[b].SShade) &&
 					(doc->docParagraphStyles[a].BaseAdj == dia->TempVorl[b].BaseAdj) &&
 					(doc->docParagraphStyles[a].tabFillChar == dia->TempVorl[b].tabFillChar) &&
+					(doc->docParagraphStyles[a].txtShadowX == dia->TempVorl[b].txtShadowX) &&
+					(doc->docParagraphStyles[a].txtShadowY == dia->TempVorl[b].txtShadowY) &&
+					(doc->docParagraphStyles[a].txtOutline == dia->TempVorl[b].txtOutline) &&
+					(doc->docParagraphStyles[a].txtUnderPos == dia->TempVorl[b].txtUnderPos) &&
+					(doc->docParagraphStyles[a].txtUnderWidth == dia->TempVorl[b].txtUnderWidth) &&
+					(doc->docParagraphStyles[a].txtStrikePos == dia->TempVorl[b].txtStrikePos) &&
+					(doc->docParagraphStyles[a].txtStrikeWidth == dia->TempVorl[b].txtStrikeWidth) &&
 					(doc->docParagraphStyles[a].FontSize == dia->TempVorl[b].FontSize))
 				{
 				nr = b;
@@ -7234,6 +7241,20 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							ite->itemText.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
 						if (ite->itemText.at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
 							ite->itemText.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
+						if (ite->itemText.at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
+							ite->itemText.at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
+						if (ite->itemText.at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
+							ite->itemText.at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
+						if (ite->itemText.at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
+							ite->itemText.at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
+						if (ite->itemText.at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
+							ite->itemText.at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
+						if (ite->itemText.at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
+							ite->itemText.at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
+						if (ite->itemText.at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
+							ite->itemText.at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
+						if (ite->itemText.at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
+							ite->itemText.at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
 					}
 					else
 					{
@@ -7244,6 +7265,13 @@ void ScribusApp::saveStyles(StilFormate *dia)
 						ite->itemText.at(e)->csize = ite->ISize;
 						ite->itemText.at(e)->cstyle &= ~1919;
 						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
+						ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
+						ite->itemText.at(e)->cshadowy = ite->TxtShadowY;
+						ite->itemText.at(e)->coutline = ite->TxtOutline;
+						ite->itemText.at(e)->cunderpos = ite->TxtUnderPos;
+						ite->itemText.at(e)->cunderwidth = ite->TxtUnderWidth;
+						ite->itemText.at(e)->cstrikepos = ite->TxtStrikePos;
+						ite->itemText.at(e)->cstrikewidth = ite->TxtStrikeWidth;
 					}
 					ite->itemText.at(e)->cab = cabneu;
 				}
@@ -7280,6 +7308,20 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							ite->itemText.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
 						if (ite->itemText.at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
 							ite->itemText.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
+						if (ite->itemText.at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
+							ite->itemText.at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
+						if (ite->itemText.at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
+							ite->itemText.at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
+						if (ite->itemText.at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
+							ite->itemText.at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
+						if (ite->itemText.at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
+							ite->itemText.at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
+						if (ite->itemText.at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
+							ite->itemText.at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
+						if (ite->itemText.at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
+							ite->itemText.at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
+						if (ite->itemText.at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
+							ite->itemText.at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
 					}
 					else
 					{
@@ -7290,6 +7332,13 @@ void ScribusApp::saveStyles(StilFormate *dia)
 						ite->itemText.at(e)->csize = ite->ISize;
 						ite->itemText.at(e)->cstyle &= ~1919;
 						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
+						ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
+						ite->itemText.at(e)->cshadowy = ite->TxtShadowY;
+						ite->itemText.at(e)->coutline = ite->TxtOutline;
+						ite->itemText.at(e)->cunderpos = ite->TxtUnderPos;
+						ite->itemText.at(e)->cunderwidth = ite->TxtUnderWidth;
+						ite->itemText.at(e)->cstrikepos = ite->TxtStrikePos;
+						ite->itemText.at(e)->cstrikewidth = ite->TxtStrikeWidth;
 					}
 					ite->itemText.at(e)->cab = cabneu;
 				}
@@ -7331,6 +7380,20 @@ void ScribusApp::saveStyles(StilFormate *dia)
 								chars->at(e)->cstroke = dia->TempVorl[cabneu].SColor;
 							if (chars->at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
 								chars->at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
+							if (chars->at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
+								chars->at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
+							if (chars->at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
+								chars->at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
+							if (chars->at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
+								chars->at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
+							if (chars->at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
+								chars->at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
+							if (chars->at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
+								chars->at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
+							if (chars->at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
+								chars->at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
+							if (chars->at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
+								chars->at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
 						}
 						else
 						{
@@ -7341,6 +7404,13 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							chars->at(e)->csize = ite->ISize;
 							chars->at(e)->cstyle &= ~1919;
 							chars->at(e)->cstyle |= ite->TxTStyle;
+							chars->at(e)->cshadowx = ite->TxtShadowX;
+							chars->at(e)->cshadowy = ite->TxtShadowY;
+							chars->at(e)->coutline = ite->TxtOutline;
+							chars->at(e)->cunderpos = ite->TxtUnderPos;
+							chars->at(e)->cunderwidth = ite->TxtUnderWidth;
+							chars->at(e)->cstrikepos = ite->TxtStrikePos;
+							chars->at(e)->cstrikewidth = ite->TxtStrikeWidth;
 						}
 						chars->at(e)->cab = cabneu;
 					}

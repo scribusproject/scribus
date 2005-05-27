@@ -166,6 +166,13 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject:
 	vg.SShade = toolSettings.dShade2;
 	vg.BaseAdj = false;
 	vg.tabFillChar = toolSettings.tabFillChar;
+	vg.txtShadowX = 50;
+	vg.txtShadowY = -50;
+	vg.txtOutline = 10;
+	vg.txtUnderPos = typographicSetttings.valueUnderlinePos;
+	vg.txtUnderWidth = typographicSetttings.valueUnderlineWidth;
+	vg.txtStrikePos = typographicSetttings.valueStrikeThruPos;
+	vg.txtStrikeWidth = typographicSetttings.valueStrikeThruPos;
 	docParagraphStyles.append(vg);
 	vg.Vname = "Center Internal";
 	vg.textAlignment = 1;
@@ -430,6 +437,13 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 					sty.SColor = ss->docParagraphStyles[xx].SColor;
 					sty.SShade = ss->docParagraphStyles[xx].SShade;
 					sty.BaseAdj = ss->docParagraphStyles[xx].BaseAdj;
+					sty.txtShadowX = ss->docParagraphStyles[xx].txtShadowX;
+					sty.txtShadowY = ss->docParagraphStyles[xx].txtShadowY;
+					sty.txtOutline = ss->docParagraphStyles[xx].txtOutline;
+					sty.txtUnderPos = ss->docParagraphStyles[xx].txtUnderPos;
+					sty.txtUnderWidth = ss->docParagraphStyles[xx].txtUnderWidth;
+					sty.txtStrikePos = ss->docParagraphStyles[xx].txtStrikePos;
+					sty.txtStrikeWidth = ss->docParagraphStyles[xx].txtStrikeWidth;
 					wrkStyles->append(sty);
 				}
 			}

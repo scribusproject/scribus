@@ -245,6 +245,13 @@ struct ParagraphStyle
 	QString SColor;
 	int SShade;
 	bool BaseAdj;
+	int txtShadowX;
+	int txtShadowY;
+	int txtOutline;
+	int txtUnderPos;
+	int txtUnderWidth;
+	int txtStrikePos;
+	int txtStrikeWidth;
 };
 
 struct CMSData

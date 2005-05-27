@@ -10341,6 +10341,13 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 						nextItem->itemText.at(a)->cshade = Doc->docParagraphStyles[s].FShade;
 						nextItem->itemText.at(a)->cstroke = Doc->docParagraphStyles[s].SColor;
 						nextItem->itemText.at(a)->cshade2 = Doc->docParagraphStyles[s].SShade;
+						nextItem->itemText.at(a)->cshadowx = Doc->docParagraphStyles[s].txtShadowX;
+						nextItem->itemText.at(a)->cshadowy = Doc->docParagraphStyles[s].txtShadowY;
+						nextItem->itemText.at(a)->coutline = Doc->docParagraphStyles[s].txtOutline;
+						nextItem->itemText.at(a)->cunderpos = Doc->docParagraphStyles[s].txtUnderPos;
+						nextItem->itemText.at(a)->cunderwidth = Doc->docParagraphStyles[s].txtUnderWidth;
+						nextItem->itemText.at(a)->cstrikepos = Doc->docParagraphStyles[s].txtStrikePos;
+						nextItem->itemText.at(a)->cstrikewidth = Doc->docParagraphStyles[s].txtStrikeWidth;
 					}
 				}
 				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
@@ -10353,6 +10360,13 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->IFont];
 					nextItem->itemText.at(a)->cstyle &= ~1919;
 					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
+					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
+					nextItem->itemText.at(a)->cshadowy = nextItem->TxtShadowY;
+					nextItem->itemText.at(a)->coutline = nextItem->TxtOutline;
+					nextItem->itemText.at(a)->cunderpos = nextItem->TxtUnderPos;
+					nextItem->itemText.at(a)->cunderwidth = nextItem->TxtUnderWidth;
+					nextItem->itemText.at(a)->cstrikepos = nextItem->TxtStrikePos;
+					nextItem->itemText.at(a)->cstrikewidth = nextItem->TxtStrikeWidth;
 				}
 				nextItem->itemText.at(a)->cab = s;
 				a--;
@@ -10385,6 +10399,13 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 						nextItem->itemText.at(a)->cshade = Doc->docParagraphStyles[s].FShade;
 						nextItem->itemText.at(a)->cstroke = Doc->docParagraphStyles[s].SColor;
 						nextItem->itemText.at(a)->cshade2 = Doc->docParagraphStyles[s].SShade;
+						nextItem->itemText.at(a)->cshadowx = Doc->docParagraphStyles[s].txtShadowX;
+						nextItem->itemText.at(a)->cshadowy = Doc->docParagraphStyles[s].txtShadowY;
+						nextItem->itemText.at(a)->coutline = Doc->docParagraphStyles[s].txtOutline;
+						nextItem->itemText.at(a)->cunderpos = Doc->docParagraphStyles[s].txtUnderPos;
+						nextItem->itemText.at(a)->cunderwidth = Doc->docParagraphStyles[s].txtUnderWidth;
+						nextItem->itemText.at(a)->cstrikepos = Doc->docParagraphStyles[s].txtStrikePos;
+						nextItem->itemText.at(a)->cstrikewidth = Doc->docParagraphStyles[s].txtStrikeWidth;
 					}
 				}
 				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
@@ -10397,6 +10418,13 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->IFont];
 					nextItem->itemText.at(a)->cstyle &= ~1919;
 					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
+					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
+					nextItem->itemText.at(a)->cshadowy = nextItem->TxtShadowY;
+					nextItem->itemText.at(a)->coutline = nextItem->TxtOutline;
+					nextItem->itemText.at(a)->cunderpos = nextItem->TxtUnderPos;
+					nextItem->itemText.at(a)->cunderwidth = nextItem->TxtUnderWidth;
+					nextItem->itemText.at(a)->cstrikepos = nextItem->TxtStrikePos;
+					nextItem->itemText.at(a)->cstrikewidth = nextItem->TxtStrikeWidth;
 				}
 				nextItem->itemText.at(a)->cab = s;
 				if ((nextItem->itemText.at(a)->ch == QChar(13)) && (!nextItem->itemText.at(a)->cselect))
@@ -10441,6 +10469,13 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 						currItem->itemText.at(a)->cshade = Doc->docParagraphStyles[s].FShade;
 						currItem->itemText.at(a)->cstroke = Doc->docParagraphStyles[s].SColor;
 						currItem->itemText.at(a)->cshade2 = Doc->docParagraphStyles[s].SShade;
+						currItem->itemText.at(a)->cshadowx = Doc->docParagraphStyles[s].txtShadowX;
+						currItem->itemText.at(a)->cshadowy = Doc->docParagraphStyles[s].txtShadowY;
+						currItem->itemText.at(a)->coutline = Doc->docParagraphStyles[s].txtOutline;
+						currItem->itemText.at(a)->cunderpos = Doc->docParagraphStyles[s].txtUnderPos;
+						currItem->itemText.at(a)->cunderwidth = Doc->docParagraphStyles[s].txtUnderWidth;
+						currItem->itemText.at(a)->cstrikepos = Doc->docParagraphStyles[s].txtStrikePos;
+						currItem->itemText.at(a)->cstrikewidth = Doc->docParagraphStyles[s].txtStrikeWidth;
 					}
 				}
 				if ((s < 5) && (currItem->itemText.at(a)->cab > 4))
@@ -10453,6 +10488,13 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					currItem->itemText.at(a)->csize = currItem->ISize;
 					currItem->itemText.at(a)->cstyle &= ~1919;
 					currItem->itemText.at(a)->cstyle |= currItem->TxTStyle;
+					currItem->itemText.at(a)->cshadowx = currItem->TxtShadowX;
+					currItem->itemText.at(a)->cshadowy = currItem->TxtShadowY;
+					currItem->itemText.at(a)->coutline = currItem->TxtOutline;
+					currItem->itemText.at(a)->cunderpos = currItem->TxtUnderPos;
+					currItem->itemText.at(a)->cunderwidth = currItem->TxtUnderWidth;
+					currItem->itemText.at(a)->cstrikepos = currItem->TxtStrikePos;
+					currItem->itemText.at(a)->cstrikewidth = currItem->TxtStrikeWidth;
 				}
 				currItem->itemText.at(a)->cab = s;
 			}

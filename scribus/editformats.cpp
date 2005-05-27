@@ -41,6 +41,9 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 					(vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (vg.TabValues == vg2.TabValues) &&
 					(vg.Drop == vg2.Drop) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
 					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
+					(vg.tabFillChar == vg2.tabFillChar) && (vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
+					(vg.txtOutline == vg2.txtOutline) && (vg.txtUnderPos == vg2.txtUnderPos) && (vg.txtUnderWidth == vg2.txtUnderWidth) &&
+					(vg.txtStrikePos == vg2.txtStrikePos) && (vg.txtStrikeWidth == vg2.txtStrikeWidth) &&
 					(vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
 				{
 					found = true;
@@ -201,6 +204,14 @@ void StilFormate::dupFormat()
 	sty.SColor = TempVorl[sFnumber].SColor;
 	sty.SShade = TempVorl[sFnumber].SShade;
 	sty.BaseAdj = TempVorl[sFnumber].BaseAdj;
+	sty.tabFillChar = TempVorl[sFnumber].tabFillChar;
+	sty.txtShadowX = TempVorl[sFnumber].txtShadowX;
+	sty.txtShadowY = TempVorl[sFnumber].txtShadowY;
+	sty.txtOutline = TempVorl[sFnumber].txtOutline;
+	sty.txtUnderPos = TempVorl[sFnumber].txtUnderPos;
+	sty.txtUnderWidth = TempVorl[sFnumber].txtUnderWidth;
+	sty.txtStrikePos = TempVorl[sFnumber].txtStrikePos;
+	sty.txtStrikeWidth = TempVorl[sFnumber].txtStrikeWidth;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
@@ -232,6 +243,14 @@ void StilFormate::neuesFormat()
 	sty.SColor = Docu->toolSettings.dPen;
 	sty.SShade = Docu->toolSettings.dShade2;
 	sty.BaseAdj = false;
+	sty.tabFillChar = Docu->toolSettings.tabFillChar;
+	sty.txtShadowX = 50;
+	sty.txtShadowY = -50;
+	sty.txtOutline = 10;
+	sty.txtUnderPos = Docu->typographicSetttings.valueUnderlinePos;
+	sty.txtUnderWidth = Docu->typographicSetttings.valueUnderlineWidth;
+	sty.txtStrikePos = Docu->typographicSetttings.valueStrikeThruPos;
+	sty.txtStrikeWidth = Docu->typographicSetttings.valueStrikeThruPos;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);

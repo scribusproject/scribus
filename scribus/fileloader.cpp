@@ -575,6 +575,13 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.SColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
 				vg.SShade = QStoInt(pg.attribute("SSHADE","100"));
 				vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
+				vg.txtShadowX=qRound(QStodouble(pg.attribute("TXTSHX", "5")) * 10);
+				vg.txtShadowY=qRound(QStodouble(pg.attribute("TXTSHY", "-5")) * 10);
+				vg.txtOutline=qRound(QStodouble(pg.attribute("TXTOUT", "1")) * 10);
+				vg.txtUnderPos=qRound(QStodouble(pg.attribute("TXTULP", "-0.1")) * 10);
+				vg.txtUnderWidth=qRound(QStodouble(pg.attribute("TXTULW", "-0.1")) * 10);
+				vg.txtStrikePos=qRound(QStodouble(pg.attribute("TXTSTP", "-0.1")) * 10);
+				vg.txtStrikeWidth=qRound(QStodouble(pg.attribute("TXTSTW", "-0.1")) * 10);
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");

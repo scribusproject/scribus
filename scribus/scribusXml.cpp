@@ -591,6 +591,13 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	vg->SColor = pg->attribute("SCOLOR", doc->toolSettings.dPen);
 	vg->SShade = QStoInt(pg->attribute("SSHADE", "100"));
 	vg->BaseAdj = static_cast<bool>(QStoInt(pg->attribute("BASE","0")));
+	vg->txtShadowX=qRound(QStodouble(pg->attribute("TXTSHX", "5")) * 10);
+	vg->txtShadowY=qRound(QStodouble(pg->attribute("TXTSHY", "-5")) * 10);
+	vg->txtOutline=qRound(QStodouble(pg->attribute("TXTOUT", "1")) * 10);
+	vg->txtUnderPos=qRound(QStodouble(pg->attribute("TXTULP", "-0.1")) * 10);
+	vg->txtUnderWidth=qRound(QStodouble(pg->attribute("TXTULW", "-0.1")) * 10);
+	vg->txtStrikePos=qRound(QStodouble(pg->attribute("TXTSTP", "-0.1")) * 10);
+	vg->txtStrikeWidth=qRound(QStodouble(pg->attribute("TXTSTW", "-0.1")) * 10);
 	if ((pg->hasAttribute("NUMTAB")) && (QStoInt(pg->attribute("NUMTAB","0")) != 0))
 	{
 		QString tmp = pg->attribute("TABS");
@@ -627,6 +634,13 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					(vg->SShade == docParagraphStyles[xx].SShade) &&
 					(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
 					(vg->tabFillChar == docParagraphStyles[xx].tabFillChar) &&
+					(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
+					(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
+					(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
+					(vg->txtUnderPos == docParagraphStyles[xx].txtUnderPos) &&
+					(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
+					(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
+					(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
 					(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
 				if (fl)
@@ -665,6 +679,13 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				(vg->SShade == docParagraphStyles[xx].SShade) &&
 				(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
 				(vg->tabFillChar == docParagraphStyles[xx].tabFillChar) &&
+				(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
+				(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
+				(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
+				(vg->txtUnderPos == docParagraphStyles[xx].txtUnderPos) &&
+				(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
+				(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
+				(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
 				(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
 				vg->Vname = docParagraphStyles[xx].Vname;
@@ -1354,6 +1375,13 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.SColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
 				vg.SShade = QStoInt(pg.attribute("SSHADE","100"));
 				vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
+				vg.txtShadowX = 50;
+				vg.txtShadowY = -50;
+				vg.txtOutline = 10;
+				vg.txtUnderPos = doc->typographicSetttings.valueUnderlinePos;
+				vg.txtUnderWidth = doc->typographicSetttings.valueUnderlineWidth;
+				vg.txtStrikePos = doc->typographicSetttings.valueStrikeThruPos;
+				vg.txtStrikeWidth = doc->typographicSetttings.valueStrikeThruPos;
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");
@@ -2150,6 +2178,13 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				vg.SShade = doc->docParagraphStyles[item->textAlignment].SShade;
 				vg.BaseAdj = doc->docParagraphStyles[item->textAlignment].BaseAdj;
 				vg.tabFillChar = doc->docParagraphStyles[item->textAlignment].tabFillChar;
+				vg.txtShadowX = doc->docParagraphStyles[item->textAlignment].txtShadowX;
+				vg.txtShadowY = doc->docParagraphStyles[item->textAlignment].txtShadowY;
+				vg.txtOutline = doc->docParagraphStyles[item->textAlignment].txtOutline;
+				vg.txtUnderPos = doc->docParagraphStyles[item->textAlignment].txtUnderPos;
+				vg.txtUnderWidth = doc->docParagraphStyles[item->textAlignment].txtUnderWidth;
+				vg.txtStrikePos = doc->docParagraphStyles[item->textAlignment].txtStrikePos;
+				vg.txtStrikeWidth = doc->docParagraphStyles[item->textAlignment].txtStrikeWidth;
 				UsedStyles[item->textAlignment] = vg;
 			}
 			if (((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText)) && (item->itemText.count() != 0))
@@ -2177,6 +2212,13 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 						vg.SShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].SShade;
 						vg.BaseAdj = doc->docParagraphStyles[item->itemText.at(tx)->cab].BaseAdj;
 						vg.tabFillChar = doc->docParagraphStyles[item->itemText.at(tx)->cab].tabFillChar;
+						vg.txtShadowX = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtShadowX;
+						vg.txtShadowY = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtShadowY;
+						vg.txtOutline = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtOutline;
+						vg.txtUnderPos = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtUnderPos;
+						vg.txtUnderWidth = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtUnderWidth;
+						vg.txtStrikePos = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtStrikePos;
+						vg.txtStrikeWidth = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtStrikeWidth;
 						UsedStyles[item->itemText.at(tx)->cab] = vg;
 					}
 				}
@@ -2214,6 +2256,13 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			fo.setAttribute("SSHADE",UsedStyles[actSt].SShade);
 			fo.setAttribute("TabFill",UsedStyles[actSt].tabFillChar);
 			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].BaseAdj));
+			fo.setAttribute("TXTSHX",UsedStyles[actSt].txtShadowX / 10.0);
+			fo.setAttribute("TXTSHY",UsedStyles[actSt].txtShadowY / 10.0);
+			fo.setAttribute("TXTOUT",UsedStyles[actSt].txtOutline / 10.0);
+			fo.setAttribute("TXTULP",UsedStyles[actSt].txtUnderPos / 10.0);
+			fo.setAttribute("TXTULW",UsedStyles[actSt].txtUnderWidth / 10.0);
+			fo.setAttribute("TXTSTP",UsedStyles[actSt].txtStrikePos / 10.0);
+			fo.setAttribute("TXTSTW",UsedStyles[actSt].txtStrikeWidth / 10.0);
 			elem.appendChild(fo);
 		}
 	}
@@ -3035,6 +3084,13 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].SShade);
 			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].BaseAdj));
 			fo.setAttribute("TabFill",doc->docParagraphStyles[ff].tabFillChar);
+			fo.setAttribute("TXTSHX",doc->docParagraphStyles[ff].txtShadowX / 10.0);
+			fo.setAttribute("TXTSHY",doc->docParagraphStyles[ff].txtShadowY / 10.0);
+			fo.setAttribute("TXTOUT",doc->docParagraphStyles[ff].txtOutline / 10.0);
+			fo.setAttribute("TXTULP",doc->docParagraphStyles[ff].txtUnderPos / 10.0);
+			fo.setAttribute("TXTULW",doc->docParagraphStyles[ff].txtUnderWidth / 10.0);
+			fo.setAttribute("TXTSTP",doc->docParagraphStyles[ff].txtStrikePos / 10.0);
+			fo.setAttribute("TXTSTW",doc->docParagraphStyles[ff].txtStrikeWidth / 10.0);
 			dc.appendChild(fo);
 		}
 	}

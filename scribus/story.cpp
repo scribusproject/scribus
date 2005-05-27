@@ -2255,6 +2255,13 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
 			Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
 			Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
+			Editor->CurrTextShadowX = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+			Editor->CurrTextShadowY = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+			Editor->CurrTextOutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+			Editor->CurrTextUnderPos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+			Editor->CurrTextUnderWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+			Editor->CurrTextStrikePos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+			Editor->CurrTextStrikeWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 		}
 		Editor->setAlign(Editor->currentParaStyle);
 		Editor->setStyle(Editor->CurrentStyle);
@@ -2652,6 +2659,13 @@ void StoryEditor::changeAlignSB(int pa, int align)
 						chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
 						chars->at(s)->cstroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
 						chars->at(s)->cshade2 = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
+						chars->at(s)->cshadowx = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+						chars->at(s)->cshadowy = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+						chars->at(s)->coutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+						chars->at(s)->cunderpos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+						chars->at(s)->cunderwidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+						chars->at(s)->cstrikepos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+						chars->at(s)->cstrikewidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 					}
 				}
 				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
@@ -2664,6 +2678,13 @@ void StoryEditor::changeAlignSB(int pa, int align)
 					chars->at(s)->csize = CurrItem->ISize;
 					chars->at(s)->cstyle &= ~1919;
 					chars->at(s)->cstyle |= CurrItem->TxTStyle;
+					chars->at(s)->cshadowx = CurrItem->TxtShadowX;
+					chars->at(s)->cshadowy = CurrItem->TxtShadowY;
+					chars->at(s)->coutline = CurrItem->TxtOutline;
+					chars->at(s)->cunderpos = CurrItem->TxtUnderPos;
+					chars->at(s)->cunderwidth = CurrItem->TxtUnderWidth;
+					chars->at(s)->cstrikepos = CurrItem->TxtStrikePos;
+					chars->at(s)->cstrikewidth = CurrItem->TxtStrikeWidth;
 				}
 				chars->at(s)->cab = Editor->currentParaStyle;
 			}
@@ -2687,6 +2708,13 @@ void StoryEditor::changeAlignSB(int pa, int align)
 				Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
 				Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
 				Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
+				Editor->CurrTextShadowX = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+				Editor->CurrTextShadowY = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+				Editor->CurrTextOutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+				Editor->CurrTextUnderPos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+				Editor->CurrTextUnderWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+				Editor->CurrTextStrikePos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+				Editor->CurrTextStrikeWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 			}
 		}
 		else
@@ -2775,6 +2803,13 @@ void StoryEditor::changeAlign(int )
 							chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
 							chars->at(s)->cstroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
 							chars->at(s)->cshade2 = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
+							chars->at(s)->cshadowx = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+							chars->at(s)->cshadowy = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+							chars->at(s)->coutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+							chars->at(s)->cunderpos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+							chars->at(s)->cunderwidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+							chars->at(s)->cstrikepos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+							chars->at(s)->cstrikewidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 						}
 					}
 					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
@@ -2787,6 +2822,13 @@ void StoryEditor::changeAlign(int )
 						chars->at(s)->csize = CurrItem->ISize;
 						chars->at(s)->cstyle &= ~1919;
 						chars->at(s)->cstyle |= CurrItem->TxTStyle;
+						chars->at(s)->cshadowx = CurrItem->TxtShadowX;
+						chars->at(s)->cshadowy = CurrItem->TxtShadowY;
+						chars->at(s)->coutline = CurrItem->TxtOutline;
+						chars->at(s)->cunderpos = CurrItem->TxtUnderPos;
+						chars->at(s)->cunderwidth = CurrItem->TxtUnderWidth;
+						chars->at(s)->cstrikepos = CurrItem->TxtStrikePos;
+						chars->at(s)->cstrikewidth = CurrItem->TxtStrikeWidth;
 					}
 					chars->at(s)->cab = Editor->currentParaStyle;
 				}
@@ -2813,6 +2855,13 @@ void StoryEditor::changeAlign(int )
 				Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
 				Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
 				Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
+				Editor->CurrTextShadowX = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+				Editor->CurrTextShadowY = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+				Editor->CurrTextOutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+				Editor->CurrTextUnderPos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+				Editor->CurrTextUnderWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+				Editor->CurrTextStrikePos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+				Editor->CurrTextStrikeWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 			}
 		}
 		else

@@ -337,6 +337,14 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
+	vg.tabFillChar = ScApp->doc->toolSettings.tabFillChar;
+	vg.txtShadowX = 50;
+	vg.txtShadowY = -50;
+	vg.txtOutline = 10;
+	vg.txtUnderPos = ScApp->doc->typographicSetttings.valueUnderlinePos;
+	vg.txtUnderWidth = ScApp->doc->typographicSetttings.valueUnderlineWidth;
+	vg.txtStrikePos = ScApp->doc->typographicSetttings.valueStrikeThruPos;
+	vg.txtStrikeWidth = ScApp->doc->typographicSetttings.valueStrikeThruPos;
 	textFrame->Doc->docParagraphStyles.append(vg);
 	ScApp->propertiesPalette->Spal->updateFormatList();
 }
@@ -394,6 +402,14 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
+	vg.tabFillChar = ScApp->doc->toolSettings.tabFillChar;
+	vg.txtShadowX = 50;
+	vg.txtShadowY = -50;
+	vg.txtOutline = 10;
+	vg.txtUnderPos = ScApp->doc->typographicSetttings.valueUnderlinePos;
+	vg.txtUnderWidth = ScApp->doc->typographicSetttings.valueUnderlineWidth;
+	vg.txtStrikePos = ScApp->doc->typographicSetttings.valueStrikeThruPos;
+	vg.txtStrikeWidth = ScApp->doc->typographicSetttings.valueStrikeThruPos;
 	ScApp->doc->docParagraphStyles[pstyleIndex] = vg;
 }
 

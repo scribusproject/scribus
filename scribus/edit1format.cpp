@@ -71,6 +71,13 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 
 	EffeS = new StyleSelect(GroupFont);
 	EffeS->setStyle(vor->FontEffect);
+	EffeS->ShadowVal->Xoffset->setValue(vor->txtShadowX / 10.0);
+	EffeS->ShadowVal->Yoffset->setValue(vor->txtShadowY / 10.0);
+	EffeS->OutlineVal->LWidth->setValue(vor->txtOutline / 10.0);
+	EffeS->UnderlineVal->LPos->setValue(vor->txtUnderPos / 10.0);
+	EffeS->UnderlineVal->LWidth->setValue(vor->txtUnderWidth / 10.0);
+	EffeS->StrikeVal->LPos->setValue(vor->txtStrikePos / 10.0);
+	EffeS->StrikeVal->LWidth->setValue(vor->txtStrikeWidth / 10.0);
 	EffeLabel = new QLabel( tr("Effect:"), GroupFont, "EffeLabel" );
 	GroupFontLayout->addWidget( EffeLabel, 1, 2 );
 	GroupFontLayout->addMultiCellWidget( EffeS, 1, 1, 3, 4, Qt::AlignLeft );
@@ -270,6 +277,13 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
 	connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
 	connect(EffeS, SIGNAL(State(int)), this, SLOT(ColorChange()));
+	connect(EffeS->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(EffeS->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(EffeS->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(EffeS->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(EffeS->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(EffeS->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(EffeS->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	// preview generators
 	connect(FontC, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
 	connect(LineSpVal, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
@@ -415,6 +429,13 @@ void EditStyle::Verlassen()
 			werte->tabFillChar = "_";
 			break;
 	}
+	werte->txtShadowX = qRound(EffeS->ShadowVal->Xoffset->value() * 10.0);
+	werte->txtShadowY = qRound(EffeS->ShadowVal->Yoffset->value() * 10.0);
+	werte->txtOutline = qRound(EffeS->OutlineVal->LWidth->value() * 10.0);
+	werte->txtStrikePos = qRound(EffeS->StrikeVal->LPos->value() * 10.0);
+	werte->txtStrikeWidth = qRound(EffeS->StrikeVal->LWidth->value() * 10.0);
+	werte->txtUnderPos = qRound(EffeS->UnderlineVal->LPos->value() * 10.0);
+	werte->txtUnderWidth = qRound(EffeS->UnderlineVal->LWidth->value() * 10.0);
 	accept();
 }
 
@@ -464,6 +485,13 @@ void EditStyle::updatePreview()
 			tmpStyle.tabFillChar = "_";
 			break;
 	}
+	tmpStyle.txtShadowX = qRound(EffeS->ShadowVal->Xoffset->value() * 10.0);
+	tmpStyle.txtShadowY = qRound(EffeS->ShadowVal->Yoffset->value() * 10.0);
+	tmpStyle.txtOutline = qRound(EffeS->OutlineVal->LWidth->value() * 10.0);
+	tmpStyle.txtStrikePos = qRound(EffeS->StrikeVal->LPos->value() * 10.0);
+	tmpStyle.txtStrikeWidth = qRound(EffeS->StrikeVal->LWidth->value() * 10.0);
+	tmpStyle.txtUnderPos = qRound(EffeS->UnderlineVal->LPos->value() * 10.0);
+	tmpStyle.txtUnderWidth = qRound(EffeS->UnderlineVal->LWidth->value() * 10.0);
 
 	QFont fo = QFont(FontC->currentText());
 	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
@@ -488,13 +516,13 @@ void EditStyle::updatePreview()
 		hg->cscale = 1000;
 		hg->cscalev = 1000;
 		hg->cbase = 0;
-		hg->cshadowx = 50;
-		hg->cshadowy = -50;
-		hg->coutline = 10;
-		hg->cunderpos = -1;
-		hg->cunderwidth = -1;
-		hg->cstrikepos = -1;
-		hg->cstrikewidth = -1;
+		hg->cshadowx = tmpStyle.txtShadowX;
+		hg->cshadowy = tmpStyle.txtShadowY;
+		hg->coutline = tmpStyle.txtOutline;
+		hg->cunderpos = tmpStyle.txtUnderPos;
+		hg->cunderwidth = tmpStyle.txtUnderWidth;
+		hg->cstrikepos = tmpStyle.txtStrikePos;
+		hg->cstrikewidth = tmpStyle.txtStrikeWidth;
 		hg->cselect = false;
 		hg->cstyle = tmpStyle.FontEffect;
 		hg->cab = tmpIndex;
