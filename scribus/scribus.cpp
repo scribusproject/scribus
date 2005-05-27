@@ -1085,6 +1085,7 @@ void ScribusApp::initMenuBar()
 	scrActions["editMasterPages"]->setEnabled(false);
 	scrActions["editJavascripts"]->setEnabled(false);
 	scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
+	scrActions["editEditWithImageEditor"]->setEnabled(false);
 
 	//Style Menu
 	scrMenuMgr->createMenu("Style", tr("St&yle"));
