@@ -101,7 +101,7 @@ protected:
     QHBoxLayout* GroupBox4Layout;
     QGridLayout* Layout2;
     QHBoxLayout* Layout1;
-    QString customText;
+    QString customText, customTextTR;
 };
 
 #endif // NEWDOC_H

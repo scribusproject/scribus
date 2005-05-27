@@ -14,7 +14,8 @@ extern QPixmap loadIcon(QString nam);
 NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 		: QDialog( parent, "newDoc", true, 0 )
 {
-	customText=QObject::tr( "Custom" );
+	customText="Custom";
+	customTextTR=QObject::tr( "Custom" );
 	unitIndex = Vor->docUnitIndex;
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
@@ -46,7 +47,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 		ComboBox1->insertItem(sizelist[m]);
 	*/
 	ComboBox1->insertStringList(ps->getTrPageSizeList());
-	ComboBox1->insertItem( customText );
+	ComboBox1->insertItem( customTextTR );
 	ComboBox1->setEditable(false);
 	TextLabel1->setBuddy(ComboBox1);
 	Layout6->addWidget(ComboBox1, 0, 1 );
@@ -140,23 +141,20 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	NewDocLayout->addLayout( Layout9 );
 	Breite->setValue(Vor->PageWidth * unitRatio);
 	Hoehe->setValue(Vor->PageHeight * unitRatio);
-	
 	QStringList pageSizes=ps->getPageSizeList();
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	if (sizeIndex!=-1)
 		ComboBox1->setCurrentItem(sizeIndex);
 	else
 		ComboBox1->setCurrentItem(ComboBox1->count()-1);
-	bool hwEnabled=(ComboBox1->currentText()==customText);
+	bool hwEnabled=(ComboBox1->currentText()==customTextTR);
 	Breite->setEnabled(hwEnabled);
 	Hoehe->setEnabled(hwEnabled);
-	
 	setDS();
 	setSize(Vor->pageSize);
 	setOrien(Vor->pageOrientation);
 	Breite->setValue(Vor->PageWidth * unitRatio);
 	Hoehe->setValue(Vor->PageHeight * unitRatio);
-
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
 	GroupBox3 = new QGroupBox( this, "GroupBox3" );
@@ -231,7 +229,6 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	Layout1->addWidget( CancelB );
 	Layout10->addLayout( Layout1 );
 	NewDocLayout->addLayout( Layout10 );
-
 	setMinimumSize(sizeHint());
 	//tab order
 	QWidget::setTabOrder ( AutoFrame, SpinBox10 );
@@ -272,7 +269,7 @@ void NewDoc::code_repeat(int m)
 {
 	// #869 pv - auto-flip landscape/portrait based on the height:width ratio
 	//if (ComboBox1->currentItem() == USERFORMAT)
-	if (ComboBox1->currentText() == customText)
+	if (ComboBox1->currentText() == customTextTR)
 	{
 		if (Breite->value() > Hoehe->value())
 			ComboBox2->setCurrentItem(LANDSCAPE);
@@ -429,7 +426,7 @@ void NewDoc::setOrien(int ori)
 void NewDoc::setPGsize(const QString &size)
 {
 	//if (ComboBox1->currentItem() == USERFORMAT)
-	if (size == customText)
+	if (size == customTextTR)
 		setSize(size);
 	else
 	{
@@ -442,6 +439,7 @@ void NewDoc::setSize(QString gr)
 {
 	Pagebr = Breite->value() / unitRatio;
 	Pageho = Hoehe->value() / unitRatio;
+	
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Breite->setEnabled(false);
@@ -454,7 +452,7 @@ void NewDoc::setSize(QString gr)
 	*/
 	
 	//if (gr == USERFORMAT)
-	if (gr==customText)
+	if (gr==customTextTR || gr==customText)
 	{
 		Breite->setEnabled(true);
 		Hoehe->setEnabled(true);
