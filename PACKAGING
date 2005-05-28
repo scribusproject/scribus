@@ -36,7 +36,7 @@ plus docs package should also obsolete all prior docs packages.
 Recommended Spec File Description:
 
 %description
-Scribus is a desktop open source page layout program with the aim of producing 
+Scribus is an desktop open source page layout program with the aim of producing 
 commerical grade output in PDF and Postscript, primarily, though not exclusively
 for Linux. 
 
