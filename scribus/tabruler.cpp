@@ -15,7 +15,7 @@
 #include "units.h"
 extern QPixmap loadIcon(QString nam);
 
-RulerT::RulerT(QWidget *pa, int ein, QValueList<double> Tabs, bool ind, double wid) : QWidget(pa)
+RulerT::RulerT(QWidget *pa, int ein, QValueList<PageItem::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	unitIndex = ein;
@@ -26,6 +26,7 @@ RulerT::RulerT(QWidget *pa, int ein, QValueList<double> Tabs, bool ind, double w
 	leftIndent = 0;
 	mousePressed = false;
 	rulerCode = 0;
+	actTab = -1;
 	setMouseTracking(true);
 	if (wid < 0)
 	{
@@ -38,7 +39,7 @@ RulerT::RulerT(QWidget *pa, int ein, QValueList<double> Tabs, bool ind, double w
 	{
 		Width = wid;
 		setMinimumSize(QSize(QMIN(static_cast<int>(Width), 400),25));
-		setMaximumSize(QSize(QMIN(static_cast<int>(Width), 400),25));
+		setMaximumSize(QSize(4000,25));
 		resize(QMIN(static_cast<int>(wid), 400), 25);
 	}
 }
@@ -111,31 +112,31 @@ void RulerT::paintEvent(QPaintEvent *)
 	}
 	if (tabValues.count() != 0)
 	{
-		for (int yg = 0; yg < static_cast<int>(tabValues.count()-1); yg += 2)
+		for (int yg = 0; yg < static_cast<int>(tabValues.count()); yg++)
 		{
 			if (yg == actTab)
 				p.setPen(QPen(red, 2, SolidLine, FlatCap, MiterJoin));
 			else
 				p.setPen(QPen(black, 2, SolidLine, FlatCap, MiterJoin));
-			switch (static_cast<int>(tabValues[yg]))
+			switch (static_cast<int>(tabValues[yg].tabType))
 			{
 				case 0:
-					p.drawLine(qRound(tabValues[yg+1]), 15, qRound(tabValues[yg+1]), 23);
-					p.drawLine(qRound(tabValues[yg+1]), 23, qRound(tabValues[yg+1]+8), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition), 23, qRound(tabValues[yg].tabPosition+8), 23);
 					break;
 				case 1:
-					p.drawLine(qRound(tabValues[yg+1]), 15, qRound(tabValues[yg+1]), 23);
-					p.drawLine(qRound(tabValues[yg+1]), 23, qRound(tabValues[yg+1]-8), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition), 23, qRound(tabValues[yg].tabPosition-8), 23);
 					break;
 				case 2:
 				case 3:
-					p.drawLine(qRound(tabValues[yg+1]), 15, qRound(tabValues[yg+1]), 23);
-					p.drawLine(qRound(tabValues[yg+1]-4), 23, qRound(tabValues[yg+1]+4), 23);
-					p.drawLine(qRound(tabValues[yg+1]+3), 20, qRound(tabValues[yg+1]+2), 20);
+					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition-4), 23, qRound(tabValues[yg].tabPosition+4), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition+3), 20, qRound(tabValues[yg].tabPosition+2), 20);
 					break;
 				case 4:
-					p.drawLine(qRound(tabValues[yg+1]), 15, qRound(tabValues[yg+1]), 23);
-					p.drawLine(qRound(tabValues[yg+1]-4), 23, qRound(tabValues[yg+1]+4), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition), 15, qRound(tabValues[yg].tabPosition), 23);
+					p.drawLine(qRound(tabValues[yg].tabPosition-4), 23, qRound(tabValues[yg].tabPosition+4), 23);
 					break;
 				default:
 					break;
@@ -180,16 +181,18 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	}
 	if (tabValues.count() != 0)
 	{
-		for (int yg = 0; yg < static_cast<int>(tabValues.count()-1); yg += 2)
+		for (int yg = 0; yg < static_cast<int>(tabValues.count()); yg++)
 		{
-			fpo = QRect(static_cast<int>(tabValues[yg+1]-offset)-3, 15, 8, 8);
+			fpo = QRect(static_cast<int>(tabValues[yg].tabPosition-offset)-3, 15, 8, 8);
 			if (fpo.contains(m->pos()))
 			{
 				rulerCode = 3;
 				actTab = yg;
 				mouseX = m->x();
-				emit typeChanged(static_cast<int>(tabValues[actTab]));
-				emit tabMoved(tabValues[actTab+1]);
+				emit tabSelected();
+				emit typeChanged(tabValues[actTab].tabType);
+				emit tabMoved(tabValues[actTab].tabPosition);
+				emit fillCharChanged(tabValues[actTab].tabFillChar);
 				repaint();
 				return;
 			}
@@ -197,15 +200,19 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 	}
 	if ((rulerCode == 0) && (m->button() == LeftButton))
 	{
-		tabValues.prepend(static_cast<double>(m->x() + offset));
-		tabValues.prepend(0);
+		struct PageItem::TabRecord tb;
+		tb.tabPosition = static_cast<double>(m->x() + offset);
+		tb.tabType = 0;
+		tb.tabFillChar = QChar();
+		tabValues.prepend(tb);
 		actTab = 0;
 		rulerCode = 3;
 		updateTabList();
 		repaint();
 		emit newTab();
-		emit typeChanged(static_cast<int>(tabValues[actTab]));
-		emit tabMoved(tabValues[actTab+1]);
+		emit typeChanged(tabValues[actTab].tabType);
+		emit tabMoved(tabValues[actTab].tabPosition);
+		emit fillCharChanged(tabValues[actTab].tabFillChar);
 		qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 	}
 	mouseX = m->x();
@@ -220,10 +227,10 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (m->button() == RightButton)
 			{
-				tabValues[actTab] += 1.0;
-				if (tabValues[actTab] > 4.0)
-					tabValues[actTab] = 0.0;
-				emit typeChanged(static_cast<int>(tabValues[actTab]));
+				tabValues[actTab].tabType += 1;
+				if (tabValues[actTab].tabType > 4)
+					tabValues[actTab].tabType = 0;
+				emit typeChanged(tabValues[actTab].tabType);
 				repaint();
 			}
 		}
@@ -232,15 +239,15 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (rulerCode == 3)
 		{
-			QValueList<double>::Iterator it;
+			QValueList<PageItem::TabRecord>::Iterator it;
 			it = tabValues.at(actTab);
-			it = tabValues.remove(it);
 			tabValues.remove(it);
 			actTab = 0;
 			if (tabValues.count() != 0)
 			{
-				emit typeChanged(static_cast<int>(tabValues[actTab]));
-				emit tabMoved(tabValues[actTab+1]);
+				emit typeChanged(tabValues[actTab].tabType);
+				emit tabMoved(tabValues[actTab].tabPosition);
+				emit fillCharChanged(tabValues[actTab].tabFillChar);
 			}
 			else
 				emit noTabs();
@@ -283,13 +290,13 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				repaint();
 				break;
 			case 3:
-				tabValues[actTab+1] -= mouseX - m->x();
-				if (tabValues[actTab+1] < 0)
-					tabValues[actTab+1] = 0;
-				if (tabValues[actTab+1] > Width-1)
-					tabValues[actTab+1] = Width-1;
+				tabValues[actTab].tabPosition -= mouseX - m->x();
+				if (tabValues[actTab].tabPosition < 0)
+					tabValues[actTab].tabPosition = 0;
+				if (tabValues[actTab].tabPosition > Width-1)
+					tabValues[actTab].tabPosition = Width-1;
 				updateTabList();
-				emit tabMoved(tabValues[actTab+1]);
+				emit tabMoved(tabValues[actTab].tabPosition);
 				repaint();
 				break;
 			default:
@@ -318,9 +325,9 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		}
 		if (tabValues.count() != 0)
 		{
-			for (int yg = 0; yg < static_cast<int>(tabValues.count()-1); yg += 2)
+			for (int yg = 0; yg < static_cast<int>(tabValues.count()); yg++)
 			{
-				fpo = QRect(static_cast<int>(tabValues[yg+1]-offset)-3, 15, 8, 8);
+				fpo = QRect(static_cast<int>(tabValues[yg].tabPosition-offset)-3, 15, 8, 8);
 				if (fpo.contains(m->pos()))
 				{
 					qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
@@ -344,31 +351,30 @@ void RulerT::leaveEvent(QEvent*)
 
 void RulerT::updateTabList()
 {
-	QValueList<double>::Iterator it;
-	double CurX = tabValues[actTab+1];
+	struct PageItem::TabRecord tb;
+	tb.tabPosition = tabValues[actTab].tabPosition;
+	tb.tabType = tabValues[actTab].tabType;
+	tb.tabFillChar =  tabValues[actTab].tabFillChar;
+	QValueList<PageItem::TabRecord>::Iterator it;
 	int gg = static_cast<int>(tabValues.count()-1);
 	int g = gg;
-	double type = tabValues[actTab];
 	it = tabValues.at(actTab);
-	it = tabValues.remove(it);
 	tabValues.remove(it);
-	for (int yg = static_cast<int>(tabValues.count()-1); yg > 0; yg -= 2)
+	for (int yg = static_cast<int>(tabValues.count()); yg > -1; yg--)
 	{
-		if (CurX < tabValues[yg])
+		if (tb.tabPosition < tabValues[yg].tabPosition)
 			g = yg;
 	}
-	actTab = g-1;
+	actTab = g;
 	if (gg == g)
 	{
-		tabValues.append(type);
-		tabValues.append(CurX);
-		actTab = static_cast<int>(tabValues.count()-2);
+		tabValues.append(tb);
+		actTab = static_cast<int>(tabValues.count()-1);
 	}
 	else
 	{
 		it = tabValues.at(actTab);
-		it = tabValues.insert(it, CurX);
-		tabValues.insert(it, type);
+		tabValues.insert(it, tb);
 	}
 }
 
@@ -390,13 +396,19 @@ void RulerT::decreaseOffset()
 
 void RulerT::changeTab(int t)
 {
-	tabValues[actTab] = static_cast<double>(t);
+	tabValues[actTab].tabType = t;
+	repaint();
+}
+
+void RulerT::changeTabChar(QChar t)
+{
+	tabValues[actTab].tabFillChar = t;
 	repaint();
 }
 
 void RulerT::moveTab(double t)
 {
-	tabValues[actTab+1] = t;
+	tabValues[actTab].tabPosition = t;
 	updateTabList();
 	repaint();
 }
@@ -431,7 +443,7 @@ void RulerT::moveLeftIndent(double t)
 	repaint();
 }
 
-Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double> Tabs, double wid ) : QWidget( parent )
+Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageItem::TabRecord> Tabs, double wid ) : QWidget( parent )
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww;
@@ -457,12 +469,23 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double
 	rulerScrollR->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollR );
 	tabrulerLayout->addLayout( layout2 );
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
+	layout1 = new QHBoxLayout( 0, 0, 6, "layout1" );
+	layout1->setAlignment( Qt::AlignTop );
 	tabData = new MSpinBox( 0, ww, this, 1 );
 	tabData->setValue(0);
 	positionLabel = new QLabel( tabData, tr("&Position:"), this, "positionLabel" );
 	layout1->addWidget( positionLabel );
 	layout1->addWidget( tabData );
+	tabFillCombo = new QComboBox( true, this, "tabFillCombo" );
+	tabFillCombo->setEditable(false);
+	tabFillCombo->insertItem( tr("None"));
+	tabFillCombo->insertItem( "Dot");
+	tabFillCombo->insertItem( "Hypen");
+	tabFillCombo->insertItem( "Underscore");
+	tabFillCombo->insertItem( "Custom");
+	tabFillComboT = new QLabel(tabFillCombo, tr( "Fill Char:" ), this, "tabFillComboT" );
+	layout1->addWidget( tabFillComboT );
+	layout1->addWidget( tabFillCombo );
 	if (haveFirst)
 	{
 		firstLineData = new MSpinBox( -3000, ww, this, 1);
@@ -485,18 +508,21 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double
 		layout1->addItem( spacer );
 	}
 	tabrulerLayout->addLayout( layout1 );
+	TypeCombo->setEnabled(false);
+	tabData->setEnabled(false);
+	tabFillCombo->setEnabled(false);
 	if (Tabs.count() == 0)
-	{
-		TypeCombo->setEnabled(false);
-		tabData->setEnabled(false);
 		clearButton->setEnabled(false);
-	}
 	resize( minimumSizeHint() );
 	connect(rulerScrollL, SIGNAL(clicked()), ruler, SLOT(decreaseOffset()));
 	connect(rulerScrollR, SIGNAL(clicked()), ruler, SLOT(increaseOffset()));
 	connect(ruler, SIGNAL(typeChanged(int)) , this, SLOT(setTabType(int)));
+	connect(ruler, SIGNAL(fillCharChanged(QChar)) , this, SLOT(setTabFillChar(QChar)));
 	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
+	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	connect(ruler, SIGNAL(tabMoved(double)) , this, SLOT(setTabData(double)));
+	connect(ruler, SIGNAL(tabSelected()), this, SLOT(tabAdded()));
 	connect(ruler, SIGNAL(newTab()), this, SLOT(tabAdded()));
 	connect(ruler, SIGNAL(noTabs()), this, SLOT(lastTabRemoved()));
 	connect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
@@ -544,6 +570,7 @@ void Tabruler::tabAdded()
 	TypeCombo->setEnabled(true);
 	tabData->setEnabled(true);
 	clearButton->setEnabled(true);
+	tabFillCombo->setEnabled(true);
 	emit tabrulerChanged();
 }
 
@@ -552,6 +579,84 @@ void Tabruler::lastTabRemoved()
 	TypeCombo->setEnabled(false);
 	tabData->setEnabled(false);
 	clearButton->setEnabled(false);
+	tabFillCombo->setEnabled(false);
+	emit tabrulerChanged();
+}
+
+void Tabruler::setFillChar()
+{
+	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	QChar ret;
+	switch (tabFillCombo->currentItem())
+	{
+		case 0:
+			tabFillCombo->setEditable(false);
+			ret = QChar();
+			break;
+		case 1:
+			tabFillCombo->setEditable(false);
+			ret = '.';
+			break;
+		case 2:
+			tabFillCombo->setEditable(false);
+			ret = '-';
+			break;
+		case 3:
+			tabFillCombo->setEditable(false);
+			ret = '_';
+			break;
+		case 4:
+			tabFillCombo->setEditable(true);
+			tabFillCombo->setEditText( tr("Custom:"));
+			break;
+	}
+	if (tabFillCombo->currentItem() != 4)
+		ruler->changeTabChar(ret);
+	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+}
+
+void Tabruler::setCustomFillChar(const QString &txt)
+{
+	if (txt == tr("Custom:"))
+		return;
+	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	QChar ret = txt[txt.length()-1];
+	ruler->changeTabChar(ret);
+	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+}
+
+void Tabruler::setTabFillChar(QChar t)
+{
+	if (t.isNull())
+	{
+		tabFillCombo->setEditable(false);
+		tabFillCombo->setCurrentItem(0);
+	}
+	else if (t == ".")
+	{
+		tabFillCombo->setEditable(false);
+		tabFillCombo->setCurrentItem(1);
+	}
+	else if (t == "-")
+	{
+		tabFillCombo->setEditable(false);
+		tabFillCombo->setCurrentItem(2);
+	}
+	else if (t == "_")
+	{
+		tabFillCombo->setEditable(false);
+		tabFillCombo->setCurrentItem(3);
+	}
+	else
+	{
+		tabFillCombo->setCurrentItem(4);
+		tabFillCombo->setEditable(true);
+		tabFillCombo->setEditText( tr("Custom: ")+QString(t));
+	}
 	emit tabrulerChanged();
 }
 
@@ -614,7 +719,7 @@ void Tabruler::setLeftIndent()
 	emit tabrulerChanged();
 }
 
-QValueList<double> Tabruler::getTabVals()
+QValueList<PageItem::TabRecord> Tabruler::getTabVals()
 {
 	return ruler->tabValues;
 }

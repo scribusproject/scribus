@@ -20,6 +20,7 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
+#include "pageitem.h"
 
 class ScribusView;
 class ScribusDoc;
@@ -44,7 +45,7 @@ public:
 	int Markp;
 	bool repX;
 	bool Mpressed;
-	QValueList<double> TabValues;
+	QValueList<PageItem::TabRecord> TabValues;
 	double ItemPos;
 	double ItemEndPos;
 	int Cols;

@@ -159,17 +159,36 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	tabFillCombo = new QComboBox( true, subTabText, "tabFillCombo" );
 	tabFillCombo->setEditable(false);
 	tabFillCombo->insertItem( tr("None"));
-	tabFillCombo->insertItem( "...");
-	tabFillCombo->insertItem( "---");
-	tabFillCombo->insertItem( "___");
+	tabFillCombo->insertItem( "Dot");
+	tabFillCombo->insertItem( "Hypen");
+	tabFillCombo->insertItem( "Underscore");
+	tabFillCombo->insertItem( "Custom");
 	if (prefsData->tabFillChar == "")
+	{
+		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(0);
-	if (prefsData->tabFillChar == ".")
+	}
+	else if (prefsData->tabFillChar == ".")
+	{
+		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(1);
-	if (prefsData->tabFillChar == "-")
+	}
+	else if (prefsData->tabFillChar == "-")
+	{
+		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(2);
-	if (prefsData->tabFillChar == "_")
+	}
+	else if (prefsData->tabFillChar == "_")
+	{
+		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(3);
+	}
+	else
+	{
+		tabFillCombo->setCurrentItem(4);
+		tabFillCombo->setEditable(true);
+		tabFillCombo->setEditText( tr("Custom: "+prefsData->tabFillChar));
+	}
 	subTabTextLayout->addMultiCellWidget( tabFillCombo, 4, 4, 1, 3, Qt::AlignLeft );
 	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );
 	subTabTextLayout->addWidget( textLabel3b2t, 4, 0 );
@@ -601,10 +620,57 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
 	connect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
 	connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
+	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 }
 
 void TabTools::restoreDefaults()
 {
+}
+
+void TabTools::setCustomFillChar(const QString &txt)
+{
+	if (txt == tr("Custom:"))
+		return;
+	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	QString ret = txt.right(1);
+	if (tabFillCombo->editable())
+	{
+		tabFillCombo->setCurrentItem(4);
+		tabFillCombo->setEditText( tr("Custom: ")+ret);
+		tabFillCombo->changeItem( tr("Custom: ")+ret, 4);
+	}
+	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+}
+
+void TabTools::setFillChar()
+{
+	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	switch (tabFillCombo->currentItem())
+	{
+		case 0:
+			tabFillCombo->setEditable(false);
+			break;
+		case 1:
+			tabFillCombo->setEditable(false);
+			break;
+		case 2:
+			tabFillCombo->setEditable(false);
+			break;
+		case 3:
+			tabFillCombo->setEditable(false);
+			break;
+		case 4:
+			tabFillCombo->setEditable(true);
+			tabFillCombo->setEditText( tr("Custom:"));
+			tabFillCombo->changeItem( tr("Custom: "), 4);
+			break;
+	}
+	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
+	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 }
 
 /*!

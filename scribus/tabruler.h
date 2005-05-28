@@ -4,6 +4,8 @@
 #include <qvariant.h>
 #include <qwidget.h>
 
+#include "pageitem.h"
+
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -18,11 +20,11 @@ class RulerT : public QWidget
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, QValueList<double> Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int ein, QValueList<PageItem::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
 	void updateTabList();
 	bool mousePressed;
-	QValueList<double> tabValues;
+	QValueList<PageItem::TabRecord> tabValues;
 	bool haveInd;
 	int unitIndex;
 	int offset;
@@ -37,6 +39,7 @@ public slots:
 	void decreaseOffset();
 	void increaseOffset();
 	void changeTab(int t);
+	void changeTabChar(QChar t);
 	void moveTab(double t);
 	void moveFirstLine(double t);
 	void moveLeftIndent(double t);
@@ -44,11 +47,13 @@ public slots:
 signals:
 	void tabMoved(double);
 	void typeChanged(int);
+	void fillCharChanged(QChar);
 	void leftIndentMoved(double);
 	void firstLineMoved(double);
 	void noTabs();
 	void newTab();
 	void mouseReleased();
+	void tabSelected();
 
 protected:
 	virtual void paintEvent(QPaintEvent *);
@@ -63,9 +68,9 @@ class Tabruler : public QWidget
 	Q_OBJECT
 
 public:
-	Tabruler( QWidget* parent, bool haveFirst, int ein, QValueList<double> Tabs, double wid );
+	Tabruler( QWidget* parent, bool haveFirst, int ein, QValueList<PageItem::TabRecord> Tabs, double wid );
 	~Tabruler() {};
-	QValueList<double> getTabVals();
+	QValueList<PageItem::TabRecord> getTabVals();
 	bool haveF;
 	double getFirstLine();
 	double getLeftIndent();
@@ -82,6 +87,9 @@ public slots:
 	void setFirstLine();
 	void setLeftIndentData(double t);
 	void setLeftIndent();
+	void setTabFillChar(QChar t);
+	void setFillChar();
+	void setCustomFillChar(const QString &txt);
 
 signals:
 	/*! This signal is emited when is something changed in the tab ruler dialog/widget.
@@ -92,7 +100,10 @@ protected:
 	QVBoxLayout* tabrulerLayout;
 	QHBoxLayout* layout2;
 	QHBoxLayout* layout1;
+	QVBoxLayout* layout3;
 	QComboBox* TypeCombo;
+	QComboBox* tabFillCombo;
+	QLabel* tabFillComboT;
 	RulerT* ruler;
 	QToolButton* rulerScrollL;
 	QToolButton* rulerScrollR;

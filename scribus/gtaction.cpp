@@ -223,7 +223,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->ColGap = fstyle->getColumnsGap();
 	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	textFrame->setFillShade(fstyle->getBgShade());
-	textFrame->TabValues = QValueList<double>(*(fstyle->getTabValues()));
+	textFrame->TabValues = QValueList<PageItem::TabRecord>(*(fstyle->getTabValues()));
 	
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 // 	int pstyleIndex = findParagraphStyle(pstyle);
@@ -323,10 +323,10 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.Font = validateFont(font);
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
-	QValueList<double> *tabs = pstyle->getTabValues();
+	QValueList<PageItem::TabRecord> *tabs = pstyle->getTabValues();
 	for (uint i = 0; i < tabs->size(); ++i)
 	{
-		double tmp = (*tabs)[i];
+		struct PageItem::TabRecord tmp = (*tabs)[i];
 		vg.TabValues.append(tmp);
 	}
 	vg.Drop = pstyle->hasDropCap();
@@ -337,7 +337,6 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
-	vg.tabFillChar = ScApp->doc->toolSettings.tabFillChar;
 	vg.txtShadowX = 50;
 	vg.txtShadowY = -50;
 	vg.txtOutline = 10;
@@ -388,10 +387,10 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.Font = validateFont(font);
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
-	QValueList<double> *tabs = pstyle->getTabValues();
+	QValueList<PageItem::TabRecord> *tabs = pstyle->getTabValues();
 	for (uint i = 0; i < tabs->size(); ++i)
 	{
-		double tmp = (*tabs)[i];
+		struct PageItem::TabRecord tmp = (*tabs)[i];
 		vg.TabValues.append(tmp);
 	}
 	vg.Drop = pstyle->hasDropCap();
@@ -402,7 +401,6 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
-	vg.tabFillChar = ScApp->doc->toolSettings.tabFillChar;
 	vg.txtShadowX = 50;
 	vg.txtShadowY = -50;
 	vg.txtOutline = 10;

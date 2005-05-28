@@ -118,6 +118,8 @@ protected slots:
 	virtual void changeImageScalingRatio(int);
 	virtual void setSample();
 	virtual void setTool();
+	virtual void setFillChar();
+	virtual void setCustomFillChar(const QString &txt);
 
 protected:
 	QHBoxLayout* tabToolsLayout;

@@ -3064,10 +3064,9 @@ bool ScribusApp::SetupDoc()
 			case 3:
 				doc->toolSettings.tabFillChar = "_";
 				break;
-		}
-		for (int xxx=0; xxx<5; ++xxx)
-		{
-			doc->docParagraphStyles[xxx].tabFillChar = doc->toolSettings.tabFillChar;
+			case 4:
+				doc->toolSettings.tabFillChar = dia->tabTools->tabFillCombo->currentText().right(1);
+				break;
 		}
 		if (doc->toolSettings.dStrokeText == tr("None"))
 			doc->toolSettings.dStrokeText = "None";
@@ -4643,10 +4642,6 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->pageCount = doc->DocPages.count();
 			doc->Pages = doc->DocPages;
 			doc->MasterP = false;
-		}
-		for (int xxx=0; xxx<5; ++xxx)
-		{
-			doc->docParagraphStyles[xxx].tabFillChar = doc->toolSettings.tabFillChar;
 		}
 		doc->loading = false;
 		view->slotDoZoom();
@@ -7146,6 +7141,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	PageItem* ite = 0;
 	bool ff;
 	uint nr;
+	bool tabEQ = false;
 	ers.clear();
 	ers.append(0);
 	ers.append(1);
@@ -7175,6 +7171,28 @@ void ScribusApp::saveStyles(StilFormate *dia)
 		{
 			for (uint b=0; b<dia->TempVorl.count(); ++b)
 			{
+				struct PageItem::TabRecord tb;
+				tabEQ = false;
+				for (uint t1 = 0; t1 < dia->TempVorl[b].TabValues.count(); t1++)
+				{
+					tb.tabPosition = dia->TempVorl[b].TabValues[t1].tabPosition;
+					tb.tabType = dia->TempVorl[b].TabValues[t1].tabType;
+					tb.tabFillChar = dia->TempVorl[b].TabValues[t1].tabFillChar;
+					for (uint t2 = 0; t2 < doc->docParagraphStyles[a].TabValues.count(); t2++)
+					{
+						struct PageItem::TabRecord tb2;
+						tb2.tabPosition = doc->docParagraphStyles[a].TabValues[t2].tabPosition;
+						tb2.tabType = doc->docParagraphStyles[a].TabValues[t2].tabType;
+						tb2.tabFillChar = doc->docParagraphStyles[a].TabValues[t2].tabFillChar;
+						if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+						{
+							tabEQ = true;
+							break;
+						}
+					}
+					if (tabEQ)
+						break;
+				}
 				if ((doc->docParagraphStyles[a].LineSpa == dia->TempVorl[b].LineSpa) &&
 					(doc->docParagraphStyles[a].Indent == dia->TempVorl[b].Indent) &&
 					(doc->docParagraphStyles[a].First == dia->TempVorl[b].First) &&
@@ -7182,7 +7200,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					(doc->docParagraphStyles[a].gapBefore == dia->TempVorl[b].gapBefore) &&
 					(doc->docParagraphStyles[a].gapAfter == dia->TempVorl[b].gapAfter) &&
 					(doc->docParagraphStyles[a].Font == dia->TempVorl[b].Font) &&
-					(doc->docParagraphStyles[a].TabValues == dia->TempVorl[b].TabValues) &&
+					(tabEQ) &&
 					(doc->docParagraphStyles[a].Drop == dia->TempVorl[b].Drop) &&
 					(doc->docParagraphStyles[a].DropLin == dia->TempVorl[b].DropLin) &&
 					(doc->docParagraphStyles[a].FontEffect == dia->TempVorl[b].FontEffect) &&
@@ -7191,7 +7209,6 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					(doc->docParagraphStyles[a].SColor == dia->TempVorl[b].SColor) &&
 					(doc->docParagraphStyles[a].SShade == dia->TempVorl[b].SShade) &&
 					(doc->docParagraphStyles[a].BaseAdj == dia->TempVorl[b].BaseAdj) &&
-					(doc->docParagraphStyles[a].tabFillChar == dia->TempVorl[b].tabFillChar) &&
 					(doc->docParagraphStyles[a].txtShadowX == dia->TempVorl[b].txtShadowX) &&
 					(doc->docParagraphStyles[a].txtShadowY == dia->TempVorl[b].txtShadowY) &&
 					(doc->docParagraphStyles[a].txtOutline == dia->TempVorl[b].txtOutline) &&
@@ -8079,6 +8096,9 @@ void ScribusApp::slotPrefsOrg()
 				break;
 			case 3:
 				Prefs.toolSettings.tabFillChar = "_";
+				break;
+			case 4:
+				Prefs.toolSettings.tabFillChar = dia->tabTools->tabFillCombo->currentText().right(1);
 				break;
 		}
 		switch (dia->tabTools->comboStyleShape->currentItem())
@@ -10206,12 +10226,26 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				uint chr = it->itemText.at(e)->ch[0].unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29))
 					continue;
-				if ((chr == 9) && (doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar != ""))
+				if (chr == 9)
 				{
-					chx = doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar;
-					chr = chx[0].unicode();
-					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
+					{
+						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+						chr = chx[0].unicode();
+						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					}
+					for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
+					{
+						if (it->TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(it->TabValues[t1].tabFillChar);
+						chr = chx[0].unicode();
+						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					}
 					continue;
 				}
 				if (chr == 30)
@@ -10252,12 +10286,26 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 				uint chr = it->itemText.at(e)->ch[0].unicode();
 				if ((chr == 13) || (chr == 32) || (chr == 29))
 					continue;
-				if ((chr == 9) && (doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar != ""))
+				if (chr == 9)
 				{
-					chx = doc->docParagraphStyles[it->itemText.at(e)->cab].tabFillChar;
-					chr = chx[0].unicode();
-					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
+					{
+						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+						chr = chx[0].unicode();
+						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					}
+					for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
+					{
+						if (it->TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(it->TabValues[t1].tabFillChar);
+						chr = chx[0].unicode();
+						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					}
 					continue;
 				}
 				if (chr == 30)

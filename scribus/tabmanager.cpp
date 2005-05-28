@@ -9,7 +9,7 @@
 #include "units.h"
 extern QPixmap loadIcon(QString nam);
 
-TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab, double wid) : QDialog( parent, "TabManager", true, 0 )
+TabManager::TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecord> inTab, double wid) : QDialog( parent, "TabManager", true, 0 )
 {
 	setCaption( tr( "Manage Tabulators" ) );
 	setIcon(loadIcon("AppIcon.png"));

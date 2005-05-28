@@ -489,12 +489,6 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 		colp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 	}
 	ob->setAttribute("COCOOR", colp);
-	ob->setAttribute("NUMTAB", static_cast<int>(item->TabValues.count()));
-	QString tlp = "";
-	QValueList<double>::Iterator tax;
-	for (tax = item->TabValues.begin(); tax != item->TabValues.end(); ++tax)
-		tlp += tmp.setNum((*tax)) + " ";
-	ob->setAttribute("TABS", tlp);
 	ob->setAttribute("NUMGROUP", static_cast<int>(item->Groups.count()));
 	QString glp = "";
 	QValueStack<int>::Iterator nx;
@@ -564,8 +558,9 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
-	double xf;
+	double xf, xf2;
 	fou = false;
+	bool tabEQ = false;
 	vg->Vname = pg->attribute("NAME");
 	vg->LineSpa = QStodouble(pg->attribute("LINESP"));
 	vg->Indent = QStodouble(pg->attribute("INDENT","0"));
@@ -598,33 +593,79 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	vg->txtUnderWidth=qRound(QStodouble(pg->attribute("TXTULW", "-0.1")) * 10);
 	vg->txtStrikePos=qRound(QStodouble(pg->attribute("TXTSTP", "-0.1")) * 10);
 	vg->txtStrikeWidth=qRound(QStodouble(pg->attribute("TXTSTW", "-0.1")) * 10);
+	vg->TabValues.clear();
 	if ((pg->hasAttribute("NUMTAB")) && (QStoInt(pg->attribute("NUMTAB","0")) != 0))
 	{
+		struct PageItem::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
 		vg->TabValues.clear();
-		for (int cxv = 0; cxv < QStoInt(pg->attribute("NUMTAB","0")); ++cxv)
+		for (int cxv = 0; cxv < QStoInt(pg->attribute("NUMTAB","0")); cxv += 2)
 		{
 			tgv >> xf;
-			vg->TabValues.append(xf);
+			tgv >> xf2;
+			tb.tabPosition = xf2;
+			tb.tabType = static_cast<int>(xf);
+			tb.tabFillChar = QChar();
+			vg->TabValues.append(tb);
 		}
 		tmp = "";
 	}
 	else
-		vg->TabValues.clear();
-	vg->tabFillChar = pg->attribute("TabFill", "");
+	{
+		QDomNode IT = pg->firstChild();
+		while(!IT.isNull())
+		{
+			QDomElement it = IT.toElement();
+			if (it.tagName()=="Tabs")
+			{
+				struct PageItem::TabRecord tb;
+				tb.tabPosition = QStodouble(it.attribute("Pos"));
+				tb.tabType = QStoInt(it.attribute("Type"));
+				QString tbCh = "";
+				tbCh = it.attribute("Fill","");
+				if (tbCh == "")
+					tb.tabFillChar = QChar();
+				else
+					tb.tabFillChar = tbCh[0];
+				vg->TabValues.append(tb);
+			}
+			IT=IT.nextSibling();
+		}
+	}
 	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg->Vname == docParagraphStyles[xx].Vname)
 		{
+			struct PageItem::TabRecord tb;
+			tabEQ = false;
+			for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+			{
+				tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
+				tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
+				tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
+				for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
+				{
+					struct PageItem::TabRecord tb2;
+					tb2.tabPosition = vg->TabValues[t2].tabPosition;
+					tb2.tabType = vg->TabValues[t2].tabType;
+					tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
+					if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+					{
+						tabEQ = true;
+						break;
+					}
+				}
+				if (tabEQ)
+					break;
+			}
 			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
 					(vg->Indent == docParagraphStyles[xx].Indent) &&
 					(vg->First == docParagraphStyles[xx].First) &&
 					(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
 					(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
 					(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
-					(vg->Font == docParagraphStyles[xx].Font) &&
-					(vg->TabValues == docParagraphStyles[xx].TabValues) &&
+					(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
 					(vg->Drop == docParagraphStyles[xx].Drop) &&
 					(vg->DropLin == docParagraphStyles[xx].DropLin) &&
 					(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
@@ -633,7 +674,6 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					(vg->SColor == docParagraphStyles[xx].SColor) &&
 					(vg->SShade == docParagraphStyles[xx].SShade) &&
 					(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
-					(vg->tabFillChar == docParagraphStyles[xx].tabFillChar) &&
 					(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
 					(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
 					(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
@@ -662,14 +702,35 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	{
 		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
+			struct PageItem::TabRecord tb;
+			tabEQ = false;
+			for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+			{
+				tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
+				tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
+				tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
+				for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
+				{
+					struct PageItem::TabRecord tb2;
+					tb2.tabPosition = vg->TabValues[t2].tabPosition;
+					tb2.tabType = vg->TabValues[t2].tabType;
+					tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
+					if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+					{
+						tabEQ = true;
+						break;
+					}
+				}
+				if (tabEQ)
+					break;
+			}
 			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
 				(vg->Indent == docParagraphStyles[xx].Indent) &&
 				(vg->First == docParagraphStyles[xx].First) &&
 				(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
 				(vg->gapBefore == docParagraphStyles[xx].gapBefore) &&
 				(vg->gapAfter == docParagraphStyles[xx].gapAfter) &&
-				(vg->Font == docParagraphStyles[xx].Font) &&
-				(vg->TabValues == docParagraphStyles[xx].TabValues) &&
+				(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
 				(vg->Drop == docParagraphStyles[xx].Drop) &&
 				(vg->DropLin == docParagraphStyles[xx].DropLin) &&
 				(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
@@ -678,7 +739,6 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				(vg->SColor == docParagraphStyles[xx].SColor) &&
 				(vg->SShade == docParagraphStyles[xx].SShade) &&
 				(vg->BaseAdj == docParagraphStyles[xx].BaseAdj) &&
-				(vg->tabFillChar == docParagraphStyles[xx].tabFillChar) &&
 				(vg->txtShadowX == docParagraphStyles[xx].txtShadowX) &&
 				(vg->txtShadowY == docParagraphStyles[xx].txtShadowY) &&
 				(vg->txtOutline == docParagraphStyles[xx].txtOutline) &&
@@ -1184,7 +1244,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int x, a;
-	double xf;
+	double xf, xf2;
 	PageItem *Neu;
 	LFrames.clear();
 	QDomDocument docu("scridoc");
@@ -1387,16 +1447,20 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					tmp = pg.attribute("TABS");
 					QTextStream tgv(&tmp, IO_ReadOnly);
 					vg.TabValues.clear();
-					for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); ++cxv)
+					struct PageItem::TabRecord tb;
+					for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); cxv += 2)
 					{
 						tgv >> xf;
-						vg.TabValues.append(xf);
+						tgv >> xf2;
+						tb.tabPosition = xf2;
+						tb.tabType = static_cast<int>(xf);
+						tb.tabFillChar = QChar();
+						vg.TabValues.append(tb);
 					}
 					tmp = "";
 				}
 				else
 					vg.TabValues.clear();
-				vg.tabFillChar = "";
 				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")
@@ -2055,6 +2119,19 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					OB.GrColor = "";
 					OB.GrColor2 = "";
 				}
+				if (it.tagName()=="Tabs")
+				{
+					struct PageItem::TabRecord tb;
+					tb.tabPosition = QStodouble(it.attribute("Pos"));
+					tb.tabType = QStoInt(it.attribute("Type"));
+					QString tbCh = "";
+					tbCh = it.attribute("Fill","");
+					if (tbCh == "")
+						tb.tabFillChar = QChar();
+					else
+						tb.tabFillChar = tbCh[0];
+					OB.TabValues.append(tb);
+				}
 				if (it.tagName()=="ITEXT")
 					tmp += GetItemText(&it, doc, Prefs, VorLFound, true, false);
 				IT=IT.nextSibling();
@@ -2177,7 +2254,6 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				vg.SColor = doc->docParagraphStyles[item->textAlignment].SColor;
 				vg.SShade = doc->docParagraphStyles[item->textAlignment].SShade;
 				vg.BaseAdj = doc->docParagraphStyles[item->textAlignment].BaseAdj;
-				vg.tabFillChar = doc->docParagraphStyles[item->textAlignment].tabFillChar;
 				vg.txtShadowX = doc->docParagraphStyles[item->textAlignment].txtShadowX;
 				vg.txtShadowY = doc->docParagraphStyles[item->textAlignment].txtShadowY;
 				vg.txtOutline = doc->docParagraphStyles[item->textAlignment].txtOutline;
@@ -2211,7 +2287,6 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 						vg.SColor = doc->docParagraphStyles[item->itemText.at(tx)->cab].SColor;
 						vg.SShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].SShade;
 						vg.BaseAdj = doc->docParagraphStyles[item->itemText.at(tx)->cab].BaseAdj;
-						vg.tabFillChar = doc->docParagraphStyles[item->itemText.at(tx)->cab].tabFillChar;
 						vg.txtShadowX = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtShadowX;
 						vg.txtShadowY = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtShadowY;
 						vg.txtOutline = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtOutline;
@@ -2244,17 +2319,24 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			fo.setAttribute("DROP", static_cast<int>(UsedStyles[actSt].Drop));
 			fo.setAttribute("DROPLIN", UsedStyles[actSt].DropLin);
 			fo.setAttribute("EFFECT", UsedStyles[actSt].FontEffect);
-			fo.setAttribute("NUMTAB", static_cast<int>(UsedStyles[actSt].TabValues.count()));
-			QString tlp = "";
-			QValueList<double>::Iterator tax;
-			for (tax = UsedStyles[actSt].TabValues.begin(); tax != UsedStyles[actSt].TabValues.end(); ++tax)
-				tlp += tmp.setNum((*tax)) + " ";
-			fo.setAttribute("TABS", tlp);
+			if (UsedStyles[actSt].TabValues.count() != 0)
+			{
+				for (uint a = 0; a < UsedStyles[actSt].TabValues.count(); ++a)
+				{
+					QDomElement tabs = docu.createElement("Tabs");
+					tabs.setAttribute("Type", (*UsedStyles[actSt].TabValues.at(a)).tabType);
+					tabs.setAttribute("Pos", (*UsedStyles[actSt].TabValues.at(a)).tabPosition);
+					QString tabCh = "";
+					if (!(*UsedStyles[actSt].TabValues.at(a)).tabFillChar.isNull())
+						tabCh = QString((*UsedStyles[actSt].TabValues.at(a)).tabFillChar);
+					tabs.setAttribute("Fill", tabCh);
+					fo.appendChild(tabs);
+				}
+			}
 			fo.setAttribute("FCOLOR",UsedStyles[actSt].FColor);
 			fo.setAttribute("FSHADE",UsedStyles[actSt].FShade);
 			fo.setAttribute("SCOLOR",UsedStyles[actSt].SColor);
 			fo.setAttribute("SSHADE",UsedStyles[actSt].SShade);
-			fo.setAttribute("TabFill",UsedStyles[actSt].tabFillChar);
 			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].BaseAdj));
 			fo.setAttribute("TXTSHX",UsedStyles[actSt].txtShadowX / 10.0);
 			fo.setAttribute("TXTSHY",UsedStyles[actSt].txtShadowY / 10.0);
@@ -2347,6 +2429,20 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
 				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
 				ob.appendChild(imeff);
+			}
+		}
+		if (item->TabValues.count() != 0)
+		{
+			for (uint a = 0; a < item->TabValues.count(); ++a)
+			{
+				QDomElement tabs = docu.createElement("Tabs");
+				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
+				tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
+				QString tabCh = "";
+				if (!(*item->TabValues.at(a)).tabFillChar.isNull())
+					tabCh = QString((*item->TabValues.at(a)).tabFillChar);
+				tabs.setAttribute("Fill", tabCh);
+				ob.appendChild(tabs);
 			}
 		}
 		if (item->GrType != 0)
@@ -2644,6 +2740,20 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
 				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
 				ob.appendChild(imeff);
+			}
+		}
+		if (item->TabValues.count() != 0)
+		{
+			for (uint a = 0; a < item->TabValues.count(); ++a)
+			{
+				QDomElement tabs = docu->createElement("Tabs");
+				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
+				tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
+				QString tabCh = "";
+				if (!(*item->TabValues.at(a)).tabFillChar.isNull())
+					tabCh = QString((*item->TabValues.at(a)).tabFillChar);
+				tabs.setAttribute("Fill", tabCh);
+				ob.appendChild(tabs);
 			}
 		}
 		ob.setAttribute("ALIGN",item->textAlignment);
@@ -3071,19 +3181,25 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			fo.setAttribute("DROP", static_cast<int>(doc->docParagraphStyles[ff].Drop));
 			fo.setAttribute("DROPLIN", doc->docParagraphStyles[ff].DropLin);
 			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].FontEffect);
-			fo.setAttribute("NUMTAB", static_cast<int>(doc->docParagraphStyles[ff].TabValues.count()));
-			QString tlp = "";
-			QString tmp = "";
-			QValueList<double>::Iterator tax;
-			for (tax = doc->docParagraphStyles[ff].TabValues.begin(); tax != doc->docParagraphStyles[ff].TabValues.end(); ++tax)
-				tlp += tmp.setNum((*tax)) + " ";
-			fo.setAttribute("TABS", tlp);
+			if (doc->docParagraphStyles[ff].TabValues.count() != 0)
+			{
+				for (uint a = 0; a < doc->docParagraphStyles[ff].TabValues.count(); ++a)
+				{
+					QDomElement tabs = docu.createElement("Tabs");
+					tabs.setAttribute("Type", (*doc->docParagraphStyles[ff].TabValues.at(a)).tabType);
+					tabs.setAttribute("Pos", (*doc->docParagraphStyles[ff].TabValues.at(a)).tabPosition);
+					QString tabCh = "";
+					if (!(*doc->docParagraphStyles[ff].TabValues.at(a)).tabFillChar.isNull())
+						tabCh = QString((*doc->docParagraphStyles[ff].TabValues.at(a)).tabFillChar);
+					tabs.setAttribute("Fill", tabCh);
+					fo.appendChild(tabs);
+				}
+			}
 			fo.setAttribute("FCOLOR",doc->docParagraphStyles[ff].FColor);
 			fo.setAttribute("FSHADE",doc->docParagraphStyles[ff].FShade);
 			fo.setAttribute("SCOLOR",doc->docParagraphStyles[ff].SColor);
 			fo.setAttribute("SSHADE",doc->docParagraphStyles[ff].SShade);
 			fo.setAttribute("BASE", static_cast<int>(doc->docParagraphStyles[ff].BaseAdj));
-			fo.setAttribute("TabFill",doc->docParagraphStyles[ff].tabFillChar);
 			fo.setAttribute("TXTSHX",doc->docParagraphStyles[ff].txtShadowX / 10.0);
 			fo.setAttribute("TXTSHY",doc->docParagraphStyles[ff].txtShadowY / 10.0);
 			fo.setAttribute("TXTOUT",doc->docParagraphStyles[ff].txtOutline / 10.0);

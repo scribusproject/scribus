@@ -141,15 +141,18 @@ void gtParagraphStyle::setSpaceBelow(double newSpaceBelow)
 	spaceBelow = newSpaceBelow;
 }
 
-QValueList<double>* gtParagraphStyle::getTabValues()
+QValueList<PageItem::TabRecord>* gtParagraphStyle::getTabValues()
 {
 	return &tabValues;
 }
 
 void gtParagraphStyle::setTabValue(double newTabValue, TabType ttype)
 {
-	tabValues.append(static_cast<double>(ttype));
-	tabValues.append(newTabValue);
+	struct PageItem::TabRecord tb;
+	tb.tabPosition = newTabValue;
+	tb.tabType = ttype;
+	tb.tabFillChar =  QChar();
+	tabValues.append(tb);
 }
 
 bool gtParagraphStyle::hasDropCap()

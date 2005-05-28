@@ -314,7 +314,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int a;
-	double xf;
+	double xf, xf2;
 	PageItem *Neu;
 	Page* Apage;
 	LFrames.clear();
@@ -582,21 +582,45 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.txtUnderWidth=qRound(QStodouble(pg.attribute("TXTULW", "-0.1")) * 10);
 				vg.txtStrikePos=qRound(QStodouble(pg.attribute("TXTSTP", "-0.1")) * 10);
 				vg.txtStrikeWidth=qRound(QStodouble(pg.attribute("TXTSTW", "-0.1")) * 10);
+				vg.TabValues.clear();
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
+					struct PageItem::TabRecord tb;
 					tmp = pg.attribute("TABS");
 					QTextStream tgv(&tmp, IO_ReadOnly);
-					vg.TabValues.clear();
-					for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); ++cxv)
+					for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); cxv += 2)
 					{
 						tgv >> xf;
-						vg.TabValues.append(xf);
+						tgv >> xf2;
+						tb.tabPosition = xf2;
+						tb.tabType = static_cast<int>(xf);
+						tb.tabFillChar =  QChar();
+						vg.TabValues.append(tb);
 					}
 					tmp = "";
 				}
 				else
-					vg.TabValues.clear();
-				vg.tabFillChar = pg.attribute("TabFill", "");
+				{
+					QDomNode IT = pg.firstChild();
+					while(!IT.isNull())
+					{
+						QDomElement it = IT.toElement();
+						if (it.tagName()=="Tabs")
+						{
+							struct PageItem::TabRecord tb;
+							tb.tabPosition = QStodouble(it.attribute("Pos"));
+							tb.tabType = QStoInt(it.attribute("Type"));
+							QString tbCh = "";
+							tbCh = it.attribute("Fill","");
+							if (tbCh == "")
+								tb.tabFillChar = QChar();
+							else
+								tb.tabFillChar = tbCh[0];
+							vg.TabValues.append(tb);
+						}
+						IT=IT.nextSibling();
+					}
+				}
 				doc->docParagraphStyles.append(vg);
 			}
 			if(pg.tagName()=="JAVA")
@@ -1231,7 +1255,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	PageItem *currItem;
 	QString tmp;
 	int xi;
-	double xf, yf;
+	double xf, yf, xf2;
 	QString clPath;
 	QDomNode IT;
 	switch (pt)
@@ -1475,20 +1499,45 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	else
 		currItem->Groups.clear();
 	tmp = "";
+	currItem->TabValues.clear();
 	if ((obj->hasAttribute("NUMTAB")) && (QStoInt(obj->attribute("NUMTAB","0")) != 0))
 	{
+		struct PageItem::TabRecord tb;
 		tmp = obj->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
-		currItem->TabValues.clear();
-		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMTAB","0")); ++cxv)
+		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMTAB","0")); cxv += 2)
 		{
 			tgv >> xf;
-			currItem->TabValues.append(xf);
+			tgv >> xf2;
+			tb.tabPosition = xf2;
+			tb.tabType = static_cast<int>(xf);
+			tb.tabFillChar = QChar();
+			currItem->TabValues.append(tb);
 		}
 		tmp = "";
 	}
 	else
-		currItem->TabValues.clear();
+	{
+		IT = obj->firstChild();
+		while(!IT.isNull())
+		{
+			QDomElement it = IT.toElement();
+			if (it.tagName()=="Tabs")
+			{
+				struct PageItem::TabRecord tb;
+				tb.tabPosition = QStodouble(it.attribute("Pos"));
+				tb.tabType = QStoInt(it.attribute("Type"));
+				QString tbCh = "";
+				tbCh = it.attribute("Fill","");
+				if (tbCh == "")
+					tb.tabFillChar = QChar();
+				else
+					tb.tabFillChar = tbCh[0];
+				currItem->TabValues.append(tb);
+			}
+			IT=IT.nextSibling();
+		}
+	}
 	if ((obj->hasAttribute("NUMDASH")) && (QStoInt(obj->attribute("NUMDASH","0")) != 0))
 	{
 		tmp = obj->attribute("DASHS");

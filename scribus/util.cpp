@@ -1352,7 +1352,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 {
 	QString tmp;
 	int x, y;
-	double xf, yf;
+	double xf, yf, xf2;
 	OB->PType = static_cast<PageItem::ItemType>(QStoInt(obj->attribute("PTYPE")));
 	OB->Width=QStodouble(obj->attribute("WIDTH"));
 	OB->Height=QStodouble(obj->attribute("HEIGHT"));
@@ -1548,13 +1548,18 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	tmp = "";
 	if ((obj->hasAttribute("NUMTAB")) && (QStoInt(obj->attribute("NUMTAB","0")) != 0))
 	{
+		struct PageItem::TabRecord tb;
 		tmp = obj->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
 		OB->TabValues.clear();
-		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMTAB","0")); ++cxv)
+		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMTAB","0")); cxv += 2)
 		{
 			tgv >> xf;
-			OB->TabValues.append(xf);
+			tgv >> xf2;
+			tb.tabPosition = xf2;
+			tb.tabType = static_cast<int>(xf);
+			tb.tabFillChar = QChar();
+			OB->TabValues.append(tb);
 		}
 		tmp = "";
 	}

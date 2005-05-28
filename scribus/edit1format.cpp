@@ -101,25 +101,6 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	bool enable = vor->Drop ? true : false;
 	DropLines->setEnabled(enable);
 	CapLabel->setEnabled(enable);
-	
-	tabFillCombo = new QComboBox( true, GroupFont, "tabFillCombo" );
-	tabFillCombo->setEditable(false);
-	tabFillCombo->insertItem( tr("None"));
-	tabFillCombo->insertItem( "...");
-	tabFillCombo->insertItem( "---");
-	tabFillCombo->insertItem( "___");
-	if (vor->tabFillChar == "")
-		tabFillCombo->setCurrentItem(0);
-	if (vor->tabFillChar == ".")
-		tabFillCombo->setCurrentItem(1);
-	if (vor->tabFillChar == "-")
-		tabFillCombo->setCurrentItem(2);
-	if (vor->tabFillChar == "_")
-		tabFillCombo->setCurrentItem(3);
-	GroupFontLayout->addWidget( tabFillCombo, 3, 4 );
-	tabFillComboT = new QLabel(tabFillCombo, tr( "Tab Fill Char:" ), GroupFont, "textLabel3b2t" );
-	GroupFontLayout->addWidget( tabFillComboT, 3, 3 );
-
 	TxFill = new QComboBox( true, GroupFont, "TxFill" );
 	TxFill->setEditable(false);
 	FillIcon = new QLabel( TxFill, tr( "F&ill Color:" ), GroupFont, "FillIcon" );
@@ -414,21 +395,6 @@ void EditStyle::Verlassen()
 	werte->SShade = PM1->getValue();
 	werte->BaseAdj = BaseGrid->isChecked();
 	werte->TabValues = TabList->getTabVals();
-	switch (tabFillCombo->currentItem())
-	{
-		case 0:
-			werte->tabFillChar = "";
-			break;
-		case 1:
-			werte->tabFillChar = ".";
-			break;
-		case 2:
-			werte->tabFillChar = "-";
-			break;
-		case 3:
-			werte->tabFillChar = "_";
-			break;
-	}
 	werte->txtShadowX = qRound(EffeS->ShadowVal->Xoffset->value() * 10.0);
 	werte->txtShadowY = qRound(EffeS->ShadowVal->Yoffset->value() * 10.0);
 	werte->txtOutline = qRound(EffeS->OutlineVal->LWidth->value() * 10.0);
@@ -470,21 +436,6 @@ void EditStyle::updatePreview()
 	tmpStyle.SShade = PM1->getValue();
 	tmpStyle.BaseAdj = BaseGrid->isChecked();
 	tmpStyle.TabValues = TabList->getTabVals();
-	switch (tabFillCombo->currentItem())
-	{
-		case 0:
-			tmpStyle.tabFillChar = "";
-			break;
-		case 1:
-			tmpStyle.tabFillChar = ".";
-			break;
-		case 2:
-			tmpStyle.tabFillChar = "-";
-			break;
-		case 3:
-			tmpStyle.tabFillChar = "_";
-			break;
-	}
 	tmpStyle.txtShadowX = qRound(EffeS->ShadowVal->Xoffset->value() * 10.0);
 	tmpStyle.txtShadowY = qRound(EffeS->ShadowVal->Yoffset->value() * 10.0);
 	tmpStyle.txtOutline = qRound(EffeS->OutlineVal->LWidth->value() * 10.0);

@@ -112,6 +112,13 @@ public:
 		PathText	= 8
 	};
 
+struct TabRecord
+{
+	double tabPosition;
+	int tabType;
+	QChar tabFillChar;
+};
+
 
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
@@ -360,7 +367,7 @@ public:
 	bool AspectRatio;
 	QValueStack<int> Groups;
 	QValueList<double> DashValues;
-	QValueList<double> TabValues;
+	QValueList<TabRecord> TabValues;
 	double DashOffset;
 	VGradient fill_gradient;
 	bool fillRule;

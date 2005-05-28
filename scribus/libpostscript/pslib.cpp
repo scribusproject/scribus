@@ -1970,6 +1970,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 {
 	struct ScText *hl;
 	double tabDist;
+	uint tabCc = 0;
+	QValueList<PageItem::TabRecord> tTabValues;
 	if (ite->lineColor() != "None")
 		tabDist = ite->Extra + ite->Pwidth / 2.0;
 	else
@@ -1983,15 +1985,21 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			continue;
 		if (hl->yp == 0)
 			continue;
+		if (hl->cab < 5)
+			tTabValues = ite->TabValues;
+		else
+			tTabValues = Doc->docParagraphStyles[hl->cab].TabValues;
+		if (hl->cstyle & 16384)
+			tabCc = 0;
 		if (hl->ch == QChar(9))
 		{
-			if (Doc->docParagraphStyles[hl->cab].tabFillChar != "")
+			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{
 				struct ScText hl2;
-				double wt = Cwidth(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].tabFillChar, hl->csize);
+				double wt = Cwidth(Doc, hl->cfont, QString(tTabValues[tabCc].tabFillChar), hl->csize);
 				int coun = static_cast<int>((hl->xp - tabDist) / wt);
 				double sPos = hl->xp - (hl->xp - tabDist) + 1;
-				hl2.ch = Doc->docParagraphStyles[hl->cab].tabFillChar;
+				hl2.ch = QString(tTabValues[tabCc].tabFillChar);
 				hl2.ccolor = hl->ccolor;
 				hl2.cstroke = hl->cstroke;
 				hl2.cshade = hl->cshade;
@@ -2040,10 +2048,14 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 					}
 					setTextCh(Doc, ite, gcr, a, d, &hl2);
 				}
+				tabCc++;
 				continue;
 			}
 			else
+			{
+				tabCc++;
 				continue;
+			}
 		}
 		if ((hl->cstyle & 256) && (hl->cstroke != "None"))
 		{

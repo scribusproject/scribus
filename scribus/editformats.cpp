@@ -25,6 +25,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	StyleView->header()->setResizeEnabled( FALSE, StyleView->header()->count() - 1 );
 	StyleView->setSorting(-1);
 	int counter = 5;
+	bool tabEQ = false;
 	for (uint x = 5; x < styleList->count(); ++x)
 	{
 		struct ParagraphStyle vg;
@@ -36,12 +37,34 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 			vg2 = (*styleOld)[xx];
 			if (vg.Vname == vg2.Vname)
 			{
+				struct PageItem::TabRecord tb;
+				tabEQ = false;
+				for (uint t1 = 0; t1 < vg2.TabValues.count(); t1++)
+				{
+					tb.tabPosition = vg2.TabValues[t1].tabPosition;
+					tb.tabType = vg2.TabValues[t1].tabType;
+					tb.tabFillChar = vg2.TabValues[t1].tabFillChar;
+					for (uint t2 = 0; t2 < vg.TabValues.count(); t2++)
+					{
+						struct PageItem::TabRecord tb2;
+						tb2.tabPosition = vg.TabValues[t2].tabPosition;
+						tb2.tabType = vg.TabValues[t2].tabType;
+						tb2.tabFillChar = vg.TabValues[t2].tabFillChar;
+						if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+						{
+							tabEQ = true;
+							break;
+						}
+					}
+					if (tabEQ)
+						break;
+				}
 				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
 					(vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&
-					(vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (vg.TabValues == vg2.TabValues) &&
-					(vg.Drop == vg2.Drop) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
+					(vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (tabEQ)
+					&& (vg.Drop == vg2.Drop) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
 					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
-					(vg.tabFillChar == vg2.tabFillChar) && (vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
+					(vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
 					(vg.txtOutline == vg2.txtOutline) && (vg.txtUnderPos == vg2.txtUnderPos) && (vg.txtUnderWidth == vg2.txtUnderWidth) &&
 					(vg.txtStrikePos == vg2.txtStrikePos) && (vg.txtStrikeWidth == vg2.txtStrikeWidth) &&
 					(vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
@@ -204,7 +227,6 @@ void StilFormate::dupFormat()
 	sty.SColor = TempVorl[sFnumber].SColor;
 	sty.SShade = TempVorl[sFnumber].SShade;
 	sty.BaseAdj = TempVorl[sFnumber].BaseAdj;
-	sty.tabFillChar = TempVorl[sFnumber].tabFillChar;
 	sty.txtShadowX = TempVorl[sFnumber].txtShadowX;
 	sty.txtShadowY = TempVorl[sFnumber].txtShadowY;
 	sty.txtOutline = TempVorl[sFnumber].txtOutline;
@@ -243,7 +265,6 @@ void StilFormate::neuesFormat()
 	sty.SColor = Docu->toolSettings.dPen;
 	sty.SShade = Docu->toolSettings.dShade2;
 	sty.BaseAdj = false;
-	sty.tabFillChar = Docu->toolSettings.tabFillChar;
 	sty.txtShadowX = 50;
 	sty.txtShadowY = -50;
 	sty.txtOutline = 10;

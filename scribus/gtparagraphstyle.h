@@ -23,6 +23,7 @@
 
 #include <qvaluelist.h>
 #include "gtstyle.h"
+#include "pageitem.h"
 
 enum Alignment {
 	LEFT,
@@ -52,7 +53,7 @@ protected:
 	double firstLineIndent;
 	double spaceAbove;
 	double spaceBelow;
-	QValueList<double> tabValues;
+	QValueList<PageItem::TabRecord> tabValues;
 	bool dropCap;
 	int  dropCapHeight;
 	bool adjToBaseline;
@@ -74,7 +75,7 @@ public:
 	void   setSpaceAbove(double newSpaceAbove);
 	double getSpaceBelow();
 	void   setSpaceBelow(double newSpaceBelow);
-	QValueList<double>* getTabValues();
+	QValueList<PageItem::TabRecord>* getTabValues();
 	void   setTabValue(double newTabValue, TabType ttype = LEFT_T);
 	bool   hasDropCap();
 	void   setDropCap(bool newDropCap);

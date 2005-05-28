@@ -518,12 +518,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		nameByAttrs += QString("%1-").arg(s->hasDropCap());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getColor());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getStrokeColor());
- 		QValueList<double>* tmp = s->getTabValues();
+// TODO is this important ??
+/* 		QValueList<double>* tmp = s->getTabValues();
  		for (uint i = 0; i < tmp->count(); ++i)
  		{
  			double td = (*tmp)[i];
  			nameByAttrs += QString("%1-").arg(td);
- 		}
+ 		} */
  		if (attrsStyles.contains(nameByAttrs))
  		{
  			tname = attrsStyles[nameByAttrs]->getName();

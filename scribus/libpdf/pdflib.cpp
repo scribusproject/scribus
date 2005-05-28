@@ -2548,6 +2548,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 	QString tmp = "";
 	QString tmp2 = "";
 	double tabDist;
+	uint tabCc = 0;
+	QValueList<PageItem::TabRecord> tTabValues;
 	if (ite->lineColor() != "None")
 		tabDist = ite->Extra + ite->Pwidth / 2.0;
 	else
@@ -2563,15 +2565,21 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			continue;
 		if ((hl->yp == 0) && (ite->itemType() == PageItem::TextFrame))
 			continue;
+		if (hl->cab < 5)
+			tTabValues = ite->TabValues;
+		else
+			tTabValues = doc->docParagraphStyles[hl->cab].TabValues;
+		if (hl->cstyle & 16384)
+			tabCc = 0;
 		if (hl->ch == QChar(9))
 		{
-			if (doc->docParagraphStyles[hl->cab].tabFillChar != "")
+			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{
 				struct ScText hl2;
-				double wt = Cwidth(doc, hl->cfont, doc->docParagraphStyles[hl->cab].tabFillChar, hl->csize);
+				double wt = Cwidth(doc, hl->cfont, QString(tTabValues[tabCc].tabFillChar), hl->csize);
 				int coun = static_cast<int>((hl->xp - tabDist) / wt);
 				double sPos = hl->xp - (hl->xp - tabDist) + 1;
-				hl2.ch = doc->docParagraphStyles[hl->cab].tabFillChar;
+				hl2.ch = QString(tTabValues[tabCc].tabFillChar);
 				hl2.ccolor = hl->ccolor;
 				hl2.cstroke = hl->cstroke;
 				hl2.cshade = hl->cshade;
@@ -2621,10 +2629,14 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					}
 					setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 				}
+				tabCc++;
 				continue;
 			}
 			else
+			{
+				tabCc++;
 				continue;
+			}
 		}
 		if ((hl->cstyle & 256) && (hl->cstroke != "None"))
 		{

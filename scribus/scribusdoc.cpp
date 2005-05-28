@@ -165,7 +165,6 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject:
 	vg.SColor = toolSettings.dPen;
 	vg.SShade = toolSettings.dShade2;
 	vg.BaseAdj = false;
-	vg.tabFillChar = toolSettings.tabFillChar;
 	vg.txtShadowX = 50;
 	vg.txtShadowY = -50;
 	vg.txtOutline = 10;

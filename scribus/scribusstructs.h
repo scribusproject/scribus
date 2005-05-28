@@ -198,7 +198,7 @@ struct CopyPasteBuffer
 	QString guiLanguage;
 	int Cols;
 	double ColGap;
-	QValueList<double> TabValues;
+	QValueList<PageItem::TabRecord> TabValues;
 	QValueList<double> DashValues;
 	double DashOffset;
 	bool isTableItem;
@@ -235,8 +235,7 @@ struct ParagraphStyle
 	double gapAfter;
 	QString Font;
 	int FontSize;
-	QValueList<double> TabValues;
-	QString tabFillChar;
+	QValueList<PageItem::TabRecord> TabValues;
 	bool Drop;
 	int DropLin;
 	int FontEffect;

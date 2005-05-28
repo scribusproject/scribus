@@ -100,9 +100,9 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		}
 		if (TabValues.count() != 0)
 		{
-			for (int yg = 0; yg < static_cast<int>(TabValues.count()-1); yg += 2)
+			for (int yg = 0; yg < static_cast<int>(TabValues.count()); yg++)
 			{
-				Pos = (ItemPos+TabValues[yg+1]+(ColWidth+ColGap)*(ActCol-1)+Offset+Extra+lineCorr)*Scaling-offs;
+				Pos = (ItemPos+TabValues[yg].tabPosition+(ColWidth+ColGap)*(ActCol-1)+Offset+Extra+lineCorr)*Scaling-offs;
 				fpo = QRect(static_cast<int>(Pos)-3, 15, 8, 8);
 				if (fpo.contains(m->pos()))
 				{
@@ -116,8 +116,11 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		{
 			double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
 			int newY = m->x() - static_cast<int>(Pos);
-			TabValues.prepend(newY / Scaling);
-			TabValues.prepend(0);
+			struct PageItem::TabRecord tb;
+			tb.tabPosition = newY / Scaling;
+			tb.tabType = 0;
+			tb.tabFillChar = doku->toolSettings.tabFillChar[0];
+			TabValues.prepend(tb);
 			ActTab = 0;
 			RulerCode = 5;
 			UpdateTabList();
@@ -170,9 +173,9 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				case 5:
 					if (m->button() == RightButton)
 					{
-						TabValues[ActTab] += 1.0;
-						if (TabValues[ActTab] > 4.0)
-							TabValues[ActTab] = 0.0;
+						TabValues[ActTab].tabType += 1;
+						if (TabValues[ActTab].tabType > 4)
+							TabValues[ActTab].tabType = 0;
 					}
 					if (doku->currentParaStyle > 4)
 						doku->docParagraphStyles[doku->currentParaStyle].TabValues = TabValues;
@@ -188,9 +191,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (RulerCode == 5)
 			{
-				QValueList<double>::Iterator it;
+				QValueList<PageItem::TabRecord>::Iterator it;
 				it = TabValues.at(ActTab);
-				it = TabValues.remove(it);
 				TabValues.remove(it);
 				ActTab = 0;
 				if (doku->currentParaStyle > 4)
@@ -283,12 +285,12 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					repaint();
 					break;
 				case 5:
-					TabValues[ActTab+1] -= (MouseX - m->x()) / Scaling;
-					if (TabValues[ActTab+1] < 0)
-						TabValues[ActTab+1] = 0;
-					if (TabValues[ActTab+1] > ColWidth-1)
-						TabValues[ActTab+1]  = ColWidth-1;
-					emit MarkerMoved(TabValues[ActTab+1], 0);
+					TabValues[ActTab].tabPosition -= (MouseX - m->x()) / Scaling;
+					if (TabValues[ActTab].tabPosition < 0)
+						TabValues[ActTab].tabPosition = 0;
+					if (TabValues[ActTab].tabPosition > ColWidth-1)
+						TabValues[ActTab].tabPosition  = ColWidth-1;
+					emit MarkerMoved(TabValues[ActTab].tabPosition, 0);
 					UpdateTabList();
 					repaint();
 					break;
@@ -346,9 +348,9 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			{
 				for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
 				{
-					for (int yg = 0; yg < static_cast<int>(TabValues.count()-1); yg += 2)
+					for (int yg = 0; yg < static_cast<int>(TabValues.count()); yg++)
 					{
-						Pos = (ItemPos+TabValues[yg+1]+(ColWidth+ColGap)*CurrCol+Offset+Extra+lineCorr)*Scaling-offs;
+						Pos = (ItemPos+TabValues[yg].tabPosition+(ColWidth+ColGap)*CurrCol+Offset+Extra+lineCorr)*Scaling-offs;
 						fpo = QRect(static_cast<int>(Pos)-3, 15, 8, 8);
 						if (fpo.contains(m->pos()))
 						{
@@ -628,17 +630,17 @@ void Hruler::paintEvent(QPaintEvent *)
 					if (TabValues.count() != 0)
 					{
 						p.setPen(QPen(black, 2, SolidLine, FlatCap, MiterJoin));
-						for (int yg = 0; yg < static_cast<int>(TabValues.count()-1); yg += 2)
+						for (int yg = 0; yg < static_cast<int>(TabValues.count()); yg++)
 						{
-							if (Pos+TabValues[yg+1] < EndPos)
+							if (Pos+TabValues[yg].tabPosition < EndPos)
 							{
-								switch (static_cast<int>(TabValues[yg]))
+								switch (static_cast<int>(TabValues[yg].tabType))
 								{
 									case 0:
 										if (Revers)
 										{
 											p.save();
-											p.translate(qRound((Pos+TabValues[yg+1])*sc),0);
+											p.translate(qRound((Pos+TabValues[yg].tabPosition)*sc),0);
 											p.scale(-1,1);
 											p.drawLine(0, 15, 0, 23);
 											p.drawLine(0, 23, 8, 23);
@@ -646,15 +648,15 @@ void Hruler::paintEvent(QPaintEvent *)
 										}
 										else
 										{
-											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
-											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 23, qRound((Pos+TabValues[yg+1]+8/sc)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 15, qRound((Pos+TabValues[yg].tabPosition)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 23, qRound((Pos+TabValues[yg].tabPosition+8/sc)*sc), 23);
 										}
 										break;
 									case 1:
 										if (Revers)
 										{
 											p.save();
-											p.translate(qRound((Pos+TabValues[yg+1])*sc),0);
+											p.translate(qRound((Pos+TabValues[yg].tabPosition)*sc),0);
 											p.scale(-1,1);
 											p.drawLine(0, 15, 0, 23);
 											p.drawLine(0, 23, -8, 23);
@@ -662,19 +664,19 @@ void Hruler::paintEvent(QPaintEvent *)
 										}
 										else
 										{
-											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
-											p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 23, qRound((Pos+TabValues[yg+1]-8/sc)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 15, qRound((Pos+TabValues[yg].tabPosition)*sc), 23);
+											p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 23, qRound((Pos+TabValues[yg].tabPosition-8/sc)*sc), 23);
 										}
 										break;
 									case 2:
 									case 3:
-										p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
-										p.drawLine(qRound((Pos+TabValues[yg+1]-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+4/sc)*sc), 23);
-										p.drawLine(qRound((Pos+TabValues[yg+1]+3/sc)*sc), 20, qRound((Pos+TabValues[yg+1]+2/sc)*sc), 20);
+										p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 15, qRound((Pos+TabValues[yg].tabPosition)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg].tabPosition-4/sc)*sc), 23, qRound((Pos+TabValues[yg].tabPosition+4/sc)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg].tabPosition+3/sc)*sc), 20, qRound((Pos+TabValues[yg].tabPosition+2/sc)*sc), 20);
 										break;
 									case 4:
-										p.drawLine(qRound((Pos+TabValues[yg+1])*sc), 15, qRound((Pos+TabValues[yg+1])*sc), 23);
-										p.drawLine(qRound((Pos+TabValues[yg+1]-4/sc)*sc), 23, qRound((Pos+TabValues[yg+1]+4/sc)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg].tabPosition)*sc), 15, qRound((Pos+TabValues[yg].tabPosition)*sc), 23);
+										p.drawLine(qRound((Pos+TabValues[yg].tabPosition-4/sc)*sc), 23, qRound((Pos+TabValues[yg].tabPosition+4/sc)*sc), 23);
 										break;
 									default:
 										break;
@@ -707,30 +709,29 @@ void Hruler::Draw(int wo)
 
 void Hruler::UpdateTabList()
 {
-	QValueList<double>::Iterator it;
-	double CurX = TabValues[ActTab+1];
-	int gg = static_cast<int>(TabValues.count()-1);
+	struct PageItem::TabRecord tb;
+	tb.tabPosition = TabValues[ActTab].tabPosition;
+	tb.tabType = TabValues[ActTab].tabType;
+	tb.tabFillChar =  TabValues[ActTab].tabFillChar;
+	QValueList<PageItem::TabRecord>::Iterator it;
+	int gg = static_cast<int>(TabValues.count());
 	int g = gg;
-	double type = TabValues[ActTab];
 	it = TabValues.at(ActTab);
-	it = TabValues.remove(it);
 	TabValues.remove(it);
-	for (int yg = static_cast<int>(TabValues.count()-1); yg > 0; yg -= 2)
+	for (int yg = static_cast<int>(TabValues.count()-1); yg > -1; yg--)
 	{
-		if (CurX < TabValues[yg])
+		if (tb.tabPosition < TabValues[yg].tabPosition)
 			g = yg;
 	}
-	ActTab = g-1;
+	ActTab = g;
 	if (gg == g)
 	{
-		TabValues.append(type);
-		TabValues.append(CurX);
-		ActTab = static_cast<int>(TabValues.count()-2);
+		TabValues.append(tb);
+		ActTab = static_cast<int>(TabValues.count()-1);
 	}
 	else
 	{
 		it = TabValues.at(ActTab);
-		it = TabValues.insert(it, CurX);
-		TabValues.insert(it, type);
+		TabValues.insert(it, tb);
 	}
 }
