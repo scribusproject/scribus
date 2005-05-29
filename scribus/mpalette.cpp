@@ -833,7 +833,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	RoundRect->setValues( -300, 300, 10, 0);
 	Extra->setValues( -300, 300, 10, 0);
 	Size->setValues( 0.5, 2048, 10, 1);
-	LineSp->setValues( 1, 300, 10, 1);
+	LineSp->setValues( 1, 2048, 10, 1);
 	ScaleX->setValues( 1, 3000, 10, 1);
 	ScaleY->setValues( 1, 3000, 10, 1);
 
