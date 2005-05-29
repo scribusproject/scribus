@@ -30,6 +30,10 @@ plus docs package should also obsolete all prior docs packages.
 	Obsoletes:      scribus-i18de
 	Obsoletes:      scribus-i18fr
 
+* Some of the hyphenation dictionaries are under the LGPL or other free
+licenses, not the GPL. Details for each are in the README_XX.xx.txt for
+each corresponding language.
+
 
 ===============================================================================
 
