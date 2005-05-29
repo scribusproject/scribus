@@ -479,6 +479,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->toolSettings.magMax = QStoInt(dc.attribute("MAGMAX","3200"));
 		doc->toolSettings.magStep = QStoInt(dc.attribute("MAGSTEP","25"));
 		doc->toolSettings.tabFillChar = dc.attribute("TabFill","");
+		doc->toolSettings.dTabWidth=QStodouble(dc.attribute("TabWidth", "36.0"));
 		if (dc.hasAttribute("CPICT"))
 			doc->toolSettings.dBrushPict = dc.attribute("CPICT");
 		doc->toolSettings.shadePict = QStoInt(dc.attribute("PICTSHADE","100"));

@@ -42,6 +42,7 @@ public:
 	QLabel* textLabel3b;
 	QLabel* textLabel3b2;
 	QLabel* textLabel3b2t;
+	QLabel* textLabel3b2t2;
 	QLabel* textLabel1b;
 	QLabel* textLabel2b;
 	QLabel* textLabel4b;
@@ -54,6 +55,7 @@ public:
 	QComboBox* tabFillCombo;
 	QLabel* textLabel5b;
 	MSpinBox* gapText;
+	MSpinBox* gapTab;
 	QWidget* subTabShape;
 	QLabel* textLabel9b;
 	QLabel* textLabel10b;

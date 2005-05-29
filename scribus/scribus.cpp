@@ -472,6 +472,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.toolSettings.dPenText = "Black";
 	Prefs.toolSettings.dStrokeText = "Black";
 	Prefs.toolSettings.tabFillChar = "";
+	Prefs.toolSettings.dTabWidth = 36.0;
 	Prefs.DpapColor = QColor(white);
 	Prefs.toolSettings.dCols = 1;
 	Prefs.toolSettings.dGap = 0.0;
@@ -3075,6 +3076,7 @@ bool ScribusApp::SetupDoc()
 			doc->toolSettings.dPenText = "None";
 		doc->toolSettings.dCols = dia->tabTools->columnsText->value();
 		doc->toolSettings.dGap = dia->tabTools->gapText->value() / doc->unitRatio;
+		doc->toolSettings.dTabWidth = dia->tabTools->gapTab->value() / doc->unitRatio;
 		doc->toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
 		if (doc->toolSettings.dPen == tr("None"))
 			doc->toolSettings.dPen = "None";
@@ -8078,6 +8080,7 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.toolSettings.dStrokeText = "None";
 		Prefs.toolSettings.dCols = dia->tabTools->columnsText->value();
 		Prefs.toolSettings.dGap = dia->tabTools->gapText->value() / UmReFaktor;
+		Prefs.toolSettings.dTabWidth = dia->tabTools->gapTab->value() / UmReFaktor;
 		Prefs.toolSettings.dBrush = dia->tabTools->comboFillShape->currentText();
 		if (Prefs.toolSettings.dBrush == tr("None"))
 			Prefs.toolSettings.dBrush = "None";
@@ -10233,6 +10236,11 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
 						chr = chx[0].unicode();
 						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
 						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
@@ -10242,6 +10250,11 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 						if (it->TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(it->TabValues[t1].tabFillChar);
+						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
 						chr = chx[0].unicode();
 						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
 						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
@@ -10293,6 +10306,11 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
 						chr = chx[0].unicode();
 						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
 						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
@@ -10302,6 +10320,11 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 						if (it->TabValues[t1].tabFillChar.isNull())
 							continue;
 						chx = QString(it->TabValues[t1].tabFillChar);
+						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
 						chr = chx[0].unicode();
 						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
 						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);

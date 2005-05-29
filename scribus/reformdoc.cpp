@@ -504,6 +504,8 @@ void ReformDoc::unitChange()
 	tabGuides->baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabTools->gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabTools->gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabTools->gapTab->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabTools->gapTab->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	topScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	bottomScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);

@@ -31,7 +31,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox1aLayout->addWidget( subScaling, 0, 3, Qt::AlignLeft );
 	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a, "textLabel2a" );
 	groupBox1aLayout->addWidget( textLabel2a, 0, 2 );
-	tabTypoLayout->addWidget( groupBox1a, 0, 0 );
+	tabTypoLayout->addMultiCellWidget( groupBox1a, 0, 0, 0, 1 );
 	groupBox2a = new QGroupBox( this, "groupBox2a" );
 	groupBox2a->setColumnLayout(0, Qt::Vertical );
 	groupBox2a->layout()->setSpacing( 6 );
@@ -52,22 +52,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox2aLayout->addWidget( superScaling, 0, 3, Qt::AlignLeft );
 	textLabel4a = new QLabel(superScaling, tr( "S&caling:" ), groupBox2a, "textLabel4a" );
 	groupBox2aLayout->addWidget( textLabel4a, 0, 2 );
-	tabTypoLayout->addWidget( groupBox2a, 1, 0 );
-	groupBox3a = new QGroupBox( this, "groupBox3a" );
-	groupBox3a->setColumnLayout(0, Qt::Vertical );
-	groupBox3a->layout()->setSpacing( 6 );
-	groupBox3a->layout()->setMargin( 11 );
-	groupBox3a->setTitle( tr( "Small Caps" ) );
-	groupBox3aLayout = new QGridLayout( groupBox3a->layout() );
-	groupBox3aLayout->setAlignment( Qt::AlignTop );
-	capsScaling = new QSpinBox( groupBox3a, "capsScaling" );
-	capsScaling->setMaxValue( 100 );
-	capsScaling->setMinValue( 1 );
-	capsScaling->setSuffix( tr( " %" ) );
-	groupBox3aLayout->addWidget( capsScaling, 0, 1, Qt::AlignLeft );
-	textLabel5a = new QLabel(capsScaling, tr( "Sc&aling:" ), groupBox3a, "textLabel5a" );
-	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
-	tabTypoLayout->addWidget( groupBox3a, 2, 0 );
+	tabTypoLayout->addMultiCellWidget( groupBox2a, 1, 1, 0, 1 );
 
 	underlineGroup = new QGroupBox( this, "underlineGroup" );
 	underlineGroup->setTitle( tr( "Underline" ) );
@@ -92,7 +77,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	underlineWidth->setWrapping(true);
 	underlineWidth->setSpecialValueText( tr( "Auto" ) );
 	underlineGroupLayout->addWidget( underlineWidth, 0, 3 );
-	tabTypoLayout->addWidget( underlineGroup, 3, 0 );
+	tabTypoLayout->addMultiCellWidget( underlineGroup, 2, 2, 0, 1 );
 
 	strikethruGroup = new QGroupBox( this, "strikethruGroup" );
 	strikethruGroup->setTitle( tr( "Strikethru" ) );
@@ -117,7 +102,23 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	strikethruWidth->setSuffix( tr( " %" ) );
 	strikethruWidth->setSpecialValueText( tr( "Auto" ) );
 	strikethruGroupLayout->addWidget( strikethruWidth, 0, 3 );
-	tabTypoLayout->addWidget( strikethruGroup, 4, 0 );
+	tabTypoLayout->addMultiCellWidget( strikethruGroup, 3, 3, 0, 1 );
+
+	groupBox3a = new QGroupBox( this, "groupBox3a" );
+	groupBox3a->setColumnLayout(0, Qt::Vertical );
+	groupBox3a->layout()->setSpacing( 6 );
+	groupBox3a->layout()->setMargin( 11 );
+	groupBox3a->setTitle( tr( "Small Caps" ) );
+	groupBox3aLayout = new QGridLayout( groupBox3a->layout() );
+	groupBox3aLayout->setAlignment( Qt::AlignTop );
+	capsScaling = new QSpinBox( groupBox3a, "capsScaling" );
+	capsScaling->setMaxValue( 100 );
+	capsScaling->setMinValue( 1 );
+	capsScaling->setSuffix( tr( " %" ) );
+	groupBox3aLayout->addWidget( capsScaling, 0, 1, Qt::AlignLeft );
+	textLabel5a = new QLabel(capsScaling, tr( "Sc&aling:" ), groupBox3a, "textLabel5a" );
+	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
+	tabTypoLayout->addWidget( groupBox3a, 4, 0 );
 
 	groupBox4a = new QGroupBox( this, "groupBox3a" );
 	groupBox4a->setColumnLayout(0, Qt::Vertical );
@@ -133,7 +134,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox4aLayout->addWidget( autoLine, 1, 1 );
 	textLabel8a = new QLabel( autoLine, tr( "Line Spacing:" ), groupBox4a, "textLabel8a" );
 	groupBox4aLayout->addWidget( textLabel8a, 1, 0 );
-	tabTypoLayout->addWidget( groupBox4a, 5, 0 );
+	tabTypoLayout->addWidget( groupBox4a, 4, 1 );
 	restoreDefaults(prefsData);
 	QToolTip::add( superDisplacement, tr( "Displacement above the baseline of the font on a line" ) );
 	QToolTip::add( superScaling, tr( "Relative size of the superscript compared to the normal font" ) );

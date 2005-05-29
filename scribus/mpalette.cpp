@@ -445,19 +445,31 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
 	layout41->addWidget( ChBaseTxt, 1, 2 );
 	layout41->addWidget( ChBase, 1, 3 );
-
+	LineSp = new MSpinBox( page_3, 1 );
+	layout41->addWidget( LineSp, 2, 1 );
+	linespacingLabel = new QLabel( "", page_3, "linespacingLabel" );
+	linespacingLabel->setText("");
+	linespacingLabel->setPixmap(loadIcon("linespacing.png"));
+	layout41->addWidget( linespacingLabel, 2, 0 );
+	Extra = new MSpinBox( page_3, 1 );
+	layout41->addWidget( Extra, 2, 3 );
+	trackingLabel = new QLabel( "", page_3, "trackingLabel" );
+	trackingLabel->setText("");
+	trackingLabel->setPixmap(loadIcon("textkern.png"));
+	layout41->addWidget( trackingLabel, 2, 2 );
 	ChScale = new MSpinBox( 10, 400, page_3, 1 );
 	ChScale->setValue( 100 );
 	ScaleTxt = new QLabel("", page_3, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
-	layout41->addWidget( ScaleTxt, 2, 0 );
-	layout41->addWidget( ChScale, 2 , 1 );
+	layout41->addWidget( ScaleTxt, 3, 0 );
+	layout41->addWidget( ChScale, 3 , 1 );
 	ChScaleV = new MSpinBox( 10, 400, page_3, 1 );
 	ChScaleV->setValue( 100 );
 	ScaleTxtV = new QLabel("", page_3, "ScaleTxtV" );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
-	layout41->addWidget( ScaleTxtV, 2, 2 );
-	layout41->addWidget( ChScaleV, 2, 3 );
+	layout41->addWidget( ScaleTxtV, 3, 2 );
+	layout41->addWidget( ChScaleV, 3, 3 );
+
 	layout46->addLayout( layout41 );
 
 	layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
@@ -509,27 +521,6 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	GroupAlign = new AlignSelect(page_3);
 	pageLayout_3->addWidget( GroupAlign );
-
-	GroupBox3 = new QGroupBox( "Custom Spacing", page_3, "GroupBox3" );
-	GroupBox3->setColumnLayout(0, Qt::Vertical );
-	GroupBox3->layout()->setSpacing( 2 );
-	GroupBox3->layout()->setMargin( 5 );
-	GroupBox3Layout = new QGridLayout( GroupBox3->layout() );
-	GroupBox3Layout->setAlignment( Qt::AlignLeft );
-
-	LineSp = new MSpinBox( GroupBox3, 1 );
-	GroupBox3Layout->addWidget( LineSp, 1, 1 );
-
-	Extra = new MSpinBox( GroupBox3, 1 );
-	GroupBox3Layout->addWidget( Extra, 0, 1 );
-
-	trackingLabel = new QLabel( Extra, "Trac&king:", GroupBox3, "trackingLabel" );
-	GroupBox3Layout->addWidget( trackingLabel, 0, 0 );
-
-	linespacingLabel = new QLabel( LineSp, "L&ine Spacing:", GroupBox3, "linespacingLabel" );
-	GroupBox3Layout->addWidget( linespacingLabel, 1, 0 );
-
-	pageLayout_3->addWidget( GroupBox3 );
 
 	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
@@ -3331,9 +3322,6 @@ void Mpalette::languageChange()
 	Textflow3->setText(tr("&Use Contour Line"));
 	ShadeTxt1->setText(tr( "Shade:" ));
 	ShadeTxt2->setText(tr( "Shade:" ));
-	GroupBox3->setTitle(tr("Custom Spacing"));
-	trackingLabel->setText(tr("Trac&king:"));
-	linespacingLabel->setText(tr("L&ine Spacing:"));
 	styleLabel->setText(tr("St&yle:"));
 	langLabel->setText(tr("Lan&guage:"));
 	FreeScale->setText(tr("&Free Scaling"));

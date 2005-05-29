@@ -108,6 +108,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject:
 	toolSettings.lowResType = prefsData->toolSettings.lowResType;
 	toolSettings.dCols = prefsData->toolSettings.dCols;
 	toolSettings.dGap = prefsData->toolSettings.dGap;
+	toolSettings.dTabWidth = prefsData->toolSettings.dTabWidth;
 	toolSettings.dLineArt = PenStyle(prefsData->toolSettings.dLineArt);
 	toolSettings.dWidth = prefsData->toolSettings.dWidth;
 	toolSettings.dShadeLine = prefsData->toolSettings.dShadeLine;

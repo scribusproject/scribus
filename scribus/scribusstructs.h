@@ -396,6 +396,7 @@ struct toolPrefs
 	int dCols;
 	double dGap;
 	QString tabFillChar;
+	double dTabWidth;
 	/* ShapeTool */
 	QString dPen;
 	QString dBrush;

@@ -1991,7 +1991,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			tTabValues = Doc->docParagraphStyles[hl->cab].TabValues;
 		if (hl->cstyle & 16384)
 			tabCc = 0;
-		if (hl->ch == QChar(9))
+		if ((hl->ch == QChar(9)) && (tTabValues.count() != 0))
 		{
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{

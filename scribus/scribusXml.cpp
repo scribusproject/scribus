@@ -2968,6 +2968,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("DCOL",doc->toolSettings.dCols);
 	dc.setAttribute("DGAP",doc->toolSettings.dGap);
 	dc.setAttribute("TabFill",doc->toolSettings.tabFillChar);
+	dc.setAttribute("TabWidth",doc->toolSettings.dTabWidth);
 	dc.setAttribute("AUTHOR",doc->documentInfo.getAuthor());
 	dc.setAttribute("COMMENTS",doc->documentInfo.getComments());
 	dc.setAttribute("KEYWORDS",doc->documentInfo.getKeywords());
@@ -3451,6 +3452,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc9.setAttribute("StrokeText",Vor->toolSettings.dStrokeText);
 	dc9.setAttribute("TEXTCOL",Vor->toolSettings.dCols);
 	dc9.setAttribute("TEXTGAP",Vor->toolSettings.dGap);
+	dc9.setAttribute("TabWidth",Vor->toolSettings.dTabWidth);
 	dc9.setAttribute("TabFill",Vor->toolSettings.tabFillChar);
 	dc9.setAttribute("STIL",Vor->toolSettings.dLineArt);
 	dc9.setAttribute("STILLINE",Vor->toolSettings.dLstyleLine);
@@ -3819,6 +3821,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->toolSettings.dCols = QStoInt(dc.attribute("TEXTCOL", "1"));
 			Vorein->toolSettings.dGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
 			Vorein->toolSettings.tabFillChar = dc.attribute("TabFill", "");
+			Vorein->toolSettings.dTabWidth = QStodouble(dc.attribute("TabWidth", "36.0"));
 			Vorein->toolSettings.dLineArt = QStoInt(dc.attribute("STIL"));
 			Vorein->toolSettings.dLstyleLine = QStoInt(dc.attribute("STILLINE"));
 			Vorein->toolSettings.dWidth = QStodouble(dc.attribute("WIDTH"));

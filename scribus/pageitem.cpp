@@ -691,7 +691,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					chs = hl->csize;
 					oldCurY = SetZeichAttr(hl, &chs, &chx);
-					if ((chx == QChar(9)) && (!Doc->RePos) && (!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
+					if ((chx == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 					{
 						double wt = Cwidth(Doc, hl->cfont, QString(tTabValues[tabCc].tabFillChar), chs);
 						int coun = static_cast<int>((hl->xp - tabDist) / wt);
@@ -1219,7 +1219,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							CurX += Doc->docParagraphStyles[hl->cab].Indent;
 						fBorder = false;
 					}
-					StartOfCol = false;
 					if (RTab)
 					{
 						if (((hl->ch == ".") && (TabCode == 2)) || ((hl->ch == ",") && (TabCode == 3)) || (hl->ch == QChar(9)))
@@ -1244,13 +1243,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							{
 								if ((CurX - ColBound.x()) != 0)
 								{
-									if (CurX == ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0)
-										CurX += 36.0;
+									if (CurX == ColBound.x() + ceil((CurX-ColBound.x()) / Doc->toolSettings.dTabWidth) * Doc->toolSettings.dTabWidth)
+										CurX += Doc->toolSettings.dTabWidth;
 									else
-										CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+										CurX = ColBound.x() + ceil((CurX-ColBound.x()) / Doc->toolSettings.dTabWidth) * Doc->toolSettings.dTabWidth;
 								}
 								else
-									CurX = ColBound.x() + 36.0;
+									CurX = ColBound.x() + Doc->toolSettings.dTabWidth;
 								TabCode = 0;
 								RTab = false;
 							}
@@ -1271,7 +1270,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								else
 									RTab = true;
 								if (tCurX == oCurX-wide)
-									CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+									CurX = ColBound.x() + ceil((CurX-ColBound.x()) / Doc->toolSettings.dTabWidth) * Doc->toolSettings.dTabWidth;
 								else
 									CurX = ColBound.x() + tCurX;
 							}
@@ -1669,6 +1668,24 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						hl->yp = CurY;
 						LiList.at(LiList.count()-1)->xco = hl->xp;
 						LiList.at(LiList.count()-1)->yco = hl->yp;
+						if ((!AbsHasDrop) && (StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj))
+						{
+							Zli2 = LiList.at(0);
+							double firstasce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
+							double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz);
+							for (uint zc = 0; zc < LiList.count(); ++zc)
+							{
+								Zli2 = LiList.at(zc);
+								currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz));
+							}
+							double adj = firstasce - currasce;
+							for (uint zc = 0; zc < LiList.count(); ++zc)
+							{
+								LiList.at(zc)->yco -= adj;
+							}
+							CurY -= adj;
+						}
+						StartOfCol = false;
 						tabDist = ColBound.x();
 						uint tabCc = 0;
 						for (uint zc = 0; zc<BuPos3; ++zc)
@@ -1714,7 +1731,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 							if (!Doc->RePos)
 							{
-								if ((Zli2->Zeich == QChar(9)) && (!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
+								if ((Zli2->Zeich == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 								{
 									double wt = Cwidth(Doc, Zli2->ZFo, QString(tTabValues[tabCc].tabFillChar), Zli2->Siz);
 									int coun = static_cast<int>((Zli2->xco - tabDist) / wt);
@@ -1815,6 +1832,24 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 					}
 				}
+				if ((!AbsHasDrop) && (StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj))
+				{
+					Zli2 = LiList.at(0);
+					double firstasce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
+					double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz);
+					for (uint zc = 0; zc < LiList.count(); ++zc)
+					{
+						Zli2 = LiList.at(zc);
+						currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz));
+					}
+					double adj = firstasce - currasce;
+					for (uint zc = 0; zc < LiList.count(); ++zc)
+					{
+						LiList.at(zc)->yco -= adj;
+					}
+					CurY -= adj;
+				}
+				StartOfCol = false;
 				tabDist = ColBound.x();
 				uint tabCc = 0;
 				for (uint zc = 0; zc<LiList.count(); ++zc)
@@ -1860,7 +1895,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					if (!Doc->RePos)
 					{
-						if ((Zli2->Zeich == QChar(9)) && (!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
+						if ((Zli2->Zeich == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 						{
 							double wt = Cwidth(Doc, Zli2->ZFo, QString(tTabValues[tabCc].tabFillChar), Zli2->Siz);
 							int coun = static_cast<int>((Zli2->xco - tabDist) / wt);

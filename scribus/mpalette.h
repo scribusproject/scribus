@@ -151,7 +151,6 @@ public:
 	QGroupBox* Distance2;
 	QGroupBox* GroupBoxCM;
 	QGroupBox* TLines;
-	QGroupBox* GroupBox3;
 	QGroupBox* GroupBox3a;
 
 	QButtonGroup* textFlowsAroundFrame;
@@ -417,7 +416,6 @@ protected:
 	QHBoxLayout* ShapeGroupLayout;
 	QGridLayout* DistanceLayout;
 	QGridLayout* DistanceLayout2;
-	QGridLayout* GroupBox3Layout;
 	QGridLayout* GroupBox3aLayout;
 	QVBoxLayout* GroupBoxCMLayout;
 	QVBoxLayout* textFlowsAroundFrameLayout;

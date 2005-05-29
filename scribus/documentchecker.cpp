@@ -71,14 +71,46 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+				if ((chr == 13) || (chr == 32) || (chr == 29))
 					continue;
-				if (currItem->itemText.at(e)->cstyle & 64)
+				if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
 				{
 					chx = currItem->itemText.at(e)->ch;
 					if (chx.upper() != currItem->itemText.at(e)->ch)
 						chx = chx.upper();
 					chr = chx[0].unicode();
+				}
+				if (chr == 9)
+				{
+					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
+					{
+						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
+						chr = chx[0].unicode();
+						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+							itemError.insert(1, 0);
+					}
+					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
+					{
+						if (currItem->TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(currItem->TabValues[t1].tabFillChar);
+						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(currItem->TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
+						chr = chx[0].unicode();
+						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+							itemError.insert(1, 0);
+					}
+					continue;
 				}
 				if (chr == 30)
 				{
@@ -128,14 +160,46 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+				if ((chr == 13) || (chr == 32) || (chr == 29))
 					continue;
-				if (currItem->itemText.at(e)->cstyle & 64)
+				if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
 				{
 					chx = currItem->itemText.at(e)->ch;
 					if (chx.upper() != currItem->itemText.at(e)->ch)
 						chx = chx.upper();
 					chr = chx[0].unicode();
+				}
+				if (chr == 9)
+				{
+					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
+					{
+						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
+						chr = chx[0].unicode();
+						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+							itemError.insert(1, 0);
+					}
+					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
+					{
+						if (currItem->TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(currItem->TabValues[t1].tabFillChar);
+						if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(currItem->TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
+						chr = chx[0].unicode();
+						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
+							itemError.insert(1, 0);
+					}
+					continue;
 				}
 				if (chr == 30)
 				{

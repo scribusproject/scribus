@@ -189,9 +189,15 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		tabFillCombo->setEditable(true);
 		tabFillCombo->setEditText( tr("Custom: "+prefsData->tabFillChar));
 	}
-	subTabTextLayout->addMultiCellWidget( tabFillCombo, 4, 4, 1, 3, Qt::AlignLeft );
+	subTabTextLayout->addWidget( tabFillCombo, 4, 1, Qt::AlignLeft );
 	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );
 	subTabTextLayout->addWidget( textLabel3b2t, 4, 0 );
+	gapTab = new MSpinBox( 1, 200, subTabText, precision );
+	gapTab->setSuffix( unit );
+	gapTab->setValue(prefsData->dTabWidth * unitRatio);
+	subTabTextLayout->addWidget( gapTab, 4, 3, Qt::AlignLeft );
+	textLabel3b2t2 = new QLabel(gapTab, tr( "Tab Width:" ), subTabText, "textLabel3b2t2" );
+	subTabTextLayout->addWidget( textLabel3b2t2, 4, 2 );
 	columnsText = new QSpinBox( subTabText, "columnsText" );
 	columnsText->setMinValue( 1 );
 	columnsText->setMaxValue(100);
