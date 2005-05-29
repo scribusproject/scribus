@@ -368,12 +368,14 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/rgbscribusgreys.txt
 	-rm -f $(libdir)/scribus/rgbscribusopenoffice.txt
 	-rm -f $(libdir)/scribus/rgbsvg.txt
+	-rm -f $(prefix)/include/scribus/about.h
 	-rm -f $(prefix)/include/scribus/actionmanager.h
 	-rm -f $(prefix)/include/scribus/align.h
 	-rm -f $(prefix)/include/scribus/alignselect.h
 	-rm -f $(prefix)/include/scribus/annot.h
 	-rm -f $(prefix)/include/scribus/annota.h
 	-rm -f $(prefix)/include/scribus/applytemplate.h
+	-rm -f $(prefix)/include/scribus/applytemplatedialog.h
 	-rm -f $(prefix)/include/scribus/arrowchooser.h
 	-rm -f $(prefix)/include/scribus/art_kmisc.h
 	-rm -f $(prefix)/include/scribus/art_render_misc.h
@@ -526,6 +528,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/undomanager.h
 	-rm -f $(prefix)/include/scribus/undoobject.h
 	-rm -f $(prefix)/include/scribus/undostate.h
+	-rm -f $(prefix)/include/scribus/units.h
 	-rm -f $(prefix)/include/scribus/unzip.h
 	-rm -f $(prefix)/include/scribus/vgradient.h
 	-rm -f $(prefix)/include/scribus/vruler.h

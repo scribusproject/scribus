@@ -132,6 +132,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/importhints2.html
 	-rm -f $(prefix)/share/scribus/doc/en/index.html
 	-rm -f $(prefix)/share/scribus/doc/en/install.html
+	-rm -f $(prefix)/share/scribus/doc/en/install-dpkg.html
 	-rm -f $(prefix)/share/scribus/doc/en/install1.html
 	-rm -f $(prefix)/share/scribus/doc/en/install2.html
 	-rm -f $(prefix)/share/scribus/doc/en/install3.html

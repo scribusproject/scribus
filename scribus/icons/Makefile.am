@@ -258,7 +258,9 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/BevelJoin.png
 	-rm -f $(prefix)/share/scribus/icons/BezierClose.png
 	-rm -f $(prefix)/share/scribus/icons/beziertool.png
+	-rm -f $(prefix)/share/scribus/icons/beziertool16.png
 	-rm -f $(prefix)/share/scribus/icons/Bild.xpm
+	-rm -f $(prefix)/share/scribus/icons/Bild16.xpm
 	-rm -f $(prefix)/share/scribus/icons/blend.png
 	-rm -f $(prefix)/share/scribus/icons/bottom.png
 	-rm -f $(prefix)/share/scribus/icons/ButtCap.png
@@ -322,11 +324,12 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/font_truetype.png
 	-rm -f $(prefix)/share/scribus/icons/font_truetype16.png
 	-rm -f $(prefix)/share/scribus/icons/font_type1.png
-	-rm -f $(prefix)/share/scribus/icons/font_type116.png
+	-rm -f $(prefix)/share/scribus/icons/font_type1_16.png
 	-rm -f $(prefix)/share/scribus/icons/forward.png
 	-rm -f $(prefix)/share/scribus/icons/framenoresize.png
 	-rm -f $(prefix)/share/scribus/icons/frameresize.png
 	-rm -f $(prefix)/share/scribus/icons/frame_table.png
+	-rm -f $(prefix)/share/scribus/icons/frame_table16.png
 	-rm -f $(prefix)/share/scribus/icons/gohome.png
 	-rm -f $(prefix)/share/scribus/icons/goto.png
 	-rm -f $(prefix)/share/scribus/icons/Gross.xpm
@@ -399,6 +402,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/scribusdoc.png
 	-rm -f $(prefix)/share/scribus/icons/scribusicon.png
 	-rm -f $(prefix)/share/scribus/icons/scribus_logo.jpg
+	-rm -f $(prefix)/share/scribus/icons/shadow.png
 	-rm -f $(prefix)/share/scribus/icons/shear_down.png
 	-rm -f $(prefix)/share/scribus/icons/shear_left.png
 	-rm -f $(prefix)/share/scribus/icons/shear_right.png
@@ -407,16 +411,19 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Spacing.xpm
 	-rm -f $(prefix)/share/scribus/icons/Splash.png
 	-rm -f $(prefix)/share/scribus/icons/spline.png
+	-rm -f $(prefix)/share/scribus/icons/spline16.png
 	-rm -f $(prefix)/share/scribus/icons/Split.png
 	-rm -f $(prefix)/share/scribus/icons/SquareCap.png
 	-rm -f $(prefix)/share/scribus/icons/start.png
 	-rm -f $(prefix)/share/scribus/icons/Stift.xpm
 	-rm -f $(prefix)/share/scribus/icons/Stiftalt.xpm
+	-rm -f $(prefix)/share/scribus/icons/Stiftalt16.xpm
 	-rm -f $(prefix)/share/scribus/icons/Strike.xpm
 	-rm -f $(prefix)/share/scribus/icons/tab.png
 	-rm -f $(prefix)/share/scribus/icons/tabtocindex.png
 	-rm -f $(prefix)/share/scribus/icons/testfill.png
 	-rm -f $(prefix)/share/scribus/icons/Text.xpm
+	-rm -f $(prefix)/share/scribus/icons/Text16.xpm
 	-rm -f $(prefix)/share/scribus/icons/Text2.xpm
 	-rm -f $(prefix)/share/scribus/icons/textview.png
 	-rm -f $(prefix)/share/scribus/icons/text_block.png
@@ -469,6 +476,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/view.png
 	-rm -f $(prefix)/share/scribus/icons/vmirror.png
 	-rm -f $(prefix)/share/scribus/icons/Winkel.xpm
+	-rm -f $(prefix)/share/scribus/icons/wordsOnly.xpm
 	-rm -f $(prefix)/share/scribus/icons/wizard.png
 	-rm -f $(prefix)/share/scribus/icons/Zeichen.xpm
 	-rm -f $(prefix)/share/scribus/icons/textbase.png
