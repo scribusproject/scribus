@@ -160,7 +160,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	tabFillCombo->setEditable(false);
 	tabFillCombo->insertItem( tr("None"));
 	tabFillCombo->insertItem( "Dot");
-	tabFillCombo->insertItem( "Hypen");
+	tabFillCombo->insertItem( "Hyphen");
 	tabFillCombo->insertItem( "Underscore");
 	tabFillCombo->insertItem( "Custom");
 	if (prefsData->tabFillChar == "")
