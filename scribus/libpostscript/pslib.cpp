@@ -40,6 +40,7 @@
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern uint getDouble(QString in, bool raw);
 extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
+extern double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
 extern bool loadText(QString nam, QString *Buffer);
 extern QString CompressStr(QString *in);
 extern char *toHex( uchar u );
@@ -2370,8 +2371,15 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	double wideR;
 	QValueList<double> dum;
 	dum.clear();
-	tsz = hl->csize;
 	chx = hl->ch;
+	tsz = hl->csize;
+	if (hl->cstyle & 2048)
+	{
+		if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+			tsz = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid *  (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+		else
+			tsz = qRound(10 * ((Doc->docParagraphStyles[hl->cab].LineSpa *  (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+	}
 	if (hl->ch == QChar(29))
 		chx = " ";
 	if (hl->ch == QChar(0xA0))

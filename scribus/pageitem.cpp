@@ -690,6 +690,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					}
 					chs = hl->csize;
+					if (hl->cstyle & 2048)
+					{
+						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+						else
+							chs = qRound(10 * ((Doc->docParagraphStyles[hl->cab].LineSpa * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+					}
 					oldCurY = SetZeichAttr(hl, &chs, &chx);
 					if ((chx == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 					{
@@ -1027,13 +1034,14 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								DropLines = Doc->docParagraphStyles[absa].DropLin;
 						}
 					}
+					hl->cstyle &= 0xF7FF; // 2047;
 					if (((Doc->docParagraphStyles[absa].textAlignment == 3) || (Doc->docParagraphStyles[absa].textAlignment == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 					{
 						hl->cstyle |= 4096;
 						continue;
 					}
 					else
-						hl->cstyle &= 4095;
+						hl->cstyle &= 0xEFFF; // 4095;
 					if (LiList.count() == 0)
 					{
 						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
@@ -1057,15 +1065,16 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
-							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / (RealCHeight(Doc, hl->cfont, chx, 10))));
-							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / RealCAscent(Doc, hl->cfont, chx, 10)));
+							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
 						}
 						else
 						{
-							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / (RealCHeight(Doc, hl->cfont, chx, 10))));
-							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / RealCAscent(Doc, hl->cfont, chx, 10)));
+							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
 						}
-						hl->csize = chsd;
+						hl->cstyle |= 2048;
+//						hl->csize = chsd;
 					}
 					else
 						chs = hl->csize;

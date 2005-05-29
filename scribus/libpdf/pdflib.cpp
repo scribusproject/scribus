@@ -58,6 +58,7 @@ extern QString CompressStr(QString *in);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
 extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
+extern double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
 extern FPoint getMaxClipF(FPointArray* Clip);
 extern FPoint getMinClipF(FPointArray* Clip);
 #ifdef HAVE_CMS
@@ -2718,6 +2719,13 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	int tsz = hl->csize;
 	QString chx = hl->ch;
+	if (hl->cstyle & 2048)
+	{
+		if (doc->docParagraphStyles[hl->cab].BaseAdj)
+			tsz = qRound(10 * ((doc->typographicSetttings.valueBaseGrid * (doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(doc, hl->cfont, chx, 10))));
+		else
+			tsz = qRound(10 * ((doc->docParagraphStyles[hl->cab].LineSpa * (doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(doc, hl->cfont, chx, 10))));
+	}
 	if (hl->ch == QChar(29))
 		chx = " ";
 	if (hl->ch == QChar(0xA0))
