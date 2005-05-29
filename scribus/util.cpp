@@ -125,6 +125,8 @@ uint getDouble(QString in, bool raw);
 bool loadText(QString nam, QString *Buffer);
 double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
+double RealCHeight(ScribusDoc *currentDoc, QString name, QString ch, int Size);
+double RealCAscent(ScribusDoc *currentDoc, QString name, QString ch, int Size);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -1043,6 +1045,42 @@ double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz)
 	}
 	else
 		return static_cast<double>(Siz / 10.0);
+}
+
+double RealCHeight(ScribusDoc *currentDoc, QString name, QString ch, int Size)
+{
+	double w;
+	uint c1 = ch.at(0).unicode();
+	FT_Face      face;
+	Foi* fo = (*currentDoc->AllFonts)[name];
+	if (fo->CharWidth.contains(c1))
+	{
+		face = currentDoc->FFonts[name];
+		uint cl = FT_Get_Char_Index(face, c1);
+		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		w = face->glyph->metrics.height / fo->uniEM * (Size / 10.0);
+		return w;
+	}
+	else
+		return static_cast<double>(Size / 10.0);
+}
+
+double RealCAscent(ScribusDoc *currentDoc, QString name, QString ch, int Size)
+{
+	double w;
+	uint c1 = ch.at(0).unicode();
+	FT_Face      face;
+	Foi* fo = (*currentDoc->AllFonts)[name];
+	if (fo->CharWidth.contains(c1))
+	{
+		face = currentDoc->FFonts[name];
+		uint cl = FT_Get_Char_Index(face, c1);
+		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		w = face->glyph->metrics.horiBearingY / fo->uniEM * (Size / 10.0);
+		return w;
+	}
+	else
+		return static_cast<double>(Size / 10.0);
 }
 
 QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)

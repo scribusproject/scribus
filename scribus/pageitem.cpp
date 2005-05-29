@@ -44,6 +44,8 @@ using namespace std;
 
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
+extern double RealCHeight(ScribusDoc *currentDoc, QString name, QString ch, int Size);
+extern double RealCAscent(ScribusDoc *currentDoc, QString name, QString ch, int Size);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -872,13 +874,17 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
 						{
-							chsd = qRound(10 * ((Doc->BaseGrid * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
-							chs = qRound(10 * ((Doc->BaseGrid * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+							chsd = qRound(10 * ((Doc->BaseGrid * DropLines) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->BaseGrid * DropLines) / RealCAscent(Doc, hl->cfont, chx, 10)));
+//							chsd = qRound(10 * ((Doc->BaseGrid * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
+//							chs = qRound(10 * ((Doc->BaseGrid * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
 						}
 						else
 						{
-							chsd = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
-							chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+							chsd = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / RealCAscent(Doc, hl->cfont, chx, 10)));
+//							chsd = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
+//							chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
 						}
 						hl->csize = chsd;
 						}
@@ -904,7 +910,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
 						desc2 = 0;
 						desc = 0;
-						asce = (*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0);
+						asce = RealCHeight(Doc, hl->cfont, chx2, chsd);
+//						asce = (*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0);
 					}
 					else
 					{
@@ -1021,7 +1028,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									CurX += Doc->Vorlagen[hl->cab].First;
 							}
 						}
-						CurX += Doc->Vorlagen[hl->cab].Indent;
+						if (!AbsHasDrop)
+							CurX += Doc->Vorlagen[hl->cab].Indent;
 						fBorder = false;
 						}
 					StartOfCol = false;
@@ -1088,6 +1096,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 						}
 					hl->yp = CurY + oldCurY;
+					if (DropCmode)
+						hl->yp -= RealCHeight(Doc, hl->cfont, chx2, chsd) - RealCAscent(Doc, hl->cfont, chx2, chsd);
 					if (LiList.count() == 0)
 					{
 						Ptext.at(a)->cstyle |= 1024;
@@ -1387,7 +1397,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										}
 										if (AbsHasDrop)
 											{
-											if (CurY > maxDY)
+											if ((CurY > maxDY) && (CurY - asce > maxDY))
 												{
 												AbsHasDrop = false;
 												CurX = ColBound.x();
@@ -1431,7 +1441,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								CurY += Doc->Vorlagen[hl->cab].LineSpa;
 								if (AbsHasDrop)
 									{
-									if (CurY > maxDY)
+									if ((CurY > maxDY) && (CurY - asce > maxDY))
 										{
 										AbsHasDrop = false;
 										CurX = ColBound.x();
