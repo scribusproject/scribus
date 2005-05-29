@@ -1290,7 +1290,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
-		doc->pageWidth=QStodouble(dc.attribute("PAGEWITH"));
+		if (dc.hasAttribute("PAGEWIDTH"))
+			doc->pageWidth=QStodouble(dc.attribute("PAGEWIDTH"));
+		else
+			doc->pageWidth=QStodouble(dc.attribute("PAGEWITH"));
 		doc->pageHeight=QStodouble(dc.attribute("PAGEHEIGHT"));
 		doc->pageMargins.Left=QStodouble(dc.attribute("BORDERLEFT"));
 		doc->pageMargins.Right=QStodouble(dc.attribute("BORDERRIGHT"));
@@ -2659,7 +2662,7 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 		}
 		pg.setAttribute("PAGEXPOS",page->Xoffset);
 		pg.setAttribute("PAGEYPOS",page->Yoffset);
-		pg.setAttribute("PAGEWITH",page->Width);
+		pg.setAttribute("PAGEWIDTH",page->Width);
 		pg.setAttribute("PAGEHEIGHT",page->Height);
 		pg.setAttribute("BORDERLEFT",page->Margins.Left);
 		pg.setAttribute("BORDERRIGHT",page->Margins.Right);
@@ -2945,7 +2948,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	elem.setAttribute("Version", "1.3.0cvs");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",doc->DocPages.count());
-	dc.setAttribute("PAGEWITH",doc->pageWidth);
+	dc.setAttribute("PAGEWIDTH",doc->pageWidth);
 	dc.setAttribute("PAGEHEIGHT",doc->pageHeight);
 	dc.setAttribute("BORDERLEFT",doc->pageMargins.Left);
 	dc.setAttribute("BORDERRIGHT",doc->pageMargins.Right);

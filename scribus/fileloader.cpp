@@ -416,7 +416,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
 		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
-		doc->pageWidth=QStodouble(dc.attribute("PAGEWITH"));
+		if (dc.hasAttribute("PAGEWIDTH"))
+			doc->pageWidth=QStodouble(dc.attribute("PAGEWIDTH"));
+		else
+			doc->pageWidth=QStodouble(dc.attribute("PAGEWITH"));
 		doc->pageHeight=QStodouble(dc.attribute("PAGEHEIGHT"));
 		doc->pageMargins.Left=QStodouble(dc.attribute("BORDERLEFT"));
 		doc->pageMargins.Right=QStodouble(dc.attribute("BORDERRIGHT"));
@@ -856,7 +859,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					Apage->MPageNam = "";
 				Apage->Xoffset = QStodouble(pg.attribute("PAGEXPOS"));
 				Apage->Yoffset = QStodouble(pg.attribute("PAGEYPOS"));
-				Apage->Width = QStodouble(pg.attribute("PAGEWITH"));
+				if (pg.hasAttribute("PAGEWIDTH"))
+					Apage->Width=QStodouble(pg.attribute("PAGEWIDTH"));
+				else
+					Apage->Width=QStodouble(pg.attribute("PAGEWITH"));
 				Apage->Height = QStodouble(pg.attribute("PAGEHEIGHT"));
 				if (doc->PageFP)
 				{
