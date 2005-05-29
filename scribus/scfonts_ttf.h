@@ -16,10 +16,12 @@ class Foi_ttf : public Foi
 		Foi(scname,path,embedps), metricsread(false)
 		{
 			HasMetrics=true;
+			formatCode = SFNT;
 		}
 		QString RealName();
 		bool ReadMetrics();
 		virtual bool EmbedFont(QString &str);
+		virtual void RawData(QByteArray & bb);
 	private:
 		bool metricsread;
 };

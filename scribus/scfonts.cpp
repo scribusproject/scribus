@@ -35,16 +35,22 @@
 #include <fontconfig/fontconfig.h>
 #endif
 
+#include FT_INTERNAL_STREAM_H
+#include FT_TRUETYPE_TAGS_H
+#include FT_TRUETYPE_TABLES_H
+
 extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
 extern int setBestEncoding(FT_Face face);
 extern bool loadText(QString nam, QString *Buffer);
-extern bool GlyNames(QMap<uint, QString> *GList, QString Dat);
+extern bool GlyNames(Foi * fnt, QMap<uint, QString> *GList);
 
 Foi::Foi(QString scname, QString path, bool embedps) :
-	SCName(scname), Datei(path), EmbedPS(embedps)
+	SCName(scname), Datei(path), faceIndex(0), EmbedPS(embedps)
 {
 	isOTF = false;
 	Subset = false;
+	typeCode = Foi::UNKNOWN_TYPE;
+	formatCode = Foi::UNKNOWN_FORMAT;
 }
 
 QString Foi::RealName()
@@ -56,7 +62,7 @@ QString Foi::RealName()
 bool Foi::EmbedFont(QString &str)
 {
 	str+="Base";
-  return(false);
+	return(false);
 }
 
 bool Foi::ReadMetrics()
@@ -69,8 +75,53 @@ bool Foi::ReadMetrics()
 
 bool Foi::GlNames(QMap<uint, QString> *GList)
 {
-	return GlyNames(GList, Datei);
+	return GlyNames(this, GList);
 }
+
+void Foi::RawData(QByteArray & bb)
+{
+	FT_Library library;
+	FT_Face    face;
+	bool       error;
+	
+	error = FT_Init_FreeType( &library );
+	if (error)
+	{
+		qDebug(QObject::tr("Freetype2 library not available"));
+	}
+	else
+	{
+		error = FT_New_Face( library, Datei, faceIndex, &face );
+	}
+	if (error)
+	{
+		qDebug(QObject::tr("Font %1 is broken, no embedding").arg(Datei));
+	}
+	else 
+	{
+		FT_Stream fts = face->stream;
+		bb.resize(fts->size);
+		error = FT_Stream_Seek(fts, 0L);
+		if (!error)
+			error = FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
+		if (error) 
+		{
+			qDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(Datei));
+			bb.resize(0);
+		}
+		/*
+		if (showFontInformation)
+		{
+			QFile f(Datei);
+			qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(Datei).arg(faceIndex).arg(bb.size()).arg(f.size()));
+		}
+		*/
+	}
+	FT_Done_Face(face);
+	FT_Done_FreeType(library);
+}
+
+
 /*
 void Foi::FontBez()
 {
@@ -146,6 +197,7 @@ class Foi_postscript : public Foi
 			StdVW = "1";
 			FontBBox = "0 0 0 0";
 			IsFixedPitch = false;
+			typeCode = TYPE1;
 			HasMetrics=true;
 		}
 
@@ -176,14 +228,15 @@ class Foi_postscript : public Foi
 			if (error)
 			{
 				UseFont = false;
-				qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
+				qDebug(QObject::tr("Font %1 is broken (FreeType2), discarding it").arg(Datei));
 				return false;
 			}
-			error = FT_New_Face( library, Datei, 0, &face );
+			error = FT_New_Face( library, Datei, faceIndex, &face );
 			if (error)
 			{
 				UseFont = false;
-				qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
+				qDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(Datei));
+				FT_Done_FreeType( library );
 				return false;
 			}
 			uniEM = static_cast<double>(face->units_per_EM);
@@ -214,15 +267,18 @@ class Foi_postscript : public Foi
 			setBestEncoding(face);
 			gindex = 0;
 			charcode = FT_Get_First_Char( face, &gindex );
+			int goodGlyph = 0;
+			int invalidGlyph = 0;
 			while ( gindex != 0 )
 			{
 				error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 				if (error)
 				{
-					UseFont = false;
-					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
+					++invalidGlyph;
+					qDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(Datei).arg(gindex).arg(charcode));
 					break;
 				}
+				++goodGlyph;
 				double ww = face->glyph->metrics.horiAdvance / uniEM;
 				if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
 					isStroked = true;
@@ -244,7 +300,9 @@ class Foi_postscript : public Foi
 				glyName = newName;
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
+			FT_Done_Face( face );
 			FT_Done_FreeType( library );
+			UseFont = goodGlyph > invalidGlyph;
 			HasMetrics=UseFont;
 			metricsread=UseFont;
 			return(HasMetrics);
@@ -265,35 +323,35 @@ class Foi_pfb : public Foi_postscript
 		Foi_pfb(QString scname, QString path, bool embedps) :
 		Foi_postscript(scname,path,embedps)
 		{
+			formatCode = PFB;
 		}
 
 		virtual bool EmbedFont(QString &str)
 		{
-			QFile f(Datei);
+			QByteArray bb;
+			RawData(bb);
 			QString tmp2 = "";
-			if (f.open(IO_ReadOnly))
+			if ((bb.size() > 2) &&  (bb[0] == char(0x80)) && (static_cast<int>(bb[1]) == 1))
 			{
-				QByteArray bb(f.size());
-				f.readBlock(bb.data(), f.size());
-				if ((bb[0] == char(0x80)) && (static_cast<int>(bb[1]) == 1))
+				QString tmp3="";
+				QString tmp4 = "";
+				uint posi,cxxc=0;
+				for (posi = 6; posi < bb.size(); ++posi)
 				{
-					QString tmp3="";
-					QString tmp4 = "";
-					uint posi,cxxc=0;
-					for (posi = 6; posi < bb.size(); ++posi)
-					{
-						if ((bb[posi] == char(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
-							break;
-						str += bb[posi];
-					}
-					uint ulen;
+					if ((bb[posi] == char(0x80)) && (posi+1 < bb.size()) && (static_cast<int>(bb[posi+1]) == 2))
+						break;
+					str += bb[posi];
+				}
+				uint ulen;
+				if (posi+6 < bb.size()) 
+				{
 					ulen = bb[posi+2] & 0xff;
 					ulen |= (bb[posi+3] << 8) & 0xff00;
 					ulen |= (bb[posi+4] << 16) & 0xff0000;
 					ulen |= (bb[posi+5] << 24) & 0xff000000;
-					if (ulen > bb.size())
-						ulen = bb.size()-7;
 					posi += 6;
+					if (posi + ulen > bb.size())
+						ulen = bb.size() - posi - 1;
 					char linebuf[80];
 					cxxc=0;
 					for (uint j = 0; j < ulen; ++j)
@@ -317,24 +375,26 @@ class Foi_pfb : public Foi_postscript
 					linebuf[cxxc]=0;
 					str += linebuf;
 					str += "\n";
-					posi += 6;
-					for (uint j = posi; j < bb.size(); ++j)
-					{
-						if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j+1]) == 3))
-							break;
-						if(bb[j]=='\r')
-							str+="\n";
-						else
-							str += bb[j];
-					}
-					str += "\n";
-					cxxc = 0;
 				}
-				f.close();
-				return(true);
+				posi += 6;
+				for (uint j = posi; j < bb.size(); ++j)
+				{
+					if ((bb[j] == static_cast<char>(0x80)) && (j+1 < bb.size()) && (static_cast<int>(bb[j+1]) == 3))
+						break;
+					if(bb[j]=='\r')
+						str+="\n";
+					else
+						str += bb[j];
+				}
+				str += "\n";
+				cxxc = 0;
+				return true;
 			}
-			else
-				return(false);
+			else 
+			{
+				qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(Datei));
+				return false;
+			}
 		}
 };
 
@@ -350,12 +410,22 @@ class Foi_pfa : public Foi_postscript
 		Foi_pfa(QString scname, QString path, bool embedps) :
 		Foi_postscript(scname,path,embedps)
 		{
+			formatCode = PFA;
 		}
 		virtual bool EmbedFont(QString &str)
 		{
-			return loadText(Datei, &str);
+			QByteArray bb;
+			RawData(bb);
+			if (bb.size() > 2 && bb[0] == '%' && bb[1] == '!') 
+			{
+				// this is ok since bb will not contain '\0'
+				str.append(bb);
+				return true; 
+			}
+			return false;
 		}
 };
+
 
 
 /***************************************************************************/
@@ -391,6 +461,9 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			QFileInfo fi(path+d[dc]);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
+			
+			qApp->processEvents();
+			
 			if (fi.isSymLink())
 			{
 				QFileInfo fi3(fi.readLink());
@@ -402,65 +475,202 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			else
 				pathfile = path+d[dc];
 			QFileInfo fi2(pathfile);
+			if (fi2.isDir()) 
+			{
+				if (DocName == "")
+					AddScalableFonts(pathfile);
+				continue;
+			}
 			QString ext = fi.extension(false).lower();
 			QString ext2 = fi2.extension(false).lower();
 			if ((ext != ext2) && (ext == "")) ext = ext2;
-			if ((ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
+			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
-				error = AddScalableFont(pathfile,library, DocName);
+				error = AddScalableFont(pathfile, library, DocName);
 				if (error)
 					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
 			}
+#ifdef FT_MACINTOSH
+			else if (ext == "" && DocName == "") 
+			{
+				error = AddScalableFont(pathfile, library, DocName);
+				if (error)
+					error = AddScalableFont(pathfile + "/rsrc",library, DocName);
+				if (error)
+					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
+			}
+#endif				
 		}
 	}
 	FT_Done_FreeType( library );
 }
 
+/**
+ * tests magic words to determine the fontformat and preliminary fonttype
+ */
+void getFontFormat(FT_Face face, Foi::FontFormat & fmt, Foi::FontType & type)
+{
+	static const char* T42_HEAD      = "%!PS-TrueTypeFont";
+	static const char* T1_HEAD      = "%!FontType1";
+	static const char* T1_ADOBE_HEAD = "%!PS-AdobeFont-1";
+	static const char* PSFONT_ADOBE2_HEAD  = "%!PS-Adobe-2.0 Font";
+	static const char* PSFONT_ADOBE21_HEAD  = "%!PS-Adobe-2.1 Font";
+	static const char* PSFONT_ADOBE3_HEAD  = "%!PS-Adobe-3.0 Resource-Font";
+	static const int   NO_ERROR = 0;
+	
+	const FT_Stream fts = face->stream;
+	char buf[128];
+	
+	fmt = Foi::UNKNOWN_FORMAT;
+	type = Foi::UNKNOWN_TYPE;
+	if (FT_Stream_Seek(fts, 0L) == NO_ERROR && FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(buf), 128) == NO_ERROR) 
+	{
+		if(strncmp(buf,T42_HEAD,strlen(T42_HEAD)) == 0) 
+		{
+			fmt = Foi::TYPE42;
+			type = Foi::TTF;
+		}
+		else if(strncmp(buf,T1_HEAD,strlen(T1_HEAD)) == 0 ||
+			    strncmp(buf,T1_ADOBE_HEAD,strlen(T1_ADOBE_HEAD)) == 0) 
+		{
+			fmt = Foi::PFA;
+			type = Foi::TYPE1;
+		}
+		else if(strncmp(buf,PSFONT_ADOBE2_HEAD,strlen(PSFONT_ADOBE2_HEAD)) == 0 ||
+			    strncmp(buf,PSFONT_ADOBE21_HEAD,strlen(PSFONT_ADOBE21_HEAD)) == 0 ||
+			    strncmp(buf,PSFONT_ADOBE3_HEAD,strlen(PSFONT_ADOBE3_HEAD)) ==0) 
+		{
+			// Type2(CFF), Type0(Composite/CID), Type 3, Type 14 etc would end here
+			fmt = Foi::PFA;
+			type = Foi::UNKNOWN_TYPE;
+		}
+		else if(buf[0] == '\200' && buf[1] == '\1')
+		{
+			fmt = Foi::PFB;
+			type = Foi::TYPE1;
+		}
+		else if(buf[0] == '\0' && buf[1] == '\1' 
+				&& buf[2] == '\0' && buf[3] == '\0')
+		{
+			fmt = Foi::SFNT;
+			type = Foi::TTF;
+		}
+		else if(strncmp(buf,"true",4) == 0)
+		{
+			fmt = Foi::SFNT;
+			type = Foi::TTF;
+		}
+		else if(strncmp(buf,"ttcf",4) == 0)
+		{
+			fmt = Foi::TTCF;
+			type = Foi::OTF;
+		}
+		else if(strncmp(buf,"OTTO",4) == 0)
+		{
+			fmt = Foi::SFNT;
+			type = Foi::OTF;
+		}
+		// missing: raw CFF
+	}
+}
+
+/**
+ * Checks face, which must be sfnt based, for the subtype.
+ * Possible values: TTF, CFF, OTF
+ */
+void getSFontType(FT_Face face, Foi::FontType & type) 
+{
+	if (FT_IS_SFNT(face)) 
+	{
+		FT_ULong ret = 0;
+		bool hasGlyph = ! FT_Load_Sfnt_Table(face, TTAG_glyf, 0, NULL,  &ret);
+		hasGlyph &= ret > 0;
+		bool hasCFF = ! FT_Load_Sfnt_Table(face, TTAG_CFF, 0, NULL,  &ret);
+		hasCFF &= ret > 0;
+		if (hasGlyph)
+			type = Foi::TTF;
+		else if (hasCFF)
+			type = Foi::OTF;
+		// TODO: CID or no
+	}
+} 
+
 // Load a single font into the library from the passed filename. Returns true on error.
 bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString DocName)
 {
-	FT_Face face = NULL;
+	Foi::FontFormat format;
+	Foi::FontType   type;
+	FT_Face         face = NULL;
+	
 	bool error = FT_New_Face( library, filename, 0, &face );
-	if (error)
-		return true;
-	QString ts = QString(face->family_name) + " " + QString(face->style_name);
-	if (!find(ts))
+	if (error) 
 	{
-		Foi *t=0;
-		// Yes, I realise we're checking the extension twice, but it's not
-		// a big cost, and nicer than passing it into this function.
-		//QFileInfo fi2(filename);
-		QString ext = QFileInfo(filename).extension(false).lower();
-		if(ext == "pfa")
+		if (face != NULL)
+			FT_Done_Face( face );
+		return true;
+	}
+		
+	getFontFormat(face, format, type);
+	
+	if (format == Foi::UNKNOWN_FORMAT) 
+	{
+		qDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
+		error = true;
+	}
+		
+	int faceindex=0; 
+
+	while (!error)
+	{
+		QString ts = QString(face->family_name) + " " + QString(face->style_name);
+		Foi *t = find(ts);
+		if (!t)
 		{
-			t = new Foi_pfa(ts, filename, true);
-			t->typeCode = 1;
-		}
-		else if(ext == "pfb")
-		{
-			t = new Foi_pfb(ts, filename, true);
-			t->typeCode = 1;
-		}
-		else if(ext == "ttf")
-		{
-			t = new Foi_ttf(ts, filename, true);
-			t->typeCode = 2;
-		}
-		else if(ext == "otf")
-		{
-			t = new Foi_ttf(ts, filename, true);
-			t->typeCode = 3;
-		}
-		if(t)
-		{
-			t->cached_RealName = QString(FT_Get_Postscript_Name(face));
+			switch (format) 
+			{
+				case Foi::PFA:
+					t = new Foi_pfa(ts, filename, true);
+					break;
+				case Foi::PFB:				
+					t = new Foi_pfb(ts, filename, true);
+					break;
+				case Foi::SFNT:
+					t = new Foi_ttf(ts, filename, true);
+					getSFontType(face, t->typeCode);
+					if (t->typeCode == Foi::OTF) 
+					{
+						t->isOTF = true;
+						t->Subset = true;
+					}
+					break;
+				case Foi::TTCF:
+					t = new Foi_ttf(ts, filename, true);
+					t->formatCode = Foi::TTCF;
+					t->typeCode = Foi::TTF;
+					//getSFontType(face, t->typeCode);
+					if (t->typeCode == Foi::OTF) 
+					{
+						t->isOTF = true;
+						t->Subset = true;
+					}
+					break;
+				case Foi::TYPE42:
+					t = new Foi_ttf(ts, filename, true);
+					getSFontType(face, t->typeCode);
+					if (t->typeCode == Foi::OTF) 
+					{
+						t->isOTF = true;
+						t->Subset = true;
+					}
+					break;
+			}
+			const char* psName = FT_Get_Postscript_Name(face);
+			if (psName)
+				t->cached_RealName = QString(psName);
+			else
+				t->cached_RealName = ts;
 			t->Font = qApp->font();
 			t->Font.setPointSize(qApp->font().pointSize());
-			if (ext == "otf")
-			{
-				t->isOTF = true;
-				t->Subset = true;
-			}
 			insert(ts,t);
 			t->EmbedPS = true;
 			t->UseFont = true;
@@ -469,9 +679,55 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t->CharWidth[9] = 1;
 			t->Family = QString(face->family_name);
 			t->Effect = QString(face->style_name);
+			t->faceIndex = faceindex;
 			t->PrivateFont = DocName;
+			setBestEncoding(face); //AV
+			switch (face->charmap? face->charmap->encoding : -1)
+			{
+				case	 FT_ENCODING_ADOBE_STANDARD: 
+					t->FontEnc = QString("StandardEncoding");
+					break;
+				case	 FT_ENCODING_APPLE_ROMAN: 
+					t->FontEnc = QString("MacRomanEncoding");
+					break;
+				case	 FT_ENCODING_ADOBE_EXPERT: 
+					t->FontEnc = QString("MacExpertEncoding");
+					break;
+				case	 FT_ENCODING_ADOBE_LATIN_1: 
+					t->FontEnc = QString("WinAnsiEncoding");
+					break;
+				case	 FT_ENCODING_UNICODE: 
+					t->FontEnc = QString("Unicode");
+					break;
+				default:
+					t->FontEnc = QString();
+			}
+			if (showFontInformation)
+				qDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t->cached_RealName).arg(filename).arg(faceindex+1));
+
+/*
+//debug
+			QByteArray bb;
+			t->RawData(bb);
+			QFile dump(QString("/tmp/fonts/%1-%2").arg(ts).arg(psName));
+			dump.open(IO_WriteOnly);
+			QDataStream os(&dump);
+			os.writeRawBytes(bb.data(), bb.size());
+			dump.close();
+*/
+			FT_Done_Face(face);
+			++faceindex;
+			error = FT_New_Face( library, filename, faceindex, &face );
 		}
-	}
+		else 
+		{
+			if (showFontInformation)
+				qDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceindex+1).arg(t->fontPath()));
+			// this is needed since eg. AppleSymbols will happily return a face for *any* face_index
+			error = true;
+		}
+	} //while
+	
 	if (face != 0)
 		FT_Done_Face( face );
 	return false;
@@ -486,44 +742,49 @@ void SCFonts::removeFont(QString name)
 // Use Fontconfig to locate and load fonts.
 void SCFonts::AddFontconfigFonts()
 {
-    // All-in-one library setup. Perhaps this should be in
-    // the SCFonts constructor.
-    FcConfig* FcInitLoadConfigAndFonts();
-    // The pattern controls what fonts to match. In this case we want to
-    // match all scalable fonts, but ignore bitmap fonts.
-    FcPattern* pat = FcPatternBuild(NULL,
-                                    FC_SCALABLE, FcTypeBool, true,
-                                    NULL);
-    // The ObjectSet tells FontConfig what information about each match to return.
-    // We currently just need FC_FILE, but other info like font family and style
-    // is availible - see "man fontconfig".
-    FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
-    // Now ask fontconfig to retrieve info as specified in 'os' about fonts
-    // matching pattern 'pat'.
-    FcFontSet* fs = FcFontList(0, pat, os);
-    FcObjectSetDestroy(os);
-    FcPatternDestroy(pat);
-    // Create the Freetype library
-    bool error;
-    FT_Library library = NULL;
-    error = FT_Init_FreeType( &library );
-    // Now iterate over the font files and load them
-    int i;
-    for (i = 0; i < fs->nfont; i++) {
-        FcChar8 *file = NULL;
-        if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
-        {
-            error = AddScalableFont(QString((char*)file), library, "");
-            if (error)
-                qDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
-        }
-        else
-            qDebug(QObject::tr("Failed to load a font - freetype couldn't find the font file"));
-    }
-    FT_Done_FreeType( library );
+	// All-in-one library setup. Perhaps this should be in
+	// the SCFonts constructor.
+	FcConfig* FcInitLoadConfigAndFonts();
+	// The pattern controls what fonts to match. In this case we want to
+	// match all scalable fonts, but ignore bitmap fonts.
+	FcPattern* pat = FcPatternBuild(NULL,
+									FC_SCALABLE, FcTypeBool, true,
+									NULL);
+	// The ObjectSet tells FontConfig what information about each match to return.
+	// We currently just need FC_FILE, but other info like font family and style
+	// is availible - see "man fontconfig".
+	FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
+	// Now ask fontconfig to retrieve info as specified in 'os' about fonts
+	// matching pattern 'pat'.
+	FcFontSet* fs = FcFontList(0, pat, os);
+	FcObjectSetDestroy(os);
+	FcPatternDestroy(pat);
+	// Create the Freetype library
+	bool error;
+	FT_Library library = NULL;
+	error = FT_Init_FreeType( &library );
+	// Now iterate over the font files and load them
+	int i;
+	for (i = 0; i < fs->nfont; i++) 
+	{
+		FcChar8 *file = NULL;
+		if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
+		{
+			if (showFontInformation)
+				qDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
+			error = AddScalableFont(QString((char*)file), library, "");
+			if (error)
+				qDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
+		}
+		else
+			if (showFontInformation)
+				qDebug(QObject::tr("Failed to load a font - freetype2 couldn't find the font file"));
+	}
+	FT_Done_FreeType( library );
 }
 
 #else
+#ifndef QT_MAC
 
 void SCFonts::AddXFontPath()
 {
@@ -589,6 +850,7 @@ void SCFonts::AddXFontServerPath()
 	}
 }
 #endif
+#endif
 
 /* Add an extra path to the X-Server's Fontpath
  * allowing a user to have extra Fonts installed
@@ -604,27 +866,40 @@ void SCFonts::AddUserPath(QString pf)
 		{
 			QTextStream tsx(&fx);
 			while (!tsx.atEnd())
-				{
+			{
 				ExtraPath = tsx.readLine();
 				AddPath(ExtraPath);
-				}
+			}
 			fx.close();
 		}
 	}
 }
 
-void SCFonts::GetFonts(QString pf)
+void SCFonts::GetFonts(QString pf, bool showFontInfo)
 {
+	showFontInformation=showFontInfo;
 	FontPath.clear();
 	AddUserPath(pf);
-#ifdef HAVE_FONTCONFIG
+// if fontconfig is there, it does all the work
+#if HAVE_FONTCONFIG
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
 		AddScalableFonts(fpi.current());
 	AddFontconfigFonts();
 #else
+// if FreeType thinks we are on Mac, let it search the default paths
+#if FT_MACINTOSH
+	AddScalableFonts(QDir::homeDirPath() + "/Library/Fonts/");
+	AddScalableFonts("/Library/Fonts/");
+	AddScalableFonts("/Network/Library/Fonts/");
+	AddScalableFonts("/System/Library/Fonts/");
+#endif
+// on X11 look there:
+#ifdef Q_WS_X11
 	AddXFontPath();
 	AddXFontServerPath();
-	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
+#endif
+// add user and X11 fonts:
+	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi) 
 		AddScalableFonts(fpi.current());
 #endif
 }

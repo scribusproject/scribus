@@ -25,6 +25,7 @@
 #include <qdatastream.h>
 #include <qstringlist.h>
 #include <qmap.h>
+#include <qregexp.h>
 #include <qdom.h>
 #include <qimage.h>
 #include <qdir.h>
@@ -104,12 +105,12 @@ int setBestEncoding(FT_Face face);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
 FPoint getMaxClipF(FPointArray* Clip);
 FPoint getMinClipF(FPointArray* Clip);
-QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
-QPixmap fontSamples(QString da, int s, QString ts, QColor back);
+QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force = false);
+QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h);
-bool GlyNames(QMap<uint, QString> *GList, QString Dat);
-bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
+bool GlyNames(Foi * fnt, QMap<uint, QString> *GList);
+bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd);
 QByteArray ComputeMD5Sum(QByteArray *in);
 char *toHex( uchar u );
 QString String2Hex(QString *in, bool lang = true);
@@ -587,9 +588,15 @@ QString CompressStr(QString *in)
 		bb[ax] = uchar(QChar(in->at(ax)));
 	uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
 	QByteArray bc(exlen);
-	compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
-	for (uint cl = 0; cl < exlen; ++cl)
-		out += bc[cl];
+	int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
+	if (errcode != Z_OK) {
+		qDebug(QString("compress2 failed with code %1").arg(errcode));
+		out = *in;
+	}
+	else {
+		for (uint cl = 0; cl < exlen; ++cl)
+			out += bc[cl];
+	}
 #else
 	out = *in;
 #endif
@@ -719,34 +726,86 @@ int setBestEncoding(FT_Face face)
 	return retVal;
 }
 
-bool GlyNames(QMap<uint, QString> *GList, QString Dat)
+
+static QMap<FT_ULong, QString> adobeGlyphNames;
+static const char* table[] = {
+//#include "glyphnames.txt.q"
+					NULL};
+
+/// init the Adobe Glyph List
+void readAdobeGlyphNames() {
+	adobeGlyphNames.clear();
+	QRegExp pattern("(\\w*);([0-9A-Fa-f]{4})");
+	for (uint i=0; table[i]; ++i) {
+		if (pattern.search(table[i]) >= 0) {
+			FT_ULong unicode = pattern.cap(2).toULong(0, 16);
+			qDebug(QString("reading glyph name %1 fo unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2)));
+			adobeGlyphNames[unicode] = pattern.cap(1);
+		}
+	}
+}
+
+
+/// if in AGL, use that name, else use "uni1234" or "u12345"
+QString adobeGlyphName(FT_ULong charcode) {
+	static const char HEX[] = "0123456789ABCDEF";
+	QString result = adobeGlyphNames[charcode];
+	if (result.length() == 0 && charcode < 0x10000) {
+		result = QString("uni") + HEX[charcode>>12 & 0xF] 
+		                        + HEX[charcode>> 8 & 0xF] 
+		                        + HEX[charcode>> 4 & 0xF] 
+		                        + HEX[charcode     & 0xF];
+	}
+	else if (result.length() == 0) {
+		result = QString("u");
+		for (int i= 28; i >= 0; i-=4) {
+			if (charcode & (0xF << i))
+				result += HEX[charcode >> i & 0xF];
+		}
+	}
+	return result;
+}
+
+bool GlyNames(Foi * fnt, QMap<uint, QString> *GList)
 {
 	bool error;
-	char *buf[50];
+	char buf[50];
 	FT_Library library;
 	FT_Face face;
 	FT_ULong  charcode;
 	FT_UInt gindex;
 	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, Dat, 0, &face);
+	error = FT_New_Face(library, fnt->Datei, fnt->faceIndex, &face);
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
+	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	if (adobeGlyphNames.empty())
+		readAdobeGlyphNames();
 	while (gindex != 0)
 	{
-		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		GList->insert(charcode, QString(reinterpret_cast<char*>(buf)));
+		bool notfound = true;
+		if (hasPSNames)
+			notfound = FT_Get_Glyph_Name(face, gindex, &buf, 50);
+
+		// just in case FT gives empty string or ".notdef"
+		// no valid glyphname except ".notdef" starts with '.'		
+		if (notfound || buf[0] == '\0' || buf[0] == '.')
+			GList->insert(charcode, adobeGlyphName(charcode));
+		else
+			GList->insert(charcode, QString(reinterpret_cast<char*>(buf)));
+			
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
 	FT_Done_FreeType( library );
 	return true;
 }
 
-bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
+bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
 {
 	struct PDFlib::GlNamInd gln;
 	bool error;
-	char *buf[50];
+	char buf[50];
 	FT_Library library;
 	FT_Face face;
 	FT_ULong  charcode;
@@ -754,15 +813,27 @@ bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
 	uint counter1 = 32;
 	uint counter2 = 0;
 	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, Dat, 0, &face);
+	error = FT_New_Face(library, fnt->Datei, fnt->faceIndex, &face);
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
+	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	if (adobeGlyphNames.empty())
+		readAdobeGlyphNames();
 	while (gindex != 0)
 	{
-		error = FT_Get_Glyph_Name(face, gindex, buf, 50);
+		bool notfound = true;
+		if (hasPSNames)
+			notfound = FT_Get_Glyph_Name(face, gindex, buf, 50);
+
+		// just in case FT gives empty string or ".notdef"
+		// no valid glyphname except ".notdef" starts with '.'		
+		if (notfound || buf[0] == '\0' || buf[0] == '.')
+			gln.Name = "/" + adobeGlyphName(charcode);
+		else
+			gln.Name = "/" + QString(buf);
+
 		gln.Code = counter1 + counter2;
-		gln.Name = "/"+QString(reinterpret_cast<char*>(buf));
 		GListInd->insert(charcode, gln);
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		counter1++;
@@ -927,7 +998,7 @@ FPoint getMinClipF(FPointArray* Clip)
 	return rp;
 }
 
-QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
+QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 {
 	FT_Face face;
 	FT_Library library;
@@ -936,7 +1007,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
 	int  pen_x;
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
-	error = FT_New_Face( library, da, 0, &face );
+	error = FT_New_Face( library, fnt->Datei, fnt->faceIndex, &face );
 	int encode = setBestEncoding(face);
 	double uniEM = static_cast<double>(face->units_per_EM);
 	int h = qRound(face->height / uniEM) * s + 1;
@@ -1015,7 +1086,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
 /** Same as FontSample() with \n strings support added.
 09/26/2004 petr vanek
 */
-QPixmap fontSamples(QString da, int s, QString ts, QColor back)
+QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back)
 {
 	QStringList lines = QStringList::split("\n", ts);
 	QPixmap ret(640, 480);
@@ -1026,7 +1097,7 @@ QPixmap fontSamples(QString da, int s, QString ts, QColor back)
 	ret.fill(back);
 	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it )
 	{
-		sample = FontSample(da, s, *it, back);
+		sample = FontSample(fnt, s, *it, back);
 		if (!sample.isNull())
 			painter->drawPixmap(0, y, sample, 0, 0);
 		y = y + sample.height();

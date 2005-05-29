@@ -30,7 +30,7 @@
 #include FT_GLYPH_H
 
 extern QPixmap loadIcon(QString nam);
-extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
+extern QPixmap FontSample(Foi *font, int s, QString ts, QColor back, bool force = false);
 extern int setBestEncoding(FT_Face face);
 
 #ifdef QT_MAC
@@ -658,7 +658,7 @@ void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
 	if ((r*16+c) < maxCount)
 	{
 		chToIns += QChar(characters[r*16+c]);
-		sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse]->Datei, 28, chToIns, paletteBackgroundColor(), true));
+		sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
 	}
 }
@@ -673,7 +673,7 @@ void CharSelect::delChar()
 		return;
 	}
 	chToIns.truncate(chToIns.length() - 1);
-	sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse]->Datei, 28, chToIns, paletteBackgroundColor(), true));
+	sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 	insertButton->setEnabled(true);
 }
 

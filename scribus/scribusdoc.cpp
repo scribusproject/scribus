@@ -539,11 +539,14 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 	bool ret = false;
 	bool error;
 	FT_Face      face;
-	if (UsedFonts.contains(name))
-		return true;
-	error = FT_New_Face( library, (*AllFonts)[name]->Datei, 0, &face );
+
+	if (UsedFonts.contains(name)) 
+		return true; 
+
+	error = FT_New_Face( library, (*AllFonts)[name]->Datei, (*AllFonts)[name]->faceIndex, &face );
 	if (error)
 		return ret;
+
 	if ((*AllFonts)[name]->ReadMetrics())
 	{
 		(*AllFonts)[name]->CharWidth[13] = 0;

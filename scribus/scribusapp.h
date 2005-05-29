@@ -45,6 +45,7 @@ class ScribusQApp : public QApplication
 		QString lang;
 		bool showSplash;
 		bool useGUI;
+		bool showFontInfo;
 		QString file;
 };
 #endif

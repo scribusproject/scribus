@@ -102,7 +102,7 @@ public:
 	ScribusApp();
 	/** destructor */
 	~ScribusApp() {};
-	int initScribus(bool showSplash, const QString newGuiLanguage);
+	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage);
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
@@ -413,7 +413,7 @@ public slots:
 	void objectAttributes();
 	void generateTableOfContents();
 	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
-	const bool GetAllFonts();
+	const bool GetAllFonts(bool showFontInfo);
 	void buildFontMenu();
 	void slotPrefsOrg();
 	void slotEditStyles();
@@ -480,7 +480,7 @@ private:
 	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
-	void initFonts(); // setup the toolbars
+	void initFonts(bool showFontInfo); // setup the toolbars
 	void initHyphenator();
 	void initDefaultPrefs();
 	void initDefaultValues();

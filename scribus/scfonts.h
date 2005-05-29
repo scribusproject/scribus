@@ -42,15 +42,25 @@
 class Foi
 {
 	public:
+		enum FontType { TYPE0, TYPE1, TYPE3, TTF, CFF, OTF, UNKNOWN_TYPE };
+		enum FontFormat { PFA, PFB, TYPE2, TYPE42,
+		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
+		                  SFNT, TTCF, UNKNOWN_FORMAT };
+		
 		Foi(QString scname, QString path, bool embedps);
 		virtual ~Foi() {};
 		virtual QString RealName();
 		virtual bool EmbedFont(QString &str);
+		virtual void RawData(QByteArray & bb);
 		virtual bool ReadMetrics();
 		virtual bool GlNames(QMap<uint, QString> *GList);
 //		virtual void FontBez();
 		QString SCName;
+//private:
 		QString Datei;
+		int     faceIndex;
+public:
+		QString fontPath() { return faceIndex >= 0 ? QString("%1(%2)").arg(Datei).arg(faceIndex+1) : Datei; }
 		QString cached_RealName;
 		QString Family;
 		QString Effect;
@@ -85,7 +95,8 @@ class Foi
 		double underline_pos;
 		double strikeout_pos;
 		double strokeWidth;
-		int typeCode;
+		Foi::FontType typeCode;
+		Foi::FontFormat formatCode;
 //		QPixmap Appearance;
 };
 
@@ -105,9 +116,10 @@ class SCFonts : public QDict<Foi>
 		SCFonts() : QDict<Foi>(), FontPath(true)
 		{
 			setAutoDelete(true);
+			showFontInformation=false;
 		}
 		~SCFonts();
-		void GetFonts(QString pf);
+		void GetFonts(QString pf, bool showFontInfo=false);
 		void AddScalableFonts(const QString &path, QString DocName = "");
 		void removeFont(QString name);
 	private:
@@ -117,11 +129,15 @@ class SCFonts : public QDict<Foi>
 #ifdef HAVE_FONTCONFIG
 		void AddFontconfigFonts();
 #else
+#ifndef QT_MAC
 		void AddXFontServerPath();
 		void AddXFontPath();
 #endif
+#endif
 		QStrList FontPath;
 		QString ExtraPath;
+	protected:
+		bool showFontInformation;
 };
 
 typedef QDictIterator<Foi> SCFontsIterator;

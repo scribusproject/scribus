@@ -4,7 +4,7 @@
 #include "qbuffer.h"
 #include "qpixmap.h"
 
-extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
+extern QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force = false);
 
 PyObject *scribus_setredraw(PyObject */*self*/, PyObject* args)
 {
@@ -104,8 +104,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (!format)
 		// User specified no format, so use the historical default of PPM format.
 		format = "PPM";
-	QString da = Carrier->Prefs.AvailFonts[QString::fromUtf8(Name)]->Datei;
-	QPixmap pm = FontSample(da, Size, ts, Qt::white);
+	QPixmap pm = FontSample(Carrier->Prefs.AvailFonts[QString::fromUtf8(Name)], Size, ts, Qt::white);
 	// If the user specified an empty filename, return the image data as
 	// a string. Otherwise, save it to disk.
 	if (QString::fromUtf8(FileName) == "")

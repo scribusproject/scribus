@@ -184,7 +184,7 @@ ScribusApp::ScribusApp()
 /*
  * retval 0 - ok, 1 - no fonts, ...
  */
-int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
+int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage)
 {
 	int retVal=0;
 	ExternalApp = 0;
@@ -221,7 +221,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 	BuFromApp = false;
 
-	initFonts();
+	initFonts(showFontInfo);
 
 	if (NoFonts)
 		retVal=1;
@@ -359,13 +359,13 @@ void ScribusApp::initToolBars()
 	connect(WerkToolsP, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
 }
 
-void ScribusApp::initFonts()
+void ScribusApp::initFonts(bool showFontInfo)
 {
 	if (splashScreen!=NULL) {
 		splashScreen->setStatus( tr("Searching for Fonts"));
 		qApp->processEvents();
 	}
-	NoFonts=GetAllFonts();
+	NoFonts=GetAllFonts(showFontInfo);
 	if (NoFonts)
 	{
 		if (splashScreen!=NULL)
@@ -7950,9 +7950,9 @@ void ScribusApp::buildFontMenu()
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
-const bool ScribusApp::GetAllFonts()
+const bool ScribusApp::GetAllFonts(bool showFontInfo)
 {
-	Prefs.AvailFonts.GetFonts(PrefsPfad);
+	Prefs.AvailFonts.GetFonts(PrefsPfad, showFontInfo);
 	if (Prefs.AvailFonts.isEmpty())
 		return true;
 	return false;

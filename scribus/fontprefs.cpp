@@ -72,9 +72,8 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 			foS.FlagPS = false;
 			row->setPixmap(2, empty);
 		}
-		QFileInfo fi = QFileInfo(it.current()->Datei);
-		QString ext = fi.extension(false).lower();
-		if (ext == "otf")
+		Foi::FontType type = it.current()->typeCode;
+		if (type == Foi::OTF)
 			foS.FlagOTF = true;
 		else
 			foS.FlagOTF = false;
@@ -88,16 +87,16 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 			foS.FlagSub = false;
 			row->setPixmap(3, empty);
 		}
-		if ((ext == "pfa") || (ext == "pfb"))
+		if (type == Foi::TYPE1)
 			row->setPixmap(0, psFont);
 		else
 		{
-			if (ext == "ttf")
+			if (type == Foi::TTF)
 				row->setPixmap(0, ttfFont);
-			if (ext == "otf")
+			if (type == Foi::OTF)
 				row->setPixmap(0, otfFont);
 		}
-		row->setText(4, it.current()->Datei);
+		row->setText(4, it.current()->fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}
 	fontList->setSorting(0);
@@ -404,9 +403,8 @@ void FontPrefs::RebuildDialog()
 			foS.FlagPS = false;
 			row->setPixmap(2, empty);
 		}
-		QFileInfo fi = QFileInfo(it.current()->Datei);
-		QString ext = fi.extension(false).lower();
-		if (ext == "otf")
+		Foi::FontType type = it.current()->typeCode;
+		if (type == Foi::OTF)
 			foS.FlagOTF = true;
 		else
 			foS.FlagOTF = false;
@@ -420,16 +418,16 @@ void FontPrefs::RebuildDialog()
 			foS.FlagSub = false;
 			row->setPixmap(3, empty);
 		}
-		if ((ext == "pfa") || (ext == "pfb"))
+		if (type == Foi::TYPE1)
 			row->setPixmap(0, psFont);
 		else
 		{
-			if (ext == "ttf")
+			if (type == Foi::TTF)
 				row->setPixmap(0, ttfFont);
-			if (ext == "otf")
+			if (type == Foi::OTF)
 				row->setPixmap(0, otfFont);
 		}
-		row->setText(4, it.current()->Datei);
+		row->setText(4, it.current()->fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}
 	fontList->setSorting(0);

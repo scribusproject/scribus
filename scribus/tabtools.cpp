@@ -12,7 +12,7 @@
 #include "scribusstructs.h"
 #include "scribus.h"
 extern QPixmap loadIcon(QString nam);
-extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
+extern QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back);
 extern ScribusApp* ScApp;
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
@@ -748,9 +748,8 @@ void TabTools::changeImageScalingRatio(int)
 void TabTools::setSample()
 {
 	QString ts = tr( "Woven silk pyjamas exchanged for blue quartz" );
-	QString da = (*fon)[fontComboText->currentText()]->Datei;
 	int s = sizeComboText->currentText().left(2).toInt();
-	QPixmap pm = fontSamples(da, s, ts, paletteBackgroundColor());
+	QPixmap pm = fontSamples((*fon)[fontComboText->currentText()], s, ts, paletteBackgroundColor());
 	previewText->setPixmap(pm);
 }
 

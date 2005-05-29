@@ -39,6 +39,7 @@
 #define ARG_NOSPLASH "--no-splash"
 #define ARG_NOGUI "--no-gui"
 #define ARG_DISPLAY "--display"
+#define ARG_FONTINFO "--font-info"
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -47,6 +48,7 @@
 #define ARG_NOSPLASH_SHORT "-ns"
 #define ARG_NOGUI_SHORT "-g"
 #define ARG_DISPLAY_SHORT "-d"
+#define ARG_FONTINFO_SHORT "-fi"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -73,6 +75,7 @@ void ScribusQApp::parseCommandLine()
 	bool header=false;
 	bool availlangs=false;
 	bool version=false;
+	showFontInfo=false;
 
 	//Parse for command line information options, and lang
 	for(int i = 1; i < argc(); i++) 
@@ -120,6 +123,8 @@ void ScribusQApp::parseCommandLine()
 			showSplash = false;
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGUI=false;
+		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
+			showFontInfo=true;
 		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argc()) {
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
@@ -152,7 +157,7 @@ int ScribusQApp::init()
 		scribus = new ScribusApp();
 		if (!scribus)
 			exit(EXIT_FAILURE);
-		int scribusRetVal = scribus->initScribus(showSplash, lang);
+		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, lang);
 		if (scribusRetVal == 1)
 			return(EXIT_FAILURE);
 		scribus->initCrashHandler();
@@ -314,7 +319,8 @@ void ScribusQApp::showUsage()
 	std::cout << QObject::tr("Options:") << std::endl;
 	std::cout << "  " << ARG_HELP_SHORT      << ",  " << ARG_HELP      << "             " << QObject::tr("Print help (this message) and exit")     << std::endl;
 	std::cout << "  " << ARG_LANG_SHORT      << ",  " << ARG_LANG      << "             " << QObject::tr("Uses xx as shortcut for a language")     << std::endl;
-	std::cout << "  " << ARG_AVAILLANG_SHORT << ", "  << ARG_AVAILLANG << "  "            << QObject::tr("Lists the currently installed interface languages") << std::endl;
+	std::cout << "  " << ARG_AVAILLANG_SHORT << ", "  << ARG_AVAILLANG << "  "            << QObject::tr("List the currently installed interface languages") << std::endl;
+	std::cout << "  " << ARG_FONTINFO_SHORT  << ", "  << ARG_FONTINFO  << "        "      << QObject::tr("Show information on the console when fonts are being loaded") << std::endl;
 	std::cout << "  " << ARG_NOSPLASH_SHORT  << ", "  << ARG_NOSPLASH  << "        "      << QObject::tr("Do not show the splashscreen on startup")     << std::endl;
 	std::cout << "  " << ARG_VERSION_SHORT   << ",  " << ARG_VERSION   << "          "    << QObject::tr("Output version information and exit")       << std::endl;
 /*

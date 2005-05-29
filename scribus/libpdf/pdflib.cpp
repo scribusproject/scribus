@@ -50,7 +50,7 @@ using namespace std;
 
 extern int callGS(const QStringList & args);
 extern QString Path2Relative(QString Path);
-extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
+extern bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd);
 extern QByteArray ComputeMD5Sum(QByteArray *in);
 extern bool loadText(QString nam, QString *Buffer);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
@@ -577,8 +577,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	a = 0;
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
 	{
-		fd = QFileInfo(AllFonts[it.key()]->Datei);
-		fext = fd.extension(false).lower();
+		Foi::FontFormat fformat = AllFonts[it.key()]->formatCode;
 		if ((AllFonts[it.key()]->isOTF) || (!AllFonts[it.key()]->HasNames) || (AllFonts[it.key()]->Subset) || (Options->SubsetList.contains(it.key())))
 		{
 			QString fon = "";
@@ -641,17 +640,12 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		else
 		{
 			UsedFontsP.insert(it.key(), "/Fo"+IToStr(a));
-			if ((fext == "pfb") && (Options->EmbedList.contains(it.key())))
+			if ((fformat == Foi::PFB) && (Options->EmbedList.contains(it.key())))
 			{
 				QString fon = "";
 				StartObj(ObjCounter);
-				QFile f(AllFonts[it.key()]->Datei);
-				QByteArray bb(f.size());
-				if (f.open(IO_ReadOnly))
-				{
-					f.readBlock(bb.data(), f.size());
-					f.close();
-				}
+				QByteArray bb;
+				AllFonts[it.key()]->RawData(bb);
 				uint posi;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
@@ -694,7 +688,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				PutDoc(">>\nstream\n"+EncStream(&fon,ObjCounter)+"\nendstream\nendobj\n");
 				ObjCounter++;
 			}
-			if ((fext == "pfa") && (Options->EmbedList.contains(it.key())))
+			if ((fformat == Foi::PFA) && (Options->EmbedList.contains(it.key())))
 			{
 				QString fon = "";
 				QString fon2 = "";
@@ -702,7 +696,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				uint value;
 				bool ok = true;
 				StartObj(ObjCounter);
-				loadText(AllFonts[it.key()]->Datei, &fon);
+				AllFonts[it.key()]->EmbedFont(fon);
 				int len1 = fon.find("eexec")+5;
 				fon2 = fon.left(len1)+"\n";
 				int len2 = fon.find("0000000000000000000000000");
@@ -733,22 +727,19 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				PutDoc(">>\nstream\n"+EncStream(&fon2, ObjCounter)+"\nendstream\nendobj\n");
 				ObjCounter++;
 			}
-			if (((fext == "ttf") || (fext == "otf")) && (Options->EmbedList.contains(it.key())))
+			if ((fformat == Foi::SFNT || fformat == Foi::TTCF) && (Options->EmbedList.contains(it.key())))
 			{
-				QString fon = "";
+				QString fon("");
 				StartObj(ObjCounter);
-				QFile f(AllFonts[it.key()]->Datei);
-				QByteArray bb(f.size());
-				if (f.open(IO_ReadOnly))
-				{
-					f.readBlock(bb.data(), f.size());
-					f.close();
-				}
-				for (uint posi = 0; posi < bb.size(); ++posi)
-					fon += bb[posi];
+				QByteArray bb;
+				AllFonts[it.key()]->RawData(bb);
+				//AV: += and append() dont't work because they stop at '\0' :-(
+				for (unsigned int i=0; i < bb.size(); i++)
+					fon += bb[i];
 				int len = fon.length();
 				if ((Options->Compress) && (CompAvail))
 					fon = CompressStr(&fon);
+				qDebug(QString("sfnt data: size=%1 before=%2 compressed=%3").arg(bb.size()).arg(len).arg(fon.length()));
 				PutDoc("<<\n/Length "+IToStr(fon.length()+1)+"\n");
 				PutDoc("/Length1 "+IToStr(len)+"\n");
 				if ((Options->Compress) && (CompAvail))
@@ -775,26 +766,15 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 			PutDoc("/CapHeight "+AllFonts[it.key()]->CapHeight+"\n");
 			PutDoc("/ItalicAngle "+AllFonts[it.key()]->ItalicAngle+"\n");
 			PutDoc("/StemV "+AllFonts[it.key()]->StdVW+"\n");
-			if (((fext == "ttf") || (fext == "otf")) && (Options->EmbedList.contains(it.key())))
+			if ((fformat == Foi::SFNT || fformat == Foi::TTCF) && (Options->EmbedList.contains(it.key())))
 				PutDoc("/FontFile2 "+IToStr(ObjCounter-1)+" 0 R\n");
-			if ((fext == "pfb") && (Options->EmbedList.contains(it.key())))
+			if ((fformat == Foi::PFB) && (Options->EmbedList.contains(it.key())))
 				PutDoc("/FontFile "+IToStr(ObjCounter-1)+" 0 R\n");
-			if ((fext == "pfa") && (Options->EmbedList.contains(it.key())))
+			if ((fformat == Foi::PFA) && (Options->EmbedList.contains(it.key())))
 				PutDoc("/FontFile "+IToStr(ObjCounter-1)+" 0 R\n");
 			PutDoc(">>\nendobj\n");
 			ObjCounter++;
-			GListeInd gl;
-			GlyIndex(&gl, AllFonts[it.key()]->Datei);
-			GlyphsIdxOfFont.insert(it.key(), gl);
-			uint FontDes = ObjCounter - 1;
-			GListeInd::Iterator itg;
-			itg = gl.begin();
-			GListeInd::Iterator itg2;
-			itg2 = gl.begin();
-			uint Fcc = gl.count() / 224;
-			if ((gl.count() % 224) != 0)
-				Fcc += 1;
-			for (uint Fc = 0; Fc < Fcc; ++Fc)
+/*			if (!FT_Has_PS_Glyph_Names(AllFonts[it.key()]) 
 			{
 				StartObj(ObjCounter);
 				int chCount = 31;
@@ -810,38 +790,88 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				}
 				PutDoc("]\nendobj\n");
 				ObjCounter++;
-				StartObj(ObjCounter);
-				ObjCounter++;
-				PutDoc("<< /Type /Encoding\n/Differences [ 32\n");
-				int crc = 0;
-				for (int ww2 = 32; ww2 < 256; ++ww2)
-				{
-					PutDoc(itg2.data().Name+" ");
-					if (itg2 == gl.end())
-						break;
-					++itg2;
-					crc++;
-					if (crc > 8)
-					{
-						PutDoc("\n");
-						crc = 0;
-					}
-				}
-				PutDoc("]\n>>\nendobj\n");
+				// put widths object
+				// encoding dictionary w/ base encoding w/o differences
 				StartObj(ObjCounter);
 				PutDoc("<<\n/Type /Font\n/Subtype ");
-				PutDoc(((fext == "ttf") || (fext == "otf")) ? "/TrueType\n" : "/Type1\n");
-				PutDoc("/Name /Fo"+IToStr(a)+"S"+IToStr(Fc)+"\n");
+				PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
+				PutDoc("/Name /Fo"+IToStr(a)+"\n");
 				PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("\\s"), "" )+"\n");
+				//cf. widths:
 				PutDoc("/FirstChar 0\n");
 				PutDoc("/LastChar "+IToStr(chCount-1)+"\n");
-				PutDoc("/Widths "+IToStr(ObjCounter-2)+" 0 R\n");
-				PutDoc("/Encoding "+IToStr(ObjCounter-1)+" 0 R\n");
-				PutDoc("/FontDescriptor "+IToStr(FontDes)+" 0 R\n");
+				PutDoc("/Widths "+IToStr(ObjCounter-1)+" 0 R\n");
+				PutDoc("/FontDescriptor "+IToStr(ObjCounter-2)+" 0 R\n");
 				PutDoc(">>\nendobj\n");
-				Seite.FObjects["Fo"+IToStr(a)+"S"+IToStr(Fc)] = ObjCounter;
+				Seite.FObjects["Fo"+IToStr(a)] = ObjCounter;
 				ObjCounter++;
 			}
+			else */
+			{
+				GListeInd gl;
+				GlyIndex(AllFonts[it.key()], &gl);
+				GlyphsIdxOfFont.insert(it.key(), gl);
+				uint FontDes = ObjCounter - 1;
+				GListeInd::Iterator itg;
+				itg = gl.begin();
+				GListeInd::Iterator itg2;
+				itg2 = gl.begin();
+				uint Fcc = gl.count() / 224;
+				if ((gl.count() % 224) != 0)
+					Fcc += 1;
+				for (uint Fc = 0; Fc < Fcc; ++Fc)
+				{
+					StartObj(ObjCounter);
+					int chCount = 31;
+					PutDoc("[ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ");
+					for (int ww = 31; ww < 256; ++ww)
+					{
+						PutDoc(IToStr(static_cast<int>(AllFonts[it.key()]->CharWidth[itg.key()]*
+								1000))+" ");
+						if (itg == gl.end())
+							break;
+						++itg;
+						chCount++;
+					}
+					PutDoc("]\nendobj\n");
+					ObjCounter++;
+					StartObj(ObjCounter);
+					ObjCounter++;
+					PutDoc("<< /Type /Encoding\n");
+					PutDoc("/BaseEncoding /" + AllFonts[it.key()]->FontEnc + "\n");
+					PutDoc("/Differences [ 32\n");
+					int crc = 0;
+					for (int ww2 = 32; ww2 < 256; ++ww2)
+					{
+						PutDoc(itg2.data().Name+" ");
+						if (itg2 == gl.end())
+							break;
+						++itg2;
+						crc++;
+						if (crc > 8)
+						{
+							PutDoc("\n");
+							crc = 0;
+						}
+					}
+					PutDoc("]\n");
+	
+					PutDoc(">>\nendobj\n");
+					StartObj(ObjCounter);
+					PutDoc("<<\n/Type /Font\n/Subtype ");
+					PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
+					PutDoc("/Name /Fo"+IToStr(a)+"S"+IToStr(Fc)+"\n");
+					PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("\\s"), "" )+"\n");
+					PutDoc("/FirstChar 0\n");
+					PutDoc("/LastChar "+IToStr(chCount-1)+"\n");
+					PutDoc("/Widths "+IToStr(ObjCounter-2)+" 0 R\n");
+					PutDoc("/Encoding "+IToStr(ObjCounter-1)+" 0 R\n");
+					PutDoc("/FontDescriptor "+IToStr(FontDes)+" 0 R\n");
+					PutDoc(">>\nendobj\n");
+					Seite.FObjects["Fo"+IToStr(a)+"S"+IToStr(Fc)] = ObjCounter;
+					ObjCounter++;
+				} // for(Fc)
+			} // FT_Has_PS_Glyph_Names
 		}
 		a++;
 	}

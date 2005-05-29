@@ -240,11 +240,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		QMap<QString,QFont>::Iterator it;
 		for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
-			if (AllFonts[it.key()]->typeCode == 1)
+			if (AllFonts[it.key()]->typeCode == Foi::TYPE1)
 				AvailFlist->insertItem(loadIcon("font_type1_16.png"), it.key());
-			else if (AllFonts[it.key()]->typeCode == 2)
+			else if (AllFonts[it.key()]->typeCode == Foi::TTF)
 				AvailFlist->insertItem(loadIcon("font_truetype16.png"), it.key());
-			else if (AllFonts[it.key()]->typeCode == 3)
+			else if (AllFonts[it.key()]->typeCode == Foi::OTF)
 				AvailFlist->insertItem(loadIcon("font_otf16.png"), it.key());
 		}
 		AvailFlist->setMinimumSize(QSize(150, 140));

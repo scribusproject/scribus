@@ -13,7 +13,7 @@
 
 #include <prefsfile.h>
 
-extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
+extern QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile *prefsFile;
 
@@ -100,6 +100,52 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	/* go through available fonts and check their properties */
 	reallyUsedFonts.clear();
 	carrier->GetUsedFonts(&reallyUsedFonts);
+/* ui.cpp
+	QPixmap ttfFont = loadIcon("font_truetype16.png");
+	QPixmap otfFont = loadIcon("font_otf16.png");
+	QPixmap psFont = loadIcon("font_type1_16.png");
+	QPixmap okIcon = loadIcon("ok.png");
+
+	for (SCFontsIterator fontIter(carrier->Prefs.AvailFonts); fontIter.current(); ++fontIter)
+	{
+		if (fontIter.current()->UseFont)
+		{
+			QListViewItem *row = new QListViewItem(fontList);
+			Foi::FontType type = fontIter.current()->typeCode;
+			row->setText(0, fontIter.current()->SCName);
+			if (reallyUsedFonts.contains(fontIter.current()->SCName))
+				row->setPixmap(1, okIcon);
+
+			if (type == Foi::OTF)
+			{
+				row->setPixmap(2, otfFont);
+				row->setText(2, "OpenType");
+			}
+			else
+				if (fontIter.current()->Subset)
+					row->setPixmap(3, okIcon);
+
+			if (type == Foi::TYPE1) 
+			{
+				row->setPixmap(2, psFont);
+				row->setText(2, "Type1");
+			}
+
+			if (type == Foi::TTF)
+			{
+				row->setPixmap(2, ttfFont);
+				row->setText(2, "TrueType");
+			}
+
+			if (fontIter.current()->fontPath().contains(QDir::homeDirPath())) 
+				row->setText(4, tr("User", "font preview"));
+			else
+				row->setText(4, tr("System", "font preview"));
+
+			fontList->insertItem(row);
+		}
+	} // for fontIter
+*/
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
@@ -175,8 +221,7 @@ void FontPreview::fontList_changed()
 	QString t = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	t.replace('\n', " "); // remove French <NL> from translation...
 	QListViewItem *item = fontList->currentItem();
-	QString da = carrier->Prefs.AvailFonts[item->text(0)]->Datei;
-	QPixmap pixmap = fontSamples(da, sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
+	QPixmap pixmap = fontSamples(carrier->Prefs.AvailFonts[item->text(0)], sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
@@ -193,15 +238,14 @@ void FontPreview::updateFontList(QString searchStr)
 		if (fontIter.current()->UseFont)
 		{
 			QListViewItem *row = new QListViewItem(fontList);
-			QFileInfo fi = QFileInfo(fontIter.current()->Datei);
-			QString ext = fi.extension(false).lower();
+			Foi::FontType type = fontIter.current()->typeCode;
 
 			row->setText(0, fontIter.current()->SCName);
 			// searching
 			if (reallyUsedFonts.contains(fontIter.current()->SCName))
 				row->setPixmap(1, okIcon);
 
-			if (ext == "otf")
+			if (type == Foi::OTF)
 			{
 				row->setPixmap(2, otfFont);
 				row->setText(2, "OpenType");
@@ -210,18 +254,19 @@ void FontPreview::updateFontList(QString searchStr)
 				if (fontIter.current()->Subset)
 					row->setPixmap(3, okIcon);
 
-			if ((ext == "pfa") || (ext == "pfb")) // type1
+			if (type == Foi::TYPE1) // type1
 			{
 				row->setPixmap(2, psFont);
 				row->setText(2, "Type1");
 			}
 
-			if (ext == "ttf")
+			if (type == Foi::TTF)
 			{
 				row->setPixmap(2, ttfFont);
 				row->setText(2, "TrueType");
 			}
 
+			QFileInfo fi(fontIter.current()->Datei);
 			fi.absFilePath().contains(QDir::homeDirPath()) ?
 					row->setText(4, tr("User", "font preview")):
 					row->setText(4, tr("System", "font preview"));
