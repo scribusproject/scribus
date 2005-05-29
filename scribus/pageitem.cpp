@@ -52,6 +52,8 @@ using namespace std;
 
 extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
 extern double RealCWidth(ScribusDoc *doc, Foi* name, QString ch, int Siz);
+extern double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
+extern double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -1055,13 +1057,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
-							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / (hl->cfont->numAscent+hl->cfont->numDescender)));
-							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / hl->cfont->numAscent));
+							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * DropLines) / RealCAscent(Doc, hl->cfont, chx, 10)));
 						}
 						else
 						{
-							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / (hl->cfont->numAscent+hl->cfont->numDescender)));
-							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / hl->cfont->numAscent));
+							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * DropLines) / RealCAscent(Doc, hl->cfont, chx, 10)));
 						}
 						hl->csize = chsd;
 					}
@@ -1087,7 +1089,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
 						desc2 = 0;
 						desc = 0;
-						asce = hl->cfont->numAscent * (hl->csize / 10.0);
+						asce = RealCHeight(Doc, hl->cfont, chx2, chsd);
 					}
 					else
 					{
@@ -1213,7 +1215,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									CurX += Doc->docParagraphStyles[hl->cab].First;
 							}
 						}
-						CurX += Doc->docParagraphStyles[hl->cab].Indent;
+						if (!AbsHasDrop)
+							CurX += Doc->docParagraphStyles[hl->cab].Indent;
 						fBorder = false;
 					}
 					StartOfCol = false;
@@ -1278,6 +1281,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 					}
 					hl->yp = CurY + oldCurY;
+					if (DropCmode)
+						hl->yp -= RealCHeight(Doc, hl->cfont, chx2, chsd) - RealCAscent(Doc, hl->cfont, chx2, chsd);
 					if (LiList.count() == 0)
 					{
 						itemText.at(a)->cstyle |= 16384;
@@ -1598,7 +1603,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										}
 										if (AbsHasDrop)
 										{
-											if (CurY > maxDY)
+											if ((CurY > maxDY) && (CurY - asce > maxDY))
 											{
 												AbsHasDrop = false;
 												CurX = ColBound.x();
@@ -1642,7 +1647,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								CurY += Doc->docParagraphStyles[hl->cab].LineSpa;
 								if (AbsHasDrop)
 								{
-									if (CurY > maxDY)
+									if ((CurY > maxDY) && (CurY - asce > maxDY))
 									{
 										AbsHasDrop = false;
 										CurX = ColBound.x();

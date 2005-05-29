@@ -126,6 +126,8 @@ uint getDouble(QString in, bool raw);
 bool loadText(QString nam, QString *Buffer);
 double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz, QString ch2 = " ");
 double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz);
+double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
+double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -412,6 +414,40 @@ double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 		w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / name->uniEM * (Size / 10.0);
 		ww = face->glyph->metrics.horiAdvance / name->uniEM * (Size / 10.0);
 		return QMAX(ww, w);
+	}
+	else
+		return static_cast<double>(Size / 10.0);
+}
+
+double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
+{
+	double w;
+	uint c1 = ch.at(0).unicode();
+	FT_Face      face;
+	if (name->CharWidth.contains(c1))
+	{
+		face = currentDoc->FFonts[name->SCName];
+		uint cl = FT_Get_Char_Index(face, c1);
+		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		w = face->glyph->metrics.height / name->uniEM * (Size / 10.0);
+		return w;
+	}
+	else
+		return static_cast<double>(Size / 10.0);
+}
+
+double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
+{
+	double w;
+	uint c1 = ch.at(0).unicode();
+	FT_Face      face;
+	if (name->CharWidth.contains(c1))
+	{
+		face = currentDoc->FFonts[name->SCName];
+		uint cl = FT_Get_Char_Index(face, c1);
+		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		w = face->glyph->metrics.horiBearingY / name->uniEM * (Size / 10.0);
+		return w;
 	}
 	else
 		return static_cast<double>(Size / 10.0);
