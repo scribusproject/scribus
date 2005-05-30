@@ -5344,7 +5344,7 @@ void ScribusApp::slotFileQuit()
 void ScribusApp::slotEditCut()
 {
 	uint a;
-	NoFrameEdit();
+	//#2031 NoFrameEdit();
 	QString BufferI = "";
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
@@ -5439,7 +5439,7 @@ void ScribusApp::slotEditCut()
 void ScribusApp::slotEditCopy()
 {
 	uint a;
-	NoFrameEdit();
+	//#2031 NoFrameEdit();
 	QString BufferI = "";
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
@@ -5520,7 +5520,7 @@ void ScribusApp::slotEditCopy()
 void ScribusApp::slotEditPaste()
 {
 	struct ScText *hg;
-	NoFrameEdit();
+	//#2031 NoFrameEdit();
 	if (HaveDoc)
 	{
 		if (Buffer2.isNull())
