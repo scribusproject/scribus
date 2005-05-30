@@ -693,9 +693,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					if (hl->cstyle & 2048)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 						else
-							chs = qRound(10 * ((Doc->docParagraphStyles[hl->cab].LineSpa * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->docParagraphStyles[hl->cab].LineSpa * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 					}
 					oldCurY = SetZeichAttr(hl, &chs, &chx);
 					if ((chx == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
@@ -1065,16 +1065,15 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
-							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
-							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
+							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
 						}
 						else
 						{
-							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
-							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * (DropLines-1)+(hl->cfont->numAscent * (hl->csize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
+							chsd = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->docParagraphStyles[absa].LineSpa * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
 						}
 						hl->cstyle |= 2048;
-//						hl->csize = chsd;
 					}
 					else
 						chs = hl->csize;

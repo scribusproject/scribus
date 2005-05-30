@@ -5344,7 +5344,7 @@ void ScribusApp::slotFileQuit()
 void ScribusApp::slotEditCut()
 {
 	uint a;
-	//#2031 NoFrameEdit();
+	NoFrameEdit();
 	QString BufferI = "";
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
@@ -5439,7 +5439,7 @@ void ScribusApp::slotEditCut()
 void ScribusApp::slotEditCopy()
 {
 	uint a;
-	//#2031 NoFrameEdit();
+	NoFrameEdit();
 	QString BufferI = "";
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
@@ -5520,7 +5520,7 @@ void ScribusApp::slotEditCopy()
 void ScribusApp::slotEditPaste()
 {
 	struct ScText *hg;
-	//#2031 NoFrameEdit();
+	NoFrameEdit();
 	if (HaveDoc)
 	{
 		if (Buffer2.isNull())
@@ -6279,6 +6279,7 @@ void ScribusApp::ToggleFrameEdit()
 
 void ScribusApp::NoFrameEdit()
 {
+	actionManager->disconnectModeActions();
 	nodePalette->hide();
 	scrActions["toolsSelect"]->setEnabled(true);
 	scrActions["toolsSelect"]->setOn(true);
@@ -6312,6 +6313,7 @@ void ScribusApp::NoFrameEdit()
 		else
 			HaveNewSel(-1);
 	}
+	actionManager->connectModeActions();
 }
 
 void ScribusApp::slotSelect()
