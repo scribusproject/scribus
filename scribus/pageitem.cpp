@@ -707,7 +707,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								chs = qRound(10 * ((Doc->docParagraphStyles[hl->cab].LineSpa * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 							else
 							{
-								double currasce = RealFHeight(Doc, hl->cfont, hl->csize);
+								double currasce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].FontSize);
 								chs = qRound(10 * ((currasce * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCHeight(Doc, hl->cfont, chx, 10)));
 							}
 						}
@@ -1078,7 +1078,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									if (Doc->docParagraphStyles[absa].LineSpaMode == 0)
 										CurY += Doc->docParagraphStyles[absa].LineSpa * (DropLines-1);
 									else
-										CurY += RealFHeight(Doc, hl->cfont, hl->csize) * (DropLines-1);
+										CurY += RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[absa].FontSize) * (DropLines-1);
 								}
 							}
 						}
@@ -1099,7 +1099,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 							else
 							{
-								double currasce = RealFHeight(Doc, hl->cfont, hl->csize);
+								double currasce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].FontSize);
 								chsd = qRound(10 * ((currasce * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 								chs = qRound(10 * ((currasce * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
 							}
@@ -1367,10 +1367,15 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli->yco = hl->yp;
 					Zli->Sele = hl->cselect;
 					if (DropCmode)
+					{
 						Zli->Siz = chsd;
+						Zli->realSiz = Doc->docParagraphStyles[hl->cab].FontSize;
+					}
 					else
+					{
 						Zli->Siz = chs;
-					Zli->realSiz = hl->csize;
+						Zli->realSiz = hl->csize;
+					}
 					Zli->Style = hl->cstyle;
 					Zli->ZFo = hl->cfont;
 					Zli->wide = wide;
@@ -1462,7 +1467,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 							else
 							{
-								double currasce = RealFHeight(Doc, hl->cfont, hl->csize);
+								double currasce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].FontSize);
 								CurY -= currasce * (DropLines-1);
 								tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*currasce)));
 								tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*currasce)));
@@ -1723,43 +1728,46 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						hl->yp = CurY;
 						LiList.at(LiList.count()-1)->xco = hl->xp;
 						LiList.at(LiList.count()-1)->yco = hl->yp;
-						if ((!AbsHasDrop) && (StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj) && (LiList.count() != 0))
+						if (LiList.count() != 0)
 						{
-							Zli2 = LiList.at(0);
-							double firstasce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
-							double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz);
-							for (uint zc = 0; zc < LiList.count(); ++zc)
+							if ((!AbsHasDrop) && (StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj))
 							{
-								Zli2 = LiList.at(zc);
-								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
-									continue;
-								currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz));
+								Zli2 = LiList.at(0);
+								double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
+								double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
+								for (uint zc = 0; zc < LiList.count(); ++zc)
+								{
+									Zli2 = LiList.at(zc);
+									if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+										continue;
+									currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
+								}
+								double adj = firstasce - currasce;
+								for (uint zc = 0; zc < LiList.count(); ++zc)
+								{
+									LiList.at(zc)->yco -= adj;
+								}
+								CurY -= adj;
 							}
-							double adj = firstasce - currasce;
-							for (uint zc = 0; zc < LiList.count(); ++zc)
+							if ((!StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj) && (Doc->docParagraphStyles[hl->cab].LineSpaMode == 1))
 							{
-								LiList.at(zc)->yco -= adj;
+								Zli2 = LiList.at(0);
+								double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
+								double currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
+								for (uint zc = 0; zc < LiList.count(); ++zc)
+								{
+									Zli2 = LiList.at(zc);
+									if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+										continue;
+									currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
+								}
+								double adj = firstasce - currasce;
+								for (uint zc = 0; zc < LiList.count(); ++zc)
+								{
+									LiList.at(zc)->yco -= adj;
+								}
+								CurY -= adj;
 							}
-							CurY -= adj;
-						}
-						if ((!StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj) && (Doc->docParagraphStyles[hl->cab].LineSpaMode == 1) && (LiList.count() != 0))
-						{
-							Zli2 = LiList.at(0);
-							double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
-							double currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
-							for (uint zc = 0; zc < LiList.count(); ++zc)
-							{
-								Zli2 = LiList.at(zc);
-								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
-									continue;
-								currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
-							}
-							double adj = firstasce - currasce;
-							for (uint zc = 0; zc < LiList.count(); ++zc)
-							{
-								LiList.at(zc)->yco -= adj;
-							}
-							CurY -= adj;
 						}
 						StartOfCol = false;
 						tabDist = ColBound.x();
@@ -1908,43 +1916,46 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 					}
 				}
-				if ((!AbsHasDrop) && (StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj) && (LiList.count() != 0))
+				if (LiList.count() != 0)
 				{
-					Zli2 = LiList.at(0);
-					double firstasce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
-					double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz);
-					for (uint zc = 0; zc < LiList.count(); ++zc)
+					if ((!AbsHasDrop) && (StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj))
 					{
-						Zli2 = LiList.at(zc);
-						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
-							continue;
-						currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->Siz));
+						Zli2 = LiList.at(0);
+						double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
+						double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
+						for (uint zc = 0; zc < LiList.count(); ++zc)
+						{
+							Zli2 = LiList.at(zc);
+							if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+								continue;
+							currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
+						}
+						double adj = firstasce - currasce;
+						for (uint zc = 0; zc < LiList.count(); ++zc)
+						{
+							LiList.at(zc)->yco -= adj;
+						}
+						CurY -= adj;
 					}
-					double adj = firstasce - currasce;
-					for (uint zc = 0; zc < LiList.count(); ++zc)
+					if ((!StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj) && (Doc->docParagraphStyles[hl->cab].LineSpaMode == 1))
 					{
-						LiList.at(zc)->yco -= adj;
+						Zli2 = LiList.at(0);
+						double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
+						double currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
+						for (uint zc = 0; zc < LiList.count(); ++zc)
+						{
+							Zli2 = LiList.at(zc);
+							if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+								continue;
+							currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
+						}
+						double adj = firstasce - currasce;
+						for (uint zc = 0; zc < LiList.count(); ++zc)
+						{
+							LiList.at(zc)->yco -= adj;
+						}
+						CurY -= adj;
 					}
-					CurY -= adj;
-				}
-				if ((!StartOfCol) && (!Doc->docParagraphStyles[hl->cab].BaseAdj) && (Doc->docParagraphStyles[hl->cab].LineSpaMode == 1) && (LiList.count() != 0))
-				{
-					Zli2 = LiList.at(0);
-					double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
-					double currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
-					for (uint zc = 0; zc < LiList.count(); ++zc)
-					{
-						Zli2 = LiList.at(zc);
-						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
-							continue;
-						currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
-					}
-					double adj = firstasce - currasce;
-					for (uint zc = 0; zc < LiList.count(); ++zc)
-					{
-						LiList.at(zc)->yco -= adj;
-					}
-					CurY -= adj;
 				}
 				StartOfCol = false;
 				tabDist = ColBound.x();
