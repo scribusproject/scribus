@@ -50,9 +50,13 @@ fi
 
 printf "${FORMAT}" "Libxml2 installed: "
 if test "$haxml" = yes; then
-	echo "Yes"
+	if test "$haxml26" = "yes"; then
+		echo "Yes"
+	else
+		echo "Yes (old); LibXML 2.6.0 or newer may be required soon."
+	fi
 else
-	echo "No"
+	echo "No; LibXML 2.6.0 or newer may be required soon."
 fi
 
 if test "$COMPILE_PYTHON" = no; then
