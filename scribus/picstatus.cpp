@@ -169,6 +169,10 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	PicTable->adjustColumn(2);
 	PicTable->adjustColumn(4);
 	PicTable->adjustColumn(5);
+	PicTable->setColumnReadOnly(0, true);
+	PicTable->setColumnReadOnly(1, true);
+	PicTable->setColumnReadOnly(2, true);
+	PicTable->setColumnReadOnly(5, true);
 	PicTable->setSorting(false);
 	PicTable->setSelectionMode(QTable::NoSelection);
 	PicTable->setColumnMovingEnabled(false);

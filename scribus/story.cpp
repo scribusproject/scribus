@@ -209,6 +209,13 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUp(true);
 		return;
 	}
+	if ((k->key() + KeyMod) == ScApp->Prefs.KeyActions[67].KeyID)
+	{
+		insChars(QString(QChar(29)));
+		insert("_");
+		emit SideBarUp(true);
+		return;
+	}
 	QString uc = k->text();
 	switch (k->state())
 	{
@@ -834,6 +841,17 @@ void SEditor::loadItemText(PageItem* b)
 						setStyle(Csty);
 						insert(Text);
 						insert("#");
+						Text = "";
+						chars->append(hg);
+						continue;
+					}
+					else if (hg->ch == QChar(29))
+					{
+						setFarbe(Ccol, Csha);
+						setAlign(Ali);
+						setStyle(Csty);
+						insert(Text);
+						insert("_");
 						Text = "";
 						chars->append(hg);
 						continue;
