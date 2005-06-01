@@ -129,6 +129,7 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz, QString ch
 double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz);
 double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
 double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
+double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -452,6 +453,12 @@ double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	}
 	else
 		return static_cast<double>(Size / 10.0);
+}
+
+double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size)
+{
+	FT_Face face = currentDoc->FFonts[name->SCName];
+	return face->height / name->uniEM * (Size / 10.0);
 }
 
 QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
@@ -1518,6 +1525,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->PLineEnd=Qt::PenCapStyle(QStoInt(obj->attribute("PLINEEND","0")));
 	OB->PLineJoin=Qt::PenJoinStyle(QStoInt(obj->attribute("PLINEJOIN","0")));
 	OB->LineSp=QStodouble(obj->attribute("LINESP"));
+	OB->LineSpMode = QStoInt(obj->attribute("LINESPMode","0"));
 	OB->ExtraV=QStodouble(obj->attribute("EXTRAV","0"));
 	OB->LocalScX=QStodouble(obj->attribute("LOCALSCX"));
 	OB->LocalScY=QStodouble(obj->attribute("LOCALSCY"));

@@ -352,6 +352,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("PLINEEND", item->PLineEnd);
 	ob->setAttribute("PLINEJOIN", item->PLineJoin);
 	ob->setAttribute("LINESP",item->LineSp);
+	ob->setAttribute("LINESPMode", item->LineSpMode);
 	ob->setAttribute("EXTRAV",item->ExtraV);
 	ob->setAttribute("LOCALSCX",item->LocalScX);
 	ob->setAttribute("LOCALSCY",item->LocalScY);
@@ -562,6 +563,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	fou = false;
 	bool tabEQ = false;
 	vg->Vname = pg->attribute("NAME");
+	vg->LineSpaMode = QStoInt(pg->attribute("LINESPMode","0"));
 	vg->LineSpa = QStodouble(pg->attribute("LINESP"));
 	vg->Indent = QStodouble(pg->attribute("INDENT","0"));
 	vg->First = QStodouble(pg->attribute("FIRST","0"));
@@ -660,6 +662,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					break;
 			}
 			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
+					(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&
 					(vg->Indent == docParagraphStyles[xx].Indent) &&
 					(vg->First == docParagraphStyles[xx].First) &&
 					(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
@@ -725,6 +728,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					break;
 			}
 			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
+				(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&
 				(vg->Indent == docParagraphStyles[xx].Indent) &&
 				(vg->First == docParagraphStyles[xx].First) &&
 				(vg->textAlignment == docParagraphStyles[xx].textAlignment) &&
@@ -1402,6 +1406,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			if(pg.tagName()=="STYLE")
 			{
 				vg.Vname = pg.attribute("NAME");
+				vg.LineSpaMode = QStoInt(pg.attribute("LINESPMode","0"));
 				vg.LineSpa = QStodouble(pg.attribute("LINESP"));
 				vg.Indent = QStodouble(pg.attribute("INDENT","0"));
 				vg.First = QStodouble(pg.attribute("FIRST","0"));
@@ -2240,6 +2245,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			if (item->textAlignment > 4)
 			{
 				vg.Vname = doc->docParagraphStyles[item->textAlignment].Vname;
+				vg.LineSpaMode = doc->docParagraphStyles[item->textAlignment].LineSpaMode;
 				vg.LineSpa = doc->docParagraphStyles[item->textAlignment].LineSpa;
 				vg.textAlignment = doc->docParagraphStyles[item->textAlignment].textAlignment;
 				vg.Indent = doc->docParagraphStyles[item->textAlignment].Indent;
@@ -2273,6 +2279,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 					if (item->itemText.at(tx)->cab > 4)
 					{
 						vg.Vname = doc->docParagraphStyles[item->itemText.at(tx)->cab].Vname;
+						vg.LineSpaMode = doc->docParagraphStyles[item->itemText.at(tx)->cab].LineSpaMode;
 						vg.LineSpa = doc->docParagraphStyles[item->itemText.at(tx)->cab].LineSpa;
 						vg.textAlignment = doc->docParagraphStyles[item->itemText.at(tx)->cab].textAlignment;
 						vg.Indent = doc->docParagraphStyles[item->itemText.at(tx)->cab].Indent;
@@ -2312,6 +2319,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			QDomElement fo=docu.createElement("STYLE");
 			fo.setAttribute("NAME",UsedStyles[actSt].Vname);
 			fo.setAttribute("ALIGN",UsedStyles[actSt].textAlignment);
+			fo.setAttribute("LINESPMode",UsedStyles[actSt].LineSpaMode);
 			fo.setAttribute("LINESP",UsedStyles[actSt].LineSpa);
 			fo.setAttribute("INDENT",UsedStyles[actSt].Indent);
 			fo.setAttribute("FIRST",UsedStyles[actSt].First);
@@ -3175,6 +3183,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			QDomElement fo=docu.createElement("STYLE");
 			fo.setAttribute("NAME",doc->docParagraphStyles[ff].Vname);
 			fo.setAttribute("ALIGN",doc->docParagraphStyles[ff].textAlignment);
+			fo.setAttribute("LINESPMode",doc->docParagraphStyles[ff].LineSpaMode);
 			fo.setAttribute("LINESP",doc->docParagraphStyles[ff].LineSpa);
 			fo.setAttribute("INDENT",doc->docParagraphStyles[ff].Indent);
 			fo.setAttribute("FIRST",doc->docParagraphStyles[ff].First);

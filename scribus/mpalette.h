@@ -21,6 +21,7 @@
 #include <qlineedit.h>
 #include <qtimer.h>
 #include <qtoolbox.h>
+#include <qpopupmenu.h>
 #include "scrpalettebase.h"
 #include "mspinbox.h"
 #include "pageitem.h"
@@ -189,7 +190,6 @@ public:
 	QLabel* leftLabel;
 	QLabel* rightLabel;
 	QLabel* trackingLabel;
-	QLabel* linespacingLabel;
 	QLabel* fontsizeLabel;
 	QLabel* yscaleLabel;
 	QLabel* xscaleLabel;
@@ -258,6 +258,9 @@ public:
 	QFrame* Line5_2;
 	QFrame* Frame4;
 
+	QPopupMenu* lineSpacingPop;
+
+	QToolButton* linespacingLabel;
 	QToolButton* FlipH;
 	QToolButton* FlipV;
 	QToolButton* Locked;
@@ -280,6 +283,7 @@ public slots:
 	void setR(double r);
 	void setRR(double r);
 	void setCols(int r, double g);
+	void setLspMode(int id);
 	void setLsp(double r);
 	void setSize(int s);
 	void setExtra(double e);

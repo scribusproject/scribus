@@ -61,7 +61,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 				}
 				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
 					(vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&
-					(vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (tabEQ)
+					(vg.LineSpaMode == vg2.LineSpaMode) && (vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (tabEQ)
 					&& (vg.Drop == vg2.Drop) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
 					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
 					(vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
@@ -210,6 +210,7 @@ void StilFormate::dupFormat()
 {
 	struct ParagraphStyle sty;
 	sty.Vname = tr("Copy of %1").arg(TempVorl[sFnumber].Vname);
+	sty.LineSpaMode = TempVorl[sFnumber].LineSpaMode;
 	sty.LineSpa = TempVorl[sFnumber].LineSpa;
 	sty.textAlignment = TempVorl[sFnumber].textAlignment;
 	sty.Indent = TempVorl[sFnumber].Indent;
@@ -248,6 +249,7 @@ void StilFormate::neuesFormat()
 {
 	struct ParagraphStyle sty;
 	sty.Vname = tr("New Style");
+	sty.LineSpaMode = 0;
 	sty.LineSpa = ((Docu->toolSettings.defSize / 10.0) * static_cast<double>(Docu->typographicSetttings.autoLineSpacing) / 100) + (Docu->toolSettings.defSize / 10.0);
 	sty.textAlignment = 0;
 	sty.Indent = 0;

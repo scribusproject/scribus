@@ -237,7 +237,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	else
 		linesp = fstyle->getLineSpacing();
 	textFrame->LineSp = linesp;
-
+	textFrame->LineSpMode = 0;
 	gtFont* font = fstyle->getFont();
 	QString fontName = validateFont(font);
 	textFrame->IFont = fontName;
@@ -314,6 +314,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 		linesp = getLineSpacing(pstyle->getFont()->getSize());
 	else
 		linesp = pstyle->getLineSpacing();
+	vg.LineSpaMode = 0;
 	vg.LineSpa = linesp;
 	vg.textAlignment = pstyle->getAlignment();
 	vg.Indent = pstyle->getIndent();
@@ -378,6 +379,7 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 		linesp = getLineSpacing(pstyle->getFont()->getSize());
 	else
 		linesp = pstyle->getLineSpacing();
+	vg.LineSpaMode = 0;
 	vg.LineSpa = linesp;
 	vg.textAlignment = pstyle->getAlignment();
 	vg.Indent = pstyle->getIndent();

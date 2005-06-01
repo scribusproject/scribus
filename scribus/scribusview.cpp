@@ -78,6 +78,7 @@ using namespace std;
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
+extern double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size);
 extern ScribusApp* ScApp;
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QPixmap loadIcon(QString nam);
@@ -10545,6 +10546,40 @@ void ScribusView::chKerning(double us)
 	}
 }
 
+void ScribusView::ChLineSpaMode(int w)
+{
+	if (Doc->appMode != EditMode)
+	{
+		if (SelItem.count() != 0)
+		{
+			for (uint a = 0; a < SelItem.count(); ++a)
+			{
+				PageItem* currItem = SelItem.at(a);
+				currItem->LineSpMode = w;
+				if (w == 0)
+				{
+					currItem->LineSp = ((currItem->ISize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (currItem->ISize / 10.0);
+					Doc->docParagraphStyles[0].BaseAdj = false;
+				}
+				else if (w == 1)
+				{
+					Doc->docParagraphStyles[0].BaseAdj = false;
+					currItem->LineSp = RealFHeight(Doc, (*Doc->AllFonts)[currItem->IFont], currItem->ISize);
+				}
+				else
+				{
+					Doc->docParagraphStyles[0].BaseAdj = true;
+					currItem->LineSp = Doc->typographicSetttings.valueBaseGrid-1;
+				}
+				Doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
+				emit ItemTextAttr(currItem->LineSp);
+				RefreshItem(currItem);
+			}
+			Doc->docParagraphStyles[0].LineSpaMode = w;
+		}
+	}
+}
+
 void ScribusView::chFSize(int size)
 {
 	if (SelItem.count() != 0)
@@ -10558,9 +10593,23 @@ void ScribusView::chFSize(int size)
 			Doc->CurrFontSize = size;
 			if (Doc->appMode != EditMode)
 			{
-				currItem->LineSp = ((size / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (size / 10.0);
-				Doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
-				emit ItemTextAttr(currItem->LineSp);
+				if (currItem->LineSpMode == 0)
+				{
+					currItem->LineSp = ((size / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (size / 10.0);
+					Doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
+					emit ItemTextAttr(currItem->LineSp);
+				}
+				else if (currItem->LineSpMode == 1)
+				{
+					currItem->LineSp = RealFHeight(Doc, (*Doc->AllFonts)[currItem->IFont], currItem->ISize);
+					Doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
+					emit ItemTextAttr(currItem->LineSp);
+				}
+				else
+				{
+					currItem->LineSp = Doc->typographicSetttings.valueBaseGrid-1;
+					emit ItemTextAttr(currItem->LineSp);
+				}
 				currItem->setFontSize(size);
 				emit ItemTextSize(currItem->ISize);
 				emit ItemTextCols(currItem->Cols, currItem->ColGap);
@@ -11133,6 +11182,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	}
 	PageItem *currItem = Doc->Items.at(z);
+	currItem->LineSpMode = Buffer->LineSpMode;
+	if (currItem->LineSpMode == 3)
+	{
+		Doc->docParagraphStyles[0].BaseAdj = true;
+		currItem->LineSp = Doc->typographicSetttings.valueBaseGrid-1;
+	}
 	currItem->setImageFlippedH(Buffer->flippedH);
 	currItem->setImageFlippedV(Buffer->flippedV);
 	currItem->RadRect = Buffer->RadRect;

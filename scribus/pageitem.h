@@ -286,6 +286,7 @@ struct TabRecord
 	double RExtra;
   /** Linespacing */
 	double LineSp;
+	int LineSpMode;
   /** Zeichen X-Position */
 	double CurX;
   /** Zeichen Y-Position */

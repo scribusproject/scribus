@@ -3840,6 +3840,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			emit TextOutline(doc->CurrTextOutline);
 			setStilvalue(doc->CurrentStyle);
 		}
+		doc->docParagraphStyles[0].LineSpaMode = currItem->LineSpMode;
 		doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
 		doc->docParagraphStyles[0].textAlignment = currItem->textAlignment;
 		break;
@@ -7198,6 +7199,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 						break;
 				}
 				if ((doc->docParagraphStyles[a].LineSpa == dia->TempVorl[b].LineSpa) &&
+					(doc->docParagraphStyles[a].LineSpaMode == dia->TempVorl[b].LineSpaMode) &&
 					(doc->docParagraphStyles[a].Indent == dia->TempVorl[b].Indent) &&
 					(doc->docParagraphStyles[a].First == dia->TempVorl[b].First) &&
 					(doc->docParagraphStyles[a].textAlignment == dia->TempVorl[b].textAlignment) &&

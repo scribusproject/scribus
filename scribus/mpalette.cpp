@@ -447,9 +447,16 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	layout41->addWidget( ChBase, 1, 3 );
 	LineSp = new MSpinBox( page_3, 1 );
 	layout41->addWidget( LineSp, 2, 1 );
-	linespacingLabel = new QLabel( "", page_3, "linespacingLabel" );
+	lineSpacingPop = new QPopupMenu();
+	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
+	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
+	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
+	linespacingLabel = new QToolButton(page_3, "linespacingLabel" );
 	linespacingLabel->setText("");
 	linespacingLabel->setPixmap(loadIcon("linespacing.png"));
+	linespacingLabel->setPopup(lineSpacingPop);
+	linespacingLabel->setPopupDelay(400);
+	linespacingLabel->setAutoRaise(true);
 	layout41->addWidget( linespacingLabel, 2, 0 );
 	Extra = new MSpinBox( page_3, 1 );
 	layout41->addWidget( Extra, 2, 3 );
@@ -779,6 +786,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(setLspMode(int )));
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -1470,6 +1478,15 @@ void Mpalette::setCols(int r, double g)
 	HaveItem = tmp;
 }
 
+void Mpalette::setLspMode(int id)
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->ChLineSpaMode(lineSpacingPop->indexOf(id));
+		emit DocChanged();
+	}
+}
+
 void Mpalette::setLsp(double r)
 {
 	if (ScApp->ScriptRunning)
@@ -1477,6 +1494,18 @@ void Mpalette::setLsp(double r)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	LineSp->setValue(r);
+	if (tmp)
+	{
+		if (CurItem->LineSpMode > 0)
+			LineSp->setEnabled(false);
+		else
+			LineSp->setEnabled(true);
+		for (uint al = 0; al < lineSpacingPop->count(); ++al)
+		{
+			lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
+		}
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(CurItem->LineSpMode), true);
+	}
 	HaveItem = tmp;
 }
 
@@ -3333,6 +3362,9 @@ void Mpalette::languageChange()
 	Aspect->setText(tr("P&roportional"));
 	TextCms1->setText(tr("Input Profile:"));
 	TextCms2->setText(tr("Rendering Intent:"));
+	lineSpacingPop->changeItem(lineSpacingPop->idAt(0), tr("Fixed Linespacing"));
+	lineSpacingPop->changeItem(lineSpacingPop->idAt(1), tr("Automatic Linespacing"));
+	lineSpacingPop->changeItem(lineSpacingPop->idAt(2), tr("Align to Baseline Grid"));
 	int oldMonitorI=MonitorI->currentItem();
 	MonitorI->clear();
 	MonitorI->insertItem(tr("Perceptual"));

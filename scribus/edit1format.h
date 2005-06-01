@@ -47,7 +47,7 @@ public:
 	QLabel* AligLabel;
 	AlignSelect* AligS;
 	QGroupBox* GroupBox10;
-	QGroupBox* AbstandV;
+	QButtonGroup* AbstandV;
 	QGroupBox* GroupFont;
 	QLabel* TextF1;
 	FontCombo* FontC;
@@ -60,7 +60,9 @@ public:
 	QComboBox* TxFill;
 	ShadeButton *PM2;
 	QCheckBox* DropCaps;
-	QCheckBox* BaseGrid;
+	QRadioButton* BaseGrid;
+	QRadioButton* FixedLsp;
+	QRadioButton* AutoLsp;
 	QLabel* CapLabel;
 	QSpinBox* DropLines;
 	QPushButton* Cancel;
@@ -83,6 +85,7 @@ public:
 	ApplicationPrefs *PrefsData;
 
 private slots:
+	void toggleLsp();
 	void Verlassen();
 	void FontChange();
 	void ManageDrops();

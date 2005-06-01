@@ -149,6 +149,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject:
 	docParagraphStyles.clear();
 	struct ParagraphStyle vg;
 	vg.Vname = "Normal Internal";
+	vg.LineSpaMode = 0;
 	vg.LineSpa = 15;
 	vg.textAlignment = 0;
 	vg.Indent = 0;
@@ -420,6 +421,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 				{
 					struct ParagraphStyle sty;
 					sty.Vname = ss->docParagraphStyles[xx].Vname;
+					sty.LineSpaMode = ss->docParagraphStyles[xx].LineSpaMode;
 					sty.LineSpa = ss->docParagraphStyles[xx].LineSpa;
 					sty.textAlignment = ss->docParagraphStyles[xx].textAlignment;
 					sty.Indent = ss->docParagraphStyles[xx].Indent;

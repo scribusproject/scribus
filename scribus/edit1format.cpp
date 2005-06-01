@@ -139,7 +139,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 
 	EditStyleLayout->addWidget( GroupFont, 2, 0 );
 
-	AbstandV = new QGroupBox( tr("Vertical Spaces"), this, "AbstandV" );
+	AbstandV = new QButtonGroup( tr("Vertical Spaces"), this, "AbstandV" );
 	AbstandV->setColumnLayout(0, Qt::Vertical );
 	AbstandV->layout()->setSpacing( 0 );
 	AbstandV->layout()->setMargin( 0 );
@@ -148,22 +148,25 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AbstandVLayout->setSpacing( 5 );
 	AbstandVLayout->setMargin( 10 );
 
-	BaseGrid = new QCheckBox( tr("Align to Baseline &Grid"), AbstandV, "BaseGrid" );
-	BaseGrid->setChecked(vor->BaseAdj);
+	BaseGrid = new QRadioButton( tr("Align to Baseline &Grid"), AbstandV, "BaseGrid" );
 	AbstandVLayout->addMultiCellWidget( BaseGrid, 0, 0, 0, 1 );
-	AboveV = new MSpinBox( 0, 300, AbstandV, 1 );
-	AboveV->setMinimumSize( QSize( 70, 22 ) );
-	AbstandVLayout->addWidget( AboveV, 1, 1 );
-
-	BelowV = new MSpinBox( 0, 300, AbstandV, 1 );
-	BelowV->setMinimumSize( QSize( 70, 22 ) );
-	AbstandVLayout->addWidget( BelowV, 2, 1 );
-
+	AutoLsp = new QRadioButton( tr("Automatic Linespacing"), AbstandV, "AutoLsp" );
+	AbstandVLayout->addMultiCellWidget( AutoLsp, 1, 1, 0, 1 );
+	FixedLsp = new QRadioButton( tr("Fixed Linespacing"), AbstandV, "FixedLsp" );
+	AbstandVLayout->addMultiCellWidget( FixedLsp, 2, 2, 0, 1 );
 	LineSpVal = new MSpinBox( 1, 300, AbstandV, 1 );
 	LineSpVal->setMinimumSize( QSize( 70, 22 ) );
 	LineSpVal->setSuffix( tr( " pt" ) );
 	LineSpVal->setValue(vor->LineSpa);
 	AbstandVLayout->addWidget( LineSpVal, 3, 1 );
+
+	AboveV = new MSpinBox( 0, 300, AbstandV, 1 );
+	AboveV->setMinimumSize( QSize( 70, 22 ) );
+	AbstandVLayout->addWidget( AboveV, 4, 1 );
+
+	BelowV = new MSpinBox( 0, 300, AbstandV, 1 );
+	BelowV->setMinimumSize( QSize( 70, 22 ) );
+	AbstandVLayout->addWidget( BelowV, 5, 1 );
 
 	TextLabel3 = new QLabel( LineSpVal, tr("Line &Spacing:"), AbstandV, "TextLabel3" );
 	TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -174,12 +177,27 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
 	TextLabel1_2_2->setMinimumSize( QSize( 90, 22 ) );
-	AbstandVLayout->addWidget( TextLabel1_2_2, 1, 0 );
+	AbstandVLayout->addWidget( TextLabel1_2_2, 4, 0 );
 	TextLabel1_2_3 = new QLabel( BelowV, tr("&Below:"), AbstandV, "TextLabel1_2_3" );
 	TextLabel1_2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel1_2_3->sizePolicy().hasHeightForWidth() ) );
 	TextLabel1_2_3->setMinimumSize( QSize( 90, 22 ) );
-	AbstandVLayout->addWidget( TextLabel1_2_3, 2, 0 );
+	AbstandVLayout->addWidget( TextLabel1_2_3, 5, 0 );
+	if (vor->BaseAdj)
+	{
+		BaseGrid->setChecked(vor->BaseAdj);
+		LineSpVal->setEnabled(false);
+	}
+	else
+	{
+		if (vor->LineSpaMode == 0)
+			FixedLsp->setChecked(true);
+		else
+		{
+			LineSpVal->setEnabled(false);
+			AutoLsp->setChecked(true);
+		}
+	}
 	EditStyleLayout->addWidget( AbstandV, 2, 1 );
 
 	GroupBox10 = new QGroupBox( tr("Tabulators and Indentation"), this, "GroupBox10" );
@@ -279,6 +297,9 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(BaseGrid, SIGNAL(stateChanged(int)), this, SLOT(updatePreview()));
 	connect(DropLines, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(previewCaption, SIGNAL( clicked() ), this, SLOT( togglePreview() ) );
+	connect(BaseGrid, SIGNAL(clicked()), this, SLOT(toggleLsp()));
+	connect(FixedLsp, SIGNAL(clicked()), this, SLOT(toggleLsp()));
+	connect(AutoLsp, SIGNAL(clicked()), this, SLOT(toggleLsp()));
 
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
@@ -295,6 +316,19 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio);
 	ColorChange();
 	togglePreview();
+}
+
+void EditStyle::toggleLsp()
+{
+	if (BaseGrid->isChecked())
+		LineSpVal->setEnabled(false);
+	else
+	{
+		if (FixedLsp->isChecked())
+			LineSpVal->setEnabled(true);
+		else
+			LineSpVal->setEnabled(false);
+	}
 }
 
 void EditStyle::togglePreview()
@@ -379,6 +413,13 @@ void EditStyle::Verlassen()
 	}
 	werte->FontEffect = EffeS->getStyle();
 	werte->textAlignment = AligS->getStyle();
+	if (!BaseGrid->isChecked())
+	{
+		if (FixedLsp->isChecked())
+			werte->LineSpaMode = 0;
+		else
+			werte->LineSpaMode = 1;
+	}
 	werte->LineSpa = LineSpVal->value();
 	werte->Indent = QMAX(TabList->getLeftIndent(), 0.0);
 	werte->First = TabList->getFirstLine();
@@ -421,6 +462,13 @@ void EditStyle::updatePreview()
 	tmpStyle.Vname = Name->text() + " (preview temporary)";
 	tmpStyle.FontEffect = EffeS->getStyle();
 	tmpStyle.textAlignment = AligS->getStyle();
+	if (!BaseGrid->isChecked())
+	{
+		if (FixedLsp->isChecked())
+			tmpStyle.LineSpaMode = 0;
+		else
+			tmpStyle.LineSpaMode = 1;
+	}
 	tmpStyle.LineSpa = LineSpVal->value();
 	tmpStyle.Indent = TabList->getLeftIndent();
 	tmpStyle.First = TabList->getFirstLine();

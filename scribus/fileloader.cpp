@@ -543,6 +543,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			if(pg.tagName()=="STYLE")
 			{
 				vg.Vname = pg.attribute("NAME");
+				vg.LineSpaMode = QStoInt(pg.attribute("LINESPMode","0"));
 				vg.LineSpa = QStodouble(pg.attribute("LINESP"));
 				vg.Indent = QStodouble(pg.attribute("INDENT","0"));
 				vg.First = QStodouble(pg.attribute("FIRST","0"));
@@ -1050,6 +1051,11 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					}
 					Neu->Language = app->GetLang(pg.attribute("LANGUAGE", doc->Language));
 					Neu->isAutoText=static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")));
+					if (Neu->LineSpMode == 3)
+					{
+						doc->docParagraphStyles[0].BaseAdj = true;
+						Neu->LineSp = doc->typographicSetttings.valueBaseGrid-1;
+					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
 					Neu->NextIt = QStoInt(pg.attribute("NEXTITEM"));
@@ -1353,6 +1359,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 			currItem->AspectRatio = QStoInt(obj->attribute("RATIO","0"));
 		}
 		currItem->LineSp = QStodouble(obj->attribute("LINESP"));
+		currItem->LineSpMode = QStoInt(obj->attribute("LINESPMode","0"));
 		currItem->convertTo(pt);
 		break;
 	case PageItem::Line:

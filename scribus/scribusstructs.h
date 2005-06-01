@@ -113,6 +113,7 @@ struct CopyPasteBuffer
 	int PLineJoin;
 	int PLineEnd;
 	double LineSp;
+	int LineSpMode;
 	double ExtraV;
 	double LocalScX;
 	double LocalScY;
@@ -227,6 +228,7 @@ struct MarginStruct
 struct ParagraphStyle
 {
 	QString Vname;
+	int LineSpaMode;      // 0 = fixed; 1 = Automatic
 	double LineSpa;
 	int textAlignment;
 	double Indent;
