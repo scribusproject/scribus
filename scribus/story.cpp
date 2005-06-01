@@ -169,10 +169,8 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 }
 
-
 void SEditor::imEndEvent(QIMEvent *e)
 {
-	qDebug(QString("imEnd '%1'").arg(e->text()));
 	QString uc = e->text();
 	if ((uc != "") && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
 	{
@@ -180,13 +178,11 @@ void SEditor::imEndEvent(QIMEvent *e)
 		QTextEdit::imEndEvent(e);
 		emit SideBarUp(true);
 		emit SideBarUpdate();
-	}	
+	}
 }
-
 
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
-	qDebug(QString("keyPress '%1'").arg(k->text()));
 	emit SideBarUp(false);
 	int p, i;
 	getCursorPosition(&p, &i);
@@ -1770,10 +1766,7 @@ int StoryEditor::exec()
 	result = 0;
 	QTextCodec * cdc;
 	cdc = QTextCodec::codecForCStrings();
-	qDebug(QString("codec for cstrings %1\n").arg(cdc ? cdc->name() : "0"));
 	cdc = QTextCodec::codecForLocale();
-	qDebug(QString("codec for locale %1\n").arg(cdc ? cdc->name() : "0"));
-	qDebug(QString("locale %1\n").arg(QTextCodec::locale()));
 	show();
 	Editor->setFocus();
 	qApp->enter_loop();

@@ -116,9 +116,6 @@ public:
 									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
-	void imStartEvent(QIMEvent *e);
-	void imComposeEvent(QIMEvent *e);
-	void imEndEvent(QIMEvent *e);
 	void keyPressEvent(QKeyEvent *k);
 	void wheelEvent(QWheelEvent *w);
 	void DeleteSel(PageItem *b);
