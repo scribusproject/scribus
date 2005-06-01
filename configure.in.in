@@ -192,25 +192,34 @@ fi
 
 dnl Check for lcms
 dnl TODO look for lcms using pkg-config too
+dnl TODO: convert to use --with-lcms= and AC_ARG_WITH(...)
 LIBLCMS=""
 hacms=
-AC_CHECK_LIB(lcms, _cmsChannelsOf, [LIBLCMS="-llcms";hacms=yes],[LIBLCMS="";hacms=no],[-lm])
-hacmsh=
-lcms_h=
-AC_CHECK_HEADER(lcms.h, [hacmsh=yes],[hacmsh=no])
-if test $hacmsh = no; then
-	AC_CHECK_HEADER(lcms/lcms.h, [hacmsh=yes],[hacmsh=no])
-	if test $hacmsh = yes; then
-		AC_DEFINE_UNQUOTED(CMS_INC, "lcms/lcms.h", [ColorManagementInclude])
-		lcms_h="lcms/lcms.h"
+AC_ARG_ENABLE(lcms, [  --disable-lcms     Don't use colour management (default=no)], [disable_lcms="yes"])
+
+# If lcms hasn't been explicitly disabled, look for it and see
+# if we can use it.
+if test "$disable_lcms" != "yes"; then
+	# See if liblcms.so is on our search path and looks vaguely valid
+	AC_CHECK_LIB(lcms, _cmsChannelsOf, [LIBLCMS="-llcms";hacms=yes],[LIBLCMS="";hacms=no],[-lm])
+	hacmsh=
+	lcms_h=
+	# and search for lcms.h, which may or may not be in an lcms/ subdir
+	AC_CHECK_HEADER(lcms.h, [hacmsh=yes],[hacmsh=no])
+	if test $hacmsh = no; then
+		AC_CHECK_HEADER(lcms/lcms.h, [hacmsh=yes],[hacmsh=no])
+		if test $hacmsh = yes; then
+			AC_DEFINE_UNQUOTED(CMS_INC, "lcms/lcms.h", [ColorManagementInclude])
+			lcms_h="lcms/lcms.h"
+		fi
+	else
+		AC_DEFINE_UNQUOTED(CMS_INC, "lcms.h", [ColorManagementInclude])
+		lcms_h="lcms.h"
 	fi
-else
-	AC_DEFINE_UNQUOTED(CMS_INC, "lcms.h", [ColorManagementInclude])
-	lcms_h="lcms.h"
-fi
-if test $hacmsh = no; then
-	dnl There's not much point finding -llcms if we can't find the header file...
-	hacms=no
+	if test $hacmsh = no; then
+		# There's not much point finding -llcms if we can't find the header file...
+		hacms=no
+	fi
 fi
 dnl Attempt to check that lcms is new enough
 if test $hacms = yes; then
