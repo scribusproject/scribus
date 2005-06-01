@@ -31,10 +31,10 @@
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
 			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
 			</submenuitem>
-	<!-- <submenuitem text="Document Text" file="text.html" />
+			<!-- <submenuitem text="Document Text" file="text.html" />
 			<submenuitem text="Doc. Info" file="docinfo.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
-	      		</submenuitem> -->
+	      </submenuitem> -->
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing (Advanced)" file="importhints2.html"/>
 			<submenuitem text="Importing SVGs" file="scribus-svg.html"/>
