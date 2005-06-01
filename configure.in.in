@@ -56,7 +56,7 @@ FREETYPE_CONFIG=""
 AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, [AC_MSG_ERROR([Could not find libfreetype anywhere, check http://www.freetype.org/])], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 hafree=no
-hafree_post213=
+hafree_post219=
 if test -n "$FREETYPE_CONFIG"; then
 	LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
 	LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
@@ -68,22 +68,23 @@ if test -n "$FREETYPE_CONFIG"; then
 		AC_MSG_ERROR([You need at least freetype 2.1.0])
 	fi
 
-	dnl Warn the user if they have less than freetype 2.1.3
-	AC_MSG_CHECKING(freetype version > 2.1.3)
+	dnl Warn the user if they have less than freetype 2.1.9
+	dnl Changed to fatal error
+	AC_MSG_CHECKING(freetype version > 2.1.9)
 	SAVE_CFLAGS="${CFLAGS}"
 	CFLAGS=" ${LIBFREETYPE_CFLAGS} "
 	AC_TRY_COMPILE([
 	#include <ft2build.h>
 	#include FT_FREETYPE_H
 	],[
-	#if FREETYPE_MAJOR == 2 && FREETYPE_MINOR == 1 && FREETYPE_PATCH < 3
-	#error freetype 2.1 older than 2.1.3
+	#if FREETYPE_MAJOR == 2 && FREETYPE_MINOR == 1 && FREETYPE_PATCH < 9
+	#error freetype 2.1 older than 2.1.9
 	#endif
-	], [hafree_post213=yes], [hafree_post213=no])
+	], [hafree_post219=yes], [hafree_post219=no])
 	CFLAGS="${SAVE_CFLAGS}"
-	AC_MSG_RESULT($hafree_post213)
-	if test hafree_post213 = no; then
-		AC_MSG_WARN([Freetype is older than 2.1.3])
+	AC_MSG_RESULT($hafree_post219)
+	if test hafree_post219 = no; then
+		AC_MSG_WARN([Your libfreetype is too old - version 2.1.9 or newer strongly recommended])
 	fi
 
 	dnl Export the includes and lib path settings required to build with freetype.

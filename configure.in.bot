@@ -7,10 +7,10 @@ FORMAT="   %-25s"
 echo "Libraries:"
 printf "${FORMAT}" "Freetype2 installed: "
 if test "$hafree" = yes; then
-	if test "$hafree_post213" = yes; then
+	if test "$hafree_post219" = yes; then
 		echo "Yes"
 	else
-		echo "Yes (OLD); Version 2.1.3 or newer recommended."
+		echo "Too old; Version 2.1.9 STRONGLY recommended"
 	fi
 else
 	echo "No"
