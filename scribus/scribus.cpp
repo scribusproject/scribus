@@ -128,6 +128,7 @@ PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
 {
+	setInputMethodEnabled( true );
 	setName("mainWindow");
 } // ScribusApp::ScribusApp()
 
@@ -1084,8 +1085,78 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 	}
 }
 
+
+void ScribusApp::imStartEvent( QIMEvent *e )
+{
+	qDebug(QString("app::imStart"));
+	e->accept();
+/*
+    if ( isReadOnly() ) {
+        e->ignore();
+        return;
+    }
+	
+	if (currItem->HasSel)
+		deleteSelectedTextFromFrame(currItem);
+    preeditStart = cursor->index();
+*/
+}
+
+
+void ScribusApp::imComposeEvent( QIMEvent *e )
+{
+	qDebug(QString("app::imCompose '%1'").arg(e->text()));
+	e->accept();
+
+/*    if ( isReadOnly() ) {
+        e->ignore();
+        return;
+    }
+	
+    doc->removeSelection( QTextDocument::IMCompositionText );
+    doc->removeSelection( QTextDocument::IMSelectionText );
+	
+    if ( d->preeditLength > 0 && cursor->paragraph() )
+        cursor->paragraph()->remove( d->preeditStart, d->preeditLength );
+    cursor->setIndex( d->preeditStart );
+    insert( e->text() );
+    d->preeditLength = e->text().length();
+	
+    cursor->setIndex( d->preeditStart + d->preeditLength );
+    QTextCursor c = *cursor;
+    cursor->setIndex( d->preeditStart );
+    doc->setSelectionStart( QTextDocument::IMCompositionText, *cursor );
+    doc->setSelectionEnd( QTextDocument::IMCompositionText, c );
+	
+    cursor->setIndex( d->preeditStart + e->cursorPos() );
+	
+    int sellen = e->selectionLength();
+    if ( sellen > 0 ) {
+        cursor->setIndex( d->preeditStart + e->cursorPos() + sellen );
+        c = *cursor;
+        cursor->setIndex( d->preeditStart + e->cursorPos() );
+        doc->setSelectionStart( QTextDocument::IMSelectionText, *cursor );
+        doc->setSelectionEnd( QTextDocument::IMSelectionText, c );
+        cursor->setIndex( d->preeditStart + d->preeditLength );
+    }
+	
+    repaintChanged();
+*/
+}
+
+
+void ScribusApp::imEndEvent(QIMEvent *e)
+{
+	qDebug(QString("app::imEnd '%1'").arg(e->text()));
+	//QMainWindow::imEndEvent(e);
+	QKeyEvent k(QEvent::KeyPress, 0, 0, 0, e->text());
+	keyPressEvent( &k );
+	e->accept();
+}
+
 void ScribusApp::keyPressEvent(QKeyEvent *k)
 {
+	qDebug(QString("app::keypress '%1'").arg(k->text()));
 	QWidgetList windows;
 	QWidget* w = NULL;
 	struct Pti *hg;
