@@ -181,14 +181,6 @@ if test "$uname" != "IRIX"; then
 else
 	echo "Not using -lnsl since you are running IRIX."
 fi)
-LIBCUPS=""
-hacups=
-AC_CHECK_PROG(hacups, cups-config, yes)
-if test x"$hacups" = x"yes"
-then
-	LIBCUPS="`cups-config --libs`"
-	AC_SUBST(LIBCUPS)
-fi
 
 dnl Check for lcms
 dnl TODO look for lcms using pkg-config too
@@ -294,13 +286,32 @@ if test $kde_python_link_found = yes; then
 fi
 AM_CONDITIONAL(COMPILE_PYTHON, test x$COMPILE_PYTHON = xyes)
 
-AC_CHECK_HEADER(cups/cups.h, [foo=""],[hacups=no])
-if test $hacups = yes; then
- AC_DEFINE_UNQUOTED(HAVE_CUPS, 1, [Cups])
+AC_ARG_ENABLE(cups, [  --disable-cups        Do not compile support for CUPS printing],[disable_cups=yes])
+LIBCUPS=""
+hacups=no
+if test "$disable_cups" != "yes" ; then
+	# Look for cups.h
+	AC_CHECK_HEADER(cups/cups.h, [hacups_h=yes],[hacups_h=no])
+	AC_CHECK_PROG(hacups_cfg, cups-config, yes, no)
+	echo "'$hacups_cfg' '$hacups_h'" >/tmp/cfg
+	if test "x$hacups_h" = "xyes" && test "x$hacups_cfg" = "xyes"; then
+		# We have the CUPS libs and headers, so enable
+		# the use of CUPS and tell the build where to
+		# find it.
+		LIBCUPS="`cups-config --libs`"
+		AC_DEFINE_UNQUOTED(HAVE_CUPS, 1, [Cups])
+		AC_SUBST(LIBCUPS)
+		hacups=yes
+	else
+		AC_MSG_WARN([libcups could not be found. Printing functionality will be limited.])
+		hacups=no
+	fi
+else
+	hacups=no
 fi
 
 COMPILE_DEBUG=no
-AC_ARG_ENABLE(debug, [  --enable-debug     Enables Debug-Code],
+AC_ARG_ENABLE(debug, [  --enable-debug     Enables debugging information (recommended for snapshots)],
 [if test "x$enable_debug" = "xyes" || test "x$enable_debug" = "xfull"; then
 	COMPILE_DEBUG=yes
     CXXFLAGS="$CXXFLAGS -g3 -fno-inline -O0 "
@@ -313,7 +324,7 @@ dnl a Mac-native build.
 AM_CONDITIONAL(LINK_PIXBUF, test "$enable_mac" != "yes" )
 
 build_mac_bundle=no
-AC_ARG_ENABLE(bundle, [  --enable-bundle     Make an executable suitable for use in a .app bundle],
+AC_ARG_ENABLE(bundle, [  --enable-bundle     Make an executable suitable for use in a .app bundle (INCOMPLETE)],
 [if test "$enable_bundle" = "yes"; then
 	build_mac_bundle=yes
 	AC_DEFINE_UNQUOTED(BUILD_MAC_BUNDLE, 1, [Are we building an executable to be included in MacOS/X .app bundle?])
