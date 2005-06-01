@@ -210,22 +210,22 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		break;
 	}
 	QString uc = k->text();
-	/*CB TODO
-	if ((k->key() + KeyMod) == ScApp->Prefs.KeyActions[60].KeyID)
+	
+	if ((k->key() + KeyMod) == ScApp->scrActions["specialPageNumber"]->accel())
 	{
-		insChars(QString(QChar(30))); PageNumbers
+		insChars(QString(QChar(ScApp->scrActions["specialPageNumber"]->actionInt())));
 		insert("#");
 		emit SideBarUp(true);
 		return;
 	}
-	if ((k->key() + KeyMod) == ScApp->Prefs.KeyActions[67].KeyID)
+	if ((k->key() + KeyMod) == ScApp->scrActions["specialNonBreakingSpace"]->accel())
 	{
-		insChars(QString(QChar(29))); Non breakable Space
+		insChars(QString(QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt())));
 		insert("_");
 		emit SideBarUp(true);
 		return;
 	}
-	*/
+	
 	switch (k->state())
 	{
 		case ControlButton:
@@ -915,7 +915,7 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->cstrikewidth = nextItem->itemText.at(a)->cstrikewidth;
 				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 				{
-					if (hg->ch == QChar(30))
+					if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
 					{
 						setFarbe(Ccol, Csha);
 						setAlign(Ali);
@@ -926,7 +926,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(29))
+					else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt()))
 					{
 						setFarbe(Ccol, Csha);
 						setAlign(Ali);
