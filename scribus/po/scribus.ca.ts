@@ -2386,7 +2386,15 @@ from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorAsRGB(&quot;nom&quot;) -&gt; tupla
+
+Retorna una tupla (R,G,B) que conté els tres components de color del
+color &quot;nom&quot; que està en el document actual, convertit en un color RGB.
+Si no hi ha cap document obert, retorna el valor del nom del color que
+hi hagi en els colors per defecte.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de la capa no és acceptable.</translation>
     </message>
     <message>
         <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
@@ -2400,7 +2408,17 @@ by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>renderFont(&quot;nom&quot;, &quot;fitxer&quot;, &quot;mostra&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Crea una previsualització de la font &quot;nom&quot; amb el text &quot;mostra&quot; a la mida especificada.
+Si el nom no és &quot;&quot;,  la imatge es guarda a &quot;nom&quot;. I si no ho és es retornen les 
+dades de la imatge com una cadena. L&apos;argument opcional &quot;format&quot;
+especifica el format de la imatge a generar, i suporta tots els formats permesos
+per QPixmap.save(). Els formats més comuns són PPM, JPEG, PNG and XPM.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de la capa no és acceptable.
+</translation>
     </message>
     <message>
         <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
@@ -2412,7 +2430,15 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerVisible(&quot;capa&quot;) -&gt;bool
+
+Retorna si la capa &quot;capa&quot; és visible o no, un valor de cert significa
+que la capa &quot;capa&quot; és visible, un valor de fals significa que la capa
+&quot;capa&quot; és invisible.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de la capa no és acceptable.
+</translation>
     </message>
     <message>
         <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
@@ -2422,7 +2448,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;nom&quot;])
+
+Posa quan (toggle = 1) si el marc de text &quot;nom&quot; és una drecera o no.
+Si no s&apos;especifica &quot;nom&quot; es fa servir l&apos;ítem actual.
+
+Pot generar WrongFrameTypeError si el marc de destí no és un Marc de text</translation>
     </message>
     <message>
         <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
@@ -2432,7 +2463,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isPDFBookmark([&quot;nom&quot;]) -&gt; bool
+
+Retorna cert si el marc de text &quot;nom&quot; és una drecera PDF.
+Si no s&apos;especifica &quot;nom&quot; es fa servir l&apos;item actual.
+
+Pot generar WrongFrameTypeError si el marc de destí no és un marc de text</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -2440,7 +2476,11 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins() -&gt; tupla
+
+Retorna els marges de pàgina com una tupla (dalt, esquerra, dreta, baix) amb les mides 
+mesurades amb les unitats del document. Mireu les constants UNIT_&lt;tipus&gt;  i getPageSize().
+</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -2452,7 +2492,7 @@ is not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Agafa el nom de document per l&apos;estil de paràgraf en Scribus.</translation>
     </message>
 </context>
 <context>
@@ -2678,15 +2718,15 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3 </translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Africaner:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portuguès (Brasil.ler):</translation>
     </message>
 </context>
 <context>
@@ -2763,14 +2803,17 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Posa Mida Paper</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això posa explícitament
+la mida de pàgina al fitxer postscript.
+No es recomana a menys
+que ho demani la impressora.</translation>
     </message>
 </context>
 <context>
@@ -3299,7 +3342,7 @@ Not recommended unless
     </message>
     <message>
         <source>Prepend Currency Symbol</source>
-        <translation>&quot;Prepend&quot; Símbol de Moneda</translation>
+        <translation>Agafa Símbol de Moneda</translation>
     </message>
     <message>
         <source>Formatting</source>
@@ -3988,19 +4031,19 @@ It&apos;s a reserved name for transparent color</source>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Tria Estils</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Estils Disponibles</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">D&apos;acord</translation>
+        <translation>D&apos;acord</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel.la</translation>
+        <translation>Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -4777,23 +4820,23 @@ es pot desar amb aquest formulari. L&apos;error és:
     </message>
     <message>
         <source>Python source files (.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Arxius de codi font Phyton (.py)</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diàleg de Desar Fitxer</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Desa la font de macro</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diàleg de Obrir Fitxer</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Tria el codi font a carregar</translation>
     </message>
 </context>
 <context>
@@ -5419,7 +5462,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Mida de Font</translation>
     </message>
 </context>
 <context>
@@ -5526,35 +5569,35 @@ i www.scribus.net per descàrregues.</translation>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Contingut</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Cerca</translation>
+        <translation>&amp;Cerca</translation>
     </message>
     <message>
         <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;erca</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>F3</source>
-        <translation type="unfinished"></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>desconegut</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation>Terme a Cercar:</translation>
     </message>
 </context>
 <context>
@@ -6046,11 +6089,11 @@ L&apos;error ve de:
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished">Scribus - Nova Macro</translation>
+        <translation>Scribus - Nova Macro</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation>Entra un nom per la nova macro: </translation>
     </message>
 </context>
 <context>
@@ -6257,47 +6300,47 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers de Macro d&apos;Scribus (*.pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diàleg de Obrir Fitxer</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tria la macro a carregar.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diàleg de Desar Fitxer</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Desa totes les macros</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro de Canvi de nom</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Entra el nou nom: </translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Fer Drecera de Macro</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Entra la nova drecera: </translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Si</translation>
+        <translation>Si</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>No</translation>
     </message>
 </context>
 <context>
@@ -7144,11 +7187,11 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>Inte&amp;rlletrat:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Interlletrat Manual</translation>
     </message>
 </context>
 <context>
@@ -7724,7 +7767,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Fes servir el nom de document com estil de paràgraf</translation>
+        <translation>Fes servir el nom de document com estil de paràgraf</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -7734,7 +7777,7 @@ davant de l&apos;estil de paràgraf de l&apos;Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">No ho tornis a preguntar</translation>
+        <translation>No ho tornis a preguntar</translation>
     </message>
     <message>
         <source>Should the importer always use currently
@@ -7746,35 +7789,35 @@ mai tornarà a preguntar de nou</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">D&apos;acord</translation>
+        <translation>D&apos;acord</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcions de l&apos;Importador de OpenDocument</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualitza Estils de paràgraf</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Activant això es sobreescriuran els estils existents pels del document Scribus actual</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Barreja Estils de Paràgraf</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Barreja atributs de tots els estils de paràgraf. Això farà que hi hagi pocs estils similars, mantindrà els atributs d&apos;estil fins i tot si el del document original tenen noms diferents.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agafa el nom de document per l&apos;estil de paràgraf en Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fes que les característiques actuals siguin per defecte i no preguntis més al importar un document OASIS.</translation>
     </message>
 </context>
 <context>
@@ -8503,36 +8546,37 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Desa com PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;La gestió del color s&apos;ha d&apos;activar per fer servir PDF/X-3. Pots activar la gestió de color en el menú Preferències.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 està suportat i activat, però no es pot fer servir per la versió de PDF seleccionada. Si vols fer servir PDF/X-3, necessites activar PDF/X-3 com a versió de PDF (nivell de compatibilitat).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 no és suportat en aquesta compilació d&apos;Scribus (no hi ha suport CMS).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permet afegir anotacions i camps al PDF.
+Si està desmarcat, la edició d&apos;anotacions i camps no es permet.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paràmetres de seguretat PDF</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paràmetres PDF/X-3</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;La seguretat PDF no es pot fer servir amb PDF/X-3. Si vols activar la seguretat, has de canviar la versió de PDF (nivell de compatibilitat) a alguna cosa que no sigu PDF/X-3.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -10069,26 +10113,30 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Directori per defecte dels perfils ICC. No es pot
+canviar pels documents oberts.</translation>
     </message>
     <message>
         <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa la reixa base</translation>
     </message>
     <message>
         <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactiva la reixa base</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Localització del interpret de Ghostcript</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Localització de l&apos;editor de gràfics. Si fas servir Gimp
+i la teva distribució l&apos;inclou, et recomanem &apos;gimp-remote&apos;,
+ja que permet editar la imatge en una instància de Gimp
+que ja estigui engegada.</translation>
     </message>
 </context>
 <context>
@@ -11328,7 +11376,7 @@ Enllaços Externs
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished">Color no trobat</translation>
+        <translation>Color no trobat</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -11443,17 +11491,17 @@ la documentació de la funció.
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
+        <translation>A&amp;breviacions ...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation>Processant Short Words. Si us plau espera...</translation>
+        <translation>Processant Abreviacions. Si us plau espera...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation>Processant Short Words. Fet.</translation>
+        <translation>Processant Abreviacions. Fet.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
@@ -11687,35 +11735,35 @@ la documentació de la funció.
     </message>
     <message>
         <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portuguès (Brasil.ler)</translation>
     </message>
     <message>
         <source>Cannot get a colour with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot tenir un color sense nom.</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot desar la imatge.</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només es pot fer una drecera d&apos;un Marc de text</translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només es pot obtenir informació de camps de text</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Documents de text OpenDocument </translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Croat</translation>
     </message>
 </context>
 <context>
@@ -12073,11 +12121,11 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Interlletrat:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Interlletrat Manual</translation>
     </message>
 </context>
 <context>
@@ -13281,19 +13329,19 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>There are no suitable Fonts on your System</source>
-        <translation type="unfinished"></translation>
+        <translation>No hi ha Fonts utilitzables en el Sistema</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Es suporta la gestió de color però actualment no es pot activar. Assegura&apos;t que tens els perfils de color ICC instal.lats i que el camí a aquests és correcte.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;No es suporta la gestió de color en aquesta compilació d&apos;Scribus.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Croat</translation>
     </message>
 </context>
 <context>
@@ -13328,7 +13376,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Còpia de</translation>
+        <translation>Còpia de</translation>
     </message>
 </context>
 <context>
@@ -14197,27 +14245,27 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualitza Estils de Paràgraf</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Activant això es sobreescriuran els estils del document Scribus actual</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Barreja Estils de Paràgraf</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Barreja atributs de tots els estils de paràgraf. Això farà que hi hagi pocs estils similars, mantindrà els atributs d&apos;estil fins i tot si el del document original tenen noms diferents.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agafa el nom de document per l&apos;estil de paràgraf en Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fes que les característiques actuals siguin per defecte i no preguntis més al importar un document OpenOffice.org 1.x.</translation>
     </message>
 </context>
 <context>
@@ -14415,7 +14463,7 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Short Words</translation>
+        <translation>Abreviacions</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -14494,7 +14542,7 @@ si el botó està marcat.</translation>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation>Short Wods per Scribus</translation>
+        <translation>Abreviacions per Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
@@ -14504,7 +14552,7 @@ si el botó està marcat.</translation>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Quant a Short Words</translation>
+        <translation>Quant a Abreviacions</translation>
     </message>
 </context>
 <context>
@@ -14684,7 +14732,7 @@ si el botó està marcat.</translation>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Només Text</translation>
     </message>
 </context>
 <context>
