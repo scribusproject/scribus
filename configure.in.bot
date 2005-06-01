@@ -74,4 +74,14 @@ else
 	echo "No"
 fi
 
+if test "$hafree" = yes && test "$hafree_post219" = no; then
+	echo
+	echo
+	echo "                           ***WARNING***                                     "
+	echo "FreeType version 2.1.9 is STRONGLY recommended. You may have serious problems"
+	echo "if you attempt to use Scribus with an older version. Please do not submit bug"
+	echo "reports if you are using older versions of libfreetype.                      "
+	echo "                           ***WARNING***                                     "
+fi
+
 echo ""
