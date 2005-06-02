@@ -6476,7 +6476,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 					chx = " ";
 				chs = currItem->itemText.at(a)->csize;
 				currItem->SetZeichAttr(currItem->itemText.at(a), &chs, &chx);
-				if ((chx == QChar(13)) || (chx == QChar(9)))
+				if ((chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(27)))
 					w = 1;
 				else
 					w = qRound(Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, chs)*(currItem->itemText.at(a)->cscale / 1000.0));

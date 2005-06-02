@@ -1357,6 +1357,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						outs = true;
 					if (CurY > (Height - BExtra - lineCorr))
 						outs = true;
+					if ((hl->ch == QChar(27)) && (a < itemText.count()-1))
+						goNoRoom = true;
 					Zli = new ZZ;
 					Zli->Zeich = chx;
 					Zli->Farb = hl->ccolor;
@@ -1478,7 +1480,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						cm = QRegion(pf2.xForm(tcli));
 						cl = cl.subtract(cm);
 					}
-					if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (outs))
+					if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (outs))
 					{
 						RTab = false;
 						TabCode = 0;
@@ -2706,7 +2708,7 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 {
 	QString ccx = hl->Zeich;
-	if ((ccx == QChar(13)) || (ccx == QChar(9)) || (ccx == QChar(28)))
+	if ((ccx == QChar(13)) || (ccx == QChar(9)) || (ccx == QChar(28)) || (ccx == QChar(27)))
 		return;
 	if (ccx == QChar(29))
 		ccx = " ";

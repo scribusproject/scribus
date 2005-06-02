@@ -225,6 +225,20 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUp(true);
 		return;
 	}
+	if ((k->key() + KeyMod) == ScApp->scrActions["specialFrameBreak"]->accel())
+	{
+		insChars(QString(QChar(ScApp->scrActions["specialFrameBreak"]->actionInt())));
+		insert("|");
+		emit SideBarUp(true);
+		return;
+	}
+	if ((k->key() + KeyMod) == ScApp->scrActions["specialNewLine"]->accel())
+	{
+		insChars(QString(QChar(ScApp->scrActions["specialNewLine"]->actionInt())));
+		insert("*");
+		emit SideBarUp(true);
+		return;
+	}
 	
 	switch (k->state())
 	{
@@ -937,6 +951,28 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
+					else if (hg->ch == QChar(ScApp->scrActions["specialFrameBreak"]->actionInt()))
+					{
+						setFarbe(Ccol, Csha);
+						setAlign(Ali);
+						setStyle(Csty);
+						insert(Text);
+						insert("|");
+						Text = "";
+						chars->append(hg);
+						continue;
+					}
+					else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))
+					{
+						setFarbe(Ccol, Csha);
+						setAlign(Ali);
+						setStyle(Csty);
+						insert(Text);
+						insert("*");
+						Text = "";
+						chars->append(hg);
+						continue;
+					}
 					else
 						Text += hg->ch;
 				}
@@ -1075,13 +1111,43 @@ void SEditor::updateAll()
 			hg = chars->at(a);
 			if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
 			{
-				if (hg->ch == QChar(30))
+				if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
 				{
 					setFarbe(Ccol, Csha);
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
 					insert("#");
+					Text = "";
+					continue;
+				}
+				else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt()))
+				{
+					setFarbe(Ccol, Csha);
+					setAlign(Ali);
+					setStyle(Csty);
+					insert(Text);
+					insert("_");
+					Text = "";
+					continue;
+				}
+				else if (hg->ch == QChar(ScApp->scrActions["specialFrameBreak"]->actionInt()))
+				{
+					setFarbe(Ccol, Csha);
+					setAlign(Ali);
+					setStyle(Csty);
+					insert(Text);
+					insert("|");
+					Text = "";
+					continue;
+				}
+				else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))
+				{
+					setFarbe(Ccol, Csha);
+					setAlign(Ali);
+					setStyle(Csty);
+					insert(Text);
+					insert("*");
 					Text = "";
 					continue;
 				}

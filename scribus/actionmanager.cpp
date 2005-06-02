@@ -524,6 +524,8 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Minus, ScApp, "specialSmartHyphen",-1));
 	scrActions->insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Space, ScApp, "specialNonBreakingSpace",29));
 	scrActions->insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+ALT+Key_P, ScApp, "specialPageNumber",30));
+	scrActions->insert("specialNewLine", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", SHIFT+Key_Return, ScApp, "specialNewLine",28));
+	scrActions->insert("specialFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Return, ScApp, "specialFrameBreak",27));
 	scrActions->insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialCopyRight",0x0A9));
 	scrActions->insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialRegdTM",0x00AE));
 	scrActions->insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialTM",0x2122));
@@ -553,7 +555,7 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleLeft",0x300E));
 	scrActions->insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleRight",0x300F));
 
-	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
+	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber" << "specialNewLine" << "specialFrameBreak";
 	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
 	*unicodeCharActionNames << "specialBullet";
 	*unicodeCharActionNames << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
@@ -687,6 +689,8 @@ void ActionManager::enableActionStringList(QStringList *list, bool enabled, bool
 			{
 				int charCode=(*scrActions)[*it]->actionInt();
 				if(charCode==-1 ||
+				   charCode==27 ||
+				   charCode==28 ||
 				   charCode==29 ||
 				   charCode==30 ||
 				   (*ScApp->doc->AllFonts)[ScApp->doc->CurrFont]->CharWidth.contains(charCode) )
@@ -745,240 +749,244 @@ void ActionManager::setPDFActions(ScribusView *currView)
 void ActionManager::languageChange()
 {
 	//File Menu
-	(*scrActions)["fileNew"]->setTexts(tr("&New"));
-	(*scrActions)["fileOpen"]->setTexts(tr("&Open..."));
-	(*scrActions)["fileClose"]->setTexts(tr("&Close"));
-	(*scrActions)["fileSave"]->setTexts(tr("&Save"));
-	(*scrActions)["fileSaveAs"]->setTexts(tr("Save &As..."));
-	(*scrActions)["fileRevert"]->setTexts(tr("Re&vert to Saved"));
-	(*scrActions)["fileCollect"]->setTexts(tr("Collect for O&utput..."));
-	(*scrActions)["fileImportText"]->setTexts(tr("Get Text..."));
-	(*scrActions)["fileImportAppendText"]->setTexts(tr("Append &Text..."));
-	(*scrActions)["fileImportImage"]->setTexts(tr("Get Image..."));
-	(*scrActions)["fileExportText"]->setTexts(tr("Save &Text..."));
-	(*scrActions)["fileExportAsEPS"]->setTexts(tr("Save Page as &EPS..."));
-	(*scrActions)["fileExportAsPDF"]->setTexts(tr("Save as P&DF..."));
-	(*scrActions)["fileDocSetup"]->setTexts(tr("Document &Setup..."));
-	(*scrActions)["filePrint"]->setTexts(tr("&Print..."));
-	(*scrActions)["fileQuit"]->setTexts(tr("&Quit"));
+	(*scrActions)["fileNew"]->setTexts( tr("&New"));
+	(*scrActions)["fileOpen"]->setTexts( tr("&Open..."));
+	(*scrActions)["fileClose"]->setTexts( tr("&Close"));
+	(*scrActions)["fileSave"]->setTexts( tr("&Save"));
+	(*scrActions)["fileSaveAs"]->setTexts( tr("Save &As..."));
+	(*scrActions)["fileRevert"]->setTexts( tr("Re&vert to Saved"));
+	(*scrActions)["fileCollect"]->setTexts( tr("Collect for O&utput..."));
+	(*scrActions)["fileImportText"]->setTexts( tr("Get Text..."));
+	(*scrActions)["fileImportAppendText"]->setTexts( tr("Append &Text..."));
+	(*scrActions)["fileImportImage"]->setTexts( tr("Get Image..."));
+	(*scrActions)["fileExportText"]->setTexts( tr("Save &Text..."));
+	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save Page as &EPS..."));
+	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
+	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup..."));
+	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
+	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
 	//Edit Menu
-	(*scrActions)["editUndoAction"]->setTexts(tr("&Undo"));
-	(*scrActions)["editRedoAction"]->setTexts(tr("&Redo"));
-	(*scrActions)["editActionMode"]->setTexts(tr("&Item Action Mode"));
-	(*scrActions)["editCut"]->setTexts(tr("Cu&t"));
-	(*scrActions)["editCopy"]->setTexts(tr("&Copy"));
-	(*scrActions)["editPaste"]->setTexts(tr("&Paste"));
-	(*scrActions)["editClearContents"]->setTexts(tr("C&lear Contents"));
-	(*scrActions)["editSelectAll"]->setTexts(tr("Select &All"));
-	(*scrActions)["editDeselectAll"]->setTexts(tr("&Deselect All"));
-	(*scrActions)["editSearchReplace"]->setTexts(tr("&Search/Replace..."));
-	(*scrActions)["editEditWithImageEditor"]->setTexts(tr("Edit Image..."));
-	(*scrActions)["editColors"]->setTexts(tr("C&olors..."));
-	(*scrActions)["editParaStyles"]->setTexts(tr("&Paragraph Styles..."));
-	(*scrActions)["editLineStyles"]->setTexts(tr("&Line Styles..."));
-	(*scrActions)["editMasterPages"]->setTexts(tr("&Master Pages..."));
-	(*scrActions)["editJavascripts"]->setTexts(tr("&Javascripts..."));
-	(*scrActions)["editPreferences"]->setTexts(tr("P&references..."));
+	(*scrActions)["editUndoAction"]->setTexts( tr("&Undo"));
+	(*scrActions)["editRedoAction"]->setTexts( tr("&Redo"));
+	(*scrActions)["editActionMode"]->setTexts( tr("&Item Action Mode"));
+	(*scrActions)["editCut"]->setTexts( tr("Cu&t"));
+	(*scrActions)["editCopy"]->setTexts( tr("&Copy"));
+	(*scrActions)["editPaste"]->setTexts( tr("&Paste"));
+	(*scrActions)["editClearContents"]->setTexts( tr("C&lear Contents"));
+	(*scrActions)["editSelectAll"]->setTexts( tr("Select &All"));
+	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));
+	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
+	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
+	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
+	(*scrActions)["editParaStyles"]->setTexts( tr("&Paragraph Styles..."));
+	(*scrActions)["editLineStyles"]->setTexts( tr("&Line Styles..."));
+	(*scrActions)["editMasterPages"]->setTexts( tr("&Master Pages..."));
+	(*scrActions)["editJavascripts"]->setTexts( tr("&Javascripts..."));
+	(*scrActions)["editPreferences"]->setTexts( tr("P&references..."));
 
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
 	for (uint s = 0; s < f_size; ++s)
 	{
 		QString fontSizeName=QString("fontSize%1").arg(font_sizes[s]);
-		(*scrActions)[fontSizeName]->setTexts(tr("%1 pt").arg(font_sizes[s]));
+		(*scrActions)[fontSizeName]->setTexts( tr("%1 pt").arg(font_sizes[s]));
 	}
-	(*scrActions)["fontSizeOther"]->setTexts(tr("&Other..."));
-	(*scrActions)["alignLeft"]->setTexts(tr("&Left"));
-	(*scrActions)["alignCenter"]->setTexts(tr("&Center"));
-	(*scrActions)["alignRight"]->setTexts(tr("&Right"));
-	(*scrActions)["alignBlock"]->setTexts(tr("&Block"));
-	(*scrActions)["alignForced"]->setTexts(tr("&Forced"));
+	(*scrActions)["fontSizeOther"]->setTexts( tr("&Other..."));
+	(*scrActions)["alignLeft"]->setTexts( tr("&Left"));
+	(*scrActions)["alignCenter"]->setTexts( tr("&Center"));
+	(*scrActions)["alignRight"]->setTexts( tr("&Right"));
+	(*scrActions)["alignBlock"]->setTexts( tr("&Block"));
+	(*scrActions)["alignForced"]->setTexts( tr("&Forced"));
 
 	for (uint i=0; i<=100 ; i+=10)
 	{
 		QString shadeName=QString("shade%1").arg(i);
-		(*scrActions)[shadeName]->setTexts(tr("&%1 %").arg(i));
+		(*scrActions)[shadeName]->setTexts( tr("&%1 %").arg(i));
 	}
 
-	(*scrActions)["shadeOther"]->setTexts(tr("&Other..."));
-	(*scrActions)["typeEffectNormal"]->setTexts(tr("&Normal"));
-	(*scrActions)["typeEffectUnderline"]->setTexts(tr("&Underline"));
-	(*scrActions)["typeEffectUnderlineWords"]->setTexts(tr("Underline &Words"));
-	(*scrActions)["typeEffectStrikeThrough"]->setTexts(tr("&Strike Through"));
-	(*scrActions)["typeEffectAllCaps"]->setTexts(tr("&All Caps"));
-	(*scrActions)["typeEffectSmallCaps"]->setTexts(tr("Small &Caps"));
-	(*scrActions)["typeEffectSuperscript"]->setTexts(tr("Su&perscript"));
-	(*scrActions)["typeEffectSubscript"]->setTexts(tr("Su&bscript"));
-	(*scrActions)["typeEffectOutline"]->setTexts(tr("&Outline"));
-	(*scrActions)["typeEffectShadow"]->setTexts(tr("S&hadow"));
+	(*scrActions)["shadeOther"]->setTexts( tr("&Other..."));
+	(*scrActions)["typeEffectNormal"]->setTexts( tr("&Normal"));
+	(*scrActions)["typeEffectUnderline"]->setTexts( tr("&Underline"));
+	(*scrActions)["typeEffectUnderlineWords"]->setTexts( tr("Underline &Words"));
+	(*scrActions)["typeEffectStrikeThrough"]->setTexts( tr("&Strike Through"));
+	(*scrActions)["typeEffectAllCaps"]->setTexts( tr("&All Caps"));
+	(*scrActions)["typeEffectSmallCaps"]->setTexts( tr("Small &Caps"));
+	(*scrActions)["typeEffectSuperscript"]->setTexts( tr("Su&perscript"));
+	(*scrActions)["typeEffectSubscript"]->setTexts( tr("Su&bscript"));
+	(*scrActions)["typeEffectOutline"]->setTexts( tr("&Outline"));
+	(*scrActions)["typeEffectShadow"]->setTexts( tr("S&hadow"));
 
-	(*scrActions)["styleInvertPict"]->setTexts(tr("&Image Effects"));
-	(*scrActions)["styleTabulators"]->setTexts(tr("&Tabulators..."));
+	(*scrActions)["styleInvertPict"]->setTexts( tr("&Image Effects"));
+	(*scrActions)["styleTabulators"]->setTexts( tr("&Tabulators..."));
 
 	//Item Menu
-	(*scrActions)["itemDuplicate"]->setTexts(tr("D&uplicate"));
-	(*scrActions)["itemMulDuplicate"]->setTexts(tr("&Multiple Duplicate"));
-	(*scrActions)["itemDelete"]->setTexts(tr("&Delete"));
-	(*scrActions)["itemGroup"]->setTexts(tr("&Group"));
-	(*scrActions)["itemUngroup"]->setTexts(tr("&Ungroup"));
-	(*scrActions)["itemLock"]->setTexts(tr("Is &Locked"));
-	(*scrActions)["itemLockSize"]->setTexts(tr("Si&ze is Locked"));
-	(*scrActions)["itemLowerToBottom"]->setTexts(tr("Lower to &Bottom"));
-	(*scrActions)["itemRaiseToTop"]->setTexts(tr("Raise to &Top"));
-	(*scrActions)["itemLower"]->setTexts(tr("&Lower"));
-	(*scrActions)["itemRaise"]->setTexts(tr("&Raise"));
-	(*scrActions)["itemAlignDist"]->setTexts(tr("Distribute/&Align..."));
-	(*scrActions)["itemSendToScrapbook"]->setTexts(tr("Send to S&crapbook"));
-	(*scrActions)["itemAttributes"]->setTexts(tr("&Attributes..."));
-	(*scrActions)["itemImageIsVisible"]->setTexts(tr("I&mage Visible"));
-	(*scrActions)["itemUpdateImage"]->setTexts(tr("&Update Image"));
-	(*scrActions)["itemAdjustFrameToImage"]->setTexts(tr("Adjust Frame to Image"));
-	(*scrActions)["itemExtendedImageProperties"]->setTexts(tr("Extended Image Properties"));
-	(*scrActions)["itemPreviewLow"]->setTexts(tr("&Low Resolution"));
-	(*scrActions)["itemPreviewNormal"]->setTexts(tr("&Normal Resolution"));
-	(*scrActions)["itemPreviewFull"]->setTexts(tr("&Full Resolution"));
-	(*scrActions)["itemPDFIsBookmark"]->setTexts(tr("Is PDF &Bookmark"));
-	(*scrActions)["itemPDFIsAnnotation"]->setTexts(tr("Is PDF A&nnotation"));
-	(*scrActions)["itemPDFAnnotationProps"]->setTexts(tr("Annotation P&roperties"));
-	(*scrActions)["itemPDFFieldProps"]->setTexts(tr("Field P&roperties"));
-	(*scrActions)["itemShapeEdit"]->setTexts(tr("&Edit Shape..."));
-	(*scrActions)["itemAttachTextToPath"]->setTexts(tr("&Attach Text to Path"));
-	(*scrActions)["itemDetachTextFromPath"]->setTexts(tr("&Detach Text from Path"));
-	(*scrActions)["itemCombinePolygons"]->setTexts(tr("&Combine Polygons"));
-	(*scrActions)["itemSplitPolygons"]->setTexts(tr("Split &Polygons"));
-	(*scrActions)["itemConvertToBezierCurve"]->setTexts(tr("&Bezier Curve"));
-	(*scrActions)["itemConvertToImageFrame"]->setTexts(tr("&Image Frame"));
-	(*scrActions)["itemConvertToOutlines"]->setTexts(tr("&Outlines"));
-	(*scrActions)["itemConvertToPolygon"]->setTexts(tr("&Polygon"));
-	(*scrActions)["itemConvertToTextFrame"]->setTexts(tr("&Text Frame"));
+	(*scrActions)["itemDuplicate"]->setTexts( tr("D&uplicate"));
+	(*scrActions)["itemMulDuplicate"]->setTexts( tr("&Multiple Duplicate"));
+	(*scrActions)["itemDelete"]->setTexts( tr("&Delete"));
+	(*scrActions)["itemGroup"]->setTexts( tr("&Group"));
+	(*scrActions)["itemUngroup"]->setTexts( tr("&Ungroup"));
+	(*scrActions)["itemLock"]->setTexts( tr("Is &Locked"));
+	(*scrActions)["itemLockSize"]->setTexts( tr("Si&ze is Locked"));
+	(*scrActions)["itemLowerToBottom"]->setTexts( tr("Lower to &Bottom"));
+	(*scrActions)["itemRaiseToTop"]->setTexts( tr("Raise to &Top"));
+	(*scrActions)["itemLower"]->setTexts( tr("&Lower"));
+	(*scrActions)["itemRaise"]->setTexts( tr("&Raise"));
+	(*scrActions)["itemAlignDist"]->setTexts( tr("Distribute/&Align..."));
+	(*scrActions)["itemSendToScrapbook"]->setTexts( tr("Send to S&crapbook"));
+	(*scrActions)["itemAttributes"]->setTexts( tr("&Attributes..."));
+	(*scrActions)["itemImageIsVisible"]->setTexts( tr("I&mage Visible"));
+	(*scrActions)["itemUpdateImage"]->setTexts( tr("&Update Image"));
+	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));
+	(*scrActions)["itemExtendedImageProperties"]->setTexts( tr("Extended Image Properties"));
+	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
+	(*scrActions)["itemPreviewNormal"]->setTexts( tr("&Normal Resolution"));
+	(*scrActions)["itemPreviewFull"]->setTexts( tr("&Full Resolution"));
+	(*scrActions)["itemPDFIsBookmark"]->setTexts( tr("Is PDF &Bookmark"));
+	(*scrActions)["itemPDFIsAnnotation"]->setTexts( tr("Is PDF A&nnotation"));
+	(*scrActions)["itemPDFAnnotationProps"]->setTexts( tr("Annotation P&roperties"));
+	(*scrActions)["itemPDFFieldProps"]->setTexts( tr("Field P&roperties"));
+	(*scrActions)["itemShapeEdit"]->setTexts( tr("&Edit Shape..."));
+	(*scrActions)["itemAttachTextToPath"]->setTexts( tr("&Attach Text to Path"));
+	(*scrActions)["itemDetachTextFromPath"]->setTexts( tr("&Detach Text from Path"));
+	(*scrActions)["itemCombinePolygons"]->setTexts( tr("&Combine Polygons"));
+	(*scrActions)["itemSplitPolygons"]->setTexts( tr("Split &Polygons"));
+	(*scrActions)["itemConvertToBezierCurve"]->setTexts( tr("&Bezier Curve"));
+	(*scrActions)["itemConvertToImageFrame"]->setTexts( tr("&Image Frame"));
+	(*scrActions)["itemConvertToOutlines"]->setTexts( tr("&Outlines"));
+	(*scrActions)["itemConvertToPolygon"]->setTexts( tr("&Polygon"));
+	(*scrActions)["itemConvertToTextFrame"]->setTexts( tr("&Text Frame"));
 
 	//Insert Menu
-	(*scrActions)["insertGlyph"]->setTexts(tr("&Glyph..."));
-	(*scrActions)["insertSampleText"]->setTexts(tr("Sample Text"));
+	(*scrActions)["insertGlyph"]->setTexts( tr("&Glyph..."));
+	(*scrActions)["insertSampleText"]->setTexts( tr("Sample Text"));
 
 	//Page menu
-	(*scrActions)["pageInsert"]->setTexts(tr("&Insert..."));
-	(*scrActions)["pageImport"]->setTexts(tr("Im&port..."));
-	(*scrActions)["pageDelete"]->setTexts(tr("&Delete..."));
-	(*scrActions)["pageCopy"]->setTexts(tr("&Copy..."));
-	(*scrActions)["pageMove"]->setTexts(tr("&Move..."));
-	(*scrActions)["pageApplyMasterPage"]->setTexts(tr("&Apply Master Page..."));
-	(*scrActions)["pageManageGuides"]->setTexts(tr("Manage &Guides..."));
+	(*scrActions)["pageInsert"]->setTexts( tr("&Insert..."));
+	(*scrActions)["pageImport"]->setTexts( tr("Im&port..."));
+	(*scrActions)["pageDelete"]->setTexts( tr("&Delete..."));
+	(*scrActions)["pageCopy"]->setTexts( tr("&Copy..."));
+	(*scrActions)["pageMove"]->setTexts( tr("&Move..."));
+	(*scrActions)["pageApplyMasterPage"]->setTexts( tr("&Apply Master Page..."));
+	(*scrActions)["pageManageGuides"]->setTexts( tr("Manage &Guides..."));
 
 	//View Menu
-	(*scrActions)["viewFitInWindow"]->setTexts(tr("&Fit in window"));
-	(*scrActions)["viewFit50"]->setTexts(tr("&50%"));
-	(*scrActions)["viewFit75"]->setTexts(tr("&75%"));
-	(*scrActions)["viewFit100"]->setTexts(tr("&100%"));
-	(*scrActions)["viewFit200"]->setTexts(tr("&200%"));
-	(*scrActions)["viewFit20"]->setTexts(tr("&Thumbnails"));
-	(*scrActions)["viewShowMargins"]->setTexts(tr("Show &Margins"));
-	(*scrActions)["viewShowFrames"]->setTexts(tr("Show &Frames"));
-	(*scrActions)["viewShowImages"]->setTexts(tr("Show &Images"));
-	(*scrActions)["viewShowGrid"]->setTexts(tr("Show &Grid"));
-	(*scrActions)["viewShowGuides"]->setTexts(tr("Show G&uides"));
-	(*scrActions)["viewShowBaseline"]->setTexts(tr("Show &Baseline Grid"));
-	(*scrActions)["viewShowTextChain"]->setTexts(tr("Show &Text Chain"));
-	(*scrActions)["viewSnapToGrid"]->setTexts(tr("Sn&ap to Grid"));
-	(*scrActions)["viewSnapToGuides"]->setTexts(tr("Sna&p to Guides"));
-//	(*scrActions)["viewNewView"]->setTexts(tr("New View"));
+	(*scrActions)["viewFitInWindow"]->setTexts( tr("&Fit in window"));
+	(*scrActions)["viewFit50"]->setTexts( tr("&50%"));
+	(*scrActions)["viewFit75"]->setTexts( tr("&75%"));
+	(*scrActions)["viewFit100"]->setTexts( tr("&100%"));
+	(*scrActions)["viewFit200"]->setTexts( tr("&200%"));
+	(*scrActions)["viewFit20"]->setTexts( tr("&Thumbnails"));
+	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
+	(*scrActions)["viewShowFrames"]->setTexts( tr("Show &Frames"));
+	(*scrActions)["viewShowImages"]->setTexts( tr("Show &Images"));
+	(*scrActions)["viewShowGrid"]->setTexts( tr("Show &Grid"));
+	(*scrActions)["viewShowGuides"]->setTexts( tr("Show G&uides"));
+	(*scrActions)["viewShowBaseline"]->setTexts( tr("Show &Baseline Grid"));
+	(*scrActions)["viewShowTextChain"]->setTexts( tr("Show &Text Chain"));
+	(*scrActions)["viewSnapToGrid"]->setTexts( tr("Sn&ap to Grid"));
+	(*scrActions)["viewSnapToGuides"]->setTexts( tr("Sna&p to Guides"));
+//	(*scrActions)["viewNewView"]->setTexts( tr("New View"));
 
 	//Tool menu
-	(*scrActions)["toolsProperties"]->setTexts(tr("&Properties"));
-	(*scrActions)["toolsOutline"]->setTexts(tr("&Outline"));
-	(*scrActions)["toolsScrapbook"]->setTexts(tr("&Scrapbook"));
-	(*scrActions)["toolsLayers"]->setTexts(tr("&Layers"));
-	(*scrActions)["toolsPages"]->setTexts(tr("P&age Palette"));
-	(*scrActions)["toolsBookmarks"]->setTexts(tr("&Bookmarks"));
-	(*scrActions)["toolsMeasurements"]->setTexts(tr("&Measurements"));
-	(*scrActions)["toolsActionHistory"]->setTexts(tr("Action &History"));
-	(*scrActions)["toolsPreflightVerifier"]->setTexts(tr("Preflight &Verifier"));
-	(*scrActions)["toolsToolbarTools"]->setTexts(tr("&Tools"));
-	(*scrActions)["toolsToolbarPDF"]->setTexts(tr("P&DF Tools"));
+	(*scrActions)["toolsProperties"]->setTexts( tr("&Properties"));
+	(*scrActions)["toolsOutline"]->setTexts( tr("&Outline"));
+	(*scrActions)["toolsScrapbook"]->setTexts( tr("&Scrapbook"));
+	(*scrActions)["toolsLayers"]->setTexts( tr("&Layers"));
+	(*scrActions)["toolsPages"]->setTexts( tr("P&age Palette"));
+	(*scrActions)["toolsBookmarks"]->setTexts( tr("&Bookmarks"));
+	(*scrActions)["toolsMeasurements"]->setTexts( tr("&Measurements"));
+	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));
+	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
+	(*scrActions)["toolsToolbarTools"]->setTexts( tr("&Tools"));
+	(*scrActions)["toolsToolbarPDF"]->setTexts( tr("P&DF Tools"));
 
 	//toolbar only items
-	(*scrActions)["toolsSelect"]->setTexts(tr("Select Item"));
-	(*scrActions)["toolsInsertTextFrame"]->setMenuText(tr("&Text Frame"));
-	(*scrActions)["toolsInsertImageFrame"]->setMenuText(tr("&Image Frame"));
-	(*scrActions)["toolsInsertTableFrame"]->setMenuText(tr("T&able"));
-	(*scrActions)["toolsInsertShape"]->setMenuText(tr("&Shape"));
-	(*scrActions)["toolsInsertPolygon"]->setMenuText(tr("&Polygon"));
-	(*scrActions)["toolsInsertLine"]->setMenuText(tr("&Line"));
-	(*scrActions)["toolsInsertBezier"]->setMenuText(tr("&Bezier Curve"));
-	(*scrActions)["toolsInsertFreehandLine"]->setMenuText(tr("&Freehand Line"));
-	(*scrActions)["toolsRotate"]->setTexts(tr("Rotate Item"));
-	(*scrActions)["toolsZoom"]->setTexts(tr("Zoom in or out"));
-	(*scrActions)["toolsZoomIn"]->setTexts(tr("Zoom in"));
-	(*scrActions)["toolsZoomOut"]->setTexts(tr("Zoom out"));
-	(*scrActions)["toolsEditContents"]->setTexts(tr("Edit Contents of Frame"));
-	(*scrActions)["toolsEditWithStoryEditor"]->setMenuText(tr("Edit Text..."));
-	(*scrActions)["toolsLinkTextFrame"]->setTexts(tr("Link Text Frames"));
-	(*scrActions)["toolsUnlinkTextFrame"]->setTexts(tr("Unlink Text Frames"));
-	(*scrActions)["toolsEyeDropper"]->setTexts(tr("&Eye Dropper"));
-	(*scrActions)["toolsCopyProperties"]->setTexts(tr("Copy Item Properties"));
+	(*scrActions)["toolsSelect"]->setTexts( tr("Select Item"));
+	(*scrActions)["toolsInsertTextFrame"]->setMenuText( tr("&Text Frame"));
+	(*scrActions)["toolsInsertImageFrame"]->setMenuText( tr("&Image Frame"));
+	(*scrActions)["toolsInsertTableFrame"]->setMenuText( tr("T&able"));
+	(*scrActions)["toolsInsertShape"]->setMenuText( tr("&Shape"));
+	(*scrActions)["toolsInsertPolygon"]->setMenuText( tr("&Polygon"));
+	(*scrActions)["toolsInsertLine"]->setMenuText( tr("&Line"));
+	(*scrActions)["toolsInsertBezier"]->setMenuText( tr("&Bezier Curve"));
+	(*scrActions)["toolsInsertFreehandLine"]->setMenuText( tr("&Freehand Line"));
+	(*scrActions)["toolsRotate"]->setTexts( tr("Rotate Item"));
+	(*scrActions)["toolsZoom"]->setTexts( tr("Zoom in or out"));
+	(*scrActions)["toolsZoomIn"]->setTexts( tr("Zoom in"));
+	(*scrActions)["toolsZoomOut"]->setTexts( tr("Zoom out"));
+	(*scrActions)["toolsEditContents"]->setTexts( tr("Edit Contents of Frame"));
+	(*scrActions)["toolsEditWithStoryEditor"]->setMenuText( tr("Edit Text..."));
+	(*scrActions)["toolsLinkTextFrame"]->setTexts( tr("Link Text Frames"));
+	(*scrActions)["toolsUnlinkTextFrame"]->setTexts( tr("Unlink Text Frames"));
+	(*scrActions)["toolsEyeDropper"]->setTexts( tr("&Eye Dropper"));
+	(*scrActions)["toolsCopyProperties"]->setTexts( tr("Copy Item Properties"));
 
-	(*scrActions)["toolsEditWithStoryEditor"]->setText(tr("Edit the text with the Story Editor"));
+	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit the text with the Story Editor"));
 
-	(*scrActions)["toolsInsertTextFrame"]->setText(tr("Insert Text Frame"));
-	(*scrActions)["toolsInsertImageFrame"]->setText(tr("Insert Image Frame"));
-	(*scrActions)["toolsInsertTableFrame"]->setText(tr("Insert Table"));
-	(*scrActions)["toolsInsertShape"]->setText(tr("Insert Shape"));
-	(*scrActions)["toolsInsertPolygon"]->setText(tr("Insert Polygon"));
-	(*scrActions)["toolsInsertLine"]->setText(tr("Insert Line"));
-	(*scrActions)["toolsInsertBezier"]->setText(tr("Insert Bezier Curve"));
-	(*scrActions)["toolsInsertFreehandLine"]->setText(tr("Insert Freehand Line"));
+	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert Text Frame"));
+	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert Image Frame"));
+	(*scrActions)["toolsInsertTableFrame"]->setText( tr("Insert Table"));
+	(*scrActions)["toolsInsertShape"]->setText( tr("Insert Shape"));
+	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert Polygon"));
+	(*scrActions)["toolsInsertLine"]->setText( tr("Insert Line"));
+	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert Bezier Curve"));
+	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert Freehand Line"));
 
 	//Extras Menu
-	(*scrActions)["extrasManagePictures"]->setTexts(tr("&Manage Pictures"));
-	(*scrActions)["extrasHyphenateText"]->setTexts(tr("&Hyphenate Text"));
-	(*scrActions)["extrasGenerateTableOfContents"]->setTexts(tr("&Generate Table Of Contents"));
+	(*scrActions)["extrasManagePictures"]->setTexts( tr("&Manage Pictures"));
+	(*scrActions)["extrasHyphenateText"]->setTexts( tr("&Hyphenate Text"));
+	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
 
 	//Help Menu
-	(*scrActions)["helpAboutScribus"]->setTexts(tr("&About Scribus"));
-	(*scrActions)["helpAboutQt"]->setTexts(tr("About &Qt"));
-	(*scrActions)["helpTooltips"]->setTexts(tr("Toolti&ps"));
-	(*scrActions)["helpManual"]->setTexts(tr("Scribus &Manual..."));
+	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Scribus"));
+	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
+	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
+	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
 
 
 	//typography
-	(*scrActions)["specialSmartHyphen"]->setMenuText(tr("Smart &Hyphen"));
-	(*scrActions)["specialNonBreakingSpace"]->setMenuText(tr("Non Breaking &Space"));
-	(*scrActions)["specialPageNumber"]->setMenuText(tr("Page &Number"));
-	(*scrActions)["specialCopyRight"]->setTexts(tr("Copyright"));
-	(*scrActions)["specialRegdTM"]->setTexts(tr("Registered Trademark"));
-	(*scrActions)["specialTM"]->setTexts(tr("Trademark"));
-	(*scrActions)["specialBullet"]->setTexts(tr("Bullet"));
-	(*scrActions)["specialDashEm"]->setTexts(tr("Em Dash"));
-	(*scrActions)["specialDashEn"]->setTexts(tr("En Dash"));
-	(*scrActions)["specialDashFigure"]->setTexts(tr("Figure Dash"));
-	(*scrActions)["specialDashQuotation"]->setTexts(tr("Quotation Dash"));
+	(*scrActions)["specialSmartHyphen"]->setMenuText( tr("Smart &Hyphen"));
+	(*scrActions)["specialNonBreakingSpace"]->setMenuText( tr("Non Breaking &Space"));
+	(*scrActions)["specialPageNumber"]->setMenuText( tr("Page &Number"));
+	(*scrActions)["specialNewLine"]->setMenuText( tr("New Line"));
+	(*scrActions)["specialFrameBreak"]->setMenuText( tr("Frame Break"));
+	(*scrActions)["specialCopyRight"]->setTexts( tr("Copyright"));
+	(*scrActions)["specialRegdTM"]->setTexts( tr("Registered Trademark"));
+	(*scrActions)["specialTM"]->setTexts( tr("Trademark"));
+	(*scrActions)["specialBullet"]->setTexts( tr("Bullet"));
+	(*scrActions)["specialDashEm"]->setTexts( tr("Em Dash"));
+	(*scrActions)["specialDashEn"]->setTexts( tr("En Dash"));
+	(*scrActions)["specialDashFigure"]->setTexts( tr("Figure Dash"));
+	(*scrActions)["specialDashQuotation"]->setTexts( tr("Quotation Dash"));
 
-	(*scrActions)["specialQuoteApostrophe"]->setTexts(tr("Apostrophe"));
-	(*scrActions)["specialQuoteStraight"]->setTexts(tr("Straight Double"));
-	(*scrActions)["specialQuoteSingleLeft"]->setTexts(tr("Single Left"));
-	(*scrActions)["specialQuoteSingleRight"]->setTexts(tr("Single Right"));
-	(*scrActions)["specialQuoteDoubleLeft"]->setTexts(tr("Double Left"));
-	(*scrActions)["specialQuoteDoubleRight"]->setTexts(tr("Double Right"));
-	(*scrActions)["specialQuoteSingleReversed"]->setTexts(tr("Single Reversed"));
-	(*scrActions)["specialQuoteDoubleReversed"]->setTexts(tr("Double Reversed"));
-	(*scrActions)["specialQuoteSingleLeftGuillemet"]->setTexts(tr("Single Left Guillemet"));
-	(*scrActions)["specialQuoteSingleRightGuillemet"]->setTexts(tr("Single Right Guillemet"));
-	(*scrActions)["specialQuoteDoubleLeftGuillemet"]->setTexts(tr("Double Left Guillemet"));
-	(*scrActions)["specialQuoteDoubleRightGuillemet"]->setTexts(tr("Double Right Guillemet"));
-	(*scrActions)["specialQuoteLowSingleComma"]->setTexts(tr("Low Single Comma"));
-	(*scrActions)["specialQuoteLowDoubleComma"]->setTexts(tr("Low Double Comma"));
-	(*scrActions)["specialQuoteDoubleTurnedComma"]->setTexts(tr("Double Turned Comma"));
-	(*scrActions)["specialQuoteCJKSingleLeft"]->setTexts(tr("CJK Single Left"));
-	(*scrActions)["specialQuoteCJKSingleRight"]->setTexts(tr("CJK Single Right"));
-	(*scrActions)["specialQuoteCJKDoubleLeft"]->setTexts(tr("CJK Double Left"));
-	(*scrActions)["specialQuoteCJKDoubleRight"]->setTexts(tr("CJK Double Right"));
+	(*scrActions)["specialQuoteApostrophe"]->setTexts( tr("Apostrophe"));
+	(*scrActions)["specialQuoteStraight"]->setTexts( tr("Straight Double"));
+	(*scrActions)["specialQuoteSingleLeft"]->setTexts( tr("Single Left"));
+	(*scrActions)["specialQuoteSingleRight"]->setTexts( tr("Single Right"));
+	(*scrActions)["specialQuoteDoubleLeft"]->setTexts( tr("Double Left"));
+	(*scrActions)["specialQuoteDoubleRight"]->setTexts( tr("Double Right"));
+	(*scrActions)["specialQuoteSingleReversed"]->setTexts( tr("Single Reversed"));
+	(*scrActions)["specialQuoteDoubleReversed"]->setTexts( tr("Double Reversed"));
+	(*scrActions)["specialQuoteSingleLeftGuillemet"]->setTexts( tr("Single Left Guillemet"));
+	(*scrActions)["specialQuoteSingleRightGuillemet"]->setTexts( tr("Single Right Guillemet"));
+	(*scrActions)["specialQuoteDoubleLeftGuillemet"]->setTexts( tr("Double Left Guillemet"));
+	(*scrActions)["specialQuoteDoubleRightGuillemet"]->setTexts( tr("Double Right Guillemet"));
+	(*scrActions)["specialQuoteLowSingleComma"]->setTexts( tr("Low Single Comma"));
+	(*scrActions)["specialQuoteLowDoubleComma"]->setTexts( tr("Low Double Comma"));
+	(*scrActions)["specialQuoteDoubleTurnedComma"]->setTexts( tr("Double Turned Comma"));
+	(*scrActions)["specialQuoteCJKSingleLeft"]->setTexts( tr("CJK Single Left"));
+	(*scrActions)["specialQuoteCJKSingleRight"]->setTexts( tr("CJK Single Right"));
+	(*scrActions)["specialQuoteCJKDoubleLeft"]->setTexts( tr("CJK Double Left"));
+	(*scrActions)["specialQuoteCJKDoubleRight"]->setTexts( tr("CJK Double Right"));
 
 	(*scrActions)["specialSmartHyphen"]->setText("Insert Smart Hyphen");
 	(*scrActions)["specialNonBreakingSpace"]->setText("Insert Non Breaking Space");
 	(*scrActions)["specialPageNumber"]->setText("Insert Page Number");
+	(*scrActions)["specialNewLine"]->setText("New Line");
+	(*scrActions)["specialFrameBreak"]->setText("Frame Break");
 
 	//GUI
-	(*scrActions)["specialToggleAllPalettes"]->setTexts(tr("Toggle Palettes"));
-	(*scrActions)["specialToggleAllGuides"]->setTexts(tr("Toggle Guides"));
+	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
+	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
 }
 

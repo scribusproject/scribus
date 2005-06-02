@@ -1244,6 +1244,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->createMenu("InsertSpace", tr("Space"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["specialNewLine"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["specialFrameBreak"], "InsertSpace");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
 	scrActions["insertGlyph"]->setEnabled(false);
@@ -2393,12 +2395,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					default:
 						if ((currItem->HasSel) && (kk < 0x1000))
 							deleteSelectedTextFromFrame(currItem);
-						if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
+//						if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
+						if (kk == Key_Tab)
 						{
 							hg = new ScText;
-							if (kk == Key_Return)
-								hg->ch = QString(QChar(28));
-							else if (kk == Key_Tab)
+//							if (kk == Key_Return)
+//								hg->ch = QString(QChar(28));
+							if (kk == Key_Tab)
 								hg->ch = QString(QChar(9));
 							hg->cfont = (*doc->AllFonts)[doc->CurrFont];
 							hg->csize = doc->CurrFontSize;
