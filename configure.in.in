@@ -58,8 +58,27 @@ if test -n "$FREETYPE_CONFIG"; then
 	if test $hafree = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
 	else
-  	AC_MSG_ERROR([You need at least freetype 2.1.0])
+		AC_MSG_ERROR([You need at least freetype 2.1.0])
 	fi
+
+	dnl Warn the user if they have less than freetype 2.1.9
+	AC_MSG_CHECKING(freetype version > 2.1.9)
+	SAVE_CFLAGS="${CFLAGS}"
+	CFLAGS=" ${LIBFREETYPE_CFLAGS} "
+	AC_TRY_COMPILE([
+	#include <ft2build.h>
+	#include FT_FREETYPE_H
+	],[
+	#if FREETYPE_MAJOR == 2 && FREETYPE_MINOR == 1 && FREETYPE_PATCH < 9
+	#error freetype 2.1 older than 2.1.9
+	#endif
+	], [hafree_post219=yes], [hafree_post219=no])
+	CFLAGS="${SAVE_CFLAGS}"
+	AC_MSG_RESULT($hafree_post219)
+	if test hafree_post219 = no; then
+		AC_MSG_WARN([Your libfreetype is old - version 2.1.9 or newer is recommended])
+	fi
+
 	AC_SUBST(LIBFREETYPE_LIBS)
 	AC_SUBST(LIBFREETYPE_CFLAGS)
 else

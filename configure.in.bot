@@ -1,7 +1,11 @@
 echo "Configuration Summary:"
 echo ""
 if test $hafree = yes; then
-	echo "FreeType2 installed: Yes"
+	if test "$hafree_post219" = yes; then
+		echo "FreeType2 installed: Yes"
+	else
+		echo "FreeType2 installed: Yes (old version)"
+	fi
 else
 	echo "FreeType2 installed: No"
 fi
@@ -35,3 +39,11 @@ else
 	fi
 fi
 echo ""
+
+if test "$hafree" = yes && test "$hafree_post219" = no; then
+	echo
+	echo "NOTE:"
+	echo "  FreeType version 2.1.9 or later is recommended. You may have some problems"
+	echo "  using older versions of FreeType, particularly with the outline font style."
+	echo
+fi
