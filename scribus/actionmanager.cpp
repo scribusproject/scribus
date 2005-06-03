@@ -247,6 +247,7 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("lower.png"), loadIcon("lower.png")), "", QKeySequence(CTRL+Key_End), ScApp, "itemLower"));
 	scrActions->insert("itemRaise", new ScrAction(QIconSet(loadIcon("raise.png"), loadIcon("raise.png")), "", QKeySequence(CTRL+Key_Home), ScApp, "itemRaise"));
 	scrActions->insert("itemAlignDist", new ScrAction(ScApp, "itemAlignDist"));
+	
 	scrActions->insert("itemSendToScrapbook", new ScrAction(ScApp, "itemSendToScrapbook"));
 
 	scrActions->insert("itemAttributes", new ScrAction(ScApp, "itemAttributes"));
@@ -414,6 +415,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist.png")), "", QKeySequence(), ScApp, "toolsMeasurements", MeasurementTool));
 	scrActions->insert("toolsActionHistory", new ScrAction(ScApp, "toolsActionHistory"));
 	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),"", QKeySequence(), ScApp, "toolsPreflightVerifier"));
+	scrActions->insert("toolsAlignDistribute", new ScrAction(ScApp, "toolsAlignDistribute"));
 	scrActions->insert("toolsToolbarTools", new ScrAction(ScApp, "toolsToolbarTools"));
 	scrActions->insert("toolsToolbarPDF", new ScrAction(ScApp, "toolsToolbarPDF"));
 
@@ -449,6 +451,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsMeasurements"]->setToggleAction(true);
 	(*scrActions)["toolsActionHistory"]->setToggleAction(true);
 	(*scrActions)["toolsPreflightVerifier"]->setToggleAction(true);
+	(*scrActions)["toolsAlignDistribute"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
 
@@ -901,6 +904,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsMeasurements"]->setTexts( tr("&Measurements"));
 	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
+	(*scrActions)["toolsAlignDistribute"]->setTexts( tr("Distribute/&Align"));
 	(*scrActions)["toolsToolbarTools"]->setTexts( tr("&Tools"));
 	(*scrActions)["toolsToolbarPDF"]->setTexts( tr("P&DF Tools"));
 

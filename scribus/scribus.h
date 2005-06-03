@@ -86,6 +86,7 @@ class Tree;
 class Biblio;
 class PluginManager;
 class ActionManager;
+class AlignDistributePalette;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -198,6 +199,7 @@ public:
 	Measurements* measurementPalette;
 	CheckDocument * docCheckerPalette;
 	UndoPalette* undoPalette;
+	AlignDistributePalette *alignDistributePalette;
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
@@ -411,6 +413,7 @@ public slots:
 	bool SetupDoc();
 	/** Richtet Objekte aus */
 	void ObjektAlign();
+	void ObjektAlign2();
 	void objectAttributes();
 	void generateTableOfContents();
 	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);

@@ -576,6 +576,15 @@ enum AppMode
 	CopyProperties
 };
 
-
+struct AlignObjs
+{
+	int ObjNr;
+	int Group;
+	double x1;
+	double y1;
+	double x2;
+	double y2;
+	QPtrList<PageItem> Objects;
+};
 
 #endif

@@ -51,6 +51,7 @@
 #include "reformdoc.h"
 #include "serializer.h"
 #include "align.h"
+#include "aligndistribute.h"
 #include "fmitem.h"
 #include "fontprefs.h"
 #include "prefs.h"
@@ -805,7 +806,15 @@ void ScribusApp::initPalettes()
 	docCheckerPalette->setPrefsContext("DocCheckerPalette");
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
-
+	
+	alignDistributePalette = new AlignDistributePalette(this, "AlignDistributePalette", false);
+	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(setPaletteShown(bool)) );
+	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setOn(bool)));
+	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
+	alignDistributePalette->setPrefsContext("AlignDistributePalette");
+	alignDistributePalette->installEventFilter(this);
+	alignDistributePalette->hide();
+	
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
 	undoManager->registerGui(undoPalette);
@@ -1296,6 +1305,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsMeasurements"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsActionHistory"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsAlignDistribute"], "Tools");
 	scrMenuMgr->addMenuSeparator("Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Tools");
@@ -1611,6 +1621,9 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 		else
 		if (currKeySeq == scrActions["toolsPreflightVerifier"]->accel())
 			scrActions["toolsPreflightVerifier"]->toggle();
+		else
+		if (currKeySeq == scrActions["toolsAlignDistribute"]->accel())
+			scrActions["toolsAlignDistribute"]->toggle();
 		else
 		if (currKeySeq == scrActions["fileQuit"]->accel())
 			scrActions["fileQuit"]->activate();
@@ -2770,6 +2783,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	view = new ScribusView(w, doc, &Prefs);
 	view->Scale = 1.0*Prefs.DisScale;
 	actionManager->connectNewViewActions(view);
+	alignDistributePalette->setView(view);
 	w->setView(view);
 	ActWin = w;
 	doc->WinHan = w;
@@ -2872,6 +2886,7 @@ void ScribusApp::newView()
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
+	alignDistributePalette->setView(view);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
@@ -2946,6 +2961,7 @@ void ScribusApp::newActWin(QWidget *w)
 	view = ActWin->view;
 	actionManager->connectNewViewActions(view);
 	pagePalette->SetView(view);
+	alignDistributePalette->setView(view);
 	ScribusWin* swin;
 	if (!doc->loading)
 	{
@@ -4413,6 +4429,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		view = new ScribusView(w, doc, &Prefs);
 		view->Scale = 1.0*Prefs.DisScale;
 		w->setView(view);
+		alignDistributePalette->setView(view);
 		ActWin = w;
 		doc->WinHan = w;
 		w->setCentralWidget(view);
@@ -7936,6 +7953,21 @@ void ScribusApp::ObjektAlign()
 	delete dia;
 }
 
+void ScribusApp::ObjektAlign2()
+{
+	/*
+	AlignDistributePalette *adDia = new AlignDistribute(this);
+	if (HaveDoc)
+	{
+		adDia->setView(view);
+	}
+	else
+		adDia->setView(NULL);
+	adDia->exec();
+	delete adDia;
+	*/
+}
+
 void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart)
 {
 	view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
@@ -8440,6 +8472,7 @@ void ScribusApp::ShowSubs()
 	layerPalette->startup();
 	measurementPalette->startup();
 	docCheckerPalette->startup();
+	alignDistributePalette->startup();
 
 	setTools(Prefs.mainToolBarSettings.visible);
 	setPDFTools(Prefs.pdfToolBarSettings.visible);

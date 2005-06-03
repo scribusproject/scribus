@@ -32,6 +32,7 @@
 #include <qspinbox.h>
 // application specific includes
 #include "scribusdoc.h"
+#include "scribusstructs.h"
 #include "scpainter.h"
 #include "page.h"
 class Hruler;
@@ -115,16 +116,7 @@ public:
 	QPtrList<PageItem> SelItem;
 	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
-	struct AlignObjs
-	{
-		int ObjNr;
-		int Group;
-		double x1;
-		double y1;
-		double x2;
-		double y2;
-		QPtrList<PageItem> Objects;
-	};
+
 	QValueList<AlignObjs> AObjects;
 	struct oldPageVar
 	{
