@@ -248,6 +248,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	checkLink->setText( tr( "Show Text Chains" ) );
 	checkLink->setChecked(doc->guidesSettings.linkShown);
 	pageBackgroundLayout->addWidget( checkLink );
+	checkControl = new QCheckBox( pageBackground, "checkControl" );
+	checkControl->setText( tr( "Show Text Control Characters" ) );
+	checkControl->setChecked(doc->guidesSettings.showControls);
+	pageBackgroundLayout->addWidget( checkControl );
 	checkFrame = new QCheckBox( pageBackground, "checkFrame" );
 	checkFrame->setText( tr( "Show Frames" ) );
 	checkFrame->setChecked(doc->guidesSettings.framesShown);

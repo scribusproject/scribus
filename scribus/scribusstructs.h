@@ -382,6 +382,7 @@ struct guidesPrefs
 	bool baseShown;
 	bool linkShown;
 	bool showPic;
+	bool showControls;
 	bool before;
 	QColor guideColor;
 	QColor baseColor;

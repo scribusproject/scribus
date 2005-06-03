@@ -437,6 +437,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->guidesSettings.baseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
 		doc->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
 		doc->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK", "0")));
+		doc->guidesSettings.showControls = static_cast<bool>(QStoInt(dc.attribute("SHOWControl","0")));
 		doc->toolSettings.polyC = QStoInt(dc.attribute("POLYC", "4"));
 		doc->toolSettings.polyF = QStodouble(dc.attribute("POLYF", "0.5"));
 		doc->toolSettings.polyR = QStodouble(dc.attribute("POLYR", "0"));

@@ -1319,6 +1319,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->guidesSettings.baseShown = view->Prefs->guidesSettings.baseShown;
 		doc->guidesSettings.linkShown = view->Prefs->guidesSettings.linkShown;
 		doc->guidesSettings.showPic = true;
+		doc->guidesSettings.showControls = false;
 		DoFonts.clear();
 		doc->toolSettings.defSize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
@@ -3035,6 +3036,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->guidesSettings.showPic));
+	dc.setAttribute("SHOWControl", static_cast<int>(doc->guidesSettings.showControls));
 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->guidesSettings.linkShown));
 	dc.setAttribute("GuideRad", doc->guidesSettings.guideRad);
 	dc.setAttribute("GRAB",doc->guidesSettings.grabRad);
@@ -3400,6 +3402,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc.setAttribute("SHOWBASE", static_cast<int>(Vor->guidesSettings.baseShown));
 	dc.setAttribute("SHOWLINK", static_cast<int>(Vor->guidesSettings.linkShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(Vor->guidesSettings.showPic));
+	dc.setAttribute("SHOWControl", static_cast<int>(Vor->guidesSettings.showControls));
 	dc.setAttribute("ScratchBottom", Vor->ScratchBottom);
 	dc.setAttribute("ScratchLeft", Vor->ScratchLeft);
 	dc.setAttribute("ScratchRight", Vor->ScratchRight);
@@ -3755,6 +3758,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->guidesSettings.baseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE","1")));
 			Vorein->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK","0")));
 			Vorein->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT","1")));
+			Vorein->guidesSettings.showControls = static_cast<bool>(QStoInt(dc.attribute("SHOWControl","0")));
 			Vorein->haveStylePreview = static_cast<bool>(QStoInt(dc.attribute("STYLEPREVIEW","1")));
 			Vorein->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
 			// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of

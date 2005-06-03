@@ -2591,7 +2591,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
 		hl = ite->itemText.at(d);
-		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)))
+		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)))
 			continue;
 		if (hl->cstyle & 4096)
 			continue;

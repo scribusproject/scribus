@@ -481,6 +481,10 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	checkLink->setText( tr( "Show Text Chains" ) );
 	checkLink->setChecked(prefsData->guidesSettings.linkShown);
 	pageBackgroundLayout->addWidget( checkLink );
+	checkControl = new QCheckBox( pageBackground, "checkControl" );
+	checkControl->setText( tr( "Show Text Control Characters" ) );
+	checkControl->setChecked(prefsData->guidesSettings.showControls);
+	pageBackgroundLayout->addWidget( checkControl );
 	checkFrame = new QCheckBox( pageBackground, "checkFrame" );
 	checkFrame->setText( tr( "Show Frames" ) );
 	checkFrame->setChecked(prefsData->guidesSettings.framesShown);

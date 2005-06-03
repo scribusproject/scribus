@@ -361,6 +361,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert("viewShowGuides", new ScrAction(ScApp, "viewShowGuides"));
 	scrActions->insert("viewShowBaseline", new ScrAction(ScApp, "viewShowBaseline"));
 	scrActions->insert("viewShowTextChain", new ScrAction(ScApp, "viewShowTextChain"));
+	scrActions->insert("viewShowTextControls", new ScrAction(ScApp, "viewShowTextControls"));
 	scrActions->insert("viewSnapToGrid", new ScrAction(ScApp, "viewSnapToGrid"));
 	scrActions->insert("viewSnapToGuides", new ScrAction(ScApp, "viewSnapToGuides"));
 //	scrActions->insert("viewNewView", new ScrAction(ScApp, "viewNewView"));
@@ -372,6 +373,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowGuides"]->setToggleAction(true);
 	(*scrActions)["viewShowBaseline"]->setToggleAction(true);
 	(*scrActions)["viewShowTextChain"]->setToggleAction(true);
+	(*scrActions)["viewShowTextControls"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGrid"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
 
@@ -393,6 +395,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewShowGuides"], SIGNAL(activated()), ScApp, SLOT(ToggleGuides()) );
 	connect( (*scrActions)["viewShowBaseline"], SIGNAL(activated()), ScApp, SLOT(ToggleBase()) );
 	connect( (*scrActions)["viewShowTextChain"], SIGNAL(activated()), ScApp, SLOT(ToggleTextLinks()) );
+	connect( (*scrActions)["viewShowTextControls"], SIGNAL(activated()), ScApp, SLOT(ToggleTextControls()) );
 	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(activated()), ScApp, SLOT(ToggleURaster()) );
 	connect( (*scrActions)["viewSnapToGuides"], SIGNAL(activated()), ScApp, SLOT(ToggleUGuides()) );
 //	connect( (*scrActions)["viewNewView"], SIGNAL(activated()), ScApp, SLOT(newView()) );
@@ -883,6 +886,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewShowGuides"]->setTexts( tr("Show G&uides"));
 	(*scrActions)["viewShowBaseline"]->setTexts( tr("Show &Baseline Grid"));
 	(*scrActions)["viewShowTextChain"]->setTexts( tr("Show &Text Chain"));
+	(*scrActions)["viewShowTextControls"]->setTexts( tr("Show Control Characters"));
 	(*scrActions)["viewSnapToGrid"]->setTexts( tr("Sn&ap to Grid"));
 	(*scrActions)["viewSnapToGuides"]->setTexts( tr("Sna&p to Guides"));
 //	(*scrActions)["viewNewView"]->setTexts( tr("New View"));

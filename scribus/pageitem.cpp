@@ -783,6 +783,31 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
 						asce = Zli3.ZFo->numAscent * (Zli3.Siz / 10.0);
+						if ((((a < itemText.count() - 1) && ((itemText.at(a+1)->ch == QChar(13)) || (itemText.at(a+1)->ch == QChar(28)))) ||
+							((hl->cstyle & 16384) && ((itemText.at(a)->ch == QChar(13)) || (itemText.at(a)->ch == QChar(28))))) && (Doc->guidesSettings.showControls))
+						{
+							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
+							{
+								FPointArray points;
+								if (itemText.at(a+1)->ch == QChar(13))
+									points = Doc->symReturn.copy();
+								else
+									points = Doc->symNewLine.copy();
+								QWMatrix chma, chma2, chma3, chma4, chma5;
+								if (itemText.at(a+1)->ch == QChar(13))
+									chma3.translate(0, 2);
+								else
+									chma3.translate(0, 8);
+								chma.scale(Zli3.Siz / 100.0, Zli3.Siz / 100.0);
+								chma2.scale(Zli3.scale / 1000.0, Zli3.scalev / 1000.0);
+								chma5.scale(p->zoomFactor(), p->zoomFactor());
+								chma4.translate(Zli3.xco+Zli3.wide, Zli3.yco-((Zli3.Siz / 10.0) * (Zli3.scalev / 1000.0)));
+								points.map(chma * chma2 * chma3 * chma4 * chma5);
+								p->setupTextPolygon(&points);
+								p->setFillMode(1);
+								p->fillPath();
+							}
+						}
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, &Zli3);
 						if (hl->cstyle & 8192)
@@ -1856,6 +1881,31 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								}
 								if (Zli2->Zeich == QChar(9))
 									tabCc++;
+								if ((((zc < LiList.count() - 1) && ((LiList.at(zc+1)->Zeich == QChar(13)) || (LiList.at(zc+1)->Zeich == QChar(28)))) ||
+									((zc == 0) && ((LiList.at(zc)->Zeich == QChar(13)) || (LiList.at(zc)->Zeich == QChar(28))))) && (Doc->guidesSettings.showControls))
+								{
+									if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco+Zli2->wide),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
+									{
+										FPointArray points;
+										if (LiList.at(zc+1)->Zeich == QChar(13))
+											points = Doc->symReturn.copy();
+										else
+											points = Doc->symNewLine.copy();
+										QWMatrix chma, chma2, chma3, chma4, chma5;
+										if (LiList.at(zc+1)->Zeich == QChar(13))
+											chma3.translate(0, 2);
+										else
+											chma3.translate(0, 8);
+										chma.scale(Zli2->Siz / 100.0, Zli2->Siz / 100.0);
+										chma2.scale(Zli2->scale / 1000.0, Zli2->scalev / 1000.0);
+										chma5.scale(p->zoomFactor(), p->zoomFactor());
+										chma4.translate(Zli2->xco+Zli2->wide, Zli2->yco-((Zli2->Siz / 10.0) * (Zli2->scalev / 1000.0)));
+										points.map(chma * chma2 * chma3 * chma4 * chma5);
+										p->setupTextPolygon(&points);
+										p->setFillMode(1);
+										p->fillPath();
+									}
+								}
 								if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 									DrawZeichenS(p, Zli2);
 							}
@@ -2044,6 +2094,31 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 						if (Zli2->Zeich == QChar(9))
 							tabCc++;
+						if ((((zc < LiList.count() - 1) && ((LiList.at(zc+1)->Zeich == QChar(13)) || (LiList.at(zc+1)->Zeich == QChar(28)))) ||
+							((zc == 0) && ((LiList.at(zc)->Zeich == QChar(13)) || (LiList.at(zc)->Zeich == QChar(28))))) && (Doc->guidesSettings.showControls))
+						{
+							if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco+Zli2->wide),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
+							{
+								FPointArray points;
+								if (LiList.at(zc+1)->Zeich == QChar(13))
+									points = Doc->symReturn.copy();
+								else
+									points = Doc->symNewLine.copy();
+								QWMatrix chma, chma2, chma3, chma4, chma5;
+								if (LiList.at(zc+1)->Zeich == QChar(13))
+									chma3.translate(0, 2);
+								else
+									chma3.translate(0, 8);
+								chma.scale(Zli2->Siz / 100.0, Zli2->Siz / 100.0);
+								chma2.scale(Zli2->scale / 1000.0, Zli2->scalev / 1000.0);
+								chma5.scale(p->zoomFactor(), p->zoomFactor());
+								chma4.translate(Zli2->xco+Zli2->wide, Zli2->yco-((Zli2->Siz / 10.0) * (Zli2->scalev / 1000.0)));
+								points.map(chma * chma2 * chma3 * chma4 * chma5);
+								p->setupTextPolygon(&points);
+								p->setFillMode(1);
+								p->fillPath();
+							}
+						}
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, Zli2);
 					}
@@ -2707,12 +2782,33 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 
 void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 {
+	double csi = static_cast<double>(hl->Siz) / 100.0;
 	QString ccx = hl->Zeich;
+	if ((Doc->guidesSettings.showControls) && ((ccx == QChar(9)) || (ccx == QChar(29))))
+	{
+		FPointArray points;
+		if (ccx == QChar(9))
+			points = Doc->symTab.copy();
+		else
+			points = Doc->symNonBreak.copy();
+		QWMatrix chma, chma2, chma3, chma4, chma5;
+		if (ccx == QChar(9))
+			chma3.translate(-10, 7);
+		else
+			chma3.translate(0, 7);
+		chma.scale(csi, csi);
+		chma2.scale(hl->scale / 1000.0, hl->scalev / 1000.0);
+		chma5.scale(p->zoomFactor(), p->zoomFactor());
+		chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * (hl->scalev / 1000.0)));
+		points.map(chma * chma2 * chma3 * chma4 * chma5);
+		p->setupTextPolygon(&points);
+		p->setFillMode(1);
+		p->fillPath();
+	}
 	if ((ccx == QChar(13)) || (ccx == QChar(9)) || (ccx == QChar(28)) || (ccx == QChar(27)))
 		return;
 	if (ccx == QChar(29))
 		ccx = " ";
-	double csi = static_cast<double>(hl->Siz) / 100.0;
 	uint chr = ccx[0].unicode();
 	if (hl->ZFo->CharWidth.contains(chr))
 	{

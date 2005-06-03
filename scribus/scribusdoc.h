@@ -268,6 +268,10 @@ public: // Public attributes
 	//Attributes to be applied to frames
 	ObjAttrVector docItemAttributes;
 	ToCSetupVector docToCSetups;
+	FPointArray symReturn;
+	FPointArray symNewLine;
+	FPointArray symTab;
+	FPointArray symNonBreak;
 };
 
 #endif
