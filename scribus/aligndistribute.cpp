@@ -267,7 +267,6 @@ void AlignDistributePalette::init()
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 
 	//Temporarily disable the uncoded actions
-	alignCenterHorToolButton->setEnabled(false);
 	alignRightInToolButton->setEnabled(false);
 	alignRightOutToolButton->setEnabled(false);
 	
@@ -400,6 +399,67 @@ void AlignDistributePalette::alignBottomOut()
 
 void AlignDistributePalette::alignCenterHor()
 {
+	if (currView!=NULL)
+	{
+		double newX = 99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newX = (*alignObjects)[0].x1 + ((*alignObjects)[0].x2-(*alignObjects)[0].x1)/2;
+				loopStart=1;
+				break;
+			case Last:
+				{
+					int objindex=alignObjectsCount-1;
+					newX = (*alignObjects)[objindex].x1 + ((*alignObjects)[objindex].x2-(*alignObjects)[objindex].x1)/2;
+					loopEnd=alignObjectsCount-2;
+				}
+				break;
+			case Page:
+				newX = currDoc->ScratchLeft;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+				}
+				newX += currDoc->pageWidth/2;
+				break;
+			case Margins:
+				newX = currDoc->ScratchLeft;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+				}
+				newX += currDoc->pageMargins.Left;
+				newX += (currDoc->pageWidth - currDoc->pageMargins.Right - currDoc->pageMargins.Left)/2;
+				break;
+			case Selection:
+				double minX=99999.9, maxX=-99999.9;
+				for (uint a = 0; a < alignObjectsCount; ++a)
+				{
+					minX = QMIN((*alignObjects)[a].x1, minX);
+					maxX = QMAX((*alignObjects)[a].x2, maxX);
+				}
+				newX = minX + (maxX-minX)/2;
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newX-(*alignObjects)[i].x1-((*alignObjects)[i].x2-(*alignObjects)[i].x1)/2;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+		}
+		
+		endAlign();
+	}
 }
 
 void AlignDistributePalette::alignLeftIn()
@@ -448,7 +508,7 @@ void AlignDistributePalette::alignLeftIn()
 		}
 		for (uint i = loopStart; i <= loopEnd; ++i)
 		{
-			double diff=newX-(*alignObjects)[i].x1;;
+			double diff=newX-(*alignObjects)[i].x1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
