@@ -65,6 +65,8 @@ public:
 	QRadioButton* AutoLsp;
 	QLabel* CapLabel;
 	QSpinBox* DropLines;
+	QLabel* CapLabel2;
+	MSpinBox* DropDist;
 	QPushButton* Cancel;
 	QPushButton* OkButton;
 	struct ParagraphStyle *werte;

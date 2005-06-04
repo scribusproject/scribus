@@ -1489,6 +1489,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						DropCmode = false;
 						AbsHasDrop = true;
 						maxDY = CurY;
+						CurX += Doc->docParagraphStyles[hl->cab].DropDist;
+						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
 						maxDX = CurX;
 						QPointArray tcli;
 						tcli.resize(4);
@@ -1502,7 +1504,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
 							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
 							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->typographicSetttings.valueBaseGrid)));
-							tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->typographicSetttings.valueBaseGrid)));
+							tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*Doc->typographicSetttings.valueBaseGrid)));
 						}
 						else
 						{
@@ -1510,17 +1512,17 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							{
 								CurY -= Doc->docParagraphStyles[absa].LineSpa * (DropLines-1);
 								tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->docParagraphStyles[absa].LineSpa)));
-								tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->docParagraphStyles[absa].LineSpa)));
+								tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*Doc->docParagraphStyles[absa].LineSpa)));
 							}
 							else
 							{
 								double currasce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[hl->cab].FontSize);
 								CurY -= currasce * (DropLines-1);
 								tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*currasce)));
-								tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*currasce)));
+								tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*currasce)));
 							}
 						}
-						tcli.setPoint(2, QPoint(qRound(hl->xp+wide), qRound(maxDY)));
+						tcli.setPoint(2, QPoint(qRound(maxDX), qRound(maxDY)));
 						tcli.setPoint(3, QPoint(qRound(hl->xp), qRound(maxDY)));
 						cm = QRegion(pf2.xForm(tcli));
 						cl = cl.subtract(cm);

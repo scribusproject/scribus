@@ -40,7 +40,7 @@ struct ScText
 	256 	= Shadowed
 	512 	= Underline Words
 	1024 	= free, not used in the moment
-	2048 	= free, not used in the moment
+	2048 	= Char is a DropCap
 	4096 	= internal use in PageItem (Suppresses spaces when in Block alignment)
 	8192 	= Smart Hyphen visible at line end
 	16384	= Start of Line
@@ -240,6 +240,7 @@ struct ParagraphStyle
 	QValueList<PageItem::TabRecord> TabValues;
 	bool Drop;
 	int DropLin;
+	double DropDist;
 	int FontEffect;
 	QString FColor;
 	int FShade;

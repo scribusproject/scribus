@@ -62,7 +62,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
 					(vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&
 					(vg.LineSpaMode == vg2.LineSpaMode) && (vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (tabEQ)
-					&& (vg.Drop == vg2.Drop) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
+					&& (vg.Drop == vg2.Drop) && (vg.DropDist == vg2.DropDist) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
 					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
 					(vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
 					(vg.txtOutline == vg2.txtOutline) && (vg.txtUnderPos == vg2.txtUnderPos) && (vg.txtUnderWidth == vg2.txtUnderWidth) &&
@@ -222,6 +222,7 @@ void StilFormate::dupFormat()
 	sty.TabValues = TempVorl[sFnumber].TabValues;
 	sty.Drop = TempVorl[sFnumber].Drop;
 	sty.DropLin = TempVorl[sFnumber].DropLin;
+	sty.DropDist = TempVorl[sFnumber].DropDist;
 	sty.FontEffect = TempVorl[sFnumber].FontEffect;
 	sty.FColor = TempVorl[sFnumber].FColor;
 	sty.FShade = TempVorl[sFnumber].FShade;
@@ -261,6 +262,7 @@ void StilFormate::neuesFormat()
 	sty.TabValues.clear();
 	sty.Drop = false;
 	sty.DropLin = 2;
+	sty.DropDist = 0;
 	sty.FontEffect = 0;
 	sty.FColor = Docu->toolSettings.dBrush;
 	sty.FShade = Docu->toolSettings.dShade;

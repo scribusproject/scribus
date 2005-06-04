@@ -98,9 +98,19 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	CapLabel = new QLabel( DropLines, tr("&Lines:"), GroupFont, "CapLabel" );
 	GroupFontLayout->addWidget( CapLabel, 2, 3, Qt::AlignRight );
 	GroupFontLayout->addWidget( DropLines, 2, 4 );
+	DropDist = new MSpinBox( -3000, 3000, GroupFont, 1);
+	DropDist->setSuffix( tr( " pt" ) );
+	DropDist->setValue(vor->DropDist);
+	CapLabel2 = new QLabel( DropLines, tr("Distance from Text:"), GroupFont, "CapLabel2" );
+	GroupFontLayout->addWidget( CapLabel, 2, 3, Qt::AlignRight );
+	GroupFontLayout->addWidget( DropLines, 2, 4 );
+	GroupFontLayout->addWidget( CapLabel2, 3, 3, Qt::AlignRight );
+	GroupFontLayout->addWidget( DropDist, 3, 4 );
 	bool enable = vor->Drop ? true : false;
 	DropLines->setEnabled(enable);
 	CapLabel->setEnabled(enable);
+	DropDist->setEnabled(enable);
+	CapLabel2->setEnabled(enable);
 	TxFill = new QComboBox( true, GroupFont, "TxFill" );
 	TxFill->setEditable(false);
 	FillIcon = new QLabel( TxFill, tr( "F&ill Color:" ), GroupFont, "FillIcon" );
@@ -264,6 +274,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	QToolTip::add( TxStroke, "<qt>" + tr( "Color of text stroke" ) + "</qt>" );
 	QToolTip::add( DropCaps, "<qt>" + tr( "Provides an oversized first letter for a paragraph. Used for stylistic effect" ) + "</qt>" );
 	QToolTip::add( DropLines, "<qt>" + tr( "Determines the overall height, in line numbers, of the Drop Caps" ) );
+	QToolTip::add( DropDist, "<qt>" + tr( "Determines the gap between the DropCaps and the Text" ) );
 	QToolTip::add( BaseGrid, "<qt>" + tr( "Align text to baseline grid" ) + "</qt>" );
 	QToolTip::add( AboveV, "<qt>" + tr( "Spacing above the paragraph" ) + "</qt>" );
 	QToolTip::add( BelowV, "<qt>" + tr( "Spacing below the paragraph" ) + "</qt>" );
@@ -296,6 +307,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(PM2, SIGNAL(clicked()), this, SLOT(updatePreview()));
 	connect(BaseGrid, SIGNAL(stateChanged(int)), this, SLOT(updatePreview()));
 	connect(DropLines, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(DropDist, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(previewCaption, SIGNAL( clicked() ), this, SLOT( togglePreview() ) );
 	connect(BaseGrid, SIGNAL(clicked()), this, SLOT(toggleLsp()));
 	connect(FixedLsp, SIGNAL(clicked()), this, SLOT(toggleLsp()));
@@ -309,11 +321,14 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	{
 		AboveV->setDecimals(10000);
 		BelowV->setDecimals(10000);
+		DropDist->setDecimals(10000);
 	}
 	AboveV->setSuffix(ein);
 	BelowV->setSuffix(ein);
+	DropDist->setSuffix(ein);
 	BelowV->setValue(vor->gapAfter * parentDoc->unitRatio);
 	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio);
+	DropDist->setValue(vor->DropDist * parentDoc->unitRatio);
 	ColorChange();
 	togglePreview();
 }
@@ -368,6 +383,8 @@ void EditStyle::ManageDrops()
 	bool enabled = DropCaps->isChecked() ? true : false;
 	DropLines->setEnabled(enabled);
 	CapLabel->setEnabled(enabled);
+	DropDist->setEnabled(enabled);
+	CapLabel2->setEnabled(enabled);
 	updatePreview();
 }
 
@@ -430,6 +447,7 @@ void EditStyle::Verlassen()
 	werte->FontSize = qRound(SizeC->value() * 10.0);
 	werte->Drop = DropCaps->isChecked();
 	werte->DropLin = DropLines->value();
+	werte->DropDist = DropDist->value() / parentDoc->unitRatio;
 	werte->FColor = TxFill->currentText();
 	werte->FShade = PM2->getValue();
 	werte->SColor = TxStroke->currentText();
@@ -478,6 +496,7 @@ void EditStyle::updatePreview()
 	tmpStyle.FontSize = qRound(SizeC->value() * 10.0);
 	tmpStyle.Drop = DropCaps->isChecked();
 	tmpStyle.DropLin = DropLines->value();
+	tmpStyle.DropDist = DropDist->value() / parentDoc->unitRatio;
 	tmpStyle.FColor = TxFill->currentText();
 	tmpStyle.FShade = PM2->getValue();
 	tmpStyle.SColor = TxStroke->currentText();

@@ -162,6 +162,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject:
 	vg.TabValues.clear();
 	vg.Drop = false;
 	vg.DropLin = 2;
+	vg.DropDist = 0;
 	vg.FontEffect = 0;
 	vg.FColor = toolSettings.dBrush;
 	vg.FShade = toolSettings.dShade;
@@ -497,6 +498,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 					sty.TabValues = ss->docParagraphStyles[xx].TabValues;
 					sty.Drop = ss->docParagraphStyles[xx].Drop;
 					sty.DropLin = ss->docParagraphStyles[xx].DropLin;
+					sty.DropDist = ss->docParagraphStyles[xx].DropDist;
 					sty.FontEffect = ss->docParagraphStyles[xx].FontEffect;
 					sty.FColor = ss->docParagraphStyles[xx].FColor;
 					sty.FShade = ss->docParagraphStyles[xx].FShade;

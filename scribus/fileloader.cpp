@@ -575,6 +575,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
+				vg.DropDist = QStodouble(pg.attribute("DROPDIST","0"));
 				vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
 				vg.FColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
 				vg.FShade = QStoInt(pg.attribute("FSHADE","100"));

@@ -332,6 +332,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	}
 	vg.Drop = pstyle->hasDropCap();
 	vg.DropLin = pstyle->getDropCapHeight();
+	vg.DropDist = 0;
 	vg.FontEffect = font->getEffectsValue();
 	vg.FColor = parseColor(font->getColor());
 	vg.FShade = font->getShade();
@@ -397,6 +398,7 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	}
 	vg.Drop = pstyle->hasDropCap();
 	vg.DropLin = pstyle->getDropCapHeight();
+	vg.DropDist = 0;
 	vg.FontEffect = font->getEffectsValue();
 	vg.FColor = parseColor(font->getColor());
 	vg.FShade = font->getShade();

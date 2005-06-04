@@ -7259,7 +7259,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					(doc->docParagraphStyles[a].gapBefore == dia->TempVorl[b].gapBefore) &&
 					(doc->docParagraphStyles[a].gapAfter == dia->TempVorl[b].gapAfter) &&
 					(doc->docParagraphStyles[a].Font == dia->TempVorl[b].Font) &&
-					(tabEQ) &&
+					(tabEQ) && (doc->docParagraphStyles[a].DropDist == dia->TempVorl[b].DropDist) &&
 					(doc->docParagraphStyles[a].Drop == dia->TempVorl[b].Drop) &&
 					(doc->docParagraphStyles[a].DropLin == dia->TempVorl[b].DropLin) &&
 					(doc->docParagraphStyles[a].FontEffect == dia->TempVorl[b].FontEffect) &&

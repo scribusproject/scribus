@@ -582,6 +582,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	vg->FontSize = qRound(QStodouble(pg->attribute("FONTSIZE","12")) * 10.0);
 	vg->Drop = static_cast<bool>(QStoInt(pg->attribute("DROP","0")));
 	vg->DropLin = QStoInt(pg->attribute("DROPLIN","2"));
+	vg->DropDist = QStodouble(pg->attribute("DROPDIST","0"));
 	vg->FontEffect = QStoInt(pg->attribute("EFFECT","0"));
 	vg->FColor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
 	vg->FShade = QStoInt(pg->attribute("FSHADE", "100"));
@@ -671,6 +672,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
 					(vg->Drop == docParagraphStyles[xx].Drop) &&
 					(vg->DropLin == docParagraphStyles[xx].DropLin) &&
+					(vg->DropDist == docParagraphStyles[xx].DropDist) &&
 					(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
 					(vg->FColor == docParagraphStyles[xx].FColor) &&
 					(vg->FShade == docParagraphStyles[xx].FShade) &&
@@ -737,6 +739,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				(vg->Font == docParagraphStyles[xx].Font) && (tabEQ) &&
 				(vg->Drop == docParagraphStyles[xx].Drop) &&
 				(vg->DropLin == docParagraphStyles[xx].DropLin) &&
+				(vg->DropDist == docParagraphStyles[xx].DropDist) &&
 				(vg->FontEffect == docParagraphStyles[xx].FontEffect) &&
 				(vg->FColor == docParagraphStyles[xx].FColor) &&
 				(vg->FShade == docParagraphStyles[xx].FShade) &&
@@ -1438,6 +1441,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
+				vg.DropDist = QStodouble(pg.attribute("DROPDIST","0"));
 				vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
 				vg.FColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
 				vg.FShade = QStoInt(pg.attribute("FSHADE","100"));
@@ -2258,6 +2262,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				vg.TabValues = doc->docParagraphStyles[item->textAlignment].TabValues;
 				vg.Drop = doc->docParagraphStyles[item->textAlignment].Drop;
 				vg.DropLin = doc->docParagraphStyles[item->textAlignment].DropLin;
+				vg.DropDist = doc->docParagraphStyles[item->textAlignment].DropDist;
 				vg.FontEffect = doc->docParagraphStyles[item->textAlignment].FontEffect;
 				vg.FColor = doc->docParagraphStyles[item->textAlignment].FColor;
 				vg.FShade = doc->docParagraphStyles[item->textAlignment].FShade;
@@ -2292,6 +2297,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 						vg.TabValues = doc->docParagraphStyles[item->itemText.at(tx)->cab].TabValues;
 						vg.Drop = doc->docParagraphStyles[item->itemText.at(tx)->cab].Drop;
 						vg.DropLin = doc->docParagraphStyles[item->itemText.at(tx)->cab].DropLin;
+						vg.DropDist = doc->docParagraphStyles[item->itemText.at(tx)->cab].DropDist;
 						vg.FontEffect = doc->docParagraphStyles[item->itemText.at(tx)->cab].FontEffect;
 						vg.FColor = doc->docParagraphStyles[item->itemText.at(tx)->cab].FColor;
 						vg.FShade = doc->docParagraphStyles[item->itemText.at(tx)->cab].FShade;
@@ -2330,6 +2336,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			fo.setAttribute("FONTSIZE",UsedStyles[actSt].FontSize / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(UsedStyles[actSt].Drop));
 			fo.setAttribute("DROPLIN", UsedStyles[actSt].DropLin);
+			fo.setAttribute("DROPDIST", UsedStyles[actSt].DropDist);
 			fo.setAttribute("EFFECT", UsedStyles[actSt].FontEffect);
 			if (UsedStyles[actSt].TabValues.count() != 0)
 			{
@@ -3195,6 +3202,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			fo.setAttribute("FONTSIZE",doc->docParagraphStyles[ff].FontSize / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(doc->docParagraphStyles[ff].Drop));
 			fo.setAttribute("DROPLIN", doc->docParagraphStyles[ff].DropLin);
+			fo.setAttribute("DROPDIST", doc->docParagraphStyles[ff].DropDist);
 			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].FontEffect);
 			if (doc->docParagraphStyles[ff].TabValues.count() != 0)
 			{
