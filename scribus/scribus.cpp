@@ -1577,7 +1577,14 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 	bool retVal;
 	if ( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *k = (QKeyEvent *)e;
-		int keyMod;
+		int keyMod=0;
+		if (k->state() & ShiftButton)
+			keyMod |= SHIFT;
+		if (k->state() & ControlButton)
+			keyMod |= CTRL;
+		if (k->state() & AltButton)
+			keyMod |= ALT;
+			/*
 		switch (k->state())
 		{
 			case ShiftButton:
@@ -1592,9 +1599,10 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 			default:
 				keyMod = 0;
 				break;
-		}
+		}*/
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 		retVal=true;
+		//Palette actions
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
 			scrActions["specialToggleAllPalettes"]->activate();
 		else
@@ -1625,6 +1633,14 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 		if (currKeySeq == scrActions["toolsAlignDistribute"]->accel())
 			scrActions["toolsAlignDistribute"]->toggle();
 		else
+		//Undo actions
+		if (currKeySeq == scrActions["editUndoAction"]->accel() && scrActions["editUndoAction"]->isEnabled())
+			scrActions["editUndoAction"]->activate();
+		else
+		if (currKeySeq == scrActions["editRedoAction"]->accel() && scrActions["editRedoAction"]->isEnabled())
+			scrActions["editRedoAction"]->activate();
+		else
+		//Other actions
 		if (currKeySeq == scrActions["fileQuit"]->accel())
 			scrActions["fileQuit"]->activate();
 		else

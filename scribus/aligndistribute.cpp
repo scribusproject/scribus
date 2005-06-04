@@ -267,15 +267,6 @@ void AlignDistributePalette::init()
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 
 	//Temporarily disable the uncoded actions
-	alignRightInToolButton->setEnabled(false);
-	alignRightOutToolButton->setEnabled(false);
-	
-	alignTopOutToolButton->setEnabled(false);
-	alignTopInToolButton->setEnabled(false);
-	alignCenterVerToolButton->setEnabled(false);
-	alignBottomInToolButton->setEnabled(false);
-	alignBottomOutToolButton->setEnabled(false);
-	
 	distributeLeftToolButton->setEnabled(false);
 	distributeCenterHToolButton->setEnabled(false);
 	distributeRightToolButton->setEnabled(false);
@@ -325,6 +316,7 @@ void AlignDistributePalette::endAlign()
 	undoManager->commit(); // commit and send the action to the UndoManager
 	currView->updateContents();
 }
+
 
 void AlignDistributePalette::alignLeftOut()
 {
@@ -376,26 +368,67 @@ void AlignDistributePalette::alignLeftOut()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
+				for (uint i = loopStart; i <= loopEnd; ++i)
+
+		endAlign();
+	}
+}
+
+void AlignDistributePalette::alignLeftIn()
+{
+	if (currView!=NULL)
+	{
+		double newX = 99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newX = (*alignObjects)[0].x1;
+				loopStart=1;
+				break;
+			case Last:
+				newX = (*alignObjects)[alignObjectsCount-1].x1;
+				loopEnd=alignObjectsCount-2;
+				break;
+			case Page:
+				newX = currDoc->ScratchLeft;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+				}
+				break;
+			case Margins:
+				newX = currDoc->ScratchLeft;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+				}
+				newX += currDoc->pageMargins.Left;
+				break;
+			case Selection:
+				for (uint a = 0; a < alignObjectsCount; ++a)
+					newX = QMIN((*alignObjects)[a].x1, newX);
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newX-(*alignObjects)[i].x1;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+		}
 		
 		endAlign();
 	}
 }
 
-void AlignDistributePalette::alignRightOut()
-{
-}
-
-void AlignDistributePalette::alignBottomIn()
-{
-}
-
-void AlignDistributePalette::alignRightIn()
-{
-}
-
-void AlignDistributePalette::alignBottomOut()
-{
-}
 
 void AlignDistributePalette::alignCenterHor()
 {
@@ -462,22 +495,23 @@ void AlignDistributePalette::alignCenterHor()
 	}
 }
 
-void AlignDistributePalette::alignLeftIn()
+
+void AlignDistributePalette::alignRightIn()
 {
 	if (currView!=NULL)
 	{
-		double newX = 99999.9;
+		double newX = -99999.9;
 		
 		startAlign();
 		uint loopStart=0, loopEnd=alignObjectsCount;
 		switch ( currAlignTo ) 
 		{
 			case First:
-				newX = (*alignObjects)[0].x1;
+				newX = (*alignObjects)[0].x2;
 				loopStart=1;
 				break;
 			case Last:
-				newX = (*alignObjects)[alignObjectsCount-1].x1;
+				newX = (*alignObjects)[alignObjectsCount-1].x2;
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
@@ -489,6 +523,7 @@ void AlignDistributePalette::alignLeftIn()
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
 						newX += currDoc->pageWidth;
 				}
+				newX += currDoc->pageWidth;
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
@@ -499,11 +534,69 @@ void AlignDistributePalette::alignLeftIn()
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
 						newX += currDoc->pageWidth;
 				}
-				newX += currDoc->pageMargins.Left;
+				newX += currDoc->pageWidth;
+				newX -= currDoc->pageMargins.Right;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
-					newX = QMIN((*alignObjects)[a].x1, newX);
+					newX = QMAX((*alignObjects)[a].x2, newX);
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newX-(*alignObjects)[i].x2;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+		}
+		
+		endAlign();
+	}
+}
+
+void AlignDistributePalette::alignRightOut()
+{
+	if (currView!=NULL)
+	{
+		double newX = -99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newX = (*alignObjects)[0].x2;
+				loopStart=1;
+				break;
+			case Last:
+				newX = (*alignObjects)[alignObjectsCount-1].x2;
+				loopEnd=alignObjectsCount-2;
+				break;
+			case Page:
+				newX = currDoc->ScratchLeft;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+				}
+				newX += currDoc->pageWidth;
+				break;
+			case Margins:
+				newX = currDoc->ScratchLeft;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newX += currDoc->pageWidth;
+				}
+				newX += currDoc->pageWidth;
+				newX -= currDoc->pageMargins.Right;
+				break;
+			case Selection:
+				for (uint a = 0; a < alignObjectsCount; ++a)
+					newX = QMAX((*alignObjects)[a].x2, newX);
 				break;
 		}
 		for (uint i = loopStart; i <= loopEnd; ++i)
@@ -517,17 +610,300 @@ void AlignDistributePalette::alignLeftIn()
 	}
 }
 
-void AlignDistributePalette::alignCenterVer()
-{
-}
-
 void AlignDistributePalette::alignTopOut()
 {
+	if (currView!=NULL)
+	{
+		double newY = 99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newY = (*alignObjects)[0].y1;
+				loopStart=1;
+				break;
+			case Last:
+				newY = (*alignObjects)[alignObjectsCount-1].y1;
+				loopEnd=alignObjectsCount-2;
+				break;
+			case Page:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				break;
+			case Margins:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageMargins.Left;
+				break;
+			case Selection:
+				for (uint a = 0; a < alignObjectsCount; ++a)
+					newY = QMIN((*alignObjects)[a].y1, newY);
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newY-(*alignObjects)[i].y2;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+		}
+				for (uint i = loopStart; i <= loopEnd; ++i)
+
+		endAlign();
+	}
 }
 
 void AlignDistributePalette::alignTopIn()
 {
+	if (currView!=NULL)
+	{
+		double newY = 99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newY = (*alignObjects)[0].y1;
+				loopStart=1;
+				break;
+			case Last:
+				newY = (*alignObjects)[alignObjectsCount-1].y1;
+				loopEnd=alignObjectsCount-2;
+				break;
+			case Page:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				break;
+			case Margins:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageMargins.Left;
+				break;
+			case Selection:
+				for (uint a = 0; a < alignObjectsCount; ++a)
+					newY = QMIN((*alignObjects)[a].y1, newY);
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newY-(*alignObjects)[i].y1;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+		}
+		
+		endAlign();
+	}
 }
+
+
+void AlignDistributePalette::alignCenterVer()
+{
+	if (currView!=NULL)
+	{
+		double newY = 99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newY = (*alignObjects)[0].y1 + ((*alignObjects)[0].y2-(*alignObjects)[0].y1)/2;
+				loopStart=1;
+				break;
+			case Last:
+				{
+					int objindex=alignObjectsCount-1;
+					newY = (*alignObjects)[objindex].y1 + ((*alignObjects)[objindex].y2-(*alignObjects)[objindex].y1)/2;
+					loopEnd=alignObjectsCount-2;
+				}
+				break;
+			case Page:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageHeight/2;
+				break;
+			case Margins:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageMargins.Left;
+				newY += (currDoc->pageHeight - currDoc->pageMargins.Right - currDoc->pageMargins.Left)/2;
+				break;
+			case Selection:
+				double minX=99999.9, maxX=-99999.9;
+				for (uint a = 0; a < alignObjectsCount; ++a)
+				{
+					minX = QMIN((*alignObjects)[a].y1, minX);
+					maxX = QMAX((*alignObjects)[a].y2, maxX);
+				}
+				newY = minX + (maxX-minX)/2;
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newY-(*alignObjects)[i].y1-((*alignObjects)[i].y2-(*alignObjects)[i].y1)/2;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+		}
+		
+		endAlign();
+	}
+}
+
+
+void AlignDistributePalette::alignBottomIn()
+{
+	if (currView!=NULL)
+	{
+		double newY = -99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newY = (*alignObjects)[0].y2;
+				loopStart=1;
+				break;
+			case Last:
+				newY = (*alignObjects)[alignObjectsCount-1].y2;
+				loopEnd=alignObjectsCount-2;
+				break;
+			case Page:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageHeight;
+				break;
+			case Margins:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageHeight;
+				newY -= currDoc->pageMargins.Right;
+				break;
+			case Selection:
+				for (uint a = 0; a < alignObjectsCount; ++a)
+					newY = QMAX((*alignObjects)[a].y2, newY);
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newY-(*alignObjects)[i].y2;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+		}
+		
+		endAlign();
+	}
+}
+
+void AlignDistributePalette::alignBottomOut()
+{
+	if (currView!=NULL)
+	{
+		double newY = -99999.9;
+		
+		startAlign();
+		uint loopStart=0, loopEnd=alignObjectsCount;
+		switch ( currAlignTo ) 
+		{
+			case First:
+				newY = (*alignObjects)[0].y2;
+				loopStart=1;
+				break;
+			case Last:
+				newY = (*alignObjects)[alignObjectsCount-1].y2;
+				loopEnd=alignObjectsCount-2;
+				break;
+			case Page:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageHeight;
+				break;
+			case Margins:
+				newY = currDoc->ScratchTop;
+				if (currDoc->PageFP && !currDoc->MasterP)
+				{
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+						newY += currDoc->pageHeight;
+				}
+				newY += currDoc->pageHeight;
+				newY -= currDoc->pageMargins.Right;
+				break;
+			case Selection:
+				for (uint a = 0; a < alignObjectsCount; ++a)
+					newY = QMAX((*alignObjects)[a].y2, newY);
+				break;
+		}
+		for (uint i = loopStart; i <= loopEnd; ++i)
+		{
+			double diff=newY-(*alignObjects)[i].y1;
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+		}
+		
+		endAlign();
+	}
+}
+
+
+
 
 void AlignDistributePalette::distributeDistH()
 {
