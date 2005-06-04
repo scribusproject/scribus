@@ -32,6 +32,8 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
+#include "mspinbox.h"
+#include "units.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -118,13 +120,16 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	distributeGroupBoxLayout->setAlignment( Qt::AlignTop );
 
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4"); 
-	dsitributeLeftSpacer = new QSpacerItem( 35, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout4->addItem( dsitributeLeftSpacer );
+	distributeLeftSpacer = new QSpacerItem( 35, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout4->addItem( distributeLeftSpacer );
 
 	layout1 = new QGridLayout( 0, 1, 1, 0, 6, "layout1"); 
 
 	distributeDistHToolButton = new QToolButton( distributeGroupBox, "distributeDistHToolButton" );
 	layout1->addWidget( distributeDistHToolButton, 0, 3 );
+	
+	distributeDistValueHToolButton = new QToolButton( distributeGroupBox, "distributeDistValueHToolButton" );
+	layout1->addWidget( distributeDistValueHToolButton, 0, 4 );
 
 	distributeRightToolButton = new QToolButton( distributeGroupBox, "distributeRightToolButton" );
 	layout1->addWidget( distributeRightToolButton, 0, 2 );
@@ -137,6 +142,9 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 
 	distributeDistVToolButton = new QToolButton( distributeGroupBox, "distributeDistVToolButton" );
 	layout1->addWidget( distributeDistVToolButton, 1, 3 );
+	
+	distributeDistValueVToolButton = new QToolButton( distributeGroupBox, "distributeDistValueVToolButton" );
+	layout1->addWidget( distributeDistValueVToolButton, 1, 4 );
 
 	distributeLeftToolButton = new QToolButton( distributeGroupBox, "distributeLeftToolButton" );
 	layout1->addWidget( distributeLeftToolButton, 0, 0 );
@@ -151,6 +159,20 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	layout4->addItem( distributeRightSpacer );
 
 	distributeGroupBoxLayout->addLayout( layout4, 0, 0 );
+	
+	distanceLayout = new QHBoxLayout( 0, 0, 6, "distanceLayout"); 
+	distributeDistLeftSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	distanceLayout->addItem( distributeDistLeftSpacer );
+	distributeDistLabel = new QLabel( distributeGroupBox, "distributeDistLabel");
+	distanceLayout->addWidget( distributeDistLabel );
+	distributeDistMSpinBox = new MSpinBox( -1000, 1000, distributeGroupBox, 2);
+	distributeDistMSpinBox->setMinimumSize( QSize( 80, 20 ) );
+	distributeDistMSpinBox->setValue(0);
+	distanceLayout->addWidget( distributeDistMSpinBox );
+	distributeDistRightSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	distanceLayout->addItem( distributeDistRightSpacer);
+	distributeGroupBoxLayout->addLayout( distanceLayout, 1, 0 );
+	
 	AlignDistributePaletteLayout->addWidget( distributeGroupBox );
 	languageChange();
 	resize( QSize(222, 232).expandedTo(minimumSizeHint()) );
@@ -159,6 +181,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
 	init();
+	setView(NULL);
 }
 
 /*
@@ -210,6 +233,8 @@ void AlignDistributePalette::languageChange()
 	distributeGroupBox->setTitle( tr( "Distribute" ) );
 	distributeDistHToolButton->setText( QString::null );
 	QToolTip::add( distributeDistHToolButton, tr( "Make horizontal gaps between objects equal" ) );
+	distributeDistValueHToolButton->setText( QString::null );
+	QToolTip::add( distributeDistValueHToolButton, tr( "Make horizontal gaps between objects equal to the value specified" ) );
 	distributeRightToolButton->setText( QString::null );
 	distributeRightToolButton->setTextLabel( tr( "Distribute right sides equidistantly" ) );
 	distributeBottomToolButton->setText( QString::null );
@@ -218,12 +243,17 @@ void AlignDistributePalette::languageChange()
 	QToolTip::add( distributeCenterHToolButton, tr( "Distribute centers equidistantly horizontally" ) );
 	distributeDistVToolButton->setText( QString::null );
 	QToolTip::add( distributeDistVToolButton, tr( "Make vertical gaps between objects equal" ) );
+	distributeDistValueVToolButton->setText( QString::null );
+	QToolTip::add( distributeDistValueVToolButton, tr( "Make vertical gaps between objects equal to the value specified" ) );
 	distributeLeftToolButton->setText( QString::null );
 	QToolTip::add( distributeLeftToolButton, tr( "Distribute left sides equidistantly" ) );
 	distributeCenterVToolButton->setText( QString::null );
 	QToolTip::add( distributeCenterVToolButton, tr( "Distribute centers equidistantly vertically" ) );
 	distributeTopToolButton->setText( QString::null );
 	QToolTip::add( distributeTopToolButton, tr( "Distribute tops equidistantly" ) );
+	
+	distributeDistLabel->setText( tr( "Distance:" ) );
+	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
 }
 
 void AlignDistributePalette::init()
@@ -246,11 +276,13 @@ void AlignDistributePalette::init()
 	distributeCenterHToolButton->setIconSet(loadIcon("distribute_hcentre.png"));
 	distributeRightToolButton->setIconSet(loadIcon("distribute_right.png"));
 	distributeDistHToolButton->setIconSet(loadIcon("distribute_hdist.png"));
+	distributeDistValueHToolButton->setIconSet(loadIcon("distribute_hdist_val.png"));
 	
 	distributeBottomToolButton->setIconSet(loadIcon("distribute_bottom.png"));
 	distributeCenterVToolButton->setIconSet(loadIcon("distribute_vcentre.png"));
 	distributeTopToolButton->setIconSet(loadIcon("distribute_top.png"));
 	distributeDistVToolButton->setIconSet(loadIcon("distribute_vdist.png"));
+	distributeDistValueVToolButton->setIconSet(loadIcon("distribute_vdist_val.png"));
 	
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
@@ -263,15 +295,34 @@ void AlignDistributePalette::init()
 	connect(alignTopOutToolButton, SIGNAL(clicked()), this, SLOT(alignTopOut()));
 	connect(alignTopInToolButton, SIGNAL(clicked()), this, SLOT(alignTopIn()));
 	connect(distributeDistHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistH()));
+	connect(distributeDistValueHToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValH()));
 	connect(distributeRightToolButton, SIGNAL(clicked()), this, SLOT(distributeRight()));
 	connect(distributeBottomToolButton, SIGNAL(clicked()), this, SLOT(distributeBottom()));
 	connect(distributeCenterHToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterH()));
 	connect(distributeDistVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistV()));
+	connect(distributeDistValueVToolButton, SIGNAL(clicked()), this, SLOT(distributeDistValV()));
 	connect(distributeLeftToolButton, SIGNAL(clicked()), this, SLOT(distributeLeft()));
 	connect(distributeCenterVToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterV()));
 	connect(distributeTopToolButton, SIGNAL(clicked()), this, SLOT(distributeTop()));
 	
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
+	
+	unitRatio=1.0;
+	usingDistance=false;
+}
+
+void AlignDistributePalette::unitChange()
+{
+	if (currDoc!=NULL)
+	{
+		double oldValue=distributeDistMSpinBox->value();
+		double oldRatio=unitRatio;
+		distributeDistMSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->docUnitIndex));
+		distributeDistMSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->docUnitIndex));
+		unitRatio=unitGetRatioFromIndex(currDoc->docUnitIndex);
+		double ratioDivisor =  unitRatio / oldRatio;
+		distributeDistMSpinBox->setValue(oldValue*ratioDivisor);
+	}
 }
 
 void AlignDistributePalette::setView( ScribusView * newView )
@@ -287,6 +338,7 @@ void AlignDistributePalette::setView( ScribusView * newView )
 		alignObjects=NULL;
 		currDoc=NULL;
 	}
+	unitChange();
 }
 
 bool AlignDistributePalette::startAlign()
@@ -1093,27 +1145,32 @@ void AlignDistributePalette::distributeDistH()
 		uint left=X1sorted.begin().data();
 		uint right=X2sorted[X2sorted.keys().back()];
 		double minX=(*alignObjects)[left].x2;
-		double maxX=(*alignObjects)[right].x1;
-		double totalSpace=maxX-minX;
-		double totalWidth=0;
-		uint insideObjectCount=0;
-		for (uint a = 0; a < alignObjectsCount; ++a)
+		double separation;
+		if (!usingDistance)
 		{
-			if (a==left)
-				continue;
-			if (a==right)
-				continue;
-			totalWidth += (*alignObjects)[a].x2-(*alignObjects)[a].x1;
-			++insideObjectCount;
+			double maxX=(*alignObjects)[right].x1;
+			double totalSpace=maxX-minX;
+			double totalWidth=0;
+			uint insideObjectCount=0;
+			for (uint a = 0; a < alignObjectsCount; ++a)
+			{
+				if (a==left)
+					continue;
+				if (a==right)
+					continue;
+				totalWidth += (*alignObjects)[a].x2-(*alignObjects)[a].x1;
+				++insideObjectCount;
+			}
+			separation=(totalSpace-totalWidth)/(insideObjectCount+1);
 		}
-		
-		double separation=(totalSpace-totalWidth)/(insideObjectCount+1);
+		else
+			separation=value2pts(distributeDistMSpinBox->value(), currDoc->docUnitIndex);
 		double currX=minX;
 		for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
 		{
 			if (it.data()==left)
 				continue;
-			if (it.data()==right)
+			if (it.data()==right && !usingDistance)
 				continue;
 			currX+=separation;
 
@@ -1124,6 +1181,13 @@ void AlignDistributePalette::distributeDistH()
 		}
 		endAlign();
 	}
+	usingDistance=false;
+}
+
+void AlignDistributePalette::distributeDistValH()
+{
+	usingDistance=true;
+	distributeDistH();
 }
 
 void AlignDistributePalette::distributeBottom()
@@ -1264,27 +1328,32 @@ void AlignDistributePalette::distributeDistV()
 		uint top=Y1sorted.begin().data();
 		uint bottom=Y2sorted[Y2sorted.keys().back()];
 		double minY=(*alignObjects)[top].y2;
-		double maxY=(*alignObjects)[bottom].y1;
-		double totalSpace=maxY-minY;
-		double totalHeight=0;
-		uint insideObjectCount=0;
-		for (uint a = 0; a < alignObjectsCount; ++a)
+		double separation;
+		if (!usingDistance)
 		{
-			if (a==top)
-				continue;
-			if (a==bottom)
-				continue;
-			totalHeight += (*alignObjects)[a].y2-(*alignObjects)[a].y1;
-			++insideObjectCount;
+			double maxY=(*alignObjects)[bottom].y1;
+			double totalSpace=maxY-minY;
+			double totalHeight=0;
+			uint insideObjectCount=0;
+			for (uint a = 0; a < alignObjectsCount; ++a)
+			{
+				if (a==top)
+					continue;
+				if (a==bottom)
+					continue;
+				totalHeight += (*alignObjects)[a].y2-(*alignObjects)[a].y1;
+				++insideObjectCount;
+			}
+			separation=(totalSpace-totalHeight)/(insideObjectCount+1);
 		}
-		
-		double separation=(totalSpace-totalHeight)/(insideObjectCount+1);
+		else
+			separation=value2pts(distributeDistMSpinBox->value(), currDoc->docUnitIndex);
 		double currY=minY;
 		for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
 		{
 			if (it.data()==top)
 				continue;
-			if (it.data()==bottom)
+			if (it.data()==bottom && !usingDistance)
 				continue;
 			currY+=separation;
 
@@ -1295,6 +1364,13 @@ void AlignDistributePalette::distributeDistV()
 		}
 		endAlign();
 	}
+	usingDistance=false;
+}
+
+void AlignDistributePalette::distributeDistValV()
+{
+	usingDistance=true;
+	distributeDistV();
 }
 
 void AlignDistributePalette::alignToChanged(int newAlignTo)

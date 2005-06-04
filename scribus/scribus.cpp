@@ -1149,7 +1149,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemRaiseToTop"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemLowerToBottom"], "ItemLevel");
-	scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
+	//scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item");
@@ -9002,6 +9002,7 @@ void ScribusApp::slotChangeUnit(int art, bool draw)
 	doc->unitRatio = unitGetRatioFromIndex( doc->docUnitIndex );
 	view->UN->setText( unitGetStrFromIndex( doc->docUnitIndex) );
 	propertiesPalette->UnitChange();
+	alignDistributePalette->unitChange();
 	if (draw)
 		view->DrawNew();
 }

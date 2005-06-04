@@ -31,6 +31,7 @@ class QGroupBox;
 class QLabel;
 class QComboBox;
 class QToolButton;
+class MSpinBox;
 
 class ScribusApp;
 class ScribusDoc;
@@ -46,6 +47,13 @@ public:
 	AlignDistributePalette( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
 	~AlignDistributePalette();
 
+	virtual void setView( ScribusView * newView );
+	void unitChange();
+
+protected:
+	ScribusView *currView;
+	
+	
 	QGroupBox* alignGroupBox;
 	QLabel* alignRelativeToLabel;
 	QComboBox* alignRelativeToCombo;
@@ -61,18 +69,17 @@ public:
 	QToolButton* alignTopInToolButton;
 	QGroupBox* distributeGroupBox;
 	QToolButton* distributeDistHToolButton;
+	QToolButton* distributeDistValueHToolButton;
 	QToolButton* distributeRightToolButton;
 	QToolButton* distributeBottomToolButton;
 	QToolButton* distributeCenterHToolButton;
 	QToolButton* distributeDistVToolButton;
+	QToolButton* distributeDistValueVToolButton;
 	QToolButton* distributeLeftToolButton;
 	QToolButton* distributeCenterVToolButton;
 	QToolButton* distributeTopToolButton;
-
-	virtual void setView( ScribusView * newView );
-
-protected:
-	ScribusView *currView;
+	QLabel* distributeDistLabel;
+	MSpinBox* distributeDistMSpinBox;
 
 	QVBoxLayout* AlignDistributePaletteLayout;
 	QVBoxLayout* alignGroupBoxLayout;
@@ -83,9 +90,12 @@ protected:
 	QGridLayout* layout2;
 	QGridLayout* distributeGroupBoxLayout;
 	QHBoxLayout* layout4;
-	QSpacerItem* dsitributeLeftSpacer;
+	QSpacerItem* distributeLeftSpacer;
 	QSpacerItem* distributeRightSpacer;
 	QGridLayout* layout1;
+	QHBoxLayout* distanceLayout;
+	QSpacerItem* distributeDistLeftSpacer;
+	QSpacerItem* distributeDistRightSpacer;
 
 protected slots:
 	virtual void languageChange();
@@ -101,10 +111,12 @@ protected slots:
 	void alignTopOut();
 	void alignTopIn();
 	void distributeDistH();
+	void distributeDistValH();
 	void distributeRight();
 	void distributeBottom();
 	void distributeCenterH();
 	void distributeDistV();
+	void distributeDistValV();
 	void distributeLeft();
 	void distributeCenterV();
 	void distributeTop();
@@ -121,6 +133,8 @@ private:
 	QValueList<AlignObjs> *alignObjects;
 	uint alignObjectsCount;
 	ScribusDoc *currDoc;
+	double unitRatio;
+	bool usingDistance;
 	
 signals:
 	void documentChanged();
