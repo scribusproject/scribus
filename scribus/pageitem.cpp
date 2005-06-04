@@ -783,49 +783,46 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
 						asce = Zli3.ZFo->numAscent * (Zli3.Siz / 10.0);
-						if ((((a < itemText.count() - 1) && ((itemText.at(a+1)->ch == QChar(13)) || (itemText.at(a+1)->ch == QChar(28)))) ||
-							((hl->cstyle & 16384) && ((itemText.at(a)->ch == QChar(13)) || (itemText.at(a)->ch == QChar(28))))) && (Doc->guidesSettings.showControls))
+						if (((chx == QChar(13)) || (chx == QChar(28))) && (Doc->guidesSettings.showControls))
 						{
 							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							{
 								FPointArray points;
 								QWMatrix chma, chma2, chma4, chma5;
-								if ((hl->cstyle & 16384) && (a != 0) && ((itemText.at(a)->ch == QChar(13)) || (itemText.at(a)->ch == QChar(28))))
+								double ytrans, xtrans;
+								if (chx == QChar(13))
 								{
-									if (itemText.at(a)->ch == QChar(13))
-									{
-										points = Doc->symReturn.copy();
-										chma4.translate(Zli3.xco, itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.8));
-									}
+									points = Doc->symReturn.copy();
+									if (a > 0)
+										ytrans = itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.8);
 									else
-									{
-										points = Doc->symNewLine.copy();
-										chma4.translate(Zli3.xco, itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.4));
-									}
+										ytrans = Zli3.yco-Doc->docParagraphStyles[hl->cab].LineSpa-((Zli3.Siz / 10.0) * 0.8);
 								}
-								else if (!(hl->cstyle & 16384))
+								else
 								{
-									if (itemText.at(a+1)->ch == QChar(13))
-									{
-										points = Doc->symReturn.copy();
-										chma4.translate(Zli3.xco+Zli3.wide, Zli3.yco-((Zli3.Siz / 10.0) * 0.8));
-									}
+									points = Doc->symNewLine.copy();
+									if (a > 0)
+										ytrans = itemText.at(a-1)->yp-((Zli3.Siz / 10.0) * 0.4);
 									else
-									{
-										points = Doc->symNewLine.copy();
-										chma4.translate(Zli3.xco+Zli3.wide, Zli3.yco-((Zli3.Siz / 10.0) * 0.4));
-									}
+										ytrans = Zli3.yco-Doc->docParagraphStyles[hl->cab].LineSpa-((Zli3.Siz / 10.0) * 0.4);
 								}
-								if (points.size() > 3)
+								if (hl->cstyle & 16384)
+									xtrans = Zli3.xco;
+								else
 								{
-									chma.scale(Zli3.Siz / 100.0, Zli3.Siz / 100.0);
-									chma2.scale(Zli3.scale / 1000.0, Zli3.scalev / 1000.0);
-									chma5.scale(p->zoomFactor(), p->zoomFactor());
-									points.map(chma * chma2 * chma4 * chma5);
-									p->setupTextPolygon(&points);
-									p->setFillMode(1);
-									p->fillPath();
+									if (a > 0)
+										xtrans = itemText.at(a-1)->xp+ Cwidth(Doc, itemText.at(a-1)->cfont, itemText.at(a-1)->ch, itemText.at(a-1)->csize);
+									else
+										xtrans = Zli3.xco;
 								}
+								chma4.translate(xtrans, ytrans);
+								chma.scale(Zli3.Siz / 100.0, Zli3.Siz / 100.0);
+								chma2.scale(Zli3.scale / 1000.0, Zli3.scalev / 1000.0);
+								chma5.scale(p->zoomFactor(), p->zoomFactor());
+								points.map(chma * chma2 * chma4 * chma5);
+								p->setupTextPolygon(&points);
+								p->setFillMode(1);
+								p->fillPath();
 							}
 						}
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
@@ -1718,9 +1715,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										}
 										else
 											CurX = ColBound.x();
-										if (hl->ch == QChar(13))
+										if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)))
 										{
-											CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
+											if (hl->ch == QChar(13))
+												CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
 											if (BuPos3 > 0)
 												BuPos3 -= 1;
 											HyphenCount = 0;
@@ -1765,11 +1763,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								}
 								else
 									CurX = ColBound.x();
-								if (hl->ch == QChar(13))
+								if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)))
 								{
-									CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
+									if (hl->ch == QChar(13))
+										CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
 									if (BuPos3 > 0)
 										BuPos3 -= 1;
+									HyphenCount = 0;
 								}
 							}
 						}
@@ -1783,7 +1783,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							{
 								Zli2 = LiList.at(0);
 								double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
-								double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
+								double currasce;
+								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
+									currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
+								else
+									currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
@@ -1821,7 +1825,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						StartOfCol = false;
 						tabDist = ColBound.x();
 						uint tabCc = 0;
-						for (uint zc = 0; zc<BuPos3; ++zc)
+						uint loopC = BuPos3;
+						if ((Doc->guidesSettings.showControls) && (!goNoRoom))
+							loopC++;
+						for (uint zc = 0; zc<loopC; ++zc)
 						{
 							double wide2 = 0;
 							Zli2 = LiList.at(zc);
@@ -1903,51 +1910,50 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								}
 								if (Zli2->Zeich == QChar(9))
 									tabCc++;
-								if ((((zc < LiList.count() - 1) && ((LiList.at(zc+1)->Zeich == QChar(13)) || (LiList.at(zc+1)->Zeich == QChar(28)))) ||
-									((zc == 0) && ((LiList.at(zc)->Zeich == QChar(13)) || (LiList.at(zc)->Zeich == QChar(28))))) && (Doc->guidesSettings.showControls))
+								if (((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28))) && (Doc->guidesSettings.showControls) && (LiList.count() != 0))
 								{
 									if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco+Zli2->wide),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 									{
 										FPointArray points;
 										QWMatrix chma, chma2, chma4, chma5;
-										if ((zc == 0) && (startLin != 0) && ((LiList.at(zc)->Zeich == QChar(13)) || (LiList.at(zc)->Zeich == QChar(28))))
+										double ytrans, xtrans;
+										if (Zli2->Zeich == QChar(13))
 										{
-											if (LiList.at(zc)->Zeich == QChar(13))
-											{
-												points = Doc->symReturn.copy();
-												chma4.translate(Zli2->xco, itemText.at(startLin-1)->yp-((Zli2->Siz / 10.0) * 0.8));
-											}
+											points = Doc->symReturn.copy();
+											if (zc > 0)
+												ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.8);
 											else
-											{
-												points = Doc->symNewLine.copy();
-												chma4.translate(Zli2->xco, itemText.at(startLin-1)->yp-((Zli2->Siz / 10.0) * 0.4));
-											}
+												ytrans = Zli2->yco-Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.8);
 										}
-										else if (zc != 0)
+										else
 										{
-											if (LiList.at(zc+1)->Zeich == QChar(13))
-											{
-												points = Doc->symReturn.copy();
-												chma4.translate(Zli2->xco+Zli2->wide, Zli2->yco-((Zli2->Siz / 10.0) * 0.8));
-											}
+											points = Doc->symNewLine.copy();
+											if (zc > 0)
+												ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.4);
 											else
-											{
-												points = Doc->symNewLine.copy();
-												chma4.translate(Zli2->xco+Zli2->wide, Zli2->yco-((Zli2->Siz / 10.0) * 0.4));
-											}
+												ytrans = Zli2->yco-Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.4);
 										}
-										if (points.size() > 3)
+										if (zc > 0)
+											xtrans =  LiList.at(zc-1)->xco + Cwidth(Doc, LiList.at(zc-1)->ZFo, LiList.at(zc-1)->Zeich, LiList.at(zc-1)->Siz);
+										else
 										{
-											chma.scale(Zli2->Siz / 100.0, Zli2->Siz / 100.0);
-											chma2.scale(Zli2->scale / 1000.0, Zli2->scalev / 1000.0);
-											chma5.scale(p->zoomFactor(), p->zoomFactor());
-											points.map(chma * chma2 * chma4 * chma5);
-											p->setupTextPolygon(&points);
-											p->setFillMode(1);
-											p->fillPath();
+											if (startLin > 0)
+												xtrans = itemText.at(startLin-1)->xp + Cwidth(Doc, itemText.at(startLin-1)->cfont, itemText.at(startLin-1)->ch, itemText.at(startLin-1)->csize);
+											else
+												xtrans = Zli2->xco;
 										}
+										chma4.translate(xtrans, ytrans);
+										chma.scale(Zli2->Siz / 100.0, Zli2->Siz / 100.0);
+										chma2.scale(Zli2->scale / 1000.0, Zli2->scalev / 1000.0);
+										chma5.scale(p->zoomFactor(), p->zoomFactor());
+										points.map(chma * chma2 * chma4 * chma5);
+										p->setupTextPolygon(&points);
+										p->setFillMode(1);
+										p->fillPath();
 									}
 								}
+								if ((Doc->guidesSettings.showControls) && (zc == BuPos3))
+									break;
 								if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 									DrawZeichenS(p, Zli2);
 							}
@@ -2016,7 +2022,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						Zli2 = LiList.at(0);
 						double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
-						double currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
+						double currasce;
+						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
+							currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
+						else
+							currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
 							Zli2 = LiList.at(zc);
@@ -2136,49 +2146,46 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 						if (Zli2->Zeich == QChar(9))
 							tabCc++;
-						if ((((zc < LiList.count() - 1) && ((LiList.at(zc+1)->Zeich == QChar(13)) || (LiList.at(zc+1)->Zeich == QChar(28)))) ||
-							((zc == 0) && ((LiList.at(zc)->Zeich == QChar(13)) || (LiList.at(zc)->Zeich == QChar(28))))) && (Doc->guidesSettings.showControls))
+						if (((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28))) && (Doc->guidesSettings.showControls) && (LiList.count() != 0))
 						{
 							if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco+Zli2->wide),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 							{
 								FPointArray points;
 								QWMatrix chma, chma2, chma4, chma5;
-								if ((zc == 0) && (startLin != 0) && ((LiList.at(zc)->Zeich == QChar(13)) || (LiList.at(zc)->Zeich == QChar(28))))
+								double ytrans, xtrans;
+								if (Zli2->Zeich == QChar(13))
 								{
-									if (LiList.at(zc)->Zeich == QChar(13))
-									{
-										points = Doc->symReturn.copy();
-										chma4.translate(Zli2->xco, itemText.at(startLin-1)->yp-((Zli2->Siz / 10.0) * 0.8));
-									}
+									points = Doc->symReturn.copy();
+									if (zc > 0)
+										ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.8);
 									else
-									{
-										points = Doc->symNewLine.copy();
-										chma4.translate(Zli2->xco, itemText.at(startLin-1)->yp-((Zli2->Siz / 10.0) * 0.4));
-									}
+										ytrans = Zli2->yco-Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.8);
 								}
-								else if (zc != 0)
+								else
 								{
-									if (LiList.at(zc+1)->Zeich == QChar(13))
-									{
-										points = Doc->symReturn.copy();
-										chma4.translate(Zli2->xco+Zli2->wide, Zli2->yco-((Zli2->Siz / 10.0) * 0.8));
-									}
+									points = Doc->symNewLine.copy();
+									if (zc > 0)
+										ytrans = LiList.at(zc-1)->yco-((Zli2->Siz / 10.0) * 0.4);
 									else
-									{
-										points = Doc->symNewLine.copy();
-										chma4.translate(Zli2->xco+Zli2->wide, Zli2->yco-((Zli2->Siz / 10.0) * 0.4));
-									}
+										ytrans = Zli2->yco-Doc->docParagraphStyles[itemText.at(startLin+zc)->cab].LineSpa-((Zli2->Siz / 10.0) * 0.4);
 								}
-								if (points.size() > 3)
+								if (zc > 0)
+									xtrans =  LiList.at(zc-1)->xco + Cwidth(Doc, LiList.at(zc-1)->ZFo, LiList.at(zc-1)->Zeich, LiList.at(zc-1)->Siz);
+								else
 								{
-									chma.scale(Zli2->Siz / 100.0, Zli2->Siz / 100.0);
-									chma2.scale(Zli2->scale / 1000.0, Zli2->scalev / 1000.0);
-									chma5.scale(p->zoomFactor(), p->zoomFactor());
-									points.map(chma * chma2 * chma4 * chma5);
-									p->setupTextPolygon(&points);
-									p->setFillMode(1);
-									p->fillPath();
+									if (startLin > 0)
+										xtrans = itemText.at(startLin-1)->xp + Cwidth(Doc, itemText.at(startLin-1)->cfont, itemText.at(startLin-1)->ch, itemText.at(startLin-1)->csize);
+									else
+										xtrans = Zli2->xco;
 								}
+								chma4.translate(xtrans, ytrans);
+								chma.scale(Zli2->Siz / 100.0, Zli2->Siz / 100.0);
+								chma2.scale(Zli2->scale / 1000.0, Zli2->scalev / 1000.0);
+								chma5.scale(p->zoomFactor(), p->zoomFactor());
+								points.map(chma * chma2 * chma4 * chma5);
+								p->setupTextPolygon(&points);
+								p->setFillMode(1);
+								p->fillPath();
 							}
 						}
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
