@@ -1,11 +1,17 @@
-/****************************************************************************
-** Form implementation generated from reading ui file './aligndistribute.ui'
-**
-** Created: Thu Jun 2 15:19:58 2005
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
+/***************************************************************************
+	begin                : June 2005
+	copyright            : (C) 2005 by Craig Bradney
+	email                : cbradney@zip.com.au
+***************************************************************************/
+
+/***************************************************************************
+*                                                                         *
+*   ScApp program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 
 #include "aligndistribute.h"
 
@@ -29,7 +35,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-//TODO Distribute space functions
+//TODO Distribute with 
 //TODO Handle locked items
 
 /*
@@ -220,7 +226,6 @@ void AlignDistributePalette::languageChange()
 	QToolTip::add( distributeTopToolButton, tr( "Distribute tops equidistantly" ) );
 }
 
-
 void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
@@ -247,7 +252,6 @@ void AlignDistributePalette::init()
 	distributeTopToolButton->setIconSet(loadIcon("distribute_top.png"));
 	distributeDistVToolButton->setIconSet(loadIcon("distribute_vdist.png"));
 	
-	
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
 	connect(alignBottomInToolButton, SIGNAL(clicked()), this, SLOT(alignBottomIn()));
@@ -270,7 +274,6 @@ void AlignDistributePalette::init()
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 }
 
-
 void AlignDistributePalette::setView( ScribusView * newView )
 {
 	currView=newView;
@@ -286,18 +289,38 @@ void AlignDistributePalette::setView( ScribusView * newView )
 	}
 }
 
-void AlignDistributePalette::startAlign()
+bool AlignDistributePalette::startAlign()
 {
 	currView->BuildAObj();
 	alignObjectsCount=alignObjects->count();
 	if (alignObjectsCount==0)
-		return;
+		return false;
+		
+	bool oneLocked=false;
+	for (uint i = 0; i < alignObjectsCount; ++i)
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				if ((*alignObjects)[i].Objects.at(j)->locked())
+					oneLocked=true;
+	if (oneLocked)
+	{
+		int t = QMessageBox::warning(ScApp, tr("Warning"),
+											tr("Some objects are locked."),
+											tr("&Cancel"),
+											tr("&Unlock All"), 0, 0);
+		if (t == 0)
+			return false;
+		for (uint i = 0; i < alignObjectsCount; ++i)
+			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
+				if ((*alignObjects)[i].Objects.at(j)->locked())
+					(*alignObjects)[i].Objects.at(j)->setLocked(false);
+	}
+	
 	QString targetTooltip = Um::ItemsInvolved + "\n";
 	for (uint i = 0; i < currView->SelItem.count(); ++i)
 		targetTooltip += "\t" + currView->SelItem.at(i)->getUName() + "\n";
 		// Make the align action a single action in Action History
 	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute, targetTooltip, Um::IAlignDistribute);
-
+	return true;
 }
 
 void AlignDistributePalette::endAlign()
@@ -315,8 +338,7 @@ void AlignDistributePalette::alignLeftOut()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount;
 		double newX = 99999.9;
@@ -362,8 +384,6 @@ void AlignDistributePalette::alignLeftOut()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
-				for (uint i = loopStart; i <= loopEnd; ++i)
-
 		endAlign();
 	}
 }
@@ -372,8 +392,7 @@ void AlignDistributePalette::alignLeftIn()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount;
 		double newX = 99999.9;
@@ -419,18 +438,15 @@ void AlignDistributePalette::alignLeftIn()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
-		
 		endAlign();
 	}
 }
-
 
 void AlignDistributePalette::alignCenterHor()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount;
 		double newX;
@@ -486,18 +502,15 @@ void AlignDistributePalette::alignCenterHor()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
-		
 		endAlign();
 	}
 }
-
 
 void AlignDistributePalette::alignRightIn()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount;
 		double newX = -99999.9;
@@ -545,7 +558,6 @@ void AlignDistributePalette::alignRightIn()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
-		
 		endAlign();
 	}
 }
@@ -554,8 +566,7 @@ void AlignDistributePalette::alignRightOut()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount;
 		double newX = -99999.9;
@@ -603,7 +614,6 @@ void AlignDistributePalette::alignRightOut()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
-		
 		endAlign();
 	}
 }
@@ -612,8 +622,7 @@ void AlignDistributePalette::alignTopOut()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount, multiplier;
 		double newY = 99999.9;
@@ -669,8 +678,6 @@ void AlignDistributePalette::alignTopOut()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
 		}
-				for (uint i = loopStart; i <= loopEnd; ++i)
-
 		endAlign();
 	}
 }
@@ -679,8 +686,7 @@ void AlignDistributePalette::alignTopIn()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount, multiplier;
 		double newY = 99999.9;
@@ -736,7 +742,6 @@ void AlignDistributePalette::alignTopIn()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
 		}
-		
 		endAlign();
 	}
 }
@@ -746,8 +751,7 @@ void AlignDistributePalette::alignCenterVer()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount, multiplier;
 		double newY;
@@ -813,7 +817,6 @@ void AlignDistributePalette::alignCenterVer()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
 		}
-		
 		endAlign();
 	}
 }
@@ -823,8 +826,7 @@ void AlignDistributePalette::alignBottomIn()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount, multiplier;
 		double newY = -99999.9;
@@ -882,7 +884,6 @@ void AlignDistributePalette::alignBottomIn()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
 		}
-		
 		endAlign();
 	}
 }
@@ -891,8 +892,7 @@ void AlignDistributePalette::alignBottomOut()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		uint loopStart=0, loopEnd=alignObjectsCount, multiplier;
 		double newY = -99999.9;
@@ -950,7 +950,6 @@ void AlignDistributePalette::alignBottomOut()
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
 		}
-		
 		endAlign();
 	}
 }
@@ -960,8 +959,7 @@ void AlignDistributePalette::distributeLeft()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> Xsorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1002,8 +1000,7 @@ void AlignDistributePalette::distributeCenterH()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> Xsorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1044,8 +1041,7 @@ void AlignDistributePalette::distributeRight()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> Xsorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1086,8 +1082,7 @@ void AlignDistributePalette::distributeDistH()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> X1sorted, X2sorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1127,7 +1122,6 @@ void AlignDistributePalette::distributeDistH()
 				(*alignObjects)[it.data()].Objects.at(j)->Xpos+=diff;
 			currX+=(*alignObjects)[it.data()].x2-(*alignObjects)[it.data()].x1;
 		}
-
 		endAlign();
 	}
 }
@@ -1136,8 +1130,7 @@ void AlignDistributePalette::distributeBottom()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> Ysorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1178,8 +1171,7 @@ void AlignDistributePalette::distributeCenterV()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> Ysorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1220,8 +1212,7 @@ void AlignDistributePalette::distributeTop()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> Ysorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1262,8 +1253,7 @@ void AlignDistributePalette::distributeDistV()
 {
 	if (currView!=NULL)
 	{
-		startAlign();
-		if (alignObjectsCount==0)
+		if (!startAlign())
 			return;
 		QMap<double,uint> Y1sorted, Y2sorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1303,7 +1293,6 @@ void AlignDistributePalette::distributeDistV()
 				(*alignObjects)[it.data()].Objects.at(j)->Ypos+=diff;
 			currY+=(*alignObjects)[it.data()].y2-(*alignObjects)[it.data()].y1;
 		}
-
 		endAlign();
 	}
 }

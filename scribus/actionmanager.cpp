@@ -904,7 +904,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsMeasurements"]->setTexts( tr("&Measurements"));
 	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
-	(*scrActions)["toolsAlignDistribute"]->setTexts( tr("Distribute/&Align"));
+	(*scrActions)["toolsAlignDistribute"]->setTexts( tr("&Align and Distribute"));
 	(*scrActions)["toolsToolbarTools"]->setTexts( tr("&Tools"));
 	(*scrActions)["toolsToolbarPDF"]->setTexts( tr("P&DF Tools"));
 

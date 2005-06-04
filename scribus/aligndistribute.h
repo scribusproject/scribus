@@ -1,11 +1,17 @@
-/****************************************************************************
-** Form interface generated from reading ui file './aligndistribute.ui'
-**
-** Created: Thu Jun 2 15:16:17 2005
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
+/***************************************************************************
+	begin                : June 2005
+	copyright            : (C) 2005 by Craig Bradney
+	email                : cbradney@zip.com.au
+***************************************************************************/
+
+/***************************************************************************
+*                                                                         *
+*   ScApp program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 
 #ifndef ALIGNDISTRIBUTEPALETTE_H
 #define ALIGNDISTRIBUTEPALETTE_H
@@ -107,7 +113,7 @@ protected slots:
 
 private:
 	void init();
-	void startAlign();
+	bool startAlign();
 	void endAlign();
 	UndoManager *undoManager;
 	ScribusApp* ScApp;
