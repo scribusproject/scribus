@@ -29,6 +29,9 @@
 
 extern QPixmap loadIcon(QString nam);
 
+//TODO Fix top/bottom align for multiple pages
+//TODO Distribute functions
+
 /*
  *  Constructs a AlignDistributePalette as a child of 'parent', with the
  *  name 'name' and widget flags set to 'f'.
