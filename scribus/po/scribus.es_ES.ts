@@ -12241,7 +12241,7 @@ para lograr los márgenes correctos para la encuadernación.</translation>
     </message>
     <message>
       <source>P&amp;age Palette</source>
-      <translation>Ocultar Paleta de P&amp;ágina</translation>
+      <translation>P&amp;aleta de Página</translation>
     </message>
     <message>
       <source>&amp;Bookmarks</source>
