@@ -193,46 +193,38 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	emit SideBarUp(false);
 	int p, i;
 	getCursorPosition(&p, &i);
-	int KeyMod;
-	switch (k->state())
-	{
-	case ShiftButton:
-		KeyMod = 0x00200000;
-		break;
-	case AltButton:
-		KeyMod = 0x00800000;
-		break;
-	case ControlButton:
-		KeyMod = 0x00400000;
-		break;
-	default:
-		KeyMod = 0;
-		break;
-	}
+	int keyMod=0;
+	if (k->state() & ShiftButton)
+		keyMod |= SHIFT;
+	if (k->state() & ControlButton)
+		keyMod |= CTRL;
+	if (k->state() & AltButton)
+		keyMod |= ALT;
+			
 	QString uc = k->text();
-	
-	if ((k->key() + KeyMod) == ScApp->scrActions["specialPageNumber"]->accel())
+	QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
+	if (currKeySeq == ScApp->scrActions["specialPageNumber"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialPageNumber"]->actionInt())));
 		insert("#");
 		emit SideBarUp(true);
 		return;
 	}
-	if ((k->key() + KeyMod) == ScApp->scrActions["specialNonBreakingSpace"]->accel())
+	if (currKeySeq == ScApp->scrActions["specialNonBreakingSpace"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt())));
 		insert("_");
 		emit SideBarUp(true);
 		return;
 	}
-	if ((k->key() + KeyMod) == ScApp->scrActions["specialFrameBreak"]->accel())
+	if (currKeySeq == ScApp->scrActions["specialFrameBreak"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialFrameBreak"]->actionInt())));
 		insert("|");
 		emit SideBarUp(true);
 		return;
 	}
-	if ((k->key() + KeyMod) == ScApp->scrActions["specialNewLine"]->accel())
+	if (currKeySeq == ScApp->scrActions["specialNewLine"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialNewLine"]->actionInt())));
 		insert("*");

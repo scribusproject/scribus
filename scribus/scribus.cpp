@@ -1584,22 +1584,7 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 			keyMod |= CTRL;
 		if (k->state() & AltButton)
 			keyMod |= ALT;
-			/*
-		switch (k->state())
-		{
-			case ShiftButton:
-				keyMod = SHIFT;
-				break;
-			case AltButton:
-				keyMod = ALT;
-				break;
-			case ControlButton:
-				keyMod = CTRL;
-				break;
-			default:
-				keyMod = 0;
-				break;
-		}*/
+
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 		retVal=true;
 		//Palette actions
