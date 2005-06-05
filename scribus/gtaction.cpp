@@ -342,6 +342,10 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.txtShadowX = 50;
 	vg.txtShadowY = -50;
 	vg.txtOutline = 10;
+	vg.scaleH = 1000;
+	vg.scaleV = 1000;
+	vg.baseOff = 0;
+	vg.kernVal = 0;
 	vg.txtUnderPos = ScApp->doc->typographicSetttings.valueUnderlinePos;
 	vg.txtUnderWidth = ScApp->doc->typographicSetttings.valueUnderlineWidth;
 	vg.txtStrikePos = ScApp->doc->typographicSetttings.valueStrikeThruPos;
@@ -408,6 +412,10 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.txtShadowX = 50;
 	vg.txtShadowY = -50;
 	vg.txtOutline = 10;
+	vg.scaleH = 1000;
+	vg.scaleV = 1000;
+	vg.baseOff = 0;
+	vg.kernVal = 0;
 	vg.txtUnderPos = ScApp->doc->typographicSetttings.valueUnderlinePos;
 	vg.txtUnderWidth = ScApp->doc->typographicSetttings.valueUnderlineWidth;
 	vg.txtStrikePos = ScApp->doc->typographicSetttings.valueStrikeThruPos;

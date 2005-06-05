@@ -176,6 +176,10 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject:
 	vg.txtUnderWidth = typographicSetttings.valueUnderlineWidth;
 	vg.txtStrikePos = typographicSetttings.valueStrikeThruPos;
 	vg.txtStrikeWidth = typographicSetttings.valueStrikeThruPos;
+	vg.scaleH = 1000;
+	vg.scaleV = 1000;
+	vg.baseOff = 0;
+	vg.kernVal = 0;
 	docParagraphStyles.append(vg);
 	vg.Vname = "Center Internal";
 	vg.textAlignment = 1;
@@ -512,6 +516,10 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 					sty.txtUnderWidth = ss->docParagraphStyles[xx].txtUnderWidth;
 					sty.txtStrikePos = ss->docParagraphStyles[xx].txtStrikePos;
 					sty.txtStrikeWidth = ss->docParagraphStyles[xx].txtStrikeWidth;
+					sty.scaleH = ss->docParagraphStyles[xx].scaleH;
+					sty.scaleV = ss->docParagraphStyles[xx].scaleV;
+					sty.baseOff = ss->docParagraphStyles[xx].baseOff;
+					sty.kernVal = ss->docParagraphStyles[xx].kernVal;
 					wrkStyles->append(sty);
 				}
 			}

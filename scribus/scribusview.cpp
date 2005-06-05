@@ -10352,6 +10352,10 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 						nextItem->itemText.at(a)->cunderwidth = Doc->docParagraphStyles[s].txtUnderWidth;
 						nextItem->itemText.at(a)->cstrikepos = Doc->docParagraphStyles[s].txtStrikePos;
 						nextItem->itemText.at(a)->cstrikewidth = Doc->docParagraphStyles[s].txtStrikeWidth;
+						nextItem->itemText.at(a)->cscale = Doc->docParagraphStyles[s].scaleH;
+						nextItem->itemText.at(a)->cscalev = Doc->docParagraphStyles[s].scaleV;
+						nextItem->itemText.at(a)->cbase = Doc->docParagraphStyles[s].baseOff;
+			//			nextItem->itemText.at(a)->cextra = Doc->docParagraphStyles[s].kernVal;
 					}
 				}
 				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
@@ -10371,6 +10375,10 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cunderwidth = nextItem->TxtUnderWidth;
 					nextItem->itemText.at(a)->cstrikepos = nextItem->TxtStrikePos;
 					nextItem->itemText.at(a)->cstrikewidth = nextItem->TxtStrikeWidth;
+					nextItem->itemText.at(a)->cscale = nextItem->TxtScale;
+					nextItem->itemText.at(a)->cscalev = nextItem->TxtScaleV;
+					nextItem->itemText.at(a)->cbase = nextItem->TxtBase;
+		//			nextItem->itemText.at(a)->cextra = nextItem->ExtraV;
 				}
 				nextItem->itemText.at(a)->cab = s;
 				a--;
@@ -10410,6 +10418,10 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 						nextItem->itemText.at(a)->cunderwidth = Doc->docParagraphStyles[s].txtUnderWidth;
 						nextItem->itemText.at(a)->cstrikepos = Doc->docParagraphStyles[s].txtStrikePos;
 						nextItem->itemText.at(a)->cstrikewidth = Doc->docParagraphStyles[s].txtStrikeWidth;
+						nextItem->itemText.at(a)->cscale = Doc->docParagraphStyles[s].scaleH;
+						nextItem->itemText.at(a)->cscalev = Doc->docParagraphStyles[s].scaleV;
+						nextItem->itemText.at(a)->cbase = Doc->docParagraphStyles[s].baseOff;
+			//			nextItem->itemText.at(a)->cextra = Doc->docParagraphStyles[s].kernVal;
 					}
 				}
 				if ((s < 5) && (nextItem->itemText.at(a)->cab > 4))
@@ -10429,6 +10441,10 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cunderwidth = nextItem->TxtUnderWidth;
 					nextItem->itemText.at(a)->cstrikepos = nextItem->TxtStrikePos;
 					nextItem->itemText.at(a)->cstrikewidth = nextItem->TxtStrikeWidth;
+					nextItem->itemText.at(a)->cscale = nextItem->TxtScale;
+					nextItem->itemText.at(a)->cscalev = nextItem->TxtScaleV;
+					nextItem->itemText.at(a)->cbase = nextItem->TxtBase;
+		//			nextItem->itemText.at(a)->cextra = nextItem->ExtraV;
 				}
 				nextItem->itemText.at(a)->cab = s;
 				if ((nextItem->itemText.at(a)->ch == QChar(13)) && (!nextItem->itemText.at(a)->cselect))
@@ -10480,6 +10496,10 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 						currItem->itemText.at(a)->cunderwidth = Doc->docParagraphStyles[s].txtUnderWidth;
 						currItem->itemText.at(a)->cstrikepos = Doc->docParagraphStyles[s].txtStrikePos;
 						currItem->itemText.at(a)->cstrikewidth = Doc->docParagraphStyles[s].txtStrikeWidth;
+						currItem->itemText.at(a)->cscale = Doc->docParagraphStyles[s].scaleH;
+						currItem->itemText.at(a)->cscalev = Doc->docParagraphStyles[s].scaleV;
+						currItem->itemText.at(a)->cbase = Doc->docParagraphStyles[s].baseOff;
+			//			currItem->itemText.at(a)->cextra = Doc->docParagraphStyles[s].kernVal;
 					}
 				}
 				if ((s < 5) && (currItem->itemText.at(a)->cab > 4))
@@ -10499,6 +10519,10 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					currItem->itemText.at(a)->cunderwidth = currItem->TxtUnderWidth;
 					currItem->itemText.at(a)->cstrikepos = currItem->TxtStrikePos;
 					currItem->itemText.at(a)->cstrikewidth = currItem->TxtStrikeWidth;
+					currItem->itemText.at(a)->cscale = currItem->TxtScale;
+					currItem->itemText.at(a)->cscalev = currItem->TxtScaleV;
+					currItem->itemText.at(a)->cbase = currItem->TxtBase;
+		//			currItem->itemText.at(a)->cextra = currItem->ExtraV;
 				}
 				currItem->itemText.at(a)->cab = s;
 			}

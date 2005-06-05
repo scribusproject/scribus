@@ -228,7 +228,7 @@ struct MarginStruct
 struct ParagraphStyle
 {
 	QString Vname;
-	int LineSpaMode;      // 0 = fixed; 1 = Automatic
+	int LineSpaMode;      // 0 = fixed; 1 = Automatic; 2 = Adjust to Baseline Grid
 	double LineSpa;
 	int textAlignment;
 	double Indent;
@@ -254,6 +254,10 @@ struct ParagraphStyle
 	int txtUnderWidth;
 	int txtStrikePos;
 	int txtStrikeWidth;
+	int scaleH;
+	int scaleV;
+	int baseOff;
+	int kernVal;   // currently not used
 };
 
 struct CMSData

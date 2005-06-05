@@ -589,6 +589,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.txtUnderWidth=qRound(QStodouble(pg.attribute("TXTULW", "-0.1")) * 10);
 				vg.txtStrikePos=qRound(QStodouble(pg.attribute("TXTSTP", "-0.1")) * 10);
 				vg.txtStrikeWidth=qRound(QStodouble(pg.attribute("TXTSTW", "-0.1")) * 10);
+				vg.scaleH = qRound(QStodouble(pg.attribute("SCALEH", "100")) * 10);
+				vg.scaleV = qRound(QStodouble(pg.attribute("SCALEV", "100")) * 10);
+				vg.baseOff = qRound(QStodouble(pg.attribute("BASEO", "0")) * 10);
+				vg.kernVal = qRound(QStodouble(pg.attribute("KERN", "0")) * 10);
 				vg.TabValues.clear();
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{

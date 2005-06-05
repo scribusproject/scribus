@@ -66,6 +66,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
 					(vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
 					(vg.txtOutline == vg2.txtOutline) && (vg.txtUnderPos == vg2.txtUnderPos) && (vg.txtUnderWidth == vg2.txtUnderWidth) &&
+					(vg.scaleH == vg2.scaleH) && (vg.scaleV == vg2.scaleV) && (vg.baseOff == vg2.baseOff) && (vg.kernVal == vg2.kernVal) &&
 					(vg.txtStrikePos == vg2.txtStrikePos) && (vg.txtStrikeWidth == vg2.txtStrikeWidth) &&
 					(vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
 				{
@@ -236,6 +237,10 @@ void StilFormate::dupFormat()
 	sty.txtUnderWidth = TempVorl[sFnumber].txtUnderWidth;
 	sty.txtStrikePos = TempVorl[sFnumber].txtStrikePos;
 	sty.txtStrikeWidth = TempVorl[sFnumber].txtStrikeWidth;
+	sty.scaleH = TempVorl[sFnumber].scaleH;
+	sty.scaleV = TempVorl[sFnumber].scaleV;
+	sty.baseOff = TempVorl[sFnumber].baseOff;
+	sty.kernVal = TempVorl[sFnumber].kernVal;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
@@ -276,6 +281,10 @@ void StilFormate::neuesFormat()
 	sty.txtUnderWidth = Docu->typographicSetttings.valueUnderlineWidth;
 	sty.txtStrikePos = Docu->typographicSetttings.valueStrikeThruPos;
 	sty.txtStrikeWidth = Docu->typographicSetttings.valueStrikeThruPos;
+	sty.scaleH = 1000;
+	sty.scaleV = 1000;
+	sty.baseOff = 0;
+	sty.kernVal = 0;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);

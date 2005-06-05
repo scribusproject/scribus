@@ -589,13 +589,17 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	vg->SColor = pg->attribute("SCOLOR", doc->toolSettings.dPen);
 	vg->SShade = QStoInt(pg->attribute("SSHADE", "100"));
 	vg->BaseAdj = static_cast<bool>(QStoInt(pg->attribute("BASE","0")));
-	vg->txtShadowX=qRound(QStodouble(pg->attribute("TXTSHX", "5")) * 10);
-	vg->txtShadowY=qRound(QStodouble(pg->attribute("TXTSHY", "-5")) * 10);
-	vg->txtOutline=qRound(QStodouble(pg->attribute("TXTOUT", "1")) * 10);
-	vg->txtUnderPos=qRound(QStodouble(pg->attribute("TXTULP", "-0.1")) * 10);
-	vg->txtUnderWidth=qRound(QStodouble(pg->attribute("TXTULW", "-0.1")) * 10);
-	vg->txtStrikePos=qRound(QStodouble(pg->attribute("TXTSTP", "-0.1")) * 10);
-	vg->txtStrikeWidth=qRound(QStodouble(pg->attribute("TXTSTW", "-0.1")) * 10);
+	vg->txtShadowX = qRound(QStodouble(pg->attribute("TXTSHX", "5")) * 10);
+	vg->txtShadowY = qRound(QStodouble(pg->attribute("TXTSHY", "-5")) * 10);
+	vg->txtOutline = qRound(QStodouble(pg->attribute("TXTOUT", "1")) * 10);
+	vg->txtUnderPos = qRound(QStodouble(pg->attribute("TXTULP", "-0.1")) * 10);
+	vg->txtUnderWidth = qRound(QStodouble(pg->attribute("TXTULW", "-0.1")) * 10);
+	vg->txtStrikePos = qRound(QStodouble(pg->attribute("TXTSTP", "-0.1")) * 10);
+	vg->txtStrikeWidth = qRound(QStodouble(pg->attribute("TXTSTW", "-0.1")) * 10);
+	vg->scaleH = qRound(QStodouble(pg->attribute("SCALEH", "100")) * 10);
+	vg->scaleV = qRound(QStodouble(pg->attribute("SCALEV", "100")) * 10);
+	vg->baseOff = qRound(QStodouble(pg->attribute("BASEO", "0")) * 10);
+	vg->kernVal = qRound(QStodouble(pg->attribute("KERN", "0")) * 10);
 	vg->TabValues.clear();
 	if ((pg->hasAttribute("NUMTAB")) && (QStoInt(pg->attribute("NUMTAB","0")) != 0))
 	{
@@ -686,6 +690,10 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 					(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
 					(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
 					(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
+					(vg->scaleH == docParagraphStyles[xx].scaleH) &&
+					(vg->scaleV == docParagraphStyles[xx].scaleV) &&
+					(vg->baseOff == docParagraphStyles[xx].baseOff) &&
+					(vg->kernVal == docParagraphStyles[xx].kernVal) &&
 					(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
 				if (fl)
@@ -753,6 +761,10 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				(vg->txtUnderWidth == docParagraphStyles[xx].txtUnderWidth) &&
 				(vg->txtStrikePos == docParagraphStyles[xx].txtStrikePos) &&
 				(vg->txtStrikeWidth == docParagraphStyles[xx].txtStrikeWidth) &&
+				(vg->scaleH == docParagraphStyles[xx].scaleH) &&
+				(vg->scaleV == docParagraphStyles[xx].scaleV) &&
+				(vg->baseOff == docParagraphStyles[xx].baseOff) &&
+				(vg->kernVal == docParagraphStyles[xx].kernVal) &&
 				(vg->FontSize == docParagraphStyles[xx].FontSize))
 			{
 				vg->Vname = docParagraphStyles[xx].Vname;
@@ -1455,6 +1467,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.txtUnderWidth = doc->typographicSetttings.valueUnderlineWidth;
 				vg.txtStrikePos = doc->typographicSetttings.valueStrikeThruPos;
 				vg.txtStrikeWidth = doc->typographicSetttings.valueStrikeThruPos;
+				vg.scaleH = 100;
+				vg.scaleV = 100;
+				vg.baseOff = 0;
+				vg.kernVal = 0;
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");
@@ -2276,6 +2292,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				vg.txtUnderWidth = doc->docParagraphStyles[item->textAlignment].txtUnderWidth;
 				vg.txtStrikePos = doc->docParagraphStyles[item->textAlignment].txtStrikePos;
 				vg.txtStrikeWidth = doc->docParagraphStyles[item->textAlignment].txtStrikeWidth;
+				vg.scaleH = doc->docParagraphStyles[item->textAlignment].scaleH;
+				vg.scaleV = doc->docParagraphStyles[item->textAlignment].scaleV;
+				vg.baseOff = doc->docParagraphStyles[item->textAlignment].baseOff;
+				vg.kernVal = doc->docParagraphStyles[item->textAlignment].kernVal;
 				UsedStyles[item->textAlignment] = vg;
 			}
 			if (((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText)) && (item->itemText.count() != 0))
@@ -2311,6 +2331,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 						vg.txtUnderWidth = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtUnderWidth;
 						vg.txtStrikePos = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtStrikePos;
 						vg.txtStrikeWidth = doc->docParagraphStyles[item->itemText.at(tx)->cab].txtStrikeWidth;
+						vg.scaleH = doc->docParagraphStyles[item->itemText.at(tx)->cab].scaleH;
+						vg.scaleV = doc->docParagraphStyles[item->itemText.at(tx)->cab].scaleV;
+						vg.baseOff = doc->docParagraphStyles[item->itemText.at(tx)->cab].baseOff;
+						vg.kernVal = doc->docParagraphStyles[item->itemText.at(tx)->cab].kernVal;
 						UsedStyles[item->itemText.at(tx)->cab] = vg;
 					}
 				}
@@ -2364,6 +2388,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			fo.setAttribute("TXTULW",UsedStyles[actSt].txtUnderWidth / 10.0);
 			fo.setAttribute("TXTSTP",UsedStyles[actSt].txtStrikePos / 10.0);
 			fo.setAttribute("TXTSTW",UsedStyles[actSt].txtStrikeWidth / 10.0);
+			fo.setAttribute("SCALEH",UsedStyles[actSt].scaleH / 10.0);
+			fo.setAttribute("SCALEV",UsedStyles[actSt].scaleV / 10.0);
+			fo.setAttribute("BASEO",UsedStyles[actSt].baseOff / 10.0);
+			fo.setAttribute("KERN",UsedStyles[actSt].kernVal / 10.0);
 			elem.appendChild(fo);
 		}
 	}
@@ -3230,6 +3258,10 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			fo.setAttribute("TXTULW",doc->docParagraphStyles[ff].txtUnderWidth / 10.0);
 			fo.setAttribute("TXTSTP",doc->docParagraphStyles[ff].txtStrikePos / 10.0);
 			fo.setAttribute("TXTSTW",doc->docParagraphStyles[ff].txtStrikeWidth / 10.0);
+			fo.setAttribute("SCALEH",doc->docParagraphStyles[ff].scaleH / 10.0);
+			fo.setAttribute("SCALEV",doc->docParagraphStyles[ff].scaleV / 10.0);
+			fo.setAttribute("BASEO",doc->docParagraphStyles[ff].baseOff / 10.0);
+			fo.setAttribute("KERN",doc->docParagraphStyles[ff].kernVal / 10.0);
 			dc.appendChild(fo);
 		}
 	}

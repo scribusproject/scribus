@@ -73,7 +73,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
 	layout7->addWidget( pixmapLabel3 );
 	fontHScale = new MSpinBox( 10, 400, GroupFont, 1 );
-	fontHScale->setValue( 100 );
+	fontHScale->setValue( vor->scaleH / 10.0 );
 	fontHScale->setSuffix( tr( " %" ) );
 	layout7->addWidget( fontHScale );
 	pixmapLabel3_2 = new QLabel( "", GroupFont, "pixmapLabel3_2" );
@@ -83,7 +83,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	layout7->addWidget( pixmapLabel3_2 );
 
 	fontVScale = new MSpinBox( 10, 400, GroupFont, 1 );
-	fontVScale->setValue( 100 );
+	fontVScale->setValue( vor->scaleV / 10.0 );
 	fontVScale->setSuffix( tr( " %" ) );
 	layout7->addWidget( fontVScale );
 	GroupFontLayout->addLayout( layout7 );
@@ -199,7 +199,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
 	AbstandVLayout->addWidget( pixmapLabel2, 0, 2 );
 	fontBase = new MSpinBox( -100, 100, AbstandV, 1 );
-	fontBase->setValue( 0 );
+	fontBase->setValue( vor->baseOff / 10.0 );
 	fontBase->setSuffix( tr( " %" ) );
 	AbstandVLayout->addWidget( fontBase, 0, 3 );
 	pixmapLabel3_3 = new QLabel( AbstandV, "pixmapLabel3_3" );
@@ -208,9 +208,11 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
 	AbstandVLayout->addWidget( pixmapLabel3_3, 0, 4 );
 	fontKern = new MSpinBox( -100, 100, AbstandV, 1 );
-	fontKern->setValue( 0 );
+	fontKern->setValue( vor->kernVal / 10.0 );
 	fontKern->setSuffix( tr( " %" ) );
 	AbstandVLayout->addWidget( fontKern, 0, 5 );
+	fontKern->setEnabled(false);
+	pixmapLabel3_3->setEnabled(false);
 
 	TextLabel1_2_2 = new QLabel( "", AbstandV, "TextLabel1_2_2" );
 	TextLabel1_2_2->setPixmap( loadIcon("above.png") );
@@ -512,6 +514,10 @@ void EditStyle::Verlassen()
 	werte->txtStrikeWidth = qRound(EffeS->StrikeVal->LWidth->value() * 10.0);
 	werte->txtUnderPos = qRound(EffeS->UnderlineVal->LPos->value() * 10.0);
 	werte->txtUnderWidth = qRound(EffeS->UnderlineVal->LWidth->value() * 10.0);
+	werte->scaleH = qRound(fontHScale->value() * 10.0);
+	werte->scaleV = qRound(fontVScale->value() * 10.0);
+	werte->baseOff = qRound(fontBase->value() * 10.0);
+	werte->kernVal = qRound(fontKern->value() * 10.0);
 	accept();
 }
 
@@ -565,6 +571,10 @@ void EditStyle::updatePreview()
 	tmpStyle.txtStrikeWidth = qRound(EffeS->StrikeVal->LWidth->value() * 10.0);
 	tmpStyle.txtUnderPos = qRound(EffeS->UnderlineVal->LPos->value() * 10.0);
 	tmpStyle.txtUnderWidth = qRound(EffeS->UnderlineVal->LWidth->value() * 10.0);
+	tmpStyle.scaleH = qRound(fontHScale->value() * 10.0);
+	tmpStyle.scaleV = qRound(fontVScale->value() * 10.0);
+	tmpStyle.baseOff = qRound(fontBase->value() * 10.0);
+	tmpStyle.kernVal = qRound(fontKern->value() * 10.0);
 
 	QFont fo = QFont(FontC->currentText());
 	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
@@ -586,9 +596,9 @@ void EditStyle::updatePreview()
 		hg->cshade = tmpStyle.FShade;
 		hg->cstroke = tmpStyle.SColor;
 		hg->cshade2 = tmpStyle.SShade;
-		hg->cscale = 1000;
-		hg->cscalev = 1000;
-		hg->cbase = 0;
+		hg->cscale = tmpStyle.scaleH;
+		hg->cscalev = tmpStyle.scaleV;
+		hg->cbase = tmpStyle.baseOff;
 		hg->cshadowx = tmpStyle.txtShadowX;
 		hg->cshadowy = tmpStyle.txtShadowY;
 		hg->coutline = tmpStyle.txtOutline;
