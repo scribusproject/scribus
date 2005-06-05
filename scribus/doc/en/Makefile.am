@@ -1,6 +1,6 @@
 SUBDIRS = tutorials images
 
-EXTRA_DIST = about1.html about2.html cms.html codingstandards.html contributions.html cross-platform.html cups.html cygwin.html developers.html docchanges.html doccopyright.html docinfo.html download.html faq1.html faq2.html faq3.html fonts1.html fonts2.html fonts3.html fonts4.html gettexthowto.html gsadv.html gsfont.html gsview.html hyphenator.html importhints2.html importhints.html index.html install1.html install2.html install3.html install4.html install.html install-dpkg.html intro.html javascriptpdf.html keys.html machints1.html machints2.html menu.xml moncal.html parallel-install.html pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_form.html plugin_howto.html prepress.html print1.html print2.html print3.html resources.html screenshots.html scribuscopyright.html scribusfileformat.html scribus-svg.html scripter1.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html scripterapi-pydoc.html scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html toolbox12.html toolbox13.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html toolbox9.html toolbox.html topten.html translation_howto.html wine.html otherinfo.html documentation.html tutorials.html
+EXTRA_DIST = about1.html about2.html cms.html codingstandards.html contributions.html cross-platform.html cups.html cygwin.html developers.html docchanges.html doccopyright.html docinfo.html download.html faq1.html faq2.html faq3.html fonts1.html fonts2.html fonts3.html fonts4.html gettexthowto.html gsadv.html gsfont.html gsview.html hyphenator.html importhints2.html importhints.html index.html install1.html install2.html install3.html install4.html install.html install-dpkg.html intro.html javascriptpdf.html keys.html machints1.html machints2.html menu.xml moncal.html parallel-install.html pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_form.html plugin_howto.html prepress.html print1.html print2.html print3.html resources.html screenshots.html scribuscopyright.html scribusfileformat.html scribus-svg.html scripter1.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html scripterapi-pydoc.html scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html toolbox12.html toolbox13.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html tutorials.html
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
@@ -100,7 +100,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/toolbox.html $(prefix)/share/scribus/doc/en/toolbox.html
 	$(INSTALL_DATA) $(srcdir)/topten.html $(prefix)/share/scribus/doc/en/topten.html
 	$(INSTALL_DATA) $(srcdir)/translation_howto.html $(prefix)/share/scribus/doc/en/translation_howto.html
-	$(INSTALL_DATA) $(srcdir)/wine.html $(prefix)/share/scribus/doc/en/wine.html
 	$(INSTALL_DATA) $(srcdir)/pdf_form.html $(prefix)/share/scribus/doc/en/pdf_form.html
 	$(INSTALL_DATA) $(srcdir)/otherinfo.html $(prefix)/share/scribus/doc/en/otherinfo.html
 	$(INSTALL_DATA) $(srcdir)/documentation.html $(prefix)/share/scribus/doc/en/documentation.html
@@ -202,7 +201,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/toolbox.html
 	-rm -f $(prefix)/share/scribus/doc/en/topten.html
 	-rm -f $(prefix)/share/scribus/doc/en/translation_howto.html
-	-rm -f $(prefix)/share/scribus/doc/en/wine.html
 	-rm -f $(prefix)/share/scribus/doc/en/pdf_form.html
 	-rm -f $(prefix)/share/scribus/doc/en/otherinfo.html
 	-rm -f $(prefix)/share/scribus/doc/en/documentation.html
