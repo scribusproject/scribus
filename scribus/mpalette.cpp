@@ -480,6 +480,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	layout46->addLayout( layout41 );
 
 	layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
+	layout23->setAlignment( Qt::AlignLeft );
 	StrokeIcon = new QLabel( "", page_3, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
@@ -487,24 +488,22 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	TxStroke = new QComboBox( true, page_3, "TxStroke" );
 	TxStroke->setEditable(false);
 	layout23->addWidget( TxStroke );
-	QSpacerItem* spacer2S = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout23->addItem( spacer2S );
-	ShadeTxt1 = new QLabel( "Shade:", page_3, "ShadeTxt" );
+	ShadeTxt1 = new QLabel( "", page_3, "ShadeTxt" );
+	ShadeTxt1->setPixmap(loadIcon("shade.png"));
 	layout23->addWidget( ShadeTxt1 );
 	PM1 = new ShadeButton(page_3);
 	layout23->addWidget( PM1 );
 	layout46->addLayout( layout23 );
 	layout24 = new QHBoxLayout( 0, 0, 5, "layout24");
+	layout24->setAlignment( Qt::AlignLeft );
 	FillIcon = new QLabel( "", page_3, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
-	FillIcon->setScaledContents( false );
 	layout24->addWidget( FillIcon );
 	TxFill = new QComboBox( true, page_3, "TxFill" );
 	TxFill->setEditable(false);
 	layout24->addWidget( TxFill );
-	QSpacerItem* spacer2Sf = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout24->addItem( spacer2Sf );
-	ShadeTxt2 = new QLabel( "Shade:", page_3, "ShadeTxt" );
+	ShadeTxt2 = new QLabel("", page_3, "ShadeTxt" );
+	ShadeTxt2->setPixmap(loadIcon("shade.png"));
 	layout24->addWidget( ShadeTxt2 );
 	PM2 = new ShadeButton(page_3);
 	layout24->addWidget( PM2 );
@@ -3349,8 +3348,6 @@ void Mpalette::languageChange()
 	textFlowsAroundFrame->setTitle(tr("Text &Flows Around Frame"));
 	textFlowUsesBoundingBox->setText(tr("Use &Bounding Box"));
 	Textflow3->setText(tr("&Use Contour Line"));
-	ShadeTxt1->setText(tr( "Shade:" ));
-	ShadeTxt2->setText(tr( "Shade:" ));
 	styleLabel->setText(tr("St&yle:"));
 	langLabel->setText(tr("Lan&guage:"));
 	FreeScale->setText(tr("&Free Scaling"));

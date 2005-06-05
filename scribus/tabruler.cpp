@@ -490,12 +490,16 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	{
 		firstLineData = new MSpinBox( -3000, ww, this, 1);
 		firstLineData->setValue(0);
-		firstLineLabel = new QLabel( firstLineData, tr( "First &Line:"), this, "firstLineLabel" );
+		firstLineLabel = new QLabel( "", this, "firstLineLabel" );
+		firstLineLabel->setText("");
+		firstLineLabel->setPixmap(loadIcon("firstline.png"));
 		layout1->addWidget( firstLineLabel );
 		layout1->addWidget( firstLineData );
 		leftIndentData = new MSpinBox( 0, ww, this, 1 );
 		leftIndentData->setValue(0);
-		leftIndentLabel = new QLabel( leftIndentData, tr( "Left Ind&ent:" ), this, "leftIndentLabel" );
+		leftIndentLabel = new QLabel( "", this, "leftIndentLabel" );
+		leftIndentLabel->setText("");
+		leftIndentLabel->setPixmap(loadIcon("leftindent.png"));
 		layout1->addWidget( leftIndentLabel );
 		layout1->addWidget( leftIndentData );
 	}

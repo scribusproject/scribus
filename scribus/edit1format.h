@@ -34,22 +34,31 @@ public:
 	~EditStyle() {};
 
 	QLabel* TextLabel1;
-	QLabel* TextLabel3;
 	QLabel* TextLabel1_2_2;
 	QLabel* TextLabel1_2_3;
+	QLabel* pixmapLabel3;
+	QLabel* pixmapLabel3_3;
+	QLabel* pixmapLabel2;
+	QLabel* pixmapLabel3_2;
+	QLabel* pixmapLabel3_20;
+	QLabel* pixmapLabel3_20_3;
+	QLabel* pixmapLabel3_19;
 	QLineEdit* Name;
+	MSpinBox* fontHScale;
+	MSpinBox* fontVScale;
 	MSpinBox* LineSpVal;
+	MSpinBox* fontBase;
+	MSpinBox* fontKern;
+	QPopupMenu* lineSpacingPop;
+	QToolButton* linespacingLabel;
 	Tabruler* TabList;
 	MSpinBox* AboveV;
 	MSpinBox* BelowV;
-	QLabel* EffeLabel;
 	StyleSelect* EffeS;
-	QLabel* AligLabel;
 	AlignSelect* AligS;
 	QGroupBox* GroupBox10;
-	QButtonGroup* AbstandV;
+	QGroupBox* AbstandV;
 	QGroupBox* GroupFont;
-	QLabel* TextF1;
 	FontCombo* FontC;
 	MSpinBox* SizeC;
 	QLabel* TextF2;
@@ -59,10 +68,7 @@ public:
 	QLabel* FillIcon;
 	QComboBox* TxFill;
 	ShadeButton *PM2;
-	QCheckBox* DropCaps;
-	QRadioButton* BaseGrid;
-	QRadioButton* FixedLsp;
-	QRadioButton* AutoLsp;
+	QGroupBox* DropCaps;
 	QLabel* CapLabel;
 	QSpinBox* DropLines;
 	QLabel* CapLabel2;
@@ -87,10 +93,9 @@ public:
 	ApplicationPrefs *PrefsData;
 
 private slots:
-	void toggleLsp();
+	void toggleLsp(int id);
 	void Verlassen();
 	void FontChange();
-	void ManageDrops();
 	void ColorChange();
 	/*! \brief Paragraph style preview generator.
 	It takes values from the UI form, creates a temporary style.
@@ -104,11 +109,19 @@ private slots:
 
 protected:
 	QHBoxLayout* Layout17;
+	QHBoxLayout* layout5;
+	QHBoxLayout* layout6;
+	QHBoxLayout* layout7;
+	QVBoxLayout* layout8;
+	QHBoxLayout* layout9;
+	QHBoxLayout* layout9a;
+	QHBoxLayout* layout9b;
 	QVBoxLayout* layoutPreview;
-	QGridLayout* EditStyleLayout;
+	QVBoxLayout* EditStyleLayout;
 	QVBoxLayout* GroupBox10Layout;
 	QGridLayout* AbstandVLayout;
-	QGridLayout* GroupFontLayout;
+	QGridLayout* DropCapsLayout;
+	QVBoxLayout* GroupFontLayout;
 };
 
 #endif // EDITSTYLE_H

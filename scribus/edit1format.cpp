@@ -25,12 +25,10 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AutoVal = au;
 	DocsEin = dEin;
 	PrefsData = Prefs;
-	EditStyleLayout = new QGridLayout( this );
-	EditStyleLayout->setSpacing( 6 );
-	EditStyleLayout->setMargin( 10 );
+	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");
 
 	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
-	EditStyleLayout->addMultiCellWidget( TextLabel1, 0, 0, 0, 1 );
+	EditStyleLayout->addWidget( TextLabel1 );
 
 	Name = new QLineEdit( this, "Name" );
 	Name->setMinimumSize( QSize( 200, 22 ) );
@@ -38,17 +36,16 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	OldName = vor->Vname;
 	IsNew = neu;
 	TextLabel1->setBuddy(Name);
-	EditStyleLayout->addMultiCellWidget( Name, 1, 1, 0, 1 );
+	EditStyleLayout->addWidget( Name );
+
+	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
 
 	GroupFont = new QGroupBox( tr( "Character" ), this, "GroupFont" );
 	GroupFont->setColumnLayout(0, Qt::Vertical );
 	GroupFont->layout()->setSpacing( 5 );
 	GroupFont->layout()->setMargin( 10 );
-	GroupFontLayout = new QGridLayout( GroupFont->layout() );
-	GroupFontLayout->setAlignment( Qt::AlignTop );
-	TextF1 = new QLabel( tr( "&Font:"),  GroupFont, "TextF1" );
-	TextF1->setMinimumSize( QSize( 50, 22 ) );
-	GroupFontLayout->addWidget( TextF1, 0, 0 );
+	GroupFontLayout = new QVBoxLayout( GroupFont->layout() );
+	GroupFontLayout->setAlignment( Qt::AlignLeft );
 	FontC = new FontCombo(GroupFont, Prefs);
 	for (int fc=0; fc<FontC->count(); ++fc)
 	{
@@ -58,17 +55,40 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 			break;
 		}
 	}
-	TextF1->setBuddy(FontC);
-	GroupFontLayout->addMultiCellWidget( FontC, 0, 0, 1, 4 );
+	GroupFontLayout->addWidget( FontC );
+	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
 	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );
 	SizeC->setMinimumSize( QSize( 70, 22 ) );
 	SizeC->setSuffix( tr( " pt" ) );
 	SizeC->setValue(vor->FontSize / 10.0);
-	TextF2 = new QLabel( SizeC, tr("Si&ze:") ,GroupFont, "TextF2" );
-	TextF2->setMinimumSize( QSize( 50, 22 ) );
-	GroupFontLayout->addWidget( TextF2, 1, 0 );
-	GroupFontLayout->addWidget( SizeC, 1, 1 );
+	TextF2 = new QLabel( "" ,GroupFont, "TextF2" );
+	TextF2->setPixmap(loadIcon("Zeichen.xpm"));
+	TextF2->setMinimumSize( QSize( 22, 22 ) );
+	TextF2->setMaximumSize( QSize( 22, 22 ) );
+	layout7->addWidget( TextF2 );
+	layout7->addWidget( SizeC );
+	pixmapLabel3 = new QLabel( "", GroupFont, "pixmapLabel3" );
+	pixmapLabel3->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
+	layout7->addWidget( pixmapLabel3 );
+	fontHScale = new MSpinBox( 10, 400, GroupFont, 1 );
+	fontHScale->setValue( 100 );
+	fontHScale->setSuffix( tr( " %" ) );
+	layout7->addWidget( fontHScale );
+	pixmapLabel3_2 = new QLabel( "", GroupFont, "pixmapLabel3_2" );
+	pixmapLabel3_2->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3_2->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3_2->setPixmap( loadIcon("textscalev.png") );
+	layout7->addWidget( pixmapLabel3_2 );
 
+	fontVScale = new MSpinBox( 10, 400, GroupFont, 1 );
+	fontVScale->setValue( 100 );
+	fontVScale->setSuffix( tr( " %" ) );
+	layout7->addWidget( fontVScale );
+	GroupFontLayout->addLayout( layout7 );
+
+	layout9a = new QHBoxLayout( 0, 0, 0, "layout9");
 	EffeS = new StyleSelect(GroupFont);
 	EffeS->setStyle(vor->FontEffect);
 	EffeS->ShadowVal->Xoffset->setValue(vor->txtShadowX / 10.0);
@@ -78,54 +98,54 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	EffeS->UnderlineVal->LWidth->setValue(vor->txtUnderWidth / 10.0);
 	EffeS->StrikeVal->LPos->setValue(vor->txtStrikePos / 10.0);
 	EffeS->StrikeVal->LWidth->setValue(vor->txtStrikeWidth / 10.0);
-	EffeLabel = new QLabel( tr("Effect:"), GroupFont, "EffeLabel" );
-	GroupFontLayout->addWidget( EffeLabel, 1, 2 );
-	GroupFontLayout->addMultiCellWidget( EffeS, 1, 1, 3, 4, Qt::AlignLeft );
+	layout9a->addWidget( EffeS );
+	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout9a->addItem( spacer1 );
+	GroupFontLayout->addLayout( layout9a, Qt::AlignLeft );
 
+	layout9b = new QHBoxLayout( 0, 0, 0, "layout9");
 	AligS = new AlignSelect(GroupFont);
 	AligS->setStyle(vor->textAlignment);
-	AligLabel = new QLabel( AligS, tr("&Alignment:"), GroupFont, "AligLabel" );
-	GroupFontLayout->addWidget( AligLabel, 2, 0 );
-	GroupFontLayout->addWidget( AligS, 2, 1, Qt::AlignLeft );
+	layout9b->addWidget( AligS );
+	QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout9a->addItem( spacer2 );
+	GroupFontLayout->addLayout( layout9b, Qt::AlignLeft );
 
-	DropCaps = new QCheckBox( tr("&Drop Caps"), GroupFont, "DropCaps" );
-	DropCaps->setChecked(vor->Drop);
-	GroupFontLayout->addWidget( DropCaps, 2, 2 );
-	DropLines = new QSpinBox( GroupFont, "DropLines" );
-	DropLines->setMinValue( 2 );
-	DropLines->setMaxValue( 20 );
-	DropLines->setValue(vor->DropLin);
-	CapLabel = new QLabel( DropLines, tr("&Lines:"), GroupFont, "CapLabel" );
-	GroupFontLayout->addWidget( CapLabel, 2, 3, Qt::AlignRight );
-	GroupFontLayout->addWidget( DropLines, 2, 4 );
-	DropDist = new MSpinBox( -3000, 3000, GroupFont, 1);
-	DropDist->setSuffix( tr( " pt" ) );
-	DropDist->setValue(vor->DropDist);
-	CapLabel2 = new QLabel( DropLines, tr("Distance from Text:"), GroupFont, "CapLabel2" );
-	GroupFontLayout->addWidget( CapLabel, 2, 3, Qt::AlignRight );
-	GroupFontLayout->addWidget( DropLines, 2, 4 );
-	GroupFontLayout->addWidget( CapLabel2, 3, 3, Qt::AlignRight );
-	GroupFontLayout->addWidget( DropDist, 3, 4 );
-	bool enable = vor->Drop ? true : false;
-	DropLines->setEnabled(enable);
-	CapLabel->setEnabled(enable);
-	DropDist->setEnabled(enable);
-	CapLabel2->setEnabled(enable);
+	layout5 = new QHBoxLayout( 0, 0, 5, "layout5");
+	FillIcon = new QLabel( "", GroupFont, "FillIcon" );
+	FillIcon->setPixmap(loadIcon("fill.png"));
+	layout5->addWidget( FillIcon );
 	TxFill = new QComboBox( true, GroupFont, "TxFill" );
 	TxFill->setEditable(false);
-	FillIcon = new QLabel( TxFill, tr( "F&ill Color:" ), GroupFont, "FillIcon" );
-	GroupFontLayout->addWidget( FillIcon, 3, 0 );
-	GroupFontLayout->addWidget( TxFill, 3, 1 );
+	layout5->addWidget( TxFill );
+	pixmapLabel3_20 = new QLabel( GroupFont, "pixmapLabel3_20" );
+	pixmapLabel3_20->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3_20->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3_20->setPixmap( loadIcon("shade.png") );
+	layout5->addWidget( pixmapLabel3_20 );
 	PM2 = new ShadeButton(GroupFont);
-	GroupFontLayout->addWidget( PM2, 3, 2, Qt::AlignLeft );
+	layout5->addWidget( PM2 );
+	QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout5->addItem( spacer3 );
+	GroupFontLayout->addLayout( layout5 );
 
+	layout6 = new QHBoxLayout( 0, 0, 5, "layout6");
+	StrokeIcon = new QLabel( "", GroupFont, "StrokeIcon" );
+	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
+	layout6->addWidget( StrokeIcon );
 	TxStroke = new QComboBox( true, GroupFont, "TxStroke" );
 	TxStroke->setEditable(false);
-	StrokeIcon = new QLabel( TxStroke, tr("St&roke Color:"), GroupFont, "StrokeIcon" );
-	GroupFontLayout->addWidget( StrokeIcon, 4, 0 );
-	GroupFontLayout->addWidget( TxStroke, 4, 1 );
+	layout6->addWidget( TxStroke );
+	pixmapLabel3_19 = new QLabel( "", GroupFont, "pixmapLabel3_19" );
+	pixmapLabel3_19->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3_19->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3_19->setPixmap( loadIcon("shade.png") );
+	layout6->addWidget( pixmapLabel3_19 );
 	PM1 = new ShadeButton(GroupFont);
-	GroupFontLayout->addWidget( PM1, 4, 2, Qt::AlignLeft );
+	layout6->addWidget( PM1 );
+	QSpacerItem* spacer4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout6->addItem( spacer4 );
+	GroupFontLayout->addLayout( layout6 );
 
 	TxFill->clear();
 	TxStroke->clear();
@@ -147,9 +167,10 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	PM2->setValue(vor->FShade);
 	PM1->setValue(vor->SShade);
 
-	EditStyleLayout->addWidget( GroupFont, 2, 0 );
+	layout9->addWidget( GroupFont );
 
-	AbstandV = new QButtonGroup( tr("Vertical Spaces"), this, "AbstandV" );
+	layout8 = new QVBoxLayout( 0, 0, 5, "layout8");
+	AbstandV = new QGroupBox( tr("Distances"), this, "AbstandV" );
 	AbstandV->setColumnLayout(0, Qt::Vertical );
 	AbstandV->layout()->setSpacing( 0 );
 	AbstandV->layout()->setMargin( 0 );
@@ -157,58 +178,97 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AbstandVLayout->setAlignment( Qt::AlignTop );
 	AbstandVLayout->setSpacing( 5 );
 	AbstandVLayout->setMargin( 10 );
-
-	BaseGrid = new QRadioButton( tr("Align to Baseline &Grid"), AbstandV, "BaseGrid" );
-	AbstandVLayout->addMultiCellWidget( BaseGrid, 0, 0, 0, 1 );
-	AutoLsp = new QRadioButton( tr("Automatic Linespacing"), AbstandV, "AutoLsp" );
-	AbstandVLayout->addMultiCellWidget( AutoLsp, 1, 1, 0, 1 );
-	FixedLsp = new QRadioButton( tr("Fixed Linespacing"), AbstandV, "FixedLsp" );
-	AbstandVLayout->addMultiCellWidget( FixedLsp, 2, 2, 0, 1 );
+	lineSpacingPop = new QPopupMenu();
+	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
+	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
+	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
+	linespacingLabel = new QToolButton(AbstandV, "linespacingLabel" );
+	linespacingLabel->setText("");
+	linespacingLabel->setPixmap( loadIcon("linespacing.png") );
+	linespacingLabel->setPopup(lineSpacingPop);
+	linespacingLabel->setPopupDelay(400);
+	linespacingLabel->setAutoRaise(true);
+	AbstandVLayout->addWidget( linespacingLabel, 0, 0 );
 	LineSpVal = new MSpinBox( 1, 300, AbstandV, 1 );
-	LineSpVal->setMinimumSize( QSize( 70, 22 ) );
 	LineSpVal->setSuffix( tr( " pt" ) );
 	LineSpVal->setValue(vor->LineSpa);
-	AbstandVLayout->addWidget( LineSpVal, 3, 1 );
+	AbstandVLayout->addWidget( LineSpVal, 0, 1 );
+	pixmapLabel2 = new QLabel( AbstandV, "pixmapLabel2" );
+	pixmapLabel2->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel2->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
+	AbstandVLayout->addWidget( pixmapLabel2, 0, 2 );
+	fontBase = new MSpinBox( -100, 100, AbstandV, 1 );
+	fontBase->setValue( 0 );
+	fontBase->setSuffix( tr( " %" ) );
+	AbstandVLayout->addWidget( fontBase, 0, 3 );
+	pixmapLabel3_3 = new QLabel( AbstandV, "pixmapLabel3_3" );
+	pixmapLabel3_3->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3_3->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
+	AbstandVLayout->addWidget( pixmapLabel3_3, 0, 4 );
+	fontKern = new MSpinBox( -100, 100, AbstandV, 1 );
+	fontKern->setValue( 0 );
+	fontKern->setSuffix( tr( " %" ) );
+	AbstandVLayout->addWidget( fontKern, 0, 5 );
 
+	TextLabel1_2_2 = new QLabel( "", AbstandV, "TextLabel1_2_2" );
+	TextLabel1_2_2->setPixmap( loadIcon("above.png") );
+	AbstandVLayout->addWidget( TextLabel1_2_2, 1, 0 );
 	AboveV = new MSpinBox( 0, 300, AbstandV, 1 );
-	AboveV->setMinimumSize( QSize( 70, 22 ) );
-	AbstandVLayout->addWidget( AboveV, 4, 1 );
+	AboveV->setSuffix( tr( " pt" ) );
+	AbstandVLayout->addWidget( AboveV, 1, 1 );
 
+	TextLabel1_2_3 = new QLabel( "", AbstandV, "TextLabel1_2_3" );
+	TextLabel1_2_2->setPixmap( loadIcon("below.png") );
+	AbstandVLayout->addWidget( TextLabel1_2_3, 1, 2 );
 	BelowV = new MSpinBox( 0, 300, AbstandV, 1 );
-	BelowV->setMinimumSize( QSize( 70, 22 ) );
-	AbstandVLayout->addWidget( BelowV, 5, 1 );
+	BelowV->setSuffix( tr( " pt" ) );
+	AbstandVLayout->addWidget( BelowV, 1, 3 );
+	layout8->addWidget( AbstandV );
 
-	TextLabel3 = new QLabel( LineSpVal, tr("Line &Spacing:"), AbstandV, "TextLabel3" );
-	TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                                        TextLabel3->sizePolicy().hasHeightForWidth() ) );
-	TextLabel3->setMinimumSize( QSize( 90, 22 ) );
-	AbstandVLayout->addWidget( TextLabel3, 3, 0 );
-	TextLabel1_2_2 = new QLabel( AboveV, tr("Abo&ve:"), AbstandV, "TextLabel1_2_2" );
-	TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                               TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
-	TextLabel1_2_2->setMinimumSize( QSize( 90, 22 ) );
-	AbstandVLayout->addWidget( TextLabel1_2_2, 4, 0 );
-	TextLabel1_2_3 = new QLabel( BelowV, tr("&Below:"), AbstandV, "TextLabel1_2_3" );
-	TextLabel1_2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                               TextLabel1_2_3->sizePolicy().hasHeightForWidth() ) );
-	TextLabel1_2_3->setMinimumSize( QSize( 90, 22 ) );
-	AbstandVLayout->addWidget( TextLabel1_2_3, 5, 0 );
+	DropCaps = new QGroupBox( tr("Drop Caps"),  this, "groupCaps" );
+	DropCaps->setCheckable( true );
+	DropCaps->setColumnLayout(0, Qt::Vertical );
+	DropCaps->layout()->setSpacing( 5 );
+	DropCaps->layout()->setMargin( 10 );
+	DropCapsLayout = new QGridLayout( DropCaps->layout() );
+	DropCapsLayout->setAlignment( Qt::AlignTop );
+	DropLines = new QSpinBox( DropCaps, "DropLines" );
+	DropLines->setMinValue( 2 );
+	DropLines->setMaxValue( 20 );
+	DropLines->setValue(vor->DropLin);
+	CapLabel = new QLabel( DropLines, tr("&Lines:"), DropCaps, "CapLabel" );
+	DropCapsLayout->addWidget( CapLabel, 0, 0 );
+	DropCapsLayout->addWidget( DropLines, 0, 1 );
+	DropDist = new MSpinBox( -3000, 3000, DropCaps, 1);
+	DropDist->setSuffix( tr( " pt" ) );
+	DropDist->setValue(vor->DropDist);
+	CapLabel2 = new QLabel( DropLines, tr("Distance from Text:"), DropCaps, "CapLabel2" );
+	DropCapsLayout->addWidget( CapLabel2, 1, 0 );
+	DropCapsLayout->addWidget( DropDist, 1, 1 );
+	DropCaps->setChecked(vor->Drop);
+	layout8->addWidget( DropCaps );
+	layout9->addLayout( layout8 );
+	EditStyleLayout->addLayout( layout9 );
+
+	for (uint al = 0; al < lineSpacingPop->count(); ++al)
+	{
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
+	}
 	if (vor->BaseAdj)
 	{
-		BaseGrid->setChecked(vor->BaseAdj);
 		LineSpVal->setEnabled(false);
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(2), true);
 	}
 	else
 	{
-		if (vor->LineSpaMode == 0)
-			FixedLsp->setChecked(true);
-		else
-		{
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(vor->LineSpaMode), true);
+		if (vor->LineSpaMode > 0)
 			LineSpVal->setEnabled(false);
-			AutoLsp->setChecked(true);
-		}
+		else
+			LineSpVal->setEnabled(true);
 	}
-	EditStyleLayout->addWidget( AbstandV, 2, 1 );
 
 	GroupBox10 = new QGroupBox( tr("Tabulators and Indentation"), this, "GroupBox10" );
 	GroupBox10->setColumnLayout(0, Qt::Vertical );
@@ -224,8 +284,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	TabList->setFirstLineData(vor->First);
 	TabList->setFirstLine();
 	GroupBox10Layout->addWidget( TabList );
-
-	EditStyleLayout->addMultiCellWidget( GroupBox10, 3, 3, 0, 1 );
+	EditStyleLayout->addWidget( GroupBox10 );
 
 	// Label for holding "style preview" bitmap 12/30/2004 petr vanek
 	layoutPreview = new QVBoxLayout;
@@ -255,15 +314,15 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	Layout17 = new QHBoxLayout;
 	Layout17->setSpacing( 6 );
 	Layout17->setMargin( 0 );
-	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout17->addItem( spacer2 );
+	QSpacerItem* spacer2a = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout17->addItem( spacer2a );
 	OkButton = new QPushButton( tr( "&OK" ), this, "OkButton" );
 	Layout17->addWidget( OkButton );
 	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	OkButton->setDefault( true );
 	Layout17->addWidget( Cancel );
 	layoutPreview->addLayout(Layout17);
-	EditStyleLayout->addMultiCellLayout( layoutPreview, 4, 4, 0, 1 );
+	EditStyleLayout->addLayout( layoutPreview );
 	werte = vor;
 	allV = v;
 	// tooltips
@@ -272,10 +331,10 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	QToolTip::add( SizeC, "<qt>" + tr( "Font Size" ) + "</qt>" );
 	QToolTip::add( TxFill, "<qt>" + tr( "Color of text fill" ) + "</qt>" );
 	QToolTip::add( TxStroke, "<qt>" + tr( "Color of text stroke" ) + "</qt>" );
-	QToolTip::add( DropCaps, "<qt>" + tr( "Provides an oversized first letter for a paragraph. Used for stylistic effect" ) + "</qt>" );
+	//	QToolTip::add( DropCaps, "<qt>" + tr( "Provides an oversized first letter for a paragraph. Used for stylistic effect" ) + "</qt>" );
 	QToolTip::add( DropLines, "<qt>" + tr( "Determines the overall height, in line numbers, of the Drop Caps" ) );
 	QToolTip::add( DropDist, "<qt>" + tr( "Determines the gap between the DropCaps and the Text" ) );
-	QToolTip::add( BaseGrid, "<qt>" + tr( "Align text to baseline grid" ) + "</qt>" );
+	//	QToolTip::add( BaseGrid, "<qt>" + tr( "Align text to baseline grid" ) + "</qt>" );
 	QToolTip::add( AboveV, "<qt>" + tr( "Spacing above the paragraph" ) + "</qt>" );
 	QToolTip::add( BelowV, "<qt>" + tr( "Spacing below the paragraph" ) + "</qt>" );
 	QToolTip::add( LineSpVal, "<qt>" + tr( "Line Spacing" ) + "</qt>" );
@@ -284,7 +343,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
-	connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
+	connect( DropCaps, SIGNAL( toggled(bool) ), this, SLOT( updatePreview() ) );
 	connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
 	connect(EffeS, SIGNAL(State(int)), this, SLOT(ColorChange()));
 	connect(EffeS->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
@@ -305,13 +364,10 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(PM1, SIGNAL(clicked()), this, SLOT(updatePreview()));
 	connect(TxFill, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
 	connect(PM2, SIGNAL(clicked()), this, SLOT(updatePreview()));
-	connect(BaseGrid, SIGNAL(stateChanged(int)), this, SLOT(updatePreview()));
 	connect(DropLines, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(DropDist, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(previewCaption, SIGNAL( clicked() ), this, SLOT( togglePreview() ) );
-	connect(BaseGrid, SIGNAL(clicked()), this, SLOT(toggleLsp()));
-	connect(FixedLsp, SIGNAL(clicked()), this, SLOT(toggleLsp()));
-	connect(AutoLsp, SIGNAL(clicked()), this, SLOT(toggleLsp()));
+	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(toggleLsp(int )));
 
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
@@ -333,17 +389,18 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	togglePreview();
 }
 
-void EditStyle::toggleLsp()
+void EditStyle::toggleLsp(int id)
 {
-	if (BaseGrid->isChecked())
+	for (uint al = 0; al < lineSpacingPop->count(); ++al)
+	{
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
+	}
+	lineSpacingPop->setItemChecked(id, true);
+	if (lineSpacingPop->indexOf(id) > 0)
 		LineSpVal->setEnabled(false);
 	else
-	{
-		if (FixedLsp->isChecked())
-			LineSpVal->setEnabled(true);
-		else
-			LineSpVal->setEnabled(false);
-	}
+		LineSpVal->setEnabled(true);
+	updatePreview();
 }
 
 void EditStyle::togglePreview()
@@ -375,16 +432,6 @@ void EditStyle::ColorChange()
 	StrokeIcon->setEnabled(enabled);
 	PM1->setEnabled(enabled);
 	TxStroke->setEnabled(enabled);
-	updatePreview();
-}
-
-void EditStyle::ManageDrops()
-{
-	bool enabled = DropCaps->isChecked() ? true : false;
-	DropLines->setEnabled(enabled);
-	CapLabel->setEnabled(enabled);
-	DropDist->setEnabled(enabled);
-	CapLabel2->setEnabled(enabled);
 	updatePreview();
 }
 
@@ -430,12 +477,17 @@ void EditStyle::Verlassen()
 	}
 	werte->FontEffect = EffeS->getStyle();
 	werte->textAlignment = AligS->getStyle();
-	if (!BaseGrid->isChecked())
+	for (uint al = 0; al < lineSpacingPop->count(); ++al)
 	{
-		if (FixedLsp->isChecked())
-			werte->LineSpaMode = 0;
-		else
-			werte->LineSpaMode = 1;
+		if (lineSpacingPop->isItemChecked(lineSpacingPop->idAt(al)))
+		{
+			werte->LineSpaMode = al;
+			if (al == 2)
+				werte->BaseAdj = true;
+			else
+				werte->BaseAdj = false;
+			break;
+		}
 	}
 	werte->LineSpa = LineSpVal->value();
 	werte->Indent = QMAX(TabList->getLeftIndent(), 0.0);
@@ -452,7 +504,6 @@ void EditStyle::Verlassen()
 	werte->FShade = PM2->getValue();
 	werte->SColor = TxStroke->currentText();
 	werte->SShade = PM1->getValue();
-	werte->BaseAdj = BaseGrid->isChecked();
 	werte->TabValues = TabList->getTabVals();
 	werte->txtShadowX = qRound(EffeS->ShadowVal->Xoffset->value() * 10.0);
 	werte->txtShadowY = qRound(EffeS->ShadowVal->Yoffset->value() * 10.0);
@@ -480,12 +531,17 @@ void EditStyle::updatePreview()
 	tmpStyle.Vname = Name->text() + " (preview temporary)";
 	tmpStyle.FontEffect = EffeS->getStyle();
 	tmpStyle.textAlignment = AligS->getStyle();
-	if (!BaseGrid->isChecked())
+	for (uint al = 0; al < lineSpacingPop->count(); ++al)
 	{
-		if (FixedLsp->isChecked())
-			tmpStyle.LineSpaMode = 0;
-		else
-			tmpStyle.LineSpaMode = 1;
+		if (lineSpacingPop->isItemChecked(lineSpacingPop->idAt(al)))
+		{
+			tmpStyle.LineSpaMode = al;
+			if (al == 2)
+				tmpStyle.BaseAdj = true;
+			else
+				tmpStyle.BaseAdj = false;
+			break;
+		}
 	}
 	tmpStyle.LineSpa = LineSpVal->value();
 	tmpStyle.Indent = TabList->getLeftIndent();
@@ -501,7 +557,6 @@ void EditStyle::updatePreview()
 	tmpStyle.FShade = PM2->getValue();
 	tmpStyle.SColor = TxStroke->currentText();
 	tmpStyle.SShade = PM1->getValue();
-	tmpStyle.BaseAdj = BaseGrid->isChecked();
 	tmpStyle.TabValues = TabList->getTabVals();
 	tmpStyle.txtShadowX = qRound(EffeS->ShadowVal->Xoffset->value() * 10.0);
 	tmpStyle.txtShadowY = qRound(EffeS->ShadowVal->Yoffset->value() * 10.0);
