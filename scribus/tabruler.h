@@ -61,6 +61,9 @@ protected:
 	virtual void mouseReleaseEvent(QMouseEvent *);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void leaveEvent(QEvent*);
+	
+private:
+	double iter, iter2;
 };
 
 class Tabruler : public QWidget

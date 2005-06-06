@@ -1407,8 +1407,8 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 
 void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 {
-	double savScale = view->Scale;
-	view->Scale = 1.0;
+	double savScale = view->getScale();
+	view->setScale(1.0);
 	currentDoc->RePos = true;
 	QPixmap pgPix(10, 10);
 	QRect rd = QRect(0,0,9,9);
@@ -1426,7 +1426,7 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 			currItem->DrawObj(painter, rd);
 	}
 	currentDoc->RePos = false;
-	view->Scale = savScale;
+	view->setScale(savScale);
 	delete painter;
 }
 

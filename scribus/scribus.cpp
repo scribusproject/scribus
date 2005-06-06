@@ -2782,7 +2782,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	if (view!=NULL)
 		actionManager->disconnectNewViewActions();
 	view = new ScribusView(w, doc, &Prefs);
-	view->Scale = 1.0*Prefs.DisScale;
+	view->setScale(1.0*Prefs.DisScale);
 	actionManager->connectNewViewActions(view);
 	alignDistributePalette->setView(view);
 	w->setView(view);
@@ -2883,7 +2883,7 @@ void ScribusApp::newView()
 {
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc, &Prefs);
-	view->Scale = 1.0*Prefs.DisScale;
+	view->setScale(1.0*Prefs.DisScale);
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
@@ -4428,7 +4428,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		FProg->reset();
 		ScribusWin* w = new ScribusWin(wsp, doc);
 		view = new ScribusView(w, doc, &Prefs);
-		view->Scale = 1.0*Prefs.DisScale;
+		view->setScale(1.0*Prefs.DisScale);
 		w->setView(view);
 		alignDistributePalette->setView(view);
 		ActWin = w;
@@ -6015,7 +6015,7 @@ void ScribusApp::slotZoom(double zoomFactor)
 	else
 		finalZoomFactor = zoomFactor*Prefs.DisScale/100.0;
 
-	view->Scale = finalZoomFactor;
+	view->setScale(finalZoomFactor);
 	view->slotDoZoom();
 }
 
@@ -7917,18 +7917,21 @@ void ScribusApp::SelectFromOutl(int Page, int Item, bool single)
 			double x2 = cos((currItem->Rot+90.)/180*M_PI) * currItem->Height;
 			double mx = currItem->Xpos + ((x1 + x2)/2.0);
 			double my = currItem->Ypos + ((y1 + y2)/2.0);
-			if ((qRound((currItem->Xpos + QMAX(x1, x2)) * view->Scale) > view->contentsWidth()) ||
-				(qRound((currItem->Ypos + QMAX(y1, y2)) * view->Scale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((currItem->Xpos + QMAX(x1, x2)) * view->Scale), view->contentsWidth()),
-														  QMAX(qRound((currItem->Ypos + QMAX(y1, y2)) * view->Scale), view->contentsHeight()));
+			double viewScale=view->getScale();
+			if ((qRound((currItem->Xpos + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
+				(qRound((currItem->Ypos + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
+				view->resizeContents(QMAX(qRound((currItem->Xpos + QMAX(x1, x2)) * viewScale), view->contentsWidth()),
+														  QMAX(qRound((currItem->Ypos + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
 		}
 		else
 		{
-			if ((qRound((currItem->Xpos + currItem->Width) * view->Scale) > view->contentsWidth()) ||
-				(qRound((currItem->Ypos + currItem->Height) * view->Scale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((currItem->Xpos + currItem->Width) * view->Scale), view->contentsWidth()),
-														  QMAX(qRound((currItem->Ypos + currItem->Height) * view->Scale), view->contentsHeight()));
+			double viewScale=view->getScale();
+			if ((qRound((currItem->Xpos + currItem->Width) * viewScale) > view->contentsWidth()) ||
+				(qRound((currItem->Ypos + currItem->Height) * viewScale) > view->contentsHeight())
+				)
+				view->resizeContents(QMAX(qRound((currItem->Xpos + currItem->Width) * viewScale), view->contentsWidth()),
+									 QMAX(qRound((currItem->Ypos + currItem->Height) * viewScale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(currItem->Xpos + currItem->Width/2), static_cast<int>(currItem->Ypos + currItem->Height/2));
 		}
 	}

@@ -23,16 +23,7 @@
 
 #include <qstring.h>
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
-};
+#include "units.h"
 
 class gtMeasure
 {

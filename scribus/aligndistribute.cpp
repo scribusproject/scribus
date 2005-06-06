@@ -180,6 +180,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
+	distributeDistLabel->setBuddy( distributeDistMSpinBox );
 	init();
 	setView(NULL);
 }
@@ -252,7 +253,7 @@ void AlignDistributePalette::languageChange()
 	distributeTopToolButton->setText( QString::null );
 	QToolTip::add( distributeTopToolButton, tr( "Distribute tops equidistantly" ) );
 	
-	distributeDistLabel->setText( tr( "Distance:" ) );
+	distributeDistLabel->setText( tr( "&Distance:" ) );
 	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
 }
 
@@ -505,13 +506,13 @@ void AlignDistributePalette::alignCenterHor()
 		switch ( currAlignTo ) 
 		{
 			case First:
-				newX = (*alignObjects)[0].x1 + ((*alignObjects)[0].x2-(*alignObjects)[0].x1)/2;
+				newX = (*alignObjects)[0].x1 + ((*alignObjects)[0].width)/2;
 				loopStart=1;
 				break;
 			case Last:
 				{
 					int objindex=alignObjectsCount-1;
-					newX = (*alignObjects)[objindex].x1 + ((*alignObjects)[objindex].x2-(*alignObjects)[objindex].x1)/2;
+					newX = (*alignObjects)[objindex].x1 + ((*alignObjects)[objindex].width)/2;
 					loopEnd=alignObjectsCount-2;
 				}
 				break;
@@ -550,7 +551,7 @@ void AlignDistributePalette::alignCenterHor()
 		}
 		for (uint i = loopStart; i <= loopEnd; ++i)
 		{
-			double diff=newX-(*alignObjects)[i].x1-((*alignObjects)[i].x2-(*alignObjects)[i].x1)/2;
+			double diff=newX-(*alignObjects)[i].x1-((*alignObjects)[i].width)/2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
 		}
@@ -810,13 +811,13 @@ void AlignDistributePalette::alignCenterVer()
 		switch ( currAlignTo ) 
 		{
 			case First:
-				newY = (*alignObjects)[0].y1 + ((*alignObjects)[0].y2-(*alignObjects)[0].y1)/2;
+				newY = (*alignObjects)[0].y1 + ((*alignObjects)[0].height)/2;
 				loopStart=1;
 				break;
 			case Last:
 				{
 					int objindex=alignObjectsCount-1;
-					newY = (*alignObjects)[objindex].y1 + ((*alignObjects)[objindex].y2-(*alignObjects)[objindex].y1)/2;
+					newY = (*alignObjects)[objindex].y1 + ((*alignObjects)[objindex].height)/2;
 					loopEnd=alignObjectsCount-2;
 				}
 				break;
@@ -865,7 +866,7 @@ void AlignDistributePalette::alignCenterVer()
 		}
 		for (uint i = loopStart; i <= loopEnd; ++i)
 		{
-			double diff=newY-(*alignObjects)[i].y1-((*alignObjects)[i].y2-(*alignObjects)[i].y1)/2;
+			double diff=newY-(*alignObjects)[i].y1-((*alignObjects)[i].height)/2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
 				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
 		}
@@ -1056,7 +1057,7 @@ void AlignDistributePalette::distributeCenterH()
 			return;
 		QMap<double,uint> Xsorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
-			Xsorted.insert((*alignObjects)[a].x1+((*alignObjects)[a].x2-(*alignObjects)[a].x1)/2, a, false);
+			Xsorted.insert((*alignObjects)[a].x1+((*alignObjects)[a].width)/2, a, false);
 			
 		double minX;
 		double maxX;
@@ -1080,7 +1081,7 @@ void AlignDistributePalette::distributeCenterH()
 		int i=0;
 		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
 		{
-			double diff=minX + i*separation-(*alignObjects)[it.data()].x1-((*alignObjects)[it.data()].x2-(*alignObjects)[it.data()].x1)/2;
+			double diff=minX + i*separation-(*alignObjects)[it.data()].x1-((*alignObjects)[it.data()].width)/2;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
 				(*alignObjects)[it.data()].Objects.at(j)->Xpos+=diff;
 			i++;
@@ -1158,7 +1159,7 @@ void AlignDistributePalette::distributeDistH()
 					continue;
 				if (a==right)
 					continue;
-				totalWidth += (*alignObjects)[a].x2-(*alignObjects)[a].x1;
+				totalWidth += (*alignObjects)[a].width;
 				++insideObjectCount;
 			}
 			separation=(totalSpace-totalWidth)/(insideObjectCount+1);
@@ -1177,7 +1178,7 @@ void AlignDistributePalette::distributeDistH()
 			double diff=currX-(*alignObjects)[it.data()].x1;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
 				(*alignObjects)[it.data()].Objects.at(j)->Xpos+=diff;
-			currX+=(*alignObjects)[it.data()].x2-(*alignObjects)[it.data()].x1;
+			currX+=(*alignObjects)[it.data()].width;
 		}
 		endAlign();
 	}
@@ -1239,7 +1240,7 @@ void AlignDistributePalette::distributeCenterV()
 			return;
 		QMap<double,uint> Ysorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
-			Ysorted.insert((*alignObjects)[a].y1+((*alignObjects)[a].y2-(*alignObjects)[a].y1)/2, a, false);
+			Ysorted.insert((*alignObjects)[a].y1+((*alignObjects)[a].height)/2, a, false);
 			
 		double minY;
 		double maxY;
@@ -1263,7 +1264,7 @@ void AlignDistributePalette::distributeCenterV()
 		int i=0;
 		for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
 		{
-			double diff=minY + i*separation-(*alignObjects)[it.data()].y1-((*alignObjects)[it.data()].y2-(*alignObjects)[it.data()].y1)/2;
+			double diff=minY + i*separation-(*alignObjects)[it.data()].y1-((*alignObjects)[it.data()].height)/2;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
 				(*alignObjects)[it.data()].Objects.at(j)->Ypos+=diff;
 			i++;
@@ -1341,7 +1342,7 @@ void AlignDistributePalette::distributeDistV()
 					continue;
 				if (a==bottom)
 					continue;
-				totalHeight += (*alignObjects)[a].y2-(*alignObjects)[a].y1;
+				totalHeight += (*alignObjects)[a].height;
 				++insideObjectCount;
 			}
 			separation=(totalSpace-totalHeight)/(insideObjectCount+1);
@@ -1360,7 +1361,7 @@ void AlignDistributePalette::distributeDistV()
 			double diff=currY-(*alignObjects)[it.data()].y1;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
 				(*alignObjects)[it.data()].Objects.at(j)->Ypos+=diff;
-			currY+=(*alignObjects)[it.data()].y2-(*alignObjects)[it.data()].y1;
+			currY+=(*alignObjects)[it.data()].height;
 		}
 		endAlign();
 	}

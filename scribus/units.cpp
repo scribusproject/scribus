@@ -66,6 +66,38 @@ const double unitValueFromString(const QString& value)
 }
 
 /*!
+ * @brief Strip the text from a value and return the double value for the unit
+ */
+const Unit unitIndexFromString(const QString& value)
+{
+	QString lowerValue = value.lower();
+	Unit retVal;
+	if (lowerValue.find("pt") != -1)
+	{
+		retVal=PT;
+	}
+	else if (lowerValue.find("mm") != -1)
+	{
+		retVal=MM;
+	}
+	else if (lowerValue.find("in") != -1)
+	{
+		retVal=IN;
+	}
+	else if (lowerValue.find("p") != -1)
+	{
+		retVal=P;
+	}
+	else if (lowerValue.find("cm") != -1)
+	{
+		retVal=CM;
+	}
+	else
+		retVal=PT;
+	return retVal;
+}
+
+/*!
  * @brief Returns the suffix used in GUI widgets
  */
 const QString unitGetSuffixFromIndex(const int index)
@@ -231,4 +263,26 @@ double value2pts(double unitValue, int unit)
 			break;
 	}
 	return ret;
+}
+
+/*!
+ * @brief Sets up iteration value 1 for vruler, hruler and tabruler
+ */
+double unitRulerGetIter1FromIndex(const int index)
+{
+	if (index>UNITCOUNT) 
+		return 0;
+	double iter[] = {10.0, 720.0/25.4, 18.0, 12.0, 72.0/25.4};
+	return iter[index];
+}
+
+/*!
+ * @brief Sets up iteration value 2 for vruler, hruler and tabruler
+ */
+double unitRulerGetIter2FromIndex(const int index)
+{
+	if (index>UNITCOUNT) 
+		return 0;
+	double iter[] = {100.0, 7200.0/25.4, 72.0, 120.0, 720.0/25.4};
+	return iter[index];
 }

@@ -2629,7 +2629,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			double yf = height() / (SeRy/sc-Myp);
 			double xf = width() / (SeRx/sc-Mxp);
-			Scale = QMIN(yf, xf);
+			setScale(QMIN(yf, xf));
 			slotDoZoom();
 			if (sc == Scale)
 			{
@@ -8348,7 +8348,7 @@ void ScribusView::Zval()
 	int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
 	int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
 	rememberPreviousSettings(w / 2 + x,h / 2 + y);
-	Scale = LE->value() / 100.0 * Prefs->DisScale;
+	setScale(LE->value() / 100.0 * Prefs->DisScale);
 	slotDoZoom();
 	ScApp->setFocus();
 }
@@ -8647,7 +8647,7 @@ void ScribusView::slotDoZoom()
 	undoManager->setUndoEnabled(false);
 	if (Scale > 32*Prefs->DisScale)
 	{
-		Scale = 32*Prefs->DisScale;
+		setScale(32*Prefs->DisScale);
 		return;
 	}
 	updateOn = false;
@@ -8685,10 +8685,10 @@ void ScribusView::slotZoomIn(int mx,int my)
 	}
 	else
 		rememberPreviousSettings(mx,my);
-	Scale *= 2;
+	setScale(Scale * 2);
 	if (Scale > 32*Prefs->DisScale)
 	{
-		Scale = 32*Prefs->DisScale;
+		setScale(32*Prefs->DisScale);
 		return;
 	}
 	slotDoZoom();
@@ -8707,7 +8707,7 @@ void ScribusView::slotZoomOut(int mx,int my)
 	}
 	else
 		rememberPreviousSettings(mx,my);
-	Scale /= 2;
+	setScale(Scale / 2);
 	slotDoZoom();
 }
 
@@ -8715,10 +8715,10 @@ void ScribusView::slotZoomOut(int mx,int my)
 void ScribusView::slotZoomIn2(int mx,int my)
 {
 	rememberPreviousSettings(mx,my);
-	Scale += static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0;
+	setScale(Scale + static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0);
 	if (Scale > static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0)
 	{
-		Scale = static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0;
+		setScale(static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0);
 		return;
 	}
 	slotDoZoom();
@@ -8728,9 +8728,9 @@ void ScribusView::slotZoomIn2(int mx,int my)
 void ScribusView::slotZoomOut2(int mx,int my)
 {
 	rememberPreviousSettings(mx,my);
-	Scale -= static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0;
+	setScale(Scale - static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0);
 	if (Scale < static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0)
-		Scale = static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0;
+		setScale(static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0);
 	slotDoZoom();
 }
 
@@ -8846,6 +8846,9 @@ void ScribusView::ChgUnit(int art)
 {
 	int d = Unitmen->indexOf(art);
 	emit changeUN(d);
+	unitChange();
+	vertRuler->repaint();
+	horizRuler->repaint();
 }
 
 void ScribusView::GotoPage(int Seite)
@@ -8894,7 +8897,7 @@ void ScribusView::hideMasterPage()
 	Doc->MasterP = false;
 	Doc->currentPage = Doc->Pages.at(0);
 	PGS->setEnabled(true);
-	Scale = OldScale;
+	setScale(OldScale);
 	updateOn = false;
 	GotoPage(0);
 	slotDoZoom();
@@ -8962,7 +8965,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 			Doc->Items = Doc->MasterItems;
 		}
 		Doc->guidesSettings.framesShown = false;
-		Scale = 1;
+		setScale(1.0);
 		previewMode = true;
 		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
@@ -8973,7 +8976,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		Doc->guidesSettings.framesShown = frs;
-		Scale = sca;
+		setScale(sca);
 		Doc->currentPage = act;
 		if (!mas)
 		{
@@ -9007,7 +9010,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
 		Doc->guidesSettings.framesShown = false;
-		Scale = 1;
+		setScale(1.0);
 		previewMode = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->Pages.at(Nr);
@@ -9024,7 +9027,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->end();
 		Doc->guidesSettings.framesShown = frs;
-		Scale = sca;
+		setScale(sca);
 		Doc->currentPage = act;
 		double sx = pm.width() / static_cast<double>(maxGr);
 		double sy = pm.height() / static_cast<double>(maxGr);
@@ -11470,6 +11473,11 @@ void ScribusView::BuildAObj()
 			AObjects.append(Object);
 		}
 	}
+	for (uint i = 0; i < AObjects.count(); ++i)
+	{
+		AObjects[i].width = AObjects[i].x2 - AObjects[i].x1;
+		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
+	}
 }
 
 void ScribusView::doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx)
@@ -11986,3 +11994,19 @@ void ScribusView::setGlobalUndoMode()
 	}
 }
 
+void ScribusView::unitChange()
+{
+	vertRuler->unitChange();
+	horizRuler->unitChange();
+}
+
+void ScribusView::setScale(const double newScale)
+{
+	Scale=newScale;
+	unitChange();
+}
+
+const double ScribusView::getScale()
+{
+	return Scale;
+}

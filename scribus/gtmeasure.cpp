@@ -27,21 +27,7 @@ double gtMeasure::ratio = 1.0;
 
 void gtMeasure::init(Unit u)
 {
-	switch (u)
-	{
-	case PT:
-		ratio = 1.0;
-		break;
-	case MM:
-		ratio = 25.4/72;
-		break;
-	case IN:
-		ratio = 1.0 / 72.0;
-		break;
-	case P:
-		ratio = 1.0 / 12.0;
-		break;
-	}
+	ratio=unitGetRatioFromIndex((int)u);
 }
 
 double gtMeasure::convert(double value)
@@ -66,33 +52,8 @@ double gtMeasure::convert2(int value)
 
 double gtMeasure::parse(const QString& value)
 {
-	QString lowerValue = value.lower();
-	QString dbl = "0.0";
-	if (lowerValue.find("pt") != -1)
-	{
-		init(PT);
-		dbl = lowerValue.remove("pt");
-	}
-	else if (lowerValue.find("mm") != -1)
-	{
-		init(MM);
-		dbl = lowerValue.remove("mm");
-	}
-	else if (lowerValue.find("in") != -1)
-	{
-		init(IN);
-		dbl = lowerValue.remove("in");
-	}
-	else if (lowerValue.find("p") != -1)
-	{
-		init(P);
-		dbl = lowerValue.remove("p");
-	}
-	else
-		init(PT);
-
-	dbl = dbl.stripWhiteSpace();
-	return dbl.toDouble();
+	init(unitIndexFromString(value));
+	return unitValueFromString(value);
 }
 
 double gtMeasure::convert(double value, Unit from, Unit to)

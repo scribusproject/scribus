@@ -64,7 +64,6 @@ public:
 	ScribusDoc *Doc;
 	ApplicationPrefs *Prefs;
 	UndoManager *undoManager;
-	double Scale;
 	double OldScale;
 	double GroupX;
 	double GroupY;
@@ -262,9 +261,12 @@ public:
 	bool mousePressed();
 	bool groupTransactionStarted();
 	void setGroupTransactionStarted(bool isOn);
+	void setScale(const double newScale);
+	const double getScale();
 
 public slots: // Public slots
 	void languageChange();
+	void unitChange();
   /** Fhrt die Vergr�erung/Verkleinerung aus; */
 	void slotDoZoom();
   /** Vergr�ert die Ansicht */
@@ -332,6 +334,7 @@ private: // Private attributes
 	bool _itemCreationTransactionStarted;
 	bool _isGlobalMode;
 	bool evSpon;
+	double Scale;
 
 private slots:
 	void Zval();

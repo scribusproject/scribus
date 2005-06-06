@@ -1,19 +1,19 @@
 /***************************************************************************
-                          hruler.h  -  description
-                             -------------------
-    begin                : Tue Apr 10 2001
-    copyright            : (C) 2001 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
- ***************************************************************************/
+						hruler.h  -  description
+							-------------------
+	begin                : Tue Apr 10 2001
+	copyright            : (C) 2001 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
+***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 
 #ifndef HRULER_H
 #define HRULER_H
@@ -26,8 +26,8 @@ class ScribusView;
 class ScribusDoc;
 class ScribusApp;
 /**Waagrechtes Lineal
-  *@author Franz Schmid
-  */
+*@author Franz Schmid
+*/
 
 class Hruler : public QWidget  
 {
@@ -65,16 +65,21 @@ public:
 	bool ItemPosValid;
 
 private: // Private attributes
-	ScribusDoc *doku;
-	ScribusView *view;
+	ScribusDoc *currDoc;
+	ScribusView *currView;
 
 public slots: // Public slots
-  /** Zeichnet den Pfeil */
-  void Draw(int wo);
-  
+	/** Zeichnet den Pfeil */
+	void Draw(int wo);
+	void unitChange();
+
 signals:
 	void DocChanged(bool);
 	void MarkerMoved(double, double);
+	
+private:
+	double iter, iter2;
+	int cor;
 };
 
 #endif

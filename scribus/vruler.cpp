@@ -24,6 +24,7 @@
 #include <qpointarray.h>
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "units.h"
 
 #if QT_VERSION  > 0x030102
 	#define SPLITVC SplitHCursor
@@ -36,12 +37,13 @@ extern ScribusApp* ScApp;
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
-	doku = doc;
-	view = pa;
+	currDoc = doc;
+	currView = pa;
 	offs = -12;
 	Markp = 0;
 	oldMark = 0;
 	Mpressed = false;
+	unitChange();
 }
 
 void Vruler::mousePressEvent(QMouseEvent *m)
@@ -49,8 +51,8 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 	Mpressed = true;
 	if (ScApp->Prefs.guidesSettings.guidesShown)
 	{
-		QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
-		view->DrVX = py.x();
+		QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
+		currView->DrVX = py.x();
 		qApp->setOverrideCursor(QCursor(SPLITVC), true);
 	}
 }
@@ -59,8 +61,8 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 {
 	if ((Mpressed) && (m->pos().x() > width()))
 	{
-		view->DrVX = -1;
-		view->SetXGuide(m, -1);
+		currView->DrVX = -1;
+		currView->SetXGuide(m, -1);
 	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	Mpressed = false;
@@ -69,83 +71,19 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 void Vruler::mouseMoveEvent(QMouseEvent *m)
 {
 	if ((Mpressed) && (m->pos().x() > width()))
-		view->FromVRuler(m);
+		currView->FromVRuler(m);
 }
 
 void Vruler::paintEvent(QPaintEvent *)
 {
+	if (currDoc->loading)
+		return;
 	int xx, pc;
-	double of, xl, iter, iter2;
-	double sc = view->Scale;
-	int cor = 1;
+	double of, xl;
+	double sc = currView->getScale();
 	QFont ff = font();
 	ff.setPointSize(8);
 	setFont(ff);
-	switch (doku->docUnitIndex)
-	{
-		case 0:
-			if (sc > 1)
-				cor = 2;
-			if (sc > 4)
-				cor = 10;
-			iter = 10.0 / cor;
-	  		iter2 = iter * 10.0;
-			break;
-		case 1:
-			if (sc > 1)
-				cor = 10;
-			iter = ((10.0 / 25.4) * 72.0) / cor;
-  			iter2 = iter * 10.0;
-			break;
-		case 2:
-			iter = 18.0;
-			iter2 = 72.0;
-			if (sc > 1)
-				{
-				cor = 2;
-				iter = 9.0;
-				iter2 = 36.0;
-				}
-			if (sc > 4)
-				{
-				iter = 9.0;
-				iter2 = 18.0;
-				cor = 4;
-				}
-			break;
-		case 3:
-			iter = 12.0;
-			iter2 = 120.0;
-			if (sc > 1)
-				{
-				cor = 1;
-				iter = 12.0;
-				iter2 = 60.0;
-				}
-			if (sc > 4)
-				{
-				cor = 2;
-				iter = 6.0;
-				iter2 = 12.0;
-				}
-			break;
-		case 4:
-			if (sc > 1 && sc <= 4)
-				cor = 1;
-			if (sc > 4)
-				cor = 10;
-			iter = ((1.0 / 25.4) * 72.0) / cor;
-			iter2 = iter * 10.0;
-			break;
-		default:
-			if (sc > 1)
-				cor = 2;
-			if (sc > 4)
-				cor = 10;
-			iter = 10.0 / cor;
-	  		iter2 = iter * 10.0;
-			break;
-	}
 	QPainter p;
 	p.begin(this);
 	p.drawLine(24, 0, 24, height());
@@ -153,42 +91,42 @@ void Vruler::paintEvent(QPaintEvent *)
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
-	if (doku->PageFP)
+	if (currDoc->PageFP)
 	{
-		if (doku->FirstPageLeft)
+		if (currDoc->FirstPageLeft)
 		{
-			if (doku->pageCount % 2 == 0)
-				pc = doku->pageCount / 2;
+			if (currDoc->pageCount % 2 == 0)
+				pc = currDoc->pageCount / 2;
 			else
-				pc = (doku->pageCount+1) / 2;
+				pc = (currDoc->pageCount+1) / 2;
 		}
 		else
 		{
-			if (doku->pageCount % 2 == 0)
-				pc = doku->pageCount / 2 + 1;
+			if (currDoc->pageCount % 2 == 0)
+				pc = currDoc->pageCount / 2 + 1;
 			else
-				pc = doku->pageCount / 2 + 1;
+				pc = currDoc->pageCount / 2 + 1;
 		}
 	}
 	else
-		pc = doku->pageCount;
+		pc = currDoc->pageCount;
 	for (xx = 0; xx < pc; ++xx)
 	{
-		of = xx * (doku->pageHeight+doku->ScratchBottom+doku->ScratchTop);
-		for (xl = 0; xl < doku->pageHeight; xl += iter)
+		of = xx * (currDoc->pageHeight+currDoc->ScratchBottom+currDoc->ScratchTop);
+		for (xl = 0; xl < currDoc->pageHeight; xl += iter)
 		{
 			int markerY=qRound((xl+of)*sc)+1;
 			if (( markerY > offs) && (markerY < offs+height()))
 				p.drawLine(18, markerY, 24, markerY);
 		}
-		for (xl = 0; xl < doku->pageHeight+(iter2/2); xl += iter2)
+		for (xl = 0; xl < currDoc->pageHeight+(iter2/2); xl += iter2)
 		{
 			int markerY=qRound((xl+of)*sc)+1;
 			if ((markerY > offs) && (markerY < offs+height()))
 			{
 				p.drawLine(11, markerY, 24, markerY);
 				int textY=qRound((xl+of+10/sc) * sc);
-				switch (doku->docUnitIndex)
+				switch (currDoc->docUnitIndex)
 				{
 					case 2:
 					{
@@ -224,7 +162,7 @@ void Vruler::paintEvent(QPaintEvent *)
 /** Zeichnet den Pfeil */
 void Vruler::Draw(int wo)
 {
-	Markp = wo-qRound(doku->ScratchTop*view->Scale);
+	Markp = wo-qRound(currDoc->ScratchTop*currView->getScale());
 	QPainter p;
 	p.begin(this);
 	p.translate(0, -offs);
@@ -238,4 +176,75 @@ void Vruler::Draw(int wo)
 	p.drawPolygon(cr);
 	p.end();
 	oldMark = Markp;
+}
+
+void Vruler::unitChange()
+{
+	double sc = currView->getScale();
+	cor=1;
+	switch (currDoc->docUnitIndex)
+	{
+		case 0:
+			if (sc > 1 && sc <= 4)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
+	  		iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			break;
+		case 1:
+			if (sc > 1)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
+  			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			break;
+		case 2:
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			if (sc > 1 && sc <= 4)
+			{
+				cor = 2;
+				iter /= cor;
+				iter2 /= cor;
+			}
+			if (sc > 4)
+			{
+				cor = 4;
+				iter /= cor;
+				iter2 /= cor;
+			}
+			break;
+		case 3:
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			if (sc > 1 && sc <= 4)
+			{
+				cor = 1;
+				iter = 12.0;
+				iter2 = 60.0;
+			}
+			if (sc > 4)
+			{
+				cor = 2;
+				iter = 6.0;
+				iter2 = 12.0;
+			}
+			break;
+		case 4:
+			if (sc > 1 && sc <= 4)
+				cor = 1;
+			if (sc > 4)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
+			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			break;
+		default:
+			if (sc > 1 && sc <= 4)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(0) / cor;
+	 		iter2 = unitRulerGetIter2FromIndex(0) / cor;
+			break;
+	}
 }

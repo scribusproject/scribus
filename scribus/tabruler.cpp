@@ -19,6 +19,8 @@ RulerT::RulerT(QWidget *pa, int ein, QValueList<PageItem::TabRecord> Tabs, bool 
 {
 	setEraseColor(QColor(255,255,255));
 	unitIndex = ein;
+	iter=unitRulerGetIter1FromIndex(unitIndex);
+	iter2=unitRulerGetIter2FromIndex(unitIndex);
 	tabValues = Tabs;
 	haveInd = ind;
 	offset = 0;
@@ -46,26 +48,7 @@ RulerT::RulerT(QWidget *pa, int ein, QValueList<PageItem::TabRecord> Tabs, bool 
 
 void RulerT::paintEvent(QPaintEvent *)
 {
-	double xl, iter, iter2;
-	switch (unitIndex)
-	{
-		case 0:
-			iter = 10.0;
-	  		iter2 = 100.0;
-			break;
-		case 1:
-			iter = (10.0 / 25.4) * 72.0;
-  			iter2 = iter * 10.0;
-			break;
-		case 2:
-			iter = 18.0;
-			iter2 = 72.0;
-			break;
-		case 3:
-			iter = 12.0;
-			iter2 = 120.0;
-			break;
-	}
+	double xl;
 	QPainter p;
 	p.begin(this);
 	p.drawLine(0, 24, width(), 24);

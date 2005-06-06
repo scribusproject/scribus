@@ -25,6 +25,7 @@
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "units.h"
 
 #if QT_VERSION  > 0x030102
 	#define SPLITHC SplitVCursor
@@ -38,8 +39,8 @@ extern ScribusApp* ScApp;
 Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
-	doku = doc;
-	view = pa;
+	currDoc = doc;
+	currView = pa;
 	offs = -10;
 	Markp = 0;
 	repX = false;
@@ -47,22 +48,23 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	ItemPosValid = false;
 	RulerCode = 0;
 	setMouseTracking(true);
+	unitChange();
 }
 
 void Hruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
-	if (doku->loading)
+	if (currDoc->loading)
 		return;
 	if (ItemPosValid)
 	{
 		RulerCode = 0;
 		Markp = -1;
 		double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
-		if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
+		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
 			RulerCode = 1;
 		Pos = (ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs;
-		if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
+		if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
 			RulerCode = 2;
 		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 		QRect fpo;
@@ -79,7 +81,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		}
 		if (ActCol == 0)
 			return;
-		if (doku->currentParaStyle > 4)
+		if (currDoc->currentParaStyle > 4)
 		{
 			Pos = (ItemPos+First+Indent+(ColWidth+ColGap)*(ActCol-1)+Offset+Extra+lineCorr)*Scaling-offs;
 			fpo = QRect(static_cast<int>(Pos)-3, 11, 6, 6);
@@ -119,7 +121,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			struct PageItem::TabRecord tb;
 			tb.tabPosition = newY / Scaling;
 			tb.tabType = 0;
-			tb.tabFillChar = doku->toolSettings.tabFillChar[0];
+			tb.tabFillChar = currDoc->toolSettings.tabFillChar[0];
 			TabValues.prepend(tb);
 			ActTab = 0;
 			RulerCode = 5;
@@ -133,8 +135,8 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	{
 		if (ScApp->Prefs.guidesSettings.guidesShown)
 		{
-			QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
-			view->DrHY = py.y();
+			QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
+			currView->DrHY = py.y();
 			qApp->setOverrideCursor(QCursor(SPLITHC), true);
 		}
 	}
@@ -142,7 +144,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 
 void Hruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	if (doku->loading)
+	if (currDoc->loading)
 	{
 		Mpressed = false;
 		return;
@@ -154,20 +156,20 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			switch (RulerCode)
 			{
 				case 1:
-					view->SelItem.at(0)->Extra = Extra;
+					currView->SelItem.at(0)->Extra = Extra;
 					emit DocChanged(false);
 					break;
 				case 2:
-					view->SelItem.at(0)->RExtra = RExtra;
+					currView->SelItem.at(0)->RExtra = RExtra;
 					emit DocChanged(false);
 					break;
 				case 3:
-					doku->docParagraphStyles[doku->currentParaStyle].First = First;
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].First = First;
 					emit DocChanged(false);
 					break;
 				case 4:
-					doku->docParagraphStyles[doku->currentParaStyle].Indent = Indent;
-					doku->docParagraphStyles[doku->currentParaStyle].First = First;
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].Indent = Indent;
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].First = First;
 					emit DocChanged(false);
 					break;
 				case 5:
@@ -177,10 +179,10 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 						if (TabValues[ActTab].tabType > 4)
 							TabValues[ActTab].tabType = 0;
 					}
-					if (doku->currentParaStyle > 4)
-						doku->docParagraphStyles[doku->currentParaStyle].TabValues = TabValues;
+					if (currDoc->currentParaStyle > 4)
+						currDoc->docParagraphStyles[currDoc->currentParaStyle].TabValues = TabValues;
 					else
-						view->SelItem.at(0)->TabValues = TabValues;
+						currView->SelItem.at(0)->TabValues = TabValues;
 					emit DocChanged(false);
 					break;
 				default:
@@ -195,24 +197,24 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				it = TabValues.at(ActTab);
 				TabValues.remove(it);
 				ActTab = 0;
-				if (doku->currentParaStyle > 4)
-					doku->docParagraphStyles[doku->currentParaStyle].TabValues = TabValues;
+				if (currDoc->currentParaStyle > 4)
+					currDoc->docParagraphStyles[currDoc->currentParaStyle].TabValues = TabValues;
 				else
-					view->SelItem.at(0)->TabValues = TabValues;
+					currView->SelItem.at(0)->TabValues = TabValues;
 				emit DocChanged(false);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
 		RulerCode = 0;
-		view->DrawNew();
-		view->EmitValues(view->SelItem.at(0));
+		currView->DrawNew();
+		currView->EmitValues(currView->SelItem.at(0));
 	}
 	else
 	{
 		if ((Mpressed) && (m->pos().y() > height()))
 		{
-			view->DrHY = -1;
-			view->SetYGuide(m, -1);
+			currView->DrHY = -1;
+			currView->SetYGuide(m, -1);
 		}
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit DocChanged(false);
@@ -222,7 +224,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 
 void Hruler::mouseMoveEvent(QMouseEvent *m)
 {
-	if (doku->loading)
+	if (currDoc->loading)
 		return;
 	if (ItemPosValid)
 	{
@@ -300,14 +302,14 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			MouseX = m->x();
 			if (RulerCode != 0)
 			{
-				QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
+				QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 				QPainter p;
-				p.begin(view->viewport());
+				p.begin(currView->viewport());
 				p.setRasterOp(XorROP);
 				p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-				QPoint out = view->contentsToViewport(QPoint(0, qRound(doku->currentPage->Yoffset*Scaling)));
-				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(doku->currentPage->Height * Scaling));
-				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(doku->currentPage->Height * Scaling));
+				QPoint out = currView->contentsToViewport(QPoint(0, qRound(currDoc->currentPage->Yoffset*Scaling)));
+				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(currDoc->currentPage->Height * Scaling));
+				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(currDoc->currentPage->Height * Scaling));
 				p.end();
 				Markp = py.x();
 			}
@@ -317,14 +319,14 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		{
 			qApp->setOverrideCursor(QCursor(loadIcon("tab.png"), 3), true);
 			double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
-			if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
+			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
 				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 			Pos = (ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs;
-			if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
+			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
 				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 			QRect fpo;
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-			if (doku->currentParaStyle > 4)
+			if (currDoc->currentParaStyle > 4)
 			{
 				for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
 				{
@@ -373,88 +375,20 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 	else
 	{
 		if ((Mpressed) && (m->pos().y() > height()))
-			view->FromHRuler(m);
+			currView->FromHRuler(m);
 	}
 }
 
 void Hruler::paintEvent(QPaintEvent *)
 {
-	if (doku->loading)
+	if (currDoc->loading)
 		return;
 	int pc, xx;
-	double of, xl, iter, iter2;
-	double sc = view->Scale;
-	int cor = 1;
+	double of, xl;
+	double sc = currView->getScale();
 	QFont ff = font();
 	ff.setPointSize(8);
 	setFont(ff);
-	switch (doku->docUnitIndex)
-	{
-		case 0:
-			/* PFJ - 29.02.04 - Altered so the if isn't executed twice. Repeated */
-			if (sc > 1 && sc <= 4)
-				cor = 2;
-			if (sc > 4)
-				cor = 10;
-			iter = 10.0 / cor;
-	  		iter2 = iter * 10.0;
-			break;
-		case 1:
-			if (sc > 1)
-				cor = 10;
-			iter = ((10.0 / 25.4) * 72.0) / cor;
-  			iter2 = iter * 10.0;
-			break;
-		case 2:
-			iter = 18.0;
-			iter2 = 72.0;
-			if (sc > 1 && sc <= 4)
-			{
-				cor = 2;
-				iter = 9.0;
-				iter2 = 36.0;
-			}
-			if (sc > 4)
-			{
-				iter = 9.0;
-				iter2 = 18.0;
-				cor = 4;
-			}
-			break;
-		case 3:
-			iter = 12.0;
-			iter2 = 120.0;
-			if (sc > 1 && sc <= 4)
-			{
-				cor = 1;
-				iter = 12.0;
-				iter2 = 60.0;
-			}
-			if (sc > 4)
-			{
-				cor = 2;
-				iter = 6.0;
-				iter2 = 12.0;
-			}
-			break;
-		case 4:
-			if (sc > 1 && sc <= 4)
-				cor = 1;
-			if (sc > 4)
-				cor = 10;
-			iter = (72.0 / 25.4) / cor;
-			iter2 = iter * 10.0;
-			break;
-		default:
-			/* PFJ - 29.02.04 - Altered so the if isn't executed twice. Repeated */
-			if (sc > 1 && sc <= 4)
-				cor = 2;
-			if (sc > 4)
-				cor = 10;
-			iter = 10.0 / cor;
-	  		iter2 = iter * 10.0;
-			break;
-	}
 	QPainter p;
 	p.begin(this);
 	p.drawLine(0, 24, width(), 24);
@@ -475,8 +409,8 @@ void Hruler::paintEvent(QPaintEvent *)
 	p.setFont(font());
 	Offset = 0;
 	Scaling = sc;
-	doku->PageFP ? pc = 2 : pc = 1;
-	if (doku->MasterP)
+	currDoc->PageFP ? pc = 2 : pc = 1;
+	if (currDoc->MasterP)
 	{
 		pc = 1;
 		Offset = 0;
@@ -484,18 +418,18 @@ void Hruler::paintEvent(QPaintEvent *)
 	for (xx = 0; xx < pc; ++xx)
 	{
 		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-		of = xx * doku->pageWidth;
-		for (xl = 0; xl < doku->pageWidth; xl += iter)
+		of = xx * currDoc->pageWidth;
+		for (xl = 0; xl < currDoc->pageWidth; xl += iter)
 		{
 			int markerX=qRound((xl+of)*sc)+1;
 			p.drawLine(markerX, 18, markerX, 24);
 		}
-		for (xl = 0; xl < doku->pageWidth+(iter2/2); xl += iter2)
+		for (xl = 0; xl < currDoc->pageWidth+(iter2/2); xl += iter2)
 		{
 			int markerX=qRound((xl+of)*sc)+1;
 			p.drawLine(markerX, 11, markerX, 24);
 			int textX=qRound((xl+of+2/sc) * sc)+1;
-			switch (doku->docUnitIndex)
+			switch (currDoc->docUnitIndex)
 			{
 				case 2:
 				{
@@ -524,10 +458,10 @@ void Hruler::paintEvent(QPaintEvent *)
 					break;
 			}
 		}
-		if (((xx == 0) && (doku->currentPage->PageNr % 2 == 0) && (doku->FirstPageLeft))
-		    || ((xx == 1) && (doku->currentPage->PageNr % 2 != 0) && (doku->FirstPageLeft))
-		    || ((xx == 0) && (doku->currentPage->PageNr % 2 != 0) && (!doku->FirstPageLeft))
-		    || ((xx == 1) && (doku->currentPage->PageNr % 2 == 0) && (!doku->FirstPageLeft))
+		if (((xx == 0) && (currDoc->currentPage->PageNr % 2 == 0) && (currDoc->FirstPageLeft))
+		    || ((xx == 1) && (currDoc->currentPage->PageNr % 2 != 0) && (currDoc->FirstPageLeft))
+		    || ((xx == 0) && (currDoc->currentPage->PageNr % 2 != 0) && (!currDoc->FirstPageLeft))
+		    || ((xx == 1) && (currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
 			|| (pc == 1))
 		{
 			if (ItemPosValid)
@@ -555,7 +489,7 @@ void Hruler::paintEvent(QPaintEvent *)
 					for (xl = Pos; xl < EndPos; xl += iter2)
 					{
 						p.drawLine(qRound(xl*sc), 11, qRound(xl*sc), 24);
-						switch (doku->docUnitIndex)
+						switch (currDoc->docUnitIndex)
 						{
 							case 2:
 							{
@@ -615,7 +549,7 @@ void Hruler::paintEvent(QPaintEvent *)
 						p.drawLine(qRound(Pos*sc), 23, qRound((Pos+4/sc)*sc), 23);
 						p.drawLine(qRound(Pos*sc), 11, qRound((Pos+4/sc)*sc), 11);
 					}
-					if (doku->currentParaStyle > 4)
+					if (currDoc->currentParaStyle > 4)
 					{
 						p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 						double fpos = Pos+First+Indent;
@@ -703,7 +637,7 @@ void Hruler::paintEvent(QPaintEvent *)
 void Hruler::Draw(int wo)
 {
 	repX = true;
-	Markp = wo-qRound(doku->ScratchLeft*view->Scale);
+	Markp = wo-qRound(currDoc->ScratchLeft*currView->getScale());
 	repaint(QRect(0, 0, width(), 9));
 }
 
@@ -733,5 +667,76 @@ void Hruler::UpdateTabList()
 	{
 		it = TabValues.at(ActTab);
 		TabValues.insert(it, tb);
+	}
+}
+
+void Hruler::unitChange()
+{
+	double sc = currView->getScale();
+	cor=1;
+	switch (currDoc->docUnitIndex)
+	{
+		case 0:
+			if (sc > 1 && sc <= 4)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
+	  		iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			break;
+		case 1:
+			if (sc > 1)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
+  			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			break;
+		case 2:
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			if (sc > 1 && sc <= 4)
+			{
+				cor = 2;
+				iter /= cor;
+				iter2 /= cor;
+			}
+			if (sc > 4)
+			{
+				cor = 4;
+				iter /= cor;
+				iter2 /= cor;
+			}
+			break;
+		case 3:
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			if (sc > 1 && sc <= 4)
+			{
+				cor = 1;
+				iter = 12.0;
+				iter2 = 60.0;
+			}
+			if (sc > 4)
+			{
+				cor = 2;
+				iter = 6.0;
+				iter2 = 12.0;
+			}
+			break;
+		case 4:
+			if (sc > 1 && sc <= 4)
+				cor = 1;
+			if (sc > 4)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
+			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			break;
+		default:
+			if (sc > 1 && sc <= 4)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = unitRulerGetIter1FromIndex(0) / cor;
+	 		iter2 = unitRulerGetIter2FromIndex(0) / cor;
+			break;
 	}
 }

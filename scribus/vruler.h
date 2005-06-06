@@ -44,13 +44,18 @@ public:
 	int oldMark;
 	bool Mpressed;
 private: // Private attributes
-  /** Zeichensatz des Lineals */
-	ScribusDoc *doku;
-	ScribusView *view;
+	/** Zeichensatz des Lineals */
+	ScribusDoc *currDoc;
+	ScribusView *currView;
 
 public slots: // Public slots
   /** Zeichnet den Pfeil */
 	void Draw(int wo);
+	void unitChange();
+	
+private:
+	double iter, iter2;
+	int cor;
 };
 
 #endif

@@ -589,6 +589,8 @@ struct AlignObjs
 	double y1;
 	double x2;
 	double y2;
+	double width;
+	double height;
 	QPtrList<PageItem> Objects;
 };
 

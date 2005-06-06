@@ -361,7 +361,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 
 void PageItem::DrawObj_Pre(ScPainter *p, QRect &e, QPainter &pf, double &sc)
 {
-	sc = ScApp->view->Scale;
+	sc = ScApp->view->getScale();
 	pf.begin(ScApp->view->viewport());
 	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
 	pf.translate(trans.x(), trans.y());
@@ -476,7 +476,7 @@ void PageItem::DrawObj_Post(ScPainter *p, QRect& /*e*/)
 	}
 	//if (!Doc->RePos)
 	//{
-		double scpInv = 1.0 / (QMAX(ScApp->view->Scale, 1));
+		double scpInv = 1.0 / (QMAX(ScApp->view->getScale(), 1));
 		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
@@ -841,7 +841,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 				{
 					if (!Doc->RePos)
 					{
-						double scp1 = 1 / QMAX(ScApp->view->Scale, 1);
+						double scp1 = 1 / QMAX(ScApp->view->getScale(), 1);
 						double scp16 = 16 * scp1;
 						double scp14 = 14 * scp1;
 						double scp3 = 3 * scp1;
@@ -2243,7 +2243,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			{
 				if (!Doc->RePos)
 				{
-					double scp1 = 1.0/QMAX(ScApp->view->Scale, 1);
+					double scp1 = 1.0/QMAX(ScApp->view->getScale(), 1);
 					double scp16 = 16.0*scp1;
 					double scp14 = 14.0*scp1;
 					double scp3 = 3.0*scp1;
@@ -2662,7 +2662,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	}
 	//qDebug("paintObj(QRect e, QPixmap *ppX)");
 	QPainter p;
-	double sc = ScApp->view->Scale;
+	double sc = ScApp->view->getScale();
 	if (toPixmap)
 		p.begin(ppX);
 	else
@@ -3021,7 +3021,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 QMAX(static_cast<int>(ml[it].Width*ScApp->view->Scale), 1),
+									 QMAX(static_cast<int>(ml[it].Width*ScApp->view->getScale()), 1),
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -3039,7 +3039,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->Scale), 1),
+								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->getScale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -3058,7 +3058,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->Scale), 1),
+								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->getScale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));

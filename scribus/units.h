@@ -40,6 +40,8 @@ const QString unitGetStrFromIndex(const int index);
 const QString unitGetSuffixFromIndex(const int index);
 const int unitGetDecimalsFromIndex(const int index);
 const int unitGetPrecisionFromIndex(const int index);
+const double unitValueFromString(const QString& value);
+const Unit unitIndexFromString(const QString& value);
 const QStringList unitGetTextUnitList();
 const int unitGetMaxIndex();
 const double mm2pts(double mm);
@@ -52,6 +54,10 @@ const double pts2p(double pts);
 const double pts2cm(double pts);
 double pts2value(double Val, int unit);
 double value2pts(double unitValue, int unit);
+
+//Ruler specific functions
+double unitRulerGetIter1FromIndex(const int index);
+double unitRulerGetIter2FromIndex(const int index);
 
 
 #endif // UNITS_H
