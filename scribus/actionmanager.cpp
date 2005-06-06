@@ -532,6 +532,7 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+ALT+Key_P, ScApp, "specialPageNumber",30));
 	scrActions->insert("specialNewLine", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", SHIFT+Key_Return, ScApp, "specialNewLine",28));
 	scrActions->insert("specialFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Return, ScApp, "specialFrameBreak",27));
+	scrActions->insert("specialColumnBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Return, ScApp, "specialColumnBreak",26));
 	scrActions->insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialCopyRight",0x0A9));
 	scrActions->insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialRegdTM",0x00AE));
 	scrActions->insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialTM",0x2122));
@@ -562,7 +563,7 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleRight",0x300F));
 
 	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber" << "specialNewLine" << "specialFrameBreak";
-	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
+	*unicodeCharActionNames << "specialColumnBreak" << "specialCopyRight" << "specialRegdTM" << "specialTM";
 	*unicodeCharActionNames << "specialBullet";
 	*unicodeCharActionNames << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
 	*unicodeCharActionNames << "specialQuoteApostrophe" << "specialQuoteStraight";
@@ -695,6 +696,7 @@ void ActionManager::enableActionStringList(QStringList *list, bool enabled, bool
 			{
 				int charCode=(*scrActions)[*it]->actionInt();
 				if(charCode==-1 ||
+				   charCode==26 ||
 				   charCode==27 ||
 				   charCode==28 ||
 				   charCode==29 ||
@@ -958,6 +960,7 @@ void ActionManager::languageChange()
 	(*scrActions)["specialPageNumber"]->setMenuText( tr("Page &Number"));
 	(*scrActions)["specialNewLine"]->setMenuText( tr("New Line"));
 	(*scrActions)["specialFrameBreak"]->setMenuText( tr("Frame Break"));
+	(*scrActions)["specialColumnBreak"]->setMenuText( tr("Column Break"));
 	(*scrActions)["specialCopyRight"]->setTexts( tr("Copyright"));
 	(*scrActions)["specialRegdTM"]->setTexts( tr("Registered Trademark"));
 	(*scrActions)["specialTM"]->setTexts( tr("Trademark"));
@@ -992,6 +995,7 @@ void ActionManager::languageChange()
 	(*scrActions)["specialPageNumber"]->setText("Insert Page Number");
 	(*scrActions)["specialNewLine"]->setText("New Line");
 	(*scrActions)["specialFrameBreak"]->setText("Frame Break");
+	(*scrActions)["specialColumnBreak"]->setText( "Column Break");
 
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));

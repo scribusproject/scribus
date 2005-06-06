@@ -1256,6 +1256,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["specialNewLine"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["specialFrameBreak"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["specialColumnBreak"], "InsertSpace");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
 	scrActions["insertGlyph"]->setEnabled(false);

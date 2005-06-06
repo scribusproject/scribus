@@ -595,6 +595,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			bool fBorder = false;
 			bool RTab = false;
 			bool goNoRoom = false;
+			bool goNextColumn = false;
 			uint StartRT, StartRT2;
 			int TabCode = 0;
 			int HyphenCount = 0;
@@ -1375,13 +1376,20 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					if (!RTab)
 					{
-						hl->xp = CurX+kernVal;
+						hl->xp = QMIN(QMAX(CurX+kernVal, ColBound.x()), ColBound.y());
 						CurX += wide+kernVal;
+						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
 					}
 					else
+					{
+						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
 						hl->xp = CurX;
+					}
 					if ((TabCode == 4) && (RTab))
+					{
 						CurX += (wide+kernVal) / 2;
+						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
+					}
 					if ((hl->cstyle & 128) || (hl->ch == "-"))
 					{
 						if ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0))
@@ -1401,6 +1409,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						outs = true;
 					if ((hl->ch == QChar(27)) && (a < itemText.count()-1))
 						goNoRoom = true;
+					if ((hl->ch == QChar(26)) && (Cols > 1))
+						goNextColumn = true;
 					Zli = new ZZ;
 					Zli->Zeich = chx;
 					Zli->Farb = hl->ccolor;
@@ -1524,7 +1534,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						cm = QRegion(pf2.xForm(tcli));
 						cl = cl.subtract(cm);
 					}
-					if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (outs))
+					if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27))  || ((hl->ch == QChar(26)) && (Cols > 1)) || (outs))
 					{
 						RTab = false;
 						TabCode = 0;
@@ -1674,7 +1684,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 						}
 						uint BuPos3 = BuPos;
-						if ((outs) || (hl->ch == QChar(13)) || (hl->ch == QChar(28)))
+						if ((outs) || (hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || ((hl->ch == QChar(26)) && (Cols > 1)))
 						{
 							if ((outs) && (CurX+RExtra+lineCorr < ColBound.y()))
 							{
@@ -1715,7 +1725,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										}
 										else
 											CurX = ColBound.x();
-										if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)))
+										if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (hl->ch == QChar(26)))
 										{
 											if (hl->ch == QChar(13))
 												CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
@@ -1763,7 +1773,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								}
 								else
 									CurX = ColBound.x();
-								if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)))
+								if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || (hl->ch == QChar(26)))
 								{
 									if (hl->ch == QChar(13))
 										CurY += Doc->docParagraphStyles[hl->cab].gapAfter;
@@ -1826,7 +1836,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						tabDist = ColBound.x();
 						uint tabCc = 0;
 						uint loopC = BuPos3;
-						if ((Doc->guidesSettings.showControls) && (!goNoRoom))
+						if (Doc->guidesSettings.showControls)
 							loopC++;
 						for (uint zc = 0; zc<loopC; ++zc)
 						{
@@ -1969,6 +1979,24 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							goNoRoom = false;
 							nrc = a+1;
 							goto NoRoom;
+						}
+						if (goNextColumn)
+						{
+							goNextColumn = false;
+							StartOfCol = true;
+							CurrCol++;
+							if (CurrCol < Cols)
+							{
+								ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+								ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+								CurX = ColBound.x();
+								ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+							}
+							else
+							{
+								nrc = a;
+								goto NoRoom;
+							}
 						}
 					}
 				}
@@ -2193,6 +2221,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					tabDist = Zli2->xco+Zli2->wide;
 				}
+				goNextColumn = false;
 				LiList.clear();
 				BuPos = 0;
 				LastSP = 0;
@@ -2884,7 +2913,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			p->fillPath();
 		}
 	}
-	if ((ccx == QChar(13)) || (ccx == QChar(9)) || (ccx == QChar(28)) || (ccx == QChar(27)))
+	if ((ccx == QChar(13)) || (ccx == QChar(9)) || (ccx == QChar(28)) || (ccx == QChar(27)) || (ccx == QChar(26)))
 		return;
 	if (ccx == QChar(29))
 		ccx = " ";
@@ -4392,9 +4421,9 @@ void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
 
 void PageItem::restoreKerning(SimpleState *state, bool isUndo)
 {
-	double kerning = state->getDouble("OLD_KERNING");
+	int kerning = state->getInt("OLD_KERNING");
 	if (!isUndo)
-		kerning = state->getDouble("NEW_KERNING");
+		kerning = state->getInt("NEW_KERNING");
 	select();
 	ScApp->view->chKerning(kerning);
 }

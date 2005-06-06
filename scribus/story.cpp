@@ -231,6 +231,13 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUp(true);
 		return;
 	}
+	if (currKeySeq == ScApp->scrActions["specialColumnBreak"]->accel())
+	{
+		insChars(QString(QChar(ScApp->scrActions["specialColumnBreak"]->actionInt())));
+		insert("~");
+		emit SideBarUp(true);
+		return;
+	}
 	
 	switch (k->state())
 	{
