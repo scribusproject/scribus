@@ -9418,13 +9418,8 @@ void ScribusApp::slotStoryEditor()
 		CurrStED = dia;
 		connect(dia, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		connect(dia, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
-		if (dia->exec())
-		{
-			if (dia->TextChanged)
-				dia->updateTextFrame();
-		}
-		else
-			doc->ActPage->update();
+		dia->exec();
+		doc->ActPage->update();
 		BuildFontMenu();
 		CurrStED = NULL;
 		delete dia;
