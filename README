@@ -44,8 +44,11 @@ GS 8.x in parallel to the GS installed by your distro.
 
 Activating Color Management *requires* installation of CMYK and RGB ICC 
 profiles. Please see the included help files and http://docs.scribus.net for 
-details. Grey scale icc profiles in images are not supported in this release..
+details. Grey scale icc profiles in images are not supported in this release.
 
+If you have a 64-bit version of Qt, sometimes ./configure will not detect the 
+64-bit version headers. Try : ./configure --enable-libsuffix=64 to test for 64-bit 
+versions of libraries. 
 
 
 Other notes/known issues at the time of release:
