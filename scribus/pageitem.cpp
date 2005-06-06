@@ -768,7 +768,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					if (hl->cstyle & 16384)
 						Zli3.kern = 0;
 					else
-						Zli3.kern = hl->cextra;
+						Zli3.kern = chs * hl->cextra / 10000.0;
 					Zli3.scale = hl->cscale;
 					Zli3.scalev = hl->cscalev;
 					Zli3.base = hl->cbase;
@@ -1370,7 +1370,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					else
 					{
-						kernVal = hl->cextra;
+						kernVal = chs * hl->cextra / 10000.0;
 						itemText.at(a)->cstyle &= 16383;
 					}
 					if (!RTab)
@@ -1552,7 +1552,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->Style = itemText.at(a)->cstyle;
 									Zli->ZFo = itemText.at(a)->cfont;
 									Zli->wide = Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize);
-									Zli->kern = itemText.at(a)->cextra;
+									Zli->kern = itemText.at(a)->csize * itemText.at(a)->cextra / 10000.0;
 									Zli->scale = itemText.at(a)->cscale;
 									Zli->scalev = itemText.at(a)->cscalev;
 									Zli->base = itemText.at(a)->cbase;
@@ -2502,7 +2502,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 			double distCurX;
 			CurX = Extra;
 			if (itemText.count() != 0)
-				CurX += itemText.at(0)->cextra;
+				CurX += itemText.at(0)->csize * itemText.at(0)->cextra / 10000.0;
 			segLen = PoLine.lenPathSeg(seg);
 			for (a = 0; a < itemText.count(); ++a)
 			{
@@ -2620,7 +2620,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				Zli->Style = hl->cstyle;
 				Zli->ZFo = hl->cfont;
 				Zli->wide = wide;
-				Zli->kern = hl->cextra;
+				Zli->kern = hl->csize * hl->cextra / 10000.0;
 				Zli->scale = hl->cscale;
 				Zli->scalev = hl->cscalev;
 				Zli->base = hl->cbase;
@@ -2640,7 +2640,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				MaxChars = a+1;
 				oCurX = CurX;
 				CurX -= dx;
-				CurX += wide+hl->cextra;
+				CurX += wide+hl->csize * hl->cextra / 10000.0;
 				first = false;
 			}
 	DrawObj_Post(p, e);
@@ -3677,12 +3677,12 @@ void PageItem::setFontEffects(int newEffects)
 	TxTStyle |= newEffects;
 }
 
-double PageItem::kerning() const
+int PageItem::kerning() const
 {
 	return ExtraV;
 }
 
-void PageItem::setKerning(double newKerning)
+void PageItem::setKerning(int newKerning)
 {
 	if (ExtraV == newKerning)
 		return; // nothing to do -> return

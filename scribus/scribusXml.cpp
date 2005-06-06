@@ -155,7 +155,11 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 		}
 		int size = qRound(QStodouble(it->attribute("CSIZE")) * 10);
 		QString fcolor = it->attribute("CCOLOR");
-		double extra = QStodouble(it->attribute("CEXTRA"));
+		int extra;
+		if (it->hasAttribute("CEXTRA"))
+			extra = qRound(QStodouble(it->attribute("CEXTRA")) / QStodouble(it->attribute("CSIZE")) * 1000.0);
+		else
+			extra = QStoInt(it->attribute("CKERN"));
 		int shade = QStoInt(it->attribute("CSHADE"));
 		int style = QStoInt(it->attribute("CSTYLE")) & 255;
 		int ab = QStoInt(it->attribute("CAB","0"));
@@ -221,12 +225,17 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 		else
 			tmpf = DoFonts[tmf];
 	}
+	QString tmp4;
 	tmp3 = "\t" + tmpf + "\t";
 	tmp3 += it->attribute("CSIZE") + "\t";
 	tmp3 += it->attribute("CCOLOR") + "\t";
-	tmp3 += it->attribute("CEXTRA") + "\t";
+	int extra;
+	if (it->hasAttribute("CEXTRA"))
+		extra = qRound(QStodouble(it->attribute("CEXTRA")) / QStodouble(it->attribute("CSIZE")) * 1000.0);
+	else
+		extra = QStoInt(it->attribute("CKERN"));
+	tmp3 += tmp4.setNum(extra) + "\t";
 	tmp3 += it->attribute("CSHADE") + "\t";
-	QString tmp4;
 	tmp3 += tmp4.setNum(QStoInt(it->attribute("CSTYLE")) & 255) + "\t";
 	if (impo)
 	{
@@ -353,7 +362,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("PLINEJOIN", item->PLineJoin);
 	ob->setAttribute("LINESP",item->LineSp);
 	ob->setAttribute("LINESPMode", item->LineSpMode);
-	ob->setAttribute("EXTRAV",item->ExtraV);
+	ob->setAttribute("TXTKERN",item->ExtraV);
 	ob->setAttribute("LOCALSCX",item->LocalScX);
 	ob->setAttribute("LOCALSCY",item->LocalScY);
 	ob->setAttribute("LOCALX",item->LocalX);
@@ -2207,9 +2216,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 
 QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view)
 {
-	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
+	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double te, te2, ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -2548,7 +2557,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				it.setAttribute("CSIZE",ts);
 				it.setAttribute("CFONT",tf);
 				it.setAttribute("CCOLOR",tc);
-				it.setAttribute("CEXTRA",te);
+				it.setAttribute("CKERN",te);
 				it.setAttribute("CSHADE",tsh);
 				it.setAttribute("CSTYLE",tst);
 				it.setAttribute("CAB",tsb);
@@ -2645,7 +2654,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			it.setAttribute("CSIZE",ts);
 			it.setAttribute("CFONT",tf);
 			it.setAttribute("CCOLOR",tc);
-			it.setAttribute("CEXTRA",te);
+			it.setAttribute("CKERN",te);
 			it.setAttribute("CSHADE",tsh);
 			it.setAttribute("CSTYLE",tst);
 			it.setAttribute("CAB",tsb);
@@ -2732,9 +2741,9 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 
 void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
 {
-	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
+	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
-	double ts, ts2, te, te2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
 	uint ObCount = maxC;
 	PageItem *item;
 	QDomElement ob;
@@ -2841,7 +2850,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				it.setAttribute("CSIZE",ts);
 				it.setAttribute("CFONT",tf);
 				it.setAttribute("CCOLOR",tc);
-				it.setAttribute("CEXTRA",te);
+				it.setAttribute("CKERN",te);
 				it.setAttribute("CSHADE",tsh);
 				it.setAttribute("CSTYLE",tst);
 				it.setAttribute("CAB",tsb);
@@ -2932,7 +2941,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			it.setAttribute("CSIZE",ts);
 			it.setAttribute("CFONT",tf);
 			it.setAttribute("CCOLOR",tc);
-			it.setAttribute("CEXTRA",te);
+			it.setAttribute("CKERN",te);
 			it.setAttribute("CSHADE",tsh);
 			it.setAttribute("CSTYLE",tst);
 			it.setAttribute("CAB",tsb);

@@ -461,7 +461,7 @@ public slots:
 signals:
 	void TextISize(int);
 	void TextIFont(QString);
-	void TextUSval(double);
+	void TextUSval(int);
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
 	void TextScale(int);

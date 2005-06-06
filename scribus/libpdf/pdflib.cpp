@@ -2993,7 +2993,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		if (hl->cstyle & 16384)
 			kern = 0;
 		else
-			kern = hl->cextra;
+			kern = hl->csize * hl->cextra / 10000.0;
 		if ((hl->cunderpos != -1) || (hl->cunderwidth != -1))
 		{
 			if (hl->cunderpos != -1)
@@ -3026,7 +3026,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		if (hl->cstyle & 16384)
 			kern = 0;
 		else
-			kern = hl->cextra;
+			kern = hl->csize * hl->cextra / 10000.0;
 		if ((hl->cstrikepos != -1) || (hl->cstrikewidth != -1))
 		{
 			if (hl->cstrikepos != -1)

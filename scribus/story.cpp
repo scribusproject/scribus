@@ -1602,7 +1602,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	trackingLabel = new QLabel( tr( "Tracking:" ), this, "trackingLabel" );
 	Extra = new MSpinBox( this, 1 );
 	Extra->setValues( -300, 300, 10, 0);
-	Extra->setSuffix( tr( " pt" ) );
+	Extra->setSuffix( tr( " %" ) );
 	QToolTip::add( Extra, tr( "Manual Tracking" ) );
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
@@ -1644,7 +1644,7 @@ void SToolBStyle::newShadowHandler()
 
 void SToolBStyle::newKernHandler()
 {
-	emit NewKern(Extra->value());
+	emit NewKern(qRound(Extra->value() * 10.0));
 }
 
 void SToolBStyle::setOutline(int x)
@@ -1691,10 +1691,10 @@ void SToolBStyle::SetStyle(int s)
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 }
 
-void SToolBStyle::SetKern(double k)
+void SToolBStyle::SetKern(int k)
 {
 	disconnect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
-	Extra->setValue(k);
+	Extra->setValue(k / 10.0);
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
 }
 
@@ -1987,7 +1987,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(FontTools, SIGNAL(NewFont(const QString& )), this, SLOT(newTxFont(const QString& )));
 	connect(FontTools, SIGNAL(NewScale(int )), this, SLOT(newTxScale(int )));
 	connect(FontTools, SIGNAL(NewScaleV(int )), this, SLOT(newTxScaleV(int )));
-	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
+	connect(StyleTools, SIGNAL(NewKern(int )), this, SLOT(newTxKern(int )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	connect(StyleTools, SIGNAL(NewShadow(int, int)), this, SLOT(newShadowOffs(int, int)));
 	connect(StyleTools, SIGNAL(newOutline(int )), this, SLOT(newTxtOutline(int )));
@@ -2175,7 +2175,7 @@ void StoryEditor::newTxScaleV(int )
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxKern(double s)
+void StoryEditor::newTxKern(int s)
 {
 	Editor->CurrTextKern = s;
 	struct PtiSmall hg;

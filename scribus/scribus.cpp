@@ -288,7 +288,7 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
-		connect(this, SIGNAL(TextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
+		connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
 		connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
 		connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
 		connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
@@ -3592,7 +3592,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(ItemGradient(int)), propertiesPalette->Cpal, SLOT(setActGradient(int)));
 	connect(view, SIGNAL(ItemTrans(double, double)), propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
 	connect(view, SIGNAL(ItemTextAttr(double)), propertiesPalette, SLOT(setLsp(double)));
-	connect(view, SIGNAL(ItemTextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
+	connect(view, SIGNAL(ItemTextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
 	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
@@ -7327,8 +7327,8 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							ite->itemText.at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
 						if (ite->itemText.at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
 							ite->itemText.at(e)->cbase = dia->TempVorl[cabneu].baseOff;
-			//			if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
-			//				ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
+						if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
+							ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
 					}
 					else
 					{
@@ -7349,7 +7349,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 						ite->itemText.at(e)->cscale = ite->TxtScale;
 						ite->itemText.at(e)->cscalev = ite->TxtScaleV;
 						ite->itemText.at(e)->cbase = ite->TxtBase;
-			//			ite->itemText.at(a)->cextra = ite->ExtraV;
+						ite->itemText.at(e)->cextra = ite->ExtraV;
 					}
 					ite->itemText.at(e)->cab = cabneu;
 				}
@@ -7406,8 +7406,8 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							ite->itemText.at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
 						if (ite->itemText.at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
 							ite->itemText.at(e)->cbase = dia->TempVorl[cabneu].baseOff;
-			//			if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
-			//				ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
+						if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
+							ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
 					}
 					else
 					{
@@ -7428,7 +7428,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 						ite->itemText.at(e)->cscale = ite->TxtScale;
 						ite->itemText.at(e)->cscalev = ite->TxtScaleV;
 						ite->itemText.at(e)->cbase = ite->TxtBase;
-			//			ite->itemText.at(a)->cextra = ite->ExtraV;
+						ite->itemText.at(e)->cextra = ite->ExtraV;
 					}
 					ite->itemText.at(e)->cab = cabneu;
 				}
@@ -7490,8 +7490,8 @@ void ScribusApp::saveStyles(StilFormate *dia)
 								chars->at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
 							if (chars->at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
 								chars->at(e)->cbase = dia->TempVorl[cabneu].baseOff;
-				//			if (chars.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
-				//				chars.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
+							if (chars->at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
+								chars->at(e)->cextra = dia->TempVorl[cabneu].kernVal;
 						}
 						else
 						{
@@ -7512,7 +7512,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 							chars->at(e)->cscale = ite->TxtScale;
 							chars->at(e)->cscalev = ite->TxtScaleV;
 							chars->at(e)->cbase = ite->TxtBase;
-				//			chars->at(a)->cextra = ite->ExtraV;
+							chars->at(e)->cextra = ite->ExtraV;
 						}
 						chars->at(e)->cab = cabneu;
 					}

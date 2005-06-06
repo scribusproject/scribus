@@ -58,7 +58,7 @@ struct PtiSmall {
 			short cunderwidth;
 			short cstrikepos;
 			short cstrikewidth;
-		    double cextra;
+		    int cextra;
 			QString ch;
 		    QString cfont;
 		    QString ccolor;
@@ -109,7 +109,7 @@ public:
 	int CurrTextUnderWidth;
 	int CurrTextStrikePos;
 	int CurrTextStrikeWidth;
-	double CurrTextKern;
+	int CurrTextKern;
 	QString CurrTextStroke;
 	QString CurrTextFill;
 	QString CurrFont;
@@ -237,10 +237,10 @@ public slots:
 	void setUnderline(int p, int w);
 	void setOutline(int o);
 	void SetStyle(int s);
-	void SetKern(double k);
+	void SetKern(int k);
 
 signals:
-	void NewKern(double);
+	void NewKern(int);
 	void NewShadow(int, int);
 	void newOutline(int);
 	void newStrike(int, int);
@@ -367,7 +367,7 @@ public slots:
 	void newTxScale(int s);
 	void newTxScaleV(int s);
 	void newTxStyle(int s);
-	void newTxKern(double s);
+	void newTxKern(int s);
 	void newShadowOffs(int x, int y);
 	void newTxtOutline(int o);
 	void newTxtUnderline(int p, int w);

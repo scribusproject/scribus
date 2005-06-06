@@ -1200,7 +1200,11 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 	}
 	int size = qRound(QStodouble(it->attribute("CSIZE")) * 10);
 	QString fcolor = it->attribute("CCOLOR");
-	double extra = QStodouble(it->attribute("CEXTRA"));
+	int extra;
+	if (it->hasAttribute("CEXTRA"))
+		extra = qRound(QStodouble(it->attribute("CEXTRA")) / QStodouble(it->attribute("CSIZE")) * 1000.0);
+	else
+		extra = QStoInt(it->attribute("CKERN"));
 	int shade = QStoInt(it->attribute("CSHADE"));
 	int style = QStoInt(it->attribute("CSTYLE"));
 	int ab = QStoInt(it->attribute("CAB","0"));
@@ -1486,7 +1490,10 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->setTextFlowsAroundFrame(QStoInt(obj->attribute("TEXTFLOW")));
 	currItem->setTextFlowUsesBoundingBox(QStoInt(obj->attribute("TEXTFLOW2","0")));
 	currItem->ISize = qRound(QStodouble(obj->attribute("ISIZE","12")) * 10);
-	currItem->ExtraV=QStodouble(obj->attribute("EXTRAV","0"));
+	if (obj->hasAttribute("EXTRAV"))
+		currItem->ExtraV = qRound(QStodouble(obj->attribute("EXTRAV","0")) / QStodouble(obj->attribute("ISIZE","12")) * 1000.0);
+	else
+		currItem->ExtraV = QStoInt(obj->attribute("TXTKERN"));
 	currItem->DashOffset = QStodouble(obj->attribute("DASHOFF","0.0"));
 	currItem->Reverse = static_cast<bool>(QStoInt(obj->attribute("REVERS","0")));
 	currItem->setLocked(static_cast<bool>(QStoInt(obj->attribute("LOCK","0"))));

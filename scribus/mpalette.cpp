@@ -1531,13 +1531,13 @@ void Mpalette::setSize(int s)
 	HaveItem = tmp;
 }
 
-void Mpalette::setExtra(double e)
+void Mpalette::setExtra(int e)
 {
 	if (ScApp->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	Extra->setValue(e);
+	Extra->setValue(e / 10.0);
 	HaveItem = tmp;
 }
 
@@ -2180,14 +2180,14 @@ void Mpalette::NewExtra()
 	{
 		if ((CurItem->HasSel) || (doc->appMode == NormalMode))
 		{
-			ScApp->view->chKerning(Extra->value());
+			ScApp->view->chKerning(qRound(Extra->value() * 10.0));
 			emit DocChanged();
 		}
 		else
 		{
 			if (uint(CurItem->CPos) != CurItem->itemText.count())
 			{
-				CurItem->itemText.at(CurItem->CPos)->cextra = Extra->value();
+				CurItem->itemText.at(CurItem->CPos)->cextra = qRound(Extra->value() * 10.0);
 				ScApp->view->RefreshItem(CurItem);
 				emit DocChanged();
 			}
@@ -3416,13 +3416,13 @@ void Mpalette::languageChange()
 	ChScaleV->setSuffix(pctSuffix);
 	ScaleX->setSuffix(pctSuffix);
 	ScaleY->setSuffix(pctSuffix);
+	Extra->setSuffix(pctSuffix);
 	
 	QString ptSuffix = tr(" pt");
 	Dist->setSuffix(ptSuffix);
 	LineW->setSuffix(ptSuffix);
 	Size->setSuffix(ptSuffix);
 	LineSp->setSuffix(ptSuffix);
-	Extra->setSuffix(ptSuffix);
 	LSize->setSuffix(ptSuffix);
 
 	QString ein = (HaveDoc) ? unitGetSuffixFromIndex(doc->docUnitIndex) : ptSuffix;

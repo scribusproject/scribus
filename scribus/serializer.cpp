@@ -100,7 +100,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->cscale = doku->docParagraphStyles[Absatz].scaleH;
 			hg->cscalev = doku->docParagraphStyles[Absatz].scaleV;
 			hg->cbase = doku->docParagraphStyles[Absatz].baseOff;
-//			hg->cextra = Doc->docParagraphStyles[Absatz].kernVal;
+			hg->cextra = doku->docParagraphStyles[Absatz].kernVal;
 		}
 		else
 		{
@@ -121,9 +121,8 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->cscale = it->TxtScale;
 			hg->cscalev = it->TxtScaleV;
 			hg->cbase = it->TxtBase;
-//			hg->cextra = 0;
+			hg->cextra = 0;
 		}
-		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cab = Absatz;
 		hg->xp = 0;

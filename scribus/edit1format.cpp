@@ -207,12 +207,10 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	pixmapLabel3_3->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
 	AbstandVLayout->addWidget( pixmapLabel3_3, 0, 4 );
-	fontKern = new MSpinBox( -100, 100, AbstandV, 1 );
+	fontKern = new MSpinBox( -300, 300, AbstandV, 1 );
 	fontKern->setValue( vor->kernVal / 10.0 );
 	fontKern->setSuffix( tr( " %" ) );
 	AbstandVLayout->addWidget( fontKern, 0, 5 );
-	fontKern->setEnabled(false);
-	pixmapLabel3_3->setEnabled(false);
 
 	TextLabel1_2_2 = new QLabel( "", AbstandV, "TextLabel1_2_2" );
 	TextLabel1_2_2->setPixmap( loadIcon("above.png") );
@@ -370,6 +368,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(DropDist, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(previewCaption, SIGNAL( clicked() ), this, SLOT( togglePreview() ) );
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(toggleLsp(int )));
+	connect(fontKern, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);

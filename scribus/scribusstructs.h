@@ -56,7 +56,7 @@ struct ScText
 	short cunderwidth;
 	short cstrikepos;
 	short cstrikewidth;
-	float cextra;
+	short cextra;
 	float xp;
 	float yp;
 	float PtransX;
@@ -114,7 +114,7 @@ struct CopyPasteBuffer
 	int PLineEnd;
 	double LineSp;
 	int LineSpMode;
-	double ExtraV;
+	int ExtraV;
 	double LocalScX;
 	double LocalScY;
 	double LocalX;

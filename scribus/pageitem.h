@@ -355,7 +355,7 @@ struct TabRecord
 	int textAlignment;
 	uint MaxChars;
 	bool Redrawn;
-	double ExtraV;
+	int ExtraV;
 	bool isRaster;
 	double OldB;
 	double OldH;
@@ -638,12 +638,12 @@ struct TabRecord
 	void setFontEffects(int newEffects);
 
 	/** @brief Get PageItem-wide text kerning */
-	double kerning() const;
+	int kerning() const;
 	/**
 	 * @brief Set kerning for the text
 	 * @param newKerning kerning for the text
 	 */
-	void setKerning(double newKerning);
+	void setKerning(int newKerning);
 
 	/** @brief Get the PageItem-wide line spacing */
 	double lineSpacing() const;

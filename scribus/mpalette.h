@@ -286,7 +286,7 @@ public slots:
 	void setLspMode(int id);
 	void setLsp(double r);
 	void setSize(int s);
-	void setExtra(double e);
+	void setExtra(int e);
 	void setDvals(double left, double top, double bottom, double right);
 	void ChangeScaling();
 	void setLvalue(double scx, double scy, double x, double y);

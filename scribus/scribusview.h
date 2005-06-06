@@ -245,7 +245,7 @@ public:
 	void chTyStyle(int s);
 	void SetAbStyle(int s);
 	void chAbStyle(PageItem *currItem, int s);
-	void chKerning(double us);
+	void chKerning(int us);
 	void chFSize(int size);
 	void FlipImageH();
 	void FlipImageV();
@@ -376,7 +376,7 @@ signals:
 	void ItemGradient(int);
 	void ItemTrans(double, double);
 	void ItemTextAttr(double);
-	void ItemTextUSval(double);
+	void ItemTextUSval(int);
 	void ItemTextCols(int, double);
 	void SetDistValues(double, double, double, double);
 	void ItemTextAbs(int);

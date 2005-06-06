@@ -321,7 +321,8 @@ QPixmap ScPreview::createPreview(QString data)
 					tmp3 = "\t" + DoFonts[it.attribute("CFONT")] + "\t";
 					tmp3 += it.attribute("CSIZE") + "\t";
 					tmp3 += it.attribute("CCOLOR") + "\t";
-					tmp3 += it.attribute("CEXTRA") + "\t";
+//					tmp3 += it.attribute("CEXTRA") + "\t";
+					tmp3 += "0\t";
 					tmp3 += it.attribute("CSHADE") + "\t";
 					tmp3 += it.attribute("CSTYLE") + "\t";
 					tmp3 += "0\t";
@@ -731,7 +732,7 @@ QPixmap ScPreview::createPreview(QString data)
 				cl = FlattenPath(OB.PoLine, Segments);
 				CurX = OB.Extra;
 				if (Ptexti.count() != 0)
-					CurX += Ptexti.at(0)->cextra;
+					CurX += Ptexti.at(0)->csize * Ptexti.at(0)->cextra / 10000.0;
 				zae = 0;
 				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 				while (wid < 1)
@@ -779,7 +780,7 @@ QPixmap ScPreview::createPreview(QString data)
 						}
 					}
 					wide = Prefs->AvailFonts[hl->cfont->SCName]->CharWidth[chx[0].unicode()]*(chs / 10.0);
-					if ((CurX+(wide+hl->cextra)/2) >= wid)
+					if ((CurX+(wide+chs * hl->cextra / 10000.0)/2) >= wid)
 					{
 						if (zae < cl.size()-1)
 						{
@@ -808,9 +809,9 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->save();
 					pS->translate(cl.point(zae).x(), cl.point(zae).y());
 					pS->rotate(rota);
-					DrawZeichenS(pS, CurX+hl->cextra, CurY+OB.BaseOffs, chx, hl->cfont->SCName, OB.Reverse, hl->cstyle, 2, chs);
+					DrawZeichenS(pS, CurX+chs * hl->cextra / 10000.0, CurY+OB.BaseOffs, chx, hl->cfont->SCName, OB.Reverse, hl->cstyle, 2, chs);
 					pS->restore();
-					CurX += wide+hl->cextra;
+					CurX += wide+chs * hl->cextra / 10000.0;
 				}
 			PfadEnd:	break;
 			}

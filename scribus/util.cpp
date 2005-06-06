@@ -1526,7 +1526,6 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->PLineJoin=Qt::PenJoinStyle(QStoInt(obj->attribute("PLINEJOIN","0")));
 	OB->LineSp=QStodouble(obj->attribute("LINESP"));
 	OB->LineSpMode = QStoInt(obj->attribute("LINESPMode","0"));
-	OB->ExtraV=QStodouble(obj->attribute("EXTRAV","0"));
 	OB->LocalScX=QStodouble(obj->attribute("LOCALSCX"));
 	OB->LocalScY=QStodouble(obj->attribute("LOCALSCY"));
 	OB->LocalX=QStodouble(obj->attribute("LOCALX"));
@@ -1591,6 +1590,10 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->PoShow = QStoInt(obj->attribute("PLTSHOW","0"));
 	OB->BaseOffs = QStodouble(obj->attribute("BASEOF","0"));
 	OB->ISize = qRound(QStodouble(obj->attribute("ISIZE","12")) * 10);
+	if (obj->hasAttribute("EXTRAV"))
+		OB->ExtraV = qRound(QStodouble(obj->attribute("EXTRAV","0")) / QStodouble(obj->attribute("ISIZE","12")) * 1000.0);
+	else
+		OB->ExtraV = QStoInt(obj->attribute("TXTKERN"));
 	OB->Pfile=obj->attribute("PFILE");
 	OB->Pfile2=obj->attribute("PFILE2","");
 	OB->Pfile3=obj->attribute("PFILE3","");
