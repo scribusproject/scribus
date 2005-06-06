@@ -1476,8 +1476,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.txtUnderWidth = doc->typographicSetttings.valueUnderlineWidth;
 				vg.txtStrikePos = doc->typographicSetttings.valueStrikeThruPos;
 				vg.txtStrikeWidth = doc->typographicSetttings.valueStrikeThruPos;
-				vg.scaleH = 100;
-				vg.scaleV = 100;
+				vg.scaleH = 1000;
+				vg.scaleV = 1000;
 				vg.baseOff = 0;
 				vg.kernVal = 0;
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
