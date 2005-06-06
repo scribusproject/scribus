@@ -2050,7 +2050,10 @@ void StoryEditor::closeEvent(QCloseEvent *)
 									QMessageBox::No,
 									QMessageBox::Cancel|QMessageBox::Escape);
 		if (t == QMessageBox::Yes)
+		{
+			updateTextFrame();
 			result = QDialog::Accepted;
+		}
 		else if (t == QMessageBox::Cancel)
 			return;
 		else if (t == QMessageBox::No)
@@ -2508,6 +2511,7 @@ void StoryEditor::Do_fontPrev()
 
 void StoryEditor::Do_leave2()
 {
+	updateTextFrame();
 	result = QDialog::Accepted;
 	hide();
 	qApp->exit_loop();
