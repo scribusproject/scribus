@@ -10810,14 +10810,33 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 			}
 			QString colorName=QString::null;
 			if (found)
-			{
-				//qDebug(QString("color found %1").arg(it.key()));
 				colorName=it.key();
-			}
-			/*
 			else
-				qDebug("color not found");
-			*/
+			{
+				bool ok;
+				bool nameFound=false;
+				QString questionString="<qt>"+tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
+				do 
+				{
+					colorName = QInputDialog::getText(tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok, this);
+					if (ok)
+					{
+						if (doc->PageColors.contains(colorName))
+							questionString="<qt>"+tr("The name you have selected already exists. Please enter a different name for this new color.")+"</qt>";
+						else
+							nameFound=true;
+					}
+				} while (!nameFound && ok);
+				if ( ok && !colorName.isEmpty() ) 
+				{
+					CMYKColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
+					doc->PageColors[colorName]=newColor;
+					propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+					propertiesPalette->updateCList();
+				} 
+				else 
+					colorName=QString::null;
+			}
 			if (colorName!=QString::null && view->SelItem.count() > 0)
 			{
 				for (uint i = 0; i < view->SelItem.count(); ++i)
@@ -10826,12 +10845,12 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 					{
 						PageItem *currItem=view->SelItem.at(i);
 						if ((m->stateAfter() & Qt::ControlButton) && (currItem->itemType() == PageItem::TextFrame || currItem->itemType() == PageItem::PathText))
-							view->ItemTextBrush(it.key()); //Text colour
+							view->ItemTextBrush(colorName); //Text colour
 						else
 						if (m->stateAfter() & Qt::AltButton) //Line colour
-							setPenFarbe(it.key());
+							setPenFarbe(colorName);
 						else
-							view->ItemBrush(it.key()); //Fill colour
+							view->ItemBrush(colorName); //Fill colour
 					}
 				}
 			}
