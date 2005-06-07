@@ -10048,10 +10048,13 @@ void ScribusApp::setItemFillTransparency(double t)
 {
 	if (HaveDoc)
 	{
+		for (uint i = 0; i < view->SelItem.count(); ++i)
+		{
+			PageItem *currItem = view->SelItem.at(i);
+			currItem->setFillTransparency(t);
+		}
 		if (view->SelItem.count() != 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
-			currItem->setFillTransparency(t);
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -10062,10 +10065,15 @@ void ScribusApp::setItemLineTransparency(double t)
 {
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
+		for (uint i = 0; i < view->SelItem.count(); ++i)
 		{
 			PageItem *currItem = view->SelItem.at(0);
 			currItem->setLineTransparency(t);
+			view->DrawNew();
+			slotDocCh();
+		}
+		if (view->SelItem.count() != 0)
+		{
 			view->DrawNew();
 			slotDocCh();
 		}

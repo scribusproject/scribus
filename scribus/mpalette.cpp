@@ -1104,6 +1104,7 @@ void Mpalette::NewSel(int nr)
 		TabStack->item(0)->setEnabled(true);
 		TabStack->setItemEnabled(0, true);
 		NameEdit->setEnabled(false);
+		TabStack->setItemEnabled(5, true);
 	}
 	else
 	{
