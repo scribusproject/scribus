@@ -3200,11 +3200,13 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		{
 			xres = dotsPerMeterX() * 0.0254;
 			yres = dotsPerMeterY() * 0.0254;
+			int resInf = imgInfo.lowResType;
 			*this = convertDepth(32);
 			setAlphaBuffer(true);
 			imgInfo.colorspace = 0;
 			imgInfo.xres = qRound(xres);
 			imgInfo.yres = qRound(yres);
+			imgInfo.lowResType = resInf;
 		}
 	}
 	if (isNull())
