@@ -905,6 +905,5 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 // add user and X11 fonts:
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi) 
 		AddScalableFonts(fpi.current());
-	}
 #endif
 }
