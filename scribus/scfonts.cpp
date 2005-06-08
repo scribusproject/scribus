@@ -276,7 +276,8 @@ class Foi_postscript : public Foi
 				{
 					++invalidGlyph;
 					qDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(Datei).arg(gindex).arg(charcode));
-					break;
+					charcode = FT_Get_Next_Char( face, charcode, &gindex );
+					continue;
 				}
 				++goodGlyph;
 				double ww = face->glyph->metrics.horiAdvance / uniEM;
@@ -302,7 +303,10 @@ class Foi_postscript : public Foi
 			}
 			FT_Done_Face( face );
 			FT_Done_FreeType( library );
-			UseFont = goodGlyph > invalidGlyph;
+			if (invalidGlyph > 0) {
+				UseFont = false;
+				qDebug(QObject::tr("Font %1 is broken and will be discarded").arg(Datei));
+			}				
 			HasMetrics=UseFont;
 			metricsread=UseFont;
 			return(HasMetrics);
@@ -901,5 +905,6 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 // add user and X11 fonts:
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi) 
 		AddScalableFonts(fpi.current());
+	}
 #endif
 }

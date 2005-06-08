@@ -2144,12 +2144,16 @@ void StoryEditor::newTxStroke(int c, int s)
 
 void StoryEditor::newTxFont(const QString &f)
 {
+	if(!doc->UsedFonts.contains(f)) {
+		if (!doc->AddFont(f, ScApp->Prefs.AvailFonts[f]->Font)) {
+			FontTools->Fonts->RebuildList(&(ScApp->Prefs), doc);
+			return;
+		};
+	}
 	Editor->CurrFont = f;
 	struct PtiSmall hg;
 	hg.cfont = Editor->CurrFont;
 	Editor->updateSel(2, &hg);
-	if(!doc->UsedFonts.contains(Editor->CurrFont))
-		doc->AddFont(Editor->CurrFont, ScApp->Prefs.AvailFonts[Editor->CurrFont]->Font);
 	modifiedText();
 	Editor->setFocus();
 }

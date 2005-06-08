@@ -95,7 +95,8 @@ bool Foi_ttf::ReadMetrics()
 		{
 			++invalidGlyphs;
 			qDebug(QObject::tr("Font %1  has invalid glyph %2 (charcode %3), discarding it").arg(Datei).arg(gindex).arg(charcode));
-			break;
+			charcode = FT_Get_Next_Char( face, charcode, &gindex );
+			continue;
 		}
 		++goodGlyphs;
 		double ww = face->glyph->metrics.horiAdvance / uniEM;
@@ -119,7 +120,7 @@ bool Foi_ttf::ReadMetrics()
 		glyName = newName;
 		charcode = FT_Get_Next_Char( face, charcode, &gindex );
 	}
-	UseFont = goodGlyphs > invalidGlyphs;
+	UseFont = (invalidGlyphs == 0);
 	FT_Done_FreeType( library );
 	HasMetrics=UseFont;
 	metricsread=UseFont;
