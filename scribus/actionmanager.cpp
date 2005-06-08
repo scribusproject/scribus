@@ -562,15 +562,27 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleLeft",0x300E));
 	scrActions->insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleRight",0x300F));
 
-	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber" << "specialNewLine" << "specialFrameBreak";
-	*unicodeCharActionNames << "specialColumnBreak" << "specialCopyRight" << "specialRegdTM" << "specialTM";
+	//Spaces and special characters
+	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
+	//Breaks
+	*unicodeCharActionNames << "specialNewLine" << "specialFrameBreak" << "specialColumnBreak";
+	//Copyrights and TMs
+	*unicodeCharActionNames << "specialCopyRight" << "specialRegdTM" << "specialTM";
+	//Bullets
 	*unicodeCharActionNames << "specialBullet";
+	//Dashes
 	*unicodeCharActionNames << "specialDashEm" << "specialDashEn" << "specialDashFigure" << "specialDashQuotation";
+	//Straight quotes
 	*unicodeCharActionNames << "specialQuoteApostrophe" << "specialQuoteStraight";
+	//Double quotes
 	*unicodeCharActionNames << "specialQuoteDoubleLeft" << "specialQuoteDoubleRight" << "specialQuoteSingleLeft" << "specialQuoteSingleRight";
+	//Alternative single quotes
 	*unicodeCharActionNames << "specialQuoteSingleReversed" << "specialQuoteDoubleReversed";
+	//French quotes
 	*unicodeCharActionNames << "specialQuoteSingleLeftGuillemet" << "specialQuoteSingleRightGuillemet" << "specialQuoteDoubleLeftGuillemet" << "specialQuoteDoubleRightGuillemet";
+	//German quotes
 	*unicodeCharActionNames << "specialQuoteLowSingleComma" << "specialQuoteLowDoubleComma" << "specialQuoteDoubleTurnedComma";
+	//CJK Quotes
 	*unicodeCharActionNames << "specialQuoteCJKSingleLeft" << "specialQuoteCJKSingleRight" << "specialQuoteCJKDoubleLeft" << "specialQuoteCJKDoubleRight";
 
 	for ( QStringList::Iterator it = unicodeCharActionNames->begin(); it != unicodeCharActionNames->end(); ++it )
