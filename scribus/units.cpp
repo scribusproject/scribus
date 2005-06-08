@@ -18,7 +18,7 @@
 #include "units.h"
 
 /*!
- * @brief Returns the ratio to points for the selected unit of measure. Ratios are for: PT, MM, IN, P
+ * @brief Returns the ratio to points for the selected unit of measure. Ratios are for: PT, MM, IN, P, CM
  */
 const double unitGetRatioFromIndex(const int index)
 {
@@ -232,16 +232,16 @@ const double pts2cm(double pts)
 /*!
  * @brief Returns the value from the pt value supplied based on unit index
  */
-double pts2value(double Val, int unit)
+double pts2value(double unitValue, int unit)
 {
 	double ret = 0.0;
 	switch (unit)
 	{
 		case 0:
-			ret = Val; //dont multiply by 1
+			ret = unitValue; //dont multiply by 1
 			break;
 		default:
-			ret = Val * unitGetRatioFromIndex(unit);
+			ret = unitValue * unitGetRatioFromIndex(unit);
 			break;
 	}
 	return ret;
@@ -262,6 +262,21 @@ double value2pts(double unitValue, int unit)
 			ret = unitValue / unitGetRatioFromIndex(unit);
 			break;
 	}
+	return ret;
+}
+
+/*!
+ * @brief Returns the secondary unit value from the value supplied based on primary unit
+ */
+double value2value(double unitValue, int primaryUnit, int secondaryUnit)
+{
+	if (primaryUnit==secondaryUnit)
+		return unitValue;
+		
+	double pts = 0.0, ret = 0.0;
+	//Can make this not convert to points at a later stage, for now, the function exists and works.
+	pts= primaryUnit==0 ? unitValue : unitValue / unitGetRatioFromIndex(primaryUnit);
+	ret= secondaryUnit==0 ? pts : pts / unitGetRatioFromIndex(secondaryUnit);
 	return ret;
 }
 

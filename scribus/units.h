@@ -54,7 +54,7 @@ const double pts2p(double pts);
 const double pts2cm(double pts);
 double pts2value(double Val, int unit);
 double value2pts(double unitValue, int unit);
-
+double value2value(double unitValue, int primaryUnit, int secondaryUnit);
 //Ruler specific functions
 double unitRulerGetIter1FromIndex(const int index);
 double unitRulerGetIter2FromIndex(const int index);
