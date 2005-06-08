@@ -11,9 +11,11 @@
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "scpaths.h"
+#include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool loadText(QString nam, QString *Buffer);
+extern ScribusApp* ScApp;
 
 
 EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, ApplicationPrefs *Prefs, double au, int dEin, ScribusDoc *doc)
@@ -220,7 +222,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AbstandVLayout->addWidget( AboveV, 1, 1 );
 
 	TextLabel1_2_3 = new QLabel( "", AbstandV, "TextLabel1_2_3" );
-	TextLabel1_2_2->setPixmap( loadIcon("below.png") );
+	TextLabel1_2_3->setPixmap( loadIcon("below.png") );
 	AbstandVLayout->addWidget( TextLabel1_2_3, 1, 2 );
 	BelowV = new MSpinBox( 0, 300, AbstandV, 1 );
 	BelowV->setSuffix( tr( " pt" ) );
@@ -467,8 +469,7 @@ void EditStyle::Verlassen()
 			{
 				if (Name->text() == allV[x].Vname)
 				{
-					QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"),
-					                         tr("&OK"),0, 0, 0, QMessageBox::Ok);
+					QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("&OK"),0, 0, 0, QMessageBox::Ok);
 					Name->selectAll();
 					Name->setFocus();
 					return;
@@ -532,6 +533,8 @@ void EditStyle::updatePreview()
 	pm.fill(white);
 	previewText->clear();
 
+	double sca = ScApp->view->getScale();
+	ScApp->view->setScale(1.0);
 	ParagraphStyle tmpStyle;
 	tmpStyle.Vname = Name->text() + " (preview temporary)";
 	tmpStyle.FontEffect = EffeS->getStyle();
@@ -621,5 +624,6 @@ void EditStyle::updatePreview()
 	painter->end();
 	previewText->setPixmap(pm);
 	delete(painter);
+	ScApp->view->setScale(sca);
 	parentDoc->docParagraphStyles.remove(parentDoc->docParagraphStyles.fromLast());
 }

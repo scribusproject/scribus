@@ -272,6 +272,8 @@ public: // Public attributes
 	FPointArray symNewLine;
 	FPointArray symTab;
 	FPointArray symNonBreak;
+	FPointArray symNewCol;
+	FPointArray symNewFrame;
 };
 
 #endif

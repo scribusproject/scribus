@@ -234,7 +234,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	if (currKeySeq == ScApp->scrActions["specialColumnBreak"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialColumnBreak"]->actionInt())));
-		insert("~");
+		insert("^");
 		emit SideBarUp(true);
 		return;
 	}
@@ -961,6 +961,17 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
+					else if (hg->ch == QChar(ScApp->scrActions["specialColumnBreak"]->actionInt()))
+					{
+						setFarbe(Ccol, Csha);
+						setAlign(Ali);
+						setStyle(Csty);
+						insert(Text);
+						insert("^");
+						Text = "";
+						chars->append(hg);
+						continue;
+					}
 					else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))
 					{
 						setFarbe(Ccol, Csha);
@@ -1138,6 +1149,17 @@ void SEditor::updateAll()
 					insert(Text);
 					insert("|");
 					Text = "";
+					continue;
+				}
+				else if (hg->ch == QChar(ScApp->scrActions["specialColumnBreak"]->actionInt()))
+				{
+					setFarbe(Ccol, Csha);
+					setAlign(Ali);
+					setStyle(Csty);
+					insert(Text);
+					insert("^");
+					Text = "";
+					chars->append(hg);
 					continue;
 				}
 				else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))

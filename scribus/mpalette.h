@@ -105,6 +105,7 @@ public:
 	Spalette *Spal;
 	LinkButton* Kette;
 	LinkButton* Kette2;
+	LinkButton* KetteD;
 	LineCombo* LStyle;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
@@ -211,6 +212,8 @@ public:
 	QLabel* ChBaseTxt;
 	QLabel* ScaleTxt;
 	QLabel* ScaleTxtV;
+	QLabel* imgDPIXLabel;
+	QLabel* imgDPIYLabel;
 	QLabel* startArrowText;
 	QLabel* endArrowText;
 
@@ -236,6 +239,8 @@ public:
 	MSpinBox* LXpos;
 	MSpinBox* ScaleY;
 	MSpinBox* ScaleX;
+	MSpinBox* imgDpiX;
+	MSpinBox* imgDpiY;
 	MSpinBox* LSize;
 
 	MSpinBox* ChScale;
@@ -336,8 +341,12 @@ private slots:
 	void ToggleKette();
 	void HChange();
 	void VChange();
+	void ToggleKetteD();
+	void HChangeD();
+	void VChangeD();
 	void NewLocalXY();
 	void NewLocalSC();
+	void NewLocalDpi();
 	void NewLS();
 	void NewLSty();
 	void NewLJoin();

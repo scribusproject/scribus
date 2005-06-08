@@ -2882,21 +2882,33 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 {
 	double csi = static_cast<double>(hl->Siz) / 100.0;
 	QString ccx = hl->Zeich;
-	if ((Doc->guidesSettings.showControls) && ((ccx == QChar(9)) || (ccx == QChar(29)) || (ccx == QChar(32))))
+	if ((Doc->guidesSettings.showControls) && ((ccx == QChar(9)) || (ccx == QChar(29)) || ((ccx == QChar(26)) && (Cols > 1))|| (ccx == QChar(27)) || (ccx == QChar(32))))
 	{
+		QWMatrix chma, chma2, chma4, chma5;
 		FPointArray points;
 		if (ccx == QChar(9))
+		{
 			points = Doc->symTab.copy();
+			chma4.translate(hl->xco-((hl->Siz / 100.0) * 7.0), hl->yco-((hl->Siz / 10.0) * 0.5));
+		}
+		else if (ccx == QChar(26))
+		{
+			points = Doc->symNewCol.copy();
+			chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * 0.6));
+		}
+		else if (ccx == QChar(27))
+		{
+			points = Doc->symNewFrame.copy();
+			chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * 0.6));
+		}
 		else
+		{
 			points = Doc->symNonBreak.copy();
-		QWMatrix chma, chma2, chma4, chma5;
+			chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * 0.4));
+		}
 		chma.scale(csi, csi);
 		chma2.scale(hl->scale / 1000.0, hl->scalev / 1000.0);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
-		if (ccx == QChar(9))
-			chma4.translate(hl->xco-((hl->Siz / 10.0) * 2.0), hl->yco-((hl->Siz / 10.0) * 0.5));
-		else
-			chma4.translate(hl->xco, hl->yco-((hl->Siz / 10.0) * 0.4));
 		points.map(chma * chma2 * chma4 * chma5);
 		p->setupTextPolygon(&points);
 		if (ccx == QChar(32))

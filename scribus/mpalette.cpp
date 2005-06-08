@@ -574,6 +574,19 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	Kette->setAutoRaise( true );
 	Kette->setMaximumSize( QSize( 15, 32767 ) );
 	layout43->addMultiCellWidget( Kette, 2, 3, 2, 2 );
+	imgDpiX = new MSpinBox( page_4, 1 );
+	imgDPIXLabel = new QLabel( imgDpiX, "Actual X-DPI:", page_4, "imgDPIYLabel" );
+	layout43->addWidget( imgDPIXLabel, 4, 0 );
+	layout43->addWidget( imgDpiX, 4, 1 );
+	imgDpiY = new MSpinBox( page_4, 1 );
+	imgDPIYLabel = new QLabel( imgDpiY, "Actual Y-DPI:", page_4, "imgDPIYLabel" );
+	layout43->addWidget( imgDPIYLabel, 5, 0 );
+	layout43->addWidget( imgDpiY, 5, 1 );
+	KetteD = new LinkButton( page_4 );
+	KetteD->setToggleButton( true );
+	KetteD->setAutoRaise( true );
+	KetteD->setMaximumSize( QSize( 15, 32767 ) );
+	layout43->addMultiCellWidget( KetteD, 4, 5, 2, 2 );
 	pageLayout_4->addLayout( layout43 );
 
 	Layout24 = new QVBoxLayout( 0, 0, 3, "Layout24");
@@ -720,12 +733,15 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	connect(LXpos, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
 	connect(LYpos, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
+	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 	connect(LSize, SIGNAL(valueChanged(int)), this, SLOT(NewLS()));
 	connect(LStyle, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
 	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLMode()));
 	connect(Kette, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+	connect(KetteD, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
@@ -843,6 +859,8 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	LineSp->setValues( 1, 2048, 10, 1);
 	ScaleX->setValues( 1, 3000, 10, 1);
 	ScaleY->setValues( 1, 3000, 10, 1);
+	imgDpiX->setValues( 1, 3000, 10, 1);
+	imgDpiY->setValues( 1, 3000, 10, 1);
 
 	dGap->setDecimals(10);
 	DTop->setDecimals(10);
@@ -1048,14 +1066,19 @@ void Mpalette::SetCurItem(PageItem *i)
 			setter = i->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
-			if (setter == false)
+			if (setter == true)
+			{
 				Kette->setOn(setter);
+				KetteD->setOn(setter);
+			}
 			Aspect->setEnabled(!setter);
 			Aspect->setChecked(i->AspectRatio);
 			LXpos->setEnabled(setter);
 			LYpos->setEnabled(setter);
 			ScaleX->setEnabled(setter);
 			ScaleY->setEnabled(setter);
+			imgDpiX->setEnabled(setter);
+			imgDpiY->setEnabled(setter);
 		}
 	}
 	HaveItem = true;
@@ -1555,6 +1578,8 @@ void Mpalette::ChangeScaling()
 		LYpos->setEnabled(true);
 		ScaleX->setEnabled(true);
 		ScaleY->setEnabled(true);
+		imgDpiX->setEnabled(true);
+		imgDpiY->setEnabled(true);
 	}
 	if (FrameScale == sender())
 	{
@@ -1565,6 +1590,8 @@ void Mpalette::ChangeScaling()
 		LYpos->setEnabled(false);
 		ScaleX->setEnabled(false);
 		ScaleY->setEnabled(false);
+		imgDpiX->setEnabled(false);
+		imgDpiY->setEnabled(false);
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
@@ -1587,6 +1614,8 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 		LYpos->setValue(y * Umrech * CurItem->LocalScY);
 		ScaleX->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
 		ScaleY->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
+		imgDpiX->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
+		imgDpiY->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
 	}
 	else
 	{
@@ -1594,6 +1623,8 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 		LYpos->setValue(y * Umrech);
 		ScaleX->setValue(scx * 100);
 		ScaleY->setValue(scy * 100);
+		imgDpiX->setValue(72);
+		imgDpiY->setValue(72);
 	}
 	HaveItem = tmp;
 }
@@ -2215,6 +2246,30 @@ void Mpalette::NewLocalSC()
 	{
 		ScApp->view->ChLocalSc(ScaleX->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, ScaleY->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
 		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->LocalScX, LYpos->value() / Umrech / CurItem->LocalScY);
+		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+		imgDpiX->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
+		imgDpiY->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
+		connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+		connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+		emit DocChanged();
+	}
+}
+
+void Mpalette::NewLocalDpi()
+{
+	if (ScApp->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		ScApp->view->ChLocalSc(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value());
+		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->LocalScX, LYpos->value() / Umrech / CurItem->LocalScY);
+		disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+		disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+		ScaleX->setValue(CurItem->LocalScX * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
+		ScaleY->setValue(CurItem->LocalScY * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
+		connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+		connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 		emit DocChanged();
 	}
 }
@@ -2366,25 +2421,80 @@ void Mpalette::ToggleKette()
 {
 	if (ScApp->ScriptRunning)
 		return;
+	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	if (Kette->isOn())
 	{
 		ScaleY->setValue(ScaleX->value());
 		NewLocalSC();
+		KetteD->setOn(true);
 	}
+	else
+		KetteD->setOn(false);
+	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 }
 
 void Mpalette::HChange()
 {
+	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	if (Kette->isOn())
 		ScaleY->setValue(ScaleX->value());
 	NewLocalSC();
+	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 }
 
 void Mpalette::VChange()
 {
+	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	if (Kette->isOn())
 		ScaleX->setValue(ScaleY->value());
 	NewLocalSC();
+	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+}
+
+void Mpalette::ToggleKetteD()
+{
+	if (ScApp->ScriptRunning)
+		return;
+	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	if (KetteD->isOn())
+	{
+		imgDpiY->setValue(imgDpiX->value());
+		NewLocalDpi();
+		Kette->setOn(true);
+	}
+	else
+		Kette->setOn(false);
+	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+}
+
+void Mpalette::HChangeD()
+{
+	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	if (KetteD->isOn())
+		imgDpiY->setValue(imgDpiX->value());
+	NewLocalDpi();
+	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+}
+
+void Mpalette::VChangeD()
+{
+	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	if (KetteD->isOn())
+		imgDpiX->setValue(imgDpiY->value());
+	NewLocalDpi();
+	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 }
 
 void Mpalette::DoFlipH()
@@ -3352,6 +3462,8 @@ void Mpalette::languageChange()
 	styleLabel->setText(tr("St&yle:"));
 	langLabel->setText(tr("Lan&guage:"));
 	FreeScale->setText(tr("&Free Scaling"));
+	imgDPIXLabel->setText( tr("Actual X-DPI:"));
+	imgDPIYLabel->setText( tr("Actual Y-DPI:"));
 	xposImgLabel->setText(tr("&X-Pos:"));
 	yposImgLabel->setText(tr("&Y-Pos:"));
 	xscaleLabel->setText(tr("X-Sc&ale:"));
