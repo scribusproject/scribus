@@ -3510,7 +3510,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["pageImport"]->setEnabled(true);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
-	if (scrActions["PrintPreview"])
+	if (HaveGS==0 && scrActions["PrintPreview"])
 		scrActions["PrintPreview"]->setEnabled(true);
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(true);
@@ -8505,7 +8505,7 @@ void ScribusApp::ShowSubs()
 	{
 		mess = tr("The following programs are missing:")+"\n\n";
 		if (HaveGS != 0)
-			mess += tr("Ghostscript : You cannot use EPS images")+"\n\n";
+			mess += tr("Ghostscript : You cannot use EPS images or Print Preview")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
 
