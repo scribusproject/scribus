@@ -39,7 +39,7 @@ def main():
     Objects.append(ob)
     for day in range(7):
         ob = createText(Xcoor, Ycoor, 35, 20)
-        setTextAlignment(Centered, ob)
+        setTextAlignment(ALIGN_CENTERED, ob)
         setFontSize(12, ob)
         if day == 6:
             setTextColor("Red", ob)
@@ -53,7 +53,7 @@ def main():
         for rows in lines:
             if rows != 0:
                 ob = createText(Xcoor, Ycoor, 35, 20)
-                setTextAlignment(Centered, ob)
+                setTextAlignment(ALIGN_CENTERED, ob)
                 if DayC == 6:
                     setTextColor("Red", ob)
                 setText(str(rows), ob)
