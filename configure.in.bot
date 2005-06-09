@@ -2,6 +2,17 @@ echo
 echo "Configuration Summary:"
 echo
 
+if test -n "${missing_libs}" ; then
+	# Summarize all missing optional libs, and give a short message about what to do
+	# about it.
+	echo "One or more libraries could not be found."
+	echo "${libmissing_text}"
+	echo "The missing libraries are: ${missing_libs}"
+	echo "These are optional libraries, but if in doubt you should install"
+	echo "them to ensure the full features of Scribus are available to you."
+	echo
+fi
+
 FORMAT="   %-25s"
 
 echo "Libraries:"

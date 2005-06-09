@@ -81,27 +81,44 @@ dnl can't be found. This can be called from configure.in.in, and from
 dnl configure.in.bot (which is, after all, just tacked on the bottom
 dnl during the generation of configure).
 
+libmissing_text="\
+You may need to install some additional libraries or packages (on Linux,
+that may mean -dev or -devel packages too). Also check your environment
+variables. See the BUILDING file for details and troubleshooting."
+
 missing_libs=""
 
+# Usage: libmissing libfreetype required
+#        libmissing libfontconfig optional
+# to report a missing library
 function libmissing() {
+	# name of library
+	libname="${1}"
+	# one of "optional" or "required"
+	liboptional="${2}"
+
+	missing_libs="${libname} ${missing_libs}"
+	if test "${liboptional}" = "required"; then
+		reqword="required"
+		endmsg="This library is required for Scribus to build. Configure will now terminate."
+	elif test "${liboptional}" = "optional"; then
+		reqword="optional"
+		endmsg="This library is optional, and Scribus will build without it. Continuing."
+	else
+		endmsg=""
+	fi
+
 	AC_MSG_WARN([
 -------------------------------------------------------------------------------
-One or more libraries were not found. You may need to install some additional
-libraries or packages.  If you think you have the library installed already, on
-Linux check to make sure there is a -dev or -devel package for it installed as
-well. Without the -dev or -devel package Scribus will not be able to find and
-use the library. Once you have installed the library or the -dev or -devel
-package, you must re-run this configure script. If it's still not found, check
-your CPATH, PATH, PKG_CONFIG_PATH, and LD_LIBRARY_PATH.
-See the BUILDING file for details.
-Note that some libraries are OPTIONAL and Scribus will work fine without them
-though with reduced functionality.
+The ${reqword} library ${libname} could not be found. See the BUILDING file.
+
+${libmissing_text}
+${endmsg}
 -------------------------------------------------------------------------------
 ])
-	if test -n "${1}"; then
-		missing_libs="${missing_libs} ${1}"
-	fi
+
 }
+# end libmissing()
 
 
 LIBART_LIBS=""
@@ -121,11 +138,11 @@ if test -n "$LIBART_CONFIG"; then
      LIBART_CFLAGS="`$LIBART_CONFIG --cflags`"
      AC_DEFINE_UNQUOTED(HAVE_LIBART, 1, [Defines if your system has the libart library])
   else
-     libmissing libart
+     libmissing libart required
 	 AC_MSG_ERROR([You need at least libart 2.3.8 . See the BUILDING file.])
   fi
 else
-  libmissing libart
+  libmissing libart required
   AC_MSG_ERROR([You need at least libart 2.3.8 . See the BUILDING file.])
 fi
 AC_SUBST(LIBART_LIBS)
@@ -152,7 +169,7 @@ if test -n "$FREETYPE_CONFIG"; then
 	if test $hafree = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
 	else
-		libmissing libfreetype
+		libmissing libfreetype required
 		AC_MSG_ERROR([You need at least freetype 2.1.0])
 	fi
 
@@ -179,7 +196,7 @@ if test -n "$FREETYPE_CONFIG"; then
 	AC_SUBST(LIBFREETYPE_LIBS)
 	AC_SUBST(LIBFREETYPE_CFLAGS)
 else
-	libmissing libfreetype
+	libmissing libfreetype required
 	AC_MSG_ERROR([You need at least freetype 2.1.0])
 fi
 
@@ -232,7 +249,7 @@ LDFLAGS="${SAVE_LDFLAGS}"
 if test $hafontconfig = yes; then
 	AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
 else
-	libmissing fontconfig
+	libmissing libfontconfig optional
 	AC_MSG_WARN([Couldn't find a usable libfontconfig])
 fi
 AC_SUBST(LIBFONTCONFIG_LIBS)
@@ -272,7 +289,7 @@ if test "$disable_xml2" != "yes"; then
 			haxml26=yes
 		fi
 	else
-		libmissing libxml2
+		libmissing libxml2 optional
 		AC_MSG_WARN([Couldn't find a usable libxml2])
 	fi
 fi
