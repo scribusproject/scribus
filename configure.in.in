@@ -354,7 +354,9 @@ fi
 
 AC_SUBST(LIBLCMS)
 if test $hacms = yes && test $hacmsh = yes; then
- AC_DEFINE_UNQUOTED(HAVE_CMS, 1, [ColorManagement])
+	AC_DEFINE_UNQUOTED(HAVE_CMS, 1, [ColorManagement])
+else
+	libmissing liblcms optional
 fi
 
 dnl Checks for libtiff - library exists, tiffvers.h can be found, and new enough.
@@ -378,9 +380,12 @@ if test $hastif = yes; then
 		AC_MSG_RESULT($hastif)
 	fi
 fi
+if test "${hastif}" != "yes"; then
+	libmissing libtiff optional
+fi
 AC_SUBST(LIBTIFF)
 if test $hastif = yes; then
- AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
+	AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
 fi
 
 LIBDL2=""
@@ -429,6 +434,7 @@ if test "$disable_cups" != "yes" ; then
 		AC_SUBST(LIBCUPS)
 		hacups=yes
 	else
+		libmissing libcups optional
 		AC_MSG_WARN([libcups could not be found. Printing functionality will be limited.])
 		hacups=no
 	fi
