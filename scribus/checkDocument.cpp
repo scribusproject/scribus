@@ -667,7 +667,7 @@ void CheckDocument::languageChange()
 	reportDisplay->header()->setLabel( 0, tr( "Items" ) );
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
 	
-	textLabel1->setText(tr("Current Profile:"));
-	ignoreErrors->setText(tr( "&Ignore Errors" ));
+	textLabel1->setText( tr("Current Profile:"));
+	ignoreErrors->setText( tr( "&Ignore Errors" ));
 }
 

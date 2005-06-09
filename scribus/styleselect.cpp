@@ -41,10 +41,10 @@ StrikeValues::StrikeValues( QWidget* parent ) : QGroupBox( parent, "StrikeValues
 
 void StrikeValues::languageChange()
 {
-	LPos->setSuffix(tr(" %"));
-	LPosTxt->setText(tr("Displacement"));
-	LWidth->setSuffix(tr(" %"));
-	LWidthTxt->setText(tr("Linewidth"));
+	LPos->setSuffix( tr(" %"));
+	LPosTxt->setText( tr("Displacement"));
+	LWidth->setSuffix( tr(" %"));
+	LWidthTxt->setText( tr("Linewidth"));
 	LPosTxt->adjustSize();
 	LWidthTxt->adjustSize();
 }
@@ -79,10 +79,10 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : QGroupBox( parent, "Shadow
 
 void UnderlineValues::languageChange()
 {
-	LPos->setSuffix(tr(" %"));
-	LPosTxt->setText(tr("Displacement"));
-	LWidth->setSuffix(tr(" %"));
-	LWidthTxt->setText(tr("Linewidth"));
+	LPos->setSuffix( tr(" %"));
+	LPosTxt->setText( tr("Displacement"));
+	LWidth->setSuffix( tr(" %"));
+	LWidthTxt->setText( tr("Linewidth"));
 	LPosTxt->adjustSize();
 	LWidthTxt->adjustSize();
 }
@@ -108,8 +108,8 @@ OutlineValues::OutlineValues( QWidget* parent ) : QGroupBox( parent, "ShadowValu
 
 void OutlineValues::languageChange()
 {
-	LWidth->setSuffix(tr(" %"));
-	LWidthTxt->setText(tr("Linewidth"));
+	LWidth->setSuffix( tr(" %"));
+	LWidthTxt->setText( tr("Linewidth"));
 	LWidthTxt->adjustSize();
 }
 
@@ -139,10 +139,10 @@ ShadowValues::ShadowValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues
 
 void ShadowValues::languageChange()
 {
-	Xoffset->setSuffix(tr(" %"));
-	XoffsetTxt->setText(tr("X-Offset"));
-	Yoffset->setSuffix(tr(" %"));
-	YoffsetTxt->setText(tr("Y-Offset"));
+	Xoffset->setSuffix( tr(" %"));
+	XoffsetTxt->setText( tr("X-Offset"));
+	Yoffset->setSuffix( tr(" %"));
+	YoffsetTxt->setText( tr("Y-Offset"));
 	XoffsetTxt->adjustSize();
 	YoffsetTxt->adjustSize();
 }

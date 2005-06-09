@@ -261,7 +261,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, ApplicationPrefs
 	AllReplace = new QPushButton( tr( "Replace &All" ), this, "DoReplace" );
 	AllReplace->setEnabled(false);
 	ButtonsLayout->addWidget( AllReplace );
-	clearButton = new QPushButton(tr("C&lear"), this, "clearButton");
+	clearButton = new QPushButton( tr("C&lear"), this, "clearButton");
 	ButtonsLayout->addWidget(clearButton);
 	Leave = new QPushButton( tr( "&Close" ), this, "Leave" );
 	ButtonsLayout->addWidget( Leave );

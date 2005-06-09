@@ -124,7 +124,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item4->insertItem( tr("All Pages"));
 	item4->insertItem( tr("Even Pages only"));
 	item4->insertItem( tr("Odd Pages only"));
-	int lastSelected = prefs->getInt(tr("Page Set"), 0);
+	int lastSelected = prefs->getInt( tr("Page Set"), 0);
 	if (lastSelected >= 3)
 		lastSelected = 0;
 	item4->setCurrentItem(lastSelected);
@@ -141,7 +141,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item2->insertItem( tr("No"));
 	item2->insertItem( tr("Yes"));
 	item2->setCurrentItem(0);
-	lastSelected = prefs->getInt(tr("Mirror"), 0);
+	lastSelected = prefs->getInt( tr("Mirror"), 0);
 	if (lastSelected >= 2)
 		lastSelected = 0;
 	item2->setCurrentItem(lastSelected);
@@ -158,7 +158,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item5->insertItem( tr("Portrait"));
 	item5->insertItem( tr("Landscape"));
 	item5->setCurrentItem(0);
-	lastSelected = prefs->getInt(tr("Orientation"), 0);
+	lastSelected = prefs->getInt( tr("Orientation"), 0);
 	if (lastSelected >= 2)
 		lastSelected = 0;
 	item5->setCurrentItem(lastSelected);
@@ -178,7 +178,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item3->insertItem("6 "+ tr("Pages per Sheet"));
 	item3->insertItem("9 "+ tr("Pages per Sheet"));
 	item3->insertItem("16 "+ tr("Pages per Sheet"));
-	lastSelected = prefs->getInt(tr("N-Up Printing"), 0);
+	lastSelected = prefs->getInt( tr("N-Up Printing"), 0);
 	if (lastSelected >= 6)
 		lastSelected = 0;
 	item3->setCurrentItem(lastSelected);

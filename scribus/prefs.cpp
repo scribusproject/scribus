@@ -325,7 +325,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GroupASLayout->addWidget( ASTime, 1, 1 );
 	asurLayout->addWidget(GroupAS);
 
-	urGroup = new QGroupBox(tr("Undo/Redo"), tab_7, "urGroup");
+	urGroup = new QGroupBox( tr("Undo/Redo"), tab_7, "urGroup");
 	urGroup->setColumnLayout(0, Qt::Vertical);
 	urGroup->layout()->setSpacing(5);
 	urGroup->layout()->setMargin(10);
@@ -640,7 +640,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	pluginManagerWidget = new QWidget(prefsWidgets, "pluginManagerWidget");
 	pluginMainLayout = new QVBoxLayout( pluginManagerWidget, 0, 5, "pluginMainLayout");
 	pluginMainLayout->setAlignment( Qt::AlignTop );
-	plugGroupBox = new QGroupBox(tr("Plugin Manager"), pluginManagerWidget, "plugGroupBox");
+	plugGroupBox = new QGroupBox( tr("Plugin Manager"), pluginManagerWidget, "plugGroupBox");
 	plugGroupBox->setColumnLayout(0, Qt::Vertical);
 	plugGroupBox->layout()->setSpacing(6);
 	plugGroupBox->layout()->setMargin(11);
@@ -650,17 +650,17 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	pluginsList = new QListView(plugGroupBox, "pluginsList");
 	pluginsList->setAllColumnsShowFocus(true);
 	pluginsList->setShowSortIndicator(true);
-	pluginsList->addColumn(tr("Plugin"));
+	pluginsList->addColumn( tr("Plugin"));
 	pluginsList->setColumnWidthMode(0, QListView::Maximum);
-	pluginsList->addColumn(tr("How to run"));
+	pluginsList->addColumn( tr("How to run"));
 	pluginsList->setColumnWidthMode(1, QListView::Maximum);
-	pluginsList->addColumn(tr("Type"));
+	pluginsList->addColumn( tr("Type"));
 	pluginsList->setColumnWidthMode(2, QListView::Maximum);
-	pluginsList->addColumn(tr("Load it?"));
+	pluginsList->addColumn( tr("Load it?"));
 	pluginsList->setColumnWidthMode(3, QListView::Maximum);
-	pluginsList->addColumn(tr("Plugin ID"));
+	pluginsList->addColumn( tr("Plugin ID"));
 	pluginsList->setColumnWidthMode(4, QListView::Maximum);
-	pluginsList->addColumn(tr("File"));
+	pluginsList->addColumn( tr("File"));
 	pluginsList->setColumnWidthMode(5, QListView::Maximum);
 	for (QMap<int,PluginManager::PluginData>::Iterator it = ap->pluginManager->pluginMap.begin(); it != ap->pluginManager->pluginMap.end(); ++it)
 	{
@@ -680,7 +680,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	plugLayout1->addWidget(pluginWarning);
 	plugGroupBoxLayout->addLayout(plugLayout1, 0, 0);
 	pluginMainLayout->addWidget(plugGroupBox);
-	addItem(tr("Plugins"), loadIcon("plugins.png"), pluginManagerWidget);
+	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerWidget);
 
 	setDS();
 	//tab order

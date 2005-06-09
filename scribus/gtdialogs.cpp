@@ -50,12 +50,12 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	importerCombo = new QComboBox(0, importerFrame, "importerCombo");
 	importerCombo->setMinimumSize(QSize(150, 0));
 	QToolTip::add(importerCombo, tr("Choose the importer to use"));
-	importerCombo->insertItem(tr("Automatic"));
+	importerCombo->insertItem( tr("Automatic"));
 	importerCombo->insertStringList(importers);
 	importerLayout->addWidget(importerCombo);
 
 	textOnlyCheckBox = new QCheckBox(importerFrame, "textOnlyCB");
-	textOnlyCheckBox->setText(tr("Import Text Only"));
+	textOnlyCheckBox->setText( tr("Import Text Only"));
 	QToolTip::add(textOnlyCheckBox, tr("Import text without any formatting"));
 // 	                                   "\nNotice that not all importers provide this feature."));
 	importerLayout->addWidget(textOnlyCheckBox);
@@ -63,7 +63,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	importerLayout->addItem(spacer);
 
-	addWidgets(new QLabel(tr("Importer:"), this), importerFrame, 0);
+	addWidgets(new QLabel( tr("Importer:"), this), importerFrame, 0);
 
 	encodingFrame = new QFrame(this);
 	encodingLayout = new QHBoxLayout(encodingFrame);
@@ -99,7 +99,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	encodingLayout->addWidget(encodingCombo);
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	encodingLayout->addItem( spacer2 );
-	addWidgets(new QLabel(tr("Encoding:"), this), encodingFrame, 0);
+	addWidgets(new QLabel( tr("Encoding:"), this), encodingFrame, 0);
 
 	HomeB = new QToolButton(this);
 	HomeB->setIconSet(loadIcon("gohome.png"));
@@ -122,7 +122,7 @@ gtFileDialog::~gtFileDialog()
 
 gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSelection)
 {
-	setCaption(tr("Choose the importer to use"));
+	setCaption( tr("Choose the importer to use"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
@@ -145,7 +145,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	layout->addLayout(ilayout);
 
 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout2");
-	rememberCheck = new QCheckBox(tr("Remember association"), this, "rememberCheck");
+	rememberCheck = new QCheckBox( tr("Remember association"), this, "rememberCheck");
 	rememberCheck->setChecked(false);
 	QToolTip::add(rememberCheck, tr("Remember the file extension - importer association\n"
                                     "and do not ask again to select an importer for\n"
@@ -156,7 +156,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 
 	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout2");
 	blayout->addStretch(10);
-	okButton = new QPushButton(tr("&OK"), this, "okButton2");
+	okButton = new QPushButton( tr("&OK"), this, "okButton2");
 	blayout->addWidget(okButton);
 	layout->addLayout(blayout);
 

@@ -340,7 +340,7 @@ void ScribusApp::initToolBars()
 	scrActions["toolsPreflightVerifier"]->addTo(WerkTools2);
 	scrActions["fileExportAsPDF"]->addTo(WerkTools2);
 
-	editToolBar = new QToolBar(tr("Edit"), this);
+	editToolBar = new QToolBar( tr("Edit"), this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
 
@@ -2906,8 +2906,8 @@ void ScribusApp::windowsMenuAboutToShow()
 	scrWindowsActions.clear();
 	scrMenuMgr->clearMenu("Windows");
 
-	scrWindowsActions.insert("windowsCascade", new ScrAction(tr("&Cascade"), QKeySequence(), this, "windowsCascade"));
-	scrWindowsActions.insert("windowsTile", new ScrAction(tr("&Tile"), QKeySequence(), this, "windowstile"));
+	scrWindowsActions.insert("windowsCascade", new ScrAction( tr("&Cascade"), QKeySequence(), this, "windowsCascade"));
+	scrWindowsActions.insert("windowsTile", new ScrAction( tr("&Tile"), QKeySequence(), this, "windowstile"));
 	connect( scrWindowsActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
 	connect( scrWindowsActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
 
@@ -4218,7 +4218,7 @@ bool ScribusApp::slotPageImport()
 	MergeDoc *dia = new MergeDoc(this, false, doc->pageCount, doc->currentPage->PageNr + 1);
 	if (dia->exec())
 	{
-		FMess->setText(tr("Importing Pages..."));
+		FMess->setText( tr("Importing Pages..."));
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		std::vector<int> pageNs;
 		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
@@ -4297,11 +4297,11 @@ bool ScribusApp::slotPageImport()
 				}
 				view->GotoPa(startPage);
 				FProg->reset();
-				FMess->setText(tr("Import done"));
+				FMess->setText( tr("Import done"));
 			}
 			else
 			{
-				FMess->setText(tr("Found nothing to import"));
+				FMess->setText( tr("Found nothing to import"));
 				doIt = false;
 			}
 		}
@@ -10818,7 +10818,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 				QString questionString="<qt>"+tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
 				do 
 				{
-					colorName = QInputDialog::getText(tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok, this);
+					colorName = QInputDialog::getText( tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok, this);
 					if (ok)
 					{
 						if (doc->PageColors.contains(colorName))
@@ -10933,10 +10933,10 @@ void ScribusApp::languageChange()
 		if (undoManager!=NULL)
 			undoManager->languageChange();
 
-		XMess->setText(tr("X-Pos:"));
-		YMess->setText(tr("Y-Pos:"));
+		XMess->setText( tr("X-Pos:"));
+		YMess->setText( tr("Y-Pos:"));
 		XDat->setText("         ");
 		YDat->setText("         ");
-		FMess->setText(tr("Ready"));
+		FMess->setText( tr("Ready"));
 	}
 }

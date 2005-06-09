@@ -226,7 +226,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 		Layout1 = new QHBoxLayout(Layout);
 		Layout1->setSpacing( 0 );
 		Layout1->setMargin( 0 );
-		SaveZip = new QCheckBox(tr( "&Compress File" ), Layout, "test");
+		SaveZip = new QCheckBox( tr( "&Compress File" ), Layout, "test");
 		Layout1->addWidget(SaveZip, Qt::AlignLeft);
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1->addItem( spacer );
@@ -235,7 +235,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 		Layout1C = new QHBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
 		Layout1C->setMargin( 0 );
-		WFonts = new QCheckBox(tr( "&Include Fonts" ), LayoutC, "test");
+		WFonts = new QCheckBox( tr( "&Include Fonts" ), LayoutC, "test");
 		Layout1C->addWidget(WFonts, Qt::AlignLeft);
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
@@ -253,7 +253,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			Layout1 = new QHBoxLayout(Layout);
 			Layout1->setSpacing( 6 );
 			Layout1->setMargin( 0 );
-			SaveZip = new QCheckBox(tr( "&Compress File" ), Layout, "test");
+			SaveZip = new QCheckBox( tr( "&Compress File" ), Layout, "test");
 			Layout1->addWidget(SaveZip);
 			QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 			Layout1->addItem( spacer );

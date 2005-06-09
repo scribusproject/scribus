@@ -53,7 +53,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	}
 
 	QString tmp;
-	setCaption(tr("Manage Guides"));
+	setCaption( tr("Manage Guides"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	/* Initialise the global variables */
@@ -104,7 +104,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	QHBoxLayout *Layout4 = new QHBoxLayout(0, 0, 6, "Layout4");
 
-	TextLabel2 = new QLabel(tr("&Y-Pos:"), HorGroup, "TextLabel2");
+	TextLabel2 = new QLabel( tr("&Y-Pos:"), HorGroup, "TextLabel2");
 	Layout4->addWidget(TextLabel2);
 
 	HorSpin = new MSpinBox(0, LocPageHeight, HorGroup, 4);
@@ -142,7 +142,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	QHBoxLayout *Layout2 = new QHBoxLayout(0, 0, 6, "Layout2");
 
-	TextLabel1 = new QLabel(tr("&X-Pos:"), VerGroup, "TextLabel1");
+	TextLabel1 = new QLabel( tr("&X-Pos:"), VerGroup, "TextLabel1");
 	Layout2->addWidget(TextLabel1);
 
 	VerSpin = new MSpinBox(0, LocPageWidth, VerGroup, 4);
@@ -180,11 +180,11 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	HorGroupLayout2->setAlignment(Qt::AlignTop);
 
 	// auto guides basic
-	QLabel *TextLabel8 = new QLabel(tr("&Rows:"), HorGroup2, "TextLabel8");
+	QLabel *TextLabel8 = new QLabel( tr("&Rows:"), HorGroup2, "TextLabel8");
 	RowSpin = new QSpinBox(1, 100, 1, HorGroup2, "rowspin");
 	TextLabel8->setBuddy(RowSpin);
 
-	QLabel *TextLabel9 = new QLabel(tr("C&olumns:"), HorGroup2, "TextLabel9");
+	QLabel *TextLabel9 = new QLabel( tr("C&olumns:"), HorGroup2, "TextLabel9");
 	ColSpin = new QSpinBox(1, 100, 1, HorGroup2, "ColSpin");
 	TextLabel9->setBuddy(ColSpin);
 
@@ -195,14 +195,14 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	rcLayout->addWidget(ColSpin);
 
 	// auto guides gaps
-	useRowGap = new QCheckBox(tr("Row &Gap"), HorGroup2, "useRowGap");
+	useRowGap = new QCheckBox( tr("Row &Gap"), HorGroup2, "useRowGap");
 	useRowGap->setChecked(false);
 	rowGap = new MSpinBox(0, 100, HorGroup2, 4);
 	rowGap->setValue(0);
 	rowGap->setDecimals(decimals);
 	rowGap->setEnabled(false);
 
-	useColGap = new QCheckBox(tr("Colum&n Gap"), HorGroup2, "useColGap");
+	useColGap = new QCheckBox( tr("Colum&n Gap"), HorGroup2, "useColGap");
 	useColGap->setChecked(false);
 	colGap = new MSpinBox(0, 100, HorGroup2, 4);
 	colGap->setValue(0);
@@ -223,7 +223,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	QHBoxLayout *Layout10 = new QHBoxLayout(0, 0, 6, "Layout10");
 	BGroup = new QHButtonGroup(HorGroup2,"bgroup");
 	BGroup->setFrameStyle(QFrame::NoFrame);
-	QLabel *TextLabel10 = new QLabel(tr("Refer to:"), HorGroup2, "TextLabel10");
+	QLabel *TextLabel10 = new QLabel( tr("Refer to:"), HorGroup2, "TextLabel10");
 	Layout10->addWidget(TextLabel10);
 	QRadioButton *fPage = new QRadioButton( tr( "&Page" ), BGroup, "fpage");
 	fPage->setChecked(true);
@@ -254,7 +254,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	cancelButton = new QPushButton( tr( "&Close" ), this, "cancelButton");
 	cancelButton->setAutoDefault(false);
 	cancelButton->setAccel(QKeySequence("Esc"));
-	setButton = new QPushButton(tr("&Update"), this, "setButton");
+	setButton = new QPushButton( tr("&Update"), this, "setButton");
 	setButton->setAutoDefault(false);
 	Layout5->addWidget(setButton);
 	Layout5->addWidget(okButton);

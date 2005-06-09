@@ -810,6 +810,6 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 
 void Tree::languageChange()
 {
-	setCaption(tr("Outline"));
+	setCaption( tr("Outline"));
 	reportDisplay->setColumnText(idElemCol, tr("Element"));
 }

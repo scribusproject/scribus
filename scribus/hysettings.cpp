@@ -6,10 +6,10 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidge
 	QStringList lada;
 	layout3 = new QGridLayout( this, 1, 1, 0, 5, "Layout3");
 	layout3->setAlignment( Qt::AlignTop );
-	verbose = new QCheckBox(tr("&Hyphenation Suggestions"), this, "Verbose");
+	verbose = new QCheckBox( tr("&Hyphenation Suggestions"), this, "Verbose");
 	layout3->addMultiCellWidget(verbose, 0, 0, 0, 1);
 	
-	input = new QCheckBox(tr("Hyphenate Text Automatically &During Typing"), this, "inp");
+	input = new QCheckBox( tr("Hyphenate Text Automatically &During Typing"), this, "inp");
 	layout3->addMultiCellWidget(input, 1, 1, 0, 1);
 	
 	language = new QComboBox( true, this, "Language" );

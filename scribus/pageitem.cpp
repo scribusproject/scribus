@@ -4696,8 +4696,8 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 	// Start embellishing the name until we get an acceptable unique name
 	// first we prefix `Copy of' if it's not already there
 	QString newname(originalName);
-	if (!originalName.startsWith(tr("Copy of")))
-		newname.prepend(tr("Copy of")+" ");
+	if (!originalName.startsWith( tr("Copy of")))
+		newname.prepend( tr("Copy of")+" ");
 
 	// See if the name prefixed by "Copy of " is free
 	if (nameExists(newname))

@@ -232,7 +232,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	searchingMainLayout = new QVBoxLayout(tabSearching, 11, 6, "searchingMainLayout");
 	searchingButtonLayout = new QHBoxLayout;
 	searchingEdit = new QLineEdit(tabSearching, "searchingEdit");
-	searchingButton = new QPushButton(tr("&Search"), tabSearching, "searchingButton");
+	searchingButton = new QPushButton( tr("&Search"), tabSearching, "searchingButton");
 	searchingButtonLayout->addWidget(searchingEdit);
 	searchingButtonLayout->addWidget(searchingButton);
 	searchingMainLayout->addLayout(searchingButtonLayout);
@@ -264,9 +264,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	bookmarksView->clear();
 	bookmarksMainLayout->addWidget(bookmarksView);
 	bookmarksButtonLayout = new QHBoxLayout;
-	bookmarkButton = new QPushButton(tr("&New"), tabBookmarks, "bookmarkButton");
-	deleteBookmarkButton = new QPushButton(tr("&Delete"), tabBookmarks, "deleteBookmarkButton");
-	deleteAllBookmarkButton = new QPushButton(tr("De&lete All"), tabBookmarks, "deleteAllBookmarkButton");
+	bookmarkButton = new QPushButton( tr("&New"), tabBookmarks, "bookmarkButton");
+	deleteBookmarkButton = new QPushButton( tr("&Delete"), tabBookmarks, "deleteBookmarkButton");
+	deleteAllBookmarkButton = new QPushButton( tr("De&lete All"), tabBookmarks, "deleteAllBookmarkButton");
 	bookmarksButtonLayout->addWidget(bookmarkButton);
 	bookmarksButtonLayout->addWidget(deleteBookmarkButton);
 	bookmarksButtonLayout->addWidget(deleteAllBookmarkButton);
@@ -732,7 +732,7 @@ void HelpBrowser::searchingButton_clicked()
 
 void HelpBrowser::find()
 {
-	findText = QInputDialog::getText(tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0, this);
+	findText = QInputDialog::getText( tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0, this);
 	if (findText == QString::null)
 		return;
 	findNext();
@@ -797,7 +797,7 @@ void HelpBrowser::bookmarkButton_clicked()
 {
 	QString title = textBrowser->documentTitle();
 	QString fname(QDir::cleanDirPath(textBrowser->source()));
-	title = QInputDialog::getText(tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
+	title = QInputDialog::getText( tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
 	// user cancel
 	if (title == QString::null)
 		return;

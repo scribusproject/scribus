@@ -47,7 +47,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 		ColorList::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
 		colorList.remove(colorName);
-		replacementColData->insertItem(tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */
+		replacementColData->insertItem( tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */
 		for (it = colorList.begin(); it != colorList.end(); ++it)
 		{
 			pm.fill(colorList[it.key()].getRGBColor());

@@ -73,9 +73,9 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* 
 	VartV->setEnabled( true );
 	VartV->setMinimumSize( QSize( 100, 22 ) );
 	VartV->setEditable(false);
-	VartV->insertItem(tr("Top Sides"));
-	VartV->insertItem(tr("Middles"));
-	VartV->insertItem(tr("Bottom Sides"));
+	VartV->insertItem( tr("Top Sides"));
+	VartV->insertItem( tr("Middles"));
+	VartV->insertItem( tr("Bottom Sides"));
 	TextLabel1_2 = new QLabel( VartV, tr( "Bet&ween:" ), ButtonGroup1_2, "TextLabel1" );
 	TextLabel1_2->setEnabled( true );
 	ButtonGroup1_2Layout->addWidget( TextLabel1_2, 0, 0 );

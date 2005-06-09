@@ -67,7 +67,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 		Spal->setFormat(0);
 	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
 	pmen->insertItem(Spal);
-	pmen->insertItem(tr("Edit Styles..."), this, SLOT(editStyles()));
+	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
 	delete pmen;
 }
@@ -1839,7 +1839,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	fmenu->insertSeparator();
 	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save to File..."), this, SLOT(SaveTextFile()));
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load from File..."), this, SLOT(LoadTextFile()));
-	fmenu->insertItem(tr("Save &Document"), this, SLOT(Do_saveDocument()), CTRL+Key_S);
+	fmenu->insertItem( tr("Save &Document"), this, SLOT(Do_saveDocument()), CTRL+Key_S);
 	fmenu->insertSeparator();
 	/* changes to fit the #662 bug 05/28/04 petr vanek */
 	fmenu->insertItem(loadIcon("ok.png"),  tr("&Update Text Frame and Exit"), this, SLOT(Do_leave2()));

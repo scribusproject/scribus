@@ -61,7 +61,7 @@ void PluginManager::initPlugs()
 			{
 				pda.actMenuText=pda.name;
 				if (ScApp->splashScreen != NULL)
-					ScApp->splashScreen->setStatus(tr(QString("Loading: %1").arg(pda.name), "plugin manager"));
+					ScApp->splashScreen->setStatus( tr(QString("Loading: %1").arg(pda.name), "plugin manager"));
 				if (pda.loadPlugin)
 				{
 					if (pda.type == Persistent || pda.type == Standard || pda.type == Import)
@@ -83,7 +83,7 @@ void PluginManager::initPlugs()
 						}
 					}
 					else
-						qDebug(tr(QString("Old type plugins are not supported anymore")), "plugin manager");
+						qDebug( tr(QString("Old type plugins are not supported anymore")), "plugin manager");
 					pda.loaded = true;
 				} // load
 				else
@@ -132,7 +132,7 @@ void PluginManager::callDLL(int pluginID)
 		mo = dlopen(plugDir, RTLD_LAZY | RTLD_GLOBAL);
 		if (!mo)
 		{
-			qDebug(tr("Cannot find plugin"), "plugin manager");
+			qDebug( tr("Cannot find plugin"), "plugin manager");
 			return;
 		}
 	}
@@ -142,7 +142,7 @@ void PluginManager::callDLL(int pluginID)
 	demo = (sdem)dlsym(mo, "run");
 	if ((error = dlerror()) != NULL)
 	{
-		qDebug(tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
+		qDebug( tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
 		dlclose(mo);
 		return;
 	}
@@ -171,7 +171,7 @@ QString PluginManager::callDLLForNewLanguage(int pluginID)
 		mo = dlopen(plugDir, RTLD_LAZY | RTLD_GLOBAL);
 		if (!mo)
 		{
-			qDebug(tr("Cannot find plugin"), "plugin manager");
+			qDebug( tr("Cannot find plugin"), "plugin manager");
 			return QString::null;
 		}
 	}
@@ -182,7 +182,7 @@ QString PluginManager::callDLLForNewLanguage(int pluginID)
 	demo = (sdem)dlsym(mo, "name");
 	if ((error = dlerror()) != NULL)
 	{
-		qDebug(tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
+		qDebug( tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
 		//dlclose(mo);
 		return QString::null;
 	}
@@ -245,7 +245,7 @@ bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type,
 	mo = dlopen(plugName, RTLD_LAZY | RTLD_GLOBAL);
 	if (!mo)
 	{
-		qDebug(tr(QString("Error: %1").arg(dlerror())), "plugin manager");
+		qDebug( tr(QString("Error: %1").arg(dlerror())), "plugin manager");
 		return false;
 	}
 	dlerror();

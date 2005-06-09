@@ -32,12 +32,12 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	tab1 = new QWidget( this, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 0, 5, "tab1Layout");
 	fontList = new QListView(tab1, "fontList" );
-	fontList->addColumn(tr("Font Name", "font preview"));
-	fontList->addColumn(tr("Use Font", "font preview"));
-	fontList->addColumn(tr("Embed in:", "font preview"));
-	fontList->addColumn(tr("Subset", "font preview"));
+	fontList->addColumn( tr("Font Name", "font preview"));
+	fontList->addColumn( tr("Use Font", "font preview"));
+	fontList->addColumn( tr("Embed in:", "font preview"));
+	fontList->addColumn( tr("Subset", "font preview"));
 	fontList->setColumnAlignment(3, Qt::AlignCenter);
-	fontList->addColumn(tr("Path to Font File", "font preview"));
+	fontList->addColumn( tr("Path to Font File", "font preview"));
 	SCFontsIterator it(flist);
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");

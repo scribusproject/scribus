@@ -211,8 +211,8 @@ void WerkToolBP::languageChange()
 	for (uint a = 0; a < ar_tmp; ++a)
 		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
 		
-	PDFTool->setTextLabel(tr("Insert PDF Fields"));
-	PDFaTool->setTextLabel(tr("Insert PDF Annotations"));
+	PDFTool->setTextLabel( tr("Insert PDF Fields"));
+	PDFaTool->setTextLabel( tr("Insert PDF Annotations"));
 	PDFA->clear();
 	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
 	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));

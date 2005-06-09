@@ -198,7 +198,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->insertItem( tr("Invert"));
 	availableEffects->insertItem( tr("Posterize"));
 	availableEffects->insertItem( tr("Sharpen"));
-	availableEffects->setMinimumSize(fontMetrics().width(tr( "Available Effects" ))+40, 180);
+	availableEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
 	layout2->addWidget( availableEffects );
 	layout10->addLayout( layout2, 0, 0 );
 
@@ -222,7 +222,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel2->setText( tr( "Effects in use" ) );
 	layout8->addWidget( textLabel2 );
 	usedEffects = new QListBox( this, "usedEffects" );
-	usedEffects->setMinimumSize(fontMetrics().width(tr( "Available Effects" ))+40, 180);
+	usedEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
 	usedEffects->clear();
 	effectValMap.clear();
 	for (uint a = 0; a < effectsList.count(); ++a)

@@ -218,7 +218,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	Layout1->addWidget( ToolButton1 );
 	DruckerLayout->addLayout( Layout1, 1, 0 );
 
-	OtherCom = new QCheckBox(tr("A&lternative Printer Command"), Drucker, "Dc");
+	OtherCom = new QCheckBox( tr("A&lternative Printer Command"), Drucker, "Dc");
 	OtherCom->setChecked(false);
 	QToolTip::add( OtherCom, tr( "Use an alternative print manager, such as kprinter or gtklp,\nto utilize additional printing options") );
 	DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
@@ -597,7 +597,7 @@ void Druck::SelFile()
 void Druck::setMinMax(int min, int max, int cur)
 {
 	QString tmp, tmp2;
-	CurrentPage->setText(tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
+	CurrentPage->setText( tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
 	PageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
 }
 
@@ -625,7 +625,7 @@ void Druck::setStoredValues()
 	{
 		PrintDest->setCurrentItem(selectedDest);
 		if (PrintDest->currentText() == tr("File"))
-			SelPrinter(tr("File"));
+			SelPrinter( tr("File"));
 	}
 	OtherCom->setChecked(prefs->getBool("OtherCom", false));
 	if (OtherCom->isChecked())

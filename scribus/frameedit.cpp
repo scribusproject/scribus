@@ -540,14 +540,14 @@ void NodePalette::EndEdit()
 void NodePalette::languageChange()
 {
 	setCaption( tr( "Nodes" ) );
-	ScaleVal->setSuffix(tr(" %"));
+	ScaleVal->setSuffix( tr(" %"));
 	
-	AbsMode->setText(tr("&Absolute Coordinates"));
-	TextLabel1->setText(tr("&X-Pos:"));
-	TextLabel2->setText(tr("&Y-Pos:"));
-	EditCont->setText(tr("Edit &Contour Line"));
-	ResetCont->setText(tr("&Reset Contour Line"));
-	PushButton1->setText(tr("&End Editing"));
+	AbsMode->setText( tr("&Absolute Coordinates"));
+	TextLabel1->setText( tr("&X-Pos:"));
+	TextLabel2->setText( tr("&Y-Pos:"));
+	EditCont->setText( tr("Edit &Contour Line"));
+	ResetCont->setText( tr("&Reset Contour Line"));
+	PushButton1->setText( tr("&End Editing"));
 	QToolTip::add(MoveNode, tr("Move Nodes"));
 	QToolTip::add(MoveControl, tr("Move Control Points"));
 	QToolTip::add(AddNode, tr("Add Nodes"));

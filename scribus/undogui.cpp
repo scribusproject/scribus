@@ -144,7 +144,7 @@ void UndoWidget::redoMenuClicked(int id)
 
 void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 {
-	undoItems.insert(undoItems.begin(), QString(tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
+	undoItems.insert(undoItems.begin(), QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
                                         .arg(target->getUName()).arg(state->getName()));
 	clearRedo();
 	updateUndoMenu();
@@ -153,7 +153,7 @@ void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 
 void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
 {
-	redoItems.push_back(QString(tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
+	redoItems.push_back(QString( tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
                         .arg(target->getUName()).arg(state->getName()));
 	updateRedoMenu();
 	updateUndoMenu();
@@ -270,7 +270,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 void UndoPalette::clear()
 {
 	undoList->clear();
-	undoList->insertItem(tr("Initial State"));
+	undoList->insertItem( tr("Initial State"));
 	undoButton->setEnabled(false);
 	redoButton->setEnabled(false);
 }
@@ -304,10 +304,10 @@ void UndoPalette::updateFromPrefs()
 
 void UndoPalette::languageChange()
 {
-	setCaption(tr("Action History"));	
-	objectBox->setText(tr("Show selected object only"));
-	undoButton->setText(tr("&Undo"));
-	redoButton->setText(tr("&Redo"));
+	setCaption( tr("Action History"));	
+	objectBox->setText( tr("Show selected object only"));
+	undoButton->setText( tr("&Undo"));
+	redoButton->setText( tr("&Redo"));
 }
 
 void UndoPalette::hideEvent(QHideEvent*)
