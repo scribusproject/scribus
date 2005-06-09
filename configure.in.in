@@ -1,8 +1,48 @@
+dnl Process this file with autoconf to produce a configure script.
+
 # Original Author was Kalle@kde.org
 # I lifted it in some mater. (Stephan Kulow)
 # I used much code from Janos Farkas
+# Heavily tweaked and modified for Scribus by Craig Ringer
 
-dnl Process this file with autoconf to produce a configure script.
+dnl Quick `configure.in.in' survival guide:
+dnl
+dnl AC_MSG_WARN([warning message])
+dnl     prints the warning and continues
+dnl AC_MSG_ERROR([error message])
+dnl     prints the error and stops configure
+dnl AC_PATH_PROG([VARNAME],[programname],[failure message],[search path])
+dnl     search path, failure message optional. Searches for programname
+dnl     along search path or default path and sets VARNAME to the path
+dnl     to the program, if found.
+dnl AC_CHECK_LIB(lib_basename, lib_symbol, [command_if_success], [command_if_fail])
+dnl     Looks for a library with basename lib_basename, ie libfreetype.so.3.0.0
+dnl     might be found for lib_basename=libfreetype, and checks for the lib_symbol
+dnl     symbol inside. The symbol is usually an important function, a version symbol,
+dnl     etc. Runs the specified commands on failure (lib not found OR symbol not found)
+dnl     or success, as appropriate.
+dnl AC_CHECK_HEADER(headerfilename.h, [successcommand], [failcommand])
+dnl     Search for headerfilename.h. If found, run successcommand, otherwise
+dnl     run failcommand.
+dnl AC_SUBST(VARNAME)
+dnl     "export" VARNAME so that it's defined in the Makefile.in with the value
+dnl     it was set to in this script. Thus:
+dnl         LIBFRED=" -lfred "
+dnl         AC_SUBST(LIBFRED)
+dnl     will let you use $(LIBFRED) in the Makefile.am .
+dnl AC_DEFINE_UNQUOTED(VARNAME, VALUE, [comment in config.h])
+dnl     Sets VARNAME to VALUE in config.h, so it can be tested for in preprocessor
+dnl     macros in the source. The supplied comment is included in config.h .
+dnl
+dnl configure.in.in is written in shell script, plus M4 macros that expand into
+dnl yet more shell script. Some M4 macros are provided by autoconf and automake,
+dnl some by libtool, and some are provided by KDE. In general, if its
+dnl UPPER_CASE(WITH_BRACKETS) it'll be an M4 macro, and if it looks like shell
+dnl script it probably is. Variables are boring old shell variables unless exported
+dnl to somewhere using AC_SUBST(...) or AC_DEFINE_UNQUOTED(...) and friends.
+dnl
+dnl Blame any errors in the above entirely on Craig Ringer. Please see the
+dnl autoconf documentation (ha!) for details on these and more.
 
 AC_INIT(acinclude.m4) dnl a source file from your sub dir
 
