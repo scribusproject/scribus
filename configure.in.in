@@ -109,7 +109,7 @@ LIBART_CFLAGS=""
 LIBART_CONFIG=""
 
 AC_PATH_PROG(LIBART_CONFIG,
-			 libart2-config-xxx,
+			 libart2-config,
 			 [],
 			 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /usr/nekoware/bin /opt/local/bin])
 
@@ -122,11 +122,11 @@ if test -n "$LIBART_CONFIG"; then
      AC_DEFINE_UNQUOTED(HAVE_LIBART, 1, [Defines if your system has the libart library])
   else
      libmissing libart
-     AC_MSG_ERROR([You need at least libart 2.3.8])
+	 AC_MSG_ERROR([You need at least libart 2.3.8 . See the BUILDING file.])
   fi
 else
   libmissing libart
-  AC_MSG_ERROR([You need at least libart 2.3.8])
+  AC_MSG_ERROR([You need at least libart 2.3.8 . See the BUILDING file.])
 fi
 AC_SUBST(LIBART_LIBS)
 AC_SUBST(LIBART_CFLAGS)
@@ -139,7 +139,7 @@ LIBFREETYPE_CFLAGS=""
 FREETYPE_CONFIG=""
 AC_PATH_PROG(FREETYPE_CONFIG,
 			 freetype-config,
-			 [AC_MSG_ERROR([Could not find libfreetype anywhere, check http://www.freetype.org/])],
+			 []
 			 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 hafree=no
@@ -152,6 +152,7 @@ if test -n "$FREETYPE_CONFIG"; then
 	if test $hafree = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
 	else
+		libmissing libfreetype
 		AC_MSG_ERROR([You need at least freetype 2.1.0])
 	fi
 
@@ -178,7 +179,8 @@ if test -n "$FREETYPE_CONFIG"; then
 	AC_SUBST(LIBFREETYPE_LIBS)
 	AC_SUBST(LIBFREETYPE_CFLAGS)
 else
-  AC_MSG_ERROR([You need at least freetype 2.1.0])
+	libmissing libfreetype
+	AC_MSG_ERROR([You need at least freetype 2.1.0])
 fi
 
 dnl Try to find fontconfig using fontconfig-config or pkg-config.
