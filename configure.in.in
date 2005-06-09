@@ -138,8 +138,8 @@ LIBFREETYPE_CFLAGS=""
 
 FREETYPE_CONFIG=""
 AC_PATH_PROG(FREETYPE_CONFIG,
-			 freetype-config,
-			 []
+			 freetype-config-xxx,
+			 [],
 			 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 hafree=no
