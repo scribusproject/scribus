@@ -81,7 +81,7 @@ public:
 	void updateSel(int code, struct PtiSmall *hg);
 	void deleteSel();
 	void setStyle(int Csty);
-	void setFarbe(QString farbe, int shad);
+	void setFarbe(bool marker);
 	void insChars(QString t);
 	void insStyledText();
 	void copyStyledText();

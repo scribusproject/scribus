@@ -206,35 +206,54 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	if (currKeySeq == ScApp->scrActions["specialPageNumber"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialPageNumber"]->actionInt())));
+		setFarbe(true);
 		insert("#");
+		setFarbe(false);
 		emit SideBarUp(true);
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialNonBreakingSpace"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt())));
+		setFarbe(true);
 		insert("_");
+		setFarbe(false);
 		emit SideBarUp(true);
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialFrameBreak"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialFrameBreak"]->actionInt())));
+		setFarbe(true);
 		insert("|");
+		setFarbe(false);
 		emit SideBarUp(true);
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialNewLine"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialNewLine"]->actionInt())));
+		setFarbe(true);
 		insert("*");
+		setFarbe(false);
 		emit SideBarUp(true);
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialColumnBreak"]->accel())
 	{
 		insChars(QString(QChar(ScApp->scrActions["specialColumnBreak"]->actionInt())));
+		setFarbe(true);
 		insert("^");
+		setFarbe(false);
+		emit SideBarUp(true);
+		return;
+	}
+	if (currKeySeq == ScApp->scrActions["specialNonBreakingHyphen"]->accel())
+	{
+		insChars(QString(QChar(ScApp->scrActions["specialNonBreakingHyphen"]->actionInt())));
+		setFarbe(true);
+		insert("=");
+		setFarbe(false);
 		emit SideBarUp(true);
 		return;
 	}
@@ -857,8 +876,6 @@ void SEditor::loadItemText(PageItem *currItem)
 	setUpdatesEnabled(false);
 	struct PtiSmall *hg;
 	QString Text = "";
-	QString Ccol = "";
-	int Csha = 100;
 	int Csty = 0;
 	int Ali = 0;
 	PageItem *nextItem = currItem;
@@ -879,20 +896,15 @@ void SEditor::loadItemText(PageItem *currItem)
 	{
 		if (nextItem->itemText.count() != 0)
 		{
-			Ccol = nextItem->itemText.at(0)->ccolor;
-			Csha = nextItem->itemText.at(0)->cshade;
 			Csty = nextItem->itemText.at(0)->cstyle;
 			Ali = nextItem->itemText.at(0)->cab;
 		}
 		else
 		{
-			Ccol = currItem->TxtFill;
-			Csha = currItem->ShTxtFill;
-			Csha = currItem->TxTStyle;
+			Csty = currItem->TxTStyle;
 			Ali = currItem->textAlignment;
 		}
 		setAlign(Ali);
-		setFarbe(Ccol, Csha);
 		setStyle(Csty);
 	}
 	while (nextItem != 0)
@@ -932,59 +944,76 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->cunderwidth = nextItem->itemText.at(a)->cunderwidth;
 				hg->cstrikepos = nextItem->itemText.at(a)->cstrikepos;
 				hg->cstrikewidth = nextItem->itemText.at(a)->cstrikewidth;
-				if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
+				if ((Ali == hg->cab) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
 					{
-						setFarbe(Ccol, Csha);
 						setAlign(Ali);
 						setStyle(Csty);
 						insert(Text);
+						setFarbe(true);
 						insert("#");
+						setFarbe(false);
 						Text = "";
 						chars->append(hg);
 						continue;
 					}
 					else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt()))
 					{
-						setFarbe(Ccol, Csha);
 						setAlign(Ali);
 						setStyle(Csty);
 						insert(Text);
+						setFarbe(true);
 						insert("_");
+						setFarbe(false);
 						Text = "";
 						chars->append(hg);
 						continue;
 					}
 					else if (hg->ch == QChar(ScApp->scrActions["specialFrameBreak"]->actionInt()))
 					{
-						setFarbe(Ccol, Csha);
 						setAlign(Ali);
 						setStyle(Csty);
 						insert(Text);
+						setFarbe(true);
 						insert("|");
+						setFarbe(false);
 						Text = "";
 						chars->append(hg);
 						continue;
 					}
 					else if (hg->ch == QChar(ScApp->scrActions["specialColumnBreak"]->actionInt()))
 					{
-						setFarbe(Ccol, Csha);
 						setAlign(Ali);
 						setStyle(Csty);
 						insert(Text);
+						setFarbe(true);
 						insert("^");
+						setFarbe(false);
+						Text = "";
+						chars->append(hg);
+						continue;
+					}
+					else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingHyphen"]->actionInt()))
+					{
+						setAlign(Ali);
+						setStyle(Csty);
+						insert(Text);
+						setFarbe(true);
+						insert("=");
+						setFarbe(false);
 						Text = "";
 						chars->append(hg);
 						continue;
 					}
 					else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))
 					{
-						setFarbe(Ccol, Csha);
 						setAlign(Ali);
 						setStyle(Csty);
 						insert(Text);
+						setFarbe(true);
 						insert("*");
+						setFarbe(false);
 						Text = "";
 						chars->append(hg);
 						continue;
@@ -994,13 +1023,10 @@ void SEditor::loadItemText(PageItem *currItem)
 				}
 				else
 				{
-					setFarbe(Ccol, Csha);
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
 					Text = hg->ch;
-					Ccol = hg->ccolor;
-					Csha = hg->cshade;
 					Csty = hg->cstyle;
 					Ali = hg->cab;
 				}
@@ -1010,7 +1036,6 @@ void SEditor::loadItemText(PageItem *currItem)
 		nextItem = nextItem->NextBox;
 	}
 	setAlign(Ali);
-	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	insert(Text);
 	StyledText.append(chars);
@@ -1033,7 +1058,6 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	chars->setAutoDelete(true);
 	chars->clear();
 	setAlign(currItem->textAlignment);
-	setFarbe(currItem->TxtFill, currItem->ShTxtFill);
 	setStyle(currItem->TxTStyle);
 	for (uint a = 0; a < tx.length(); ++a)
 	{
@@ -1092,27 +1116,20 @@ void SEditor::updateAll()
 	clear();
 	struct PtiSmall *hg;
 	QString Text = "";
-	QString Ccol = "";
-	int Csha;
 	int Csty;
 	int Ali = 0;
 	ChList *chars = StyledText.at(0);
 	if (chars->count() != 0)
 	{
-		Ccol = chars->at(0)->ccolor;
-		Csha = chars->at(0)->cshade;
 		Csty = chars->at(0)->cstyle;
 		Ali = chars->at(0)->cab;
 	}
 	else
 	{
-		Ccol = CurrTextFill;
-		Csha = CurrTextFillSh;
 		Csty = CurrentStyle;
 		Ali = currentParaStyle;
 	}
 	setAlign(Ali);
-	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	for (uint pa = 0; pa < StyledText.count(); ++pa)
 	{
@@ -1125,56 +1142,73 @@ void SEditor::updateAll()
 		for (uint a = 0; a < chars->count(); ++a)
 		{
 			hg = chars->at(a);
-			if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
+			if ((Ali == hg->cab) && (Csty == hg->cstyle))
 			{
 				if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
 				{
-					setFarbe(Ccol, Csha);
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
+					setFarbe(true);
 					insert("#");
+					setFarbe(false);
 					Text = "";
 					continue;
 				}
 				else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt()))
 				{
-					setFarbe(Ccol, Csha);
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
+					setFarbe(true);
 					insert("_");
+					setFarbe(false);
 					Text = "";
 					continue;
 				}
 				else if (hg->ch == QChar(ScApp->scrActions["specialFrameBreak"]->actionInt()))
 				{
-					setFarbe(Ccol, Csha);
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
+					setFarbe(true);
 					insert("|");
+					setFarbe(false);
 					Text = "";
 					continue;
 				}
 				else if (hg->ch == QChar(ScApp->scrActions["specialColumnBreak"]->actionInt()))
 				{
-					setFarbe(Ccol, Csha);
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
+					setFarbe(true);
 					insert("^");
+					setFarbe(false);
+					Text = "";
+					chars->append(hg);
+					continue;
+				}
+				else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingHyphen"]->actionInt()))
+				{
+					setAlign(Ali);
+					setStyle(Csty);
+					insert(Text);
+					setFarbe(true);
+					insert("=");
+					setFarbe(false);
 					Text = "";
 					chars->append(hg);
 					continue;
 				}
 				else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))
 				{
-					setFarbe(Ccol, Csha);
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
+					setFarbe(true);
 					insert("*");
+					setFarbe(false);
 					Text = "";
 					continue;
 				}
@@ -1183,13 +1217,10 @@ void SEditor::updateAll()
 			}
 			else
 			{
-				setFarbe(Ccol, Csha);
 				setAlign(Ali);
 				setStyle(Csty);
 				insert(Text);
 				Text = hg->ch;
-				Ccol = hg->ccolor;
-				Csha = hg->cshade;
 				Csty = hg->cstyle;
 				Ali = hg->cab;
 			}
@@ -1198,7 +1229,6 @@ void SEditor::updateAll()
 			Text += "\n";
 	}
 	setAlign(Ali);
-	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	insert(Text);
 	setUpdatesEnabled(true);
@@ -1216,28 +1246,22 @@ void SEditor::updateFromChars(int pa)
 	int p, i;
 	getCursorPosition(&p, &i);
 	removeSelection();
-	QString Ccol = chars->at(0)->ccolor;
-	int Csha = chars->at(0)->cshade;
 	int Csty = chars->at(0)->cstyle;
 	for (uint a = 0; a < chars->count(); ++a)
 	{
-		if ((Ccol == chars->at(a)->ccolor) && (Csha == chars->at(a)->cshade) && (Csty == chars->at(a)->cstyle))
+		if (Csty == chars->at(a)->cstyle)
 			SelEnd++;
 		else
 		{
 			setSelection(pa, SelStart, pa, SelEnd);
-			setFarbe(Ccol, Csha);
 			setStyle(Csty);
 			removeSelection();
-			Ccol = chars->at(a)->ccolor;
-			Csha = chars->at(a)->cshade;
 			Csty = chars->at(a)->cstyle;
 			SelStart = SelEnd;
 			SelEnd++;
 		}
 	}
 	setSelection(pa, SelStart, pa, SelEnd);
-	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	removeSelection();
 	setAlign(chars->at(0)->cab);
@@ -1435,23 +1459,13 @@ void SEditor::setStyle(int Csty)
 		setVerticalAlignment(AlignNormal);
 }
 
-void SEditor::setFarbe(QString farbe, int shad)
+void SEditor::setFarbe(bool marker)
 {
-	int h, s, v, sneu;
 	QColor tmp;
-	doc->PageColors[farbe].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shad / 100);
-		tmp.setHsv(h, s, sneu);
-	}
+	if (marker)
+		tmp = QColor(red);
 	else
-	{
-		doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shad / 100;
-		tmp.setHsv(h, sneu, v);
-	}
+		tmp = QColor(black);
 	setColor(tmp);
 }
 
@@ -2029,6 +2043,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(newUnderline(int, int)), this, SLOT(newTxtUnderline(int, int)));
 	connect(StyleTools, SIGNAL(newStrike(int, int )), this, SLOT(newTxtStrike(int, int)));
 	Editor->setFocus();
+	Editor->setFarbe(false);
 }
 
 /** 10/12/2004 - pv - #1203: wrong selection on double click
@@ -2125,7 +2140,6 @@ void StoryEditor::newTxFill(int c, int s)
 		Editor->CurrTextFill = FillTools->TxFill->text(c);
 	if (s != -1)
 		Editor->CurrTextFillSh = s;
-	Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 	struct PtiSmall hg;
 	hg.ccolor = Editor->CurrTextFill;
 	hg.cshade = Editor->CurrTextFillSh;
@@ -2354,9 +2368,7 @@ void StoryEditor::updateProps(int p, int ch)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		//Editor->setAlign(Editor->currentParaStyle); breaks 1st paragraph bug #1669
 		Editor->setStyle(Editor->CurrentStyle);
-		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		firstSet = true;
 		return;
 	}
@@ -2383,7 +2395,6 @@ void StoryEditor::updateProps(int p, int ch)
 		}
 		Editor->setAlign(Editor->currentParaStyle);
 		Editor->setStyle(Editor->CurrentStyle);
-		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 	}
 	else
 	{
@@ -2868,7 +2879,6 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		Editor->setCursorPosition(0, 0);
 		updateProps(0, 0);
 	}
@@ -3015,7 +3025,6 @@ void StoryEditor::changeAlign(int )
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		Editor->setCursorPosition(0, 0);
 		updateProps(0, 0);
 	}

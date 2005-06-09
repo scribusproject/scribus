@@ -1095,6 +1095,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						}
 					}
 					hl->cstyle &= 0xF7FF; // 2047;
+					hl->cstyle &= 8191;
 					if (((Doc->docParagraphStyles[absa].textAlignment == 3) || (Doc->docParagraphStyles[absa].textAlignment == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 					{
 						hl->cstyle |= 4096;
@@ -1154,12 +1155,16 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					oldCurY = SetZeichAttr(hl, &chs, &chx);
 					if (chx == QChar(29))
 						chx2 = " ";
+					else if (chx == QChar(24))
+						chx2 = "-";
 					else
 						chx2 = chx;
 					if (a < MaxText-1)
 					{
 						if (itemText.at(a+1)->ch == QChar(29))
 							chx3 = " ";
+						else if (itemText.at(a+1)->ch == QChar(24))
+							chx3 = "-";
 						else
 							chx3 = itemText.at(a+1)->ch;
 						wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
@@ -1801,7 +1806,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
-									if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
+										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
+										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 								}
@@ -1820,7 +1828,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
-									if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
+										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
+										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 								}
@@ -2058,7 +2069,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
 							Zli2 = LiList.at(zc);
-							if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
+								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
+								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 						}
@@ -2077,7 +2091,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
 							Zli2 = LiList.at(zc);
-							if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(10)) || (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(9)))
+							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
+								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
+								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 						}
@@ -2544,12 +2561,16 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				SetZeichAttr(hl, &chs, &chx);
 				if (chx == QChar(29))
 					chx2 = " ";
+				else if (chx == QChar(24))
+					chx2 = "-";
 				else
 					chx2 = chx;
 				if (a < itemText.count()-1)
 				{
 					if (itemText.at(a+1)->ch == QChar(29))
 						chx3 = " ";
+					else if (itemText.at(a+1)->ch == QChar(24))
+						chx3 = "-";
 					else
 						chx3 = itemText.at(a+1)->ch;
 					wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
@@ -2929,6 +2950,8 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		return;
 	if (ccx == QChar(29))
 		ccx = " ";
+	if (ccx == QChar(24))
+		ccx = "-";
 	uint chr = ccx[0].unicode();
 	if (hl->ZFo->CharWidth.contains(chr))
 	{

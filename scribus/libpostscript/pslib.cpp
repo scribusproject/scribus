@@ -2114,6 +2114,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if (hl->ch == QChar(29))
 		chx = " ";
+	if (hl->ch == QChar(24))
+		chx = "-";
 	if (hl->ch == QChar(0xA0))
 		chx = " ";
 	if (hl->ch == QChar(30))

@@ -2737,6 +2737,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if (hl->ch == QChar(29))
 		chx = " ";
+	if (hl->ch == QChar(24))
+		chx = "-";
 	if (hl->ch == QChar(0xA0))
 		chx = " ";
 	if (hl->ch == QChar(30))

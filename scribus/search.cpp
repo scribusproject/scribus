@@ -803,7 +803,6 @@ void SearchReplace::slotDoReplace()
 				ScApp->CurrStED->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
 				ScApp->CurrStED->Editor->removeSelectedText();
 				ScApp->CurrStED->Editor->setStyle(ScApp->CurrStED->Editor->CurrentStyle);
-				ScApp->CurrStED->Editor->setFarbe(ScApp->CurrStED->Editor->CurrTextFill, ScApp->CurrStED->Editor->CurrTextFillSh);
 				ScApp->CurrStED->Editor->insert(RTextVal->text());
 				connect(ScApp->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScApp->CurrStED, SLOT(updateProps(int, int)));
 				ScApp->CurrStED->newAlign(ScApp->CurrStED->Editor->currentParaStyle);

@@ -3072,6 +3072,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
 	dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
 	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
+	dc.setAttribute("SnapToGuides", static_cast<int>(doc->SnapGuides));
+	dc.setAttribute("SnapToGrid", static_cast<int>(doc->useRaster));
 	dc.setAttribute("MINGRID", doc->guidesSettings.minorGrid);
 	dc.setAttribute("MAJGRID", doc->guidesSettings.majorGrid);
 	dc.setAttribute("SHOWGRID", static_cast<int>(doc->guidesSettings.gridShown));

@@ -1213,6 +1213,7 @@ void ScribusApp::initMenuBar()
 	//scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "InsertChar");
+	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingHyphen"], "InsertChar");
 	scrMenuMgr->addMenuSeparator("InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialCopyRight"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialRegdTM"], "InsertChar");
