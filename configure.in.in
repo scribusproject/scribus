@@ -92,7 +92,7 @@ Linux check to make sure there is a -dev or -devel package for it installed as
 well. Without the -dev or -devel package Scribus will not be able to find and
 use the library. Once you have installed the library or the -dev or -devel
 package, you must re-run this configure script. If it's still not found, check
-your CPATH, PATH, and LD_LIBRARY_PATH.
+your CPATH, PATH, PKG_CONFIG_PATH, and LD_LIBRARY_PATH.
 See the BUILDING file for details.
 Note that some libraries are OPTIONAL and Scribus will work fine without them
 though with reduced functionality.
@@ -138,7 +138,7 @@ LIBFREETYPE_CFLAGS=""
 
 FREETYPE_CONFIG=""
 AC_PATH_PROG(FREETYPE_CONFIG,
-			 freetype-config-xxx,
+			 freetype-config,
 			 [],
 			 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
@@ -232,6 +232,7 @@ LDFLAGS="${SAVE_LDFLAGS}"
 if test $hafontconfig = yes; then
 	AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
 else
+	libmissing fontconfig
 	AC_MSG_WARN([Couldn't find a usable libfontconfig])
 fi
 AC_SUBST(LIBFONTCONFIG_LIBS)
@@ -244,7 +245,7 @@ XML_CFLAGS=""
 XML_CONFIG=""
 AC_PATH_PROG(XML_CONFIG,
 			 xml2-config,
-			 [AC_MSG_ERROR([Could not find libxml2 anywhere, check http://www.xmlsoft.org/])],
+			 [],
 			 [${PATH} ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 dnl check for LibXML2
@@ -260,6 +261,9 @@ if test "$disable_xml2" != "yes"; then
 			AC_DEFINE_UNQUOTED(HAVE_XML, 1, [Defines if your system has the libxml2 library])
 			AC_SUBST(XML_LIBS)
 			AC_SUBST(XML_CFLAGS)
+		else
+			libmising libxml2
+			AC_MSG_WARN([Couldn't find a usable libxml2])
 		fi
 		vers=`$XML_CONFIG --version 2>/dev/null | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
 		if test -n "$vers" && test "$vers" -ge 2006000
@@ -267,6 +271,9 @@ if test "$disable_xml2" != "yes"; then
 			AC_DEFINE_UNQUOTED(HAVE_XML26, 1, [Defines if your system has the libxml2 library6])
 			haxml26=yes
 		fi
+	else
+		libmissing libxml2
+		AC_MSG_WARN([Couldn't find a usable libxml2])
 	fi
 fi
 
