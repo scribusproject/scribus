@@ -27,7 +27,7 @@ class ScrAction : public QAction
 	Q_OBJECT
 
 public:
-	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar } ActionType;
+	typedef enum {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript, UnicodeChar, Layer } ActionType;
 	
 	/*!
 		\fn ScrAction::ScrAction( QObject * parent, const char * name )
@@ -218,6 +218,7 @@ protected:
 	int menuIndex;
 	int pluginID;
 	int windowID;
+	int layerID;
 	int _dataInt;
 	double _dataDouble;
 	QString _dataQString;

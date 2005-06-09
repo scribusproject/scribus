@@ -1705,15 +1705,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScApp->scrActions["itemSendToScrapbook"]->addTo(pmen);
 				if (Doc->Layers.count() > 1)
 				{
-					for (uint lam=0; lam < Doc->Layers.count(); ++lam)
-					{
-						int lai = pmen3->insertItem(Doc->Layers[lam].Name);
-						if (Doc->Layers[lam].LNr == Doc->ActiveLayer)
-							pmen3->setItemEnabled(lai, 0);
-					}
+					for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScApp->scrLayersActions.begin(); it!=ScApp->scrLayersActions.end(); ++it )
+						(*it)->addTo(pmen3);
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
-				connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			}
 			if (!currItem->locked())
 			{
@@ -1795,7 +1790,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			setGlobalUndoMode();
 			delete pmen;
 			delete pmen2;
-			disconnect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			delete pmen3;
 			delete pmen4;
 			delete pmenLevel;
@@ -7746,42 +7740,6 @@ void ScribusView::sentToScrap()
 	delete ss;
 }
 
-void ScribusView::sentToLayer(int id)
-{
-	QString laName = pmen3->text(id);
-	int dd = 0;
-	for (uint lam=0; lam < Doc->Layers.count(); ++lam)
-	{
-		if (Doc->Layers[lam].Name == laName)
-		{
-			dd = Doc->Layers[lam].LNr;
-			break;
-		}
-	}
-	if (SelItem.count() != 0)
-	{
-		if (UndoManager::undoEnabled() && SelItem.count() > 1)
-			undoManager->beginTransaction();
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint a = 0; a < SelItem.count(); ++a)
-		{
-			PageItem *currItem = SelItem.at(a);
-			currItem->setLayer(dd);
-			tooltip += "\t" + currItem->getUName() + "\n";
-		}
-		if (UndoManager::undoEnabled() && SelItem.count() > 1)
-			undoManager->commit(Um::Selection,
-								Um::IGroup,
-								Um::SendToLayer,
-								tooltip,
-								Um::ILayerAction);
-	}
-
-	Deselect(true);
-	updateContents();
-	emit DocChanged();
-}
-
 void ScribusView::ToBack()
 {
 	int d;
@@ -11478,191 +11436,6 @@ void ScribusView::BuildAObj()
 		AObjects[i].width = AObjects[i].x2 - AObjects[i].x1;
 		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
 	}
-}
-
-void ScribusView::doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx)
-{
-	double xd = 0;
-	uint start, end;
-	if ((moveCode == 3) || (moveCode == 13))
-	{
-		start = 1;
-		end = Object.count()-1;
-		if (Object.count() < 3)
-			return;
-	}
-	else
-	{
-		start = 0;
-		end = Object.count();
-	}
-	for (uint a2 = start; a2 < end; ++a2)
-	{
-		switch (moveCode)
-		{
-		case 0:
-			xd = (xp - AObjects[Object[a2]].x1) + a2*xdisp;
-			break;
-		case 1:
-			xd = (xp - (AObjects[Object[a2]].x1 + (AObjects[Object[a2]].x2 - AObjects[Object[a2]].x1) / 2.0)) + a2*xdisp;
-			break;
-		case 2:
-			xd = (xp - AObjects[Object[a2]].x2) + a2*xdisp;
-			break;
-		case 3:
-			xd = ((a2 * xp + minx) - ((AObjects[Object[a2]].x2 - AObjects[Object[a2]].x1) / 2.0)) - AObjects[Object[a2]].x1;
-			break;
-		case 10:
-			xd = (xp - AObjects[Object[a2]].y1) + a2*ydisp;
-			break;
-		case 11:
-			xd = (xp - (AObjects[Object[a2]].y1 + (AObjects[Object[a2]].y2 - AObjects[Object[a2]].y1) / 2.0)) + a2*ydisp;
-			break;
-		case 12:
-			xd = (xp - AObjects[Object[a2]].y2) + a2*ydisp;
-			break;
-		case 13:
-			xd = ((a2 * xp + minx) - ((AObjects[Object[a2]].y2 - AObjects[Object[a2]].y1) / 2.0)) - AObjects[Object[a2]].y1;
-			break;
-		}
-		for (uint a3 = 0; a3 < AObjects[Object[a2]].Objects.count(); ++a3)
-		{
-			if ((moveCode == 0) || (moveCode == 1) || (moveCode == 2) || (moveCode == 3))
-				AObjects[Object[a2]].Objects.at(a3)->Xpos += xd;
-			else
-				AObjects[Object[a2]].Objects.at(a3)->Ypos += xd;
-		}
-	}
-}
-
-void ScribusView::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart)
-{
-	double xp = 99999.9;
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
-	int moveCode = 0;
-	QMap<double,uint> Xsorted;
-	QMap<double,uint> Ysorted;
-	BuildAObj();
-	for (uint a = 0; a < AObjects.count(); ++a)
-	{
-		Ysorted.insert(qRound(AObjects[a].y1)*1000000+qRound(AObjects[a].x1*100)+a, a, false);
-		Xsorted.insert(qRound(AObjects[a].x1)*1000000+qRound(AObjects[a].y1*100)+a, a, false);
-	}
-	QValueList<uint> Yindex = Ysorted.values();
-	QValueList<uint> Xindex = Xsorted.values();
-	if (xa)
-	{
-		if (Vth)
-		{
-			if (AObjects.count() < 3)
-				return;
-			for (uint a = 0; a < AObjects.count(); ++a)
-			{
-				minx = QMIN(AObjects[a].x1, minx);
-				maxx = QMAX(AObjects[a].x2, maxx);
-			}
-			xp = (maxx - minx) / (AObjects.count() - 1);
-			if (Xindex.count() == 1)
-				doAlign(Yindex, 3, xp, xdisp, ydisp, minx);
-			else
-				doAlign(Xindex, 3, xp, xdisp, ydisp, minx);
-		}
-		else
-		{
-			switch (xart)
-			{
-				case 0:
-					for (uint a = 0; a < AObjects.count(); ++a)
-					{
-						xp = QMIN(AObjects[a].x1, xp);
-					}
-					moveCode = 0;
-					break;
-				case 1:
-					for (uint a = 0; a < AObjects.count(); ++a)
-					{
-						minx = QMIN(AObjects[a].x1, minx);
-						maxx = QMAX(AObjects[a].x2, maxx);
-					}
-					xp = minx + (maxx - minx) / 2.0;
-					moveCode = 1;
-					break;
-				case 2:
-					xp = 0;
-					for (uint a = 0; a < AObjects.count(); ++a)
-					{
-						xp = QMAX(AObjects[a].x2, xp);
-					}
-					moveCode = 2;
-					break;
-			}
-			if (Xindex.count() == 1)
-				doAlign(Yindex, moveCode, xp, xdisp, ydisp);
-			else
-				doAlign(Xindex, moveCode, xp, xdisp, ydisp);
-		}
-	}
-	xp = 99999.9;
-	minx = 99999.9;
-	miny = 99999.9;
-	maxx = -99999.9;
-	maxy = -99999.9;
-	if (ya)
-	{
-		if (Vtv)
-		{
-			if (AObjects.count() < 3)
-				return;
-			for (uint a = 0; a < AObjects.count(); ++a)
-			{
-				minx = QMIN(AObjects[a].y1, minx);
-				maxx = QMAX(AObjects[a].y2, maxx);
-			}
-			xp = (maxx - minx) / (AObjects.count() - 1);
-			if (Yindex.count() == 1)
-				doAlign(Xindex, 13, xp, xdisp, ydisp, minx);
-			else
-				doAlign(Yindex, 13, xp, xdisp, ydisp, minx);
-		}
-		else
-		{
-			switch (yart)
-			{
-				case 0:
-					for (uint a = 0; a < AObjects.count(); ++a)
-					{
-						xp = QMIN(AObjects[a].y1, xp);
-					}
-					moveCode = 10;
-					break;
-				case 1:
-					for (uint a = 0; a < AObjects.count(); ++a)
-					{
-						miny = QMIN(AObjects[a].y1, miny);
-						maxy = QMAX(AObjects[a].y2, maxy);
-					}
-					xp = miny + (maxy - miny) / 2.0;
-					moveCode = 11;
-					break;
-				case 2:
-					xp = 0;
-					for (uint a = 0; a < AObjects.count(); ++a)
-					{
-						xp = QMAX(AObjects[a].y2, xp);
-					}
-					moveCode = 12;
-					break;
-			}
-			if (Yindex.count() == 1)
-				doAlign(Xindex, moveCode, xp, xdisp, ydisp);
-			else
-				doAlign(Yindex, moveCode, xp, xdisp, ydisp);
-		}
-	}
-	updateContents();
 }
 
 void ScribusView::QueryFarben()

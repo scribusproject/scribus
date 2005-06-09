@@ -246,7 +246,6 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemRaiseToTop", new ScrAction(QIconSet(loadIcon("raise-to-top.png"), loadIcon("raise-to-top.png")), "", QKeySequence(Key_Home), ScApp, "itemRaiseToTop"));
 	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("lower.png"), loadIcon("lower.png")), "", QKeySequence(CTRL+Key_End), ScApp, "itemLower"));
 	scrActions->insert("itemRaise", new ScrAction(QIconSet(loadIcon("raise.png"), loadIcon("raise.png")), "", QKeySequence(CTRL+Key_Home), ScApp, "itemRaise"));
-	scrActions->insert("itemAlignDist", new ScrAction(ScApp, "itemAlignDist"));
 	
 	scrActions->insert("itemSendToScrapbook", new ScrAction(ScApp, "itemSendToScrapbook"));
 
@@ -302,7 +301,6 @@ void ActionManager::initItemMenuActions()
 	//connect( (*scrActions)["itemRaiseToTop"], SIGNAL(activated()), ScApp, SLOT(Objekt2Front()) );
 	//connect( (*scrActions)["itemLower"], SIGNAL(activated()), ScApp, SLOT(ObjektLower()) );
 	//connect( (*scrActions)["itemRaise"], SIGNAL(activated()), ScApp, SLOT(ObjektRaise()) );
-	connect( (*scrActions)["itemAlignDist"], SIGNAL(activated()), ScApp, SLOT(ObjektAlign()) );
 	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(activated()), ScApp, SLOT(PutScrap()) );
 	connect( (*scrActions)["itemAttributes"], SIGNAL(activated()), ScApp, SLOT(objectAttributes()) );
 	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), ScApp, SLOT(ToggleFrameEdit()) );
@@ -853,7 +851,6 @@ void ActionManager::languageChange()
 	(*scrActions)["itemRaiseToTop"]->setTexts( tr("Raise to &Top"));
 	(*scrActions)["itemLower"]->setTexts( tr("&Lower"));
 	(*scrActions)["itemRaise"]->setTexts( tr("&Raise"));
-	(*scrActions)["itemAlignDist"]->setTexts( tr("Distribute/&Align..."));
 	(*scrActions)["itemSendToScrapbook"]->setTexts( tr("Send to S&crapbook"));
 	(*scrActions)["itemAttributes"]->setTexts( tr("&Attributes..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts( tr("I&mage Visible"));

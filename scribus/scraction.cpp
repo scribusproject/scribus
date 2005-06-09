@@ -59,7 +59,10 @@ ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & m
 			break;
 		case UnicodeChar:
 			_dataInt=extraInt;
-			break;	
+			break;
+		case Layer:
+			layerID=extraInt;
+			break;
 		case Normal:
 		default:
 			break;
@@ -114,6 +117,8 @@ void ScrAction::activatedToActivatedData()
 		emit activatedData(menuText());
 	if (_actionType==ScrAction::UnicodeChar)
 		activatedUnicodeShortcut(name(), _dataInt);
+	if (_actionType==ScrAction::Layer)
+		emit activatedData(layerID);
 }
 
 void ScrAction::toggledToToggledData(bool ison)
@@ -134,6 +139,8 @@ void ScrAction::toggledToToggledData(bool ison)
 			emit toggledData(ison, menuText());
 		if (_actionType==ScrAction::RecentScript)
 			emit toggledData(ison, menuText());
+		if (_actionType==ScrAction::Layer)
+			emit toggledData(ison, layerID);
 		// no toggle for UnicodeChar
 	}
 }

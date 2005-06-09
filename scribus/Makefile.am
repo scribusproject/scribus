@@ -12,7 +12,6 @@ endif
 scribus_SOURCES = \
 		about.cpp\
 		actionmanager.cpp\
-		align.cpp\
 		aligndistribute.cpp\
 		alignselect.cpp\
 		annota.cpp\
@@ -201,7 +200,6 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/about.h                       $(prefix)/include/scribus/about.h
 	$(INSTALL_DATA) $(srcdir)/actionmanager.h               $(prefix)/include/scribus/actionmanager.h
-	$(INSTALL_DATA) $(srcdir)/align.h                       $(prefix)/include/scribus/align.h
 	$(INSTALL_DATA) $(srcdir)/aligndistribute.h                 $(prefix)/include/scribus/aligndistribute.h
 	$(INSTALL_DATA) $(srcdir)/alignselect.h                 $(prefix)/include/scribus/alignselect.h
 	$(INSTALL_DATA) $(srcdir)/annot.h                       $(prefix)/include/scribus/annot.h
@@ -372,7 +370,6 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/rgbsvg.txt
 	-rm -f $(prefix)/include/scribus/about.h
 	-rm -f $(prefix)/include/scribus/actionmanager.h
-	-rm -f $(prefix)/include/scribus/align.h
 	-rm -f $(prefix)/include/scribus/aligndistribute.h
 	-rm -f $(prefix)/include/scribus/alignselect.h
 	-rm -f $(prefix)/include/scribus/annot.h

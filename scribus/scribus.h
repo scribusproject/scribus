@@ -224,6 +224,7 @@ public:
 	QMap<QString, QGuardedPtr<ScrAction> > scrActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
+	QMap<QString, QGuardedPtr<ScrAction> > scrLayersActions;
 	QDict<QActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
@@ -278,6 +279,7 @@ public slots:
 	void removeRecent(QString fn);
 	void loadRecent(QString fn);
 	void rebuildRecentFileMenu();
+	void rebuildLayersList();
 	bool slotDocOpen();
 	bool loadDoc(QString);
 	void slotAutoSaved();
@@ -411,12 +413,8 @@ public slots:
 	void ObjektDupM();
 	/** Reformatiert das Dokument */
 	bool SetupDoc();
-	/** Richtet Objekte aus */
-	void ObjektAlign();
-	void ObjektAlign2();
 	void objectAttributes();
 	void generateTableOfContents();
-	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
 	const bool GetAllFonts(bool showFontInfo);
 	void buildFontMenu();
 	void slotPrefsOrg();
@@ -457,6 +455,8 @@ public slots:
 	void scanDocument();
 	void setUndoMode(bool isObjectSpecific);
 	void insertSampleText();
+	void sendToLayer(int layerNumber);
+	void updateItemLayerList();
 
 signals:
 	void TextISize(int);
@@ -496,6 +496,7 @@ private:
 
 	QString guiLanguage;
 	QString recentFileMenuName;
+	QString layerMenuName;
 	bool scribusInitialized;
 	QString getPreferencesLocation(); //Find preferences location
 	bool convert12Preferences(const QString prefsLocation); //convert 1.2 style rc prefs and possibly to .xml style

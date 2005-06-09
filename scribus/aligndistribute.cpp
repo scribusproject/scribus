@@ -381,7 +381,10 @@ void AlignDistributePalette::endAlign()
 	emit documentChanged();
 	ScApp->HaveNewSel(currView->SelItem.at(0)->itemType());
 	for (uint i = 0; i < currView->SelItem.count(); ++i)
+	{
 		currView->SelItem.at(i)->checkChanges(true); // force aligned items to check their changes
+		currView->setRedrawBounding(currView->SelItem.at(i));
+	}
 	undoManager->commit(); // commit and send the action to the UndoManager
 	currView->updateContents();
 }

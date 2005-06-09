@@ -254,8 +254,6 @@ public:
 	void AdjustPictScale(PageItem *currItem, bool reload = true);
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
 	void BuildAObj();
-	void doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx = 0.0);
-	void AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart);
 	void QueryFarben();
 	void rememberPreviousSettings(int mx=0, int my=0);
 	bool mousePressed();
@@ -296,7 +294,6 @@ public slots: // Public slots
 	void ToggleLock();
 	void ToggleSizeLock();
 	void sentToScrap();
-	void sentToLayer(int id);
 	void ToBack();
 	void ToFront();
 	void LowerItem();

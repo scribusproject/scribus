@@ -50,7 +50,6 @@
 #include "docinfo.h"
 #include "reformdoc.h"
 #include "serializer.h"
-#include "align.h"
 #include "aligndistribute.h"
 #include "fmitem.h"
 #include "fontprefs.h"
@@ -203,6 +202,7 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	scrActions.clear();
 	scrRecentFileActions.clear();
 	scrWindowsActions.clear();
+	scrLayersActions.clear();
 	scrMenuMgr = new MenuManager(this->menuBar());
 
 	PrefsPfad = getPreferencesLocation();
@@ -1149,7 +1149,9 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemRaiseToTop"], "ItemLevel");
 	scrMenuMgr->addMenuItem(scrActions["itemLowerToBottom"], "ItemLevel");
-	//scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
+	scrMenuMgr->createMenu("ItemLayer", "Send to La&yer");
+	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
+	layerMenuName="ItemLayer";
 	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item");
@@ -1179,7 +1181,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item");
 	scrMenuMgr->setMenuEnabled("ItemShapes", false);
-	scrActions["itemAlignDist"]->setEnabled(false);
 	scrActions["itemGroup"]->setEnabled(false);
 	scrActions["itemUngroup"]->setEnabled(false);
 	scrActions["itemAttachTextToPath"]->setEnabled(false);
@@ -2903,7 +2904,6 @@ void ScribusApp::windowsMenuAboutToShow()
 {
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), "Windows");
-
 	scrWindowsActions.clear();
 	scrMenuMgr->clearMenu("Windows");
 
@@ -3443,6 +3443,7 @@ void ScribusApp::SwitchWin()
 	FontSub->RebuildList(&Prefs, doc);
 	propertiesPalette->Fonts->RebuildList(&Prefs, doc);
 	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
+	rebuildLayersList();
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
 	doc->currentParaStyle = 0;
@@ -3567,6 +3568,7 @@ void ScribusApp::HaveNewDoc()
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
+	rebuildLayersList();
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
 	doc->currentParaStyle = 0;
@@ -3979,7 +3981,6 @@ void ScribusApp::HaveNewSel(int Nr)
 	propertiesPalette->RotationGroup->setButton(doc->RotMode);
 	if (view->SelItem.count() > 1)
 	{
-		scrActions["itemAlignDist"]->setEnabled(true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
@@ -4019,7 +4020,6 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	else
 	{
-		scrActions["itemAlignDist"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemCombinePolygons"]->setEnabled(false);
@@ -4027,10 +4027,10 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (view->SelItem.count() != 0)
 	{
 		actionManager->setPDFActions(view);
+		updateItemLayerList();
 		propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
 		scrActions["itemLockSize"]->setEnabled(true);
-
 		if (currItem->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);
 		else
@@ -4041,7 +4041,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		if (currItem->locked())
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", false);
-			scrActions["itemAlignDist"]->setEnabled(false);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -4176,6 +4175,86 @@ void ScribusApp::rebuildRecentFileMenu()
 		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIconSet(), RecentDocs[m], QKeySequence(), this, strippedName));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
+	}
+}
+
+void ScribusApp::rebuildLayersList()
+{
+	if (HaveDoc)
+	{
+		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+			scrMenuMgr->removeMenuItem((*it), layerMenuName);
+		scrLayersActions.clear();
+		uint a;
+		QValueList<Layer>::iterator it;
+		if (doc->Layers.count() != 0)
+		{
+			for (a=0; a < doc->Layers.count(); a++)
+			{
+				for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
+				{
+					scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIconSet(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
+					scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
+				}
+			}
+		}
+		for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
+		{
+			if ((*it).LNr == doc->ActiveLayer)
+				break;
+		}
+		scrLayersActions[QString("%1").arg((*it).LNr)]->setOn(true);
+		
+		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		{
+			scrMenuMgr->addMenuItem((*it), layerMenuName);
+			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
+		}
+	}
+}
+
+void ScribusApp::updateItemLayerList()
+{
+	if (HaveDoc)
+	{
+		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		{
+			disconnect( (*it), SIGNAL(activatedData(int)), 0, 0 );
+			(*it)->setOn(false);
+		}
+		if (view->SelItem.count()>0 && view->SelItem.at(0))
+			scrLayersActions[QString("%1").arg(view->SelItem.at(0)->LayerNr)]->setOn(true);
+		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
+	}
+}
+
+void ScribusApp::sendToLayer(int layerNumber)
+{
+	if (HaveDoc)
+	{
+		if (view->SelItem.count() != 0)
+		{
+			if (UndoManager::undoEnabled() && view->SelItem.count() > 1)
+				undoManager->beginTransaction();
+			QString tooltip = Um::ItemsInvolved + "\n";
+			for (uint a = 0; a < view->SelItem.count(); ++a)
+			{
+				PageItem *currItem = view->SelItem.at(a);
+				currItem->setLayer(layerNumber);
+				tooltip += "\t" + currItem->getUName() + "\n";
+			}
+			if (UndoManager::undoEnabled() && view->SelItem.count() > 1)
+				undoManager->commit(Um::Selection,
+									Um::IGroup,
+									Um::SendToLayer,
+									tooltip,
+									Um::ILayerAction);
+		}
+	
+		view->Deselect(true);
+		view->updateContents();
+		slotDocCh();
 	}
 }
 
@@ -4358,6 +4437,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 			docCheckerPalette->buildErrorList(doc);
 		}
 		slotDocCh();
+		rebuildLayersList();
 		view->LaMenu();
 		layerPalette->rebuildList();
 		doc->loading = false;
@@ -7949,77 +8029,6 @@ void ScribusApp::SelectFromOutlS(int Page)
 	view->GotoPage(Page);
 }
 
-void ScribusApp::ObjektAlign()
-{
-	double xdp, ydp;
-	bool xa, ya, Vth, Vtv;
-	int xart, yart, ein;
-	ein = doc->docUnitIndex;
-	NoFrameEdit();
-	view->BuildAObj();
-	Align *dia = new Align(this, view->AObjects.count(), ein, doc, view);
-	connect(dia, SIGNAL(ApplyDist(bool, bool, bool, bool, double, double, int, int)),
-	        this, SLOT(DoAlign(bool, bool, bool, bool, double, double, int, int)));
-
-	// Tooltip string for the Action History will have the names of the involved items
-	QString targetTooltip = Um::ItemsInvolved + "\n";
-	for (uint i = 0; i < view->SelItem.count(); ++i)
-		targetTooltip += "\t" + view->SelItem.at(i)->getUName() + "\n";
-
-	// Make the align action a single action in Action History
-	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute,
-								  targetTooltip, Um::IAlignDistribute);
-
-	if (dia->exec())
-	{
-		xdp = dia->AHor->value() / doc->unitRatio;
-		xa = (dia->CheckH->isChecked() || dia->VerteilenH->isChecked());
-		ydp = dia->AVert->value() / doc->unitRatio;
-		ya = (dia->CheckV->isChecked() || dia->VerteilenV->isChecked());
-		xart = dia->VartH->currentItem();
-		yart = dia->VartV->currentItem();
-		Vth = dia->VerteilenH->isChecked();
-		Vtv = dia->VerteilenV->isChecked();
-		view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
-		slotDocCh();
-		HaveNewSel(view->SelItem.at(0)->itemType());
-		for (uint i = 0; i < view->SelItem.count(); ++i)
-			view->SelItem.at(i)->checkChanges(true); // force aligned items to check their changes
-		undoManager->commit(); // commit and send the action to the UndoManager
-	}
-	else
-	{
-		for (uint i = 0; i < view->SelItem.count(); ++i)
-			view->SelItem.at(i)->checkChanges(true); // force aligned items to check their changes
-			                                         // before canceling the transaction so that these
-			                                         // "cancel moves" won't get recorded
-		undoManager->cancelTransaction();
-	}
-
-	delete dia;
-}
-
-void ScribusApp::ObjektAlign2()
-{
-	/*
-	AlignDistributePalette *adDia = new AlignDistribute(this);
-	if (HaveDoc)
-	{
-		adDia->setView(view);
-	}
-	else
-		adDia->setView(NULL);
-	adDia->exec();
-	delete adDia;
-	*/
-}
-
-void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart)
-{
-	view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
-	slotDocCh();
-}
-
 void ScribusApp::buildFontMenu()
 {
 	FontID.clear();
@@ -9726,6 +9735,7 @@ void ScribusApp::changeLayer(int l)
 {
 	view->Deselect(true);
 	view->setLayMenTxt(l);
+	rebuildLayersList();
 	view->LaMenu();
 	view->DrawNew();
 }
@@ -9773,6 +9783,7 @@ void ScribusApp::LayerRemove(int l, bool dl)
 	}
 	if (view->SelItem.count() != 0)
 		view->DeleteItem();
+	rebuildLayersList();
 	view->LaMenu();
 }
 
@@ -10915,6 +10926,7 @@ void ScribusApp::languageChange()
 			scrMenuMgr->setMenuText("TypeEffects", tr("&Effects"));
 			scrMenuMgr->setMenuText("Item", tr("&Item"));
 			scrMenuMgr->setMenuText("ItemLevel", tr("&Level"));
+			scrMenuMgr->setMenuText("ItemLayer", tr("Send to Layer"));
 			scrMenuMgr->setMenuText("ItemPreviewSettings", "Previe&w Settings");
 			scrMenuMgr->setMenuText("ItemPDFOptions", tr("&PDF Options"));
 			scrMenuMgr->setMenuText("ItemShapes", tr("&Shape"));
