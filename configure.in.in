@@ -41,6 +41,14 @@ dnl UPPER_CASE(WITH_BRACKETS) it'll be an M4 macro, and if it looks like shell
 dnl script it probably is. Variables are boring old shell variables unless exported
 dnl to somewhere using AC_SUBST(...) or AC_DEFINE_UNQUOTED(...) and friends.
 dnl
+dnl `dnl' is an M4 comment, # is a shell comment. The only differences are that
+dnl M4 macros in shell comments still get expanded so if you want to "comment out"
+dnl code with M4 macros you must use dnl, and that dnl comments are omitted from
+dnl configure.in .
+dnl
+dnl Note that you should NOT assume the user has bash. Ensure that you TEST YOUR CODE
+dnl with ash or a similar "primitive" shell before committing.
+dnl
 dnl Blame any errors in the above entirely on Craig Ringer. Please see the
 dnl autoconf documentation (ha!) for details on these and more.
 
@@ -68,11 +76,39 @@ dnl will probably need for other things in future.
 PKG_CONFIG=""
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 
+dnl Define a handy function to print a message for when libraries
+dnl can't be found. This can be called from configure.in.in, and from
+dnl configure.in.bot (which is, after all, just tacked on the bottom
+dnl during the generation of configure).
+
+missing_libs=""
+
+function libmissing() {
+dnl 	AC_MSG_WARN([
+One or more libraries were not found. You may need to install some additional
+libraries or packages.  If you think you have the library installed already, on
+Linux check to make sure there is a -dev or -devel package for it installed as
+well. Without the -dev or -devel package Scribus will not be able to find and
+use the library. Once you have installed the library or the -dev or -devel
+package, you must re-run this configure script.
+Note that some libraries are OPTIONAL and Scribus will work fine without them
+though with reduced functionality. See the BUILDING file for more info.
+dnl ])
+	if test -n "${1}"; then
+		missing_libs="${missing_libs} ${1}"
+	fi
+}
+
+
 LIBART_LIBS=""
 LIBART_CFLAGS=""
 LIBART_CONFIG=""
-AC_PATH_PROG(LIBART_CONFIG, libart2-config,[AC_MSG_ERROR([Could not find libart anywhere, check http://www.levien.com/libart/], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /usr/nekoware/bin /opt/local/bin])
-])
+
+AC_PATH_PROG(LIBART_CONFIG,
+			 libart2-config,
+			 [AC_MSG_ERROR([Could not find libart anywhere, check http://www.levien.com/libart/])],
+			 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /usr/nekoware/bin /opt/local/bin])
+
 if test -n "$LIBART_CONFIG"; then
   vers=`$LIBART_CONFIG --version 2>/dev/null | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
   if test -n "$vers" && test "$vers" -ge 2003008
@@ -93,7 +129,10 @@ LIBFREETYPE_LIBS=""
 LIBFREETYPE_CFLAGS=""
 
 FREETYPE_CONFIG=""
-AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, [AC_MSG_ERROR([Could not find libfreetype anywhere, check http://www.freetype.org/])], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+AC_PATH_PROG(FREETYPE_CONFIG,
+			 freetype-config,
+			 [AC_MSG_ERROR([Could not find libfreetype anywhere, check http://www.freetype.org/])],
+			 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 hafree=no
 hafree_post219=
@@ -157,8 +196,12 @@ fi
 dnl If fontconfig not found with pkg-config, try to find fontconfig-config
 dnl and use that to look for fontconfig.
 if test -z "$LIBFONTCONFIG_LIBS" && test -z "$LIBFONTCONFIG_CFLAGS"; then
-	dnl Seems we didn't find fontconfig with pkg-config...
-	AC_PATH_PROG(FONTCONFIG_CONFIG, fontconfig-config, [], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+	dnl Seems we didn't find fontconfig with pkg-config, so search for the old
+	dnl fontconfig-config program instead.
+	AC_PATH_PROG(FONTCONFIG_CONFIG,
+				 fontconfig-config,
+				 [],
+				 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 	if test -n "$FONTCONFIG_CONFIG"; then
 		dnl found fontconfig-config, use it's results
 		LIBFONTCONFIG_LIBS="`$FONTCONFIG_CONFIG --libs`"
@@ -189,7 +232,10 @@ XML_LIBS=""
 XML_CFLAGS=""
 
 XML_CONFIG=""
-AC_PATH_PROG(XML_CONFIG, xml2-config, [AC_MSG_ERROR([Could not find libxml2 anywhere, check http://www.xmlsoft.org/])], [${PATH} ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+AC_PATH_PROG(XML_CONFIG,
+			 xml2-config,
+			 [AC_MSG_ERROR([Could not find libxml2 anywhere, check http://www.xmlsoft.org/])],
+			 [${PATH} ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 dnl check for LibXML2
 haxml=no
