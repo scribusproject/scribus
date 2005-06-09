@@ -11,10 +11,10 @@ dnl AC_MSG_WARN([warning message])
 dnl     prints the warning and continues
 dnl AC_MSG_ERROR([error message])
 dnl     prints the error and stops configure
-dnl AC_PATH_PROG([VARNAME],[programname],[failure message],[search path])
-dnl     search path, failure message optional. Searches for programname
-dnl     along search path or default path and sets VARNAME to the path
-dnl     to the program, if found.
+dnl AC_PATH_PROG([VARNAME],[programname],[notfoundvalue],[search path])
+dnl     Searches for programname along search path or default path and sets
+dnl     VARNAME to the path to the program, if found. If not found and
+dnl     notfoundvalue provided, sets VARNAME to notfoundvalue, otherwise "".
 dnl AC_CHECK_LIB(lib_basename, lib_symbol, [command_if_success], [command_if_fail])
 dnl     Looks for a library with basename lib_basename, ie libfreetype.so.3.0.0
 dnl     might be found for lib_basename=libfreetype, and checks for the lib_symbol
@@ -84,16 +84,20 @@ dnl during the generation of configure).
 missing_libs=""
 
 function libmissing() {
-dnl 	AC_MSG_WARN([
+	AC_MSG_WARN([
+-------------------------------------------------------------------------------
 One or more libraries were not found. You may need to install some additional
 libraries or packages.  If you think you have the library installed already, on
 Linux check to make sure there is a -dev or -devel package for it installed as
 well. Without the -dev or -devel package Scribus will not be able to find and
 use the library. Once you have installed the library or the -dev or -devel
-package, you must re-run this configure script.
+package, you must re-run this configure script. If it's still not found, check
+your CPATH, PATH, and LD_LIBRARY_PATH.
+See the BUILDING file for details.
 Note that some libraries are OPTIONAL and Scribus will work fine without them
-though with reduced functionality. See the BUILDING file for more info.
-dnl ])
+though with reduced functionality.
+-------------------------------------------------------------------------------
+])
 	if test -n "${1}"; then
 		missing_libs="${missing_libs} ${1}"
 	fi
@@ -105,8 +109,8 @@ LIBART_CFLAGS=""
 LIBART_CONFIG=""
 
 AC_PATH_PROG(LIBART_CONFIG,
-			 libart2-config,
-			 [AC_MSG_ERROR([Could not find libart anywhere, check http://www.levien.com/libart/])],
+			 libart2-config-xxx,
+			 [],
 			 [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /usr/nekoware/bin /opt/local/bin])
 
 if test -n "$LIBART_CONFIG"; then
@@ -117,8 +121,12 @@ if test -n "$LIBART_CONFIG"; then
      LIBART_CFLAGS="`$LIBART_CONFIG --cflags`"
      AC_DEFINE_UNQUOTED(HAVE_LIBART, 1, [Defines if your system has the libart library])
   else
+     libmissing libart
      AC_MSG_ERROR([You need at least libart 2.3.8])
   fi
+else
+  libmissing libart
+  AC_MSG_ERROR([You need at least libart 2.3.8])
 fi
 AC_SUBST(LIBART_LIBS)
 AC_SUBST(LIBART_CFLAGS)
