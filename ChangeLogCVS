@@ -6,6 +6,28 @@ Scribus - 1.2.1
 
 Scribus - 1.2.2cvs
 ==================
+- 0001731: [Fonts] Overlapping letters (fschmid)
+- 0002068: [PPCOSX] Keys for Copy,Cut and Paste does not work (cbradney)
+- 0002050: [Story Editor / Text Frames] Can't delete text from Template (fschmid)
+- 0001125: [Story Editor / Text Frames] Deleting text in the story editor does not actualy delete all the text. (fschmid)
+- 0001968: [Import / Export] Support for OpenDocument (OASIS) Standard (Tsoots)
+- 0002044: [Default] Changes in path column of Picture Manager ignored (fschmid)
+- 0002041: [Translation] Catalan translation update (cbradney)
+- 0002032: [Translation] Improved Afrikaans hyphenator (plinnell)
+- 0000633: [Styles] Drop caps not reaching to the top, and other issues (fschmid)
+- 0002012: [Story Editor / Text Frames] Length of Tab counted double when Hanging paragraph (fschmid)
+- 0002029: [Translation] French translation update (cbradney)
+- 0002025: [General] group locked objects (cbradney)
+- 0001984: [Translation] Afrikaans translation (cbradney)
+- 0002011: [Story Editor / Text Frames] number of following hypens not working properly (fschmid)
+- 0002016: [Translation] Updated Finnish translation (Tsoots)
+- 0001992: [Story Editor / Text Frames] PDF-bookmarks break, when textboxes are copied (fschmid)
+- 0002007: [Default] Using deadkeys triggers crash in Story Editor (fschmid)
+- 0002010: [Translation] updated russian translation for 1.2.2 (plinnell)
+- 0002002: [Translation] Translation 1.2.2.cvs German (cbradney)
+- 0001810: [Import / Export] OpenOffice 2.0 writer import does not import numbered paragraphs properly (Tsoots)
+- 0001996: [User Interface] Crashes when hitting backspace
+- 0002000: [Translation] updated slovenian translation (cbradney)
 - 0001248: [Picture Frames] delete content should reset properties too (fschmid)
 - 0001992: [Story Editor / Text Frames] PDF-bookmarks break, when textboxes are copied (fschmid)
 - 0001721: [Story Editor / Text Frames] Changing text frames preference font prevents typing in text frames (fschmid)
