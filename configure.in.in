@@ -446,8 +446,19 @@ dnl While we don't use GhostScript during compilation - at least not
 dnl currently - and can run without it, we check for it in configure
 dnl to give users an early warning if it's missing.
 AC_PATH_PROG(GS_PATH, gs)
+AC_MSG_CHECKING([GhostScript version])
 if test -z "${GS_PATH}" ; then
+	AC_MSG_RESULT([gs not found])
 	AC_MSG_WARN("GhostScript not found - gs 8.x is required for full features.")
+else
+	GS_VER_MAJOR=`gs --version | cut -d . -f 1`
+	GS_VER_MINOR=`gs --version | cut -d . -f 2`
+	AC_MSG_RESULT([${GS_VER_MAJOR}.${GS_VER_MINOR}])
+	if (( "${GS_VER_MAJOR}" < 7 )) ; then
+		AC_MSG_WARN("GhostScript found, but older than v7. v8 recommended.")
+	elif (( "${GS_VER_MAJOR}" < 8 )) ; then
+		AC_MSG_WARN("GhostScript v7 found. v8 recommended.")
+	fi
 fi
 
 COMPILE_DEBUG=no

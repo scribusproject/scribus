@@ -94,9 +94,14 @@ fi
 
 echo -n "    "
 if test -z "${GS_PATH}" ; then
-	echo "GhostScript could not be found. See README."
+	echo "***GhostScript could not be found. See README.***"
 else
-	echo "GhostScript was found at ${GS_PATH}"
+	echo "GhostScript ${GS_VER_MAJOR}.${GS_VER_MINOR} was found at ${GS_PATH}"
+	if (( "${GS_VER_MAJOR}" < 7 )) ; then
+		echo "    *** GhostScript versions older than 7 MAY NOT WORK; v8 recommended ***"
+	elif (( "${GS_VER_MAJOR}" < 8 )) ; then
+		echo "    *** GhostScript 8 is STRONGLY recommended ***"
+	fi
 fi
 
 if test "$hafree" = yes && test "$hafree_post219" = no; then

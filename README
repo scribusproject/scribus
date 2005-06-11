@@ -75,6 +75,36 @@ BUILDING AND INSTALLING FROM SOURCE
 Please see the files `BUILDING' and `INSTALL' for details on how to compile and
 install Scribus, library requirements, etc.
 
+GHOSTSCRIPT
+===========
+
+One of the more crucial tools Scribus depends on is GhostScript. While it is
+not required for compilation, Scribus must be able to find a recent version of
+GhostScript at runtime for all features to be present and fully working. In
+particular, printing, print preview, and PDF/EPS import will not be fully
+functional without GhostScript. GhostScript 8.x is STRONGLY recommended.
+Support for versions older than 7.07 is untested and Scribus may not operate
+reliably using such an old version of gs.
+
+You can get a new version of GhostScript from http://www.ghostscript.com/ .
+There is documentation on how to install a new version of GhostScript on the
+Scribus website:
+    http://docs.scribus.net/index.php?lang=en&sm=dtptoolbox&page=toolbox7
+or you can just download it and install it in /usr/local, then set your PATH.
+
+If you're compiling Scribus yourself, it will whine at you during configure if
+it notices an older version of GhostScript, or can't find it at all. If you
+know you have a newer version installed, run `gs --version' and (on bash)
+`which gs' to check what version is being used and where it's installed. You
+may need to tweak your PATH environment variable to find the newer version
+instead. Note that you can set which version of GhostScript Scribus uses, and
+where to find it, in the Scribus preferences.
+
+Debian users who haven't installed their own newer version of GhostScript may
+want to install gs-afpl then use:
+    `update-alternatives --config gs'
+as root to select gs-afpl as the default version of GhostScript to use.
+
 DISTRO AND OS SPECIFIC NOTES
 =====================
 
@@ -85,6 +115,8 @@ If Scribus does not start while complaining about the absence of
 PostScript fonts please install either xfonts-scalable or gsfonts-x11.
 They are in the "Recommends" and will be installed by all sensible apt
 front-ends.
+
+Also see the section entitled `GHOSTSCRIPT'.
 
 SuSE 9.x
 ========
