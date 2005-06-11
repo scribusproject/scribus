@@ -2084,7 +2084,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			setTextCh(Doc, ite, gcr, a, d, &hl2);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl);
-		tabDist = hl->xp + Cwidth(Doc, hl->cfont, hl->ch, hl->csize);
+		tabDist = hl->xp + Cwidth(Doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
 	}
 }
 
@@ -2366,7 +2366,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	{
 		int chs = hl->csize;
 		ite->SetZeichAttr(hl, &chs, &chx);
-		double wide = Cwidth(Doc, hl->cfont, chx, chs);
+		double wide = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 		chx = "-";
 		uint chr = chx[0].unicode();
 		if (hl->cfont->CharWidth.contains(chr))

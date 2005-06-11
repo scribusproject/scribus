@@ -765,7 +765,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.realSiz = hl->csize;
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
-					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
+					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 					if (hl->cstyle & 16384)
 						Zli3.kern = 0;
 					else
@@ -831,7 +831,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						if (hl->cstyle & 8192)
 						{
 							Zli3.Zeich = "-";
-							Zli3.xco = Zli3.xco + Cwidth(Doc, hl->cfont, chx, hl->csize);
+							Zli3.xco = Zli3.xco + Zli3.wide;
 							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 								DrawZeichenS(p, &Zli3);
 						}
@@ -1395,12 +1395,17 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						CurX += (wide+kernVal) / 2;
 						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
 					}
-					if ((hl->cstyle & 128) || (hl->ch == "-"))
+					if (((hl->cstyle & 128) || (hl->ch == "-")) && ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0)))
 					{
-						if ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0))
+						if (hl->cstyle & 128)
 						{
-							pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize))), qRound(CurY+desc));
-							pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize))), qRound(ceil(CurY-asce)));
+							pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(CurY+desc));
+							pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0))), qRound(ceil(CurY-asce)));
+						}
+						else
+						{
+							pt1 = QPoint(qRound(ceil(CurX+RExtra)), qRound(CurY+desc));
+							pt2 = QPoint(qRound(ceil(CurX+RExtra)), qRound(ceil(CurY-asce)));
 						}
 					}
 					else
@@ -1472,7 +1477,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							if (hl->ch == "-")
 								LastXp = CurX;
 							else
-								LastXp = CurX + Cwidth(Doc, hl->cfont, "-", hl->csize);
+								LastXp = CurX + Cwidth(Doc, hl->cfont, "-", hl->csize) * (hl->cscale / 1000.0);
 							LastSP = BuPos;
 						}
 					}
@@ -1559,14 +1564,14 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->Farb2 = itemText.at(a)->cstroke;
 									Zli->shade = itemText.at(a)->cshade;
 									Zli->shade2 = itemText.at(a)->cshade2;
-									Zli->xco = LastXp - Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize);
+									Zli->xco = LastXp - Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
 									Zli->yco = itemText.at(a)->yp;
 									Zli->Sele = itemText.at(a)->cselect;
 									Zli->Siz = itemText.at(a)->csize;
 									Zli->realSiz = itemText.at(a)->csize;
 									Zli->Style = itemText.at(a)->cstyle;
 									Zli->ZFo = itemText.at(a)->cfont;
-									Zli->wide = Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize);
+									Zli->wide = Cwidth(Doc, itemText.at(a)->cfont, "-", itemText.at(a)->csize) * (itemText.at(a)->cscale / 1000.0);
 									Zli->kern = itemText.at(a)->csize * itemText.at(a)->cextra / 10000.0;
 									Zli->scale = itemText.at(a)->cscale;
 									Zli->scalev = itemText.at(a)->cscalev;
@@ -1585,6 +1590,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								{
 									HyphenCount = 0;
 									hl->cstyle &= 8191;
+									a--;
 								}
 								BuPos = LastSP+1;
 								if (Doc->docParagraphStyles[absa].textAlignment != 0)
@@ -1633,6 +1639,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 											LiList.at(xof)->xco += OFs;
 										}
 									}
+									CurX = EndX;
 								}
 							}
 							else
@@ -1686,6 +1693,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										LiList.at(xof)->xco += OFs;
 									}
 								}
+								CurX = EndX;
 							}
 						}
 						uint BuPos3 = BuPos;

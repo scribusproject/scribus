@@ -2697,7 +2697,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
 		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl);
-		tabDist = hl->xp + Cwidth(doc, hl->cfont, hl->ch, hl->csize);
+		tabDist = hl->xp + Cwidth(doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
 	}
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "ET\n"+tmp2;
@@ -2879,7 +2879,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->cstyle & 8192)
 			{
 				int chs = hl->csize;
-				double wtr = Cwidth(doc, hl->cfont, chx, chs);
+				double wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 				tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
 				chx = "-";
 				chr = chx[0].unicode();
@@ -2974,7 +2974,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->cstyle & 8192)
 			{
 				int chs = hl->csize;
-				double wtr = Cwidth(doc, hl->cfont, chx, chs);
+				double wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 				tmp += "1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
 				chx = "-";
 				cc = chx[0].unicode();
