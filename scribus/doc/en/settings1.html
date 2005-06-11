@@ -2,14 +2,15 @@
 <title>Settings and Preferences Panels</title>
 <h2>Settings and Preferences Panels</h2>
 
-<p>The settings panels are the heart of changing the default behaviours of Scribus and give you considerable flexibility in setting document and program defaults. If you are new to DTP, there are extensive tool tips which can guide you for each setting, as well as the included documentation.</p>
+<p>The settings panels are the heart of changing the default behaviors of Scribus and give you considerable flexibility in setting document and program defaults. If you are new to DTP, there are extensive tool tips which can guide you for each setting, as well as the included documentation. </p>
 <p>Scribus' preferences are kept in a hidden directory <code>.scribus</code>. Within the directory is a <code>.scribus.rc</code> file and a <code>scribusfont.rc</code> file which preserves your font preferences. This file is stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts.</p>
+
+<p>You can change the preferences while a document is open and those preferences will remain with the currently open doc. Setting preferences globally for Scribus is done when all documents are closed. Then, any new documents will inherit these preferences.</p>
 
 <p>Within these 9 panels, you can change many of the defaults for Scribus, many of which can be changed or overridden in with a menu or right click context menu on an object while editing or in the measurements palette.</p>
 
 <h3>General Tab</h3>
-<p>You can change the default theme with Scribus to include themes like Liquid or the new themes based on KDE plug-ins. Scribus will inherit KDE themes and decorations if you have KDE running. If you do not have KDE installed, you can also tune the look of your Qt programs separately with <strong><code>qtconfig</code></strong> from the command line. Simply open a console window and type <code>qtconfig</code>. The configuration panels in Qtconfig are pretty self explanatory. I would advise not increasing the font size above 12 points, as some buttons in Scribus menus might be obscured. In this example, the fonts have been changed to TrueType fonts at 10 points and
-the latest Mostfet Liquid theme has been applied.</p>
+<p>You can change the default theme with Scribus to include themes like Liquid or the new themes based on KDE plug-ins. Scribus will inherit KDE themes and decorations if you have KDE running. If you do not have KDE installed, you can also tune the look of your Qt programs separately with <strong><code>qtconfig</code></strong> from the command line. Simply open a console window and type <code>qtconfig</code>. The configuration panels in Qtconfig are pretty self explanatory. I would advise not increasing the font size above 12 points, as some buttons in Scribus menus might be obscured. In this example, the fonts have been changed to TrueType fonts at 12 points and Scribus is using the default theme inherited from KDE. </p>
 
 <table width="100%"><tr><td align="center"><img src="images/prefspanel1.png" align="center" alt="Edit Style Dialog" title="General Preferences" /></td></tr></table>
 
@@ -58,5 +59,9 @@ precise, but sometimes more difficult selection of smaller objects.</p>
 <table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
 
 <h3>External Tools</h3>
-<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. In the example above, a parallel build of Ghostscript 8.51 has been installed in <code>/usr/local/bin/</code> for better results with EPS,PS and PDF importing, as well as speedier print-previews. See the hints in <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a> One other important note, when using the GIMP as your image editor, <strong>you must close GIMP completely before, control will return to Scribus.</strong> </p>
+<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. In the example above, a parallel build of Ghostscript 8.51 has been installed in <code>/usr/local/bin/</code> for better results with EPS,PS and PDF importing, as well as speedier print-previews. See the hints in <a href="toolbox7.html" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a> One other important note, when using the GIMP as your image editor, <strong>you must close GIMP completely before, control will return to Scribus.</strong>The workaround for this is to use <strong>gimp-remote</strong> instead. This will then either start a new instance of gimp or use the currently running version of gimp. </p>
+<p>You can use other image editors including cinepaint, krita and even Photoshop with wine. With Crossover, you would use (with quotes)  in the dialog something like this :
+
+<pre>"/opt/cxoffice/bin/wine" --workdir "C://Adobe" --check --cx-app "C:////Adobe////Photoshp.exe"</pre>
+ You can copy the exact settings from the desktop shortcut from the menu editor in KDE.</p>
 </qt>
