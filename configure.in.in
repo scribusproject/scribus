@@ -442,6 +442,14 @@ else
 	hacups=no
 fi
 
+dnl While we don't use GhostScript during compilation - at least not
+dnl currently - and can run without it, we check for it in configure
+dnl to give users an early warning if it's missing.
+AC_PATH_PROG(GS_PATH, gs)
+if test -z "${GS_PATH}" ; then
+	AC_MSG_WARN("GhostScript not found - gs 8.x is required for full features.")
+fi
+
 COMPILE_DEBUG=no
 AC_ARG_ENABLE(debug, [  --enable-debug     Enables debugging information (recommended for snapshots)],
 [if test "x$enable_debug" = "xyes" || test "x$enable_debug" = "xfull"; then

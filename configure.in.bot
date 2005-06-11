@@ -70,6 +70,18 @@ else
 	echo "No; LibXML 2.6.0 or newer may be required soon."
 fi
 
+echo "Configuration options:"
+
+printf "${FORMAT}" "Debugging enabled: "
+if test "$COMPILE_DEBUG" = yes; then
+	echo "Yes"
+else
+	echo "No"
+fi
+
+echo "Other details:"
+
+echo -n "    "
 if test "$COMPILE_PYTHON" = no; then
 	echo "The Scripter-Plugin will not be compiled."
 else
@@ -80,13 +92,11 @@ else
 	fi
 fi
 
-echo "Configuration options:"
-
-printf "${FORMAT}" "Debugging enabled: "
-if test "$COMPILE_DEBUG" = yes; then
-	echo "Yes"
+echo -n "    "
+if test -z "${GS_PATH}" ; then
+	echo "GhostScript could not be found. See README."
 else
-	echo "No"
+	echo "GhostScript was found at ${GS_PATH}"
 fi
 
 if test "$hafree" = yes && test "$hafree_post219" = no; then
