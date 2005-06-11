@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Welcome" file="index.html">
+	<submenuitem text="Readme First" file="readme.html"/>
 		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Documentation Changes" file="docchanges.html"/>
 	</area>
