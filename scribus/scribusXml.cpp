@@ -1338,6 +1338,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN", "1")));
 		doc->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
 		doc->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
+		doc->SnapGuides = static_cast<bool>(QStoInt(dc.attribute("SnapToGuides","0")));
+		doc->useRaster = static_cast<bool>(QStoInt(dc.attribute("SnapToGrid","0")));
 		doc->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
 		doc->AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
 		doc->ScaleX = QStodouble(dc.attribute("PICTSCX","1"));
@@ -2666,6 +2668,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->MarginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->BaseShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
+	dc.setAttribute("SnapToGuides", static_cast<int>(doc->SnapGuides));
+	dc.setAttribute("SnapToGrid", static_cast<int>(doc->useRaster));
 	dc.setAttribute("GuideRad", doc->GuideRad);
 	dc.setAttribute("GRAB",doc->GrabRad);
 	dc.setAttribute("AutoSave", static_cast<int>(doc->AutoSave));
