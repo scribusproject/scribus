@@ -1,0 +1,109 @@
+<h3>Scribus Version 1.2.2 Readme
+</h3>
+<h4>What's New ?</h4>
+<p>The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
+All rendering is done via libart and freetype2.
+This requires that libart_lgpl and freetype2 are installed.</p>
+
+<p>Version 1.2.2 now includes the Short Words plug-in, which was previously
+installed as a separate plug-in. To prevent upgrade problems, you might want to
+uninstall if it was installed via a package or RPM. This was also shipped as the
+scribus-vlna package in both source and rpm format. See PACKAGING for more details.</p>
+
+<p>Scribus 1.2.2 also has a new OpenOffice.org Writer and Draw importer. This
+requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
+will import styles from the OpenOffice.org doc and will create similar styles
+within your Scribus document. Version 1.2.1 supported Open Office 1.1.x and Star Office 6/7 file formats.
+Version 1.2.2 supports Open Office 2.x/Star Office 8.x (OASIS) as well.
+</p>
+
+<p>Additionally Scribus uses now a different way to find fonts, sadly this gives
+some changes in the font names Scribus uses. To convert old documents follow
+the procedure below:</p>
+
+<ul>
+<li>Create a document with the old Version of Scribus containing all your Fonts.</li>
+<li>Open the new Scribus and go to the Font Substitution List.
+</li>Clear out all current substitutions.
+<li>Open the Document created in 1) and substitute all the fonts with the
+correct new fonts.</li>
+<li>When you now open old documents Scribus will convert all Font Names
+automatically.</li>
+</ul>
+<p>For detailed changes please see the ChangeLog.</p>
+
+<p>To use Scribus in your native language be sure that the environment variable
+LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option
+of -l/--lang <lang> is set correctly.</p>
+	
+<p>The new EPS/PS import feature in 1.2.x uses advanced features of Ghostscript.
+	We recommend ALL users update to the newest version of Ghostscript available
+	for your distro. There are detailed hints on docs.scribus.net for installing
+	GS 8.x in parallel to the GS installed by your distro.</p>
+	
+<p>Activating Color Management *requires* installation of CMYK and RGB ICC
+	profiles. Please see the included help files and http://docs.scribus.net for
+	details. Grey scale icc profiles in images are not supported in this release.</p>
+	<p>
+	If you have a 64-bit version of Qt, sometimes ./configure will not detect the
+	64-bit version headers. Try : <pre>./configure --enable-libsuffix=64</pre> to test for 64-bit
+	versions of libraries.</p>
+	
+	
+	<p>Other notes/known issues at the time of release:</p>
+	
+<p>There is a bug in font outline handling for some fonts in the freetype
+	libraries. It's being worked on upstream. Don't file a bug report. Instead
+	change the font used if you need the outlines. This is not a Scribus bug.
+	Some testing has shown that this bug is not present in freetype 2.1.9, but
+	we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
+	distros can be quite difficult.</p>
+	
+<p>	Issue with gradients:</p>
+	
+<p>If you have gradient (e.g. with black color) with 50% shade in both beginning
+	and end of gradient, you end up with darker center than edges. One expects the
+	gradient to be with equal shade from beginning to end, especially if there is
+	no other Color-Stops in-between them.
+	
+	This we believe is a libart issue and not fixable by us. The gradient will export
+	and print properly.</p>
+	
+<strong>	For Debian Users:	</strong>
+<p>
+	If Scribus does not start while complaining about the absence of
+	PostScript fonts please install either xfonts-scalable or gsfonts-x11.
+	They are in the "Recommends" and will be installed by all sensible apt
+	front-ends.
+</p>	
+<p><strong>	For SuSE 9.x Users:</strong></p>
+	<ul>
+<li>The littlecms libs 1.10, which shipped with Suse 9.0 does not offer complete
+	support for all the the latest CMS features in Scribus 1.2. There are updated
+	SuSE 9.x RPM's available on the Scribus.net site. We also recommend using the
+	latest version of lcms.</li>
+	
+<li>If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+
+	rpms. The -2+ versions have an important fix for drag and drop in Scribus.</li>
+	<li>
+	To enable direct CUPS support which we recommend, make sure both cups-devel and
+	openssl-devel are installed. Suse enables ssl support in CUPS.</li></ul>
+	
+	<p>Fedora/RH with Qt 3.3.2-6+ has the same fixes.</p>
+	
+<p>There is a separate file, PACKAGING for detailed hints and denotes on building
+	packages for Scribus.</p>
+	
+<p>Many other hints and info are on the www.scribus.net and docs.scribus.net
+	sites. Full compile, install and FAQ's are available there.</p>
+	
+<p>There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
+	and the mailing list. Mailing list info can be found at:
+	http://nashi.altmuehlnet.de/mailman/listinfo/scribus</p>
+	
+	<p>For the Scribus Team,</p>
+	
+<p>Franz Schmid<br />
+	Peter Linnell<br />
+	in June 2005<br />
+</p>
