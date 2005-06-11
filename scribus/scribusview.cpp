@@ -1676,7 +1676,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 									{
 										int chs = hl->csize;
 										ite->SetZeichAttr(hl, &chs, &chx);
-										double wide = Cwidth(Doc, hl->cfont, chx, chs);
+										double wide = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 										chx = "-";
 										uint chr = chx[0].unicode();
 										if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
@@ -2190,7 +2190,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							{
 								int chs = hl->csize;
 								c->SetZeichAttr(hl, &chs, &chx);
-								double wide = Cwidth(Doc, hl->cfont, chx, chs);
+								double wide = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 								chx = "-";
 								uint chr = chx[0].unicode();
 								if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))

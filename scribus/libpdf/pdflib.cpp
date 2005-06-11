@@ -2505,7 +2505,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				if (hl->cstyle & 512)
 				{
 					int chs = hl->csize;
-					double wtr = Cwidth(doc, hl->cfont, chx, chs);
+					double wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 					tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
 					chx = "-";
 					chr = chx[0].unicode();
@@ -2600,7 +2600,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				if (hl->cstyle & 512)
 				{
 					int chs = hl->csize;
-					double wtr = Cwidth(doc, hl->cfont, chx, chs);
+					double wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 					tmp += "1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
 					chx = "-";
 					cc = chx[0].unicode();
