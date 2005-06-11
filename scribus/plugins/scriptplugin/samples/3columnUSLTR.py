@@ -1,7 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-""" Creates 3 column layout on Letter paper and save it under 3columnUS.sla filename"""
+""" Creates 3 column layout on US Letter  paper and save it under 3columnUSLTR.sla filename. This is a simple way to demonstrate creating a doc on the fly. """
+
+try:
+    # Please do not use 'from scribus import *' . If you must use a 'from import',
+    # Do so _after_ the 'import scribus' and only import the names you need, such
+    # as commonly used constants.
+    import scribus
+except ImportError,err:
+    print "This Python script is written for the Scribus scripting interface."
+    print "It can only be run from within Scribus."
+    sys.exit(1)
+
+def main(argv):
+    """This is a simple way to demonstrate creating a doc on the fly. """
+
+    pass    # <--- Delete this line
+
 
 import sys
 
@@ -28,8 +44,8 @@ def main():
         setTextAlignment(1,b)
         setText("Column C", c)
         setFontSize(12, c)
-        saveDocAs("3columnUS.sla")
-        closeDoc()
+        #saveDocAs("3columnUS.sla")
+        
 
 if __name__ == '__main__':
     main()
