@@ -58,6 +58,7 @@
 		<submenuitem text="Color Management" file="cms.html">
 			<submenuitem text="Part 2 " file="cms2.html"/>
 			<submenuitem text="Part 3 " file="cms3.html"/>
+			<submenuitem text="Part 4 " file="cms4.html"/>
 			<submenuitem text="Monitor Profiling" file="moncal.html"/>
 		</submenuitem>
 		<submenuitem text="DTP ToolBox" file="toolbox.html">
