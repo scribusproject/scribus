@@ -66,7 +66,7 @@ class PageItem : public QObject, public UndoObject
 	Q_PROPERTY(QString fontStrokeColor READ fontStrokeColor WRITE setFontStrokeColor DESIGNABLE false)
 	Q_PROPERTY(int fontStrokeShade READ fontStrokeShade WRITE setFontStrokeShade DESIGNABLE false)
 	Q_PROPERTY(int fontEffects READ fontEffects WRITE setFontEffects DESIGNABLE false)
-	Q_PROPERTY(double kerning READ kerning WRITE setKerning  DESIGNABLE false)
+	Q_PROPERTY(int kerning READ kerning WRITE setKerning  DESIGNABLE false)
 	Q_PROPERTY(double lineSpacing READ lineSpacing WRITE setLineSpacing DESIGNABLE false)
 	Q_PROPERTY(QString language READ language WRITE setLanguage DESIGNABLE false)
 	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
