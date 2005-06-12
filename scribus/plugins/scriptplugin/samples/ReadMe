@@ -16,6 +16,7 @@ pochette_cd.py = Creates a CD/DVD pochette
 quote.py = French quotation marks
 trait_de_coupe.py
 wordcount.py = Counts the count of the words :)
+sample_db_usage.py = An example of the Scribus cooperating DB.
 
 Copy these Examples to any location you like and play with them.
 Each script contains Docstring in the file header - this is a common Python
