@@ -157,6 +157,7 @@ scribus_SOURCES = \
 		tabruler.cpp\
 		tabtools.cpp\
 		tabtypography.cpp\
+		tocgenerator.cpp\
 		tocindexprefs.ui\
 		tree.cpp\
 		undogui.cpp\
@@ -200,7 +201,7 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/about.h                       $(prefix)/include/scribus/about.h
 	$(INSTALL_DATA) $(srcdir)/actionmanager.h               $(prefix)/include/scribus/actionmanager.h
-	$(INSTALL_DATA) $(srcdir)/aligndistribute.h                 $(prefix)/include/scribus/aligndistribute.h
+	$(INSTALL_DATA) $(srcdir)/aligndistribute.h             $(prefix)/include/scribus/aligndistribute.h
 	$(INSTALL_DATA) $(srcdir)/alignselect.h                 $(prefix)/include/scribus/alignselect.h
 	$(INSTALL_DATA) $(srcdir)/annot.h                       $(prefix)/include/scribus/annot.h
 	$(INSTALL_DATA) $(srcdir)/annota.h                      $(prefix)/include/scribus/annota.h
@@ -349,6 +350,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tabruler.h                    $(prefix)/include/scribus/tabruler.h
 	$(INSTALL_DATA) $(srcdir)/tabtools.h                    $(prefix)/include/scribus/tabtools.h
 	$(INSTALL_DATA) $(srcdir)/tabtypography.h               $(prefix)/include/scribus/tabtypography.h
+	$(INSTALL_DATA) $(srcdir)/tocgenerator.h                $(prefix)/include/scribus/tocgenerator.h
 	$(INSTALL_DATA) $(srcdir)/tocindexprefs.h               $(prefix)/include/scribus/tocindexprefs.h
 	$(INSTALL_DATA) $(srcdir)/tree.h                        $(prefix)/include/scribus/tree.h
 	$(INSTALL_DATA) $(srcdir)/undogui.h                     $(prefix)/include/scribus/undogui.h
@@ -523,6 +525,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/tabtools.h
 	-rm -f $(prefix)/include/scribus/tabtypography.h
 	-rm -f $(prefix)/include/scribus/tocindexprefs.h
+	-rm -f $(prefix)/include/scribus/tocgenerator.h
 	-rm -f $(prefix)/include/scribus/tree.h
 	-rm -f $(prefix)/include/scribus/undogui.h
 	-rm -f $(prefix)/include/scribus/undomanager.h

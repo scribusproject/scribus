@@ -96,6 +96,7 @@
 #include "docitemattrprefs.h"
 #include "pageitemattributes.h"
 #include "tocindexprefs.h"
+#include "tocgenerator.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -135,10 +136,6 @@
 #include "documentinformation.h"
 #include "effectsdialog.h"
 #include "documentchecker.h"
-
-//CB TODO include for toc testing for now
-#include "gtwriter.h"
-//CB
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -212,6 +209,7 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
+	tocGenerator = new TOCGenerator();
 	initDefaultValues();
 
 	actionManager = new ActionManager(this, "actionManager");
@@ -2885,6 +2883,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 		doc->ASaveTimer->start(Prefs.AutoSaveTime);
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
+	tocGenerator->setDoc(doc);
 	return true;
 }
 
@@ -3016,6 +3015,7 @@ void ScribusApp::newActWin(QWidget *w)
 		else
 			HaveNewSel(-1);
 	}
+	tocGenerator->setDoc(doc);
 }
 
 void ScribusApp::windowsMenuActivated( int id )
@@ -5248,6 +5248,7 @@ bool ScribusApp::DoFileClose()
 	delete doc;
 	doc = NULL;
 	ActWin = NULL;
+	tocGenerator->setDoc(doc);
 	return true;
 }
 
@@ -10791,73 +10792,7 @@ void ScribusApp::objectAttributes()
 void ScribusApp::generateTableOfContents()
 {
 	if (HaveDoc)
-	{
-		for(ToCSetupVector::Iterator tocSetupIt = doc->docToCSetups.begin() ; tocSetupIt != doc->docToCSetups.end(); ++tocSetupIt )
-		{
-			bool found=false;
-			uint d;
-			PageItem* tocFrame=NULL;
-			for (d = 0; d < doc->DocItems.count(), found==false; ++d)
-			{
-				if (doc->DocItems.at(d) !=NULL )
-				{
-					if (doc->DocItems.at(d)->itemType()==PageItem::TextFrame && doc->DocItems.at(d)->itemName()==(*tocSetupIt).frameName)
-					{
-						found=true;
-						tocFrame=doc->DocItems.at(d);
-					}
-				}
-			}
-			if (found && tocFrame!=NULL)
-			{
-				PageItem *currentDocItem;
-				QMap<QString, QString> tocMap;
-				tocMap.clear();
-				uint pageCounter[doc->pageCount];
-				for (int i=0;i<=doc->pageCount;++i)
-					pageCounter[i]=0;
-				unsigned int maxDataWidth=0;
-				for (uint d = 0; d < doc->DocItems.count(); ++d)
-				{
-					currentDocItem = doc->DocItems.at(d);
-					if (currentDocItem!=NULL)
-					{
-						//Item not on a page, continue
-						if (currentDocItem->OwnPage==-1)
-							continue;
-						ObjectAttribute objattr=currentDocItem->getObjectAttribute((*tocSetupIt).itemAttrName);
-						if (objattr.name!=QString::null)
-						{
-							//TODO Handle docs with non consecutive page numbers when that is possible
-							QString key=QString("%1,%2").arg(currentDocItem->OwnPage + doc->FirstPnum).arg(pageCounter[currentDocItem->OwnPage]++);
-							tocMap.insert(key, objattr.value);
-							if (objattr.value.length()>maxDataWidth)
-								maxDataWidth=objattr.value.length();
-						}
-					}
-				}
-				gtWriter* writer = new gtWriter(false, tocFrame);
-				QString oldTocPage=QString::null;
-				for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
-				{
-					QString tocPage = tocIt.key().section( ',', 0, 0 );
-					QString tocLine = tocIt.data();
-					//QString tocPageItemNo = tocIt.key().section( ',', 1, 1 );
-					if (oldTocPage!=tocPage)
-					{
-						oldTocPage=tocPage;
-						tocLine = tocLine.leftJustify(maxDataWidth+5, '.');
-						tocLine = tocLine + tocPage + "\n";
-					}
-					else
-						tocLine += "\n";
-					writer->append(tocLine);
-				}
-				if (writer!=NULL)
-					delete writer;
-			}
-		}
-	}
+		tocGenerator->generateDefault();
 }
 
 void ScribusApp::mouseReleaseEvent(QMouseEvent *m)

@@ -87,6 +87,7 @@ class Biblio;
 class PluginManager;
 class ActionManager;
 class AlignDistributePalette;
+class TOCGenerator;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -550,6 +551,7 @@ private:
 					QString Dname;
 					QString Command;
 				} PDef ;
+	TOCGenerator *tocGenerator;
 };
 #endif
 
