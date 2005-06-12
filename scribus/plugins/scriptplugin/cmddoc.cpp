@@ -1,6 +1,6 @@
-
 #include "cmddoc.h"
 #include "cmdutil.h"
+#include "units.h"
 #include "documentinformation.h"
 
 PyObject *scribus_newdoc(PyObject */*self*/, PyObject* args)
@@ -12,18 +12,18 @@ PyObject *scribus_newdoc(PyObject */*self*/, PyObject* args)
 	        (!PyArg_ParseTuple(p, "dd", &b, &h)) ||
 	        (!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr)))
 		return NULL;
-	b = ValToPts(b, unit);
-	h = ValToPts(h, unit);
+	b = value2pts(b, unit);
+	h = value2pts(h, unit);
 	if (ori == 1)
 	{
 		ebr = b;
 		b = h;
 		h = ebr;
 	}
-	tpr = ValToPts(tpr, unit);
-	lr = ValToPts(lr, unit);
-	rr = ValToPts(rr, unit);
-	btr = ValToPts(btr, unit);
+	tpr = value2pts(tpr, unit);
+	lr = value2pts(lr, unit);
+	rr = value2pts(rr, unit);
+	btr = value2pts(btr, unit);
 	bool ret = Carrier->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom");
 	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));

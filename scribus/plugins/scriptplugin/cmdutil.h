@@ -5,7 +5,6 @@
 #include "cmdvar.h"
 
 double PointToValue(double Val);
-double ValToPts(double Val, int ein);
 double ValueToPoint(double Val);
 
 /// Convert an X co-ordinate part in page units to a document co-ordinate

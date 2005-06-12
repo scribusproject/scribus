@@ -451,10 +451,11 @@ void initscribus(ScribusApp *pl)
 	// Done with exception setup
 
 	// CONSTANTS
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_PICAS"), Py_BuildValue(const_cast<char*>("i"), 3));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), PyInt_FromLong(unitIndexFromString("pt")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), PyInt_FromLong(unitIndexFromString("mm")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), PyInt_FromLong(unitIndexFromString("in")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_PICAS"), PyInt_FromLong(unitIndexFromString("p")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_CENTIMETRES"), PyInt_FromLong(unitIndexFromString("cm")));
 	PyDict_SetItemString(d, const_cast<char*>("PORTRAIT"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("LANDSCAPE"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("NOFACINGPAGES"), Py_BuildValue(const_cast<char*>("i"), 0));
