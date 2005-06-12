@@ -4,17 +4,13 @@
 ScribusApp* Carrier;
 ScribusDoc* doc;
 
+/// Convert a value in points to a value in the current document units
 double PointToValue(double Val)
 {
 	return pts2value(Val, Carrier->doc->docUnitIndex);
 }
 
-double ValToPts(double Val, int ein)
-{
-	//TODO Remove references to the old function, use the units.cpp one only in the future.
-	return value2pts(Val, ein);
-}
-
+/// Convert a value in the current document units to a value in points
 double ValueToPoint(double Val)
 {
 	return value2pts(Val, Carrier->doc->docUnitIndex);
