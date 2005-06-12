@@ -45,6 +45,7 @@
 #include "tree.h"
 #include "menumanager.h"
 #include "scpaths.h"
+#include "units.h"
 
 
 #ifdef _MSC_VER
@@ -393,6 +394,14 @@ PyMethodDef scribus_methods[] = {
 	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
 };
 
+void initscribus_failed(const char* fileName, int lineNo)
+{
+	qDebug("Scripter setup failed (%s:%i)", fileName, lineNo);
+	if (PyErr_Occurred())
+		PyErr_Print();
+	return;
+}
+
 void initscribus(ScribusApp *pl)
 {
 	if (!scripterCore)
@@ -516,6 +525,34 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
+
+	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
+	// factors to be used from Python.
+	for (int i = 0; i < unitGetMaxIndex(); ++i)
+	{
+		PyObject* value = PyFloat_FromDouble(unitGetRatioFromIndex(i));
+		if (!value)
+		{
+			initscribus_failed(__FILE__, __LINE__);
+			return;
+		}
+		// `in' is a reserved word in Python so we must replace it
+		PyObject* name;
+		if (unitGetSuffixFromIndex(i).stripWhiteSpace() == "in")
+			name = PyString_FromString("inch");
+		else
+			name = PyString_FromString(unitGetSuffixFromIndex(i).stripWhiteSpace().ascii());
+		if (!name)
+		{
+			initscribus_failed(__FILE__, __LINE__);
+			return;
+		}
+		if (PyDict_SetItem(d, name, value))
+		{
+			initscribus_failed(__FILE__, __LINE__);
+			return;
+		}
+	}
 
 	// Export the Scribus version into the module namespace so scripts know what they're running in
 	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyString_FromString(const_cast<char*>(VERSION)));
