@@ -66,7 +66,7 @@ const double unitValueFromString(const QString& value)
 }
 
 /*!
- * @brief Strip the text from a value and return the double value for the unit
+ * @brief Strip the text from a value and return the Unit index for the value
  */
 const Unit unitIndexFromString(const QString& value)
 {
