@@ -186,7 +186,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				ss->ReplacedFonts.clear();
 				ss->newReplacement = false;
 				ss->dummyFois.clear();
-				ret = ss->ReadDoc(FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
+				ret = ss->ReadDoc(FileName, app->Prefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
 				QObject::disconnect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
 				ReplacedFonts = ss->ReplacedFonts;
 				newReplacement = ss->newReplacement;
@@ -195,7 +195,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			}
 			break;
 		case 1:
-			ret = ReadDoc(app, FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
+			ret = ReadDoc(app, FileName, app->Prefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
 			break;
 		case 2:
 			app->pluginManager->dllInput = FileName;

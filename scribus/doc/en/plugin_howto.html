@@ -220,7 +220,7 @@ AC_CONFIG_FILES([svlna/doc/Makefile])
 <h4>How to show what are you doing to the user in Scribus's statusbar:</h4>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
-plug->FMess->setText(QString(aText));
+plug->mainWindowStatusLabel->setText(QString(aText));
 </pre>
 </small></td></tr></table></blockquote>
 
@@ -236,7 +236,7 @@ if (aFrame->PType==4) {}
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 for (uint i=0; i<plug->view->Pages.count(); i++) {
-    plug->FMess->setText(QObject::tr("Page: ")
+    plug->mainWindowStatusLabel->setText(QObject::tr("Page: ")
             + i
             + plug->view->Pages.at(i)->PageNam);
     // do something with active page

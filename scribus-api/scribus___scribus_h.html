@@ -161,12 +161,12 @@ class ScribusApp : public QMainWindow
      * information such as filename and does the serialization of your files.
      */
     ScribusDoc *doc;
-		QLabel* FMess;
-		QProgressBar* FProg;
-		QLabel* XMess;
-		QLabel* XDat;
-		QLabel* YMess;
-		QLabel* YDat;
+		QLabel* mainWindowStatusLabel;
+		QProgressBar* mainWindowProgressBar;
+		QLabel* mainWindowXPosLabel;
+		QLabel* mainWindowXPosDataLabel;
+		QLabel* mainWindowYPosLabel;
+		QLabel* mainWindowYPosDataLabel;
     Mpalette *propertiesPalette;
     NodePalette *nodePalette;
     Tree *outlinePalette;

@@ -60,7 +60,7 @@ void Parse::parseItem(PageItem *aFrame)
 		return; // no changes
 
 	// get text from frame
-	for (uint i=0; i<aFrame->MaxChars; i++)
+	for (uint i=0; i<aFrame->MaxChars; ++i)
 		content += aFrame->itemText.at(i)->ch;
 	changes = content.contains(UNBREAKABLE_SPACE);
 	for (QStringList::Iterator it = shorts.begin(); it != shorts.end(); ++it)
@@ -86,7 +86,7 @@ void Parse::parseItem(PageItem *aFrame)
 		}
 	}
 	// retrun text into frame
-	for (uint i=0; i<aFrame->MaxChars; i++)
+	for (uint i=0; i<aFrame->MaxChars; ++i)
 		aFrame->itemText.at(i)->ch = content.at(i);
 	if (content.contains(UNBREAKABLE_SPACE) > changes)
 		++modify;
@@ -97,13 +97,13 @@ void Parse::parseItem(PageItem *aFrame)
 void Parse::parseSelection()
 {
 	uint cnt = ScApp->view->SelItem.count();
-	ScApp->FProg->setTotalSteps(cnt);
-	for (uint i=0; i < cnt; i++)
+	ScApp->mainWindowProgressBar->setTotalSteps(cnt);
+	for (uint i=0; i < cnt; ++i)
 	{
-		ScApp->FProg->setProgress(i);
+		ScApp->mainWindowProgressBar->setProgress(i);
 		parseItem(ScApp->view->SelItem.at(i));
 	} // for items
-	ScApp->FProg->setProgress(cnt);
+	ScApp->mainWindowProgressBar->setProgress(cnt);
 }
 
 
@@ -119,9 +119,9 @@ void Parse::parsePage(int page)
 	{
 		PageItem* b = ScApp->doc->Items.at(a);
 		if (b->OwnPage == page)
-			cnt++;
+			++cnt;
 	}
-	ScApp->FProg->setTotalSteps(cnt);
+	ScApp->mainWindowProgressBar->setTotalSteps(cnt);
 	ScApp->view->GotoPage(page);
 	uint i = 0;
 	for (uint a = 0; a < ScApp->doc->Items.count(); ++a)
@@ -129,16 +129,15 @@ void Parse::parsePage(int page)
 		PageItem* b = ScApp->doc->Items.at(a);
 		if (b->OwnPage == page)
 		{
-			i++;
-			ScApp->FProg->setProgress(i);
+			ScApp->mainWindowProgressBar->setProgress(++i);
 			parseItem(b);
 		}
 	}
-	ScApp->FProg->setProgress(cnt);
+	ScApp->mainWindowProgressBar->setProgress(cnt);
 }
 
 void Parse::parseAll()
 {
-	for (uint i=0; i < ScApp->doc->Pages.count(); i++)
+	for (uint i=0; i < ScApp->doc->Pages.count(); ++i)
 		parsePage(i);
 }

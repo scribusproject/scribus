@@ -183,12 +183,12 @@ public:
 	ScribusDoc *doc;
     /** the splash screen */
 	SplashScreen *splashScreen;
-	QLabel* FMess;
-	QProgressBar* FProg;
-	QLabel* XMess;
-	QLabel* XDat;
-	QLabel* YMess;
-	QLabel* YDat;
+	QLabel* mainWindowStatusLabel;
+	QProgressBar* mainWindowProgressBar;
+	QLabel* mainWindowXPosLabel;
+	QLabel* mainWindowXPosDataLabel;
+	QLabel* mainWindowYPosLabel;
+	QLabel* mainWindowYPosDataLabel;
 	Mpalette *propertiesPalette;
 	NodePalette *nodePalette;
 	Tree *outlinePalette;

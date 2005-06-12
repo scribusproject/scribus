@@ -58,20 +58,20 @@ gtAction::gtAction(bool append, PageItem* pageitem)
 
 void gtAction::setProgressInfo()
 {
-	ScApp->FMess->setText(QObject::tr("Importing text"));
-	ScApp->FProg->reset();
-	ScApp->FProg->setTotalSteps(0);
+	ScApp->mainWindowStatusLabel->setText(QObject::tr("Importing text"));
+	ScApp->mainWindowProgressBar->reset();
+	ScApp->mainWindowProgressBar->setTotalSteps(0);
 }
 
 void gtAction::setProgressInfoDone()
 {
-	ScApp->FMess->setText("");
-	ScApp->FProg->reset();
+	ScApp->mainWindowStatusLabel->setText("");
+	ScApp->mainWindowProgressBar->reset();
 }
 
 void gtAction::setInfo(QString infoText)
 {
-	ScApp->FMess->setText(infoText);
+	ScApp->mainWindowStatusLabel->setText(infoText);
 }
 
 void gtAction::clearFrame()

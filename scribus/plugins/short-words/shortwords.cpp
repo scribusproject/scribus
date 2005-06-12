@@ -80,7 +80,7 @@ ShortWords::ShortWords()
 	if (dlg->exec() == QDialog::Accepted) {
 		parse = new Parse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-		ScApp->FMess->setText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
+		ScApp->mainWindowStatusLabel->setText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
 		switch (dlg->actionSelected) {
 			case 0:
 				parse->parseSelection();
@@ -98,8 +98,8 @@ ShortWords::ShortWords()
 		// redraw document
 		ScApp->view->DrawNew();
 		QApplication::restoreOverrideCursor();
-		ScApp->FMess->setText(QObject::tr("Short Words processing. Done.", "short words plugin"));
-		ScApp->FProg->reset();
+		ScApp->mainWindowStatusLabel->setText(QObject::tr("Short Words processing. Done.", "short words plugin"));
+		ScApp->mainWindowProgressBar->reset();
 		// set page where user calls vlna
 		ScApp->view->GotoPage(originalPage);
 	} // action

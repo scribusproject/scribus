@@ -71,7 +71,7 @@ void run(QWidget *d, ScribusApp *plug)
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
-		plug->FProg->reset();
+		plug->mainWindowProgressBar->reset();
 		if (dia->OnePageRadio->isChecked())
 			res = ex->exportActual();
 		else
@@ -82,16 +82,16 @@ void run(QWidget *d, ScribusApp *plug)
 				plug->parsePagesString(dia->RangeVal->text(), &pageNs, plug->doc->pageCount);
 			res = ex->exportInterval(pageNs);
 		}
-		plug->FProg->reset();
+		plug->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
 			QMessageBox::warning(plug, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
-			plug->FMess->setText(QObject::tr("Error writing the output file(s)."));
+			plug->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
 		{
-			plug->FMess->setText(QObject::tr("Export successful."));
+			plug->mainWindowStatusLabel->setText(QObject::tr("Export successful."));
 		}
 	} // if accepted
 	// clean the trash
@@ -167,10 +167,10 @@ bool ExportBitmap::exportActual()
 bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
 {
 	bool res;
-	carrier->FProg->setTotalSteps(pageNs.size());
+	carrier->mainWindowProgressBar->setTotalSteps(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
-		carrier->FProg->setProgress(a);
+		carrier->mainWindowProgressBar->setProgress(a);
 		res = exportPage(pageNs[a]-1, FALSE);
 		if (!res)
 			return FALSE;

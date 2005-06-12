@@ -1369,22 +1369,22 @@ void ScribusApp::initMenuBar()
 
 void ScribusApp::initStatusBar()
 {
-	FMess = new QLabel( "           ", statusBar(), "ft");
-	FProg = new QProgressBar(statusBar(), "p");
-	FProg->setCenterIndicator(true);
-	FProg->setFixedWidth( 100 );
-	FProg->reset();
-	XMess = new QLabel( "X-Pos:", statusBar(), "xt");
-	YMess = new QLabel( "Y-Pos:", statusBar(), "yt");
-	XDat = new QLabel( "         ", statusBar(), "dt");
-	YDat = new QLabel( "         ", statusBar(), "ydt");
+	mainWindowStatusLabel = new QLabel( "           ", statusBar(), "ft");
+	mainWindowProgressBar = new QProgressBar(statusBar(), "p");
+	mainWindowProgressBar->setCenterIndicator(true);
+	mainWindowProgressBar->setFixedWidth( 100 );
+	mainWindowProgressBar->reset();
+	mainWindowXPosLabel = new QLabel( "X-Pos:", statusBar(), "xt");
+	mainWindowYPosLabel = new QLabel( "Y-Pos:", statusBar(), "yt");
+	mainWindowXPosDataLabel = new QLabel( "         ", statusBar(), "dt");
+	mainWindowYPosDataLabel = new QLabel( "         ", statusBar(), "ydt");
 
-	statusBar()->addWidget(FMess, 3, true);
-	statusBar()->addWidget(FProg, 0, true);
-	statusBar()->addWidget(XMess, 0, true);
-	statusBar()->addWidget(XDat, 1, true);
-	statusBar()->addWidget(YMess, 0, true);
-	statusBar()->addWidget(YDat, 1, true);
+	statusBar()->addWidget(mainWindowStatusLabel, 3, true);
+	statusBar()->addWidget(mainWindowProgressBar, 0, true);
+	statusBar()->addWidget(mainWindowXPosLabel, 0, true);
+	statusBar()->addWidget(mainWindowXPosDataLabel, 1, true);
+	statusBar()->addWidget(mainWindowYPosLabel, 0, true);
+	statusBar()->addWidget(mainWindowYPosDataLabel, 1, true);
 }
 
 void ScribusApp::setMousePositionOnStatusBar(double xp, double yp)
@@ -1394,8 +1394,8 @@ void ScribusApp::setMousePositionOnStatusBar(double xp, double yp)
 	double divisor=static_cast<double>(multiplier);
 	int precision=unitGetPrecisionFromIndex(doc->docUnitIndex);
 	QString tmp;
-	XDat->setText(tmp.setNum(qRound(xp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
-	YDat->setText(tmp.setNum(qRound(yp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
+	mainWindowXPosDataLabel->setText(tmp.setNum(qRound(xp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
+	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
 }
 
 void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber)
@@ -2721,7 +2721,7 @@ bool ScribusApp::slotFileNew()
 		QString pagesize = dia->ComboBox1->currentText();
 		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
 		                dia->ErsteSeite->isChecked(), orientation, dia->PgNr->value(), pagesize);
-		FMess->setText( tr("Ready"));
+		mainWindowStatusLabel->setText( tr("Ready"));
 	}
 	else
 		retVal = false;
@@ -3201,10 +3201,10 @@ bool ScribusApp::SetupDoc()
 			dia->tabColorManagement->setValues();
 			if (dia->tabColorManagement->changed)
 			{
-				FMess->setText( tr("Adjusting Colors"));
-				FProg->reset();
+				mainWindowStatusLabel->setText( tr("Adjusting Colors"));
+				mainWindowProgressBar->reset();
 				int cc = doc->PageColors.count() + view->CountElements();
-				FProg->setTotalSteps(cc);
+				mainWindowProgressBar->setTotalSteps(cc);
 #ifdef HAVE_CMS
 				doc->HasCMS = doc->CMSSettings.CMSinUse;
 				doc->SoftProofing = doc->CMSSettings.SoftProofOn;
@@ -3246,13 +3246,13 @@ bool ScribusApp::SetupDoc()
 				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
 				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 				doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
-				RecalcColors(FProg);
-				view->RecalcPictures(&InputProfiles, FProg);
+				RecalcColors(mainWindowProgressBar);
+				view->RecalcPictures(&InputProfiles, mainWindowProgressBar);
 #endif
-				FProg->setProgress(cc);
+				mainWindowProgressBar->setProgress(cc);
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
-				FMess->setText("");
-				FProg->reset();
+				mainWindowStatusLabel->setText("");
+				mainWindowProgressBar->reset();
 			}
 		}
 		uint a = 0;
@@ -4298,7 +4298,7 @@ bool ScribusApp::slotPageImport()
 	MergeDoc *dia = new MergeDoc(this, false, doc->pageCount, doc->currentPage->PageNr + 1);
 	if (dia->exec())
 	{
-		FMess->setText( tr("Importing Pages..."));
+		mainWindowStatusLabel->setText( tr("Importing Pages..."));
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		std::vector<int> pageNs;
 		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
@@ -4355,7 +4355,7 @@ bool ScribusApp::slotPageImport()
 					break;
 					case QMessageBox::Cancel:
 						doIt = false;
-						FMess->setText("");
+						mainWindowStatusLabel->setText("");
 					break;
 				}
 				qApp->setOverrideCursor(QCursor(waitCursor), true);
@@ -4365,23 +4365,23 @@ bool ScribusApp::slotPageImport()
 		{
 			if (nrToImport > 0)
 			{
-				FProg->reset();
-				FProg->setTotalSteps(nrToImport);
+				mainWindowProgressBar->reset();
+				mainWindowProgressBar->setTotalSteps(nrToImport);
 				int counter = startPage;
 				for (int i = 0; i < nrToImport; ++i)
 				{
 					view->GotoPa(counter);
 					loadPage(dia->getFromDoc(), pageNs[i] - 1, false);
 					counter++;
-					FProg->setProgress(i + 1);
+					mainWindowProgressBar->setProgress(i + 1);
 				}
 				view->GotoPa(startPage);
-				FProg->reset();
-				FMess->setText( tr("Import done"));
+				mainWindowProgressBar->reset();
+				mainWindowStatusLabel->setText( tr("Import done"));
 			}
 			else
 			{
-				FMess->setText( tr("Found nothing to import"));
+				mainWindowStatusLabel->setText( tr("Found nothing to import"));
 				doIt = false;
 			}
 		}
@@ -4506,8 +4506,8 @@ bool ScribusApp::loadDoc(QString fileName)
 		doc->ActiveLayer = 0;
 		doc->OpenNodes.clear();
 		doc->loading = true;
-		FMess->setText( tr("Loading..."));
-		FProg->reset();
+		mainWindowStatusLabel->setText( tr("Loading..."));
+		mainWindowProgressBar->reset();
 		ScribusWin* w = new ScribusWin(wsp, doc);
 		view = new ScribusView(w, doc, &Prefs);
 		view->setScale(1.0*Prefs.DisScale);
@@ -4533,16 +4533,16 @@ bool ScribusApp::loadDoc(QString fileName)
 			delete doc;
 			delete w;
 			ScApp->ScriptRunning = false;
-			FMess->setText("");
-			FProg->reset();
+			mainWindowStatusLabel->setText("");
+			mainWindowProgressBar->reset();
 			ActWin = NULL;
 			if (windows.count() != 0)
 				newActWin(ActWinOld);
 			return false;
 		}
 		ScApp->ScriptRunning = false;
-		FMess->setText("");
-		FProg->reset();
+		mainWindowStatusLabel->setText("");
+		mainWindowProgressBar->reset();
 #ifdef HAVE_CMS
 		CMSuse = cmsu;
 #endif
@@ -4813,7 +4813,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		doc->RePos = false;
 		doc->setUnModified();
 		updateRecent(FName);
-		FMess->setText( tr("Ready"));
+		mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
 		for (uint p = 0; p < doc->Pages.count(); ++p)
 		{
@@ -5058,7 +5058,7 @@ bool ScribusApp::slotFileSaveAs()
 				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
 		}
 	}
-	FMess->setText( tr("Ready"));
+	mainWindowStatusLabel->setText( tr("Ready"));
 	return ret;
 }
 
@@ -5068,13 +5068,13 @@ bool ScribusApp::DoFileSave(QString fn)
 	fileWatcher->forceScan();
 	fileWatcher->stop();
 	ReorgFonts();
-	FMess->setText( tr("Saving..."));
-	FProg->reset();
+	mainWindowStatusLabel->setText( tr("Saving..."));
+	mainWindowProgressBar->reset();
 	QFileInfo fi(fn);
 	QDir::setCurrent(fi.dirPath(true));
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	qApp->processEvents();
-	ret = ss->WriteDoc(fn, doc, FProg);
+	ret = ss->WriteDoc(fn, doc, mainWindowProgressBar);
 	delete ss;
 	if (ret)
 	{
@@ -5087,8 +5087,8 @@ bool ScribusApp::DoFileSave(QString fn)
 		updateRecent(fn);
 		doc->hasName = true;
 	}
-	FMess->setText("");
-	FProg->reset();
+	mainWindowStatusLabel->setText("");
+	mainWindowProgressBar->reset();
 	fileWatcher->start();
 	return ret;
 }
@@ -5218,7 +5218,7 @@ bool ScribusApp::DoFileClose()
 		ColorMenC->clear();
 		propertiesPalette->Cpal->SetColors(Prefs.DColors);
 		propertiesPalette->Cpal->ChooseGrad(0);
-		FMess->setText( tr("Ready"));
+		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
 	}
 	view->close();
@@ -5285,7 +5285,7 @@ void ScribusApp::slotReallyPrint()
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
 	}
 	PrintOptions options;
-	FMess->setText( tr("Printing..."));
+	mainWindowStatusLabel->setText( tr("Printing..."));
 	if (PrinterUsed)
 	{
 		options.printer = PDef.Pname;
@@ -5358,7 +5358,7 @@ void ScribusApp::slotReallyPrint()
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete printer;
-	FMess->setText( tr("Ready"));
+	mainWindowStatusLabel->setText( tr("Ready"));
 }
 
 /*!
@@ -8684,7 +8684,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	}
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	ret = (*demo)(this, fn, nam, Components, pageNs, thumbs, FProg);
+	ret = (*demo)(this, fn, nam, Components, pageNs, thumbs, mainWindowProgressBar);
 	dlclose(PDFDriver);
 	fileWatcher->start();
 	return ret;
@@ -10555,7 +10555,7 @@ void ScribusApp::defaultCrashHandler (int sig)
 void ScribusApp::emergencySave()
 {
 	std::cout << "Calling Emergency Save" << std::endl;
-	QWidgetList windows = ScApp->wsp->windowList();
+	QWidgetList windows = wsp->windowList();
 	if (!windows.isEmpty())
 	{
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
@@ -10946,10 +10946,10 @@ void ScribusApp::languageChange()
 		if (undoManager!=NULL)
 			undoManager->languageChange();
 
-		XMess->setText( tr("X-Pos:"));
-		YMess->setText( tr("Y-Pos:"));
-		XDat->setText("         ");
-		YDat->setText("         ");
-		FMess->setText( tr("Ready"));
+		mainWindowXPosLabel->setText( tr("X-Pos:"));
+		mainWindowYPosLabel->setText( tr("Y-Pos:"));
+		mainWindowXPosDataLabel->setText("         ");
+		mainWindowYPosDataLabel->setText("         ");
+		mainWindowStatusLabel->setText( tr("Ready"));
 	}
 }
