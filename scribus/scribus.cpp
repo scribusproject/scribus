@@ -6716,6 +6716,11 @@ void ScribusApp::setAppMode(int mode)
 			grabMouse();
 			//grabKeyboard();
 		}
+		else 
+		{
+			releaseMouse();
+			//releaseKeyboard();
+		}
 		if (mode == CopyProperties)
 		{
 			if (view->SelItem.count() != 0)
