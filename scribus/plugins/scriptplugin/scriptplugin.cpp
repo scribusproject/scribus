@@ -528,7 +528,7 @@ void initscribus(ScribusApp *pl)
 
 	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
 	// factors to be used from Python.
-	for (int i = 0; i < unitGetMaxIndex(); ++i)
+	for (int i = 0; i <= unitGetMaxIndex(); ++i)
 	{
 		PyObject* value = PyFloat_FromDouble(unitGetRatioFromIndex(i));
 		if (!value)
