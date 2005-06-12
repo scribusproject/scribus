@@ -806,6 +806,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
+			hg->cembedded = 0;
 			currItem->itemText.append(hg);
 		}
 		chars = StyledText.at(p);
@@ -839,6 +840,7 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
+			hg->cembedded = 0;
 			currItem->itemText.append(hg);
 		}
 	}

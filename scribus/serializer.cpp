@@ -130,6 +130,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
+		hg->cembedded = 0;
 		if (Append)
 			it->itemText.insert(it->CPos, hg);
 		else

@@ -211,6 +211,7 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
+			hg->cembedded = 0;
 			obj->itemText.append(hg);
 		}
 		return "";

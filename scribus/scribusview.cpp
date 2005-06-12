@@ -492,6 +492,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 					for (uint a = 0; a < page->FromMaster.count(); ++a)
 					{
 						currItem = page->FromMaster.at(a);
+						if (currItem->isEmbedded)
+							continue;
 						if (currItem->LayerNr != ll.LNr)
 							continue;
 						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->PageNr)))
@@ -611,7 +613,9 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 				QPtrListIterator<PageItem> docItem(Doc->Items);
 				 while ( (currItem = docItem.current()) != 0 )
 				 {
-        			++docItem;
+					++docItem;
+					if (currItem->isEmbedded)
+						continue;
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if ((previewMode) && (!currItem->isPrintable))
@@ -2546,6 +2550,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				for (uint a = 0; a < Doc->Items.count(); ++a)
 				{
 					PageItem* docItem = Doc->Items.at(a);
+					if (docItem->isEmbedded)
+						continue;
 					p.begin(viewport());
 					Transform(docItem, &p);
 					QRegion apr = QRegion(p.xForm(docItem->Clip));
@@ -7262,6 +7268,11 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			return false;
 		}
 		if ((Doc->MasterP)  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage->PageNr)))))
+		{
+			currItem = Doc->Items.prev();
+			continue;
+		}
+		if (currItem->isEmbedded)
 		{
 			currItem = Doc->Items.prev();
 			continue;

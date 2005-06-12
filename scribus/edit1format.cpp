@@ -617,6 +617,7 @@ void EditStyle::updatePreview()
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
+		hg->cembedded = 0;
 		previewItem->itemText.append(hg);
 	}
 

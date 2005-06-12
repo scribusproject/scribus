@@ -1990,6 +1990,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				hg->PRot = 0;
 				hg->PtransX = 0;
 				hg->PtransY = 0;
+				hg->cembedded = 0;
 				ite->itemText.append(hg);
 				tempW += RealCWidth(Doku, hg->cfont, hg->ch, hg->csize)+1;
 				if (hg->ch == QChar(13))
@@ -2089,6 +2090,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
+			hg->cembedded = 0;
 			ite->itemText.append(hg);
 			ite->Width += RealCWidth(Doku, hg->cfont, hg->ch, hg->csize)+1;
 			ite->Height = ite->LineSp+desc+2;

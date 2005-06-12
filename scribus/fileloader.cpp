@@ -1258,6 +1258,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
+		hg->cembedded = 0;
 		obj->itemText.append(hg);
 	}
 	return;

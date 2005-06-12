@@ -307,6 +307,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	isSingleSel = false;
 	Dirty = false;
 	ChangedMasterItem = false;
+	isEmbedded = false;
 	OnMasterPage = Doc->currentPage->PageNam;
 	startArrowIndex = Doc->toolSettings.dStartArrow;
 	endArrowIndex = Doc->toolSettings.dEndArrow;
@@ -326,6 +327,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 /** Zeichnet das Item */
 void PageItem::DrawObj(ScPainter *p, QRect e)
 {
+	double sc;
 	if (!Doc->DoDrawing)
 	{
 		Redrawn = true;
@@ -333,46 +335,43 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		FrameOnly = false;
 		return;
 	}
+	DrawObj_Pre(p, sc);
 	switch(itemType())
 	{
 		case ImageFrame:
-			DrawObj_ImageFrame(p, e);
+			DrawObj_ImageFrame(p, sc);
 			break;
 		case TextFrame:
-			DrawObj_TextFrame(p, e);
+			DrawObj_TextFrame(p, e, sc);
 			break;
 		case Line:
-			DrawObj_Line(p, e);
+			DrawObj_Line(p);
 			break;
 		case Polygon:
-			DrawObj_Polygon(p, e);
+			DrawObj_Polygon(p);
 			break;
 		case PolyLine:
-			DrawObj_PolyLine(p, e);
+			DrawObj_PolyLine(p);
 			break;
 		case PathText:
-			DrawObj_PathText(p, e);
+			DrawObj_PathText(p, sc);
 			break;
 		default:
 			break;
 	}
-	//DrawObj_Post(p, e);
+	DrawObj_Post(p);
 }
 
-void PageItem::DrawObj_Pre(ScPainter *p, QRect &e, QPainter &pf, double &sc)
+void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 {
 	sc = ScApp->view->getScale();
-	pf.begin(ScApp->view->viewport());
-	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
-	pf.translate(trans.x(), trans.y());
-	pf.rotate(Rot);
-	pf.scale(sc, sc);
-	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	p->setZoomFactor(sc);
 	p->save();
-	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(Rot);
+	if (!isEmbedded)
+	{
+		p->setZoomFactor(sc);
+		p->translate(Xpos*sc, Ypos*sc);
+		p->rotate(Rot);
+	}
 	p->setLineWidth(Pwidth);
 	if (GrType != 0)
 	{
@@ -431,17 +430,12 @@ void PageItem::DrawObj_Pre(ScPainter *p, QRect &e, QPainter &pf, double &sc)
 	p->setPenOpacity(1.0 - lineTransparency());
 }
 
-void PageItem::DrawObj_Post(ScPainter *p, QRect& /*e*/)
+void PageItem::DrawObj_Post(ScPainter *p)
 {
-	if (Doc->RePos)
-		return;
 	bool doStroke=true;
-	
 	if ((itemType()==PathText && !PoShow)|| itemType()==PolyLine || itemType()==Line)
 		doStroke=false;
-			
-	//if (doStroke) && (!Doc->RePos))
-	if (doStroke)
+	if ((doStroke) && (!Doc->RePos))
 	{
 		if (lineColor() != "None")
 		{
@@ -474,8 +468,8 @@ void PageItem::DrawObj_Post(ScPainter *p, QRect& /*e*/)
 			}
 		}
 	}
-	//if (!Doc->RePos)
-	//{
+	if ((!isEmbedded) && (!Doc->RePos))
+	{
 		double scpInv = 1.0 / (QMAX(ScApp->view->getScale(), 1));
 		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
 		{
@@ -497,82 +491,88 @@ void PageItem::DrawObj_Post(ScPainter *p, QRect& /*e*/)
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
-	//}
+	}
+	Tinput = false;
+	FrameOnly = false;
+	p->restore();
+}
+
+void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
+{
+	if (hl->embedded != 0)
+	{
+		p->save();
+		p->translate(hl->xco, hl->yco - hl->embedded->Height * (hl->scalev / 1000.0));
+		if (hl->base != 0)
+			p->translate(0, -hl->embedded->Height * (hl->base / 1000.0));
+		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
+		hl->embedded->DrawObj(p, e);
+		p->restore();
+	}
 }
 
 /** Zeichnet das Item */
-void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
+void PageItem::DrawObj_ImageFrame(ScPainter *p, double sc)
 {
-	QPainter pf;
-	double sc;
-	DrawObj_Pre(p, e, pf, sc);
 	if(!Doc->RePos)
 	{
-			if ((fillColor() != "None") || (GrType != 0))
+		if ((fillColor() != "None") || (GrType != 0))
+		{
+			p->setupPolygon(&PoLine);
+			p->fillPath();
+		}
+		if (Pfile == "")
+		{
+			if ((Frame) && (Doc->guidesSettings.framesShown))
 			{
-				p->setupPolygon(&PoLine);
-				p->fillPath();
+				p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
 			}
-			if (Pfile == "")
+		}
+		else
+		{
+			if ((!PicArt) || (!PicAvail))
 			{
 				if ((Frame) && (Doc->guidesSettings.framesShown))
 				{
-					p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+					p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
 					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
 				}
 			}
 			else
 			{
-				if ((!PicArt) || (!PicAvail))
-				{
-					if ((Frame) && (Doc->guidesSettings.framesShown))
-					{
-						p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
-						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-					}
-				}
+				if (imageClip.size() != 0)
+					p->setupPolygon(&imageClip);
 				else
+					p->setupPolygon(&PoLine);
+				p->setClipPath();
+				p->save();
+				if (imageFlippedH())
 				{
-					if (imageClip.size() != 0)
-						p->setupPolygon(&imageClip);
-					else
-						p->setupPolygon(&PoLine);
-					p->setClipPath();
-					p->save();
-					if (imageFlippedH())
-					{
-						p->translate(Width * sc, 0);
-						p->scale(-1, 1);
-					}
-					if (imageFlippedV())
-					{
-						p->translate(0, Height * sc);
-						p->scale(1, -1);
-					}
-					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
-					p->scale(LocalScX, LocalScY);
-					if (pixm.imgInfo.lowResType != 0)
-						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
-					p->drawImage(&pixm);
-					p->restore();
+					p->translate(Width * sc, 0);
+					p->scale(-1, 1);
 				}
+				if (imageFlippedV())
+				{
+					p->translate(0, Height * sc);
+					p->scale(1, -1);
+				}
+				p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
+				p->scale(LocalScX, LocalScY);
+				if (pixm.imgInfo.lowResType != 0)
+					p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
+				p->drawImage(&pixm);
+				p->restore();
 			}
+		}
 	}
-	DrawObj_Post(p, e);
-	Tinput = false;
-	FrameOnly = false;
-	p->restore();
-	pf.end();
 }
 
 /** Zeichnet das Item */
-void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
+void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 {
-	QPainter pf;
-	double sc;
-	DrawObj_Pre(p, e, pf, sc);
 	switch (itemType())
 	{
 		case TextFrame:
@@ -765,7 +765,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.realSiz = hl->csize;
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
-					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
+					if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+						Zli3.wide = hl->cembedded->Width * (hl->cscale / 1000.0);
+					else
+						Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 					if (hl->cstyle & 16384)
 						Zli3.kern = 0;
 					else
@@ -780,6 +783,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli3.underwidth = hl->cunderwidth;
 					Zli3.strikepos = hl->cstrikepos;
 					Zli3.strikewidth = hl->cstrikewidth;
+					Zli3.embedded = hl->cembedded;
 					if (!Doc->RePos)
 					{
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
@@ -827,7 +831,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 						}
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
-							DrawZeichenS(p, &Zli3);
+						{
+							if (Zli3.Zeich == QChar(25))
+								DrawObj_Embedded(p, e, &Zli3);
+							else
+								DrawZeichenS(p, &Zli3);
+						}
 						if (hl->cstyle & 8192)
 						{
 							Zli3.Zeich = "-";
@@ -1151,7 +1160,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						hl->cstyle |= 2048;
 					}
 					else
-						chs = hl->csize;
+					{
+						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+							chs = qRound(hl->cembedded->Height * 10);
+						else
+							chs = hl->csize;
+					}
 					oldCurY = SetZeichAttr(hl, &chs, &chx);
 					if (chx == QChar(29))
 						chx2 = " ";
@@ -1159,30 +1173,52 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						chx2 = "-";
 					else
 						chx2 = chx;
-					if (a < MaxText-1)
-					{
-						if (itemText.at(a+1)->ch == QChar(29))
-							chx3 = " ";
-						else if (itemText.at(a+1)->ch == QChar(24))
-							chx3 = "-";
-						else
-							chx3 = itemText.at(a+1)->ch;
-						wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
-					}
+					if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+						wide = hl->cembedded->Width;
 					else
-						wide = Cwidth(Doc, hl->cfont, chx2, chs);
+					{
+						if (a < MaxText-1)
+						{
+							if (itemText.at(a+1)->ch == QChar(29))
+								chx3 = " ";
+							else if (itemText.at(a+1)->ch == QChar(24))
+								chx3 = "-";
+							else
+								chx3 = itemText.at(a+1)->ch;
+							wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
+						}
+						else
+							wide = Cwidth(Doc, hl->cfont, chx2, chs);
+					}
 					if (DropCmode)
 					{
-						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
+						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+						{
+							wide = hl->cembedded->Width;
+							asce = hl->cembedded->Height;
+						}
+						else
+						{
+							wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
+							asce = RealCHeight(Doc, hl->cfont, chx2, chsd);
+						}
 						desc2 = 0;
 						desc = 0;
-						asce = RealCHeight(Doc, hl->cfont, chx2, chsd);
 					}
 					else
 					{
-						desc2 = -hl->cfont->numDescender * (hl->csize / 10.0);
-						desc = -hl->cfont->numDescender * (hl->csize / 10.0);
-						asce = hl->cfont->numAscent * (hl->csize / 10.0);
+						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+						{
+							asce = hl->cembedded->Height;
+							desc2 = 0;
+							desc = 0;
+						}
+						else
+						{
+							desc2 = -hl->cfont->numDescender * (hl->csize / 10.0);
+							desc = -hl->cfont->numDescender * (hl->csize / 10.0);
+							asce = hl->cfont->numAscent * (hl->csize / 10.0);
+						}
 					}
 					wide = wide * (hl->cscale / 1000.0);
 					fBorder = false;
@@ -1454,6 +1490,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					Zli->underwidth = hl->cunderwidth;
 					Zli->strikepos = hl->cstrikepos;
 					Zli->strikewidth = hl->cstrikewidth;
+					Zli->embedded = hl->cembedded;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 					{
 						if (a > 0)
@@ -1583,6 +1620,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->underwidth = itemText.at(a)->cunderwidth;
 									Zli->strikepos = itemText.at(a)->cstrikepos;
 									Zli->strikewidth = itemText.at(a)->cstrikewidth;
+									Zli->embedded = 0;
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 								}
@@ -1590,7 +1628,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								{
 									HyphenCount = 0;
 									hl->cstyle &= 8191;
-									a--;
 								}
 								BuPos = LastSP+1;
 								if (Doc->docParagraphStyles[absa].textAlignment != 0)
@@ -1809,6 +1846,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								double currasce;
 								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 									currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
+								else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+									currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
 								else
 									currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -1819,7 +1858,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
-									currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
+									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+										currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+									else
+										currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 								}
 								double adj = firstasce - currasce;
 								for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -1832,7 +1874,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							{
 								Zli2 = LiList.at(0);
 								double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
-								double currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
+								double currasce;
+								if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+									currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+								else
+									currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
@@ -1841,6 +1887,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
+									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+										currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+									else
 									currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 								}
 								double adj = firstasce - currasce;
@@ -1929,6 +1978,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 									Zli->underwidth = Zli2->underwidth;
 									Zli->strikepos = Zli2->strikepos;
 									Zli->strikewidth = Zli2->strikewidth;
+									Zli->embedded = 0;
 									for (int cx = 0; cx < coun; ++cx)
 									{
 										Zli->xco = sPos + wt * cx;
@@ -1984,7 +2034,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								if ((Doc->guidesSettings.showControls) && (zc == BuPos3))
 									break;
 								if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
-									DrawZeichenS(p, Zli2);
+								{
+									if (Zli2->Zeich == QChar(25))
+										DrawObj_Embedded(p, e, Zli2);
+									else
+										DrawZeichenS(p, Zli2);
+								}
 							}
 							tabDist = Zli2->xco+Zli2->wide;
 						}
@@ -2072,6 +2127,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						double currasce;
 						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 							currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
+						else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+							currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
 						else
 							currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2082,7 +2139,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
-							currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
+							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+								currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+							else
+								currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 						}
 						double adj = firstasce - currasce;
 						for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2095,7 +2155,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					{
 						Zli2 = LiList.at(0);
 						double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
-						double currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
+						double currasce;
+						if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+							currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+						else
+							currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
 							Zli2 = LiList.at(zc);
@@ -2104,7 +2168,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
-							currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
+							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
+								currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+							else
+								currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 						}
 						double adj = firstasce - currasce;
 						for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2189,6 +2256,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							Zli->underwidth = Zli2->underwidth;
 							Zli->strikepos = Zli2->strikepos;
 							Zli->strikewidth = Zli2->strikewidth;
+							Zli->embedded = 0;
 							for (int cx = 0; cx < coun; ++cx)
 							{
 								Zli->xco =  sPos + wt * cx;
@@ -2242,7 +2310,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 						}
 						if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
-							DrawZeichenS(p, Zli2);
+						{
+							if (Zli2->Zeich == QChar(25))
+								DrawObj_Embedded(p, e, Zli2);
+							else
+								DrawZeichenS(p, Zli2);
+						}
 					}
 					tabDist = Zli2->xco+Zli2->wide;
 				}
@@ -2320,20 +2393,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 		default:
 			break;
 	}
-	DrawObj_Post(p, e);
-	Tinput = false;
-	FrameOnly = false;
-	p->restore();
-	pf.end();
 	Dirty = false;
 }
 
 /** Zeichnet das Item */
-void PageItem::DrawObj_Line(ScPainter *p, QRect e)
+void PageItem::DrawObj_Line(ScPainter *p)
 {
-	QPainter pf;
-	double sc;
-	DrawObj_Pre(p, e, pf, sc);	
 	if (!Doc->RePos)
 	{
 			if (NamedLStyle == "")
@@ -2382,330 +2447,302 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 				p->fillPath();
 			}
 	}
-	DrawObj_Post(p, e);
-	Tinput = false;
-	FrameOnly = false;
-	p->restore();
-	pf.end();
 }
 
 /** Zeichnet das Item */
-void PageItem::DrawObj_Polygon(ScPainter *p, QRect e)
+void PageItem::DrawObj_Polygon(ScPainter *p)
 {
-	QPainter pf;
-	double sc;
-	DrawObj_Pre(p, e, pf, sc);
 	if (!Doc->RePos)
 	{
-			p->setupPolygon(&PoLine);
-			p->fillPath();
+		p->setupPolygon(&PoLine);
+		p->fillPath();
 	}
-	DrawObj_Post(p, e);
-	Tinput = false;
-	FrameOnly = false;
-	p->restore();
-	pf.end();
 }
 
 /** Zeichnet das Item */
-void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
+void PageItem::DrawObj_PolyLine(ScPainter *p)
 {
-	QPainter pf;
-	double sc;
-	DrawObj_Pre(p, e, pf, sc);
 	if (!Doc->RePos && PoLine.size()>=4)
 	{
-			if ((fillColor() != "None") || (GrType != 0))
+		if ((fillColor() != "None") || (GrType != 0))
+		{
+			FPointArray cli;
+			FPoint Start;
+			bool firstp = true;
+			for (uint n = 0; n < PoLine.size()-3; n += 4)
 			{
-				FPointArray cli;
-				FPoint Start;
-				bool firstp = true;
-				for (uint n = 0; n < PoLine.size()-3; n += 4)
+				if (firstp)
 				{
-					if (firstp)
-					{
-						Start = PoLine.point(n);
-						firstp = false;
-					}
-					if (PoLine.point(n).x() > 900000)
-					{
-						cli.addPoint(PoLine.point(n-2));
-						cli.addPoint(PoLine.point(n-2));
-						cli.addPoint(Start);
-						cli.addPoint(Start);
-						cli.setMarker();
-						firstp = true;
-						continue;
-					}
-					cli.addPoint(PoLine.point(n));
-					cli.addPoint(PoLine.point(n+1));
-					cli.addPoint(PoLine.point(n+2));
-					cli.addPoint(PoLine.point(n+3));
+					Start = PoLine.point(n);
+					firstp = false;
 				}
-				if (cli.size() > 2)
+				if (PoLine.point(n).x() > 900000)
 				{
-					FPoint l1 = cli.point(cli.size()-2);
-					cli.addPoint(l1);
-					cli.addPoint(l1);
+					cli.addPoint(PoLine.point(n-2));
+					cli.addPoint(PoLine.point(n-2));
 					cli.addPoint(Start);
 					cli.addPoint(Start);
+					cli.setMarker();
+					firstp = true;
+					continue;
 				}
-				p->setupPolygon(&cli);
-				p->fillPath();
+				cli.addPoint(PoLine.point(n));
+				cli.addPoint(PoLine.point(n+1));
+				cli.addPoint(PoLine.point(n+2));
+				cli.addPoint(PoLine.point(n+3));
 			}
-			p->setupPolygon(&PoLine, false);
-			if (NamedLStyle == "")
+			if (cli.size() > 2)
+			{
+				FPoint l1 = cli.point(cli.size()-2);
+				cli.addPoint(l1);
+				cli.addPoint(l1);
+				cli.addPoint(Start);
+				cli.addPoint(Start);
+			}
+			p->setupPolygon(&cli);
+			p->fillPath();
+		}
+		p->setupPolygon(&PoLine, false);
+		if (NamedLStyle == "")
+			p->strokePath();
+		else
+		{
+			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			QColor tmp;
+			for (int it = ml.size()-1; it > -1; it--)
+			{
+				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+				p->setPen(tmp, ml[it].Width,
+							static_cast<PenStyle>(ml[it].Dash),
+							static_cast<PenCapStyle>(ml[it].LineEnd),
+							static_cast<PenJoinStyle>(ml[it].LineJoin));
 				p->strokePath();
-			else
+			}
+		}
+		if (startArrowIndex != 0)
+		{
+			FPoint Start = PoLine.point(0);
+			for (uint xx = 1; xx < PoLine.size(); xx += 2)
 			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				QColor tmp;
-				for (int it = ml.size()-1; it > -1; it--)
+				FPoint Vector = PoLine.point(xx);
+				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
+					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+					QWMatrix arrowTrans;
+					FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
+					arrowTrans.translate(Start.x(), Start.y());
+					arrowTrans.rotate(r);
+					arrowTrans.scale(Pwidth, Pwidth);
+					arrow.map(arrowTrans);
+					p->setBrush(p->pen());
+					p->setBrushOpacity(1.0 - lineTransparency());
+					p->setLineWidth(0);
+					p->setFillMode(ScPainter::Solid);
+					p->setupPolygon(&arrow);
+					p->fillPath();
+					break;
 				}
 			}
-			if (startArrowIndex != 0)
+		}
+		if (endArrowIndex != 0)
+		{
+			FPoint End = PoLine.point(PoLine.size()-2);
+			for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
 			{
-				FPoint Start = PoLine.point(0);
-				for (uint xx = 1; xx < PoLine.size(); xx += 2)
+				FPoint Vector = PoLine.point(xx);
+				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
-					FPoint Vector = PoLine.point(xx);
-					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-					{
-						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
-						arrowTrans.translate(Start.x(), Start.y());
-						arrowTrans.rotate(r);
-						arrowTrans.scale(Pwidth, Pwidth);
-						arrow.map(arrowTrans);
-						p->setBrush(p->pen());
-						p->setBrushOpacity(1.0 - lineTransparency());
-						p->setLineWidth(0);
-						p->setFillMode(ScPainter::Solid);
-						p->setupPolygon(&arrow);
-						p->fillPath();
-						break;
-					}
+					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+					QWMatrix arrowTrans;
+					FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
+					arrowTrans.translate(End.x(), End.y());
+					arrowTrans.rotate(r);
+					arrowTrans.scale(Pwidth, Pwidth);
+					arrow.map(arrowTrans);
+					p->setBrush(p->pen());
+					p->setBrushOpacity(1.0 - lineTransparency());
+					p->setLineWidth(0);
+					p->setFillMode(ScPainter::Solid);
+					p->setupPolygon(&arrow);
+					p->fillPath();
+					break;
 				}
 			}
-			if (endArrowIndex != 0)
-			{
-				FPoint End = PoLine.point(PoLine.size()-2);
-				for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
-				{
-					FPoint Vector = PoLine.point(xx);
-					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-					{
-						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
-						arrowTrans.translate(End.x(), End.y());
-						arrowTrans.rotate(r);
-						arrowTrans.scale(Pwidth, Pwidth);
-						arrow.map(arrowTrans);
-						p->setBrush(p->pen());
-						p->setBrushOpacity(1.0 - lineTransparency());
-						p->setLineWidth(0);
-						p->setFillMode(ScPainter::Solid);
-						p->setupPolygon(&arrow);
-						p->fillPath();
-						break;
-					}
-				}
-			}
+		}
 	}
-	DrawObj_Post(p, e);
-	Tinput = false;
-	FrameOnly = false;
-	p->restore();
-	pf.end();
 }
 
 /** Zeichnet das Item */
-void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
+void PageItem::DrawObj_PathText(ScPainter *p, double sc)
 {
-	QPainter pf;
 	uint a;
 	int chs;
 	double wide;
 	QString chx, chx2, chx3;
 	struct ScText *hl;
 	struct ZZ *Zli;
-	double sc;
-	DrawObj_Pre(p, e, pf, sc);
-			double dx;
-			double sp = 0;
-			double oldSp = 0;
-			double oCurX = 0;
-			FPoint point = FPoint(0, 0);
-			FPoint normal = FPoint(0, 0);
-			FPoint tangent = FPoint(0, 0);
-			FPoint extPoint = FPoint(0, 0);
-			bool ext = false;
-			bool first = true;
-			double fsx = 0;
-			uint seg = 0;
-			double segLen = 0;
-			double distCurX;
-			CurX = Extra;
-			if (itemText.count() != 0)
-				CurX += itemText.at(0)->csize * itemText.at(0)->cextra / 10000.0;
+	double dx;
+	double sp = 0;
+	double oldSp = 0;
+	double oCurX = 0;
+	FPoint point = FPoint(0, 0);
+	FPoint normal = FPoint(0, 0);
+	FPoint tangent = FPoint(0, 0);
+	FPoint extPoint = FPoint(0, 0);
+	bool ext = false;
+	bool first = true;
+	double fsx = 0;
+	uint seg = 0;
+	double segLen = 0;
+	double distCurX;
+	CurX = Extra;
+	if (itemText.count() != 0)
+		CurX += itemText.at(0)->csize * itemText.at(0)->cextra / 10000.0;
+	segLen = PoLine.lenPathSeg(seg);
+	for (a = 0; a < itemText.count(); ++a)
+	{
+		CurY = 0;
+		hl = itemText.at(a);
+		chx = hl->ch;
+		if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
+			continue;
+		chs = hl->csize;
+		SetZeichAttr(hl, &chs, &chx);
+		if (chx == QChar(29))
+			chx2 = " ";
+		else if (chx == QChar(24))
+			chx2 = "-";
+		else
+			chx2 = chx;
+		if (a < itemText.count()-1)
+		{
+			if (itemText.at(a+1)->ch == QChar(29))
+				chx3 = " ";
+			else if (itemText.at(a+1)->ch == QChar(24))
+				chx3 = "-";
+			else
+				chx3 = itemText.at(a+1)->ch;
+			wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
+		}
+		else
+			wide = Cwidth(Doc, hl->cfont, chx2, chs);
+		wide = wide * (hl->cscale / 1000.0);
+		dx = wide / 2.0;
+		CurX += dx;
+		ext = false;
+		while ( (seg < PoLine.size()-3) && (CurX > fsx + segLen))
+		{
+			fsx += segLen;
+			seg += 4;
+			if (seg > PoLine.size()-3)
+				break;
 			segLen = PoLine.lenPathSeg(seg);
-			for (a = 0; a < itemText.count(); ++a)
+			ext = true;
+		}
+		if (seg > PoLine.size()-3)
+			break;
+		if (CurX > fsx + segLen)
+			break;
+		if (ext)
+		{
+			sp = 0;
+			distCurX = PoLine.lenPathDist(seg, 0, sp);
+			while (distCurX <= ((CurX - oCurX) - (fsx - oCurX)))
 			{
-				CurY = 0;
-				hl = itemText.at(a);
-				chx = hl->ch;
-				if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
-					continue;
-				chs = hl->csize;
-				SetZeichAttr(hl, &chs, &chx);
-				if (chx == QChar(29))
-					chx2 = " ";
-				else if (chx == QChar(24))
-					chx2 = "-";
-				else
-					chx2 = chx;
-				if (a < itemText.count()-1)
-				{
-					if (itemText.at(a+1)->ch == QChar(29))
-						chx3 = " ";
-					else if (itemText.at(a+1)->ch == QChar(24))
-						chx3 = "-";
-					else
-						chx3 = itemText.at(a+1)->ch;
-					wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
-				}
-				else
-					wide = Cwidth(Doc, hl->cfont, chx2, chs);
-				wide = wide * (hl->cscale / 1000.0);
-				dx = wide / 2.0;
-				CurX += dx;
-				ext = false;
-				while ( (seg < PoLine.size()-3) && (CurX > fsx + segLen))
-				{
-					fsx += segLen;
-					seg += 4;
-					if (seg > PoLine.size()-3)
-						break;
-					segLen = PoLine.lenPathSeg(seg);
-					ext = true;
-				}
-				if (seg > PoLine.size()-3)
-					break;
+				sp += 0.001;
+				distCurX = PoLine.lenPathDist(seg, 0, sp);
+			}
+			PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
+			CurX = (CurX - (CurX - fsx)) + distCurX;
+			oldSp = sp;
+			ext = false;
+		}
+		else
+		{
+			if( seg < PoLine.size()-3 )
+			{
 				if (CurX > fsx + segLen)
 					break;
-				if (ext)
+				distCurX = PoLine.lenPathDist(seg, oldSp, sp);
+				while (distCurX <= (CurX - oCurX))
 				{
-					sp = 0;
-					distCurX = PoLine.lenPathDist(seg, 0, sp);
-					while (distCurX <= ((CurX - oCurX) - (fsx - oCurX)))
+					sp += 0.001;
+					if (sp >= 1.0)
 					{
-						sp += 0.001;
-						distCurX = PoLine.lenPathDist(seg, 0, sp);
-					}
-					PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
-					CurX = (CurX - (CurX - fsx)) + distCurX;
-					oldSp = sp;
-					ext = false;
-				}
-				else
-				{
-					if( seg < PoLine.size()-3 )
-					{
-						if (CurX > fsx + segLen)
-							break;
-						distCurX = PoLine.lenPathDist(seg, oldSp, sp);
-						while (distCurX <= (CurX - oCurX))
-						{
-							sp += 0.001;
-							if (sp >= 1.0)
-							{
-								sp = 0.9999;
-								break;
-							}
-							distCurX = PoLine.lenPathDist(seg, oldSp, sp);
-						}
-						PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
-						CurX = oCurX + distCurX;
-						oldSp = sp;
-					}
-					else
+						sp = 0.9999;
 						break;
+					}
+					distCurX = PoLine.lenPathDist(seg, oldSp, sp);
 				}
-				hl->xp = point.x();
-				hl->yp = point.y();
-				hl->PtransX = tangent.x();
-				hl->PtransY = tangent.y();
-				hl->PRot = dx;
-				QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx*sc, 0 );
-				trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc );
-				QWMatrix sca = p->worldMatrix();
-				trafo *= sca;
-				p->save();
-				QWMatrix savWM = p->worldMatrix();
-				p->setWorldMatrix(trafo);
-				Zli = new ZZ;
-				Zli->Zeich = chx;
-				if (hl->ccolor != "None")
-				{
-					QColor tmp;
-					SetFarbe(&tmp, hl->ccolor, hl->cshade);
-					p->setBrush(tmp);
-				}
-				if (hl->cstroke != "None")
-				{
-					QColor tmp;
-					SetFarbe(&tmp, hl->cstroke, hl->cshade2);
-					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-				}
-				Zli->Farb = hl->ccolor;
-				Zli->Farb2 = hl->cstroke;
-				Zli->shade = hl->cshade;
-				Zli->shade2 = hl->cshade2;
-				Zli->xco = 0;
-				Zli->yco = BaseOffs;
-				Zli->Sele = hl->cselect;
-				Zli->Siz = chs;
-				Zli->realSiz = hl->csize;
-				Zli->Style = hl->cstyle;
-				Zli->ZFo = hl->cfont;
-				Zli->wide = wide;
-				Zli->kern = hl->csize * hl->cextra / 10000.0;
-				Zli->scale = hl->cscale;
-				Zli->scalev = hl->cscalev;
-				Zli->base = hl->cbase;
-				Zli->shadowX = hl->cshadowx;
-				Zli->shadowY = hl->cshadowx;
-				Zli->outline = hl->coutline;
-				Zli->underpos = hl->cunderpos;
-				Zli->underwidth = hl->cunderwidth;
-				Zli->strikepos = hl->cstrikepos;
-				Zli->strikewidth = hl->cstrikewidth;
-				if (!Doc->RePos)
-					DrawZeichenS(p, Zli);
-				delete Zli;
-				p->setWorldMatrix(savWM);
-				p->restore();
-				p->setZoomFactor(sc);
-				MaxChars = a+1;
-				oCurX = CurX;
-				CurX -= dx;
-				CurX += wide+hl->csize * hl->cextra / 10000.0;
-				first = false;
+				PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
+				CurX = oCurX + distCurX;
+				oldSp = sp;
 			}
-	DrawObj_Post(p, e);
-	Tinput = false;
-	FrameOnly = false;
-	p->restore();
-	pf.end();
+			else
+				break;
+		}
+		hl->xp = point.x();
+		hl->yp = point.y();
+		hl->PtransX = tangent.x();
+		hl->PtransY = tangent.y();
+		hl->PRot = dx;
+		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx*sc, 0 );
+		trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc );
+		QWMatrix sca = p->worldMatrix();
+		trafo *= sca;
+		p->save();
+		QWMatrix savWM = p->worldMatrix();
+		p->setWorldMatrix(trafo);
+		Zli = new ZZ;
+		Zli->Zeich = chx;
+		if (hl->ccolor != "None")
+		{
+			QColor tmp;
+			SetFarbe(&tmp, hl->ccolor, hl->cshade);
+			p->setBrush(tmp);
+		}
+		if (hl->cstroke != "None")
+		{
+			QColor tmp;
+			SetFarbe(&tmp, hl->cstroke, hl->cshade2);
+			p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+		}
+		Zli->Farb = hl->ccolor;
+		Zli->Farb2 = hl->cstroke;
+		Zli->shade = hl->cshade;
+		Zli->shade2 = hl->cshade2;
+		Zli->xco = 0;
+		Zli->yco = BaseOffs;
+		Zli->Sele = hl->cselect;
+		Zli->Siz = chs;
+		Zli->realSiz = hl->csize;
+		Zli->Style = hl->cstyle;
+		Zli->ZFo = hl->cfont;
+		Zli->wide = wide;
+		Zli->kern = hl->csize * hl->cextra / 10000.0;
+		Zli->scale = hl->cscale;
+		Zli->scalev = hl->cscalev;
+		Zli->base = hl->cbase;
+		Zli->shadowX = hl->cshadowx;
+		Zli->shadowY = hl->cshadowx;
+		Zli->outline = hl->coutline;
+		Zli->underpos = hl->cunderpos;
+		Zli->underwidth = hl->cunderwidth;
+		Zli->strikepos = hl->cstrikepos;
+		Zli->strikewidth = hl->cstrikewidth;
+		Zli->embedded = 0;
+		if (!Doc->RePos)
+			DrawZeichenS(p, Zli);
+		delete Zli;
+		p->setWorldMatrix(savWM);
+		p->restore();
+		p->setZoomFactor(sc);
+		MaxChars = a+1;
+		oCurX = CurX;
+		CurX -= dx;
+		CurX += wide+hl->csize * hl->cextra / 10000.0;
+		first = false;
+	}
 }
 
 

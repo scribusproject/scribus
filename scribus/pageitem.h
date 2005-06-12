@@ -147,6 +147,7 @@ struct TabRecord
 				QString Farb;
 				QString Farb2;
 				Foi* ZFo;
+				PageItem* embedded;
 			  };
 
 
@@ -159,14 +160,15 @@ struct TabRecord
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
-	void DrawObj_Pre(ScPainter *p, QRect &e, QPainter &pf, double &sc);
-	void DrawObj_Post(ScPainter *p, QRect &e);
-	void DrawObj_ImageFrame(ScPainter *p, QRect e);
-	void DrawObj_TextFrame(ScPainter *p, QRect e);
-	void DrawObj_Line(ScPainter *p, QRect e);
-	void DrawObj_Polygon(ScPainter *p, QRect e);
-	void DrawObj_PolyLine(ScPainter *p, QRect e);
-	void DrawObj_PathText(ScPainter *p, QRect e);
+	void DrawObj_Pre(ScPainter *p, double &sc);
+	void DrawObj_Post(ScPainter *p);
+	void DrawObj_ImageFrame(ScPainter *p, double sc);
+	void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);
+	void DrawObj_Line(ScPainter *p);
+	void DrawObj_Polygon(ScPainter *p);
+	void DrawObj_PolyLine(ScPainter *p);
+	void DrawObj_PathText(ScPainter *p, double sc);
+	void DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl);
 
 	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
@@ -396,6 +398,7 @@ struct TabRecord
 	QString OnMasterPage;
 	int startArrowIndex;
 	int endArrowIndex;
+	bool isEmbedded;
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;

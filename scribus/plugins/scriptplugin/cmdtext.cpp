@@ -293,6 +293,7 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
+		hg->cembedded = 0;
 		currItem->itemText.append(hg);
 	}
 	Py_INCREF(Py_None);
@@ -356,6 +357,7 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
+		hg->cembedded = 0;
 		it->itemText.insert(pos, hg);
 	}
 	it->CPos = pos + Daten.length();

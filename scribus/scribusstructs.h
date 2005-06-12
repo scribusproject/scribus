@@ -29,14 +29,14 @@ struct ScText
 	short cshade2;
 	short cstyle;
 /*	Meaning of the values in cstyle
-	1 		= Superscript
-	2 		= Subscript
-	4 		= Outline
-	8 		= Underline
+	1			= Superscript
+	2 			= Subscript
+	4 			= Outline
+	8 			= Underline
 	16 		= Strikethru
 	32 		= All Caps
 	64 		= Small Caps
-	128 	= Hyphenation possible here (Smart Hyphen)
+	128 		= Hyphenation possible here (Smart Hyphen)
 	256 	= Shadowed
 	512 	= Underline Words
 	1024 	= free, not used in the moment
@@ -63,6 +63,7 @@ struct ScText
 	float PtransY;
 	float PRot;
 	Foi* cfont;
+	PageItem* cembedded;
 	QString ccolor;
 	QString cstroke;
 	QString ch;
@@ -257,7 +258,7 @@ struct ParagraphStyle
 	int scaleH;
 	int scaleV;
 	int baseOff;
-	int kernVal;   // currently not used
+	int kernVal;
 };
 
 struct CMSData

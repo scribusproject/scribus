@@ -174,6 +174,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 		hg->yp = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
+		hg->cembedded = 0;
 		it->itemText.append(hg);
 	}
 	lastCharWasLineChange = text.right(1) == "\n";

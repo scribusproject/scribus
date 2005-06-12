@@ -1425,6 +1425,8 @@ void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 		if (it->cselect)
 		{
 			first = true;
+			if ((it->ch == QChar(25)) && (it->cembedded != 0))
+				doc->Items.remove(it->cembedded);
 			currItem->itemText.remove();
 			it = currItem->itemText.prev();
 			if (it == 0)
@@ -1556,6 +1558,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->PRot = 0;
 					hg->PtransX = 0;
 					hg->PtransY = 0;
+					hg->cembedded = 0;
 					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					currItem->Tinput = true;
@@ -2007,6 +2010,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->PRot = 0;
 								hg->PtransX = 0;
 								hg->PtransY = 0;
+								hg->cembedded = 0;
 								currItem->itemText.insert(currItem->CPos, hg);
 								currItem->CPos += 1;
 								currItem->Tinput = true;
@@ -2452,6 +2456,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->PRot = 0;
 							hg->PtransX = 0;
 							hg->PtransY = 0;
+							hg->cembedded = 0;
 							currItem->itemText.insert(currItem->CPos, hg);
 							currItem->CPos += 1;
 							currItem->Tinput = true;
@@ -2492,6 +2497,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->PRot = 0;
 							hg->PtransX = 0;
 							hg->PtransY = 0;
+							hg->cembedded = 0;
 							currItem->itemText.insert(currItem->CPos, hg);
 							currItem->CPos += 1;
 							if ((doc->docHyphenator->AutoCheck) && (currItem->CPos > 1))
@@ -5713,7 +5719,54 @@ void ScribusApp::slotEditPaste()
 					hg->PRot = 0;
 					hg->PtransX = 0;
 					hg->PtransY = 0;
+					hg->cembedded = 0;
 				}
+			}
+			else if (Buffer2.startsWith("<SCRIBUSELEM"))
+			{
+				bool savedAlignGrid = doc->useRaster;
+				bool savedAlignGuides = doc->SnapGuides;
+				doc->useRaster = false;
+				doc->SnapGuides = false;
+				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
+				doc->useRaster = savedAlignGrid;
+				doc->SnapGuides = savedAlignGuides;
+				PageItem* currItem2 = doc->Items.at(doc->Items.count()-1);
+				currItem2->isEmbedded = true;
+				hg = new ScText;
+				hg->ch = QChar(25);
+				hg->cfont = (*doc->AllFonts)[doc->CurrFont];
+				hg->csize = doc->CurrFontSize;
+				hg->ccolor = doc->CurrTextFill;
+				hg->cshade = doc->CurrTextFillSh;
+				hg->cstroke = doc->CurrTextStroke;
+				hg->cshade2 = doc->CurrTextStrokeSh;
+				hg->cscale = doc->CurrTextScale;
+				hg->cscalev = doc->CurrTextScaleV;
+				hg->cbase = doc->CurrTextBase;
+				hg->cshadowx = doc->CurrTextShadowX;
+				hg->cshadowy = doc->CurrTextShadowY;
+				hg->coutline = doc->CurrTextOutline;
+				hg->cunderpos = doc->CurrTextUnderPos;
+				hg->cunderwidth = doc->CurrTextUnderWidth;
+				hg->cstrikepos = doc->CurrTextStrikePos;
+				hg->cstrikewidth = doc->CurrTextStrikeWidth;
+				hg->cselect = false;
+				hg->cstyle = doc->CurrentStyle;
+				hg->cab = doc->currentParaStyle;
+				if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
+				{
+					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
+					hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
+				}
+				hg->xp = 0;
+				hg->yp = 0;
+				hg->PRot = 0;
+				hg->PtransX = 0;
+				hg->PtransY = 0;
+				hg->cextra = 0;
+				hg->cembedded = currItem2;
+				currItem->itemText.insert(currItem->CPos, hg);
 			}
 			else
 			{
@@ -5844,7 +5897,7 @@ void ScribusApp::ClipChange()
 		{
 			if (cc.startsWith("<SCRIBUSELEM"))
 			{
-				if (doc->appMode != EditMode)
+//				if (doc->appMode != EditMode)
 					scrActions["editPaste"]->setEnabled(true);
 			}
 			else
@@ -6540,11 +6593,11 @@ void ScribusApp::setAppMode(int mode)
 				actionManager->enableUnicodeActions(true);
 			if (!Buffer2.isNull())
 			{
-				if (!Buffer2.startsWith("<SCRIBUSELEM"))
-				{
+//				if (!Buffer2.startsWith("<SCRIBUSELEM"))
+//				{
 					BuFromApp = false;
 					scrActions["editPaste"]->setEnabled(true);
-				}
+//				}
 			}
 			view->slotDoCurs(true);
 			scrMenuMgr->setMenuEnabled("Item", false);

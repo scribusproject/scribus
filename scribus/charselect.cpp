@@ -734,6 +734,7 @@ void CharSelect::insChar()
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
+		hg->cembedded = 0;
 		ite->itemText.insert(ite->CPos, hg);
 		ite->CPos += 1;
 	}
