@@ -1446,6 +1446,17 @@ void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 	else
 		currItem->CPos = 0;
 	currItem->HasSel = false;
+	for (uint a = 0; a < doc->Items.count(); ++a)
+	{
+		doc->Items.at(a)->ItemNr = a;
+		if (doc->Items.at(a)->isBookmark)
+			bookmarkPalette->BView->ChangeItem(doc->Items.at(a)->BMnr, a);
+	}
+	if (doc->masterPageMode)
+		doc->MasterItems = doc->Items;
+	else
+		doc->DocItems = doc->Items;
+	outlinePalette->BuildTree(doc);
 	DisableTxEdit();
 }
 
@@ -2370,10 +2381,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							return;
 						}
 						cr = currItem->itemText.at(currItem->CPos)->ch;
-						if (currItem->HasSel)
-							deleteSelectedTextFromFrame(currItem);
-						else
-							currItem->itemText.remove(currItem->CPos);
+						if (!currItem->HasSel)
+							currItem->itemText.at(currItem->CPos)->cselect = true;
+						deleteSelectedTextFromFrame(currItem);
 						currItem->Tinput = false;
 						if ((cr == QChar(13)) && (currItem->itemText.count() != 0))
 						{
@@ -2397,13 +2407,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if (currItem->itemText.count() == 0)
 							break;
 						cr = currItem->itemText.at(QMAX(currItem->CPos-1,0))->ch;
-						if (currItem->HasSel)
-							deleteSelectedTextFromFrame(currItem);
-						else
+						if (!currItem->HasSel)
 						{
 							currItem->CPos -= 1;
-							currItem->itemText.remove(currItem->CPos);
+							currItem->itemText.at(currItem->CPos)->cselect = true;
 						}
+						deleteSelectedTextFromFrame(currItem);
 						currItem->Tinput = false;
 						if ((cr == QChar(13)) && (currItem->itemText.count() != 0))
 						{
@@ -4944,6 +4953,17 @@ void ScribusApp::slotFileOpen()
 			delete gt;
 			if (doc->docHyphenator->AutoCheck)
 				doc->docHyphenator->slotHyphenate(currItem);
+			for (uint a = 0; a < doc->Items.count(); ++a)
+			{
+				doc->Items.at(a)->ItemNr = a;
+				if (doc->Items.at(a)->isBookmark)
+					bookmarkPalette->BView->ChangeItem(doc->Items.at(a)->BMnr, a);
+			}
+			if (doc->masterPageMode)
+				doc->MasterItems = doc->Items;
+			else
+				doc->DocItems = doc->Items;
+			outlinePalette->BuildTree(doc);
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -5785,8 +5805,6 @@ void ScribusApp::slotEditPaste()
 				else
 					ss->GetText(currItem, st, currItem->IFont, currItem->ISize, true);
 				delete ss;
-				if (doc->docHyphenator->AutoCheck)
-					doc->docHyphenator->slotHyphenate(currItem);
 			}
 			view->RefreshItem(currItem);
 		}

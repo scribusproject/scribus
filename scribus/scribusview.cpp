@@ -4232,6 +4232,17 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						delete ss;
 						if (Doc->docHyphenator->AutoCheck)
 							Doc->docHyphenator->slotHyphenate(currItem);
+						for (uint a = 0; a < Doc->Items.count(); ++a)
+						{
+							Doc->Items.at(a)->ItemNr = a;
+							if (Doc->Items.at(a)->isBookmark)
+								emit NewBMNr(Doc->Items.at(a)->BMnr, a);
+						}
+						if (Doc->masterPageMode)
+							Doc->MasterItems = Doc->Items;
+						else
+							Doc->DocItems = Doc->Items;
+						ScApp->outlinePalette->BuildTree(Doc);
 					}
 					else
 					{
@@ -8052,6 +8063,11 @@ void ScribusView::ClearItem()
 				}
 				while (nextItem != 0)
 				{
+					for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
+					{
+						if ((it->ch == QChar(25)) && (it->cembedded != 0))
+							Doc->Items.remove(it->cembedded);
+					}
 					nextItem->itemText.clear();
 					nextItem->CPos = 0;
 					nextItem = nextItem->NextBox;
@@ -8081,6 +8097,17 @@ void ScribusView::ClearItem()
 				currItem->imageClip.resize(0);
 /*				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
 			}
+			for (uint a = 0; a < Doc->Items.count(); ++a)
+			{
+				Doc->Items.at(a)->ItemNr = a;
+				if (Doc->Items.at(a)->isBookmark)
+					emit NewBMNr(Doc->Items.at(a)->BMnr, a);
+			}
+			if (Doc->masterPageMode)
+				Doc->MasterItems = Doc->Items;
+			else
+				Doc->DocItems = Doc->Items;
+			ScApp->outlinePalette->BuildTree(Doc);
 			updateContents();
 			emit DocChanged();
 		}
@@ -8123,6 +8150,11 @@ void ScribusView::DeleteItem()
 				ScApp->fileWatcher->removeFile(currItem->Pfile);
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
+				for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
+				{
+					if ((it->ch == QChar(25)) && (it->cembedded != 0))
+						Doc->Items.remove(it->cembedded);
+				}
 				if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
 				{
 					if (currItem->BackBox == 0)

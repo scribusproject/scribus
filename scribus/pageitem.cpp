@@ -501,13 +501,41 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 {
 	if (hl->embedded != 0)
 	{
+		struct ParagraphStyle vg;
+		QValueList<ParagraphStyle> savedParagraphStyles;
+		for (int xxx=0; xxx<5; ++xxx)
+		{
+			vg.LineSpaMode = Doc->docParagraphStyles[xxx].LineSpaMode;
+			vg.BaseAdj = Doc->docParagraphStyles[xxx].BaseAdj;
+			vg.LineSpa = Doc->docParagraphStyles[xxx].LineSpa;
+			vg.FontSize = Doc->docParagraphStyles[xxx].FontSize;
+			vg.Indent = Doc->docParagraphStyles[xxx].Indent;
+			vg.First = Doc->docParagraphStyles[xxx].First;
+			vg.gapBefore = Doc->docParagraphStyles[xxx].gapBefore;
+			vg.gapAfter = Doc->docParagraphStyles[xxx].gapAfter;
+			savedParagraphStyles.append(vg);
+		}
 		p->save();
-		p->translate(hl->xco, hl->yco - hl->embedded->Height * (hl->scalev / 1000.0));
+		hl->embedded->Xpos = Xpos + hl->xco;
+		hl->embedded->Ypos = Ypos + (hl->yco - (hl->embedded->Height * (hl->scalev / 1000.0)));
+		p->translate(hl->xco * p->zoomFactor(), (hl->yco - (hl->embedded->Height * (hl->scalev / 1000.0))) * p->zoomFactor());
 		if (hl->base != 0)
-			p->translate(0, -hl->embedded->Height * (hl->base / 1000.0));
+			p->translate(0, -hl->embedded->Height * (hl->base / 1000.0) * p->zoomFactor());
 		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
 		hl->embedded->DrawObj(p, e);
 		p->restore();
+		for (int xxx=0; xxx<5; ++xxx)
+		{
+			Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
+			Doc->docParagraphStyles[xxx].BaseAdj = savedParagraphStyles[xxx].BaseAdj;
+			Doc->docParagraphStyles[xxx].LineSpa = savedParagraphStyles[xxx].LineSpa;
+			Doc->docParagraphStyles[xxx].FontSize = savedParagraphStyles[xxx].FontSize;
+			Doc->docParagraphStyles[xxx].Indent = savedParagraphStyles[xxx].Indent;
+			Doc->docParagraphStyles[xxx].First = savedParagraphStyles[xxx].First;
+			Doc->docParagraphStyles[xxx].gapBefore = savedParagraphStyles[xxx].gapBefore;
+			Doc->docParagraphStyles[xxx].gapAfter = savedParagraphStyles[xxx].gapAfter;
+		}
+		savedParagraphStyles.clear();
 	}
 }
 
@@ -902,7 +930,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
 						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 						{
-							if (docItem->textFlowsAroundFrame())
+							if ((docItem->textFlowsAroundFrame()) && (!docItem->isEmbedded))
 							{
 								pp.begin(ScApp->view->viewport());
 								pp.translate(docItem->Xpos - Mp->Xoffset + Dp->Xoffset, docItem->Ypos - Mp->Yoffset + Dp->Yoffset);
@@ -936,7 +964,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					for (a = 0; a < Doc->Items.count(); ++a)
 					{
 						PageItem* docItem = Doc->Items.at(a);
-						if (docItem->textFlowsAroundFrame())
+						if ((docItem->textFlowsAroundFrame()) && (!docItem->isEmbedded))
 						{
 							pp.begin(ScApp->view->viewport());
 							pp.translate(docItem->Xpos, docItem->Ypos);
@@ -973,7 +1001,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
 					if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 					{
-						if (docItem->textFlowsAroundFrame())
+						if ((docItem->textFlowsAroundFrame()) && (!docItem->isEmbedded))
 						{
 							pp.begin(ScApp->view->viewport());
 							pp.translate(docItem->Xpos, docItem->Ypos);
@@ -1417,19 +1445,19 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					}
 					if (!RTab)
 					{
-						hl->xp = QMIN(QMAX(CurX+kernVal, ColBound.x()), ColBound.y());
+						hl->xp = QMAX(CurX+kernVal, ColBound.x());
 						CurX += wide+kernVal;
-						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
+						CurX = QMAX(CurX, ColBound.x());
 					}
 					else
 					{
-						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
+						CurX = QMAX(CurX, ColBound.x());
 						hl->xp = CurX;
 					}
 					if ((TabCode == 4) && (RTab))
 					{
 						CurX += (wide+kernVal) / 2;
-						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
+						CurX = QMAX(CurX, ColBound.x());
 					}
 					if (((hl->cstyle & 128) || (hl->ch == "-")) && ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0)))
 					{
@@ -1544,7 +1572,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						AbsHasDrop = true;
 						maxDY = CurY;
 						CurX += Doc->docParagraphStyles[hl->cab].DropDist;
-						CurX = QMIN(QMAX(CurX, ColBound.x()), ColBound.y());
+						CurX = QMAX(CurX, ColBound.x());
 						maxDX = CurX;
 						QPointArray tcli;
 						tcli.resize(4);
