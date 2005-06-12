@@ -1263,7 +1263,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								{
 									HyphenCount = 0;
 									hl->cstyle &= 511;
-									a--;
 								}
 								BuPos = LastSP+1;
 								if (Doc->Vorlagen[absa].Ausri != 0)
