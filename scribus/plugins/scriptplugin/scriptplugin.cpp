@@ -538,10 +538,10 @@ void initscribus(ScribusApp *pl)
 		}
 		// `in' is a reserved word in Python so we must replace it
 		PyObject* name;
-		if (unitGetSuffixFromIndex(i).stripWhiteSpace() == "in")
+		if (unitGetStrFromIndex(i) == "in")
 			name = PyString_FromString("inch");
 		else
-			name = PyString_FromString(unitGetSuffixFromIndex(i).stripWhiteSpace().ascii());
+			name = PyString_FromString(unitGetStrFromIndex(i).ascii());
 		if (!name)
 		{
 			initscribus_failed(__FILE__, __LINE__);
