@@ -26,13 +26,13 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
-	importButton = new QPushButton(this, "importButton" );
+	importButton = new QToolButton(this, "importButton" );
 	importButton->setPixmap(loadIcon("fileopen.png"));
-	newButton = new QPushButton(this, "newButton" );
+	newButton = new QToolButton(this, "newButton" );
 	newButton->setPixmap(loadIcon("filenew.png"));
-	duplicateButton = new QPushButton(this, "DublicateB" );
+	duplicateButton = new QToolButton(this, "DublicateB" );
 	duplicateButton->setPixmap(loadIcon("editcopy22.png"));
-	deleteButton = new QPushButton(this, "deleteButton" );
+	deleteButton = new QToolButton(this, "deleteButton" );
 	deleteButton->setPixmap(loadIcon("edittrash.png"));
 	buttonLayout->addWidget( newButton );
 	buttonLayout->addWidget( duplicateButton );

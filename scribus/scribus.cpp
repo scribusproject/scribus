@@ -3405,14 +3405,20 @@ void ScribusApp::SwitchWin()
 {
 	int a;
 	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
 	a = 0;
+	static QMap<QRgb, QPixmap*> pxCache;
 	ColorMenC->clear();
 	ColorMenC->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		ColorMenC->insertItem(pm, it.key());
+		QColor rgb = doc->PageColors[it.key()].getRGBColor();
+		QPixmap * pm = pxCache[rgb.rgb()];
+		if (!pm) {
+			pm = new QPixmap(15, 15);
+			pm->fill(rgb);
+			pxCache[rgb.rgb()] = pm;
+		}
+		ColorMenC->insertItem(*pm, it.key());
 		if (it.key() == doc->toolSettings.dBrush)
 			ColorMenC->setCurrentItem(a);
 		a++;

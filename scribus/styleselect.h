@@ -111,9 +111,11 @@ protected:
 	QHBoxLayout* buttonGroupLayout;
 	QHBoxLayout* buttonGroup2Layout;
 	QHBoxLayout* buttonGroup3Layout;
+	QHBoxLayout* buttonGroup4Layout;
 	QGroupBox* buttonGroup;
 	QGroupBox* buttonGroup2;
 	QGroupBox* buttonGroup3;
+	QGroupBox* buttonGroup4;
 	QToolButton* underlineButton;
 	QToolButton* underlineWordButton;
 	QToolButton* subscriptButton;

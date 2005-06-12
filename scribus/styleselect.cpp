@@ -224,42 +224,51 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup2Layout->addWidget( smallcapsButton );
 	ssLayout->addWidget( buttonGroup2 );
 
+	buttonGroup4 = new QGroupBox( this, "buttonGroup" );
+	buttonGroup4->setFrameShape( QGroupBox::NoFrame );
+	buttonGroup4->setTitle("");
+	buttonGroup4->setColumnLayout(0, Qt::Vertical );
+	buttonGroup4->layout()->setSpacing( 0 );
+	buttonGroup4->layout()->setMargin( 0 );
+	buttonGroup4Layout = new QHBoxLayout( buttonGroup4->layout() );
+	buttonGroup4Layout->setAlignment( Qt::AlignTop );
 	StrikeVal = new StrikeValues( NULL );
 	StrikePop = new QPopupMenu();
 	StrikePop->insertItem(StrikeVal);
-	strikeoutButton = new QToolButton( this, "strikeoutButton" );
+	strikeoutButton = new QToolButton( buttonGroup4, "strikeoutButton" );
 	strikeoutButton->setText( "" );
 	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
 	strikeoutButton->setPixmap(loadIcon("Strike.xpm"));
 	strikeoutButton->setToggleButton( true );
 	strikeoutButton->setPopup(StrikePop);
 	strikeoutButton->setPopupDelay(400);
-	ssLayout->addWidget( strikeoutButton );
+	buttonGroup4Layout->addWidget( strikeoutButton );
 
 	OutlineVal = new OutlineValues( NULL );
 	OutlinePop = new QPopupMenu();
 	OutlinePop->insertItem(OutlineVal);
-	outlineButton = new QToolButton( this, "outlineButton" );
+	outlineButton = new QToolButton( buttonGroup4, "outlineButton" );
 	outlineButton->setText( "" );
 	outlineButton->setMaximumSize( QSize( 22, 22 ) );
 	outlineButton->setPixmap(loadIcon("outlined.png"));
 	outlineButton->setToggleButton( true );
 	outlineButton->setPopup(OutlinePop);
 	outlineButton->setPopupDelay(400);
-	ssLayout->addWidget( outlineButton );
+	buttonGroup4Layout->addWidget( outlineButton );
 
 	ShadowVal = new ShadowValues( NULL );
 	ShadowPop = new QPopupMenu();
 	ShadowPop->insertItem(ShadowVal);
-	shadowButton = new QToolButton( this, "shadowButton" );
+	shadowButton = new QToolButton( buttonGroup4, "shadowButton" );
 	shadowButton->setText( "" );
 	shadowButton->setMaximumSize( QSize( 22, 22 ) );
 	shadowButton->setPixmap(loadIcon("shadow.png"));
 	shadowButton->setToggleButton( true );
 	shadowButton->setPopup(ShadowPop);
 	shadowButton->setPopupDelay(400);
-	ssLayout->addWidget( shadowButton );
-
+	buttonGroup4Layout->addWidget( shadowButton );
+	ssLayout->addWidget( buttonGroup4 );
+	
 	languageChange();
 
 	connect(allcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));

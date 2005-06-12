@@ -131,7 +131,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		PDFVersionCombo->setCurrentItem(1);
 	if (Optionen->Version == PDFOptions::PDFVersion_15)
 		PDFVersionCombo->setCurrentItem(2);
-	GroupBox1Layout->addMultiCellWidget( PDFVersionCombo, 0, 0, 1, 2, AlignLeft );
+	GroupBox1Layout->addMultiCellWidget( PDFVersionCombo, 0, 0, 1, 2 );
 	TextLabel1x = new QLabel( tr( "&Binding:" ), GroupBox1, "TextLabel1" );
 	TextLabel1x->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel1x, 1, 0 );
@@ -141,7 +141,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	ComboBind->setEditable(false);
 	ComboBind->setCurrentItem(Optionen->Binding);
 	TextLabel1x->setBuddy(ComboBind);
-	GroupBox1Layout->addMultiCellWidget( ComboBind, 1, 1, 1, 2, AlignLeft );
+	GroupBox1Layout->addMultiCellWidget( ComboBind, 1, 1, 1, 2 );
 	CheckBox1 = new QCheckBox( tr( "Generate &Thumbnails" ), GroupBox1, "CheckBox1" );
 	CheckBox1->setChecked(Optionen->Thumbnails);
 	GroupBox1Layout->addMultiCellWidget( CheckBox1, 2, 2, 0, 2 );

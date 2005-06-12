@@ -86,7 +86,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	selectedGUILang=prefsData->guiLanguage;
 	guiLangLabel = new QLabel(guiLangCombo, tr("&Language:"), ButtonGroup1, "guiLangLabel");
 	ButtonGroup1Layout->addWidget( guiLangLabel, 0, 0 );
-	ButtonGroup1Layout->addWidget( guiLangCombo, 0, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( guiLangCombo, 0, 1 );
 
 	GUICombo = new QComboBox( true, ButtonGroup1, "GUICombo" );
 	QStringList STtest;
@@ -97,7 +97,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GUICombo->setCurrentText(prefsData->GUI);
 	TextGstil = new QLabel(GUICombo, tr("&Theme:"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil, 1, 0 );
-	ButtonGroup1Layout->addWidget( GUICombo, 1, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( GUICombo, 1, 1 );
 
 	GFsize = new QSpinBox(8, 22, 1, ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );

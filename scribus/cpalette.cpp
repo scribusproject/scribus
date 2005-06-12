@@ -223,14 +223,20 @@ void Cpalette::updateCList()
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
+	static QMap<QRgb, QPixmap*> pxCache;
 	ColorList::Iterator it;
-	QPixmap pm = QPixmap(30, 15);
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
 	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
-		pm.fill(colorList[it.key()].getRGBColor());
-		colorListQLBox->insertItem(pm, it.key());
+		QColor rgb = colorList[it.key()].getRGBColor();
+		QPixmap * pm = pxCache[rgb.rgb()];
+		if (!pm) {
+			pm = new QPixmap(30, 15);
+			pm->fill(rgb);
+			pxCache[rgb.rgb()] = pm;
+		}
+		colorListQLBox->insertItem(*pm, it.key());
 	}
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));

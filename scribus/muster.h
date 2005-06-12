@@ -4,7 +4,7 @@
 #include <qdialog.h>
 class QListBox;
 class QListBoxItem;
-class QPushButton;
+class QToolButton;
 class QHBoxLayout;
 class QVBoxLayout;
 
@@ -29,11 +29,11 @@ protected slots:
 
 private:
 	QListBox* masterPageData;
-	QPushButton* importButton;
-	QPushButton* newButton;
-	QPushButton* duplicateButton;
-	QPushButton* deleteButton;
-	QPushButton* closeButton;
+	QToolButton* importButton;
+	QToolButton* newButton;
+	QToolButton* duplicateButton;
+	QToolButton* deleteButton;
+	QToolButton* closeButton;
 	ScribusDoc *currentDoc;
 	ScribusView *currentView;
 	QString sMuster;
