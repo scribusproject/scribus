@@ -21,6 +21,8 @@
 #include "scribusdoc.h"
 #include "pagestructs.h"
 #include "pageitem.h"
+#include "gtparagraphstyle.h"
+#include "gtframestyle.h"
 #include "gtwriter.h"
 
 
@@ -95,7 +97,15 @@ void TOCGenerator::generateDefault()
 					}
 				}
 			}
+			//Set up the gtWriter instance with the selected paragraph style
 			gtWriter* writer = new gtWriter(false, tocFrame);
+			writer->setUpdateParagraphStyles(false);
+			writer->setOverridePStyleFont(false);
+			gtFrameStyle* fstyle = writer->getDefaultStyle();
+			gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
+			pstyle->setName((*tocSetupIt).textStyle);
+			writer->setParagraphStyle(pstyle);
+			
 			QString oldTocPage=QString::null;
 			for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
 			{

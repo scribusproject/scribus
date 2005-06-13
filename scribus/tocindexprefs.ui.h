@@ -44,6 +44,7 @@ void TOCIndexPrefs::setup( ToCSetupVector* tocsetups, ScribusDoc *doc)
 	if (enabled)
 	{
 		updateToCListBox();
+		updateParagraphStyleComboBox();
 		tocListBox->setCurrentItem(0);
 		selectToC(0);
 	}
@@ -74,9 +75,6 @@ void TOCIndexPrefs::setupItemAttrs( QStringList newNames )
 	itemAttrComboBox->clear();
 	itemAttrComboBox->insertItem(trStrNone);
 	itemAttrComboBox->insertStringList(newNames);
-	itemParagraphStyleComboBox->clear();
-	itemParagraphStyleComboBox->insertItem(trStrNone);
-	selectToC(0);
 }
 
 
@@ -91,15 +89,7 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 		itemAttrComboBox->setCurrentText(trStrNone);
 	else
 		itemAttrComboBox->setCurrentText(localToCSetupVector[num].itemAttrName);
-		
-	if (localToCSetupVector[num].frameName==strNone)
-		itemDestFrameComboBox->setCurrentText(trStrNone);
-	else
-		itemDestFrameComboBox->setCurrentText(localToCSetupVector[num].frameName);
-	if (localToCSetupVector[num].textStyle==strNone)
-		itemParagraphStyleComboBox->setCurrentText(trStrNone);
-	else
-		itemParagraphStyleComboBox->setCurrentText(localToCSetupVector[num].textStyle);
+	
 	if (localToCSetupVector[num].pageLocation==NotShown)
 		itemNumberPlacementComboBox->setCurrentText(trStrPNNotShown);
 	else
@@ -107,6 +97,19 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 		itemNumberPlacementComboBox->setCurrentText(trStrPNBeginning);
 	else
 		itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
+
+	if (currDoc!=NULL)
+	{	
+		if (localToCSetupVector[num].frameName==strNone)
+			itemDestFrameComboBox->setCurrentText(trStrNone);
+		else
+			itemDestFrameComboBox->setCurrentText(localToCSetupVector[num].frameName);
+			
+		if (!paragraphStyleList.contains(localToCSetupVector[num].textStyle) || localToCSetupVector[num].textStyle==strNone)
+			itemParagraphStyleComboBox->setCurrentText(trStrNone);
+		else
+			itemParagraphStyleComboBox->setCurrentText(localToCSetupVector[num].textStyle);
+	}
 	
 	if (numberSelected>=0)
 	{
@@ -147,6 +150,20 @@ void TOCIndexPrefs::updateToCListBox()
 	tocListBox->clear();
 	for(ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
 		tocListBox->insertItem((*it).name);
+}
+
+void TOCIndexPrefs::updateParagraphStyleComboBox()
+{
+	paragraphStyleList.clear();
+	paragraphStyleList.append(trStrNone);
+	
+	if(currDoc!=NULL && currDoc->docParagraphStyles.count()>5)
+	{
+		for (uint i = 5; i < currDoc->docParagraphStyles.count(); ++i)
+			paragraphStyleList.append(currDoc->docParagraphStyles[i].Vname);
+	}
+	itemParagraphStyleComboBox->clear();
+	itemParagraphStyleComboBox->insertStringList(paragraphStyleList);
 }
 
 

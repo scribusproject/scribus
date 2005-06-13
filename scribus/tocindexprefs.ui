@@ -239,8 +239,9 @@
     </connection>
 </connections>
 <includes>
-    <include location="local" impldecl="in implementation">scribusdoc.h</include>
     <include location="local" impldecl="in declaration">pagestructs.h</include>
+    <include location="local" impldecl="in implementation">scribusdoc.h</include>
+    <include location="global" impldecl="in implementation">qstringlist.h</include>
     <include location="local" impldecl="in implementation">tocindexprefs.ui.h</include>
 </includes>
 <forwards>
@@ -257,6 +258,7 @@
     <variable>QString trStrNone;</variable>
     <variable>ScribusDoc *currDoc;</variable>
     <variable>QString selectedTOCAttrName;</variable>
+    <variable>QStringList paragraphStyleList;</variable>
     <variable>QString strNone;</variable>
 </variables>
 <slots>
@@ -265,6 +267,8 @@
     <slot>setupItemAttrs( QStringList newNames )</slot>
     <slot>selectToC( int numberSelected )</slot>
     <slot>addToC()</slot>
+    <slot>updateToCListBox()</slot>
+    <slot>updateParagraphStyleComboBox()</slot>
     <slot>deleteToC()</slot>
     <slot>itemAttributeSelected( const QString &amp; itemAttributeName )</slot>
     <slot>itemFrameSelected( const QString &amp; frameName )</slot>
@@ -275,7 +279,6 @@
 <functions>
     <function access="private" specifier="non virtual">init()</function>
     <function access="private" specifier="non virtual">destroy()</function>
-    <function access="protected">updateToCListBox()</function>
     <function>enableGUIWidgets()</function>
     <function returnType="ToCSetupVector *">getNewToCs()</function>
 </functions>
