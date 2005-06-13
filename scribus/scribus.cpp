@@ -6614,7 +6614,7 @@ void ScribusApp::setAppMode(int mode)
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
-			if (currItem->itemType()==PageItem::TextFrame)
+			if (currItem!=NULL && currItem->itemType()==PageItem::TextFrame)
 				actionManager->enableUnicodeActions(true);
 			if (!Buffer2.isNull())
 			{
