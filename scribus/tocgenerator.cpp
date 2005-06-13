@@ -72,6 +72,7 @@ void TOCGenerator::generateDefault()
 			QMap<QString, QString> tocMap;
 			tocMap.clear();
 			uint pageCounter[currDoc->pageCount];
+			uint pageNumberWidth=QString("%1").arg(currDoc->pageCount).length();
 			for (int i=0;i<=currDoc->pageCount;++i)
 				pageCounter[i]=0;
 			unsigned int maxDataWidth=0;
@@ -87,7 +88,7 @@ void TOCGenerator::generateDefault()
 					if (objattr.name!=QString::null)
 					{
 						//TODO Handle docs with non consecutive page numbers when that is possible
-						QString key=QString("%1,%2").arg(currentDocItem->OwnPage + currDoc->FirstPnum).arg(pageCounter[currentDocItem->OwnPage]++);
+						QString key=QString("%1,%2").arg(currentDocItem->OwnPage + currDoc->FirstPnum, pageNumberWidth).arg(pageCounter[currentDocItem->OwnPage]++);
 						tocMap.insert(key, objattr.value);
 						if (objattr.value.length()>maxDataWidth)
 							maxDataWidth=objattr.value.length();
@@ -98,17 +99,21 @@ void TOCGenerator::generateDefault()
 			QString oldTocPage=QString::null;
 			for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
 			{
-				QString tocPage = tocIt.key().section( ',', 0, 0 );
-				QString tocLine = tocIt.data();
-				//QString tocPageItemNo = tocIt.key().section( ',', 1, 1 );
-				if (oldTocPage!=tocPage)
-				{
-					oldTocPage=tocPage;
-					tocLine = tocLine.leftJustify(maxDataWidth+5, '.');
-					tocLine = tocLine + tocPage + "\n";
-				}
-				else
-					tocLine += "\n";
+				QString tocPage = tocIt.key().section( ',', 0, 0 ).stripWhiteSpace();
+				QString tocLine;
+				//Start with text or numbers
+				if ((*tocSetupIt).pageLocation==End || (*tocSetupIt).pageLocation==NotShown)
+					tocLine = tocIt.data();
+				if ((*tocSetupIt).pageLocation==Beginning && oldTocPage!=tocPage)
+					tocLine = tocPage;
+				//Add in the tab for the leaders
+				tocLine+="\t";
+				//End with text or numbers
+				if ((*tocSetupIt).pageLocation==Beginning)
+					tocLine += tocIt.data();
+				if ((*tocSetupIt).pageLocation==End && oldTocPage!=tocPage)
+					tocLine += tocPage;
+				tocLine += "\n";
 				writer->append(tocLine);
 			}
 			if (writer!=NULL)
