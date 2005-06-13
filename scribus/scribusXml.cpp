@@ -3381,7 +3381,19 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		tocsetup.setAttribute("Name", (*tocSetupIt).name);
 		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
 		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
-		tocsetup.setAttribute("Style", (*tocSetupIt).style);
+		tocsetup.setAttribute("Style", (*tocSetupIt).textStyle);
+		switch ((*tocSetupIt).pageLocation)
+		{
+			case Beginning:
+				tocsetup.setAttribute("NumberPlacement", "Beginning");
+				break;
+			case End:
+				tocsetup.setAttribute("NumberPlacement", "End");
+				break;
+			case NotShown:
+				tocsetup.setAttribute("NumberPlacement", "NotShown");
+				break;
+		}
 		tocElem.appendChild(tocsetup);
 	}
 	dc.appendChild(tocElem);
@@ -3760,7 +3772,8 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		tocsetup.setAttribute("Name", (*tocSetupIt).name);
 		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
 		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
-		tocsetup.setAttribute("Style", (*tocSetupIt).style);
+		tocsetup.setAttribute("Style", (*tocSetupIt).textStyle);
+		tocsetup.setAttribute("NumberPlacement", (*tocSetupIt).pageLocation);
 		tocElem.appendChild(tocsetup);
 	}
 	elem.appendChild(tocElem);
@@ -4168,7 +4181,14 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 					tocsetup.name=tocElem.attribute("Name");
 					tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 					tocsetup.frameName=tocElem.attribute("FrameName");
-					tocsetup.style=tocElem.attribute("Style");
+					tocsetup.textStyle=tocElem.attribute("Style");
+					QString numberPlacement=tocElem.attribute("NumberPlacement");
+					if (numberPlacement=="Beginning")
+						tocsetup.pageLocation=Beginning;
+					if (numberPlacement=="End")
+						tocsetup.pageLocation=End;
+					if (numberPlacement=="NotShown")
+						tocsetup.pageLocation=NotShown;
 					Vorein->defaultToCSetups.append(tocsetup);
 				}
 				TOC = TOC.nextSibling();

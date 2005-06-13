@@ -17,12 +17,17 @@ struct ObjectAttribute
 
 typedef QValueVector<ObjectAttribute> ObjAttrVector;
 
+typedef enum {Beginning, End, NotShown} TOCPageLocation;
+
 struct ToCSetup
 {
 	QString name; //Name of ToC
 	QString itemAttrName; //Attribute to Scan for
 	QString frameName; //Destination frame
-	QString style; //Selected ToC style
+	TOCPageLocation pageLocation; //Place the page number for the TOC at the beginning, end or not at all
+	QString textStyle; //Paragraph style for text
+	//QString leaderParaStyle; //Paragraph style for leaders
+	//QString pageNumberParaStyle; //Paragraph style for page numbers
 };
 
 typedef QValueVector<ToCSetup> ToCSetupVector;

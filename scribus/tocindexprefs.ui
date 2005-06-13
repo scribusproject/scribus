@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>399</width>
-            <height>309</height>
+            <width>420</width>
+            <height>215</height>
         </rect>
     </property>
     <property name="caption">
@@ -18,9 +18,6 @@
     <vbox>
         <property name="name">
             <cstring>unnamed</cstring>
-        </property>
-        <property name="margin">
-            <number>0</number>
         </property>
         <widget class="QTabWidget">
             <property name="name">
@@ -33,163 +30,164 @@
                 <attribute name="title">
                     <string>Table Of Contents</string>
                 </attribute>
-                <vbox>
+                <hbox>
                     <property name="name">
                         <cstring>unnamed</cstring>
                     </property>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout9</cstring>
+                            <cstring>layout7</cstring>
                         </property>
-                        <hbox>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QListBox">
+                                <property name="name">
+                                    <cstring>tocListBox</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit">
+                                <property name="name">
+                                    <cstring>tocNameLineEdit</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout7</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QPushButton">
+                                        <property name="name">
+                                            <cstring>tocAddButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Add</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+A</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton">
+                                        <property name="name">
+                                            <cstring>tocDeleteButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Delete</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+D</string>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout4</cstring>
+                        </property>
+                        <vbox>
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
                             <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>layout8</cstring>
+                                    <cstring>layout9</cstring>
                                 </property>
-                                <vbox>
+                                <grid>
                                     <property name="name">
                                         <cstring>unnamed</cstring>
                                     </property>
-                                    <widget class="QListBox">
+                                    <widget class="QLabel" row="3" column="0">
                                         <property name="name">
-                                            <cstring>tocListBox</cstring>
+                                            <cstring>tocParagraphStyleLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Paragraph Style:</string>
                                         </property>
                                     </widget>
-                                    <widget class="QLayoutWidget">
+                                    <widget class="QComboBox" row="0" column="1">
                                         <property name="name">
-                                            <cstring>layout7</cstring>
+                                            <cstring>itemAttrComboBox</cstring>
                                         </property>
-                                        <hbox>
-                                            <property name="name">
-                                                <cstring>unnamed</cstring>
-                                            </property>
-                                            <widget class="QPushButton">
-                                                <property name="name">
-                                                    <cstring>tocAddButton</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>&amp;Add</string>
-                                                </property>
-                                                <property name="accel">
-                                                    <string>Alt+A</string>
-                                                </property>
-                                            </widget>
-                                            <widget class="QPushButton">
-                                                <property name="name">
-                                                    <cstring>tocDeleteButton</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>&amp;Delete</string>
-                                                </property>
-                                                <property name="accel">
-                                                    <string>Alt+D</string>
-                                                </property>
-                                            </widget>
-                                        </hbox>
                                     </widget>
-                                </vbox>
+                                    <widget class="QLabel" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>tocDestFrameLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Destination Frame:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>itemDestFrameComboBox</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="2" column="1">
+                                        <property name="name">
+                                            <cstring>itemNumberPlacementComboBox</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="3" column="1">
+                                        <property name="name">
+                                            <cstring>itemParagraphStyleComboBox</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="2" column="0">
+                                        <property name="name">
+                                            <cstring>tocNumberPlacementLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Page Numbers Placed:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="0" column="0">
+                                        <property name="name">
+                                            <cstring>tocItemAttrLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Item Attribute Name:</string>
+                                        </property>
+                                    </widget>
+                                </grid>
                             </widget>
-                            <widget class="QLayoutWidget">
+                            <spacer>
                                 <property name="name">
-                                    <cstring>layout6</cstring>
+                                    <cstring>spacer1</cstring>
                                 </property>
-                                <vbox>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QLayoutWidget">
-                                        <property name="name">
-                                            <cstring>layout1</cstring>
-                                        </property>
-                                        <grid>
-                                            <property name="name">
-                                                <cstring>unnamed</cstring>
-                                            </property>
-                                            <widget class="QComboBox" row="0" column="1">
-                                                <property name="name">
-                                                    <cstring>itemAttrComboBox</cstring>
-                                                </property>
-                                            </widget>
-                                            <widget class="QLabel" row="0" column="0">
-                                                <property name="name">
-                                                    <cstring>tocItemAttrLabel</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>Item Attribute Name:</string>
-                                                </property>
-                                            </widget>
-                                            <widget class="QLabel" row="2" column="0">
-                                                <property name="name">
-                                                    <cstring>tocStyleLabel</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>Style:</string>
-                                                </property>
-                                            </widget>
-                                            <widget class="QComboBox" row="2" column="1">
-                                                <item>
-                                                    <property name="text">
-                                                        <string>Basic</string>
-                                                    </property>
-                                                </item>
-                                                <property name="name">
-                                                    <cstring>itemStyleComboBox</cstring>
-                                                </property>
-                                            </widget>
-                                            <widget class="QComboBox" row="1" column="1">
-                                                <property name="name">
-                                                    <cstring>itemDestFrameComboBox</cstring>
-                                                </property>
-                                            </widget>
-                                            <widget class="QLabel" row="1" column="0">
-                                                <property name="name">
-                                                    <cstring>tocDestFrameLabel</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>Destination Frame:</string>
-                                                </property>
-                                            </widget>
-                                        </grid>
-                                    </widget>
-                                    <widget class="QLabel">
-                                        <property name="name">
-                                            <cstring>tocStylePreview</cstring>
-                                        </property>
-                                        <property name="frameShape">
-                                            <enum>Box</enum>
-                                        </property>
-                                        <property name="pixmap">
-                                            <pixmap>image0</pixmap>
-                                        </property>
-                                        <property name="scaledContents">
-                                            <bool>false</bool>
-                                        </property>
-                                    </widget>
-                                </vbox>
-                            </widget>
-                        </hbox>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>10</width>
+                                        <height>21</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </vbox>
                     </widget>
-                </vbox>
+                </hbox>
             </widget>
             <widget class="QWidget">
                 <property name="name">
                     <cstring>tab</cstring>
                 </property>
                 <attribute name="title">
-                    <string>Index</string>
+                    <string>Inde&amp;x</string>
                 </attribute>
             </widget>
         </widget>
     </vbox>
 </widget>
-<images>
-    <image name="image0">
-        <data format="XPM.GZ" length="29603">789cdd9c59532bc97280dfe7574cdc7abbe128230990140e3f88458855123b38fc506b03da00ed72f8bf3bab32b3682d9cc39961ec095f4273f8e8a5322b97caac6edd7ffde7eff7adf3dffff9afbf0d476af46c7e374feafdf77fda71af37ff8ffffcf7fffaed1f85adaddfc367a75cfcbdf88f7ff9ed1f62f6bbf95d6cc5ff45ae26ae045623e6021e9f126fe3f94a26c6f387cc74fe84b842e7d713e3f945663cdf1e25c6e3156283d77b97188f93bc0592dfce89493edd885c49f28e13e3f587cc38be7b4d1c8feb6362965f24c6e337cc74fd41623c3e2026f96d23318e3f61a6f9427d2bac8f7b4f8cf7db63c6fb8b3931e92748bf02c9ab3bc434be89f2c3dd683c7788cce3659a198f9b2762be7f9398ee2f5ac4747f75805c647ff2c4747d5620a6eb5d9c9f4285cf5777c474be9f24467d1d31db4311d3f899095c4ce3e947629e8f2e319d2f32e412cbbb20a6eb4d8998f52d47aef2f9d97362b4e72531fbdb19318f5f23667fa8206fd3fd4cf48f5281cf571d62b6df55621c8f98af174f89f1f83b31c9639f12c7e37ec84cf61e11d3f836c67729c9a74f88797e5462b4cf0533f9f38898e7af9d18e59b12b33d4ce2783c3b42ded9217f88f3bb5de0f9159698e5ad21f3fddd0b31dddfdd2546fdf798515ead9177d81f4f13c7f34d8f99f4a3f1583ef79018e5a7f176aa24ef4b62bc5f1979b740f92ffaebb64afe80f7533b3b24df2b315f3f64a6e3bbc87c3f1ff3eb4e31cdef73629c9f6b66babe8cbc6331bff82973b11acfef20ef1668fc0366bafe8198e4f58f89f1fc4be622eabb4d4cf3e39bc496e62ffad70ee8532ac4fb6f11d3fcaa7d669abf0931cd8fd8652679dac4747f7fce4cd7cf1263be7d61467995462e93be669618cf5f30e3f9d90131fb874d8cf35f61c6ebb368dfdd22cbef4e984b71fe6d8998e47313661ccfd59971bebc4f1cafcf46c82cbf2a25c6fb7599c93e0b6292cfb79849bf2231d9cfdd32d3faa498e9fc2d62f6af18efbbc91eea8599e24b2327798f88391e4e13e3fdfacce8af7ec08cf361b689697eed0533e9df64c6ebc51e31c9a365623cdf30d37cb512e3f84fc8159a5f75cd8ce7fb68ff7229f91333c78f222679b32b663a7e9a18e3ab484cf369f699f1b81d30933d86c82c8ffde028bf9a1193bdfd59623c7e4f4cf395bd30e37cdb98ffca3ad9bbc34ce3f513e3fd0ac83c5fee86198feb6be66df4efe7c42a9e9f11933fd863661ccf48629677ce4cf9a547ccf1fe9618cfc7f9d655922f3b61a6f8db498cf23e31533cc6f8aaa4f9ceee89c9deaec64cf71b3293be6fc49cef9f99f17cd121e67c50488cf2ec2327f9de98513e41f255c9be7ace8cc79d20a6f95327cc747c3731e6ab98ef2bc97e62484cf7cf3266f29773628ebfc4a8bf7d491ced9d8d89d99f7bc855d257bc3353fe7b4056ecdfe7cc34fe7e628cdf1931e7937766b2673931ae8f313eabdb3cbfaa4d4cf29a6762ce1f656445eba92e30d3fc5c32e3fd8560c6fbd90362ce6fd789d17e9619e74fcf8815d92763c6fbf912b1c3f14d9b99c697cc783f3340d645aabf7698295f5c27c6f971cce46fafc4bb74fd5b62cc970d6245ebcb7962cc2775668a9fd80f560dfba3ed10933f18cd4cf16e98297fbc31efc4fed8e07886ed93f599f1faec3631fac70db1227ff4cc34df241fcc2fe6a32e331e37efcc38bf0afdc5c07ce1fc9f31e3f1ec2231fac32131cd67564a8cfed663c6f9ca1acc288fbc63c6f19461a6fcb3c58cf3238e89c93eea3131daafcf8ce3c993c4f1b8bc61267bb513c7f1e598d8e1fd652d315e3f67a6fbef25c6f117cc34df1789513fb29f21ff9583c478ff0e33dd7f9218d7970231cdb7a827c6fae79199ea19b28fa1f9b1d19e2ac5abbf2726fbfb2a33ceb7ce90d91ff42d331ef76362b29fad3353fedc4b8cf9689719afcf3ac4641f5d64a6f584af67fb3c30d3fd7b89d11fd3718a279697ec67af99a99eb189b17e61f9c97e763731e613c98cfe23af12633c1598513ee713a37c8619e5b337c8c91f1689d11f3266f28783c478fc9899e2a99918e5f1cc94fffa89713e493ff6276913e3fd05338daf13e3f143661c5f4f12e37c959869fdba4d8cebcd0e31c5b33c4f8cf71f32d3f84f89d15e67cc34de16338db74fccf17c9618af6f31537ca1be86d72f3f4a1ced27f07e217fa1fcd7cc141f3bcc74bd64267f1c1393bcaacb4cf9b6c74cfeb2454cfee5787c8ed74562940fe327e5177f9218d7933d66b2d74562bcff2333ce9f1a244679b79829fed27824af65a6fc71484cfea57c629c7fc74cf5653b31e6d31d66aa374f12e37cd799291ed3f524ef3133d50f7b8951de743fb2cf2931f99fb96326ff7b4d8cf35963a67c314e8cf15562a6f5bf9f18ed7dc58cf2c9adc4285f1a0fe553bbc4e4cff63631aeb7ac2fe537719718e3a9c24cfe9731533d97aea7f8c4783196fcc72a668abf1a33d927da4ba7f5c0cd9869fefb8951bf6762d25f1f3193be7b89b1fe6e1393bcda25c6f116cc947f2f98e97acbbc8beb570d99e3c39d31d3faa013e3fcdd3293bfdd27c6f5749719f5d39e19c717a45f5abf0b89f1fefbcc140f95c428df9c99fced3e31fadb3533f547e3c4b83e7799c9df46c49c7f1b89519e1933f9ff3431da7fc24cf5e761629c0fd697fc5df17c93bd4d9618e76b9b99ea8b97c4f1b82c13733eef254679f97cf6ffdbc4585f2866ea172e12633ee1f964ffba4c8cf2a7f128ffee2446f9882de55ff19018ebb32d66f2af749ce2b1c94cf5e96962cc17249f257ff187ccb41ec5f5515b5e0ff41933ce9f7944e6fcedb3c4e89f97cc181fba49ccfe3765a6fd8a0766ea0f26cc54dfcd12e3f87366bcbf3922267fd32d66f2ff5262cc3f3c3ef99b1e2546fb0966f2ff46629cbf376692b79938caa76e9849fe0533c9fb4accfed74f8cfed765a6787189f1f82933c93f4e8cf1cbfa93ffa98bc4a81feb4ffea7ef12a3bd87cc943fe97eec8fd2248ef2b447cc24af4a8cf2d699a99f39498cf5e51b33cdf75362ccc797cce46f647fcbf5e651621ccf33933ccf89f1f83633c5ef3133ad276562ca67e28699f63b178971fd8efa991df60fb7cd4cf3fb9e18fb75cd8cf3eb4689f1789b19fd257b4b8cc71531d9dfb512a37dcf99a9df1f2446ff7864a67efd3531eea73498297f0a6694c7dd27c678b4c86cffec3d31cecf3633d9fb8699d6bfcbc4b8be7866caef5b8971fded32537d78c54cf21d11737d78cf4cfef09618fde18299f2513931c6fb3533c95b4c8cfabc30d37a584d8cf990f5e77cd64a8cc769bed9bfe47b62ac5f1d33d54703668a977e62ccff6c0fce4f8fcc34fe9498f28967f9c87f6ccc6726c59bbd4a8cf9a1ca8cf2db1133f9eb7e62f4d753e64a29cacfccf59c498cf63d66a6fcf39418f3eb3633d9fb3931cee70131ef5f3966b24f2131faef2133c97f9318e3e18eb91ce537ac3ff7fb1d66f2971233d5c3cdc4288f66a67c769018e5d961a6fa92e6df71ff3467a6f98afda10df18af2f69079befd6b621dcf17c4bbd5edc8e7c49cff0f98697fe19d99ec5964c6f9c81cb2e3fc5c60a6fc10fdcd3ab6677b24c55ff5916ae9771d3e898db4f4f996b1a22ffd659afce4c39ad8efb9df37d8c5e6e6f757a4b37f3fbb6cd26455caf0ef7749fc97dae5a7da7d7a5e881ff7113ffff776f982369f9fa7be4f93bfc62eed4f62e8475ef8f7b5cb2f6af737b38bf4f1df0c3e4ff219f84576422cd09a92bc4976e1ef1e3ebd787e07f8e9ef6517d99703902e8bbfbf44090568f42adf4033d42283bf67f0fb13fc0d7f7f8e5a64df67fbefb08b7c9743906e00bf0f837d40ab41f49ea0e1488e933d509b60a7899cc26726e7f0f9366dbe2d5e16a4c9b0fd111b0bd02afc5b0b36a30cbc27f7e501fc7b28ebd15eec6d7f0fbbd828f1116812a46ec85aee98260d0ee0df20fd31d8e3449e02cfe2b9e1bab3bfd5ba7f0e129d47efea82e41720f1a96cca966ccb4b7925afe58dbc9577f25e3ec847b9250bf0f7a22cc96d38d7c3753b7fab7aec48eeca3268f2262bb20a923e0a298450420b23ac70c2c71f2732f1249ec58be888aee889be18c0f95df1fa3d9a7cd12e9fad031f6b440fa2f854b6c59b7817433102a9c76222a6f13315b3f4338d7f9b88b958889ad813fb70cd01d811bc906cfc27d69b2fd805ee2e0ee1538fa3510f02197521c0b344431ccb993811a7e24c9c8b0bd18cf2f2cfec939f2969d5126db0dfa5b812d790d71a70bf1bc87d21cf417610b710532fe2eefbec12e64adc8b43f1201ec5166a220a9097de654d1465264a625bec885d511695287d957e366b4147955422f2443495525a1965213b34e400c6780ab1049a68e5a450febbed02dad457fe5e935395a927f5ac5e5487f498c112ff234d3e348dfad0dfa2cf813e5dd59355d5871c17ea8890e561a555fdef8d17b0495d3ca41801cf82d1a66aa05ed59b7a0759c86f92743ffaa9aaa11aa9115967ac849ac4abe76aaa66f24ecdd50256558ec3689b6fb30b7cc4e352b497c126a7aaa6f6d4be3a08f600e90ebfa4c766fb8066aa1e23a8a58e20076ecb431a6b4815d097fad6afad2fe0c3acc9ae34aa212fd4b13a51a71c213ccf9f44fc06af4bbec8ba8ce219419b3375ae2e5413b2cb206ad3fb6a6dfd2beb4bb88b6ac19d4e4193b6ba8c52a367ad47c8cabce733027895402b828fc978f52cdd01b29bba52d7ea469c40dc0c544bdd7e753fe197d67dbc93936d18eb8e34c1084099d6f558e6bca6681d91bb4b2e5fab4b75af1ec4098c1956e16fb44b5c4f82a5fbea116cb2a50ab0864fd3c833caaee42bc906abab095bb1ae8a4bde565fb12766b6962a8537bec49102af8e3578cc9db00a883f6597b09e58c85d355506efba464dc81279eb044d866a98f3960afc54213f6015d3521f111574926433ac053ebc15ff926918582b58917146fbd8f1c1baf627f218081d7a8ca1749085dbe05dec374b7936678da9aa80dc975aab9236e1f9aa32da8b339de927fdac5fc44277a2ec613e5276e6f84934d55ddd534f50e1a8d8ab66ab3de86aec7cc92e35988b819ceabee862c4a7b95fce49510f3d80197dd56ffa5d0fc5a91ae8916ceab19e40955282bab9ada77aa6e77aa16b2a6641bd172cba124dd568bb89aee97d8df51a77dba1a35b8e5ff32b76d18750393a5dd7475a730e0e63ea866ea02630cc31da439fe8537d26aff4b9bed04dd5d72ddd86fa39746883d0db406eea28ab2ff515d8eb1aeae631ddf150dfe4f4497e07f7bbd577d0efec4317578fdabcfe71bbc475bea8efd5ab7e80f52497758226649518affa516fe982bcd4455d82d1bbe0157de82d3f72cf2e64f4d0eb583983b5bda8b7f58edec5d536c5df2c45e10c2c3c13155d866c53967bba02f55ae8ea2e9635f9d0e62bf558a85874d5c8382a65a37cee31218f4d4c78916dcb1899196b1c7fa246bd58cb51078d751dacbe7b50507a9309a94fcc13e7c4941567699ca6799625f312fbd13de84b353d3b58cbd0c92e1b73369d39361dd3555754a72ffb3566e58ae999bec974c50ce2f9af608f7e8cd6f059502d173408fd7d2d6a86ff3e9937f36e863176a6e17e54414f53cd3d352333d69766029ab8d86d7c12fd6497d5156818a3bd2787c12b74cb4cd50b8ef5b122aa711829d84455cdccccd500e64daf8e00a30bd0e4dc2c2017bd44db0ce0538b911c769f7aa6a6a766cfec8336b31833cb15449c2d73600e4ddd1cc5bd9de18aac2bf1b2a932089a480f15441f3aad1dd358ca5e791fab286dc6e6d89c4086e8c51d89e40174af7358bb07a14235a770ceb63933e7e6c234e55e7b645af0b78e1e9bb6b90cd1b856a1c611cd95b93637e6d6bc9a3bd086ef8dbb886b796cb532087b5ce61eb419c9b9da864eab123db9caabe347ef611ecca3ee4327d5e12a70cd363ec41c48d1900766cb144cd194ccb67c902d888146acec3b66c7ec9ab29888d58a0675793215b50536ce4cd5dca627216a392296e285e7318b19b46742773a3027d0fd9673ddc9946ac1b802581053f4c1bb3a6967c9afe5fea13cb20afebe67b535505886bd80965e586b1d68f32eea70ecd87a9bd9a7b8ceced67ea6a26c9f751db4790debff8fd7fda5273f2f1f358f54ba6f5f8255700549311fab11ddb51ddb054d6a6813f048de89cd578247720cf3afc5b6edd93e6882913db603fb6a6eec1b5c730675d6897dd74f54e9ad5574aa628776146be74f73ee46bb84ddeb215674762cde8c8a56c965175ca7e1fe13dbb553aa3c8f40938ffde17cc60cb5ee9e38003bcca01b9ec6baad28a6766e17f2c1bcc9b978806b1b762c1fed0cab9b655d601ea7b666f764d1be81e7c71af1a776415b74a9976bc843b365f743f607ffca57918771aeaeec812cd8c398210c4638ed862fd90572a1009bd4c126cde0a9f6488df48d6dc0ef77f6d89e40dc84d983f1eca9be5567ebba44ef6ed9335593fbd1f3d7626579ddcf791977a57355167d7bbe9c8be1ce500d87fc652f6c53662a64a272f4a450993f51bd1434d8e5d901db3dd856a85762855f4d2b53f0b419acff63d006eea19c6ddbcb64999598012fbbb2d79cc348e64feae46497678ae42e54758f6214a33d5f2be1ef993e839c6fedcd924d794d3eb2b7b107f5525b0f9adc814d3efa938fee07565fb36f0aa2049d77590eedbd7d10595a29f39699d847b3a75b718d59c45538a7d55a3d96ec026786f55be89190f1ceab3d62a8be5eed962e41a5f2bad6b92e64d916e40e66023db6455b12ad581f8ca285a7d493d5491f6fb7ed0ed459700f3d510ffa1572d964d92ad12f321dea31936a8a28ef87b76db4cb0b6813a45376578858c9e6ac42f5790baafa73582fec860ef6c8166c19e207b288f5a60071d2fae8b4a8769ca49c08f5b0add8aacae26c5e3850082abf155de29863279c42bbe4e5fdd42ee1e81e7859f85dcb16ac0613915bbda877827cefb4be905da81ed77a717b2bcb71df7f2e06f2ca99585dcf6c23e79f93b4331872c881b3ce414c05e9821d7bea72a35d26d069d6a387f597ab97cd7689560b2b52b48b6c0bbd5c15475dc25db51eea66a88997aa7afac4ec3c375bcebb0c7ac8d56a946a61fa6f453fdbb67b825513e61c3ae243f7ec5e566b71cc9cae232f21fac92e9fe7b19c5db47c8bbeae21f2cd06bbc0f8ae6b8ceb85f981685c5d4f4255b2e7face438eea7c484535507ea6a76e604b10f9d77a22ebe20eae1bcbbaaa294d764951ea5ea305a76a0bfa986cf3dabfd12ea1bf1ec5dda32b6157e627eaa207ee0dbadf56c827304fdd954ee119eb2e7b1c3471efac49ae332129ddc00d6d1132ff63ac357cdc13d5d0cdbd89e54a06a374aacedc08ecd7fd15bbc0670cbf1fb8716ef78874895254a0c315d0fd1aa8f4ba6b773d962d53803819474d363fbb885d8f9bd8a29bca791b3b681b7bceaef16e162a9d8f0e93bc136a26f9e0e6d12e597c56bdb6bee4f341b44d37ced140c2ca25fc4a36c14aace516b2096b7cf0a6d0699dc7aae708d77859852cdc876a8577c6967631632e9b84dad7d5dc5e88b9b82301be009dda30f636a7f20e32df2c55e5497f75671e0d3e07c2ecbcdeeff3ba129e90f2ef3666e6fb0dbac4cc030df138746aa20e1258da5b1c87277d76eaf65529cac2d5747ee712feeb0ec0bb0e5ddd3e981bb97047d0d7dcc94e7b142bd461f050d780ac9cecf7f103d1550ff92ecaea36edc3e47a405c577cdc59cbc2fcd06ed8b29fc3eaa63d442b548d141f03d170c771bfa60aa3ddb9c15a17925fa18631e24edca9aab9b3980707d1260d771e67f0d414489715cb407c5dc8661b63f960599355bbb4f9494158f74305730ff1b2aecb0c463a13d761e73a3e55083b7061d7e84080bd5c333ee79b58dea5598f95b85e828f75cda3dd95fbd0bf94c1be37411b5913b761eddfac0bccec996bc5484876f9248f717d8bef4e04bb3c88c5265d445367b20423ef867a2bf6ed0d5819b7210bf7316a697f683977adde65ae4aae0d6bd8565c8fc2b3ca302387ee52cf928f2ee9a2417b7d11675cfd64dde7fa38f696a0f7b17a154f1bb2d05455f593bc94b558cd837740a57c6075584f42b5029a0cb15a21ab7cf8d7c75a835559cb75d5ab398b4f5c71b7093281aebb2b957f8e91b4521ddbd31ff5b15dcf636b76e945af99cba9c9dc758ade7c3e9dea67d986f3cee1bc0e48d2813ec7ba1baaea97779797bbc4946343e50bd47413790b5dd83644fe08eb0579e96e63c596aee27d7877e7ee753154953fadc7d82ea1a3d2d08deec9827b58ef59c3f338fda2a7e05947e0eb3df86cc37ad28c36a9af3c8dd9d0f1c66e9b3222fc3e5133f7e8b6c42dcda482b5fd21f6b1abba406d0eb33bc76a7f5593cd76414bc7e86abb42ac26aa987db0868acf1633d3362f71ef6b20bd1d9b628c9321e4db9c8fb38fe99b58c5e57b97a5a70276e18aae147a46b0cd8e1be9eed2d3b62a7d2676e8b6212375373f1bfbe8f757e225ec3dcdcd8ddbb173ec5f683f9c77b0c76e57f7a987ecb8b229058fc12a3a3eedca3d558ecf89676abc94d33e569ce04d635781be25ecb3cc3554f6b45272252a6956e6ae2adbbaf4d9fb19b97e9fdfbdb3f10d9df069e8898fbd183f9548be03e3eb8517a61ef622db2373e155f4b021e91a7d27c505ac8c719f3bffc4752997845e59692fd4c06b75ec0dfbc2872e61f7022439335bdeae545b2b7659d907ecc42737cfa166157d514bbe9b64f050a5e99ab6e0657b71a7aee9bc5e843d165a55ea826c81b9d7c3ff628ffcf1e46b2933867d0cddb10b9fe96df8745387fce163214fd4c469f4b094c3a45bb54baad43fde897c82cf30be7b54f44ff8042b2f43b47ac53ffb17adc23b2baa2f5bf6c477143e3799e6fb1351f15db3eb7b3e54686b7d7c8aaaf844d00ffc2be4904a2ed63e2c37f16ffa52eee3f317894f810fd6ecc2758d263d43e46710d105e811c7fe1d771d929f095e1ffcd08f5c29c40b7c4eacb6af76119f2fe77a46a83a267e2c2f4d661e5d9756c04d2b67787234f3133f8d7ba42bcf4542e673033f5365f548fb63966ab2cfed92d7d3fa396833535ba21dc6413f4b2b7ac86a63bd6b32b0610fbaa899ea43a6f0ae16679fb2a8ba7343bf805a78e16b76d7b5419be6a60e2064f2d84fe457a0a56a1facb2271f7de8084e537cffc82ecbdff0e8f97da8935efd810f7b744917cacb43153cb805d178e20fa1aa1cc8775f373766cf82f791a7c5fe84d6e9b1dcf747bee1266bef94b19f85e7d087394b25abc5a8834ed61ffb1371179f272ffbd1ba5d563b2ace15c7661ea211e293f272f408da515657e65ddf89475867acdc91353d86b8398dfb285e3fbb3d15624e41df6842efe8b6a0d039cbedc1acfbda661f9caa773d93d5b882e7771297dea2ffc2f34a67bbfe3c3eb318b12ee0bf55ae76cd832dfa0b39812af30cb409cf520abe692bbe29ef5c3f66900eac810359860ae55996ec966f7df4ce98f7567e56ed06b6f4e1ddcd03a8607987373cfbccef2e8a2f3daf3c10d7e2cc5fc2dc8cf9d935ed74458f80ec73aa6766471e8aa22d8886ccfc95bff637ce41df1ede41aec59a6d0b2a9db0ebbeed6ffd9d9dd979ea393fff99b266bae6effd439c0dbfbc37f1693db6d92e5d6fc5a92dc59e37d71de6d76dffe8b7ac8f6b0df498ea516eabcc9cc427a561373754f243a840c3ee1ff427ae24de4ca8a8276b3b7a9b350afb62e18db85d3f8f7dd5d29344b9f65cec87da34f4857d866cb6fa066235bd6b3837659bf902d4bb0dec45e23bfb5d88d4f7f0169d0abb7fa04da844e17efbb2a4af207f57637f30da20fd523ef3455ff2db72ece7908d1acbcf777ed12ec69cea96dfb1c3d41fadf415a1de82dcd5869ee61156b38b38d2809e220de3bbcb65d588bdbc894f37842e19ef77fd007a69ccee1b7ed23b4c4d5f865ca843b4873e369f993eef5f3ef95877646e8df1635f497bf52bcf7a69e57676e6abf24e8fe23b2c90d5c571b4d1517a026ee3be5b5f42e59ec94c642a37ff6bd609da643a339995cd907da3f4cf7fce2eb036f4ed75e6321fdf8699e6a4ff88dff09c31d4216759666155834eed34eeebe8f8b6bb8ffd67c84173e84f76f4581d674f7e903d7fb67796fb6f337b81f8f2ba02d7fbf43ecc86b7e2be122fc6ca5751c83a5937eba94eaeffc88ffc914d27c29a83acef176a5bd5b281f1717fa7ae27901d4ab20875b0d0f3ec15d6ac4a7a1a325dd3216f9f8a5e646f50ed5762b534e02a78d5d3bef49ed241f61ef68d613e4536a47713b19ae1774af2711456d0aaba53675a6723fd66857a96f7b62deffd7b0695bd39d05d7c1a13a36294d3e5b33c06f5857ec926aa077971904d69a7cfad7ada97f2d8697cceb2905d7d9fcdb279cca6b3953e78b5bb8a3fe07773d15407f01376da5aa2b2b2a67cfe1e73fe27d40963b0cdc28438c4672f6ee9fdd82faf2f608f12be7394bdebba7a705dec3062df9eafcd57fbacd52a9123ba9a7b97712dda37d66ae1edab8ebb5517592dff7d993fb0beb86c0fdfa032b7baa9ebd9be33fa31de7f90deb85a1e7b99872b726fd2789ab4d96019558976f6d901c4cc6bfee9c8afe5b1f6083aad0bdd0ecf598236d97b7698d5758f9e5d4f37f589184ff93575c5669f572f9ffc1db4811c901d658ddcfefeafaf2f223ec97321031817562c71a455769c9de893e0ff3f79831f3a7f25e83dd11f6b118f66fa932c0d9a40be3f855c18bff7c479ec57ed226ec511d458613d6fd81bd5cace64c86de7d9852e6feead7e32d3cbd1cf3b4dd3b89618fad6c9921e620c76c9dcae2c40fec2f565ededae2fda65ed7964981753cf9aa6609ecde8a7daac6ab0aa4b15bff703755739b3d94bfecd5f11777cc31a0cc75a61e7227d1fe6f3f7fa7e58c5ac69f20cf9a42e8fc54065595b3f982bf344e32ec7ee866a672593d3faaa6b5afa921ed9dd504387fe06bad2f778740e9a4cd53978d771782b7e934c7fc22e8df81c4b43bd7be22e214b6f6797d915e4820aef5ae0bbb1ead0bdaebead8bfbb3f1bd59fe6e5245bdfbb6bfd77d1fbe0de78c77f7fa25be5530c1880fdf56f0055d17b7f83eedea2cff4abc2c6b84d9207e5fef10d6e13d5d513be6460db26bd7146da87c97bb924d5981f75926c2f93d3b83eef7d23fc07dc7e1b981ae88ab6c12b599c4270a5dbb6fbdae433616a2f12319ffc8f7f8e47bdcd7cce27726a1261085f09ebf3fca6e6c2fbb754dfb98befbb6da3ba6efbea9cbec2ebbcf1ee463f6087dfc01f437a1d30a3dfc93aee8be78cbb6b242b009d46e102761e73cd8243ce9fa4cae3ff4fd4acc8a8df80ddc3964ecbbf03c19d69f63b04fcd18b3a79d13e02e1df0f333dd55770e3a157507bf75dc9d7eb54357b57563f4a52a7b0b9eaa4307173a2d7a1b2883fb96608d2f82bea7e625c689a0b759c59f5bf7573ffa30be27abe3bb62e06de6c8dc992af490ddace46b720e5a1d38a5ebf2521dbb917c308fb6ee2ec49979f40b88856df9a8067a6aeaba84ef0680a44ff1b975233e79ed987bf8fd451e7a9d35a226dd581f2fcde41fce63eb5e16f69b7bf13bdf427ab44bd8b732f7e1771a017a1ef0f1133737753bd517d9b6bed0635377536fe9bd7296089f9674639715be431e6ae141d8410c92cb46fc17bfb91ddeb37d5ecf487fdc2e9f64eb8fbfe1db37e96deba559c0b7af37dd6bedadc30d7b761bc7ff53f1f2234dc26791d326bd53b49ad937fb3c6a45fb914b7ffff9ff37c69fb1cb06c9f09b1dcbb6c8a8733ad8f01e3ebf8f897b90b97d6deab4446e8f5be77788377dbebeeeffc02eab7f5ff222f8fd80fbc04d33c07b904b7505755a648fefb3cbc65e212fd5ca9c7de645eb7f470df58fbcef8bbef145bb7cd6f9e4efb4f47ce06b9ae8e4791becb564a31f68f4cb79ecb308ff91f7fd60c40dc7977b9170ee6eeefc4de3a6fbfa79b6f3ad7659cf43cb51faa934f9f397b27aee9e3f98053827db81cae70fd4c93f3befbb3e5f1def7bd6fdbfe7e7affeff85fbdffcfcbfb2cb7fffdb6fff035d4770ec</data>
-    </image>
-</images>
 <connections>
     <connection>
         <sender>tocListBox</sender>
@@ -222,10 +220,22 @@
         <slot>itemFrameSelected(const QString&amp;)</slot>
     </connection>
     <connection>
-        <sender>itemStyleComboBox</sender>
+        <sender>itemParagraphStyleComboBox</sender>
         <signal>activated(const QString&amp;)</signal>
         <receiver>TOCIndexPrefs</receiver>
-        <slot>itemStyleSelected(const QString&amp;)</slot>
+        <slot>itemParagraphStyleSelected(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>itemNumberPlacementComboBox</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>TOCIndexPrefs</receiver>
+        <slot>itemPageNumberPlacedSelected(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>tocNameLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>TOCIndexPrefs</receiver>
+        <slot>setToCName(const QString&amp;)</slot>
     </connection>
 </connections>
 <includes>
@@ -237,11 +247,17 @@
     <forward>class ScribusDoc</forward>
 </forwards>
 <variables>
+    <variable>QString strPNNotShown;</variable>
+    <variable>QString strPNEnd;</variable>
+    <variable>QString strPNBeginning;</variable>
+    <variable>QString trStrPNNotShown;</variable>
+    <variable>QString trStrPNEnd;</variable>
+    <variable>QString trStrPNBeginning;</variable>
     <variable>ToCSetupVector localToCSetupVector;</variable>
-    <variable>QString trNone;</variable>
+    <variable>QString trStrNone;</variable>
     <variable>ScribusDoc *currDoc;</variable>
     <variable>QString selectedTOCAttrName;</variable>
-    <variable>QString none;</variable>
+    <variable>QString strNone;</variable>
 </variables>
 <slots>
     <slot>setup( ToCSetupVector * tocsetups, ScribusDoc * doc )</slot>
@@ -252,7 +268,9 @@
     <slot>deleteToC()</slot>
     <slot>itemAttributeSelected( const QString &amp; itemAttributeName )</slot>
     <slot>itemFrameSelected( const QString &amp; frameName )</slot>
-    <slot>itemStyleSelected( const QString &amp; itemStyle )</slot>
+    <slot>itemPageNumberPlacedSelected( const QString &amp; pageLocation )</slot>
+    <slot>itemParagraphStyleSelected( const QString &amp; itemStyle )</slot>
+    <slot>setToCName( const QString &amp; newName )</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
@@ -261,5 +279,5 @@
     <function>enableGUIWidgets()</function>
     <function returnType="ToCSetupVector *">getNewToCs()</function>
 </functions>
-<layoutdefaults spacing="6" margin="11"/>
+<layoutdefaults spacing="6" margin="0"/>
 </UI>

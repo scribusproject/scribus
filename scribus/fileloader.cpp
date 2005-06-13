@@ -18,6 +18,7 @@
 #include "fontreplacedialog.h"
 #include "units.h"
 #include "pluginmanager.h"
+#include "pagestructs.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -817,7 +818,14 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						tocsetup.name=tocElem.attribute("Name");
 						tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 						tocsetup.frameName=tocElem.attribute("FrameName");
-						tocsetup.style=tocElem.attribute("Style");
+						tocsetup.textStyle=tocElem.attribute("Style");
+						QString numberPlacement=tocElem.attribute("NumberPlacement");
+						if (numberPlacement=="Beginning")
+							tocsetup.pageLocation=Beginning;
+						if (numberPlacement=="End")
+							tocsetup.pageLocation=End;
+						if (numberPlacement=="NotShown")
+							tocsetup.pageLocation=NotShown;
 						doc->docToCSetups.append(tocsetup);
 					}
 					TOC = TOC.nextSibling();

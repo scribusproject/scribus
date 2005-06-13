@@ -18,6 +18,7 @@
 #include <qobject.h>
 
 class ScribusDoc;
+class PageItem;
 
 /**
 @author Craig Bradney
@@ -35,6 +36,7 @@ class TOCGenerator : public QObject
 		void generateDefault();
 
 	private:
+		PageItem* findTargetFrame(const QString &targetFrameName);
 		ScribusDoc *currDoc;
 };
 

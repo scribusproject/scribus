@@ -13,8 +13,20 @@
 
 void TOCIndexPrefs::init()
 {
-	trNone=QT_TR_NOOP("None");
-	none="None";
+	trStrNone=QT_TR_NOOP("None");
+	strNone="None";
+	trStrPNBeginning=QT_TR_NOOP("At the beginning");
+	strPNBeginning="At the beginning";
+	trStrPNEnd=QT_TR_NOOP("At the end");
+	strPNEnd="At the end";
+	trStrPNNotShown=QT_TR_NOOP("Not Shown");
+	strPNNotShown="Not Shown";
+	
+	itemNumberPlacementComboBox->clear();
+	itemNumberPlacementComboBox->insertItem(trStrPNEnd);	
+	itemNumberPlacementComboBox->insertItem(trStrPNBeginning);
+	itemNumberPlacementComboBox->insertItem(trStrPNNotShown);
+	itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
 }
 
 
@@ -43,7 +55,7 @@ void TOCIndexPrefs::setup( ToCSetupVector* tocsetups, ScribusDoc *doc)
 void TOCIndexPrefs::generatePageItemList()
 {
 	itemDestFrameComboBox->clear();
-	itemDestFrameComboBox->insertItem(trNone);
+	itemDestFrameComboBox->insertItem(trStrNone);
 	if (currDoc!=NULL)
 	{
 		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
@@ -60,8 +72,10 @@ void TOCIndexPrefs::generatePageItemList()
 void TOCIndexPrefs::setupItemAttrs( QStringList newNames )
 {
 	itemAttrComboBox->clear();
-	itemAttrComboBox->insertItem(trNone);
-	itemAttrComboBox->insertStringList(newNames);	
+	itemAttrComboBox->insertItem(trStrNone);
+	itemAttrComboBox->insertStringList(newNames);
+	itemParagraphStyleComboBox->clear();
+	itemParagraphStyleComboBox->insertItem(trStrNone);
 	selectToC(0);
 }
 
@@ -73,28 +87,53 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 		return;
 	if (localToCSetupVector.count()<num)
 		num=0;
-	if (localToCSetupVector[num].itemAttrName==none)
-		itemAttrComboBox->setCurrentText(trNone);
+	if (localToCSetupVector[num].itemAttrName==strNone)
+		itemAttrComboBox->setCurrentText(trStrNone);
 	else
 		itemAttrComboBox->setCurrentText(localToCSetupVector[num].itemAttrName);
-	if (localToCSetupVector[num].frameName==none)
-		itemDestFrameComboBox->setCurrentText(trNone);
+		
+	if (localToCSetupVector[num].frameName==strNone)
+		itemDestFrameComboBox->setCurrentText(trStrNone);
 	else
 		itemDestFrameComboBox->setCurrentText(localToCSetupVector[num].frameName);
-	if (localToCSetupVector[num].style==none)
-		itemStyleComboBox->setCurrentText(trNone);
+	if (localToCSetupVector[num].textStyle==strNone)
+		itemParagraphStyleComboBox->setCurrentText(trStrNone);
 	else
-		itemStyleComboBox->setCurrentText(localToCSetupVector[num].style);
+		itemParagraphStyleComboBox->setCurrentText(localToCSetupVector[num].textStyle);
+	if (localToCSetupVector[num].pageLocation==NotShown)
+		itemNumberPlacementComboBox->setCurrentText(trStrPNNotShown);
+	else
+		if (localToCSetupVector[num].pageLocation==Beginning)
+		itemNumberPlacementComboBox->setCurrentText(trStrPNBeginning);
+	else
+		itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
+	
+	if (numberSelected>=0)
+	{
+		disconnect(tocNameLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(setToCName(const QString &)));
+		tocNameLineEdit->setText(tocListBox->currentText());
+		connect(tocNameLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(setToCName(const QString &)));
+	}
 }
 
 
 void TOCIndexPrefs::addToC()
 {
+	bool found=false;
+	QString newName=tocNameLineEdit->text();
+	for(ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
+	{
+		if ((*it).name==newName)
+			found=true;
+	}
+	if (found || newName.isEmpty())
+		newName=QString("Table of Contents %1").arg(localToCSetupVector.count()+1);
 	ToCSetup newToCEntry;
-	newToCEntry.name=QString("New Table of Contents %1").arg(localToCSetupVector.count()+1);
-	newToCEntry.itemAttrName=none;
-	newToCEntry.frameName=none;
-	newToCEntry.style=none;
+	newToCEntry.name=newName;
+	newToCEntry.itemAttrName=strNone;
+	newToCEntry.frameName=strNone;
+	newToCEntry.textStyle=strNone;
+	newToCEntry.pageLocation=End;
 	localToCSetupVector.append(newToCEntry);
 	updateToCListBox();
 	tocListBox->setCurrentItem(localToCSetupVector.count()-1);
@@ -107,9 +146,7 @@ void TOCIndexPrefs::updateToCListBox()
 {
 	tocListBox->clear();
 	for(ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
-	{
 		tocListBox->insertItem((*it).name);
-	}
 }
 
 
@@ -119,8 +156,10 @@ void TOCIndexPrefs::enableGUIWidgets()
 	tocListBox->setEnabled(enabled);
 	tocDeleteButton->setEnabled(enabled);
 	itemAttrComboBox->setEnabled(enabled);
-	itemDestFrameComboBox->setEnabled(enabled);
-	itemStyleComboBox->setEnabled(enabled);
+	itemNumberPlacementComboBox->setEnabled(enabled);
+	bool haveDoc=enabled && currDoc!=NULL;
+	itemDestFrameComboBox->setEnabled(haveDoc);
+	itemParagraphStyleComboBox->setEnabled(haveDoc);
 }
 
 
@@ -149,8 +188,8 @@ void TOCIndexPrefs::itemAttributeSelected( const QString& itemAttributeName )
 		ToCSetupVector::Iterator it;
 		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
 			;
-		if (itemAttributeName==trNone)
-			(*it).itemAttrName=none;
+		if (itemAttributeName==trStrNone)
+			(*it).itemAttrName=strNone;
 		else
 			(*it).itemAttrName=itemAttributeName;
 	}
@@ -166,8 +205,8 @@ void TOCIndexPrefs::itemFrameSelected( const QString& frameName )
 		ToCSetupVector::Iterator it;
 		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
 			;
-		if (frameName==trNone)
-			(*it).frameName=none;
+		if (frameName==trStrNone)
+			(*it).frameName=strNone;
 		else
 			(*it).frameName=frameName;
 	}
@@ -175,7 +214,7 @@ void TOCIndexPrefs::itemFrameSelected( const QString& frameName )
 }
 
 
-void TOCIndexPrefs::itemStyleSelected( const QString& itemStyle )
+void TOCIndexPrefs::itemPageNumberPlacedSelected( const QString& pageLocation )
 {
 	int numberSelected=tocListBox->currentItem();
 	if (numberSelected>=0)
@@ -184,16 +223,49 @@ void TOCIndexPrefs::itemStyleSelected( const QString& itemStyle )
 		ToCSetupVector::Iterator it;
 		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
 			;
-		if (itemStyle==trNone)
-			(*it).style=none;
+		if (pageLocation==trStrPNBeginning || pageLocation==strPNBeginning)
+			(*it).pageLocation=Beginning;
 		else
-			(*it).style=itemStyle;
+		if (pageLocation==trStrPNEnd || pageLocation==strPNEnd)
+			(*it).pageLocation=End;
+		else
+			(*it).pageLocation=NotShown;
 	}
-
 }
 
+
+void TOCIndexPrefs::itemParagraphStyleSelected( const QString& itemStyle )
+{
+	int numberSelected=tocListBox->currentItem();
+	if (numberSelected>=0)
+	{
+		int i=0;
+		ToCSetupVector::Iterator it;
+		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
+			;
+		if (itemStyle==trStrNone)
+			(*it).textStyle=strNone;
+		else
+			(*it).textStyle=itemStyle;
+	}
+}
 
 ToCSetupVector* TOCIndexPrefs::getNewToCs()
 {
 	return &localToCSetupVector;
+}
+
+
+void TOCIndexPrefs::setToCName( const QString &newName )
+{
+	int numberSelected=tocListBox->currentItem();
+	if (numberSelected!=-1)
+	{
+		tocListBox->changeItem(newName, numberSelected);
+		int i=0;
+		ToCSetupVector::Iterator it;
+		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
+			;
+		(*it).name=newName;
+	}
 }

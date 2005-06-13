@@ -39,27 +39,34 @@ void TOCGenerator::setDoc(ScribusDoc *doc)
 	currDoc=doc;
 }
 
+PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
+{
+	PageItem* targetFrame=NULL;
+	if (currDoc!=NULL)
+	{
+		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+		{
+			if (currDoc->DocItems.at(d) !=NULL )
+			{
+				if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame && currDoc->DocItems.at(d)->itemName()==targetFrameName)
+				{
+					targetFrame=currDoc->DocItems.at(d);
+					break;
+				}
+			}
+		}
+	}
+	return targetFrame;
+}
+
 void TOCGenerator::generateDefault()
 {
 	if (currDoc==NULL)
 		return;
 	for(ToCSetupVector::Iterator tocSetupIt = currDoc->docToCSetups.begin() ; tocSetupIt != currDoc->docToCSetups.end(); ++tocSetupIt )
 	{
-		bool found=false;
-		uint d;
-		PageItem* tocFrame=NULL;
-		for (d = 0; d < currDoc->DocItems.count(), found==false; ++d)
-		{
-			if (currDoc->DocItems.at(d) !=NULL )
-			{
-				if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame && currDoc->DocItems.at(d)->itemName()==(*tocSetupIt).frameName)
-				{
-					found=true;
-					tocFrame=currDoc->DocItems.at(d);
-				}
-			}
-		}
-		if (found && tocFrame!=NULL)
+		PageItem* tocFrame=findTargetFrame((*tocSetupIt).frameName);
+		if (tocFrame!=NULL)
 		{
 			PageItem *currentDocItem;
 			QMap<QString, QString> tocMap;
