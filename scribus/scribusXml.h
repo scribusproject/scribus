@@ -39,7 +39,7 @@ public:
 					 QMap<QString,QString> &FontSub, ApplicationPrefs *Prefs, ScribusView *view);
 	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
+	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
 	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
 	void WritePref(ApplicationPrefs *Vor, QString ho);
 	bool ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash, bool import12);

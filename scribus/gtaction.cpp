@@ -79,10 +79,14 @@ void gtAction::clearFrame()
 	for (ScText *it = textFrame->itemText.first(); it != 0; it = textFrame->itemText.next())
 	{
 		if ((it->ch == QChar(25)) && (it->cembedded != 0))
-			ScApp->doc->Items.remove(it->cembedded);
+			ScApp->doc->FrameItems.remove(it->cembedded);
 	}
 	textFrame->itemText.clear();
 	textFrame->CPos = 0;
+	for (uint a = 0; a < ScApp->doc->FrameItems.count(); ++a)
+	{
+		ScApp->doc->FrameItems.at(a)->ItemNr = a;
+	}
 }
 
 void gtAction::write(const QString& text, gtStyle *style)
@@ -99,7 +103,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 					for (ScText *itx = nextItem->itemText.first(); itx != 0; itx = nextItem->itemText.next())
 					{
 						if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
-							ScApp->doc->Items.remove(itx->cembedded);
+							ScApp->doc->FrameItems.remove(itx->cembedded);
 					}
 					nextItem->itemText.clear();
 					nextItem->CPos = 0;
@@ -109,10 +113,14 @@ void gtAction::write(const QString& text, gtStyle *style)
 			for (ScText *itx = it->itemText.first(); itx != 0; itx = it->itemText.next())
 			{
 				if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
-					ScApp->doc->Items.remove(itx->cembedded);
+					ScApp->doc->FrameItems.remove(itx->cembedded);
 			}
 			it->itemText.clear();
 			it->CPos = 0;
+			for (uint a = 0; a < ScApp->doc->FrameItems.count(); ++a)
+			{
+				ScApp->doc->FrameItems.at(a)->ItemNr = a;
+			}
 		}
 	}
 	int paragraphStyle = -1;

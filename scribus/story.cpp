@@ -2691,10 +2691,19 @@ void StoryEditor::updateTextFrame()
 	PageItem* nb2 = nextItem;
 	while (nb2 != 0)
 	{
+		for (ScText *it = nb2->itemText.first(); it != 0; it = nb2->itemText.next())
+		{
+			if ((it->ch == QChar(25)) && (it->cembedded != 0))
+				doc->FrameItems.remove(it->cembedded);
+		}
 		nb2->itemText.clear();
 		nb2->CPos = 0;
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
+		for (uint a = 0; a < doc->FrameItems.count(); ++a)
+		{
+			doc->FrameItems.at(a)->ItemNr = a;
+		}
 	}
 	Editor->saveItemText(nextItem);
 	if (doc->docHyphenator->AutoCheck)

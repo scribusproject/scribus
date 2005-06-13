@@ -521,9 +521,12 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 		p->translate(hl->xco * p->zoomFactor(), (hl->yco - (hl->embedded->Height * (hl->scalev / 1000.0))) * p->zoomFactor());
 		if (hl->base != 0)
 			p->translate(0, -hl->embedded->Height * (hl->base / 1000.0) * p->zoomFactor());
+		double pws = hl->embedded->Pwidth;
+		hl->embedded->Pwidth *= QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
 		hl->embedded->DrawObj(p, e);
 		p->restore();
+		hl->embedded->Pwidth = pws;
 		for (int xxx=0; xxx<5; ++xxx)
 		{
 			Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
@@ -930,7 +933,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
 						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 						{
-							if ((docItem->textFlowsAroundFrame()) && (!docItem->isEmbedded))
+							if (docItem->textFlowsAroundFrame())
 							{
 								pp.begin(ScApp->view->viewport());
 								pp.translate(docItem->Xpos - Mp->Xoffset + Dp->Xoffset, docItem->Ypos - Mp->Yoffset + Dp->Yoffset);
@@ -964,7 +967,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					for (a = 0; a < Doc->Items.count(); ++a)
 					{
 						PageItem* docItem = Doc->Items.at(a);
-						if ((docItem->textFlowsAroundFrame()) && (!docItem->isEmbedded))
+						if (docItem->textFlowsAroundFrame())
 						{
 							pp.begin(ScApp->view->viewport());
 							pp.translate(docItem->Xpos, docItem->Ypos);
@@ -1001,7 +1004,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
 					if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 					{
-						if ((docItem->textFlowsAroundFrame()) && (!docItem->isEmbedded))
+						if (docItem->textFlowsAroundFrame())
 						{
 							pp.begin(ScApp->view->viewport());
 							pp.translate(docItem->Xpos, docItem->Ypos);

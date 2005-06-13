@@ -492,8 +492,6 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 					for (uint a = 0; a < page->FromMaster.count(); ++a)
 					{
 						currItem = page->FromMaster.at(a);
-						if (currItem->isEmbedded)
-							continue;
 						if (currItem->LayerNr != ll.LNr)
 							continue;
 						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->PageNr)))
@@ -614,8 +612,6 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 				 while ( (currItem = docItem.current()) != 0 )
 				 {
 					++docItem;
-					if (currItem->isEmbedded)
-						continue;
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if ((previewMode) && (!currItem->isPrintable))
@@ -2550,8 +2546,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				for (uint a = 0; a < Doc->Items.count(); ++a)
 				{
 					PageItem* docItem = Doc->Items.at(a);
-					if (docItem->isEmbedded)
-						continue;
 					p.begin(viewport());
 					Transform(docItem, &p);
 					QRegion apr = QRegion(p.xForm(docItem->Clip));
@@ -7283,11 +7277,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->Items.prev();
 			continue;
 		}
-		if (currItem->isEmbedded)
-		{
-			currItem = Doc->Items.prev();
-			continue;
-		}
 		if (currItem->LayerNr == Doc->ActiveLayer)
 		{
 			p.begin(this);
@@ -8066,7 +8055,7 @@ void ScribusView::ClearItem()
 					for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
 					{
 						if ((it->ch == QChar(25)) && (it->cembedded != 0))
-							Doc->Items.remove(it->cembedded);
+							Doc->FrameItems.remove(it->cembedded);
 					}
 					nextItem->itemText.clear();
 					nextItem->CPos = 0;
@@ -8097,17 +8086,10 @@ void ScribusView::ClearItem()
 				currItem->imageClip.resize(0);
 /*				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
 			}
-			for (uint a = 0; a < Doc->Items.count(); ++a)
+			for (uint a = 0; a < Doc->FrameItems.count(); ++a)
 			{
-				Doc->Items.at(a)->ItemNr = a;
-				if (Doc->Items.at(a)->isBookmark)
-					emit NewBMNr(Doc->Items.at(a)->BMnr, a);
+				Doc->FrameItems.at(a)->ItemNr = a;
 			}
-			if (Doc->masterPageMode)
-				Doc->MasterItems = Doc->Items;
-			else
-				Doc->DocItems = Doc->Items;
-			ScApp->outlinePalette->BuildTree(Doc);
 			updateContents();
 			emit DocChanged();
 		}
@@ -8153,7 +8135,7 @@ void ScribusView::DeleteItem()
 				for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
 				{
 					if ((it->ch == QChar(25)) && (it->cembedded != 0))
-						Doc->Items.remove(it->cembedded);
+						Doc->FrameItems.remove(it->cembedded);
 				}
 				if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
 				{
@@ -8214,6 +8196,10 @@ void ScribusView::DeleteItem()
 			Doc->Items.at(a)->ItemNr = a;
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
+		}
+		for (uint a = 0; a < Doc->FrameItems.count(); ++a)
+		{
+			Doc->FrameItems.at(a)->ItemNr = a;
 		}
 
 		if (anz > 1)
@@ -10932,6 +10918,19 @@ void ScribusView::updatePict(QString name)
 			AdjustPictScale(currItem);
 		}
 	}
+	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->FrameItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
 	updateContents();
 	emit DocChanged();
 }
@@ -10964,6 +10963,19 @@ void ScribusView::RecalcPicturesRes()
 			AdjustPictScale(currItem);
 		}
 	}
+	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->FrameItems.at(a);
+		if (currItem->PicAvail)
+		{
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			AdjustPictScale(currItem);
+		}
+	}
 	updateContents();
 	emit DocChanged();
 }
@@ -10984,6 +10996,15 @@ void ScribusView::removePict(QString name)
 	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
 	{
 		PageItem *currItem = Doc->MasterItems.at(a);
+		if ((currItem->PicAvail) && (currItem->Pfile == name))
+		{
+			currItem->PicAvail = false;
+			currItem->pixm = QImage();
+		}
+	}
+	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
+	{
+		PageItem *currItem = Doc->FrameItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
 		{
 			currItem->PicAvail = false;

@@ -255,13 +255,27 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		PageItem *nextItem = currItem->NextBox;
 		while (nextItem != 0)
 		{
+			for (ScText *itx = nextItem->itemText.first(); itx != 0; itx = nextItem->itemText.next())
+			{
+				if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
+					Carrier->doc->FrameItems.remove(itx->cembedded);
+			}
 			nextItem->itemText.clear();
 			nextItem->CPos = 0;
 			nextItem = nextItem->NextBox;
 		}
 	}
+	for (ScText *itx = currItem->itemText.first(); itx != 0; itx = currItem->itemText.next())
+	{
+		if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
+			Carrier->doc->FrameItems.remove(itx->cembedded);
+	}
 	currItem->itemText.clear();
 	currItem->CPos = 0;
+	for (uint a = 0; a < Carrier->doc->FrameItems.count(); ++a)
+	{
+		Carrier->doc->FrameItems.at(a)->ItemNr = a;
+	}
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
 		struct ScText *hg = new ScText;
@@ -618,8 +632,17 @@ PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
 		Carrier->deleteSelectedTextFromFrame(it);
 	else
 	{
+		for (ScText *itx = it->itemText.first(); itx != 0; itx = it->itemText.next())
+		{
+			if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
+				Carrier->doc->FrameItems.remove(itx->cembedded);
+		}
 		it->itemText.clear();
 		it->CPos = 0;
+		for (uint a = 0; a < Carrier->doc->FrameItems.count(); ++a)
+		{
+			Carrier->doc->FrameItems.at(a)->ItemNr = a;
+		}
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

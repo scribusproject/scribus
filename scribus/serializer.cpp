@@ -71,11 +71,15 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
 			{
 				if ((it->ch == QChar(25)) && (it->cembedded != 0))
-					doku->Items.remove(it->cembedded);
+					doku->FrameItems.remove(it->cembedded);
 			}
 			nextItem->itemText.clear();
 			nextItem->CPos = 0;
 			nextItem = nextItem->NextBox;
+		}
+		for (uint a = 0; a < doku->FrameItems.count(); ++a)
+		{
+			doku->FrameItems.at(a)->ItemNr = a;
 		}
 	}
 	for (a=0; a<Objekt.length(); ++a)

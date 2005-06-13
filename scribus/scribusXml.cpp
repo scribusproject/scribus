@@ -2742,38 +2742,52 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 	}
 }
 
-void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
+void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
 {
-	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
+	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
 	uint ObCount = maxC;
 	PageItem *item;
 	QDomElement ob;
 	uint objects;
-	if (master)
-		objects = doc->MasterItems.count();
-	else
-		objects = doc->DocItems.count();
+	switch (master)
+	{
+		case 0:
+			objects = doc->MasterItems.count();
+			break;
+		case 1:
+			objects = doc->DocItems.count();
+			break;
+		case 2:
+			objects = doc->FrameItems.count();
+			break;
+	}
 	for(uint j = 0; j < objects;++j)
 	{
 		ObCount++;
 		if (dia2 != 0)
 			dia2->setProgress(ObCount);
-		if (master)
+		switch (master)
 		{
-			item = doc->MasterItems.at(j);
-			ob = docu->createElement("MASTEROBJECT");
-		}
-		else
-		{
-			item = doc->DocItems.at(j);
-			ob = docu->createElement("PAGEOBJECT");
+			case 0:
+				item = doc->MasterItems.at(j);
+				ob = docu->createElement("MASTEROBJECT");
+				break;
+			case 1:
+				item = doc->DocItems.at(j);
+				ob = docu->createElement("PAGEOBJECT");
+				break;
+			case 2:
+				item = doc->FrameItems.at(j);
+				ob = docu->createElement("FRAMEOBJECT");
+				break;
 		}
 		SetItemProps(&ob, item, true);
 		ob.setAttribute("OnMasterPage", item->OnMasterPage);
 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
+		ob.setAttribute("isInline", static_cast<int>(item->isEmbedded));
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
@@ -2840,6 +2854,10 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tulw = item->itemText.at(k)->cunderwidth / 10.0;
 			tstp = item->itemText.at(k)->cstrikepos / 10.0;
 			tstw = item->itemText.at(k)->cstrikewidth / 10.0;
+			if ((item->itemText.at(k)->ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+				tobj = item->itemText.at(k)->cembedded->ItemNr;
+			else
+				tobj = -1;
 			if (item->itemText.at(k)->ch == QChar(13))
 				text = QChar(5);
 			else if (item->itemText.at(k)->ch == QChar(9))
@@ -2869,6 +2887,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				it.setAttribute("CULW",tulw);
 				it.setAttribute("CSTP",tstp);
 				it.setAttribute("CSTW",tstw);
+				if (tobj != -1)
+					it.setAttribute("COBJ", tobj);
 				ob.appendChild(it);
 				break;
 			}
@@ -2891,6 +2911,10 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
 			tstp2 = item->itemText.at(k)->cstrikepos / 10.0;
 			tstw2 = item->itemText.at(k)->cstrikewidth / 10.0;
+			if ((item->itemText.at(k)->ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+				tobj2 = item->itemText.at(k)->cembedded->ItemNr;
+			else
+				tobj2 = -1;
 			while ((ts2 == ts)
 						&& (tsb2 == tsb)
 						&& (tf2 == tf)
@@ -2909,6 +2933,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 						&& (tulw2 == tulw)
 						&& (tstp2 == tstp)
 						&& (tstw2 == tstw)
+						&& (tobj2 == tobj)
 						&& (tst2 == tst))
 			{
 				if (item->itemText.at(k)->ch == QChar(13))
@@ -2939,6 +2964,10 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
 				tstp2 = item->itemText.at(k)->cstrikepos / 10.0;
 				tstw2 = item->itemText.at(k)->cstrikewidth / 10.0;
+				if ((item->itemText.at(k)->ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
+					tobj = item->itemText.at(k)->cembedded->ItemNr;
+				else
+					tobj = -1;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2960,6 +2989,8 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			it.setAttribute("CULW",tulw);
 			it.setAttribute("CSTP",tstp);
 			it.setAttribute("CSTW",tstw);
+			if (tobj != -1)
+				it.setAttribute("COBJ", tobj);
 			k--;
 			ob.appendChild(it);
 		}
@@ -3399,13 +3430,14 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.appendChild(tocElem);
 	if (dia2 != 0)
 	{
-		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count());
+		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count()+doc->FrameItems.count());
 		dia2->setProgress(0);
 	}
 	WritePages(doc, &docu, &dc, dia2, 0, true);
 	WritePages(doc, &docu, &dc, dia2, doc->MasterPages.count(), false);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), true);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count(), false);
+	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), 0);
+	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count(), 1);
+	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count()+doc->FrameItems.count(), 2);
 	elem.appendChild(dc);
 /**
  * changed to enable saving

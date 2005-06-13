@@ -1424,7 +1424,7 @@ void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 		{
 			first = true;
 			if ((it->ch == QChar(25)) && (it->cembedded != 0))
-				doc->Items.remove(it->cembedded);
+				doc->FrameItems.remove(it->cembedded);
 			currItem->itemText.remove();
 			it = currItem->itemText.prev();
 			if (it == 0)
@@ -1446,17 +1446,10 @@ void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 	else
 		currItem->CPos = 0;
 	currItem->HasSel = false;
-	for (uint a = 0; a < doc->Items.count(); ++a)
+	for (uint a = 0; a < doc->FrameItems.count(); ++a)
 	{
-		doc->Items.at(a)->ItemNr = a;
-		if (doc->Items.at(a)->isBookmark)
-			bookmarkPalette->BView->ChangeItem(doc->Items.at(a)->BMnr, a);
+		doc->FrameItems.at(a)->ItemNr = a;
 	}
-	if (doc->masterPageMode)
-		doc->MasterItems = doc->Items;
-	else
-		doc->DocItems = doc->Items;
-	outlinePalette->BuildTree(doc);
 	DisableTxEdit();
 }
 
@@ -5760,6 +5753,16 @@ void ScribusApp::slotEditPaste()
 				doc->SnapGuides = savedAlignGuides;
 				PageItem* currItem2 = doc->Items.at(doc->Items.count()-1);
 				currItem2->isEmbedded = true;
+				currItem2->isAnnotation = false;
+				currItem2->isBookmark = false;
+				currItem2->ItemNr = doc->FrameItems.count();
+				doc->FrameItems.append(doc->Items.take(doc->Items.count()-1));
+				if (doc->masterPageMode)
+					doc->MasterItems = doc->Items;
+				else
+					doc->DocItems = doc->Items;
+				outlinePalette->BuildTree(doc);
+				outlinePalette->reopenTree(doc->OpenNodes);
 				hg = new ScText;
 				hg->ch = QChar(25);
 				hg->cfont = (*doc->AllFonts)[doc->CurrFont];
@@ -5794,6 +5797,7 @@ void ScribusApp::slotEditPaste()
 				hg->cextra = 0;
 				hg->cembedded = currItem2;
 				currItem->itemText.insert(currItem->CPos, hg);
+				currItem->CPos += 1;
 			}
 			else
 			{
@@ -10498,6 +10502,76 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
 		it = doc->Items.at(d);
+		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		{
+			for (uint e = 0; e < it->itemText.count(); ++e)
+			{
+				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
+				uint chr = it->itemText.at(e)->ch[0].unicode();
+				if ((chr == 13) || (chr == 32) || (chr == 29))
+					continue;
+				if (chr == 9)
+				{
+					for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
+					{
+						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
+						chr = chx[0].unicode();
+						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					}
+					for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
+					{
+						if (it->TabValues[t1].tabFillChar.isNull())
+							continue;
+						chx = QString(it->TabValues[t1].tabFillChar);
+						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+						{
+							if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
+								chx = chx.upper();
+						}
+						chr = chx[0].unicode();
+						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					}
+					continue;
+				}
+				if (chr == 30)
+				{
+					for (uint numco = 0x30; numco < 0x3A; ++numco)
+					{
+						if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
+						{
+							gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
+							it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
+						}
+					}
+					continue;
+				}
+				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+				{
+					chx = it->itemText.at(e)->ch;
+					if (chx.upper() != it->itemText.at(e)->ch)
+						chx = chx.upper();
+					chr = chx[0].unicode();
+				}
+				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
+				{
+					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+				}
+			}
+		}
+	}
+	for (uint d = 0; d < doc->FrameItems.count(); ++d)
+	{
+		it = doc->FrameItems.at(d);
 		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 		{
 			for (uint e = 0; e < it->itemText.count(); ++e)

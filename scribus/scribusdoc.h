@@ -125,6 +125,7 @@ public: // Public attributes
 	QPtrList<PageItem> Items;
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
+	QPtrList<PageItem> FrameItems;
   /** Pagewidth  */
 	double pageWidth;
   /** Pageheight */

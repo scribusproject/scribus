@@ -71,7 +71,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29))
+				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
 					continue;
 				if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
 				{
@@ -160,7 +160,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29))
+				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 28) || (chr == 27) || (chr == 26) || (chr == 25))
 					continue;
 				if ((currItem->itemText.at(e)->cstyle & 64) || (currItem->itemText.at(e)->cstyle & 32))
 				{

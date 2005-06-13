@@ -217,6 +217,36 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			ret = false;
 			break;
 	}
+	for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
+	{
+		PageItem *it = app->doc->MasterItems.at(d);
+		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		{
+			for (uint e = 0; e < it->itemText.count(); ++e)
+			{
+				ScText *hl = it->itemText.at(e);
+				if ((hl->ch == QChar(25)) && ((int)hl->cembedded != -1))
+					hl->cembedded = app->doc->FrameItems.at((int)hl->cembedded);
+				else
+					hl->cembedded = 0;
+			}
+		}
+	}
+	for (uint d = 0; d < app->doc->DocItems.count(); ++d)
+	{
+		PageItem *it = app->doc->DocItems.at(d);
+		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		{
+			for (uint e = 0; e < it->itemText.count(); ++e)
+			{
+				ScText *hl = it->itemText.at(e);
+				if ((hl->ch == QChar(25)) && ((int)hl->cembedded != -1))
+					hl->cembedded = app->doc->FrameItems.at((int)hl->cembedded);
+				else
+					hl->cembedded = 0;
+			}
+		}
+	}
 	if (ReplacedFonts.count() != 0)
 	{
 		if ((app->Prefs.askBeforeSubstituite) || (newReplacement))
@@ -971,9 +1001,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				else
 					Apage->XGuides.clear();
 			}
-			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT"))
+			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
-					if (pg.tagName()=="PAGEOBJECT")
+					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 					{
 						doc->Items = doc->DocItems;
 						doc->Pages = doc->DocPages;
@@ -1066,7 +1096,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
 					}
 					Neu->Language = app->GetLang(pg.attribute("LANGUAGE", doc->Language));
-					Neu->isAutoText=static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")));
+					Neu->isAutoText = static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")));
+					Neu->isEmbedded = static_cast<bool>(QStoInt(pg.attribute("isInline","0")));
 					if (Neu->LineSpMode == 3)
 					{
 						doc->docParagraphStyles[0].BaseAdj = true;
@@ -1080,7 +1111,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						TableItems.append(Neu);
 						TableID.insert(QStoInt(pg.attribute("OwnLINK","0")), Neu->ItemNr);
 					}
-					if (pg.tagName()=="PAGEOBJECT")
+					if (pg.tagName()=="FRAMEOBJECT")
+					{
+						doc->FrameItems.append(doc->Items.take(Neu->ItemNr));
+						Neu->ItemNr = doc->FrameItems.count()-1;
+					}
+					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 					{
 						doc->DocItems = doc->Items;
 						doc->DocPages = doc->Pages;
@@ -1230,6 +1266,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 	int ulw = qRound(QStodouble(it->attribute("CULW","-0.1")) * 10);
 	int stp = qRound(QStodouble(it->attribute("CSTP","-0.1")) * 10);
 	int stw = qRound(QStodouble(it->attribute("CSTW","-0.1")) * 10);
+	int iobj = QStoInt(it->attribute("COBJ","-1"));
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		hg = new ScText;
@@ -1266,7 +1303,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
-		hg->cembedded = 0;
+		hg->cembedded = (PageItem*)iobj;
 		obj->itemText.append(hg);
 	}
 	return;
@@ -1327,7 +1364,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 			IT=IT.nextSibling();
 		}
 		if (currItem->Pfile != "")
-			view->LoadPict(currItem->Pfile, z);
+			view->loadPict(currItem->Pfile, currItem, false);
 		currItem->LocalScX = scx;
 		currItem->LocalScY = scy;
 		clPath = obj->attribute("ImageClip", "");
