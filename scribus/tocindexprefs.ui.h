@@ -97,7 +97,10 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 		itemNumberPlacementComboBox->setCurrentText(trStrPNBeginning);
 	else
 		itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
-
+	
+	disconnect(itemListNonPrintingCheckBox, SIGNAL(toggled(bool)), this, SLOT(nonPrintingFramesSelected(bool)));
+	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[num].listNonPrintingFrames);
+	connect(itemListNonPrintingCheckBox, SIGNAL(toggled(bool)), this, SLOT(nonPrintingFramesSelected(bool)));	
 	if (currDoc!=NULL)
 	{	
 		if (localToCSetupVector[num].frameName==strNone)
@@ -137,6 +140,7 @@ void TOCIndexPrefs::addToC()
 	newToCEntry.frameName=strNone;
 	newToCEntry.textStyle=strNone;
 	newToCEntry.pageLocation=End;
+	newToCEntry.listNonPrintingFrames=false;
 	localToCSetupVector.append(newToCEntry);
 	updateToCListBox();
 	tocListBox->setCurrentItem(localToCSetupVector.count()-1);
@@ -284,5 +288,19 @@ void TOCIndexPrefs::setToCName( const QString &newName )
 		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
 			;
 		(*it).name=newName;
+	}
+}
+
+
+void TOCIndexPrefs::nonPrintingFramesSelected( bool showNonPrinting )
+{
+	int numberSelected=tocListBox->currentItem();
+	if (numberSelected>=0)
+	{
+		int i=0;
+		ToCSetupVector::Iterator it;
+		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
+			;
+		(*it).listNonPrintingFrames=showNonPrinting;
 	}
 }

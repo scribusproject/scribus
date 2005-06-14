@@ -977,7 +977,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	NoPrint->setOn(!i->isPrintable);
+	NoPrint->setOn(!i->printable());
 	setter = i->locked();
 	Kette2->setOn(false);
 	Width->setReadOnly(setter);
@@ -3217,7 +3217,7 @@ void Mpalette::handlePrint()
 	{
 		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
 		{
-			ScApp->view->SelItem.at(a)->isPrintable = !NoPrint->isOn();
+			ScApp->view->SelItem.at(a)->setPrintable(!NoPrint->isOn());
 		}
 		emit DocChanged();
 	}

@@ -71,7 +71,8 @@ class PageItem : public QObject, public UndoObject
 	Q_PROPERTY(QString language READ language WRITE setLanguage DESIGNABLE false)
 	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
 	Q_PROPERTY(bool textFlowUsesBoundingBox READ textFlowUsesBoundingBox WRITE setTextFlowUsesBoundingBox DESIGNABLE false)
-
+	Q_PROPERTY(bool isPrintable READ printable WRITE setPrintable DESIGNABLE false)
+	
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
 	// current state as plain integer properties.
@@ -297,8 +298,6 @@ struct TabRecord
 	int CPos;
   /** Text des Elements */
 	QPtrList<ScText> itemText;
-  /** Flag ob Element gedruckt wird */
-	bool isPrintable;
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
 	int BMnr;
@@ -771,6 +770,16 @@ struct TabRecord
 	 * Usually of the form 'Copy of <name>' or 'Copy of <name> (n)'
 	 */
 	QString generateUniqueCopyName(const QString originalName) const;
+	/**
+	 * @brief Is this item printed?
+	 * @sa setPrintable()
+	 */
+	bool printable() const;
+	/**
+	 * @brief Tells if the frame is set to be printed or not
+	 * @sa printable()
+	 */
+	void setPrintable(bool toPrint);
 
 protected:
 	/**
@@ -921,7 +930,7 @@ protected:
 
 	/**
 	 * @brief Should text flow around the item's contour line?
-	 * @sa PageItem::textFlowUsesContourLine(), PageItem::setTextFlowUsesContourLine
+	 * @sa PageItem::textFlowUsesContourLine(), PageItem::setTextFlowUsesContourLine()
 	 */
 	bool textFlowUsesContourLineVal;
 
@@ -930,6 +939,13 @@ protected:
 	 * @sa 
 	 */		  
 	ObjAttrVector pageItemAttributes;
+	
+	/**
+	 * @brief Is this item set to be printed/exported
+	 * @sa PageItem::printable(), PageItem::setPrintable()
+	 */		  
+	bool isPrintable;
+
 };
 
 #endif

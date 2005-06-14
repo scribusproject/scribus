@@ -1018,7 +1018,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
-				if (!ite->isPrintable || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
+				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
 				{
 					PutPage("Q\n");
 					continue;
@@ -1622,7 +1622,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
 						ite = pag->FromMaster.at(am);
-						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
+						if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
 							continue;
 						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 							continue;
@@ -1745,7 +1745,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
 						ite = pag->FromMaster.at(am);
-						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
+						if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
 							continue;
 						if (ite->ChangedMasterItem)
 							continue;
@@ -1896,7 +1896,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
-				if (!ite->isPrintable || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
+				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
 				{
 					PutPage("Q\n");
 					continue;
@@ -2339,7 +2339,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					PutPage("q\n");
 					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 						PDF_Transparenz(ite);
-					if (!ite->isPrintable)
+					if (!ite->printable())
 					{
 						PutPage("Q\n");
 						continue;

@@ -496,7 +496,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							continue;
 						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->PageNr)))
 							continue;
-						if ((previewMode) && (!currItem->isPrintable))
+						if ((previewMode) && (!currItem->printable()))
 							continue;
 						currItem->savedOwnPage = currItem->OwnPage;
 						double OldX = currItem->Xpos;
@@ -614,7 +614,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					++docItem;
 					if (currItem->LayerNr != ll.LNr)
 						continue;
-					if ((previewMode) && (!currItem->isPrintable))
+					if ((previewMode) && (!currItem->printable()))
 						continue;
 					if ((Doc->MasterP) && ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Doc->currentPage->PageNr))))
 						continue;
@@ -1646,7 +1646,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 				PrintCT->setText( tr("Print: "));
 				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
-				if (currItem->isPrintable == true)
+				if (currItem->printable())
 					PrintC->setText( tr("Enabled"));
 				else
 					PrintC->setText( tr("Disabled"));
@@ -11271,7 +11271,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->PLineArt = PenStyle(Buffer->PLineArt);
 	currItem->PLineEnd = PenCapStyle(Buffer->PLineEnd);
 	currItem->PLineJoin = PenJoinStyle(Buffer->PLineJoin);
-	currItem->isPrintable = Buffer->isPrintable;
+	currItem->setPrintable(Buffer->isPrintable);
 	currItem->isBookmark = Buffer->isBookmark;
 	currItem->BMnr = Buffer->BMnr;
 	currItem->isAnnotation = Buffer->isAnnotation;

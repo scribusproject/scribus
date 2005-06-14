@@ -848,6 +848,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						tocsetup.name=tocElem.attribute("Name");
 						tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 						tocsetup.frameName=tocElem.attribute("FrameName");
+						tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting");
 						tocsetup.textStyle=tocElem.attribute("Style");
 						QString numberPlacement=tocElem.attribute("NumberPlacement");
 						if (numberPlacement=="Beginning")
@@ -1473,7 +1474,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->PLineArt = Qt::PenStyle(QStoInt(obj->attribute("PLINEART")));
 	currItem->PLineEnd = Qt::PenCapStyle(QStoInt(obj->attribute("PLINEEND","0")));
 	currItem->PLineJoin = Qt::PenJoinStyle(QStoInt(obj->attribute("PLINEJOIN","0")));
-	currItem->isPrintable = QStoInt(obj->attribute("PRINTABLE"));
+	currItem->setPrintable(QStoInt(obj->attribute("PRINTABLE")));
 	currItem->isAnnotation = QStoInt(obj->attribute("ANNOTATION","0"));
 	currItem->AnType = QStoInt(obj->attribute("ANTYPE","0"));
 	QString AnName = obj->attribute("ANNAME","");

@@ -379,7 +379,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("ISIZE",item->ISize / 10.0 );
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	ob->setAttribute("RATIO", item->AspectRatio ? 1 : 0);
-	ob->setAttribute("PRINTABLE", item->isPrintable ? 1 : 0);
+	ob->setAttribute("PRINTABLE", item->printable() ? 1 : 0);
 	if(item->isAnnotation)
 	{
 		ob->setAttribute("ANNOTATION",1);
@@ -3412,6 +3412,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		tocsetup.setAttribute("Name", (*tocSetupIt).name);
 		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
 		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
+		tocsetup.setAttribute("ListNonPrinting", (*tocSetupIt).listNonPrintingFrames);
 		tocsetup.setAttribute("Style", (*tocSetupIt).textStyle);
 		switch ((*tocSetupIt).pageLocation)
 		{
@@ -3804,6 +3805,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		tocsetup.setAttribute("Name", (*tocSetupIt).name);
 		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
 		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
+		tocsetup.setAttribute("ListNonPrinting", (*tocSetupIt).listNonPrintingFrames);
 		tocsetup.setAttribute("Style", (*tocSetupIt).textStyle);
 		tocsetup.setAttribute("NumberPlacement", (*tocSetupIt).pageLocation);
 		tocElem.appendChild(tocsetup);
@@ -4213,6 +4215,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 					tocsetup.name=tocElem.attribute("Name");
 					tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 					tocsetup.frameName=tocElem.attribute("FrameName");
+					tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting");
 					tocsetup.textStyle=tocElem.attribute("Style");
 					QString numberPlacement=tocElem.attribute("NumberPlacement");
 					if (numberPlacement=="Beginning")

@@ -1200,7 +1200,7 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem)
 	Buffer->flippedV = currItem->imageFlippedV();
 	Buffer->BBoxX = currItem->BBoxX;
 	Buffer->BBoxH = currItem->BBoxH;
-	Buffer->isPrintable = currItem->isPrintable;
+	Buffer->isPrintable = currItem->printable();
 	Buffer->isBookmark = currItem->isBookmark;
 	Buffer->BMnr = currItem->BMnr;
 	Buffer->isAnnotation = currItem->isAnnotation;

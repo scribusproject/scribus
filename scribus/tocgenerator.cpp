@@ -86,6 +86,9 @@ void TOCGenerator::generateDefault()
 					//Item not on a page, continue
 					if (currentDocItem->OwnPage==-1)
 						continue;
+					//If we dont want to list non printing frames and this one is set to not print, continue
+					if (!(*tocSetupIt).listNonPrintingFrames && !currentDocItem->printable())
+						continue;
 					ObjectAttribute objattr=currentDocItem->getObjectAttribute((*tocSetupIt).itemAttrName);
 					if (objattr.name!=QString::null)
 					{

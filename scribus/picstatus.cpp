@@ -103,7 +103,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
-			cp2->setChecked(doc->MasterItems.at(i)->isPrintable);
+			cp2->setChecked(doc->MasterItems.at(i)->printable());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
 			PicTable->setCellWidget(Zeilen2, 4, cp2);
@@ -138,7 +138,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
-			cp2->setChecked(doc->Items.at(i)->isPrintable);
+			cp2->setChecked(doc->Items.at(i)->printable());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
 			PicTable->setCellWidget(Zeilen2, 4, cp2);
@@ -315,7 +315,7 @@ void PicStatus::PrintPic()
 	uint ItNr = ItemNrs[ZNr];
 //	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
 	if (PicTable->cellWidget(ZNr, 3)->isEnabled())
-		doc->Items.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
+		doc->Items.at(ItNr)->setPrintable(FlagsPic.at(ZNr)->isChecked());
 	else
-		doc->MasterItems.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
+		doc->MasterItems.at(ItNr)->setPrintable(FlagsPic.at(ZNr)->isChecked());
 }

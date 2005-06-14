@@ -25,6 +25,7 @@ struct ToCSetup
 	QString itemAttrName; //Attribute to Scan for
 	QString frameName; //Destination frame
 	TOCPageLocation pageLocation; //Place the page number for the TOC at the beginning, end or not at all
+	bool listNonPrintingFrames; //List non printing frames in the TOC
 	QString textStyle; //Paragraph style for text
 	//QString leaderParaStyle; //Paragraph style for leaders
 	//QString pageNumberParaStyle; //Paragraph style for page numbers

@@ -4830,3 +4830,13 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 	assert(!nameExists(newname));
 	return newname;
 }
+
+bool PageItem::printable() const
+{
+	return isPrintable;
+}
+ 
+void PageItem::setPrintable(bool toPrint)
+{
+	isPrintable=toPrint;
+}
