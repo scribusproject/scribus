@@ -2031,7 +2031,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 		return tmp;
 	if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 		return tmp;
-	PutPage("q\n");
+	tmp += "q\n";
 	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 		PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options->Bookmarks))

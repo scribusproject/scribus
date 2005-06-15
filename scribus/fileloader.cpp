@@ -290,6 +290,20 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				}
 			}
 		}
+		for (uint d = 0; d < app->doc->FrameItems.count(); ++d)
+		{
+			PageItem *it = app->doc->FrameItems.at(d);
+			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
+				it->IFont = ReplacedFonts[it->IFont];
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			{
+				for (uint e = 0; e < it->itemText.count(); ++e)
+				{
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				}
+			}
+		}
 		for (uint a = 0; a < app->doc->docParagraphStyles.count(); ++a)
 		{
 			if ((!app->doc->UsedFonts.contains(app->doc->docParagraphStyles[a].Font)) && (app->doc->docParagraphStyles[a].Font != ""))

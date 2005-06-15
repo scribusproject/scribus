@@ -501,6 +501,13 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 {
 	if (hl->embedded != 0)
 	{
+		if (!Doc->DoDrawing)
+		{
+			hl->embedded->Redrawn = true;
+			hl->embedded->Tinput = false;
+			hl->embedded->FrameOnly = false;
+			return;
+		}
 		struct ParagraphStyle vg;
 		QValueList<ParagraphStyle> savedParagraphStyles;
 		for (int xxx=0; xxx<5; ++xxx)
@@ -524,10 +531,36 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			p->translate(0, -hl->embedded->Height * (hl->base / 1000.0) * p->zoomFactor());
 			hl->embedded->Ypos -= hl->embedded->Height * (hl->base / 1000.0);
 		}
+		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
+//		hl->embedded->Dirty = true;
+		double sc;
+		hl->embedded->DrawObj_Pre(p, sc);
+		switch(hl->embedded->itemType())
+		{
+			case ImageFrame:
+				hl->embedded->DrawObj_ImageFrame(p, sc);
+				break;
+			case TextFrame:
+				hl->embedded->DrawObj_TextFrame(p, e, sc);
+				break;
+			case Line:
+				hl->embedded->DrawObj_Line(p);
+				break;
+			case Polygon:
+				hl->embedded->DrawObj_Polygon(p);
+				break;
+			case PolyLine:
+				hl->embedded->DrawObj_PolyLine(p);
+				break;
+			case PathText:
+				hl->embedded->DrawObj_PathText(p, sc);
+				break;
+			default:
+				break;
+		}
 		double pws = hl->embedded->Pwidth;
 		hl->embedded->Pwidth *= QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
-		hl->embedded->DrawObj(p, e);
+		hl->embedded->DrawObj_Post(p);
 		p->restore();
 		hl->embedded->Pwidth = pws;
 		for (int xxx=0; xxx<5; ++xxx)
@@ -926,20 +959,56 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
 				int LayerLev = Layer2Level(Doc, LayerNr);
-				if (OnMasterPage != "")
+				if (!isEmbedded)
 				{
-					Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
-					Page* Dp = Doc->Pages.at(savedOwnPage);
-					for (a = 0; a < Doc->MasterItems.count(); ++a)
+					if (OnMasterPage != "")
 					{
-						PageItem* docItem = Doc->MasterItems.at(a);
-						int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
-						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
+						Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
+						Page* Dp = Doc->Pages.at(savedOwnPage);
+						for (a = 0; a < Doc->MasterItems.count(); ++a)
 						{
+							PageItem* docItem = Doc->MasterItems.at(a);
+							int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
+							if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
+							{
+								if (docItem->textFlowsAroundFrame())
+								{
+									pp.begin(ScApp->view->viewport());
+									pp.translate(docItem->Xpos - Mp->Xoffset + Dp->Xoffset, docItem->Ypos - Mp->Yoffset + Dp->Yoffset);
+									pp.rotate(docItem->Rot);
+									if (docItem->textFlowUsesBoundingBox())
+									{
+										QPointArray tcli;
+										tcli.resize(4);
+										tcli.setPoint(0, QPoint(0,0));
+										tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
+										tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
+										tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
+										cm = QRegion(pp.xForm(tcli));
+									}
+									else
+									{
+										if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+										{
+											QValueList<uint> Segs;
+											QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+											cm = QRegion(pp.xForm(Clip2));
+										}
+										else
+											cm = QRegion(pp.xForm(docItem->Clip));
+									}
+									pp.end();
+									cl = cl.subtract(cm);
+								}
+							}
+						}
+						for (a = 0; a < Doc->Items.count(); ++a)
+						{
+							PageItem* docItem = Doc->Items.at(a);
 							if (docItem->textFlowsAroundFrame())
 							{
 								pp.begin(ScApp->view->viewport());
-								pp.translate(docItem->Xpos - Mp->Xoffset + Dp->Xoffset, docItem->Ypos - Mp->Yoffset + Dp->Yoffset);
+								pp.translate(docItem->Xpos, docItem->Ypos);
 								pp.rotate(docItem->Rot);
 								if (docItem->textFlowUsesBoundingBox())
 								{
@@ -970,71 +1039,38 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					for (a = 0; a < Doc->Items.count(); ++a)
 					{
 						PageItem* docItem = Doc->Items.at(a);
-						if (docItem->textFlowsAroundFrame())
+						int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
+						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 						{
-							pp.begin(ScApp->view->viewport());
-							pp.translate(docItem->Xpos, docItem->Ypos);
-							pp.rotate(docItem->Rot);
-							if (docItem->textFlowUsesBoundingBox())
+							if (docItem->textFlowsAroundFrame())
 							{
-								QPointArray tcli;
-								tcli.resize(4);
-								tcli.setPoint(0, QPoint(0,0));
-								tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
-								tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
-								tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
-								cm = QRegion(pp.xForm(tcli));
-							}
-							else
-							{
-								if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+								pp.begin(ScApp->view->viewport());
+								pp.translate(docItem->Xpos, docItem->Ypos);
+								pp.rotate(docItem->Rot);
+								if (docItem->textFlowUsesBoundingBox())
 								{
-									QValueList<uint> Segs;
-									QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
-									cm = QRegion(pp.xForm(Clip2));
+									QPointArray tcli;
+									tcli.resize(4);
+									tcli.setPoint(0, QPoint(0,0));
+									tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
+									tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
+									tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
+									cm = QRegion(pp.xForm(tcli));
 								}
 								else
-									cm = QRegion(pp.xForm(docItem->Clip));
-							}
-							pp.end();
-							cl = cl.subtract(cm);
-						}
-					}
-				}
-				for (a = 0; a < Doc->Items.count(); ++a)
-				{
-					PageItem* docItem = Doc->Items.at(a);
-					int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
-					if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
-					{
-						if (docItem->textFlowsAroundFrame())
-						{
-							pp.begin(ScApp->view->viewport());
-							pp.translate(docItem->Xpos, docItem->Ypos);
-							pp.rotate(docItem->Rot);
-							if (docItem->textFlowUsesBoundingBox())
-							{
-								QPointArray tcli;
-								tcli.resize(4);
-								tcli.setPoint(0, QPoint(0,0));
-								tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
-								tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
-								tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
-								cm = QRegion(pp.xForm(tcli));
-							}
-							else
-							{
-								if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 								{
-									QValueList<uint> Segs;
-									QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
-									cm = QRegion(pp.xForm(Clip2));
+									if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+									{
+										QValueList<uint> Segs;
+										QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+										cm = QRegion(pp.xForm(Clip2));
+									}
+									else
+										cm = QRegion(pp.xForm(docItem->Clip));
 								}
-								else
-									cm = QRegion(pp.xForm(docItem->Clip));
+								pp.end();
+								cl = cl.subtract(cm);
 							}
-							pp.end();
-							cl = cl.subtract(cm);
 						}
 					}
 				}
@@ -1229,7 +1265,17 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 						{
 							wide = hl->cembedded->Width + hl->cembedded->Pwidth;
-							asce = hl->cembedded->Height + hl->cembedded->Pwidth;
+							if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+								asce = Doc->typographicSetttings.valueBaseGrid * DropLines;
+							else
+							{
+								if (Doc->docParagraphStyles[absa].LineSpaMode == 0)
+									asce = Doc->docParagraphStyles[absa].LineSpa * DropLines;
+								else
+									asce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[absa].FontSize) * DropLines;
+							}
+							hl->cscalev = qRound(asce / (hl->cembedded->Height + hl->cembedded->Pwidth) * 1000.0);
+							hl->cscale = hl->cscalev;
 						}
 						else
 						{
@@ -1243,7 +1289,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					{
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 						{
-							asce = hl->cembedded->Height + hl->cembedded->Pwidth;
+							asce = hl->cfont->numAscent * (hl->csize / 10.0);
 							desc2 = 0;
 							desc = 0;
 						}
