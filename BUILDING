@@ -202,7 +202,7 @@ More info in the README.
 Red Hat / Fedora
 ================
 
-Recommended packages for compiling from source on FC3:
+Recommended packages for compiling from source on FC3 / FC4:
 	qt-devel (Required)
 	freetype-devel (Required)
 	libart_lgpl-devel (Required)
@@ -214,9 +214,12 @@ Recommended packages for compiling from source on FC3:
 	lcms-devel
 
 You can install these packages with 'yum install packagename' as root. You may
-need to run up2date first to set up your yum configuration. Be patient - the
-first time you run yum it will take a long time to download the headers for all
-the security updates that have been released.
+need to run up2date first to set up your yum configuration (not required on
+FC4). Be patient - the first time you run yum it may take a long time to
+download the headers for all the security updates that have been released.
+
+You may also need to 'export QTDIR=/usr/lib/qt-3.3' before running
+configure or make.
 
 More info in the README.
 
