@@ -1178,7 +1178,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									PS_translate(0, -ite->Height);
 									PS_scale(1, -1);
 								}
-								setTextSt(Doc, ite, gcr, a);
+								setTextSt(Doc, ite, gcr, a, mPage, sep, farb, Ic, true);
 								if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
@@ -1285,7 +1285,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	PS_close();
 }
 
-void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master)
+void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded)
 {
 	int h, s, v, k, tsz;
 	uint d;
@@ -1309,9 +1309,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		PS_setlinewidth(c->Pwidth);
 		PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 		PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-		PS_translate(c->Xpos - a->Xoffset, Doc->pageHeight - (c->Ypos - a->Yoffset));
-		if (c->Rot != 0)
-			PS_rotate(-c->Rot);
+		if (!embedded)
+		{
+			PS_translate(c->Xpos - a->Xoffset, Doc->pageHeight - (c->Ypos - a->Yoffset));
+			if (c->Rot != 0)
+				PS_rotate(-c->Rot);
+		}
 		switch (c->itemType())
 		{
 		case PageItem::ImageFrame:
@@ -1428,7 +1431,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_translate(0, -c->Height);
 				PS_scale(1, -1);
 			}
-			setTextSt(Doc, c, gcr, PNr-1);
+			setTextSt(Doc, c, gcr, PNr-1, a, sep, farb, ic, master);
 			if (((c->lineColor() != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 			{
 				SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
@@ -1966,7 +1969,7 @@ void PSLib::SetFarbe(ScribusDoc* Doc, QString farb, int shade, int *h, int *s, i
 	*k = k1 * shade / 100;
 }
 
-void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
+void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
 	struct ScText *hl;
 	double tabDist;
@@ -2044,9 +2047,9 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 						hl3.cunderwidth = hl2.cunderwidth;
 						hl3.cstrikepos = hl2.cstrikepos;
 						hl3.cstrikewidth = hl2.cstrikewidth;
-						setTextCh(Doc, ite, gcr, a, d, &hl3);
+						setTextCh(Doc, ite, gcr, a, d, &hl3, pg, sep, farb, ic, master);
 					}
-					setTextCh(Doc, ite, gcr, a, d, &hl2);
+					setTextCh(Doc, ite, gcr, a, d, &hl2, pg, sep, farb, ic, master);
 				}
 				tabCc++;
 				continue;
@@ -2081,14 +2084,14 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a)
 			hl2.cunderwidth = hl->cunderwidth;
 			hl2.cstrikepos = hl->cstrikepos;
 			hl2.cstrikewidth = hl->cstrikewidth;
-			setTextCh(Doc, ite, gcr, a, d, &hl2);
+			setTextCh(Doc, ite, gcr, a, d, &hl2, pg, sep, farb, ic, master);
 		}
-		setTextCh(Doc, ite, gcr, a, d, hl);
+		setTextCh(Doc, ite, gcr, a, d, hl, pg, sep, farb, ic, master);
 		tabDist = hl->xp + Cwidth(Doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
 	}
 }
 
-void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, struct ScText *hl)
+void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, struct ScText *hl, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
 	QString chx;
 	int h, s, v, k, tsz;
@@ -2112,9 +2115,20 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			}
 		}
 	}
-/* just for being save for now, remove later */
-	if (hl->ch == QChar(25))
-		chx = " ";
+	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+	{
+		PS_save();
+		PS_translate(hl->xp, (hl->yp - (hl->cembedded->Height * (hl->cscalev / 1000.0))) * -1);
+		if (hl->cbase != 0)
+			PS_translate(0, hl->cembedded->Height * (hl->cbase / 1000.0));
+		if (hl->cscale != 100)
+			PS_scale(hl->cscale / 1000.0, 1);
+		if (hl->cscalev != 100)
+			PS_scale(1, hl->cscalev / 1000.0);
+		ProcessItem(Doc, pg, hl->cembedded, a, sep, farb, ic, gcr, master, true);
+		PS_restore();
+		return;
+	}
 	if (hl->ch == QChar(29))
 		chx = " ";
 	if (hl->ch == QChar(24))

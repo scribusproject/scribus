@@ -520,7 +520,10 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 		hl->embedded->Ypos = Ypos + (hl->yco - (hl->embedded->Height * (hl->scalev / 1000.0)));
 		p->translate(hl->xco * p->zoomFactor(), (hl->yco - (hl->embedded->Height * (hl->scalev / 1000.0))) * p->zoomFactor());
 		if (hl->base != 0)
+		{
 			p->translate(0, -hl->embedded->Height * (hl->base / 1000.0) * p->zoomFactor());
+			hl->embedded->Ypos -= hl->embedded->Height * (hl->base / 1000.0);
+		}
 		double pws = hl->embedded->Pwidth;
 		hl->embedded->Pwidth *= QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
@@ -797,7 +800,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
 					if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-						Zli3.wide = hl->cembedded->Width * (hl->cscale / 1000.0);
+						Zli3.wide = (hl->cembedded->Width + hl->cembedded->Pwidth) * (hl->cscale / 1000.0);
 					else
 						Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 					if (hl->cstyle & 16384)
@@ -1193,7 +1196,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					else
 					{
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-							chs = qRound(hl->cembedded->Height * 10);
+							chs = qRound((hl->cembedded->Height+ + hl->cembedded->Pwidth) * 10);
 						else
 							chs = hl->csize;
 					}
@@ -1205,7 +1208,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					else
 						chx2 = chx;
 					if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-						wide = hl->cembedded->Width;
+						wide = hl->cembedded->Width + hl->cembedded->Pwidth;
 					else
 					{
 						if (a < MaxText-1)
@@ -1225,8 +1228,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					{
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 						{
-							wide = hl->cembedded->Width;
-							asce = hl->cembedded->Height;
+							wide = hl->cembedded->Width + hl->cembedded->Pwidth;
+							asce = hl->cembedded->Height + hl->cembedded->Pwidth;
 						}
 						else
 						{
@@ -1240,7 +1243,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					{
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 						{
-							asce = hl->cembedded->Height;
+							asce = hl->cembedded->Height + hl->cembedded->Pwidth;
 							desc2 = 0;
 							desc = 0;
 						}
@@ -1878,7 +1881,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 									currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 								else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-									currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+									currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 								else
 									currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -1890,7 +1893,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-										currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+										currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 									else
 										currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 								}
@@ -1907,7 +1910,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
 								double currasce;
 								if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-									currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+									currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 								else
 									currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -1919,7 +1922,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-										currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+										currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 									else
 									currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 								}
@@ -2159,7 +2162,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 							currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 						else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-							currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+							currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 						else
 							currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2171,7 +2174,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-								currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+								currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 							else
 								currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 						}
@@ -2188,7 +2191,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
 						double currasce;
 						if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-							currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+							currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 						else
 							currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2200,7 +2203,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-								currasce = QMAX(currasce, Zli2->embedded->Height * (Zli2->scalev / 1000.0));
+								currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 							else
 								currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 						}

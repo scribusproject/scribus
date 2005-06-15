@@ -1113,7 +1113,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if ((ite->fillColor() != "None") || (ite->GrType != 0))
 						{
 							if (ite->GrType != 0)
-								PDF_Gradient(ite);
+								PutPage(PDF_Gradient(ite));
 							else
 							{
 								PutPage(SetClipPath(ite));
@@ -1131,7 +1131,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
-							PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
+							PutPage(PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender));
 						PutPage("Q\n");
 						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
@@ -1228,7 +1228,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					case PageItem::FrameType3:
 					case PageItem::Polygon:
 						if (ite->GrType != 0)
-							PDF_Gradient(ite);
+							PutPage(PDF_Gradient(ite));
 						else
 						{
 							if (ite->fillColor() != "None")
@@ -1260,7 +1260,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if ((ite->PoLine.size() > 3) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
 							if (ite->GrType != 0)
-								PDF_Gradient(ite);
+								PutPage(PDF_Gradient(ite));
 							else
 							{
 								if (ite->fillColor() != "None")
@@ -1389,7 +1389,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutPage("Q\n");
 							}
 						}
-						PutPage(setTextSt(ite, pag->PageNr));
+						PutPage(setTextSt(ite, pag->PageNr, pag));
 						break;
 					}
 				PutPage("Q\n");
@@ -1707,7 +1707,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							if ((ite->fillColor() != "None") || (ite->GrType != 0))
 							{
 								if (ite->GrType != 0)
-									PDF_Gradient(ite);
+									PutPage(PDF_Gradient(ite));
 								else
 								{
 									PutPage(SetClipPath(ite));
@@ -1719,7 +1719,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 							if (ite->imageFlippedV())
 								PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
-							PutPage(setTextSt(ite, PNr));
+							PutPage(setTextSt(ite, PNr, pag));
 							PutPage("Q\n");
 							if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 							{
@@ -1874,447 +1874,11 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 			for (uint a = 0; a < PItems.count(); ++a)
 			{
-				ite =PItems.at(a);
+				ite = PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
-				int x = static_cast<int>(pag->Xoffset);
-				int y = static_cast<int>(pag->Yoffset);
-				int w = static_cast<int>(pag->Width);
-				int h1 = static_cast<int>(pag->Height);
-				int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
-				int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
-				int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
-				int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
-				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
-					continue;
-				if (ite->ChangedMasterItem)
-					continue;
-				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
-					continue;
-				PutPage("q\n");
-				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
-					PDF_Transparenz(ite);
-				if ((ite->isBookmark) && (Options->Bookmarks))
-					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
-				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
-				{
-					PutPage("Q\n");
-					continue;
-				}
-				if (ite->fillColor() != "None")
-					PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
-				if (ite->lineColor() != "None")
-					PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-				Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
-				if (ite->DashValues.count() != 0)
-				{
-					PutPage("[ ");
-					QValueList<double>::iterator it;
-					for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
-					{
-						int da = static_cast<int>(*it);
-						if (da != 0)
-							PutPage(IToStr(da)+" ");
-					}
-					PutPage("] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n");
-				}
-				else
-				{
-					QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-					QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
-					switch (ite->PLineArt)
-					{
-						case Qt::SolidLine:
-							PutPage("[] 0 d\n");
-							break;
-						case Qt::DashLine:
-							PutPage("["+Da+" "+Dt+"] 0 d\n");
-							break;
-						case Qt::DotLine:
-							PutPage("["+Dt+"] 0 d\n");
-							break;
-						case Qt::DashDotLine:
-							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-							break;
-						case Qt::DashDotDotLine:
-							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-							break;
-						default:
-							PutPage("[] 0 d\n");
-							break;
-					}
-				}
-				switch (ite->PLineEnd)
-				{
-					case Qt::FlatCap:
-						PutPage("0 J\n");
-						break;
-					case Qt::SquareCap:
-						PutPage("2 J\n");
-						break;
-					case Qt::RoundCap:
-						PutPage("1 J\n");
-						break;
-					default:
-						PutPage("0 J\n");
-						break;
-				}
-				switch (ite->PLineJoin)
-				{
-					case Qt::MiterJoin:
-						PutPage("0 j\n");
-						break;
-					case Qt::BevelJoin:
-						PutPage("2 j\n");
-						break;
-					case Qt::RoundJoin:
-						PutPage("1 j\n");
-						break;
-					default:
-						PutPage("0 j\n");
-						break;
-				}
-				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->pageHeight - (ite->Ypos  - pag->Yoffset))+" cm\n");
-				if (ite->Rot != 0)
-				{
-					double sr = sin(-ite->Rot* M_PI / 180.0);
-					double cr = cos(-ite->Rot* M_PI / 180.0);
-					if ((cr * cr) < 0.000001)
-						cr = 0;
-					if ((sr * sr) < 0.000001)
-						sr = 0;
-					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
-				}
-				switch (ite->itemType())
-				{
-					case PageItem::ImageFrame:
-						if ((ite->fillColor() != "None") || (ite->GrType != 0))
-						{
-							if (ite->GrType != 0)
-								PDF_Gradient(ite);
-							else
-							{
-								PutPage(SetClipPath(ite));
-								PutPage("h\nf*\n");
-							}
-						}
-						PutPage("q\n");
-						if (ite->imageClip.size() != 0)
-							PutPage(SetClipPathImage(ite));
-						else
-							PutPage(SetClipPath(ite));
-						PutPage("h\nW*\nn\n");
-						if (ite->imageFlippedH())
-							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
-						if (ite->imageFlippedV())
-							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
-						if ((ite->PicAvail) && (ite->Pfile != ""))
-							PDF_Image(ite, ite->Pfile, ite->LocalScX,
-									 ite->LocalScY, ite->LocalX, -ite->LocalY,
-									 false, ite->IProfile, ite->UseEmbedded,
-									  ite->IRender);
-						PutPage("Q\n");
-						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
-						{
-							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
-							{
-								PutPage(SetClipPath(ite));
-								PutPage("h\nS\n");
-							}
-							else
-							{
-								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
-								}
-							}
-						}
-						break;
-					case PageItem::TextFrame:
-						if ((ite->isAnnotation) && (Options->Version != 12))
-						{
-							PDF_Annotation(ite, PNr);
-							break;
-							}
-						if ((ite->fillColor() != "None") || (ite->GrType != 0))
-						{
-							if (ite->GrType != 0)
-								PDF_Gradient(ite);
-							else
-							{
-								PutPage(SetClipPath(ite));
-								PutPage("h\nf*\n");
-							}
-						}
-						PutPage("q\n");
-						if (ite->imageFlippedH())
-							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
-						if (ite->imageFlippedV())
-							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
-						PutPage(setTextSt(ite, PNr));
-						PutPage("Q\n");
-						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
-						{
-							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
-							{
-								PutPage(SetClipPath(ite));
-								PutPage("h\nS\n");
-							}
-							else
-							{
-								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
-								}
-							}
-						}
-						break;
-					case PageItem::Line:
-						if (ite->NamedLStyle == "")
-						{
-							PutPage("0 0 m\n");
-							PutPage(FToStr(ite->Width)+" 0 l\n");
-							PutPage("S\n");
-						}
-						else
-						{
-							multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								PutPage(setStrokeMulti(&ml[it]));
-								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->Width)+" 0 l\n");
-								PutPage("S\n");
-							}
-						}
-						if (ite->startArrowIndex != 0)
-						{
-							QWMatrix arrowTrans;
-							FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
-							arrowTrans.translate(0, 0);
-							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
-							arrowTrans.scale(-1,1);
-							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
-							{
-								StartObj(ObjCounter);
-								QString ShName = ResNam+IToStr(ResCount);
-								Transpar[ShName] = ObjCounter;
-								ResCount++;
-								ObjCounter++;
-								PutDoc("<< /Type /ExtGState\n");
-								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
-								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
-								PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
-								PutDoc("/BM /Normal\n>>\nendobj\n");
-								PutPage("/"+ShName+" gs\n");
-							}
-							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-							PutPage(SetClipPathArray(&arrow));
-							PutPage("h\nf*\n");
-						}
-						if (ite->endArrowIndex != 0)
-						{
-							QWMatrix arrowTrans;
-							FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
-							arrowTrans.translate(ite->Width, 0);
-							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
-							arrow.map(arrowTrans);
-							if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
-							{
-								StartObj(ObjCounter);
-								QString ShName = ResNam+IToStr(ResCount);
-								Transpar[ShName] = ObjCounter;
-								ResCount++;
-								ObjCounter++;
-								PutDoc("<< /Type /ExtGState\n");
-								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
-								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
-								PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
-								PutDoc("/BM /Normal\n>>\nendobj\n");
-								PutPage("/"+ShName+" gs\n");
-							}
-							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-							PutPage(SetClipPathArray(&arrow));
-							PutPage("h\nf*\n");
-						}
-						break;
-					case PageItem::FrameType1:
-					case PageItem::FrameType3:
-					case PageItem::Polygon:
-						if (ite->GrType != 0)
-							PDF_Gradient(ite);
-						else
-						{
-							if (ite->fillColor() != "None")
-							{
-								PutPage(SetClipPath(ite));
-								PutPage("h\nf*\n");
-							}
-						}
-						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
-						{
-							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
-							{
-								PutPage(SetClipPath(ite));
-								PutPage("h\nS\n");
-							}
-							else
-							{
-								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
-								}
-							}
-						}
-						break;
-					case PageItem::PolyLine:
-						if (ite->PoLine.size() > 4)  // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
-						{
-							if (ite->GrType != 0)
-								PDF_Gradient(ite);
-							else
-							{
-								if (ite->fillColor() != "None")
-								{
-									PutPage(SetClipPath(ite));
-									PutPage("h\nf*\n");
-								}
-							}
-						}
-						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
-						{
-							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
-							{
-								PutPage(SetClipPath(ite, false));
-								PutPage("S\n");
-							}
-							else
-							{
-								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite, false));
-									PutPage("S\n");
-								}
-							}
-						}
-						if (ite->startArrowIndex != 0)
-						{
-							FPoint Start = ite->PoLine.point(0);
-							for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
-							{
-								FPoint Vector = ite->PoLine.point(xx);
-								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-								{
-									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-									QWMatrix arrowTrans;
-									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
-									arrowTrans.translate(Start.x(), Start.y());
-									arrowTrans.rotate(r);
-									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
-									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
-									{
-										StartObj(ObjCounter);
-										QString ShName = ResNam+IToStr(ResCount);
-										Transpar[ShName] = ObjCounter;
-										ResCount++;
-										ObjCounter++;
-										PutDoc("<< /Type /ExtGState\n");
-										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
-										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
-										PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
-										PutDoc("/BM /Normal\n>>\nendobj\n");
-										PutPage("/"+ShName+" gs\n");
-									}
-									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-									PutPage(SetClipPathArray(&arrow));
-									PutPage("h\nf*\n");
-									break;
-								}
-							}
-						}
-						if (ite->endArrowIndex != 0)
-						{
-							FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
-							for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
-							{
-								FPoint Vector = ite->PoLine.point(xx);
-								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-								{
-									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-									QWMatrix arrowTrans;
-									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
-									arrowTrans.translate(End.x(), End.y());
-									arrowTrans.rotate(r);
-									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
-									arrow.map(arrowTrans);
-									if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
-									{
-										StartObj(ObjCounter);
-										QString ShName = ResNam+IToStr(ResCount);
-										Transpar[ShName] = ObjCounter;
-										ResCount++;
-										ObjCounter++;
-										PutDoc("<< /Type /ExtGState\n");
-										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
-										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
-										PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
-										PutDoc("/BM /Normal\n>>\nendobj\n");
-										PutPage("/"+ShName+" gs\n");
-									}
-									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
-									PutPage(SetClipPathArray(&arrow));
-									PutPage("h\nf*\n");
-									break;
-								}
-							}
-						}
-						break;
-					case PageItem::PathText:
-						if (ite->PoShow)
-						{
-							if (ite->PoLine.size() > 3)
-							{
-								PutPage("q\n");
-								if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
-								{
-									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
-									{
-										PutPage(SetClipPath(ite, false));
-										PutPage("S\n");
-									}
-									else
-									{
-										multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-										for (int it = ml.size()-1; 
-											it > -1; it--)
-											{
-											PutPage(setStrokeMulti(&ml[it]));
-											PutPage(SetClipPath(ite, false));
-											PutPage("S\n");
-											}
-									}
-								}
-								PutPage("Q\n");
-							}
-						}
-						PutPage(setTextSt(ite, PNr));
-						break;
-					}
-				PutPage("Q\n");
-				}
+				PutPage(PDF_ProcessItem(ite, pag, PNr));
+			}
 				for (uint a = 0; a < PItems.count(); ++a)
 				{
 					ite = PItems.at(a);
@@ -2450,6 +2014,449 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	}
 }
 
+QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded)
+{
+	QString tmp = "";
+	int x = static_cast<int>(pag->Xoffset);
+	int y = static_cast<int>(pag->Yoffset);
+	int w = static_cast<int>(pag->Width);
+	int h1 = static_cast<int>(pag->Height);
+	int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
+	int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
+	int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
+	int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
+	if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+		return tmp;
+	if (ite->ChangedMasterItem)
+		return tmp;
+	if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+		return tmp;
+	PutPage("q\n");
+	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
+		PDF_Transparenz(ite);
+	if ((ite->isBookmark) && (Options->Bookmarks))
+		PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
+	if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
+	{
+		tmp += "Q\n";
+		return tmp;
+	}
+	if (ite->fillColor() != "None")
+		tmp += putColor(ite->fillColor(), ite->fillShade(), true);
+	if (ite->lineColor() != "None")
+		tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+	tmp += FToStr(fabs(ite->Pwidth))+" w\n";
+	if (ite->DashValues.count() != 0)
+	{
+		PutPage("[ ");
+		QValueList<double>::iterator it;
+		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+		{
+			int da = static_cast<int>(*it);
+			if (da != 0)
+				tmp += IToStr(da)+" ";
+		}
+		tmp += "] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n";
+	}
+	else
+	{
+		QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
+		QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+		switch (ite->PLineArt)
+		{
+			case Qt::SolidLine:
+				tmp += "[] 0 d\n";
+				break;
+			case Qt::DashLine:
+				tmp += "["+Da+" "+Dt+"] 0 d\n";
+				break;
+			case Qt::DotLine:
+				tmp += "["+Dt+"] 0 d\n";
+				break;
+			case Qt::DashDotLine:
+				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				break;
+			case Qt::DashDotDotLine:
+				tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+				break;
+			default:
+				tmp += "[] 0 d\n";
+				break;
+		}
+	}
+	switch (ite->PLineEnd)
+	{
+		case Qt::FlatCap:
+			tmp += "0 J\n";
+			break;
+		case Qt::SquareCap:
+			tmp += "2 J\n";
+			break;
+		case Qt::RoundCap:
+			tmp += "1 J\n";
+			break;
+		default:
+			tmp += "0 J\n";
+			break;
+	}
+	switch (ite->PLineJoin)
+	{
+		case Qt::MiterJoin:
+			tmp += "0 j\n";
+			break;
+		case Qt::BevelJoin:
+			tmp += "2 j\n";
+			break;
+		case Qt::RoundJoin:
+			tmp += "1 j\n";
+			break;
+		default:
+			tmp += "0 j\n";
+			break;
+	}
+	if (!embedded)
+	{
+		tmp += "1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->pageHeight - (ite->Ypos  - pag->Yoffset))+" cm\n";
+		if (ite->Rot != 0)
+		{
+			double sr = sin(-ite->Rot* M_PI / 180.0);
+			double cr = cos(-ite->Rot* M_PI / 180.0);
+			if ((cr * cr) < 0.000001)
+				cr = 0;
+			if ((sr * sr) < 0.000001)
+				sr = 0;
+			tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n";
+		}
+	}
+	switch (ite->itemType())
+	{
+		case PageItem::ImageFrame:
+			if ((ite->fillColor() != "None") || (ite->GrType != 0))
+			{
+				if (ite->GrType != 0)
+					tmp += PDF_Gradient(ite);
+				else
+				{
+					tmp += SetClipPath(ite);
+					tmp += "h\nf*\n";
+				}
+			}
+			tmp += "q\n";
+			if (ite->imageClip.size() != 0)
+				tmp += SetClipPathImage(ite);
+			else
+				tmp += SetClipPath(ite);
+			tmp += "h\nW*\nn\n";
+			if (ite->imageFlippedH())
+				tmp += "-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n";
+			if (ite->imageFlippedV())
+				tmp += "1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n";
+			if ((ite->PicAvail) && (ite->Pfile != ""))
+				tmp += PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
+			tmp += "Q\n";
+			if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+			{
+				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				{
+					tmp += SetClipPath(ite);
+					tmp += "h\nS\n";
+				}
+				else
+				{
+					multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						tmp += setStrokeMulti(&ml[it]);
+						tmp += SetClipPath(ite);
+						tmp += "h\nS\n";
+					}
+				}
+			}
+			break;
+		case PageItem::TextFrame:
+			if ((ite->isAnnotation) && (Options->Version != 12))
+			{
+				PDF_Annotation(ite, PNr);
+				break;
+				}
+			if ((ite->fillColor() != "None") || (ite->GrType != 0))
+			{
+				if (ite->GrType != 0)
+					tmp += PDF_Gradient(ite);
+				else
+				{
+					tmp += SetClipPath(ite);
+					tmp += "h\nf*\n";
+				}
+			}
+			tmp += "q\n";
+			if (ite->imageFlippedH())
+				tmp += "-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n";
+			if (ite->imageFlippedV())
+				tmp += "1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n";
+			tmp += setTextSt(ite, PNr, pag);
+			tmp += "Q\n";
+			if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+			{
+				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				{
+					tmp += SetClipPath(ite);
+					tmp += "h\nS\n";
+				}
+				else
+				{
+					multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						tmp += setStrokeMulti(&ml[it]);
+						tmp += SetClipPath(ite);
+						tmp += "h\nS\n";
+					}
+				}
+			}
+			break;
+		case PageItem::Line:
+			if (ite->NamedLStyle == "")
+			{
+				tmp += "0 0 m\n";
+				tmp += FToStr(ite->Width)+" 0 l\n";
+				tmp += "S\n";
+			}
+			else
+			{
+				multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					tmp += setStrokeMulti(&ml[it]);
+					tmp += "0 0 m\n";
+					tmp += FToStr(ite->Width)+" 0 l\n";
+					tmp += "S\n";
+				}
+			}
+			if (ite->startArrowIndex != 0)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
+				arrowTrans.translate(0, 0);
+				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+				arrowTrans.scale(-1,1);
+				arrow.map(arrowTrans);
+				if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
+				{
+					StartObj(ObjCounter);
+					QString ShName = ResNam+IToStr(ResCount);
+					Transpar[ShName] = ObjCounter;
+					ResCount++;
+					ObjCounter++;
+					PutDoc("<< /Type /ExtGState\n");
+					PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+					PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+					PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
+					PutDoc("/BM /Normal\n>>\nendobj\n");
+					tmp += "/"+ShName+" gs\n";
+				}
+				tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+				tmp += SetClipPathArray(&arrow);
+				tmp += "h\nf*\n";
+			}
+			if (ite->endArrowIndex != 0)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
+				arrowTrans.translate(ite->Width, 0);
+				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+				arrow.map(arrowTrans);
+				if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
+				{
+					StartObj(ObjCounter);
+					QString ShName = ResNam+IToStr(ResCount);
+					Transpar[ShName] = ObjCounter;
+					ResCount++;
+					ObjCounter++;
+					PutDoc("<< /Type /ExtGState\n");
+					PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+					PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+					PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
+					PutDoc("/BM /Normal\n>>\nendobj\n");
+					tmp += "/"+ShName+" gs\n";
+				}
+				tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+				tmp += SetClipPathArray(&arrow);
+				tmp += "h\nf*\n";
+			}
+			break;
+		case PageItem::FrameType1:
+		case PageItem::FrameType3:
+		case PageItem::Polygon:
+			if (ite->GrType != 0)
+				tmp += PDF_Gradient(ite);
+			else
+			{
+				if (ite->fillColor() != "None")
+				{
+					tmp += SetClipPath(ite);
+					tmp += "h\nf*\n";
+				}
+			}
+			if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+			{
+				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				{
+					tmp += SetClipPath(ite);
+					tmp += "h\nS\n";
+				}
+				else
+				{
+					multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						tmp += setStrokeMulti(&ml[it]);
+						tmp += SetClipPath(ite);
+						tmp += "h\nS\n";
+					}
+				}
+			}
+			break;
+		case PageItem::PolyLine:
+			if (ite->PoLine.size() > 4)  // && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
+			{
+				if (ite->GrType != 0)
+					tmp += PDF_Gradient(ite);
+				else
+				{
+					if (ite->fillColor() != "None")
+					{
+						tmp += SetClipPath(ite);
+						tmp += "h\nf*\n";
+					}
+				}
+			}
+			if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+			{
+				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				{
+					tmp += SetClipPath(ite, false);
+					tmp += "S\n";
+				}
+				else
+				{
+					multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						tmp += setStrokeMulti(&ml[it]);
+						tmp += SetClipPath(ite, false);
+						tmp += "S\n";
+					}
+				}
+			}
+			if (ite->startArrowIndex != 0)
+			{
+				FPoint Start = ite->PoLine.point(0);
+				for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
+				{
+					FPoint Vector = ite->PoLine.point(xx);
+					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+					{
+						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+						QWMatrix arrowTrans;
+						FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
+						arrowTrans.translate(Start.x(), Start.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+						arrow.map(arrowTrans);
+						if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
+						{
+							StartObj(ObjCounter);
+							QString ShName = ResNam+IToStr(ResCount);
+							Transpar[ShName] = ObjCounter;
+							ResCount++;
+							ObjCounter++;
+							PutDoc("<< /Type /ExtGState\n");
+							PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+							PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+							PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
+							PutDoc("/BM /Normal\n>>\nendobj\n");
+							tmp += "/"+ShName+" gs\n";
+						}
+						tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+						tmp += SetClipPathArray(&arrow);
+						tmp += "h\nf*\n";
+						break;
+					}
+				}
+			}
+			if (ite->endArrowIndex != 0)
+			{
+				FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
+				for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
+				{
+					FPoint Vector = ite->PoLine.point(xx);
+					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+					{
+						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+						QWMatrix arrowTrans;
+						FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
+						arrowTrans.translate(End.x(), End.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+						arrow.map(arrowTrans);
+						if ((ite->lineTransparency() != 0) && (Options->Version >= 14))
+						{
+							StartObj(ObjCounter);
+							QString ShName = ResNam+IToStr(ResCount);
+							Transpar[ShName] = ObjCounter;
+							ResCount++;
+							ObjCounter++;
+							PutDoc("<< /Type /ExtGState\n");
+							PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+							PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
+							PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
+							PutDoc("/BM /Normal\n>>\nendobj\n");
+							PutPage("/"+ShName+" gs\n");
+						}
+						tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+						tmp += SetClipPathArray(&arrow);
+						tmp += "h\nf*\n";
+						break;
+					}
+				}
+			}
+			break;
+		case PageItem::PathText:
+			if (ite->PoShow)
+			{
+				if (ite->PoLine.size() > 3)
+				{
+					tmp += "q\n";
+					if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+					{
+						if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+						{
+							tmp += SetClipPath(ite, false);
+							tmp += "S\n";
+						}
+						else
+						{
+							multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+							for (int it = ml.size()-1;
+								it > -1; it--)
+								{
+								tmp += setStrokeMulti(&ml[it]);
+								tmp += SetClipPath(ite, false);
+								tmp += "S\n";
+								}
+						}
+					}
+					tmp += "Q\n";
+				}
+			}
+			tmp += setTextSt(ite, PNr, pag);
+			break;
+	}
+	tmp += "Q\n";
+	return tmp;
+}
+
 QString PDFlib::putColor(QString color, int shade, bool fill)
 {
 	QString tmp = "";
@@ -2574,7 +2581,7 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 	return tmp;
 }
 
-QString PDFlib::setTextSt(PageItem *ite, uint PNr)
+QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 {
 	struct ScText *hl;
 	QString tmp = "";
@@ -2657,9 +2664,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 						hl3.cunderwidth = hl2.cunderwidth;
 						hl3.cstrikepos = hl2.cstrikepos;
 						hl3.cstrikewidth = hl2.cstrikewidth;
-						setTextCh(ite, PNr, d, tmp, tmp2, &hl3);
+						setTextCh(ite, PNr, d, tmp, tmp2, &hl3, pag);
 					}
-					setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
+					setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pag);
 				}
 				tabCc++;
 				continue;
@@ -2694,9 +2701,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			hl2.cunderwidth = hl->cunderwidth;
 			hl2.cstrikepos = hl->cstrikepos;
 			hl2.cstrikewidth = hl->cstrikewidth;
-			setTextCh(ite, PNr, d, tmp, tmp2, &hl2);
+			setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pag);
 		}
-		setTextCh(ite, PNr, d, tmp, tmp2, hl);
+		setTextCh(ite, PNr, d, tmp, tmp2, hl, pag);
 		tabDist = hl->xp + Cwidth(doc, hl->cfont, hl->ch, hl->csize) * (hl->cscale / 1000.0);
 	}
 	if (ite->itemType() == PageItem::TextFrame)
@@ -2704,7 +2711,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 	return tmp;
 }
 
-void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, struct ScText *hl)
+void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &tmp2, struct ScText *hl, Page* pag)
 {
 	QString FillColor = "";
 	QString StrokeColor = "";
@@ -2735,9 +2742,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			}
 		}
 	}
-/* just for being save for now, remove later */
-	if (hl->ch == QChar(25))
-		chx = " ";
+	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+	{
+		tmp2 += "q\n";
+		tmp2 +=  FToStr(hl->cscale / 1000.0)+" 0 0 "+FToStr(hl->cscalev / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp + (hl->cembedded->Height * (hl->cscalev / 1000.0))+hl->cembedded->Height * (hl->cbase / 1000.0))+" cm\n";
+		tmp2 += PDF_ProcessItem(hl->cembedded, pag, PNr, true);
+		tmp2 += "Q\n";
+		return;
+	}
 	if (hl->ch == QChar(29))
 		chx = " ";
 	if (hl->ch == QChar(24))
@@ -3225,7 +3237,7 @@ void PDFlib::PDF_Transparenz(PageItem *currItem)
 	PutPage("/"+ShName+" gs\n");
 }
 
-void PDFlib::PDF_Gradient(PageItem *currItem)
+QString PDFlib::PDF_Gradient(PageItem *currItem)
 {
 	double w = currItem->Width;
 	double h = -currItem->Height;
@@ -3315,11 +3327,12 @@ void PDFlib::PDF_Gradient(PageItem *currItem)
 			Gcolors.append(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
-	PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors);
+	return PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors);
 }
 
-void PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors)
+QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors)
 {
+	QString tmp = "";
 	bool first = true;
 	double w = currItem->Width;
 	double h = -currItem->Height;
@@ -3469,13 +3482,14 @@ void PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QVa
 			PutDoc("/C1 ["+Colors[c+1]+"]\n");
 		}
 		PutDoc("/N 1\n>>\n>>\nendobj\n");
-		PutPage("q\n");
+		tmp += "q\n";
 		if ((Options->Version == 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
-			PutPage("/"+TRes+" gs\n");
-		PutPage(SetClipPath(currItem));
-		PutPage("h\nW* n\n");
-		PutPage("/"+ShName+" sh\nQ\n");
+			tmp += "/"+TRes+" gs\n";
+		tmp += SetClipPath(currItem);
+		tmp += "h\nW* n\n";
+		tmp += "/"+ShName+" sh\nQ\n";
 	}
+	return tmp;
 }
 
 void PDFlib::PDF_Annotation(PageItem *ite, uint)
@@ -4027,7 +4041,7 @@ void PDFlib::PDF_Bookmark(int nr, double ypos)
 	BookMinUse = true;
 }
 
-void PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
+QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
@@ -4504,10 +4518,9 @@ void PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, 
 		}
 	}
 	if (!fromAN)
-	{
-		Inhalt += FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+" "+FToStr((-ImHei*syn+y*sy))+" cm\n";
-		Inhalt += "/"+ResNam+IToStr(ImRes)+" Do\n";
-	}
+		return FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+" "+FToStr((-ImHei*syn+y*sy))+" cm\n/"+ResNam+IToStr(ImRes)+" Do\n";
+	else
+		return "";
 }
 
 void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)

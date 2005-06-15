@@ -69,8 +69,9 @@ private:
 	QString SetClipPath(PageItem *ite, bool poly = true);
 	QString SetFarbe(QString farbe, int Shade);
 	QString putColor(QString color, int Shade, bool fill);
-	QString setTextSt(PageItem *ite, uint PNr);
-	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, struct ScText *hl);
+	QString PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded = false);
+	QString setTextSt(PageItem *ite, uint PNr, Page* pag);
+	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, struct ScText *hl, Page* pag);
 	void PutDoc(QString in);
 	void PutPage(QString in);
 	void StartObj(int nr);
@@ -78,13 +79,13 @@ private:
 	QString PDFEncode(QString in);
 	QByteArray ComputeMD5(QString in);
 	void PDF_Bookmark(int nr, double ypos);
-	void PDF_Gradient(PageItem *currItem);
-	void PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors);
+	QString PDF_Gradient(PageItem *currItem);
+	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors);
 	void PDF_Transparenz(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);
 	void PDF_xForm(double w, double h, QString im);
-	void PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
+	QString PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
 	QString Inhalt;
 	ScribusDoc* doc;
 	ScribusView* view;

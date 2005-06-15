@@ -5755,6 +5755,7 @@ void ScribusApp::slotEditPaste()
 				currItem2->isEmbedded = true;
 				currItem2->isAnnotation = false;
 				currItem2->isBookmark = false;
+				currItem2->Rot = 0.0;
 				currItem2->ItemNr = doc->FrameItems.count();
 				doc->FrameItems.append(doc->Items.take(doc->Items.count()-1));
 				if (doc->masterPageMode)
@@ -7329,6 +7330,15 @@ void ScribusApp::saveLStyles(LineFormate *dia)
 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
 		}
 	}
+	for (uint d1 = 0; d1 < doc->FrameItems.count(); ++d1)
+	{
+		ite = doc->FrameItems.at(d1);
+		if (ite->NamedLStyle != "")
+		{
+			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
+		}
+	}
 	propertiesPalette->SetLineFormats(doc);
 	view->DrawNew();
 }
@@ -7528,6 +7538,85 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	for (uint d=0; d<doc->MasterItems.count(); ++d)
 	{
 		ite = doc->MasterItems.at(d);
+		if (ite->itemType() == PageItem::TextFrame)
+		{
+			for (uint e=0; e<ite->itemText.count(); ++e)
+			{
+				int cabori = ite->itemText.at(e)->cab;
+				int cabneu = ers[cabori];
+				if (cabori > 4)
+				{
+					if (cabneu > 0)
+					{
+						if (ite->itemText.at(e)->cfont == (*doc->AllFonts)[doc->docParagraphStyles[cabori].Font])
+							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
+						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
+							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+						if ((ite->itemText.at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
+						{
+							ite->itemText.at(e)->cstyle &= ~1919;
+							ite->itemText.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+						}
+						if (ite->itemText.at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
+							ite->itemText.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+						if (ite->itemText.at(e)->cshade == doc->docParagraphStyles[cabori].FShade)
+							ite->itemText.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+						if (ite->itemText.at(e)->cstroke == doc->docParagraphStyles[cabori].SColor)
+							ite->itemText.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+						if (ite->itemText.at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
+							ite->itemText.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
+						if (ite->itemText.at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
+							ite->itemText.at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
+						if (ite->itemText.at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
+							ite->itemText.at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
+						if (ite->itemText.at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
+							ite->itemText.at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
+						if (ite->itemText.at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
+							ite->itemText.at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
+						if (ite->itemText.at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
+							ite->itemText.at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
+						if (ite->itemText.at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
+							ite->itemText.at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
+						if (ite->itemText.at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
+							ite->itemText.at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
+						if (ite->itemText.at(e)->cscale == doc->docParagraphStyles[cabori].scaleH)
+							ite->itemText.at(e)->cscale = dia->TempVorl[cabneu].scaleH;
+						if (ite->itemText.at(e)->cscalev == doc->docParagraphStyles[cabori].scaleV)
+							ite->itemText.at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
+						if (ite->itemText.at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
+							ite->itemText.at(e)->cbase = dia->TempVorl[cabneu].baseOff;
+						if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
+							ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
+					}
+					else
+					{
+						ite->itemText.at(e)->ccolor = ite->TxtFill;
+						ite->itemText.at(e)->cshade = ite->ShTxtFill;
+						ite->itemText.at(e)->cstroke = ite->TxtStroke;
+						ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
+						ite->itemText.at(e)->csize = ite->ISize;
+						ite->itemText.at(e)->cstyle &= ~1919;
+						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
+						ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
+						ite->itemText.at(e)->cshadowy = ite->TxtShadowY;
+						ite->itemText.at(e)->coutline = ite->TxtOutline;
+						ite->itemText.at(e)->cunderpos = ite->TxtUnderPos;
+						ite->itemText.at(e)->cunderwidth = ite->TxtUnderWidth;
+						ite->itemText.at(e)->cstrikepos = ite->TxtStrikePos;
+						ite->itemText.at(e)->cstrikewidth = ite->TxtStrikeWidth;
+						ite->itemText.at(e)->cscale = ite->TxtScale;
+						ite->itemText.at(e)->cscalev = ite->TxtScaleV;
+						ite->itemText.at(e)->cbase = ite->TxtBase;
+						ite->itemText.at(e)->cextra = ite->ExtraV;
+					}
+					ite->itemText.at(e)->cab = cabneu;
+				}
+			}
+		}
+	}
+	for (uint d=0; d<doc->FrameItems.count(); ++d)
+	{
+		ite = doc->FrameItems.at(d);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint e=0; e<ite->itemText.count(); ++e)
@@ -7807,6 +7896,37 @@ void ScribusApp::slotEditColors()
 					for (c=0; c<doc->DocItems.count(); ++c)
 					{
 						ite = doc->DocItems.at(c);
+						if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+						{
+							for (d=0; d<ite->itemText.count(); ++d)
+							{
+								if (it.key() == ite->itemText.at(d)->ccolor)
+									ite->itemText.at(d)->ccolor = it.data();
+								if (it.key() == ite->itemText.at(d)->cstroke)
+									ite->itemText.at(d)->cstroke = it.data();
+							}
+						}
+						if (it.key() == ite->fillColor())
+							ite->setFillColor(it.data());
+						if (it.key() == ite->lineColor())
+							ite->setLineColor(it.data());
+						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+						{
+							if (it.key() == cstops.at(cst)->name)
+							{
+								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
+								cstops.at(cst)->color = tmpc;
+								cstops.at(cst)->name = it.data();
+							}
+						}
+					}
+				}
+				for (it = ers.begin(); it != ers.end(); ++it)
+				{
+					for (c=0; c<doc->FrameItems.count(); ++c)
+					{
+						ite = doc->FrameItems.at(c);
 						if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 						{
 							for (d=0; d<ite->itemText.count(); ++d)
@@ -10398,6 +10518,18 @@ void ScribusApp::ReorgFonts()
 	for (uint d = 0; d < doc->DocItems.count(); ++d)
 	{
 		it = doc->DocItems.at(d);
+		Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
+		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		{
+			for (uint e = 0; e < it->itemText.count(); ++e)
+			{
+				Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
+			}
+		}
+	}
+	for (uint d = 0; d < doc->FrameItems.count(); ++d)
+	{
+		it = doc->FrameItems.at(d);
 		Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
 		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 		{
