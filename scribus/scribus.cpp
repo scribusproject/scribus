@@ -255,6 +255,11 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		importingFrom12=true;
 		//>>CB
 		ReadPrefs(importingFrom12);
+		
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Initializing Story Editor"));
+		qApp->processEvents();
+		storyEditor = new StoryEditor(this);
 
 		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
@@ -10574,15 +10579,51 @@ void ScribusApp::slotStoryEditor()
 	if (view->SelItem.count() != 0)
 	{
 		PageItem *currItem = view->SelItem.at(0);
-		StoryEditor* dia = new StoryEditor(this, doc, currItem);
-		CurrStED = dia;
-		connect(dia, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-		connect(dia, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
-		dia->exec();
+		PageItem *currItemSE=storyEditor->currentItem();
+		ScribusDoc *currDocSE=storyEditor->currentDocument();
+		if (currItem==currItemSE && doc==currDocSE)
+		{
+			storyEditor->show();
+			storyEditor->raise();
+			return;
+		}
+		
+		if (currItemSE!=NULL && currDocSE!=NULL)
+		{
+			QString msg=tr("Story Editor is currently editing the text in the frame named %1 from the document %2.<br/>").arg(currItemSE->itemName()).arg(currDocSE->DocName);
+			if (storyEditor->textDataChanged())
+			{
+				msg+=tr("You have edited the data and it has not been saved.");
+				int retVal=QMessageBox::warning(this, tr("Warning"), "<qt>" + msg + "</qt>", tr("&Abort"), tr("&Ignore Changes"), tr("&Keep Changes and Continue"), 0, 0);
+				if (retVal == 0)
+					return;
+				if (retVal == 2)
+					storyEditor->updateTextFrame();
+			}
+			else
+			{
+				msg+=tr("The data has either not been modified or has already been saved.");
+				int retVal=QMessageBox::question(this, tr("Information"), "<qt>" + msg + "</qt>",
+												tr("C&ontinue"), tr("&Cancel"), 0, 0, 0);
+				if (retVal == 1)
+					return;
+			}
+		
+		}
+		storyEditor->setCurrentDocumentAndItem(doc, currItem);
+		
+		CurrStED = storyEditor;
+		connect(storyEditor, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
+		connect(storyEditor, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
+		storyEditor->show();
+		//dia->show();
+		/*
 		view->DrawNew();
 		buildFontMenu();
 		CurrStED = NULL;
-		delete dia;
+		//delete dia;
+		dia=NULL;
+		*/
 	}
 }
 

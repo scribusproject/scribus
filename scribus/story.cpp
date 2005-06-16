@@ -35,6 +35,7 @@
 #include "prefsfile.h"
 #include "charselect.h"
 #include "pluginmanager.h"
+#include "pageitem.h"
 
 extern PrefsFile* prefsFile;
 extern QPixmap loadIcon(QString nam);
@@ -158,7 +159,7 @@ void SideBar::setRepaint(bool r)
 
 SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 {
-	doc = docc;
+	setCurrentDocument(docc);
 	wasMod = false;
 	StoredSel = false;
 	StyledText.clear();
@@ -174,6 +175,11 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	UniCinp = false;
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
+}
+
+void SEditor::setCurrentDocument(ScribusDoc *docc)
+{
+	doc = docc;
 }
 
 void SEditor::imEndEvent(QIMEvent *e)
@@ -1567,20 +1573,27 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	TxFill = new QComboBox( true, this, "TxFill" );
 	TxFill->setEditable(false);
 	PM2 = new ShadeButton(this);
-	TxFill->clear();
-	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
-	TxFill->insertItem( tr("None"));
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		TxFill->insertItem(pm, it.key());
-	}
+	setCurrentDocument(doc);
 	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	QToolTip::add( TxFill, tr( "Color of text fill" ) );
 	QToolTip::add( PM2, tr( "Saturation of color of text fill" ) );
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 	connect(PM2, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
+}
+
+void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
+{
+	TxFill->clear();
+	TxFill->insertItem( tr("None"));
+	if (doc!=NULL)
+	{
+		QPixmap pm = QPixmap(15, 15);
+		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		{
+			pm.fill(doc->PageColors[it.key()].getRGBColor());
+			TxFill->insertItem(pm, it.key());
+		}
+	}
 }
 
 void SToolBColorF::SetColor(int c)
@@ -1611,20 +1624,27 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	TxStroke = new QComboBox( true, this, "TxStroke" );
 	TxStroke->setEditable(false);
 	PM1 = new ShadeButton(this);
-	TxStroke->clear();
-	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
-	TxStroke->insertItem( tr("None"));
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		TxStroke->insertItem(pm, it.key());
-	}
+	setCurrentDocument(doc);
 	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
 	QToolTip::add( TxStroke, tr( "Color of text stroke" ) );
 	QToolTip::add( PM1, tr( "Saturation of color of text stroke" ) );
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 	connect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
+}
+
+void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
+{
+	TxStroke->clear();
+	TxStroke->insertItem( tr("None"));
+	if (doc!=NULL)
+	{
+		QPixmap pm = QPixmap(15, 15);
+		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		{
+			pm.fill(doc->PageColors[it.key()].getRGBColor());
+			TxStroke->insertItem(pm, it.key());
+		}
+	}
 }
 
 void SToolBColorS::SetColor(int c)
@@ -1846,12 +1866,44 @@ void SToolBFont::newSizeHandler()
 }
 
 /* Main Story Editor Class */
-StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
-									: QMainWindow(parent, "StoryEditor", WShowModal | WType_Dialog)
+StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) 
+	: QMainWindow(parent, "StoryEditor", WType_Dialog) //WShowModal | 
+{
+	currDoc = docc;
+	buildGUI();
+	currItem = ite;
+	firstSet = false;
+	Editor->loadItemText(ite);
+	updateProps(0,0);
+	updateStatus();
+	textChanged = false;
+	disconnectSignals();
+	connectSignals();
+	Editor->setFocus();
+	Editor->setFarbe(false);
+}	
+
+/* Main Story Editor Class */
+StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_Dialog) //WShowModal | 
+{
+	currDoc = NULL;
+	buildGUI();
+	currItem = NULL;
+	firstSet = false;
+	/*
+	//Editor->loadItemText(ite);
+	updateProps(0,0);
+	updateStatus();
+	*/
+	textChanged = false;
+	Editor->setFocus();
+	Editor->setFarbe(false);
+}	
+
+void StoryEditor::buildGUI()
 {
 	setCaption( tr( "Story Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	doc = docc;
 	QHBox* vb = new QHBox( this );
 	StoryEd2Layout = new QHBoxLayout( 0, 5, 5, "StoryEd2Layout");
 /* Setting up Menu Bar */
@@ -1913,18 +1965,18 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	setDockEnabled(AlignTools, DockLeft, false);
 	setDockEnabled(AlignTools, DockRight, false);
 	setDockEnabled(AlignTools, DockBottom, false);
-	AlignTools->Spal->setFormats(doc);
+	AlignTools->Spal->setFormats(currDoc);
 	StyleTools = new SToolBStyle(this);
 	setDockEnabled(StyleTools, DockLeft, false);
 	setDockEnabled(StyleTools, DockRight, false);
 	setDockEnabled(StyleTools, DockBottom, false);
-	StrokeTools = new SToolBColorS(this, doc);
+	StrokeTools = new SToolBColorS(this, currDoc);
 	setDockEnabled(StrokeTools, DockLeft, false);
 	setDockEnabled(StrokeTools, DockRight, false);
 	setDockEnabled(StrokeTools, DockBottom, false);
 	StrokeTools->TxStroke->setEnabled(false);
 	StrokeTools->PM1->setEnabled(false);
-	FillTools = new SToolBColorF(this, doc);
+	FillTools = new SToolBColorF(this, currDoc);
 	setDockEnabled(FillTools, DockLeft, false);
 	setDockEnabled(FillTools, DockRight, false);
 	setDockEnabled(FillTools, DockBottom, false);
@@ -1933,7 +1985,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 /* SideBar Widget */
 	EditorBar = new SideBar(EdSplit);
 /* Editor Widget, subclass of QTextEdit */
-	Editor = new SEditor(EdSplit, docc);
+	Editor = new SEditor(EdSplit, currDoc);
 	StoryEd2Layout->addWidget( EdSplit );
 
 /* Setting up Status Bar */
@@ -2007,15 +2059,24 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	QFont fo;
 	fo.fromString(ScApp->Prefs.STEfont);
 	Editor->setFont(fo);
-	CurrItem = ite;
-	firstSet = false;
-	Editor->loadItemText(ite);
-	updateProps(0,0);
-	updateStatus();
-	TextChanged = false;
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
 	EditorBar->editor = Editor;
+}
+
+void StoryEditor::disconnectSignals()
+{
+	disconnect(Editor,0,0,0);
+	disconnect(EditorBar,0,0,0);
+	disconnect(AlignTools,0,0,0);
+	disconnect(FillTools,0,0,0);
+	disconnect(FontTools,0,0,0);
+	disconnect(StrokeTools,0,0,0);
+	disconnect(StyleTools,0,0,0);
+}
+
+void StoryEditor::connectSignals()
+{
 	connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
@@ -2044,8 +2105,32 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(newOutline(int )), this, SLOT(newTxtOutline(int )));
 	connect(StyleTools, SIGNAL(newUnderline(int, int)), this, SLOT(newTxtUnderline(int, int)));
 	connect(StyleTools, SIGNAL(newStrike(int, int )), this, SLOT(newTxtStrike(int, int)));
-	Editor->setFocus();
-	Editor->setFarbe(false);
+}
+
+void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
+{
+	disconnectSignals();
+	currDoc=doc;
+	textChanged=false;
+	Editor->StyledText.clear();
+	Editor->ParagStyles.clear();
+	Editor->clear();
+	AlignTools->Spal->setFormats(currDoc);
+	StrokeTools->setCurrentDocument(currDoc);
+	FillTools->setCurrentDocument(currDoc);
+	Editor->setCurrentDocument(currDoc);
+	currItem = item;
+	if (currItem!=NULL)
+	{
+		setCaption( tr("Story Editor - %1").arg(currItem->itemName()));
+		firstSet = false;
+		Editor->loadItemText(currItem);
+		updateProps(0,0);
+		updateStatus();
+		connectSignals();
+	}
+	else
+		setCaption( tr( "Story Editor" ));
 }
 
 /** 10/12/2004 - pv - #1203: wrong selection on double click
@@ -2073,6 +2158,7 @@ void StoryEditor::ToggleSmart()
 	settingsMenu->setItemChecked(smartSel, smartSelection);
 }
 
+/*
 int StoryEditor::exec()
 {
 	clearWFlags( WDestructiveClose );
@@ -2084,10 +2170,11 @@ int StoryEditor::exec()
 	clearWFlags( WShowModal );
 	return result;
 }
+*/
 
 void StoryEditor::closeEvent(QCloseEvent *)
 {
-	if (TextChanged)
+	if (textChanged)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
 									tr("Do you want to save your changes?"),
@@ -2106,8 +2193,9 @@ void StoryEditor::closeEvent(QCloseEvent *)
 	}
 	else
 		result = QDialog::Rejected;
+	setCurrentDocumentAndItem(currDoc, NULL);
 	hide();
-	qApp->exit_loop();
+	//qApp->exit_loop();
 }
 
 void StoryEditor::keyPressEvent (QKeyEvent * e)
@@ -2166,9 +2254,9 @@ void StoryEditor::newTxStroke(int c, int s)
 
 void StoryEditor::newTxFont(const QString &f)
 {
-	if(!doc->UsedFonts.contains(f)) {
-		if (!doc->AddFont(f, ScApp->Prefs.AvailFonts[f]->Font)) {
-			FontTools->Fonts->RebuildList(&(ScApp->Prefs), doc);
+	if(!currDoc->UsedFonts.contains(f)) {
+		if (!currDoc->AddFont(f, ScApp->Prefs.AvailFonts[f]->Font)) {
+			FontTools->Fonts->RebuildList(&(ScApp->Prefs), currDoc);
 			return;
 		};
 	}
@@ -2301,33 +2389,33 @@ void StoryEditor::updateProps(int p, int ch)
 	{
 		if (!firstSet)
 		{
-			Editor->CurrTextFill = CurrItem->TxtFill;
-			Editor->CurrTextFillSh = CurrItem->ShTxtFill;
-			Editor->CurrTextStroke = CurrItem->TxtStroke;
-			Editor->CurrTextStrokeSh = CurrItem->ShTxtStroke;
-			Editor->CurrFont = CurrItem->IFont;
-			Editor->CurrFontSize = CurrItem->ISize;
-			Editor->CurrentStyle = CurrItem->TxTStyle;
-			Editor->currentParaStyle = CurrItem->textAlignment;
-			Editor->CurrTextKern = CurrItem->ExtraV;
-			Editor->CurrTextScale = CurrItem->TxtScale;
-			Editor->CurrTextScaleV = CurrItem->TxtScaleV;
-			Editor->CurrTextBase = CurrItem->TxtBase;
-			Editor->CurrTextShadowX = CurrItem->TxtShadowX;
-			Editor->CurrTextShadowY = CurrItem->TxtShadowY;
-			Editor->CurrTextOutline = CurrItem->TxtOutline;
-			Editor->CurrTextUnderPos = CurrItem->TxtUnderPos;
-			Editor->CurrTextUnderWidth = CurrItem->TxtUnderWidth;
-			Editor->CurrTextStrikePos = CurrItem->TxtStrikePos;
-			Editor->CurrTextStrikeWidth = CurrItem->TxtStrikeWidth;
+			Editor->CurrTextFill = currItem->TxtFill;
+			Editor->CurrTextFillSh = currItem->ShTxtFill;
+			Editor->CurrTextStroke = currItem->TxtStroke;
+			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
+			Editor->CurrFont = currItem->IFont;
+			Editor->CurrFontSize = currItem->ISize;
+			Editor->CurrentStyle = currItem->TxTStyle;
+			Editor->currentParaStyle = currItem->textAlignment;
+			Editor->CurrTextKern = currItem->ExtraV;
+			Editor->CurrTextScale = currItem->TxtScale;
+			Editor->CurrTextScaleV = currItem->TxtScaleV;
+			Editor->CurrTextBase = currItem->TxtBase;
+			Editor->CurrTextShadowX = currItem->TxtShadowX;
+			Editor->CurrTextShadowY = currItem->TxtShadowY;
+			Editor->CurrTextOutline = currItem->TxtOutline;
+			Editor->CurrTextUnderPos = currItem->TxtUnderPos;
+			Editor->CurrTextUnderWidth = currItem->TxtUnderWidth;
+			Editor->CurrTextStrikePos = currItem->TxtStrikePos;
+			Editor->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
 			c = 0;
-			StrokeTools->SetShade(CurrItem->ShTxtStroke);
-			FillTools->SetShade(CurrItem->ShTxtFill);
-			QString b = CurrItem->TxtFill;
+			StrokeTools->SetShade(currItem->ShTxtStroke);
+			FillTools->SetShade(currItem->ShTxtFill);
+			QString b = currItem->TxtFill;
 			if ((b != "None") && (b != ""))
 			{
 				c++;
-				for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+				for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
 				{
 					if (it.key() == b)
 						break;
@@ -2336,11 +2424,11 @@ void StoryEditor::updateProps(int p, int ch)
 			}
 			FillTools->SetColor(c);
 			c = 0;
-			b = CurrItem->TxtStroke;
+			b = currItem->TxtStroke;
 			if ((b != "None") && (b != ""))
 			{
 				c++;
-				for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+				for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
 				{
 					if (it.key() == b)
 						break;
@@ -2348,17 +2436,17 @@ void StoryEditor::updateProps(int p, int ch)
 				}
 			}
 			StrokeTools->SetColor(c);
-			AlignTools->SetAlign(CurrItem->textAlignment);
-			StyleTools->SetKern(CurrItem->ExtraV);
-			StyleTools->SetStyle(CurrItem->TxTStyle);
-			StyleTools->SetShadow(CurrItem->TxtShadowX, CurrItem->TxtShadowY);
-			StyleTools->setOutline(CurrItem->TxtOutline);
-			StyleTools->setUnderline(CurrItem->TxtUnderPos, CurrItem->TxtUnderWidth);
-			StyleTools->setStrike(CurrItem->TxtStrikePos, CurrItem->TxtStrikeWidth);
-			FontTools->SetSize(CurrItem->ISize);
-			FontTools->SetFont(CurrItem->IFont);
-			FontTools->SetScale(CurrItem->TxtScale);
-			FontTools->SetScaleV(CurrItem->TxtScaleV);
+			AlignTools->SetAlign(currItem->textAlignment);
+			StyleTools->SetKern(currItem->ExtraV);
+			StyleTools->SetStyle(currItem->TxTStyle);
+			StyleTools->SetShadow(currItem->TxtShadowX, currItem->TxtShadowY);
+			StyleTools->setOutline(currItem->TxtOutline);
+			StyleTools->setUnderline(currItem->TxtUnderPos, currItem->TxtUnderWidth);
+			StyleTools->setStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
+			FontTools->SetSize(currItem->ISize);
+			FontTools->SetFont(currItem->IFont);
+			FontTools->SetScale(currItem->TxtScale);
+			FontTools->SetScaleV(currItem->TxtScaleV);
 		}
 		if (Editor->CurrentStyle & 4)
 		{
@@ -2380,20 +2468,20 @@ void StoryEditor::updateProps(int p, int ch)
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			Editor->CurrFont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
-			Editor->CurrFontSize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-			Editor->CurrentStyle = doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-			Editor->CurrTextFill = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
-			Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
-			Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
-			Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
-			Editor->CurrTextShadowX = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-			Editor->CurrTextShadowY = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-			Editor->CurrTextOutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-			Editor->CurrTextUnderPos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-			Editor->CurrTextUnderWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-			Editor->CurrTextStrikePos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-			Editor->CurrTextStrikeWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
+			Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+			Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+			Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
+			Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
+			Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
+			Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
+			Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+			Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+			Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+			Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+			Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+			Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+			Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 		}
 		Editor->setAlign(Editor->currentParaStyle);
 		Editor->setStyle(Editor->CurrentStyle);
@@ -2436,7 +2524,7 @@ void StoryEditor::updateProps(int p, int ch)
 	if ((b != "None") && (b != ""))
 	{
 		c++;
-		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
 		{
 			if (it.key() == b)
 				break;
@@ -2449,7 +2537,7 @@ void StoryEditor::updateProps(int p, int ch)
 	if ((b != "None") && (b != ""))
 	{
 		c++;
-		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
 		{
 			if (it.key() == b)
 				break;
@@ -2472,7 +2560,7 @@ void StoryEditor::updateProps(int p, int ch)
 	StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
 	StyleTools->setOutline(Editor->CurrTextOutline);
 	StyleTools->setUnderline(Editor->CurrTextUnderPos, Editor->CurrTextUnderWidth);
-	StyleTools->setStrike(CurrItem->TxtStrikePos, CurrItem->TxtStrikeWidth);
+	StyleTools->setStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
 	FontTools->SetSize(Editor->CurrFontSize);
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);
@@ -2525,7 +2613,7 @@ void StoryEditor::Do_insSp()
 {
 	ScApp->pluginManager->dllInput = Editor->CurrFont;
 	ScApp->pluginManager->dllReturn = "";
-	CharSelect *dia = new CharSelect(this, CurrItem, ScApp);
+	CharSelect *dia = new CharSelect(this, currItem, ScApp);
 	dia->exec();
 	delete dia;
 	if (ScApp->pluginManager->dllReturn != "")
@@ -2558,13 +2646,14 @@ void StoryEditor::Do_leave2()
 {
 	updateTextFrame();
 	result = QDialog::Accepted;
+	setCurrentDocumentAndItem(currDoc, NULL);
 	hide();
-	qApp->exit_loop();
+	//qApp->exit_loop();
 }
 
 void StoryEditor::Do_leave()
 {
-	if (TextChanged)
+	if (textChanged)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
 		                             tr("Do you really want to lose all your Changes?"),
@@ -2573,8 +2662,9 @@ void StoryEditor::Do_leave()
 			return;
 	}
 	result = QDialog::Rejected;
+	setCurrentDocumentAndItem(currDoc, NULL);
 	hide();
-	qApp->exit_loop();
+	//qApp->exit_loop();
 }
 
 /*! Saves the document with editation continued. Signal called from menu.
@@ -2606,7 +2696,7 @@ bool StoryEditor::Do_new()
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mdel, 0);
 	fmenu->setItemEnabled(M_FileRevert, 0);
-	TextChanged = false;
+	textChanged = false;
 	updateProps(0, 0);
 	updateStatus();
 	return true;
@@ -2616,7 +2706,7 @@ void StoryEditor::slotFileRevert()
 {
 	if (Do_new())
 	{
-		Editor->loadItemText(CurrItem);
+		Editor->loadItemText(currItem);
 		updateStatus();
 		Editor->sync();
 		Editor->repaintContents();
@@ -2680,7 +2770,7 @@ void StoryEditor::PasteAvail()
 
 void StoryEditor::updateTextFrame()
 {
-	PageItem *nextItem = CurrItem;
+	PageItem *nextItem = currItem;
 	while (nextItem != 0)
 	{
 		if (nextItem->BackBox != 0)
@@ -2694,33 +2784,33 @@ void StoryEditor::updateTextFrame()
 		for (ScText *it = nb2->itemText.first(); it != 0; it = nb2->itemText.next())
 		{
 			if ((it->ch == QChar(25)) && (it->cembedded != 0))
-				doc->FrameItems.remove(it->cembedded);
+				currDoc->FrameItems.remove(it->cembedded);
 		}
 		nb2->itemText.clear();
 		nb2->CPos = 0;
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
-		for (uint a = 0; a < doc->FrameItems.count(); ++a)
+		for (uint a = 0; a < currDoc->FrameItems.count(); ++a)
 		{
-			doc->FrameItems.at(a)->ItemNr = a;
+			currDoc->FrameItems.at(a)->ItemNr = a;
 		}
 	}
 	Editor->saveItemText(nextItem);
-	if (doc->docHyphenator->AutoCheck)
+	if (currDoc->docHyphenator->AutoCheck)
 	{
-		if (doc->docHyphenator->Language != nextItem->Language)
-			doc->docHyphenator->slotNewDict(nextItem->Language);
-		doc->docHyphenator->slotHyphenate(nextItem);
+		if (currDoc->docHyphenator->Language != nextItem->Language)
+			currDoc->docHyphenator->slotNewDict(nextItem->Language);
+		currDoc->docHyphenator->slotHyphenate(nextItem);
 	}
-	bool rep = doc->RePos;
-	doc->RePos = true;
+	bool rep = currDoc->RePos;
+	currDoc->RePos = true;
 	QPixmap pgPix(1, 1);
 	ScPainter *painter = new ScPainter(&pgPix, 1, 1);
 	painter->translate(0.5, 0.5);
 	nextItem->DrawObj(painter, QRect(0, 0, 1, 1));
 	painter->end();
 	delete painter;
-	doc->RePos = rep;
+	currDoc->RePos = rep;
 	nb2 = nextItem;
 	while (nb2 != 0)
 	{
@@ -2728,7 +2818,7 @@ void StoryEditor::updateTextFrame()
 		nb2 = nb2->NextBox;
 	}
 	ScApp->view->DrawNew();
-	TextChanged = false;
+	textChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(M_FileRevert, 0);
 	DatUpdt->setEnabled(false);
@@ -2739,7 +2829,7 @@ void StoryEditor::updateTextFrame()
 void StoryEditor::SearchText()
 {
 	EditorBar->setRepaint(false);
-	SearchReplace* dia = new SearchReplace(this, doc, &ScApp->Prefs, CurrItem, false);
+	SearchReplace* dia = new SearchReplace(this, currDoc, &ScApp->Prefs, currItem, false);
 	dia->exec();
 	delete dia;
 	EditorBar->setRepaint(true);
@@ -2755,7 +2845,7 @@ void StoryEditor::slotEditStyles()
 	disconnect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	disconnect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	emit EditSt();
-	AlignTools->Spal->setFormats(doc);
+	AlignTools->Spal->setFormats(currDoc);
 	AlignTools->SetAlign(Editor->currentParaStyle);
 	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
@@ -2790,42 +2880,42 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			{
 				if (Editor->currentParaStyle > 4)
 				{
-					if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+					if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 					{
-						chars->at(s)->cfont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
-						chars->at(s)->csize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+						chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
+						chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
 						chars->at(s)->cstyle &= ~1919;
-						chars->at(s)->cstyle |= doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-						chars->at(s)->ccolor = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
-						chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
-						chars->at(s)->cstroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
-						chars->at(s)->cshade2 = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
-						chars->at(s)->cshadowx = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-						chars->at(s)->cshadowy = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-						chars->at(s)->coutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-						chars->at(s)->cunderpos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-						chars->at(s)->cunderwidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-						chars->at(s)->cstrikepos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-						chars->at(s)->cstrikewidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+						chars->at(s)->cstyle |= currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+						chars->at(s)->ccolor = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
+						chars->at(s)->cshade = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
+						chars->at(s)->cstroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
+						chars->at(s)->cshade2 = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
+						chars->at(s)->cshadowx = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+						chars->at(s)->cshadowy = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+						chars->at(s)->coutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+						chars->at(s)->cunderpos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+						chars->at(s)->cunderwidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+						chars->at(s)->cstrikepos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+						chars->at(s)->cstrikewidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 					}
 				}
 				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
 				{
-					chars->at(s)->ccolor = CurrItem->TxtFill;
-					chars->at(s)->cshade = CurrItem->ShTxtFill;
-					chars->at(s)->cstroke = CurrItem->TxtStroke;
-					chars->at(s)->cshade2 = CurrItem->ShTxtStroke;
-					chars->at(s)->cfont = CurrItem->IFont;
-					chars->at(s)->csize = CurrItem->ISize;
+					chars->at(s)->ccolor = currItem->TxtFill;
+					chars->at(s)->cshade = currItem->ShTxtFill;
+					chars->at(s)->cstroke = currItem->TxtStroke;
+					chars->at(s)->cshade2 = currItem->ShTxtStroke;
+					chars->at(s)->cfont = currItem->IFont;
+					chars->at(s)->csize = currItem->ISize;
 					chars->at(s)->cstyle &= ~1919;
-					chars->at(s)->cstyle |= CurrItem->TxTStyle;
-					chars->at(s)->cshadowx = CurrItem->TxtShadowX;
-					chars->at(s)->cshadowy = CurrItem->TxtShadowY;
-					chars->at(s)->coutline = CurrItem->TxtOutline;
-					chars->at(s)->cunderpos = CurrItem->TxtUnderPos;
-					chars->at(s)->cunderwidth = CurrItem->TxtUnderWidth;
-					chars->at(s)->cstrikepos = CurrItem->TxtStrikePos;
-					chars->at(s)->cstrikewidth = CurrItem->TxtStrikeWidth;
+					chars->at(s)->cstyle |= currItem->TxTStyle;
+					chars->at(s)->cshadowx = currItem->TxtShadowX;
+					chars->at(s)->cshadowy = currItem->TxtShadowY;
+					chars->at(s)->coutline = currItem->TxtOutline;
+					chars->at(s)->cunderpos = currItem->TxtUnderPos;
+					chars->at(s)->cunderwidth = currItem->TxtUnderWidth;
+					chars->at(s)->cstrikepos = currItem->TxtStrikePos;
+					chars->at(s)->cstrikewidth = currItem->TxtStrikeWidth;
 				}
 				chars->at(s)->cab = Editor->currentParaStyle;
 			}
@@ -2840,44 +2930,44 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+			if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 			{
-				Editor->CurrFont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
-				Editor->CurrFontSize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-				Editor->CurrentStyle = doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-				Editor->CurrTextFill = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
-				Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
-				Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
-				Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
-				Editor->CurrTextShadowX = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-				Editor->CurrTextShadowY = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-				Editor->CurrTextOutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-				Editor->CurrTextUnderPos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-				Editor->CurrTextUnderWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-				Editor->CurrTextStrikePos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-				Editor->CurrTextStrikeWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
+				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
+				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
+				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
+				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
+				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 			}
 		}
 		else
 		{
-			Editor->CurrTextFill = CurrItem->TxtFill;
-			Editor->CurrTextFillSh = CurrItem->ShTxtFill;
-			Editor->CurrTextStroke = CurrItem->TxtStroke;
-			Editor->CurrTextStrokeSh = CurrItem->ShTxtStroke;
-			Editor->CurrFont = CurrItem->IFont;
-			Editor->CurrFontSize = CurrItem->ISize;
-			Editor->CurrentStyle = CurrItem->TxTStyle;
-			Editor->CurrTextKern = CurrItem->ExtraV;
-			Editor->CurrTextScale = CurrItem->TxtScale;
-			Editor->CurrTextScaleV = CurrItem->TxtScaleV;
-			Editor->CurrTextBase = CurrItem->TxtBase;
-			Editor->CurrTextShadowX = CurrItem->TxtShadowX;
-			Editor->CurrTextShadowY = CurrItem->TxtShadowY;
-			Editor->CurrTextOutline = CurrItem->TxtOutline;
-			Editor->CurrTextUnderPos = CurrItem->TxtUnderPos;
-			Editor->CurrTextUnderWidth = CurrItem->TxtUnderWidth;
-			Editor->CurrTextStrikePos = CurrItem->TxtStrikePos;
-			Editor->CurrTextStrikeWidth = CurrItem->TxtStrikeWidth;
+			Editor->CurrTextFill = currItem->TxtFill;
+			Editor->CurrTextFillSh = currItem->ShTxtFill;
+			Editor->CurrTextStroke = currItem->TxtStroke;
+			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
+			Editor->CurrFont = currItem->IFont;
+			Editor->CurrFontSize = currItem->ISize;
+			Editor->CurrentStyle = currItem->TxTStyle;
+			Editor->CurrTextKern = currItem->ExtraV;
+			Editor->CurrTextScale = currItem->TxtScale;
+			Editor->CurrTextScaleV = currItem->TxtScaleV;
+			Editor->CurrTextBase = currItem->TxtBase;
+			Editor->CurrTextShadowX = currItem->TxtShadowX;
+			Editor->CurrTextShadowY = currItem->TxtShadowY;
+			Editor->CurrTextOutline = currItem->TxtOutline;
+			Editor->CurrTextUnderPos = currItem->TxtUnderPos;
+			Editor->CurrTextUnderWidth = currItem->TxtUnderWidth;
+			Editor->CurrTextStrikePos = currItem->TxtStrikePos;
+			Editor->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
@@ -2933,42 +3023,42 @@ void StoryEditor::changeAlign(int )
 				{
 					if (Editor->currentParaStyle > 4)
 					{
-						if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+						if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 						{
-							chars->at(s)->cfont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
-							chars->at(s)->csize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+							chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
+							chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
 							chars->at(s)->cstyle &= ~1919;
-							chars->at(s)->cstyle |= doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-							chars->at(s)->ccolor = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
-							chars->at(s)->cshade = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
-							chars->at(s)->cstroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
-							chars->at(s)->cshade2 = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
-							chars->at(s)->cshadowx = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-							chars->at(s)->cshadowy = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-							chars->at(s)->coutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-							chars->at(s)->cunderpos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-							chars->at(s)->cunderwidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-							chars->at(s)->cstrikepos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-							chars->at(s)->cstrikewidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+							chars->at(s)->cstyle |= currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+							chars->at(s)->ccolor = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
+							chars->at(s)->cshade = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
+							chars->at(s)->cstroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
+							chars->at(s)->cshade2 = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
+							chars->at(s)->cshadowx = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+							chars->at(s)->cshadowy = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+							chars->at(s)->coutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+							chars->at(s)->cunderpos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+							chars->at(s)->cunderwidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+							chars->at(s)->cstrikepos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+							chars->at(s)->cstrikewidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 						}
 					}
 					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
 					{
-						chars->at(s)->ccolor = CurrItem->TxtFill;
-						chars->at(s)->cshade = CurrItem->ShTxtFill;
-						chars->at(s)->cstroke = CurrItem->TxtStroke;
-						chars->at(s)->cshade2 = CurrItem->ShTxtStroke;
-						chars->at(s)->cfont = CurrItem->IFont;
-						chars->at(s)->csize = CurrItem->ISize;
+						chars->at(s)->ccolor = currItem->TxtFill;
+						chars->at(s)->cshade = currItem->ShTxtFill;
+						chars->at(s)->cstroke = currItem->TxtStroke;
+						chars->at(s)->cshade2 = currItem->ShTxtStroke;
+						chars->at(s)->cfont = currItem->IFont;
+						chars->at(s)->csize = currItem->ISize;
 						chars->at(s)->cstyle &= ~1919;
-						chars->at(s)->cstyle |= CurrItem->TxTStyle;
-						chars->at(s)->cshadowx = CurrItem->TxtShadowX;
-						chars->at(s)->cshadowy = CurrItem->TxtShadowY;
-						chars->at(s)->coutline = CurrItem->TxtOutline;
-						chars->at(s)->cunderpos = CurrItem->TxtUnderPos;
-						chars->at(s)->cunderwidth = CurrItem->TxtUnderWidth;
-						chars->at(s)->cstrikepos = CurrItem->TxtStrikePos;
-						chars->at(s)->cstrikewidth = CurrItem->TxtStrikeWidth;
+						chars->at(s)->cstyle |= currItem->TxTStyle;
+						chars->at(s)->cshadowx = currItem->TxtShadowX;
+						chars->at(s)->cshadowy = currItem->TxtShadowY;
+						chars->at(s)->coutline = currItem->TxtOutline;
+						chars->at(s)->cunderpos = currItem->TxtUnderPos;
+						chars->at(s)->cunderwidth = currItem->TxtUnderWidth;
+						chars->at(s)->cstrikepos = currItem->TxtStrikePos;
+						chars->at(s)->cstrikewidth = currItem->TxtStrikeWidth;
 					}
 					chars->at(s)->cab = Editor->currentParaStyle;
 				}
@@ -2986,44 +3076,44 @@ void StoryEditor::changeAlign(int )
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (doc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+			if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
 			{
-				Editor->CurrFont = doc->docParagraphStyles[Editor->currentParaStyle].Font;
-				Editor->CurrFontSize = doc->docParagraphStyles[Editor->currentParaStyle].FontSize;
-				Editor->CurrentStyle = doc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
-				Editor->CurrTextFill = doc->docParagraphStyles[Editor->currentParaStyle].FColor;
-				Editor->CurrTextFillSh = doc->docParagraphStyles[Editor->currentParaStyle].FShade;
-				Editor->CurrTextStroke = doc->docParagraphStyles[Editor->currentParaStyle].SColor;
-				Editor->CurrTextStrokeSh = doc->docParagraphStyles[Editor->currentParaStyle].SShade;
-				Editor->CurrTextShadowX = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
-				Editor->CurrTextShadowY = doc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
-				Editor->CurrTextOutline = doc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
-				Editor->CurrTextUnderPos = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
-				Editor->CurrTextUnderWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
-				Editor->CurrTextStrikePos = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
-				Editor->CurrTextStrikeWidth = doc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
+				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
+				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
+				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].FontEffect;
+				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].FColor;
+				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].FShade;
+				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].SColor;
+				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].SShade;
+				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowX;
+				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].txtShadowY;
+				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].txtOutline;
+				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderPos;
+				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtUnderWidth;
+				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikePos;
+				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].txtStrikeWidth;
 			}
 		}
 		else
 		{
-			Editor->CurrTextFill = CurrItem->TxtFill;
-			Editor->CurrTextFillSh = CurrItem->ShTxtFill;
-			Editor->CurrTextStroke = CurrItem->TxtStroke;
-			Editor->CurrTextStrokeSh = CurrItem->ShTxtStroke;
-			Editor->CurrFont = CurrItem->IFont;
-			Editor->CurrFontSize = CurrItem->ISize;
-			Editor->CurrentStyle = CurrItem->TxTStyle;
-			Editor->CurrTextKern = CurrItem->ExtraV;
-			Editor->CurrTextScale = CurrItem->TxtScale;
-			Editor->CurrTextScaleV = CurrItem->TxtScaleV;
-			Editor->CurrTextBase = CurrItem->TxtBase;
-			Editor->CurrTextShadowX = CurrItem->TxtShadowX;
-			Editor->CurrTextShadowY = CurrItem->TxtShadowY;
-			Editor->CurrTextOutline = CurrItem->TxtOutline;
-			Editor->CurrTextUnderPos = CurrItem->TxtUnderPos;
-			Editor->CurrTextUnderWidth = CurrItem->TxtUnderWidth;
-			Editor->CurrTextStrikePos = CurrItem->TxtStrikePos;
-			Editor->CurrTextStrikeWidth = CurrItem->TxtStrikeWidth;
+			Editor->CurrTextFill = currItem->TxtFill;
+			Editor->CurrTextFillSh = currItem->ShTxtFill;
+			Editor->CurrTextStroke = currItem->TxtStroke;
+			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
+			Editor->CurrFont = currItem->IFont;
+			Editor->CurrFontSize = currItem->ISize;
+			Editor->CurrentStyle = currItem->TxTStyle;
+			Editor->CurrTextKern = currItem->ExtraV;
+			Editor->CurrTextScale = currItem->TxtScale;
+			Editor->CurrTextScaleV = currItem->TxtScaleV;
+			Editor->CurrTextBase = currItem->TxtBase;
+			Editor->CurrTextShadowX = currItem->TxtShadowX;
+			Editor->CurrTextShadowY = currItem->TxtShadowY;
+			Editor->CurrTextOutline = currItem->TxtOutline;
+			Editor->CurrTextUnderPos = currItem->TxtUnderPos;
+			Editor->CurrTextUnderWidth = currItem->TxtUnderWidth;
+			Editor->CurrTextStrikePos = currItem->TxtStrikePos;
+			Editor->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
@@ -3047,7 +3137,7 @@ void StoryEditor::changeAlign(int )
 
 void StoryEditor::modifiedText()
 {
-	TextChanged = true;
+	textChanged = true;
 	firstSet = true;
 	emenu->setItemEnabled(Mupdt, 1);
 	fmenu->setItemEnabled(M_FileRevert, 1);
@@ -3083,7 +3173,7 @@ void StoryEditor::LoadTextFile()
 				QString data = ss->GetObjekt();
 				data.replace(QRegExp("\r"), "");
 				data.replace(QRegExp("\n"), QChar(13));
-				Editor->loadText(data, CurrItem);
+				Editor->loadText(data, currItem);
 				emenu->setItemEnabled(Mpaste, 0);
 				emenu->setItemEnabled(Mcopy, 0);
 				emenu->setItemEnabled(Mcut, 0);
@@ -3119,3 +3209,17 @@ void StoryEditor::SaveTextFile()
 	}
 }
 
+bool StoryEditor::textDataChanged() const
+{
+	return textChanged;
+}
+
+PageItem* StoryEditor::currentItem() const
+{
+	return currItem;
+}
+
+ScribusDoc* StoryEditor::currentDocument() const
+{
+	return currDoc;
+}

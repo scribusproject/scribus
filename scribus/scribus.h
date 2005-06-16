@@ -201,6 +201,7 @@ public:
 	CheckDocument * docCheckerPalette;
 	UndoPalette* undoPalette;
 	AlignDistributePalette *alignDistributePalette;
+	StoryEditor* storyEditor;
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;

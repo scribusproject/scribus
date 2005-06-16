@@ -72,6 +72,7 @@ class SEditor : public QTextEdit
 public:
 	SEditor (QWidget* parent, ScribusDoc *docc);
 	~SEditor() {};
+	void setCurrentDocument(ScribusDoc *docc);
 	void setAlign(int style);
 	void saveItemText(PageItem *currItem);
 	void loadItemText(PageItem *currItem);
@@ -182,6 +183,7 @@ class SToolBColorF : public QToolBar
 public:
 	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
+	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* FillIcon;
 	QComboBox* TxFill;
 	ShadeButton *PM2;
@@ -202,6 +204,7 @@ class SToolBColorS : public QToolBar
 public:
 	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
+	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* StrokeIcon;
 	QComboBox* TxStroke;
 	ShadeButton *PM1;
@@ -300,13 +303,18 @@ class StoryEditor : public QMainWindow
 	Q_OBJECT
 
 public:
+	StoryEditor( QWidget* parent );
 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor() {};
 	void closeEvent(QCloseEvent *);
 	void keyPressEvent (QKeyEvent * e);
-	int exec();
+	//int exec();
 	void changeAlign(int align);
 	int result;
+	void setCurrentDocumentAndItem(ScribusDoc *doc=NULL, PageItem *item=NULL);
+	bool textDataChanged() const;
+	PageItem* currentItem() const;
+	ScribusDoc* currentDocument() const;
 
 	QPopupMenu* fmenu;
 	QPopupMenu* emenu;
@@ -346,9 +354,9 @@ public:
 	bool smartSelection;
 	int smartSel;
 
-	ScribusDoc* doc;
-	PageItem* CurrItem;
-	bool TextChanged;
+	ScribusDoc* currDoc;
+	PageItem* currItem;
+	bool textChanged;
 	int Mcopy;
 	int Mcut;
 	int Mdel;
@@ -406,6 +414,10 @@ signals:
 	void EditSt();
 
 protected:
+	void buildGUI();
+	void connectSignals();
+	void disconnectSignals();
+
     QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* ButtonGroup2Layout;
