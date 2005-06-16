@@ -916,6 +916,46 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					}
 					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;
+					if (CurY+BExtra+lineCorr > Height)
+					{
+						StartOfCol = true;
+						CurrCol++;
+						if (CurrCol < Cols)
+						{
+							ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+							ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+							CurX = ColBound.x();
+							ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+							CurY = asce+TExtra+lineCorr+1;
+							if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
+							{
+								if (chx != QChar(13))
+									DropCmode = Doc->Vorlagen[hl->cab].Drop;
+								else
+									DropCmode = false;
+								if (DropCmode)
+								{
+									if (Doc->Vorlagen[hl->cab].BaseAdj)
+										desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->BaseGrid * Doc->Vorlagen[hl->cab].DropLin;
+									else
+										desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin;
+								}
+								if (DropCmode)
+									DropLines = Doc->Vorlagen[hl->cab].DropLin;
+							}
+							if (Doc->Vorlagen[hl->cab].BaseAdj)
+							{
+								int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+								int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
+								CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+							}
+						}
+						else
+						{
+							nrc = a;
+							goto NoRoom;
+						}
+					}
 					if (LiList.isEmpty())
 						{
 						startLin = a;
