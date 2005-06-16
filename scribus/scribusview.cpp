@@ -74,6 +74,8 @@
 	#include CMS_INC
 #endif
 
+#include "story.h"
+
 using namespace std;
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
@@ -8101,9 +8103,9 @@ void ScribusView::DeleteItem()
 	uint a, c, anz;
 	QPtrList<PageItem> delItems;
 	PageItem *currItem;
-	if (SelItem.count() != 0)
+	anz = SelItem.count();
+	if (anz != 0)
 	{
-		anz = SelItem.count();
 		uint offs = 0;
 		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint de = 0; de < anz; ++de)
@@ -8113,6 +8115,11 @@ void ScribusView::DeleteItem()
 			{
 				offs++;
 				continue;
+			}
+			if ((currItem->itemType()==PageItem::TextFrame || currItem->itemType()==PageItem::PathText) && currItem==ScApp->storyEditor->currentItem() && Doc==ScApp->storyEditor->currentDocument())
+			{
+				QMessageBox::critical(ScApp, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				return;
 			}
 			tooltip += "\t" + currItem->getUName() + "\n";
 			delItems.append(SelItem.take(offs));

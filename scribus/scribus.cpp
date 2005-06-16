@@ -5501,6 +5501,16 @@ void ScribusApp::slotEditCut()
 	QString BufferI = "";
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
+		PageItem *currItem;
+		for (uint i = 0; i < view->SelItem.count(); ++i)
+		{
+			currItem=view->SelItem.at(i);
+			if ((currItem->itemType()==PageItem::TextFrame || currItem->itemType()==PageItem::PathText) && currItem==ScApp->storyEditor->currentItem() && doc==ScApp->storyEditor->currentDocument())
+			{
+					QMessageBox::critical(ScApp, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+					return;
+			}
+		}
 		if (UndoManager::undoEnabled())
 		{
 			if (view->SelItem.count() > 1)
@@ -5510,7 +5520,7 @@ void ScribusApp::slotEditCut()
 											  view->SelItem.at(0)->getUPixmap(), Um::Cut, "", Um::ICut);
 		}
 		Buffer2 = "<SCRIBUSTEXT>";
-		PageItem *currItem = view->SelItem.at(0);
+		currItem = view->SelItem.at(0);
 		if (doc->appMode == EditMode)
 		{
 			if ((currItem->itemText.count() == 0) || (!currItem->HasSel))
