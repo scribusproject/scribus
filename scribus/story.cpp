@@ -1944,7 +1944,7 @@ void StoryEditor::buildGUI()
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar( tr("File"), this);
-	DatNeu = new QToolButton(loadIcon("editdelete.png"), tr("Clear all Text"), QString::null, this, SLOT(Do_new()), FileTools);
+	DatNeu = new QToolButton(loadIcon("editdelete.png"), tr("Clear All Text"), QString::null, this, SLOT(Do_new()), FileTools);
 	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Load Text from File"), QString::null, this, SLOT(LoadTextFile()), FileTools);
 	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save Text to File"), QString::null, this, SLOT(SaveTextFile()), FileTools);
 	DatClo = new QToolButton(loadIcon("ok22.png"), tr("Update Text Frame and Exit"), QString::null, this, SLOT(Do_leave2()), FileTools);
@@ -1953,7 +1953,7 @@ void StoryEditor::buildGUI()
 	DatUpdt = new QToolButton(loadIcon("compfile.png"), tr("Update Text Frame"), QString::null, this, SLOT(updateTextFrame()), FileTools);
 	DatFin = new QToolButton(loadIcon("find.png"), tr("Search/Replace"), QString::null, this, SLOT(SearchText()), FileTools);
 	DatUpdt->setEnabled(false);
-	DatRel->setEnabled(false);
+	//DatRel->setEnabled(false);
 	setDockEnabled(FileTools, DockLeft, false);
 	setDockEnabled(FileTools, DockRight, false);
 	setDockEnabled(FileTools, DockBottom, false);
@@ -2656,7 +2656,7 @@ void StoryEditor::Do_leave()
 	if (textChanged)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
-		                             tr("Do you really want to lose all your Changes?"),
+		                             tr("Do you really want to lose all your changes?"),
 		                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 		if (t == QMessageBox::No)
 			return;
@@ -2681,7 +2681,7 @@ bool StoryEditor::Do_new()
 	if (Editor->length() != 0)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
-	                             tr("Do you really want to clear all your Text?"),
+	                             tr("Do you really want to clear all your text?"),
 	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 		if (t == QMessageBox::No)
 			return false;
@@ -2822,7 +2822,7 @@ void StoryEditor::updateTextFrame()
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(M_FileRevert, 0);
 	DatUpdt->setEnabled(false);
-	DatRel->setEnabled(false);
+	//DatRel->setEnabled(false);
 	emit DocChanged();
 }
 
@@ -3146,7 +3146,7 @@ void StoryEditor::modifiedText()
 	else
 		emenu->setItemEnabled(Mpaste, 0);
 	DatUpdt->setEnabled(true);
-	DatRel->setEnabled(true);
+	//DatRel->setEnabled(true);
 	updateStatus();
 }
 
