@@ -4821,6 +4821,19 @@ bool ScribusApp::loadDoc(QString fileName)
 					bookmarkPalette->BView->ChangeItem(ite->BMnr, ite->ItemNr);
 			} */
 		}
+		for (uint azz=0; azz<doc->FrameItems.count(); ++azz)
+		{
+			PageItem *ite = doc->FrameItems.at(azz);
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			{
+				if (ite->itemType() == PageItem::PathText)
+				{
+					ite->Frame = false;
+					view->UpdatePolyClip(ite);
+				}
+				ite->DrawObj(painter, rd);
+			}
+		}
 		delete painter;
 //		if (doc->OldBM)
 //			StoreBookmarks();
@@ -7456,239 +7469,108 @@ void ScribusApp::saveStyles(StilFormate *dia)
 				ers.append(0);
 		}
 	}
-	for (uint d=0; d<doc->DocItems.count(); ++d)
+	uint counter = 0;
+	for (uint lc = 0; lc < 3; ++lc)
 	{
-		ite = doc->Items.at(d);
-		if (ite->itemType() == PageItem::TextFrame)
+		switch (lc)
 		{
-			for (uint e=0; e<ite->itemText.count(); ++e)
-			{
-				int cabori = ite->itemText.at(e)->cab;
-				int cabneu = ers[cabori];
-				if (cabori > 4)
-				{
-					if (cabneu > 0)
-					{
-						if (ite->itemText.at(e)->cfont == (*doc->AllFonts)[doc->docParagraphStyles[cabori].Font])
-							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
-						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
-							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-						if ((ite->itemText.at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
-						{
-							ite->itemText.at(e)->cstyle &= ~1919;
-							ite->itemText.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
-						}
-						if (ite->itemText.at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
-							ite->itemText.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
-						if (ite->itemText.at(e)->cshade == doc->docParagraphStyles[cabori].FShade)
-							ite->itemText.at(e)->cshade = dia->TempVorl[cabneu].FShade;
-						if (ite->itemText.at(e)->cstroke == doc->docParagraphStyles[cabori].SColor)
-							ite->itemText.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
-						if (ite->itemText.at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
-							ite->itemText.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
-						if (ite->itemText.at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
-							ite->itemText.at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
-						if (ite->itemText.at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
-							ite->itemText.at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
-						if (ite->itemText.at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
-							ite->itemText.at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
-						if (ite->itemText.at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
-							ite->itemText.at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
-						if (ite->itemText.at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
-							ite->itemText.at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
-						if (ite->itemText.at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
-							ite->itemText.at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
-						if (ite->itemText.at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
-							ite->itemText.at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
-						if (ite->itemText.at(e)->cscale == doc->docParagraphStyles[cabori].scaleH)
-							ite->itemText.at(e)->cscale = dia->TempVorl[cabneu].scaleH;
-						if (ite->itemText.at(e)->cscalev == doc->docParagraphStyles[cabori].scaleV)
-							ite->itemText.at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
-						if (ite->itemText.at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
-							ite->itemText.at(e)->cbase = dia->TempVorl[cabneu].baseOff;
-						if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
-							ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
-					}
-					else
-					{
-						ite->itemText.at(e)->ccolor = ite->TxtFill;
-						ite->itemText.at(e)->cshade = ite->ShTxtFill;
-						ite->itemText.at(e)->cstroke = ite->TxtStroke;
-						ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
-						ite->itemText.at(e)->csize = ite->ISize;
-						ite->itemText.at(e)->cstyle &= ~1919;
-						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
-						ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
-						ite->itemText.at(e)->cshadowy = ite->TxtShadowY;
-						ite->itemText.at(e)->coutline = ite->TxtOutline;
-						ite->itemText.at(e)->cunderpos = ite->TxtUnderPos;
-						ite->itemText.at(e)->cunderwidth = ite->TxtUnderWidth;
-						ite->itemText.at(e)->cstrikepos = ite->TxtStrikePos;
-						ite->itemText.at(e)->cstrikewidth = ite->TxtStrikeWidth;
-						ite->itemText.at(e)->cscale = ite->TxtScale;
-						ite->itemText.at(e)->cscalev = ite->TxtScaleV;
-						ite->itemText.at(e)->cbase = ite->TxtBase;
-						ite->itemText.at(e)->cextra = ite->ExtraV;
-					}
-					ite->itemText.at(e)->cab = cabneu;
-				}
-			}
+			case 0:
+				counter = doc->MasterItems.count();
+				break;
+			case 1:
+				counter = doc->Items.count();
+				break;
+			case 2:
+				counter = doc->FrameItems.count();
+				break;
 		}
-	}
-	for (uint d=0; d<doc->MasterItems.count(); ++d)
-	{
-		ite = doc->MasterItems.at(d);
-		if (ite->itemType() == PageItem::TextFrame)
+		for (uint d=0; d< counter; ++d)
 		{
-			for (uint e=0; e<ite->itemText.count(); ++e)
+			switch (lc)
 			{
-				int cabori = ite->itemText.at(e)->cab;
-				int cabneu = ers[cabori];
-				if (cabori > 4)
-				{
-					if (cabneu > 0)
-					{
-						if (ite->itemText.at(e)->cfont == (*doc->AllFonts)[doc->docParagraphStyles[cabori].Font])
-							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
-						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
-							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-						if ((ite->itemText.at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
-						{
-							ite->itemText.at(e)->cstyle &= ~1919;
-							ite->itemText.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
-						}
-						if (ite->itemText.at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
-							ite->itemText.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
-						if (ite->itemText.at(e)->cshade == doc->docParagraphStyles[cabori].FShade)
-							ite->itemText.at(e)->cshade = dia->TempVorl[cabneu].FShade;
-						if (ite->itemText.at(e)->cstroke == doc->docParagraphStyles[cabori].SColor)
-							ite->itemText.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
-						if (ite->itemText.at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
-							ite->itemText.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
-						if (ite->itemText.at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
-							ite->itemText.at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
-						if (ite->itemText.at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
-							ite->itemText.at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
-						if (ite->itemText.at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
-							ite->itemText.at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
-						if (ite->itemText.at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
-							ite->itemText.at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
-						if (ite->itemText.at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
-							ite->itemText.at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
-						if (ite->itemText.at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
-							ite->itemText.at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
-						if (ite->itemText.at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
-							ite->itemText.at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
-						if (ite->itemText.at(e)->cscale == doc->docParagraphStyles[cabori].scaleH)
-							ite->itemText.at(e)->cscale = dia->TempVorl[cabneu].scaleH;
-						if (ite->itemText.at(e)->cscalev == doc->docParagraphStyles[cabori].scaleV)
-							ite->itemText.at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
-						if (ite->itemText.at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
-							ite->itemText.at(e)->cbase = dia->TempVorl[cabneu].baseOff;
-						if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
-							ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
-					}
-					else
-					{
-						ite->itemText.at(e)->ccolor = ite->TxtFill;
-						ite->itemText.at(e)->cshade = ite->ShTxtFill;
-						ite->itemText.at(e)->cstroke = ite->TxtStroke;
-						ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
-						ite->itemText.at(e)->csize = ite->ISize;
-						ite->itemText.at(e)->cstyle &= ~1919;
-						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
-						ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
-						ite->itemText.at(e)->cshadowy = ite->TxtShadowY;
-						ite->itemText.at(e)->coutline = ite->TxtOutline;
-						ite->itemText.at(e)->cunderpos = ite->TxtUnderPos;
-						ite->itemText.at(e)->cunderwidth = ite->TxtUnderWidth;
-						ite->itemText.at(e)->cstrikepos = ite->TxtStrikePos;
-						ite->itemText.at(e)->cstrikewidth = ite->TxtStrikeWidth;
-						ite->itemText.at(e)->cscale = ite->TxtScale;
-						ite->itemText.at(e)->cscalev = ite->TxtScaleV;
-						ite->itemText.at(e)->cbase = ite->TxtBase;
-						ite->itemText.at(e)->cextra = ite->ExtraV;
-					}
-					ite->itemText.at(e)->cab = cabneu;
-				}
+				case 0:
+					ite = doc->MasterItems.at(d);
+					break;
+				case 1:
+					ite = doc->Items.at(d);
+					break;
+				case 2:
+					ite = doc->FrameItems.at(d);
+					break;
 			}
-		}
-	}
-	for (uint d=0; d<doc->FrameItems.count(); ++d)
-	{
-		ite = doc->FrameItems.at(d);
-		if (ite->itemType() == PageItem::TextFrame)
-		{
-			for (uint e=0; e<ite->itemText.count(); ++e)
+			if (ite->itemType() == PageItem::TextFrame)
 			{
-				int cabori = ite->itemText.at(e)->cab;
-				int cabneu = ers[cabori];
-				if (cabori > 4)
+				for (uint e=0; e<ite->itemText.count(); ++e)
 				{
-					if (cabneu > 0)
+					int cabori = ite->itemText.at(e)->cab;
+					int cabneu = ers[cabori];
+					if (cabori > 4)
 					{
-						if (ite->itemText.at(e)->cfont == (*doc->AllFonts)[doc->docParagraphStyles[cabori].Font])
-							ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
-						if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
-							ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-						if ((ite->itemText.at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
+						if (cabneu > 0)
 						{
-							ite->itemText.at(e)->cstyle &= ~1919;
-							ite->itemText.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+							if (ite->itemText.at(e)->cfont == (*doc->AllFonts)[doc->docParagraphStyles[cabori].Font])
+								ite->itemText.at(e)->cfont = (*doc->AllFonts)[dia->TempVorl[cabneu].Font];
+							if (ite->itemText.at(e)->csize == doc->docParagraphStyles[cabori].FontSize)
+								ite->itemText.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+							if ((ite->itemText.at(e)->cstyle & 1919 ) == doc->docParagraphStyles[cabori].FontEffect)
+							{
+								ite->itemText.at(e)->cstyle &= ~1919;
+								ite->itemText.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+							}
+							if (ite->itemText.at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
+								ite->itemText.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+							if (ite->itemText.at(e)->cshade == doc->docParagraphStyles[cabori].FShade)
+								ite->itemText.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+							if (ite->itemText.at(e)->cstroke == doc->docParagraphStyles[cabori].SColor)
+								ite->itemText.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+							if (ite->itemText.at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
+								ite->itemText.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
+							if (ite->itemText.at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
+								ite->itemText.at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
+							if (ite->itemText.at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
+								ite->itemText.at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
+							if (ite->itemText.at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
+								ite->itemText.at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
+							if (ite->itemText.at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
+								ite->itemText.at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
+							if (ite->itemText.at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
+								ite->itemText.at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
+							if (ite->itemText.at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
+								ite->itemText.at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
+							if (ite->itemText.at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
+								ite->itemText.at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
+							if (ite->itemText.at(e)->cscale == doc->docParagraphStyles[cabori].scaleH)
+								ite->itemText.at(e)->cscale = dia->TempVorl[cabneu].scaleH;
+							if (ite->itemText.at(e)->cscalev == doc->docParagraphStyles[cabori].scaleV)
+								ite->itemText.at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
+							if (ite->itemText.at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
+								ite->itemText.at(e)->cbase = dia->TempVorl[cabneu].baseOff;
+							if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
+								ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
 						}
-						if (ite->itemText.at(e)->ccolor == doc->docParagraphStyles[cabori].FColor)
-							ite->itemText.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
-						if (ite->itemText.at(e)->cshade == doc->docParagraphStyles[cabori].FShade)
-							ite->itemText.at(e)->cshade = dia->TempVorl[cabneu].FShade;
-						if (ite->itemText.at(e)->cstroke == doc->docParagraphStyles[cabori].SColor)
-							ite->itemText.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
-						if (ite->itemText.at(e)->cshade2 == doc->docParagraphStyles[cabori].SShade)
-							ite->itemText.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
-						if (ite->itemText.at(e)->cshadowx == doc->docParagraphStyles[cabori].txtShadowX)
-							ite->itemText.at(e)->cshadowx = dia->TempVorl[cabneu].txtShadowX;
-						if (ite->itemText.at(e)->cshadowy == doc->docParagraphStyles[cabori].txtShadowY)
-							ite->itemText.at(e)->cshadowy = dia->TempVorl[cabneu].txtShadowY;
-						if (ite->itemText.at(e)->coutline == doc->docParagraphStyles[cabori].txtOutline)
-							ite->itemText.at(e)->coutline = dia->TempVorl[cabneu].txtOutline;
-						if (ite->itemText.at(e)->cunderpos == doc->docParagraphStyles[cabori].txtUnderPos)
-							ite->itemText.at(e)->cunderpos = dia->TempVorl[cabneu].txtUnderPos;
-						if (ite->itemText.at(e)->cunderwidth == doc->docParagraphStyles[cabori].txtUnderWidth)
-							ite->itemText.at(e)->cunderwidth = dia->TempVorl[cabneu].txtUnderWidth;
-						if (ite->itemText.at(e)->cstrikepos == doc->docParagraphStyles[cabori].txtStrikePos)
-							ite->itemText.at(e)->cstrikepos = dia->TempVorl[cabneu].txtStrikePos;
-						if (ite->itemText.at(e)->cstrikewidth == doc->docParagraphStyles[cabori].txtStrikeWidth)
-							ite->itemText.at(e)->cstrikewidth = dia->TempVorl[cabneu].txtStrikeWidth;
-						if (ite->itemText.at(e)->cscale == doc->docParagraphStyles[cabori].scaleH)
-							ite->itemText.at(e)->cscale = dia->TempVorl[cabneu].scaleH;
-						if (ite->itemText.at(e)->cscalev == doc->docParagraphStyles[cabori].scaleV)
-							ite->itemText.at(e)->cscalev = dia->TempVorl[cabneu].scaleV;
-						if (ite->itemText.at(e)->cbase == doc->docParagraphStyles[cabori].baseOff)
-							ite->itemText.at(e)->cbase = dia->TempVorl[cabneu].baseOff;
-						if (ite->itemText.at(e)->cextra == doc->docParagraphStyles[cabori].kernVal)
-							ite->itemText.at(e)->cextra = dia->TempVorl[cabneu].kernVal;
+						else
+						{
+							ite->itemText.at(e)->ccolor = ite->TxtFill;
+							ite->itemText.at(e)->cshade = ite->ShTxtFill;
+							ite->itemText.at(e)->cstroke = ite->TxtStroke;
+							ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
+							ite->itemText.at(e)->csize = ite->ISize;
+							ite->itemText.at(e)->cstyle &= ~1919;
+							ite->itemText.at(e)->cstyle |= ite->TxTStyle;
+							ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
+							ite->itemText.at(e)->cshadowy = ite->TxtShadowY;
+							ite->itemText.at(e)->coutline = ite->TxtOutline;
+							ite->itemText.at(e)->cunderpos = ite->TxtUnderPos;
+							ite->itemText.at(e)->cunderwidth = ite->TxtUnderWidth;
+							ite->itemText.at(e)->cstrikepos = ite->TxtStrikePos;
+							ite->itemText.at(e)->cstrikewidth = ite->TxtStrikeWidth;
+							ite->itemText.at(e)->cscale = ite->TxtScale;
+							ite->itemText.at(e)->cscalev = ite->TxtScaleV;
+							ite->itemText.at(e)->cbase = ite->TxtBase;
+							ite->itemText.at(e)->cextra = ite->ExtraV;
+						}
+						ite->itemText.at(e)->cab = cabneu;
 					}
-					else
-					{
-						ite->itemText.at(e)->ccolor = ite->TxtFill;
-						ite->itemText.at(e)->cshade = ite->ShTxtFill;
-						ite->itemText.at(e)->cstroke = ite->TxtStroke;
-						ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
-						ite->itemText.at(e)->csize = ite->ISize;
-						ite->itemText.at(e)->cstyle &= ~1919;
-						ite->itemText.at(e)->cstyle |= ite->TxTStyle;
-						ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
-						ite->itemText.at(e)->cshadowy = ite->TxtShadowY;
-						ite->itemText.at(e)->coutline = ite->TxtOutline;
-						ite->itemText.at(e)->cunderpos = ite->TxtUnderPos;
-						ite->itemText.at(e)->cunderwidth = ite->TxtUnderWidth;
-						ite->itemText.at(e)->cstrikepos = ite->TxtStrikePos;
-						ite->itemText.at(e)->cstrikewidth = ite->TxtStrikeWidth;
-						ite->itemText.at(e)->cscale = ite->TxtScale;
-						ite->itemText.at(e)->cscalev = ite->TxtScaleV;
-						ite->itemText.at(e)->cbase = ite->TxtBase;
-						ite->itemText.at(e)->cextra = ite->ExtraV;
-					}
-					ite->itemText.at(e)->cab = cabneu;
 				}
 			}
 		}
@@ -9882,6 +9764,17 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 				cstops.at(cst)->color = tmpc;
 			}
 		}
+		for (uint c=0; c<doc->FrameItems.count(); ++c)
+		{
+			PageItem *ite = doc->FrameItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
+				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+				cstops.at(cst)->color = tmpc;
+			}
+		}
 		propertiesPalette->Cpal->SetColors(doc->PageColors);
 		propertiesPalette->updateCList();
 	}
@@ -10371,103 +10264,80 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 					return retVal;
 				}
 				retVal = s;
-				for (uint b = 0; b < doc->MasterItems.count(); ++b)
+				uint counter = 0;
+				for (uint lc = 0; lc < 3; ++lc)
 				{
-					PageItem* ite = doc->MasterItems.at(b);
-					if (ite->itemType() == PageItem::ImageFrame)
+					PageItem* ite;
+					switch (lc)
 					{
-						QFileInfo itf = QFileInfo(ite->Pfile);
-						if (itf.exists())
-						{
-							copyFile(ite->Pfile, s + itf.fileName());
-							fileWatcher->removeFile(ite->Pfile);
-							ite->Pfile = s + itf.fileName();
-							fileWatcher->addFile(s + itf.fileName());
-						}
+						case 0:
+							counter = doc->MasterItems.count();
+							break;
+						case 1:
+							counter = doc->DocItems.count();
+							break;
+						case 2:
+							counter = doc->FrameItems.count();
+							break;
 					}
-					if (ite->itemType() == PageItem::TextFrame)
+					for (uint b = 0; b < counter; ++b)
 					{
-						if (ite->isAnnotation)
+						switch (lc)
 						{
-							QFileInfo itf;
-							if (ite->Pfile != "")
+							case 0:
+								ite = doc->MasterItems.at(b);
+								break;
+							case 1:
+								ite = doc->DocItems.at(b);
+								break;
+							case 2:
+								ite = doc->FrameItems.at(b);
+								break;
+						}
+						if (ite->itemType() == PageItem::ImageFrame)
+						{
+							QFileInfo itf = QFileInfo(ite->Pfile);
+							if (itf.exists())
 							{
-								itf = QFileInfo(ite->Pfile);
-								if (itf.exists())
-								{
-									copyFile(ite->Pfile, s + itf.fileName());
-									fileWatcher->removeFile(ite->Pfile);
-									ite->Pfile = s + itf.fileName();
-									fileWatcher->addFile(s + itf.fileName());
-								}
-							}
-							if (ite->Pfile2 != "")
-							{
-								itf = QFileInfo(ite->Pfile2);
-								if (itf.exists())
-								{
-									copyFile(ite->Pfile2, s + itf.fileName());
-									ite->Pfile2 = s + itf.fileName();
-								}
-							}
-							if (ite->Pfile3 != "")
-							{
-								itf = QFileInfo(ite->Pfile3);
-								if (itf.exists())
-								{
-									copyFile(ite->Pfile3, s + itf.fileName());
-									ite->Pfile3 = s + itf.fileName();
-								}
+								copyFile(ite->Pfile, s + itf.fileName());
+								fileWatcher->removeFile(ite->Pfile);
+								ite->Pfile = s + itf.fileName();
+								fileWatcher->addFile(s + itf.fileName());
 							}
 						}
-					}
-				}
-				for (uint b = 0; b < doc->DocItems.count(); ++b)
-				{
-					PageItem* ite = doc->DocItems.at(b);
-					if (ite->itemType() == PageItem::ImageFrame)
-					{
-						QFileInfo itf = QFileInfo(ite->Pfile);
-						if (itf.exists())
+						if (ite->itemType() == PageItem::TextFrame)
 						{
-							copyFile(ite->Pfile, s + itf.fileName());
-							fileWatcher->removeFile(ite->Pfile);
-							ite->Pfile = s + itf.fileName();
-							fileWatcher->addFile(s + itf.fileName());
-						}
-					}
-					if (ite->itemType() == PageItem::TextFrame)
-					{
-						if (ite->isAnnotation)
-						{
-							QFileInfo itf;
-							if (ite->Pfile != "")
+							if (ite->isAnnotation)
 							{
-								itf = QFileInfo(ite->Pfile);
-								if (itf.exists())
+								QFileInfo itf;
+								if (ite->Pfile != "")
 								{
-									copyFile(ite->Pfile, s + itf.fileName());
-									fileWatcher->removeFile(ite->Pfile);
-									ite->Pfile = s + itf.fileName();
-									fileWatcher->addFile(s + itf.fileName());
+									itf = QFileInfo(ite->Pfile);
+									if (itf.exists())
+									{
+										copyFile(ite->Pfile, s + itf.fileName());
+										fileWatcher->removeFile(ite->Pfile);
+										ite->Pfile = s + itf.fileName();
+										fileWatcher->addFile(s + itf.fileName());
+									}
 								}
-							}
-							if (ite->Pfile2 != "")
-							{
-								itf = QFileInfo(ite->Pfile2);
-								if (itf.exists())
+								if (ite->Pfile2 != "")
 								{
-									copyFile(ite->Pfile2, s + itf.fileName());
-									ite->Pfile2 = s + itf.fileName();
+									itf = QFileInfo(ite->Pfile2);
+									if (itf.exists())
+									{
+										copyFile(ite->Pfile2, s + itf.fileName());
+										ite->Pfile2 = s + itf.fileName();
+									}
 								}
-							}
-							if (ite->Pfile3 != "")
-							{
-								itf = QFileInfo(ite->Pfile3);
-								if (itf.exists())
+								if (ite->Pfile3 != "")
 								{
-									copyFile(ite->Pfile, s + itf.fileName());
-									ite->Pfile3 = s + itf.fileName();
+									itf = QFileInfo(ite->Pfile3);
+									if (itf.exists())
+									{
+										copyFile(ite->Pfile3, s + itf.fileName());
+										ite->Pfile3 = s + itf.fileName();
+									}
 								}
 							}
 						}
@@ -10503,39 +10373,42 @@ void ScribusApp::ReorgFonts()
 	DocF = doc->UsedFonts;
 	if (!doc->masterPageMode)
 		doc->DocPages = doc->Pages;
-	for (uint d = 0; d < doc->MasterItems.count(); ++d)
+	uint counter = 0;
+	for (uint lc = 0; lc < 3; ++lc)
 	{
-		it = doc->MasterItems.at(d);
-		Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		switch (lc)
 		{
-			for (uint e = 0; e < it->itemText.count(); ++e)
-			{
-				Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
-			}
+			case 0:
+				counter = doc->MasterItems.count();
+				break;
+			case 1:
+				counter = doc->DocItems.count();
+				break;
+			case 2:
+				counter = doc->FrameItems.count();
+				break;
 		}
-	}
-	for (uint d = 0; d < doc->DocItems.count(); ++d)
-	{
-		it = doc->DocItems.at(d);
-		Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		for (uint d = 0; d < counter; ++d)
 		{
-			for (uint e = 0; e < it->itemText.count(); ++e)
+			switch (lc)
 			{
-				Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
+				case 0:
+					it = doc->MasterItems.at(d);
+					break;
+				case 1:
+					it = doc->DocItems.at(d);
+					break;
+				case 2:
+					it = doc->FrameItems.at(d);
+					break;
 			}
-		}
-	}
-	for (uint d = 0; d < doc->FrameItems.count(); ++d)
-	{
-		it = doc->FrameItems.at(d);
-		Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-		{
-			for (uint e = 0; e < it->itemText.count(); ++e)
+			Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
-				Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
+				for (uint e = 0; e < it->itemText.count(); ++e)
+				{
+					Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
+				}
 			}
 		}
 	}
@@ -10561,212 +10434,99 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 	PageItem* it;
 	FPointArray gly;
 	QString chx;
-	for (uint d = 0; d < doc->MasterItems.count(); ++d)
+	uint counter = 0;
+	for (uint lc = 0; lc < 3; ++lc)
 	{
-		it = doc->MasterItems.at(d);
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		switch (lc)
 		{
-			for (uint e = 0; e < it->itemText.count(); ++e)
-			{
-				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
-				uint chr = it->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29))
-					continue;
-				if (chr == 9)
-				{
-					for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
-					{
-						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
-							continue;
-						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
-						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-						{
-							if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
-								chx = chx.upper();
-						}
-						chr = chx[0].unicode();
-						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-					}
-					for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
-					{
-						if (it->TabValues[t1].tabFillChar.isNull())
-							continue;
-						chx = QString(it->TabValues[t1].tabFillChar);
-						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-						{
-							if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
-								chx = chx.upper();
-						}
-						chr = chx[0].unicode();
-						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-					}
-					continue;
-				}
-				if (chr == 30)
-				{
-					for (uint numco = 0x30; numco < 0x3A; ++numco)
-					{
-						if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
-						{
-							gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
-							it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
-						}
-					}
-					continue;
-				}
-				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-				{
-					chx = it->itemText.at(e)->ch;
-					if (chx.upper() != it->itemText.at(e)->ch)
-						chx = chx.upper();
-					chr = chx[0].unicode();
-				}
-				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
-				{
-					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-				}
-			}
+			case 0:
+				counter = doc->MasterItems.count();
+				break;
+			case 1:
+				counter = doc->DocItems.count();
+				break;
+			case 2:
+				counter = doc->FrameItems.count();
+				break;
 		}
-	}
-	for (uint d = 0; d < doc->Items.count(); ++d)
-	{
-		it = doc->Items.at(d);
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+		for (uint d = 0; d < counter; ++d)
 		{
-			for (uint e = 0; e < it->itemText.count(); ++e)
+			switch (lc)
 			{
-				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
-				uint chr = it->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29))
-					continue;
-				if (chr == 9)
-				{
-					for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
-					{
-						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
-							continue;
-						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
-						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-						{
-							if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
-								chx = chx.upper();
-						}
-						chr = chx[0].unicode();
-						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-					}
-					for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
-					{
-						if (it->TabValues[t1].tabFillChar.isNull())
-							continue;
-						chx = QString(it->TabValues[t1].tabFillChar);
-						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-						{
-							if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
-								chx = chx.upper();
-						}
-						chr = chx[0].unicode();
-						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-					}
-					continue;
-				}
-				if (chr == 30)
-				{
-					for (uint numco = 0x30; numco < 0x3A; ++numco)
-					{
-						if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
-						{
-							gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
-							it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
-						}
-					}
-					continue;
-				}
-				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-				{
-					chx = it->itemText.at(e)->ch;
-					if (chx.upper() != it->itemText.at(e)->ch)
-						chx = chx.upper();
-					chr = chx[0].unicode();
-				}
-				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
-				{
-					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-				}
+				case 0:
+					it = doc->MasterItems.at(d);
+					break;
+				case 1:
+					it = doc->DocItems.at(d);
+					break;
+				case 2:
+					it = doc->FrameItems.at(d);
+					break;
 			}
-		}
-	}
-	for (uint d = 0; d < doc->FrameItems.count(); ++d)
-	{
-		it = doc->FrameItems.at(d);
-		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-		{
-			for (uint e = 0; e < it->itemText.count(); ++e)
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
-				Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
-				uint chr = it->itemText.at(e)->ch[0].unicode();
-				if ((chr == 13) || (chr == 32) || (chr == 29))
-					continue;
-				if (chr == 9)
+				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-					for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
+					Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
+					uint chr = it->itemText.at(e)->ch[0].unicode();
+					if ((chr == 13) || (chr == 32) || (chr == 29))
+						continue;
+					if (chr == 9)
 					{
-						if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
-							continue;
-						chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
-						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+						for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
 						{
-							if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
-								chx = chx.upper();
+							if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+								continue;
+							chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+							{
+								if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+									chx = chx.upper();
+							}
+							chr = chx[0].unicode();
+							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
 						}
+						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
+						{
+							if (it->TabValues[t1].tabFillChar.isNull())
+								continue;
+							chx = QString(it->TabValues[t1].tabFillChar);
+							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+							{
+								if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
+									chx = chx.upper();
+							}
+							chr = chx[0].unicode();
+							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+						}
+						continue;
+					}
+					if (chr == 30)
+					{
+						for (uint numco = 0x30; numco < 0x3A; ++numco)
+						{
+							if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
+							{
+								gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
+								it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
+							}
+						}
+						continue;
+					}
+					if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+					{
+						chx = it->itemText.at(e)->ch;
+						if (chx.upper() != it->itemText.at(e)->ch)
+							chx = chx.upper();
 						chr = chx[0].unicode();
+					}
+					if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
+					{
 						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
 						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
 					}
-					for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
-					{
-						if (it->TabValues[t1].tabFillChar.isNull())
-							continue;
-						chx = QString(it->TabValues[t1].tabFillChar);
-						if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-						{
-							if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
-								chx = chx.upper();
-						}
-						chr = chx[0].unicode();
-						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-					}
-					continue;
-				}
-				if (chr == 30)
-				{
-					for (uint numco = 0x30; numco < 0x3A; ++numco)
-					{
-						if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
-						{
-							gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
-							it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
-						}
-					}
-					continue;
-				}
-				if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-				{
-					chx = it->itemText.at(e)->ch;
-					if (chx.upper() != it->itemText.at(e)->ch)
-						chx = chx.upper();
-					chr = chx[0].unicode();
-				}
-				if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
-				{
-					gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-					it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
 				}
 			}
 		}
