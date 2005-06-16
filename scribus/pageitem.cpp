@@ -433,7 +433,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
-	if ((itemType()==PathText && !PoShow)|| itemType()==PolyLine || itemType()==Line)
+	if ((itemType()==PathText && !PoShow) || itemType()==PolyLine || itemType()==Line)
 		doStroke=false;
 	if ((doStroke) && (!Doc->RePos))
 	{
@@ -532,8 +532,9 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			hl->embedded->Ypos -= hl->embedded->Height * (hl->base / 1000.0);
 		}
 		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
-//		hl->embedded->Dirty = true;
+		hl->embedded->Dirty = Dirty;
 		double sc;
+		double pws = hl->embedded->Pwidth;
 		hl->embedded->DrawObj_Pre(p, sc);
 		switch(hl->embedded->itemType())
 		{
@@ -544,12 +545,14 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 				hl->embedded->DrawObj_TextFrame(p, e, sc);
 				break;
 			case Line:
+				hl->embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 				hl->embedded->DrawObj_Line(p);
 				break;
 			case Polygon:
 				hl->embedded->DrawObj_Polygon(p);
 				break;
 			case PolyLine:
+				hl->embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 				hl->embedded->DrawObj_PolyLine(p);
 				break;
 			case PathText:
@@ -558,8 +561,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			default:
 				break;
 		}
-		double pws = hl->embedded->Pwidth;
-		hl->embedded->Pwidth *= QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+		hl->embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
 		hl->embedded->DrawObj_Post(p);
 		p->restore();
 		hl->embedded->Pwidth = pws;
@@ -1232,7 +1234,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					else
 					{
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-							chs = qRound((hl->cembedded->Height+ + hl->cembedded->Pwidth) * 10);
+							chs = qRound((hl->cembedded->Height + hl->cembedded->Pwidth) * 10);
 						else
 							chs = hl->csize;
 					}
@@ -1302,6 +1304,49 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					}
 					wide = wide * (hl->cscale / 1000.0);
 					fBorder = false;
+					if (CurY+BExtra+lineCorr > Height)
+					{
+						StartOfCol = true;
+						CurrCol++;
+						if (CurrCol < Cols)
+						{
+							ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+							ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+							CurX = ColBound.x();
+							ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+							CurY = asce+TExtra+lineCorr+1;
+							if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
+							{
+								if (chx != QChar(13))
+									DropCmode = Doc->docParagraphStyles[hl->cab].Drop;
+								else
+									DropCmode = false;
+								if (DropCmode)
+								{
+									if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+										desc2 = -hl->cfont->numDescender * Doc->typographicSetttings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
+									else
+										desc2 = -hl->cfont->numDescender * Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin;
+								}
+								if (DropCmode)
+									DropLines = Doc->docParagraphStyles[hl->cab].DropLin;
+							}
+							if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+							{
+								double by = Ypos;
+								if (OwnPage != -1)
+									by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+								int ol1 = qRound((by + CurY - Doc->typographicSetttings.offsetBaseGrid) * 10000.0);
+								int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
+								CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
+							}
+						}
+						else
+						{
+							nrc = a;
+							goto NoRoom;
+						}
+					}
 					if (LiList.isEmpty())
 					{
 						startLin = a;
@@ -2018,7 +2063,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 									wide = Zli2->xco - xcoZli + Zli2->wide;
 								}
 								if (!Doc->RePos)
-									p->drawRect(xcoZli, qRound(Zli2->yco-asce), wide+1, qRound(asce+desc));
+									p->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
 								p->setBrush(white);
 							}
 							if (Zli2->Farb2 != "None")
@@ -2296,7 +2341,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 							wide = Zli2->xco - xcoZli + Zli2->wide;
 						}
 						if (!Doc->RePos)
-							p->drawRect(xcoZli, qRound(Zli2->yco-asce), wide+1, qRound(asce+desc));
+							p->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
 						p->setBrush(white);
 					}
 					if (Zli2->Farb2 != "None")
