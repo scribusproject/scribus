@@ -368,6 +368,7 @@ public:
 	int M_FileRevert;
 	bool firstSet;
 	bool activFromApp;
+	bool blockUpdate;
 
 public slots:
 	void setBackPref();

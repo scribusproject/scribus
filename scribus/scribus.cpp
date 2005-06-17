@@ -10597,9 +10597,12 @@ void ScribusApp::slotStoryEditor()
 		if (currItem==currItemSE && doc==currDocSE)
 		{
 			storyEditor->activFromApp = true;
+			storyEditor->setCurrentDocumentAndItem(doc, currItem);
+			storyEditor->activFromApp = true;
 			storyEditor->show();
+			storyEditor->activFromApp = true;
 			storyEditor->raise();
-			storyEditor->activFromApp = false;
+			storyEditor->activFromApp = true;
 			return;
 		}
 /*		
@@ -10625,15 +10628,16 @@ void ScribusApp::slotStoryEditor()
 			}
 		
 		} */
+		storyEditor->activFromApp = true;
 		storyEditor->setCurrentDocumentAndItem(doc, currItem);
-		
 		CurrStED = storyEditor;
 		connect(storyEditor, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		connect(storyEditor, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
 		storyEditor->activFromApp = true;
 		storyEditor->show();
+		storyEditor->activFromApp = true;
 		storyEditor->raise();
-		storyEditor->activFromApp = false;
+		storyEditor->activFromApp = true;
 		//dia->show();
 		/*
 		view->DrawNew();

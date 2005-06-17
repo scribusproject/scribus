@@ -898,6 +898,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	QString Text = "";
 	int Csty = 0;
 	int Ali = 0;
+	clear();
 	PageItem *nextItem = currItem;
 	StyledText.clear();
 	ParagStyles.clear();
@@ -1709,7 +1710,9 @@ void SToolBColorS::newShadeHandler()
 SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings"), parent)
 {
 	SeStyle = new StyleSelect(this);
-	trackingLabel = new QLabel( tr( "Tracking:" ), this, "trackingLabel" );
+	trackingLabel = new QLabel( this, "trackingLabel" );
+	trackingLabel->setText("");
+	trackingLabel->setPixmap(loadIcon("textkern.png"));
 	Extra = new MSpinBox( this, 1 );
 	Extra->setValues( -300, 300, 10, 0);
 	Extra->setSuffix( tr( " %" ) );
@@ -1923,6 +1926,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connectSignals();
 	Editor->setFocus();
 	Editor->setFarbe(false);
+	blockUpdate = false;
 }	
 
 /* Main Story Editor Class */
@@ -1941,6 +1945,7 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 	textChanged = false;
 	Editor->setFocus();
 	Editor->setFarbe(false);
+	blockUpdate = false;
 }	
 
 void StoryEditor::buildGUI()
@@ -2155,9 +2160,6 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	disconnectSignals();
 	currDoc=doc;
 	textChanged=false;
-	Editor->StyledText.clear();
-	Editor->ParagStyles.clear();
-	Editor->clear();
 	AlignTools->Spal->setFormats(currDoc);
 	StrokeTools->setCurrentDocument(currDoc);
 	FillTools->setCurrentDocument(currDoc);
@@ -2177,7 +2179,12 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		connectSignals();
 	}
 	else
+	{
+		Editor->StyledText.clear();
+		Editor->ParagStyles.clear();
+		Editor->clear();
 		setCaption( tr( "Story Editor" ));
+	}
 }
 
 /** 10/12/2004 - pv - #1203: wrong selection on double click
@@ -2205,36 +2212,27 @@ void StoryEditor::ToggleSmart()
 	settingsMenu->setItemChecked(smartSel, smartSelection);
 }
 
-/*
-int StoryEditor::exec()
-{
-	clearWFlags( WDestructiveClose );
-	setWFlags( WShowModal );
-	result = 0;
-	show();
-	Editor->setFocus();
-	qApp->enter_loop();
-	clearWFlags( WShowModal );
-	return result;
-}
-*/
-
 void StoryEditor::closeEvent(QCloseEvent *)
 {
 	if (textChanged)
 	{
+		blockUpdate = true;
 		int t = QMessageBox::warning(this, tr("Warning"),
 									tr("Do you want to save your changes?"),
 									QMessageBox::Yes|QMessageBox::Default,
 									QMessageBox::No,
 									QMessageBox::Cancel|QMessageBox::Escape);
+		qApp->processEvents();
 		if (t == QMessageBox::Yes)
 		{
 			updateTextFrame();
 			result = QDialog::Accepted;
 		}
 		else if (t == QMessageBox::Cancel)
+		{
+			blockUpdate = false;
 			return;
+		}
 		else if (t == QMessageBox::No)
 			result = QDialog::Rejected;
 	}
@@ -2242,7 +2240,7 @@ void StoryEditor::closeEvent(QCloseEvent *)
 		result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
 	hide();
-	//qApp->exit_loop();
+	blockUpdate = false;
 }
 
 void StoryEditor::keyPressEvent (QKeyEvent * e)
@@ -2250,42 +2248,44 @@ void StoryEditor::keyPressEvent (QKeyEvent * e)
 	if (e->key() == Qt::Key_Escape)
 		close();
 	else
+	{
+		activFromApp = false;
 		return QMainWindow::keyReleaseEvent(e);
+	}
 }
 
 bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 {
 	if ( ev->type() == QEvent::WindowDeactivate )
 	{
-		if (currItem!=NULL)
+		if ((currItem!=NULL) && (!blockUpdate))
 			updateTextFrame();
+		activFromApp = false;
 	}
 	if ( ev->type() == QEvent::WindowActivate )
 	{
-		if (!activFromApp)
+		if ((!activFromApp) && (!textChanged))
 		{
-			if (ScApp->view->SelItem.count() != 0)
+			activFromApp = true;
+			if (currItem!=NULL)
 			{
-				if ((currItem!=NULL) && (ScApp->doc->appMode == EditMode) && (ScApp->view->SelItem.at(0) == currItem))
-				{
-					Editor->StyledText.clear();
-					Editor->ParagStyles.clear();
-					Editor->clear();
-					Editor->setUndoRedoEnabled(false);
-					Editor->setUndoRedoEnabled(true);
-					Editor->setCursorPosition(0, 0);
-					emenu->setItemEnabled(Mcopy, 0);
-					emenu->setItemEnabled(Mcut, 0);
-					emenu->setItemEnabled(Mdel, 0);
-					fmenu->setItemEnabled(M_FileRevert, 0);
-					textChanged = false;
-					Editor->loadItemText(currItem);
-					updateStatus();
-					EditorBar->setRepaint(true);
-					EditorBar->doRepaint();
-					Editor->sync();
-					Editor->repaintContents();
-				}
+				disconnectSignals();
+				Editor->setUndoRedoEnabled(false);
+				Editor->setUndoRedoEnabled(true);
+				Editor->setCursorPosition(0, 0);
+				emenu->setItemEnabled(Mcopy, 0);
+				emenu->setItemEnabled(Mcut, 0);
+				emenu->setItemEnabled(Mdel, 0);
+				fmenu->setItemEnabled(M_FileRevert, 0);
+				textChanged = false;
+				Editor->loadItemText(currItem);
+				updateStatus();
+				EditorBar->setRepaint(true);
+				EditorBar->doRepaint();
+				Editor->sync();
+				Editor->repaintContents();
+				textChanged = false;
+				connectSignals();
 			}
 		}
 	}
@@ -2294,6 +2294,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 
 void StoryEditor::setBackPref()
 {
+	blockUpdate = true;
 	QColor neu = QColor();
 	neu = QColorDialog::getColor(Editor->paper().color(), this);
 	if (neu.isValid())
@@ -2301,13 +2302,16 @@ void StoryEditor::setBackPref()
 		Editor->setPaper(neu);
 		ScApp->Prefs.STEcolor = neu;
 	}
+	blockUpdate = false;
 }
 
 void StoryEditor::setFontPref()
 {
+	blockUpdate = true;
 	Editor->setFont( QFontDialog::getFont( 0, Editor->font() ) );
 	ScApp->Prefs.STEfont = Editor->font().toString();
 	EditorBar->doRepaint();
+	blockUpdate = false;
 }
 
 void StoryEditor::newTxFill(int c, int s)
@@ -2697,6 +2701,7 @@ void StoryEditor::updateStatus()
 
 void StoryEditor::Do_insSp()
 {
+	blockUpdate = true;
 	ScApp->pluginManager->dllInput = Editor->CurrFont;
 	ScApp->pluginManager->dllReturn = "";
 	CharSelect *dia = new CharSelect(this, currItem, ScApp);
@@ -2709,10 +2714,12 @@ void StoryEditor::Do_insSp()
 	}
 	ScApp->pluginManager->dllInput = "";
 	ScApp->pluginManager->dllReturn = "";
+	blockUpdate = false;
 }
 
 void StoryEditor::Do_fontPrev()
 {
+	blockUpdate = true;
 	ScApp->pluginManager->dllInput = Editor->CurrFont;
 	ScApp->pluginManager->dllReturn = "";
 	if (ScApp->pluginManager->DLLexists(2))
@@ -2726,6 +2733,7 @@ void StoryEditor::Do_fontPrev()
 	}
 	ScApp->pluginManager->dllInput = "";
 	ScApp->pluginManager->dllReturn = "";
+	blockUpdate = false;
 }
 
 void StoryEditor::Do_leave2()
@@ -2734,22 +2742,28 @@ void StoryEditor::Do_leave2()
 	result = QDialog::Accepted;
 	setCurrentDocumentAndItem(currDoc, NULL);
 	hide();
-	//qApp->exit_loop();
+	blockUpdate = false;
 }
 
 void StoryEditor::Do_leave()
 {
 	if (textChanged)
 	{
+		blockUpdate = true;
 		int t = QMessageBox::warning(this, tr("Warning"),
 		                             tr("Do you really want to lose all your changes?"),
 		                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+		qApp->processEvents();
 		if (t == QMessageBox::No)
+		{
+			blockUpdate = false;
 			return;
+		}
 	}
 	result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
 	hide();
+	blockUpdate = false;
 	//qApp->exit_loop();
 }
 
@@ -2766,11 +2780,16 @@ bool StoryEditor::Do_new()
 {
 	if (Editor->length() != 0)
 	{
+		blockUpdate = true;
 		int t = QMessageBox::warning(this, tr("Warning"),
 	                             tr("Do you really want to clear all your text?"),
 	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+		qApp->processEvents();
 		if (t == QMessageBox::No)
+		{
+			blockUpdate = false;
 			return false;
+		}
 	}
 	Editor->StyledText.clear();
 	Editor->ParagStyles.clear();
@@ -2787,6 +2806,7 @@ bool StoryEditor::Do_new()
 	EditorBar->doRepaint();
 	updateProps(0, 0);
 	updateStatus();
+	blockUpdate = false;
 	return true;
 }
 
@@ -2930,16 +2950,20 @@ void StoryEditor::updateTextFrame()
 
 void StoryEditor::SearchText()
 {
+	blockUpdate = true;
 	EditorBar->setRepaint(false);
 	SearchReplace* dia = new SearchReplace(this, currDoc, &ScApp->Prefs, currItem, false);
 	dia->exec();
 	delete dia;
+	qApp->processEvents();
+	blockUpdate = false;
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
 }
 
 void StoryEditor::slotEditStyles()
 {
+	blockUpdate = true;
 	EditorBar->setRepaint(false);
 	int p, i;
 	Editor->getCursorPosition(&p, &i);
@@ -2958,6 +2982,8 @@ void StoryEditor::slotEditStyles()
 	EditorBar->doRepaint();
 	Editor->sync();
 	Editor-> repaintContents();
+	qApp->processEvents();
+	blockUpdate = false;
 }
 
 void StoryEditor::newAlign(int st)
@@ -3292,13 +3318,18 @@ void StoryEditor::LoadTextFile()
 
 void StoryEditor::SaveTextFile()
 {
+	blockUpdate = true;
 	QString LoadEnc = "";
 	QString fileName = "";
 	PrefsContext* dirs = prefsFile->getContext("dirs");
 	QString wdir = dirs->get("story_save", ScApp->Prefs.DocDir);
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), false, false, false, true);
+	qApp->processEvents();
 	if (dia.exec() != QDialog::Accepted)
+	{
+		blockUpdate = false;
 		return;
+	}
 	LoadEnc = dia.TxCodeM->currentText();
 	fileName =  dia.selectedFile();
 	if (!fileName.isEmpty())
@@ -3309,6 +3340,7 @@ void StoryEditor::SaveTextFile()
 		ss->Write(LoadEnc);
 		delete ss;
 	}
+	blockUpdate = false;
 }
 
 bool StoryEditor::textDataChanged() const
