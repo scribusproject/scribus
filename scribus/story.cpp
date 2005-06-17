@@ -587,6 +587,7 @@ void SEditor::insChars(QString t)
 			hg->cunderwidth =CurrTextUnderWidth;
 			hg->cstrikepos = CurrTextStrikePos;
 			hg->cstrikewidth =CurrTextStrikeWidth;
+			hg->cembedded = 0;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -621,6 +622,8 @@ void SEditor::insStyledText()
 	for (uint a = 0; a < cBuffer.count()-1; ++a)
 	{
 		struct PtiSmall *hg;
+		if (cBuffer.at(a)->ch == QChar(25))
+			continue;
 		if (cBuffer.at(a)->ch == QChar(13))
 		{
 			ChList *chars2;
@@ -669,6 +672,7 @@ void SEditor::insStyledText()
 			hg->cunderwidth = cBuffer.at(a)->cunderwidth;
 			hg->cstrikepos = cBuffer.at(a)->cstrikepos;
 			hg->cstrikewidth = cBuffer.at(a)->cstrikewidth;
+			hg->cembedded = 0;
 			chars->insert(i, hg);
 			i++;
 		}
@@ -716,6 +720,7 @@ void SEditor::copyStyledText()
 			hg->cunderwidth = chars->at(ca)->cunderwidth;
 			hg->cstrikepos = chars->at(ca)->cstrikepos;
 			hg->cstrikewidth = chars->at(ca)->cstrikewidth;
+			hg->cembedded = 0;
 			cBuffer.append(hg);
 		}
 		hg = new PtiSmall;
@@ -739,6 +744,7 @@ void SEditor::copyStyledText()
 		hg->cunderwidth = -1;
 		hg->cstrikepos = -1;
 		hg->cstrikewidth = -1;
+		hg->cembedded = 0;
 		cBuffer.append(hg);
 	}
 }
@@ -846,7 +852,13 @@ void SEditor::saveItemText(PageItem *currItem)
 			hg->PRot = 0;
 			hg->PtransX = 0;
 			hg->PtransY = 0;
-			hg->cembedded = 0;
+			if (hg->ch == QChar(25))
+			{
+				hg->cembedded = chars->at(c)->cembedded;
+				currItem->Doc->FrameItems.append(hg->cembedded);
+			}
+			else
+				hg->cembedded = 0;
 			currItem->itemText.append(hg);
 		}
 	}
@@ -889,6 +901,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	PageItem *nextItem = currItem;
 	StyledText.clear();
 	ParagStyles.clear();
+	FrameItems.clear();
 	ChList *chars;
 	chars = new ChList;
 	chars->setAutoDelete(true);
@@ -952,6 +965,20 @@ void SEditor::loadItemText(PageItem *currItem)
 				hg->cunderwidth = nextItem->itemText.at(a)->cunderwidth;
 				hg->cstrikepos = nextItem->itemText.at(a)->cstrikepos;
 				hg->cstrikewidth = nextItem->itemText.at(a)->cstrikewidth;
+				if (hg->ch == QChar(25))
+				{
+					hg->cembedded = nextItem->itemText.at(a)->cembedded;
+					FrameItems.append(hg->cembedded);
+					setAlign(Ali);
+					setStyle(Csty);
+					insert(Text);
+					setFarbe(true);
+					insert("@");
+					setFarbe(false);
+					Text = "";
+					chars->append(hg);
+					continue;
+				}
 				if ((Ali == hg->cab) && (Csty == hg->cstyle))
 				{
 					if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
@@ -1101,6 +1128,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 			hg->cstyle = currItem->TxTStyle;
 			hg->cab = currItem->textAlignment;
 			hg->cextra = 0;
+			hg->cembedded = 0;
 			Text += hg->ch;
 			chars->append(hg);
 		}
@@ -1150,6 +1178,17 @@ void SEditor::updateAll()
 		for (uint a = 0; a < chars->count(); ++a)
 		{
 			hg = chars->at(a);
+			if (hg->ch == QChar(25))
+			{
+				setAlign(Ali);
+				setStyle(Csty);
+				insert(Text);
+				setFarbe(true);
+				insert("@");
+				setFarbe(false);
+				Text = "";
+				continue;
+			}
 			if ((Ali == hg->cab) && (Csty == hg->cstyle))
 			{
 				if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
@@ -2841,12 +2880,24 @@ void StoryEditor::updateTextFrame()
 		nb2->CPos = 0;
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
-		for (uint a = 0; a < currDoc->FrameItems.count(); ++a)
-		{
-			currDoc->FrameItems.at(a)->ItemNr = a;
-		}
 	}
 	Editor->saveItemText(nextItem);
+	QPtrList<PageItem> FrameItemsDel;
+	FrameItemsDel.setAutoDelete(true);
+	for (uint a = 0; a < Editor->FrameItems.count(); ++a)
+	{
+		if (currDoc->FrameItems.findRef(Editor->FrameItems.at(a)) == -1)
+			FrameItemsDel.append(Editor->FrameItems.at(a));
+	}
+	for (uint a = 0; a < FrameItemsDel.count(); ++a)
+	{
+		Editor->FrameItems.remove(FrameItemsDel.at(a));
+	}
+	FrameItemsDel.clear();
+	for (uint a = 0; a < currDoc->FrameItems.count(); ++a)
+	{
+		currDoc->FrameItems.at(a)->ItemNr = a;
+	}
 	if (currDoc->docHyphenator->AutoCheck)
 	{
 		if (currDoc->docHyphenator->Language != nextItem->Language)

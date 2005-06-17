@@ -258,7 +258,10 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 			for (ScText *itx = nextItem->itemText.first(); itx != 0; itx = nextItem->itemText.next())
 			{
 				if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
+				{
 					Carrier->doc->FrameItems.remove(itx->cembedded);
+					delete itx->cembedded;
+				}
 			}
 			nextItem->itemText.clear();
 			nextItem->CPos = 0;
@@ -268,7 +271,10 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 	for (ScText *itx = currItem->itemText.first(); itx != 0; itx = currItem->itemText.next())
 	{
 		if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
+		{
 			Carrier->doc->FrameItems.remove(itx->cembedded);
+			delete itx->cembedded;
+		}
 	}
 	currItem->itemText.clear();
 	currItem->CPos = 0;
@@ -635,7 +641,10 @@ PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
 		for (ScText *itx = it->itemText.first(); itx != 0; itx = it->itemText.next())
 		{
 			if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
+			{
 				Carrier->doc->FrameItems.remove(itx->cembedded);
+				delete itx->cembedded;
+			}
 		}
 		it->itemText.clear();
 		it->CPos = 0;

@@ -8057,7 +8057,10 @@ void ScribusView::ClearItem()
 					for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
 					{
 						if ((it->ch == QChar(25)) && (it->cembedded != 0))
+						{
 							Doc->FrameItems.remove(it->cembedded);
+							delete it->cembedded;
+						}
 					}
 					nextItem->itemText.clear();
 					nextItem->CPos = 0;

@@ -269,7 +269,6 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject:
 	Items.clear();
 	MasterItems.clear();
 	DocItems.clear();
-	FrameItems.setAutoDelete(true);
 	FrameItems.clear();
 	ScratchLeft = prefsData->ScratchLeft;
 	ScratchRight = prefsData->ScratchRight;

@@ -63,6 +63,7 @@ struct PtiSmall {
 		    QString cfont;
 		    QString ccolor;
 			QString cstroke;
+			PageItem* cembedded;
 		   };
 
 class SEditor : public QTextEdit
@@ -89,6 +90,7 @@ public:
 
 	typedef QPtrList<PtiSmall> ChList;
 	QPtrList<ChList> StyledText;
+	QPtrList<PageItem> FrameItems;
 	QValueList<int> ParagStyles;
 	ScribusDoc* doc;
 	bool UniCinp;

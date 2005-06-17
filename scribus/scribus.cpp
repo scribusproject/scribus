@@ -1429,7 +1429,10 @@ void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 		{
 			first = true;
 			if ((it->ch == QChar(25)) && (it->cembedded != 0))
+			{
 				doc->FrameItems.remove(it->cembedded);
+				delete it->cembedded;
+			}
 			currItem->itemText.remove();
 			it = currItem->itemText.prev();
 			if (it == 0)
