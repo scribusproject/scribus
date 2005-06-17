@@ -1614,7 +1614,7 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	TxFill->setEditable(false);
 	PM2 = new ShadeButton(this);
 	setCurrentDocument(doc);
-	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
+	//TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	QToolTip::add( TxFill, tr( "Color of text fill" ) );
 	QToolTip::add( PM2, tr( "Saturation of color of text fill" ) );
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
@@ -1634,6 +1634,7 @@ void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 			TxFill->insertItem(pm, it.key());
 		}
 	}
+	resize(minimumSizeHint());
 }
 
 void SToolBColorF::SetColor(int c)
@@ -1665,7 +1666,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	TxStroke->setEditable(false);
 	PM1 = new ShadeButton(this);
 	setCurrentDocument(doc);
-	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
+	//TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
 	QToolTip::add( TxStroke, tr( "Color of text stroke" ) );
 	QToolTip::add( PM1, tr( "Saturation of color of text stroke" ) );
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
@@ -1685,6 +1686,7 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 			TxStroke->insertItem(pm, it.key());
 		}
 	}
+	resize(minimumSizeHint());
 }
 
 void SToolBColorS::SetColor(int c)
