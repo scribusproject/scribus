@@ -10593,11 +10593,13 @@ void ScribusApp::slotStoryEditor()
 		ScribusDoc *currDocSE=storyEditor->currentDocument();
 		if (currItem==currItemSE && doc==currDocSE)
 		{
+			storyEditor->activFromApp = true;
 			storyEditor->show();
 			storyEditor->raise();
+			storyEditor->activFromApp = false;
 			return;
 		}
-		
+/*		
 		if (currItemSE!=NULL && currDocSE!=NULL)
 		{
 			QString msg=tr("Story Editor is currently editing the text in the frame named %1 from the document %2.<br/>").arg(currItemSE->itemName()).arg(currDocSE->DocName);
@@ -10619,13 +10621,16 @@ void ScribusApp::slotStoryEditor()
 					return;
 			}
 		
-		}
+		} */
 		storyEditor->setCurrentDocumentAndItem(doc, currItem);
 		
 		CurrStED = storyEditor;
 		connect(storyEditor, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		connect(storyEditor, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
+		storyEditor->activFromApp = true;
 		storyEditor->show();
+		storyEditor->raise();
+		storyEditor->activFromApp = false;
 		//dia->show();
 		/*
 		view->DrawNew();

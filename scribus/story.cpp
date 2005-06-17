@@ -1867,13 +1867,16 @@ void SToolBFont::newSizeHandler()
 
 /* Main Story Editor Class */
 StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) 
-	: QMainWindow(parent, "StoryEditor", WType_Dialog) //WShowModal | 
+	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal | 
 {
 	currDoc = docc;
 	buildGUI();
 	currItem = ite;
 	firstSet = false;
+	activFromApp = true;
 	Editor->loadItemText(ite);
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 	updateProps(0,0);
 	updateStatus();
 	textChanged = false;
@@ -1884,12 +1887,13 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 }	
 
 /* Main Story Editor Class */
-StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_Dialog) //WShowModal | 
+StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel) // WType_Dialog) //WShowModal | 
 {
 	currDoc = NULL;
 	buildGUI();
 	currItem = NULL;
 	firstSet = false;
+	activFromApp = true;
 	/*
 	//Editor->loadItemText(ite);
 	updateProps(0,0);
@@ -2125,8 +2129,12 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		setCaption( tr("Story Editor - %1").arg(currItem->itemName()));
 		firstSet = false;
 		Editor->loadItemText(currItem);
+		EditorBar->setRepaint(true);
+		EditorBar->doRepaint();
 		updateProps(0,0);
 		updateStatus();
+		Editor->sync();
+		Editor->repaintContents();
 		connectSignals();
 	}
 	else
@@ -2204,6 +2212,45 @@ void StoryEditor::keyPressEvent (QKeyEvent * e)
 		close();
 	else
 		return QMainWindow::keyReleaseEvent(e);
+}
+
+bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
+{
+	if ( ev->type() == QEvent::WindowDeactivate )
+	{
+		if (currItem!=NULL)
+			updateTextFrame();
+	}
+	if ( ev->type() == QEvent::WindowActivate )
+	{
+		if (!activFromApp)
+		{
+			if (ScApp->view->SelItem.count() != 0)
+			{
+				if ((currItem!=NULL) && (ScApp->doc->appMode == EditMode) && (ScApp->view->SelItem.at(0) == currItem))
+				{
+					Editor->StyledText.clear();
+					Editor->ParagStyles.clear();
+					Editor->clear();
+					Editor->setUndoRedoEnabled(false);
+					Editor->setUndoRedoEnabled(true);
+					Editor->setCursorPosition(0, 0);
+					emenu->setItemEnabled(Mcopy, 0);
+					emenu->setItemEnabled(Mcut, 0);
+					emenu->setItemEnabled(Mdel, 0);
+					fmenu->setItemEnabled(M_FileRevert, 0);
+					textChanged = false;
+					Editor->loadItemText(currItem);
+					updateStatus();
+					EditorBar->setRepaint(true);
+					EditorBar->doRepaint();
+					Editor->sync();
+					Editor->repaintContents();
+				}
+			}
+		}
+	}
+	return QMainWindow::eventFilter(ob, ev);
 }
 
 void StoryEditor::setBackPref()
@@ -2697,6 +2744,8 @@ bool StoryEditor::Do_new()
 	emenu->setItemEnabled(Mdel, 0);
 	fmenu->setItemEnabled(M_FileRevert, 0);
 	textChanged = false;
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 	updateProps(0, 0);
 	updateStatus();
 	return true;
@@ -2708,6 +2757,8 @@ void StoryEditor::slotFileRevert()
 	{
 		Editor->loadItemText(currItem);
 		updateStatus();
+		EditorBar->setRepaint(true);
+		EditorBar->doRepaint();
 		Editor->sync();
 		Editor->repaintContents();
 	}

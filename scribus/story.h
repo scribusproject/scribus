@@ -308,6 +308,7 @@ public:
 	~StoryEditor() {};
 	void closeEvent(QCloseEvent *);
 	void keyPressEvent (QKeyEvent * e);
+	bool eventFilter( QObject* ob, QEvent* ev );
 	//int exec();
 	void changeAlign(int align);
 	int result;
@@ -364,6 +365,7 @@ public:
 	int Mupdt;
 	int M_FileRevert;
 	bool firstSet;
+	bool activFromApp;
 
 public slots:
 	void setBackPref();
