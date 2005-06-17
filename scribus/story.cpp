@@ -1615,10 +1615,18 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	PM2 = new ShadeButton(this);
 	setCurrentDocument(doc);
 	//TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
-	QToolTip::add( TxFill, tr( "Color of text fill" ) );
-	QToolTip::add( PM2, tr( "Saturation of color of text fill" ) );
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 	connect(PM2, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
+	
+	languageChange();
+}
+
+void SToolBColorF::languageChange()
+{
+	QToolTip::remove(TxFill);
+	QToolTip::remove(PM2);
+	QToolTip::add(TxFill, tr( "Color of text fill" ));
+	QToolTip::add(PM2, tr( "Saturation of color of text fill" ));
 }
 
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
@@ -1667,10 +1675,18 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	PM1 = new ShadeButton(this);
 	setCurrentDocument(doc);
 	//TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
-	QToolTip::add( TxStroke, tr( "Color of text stroke" ) );
-	QToolTip::add( PM1, tr( "Saturation of color of text stroke" ) );
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 	connect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
+	
+	languageChange();
+}
+
+void SToolBColorS::languageChange()
+{
+	QToolTip::remove(TxStroke);
+	QToolTip::remove(PM1);
+	QToolTip::add(TxStroke, tr("Color of text stroke"));
+	QToolTip::add(PM1, tr("Saturation of color of text stroke"));
 }
 
 void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
@@ -1718,7 +1734,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	Extra = new MSpinBox( this, 1 );
 	Extra->setValues( -300, 300, 10, 0);
 	Extra->setSuffix( tr( " %" ) );
-	QToolTip::add( Extra, tr( "Manual Tracking" ) );
+	
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
@@ -1728,6 +1744,14 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
 	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
 	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	
+	languageChange();
+}
+
+void SToolBStyle::languageChange()
+{
+	QToolTip::remove(Extra);
+	QToolTip::add(Extra, tr( "Manual Tracking" ));
 }
 
 void SToolBStyle::newStrikeHandler()
@@ -1818,9 +1842,16 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 {
 	GroupAlign = new AlignSelect(this);
 	Spal = new Spalette(this);
-	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
 	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
+	
+	languageChange();
+}
+
+void SToolBAlign::languageChange()
+{
+	QToolTip::remove(Spal);
+	QToolTip::add(Spal, tr("Style of current paragraph"));
 }
 
 void SToolBAlign::newStyleHandler(int s)
@@ -1866,14 +1897,23 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	ChScaleV = new MSpinBox( 10, 400, this, 1 );
 	ChScaleV->setValue( 100 );
 	ChScaleV->setSuffix( tr( " %" ) );
-	QToolTip::add( Fonts, tr( "Font of selected text" ) );
-	QToolTip::add( Size, tr( "Font Size" ) );
-	QToolTip::add( ChScale, tr( "Scaling width of characters" ) );
-	QToolTip::add( ChScaleV, tr( "Scaling height of characters" ) );
+
 	connect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
 	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
 	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(newSizeHandler()));
+}
+
+void SToolBFont::languageChange()
+{
+	QToolTip::remove(Fonts);
+	QToolTip::remove(Size);
+	QToolTip::remove(ChScale);
+	QToolTip::remove(ChScaleV);
+	QToolTip::add(Fonts, tr("Font of selected text"));
+	QToolTip::add(Size, tr("Font Size"));
+	QToolTip::add(ChScale, tr("Scaling width of characters"));
+	QToolTip::add(ChScaleV, tr("Scaling height of characters"));
 }
 
 void SToolBFont::SetFont(QString f)
@@ -1931,7 +1971,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	blockUpdate = false;
 }	
 
-/* Main Story Editor Class */
+/* Main Story Editor Class, no current document */
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel) // WType_Dialog) //WShowModal | 
 {
 	currDoc = NULL;
@@ -1952,7 +1992,6 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 
 void StoryEditor::buildGUI()
 {
-	setCaption( tr( "Story Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	QHBox* vb = new QHBox( this );
 	StoryEd2Layout = new QHBoxLayout( 0, 5, 5, "StoryEd2Layout");
@@ -1993,15 +2032,15 @@ void StoryEditor::buildGUI()
 	menuBar()->insertItem( tr("&Settings"), settingsMenu );
 
 /* Setting up Toolbars */
-	FileTools = new QToolBar( tr("File"), this);
-	DatNeu = new QToolButton(loadIcon("editdelete.png"), tr("Clear All Text"), QString::null, this, SLOT(Do_new()), FileTools);
-	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Load Text from File"), QString::null, this, SLOT(LoadTextFile()), FileTools);
-	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save Text to File"), QString::null, this, SLOT(SaveTextFile()), FileTools);
-	DatClo = new QToolButton(loadIcon("ok22.png"), tr("Update Text Frame and Exit"), QString::null, this, SLOT(Do_leave2()), FileTools);
-	DatCan = new QToolButton(loadIcon("exit22.png"), tr("Exit Without Updating Text Frame"), QString::null, this, SLOT(Do_leave()), FileTools);
-	DatRel = new QToolButton(loadIcon("reload.png"), tr("Reload Text from Frame"), QString::null, this, SLOT(slotFileRevert()), FileTools);
-	DatUpdt = new QToolButton(loadIcon("compfile.png"), tr("Update Text Frame"), QString::null, this, SLOT(updateTextFrame()), FileTools);
-	DatFin = new QToolButton(loadIcon("find.png"), tr("Search/Replace"), QString::null, this, SLOT(SearchText()), FileTools);
+	FileTools = new QToolBar(this);
+	DatNeu = new QToolButton(loadIcon("editdelete.png"), "", QString::null, this, SLOT(Do_new()), FileTools);
+	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), "", QString::null, this, SLOT(LoadTextFile()), FileTools);
+	DatSav = new QToolButton(loadIcon("DateiSave2.png"), "", QString::null, this, SLOT(SaveTextFile()), FileTools);
+	DatClo = new QToolButton(loadIcon("ok22.png"), "", QString::null, this, SLOT(Do_leave2()), FileTools);
+	DatCan = new QToolButton(loadIcon("exit22.png"), "", QString::null, this, SLOT(Do_leave()), FileTools);
+	DatRel = new QToolButton(loadIcon("reload.png"), "", QString::null, this, SLOT(slotFileRevert()), FileTools);
+	DatUpdt = new QToolButton(loadIcon("compfile.png"), "", QString::null, this, SLOT(updateTextFrame()), FileTools);
+	DatFin = new QToolButton(loadIcon("find.png"), "", QString::null, this, SLOT(SearchText()), FileTools);
 	DatUpdt->setEnabled(false);
 	//DatRel->setEnabled(false);
 	setDockEnabled(FileTools, DockLeft, false);
@@ -2052,15 +2091,12 @@ void StoryEditor::buildGUI()
 	ButtonGroup1Layout->setSpacing( 2 );
 	ButtonGroup1Layout->setMargin( 0 );
 	WordCT1 = new QLabel(ButtonGroup1, "wt");
-	WordCT1->setText( tr("Current Paragraph:"));
 	ButtonGroup1Layout->addMultiCellWidget( WordCT1, 0, 0, 0, 3 );
 	WordCT = new QLabel(ButtonGroup1, "wt");
-	WordCT->setText( tr("Words: "));
 	ButtonGroup1Layout->addWidget( WordCT, 1, 0 );
 	WordC = new QLabel(ButtonGroup1, "wc");
 	ButtonGroup1Layout->addWidget( WordC, 1, 1 );
 	CharCT = new QLabel(ButtonGroup1, "ct");
-	CharCT->setText( tr("Chars: "));
 	ButtonGroup1Layout->addWidget( CharCT, 1, 2 );
 	CharC = new QLabel(ButtonGroup1, "cc");
 	ButtonGroup1Layout->addWidget( CharC, 1, 3 );
@@ -2078,20 +2114,16 @@ void StoryEditor::buildGUI()
 	ButtonGroup2Layout->setSpacing( 2 );
 	ButtonGroup2Layout->setMargin( 0 );
 	WordCT3 = new QLabel(ButtonGroup2, "wt");
-	WordCT3->setText( tr("Totals:"));
 	ButtonGroup2Layout->addMultiCellWidget( WordCT3, 0, 0, 0, 5 );
 	ParCT = new QLabel(ButtonGroup2, "pt");
-	ParCT->setText( tr("Paragraphs: "));
 	ButtonGroup2Layout->addWidget( ParCT, 1, 0 );
 	ParC = new QLabel(ButtonGroup2, "pc");
 	ButtonGroup2Layout->addWidget( ParC, 1, 1 );
 	WordCT2 = new QLabel(ButtonGroup2, "wt");
-	WordCT2->setText( tr("Words: "));
 	ButtonGroup2Layout->addWidget( WordCT2, 1, 2 );
 	WordC2 = new QLabel(ButtonGroup2, "wc");
 	ButtonGroup2Layout->addWidget( WordC2, 1, 3 );
 	CharCT2 = new QLabel(ButtonGroup2, "ct");
-	CharCT2->setText( tr("Chars: "));
 	ButtonGroup2Layout->addWidget( CharCT2, 1, 4 );
 	CharC2 = new QLabel(ButtonGroup2, "cc");
 	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
@@ -2112,6 +2144,32 @@ void StoryEditor::buildGUI()
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
 	EditorBar->editor = Editor;
+	
+	languageChange();
+}
+
+void StoryEditor::languageChange()
+{
+	setCaption( tr( "Story Editor" ) );
+	
+	FileTools->setLabel( tr("File"));
+	DatNeu->setTextLabel( tr("Clear All Text"), true);
+	DatOpe->setTextLabel( tr("Load Text from File"), true);
+	DatSav->setTextLabel( tr("Save Text to File"), true);
+	DatClo->setTextLabel( tr("Update Text Frame and Exit"), true);
+	DatCan->setTextLabel( tr("Exit Without Updating Text Frame"), true);
+	DatRel->setTextLabel( tr("Reload Text from Frame"), true);
+	DatUpdt->setTextLabel( tr("Update Text Frame"), true);
+	DatFin->setTextLabel( tr("Search/Replace"), true);
+	
+	WordCT1->setText( tr("Current Paragraph:"));
+	WordCT->setText( tr("Words: "));
+	CharCT->setText( tr("Chars: "));
+	WordCT3->setText( tr("Totals:"));
+	ParCT->setText( tr("Paragraphs: "));	
+	WordCT2->setText( tr("Words: "));
+	CharCT2->setText( tr("Chars: "));
+
 }
 
 void StoryEditor::disconnectSignals()

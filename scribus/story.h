@@ -194,6 +194,7 @@ public slots:
 	void SetColor(int c);
 	void SetShade(int s);
 	void newShadeHandler();
+	void languageChange();
 
 signals:
 	void NewColor(int, int);
@@ -215,6 +216,7 @@ public slots:
 	void SetColor(int c);
 	void SetShade(int s);
 	void newShadeHandler();
+	void languageChange();
 
 signals:
 	void NewColor(int, int);
@@ -243,6 +245,7 @@ public slots:
 	void setOutline(int o);
 	void SetStyle(int s);
 	void SetKern(int k);
+	void languageChange();
 
 signals:
 	void NewKern(int);
@@ -266,6 +269,7 @@ public:
 public slots:
 	void newStyleHandler(int s);
 	void SetAlign(int s);
+	void languageChange();
 
 signals:
 	void NewAlign(int);
@@ -292,6 +296,7 @@ public slots:
 	void SetScale(int s);
 	void SetScaleV(int s);
 	void newSizeHandler();
+	void languageChange();
 
 signals:
 	void NewFont(const QString &);
@@ -413,6 +418,7 @@ public slots:
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	void doubleClick(int para, int pos);
 	void ToggleSmart();
+	void languageChange();
 
 signals:
 	void DocChanged();
