@@ -2121,9 +2121,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		PS_translate(hl->xp, (hl->yp - (hl->cembedded->Height * (hl->cscalev / 1000.0))) * -1);
 		if (hl->cbase != 0)
 			PS_translate(0, hl->cembedded->Height * (hl->cbase / 1000.0));
-		if (hl->cscale != 100)
+		if (hl->cscale != 1000)
 			PS_scale(hl->cscale / 1000.0, 1);
-		if (hl->cscalev != 100)
+		if (hl->cscalev != 1000)
 			PS_scale(1, hl->cscalev / 1000.0);
 		ProcessItem(Doc, pg, hl->cembedded, a, sep, farb, ic, gcr, master, true);
 		PS_restore();
