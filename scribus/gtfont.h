@@ -98,7 +98,7 @@ private:
 	int     strokeShade;
 	/* Width of a character in percentages to it's "real width" */
 	int     hscale;
-	double  kerning;
+	int  kerning;
 	bool useFullName;
 	int  weightIndex;
 	int  slantIndex;
@@ -152,8 +152,8 @@ public:
 	int     getStrokeShade();
 	int     getHscale();
 	void    setHscale(int newHscale);
-	double  getKerning();
-	void    setKerning(double newKerning);
+	int  getKerning();
+	void    setKerning(int newKerning);
 	gtFont();
 	gtFont(const gtFont& f);
 	~gtFont();

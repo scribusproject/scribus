@@ -10,7 +10,7 @@ QStringList FileExtensions()
     return QStringList("csv");
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *writer)
 {
 	CsvDialog* csvdia = new CsvDialog();
 	if (csvdia->exec())

@@ -240,7 +240,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			currentStyle->getFont()->setColor("White");
  		}
  		else if (attrs.localName(i) == "fo:letter-spacing")
- 			currentStyle->getFont()->setKerning(getSize(attrs.value(i)));
+ 			currentStyle->getFont()->setKerning(static_cast<int>(getSize(attrs.value(i), -1.0)));
  		else if (attrs.localName(i) == "style:text-scale")
  			currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
  		else if ((attrs.localName(i) == "style:text-position") && 
@@ -588,7 +588,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		style->getFont()->setColor("White");
  	}
  	else if (key == "fo:letter-spacing")
- 		style->getFont()->setKerning(getSize(value));
+ 		style->getFont()->setKerning(static_cast<int>(getSize(value, -1.0)));
  	else if (key == "style:text-scale")
  		style->getFont()->setHscale(static_cast<int>(getSize(value, -1.0)));
  	else if ((key == "style:text-position") && 

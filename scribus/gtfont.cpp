@@ -75,8 +75,8 @@ gtFont::gtFont()
 	shade       = 100;
 	strokeColor = "Black";
 	strokeShade = 100;
-	hscale      = 100;
-	kerning     = 0.0;
+	hscale      = 1000;
+	kerning     = 0;
 	useFullName = true;
 	weightIndex = 0;
 	slantIndex  = 1;
@@ -485,12 +485,12 @@ void    gtFont::setHscale(int newHscale)
 	hscale = newHscale;
 }
 
-double gtFont::getKerning()
+int gtFont::getKerning()
 {
 	return kerning;
 }
 
-void gtFont::setKerning(double newKerning)
+void gtFont::setKerning(int newKerning)
 {
 	kerning = newKerning;
 }
