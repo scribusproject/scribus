@@ -9,6 +9,7 @@
 #include <qdom.h>
 #include <qtextstream.h>
 #include <cstdlib>
+#include <qtextedit.h>
 
 #include "customfdialog.h"
 #include "helpbrowser.h"
@@ -27,9 +28,9 @@ extern PrefsFile* prefsFile;
 
 #include "scriptercore.moc"
 
-ScripterCore::ScripterCore(QWidget* parent) :
-	pcon(parent)
+ScripterCore::ScripterCore(QWidget* parent)
 {
+	pcon = new PythonConsole(parent);
 	menuMgr = Carrier->scrMenuMgr;
 	scrScripterActions.clear();
 	scrRecentScriptActions.clear();
@@ -58,8 +59,8 @@ ScripterCore::ScripterCore(QWidget* parent) :
 	buildScribusScriptsMenu();
 	buildRecentScriptsMenu();
 
-	QObject::connect(pcon.OutWin, SIGNAL(returnPressed()), this, SLOT(slotExecute()));
-	QObject::connect(&pcon, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
+	QObject::connect(pcon, SIGNAL(runCommand()), this, SLOT(slotExecute()));
+	QObject::connect(pcon, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
 }
 
 ScripterCore::~ScripterCore()
@@ -350,13 +351,6 @@ QString ScripterCore::slotRunScript(QString Script)
 	comm[0] = (char*)"scribus";
 	PySys_SetArgv(1, comm);
 	PyRun_SimpleString(cmd.data());
-	if (RetVal == 0)
-	{
-		RetString += ">>>";
-		pcon.OutWin->Prompt = ">>>";
-	}
-	else
-		pcon.OutWin->Prompt = "...";
 	Carrier->ScriptRunning = false;
 	qApp->restoreOverrideCursor();
 	return RetString;
@@ -365,15 +359,13 @@ QString ScripterCore::slotRunScript(QString Script)
 void ScripterCore::slotInteractiveScript(bool visible)
 {
 	scrScripterActions["scripterShowConsole"]->setOn(visible);
-	pcon.setShown(visible);
+	pcon->setShown(visible);
 }
 
 void ScripterCore::slotExecute()
 {
-	pcon.OutWin->append(slotRunScript(pcon.OutWin->LastComm));
-	pcon.OutWin->moveCursor(QTextEdit::MoveEnd, false);
-	pcon.OutWin->scrollToBottom();
-	pcon.OutWin->ensureCursorVisible();
+	pcon->outputEdit->append(slotRunScript(pcon->command));
+	pcon->commandEdit->ensureCursorVisible();
 	FinishScriptRun();
 }
 
@@ -428,7 +420,9 @@ void ScripterCore::SavePlugPrefs()
  */
 void ScripterCore::aboutScript()
 {
-	QString fname = Carrier->CFileDialog(".", "about", "Scripts (*.py)", "", 0, 0, 0, 0);
+	QString fname = Carrier->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py)"), "", 0, 0, 0, 0);
+	if (fname == QString::null)
+		return;
 	QFileInfo fi = QFileInfo(fname);
 	QString html = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/aboutScript.html");
 	QFile input(fname);
@@ -482,11 +476,9 @@ void ScripterCore::languageChange()
 {
 	scrScripterActions["scripterExecuteScript"]->setMenuText(QObject::tr("&Execute Script..."));
 	scrScripterActions["scripterShowConsole"]->setMenuText(QObject::tr("Show &Console"));
-	scrScripterActions["scripterAboutScript"]->setMenuText(QObject::tr("&About Script..."));	
-	
+	scrScripterActions["scripterAboutScript"]->setMenuText(QObject::tr("&About Script..."));
+
 	menuMgr->setMenuText("Scripter", QObject::tr("&Script"));
 	menuMgr->setMenuText("ScribusScripts", QObject::tr("&Scribus Scripts"));
 	menuMgr->setMenuText("RecentScripts", QObject::tr("&Recent Scripts"));
-	
-	pcon.languageChange();
 }

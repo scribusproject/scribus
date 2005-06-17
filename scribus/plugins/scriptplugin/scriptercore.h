@@ -8,10 +8,10 @@
 
 #include "menumanager.h"
 #include "pconsole.h"
-#include "conswin.h"
 
 class ScrAction;
 class MenuManager;
+
 
 class ScripterCore : public QObject
 {
@@ -30,9 +30,9 @@ public slots:
 	void slotInteractiveScript(bool);
 	void slotExecute();
 	void aboutScript();
-	/*** Sets up the plugin for extension scripts, if enabled */
+	/** Sets up the plugin for extension scripts, if enabled */
 	void initExtensionScripts();
-	/*** Runs the startup script, if enabled */
+	/** Runs the startup script, if enabled */
 	void runStartupScript();
 	void languageChange();
 
@@ -46,8 +46,9 @@ protected:
 	void buildRecentScriptsMenu();
 	void rebuildScribusScriptsMenu();
 
-	// Internal members
-	PConsole pcon;
+	//Internal members
+	//! Reference to the "IDE" widget
+	PythonConsole *pcon;
 	int cons;
 	int about;
 	QStringList SavedRecentScripts;
@@ -57,11 +58,11 @@ protected:
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentScriptActions;
 
 	// Preferences
-	/*** pref: Enable access to main interpreter and 'extension scripts' */
+	/** pref: Enable access to main interpreter and 'extension scripts' */
 	bool enableExtPython;
-	/*** pref: Run 'from scribus import *' at scripter startup */
+	/** pref: Run 'from scribus import *' at scripter startup */
 	bool importAllNames;
-	/*** pref: Load this script on startup */
+	/** pref: Load this script on startup */
 	QString startupScript;
 };
 
