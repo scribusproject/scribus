@@ -7,6 +7,7 @@
 #include <qlabel.h>
 #include "prefscontext.h"
 #include "prefsfile.h"
+#include "scribus.h"
 #include "scribusdoc.h"
 
 #ifdef _MSC_VER
@@ -19,6 +20,7 @@
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
+extern ScribusApp *ScApp;
 
 FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
 {
@@ -149,7 +151,11 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 
 	tab3 = new QWidget( this, "tab3" );
 	tab3Layout = new QHBoxLayout( tab3, 10, 5, "tab3Layout");
-	if (!DocAvail)
+	// If we're being called for global application preferences, not document
+	// preferences, we let the user customize font search paths. Because things
+	// go rather badly if paths are changed/removed while a doc is open, the
+	// control is also not displayed if there is a document open.
+	if (!DocAvail && !ScApp->HaveDoc)
 	{
 		PathList = new QListBox( tab3, "PathList" );
 		readPaths();
@@ -177,8 +183,9 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 		// Rather than just making the tab vanish when editing doc-specific settings
 		// (we don't support per-doc font paths), show a useful explanation.
 		QLabel *whyBlankLabel = new QLabel(
-				tr("<qt>Font search paths can only be set for the whole application. "
-				   "Use Edit->Settings to change the font search path.</qt>"),
+				tr("<qt>Font search paths can only be set in Preferences, and only when "
+				   "there is no document currently open. Close any open documents, then "
+				   "use Edit->Settings to change the font search path.</qt>"),
 				tab3, "whyBlankLabel");
 		tab3Layout->addWidget( whyBlankLabel );
 	}
