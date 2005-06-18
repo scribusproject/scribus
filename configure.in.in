@@ -402,7 +402,7 @@ AC_ENABLE_STATIC(no)
 KDE_PROG_LIBTOOL
 
 kde_python_link_found=no
-KDE_CHECK_PYTHON(1.5)
+KDE_CHECK_PYTHON(2.3)
 COMPILE_PYTHON=
 AC_ARG_WITH(python, [  --without-python     Do not compile the Scripter Plugin],[ COMPILE_PYTHON=no ],[ COMPILE_PYTHON=yes ])
 if test "$COMPILE_PYTHON" != "no"; then
