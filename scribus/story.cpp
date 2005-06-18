@@ -246,9 +246,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					deleteSel();
 					break;
 				case Key_X:
+					cut();
+					return;
+					break;
+				case Key_V:
+					paste();
+					return;
 				case Key_Y:
 				case Key_Z:
-				case Key_V:
 					emit SideBarUp(true);
 					return;
 					break;
