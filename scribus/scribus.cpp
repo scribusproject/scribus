@@ -976,10 +976,12 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
 	oldPR[2]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
 	oldPR[3]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
+	oldPR[4]=QDir::convertSeparators(prefsLocation+"/scribusfont.rc");
 	newPR[0]=QDir::convertSeparators(prefsLocation+"/scribus13.rc");
 	newPR[1]=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
 	newPR[2]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
 	newPR[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
+	newPR[4]=QDir::convertSeparators(prefsLocation+"/scribusfont13.rc");
 
 	bool existsOldPR[5], existsNewPR[5];
 	for (uint i=0;i<5;++i)
@@ -1007,6 +1009,7 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 
 				// We actually import the 1.2.2cvs font prefs into the 1.3
 				// prefs.xml format rather than just copying the file.
+				/* DISABLED CR: Or at least, we would if the prefs API was set up yet. DUH.
 				QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
 				if (fontPrefsFile12.open(IO_ReadOnly))
 				{
@@ -1019,6 +1022,7 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 					for (int i = 0; i < extraFonts.count(); ++i)
 						fontPrefs->set(i, 0, extraFonts[i]);
 				}
+				*/
 			}
 		}
 		if (splashScreen)
