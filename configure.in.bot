@@ -1,3 +1,11 @@
+dnl We have to check for libjpeg here, since the KDE magic looks for it *after*
+dnl the body of configure.in.in has run.
+if test -z "$LIBJPEG"; then
+	libmissing jpeg required
+	AC_MSG_ERROR([You need libjpeg to compile Scribus. See the BUILDING file.])
+fi
+
+
 echo
 echo "Configuration Summary:"
 echo
