@@ -537,7 +537,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/vruler.h
 	-rm -f $(prefix)/include/scribus/werktoolb.h
 
-scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) $(LIB_X11) $(LIBSOCKET) $(pixbuf_libs)
+scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) $(LIB_X11) $(LIBSOCKET) $(pixbuf_libs) $(COREFOUNDATION_LIBS)
 
 AM_LDFLAGS = -export-dynamic $(LIBFREETYPE_LIBS)
 # set the include path for X, qt and KDE
