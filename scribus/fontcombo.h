@@ -20,6 +20,8 @@
 
 #include <qcombobox.h>
 #include <qlistbox.h>
+#include <qlayout.h>
+#include <qwidget.h>
 
 #include "scribusstructs.h"
 class QListBoxItem;
@@ -55,6 +57,37 @@ public:
 	~FontCombo() {};
 
 	void RebuildList(ApplicationPrefs *Prefs, ScribusDoc *currentDoc);
+};
+
+class FontComboH : public QWidget
+{
+
+	Q_OBJECT
+
+public:
+	FontComboH(QWidget* parent, ApplicationPrefs *Prefs);
+	~FontComboH() {};
+	QString currentFont();
+	void RebuildList(ScribusDoc *currentDoc);
+
+public slots:
+	void setCurrentFont(QString f);
+
+signals:
+	void fontSelected(QString);
+
+private slots:
+	void familySelected(int id);
+	void styleSelected(int id);
+
+private:
+	QComboBox* fontFamily;
+	QComboBox* fontStyle;
+	ApplicationPrefs *PrefsData;
+	ScribusDoc *currDoc;
+
+protected:
+	QVBoxLayout* fontComboLayout;
 };
 
 #endif

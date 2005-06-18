@@ -3,6 +3,7 @@
 
 #include <qstring.h>
 #include <qstrlist.h>
+#include <qstringlist.h>
 #include <qdict.h>
 #include <qfont.h>
 #include <qmap.h>
@@ -119,9 +120,11 @@ class SCFonts : public QDict<Foi>
 			showFontInformation=false;
 		}
 		~SCFonts();
+		void updateFontMap();
 		void GetFonts(QString pf, bool showFontInfo=false);
 		void AddScalableFonts(const QString &path, QString DocName = "");
 		void removeFont(QString name);
+		QMap<QString, QStringList> fontMap;
 	private:
 		void AddPath(QString p);
 		bool AddScalableFont(QString filename, FT_Library &library, QString DocName);

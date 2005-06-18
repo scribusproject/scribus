@@ -195,9 +195,9 @@ install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
 	$(INSTALL_DATA) $(srcdir)/rgbscribusgnome.txt $(libdir)/scribus/rgbscribusgnome.txt
 	$(mkinstalldirs) $(libdir)/scribus/
-	$(INSTALL_DATA) $(srcdir)/rgbscribus.txt $(libdir)/scribus/rgbscribus.txt
+	$(INSTALL_DATA) $(srcdir)/rgbscribus.txt                $(libdir)/scribus/rgbscribus.txt
 	$(mkinstalldirs) $(prefix)/include/scribus/
-	$(INSTALL_DATA) $(srcdir)/rgbscribusopenoffice.txt $(libdir)/scribus/rgbscribusopenoffice.txt
+	$(INSTALL_DATA) $(srcdir)/rgbscribusopenoffice.txt      $(libdir)/scribus/rgbscribusopenoffice.txt
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/about.h                       $(prefix)/include/scribus/about.h
 	$(INSTALL_DATA) $(srcdir)/actionmanager.h               $(prefix)/include/scribus/actionmanager.h

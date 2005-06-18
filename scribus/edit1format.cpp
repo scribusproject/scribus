@@ -48,15 +48,16 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	GroupFont->layout()->setMargin( 10 );
 	GroupFontLayout = new QVBoxLayout( GroupFont->layout() );
 	GroupFontLayout->setAlignment( Qt::AlignLeft );
-	FontC = new FontCombo(GroupFont, Prefs);
-	for (int fc=0; fc<FontC->count(); ++fc)
+	FontC = new FontComboH(GroupFont, Prefs);
+	FontC->setCurrentFont(vor->Font);
+/*	for (int fc=0; fc<FontC->count(); ++fc)
 	{
 		if (FontC->text(fc) == vor->Font)
 		{
 			FontC->setCurrentItem(fc);
 			break;
 		}
-	}
+	} */
 	GroupFontLayout->addWidget( FontC );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
 	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );
@@ -356,7 +357,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(EffeS->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(EffeS->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	// preview generators
-	connect(FontC, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
+//	connect(FontC, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
+	connect(FontC, SIGNAL(fontSelected(QString )), this, SLOT(updatePreview()));
 	connect(LineSpVal, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(TabList, SIGNAL(tabrulerChanged()), this, SLOT(updatePreview()));
 	connect(AboveV, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
@@ -497,7 +499,7 @@ void EditStyle::Verlassen()
 	werte->gapBefore = AboveV->value() / parentDoc->unitRatio;
 	werte->gapAfter = BelowV->value() / parentDoc->unitRatio;
 	werte->Vname = Name->text();
-	werte->Font = FontC->currentText();
+	werte->Font = FontC->currentFont();
 	werte->FontSize = qRound(SizeC->value() * 10.0);
 	werte->Drop = DropCaps->isChecked();
 	werte->DropLin = DropLines->value();
@@ -556,7 +558,7 @@ void EditStyle::updatePreview()
 	tmpStyle.First = TabList->getFirstLine();
 	tmpStyle.gapBefore = AboveV->value() / parentDoc->unitRatio;
 	tmpStyle.gapAfter = BelowV->value() / parentDoc->unitRatio;
-	tmpStyle.Font = FontC->currentText();
+	tmpStyle.Font = FontC->currentFont();
 	tmpStyle.FontSize = qRound(SizeC->value() * 10.0);
 	tmpStyle.Drop = DropCaps->isChecked();
 	tmpStyle.DropLin = DropLines->value();
@@ -578,13 +580,13 @@ void EditStyle::updatePreview()
 	tmpStyle.baseOff = qRound(fontBase->value() * 10.0);
 	tmpStyle.kernVal = qRound(fontKern->value() * 10.0);
 
-	QFont fo = QFont(FontC->currentText());
+	QFont fo = QFont(FontC->currentFont());
 	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
-	parentDoc->AddFont(FontC->currentText(), fo);
+	parentDoc->AddFont(FontC->currentFont(), fo);
 	parentDoc->docParagraphStyles.append(tmpStyle);
 	int tmpIndex = parentDoc->docParagraphStyles.count() - 1;
 	previewItem->itemText.clear();
-	previewItem->IFont = FontC->currentText();
+	previewItem->IFont = FontC->currentFont();
 	previewItem->Cols = 1;
 	for (uint i = 0; i < lorem.length(); ++i)
 	{
@@ -592,7 +594,7 @@ void EditStyle::updatePreview()
 		hg->ch = lorem.at(i);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		hg->cfont = (*parentDoc->AllFonts)[FontC->currentText()];
+		hg->cfont = (*parentDoc->AllFonts)[FontC->currentFont()];
 		hg->csize = tmpStyle.FontSize;
 		hg->ccolor = tmpStyle.FColor;
 		hg->cshade = tmpStyle.FShade;

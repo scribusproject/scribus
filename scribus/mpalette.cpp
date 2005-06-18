@@ -429,8 +429,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
 	layout41->setAlignment( Qt::AlignLeft );
 
-	Fonts = new FontCombo(page_3, Prefs);
-	Fonts->setMaximumSize(190, 30);
+	Fonts = new FontComboH(page_3, Prefs);
+	Fonts->setMaximumSize(200, 80);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 3 );
 
 	Size = new MSpinBox( 0.5, 2048, page_3, 1 );
@@ -773,7 +773,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
-	connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
+	connect(Fonts, SIGNAL(fontSelected(QString )), this, SLOT(NewTFont(QString)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
 	connect(PM1, SIGNAL(clicked()), this, SLOT(setActShade()));
@@ -2891,12 +2891,12 @@ void Mpalette::toggleGradientEdit()
 	}
 }
 
-void Mpalette::NewTFont(int c)
+void Mpalette::NewTFont(QString c)
 {
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		emit NewTF(Fonts->text(c));
+		emit NewTF(c);
 }
 
 void Mpalette::DoRevert()

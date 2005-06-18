@@ -369,7 +369,10 @@ void FontPrefs::RebuildDialog()
 		for (uint a = 0; a < PathList->count(); ++a)
 		{
 			if (ExtraFonts.contains(PathList->text(a)) == 0)
+			{
 				Prefs->AvailFonts.AddScalableFonts(PathList->text(a)+"/", docc->DocName);
+				Prefs->AvailFonts.updateFontMap();
+			}
 		}
 	}
 	UsedFonts.clear();

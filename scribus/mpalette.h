@@ -99,7 +99,7 @@ public:
 
 	Autoforms* SCustom;
 	LabelButton* colgapLabel;
-	FontCombo* Fonts;
+	FontComboH* Fonts;
 	StyleSelect* SeStyle;
 	AlignSelect* GroupAlign;
 	Spalette *Spal;
@@ -314,7 +314,7 @@ public slots:
 	void setTBase(int e);
 	void SetLineFormats(ScribusDoc *dd);
 	void SetSTline(QListBoxItem *c);
-	void NewTFont(int);
+	void NewTFont(QString);
 	void newTxtFill();
 	void newTxtStroke();
 	void setActShade();

@@ -767,7 +767,7 @@ void ScribusApp::initPalettes()
 	propertiesPalette->setPrefsContext("PropertiesPalette");
 	propertiesPalette->Cpal->SetColors(Prefs.DColors);
 	propertiesPalette->Cpal->UseTrans(true);
-	propertiesPalette->Fonts->RebuildList(&Prefs, 0);
+	propertiesPalette->Fonts->RebuildList(0);
 	propertiesPalette->installEventFilter(this);
 	nodePalette = new NodePalette(this);
 	nodePalette->setPrefsContext("NodePalette");
@@ -3300,7 +3300,7 @@ bool ScribusApp::SetupDoc()
 			doc->AddFont((*it3a), Prefs.AvailFonts[(*it3a)]->Font);
 		}
 		FontSub->RebuildList(&Prefs, doc);
-		propertiesPalette->Fonts->RebuildList(&Prefs, doc);
+		propertiesPalette->Fonts->RebuildList(doc);
 		doc->PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
 		doc->PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
 		doc->PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();
@@ -3463,7 +3463,7 @@ void ScribusApp::SwitchWin()
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	FontSub->RebuildList(&Prefs, doc);
-	propertiesPalette->Fonts->RebuildList(&Prefs, doc);
+	propertiesPalette->Fonts->RebuildList(doc);
 	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
 	rebuildLayersList();
 	view->LaMenu();
@@ -4521,6 +4521,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			return false;
 		}
 		Prefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
+		Prefs.AvailFonts.updateFontMap();
 		doc=new ScribusDoc(&Prefs);
 		doc->is12doc=is12doc;
 		doc->appMode = NormalMode;
@@ -7181,7 +7182,7 @@ void ScribusApp::SetNewFont(QString nf)
 				PageItem *currItem = view->SelItem.at(0);
 				nf2 = currItem->IFont;
 			}
-			propertiesPalette->Fonts->RebuildList(&Prefs, doc);
+			propertiesPalette->Fonts->RebuildList(doc);
 			buildFontMenu();
 		}
 	}
@@ -7195,7 +7196,7 @@ void ScribusApp::AdjustFontMenu(QString nf)
 {
 	QString df;
 	FontSub->setCurrentText(nf);
-	propertiesPalette->Fonts->setCurrentText(nf);
+	propertiesPalette->Fonts->setCurrentFont(nf);
 	for (uint a = 2; a < FontMenu->count(); ++a)
 	{
 		df = FontID[FontMenu->idAt(a)];
@@ -8413,7 +8414,7 @@ void ScribusApp::slotPrefsOrg()
 			a++;
 		}
 		FontSub->RebuildList(&Prefs, 0);
-		propertiesPalette->Fonts->RebuildList(&Prefs, 0);
+		propertiesPalette->Fonts->RebuildList(0);
 		Prefs.PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
 		Prefs.PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
 		Prefs.PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();

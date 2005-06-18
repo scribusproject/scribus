@@ -21,6 +21,7 @@
 #include <qpainter.h>
 #include "scribusdoc.h"
 #include "fontcombo.h"
+#include "fontcombo.moc"
 
 FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
 {
@@ -91,4 +92,135 @@ void FontCombo::RebuildList(ApplicationPrefs *Prefs, ScribusDoc *currentDoc)
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		insertItem(*it2);
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+}
+
+FontComboH::FontComboH(QWidget* parent, ApplicationPrefs *Prefs) : QWidget(parent, "FontComboH")
+{
+	PrefsData = Prefs;
+	currDoc = 0;
+	fontComboLayout = new QVBoxLayout( this, 0, 0, "fontComboLayout");
+	fontFamily = new QComboBox( true, this, "fontFamily" );
+	fontFamily->setEditable(false);
+	fontComboLayout->addWidget(fontFamily);
+	fontComboLayout->setStretchFactor(fontFamily, 2);
+	fontStyle = new QComboBox( true, this, "fontStyle" );
+	fontStyle->setEditable(false);
+	fontComboLayout->addWidget(fontStyle);
+	fontComboLayout->setStretchFactor(fontStyle, 1);
+	QStringList flist = Prefs->AvailFonts.fontMap.keys();
+	fontFamily->insertStringList(flist);
+	fontStyle->clear();
+	QStringList slist = Prefs->AvailFonts.fontMap[fontFamily->currentText()];
+	slist.sort();
+	fontStyle->insertStringList(slist);
+	fontFamily->listBox()->setMinimumWidth(fontFamily->listBox()->maxItemWidth()+24);
+	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
+	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
+	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+}
+
+void FontComboH::familySelected(int id)
+{
+	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	QString curr = fontStyle->currentText();
+	fontStyle->clear();
+	QStringList slist = PrefsData->AvailFonts.fontMap[fontFamily->text(id)];
+	slist.sort();
+	fontStyle->insertStringList(slist);
+	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
+	if (slist.contains(curr))
+		fontStyle->setCurrentText(curr);
+	emit fontSelected(fontFamily->text(id) + " " + fontStyle->currentText());
+	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+}
+
+void FontComboH::styleSelected(int id)
+{
+	emit fontSelected(fontFamily->currentText() + " " + fontStyle->text(id));
+}
+
+QString FontComboH::currentFont()
+{
+	return fontFamily->currentText() + " " + fontStyle->currentText();
+}
+
+void FontComboH::setCurrentFont(QString f)
+{
+	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
+	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	QString family = PrefsData->AvailFonts[f]->Family;
+	QString style = PrefsData->AvailFonts[f]->Effect;
+	fontFamily->setCurrentText(family);
+	fontStyle->clear();
+	QStringList slist = PrefsData->AvailFonts.fontMap[family];
+	slist.sort();
+	QStringList ilist;
+	ilist.clear();
+	if (currDoc != NULL)
+	{
+		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
+		{
+			if ((currDoc->DocName == PrefsData->AvailFonts[family + " " + *it3]->PrivateFont) || (PrefsData->AvailFonts[family + " " + *it3]->PrivateFont == ""))
+				ilist.append(*it3);
+		}
+		fontStyle->insertStringList(ilist);
+	}
+	else
+		fontStyle->insertStringList(slist);
+	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
+	fontStyle->setCurrentText(style);
+	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
+	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+}
+
+void FontComboH::RebuildList(ScribusDoc *currentDoc)
+{
+	currDoc = currentDoc;
+	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
+	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	fontFamily->clear();
+	fontStyle->clear();
+	QStringList rlist = PrefsData->AvailFonts.fontMap.keys();
+	QStringList flist;
+	flist.clear();
+	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
+	{
+		if (currentDoc != NULL)
+		{
+			QStringList slist = PrefsData->AvailFonts.fontMap[*it2];
+			slist.sort();
+			QStringList ilist;
+			ilist.clear();
+			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
+			{
+				if ((currentDoc->DocName == PrefsData->AvailFonts[*it2 + " " + *it3]->PrivateFont) || (PrefsData->AvailFonts[*it2 + " " + *it3]->PrivateFont == ""))
+					ilist.append(*it3);
+			}
+			if (!ilist.isEmpty())
+				flist.append(*it2);
+		}
+		else
+			flist.append(*it2);
+	}
+	fontFamily->insertStringList(flist);
+	QString family = fontFamily->currentText();
+	QStringList slist = PrefsData->AvailFonts.fontMap[family];
+	slist.sort();
+	QStringList ilist;
+	ilist.clear();
+	if (currentDoc != NULL)
+	{
+		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
+		{
+			if ((currentDoc->DocName == PrefsData->AvailFonts[family + " " + *it3]->PrivateFont) || (PrefsData->AvailFonts[family + " " + *it3]->PrivateFont == ""))
+				ilist.append(*it3);
+		}
+		fontStyle->insertStringList(ilist);
+	}
+	else
+		fontStyle->insertStringList(slist);
+	fontFamily->listBox()->setMinimumWidth(fontFamily->listBox()->maxItemWidth()+24);
+	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
+	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
+	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }

@@ -438,6 +438,32 @@ SCFonts::~SCFonts()
 {
 }
 
+void SCFonts::updateFontMap()
+{
+	fontMap.clear();
+	SCFontsIterator it( *this );
+	for ( ; it.current(); ++it)
+	{
+		if (it.current()->UseFont)
+		{
+			if (fontMap.contains(it.current()->Family))
+			{
+				QStringList effect;
+				if (!fontMap[it.current()->Family].contains(it.current()->Effect))
+				{
+					fontMap[it.current()->Family].append(it.current()->Effect);
+				}
+			}
+			else
+			{
+				QStringList effect;
+				effect.append(it.current()->Effect);
+				fontMap.insert(it.current()->Family, effect);
+			}
+		}
+	}
+}
+
 /* Add a path to the list of fontpaths, ensuring that
    a trailing slash is present.
    Checks to make sure this path is not already present
@@ -635,7 +661,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 				case Foi::PFA:
 					t = new Foi_pfa(ts, filename, true);
 					break;
-				case Foi::PFB:				
+				case Foi::PFB:
 					t = new Foi_pfb(ts, filename, true);
 					break;
 				case Foi::SFNT:
@@ -740,6 +766,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 void SCFonts::removeFont(QString name)
 {
 	remove(name);
+	updateFontMap();
 }
 
 #ifdef HAVE_FONTCONFIG
@@ -906,4 +933,5 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi) 
 		AddScalableFonts(fpi.current());
 #endif
+	updateFontMap();
 }

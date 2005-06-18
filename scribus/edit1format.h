@@ -59,7 +59,7 @@ public:
 	QGroupBox* GroupBox10;
 	QGroupBox* AbstandV;
 	QGroupBox* GroupFont;
-	FontCombo* FontC;
+	FontComboH* FontC;
 	MSpinBox* SizeC;
 	QLabel* TextF2;
 	QLabel* StrokeIcon;
