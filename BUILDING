@@ -216,6 +216,8 @@ Recommended packages for compiling from source on FC3 / FC4:
 	libxml2-devel
 	python-devel
 	lcms-devel
+	libpng-devel
+	libjpeg-devel
 
 You can install these packages with 'yum install packagename' as root. You may
 need to run up2date first to set up your yum configuration (not required on
@@ -226,6 +228,27 @@ You may also need to 'export QTDIR=/usr/lib/qt-3.3' before running
 configure or make.
 
 More info can be found in the README.
+
+SuSE
+====
+
+Recommended packages for compiling from source on SuSE 9.2:
+	qt3-devel (required)
+	libart_lgpl-devel (required)
+	freetype2-devel (required)
+	fontconfig-devel
+	liblcms-devel
+	libtiff-devel
+	libxml2-devel
+	cups-devel
+	libpng-devel
+	libjpeg-devel
+	update-desktop-files
+	python-devel
+		tk
+		python-imaging
+
+You can install these packages using YaST.
 
 Mac OS X
 ========
