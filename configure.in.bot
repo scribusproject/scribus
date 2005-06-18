@@ -78,6 +78,13 @@ else
 	echo "No; LibXML 2.6.0 or newer may be required soon."
 fi
 
+printf "${FORMAT}" "Python installed: "
+if test "${COMPILE_PYTHON}" = yes; then
+	echo "Yes"
+else
+	echo "No"
+fi
+
 echo "Configuration options:"
 
 printf "${FORMAT}" "Debugging enabled: "
@@ -88,17 +95,6 @@ else
 fi
 
 echo "Other details:"
-
-echo -n "    "
-if test "$COMPILE_PYTHON" = no; then
-	echo "The Scripter-Plugin will not be compiled."
-else
-	if test "$hapython" = yes; then
-  	echo "Using Python 2.3"
-	else
-  	echo "Using Python < 2.3"
-	fi
-fi
 
 echo -n "    "
 if test -z "${GS_PATH}" ; then

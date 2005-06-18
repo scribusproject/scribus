@@ -401,19 +401,26 @@ AC_ENABLE_SHARED(yes)
 AC_ENABLE_STATIC(no)
 KDE_PROG_LIBTOOL
 
-hapython=yes
 kde_python_link_found=no
 KDE_CHECK_PYTHON(1.5)
-COMPILE_PYTHON=no
+COMPILE_PYTHON=
 AC_ARG_WITH(python, [  --without-python     Do not compile the Scripter Plugin],[ COMPILE_PYTHON=no ],[ COMPILE_PYTHON=yes ])
-if test $kde_python_link_found = no; then
-	COMPILE_PYTHON=no
-fi
-if test $kde_python_link_found = yes; then
-  AC_CHECK_HEADER(python2.3/Python.h, [foo=""],[hapython=no])
-   if test $hapython = yes; then
-    AC_DEFINE_UNQUOTED(HAVE_PYTHON_23, 1, [Python])
-   fi
+if test "$COMPILE_PYTHON" != "no"; then
+	if test "$enable_mac" = yes ; then
+		dnl Mac OS X always has Python, but the KDE config scripts don't know
+		dnl how to find it. We just hardcode the values here.
+		AC_DEFINE_UNQUOTED(HAVE_PYTHON_23, 1, [Python])
+		PYTHONINC='-I/System/Library/Frameworks/Python.framework/Headers'
+		PYTHONLIB='-L/System/Library/Frameworks/Python.framework'
+		PYTHONMODDIR='/System/Library/Frameworks/Python.framework/Versions/2.3/lib/python2.3'
+		COMPILE_PYTHON=yes
+	elif test "$kde_python_link_found" = yes; then
+		dnl Configure found the Python libs
+		COMPILE_PYTHON=yes
+	else
+		dnl Configure didn't find python libs
+		COMPILE_PYTHON=no
+	fi
 fi
 AM_CONDITIONAL(COMPILE_PYTHON, test x$COMPILE_PYTHON = xyes)
 
