@@ -31,6 +31,10 @@
 #include "scfonts.h"
 #include "scfonts_ttf.h"
 
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefstable.h"
+
 #ifdef HAVE_FONTCONFIG
 #include <fontconfig/fontconfig.h>
 #endif
@@ -43,6 +47,7 @@ extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double 
 extern int setBestEncoding(FT_Face face);
 extern bool loadText(QString nam, QString *Buffer);
 extern bool GlyNames(Foi * fnt, QMap<uint, QString> *GList);
+extern PrefsFile* prefsFile;
 
 Foi::Foi(QString scname, QString path, bool embedps) :
 	SCName(scname), Datei(path), faceIndex(0), EmbedPS(embedps)
@@ -883,27 +888,16 @@ void SCFonts::AddXFontServerPath()
 #endif
 #endif
 
-/* Add an extra path to the X-Server's Fontpath
- * allowing a user to have extra Fonts installed
- * only for this user. Was used also as an emergency
- * fallback if no suitable Font was found elsewere */
+/* Add an extra path to our font search path,
+ * allowing a user to have extra fonts installed
+ * only for this user. Can also be used also as an emergency
+ * fallback if no suitable fonts are found elsewere */
 void SCFonts::AddUserPath(QString pf)
 {
-	QFile fx(pf+"/scribusfont13.rc");
-	ExtraPath="";
-	if ((fx.exists()) && (fx.size() > 0))
-	{
-		if (fx.open(IO_ReadOnly))
-		{
-			QTextStream tsx(&fx);
-			while (!tsx.atEnd())
-			{
-				ExtraPath = tsx.readLine();
-				AddPath(ExtraPath);
-			}
-			fx.close();
-		}
-	}
+	PrefsContext *pc = prefsFile->getContext("Fonts");
+	PrefsTable *extraDirs = pc->getTable("ExtraFontDirs");
+	for (int i = 0; i < extraDirs->getRowCount(); ++i)
+		AddPath(extraDirs->get(i, 0));
 }
 
 void SCFonts::GetFonts(QString pf, bool showFontInfo)

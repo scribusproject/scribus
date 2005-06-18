@@ -63,6 +63,8 @@ public:
  int  find(int searchCol, const QString& what);
 /*** Removes the row where in column colIndex can be found text what ********/
  void removeRow(int colIndex, const QString& what);
+/*** Empties the table ***/
+ void clear();
 };
 
 #endif

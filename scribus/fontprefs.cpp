@@ -4,6 +4,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qfiledialog.h>
+#include <qlabel.h>
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "scribusdoc.h"
@@ -148,31 +149,44 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 
 	tab3 = new QWidget( this, "tab3" );
 	tab3Layout = new QHBoxLayout( tab3, 10, 5, "tab3Layout");
-	PathList = new QListBox( tab3, "PathList" );
-	ReadPath();
-	PathList->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-	tab3Layout->addWidget( PathList );
-	LayoutR = new QVBoxLayout( 0, 0, 5, "LayoutR");
-	ChangeB = new QPushButton( tr( "C&hange..." ), tab3, "ChangeB" );
-	LayoutR->addWidget( ChangeB );
-	AddB = new QPushButton( tr( "A&dd..." ), tab3, "AddB" );
-	LayoutR->addWidget( AddB );
-	RemoveB = new QPushButton( tr( "&Remove" ), tab3, "RemoveB" );
-	LayoutR->addWidget( RemoveB );
-	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	LayoutR->addItem( spacer_2 );
-	tab3Layout->addLayout( LayoutR );
+	if (!DocAvail)
+	{
+		PathList = new QListBox( tab3, "PathList" );
+		readPaths();
+		PathList->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+		tab3Layout->addWidget( PathList );
+		LayoutR = new QVBoxLayout( 0, 0, 5, "LayoutR");
+		ChangeB = new QPushButton( tr( "C&hange..." ), tab3, "ChangeB" );
+		LayoutR->addWidget( ChangeB );
+		AddB = new QPushButton( tr( "A&dd..." ), tab3, "AddB" );
+		LayoutR->addWidget( AddB );
+		RemoveB = new QPushButton( tr( "&Remove" ), tab3, "RemoveB" );
+		LayoutR->addWidget( RemoveB );
+		QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+		LayoutR->addItem( spacer_2 );
+		tab3Layout->addLayout( LayoutR );
+		ChangeB->setEnabled(false);
+		RemoveB->setEnabled(false);
+		connect(PathList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(SelectPath(QListBoxItem*)));
+		connect(AddB, SIGNAL(clicked()), this, SLOT(AddPath()));
+		connect(ChangeB, SIGNAL(clicked()), this, SLOT(ChangePath()));
+		connect(RemoveB, SIGNAL(clicked()), this, SLOT(DelPath()));
+	}
+	else
+	{
+		// Rather than just making the tab vanish when editing doc-specific settings
+		// (we don't support per-doc font paths), show a useful explanation.
+		QLabel *whyBlankLabel = new QLabel(
+				tr("<qt>Font search paths can only be set for the whole application. "
+				   "Use Edit->Settings to change the font search path.</qt>"),
+				tab3, "whyBlankLabel");
+		tab3Layout->addWidget( whyBlankLabel );
+	}
 	insertTab( tab3, tr( "Additional &Paths" ) );
-	ChangeB->setEnabled(false);
-	RemoveB->setEnabled(false);
 
 	// signals and slots connections
 	connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
-	connect(PathList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(SelectPath(QListBoxItem*)));
-	connect(AddB, SIGNAL(clicked()), this, SLOT(AddPath()));
-	connect(ChangeB, SIGNAL(clicked()), this, SLOT(ChangePath()));
-	connect(RemoveB, SIGNAL(clicked()), this, SLOT(DelPath()));
 	connect(fontList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotClick(QListViewItem*, const QPoint &, int)));
 }
 
@@ -249,23 +263,24 @@ void FontPrefs::DelEntry()
 	RList.remove(tmp);
 }
 
-void FontPrefs::ReadPath()
+void FontPrefs::readPaths()
 {
-	QFile fx(HomeP+"/scribusfont13.rc");
-	QString ExtraPath = "";
-	ExtraFonts.clear();
+	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
+	PrefsContext *fontPrefsContext = prefsFile->getContext("Fonts");
+	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	PathList->clear();
-	if ( fx.exists() )
-	{
-		if (fx.open(IO_ReadOnly))
-		{
-			QTextStream tsx(&fx);
-			ExtraPath = tsx.read();
-			fx.close();
-			ExtraFonts = QStringList::split("\n",ExtraPath);
-		}
-		PathList->insertStringList(ExtraFonts);
-	}
+	for (int i = 0; i < fontPathTable->getRowCount(); ++i)
+		PathList->insertItem(fontPathTable->get(i,0));
+}
+
+void FontPrefs::writePaths()
+{
+	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
+	PrefsContext *fontPrefsContext = prefsFile->getContext("Fonts");
+	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
+	fontPathTable->clear();
+	for (int i = 0; i < PathList->count(); ++i)
+		fontPathTable->set(i, 0, PathList->text(i));
 }
 
 void FontPrefs::SelectPath(QListBoxItem *c)
@@ -280,6 +295,7 @@ void FontPrefs::SelectPath(QListBoxItem *c)
 
 void FontPrefs::AddPath()
 {
+	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	PrefsContext* dirs = prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
@@ -289,23 +305,10 @@ void FontPrefs::AddPath()
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
-		if (!DocAvail)
-		{
-			QFile fx(HomeP+"/scribusfont13.rc");
-			if (fx.open(IO_WriteOnly))
-			{
-				QTextStream tsx(&fx);
-				for (uint a = 0; a < PathList->count(); ++a)
-					tsx << PathList->text(a) << "\n" ;
-				tsx << s;
-				fx.close();
-			}
-			else
-				return;
-			ChangeB->setEnabled(true);
-			RemoveB->setEnabled(true);
-		}
 		PathList->insertItem(s);
+		writePaths();
+		ChangeB->setEnabled(true);
+		RemoveB->setEnabled(true);
 		CurrentPath = s;
 		RebuildDialog();
 	}
@@ -313,23 +316,15 @@ void FontPrefs::AddPath()
 
 void FontPrefs::ChangePath()
 {
+	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 	{
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
-		QFile fx(HomeP+"/scribusfont13.rc");
-		if (fx.open(IO_WriteOnly))
-		{
-			PathList->changeItem(s, PathList->currentItem());
-			QTextStream tsx(&fx);
-			for (uint a = 0; a < PathList->count(); ++a)
-				tsx << PathList->text(a) << "\n" ;
-			fx.close();
-		}
-		else
-			return;
+		PathList->changeItem(s, PathList->currentItem());
+		writePaths();
 		CurrentPath = s;
 		RebuildDialog();
 		ChangeB->setEnabled(true);
@@ -339,6 +334,7 @@ void FontPrefs::ChangePath()
 
 void FontPrefs::DelPath()
 {
+	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	QFile fx(HomeP+"/scribusfont13.rc");
 	if (fx.open(IO_WriteOnly))
 	{
@@ -346,10 +342,7 @@ void FontPrefs::DelPath()
 			PathList->clear();
 		else
 			PathList->removeItem(PathList->currentItem());
-		QTextStream tsx(&fx);
-		for (uint a = 0; a < PathList->count(); ++a)
-			tsx << PathList->text(a) << "\n" ;
-		fx.close();
+		writePaths();
 	}
 	else
 		return;
@@ -368,11 +361,8 @@ void FontPrefs::RebuildDialog()
 	{
 		for (uint a = 0; a < PathList->count(); ++a)
 		{
-			if (ExtraFonts.contains(PathList->text(a)) == 0)
-			{
-				Prefs->AvailFonts.AddScalableFonts(PathList->text(a)+"/", docc->DocName);
-				Prefs->AvailFonts.updateFontMap();
-			}
+			Prefs->AvailFonts.AddScalableFonts(PathList->text(a)+"/", docc->DocName);
+			Prefs->AvailFonts.updateFontMap();
 		}
 	}
 	UsedFonts.clear();

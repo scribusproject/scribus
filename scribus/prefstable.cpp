@@ -203,7 +203,13 @@ void PrefsTable::checkWidth(int rowIndex, int colIndex, QString defValue)
 	}
 }
 
+void PrefsTable::clear()
+{
+	rowCount = 0;
+	colCount = 0;
+	table.clear();
+}
+
 PrefsTable::~PrefsTable()
 {
-
 }

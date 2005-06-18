@@ -973,15 +973,13 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
 	QString oldPR[5], newPR[5];
 	oldPR[0]=QDir::convertSeparators(prefsLocation+"/scribus.rc");
-	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scribusfont.rc");
-	oldPR[2]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
-	oldPR[3]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
-	oldPR[4]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
+	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
+	oldPR[2]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
+	oldPR[3]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
 	newPR[0]=QDir::convertSeparators(prefsLocation+"/scribus13.rc");
-	newPR[1]=QDir::convertSeparators(prefsLocation+"/scribusfont13.rc");
-	newPR[2]=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
-	newPR[3]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
-	newPR[4]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
+	newPR[1]=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
+	newPR[2]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
+	newPR[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
 
 	bool existsOldPR[5], existsNewPR[5];
 	for (uint i=0;i<5;++i)
@@ -1006,11 +1004,27 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 			{
 				if (existsOldPR[i] && !existsNewPR[i])
 					copyFile(oldPR[i], newPR[i]);
+
+				// We actually import the 1.2.2cvs font prefs into the 1.3
+				// prefs.xml format rather than just copying the file.
+				QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
+				if (fontPrefsFile12.open(IO_ReadOnly))
+				{
+					PrefsContext *pc = prefsFile->getContext("Fonts");
+					PrefsTable *fontPrefs = pc->getTable("ExtraFontPaths");
+					QTextStream tsx(&fontPrefsFile12);
+					QString extraPath = tsx.read();
+					fontPrefsFile12.close();
+					QStringList extraFonts = QStringList::split("\n",extraPath);
+					for (int i = 0; i < extraFonts.count(); ++i)
+						fontPrefs->set(i, 0, extraFonts[i]);
+				}
 			}
 		}
 		if (splashScreen)
 			splashScreen->show();
 	}
+
 	return retVal;
 }
 

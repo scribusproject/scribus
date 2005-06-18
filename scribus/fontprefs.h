@@ -22,9 +22,8 @@ class FontPrefs : public QTabWidget
 public:
 	FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc );
 	~FontPrefs() {};
-	void ReadPath();
-	void RebuildDialog();
 	void restoreDefaults();
+
 	QWidget* tab1;
 	QWidget* tab;
 	QWidget* tab3;
@@ -49,7 +48,6 @@ public:
 	ApplicationPrefs *Prefs;
 	QMap<QString,QString> RList;
 	QStringList UsedFonts;
-	QStringList ExtraFonts;
 	QString HomeP;
 	QString CurrentPath;
 	bool DocAvail;
@@ -71,6 +69,10 @@ public slots:
 	void DelPath();
 
 protected:
+	void readPaths();
+	void writePaths();
+	void RebuildDialog();
+
 	QVBoxLayout* tab1Layout;
 	QVBoxLayout* tabLayout;
 	QHBoxLayout* Layout2a;
