@@ -38,6 +38,9 @@
 #include <setjmp.h>
 #include "qprocess.h"
 #include "scpaths.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefstable.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -46,6 +49,8 @@
 #else
  #include "config.h"
 #endif
+
+extern PrefsFile *prefsFile;
 
 extern "C"
 {
@@ -209,6 +214,7 @@ int callGS(const QStringList & args_in)
 {
 	QString cmd1 = ScApp->Prefs.gs_exe;
 	cmd1 += " -q -dNOPAUSE";
+	// Set up some args based on preferences and doc information
 	if (ScApp->HavePngAlpha != 0)
 		cmd1 += " -sDEVICE=png16m";
 	else
@@ -217,6 +223,16 @@ int callGS(const QStringList & args_in)
 		cmd1 += " -dTextAlphaBits=4";
 	if (ScApp->Prefs.gs_AntiAliasGraphics)
 		cmd1 += " -dGraphicsAlphaBits=4";
+
+	// Add any extra font paths being used by Scribus to gs's font search path
+	PrefsContext *pc = prefsFile->getContext("Fonts");
+	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
+	if (extraFonts->getRowCount() >= 1)
+		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
+	for (int i = 1; i < extraFonts->getRowCount(); ++i)
+		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
+
+	// then add any user specified args and run gs
 	QString extArgs = args_in.join(" ");
 	cmd1 += " " + extArgs + " -c showpage -c quit";
 	return system(cmd1);
