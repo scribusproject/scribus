@@ -82,7 +82,7 @@ printf "${FORMAT}" "Python installed: "
 if test "${COMPILE_PYTHON}" = yes; then
 	echo "Yes"
 else
-	echo "No"
+	echo "No (or too old - 2.3 required)"
 fi
 
 echo "Configuration options:"
