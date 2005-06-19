@@ -97,16 +97,19 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData
 	addProfile->setEnabled(false);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
+	
 	connect(ignoreErrors, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(automaticCheck, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(missingGlyphs, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkOrphans, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(textOverflow, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(tranparentObjects, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(missingPictures, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(pictResolution, SIGNAL(toggled(bool)), this, SLOT(putProfile()));
-	connect(tranparentObjects, SIGNAL(clicked()), this, SLOT(putProfile()));
-	connect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
+	
 	connect(removeProfile, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfile, SIGNAL(clicked()), this, SLOT(addProf()));
 	clearWState( WState_Polished );
