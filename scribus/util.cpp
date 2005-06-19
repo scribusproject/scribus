@@ -266,7 +266,7 @@ int callGS(const QStringList & args_in)
 		cmd1 += " -dGraphicsAlphaBits=4";
 	// Add -sFONTPATH to tell gs where any additional font paths are
 	QStringList extraFonts;
-	QFile fx(HomeP+"/scribusfont.rc");
+	QFile fx(ScApp->PrefsPfad+"/scribusfont.rc");
 	if (fx.open(IO_ReadOnly))
 	{
 		QTextStream tsx(&fx);
@@ -276,7 +276,7 @@ int callGS(const QStringList & args_in)
 	}
 	if (extraFonts.count() >= 1)
 		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts[0]);
-	for (int i = 1; i < extraFonts.count(); ++i)
+	for (int i = 1; i < static_cast<int>(extraFonts.count()); ++i)
 		cmd1 += QString(":'%1'").arg(extraFonts[i]);
 	// then combine the cmdline and run gs
 	QString extArgs = args_in.join(" ");
