@@ -28,9 +28,14 @@
 #include "menumanager.h"
 #include "checkDocument.h"
 #include "pluginmanager.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefstable.h"
 
 extern QPixmap loadIcon(QString nam);
+extern int callGS(const QString& args_in, const QString device="");
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
+extern PrefsFile *prefsFile;
 ScribusApp* Carrier;
 QWidget* par;
 
@@ -386,7 +391,7 @@ void PPreview::ToggleCMYK_Colour()
 int PPreview::RenderPreview(int Seite, int Res)
 {
 	bool ret = -1;
-	QString cmd1, cmd2, tmp, tmp2, tmp3;
+	QString cmd1, cmd2;
 	QMap<QString,QFont> ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
@@ -433,6 +438,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		else
 			return ret;
 	}
+	QString tmp, tmp2, tmp3;
 	double b = app->doc->pageWidth * Res / 72;
 	double h = app->doc->pageHeight * Res / 72;
 	cmd1 = app->Prefs.gs_exe;
@@ -450,6 +456,14 @@ int PPreview::RenderPreview(int Seite, int Res)
 		cmd1 += " -dTextAlphaBits=4";
 	if (AliasGr->isChecked())
 		cmd1 += " -dGraphicsAlphaBits=4";
+	// Add any extra font paths being used by Scribus to gs's font search path
+	PrefsContext *pc = prefsFile->getContext("Fonts");
+	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
+	if (extraFonts->getRowCount() >= 1)
+		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
+	for (int i = 1; i < extraFonts->getRowCount(); ++i)
+		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
+	// then add any final args and call gs
 	cmd1 += " -sOutputFile="+app->PrefsPfad+"/sc.png ";
 	cmd2 = " -c showpage -c quit";
 	ret = system(cmd1 + app->PrefsPfad+"/tmp.ps" + cmd2);
