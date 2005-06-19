@@ -384,6 +384,21 @@ int PPreview::RenderPreview(int Seite, int Res)
 		cmd1 += " -dTextAlphaBits=4";
 	if (AliasGr->isChecked())
 		cmd1 += " -dGraphicsAlphaBits=4";
+	// Add -sFONTPATH to tell gs where any additional font paths are
+	QStringList extraFonts;
+	QFile fx(app->PrefsPfad+"/scribusfont.rc");
+	if (fx.open(IO_ReadOnly))
+	{
+		QTextStream tsx(&fx);
+		QString extraPath = tsx.read();
+		fx.close();
+		extraFonts = QStringList::split("\n", extraPath);
+	}
+	if (extraFonts.count() >= 1)
+		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts[0]);
+	for (int i = 1; i < static_cast<int>(extraFonts.count()); ++i)
+		cmd1 += QString(":'%1'").arg(extraFonts[i]);
+	// Add some extra args then run gs
 	cmd1 += " -sOutputFile="+app->PrefsPfad+"/sc.png ";
 	cmd2 = " -c showpage -c quit";
 	ret = system(cmd1 + app->PrefsPfad+"/tmp.ps" + cmd2);
