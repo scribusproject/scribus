@@ -264,6 +264,21 @@ int callGS(const QStringList & args_in)
 		cmd1 += " -dTextAlphaBits=4";
 	if (ScApp->Prefs.gs_antiGraph)
 		cmd1 += " -dGraphicsAlphaBits=4";
+	// Add -sFONTPATH to tell gs where any additional font paths are
+	QStringList extraFonts;
+	QFile fx(HomeP+"/scribusfont.rc");
+	if (fx.open(IO_ReadOnly))
+	{
+		QTextStream tsx(&fx);
+		QString extraPath = tsx.read();
+		fx.close();
+		extraFonts = QStringList::split("\n", extraPath);
+	}
+	if (extraFonts.count() >= 1)
+		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts[0]);
+	for (int i = 1; i < extraFonts.count(); ++i)
+		cmd1 += QString(":'%1'").arg(extraFonts[i]);
+	// then combine the cmdline and run gs
 	QString extArgs = args_in.join(" ");
 	cmd1 += " " + extArgs + " -c showpage -c quit";
 	return system(cmd1);
