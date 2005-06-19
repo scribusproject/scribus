@@ -252,6 +252,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_V:
 					paste();
 					return;
+					break;
 				case Key_Y:
 				case Key_Z:
 					emit SideBarUp(true);
