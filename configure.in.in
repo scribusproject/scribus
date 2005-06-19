@@ -411,7 +411,7 @@ if test "$COMPILE_PYTHON" != "no"; then
 		dnl how to find it. We just hardcode the values here.
 		AC_DEFINE_UNQUOTED(HAVE_PYTHON_23, 1, [Python])
 		PYTHONINC='-I/System/Library/Frameworks/Python.framework/Headers'
-		PYTHONLIB='-L/System/Library/Frameworks/Python.framework'
+		PYTHONLIB='-L/System/Library/Frameworks/Python.framework -framework Python'
 		PYTHONMODDIR='/System/Library/Frameworks/Python.framework/Versions/2.3/lib/python2.3'
 		COMPILE_PYTHON=yes
 	elif test "$kde_python_link_found" = yes; then
