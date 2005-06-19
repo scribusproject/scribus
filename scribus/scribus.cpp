@@ -136,13 +136,7 @@
 #include "documentinformation.h"
 #include "effectsdialog.h"
 #include "documentchecker.h"
-
-extern QPixmap loadIcon(QString nam);
-extern bool overwrite(QWidget *parent, QString filename);
-extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem);
-extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
-extern int copyFile(QString source, QString target);
-extern int moveFile(QString source, QString target);
+#include "util.h"
 
 using namespace std;
 

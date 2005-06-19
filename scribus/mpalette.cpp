@@ -17,12 +17,10 @@
 #include "arrowchooser.h"
 #include "units.h"
 #include "undomanager.h"
+#include "util.h"
 
 using namespace std;
 
-extern QPixmap loadIcon(QString nam);
-// 10/07/2004 pv - utils.cpp - provides locale sorted list
-extern QStringList sortQStringList(QStringList aList);
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 

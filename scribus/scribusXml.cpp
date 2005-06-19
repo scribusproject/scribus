@@ -37,15 +37,9 @@
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
+#include "util.h"
 
 using namespace std;
-
-extern double QStodouble(QString in);
-extern int QStoInt(QString in);
-extern bool loadText(QString nam, QString *Buffer);
-extern QString Path2Relative(QString Path);
-extern void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
-extern QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
 
 /*!
 	\fn ScriXmlDoc::IsScribus(QString fileName)

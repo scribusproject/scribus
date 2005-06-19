@@ -31,10 +31,8 @@
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
+#include "util.h"
 
-extern QPixmap loadIcon(QString nam);
-extern int callGS(const QString& args_in, const QString device="");
-extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 extern PrefsFile *prefsFile;
 ScribusApp* Carrier;
 QWidget* par;

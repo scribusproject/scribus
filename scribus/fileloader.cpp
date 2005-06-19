@@ -29,11 +29,7 @@
 #ifdef HAVE_LIBZ
 	#include <zlib.h>
 #endif
-extern bool loadText(QString nam, QString *Buffer);
-extern double QStodouble(QString in);
-extern int QStoInt(QString in);
-extern QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
-extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
+#include "util.h"
 
 /*!
  \fn FileLoader::FileLoader(QString fileName, ScribusApp* app)
