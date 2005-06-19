@@ -20,8 +20,7 @@
 
 #include <qpainter.h>
 #include "scribusview.h"
-
-extern QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
+#include "util.h"
 
 Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
 {

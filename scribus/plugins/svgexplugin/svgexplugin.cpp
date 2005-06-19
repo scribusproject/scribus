@@ -37,9 +37,8 @@
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include "pluginmanager.h"
+#include "util.h"
 
-extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-extern QString Path2Relative(QString Path);
 extern PrefsFile* prefsFile;
 
 /*!

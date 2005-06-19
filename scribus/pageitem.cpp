@@ -48,17 +48,10 @@
 #include <ft2build.h>
 #include FT_GLYPH_H
 
+#include "util.h"
+
 using namespace std;
 
-extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
-extern double RealCWidth(ScribusDoc *doc, Foi* name, QString ch, int Siz);
-extern double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
-extern double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
-extern double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size);
-extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern double xy2Deg(double x, double y);
-extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
-extern int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 extern ScribusApp* ScApp;
 
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline) 

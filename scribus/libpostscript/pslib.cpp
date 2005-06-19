@@ -36,16 +36,7 @@
 #include "scribusview.h"
 #include "scfonts.h"
 #include <cmath>
-
-extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-extern uint getDouble(QString in, bool raw);
-extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
-extern double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
-extern double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size);
-extern bool loadText(QString nam, QString *Buffer);
-extern QString CompressStr(QString *in);
-extern char *toHex( uchar u );
-extern QString String2Hex(QString *in, bool lang = true);
+#include "util.h"
 
 extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 

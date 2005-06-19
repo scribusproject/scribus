@@ -11,9 +11,7 @@
 #include <qtooltip.h>
 #include "scribusdoc.h"
 #include "scribusview.h"
-
-extern QPixmap loadIcon(QString nam);
-extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem);
+#include "util.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
 		: QDialog( parent, "Muster", false, WDestructiveClose)

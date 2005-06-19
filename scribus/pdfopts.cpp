@@ -13,6 +13,7 @@
 #include "prefsfile.h"
 #include "units.h"
 #include "pdfoptions.h"
+#include "util.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -22,8 +23,6 @@
  #include "config.h"
 #endif
 
-extern QPixmap loadIcon(QString nam);
-extern bool overwrite(QWidget *parent, QString filename);
 extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS
 extern bool CMSuse;
