@@ -20,7 +20,7 @@
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qpainter.h>
-extern QImage ProofImage(QImage *Im);
+#include "util.h"
 
 ColorChart::ColorChart(QWidget *parent) : QLabel(parent)
 {

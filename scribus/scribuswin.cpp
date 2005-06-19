@@ -20,10 +20,9 @@
 #include "scribuswin.moc"
 #include "scribusXml.h"
 #include "scribus.h"
+#include "util.h"
 
-extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
-extern int moveFile(QString source, QString target);
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc) : QMainWindow(parent, "", WDestructiveClose)
 {

@@ -20,7 +20,6 @@ extern int IntentPrinter;
 #include "util.h"
 
 extern ProfilesL InputProfiles;
-//extern int callGS(const QStringList & args, const QString device="");
 extern ScribusApp* ScApp;
 
 typedef struct my_error_mgr
