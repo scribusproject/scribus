@@ -12,9 +12,8 @@
 #include "scribusstructs.h"
 #include "scpaths.h"
 #include "scribus.h"
+#include "util.h"
 
-extern QPixmap loadIcon(QString nam);
-extern bool loadText(QString nam, QString *Buffer);
 extern ScribusApp* ScApp;
 
 

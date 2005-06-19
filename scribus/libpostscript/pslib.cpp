@@ -37,6 +37,7 @@
 #include "scfonts.h"
 #include <cmath>
 #include "util.h"
+#include "scfontmetrics.h"
 
 extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 

@@ -25,8 +25,8 @@
 #include <qtextcodec.h>
 #include "scribusstructs.h"
 #include "scimage.h"
-extern bool loadText(QString nam, QString *Buffer);
-extern QPixmap loadIcon(QString nam);
+#include <util.h>
+
 extern QString DocDir;
 
 ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)

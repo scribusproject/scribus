@@ -5,6 +5,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "pageitem.h"
+
 extern QPixmap loadIcon(QString nam);
 
 Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* vie)

@@ -21,7 +21,8 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
-extern bool loadText(QString nam, QString *Buffer);
+#include <util.h>
+
 Serializer::Serializer(QString name)
 {
 	Filename = name;

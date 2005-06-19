@@ -48,6 +48,7 @@
 #include <ft2build.h>
 #include FT_GLYPH_H
 
+#include "scfontmetrics.h"
 #include "util.h"
 
 using namespace std;

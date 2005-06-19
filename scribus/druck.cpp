@@ -31,9 +31,8 @@
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
+#include <util.h>
 
-extern bool loadText(QString nam, QString *Buffer);
-extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
 AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev) : QDialog( parent, "prin", true, 0 )

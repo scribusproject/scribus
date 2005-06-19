@@ -17,9 +17,8 @@
 #include "query.h"
 #include "scpreview.h"
 #include "prefsfile.h"
-extern QPixmap loadIcon(QString nam);
-extern bool loadText(QString nam, QString *Buffer);
-extern QString GetAttr(QDomElement *el, QString at, QString def="0");
+#include "util.h"
+
 extern PrefsFile* prefsFile;
 
 /* The Scrapbook View Class

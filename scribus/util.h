@@ -49,11 +49,6 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 QPixmap loadIcon(QString nam);
 uint getDouble(QString in, bool raw);
 bool loadText(QString nam, QString *Buffer);
-double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz, QString ch2 = " ");
-double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Siz);
-double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
-double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
-double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");

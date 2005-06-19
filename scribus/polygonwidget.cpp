@@ -5,10 +5,9 @@
 #include <qrect.h>
 #include <qwmatrix.h>
 #include <cmath>
+#include "util.h"
 
 using namespace std;
-
-extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 
 PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QWidget( parent )
 {

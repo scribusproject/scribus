@@ -40,11 +40,12 @@
 #include <fontconfig/fontconfig.h>
 #endif
 
+#include "util.h"
+
 #include FT_INTERNAL_STREAM_H
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
-extern bool loadText(QString nam, QString *Buffer);
 extern PrefsFile* prefsFile;
 
 Foi::Foi(QString scname, QString path, bool embedps) :
