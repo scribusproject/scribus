@@ -8028,75 +8028,78 @@ void ScribusView::Bezier2Poly()
 
 void ScribusView::ClearItem()
 {
-	PageItem *currItem;
 	if (SelItem.count() != 0)
 	{
-		currItem = SelItem.at(0);
-		if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+		PageItem *currItem;
+		for (uint i = 0; i < SelItem.count(); ++i)
 		{
-			if (currItem->itemType() == PageItem::TextFrame)
+			currItem = SelItem.at(i);
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 			{
-				if ((currItem->itemText.count() != 0) && ((currItem->NextBox == 0) || (currItem->BackBox == 0)))
+				if (currItem->itemType() == PageItem::TextFrame)
 				{
-					int t = QMessageBox::warning(this, tr("Warning"),
-										tr("Do you really want to clear all your Text?"),
-										QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-					if (t == QMessageBox::No)
-						return;
-				}
-				PageItem *nextItem = currItem;
-				while (nextItem != 0)
-				{
-					if (nextItem->BackBox != 0)
-						nextItem = nextItem->BackBox;
-					else
-						break;
-				}
-				while (nextItem != 0)
-				{
-					for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
+					if ((currItem->itemText.count() != 0) && ((currItem->NextBox == 0) || (currItem->BackBox == 0)))
 					{
-						if ((it->ch == QChar(25)) && (it->cembedded != 0))
-						{
-							Doc->FrameItems.remove(it->cembedded);
-							delete it->cembedded;
-						}
+						int t = QMessageBox::warning(this, tr("Warning"),
+											tr("Do you really want to clear all your Text?"),
+											QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+						if (t == QMessageBox::No)
+							return;
 					}
-					nextItem->itemText.clear();
-					nextItem->CPos = 0;
-					nextItem = nextItem->NextBox;
+					PageItem *nextItem = currItem;
+					while (nextItem != 0)
+					{
+						if (nextItem->BackBox != 0)
+							nextItem = nextItem->BackBox;
+						else
+							break;
+					}
+					while (nextItem != 0)
+					{
+						for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
+						{
+							if ((it->ch == QChar(25)) && (it->cembedded != 0))
+							{
+								Doc->FrameItems.remove(it->cembedded);
+								delete it->cembedded;
+							}
+						}
+						nextItem->itemText.clear();
+						nextItem->CPos = 0;
+						nextItem = nextItem->NextBox;
+					}
 				}
+				if ((currItem->itemType() == PageItem::ImageFrame) && ((ScApp->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
+					ScApp->fileWatcher->removeFile(currItem->Pfile);
+				currItem->Pfile = "";
+				currItem->PicAvail = false;
+				currItem->pixm = ScImage();
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					currItem->LocalScX = 1;
+					currItem->LocalScY = 1;
+					currItem->OrigW = 0;
+					currItem->OrigH = 0;
+					currItem->LocalX = 0;
+					currItem->LocalY = 0;
+					currItem->setImageFlippedH(false);
+					currItem->setImageFlippedV(false);
+					currItem->textAlignment = 0;
+					currItem->EmProfile = "";
+					currItem->ScaleType = true;
+					currItem->AspectRatio = true;
+					currItem->setFillTransparency(0.0);
+					currItem->setLineTransparency(0.0);
+					currItem->imageClip.resize(0);
+	/*				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
+				}
+				for (uint a = 0; a < Doc->FrameItems.count(); ++a)
+				{
+					Doc->FrameItems.at(a)->ItemNr = a;
+				}
+				updateContents();
+				emit DocChanged();
 			}
-			if ((currItem->itemType() == PageItem::ImageFrame) && ((ScApp->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
-				ScApp->fileWatcher->removeFile(currItem->Pfile);
-			currItem->Pfile = "";
-			currItem->PicAvail = false;
-			currItem->pixm = ScImage();
-			if (currItem->itemType() == PageItem::ImageFrame)
-			{
-				currItem->LocalScX = 1;
-				currItem->LocalScY = 1;
-				currItem->OrigW = 0;
-				currItem->OrigH = 0;
-				currItem->LocalX = 0;
-				currItem->LocalY = 0;
-				currItem->setImageFlippedH(false);
-				currItem->setImageFlippedV(false);
-				currItem->textAlignment = 0;
-				currItem->EmProfile = "";
-				currItem->ScaleType = true;
-				currItem->AspectRatio = true;
-				currItem->setFillTransparency(0.0);
-				currItem->setLineTransparency(0.0);
-				currItem->imageClip.resize(0);
-/*				emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr); */
-			}
-			for (uint a = 0; a < Doc->FrameItems.count(); ++a)
-			{
-				Doc->FrameItems.at(a)->ItemNr = a;
-			}
-			updateContents();
-			emit DocChanged();
 		}
 	}
 }
