@@ -285,6 +285,21 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
 	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
+	// Add -sFONTPATH to tell gs where any additional font paths are
+	QStringList extraFonts;
+	QFile fx(Prog->PrefsPfad+"/scribusfont.rc");
+	if (fx.open(IO_ReadOnly))
+	{
+		QTextStream tsx(&fx);
+		QString extraPath = tsx.read();
+		fx.close();
+		extraFonts = QStringList::split("\n", extraPath);
+	}
+	if (extraFonts.count() >= 1)
+		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts[0]);
+	for (int i = 1; i < static_cast<int>(extraFonts.count()); ++i)
+		cmd1 += QString(":'%1'").arg(extraFonts[i]);
+	// then set up the last gs args and call gs
 	cmd1 += " -sOutputFile="+tmpFile+" "+pfad2+" ";
 	cmd2 = " -c flush cfile closefile quit";
 	bool ret = system(cmd1 + "\""+fn+"\"" + cmd2);
