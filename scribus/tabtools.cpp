@@ -11,8 +11,9 @@
 #include "linkbutton.h"
 #include "scribusstructs.h"
 #include "scribus.h"
+#include "scfontmetrics.h"
+
 extern QPixmap loadIcon(QString nam);
-extern QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back);
 extern ScribusApp* ScApp;
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )

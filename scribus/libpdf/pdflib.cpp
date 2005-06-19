@@ -45,23 +45,11 @@
 #include "scribus.h"
 
 #include "bookpalette.h"
+#include "scfontmetrics.h"
+#include "util.h"
 
 using namespace std;
 
-extern int callGS(const QStringList & args);
-extern QString Path2Relative(QString Path);
-extern bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd);
-extern QByteArray ComputeMD5Sum(QByteArray *in);
-extern bool loadText(QString nam, QString *Buffer);
-extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-extern QString CompressStr(QString *in);
-extern char *toHex( uchar u );
-extern QString String2Hex(QString *in, bool lang = true);
-extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
-extern double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size);
-extern double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size);
-extern FPoint getMaxClipF(FPointArray* Clip);
-extern FPoint getMinClipF(FPointArray* Clip);
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif

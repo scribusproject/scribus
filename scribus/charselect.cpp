@@ -28,10 +28,8 @@
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-
-extern QPixmap loadIcon(QString nam);
-extern QPixmap FontSample(Foi *font, int s, QString ts, QColor back, bool force = false);
-extern int setBestEncoding(FT_Face face);
+#include "scfontmetrics.h"
+#include "util.h"
 
 #ifdef QT_MAC
 Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder | WType_Popup)

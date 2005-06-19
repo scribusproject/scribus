@@ -17,9 +17,10 @@ extern bool CMSuse;
 extern int IntentMonitor;
 extern int IntentPrinter;
 #endif
+#include "util.h"
 
 extern ProfilesL InputProfiles;
-extern int callGS(const QStringList & args);
+//extern int callGS(const QStringList & args, const QString device="");
 extern ScribusApp* ScApp;
 
 typedef struct my_error_mgr

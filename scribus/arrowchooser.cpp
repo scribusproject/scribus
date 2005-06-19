@@ -5,8 +5,7 @@
 #include <qlistbox.h>
 #include "scpainter.h"
 #include <qimage.h>
-
-extern FPoint getMinClipF(FPointArray* Clip);
+#include "util.h"
 
 ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 {

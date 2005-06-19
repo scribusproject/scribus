@@ -13,7 +13,8 @@
 
 #include <prefsfile.h>
 
-extern QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back);
+#include "scfontmetrics.h"
+
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile *prefsFile;
 

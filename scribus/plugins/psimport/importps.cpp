@@ -22,10 +22,9 @@
 #include "undomanager.h"
 #include "pluginmanager.h"
 #include "scpaths.h"
+#include "scfontmetrics.h"
+#include "util.h"
 
-extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern QPixmap loadIcon(QString nam);
-extern FPoint getMaxClipF(FPointArray* Clip);
 extern PrefsFile* prefsFile;
 
 /*!

@@ -129,6 +129,7 @@ scribus_SOURCES = \
 		reformdoc.cpp\
 		scfonts.cpp\
 		scfonts_ttf.cpp\
+		scfontmetrics.cpp\
 		scimage.cpp\
 		scmenu.cpp\
 		scpainter.cpp\
@@ -320,6 +321,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
+	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h              $(prefix)/include/scribus/scfontmetrics.h
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h

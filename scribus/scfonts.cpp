@@ -22,18 +22,19 @@
 #include <qdir.h>
 #include <qregexp.h>
 
-#ifdef Q_WS_X11
-#include <X11/X.h>
-#include <X11/Xlib.h>
-#endif
-
 #include <cstdlib>
 #include "scfonts.h"
 #include "scfonts_ttf.h"
+#include "scfontmetrics.h"
 
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
+
+#ifdef Q_WS_X11
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#endif
 
 #ifdef HAVE_FONTCONFIG
 #include <fontconfig/fontconfig.h>
@@ -43,10 +44,7 @@
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
-extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
-extern int setBestEncoding(FT_Face face);
 extern bool loadText(QString nam, QString *Buffer);
-extern bool GlyNames(Foi * fnt, QMap<uint, QString> *GList);
 extern PrefsFile* prefsFile;
 
 Foi::Foi(QString scname, QString path, bool embedps) :

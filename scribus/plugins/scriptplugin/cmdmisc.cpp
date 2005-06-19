@@ -4,7 +4,7 @@
 #include "qbuffer.h"
 #include "qpixmap.h"
 
-extern QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force = false);
+#include "scfontmetrics.h"
 
 PyObject *scribus_setredraw(PyObject */*self*/, PyObject* args)
 {

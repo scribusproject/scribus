@@ -15,9 +15,7 @@
 #include <qwhatsthis.h>
 #include <qheader.h>
 #include "scpainter.h"
-extern QPixmap loadIcon(QString nam);
-extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern FPoint getMinClipF(FPointArray* Clip);
+#include "util.h"
 
 ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )
 {

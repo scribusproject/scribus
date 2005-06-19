@@ -6,6 +6,7 @@
 #include <sys/types.h>
 
 #include "scfonts_ttf.h"
+#include "scfontmetrics.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -20,9 +21,6 @@
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 #include FT_INTERNAL_STREAM_H
-
-extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
-extern int setBestEncoding(FT_Face face);
 
 QString Foi_ttf::RealName()
 {

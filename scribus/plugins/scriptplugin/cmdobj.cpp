@@ -1,7 +1,7 @@
 #include "cmdobj.h"
 #include "cmdutil.h"
 
-extern FPoint getMinClipF(FPointArray* Clip);
+#include "util.h"
 
 PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 {

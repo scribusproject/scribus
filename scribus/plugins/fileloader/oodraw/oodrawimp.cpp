@@ -33,13 +33,11 @@
 #include "serializer.h"
 #include "undomanager.h"
 #include "pluginmanager.h"
+#include "util.h"
+#include "scfontmetrics.h"
 
 using namespace std;
 
-extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern bool loadText(QString nam, QString *Buffer);
-extern QPixmap loadIcon(QString nam);
-extern FPoint getMaxClipF(FPointArray* Clip);
 extern PrefsFile* prefsFile;
 
 /*!

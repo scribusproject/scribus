@@ -74,24 +74,14 @@
 	#include CMS_INC
 #endif
 
+#include "scfontmetrics.h"
+#include "util.h"
 #include "story.h"
 
 using namespace std;
 
-extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
-extern double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size);
-extern ScribusApp* ScApp;
-extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern QPixmap loadIcon(QString nam);
-extern double xy2Deg(double x, double y);
-extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
-extern FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
-extern FPoint getMaxClipF(FPointArray* Clip);
-extern FPoint getMinClipF(FPointArray* Clip);
-extern void WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
-extern int callGS(const QStringList & args);
 extern ProfilesL InputProfiles;
+extern ScribusApp* ScApp;
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *prefs) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
 {
