@@ -102,19 +102,15 @@ FontComboH::FontComboH(QWidget* parent, ApplicationPrefs *Prefs) : QWidget(paren
 	fontFamily = new QComboBox( true, this, "fontFamily" );
 	fontFamily->setEditable(false);
 	fontComboLayout->addWidget(fontFamily);
-	fontComboLayout->setStretchFactor(fontFamily, 2);
 	fontStyle = new QComboBox( true, this, "fontStyle" );
 	fontStyle->setEditable(false);
 	fontComboLayout->addWidget(fontStyle);
-	fontComboLayout->setStretchFactor(fontStyle, 1);
 	QStringList flist = Prefs->AvailFonts.fontMap.keys();
 	fontFamily->insertStringList(flist);
 	fontStyle->clear();
 	QStringList slist = Prefs->AvailFonts.fontMap[fontFamily->currentText()];
 	slist.sort();
 	fontStyle->insertStringList(slist);
-	fontFamily->listBox()->setMinimumWidth(fontFamily->listBox()->maxItemWidth()+24);
-	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
@@ -127,7 +123,6 @@ void FontComboH::familySelected(int id)
 	QStringList slist = PrefsData->AvailFonts.fontMap[fontFamily->text(id)];
 	slist.sort();
 	fontStyle->insertStringList(slist);
-	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
 	if (slist.contains(curr))
 		fontStyle->setCurrentText(curr);
 	emit fontSelected(fontFamily->text(id) + " " + fontStyle->currentText());
@@ -167,7 +162,6 @@ void FontComboH::setCurrentFont(QString f)
 	}
 	else
 		fontStyle->insertStringList(slist);
-	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
 	fontStyle->setCurrentText(style);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
@@ -219,8 +213,6 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	}
 	else
 		fontStyle->insertStringList(slist);
-	fontFamily->listBox()->setMinimumWidth(fontFamily->listBox()->maxItemWidth()+24);
-	fontStyle->listBox()->setMinimumWidth(fontStyle->listBox()->maxItemWidth()+24);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
