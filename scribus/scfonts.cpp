@@ -750,6 +750,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			dump.close();
 */
 			FT_Done_Face(face);
+			face=NULL;
 			++faceindex;
 			error = FT_New_Face( library, filename, faceindex, &face );
 		}
