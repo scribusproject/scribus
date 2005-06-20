@@ -3198,9 +3198,11 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			{
 				if (b->PType == 4)
 				{
-					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
-					if (!b->isTableItem)
+					if (b->isTableItem)
+						pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
+					if ((!b->isTableItem) && (b->BackBox == 0) && (b->NextBox == 0))
 					{
+						pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
 						pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
 						pmen2->insertItem( tr("&Outlines"), this, SLOT(TextToPath()));
 					}
