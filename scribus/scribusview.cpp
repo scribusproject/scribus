@@ -211,7 +211,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
 		painter->setFillMode(ScPainter::Solid);
-		painter->translate(0.5, 0.5);
+//		painter->translate(0.5, 0.5);
 		painter->setZoomFactor(1.0);
 /* Draw Page Outlines */
 		if (!Doc->MasterP)
@@ -601,7 +601,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 			if ((ll.isViewable) && (pr))
 			{
 				QPtrListIterator<PageItem> docItem(Doc->Items);
-				 while ( (currItem = docItem.current()) != 0 )
+				 while ( (currItem = docItem.current()) != 0)
 				 {
 					++docItem;
 					if (currItem->LayerNr != ll.LNr)
@@ -671,7 +671,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 				QPtrListIterator<PageItem> docItem2(Doc->Items);
 				 while ( (currItem = docItem2.current()) != 0 )
 				 {
-        			++docItem2;
+					++docItem2;
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if (!currItem->isTableItem)
@@ -1740,9 +1740,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->itemType() == PageItem::TextFrame)
 				{
 					insertConvertToMenu=true;
-					ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-					if (!currItem->isTableItem)
+					if (currItem->isTableItem)
+						ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					if ((!currItem->isTableItem) && (currItem->BackBox == 0) && (currItem->NextBox == 0))
 					{
+						ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 						ScApp->scrActions["itemConvertToOutlines"]->addTo(pmen2);
 						ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
 					}
@@ -8378,7 +8380,7 @@ Page* ScribusView::addPage(int nr)
 			Doc->RePos = true;
 			QPixmap pgPix(1, 1);
 			ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-			painter->translate(0.5, 0.5);
+//			painter->translate(0.5, 0.5);
 			if (Doc->Items.at(z)->BackBox != 0)
 				Doc->Items.at(z)->BackBox->DrawObj(painter, QRect(0, 0, 1, 1));
 			painter->end();
@@ -9012,7 +9014,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
-		painter->translate(0.5, 0.5);
+//		painter->translate(0.5, 0.5);
 		DrawMasterItems(painter, Doc->Pages.at(Nr), QRect(clipx, clipy, clipw, cliph));
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->end();

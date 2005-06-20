@@ -6122,7 +6122,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 					applyNewMaster(based1);
 				if ((doc->currentPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
 					applyNewMaster(based2);
-// 				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
 					applyNewMaster(based2);
 				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
 					applyNewMaster(based1);
