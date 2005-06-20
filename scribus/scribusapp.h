@@ -33,7 +33,8 @@ class ScribusQApp : public QApplication
 		void installTranslators(QStringList langs);
 		void changeGUILanguage(QString);
 		const bool usingGUI();
-
+		
+		static bool useGUI;
 		
 	private:
 		ScribusApp *scribus;
@@ -44,7 +45,6 @@ class ScribusQApp : public QApplication
 		
 		QString lang;
 		bool showSplash;
-		bool useGUI;
 		bool showFontInfo;
 		QString file;
 };

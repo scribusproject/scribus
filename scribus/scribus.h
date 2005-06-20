@@ -140,8 +140,7 @@ public:
 	void AdjustBM();
 	void ReorgFonts();
 	void GetUsedFonts(QMap<QString,QFont> *Really);
-	void initCrashHandler();
-	static void defaultCrashHandler (int sig);
+
 	void emergencySave();
 	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 	/**

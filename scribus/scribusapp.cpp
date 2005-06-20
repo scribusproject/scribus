@@ -53,8 +53,15 @@
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
 
+extern ScribusApp* ScApp;
+extern ScribusQApp* ScQApp;
+
+bool ScribusQApp::useGUI=false;
+
 ScribusQApp::ScribusQApp ( int & argc, char ** argv ) : QApplication(argc, argv)
 {
+	ScQApp=this;
+	ScApp=NULL;
 	lang="";
 }
 
@@ -68,7 +75,6 @@ void ScribusQApp::initLang()
 
 void ScribusQApp::parseCommandLine()
 {
-	useGUI=true;
 	showSplash=true;
 	QString arg = "";
 	bool usage=false;
@@ -108,11 +114,10 @@ void ScribusQApp::parseCommandLine()
 	if (usage)
 		showUsage();
 	//Dont run the GUI init process called from main.cpp, and return
-	if (header)
-	{
-		useGUI=false;
+	if (!header)
+		useGUI=true;
+	else
 		return;
-	}
 	//We are going to run something other than command line help
 	for(int i = 1; i < argc(); i++) {
 		arg = argv()[i];
@@ -155,12 +160,13 @@ int ScribusQApp::init()
 	if (useGUI)
 	{
 		scribus = new ScribusApp();
+		ScApp=scribus;
 		if (!scribus)
 			exit(EXIT_FAILURE);
 		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, lang);
 		if (scribusRetVal == 1)
 			return(EXIT_FAILURE);
-		scribus->initCrashHandler();
+
 		setMainWidget(scribus);
 		connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
 	
@@ -374,3 +380,4 @@ const bool ScribusQApp::usingGUI()
 {
 	return useGUI;
 }
+

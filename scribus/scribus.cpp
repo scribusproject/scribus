@@ -160,8 +160,8 @@ int IntentPrinter;
 bool CMSavail;
 ProfilesL InputProfiles;
 QString DocDir;
-ScribusApp* ScApp;
-ScribusQApp* ScQApp;
+extern ScribusApp* ScApp;
+extern ScribusQApp* ScQApp;
 PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
@@ -182,8 +182,6 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	guiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 	setUsesBigPixmaps(true);
-	ScApp = this;
-	ScQApp = (ScribusQApp*)qApp;
 	CurrStED = NULL;
 	setCaption( tr("Scribus " VERSION));
 	setKeyCompression(false);
@@ -295,8 +293,6 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		connect(this, SIGNAL(TextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
 		connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
-
-		initCrashHandler();
 	}
 	closeSplash();
 	scribusInitialized=true;
@@ -865,34 +861,6 @@ void ScribusApp::initScrapbook()
 		scrapbookPalette->readContents(scrapbookFile);
 	scrapbookPalette->setScrapbookFileName(scrapbookFile);
 	scrapbookPalette->AdjustMenu();
-}
-
-void ScribusApp::initCrashHandler()
-{
-	typedef void (*HandlerType)(int);
-	HandlerType handler	= 0;
-	handler = ScribusApp::defaultCrashHandler;
-	if (!handler)
-		handler = SIG_DFL;
-	sigset_t mask;
-	sigemptyset(&mask);
-#ifdef SIGSEGV
-	signal (SIGSEGV, handler);
-	sigaddset(&mask, SIGSEGV);
-#endif
-#ifdef SIGFPE
-	signal (SIGFPE, handler);
-	sigaddset(&mask, SIGFPE);
-#endif
-#ifdef SIGILL
-	signal (SIGILL, handler);
-	sigaddset(&mask, SIGILL);
-#endif
-#ifdef SIGABRT
-	signal (SIGABRT, handler);
-	sigaddset(&mask, SIGABRT);
-#endif
-	sigprocmask(SIG_UNBLOCK, &mask, 0);
 }
 
 const QString ScribusApp::getGuiLanguage()
@@ -10660,21 +10628,6 @@ void ScribusApp::slotStoryEditor()
 		dia=NULL;
 		*/
 	}
-}
-
-void ScribusApp::defaultCrashHandler (int sig)
-{
-	static int crashRecursionCounter = 0;
-	crashRecursionCounter++;
-	signal(SIGALRM, SIG_DFL);
-	if (crashRecursionCounter < 2)
-	{
-		crashRecursionCounter++;
-		QMessageBox::critical(ScApp, tr("Scribus Crash"), tr("Scribus crashes due to Signal #%1").arg(sig), tr("&OK"));
-		alarm(300);
-		ScApp->emergencySave();
-	}
-	exit(255);
 }
 
 void ScribusApp::emergencySave()
