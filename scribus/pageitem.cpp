@@ -1182,10 +1182,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					{
 						if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
 						{
+/*						if (((a > 0) && ((itemText.at(a-1)->ch == QChar(13)) || (itemText.at(a-1)->ch == QChar(28)) || (outs))) || ((a == 0) && (BackBox == 0)))
+						{
 							if (Doc->docParagraphStyles[absa].BaseAdj)
 								CurY += Doc->typographicSetttings.valueBaseGrid;
 							else
-								CurY += Doc->docParagraphStyles[absa].LineSpa;
+								CurY += Doc->docParagraphStyles[absa].LineSpa; */
 							CurY += Doc->docParagraphStyles[absa].gapBefore;
 							if (chx != QChar(13))
 								DropCmode = Doc->docParagraphStyles[absa].Drop;
@@ -1205,6 +1207,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								}
 							}
 						}
+//						outs = false;
 					}
 					if (DropCmode)
 					{
@@ -1877,6 +1880,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 									if (CurX+RExtra+lineCorr > ColBound.y())
 									{
 										fromOut = false;
+										if (Doc->docParagraphStyles[absa].BaseAdj)
+											CurY += Doc->typographicSetttings.valueBaseGrid;
+										else
+											CurY += Doc->docParagraphStyles[absa].LineSpa;
 										if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 										{
 											goNoRoom = true;
@@ -1926,6 +1933,10 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 									if (CurY < maxDY)
 										CurY = maxDY;
 								}
+								if (Doc->docParagraphStyles[hl->cab].BaseAdj)
+									CurY += Doc->typographicSetttings.valueBaseGrid;
+								else
+									CurY += Doc->docParagraphStyles[hl->cab].LineSpa;
 								if (AbsHasDrop)
 								{
 									if ((CurY > maxDY) && (CurY - asce > maxDY))
