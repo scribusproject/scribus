@@ -1129,11 +1129,6 @@ void Mpalette::SetCurItem(PageItem *i)
 		Width->setReadOnly(setter);
 		Height->setReadOnly(setter);
 	}
-	if (i->Locked)
-	{
-		HaveItem = true;
-		return;
-	}
 	if (i->PType == 8)
 	{
 		TabStack2->raiseWidget(1);
@@ -1170,7 +1165,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	if (i->PType == 5)
 	{
 		Kette2->setEnabled(false);
-		if (LMode)
+		if (LMode && !i->Locked)
 			Height->setEnabled(true);
 		else
 			Height->setEnabled(false);
