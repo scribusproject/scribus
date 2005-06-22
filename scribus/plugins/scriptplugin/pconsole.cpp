@@ -14,6 +14,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include <qlistview.h>
 #include <qtextedit.h>
 #include <qlayout.h>
+#include <qsplitter.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qmenubar.h>
@@ -50,32 +51,25 @@ PythonConsole::PythonConsole( QWidget* parent)
 	gridLayout = new QGridLayout( this, 1, 1, 11, 6, "gridLayout");
 	gridLayout->setMenuBar(menuBar);
 
-	mainLayout = new QHBoxLayout( 0, 0, 6, "mainLayout");
-
-	commandView = new QListView( this, "commandView" );
-	commandView->addColumn( tr( "Context" ) );
-	commandView->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)7, 0, 0, commandView->sizePolicy().hasHeightForWidth() ) );
-
-	mainLayout->addWidget( commandView );
-
 	editorsLayout = new QVBoxLayout( 0, 0, 6, "editorsLayout");
 
-	commandEdit = new QTextEdit( this, "commandEdit" );
+	QSplitter *splitter = new QSplitter(Qt::Vertical, this, "splitter");
+	editorsLayout->addWidget(splitter);
+
+	commandEdit = new QTextEdit(splitter, "commandEdit" );
 	commandEdit->setFont(font);
 	commandEdit->setTextFormat(Qt::PlainText);
 	commandEdit->setFocus();
 	commandEdit->setTabStopWidth(commandEdit->pointSize() * 4);
 	// install syntax highlighter.
 	SyntaxHighlighter *sxHigh = new SyntaxHighlighter(commandEdit);
-	editorsLayout->addWidget( commandEdit );
 
-	outputEdit = new QTextEdit( this, "outputEdit" );
+	outputEdit = new QTextEdit(splitter, "outputEdit" );
 	outputEdit->setFont(font);
 	outputEdit->setTextFormat(Qt::PlainText);
-	editorsLayout->addWidget( outputEdit );
-	mainLayout->addLayout( editorsLayout );
+	outputEdit->setReadOnly(true);
 
-	gridLayout->addLayout( mainLayout, 0, 0 );
+	gridLayout->addLayout( editorsLayout, 0, 0 );
 	languageChange();
 	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
@@ -96,8 +90,6 @@ PythonConsole::~PythonConsole()
 void PythonConsole::languageChange()
 {
 	setCaption(tr("Script Console"));
-	commandView->header()->setLabel(0, tr("Context"));
-	QToolTip::add(commandView, "<qt>" + tr("List of the available Python objects in the current context") + "</qt>");
 	QToolTip::add(commandEdit, "<qt>" + tr("Write your commands here. A selection is processed as script") + "</qt>");
 	QToolTip::add(outputEdit, "<qt>" + tr("Output of your script") + "</qt>");
 }
@@ -421,4 +413,3 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 
 	return 0;
 }
-

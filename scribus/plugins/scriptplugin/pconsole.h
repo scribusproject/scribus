@@ -27,8 +27,6 @@ class QMenuBar;
 It's used e.g. like Tora (SQLnavigator) console. Sample: highlight some code,
 press F9, then see the results.
 \author Petr Vanek <petr@yarpen.cz>
-
-TODO: Object tree.
 */
 class PythonConsole : public QWidget
 {
@@ -43,8 +41,6 @@ class PythonConsole : public QWidget
 		//! File name for saving the contents
 		QString filename;
 
-		//! TODO: Tree with available methods/functions/objects
-		QListView* commandView;
 		//! Programmer's editor ;)
 		QTextEdit* commandEdit;
 		//! Results viewer
@@ -67,7 +63,6 @@ class PythonConsole : public QWidget
 
 	protected:
 		QGridLayout* gridLayout;
-		QHBoxLayout* mainLayout;
 		QVBoxLayout* editorsLayout;
 		QMenuBar* menuBar;
 
@@ -79,7 +74,10 @@ class PythonConsole : public QWidget
 /*! Simple syntax highlighting for Scripter (QTextEdit).
 Based on the source of the Python Realizer (http://www.python-realizer.net)
 but very simplifier. Improved too (of course).
+TODO: colors of the higlited texts. User should set the colors in the
+      preferences. Waiting for the new plugin API.
 \author Petr Vanek, <petr@yarpen.cz>
+\author Richard Magnor Stenbro <stenbror@hotmail.com>
 */
 class SyntaxHighlighter : public QSyntaxHighlighter
 {

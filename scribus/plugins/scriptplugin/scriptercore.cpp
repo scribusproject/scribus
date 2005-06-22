@@ -365,6 +365,7 @@ void ScripterCore::slotInteractiveScript(bool visible)
 void ScripterCore::slotExecute()
 {
 	pcon->outputEdit->append(slotRunScript(pcon->command));
+	pcon->outputEdit->setCursorPosition(0, 0);
 	pcon->commandEdit->ensureCursorVisible();
 	FinishScriptRun();
 }
