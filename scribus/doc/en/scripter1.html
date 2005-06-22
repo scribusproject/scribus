@@ -13,11 +13,15 @@
 
 <table width="100%"><tr><td align="center"><img src="images/Scripter.png" align="center" alt="Running a script" title="Running a script" /></td></tr></table>
 
-<p>To execute a Python Script select "Script-&gt;Execute Script..." Scribus will display a File select Box which allows you to select a Python Script. Below there is an extra Menu item "Recent Scripts" where all your recent Scripts are remembered. How many Scripts are remembered depends on your Setting for Recent Documents in the Scribus Preferences.</p> 
+<p>To execute a Python Script select "Script-&gt;Execute Script..." Scribus will display a File select Box which allows you to select a Python Script. Below there is an extra Menu item "Recent Scripts" where all your recent Scripts are remembered. How many Scripts are remembered depends on your Setting for Recent Documents in the Scribus Preferences.</p>
 
 <p>You can use many Python Programs with this Plugin. The only exception are Scripts who expect Parameters from the Command Line. They won't work because the Plugin gives the Python Interpreter an empty Command Line.</p>
 
-<p>The Menu Item "Show Console" gives you an interactive Python Console, where you can execute Commands directly. There is no need to do a "from scribus import *", this has already been done. You can use all the following Commands in the Scripter API section directly without any Prefix.</p>
+<p>The Menu Item "Show Console" gives you an interactive Python Console, where you can execute Commands directly. There is no need to do a "from scribus import *", this has already been done. You can use all the following Commands in the Scripter API section directly without any Prefix. Scribus Python console is quite different from Python console itself. It takes some useful things from well known development tools.</p>
+
+<p>The console window id divided into two parts. First part, the code editor, is simple programming text editor. You can here load and save your scripts or files with some unrelated commands. You can run all commands at once by "Script/Run" menu item (or just press "F9" key) but you can select only a piece of the text so then will be only selected commands processed. The second way can be used for simple debugging of the large scripts. You can have e.g. file with small pieces of the frequently used commands (e.g. a loop with eleven text boxes creation) then you can quickly "select and run" without any writting.</p>
+
+<p>Second part of the console is the output window. It is a container of the output of your commands or scripts. Text in this window is erased everytime you run new command but you can save actual content by "Script/Save Output...".</p>
 
 <p>You can get some useful informations about any script calling "Script-&gt;About Script...".</p>
 
