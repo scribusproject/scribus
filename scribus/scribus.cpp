@@ -1791,6 +1791,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (!doc->EditClip)
 					{
 						view->DeleteItem();
+						outlinePalette->BuildTree(doc);
 						slotDocCh();
 					}
 					break;
