@@ -8132,7 +8132,8 @@ void ScribusView::DeleteItem()
 
 		for (uint de = 0; de < anz; ++de)
 		{
-			currItem = delItems.at(0);
+			//currItem = delItems.at(0);
+			currItem = delItems.last();
 			if ((currItem->itemType() == PageItem::ImageFrame) && ((ScApp->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
 				ScApp->fileWatcher->removeFile(currItem->Pfile);
 			if (currItem->itemType() == PageItem::TextFrame)
@@ -8181,7 +8182,8 @@ void ScribusView::DeleteItem()
 				emit DelBM(currItem);
 			Doc->Items.remove(currItem);
 			currItem->Select = false;
-			delItems.removeFirst();
+			//delItems.removeFirst();
+			delItems.removeLast();
 			// send the undo action to the UndoManager
 			if (UndoManager::undoEnabled())
 			{
