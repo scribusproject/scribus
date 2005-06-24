@@ -8746,7 +8746,8 @@ void Page::DeleteItem(bool force)
 
 		for (uint de = 0; de < anz; ++de)
 		{
-			b = delItems.at(0);
+//			b = delItems.at(0);
+			b = delItems.last();
 			if (b->PType == 4)
 			{
 				if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -8791,7 +8792,8 @@ void Page::DeleteItem(bool force)
 				doku->UnData.Item = Items.take(b->ItemNr);
 			else
 				Items.remove(b);
-			delItems.removeFirst();
+//			delItems.removeFirst();
+			delItems.removeLast();
 		}
 		for (a = 0; a < Items.count(); ++a)
 		{
