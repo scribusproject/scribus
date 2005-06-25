@@ -97,14 +97,16 @@ private slots:
 	void Verlassen();
 	void FontChange();
 	void ColorChange();
+
+	/*! Enables or disables the style previewer */
+	void togglePreview();
 	/*! \brief Paragraph style preview generator.
 	It takes values from the UI form, creates a temporary style.
 	This style is appended into global styles list and removed from there
 	after finishing. Then is created an item to draw QPixmap with it.
 	\author Petr Vanek
 	\date 4/7/2005
-	*/
-	void togglePreview();
+	 */
 	void updatePreview();
 
 protected:

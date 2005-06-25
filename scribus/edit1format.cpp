@@ -49,14 +49,6 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	GroupFontLayout->setAlignment( Qt::AlignLeft );
 	FontC = new FontComboH(GroupFont, Prefs);
 	FontC->setCurrentFont(vor->Font);
-/*	for (int fc=0; fc<FontC->count(); ++fc)
-	{
-		if (FontC->text(fc) == vor->Font)
-		{
-			FontC->setCurrentItem(fc);
-			break;
-		}
-	} */
 	GroupFontLayout->addWidget( FontC );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
 	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );
@@ -347,6 +339,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect( OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
 	connect( DropCaps, SIGNAL( toggled(bool) ), this, SLOT( updatePreview() ) );
 	connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
+	connect(fontVScale, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(fontHScale, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(EffeS, SIGNAL(State(int)), this, SLOT(ColorChange()));
 	connect(EffeS->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(EffeS->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
@@ -359,6 +353,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 //	connect(FontC, SIGNAL(activated(const QString &)), this, SLOT(updatePreview()));
 	connect(FontC, SIGNAL(fontSelected(QString )), this, SLOT(updatePreview()));
 	connect(LineSpVal, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(fontBase, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
+	connect(fontKern, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(TabList, SIGNAL(tabrulerChanged()), this, SLOT(updatePreview()));
 	connect(AboveV, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(BelowV, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
