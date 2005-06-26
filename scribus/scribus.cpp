@@ -195,8 +195,11 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	scrMenuMgr = new MenuManager(this->menuBar());
 
 	PrefsPfad = getPreferencesLocation();
-	bool importingFrom12=convert12Preferences(PrefsPfad);
+	bool importingFrom12=copy12Preferences(PrefsPfad);
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
+	if (importingFrom12)
+		convert12Preferences(PrefsPfad);
+
 
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
@@ -923,14 +926,14 @@ QString ScribusApp::getPreferencesLocation()
 }
 
 /*!
- \fn QString ScribusApp::convertToXMLPreferences(QString prefsLocation)
+ \fn bool ScribusApp::copy12Preferences(const QString prefsLocation)
  \author Craig Bradney
  \date Sun 09 Jan 2005
- \brief Convert 1.2 prefs to 1.3 prefs
+ \brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
  \param prefsLocation Location of user preferences
- \retval None
+ \retval bool true if prefs were imported
  */
-bool ScribusApp::convert12Preferences(const QString prefsLocation)
+bool ScribusApp::copy12Preferences(const QString prefsLocation)
 {
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
 	QString oldPR[5], newPR[5];
@@ -938,12 +941,10 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
 	oldPR[2]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
 	oldPR[3]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
-	oldPR[4]=QDir::convertSeparators(prefsLocation+"/scribusfont.rc");
 	newPR[0]=QDir::convertSeparators(prefsLocation+"/scribus13.rc");
 	newPR[1]=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
 	newPR[2]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
 	newPR[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
-	newPR[4]=QDir::convertSeparators(prefsLocation+"/scribusfont13.rc");
 
 	bool existsOldPR[5], existsNewPR[5];
 	for (uint i=0;i<5;++i)
@@ -968,23 +969,6 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 			{
 				if (existsOldPR[i] && !existsNewPR[i])
 					copyFile(oldPR[i], newPR[i]);
-
-				// We actually import the 1.2.2cvs font prefs into the 1.3
-				// prefs.xml format rather than just copying the file.
-				/* DISABLED CR: Or at least, we would if the prefs API was set up yet. DUH.
-				QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
-				if (fontPrefsFile12.open(IO_ReadOnly))
-				{
-					PrefsContext *pc = prefsFile->getContext("Fonts");
-					PrefsTable *fontPrefs = pc->getTable("ExtraFontPaths");
-					QTextStream tsx(&fontPrefsFile12);
-					QString extraPath = tsx.read();
-					fontPrefsFile12.close();
-					QStringList extraFonts = QStringList::split("\n",extraPath);
-					for (int i = 0; i < extraFonts.count(); ++i)
-						fontPrefs->set(i, 0, extraFonts[i]);
-				}
-				*/
 			}
 		}
 		if (splashScreen)
@@ -992,6 +976,31 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 	}
 
 	return retVal;
+}
+
+/*!
+ \fn void ScribusApp::convert12Preferences(const QString prefsLocation)
+ \author Craig Ringer
+ \date Sun 26 June 2005
+ \brief Import 1.2.x prefs rc data into new prefs xml
+ \param prefsLocation Location of user preferences
+ \retval None
+ */
+void ScribusApp::convert12Preferences(const QString prefsLocation)
+{
+	// Import 1.2 font search path prefs
+	QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
+	if (fontPrefsFile12.open(IO_ReadOnly))
+	{
+		PrefsContext *pc = prefsFile->getContext("Fonts");
+		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
+		QTextStream tsx(&fontPrefsFile12);
+		QString extraPath = tsx.read();
+		fontPrefsFile12.close();
+		QStringList extraFonts = QStringList::split("\n",extraPath);
+		for (int i = 0; i < extraFonts.count(); ++i)
+			fontPrefs->set(i, 0, extraFonts[i]);
+	}
 }
 
 void ScribusApp::initMenuBar()

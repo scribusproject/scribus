@@ -499,8 +499,12 @@ private:
 	QString recentFileMenuName;
 	QString layerMenuName;
 	bool scribusInitialized;
-	QString getPreferencesLocation(); //Find preferences location
-	bool convert12Preferences(const QString prefsLocation); //convert 1.2 style rc prefs and possibly to .xml style
+	/// Find and return preferences location
+	QString getPreferencesLocation();
+	/// copy 1.2 prefs XML before loading, and old .rc files that we don't yet convert
+	bool copy12Preferences(const QString prefsLocation); 
+	/// convert 1.2 style preferences to new XML format
+	void convert12Preferences(const QString prefsLocation);
 	QComboBox *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;
