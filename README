@@ -150,18 +150,24 @@ Grey scale icc profiles in images are not supported in this release..
 There is a separate file, PACKAGING for detailed hints and notes on building
 packages for Scribus.
 
-MacOS/X
-=======
+On Fedora, if you report a crash bug, it would be extremely handy if you could
+build a debug version of Scribus (--enable-debug to configure) and get a stack
+trace. This is not required, but does help us diagnose the problem more quickly
+and reliably. Some information on stack traces can be found here:
 
-Scribus for MacOS/X is best obtained through fink. See:
+http://fedora.linux.duke.edu/wiki/StackTraces
+
+Mac OS X
+========
+
+Scribus for Mac OS X is best obtained through fink. See:
 http://fink.sourceforge.net/
 
-There is also information about building and using Scribus on MacOS/X on the
+There is also information about building and using Scribus on Mac OS X on the
 Scribus wiki: http://wiki.scribus.net/ .
 
-A MacOS/X native Aqua port is in early testing. No public builds are available
-yet. More information will be announced on the mailing list as progress
-continues.
+A Mac OS X native Aqua port is in early testing. More information can be found
+on http://aqua.scribus.net/ .
 
 Microsoft Windows
 =================
