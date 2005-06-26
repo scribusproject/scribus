@@ -8208,19 +8208,9 @@ void ScribusView::DeleteItem()
 		{
 			Doc->FrameItems.at(a)->ItemNr = a;
 		}
-
 		if (anz > 1)
 			undoManager->commit();
-
-		if (GroupSel)
-		{
-			double x, y, w, h;
-			getGroupRect(&x, &y, &w, &h);
-			GroupSel = false;
-			updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-		}
-		else
-			updateContents();
+		updateContents();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		if (Doc->masterPageMode)
 			Doc->MasterItems = Doc->Items;

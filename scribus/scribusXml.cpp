@@ -2215,7 +2215,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2, xo, yo;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -2226,17 +2226,27 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	for (uint cor=0; cor<Selitems->count(); ++cor)
 		ELL.append(Selitems->at(cor)->ItemNr);
 	qHeapSort(ELL);
+	if (item->OwnPage == -1)
+	{
+		xo = 0;
+		yo = 0;
+	}
+	else
+	{
+		xo = item->Doc->Pages.at(item->OwnPage)->Xoffset;
+		yo = item->Doc->Pages.at(item->OwnPage)->Yoffset;
+	}
 	if (view->GroupSel)
 	{
-		elem.setAttribute("XP", view->GroupX - doc->currentPage->Xoffset);
-		elem.setAttribute("YP", view->GroupY - doc->currentPage->Yoffset);
+		elem.setAttribute("XP", view->GroupX - xo);
+		elem.setAttribute("YP", view->GroupY - yo);
 		elem.setAttribute("W", view->GroupW);
 		elem.setAttribute("H", view->GroupH);
 	}
 	else
 	{
-		elem.setAttribute("XP", item->Xpos - doc->currentPage->Xoffset);
-		elem.setAttribute("YP", item->Ypos - doc->currentPage->Yoffset);
+		elem.setAttribute("XP", item->Xpos - xo);
+		elem.setAttribute("YP", item->Ypos - yo);
 		elem.setAttribute("W", item->Width);
 		elem.setAttribute("H", item->Height);
 	}
