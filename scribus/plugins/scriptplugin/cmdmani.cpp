@@ -171,14 +171,18 @@ PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	uint ap = Carrier->doc->currentPage->PageNr;
+	// If we were passed a list of items to group...
 	if (il != 0)
 	{
 		int len = PyList_Size(il);
-		if (len == 0)
+		if (len < 2)
 		{
-			Py_INCREF(Py_None);
-			return Py_None;
+			// We can't very well group only one item
+			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error"));
+			return NULL;
 		}
+		QStringList oldSelection = getSelectedItemsByName();
+		Carrier->view->Deselect();
 		for (int i = 0; i < len; i++)
 		{
 			// FIXME: We might need to explicitly get this string as utf8
@@ -190,12 +194,25 @@ PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 				return NULL;
 			Carrier->view->SelectItemNr(ic->ItemNr);
 		}
-	}
-	if (Carrier->view->SelItem.count() != 0)
-	{
 		Carrier->GroupObj();
-		Carrier->view->Deselect();
+		setSelectedItemsByName(oldSelection);
+	}
+	// or if no argument list was given but there is a selection...
+	else if (Carrier->view->SelItem.count() != 0)
+	{
+		if (Carrier->view->SelItem.count() < 2)
+		{
+			// We can't very well group only one item
+			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error"));
+			return NULL;
+		}
+		Carrier->GroupObj();
 		Carrier->view->GotoPage(ap);
+	}
+	else
+	{
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

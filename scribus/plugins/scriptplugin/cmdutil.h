@@ -50,4 +50,16 @@ bool checkHaveDocument();
 // 2004-11-12 Craig Ringer see cmdutil.cpp for description
 bool ItemExists(QString name);
 
+/*!
+ * @brief Returns a list of the names of all selected PageItems
+ */
+QStringList getSelectedItemsByName();
+/*!
+ * @brief Replaces the current selection by selecting all the items named in the passed QStringList
+ *
+ * Returns false if one or more items can't be selected, true if all were selected.
+ * Selection state is undefined on failure.
+ */
+bool setSelectedItemsByName(QStringList& itemNames);
+
 #endif

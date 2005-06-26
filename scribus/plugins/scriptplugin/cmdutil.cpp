@@ -187,3 +187,31 @@ bool checkHaveDocument()
     PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document"));
     return false;
 }
+
+QStringList getSelectedItemsByName()
+{
+	QStringList names;
+	QPtrListIterator<PageItem> it(Carrier->view->SelItem);
+	for ( ; it.current() != 0 ; ++it)
+		names.append(it.current()->itemName());
+	return names;
+}
+
+bool setSelectedItemsByName(QStringList& itemNames)
+{
+	Carrier->view->Deselect();
+	// For each named item
+	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
+	{
+		// Search for the named item
+		PageItem* item = 0;
+		for (uint j = 0; j < Carrier->doc->Items.count(); j++)
+			if (*it == Carrier->doc->Items.at(j)->itemName())
+				item = Carrier->doc->Items.at(j);
+		if (!item)
+			return false;
+		// and select it
+		Carrier->view->SelectItemNr(item->ItemNr);
+	}
+	return true;
+}
