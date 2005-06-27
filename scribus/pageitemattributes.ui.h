@@ -23,9 +23,16 @@ void PageItemAttributes::destroy()
 }
 
 
-void PageItemAttributes::setup(ObjAttrVector *docItemAttrs)
+void PageItemAttributes::setup(ObjAttrVector *pageItemAttrs, ObjAttrVector *docItemAttrs)
 {
-	localAttributes=*docItemAttrs;
+	localAttributes=*pageItemAttrs;
+	localDocAttributes=*docItemAttrs;
+		
+	nameList.clear();
+	nameList.append("");
+	for(ObjAttrVector::Iterator it = localDocAttributes.begin(); it!= localDocAttributes.end(); ++it)
+		nameList.append((*it).name);
+	
 	updateTable();
 }
 
@@ -156,7 +163,11 @@ void PageItemAttributes::updateTable()
 	{
 		uint i=0;
 		//Name
-		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).name);
+		QComboTableItem *item1 = new QComboTableItem(attributesTable, nameList, true);
+		if (nameList.contains((*it).name))
+			item1->setCurrentItem((*it).name);
+		else
+			item1->setCurrentItem("");
 		attributesTable->setItem(row, i++, item1);
 		//Type
 		QTableItem *item2 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).type);

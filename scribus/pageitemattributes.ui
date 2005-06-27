@@ -228,12 +228,14 @@
     <include location="local" impldecl="in implementation">pageitemattributes.ui.h</include>
 </includes>
 <variables>
-    <variable access="public">ObjAttrVector localAttributes;</variable>
+    <variable>ObjAttrVector localDocAttributes;</variable>
+    <variable>ObjAttrVector localAttributes;</variable>
     <variable>QStringList relationships;</variable>
     <variable>QStringList relationshipsData;</variable>
+    <variable>QStringList nameList;</variable>
 </variables>
 <slots>
-    <slot>setup( ObjAttrVector * docItemAttrs )</slot>
+    <slot>setup( ObjAttrVector * pageItemAttrs, ObjAttrVector * docItemAttrs )</slot>
     <slot>tableItemChanged( int row, int col )</slot>
     <slot access="protected">addEntry()</slot>
     <slot access="protected">deleteEntry()</slot>
