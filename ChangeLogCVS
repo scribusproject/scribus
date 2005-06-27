@@ -6,6 +6,15 @@ Scribus - 1.2.1
 
 Scribus - 1.2.2cvs
 ==================
+
+- 0002135: [Internal] Allow 1.2.x to know about 1.3.x documents, handing a message to the user, rather than crashing or doing nothing. (cbradney)
+- 0002074: [Fonts] Tell gs where our extra fonts are using -sFONTPATH (ringerc)
+- 0002105: [User Interface] Deleting selected objects does not always delete all from the outline palette (cbradney)
+- 0002113: [User Interface] Properties palette doesnt update all image values when selecting between locked items (cbradney)
+- 0001806: [Translation] Strings in dialog PDF-Export / register "Fonts" (plinnell)
+- 0001125: [Story Editor / Text Frames] Deleting text in the story editor does not actualy delete all the text. (fschmid)
+- 0002050: [Story Editor / Text Frames] Can't delete text from Template (fschmid)
+- 0002068: [PPCOSX] Keys for Copy,Cut and Paste does not work (cbradney)
 - 0001731: [Fonts] Overlapping letters (fschmid)
 - 0002068: [PPCOSX] Keys for Copy,Cut and Paste does not work (cbradney)
 - 0002050: [Story Editor / Text Frames] Can't delete text from Template (fschmid)
