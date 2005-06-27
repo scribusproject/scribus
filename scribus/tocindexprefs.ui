@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>420</width>
-            <height>215</height>
+            <height>218</height>
         </rect>
     </property>
     <property name="caption">
@@ -277,6 +277,7 @@
     <forward>class ScribusDoc</forward>
 </forwards>
 <variables>
+    <variable>uint numSelected;</variable>
     <variable>QString strPNNotShown;</variable>
     <variable>QString strPNEnd;</variable>
     <variable>QString strPNBeginning;</variable>
@@ -304,7 +305,7 @@
     <slot>itemPageNumberPlacedSelected( const QString &amp; pageLocation )</slot>
     <slot>itemParagraphStyleSelected( const QString &amp; itemStyle )</slot>
     <slot>setToCName( const QString &amp; newName )</slot>
-    <slot>nonPrintingFramesSelected( bool )</slot>
+    <slot>nonPrintingFramesSelected( bool showNonPrinting )</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

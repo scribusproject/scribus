@@ -13,6 +13,7 @@
 
 void TOCIndexPrefs::init()
 {
+	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 	trStrNone=QT_TR_NOOP("None");
 	strNone="None";
 	trStrPNBeginning=QT_TR_NOOP("At the beginning");
@@ -27,6 +28,7 @@ void TOCIndexPrefs::init()
 	itemNumberPlacementComboBox->insertItem(trStrPNBeginning);
 	itemNumberPlacementComboBox->insertItem(trStrPNNotShown);
 	itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
+	numSelected=999;
 }
 
 
@@ -51,6 +53,7 @@ void TOCIndexPrefs::setup( ToCSetupVector* tocsetups, ScribusDoc *doc)
 	else
 		tocListBox->clear();
 	enableGUIWidgets();
+	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 }
 
 void TOCIndexPrefs::generatePageItemList()
@@ -72,54 +75,71 @@ void TOCIndexPrefs::generatePageItemList()
 
 void TOCIndexPrefs::setupItemAttrs( QStringList newNames )
 {
+	disconnect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 	itemAttrComboBox->clear();
 	itemAttrComboBox->insertItem(trStrNone);
 	itemAttrComboBox->insertStringList(newNames);
+	if (numSelected!=999)
+	{
+		if (localToCSetupVector[numSelected].itemAttrName==strNone)
+			itemAttrComboBox->setCurrentText(trStrNone);
+		else
+			itemAttrComboBox->setCurrentText(localToCSetupVector[numSelected].itemAttrName);
+	}
+	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 }
 
 
 void TOCIndexPrefs::selectToC( int numberSelected )
 {
-	uint num=numberSelected;
+	numSelected=numberSelected;
 	if (localToCSetupVector.isEmpty())
 		return;
-	if (localToCSetupVector.count()<num)
-		num=0;
-	if (localToCSetupVector[num].itemAttrName==strNone)
+	if (localToCSetupVector.count()<numSelected)
+		numSelected=0;
+	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	disconnect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
+	disconnect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
+	disconnect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
+	disconnect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&) ) );
+	disconnect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
+	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
+	if (localToCSetupVector[numSelected].itemAttrName==strNone)
 		itemAttrComboBox->setCurrentText(trStrNone);
 	else
-		itemAttrComboBox->setCurrentText(localToCSetupVector[num].itemAttrName);
-	
-	if (localToCSetupVector[num].pageLocation==NotShown)
+		itemAttrComboBox->setCurrentText(localToCSetupVector[numSelected].itemAttrName);
+	if (localToCSetupVector[numSelected].pageLocation==NotShown)
 		itemNumberPlacementComboBox->setCurrentText(trStrPNNotShown);
 	else
-		if (localToCSetupVector[num].pageLocation==Beginning)
+		if (localToCSetupVector[numSelected].pageLocation==Beginning)
 		itemNumberPlacementComboBox->setCurrentText(trStrPNBeginning);
 	else
 		itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
 	
-	disconnect(itemListNonPrintingCheckBox, SIGNAL(toggled(bool)), this, SLOT(nonPrintingFramesSelected(bool)));
-	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[num].listNonPrintingFrames);
-	connect(itemListNonPrintingCheckBox, SIGNAL(toggled(bool)), this, SLOT(nonPrintingFramesSelected(bool)));	
+	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
 	if (currDoc!=NULL)
 	{	
-		if (localToCSetupVector[num].frameName==strNone)
+		if (localToCSetupVector[numSelected].frameName==strNone)
 			itemDestFrameComboBox->setCurrentText(trStrNone);
 		else
-			itemDestFrameComboBox->setCurrentText(localToCSetupVector[num].frameName);
+			itemDestFrameComboBox->setCurrentText(localToCSetupVector[numSelected].frameName);
 			
-		if (!paragraphStyleList.contains(localToCSetupVector[num].textStyle) || localToCSetupVector[num].textStyle==strNone)
+		if (!paragraphStyleList.contains(localToCSetupVector[numSelected].textStyle) || localToCSetupVector[numSelected].textStyle==strNone)
 			itemParagraphStyleComboBox->setCurrentText(trStrNone);
 		else
-			itemParagraphStyleComboBox->setCurrentText(localToCSetupVector[num].textStyle);
+			itemParagraphStyleComboBox->setCurrentText(localToCSetupVector[numSelected].textStyle);
 	}
 	
-	if (numberSelected>=0)
-	{
-		disconnect(tocNameLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(setToCName(const QString &)));
+	if (numSelected>=0)
 		tocNameLineEdit->setText(tocListBox->currentText());
-		connect(tocNameLineEdit, SIGNAL(textChanged(const QString&)), this, SLOT(setToCName(const QString &)));
-	}
+		
+	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
+	connect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
+	connect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
+	connect( itemNumberPlacementComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemPageNumberPlacedSelected(const QString&) ) );
+	connect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
+	connect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
 }
 
 
@@ -142,10 +162,12 @@ void TOCIndexPrefs::addToC()
 	newToCEntry.pageLocation=End;
 	newToCEntry.listNonPrintingFrames=false;
 	localToCSetupVector.append(newToCEntry);
+	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 	updateToCListBox();
 	tocListBox->setCurrentItem(localToCSetupVector.count()-1);
 	selectToC(localToCSetupVector.count()-1);
 	enableGUIWidgets();
+	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 }
 
 
