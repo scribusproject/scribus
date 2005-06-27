@@ -998,7 +998,7 @@ void ScribusApp::convert12Preferences(const QString prefsLocation)
 		QString extraPath = tsx.read();
 		fontPrefsFile12.close();
 		QStringList extraFonts = QStringList::split("\n",extraPath);
-		for (int i = 0; i < extraFonts.count(); ++i)
+		for (uint i = 0; i < extraFonts.count(); ++i)
 			fontPrefs->set(i, 0, extraFonts[i]);
 	}
 }

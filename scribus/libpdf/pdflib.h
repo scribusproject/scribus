@@ -81,7 +81,7 @@ private:
 	void PDF_Bookmark(int nr, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
 	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors);
-	void PDF_Transparenz(PageItem *currItem);
+	QString PDF_Transparenz(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);
 	void PDF_xForm(double w, double h, QString im);

@@ -1003,7 +1003,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					continue;
 				PutPage("q\n");
 				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
-					PDF_Transparenz(ite);
+					PutPage(PDF_Transparenz(ite));
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
 				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
@@ -1621,7 +1621,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						{
 							PutPage("q\n");
 							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
-								PDF_Transparenz(ite);
+								PutPage(PDF_Transparenz(ite));
 							if (ite->fillColor() != "None")
 								PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
 							if (ite->lineColor() != "None")
@@ -1743,7 +1743,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							continue;
 						PutPage("q\n");
 						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
-							PDF_Transparenz(ite);
+							PutPage(PDF_Transparenz(ite));
 						if (ite->fillColor() != "None")
 							PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
 						if (ite->lineColor() != "None")
@@ -1890,7 +1890,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						continue;
 					PutPage("q\n");
 					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
-						PDF_Transparenz(ite);
+						PutPage(PDF_Transparenz(ite));
 					if (!ite->printable())
 					{
 						PutPage("Q\n");
@@ -2021,7 +2021,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 		return tmp;
 	tmp += "q\n";
 	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
-		PDF_Transparenz(ite);
+		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options->Bookmarks))
 		PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
 	if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
@@ -2036,7 +2036,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 	tmp += FToStr(fabs(ite->Pwidth))+" w\n";
 	if (ite->DashValues.count() != 0)
 	{
-		PutPage("[ ");
+		tmp += "[ ";
 		QValueList<double>::iterator it;
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
@@ -2400,7 +2400,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 							PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 							PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 							PutDoc("/BM /Normal\n>>\nendobj\n");
-							PutPage("/"+ShName+" gs\n");
+							tmp += "/"+ShName+" gs\n";
 						}
 						tmp += putColor(ite->lineColor(), ite->lineShade(), false);
 						tmp += SetClipPathArray(&arrow);
@@ -3210,7 +3210,7 @@ QString PDFlib::SetClipPathArray(FPointArray *ite, bool poly)
 	return tmp;
 }
 
-void PDFlib::PDF_Transparenz(PageItem *currItem)
+QString PDFlib::PDF_Transparenz(PageItem *currItem)
 {
 	StartObj(ObjCounter);
 	QString ShName = ResNam+IToStr(ResCount);
@@ -3222,7 +3222,7 @@ void PDFlib::PDF_Transparenz(PageItem *currItem)
 	PutDoc("/ca "+FToStr(1.0 - currItem->fillTransparency())+"\n");
 	PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
 	PutDoc("/BM /Normal\n>>\nendobj\n");
-	PutPage("/"+ShName+" gs\n");
+	return "/"+ShName+" gs\n";
 }
 
 QString PDFlib::PDF_Gradient(PageItem *currItem)
