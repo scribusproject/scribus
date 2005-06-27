@@ -232,7 +232,7 @@ More info can be found in the README.
 SuSE
 ====
 
-Recommended packages for compiling from source on SuSE 9.2:
+Recommended packages for compiling from source on SuSE 9.x:
 	qt3-devel (required)
 	libart_lgpl-devel (required)
 	freetype2-devel (required)
@@ -241,14 +241,15 @@ Recommended packages for compiling from source on SuSE 9.2:
 	libtiff-devel
 	libxml2-devel
 	cups-devel
+	openssl-devel
 	libpng-devel
 	libjpeg-devel
 	update-desktop-files
 	python-devel
-		tk
-		python-imaging
+	tk
+	python-imaging
 
-You can install these packages using YaST.
+You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.x on anything older than Suse 9.0. In addtion, you are recommended to have the updated KDE/Qt packages which are provided as supplemental from ftp.suse.com or mirrors.
 
 Mac OS X
 ========

@@ -21,9 +21,9 @@ part of the main package. Please consider adding:
 
 to ensure these old packages are removed on upgrade.
 
-* Currently, the full en documentation is included in the tarball, note
-it is licensed differently from the application source. We may decide to 
-distribute them separately. In any case a monolithic scribus application
+* Currently, the full en documentation is included in the tarball, Please
+note it is licensed differently from the application source. We may decide to 
+distribute them separately. In any case, a monolithic scribus application
 plus docs package should also obsolete all prior docs packages.
 
 	Obsoletes:      scribus-i18en
@@ -84,4 +84,4 @@ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in May 2005
+in June 2005
