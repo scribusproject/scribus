@@ -246,8 +246,8 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
 		//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
-		//     have conflicts if they dont nuke their settings. muhahahhaha
-		importingFrom12=true;
+		//     have conflicts if they dont nuke their settings.
+		// - Remove for 1.3.0 release: importingFrom12=true;
 		//>>CB
 		ReadPrefs(importingFrom12);
 		
