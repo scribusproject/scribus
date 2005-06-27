@@ -632,44 +632,6 @@ May raise ValueError if an invalid colour name is specified.
 </translation>
     </message>
     <message>
-      <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -> string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don't want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
-opional parameters is False.
-
-The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.
-For example 'Images (*.png *.xpm *.jpg)'.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog('Open input', 'CSV files (*.csv)')
-Example: fileDialog('Save report', defaultname='report.txt', issave=True)
-</source>
-      <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -> string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don't want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
-opional parameters is False.
-
-The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.
-For example 'Images (*.png *.xpm *.jpg)'.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog('Open input', 'CSV files (*.csv)')
-Example: fileDialog('Save report', defaultname='report.txt', issave=True)
-</translation>
-    </message>
-    <message>
       <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
     icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
     button2=BUTTON_NONE, button3=BUTTON_NONE) -> integer
@@ -2437,6 +2399,46 @@ use text frame linking. Without this parameter it search all linking chain.
 May raise WrongFrameTypeError if the target frame is not an text frame
 </translation>
     </message>
+    <message>
+      <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -> string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don't want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
+the dialog shows and returns only directories. The default for all of the
+opional parameters is False.
+
+The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.
+For example 'Images (*.png *.xpm *.jpg)'.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog('Open input', 'CSV files (*.csv)')
+Example: fileDialog('Save report', defaultname='report.txt', issave=True)
+</source>
+      <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -> string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don't want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
+the dialog shows and returns only directories. The default for all of the
+opional parameters is False.
+
+The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.
+For example 'Images (*.png *.xpm *.jpg)'.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog('Open input', 'CSV files (*.csv)')
+Example: fileDialog('Save report', defaultname='report.txt', issave=True)
+</translation>
+    </message>
   </context>
   <context>
     <name>About</name>
@@ -2594,10 +2596,6 @@ Missing library support is indicated by a *</translation>
     <message>
       <source>Save as P&amp;DF...</source>
       <translation>Save as P&amp;DF...</translation>
-    </message>
-    <message>
-      <source>Document &amp;Information...</source>
-      <translation>Document &amp;Information...</translation>
     </message>
     <message>
       <source>Document &amp;Setup...</source>
@@ -2786,10 +2784,6 @@ Missing library support is indicated by a *</translation>
     <message>
       <source>&amp;Raise</source>
       <translation>&amp;Raise</translation>
-    </message>
-    <message>
-      <source>Distribute/&amp;Align...</source>
-      <translation>Distribute/&amp;Align...</translation>
     </message>
     <message>
       <source>Send to S&amp;crapbook</source>
@@ -3036,10 +3030,6 @@ Missing library support is indicated by a *</translation>
       <translation>Edit Contents of Frame</translation>
     </message>
     <message>
-      <source>Text...</source>
-      <translation>Text...</translation>
-    </message>
-    <message>
       <source>Link Text Frames</source>
       <translation>Link Text Frames</translation>
     </message>
@@ -3244,6 +3234,66 @@ Missing library support is indicated by a *</translation>
       <translation>Toggle Palettes</translation>
     </message>
     <message>
+      <source>S&amp;hadow</source>
+      <translation>S&amp;hadow</translation>
+    </message>
+    <message>
+      <source>&amp;Low Resolution</source>
+      <translation>&amp;Low Resolution</translation>
+    </message>
+    <message>
+      <source>&amp;Normal Resolution</source>
+      <translation>&amp;Normal Resolution</translation>
+    </message>
+    <message>
+      <source>&amp;Full Resolution</source>
+      <translation>&amp;Full Resolution</translation>
+    </message>
+    <message>
+      <source>Edit Image...</source>
+      <translation>Edit Image...</translation>
+    </message>
+    <message>
+      <source>&amp;Update Image</source>
+      <translation>&amp;Update Image</translation>
+    </message>
+    <message>
+      <source>Adjust Frame to Image</source>
+      <translation>Adjust Frame to Image</translation>
+    </message>
+    <message>
+      <source>Extended Image Properties</source>
+      <translation>Extended Image Properties</translation>
+    </message>
+    <message>
+      <source>Show Control Characters</source>
+      <translation>Show Control Characters</translation>
+    </message>
+    <message>
+      <source>&amp;Align and Distribute</source>
+      <translation>&amp;Align and Distribute</translation>
+    </message>
+    <message>
+      <source>Edit Text...</source>
+      <translation>Edit Text...</translation>
+    </message>
+    <message>
+      <source>New Line</source>
+      <translation>New Line</translation>
+    </message>
+    <message>
+      <source>Frame Break</source>
+      <translation>Frame Break</translation>
+    </message>
+    <message>
+      <source>Column Break</source>
+      <translation>Column Break</translation>
+    </message>
+    <message>
+      <source>Non Breaking Dash</source>
+      <translation>Non Breaking Dash</translation>
+    </message>
+    <message>
       <source>Toggle Guides</source>
       <translation>Toggle Guides</translation>
     </message>
@@ -3414,6 +3464,117 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <message>
       <source>&amp;Do Not Change</source>
       <translation>&amp;Do Not Change</translation>
+    </message>
+  </context>
+  <context>
+    <name>AlignDistributePalette</name>
+    <message>
+      <source>Align and Distribute</source>
+      <translation>Align and Distribute</translation>
+    </message>
+    <message>
+      <source>Align</source>
+      <translation>Align</translation>
+    </message>
+    <message>
+      <source>&amp;Relative to:</source>
+      <translation>&amp;Relative to:</translation>
+    </message>
+    <message>
+      <source>First Selected</source>
+      <translation>First Selected</translation>
+    </message>
+    <message>
+      <source>Last Selected</source>
+      <translation>Last Selected</translation>
+    </message>
+    <message>
+      <source>Page</source>
+      <translation>Page</translation>
+    </message>
+    <message>
+      <source>Margins</source>
+      <translation>Margins</translation>
+    </message>
+    <message>
+      <source>Selection</source>
+      <translation>Selection</translation>
+    </message>
+    <message>
+      <source>Align right sides of objects to left side of anchor</source>
+      <translation>Align right sides of objects to left side of anchor</translation>
+    </message>
+    <message>
+      <source>Align left sides of objects to right side of anchor</source>
+      <translation>Align left sides of objects to right side of anchor</translation>
+    </message>
+    <message>
+      <source>Align bottoms</source>
+      <translation>Align bottoms</translation>
+    </message>
+    <message>
+      <source>Align right sides</source>
+      <translation>Align right sides</translation>
+    </message>
+    <message>
+      <source>Align tops of objects to bottom of anchor</source>
+      <translation>Align tops of objects to bottom of anchor</translation>
+    </message>
+    <message>
+      <source>Center on vertical axis</source>
+      <translation>Centre on vertical axis</translation>
+    </message>
+    <message>
+      <source>Align left sides</source>
+      <translation>Align left sides</translation>
+    </message>
+    <message>
+      <source>Center on horizontal axis</source>
+      <translation>Centre on horizontal axis</translation>
+    </message>
+    <message>
+      <source>Align bottoms of objects to top of anchor</source>
+      <translation>Align bottoms of objects to top of anchor</translation>
+    </message>
+    <message>
+      <source>Align tops</source>
+      <translation>Align tops</translation>
+    </message>
+    <message>
+      <source>Distribute</source>
+      <translation>Distribute</translation>
+    </message>
+    <message>
+      <source>Distribute left sides equidistantly</source>
+      <translation>Distribute left sides equidistantly</translation>
+    </message>
+    <message>
+      <source>Distribute bottoms equidistantly</source>
+      <translation>Distribute bottoms equidistantly</translation>
+    </message>
+    <message>
+      <source>Distribute centers equidistantly horizontally</source>
+      <translation>Distribute centres equidistantly horizontally</translation>
+    </message>
+    <message>
+      <source>Make vertical gaps between objects equal</source>
+      <translation>Make vertical gaps between objects equal</translation>
+    </message>
+    <message>
+      <source>Distribute centers equidistantly vertically</source>
+      <translation>Distribute centres equidistantly vertically</translation>
+    </message>
+    <message>
+      <source>Distribute tops equidistantly</source>
+      <translation>Distribute tops equidistantly</translation>
+    </message>
+    <message>
+      <source>Distribute right sides equidistantly</source>
+      <translation>Distribute right sides equidistantly</translation>
+    </message>
+    <message>
+      <source>Distance</source>
+      <translation>Distance</translation>
     </message>
   </context>
   <context>
@@ -5343,36 +5504,8 @@ This can be set in the Preferences.</translation>
       <translation>Ri&amp;ghts:</translation>
     </message>
     <message>
-      <source>&amp;Document</source>
-      <translation>&amp;Document</translation>
-    </message>
-    <message>
       <source>Further &amp;Information</source>
       <translation>Further &amp;Information</translation>
-    </message>
-    <message>
-      <source>The person or organisation primarily responsible for making the content of the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-      <translation>The person or organisation primarily responsible for making the content of the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
-    </message>
-    <message>
-      <source>A name given to the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-      <translation>A name given to the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
-    </message>
-    <message>
-      <source>An account of the content of the document.
-This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-      <translation>An account of the content of the document.
-This field is for a brief description or abstract of the document. It is embedded in the PDF on export</translation>
-    </message>
-    <message>
-      <source>The topic of the content of the document.
-This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-      <translation>The topic of the content of the document.
-This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</translation>
     </message>
     <message>
       <source>A person or organisation responsible for making the document available</source>
@@ -5391,24 +5524,12 @@ This field is for document keywords you wish to embed in a PDF, to assist search
       <translation>The nature or genre of the content of the document, eg. categories, functions, genres, etc</translation>
     </message>
     <message>
-      <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
-RFC2045,RFC2046 for MIME types are also useful here</source>
-      <translation>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
-RFC2045,RFC2046 for MIME types are also useful here</translation>
-    </message>
-    <message>
       <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
       <translation>An unambiguous reference to the document within a given context such as ISBN or URI</translation>
     </message>
     <message>
       <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
       <translation>A reference to a document from which the present document is derived, eg. ISBN or URI</translation>
-    </message>
-    <message>
-      <source>The language in which the content of the document is written, usually a ISO-639 language code
-optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-      <translation>The language in which the content of the document is written, usually a ISO-639 language code
-optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</translation>
     </message>
     <message>
       <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
@@ -5423,12 +5544,32 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
       <translation>Information about rights held in and over the document, eg. copyright, patent or trademark</translation>
     </message>
     <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
+      <source>Documen&amp;t</source>
+      <translation>Documen&amp;t</translation>
     </message>
     <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
+      <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+      <translation>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
+    </message>
+    <message>
+      <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+      <translation>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
+    </message>
+    <message>
+      <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+      <translation>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</translation>
+    </message>
+    <message>
+      <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+      <translation>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</translation>
+    </message>
+    <message>
+      <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
+      <translation>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</translation>
+    </message>
+    <message>
+      <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+      <translation>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</translation>
     </message>
   </context>
   <context>
@@ -5693,16 +5834,8 @@ failed!</translation>
       <translation> pt</translation>
     </message>
     <message>
-      <source>Effect:</source>
-      <translation>Effect:</translation>
-    </message>
-    <message>
       <source>None</source>
       <translation>None</translation>
-    </message>
-    <message>
-      <source>Vertical Spaces</source>
-      <translation>Vertical Spaces</translation>
     </message>
     <message>
       <source>Line Spacing</source>
@@ -5737,16 +5870,8 @@ failed!</translation>
       <translation>Colour of text stroke</translation>
     </message>
     <message>
-      <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-      <translation>Provides an oversized first letter for a paragraph. Used for stylistic effect</translation>
-    </message>
-    <message>
       <source>Determines the overall height, in line numbers, of the Drop Caps</source>
       <translation>Determines the overall height, in line numbers, of the Drop Caps</translation>
-    </message>
-    <message>
-      <source>Align text to baseline grid</source>
-      <translation>Align text to baseline grid</translation>
     </message>
     <message>
       <source>Spacing above the paragraph</source>
@@ -5765,44 +5890,8 @@ failed!</translation>
       <translation>&amp;Name:</translation>
     </message>
     <message>
-      <source>&amp;Font:</source>
-      <translation>&amp;Font:</translation>
-    </message>
-    <message>
-      <source>Si&amp;ze:</source>
-      <translation>Si&amp;ze:</translation>
-    </message>
-    <message>
-      <source>&amp;Alignment:</source>
-      <translation>&amp;Alignment:</translation>
-    </message>
-    <message>
-      <source>&amp;Drop Caps</source>
-      <translation>&amp;Drop Caps</translation>
-    </message>
-    <message>
       <source>&amp;Lines:</source>
       <translation>&amp;Lines:</translation>
-    </message>
-    <message>
-      <source>F&amp;ill Color:</source>
-      <translation>F&amp;ill Colour:</translation>
-    </message>
-    <message>
-      <source>St&amp;roke Color:</source>
-      <translation>St&amp;roke Colour:</translation>
-    </message>
-    <message>
-      <source>Line &amp;Spacing:</source>
-      <translation>Line &amp;Spacing:</translation>
-    </message>
-    <message>
-      <source>Abo&amp;ve:</source>
-      <translation>Abo&amp;ve:</translation>
-    </message>
-    <message>
-      <source>&amp;Below:</source>
-      <translation>&amp;Below:</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -5813,16 +5902,44 @@ failed!</translation>
       <translation>&amp;Cancel</translation>
     </message>
     <message>
-      <source>Align to Baseline &amp;Grid</source>
-      <translation>Align to Baseline &amp;Grid</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-      <source>Preview of the Paragraph Style:</source>
-      <translation>Preview of the Paragraph Style:</translation>
+      <source>Distances</source>
+      <translation>Distances</translation>
     </message>
     <message>
-      <source>Sample text of this paragraph style</source>
-      <translation>Sample text of this paragraph style</translation>
+      <source>Fixed Linespacing</source>
+      <translation>Fixed Linespacing</translation>
+    </message>
+    <message>
+      <source>Automatic Linespacing</source>
+      <translation>Automatic Linespacing</translation>
+    </message>
+    <message>
+      <source>Align to Baseline Grid</source>
+      <translation>Align to Baseline Grid</translation>
+    </message>
+    <message>
+      <source>Drop Caps</source>
+      <translation>Drop Caps</translation>
+    </message>
+    <message>
+      <source>Distance from Text:</source>
+      <translation>Distance from Text:</translation>
+    </message>
+    <message>
+      <source>Preview of the Paragraph Style</source>
+      <translation>Preview of the Paragraph Style</translation>
+    </message>
+    <message>
+      <source>Determines the gap between the DropCaps and the Text</source>
+      <translation>Determines the gap between the DropCaps and the Text</translation>
+    </message>
+    <message>
+      <source>Toggles sample text of this paragraph style</source>
+      <translation>Toggles sample text of this paragraph style</translation>
     </message>
   </context>
   <context>
@@ -6474,6 +6591,10 @@ Use 72 dpi for Images intended for the Screen</translation>
       <comment>font preview</comment>
       <translation>Path to Font File</translation>
     </message>
+    <message>
+      <source>&lt;qt>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit->Settings to change the font search path.&lt;/qt></source>
+      <translation>&lt;qt>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit->Settings to change the font search path.&lt;/qt></translation>
+    </message>
   </context>
   <context>
     <name>FontPreview</name>
@@ -6664,36 +6785,12 @@ please choose a suitable replacement for them.</translation>
       <translation>&amp;Lock Guides</translation>
     </message>
     <message>
-      <source>Rows and Columns</source>
-      <translation>Rows and Columns</translation>
-    </message>
-    <message>
       <source>&amp;Rows:</source>
       <translation>&amp;Rows:</translation>
     </message>
     <message>
       <source>C&amp;olumns:</source>
       <translation>C&amp;olumns:</translation>
-    </message>
-    <message>
-      <source>R.&amp;Gap</source>
-      <translation>R.&amp;Gap</translation>
-    </message>
-    <message>
-      <source>C.Ga&amp;p</source>
-      <translation>C.Ga&amp;p</translation>
-    </message>
-    <message>
-      <source>&amp;Create</source>
-      <translation>&amp;Create</translation>
-    </message>
-    <message>
-      <source>Cr&amp;eate</source>
-      <translation>Cr&amp;eate</translation>
-    </message>
-    <message>
-      <source>Dele&amp;te</source>
-      <translation>Dele&amp;te</translation>
     </message>
     <message>
       <source>Refer to:</source>
@@ -6714,6 +6811,31 @@ please choose a suitable replacement for them.</translation>
     <message>
       <source>&amp;Close</source>
       <translation>&amp;Close</translation>
+    </message>
+    <message>
+      <source>Rows and Columns - Automatic Guides</source>
+      <translation>Rows and Columns - Automatic Guides</translation>
+    </message>
+    <message>
+      <source>Row &amp;Gap</source>
+      <translation>Row &amp;Gap</translation>
+    </message>
+    <message>
+      <source>Colum&amp;n Gap</source>
+      <translation>Colum&amp;n Gap</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>&amp;Update</source>
+      <translation>&amp;Update</translation>
+    </message>
+    <message>
+      <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
+      <comment>guide manager</comment>
+      <translation>Set the guides in document. Guide manager is still opened but the changes are persistant</translation>
     </message>
   </context>
   <context>
@@ -7528,10 +7650,6 @@ A value of 0 means unlimited hyphenations.</translation>
       <translation> %</translation>
     </message>
     <message>
-      <source>Custom Spacing</source>
-      <translation>Custom Spacing</translation>
-    </message>
-    <message>
       <source>Input Profile:</source>
       <translation>Input Profile:</translation>
     </message>
@@ -7612,10 +7730,6 @@ A value of 0 means unlimited hyphenations.</translation>
 Please choose another.</source>
       <translation>Name &quot;%1&quot; isn't unique.
 Please choose another.</translation>
-    </message>
-    <message>
-      <source>Shade:</source>
-      <translation>Shade:</translation>
     </message>
     <message>
       <source>Name of selected object</source>
@@ -7972,14 +8086,6 @@ Corners:</translation>
       <translation>&amp;Use Contour Line</translation>
     </message>
     <message>
-      <source>&amp;Font Size:</source>
-      <translation>&amp;Font Size:</translation>
-    </message>
-    <message>
-      <source>L&amp;ine Spacing:</source>
-      <translation>L&amp;ine Spacing:</translation>
-    </message>
-    <message>
       <source>St&amp;yle:</source>
       <translation>St&amp;yle:</translation>
     </message>
@@ -8060,10 +8166,6 @@ Corners:</translation>
       <translation>Right to Left Writing</translation>
     </message>
     <message>
-      <source>Trac&amp;king:</source>
-      <translation>Trac&amp;king:</translation>
-    </message>
-    <message>
       <source>Manual Tracking</source>
       <translation>Manual Tracking</translation>
     </message>
@@ -8078,6 +8180,34 @@ Corners:</translation>
     <message>
       <source>End Arrow:</source>
       <translation>End Arrow:</translation>
+    </message>
+    <message>
+      <source>Offset to baseline of characters</source>
+      <translation>Offset to baseline of characters</translation>
+    </message>
+    <message>
+      <source>Scaling height of characters</source>
+      <translation>Scaling height of characters</translation>
+    </message>
+    <message>
+      <source>Fixed Linespacing</source>
+      <translation>Fixed Linespacing</translation>
+    </message>
+    <message>
+      <source>Automatic Linespacing</source>
+      <translation>Automatic Linespacing</translation>
+    </message>
+    <message>
+      <source>Align to Baseline Grid</source>
+      <translation>Align to Baseline Grid</translation>
+    </message>
+    <message>
+      <source>Actual X-DPI:</source>
+      <translation>Actual X-DPI:</translation>
+    </message>
+    <message>
+      <source>Actual Y-DPI:</source>
+      <translation>Actual Y-DPI:</translation>
     </message>
   </context>
   <context>
@@ -8538,10 +8668,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
   </context>
   <context>
-    <name>PConsole</name>
+    <name>OutlineValues</name>
     <message>
-      <source>Script Console</source>
-      <translation>Script Console</translation>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>Linewidth</source>
+      <translation>Linewidth</translation>
     </message>
   </context>
   <context>
@@ -9647,6 +9781,14 @@ If set to 0 infinite amount of actions will be stored.</translation>
       <source>Always ask before fonts are replaced when loading a document</source>
       <translation>Always ask before fonts are replaced when loading a document</translation>
     </message>
+    <message>
+      <source>Show Text Control Characters</source>
+      <translation>Show Text Control Characters</translation>
+    </message>
+    <message>
+      <source>Preview of current Paragraph Style visible when editing Styles</source>
+      <translation>Preview of current Paragraph Style visible when editing Styles</translation>
+    </message>
   </context>
   <context>
     <name>PrefsDialogBase</name>
@@ -9661,6 +9803,77 @@ If set to 0 infinite amount of actions will be stored.</translation>
     <message>
       <source>&amp;Defaults</source>
       <translation>&amp;Defaults</translation>
+    </message>
+  </context>
+  <context>
+    <name>PythonConsole</name>
+    <message>
+      <source>&amp;Open...</source>
+      <translation>&amp;Open...</translation>
+    </message>
+    <message>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
+    </message>
+    <message>
+      <source>&amp;Exit</source>
+      <translation>&amp;Exit</translation>
+    </message>
+    <message>
+      <source>&amp;File</source>
+      <translation>&amp;File</translation>
+    </message>
+    <message>
+      <source>&amp;Run</source>
+      <translation>&amp;Run</translation>
+    </message>
+    <message>
+      <source>&amp;Save Output...</source>
+      <translation>&amp;Save Output...</translation>
+    </message>
+    <message>
+      <source>&amp;Script</source>
+      <translation>&amp;Script</translation>
+    </message>
+    <message>
+      <source>Script Console</source>
+      <translation>Script Console</translation>
+    </message>
+    <message>
+      <source>Write your commands here. A selection is processed as script</source>
+      <translation>Write your commands here. A selection is processed as script</translation>
+    </message>
+    <message>
+      <source>Output of your script</source>
+      <translation>Output of your script</translation>
+    </message>
+    <message>
+      <source>Python Scripts (*.py)</source>
+      <translation>Python Scripts (*.py)</translation>
+    </message>
+    <message>
+      <source>Open File With Python Commands</source>
+      <translation>Open File With Python Commands</translation>
+    </message>
+    <message>
+      <source>Save the Python Commands in File</source>
+      <translation>Save the Python Commands in File</translation>
+    </message>
+    <message>
+      <source>Warning</source>
+      <translation>Warning</translation>
+    </message>
+    <message>
+      <source>Text Files (*.txt)</source>
+      <translation>Text Files (*.txt)</translation>
+    </message>
+    <message>
+      <source>Save Current Output</source>
+      <translation>Save Current Output</translation>
+    </message>
+    <message>
+      <source>&amp;Save As...</source>
+      <translation>&amp;Save As...</translation>
     </message>
   </context>
   <context>
@@ -10940,10 +11153,6 @@ External Links</translation>
       <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
     </message>
     <message>
-      <source>Failed to load a font - freetype couldn't find the font file</source>
-      <translation>Failed to load a font - freetype couldn't find the font file</translation>
-    </message>
-    <message>
       <source>Scribus Development Version</source>
       <translation>Scribus Development Version</translation>
     </message>
@@ -11305,6 +11514,189 @@ is not exhaustive due to exceptions from called functions.
       <source>Could not open input file %1</source>
       <translation>Could not open input file %1</translation>
     </message>
+    <message>
+      <source>Invalid argument: </source>
+      <translation>Invalid argument: </translation>
+    </message>
+    <message>
+      <source>File %1 does not exist, aborting.</source>
+      <translation>File %1 does not exist, aborting.</translation>
+    </message>
+    <message>
+      <source>Usage: scribus [option ... ] [file]</source>
+      <translation>Usage: scribus [option ... ] [file]</translation>
+    </message>
+    <message>
+      <source>Options:</source>
+      <translation>Options:</translation>
+    </message>
+    <message>
+      <source>Print help (this message) and exit</source>
+      <translation>Print help (this message) and exit</translation>
+    </message>
+    <message>
+      <source>Uses xx as shortcut for a language</source>
+      <translation>Uses xx as shortcut for a language</translation>
+    </message>
+    <message>
+      <source>Do not show the splashscreen on startup</source>
+      <translation>Do not show the splashscreen on startup</translation>
+    </message>
+    <message>
+      <source>Output version information and exit</source>
+      <translation>Output version information and exit</translation>
+    </message>
+    <message>
+      <source>To override the default language choice:</source>
+      <translation>To override the default language choice:</translation>
+    </message>
+    <message>
+      <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+      <translation>scribus -l xx or scribus --lang xx, where xx is the language of choice.</translation>
+    </message>
+    <message>
+      <source>Scribus Version </source>
+      <translation>Scribus Version </translation>
+    </message>
+    <message>
+      <source>Scribus, Open Source Desktop Publishing</source>
+      <translation>Scribus, Open Source Desktop Publishing</translation>
+    </message>
+    <message>
+      <source>---------------------------------------</source>
+      <translation>---------------------------------------</translation>
+    </message>
+    <message>
+      <source>Homepage:       http://www.scribus.net </source>
+      <translation>Homepage:       http://www.scribus.net </translation>
+    </message>
+    <message>
+      <source>Documentation:  http://docs.scribus.net</source>
+      <translation>Documentation:  http://docs.scribus.net</translation>
+    </message>
+    <message>
+      <source>Issues:         http://bugs.scribus.net</source>
+      <translation>Issues:         http://bugs.scribus.net</translation>
+    </message>
+    <message>
+      <source>Installed interface languages for Scribus are as follows:</source>
+      <translation>Installed interface languages for Scribus are as follows:</translation>
+    </message>
+    <message>
+      <source>Freetype2 library not available</source>
+      <translation>Freetype2 library not available</translation>
+    </message>
+    <message>
+      <source>Font %1 is broken, no embedding</source>
+      <translation>Font %1 is broken, no embedding</translation>
+    </message>
+    <message>
+      <source>Font %1 is broken (read stream), no embedding</source>
+      <translation>Font %1 is broken (read stream), no embedding</translation>
+    </message>
+    <message>
+      <source>Font %1 is broken (FreeType2), discarding it</source>
+      <translation>Font %1 is broken (FreeType2), discarding it</translation>
+    </message>
+    <message>
+      <source>Font %1 is broken (no Face), discarding it</source>
+      <translation>Font %1 is broken (no Face), discarding it</translation>
+    </message>
+    <message>
+      <source>Font %1 has broken glyph %2 (charcode %3)</source>
+      <translation>Font %1 has broken glyph %2 (charcode %3)</translation>
+    </message>
+    <message>
+      <source>Font %1 is broken and will be discarded</source>
+      <translation>Font %1 is broken and will be discarded</translation>
+    </message>
+    <message>
+      <source>Font %1 cannot be read, no embedding</source>
+      <translation>Font %1 cannot be read, no embedding</translation>
+    </message>
+    <message>
+      <source>Failed to load font %1 - font type unknown</source>
+      <translation>Failed to load font %1 - font type unknown</translation>
+    </message>
+    <message>
+      <source>Font %1 loaded from %2(%3)</source>
+      <translation>Font %1 loaded from %2(%3)</translation>
+    </message>
+    <message>
+      <source>Font %1(%2) is duplicate of %3</source>
+      <translation>Font %1(%2) is duplicate of %3</translation>
+    </message>
+    <message>
+      <source>Loading font %1 (found using fontconfig)</source>
+      <translation>Loading font %1 (found using fontconfig)</translation>
+    </message>
+    <message>
+      <source>Failed to load a font - freetype2 couldn't find the font file</source>
+      <translation>Failed to load a font - freetype2 couldn't find the font file</translation>
+    </message>
+    <message>
+      <source>Font %1 is broken (FreeType), discarding it</source>
+      <translation>Font %1 is broken (FreeType), discarding it</translation>
+    </message>
+    <message>
+      <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
+      <translation>Font %1  has invalid glyph %2 (charcode %3), discarding it</translation>
+    </message>
+    <message>
+      <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
+      <translation>extracting face %1 from font %2 (offset=%3, nTables=%4)</translation>
+    </message>
+    <message>
+      <source>memcpy header: %1 %2 %3</source>
+      <translation>memcpy header: %1 %2 %3</translation>
+    </message>
+    <message>
+      <source>table '%1'</source>
+      <translation>table '%1'</translation>
+    </message>
+    <message>
+      <source>memcpy table: %1 %2 %3</source>
+      <translation>memcpy table: %1 %2 %3</translation>
+    </message>
+    <message>
+      <source>memcpy offset: %1 %2 %3</source>
+      <translation>memcpy offset: %1 %2 %3</translation>
+    </message>
+    <message>
+      <source>List the currently installed interface languages</source>
+      <translation>List the currently installed interface languages</translation>
+    </message>
+    <message>
+      <source>Show information on the console when fonts are being loaded</source>
+      <translation>Show information on the console when fonts are being loaded</translation>
+    </message>
+    <message>
+      <source>Scribus Crash</source>
+      <translation>Scribus Crash</translation>
+    </message>
+    <message>
+      <source>Scribus crashes due to Signal #%1</source>
+      <translation>Scribus crashes due to Signal #%1</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>Can't group less than two items</source>
+      <comment>python error</comment>
+      <translation>Can't group less than two items</translation>
+    </message>
+    <message>
+      <source>Need selection or argument list of items to group</source>
+      <comment>python error</comment>
+      <translation>Need selection or argument list of items to group</translation>
+    </message>
+    <message>
+      <source>Cannot group less than two items</source>
+      <comment>python error</comment>
+      <translation>Cannot group less than two items</translation>
+    </message>
   </context>
   <context>
     <name>QTextEdit</name>
@@ -11660,6 +12052,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <source>Mask the area outside the margins in the margin color</source>
       <translation>Mask the area outside the margins in the margin colour</translation>
     </message>
+    <message>
+      <source>Document Information</source>
+      <translation>Document Information</translation>
+    </message>
+    <message>
+      <source>Show Text Control Characters</source>
+      <translation>Show Text Control Characters</translation>
+    </message>
   </context>
   <context>
     <name>SToolBAlign</name>
@@ -11736,24 +12136,24 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <source>Font Settings</source>
       <translation>Font Settings</translation>
     </message>
+    <message>
+      <source>Scaling height of characters</source>
+      <translation>Scaling height of characters</translation>
+    </message>
   </context>
   <context>
     <name>SToolBStyle</name>
-    <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
     <message>
       <source>Character Settings</source>
       <translation>Character Settings</translation>
     </message>
     <message>
-      <source>Tracking:</source>
-      <translation>Tracking:</translation>
-    </message>
-    <message>
       <source>Manual Tracking</source>
       <translation>Manual Tracking</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
     </message>
   </context>
   <context>
@@ -11972,14 +12372,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Choose a Directory</source>
       <translation>Choose a Directory</translation>
-    </message>
-    <message>
-      <source>Scribus Crash</source>
-      <translation>Scribus Crash</translation>
-    </message>
-    <message>
-      <source>Scribus crashes due to Signal #%1</source>
-      <translation>Scribus crashes due to Signal #%1</translation>
     </message>
     <message>
       <source>&amp;File</source>
@@ -12290,10 +12682,6 @@ Consider using the Preflight Checker to correct them</translation>
       <translation>The following programs are missing:</translation>
     </message>
     <message>
-      <source>Ghostscript : You cannot use EPS images</source>
-      <translation>Ghostscript : You cannot use EPS images</translation>
-    </message>
-    <message>
       <source>EPS Files (*.eps);;All Files (*)</source>
       <translation>EPS Files (*.eps);;All Files (*)</translation>
     </message>
@@ -12334,6 +12722,38 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
       <source>is missing!</source>
       <translation>is missing!</translation>
+    </message>
+    <message>
+      <source>Ghostscript : You cannot use EPS images or Print Preview</source>
+      <translation>Ghostscript : You cannot use EPS images or Print Preview</translation>
+    </message>
+    <message>
+      <source>The selected color does not exist in the document's color set. Please enter a name for this new color.</source>
+      <translation>The selected colour does not exist in the document's colour set. Please enter a name for this new colour.</translation>
+    </message>
+    <message>
+      <source>Color Not Found</source>
+      <translation>Colour Not Found</translation>
+    </message>
+    <message>
+      <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+      <translation>The name you have selected already exists. Please enter a different name for this new colour.</translation>
+    </message>
+    <message>
+      <source>Initializing Story Editor</source>
+      <translation>Initialising Story Editor</translation>
+    </message>
+    <message>
+      <source>Cannot Cut In-Use Item</source>
+      <translation>Cannot Cut In-Use Item</translation>
+    </message>
+    <message>
+      <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
+      <translation>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</translation>
+    </message>
+    <message>
+      <source>Send to Layer</source>
+      <translation>Send to Layer</translation>
     </message>
   </context>
   <context>
@@ -12419,36 +12839,8 @@ Consider using the Preflight Verifier to correct them</translation>
       <translation>In&amp;fo</translation>
     </message>
     <message>
-      <source>Low Resolution</source>
-      <translation>Low Resolution</translation>
-    </message>
-    <message>
-      <source>Normal Resolution</source>
-      <translation>Normal Resolution</translation>
-    </message>
-    <message>
-      <source>Full Resolution</source>
-      <translation>Full Resolution</translation>
-    </message>
-    <message>
       <source>Preview Settings</source>
       <translation>Preview Settings</translation>
-    </message>
-    <message>
-      <source>Extended Image Properties</source>
-      <translation>Extended Image Properties</translation>
-    </message>
-    <message>
-      <source>&amp;Update Picture</source>
-      <translation>&amp;Update Picture</translation>
-    </message>
-    <message>
-      <source>&amp;Edit Picture</source>
-      <translation>&amp;Edit Picture</translation>
-    </message>
-    <message>
-      <source>&amp;Adjust Frame to Picture</source>
-      <translation>&amp;Adjust Frame to Picture</translation>
     </message>
     <message>
       <source>&amp;PDF Options</source>
@@ -12481,6 +12873,14 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
       <source>None</source>
       <translation>None</translation>
+    </message>
+    <message>
+      <source>Cannot Delete In-Use Item</source>
+      <translation>Cannot Delete In-Use Item</translation>
+    </message>
+    <message>
+      <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+      <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
   </context>
   <context>
@@ -12527,6 +12927,14 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
       <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
       <translation>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</translation>
+    </message>
+    <message>
+      <source>Examine Script</source>
+      <translation>Examine Script</translation>
+    </message>
+    <message>
+      <source>Python Scripts (*.py)</source>
+      <translation>Python Scripts (*.py)</translation>
     </message>
   </context>
   <context>
@@ -12744,6 +13152,21 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
   </context>
   <context>
+    <name>ShadowValues</name>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>X-Offset</source>
+      <translation>X-Offset (ENGB)</translation>
+    </message>
+    <message>
+      <source>Y-Offset</source>
+      <translation>Y-Offset</translation>
+    </message>
+  </context>
+  <context>
     <name>SideBar</name>
     <message>
       <source>No Style</source>
@@ -12865,14 +13288,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
       <source>Warning</source>
       <translation>Warning</translation>
-    </message>
-    <message>
-      <source>Do you really want to lose all your Changes?</source>
-      <translation>Do you really want to lose all your Changes?</translation>
-    </message>
-    <message>
-      <source>Do you really want to clear all your Text?</source>
-      <translation>Do you really want to clear all your Text?</translation>
     </message>
     <message>
       <source>Open</source>
@@ -13007,16 +13422,47 @@ Consider using the Preflight Verifier to correct them</translation>
       <translation>Search/Replace</translation>
     </message>
     <message>
-      <source>Clear all Text</source>
-      <translation>Clear all Text</translation>
-    </message>
-    <message>
       <source>&amp;Smart text selection</source>
       <translation>&amp;Smart text selection</translation>
     </message>
     <message>
       <source>&amp;Insert Glyph...</source>
       <translation>&amp;Insert Glyph...</translation>
+    </message>
+    <message>
+      <source>Clear All Text</source>
+      <translation>Clear All Text</translation>
+    </message>
+    <message>
+      <source>Story Editor - %1</source>
+      <translation>Story Editor - %1</translation>
+    </message>
+    <message>
+      <source>Do you really want to lose all your changes?</source>
+      <translation>Do you really want to lose all your changes?</translation>
+    </message>
+    <message>
+      <source>Do you really want to clear all your text?</source>
+      <translation>Do you really want to clear all your text?</translation>
+    </message>
+  </context>
+  <context>
+    <name>StrikeValues</name>
+    <message>
+      <source>Auto</source>
+      <translation>Auto</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>Displacement</source>
+      <translation>Displacement</translation>
+    </message>
+    <message>
+      <source>Linewidth</source>
+      <translation>Linewidth</translation>
     </message>
   </context>
   <context>
@@ -13042,16 +13488,20 @@ Consider using the Preflight Verifier to correct them</translation>
       <translation>Strike Out</translation>
     </message>
     <message>
-      <source>Underline Words only</source>
-      <translation>Underline Words only</translation>
-    </message>
-    <message>
       <source>All Caps</source>
       <translation>All Caps</translation>
     </message>
     <message>
       <source>Outline</source>
       <translation>Outline</translation>
+    </message>
+    <message>
+      <source>Shadow</source>
+      <translation>Shadow</translation>
+    </message>
+    <message>
+      <source>Underline Words Only</source>
+      <translation>Underline Words Only</translation>
     </message>
   </context>
   <context>
@@ -13132,20 +13582,56 @@ Consider using the Preflight Verifier to correct them</translation>
       <translation>Item Attribute Name:</translation>
     </message>
     <message>
-      <source>Style:</source>
-      <translation>Style:</translation>
-    </message>
-    <message>
-      <source>Basic</source>
-      <translation>Basic</translation>
-    </message>
-    <message>
       <source>Destination Frame:</source>
       <translation>Destination Frame:</translation>
     </message>
     <message>
-      <source>Index</source>
-      <translation>Index</translation>
+      <source>At the beginning</source>
+      <translation>At the beginning</translation>
+    </message>
+    <message>
+      <source>At the end</source>
+      <translation>At the end</translation>
+    </message>
+    <message>
+      <source>Not Shown</source>
+      <translation>Not Shown</translation>
+    </message>
+    <message>
+      <source>The frame the table of contents will be placed into</source>
+      <translation>The frame the table of contents will be placed into</translation>
+    </message>
+    <message>
+      <source>Page Numbers Placed:</source>
+      <translation>Page Numbers Placed:</translation>
+    </message>
+    <message>
+      <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
+      <translation>The Item Attribute that will be set on frames used as a basis for creation of the entries</translation>
+    </message>
+    <message>
+      <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
+      <translation>Place page numbers of the entries at the beginning or the end of the line, or not at all</translation>
+    </message>
+    <message>
+      <source>List Non-Printing Entries</source>
+      <translation>List Non-Printing Entries</translation>
+    </message>
+    <message>
+      <source>Include frames that are set to not print as well</source>
+      <translation>Include frames that are set to not print as well</translation>
+    </message>
+    <message>
+      <source>The paragraph style used for the entry lines</source>
+      <translation>The paragraph style used for the entry lines</translation>
+    </message>
+    <message>
+      <source>Paragraph Style:</source>
+      <translation>Paragraph Style:</translation>
+    </message>
+    <message>
+      <source>Inde&amp;x</source>
+      <translation>Inde&amp;x</translation>
     </message>
   </context>
   <context>
@@ -14306,6 +14792,22 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
       <source>Width of lines</source>
       <translation>Width of lines</translation>
     </message>
+    <message>
+      <source>Tab Fill Character:</source>
+      <translation>Tab Fill Character:</translation>
+    </message>
+    <message>
+      <source>Tab Width:</source>
+      <translation>Tab Width:</translation>
+    </message>
+    <message>
+      <source>Custom:</source>
+      <translation>Custom:</translation>
+    </message>
+    <message>
+      <source>Custom: </source>
+      <translation>Custom: </translation>
+    </message>
   </context>
   <context>
     <name>TabTypograpy</name>
@@ -14453,12 +14955,20 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
       <translation>&amp;Position:</translation>
     </message>
     <message>
-      <source>First &amp;Line:</source>
-      <translation>First &amp;Line:</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-      <source>Left Ind&amp;ent:</source>
-      <translation>Left Ind&amp;ent:</translation>
+      <source>Fill Char:</source>
+      <translation>Fill Char:</translation>
+    </message>
+    <message>
+      <source>Custom:</source>
+      <translation>Custom:</translation>
+    </message>
+    <message>
+      <source>Custom: </source>
+      <translation>Custom: </translation>
     </message>
   </context>
   <context>
@@ -14482,6 +14992,25 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
     <message>
       <source>Page </source>
       <translation>Page </translation>
+    </message>
+  </context>
+  <context>
+    <name>UnderlineValues</name>
+    <message>
+      <source>Auto</source>
+      <translation>Auto</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>Displacement</source>
+      <translation>Displacement</translation>
+    </message>
+    <message>
+      <source>Linewidth</source>
+      <translation>Linewidth</translation>
     </message>
   </context>
   <context>
@@ -14909,6 +15438,10 @@ to %2</translation>
     <message>
       <source>Import OpenOffice.org Draw image</source>
       <translation>Import OpenOffice.org Draw image</translation>
+    </message>
+    <message>
+      <source>Set font height</source>
+      <translation>Set font height</translation>
     </message>
   </context>
   <context>

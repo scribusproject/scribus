@@ -178,7 +178,7 @@ PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 		if (len < 2)
 		{
 			// We can't very well group only one item
-			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error"));
+			PyErr_SetString(NoValidObjectError, QObject::tr("Cannot group less than two items", "python error"));
 			return NULL;
 		}
 		QStringList oldSelection = getSelectedItemsByName();
