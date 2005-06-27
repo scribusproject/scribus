@@ -52,6 +52,9 @@ extern QString Path2Relative(QString Path);
 bool ScriXmlDoc::IsScribus(QString fileName)
 {
 	QString fText = ReadDatei(fileName);
+	//Dont allow 1.3 document loading
+	if (fText.startsWith("<SCRIBUSUTF8NEW"))
+		return false;
 	if ((fText == "") || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", TRUE) == 0))
 		return false;
 	return true;

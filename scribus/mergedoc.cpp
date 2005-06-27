@@ -86,14 +86,14 @@ MergeDoc::MergeDoc( QWidget* parent, bool Mpages, int targetDocPageCount, int ac
 	Import->setText( tr( "Import" ) );
 	Import->setEnabled(false);
 	layout3->addWidget( Import );
-	QSpacerItem* spacer_2 = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout3->addItem( spacer_2 );
+	//QSpacerItem* spacer_2 = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	//layout3->addItem( spacer_2 );
 	Cancel = new QPushButton( this, "Cancel" );
 	Cancel->setDefault( TRUE );
 	Cancel->setText( tr( "Cancel" ) );
 	layout3->addWidget( Cancel );
-	QSpacerItem* spacer_3 = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout3->addItem( spacer_3 );
+	//QSpacerItem* spacer_3 = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	//layout3->addItem( spacer_3 );
 	MergeDocLayout->addLayout( layout3 );
 	resize( QSize(350, 134).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
