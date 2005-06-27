@@ -84,8 +84,8 @@ For SuSE 9.x Users:
   SuSE 9.x RPM's available on the Scribus.net site. We also recommend using the 
   latest version of lcms. 
 
-- If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+
-  rpms. The -2+ versions have an important fix for drag and drop in Scribus. 
+- If you are using Qt 3.3.x, please ensure you are using Qt 3.3.2-2+ or greater
+  rpms. These versions have an important fix for drag and drop in Scribus. 
 
 - To enable direct CUPS support which we recommend, make sure both cups-devel and 
   openssl-devel are installed. Suse enables ssl support in CUPS. 
@@ -106,4 +106,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in April 2005
+in June 2005
