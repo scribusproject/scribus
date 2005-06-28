@@ -234,7 +234,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	Layout5_2 = new QHBoxLayout( 0, 0, 6, "Layout5_2");
 
-	pageWidth = new MSpinBox( 1, 10000, GroupSize, decimals );
+	pageWidth = new MSpinBox( 1, 100000, GroupSize, decimals );
 	pageWidth->setEnabled( false );
 	pageWidth->setMinimumSize( QSize( 70, 20 ) );
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
@@ -242,7 +242,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
 
-	pageHeight = new MSpinBox( 1, 10000, GroupSize, decimals );
+	pageHeight = new MSpinBox( 1, 100000, GroupSize, decimals );
 	pageHeight->setEnabled( false );
 	pageHeight->setMinimumSize( QSize( 70, 20 ) );
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);

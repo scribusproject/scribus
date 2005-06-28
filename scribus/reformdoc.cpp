@@ -77,7 +77,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	orientationQComboBox->setCurrentItem(doc->PageOri);
 	dsLayout4->addWidget( orientationQLabel, 0, 2 );
 	dsLayout4->addWidget( orientationQComboBox, 0, 3 );
-	widthMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
+	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, 2 );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
 	widthMSpinBox->setEnabled( false );
 	widthMSpinBox->setSuffix(ein);
@@ -85,7 +85,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	widthQLabel->setBuddy(widthMSpinBox);
 	dsLayout4->addWidget( widthQLabel, 1, 0 );
 	dsLayout4->addWidget( widthMSpinBox, 1, 1 );
-	heightMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
+	heightMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, 2 );
 	heightMSpinBox->setEnabled( false );
 	heightMSpinBox->setSuffix(ein);
 	heightMSpinBox->setValue(pageHeight);

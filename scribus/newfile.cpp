@@ -65,14 +65,14 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
 	TextLabel1_2 = new QLabel( tr( "&Width:" ), ButtonGroup1_2, "TextLabel1_2" );
 	Layout5->addWidget( TextLabel1_2 );
-	Breite = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
+	Breite = new MSpinBox( 1, 100000, ButtonGroup1_2, precision );
 	Breite->setMinimumSize( QSize( 70, 20 ) );
 	Breite->setSuffix(unitSuffix);
 	TextLabel1_2->setBuddy(Breite);
 	Layout5->addWidget( Breite );
 	TextLabel2_2 = new QLabel( tr( "&Height:" ), ButtonGroup1_2, "TextLabel2_2" );
 	Layout5->addWidget( TextLabel2_2 );
-	Hoehe = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
+	Hoehe = new MSpinBox( 1, 100000, ButtonGroup1_2, precision );
 	Hoehe->setMinimumSize( QSize( 70, 20 ) );
 	Hoehe->setSuffix(unitSuffix);
 	TextLabel2_2->setBuddy(Hoehe);
