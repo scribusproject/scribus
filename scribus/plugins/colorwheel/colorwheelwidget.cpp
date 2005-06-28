@@ -183,55 +183,55 @@ CMYKColor ColorWheel::cmykColor(QRgb rgb)
 void ColorWheel::baseColor()
 {
 	colorList.clear();
-	colorList["Base Color"] = cmykColor(actualRgb);
+	colorList[tr("Base Color")] = cmykColor(actualRgb);
 }
 
 void ColorWheel::makeMonochromatic()
 {
 	baseColor();
 	QColor c = QColor(actualRgb);
-	colorList["Monochromatic Light"] = cmykColor(c.light().rgb());
-	colorList["Monochromatic Dark"] = cmykColor(c.dark().rgb());
+	colorList[tr("Monochromatic Light")] = cmykColor(c.light().rgb());
+	colorList[tr("Monochromatic Dark")] = cmykColor(c.dark().rgb());
 }
 
 void ColorWheel::makeAnalogous()
 {
 	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + angle, "1st. Analogous");
-	sampleByAngle(baseangle - angle, "2nd. Analogous");
+	sampleByAngle(baseangle + angle, tr("1st. Analogous"));
+	sampleByAngle(baseangle - angle, tr("2nd. Analogous"));
 }
 
 void ColorWheel::makeComplementary()
 {
 	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + 180, "Complementary");
+	sampleByAngle(baseangle + 180, tr("Complementary"));
 }
 
 void ColorWheel::makeSplit()
 {
 	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + angle, "1st. Split");
-	sampleByAngle(baseangle - angle, "2nd. Split");
-	sampleByAngle(baseangle + 180 + angle, "3rd. Split");
-	sampleByAngle(baseangle + 180 - angle, "4th. Split");
+	sampleByAngle(baseangle + angle, tr("1st. Split"));
+	sampleByAngle(baseangle - angle, tr("2nd. Split"));
+	sampleByAngle(baseangle + 180 + angle, tr("3rd. Split"));
+	sampleByAngle(baseangle + 180 - angle, tr("4th. Split"));
 }
 
 void ColorWheel::makeTriadic()
 {
 	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + 120, "1st. Triadic");
-	sampleByAngle(baseangle - 120, "2nd. Triadic");
+	sampleByAngle(baseangle + 120, tr("1st. Triadic"));
+	sampleByAngle(baseangle - 120, tr("2nd. Triadic"));
 }
 
 void ColorWheel::makeTetradic()
 {
 	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + 180, "1st. Tetradic (base opposit)");
-	sampleByAngle(baseangle + angle, "2nd. Tetradic (angle)");
-	sampleByAngle(baseangle + angle + 180, "3rd. Tetradic (angle opposit)");
+	sampleByAngle(baseangle + 180, tr("1st. Tetradic (base opposite)"));
+	sampleByAngle(baseangle + angle, tr("2nd. Tetradic (angle)"));
+	sampleByAngle(baseangle + angle + 180, tr("3rd. Tetradic (angle opposite)"));
 }
