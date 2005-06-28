@@ -912,7 +912,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsOutline"]->setTexts( tr("&Outline"));
 	(*scrActions)["toolsScrapbook"]->setTexts( tr("&Scrapbook"));
 	(*scrActions)["toolsLayers"]->setTexts( tr("&Layers"));
-	(*scrActions)["toolsPages"]->setTexts( tr("P&age Palette"));
+	(*scrActions)["toolsPages"]->setTexts( tr("&Arrange Pages"));
 	(*scrActions)["toolsBookmarks"]->setTexts( tr("&Bookmarks"));
 	(*scrActions)["toolsMeasurements"]->setTexts( tr("&Measurements"));
 	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));

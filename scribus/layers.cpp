@@ -222,7 +222,7 @@ void LayerPalette::removeLayer()
 		return;
 	bool delToo = false;
 	int t = QMessageBox::warning(this, tr("Delete Layer"),
-	                             tr("Do you want to delete all Objects on this Layer too?"),
+	                             tr("Do you want to delete all objects on this layer too?"),
 	                             QMessageBox::No | QMessageBox::Default | QMessageBox::Escape,
 	                             QMessageBox::Yes,
 	                             QMessageBox::NoButton);
