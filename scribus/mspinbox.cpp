@@ -173,7 +173,7 @@ int MSpinBox::mapTextToValue(bool *)
 			ts.replace(tr( "pt"), "/72*25.4");
 			ts.replace(tr( "mm"), "");
 			ts.replace(tr( "in"), "*25.4");
-			ts.replace(tr( "p"), "/12*25.4");
+			ts.replace(tr( "p"), "/6*25.4");
 		}
 		else 
 			if ((su == tr( " in" )) || (su == tr( "in" )))
