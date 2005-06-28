@@ -729,7 +729,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				int len = fon.length();
 				if ((Options->Compress) && (CompAvail))
 					fon = CompressStr(&fon);
-				qDebug(QString("sfnt data: size=%1 before=%2 compressed=%3").arg(bb.size()).arg(len).arg(fon.length()));
+				//qDebug(QString("sfnt data: size=%1 before=%2 compressed=%3").arg(bb.size()).arg(len).arg(fon.length()));
 				PutDoc("<<\n/Length "+IToStr(fon.length()+1)+"\n");
 				PutDoc("/Length1 "+IToStr(len)+"\n");
 				if ((Options->Compress) && (CompAvail))
