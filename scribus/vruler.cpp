@@ -145,11 +145,12 @@ void Vruler::paintEvent(QPaintEvent *)
 						break;
 					}
 					case 3:
+					case 5:
 						p.drawText(9, textY, QString::number(xl / iter / cor));
 						break;
 					case 4:
 						p.drawText(9, textY, QString::number(xl / iter / 10 / cor));
-						break;						
+						break;	
 					default:
 						p.drawText(9, textY, QString::number(xl / iter * 10 / cor));
 						break;
@@ -238,6 +239,22 @@ void Vruler::unitChange()
 			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
 			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
 			break;
+		case 5:
+			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			if (sc > 1 && sc <= 4)
+			{
+				cor = 1;
+				iter = 72.0/25.4*4.512;
+				iter2 = 72.0/25.4*4.512*5.0;
+			}
+			if (sc > 4)
+			{
+				cor = 2;
+				iter = 72.0/25.4*4.512/2.0;
+				iter2 = 72.0/25.4*4.512;
+			}
+			break;		
 		default:
 			if (sc > 1 && sc <= 4)
 				cor = 2;

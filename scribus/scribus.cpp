@@ -4552,6 +4552,7 @@ bool ScribusApp::loadDoc(QString fileName)
 				newActWin(ActWinOld);
 			return false;
 		}
+		view->unitChange();
 		ScApp->ScriptRunning = false;
 		mainWindowStatusLabel->setText("");
 		mainWindowProgressBar->reset();

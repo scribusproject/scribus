@@ -95,6 +95,7 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 void PageItemAttributes::addEntry()
 {
 	ObjectAttribute blank;
+	blank.name="";
 	blank.relationship="None";
 	blank.autoaddto="none";
 	localAttributes.append(blank);

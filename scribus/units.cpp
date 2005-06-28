@@ -18,16 +18,16 @@
 #include "units.h"
 
 /*!
- * @brief Returns the ratio to points for the selected unit of measure. Ratios are for: PT, MM, IN, P, CM
+ * @brief Returns the ratio to points for the selected unit of measure. Ratios are for: PT, MM, IN, P, CM, C
  */
 const double unitGetRatioFromIndex(const int index)
 {
-	//PT, MM, IN, P, CM
+	//PT, MM, IN, P, CM, C (Cicero)
 	//NOTE: Calling functions that divide by this value will crash on divide by 0. They shouldnt be getting
 	// a zero value if they are accessing here with a correct index.
 	if (index>UNITCOUNT) 
 		return 0;
-	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0, 2.54/72.0 };
+	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0, 2.54/72.0, 25.4/72.0/4.512 };
 	return ratio[index];
 }
 
@@ -57,6 +57,10 @@ const double unitValueFromString(const QString& value)
 	else if (lowerValue.find("cm") != -1)
 	{
 		dbl = lowerValue.remove("cm");
+	}
+	else if (lowerValue.find("c") != -1)
+	{
+		dbl = lowerValue.remove("c");
 	}
 	else
 		dbl = "0.0";
@@ -92,6 +96,10 @@ const Unit unitIndexFromString(const QString& value)
 	{
 		retVal=CM;
 	}
+	else if (lowerValue.find("c") != -1)
+	{
+		retVal=C;
+	}	
 	else
 		retVal=PT;
 	return retVal;
@@ -105,7 +113,7 @@ const QString unitGetSuffixFromIndex(const int index)
 	//Could also return " "+unitGetStrFromIndex(indeX);
 	if (index>UNITCOUNT) 
 		return "";
-	QString suffix[] = { QObject::tr(" pt"), QObject::tr(" mm"), QObject::tr(" in"), QObject::tr(" p"), QObject::tr(" cm") };
+	QString suffix[] = { QObject::tr(" pt"), QObject::tr(" mm"), QObject::tr(" in"), QObject::tr(" p"), QObject::tr(" cm"), QObject::tr(" c") };
 	return suffix[index];
 }
 
@@ -116,7 +124,7 @@ const QString unitGetStrFromIndex(const int index)
 {
 	if (index>UNITCOUNT) 
 		return "";
-	QString suffix[] = { QObject::tr("pt"), QObject::tr("mm"), QObject::tr("in"), QObject::tr("p"), QObject::tr("cm") };
+	QString suffix[] = { QObject::tr("pt"), QObject::tr("mm"), QObject::tr("in"), QObject::tr("p"), QObject::tr("cm"), QObject::tr("c") };
 	return suffix[index];
 }
 
@@ -127,7 +135,8 @@ const int unitGetDecimalsFromIndex(const int index)
 {
 	if (index>UNITCOUNT) 
 		return 0;
-	int decimalPoints[] = {100, 1000, 10000, 100, 10000};
+	//                      PT,   MM,    IN,   P,    CM,   C
+	int decimalPoints[] = {100, 1000, 10000, 100, 10000, 10000};
 	return decimalPoints[index];
 }
 
@@ -138,7 +147,8 @@ const int unitGetPrecisionFromIndex(const int index)
 {
 	if (index>UNITCOUNT) 
 		return 0;
-	int precision[] = {2, 3, 4, 2, 4};
+	//                PT,MM,IN, P,CM, C
+	int precision[] = {2, 3, 4, 2, 4, 4};
 	return precision[index];
 }
 
@@ -153,6 +163,7 @@ const QStringList unitGetTextUnitList()
 	suffixList.append( QObject::tr( "Inches (in)" ) );
 	suffixList.append( QObject::tr( "Picas (p)" ) );
 	suffixList.append( QObject::tr( "Centimeters (cm)" ) );
+	suffixList.append( QObject::tr( "Cicero (c)" ) );
 	return QStringList(suffixList);
 }
 
@@ -197,6 +208,14 @@ const double cm2pts(double cm)
 }
 
 /*!
+ * @brief Returns the pts value from the cm value supplied
+ */
+const double c2pts(double c)
+{
+	return c / unitGetRatioFromIndex(C);
+}
+
+/*!
  * @brief Returns the mm value from the pt value supplied
  */
 const double pts2mm(double pts)
@@ -220,13 +239,20 @@ const double pts2p(double pts)
 	return pts * unitGetRatioFromIndex(P);
 }
 
-
 /*!
  * @brief Returns the cm value from the pt value supplied
  */
 const double pts2cm(double pts)
 {
 	return pts * unitGetRatioFromIndex(CM);
+}
+
+/*!
+ * @brief Returns the c value from the pt value supplied
+ */
+const double pts2c(double pts)
+{
+	return pts * unitGetRatioFromIndex(C);
 }
 
 /*!
@@ -287,7 +313,8 @@ double unitRulerGetIter1FromIndex(const int index)
 {
 	if (index>UNITCOUNT) 
 		return 0;
-	double iter[] = {10.0, 720.0/25.4, 18.0, 12.0, 72.0/25.4};
+	//                 PT,         MM,   IN,    P,        CM,               C
+	double iter[] = {10.0, 720.0/25.4, 18.0, 12.0, 72.0/25.4, 72.0/25.4*4.512};
 	return iter[index];
 }
 
@@ -298,6 +325,7 @@ double unitRulerGetIter2FromIndex(const int index)
 {
 	if (index>UNITCOUNT) 
 		return 0;
-	double iter[] = {100.0, 7200.0/25.4, 72.0, 120.0, 720.0/25.4};
+	//                  PT,          MM,   IN,     P,         CM,                C
+	double iter[] = {100.0, 7200.0/25.4, 72.0, 120.0, 720.0/25.4, 720.0/25.4*4.512};
 	return iter[index];
 }

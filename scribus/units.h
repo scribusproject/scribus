@@ -19,7 +19,7 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
-#define UNITCOUNT 4
+#define UNITCOUNT 5
 
 enum Unit {
 	POINTS      = 0,
@@ -31,8 +31,9 @@ enum Unit {
 	PICAS       = 3,
 	P           = 3,
 	CENTIMETERS = 4,
-	CM          = 4
-
+	CM          = 4,
+	CICERO      = 5,
+	C           = 5
 };
 
 const double unitGetRatioFromIndex(const int index);
@@ -48,10 +49,12 @@ const double mm2pts(double mm);
 const double in2pts(double in);
 const double p2pts(double p);
 const double cm2pts(double cm);
+const double c2pts(double c);
 const double pts2mm(double pts);
 const double pts2in(double pts);
 const double pts2p(double pts);
 const double pts2cm(double pts);
+const double pts2c(double pts);
 double pts2value(double Val, int unit);
 double value2pts(double unitValue, int unit);
 double value2value(double unitValue, int primaryUnit, int secondaryUnit);

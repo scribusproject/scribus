@@ -155,12 +155,14 @@ int MSpinBox::mapTextToValue(bool *)
 	QString strIN=unitGetStrFromIndex(IN);
 	QString strP =unitGetStrFromIndex(P);
 	QString strCM=unitGetStrFromIndex(CM);
+	QString strC =unitGetStrFromIndex(C);
 	
 	QString suffPT=unitGetSuffixFromIndex(PT);
 	QString suffMM=unitGetSuffixFromIndex(MM);
 	QString suffIN=unitGetSuffixFromIndex(IN);
 	QString suffP =unitGetSuffixFromIndex(P);
 	QString suffCM=unitGetSuffixFromIndex(CM);
+	QString suffC =unitGetSuffixFromIndex(C);
 		
 	if ((su == suffPT) || (su == strPT))
 	{
@@ -169,44 +171,59 @@ int MSpinBox::mapTextToValue(bool *)
 		ts.replace(strIN, "*72.0");
 		ts.replace(strP, "*12.0");
 		ts.replace(strCM, "/2.54*72.0");
+		ts.replace(strC, "/25.4*72.0*4.512");
 	}
 	else 
-		if ((su == suffMM) || (su == strMM))
-		{
-			ts.replace(strPT, "/72.0*25.4");
-			ts.replace(strMM, "");
-			ts.replace(strIN, "*25.4");
-			ts.replace(strP, "/12.0*25.4");
-			ts.replace(strCM, "*10.0");
-		}
-		else 
-			if ((su == suffIN) || (su == strIN))
-			{
-				ts.replace(strPT, "/72.0");
-				ts.replace(strMM, "/25.4");
-				ts.replace(strIN, "");
-				ts.replace(strP, "/6.0");
-				ts.replace(strCM, "/2.54");
-			}
-			else 
-				if ((su == suffP) || (su == strP))
-				{
-					ts.replace(strPT, "/12");
-					ts.replace(strMM, "/25.4*6");
-					ts.replace(strIN, "*6");
-					ts.replace(strP, "");
-					ts.replace(strCM, "/2.54*6.0");
-				}
-				else 
-				if ((su == suffCM) || (su == strCM))
-				{
-					ts.replace(strPT, "/72.0*2.54");
-					ts.replace(strMM, "/10");
-					ts.replace(strIN, "*2.54");
-					ts.replace(strP, "/12.0*2.54");
-					ts.replace(strCM, "");
-				}
-				if (su != "")
+	if ((su == suffMM) || (su == strMM))
+	{
+		ts.replace(strPT, "/72.0*25.4");
+		ts.replace(strMM, "");
+		ts.replace(strIN, "*25.4");
+		ts.replace(strP, "/6.0*25.4");
+		ts.replace(strCM, "*10.0");
+		ts.replace(strC, "*4.512");
+	}
+	else 
+	if ((su == suffIN) || (su == strIN))
+	{
+		ts.replace(strPT, "/72.0");
+		ts.replace(strMM, "/25.4");
+		ts.replace(strIN, "");
+		ts.replace(strP, "/6.0");
+		ts.replace(strCM, "/2.54");
+		ts.replace(strC, "/25.4*4.512");
+	}
+	else 
+	if ((su == suffP) || (su == strP))
+	{
+		ts.replace(strPT, "/12");
+		ts.replace(strMM, "/25.4*6");
+		ts.replace(strIN, "*6");
+		ts.replace(strP, "");
+		ts.replace(strCM, "/2.54*6.0");
+		ts.replace(strC, "*6.0/25.4*4.512");
+	}
+	else 
+	if ((su == suffCM) || (su == strCM))
+	{
+		ts.replace(strPT, "/72.0*2.54");
+		ts.replace(strMM, "/10");
+		ts.replace(strIN, "*2.54");
+		ts.replace(strP, "/6.0*2.54");
+		ts.replace(strCM, "");
+		ts.replace(strC, "/10*4.512");
+	}
+	else 
+	if ((su == suffC) || (su == strC))
+	{
+		ts.replace(strPT, "*25.4/72.0/4.512");
+		ts.replace(strMM, "/4.512");
+		ts.replace(strIN, "*25.4/4.512");
+		ts.replace(strP, "/6.0*25.4/4.512");
+		ts.replace(strCM, "*10.0/4.512");
+		ts.replace(strC, "");
+	}
+	if (su != "")
 		ts.replace(su, " ");
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
