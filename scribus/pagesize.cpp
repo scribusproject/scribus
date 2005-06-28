@@ -144,20 +144,20 @@ void PageSize::generatePageSizeList()
 	//4A0
 	info.width=mm2pts(width*2.0);
 	info.height=mm2pts(height*2.0);
-	info.pageUnitIndex=MM;
+	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("4A0");
 	pageSizeList.insert("4A0", info); 
 	//2A0
 	info.width=mm2pts(height);
 	info.height=mm2pts(width*2.0);
-	info.pageUnitIndex=MM;
+	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("2A0");
 	pageSizeList.insert("2A0", info); 
 	//Continue with rest of A series
 	for (format = 0; format <= 10; format++) {
 		info.width=mm2pts(width);
 		info.height=mm2pts(height);
-		info.pageUnitIndex=MM;
+		info.pageUnitIndex=SC_MM;
 		name=QString("A%1").arg(format);
 		info.trSizeName=name;
 		pageSizeList.insert(name, info);
@@ -173,7 +173,7 @@ void PageSize::generatePageSizeList()
 	for (format = 0; format <= 10; format++) {
 		info.width=mm2pts(width);
 		info.height=mm2pts(height);
-		info.pageUnitIndex=MM;
+		info.pageUnitIndex=SC_MM;
 		name=QString("B%1").arg(format);
 		info.trSizeName=name;
 		pageSizeList.insert(name, info);
@@ -190,7 +190,7 @@ void PageSize::generatePageSizeList()
 	for (format = 0; format <= 10; format++) {
 		info.width=mm2pts(width);
 		info.height=mm2pts(height);
-		info.pageUnitIndex=MM;
+		info.pageUnitIndex=SC_MM;
 		name=QString("C%1").arg(format);
 		info.trSizeName=name;
 		pageSizeList.insert(name, info);
@@ -218,20 +218,20 @@ void PageSize::generatePageSizeList()
 	{
 		info.width=in2pts(impWidths[i]);
 		info.height=in2pts(impHeights[i]);
-		info.pageUnitIndex=IN;
+		info.pageUnitIndex=SC_IN;
 		info.trSizeName=impTrNames[i];
 		pageSizeList.insert(impNames[i], info);
 	}
 	//Comm10E
 	info.width=in2pts(4.125);
 	info.height=in2pts(9.5);
-	info.pageUnitIndex=IN;
+	info.pageUnitIndex=SC_IN;
 	info.trSizeName=QObject::tr("Comm10E");
 	pageSizeList.insert("Comm10E", info); 
 	//DLE
 	info.width=mm2pts(110);
 	info.height=mm2pts(220);
-	info.pageUnitIndex=MM;
+	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("DLE");
 	pageSizeList.insert("DLE", info); 
 	//Executive

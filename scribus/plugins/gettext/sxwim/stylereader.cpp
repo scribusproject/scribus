@@ -650,29 +650,35 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	if (lowerValue.find("pt") != -1)
  	{
  		dbl = lowerValue.remove("pt");
- 		ret = gtMeasure::d2d(dbl.toDouble(), PT);
+ 		ret = gtMeasure::d2d(dbl.toDouble(), SC_PT);
  	}
  	else if (lowerValue.find("mm") != -1)
  	{
  		dbl = lowerValue.remove("mm");
- 		ret = gtMeasure::d2d(dbl.toDouble(), MM);
+ 		ret = gtMeasure::d2d(dbl.toDouble(), SC_MM);
  	}
  	else if (lowerValue.find("cm") != -1)
  	{
  		dbl = lowerValue.remove("cm");
- 		ret = gtMeasure::d2d(dbl.toDouble() * 10, MM);
+ 		ret = gtMeasure::d2d(dbl.toDouble() * 10, SC_MM);
  	}
  	else if (lowerValue.find("in") != -1)
  	{
  		dbl = lowerValue.remove("inch");
  		dbl = lowerValue.remove("in");
- 		ret = gtMeasure::d2d(dbl.toDouble(), IN);
+ 		ret = gtMeasure::d2d(dbl.toDouble(), SC_IN);
  	}
  	else if (lowerValue.find("pi") != -1)
  	{
  		dbl = lowerValue.remove("pica");
  		dbl = lowerValue.remove("pi");
- 		ret = gtMeasure::d2d(dbl.toDouble(), P);
+ 		ret = gtMeasure::d2d(dbl.toDouble(), SC_P);
+ 	}
+ 	else if (lowerValue.find("c") != -1)
+ 	{
+ 		dbl = lowerValue.remove("cicero");
+ 		dbl = lowerValue.remove("c");
+ 		ret = gtMeasure::d2d(dbl.toDouble(), SC_C);
  	}
  	else if (lowerValue.find("%") != -1)
  	{

@@ -37,11 +37,11 @@ private:
 	static double convert2(int value);
 	static double parse(const QString& value);
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(const QString& value, Unit to = PT);
+	static double convert(double value, Unit from, Unit to = SC_PT);
+	static double convert(int value, Unit from, Unit to = SC_PT);
+	static double d2d(double value, Unit from, Unit to = SC_PT);
+	static double i2d(int value, Unit from, Unit to = SC_PT);
+	static double qs2d(const QString& value, Unit to = SC_PT);
 
 };
 

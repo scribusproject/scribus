@@ -22,18 +22,18 @@
 #define UNITCOUNT 5
 
 enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3,
-	CENTIMETERS = 4,
-	CM          = 4,
-	CICERO      = 5,
-	C           = 5
+	SC_POINTS      = 0,
+	SC_PT          = 0,
+	SC_MILLIMETERS = 1,
+	SC_MM          = 1,
+	SC_INCHES      = 2,
+	SC_IN          = 2,
+	SC_PICAS       = 3,
+	SC_P           = 3,
+	SC_CENTIMETERS = 4,
+	SC_CM          = 4,
+	SC_CICERO      = 5,
+	SC_C           = 5
 };
 
 const double unitGetRatioFromIndex(const int index);

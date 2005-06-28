@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 10:44+0100\n"
+"POT-Creation-Date: 2005-06-28 20:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,16 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-msgid "A4"
+msgid "4A0"
+msgstr ""
+
+msgid "2A0"
+msgstr ""
+
+msgid "Comm10E"
+msgstr ""
+
+msgid "DLE"
 msgstr ""
 
 msgid "None"
@@ -109,6 +118,12 @@ msgstr ""
 msgid "&Remove"
 msgstr ""
 
+msgid ""
+"<qt>Font search paths can only be set in Preferences, and only when there is "
+"no document currently open. Close any open documents, then use Edit-"
+">Settings to change the font search path.</qt>"
+msgstr ""
+
 msgid "Additional &Paths"
 msgstr ""
 
@@ -136,10 +151,31 @@ msgstr ""
 msgid "S&caling:"
 msgstr ""
 
+msgid "Underline"
+msgstr ""
+
+msgid "Displacement:"
+msgstr ""
+
+msgid "Auto"
+msgstr ""
+
+msgid "Line Width:"
+msgstr ""
+
+msgid "Strikethru"
+msgstr ""
+
 msgid "Small Caps"
 msgstr ""
 
 msgid "Sc&aling:"
+msgstr ""
+
+msgid "Automatic &Line Spacing"
+msgstr ""
+
+msgid "Line Spacing:"
 msgstr ""
 
 msgid "Displacement above the baseline of the font on a line"
@@ -157,10 +193,20 @@ msgstr ""
 msgid "Relative size of the small caps font compared to the normal font"
 msgstr ""
 
-msgid "Outline"
+msgid "Percentage increase over the font size for the line spacing"
 msgstr ""
 
-msgid "Element"
+msgid ""
+"Displacement below the baseline of the normal font expressed as a percentage "
+"of the fonts descender"
+msgstr ""
+
+msgid "Line width expressed as a percentage of the font size"
+msgstr ""
+
+msgid ""
+"Displacement above the baseline of the normal font expressed as a percentage "
+"of the fonts ascender"
 msgstr ""
 
 msgid "Free Objects"
@@ -170,6 +216,12 @@ msgid "Group "
 msgstr ""
 
 msgid "Page "
+msgstr ""
+
+msgid "Outline"
+msgstr ""
+
+msgid "Element"
 msgstr ""
 
 msgid "Font:"
@@ -185,6 +237,15 @@ msgid "Fill Color:"
 msgstr ""
 
 msgid "Stroke Color:"
+msgstr ""
+
+msgid "Custom: "
+msgstr ""
+
+msgid "Tab Fill Character:"
+msgstr ""
+
+msgid "Tab Width:"
 msgstr ""
 
 msgid "Colu&mns:"
@@ -242,6 +303,21 @@ msgid "Keep Aspect &Ratio"
 msgstr ""
 
 msgid "F&ill Color:"
+msgstr ""
+
+msgid "Use embedded Clipping Path"
+msgstr ""
+
+msgid "On Screen Preview"
+msgstr ""
+
+msgid "Full Resolution Preview"
+msgstr ""
+
+msgid "Normal Resolution Preview"
+msgstr ""
+
+msgid "Low Resolution Preview"
 msgstr ""
 
 msgid "Mi&nimum:"
@@ -349,13 +425,52 @@ msgstr ""
 msgid "Width of lines"
 msgstr ""
 
+msgid "Custom:"
+msgstr ""
+
+msgid "Freetype2 library not available"
+msgstr ""
+
+msgid "Font %1 is broken, no embedding"
+msgstr ""
+
+msgid "Font %1 is broken (read stream), no embedding"
+msgstr ""
+
+msgid "Font %1 is broken (FreeType2), discarding it"
+msgstr ""
+
+msgid "Font %1 is broken (no Face), discarding it"
+msgstr ""
+
+msgid "Font %1 has broken glyph %2 (charcode %3)"
+msgstr ""
+
+msgid "Font %1 is broken and will be discarded"
+msgstr ""
+
+msgid "Font %1 cannot be read, no embedding"
+msgstr ""
+
 msgid "Font %1 is broken, discarding it"
+msgstr ""
+
+msgid "Failed to load font %1 - font type unknown"
+msgstr ""
+
+msgid "Font %1 loaded from %2(%3)"
+msgstr ""
+
+msgid "Font %1(%2) is duplicate of %3"
+msgstr ""
+
+msgid "Loading font %1 (found using fontconfig)"
 msgstr ""
 
 msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
-msgid "Failed to load a font - freetype couldn't find the font file"
+msgid "Failed to load a font - freetype2 couldn't find the font file"
 msgstr ""
 
 msgid "Left"
@@ -376,10 +491,7 @@ msgstr ""
 msgid "&Position:"
 msgstr ""
 
-msgid "First &Line:"
-msgstr ""
-
-msgid "Left Ind&ent:"
+msgid "Fill Char:"
 msgstr ""
 
 msgid "Delete All"
@@ -495,8 +607,53 @@ msgid "Reset the Contour Line to the Original Shape of the Frame"
 msgstr ""
 
 msgid ""
-"When checked use Coordinates relative to the Page,\n"
-"otherwise Coordinates are relative to the Object."
+"When checked use coordinates relative to the page, otherwise coordinates are "
+"relative to the Object."
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Parameter"
+msgstr ""
+
+msgid "Relationship"
+msgstr ""
+
+msgid "Relationship To"
+msgstr ""
+
+msgid "Auto Add To"
+msgstr ""
+
+msgid "Document Item Attributes"
+msgstr ""
+
+msgid "&Add"
+msgstr ""
+
+msgid "Alt+A"
+msgstr ""
+
+msgid "&Copy"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
+
+msgid "Alt+D"
+msgstr ""
+
+msgid "C&lear"
+msgstr ""
+
+msgid "Alt+L"
 msgstr ""
 
 msgid "Apply Template"
@@ -508,16 +665,16 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-msgid "Apply to &Current Page"
+msgid "Apply to &current page"
 msgstr ""
 
-msgid "Apply to all &even Pages"
+msgid "Apply to all &even pages"
 msgstr ""
 
-msgid "Apply to all &odd Pages"
+msgid "Apply to all &odd pages"
 msgstr ""
 
-msgid "Apply from &Page:"
+msgid "Apply to &all pages:"
 msgstr ""
 
 msgid "To:"
@@ -532,6 +689,9 @@ msgstr ""
 msgid "%1: %2"
 msgstr ""
 
+msgid "Initial State"
+msgstr ""
+
 msgid "Action History"
 msgstr ""
 
@@ -542,9 +702,6 @@ msgid "&Undo"
 msgstr ""
 
 msgid "&Redo"
-msgstr ""
-
-msgid "Initial State"
 msgstr ""
 
 msgid "Printer Options"
@@ -590,9 +747,6 @@ msgid "Pages per Sheet"
 msgstr ""
 
 msgid "Option"
-msgstr ""
-
-msgid "Value"
 msgstr ""
 
 msgid ""
@@ -720,7 +874,7 @@ msgid ""
 "to %2"
 msgstr ""
 
-msgid "Apply template"
+msgid "Apply Master Page"
 msgstr ""
 
 msgid "Paste"
@@ -777,6 +931,9 @@ msgstr ""
 msgid "Set font width"
 msgstr ""
 
+msgid "Set font height"
+msgstr ""
+
 msgid "Set font fill color"
 msgstr ""
 
@@ -831,7 +988,7 @@ msgstr ""
 msgid "Import EPS image"
 msgstr ""
 
-msgid "Import OpenOffice draw image"
+msgid "Import OpenOffice.org Draw image"
 msgstr ""
 
 msgid "Scratch space"
@@ -882,6 +1039,48 @@ msgstr ""
 msgid "Reset contour line"
 msgstr ""
 
+msgid "Add page"
+msgstr ""
+
+msgid "Add pages"
+msgstr ""
+
+msgid "Delete page"
+msgstr ""
+
+msgid "Delete pages"
+msgstr ""
+
+msgid "Add layer"
+msgstr ""
+
+msgid "Delete layer"
+msgstr ""
+
+msgid "Rename layer"
+msgstr ""
+
+msgid "Raise layer"
+msgstr ""
+
+msgid "Lower layer"
+msgstr ""
+
+msgid "Send to layer"
+msgstr ""
+
+msgid "Enable printing of layer"
+msgstr ""
+
+msgid "Disable printing of layer"
+msgstr ""
+
+msgid "Change name of the layer"
+msgstr ""
+
+msgid "Get image"
+msgstr ""
+
 msgid "Move Pages"
 msgstr ""
 
@@ -904,6 +1103,30 @@ msgid "At End"
 msgstr ""
 
 msgid "Move Page(s):"
+msgstr ""
+
+msgid "Relates To"
+msgstr ""
+
+msgid "Is Parent Of"
+msgstr ""
+
+msgid "Is Child Of"
+msgstr ""
+
+msgid "Text Frames"
+msgstr ""
+
+msgid "Image Frames"
+msgstr ""
+
+msgid "Boolean"
+msgstr ""
+
+msgid "Integer"
+msgstr ""
+
+msgid "String"
 msgstr ""
 
 msgid "Manage Tabulators"
@@ -963,100 +1186,19 @@ msgstr ""
 msgid "In&fo"
 msgstr ""
 
-msgid "I&mage Visible"
-msgstr ""
-
-msgid "&Update Picture"
-msgstr ""
-
-msgid "&Edit Picture"
-msgstr ""
-
-msgid "&Adjust Frame to Picture"
-msgstr ""
-
-msgid "&Edit Text..."
-msgstr ""
-
-msgid "Is PDF &Bookmark"
-msgstr ""
-
-msgid "Is PDF A&nnotation"
-msgstr ""
-
-msgid "Annotation P&roperties"
-msgstr ""
-
-msgid "Field P&roperties"
+msgid "Preview Settings"
 msgstr ""
 
 msgid "&PDF Options"
 msgstr ""
 
-msgid "Edit Text..."
-msgstr ""
-
-msgid "&Lock"
-msgstr ""
-
-msgid "Un&lock"
-msgstr ""
-
-msgid "Lock Object &Size"
-msgstr ""
-
-msgid "Unlock Object &Size"
-msgstr ""
-
-msgid "Send to S&crapbook"
-msgstr ""
-
 msgid "Send to La&yer"
-msgstr ""
-
-msgid "&Insert Sample Text"
-msgstr ""
-
-msgid "&Group"
-msgstr ""
-
-msgid "Un&group"
 msgstr ""
 
 msgid "Le&vel"
 msgstr ""
 
-msgid "Send to &Back"
-msgstr ""
-
-msgid "Bring to &Front"
-msgstr ""
-
-msgid "&Lower"
-msgstr ""
-
-msgid "&Raise"
-msgstr ""
-
-msgid "&Picture Frame"
-msgstr ""
-
-msgid "Pol&ygon"
-msgstr ""
-
-msgid "&Outlines"
-msgstr ""
-
-msgid "&Text Frame"
-msgstr ""
-
-msgid "&Bezier Curve"
-msgstr ""
-
 msgid "Conve&rt to"
-msgstr ""
-
-msgid "C&lear Contents"
 msgstr ""
 
 msgid "Warning"
@@ -1065,7 +1207,12 @@ msgstr ""
 msgid "Do you really want to clear all your Text?"
 msgstr ""
 
-msgid "Copy of"
+msgid "Cannot Delete In-Use Item"
+msgstr ""
+
+msgid ""
+"The item %1 is currently being edited by Story Editor. The delete operation "
+"will be cancelled"
 msgstr ""
 
 msgid "Ignore all errors"
@@ -1098,7 +1245,7 @@ msgstr ""
 msgid " dpi"
 msgstr ""
 
-msgid "Check for placed PDF-Files"
+msgid "Check for placed PDF Files"
 msgstr ""
 
 msgid "Check for PDF Annotations and Fields"
@@ -1113,7 +1260,22 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-msgid "Template "
+msgid "Master Page "
+msgstr ""
+
+msgid "Cannot find plugin"
+msgstr ""
+
+msgid "Persistent"
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+msgid "Standard"
+msgstr ""
+
+msgid "Unknown"
 msgstr ""
 
 msgid " of %1"
@@ -1203,7 +1365,7 @@ msgstr ""
 msgid "Automatic"
 msgstr ""
 
-msgid "Get text only"
+msgid "Import Text Only"
 msgstr ""
 
 msgid "Import text without any formatting"
@@ -1236,22 +1398,18 @@ msgstr ""
 msgid "PathText"
 msgstr ""
 
+msgid ""
+"Do you really want to replace all your text\n"
+"in the frame named %1 with sample text?"
+msgstr ""
+
+msgid "Copy of"
+msgstr ""
+
 msgid "Manage Guides"
 msgstr ""
 
-msgid " mm"
-msgstr ""
-
-msgid " in"
-msgstr ""
-
-msgid " p"
-msgstr ""
-
 msgid "Horizontal Guides"
-msgstr ""
-
-msgid "&Add"
 msgstr ""
 
 msgid "D&elete"
@@ -1266,7 +1424,45 @@ msgstr ""
 msgid "De&lete"
 msgstr ""
 
+msgid "Rows and Columns - Automatic Guides"
+msgstr ""
+
+msgid "&Rows:"
+msgstr ""
+
+msgid "C&olumns:"
+msgstr ""
+
+msgid "Row &Gap"
+msgstr ""
+
+msgid "Colum&n Gap"
+msgstr ""
+
+msgid "Refer to:"
+msgstr ""
+
+msgid "&Page"
+msgstr ""
+
+msgid "&Margins"
+msgstr ""
+
+msgid "&Selection"
+msgstr ""
+
 msgid "&Lock Guides"
+msgstr ""
+
+msgid "&Close"
+msgstr ""
+
+msgid "&Update"
+msgstr ""
+
+msgid ""
+"Set the guides in document. Guide manager is still opened but the changes "
+"are persistant"
 msgstr ""
 
 msgid "Other..."
@@ -1307,6 +1503,457 @@ msgid ""
 " a positive value will make it convex"
 msgstr ""
 
+msgid "Preferences"
+msgstr ""
+
+msgid "GUI"
+msgstr ""
+
+msgid "&Language:"
+msgstr ""
+
+msgid "&Theme:"
+msgstr ""
+
+msgid "&Font Size:"
+msgstr ""
+
+msgid "&Wheel Jump:"
+msgstr ""
+
+msgid "&Recent Documents:"
+msgstr ""
+
+msgid "Paths"
+msgstr ""
+
+msgid "&Documents:"
+msgstr ""
+
+msgid "&Change..."
+msgstr ""
+
+msgid "&ICC Profiles:"
+msgstr ""
+
+msgid "&Scripts:"
+msgstr ""
+
+msgid "Ch&ange..."
+msgstr ""
+
+msgid "Document T&emplates:"
+msgstr ""
+
+msgid "Cha&nge..."
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "Page Size"
+msgstr ""
+
+msgid "&Size:"
+msgstr ""
+
+msgid "Orie&ntation:"
+msgstr ""
+
+msgid "Units:"
+msgstr ""
+
+msgid "&Width:"
+msgstr ""
+
+msgid "&Height:"
+msgstr ""
+
+msgid "&Facing Pages"
+msgstr ""
+
+msgid "Left &Page First"
+msgstr ""
+
+msgid "Margin Guides"
+msgstr ""
+
+msgid "&Bottom:"
+msgstr ""
+
+msgid "&Top:"
+msgstr ""
+
+msgid "&Right:"
+msgstr ""
+
+msgid "&Left:"
+msgstr ""
+
+msgid "Autosave"
+msgstr ""
+
+msgid "&Enabled"
+msgstr ""
+
+msgid "min"
+msgstr ""
+
+msgid "&Interval:"
+msgstr ""
+
+msgid "Undo/Redo"
+msgstr ""
+
+msgid "Action history length"
+msgstr ""
+
+msgid "Guides"
+msgstr ""
+
+msgid "Typography"
+msgstr ""
+
+msgid "Tools"
+msgstr ""
+
+msgid "Hyphenator"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
+msgid "Document Checker"
+msgstr ""
+
+msgid "Color Management"
+msgstr ""
+
+msgid "PDF Export"
+msgstr ""
+
+msgid "Table of Contents and Indexes"
+msgstr ""
+
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+msgid "Other Options"
+msgstr ""
+
+msgid "Sa&ve Contents on Changes"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Small"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Scrapbook"
+msgstr ""
+
+msgid "Page Display"
+msgstr ""
+
+msgid "Color:"
+msgstr ""
+
+msgid "Display &Unprintable Area in Margin Color"
+msgstr ""
+
+msgid "Alt+U"
+msgstr ""
+
+msgid "Show Pictures"
+msgstr ""
+
+msgid "Show Text Chains"
+msgstr ""
+
+msgid "Show Text Control Characters"
+msgstr ""
+
+msgid "Show Frames"
+msgstr ""
+
+msgid "Scratch Space"
+msgstr ""
+
+msgid "&Adjust Display Size"
+msgstr ""
+
+msgid "To adjust the display drag the ruler below with the Slider."
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Postscript Interpreter"
+msgstr ""
+
+msgid "&Name of Executable:"
+msgstr ""
+
+msgid "Antialias &Text"
+msgstr ""
+
+msgid "Antialias &Graphics"
+msgstr ""
+
+msgid "Image Processing Tool"
+msgstr ""
+
+msgid "Name of &Executable:"
+msgstr ""
+
+msgid "External Tools"
+msgstr ""
+
+msgid "Printing"
+msgstr ""
+
+msgid "Clip to Page &Margins"
+msgstr ""
+
+msgid "Apply &Under Color Removal"
+msgstr ""
+
+msgid "Always ask before fonts are replaced when loading a document"
+msgstr ""
+
+msgid "Preview of current Paragraph Style visible when editing Styles"
+msgstr ""
+
+msgid "Miscellaneous"
+msgstr ""
+
+msgid "Plugin Manager"
+msgstr ""
+
+msgid "Plugin"
+msgstr ""
+
+msgid "How to run"
+msgstr ""
+
+msgid "Load it?"
+msgstr ""
+
+msgid "Plugin ID"
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "You need to restart the application to apply the changes."
+msgstr ""
+
+msgid "Plugins"
+msgstr ""
+
+msgid "Turns the display of linked frames on or off"
+msgstr ""
+
+msgid "Turns the display of frames on or off"
+msgstr ""
+
+msgid "Turns the display of pictures on or off"
+msgstr ""
+
+msgid ""
+"Select your default language for Scribus to run with.\n"
+"Leave this blank to choose based on environment variables.\n"
+"You can still override this by passing a command line option when starting "
+"Scribus"
+msgstr ""
+
+msgid ""
+"Choose the default window decoration and looks.\n"
+"Scribus inherits any available KDE or Qt themes"
+msgstr ""
+
+msgid "Default font size for the menus and windows"
+msgstr ""
+
+msgid "Default unit of measurement for document editing"
+msgstr ""
+
+msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
+msgstr ""
+
+msgid "Number of recently edited documents to show in the File menu"
+msgstr ""
+
+msgid "Default documents directory"
+msgstr ""
+
+msgid ""
+"Default ICC profiles directory. This cannot\n"
+"be changed with a document open."
+msgstr ""
+
+msgid "Default Scripter scripts directory"
+msgstr ""
+
+msgid "Additional directory for document templates"
+msgstr ""
+
+msgid "Default page size, either a standard size or a custom size"
+msgstr ""
+
+msgid "Default orientation of document pages"
+msgstr ""
+
+msgid "Width of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid ""
+"Height of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid "Enable single or spread based layout"
+msgstr ""
+
+msgid "Make the first page the left page of a document"
+msgstr ""
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr ""
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr ""
+
+msgid ""
+"Distance between the left margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+
+msgid ""
+"Distance between the right margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+
+msgid ""
+"When enabled, Scribus saves a backup copy of your file with the .bak "
+"extension\n"
+"each time the time period elapses"
+msgstr ""
+
+msgid "Time period between saving automatically"
+msgstr ""
+
+msgid ""
+"Set the length of the action history in steps.\n"
+"If set to 0 infinite amount of actions will be stored."
+msgstr ""
+
+msgid "Choose the size of the preview in the scrapbook palette"
+msgstr ""
+
+msgid "Save the scrapbook contents everytime after a change"
+msgstr ""
+
+msgid "Color for paper"
+msgstr ""
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr ""
+
+msgid "Set the default zoom level"
+msgstr ""
+
+msgid "Filesystem location for the Ghostscript interpreter"
+msgstr ""
+
+msgid "Antialias text for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Antialias graphics for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid ""
+"File system location for graphics editor. If you use gimp\n"
+"and your distro includes it, we recommend 'gimp-remote',\n"
+"as it allows you to edit the image in an already running\n"
+"instance of gimp."
+msgstr ""
+
+msgid ""
+"Do not show objects outside the margins on the printed page or exported file"
+msgstr ""
+
+msgid ""
+"A way of switching off some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
+msgstr ""
+
+msgid "&Inside:"
+msgstr ""
+
+msgid "O&utside:"
+msgstr ""
+
+msgid "Page Item Attributes"
+msgstr ""
+
+msgid "Could not open output file %1"
+msgstr ""
+
+msgid "Output stream not writeable"
+msgstr ""
+
+msgid "Verification of settings failed: %1"
+msgstr ""
+
+msgid "Could not open input file %1"
+msgstr ""
+
+msgid "Unable to read settings XML:"
+msgstr ""
+
+msgid "%1 (line %2 col %3)"
+msgstr ""
+
+msgid "Unable to read settings XML: %1"
+msgstr ""
+
+msgid "null root node"
+msgstr ""
+
+msgid "<pdfVersion> invalid"
+msgstr ""
+
+msgid "found %1 <%2> nodes, need 1."
+msgstr ""
+
+msgid "unexpected null <%2> node"
+msgstr ""
+
+msgid "node <%1> not an element"
+msgstr ""
+
+msgid "element <%1> lacks `value' attribute"
+msgstr ""
+
+msgid "element <%1> value must be `true' or `false'"
+msgstr ""
+
+msgid "element <lpiSettingsEntry> lacks `name' attribute"
+msgstr ""
+
 msgid "Copy #%1 of "
 msgstr ""
 
@@ -1337,9 +1984,6 @@ msgstr ""
 msgid "Round Join"
 msgstr ""
 
-msgid "Line Width:"
-msgstr ""
-
 msgid " pt "
 msgstr ""
 
@@ -1363,16 +2007,85 @@ msgid ""
 "Please choose another."
 msgstr ""
 
-msgid "Layers"
+msgid "Image Effects"
 msgstr ""
 
-msgid "Name"
+msgid "Options:"
 msgstr ""
 
-msgid "Add a new Layer"
+msgid "Shade:"
+msgstr ""
+
+msgid "Brightness:"
+msgstr ""
+
+msgid "Contrast:"
+msgstr ""
+
+msgid "Radius:"
+msgstr ""
+
+msgid "Value:"
+msgstr ""
+
+msgid "Posterize:"
+msgstr ""
+
+msgid "Available Effects"
+msgstr ""
+
+msgid "Blur"
+msgstr ""
+
+msgid "Brightness"
+msgstr ""
+
+msgid "Colorize"
+msgstr ""
+
+msgid "Contrast"
+msgstr ""
+
+msgid "Grayscale"
+msgstr ""
+
+msgid "Invert"
+msgstr ""
+
+msgid "Posterize"
+msgstr ""
+
+msgid "Sharpen"
+msgstr ""
+
+msgid ">>"
+msgstr ""
+
+msgid "<<"
+msgstr ""
+
+msgid "Effects in use"
+msgstr ""
+
+msgid "Scribus Crash"
+msgstr ""
+
+msgid "Scribus crashes due to Signal #%1"
+msgstr ""
+
+msgid "New Layer"
 msgstr ""
 
 msgid "Delete Layer"
+msgstr ""
+
+msgid "Do you want to delete all objects on this layer too?"
+msgstr ""
+
+msgid "Layers"
+msgstr ""
+
+msgid "Add a new Layer"
 msgstr ""
 
 msgid "Raise Layer"
@@ -1381,19 +2094,10 @@ msgstr ""
 msgid "Lower Layer"
 msgstr ""
 
-msgid "New Layer"
-msgstr ""
-
-msgid "Do you want to delete all Objects on this Layer too?"
-msgstr ""
-
-msgid "Create PDF File"
+msgid "Save as PDF"
 msgstr ""
 
 msgid "O&utput to File:"
-msgstr ""
-
-msgid "Cha&nge..."
 msgstr ""
 
 msgid "&Save"
@@ -1414,6 +2118,21 @@ msgstr ""
 msgid "Replace With:"
 msgstr ""
 
+msgid " mm"
+msgstr ""
+
+msgid " in"
+msgstr ""
+
+msgid " p"
+msgstr ""
+
+msgid " cm"
+msgstr ""
+
+msgid " c"
+msgstr ""
+
 msgid "mm"
 msgstr ""
 
@@ -1423,10 +2142,16 @@ msgstr ""
 msgid "p"
 msgstr ""
 
+msgid "cm"
+msgstr ""
+
+msgid "c"
+msgstr ""
+
 msgid "Points (pt)"
 msgstr ""
 
-msgid "Millimetres (mm)"
+msgid "Millimeters (mm)"
 msgstr ""
 
 msgid "Inches (in)"
@@ -1435,55 +2160,13 @@ msgstr ""
 msgid "Picas (p)"
 msgstr ""
 
-msgid "Tools"
+msgid "Centimeters (cm)"
 msgstr ""
 
-msgid "Select Items"
-msgstr ""
-
-msgid "Insert Text Frame"
-msgstr ""
-
-msgid "Insert Picture"
-msgstr ""
-
-msgid "Insert Table"
+msgid "Cicero (c)"
 msgstr ""
 
 msgid "Properties..."
-msgstr ""
-
-msgid "Insert Polygons"
-msgstr ""
-
-msgid "Insert Lines"
-msgstr ""
-
-msgid "Insert Bezier Curves"
-msgstr ""
-
-msgid "Insert Freehand Line"
-msgstr ""
-
-msgid "Rotate Item"
-msgstr ""
-
-msgid "Zoom in or out"
-msgstr ""
-
-msgid "Edit Contents of Frame"
-msgstr ""
-
-msgid "Edit the text with the Story Editor"
-msgstr ""
-
-msgid "Link Text Frames"
-msgstr ""
-
-msgid "Unlink Text Frames"
-msgstr ""
-
-msgid "Draw various Shapes"
 msgstr ""
 
 msgid "PDF Tools"
@@ -1507,10 +2190,10 @@ msgstr ""
 msgid "Insert PDF Fields"
 msgstr ""
 
-msgid "Link"
+msgid "Insert PDF Annotations"
 msgstr ""
 
-msgid "Insert PDF Annotations"
+msgid "Link"
 msgstr ""
 
 msgid "Possible Hyphenation"
@@ -1534,6 +2217,27 @@ msgstr ""
 msgid "instead"
 msgstr ""
 
+msgid "Font %1 is broken (FreeType), discarding it"
+msgstr ""
+
+msgid "Font %1  has invalid glyph %2 (charcode %3), discarding it"
+msgstr ""
+
+msgid "extracting face %1 from font %2 (offset=%3, nTables=%4)"
+msgstr ""
+
+msgid "memcpy header: %1 %2 %3"
+msgstr ""
+
+msgid "table '%1'"
+msgstr ""
+
+msgid "memcpy table: %1 %2 %3"
+msgstr ""
+
+msgid "memcpy offset: %1 %2 %3"
+msgstr ""
+
 msgid "Left Page"
 msgstr ""
 
@@ -1546,13 +2250,10 @@ msgstr ""
 msgid "DPI"
 msgstr ""
 
-msgid "CMYK"
-msgstr ""
-
 msgid "RGB"
 msgstr ""
 
-msgid "Unknown"
+msgid "CMYK"
 msgstr ""
 
 msgid "Colorspace:"
@@ -1581,6 +2282,69 @@ msgid ""
 "This can be set in the Preferences."
 msgstr ""
 
+msgid "Extended Image Properties"
+msgstr ""
+
+msgid "Darken"
+msgstr ""
+
+msgid "Lighten"
+msgstr ""
+
+msgid "Hue"
+msgstr ""
+
+msgid "Saturation"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Luminosity"
+msgstr ""
+
+msgid "Multiply"
+msgstr ""
+
+msgid "Screen"
+msgstr ""
+
+msgid "Dissolve"
+msgstr ""
+
+msgid "Overlay"
+msgstr ""
+
+msgid "Hard Light"
+msgstr ""
+
+msgid "Soft Light"
+msgstr ""
+
+msgid "Difference"
+msgstr ""
+
+msgid "Exclusion"
+msgstr ""
+
+msgid "Color Dodge"
+msgstr ""
+
+msgid "Color Burn"
+msgstr ""
+
+msgid "Exlusion"
+msgstr ""
+
+msgid "Blend Mode:"
+msgstr ""
+
+msgid "Opacity:"
+msgstr ""
+
+msgid "Don't use any Path"
+msgstr ""
+
 msgid "Align Text Left"
 msgstr ""
 
@@ -1596,7 +2360,7 @@ msgstr ""
 msgid "Align Text Forced Justified"
 msgstr ""
 
-msgid "Edit Templates"
+msgid "Edit Master Pages"
 msgstr ""
 
 msgid "Duplicates the selected master page"
@@ -1608,10 +2372,10 @@ msgstr ""
 msgid "Adds a new master page"
 msgstr ""
 
-msgid "Loads master page(s) from another document"
+msgid "Imports master pages from another document"
 msgstr ""
 
-msgid "Do you really want to delete this Template?"
+msgid "Do you really want to delete this master page?"
 msgstr ""
 
 msgid "&No"
@@ -1623,13 +2387,109 @@ msgstr ""
 msgid "&Name:"
 msgstr ""
 
-msgid "New Template"
+msgid "New Master Page"
 msgstr ""
 
 msgid "Copy of %1"
 msgstr ""
 
 msgid "Name:"
+msgstr ""
+
+msgid "New MasterPage"
+msgstr ""
+
+msgid "Align and Distribute"
+msgstr ""
+
+msgid "Align"
+msgstr ""
+
+msgid "&Relative to:"
+msgstr ""
+
+msgid "First Selected"
+msgstr ""
+
+msgid "Last Selected"
+msgstr ""
+
+msgid "Margins"
+msgstr ""
+
+msgid "Align right sides of objects to left side of anchor"
+msgstr ""
+
+msgid "Align left sides of objects to right side of anchor"
+msgstr ""
+
+msgid "Align bottoms"
+msgstr ""
+
+msgid "Align right sides"
+msgstr ""
+
+msgid "Align tops of objects to bottom of anchor"
+msgstr ""
+
+msgid "Center on vertical axis"
+msgstr ""
+
+msgid "Align left sides"
+msgstr ""
+
+msgid "Center on horizontal axis"
+msgstr ""
+
+msgid "Align bottoms of objects to top of anchor"
+msgstr ""
+
+msgid "Align tops"
+msgstr ""
+
+msgid "Distribute"
+msgstr ""
+
+msgid "Make horizontal gaps between objects equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects equal to the value specified"
+msgstr ""
+
+msgid "Distribute right sides equidistantly"
+msgstr ""
+
+msgid "Distribute bottoms equidistantly"
+msgstr ""
+
+msgid "Distribute centers equidistantly horizontally"
+msgstr ""
+
+msgid "Make vertical gaps between objects equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects equal to the value specified"
+msgstr ""
+
+msgid "Distribute left sides equidistantly"
+msgstr ""
+
+msgid "Distribute centers equidistantly vertically"
+msgstr ""
+
+msgid "Distribute tops equidistantly"
+msgstr ""
+
+msgid "&Distance:"
+msgstr ""
+
+msgid "Distribute the items with the distance specified"
+msgstr ""
+
+msgid "Some objects are locked."
+msgstr ""
+
+msgid "&Unlock All"
 msgstr ""
 
 msgid "Export Range"
@@ -1665,7 +2525,10 @@ msgstr ""
 msgid "&Include Bookmarks"
 msgstr ""
 
-msgid "&Resolution:"
+msgid "Include Layers"
+msgstr ""
+
+msgid "&Resolution for EPS Graphics:"
 msgstr ""
 
 msgid "Com&press Text and Vector Graphics"
@@ -1692,16 +2555,13 @@ msgstr ""
 msgid "High"
 msgstr ""
 
-msgid "Medium"
-msgstr ""
-
 msgid "Low"
 msgstr ""
 
 msgid "Minimum"
 msgstr ""
 
-msgid "&Downsample Images to:"
+msgid "Resample Images to:"
 msgstr ""
 
 msgid "&General"
@@ -1765,9 +2625,6 @@ msgid "Blinds"
 msgstr ""
 
 msgid "Box"
-msgstr ""
-
-msgid "Dissolve"
 msgstr ""
 
 msgid "Glitter"
@@ -1842,9 +2699,6 @@ msgstr ""
 msgid "S&ecurity"
 msgstr ""
 
-msgid "General"
-msgstr ""
-
 msgid "Output &Intended For:"
 msgstr ""
 
@@ -1852,9 +2706,6 @@ msgid "Screen / Web"
 msgstr ""
 
 msgid "Printer"
-msgstr ""
-
-msgid "Grayscale"
 msgstr ""
 
 msgid "&Use Custom Rendering Settings"
@@ -1899,9 +2750,6 @@ msgstr ""
 msgid "Relative Colorimetric"
 msgstr ""
 
-msgid "Saturation"
-msgstr ""
-
 msgid "Absolute Colorimetric"
 msgstr ""
 
@@ -1935,7 +2783,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Enables presentation effects when using Acrobat Reader in full screen mode."
+"Enables presentation effects when using Adobe&#174; Reader&#174; in full "
+"screen mode."
 msgstr ""
 
 msgid "Show page previews of each page listed above."
@@ -1980,10 +2829,10 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
+"Determines the PDF compatibility. The default is PDF 1.3 which gives the "
 "widest compatibility.\n"
-"Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or "
-"you require 128 bit encryption.\n"
+"Choose PDF 1.4 if your file uses features such as transparency or you "
+"require 128 bit encryption.\n"
 "PDF/X-3 is for exporting the PDF for commercial printing and is selectable "
 "when you have activated color management."
 msgstr ""
@@ -2001,6 +2850,11 @@ msgstr ""
 msgid ""
 "Generate PDF Articles, which is useful for navigating linked articles in a "
 "PDF."
+msgstr ""
+
+msgid ""
+"Layers in your document are exported to the PDF\n"
+"Only available if PDF 1.5 is choosen."
 msgstr ""
 
 msgid ""
@@ -2043,10 +2897,8 @@ msgstr ""
 
 msgid ""
 "Enable the security features in your exported PDF.\n"
-"If you selected Acrobat 4.0, the PDF will be protected by 40 bit "
-"encryption.\n"
-"If you selected Acrobat 5.0, the PDF will be protected by 128 bit "
-"encryption.\n"
+"If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.\n"
+"If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.\n"
 "Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and "
 "does have some limitations."
 msgstr ""
@@ -2144,60 +2996,6 @@ msgstr ""
 msgid "New Document"
 msgstr ""
 
-msgid "Page Size"
-msgstr ""
-
-msgid "&Size:"
-msgstr ""
-
-msgid "Executive"
-msgstr ""
-
-msgid "Folio"
-msgstr ""
-
-msgid "Ledger"
-msgstr ""
-
-msgid "Legal"
-msgstr ""
-
-msgid "Letter"
-msgstr ""
-
-msgid "Tabloid"
-msgstr ""
-
-msgid "Orie&ntation:"
-msgstr ""
-
-msgid "&Width:"
-msgstr ""
-
-msgid "&Height:"
-msgstr ""
-
-msgid "&Facing Pages"
-msgstr ""
-
-msgid "Left &Page First"
-msgstr ""
-
-msgid "Margin Guides"
-msgstr ""
-
-msgid "&Left:"
-msgstr ""
-
-msgid "&Right:"
-msgstr ""
-
-msgid "&Top:"
-msgstr ""
-
-msgid "&Bottom:"
-msgstr ""
-
 msgid "Options"
 msgstr ""
 
@@ -2228,34 +3026,10 @@ msgid ""
 "size"
 msgstr ""
 
-msgid "Enable single or spread based layout"
-msgstr ""
-
 msgid "Make the first page the left page of the document"
 msgstr ""
 
-msgid "Distance between the top margin guide and the edge of the page"
-msgstr ""
-
-msgid "Distance between the bottom margin guide and the edge of the page"
-msgstr ""
-
-msgid ""
-"Distance between the left margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
-msgstr ""
-
-msgid ""
-"Distance between the right margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
-msgstr ""
-
 msgid "First page number of the document"
-msgstr ""
-
-msgid "Default unit of measurement for document editing"
 msgstr ""
 
 msgid "Create text frames automatically when new pages are added"
@@ -2267,16 +3041,7 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr ""
 
-msgid "&Inside:"
-msgstr ""
-
-msgid "O&utside:"
-msgstr ""
-
-msgid "Shade:"
-msgstr ""
-
-msgid "Opacity:"
+msgid "Move Vector"
 msgstr ""
 
 msgid "Horizontal Gradient"
@@ -2300,9 +3065,6 @@ msgstr ""
 msgid "Free radial Gradient"
 msgstr ""
 
-msgid "Move Vector"
-msgstr ""
-
 msgid "Edit Line Color Properties"
 msgstr ""
 
@@ -2319,9 +3081,8 @@ msgid "Color of selected object"
 msgstr ""
 
 msgid ""
-"Move the start of the Gradient Vector with the left Mouse Button pressed "
-"and\n"
-"nove the end of the Gradient Vector with the right Mouse Button pressed"
+"Move the start of the gradient vector with the left mouse button pressed and "
+"move the end of the gradient vector with the right mouse button pressed"
 msgstr ""
 
 msgid "Document Setup"
@@ -2333,85 +3094,16 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
-msgid "Autosave"
-msgstr ""
-
-msgid "min"
-msgstr ""
-
-msgid "&Interval:"
-msgstr ""
-
-msgid "Guides"
-msgstr ""
-
-msgid "Page Display"
-msgstr ""
-
-msgid "Color:"
-msgstr ""
-
-msgid "Display &Unprintable Area in Margin Color"
-msgstr ""
-
-msgid "Alt+U"
-msgstr ""
-
-msgid "Show Pictures"
-msgstr ""
-
-msgid "Show Text Chains"
-msgstr ""
-
-msgid "Show Frames"
-msgstr ""
-
-msgid "Scratch Space"
-msgstr ""
-
-msgid "Display"
-msgstr ""
-
-msgid "Typography"
-msgstr ""
-
-msgid "Hyphenator"
-msgstr ""
-
-msgid "Fonts"
-msgstr ""
-
-msgid "Doc-Checker"
-msgstr ""
-
-msgid "PDF Export"
-msgstr ""
-
-msgid "Color Management"
+msgid "Document Information"
 msgstr ""
 
 msgid "Turns the of linked frames on or off"
-msgstr ""
-
-msgid "Turns the display of frames on or off"
-msgstr ""
-
-msgid "Turns the display of pictures on or off"
-msgstr ""
-
-msgid "Color for paper"
-msgstr ""
-
-msgid "Mask the area outside the margins in the margin color"
 msgstr ""
 
 msgid "&Outside:"
 msgstr ""
 
 msgid "Distribute/Align"
-msgstr ""
-
-msgid "Align"
 msgstr ""
 
 msgid "Left Sides"
@@ -2498,9 +3190,6 @@ msgstr ""
 msgid "Dashed"
 msgstr ""
 
-msgid "Underline"
-msgstr ""
-
 msgid "Beveled"
 msgstr ""
 
@@ -2562,9 +3251,6 @@ msgid "Icon Placement..."
 msgstr ""
 
 msgid "Highlight"
-msgstr ""
-
-msgid "Invert"
 msgstr ""
 
 msgid "Outlined"
@@ -2819,13 +3505,553 @@ msgstr ""
 msgid "Search Results for: "
 msgstr ""
 
-msgid "Preview"
-msgstr ""
-
 msgid "Select"
 msgstr ""
 
-msgid "Document Information"
+msgid "&New"
+msgstr ""
+
+msgid "&Open..."
+msgstr ""
+
+msgid "Save &As..."
+msgstr ""
+
+msgid "Re&vert to Saved"
+msgstr ""
+
+msgid "Collect for O&utput..."
+msgstr ""
+
+msgid "Get Text..."
+msgstr ""
+
+msgid "Append &Text..."
+msgstr ""
+
+msgid "Get Image..."
+msgstr ""
+
+msgid "Save &Text..."
+msgstr ""
+
+msgid "Save Page as &EPS..."
+msgstr ""
+
+msgid "Save as P&DF..."
+msgstr ""
+
+msgid "Document &Setup..."
+msgstr ""
+
+msgid "&Print..."
+msgstr ""
+
+msgid "&Quit"
+msgstr ""
+
+msgid "&Item Action Mode"
+msgstr ""
+
+msgid "Cu&t"
+msgstr ""
+
+msgid "C&lear Contents"
+msgstr ""
+
+msgid "Select &All"
+msgstr ""
+
+msgid "&Deselect All"
+msgstr ""
+
+msgid "&Search/Replace..."
+msgstr ""
+
+msgid "Edit Image..."
+msgstr ""
+
+msgid "C&olors..."
+msgstr ""
+
+msgid "&Paragraph Styles..."
+msgstr ""
+
+msgid "&Line Styles..."
+msgstr ""
+
+msgid "&Master Pages..."
+msgstr ""
+
+msgid "&Javascripts..."
+msgstr ""
+
+msgid "P&references..."
+msgstr ""
+
+msgid "%1 pt"
+msgstr ""
+
+msgid "&Other..."
+msgstr ""
+
+msgid "&Left"
+msgstr ""
+
+msgid "&Center"
+msgstr ""
+
+msgid "&Right"
+msgstr ""
+
+msgid "&Block"
+msgstr ""
+
+msgid "&Forced"
+msgstr ""
+
+msgid "&%1 %"
+msgstr ""
+
+msgid "&Normal"
+msgstr ""
+
+msgid "&Underline"
+msgstr ""
+
+msgid "Underline &Words"
+msgstr ""
+
+msgid "&Strike Through"
+msgstr ""
+
+msgid "&All Caps"
+msgstr ""
+
+msgid "Small &Caps"
+msgstr ""
+
+msgid "Su&perscript"
+msgstr ""
+
+msgid "Su&bscript"
+msgstr ""
+
+msgid "&Outline"
+msgstr ""
+
+msgid "S&hadow"
+msgstr ""
+
+msgid "&Image Effects"
+msgstr ""
+
+msgid "&Tabulators..."
+msgstr ""
+
+msgid "D&uplicate"
+msgstr ""
+
+msgid "&Multiple Duplicate"
+msgstr ""
+
+msgid "&Group"
+msgstr ""
+
+msgid "&Ungroup"
+msgstr ""
+
+msgid "Is &Locked"
+msgstr ""
+
+msgid "Si&ze is Locked"
+msgstr ""
+
+msgid "Lower to &Bottom"
+msgstr ""
+
+msgid "Raise to &Top"
+msgstr ""
+
+msgid "&Lower"
+msgstr ""
+
+msgid "&Raise"
+msgstr ""
+
+msgid "Send to S&crapbook"
+msgstr ""
+
+msgid "&Attributes..."
+msgstr ""
+
+msgid "I&mage Visible"
+msgstr ""
+
+msgid "&Update Image"
+msgstr ""
+
+msgid "Adjust Frame to Image"
+msgstr ""
+
+msgid "&Low Resolution"
+msgstr ""
+
+msgid "&Normal Resolution"
+msgstr ""
+
+msgid "&Full Resolution"
+msgstr ""
+
+msgid "Is PDF &Bookmark"
+msgstr ""
+
+msgid "Is PDF A&nnotation"
+msgstr ""
+
+msgid "Annotation P&roperties"
+msgstr ""
+
+msgid "Field P&roperties"
+msgstr ""
+
+msgid "&Edit Shape..."
+msgstr ""
+
+msgid "&Attach Text to Path"
+msgstr ""
+
+msgid "&Detach Text from Path"
+msgstr ""
+
+msgid "&Combine Polygons"
+msgstr ""
+
+msgid "Split &Polygons"
+msgstr ""
+
+msgid "&Bezier Curve"
+msgstr ""
+
+msgid "&Image Frame"
+msgstr ""
+
+msgid "&Outlines"
+msgstr ""
+
+msgid "&Polygon"
+msgstr ""
+
+msgid "&Text Frame"
+msgstr ""
+
+msgid "&Glyph..."
+msgstr ""
+
+msgid "Sample Text"
+msgstr ""
+
+msgid "&Insert..."
+msgstr ""
+
+msgid "Im&port..."
+msgstr ""
+
+msgid "&Delete..."
+msgstr ""
+
+msgid "&Copy..."
+msgstr ""
+
+msgid "&Move..."
+msgstr ""
+
+msgid "&Apply Master Page..."
+msgstr ""
+
+msgid "Manage &Guides..."
+msgstr ""
+
+msgid "&Fit in window"
+msgstr ""
+
+msgid "&50%"
+msgstr ""
+
+msgid "&75%"
+msgstr ""
+
+msgid "&100%"
+msgstr ""
+
+msgid "&200%"
+msgstr ""
+
+msgid "&Thumbnails"
+msgstr ""
+
+msgid "Show &Margins"
+msgstr ""
+
+msgid "Show &Frames"
+msgstr ""
+
+msgid "Show &Images"
+msgstr ""
+
+msgid "Show &Grid"
+msgstr ""
+
+msgid "Show G&uides"
+msgstr ""
+
+msgid "Show &Baseline Grid"
+msgstr ""
+
+msgid "Show &Text Chain"
+msgstr ""
+
+msgid "Show Control Characters"
+msgstr ""
+
+msgid "Sn&ap to Grid"
+msgstr ""
+
+msgid "Sna&p to Guides"
+msgstr ""
+
+msgid "&Properties"
+msgstr ""
+
+msgid "&Scrapbook"
+msgstr ""
+
+msgid "&Layers"
+msgstr ""
+
+msgid "P&age Palette"
+msgstr ""
+
+msgid "&Bookmarks"
+msgstr ""
+
+msgid "&Measurements"
+msgstr ""
+
+msgid "Action &History"
+msgstr ""
+
+msgid "Preflight &Verifier"
+msgstr ""
+
+msgid "&Align and Distribute"
+msgstr ""
+
+msgid "&Tools"
+msgstr ""
+
+msgid "P&DF Tools"
+msgstr ""
+
+msgid "Select Item"
+msgstr ""
+
+msgid "T&able"
+msgstr ""
+
+msgid "&Shape"
+msgstr ""
+
+msgid "&Line"
+msgstr ""
+
+msgid "&Freehand Line"
+msgstr ""
+
+msgid "Rotate Item"
+msgstr ""
+
+msgid "Zoom in or out"
+msgstr ""
+
+msgid "Zoom in"
+msgstr ""
+
+msgid "Zoom out"
+msgstr ""
+
+msgid "Edit Contents of Frame"
+msgstr ""
+
+msgid "Edit Text..."
+msgstr ""
+
+msgid "Link Text Frames"
+msgstr ""
+
+msgid "Unlink Text Frames"
+msgstr ""
+
+msgid "&Eye Dropper"
+msgstr ""
+
+msgid "Copy Item Properties"
+msgstr ""
+
+msgid "Edit the text with the Story Editor"
+msgstr ""
+
+msgid "Insert Text Frame"
+msgstr ""
+
+msgid "Insert Image Frame"
+msgstr ""
+
+msgid "Insert Table"
+msgstr ""
+
+msgid "Insert Shape"
+msgstr ""
+
+msgid "Insert Polygon"
+msgstr ""
+
+msgid "Insert Line"
+msgstr ""
+
+msgid "Insert Bezier Curve"
+msgstr ""
+
+msgid "Insert Freehand Line"
+msgstr ""
+
+msgid "&Manage Pictures"
+msgstr ""
+
+msgid "&Hyphenate Text"
+msgstr ""
+
+msgid "&Generate Table Of Contents"
+msgstr ""
+
+msgid "&About Scribus"
+msgstr ""
+
+msgid "About &Qt"
+msgstr ""
+
+msgid "Toolti&ps"
+msgstr ""
+
+msgid "Scribus &Manual..."
+msgstr ""
+
+msgid "Smart &Hyphen"
+msgstr ""
+
+msgid "Non Breaking Dash"
+msgstr ""
+
+msgid "Non Breaking &Space"
+msgstr ""
+
+msgid "Page &Number"
+msgstr ""
+
+msgid "New Line"
+msgstr ""
+
+msgid "Frame Break"
+msgstr ""
+
+msgid "Column Break"
+msgstr ""
+
+msgid "Copyright"
+msgstr ""
+
+msgid "Registered Trademark"
+msgstr ""
+
+msgid "Trademark"
+msgstr ""
+
+msgid "Bullet"
+msgstr ""
+
+msgid "Em Dash"
+msgstr ""
+
+msgid "En Dash"
+msgstr ""
+
+msgid "Figure Dash"
+msgstr ""
+
+msgid "Quotation Dash"
+msgstr ""
+
+msgid "Apostrophe"
+msgstr ""
+
+msgid "Straight Double"
+msgstr ""
+
+msgid "Single Left"
+msgstr ""
+
+msgid "Single Right"
+msgstr ""
+
+msgid "Double Left"
+msgstr ""
+
+msgid "Double Right"
+msgstr ""
+
+msgid "Single Reversed"
+msgstr ""
+
+msgid "Double Reversed"
+msgstr ""
+
+msgid "Single Left Guillemet"
+msgstr ""
+
+msgid "Single Right Guillemet"
+msgstr ""
+
+msgid "Double Left Guillemet"
+msgstr ""
+
+msgid "Double Right Guillemet"
+msgstr ""
+
+msgid "Low Single Comma"
+msgstr ""
+
+msgid "Low Double Comma"
+msgstr ""
+
+msgid "Double Turned Comma"
+msgstr ""
+
+msgid "CJK Single Left"
+msgstr ""
+
+msgid "CJK Single Right"
+msgstr ""
+
+msgid "CJK Double Left"
+msgstr ""
+
+msgid "CJK Double Right"
+msgstr ""
+
+msgid "Toggle Palettes"
+msgstr ""
+
+msgid "Toggle Guides"
 msgstr ""
 
 msgid "&Title:"
@@ -2861,9 +4087,6 @@ msgstr ""
 msgid "&Source:"
 msgstr ""
 
-msgid "&Language:"
-msgstr ""
-
 msgid "&Relation:"
 msgstr ""
 
@@ -2873,7 +4096,7 @@ msgstr ""
 msgid "Ri&ghts:"
 msgstr ""
 
-msgid "&Document"
+msgid "Documen&t"
 msgstr ""
 
 msgid "Further &Information"
@@ -2881,27 +4104,24 @@ msgstr ""
 
 msgid ""
 "The person or organisation primarily responsible for making the content of "
-"the document.\n"
-"This field can be embedded in the Scribus document for reference, as well as "
-"in the metadata of a PDF"
+"the document. This field can be embedded in the Scribus document for "
+"reference, as well as in the metadata of a PDF"
 msgstr ""
 
 msgid ""
-"A name given to the document.\n"
-"This field can be embedded in the Scribus document for reference, as well as "
-"in the metadata of a PDF"
+"A name given to the document. This field can be embedded in the Scribus "
+"document for reference, as well as in the metadata of a PDF"
 msgstr ""
 
 msgid ""
-"An account of the content of the document.\n"
-"This field is for a brief description or abstract of the document. It is "
-"embedded in the PDF on export"
+"An account of the content of the document. This field is for a brief "
+"description or abstract of the document. It is embedded in the PDF on export"
 msgstr ""
 
 msgid ""
-"The topic of the content of the document.\n"
-"This field is for document keywords you wish to embed in a PDF, to assist "
-"searches and indexing of PDF files"
+"The topic of the content of the document. This field is for document "
+"keywords you wish to embed in a PDF, to assist searches and indexing of PDF "
+"files"
 msgstr ""
 
 msgid "A person or organisation responsible for making the document available"
@@ -2924,8 +4144,8 @@ msgstr ""
 
 msgid ""
 "The physical or digital manifestation of the document. Media type and "
-"dimensions would be worth noting.\n"
-"RFC2045,RFC2046 for MIME types are also useful here"
+"dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also "
+"useful here"
 msgstr ""
 
 msgid ""
@@ -2940,9 +4160,8 @@ msgstr ""
 
 msgid ""
 "The language in which the content of the document is written, usually a ISO-"
-"639 language code\n"
-"optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-"
-"CH"
+"639 language code optionally suffixed with a hypen and an ISO-3166 country "
+"code, eg. en-GB, fr-CH"
 msgstr ""
 
 msgid ""
@@ -2975,12 +4194,6 @@ msgid "Character Class:"
 msgstr ""
 
 msgid "&Insert"
-msgstr ""
-
-msgid "C&lear"
-msgstr ""
-
-msgid "&Close"
 msgstr ""
 
 msgid "Insert the characters at the cursor in the text"
@@ -3135,13 +4348,7 @@ msgstr ""
 msgid "&Append"
 msgstr ""
 
-msgid "&New"
-msgstr ""
-
 msgid "&Edit"
-msgstr ""
-
-msgid "D&uplicate"
 msgstr ""
 
 msgid "&Remove Unused"
@@ -3210,10 +4417,13 @@ msgstr ""
 msgid "Reading Preferences"
 msgstr ""
 
-msgid "Getting ICC Profiles"
+msgid "Initializing Story Editor"
 msgstr ""
 
-msgid "Init Hyphenator"
+msgid "Reading ICC Profiles"
+msgstr ""
+
+msgid "Initializing Hyphenator"
 msgstr ""
 
 msgid "Reading Scrapbook"
@@ -3225,19 +4435,16 @@ msgstr ""
 msgid "Initializing..."
 msgstr ""
 
-msgid "File"
-msgstr ""
-
 msgid "Edit"
 msgstr ""
 
 msgid "Searching for Fonts"
 msgstr ""
 
-msgid "There are no Postscript fonts on your system"
+msgid "There are no fonts found on your system."
 msgstr ""
 
-msgid "Exiting now"
+msgid "Exiting now."
 msgstr ""
 
 msgid "Fatal Error"
@@ -3246,10 +4453,10 @@ msgstr ""
 msgid "Font System Initialized"
 msgstr ""
 
-msgid "PDF-1.3"
+msgid "PDF 1.3"
 msgstr ""
 
-msgid "PDF-1.4"
+msgid "PDF 1.4"
 msgstr ""
 
 msgid "PDF/X-3"
@@ -3259,10 +4466,10 @@ msgid "Scribus Development Version"
 msgstr ""
 
 msgid ""
-"You are running a development version of Scribus 1.3.x.\n"
-"The process of  saving will make files originating from versions of\n"
-"Scribus of 1.2.x or lower unusable again in those versions.\n"
-"Are you sure you wish to proceed with this operation?"
+"You are running a development version of Scribus 1.3.x. The current document "
+"you are working with was originally created in Scribus 1.2.2 or lower. The "
+"process of saving will make this file unusable again in Scribus 1.2.2 unless "
+"you use File->Save As. Are you sure you wish to proceed with this operation?"
 msgstr ""
 
 msgid "&Proceed"
@@ -3274,294 +4481,6 @@ msgstr ""
 msgid ""
 "Scribus has detected existing Scribus 1.2 preferences files.\n"
 "Do you want to migrate them to the new Scribus version?"
-msgstr ""
-
-msgid "&Open..."
-msgstr ""
-
-msgid "Save &As..."
-msgstr ""
-
-msgid "Re&vert to Saved"
-msgstr ""
-
-msgid "Collect for O&utput..."
-msgstr ""
-
-msgid "Get Text..."
-msgstr ""
-
-msgid "Append &Text..."
-msgstr ""
-
-msgid "Get Image..."
-msgstr ""
-
-msgid "Import Page(s)..."
-msgstr ""
-
-msgid "Save &Text..."
-msgstr ""
-
-msgid "Save Page as &EPS..."
-msgstr ""
-
-msgid "Save as P&DF..."
-msgstr ""
-
-msgid "Document &Information..."
-msgstr ""
-
-msgid "Document &Setup..."
-msgstr ""
-
-msgid "&Print..."
-msgstr ""
-
-msgid "&Quit"
-msgstr ""
-
-msgid "&Item Action Mode"
-msgstr ""
-
-msgid "Cu&t"
-msgstr ""
-
-msgid "&Copy"
-msgstr ""
-
-msgid "Select &All"
-msgstr ""
-
-msgid "&Search/Replace..."
-msgstr ""
-
-msgid "C&olors..."
-msgstr ""
-
-msgid "&Paragraph Styles..."
-msgstr ""
-
-msgid "&Line Styles..."
-msgstr ""
-
-msgid "&Templates..."
-msgstr ""
-
-msgid "&Javascripts..."
-msgstr ""
-
-msgid "P&references..."
-msgstr ""
-
-msgid "&Other..."
-msgstr ""
-
-msgid "%1 pt"
-msgstr ""
-
-msgid "&Left"
-msgstr ""
-
-msgid "&Center"
-msgstr ""
-
-msgid "&Right"
-msgstr ""
-
-msgid "&Block"
-msgstr ""
-
-msgid "&Forced"
-msgstr ""
-
-msgid "&%1 %"
-msgstr ""
-
-msgid "&Normal"
-msgstr ""
-
-msgid "&Underline"
-msgstr ""
-
-msgid "&Strike Through"
-msgstr ""
-
-msgid "Small &Caps"
-msgstr ""
-
-msgid "Su&perscript"
-msgstr ""
-
-msgid "Su&bscript"
-msgstr ""
-
-msgid "&Outline"
-msgstr ""
-
-msgid "&Invert"
-msgstr ""
-
-msgid "&Tabulators..."
-msgstr ""
-
-msgid "&Multiple Duplicate"
-msgstr ""
-
-msgid "&Ungroup"
-msgstr ""
-
-msgid "Is &Locked"
-msgstr ""
-
-msgid "Distribute/&Align..."
-msgstr ""
-
-msgid "&Edit Shape..."
-msgstr ""
-
-msgid "&Attach Text to Path"
-msgstr ""
-
-msgid "&Detach Text from Path"
-msgstr ""
-
-msgid "&Combine Polygons"
-msgstr ""
-
-msgid "Split &Polygons"
-msgstr ""
-
-msgid "C&onvert to Outlines"
-msgstr ""
-
-msgid "&Insert..."
-msgstr ""
-
-msgid "&Delete..."
-msgstr ""
-
-msgid "&Copy..."
-msgstr ""
-
-msgid "&Move..."
-msgstr ""
-
-msgid "&Apply Template..."
-msgstr ""
-
-msgid "Manage &Guides..."
-msgstr ""
-
-msgid "&Fit in window"
-msgstr ""
-
-msgid "&50%"
-msgstr ""
-
-msgid "&75%"
-msgstr ""
-
-msgid "&100%"
-msgstr ""
-
-msgid "&200%"
-msgstr ""
-
-msgid "&Thumbnails"
-msgstr ""
-
-msgid "Show &Margins"
-msgstr ""
-
-msgid "Show &Frames"
-msgstr ""
-
-msgid "Show &Images"
-msgstr ""
-
-msgid "Show &Grid"
-msgstr ""
-
-msgid "Show G&uides"
-msgstr ""
-
-msgid "Show &Baseline Grid"
-msgstr ""
-
-msgid "Show &Text Chain"
-msgstr ""
-
-msgid "Sn&ap to Grid"
-msgstr ""
-
-msgid "Sna&p to Guides"
-msgstr ""
-
-msgid "&Properties"
-msgstr ""
-
-msgid "&Scrapbook"
-msgstr ""
-
-msgid "&Layers"
-msgstr ""
-
-msgid "P&age Palette"
-msgstr ""
-
-msgid "&Bookmarks"
-msgstr ""
-
-msgid "&Measurements"
-msgstr ""
-
-msgid "Action &History"
-msgstr ""
-
-msgid "Preflight &Verifier"
-msgstr ""
-
-msgid "&Tools"
-msgstr ""
-
-msgid "P&DF Tools"
-msgstr ""
-
-msgid "&Manage Pictures"
-msgstr ""
-
-msgid "&Hyphenate Text"
-msgstr ""
-
-msgid "&Insert Special"
-msgstr ""
-
-msgid "&About Scribus"
-msgstr ""
-
-msgid "About &Qt"
-msgstr ""
-
-msgid "Toolti&ps"
-msgstr ""
-
-msgid "Scribus &Manual..."
-msgstr ""
-
-msgid "Insert Smart Hyphen"
-msgstr ""
-
-msgid "Insert Non Breaking Space"
-msgstr ""
-
-msgid "Insert Page Number"
-msgstr ""
-
-msgid "Toggle Palettes"
-msgstr ""
-
-msgid "Toggle Guides"
 msgstr ""
 
 msgid "&File"
@@ -3597,10 +4516,19 @@ msgstr ""
 msgid "&Item"
 msgstr ""
 
-msgid "&Shape"
+msgid "C&onvert To"
 msgstr ""
 
-msgid "&Page"
+msgid "I&nsert"
+msgstr ""
+
+msgid "Character"
+msgstr ""
+
+msgid "Quote"
+msgstr ""
+
+msgid "Space"
 msgstr ""
 
 msgid "&View"
@@ -3658,9 +4586,6 @@ msgid ""
 "pages until the last page</li><li><b>Cancel</b></li></ul><br>"
 msgstr ""
 
-msgid "Import"
-msgstr ""
-
 msgid "Import done"
 msgstr ""
 
@@ -3675,24 +4600,27 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-msgid "Some Fonts used by this Document have been substituted:"
+msgid "Some fonts used by this document have been substituted:"
 msgstr ""
 
 msgid " was replaced by: "
 msgstr ""
 
-msgid "Some ICC-Profiles used by this Document are not installed:"
+msgid "Some ICC profiles used by this document are not installed:"
 msgstr ""
 
 msgid "(converted)"
 msgstr ""
 
 msgid ""
-"Cannot write the File: \n"
+"Cannot write the file: \n"
 "%1"
 msgstr ""
 
 msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgstr ""
+
+msgid "Save As"
 msgstr ""
 
 msgid "Saving..."
@@ -3715,6 +4643,14 @@ msgstr ""
 msgid "Printing failed!"
 msgstr ""
 
+msgid "Cannot Cut In-Use Item"
+msgstr ""
+
+msgid ""
+"The item %1 is currently being edited by Story Editor. The cut operation "
+"will be cancelled"
+msgstr ""
+
 msgid "About Qt"
 msgstr ""
 
@@ -3730,18 +4666,13 @@ msgstr ""
 msgid "The following programs are missing:"
 msgstr ""
 
-msgid "Ghostscript : You cannot use EPS Images"
+msgid "Ghostscript : You cannot use EPS images or Print Preview"
 msgstr ""
 
 msgid "All"
 msgstr ""
 
 msgid "EPS Files (*.eps);;All Files (*)"
-msgstr ""
-
-msgid ""
-"Cannot write the file: \n"
-"%1"
 msgstr ""
 
 msgid ""
@@ -3755,88 +4686,7 @@ msgstr ""
 msgid "&Lock All"
 msgstr ""
 
-msgid "&Unlock All"
-msgstr ""
-
-msgid "Loading:"
-msgstr ""
-
-msgid "English"
-msgstr ""
-
-msgid "German"
-msgstr ""
-
-msgid "Spanish"
-msgstr ""
-
-msgid "Italian"
-msgstr ""
-
-msgid "French"
-msgstr ""
-
-msgid "Russian"
-msgstr ""
-
-msgid "Danish"
-msgstr ""
-
-msgid "Slovak"
-msgstr ""
-
-msgid "Hungarian"
-msgstr ""
-
-msgid "Czech"
-msgstr ""
-
-msgid "Dutch"
-msgstr ""
-
-msgid "Portuguese"
-msgstr ""
-
-msgid "Portuguese (BR)"
-msgstr ""
-
-msgid "Ukrainian"
-msgstr ""
-
-msgid "Polish"
-msgstr ""
-
-msgid "Catalan"
-msgstr ""
-
-msgid "Finnish"
-msgstr ""
-
-msgid "Irish"
-msgstr ""
-
-msgid "Lithuanian"
-msgstr ""
-
-msgid "Swedish"
-msgstr ""
-
-msgid "Slovenian"
-msgstr ""
-
-msgid "Afrikaans"
-msgstr ""
-
-msgid "Bulgarian"
-msgstr ""
-
-msgid "Scribus Crash"
-msgstr ""
-
-msgid "Scribus crashes due to Signal #%1"
-msgstr ""
-
-msgid "The Program"
+msgid "The program"
 msgstr ""
 
 msgid "is already running!"
@@ -3848,7 +4698,47 @@ msgstr ""
 msgid "is missing!"
 msgstr ""
 
+msgid ""
+"The selected color does not exist in the document's color set. Please enter "
+"a name for this new color."
+msgstr ""
+
+msgid "Color Not Found"
+msgstr ""
+
+msgid ""
+"The name you have selected already exists. Please enter a different name for "
+"this new color."
+msgstr ""
+
+msgid "&Level"
+msgstr ""
+
+msgid "Send to Layer"
+msgstr ""
+
+msgid "Displacement"
+msgstr ""
+
+msgid "Linewidth"
+msgstr ""
+
+msgid "X-Offset"
+msgstr ""
+
+msgid "Y-Offset"
+msgstr ""
+
+msgid "Underline Words Only"
+msgstr ""
+
+msgid "All Caps"
+msgstr ""
+
 msgid "Strike Out"
+msgstr ""
+
+msgid "Shadow"
 msgstr ""
 
 msgid "Advanced Options"
@@ -3861,6 +4751,9 @@ msgid "Mirror Page(s) &Vertical"
 msgstr ""
 
 msgid "Apply Under Color &Removal"
+msgstr ""
+
+msgid "Set Media Size"
 msgstr ""
 
 msgid "Apply &ICC Profiles"
@@ -3886,15 +4779,6 @@ msgstr ""
 msgid ""
 "Creates PostScript Level 1 only, beware,\n"
 "this can create huge files"
-msgstr ""
-
-msgid ""
-"A way of switching off some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 msgid "Setup Printer"
@@ -3965,7 +4849,7 @@ msgstr ""
 msgid "&Print"
 msgstr ""
 
-msgid "Postscript-Files (*.ps);;All Files (*)"
+msgid "Postscript Files (*.ps);;All Files (*)"
 msgstr ""
 
 msgid "Insert Page"
@@ -3983,10 +4867,13 @@ msgstr ""
 msgid "at End"
 msgstr ""
 
-msgid "Template (&Left Page):"
+msgid "Master Page (&Left Page):"
 msgstr ""
 
-msgid "Template (&Right Page):"
+msgid "&Master Page:"
+msgstr ""
+
+msgid "Master Page (&Right Page):"
 msgstr ""
 
 msgid ""
@@ -4014,9 +4901,6 @@ msgid "File &type:"
 msgstr ""
 
 msgid "One directory up"
-msgstr ""
-
-msgid "Type"
 msgstr ""
 
 msgid "Attributes"
@@ -4068,9 +4952,6 @@ msgid "Dir"
 msgstr ""
 
 msgid "Special"
-msgstr ""
-
-msgid "Save As"
 msgstr ""
 
 msgid "&Open"
@@ -4262,6 +5143,106 @@ msgstr ""
 msgid "Select Font"
 msgstr ""
 
+msgid "About Scribus %1"
+msgstr ""
+
+msgid "%1 %2 %3 "
+msgstr ""
+
+msgid ""
+"Scribus Version %1\n"
+"%2 %3"
+msgstr ""
+
+msgid "Build-ID:"
+msgstr ""
+
+msgid "&About"
+msgstr ""
+
+msgid "Development Team:"
+msgstr ""
+
+msgid "Contributions from:"
+msgstr ""
+
+msgid "Windows Port:"
+msgstr ""
+
+msgid "Official Documentation:"
+msgstr ""
+
+msgid "Other Documentation:"
+msgstr ""
+
+msgid "A&uthors"
+msgstr ""
+
+msgid "Official Translations and Translators:"
+msgstr ""
+
+msgid "Previous Translation Contributors:"
+msgstr ""
+
+msgid "&Translations"
+msgstr ""
+
+msgid "Homepage"
+msgstr ""
+
+msgid "Online Reference"
+msgstr ""
+
+msgid "Bugs and Feature Requests"
+msgstr ""
+
+msgid "Mailing List"
+msgstr ""
+
+msgid "&Online"
+msgstr ""
+
+msgid ""
+"This panel shows the version, build date and\n"
+" compiled in library support in Scribus\n"
+"The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig "
+"support.\n"
+"Missing library support is indicated by a *"
+msgstr ""
+
+msgid "&Defaults"
+msgstr ""
+
+msgid "Fixed Linespacing"
+msgstr ""
+
+msgid "Automatic Linespacing"
+msgstr ""
+
+msgid "Align to Baseline Grid"
+msgstr ""
+
+msgid "&X1:"
+msgstr ""
+
+msgid "X&2:"
+msgstr ""
+
+msgid "Y&1:"
+msgstr ""
+
+msgid "&Y2:"
+msgstr ""
+
+msgid "Distance between columns"
+msgstr ""
+
+msgid "Column width"
+msgstr ""
+
+msgid "No Style"
+msgstr ""
+
 msgid "X, Y, &Z"
 msgstr ""
 
@@ -4269,9 +5250,6 @@ msgid "&Text"
 msgstr ""
 
 msgid "&Image"
-msgstr ""
-
-msgid "&Line"
 msgstr ""
 
 msgid "&Colors"
@@ -4324,22 +5302,16 @@ msgstr ""
 msgid "&Use Contour Line"
 msgstr ""
 
-msgid "&Font Size:"
-msgstr ""
-
-msgid "Custom Spacing"
-msgstr ""
-
-msgid "&Kerning:"
-msgstr ""
-
-msgid "L&ine Spacing:"
-msgstr ""
-
 msgid "St&yle:"
 msgstr ""
 
 msgid "Lan&guage:"
+msgstr ""
+
+msgid "Actual X-DPI:"
+msgstr ""
+
+msgid "Actual Y-DPI:"
 msgstr ""
 
 msgid "X-Sc&ale:"
@@ -4382,9 +5354,6 @@ msgid "Ed&ges:"
 msgstr ""
 
 msgid "&Endings:"
-msgstr ""
-
-msgid "No Style"
 msgstr ""
 
 msgid "Cell Lines"
@@ -4484,7 +5453,13 @@ msgstr ""
 msgid "Font Size"
 msgstr ""
 
+msgid "Offset to baseline of characters"
+msgstr ""
+
 msgid "Scaling width of characters"
+msgstr ""
+
+msgid "Scaling height of characters"
 msgstr ""
 
 msgid "Color of text stroke"
@@ -4502,7 +5477,7 @@ msgstr ""
 msgid "Right to Left Writing"
 msgstr ""
 
-msgid "Manual Kerning"
+msgid "Manual Tracking"
 msgstr ""
 
 msgid "Line Spacing"
@@ -4545,9 +5520,6 @@ msgid "Number of columns in text frame"
 msgstr ""
 
 msgid "Switches between Gap or Column width"
-msgstr ""
-
-msgid "Distance between columns"
 msgstr ""
 
 msgid "Distance of text from top of frame"
@@ -4598,19 +5570,58 @@ msgstr ""
 msgid "Rendering intent for the image"
 msgstr ""
 
-msgid "&X1:"
+msgid "Invalid argument: "
 msgstr ""
 
-msgid "X&2:"
+msgid "File %1 does not exist, aborting."
 msgstr ""
 
-msgid "Y&1:"
+msgid "Usage: scribus [option ... ] [file]"
 msgstr ""
 
-msgid "&Y2:"
+msgid "Print help (this message) and exit"
 msgstr ""
 
-msgid "Column width"
+msgid "Uses xx as shortcut for a language"
+msgstr ""
+
+msgid "List the currently installed interface languages"
+msgstr ""
+
+msgid "Show information on the console when fonts are being loaded"
+msgstr ""
+
+msgid "Do not show the splashscreen on startup"
+msgstr ""
+
+msgid "Output version information and exit"
+msgstr ""
+
+msgid "Installed interface languages for Scribus are as follows:"
+msgstr ""
+
+msgid "To override the default language choice:"
+msgstr ""
+
+msgid "scribus -l xx or scribus --lang xx, where xx is the language of choice."
+msgstr ""
+
+msgid "Scribus Version "
+msgstr ""
+
+msgid "Scribus, Open Source Desktop Publishing"
+msgstr ""
+
+msgid "---------------------------------------"
+msgstr ""
+
+msgid "Homepage:       http://www.scribus.net "
+msgstr ""
+
+msgid "Documentation:  http://docs.scribus.net"
+msgstr ""
+
+msgid "Issues:         http://bugs.scribus.net"
 msgstr ""
 
 msgid "Search/Replace"
@@ -4667,59 +5678,28 @@ msgstr ""
 msgid "Search finished"
 msgstr ""
 
-msgid "Character"
-msgstr ""
-
-msgid "&Font:"
-msgstr ""
-
-msgid "Si&ze:"
-msgstr ""
-
-msgid "Effect:"
-msgstr ""
-
-msgid "&Alignment:"
-msgstr ""
-
-msgid "&Drop Caps"
+msgid "Drop Caps"
 msgstr ""
 
 msgid "&Lines:"
 msgstr ""
 
-msgid "St&roke Color:"
-msgstr ""
-
-msgid "Vertical Spaces"
-msgstr ""
-
-msgid "Adjust to Baseline &Grid"
-msgstr ""
-
-msgid "Line &Spacing:"
-msgstr ""
-
-msgid "Abo&ve:"
-msgstr ""
-
-msgid "&Below:"
+msgid "Distance from Text:"
 msgstr ""
 
 msgid "Tabulators and Indentation"
 msgstr ""
 
-msgid "Name of your paragraph style"
+msgid "Preview of the Paragraph Style"
 msgstr ""
 
-msgid ""
-"Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgid "Name of your paragraph style"
 msgstr ""
 
 msgid "Determines the overall height, in line numbers, of the Drop Caps"
 msgstr ""
 
-msgid "Align text to baseline grid"
+msgid "Determines the gap between the DropCaps and the Text"
 msgstr ""
 
 msgid "Spacing above the paragraph"
@@ -4728,15 +5708,10 @@ msgstr ""
 msgid "Spacing below the paragraph"
 msgstr ""
 
-msgid "Sample text of this paragraph style"
+msgid "Toggles sample text of this paragraph style"
 msgstr ""
 
 msgid "Name of the Style is not unique"
-msgstr ""
-
-msgid ""
-"Woven silk pyjamas exchanged\n"
-"for blue quartz"
 msgstr ""
 
 msgid "Current Key"
@@ -4811,7 +5786,16 @@ msgstr ""
 msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
-msgid "Scrapbook"
+msgid "Scrapbooks (*.scs);;All Files (*)"
+msgstr ""
+
+msgid "Object"
+msgstr ""
+
+msgid "New Entry"
+msgstr ""
+
+msgid "&Preview"
 msgstr ""
 
 msgid "&Load..."
@@ -4824,18 +5808,6 @@ msgid "&Medium"
 msgstr ""
 
 msgid "&Large"
-msgstr ""
-
-msgid "&Preview"
-msgstr ""
-
-msgid "Scrapbooks (*.scs);;All Files (*)"
-msgstr ""
-
-msgid "Object"
-msgstr ""
-
-msgid "New Entry"
 msgstr ""
 
 msgid "Polygon Properties"
@@ -4871,7 +5843,7 @@ msgstr ""
 msgid "Do you really want to delete this Style?"
 msgstr ""
 
-msgid "Import Template"
+msgid "Import Master Page"
 msgstr ""
 
 msgid "&From Document:"
@@ -4883,13 +5855,12 @@ msgstr ""
 msgid "&Import Page(s):"
 msgstr ""
 
-msgid "&Import Template"
+msgid "&Import Master Page"
 msgstr ""
 
 msgid ""
-"Insert a comma separated list of tokens importWhereData\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
+"Insert a comma separated list of tokens import where a token can be * for "
+"all the pages, 1-5 for a range of pages or a single page number."
 msgstr ""
 
 msgid " from 0"
@@ -4899,6 +5870,46 @@ msgid "Create Page(s)"
 msgstr ""
 
 msgid " from %1"
+msgstr ""
+
+msgid "The frame the table of contents will be placed into"
+msgstr ""
+
+msgid "Page Numbers Placed:"
+msgstr ""
+
+msgid "Item Attribute Name:"
+msgstr ""
+
+msgid ""
+"The Item Attribute that will be set on frames used as a basis for creation "
+"of the entries"
+msgstr ""
+
+msgid ""
+"Place page numbers of the entries at the beginning or the end of the line, "
+"or not at all"
+msgstr ""
+
+msgid "List Non-Printing Entries"
+msgstr ""
+
+msgid "Include frames that are set to not print as well"
+msgstr ""
+
+msgid "The paragraph style used for the entry lines"
+msgstr ""
+
+msgid "Paragraph Style:"
+msgstr ""
+
+msgid "Destination Frame:"
+msgstr ""
+
+msgid "Table Of Contents"
+msgstr ""
+
+msgid "Inde&x"
 msgstr ""
 
 msgid "Bookmarks"
@@ -4940,17 +5951,17 @@ msgstr ""
 msgid "&Save Now"
 msgstr ""
 
-msgid "Number of Rows:"
+msgid "Number of rows:"
 msgstr ""
 
-msgid "Number of Columns:"
+msgid "Number of columns:"
 msgstr ""
 
 msgid "Font Substitution"
 msgstr ""
 
 msgid ""
-"This Document contains some Fonts that are not installed on your System,\n"
+"This document contains some fonts that are not installed on your system,\n"
 "please choose a suitable replacement for them."
 msgstr ""
 
@@ -4966,13 +5977,24 @@ msgstr ""
 msgid "Show Page Previews"
 msgstr ""
 
-msgid "Show Template Names"
+msgid "Show Master Page Names"
+msgstr ""
+
+msgid "Drag pages or master pages onto the trashbin to delete them"
+msgstr ""
+
+msgid "Previews all the pages of your document"
+msgstr ""
+
+msgid ""
+"Here are all your master pages. To create a new page, drag a master page to "
+"the page view below"
 msgstr ""
 
 msgid "Arrange Pages"
 msgstr ""
 
-msgid "Available Templates:"
+msgid "Available Master Pages:"
 msgstr ""
 
 msgid "Document Pages:"
@@ -4981,18 +6003,10 @@ msgstr ""
 msgid "Facing Pages"
 msgstr ""
 
-msgid "Left Page first"
+msgid "Left Page First"
 msgstr ""
 
-msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr ""
-
-msgid "Previews all the pages of your document."
-msgstr ""
-
-msgid ""
-"Here are all your Templates, to create a new Page\n"
-"drag a Template to the Pageview below."
+msgid "Edit Styles..."
 msgstr ""
 
 msgid "Fill Color Settings"
@@ -5004,9 +6018,6 @@ msgstr ""
 msgid "Character Settings"
 msgstr ""
 
-msgid "Kerning:"
-msgstr ""
-
 msgid "Style Settings"
 msgstr ""
 
@@ -5014,9 +6025,6 @@ msgid "Font Settings"
 msgstr ""
 
 msgid "Font of selected text"
-msgstr ""
-
-msgid "Story Editor"
 msgstr ""
 
 msgid "&Reload Text from Frame"
@@ -5037,7 +6045,7 @@ msgstr ""
 msgid "&Exit Without Updating Text Frame"
 msgstr ""
 
-msgid "&Insert Special..."
+msgid "&Insert Glyph..."
 msgstr ""
 
 msgid "&Edit Styles..."
@@ -5061,7 +6069,10 @@ msgstr ""
 msgid "&Settings"
 msgstr ""
 
-msgid "Clear all Text"
+msgid "Story Editor"
+msgstr ""
+
+msgid "Clear All Text"
 msgstr ""
 
 msgid "Load Text from File"
@@ -5088,19 +6099,16 @@ msgstr ""
 msgid "Totals:"
 msgstr ""
 
+msgid "Story Editor - %1"
+msgstr ""
+
 msgid "Do you want to save your changes?"
 msgstr ""
 
-msgid "Do you really want to lose all your Changes?"
+msgid "Do you really want to lose all your changes?"
 msgstr ""
 
-msgid "Current Profile:"
-msgstr ""
-
-msgid "Items"
-msgstr ""
-
-msgid "Problems"
+msgid "Do you really want to clear all your text?"
 msgstr ""
 
 msgid "Glyphs missing"
@@ -5121,7 +6129,7 @@ msgstr ""
 msgid "Object has transparency"
 msgstr ""
 
-msgid "Object is a PDF-Annotation or Field"
+msgid "Object is a PDF Annotation or Field"
 msgstr ""
 
 msgid "Object is a placed PDF"
@@ -5134,6 +6142,18 @@ msgid "Problems found"
 msgstr ""
 
 msgid "Preflight Verifier"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Problems"
+msgstr ""
+
+msgid "Current Profile:"
+msgstr ""
+
+msgid "&Ignore Errors"
 msgstr ""
 
 msgid "Editor"
@@ -5155,6 +6175,12 @@ msgid "Move Bookmark"
 msgstr ""
 
 msgid "Insert Bookmark"
+msgstr ""
+
+msgid "Choose Styles"
+msgstr ""
+
+msgid "Available Styles"
 msgstr ""
 
 msgid "Edit Styles"
@@ -5187,9 +6213,6 @@ msgstr ""
 msgid "Show Guides"
 msgstr ""
 
-msgid "Margins"
-msgstr ""
-
 msgid "Show Margins"
 msgstr ""
 
@@ -5205,13 +6228,10 @@ msgstr ""
 msgid "Minor Grid"
 msgstr ""
 
-msgid "Baseline Grid"
-msgstr ""
-
 msgid "Show Baseline Grid"
 msgstr ""
 
-msgid "Automatic &Line Spacing:"
+msgid "Baseline Settings"
 msgstr ""
 
 msgid "Baseline &Grid:"
@@ -5245,7 +6265,7 @@ msgstr ""
 msgid "Color for the margin lines"
 msgstr ""
 
-msgid "Color for the basegrid lines"
+msgid "Color for the baseline grid"
 msgstr ""
 
 msgid "Turns the basegrid on or off"
@@ -5260,7 +6280,42 @@ msgstr ""
 msgid "Turns the margins on or off"
 msgstr ""
 
-msgid "Percentage increase over the font size for the line spacing"
+msgid "Apply To"
+msgstr ""
+
+msgid "Current &page"
+msgstr ""
+
+msgid "Alt+P"
+msgstr ""
+
+msgid "&Even pages"
+msgstr ""
+
+msgid "Alt+E"
+msgstr ""
+
+msgid "O&dd pages"
+msgstr ""
+
+msgid "&All pages"
+msgstr ""
+
+msgid "&Within range"
+msgstr ""
+
+msgid "Alt+W"
+msgstr ""
+
+msgid ""
+"<qt>Apply the selected template to even, odd or all pages within the "
+"following range</qt>"
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "Alt+O"
 msgstr ""
 
 msgid "&Activate Color Management"
@@ -5347,13 +6402,46 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
+msgid "&Contents"
+msgstr ""
+
+msgid "Se&arch"
+msgstr ""
+
+msgid "De&lete All"
+msgstr ""
+
+msgid "Book&marks"
+msgstr ""
+
+msgid "E&xit"
+msgstr ""
+
 msgid "Scribus Online Help"
+msgstr ""
+
+msgid "Searching is case unsensitive"
 msgstr ""
 
 msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
 "and www.scribus.net for downloads."
+msgstr ""
+
+msgid "unknown"
+msgstr ""
+
+msgid "Find"
+msgstr ""
+
+msgid "Search Term:"
+msgstr ""
+
+msgid "New Bookmark"
+msgstr ""
+
+msgid "New Bookmark's Title:"
 msgstr ""
 
 msgid "Edit JavaScripts"
@@ -5414,16 +6502,40 @@ msgid ""
 "A value of 0 means unlimited hyphenations."
 msgstr ""
 
+msgid "Afrikaans"
+msgstr ""
+
 msgid "Albanian"
 msgstr ""
 
 msgid "Basque"
 msgstr ""
 
+msgid "Bulgarian"
+msgstr ""
+
 msgid "Brazilian"
 msgstr ""
 
+msgid "Catalan"
+msgstr ""
+
 msgid "Chinese"
+msgstr ""
+
+msgid "Croatian"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "English"
 msgstr ""
 
 msgid "English (British)"
@@ -5432,13 +6544,31 @@ msgstr ""
 msgid "Esperanto"
 msgstr ""
 
+msgid "German"
+msgstr ""
+
+msgid "Finnish"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
 msgid "Galician"
+msgstr ""
+
+msgid "Hungarian"
 msgstr ""
 
 msgid "Indonesian"
 msgstr ""
 
+msgid "Italian"
+msgstr ""
+
 msgid "Korean"
+msgstr ""
+
+msgid "Lithuanian"
 msgstr ""
 
 msgid "Norwegian (Bokmaal)"
@@ -5450,10 +6580,31 @@ msgstr ""
 msgid "Norwegian"
 msgstr ""
 
-msgid "Brazilian Portugese"
+msgid "Polish"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+msgid "Portuguese (BR)"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Spanish"
 msgstr ""
 
 msgid "Spanish (Latin)"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Slovenian"
 msgstr ""
 
 msgid "Serbian"
@@ -5474,368 +6625,6 @@ msgstr ""
 msgid ""
 "A file named '%1' already exists.\n"
 "Do you want to replace it with the file you are saving?"
-msgstr ""
-
-msgid "About Scribus %1"
-msgstr ""
-
-msgid "%1. %2 %3 "
-msgstr ""
-
-msgid ""
-"Scribus Version %1\n"
-"%2 %3"
-msgstr ""
-
-msgid "Build-ID:"
-msgstr ""
-
-msgid "&About"
-msgstr ""
-
-msgid "Development Team:"
-msgstr ""
-
-msgid "Contributions from:"
-msgstr ""
-
-msgid "Windows port:"
-msgstr ""
-
-msgid "Official Documentation:"
-msgstr ""
-
-msgid "Other Documentation:"
-msgstr ""
-
-msgid "A&uthors"
-msgstr ""
-
-msgid "Official Translations and Translators:"
-msgstr ""
-
-msgid "Afrikaans:"
-msgstr ""
-
-msgid "Catalan:"
-msgstr ""
-
-msgid "Czech:"
-msgstr ""
-
-msgid "Danish:"
-msgstr ""
-
-msgid "Dutch:"
-msgstr ""
-
-msgid "English (British):"
-msgstr ""
-
-msgid "Esperanto:"
-msgstr ""
-
-msgid "Finnish:"
-msgstr ""
-
-msgid "French:"
-msgstr ""
-
-msgid "German:"
-msgstr ""
-
-msgid "Italian:"
-msgstr ""
-
-msgid "Korean:"
-msgstr ""
-
-msgid "Norwegian:"
-msgstr ""
-
-msgid "Polish:"
-msgstr ""
-
-msgid "Portugese (Brazilian):"
-msgstr ""
-
-msgid "Russian:"
-msgstr ""
-
-msgid "Serbian:"
-msgstr ""
-
-msgid "Slovak:"
-msgstr ""
-
-msgid "Slovenian:"
-msgstr ""
-
-msgid "Spanish:"
-msgstr ""
-
-msgid "Swedish:"
-msgstr ""
-
-msgid "Ukrainian:"
-msgstr ""
-
-msgid "Welsh:"
-msgstr ""
-
-msgid "Previous Translation Contributors:"
-msgstr ""
-
-msgid "Basque:"
-msgstr ""
-
-msgid "Brazilian:"
-msgstr ""
-
-msgid "Bulgarian:"
-msgstr ""
-
-msgid "Galician:"
-msgstr ""
-
-msgid "Hungarian:"
-msgstr ""
-
-msgid "Lithuanian:"
-msgstr ""
-
-msgid "Turkish:"
-msgstr ""
-
-msgid "&Translations"
-msgstr ""
-
-msgid "Homepage"
-msgstr ""
-
-msgid "Online Reference"
-msgstr ""
-
-msgid "Bugs and Feature Requests"
-msgstr ""
-
-msgid "Mailing List"
-msgstr ""
-
-msgid "&Online"
-msgstr ""
-
-msgid ""
-"This panel shows the version, build date and\n"
-" compiled in library support in Scribus\n"
-"The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig "
-"support.\n"
-"Missing library support is indicated by a *"
-msgstr ""
-
-msgid "Preferences"
-msgstr ""
-
-msgid "GUI"
-msgstr ""
-
-msgid "&Theme:"
-msgstr ""
-
-msgid "&Wheel Jump:"
-msgstr ""
-
-msgid "&Recent Documents:"
-msgstr ""
-
-msgid "Paths"
-msgstr ""
-
-msgid "&Documents:"
-msgstr ""
-
-msgid "&Change..."
-msgstr ""
-
-msgid "&ICC Profiles:"
-msgstr ""
-
-msgid "&Scripts:"
-msgstr ""
-
-msgid "Ch&ange..."
-msgstr ""
-
-msgid "T&emplates:"
-msgstr ""
-
-msgid "Units:"
-msgstr ""
-
-msgid "&Enabled"
-msgstr ""
-
-msgid "Undo/Redo"
-msgstr ""
-
-msgid "Action history length"
-msgstr ""
-
-msgid "Keyboard Shortcuts"
-msgstr ""
-
-msgid "Other Options"
-msgstr ""
-
-msgid "Sa&ve Contents on Changes"
-msgstr ""
-
-msgid "Small"
-msgstr ""
-
-msgid "Large"
-msgstr ""
-
-msgid "&Adjust Display Size"
-msgstr ""
-
-msgid "To adjust the display drag the ruler below with the Slider."
-msgstr ""
-
-msgid "Postscript Interpreter"
-msgstr ""
-
-msgid "&Name of Executable:"
-msgstr ""
-
-msgid "Antialias &Text"
-msgstr ""
-
-msgid "Antialias &Graphics"
-msgstr ""
-
-msgid "Image Processing Tool"
-msgstr ""
-
-msgid "Name of &Executable:"
-msgstr ""
-
-msgid "External Tools."
-msgstr ""
-
-msgid "Printing"
-msgstr ""
-
-msgid "Clip to Page &Margins"
-msgstr ""
-
-msgid "Apply &Under Color Removal"
-msgstr ""
-
-msgid "Always ask before Fonts are replaced when loading a Document"
-msgstr ""
-
-msgid "Misc."
-msgstr ""
-
-msgid "Plugin Manager"
-msgstr ""
-
-msgid "&Refresh"
-msgstr ""
-
-msgid "&Update"
-msgstr ""
-
-msgid "Plugins"
-msgstr ""
-
-msgid ""
-"Select your default language for Scribus to run with.\n"
-"Leave this blank to choose based on environment variables.\n"
-"You can still override this by passing a command line option when starting "
-"Scribus"
-msgstr ""
-
-msgid ""
-"Choose the default window decoration and looks.\n"
-"Scribus inherits any available KDE or Qt themes"
-msgstr ""
-
-msgid "Default font size for the menus and windows"
-msgstr ""
-
-msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
-msgstr ""
-
-msgid "Number of recently edited documents to show in the File menu"
-msgstr ""
-
-msgid "Default documents directory"
-msgstr ""
-
-msgid "Default ICC profiles directory"
-msgstr ""
-
-msgid "Default Scripter scripts directory"
-msgstr ""
-
-msgid "Additional Directory for Document Templates"
-msgstr ""
-
-msgid "Default page size, either a standard size or a custom size"
-msgstr ""
-
-msgid "Default orientation of document pages"
-msgstr ""
-
-msgid "Width of document pages, editable if you have chosen a custom page size"
-msgstr ""
-
-msgid ""
-"Height of document pages, editable if you have chosen a custom page size"
-msgstr ""
-
-msgid "Make the first page the left page of a document"
-msgstr ""
-
-msgid ""
-"When enabled, Scribus saves a backup copy of your file with the .bak "
-"extension\n"
-"each time the time period elapses"
-msgstr ""
-
-msgid "Time period between saving automatically"
-msgstr ""
-
-msgid ""
-"Set the length of the action history in steps.\n"
-"If set to 0 infinite amount of actions will be stored."
-msgstr ""
-
-msgid "Choose the size of the preview in the scrapbook palette"
-msgstr ""
-
-msgid "Save the scrapbook contents everytime after a change"
-msgstr ""
-
-msgid "Set the default zoom level"
-msgstr ""
-
-msgid "Filesystem location for the Ghostscript interpreter"
-msgstr ""
-
-msgid "Antialias text for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid "Antialias graphics for EPS and PDF onscreen rendering"
-msgstr ""
-
-msgid "Filesystem location for graphics editor"
-msgstr ""
-
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 
 msgid "New From Template"
@@ -5977,7 +6766,7 @@ msgstr ""
 msgid "New &from Template..."
 msgstr ""
 
-msgid "Template: "
+msgid "Document Template: "
 msgstr ""
 
 msgid "Short &Words..."
@@ -5995,6 +6784,18 @@ msgstr ""
 msgid "Standard configuration: "
 msgstr ""
 
+msgid "Edit &system configuration..."
+msgstr ""
+
+msgid "Edit &user configuration..."
+msgstr ""
+
+msgid "S&etup editor..."
+msgstr ""
+
+msgid "&Info and Languages..."
+msgstr ""
+
 msgid "Short Words"
 msgstr ""
 
@@ -6008,11 +6809,6 @@ msgid "Active &page"
 msgstr ""
 
 msgid "&All items"
-msgstr ""
-
-msgid ""
-"&Info and\n"
-"Languages"
 msgstr ""
 
 msgid "Replace defaults by user config"
@@ -6046,6 +6842,23 @@ msgstr ""
 msgid "About Short Words"
 msgstr ""
 
+msgid ""
+"You are starting to edit read-only file.\n"
+"%1"
+msgstr ""
+
+msgid "Application '%1' error. Cannot be started."
+msgstr ""
+
+msgid "Short Words setup"
+msgstr ""
+
+msgid "Enter name of the plain text editor executable:"
+msgstr ""
+
+msgid "Short Words Manual"
+msgstr ""
+
 msgid "Save as &Template..."
 msgstr ""
 
@@ -6064,6 +6877,15 @@ msgstr ""
 msgid "Less Details"
 msgstr ""
 
+msgid "Legal"
+msgstr ""
+
+msgid "Letter"
+msgstr ""
+
+msgid "Tabloid"
+msgstr ""
+
 msgid "landscape"
 msgstr ""
 
@@ -6076,34 +6898,42 @@ msgstr ""
 msgid "Import &OpenOffice.org Draw..."
 msgstr ""
 
-msgid "&Fonts Preview"
-msgstr ""
-
 msgid "Doc"
 msgstr ""
 
 msgid "Access"
 msgstr ""
 
-msgid "User"
-msgstr ""
-
-msgid "System"
+msgid "Font Size:"
 msgstr ""
 
 msgid "Fonts Preview"
 msgstr ""
 
-msgid "Alt+O"
-msgstr ""
-
-msgid "Alt+C"
+msgid "Quick Search: "
 msgstr ""
 
 msgid "Append selected font into Style, Font menu"
 msgstr ""
 
 msgid "Leave preview"
+msgstr ""
+
+msgid ""
+"Typing the text here provides quick searching in the font names. E.g. 'bold' "
+"shows all fonts with Bold in name. Searching is case insensitive."
+msgstr ""
+
+msgid "Start searching"
+msgstr ""
+
+msgid "Size of the selected font"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "System"
 msgstr ""
 
 msgid "Text Filters"
@@ -6128,9 +6958,6 @@ msgid "Remove this filter row"
 msgstr ""
 
 msgid "Add a new filter row"
-msgstr ""
-
-msgid "to"
 msgstr ""
 
 msgid "and"
@@ -6196,46 +7023,48 @@ msgstr ""
 msgid "CSV_header"
 msgstr ""
 
-msgid "OpenOffice.org Writer Documents"
+msgid "OpenDocument Text Documents"
 msgstr ""
 
 msgid "OpenOffice.org Writer Importer Options"
 msgstr ""
 
-msgid "Update paragraph styles"
+msgid "Overwrite Paragraph Styles"
 msgstr ""
 
 msgid ""
-"If a paragraph style already exists with the same name as the current\n"
-"OpenOffice.org document's paragraph, should the style in Scribus be\n"
-"edited to match the one being imported, or left untouched"
+"Enabling this will overwrite existing styles in the current Scribus document"
 msgstr ""
 
-msgid "Pack paragraph styles"
+msgid "Merge Paragraph Styles"
 msgstr ""
 
 msgid ""
-"Group paragraph styles by attributes.\n"
-"Less paragraph styles but controlling them may be hard.\n"
-"Should be used if it is known that text must not be edited\n"
-"after importing."
+"Merge paragraph styles by attributes. This will result in fewer similar "
+"paragraph styles, will retain style attributes, even if the original "
+"document's styles are named differently."
 msgstr ""
 
 msgid "Use document name as a prefix for paragraph styles"
 msgstr ""
 
-msgid ""
-"Should importer add the name of the document\n"
-"on front of the paragraph style name in Scribus"
+msgid "Prepend the document name to the paragraph style name in Scribus."
 msgstr ""
 
 msgid "Do not ask again"
 msgstr ""
 
 msgid ""
-"Should the importer always use currently\n"
-"set value when importing OpenOffice.org document and\n"
-"never ask your confirmation again"
+"Make these settings the default and do not prompt again when importing an "
+"OASIS OpenDocument."
+msgstr ""
+
+msgid "OpenOffice.org Writer Documents"
+msgstr ""
+
+msgid ""
+"Make these settings the default and do not prompt again when importing an "
+"OpenOffice.org 1.x document."
 msgstr ""
 
 msgid "Text Files"
@@ -6250,6 +7079,9 @@ msgid "HTML Files"
 msgstr ""
 
 msgid "html"
+msgstr ""
+
+msgid "Print Previe&w"
 msgstr ""
 
 msgid "Print Preview"
@@ -6349,6 +7181,93 @@ msgstr ""
 msgid "S&cripter Manual..."
 msgstr ""
 
+msgid ""
+"Scribus Python interface module\n"
+"\n"
+"This module is the Python interface for Scribus. It provides functions\n"
+"to control scribus and to manipulate objects on the canvas. Each\n"
+"function is documented individually below.\n"
+"\n"
+"A few things are common across most of the interface.\n"
+"\n"
+"Most functions operate on frames. Frames are identified by their name,\n"
+"a string - they are not real Python objects. Many functions take an\n"
+"optional (non-keyword) parameter, a frame name.\n"
+"Many exceptions are also common across most functions. These are\n"
+"not currently documented in the docstring for each function.\n"
+"- Many functions will raise a NoDocOpenError if you try to use them\n"
+"without a document to operate on.\n"
+"- If you do not pass a frame name to a function that requires one,\n"
+"the function will use the currently selected frame, if any, or\n"
+"raise a NoValidObjectError if it can't find anything to operate\n"
+"on.\n"
+"- Many functions will raise WrongFrameTypeError if you try to use them\n"
+"on a frame type that they do not make sense with. For example, setting\n"
+"the text color on a graphics frame doesn't make sense, and will result\n"
+"in this exception being raised.\n"
+"- Errors resulting from calls to the underlying Python API will be\n"
+"passed through unaltered. As such, the list of exceptions thrown by\n"
+"any function as provided here and in its docstring is incomplete.\n"
+"\n"
+"Details of what exceptions each function may throw are provided on the\n"
+"function's documentation, though as with most Python code this list\n"
+"is not exhaustive due to exceptions from called functions.\n"
+msgstr ""
+
+msgid "&Save As..."
+msgstr ""
+
+msgid "&Exit"
+msgstr ""
+
+msgid "&Run"
+msgstr ""
+
+msgid "&Save Output..."
+msgstr ""
+
+msgid "&Script"
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+msgid "Write your commands here. A selection is processed as script"
+msgstr ""
+
+msgid "Output of your script"
+msgstr ""
+
+msgid "Python Scripts (*.py)"
+msgstr ""
+
+msgid "Open File With Python Commands"
+msgstr ""
+
+msgid "Save the Python Commands in File"
+msgstr ""
+
+msgid "Text Files (*.txt)"
+msgstr ""
+
+msgid "Save Current Output"
+msgstr ""
+
+msgid "Failed to save EPS."
+msgstr ""
+
+msgid "Page number out of range."
+msgstr ""
+
+msgid "argument is not list: must be list of float values."
+msgstr ""
+
+msgid "argument contains non-numeric values: must be list of float values."
+msgstr ""
+
+msgid "argument contains no-numeric values: must be list of float values."
+msgstr ""
+
 msgid "&Execute Script..."
 msgstr ""
 
@@ -6356,9 +7275,6 @@ msgid "Show &Console"
 msgstr ""
 
 msgid "&About Script..."
-msgstr ""
-
-msgid "&Script"
 msgstr ""
 
 msgid "&Scribus Scripts"
@@ -6383,56 +7299,10 @@ msgid ""
 "tracker."
 msgstr ""
 
+msgid "Examine Script"
+msgstr ""
+
 msgid "About Script"
-msgstr ""
-
-msgid ""
-"Scribus Python interface module\n"
-"\n"
-"This module is the Python interface for Scribus. It provides functions\n"
-"to control scribus and to manipulate objects on the canvas. Each\n"
-"function is documented individually below.\n"
-"\n"
-"A few things are common across most of the interface.\n"
-"\n"
-"Most functions operate on frames. Frames are identified by their name,\n"
-"a string - they are not real Python objects. Many functions take an\n"
-"optional (non-keyword) parameter, a frame name.\n"
-"Many exceptions are also common across most functions. These are\n"
-"not currently documented in the docstring for each function.\n"
-"- Many functions will raise a NoDocOpenError if you try to use themwithout a "
-"document to operate on.\n"
-"- If you do not pass a frame name to a function that requires one,the "
-"function will use the currently selected frame, if any, orraise a "
-"NoValidObjectError if it can't find anything to operateon.\n"
-"- Many functions will raise WrongFrameTypeError if you try to use them\n"
-"on a frame type that they do not make sense with. For example, setting\n"
-"the text color on a graphics frame doesn't make sense, and will result\n"
-"in this exception being raised.\n"
-"- Errors resulting from calls to the underlying Python API will be\n"
-"passed through unaltered. As such, the list of exceptions thrown by\n"
-"any function as provided here and in its docstring is incomplete.\n"
-"\n"
-"Details of what exceptions each function may throw are provided on the\n"
-"function's documentation."
-msgstr ""
-
-msgid "Script Console"
-msgstr ""
-
-msgid "Failed to save EPS."
-msgstr ""
-
-msgid "Page number out of range."
-msgstr ""
-
-msgid "argument is not list: must be list of float values."
-msgstr ""
-
-msgid "argument contains non-numeric values: must be list of float values."
-msgstr ""
-
-msgid "argument contains no-numeric values: must be list of float values."
 msgstr ""
 
 msgid "An object with the requested name already exists."
@@ -6481,6 +7351,15 @@ msgid "Target is not an image frame."
 msgstr ""
 
 msgid "Specified item not an image frame."
+msgstr ""
+
+msgid "Cannot group less than two items"
+msgstr ""
+
+msgid "Can't group less than two items"
+msgstr ""
+
+msgid "Need selection or argument list of items to group"
 msgstr ""
 
 msgid "Cannot scale by 0%."
@@ -6602,6 +7481,12 @@ msgstr ""
 msgid "Only text frames can be checked for overflowing"
 msgstr ""
 
+msgid "Can't set bookmark on a non-text frame"
+msgstr ""
+
+msgid "Can't get info from a non-text frame"
+msgstr ""
+
 msgid "Insert value"
 msgstr ""
 
@@ -6638,16 +7523,16 @@ msgstr ""
 msgid "Cannot get a color with an empty name."
 msgstr ""
 
-msgid "Colour not found."
+msgid "Color not found."
 msgstr ""
 
 msgid "Cannot change a color with an empty name."
 msgstr ""
 
-msgid "Colour not found in document."
+msgid "Color not found in document."
 msgstr ""
 
-msgid "Colour not found in default colors."
+msgid "Color not found in default colors."
 msgstr ""
 
 msgid "Cannot create a color with an empty name."
@@ -6660,6 +7545,9 @@ msgid "Cannot replace a color with an empty name."
 msgstr ""
 
 msgid "The filename must be a string."
+msgstr ""
+
+msgid "The filename should not be empty string."
 msgstr ""
 
 msgid "Cannot delete image type settings."
@@ -6683,6 +7571,136 @@ msgstr ""
 msgid "SVG-Images (*.svg);;All Files (*)"
 msgstr ""
 
+msgid "Color Wheel"
+msgstr ""
+
+msgid "C"
+msgstr ""
+
+msgid "M"
+msgstr ""
+
+msgid "Y"
+msgstr ""
+
+msgid "K"
+msgstr ""
+
+msgid "Select Method:"
+msgstr ""
+
+msgid "Angle (0 - 90 degrees):"
+msgstr ""
+
+msgid "&Merge Colors"
+msgstr ""
+
+msgid "&Replace Colors"
+msgstr ""
+
+msgid "Merge created colors into the document colors"
+msgstr ""
+
+msgid "Replace created colors in the document colors"
+msgstr ""
+
+msgid "Leave colors untouched"
+msgstr ""
+
+msgid ""
+"Difference between selected value and counted ones. See documentation for "
+"more info"
+msgstr ""
+
+msgid "Click the wheel to get base color"
+msgstr ""
+
+msgid "Here you have the sample color schema"
+msgstr ""
+
+msgid ""
+"Select one of the method to create color schema. See documentation for more "
+"info"
+msgstr ""
+
+msgid "Here you have the color of your chosen color schema"
+msgstr ""
+
+msgid "Merging colors"
+msgstr ""
+
+msgid "Error: "
+msgstr ""
+
+msgid "Now opening the color manager."
+msgstr ""
+
+msgid "Color Merging"
+msgstr ""
+
+msgid "&Color Wheel..."
+msgstr ""
+
+msgid "Monochromatic"
+msgstr ""
+
+msgid "Analogous"
+msgstr ""
+
+msgid "Complementary"
+msgstr ""
+
+msgid "Split Complementary"
+msgstr ""
+
+msgid "Triadic"
+msgstr ""
+
+msgid "Tetradic (Double Complementary)"
+msgstr ""
+
+msgid "Base Color"
+msgstr ""
+
+msgid "Monochromatic Light"
+msgstr ""
+
+msgid "Monochromatic Dark"
+msgstr ""
+
+msgid "1st. Analogous"
+msgstr ""
+
+msgid "2nd. Analogous"
+msgstr ""
+
+msgid "1st. Split"
+msgstr ""
+
+msgid "2nd. Split"
+msgstr ""
+
+msgid "3rd. Split"
+msgstr ""
+
+msgid "4th. Split"
+msgstr ""
+
+msgid "1st. Triadic"
+msgstr ""
+
+msgid "2nd. Triadic"
+msgstr ""
+
+msgid "1st. Tetradic (base opposite)"
+msgstr ""
+
+msgid "2nd. Tetradic (angle)"
+msgstr ""
+
+msgid "3rd. Tetradic (angle opposite)"
+msgstr ""
+
 msgid "Choose a Export Directory"
 msgstr ""
 
@@ -6695,16 +7713,13 @@ msgstr ""
 msgid "Image &Type:"
 msgstr ""
 
+msgid "&Resolution:"
+msgstr ""
+
 msgid "&Current page"
 msgstr ""
 
-msgid "&All pages"
-msgstr ""
-
 msgid "&Range"
-msgstr ""
-
-msgid "C"
 msgstr ""
 
 msgid "Export a range of pages"
@@ -6744,9 +7759,6 @@ msgid "Save as &Image..."
 msgstr ""
 
 msgid "Save as Image"
-msgstr ""
-
-msgid "Error writting the output file(s)."
 msgstr ""
 
 msgid "Error writing the output file(s)."

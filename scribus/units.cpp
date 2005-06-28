@@ -78,30 +78,30 @@ const Unit unitIndexFromString(const QString& value)
 	Unit retVal;
 	if (lowerValue.find("pt") != -1)
 	{
-		retVal=PT;
+		retVal=SC_PT;
 	}
 	else if (lowerValue.find("mm") != -1)
 	{
-		retVal=MM;
+		retVal=SC_MM;
 	}
 	else if (lowerValue.find("in") != -1)
 	{
-		retVal=IN;
+		retVal=SC_IN;
 	}
 	else if (lowerValue.find("p") != -1)
 	{
-		retVal=P;
+		retVal=SC_P;
 	}
 	else if (lowerValue.find("cm") != -1)
 	{
-		retVal=CM;
+		retVal=SC_CM;
 	}
 	else if (lowerValue.find("c") != -1)
 	{
-		retVal=C;
+		retVal=SC_C;
 	}	
 	else
-		retVal=PT;
+		retVal=SC_PT;
 	return retVal;
 }
 
@@ -180,7 +180,7 @@ const int unitGetMaxIndex()
  */
 const double mm2pts(double mm)
 {
-	return mm / unitGetRatioFromIndex(MM);
+	return mm / unitGetRatioFromIndex(SC_MM);
 }
 
 /*!
@@ -188,7 +188,7 @@ const double mm2pts(double mm)
  */
 const double in2pts(double in)
 {
-	return in / unitGetRatioFromIndex(IN);
+	return in / unitGetRatioFromIndex(SC_IN);
 }
 
 /*!
@@ -196,7 +196,7 @@ const double in2pts(double in)
  */
 const double p2pts(double p)
 {
-	return p / unitGetRatioFromIndex(P);
+	return p / unitGetRatioFromIndex(SC_P);
 }
 
 /*!
@@ -204,7 +204,7 @@ const double p2pts(double p)
  */
 const double cm2pts(double cm)
 {
-	return cm / unitGetRatioFromIndex(CM);
+	return cm / unitGetRatioFromIndex(SC_CM);
 }
 
 /*!
@@ -212,7 +212,7 @@ const double cm2pts(double cm)
  */
 const double c2pts(double c)
 {
-	return c / unitGetRatioFromIndex(C);
+	return c / unitGetRatioFromIndex(SC_C);
 }
 
 /*!
@@ -220,7 +220,7 @@ const double c2pts(double c)
  */
 const double pts2mm(double pts)
 {
-	return pts * unitGetRatioFromIndex(MM);
+	return pts * unitGetRatioFromIndex(SC_MM);
 }
 
 /*!
@@ -228,7 +228,7 @@ const double pts2mm(double pts)
  */
 const double pts2in(double pts)
 {
-	return pts * unitGetRatioFromIndex(IN);
+	return pts * unitGetRatioFromIndex(SC_IN);
 }
 
 /*!
@@ -236,7 +236,7 @@ const double pts2in(double pts)
  */
 const double pts2p(double pts)
 {
-	return pts * unitGetRatioFromIndex(P);
+	return pts * unitGetRatioFromIndex(SC_P);
 }
 
 /*!
@@ -244,7 +244,7 @@ const double pts2p(double pts)
  */
 const double pts2cm(double pts)
 {
-	return pts * unitGetRatioFromIndex(CM);
+	return pts * unitGetRatioFromIndex(SC_CM);
 }
 
 /*!
@@ -252,7 +252,7 @@ const double pts2cm(double pts)
  */
 const double pts2c(double pts)
 {
-	return pts * unitGetRatioFromIndex(C);
+	return pts * unitGetRatioFromIndex(SC_C);
 }
 
 /*!

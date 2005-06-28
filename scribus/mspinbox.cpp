@@ -150,19 +150,19 @@ int MSpinBox::mapTextToValue(bool *)
 	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
 	ts.replace("%", "");
-	QString strPT=unitGetStrFromIndex(PT);
-	QString strMM=unitGetStrFromIndex(MM);
-	QString strIN=unitGetStrFromIndex(IN);
-	QString strP =unitGetStrFromIndex(P);
-	QString strCM=unitGetStrFromIndex(CM);
-	QString strC =unitGetStrFromIndex(C);
+	QString strPT=unitGetStrFromIndex(SC_PT);
+	QString strMM=unitGetStrFromIndex(SC_MM);
+	QString strIN=unitGetStrFromIndex(SC_IN);
+	QString strP =unitGetStrFromIndex(SC_P);
+	QString strCM=unitGetStrFromIndex(SC_CM);
+	QString strC =unitGetStrFromIndex(SC_C);
 	
-	QString suffPT=unitGetSuffixFromIndex(PT);
-	QString suffMM=unitGetSuffixFromIndex(MM);
-	QString suffIN=unitGetSuffixFromIndex(IN);
-	QString suffP =unitGetSuffixFromIndex(P);
-	QString suffCM=unitGetSuffixFromIndex(CM);
-	QString suffC =unitGetSuffixFromIndex(C);
+	QString suffPT=unitGetSuffixFromIndex(SC_PT);
+	QString suffMM=unitGetSuffixFromIndex(SC_MM);
+	QString suffIN=unitGetSuffixFromIndex(SC_IN);
+	QString suffP =unitGetSuffixFromIndex(SC_P);
+	QString suffCM=unitGetSuffixFromIndex(SC_CM);
+	QString suffC =unitGetSuffixFromIndex(SC_C);
 		
 	if ((su == suffPT) || (su == strPT))
 	{
