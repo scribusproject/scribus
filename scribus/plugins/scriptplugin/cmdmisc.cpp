@@ -47,20 +47,12 @@ PyObject *scribus_xfontnames(PyObject */*self*/)
 	for ( ; it.current() ; ++it)
 	{
 		row = Py_BuildValue((char*)"(sssiis)",
-		                    /* FIXME: warning: cannot pass objects of non-POD type `class QCString' through `...'; call will abort at runtime - utf8 returns an QCString instance, not char*!
-									   I suppose font names are without any 'specials'...
-							 it.currentKey().utf8(),
-		                    it.current()->Family.utf8(),
-		                    it.current()->RealName().utf8(),
-		                    it.current()->Subset,
-		                    it.current()->EmbedPS,
-							 it.current()->Datei.utf8()*/
-							it.currentKey().latin1(),
-							it.current()->Family.latin1(),
-							it.current()->RealName().latin1(),
+							it.currentKey().utf8().data(),
+							it.current()->Family.utf8().data(),
+							it.current()->RealName().utf8().data(),
 							it.current()->Subset,
 							it.current()->EmbedPS,
-							it.current()->Datei.latin1()
+							it.current()->Datei.utf8().data()
 						);
 		PyList_SetItem(l, cc, row);
 		cc++;
