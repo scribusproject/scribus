@@ -37,30 +37,30 @@ class ExportBitmap: public QObject
 {
 	Q_OBJECT
 public:
-  /*! Initializing the default export variables and attributes */
+	/*! Initializing the default export variables and attributes */
 	ExportBitmap(ScribusApp *plug);
 	/*! nothing doing destructor. */
 	~ExportBitmap();
 
-  /*! Type of the exported image */
+	/*! Type of the exported image */
 	QString bitmapType;
-  /*! Height of the page - exported image */
-	int pageSize;
+	/*! Dpi of the exported image */
+	int pageDPI;
 	/*! Enlargement of the exported image... 2x 3x etc. */
 	int enlargement;
-  /*! Quality of the image <0; 100> */
+	/*! Quality of the image <0; 100> */
 	int quality;
-  /*! A place for stored images */
+	/*! A place for stored images */
 	QString exportDir;
-  /*! Overwrite the existing files? */
+	/*! Overwrite the existing files? */
 	bool overwrite;
 
-  /*! Exports only the actual page */
+	/*! Exports only the actual page */
 	bool exportActual();
-  /*! Exports chosen interval of the pages */
+	/*! Exports chosen interval of the pages */
 	bool exportInterval(std::vector<int> &pageNs);
 private:
-  /*! reference to the Scribus application object */
+	/*! reference to the Scribus application object */
 	ScribusApp *carrier;
 	/*! create specified filename "docfilename-005.ext" */
 	QString getFileName(uint pageNr);
@@ -68,7 +68,7 @@ private:
 	\param pageNr number of the page
 	\param single bool TRUE if only the one page is exported
 	*/
-  bool exportPage(uint pageNr, bool single);
+	bool exportPage(uint pageNr, bool single);
 };
 
 ScrAction *fileNewFromTemplateAction;

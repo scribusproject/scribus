@@ -56,7 +56,7 @@ void run(QWidget *d, ScribusApp *plug)
 {
 	bool res;
 	ExportBitmap *ex = new ExportBitmap(plug);
-	ExportForm *dia = new ExportForm(d, ex->pageSize, ex->quality, ex->bitmapType);
+	ExportForm *dia = new ExportForm(d, ex->pageDPI, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
 	QString tmp;
@@ -66,7 +66,7 @@ void run(QWidget *d, ScribusApp *plug)
 	{
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
-		ex->pageSize = dia->DPIBox->value();
+		ex->pageDPI = dia->DPIBox->value();
 		ex->enlargement = dia->EnlargementBox->value();
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
@@ -103,7 +103,7 @@ void run(QWidget *d, ScribusApp *plug)
 ExportBitmap::ExportBitmap(ScribusApp *plug)
 {
 	carrier = plug;
-	pageSize = 72;
+	pageDPI = 72;
 	quality = 100;
 	enlargement = 100;
 	exportDir = QDir::currentDirPath();
@@ -132,10 +132,10 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (!carrier->doc->Pages.at(pageNr))
 		return FALSE;
 
-	QImage im = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->pageHeight * enlargement / 100));
-	int dpi = qRound(100.0 / 2.54 * pageSize);
-	im.setDotsPerMeterY(dpi);
-	im.setDotsPerMeterX(dpi);
+	QImage im = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->pageHeight * enlargement * (pageDPI / 72) / 100));
+	int dpm = qRound(100.0 / 2.54 * pageDPI);
+	im.setDotsPerMeterY(dpm);
+	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
 	{
 		QApplication::restoreOverrideCursor();
