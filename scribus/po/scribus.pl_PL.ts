@@ -2300,7 +2300,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Zapisz</translation>
+        <translation>Z&amp;apisz</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -2364,7 +2364,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
-        <translation>&amp;Tryb operacji na obiektach</translation>
+        <translation>T&amp;ryb operacji na obiektach</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -2416,7 +2416,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation>&amp;Konfiguracja...</translation>
+        <translation>Konfi&amp;guracja...</translation>
     </message>
     <message>
         <source>%1 pt</source>
@@ -2504,11 +2504,11 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Is &amp;Locked</source>
-        <translation>Jest za&amp;bezpieczony</translation>
+        <translation>&amp;Jest zabezpieczony</translation>
     </message>
     <message>
         <source>Si&amp;ze is Locked</source>
-        <translation>&amp;Rozmiar jest zabezpieczony</translation>
+        <translation>Rozmiar jest &amp;zabezpieczony</translation>
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
@@ -2528,7 +2528,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Distribute/&amp;Align...</source>
-        <translation>Odstęp/Wyrówn&amp;anie...</translation>
+        <translation type="obsolete">Odstęp/Wyrów&amp;nanie...</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
@@ -2536,7 +2536,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Attributes...</source>
-        <translation>&amp;Atrybuty...</translation>
+        <translation>Atr&amp;ybuty...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
@@ -2568,7 +2568,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation>&amp;Odłącz tekst od ścieżki</translation>
+        <translation>Odłą&amp;cz tekst od ścieżki</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
@@ -2608,11 +2608,11 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation>&amp;Wklej...</translation>
+        <translation>&amp;Wstaw...</translation>
     </message>
     <message>
         <source>Im&amp;port...</source>
-        <translation>Im&amp;portuj...</translation>
+        <translation>&amp;Importuj...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
@@ -2660,7 +2660,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation>Wyświetlaj &amp;marginesy</translation>
+        <translation>&amp;Wyświetlaj marginesy</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
@@ -2692,7 +2692,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>Wyrównaj &amp;do linii pomocniczych</translation>
+        <translation>Wyrówna&amp;j do linii pomocniczych</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -2724,7 +2724,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
-        <translation>&amp;Weryfikator materiału wejściowego</translation>
+        <translation>Weryfikator &amp;materiału wejściowego</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -2732,7 +2732,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>P&amp;DF Tools</source>
-        <translation>N&amp;arzędzia PDF</translation>
+        <translation>Narzędzia &amp;PDF</translation>
     </message>
     <message>
         <source>Select Item</source>
@@ -2744,7 +2744,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>Ksz&amp;tałt ramki</translation>
+        <translation>&amp;Kształt ramki</translation>
     </message>
     <message>
         <source>&amp;Line</source>
@@ -2948,7 +2948,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation>OsOstrokątny francuski prawy</translation>
+        <translation>Ostrokątny francuski prawy</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
@@ -3025,6 +3025,30 @@ Missing library support is indicated by a *</source>
     <message>
         <source>Edit Text...</source>
         <translation>Edytuj tekst...</translation>
+    </message>
+    <message>
+        <source>Show Control Characters</source>
+        <translation>Wyświetlaj znaki kontrolne</translation>
+    </message>
+    <message>
+        <source>&amp;Align and Distribute</source>
+        <translation>Wy&amp;równanie i odstęp</translation>
+    </message>
+    <message>
+        <source>New Line</source>
+        <translation>Nowa linia</translation>
+    </message>
+    <message>
+        <source>Frame Break</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column Break</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Breaking Dash</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3194,6 +3218,149 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <source>&amp;Do Not Change</source>
         <translation>Nie zmienia&amp;j</translation>
+    </message>
+</context>
+<context>
+    <name>AlignDistributePalette</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation>Wyrównanie i odstęp</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation>Wyrównaj</translation>
+    </message>
+    <message>
+        <source>&amp;Relative to:</source>
+        <translation>&amp;Do:</translation>
+    </message>
+    <message>
+        <source>First Selected</source>
+        <translation>Pierwszego zaznaczonego</translation>
+    </message>
+    <message>
+        <source>Last Selected</source>
+        <translation>Ostatniego zaznaczonego</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Strony</translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation>Marginesów</translation>
+    </message>
+    <message>
+        <source>Selection</source>
+        <translation>Zaznaczenia</translation>
+    </message>
+    <message>
+        <source>Align right sides of objects to left side of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align left sides of objects to right side of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align bottoms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align right sides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align tops of objects to bottom of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Center on vertical axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align left sides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Center on horizontal axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align bottoms of objects to top of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align tops</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation>Rozmieść</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects equal to the value specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute right sides equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute bottoms equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute centers equidistantly horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects equal to the value specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute left sides equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute centers equidistantly vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute tops equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation>&amp;Odstęp:</translation>
+    </message>
+    <message>
+        <source>Distribute the items with the distance specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation>&amp;Odbezpiecz wszystko</translation>
     </message>
 </context>
 <context>
@@ -4405,7 +4572,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation>&amp;Wklej</translation>
+        <translation>&amp;Wstaw</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -5501,7 +5668,7 @@ failed!</source>
     </message>
     <message>
         <source>Vertical Spaces</source>
-        <translation>Odstępy w pionie</translation>
+        <translation type="obsolete">Odstępy w pionie</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -5517,7 +5684,7 @@ failed!</source>
     </message>
     <message>
         <source>Effect:</source>
-        <translation>Atrybut:</translation>
+        <translation type="obsolete">Atrybut:</translation>
     </message>
     <message>
         <source>None</source>
@@ -5545,7 +5712,7 @@ failed!</source>
     </message>
     <message>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation>Efekt stylistyczny, generujący ponadwymiarową pierwszą literę akapitu </translation>
+        <translation type="obsolete">Efekt stylistyczny, generujący ponadwymiarową pierwszą literę akapitu </translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
@@ -5553,7 +5720,7 @@ failed!</source>
     </message>
     <message>
         <source>Align text to baseline grid</source>
-        <translation>Wyrównaj tekst do linii pisma</translation>
+        <translation type="obsolete">Wyrównaj tekst do linii pisma</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
@@ -5573,19 +5740,19 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Font:</source>
-        <translation>&amp;Czcionka:</translation>
+        <translation type="obsolete">&amp;Czcionka:</translation>
     </message>
     <message>
         <source>Si&amp;ze:</source>
-        <translation>&amp;Rozmiar:</translation>
+        <translation type="obsolete">&amp;Rozmiar:</translation>
     </message>
     <message>
         <source>&amp;Alignment:</source>
-        <translation>&amp;Wyrównanie:</translation>
+        <translation type="obsolete">&amp;Wyrównanie:</translation>
     </message>
     <message>
         <source>&amp;Drop Caps</source>
-        <translation>&amp;Inicjały opuszczone</translation>
+        <translation type="obsolete">&amp;Inicjały opuszczone</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
@@ -5593,23 +5760,23 @@ failed!</source>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation>&amp;Kolor wypełnienia:</translation>
+        <translation type="obsolete">&amp;Kolor wypełnienia:</translation>
     </message>
     <message>
         <source>St&amp;roke Color:</source>
-        <translation>Ko&amp;lor obrysu:</translation>
+        <translation type="obsolete">Ko&amp;lor obrysu:</translation>
     </message>
     <message>
         <source>Line &amp;Spacing:</source>
-        <translation>In&amp;terlinia:</translation>
+        <translation type="obsolete">In&amp;terlinia:</translation>
     </message>
     <message>
         <source>Abo&amp;ve:</source>
-        <translation>Na&amp;d:</translation>
+        <translation type="obsolete">Na&amp;d:</translation>
     </message>
     <message>
         <source>&amp;Below:</source>
-        <translation>&amp;Pod:</translation>
+        <translation type="obsolete">&amp;Pod:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5621,7 +5788,7 @@ failed!</source>
     </message>
     <message>
         <source>Align to Baseline &amp;Grid</source>
-        <translation>Wyrównaj do linii &amp;pisma</translation>
+        <translation type="obsolete">Wyrównaj do linii &amp;pisma</translation>
     </message>
     <message>
         <source>Preview of the Paragraph Style:</source>
@@ -5638,6 +5805,38 @@ failed!</source>
     <message>
         <source>Toggles sample text of this paragraph style</source>
         <translation>Włącza/wyłącza próbny tekst dla tego stylu akapitu</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Distances</source>
+        <translation>Odstępy</translation>
+    </message>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation>Stała interlinia</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation>Automatyczna interlinia</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation>Wyrównaj do linii pisma</translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation>Inicjały opuszczone</translation>
+    </message>
+    <message>
+        <source>Distance from Text:</source>
+        <translation>Odstęp od tekstu:</translation>
+    </message>
+    <message>
+        <source>Determines the gap between the DropCaps and the Text</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5993,7 +6192,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Color Burn</source>
@@ -6288,6 +6487,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>Path to Font File</source>
         <comment>font preview</comment>
         <translation>Ścieżka do pliku czcionki</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6708,7 +6911,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation>&amp;Wklej</translation>
+        <translation>&amp;Wstaw</translation>
     </message>
     <message>
         <source>Master Page (&amp;Left Page):</source>
@@ -7430,7 +7633,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation>Cieniowanie:</translation>
+        <translation type="obsolete">Cieniowanie:</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -7897,6 +8100,26 @@ Corners:</source>
     <message>
         <source>Scaling height of characters</source>
         <translation>Wysokość skalowania znaków</translation>
+    </message>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation>Stała interlinia</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation>Automatyczna interlinia</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation>Wyrównaj do linii pisma</translation>
+    </message>
+    <message>
+        <source>Actual X-DPI:</source>
+        <translation>Rzeczywiste DPI w poziomie: </translation>
+    </message>
+    <message>
+        <source>Actual Y-DPI:</source>
+        <translation>Rzeczywiste DPI w pionie: </translation>
     </message>
 </context>
 <context>
@@ -8371,7 +8594,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation>Konsola skryptowa</translation>
+        <translation type="obsolete">Konsola skryptowa</translation>
     </message>
 </context>
 <context>
@@ -9477,6 +9700,10 @@ If set to 0 infinite amount of actions will be stored.</source>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Show Text Control Characters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -9491,6 +9718,77 @@ If set to 0 infinite amount of actions will be stored.</source>
     <message>
         <source>&amp;Defaults</source>
         <translation>&amp;Domyślne</translation>
+    </message>
+</context>
+<context>
+    <name>PythonConsole</name>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>&amp;Otwórz...</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Zapisz</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation>Zapisz &amp;jako...</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <translation>Za&amp;kończ</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Plik</translation>
+    </message>
+    <message>
+        <source>&amp;Run</source>
+        <translation>&amp;Wykonaj</translation>
+    </message>
+    <message>
+        <source>&amp;Save Output...</source>
+        <translation>&amp;Zachowaj plik wyjściowy...</translation>
+    </message>
+    <message>
+        <source>&amp;Script</source>
+        <translation>Skr&amp;ypt</translation>
+    </message>
+    <message>
+        <source>Script Console</source>
+        <translation>Konsola skryptowa</translation>
+    </message>
+    <message>
+        <source>Write your commands here. A selection is processed as script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output of your script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py)</source>
+        <translation>Skrypty w Pythonie (*.py)</translation>
+    </message>
+    <message>
+        <source>Open File With Python Commands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the Python Commands in File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt)</source>
+        <translation>Pliki tekstowe (*.txt)</translation>
+    </message>
+    <message>
+        <source>Save Current Output</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11257,6 +11555,49 @@ is not exhaustive due to exceptions from called functions.
         <source>Show information on the console when fonts are being loaded</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scribus Crash</source>
+        <translation>Scribus zakonczył działanie</translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to Signal #%1</source>
+        <translation>Scribus przestał działać z powodu sygnału #%1</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken and will be discarded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> c</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>c</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cicero (c)</source>
+        <translation>Cicero (c)</translation>
+    </message>
+    <message>
+        <source>Cannot group less than two items</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t group less than two items</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Need selection or argument list of items to group</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11616,6 +11957,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Document Information</source>
         <translation>Informacje o dokumencie</translation>
     </message>
+    <message>
+        <source>Show Text Control Characters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBAlign</name>
@@ -11701,7 +12046,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <name>SToolBStyle</name>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Character Settings</source>
@@ -11709,11 +12054,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Tracking:</source>
-        <translation>Podcinanie:</translation>
+        <translation type="obsolete">Podcinanie:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
         <translation>Manualne podcinanie</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
     </message>
 </context>
 <context>
@@ -11923,11 +12272,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation>Scribus zakonczył działanie</translation>
+        <translation type="obsolete">Scribus zakonczył działanie</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation>Scribus przestał działać z powodu sygnału #%1</translation>
+        <translation type="obsolete">Scribus przestał działać z powodu sygnału #%1</translation>
     </message>
     <message>
         <source>Finnish</source>
@@ -11959,7 +12308,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Widok</translation>
+        <translation>W&amp;idok</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -12007,7 +12356,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>Ksz&amp;tałt ramki</translation>
+        <translation>&amp;Kształt ramki</translation>
     </message>
     <message>
         <source>St&amp;yle</source>
@@ -12148,15 +12497,15 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;Opcje PDF</translation>
+        <translation>Opcje PD&amp;F</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation>Z&amp;amień na</translation>
+        <translation>Za&amp;mień na</translation>
     </message>
     <message>
         <source>I&amp;nsert</source>
-        <translation>&amp;Wklej</translation>
+        <translation>&amp;Wstaw</translation>
     </message>
     <message>
         <source>Character</source>
@@ -12197,7 +12546,8 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>File %1 
 is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik %1
+nie jest w dopuszczalnym formacie</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -12205,7 +12555,7 @@ is not in an acceptable format</source>
     </message>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished"></translation>
+        <translation>Niektóre fonty użyte w dokumencie zostały zastąpione:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -12213,11 +12563,11 @@ is not in an acceptable format</source>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Niektóre profile ICC używane przez ten dokument nie są zainstalowane:</translation>
     </message>
     <message>
         <source>(converted)</source>
-        <translation type="unfinished"></translation>
+        <translation>(zamienione)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
@@ -12245,10 +12595,6 @@ Consider using the Preflight Checker to correct them</source>
     <message>
         <source>The following programs are missing:</source>
         <translation>Brak następujących programów:</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS images</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
@@ -12290,6 +12636,38 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>is missing!</source>
         <translation>nie istnieje!</translation>
+    </message>
+    <message>
+        <source>Initializing Story Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Cut In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Not Found</source>
+        <translation>Nie znaleziono koloru</translation>
+    </message>
+    <message>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation>Przesuń do warstwy</translation>
     </message>
 </context>
 <context>
@@ -12408,7 +12786,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;Opcje PDF</translation>
+        <translation>Opcje PD&amp;F</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
@@ -12437,6 +12815,14 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>None</source>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12483,6 +12869,14 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Wiadomość ta zawarta jest również w twoim schowku. Użyj Ctrl+V, aby wkopiować ją w systemie zgłaszania błędów.</translation>
+    </message>
+    <message>
+        <source>Examine Script</source>
+        <translation>Sprawdź skrypt</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py)</source>
+        <translation>Skrypty w Pythonie (*.py)</translation>
     </message>
 </context>
 <context>
@@ -12843,11 +13237,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
-        <translation>Naprawdę anulować wszystkie zmiany?</translation>
+        <translation type="obsolete">Naprawdę anulować wszystkie zmiany?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation>Naprawdę usunąć cały tekst?</translation>
+        <translation type="obsolete">Naprawdę usunąć cały tekst?</translation>
     </message>
     <message>
         <source>Open</source>
@@ -12979,7 +13373,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Clear all Text</source>
-        <translation>Usuń cały tekst</translation>
+        <translation type="obsolete">Usuń cały tekst</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -12988,6 +13382,22 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>&amp;Insert Glyph...</source>
         <translation>&amp;Wstaw glif...</translation>
+    </message>
+    <message>
+        <source>Clear All Text</source>
+        <translation>Usuń cały tekst</translation>
+    </message>
+    <message>
+        <source>Story Editor - %1</source>
+        <translation>Edytor artykułów - %1</translation>
+    </message>
+    <message>
+        <source>Do you really want to lose all your changes?</source>
+        <translation>Naprawdę porzucić wszystkie zmiany?</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation>Naprawdę usunąć cały tekst?</translation>
     </message>
 </context>
 <context>
@@ -13131,11 +13541,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Style:</source>
-        <translation>Styl:</translation>
+        <translation type="obsolete">Styl:</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation>Podstawowy</translation>
+        <translation type="obsolete">Podstawowy</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
@@ -13143,7 +13553,55 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Index</source>
-        <translation>Indeks</translation>
+        <translation type="obsolete">Indeks</translation>
+    </message>
+    <message>
+        <source>At the beginning</source>
+        <translation>Na początku</translation>
+    </message>
+    <message>
+        <source>At the end</source>
+        <translation>Na końcu</translation>
+    </message>
+    <message>
+        <source>Not Shown</source>
+        <translation>Nie pokazuj</translation>
+    </message>
+    <message>
+        <source>The frame the table of contents will be placed into</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Numbers Placed:</source>
+        <translation>Położenie numerów stron:</translation>
+    </message>
+    <message>
+        <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List Non-Printing Entries</source>
+        <translation>Dołącz niedrukowalne elementy </translation>
+    </message>
+    <message>
+        <source>Include frames that are set to not print as well</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The paragraph style used for the entry lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph Style:</source>
+        <translation>Styl akapitu:</translation>
+    </message>
+    <message>
+        <source>Inde&amp;x</source>
+        <translation>&amp;Indeks</translation>
     </message>
 </context>
 <context>
@@ -14461,11 +14919,11 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>First &amp;Line:</source>
-        <translation>Pierwsza &amp;linia:</translation>
+        <translation type="obsolete">Pierwsza &amp;linia:</translation>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
-        <translation>W&amp;cięcie z lewej:</translation>
+        <translation type="obsolete">W&amp;cięcie z lewej:</translation>
     </message>
     <message>
         <source>None</source>
