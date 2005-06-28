@@ -26,16 +26,16 @@ void gtMeasure::init(Unit u)
 {
 	switch (u)
 	{
-	case PT:
+	case SC_PT:
 		ratio = 1.0;
 		break;
-	case MM:
+	case SC_MM:
 		ratio = 25.4/72;
 		break;
-	case IN:
+	case SC_IN:
 		ratio = 1.0 / 72.0;
 		break;
-	case P:
+	case SC_P:
 		ratio = 1.0 / 12.0;
 		break;
 	}
@@ -67,26 +67,26 @@ double gtMeasure::parse(const QString& value)
 	QString dbl = "0.0";
 	if (lowerValue.find("pt") != -1)
 	{
-		init(PT);
+		init(SC_PT);
 		dbl = lowerValue.remove("pt");
 	}
 	else if (lowerValue.find("mm") != -1)
 	{
-		init(MM);
+		init(SC_MM);
 		dbl = lowerValue.remove("mm");
 	}
 	else if (lowerValue.find("in") != -1)
 	{
-		init(IN);
+		init(SC_IN);
 		dbl = lowerValue.remove("in");
 	}
 	else if (lowerValue.find("p") != -1)
 	{
-		init(P);
+		init(SC_P);
 		dbl = lowerValue.remove("p");
 	}
 	else
-		init(PT);
+		init(SC_PT);
 
 	dbl = dbl.stripWhiteSpace();
 	return dbl.toDouble();

@@ -24,14 +24,14 @@
 #include <qstring.h>
 
 enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
+	SC_POINTS      = 0,
+	SC_PT          = 0,
+	SC_MILLIMETERS = 1,
+	SC_MM          = 1,
+	SC_INCHES      = 2,
+	SC_IN          = 2,
+	SC_PICAS       = 3,
+	SC_P           = 3
 };
 
 class gtMeasure
@@ -46,11 +46,11 @@ private:
 	static double convert2(int value);
 	static double parse(const QString& value);
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(const QString& value, Unit to = PT);
+	static double convert(double value, Unit from, Unit to = SC_PT);
+	static double convert(int value, Unit from, Unit to = SC_PT);
+	static double d2d(double value, Unit from, Unit to = SC_PT);
+	static double i2d(int value, Unit from, Unit to = SC_PT);
+	static double qs2d(const QString& value, Unit to = SC_PT);
 };
 
 #endif // GTMEASURE_H

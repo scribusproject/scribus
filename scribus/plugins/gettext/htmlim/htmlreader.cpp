@@ -98,7 +98,7 @@ void HTMLReader::initPStyles()
 	pstylecode->getFont()->setName("Courier Regular");
 	pstylecode->setName("HTML_code");
 	pstylep = new gtParagraphStyle(*pstyle);
-	pstylep->setSpaceBelow(gtMeasure::i2d(5, MM));
+	pstylep->setSpaceBelow(gtMeasure::i2d(5, SC_MM));
 	pstylep->setName("HTML_p");
 	pstylepre = new gtParagraphStyle(*pstyle);
 	pstylepre->setName("HTML_pre");
