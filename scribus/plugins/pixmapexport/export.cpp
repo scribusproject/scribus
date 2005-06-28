@@ -28,7 +28,7 @@ void Run(QWidget *d, ScribusApp *plug)
 {
 	bool res;
 	ExportBitmap *ex = new ExportBitmap(plug);
-	ExportForm *dia = new ExportForm(d, ex->pageSize, ex->quality, ex->bitmapType);
+	ExportForm *dia = new ExportForm(d, ex->pageDPI, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
 	QString tmp;
@@ -38,7 +38,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	{
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
-		ex->pageSize = dia->DPIBox->value();
+		ex->pageDPI = dia->DPIBox->value();
 		ex->enlargement = dia->EnlargementBox->value();
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
@@ -75,7 +75,7 @@ void Run(QWidget *d, ScribusApp *plug)
 ExportBitmap::ExportBitmap(ScribusApp *plug)
 {
 	carrier = plug;
-	pageSize = 72;
+	pageDPI = 72;
 	quality = 100;
 	enlargement = 100;
 	exportDir = QDir::currentDirPath();
@@ -104,11 +104,12 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (!carrier->view->Pages.at(pageNr))
 		return FALSE;
 
-	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * enlargement / 100));
+	/* a little magic here - I need to compute the "maxGr" value... */
+	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * enlargement * (pageDPI / 72)/ 100));
 	QImage im = pixmap.convertToImage();
-	int dpi = qRound(100.0 / 2.54 * pageSize);
-	im.setDotsPerMeterY(dpi);
-	im.setDotsPerMeterX(dpi);
+	int dpm = qRound(100.0 / 2.54 * pageDPI);
+	im.setDotsPerMeterY(dpm);
+	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
 	{
 		QApplication::restoreOverrideCursor();
