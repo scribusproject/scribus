@@ -153,6 +153,7 @@ void SVGPlug::convert()
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
 	QDomElement docElem = inpdoc.documentElement();
+	Conversion = 1.0;
 	double width	= !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height	= !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 	Conversion = 0.8;
@@ -184,8 +185,8 @@ void SVGPlug::convert()
 		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplifyWhiteSpace() );
 		viewTransformX = points[0].toDouble();
 		viewTransformY = points[1].toDouble();
-		viewScaleX = width / (points[2].toDouble() * 0.8);
-		viewScaleY = height / (points[3].toDouble() * 0.8);
+		viewScaleX = width / points[2].toDouble();
+		viewScaleY = height / points[3].toDouble();
 		haveViewBox = true;
 	}
 	parseGroup( docElem );
@@ -438,7 +439,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				{
 					x = (*(it++)).toDouble();
 					y = (*it).toDouble();
-					svgMoveTo(x, y);
+					svgMoveTo(x * Conversion, y * Conversion);
 					bFirst = false;
 					WasM = true;
 				}
@@ -446,7 +447,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				{
 					x = (*(it++)).toDouble();
 					y = (*it).toDouble();
-					svgLineTo(&ite->PoLine, x, y);
+					svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
 				}
 			}
 			if( STag == "polygon" )
@@ -655,7 +656,7 @@ double SVGPlug::parseUnit(const QString &unit)
 	else if( unit.right( 2 ) == "px" )
 		value = value * 0.8;
 	else if (noUnit)
-		value = value * 0.8;
+		value = value * Conversion;
 	return value;
 }
 
@@ -669,31 +670,27 @@ double SVGPlug::parseUnit(const QString &unit)
  */
 QWMatrix SVGPlug::parseTransform( const QString &transform )
 {
-	QWMatrix result;
-
+	QWMatrix ret;
 	// Split string for handling 1 transform statement at a time
 	QStringList subtransforms = QStringList::split(')', transform);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for(; it != end; ++it)
 	{
+		QWMatrix result;
 		QStringList subtransform = QStringList::split('(', (*it));
-
 		subtransform[0] = subtransform[0].stripWhiteSpace().lower();
 		subtransform[1] = subtransform[1].simplifyWhiteSpace();
 		QRegExp reg("[,( ]");
 		QStringList params = QStringList::split(reg, subtransform[1]);
-
 		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
-
 		if(subtransform[0] == "rotate")
 		{
 			if(params.count() == 3)
 			{
-				double x = params[1].toDouble() * 0.8;
-				double y = params[2].toDouble() * 0.8;
-
+				double x = params[1].toDouble() * Conversion;
+				double y = params[2].toDouble() * Conversion;
 				result.translate(x, y);
 				result.rotate(params[0].toDouble());
 				result.translate(-x, -y);
@@ -704,9 +701,9 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 		else if(subtransform[0] == "translate")
 		{
 			if(params.count() == 2)
-				result.translate(params[0].toDouble() * 0.8, params[1].toDouble() * 0.8);
+				result.translate(params[0].toDouble() * Conversion, params[1].toDouble() * Conversion);
 			else    // Spec : if only one param given, assume 2nd param to be 0
-				result.translate(params[0].toDouble() * 0.8 , 0);
+				result.translate(params[0].toDouble() * Conversion , 0);
 		}
 		else if(subtransform[0] == "scale")
 		{
@@ -724,16 +721,13 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 			if(params.count() >= 6)
 			{
 				double sx = params[0].toDouble();
-				if (sx == 0)
-					sx = 1.0;
 				double sy = params[3].toDouble();
-				if (sy == 0)
-					sy = 1.0;
-				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble() * 0.8, params[5].toDouble() * 0.8);
+				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble() * Conversion, params[5].toDouble() * Conversion);
 			}
 		}
+		ret = ret * result;
 	}
-	return result;
+	return ret;
 }
 
 /*!
