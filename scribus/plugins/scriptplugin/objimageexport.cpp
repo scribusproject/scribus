@@ -126,13 +126,13 @@ static PyObject *ImageExport_save(ImageExport *self)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	//QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->currentPage->pageNr, qRound(Carrier->doc->PageH * self->scale / 100));
-	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->ActPage->PageNr, qRound(Carrier->doc->PageH * self->scale / 100));
+
+	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->ActPage->PageNr, qRound(Carrier->doc->PageH * self->scale * (self->dpi / 72) / 100));
 	QImage im = pixmap.convertToImage();
-	int dpi = qRound(100.0 / 2.54 * self->dpi);
-	im.setDotsPerMeterY(dpi);
-	im.setDotsPerMeterX(dpi);
-	if (!im.save(PyString_AsString(self->name), PyString_AsString(self->type)))
+	int dpm = qRound(100.0 / 2.54 * self->dpi);
+	im.setDotsPerMeterY(dpm);
+	im.setDotsPerMeterX(dpm);
+	if (!im.save(PyString_AsString(self->name), PyString_AsString(self->type), self->quality))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error"));
 		return NULL;
@@ -148,12 +148,12 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 		return NULL;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &value))
 		return NULL;
-	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->ActPage->PageNr, qRound(Carrier->doc->PageH * self->scale / 100));
+	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->ActPage->PageNr, qRound(Carrier->doc->PageH * self->scale *(self->dpi / 72)/ 100));
 	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
-	if (!im.save(value, PyString_AsString(self->type)))
+	if (!im.save(value, PyString_AsString(self->type), self->quality))
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error"));
 		return NULL;
