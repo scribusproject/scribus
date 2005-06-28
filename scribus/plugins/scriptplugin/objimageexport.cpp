@@ -33,7 +33,7 @@ static PyObject * ImageExport_new(PyTypeObject *type, PyObject *args, PyObject *
 	ImageExport *self;
 	self = (ImageExport *)type->tp_alloc(type, 0);
 	if (self != NULL) {
-		self->name = PyString_FromString("");
+		self->name = PyString_FromString("ImageExport.png");
 		self->type = PyString_FromString("PNG");
 		self->allTypes = PyList_New(0);
 		self->dpi = 72;
@@ -65,6 +65,11 @@ static int ImageExport_setName(ImageExport *self, PyObject *value, void *closure
 {
 	if (!PyString_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename must be a string.", "python error"));
+		return -1;
+	}
+	if (PyString_Size(value) < 1)
+	{
+		PyErr_SetString(PyExc_TypeError, "The filename should not be empty string.");
 		return -1;
 	}
 	Py_DECREF(self->name);
