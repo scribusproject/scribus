@@ -4554,6 +4554,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 		view->unitChange();
 		ScApp->ScriptRunning = false;
+		view->Deselect(true);
 		mainWindowStatusLabel->setText("");
 		mainWindowProgressBar->reset();
 #ifdef HAVE_CMS
