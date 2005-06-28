@@ -575,9 +575,9 @@ void ScribusApp::initDefaultPrefs()
 	checkerSettings.checkRasterPDF = true;
 	checkerSettings.minResolution = 72.0;
 	Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-	Prefs.checkerProfiles.insert( tr("PDF 1.3 (Acrobat 4)"), checkerSettings);
+	Prefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 	checkerSettings.checkTransparency = false;
-	Prefs.checkerProfiles.insert( tr("PDF 1.4 (Acrobat 5)"), checkerSettings);
+	Prefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 	checkerSettings.checkTransparency = true;
 	checkerSettings.checkAnnotations = true;
 	checkerSettings.minResolution = 144.0;
@@ -4575,9 +4575,9 @@ bool ScribusApp::loadDoc(QString fileName)
 			checkerSettings.checkRasterPDF = true;
 			checkerSettings.minResolution = 72.0;
 			doc->checkerProfiles.insert( tr("Postscript"), checkerSettings);
-			doc->checkerProfiles.insert( tr("PDF 1.3 (Acrobat 4)"), checkerSettings);
+			doc->checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 			checkerSettings.checkTransparency = false;
-			doc->checkerProfiles.insert( tr("PDF 1.4 (Acrobat 5)"), checkerSettings);
+			doc->checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 			checkerSettings.checkTransparency = true;
 			checkerSettings.checkAnnotations = true;
 			checkerSettings.minResolution = 144.0;
@@ -8583,9 +8583,9 @@ void ScribusApp::ReadPrefs(bool import12)
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.minResolution = 72.0;
 		Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-		Prefs.checkerProfiles.insert( tr("PDF 1.3 (Acrobat 4)"), checkerSettings);
+		Prefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 		checkerSettings.checkTransparency = false;
-		Prefs.checkerProfiles.insert( tr("PDF 1.4 (Acrobat 5)"), checkerSettings);
+		Prefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;

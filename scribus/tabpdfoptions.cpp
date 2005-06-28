@@ -108,9 +108,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	PDFVersionCombo = new QComboBox( true, GroupBox1, "PDFVersionCombo" );
 	PDFVersionCombo->setEditable(false);
 	TextLabel1->setBuddy(PDFVersionCombo);
-	PDFVersionCombo->insertItem("PDF 1.3 (Acrobat 4)");
-	PDFVersionCombo->insertItem("PDF 1.4 (Acrobat 5)");
-	PDFVersionCombo->insertItem("PDF 1.5 (Acrobat 6)");
+	PDFVersionCombo->insertItem("PDF 1.3");
+	PDFVersionCombo->insertItem("PDF 1.4");
+	PDFVersionCombo->insertItem("PDF 1.5");
 #ifdef HAVE_CMS
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
 		PDFVersionCombo->insertItem("PDF/X-3");
@@ -927,9 +927,9 @@ void TabPDFOptions::enableCMS(bool enable)
 	disconnect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
 	int a = PDFVersionCombo->currentItem();
 	PDFVersionCombo->clear();
-	PDFVersionCombo->insertItem("PDF 1.3 (Acrobat 4)");
-	PDFVersionCombo->insertItem("PDF 1.4 (Acrobat 5)");
-	PDFVersionCombo->insertItem("PDF 1.5 (Acrobat 6)");
+	PDFVersionCombo->insertItem("PDF 1.3");
+	PDFVersionCombo->insertItem("PDF 1.4");
+	PDFVersionCombo->insertItem("PDF 1.5");
 	cms=enable;
 	if (enable)
 		PDFVersionCombo->insertItem("PDF/X-3");
