@@ -411,7 +411,7 @@ PyObject *scribus_setalign(PyObject */*self*/, PyObject* args)
 	Carrier->view->SelItem.clear();
 	Carrier->view->SelItem.append(i);
 	if (i->HasSel)
-		Carrier->doc->appMode = EditMode;
+		Carrier->doc->appMode = modeEdit;
 	Carrier->setNewAbStyle(alignment);
 	Carrier->doc->appMode = Apm;
 	Carrier->view->Deselect();
@@ -445,7 +445,7 @@ PyObject *scribus_setfontsize(PyObject */*self*/, PyObject* args)
 	Carrier->view->SelItem.clear();
 	Carrier->view->SelItem.append(i);
 	if (i->HasSel)
-		Carrier->doc->appMode = EditMode;
+		Carrier->doc->appMode = modeEdit;
 	Carrier->view->chFSize(qRound(size * 10.0));
 	Carrier->doc->appMode = Apm;
 	Carrier->view->Deselect();
@@ -475,7 +475,7 @@ PyObject *scribus_setfont(PyObject */*self*/, PyObject* args)
 		Carrier->view->SelItem.clear();
 		Carrier->view->SelItem.append(i);
 		if (i->HasSel)
-			Carrier->doc->appMode = EditMode;
+			Carrier->doc->appMode = modeEdit;
 		Carrier->SetNewFont(QString::fromUtf8(Font));
 		Carrier->doc->appMode = Apm;
 		Carrier->view->Deselect();

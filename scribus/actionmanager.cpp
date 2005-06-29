@@ -410,7 +410,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsLayers", new ScrAction("", QKeySequence(Key_F6), ScApp, "toolsLayers"));
 	scrActions->insert("toolsPages", new ScrAction(ScApp, "toolsPages"));
 	scrActions->insert("toolsBookmarks", new ScrAction(ScApp, "toolsBookmarks"));
-	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist.png")), "", QKeySequence(), ScApp, "toolsMeasurements", MeasurementTool));
+	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist.png")), "", QKeySequence(), ScApp, "toolsMeasurements", modeMeasurementTool));
 	scrActions->insert("toolsActionHistory", new ScrAction(ScApp, "toolsActionHistory"));
 	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),"", QKeySequence(), ScApp, "toolsPreflightVerifier"));
 	scrActions->insert("toolsAlignDistribute", new ScrAction(ScApp, "toolsAlignDistribute"));
@@ -418,27 +418,26 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsToolbarPDF", new ScrAction(ScApp, "toolsToolbarPDF"));
 
 	//toolbar only items
-	scrActions->insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), "", QKeySequence(Key_C), ScApp, "toolsSelect", NormalMode));
+	scrActions->insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), "", QKeySequence(Key_C), ScApp, "toolsSelect", modeNormal));
+	scrActions->insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text16.xpm"), loadIcon("Text.xpm")), "", QKeySequence(Key_T), ScApp, "toolsInsertTextFrame", modeDrawText));
+	scrActions->insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild16.xpm"), loadIcon("Bild.xpm")), "", QKeySequence(Key_I), ScApp, "toolsInsertImageFrame", modeDrawPicture));
+	scrActions->insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table16.png"), loadIcon("frame_table.png")), "", QKeySequence(Key_A), ScApp, "toolsInsertTableFrame", modeDrawTable));
+	scrActions->insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), "", QKeySequence(Key_S), ScApp, "toolsInsertShape", modeDrawShapes));
+	scrActions->insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), "", QKeySequence(Key_P), ScApp, "toolsInsertPolygon", modeDrawRegularPolygon));
+	scrActions->insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", QKeySequence(Key_L), ScApp, "toolsInsertLine", modeDrawLine));
+	scrActions->insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", QKeySequence(Key_B), ScApp, "toolsInsertBezier", modeDrawBezierLine));
+	scrActions->insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), "", QKeySequence(Key_F), ScApp, "toolsInsertFreehandLine", modeDrawFreehandLine));
 
-	scrActions->insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text16.xpm"), loadIcon("Text.xpm")), "", QKeySequence(Key_T), ScApp, "toolsInsertTextFrame", DrawText));
-	scrActions->insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild16.xpm"), loadIcon("Bild.xpm")), "", QKeySequence(Key_I), ScApp, "toolsInsertImageFrame", DrawPicture));
-	scrActions->insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table16.png"), loadIcon("frame_table.png")), "", QKeySequence(Key_A), ScApp, "toolsInsertTableFrame", DrawTable));
-	scrActions->insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), "", QKeySequence(Key_S), ScApp, "toolsInsertShape", DrawShapes));
-	scrActions->insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), "", QKeySequence(Key_P), ScApp, "toolsInsertPolygon", DrawRegularPolygon));
-	scrActions->insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", QKeySequence(Key_L), ScApp, "toolsInsertLine", DrawLine));
-	scrActions->insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", QKeySequence(Key_B), ScApp, "toolsInsertBezier", DrawBezierLine));
-	scrActions->insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), "", QKeySequence(Key_F), ScApp, "toolsInsertFreehandLine", DrawFreehandLine));
-
-	scrActions->insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", QKeySequence(Key_R), ScApp, "toolsRotate", Rotation));
-	scrActions->insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", QKeySequence(Key_Z), ScApp, "toolsZoom", Magnifier));
+	scrActions->insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", QKeySequence(Key_R), ScApp, "toolsRotate", modeRotation));
+	scrActions->insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", QKeySequence(Key_Z), ScApp, "toolsZoom", modeMagnifier));
 	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("Gross.xpm"), loadIcon("Gross.xpm")), "", QKeySequence(CTRL+Key_Plus), ScApp, "toolsZoomIn"));
 	scrActions->insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("Klein.xpm"), loadIcon("Klein.xpm")), "", QKeySequence(CTRL+Key_Minus), ScApp, "toolsZoomOut"));
-	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", QKeySequence(Key_E), ScApp, "toolsEditContents", EditMode));
-	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), "", QKeySequence(CTRL+Key_Y), ScApp, "toolsEditWithStoryEditor", StartStoryEditor));
-	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), "", QKeySequence(Key_N), ScApp, "toolsLinkTextFrame", LinkFrames));
-	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), "", QKeySequence(Key_U), ScApp, "toolsUnlinkTextFrame", UnlinkFrames));
-	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), "", QKeySequence(Key_Y), ScApp, "toolsEyeDropper", EyeDropper));
-	scrActions->insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", QKeySequence(), ScApp, "toolsCopyProperties", CopyProperties));
+	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", QKeySequence(Key_E), ScApp, "toolsEditContents", modeEdit));
+	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), "", QKeySequence(CTRL+Key_Y), ScApp, "toolsEditWithStoryEditor", modeStoryEditor));
+	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), "", QKeySequence(Key_N), ScApp, "toolsLinkTextFrame", modeLinkFrames));
+	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), "", QKeySequence(Key_U), ScApp, "toolsUnlinkTextFrame", modeUnlinkFrames));
+	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), "", QKeySequence(Key_Y), ScApp, "toolsEyeDropper", modeEyeDropper));
+	scrActions->insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", QKeySequence(), ScApp, "toolsCopyProperties", modeCopyProperties));
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);

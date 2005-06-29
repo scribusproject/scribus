@@ -161,7 +161,7 @@ void WerkToolBP::setPDFnotiz(int id)
 	}
 	PDFTool->setOn(false);
 	PDFaTool->setOn(true);
-	emit NewMode(InsertPDFTextAnnotation+PDFnotiz);
+	emit NewMode(modeInsertPDFTextAnnotation+PDFnotiz);
 }
 
 void WerkToolBP::setPDFtool(int id)
@@ -172,7 +172,7 @@ void WerkToolBP::setPDFtool(int id)
 	PDFTool->setPixmap(loadIcon(tmp[c]));
 	PDFTool->setOn(true);
 	PDFaTool->setOn(false);
-	emit NewMode(InsertPDFButton+PDFwerkz);
+	emit NewMode(modeInsertPDFButton+PDFwerkz);
 }
 
 void WerkToolBP::Docken(QDockWindow::Place )
@@ -193,12 +193,12 @@ void WerkToolBP::ModeFromTB()
 	if (PDFTool == sender())
 	{
 		PDFTool->setOn(true);
-		emit NewMode(InsertPDFButton+PDFwerkz);
+		emit NewMode(modeInsertPDFButton+PDFwerkz);
 	}
 	if (PDFaTool == sender())
 	{
 		PDFaTool->setOn(true);
-		emit NewMode(InsertPDFTextAnnotation+PDFnotiz);
+		emit NewMode(modeInsertPDFTextAnnotation+PDFnotiz);
 	}
 }
 

@@ -1518,7 +1518,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 {
 	if (HaveDoc)
 	{
-		if (doc->appMode==EditMode)
+		if (doc->appMode==modeEdit)
 		{
 			if (view->SelItem.count() == 1)
 			{
@@ -1681,7 +1681,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			currItem = view->SelItem.at(0);
 			switch (doc->appMode)
 			{
-				case NormalMode:
+				case modeNormal:
 					currItem->Sizing = false;
 					if (doc->SubMode != -1)
 					{
@@ -1689,14 +1689,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						doc->Items.remove(currItem->ItemNr);
 					}
 					break;
-				case LinkFrames:
-				case UnlinkFrames:
-				case EditMode:
-				case Rotation:
+				case modeLinkFrames:
+				case modeUnlinkFrames:
+				case modeEdit:
+				case modeRotation:
 						view->Deselect(false);
-				case PanningMode:
+				case modePanning:
 					break;
-				case DrawBezierLine:
+				case modeDrawBezierLine:
 					currItem->PoLine.resize(currItem->PoLine.size()-2);
 					if (currItem->PoLine.size() < 4)
 					{
@@ -1736,17 +1736,17 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	ButtonState buttonState = k->state();
 	if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->PageCombo->hasFocus()))
 	{
-		if ((doc->appMode != EditMode) && (view->SelItem.count() == 0))
+		if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
 		{
 			switch (kk)
 			{
 			case Key_Space:
 				keyrep = false;
-				if (doc->appMode == PanningMode)
-					setAppMode(NormalMode);
+				if (doc->appMode == modePanning)
+					setAppMode(modeNormal);
 				else
 				{
-					setAppMode(PanningMode);
+					setAppMode(modePanning);
 					qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 				}
 				return;
@@ -1792,7 +1792,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			PageItem *currItem = view->SelItem.at(0);
 			switch (doc->appMode)
 			{
-			case NormalMode:
+			case modeNormal:
 				switch (kk)
 				{
 				case Key_Backspace:
@@ -1869,7 +1869,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					break;
 				}
 				break;
-			case EditMode:
+			case modeEdit:
 				int oldPos = currItem->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 				view->oldCp = currItem->CPos;
 				if (currItem->itemType() == PageItem::ImageFrame)
@@ -2781,7 +2781,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->ActiveLayer = 0;
 	HaveDoc++;
 	DocNr++;
-	doc->appMode = NormalMode;
+	doc->appMode = modeNormal;
 	doc->PageColors = Prefs.DColors;
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
@@ -3754,8 +3754,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != EditMode);
-		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != EditMode);
+		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
+		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		if (currItem->isRaster)
@@ -3788,9 +3788,9 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != EditMode);
-		scrActions["itemConvertToOutlines"]->setEnabled(!currItem->isTableItem && doc->appMode != EditMode);
-		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != EditMode);
+		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
+		scrActions["itemConvertToOutlines"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
+		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->addMenuToMenu("Font","Style");
@@ -3819,7 +3819,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
 		if (doc->MasterP)
 			scrActions["toolsLinkTextFrame"]->setEnabled(false);
-		if (doc->appMode == EditMode)
+		if (doc->appMode == modeEdit)
 		{
 			setTBvals(currItem);
 			scrActions["editSelectAll"]->setEnabled(true);
@@ -3918,7 +3918,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
-		if (doc->appMode == EditMode)
+		if (doc->appMode == modeEdit)
 			setTBvals(currItem);
 		else
 		{
@@ -3971,11 +3971,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != EditMode);
-			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != EditMode);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
 			scrActions["itemConvertToOutlines"]->setEnabled(false);
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
-			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != EditMode);
+			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		}
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
@@ -4513,7 +4513,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		Prefs.AvailFonts.updateFontMap();
 		doc=new ScribusDoc(&Prefs);
 		doc->is12doc=is12doc;
-		doc->appMode = NormalMode;
+		doc->appMode = modeNormal;
 		doc->HasCMS = false;
 		doc->ActiveLayer = 0;
 		doc->OpenNodes.clear();
@@ -5154,7 +5154,7 @@ bool ScribusApp::DoFileClose()
 			ActWin->muster->close();
 			qApp->processEvents();
 		}
-		setAppMode(NormalMode);
+		setAppMode(modeNormal);
 		disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 		disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
 		view->close();
@@ -5170,7 +5170,7 @@ bool ScribusApp::DoFileClose()
 		ActWin->muster->close();
 		qApp->processEvents();
 	}
-	setAppMode(NormalMode);
+	setAppMode(modeNormal);
 	doc->ASaveTimer->stop();
 	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
@@ -5516,7 +5516,7 @@ void ScribusApp::slotEditCut()
 		}
 		Buffer2 = "<SCRIBUSTEXT>";
 		currItem = view->SelItem.at(0);
-		if (doc->appMode == EditMode)
+		if (doc->appMode == modeEdit)
 		{
 			if ((currItem->itemText.count() == 0) || (!currItem->HasSel))
 				return;
@@ -5603,7 +5603,7 @@ void ScribusApp::slotEditCopy()
 	{
 		Buffer2 = "<SCRIBUSTEXT>";
 		PageItem *currItem = view->SelItem.at(0);
-		if ((doc->appMode == EditMode) && (currItem->HasSel))
+		if ((doc->appMode == modeEdit) && (currItem->HasSel))
 		{
 			Buffer2 += "";
 			PageItem *nextItem = currItem;
@@ -5683,7 +5683,7 @@ void ScribusApp::slotEditPaste()
 	{
 		if (Buffer2.isNull())
 			return;
-		if (doc->appMode == EditMode)
+		if (doc->appMode == modeEdit)
 		{
 			PageItem *currItem = view->SelItem.at(0);
 			if (currItem->HasSel)
@@ -5864,7 +5864,7 @@ void ScribusApp::slotEditPaste()
 
 void ScribusApp::SelectAll()
 {
-	if (doc->appMode == EditMode)
+	if (doc->appMode == modeEdit)
 	{
 		PageItem *currItem = view->SelItem.at(0);
 		PageItem *nextItem = currItem;
@@ -5950,12 +5950,12 @@ void ScribusApp::ClipChange()
 		{
 			if (cc.startsWith("<SCRIBUSELEM"))
 			{
-//				if (doc->appMode != EditMode)
+//				if (doc->appMode != modeEdit)
 					scrActions["editPaste"]->setEnabled(true);
 			}
 			else
 			{
-				if (doc->appMode == EditMode)
+				if (doc->appMode == modeEdit)
 					scrActions["editPaste"]->setEnabled(true);
 			}
 		}
@@ -6548,7 +6548,7 @@ void ScribusApp::slotSelect()
 	WerkToolsP->PDFTool->setOn(false);
 	WerkToolsP->PDFaTool->setOn(false);
 	//scrActions["toolsMeasurements"]->setOn(false);
-	setAppMode(NormalMode);
+	setAppMode(modeNormal);
 }
 
 void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
@@ -6558,7 +6558,7 @@ void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
 	if (isOn)
 		setAppMode(newMode);
 	else
-		setAppMode(NormalMode);
+		setAppMode(modeNormal);
 }
 
 void ScribusApp::setAppMode(int mode)
@@ -6566,23 +6566,23 @@ void ScribusApp::setAppMode(int mode)
 	//disconnect the tools actions so we dont fire them off
 	actionManager->disconnectModeActions();
 	//set the actions state based on incoming mode
-	scrActions["toolsSelect"]->setOn(mode==NormalMode);
-	scrActions["toolsInsertTextFrame"]->setOn(mode==DrawText);
-	scrActions["toolsInsertImageFrame"]->setOn(mode==DrawPicture);
-	scrActions["toolsInsertTableFrame"]->setOn(mode==DrawTable);
-	scrActions["toolsInsertShape"]->setOn(mode==DrawShapes);
-	scrActions["toolsInsertPolygon"]->setOn(mode==DrawRegularPolygon);
-	scrActions["toolsInsertLine"]->setOn(mode==DrawLine);
-	scrActions["toolsInsertBezier"]->setOn(mode==DrawBezierLine);
-	scrActions["toolsInsertFreehandLine"]->setOn(mode==DrawFreehandLine);
-	scrActions["toolsRotate"]->setOn(mode==Rotation);
-	scrActions["toolsZoom"]->setOn(mode==Magnifier);
-	scrActions["toolsEditContents"]->setOn(mode==EditMode);
-	scrActions["toolsEditWithStoryEditor"]->setOn(mode==StartStoryEditor);
-	scrActions["toolsLinkTextFrame"]->setOn(mode==LinkFrames);
-	scrActions["toolsUnlinkTextFrame"]->setOn(mode==UnlinkFrames);
-	scrActions["toolsEyeDropper"]->setOn(mode==EyeDropper);
-	scrActions["toolsCopyProperties"]->setOn(mode==CopyProperties);
+	scrActions["toolsSelect"]->setOn(mode==modeNormal);
+	scrActions["toolsInsertTextFrame"]->setOn(mode==modeDrawText);
+	scrActions["toolsInsertImageFrame"]->setOn(mode==modeDrawPicture);
+	scrActions["toolsInsertTableFrame"]->setOn(mode==modeDrawTable);
+	scrActions["toolsInsertShape"]->setOn(mode==modeDrawShapes);
+	scrActions["toolsInsertPolygon"]->setOn(mode==modeDrawRegularPolygon);
+	scrActions["toolsInsertLine"]->setOn(mode==modeDrawLine);
+	scrActions["toolsInsertBezier"]->setOn(mode==modeDrawBezierLine);
+	scrActions["toolsInsertFreehandLine"]->setOn(mode==modeDrawFreehandLine);
+	scrActions["toolsRotate"]->setOn(mode==modeRotation);
+	scrActions["toolsZoom"]->setOn(mode==modeMagnifier);
+	scrActions["toolsEditContents"]->setOn(mode==modeEdit);
+	scrActions["toolsEditWithStoryEditor"]->setOn(mode==modeStoryEditor);
+	scrActions["toolsLinkTextFrame"]->setOn(mode==modeLinkFrames);
+	scrActions["toolsUnlinkTextFrame"]->setOn(mode==modeUnlinkFrames);
+	scrActions["toolsEyeDropper"]->setOn(mode==modeEyeDropper);
+	scrActions["toolsCopyProperties"]->setOn(mode==modeCopyProperties);
 
 	PageItem *currItem;
 	setActiveWindow();
@@ -6595,21 +6595,21 @@ void ScribusApp::setAppMode(int mode)
 			currItem = 0;
 		int oldMode = doc->appMode;
 		doc->appMode = mode;
-		if (oldMode == MeasurementTool)
+		if (oldMode == modeMeasurementTool)
 			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
-		if (mode != EditMode && doc->CurTimer!=NULL)
+		if (mode != modeEdit && doc->CurTimer!=NULL)
 		{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
 			doc->CurTimer->stop();
 			delete doc->CurTimer;
 			doc->CurTimer = NULL;
 		}
-		if (mode!=EditMode && oldMode==EditMode)
+		if (mode!=modeEdit && oldMode==modeEdit)
 			actionManager->restoreActionShortcutsPostEditMode();
 		else
-		if (mode==EditMode && oldMode!=EditMode)
+		if (mode==modeEdit && oldMode!=modeEdit)
 			actionManager->saveActionShortcutsPreEditMode();
-		if (oldMode == EditMode)
+		if (oldMode == modeEdit)
 		{
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
@@ -6626,7 +6626,7 @@ void ScribusApp::setAppMode(int mode)
 			view->horizRuler->repX = false;
 			view->horizRuler->repaint();
 		}
-		if (mode == EditMode)
+		if (mode == modeEdit)
 		{
 			view->LE->setFocusPolicy(QWidget::NoFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::NoFocus);
@@ -6671,60 +6671,60 @@ void ScribusApp::setAppMode(int mode)
 				view->RefreshItem(currItem);
 			}
 		}
-		if (mode == DrawBezierLine)
+		if (mode == modeDrawBezierLine)
 		{
 			if (view->SelItem.count() != 0)
 				view->Deselect(true);
 			view->FirstPoly = true;
 		}
-		if (mode == EditGradientVectors)
+		if (mode == modeEditGradientVectors)
 			propertiesPalette->Cpal->gradEditButton->setOn(true);
-		if (mode == MeasurementTool)
+		if (mode == modeMeasurementTool)
 		{
 			measurementPalette->show();
 			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
 		}
 		switch (mode)
 		{
-			case DrawShapes:
+			case modeDrawShapes:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")), true);
 				break;
-			case DrawPicture:
+			case modeDrawPicture:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")), true);
 				break;
-			case DrawText:
+			case modeDrawText:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")), true);
 				break;
-			case DrawTable:
+			case modeDrawTable:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawTable.xpm")), true);
 				break;
-			case DrawRegularPolygon:
+			case modeDrawRegularPolygon:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
 				break;
-			case Magnifier:
+			case modeMagnifier:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 				break;
-			case DrawLine:
-			case InsertPDFButton:
-			case InsertPDFTextfield:
-			case InsertPDFCheckbox:
-			case InsertPDFCombobox:
-			case InsertPDFListbox:
-			case InsertPDFTextAnnotation:
-			case InsertPDFLinkAnnotation:
-			case DrawFreehandLine:
+			case modeDrawLine:
+			case modeInsertPDFButton:
+			case modeInsertPDFTextfield:
+			case modeInsertPDFCheckbox:
+			case modeInsertPDFCombobox:
+			case modeInsertPDFListbox:
+			case modeInsertPDFTextAnnotation:
+			case modeInsertPDFLinkAnnotation:
+			case modeDrawFreehandLine:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -6733,7 +6733,7 @@ void ScribusApp::setAppMode(int mode)
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			break;
 		}
-		if (mode == DrawShapes)
+		if (mode == modeDrawShapes)
 		{
 			doc->SubMode = WerkTools->SubMode;
 			doc->ShapeValues = WerkTools->ShapeVals;
@@ -6743,22 +6743,22 @@ void ScribusApp::setAppMode(int mode)
 		}
 		else
 			doc->SubMode = -1;
-		if (mode == NormalMode)
+		if (mode == modeNormal)
 		{
 			WerkToolsP->PDFTool->setOn(false);
 			WerkToolsP->PDFaTool->setOn(false);
 			propertiesPalette->Cpal->gradEditButton->setOn(false);
 		}
-		if (mode == LinkFrames)
+		if (mode == modeLinkFrames)
 			doc->ElemToLink = view->SelItem.at(0);
-		if ((mode == LinkFrames) || (mode == UnlinkFrames))
+		if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames))
 			view->updateContents();
-		if (mode == StartStoryEditor)
+		if (mode == modeStoryEditor)
 		{
 			slotStoryEditor();
 			slotSelect();
 		}
-		if (mode == EyeDropper)
+		if (mode == modeEyeDropper)
 		{
 			grabMouse();
 			//grabKeyboard();
@@ -6768,7 +6768,7 @@ void ScribusApp::setAppMode(int mode)
 			releaseMouse();
 			//releaseKeyboard();
 		}
-		if (mode == CopyProperties)
+		if (mode == modeCopyProperties)
 		{
 			if (view->SelItem.count() != 0)
 			{
@@ -7281,7 +7281,7 @@ void ScribusApp::setCSMenu(QString , QString l, int  , int ls)
 		currItem = view->SelItem.at(0);
 		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 		{
-			if ((doc->appMode == EditMode) && (currItem->itemText.count() != 0))
+			if ((doc->appMode == modeEdit) && (currItem->itemText.count() != 0))
 			{
 				la = currItem->itemText.at(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.count()-1)))->ccolor;
 				lb = currItem->itemText.at(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.count()-1)))->cshade;
@@ -8172,7 +8172,7 @@ void ScribusApp::slotPrefsOrg()
 {
 	//reset the appMode so we restore our tools shortcuts
 	double UmReFaktor;
-	setAppMode(NormalMode);
+	setAppMode(modeNormal);
 	bool zChange = false;
 	Preferences *dia = new Preferences(this, &Prefs);
 	if (dia->exec())
@@ -10695,7 +10695,7 @@ void ScribusApp::EditTabs()
 void ScribusApp::SearchText()
 {
 	PageItem *currItem = view->SelItem.at(0);
-	setAppMode(EditMode);
+	setAppMode(modeEdit);
 	currItem->CPos = 0;
 	SearchReplace* dia = new SearchReplace(this, doc, &Prefs, currItem);
 	connect(dia, SIGNAL(NewFont(QString)), this, SLOT(SetNewFont(QString)));
@@ -10757,7 +10757,7 @@ void ScribusApp::slotCharSelect()
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
 		PageItem *currItem = view->SelItem.at(0);
-		if ((currItem->itemType() == PageItem::TextFrame) && (doc->appMode == EditMode))
+		if ((currItem->itemType() == PageItem::TextFrame) && (doc->appMode == modeEdit))
 		{
 			CharSelect *dia = new CharSelect(this, currItem, this);
 			dia->exec();
@@ -10824,7 +10824,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 	bool sendToSuper=true;
 	if (HaveDoc)
 	{
-		if (doc->appMode == EyeDropper)
+		if (doc->appMode == modeEyeDropper)
 		{
 			releaseMouse();
 			//releaseKeyboard();
@@ -10891,7 +10891,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 			}
 			//propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
 			//propertiesPalette->updateCList();
-			setAppMode(NormalMode);
+			setAppMode(modeNormal);
 		}
 	}
 	if (sendToSuper)

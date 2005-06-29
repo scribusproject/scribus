@@ -2203,7 +2203,7 @@ void Mpalette::NewExtra()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if ((CurItem->HasSel) || (doc->appMode == NormalMode))
+		if ((CurItem->HasSel) || (doc->appMode == modeNormal))
 		{
 			ScApp->view->chKerning(qRound(Extra->value() * 10.0));
 			emit DocChanged();
@@ -2877,9 +2877,9 @@ void Mpalette::toggleGradientEdit()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (Cpal->gradEditButton->isOn())
-			ScApp->setAppMode(EditGradientVectors);
+			ScApp->setAppMode(modeEditGradientVectors);
 		else
-			ScApp->setAppMode(NormalMode);
+			ScApp->setAppMode(modeNormal);
 		ScApp->view->RefreshItem(CurItem);
 	}
 }

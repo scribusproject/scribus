@@ -2049,7 +2049,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 							}
 							desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
 							asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
-							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
+							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == modeEdit))
 							{
 								wide = Zli2->wide;
 								p->setFillMode(1);
@@ -2327,7 +2327,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					}
 					desc = Zli2->ZFo->numDescender * (-Zli2->Siz / 10.0);
 					asce = Zli2->ZFo->numAscent * (Zli2->Siz / 10.0);
-					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
+					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == modeEdit))
 					{
 						wide = Zli2->wide;
 						p->setFillMode(1);
@@ -2467,7 +2467,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 				{
 					int nCP = CPos - nrc;
 					CPos = nrc;
-					if ((Doc->appMode == EditMode) && (Tinput))
+					if ((Doc->appMode == modeEdit) && (Tinput))
 					{
 //							OwnPage->Deselect(true);
 						NextBox->CPos = QMAX(nCP, 1);
@@ -4678,7 +4678,7 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 		case Polygon: ScApp->view->ToPolyFrame(); break;
 		case PolyLine: ScApp->view->ToBezierFrame(); break;
 	}
-	ScApp->setAppMode(NormalMode);
+	ScApp->setAppMode(modeNormal);
 }
 
 void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
