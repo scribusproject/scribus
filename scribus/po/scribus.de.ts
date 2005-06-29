@@ -120,8 +120,8 @@ setRedraw(True) in a finally: clause at the top level of your script.
         <translation>setRedraw(bool)
 
 Wenn bool=False, dann wird die Seite nicht neu neu aufgebaut (redraw ist deaktiviert).
-Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Skript beendet ist.
-Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Skript beendet wird.</translation>
+Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Script beendet ist.
+Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -2853,7 +2853,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Linien-Stile...</translation>
+        <translation>&amp;Linienstile...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
@@ -6553,7 +6553,7 @@ Fehler:
     </message>
     <message>
         <source>Preview of the Paragraph Style</source>
-        <translation>Vorschau des Absatz-Stils</translation>
+        <translation>Vorschau des Absatzstils</translation>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
@@ -11456,11 +11456,11 @@ Rahmen %1 durch Beispieltext ersetzen?</translation>
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation type="unfinished"></translation>
+        <translation>Quarto</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation type="unfinished"></translation>
+        <translation>Foolscap</translation>
     </message>
     <message>
         <source>Letter</source>
@@ -11468,7 +11468,7 @@ Rahmen %1 durch Beispieltext ersetzen?</translation>
     </message>
     <message>
         <source>Government Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Government Letter</translation>
     </message>
     <message>
         <source>Legal</source>
@@ -11484,19 +11484,19 @@ Rahmen %1 durch Beispieltext ersetzen?</translation>
     </message>
     <message>
         <source>Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Post</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation type="unfinished"></translation>
+        <translation>Crown</translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Large Post</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Demy</translation>
     </message>
     <message>
         <source>Medium</source>
@@ -11504,23 +11504,23 @@ Rahmen %1 durch Beispieltext ersetzen?</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation type="unfinished"></translation>
+        <translation>Royal</translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation type="unfinished"></translation>
+        <translation>Elephant</translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Double Demy</translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Quad Demy</translation>
     </message>
     <message>
         <source>STMT</source>
-        <translation type="unfinished"></translation>
+        <translation>STMT</translation>
     </message>
     <message>
         <source>A</source>
@@ -12338,7 +12338,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation>&amp;Skripte:</translation>
+        <translation>&amp;Scripte:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
@@ -12940,7 +12940,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Datei&amp;Datei</translation>
+        <translation>&amp;Datei</translation>
     </message>
     <message>
         <source>&amp;Run</source>
@@ -12952,7 +12952,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation>&amp;Skript</translation>
+        <translation>&amp;Script</translation>
     </message>
     <message>
         <source>Script Console</source>
@@ -12960,7 +12960,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script</source>
-        <translation>Schreiben Sie Ihre Befehle hier. Markierte Befehle werden als Skript ausgeführt</translation>
+        <translation>Schreiben Sie Ihre Befehle hier. Markierte Befehle werden als Script ausgeführt</translation>
     </message>
     <message>
         <source>Output of your script</source>
@@ -14686,30 +14686,30 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     </message>
     <message>
         <source>Could not open input file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei %1 kann nicht geöffnet werden</translation>
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Lesen der XML-Einstellungen:</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (Zeile %2 Spalte %3)</translation>
     </message>
     <message>
         <source>Unable to read settings XML: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Lesen der XML-Einstellungen: %1</translation>
     </message>
     <message>
         <source>null root node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>null root node</translation>
     </message>
     <message>
         <source>&lt;pdfVersion&gt; invalid</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;pdfVersion&gt; ist ungültig</translation>
     </message>
     <message>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
@@ -14719,7 +14719,7 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>unexpected null &lt;%2&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">unexpected null &lt;%2&gt; node</translation>
     </message>
     <message>
         <source>node &lt;%1&gt; not an element</source>
@@ -14827,39 +14827,39 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     </message>
     <message>
         <source>Scribus Development Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Entwicklungsversion</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie benutzen eine Entwicklungsversion von Scribus 1.3.x. Das Dokument, das Sie gerade bearbeiten, wurde mit Scribus 1.2.2 oder niedriger erstellt. Wenn Sie die Datei abspeichern, können Sie sie nicht mehr in Scribus 1.2.2 verwenden, es sei denn, Sie speichern das Dokument über Datei-&gt;Speichern unter. Wollen Sie wirklich weiter machen?</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Abbrechen</translation>
+        <translation>&amp;Abbrechen</translation>
     </message>
     <message>
         <source>&amp;Proceed</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fortfahren</translation>
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültiges Argument:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei %1 existiert nicht - Abbruch.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzung: scribus [Optionen...] [Datei]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Optionen:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfe anzeigen (dieser Text) und beenden</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
@@ -14984,7 +14984,8 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>A file named &apos;%1&apos; already exists.
 Do you want to replace it with the file you are saving?</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Datei mit dem Namen &apos;%1&apos; existiert bereits.
+Wollen Sie diese Datei mit der Datei, die Sie speichern wollen, überschreiben?</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
@@ -15009,12 +15010,12 @@ Do you want to replace it with the file you are saving?</source>
     <message>
         <source>Failed to open document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Öffnen des Dokuments.</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Speichern des Dokuments.</translation>
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
@@ -15022,11 +15023,11 @@ Do you want to replace it with the file you are saving?</source>
     </message>
     <message>
         <source>Property not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaft nicht gefunden</translation>
     </message>
     <message>
         <source>Child not found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kind</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
@@ -17155,7 +17156,7 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     </message>
     <message>
         <source>&amp;Level</source>
-        <translation>&amp;Level</translation>
+        <translation>&amp;Anordnung</translation>
     </message>
     <message>
         <source>Send to Layer</source>
@@ -18496,7 +18497,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen für Grundlinien</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
@@ -18579,492 +18580,492 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     <name>TabPDFOptions</name>
     <message>
         <source>Export Range</source>
-        <translation type="unfinished">Bereich</translation>
+        <translation>Bereich festlegen</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
-        <translation type="unfinished">&amp;Alle Seiten</translation>
+        <translation>&amp;Alle Seiten</translation>
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation type="unfinished">Seiten &amp;wählen</translation>
+        <translation>Seiten &amp;wählen</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Drehung:</translation>
+        <translation>&amp;Rotation:</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation type="unfinished">Datei Optionen</translation>
+        <translation>Optionen</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
-        <translation type="unfinished">&amp;Kompatibilität:</translation>
+        <translation>&amp;Kompatibilität:</translation>
     </message>
     <message>
         <source>&amp;Binding:</source>
-        <translation type="unfinished">&amp;Einband:</translation>
+        <translation>&amp;Bindung:</translation>
     </message>
     <message>
         <source>Left Margin</source>
-        <translation type="unfinished">Linker Rand</translation>
+        <translation>Linker Rand</translation>
     </message>
     <message>
         <source>Right Margin</source>
-        <translation type="unfinished">Rechter Rand</translation>
+        <translation>Rechter Rand</translation>
     </message>
     <message>
         <source>Generate &amp;Thumbnails</source>
-        <translation type="unfinished">&amp;Vorschaubilder erzeugen</translation>
+        <translation>&amp;Vorschaubilder erzeugen</translation>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation type="unfinished">Verknüpfte Textrahmen als PDF-Arti&amp;kel speichern</translation>
+        <translation>Verkettete Textrahmen als PDF-Arti&amp;kel speichern</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
-        <translation type="unfinished">&amp;Lesezeichen integrieren</translation>
+        <translation>&amp;Lesezeichen integrieren</translation>
     </message>
     <message>
         <source>Include Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebenen exportieren</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf&amp;lösung für EPS-Dateien:</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Text und Vektorgrafik &amp;komprimieren</translation>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation type="unfinished">Bildeinstellungen</translation>
+        <translation>Optionen für Bilder</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Automatisch</translation>
+        <translation>Automatisch</translation>
     </message>
     <message>
         <source>JPEG</source>
-        <translation type="unfinished">JPEG</translation>
+        <translation>JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation type="unfinished">Zip</translation>
+        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
-        <translation type="unfinished">&amp;Methode:</translation>
+        <translation>&amp;Methode:</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation type="unfinished">&amp;Qualität:</translation>
+        <translation>&amp;Qualität:</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation type="unfinished">Maximal</translation>
+        <translation>Maximal</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished">Hoch</translation>
+        <translation>Hoch</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Mittel</translation>
+        <translation>Mittel</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished">Niedrig</translation>
+        <translation>Niedrig</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation type="unfinished">Minimal</translation>
+        <translation>Minimal</translation>
     </message>
     <message>
         <source>Resample Images to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auflösung ändern auf:</translation>
     </message>
     <message>
         <source>&amp;General</source>
-        <translation type="unfinished">&amp;Allgemein</translation>
+        <translation>&amp;Allgemein</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="unfinished">Alle Schriftarten vollständig ein&amp;betten</translation>
+        <translation>Alle Schriftarten vollständig ein&amp;betten</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished">Von allen Schriftarten nur &amp;benutzte Schriftzeichen einbetten</translation>
+        <translation>Von allen Schriftarten nur &amp;benutzte Schriftzeichen einbetten</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation type="unfinished">Einbetten</translation>
+        <translation>Einbetten</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation type="unfinished">Verfügbare Schriftarten:</translation>
+        <translation>Verfügbare Schriftarten:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation type="unfinished">&amp;&gt;&gt;</translation>
+        <translation>&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation type="unfinished">&amp;&lt;&lt;</translation>
+        <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="unfinished">Schriftart vollständig einbetten:</translation>
+        <translation>Schriftarten vollständig einbetten:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished">Nur benutzte Schriftzeichen einbetten:</translation>
+        <translation>Nur benutzte Schriftzeichen einbetten:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="unfinished">Schrift&amp;arten</translation>
+        <translation>Schrift&amp;arten</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Präsentationseffekte aktivieren</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Seite</translation>
+        <translation>Seite</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
-        <translation type="unfinished">Seiten&amp;vorschau anzeigen</translation>
+        <translation>Seiten&amp;vorschau anzeigen</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">Effekte</translation>
+        <translation>Effekte</translation>
     </message>
     <message>
         <source>&amp;Display Duration:</source>
-        <translation type="unfinished">&amp;Anzeigedauer:</translation>
+        <translation>&amp;Anzeigedauer:</translation>
     </message>
     <message>
         <source>Effec&amp;t Duration:</source>
-        <translation type="unfinished">Dauer des &amp;Effekts:</translation>
+        <translation>Dauer des &amp;Effekts:</translation>
     </message>
     <message>
         <source>Effect T&amp;ype:</source>
-        <translation type="unfinished">Effekt&amp;typ:</translation>
+        <translation>Effekt&amp;typ:</translation>
     </message>
     <message>
         <source>&amp;Moving Lines:</source>
-        <translation type="unfinished">&amp;Bewegte Linien:</translation>
+        <translation>&amp;Bewegte Linien:</translation>
     </message>
     <message>
         <source>F&amp;rom the:</source>
-        <translation type="unfinished">&amp;von:</translation>
+        <translation>&amp;von:</translation>
     </message>
     <message>
         <source>D&amp;irection:</source>
-        <translation type="unfinished">&amp;Richtung:</translation>
+        <translation>&amp;Richtung:</translation>
     </message>
     <message>
         <source> sec</source>
-        <translation type="unfinished"> sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation type="unfinished">Kein Effekt</translation>
+        <translation>Kein Effekt</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation type="unfinished">Jalusie</translation>
+        <translation>Jalousie</translation>
     </message>
     <message>
         <source>Box</source>
-        <translation type="unfinished">Einblenden</translation>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="unfinished">Auflösen</translation>
+        <translation>Auflösen</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation type="unfinished">Schachbrett</translation>
+        <translation>Schachbrett</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation type="unfinished">Teilen</translation>
+        <translation>Teilen</translation>
     </message>
     <message>
         <source>Wipe</source>
-        <translation type="unfinished">Rollen</translation>
+        <translation>Wischen</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Waagrecht</translation>
+        <translation>Horizontal</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Vertikal</translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <source>Inside</source>
-        <translation type="unfinished">Innen</translation>
+        <translation>Innen</translation>
     </message>
     <message>
         <source>Outside</source>
-        <translation type="unfinished">Außen</translation>
+        <translation>Außen</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation type="unfinished">Links nach Rechts</translation>
+        <translation>Links nach Rechts</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation type="unfinished">Oben nach Unten</translation>
+        <translation>Oben nach Unten</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation type="unfinished">Unten nach Oben</translation>
+        <translation>Unten nach Oben</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation type="unfinished">Rechts nach Links</translation>
+        <translation>Rechts nach Links</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation type="unfinished">Schräg von Links Oben</translation>
+        <translation>Schräg von Links Oben</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished">Effekt auf alle Seiten an&amp;wenden</translation>
+        <translation>Effekt auf alle Seiten an&amp;wenden</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation>E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
-        <translation type="unfinished">&amp;Verschlüsselung benutzen</translation>
+        <translation>&amp;Verschlüsselung benutzen</translation>
     </message>
     <message>
         <source>Passwords</source>
-        <translation type="unfinished">Passwörter</translation>
+        <translation>Passwörter</translation>
     </message>
     <message>
         <source>&amp;User:</source>
-        <translation type="unfinished">&amp;Benutzer:</translation>
+        <translation>&amp;Benutzer:</translation>
     </message>
     <message>
         <source>&amp;Owner:</source>
-        <translation type="unfinished">&amp;Besitzer:</translation>
+        <translation>&amp;Besitzer:</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Berechtigungen</translation>
+        <translation>Berechtigungen</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
-        <translation type="unfinished">Dokument &amp;drucken erlaubt</translation>
+        <translation>Dokument &amp;drucken erlauben</translation>
     </message>
     <message>
         <source>Allow &amp;Changing the Document</source>
-        <translation type="unfinished">Än&amp;derungen am Dokument erlaubt</translation>
+        <translation>Dokument än&amp;dern erlauben</translation>
     </message>
     <message>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation type="unfinished">Kopieren von &amp;Text und Bildern gestatten</translation>
+        <translation>Kopieren von &amp;Text und Bildern zulassen</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation type="unfinished">Hinzufügen von &amp;Anmerkungen gestatten</translation>
+        <translation>Hinzufügen von &amp;Anmerkungen erlauben</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
-        <translation type="unfinished">&amp;Sicherheit</translation>
+        <translation>&amp;Sicherheit</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">Allgemein</translation>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <source>Output &amp;Intended For:</source>
-        <translation type="unfinished">Ausgabe &amp;vorgesehen für:</translation>
+        <translation>Ausgabe &amp;vorgesehen für:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation type="unfinished">Monitor / Internet</translation>
+        <translation>Monitor / Internet</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation type="unfinished">Drucker</translation>
+        <translation>Drucker</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Graustufen</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation type="unfinished">&amp;Benutzerdefinierte Rendering-Einstellungen benutzen</translation>
+        <translation>&amp;Benutzerdefinierte Rendering-Einstellungen verwenden</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation type="unfinished">Rendering-Einstellungen</translation>
+        <translation>Rendering-Einstellungen</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
-        <translation type="unfinished">&amp;Häufigkeit:</translation>
+        <translation>&amp;Häufigkeit:</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation type="unfinished">&amp;Winkel:</translation>
+        <translation>&amp;Winkel:</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation type="unfinished">&amp;Punktaufbau:</translation>
+        <translation>&amp;Punktaufbau:</translation>
     </message>
     <message>
         <source>Simple Dot</source>
-        <translation type="unfinished">Punkt</translation>
+        <translation>Punkt</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished">Linie</translation>
+        <translation>Linie</translation>
     </message>
     <message>
         <source>Round</source>
-        <translation type="unfinished">Runden</translation>
+        <translation>Rund</translation>
     </message>
     <message>
         <source>Ellipse</source>
-        <translation type="unfinished">Ellipse</translation>
+        <translation>Ellipse</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation type="unfinished">Farben:</translation>
+        <translation>Farben:</translation>
     </message>
     <message>
         <source>Use ICC Profile</source>
-        <translation type="unfinished">ICC-Profile benutzen</translation>
+        <translation>ICC-Profile benutzen</translation>
     </message>
     <message>
         <source>Profile:</source>
-        <translation type="unfinished">Profil:</translation>
+        <translation>Profil:</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation type="unfinished">Render-Priorität:</translation>
+        <translation>Render-Priorität:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="unfinished">Wahrnehmung</translation>
+        <translation>Wahrnehmung</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="unfinished">Relativ Farbmetrisch</translation>
+        <translation>Relativ Farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished">Farbsättigung</translation>
+        <translation>Farbsättigung</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="unfinished">Absolut farbmetrisch</translation>
+        <translation>Absolut farbmetrisch</translation>
     </message>
     <message>
         <source>Images:</source>
-        <translation type="unfinished">Bilder:</translation>
+        <translation>Bilder:</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation type="unfinished">Eingebettete Profile nicht benutzen</translation>
+        <translation>Eingebettete Profile nicht benutzen</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation type="unfinished">&amp;Farbe</translation>
+        <translation>&amp;Farbe</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 Ausgabebedingung</translation>
+        <translation>PDF/X-3 Ausgabebedingung</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
-        <translation type="unfinished">&amp;Info-Text:</translation>
+        <translation>&amp;Info-Text:</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation type="unfinished">Ausgabe&amp;profil:</translation>
+        <translation>Ausgabe&amp;profil:</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation type="unfinished">Trim Box</translation>
+        <translation>Trim-Box</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
-        <translation type="unfinished">PDF/X-&amp;3</translation>
+        <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished">Schriftarten in PDF&apos;s einbetten. Das schützt das
+        <translation>Schriftarten in PDF&apos;s einbetten. Das schützt das
 Layout und Erscheinungsbild des Dokuments vor Veränderungen.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Präsentationseffekte aktivieren im Adobe&amp;#174; Reader&amp;#174;. Nur im Vollbildmodus sichtbar.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished">Vorschau für aufgeführte Seiten anzeigen.</translation>
+        <translation>Vorschau für aufgeführte Seiten anzeigen.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Zeit bis die nächste Seite angezeigt wird.</translation>
+        <translation>Zeit bis die nächste Seite angezeigt wird.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="unfinished">Länge des Effekts in Sekunden.</translation>
+        <translation>Länge des Effekts in Sekunden.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">Auswahl des Effekts.</translation>
+        <translation>Auswahl des Effekts.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Richtung für die Effekte Rollen und Schachbrett.</translation>
+        <translation>Richtung für die Effekte Rollen und Schachbrett.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Start-Position für die Effekte Einblenden und Teilen.</translation>
+        <translation>Start-Position für die Effekte Einblenden und Teilen.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Richtung für die Effekte Jalusie und Teilen.</translation>
+        <translation>Richtung für die Effekte Jalusie und Teilen.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Gewählten Effekt auf alle Seiten anwenden.</translation>
+        <translation>Gewählten Effekt auf alle Seiten anwenden.</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
-        <translation type="unfinished">Alle Seiten als PDF exportieren</translation>
+        <translation>Alle Seiten als PDF exportieren</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation type="unfinished">Eine Seitenbereich als PDF exportieren</translation>
+        <translation>Eine Seitenbereich als PDF exportieren</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation type="unfinished">Geben sie durch Kommata getrennt ein, welche
+        <translation>Geben sie durch Kommata getrennt ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
@@ -19072,45 +19073,49 @@ Seiten importiert werden sollen, zum Beispiel
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.
 Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt die Kompatibilität der PDF-Datei fest. Die größte Kompatibilität erzielen Sie mit der Standardeinstellung PDF 1.3.
+PDF 1.4 sollten Sie einstellen, wenn Sie Transparenz oder 128Bit-Verschlüsselung verwenden wollen.
+PDF 1.5 unterstützt zusätzlich noch Ebenen.
+PDF/X-3 benötigen manche Druckereien als Format und ist nur möglich, wenn Sie Farbmanagement aktiviert haben.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished">Legt die Art des Bundes in der PDF-Datei fest. Lassen die Standard-
+        <translation>Legt die Art des Bundes in der PDF-Datei fest. Lassen die Standard-
 Einstellung (Links), wenn Sie das nicht verändern müssen.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished">Erzeugt Vorschau-Bilder für jede Seite der PDF-Datei.
+        <translation>Erzeugt Vorschau-Bilder für jede Seite der PDF-Datei.
 Einige Programme nutzen diese Bilder zur Navigation.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="unfinished">Erzeugt PDF-Artikel, die für die Navigation in verketteten Textrahmen nützlich sind.</translation>
+        <translation>Erzeugt PDF-Artikel, die für die Navigation in verketteten Textrahmen nützlich sind.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF
 Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Ebenen Ihres Dokuments werden in die PDF-Datei exportiert.
+Nur bei PDF 1.5 verfügbar.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished">Lesezeichen im Dokument in die PDF-Datei einbetten.
+        <translation>Lesezeichen im Dokument in die PDF-Datei einbetten.
 Nützlich zur Navigation in langen PDF-Dateien.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished">Ausgabe-Auflösung für Text und Vektor-Grafiken.
+        <translation>Ausgabe-Auflösung für Text und Vektor-Grafiken.
 Das beeinflusst nicht die Auflösung der Bitmap-Grafiken.</translation>
     </message>
     <message>
         <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished">Kompression von Text und Grafiken reduziert die Dateigröße.
+        <translation>Kompression von Text und Grafiken reduziert die Dateigröße.
 Nicht ohne Grund deaktivieren.
 </translation>
     </message>
@@ -19120,68 +19125,71 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished">Kompressions-Methode für Bitmap-Bilder.
+        <translation>Kompressions-Methode für Bitmap-Bilder.
 Automatisch - Scribus wählt die beste Methode.
 ZIP - Gut für Bilder mit Farbflächen.
 JPEG - erzeugt kleinere PDF&apos;s bei Dokumenten mit viel Bildern ohne große Kompressionsverluste.
-Braucht normalerweise nicht geändert werden.</translation>
+Diese Einstellung muss normalerweise nicht geändert werden.</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="unfinished">Kompressionsstärke: Minimal (25%), Niedrig (50%), Mittel (75%), Hoch (80%), Maximal (95%)</translation>
+        <translation>Kompressionsstärke: Minimal (25%), Niedrig (50%), Mittel (75%), Hoch (80%), Maximal (95%)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="unfinished">Bitmap-Bilder neu mit gewählten DPI rendern.
+        <translation>Bitmap-Bilder neu mit gewählten DPI rendern.
 Ist die Option deaktiviert, wird die natürliche Auflösung der Bilder übernommen.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="unfinished">DPI (Punkte pro Zoll) für den Export von Bildern.</translation>
+        <translation>DPI (Punkte pro Zoll) für den Export von Bildern.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF.
 If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
 If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei.
+Bei PDF 1.3 beträgt die Verschlüsselungsstärke 40bit, bei PDF 1.4
+beträgt se 128bit.
+Hinweis: PDF-Verschlüsselung lässt sich nicht mit PGP oder GPG vergleichen und hat einige Einschränkungen.</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation type="unfinished">Wählen Sie ein Masterpasswort, dass alle Sicherheitsfunktionen
+        <translation>Wählen Sie ein Masterpasswort, dass alle Sicherheitsfunktionen
 in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished">Wählen Sie ein Password für Benutzer, um die PDF-Datei ansehen zu können.</translation>
+        <translation>Wählen Sie ein Password für Benutzer, um die PDF-Datei ansehen zu können.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished">Drucken erlauben. Wenn nicht ausgewählt, ist das Drucken verboten.</translation>
+        <translation>Drucken erlauben. Wenn nicht ausgewählt, ist das Drucken verboten.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="unfinished">Veränderung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Veränderung verhindert.</translation>
+        <translation>Veränderung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Veränderung verhindert.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
-        <translation type="unfinished">Kopieren von Text oder Bildern gestatten.
+        <translation>Kopieren von Text oder Bildern gestatten.
 Wenn nicht ausgewählt, können weder Text von Bilder kopiert werden.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="unfinished">Hinzufügen von Anmerkungen gestatten.
+        <translation>Hinzufügen von Anmerkungen gestatten.
 Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="unfinished">Farbmodell für die Ausgabe der PDF-Datei.
+        <translation>Farbmodell für die Ausgabe der PDF-Datei.
 Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
 Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</translation>
     </message>
@@ -19189,353 +19197,354 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</transl
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Diese erweiterte Optio ist normalerweise deaktiviert und sollte nur aktiviert werden,
+        <translation>Diese erweiterte Optio ist normalerweise deaktiviert und sollte nur aktiviert werden,
 wenn Ihre Druckerei es fordert und sie die notwendigen Informationen haben.
 Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt werden und sie kann nicht plattformübergreifend verwendet werden.</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation type="unfinished">Farbprofil für Dokumentfarben einbetten</translation>
+        <translation>Farbprofil für Dokumentfarben einbetten</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation type="unfinished">Farbprofil für Farben</translation>
+        <translation>Farbprofil für Farben</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation type="unfinished">Render-Methode für Farben</translation>
+        <translation>Rendering-Methode für Farben</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
-        <translation type="unfinished">Farbprofil für Bilder einbetten</translation>
+        <translation>Farbprofil für Bilder einbetten</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="unfinished">Farbprofile der Quell-Bilder nicht benutzen</translation>
+        <translation>Farbprofile der Quell-Bilder nicht benutzen</translation>
     </message>
     <message>
         <source>Color profile for images</source>
-        <translation type="unfinished">Farbprofil für Bilder</translation>
+        <translation>Farbprofil für Bilder</translation>
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation type="unfinished">Render-Methode für Bilder</translation>
+        <translation>Render-Methode für Bilder</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished">Ausgabe-Profil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
+        <translation>Ausgabe-Profil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished">Erforderliche Eingabe für PDF/X-3, ohne die das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z.B. den Titel des Dokuments.</translation>
+        <translation>Erforderliche Eingabe für PDF/X-3, ohne die 
+das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z.B. den Titel des Dokuments.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Abzug für Beschnitt oben</translation>
+        <translation>Abzug für Beschnitt oben</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Abzug für Beschnitt unten</translation>
+        <translation>Abzug für Beschnitt unten</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Abzug für Beschnitt links</translation>
+        <translation>Abzug für Beschnitt links</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Abzug für Beschnitt rechts</translation>
+        <translation>Abzug für Beschnitt rechts</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished">Seite(n) horizontal spiegeln</translation>
+        <translation>Dokument horizontal spiegeln</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished">Seite(n) vertikal spiegeln</translation>
+        <translation>Dokument vertikal spiegeln</translation>
     </message>
 </context>
 <context>
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">Schrift:</translation>
+        <translation>Schriftart:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Größe:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe:</translation>
     </message>
     <message>
         <source>Stroke Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linienfarbe:</translation>
     </message>
     <message>
         <source>Tab Fill Character:</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllzeichen:</translation>
     </message>
     <message>
         <source>Tab Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab-Breite:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Spalten:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;bstand:</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">The quick brown fox jumps over the lazy dog</translation>
+        <translation>The quick brown fox jumps over the lazy dog</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation type="unfinished">Linien&amp;farbe:</translation>
+        <translation>Linien&amp;farbe:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
-        <translation type="unfinished">&amp;Tonwert:</translation>
+        <translation>&amp;Tonwert:</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation type="unfinished">Füll&amp;farbe:</translation>
+        <translation>Füll&amp;farbe:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation type="unfinished">&amp;Tonwert:</translation>
+        <translation>&amp;Tonwert:</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linienstil:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">Linien&amp;breite:</translation>
+        <translation>Linien&amp;breite:</translation>
     </message>
     <message>
         <source>Line S&amp;tyle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liniens&amp;til:</translation>
     </message>
     <message>
         <source>Arrows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfeile:</translation>
     </message>
     <message>
         <source>Start:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anfang:</translation>
     </message>
     <message>
         <source>End:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ende:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Freie Skalierung</translation>
+        <translation>&amp;Frei skalieren</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
-        <translation type="unfinished">&amp;Horizontale Skalierung:</translation>
+        <translation>&amp;Horizontal skalieren:</translation>
     </message>
     <message>
         <source>&amp;Vertical Scaling:</source>
-        <translation type="unfinished">&amp;Vertikale Skalierung:</translation>
+        <translation>&amp;Vertikal skalieren:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">Bild an &amp;Rahmen anpassen</translation>
+        <translation>Bild an &amp;Rahmen anpassen</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation type="unfinished">Seitenverhältnisse beibe&amp;halten</translation>
+        <translation>Seitenverhältnisse beibe&amp;halten</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation type="unfinished">Füll&amp;farbe:</translation>
+        <translation>Füll&amp;farbe:</translation>
     </message>
     <message>
         <source>Use embedded Clipping Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingebetteten Pfad verwenden</translation>
     </message>
     <message>
         <source>On Screen Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <source>Full Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau in voller Auflösung</translation>
     </message>
     <message>
         <source>Normal Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau in normaler Auflösung</translation>
     </message>
     <message>
         <source>Low Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau in geringer Auflösung</translation>
     </message>
     <message>
         <source>Mi&amp;nimum:</source>
-        <translation type="unfinished">Mini&amp;mal:</translation>
+        <translation>Mini&amp;mum:</translation>
     </message>
     <message>
         <source>Ma&amp;ximum:</source>
-        <translation type="unfinished">Ma&amp;ximal:</translation>
+        <translation>Ma&amp;ximum:</translation>
     </message>
     <message>
         <source>&amp;Stepping:</source>
-        <translation type="unfinished">Schritt&amp;weite:</translation>
+        <translation>Schritt&amp;weite:</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation type="unfinished">Eigenschaften der Text-Rahmen</translation>
+        <translation>Einstellungen für Textrahmen</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="unfinished">Eigenschaften der Bilder-Rahmen</translation>
+        <translation>Einstellungen für Bildrahmen</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation type="unfinished">Eigenschaften der Formen</translation>
+        <translation>Einstellungen für Formen</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation type="unfinished">Eigenschaften der Zoom-Level</translation>
+        <translation>Einstellungen für Zoomlevel</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation type="unfinished">Eigenschaften des Linien-Werkzeuges</translation>
+        <translation>Eigenschaften von Linien</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation type="unfinished">Eigenschaften des Polygon-Werkzeuges</translation>
+        <translation>Eigenschaften von Polygonen</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation type="unfinished">Schriftart für einen neuen Text-Rahmen</translation>
+        <translation>Schriftart für neue Textrahmen</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation type="unfinished">Schriftgröße für einen neuen Textrahmen</translation>
+        <translation>Schriftgröße für neue Textrahmen</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation type="unfinished">Schriftfarbe</translation>
+        <translation>Schriftfarbe</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation type="unfinished">Anzahl der Spalten in einem neuen Text-Rahmen</translation>
+        <translation>Anzahl der Spalten in neuen Textrahmen</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation type="unfinished">Abstand zwischen den Spalten</translation>
+        <translation>Abstand zwischen den Spalten</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation type="unfinished">Vorschau der gewählten Schriftart</translation>
+        <translation>Vorschau der gewählten Schriftart</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished">Bild-Rahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
+        <translation>Bildrahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
-        <translation type="unfinished">Horizontale Skalierung des Bildes</translation>
+        <translation>Horizontale Skalierung des Bildes</translation>
     </message>
     <message>
         <source>Vertical scaling of images</source>
-        <translation type="unfinished">Vertikale Skalierung des Bildes</translation>
+        <translation>Vertikale Skalierung des Bildes</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="unfinished">Seitenverhältnisse beibehalten</translation>
+        <translation>Seitenverhältnisse beibehalten</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished">Bilder werden auf die Größe des Rahmens skaliert</translation>
+        <translation>Bilder werden auf die Größe des Rahmens skaliert</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished">Bilder behalten automatisch ihre originalen Seitenverhältnisse</translation>
+        <translation>Bilder behalten ihre originalen Seitenverhältnisse</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="unfinished">Füllfarbe für Bild-Rahmen</translation>
+        <translation>Füllfarbe für Bild-Rahmen</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation type="unfinished">Intensität der Füllfarbe</translation>
+        <translation>Intensität der Füllfarbe</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation type="unfinished">Linienfarbe der Form</translation>
+        <translation>Linienfarbe der Form</translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
-        <translation type="unfinished">Intensität der Linienfarbe</translation>
+        <translation>Intensität der Linienfarbe</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation type="unfinished">Füllfarbe der Form</translation>
+        <translation>Füllfarbe der Form</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation type="unfinished">Linien-Stil der Form</translation>
+        <translation>Linienstil der Form</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation type="unfinished">Linien-Breite der Form</translation>
+        <translation>Linienbreite der Form</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
-        <translation type="unfinished">Kleinstmögliche Vergrößerungsstufe</translation>
+        <translation>Kleinstmögliche Vergrößerungsstufe</translation>
     </message>
     <message>
         <source>Maximum magnification allowed</source>
-        <translation type="unfinished">Größtmögliche Vergrößerungstufe</translation>
+        <translation>Größtmögliche Vergrößerungstufe</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="unfinished">Abstand zwischen zwei Zoom-Stufen</translation>
+        <translation>Abstand zwischen zwei Zoom-Stufen</translation>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation type="unfinished">Farbe der Linien</translation>
+        <translation>Farbe der Linien</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation type="unfinished">Tonwert der Farbe</translation>
+        <translation>Tonwert der Farbe</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation type="unfinished">Linien-Stil</translation>
+        <translation>Linienstil</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation type="unfinished">Breite der Linien</translation>
+        <translation>Linienbreite</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefiniert:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefiniert: </translation>
     </message>
 </context>
 <context>
@@ -19832,427 +19841,431 @@ Bitte wählen Sie einen anderen.</translation>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikale Hilfslinie hinzufügen</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontale Hilfslinie hinzufügen</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikale Hilfslinie entfernen</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontale Hilfslinie entfernen</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikale Hilfslinie verschieben</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontale Hilfslinie verschieben</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfslinien sperren</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Hilfslinien entsperren</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschieben</translation>
     </message>
     <message>
         <source>Resize</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe ändern</translation>
     </message>
     <message>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation>Drehung</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>W1: %1, H1: %2
+W2: %3, H2: %4</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Markierung</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Gruppieren</translation>
+        <translation>Gruppieren</translation>
     </message>
     <message>
         <source>Selection/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe markieren</translation>
     </message>
     <message>
         <source>Create</source>
-        <translation type="unfinished">Erstellen</translation>
+        <translation>Erstellen</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+W: %3, H: %4</translation>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausrichten/Verteilen</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekte einbezogen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Set fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe festlegen</translation>
     </message>
     <message>
         <source>Color1: %1, Color2: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe1: %1, Farbe2: %2</translation>
     </message>
     <message>
         <source>Set fill color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonwert der Füllfarbe festlegen</translation>
     </message>
     <message>
         <source>Set line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Linienfarbe festlegen</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonwert der Linienfarbe festlegen</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontal kippen</translation>
     </message>
     <message>
         <source>Flip vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal kippen</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation type="unfinished">Sperren</translation>
+        <translation>Sperren</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation type="unfinished">Entsperren</translation>
+        <translation>Entsperren</translation>
     </message>
     <message>
         <source>Lock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe sperren</translation>
     </message>
     <message>
         <source>Unlock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe entsperren</translation>
     </message>
     <message>
         <source>Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe auflösen</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Umbenennen</translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <source>From %1
 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Von %1
+bis %2</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Musterseite anwenden</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Einfügen</translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Ausschneiden</translation>
+        <translation>Ausschneiden</translation>
     </message>
     <message>
         <source>Set fill color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Deckkraft der Füllfarbe festlegen</translation>
     </message>
     <message>
         <source>Set line color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Deckkraft der Linienfarbe festlegen</translation>
     </message>
     <message>
         <source>Set line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Linienstil festlegen</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
-        <translation type="unfinished"></translation>
+        <translation>Endstil der Linie festlegen</translation>
     </message>
     <message>
         <source>Set the style of line join</source>
-        <translation type="unfinished"></translation>
+        <translation>Eckenstil der Linien festlegen</translation>
     </message>
     <message>
         <source>Set line width</source>
-        <translation type="unfinished"></translation>
+        <translation>Linienbreite festlegen</translation>
     </message>
     <message>
         <source>No style</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Stil</translation>
     </message>
     <message>
         <source>Set custom line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerdefinierter Linienstil</translation>
     </message>
     <message>
         <source>Do not use custom line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Keinen benutzerdefinierten Linienstil verwenden</translation>
     </message>
     <message>
         <source>Set start arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Startpfeil festlegen</translation>
     </message>
     <message>
         <source>Set end arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Endpfeil festlegen</translation>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabelle erstellen</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeilen: %1, Spalten: %2</translation>
     </message>
     <message>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftart festlegen</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftgröße festlegen</translation>
     </message>
     <message>
         <source>Set font width</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite der Schrift festlegen</translation>
     </message>
     <message>
         <source>Set font height</source>
-        <translation type="unfinished"></translation>
+        <translation>Höhe der Schrift festlegen</translation>
     </message>
     <message>
         <source>Set font fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe der Schrift festlegen</translation>
     </message>
     <message>
         <source>Set font stroke color</source>
-        <translation type="unfinished"></translation>
+        <translation>Linienfarbe der Schrift festlegen</translation>
     </message>
     <message>
         <source>Set font fill color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonwert der Füllfarbe festlegen</translation>
     </message>
     <message>
         <source>Set font stroke color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonwert der Linienfarbe festlegen</translation>
     </message>
     <message>
         <source>Set kerning</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenabstand festlegen</translation>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeilenabstand festlegen</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Absatzstil festlegen</translation>
     </message>
     <message>
         <source>Set language</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprach festlegen</translation>
     </message>
     <message>
         <source>Align text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text ausrichten</translation>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Texteffekt anwenden</translation>
     </message>
     <message>
         <source>Image frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildrahmen</translation>
     </message>
     <message>
         <source>Text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Textrahmen</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Polygon</translation>
+        <translation>Polygon</translation>
     </message>
     <message>
         <source>Bezier curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezierkurve</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation type="unfinished">Polyline</translation>
+        <translation>Polylinie</translation>
     </message>
     <message>
         <source>Convert to</source>
-        <translation type="unfinished"></translation>
+        <translation>Umwandeln in</translation>
     </message>
     <message>
         <source>Import SVG image</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG-Bild importieren</translation>
     </message>
     <message>
         <source>Import EPS image</source>
-        <translation type="unfinished"></translation>
+        <translation>EPS-Datei importieren</translation>
     </message>
     <message>
         <source>Import OpenOffice.org Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Zeichnung importieren</translation>
     </message>
     <message>
         <source>Scratch space</source>
-        <translation type="unfinished"></translation>
+        <translation>Scratch-Space</translation>
     </message>
     <message>
         <source>Text flows around the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Text umfließt den Rahmen</translation>
     </message>
     <message>
         <source>Text flows around bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Text umfließt die Bounding Box</translation>
     </message>
     <message>
         <source>Text flows around contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Text umfließt Kontourlinie</translation>
     </message>
     <message>
         <source>No text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Textfluss</translation>
     </message>
     <message>
         <source>No bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Bounding Box</translation>
     </message>
     <message>
         <source>No contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Kontourlinie</translation>
     </message>
     <message>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Seite %1</translation>
     </message>
     <message>
         <source>Set image scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildgröße festlegen</translation>
     </message>
     <message>
         <source>Frame size</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmengröße</translation>
     </message>
     <message>
         <source>Free scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Frei skalieren</translation>
     </message>
     <message>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Größenverhältnis beibehalten</translation>
     </message>
     <message>
         <source>Break aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Größenverhältnis nicht beibehalten</translation>
     </message>
     <message>
         <source>Edit contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontourlinie bearbeiten</translation>
     </message>
     <message>
         <source>Edit shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Form bearbeiten</translation>
     </message>
     <message>
         <source>Reset contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontourlinie zurücksetzen</translation>
     </message>
     <message>
         <source>Add page</source>
-        <translation type="unfinished"></translation>
+        <translation>Seite hinzufügen</translation>
     </message>
     <message>
         <source>Add pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten hinzufügen</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation>Seite löschen</translation>
     </message>
     <message>
         <source>Delete pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiten löschen</translation>
     </message>
     <message>
         <source>Add layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene hinzufügen</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene löschen</translation>
     </message>
     <message>
         <source>Rename layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene umbenennen</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene nach oben verschieben</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ebene nach unten verschieben</translation>
     </message>
     <message>
         <source>Send to layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Ebene verschieben</translation>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucken der Ebene aktivieren</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucken der Ebene deaktiveren</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Name der Ebene ändern</translation>
     </message>
     <message>
         <source>Get image</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild laden</translation>
     </message>
 </context>
 <context>
