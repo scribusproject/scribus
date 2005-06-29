@@ -839,8 +839,8 @@ void Mpalette::SetDoc(ScribusDoc *d)
 {
 	doc = d;
 	Umrech=doc->unitRatio;
-	double maxXYWHVal=(QMAX(doc->pageWidth, doc->pageHeight) + QMAX(doc->pageWidth, doc->pageHeight) * 0.1) * Umrech;
-	double minXYVal=-3000 * Umrech;
+	double maxXYWHVal= 30000 * Umrech;
+	double minXYVal= -30000 * Umrech;
 	HaveDoc = true;
 	HaveItem = false;
 
@@ -848,18 +848,18 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	Ypos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
 	Width->setValues( Umrech, maxXYWHVal, 100, Umrech);
 	Height->setValues( Umrech, maxXYWHVal, 100, Umrech);
-	LXpos->setValues( -3000, maxXYWHVal, 100, 0);
-	LYpos->setValues( -3000, maxXYWHVal, 100, 0);
+	LXpos->setValues( -30000, maxXYWHVal, 100, 0);
+	LYpos->setValues( -30000, maxXYWHVal, 100, 0);
 
 	Rot->setValues( 0, 359.99, 100, 0);
 	RoundRect->setValues( -300, 300, 10, 0);
 	Extra->setValues( -300, 300, 10, 0);
 	Size->setValues( 0.5, 2048, 10, 1);
 	LineSp->setValues( 1, 2048, 10, 1);
-	ScaleX->setValues( 1, 3000, 10, 1);
-	ScaleY->setValues( 1, 3000, 10, 1);
-	imgDpiX->setValues( 1, 3000, 10, 1);
-	imgDpiY->setValues( 1, 3000, 10, 1);
+	ScaleX->setValues( 1, 30000, 10, 1);
+	ScaleY->setValues( 1, 30000, 10, 1);
+	imgDpiX->setValues( 1, 30000, 10, 1);
+	imgDpiY->setValues( 1, 30000, 10, 1);
 
 	dGap->setDecimals(10);
 	DTop->setDecimals(10);
@@ -1270,8 +1270,8 @@ void Mpalette::UnitChange()
 	Umrech = doc->unitRatio;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	double maxXYWHVal=(QMAX(doc->pageWidth, doc->pageHeight) + QMAX(doc->pageWidth, doc->pageHeight) * 0.1) * Umrech;
-	double minXYVal=-3000 * Umrech;
+	double maxXYWHVal=30000 * Umrech;
+	double minXYVal=-30000 * Umrech;
 
 	double ratioDivisor = Umrech / oldRatio;
 	double newX = Xpos->value() * ratioDivisor;

@@ -52,10 +52,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4->setSpacing( 6 );
 	dsLayout4->setMargin( 0 );
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "sizeQComboBox" );
+	sizeQComboBox->setEditable(false);
 	sizeQLabel = new QLabel( sizeQComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
 
 	PageSize *ps=new PageSize(doc->PageSize);
-	QStringList pageSizes=ps->getPageSizeList();
+	QStringList pageSizes=ps->getTrPageSizeList();
 	sizeQComboBox->insertStringList(pageSizes);
 	sizeQComboBox->insertItem( tr( "Custom" ) );
 
@@ -65,7 +66,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 		sizeQComboBox->setCurrentItem(sizeIndex);
 	else
 		sizeQComboBox->setCurrentItem(sizeQComboBox->count()-1);
-	sizeQComboBox->setEnabled(false);
 
 	dsLayout4->addWidget( sizeQLabel, 0, 0 );
 	dsLayout4->addWidget( sizeQComboBox, 0, 1 );
@@ -73,8 +73,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	orientationQLabel = new QLabel( orientationQComboBox, tr( "Orie&ntation:" ), dsGroupBox7, "orientationQLabel" );
 	orientationQComboBox->insertItem( tr( "Portrait" ) );
 	orientationQComboBox->insertItem( tr( "Landscape" ) );
-	orientationQComboBox->setEnabled(false);
 	orientationQComboBox->setCurrentItem(doc->PageOri);
+	orientationQComboBox->setEditable(false);
 	dsLayout4->addWidget( orientationQLabel, 0, 2 );
 	dsLayout4->addWidget( orientationQComboBox, 0, 3 );
 	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, 2 );
@@ -92,6 +92,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsLayout4->addWidget( heightQLabel, 1, 2 );
 	dsLayout4->addWidget( heightMSpinBox, 1, 3 );
+	if (sizeQComboBox->currentText() == tr("Custom"))
+	{
+		heightMSpinBox->setEnabled( true );
+		widthMSpinBox->setEnabled( true );
+	}
 	unitCombo = new QComboBox( true, dsGroupBox7, "unitCombo" );
 	unitCombo->insertStringList(unitGetTextUnitList());
 	unitCombo->setEditable(false);
@@ -353,6 +358,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	leftR->setMaxValue(pageWidth - rightR->value());
 	topR->setMaxValue(pageHeight - bottomR->value());
 	bottomR->setMaxValue(pageHeight - topR->value());
+	RandR = rightR->value() / unitRatio;
+	RandL = leftR->value() / unitRatio;
+	RandB = bottomR->value() / unitRatio;
+	RandT = topR->value() / unitRatio;
 	//tooltips
 	QToolTip::add( checkLink, "<qt>" + tr("Turns the of linked frames on or off") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
@@ -369,6 +378,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	// signals and slots connections
 	connect( facingPages, SIGNAL( clicked() ), this, SLOT( setDS() ) );
+	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
@@ -376,6 +387,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
+	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
 
 	if (CMSavail)
 	{
@@ -405,6 +418,10 @@ void ReformDoc::restoreDefaults()
 		bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
 		leftR->setValue(currDoc->pageMargins.Left * unitRatio);
 		topR->setValue(currDoc->pageMargins.Top * unitRatio);
+		RandR = rightR->value() / unitRatio;
+		RandL = leftR->value() / unitRatio;
+		RandB = bottomR->value() / unitRatio;
+		RandT = topR->value() / unitRatio;
 	}
 	else if (current == tabView)
 	{
@@ -449,6 +466,8 @@ void ReformDoc::restoreDefaults()
 
 void ReformDoc::unitChange()
 {
+	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	disconnect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
 	disconnect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
@@ -528,8 +547,8 @@ void ReformDoc::unitChange()
 	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabPDF->unitRatio = unitRatio;
-	pageWidth = currDoc->pageWidth * unitRatio;
-	pageHeight = currDoc->pageHeight * unitRatio;
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	pageHeight = heightMSpinBox->value() / unitRatio;
 	rightR->setMaxValue(pageWidth - leftR->value());
 	leftR->setMaxValue(pageWidth - rightR->value());
 	topR->setMaxValue(pageHeight - bottomR->value());
@@ -538,6 +557,8 @@ void ReformDoc::unitChange()
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 }
 
 void ReformDoc::changePaperColor()
@@ -555,21 +576,25 @@ void ReformDoc::changePaperColor()
 
 void ReformDoc::setTop(int )
 {
+	RandT = topR->value() / unitRatio;
 	bottomR->setMaxValue(pageHeight - topR->value());
 }
 
 void ReformDoc::setBottom(int )
 {
+	RandB = bottomR->value() / unitRatio;
 	topR->setMaxValue(pageHeight - bottomR->value());
 }
 
 void ReformDoc::setLeft(int )
 {
+	RandL = leftR->value() / unitRatio;
 	rightR->setMaxValue(pageWidth - leftR->value());
 }
 
 void ReformDoc::setRight(int )
 {
+	RandR = rightR->value() / unitRatio;
 	leftR->setMaxValue(pageWidth - rightR->value());
 }
 
@@ -587,6 +612,82 @@ void ReformDoc::setDS()
 		Rechts->setText( tr( "&Right:" ) );
 		firstPage->setEnabled(false);
 	}
+}
+
+void ReformDoc::setPageWidth(int)
+{
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	rightR->setMaxValue(widthMSpinBox->value() - leftR->value());
+	leftR->setMaxValue(widthMSpinBox->value() - rightR->value());
+	topR->setMaxValue(heightMSpinBox->value() - bottomR->value());
+	bottomR->setMaxValue(heightMSpinBox->value() - topR->value());
+}
+
+void ReformDoc::setPageHeight(int)
+{
+	pageHeight = heightMSpinBox->value() / unitRatio;
+	rightR->setMaxValue(widthMSpinBox->value() - leftR->value());
+	leftR->setMaxValue(widthMSpinBox->value() - rightR->value());
+	topR->setMaxValue(heightMSpinBox->value() - bottomR->value());
+	bottomR->setMaxValue(heightMSpinBox->value() - topR->value());
+}
+
+void ReformDoc::setSize(const QString & gr)
+{
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	pageHeight = heightMSpinBox->value() / unitRatio;
+	widthMSpinBox->setEnabled(false);
+	heightMSpinBox->setEnabled(false);
+	PageSize *ps2=new PageSize(gr);
+	prefsPageSizeName=ps2->getPageName();
+	if (gr == tr("Custom"))
+	{
+		widthMSpinBox->setEnabled(true);
+		heightMSpinBox->setEnabled(true);
+	}
+	else
+	{
+		pageWidth = ps2->getPageWidth();
+		pageHeight = ps2->getPageHeight();
+	}
+	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	widthMSpinBox->setValue(pageWidth * unitRatio);
+	heightMSpinBox->setValue(pageHeight * unitRatio);
+	rightR->setMaxValue(widthMSpinBox->value() - leftR->value());
+	leftR->setMaxValue(widthMSpinBox->value() - rightR->value());
+	topR->setMaxValue(heightMSpinBox->value() - bottomR->value());
+	bottomR->setMaxValue(heightMSpinBox->value() - topR->value());
+	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	delete ps2;
+}
+
+void ReformDoc::setOrien(int ori)
+{
+	double br;
+	setSize(sizeQComboBox->currentText());
+	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	if (ori == 0)
+	{
+		if (sizeQComboBox->currentText() == tr("Custom"))
+		{
+			br = widthMSpinBox->value();
+			widthMSpinBox->setValue(heightMSpinBox->value());
+			heightMSpinBox->setValue(br);
+		}
+	}
+	else
+	{
+		br = widthMSpinBox->value();
+		widthMSpinBox->setValue(heightMSpinBox->value());
+		heightMSpinBox->setValue(br);
+	}
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	pageHeight = heightMSpinBox->value() / unitRatio;
+	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
+	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 }
 
 void ReformDoc::switchCMS(bool enable)

@@ -188,11 +188,11 @@ void SVGPlug::convert()
 {
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
-	Conversion = 1.0; // 0.8;
+	Conversion = 0.8;
 	QDomElement docElem = inpdoc.documentElement();
 	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
-	Conversion = 0.8; // 0.8;
+	Conversion = 0.8;
 	if (Prog->pluginManager->dllInput != "")
 	{
 		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
@@ -233,12 +233,16 @@ void SVGPlug::convert()
 	haveViewBox = false;
 	if( !docElem.attribute( "viewBox" ).isEmpty() )
 	{
+		Conversion = 1.0;
+		double w2 = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
+		double h2 = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
+		Conversion = 0.8;
 		QString viewbox( docElem.attribute( "viewBox" ) );
 		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplifyWhiteSpace() );
 		viewTransformX = points[0].toDouble();
 		viewTransformY = points[1].toDouble();
-		viewScaleX = width / points[2].toDouble();
-		viewScaleY = height / points[3].toDouble();
+		viewScaleX = w2 / points[2].toDouble();
+		viewScaleY = h2 / points[3].toDouble();
 		haveViewBox = true;
 	}
 	parseGroup( docElem );

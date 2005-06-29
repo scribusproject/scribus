@@ -788,7 +788,6 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	setSize(prefsData->pageSize);
 	setOrien(prefsData->pageOrientation);
-
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
 
@@ -1000,7 +999,7 @@ void Preferences::setSize(const QString & gr)
 	PageSize *ps2=new PageSize(gr);
 
 	prefsPageSizeName=ps2->getPageName();
-	if (gr==tr("Custom"))
+	if (gr == tr("Custom"))
 	{
 		pageWidth->setEnabled(true);
 		pageHeight->setEnabled(true);
@@ -1020,6 +1019,7 @@ void Preferences::setSize(const QString & gr)
 	BottomR->setMaxValue(pageHeight->value() - TopR->value());
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	delete ps2;
 }
 
 /*!

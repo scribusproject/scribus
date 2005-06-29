@@ -2230,12 +2230,12 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		setCaption( tr("Story Editor - %1").arg(currItem->itemName()));
 		firstSet = false;
 		Editor->loadItemText(currItem);
+		Editor->sync();
+		Editor->repaintContents();
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
 		updateProps(0,0);
 		updateStatus();
-		Editor->sync();
-		Editor->repaintContents();
 		connectSignals();
 	}
 	else
@@ -2340,10 +2340,10 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				textChanged = false;
 				Editor->loadItemText(currItem);
 				updateStatus();
-				EditorBar->setRepaint(true);
-				EditorBar->doRepaint();
 				Editor->sync();
 				Editor->repaintContents();
+				EditorBar->setRepaint(true);
+				EditorBar->doRepaint();
 				textChanged = false;
 				connectSignals();
 			}
@@ -3038,10 +3038,10 @@ void StoryEditor::slotEditStyles()
 	Editor->setCursorPosition(p, i);
 	updateProps(p, i);
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-	EditorBar->setRepaint(true);
-	EditorBar->doRepaint();
 	Editor->sync();
 	Editor-> repaintContents();
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 	qApp->processEvents();
 	blockUpdate = false;
 }

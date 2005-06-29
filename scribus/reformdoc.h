@@ -106,7 +106,12 @@ public:
 	double unitRatio;
 	double pageWidth;
 	double pageHeight;
+	double RandT;
+	double RandB;
+	double RandL;
+	double RandR;
 	QColor colorPaper;
+	QString prefsPageSizeName;
 
 protected:
 	QVBoxLayout* reformDocLayout;
@@ -137,6 +142,10 @@ protected slots:
 	virtual void setBottom(int v);
 	virtual void setLeft(int v);
 	virtual void setRight(int v);
+	virtual void setSize(const QString &);
+	virtual void setOrien(int ori);
+	virtual void setPageWidth(int v);
+	virtual void setPageHeight(int v);
 	virtual void switchCMS(bool enable);
 	virtual void setTOCIndexData(QWidget *widgetToShow);
 };

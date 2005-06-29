@@ -3036,15 +3036,19 @@ bool ScribusApp::SetupDoc()
 	if (dia->exec())
 	{
 		slotChangeUnit(dia->unitCombo->currentItem(), false);
-		tpr2 = dia->topR->value() / doc->unitRatio;
-		lr2 = dia->leftR->value() / doc->unitRatio;
-		rr2 = dia->rightR->value() / doc->unitRatio;
-		br2 = dia->bottomR->value() / doc->unitRatio;
+		tpr2 = dia->RandT;
+		br2 = dia->RandB;
+		lr2 = dia->RandL;
+		rr2 = dia->RandR;
 		fp = dia->facingPages->isChecked();
 		if (fp)
 			doc->FirstPageLeft = dia->firstPage->isChecked();
 		doc->FirstPnum = dia->pageNumber->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
+		doc->PageOri = dia->orientationQComboBox->currentItem();
+		doc->PageSize = dia->prefsPageSizeName;
+		doc->pageWidth = dia->pageWidth;
+		doc->pageHeight = dia->pageHeight;
 		doc->guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		doc->marginColored = dia->checkUnprintable->isChecked();
 		doc->papColor = dia->colorPaper;

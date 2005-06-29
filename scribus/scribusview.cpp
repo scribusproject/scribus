@@ -8482,6 +8482,8 @@ void ScribusView::reformPages()
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
 	{
 		Seite = Doc->Pages.at(a);
+		Seite->Width = Doc->pageWidth;
+		Seite->Height = Doc->pageHeight;
 		oldPg.oldXO = Seite->Xoffset;
 		oldPg.oldYO = Seite->Yoffset;
 		oldPg.newPg = a;
@@ -8586,18 +8588,15 @@ void ScribusView::reformPages()
 	{
 		PageItem *item = Doc->Items.at(ite);
 		if (item->OwnPage < 0)
-		{
 			item->OwnPage = OnPage(item);
-			setRedrawBounding(item);
-		}
 		else
 		{
 			oldPg = pageTable[item->OwnPage];
 			item->Xpos = item->Xpos - oldPg.oldXO + Doc->Pages.at(oldPg.newPg)->Xoffset;
 			item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->Yoffset;
 			item->OwnPage = static_cast<int>(oldPg.newPg);
-			setRedrawBounding(item);
 		}
+		setRedrawBounding(item);
 	}
 	if (Doc->PageFP)
 	{
