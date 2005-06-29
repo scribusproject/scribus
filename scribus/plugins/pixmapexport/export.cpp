@@ -105,9 +105,9 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 		return FALSE;
 
 	/* a little magic here - I need to compute the "maxGr" value... */
-	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * enlargement * (pageDPI / 72)/ 100));
+	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * enlargement * (pageDPI / 72.0) / 100.0));
 	QImage im = pixmap.convertToImage();
-	int dpm = qRound(100.0 / 2.54 * pageDPI);
+	int dpm = qRound((100.0 / 2.54) * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
