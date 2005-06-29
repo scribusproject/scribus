@@ -83,6 +83,11 @@ PythonConsole::~PythonConsole()
 	// no need to delete child widgets, Qt does it all for us
 }
 
+void PythonConsole::closeEvent(QCloseEvent *)
+{
+	emit paletteShown(false);
+}
+
 /*
  *  Sets the strings of the subwidgets using the current
  *  language.

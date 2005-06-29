@@ -45,6 +45,9 @@ class PythonConsole : public QWidget
 		QTextEdit* commandEdit;
 		//! Results viewer
 		QTextEdit* outputEdit;
+		
+		//! Close event for turning the action off
+		void closeEvent(QCloseEvent *);
 
 	public slots:
 		//! menu operations

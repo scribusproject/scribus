@@ -358,8 +358,12 @@ QString ScripterCore::slotRunScript(QString Script)
 
 void ScripterCore::slotInteractiveScript(bool visible)
 {
+	QObject::disconnect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
+	
 	scrScripterActions["scripterShowConsole"]->setOn(visible);
 	pcon->setShown(visible);
+	
+	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 }
 
 void ScripterCore::slotExecute()
