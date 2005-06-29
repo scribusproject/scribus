@@ -71,11 +71,11 @@ UndoManager::UndoManager()
 	if (!UndoManager::IGuides)
 		initIcons();
 	prefs = prefsFile->getContext("undo");
-	historyLength = prefs->getInt("historyLength", 10);
+	historyLength = prefs->getInt("historyLength", 20);
 	if (historyLength < 0)
 		historyLength = 10;
-	transaction = NULL;
-	transactionTarget = NULL;
+	transaction = 0;
+	transactionTarget = 0;
 	languageChange();
 }
 
@@ -106,9 +106,9 @@ void UndoManager::beginTransaction(const QString &targetName,
 void UndoManager::cancelTransaction()
 {
 	delete transaction;
-	transaction = NULL;
+	transaction = 0;
 	delete transactionTarget;
-	transactionTarget = NULL;
+	transactionTarget = 0;
 	if (!transactions.empty())
 	{
 		// fetch the next transaction from the vector
@@ -154,8 +154,8 @@ void UndoManager::commit(const QString &targetName,
 	}
 	else
 	{
-		transaction = NULL;
-		transactionTarget = NULL;
+		transaction = 0;
+		transactionTarget = 0;
 	}
 
 	if (tmps->sizet() > 0) // are there any actions inside the commited transaction
@@ -167,9 +167,9 @@ void UndoManager::commit(const QString &targetName,
 	else
 	{
 		delete tmpu;
-		tmpu = NULL;
+		tmpu = 0;
 		delete tmps;
-		tmps = NULL;
+		tmps = 0;
 	}
 }
 
@@ -180,7 +180,7 @@ bool UndoManager::isTransactionMode()
 
 void UndoManager::registerGui(UndoGui* gui)
 {
-	if (gui == NULL)
+	if (gui == 0)
 		return;
 
 	setUndoEnabled(false);
@@ -280,6 +280,7 @@ void UndoManager::removeGui(UndoGui* gui)
 
 void UndoManager::switchStack(const QString& stackName)
 {
+	qDebug("switchStack(%s)", stackName.latin1());
 	currentDoc = stackName;
 	if (!stacks.contains(currentDoc))
 	{
@@ -294,6 +295,7 @@ void UndoManager::switchStack(const QString& stackName)
 
 void UndoManager::renameStack(const QString& newName)
 {
+	qDebug("renameStack(%s)", newName.latin1());
 	if (currentDoc == newName)
 		return;
 
@@ -318,12 +320,13 @@ void UndoManager::renameStack(const QString& newName)
 
 void UndoManager::removeStack(const QString& stackName)
 {
+	qDebug("removeStack(%s)", stackName.latin1());
 	if (stacks.contains(stackName))
 	{
 		for (uint i = 0; i < stacks[stackName].second.size(); ++i)
 		{
 			delete stacks[stackName].second[i].second;
-			stacks[stackName].second[i].second = NULL;
+			stacks[stackName].second[i].second = 0;
 		}
 		stacks.erase(stackName);
 		if (currentDoc == stackName)
@@ -337,7 +340,7 @@ void UndoManager::removeStack(const QString& stackName)
 
 void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPixmap)
 {
-	QPixmap *oldIcon = NULL;
+	QPixmap *oldIcon = 0;
 	if (targetPixmap)
 	{
 		oldIcon = target->getUPixmap();
@@ -368,10 +371,10 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 			if (ts)
 			{
 				delete (*it).first; // delete TransactionObject
-				(*it).first = NULL;
+				(*it).first = 0;
 			}
 			delete (*it).second;
-			(*it).second = NULL;
+			(*it).second = 0;
 		}
 		stacks[currentDoc].second.erase(stacks[currentDoc].second.begin(), stacks[currentDoc].first);
 	}
@@ -415,7 +418,7 @@ void UndoManager::doUndo(int steps)
 	if (steps > 0 && _undoEnabled && stacks.size() > 0)
 	{
 		setUndoEnabled(false);
-		UndoState* tmpUndoState = NULL;
+		UndoState* tmpUndoState = 0;
 		currentAction = stacks[currentDoc].first;
 		for (int i = 0; i < steps; ++i)
 		{
@@ -428,7 +431,7 @@ void UndoManager::doUndo(int steps)
 				tmpUndoObject->restore(tmpUndoState, true);
 			else if (tmpUndoState && ts)
 				doTransactionUndo(ts);
-			ts = NULL;
+			ts = 0;
 		}
 		reorderUndoStack(steps);
 		setUndoEnabled(true);
@@ -500,7 +503,7 @@ void UndoManager::doRedo(int steps)
 	if (steps > 0 && _undoEnabled && stacks.size() > 0)
 	{
 		setUndoEnabled(false);
-		UndoState* tmpUndoState = NULL;
+		UndoState* tmpUndoState = 0;
 		currentAction = stacks[currentDoc].first;
 		for (int i = 0; i < steps; ++i) // TODO compare to stack size too
 		{
@@ -513,7 +516,7 @@ void UndoManager::doRedo(int steps)
 				tmpUndoObject->restore(tmpUndoState, false);
 			else if (tmpUndoState && ts)
 				doTransactionRedo(ts);
-			ts = NULL;
+			ts = 0;
 		}
 
 		reorderRedoStack(steps);
@@ -605,7 +608,7 @@ void UndoManager::showObject(int uid)
 
 UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
-	UndoObject *tmp = NULL;
+	UndoObject *tmp = 0;
 	for (uint i = 0; i < stacks[currentDoc].second.size(); ++i)
 	{
 		ActionPair &apair = stacks[currentDoc].second[i];
@@ -668,7 +671,7 @@ void UndoManager::deleteInstance()
 {
 	if (_instance)
 		delete _instance;
-	_instance = NULL;
+	_instance = 0;
 }
 
 UndoManager::~UndoManager()
@@ -679,7 +682,7 @@ UndoManager::~UndoManager()
 		for (uint i = 0; i < (*it).second.size(); ++i)
 		{
 			delete ((*it).second)[i].second;
-			((*it).second)[i].second = NULL;
+			((*it).second)[i].second = 0;
 		}
 	}
 }
@@ -806,7 +809,7 @@ ActionPair* UndoManager::TransactionState::at(int index)
 	if (index >= 0 && static_cast<uint>(index) < sizet())
 		return states[index];
 	else
-		return NULL;
+		return 0;
 }
 
 bool UndoManager::TransactionState::contains(int uid)
@@ -847,7 +850,7 @@ void UndoManager::TransactionState::useActionName()
 
 UndoObject* UndoManager::TransactionState::replace(ulong uid, UndoObject *newUndoObject)
 {
-	UndoObject *tmp = NULL;
+	UndoObject *tmp = 0;
 	for (uint i = 0; i < states.size(); ++i)
 	{
 		TransactionState *ts = dynamic_cast<TransactionState*>(states[i]->second);
@@ -871,10 +874,10 @@ UndoManager::TransactionState::~TransactionState()
 			if (states[i]->second)
 			{
 				delete states[i]->second;
-				states[i]->second = NULL;
+				states[i]->second = 0;
 			}
 			delete states[i];
-			states[i] = NULL;
+			states[i] = 0;
 		}
 	}
 }
@@ -1139,45 +1142,45 @@ const QString UndoManager::SetLayerName       = tr("Change name of the layer");
 const QString UndoManager::GetImage           = tr("Get image");
 */
 /*** Icons for UndoObjects *******************************************/
-QPixmap *UndoManager::IImageFrame      = NULL;
-QPixmap *UndoManager::ITextFrame       = NULL;
-QPixmap *UndoManager::ILine            = NULL;
-QPixmap *UndoManager::IPolygon         = NULL;
-QPixmap *UndoManager::IPolyline        = NULL;
-QPixmap *UndoManager::IPathText        = NULL;
-QPixmap *UndoManager::IGroup           = NULL;
-QPixmap *UndoManager::ITable           = NULL;
+QPixmap *UndoManager::IImageFrame      = 0;
+QPixmap *UndoManager::ITextFrame       = 0;
+QPixmap *UndoManager::ILine            = 0;
+QPixmap *UndoManager::IPolygon         = 0;
+QPixmap *UndoManager::IPolyline        = 0;
+QPixmap *UndoManager::IPathText        = 0;
+QPixmap *UndoManager::IGroup           = 0;
+QPixmap *UndoManager::ITable           = 0;
 /*** Icons for actions ***********************************************/
-QPixmap *UndoManager::IMove            = NULL;
-QPixmap *UndoManager::IResize          = NULL;
-QPixmap *UndoManager::IRotate          = NULL;
-QPixmap *UndoManager::IGuides          = NULL;
-QPixmap *UndoManager::ILockGuides      = NULL;
-QPixmap *UndoManager::IAlignDistribute = NULL;
-QPixmap *UndoManager::IFill            = NULL;
-QPixmap *UndoManager::IShade           = NULL;
-QPixmap *UndoManager::IFlipH           = NULL;
-QPixmap *UndoManager::IFlipV           = NULL;
-QPixmap *UndoManager::ILock            = NULL;
-QPixmap *UndoManager::IUnLock          = NULL;
-QPixmap *UndoManager::IDelete          = NULL;
-QPixmap *UndoManager::ICreate          = NULL;
-QPixmap *UndoManager::IPaste           = NULL;
-QPixmap *UndoManager::ICut             = NULL;
-QPixmap *UndoManager::ITransparency    = NULL;
-QPixmap *UndoManager::ILineStyle       = NULL;
-QPixmap *UndoManager::IArrow           = NULL;
-QPixmap *UndoManager::IFont            = NULL;
-QPixmap *UndoManager::ISVG             = NULL;
-QPixmap *UndoManager::IEPS             = NULL;
-QPixmap *UndoManager::IImportOOoDraw   = NULL;
-QPixmap *UndoManager::IImageScaling    = NULL;
-QPixmap *UndoManager::IBorder          = NULL;
-QPixmap *UndoManager::IDocument        = NULL;
-QPixmap *UndoManager::ILayer           = NULL;
-QPixmap *UndoManager::ILayerAction     = NULL;
-QPixmap *UndoManager::IUp              = NULL;
-QPixmap *UndoManager::IDown            = NULL;
-QPixmap *UndoManager::IPrint           = NULL;
-QPixmap *UndoManager::IGetImage        = NULL;
+QPixmap *UndoManager::IMove            = 0;
+QPixmap *UndoManager::IResize          = 0;
+QPixmap *UndoManager::IRotate          = 0;
+QPixmap *UndoManager::IGuides          = 0;
+QPixmap *UndoManager::ILockGuides      = 0;
+QPixmap *UndoManager::IAlignDistribute = 0;
+QPixmap *UndoManager::IFill            = 0;
+QPixmap *UndoManager::IShade           = 0;
+QPixmap *UndoManager::IFlipH           = 0;
+QPixmap *UndoManager::IFlipV           = 0;
+QPixmap *UndoManager::ILock            = 0;
+QPixmap *UndoManager::IUnLock          = 0;
+QPixmap *UndoManager::IDelete          = 0;
+QPixmap *UndoManager::ICreate          = 0;
+QPixmap *UndoManager::IPaste           = 0;
+QPixmap *UndoManager::ICut             = 0;
+QPixmap *UndoManager::ITransparency    = 0;
+QPixmap *UndoManager::ILineStyle       = 0;
+QPixmap *UndoManager::IArrow           = 0;
+QPixmap *UndoManager::IFont            = 0;
+QPixmap *UndoManager::ISVG             = 0;
+QPixmap *UndoManager::IEPS             = 0;
+QPixmap *UndoManager::IImportOOoDraw   = 0;
+QPixmap *UndoManager::IImageScaling    = 0;
+QPixmap *UndoManager::IBorder          = 0;
+QPixmap *UndoManager::IDocument        = 0;
+QPixmap *UndoManager::ILayer           = 0;
+QPixmap *UndoManager::ILayerAction     = 0;
+QPixmap *UndoManager::IUp              = 0;
+QPixmap *UndoManager::IDown            = 0;
+QPixmap *UndoManager::IPrint           = 0;
+QPixmap *UndoManager::IGetImage        = 0;
 

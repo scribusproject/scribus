@@ -12,6 +12,7 @@
 #include "scraction.h"
 #include "menumanager.h"
 #include "pluginmanager.h"
+#include "undomanager.h"
 
 ScribusApp* Carrier;
 QWidget* par;
@@ -87,6 +88,7 @@ void MenuNFT::RunNFTPlug()
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		Carrier->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		Carrier->doc->hasName = false;
+		UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
 		Carrier->doc->DocName = nftdia->currentDocumentTemplate->name;
 		Carrier->ActWin->setCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
 		QDir::setCurrent(Carrier->Prefs.DocDir);
