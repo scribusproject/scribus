@@ -132,7 +132,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (!carrier->doc->Pages.at(pageNr))
 		return FALSE;
 
-	QImage im = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->pageHeight * enlargement * (pageDPI / 72) / 100));
+	QImage im = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->pageHeight * enlargement * (pageDPI / 72.0) / 100.0));
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);

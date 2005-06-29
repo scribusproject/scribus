@@ -69,7 +69,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	groupBox1Layout->addWidget( QualityBox, 1, 1 );
 	DPIBox = new QSpinBox( groupBox1, "DPIBox" );
 	DPIBox->setMaxValue( 2400 );
-	DPIBox->setMinValue( 1 );
+	DPIBox->setMinValue( 72 );
 	DPIBox->setValue(size);
 	groupBox1Layout->addWidget( DPIBox, 2, 1 );
 	EnlargementBox = new QSpinBox( groupBox1, "EnlargementBox" );
