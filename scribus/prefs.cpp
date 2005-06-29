@@ -545,7 +545,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	CaliGroup->layout()->setMargin( 11 );
 	CaliGroupLayout = new QVBoxLayout( CaliGroup->layout() );
 	CaliGroupLayout->setAlignment( Qt::AlignTop );
-	CaliText = new QLabel( tr( "To adjust the display drag the ruler below with the Slider." ), CaliGroup, "CaliText" );
+	CaliText = new QLabel( tr( "To adjust the display drag the ruler below with the slider." ), CaliGroup, "CaliText" );
 	CaliGroupLayout->addWidget( CaliText );
 	CaliRuler = new QLabel( CaliGroup, "CaliRuler" );
 	CaliRuler->setMinimumSize( QSize( 20, 20 ) );
@@ -704,6 +704,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
 	QToolTip::add( checkLink, tr("Turns the display of linked frames on or off"));
+	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
 	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
 	QToolTip::add( guiLangCombo, tr( "Select your default language for Scribus to run with.\nLeave this blank to choose based on environment variables.\nYou can still override this by passing a command line option when starting Scribus" ) );
@@ -737,7 +738,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	QToolTip::add( backColor, tr( "Color for paper" ) );
 	QToolTip::add( checkUnprintable, tr( "Mask the area outside the margins in the margin color" ) );
-	QToolTip::add( CaliSlider, tr( "Set the default zoom level" ) );
+	QToolTip::add( CaliText, tr( "Set the default zoom level" ) );
+	QToolTip::add( CaliGroup, "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 
 	QToolTip::add( GSName, tr( "Filesystem location for the Ghostscript interpreter" ) );
 	QToolTip::add( GSantiText, tr( "Antialias text for EPS and PDF onscreen rendering" ) );
@@ -753,6 +755,12 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 		                          "which are close to the gray. Use of this may improve printing some images\n"
 		                          "and some experimentation and testing is need on a case by case basis.\n"
 		                          "UCR reduces the possibility of over saturation with CMY inks." ) );
+
+	QToolTip::add( leftScratch, "<qt>" + tr( "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	QToolTip::add( rightScratch, "<qt>" + tr( "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	QToolTip::add( topScratch, "<qt>" + tr( "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	QToolTip::add( bottomScratch, "<qt>" + tr( "Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+
 
 	// signals and slots connections
 	connect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );

@@ -247,6 +247,8 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	connect(baselineColor, SIGNAL(clicked()), this, SLOT(changeBaselineColor()));
 	connect(guideColor, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
 	connect(marginColor, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
+	QToolTip::add( inBackground, tr( "Guides are not visible through objects on the page" ) );
+	QToolTip::add( inForeground, tr( "Guides are visible above all objects on the page" ) );
 	QToolTip::add( minorSpace, tr( "Distance between the minor grid lines" ) );
 	QToolTip::add( majorSpace, tr( "Distance between the major grid lines" ) );
 	QToolTip::add( snapDistance, tr( "Distance within which an object will snap to your placed guides" ) );
@@ -257,6 +259,8 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	QToolTip::add( marginColor, tr( "Color for the margin lines" ) );
 	QToolTip::add( baselineColor, tr( "Color for the baseline grid" ) );
 	QToolTip::add( baselineBox, tr("Turns the basegrid on or off"));
+	QToolTip::add( baseGrid, tr("Distance between the lines of the baseline grid"));
+	QToolTip::add( baseOffset, tr("Distance from the top of the page for the first baseline"));
 	QToolTip::add( checkGrid, tr("Turns the gridlines on or off"));
 	QToolTip::add( guideBox, tr("Turns the guides on or off"));
 	QToolTip::add( marginBox, tr("Turns the margins on or off"));
