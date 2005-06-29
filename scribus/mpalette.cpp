@@ -148,11 +148,12 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	heightLabel = new QLabel( Height, "&Height:", GeoGroup, "heightLabel" );
 	GeoGroupLayout->addWidget( heightLabel, 3, 0 );
 
-	Kette2 = new LinkButton( GeoGroup );
-	Kette2->setToggleButton( true );
-	Kette2->setAutoRaise( true );
-	Kette2->setMaximumSize( QSize( 15, 32767 ) );
-	GeoGroupLayout->addMultiCellWidget( Kette2, 2, 3, 2, 2 );
+	keepFrameWHRatioButton = new LinkButton( GeoGroup );
+	keepFrameWHRatioButton->setToggleButton( true );
+	keepFrameWHRatioButton->setAutoRaise( true );
+	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
+	keepFrameWHRatioButton->setOn(true);
+	GeoGroupLayout->addMultiCellWidget( keepFrameWHRatioButton, 2, 3, 2, 2 );
 	Rot = new MSpinBox( GeoGroup, 2);
 	Rot->setWrapping( true );
 	installSniffer(Rot);
@@ -567,11 +568,11 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	yscaleLabel = new QLabel( ScaleY, "Y-Scal&e:", page_4, "yscaleLabel" );
 	layout43->addWidget( yscaleLabel, 3, 0 );
 	layout43->addWidget( ScaleY, 3, 1 );
-	Kette = new LinkButton( page_4 );
-	Kette->setToggleButton( true );
-	Kette->setAutoRaise( true );
-	Kette->setMaximumSize( QSize( 15, 32767 ) );
-	layout43->addMultiCellWidget( Kette, 2, 3, 2, 2 );
+	keepImageWHRatioButton = new LinkButton( page_4 );
+	keepImageWHRatioButton->setToggleButton( true );
+	keepImageWHRatioButton->setAutoRaise( true );
+	keepImageWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
+	layout43->addMultiCellWidget( keepImageWHRatioButton, 2, 3, 2, 2 );
 	imgDpiX = new MSpinBox( page_4, 1 );
 	imgDPIXLabel = new QLabel( imgDpiX, "Actual X-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIXLabel, 4, 0 );
@@ -580,11 +581,11 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	imgDPIYLabel = new QLabel( imgDpiY, "Actual Y-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIYLabel, 5, 0 );
 	layout43->addWidget( imgDpiY, 5, 1 );
-	KetteD = new LinkButton( page_4 );
-	KetteD->setToggleButton( true );
-	KetteD->setAutoRaise( true );
-	KetteD->setMaximumSize( QSize( 15, 32767 ) );
-	layout43->addMultiCellWidget( KetteD, 4, 5, 2, 2 );
+	keepImageDPIRatioButton = new LinkButton( page_4 );
+	keepImageDPIRatioButton->setToggleButton( true );
+	keepImageDPIRatioButton->setAutoRaise( true );
+	keepImageDPIRatioButton->setMaximumSize( QSize( 15, 32767 ) );
+	layout43->addMultiCellWidget( keepImageDPIRatioButton, 4, 5, 2, 2 );
 	pageLayout_4->addLayout( layout43 );
 
 	Layout24 = new QVBoxLayout( 0, 0, 3, "Layout24");
@@ -738,8 +739,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
 	connect(LineMode, SIGNAL(activated(int)), this, SLOT(NewLMode()));
-	connect(Kette, SIGNAL(clicked()), this, SLOT(ToggleKette()));
-	connect(KetteD, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
+	connect(keepImageWHRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+	connect(keepImageDPIRatioButton, SIGNAL(clicked()), this, SLOT(ToggleKetteD()));
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
@@ -977,7 +978,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	NoPrint->setOn(!i->printable());
 	setter = i->locked();
-	Kette2->setOn(false);
+	//keepFrameWHRatioButton->setOn(false);
 	Width->setReadOnly(setter);
 	Height->setReadOnly(setter);
 	RoundRect->setEnabled(!setter);
@@ -1044,7 +1045,7 @@ void Mpalette::SetCurItem(PageItem *i)
 
 	if (i->itemType() == PageItem::Line)
 	{
-		Kette2->setEnabled(false);
+		keepFrameWHRatioButton->setEnabled(false);
 		if (LMode && !i->locked())
 			Height->setEnabled(true);
 		else
@@ -1052,7 +1053,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	else
 	{
-		Kette2->setEnabled(true);
+		keepFrameWHRatioButton->setEnabled(true);
 		if (i->itemType() == PageItem::ImageFrame)
 		{
 			updateCmsList();
@@ -1061,8 +1062,8 @@ void Mpalette::SetCurItem(PageItem *i)
 			FrameScale->setChecked(!setter);
 			if (setter == true)
 			{
-				Kette->setOn(setter);
-				KetteD->setOn(setter);
+				keepImageWHRatioButton->setOn(setter);
+				keepImageDPIRatioButton->setOn(setter);
 			}
 			Aspect->setEnabled(!setter);
 			Aspect->setChecked(i->AspectRatio);
@@ -1913,7 +1914,7 @@ void Mpalette::NewW()
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
-			if (Kette2->isOn())
+			if (keepFrameWHRatioButton->isOn())
 			{
 				ScApp->view->HowTo = 1;
 				ScApp->view->scaleGroup(w / gw, w / gw);
@@ -1972,17 +1973,17 @@ void Mpalette::NewW()
 					}
 					ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 					doc->RotMode = rmo;
-					if (Kette2->isOn())
+					if (keepFrameWHRatioButton->isOn())
 					{
-						Kette2->setOn(false);
+						keepFrameWHRatioButton->setOn(false);
 						setBH(w, (w / oldW) * CurItem->Height);
 						NewH();
-						Kette2->setOn(true);
+						keepFrameWHRatioButton->setOn(true);
 					}
 				}
 				else
 				{
-					if (Kette2->isOn())
+					if (keepFrameWHRatioButton->isOn())
 					{
 						setBH(w, (w / CurItem->Width) * CurItem->Height);
 						ScApp->view->SizeItem(w, (w / CurItem->Width) * CurItem->Height, CurItem->ItemNr, true);
@@ -2010,7 +2011,7 @@ void Mpalette::NewH()
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
-			if (Kette2->isOn())
+			if (keepFrameWHRatioButton->isOn())
 			{
 				ScApp->view->HowTo = 1;
 				ScApp->view->scaleGroup(h / gh, h / gh);
@@ -2069,17 +2070,17 @@ void Mpalette::NewH()
 					}
 					ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 					doc->RotMode = rmo;
-					if (Kette2->isOn())
+					if (keepFrameWHRatioButton->isOn())
 					{
-						Kette2->setOn(false);
+						keepFrameWHRatioButton->setOn(false);
 						setBH((h / oldH) * CurItem->Width, h);
 						NewW();
-						Kette2->setOn(true);
+						keepFrameWHRatioButton->setOn(true);
 					}
 				}
 				else
 				{
-					if (Kette2->isOn())
+					if (keepFrameWHRatioButton->isOn())
 					{
 						setBH((h / CurItem->Height) * CurItem->Width, h);
 						ScApp->view->SizeItem((h / CurItem->Height) * CurItem->Width, h, CurItem->ItemNr, true);
@@ -2416,14 +2417,14 @@ void Mpalette::ToggleKette()
 		return;
 	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-	if (Kette->isOn())
+	if (keepImageWHRatioButton->isOn())
 	{
 		ScaleY->setValue(ScaleX->value());
 		NewLocalSC();
-		KetteD->setOn(true);
+		keepImageDPIRatioButton->setOn(true);
 	}
 	else
-		KetteD->setOn(false);
+		keepImageDPIRatioButton->setOn(false);
 	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 	connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 }
@@ -2432,7 +2433,7 @@ void Mpalette::HChange()
 {
 	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-	if (Kette->isOn())
+	if (keepImageWHRatioButton->isOn())
 		ScaleY->setValue(ScaleX->value());
 	NewLocalSC();
 	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
@@ -2443,7 +2444,7 @@ void Mpalette::VChange()
 {
 	disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 	disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-	if (Kette->isOn())
+	if (keepImageWHRatioButton->isOn())
 		ScaleX->setValue(ScaleY->value());
 	NewLocalSC();
 	connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
@@ -2456,14 +2457,14 @@ void Mpalette::ToggleKetteD()
 		return;
 	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
-	if (KetteD->isOn())
+	if (keepImageDPIRatioButton->isOn())
 	{
 		imgDpiY->setValue(imgDpiX->value());
 		NewLocalDpi();
-		Kette->setOn(true);
+		keepImageWHRatioButton->setOn(true);
 	}
 	else
-		Kette->setOn(false);
+		keepImageWHRatioButton->setOn(false);
 	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 }
@@ -2472,7 +2473,7 @@ void Mpalette::HChangeD()
 {
 	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
-	if (KetteD->isOn())
+	if (keepImageDPIRatioButton->isOn())
 		imgDpiY->setValue(imgDpiX->value());
 	NewLocalDpi();
 	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
@@ -2483,7 +2484,7 @@ void Mpalette::VChangeD()
 {
 	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
-	if (KetteD->isOn())
+	if (keepImageDPIRatioButton->isOn())
 		imgDpiX->setValue(imgDpiY->value());
 	NewLocalDpi();
 	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
@@ -3624,8 +3625,8 @@ void Mpalette::languageChange()
 	QToolTip::remove(LYpos);
 	QToolTip::remove(ScaleX);
 	QToolTip::remove(ScaleY);
-	QToolTip::remove(Kette);
-	QToolTip::remove(Kette2);
+	QToolTip::remove(keepImageWHRatioButton);
+	QToolTip::remove(keepFrameWHRatioButton);
 	QToolTip::remove(FrameScale);
 	QToolTip::remove(Aspect);
 	QToolTip::remove(InputP);
@@ -3696,8 +3697,8 @@ void Mpalette::languageChange()
 	QToolTip::add(LYpos, tr("Vertical offset of image within frame"));
 	QToolTip::add(ScaleX, tr("Resize the image horizontally"));
 	QToolTip::add(ScaleY, tr("Resize the image vertically"));
-	QToolTip::add(Kette, tr("Keep the X and Y scaling the same"));
-	QToolTip::add(Kette2, tr("Keep the aspect ratio"));
+	QToolTip::add(keepImageWHRatioButton, tr("Keep the X and Y scaling the same"));
+	QToolTip::add(keepFrameWHRatioButton, tr("Keep the aspect ratio"));
 	QToolTip::add(FrameScale, tr("Make the image fit within the size of the frame"));
 	QToolTip::add(Aspect, tr("Use image proportions rather than those of the frame"));
 	QToolTip::add(InputP, tr("Source profile of the image"));

@@ -103,9 +103,9 @@ public:
 	StyleSelect* SeStyle;
 	AlignSelect* GroupAlign;
 	Spalette *Spal;
-	LinkButton* Kette;
-	LinkButton* Kette2;
-	LinkButton* KetteD;
+	LinkButton* keepImageWHRatioButton;
+	LinkButton* keepFrameWHRatioButton;
+	LinkButton* keepImageDPIRatioButton;
 	LineCombo* LStyle;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
