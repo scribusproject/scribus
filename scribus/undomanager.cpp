@@ -280,7 +280,6 @@ void UndoManager::removeGui(UndoGui* gui)
 
 void UndoManager::switchStack(const QString& stackName)
 {
-	qDebug("switchStack(%s)", stackName.latin1());
 	currentDoc = stackName;
 	if (!stacks.contains(currentDoc))
 	{
@@ -295,7 +294,6 @@ void UndoManager::switchStack(const QString& stackName)
 
 void UndoManager::renameStack(const QString& newName)
 {
-	qDebug("renameStack(%s)", newName.latin1());
 	if (currentDoc == newName)
 		return;
 
@@ -320,7 +318,6 @@ void UndoManager::renameStack(const QString& newName)
 
 void UndoManager::removeStack(const QString& stackName)
 {
-	qDebug("removeStack(%s)", stackName.latin1());
 	if (stacks.contains(stackName))
 	{
 		for (uint i = 0; i < stacks[stackName].second.size(); ++i)
