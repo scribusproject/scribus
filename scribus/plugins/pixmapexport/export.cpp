@@ -89,7 +89,7 @@ QString ExportBitmap::getFileName(uint pageNr)
 	QString name = path.baseName(); // needed tp fix the "/home/user/blah.sla"
 	QString number;
 	number = number.setNum(pageNr + carrier->doc->FirstPnum);
-	return QDir::convertSeparators(exportDir + "/" + name + "-"+ number + "." + bitmapType.lower());
+	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + name + "-"+ number + "." + bitmapType.lower()));
 }
 
 ExportBitmap::~ExportBitmap()
