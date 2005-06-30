@@ -35,6 +35,7 @@
 #include "objpdffile.h"
 #include "objimageexport.h"
 #include "guiapp.h"
+#include "svgimport.h"
 #include "scriptercore.h"
 
 #include "customfdialog.h"
@@ -299,6 +300,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("gotoPage"), scribus_gotopage, METH_VARARGS, tr(scribus_gotopage__doc__)},
 	{const_cast<char*>("groupObjects"), scribus_groupobj, METH_VARARGS, tr(scribus_groupobj__doc__)},
 	{const_cast<char*>("haveDoc"), (PyCFunction)scribus_havedoc, METH_NOARGS, tr(scribus_havedoc__doc__)},
+	{const_cast<char*>("importSVG"), scribus_importsvg, METH_VARARGS, tr(scribus_importsvg__doc__)},      
 	{const_cast<char*>("insertText"), scribus_inserttext, METH_VARARGS, tr(scribus_inserttext__doc__)},
 	{const_cast<char*>("isLayerPrintable"), scribus_glayerprint, METH_VARARGS, tr(scribus_glayerprint__doc__)},
 	{const_cast<char*>("isLayerVisible"), scribus_glayervisib, METH_VARARGS, tr(scribus_glayervisib__doc__)},
