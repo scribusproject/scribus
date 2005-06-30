@@ -104,8 +104,15 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (!carrier->view->Pages.at(pageNr))
 		return FALSE;
 
-	/* a little magic here - I need to compute the "maxGr" value... */
-	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * enlargement * (pageDPI / 72.0) / 100.0));
+	/* a little magic here - I need to compute the "maxGr" value...
+	 * We need to know the right size of the page for landscape,
+	 * portrait and user defined sizes.
+	 */
+	double pixmapSize;
+	(carrier->doc->PageH > carrier->doc->PageB)
+			? pixmapSize = carrier->doc->PageH
+			: pixmapSize = carrier->doc->PageB;
+	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0));
 	QImage im = pixmap.convertToImage();
 	int dpm = qRound((100.0 / 2.54) * pageDPI);
 	im.setDotsPerMeterY(dpm);
