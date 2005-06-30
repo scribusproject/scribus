@@ -130,7 +130,17 @@ static PyObject *ImageExport_save(ImageExport *self)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	QImage im = Carrier->view->PageToPixmap(Carrier->doc->currentPage->PageNr, qRound(Carrier->doc->pageHeight * self->scale * (self->dpi / 72.0) / 100.0));
+
+	/* a little magic here - I need to compute the "maxGr" value...
+	* We need to know the right size of the page for landscape,
+	* portrait and user defined sizes.
+	*/
+	double pixmapSize;
+	(Carrier->doc->pageHeight > Carrier->doc->pageWidth)
+			? pixmapSize = Carrier->doc->pageHeight
+			: pixmapSize = Carrier->doc->pageWidth;
+	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->currentPage->PageNr, qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
+	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
 	im.setDotsPerMeterX(dpi);
@@ -150,7 +160,16 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 		return NULL;
 	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &value))
 		return NULL;
-	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->currentPage->PageNr, qRound(Carrier->doc->pageHeight * self->scale * (self->dpi / 72.0) / 100.0));
+
+	/* a little magic here - I need to compute the "maxGr" value...
+	* We need to know the right size of the page for landscape,
+	* portrait and user defined sizes.
+	*/
+	double pixmapSize;
+	(Carrier->doc->pageHeight > Carrier->doc->pageWidth)
+			? pixmapSize = Carrier->doc->pageHeight
+			: pixmapSize = Carrier->doc->pageWidth;
+	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->currentPage->PageNr, qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
 	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
