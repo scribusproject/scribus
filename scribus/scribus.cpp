@@ -4197,8 +4197,8 @@ void ScribusApp::rebuildLayersList()
 {
 	if (HaveDoc)
 	{
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
-			scrMenuMgr->removeMenuItem((*it), layerMenuName);
+		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
+			scrMenuMgr->removeMenuItem((*it0), layerMenuName);
 		scrLayersActions.clear();
 		uint a;
 		QValueList<Layer>::iterator it;
