@@ -2273,7 +2273,10 @@ Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;,
  compiled in library support in Scribus
 The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Ten panel zawiera wersję, datę kompilacji
+oraz informację o wkompilowanej obsłudze bibliotek.
+Symbole C-C-T-F oznaczają wsparcie dla C=littlecms, C=CUPS, T=TIFF i F=Fontconfig.
+Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
 </context>
 <context>
@@ -2708,7 +2711,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>P&amp;age Palette</source>
-        <translation>S&amp;trony</translation>
+        <translation type="obsolete">S&amp;trony</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -2896,11 +2899,11 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Figure Dash</source>
-        <translation>Dywiz</translation>
+        <translation>Kreska liczbowa</translation>
     </message>
     <message>
         <source>Quotation Dash</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Apostrophe</source>
@@ -2908,23 +2911,23 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Straight Double</source>
-        <translation>Zwykły podwójny</translation>
+        <translation>Prosty podwójny</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Definicyjny lewy</translation>
+        <translation>Pojedyńczy angielski lewy</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation>Definicyjny prawy</translation>
+        <translation>Pojedyńczy angielski prawy</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Definicyjny podwójny lewy</translation>
+        <translation>Podwójny angielski lewy</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation>Definicyjny podwójny prawy</translation>
+        <translation>Prawy</translation>
     </message>
     <message>
         <source>Single Reversed</source>
@@ -2936,19 +2939,19 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation>Pojedyńczy ostrokątny francuski lewy</translation>
+        <translation>Pojedyńczy francuski lewy</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation>Pojedyńczy ostrokątny francuski prawy</translation>
+        <translation>Pojedyńczy francuski prawy</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation>Ostrokątny francuski lewy</translation>
+        <translation>Podwójny francuski lewy</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation>Ostrokątny francuski prawy</translation>
+        <translation>Podwójny francuski prawy</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
@@ -2956,7 +2959,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation>Przecinkowy dolny podwójny</translation>
+        <translation>Lewy polski</translation>
     </message>
     <message>
         <source>Double Turned Comma</source>
@@ -2964,19 +2967,19 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK pojedyńczy lewy</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK pojedyńczy prawy</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK podwójny lewy</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK podwójny prawy</translation>
     </message>
     <message>
         <source>Toggle Palettes</source>
@@ -3036,19 +3039,23 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>New Line</source>
-        <translation>Nowa linia</translation>
+        <translation>Zmiana wiersza</translation>
     </message>
     <message>
         <source>Frame Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejście do nowej ramki</translation>
     </message>
     <message>
         <source>Column Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmiana łamu</translation>
     </message>
     <message>
         <source>Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Nierozdzielny łącznik</translation>
+    </message>
+    <message>
+        <source>&amp;Arrange Pages</source>
+        <translation>&amp;Rozmieść strony</translation>
     </message>
 </context>
 <context>
@@ -3264,11 +3271,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align bottoms</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyrównaj dolne krawędzie</translation>
     </message>
     <message>
         <source>Align right sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyrównaj prawe strony</translation>
     </message>
     <message>
         <source>Align tops of objects to bottom of anchor</source>
@@ -3276,15 +3283,15 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Center on vertical axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyśrodkuj do pionowej osi</translation>
     </message>
     <message>
         <source>Align left sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyrównaj lewe strony</translation>
     </message>
     <message>
         <source>Center on horizontal axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyśrodkuj na poziomej osi</translation>
     </message>
     <message>
         <source>Align bottoms of objects to top of anchor</source>
@@ -3292,7 +3299,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align tops</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyrównaj górne krawędzie</translation>
     </message>
     <message>
         <source>Distribute</source>
@@ -3300,7 +3307,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrównaj ze sobą poziome odstępy między obiektami</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal to the value specified</source>
@@ -3320,7 +3327,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrównaj ze sobą pionowe odstępy między obiektami</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects equal to the value specified</source>
@@ -3352,7 +3359,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niektóre obiekty są zabezpieczone.</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -4036,7 +4043,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
-        <translation>&amp;Wszystkie strony</translation>
+        <translation>&amp;Wszystkich stron</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -4052,7 +4059,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zastosuj wybrany szablon do parzystych, nieparzystych lub wszystkich stron zawartych w następującym zakresie&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>to</source>
@@ -4179,7 +4186,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Zamknij</translation>
+        <translation>Z&amp;amknij</translation>
     </message>
     <message>
         <source>&amp;Small</source>
@@ -4731,7 +4738,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Text overflow</source>
-        <translation>Przelanie się tekstu</translation>
+        <translation>Tekst nie mieści się w ramce</translation>
     </message>
     <message>
         <source>Object is not on a Page</source>
@@ -4805,27 +4812,83 @@ and the Delete key removes the last inserted one</source>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
-        <translation>Monochromatyczne</translation>
+        <translation>Monochromatyczny</translation>
     </message>
     <message>
         <source>Analogous</source>
-        <translation>Analogowe</translation>
+        <translation>Analogiczny</translation>
     </message>
     <message>
         <source>Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzupełniający</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzupełniający bliski</translation>
     </message>
     <message>
         <source>Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Triada</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tetrada (podwójne uzupełnienie)</translation>
+    </message>
+    <message>
+        <source>Base Color</source>
+        <translation>Kolor podstawowy</translation>
+    </message>
+    <message>
+        <source>Monochromatic Light</source>
+        <translation>Monochromatyczny jasny</translation>
+    </message>
+    <message>
+        <source>Monochromatic Dark</source>
+        <translation>Monochromatyczny ciemny</translation>
+    </message>
+    <message>
+        <source>1st. Analogous</source>
+        <translation>Pierwszy analogiczny</translation>
+    </message>
+    <message>
+        <source>2nd. Analogous</source>
+        <translation>Drugi analogiczny</translation>
+    </message>
+    <message>
+        <source>1st. Split</source>
+        <translation>Pierwszy bliski</translation>
+    </message>
+    <message>
+        <source>2nd. Split</source>
+        <translation>Drugi bliski</translation>
+    </message>
+    <message>
+        <source>3rd. Split</source>
+        <translation>Trzeci bliski</translation>
+    </message>
+    <message>
+        <source>4th. Split</source>
+        <translation>Czwarty bliski</translation>
+    </message>
+    <message>
+        <source>1st. Triadic</source>
+        <translation>Pierwszy triadyczny</translation>
+    </message>
+    <message>
+        <source>2nd. Triadic</source>
+        <translation>Drugi triadyczny</translation>
+    </message>
+    <message>
+        <source>1st. Tetradic (base opposite)</source>
+        <translation>Pierwszy tetradyczny (przeciwieństwo podstawowego)</translation>
+    </message>
+    <message>
+        <source>2nd. Tetradic (angle)</source>
+        <translation>Drugi tetradyczny (kąt)</translation>
+    </message>
+    <message>
+        <source>3rd. Tetradic (angle opposite)</source>
+        <translation>Trzeci tetradyczny (przeciwieństwo kąta)</translation>
     </message>
 </context>
 <context>
@@ -4896,19 +4959,19 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Click the wheel to get base color</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij na kole, aby pobrać kolor podstawowy</translation>
     </message>
     <message>
         <source>Here you have the sample color schema</source>
-        <translation type="unfinished"></translation>
+        <translation>Jest to przykładowy schemat kolorów</translation>
     </message>
     <message>
         <source>Select one of the method to create color schema. See documentation for more info</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz jedną z metod, aby utworzyć schemat kolorów. Aby uzyskać więcej informacji, zajrzyj do dokumentacji programu</translation>
     </message>
     <message>
         <source>Here you have the color of your chosen color schema</source>
-        <translation type="unfinished"></translation>
+        <translation>To jest kolor wybranego schematu kolorów</translation>
     </message>
     <message>
         <source>Merging colors</source>
@@ -5836,7 +5899,7 @@ failed!</source>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa odstęp pomiędzy inicjałami opuszczonymi i tekstem</translation>
     </message>
 </context>
 <context>
@@ -6192,15 +6255,15 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozjaśnianie koloru</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished"></translation>
+        <translation>Ściemnianie koloru</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryb mieszania kolorów:</translation>
     </message>
     <message>
         <source>Opacity:</source>
@@ -6490,7 +6553,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ścieżki zawierające fonty można dodawać w ustawieniach tylko wtedy, kiedy nie jest otwarty żaden dokument.&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -6569,7 +6632,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst podany tutaj zostanie użyty do szybkiego przeszukiwania nazw fontów. Np. wpisanie &quot;bold&quot; spowoduje wyświetlenie wszystkich fontów mających &quot;bold&quot; w nazwie. Przeszukiwanie uwzględnia wielkość liter.</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7135,11 +7198,15 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
-        <translation>Czy chcesz także usunąć wszystkie obiekty na tej warstwie?</translation>
+        <translation type="obsolete">Czy chcesz także usunąć wszystkie obiekty na tej warstwie?</translation>
     </message>
     <message>
         <source>Name</source>
         <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Do you want to delete all objects on this layer too?</source>
+        <translation>Czy chcesz także usunąć wszystkie obiekty na tej warstwie?</translation>
     </message>
 </context>
 <context>
@@ -8732,7 +8799,8 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     <message>
         <source>Detected some Errors.
 Consider using the Preflight Checker to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Wykryte zostały błędy.
+Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Abort</source>
@@ -8885,11 +8953,11 @@ in the frame named %1 with sample text?</source>
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation type="unfinished"></translation>
+        <translation>Quarto</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation type="unfinished"></translation>
+        <translation>Foolscap</translation>
     </message>
     <message>
         <source>Letter</source>
@@ -8897,7 +8965,7 @@ in the frame named %1 with sample text?</source>
     </message>
     <message>
         <source>Government Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Government Letter</translation>
     </message>
     <message>
         <source>Legal</source>
@@ -8913,43 +8981,43 @@ in the frame named %1 with sample text?</source>
     </message>
     <message>
         <source>Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Post</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation type="unfinished"></translation>
+        <translation>Crown</translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Large Post</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Demy</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Średni</translation>
+        <translation>Medium</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation type="unfinished"></translation>
+        <translation>Royal</translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation type="unfinished"></translation>
+        <translation>Elephant</translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Double Demy</translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Quad Demy</translation>
     </message>
     <message>
         <source>STMT</source>
-        <translation type="unfinished"></translation>
+        <translation>STMT</translation>
     </message>
     <message>
         <source>A</source>
@@ -9650,7 +9718,7 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
-        <translation>Musiz ponownie wystartować program, aby uaktywnić zmiany.</translation>
+        <translation>Musisz ponownie wystartować program, aby uaktywnić zmiany.</translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -9694,15 +9762,15 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawsze pytaj przed zastąpieniem fontów podczas ładowania dokumentu</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz podgląd aktualnego stylu akapitu w trakcie edycji stylów </translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj znaki kontrolne tekstu</translation>
     </message>
 </context>
 <context>
@@ -9760,11 +9828,11 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script</source>
-        <translation type="unfinished"></translation>
+        <translation>Wpisz tutaj polecenia. Zaznaczenie będzie przetwarzane jako skrypt</translation>
     </message>
     <message>
         <source>Output of your script</source>
-        <translation type="unfinished"></translation>
+        <translation>Wynik działania skryptu</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
@@ -9772,11 +9840,11 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Open File With Python Commands</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz plik z poleceniami Pythona</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz polecania Pythona do pliku</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -9788,7 +9856,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Save Current Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachowaj aktualny plik wyjściowy</translation>
     </message>
 </context>
 <context>
@@ -10997,15 +11065,15 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Comm10E</source>
-        <translation type="unfinished"></translation>
+        <translation>Comm10E</translation>
     </message>
     <message>
         <source>DLE</source>
-        <translation type="unfinished"></translation>
+        <translation>DLE</translation>
     </message>
     <message>
         <source>Output stream not writeable</source>
-        <translation type="unfinished"></translation>
+        <translation>Strumień wyjściowy nie da się zapisać</translation>
     </message>
     <message>
         <source>Verification of settings failed: %1</source>
@@ -11066,7 +11134,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 (wykryty za pomocą fontconfiga) zawiera błędy i zostaje wyłączony</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -11473,7 +11541,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Freetype2 library not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Biblioteka Freetype2 nie jest dostępna</translation>
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
@@ -11537,7 +11605,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>table &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>tabela &apos;%1&apos;</translation>
     </message>
     <message>
         <source>memcpy table: %1 %2 %3</source>
@@ -11549,7 +11617,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista aktualnie zainstalowanych języków interfejsów</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
@@ -11595,6 +11663,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The filename should not be empty string.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -11959,7 +12032,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj znaki kontrolne tekstu</translation>
     </message>
 </context>
 <context>
@@ -12582,7 +12655,8 @@ nie jest w dopuszczalnym formacie</translation>
     <message>
         <source>Detected some Errors.
 Consider using the Preflight Checker to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Wykryte zostały błędy.
+Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Abort</source>
@@ -12603,7 +12677,8 @@ Consider using the Preflight Checker to correct them</source>
     <message>
         <source>Detected some Errors.
 Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Wykryte zostały błędy.
+Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -12639,7 +12714,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicjalizacja edytora artykułów</translation>
     </message>
     <message>
         <source>Cannot Cut In-Use Item</source>
@@ -13032,15 +13107,15 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="unfinished"></translation>
+        <translation>Przeciągnij strony lub strony wzorcowe nad kosz na śmieci, aby je usunąć</translation>
     </message>
     <message>
         <source>Previews all the pages of your document</source>
-        <translation type="unfinished"></translation>
+        <translation>Podgląd wszystkich stron twojego dokumentu</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutaj znajdują się wszystkie strony wzorcowe. Aby utworzyć nową stronę, przeciągnij stronę wzocową na położony poniżej widok stron</translation>
     </message>
     <message>
         <source>Left Page First</source>
@@ -13381,7 +13456,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation>&amp;Wstaw glif...</translation>
+        <translation>Wstaw &amp;glif...</translation>
     </message>
     <message>
         <source>Clear All Text</source>
