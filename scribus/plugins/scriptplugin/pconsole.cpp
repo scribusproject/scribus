@@ -45,6 +45,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	menuBar->insertItem(tr("&File"), fileMenu);
 	QPopupMenu *scriptMenu = new QPopupMenu(this);
 	scriptMenu->insertItem(loadIcon("launch16.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
+	scriptMenu->insertItem(tr("&Run As Console"), this, SLOT(slot_runScriptAsConsole()), Key_F5);
 	scriptMenu->insertItem(tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem(tr("&Script"), scriptMenu);
 
@@ -108,6 +109,19 @@ void PythonConsole::slot_runScript()
 		command = commandEdit->text();
 	// prevent user's wrong selection
 	command += '\n';
+	emit runCommand();
+}
+
+void PythonConsole::slot_runScriptAsConsole()
+{
+	if (commandEdit->hasSelectedText())
+		command = commandEdit->selectedText();
+	else
+		command = commandEdit->text();
+	// prevent user's wrong selection
+	command += '\n';
+	commandEdit->clear();
+	outputEdit->append("\n>>> " + command);
 	emit runCommand();
 }
 

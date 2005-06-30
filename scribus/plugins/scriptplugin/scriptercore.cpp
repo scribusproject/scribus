@@ -338,13 +338,16 @@ QString ScripterCore::slotRunScript(QString Script)
 			cm += "import code\n";
 			cm += "ia = code.InteractiveConsole(globals())\n";
 		}
-		cm += "sc = getval()\n";
-		cm += "rv = ia.push(sc)\n";
-		cm += "if rv == 1:\n";
-		cm += "\tre = \"...\"\n";
-		cm += "else:\n";
-		cm += "\tre = bu.getvalue()\n";
-		cm += "retval(re, rv)\n";
+		/* HACK: following loop handles all input line by line.
+		It *should* use I.C. because of docstrings etc. I.I. cannot
+		handle docstrings right.
+		Calling all code in one command:
+		ia = code.InteractiveInterpreter() ia.runsource(getval())
+		works fine in plain Python. Not here. WTF?
+		*/
+		cm += "for i in getval().split('\\n'):\n";
+		cm += "\tia.push(i)\n";
+		cm += "retval(bu.getvalue(), 0)\n";
 	}
 	// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 	QCString cmd = cm.latin1();
@@ -359,10 +362,10 @@ QString ScripterCore::slotRunScript(QString Script)
 void ScripterCore::slotInteractiveScript(bool visible)
 {
 	QObject::disconnect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
-	
+
 	scrScripterActions["scripterShowConsole"]->setOn(visible);
 	pcon->setShown(visible);
-	
+
 	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 }
 
