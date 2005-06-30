@@ -91,7 +91,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 											"<tr><td>Riku Leino</td><td>tsoots@gmail.com</td></tr>" +
-											"<tr><td>Craig  Ringer</td><td>craig@postnewspapers.com.au</td></tr>" +
+											"<tr><td>Craig Ringer</td><td>craig@postnewspapers.com.au</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Niyam Bhushan</td><td></td></tr>" +
@@ -104,12 +104,16 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Marti Maria</td><td></td></tr>" +
 											"<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>"
 											"<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
-											"<tr><td>Craig Ringer</td><td></td></tr>" +
 											"<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
 											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
 											"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
 											"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
-											"<tr><td></td><td> </td></tr>" +
+											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
+											"<tr><td></td><td></td></tr>" +
+
+											"<tr><td><b>" + tr("Mac OSX Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 #ifdef _MSC_VER
 #if (_MSC_VER >= 1200)
 											"<tr><td><b>" + tr("Windows Port:").utf8()  + "</b></td><td> </td></tr>" +
