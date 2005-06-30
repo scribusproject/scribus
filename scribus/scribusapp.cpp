@@ -169,11 +169,17 @@ int ScribusQApp::init()
 
 		setMainWidget(scribus);
 		connect(this, SIGNAL(lastWindowClosed()), this, SLOT(quit()));
-	
+
 		scribus->show();
 		scribus->ShowSubs();
+
 		if (file != "")
 			scribus->loadDoc(file);
+
+		// A hook for plug-ins and scripts to trigger on. Some plugins and scripts
+		// require the app to be fully set up (in particular, the main window to be
+		// built and shown) before running their setup.
+		emit appStarted();
 	}
 	return EXIT_SUCCESS;
 }
