@@ -260,6 +260,7 @@ public slots:
 	void UnDoAction();
 	void RedoAction();
 	void doHyphenate();
+	void doDeHyphenate();
 	void slotTest();
 	void slotTest2();
 	void PutScrap();

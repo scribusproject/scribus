@@ -489,10 +489,12 @@ void ActionManager::initExtrasMenuActions()
 {
 	scrActions->insert("extrasManagePictures", new ScrAction(ScApp, "extrasManagePictures"));
 	scrActions->insert("extrasHyphenateText", new ScrAction(ScApp, "extrasHyphenateText"));
+	scrActions->insert("extrasDeHyphenateText", new ScrAction(ScApp, "extrasDeHyphenateText"));
 	scrActions->insert("extrasGenerateTableOfContents", new ScrAction(ScApp, "extrasGenerateTableOfContents"));
 
 	connect( (*scrActions)["extrasManagePictures"], SIGNAL(activated()), ScApp, SLOT(StatusPic()) );
 	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(activated()), ScApp, SLOT(doHyphenate()) );
+	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(activated()), ScApp, SLOT(doDeHyphenate()) );
 	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(activated()), ScApp, SLOT(generateTableOfContents()) );
 }
 
@@ -955,6 +957,7 @@ void ActionManager::languageChange()
 	//Extras Menu
 	(*scrActions)["extrasManagePictures"]->setTexts( tr("&Manage Pictures"));
 	(*scrActions)["extrasHyphenateText"]->setTexts( tr("&Hyphenate Text"));
+	(*scrActions)["extrasDeHyphenateText"]->setTexts( tr("Dehyphenate Text"));
 	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
 
 	//Help Menu

@@ -47,5 +47,6 @@ public slots:
 	void slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num);
 	void slotHyphenateWord(PageItem* it, QString text, int firstC);
 	void slotHyphenate(PageItem *it);
+	void slotDeHyphenate(PageItem *it);
 };
 #endif

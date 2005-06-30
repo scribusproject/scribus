@@ -1310,10 +1310,12 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
 	scrMenuMgr->addMenuItem(scrActions["extrasManagePictures"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras");
+	scrMenuMgr->addMenuItem(scrActions["extrasDeHyphenateText"], "Extras");
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras");
 
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrActions["extrasHyphenateText"]->setEnabled(false);
+	scrActions["extrasDeHyphenateText"]->setEnabled(false);
 
 	//Window menu
 	scrMenuMgr->createMenu("Windows", tr("&Windows"));
@@ -3731,6 +3733,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
+		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
 
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
@@ -3751,6 +3754,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
+		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
@@ -3787,6 +3791,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.count() != 0);
 		scrActions["extrasHyphenateText"]->setEnabled(true);
+		scrActions["extrasDeHyphenateText"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
@@ -3898,6 +3903,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
+		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
@@ -3966,6 +3972,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
+		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->clearMenu("Style");
@@ -5245,6 +5252,7 @@ bool ScribusApp::DoFileClose()
 		//scrActions["toolsPreflightVerifier"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
+		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("View", false);
 		scrMenuMgr->setMenuEnabled("Windows", false);
 		scrActions["viewSnapToGuides"]->setOn(false);
@@ -10156,6 +10164,22 @@ void ScribusApp::doHyphenate()
 			if (doc->docHyphenator->Language != currItem->Language)
 				doc->docHyphenator->slotNewDict(currItem->Language);
 			doc->docHyphenator->slotHyphenate(currItem);
+			view->DrawNew();
+			slotDocCh();
+		}
+	}
+}
+
+void ScribusApp::doDeHyphenate()
+{
+	if (HaveDoc)
+	{
+		if (view->SelItem.count() != 0)
+		{
+			PageItem *currItem = view->SelItem.at(0);
+			doc->docHyphenator->slotDeHyphenate(currItem);
+			view->DrawNew();
+			slotDocCh();
 		}
 	}
 }
@@ -10601,29 +10625,6 @@ void ScribusApp::slotStoryEditor()
 			storyEditor->activFromApp = true;
 			return;
 		}
-/*		
-		if (currItemSE!=NULL && currDocSE!=NULL)
-		{
-			QString msg=tr("Story Editor is currently editing the text in the frame named %1 from the document %2.<br/>").arg(currItemSE->itemName()).arg(currDocSE->DocName);
-			if (storyEditor->textDataChanged())
-			{
-				msg+=tr("You have edited the data and it has not been saved.");
-				int retVal=QMessageBox::warning(this, tr("Warning"), "<qt>" + msg + "</qt>", tr("&Abort"), tr("&Ignore Changes"), tr("&Keep Changes and Continue"), 0, 0);
-				if (retVal == 0)
-					return;
-				if (retVal == 2)
-					storyEditor->updateTextFrame();
-			}
-			else
-			{
-				msg+=tr("The data has either not been modified or has already been saved.");
-				int retVal=QMessageBox::question(this, tr("Information"), "<qt>" + msg + "</qt>",
-												tr("C&ontinue"), tr("&Cancel"), 0, 0, 0);
-				if (retVal == 1)
-					return;
-			}
-		
-		} */
 		storyEditor->activFromApp = true;
 		storyEditor->setCurrentDocumentAndItem(doc, currItem);
 		CurrStED = storyEditor;
@@ -10634,14 +10635,6 @@ void ScribusApp::slotStoryEditor()
 		storyEditor->activFromApp = true;
 		storyEditor->raise();
 		storyEditor->activFromApp = true;
-		//dia->show();
-		/*
-		view->DrawNew();
-		buildFontMenu();
-		CurrStED = NULL;
-		//delete dia;
-		dia=NULL;
-		*/
 	}
 }
 

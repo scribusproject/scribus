@@ -370,5 +370,50 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	doc->DoDrawing = true;
-//	nb1->OwnPage->RefreshItem(nb1);
+}
+
+/*! 
+ \fn void Hyphenator::slotDeHyphenate(PageItem* it)
+ \brief Removes hyphenation either for the whole text frame or the selected text if there is a selection.
+ \date
+ \author Franz Schmid
+ \param it references \see PageItem - text frame.
+ \retval None
+ */
+void Hyphenator::slotDeHyphenate(PageItem* it)
+{
+	PageItem *nextItem = it;
+	PageItem *nb1;
+	if ((it->itemType() != PageItem::TextFrame) || (it ->itemText.count() == 0))
+		return;
+	while (nextItem != 0)
+	{
+		if (nextItem->BackBox != 0)
+			nextItem = nextItem->BackBox;
+		else
+			break;
+	}
+	nb1 = nextItem;
+	while (nextItem != 0)
+	{
+		uint a = nextItem->itemText.count();
+		for (uint s = 0; s < a; ++s)
+			nb1->itemText.append(nextItem->itemText.take(0));
+		nextItem->MaxChars = 0;
+		nextItem->CPos = 0;
+		nextItem = nextItem->NextBox;
+	}
+	doc->DoDrawing = false;
+	for (uint a = 0; a < nb1->itemText.count(); ++a)
+	{
+		if (nb1->HasSel)
+		{
+			if (nb1->itemText.at(a)->cselect)
+				nb1->itemText.at(a)->cstyle &= 1919;
+		}
+		else
+			nb1->itemText.at(a)->cstyle &= 1919;
+	}
+	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	doc->DoDrawing = true;
 }
