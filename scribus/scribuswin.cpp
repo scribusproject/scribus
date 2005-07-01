@@ -20,6 +20,7 @@
 #include "scribuswin.moc"
 #include "scribusXml.h"
 #include "scribus.h"
+#include "story.h"
 #include "util.h"
 
 extern ScribusApp* ScApp;
@@ -79,7 +80,10 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		{
 		case 0:
 			if (ScApp->DoSaveClose())
+			{
+				ScApp->storyEditor->close();
 				ce->accept();
+			}
 			else
 				return;
 			break;

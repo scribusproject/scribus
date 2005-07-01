@@ -5028,6 +5028,7 @@ void ScribusApp::slotFileRevert()
 		QFileInfo fi(fn);
 		QDir::setCurrent(fi.dirPath(true));
 		doc->setUnModified();
+		storyEditor->close();
 		slotFileClose();
 		qApp->processEvents();
 		loadDoc(fn);
@@ -5167,6 +5168,7 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
+	storyEditor->close();
 	actionManager->disconnectNewViewActions();
 	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (doc->viewCount > 1)
