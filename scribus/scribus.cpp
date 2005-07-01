@@ -170,6 +170,7 @@ ProfilesL InputProfiles;
 QString DocDir;
 extern ScribusApp* ScApp;
 extern ScribusQApp* ScQApp;
+extern bool emergencyActivated;
 PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
@@ -8537,6 +8538,10 @@ void ScribusApp::slotPrefsOrg()
 
 void ScribusApp::SavePrefs()
 {
+	// If closing because of a crash don't save prefs as we can 
+	// accidentally nuke the settings if the crash is before prefs are loaded
+	if (emergencyActivated)
+		return;
 	Prefs.mainWinSettings.xPosition = abs(pos().x());
 	Prefs.mainWinSettings.yPosition = abs(pos().y());
 	Prefs.mainWinSettings.width = size().width();
@@ -10653,6 +10658,7 @@ void ScribusApp::slotStoryEditor()
 
 void ScribusApp::emergencySave()
 {
+	emergencySaveActivated=true;
 	std::cout << "Calling Emergency Save" << std::endl;
 	QWidgetList windows = wsp->windowList();
 	if (!windows.isEmpty())

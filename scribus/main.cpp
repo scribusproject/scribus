@@ -43,6 +43,7 @@ static void defaultCrashHandler(int sig);
 
 ScribusApp* ScApp;
 ScribusQApp* ScQApp;
+bool emergencyActivated;
 
 int main(int argc, char *argv[])
 {
@@ -62,6 +63,7 @@ int main(int argc, char *argv[])
 */
 int mainApp(int argc, char **argv)
 {
+	emergencyActivated=false;
 	ScribusQApp app(argc, argv);
 	initCrashHandler();
 	app.parseCommandLine();
@@ -110,6 +112,7 @@ void defaultCrashHandler(int sig)
 	signal(SIGALRM, SIG_DFL);
 	if (crashRecursionCounter < 2)
 	{
+		emergencyActivated=true;
 		crashRecursionCounter++;
 		QString sigHdr=QObject::tr("Scribus Crash");
 		QString sigLine="-------------";
