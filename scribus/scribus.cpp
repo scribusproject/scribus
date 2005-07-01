@@ -10658,7 +10658,7 @@ void ScribusApp::slotStoryEditor()
 
 void ScribusApp::emergencySave()
 {
-	emergencySaveActivated=true;
+	emergencyActivated=true;
 	std::cout << "Calling Emergency Save" << std::endl;
 	QWidgetList windows = wsp->windowList();
 	if (!windows.isEmpty())
