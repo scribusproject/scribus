@@ -715,7 +715,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t->Effect = QString(face->style_name);
 			t->faceIndex = faceindex;
 			t->PrivateFont = DocName;
-			setBestEncoding(face); //AV
+			//setBestEncoding(face); //AV
 			switch (face->charmap? face->charmap->encoding : -1)
 			{
 				case	 FT_ENCODING_ADOBE_STANDARD: 

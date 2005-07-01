@@ -107,10 +107,14 @@ void ScrPaletteBase::show()
 	{
 		if (palettePrefs->contains("left"))
 		{
-			int vleft   = palettePrefs->getInt("left");
-			int vtop    = palettePrefs->getInt("top");
-			int vwidth  = palettePrefs->getInt("width");
-			int vheight = palettePrefs->getInt("height");
+			int vleft   = QMAX(-80, palettePrefs->getInt("left"));
+#ifndef QT_MAC
+			int vtop    = QMAX(-80, palettePrefs->getInt("top"));
+#else
+			int vtop    = QMAX(64, palettePrefs->getInt("top"));
+#endif
+			int vwidth  = QMAX(100, palettePrefs->getInt("width"));
+			int vheight = QMAX(100, palettePrefs->getInt("height"));
 			setGeometry(vleft, vtop, vwidth, vheight);
 		}
 		storeVisibility(true);
