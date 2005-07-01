@@ -53,7 +53,10 @@ void* PluginManager::loadDLL( QString plugin )
 	lib = dlopen(libpath, RTLD_LAZY | RTLD_GLOBAL);
 	if (!lib)
 	{
-		qDebug( "Cannot find plugin", "plugin manager");
+		char* error = dlerror();
+		qDebug("%s: %s",
+				tr("Cannot find plugin", "plugin manager").utf8().data(),
+				error ? error : tr("unknown error","plugin manager").utf8().data());
 	}
 	dlerror();
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
@@ -64,7 +67,7 @@ void* PluginManager::loadDLL( QString plugin )
 	if( QFile::exists(plugin) )
 		lib = (void*) new QLibrary( plugin );
 	else
-		qDebug( "Cannot find plugin", "plugin manager");
+		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").utf8().data(), plugin.utf8().data());
 #endif
 	return lib;
 }
@@ -78,22 +81,18 @@ void* PluginManager::resolveSym( void* plugin, const char* sym )
 	symAddr = dlsym( plugin, sym );
 	if ((error = dlerror()) != NULL)
 	{
-		qDebug( QString("Cannot find symbol (%1)").arg(error), "plugin manager");
+		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(error).utf8().data());
 		symAddr = NULL;
 	}
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
 	symAddr = (void* ) GetProcAddress( (HMODULE) plugin, sym);
 	if ( symAddr == NULL)
-	{
-		qDebug( QString("Cannot find symbol (%1)").arg(sym), "plugin manager");
-	}
+		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).utf8().data());
 #else
 	QLibrary* qlib = (QLibrary*) plugin;
 	if( plugin ) symAddr = qlib->resolve(sym);
 	if ( symAddr == NULL)
-	{
-		qDebug( QString("Cannot find symbol (%1)").arg(sym), "plugin manager");
-	}
+		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).utf8().data());
 #endif
 	return symAddr;
 }
