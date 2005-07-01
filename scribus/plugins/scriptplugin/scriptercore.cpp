@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <qtextedit.h>
 
-#include "customfdialog.h"
+#include "runscriptdialog.h"
 #include "helpbrowser.h"
 #include "mpalette.h"
 #include "seiten.h"
@@ -41,7 +41,7 @@ ScripterCore::ScripterCore(QWidget* parent)
 
 	scrScripterActions["scripterShowConsole"]->setToggleAction(true);
 
-	QObject::connect( scrScripterActions["scripterExecuteScript"], SIGNAL(activated()) , this, SLOT(slotTest()) );
+	QObject::connect( scrScripterActions["scripterExecuteScript"], SIGNAL(activated()) , this, SLOT(runScriptDialog()) );
 	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 	QObject::connect( scrScripterActions["scripterAboutScript"], SIGNAL(activated()) , this, SLOT(aboutScript()) );
 
@@ -153,18 +153,15 @@ void ScripterCore::FinishScriptRun()
 	}
 }
 
-void ScripterCore::slotTest()
+void ScripterCore::runScriptDialog()
 {
 	QString fileName;
-	QString CurDirP = QDir::currentDirPath();
-	QString scriptDir = Carrier->Prefs.ScriptDir;
-	if (scriptDir == "")
-		scriptDir = CurDirP;
-	CustomFDialog diaf((QWidget*)parent(), scriptDir, QObject::tr("Open"), QObject::tr("Python Scripts (*.py);; All Files (*)"));
-	if (diaf.exec())
+	QString curDirPath = QDir::currentDirPath();
+	RunScriptDialog dia( Carrier, enableExtPython );
+	if (dia.exec())
 	{
-		fileName = diaf.selectedFile();
-		slotRunScriptFile(fileName);
+		fileName = dia.selectedFile();
+		slotRunScriptFile(fileName, dia.extensionRequested());
 
 		if (RecentScripts.findIndex(fileName) == -1)
 			RecentScripts.prepend(fileName);
@@ -175,7 +172,7 @@ void ScripterCore::slotTest()
 		}
 		rebuildRecentScriptsMenu();
 	}
-	QDir::setCurrent(CurDirP);
+	QDir::setCurrent(curDirPath);
 	FinishScriptRun();
 }
 

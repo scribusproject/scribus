@@ -22,7 +22,7 @@ public:
 	~ScripterCore();
 
 public slots:
-	void slotTest();
+	void runScriptDialog();
 	void StdScript(QString filebasename);
 	void RecentScript(QString fn);
 	void slotRunScriptFile(QString fileName, bool inMainInterpreter = false);
