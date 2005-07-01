@@ -33,8 +33,23 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
+
+#ifdef _MSC_VER
+ #if (_MSC_VER >= 1200)
+  #include "win-config.h"
+ #endif
+#else
+ #include "config.h"
+#endif
+
+#ifdef HAVE_DLFCN_H
 #include <dlfcn.h>
+#endif
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
 #include <iostream>
 #include <signal.h>
 #include <string>
@@ -97,13 +112,6 @@
 #include "pageitemattributes.h"
 #include "tocindexprefs.h"
 #include "tocgenerator.h"
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
 
 #include "fpoint.h"
 #include "fpointarray.h"
@@ -8657,22 +8665,20 @@ void ScribusApp::ShowSubs()
 
 PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf)
 {
-	const char *error;
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 	sdem demo;
 	QString pfad = QString("%1/libs/libpostscript.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
-	PSDriver = dlopen(pfad, RTLD_LAZY);
+	PSDriver = PluginManager::loadDLL(pfad);
 	if (!PSDriver)
 	{
 		std::cout << "Cannot find the Scribus PostScript library plugin" << endl;
 		return NULL;
 	}
-	dlerror();
-	demo = (sdem)dlsym(PSDriver, "Run");
-	if ((error = dlerror()) != NULL)
+	demo = (sdem) PluginManager::resolveSym(PSDriver, "Run");
+	if ( !demo )
 	{
 		std::cout << "Cannot find symbol" << endl;
-		dlclose(PSDriver);
+		PluginManager::unloadDLL(PSDriver);
 		return NULL;
 	}
 	PSLib *dia = (*demo)(psart, AllFonts, DocFonts, DocColors, pdf);
@@ -8681,7 +8687,7 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 
 void ScribusApp::closePSDriver()
 {
-	dlclose(PSDriver);
+	PluginManager::unloadDLL(PSDriver);
 }
 
 bool ScribusApp::DoSaveAsEps(QString fn)
@@ -8783,29 +8789,27 @@ void ScribusApp::reallySaveAsEps()
 bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs)
 {
 	bool ret = false;
-	const char *error;
 	void *PDFDriver;
 	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 	sdem demo;
 	QString pfad = QString("%1/libs/libpdf.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
-	PDFDriver = dlopen(pfad, RTLD_NOW);
+	PDFDriver = PluginManager::loadDLL(pfad);
 	if (!PDFDriver)
 	{
 		std::cout << "Cannot find the Scribus PDF plugin" << endl;
 		return false;
 	}
-	dlerror();
-	demo = (sdem)dlsym(PDFDriver, "Run");
-	if ((error = dlerror()) != NULL)
+	demo = (sdem) PluginManager::resolveSym(PDFDriver, "Run");
+	if( !demo )
 	{
 		std::cout << "Cannot find symbol" << endl;
-		dlclose(PDFDriver);
+		PluginManager::unloadDLL(PDFDriver);
 		return false;
 	}
 	fileWatcher->forceScan();
 	fileWatcher->stop();
 	ret = (*demo)(this, fn, nam, Components, pageNs, thumbs, mainWindowProgressBar);
-	dlclose(PDFDriver);
+	PluginManager::unloadDLL(PDFDriver);
 	fileWatcher->start();
 	return ret;
 }

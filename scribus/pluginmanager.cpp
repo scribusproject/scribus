@@ -1,7 +1,16 @@
 #include "pluginmanager.h"
 #include "pluginmanager.moc"
-#include <dlfcn.h>
+
 #include <qdir.h>
+
+#ifdef _MSC_VER
+ #if (_MSC_VER >= 1200)
+  #include "win-config.h"
+ #endif
+#else
+ #include "config.h"
+#endif
+
 #include "scribus.h"
 #include "scribusapp.h"
 #include "menumanager.h"
@@ -11,6 +20,14 @@
 #include "tree.h"
 #include "prefsfile.h"
 #include "scpaths.h"
+
+#ifdef HAVE_DLFCN_H
+#include <dlfcn.h>
+#elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
+#include <windows.h>
+#else
+#include <qlibrary.h>
+#endif
 
 extern ScribusApp *ScApp;
 extern ScribusQApp *ScQApp;
@@ -26,6 +43,71 @@ PluginManager::PluginManager()
 
 PluginManager::~PluginManager()
 {
+}
+
+void* PluginManager::loadDLL( QString plugin )
+{
+	void* lib = NULL;
+#ifdef HAVE_DLFCN_H
+	QString libpath = QDir::convertSeparators( plugin );
+	lib = dlopen(libpath, RTLD_LAZY | RTLD_GLOBAL);
+	if (!lib)
+	{
+		qDebug( "Cannot find plugin", "plugin manager");
+	}
+	dlerror();
+#elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
+	QString libpath = QDir::convertSeparators( plugin );
+	HINSTANCE hdll = LoadLibrary( (const char*) libpath );
+	lib = (void*) hdll;
+#else
+	if( QFile::exists(plugin) )
+		lib = (void*) new QLibrary( plugin );
+	else
+		qDebug( "Cannot find plugin", "plugin manager");
+#endif
+	return lib;
+}
+
+void* PluginManager::resolveSym( void* plugin, const char* sym )
+{
+	void* symAddr = NULL;
+#ifdef HAVE_DLFCN_H
+	const char* error;
+	dlerror();
+	symAddr = dlsym( plugin, sym );
+	if ((error = dlerror()) != NULL)
+	{
+		qDebug( QString("Cannot find symbol (%1)").arg(error), "plugin manager");
+		symAddr = NULL;
+	}
+#elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
+	symAddr = (void* ) GetProcAddress( (HMODULE) plugin, sym);
+	if ( symAddr == NULL)
+	{
+		qDebug( QString("Cannot find symbol (%1)").arg(sym), "plugin manager");
+	}
+#else
+	QLibrary* qlib = (QLibrary*) plugin;
+	if( plugin ) symAddr = qlib->resolve(sym);
+	if ( symAddr == NULL)
+	{
+		qDebug( QString("Cannot find symbol (%1)").arg(sym), "plugin manager");
+	}
+#endif
+	return symAddr;
+}
+
+void  PluginManager::unloadDLL( void* plugin )
+{
+#ifdef HAVE_DLFCN_H
+	dlclose( plugin );
+	dlerror();
+#elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
+	FreeLibrary( (HMODULE) plugin );
+#else
+	delete ( (QLibrary*) plugin );
+#endif
 }
 
 void PluginManager::savePreferences()
@@ -120,7 +202,6 @@ void PluginManager::callDLLBySlot(int pluginID)
 void PluginManager::callDLL(int pluginID)
 {
 	void *mo;
-	const char *error;
 	struct PluginData pda;
 	pda = pluginMap[pluginID];
 	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
@@ -129,27 +210,22 @@ void PluginManager::callDLL(int pluginID)
 	if (pda.type != 4 && pda.type !=5)
 	{
 		plugDir += pda.pluginFile;
-		mo = dlopen(plugDir, RTLD_LAZY | RTLD_GLOBAL);
-		if (!mo)
-		{
-			qDebug( tr("Cannot find plugin"), "plugin manager");
-			return;
-		}
+		mo = loadDLL(plugDir);
+		if (!mo) return;
 	}
 	else
 		mo = pda.index;
-	dlerror();
-	demo = (sdem)dlsym(mo, "run");
-	if ((error = dlerror()) != NULL)
+
+	demo = (sdem) resolveSym(mo, "run");
+	if ( !demo )
 	{
-		qDebug( tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
-		dlclose(mo);
+		unloadDLL(mo);
 		return;
 	}
 	(*demo)(ScApp, ScApp);
 	// FIXME: how is the menu organized? (*demo)(ScApp->scrActions[pluginMap[pluginID].actName], ScApp);
 	if (pda.type != 4 && pda.type != 5)
-		dlclose(mo);
+		unloadDLL(mo);
 	if (ScApp->HaveDoc)
 		ScApp->view->DrawNew();
 }
@@ -157,7 +233,7 @@ void PluginManager::callDLL(int pluginID)
 QString PluginManager::callDLLForNewLanguage(int pluginID)
 {
 	void *mo;
-	const char *error;
+	bool unload = false;
 	struct PluginData pda;
 	pda = pluginMap[pluginID];
 	typedef QString (*sdem)();
@@ -168,40 +244,36 @@ QString PluginManager::callDLLForNewLanguage(int pluginID)
 	if (pda.type != 4 && pda.type !=5)
 	{
 		plugDir += pda.pluginFile;
-		mo = dlopen(plugDir, RTLD_LAZY | RTLD_GLOBAL);
+		mo = loadDLL(plugDir);
 		if (!mo)
-		{
-			qDebug( tr("Cannot find plugin"), "plugin manager");
 			return QString::null;
-		}
+		unload = true;
 	}
 	else
 		mo = pda.index;
-	dlerror();
+
 	// Grab the menu string from the plugin again
-	demo = (sdem)dlsym(mo, "name");
-	if ((error = dlerror()) != NULL)
+	demo = (sdem) resolveSym(mo, "name");
+	if ( !demo )
 	{
-		qDebug( tr(QString("Cannot find symbol (%1)").arg(error)), "plugin manager");
-		//dlclose(mo);
+		if(unload) unloadDLL(mo);
 		return QString::null;
 	}
-	QString retVal=(*demo)();	
+	QString retVal= (*demo)();	
 	//If scripter, get it to update its scrActions.
 	if (pluginID==8)
 	{
-		dlerror();
-		demo0 = (sdem0)dlsym(mo, "languageChange");
-		if ((error = dlerror()) != NULL)
+		demo0 = (sdem0) resolveSym(mo, "languageChange");
+		if ( !demo0 )
 		{
-			dlclose(mo);
-			return false;
+			if(unload) unloadDLL(mo);
+			return QString::null;
 		}
 		(*demo0)();
 	}
 
 	if (pda.type != 4 && pda.type != 5)
-		dlclose(mo);
+		unloadDLL(mo);
 	return retVal;
 }
 
@@ -228,7 +300,6 @@ void PluginManager::callDLLbyMenu(int pluginID)
 bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type, void **index, int *idNr, QString *actName, QString *actKeySequence, QString *actMenu, QString *actMenuAfterName, bool *actEnabledOnStartup, bool loadPlugin)
 {
 	void *mo;
-	const char *error;
 	typedef QString (*sdem0)();
 	typedef PluginType (*sdem1)();
 	typedef void (*sdem2)(QWidget *d, ScribusApp *plug);
@@ -242,75 +313,69 @@ bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type,
 	QString plugName = ScPaths::instance().pluginDir();
 	plugName += name;
 
-	mo = dlopen(plugName, RTLD_LAZY | RTLD_GLOBAL);
+	mo = loadDLL(plugName);
 	if (!mo)
 	{
-		qDebug( tr(QString("Error: %1").arg(dlerror())), "plugin manager");
 		return false;
 	}
-	dlerror();
-	demo = (sdem0)dlsym(mo, "name");
-	if ((error = dlerror()) != NULL)
+
+	demo = (sdem0) resolveSym(mo, "name");
+	if ( !demo )
 	{
-		dlclose(mo);
+		unloadDLL(mo);
 		return false;
 	}
 	*pluginName = (*demo)();
-	dlerror();
-	demo1 = (sdem1)dlsym(mo, "type");
-	if ((error = dlerror()) != NULL)
+	demo1 = (sdem1) resolveSym(mo, "type");
+	if ( !demo1 )
 	{
-		dlclose(mo);
+		unloadDLL(mo);
 		return false;
 	}
 	*type = (*demo1)();
 	*index = mo;
-	plugID = (sdemID)dlsym(mo, "ID");
-	if ((error = dlerror()) != NULL)
+	plugID = (sdemID) resolveSym(mo, "ID");
+	if ( !plugID)
 	{
-		dlclose(mo);
+		unloadDLL(mo);
 		return false;
 	}
 	*idNr = (*plugID)();
 	//ScrAction based plugins
 	if (*type == Persistent || *type == Standard || *type == Import)
 	{
-		demo = (sdem0)dlsym(mo, "actionName");
-		if ((error = dlerror()) != NULL)
+		demo = (sdem0) resolveSym(mo, "actionName");
+		if ( !demo )
 		{
-			dlclose(mo);
+			unloadDLL(mo);
 			return false;
 		}
 		*actName = (*demo)();
-		dlerror();
-		demo = (sdem0)dlsym(mo, "actionKeySequence");
-		if ((error = dlerror()) != NULL)
+		demo = (sdem0) resolveSym(mo, "actionKeySequence");
+		if ( !demo )
 		{
-			dlclose(mo);
+			unloadDLL(mo);
 			return false;
 		}
 		*actKeySequence = (*demo)();
-		dlerror();
-		demo = (sdem0)dlsym(mo, "actionMenu");
-		if ((error = dlerror()) != NULL)
+		demo = (sdem0) resolveSym(mo, "actionMenu");
+		if ( !demo )
 		{
-			dlclose(mo);
+			unloadDLL(mo);
 			return false;
 		}
 		*actMenu = (*demo)();
-		dlerror();
-		demo = (sdem0)dlsym(mo, "actionMenuAfterName");
-		if ((error = dlerror()) != NULL)
+		demo = (sdem0) resolveSym(mo, "actionMenuAfterName");
+		if ( !demo )
 		{
-			dlclose(mo);
+			unloadDLL(mo);
 			return false;
 		}
 		*actMenuAfterName = (*demo)();
-		dlerror();
-		demo3 = (sdem3)dlsym(mo, "actionEnabledOnStartup");
-		if ((error = dlerror()) != NULL)
+		demo3 = (sdem3) resolveSym(mo, "actionEnabledOnStartup");
+		if ( !demo3 )
 		{
-			dlclose(mo);
+			unloadDLL(mo);
 			return false;
 		}
 		*actEnabledOnStartup = (*demo3)();
@@ -324,16 +389,15 @@ bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type,
 		*actEnabledOnStartup = false;
 	}
 	if (*type != Persistent && *type!= Type5)
-		dlclose(mo);
+		unloadDLL(mo);
 	else
 	{
 		if (loadPlugin)
 		{
-			dlerror();
-			demo2 = (sdem2)dlsym(mo, "initPlug");
-			if ((error = dlerror()) != NULL)
+			demo2 = (sdem2) resolveSym(mo, "initPlug");
+			if ( !demo2)
 			{
-				dlclose(mo);
+				unloadDLL(mo);
 				return false;
 			}
 			(*demo2)(ScApp, ScApp);
@@ -352,21 +416,16 @@ void PluginManager::finalizePlugs()
 
 void PluginManager::finalizePlug(int pluginID)
 {
-	const char *error;
 	struct PluginData pda;
 	typedef void (*sdem2)();
 	sdem2 demo2;
 	PluginData plug = pluginMap[pluginID];
 	if (plug.type == Persistent || plug.type == Type5)
 	{
-		dlerror();
-		demo2 = (sdem2)dlsym(plug.index, "cleanUpPlug");
-		if ((error = dlerror()) != NULL)
-		{
-			dlclose(plug.index);
-		}
-		else
+		demo2 = (sdem2) resolveSym(plug.index, "cleanUpPlug");
+		if ( demo2 )
 			(*demo2)();
+		unloadDLL(plug.index);
 	}
 }
 
@@ -403,6 +462,8 @@ QCString PluginManager::platformDllExtension()
 
 	//return "dylib";
 	return "so";
+#elif defined(_WIN32) || defined(_WIN64)
+	return "dll";
 #else
 	// Generic *NIX
 	return "so";

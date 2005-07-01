@@ -15,11 +15,14 @@
  * Derived from Franz's ScribusApp stuff (petr vanek)
  *
  */
+
 class PluginManager : public QObject
 {
+
 	Q_OBJECT
 
 public:
+
 	/** \brief Human readable enumertion of the plugin types */
 	// FIXME: what the hell is type5?
 	enum PluginType {
@@ -44,6 +47,7 @@ public:
 	 * \param loadPlugin enable or disable plugin for user
 	 * \param loaded is the plug really loaded?
 	 */
+
 	struct PluginData
 	{
 		QString pluginFile;// Datei;
@@ -63,25 +67,40 @@ public:
 
 	PluginManager();
 	~PluginManager();
+
+	// Static methods for loading, unloading plugins and resolving symbols
+	// These methods are plateform independent but implemented in a plateform dependent way
+	static void* loadDLL( QString plugin );
+	static void* resolveSym( void* plugin, const char* sym );
+	static void  unloadDLL( void* plugin );
+
 	/*! \brief Ininitalization of all plugins. It's called at scribus start. */
 	void initPlugs();
+
 	/*! \brief Run plugin by its id from pluginMap */
 	void callDLL(int pluginID);
+
 	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */	
 	QString callDLLForNewLanguage(int pluginID);
+
 	/*! \brief Checks if is the plug in plugin map.
 	 * \return bool
 	 */
 	bool DLLexists(int pluginID);
+
 	/*! unused/obsolete */
 	void callDLLbyMenu(int pluginID);
+
 	/*! \brief Reads available info and fills PluginData structure */
 	bool DLLname(QString name, QString *pluginName, PluginType *type, void **index, int *idNr, QString *actName, QString *actKeySequence, QString *actMenu, QString *actMenuAfterName, bool *actEnabledOnStartup, bool loadPlugin);
+
 	/*! \brief Shutdowns all plugins. Called at scribus quit */
 	void finalizePlugs();
+
 	/*! \brief Shutdowns one plugin.
 	 * \param pluginID key from the pluginMap. Plugin identifier
 	 */
+
 	void finalizePlug(int pluginID);
 	/** \brief Returns human readable plugin type */
 	QString getPluginType(PluginType aType);
@@ -101,14 +120,17 @@ public:
 	static QCString platformDllExtension();
 
 public slots:
+
 	/*! not at all obsolete! */
 	void callDLLBySlot(int pluginID);
 	void languageChange();
 
-
 private:
+
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
+
 };
 
 #endif
+
