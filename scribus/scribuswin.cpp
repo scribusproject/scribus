@@ -81,7 +81,8 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		case 0:
 			if (ScApp->DoSaveClose())
 			{
-				ScApp->storyEditor->close();
+				if (doc==ScApp->storyEditor->currentDocument())
+					ScApp->storyEditor->close();
 				ce->accept();
 			}
 			else

@@ -2940,6 +2940,9 @@ void StoryEditor::PasteAvail()
 
 void StoryEditor::updateTextFrame()
 {
+	//Return immediately if we dont have to update the frame
+	if (!textChanged)
+		return;
 	PageItem *nextItem = currItem;
 	while (nextItem != 0)
 	{
