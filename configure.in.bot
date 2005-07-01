@@ -33,9 +33,9 @@ if test $COMPILE_PYTHON = no; then
 	echo "The Scripter-Plugin will not be compiled."
 else
 	if test $hapython = yes; then
-  	echo "Using Python 2.3"
+		echo "Using Python 2.3"
 	else
-  	echo "Using Python < 2.3"
+		echo "Using Python < 2.3 (or Python 2.4)"
 	fi
 fi
 echo ""
