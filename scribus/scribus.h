@@ -543,7 +543,7 @@ private:
 	/** @brief tells the undo mode */
 	bool objectSpecificUndo;
 
-	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
+	void addNewPages(int wo, int where, int numPages, QString based1 = QObject::tr("Normal"), QString based2 = QObject::tr("Normal"));
 	QMap<int,QString> FontID;
 	int HaveGS;
 	void *PSDriver;

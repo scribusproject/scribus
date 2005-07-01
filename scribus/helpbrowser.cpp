@@ -176,7 +176,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	QString fileName;
 	mHistory.clear();
 	struct histd his;
-	language = guiLanguage=="" ? "en" : guiLanguage.left(2);
+	language = guiLanguage=="" ? QString("en") : guiLanguage.left(2);
 	helpBrowsermainLayout = new QVBoxLayout( this);
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
