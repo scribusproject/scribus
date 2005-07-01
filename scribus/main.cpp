@@ -119,6 +119,7 @@ void defaultCrashHandler(int sig)
 		std::cout << sigMsg << std::endl;
 		if (ScribusQApp::useGUI)
 		{
+			ScApp->closeSplash();
 			QMessageBox::critical(ScApp, sigHdr, sigMsg, QObject::tr("&OK"));
 			ScApp->emergencySave();
 			ScApp->close();

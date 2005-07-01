@@ -105,6 +105,7 @@ public:
 	/** destructor */
 	~ScribusApp() {};
 	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage);
+	void closeSplash();	
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
@@ -482,7 +483,6 @@ protected:
 private:
     /** init methods */
 	void initSplash(bool showSplash);
-	void closeSplash();
 	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
