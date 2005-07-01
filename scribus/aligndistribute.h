@@ -29,6 +29,7 @@ class QGridLayout;
 class QSpacerItem;
 class QGroupBox;
 class QLabel;
+class QLineEdit;
 class QComboBox;
 class QToolButton;
 class MSpinBox;
@@ -42,13 +43,16 @@ class AlignDistributePalette : public ScrPaletteBase
 	Q_OBJECT
 
 public:
-	typedef enum {First, Last, Page, Margins, Selection } AlignTo;
+	typedef enum {First, Last, Page, Margins, Guide, Selection } AlignTo;
 
 	AlignDistributePalette( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
 	~AlignDistributePalette();
 
 	virtual void setView( ScribusView * newView );
 	void unitChange();
+	
+public slots:
+	void setGuide(int, double);
 
 protected:
 	ScribusView *currView;
@@ -67,6 +71,8 @@ protected:
 	QToolButton* alignCenterVerToolButton;
 	QToolButton* alignTopOutToolButton;
 	QToolButton* alignTopInToolButton;
+	QLabel *alignGuideLabel;
+	QLineEdit* alignGuideLineEdit;
 	QGroupBox* distributeGroupBox;
 	QToolButton* distributeDistHToolButton;
 	QToolButton* distributeDistValueHToolButton;
@@ -82,7 +88,11 @@ protected:
 	MSpinBox* distributeDistMSpinBox;
 
 	QVBoxLayout* AlignDistributePaletteLayout;
-	QVBoxLayout* alignGroupBoxLayout;
+	QGridLayout* alignGroupBoxLayout;
+	QHBoxLayout* alignGuideLayout;
+	QSpacerItem* alignGuideLeftSpacer;
+	QSpacerItem* alignGuideRightSpacer;
+
 	QHBoxLayout* layout11;
 	QHBoxLayout* layout14;
 	QSpacerItem* spacer15;
@@ -135,6 +145,10 @@ private:
 	ScribusDoc *currDoc;
 	double unitRatio;
 	bool usingDistance;
+	int guideDirection;
+	double guidePosition;
+	QString guideInfoText, guideInfoTextNone;
+	void enableGuideButtons();
 	
 signals:
 	void documentChanged();

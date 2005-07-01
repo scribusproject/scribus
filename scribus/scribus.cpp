@@ -2788,7 +2788,10 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
+	{
 		actionManager->disconnectNewViewActions();
+		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	}
 	view = new ScribusView(w, doc, &Prefs);
 	view->setScale(1.0*Prefs.DisScale);
 	actionManager->connectNewViewActions(view);
@@ -2799,6 +2802,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	w->setCentralWidget(view);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
@@ -2965,10 +2969,14 @@ void ScribusApp::newActWin(QWidget *w)
 		undoManager->switchStack(newDocName);
 
 	if (view!=NULL)
+	{
 		actionManager->disconnectNewViewActions();
+		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	}
 	doc = ActWin->doc;
 	view = ActWin->view;
 	actionManager->connectNewViewActions(view);
+	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	pagePalette->SetView(view);
 	alignDistributePalette->setView(view);
 	ScribusWin* swin;
@@ -5157,6 +5165,7 @@ bool ScribusApp::slotFileClose()
 bool ScribusApp::DoFileClose()
 {
 	actionManager->disconnectNewViewActions();
+	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (doc->viewCount > 1)
 	{
 		doc->viewCount--;

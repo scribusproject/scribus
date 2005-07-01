@@ -7413,6 +7413,17 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				}
 			}
 		}
+		if (GxM!=-1 || GyM!=-1)
+		{
+			if (GxM==-1)
+				// Horizontal Guide
+				emit signalGuideInformation(0, qRound(Doc->currentPage->YGuides[GyM] * 10000.0) / 10000.0);
+			else
+				// Vertical Guide
+				emit signalGuideInformation(1, qRound(Doc->currentPage->XGuides[GxM] * 10000.0) / 10000.0);
+		}
+		//else
+		//	emit signalGuideInformation(-1, 0.0);
 	}
 	Deselect(true);
 	SelItem.clear();
@@ -9079,11 +9090,13 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 		else
 			Doc->Pages.at(pg)->moveYGuide(oldIndex, newY-Doc->Pages.at(pg)->Yoffset);
 		emit DocChanged();
+		emit signalGuideInformation(0, qRound((newY-Doc->Pages.at(pg)->Yoffset) * 10000.0) / 10000.0);
 	}
 	else if (oldIndex >= 0)
 	{
 		Doc->currentPage->removeYGuide(oldIndex);
 		emit DocChanged();
+		emit signalGuideInformation(-1, 0.0);
 	}
 	updateContents();
 }
@@ -9101,11 +9114,13 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 		else
 			Doc->Pages.at(pg)->moveXGuide(oldIndex, newX-Doc->Pages.at(pg)->Xoffset);
 		emit DocChanged();
+		emit signalGuideInformation(1, qRound((newX-Doc->Pages.at(pg)->Xoffset) * 10000.0) / 10000.0);
 	}
 	else if (oldIndex >= 0)
 	{
 		Doc->currentPage->removeXGuide(oldIndex);
 		emit DocChanged();
+		emit signalGuideInformation(-1, 0.0);
 	}
 	updateContents();
 }

@@ -419,5 +419,6 @@ signals:
 	void callGimp();
 	void AddObj(PageItem *);
 	void UpdtObj(uint, uint);
+	void signalGuideInformation(int, double);
 };
 #endif

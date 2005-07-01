@@ -271,6 +271,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		"<tr><td colspan=\"2\"><p><a href=\"http://www.scribus.net\">http://www.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Online Reference").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://docs.scribus.net\">http://docs.scribus.net</a></p></td></tr>" +
+		"<tr><td><b>" + tr("Wiki").utf8() + "</b></td><td></td></tr>" +
+		"<tr><td colspan=\"2\"><p><a href=\"http://wiki.scribus.net\">http://wiki.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Bugs and Feature Requests").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://bugs.scribus.net\">http://bugs.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Mailing List").utf8() + "</b></td><td></td></tr>" +
@@ -296,7 +298,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	setMaximumSize(sizeHint());
 
 //tooltips
-	QToolTip::add( buildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.\nMissing library support is indicated by a *" ) );
+	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a *" ) + "</qt>" );
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }

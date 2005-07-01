@@ -26,6 +26,7 @@
 #include <qwhatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
+#include <qlineedit.h>
 
 #include "aligndistribute.moc"
 
@@ -53,13 +54,15 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	if ( !name )
 		setName( "AlignDistributePalette" );
 	ScApp = (ScribusApp *)parent;
+	currDoc=NULL;
 	AlignDistributePaletteLayout = new QVBoxLayout( this, 5, 6, "AlignDistributePaletteLayout"); 
 
 	alignGroupBox = new QGroupBox( this, "alignGroupBox" );
 	alignGroupBox->setColumnLayout(0, Qt::Vertical );
 	alignGroupBox->layout()->setSpacing( 6 );
 	alignGroupBox->layout()->setMargin( 11 );
-	alignGroupBoxLayout = new QVBoxLayout( alignGroupBox->layout() );
+	alignGroupBoxLayout = new QGridLayout( alignGroupBox->layout() );
+	//alignGroupBoxLayout = new QVBoxLayout( alignGroupBox->layout() );
 	alignGroupBoxLayout->setAlignment( Qt::AlignTop );
 
 	layout11 = new QHBoxLayout( 0, 0, 6, "layout11"); 
@@ -69,7 +72,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 
 	alignRelativeToCombo = new QComboBox( FALSE, alignGroupBox, "alignRelativeToCombo" );
 	layout11->addWidget( alignRelativeToCombo );
-	alignGroupBoxLayout->addLayout( layout11 );
+	alignGroupBoxLayout->addLayout( layout11, 0, 0 );
 
 	layout14 = new QHBoxLayout( 0, 0, 6, "layout14"); 
 	spacer15 = new QSpacerItem( 21, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -109,7 +112,22 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	layout14->addLayout( layout2 );
 	spacer16 = new QSpacerItem( 21, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout14->addItem( spacer16 );
-	alignGroupBoxLayout->addLayout( layout14 );
+	alignGroupBoxLayout->addLayout( layout14, 1, 0 );
+	
+	alignGuideLayout = new QHBoxLayout( 0, 0, 6, "alignGuideLayout"); 
+	alignGuideLeftSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	alignGuideLayout->addItem( alignGuideLeftSpacer );
+	alignGuideLineEdit = new QLineEdit( "", alignGroupBox, "alignGuideLineEdit");
+	alignGuideLineEdit->setMinimumSize( QSize( 80, 20 ) );
+	alignGuideLineEdit->setReadOnly(true);
+	alignGuideLabel = new QLabel( alignGuideLineEdit, "", alignGroupBox, "alignGuideLabel");
+	alignGuideLayout->addWidget( alignGuideLabel );
+
+	alignGuideLayout->addWidget( alignGuideLineEdit );
+	alignGuideRightSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	alignGuideLayout->addItem( alignGuideRightSpacer);
+	alignGroupBoxLayout->addLayout( alignGuideLayout, 2, 0 );
+	
 	AlignDistributePaletteLayout->addWidget( alignGroupBox );
 
 	distributeGroupBox = new QGroupBox( this, "distributeGroupBox" );
@@ -209,6 +227,7 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->insertItem( tr( "Last Selected" ) );
 	alignRelativeToCombo->insertItem( tr( "Page" ) );
 	alignRelativeToCombo->insertItem( tr( "Margins" ) );
+	alignRelativeToCombo->insertItem( tr( "Guide" ) );		
 	alignRelativeToCombo->insertItem( tr( "Selection" ) );
 	alignRelativeToCombo->setCurrentItem(alignComboValue);
 	alignToChanged(alignComboValue);
@@ -232,6 +251,9 @@ void AlignDistributePalette::languageChange()
 	QToolTip::add( alignTopOutToolButton, tr( "Align bottoms of objects to top of anchor" ) );
 	alignTopInToolButton->setText( QString::null );
 	QToolTip::add( alignTopInToolButton, tr( "Align tops" ) );
+	
+	alignGuideLabel->setText( tr( "&Selected Guide:" ) );
+	
 	distributeGroupBox->setTitle( tr( "Distribute" ) );
 	distributeDistHToolButton->setText( QString::null );
 	QToolTip::add( distributeDistHToolButton, tr( "Make horizontal gaps between objects equal" ) );
@@ -256,6 +278,8 @@ void AlignDistributePalette::languageChange()
 	
 	distributeDistLabel->setText( tr( "&Distance:" ) );
 	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
+	
+	guideInfoTextNone = tr("None Selected");
 }
 
 void AlignDistributePalette::init()
@@ -311,6 +335,10 @@ void AlignDistributePalette::init()
 	
 	unitRatio=1.0;
 	usingDistance=false;
+	guideDirection=-1;
+	
+	guideInfoText = guideInfoTextNone;
+	alignGuideLineEdit->setText(guideInfoTextNone);
 }
 
 void AlignDistributePalette::unitChange()
@@ -324,6 +352,7 @@ void AlignDistributePalette::unitChange()
 		unitRatio=unitGetRatioFromIndex(currDoc->docUnitIndex);
 		double ratioDivisor =  unitRatio / oldRatio;
 		distributeDistMSpinBox->setValue(oldValue*ratioDivisor);
+		enableGuideButtons();
 	}
 }
 
@@ -430,6 +459,9 @@ void AlignDistributePalette::alignLeftOut()
 				}
 				newX += currDoc->pageMargins.Left;
 				break;
+			case Guide:
+				newX=currDoc->ScratchLeft + guidePosition;
+				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
 					newX = QMIN((*alignObjects)[a].x1, newX);
@@ -483,6 +515,9 @@ void AlignDistributePalette::alignLeftIn()
 						newX += currDoc->pageWidth;
 				}
 				newX += currDoc->pageMargins.Left;
+				break;
+			case Guide:
+				newX=currDoc->ScratchLeft + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -542,6 +577,9 @@ void AlignDistributePalette::alignCenterHor()
 				}
 				newX += currDoc->pageMargins.Left;
 				newX += (currDoc->pageWidth - currDoc->pageMargins.Right - currDoc->pageMargins.Left)/2;
+				break;
+			case Guide:
+				newX=currDoc->ScratchLeft + guidePosition;
 				break;
 			case Selection:
 				double minX=99999.9, maxX=-99999.9;
@@ -604,6 +642,9 @@ void AlignDistributePalette::alignRightIn()
 				newX += currDoc->pageWidth;
 				newX -= currDoc->pageMargins.Right;
 				break;
+			case Guide:
+				newX=currDoc->ScratchLeft + guidePosition;
+				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
 					newX = QMAX((*alignObjects)[a].x2, newX);
@@ -659,6 +700,9 @@ void AlignDistributePalette::alignRightOut()
 				}
 				newX += currDoc->pageWidth;
 				newX -= currDoc->pageMargins.Right;
+				break;
+			case Guide:
+				newX=currDoc->ScratchLeft + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -724,6 +768,9 @@ void AlignDistributePalette::alignTopOut()
 				}
 				newY += currDoc->pageMargins.Top;
 				break;
+			case Guide:
+				newY=currDoc->ScratchTop + guidePosition;
+				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
 					newY = QMIN((*alignObjects)[a].y1, newY);
@@ -787,6 +834,9 @@ void AlignDistributePalette::alignTopIn()
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
 				}
 				newY += currDoc->pageMargins.Top;
+				break;
+			case Guide:
+				newY=currDoc->ScratchTop + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -857,6 +907,9 @@ void AlignDistributePalette::alignCenterVer()
 				}
 				newY += currDoc->pageMargins.Top;
 				newY += (currDoc->pageHeight - currDoc->pageMargins.Bottom - currDoc->pageMargins.Top)/2;
+				break;
+			case Guide:
+				newY=currDoc->ScratchTop + guidePosition;
 				break;
 			case Selection:
 				double minY=99999.9, maxY=-99999.9;
@@ -930,6 +983,9 @@ void AlignDistributePalette::alignBottomIn()
 				newY += currDoc->pageHeight;
 				newY -= currDoc->pageMargins.Bottom;
 				break;
+			case Guide:
+				newY=currDoc->ScratchTop + guidePosition;
+				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
 					newY = QMAX((*alignObjects)[a].y2, newY);
@@ -995,6 +1051,9 @@ void AlignDistributePalette::alignBottomOut()
 				}
 				newY += currDoc->pageHeight;
 				newY -= currDoc->pageMargins.Bottom;
+				break;
+			case Guide:
+				newY=currDoc->ScratchTop + guidePosition;
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1380,5 +1439,69 @@ void AlignDistributePalette::distributeDistValV()
 
 void AlignDistributePalette::alignToChanged(int newAlignTo)
 {
-	currAlignTo=(AlignTo)newAlignTo;	
+	currAlignTo=(AlignTo)newAlignTo;
+	enableGuideButtons();
+}
+
+void AlignDistributePalette::setGuide(int direction, double position)
+{
+	//direction 0=H, 1=V
+	guideDirection=direction;
+	guidePosition=position;
+	enableGuideButtons();
+}
+
+void AlignDistributePalette::enableGuideButtons()
+{
+	QString suffix="";
+	double unitRatio=1.0;
+	int precision=1;
+	if (currDoc!=NULL)
+	{
+		suffix=unitGetSuffixFromIndex(currDoc->docUnitIndex);
+		unitRatio=unitGetRatioFromIndex(currDoc->docUnitIndex);
+		precision=unitGetPrecisionFromIndex(currDoc->docUnitIndex);
+	}
+	bool setterH=true, setterV=true;
+	switch(guideDirection)
+	{
+		case -1:
+			guideInfoText = guideInfoTextNone;
+			if (currAlignTo==Guide)
+				setterH=setterV=false;
+			break;
+		case 0:
+			guideInfoText = tr("H: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
+			if (currAlignTo==Guide)
+			{
+				setterV=false;
+				setterH=true;
+			}
+			break;
+		case 1:
+			guideInfoText = tr("V: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
+			if (currAlignTo==Guide)
+			{
+				setterV=true;
+				setterH=false;
+			}
+			break;
+	}
+	bool setterO=true;
+	if (currAlignTo==Guide)
+		setterO=false;
+		
+	alignLeftInToolButton->setEnabled(setterV);
+	alignLeftOutToolButton->setEnabled(setterO);
+	alignRightInToolButton->setEnabled(setterV);
+	alignRightOutToolButton->setEnabled(setterO);	
+	alignCenterHorToolButton->setEnabled(setterV);
+
+	alignTopInToolButton->setEnabled(setterH);
+	alignTopOutToolButton->setEnabled(setterO);
+	alignBottomInToolButton->setEnabled(setterH);
+	alignBottomOutToolButton->setEnabled(setterO);
+	alignCenterVerToolButton->setEnabled(setterH);
+	
+	alignGuideLineEdit->setText(guideInfoText);
 }
