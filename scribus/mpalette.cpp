@@ -366,9 +366,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
 
-	TabsButton = new QPushButton( "T&abulators...", Distance, "Tabul" );
-	TabsButton->setDefault( false );
-	TabsButton->setAutoDefault( false );
+	TabsButton = new QToolButton( Distance, "T&abulators..." );
 	DistanceLayout->addMultiCellWidget( TabsButton, 6, 6, 0, 1 );
 	pageLayout_2a->addWidget(Distance);
 	TabStack2->addWidget( page_2a, 0 );
@@ -2986,7 +2984,6 @@ void Mpalette::SetSTline(QListBoxItem *c)
 
 void Mpalette::updateCList()
 {
-	static QMap<QRgb, QPixmap*> pxCache;
 	if (ScApp->ScriptRunning)
 		return;
 	if (!HaveDoc)
@@ -2999,12 +2996,7 @@ void Mpalette::updateCList()
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		QColor rgb = doc->PageColors[it.key()].getRGBColor();
-		QPixmap * pm = pxCache[rgb.rgb()];
-		if (!pm) {
-			pm = new QPixmap(15, 15);
-			pm->fill(rgb);
-			pxCache[rgb.rgb()] = pm;
-		}
+		QPixmap * pm = getSmallPixmap(rgb);
 		TxFill->insertItem(*pm, it.key());
 		TxStroke->insertItem(*pm, it.key());
 	}

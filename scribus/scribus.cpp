@@ -3428,18 +3428,12 @@ void ScribusApp::SwitchWin()
 	int a;
 	ColorList::Iterator it;
 	a = 0;
-	static QMap<QRgb, QPixmap*> pxCache;
 	ColorMenC->clear();
 	ColorMenC->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		QColor rgb = doc->PageColors[it.key()].getRGBColor();
-		QPixmap * pm = pxCache[rgb.rgb()];
-		if (!pm) {
-			pm = new QPixmap(15, 15);
-			pm->fill(rgb);
-			pxCache[rgb.rgb()] = pm;
-		}
+		QPixmap * pm = getSmallPixmap(rgb);
 		ColorMenC->insertItem(*pm, it.key());
 		if (it.key() == doc->toolSettings.dBrush)
 			ColorMenC->setCurrentItem(a);
@@ -5942,7 +5936,7 @@ void ScribusApp::SelectAll()
 			double x, y, w, h;
 			view->getGroupRect(&x, &y, &w, &h);
 			propertiesPalette->setXY(x, y);
-			propertiesPalette->setXY(w, h);
+			propertiesPalette->setBH(w, h);
 		}
 		if (view->SelItem.count() > 0)
 		{

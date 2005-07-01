@@ -122,7 +122,7 @@ public:
 	QButtonGroup* RotationGroup;
 	QButtonGroup* ShapeGroup;
 
-	QPushButton* TabsButton;
+	QToolButton* TabsButton;
 
 	QToolButton* Zup;
 	QToolButton* ZDown;

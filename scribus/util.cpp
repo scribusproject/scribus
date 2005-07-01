@@ -1159,6 +1159,37 @@ QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)
 	return currentDoc->PageColors[color].getShadeColorProof(shad);
 }
 
+
+/**
+ * QPixmaps are really slow with Qt/Mac 3.3.4. Really, *really*, slow.
+ * So we better cache them.
+ */
+QPixmap * getSmallPixmap(QColor rgb) 
+{
+	static QMap<QRgb, QPixmap*> pxCache;
+
+	QPixmap * pm = pxCache[rgb.rgb()];
+	if (!pm) {
+		pm = new QPixmap(15, 15);
+		pm->fill(rgb);
+		pxCache[rgb.rgb()] = pm;
+	}
+	return pm;
+}
+
+QPixmap * getWidePixmap(QColor rgb) 
+{
+	static QMap<QRgb, QPixmap*> pxCache;
+	
+	QPixmap * pm = pxCache[rgb.rgb()];
+	if (!pm) {
+		pm = new QPixmap(30, 15);
+		pm->fill(rgb);
+		pxCache[rgb.rgb()] = pm;
+	}
+	return pm;
+}
+
 FPoint getMaxClipF(FPointArray* Clip)
 {
 	FPoint np, rp;

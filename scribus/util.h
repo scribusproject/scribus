@@ -46,6 +46,8 @@ double xy2Deg(double x, double y);
 QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
+QPixmap * getSmallPixmap(QColor rgb);
+QPixmap * getWidePixmap(QColor rgb);
 QPixmap loadIcon(QString nam);
 uint getDouble(QString in, bool raw);
 bool loadText(QString nam, QString *Buffer);
