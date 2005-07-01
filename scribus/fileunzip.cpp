@@ -24,7 +24,12 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
 #include <sys/stat.h>
+#endif
 
 # include <unistd.h>
 # include <utime.h>

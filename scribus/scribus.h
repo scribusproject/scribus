@@ -594,7 +594,7 @@ private:
 	QPopupMenu *toolbarMenu;
 	double mm2pts(int mm);
 	double pts2mm(double pts);
-	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
+	void addNewPages(int wo, int where, int numPages, QString based1 = QObject::tr("Normal"), QString based2 = QObject::tr("Normal"));
 	QMap<int,QString> FontID;
 	int HaveGS;
 	void *PSDriver;

@@ -3,7 +3,9 @@
 #include <qstring.h>
 #include <qobject.h>
 
+#ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
+#endif
 
 #include "scfonts_ttf.h"
 

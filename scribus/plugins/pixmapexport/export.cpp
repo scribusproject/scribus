@@ -129,7 +129,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 				QObject::tr("No"),
 				QObject::tr("Yes"),
 				// hack for multiple overwritting (petr)
-				(single==TRUE) ? 0 : QObject::tr("Yes all"),
+				(single==TRUE) ? QString::null : QObject::tr("Yes all"),
 				0, 0);
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == 1)

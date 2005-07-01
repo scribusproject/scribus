@@ -29,6 +29,7 @@
 #include <qdir.h>
 #include <qpointarray.h>
 #include <qmessagebox.h>
+#include <algorithm>
 #include <cstdlib>
 #include <cmath>
 #include <unistd.h>
