@@ -230,7 +230,7 @@ char* tr(const char* docstringConstant)
 	 */
 	QCString utfTranslated = translated.utf8();
 	const char* trch = utfTranslated.data();
-	return strndup(trch, strlen(trch));
+	return strdup(trch);
 }
 
 /* Now we're using the more pythonic convention for names:
