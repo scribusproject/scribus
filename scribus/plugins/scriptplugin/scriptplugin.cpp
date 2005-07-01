@@ -166,8 +166,8 @@ void constantAlias(PyObject* scribusdict, const char* oldName, const char* newNa
 {
 	/* Work around the braindead Python/C API not using 'const' for
 	 * strings it won't change. */
-	char* newNameTemp = strndup(newName, strlen(newName));
-	char* oldNameTemp = strndup(oldName, strlen(oldName));
+	char* newNameTemp = strdup(newName);
+	char* oldNameTemp = strdup(oldName);
 	assert(newNameTemp != NULL);
 	assert(oldNameTemp != NULL);
 	/* We use PyMapping_GetItemString because unlike PyDict_GetItemString it
