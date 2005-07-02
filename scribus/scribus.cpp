@@ -508,7 +508,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PSize = 40;
 	Prefs.SaveAtQ = true;
 	Prefs.ClipMargin = true;
-	Prefs.GCRMode = true;
+	Prefs.GCRMode = false;
 	Prefs.RecentDocs.clear();
 	Prefs.RecentDCount = 5;
 	Prefs.marginColored = false;
