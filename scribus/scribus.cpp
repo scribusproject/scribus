@@ -10974,7 +10974,7 @@ void ScribusApp::languageChange()
 			scrMenuMgr->setMenuText("Item", tr("&Item"));
 			scrMenuMgr->setMenuText("ItemLevel", tr("&Level"));
 			scrMenuMgr->setMenuText("ItemLayer", tr("Send to Layer"));
-			scrMenuMgr->setMenuText("ItemPreviewSettings", "Previe&w Settings");
+			scrMenuMgr->setMenuText("ItemPreviewSettings", tr("Previe&w Settings"));
 			scrMenuMgr->setMenuText("ItemPDFOptions", tr("&PDF Options"));
 			scrMenuMgr->setMenuText("ItemShapes", tr("&Shape"));
 			scrMenuMgr->setMenuText("ItemConvertTo", tr("C&onvert To"));
