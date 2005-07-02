@@ -90,4 +90,16 @@ pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
 # Brazilian Portguese - FIM
 
 
+#  Russian short words START here
+## физические и математические единицы
+ru= кг, г, м, см, мм, мл, л, гл, с, мс, Вт, кВт, мВт, В, А, %,
+## разные знаки и символы валют
+ru= § , & , $, *, €,
+## академические звания
+ru=проф. , Проф. ,
+## география
+ru=ул. , корп. ,
+#  Russian short words - THE END
+
+
 # end of the config file
