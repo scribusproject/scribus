@@ -2,8 +2,7 @@
 <menu>
 	<area text="Welcome" file="index.html">
 	<submenuitem text="Readme First" file="readme.html"/>
-		<submenuitem text="Download" file="download.html"/>
-		<submenuitem text="Documentation Changes" file="docchanges.html"/>
+
 	</area>
 	<area text="Documentation" file="documentation.html">
 		<submenuitem text="Introduction" file="intro.html">
@@ -116,6 +115,7 @@
 	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
+		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
