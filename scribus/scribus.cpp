@@ -8593,8 +8593,8 @@ void ScribusApp::ReadPrefs(bool import12)
 		QFileInfo fd(QString::fromUtf8(Prefs.RecentDocs[m]));
 		if (fd.exists())
 		{
-			RecentDocs.append(QString::fromUtf8(Prefs.RecentDocs[m]));
-			fileWatcher->addFile(QString::fromUtf8(Prefs.RecentDocs[m]));
+			RecentDocs.append(Prefs.RecentDocs[m]);
+			fileWatcher->addFile(Prefs.RecentDocs[m]);
 		}
 	}
 	rebuildRecentFileMenu();
