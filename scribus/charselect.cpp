@@ -72,7 +72,6 @@ ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 	par = parent;
 	dia = 0;
 	QToolTip::add(this, tr("You can see a thumbnail if you press\nand hold down the right mouse button\n\nThe Insert key inserts a Glyph into the Selection below\nand the Delete key removes the last inserted one"));
-	setVScrollBarMode(QScrollView::AlwaysOn);
 }
 
 void ChTable::keyPressEvent(QKeyEvent *k)
@@ -180,48 +179,6 @@ void ChTable::showAlternate()
 	} */
 }
 
-QRect ChTable::cellGeometry ( int row, int col ) const
-{
-	int bh = QMAX(16 + qRound(-(*ap->doc->AllFonts)[par->fontInUse]->numDescender * 16) + 3, 16);
-	return QRect(0, 0, bh, bh);
-}
-
-void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool selected, const QColorGroup & cg )
-{
-	static QPixmap pixm;
-	QRect sz = cellGeometry(row, col);
-	pixm.resize(sz.width(), sz.height());
-	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height());
-	p->clear();
-	pixm.fill(white);
-	QWMatrix chma;
-	chma.scale(1.6, 1.6);
-	int cc = row * 16 + col;
-	qp->eraseRect(0, 0, cr.width(), cr.height());
-	static FPointArray gly;
-	int len = (*ap->doc->AllFonts)[par->fontInUse]->GlyphArray[par->characters[cc]].Outlines.size();
-	gly.resize(len);
-	gly.putPoints(0, len, (*ap->doc->AllFonts)[par->fontInUse]->GlyphArray[par->characters[cc]].Outlines );
-	if (gly.size() > 4)
-	{
-		gly.map(chma);
-		double ww = sz.width() - (*ap->doc->AllFonts)[par->fontInUse]->CharWidth[par->characters[cc]]*16;
-		p->translate(ww / 2, 1);
-		p->setBrush(black);
-		p->setFillMode(1);
-		p->setupPolygon(&gly);
-		p->fillPath();
-		p->end();
-		int x = QMAX(0, (cr.width() - sz.width()) / 2);
-		int y = QMAX(0, (cr.height() - sz.height()) / 2);
-		qp->drawPixmap(x, y, pixm);
-	}
-	qp->setPen(black);		
-	qp->drawRect(0, 0, cr.width()-1, cr.height()-1);
-	delete p;
-}
-
-
 CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "CharSelect", true, 0 )
 {
 	QString font;
@@ -272,9 +229,9 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	zTabelle->setRowMovingEnabled(false);
 	scanFont();
 	generatePreview(0);
-//	zTabelle->setMinimumSize(QSize(zTabelle->rowHeight(0)*18, zTabelle->rowHeight(0)*7));
-	zTabelle->maxCount = maxCount;
+	zTabelle->setMinimumSize(QSize(zTabelle->rowHeight(0)*18, zTabelle->rowHeight(0)*7));
 	zAuswahlLayout->addWidget( zTabelle );
+	zTabelle->maxCount = maxCount;
 
 	sample = new QLabel( this, "Zeichen" );
 	sample->setFrameShape(QFrame::Box);
@@ -352,7 +309,7 @@ void CharSelect::scanFont()
 	if (!face) {
 		return;
 	}
-//	setBestEncoding(face);
+	setBestEncoding(face);
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
 	{
@@ -629,16 +586,15 @@ void CharSelect::generatePreview(int charClass)
 		zTabelle->maxCount = 0;
 		return;
 	}
-	
-	//setBestEncoding(face);
+	setBestEncoding(face);
 	maxCount = characters.count();
 	zTabelle->maxCount = maxCount;
 	int ab = maxCount / 16;
 	int ac = maxCount % 16;
+	uint cc = 0;
 	if (ac != 0)
 		ab++;
 	zTabelle->setNumRows( ab );
-/*
 	int bh = QMAX(16 + qRound(-(*ap->doc->AllFonts)[fontInUse]->numDescender * 16) + 3, 16);
 	QPixmap pixm(bh,bh);
 	for (int a = 0; a < ab; ++a)
@@ -670,20 +626,11 @@ void CharSelect::generatePreview(int charClass)
 				break;
 		}
 	}
-	 
 	for (int d = 0; d < 16; ++d)
 		zTabelle->adjustColumn(d);
 	for (int d = 0; d < zTabelle->numRows(); ++d)
 		zTabelle->adjustRow(d);
-	*/
-	int cellWidth = zTabelle->width() / 16;  
-	int cellHeight = 4 * cellWidth / 3;  
-	for (int d = 0; d < 16; ++d)
-		zTabelle->setColumnStretchable(d, TRUE);
-	for (int d = 0; d < zTabelle->numRows(); ++d)
-		zTabelle->setRowHeight(d, cellHeight);
-	zTabelle->updateScrollBars();
-//	zTabelle->setCurrentCell(-1, -1);
+	zTabelle->setCurrentCell(0, 0);
 }
 
 void CharSelect::newCharClass(int c)
