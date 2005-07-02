@@ -145,6 +145,7 @@
 #include "effectsdialog.h"
 #include "documentchecker.h"
 #include "util.h"
+#include "pagesize.h"
 
 using namespace std;
 
@@ -2732,10 +2733,12 @@ bool ScribusApp::slotFileNew()
 		autoframes = dia->AutoFrame->isChecked();
 		facingPages = dia->Doppelseiten->isChecked();
 		int orientation = dia->Orient;
-		QString pagesize = dia->ComboBox1->currentText();
+		PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
+		QString pagesize = ps2->getPageName();
 		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
 		                dia->ErsteSeite->isChecked(), orientation, dia->PgNr->value(), pagesize);
 		mainWindowStatusLabel->setText( tr("Ready"));
+		delete ps2;
 	}
 	else
 		retVal = false;
@@ -4791,8 +4794,8 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->MasterP = false;
 		}
 		doc->loading = false;
-		view->slotDoZoom();
-		view->GotoPage(0);
+//		view->slotDoZoom();
+//		view->GotoPage(0);
 		doc->DocItems = doc->Items;
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);
@@ -4804,6 +4807,8 @@ bool ScribusApp::loadDoc(QString fileName)
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
+			if (ite->Groups.count() != 0)
+				view->GroupOnPage(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
 				if (ite->itemType() == PageItem::PathText)
@@ -4821,8 +4826,11 @@ bool ScribusApp::loadDoc(QString fileName)
 		for (uint azz=0; azz<doc->Items.count(); ++azz)
 		{
 			PageItem *ite = doc->Items.at(azz);
+			if (ite->Groups.count() != 0)
+				view->GroupOnPage(ite);
+			else
+				ite->OwnPage = view->OnPage(ite);
 			view->setRedrawBounding(ite);
-			ite->OwnPage = view->OnPage(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
 				if (ite->itemType() == PageItem::PathText)
@@ -4882,6 +4890,8 @@ bool ScribusApp::loadDoc(QString fileName)
 			w->show();
 		view->show();
 		newActWin(w);
+		view->slotDoZoom();
+		view->GotoPage(0);
 		connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));

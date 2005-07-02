@@ -56,9 +56,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	sizeQLabel = new QLabel( sizeQComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
 
 	PageSize *ps=new PageSize(doc->PageSize);
-	QStringList pageSizes=ps->getTrPageSizeList();
-	sizeQComboBox->insertStringList(pageSizes);
+	QStringList pageSizes=ps->getPageSizeList();
+	sizeQComboBox->insertStringList(ps->getTrPageSizeList());
 	sizeQComboBox->insertItem( tr( "Custom" ) );
+	prefsPageSizeName=ps->getPageName();
 
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	//set Custom if we dont have one already as old docs wont have this attribute
@@ -362,6 +363,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	RandL = leftR->value() / unitRatio;
 	RandB = bottomR->value() / unitRatio;
 	RandT = topR->value() / unitRatio;
+	pageWidth = widthMSpinBox->value() / unitRatio;
+	pageHeight = heightMSpinBox->value() / unitRatio;
 	//tooltips
 	QToolTip::add( checkLink, "<qt>" + tr("Turns the of linked frames on or off") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");

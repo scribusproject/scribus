@@ -6934,7 +6934,7 @@ void ScribusView::GroupOnPage(PageItem* currItem)
 			Objects.append(item);
 	}
 	int Off_Page = -1;
-	int On_Page = 0;
+	int On_Page = 999999;
 	for (uint a = 0; a < Objects.count(); ++a)
 	{
 		int res = OnPage(Objects.at(a));
@@ -8599,7 +8599,12 @@ void ScribusView::reformPages()
 	{
 		PageItem *item = Doc->Items.at(ite);
 		if (item->OwnPage < 0)
-			item->OwnPage = OnPage(item);
+		{
+			if (item->Groups.count() != 0)
+				GroupOnPage(item);
+			else
+				item->OwnPage = OnPage(item);
+		}
 		else
 		{
 			oldPg = pageTable[item->OwnPage];

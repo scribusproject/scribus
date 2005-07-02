@@ -3819,8 +3819,9 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);
-	s.setEncoding(QTextStream::UnicodeUTF8);
-	s<<docu.toString();
+	s<<docu.toCString();
+//	s.setEncoding(QTextStream::UnicodeUTF8);
+//	s<<docu.toString();
 	f.close();
 }
 
@@ -3830,13 +3831,19 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 	QFile f(ho);
 	if(!f.open(IO_ReadOnly))
 		return false;
-	QString encodedPrefs = QString::fromUtf8(f.readAll());
-	if( !docu.setContent(encodedPrefs) )
+	if(!docu.setContent(&f))
 	{
 		f.close();
 		return false;
 	}
 	f.close();
+/*	QString encodedPrefs = QString::fromUtf8(f.readAll());
+	if( !docu.setContent(encodedPrefs) )
+	{
+		f.close();
+		return false;
+	}
+	f.close(); */
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
