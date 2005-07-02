@@ -1961,6 +1961,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Editor->loadItemText(ite);
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
+	CurrPara = 0;
+	CurrChar = 0;
 	updateProps(0,0);
 	updateStatus();
 	textChanged = false;
@@ -1977,6 +1979,8 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 	currDoc = NULL;
 	buildGUI();
 	currItem = NULL;
+	CurrPara = 0;
+	CurrChar = 0;
 	firstSet = false;
 	activFromApp = true;
 	/*
@@ -2321,6 +2325,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 		if ((currItem!=NULL) && (!blockUpdate))
 			updateTextFrame();
 		activFromApp = false;
+		Editor->getCursorPosition(&CurrPara, &CurrChar);
 	}
 	if ( ev->type() == QEvent::WindowActivate )
 	{
@@ -2345,6 +2350,14 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				EditorBar->setRepaint(true);
 				EditorBar->doRepaint();
 				textChanged = false;
+				if (static_cast<int>(Editor->StyledText.count()) > CurrPara)
+				{
+					if (static_cast<int>(Editor->StyledText.at(CurrPara)->count()) > CurrChar)
+					{
+						Editor->setCursorPosition(CurrPara, CurrChar);
+						updateProps(CurrPara, CurrChar);
+					}
+				}
 				connectSignals();
 			}
 		}

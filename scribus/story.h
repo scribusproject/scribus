@@ -374,6 +374,8 @@ public:
 	bool firstSet;
 	bool activFromApp;
 	bool blockUpdate;
+	int CurrPara;
+	int CurrChar;
 
 public slots:
 	void setBackPref();
