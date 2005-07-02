@@ -760,7 +760,7 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 		return;
 	}
 	jpeg_create_compress (&cinfo);
-	if ((outfile = fopen (fn, "wb")) == NULL)
+	if ((outfile = fopen (fn.local8Bit(), "wb")) == NULL)
 		return;
 	jpeg_stdio_dest (&cinfo, outfile);
 	cinfo.image_width  = width();
@@ -2384,7 +2384,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 	if ((ext == "tif") || (ext == "tiff"))
 	{
 #ifdef HAVE_TIFF
-		TIFF* tif = TIFFOpen(fn, "r");
+		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 		if(tif)
 		{
 			unsigned width, height, size;
