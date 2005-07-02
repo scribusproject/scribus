@@ -3831,7 +3831,6 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 	if(!f.open(IO_ReadOnly))
 		return false;
 	QString encodedPrefs = QString::fromUtf8(f.readAll());
-	//qDebug("%s", encodedPrefs.section("RECENT", 1).local8Bit().data()); //XXX
 	if( !docu.setContent(encodedPrefs) )
 	{
 		f.close();

@@ -8590,7 +8590,7 @@ void ScribusApp::ReadPrefs(bool import12)
 	uint max = QMIN(Prefs.RecentDCount, Prefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		QFileInfo fd(QString::fromUtf8(Prefs.RecentDocs[m]));
+		QFileInfo fd(Prefs.RecentDocs[m]);
 		if (fd.exists())
 		{
 			RecentDocs.append(Prefs.RecentDocs[m]);
