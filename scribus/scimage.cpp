@@ -2798,7 +2798,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	else if ((ext == "tif") || (ext == "tiff"))
 	{
 		QImage img2;
-		TIFF* tif = TIFFOpen(fn, "r");
+		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 		if(tif)
 		{
 			unsigned widtht, heightt, size;
@@ -3022,7 +3022,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			return ret;
 		}
 		jpeg_create_decompress (&cinfo);
-		if ((infile = fopen (fn, "rb")) == NULL)
+		if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
 			return ret;
 		jpeg_stdio_src(&cinfo, infile);
 		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);

@@ -199,7 +199,7 @@ int callGS(const QString& args_in, const QString device)
 	// then add any user specified args and run gs
 	cmd1 += " " + args_in + " -c showpage -c quit";
 //	qDebug("Calling gs as: %s", cmd1.ascii());
-	return system(cmd1);
+	return system(cmd1.local8Bit());
 }
 
 int copyFile(QString source, QString target)
