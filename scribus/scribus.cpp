@@ -363,7 +363,7 @@ void ScribusApp::initScribus()
 		Prefs.GuidesShown = true;
 		Prefs.BaseShown = false;
 		Prefs.ClipMargin = true;
-		Prefs.GCRMode = true;
+		Prefs.GCRMode = false;
 		Prefs.PagesSbS = true;
 		Prefs.RecentDocs.clear();
 		Prefs.RecentDCount = 5;
