@@ -38,33 +38,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-30 11:25+0200\n"
-"PO-Revision-Date: 2005-07-02 01:16+0200\n"
-"Last-Translator: Fred <effediwhy@gmail.com>\n"
-"Language-Team: Project-Id-Version: gtranslator 1.0.1"
-"Report-Msgid-Bugs-To: "
-"POT-Creation-Date: 2005-02-06 13:07+0700"
-"PO-Revision-Date: 2004-02-17 00:53+0100"
-"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>"
-"Language-Team: GNOME French Team <gnomefr@traduc.org>"
-"MIME-Version: 1.0"
-"Content-Type: text/plain; charset=UTF-8"
-"\n"
+"POT-Creation-Date: 2005-02-06 13:07+0700\n"
+"PO-Revision-Date: 2005-07-02 14:38+0200\n"
+"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;"
 
 msgid "Custom"
 msgstr "Sur mesure"
 
 msgid "4A0"
-msgstr ""
+msgstr "4A0"
 
 msgid "2A0"
-msgstr ""
+msgstr "2A0"
 
 msgid "Comm10E"
 msgstr "Comm10E"
 
 msgid "DLE"
-msgstr ""
+msgstr "DLE (enveloppe)"
 
 msgid "None"
 msgstr "Aucune"
@@ -154,7 +150,7 @@ msgid "&Remove"
 msgstr "&Effacer"
 
 msgid "<qt>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit->Settings to change the font search path.</qt>"
-msgstr "<qt>Les chemins de recherche des polices ne peuvent être définis que dans les préférences, et lorsque aucun document n'est ouvert. Fermez tous les documents ouverts, et utilisez le menu Edition->Préférences pour modifier le chemin de recherche des polices.</qt>"
+msgstr "<qt>Les chemins d'accès aux polices ne peuvent être définis que dans les préférences, et lorsque aucun document n'est ouvert. Fermez tous les documents ouverts, et utilisez le menu Edition->Préférences pour modifier le chemin d'accès aux polices.</qt>"
 
 msgid "Additional &Paths"
 msgstr "&Chemins additionnels"
@@ -229,13 +225,13 @@ msgid "Percentage increase over the font size for the line spacing"
 msgstr "L'interlignage équivaut au corps de la police plus ce pourcentage"
 
 msgid "Displacement below the baseline of the normal font expressed as a percentage of the fonts descender"
-msgstr "Décalage en dessous de la ligne de base de la police, exprimé en pourcentage de la descendante des lettres"
+msgstr "Décalage sous la ligne de base de la police, exprimé en pourcentage de la descendante des lettres"
 
 msgid "Line width expressed as a percentage of the font size"
 msgstr "Largeur de filet exprimé en pourcentage de la taille de police"
 
 msgid "Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender"
-msgstr "Décalage en dessous de la ligne de base de la police, exprimé en pourcentage de l'ascendante des lettres"
+msgstr "Décalage au dessus de la ligne de base de la police, exprimé en pourcentage de l'ascendante des lettres"
 
 msgid "Free Objects"
 msgstr "Libérer les objets"
@@ -259,7 +255,7 @@ msgid " pt"
 msgstr " pt"
 
 msgid "Size:"
-msgstr "Taille :"
+msgstr "Corps :"
 
 msgid "Fill Color:"
 msgstr "Couleur de fond :"
@@ -338,19 +334,19 @@ msgid "F&ill Color:"
 msgstr "&Couleur de fond :"
 
 msgid "Use embedded Clipping Path"
-msgstr ""
+msgstr "Utiliser le tracé de détourage incorporé"
 
 msgid "On Screen Preview"
 msgstr "Aperçu avant impression"
 
 msgid "Full Resolution Preview"
-msgstr "Aperçu haute résolution"
+msgstr "Aperçu en haute résolution"
 
 msgid "Normal Resolution Preview"
 msgstr "Aperçu standard"
 
 msgid "Low Resolution Preview"
-msgstr "Aperçu basse résolution"
+msgstr "Aperçu en basse résolution"
 
 msgid "Mi&nimum:"
 msgstr "Mi&nimum :"
@@ -407,7 +403,7 @@ msgid "Vertical scaling of images"
 msgstr "Échelle verticale des images"
 
 msgid "Keep horizontal and vertical scaling the same"
-msgstr "Appliquer une mise à l'échelle égale aux dimensions horizontales et verticales"
+msgstr "Appliquer la même valeur de mise à l'échelle pour l'horizontale et la verticale"
 
 msgid "Pictures in picture frames are scaled to the size of the frame"
 msgstr "Les images sont mises aux dimensions du cadre"
@@ -533,7 +529,7 @@ msgid "Indentation for first line of the paragraph"
 msgstr "Retrait de la première ligne du paragraphe"
 
 msgid "Indentation from the left for the whole paragraph"
-msgstr "Retrait depuis la gauche du paragraphe"
+msgstr "Retrait gauche du paragraphe"
 
 msgid "Delete all Tabulators"
 msgstr "Effacer toutes les tabulations"
@@ -1264,7 +1260,7 @@ msgid "Check for missing glyphs"
 msgstr "Vérification des caractères manquants"
 
 msgid "Check for objects not on a page"
-msgstr "Vérification des objets non placés sur une page"
+msgstr "Vérification des objets placés hors d'une page"
 
 msgid "Check for overflow in text frames"
 msgstr "Vérification du débordement de texte dans les cadres de texte"
@@ -2111,7 +2107,7 @@ msgid "Value:"
 msgstr "Valeur :"
 
 msgid "Posterize:"
-msgstr "Posteriser"
+msgstr "Postériser :"
 
 msgid "Available Effects"
 msgstr "Effets disponibles"
@@ -2246,7 +2242,7 @@ msgid "Centimeters (cm)"
 msgstr "Centimètres (cm)"
 
 msgid "Cicero (c)"
-msgstr "Cicero (c)"
+msgstr "Cicéro (c)"
 
 msgid "Properties..."
 msgstr "Propriétés..."
@@ -4048,7 +4044,7 @@ msgid "Smart &Hyphen"
 msgstr "Trait d'&union conditionnel"
 
 msgid "Non Breaking Dash"
-msgstr "Espace insécable"
+msgstr "Trait d'union insécable"
 
 msgid "Non Breaking &Space"
 msgstr "Espace in&sécable"
@@ -4541,7 +4537,7 @@ msgid "Scribus Development Version"
 msgstr "Version de développement de Scribus"
 
 msgid "You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File->Save As. Are you sure you wish to proceed with this operation?"
-msgstr "Vous utilisez actuellement une version de développement de Scribus 1.3. Le document sur lequel vous travaillez a été créé avec Scribus 1.2.2 ou inférieur. La sauvegarde de ce document va le rendre incompatible avec Scribus 1.2.2 à moins d'utiliser le menu Fichier->Enregistrer sous. Etes-vous sûr de vouloir continuer cette opération ?"
+msgstr "Vous utilisez actuellement une version de développement de Scribus 1.3. Le document sur lequel vous travaillez a été créé avec Scribus 1.2.2 ou antérieur. La sauvegarde de ce document va le rendre incompatible avec Scribus 1.2.2 à moins d'utiliser le menu Fichier->Enregistrer sous. Etes-vous sûr de vouloir continuer cette opération ?"
 
 msgid "&Proceed"
 msgstr "&Continuer"
@@ -5960,7 +5956,7 @@ msgid "Item Attribute Name:"
 msgstr "Nom de l'attribut :"
 
 msgid "The Item Attribute that will be set on frames used as a basis for creation of the entries"
-msgstr ""
+msgstr "Cet attribut sera appliqué aux cadres que vous utiliserez comme base pour la création des entrées"
 
 msgid "Place page numbers of the entries at the beginning or the end of the line, or not at all"
 msgstr "Positionne les numéros de pages des entrées au début ou à la fin de la ligne, ou pas du tout"
@@ -5972,7 +5968,7 @@ msgid "Include frames that are set to not print as well"
 msgstr "Inclure également les cadres non imprimables"
 
 msgid "The paragraph style used for the entry lines"
-msgstr ""
+msgstr "Le style de paragraphe qui sera appliqué aux entrées"
 
 msgid "Paragraph Style:"
 msgstr "Style de paragraphe :"
@@ -6348,7 +6344,7 @@ msgid "Color for the baseline grid"
 msgstr "Couleur de la grille typographique"
 
 msgid "Turns the basegrid on or off"
-msgstr "Affiche la grille typographique"
+msgstr "(Dés)active l'affichage de la grille typographique"
 
 msgid "Distance between the lines of the baseline grid"
 msgstr "Espacement entre les lignes typographiques"
@@ -6580,7 +6576,7 @@ msgid "A dialog box showing all possible hyphens for each word will show up when
 msgstr "Une boîte de dialogue affichant toutes les césures possibles apparaîtra pour chaque mot lorsque vous déciderez d'effectuer les césures."
 
 msgid "Enables automatic hyphenation of your text while typing."
-msgstr "Examine le texte pendant sa saisie et effectue automatiquement les césures appropriées."
+msgstr "Effectue automatiquement les césures en cours de saisie."
 
 msgid "Length of the smallest word to be hyphenated."
 msgstr "Minimum de lettres qu'un mot doit contenir pour être coupé."
@@ -7668,7 +7664,7 @@ msgid "SVG-Images (*.svg);;All Files (*)"
 msgstr "Fichiers SVG (*.svg);;Tous les fichiers (*)"
 
 msgid "Color Wheel"
-msgstr "Gestionnaire de couleurs"
+msgstr "Cercle chromatique"
 
 msgid "C"
 msgstr "C"
@@ -7743,13 +7739,13 @@ msgid "Complementary"
 msgstr "Complémentaire"
 
 msgid "Split Complementary"
-msgstr ""
+msgstr "Complémentaire divisée"
 
 msgid "Triadic"
-msgstr ""
+msgstr "Triadique"
 
 msgid "Tetradic (Double Complementary)"
-msgstr ""
+msgstr "Tétradique (complémentaire double)"
 
 msgid "Base Color"
 msgstr "Couleur de base"
@@ -7761,37 +7757,37 @@ msgid "Monochromatic Dark"
 msgstr "Monochromatique sombre"
 
 msgid "1st. Analogous"
-msgstr "1er analogue"
+msgstr "1re analogue"
 
 msgid "2nd. Analogous"
 msgstr "2nd analogue"
 
 msgid "1st. Split"
-msgstr "1ère rupture"
+msgstr "1ère divisée"
 
 msgid "2nd. Split"
-msgstr "2ème rupture"
+msgstr "2ème divisée"
 
 msgid "3rd. Split"
-msgstr "3ème rupture"
+msgstr "3ème divisée"
 
 msgid "4th. Split"
-msgstr "4ème rupture"
+msgstr "4ème divisée"
 
 msgid "1st. Triadic"
-msgstr ""
+msgstr "1re triadique"
 
 msgid "2nd. Triadic"
-msgstr ""
+msgstr "2e triadique"
 
 msgid "1st. Tetradic (base opposite)"
-msgstr ""
+msgstr "1re tétradique (diamétralement opposée)"
 
 msgid "2nd. Tetradic (angle)"
-msgstr ""
+msgstr "2e tétradique (angle)"
 
 msgid "3rd. Tetradic (angle opposite)"
-msgstr ""
+msgstr "3e tétradique (angle opposé)"
 
 msgid "Choose a Export Directory"
 msgstr "Sélectionnez un dossier pour l'exportation"
