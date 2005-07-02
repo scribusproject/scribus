@@ -25,6 +25,7 @@
 		</submenuitem>
 		<submenuitem text="Setup" file="settings1.html">
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
+			<submenuitem text="Mouse Shortcuts" file="mouse.html"/>
 			<submenuitem text="Hyphenation" file="hyphenator.html"/>
 			<submenuitem text="Font Setup" file="fonts1.html"/>
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
