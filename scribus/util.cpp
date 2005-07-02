@@ -282,7 +282,7 @@ int callGS(const QStringList & args_in)
 	// then combine the cmdline and run gs
 	QString extArgs = args_in.join(" ");
 	cmd1 += " " + extArgs + " -c showpage -c quit";
-	return system(cmd1);
+	return system(cmd1.local8Bit());
 }
 
 int copyFile(QString source, QString target)
@@ -658,7 +658,7 @@ QImage LoadPict(QString fn, bool *gray)
 	{
 		QImage img;
 		QImage inI2;
-		TIFF* tif = TIFFOpen(fn, "r");
+		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 		if(tif)
 		{
 			unsigned width, height,size;
@@ -823,7 +823,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 		{
 			QImage img;
 			QImage inI2;
-			TIFF* tif = TIFFOpen(fn, "r");
+			TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 			if(tif)
 			{
     			DWORD EmbedLen = 0;
@@ -1422,7 +1422,7 @@ bool isProgressive(QString fn)
 		return ret;
 	}
 	jpeg_create_decompress (&cinfo);
-	if ((infile = fopen (fn, "rb")) == NULL)
+	if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
 		return ret;
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_read_header(&cinfo, TRUE);
@@ -1450,7 +1450,7 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK)
 		return;
 	}
 	jpeg_create_compress (&cinfo);
-	if ((outfile = fopen (fn, "wb")) == NULL)
+	if ((outfile = fopen (fn.local8Bit(), "wb")) == NULL)
 		return;
 	jpeg_stdio_dest (&cinfo, outfile);
 	cinfo.image_width  = image->width();

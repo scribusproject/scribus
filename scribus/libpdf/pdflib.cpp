@@ -3776,7 +3776,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					{
 							DWORD EmbedLen = 0;
 							LPBYTE EmbedBuffer;
-						TIFF* tif = TIFFOpen(fn, "r");
+						TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 						if(tif)
 						{
 							if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))

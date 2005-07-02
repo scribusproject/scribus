@@ -9900,7 +9900,7 @@ void Page::LoadPict(QString fn, int ItNr)
 		const char *Descriptor;
 		cmsHPROFILE hIn;
 #endif
-		TIFF* tif = TIFFOpen(fn, "r");
+		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 		if(tif)
 		{
 			unsigned width, height,size;
