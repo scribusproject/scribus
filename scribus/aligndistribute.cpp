@@ -1471,7 +1471,7 @@ void AlignDistributePalette::enableGuideButtons()
 				setterH=setterV=false;
 			break;
 		case 0:
-			guideInfoText = tr("H: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
+			guideInfoText = tr("Y: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
 			if (currAlignTo==Guide)
 			{
 				setterV=false;
@@ -1479,7 +1479,7 @@ void AlignDistributePalette::enableGuideButtons()
 			}
 			break;
 		case 1:
-			guideInfoText = tr("V: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
+			guideInfoText = tr("X: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
 			if (currAlignTo==Guide)
 			{
 				setterV=true;
