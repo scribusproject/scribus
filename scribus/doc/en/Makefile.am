@@ -48,7 +48,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/machints2.html $(prefix)/share/scribus/doc/en/machints2.html
 	$(INSTALL_DATA) $(srcdir)/menu.xml $(prefix)/share/scribus/doc/en/menu.xml
 	$(INSTALL_DATA) $(srcdir)/moncal.html $(prefix)/share/scribus/doc/en/moncal.html
-	$(INSTALL_DATA) $(srcdir)/mousel.html $(prefix)/share/scribus/doc/en/mouse.html
+	$(INSTALL_DATA) $(srcdir)/mouse.html $(prefix)/share/scribus/doc/en/mouse.html
 	$(INSTALL_DATA) $(srcdir)/parallel-install.html $(prefix)/share/scribus/doc/en/parallel-install.html
 	$(INSTALL_DATA) $(srcdir)/pdfexport1.html $(prefix)/share/scribus/doc/en/pdfexport1.html
 	$(INSTALL_DATA) $(srcdir)/pdfexport2.html $(prefix)/share/scribus/doc/en/pdfexport2.html
