@@ -31,6 +31,7 @@
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
 			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
+			<submenuitem text="Basic Font Tests" file="fonts5.html"/>
 			</submenuitem>
 			<!-- <submenuitem text="Document Text" file="text.html" />
 			<submenuitem text="Doc. Info" file="docinfo.html" />

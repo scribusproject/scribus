@@ -22,7 +22,7 @@
 <ul>
 	<li>Get the latest GS from here: <a href="http://ghostscript.com/doc/AFPL/" >http://ghostscript.com/doc/AFPL/</a></li>
 	<li>You can manually tweak the make files the old way or</li>
-	<li>Use the new configure script with the following options: </li>
+	<li>Use the new configure script with the following options (and optionally <code>-with-jasper</code> and <code>-with-rinkj</code> with very latest versions): </li></ul>
 </ul>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>./configure --enable-compile-inits --with-x</pre>
@@ -54,8 +54,8 @@ and as root:
 
 <p></p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>AFPL Ghostscript 8.14 (2004-02-20)
-Copyright (C) 2004 artofcode LLC, Benicia, CA.  All rights reserved.
+<pre>AFPL Ghostscript 8.51 (2005-04-18)
+Copyright (C) 2005 artofcode LLC, Benicia, CA.  All rights reserved.
 Usage: gs [switches] [file1.ps file2.ps ...]
 Most frequently used switches: (you can use # in place of =)
  -dNOPAUSE           no pause after page   | -q       `quiet', fewer messages
@@ -77,8 +77,8 @@ Available devices:
    tiff12nc tiff24nc tiffcrle tiffg3 tiffg32d tiffg4 tifflzw tiffpack
    uniprint x11 x11alpha x11cmyk x11gray2 x11gray4 x11mono xcf
 Search path:
-   . : /home/peter/.fonts : /usr/local/share/ghostscript/8.14/lib :
-   /usr/local/share/ghostscript/8.14/Resource :
+   . : /home/peter/.fonts : /usr/local/share/ghostscript/8.51/lib :
+   /usr/local/share/ghostscript/8.51/Resource :
    /usr/share/ghostscript/fonts
 </pre>
 </small></td></tr></table></blockquote>
@@ -96,8 +96,8 @@ Search path:
 
 <table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="Scribus External Tools Preferences" align="middle" title="Scribus External Tools Preferences" /></td></tr></table>
 
-<p>Another tool which is available with GSview is <strong>epstool</strong>. An older version is shipped with the current GSview 4.6, but a newer one is available on the GSview home page. This is a great command line tool, which can perform advanced EPS/DCS 2.0 conversion. This is very useful when someone sends you an EPS file from other DTP applications - even those created on Macs. Upgrading this to work with GSview gives you excellent support on Linux to handle EPS files from all platforms. Recommended.</p>
-<p>Lastly, one other tool which works as a plug-in with GSview is <a href="http://pstoedit.net">pstoedit</a> This is a command line tool for converting bitmap images into vectors and postscript, which then, depending on the nature of the image, can be edited in a vector drawing tool like Inkscape or Skencil. See the section <a href="import.html">Import Hints</a> for hints on how I used this to convert the Scribus logo into SVG and then a native Scribus file. GSview uses this as a plug-in to convert files into vector format. </p>
+<p>Another tool which is available with GSview is <strong>epstool</strong>. An older version is shipped with the current GSview 4.7, but a newer one is available on the GSview home page. This is a great command line tool, which can perform advanced EPS/DCS 2.0 conversion. This is very useful when someone sends you an EPS file from other DTP applications - even those created on Macs. Upgrading this to work with GSview gives you excellent support on Linux to handle EPS files from all platforms. Recommended.</p>
+<p>Lastly, one other tool which works as a plug-in with GSview is <a href="http://pstoedit.net">pstoedit</a> This is a command line tool for converting bitmap images into vectors and postscript, which then, depending on the nature of the image, can be edited in a vector drawing tool like Inkscape or Skencil. See the section <a href="importhints.html">Import Hints</a> for hints on how I used this to convert the Scribus logo into SVG and then a native Scribus file. GSview uses this as a plug-in to convert files into vector format. </p>
 
 <p>GSview has been, in my experience, the most reliable and
 versatile EPS/PS viewer on Linux. How good is it ? Well, the best example is letting you know this usually installed on every Windows DTP workstation I support for clients. For DTP with Scribus, I consider it essential.</p>
