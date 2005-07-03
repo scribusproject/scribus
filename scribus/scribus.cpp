@@ -7528,25 +7528,30 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			{
 				struct PageItem::TabRecord tb;
 				tabEQ = false;
-				for (uint t1 = 0; t1 < dia->TempVorl[b].TabValues.count(); t1++)
+				if ((doc->docParagraphStyles[a].TabValues.count() == 0) && (dia->TempVorl[b].TabValues.count() == 0))
+					tabEQ = true;
+				else
 				{
-					tb.tabPosition = dia->TempVorl[b].TabValues[t1].tabPosition;
-					tb.tabType = dia->TempVorl[b].TabValues[t1].tabType;
-					tb.tabFillChar = dia->TempVorl[b].TabValues[t1].tabFillChar;
-					for (uint t2 = 0; t2 < doc->docParagraphStyles[a].TabValues.count(); t2++)
+					for (uint t1 = 0; t1 < dia->TempVorl[b].TabValues.count(); t1++)
 					{
-						struct PageItem::TabRecord tb2;
-						tb2.tabPosition = doc->docParagraphStyles[a].TabValues[t2].tabPosition;
-						tb2.tabType = doc->docParagraphStyles[a].TabValues[t2].tabType;
-						tb2.tabFillChar = doc->docParagraphStyles[a].TabValues[t2].tabFillChar;
-						if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+						tb.tabPosition = dia->TempVorl[b].TabValues[t1].tabPosition;
+						tb.tabType = dia->TempVorl[b].TabValues[t1].tabType;
+						tb.tabFillChar = dia->TempVorl[b].TabValues[t1].tabFillChar;
+						for (uint t2 = 0; t2 < doc->docParagraphStyles[a].TabValues.count(); t2++)
 						{
-							tabEQ = true;
-							break;
+							struct PageItem::TabRecord tb2;
+							tb2.tabPosition = doc->docParagraphStyles[a].TabValues[t2].tabPosition;
+							tb2.tabType = doc->docParagraphStyles[a].TabValues[t2].tabType;
+							tb2.tabFillChar = doc->docParagraphStyles[a].TabValues[t2].tabFillChar;
+							if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+							{
+								tabEQ = true;
+								break;
+							}
 						}
+						if (tabEQ)
+							break;
 					}
-					if (tabEQ)
-						break;
 				}
 				if ((doc->docParagraphStyles[a].LineSpa == dia->TempVorl[b].LineSpa) &&
 					(doc->docParagraphStyles[a].LineSpaMode == dia->TempVorl[b].LineSpaMode) &&

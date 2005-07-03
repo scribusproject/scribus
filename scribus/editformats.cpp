@@ -39,25 +39,30 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 			{
 				struct PageItem::TabRecord tb;
 				tabEQ = false;
-				for (uint t1 = 0; t1 < vg2.TabValues.count(); t1++)
+				if ((vg2.TabValues.count() == 0) && (vg.TabValues.count() == 0))
+					tabEQ = true;
+				else
 				{
-					tb.tabPosition = vg2.TabValues[t1].tabPosition;
-					tb.tabType = vg2.TabValues[t1].tabType;
-					tb.tabFillChar = vg2.TabValues[t1].tabFillChar;
-					for (uint t2 = 0; t2 < vg.TabValues.count(); t2++)
+					for (uint t1 = 0; t1 < vg2.TabValues.count(); t1++)
 					{
-						struct PageItem::TabRecord tb2;
-						tb2.tabPosition = vg.TabValues[t2].tabPosition;
-						tb2.tabType = vg.TabValues[t2].tabType;
-						tb2.tabFillChar = vg.TabValues[t2].tabFillChar;
-						if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+						tb.tabPosition = vg2.TabValues[t1].tabPosition;
+						tb.tabType = vg2.TabValues[t1].tabType;
+						tb.tabFillChar = vg2.TabValues[t1].tabFillChar;
+						for (uint t2 = 0; t2 < vg.TabValues.count(); t2++)
 						{
-							tabEQ = true;
-							break;
+							struct PageItem::TabRecord tb2;
+							tb2.tabPosition = vg.TabValues[t2].tabPosition;
+							tb2.tabType = vg.TabValues[t2].tabType;
+							tb2.tabFillChar = vg.TabValues[t2].tabFillChar;
+							if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+							{
+								tabEQ = true;
+								break;
+							}
 						}
+						if (tabEQ)
+							break;
 					}
-					if (tabEQ)
-						break;
 				}
 				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
 					(vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&

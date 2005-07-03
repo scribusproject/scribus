@@ -650,25 +650,30 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 		{
 			struct PageItem::TabRecord tb;
 			tabEQ = false;
-			for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+			if ((docParagraphStyles[xx].TabValues.count() == 0) && (vg->TabValues.count() == 0))
+				tabEQ = true;
+			else
 			{
-				tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
-				tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
-				tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-				for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
+				for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
 				{
-					struct PageItem::TabRecord tb2;
-					tb2.tabPosition = vg->TabValues[t2].tabPosition;
-					tb2.tabType = vg->TabValues[t2].tabType;
-					tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
-					if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+					tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
+					tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
+					tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
+					for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
 					{
-						tabEQ = true;
-						break;
+						struct PageItem::TabRecord tb2;
+						tb2.tabPosition = vg->TabValues[t2].tabPosition;
+						tb2.tabType = vg->TabValues[t2].tabType;
+						tb2.tabFillChar = vg->TabValues[t2].tabFillChar;
+						if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
+						{
+							tabEQ = true;
+							break;
+						}
 					}
+					if (tabEQ)
+						break;
 				}
-				if (tabEQ)
-					break;
 			}
 			if ((vg->LineSpa == docParagraphStyles[xx].LineSpa) &&
 					(vg->LineSpaMode == docParagraphStyles[xx].LineSpaMode) &&

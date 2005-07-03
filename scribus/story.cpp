@@ -216,6 +216,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		insert("#");
 		setFarbe(false);
 		emit SideBarUp(true);
+		emit SideBarUpdate();
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialNonBreakingSpace"]->accel())
@@ -225,6 +226,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		insert("_");
 		setFarbe(false);
 		emit SideBarUp(true);
+		emit SideBarUpdate();
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialFrameBreak"]->accel())
@@ -234,6 +236,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		insert("|");
 		setFarbe(false);
 		emit SideBarUp(true);
+		emit SideBarUpdate();
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialNewLine"]->accel())
@@ -243,6 +246,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		insert("*");
 		setFarbe(false);
 		emit SideBarUp(true);
+		emit SideBarUpdate();
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialColumnBreak"]->accel())
@@ -252,6 +256,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		insert("^");
 		setFarbe(false);
 		emit SideBarUp(true);
+		emit SideBarUpdate();
 		return;
 	}
 	if (currKeySeq == ScApp->scrActions["specialNonBreakingHyphen"]->accel())
@@ -261,6 +266,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		insert("=");
 		setFarbe(false);
 		emit SideBarUp(true);
+		emit SideBarUpdate();
 		return;
 	}
 	
@@ -339,12 +345,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 						insChars(QString(QChar(conv)));
  						insert(QString(QChar(conv)));
 						emit SideBarUp(true);
+						emit SideBarUpdate();
 						return;
 					}
 				}
 				else
 				{
 					emit SideBarUp(true);
+					emit SideBarUpdate();
 					return;
 				}
 			}
