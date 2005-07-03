@@ -1603,6 +1603,8 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 			keyMod |= ALT;
 
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
+		if (QString(currKeySeq)==QString::null)
+			return false;
 		retVal=true;
 		//Palette actions
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
