@@ -85,7 +85,7 @@ void MSpinBox::setParameters( int s )
 
 bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 {
-	bool retval = FALSE;
+	bool retval = false;
 	if ( ev->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;

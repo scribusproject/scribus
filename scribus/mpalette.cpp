@@ -2956,7 +2956,6 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 			p.end();
 			StyledLine->insertItem(pm, it.key());
 		}
-		/* PFJ - 29.02.04 - Changed from TRUE to true */
 		StyledLine->sort( true );
 		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);

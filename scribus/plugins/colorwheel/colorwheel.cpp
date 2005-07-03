@@ -49,7 +49,7 @@ bool actionEnabledOnStartup()
 /** Create dialog. Everything else is handled in separated classes. */
 void run(QWidget *d, ScribusApp */*plug*/)
 {
-	ColorWheelDialog *dlg = new ColorWheelDialog(d, "dlg", TRUE, 0);
+	ColorWheelDialog *dlg = new ColorWheelDialog(d, "dlg", true, 0);
 	dlg->exec();
 	delete dlg;
 }

@@ -21,8 +21,8 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	StyleView = new QListView( this, "StyleView" );
 	StyleView->clear();
 	StyleView->addColumn( tr( "Available Styles" ) );
-	StyleView->header()->setClickEnabled( FALSE, StyleView->header()->count() - 1 );
-	StyleView->header()->setResizeEnabled( FALSE, StyleView->header()->count() - 1 );
+	StyleView->header()->setClickEnabled( false, StyleView->header()->count() - 1 );
+	StyleView->header()->setResizeEnabled( false, StyleView->header()->count() - 1 );
 	StyleView->setSorting(-1);
 	int counter = 5;
 	bool tabEQ = false;
@@ -399,7 +399,6 @@ void StilFormate::UpdateFList()
 		EditB->setEnabled(false);
 		DeleteB->setEnabled(false);
 	}
-	/* PFJ - 29.02.04 - Altered from TRUE to true */
 	ListBox1->sort( true );
 	ListBox1->setSelected(ListBox1->currentItem(), false);
 }

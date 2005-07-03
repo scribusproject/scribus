@@ -14,7 +14,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	counter = 0;
 	setName( "PrefsDialogBase" );
 	setIcon(loadIcon("AppIcon.png"));
-	setSizeGripEnabled( TRUE );
+	setSizeGripEnabled( true );
 	prefsLayout = new QVBoxLayout( this, 11, 6, "prefsLayout"); 
 	layout3 = new QHBoxLayout( 0, 0, 6, "layout3"); 
 	prefsSelection = new QIconView( this, "prefsSelection" );

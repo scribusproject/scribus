@@ -86,7 +86,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	Layout4 = new QHBoxLayout( 0, 0, 6, "Layout4");
 	OK = new QPushButton( this, "OK" );
 	OK->setText( tr( "OK" ) );
-	OK->setDefault( TRUE );
+	OK->setDefault( true );
 	Layout4->addWidget( OK );
 	Cancel = new QPushButton( this, "Cancel" );
 	Cancel->setText( tr( "Cancel" ) );

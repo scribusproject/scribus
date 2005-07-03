@@ -91,9 +91,9 @@ int FileLoader::CheckScribus()
 	QString fText = ReadDatei(FileName);
 	if (fText == "")
 		return ret;
-	if ((fText.startsWith("<SCRIBUSUTF8NEW")) && (fText.contains("<PAGE ", TRUE) != 0))
+	if ((fText.startsWith("<SCRIBUSUTF8NEW")) && (fText.contains("<PAGE ", true) != 0))
 		return 1;
-	if ((fText.startsWith("<SCRIBUS")) && (fText.contains("<PAGE ", TRUE) != 0))
+	if ((fText.startsWith("<SCRIBUS")) && (fText.contains("<PAGE ", true) != 0))
 		return 0;
 	return ret;
 }
@@ -363,7 +363,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	QString f = "";
 	f = ReadDatei(fileName);
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
-	FIXME: I've add test on containig tag PAGE but returning FALSE freezes S. in scribus.cpp need some hack too...  */
+	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
 		return false;
 	doc->PageColors.clear();

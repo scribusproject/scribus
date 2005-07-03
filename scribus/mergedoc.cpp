@@ -93,7 +93,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	importButton->setEnabled(false);
 	importCancelLayout->addWidget( importButton );
 	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
-	cancelButton->setDefault( TRUE );
+	cancelButton->setDefault( true );
 	importCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( importCancelLayout );
 	resize( QSize(350, 134).expandedTo(minimumSizeHint()) );

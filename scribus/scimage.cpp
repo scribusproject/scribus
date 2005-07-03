@@ -786,7 +786,7 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 	jpeg_set_defaults (&cinfo);
 	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
 	jpeg_set_quality (&cinfo, qual[Quality], true);
-	jpeg_start_compress (&cinfo, TRUE);
+	jpeg_start_compress (&cinfo, true);
 	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
 	int w = cinfo.image_width;
 	while (cinfo.next_scanline < cinfo.image_height)
@@ -2564,7 +2564,7 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 	unsigned int data_length[MAX_SEQ_NO+1]; /* size of profile data in marker */
 	unsigned int data_offset[MAX_SEQ_NO+1]; /* offset for data in marker */
 
-	*icc_data_ptr = NULL;		/* avoid confusion if FALSE return */
+	*icc_data_ptr = NULL;		/* avoid confusion if false return */
 	*icc_data_len = 0;
 
 	/* This first pass over the saved markers discovers whether there are
@@ -2581,12 +2581,12 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 			if (num_markers == 0)
 				num_markers = GETJOCTET(marker->data[13]);
 			else if (num_markers != GETJOCTET(marker->data[13]))
-				return FALSE;		/* inconsistent num_markers fields */
+				return false;		/* inconsistent num_markers fields */
 			seq_no = GETJOCTET(marker->data[12]);
 			if (seq_no <= 0 || seq_no > num_markers)
-				return FALSE;		/* bogus sequence number */
+				return false;		/* bogus sequence number */
 			if (marker_present[seq_no])
-				return FALSE;		/* duplicate sequence numbers */
+				return false;		/* duplicate sequence numbers */
 			marker_present[seq_no] = 1;
 			data_length[seq_no] = marker->data_length - ICC_OVERHEAD_LEN;
 		}
@@ -2599,7 +2599,7 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 	}
 
 	if (num_markers == 0)
-		return FALSE;
+		return false;
 
 	/* Check for missing markers, count total space needed,
 	 * compute offset of each marker's part of the data.
@@ -2609,18 +2609,18 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 	for (seq_no = 1; seq_no <= num_markers; seq_no++)
 	{
 		if (marker_present[seq_no] == 0)
-			return FALSE;		/* missing sequence number */
+			return false;		/* missing sequence number */
 		data_offset[seq_no] = total_length;
 		total_length += data_length[seq_no];
 	}
 
 	if (total_length <= 0)
-		return FALSE;		/* found only empty markers? */
+		return false;		/* found only empty markers? */
 
 	/* Allocate space for assembled data */
 	icc_data = (JOCTET *) malloc(total_length * sizeof(JOCTET));
 	if (icc_data == NULL)
-		return FALSE;		/* oops, out of memory */
+		return false;		/* oops, out of memory */
 	seq_no=0;
 	/* and fill it in */
 	for (marker = cinfo->marker_list; marker != NULL; marker = marker->next)
@@ -2648,7 +2648,7 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 	*icc_data_ptr = icc_data;
 	*icc_data_len = total_length;
 
-	return TRUE;
+	return true;
 }
 
 
@@ -3027,7 +3027,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		jpeg_stdio_src(&cinfo, infile);
 		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 		jpeg_save_markers(&cinfo, PHOTOSHOP_MARKER, 0xFFFF);
-		jpeg_read_header(&cinfo, TRUE);
+		jpeg_read_header(&cinfo, true);
 		jpeg_start_decompress(&cinfo);
 #ifdef HAVE_CMS
 		DWORD EmbedLen = 0;

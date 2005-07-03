@@ -24,7 +24,7 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol )
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
 	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
 	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
-	okButton->setDefault( TRUE );
+	okButton->setDefault( true );
 	layout1->addWidget( okButton );
 	layout1->addWidget( cancelButton );
 	InsertTableLayout->addLayout( layout1 );

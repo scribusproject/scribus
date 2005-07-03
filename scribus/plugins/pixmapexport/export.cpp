@@ -108,7 +108,7 @@ ExportBitmap::ExportBitmap(ScribusApp *plug)
 	enlargement = 100;
 	exportDir = QDir::currentDirPath();
 	bitmapType = QString("PNG");
-	overwrite = FALSE;
+	overwrite = false;
 }
 
 QString ExportBitmap::getFileName(uint pageNr)
@@ -124,13 +124,13 @@ ExportBitmap::~ExportBitmap()
 {
 }
 
-bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
+bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 {
 	uint over = 0;
 	QString fileName = getFileName(pageNr);
 
 	if (!carrier->doc->Pages.at(pageNr))
-		return FALSE;
+		return false;
 
 	/* a little magic here - I need to compute the "maxGr" value...
 	* We need to know the right size of the page for landscape,
@@ -156,20 +156,20 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 				QObject::tr("No"),
 				QObject::tr("Yes"),
 				// hack for multiple overwritting (petr)
-				(single==TRUE) ? QString::null : QObject::tr("Yes all"),
+				(single==true) ? QString::null : QObject::tr("Yes all"),
 				0, 0);
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == 1)
 			return im.save(fileName, bitmapType, quality);
 		if (over == 2)
-			overwrite = TRUE;
+			overwrite = true;
 	}
 	return im.save(fileName, bitmapType, quality);
 }
 
 bool ExportBitmap::exportActual()
 {
-	return exportPage(carrier->doc->currentPage->PageNr, TRUE);
+	return exportPage(carrier->doc->currentPage->PageNr, true);
 }
 
 bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
@@ -179,9 +179,9 @@ bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
 		carrier->mainWindowProgressBar->setProgress(a);
-		res = exportPage(pageNs[a]-1, FALSE);
+		res = exportPage(pageNs[a]-1, false);
 		if (!res)
-			return FALSE;
+			return false;
 	}
-	return TRUE;
+	return true;
 }

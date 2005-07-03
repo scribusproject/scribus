@@ -14,7 +14,7 @@ extern QPixmap loadIcon(QString nam);
  *  name 'name' and widget flags set to 'f' 
  *
  *  The dialog will by default be modeless, unless you set 'modal' to
- *  TRUE to construct a modal dialog.
+ *  true to construct a modal dialog.
  */
 MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool moving )
 		: QDialog( parent, "MovePages", true, 0 )

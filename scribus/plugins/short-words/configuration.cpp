@@ -52,7 +52,7 @@ QStringList Config::getShortWordsFromFile(QString lang, QString filename)
 	// one line in cfg. file
 	QString aRow;
 	// cfg (doesn't) exists for the selected language indicator
-	bool success = FALSE;
+	bool success = false;
 	// path to the cfg. file
 	QFile f;
 
@@ -67,7 +67,7 @@ QStringList Config::getShortWordsFromFile(QString lang, QString filename)
 			aRow = t.readLine();
 			if (aRow.left(2) == lang)
 			{
-				success = TRUE;
+				success = true;
 				shorts += aRow.remove(0, 3);
 			}
 		}

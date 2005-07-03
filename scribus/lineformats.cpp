@@ -246,7 +246,7 @@ void LineFormate::UpdateFList()
 	DublicateB->setEnabled(!setter);
 	EditB->setEnabled(!setter);
 	DeleteB->setEnabled(!setter);
-	ListBox1->sort( TRUE );
+	ListBox1->sort( true );
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
 }

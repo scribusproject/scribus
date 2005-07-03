@@ -52,7 +52,7 @@ using namespace std;
 bool ScriXmlDoc::IsScribus(QString fileName)
 {
 	QString fText = ReadDatei(fileName);
-	if ((fText == "") || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", TRUE) == 0))
+	if ((fText == "") || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", true) == 0))
  		return false;
 	return true;
 }
@@ -1279,7 +1279,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	QString f = "";
 	QFile fi(fileName);
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
-	FIXME: I've add test on containig tag PAGE but returning FALSE freezes S. in scribus.cpp need some hack too...  */
+	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (fileName.right(2) == "gz")
 	{
 		f = ReadDatei(fileName);

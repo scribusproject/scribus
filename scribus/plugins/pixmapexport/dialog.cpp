@@ -23,7 +23,7 @@ extern PrefsFile* prefsFile;
  *  name 'name' and widget flags set to 'f'.
  *
  *  The dialog will by default be modeless, unless you set 'modal' to
- *  TRUE to construct a modal dialog.
+ *  true to construct a modal dialog.
  */
 ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	: QDialog(parent, "ExportForm", true, 0)
@@ -37,7 +37,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	OutputDirectory->setText(prefs->get("wdir", QDir::currentDirPath()));
 	layout1->addWidget( OutputDirectory );
 	OutputDirectoryButton = new QPushButton( this, "OutputDirectoryButton" );
-	OutputDirectoryButton->setDefault( TRUE );
+	OutputDirectoryButton->setDefault( true );
 	layout1->addWidget( OutputDirectoryButton );
 	ExportFormLayout->addLayout( layout1 );
 
@@ -56,7 +56,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	groupBox1Layout->addWidget( textLabel3, 2, 0 );
 	textLabel4 = new QLabel( groupBox1, "textLabel4" );
 	groupBox1Layout->addWidget( textLabel4, 3, 0 );
-	BitmapType = new QComboBox( FALSE, groupBox1, "BitmapType" );
+	BitmapType = new QComboBox( false, groupBox1, "BitmapType" );
     BitmapType->clear();
 	BitmapType->insertStrList(QImageIO::outputFormats());
 	BitmapType->setCurrentText(type);
@@ -86,7 +86,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	ButtonGroup1Layout = new QVBoxLayout( ButtonGroup1->layout() );
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	OnePageRadio = new QRadioButton( ButtonGroup1, "OnePageRadio" );
-	OnePageRadio->setChecked( TRUE );
+	OnePageRadio->setChecked( true );
 	ButtonGroup1Layout->addWidget( OnePageRadio );
 	AllPagesRadio = new QRadioButton( ButtonGroup1, "AllPagesRadio" );
 	ButtonGroup1Layout->addWidget( AllPagesRadio );
@@ -146,17 +146,17 @@ void ExportForm::OkButton_pressed()
 
 void ExportForm::IntervalPagesRadio_stateChanged(int)
 {
-	RangeVal->setEnabled(TRUE);
+	RangeVal->setEnabled(true);
 }
 
 void ExportForm::AllPagesRadio_stateChanged(int)
 {
-	RangeVal->setEnabled(FALSE);
+	RangeVal->setEnabled(false);
 }
 
 void ExportForm::OnePageRadio_stateChanged(int)
 {
-	RangeVal->setEnabled(FALSE);
+	RangeVal->setEnabled(false);
 }
 
 /*
@@ -211,7 +211,7 @@ void ExportForm::readConfig()
 	QualityBox->setValue(prefs->getUInt("QualityBox", 100));
 	ButtonGroup1->setButton(prefs->getUInt("ButtonGroup1", 0));
 	if (prefs->getInt("ButtonGroup1")==2)
-		RangeVal->setEnabled(TRUE);
+		RangeVal->setEnabled(true);
 	else
 		RangeVal->setEnabled(false);
 	BitmapType->setCurrentItem(prefs->getInt("BitmapType", 4));

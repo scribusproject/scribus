@@ -46,7 +46,7 @@ extern QPixmap loadIcon(QString nam);
  *  name 'name' and widget flags set to 'f'.
  *
  *  The dialog will by default be modeless, unless you set 'modal' to
- *  TRUE to construct a modal dialog.
+ *  true to construct a modal dialog.
  */
 AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool modal, WFlags fl )
 	: ScrPaletteBase( parent, name, modal, fl )
@@ -70,7 +70,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	alignRelativeToLabel = new QLabel( alignGroupBox, "alignRelativeToLabel" );
 	layout11->addWidget( alignRelativeToLabel );
 
-	alignRelativeToCombo = new QComboBox( FALSE, alignGroupBox, "alignRelativeToCombo" );
+	alignRelativeToCombo = new QComboBox( false, alignGroupBox, "alignRelativeToCombo" );
 	layout11->addWidget( alignRelativeToCombo );
 	alignGroupBoxLayout->addLayout( layout11, 0, 0 );
 

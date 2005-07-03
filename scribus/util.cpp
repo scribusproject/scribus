@@ -892,8 +892,8 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 bool compareQStrings(QString s1, QString s2)
 {
 	if (QString::localeAwareCompare(s1, s2) >= 0)
-		return FALSE;
-	return TRUE;
+		return false;
+	return true;
 }
 
 /*! 10/06/2004 - pv

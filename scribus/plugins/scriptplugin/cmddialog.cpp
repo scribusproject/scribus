@@ -84,7 +84,7 @@ PyObject *scribus_valdialog(PyObject */*self*/, PyObject* args)
 	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", &caption, "utf-8", &message, "utf-8", &value))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	ValueDialog *d = new ValueDialog(Carrier, "d", TRUE, 0);
+	ValueDialog *d = new ValueDialog(Carrier, "d", true, 0);
 	d->dialogLabel->setText(QString::fromUtf8(message));
 	d->valueEdit->setText(QString::fromUtf8(value));
 	d->setCaption(QString::fromUtf8(caption));

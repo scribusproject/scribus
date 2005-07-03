@@ -147,9 +147,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout2");
 	rememberCheck = new QCheckBox( tr("Remember association"), this, "rememberCheck");
 	rememberCheck->setChecked(false);
-	QToolTip::add(rememberCheck, tr("Remember the file extension - importer association\n"
-                                    "and do not ask again to select an importer for\n"
-                                    "files of this type."));
+	QToolTip::add(rememberCheck, "<qt>" + tr("Remember the file extension - importer association and do not ask again to select an importer for files of this type.") + "</qt>" );
 	dlayout->addStretch(10);
 	dlayout->addWidget(rememberCheck);
 	layout->addLayout(dlayout);

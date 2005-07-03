@@ -14,7 +14,7 @@ extern QPixmap loadIcon(QString nam);
  *  name 'name' and widget flags set to 'f' 
  *
  *  The dialog will by default be modeless, unless you set 'modal' to
- *  TRUE to construct a modal dialog.
+ *  true to construct a modal dialog.
  */
 DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 		: QDialog( parent, "DelPages", true, 0 )

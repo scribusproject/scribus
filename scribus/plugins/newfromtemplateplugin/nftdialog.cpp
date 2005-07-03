@@ -7,7 +7,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent, "nftdialog", TRUE)
+nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent, "nftdialog", true)
 {
 	settings = new nftsettings(lang, templateDir);
 	

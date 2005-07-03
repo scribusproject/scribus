@@ -76,7 +76,7 @@ void run(QWidget */*d*/, ScribusApp */*plug*/)
 ShortWords::ShortWords()
 {
 	originalPage = ScApp->doc->currentPage->PageNr;
-	VlnaDialog *dlg = new VlnaDialog(ScApp, "dlg", TRUE, 0);
+	VlnaDialog *dlg = new VlnaDialog(ScApp, "dlg", true, 0);
 	if (dlg->exec() == QDialog::Accepted) {
 		parse = new Parse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -94,7 +94,7 @@ ShortWords::ShortWords()
 		} // switch
 		// enable "Save" icon
 		if (parse->modify > 0)
-			ScApp->slotDocCh(TRUE);
+			ScApp->slotDocCh(true);
 		// redraw document
 		ScApp->view->DrawNew();
 		QApplication::restoreOverrideCursor();

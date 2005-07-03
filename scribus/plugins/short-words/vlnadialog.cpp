@@ -41,7 +41,7 @@ Constructs a VlnaDialog as a child of 'parent', with the
 name 'name' and widget flags set to 'f'.
 
 The dialog will by default be modeless, unless you set 'modal' to
-TRUE to construct a modal dialog.
+true to construct a modal dialog.
 */
 VlnaDialog::VlnaDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog(parent, name, modal, fl)
@@ -110,14 +110,14 @@ VlnaDialog::VlnaDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 
 	VlnaDialogLayout->addLayout(layout4, 0, 0);
 
-	QFile::exists(RC_PATH_USR) ? userCheckBox->setEnabled(TRUE) : userCheckBox->setEnabled(FALSE);
+	QFile::exists(RC_PATH_USR) ? userCheckBox->setEnabled(true) : userCheckBox->setEnabled(false);
 
 	languageChange();
 	resize(QSize(306, 193).expandedTo(minimumSizeHint()));
 	clearWState(WState_Polished);
 
 	// cfg
-	cfg->userConfig ? userCheckBox->setChecked(TRUE) : userCheckBox->setChecked(FALSE);
+	cfg->userConfig ? userCheckBox->setChecked(true) : userCheckBox->setChecked(false);
 	selectAction(cfg->action);
 
 	// signals and slots connections
@@ -180,7 +180,7 @@ void VlnaDialog::infoButton_pressed()
 	aMessage += "</b><br>";
 	aMessage += cfg->getAvailableLanguages();
 	QMessageBox::about(ScApp, tr("About Short Words", "short words plugin"), aMessage);
-	//infoButton->setDown(FALSE);
+	//infoButton->setDown(false);
 }
 
 void VlnaDialog::selectAction(int aAction)

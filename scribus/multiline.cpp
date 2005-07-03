@@ -26,7 +26,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	Preview->setFrameShape( QLabel::Panel );
 	Preview->setFrameShadow( QLabel::Sunken );
 	Preview->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignHCenter ) );
-	Preview->setScaledContents( FALSE );
+	Preview->setScaledContents( false );
 	MultiLineLayout->addWidget( Preview );
 
 	layout2 = new QHBoxLayout( 0, 0, 4, "layout2");

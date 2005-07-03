@@ -8,7 +8,7 @@
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", TRUE)
+satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", true)
 {
 	setCaption(tr("Save as Template"));
 	setIcon(loadIcon("AppIcon.png"));
