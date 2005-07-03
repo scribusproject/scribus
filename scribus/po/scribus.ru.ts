@@ -154,6 +154,14 @@ May raise IndexError if the page number is out of range
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>importSVG(&quot;string&quot;)
+
+The &quot;string&quot; must be a valid filename for a SVG image. The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>@default</name>
@@ -1615,19 +1623,24 @@ May raise WrongFrameTypeError if the target frame is not a text frame
         <translation>О Scribus %1</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.
-Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 %2 %3 </source>
         <translation>%1 %2 %3 </translation>
     </message>
     <message>
         <source>Windows Port:</source>
         <translation>Версия для Windows:</translation>
+    </message>
+    <message>
+        <source>Mac OSX Aqua Port:</source>
+        <translation>Портирование на Mac OS X:</translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation>Вики</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a *</source>
+        <translation>Здесь отображается версия, дата сборки и статус поддержки различных бибилиотек в Scribus. Сокращение C-C-T-F следует понимать так: C=littlecms C=CUPS T=TIFF  F=Fontconfig поддерживаются. Неподдерживаемая библиотека обозначается астериском: *</translation>
     </message>
 </context>
 <context>
@@ -1670,7 +1683,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Get Image...</source>
-        <translation>Получить изображение...</translation>
+        <translation>Вставить изображение...</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
@@ -1810,11 +1823,11 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Strike Through</source>
-        <translation type="unfinished">Вычеркнутый текст</translation>
+        <translation>В&amp;ычеркнутый</translation>
     </message>
     <message>
         <source>&amp;All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Все ка&amp;пителью</translation>
     </message>
     <message>
         <source>Small &amp;Caps</source>
@@ -1970,7 +1983,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation type="unfinished">&amp;Контур</translation>
+        <translation>&amp;Контуры</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -2094,7 +2107,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>P&amp;age Palette</source>
-        <translation>&amp;Палитра страниц</translation>
+        <translation type="obsolete">&amp;Палитра страниц</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -2106,7 +2119,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Action &amp;History</source>
-        <translation>Историй &amp;действий</translation>
+        <translation>История &amp;действий</translation>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
@@ -2170,11 +2183,11 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Связать текстовые блоки</translation>
+        <translation>Связаны текстовые блоки</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Разъединить тестовые блоки</translation>
+        <translation>Разъединены тестовые блоки</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
@@ -2182,11 +2195,11 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation>Скопировать свойства объекта</translation>
+        <translation>Скопированы свойства объекта</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Изменить текст в Текстовом Редакторе</translation>
+        <translation>Текст изменён в Story Editor</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
@@ -2254,7 +2267,7 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Неразрывный дефис</translation>
     </message>
     <message>
         <source>Non Breaking &amp;Space</source>
@@ -2386,11 +2399,19 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Toggle Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключить отображение палитр</translation>
     </message>
     <message>
         <source>Toggle Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключить отображение направляющих</translation>
+    </message>
+    <message>
+        <source>&amp;Arrange Pages</source>
+        <translation>&amp;Палитра страниц</translation>
+    </message>
+    <message>
+        <source>Dehyphenate Text</source>
+        <translation>Убрать переносы из текста</translation>
     </message>
 </context>
 <context>
@@ -2704,6 +2725,26 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>&amp;Unlock All</source>
         <translation>&amp;Разблокировать все</translation>
+    </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H: %1%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V: %1%2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3357,7 +3398,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+т</translation>
     </message>
     <message>
         <source>&amp;Even pages</source>
@@ -3365,7 +3406,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+ч</translation>
     </message>
     <message>
         <source>O&amp;dd pages</source>
@@ -3373,7 +3414,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+н</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -3381,7 +3422,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+в</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
@@ -3389,7 +3430,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Alt+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+д</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
@@ -3912,75 +3953,75 @@ and the Delete key removes the last inserted one</source>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation type="unfinished">Выбор символа:</translation>
+        <translation>Выбор символа:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">Шрифт:</translation>
+        <translation>Шрифтовый файл:</translation>
     </message>
     <message>
         <source>Character Class:</source>
-        <translation type="unfinished"></translation>
+        <translation>Класс символов:</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">В&amp;ставить</translation>
+        <translation>В&amp;ставить</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">О&amp;чистить</translation>
+        <translation>О&amp;чистить</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Закрыть</translation>
+        <translation>&amp;Закрыть</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
-        <translation type="unfinished">Вставить символы под курсор в тексте</translation>
+        <translation>Вставить символы под курсор в тексте</translation>
     </message>
     <message>
         <source>Delete the current selection(s).</source>
-        <translation type="unfinished">Удалить текуее выделение(ия).</translation>
+        <translation>Удалить текущее выделение(ия).</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation type="unfinished">Закрыть это диалог и вернуться к правке текста.</translation>
+        <translation>Закрыть это диалог и вернуться к правке текста.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Полный набор символов</translation>
     </message>
     <message>
         <source>Basic Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Базовая латиница</translation>
     </message>
     <message>
         <source>Latin-1 Supplement</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнение к Latin-1</translation>
     </message>
     <message>
         <source>Latin Extended-A</source>
-        <translation type="unfinished"></translation>
+        <translation>Латиница расширенная A</translation>
     </message>
     <message>
         <source>Latin Extended-B</source>
-        <translation type="unfinished"></translation>
+        <translation>Латиница расширенная B</translation>
     </message>
     <message>
         <source>General Punctuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Основные знаки пунктуации</translation>
     </message>
     <message>
         <source>Super- and Subscripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхний и нижний индексы</translation>
     </message>
     <message>
         <source>Currency Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Символы валют</translation>
     </message>
     <message>
         <source>Letterlike Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Буквоподобные символы</translation>
     </message>
     <message>
         <source>Number Forms</source>
@@ -3988,11 +4029,11 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Arrows</source>
-        <translation type="unfinished"></translation>
+        <translation>Стрелки</translation>
     </message>
     <message>
         <source>Mathematical Operators</source>
-        <translation type="unfinished"></translation>
+        <translation>Матматические операторы</translation>
     </message>
     <message>
         <source>Box Drawing</source>
@@ -4004,11 +4045,11 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Geometric Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Геометрические фигуры</translation>
     </message>
     <message>
         <source>Miscellaneous Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Разные символы</translation>
     </message>
     <message>
         <source>Dingbats</source>
@@ -4020,7 +4061,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Лигатуры</translation>
     </message>
     <message>
         <source>Specials</source>
@@ -4028,35 +4069,35 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Греческий</translation>
+        <translation>Греческий алфавит</translation>
     </message>
     <message>
         <source>Greek Extended</source>
-        <translation type="unfinished"></translation>
+        <translation>Греческий расширенный</translation>
     </message>
     <message>
         <source>Cyrillic</source>
-        <translation type="unfinished"></translation>
+        <translation>Кириллица</translation>
     </message>
     <message>
         <source>Cyrillic Supplement</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнение к кириллице</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished"></translation>
+        <translation>Арабский</translation>
     </message>
     <message>
         <source>Arabic Extended A</source>
-        <translation type="unfinished"></translation>
+        <translation>Арабский расширенный А</translation>
     </message>
     <message>
         <source>Arabic Extended B</source>
-        <translation type="unfinished"></translation>
+        <translation>Арабский расширенный B</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation type="unfinished"></translation>
+        <translation>Иврит</translation>
     </message>
 </context>
 <context>
@@ -4091,7 +4132,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Image has a DPI-Value less than %1 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>В изображении точек на дюйм меньше %1</translation>
     </message>
     <message>
         <source>Object has transparency</source>
@@ -4115,7 +4156,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Свободные объекты</translation>
     </message>
     <message>
         <source>Problems found</source>
@@ -4178,6 +4219,62 @@ and the Delete key removes the last inserted one</source>
     <message>
         <source>Tetradic (Double Complementary)</source>
         <translation>Тетрадный (двойной добавочный)</translation>
+    </message>
+    <message>
+        <source>Base Color</source>
+        <translation>Базовый цвет</translation>
+    </message>
+    <message>
+        <source>Monochromatic Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monochromatic Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Analogous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Analogous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3rd. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4th. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Triadic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Triadic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Tetradic (base opposite)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Tetradic (angle)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3rd. Tetradic (angle opposite)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4759,7 +4856,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Атрибуты объекта документа</translation>
     </message>
     <message>
         <source>Name</source>
@@ -6176,15 +6273,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Master Page (&amp;Left Page):</source>
-        <translation type="unfinished"></translation>
+        <translation>Мастер-страница (&amp;левая):</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Мастер-страница:</translation>
     </message>
     <message>
         <source>Master Page (&amp;Right Page):</source>
-        <translation type="unfinished"></translation>
+        <translation>Мастер-страница (&amp;правая):</translation>
     </message>
 </context>
 <context>
@@ -6325,23 +6422,23 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished"></translation>
+        <translation>Загружаемые клавиатурные настройки</translation>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Загрузить</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Импортировать...</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Экспортировать...</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;бросить</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
@@ -6365,7 +6462,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы с настройками клавиатуры (*.ksxml)</translation>
     </message>
 </context>
 <context>
@@ -6396,11 +6493,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
-        <translation>Вы хотите заодно удалить все объекты этого слоя?</translation>
+        <translation type="obsolete">Вы хотите заодно удалить все объекты этого слоя?</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <source>Do you want to delete all objects on this layer too?</source>
+        <translation>Вы хотите заодно удалить все объекты этого слоя?</translation>
     </message>
 </context>
 <context>
@@ -7365,11 +7466,11 @@ Corners:</source>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Изменяемая ширина высота символов</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ручной трекинг</translation>
     </message>
 </context>
 <context>
@@ -7608,7 +7709,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Default Unit:</source>
-        <translation>Стандартная &amp;единица:</translation>
+        <translation>&amp;Единица измерения:</translation>
     </message>
     <message>
         <source>&amp;Automatic Text Frames</source>
@@ -7806,11 +7907,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>OdtDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished">Параметры импорта из OpenOffice.org Writer</translation>
+        <translation>Параметры импорта из OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished">Перезаписать абзацные стили</translation>
+        <translation>Перезаписать абзацные стили</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -7818,7 +7919,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished">Объединить абзацные стили</translation>
+        <translation>Объединить абзацные стили</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
@@ -7826,7 +7927,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Добавить название документа в начало абзацного стиля</translation>
+        <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
@@ -7834,7 +7935,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Больше не спрашивать</translation>
+        <translation>Больше не спрашивать</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
@@ -7842,18 +7943,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">ОК</translation>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
     <name>OutlineValues</name>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Толщина линии</translation>
     </message>
 </context>
 <context>
@@ -8312,7 +8413,7 @@ in the frame named %1 with sample text?</source>
     <name>PluginManager</name>
     <message>
         <source>Cannot find plugin</source>
-        <translation>Невозможно найти расширение</translation>
+        <translation type="obsolete">Невозможно найти расширение</translation>
     </message>
     <message>
         <source>Persistent</source>
@@ -8333,6 +8434,21 @@ in the frame named %1 with sample text?</source>
         <source>Unknown</source>
         <comment>plugin manager</comment>
         <translation>Не известно</translation>
+    </message>
+    <message>
+        <source>Cannot find plugin</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished">Невозможно найти расширение</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <comment>plugin manager</comment>
+        <translation>неизвестная ошибка</translation>
+    </message>
+    <message>
+        <source>Cannot find symbol (%1)</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8484,7 +8600,7 @@ in the frame named %1 with sample text?</source>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation>Для подстройки отображения листа перетащите ползунок внизу в нужную позицию.</translation>
+        <translation type="obsolete">Для подстройки отображения листа перетащите ползунок внизу в нужную позицию.</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -8972,6 +9088,34 @@ as it allows you to edit the image in an already running
 instance of gimp.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>To adjust the display drag the ruler below with the slider.</source>
+        <translation>Для подстройки отображения листа перетащите ползунок внизу в нужную позицию.</translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -9000,7 +9144,7 @@ instance of gimp.</source>
     </message>
     <message>
         <source>&amp;Save AS...</source>
-        <translation>Сохранить &amp;как...</translation>
+        <translation type="obsolete">Сохранить &amp;как...</translation>
     </message>
     <message>
         <source>&amp;Exit</source>
@@ -9056,6 +9200,14 @@ instance of gimp.</source>
     </message>
     <message>
         <source>Save Current Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Run As Console</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9503,7 +9655,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Сценарии на Python (*.py);; Все файлы (*)</translation>
+        <translation type="obsolete">Сценарии на Python (*.py);; Все файлы (*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -10257,35 +10409,35 @@ External Links
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished"></translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished">in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished"></translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation type="unfinished">mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source>p</source>
-        <translation type="unfinished">p</translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>Points (pt)</source>
@@ -10301,7 +10453,7 @@ External Links
     </message>
     <message>
         <source>File exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл с таким именем уже существует</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.
@@ -10679,7 +10831,7 @@ Do you want to replace it with the file you are saving?</source>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Параметры:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
@@ -10845,6 +10997,32 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>OpenDocument Text Documents</source>
         <translation>Текстовые документы OpenDocument</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> c</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>c</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cicero (c)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot group less than two items</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The filename should not be empty string.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11210,6 +11388,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Table of Contents and Indexes</source>
         <translation>Указатель оглавления и индексы</translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RunScriptDialog</name>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Сценарии на Python (*.py);; Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Run as Extension Script</source>
+        <comment>run script dialog</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11626,7 +11820,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation>&amp;Тень</translation>
+        <translation type="unfinished">&amp;Оттенение</translation>
     </message>
     <message>
         <source>Importing Pages...</source>
@@ -11725,7 +11919,8 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>File %1 
 is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 
+в неподдерживаемом формате</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -11738,7 +11933,8 @@ is not in an acceptable format</source>
     <message>
         <source>Detected some Errors.
 Consider using the Preflight Checker to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обнаружено несколько ошибок.
+Используйте валидатор, чтобы найти и исправить их</translation>
     </message>
     <message>
         <source>Abort</source>
@@ -11759,7 +11955,8 @@ Consider using the Preflight Checker to correct them</source>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно записать в файл: 
+%1</translation>
     </message>
     <message>
         <source>Detected some Errors.
@@ -11796,7 +11993,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation>Инициализируется Редактор Текста</translation>
+        <translation>Инициализируется Story Editor</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
@@ -12308,11 +12505,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>X-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>X-смещение</translation>
     </message>
     <message>
         <source>Y-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-смещение</translation>
     </message>
 </context>
 <context>
@@ -12412,7 +12609,7 @@ Consider using the Preflight Verifier to correct them</source>
     <name>StoryEditor</name>
     <message>
         <source>Story Editor</source>
-        <translation>Редактор текста</translation>
+        <translation>Story Editor</translation>
     </message>
     <message>
         <source>File</source>
@@ -12584,7 +12781,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Story Editor - %1</source>
-        <translation>Редактор текста - %1</translation>
+        <translation>Story Editor - %1</translation>
     </message>
     <message>
         <source>Do you really want to lose all your changes?</source>
@@ -12599,19 +12796,19 @@ Consider using the Preflight Verifier to correct them</source>
     <name>StrikeValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Авто</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Смещение</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Толщина линии</translation>
     </message>
 </context>
 <context>
@@ -12646,7 +12843,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Все капителью</translation>
     </message>
     <message>
         <source>Shadow</source>
@@ -12700,19 +12897,19 @@ Consider using the Preflight Verifier to correct them</source>
     <name>TOCIndexPrefs</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
     <message>
         <source>At the beginning</source>
-        <translation type="unfinished"></translation>
+        <translation>В начале</translation>
     </message>
     <message>
         <source>At the end</source>
-        <translation type="unfinished"></translation>
+        <translation>В конце</translation>
     </message>
     <message>
         <source>Not Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показывать</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
@@ -12728,7 +12925,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+д</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -12736,7 +12933,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+у</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
@@ -12744,7 +12941,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Номера страниц:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
@@ -12970,6 +13167,22 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Color for the baseline grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guides are not visible through objects on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guides are visible above all objects on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the lines of the baseline grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance from the top of the page for the first baseline</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13210,11 +13423,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По горизонтали</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По вертикали</translation>
     </message>
     <message>
         <source>Inside</source>
@@ -13817,7 +14030,7 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     </message>
     <message>
         <source>&amp;Stepping:</source>
-        <translation>&amp;Шаг:</translation>
+        <translation>Ш&amp;аг:</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
@@ -14053,7 +14266,7 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Авто</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -14065,7 +14278,7 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматическое &amp;межстрочное расстояние</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
@@ -14163,7 +14376,7 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Свободные объекты</translation>
     </message>
     <message>
         <source>Page </source>
@@ -14193,82 +14406,85 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавлена верт. направляющая</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавлена горизонт. направляющая</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Убрана верт. направляющая</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Убрана горизонт. направляющая</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Смещена вертикальная направляющая</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Смещена горизонтальная направляющая</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокированы направляющие</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Разблокированы направляющие</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемещение</translation>
     </message>
     <message>
         <source>Resize</source>
-        <translation type="unfinished"></translation>
+        <translation>Смена размера</translation>
     </message>
     <message>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation>Вращение</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>W1: %1, H1: %2
+W2: %3, H2: %4</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделение</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Группировать</translation>
+        <translation>Группировка</translation>
     </message>
     <message>
         <source>Selection/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделение/группировка</translation>
     </message>
     <message>
         <source>Create</source>
-        <translation type="unfinished">Создать</translation>
+        <translation>Создание</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+W: %3, H: %4</translation>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Выравнивание/Распределение</translation>
     </message>
     <message>
         <source>Items involved</source>
@@ -14276,15 +14492,15 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить</translation>
     </message>
     <message>
         <source>Set fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Заливка цветом</translation>
     </message>
     <message>
         <source>Color1: %1, Color2: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет1: %1, Цвет: %2</translation>
     </message>
     <message>
         <source>Set fill color shade</source>
@@ -14292,11 +14508,11 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Set line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Установка цвета линии</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Установка цвета тени линии</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
@@ -14308,44 +14524,45 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Lock</source>
-        <translation type="unfinished">Блокировать</translation>
+        <translation>Блокирование</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation type="unfinished">Разблокировать</translation>
+        <translation>Разблокирование</translation>
     </message>
     <message>
         <source>Lock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Блокирование размера</translation>
     </message>
     <message>
         <source>Unlock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Разблокирование размера</translation>
     </message>
     <message>
         <source>Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>Разгруппировка</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удаление</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Переименовать</translation>
+        <translation>Переименование</translation>
     </message>
     <message>
         <source>From %1
 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>От %1
+до %2</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Вставить</translation>
+        <translation>Вставка</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Вырезать</translation>
+        <translation>Вырезание</translation>
     </message>
     <message>
         <source>Set fill color transparency</source>
@@ -14373,7 +14590,7 @@ to %2</source>
     </message>
     <message>
         <source>No style</source>
-        <translation type="unfinished"></translation>
+        <translation>Снятие стиля</translation>
     </message>
     <message>
         <source>Set custom line style</source>
@@ -14401,11 +14618,11 @@ to %2</source>
     </message>
     <message>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation>Установка шрифта</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Установка кегля</translation>
     </message>
     <message>
         <source>Set font width</source>
@@ -14461,11 +14678,11 @@ to %2</source>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Многоугольник</translation>
+        <translation>Многоугольник</translation>
     </message>
     <message>
         <source>Bezier curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Кривая Безье</translation>
     </message>
     <message>
         <source>Polyline</source>
@@ -14473,23 +14690,23 @@ to %2</source>
     </message>
     <message>
         <source>Convert to</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразование в</translation>
     </message>
     <message>
         <source>Import SVG image</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт SVG-изображения</translation>
     </message>
     <message>
         <source>Import EPS image</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт EPS-изображения</translation>
     </message>
     <message>
         <source>Scratch space</source>
-        <translation type="unfinished"></translation>
+        <translation>Рабочий стол</translation>
     </message>
     <message>
         <source>Text flows around the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Обтекание текстом блока</translation>
     </message>
     <message>
         <source>Text flows around bounding box</source>
@@ -14501,7 +14718,7 @@ to %2</source>
     </message>
     <message>
         <source>No text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Снятие обтекания текстом</translation>
     </message>
     <message>
         <source>No bounding box</source>
@@ -14549,7 +14766,7 @@ to %2</source>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Применение мастер-страницы</translation>
     </message>
     <message>
         <source>Set font height</source>
@@ -14561,66 +14778,66 @@ to %2</source>
     </message>
     <message>
         <source>Add page</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавлена страница</translation>
     </message>
     <message>
         <source>Add pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавлены страницы</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалена страница</translation>
     </message>
     <message>
         <source>Delete pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалены страницы</translation>
     </message>
     <message>
         <source>Add layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавлен слой</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалён слой</translation>
     </message>
     <message>
         <source>Rename layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Переименован слой</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Поднят слой</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Опущен слой</translation>
     </message>
     <message>
         <source>Send to layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Переложен в слой</translation>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Включена печать слоя</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключена печать слоя</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Переименован слой</translation>
     </message>
     <message>
         <source>Get image</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставлено изображение</translation>
     </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
         <source>Action History</source>
-        <translation>Историй действий</translation>
+        <translation>История действий</translation>
     </message>
     <message>
         <source>Show selected object only</source>
@@ -14794,19 +15011,20 @@ with checked button too.</source>
     <message>
         <source>You are starting to edit read-only file.
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы начали изменять файл с правами только на чтение.
+%1</translation>
     </message>
     <message>
         <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка приложения &apos;%1&apos;. Оно не может быть запущено.</translation>
     </message>
     <message>
         <source>Short Words setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройка Коротких Слов</translation>
     </message>
     <message>
         <source>Enter name of the plain text editor executable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите имя исполняемого файла редактора:</translation>
     </message>
 </context>
 <context>
