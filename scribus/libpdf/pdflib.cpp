@@ -2744,7 +2744,8 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 			}
 			else
 			{
-				tmpC.applyGCR();
+				if (view->Prefs->GCRMode)
+					tmpC.applyGCR();
 				tmpC.getCMYK(&h, &s, &v, &k);
 				h = h * Shade / 100;
 				s = s * Shade / 100;
@@ -2756,7 +2757,8 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 		else
 		{
 #endif
-			tmpC.applyGCR();
+			if (view->Prefs->GCRMode)
+				tmpC.applyGCR();
 			tmpC.getCMYK(&h, &s, &v, &k);
 			h = h * Shade / 100;
 			s = s * Shade / 100;

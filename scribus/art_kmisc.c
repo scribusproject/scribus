@@ -1,3 +1,11 @@
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 #include <libart_lgpl/art_vpath.h>
 #include <libart_lgpl/art_bpath.h>
 #include <libart_lgpl/art_misc.h>

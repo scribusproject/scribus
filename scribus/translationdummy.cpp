@@ -1,3 +1,11 @@
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 QMessageBox::QMessageBox()
 {
 tr("<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ toolkit for multiplatform GUI &amp; application development.</p><p>Qt provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;X, Linux, and all major commercial Unix variants.<br>Qt is also available for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www.trolltech.com/qt/</tt> for more information.</p>");

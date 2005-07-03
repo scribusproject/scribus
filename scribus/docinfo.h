@@ -1,11 +1,11 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Info.ui'
-**
-** Created: Mon Apr 30 10:14:32 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 #ifndef DOCINFOS_H
 #define DOCINFOS_H
 

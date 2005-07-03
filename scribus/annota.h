@@ -1,11 +1,11 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Annot.ui'
-**
-** Created: Tue Feb 19 22:31:41 2002
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 #ifndef ANNOTA_H
 #define ANNOTA_H
 
