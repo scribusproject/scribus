@@ -1051,6 +1051,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	else
 	{
+		Height->setEnabled(true);
 		keepFrameWHRatioButton->setEnabled(true);
 		if (i->itemType() == PageItem::ImageFrame)
 		{
