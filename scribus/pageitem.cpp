@@ -1059,7 +1059,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								CurX += Doc->Vorlagen[hl->cab].First;
 							else
 							{
-								if (BackBox->Ptext.at(BackBox->Ptext.count()-1)->ch == QChar(13))
+								if (BackBox->Ptext.count() != 0)
+								{
+									if (BackBox->Ptext.at(BackBox->Ptext.count()-1)->ch == QChar(13))
+										CurX += Doc->Vorlagen[hl->cab].First;
+								}
+								else
 									CurX += Doc->Vorlagen[hl->cab].First;
 							}
 						}
