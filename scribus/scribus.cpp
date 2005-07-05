@@ -546,6 +546,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.gs_AntiAliasGraphics = true;
 	Prefs.gs_AntiAliasText = true;
 	Prefs.gs_exe = "gs";
+	Prefs.gs_Resolution = 72;
 	Prefs.STEcolor = QColor(white);
 	Prefs.STEfont = font().toString();
 	Prefs.DCMSset.DefaultMonitorProfile = "";
@@ -8375,6 +8376,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.gs_AntiAliasGraphics = dia->GSantiGraph->isChecked();
 		Prefs.gs_AntiAliasText = dia->GSantiText->isChecked();
 		Prefs.gs_exe = dia->GSName->text();
+		Prefs.gs_Resolution = dia->GSResolution->value();
 		Prefs.ClipMargin = dia->ClipMarg->isChecked();
 		Prefs.GCRMode = dia->DoGCR->isChecked();
 		Prefs.guidesSettings.before = dia->tabGuides->inBackground->isChecked();

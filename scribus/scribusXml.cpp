@@ -3683,6 +3683,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc8Ex.setAttribute("GS", Vor->gs_exe);
 	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(Vor->gs_AntiAliasGraphics));
 	dc8Ex.setAttribute("AlphaText", static_cast<int>(Vor->gs_AntiAliasText));
+	dc8Ex.setAttribute("Resolution", Vor->gs_Resolution);
 	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", Vor->Language);
@@ -4084,6 +4085,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->gs_exe = dc.attribute("GS", "gs");
 			Vorein->gs_AntiAliasText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
 			Vorein->gs_AntiAliasGraphics = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
+			Vorein->gs_Resolution = QStoInt(dc.attribute("Resolution", "72"));
 			Vorein->imageEditorExecutable = dc.attribute("GIMP", "gimp");
 		}
 		if (dc.tagName()=="HYPHEN")

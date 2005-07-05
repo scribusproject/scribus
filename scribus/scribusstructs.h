@@ -513,6 +513,7 @@ struct ApplicationPrefs
 	QString gs_exe;
 	bool gs_AntiAliasText;
 	bool gs_AntiAliasGraphics;
+	int gs_Resolution;
 	QString imageEditorExecutable;
 	bool ClipMargin;
 	bool GCRMode;

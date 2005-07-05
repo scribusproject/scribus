@@ -593,6 +593,16 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GSantiGraph = new QCheckBox( tr( "Antialias &Graphics" ), groupGS, "GSantiGraph" );
 	GSantiGraph->setChecked(prefsData->gs_AntiAliasGraphics);
 	groupGSLayout->addWidget( GSantiGraph );
+	GSlayout2 = new QHBoxLayout( 0, 0, 6, "GSlayout");
+	GSResolution = new QSpinBox( groupGS, "Time" );
+	GSResolution->setMaxValue( 2400 );
+	GSResolution->setMinValue( 10 );
+	GSResolution->setSuffix( " " + tr("dpi") );
+	GSResolution->setValue(prefsData->gs_Resolution);
+	GSResText = new QLabel( GSResolution, tr( "Resolution:" ), groupGS, "GSResText" );
+	GSlayout2->addWidget( GSResText );
+	GSlayout2->addWidget( GSResolution );
+	groupGSLayout->addLayout( GSlayout2 );
 	ExtToolLayout->addWidget( groupGS );
 	groupGimp = new QGroupBox( tr( "Image Processing Tool" ), ExtTool, "groupGimp" );
 	groupGimp->setColumnLayout(0, Qt::Vertical );

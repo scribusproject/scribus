@@ -10754,7 +10754,7 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
 			ScApp->fileWatcher->removeFile(Item->Pfile);
 	}
-	if (!Item->pixm.LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72, &dummy))
+	if (!Item->pixm.LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, Prefs->gs_Resolution, &dummy))
 	{
 		Item->Pfile = fi.absFilePath();
 		Item->PicAvail = false;

@@ -316,6 +316,7 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		hg->cembedded = 0;
 		currItem->itemText.append(hg);
 	}
+	currItem->Dirty = false;
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -382,6 +383,7 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 	}
 	it->CPos = pos + Daten.length();
 	it->paintObj();
+	it->Dirty = false;
 	Py_INCREF(Py_None);
 	return Py_None;
 }

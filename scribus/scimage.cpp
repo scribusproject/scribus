@@ -2709,8 +2709,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 					}
 				}
 			}
-			imgInfo.xres = qRound(xres);
-			imgInfo.yres = qRound(yres);
+			imgInfo.xres = qRound(gsRes);
+			imgInfo.yres = qRound(gsRes);
 			imgInfo.colorspace = 0;
 		}
 	}
@@ -2788,8 +2788,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				}
 				*this = static_cast<ScImage>(image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y)));
 				unlink(tmpFile);
-				imgInfo.xres = qRound(xres);
-				imgInfo.yres = qRound(yres);
+				imgInfo.xres = qRound(gsRes);
+				imgInfo.yres = qRound(gsRes);
 				imgInfo.colorspace = 0;
 			}
 		}

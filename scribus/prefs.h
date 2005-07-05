@@ -162,6 +162,8 @@ public:
 	QLineEdit* GSName;
 	QCheckBox* GSantiText;
 	QCheckBox* GSantiGraph;
+	QSpinBox* GSResolution;
+	QLabel* GSResText;
 	QGroupBox* groupGimp;
 	QLabel* GimpText;
 	QLineEdit* GimpName;
@@ -231,6 +233,7 @@ protected:
 	QVBoxLayout* ExtToolLayout;
 	QVBoxLayout* groupGSLayout;
 	QHBoxLayout* GSlayout;
+	QHBoxLayout* GSlayout2;
 	QHBoxLayout* groupGimpLayout;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
