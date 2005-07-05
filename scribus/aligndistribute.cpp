@@ -1077,6 +1077,8 @@ void AlignDistributePalette::distributeLeft()
 	{
 		if (!startAlign())
 			return;
+		if (alignObjectsCount<=1)
+			return;
 		QMap<double,uint> Xsorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Xsorted.insert((*alignObjects)[a].x1, a, false);
@@ -1117,6 +1119,8 @@ void AlignDistributePalette::distributeCenterH()
 	if (currView!=NULL)
 	{
 		if (!startAlign())
+			return;
+		if (alignObjectsCount<=1)
 			return;
 		QMap<double,uint> Xsorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1159,6 +1163,8 @@ void AlignDistributePalette::distributeRight()
 	{
 		if (!startAlign())
 			return;
+		if (alignObjectsCount<=1)
+			return;
 		QMap<double,uint> Xsorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Xsorted.insert((*alignObjects)[a].x2, a, false);
@@ -1199,6 +1205,8 @@ void AlignDistributePalette::distributeDistH()
 	if (currView!=NULL)
 	{
 		if (!startAlign())
+			return;
+		if (alignObjectsCount<=1)
 			return;
 		QMap<double,uint> X1sorted, X2sorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1260,6 +1268,8 @@ void AlignDistributePalette::distributeBottom()
 	{
 		if (!startAlign())
 			return;
+		if (alignObjectsCount<=1)
+			return;
 		QMap<double,uint> Ysorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Ysorted.insert((*alignObjects)[a].y2, a, false);
@@ -1300,6 +1310,8 @@ void AlignDistributePalette::distributeCenterV()
 	if (currView!=NULL)
 	{
 		if (!startAlign())
+			return;
+		if (alignObjectsCount<=1)
 			return;
 		QMap<double,uint> Ysorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1342,6 +1354,8 @@ void AlignDistributePalette::distributeTop()
 	{
 		if (!startAlign())
 			return;
+		if (alignObjectsCount<=1)
+			return;
 		QMap<double,uint> Ysorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Ysorted.insert((*alignObjects)[a].y1, a, false);
@@ -1382,6 +1396,8 @@ void AlignDistributePalette::distributeDistV()
 	if (currView!=NULL)
 	{
 		if (!startAlign())
+			return;
+		if (alignObjectsCount<=1)
 			return;
 		QMap<double,uint> Y1sorted, Y2sorted;
 		for (uint a = 0; a < alignObjectsCount; ++a)
