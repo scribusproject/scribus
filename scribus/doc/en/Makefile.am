@@ -126,6 +126,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/doccopyright.html
 	-rm -f $(prefix)/share/scribus/doc/en/docinfo.html
 	-rm -f $(prefix)/share/scribus/doc/en/download.html
+	-rm -f $(prefix)/share/scribus/doc/en/install-dpkg.html
 	-rm -f $(prefix)/share/scribus/doc/en/faq1.html
 	-rm -f $(prefix)/share/scribus/doc/en/faq2.html
 	-rm -f $(prefix)/share/scribus/doc/en/faq3.html
