@@ -21,7 +21,6 @@
 #ifndef GTGETTEXT_H
 #define GTGETTEXT_H
 
-#include <dlfcn.h>
 #include <iostream>
 #include <vector>
 

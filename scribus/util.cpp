@@ -28,7 +28,13 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cmath>
+
+#include "scconfig.h"
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
 #include "md5.h"
 #include <setjmp.h>
 #include "qprocess.h"
@@ -36,8 +42,6 @@
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
-
-#include "scconfig.h"
 
 extern PrefsFile *prefsFile;
 

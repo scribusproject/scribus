@@ -1,6 +1,11 @@
 #include "filewatcher.h"
 #include "filewatcher.moc"
+
+#include "scconfig.h"
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
 FileWatcher::FileWatcher( QWidget* parent) : QObject(parent)
 {

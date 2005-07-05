@@ -34,7 +34,11 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
 #include <qcursor.h>
 #include <qurl.h>
 #include <qdir.h>
