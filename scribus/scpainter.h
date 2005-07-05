@@ -40,6 +40,12 @@
 #define SC_USE_PIXBUF
 #endif
 
+// If defined, use Win32 GDI functions for ScPainter::end() on Win32 (ignored 
+// on other platforms). Otherwise use portable ScPainter::end()
+#ifndef SC_USE_GDI
+#define SC_USE_GDI
+#endif
+
 class QPainter;
 struct _ArtVpath;
 struct _ArtBpath;
@@ -169,6 +175,8 @@ private:
 	bool imageMode;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	GC gc;
+#elif defined(_WIN32) && defined(SC_USE_GDI)
+	HDC dc;
 #endif
 };
 

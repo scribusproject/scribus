@@ -58,6 +58,10 @@
 #include <pixbuf/gdk-pixbuf-xlibrgb.h>
 #endif
 
+#if defined(_WIN32) && defined(SC_USE_GDI)
+#include <windows.h>
+#endif
+
 #include <math.h>
 #include "art_kmisc.h"
 
@@ -98,6 +102,8 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(), target->x11Screen() ), target->x11Depth() );
 	gc = XCreateGC( target->x11Display(), target->handle(), 0, 0 );
+#elif defined(_WIN32) && defined(SC_USE_GDI)
+	dc = CreateCompatibleDC( target->handle() );
 #endif
 }
 
@@ -148,6 +154,9 @@ ScPainter::~ScPainter()
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	if( gc )
 		XFreeGC( m_target->x11Display(), gc );
+#elif defined(_WIN32) && defined(SC_USE_GDI)
+	if( dc )
+		DeleteDC( dc );
 #endif
 }
 
@@ -191,6 +200,43 @@ void ScPainter::end()
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 		// Use the original gdk-pixbuf based bitblit on X11
 		xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
+#elif defined(_WIN32) && defined(SC_USE_GDI)
+		// Use Win32 implementation
+		BITMAPINFO bmpInfo;
+		BITMAPINFOHEADER *bmpHeader;
+		long* bmpData;
+
+		bmpHeader = &(bmpInfo.bmiHeader);
+		bmpHeader->biSize = sizeof(BITMAPINFOHEADER);
+		bmpHeader->biWidth = m_width;
+		bmpHeader->biHeight = -m_height;
+		bmpHeader->biPlanes = 1;
+		bmpHeader->biBitCount = 32;
+		bmpHeader->biCompression = BI_RGB;
+		bmpHeader->biSizeImage = 0; // Valid only if biCompression = BI_RGB
+		bmpHeader->biXPelsPerMeter = 0;
+		bmpHeader->biYPelsPerMeter = 0;
+		bmpHeader->biClrUsed = 0;
+		bmpHeader->biClrImportant = 0;
+
+		// Create a device independent Bitmap
+		HBITMAP hBmp = CreateDIBSection(dc, &bmpInfo, DIB_RGB_COLORS, (void** ) (&bmpData), NULL, NULL);
+		art_u8 * p = m_buffer;
+		art_u8 r, g, b, a;
+		int words = m_width * m_height; // Valid only if biBitCount = 32
+
+		for (int i = 0; i < words; ++i) {
+			r = *p++;
+			g = *p++;
+			b = *p++;
+			a = *p++;
+			*bmpData++ = ( (a << 24) + (r << 16) + (g << 8) + b);
+		}
+
+		HGDIOBJ obj = SelectObject( dc, hBmp);
+		BitBlt( m_target->handle() , m_x, m_y, m_width, m_height, dc, 0, 0, SRCCOPY);
+		SelectObject( dc, obj);
+		DeleteObject( hBmp );
 #else
 		// Portable copying onto the canvas with no X11 dependency by Andreas Vox
 		QImage qimg(m_width, m_height, 32, QImage::BigEndian);
