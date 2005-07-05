@@ -11,15 +11,25 @@ is deleted when you replace the only reference to it, the
 of thing when writing your scripts.
 """
 
-try:
-    import qt
-except ImportError,err:
-    print "Seems you don't have PyQt. Doing nothing."
+import sys
 
 try:
     import scribus
 except ImportError,err:
     print "This script only runs from within Scribus"
+    sys.exit(1)
+
+try:
+    import qt
+except ImportError,err:
+    scribus.messageBox("Scribus - Python Timer",
+                       "It seems you don't have PyQt installed. "
+                       "This script can't do anything without it. "
+                       "You can probably install PyQt from your "
+                       "distro's packages. Failing that, you can get "
+                       "PyQt from http://www.riverbankcomputing.co.uk .",
+                       scribus.BUTTON_OK)
+    sys.exit(1)
 
 def msg():
     scribus.messageBox("Scribus - Python Timer",
