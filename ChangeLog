@@ -1,11 +1,14 @@
-Changes since 1.2.1
+Changes since 1.2.2
 
-Scribus - 1.2.1
-===============
-- 0001235: [General] Custom page start number on new document and in document setup. (fschmid)
+Scribus - 1.2.2.1cvs
+====================
+- 0002192: [Story Editor / Text Frames] Crash on loading on 1 document in 1.2.2 release (fschmid)
+
+Changes since 1.2.1
 
 Scribus - 1.2.2cvs
 ==================
+- 0001235: [General] Custom page start number on new document and in document setup. (fschmid)
 - 0002120: [Picture Frames] Some sort of jpeg images can't be loaded (ringerc)
 - 0002138: [Import / Export] Export to image creates smaller output than real (subik)
 - 0002162: [Build System] Library location on FreeBSD (ringerc)
