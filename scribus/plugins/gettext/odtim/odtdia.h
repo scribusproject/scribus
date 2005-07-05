@@ -21,7 +21,7 @@
 #ifndef ODTDIA_H
 #define ODTDIA_H
 
-#include "config.h"
+#include "scconfig.h"
 
 #ifdef HAVE_XML
 

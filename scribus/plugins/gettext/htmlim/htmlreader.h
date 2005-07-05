@@ -20,7 +20,7 @@
 #ifndef HTMLREADER_H
 #define HTMLREADER_H
 
-#include "config.h"
+#include "scconfig.h"
 
 #ifdef HAVE_XML
 

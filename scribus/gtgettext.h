@@ -31,7 +31,7 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
-#include "config.h"
+#include "scconfig.h"
 #include "gtdialogs.h"
 #include "gtwriter.h"
 #include "scfonts.h"

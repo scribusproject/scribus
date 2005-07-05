@@ -21,7 +21,7 @@
 #ifndef GDK_PIXBUF_XLIB_PRIVATE_H
 #define GDK_PIXBUF_XLIB_PRIVATE_H
 
-#include <config.h>
+#include "scconfig.h"
 #include "gdk-pixbuf-xlib.h"
 #include <X11/Xlib.h>
 

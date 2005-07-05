@@ -4,7 +4,7 @@
 #include <libart_lgpl/art_affine.h>
 #include <libart_lgpl/art_svp_render_aa.h>
 
-#include "config.h"
+#include "scconfig.h"
 #include "art_kmisc.h"
 
 extern double ceil(double x);

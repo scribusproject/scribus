@@ -6,7 +6,7 @@
    Copyright (C) 1998-2004 Gilles Vollant
 */
 
-#include "config.h"
+#include "scconfig.h"
 
 #ifndef _ZLIBIOAPI_H
 #define _ZLIBIOAPI_H

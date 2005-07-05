@@ -1,7 +1,7 @@
 #ifndef SXWDIA_H
 #define SXWDIA_H
 
-#include "config.h"
+#include "scconfig.h"
 
 #ifdef HAVE_XML
 

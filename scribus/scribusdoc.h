@@ -17,7 +17,7 @@
 #ifndef SCRIBUSDOC_H
 #define SCRIBUSDOC_H
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "scconfig.h"
 #endif
 // include files for QT
 #include <qobject.h>

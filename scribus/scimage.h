@@ -1,13 +1,7 @@
 #ifndef SCIMAGE_H
 #define SCIMAGE_H
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
+#include "scconfig.h"
 
 #include <setjmp.h>
 #include <cstdlib>

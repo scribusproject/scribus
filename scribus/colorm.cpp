@@ -22,13 +22,7 @@
 #include "prefsfile.h"
 #include "scpaths.h"
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
+#include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;

@@ -26,7 +26,7 @@
 /* Ported to Xlib by John Harper <john@dcs.warwick.ac.uk> */
 
 
-#include <config.h>
+#include "scconfig.h"
 #include <stdio.h>
 #include <string.h>
 #include "gdk-pixbuf-xlib-private.h"

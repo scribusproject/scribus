@@ -15,13 +15,7 @@
 #include "pdfoptions.h"
 #include "util.h"
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
+#include "scconfig.h"
 
 extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS

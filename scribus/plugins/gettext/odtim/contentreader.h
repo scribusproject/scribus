@@ -21,7 +21,7 @@
 #ifndef CONTENTREADER_H
 #define CONTENTREADER_H
 
-#include "config.h"
+#include "scconfig.h"
 
 #ifdef HAVE_XML
 

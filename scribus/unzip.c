@@ -34,7 +34,7 @@ woven in by Terry Thorsen 1/2003.
   version without encryption capabilities).
  */
 
-#include "config.h"
+#include "scconfig.h"
 
 #include <stdio.h>
 #include <stdlib.h>

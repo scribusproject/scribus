@@ -40,7 +40,7 @@
       ftp://ftp.pkware.com/probdesc.zip
 */
 
-#include "config.h"
+#include "scconfig.h"
 
 #ifndef _unz_H
 #define _unz_H

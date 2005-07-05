@@ -23,7 +23,7 @@
 
 #include "gtwriter.h"
 
-#include "config.h"
+#include "scconfig.h"
 
 extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 

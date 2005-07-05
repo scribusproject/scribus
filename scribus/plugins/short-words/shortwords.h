@@ -12,7 +12,7 @@ or documentation
 #ifndef _SCRIBUS_SHORTWORDS_H_
 #define _SCRIBUS_SHORTWORDS_H_
 
-#include "config.h"
+#include "scconfig.h"
 #include "configuration.h"
 #include "parse.h"
 #include "vlnadialog.h"

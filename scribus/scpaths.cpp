@@ -1,13 +1,7 @@
 #include "scpaths.h"
 #include <qapplication.h>
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
+#include "scconfig.h"
 
 
 // On Qt/Mac we need CoreFoundation to discover the location

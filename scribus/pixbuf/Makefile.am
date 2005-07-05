@@ -7,3 +7,5 @@ libpixbuf_la_SOURCES=gdk-pixbuf-xlib.c gdk-pixbuf-xlib.h gdk-pixbuf-xlib-render.
 EXTRA_DIST = gdk-pixbuf-xlib-private.h gdk-pixbuf-xlib.h gdk-pixbuf-xlibrgb.h
 
 libpixbuf_la_METASOURCES=AUTO
+
+AM_CFLAGS= -I$(top_builddir)/scribus -I$(top_srcdir)/scribus

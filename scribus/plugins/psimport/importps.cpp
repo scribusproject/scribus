@@ -1,12 +1,8 @@
 #include "importps.h"
 #include "importps.moc"
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
+
+#include "scconfig.h"
+
 #include "customfdialog.h"
 #include "mpalette.h"
 #include "prefsfile.h"

@@ -21,7 +21,7 @@
 #ifndef STYLEREADER_H
 #define STYLEREADER_H
 
-#include "config.h"
+#include "scconfig.h"
 
 #ifdef HAVE_XML
 

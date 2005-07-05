@@ -4,7 +4,7 @@
 #ifndef NFTSETTINGS_H
 #define NFTSETTINGS_H
 
-#include "config.h"
+#include "scconfig.h"
 #include <vector>
 #include <qstring.h>
 #include <qdir.h>

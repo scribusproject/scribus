@@ -21,7 +21,7 @@
 #include <qobject.h>
 #include <qstringlist.h> 
 
-#include "config.h"
+#include "scconfig.h"
 #include "langmgr.h"
 #include "scpaths.h"
 

@@ -18,7 +18,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "scconfig.h"
 #include <X11/Xlib.h>
 /*#include <gdk-pixbuf/gdk-pixbuf-private.h>*/
 #include "gdk-pixbuf-xlib-private.h"

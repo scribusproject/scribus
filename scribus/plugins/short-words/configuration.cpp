@@ -12,7 +12,7 @@ This program is free software - see LICENSE file in the distribution
 or documentation
 */
 
-#include "config.h"
+#include "scconfig.h"
 #include "configuration.h"
 #include "configuration.moc"
 #include "version.h"

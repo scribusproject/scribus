@@ -21,7 +21,7 @@
 #ifndef FILEUNZIP_H
 #define FILEUNZIP_H
 
-#include "config.h"
+#include "scconfig.h"
 
 #include <zlib.h>
 #include <qstring.h>

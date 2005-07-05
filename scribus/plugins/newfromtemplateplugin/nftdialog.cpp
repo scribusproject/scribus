@@ -3,7 +3,7 @@
  ***************************************************************************/
 #include "nftdialog.h"
 #include "nftdialog.moc"
-#include "config.h"
+#include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
 

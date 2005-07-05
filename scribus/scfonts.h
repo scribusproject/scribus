@@ -13,7 +13,7 @@
 #include FT_GLYPH_H
 // #include <qpixmap.h>
 #include "fpointarray.h"
-#include "config.h"
+#include "scconfig.h"
 
 // #include "scfonts_encoding.h"
 

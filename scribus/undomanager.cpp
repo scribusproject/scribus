@@ -21,7 +21,7 @@
 #include "undomanager.h"
 #include "undomanager.moc"
 #include "undogui.h"
-#include "config.h"
+#include "scconfig.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include <qvaluelist.h>

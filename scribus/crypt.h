@@ -27,7 +27,7 @@
    Encryption is not supported.
 */
 
-#include "config.h"
+#include "scconfig.h"
 
 #define CRC32(c, b) ((*(pcrc_32_tab+(((int)(c) ^ (b)) & 0xff))) ^ ((c) >> 8))
 
