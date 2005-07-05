@@ -97,6 +97,7 @@
 			<submenuitem text="Image Export" file="scripterapi-ImageExport.html"/>
 			<submenuitem text="Predefined Constants" file="scripterapi-constants.html"/>
 			<submenuitem text="All Commands from PyDoc" file="scripterapi-pydoc.html"/>
+			<submenuitem text="Scripter Extensions" file="scripter-extensions.html"/>
 		</submenuitem>
 		<submenuitem text="Plugin Howto" file="plugin_howto.html"/>
 		<submenuitem text="GetText Howto" file="gettexthowto.html"/>
