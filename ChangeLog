@@ -3,6 +3,7 @@ Changes since 1.2.2
 Scribus - 1.2.2.1cvs
 ====================
 - 0002192: [Story Editor / Text Frames] Crash on loading on 1 document in 1.2.2 release (fschmid)
+- 0001624: [Documentation] Documentation for extension scripts (plinnell)
 
 Changes since 1.2.1
 
