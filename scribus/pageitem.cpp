@@ -1453,7 +1453,12 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								CurX += Doc->docParagraphStyles[hl->cab].First;
 							else
 							{
-								if (BackBox->itemText.at(BackBox->itemText.count()-1)->ch == QChar(13))
+								if (BackBox->itemText.count() != 0)
+								{
+									if (BackBox->itemText.at(BackBox->itemText.count()-1)->ch == QChar(13))
+										CurX += Doc->docParagraphStyles[hl->cab].First;
+								}
+								else
 									CurX += Doc->docParagraphStyles[hl->cab].First;
 							}
 						}
@@ -1704,7 +1709,55 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					{
 						RTab = false;
 						TabCode = 0;
-						if (outs)
+						if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27))  || ((hl->ch == QChar(26)) && (Cols > 1)))
+						{
+							if (Doc->docParagraphStyles[absa].textAlignment != 0)
+							{
+								EndX = CurX;
+								do
+								{
+									pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
+									pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
+									EndX++;
+								}
+								while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
+								if (Doc->docParagraphStyles[absa].textAlignment == 2)
+									OFs = EndX - CurX;
+								if (Doc->docParagraphStyles[absa].textAlignment == 1)
+									OFs = (EndX - CurX) / 2;
+								if (Doc->docParagraphStyles[absa].textAlignment == 3)
+									OFs = 0;
+								if (Doc->docParagraphStyles[absa].textAlignment == 4)
+								{
+									aSpa = 0;
+									for (uint sof = 0; sof<LiList.count(); ++sof)
+									{
+										if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
+											aSpa++;
+									}
+									if (aSpa != 0)
+										OFs2 = (EndX - CurX) / aSpa;
+									else
+										OFs2 = 0;
+									OFs = 0;
+									for (uint yof = 0; yof < LiList.count(); ++yof)
+									{
+										LiList.at(yof)->xco += OFs;
+										if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
+											OFs += OFs2;
+									}
+								}
+								else
+								{
+									for (uint xof = 0; xof<LiList.count(); ++xof)
+									{
+										LiList.at(xof)->xco += OFs;
+									}
+								}
+								CurX = EndX;
+							}
+						}
+						else
 						{
 							if (LastSP != 0)            // Hier koenen auch andere Trennungen eingebaut werden
 							{
@@ -1804,54 +1857,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								BuPos--;
 							}
 						}
-						else
-						{
-							if (Doc->docParagraphStyles[absa].textAlignment != 0)
-							{
-								EndX = CurX;
-								do
-								{
-									pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
-									pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-									EndX++;
-								}
-								while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
-								if (Doc->docParagraphStyles[absa].textAlignment == 2)
-									OFs = EndX - CurX;
-								if (Doc->docParagraphStyles[absa].textAlignment == 1)
-									OFs = (EndX - CurX) / 2;
-								if (Doc->docParagraphStyles[absa].textAlignment == 3)
-									OFs = 0;
-								if (Doc->docParagraphStyles[absa].textAlignment == 4)
-								{
-									aSpa = 0;
-									for (uint sof = 0; sof<LiList.count(); ++sof)
-									{
-										if ((LiList.at(sof)->Zeich == QChar(32)) || (LiList.at(sof)->Zeich == QChar(29)))
-											aSpa++;
-									}
-									if (aSpa != 0)
-										OFs2 = (EndX - CurX) / aSpa;
-									else
-										OFs2 = 0;
-									OFs = 0;
-									for (uint yof = 0; yof < LiList.count(); ++yof)
-									{
-										LiList.at(yof)->xco += OFs;
-										if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
-											OFs += OFs2;
-									}
-								}
-								else
-								{
-									for (uint xof = 0; xof<LiList.count(); ++xof)
-									{
-										LiList.at(xof)->xco += OFs;
-									}
-								}
-								CurX = EndX;
-							}
-						}
 						uint BuPos3 = BuPos;
 						if ((outs) || (hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (hl->ch == QChar(27)) || ((hl->ch == QChar(26)) && (Cols > 1)))
 						{
@@ -1915,7 +1920,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 										break;
 									}
 									CurX--;
-									CurX = QMAX(CurX, 0);
+									CurX = QMAX(CurX, ColBound.x());
 								}
 							}
 							else

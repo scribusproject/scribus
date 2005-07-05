@@ -3128,12 +3128,12 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					{
 						int storedClRe = ClRe;
 						FPointArray Clip;
-						if (EditContour)
-							Clip = currItem->ContourLine;
-						else
-							Clip = currItem->PoLine;
 						for (uint itm = 0; itm < SelNode.count(); ++itm)
 						{
+							if (EditContour)
+								Clip = currItem->ContourLine;
+							else
+								Clip = currItem->PoLine;
 							p.begin(viewport());
 							p.translate(static_cast<int>(currItem->Xpos*Scale), static_cast<int>(currItem->Ypos*Scale));
 							p.rotate(currItem->Rot);
@@ -3145,7 +3145,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							ClRe = *SelNode.at(itm);
 							currItem->OldB2 = currItem->Width;
 							currItem->OldH2 = currItem->Height;
-							MoveClipPoint(currItem, npf);
+							if (ClRe != 0)
+								MoveClipPoint(currItem, npf);
+							else
+							{
+								if (currItem->itemType() == PageItem::PolyLine)
+									MoveClipPoint(currItem, npf);
+							}
 						}
 						currItem->OldB2 = currItem->Width;
 						currItem->OldH2 = currItem->Height;

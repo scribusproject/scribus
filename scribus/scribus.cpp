@@ -4889,8 +4889,26 @@ bool ScribusApp::loadDoc(QString fileName)
 				{
 					ite->Frame = false;
 					view->UpdatePolyClip(ite);
+					ite->DrawObj(painter, rd);
 				}
-				ite->DrawObj(painter, rd);
+				else
+				{
+					if ((ite->BackBox != 0) || (ite->NextBox != 0))
+					{
+						PageItem *nextItem = ite;
+						while (nextItem != 0)
+						{
+							if (nextItem->BackBox != 0)
+								nextItem = nextItem->BackBox;
+							else
+								break;
+						}
+						ite = nextItem;
+						ite->DrawObj(painter, rd);
+					}
+					else
+						ite->DrawObj(painter, rd);
+				}
 			}
 		}
 //		RestoreBookMarks();
@@ -4905,14 +4923,32 @@ bool ScribusApp::loadDoc(QString fileName)
 			else
 				ite->OwnPage = view->OnPage(ite);
 			view->setRedrawBounding(ite);
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = false;
 					view->UpdatePolyClip(ite);
+					ite->DrawObj(painter, rd);
 				}
-				ite->DrawObj(painter, rd);
+				else
+				{
+					if ((ite->BackBox != 0) || (ite->NextBox != 0))
+					{
+						PageItem *nextItem = ite;
+						while (nextItem != 0)
+						{
+							if (nextItem->BackBox != 0)
+								nextItem = nextItem->BackBox;
+							else
+								break;
+						}
+						ite = nextItem;
+						ite->DrawObj(painter, rd);
+					}
+					else
+						ite->DrawObj(painter, rd);
+				}
 			}
 /*			if (doc->OldBM)
 			{
