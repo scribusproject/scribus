@@ -511,5 +511,16 @@ all_includes="$all_includes $USER_INCLUDES"
 AC_SUBST(all_includes)
 AC_SUBST(all_libraries)
 
+AH_TOP([
+/*
+ * Prevent code from including config.h directly. You should include
+ * scconfig.h instead. This lets us handle win-config.h correctly, and
+ * may do more later.
+ */
+#ifndef _SCCONFIG_H
+#error "Include <scconfig.h> rather than using <config.h> directly"
+#endif
+])
+
 AC_PATH_QT
 
