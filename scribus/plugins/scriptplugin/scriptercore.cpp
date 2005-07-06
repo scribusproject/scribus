@@ -206,7 +206,6 @@ void ScripterCore::RecentScript(QString fn)
 
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
-	char* comm[1];
 	PyThreadState *stateo, *state;
 	QFileInfo fi(fileName);
 	QCString na = fi.fileName().latin1();
@@ -225,8 +224,15 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		initscribus(Carrier);
 	}
 	// Make sure sys.argv[0] is the path to the script
+	char* comm[1];
 	comm[0] = na.data();
-	PySys_SetArgv(1, comm);
+	// and tell the script if it's running in the main intepreter or
+	// a subinterpreter using the second argument, ie sys.argv[1]
+	if (inMainInterpreter)
+		comm[1] = const_cast<char*>("ext");
+	else
+		comm[1] = const_cast<char*>("sub");
+	PySys_SetArgv(2, comm);
 	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
@@ -313,7 +319,6 @@ QString ScripterCore::slotRunScript(QString Script)
 {
 	Carrier->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), false);
-	char* comm[1];
 	QString cm;
 	InValue = Script;
 	QString CurDir = QDir::currentDirPath();
@@ -348,8 +353,13 @@ QString ScripterCore::slotRunScript(QString Script)
 	}
 	// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 	QCString cmd = cm.latin1();
-	comm[0] = (char*)"scribus";
-	PySys_SetArgv(1, comm);
+	char* comm[1];
+	comm[0] = const_cast<char*>("scribus");
+	// the scripter console runs everything in the main interpreter
+	// tell the code it's running there.
+	comm[1] = const_cast<char*>("ext");
+	PySys_SetArgv(2, comm);
+	// then run it
 	PyRun_SimpleString(cmd.data());
 	Carrier->ScriptRunning = false;
 	qApp->restoreOverrideCursor();
