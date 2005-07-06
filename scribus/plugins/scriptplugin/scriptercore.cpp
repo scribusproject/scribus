@@ -142,6 +142,48 @@ void ScripterCore::FinishScriptRun()
 		Carrier->outlinePalette->BuildTree(Carrier->doc);
 		Carrier->pagePalette->SetView(Carrier->view);
 		Carrier->pagePalette->Rebuild();
+		Carrier->doc->RePos = true;
+		QPixmap pgPix(10, 10);
+		QRect rd = QRect(0,0,9,9);
+		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+		for (uint azz=0; azz<Carrier->doc->Items.count(); ++azz)
+		{
+			PageItem *ite = Carrier->doc->Items.at(azz);
+			if (ite->Groups.count() != 0)
+				Carrier->view->GroupOnPage(ite);
+			else
+				ite->OwnPage = Carrier->view->OnPage(ite);
+			Carrier->view->setRedrawBounding(ite);
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
+			{
+				if (ite->itemType() == PageItem::PathText)
+				{
+					ite->Frame = false;
+					Carrier->view->UpdatePolyClip(ite);
+					ite->DrawObj(painter, rd);
+				}
+				else
+				{
+					if ((ite->BackBox != 0) || (ite->NextBox != 0))
+					{
+						PageItem *nextItem = ite;
+						while (nextItem != 0)
+						{
+							if (nextItem->BackBox != 0)
+								nextItem = nextItem->BackBox;
+							else
+								break;
+						}
+						ite = nextItem;
+						ite->DrawObj(painter, rd);
+					}
+					else
+						ite->DrawObj(painter, rd);
+				}
+			}
+		}
+		delete painter;
+		Carrier->doc->RePos = false;
 		if (Carrier->view->SelItem.count() != 0)
 		{
 			Carrier->view->EmitValues(Carrier->view->SelItem.at(0));
@@ -310,9 +352,9 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	{
 		Py_EndInterpreter(state);
 		PyEval_RestoreThread(stateo);
-		Carrier->ScriptRunning = false;
 		qApp->restoreOverrideCursor();
 	}
+	Carrier->ScriptRunning = false;
 }
 
 QString ScripterCore::slotRunScript(QString Script)

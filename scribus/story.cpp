@@ -2353,10 +2353,6 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				textChanged = false;
 				Editor->loadItemText(currItem);
 				updateStatus();
-				Editor->sync();
-				Editor->repaintContents();
-				EditorBar->setRepaint(true);
-				EditorBar->doRepaint();
 				textChanged = false;
 				if (static_cast<int>(Editor->StyledText.count()) > CurrPara)
 				{
@@ -2366,6 +2362,11 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 						updateProps(CurrPara, CurrChar);
 					}
 				}
+				Editor->sync();
+				Editor->repaintContents();
+				EditorBar->doMove(0, Editor->contentsY());
+				EditorBar->setRepaint(true);
+				EditorBar->doRepaint();
 				connectSignals();
 			}
 		}

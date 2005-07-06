@@ -9046,44 +9046,38 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 
 void ScribusView::FromHRuler(QMouseEvent *m)
 {
-	if (Doc->guidesSettings.guidesShown)
-	{
-		QPoint py = viewport()->mapFromGlobal(m->globalPos());
-		int newY = py.y();
-		QPoint out = viewportToContents(py);
-		emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
-		horizRuler->Draw(out.x());
-		vertRuler->Draw(out.y());
-		QPainter p;
-		p.begin(viewport());
-		p.setRasterOp(XorROP);
-		p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
-		p.drawLine(0, DrHY, viewport()->width(), DrHY);
-		p.drawLine(0, newY, viewport()->width(), newY);
-		p.end();
-		DrHY = newY;
-	}
+	QPoint py = viewport()->mapFromGlobal(m->globalPos());
+	int newY = py.y();
+	QPoint out = viewportToContents(py);
+	emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
+	horizRuler->Draw(out.x());
+	vertRuler->Draw(out.y());
+	QPainter p;
+	p.begin(viewport());
+	p.setRasterOp(XorROP);
+	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.drawLine(0, DrHY, viewport()->width(), DrHY);
+	p.drawLine(0, newY, viewport()->width(), newY);
+	p.end();
+	DrHY = newY;
 }
 
 void ScribusView::FromVRuler(QMouseEvent *m)
 {
-	if (Doc->guidesSettings.guidesShown)
-	{
-		QPoint py = viewport()->mapFromGlobal(m->globalPos());
-		int newY = py.x();
-		QPoint out = viewportToContents(py);
-		emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
-		horizRuler->Draw(out.x());
-		vertRuler->Draw(out.y());
-		QPainter p;
-		p.begin(viewport());
-		p.setRasterOp(XorROP);
-		p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
-		p.drawLine(DrVX, 0, DrVX, viewport()->height());
-		p.drawLine(newY, 0, newY, viewport()->height());
-		p.end();
-		DrVX = newY;
-	}
+	QPoint py = viewport()->mapFromGlobal(m->globalPos());
+	int newY = py.x();
+	QPoint out = viewportToContents(py);
+	emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
+	horizRuler->Draw(out.x());
+	vertRuler->Draw(out.y());
+	QPainter p;
+	p.begin(viewport());
+	p.setRasterOp(XorROP);
+	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.drawLine(DrVX, 0, DrVX, viewport()->height());
+	p.drawLine(newY, 0, newY, viewport()->height());
+	p.end();
+	DrVX = newY;
 }
 
 void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)

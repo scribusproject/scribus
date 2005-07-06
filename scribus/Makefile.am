@@ -16,7 +16,7 @@ scribus_SOURCES = \
 		alignselect.cpp\
 		annota.cpp\
 		annot.cpp\
-		applytemplatedialog.ui\
+		applytemplatedialog.cpp\
 		arrowchooser.cpp\
 		art_kmisc.c\
 		art_render_misc.c\
@@ -376,7 +376,6 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/alignselect.h
 	-rm -f $(prefix)/include/scribus/annot.h
 	-rm -f $(prefix)/include/scribus/annota.h
-	-rm -f $(prefix)/include/scribus/applytemplate.h
 	-rm -f $(prefix)/include/scribus/applytemplatedialog.h
 	-rm -f $(prefix)/include/scribus/arrowchooser.h
 	-rm -f $(prefix)/include/scribus/art_kmisc.h
