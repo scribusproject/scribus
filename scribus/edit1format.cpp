@@ -13,6 +13,7 @@
 #include "scpaths.h"
 #include "scribus.h"
 #include "util.h"
+#include "loremipsum.h"
 
 extern ScribusApp* ScApp;
 
@@ -297,13 +298,10 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	// preview setting - reading first paragraphs from LoremIpsum.txt etc.
 	previewItem = new PageItem(parentDoc, PageItem::TextFrame, 0, 0, previewText->width(), previewText->height(), 0, "None", parentDoc->toolSettings.dPenText);
 	previewItem->FrameType = PageItem::TextFrame;
-	if (!loadText(ScPaths::instance().sampleScriptDir() + "LoremIpsum-short.txt", &lorem))
-	{
-		qDebug("edit1format.cpp: Error reading sample text");
-		lorem = QString("Lorem ipsum");
-	}
+	LoremParser *m = new LoremParser("loremipsum.xml");
+	lorem = m->createLorem(3);
 	lorem = QString::fromUtf8(lorem);
-	lorem = lorem.section('\n', 0, 2);
+	delete m;
 
 	Layout17 = new QHBoxLayout;
 	Layout17->setSpacing( 6 );

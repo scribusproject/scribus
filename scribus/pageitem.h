@@ -72,7 +72,7 @@ class PageItem : public QObject, public UndoObject
 	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
 	Q_PROPERTY(bool textFlowUsesBoundingBox READ textFlowUsesBoundingBox WRITE setTextFlowUsesBoundingBox DESIGNABLE false)
 	Q_PROPERTY(bool isPrintable READ printable WRITE setPrintable DESIGNABLE false)
-	
+
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
 	// current state as plain integer properties.
@@ -751,8 +751,6 @@ struct TabRecord
 	/*@}*/
 	/** @brief Required by the UndoObject */
 	void restore(UndoState *state, bool isUndo);
-	
-	bool LoremIpsum();
 
 	/**
 	 * @brief Return true iff the passed name is not used by any existing PageItem
@@ -936,14 +934,14 @@ protected:
 
 	/**
 	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)
-	 * @sa 
-	 */		  
+	 * @sa
+	 */
 	ObjAttrVector pageItemAttributes;
-	
+
 	/**
 	 * @brief Is this item set to be printed/exported
 	 * @sa PageItem::printable(), PageItem::setPrintable()
-	 */		  
+	 */
 	bool isPrintable;
 
 };

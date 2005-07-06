@@ -91,6 +91,7 @@ scribus_SOURCES = \
 		linecombo.cpp\
 		lineformats.cpp\
 		linkbutton.cpp\
+		loremipsum.cpp\
 		md5.c\
 		mdup.cpp\
 		measurements.cpp\
@@ -178,17 +179,14 @@ scribus_SOURCES = \
 INTERFACES =
 TRANSLATIONS =
 
-SUBDIRS = $(pixbuf_subdirs) dicts doc icons keysets libpdf libpostscript manpages plugins po profiles qm templates dtd
+SUBDIRS = $(pixbuf_subdirs) dicts doc icons keysets libpdf libpostscript manpages plugins po profiles qm templates dtd loremipsum
 
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using
 #     `KDE_OPTIONS = noautodist'
-# EXTRA_DIST = 
+# EXTRA_DIST =
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/share/scribus/samples/
-	$(INSTALL_DATA) $(srcdir)/LoremIpsum.txt $(prefix)/share/scribus/samples/LoremIpsum.txt
-	$(INSTALL_DATA) $(srcdir)/LoremIpsum-short.txt $(prefix)/share/scribus/samples/LoremIpsum-short.txt
 	$(mkinstalldirs) $(libdir)/scribus/
 	$(INSTALL_DATA) $(srcdir)/rgbsvg.txt $(libdir)/scribus/rgbsvg.txt
 	$(mkinstalldirs) $(libdir)/scribus/
@@ -284,6 +282,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/linecombo.h                   $(prefix)/include/scribus/linecombo.h
 	$(INSTALL_DATA) $(srcdir)/lineformats.h                 $(prefix)/include/scribus/lineformats.h
 	$(INSTALL_DATA) $(srcdir)/linkbutton.h                  $(prefix)/include/scribus/linkbutton.h
+	$(INSTALL_DATA) $(srcdir)/loremipsum.h                  $(prefix)/include/scribus/loremipsum.h
 	$(INSTALL_DATA) $(srcdir)/md5.h                         $(prefix)/include/scribus/md5.h
 	$(INSTALL_DATA) $(srcdir)/mdup.h                        $(prefix)/include/scribus/mdup.h
 	$(INSTALL_DATA) $(srcdir)/measurements.h                $(prefix)/include/scribus/measurements.h
@@ -364,9 +363,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/vgradient.h                   $(prefix)/include/scribus/vgradient.h
 	$(INSTALL_DATA) $(srcdir)/vruler.h                      $(prefix)/include/scribus/vruler.h
 	$(INSTALL_DATA) $(srcdir)/werktoolb.h                   $(prefix)/include/scribus/werktoolb.h
+
 uninstall-local:
-	-rm -f $(prefix)/share/scribus/samples/LoremIpsum.txt
-	-rm -f $(prefix)/share/scribus/samples/LoremIpsum-short.txt
 	-rm -f $(libdir)/scribus/rgbscribus.txt
 	-rm -f $(libdir)/scribus/rgbscribusgnome.txt
 	-rm -f $(libdir)/scribus/rgbscribusgreys.txt
@@ -459,6 +457,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/linecombo.h
 	-rm -f $(prefix)/include/scribus/lineformats.h
 	-rm -f $(prefix)/include/scribus/linkbutton.h
+	-rm -f $(prefix)/include/scribus/loremipsum.h
 	-rm -f $(prefix)/include/scribus/md5.h
 	-rm -f $(prefix)/include/scribus/mdup.h
 	-rm -f $(prefix)/include/scribus/measurements.h
@@ -562,4 +561,5 @@ AM_CPPFLAGS = \
     -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
-    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
+    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
+    -DSHAREDIR=\"$(datadir)/scribus/\"

@@ -33,6 +33,8 @@ public:
 	const QString& scriptDir() const;
 	/** @brief Return path to containing stock templates */
 	const QString& templateDir() const;
+	/** @brief Return path to the Scribus share directory */
+	const QString& shareDir() const;
 
 protected:
 	/** @brief Constructor. Use ScPaths::instance() instead. */
@@ -51,5 +53,6 @@ protected:
 	QString m_sampleScriptDir;
 	QString m_scriptDir;
 	QString m_templateDir;
+	QString m_shareDir;
 };
 #endif

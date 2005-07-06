@@ -38,7 +38,8 @@ ScPaths::ScPaths() :
 	m_pluginDir(PLUGINDIR),
 	m_sampleScriptDir(SAMPLESDIR),
 	m_scriptDir(SCRIPTSDIR),
-	m_templateDir(TEMPLATEDIR)
+	m_templateDir(TEMPLATEDIR),
+	m_shareDir(SHAREDIR)
 {
 // On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
@@ -66,8 +67,9 @@ ScPaths::ScPaths() :
 		p -= 9;
 		*p = '\0';
 	}
-	
+
 //	qDebug(QString("scpaths: bundle at %1:").arg(pathPtr));
+	m_shareDir = strdup(QString("%1/Contents/share/scribus/").arg(pathPtr));
 	m_docDir = strdup(QString("%1/Contents/share/scribus/doc/").arg(pathPtr));
 	m_iconDir = strdup(QString("%1/Contents/share/scribus/icons/").arg(pathPtr));
 	m_sampleScriptDir = strdup(QString("%1/Contents/share/scribus/samples/").arg(pathPtr));
@@ -128,3 +130,7 @@ const QString&  ScPaths::templateDir() const
 	return m_templateDir;
 }
 
+const QString&  ScPaths::shareDir() const
+{
+	return m_shareDir;
+}

@@ -35,7 +35,6 @@
 #include "undomanager.h"
 #include "undostate.h"
 #include "mpalette.h"
-#include "serializer.h"
 
 #include "scconfig.h"
 
@@ -49,7 +48,7 @@ using namespace std;
 
 extern ScribusApp* ScApp;
 
-PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline) 
+PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	// Initialize superclasses
 	: QObject(pa),
 	// Initialize member variables - 2005-03-10 CR. Initializer lists can be faster and safer.
@@ -468,7 +467,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
 			if (Locked)
 				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
-				
+
 			p->setFillMode(0);
 			p->setupPolygon(&PoLine);
 			p->strokePath();
@@ -647,7 +646,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 			struct ScText *hl;
 			struct ZZ *Zli;
 			struct ZZ *Zli2;
-	
+
 			bool outs = false;
 			bool fBorder = false;
 			bool RTab = false;
@@ -663,7 +662,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 			int DropLines;
 			bool StartOfCol = true;
 			tTabValues.clear();
-	
+
 			for (int xxx=0; xxx<5; ++xxx)
 			{
 				Doc->docParagraphStyles[xxx].LineSpaMode = LineSpMode;
@@ -679,7 +678,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 				Doc->docParagraphStyles[xxx].gapAfter = 0;
 				Doc->docParagraphStyles[xxx].textAlignment = xxx;
 			}
-			
+
 			QPtrList<ZZ> LiList;
 			LiList.setAutoDelete(true);
 			QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
@@ -1976,7 +1975,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
-									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
@@ -2005,7 +2004,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								for (uint zc = 0; zc < LiList.count(); ++zc)
 								{
 									Zli2 = LiList.at(zc);
-									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+									if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 										|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 										|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
@@ -2257,7 +2256,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
 							Zli2 = LiList.at(zc);
-							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
@@ -2286,7 +2285,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						for (uint zc = 0; zc < LiList.count(); ++zc)
 						{
 							Zli2 = LiList.at(zc);
-							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10)) 
+							if ((Zli2->Zeich == QChar(9)) || (Zli2->Zeich == QChar(10))
 								|| (Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(24))
 								|| (Zli2->Zeich == QChar(26)) || (Zli2->Zeich == QChar(27))
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
@@ -4817,7 +4816,7 @@ ObjectAttribute PageItem::getObjectAttribute(QString attributeName)
 			++countFound;
 			foundIt=objAttrIt;
 		}
-		
+
 	}
 	ObjectAttribute returnAttribute;
 	if(countFound==1)
@@ -4831,38 +4830,6 @@ ObjectAttribute PageItem::getObjectAttribute(QString attributeName)
 void PageItem::setObjectAttributes(ObjAttrVector* map)
 {
 	pageItemAttributes=*map;
-}
-
-bool PageItem::LoremIpsum()
-{
-	if (itemText.count() != 0)
-	{
-		QString text = tr("Do you really want to replace all your text\nin the frame named %1 with sample text?");
-		int t = QMessageBox::warning(ScApp, tr("Warning"),
-								QString(text).arg(AnName),
-								QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-		if (t == QMessageBox::No)
-			return false;
-	}
-	QString pfad = ScPaths::instance().sampleScriptDir();
-	QString pfad2;
-	pfad2 = pfad + "LoremIpsum.txt";
-	Serializer *ss = new Serializer(pfad2);
-	if (ss!=NULL)
-	{
-		if (ss->Read(""))
-		{
-			int st = Doc->currentParaStyle;
-			if (st > 5)
-				ss->GetText(this, st, Doc->docParagraphStyles[st].Font, Doc->docParagraphStyles[st].FontSize, true);
-			else
-				ss->GetText(this, st, IFont, ISize, true);
-		}
-		delete ss;
-	}
-	if (Doc->docHyphenator->AutoCheck)
-		Doc->docHyphenator->slotHyphenate(this);
-	return true;
 }
 
 bool PageItem::nameExists(const QString itemName) const
@@ -4927,7 +4894,7 @@ bool PageItem::printable() const
 {
 	return isPrintable;
 }
- 
+
 void PageItem::setPrintable(bool toPrint)
 {
 	isPrintable=toPrint;

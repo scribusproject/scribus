@@ -105,7 +105,7 @@ public:
 	/** destructor */
 	~ScribusApp() {};
 	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage);
-	void closeSplash();	
+	void closeSplash();
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
@@ -457,6 +457,7 @@ public slots:
 	void docCheckToggle(bool visible);
 	void scanDocument();
 	void setUndoMode(bool isObjectSpecific);
+	//! Apply a Lorem Ipsum to the each item in a selection
 	void insertSampleText();
 	void sendToLayer(int layerNumber);
 	void updateItemLayerList();
@@ -503,7 +504,7 @@ private:
 	/// Find and return preferences location
 	QString getPreferencesLocation();
 	/// copy 1.2 prefs XML before loading, and old .rc files that we don't yet convert
-	bool copy12Preferences(const QString prefsLocation); 
+	bool copy12Preferences(const QString prefsLocation);
 	/// convert 1.2 style preferences to new XML format
 	void convert12Preferences(const QString prefsLocation);
 	QComboBox *ColorMenC;

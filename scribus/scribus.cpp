@@ -140,6 +140,7 @@
 #include "documentchecker.h"
 #include "util.h"
 #include "pagesize.h"
+#include "loremipsum.h"
 
 using namespace std;
 
@@ -254,7 +255,7 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		// - Remove for 1.3.0 release: importingFrom12=true;
 		//>>CB
 		ReadPrefs(importingFrom12);
-		
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Initializing Story Editor"));
 		qApp->processEvents();
@@ -807,7 +808,7 @@ void ScribusApp::initPalettes()
 	docCheckerPalette->setPrefsContext("DocCheckerPalette");
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
-	
+
 	alignDistributePalette = new AlignDistributePalette(this, "AlignDistributePalette", false);
 	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(setPaletteShown(bool)) );
 	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setOn(bool)));
@@ -815,7 +816,7 @@ void ScribusApp::initPalettes()
 	alignDistributePalette->setPrefsContext("AlignDistributePalette");
 	alignDistributePalette->installEventFilter(this);
 	alignDistributePalette->hide();
-	
+
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
 	undoManager->registerGui(undoPalette);
@@ -3862,7 +3863,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemPreviewLow"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
 		scrActions["itemPreviewNormal"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
 		scrActions["itemPreviewFull"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewFull"]->actionInt());
-		
+
 		break;
 	case PageItem::TextFrame: //Text Frame
 		scrActions["fileImportText"]->setEnabled(true);
@@ -4309,7 +4310,7 @@ void ScribusApp::rebuildLayersList()
 				break;
 		}
 		scrLayersActions[QString("%1").arg((*it).LNr)]->setOn(true);
-		
+
 		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
 			scrMenuMgr->addMenuItem((*it), layerMenuName);
@@ -4356,7 +4357,7 @@ void ScribusApp::sendToLayer(int layerNumber)
 									tooltip,
 									Um::ILayerAction);
 		}
-	
+
 		view->Deselect(true);
 		view->updateContents();
 		slotDocCh();
@@ -6906,7 +6907,7 @@ void ScribusApp::setAppMode(int mode)
 			grabMouse();
 			//grabKeyboard();
 		}
-		else 
+		else
 		{
 			releaseMouse();
 			//releaseKeyboard();
@@ -8657,7 +8658,7 @@ void ScribusApp::slotPrefsOrg()
 
 void ScribusApp::SavePrefs()
 {
-	// If closing because of a crash don't save prefs as we can 
+	// If closing because of a crash don't save prefs as we can
 	// accidentally nuke the settings if the crash is before prefs are loaded
 	if (emergencyActivated)
 		return;
@@ -10986,7 +10987,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 				bool ok;
 				bool nameFound=false;
 				QString questionString="<qt>"+tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
-				do 
+				do
 				{
 					colorName = QInputDialog::getText( tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok, this);
 					if (ok)
@@ -10997,14 +10998,14 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 							nameFound=true;
 					}
 				} while (!nameFound && ok);
-				if ( ok && !colorName.isEmpty() ) 
+				if ( ok && !colorName.isEmpty() )
 				{
 					CMYKColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
 					doc->PageColors[colorName]=newColor;
 					propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
 					propertiesPalette->updateCList();
-				} 
-				else 
+				}
+				else
 					colorName=QString::null;
 			}
 			if (colorName!=QString::null && view->SelItem.count() > 0)
@@ -11036,25 +11037,9 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 
 void ScribusApp::insertSampleText()
 {
-	if (HaveDoc)
-		if (view->SelItem.count() > 0)
-		{
-			bool inserted=false;
-			for (uint i = 0; i < view->SelItem.count(); ++i)
-			{
-				if (view->SelItem.at(i)!=NULL)
-					if (view->SelItem.at(i)->itemType() == PageItem::TextFrame)
-					{
-						if (view->SelItem.at(i)->LoremIpsum())
-							inserted=true;
-					}
-			}
-			if (inserted)
-			{
-				view->updateContents();
-				slotDocCh();
-			}
-		}
+	LoremManager *m = new LoremManager(this, "m", true, 0);
+	m->exec();
+	delete(m);
 }
 
 void ScribusApp::languageChange()
