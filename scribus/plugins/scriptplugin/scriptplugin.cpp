@@ -138,6 +138,7 @@ void initPlug(QWidget *d, ScribusApp *plug)
 
 	scripterCore = new ScripterCore(d);
 	initscribus(Carrier);
+	scripterCore->setupMainInterpreter();
 	scripterCore->initExtensionScripts();
 	scripterCore->runStartupScript();
 }

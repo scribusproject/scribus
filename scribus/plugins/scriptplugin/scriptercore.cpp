@@ -319,27 +319,21 @@ QString ScripterCore::slotRunScript(QString Script)
 {
 	Carrier->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), false);
-	QString cm;
 	InValue = Script;
 	QString CurDir = QDir::currentDirPath();
+	QString cm(
+			"# -*- coding: utf8 -*- \n"
+			"try:\n"
+			);
 	if(PyThreadState_Get() != NULL)
 	{
 		initscribus(Carrier);
 		if (RetVal == 0)
-		{
-			// FIXME: if CurDir contains chars outside 7bit ascii, might be problems
-			cm = "import sys\nsys.path[0] = \""+CurDir+"\"\n";
-			cm += "import cStringIO\n";
-			// TODO: fix it during macro/properties merging
-			//if (useDummyStdin)
-			cm += QString("sys.stdin = cStringIO.StringIO()\n");
-			cm += "from scribus import *\n";
-			cm += "bu = cStringIO.StringIO()\n";
-			cm += "sys.stdout = bu\n";
-			cm += "sys.stderr = bu\n";
-			cm += "import code\n";
-			cm += "ia = code.InteractiveConsole(globals())\n";
-		}
+			cm += (
+				"\tscribus._bu = cStringIO.StringIO()\n"
+				"\tsys.stdout = scribus._bu\n"
+				"\tsys.stderr = scribus._bu\n"
+				);
 		/* HACK: following loop handles all input line by line.
 		It *should* use I.C. because of docstrings etc. I.I. cannot
 		handle docstrings right.
@@ -347,20 +341,40 @@ QString ScripterCore::slotRunScript(QString Script)
 		ia = code.InteractiveInterpreter() ia.runsource(getval())
 		works fine in plain Python. Not here. WTF?
 		*/
-		cm += "for i in getval().split('\\n'):\n";
-		cm += "\tia.push(i)\n";
-		cm += "retval(bu.getvalue(), 0)\n";
+		cm += (
+				"\tfor i in scribus.getval().split('\\n'):\n"
+				"\t\tscribus._ia.push(i)\n"
+				"\tscribus.retval(scribus._bu.getvalue(), 0)\n"
+				"finally:\n"
+				"\tsys.stdout = sys.__stdout__\n"
+				"\tsys.stderr = sys.__stderr__\n"
+			  );
 	}
-	// FIXME: if cmd contains chars outside 7bit ascii, might be problems
-	QCString cmd = cm.latin1();
+	QCString cmd = cm.utf8();
+	// Set up sys.argv
 	char* comm[1];
 	comm[0] = const_cast<char*>("scribus");
 	// the scripter console runs everything in the main interpreter
 	// tell the code it's running there.
 	comm[1] = const_cast<char*>("ext");
 	PySys_SetArgv(2, comm);
-	// then run it
-	PyRun_SimpleString(cmd.data());
+	// then run the code
+	PyObject* m = PyImport_AddModule((char*)"__main__");
+	if (m == NULL)
+		qDebug("Failed to get __main__ - aborting script");
+	else
+	{
+		PyObject* globals = PyModule_GetDict(m);
+		PyObject* result = PyRun_String(cmd.data(), Py_file_input, globals, globals);
+		if (result == NULL)
+		{
+			PyErr_Print();
+			QMessageBox::warning(Carrier, tr("Script error"),
+					tr("There was an internal error while trying the "
+					   "command you entered. Details were printed to "
+					   "stderr. "));
+		}
+	}
 	Carrier->ScriptRunning = false;
 	qApp->restoreOverrideCursor();
 	return RetString;
@@ -496,4 +510,31 @@ void ScripterCore::languageChange()
 	menuMgr->setMenuText("Scripter", QObject::tr("&Script"));
 	menuMgr->setMenuText("ScribusScripts", QObject::tr("&Scribus Scripts"));
 	menuMgr->setMenuText("RecentScripts", QObject::tr("&Recent Scripts"));
+}
+
+bool ScripterCore::setupMainInterpreter()
+{
+	QString cm = QString(
+		"# -*- coding: utf-8 -*-\n"
+		"import scribus\n"
+		"import sys\n"
+		"sys.path[0] = \"%1\"\n"
+		"import cStringIO\n"
+		"sys.stdin = cStringIO.StringIO()\n"
+		"import code\n"
+		"scribus._ia = code.InteractiveConsole(globals())\n"
+		).arg(ScPaths::instance().scriptDir());
+	if (importAllNames)
+		cm += "from scribus import *\n";
+	QCString cmd = cm.utf8();
+	if (PyRun_SimpleString(cmd.data()))
+	{
+		PyErr_Print();
+		QMessageBox::warning(Carrier, tr("Script error"),
+				tr("Setting up the Python plugin failed. "
+				   "Error details were printed to stderr. "));
+		return false;
+	}
+	else
+		return true;
 }

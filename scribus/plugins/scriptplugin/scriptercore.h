@@ -30,6 +30,8 @@ public slots:
 	void slotInteractiveScript(bool);
 	void slotExecute();
 	void aboutScript();
+	/** Does setup for the main interpreter, particularly the interactive console. True for success. */
+	bool setupMainInterpreter();
 	/** Sets up the plugin for extension scripts, if enabled */
 	void initExtensionScripts();
 	/** Runs the startup script, if enabled */
