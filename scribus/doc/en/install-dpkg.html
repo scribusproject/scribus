@@ -36,16 +36,14 @@ deb-src     http://debian.scribus.net/debian/ unstable/
 <p>to get both 1.2cvs and 1.3cvs source packages and build binary packages from them. Don't forget to remove downloaded source packages and the directories they were unpacked into to clean up after you are done. Install the resulting packages with "dpkg -i "package"".</p>
 
 <p>You can also get the source package:</p> 
-<blockquote><table width="100%" border="1"
-        bgcolor="#eeeeee"><tr><td border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 apt-get source "package"
 </pre>
 </small></td></tr></table></blockquote>
 <p>Change to the directory where the package was unpacked.</p>
 <p>Build the package with</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td
-border="0"><small>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>dpkg-buildpackage -rfakeroot -b</pre>
 </small></td></tr></table></blockquote>
 <p>Install the package you built. with dpkg -i ../"package"</p>
