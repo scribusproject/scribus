@@ -868,7 +868,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			              "a token can be * for all the pages, 1-5 for\n"
 			              "a range of pages or a single page number.") );
 
-	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.\nChoose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management." ) );
+	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.\nChoose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors." ) );
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
