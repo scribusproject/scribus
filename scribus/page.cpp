@@ -4170,44 +4170,38 @@ void Page::FromHRuler(QMouseEvent *m)
 {
 	double sc = doku->Scale;
 	int newY;
-	if (ScApp->Prefs.GuidesShown)
-	{
-		QPoint py = mapFromGlobal(m->globalPos());
-		newY = py.y();
-		emit MousePos(py.x()/sc, py.y()/sc);
-		emit Hrule(py.x()+Anz->childX(parentWidget()));
-		emit Vrule(py.y()+Anz->childY(parentWidget()));
-		QPainter p;
-		p.begin(this);
-		p.setRasterOp(XorROP);
-		p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
-		p.drawLine(0, DrHY, static_cast<int>(doku->PageB * sc), DrHY);
-		p.drawLine(0, newY, static_cast<int>(doku->PageB * sc), newY);
-		p.end();
-		DrHY = newY;
-	}
+	QPoint py = mapFromGlobal(m->globalPos());
+	newY = py.y();
+	emit MousePos(py.x()/sc, py.y()/sc);
+	emit Hrule(py.x()+Anz->childX(parentWidget()));
+	emit Vrule(py.y()+Anz->childY(parentWidget()));
+	QPainter p;
+	p.begin(this);
+	p.setRasterOp(XorROP);
+	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.drawLine(0, DrHY, static_cast<int>(doku->PageB * sc), DrHY);
+	p.drawLine(0, newY, static_cast<int>(doku->PageB * sc), newY);
+	p.end();
+	DrHY = newY;
 }
 
 void Page::FromVRuler(QMouseEvent *m)
 {
 	double sc = doku->Scale;
 	int newY;
-	if (ScApp->Prefs.GuidesShown)
-	{
-		QPoint py = mapFromGlobal(m->globalPos());
-		newY = py.x();
-		emit MousePos(py.x()/sc, py.y()/sc);
-		emit Hrule(py.x()+Anz->childX(parentWidget()));
-		emit Vrule(py.y()+Anz->childY(parentWidget()));
-		QPainter p;
-		p.begin(this);
-		p.setRasterOp(XorROP);
-		p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
-		p.drawLine(DrVX, 0, DrVX, static_cast<int>(doku->PageH * sc));
-		p.drawLine(newY, 0, newY, static_cast<int>(doku->PageH * sc));
-		p.end();
-		DrVX = newY;
-	}
+	QPoint py = mapFromGlobal(m->globalPos());
+	newY = py.x();
+	emit MousePos(py.x()/sc, py.y()/sc);
+	emit Hrule(py.x()+Anz->childX(parentWidget()));
+	emit Vrule(py.y()+Anz->childY(parentWidget()));
+	QPainter p;
+	p.begin(this);
+	p.setRasterOp(XorROP);
+	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.drawLine(DrVX, 0, DrVX, static_cast<int>(doku->PageH * sc));
+	p.drawLine(newY, 0, newY, static_cast<int>(doku->PageH * sc));
+	p.end();
+	DrVX = newY;
 }
 
 void Page::mouseMoveEvent(QMouseEvent *m)
