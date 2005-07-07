@@ -17,6 +17,7 @@
 #include <qiconset.h>
 
 #include "scribusdoc.h"
+#include "page.h"
 
 #include "dcolor.h"
 #include "dcolor.moc"

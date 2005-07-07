@@ -2,6 +2,7 @@
 #include "scfonts.h"
 #include "buttonicon.h"
 #include "buttonicon.moc"
+#include "scribusstructs.h"
 extern QPixmap loadIcon(QString nam);
 
 ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)

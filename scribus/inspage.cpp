@@ -17,6 +17,7 @@
 
 #include "inspage.h"
 #include "inspage.moc"
+#include "page.h"
 
 extern QPixmap loadIcon(QString nam);
 

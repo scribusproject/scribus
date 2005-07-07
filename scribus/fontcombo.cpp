@@ -22,6 +22,7 @@
 #include "scribusdoc.h"
 #include "fontcombo.h"
 #include "fontcombo.moc"
+#include "page.h"
 
 FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
 {

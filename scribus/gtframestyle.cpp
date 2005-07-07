@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "gtframestyle.h"
+#include "scribusstructs.h"
 
 gtFrameStyle::gtFrameStyle(QString name) : gtParagraphStyle(name) 
 {

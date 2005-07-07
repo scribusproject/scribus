@@ -7,6 +7,7 @@
 #include <qwhatsthis.h>
 #include "tabruler.h"
 #include "units.h"
+#include "scribusstructs.h"
 extern QPixmap loadIcon(QString nam);
 
 TabManager::TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecord> inTab, double wid) : QDialog( parent, "TabManager", true, 0 )

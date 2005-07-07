@@ -20,6 +20,8 @@
 #include "spalette.h"
 #include "spalette.moc"
 
+#include "page.h"
+
 Spalette::Spalette(QWidget* parent) : QComboBox(true, parent, "Sfloat")
 {
 //	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));

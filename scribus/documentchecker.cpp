@@ -19,6 +19,7 @@
 #include "pageitem.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
+#include "page.h"
 
 void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {

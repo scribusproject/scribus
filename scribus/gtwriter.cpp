@@ -21,6 +21,7 @@
 #include "gtwriter.h"
 //#include "scfonts.h"
 #include "pageitem.h"
+#include "scribusstructs.h"
 
 gtWriter::gtWriter(bool append)
 {

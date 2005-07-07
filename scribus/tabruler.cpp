@@ -13,6 +13,7 @@
 #include <qcursor.h>
 #include <qcolor.h>
 #include "units.h"
+#include "scribusstructs.h"
 extern QPixmap loadIcon(QString nam);
 
 RulerT::RulerT(QWidget *pa, int ein, QValueList<PageItem::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)

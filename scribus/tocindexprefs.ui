@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>420</width>
-            <height>218</height>
+            <width>444</width>
+            <height>234</height>
         </rect>
     </property>
     <property name="caption">
@@ -271,6 +271,7 @@
     <include location="local" impldecl="in declaration">pagestructs.h</include>
     <include location="local" impldecl="in implementation">scribusdoc.h</include>
     <include location="global" impldecl="in implementation">qstringlist.h</include>
+    <include location="global" impldecl="in implementation">page.h</include>
     <include location="local" impldecl="in implementation">tocindexprefs.ui.h</include>
 </includes>
 <forwards>

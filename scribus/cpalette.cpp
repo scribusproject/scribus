@@ -35,6 +35,7 @@
 #include "mspinbox.h"
 #include "gradienteditor.h"
 #include "units.h"
+#include "page.h"
 
 
 extern QPixmap loadIcon(QString nam);

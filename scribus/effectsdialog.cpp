@@ -16,6 +16,7 @@
 #include "scribusdoc.h"
 #include "shadebutton.h"
 #include "mspinbox.h"
+#include "page.h"
 
 extern QPixmap loadIcon(QString nam);
 

@@ -1,5 +1,6 @@
 #include "newtemp.h"
 #include "newtemp.moc"
+#include "page.h"
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
