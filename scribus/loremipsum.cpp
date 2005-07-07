@@ -39,6 +39,7 @@ QString getLoremLocation(QString fname)
 LoremParser::LoremParser(QString fname)
 {
 	name = author = url = "n/a";
+	correct = false;
 	QDomDocument doc("loremdoc");
 	QFile file(getLoremLocation(fname));
 	if (!file.open(IO_ReadOnly))
@@ -69,6 +70,8 @@ LoremParser::LoremParser(QString fname)
 		}
 		node = node.nextSibling();
 	}
+	if (name != "n/a")
+		correct = true;
 }
 
 QString LoremParser::createLorem(uint parCount)
@@ -149,6 +152,12 @@ LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags
 	while ( (fi = it.current()) != 0 )
 	{
 		LoremParser *parser = new LoremParser(fi->fileName());
+		if (!parser->correct)
+		{
+			delete parser;
+			++it;
+			continue;
+		}
 		availableLorems[parser->name] = fi->fileName();
 		QListViewItem *item = new QListViewItem(loremList);
 		item->setText(0, parser->name);
@@ -157,6 +166,7 @@ LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags
 		new QListViewItem(item, tr("XML File:") + " " + fi->fileName());
 		loremList->insertItem(item);
 		++it;
+		delete parser;
 	}
 
 	// signals and slots connections
@@ -178,8 +188,19 @@ void LoremManager::languageChange()
 
 void LoremManager::okButton_clicked()
 {
-	QListViewItem *li = loremList->currentItem();
+	// only top level items are taken
+	QListViewItem *li;
+	if (loremList->currentItem()->parent() == 0)
+		li = loremList->currentItem();
+	else
+		li = loremList->currentItem()->parent();
+
 	LoremParser *lp = new LoremParser(availableLorems[li->text(0)]);
+	if (lp == NULL)
+	{
+		qDebug("LoremManager::okButton_clicked() *lp == NULL");
+		return;
+	}
 
 	for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
 	{
@@ -189,7 +210,7 @@ void LoremManager::okButton_clicked()
 			continue;
 		if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
 		{
-			QString text = "<qt>" + tr("Do you really want to replace all your text\nin the frame named %1 with sample text?") + "</qt>";
+			QString text = "<qt>" + tr("Do you really want to replace all your text in the frame named %1 with sample text?") + "</qt>";
 			int t = QMessageBox::warning(ScApp, tr("Warning"),
 						QString(text).arg(ScApp->view->SelItem.at(i)->itemName()),
 						QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);

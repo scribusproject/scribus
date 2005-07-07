@@ -55,6 +55,8 @@ class LoremParser
 		LoremParser(QString filename);
 		~LoremParser(){};
 
+		//! Is the LI correct?
+		bool correct;
 		//! Name to display
 		QString name;
 		//! Author of the LI
