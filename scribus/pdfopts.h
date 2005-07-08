@@ -46,6 +46,7 @@ public:
 public slots:
 	void DoExport();
 	void ChangeFile();
+	void filenameChanged();
 
 protected:
 	QVBoxLayout* PDFOptsLayout;

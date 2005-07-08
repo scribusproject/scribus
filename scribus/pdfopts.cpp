@@ -91,6 +91,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
 	connect( OK, SIGNAL( clicked() ), this, SLOT( DoExport() ) );
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( Datei, SIGNAL( lostFocus() ), this, SLOT( filenameChanged() ) );
+	connect( Datei, SIGNAL( returnPressed() ), this, SLOT( filenameChanged() ) );
 }
 
 void PDF_Opts::DoExport()
@@ -130,4 +132,16 @@ void PDF_Opts::ChangeFile()
 	else
 		return;
 	Datei->setText(fn);
+}
+
+void PDF_Opts::filenameChanged()
+{
+	QString currentText=Datei->text();
+	if (currentText.right(1)==".")
+	{
+		Datei->setText(currentText+"pdf");
+		return;
+	}
+	if (currentText.right(4).lower()!=".pdf")
+		Datei->setText(currentText+".pdf");
 }
