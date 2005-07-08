@@ -30,8 +30,8 @@ class PDF_Opts : public QDialog
 	Q_OBJECT
 
 public:
-	PDF_Opts( QWidget* parent, QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOptions *Optionen,
-	          QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
+	PDF_Opts( QWidget* parent, QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
+				QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
 	~PDF_Opts() {};
 
 	QLabel* Name;
@@ -39,19 +39,20 @@ public:
 	QToolButton* FileC;
 	QPushButton* OK;
 	QPushButton* Cancel;
-	QLineEdit* Datei;
+	QLineEdit* fileNameLineEdit;
 	QValueList<PDFPresentationData> EffVal;
 	PDFOptions *Opts;
 
 public slots:
 	void DoExport();
 	void ChangeFile();
-	void filenameChanged();
 
 protected:
 	QVBoxLayout* PDFOptsLayout;
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout7;
+	
+	void fileNameChanged();	
 };
 
 #endif // PDF_OPTS_H

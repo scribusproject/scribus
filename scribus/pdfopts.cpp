@@ -24,13 +24,13 @@ extern bool CMSuse;
 extern bool CMSavail;
 extern PrefsFile* prefsFile;
 
-PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOptions *Optionen, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
+PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
 		: QDialog( parent, "pdf", true, 0 )
 {
 	setCaption( tr( "Save as PDF" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	EffVal = Eff;
-	Opts = Optionen;
+	Opts = pdfOptions;
 	PDFOptsLayout = new QVBoxLayout( this );
 	PDFOptsLayout->setSpacing( 5 );
 	PDFOptsLayout->setMargin( 11 );
@@ -40,36 +40,29 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Layout5 = new QHBoxLayout;
 	Layout5->setSpacing( 5 );
 	Layout5->setMargin( 0 );
-	Datei = new QLineEdit( this, "Datei" );
-	Datei->setMinimumSize( QSize( 268, 22 ) );
-	if (Optionen->Datei != "")
-		Datei->setText(Optionen->Datei);
+	fileNameLineEdit = new QLineEdit( this, "fileNameLineEdit" );
+	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
+	if (pdfOptions->Datei != "")
+		fileNameLineEdit->setText(pdfOptions->Datei);
 	else
 	{
 		PrefsContext* dirs = prefsFile->getContext("dirs");
-		QFileInfo fi = QFileInfo(Fname);
+		QFileInfo fi = QFileInfo(docFileName);
 		QString pdfdir = dirs->get("pdf", fi.dirPath());
 		if (pdfdir.right(1) != "/")
 			pdfdir += "/";
-		Datei->setText(pdfdir+fi.baseName()+".pdf");
+		fileNameLineEdit->setText(pdfdir+fi.baseName()+".pdf");
 	}
-	Name->setBuddy(Datei);
-	Layout5->addWidget( Datei );
+	Name->setBuddy(fileNameLineEdit);
+	Layout5->addWidget( fileNameLineEdit );
 	FileC = new QToolButton( this, "FileC" );
 	FileC->setText( tr( "Cha&nge..." ) );
 	FileC->setMinimumSize( QSize( 88, 24 ) );
 	Layout5->addWidget( FileC );
 	PDFOptsLayout->addLayout( Layout5 );
-	Options = new TabPDFOptions( this,
-																Optionen,
-																AllFonts,
-																PDFXProfiles,
-																DocFonts,
-																Eff,
-																vie->Doc->docUnitIndex,
-																vie->Doc->pageHeight,
-																vie->Doc->pageWidth,
-																vie );
+	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
+								Eff, currView->Doc->docUnitIndex, currView->Doc->pageHeight,
+								currView->Doc->pageWidth, currView );
 	PDFOptsLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );
@@ -91,13 +84,13 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
 	connect( OK, SIGNAL( clicked() ), this, SLOT( DoExport() ) );
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Datei, SIGNAL( lostFocus() ), this, SLOT( filenameChanged() ) );
-	connect( Datei, SIGNAL( returnPressed() ), this, SLOT( filenameChanged() ) );
+	connect( fileNameLineEdit, SIGNAL( lostFocus() ), this, SLOT( fileNameChanged() ) );
+	connect( fileNameLineEdit, SIGNAL( returnPressed() ), this, SLOT( fileNameChanged() ) );
 }
 
 void PDF_Opts::DoExport()
 {
-	QString fn = Datei->text();
+	QString fn = fileNameLineEdit->text();
 	if (overwrite(this, fn))
 	{
 		EffVal = Options->EffVal;
@@ -122,8 +115,8 @@ void PDF_Opts::ChangeFile()
 	PrefsContext* dirs = prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pdf", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), false, false);
-	if (Datei->text() != "")
-		dia.setSelection(Datei->text());
+	if (fileNameLineEdit->text() != "")
+		dia.setSelection(fileNameLineEdit->text());
 	if (dia.exec() == QDialog::Accepted)
 	{
 		fn = dia.selectedFile();
@@ -131,17 +124,17 @@ void PDF_Opts::ChangeFile()
 	}
 	else
 		return;
-	Datei->setText(fn);
+	fileNameLineEdit->setText(fn);
 }
 
-void PDF_Opts::filenameChanged()
+void PDF_Opts::fileNameChanged()
 {
-	QString currentText=Datei->text();
+	QString currentText=fileNameLineEdit->text();
 	if (currentText.right(1)==".")
 	{
-		Datei->setText(currentText+"pdf");
+		fileNameLineEdit->setText(currentText+"pdf");
 		return;
 	}
 	if (currentText.right(4).lower()!=".pdf")
-		Datei->setText(currentText+".pdf");
+		fileNameLineEdit->setText(currentText+".pdf");
 }

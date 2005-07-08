@@ -9015,7 +9015,7 @@ void ScribusApp::doSaveAsPDF()
 	{
 		std::vector<int> pageNs;
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		fn = dia->Datei->text();
+		fn = dia->fileNameLineEdit->text();
 		doc->PDF_Options.Datei = fn;
 		doc->PDF_Options.Thumbnails = dia->Options->CheckBox1->isChecked();
 		doc->PDF_Options.Compress = dia->Options->Compression->isChecked();
