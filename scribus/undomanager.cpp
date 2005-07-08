@@ -400,7 +400,7 @@ void UndoManager::action(UndoObject* target, UndoState* state,
 
 void UndoManager::undo(int steps)
 {
-	if (_undoEnabled);
+	if (_undoEnabled)
 		doUndo(steps);
 }
 
