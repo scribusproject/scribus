@@ -3030,8 +3030,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		jpeg_read_header(&cinfo, true);
 		jpeg_start_decompress(&cinfo);
 #ifdef HAVE_CMS
-		DWORD EmbedLen = 0;
-		LPBYTE EmbedBuffer;
+		unsigned int EmbedLen = 0;
+		unsigned char* EmbedBuffer;
 		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen) && useEmbedded && CMSuse && useProf)
 		{
 			const char *Descriptor;

@@ -36,7 +36,13 @@
 # include <unistd.h>
 #endif
 
-# include <utime.h>
+#ifndef _MSC_VER
+#include <utime.h>
+#else
+#include <direct.h>
+#include <time.h>
+#include <sys/utime.h>
+#endif
 
 #include <iostream>
 #include "unzip.h"
@@ -87,7 +93,11 @@ FileUnzip::~FileUnzip()
 int mymkdir(char* dirname)
 {
     int ret=0;
+#ifndef _MSC_VER
     ret = mkdir (dirname,0775);
+#else
+	ret = _mkdir(dirname);
+#endif
     return ret;
 }
 

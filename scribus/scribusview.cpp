@@ -6250,7 +6250,7 @@ void ScribusView::AdjustItemSize(PageItem *currItem)
 void ScribusView::AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state)
 {
 	int i;
-	int isSpace;
+	bool isSpace;
 	if ( dir > 0 )
 	{
 		isSpace = currItem->itemText.at(oldPos)->ch.at(0).isSpace();
@@ -6290,7 +6290,7 @@ void ScribusView::AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, i
 void ScribusView::setNewPos(PageItem *currItem, int oldPos, int len, int dir)
 {
 	int i;
-	int isSpace;
+	bool isSpace;
 	if ( dir > 0 && oldPos < len )
 	{
 		isSpace = currItem->itemText.at(oldPos)->ch.at(0).isSpace();
@@ -6328,10 +6328,10 @@ void ScribusView::setNewPos(PageItem *currItem, int oldPos, int len, int dir)
 void ScribusView::ExpandSel(PageItem *currItem, int dir, int oldPos)
 {
 	int len = currItem->itemText.count();
-	int rightSel = false; // assume left right and actual char not selected
-	int leftSel  = false;
-	int actSel   = false;
-	int selMode  = false;
+	bool rightSel = false; // assume left right and actual char not selected
+	bool leftSel  = false;
+	bool actSel   = false;
+	bool selMode  = false;
 
 	if ( dir == -1 || dir == 1 )
 		selMode = true;

@@ -7,6 +7,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 FileWatcher::FileWatcher( QWidget* parent) : QObject(parent)
 {
 	watchedFiles.clear();
@@ -106,13 +110,21 @@ void FileWatcher::checkFiles()
 			else
 			{
 				uint sizeo = it.data().info.size();
+			#ifndef _WIN32
 				usleep(100);
+			#else
+				Sleep(1);
+			#endif
 				it.data().info.refresh();
 				uint sizen = it.data().info.size();
 				while (sizen != sizeo)
 				{
 					sizeo = sizen;
+				#ifndef _WIN32
 					usleep(100);
+				#else
+					Sleep(1);
+				#endif
 					it.data().info.refresh();
 					sizen = it.data().info.size();
 				}

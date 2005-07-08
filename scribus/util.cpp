@@ -35,7 +35,15 @@
 #include <unistd.h>
 #endif
 
+#if defined(_WIN32)
+#if defined(_MSC_VER)
+#define __STDC__ 1 // hack to get md5_buffer correctly identified
+#endif
+#include <windows.h>
+#endif
+
 #include "md5.h"
+
 #include <setjmp.h>
 #include "qprocess.h"
 #include "scpaths.h"
@@ -139,7 +147,11 @@ int System(const QStringList & args)
 	/* start was OK */
 	/* wait a little bit */
 	while( proc->isRunning() )
+#ifndef _WIN32
 		usleep(5000);
+#else
+		Sleep(5);
+#endif
 
 	int ex = proc->exitStatus();
 	delete proc;

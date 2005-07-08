@@ -550,14 +550,14 @@ void getFontFormat(FT_Face face, Foi::FontFormat & fmt, Foi::FontType & type)
 	static const char* PSFONT_ADOBE2_HEAD  = "%!PS-Adobe-2.0 Font";
 	static const char* PSFONT_ADOBE21_HEAD  = "%!PS-Adobe-2.1 Font";
 	static const char* PSFONT_ADOBE3_HEAD  = "%!PS-Adobe-3.0 Resource-Font";
-	static const int   NO_ERROR = 0;
+	static const int   FONT_NO_ERROR = 0;
 	
 	const FT_Stream fts = face->stream;
 	char buf[128];
 	
 	fmt = Foi::UNKNOWN_FORMAT;
 	type = Foi::UNKNOWN_TYPE;
-	if (FT_Stream_Seek(fts, 0L) == NO_ERROR && FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(buf), 128) == NO_ERROR) 
+	if (FT_Stream_Seek(fts, 0L) == FONT_NO_ERROR && FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(buf), 128) == FONT_NO_ERROR) 
 	{
 		if(strncmp(buf,T42_HEAD,strlen(T42_HEAD)) == 0) 
 		{
