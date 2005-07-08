@@ -51,7 +51,10 @@ int setBestEncoding(FT_Face face)
 	int chmapCustom = -1;
 	int retVal = 0;
 	//FT_CharMap defaultEncoding = face->charmap;
-	int defaultchmap=face->charmap ? FT_Get_Charmap_Index(face->charmap) : 0;
+//	int defaultchmap=face->charmap ? FT_Get_Charmap_Index(face->charmap) : 0;
+// Since the above function is only available in FreeType 2.1.10 its replaced by
+// the following line, assuming that the default charmap has the index 0
+	int defaultchmap = 0;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
 		if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE )
@@ -126,7 +129,7 @@ int setBestEncoding(FT_Face face)
 			retVal = 0;
 		}
 	}
-	if (face->charmap == NULL || mapToSet!=FT_Get_Charmap_Index(face->charmap))
+//	if (face->charmap == NULL || mapToSet!=FT_Get_Charmap_Index(face->charmap))
 		FT_Set_Charmap(face, face->charmaps[mapToSet]);
 	return retVal;
 }

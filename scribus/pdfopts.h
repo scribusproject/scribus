@@ -46,13 +46,13 @@ public:
 public slots:
 	void DoExport();
 	void ChangeFile();
+	void fileNameChanged();
 
 protected:
 	QVBoxLayout* PDFOptsLayout;
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout7;
 	
-	void fileNameChanged();	
 };
 
 #endif // PDF_OPTS_H

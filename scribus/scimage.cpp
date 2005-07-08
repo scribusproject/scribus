@@ -3144,7 +3144,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 							m = p[1];
 							y =  p[2];
 							k =  p[3];
-							*ptr = qRgba(255 - y, 255 - m, 255 - c, 255 - k);
+							*ptr = qRgba(255 - c, 255 - m, 255 - y, 255 - k);
 							ptr++;
 						}
 					}
