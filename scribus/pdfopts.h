@@ -199,6 +199,7 @@ public slots:
 	void EnableLPI2();
 	void SelLPIcol(int);
 	void EnablePDFX3save();
+	void filenameChanged();
 
 protected:
 	QGridLayout* CBoxLayout;
