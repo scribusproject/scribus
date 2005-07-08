@@ -47,11 +47,11 @@ int setBestEncoding(FT_Face face)
 	FT_UInt   gindex;
 	bool foundEncoding = false;
 	int countUniCode = 0;
-	int chmapUniCode = 0;
-	int chmapCustom = 0;
+	int chmapUniCode = -1;
+	int chmapCustom = -1;
 	int retVal = 0;
 	//FT_CharMap defaultEncoding = face->charmap;
-	int defaultchmap=FT_Get_Charmap_Index(face->charmap);
+	int defaultchmap=face->charmap ? FT_Get_Charmap_Index(face->charmap) : 0;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
 		if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE )
@@ -82,7 +82,7 @@ int setBestEncoding(FT_Face face)
 		}
 	}
 	int mapToSet=defaultchmap;
-	if (countUniCode >= face->num_glyphs-1)
+	if (chmapUniCode>0 && countUniCode >= face->num_glyphs-1)
 	{
 		mapToSet=chmapUniCode;
 		//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
@@ -126,7 +126,7 @@ int setBestEncoding(FT_Face face)
 			retVal = 0;
 		}
 	}
-	if (mapToSet!=FT_Get_Charmap_Index(face->charmap))
+	if (face->charmap == NULL || mapToSet!=FT_Get_Charmap_Index(face->charmap))
 		FT_Set_Charmap(face, face->charmaps[mapToSet]);
 	return retVal;
 }
