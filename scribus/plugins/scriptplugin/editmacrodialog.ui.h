@@ -67,7 +67,7 @@ void EditMacroDialog::saveSourceClicked()
 void EditMacroDialog::loadSourceClicked()
 {
 	QString path = QFileDialog::getOpenFileName(
-			QDir::homeDirPath(), tr("Python source files (.py)"), this,
+			QDir::homeDirPath(), tr("Python source files *(.py)"), this,
 			tr("Open File Dialog"), tr("Select the source file to load"));
 	if (path != "")
 	{
