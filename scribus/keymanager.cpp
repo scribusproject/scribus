@@ -406,11 +406,12 @@ void KeyManager::importKeySet(QString filename)
 		QFile file( filename );
 		if ( !file.open( IO_ReadOnly ) )
 			return;
-		QString encodedXML = QString::fromUtf8(file.readAll());
+		QTextStream ts(&file);
+		ts.setEncoding(QTextStream::UnicodeUTF8);
 		QString errorMsg;
 		int eline;
 		int ecol;
-		if ( !doc.setContent( encodedXML, &errorMsg, &eline, &ecol )) 
+		if ( !doc.setContent( ts.read(), &errorMsg, &eline, &ecol )) 
 		{
 			qDebug(QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol));
 			file.close();

@@ -3819,9 +3819,8 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);
-	s<<docu.toCString();
-//	s.setEncoding(QTextStream::UnicodeUTF8);
-//	s<<docu.toString();
+	s.setEncoding(QTextStream::UnicodeUTF8);
+	s<<docu.toString();
 	f.close();
 }
 
@@ -3831,19 +3830,17 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 	QFile f(ho);
 	if(!f.open(IO_ReadOnly))
 		return false;
-	if(!docu.setContent(&f))
+	QTextStream ts(&f);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
+	QString errorMsg;
+	int errorLine = 0, errorColumn = 0;
+	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )
 	{
+		qDebug("Failed to read prefs XML: %s at line %i, col %i", errorMsg.local8Bit().data(), errorLine, errorColumn);
 		f.close();
 		return false;
 	}
 	f.close();
-/*	QString encodedPrefs = QString::fromUtf8(f.readAll());
-	if( !docu.setContent(encodedPrefs) )
-	{
-		f.close();
-		return false;
-	}
-	f.close(); */
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
