@@ -591,6 +591,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.curCheckProfile = tr("Postscript");
 	Prefs.PDF_Options.Thumbnails = false;
 	Prefs.PDF_Options.Articles = false;
+	Prefs.PDF_Options.useLayers = false;
 	Prefs.PDF_Options.Compress = true;
 	Prefs.PDF_Options.CompressMethod = 0;
 	Prefs.PDF_Options.Quality = 0;
