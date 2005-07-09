@@ -80,7 +80,6 @@ public:
 	void colorize(CMYKColor color, int shade, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void swapRGBA();
-	void swapByteOrder();
 	void createLowRes(double scale);
 	void scaleImage(int width, int height);
 	bool LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
