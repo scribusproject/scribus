@@ -31,6 +31,7 @@ class TabPDFOptions;
 class FontPrefs;
 class DocumentItemAttributes;
 class TOCIndexPrefs;
+class MarginWidget;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -40,20 +41,14 @@ public:
 	ReformDoc( QWidget* parent, ScribusDoc* doc );
 	~ReformDoc() {};
 	QWidget* tabPage;
-	QGroupBox* groupBox7;
+	MarginWidget* GroupRand;
 	QGroupBox* groupBox7a;
 	QGroupBox* dsGroupBox7;
 	QGroupBox* groupScratch;
-	QLabel* TextLabel5;
-	QLabel* TextLabel7;
 	QLabel* TextLabel5s;
 	QLabel* TextLabel7s;
 	QLabel* TextLabel1_3;
 	QSpinBox* pageNumber;
-	MSpinBox* topR;
-	MSpinBox* bottomR;
-	MSpinBox* leftR;
-	MSpinBox* rightR;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
 	MSpinBox* topScratch;
@@ -62,8 +57,6 @@ public:
 	MSpinBox* rightScratch;
 	QCheckBox* facingPages;
 	QCheckBox* firstPage;
-	QLabel* Links;
-	QLabel* Rechts;
 	QLabel* Linkss;
 	QLabel* Rechtss;
 	QLabel*	widthQLabel;
@@ -106,17 +99,12 @@ public:
 	double unitRatio;
 	double pageWidth;
 	double pageHeight;
-	double RandT;
-	double RandB;
-	double RandL;
-	double RandR;
 	QColor colorPaper;
 	QString prefsPageSizeName;
 
 protected:
 	QVBoxLayout* reformDocLayout;
 	QHBoxLayout* dsGroupBox7Layout;
-	QHBoxLayout* groupBox7Layout;
 	QHBoxLayout* groupBox7aLayout;
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* dsLayout4;
@@ -138,10 +126,6 @@ protected slots:
 	virtual void unitChange();
 	virtual void changePaperColor();
 	virtual void setDS();
-	virtual void setTop(int v);
-	virtual void setBottom(int v);
-	virtual void setLeft(int v);
-	virtual void setRight(int v);
 	virtual void setSize(const QString &);
 	virtual void setOrien(int ori);
 	virtual void setPageWidth(int v);

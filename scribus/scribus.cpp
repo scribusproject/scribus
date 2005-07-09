@@ -141,6 +141,7 @@
 #include "util.h"
 #include "pagesize.h"
 #include "loremipsum.h"
+#include "marginWidget.h"
 
 using namespace std;
 
@@ -2793,10 +2794,10 @@ bool ScribusApp::slotFileNew()
 	{
 		bool facingPages, autoframes;
 		double pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, numberCols, columnDistance;
-		topMargin = dia->Top;
-		leftMargin = dia->Left;
-		rightMargin = dia->Right;
-		bottomMargin = dia->Bottom;
+		topMargin = dia->GroupRand->RandT;
+		bottomMargin = dia->GroupRand->RandB;
+		leftMargin = dia->GroupRand->RandL;
+		rightMargin = dia->GroupRand->RandR;
 		columnDistance = dia->Dist;
 		pageWidth = dia->Pagebr;
 		pageHeight = dia->Pageho;
@@ -3129,10 +3130,10 @@ bool ScribusApp::SetupDoc()
 	if (dia->exec())
 	{
 		slotChangeUnit(dia->unitCombo->currentItem(), false);
-		tpr2 = dia->RandT;
-		br2 = dia->RandB;
-		lr2 = dia->RandL;
-		rr2 = dia->RandR;
+		tpr2 = dia->GroupRand->RandT;
+		br2 = dia->GroupRand->RandB;
+		lr2 = dia->GroupRand->RandL;
+		rr2 = dia->GroupRand->RandR;
 		fp = dia->facingPages->isChecked();
 		if (fp)
 			doc->FirstPageLeft = dia->firstPage->isChecked();
@@ -8368,10 +8369,10 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.pageOrientation = dia->GZComboO->currentItem();
 		Prefs.PageWidth = dia->Pagebr;
 		Prefs.PageHeight = dia->Pageho;
-		Prefs.RandOben = dia->RandT;
-		Prefs.RandUnten = dia->RandB;
-		Prefs.RandLinks = dia->RandL;
-		Prefs.RandRechts = dia->RandR;
+		Prefs.RandOben = dia->GroupRand->RandT;
+		Prefs.RandUnten = dia->GroupRand->RandB;
+		Prefs.RandLinks = dia->GroupRand->RandL;
+		Prefs.RandRechts = dia->GroupRand->RandR;
 		Prefs.FacingPages = dia->facingPages->isChecked();
 		Prefs.LeftPageFirst = dia->Linkszuerst->isChecked();
 		Prefs.imageEditorExecutable = dia->GimpName->text();

@@ -38,6 +38,7 @@ class TabPDFOptions;
 class FontPrefs;
 class DocumentItemAttributes;
 class TOCIndexPrefs;
+class MarginWidget;
 
 #include "langmgr.h"
 
@@ -135,15 +136,7 @@ public:
 	MSpinBox* pageHeight;
 	QCheckBox* facingPages;
 	QCheckBox* Linkszuerst;
-	QGroupBox* GroupRand;
-	QLabel* GRText3;
-	MSpinBox* TopR;
-	MSpinBox* BottomR;
-	MSpinBox* RightR;
-	MSpinBox* LeftR;
-	QLabel* GRText2;
-	QLabel* GRText1;
-	QLabel* GRText4;
+	MarginWidget* GroupRand;
 	QGroupBox* GroupAS;
 	QCheckBox* ASon;
 	QLabel* ASText;
@@ -183,10 +176,6 @@ public:
 	double PFactor;
 	double Pagebr;
 	double Pageho;
-	double RandT;
-	double RandB;
-	double RandL;
-	double RandR;
 	int docUnitIndex;
 	double DisScale;
 	ScribusApp *ap;
@@ -202,10 +191,6 @@ public slots:
 	void setDS();
 	void setPageWidth(int v);
 	void setPageHeight(int v);
-	void setTop(int v);
-	void setBottom(int v);
-	void setLeft(int v);
-	void setRight(int v);
 	void setSize(const QString &);
 	void setOrien(int ori);
 	void unitChange();
@@ -226,7 +211,6 @@ protected:
 	QGridLayout* Layout6;
 	QHBoxLayout* Layout5_2;
 	QHBoxLayout* Layout8;
-	QGridLayout* GroupRandLayout;
 	QGridLayout* GroupASLayout;
 	QVBoxLayout* CaliGroupLayout;
 	QHBoxLayout* layout15ca;

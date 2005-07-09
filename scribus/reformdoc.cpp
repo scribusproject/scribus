@@ -19,6 +19,7 @@
 #include "pagesize.h"
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
+#include "marginWidget.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
@@ -107,56 +108,12 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4->addWidget( unitCombo, 2, 1 );
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	reformDocLayout->addWidget( dsGroupBox7 );
-	groupBox7 = new QGroupBox( tabPage, "GroupBox7" );
-	groupBox7->setTitle( tr( "Margin Guides" ) );
-	groupBox7->setColumnLayout(0, Qt::Vertical );
-	groupBox7->layout()->setSpacing( 0 );
-	groupBox7->layout()->setMargin( 0 );
-	groupBox7Layout = new QHBoxLayout( groupBox7->layout() );
-	groupBox7Layout->setAlignment( Qt::AlignTop );
-	groupBox7Layout->setSpacing( 0 );
-	groupBox7Layout->setMargin( 10 );
-	layout4 = new QGridLayout;
-	layout4->setSpacing( 6 );
-	layout4->setMargin( 0 );
-	topR = new MSpinBox( groupBox7, 4 );
-	topR->setSuffix( ein );
-	topR->setDecimals( decimals );
-	topR->setMaxValue(pageHeight);
-	topR->setValue(doc->pageMargins.Top * unitRatio);
-	layout4->addWidget( topR, 0, 1 );
-	TextLabel5 = new QLabel( tr( "&Top:" ), groupBox7, "TextLabel5" );
-	TextLabel5->setBuddy(topR);
-	layout4->addWidget( TextLabel5, 0, 0 );
-	leftR = new MSpinBox( groupBox7, 4 );
-	leftR->setSuffix( ein );
-	leftR->setDecimals( decimals );
-	leftR->setMaxValue(pageWidth);
-	leftR->setValue(doc->pageMargins.Left * unitRatio);
-	layout4->addWidget( leftR, 0, 3 );
-	Links = new QLabel( tr( "&Left:" ), groupBox7, "Links" );
-	Links->setBuddy(leftR);
-	layout4->addWidget( Links, 0, 2 );
-	bottomR = new MSpinBox( groupBox7, 4 );
-	bottomR->setSuffix( ein );
-	bottomR->setDecimals( decimals );
-	bottomR->setMaxValue(pageHeight);
-	bottomR->setValue(doc->pageMargins.Bottom * unitRatio);
-	layout4->addWidget( bottomR, 1, 1 );
-	TextLabel7 = new QLabel( tr( "&Bottom:" ), groupBox7, "TextLabel7" );
-	TextLabel7->setBuddy(bottomR);
-	layout4->addWidget( TextLabel7, 1, 0 );
-	rightR = new MSpinBox( groupBox7, 4 );
-	rightR->setSuffix( ein );
-	rightR->setDecimals( decimals );
-	rightR->setMaxValue(pageWidth);
-	rightR->setValue(doc->pageMargins.Right * unitRatio);
-	layout4->addWidget( rightR, 1, 3 );
-	Rechts = new QLabel( tr( "&Right:" ), groupBox7, "Rechts" );
-	Rechts->setBuddy(rightR);
-	layout4->addWidget( Rechts, 1, 2 );
-	groupBox7Layout->addLayout( layout4 );
-	reformDocLayout->addWidget( groupBox7 );
+
+	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, decimals, unitRatio, ein );
+	GroupRand->setPageHeight(pageHeight);
+	GroupRand->setPageWidth(pageWidth);
+	GroupRand->setFacingPages(doc->PageFP );
+	reformDocLayout->addWidget( GroupRand );
 	groupBox7a = new QGroupBox( tabPage, "groupBox7" );
 	groupBox7a->setTitle( tr( "Layout" ) );
 	groupBox7a->setColumnLayout(0, Qt::Vertical );
@@ -355,14 +312,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
-	rightR->setMaxValue(pageWidth - leftR->value());
-	leftR->setMaxValue(pageWidth - rightR->value());
-	topR->setMaxValue(pageHeight - bottomR->value());
-	bottomR->setMaxValue(pageHeight - topR->value());
-	RandR = rightR->value() / unitRatio;
-	RandL = leftR->value() / unitRatio;
-	RandB = bottomR->value() / unitRatio;
-	RandT = topR->value() / unitRatio;
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	//tooltips
@@ -374,19 +323,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
 	QToolTip::add( facingPages, "<qt>" + tr( "Enable single or spread based layout" ) + "</qt>" );
 	QToolTip::add( firstPage, "<qt>" + tr( "Make the first page the left page of the document" ) + "</qt>" );
-	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>" );
-	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>" );
-	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" )  + "</qt>");
-	QToolTip::add( rightR, "<qt>" + tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) + "</qt>" );
 
 	// signals and slots connections
 	connect( facingPages, SIGNAL( clicked() ), this, SLOT( setDS() ) );
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
@@ -416,15 +357,15 @@ void ReformDoc::restoreDefaults()
 		groupAutoSave->setChecked( currDoc->AutoSave );
 		pageNumber->setValue(currDoc->FirstPnum);
 		firstPage->setChecked( currDoc->FirstPageLeft );
-		facingPages->setChecked( currDoc->PageFP );
-		rightR->setValue(currDoc->pageMargins.Right * unitRatio);
-		bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
-		leftR->setValue(currDoc->pageMargins.Left * unitRatio);
-		topR->setValue(currDoc->pageMargins.Top * unitRatio);
-		RandR = rightR->value() / unitRatio;
-		RandL = leftR->value() / unitRatio;
-		RandB = bottomR->value() / unitRatio;
-		RandT = topR->value() / unitRatio;
+		GroupRand->setFacingPages( currDoc->PageFP );
+		GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
+		GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
+		GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);
+		GroupRand->topR->setValue(currDoc->pageMargins.Top * unitRatio);
+		GroupRand->RandR = GroupRand->rightR->value() / unitRatio;
+		GroupRand->RandL = GroupRand->leftR->value() / unitRatio;
+		GroupRand->RandB = GroupRand->bottomR->value() / unitRatio;
+		GroupRand->RandT = GroupRand->topR->value() / unitRatio;
 	}
 	else if (current == tabView)
 	{
@@ -471,10 +412,6 @@ void ReformDoc::unitChange()
 {
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	disconnect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	disconnect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	int decimalsOld;
 	double oldUnitRatio = unitRatio;
 	double oldMin, oldMax, val;
@@ -486,10 +423,6 @@ void ReformDoc::unitChange()
 
 	widthMSpinBox->setSuffix(einh);
 	heightMSpinBox->setSuffix(einh);
-	topR->setSuffix(einh);
-	bottomR->setSuffix(einh);
-	leftR->setSuffix(einh);
-	rightR->setSuffix(einh);
 	tabGuides->minorSpace->setSuffix(einh);
 	tabGuides->majorSpace->setSuffix(einh);
 	tabGuides->snapDistance->setSuffix(einh);
@@ -511,14 +444,6 @@ void ReformDoc::unitChange()
 	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageWidth * unitRatio);
 	heightMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageHeight * unitRatio);
-	topR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	topR->setValues(0, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	bottomR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bottomR->setValues(0, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	leftR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	leftR->setValues(0, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	rightR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	rightR->setValues(0, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabGuides->minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabGuides->minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabGuides->majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -552,14 +477,9 @@ void ReformDoc::unitChange()
 	tabPDF->unitRatio = unitRatio;
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
-	rightR->setMaxValue(pageWidth - leftR->value());
-	leftR->setMaxValue(pageWidth - rightR->value());
-	topR->setMaxValue(pageHeight - bottomR->value());
-	bottomR->setMaxValue(pageHeight - topR->value());
-	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	GroupRand->unitChange(unitRatio, decimals, einh);
+	GroupRand->setPageHeight(pageHeight);
+	GroupRand->setPageWidth(pageWidth);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 }
@@ -577,62 +497,22 @@ void ReformDoc::changePaperColor()
 	}
 }
 
-void ReformDoc::setTop(int )
-{
-	RandT = topR->value() / unitRatio;
-	bottomR->setMaxValue(pageHeight - topR->value());
-}
-
-void ReformDoc::setBottom(int )
-{
-	RandB = bottomR->value() / unitRatio;
-	topR->setMaxValue(pageHeight - bottomR->value());
-}
-
-void ReformDoc::setLeft(int )
-{
-	RandL = leftR->value() / unitRatio;
-	rightR->setMaxValue(pageWidth - leftR->value());
-}
-
-void ReformDoc::setRight(int )
-{
-	RandR = rightR->value() / unitRatio;
-	leftR->setMaxValue(pageWidth - rightR->value());
-}
-
 void ReformDoc::setDS()
 {
-	if (facingPages->isChecked())
-	{
-		Links->setText( tr( "&Inside:" ) );
-		Rechts->setText( tr( "&Outside:" ) );
-		firstPage->setEnabled(true);
-	}
-	else
-	{
-		Links->setText( tr( "&Left:" ) );
-		Rechts->setText( tr( "&Right:" ) );
-		firstPage->setEnabled(false);
-	}
+	GroupRand->setFacingPages(facingPages->isChecked());
+	firstPage->setEnabled(facingPages->isChecked());
 }
 
 void ReformDoc::setPageWidth(int)
 {
 	pageWidth = widthMSpinBox->value() / unitRatio;
-	rightR->setMaxValue(widthMSpinBox->value() - leftR->value());
-	leftR->setMaxValue(widthMSpinBox->value() - rightR->value());
-	topR->setMaxValue(heightMSpinBox->value() - bottomR->value());
-	bottomR->setMaxValue(heightMSpinBox->value() - topR->value());
+	GroupRand->setPageWidth(pageWidth);
 }
 
 void ReformDoc::setPageHeight(int)
 {
 	pageHeight = heightMSpinBox->value() / unitRatio;
-	rightR->setMaxValue(widthMSpinBox->value() - leftR->value());
-	leftR->setMaxValue(widthMSpinBox->value() - rightR->value());
-	topR->setMaxValue(heightMSpinBox->value() - bottomR->value());
-	bottomR->setMaxValue(heightMSpinBox->value() - topR->value());
+	GroupRand->setPageHeight(pageHeight);
 }
 
 void ReformDoc::setSize(const QString & gr)
@@ -657,10 +537,8 @@ void ReformDoc::setSize(const QString & gr)
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	widthMSpinBox->setValue(pageWidth * unitRatio);
 	heightMSpinBox->setValue(pageHeight * unitRatio);
-	rightR->setMaxValue(widthMSpinBox->value() - leftR->value());
-	leftR->setMaxValue(widthMSpinBox->value() - rightR->value());
-	topR->setMaxValue(heightMSpinBox->value() - bottomR->value());
-	bottomR->setMaxValue(heightMSpinBox->value() - topR->value());
+	GroupRand->setPageHeight(pageHeight);
+	GroupRand->setPageWidth(pageWidth);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	delete ps2;

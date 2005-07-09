@@ -32,6 +32,7 @@
 #include "pagesize.h"
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
+#include "marginWidget.h"
 
 using namespace std;
 
@@ -266,43 +267,15 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GroupSizeLayout->addLayout( Layout8 );
 	Layout21->addWidget( GroupSize );
 
-	GroupRand = new QGroupBox( tr( "Margin Guides" ), tab_7, "GroupRand" );
-	GroupRand->setColumnLayout(0, Qt::Vertical );
-	GroupRand->layout()->setSpacing( 5 );
-	GroupRand->layout()->setMargin( 10 );
-	GroupRandLayout = new QGridLayout( GroupRand->layout() );
-	GroupRandLayout->setAlignment( Qt::AlignTop );
-
-	TopR = new MSpinBox( 0, 1000, GroupRand, decimals );
-	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setValue(prefsData->RandOben * unitRatio);
-	RandT = prefsData->RandOben;
-	GroupRandLayout->addWidget( TopR, 0, 1 );
-	BottomR = new MSpinBox( 0, 1000, GroupRand, decimals );
-	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setValue(prefsData->RandUnten * unitRatio);
-	RandB = prefsData->RandUnten;
-	GroupRandLayout->addWidget( BottomR, 1, 1 );
-	RightR = new MSpinBox( 0, 1000, GroupRand, decimals );
-	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setValue(prefsData->RandRechts * unitRatio);
-	RandR = prefsData->RandRechts;
-	GroupRandLayout->addWidget( RightR, 1, 3 );
-	LeftR = new MSpinBox( 0, 1000, GroupRand, decimals );
-	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setValue(prefsData->RandLinks * unitRatio);
-	RandL = prefsData->RandLinks;
-	GroupRandLayout->addWidget( LeftR, 0, 3 );
-
-	GRText2 = new QLabel( BottomR, tr( "&Bottom:" ), GroupRand, "GRText2" );
-	GroupRandLayout->addWidget( GRText2, 1, 0 );
-	GRText1 = new QLabel( TopR, tr( "&Top:" ), GroupRand, "GRText1" );
-	GroupRandLayout->addWidget( GRText1, 0, 0 );
-	GRText4 = new QLabel( RightR, tr( "&Right:" ), GroupRand, "GRText4" );
-	GroupRandLayout->addWidget( GRText4, 1, 2 );
-	GRText3 = new QLabel( LeftR, tr( "&Left:" ), GroupRand, "GRText3" );
-	GroupRandLayout->addWidget( GRText3, 0, 2 );
-
+	struct MarginStruct marg;
+	marg.Top = prefsData->RandOben;
+	marg.Bottom = prefsData->RandUnten;
+	marg.Left = prefsData->RandLinks;
+	marg.Right = prefsData->RandRechts;
+	GroupRand = new MarginWidget(tab_7,  tr( "Margin Guides" ), &marg, decimals, unitRatio, unitGetSuffixFromIndex(docUnitIndex) );
+	GroupRand->setPageHeight(prefsData->PageHeight);
+	GroupRand->setPageWidth(prefsData->PageWidth);
+	GroupRand->setFacingPages(prefsData->FacingPages);
 	Layout21->addWidget( GroupRand );
 	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
 
@@ -705,12 +678,6 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QWidget::setTabOrder( ScriptPfad, FileC3 );
 	QWidget::setTabOrder( FileC3, DocumentTemplateDir );
 	QWidget::setTabOrder( DocumentTemplateDir, FileC4 );
-
-
-	QWidget::setTabOrder( TopR, BottomR );
-	QWidget::setTabOrder( BottomR, LeftR );
-	QWidget::setTabOrder( LeftR, RightR );
-
 	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
 	QToolTip::add( checkLink, tr("Turns the display of linked frames on or off"));
@@ -734,10 +701,6 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QToolTip::add( pageHeight, tr( "Height of document pages, editable if you have chosen a custom page size" ) );
 	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
 	QToolTip::add( Linkszuerst, tr( "Make the first page the left page of a document" ) );
-	QToolTip::add( TopR, tr( "Distance between the top margin guide and the edge of the page" ) );
-	QToolTip::add( BottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
-	QToolTip::add( LeftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-	QToolTip::add( RightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
 	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
 	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
 
@@ -778,10 +741,6 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	connect(GZComboO, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(GZComboF, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
 	connect(facingPages, SIGNAL(clicked()), this, SLOT(setDS()));
@@ -800,6 +759,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	setOrien(prefsData->pageOrientation);
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
+	pageWidth->setSuffix(unitSuffix);
+	pageHeight->setSuffix(unitSuffix);
 
 	//unitChange();
 	resize( minimumSizeHint() );
@@ -895,8 +856,7 @@ void Preferences::changeDocumentTemplates()
 void Preferences::setDS()
 {
 	bool m = facingPages->isChecked() ? true : false;
-	GRText3->setText(m == true ? tr( "&Inside:" ) : tr( "&Left:" ));
-	GRText4->setText(m == true ? tr( "O&utside:" ) : tr( "&Right:" ));
+	GroupRand->setFacingPages(m);
 	Linkszuerst->setEnabled(m);
 	if (m == false)
 		Linkszuerst->setChecked(false);
@@ -913,10 +873,7 @@ void Preferences::setDS()
 void Preferences::setPageWidth(int)
 {
 	Pagebr = pageWidth->value() / unitRatio;
-	RightR->setMaxValue(pageWidth->value() - LeftR->value());
-	LeftR->setMaxValue(pageWidth->value() - RightR->value());
-	TopR->setMaxValue(pageHeight->value() - BottomR->value());
-	BottomR->setMaxValue(pageHeight->value() - TopR->value());
+	GroupRand->setPageWidth(Pagebr);
 }
 
 /*!
@@ -930,66 +887,7 @@ void Preferences::setPageWidth(int)
 void Preferences::setPageHeight(int)
 {
 	Pageho = pageHeight->value() / unitRatio;
-	RightR->setMaxValue(pageWidth->value() - LeftR->value());
-	LeftR->setMaxValue(pageWidth->value() - RightR->value());
-	TopR->setMaxValue(pageHeight->value() - BottomR->value());
-	BottomR->setMaxValue(pageHeight->value() - TopR->value());
-}
-
-/*!
- \fn void Preferences::setTop(int v)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page top values
- \param v Top value
- \retval None
- */
-void Preferences::setTop(int)
-{
-	RandT = TopR->value() / unitRatio;
-	BottomR->setMaxValue(pageHeight->value() - TopR->value());
-}
-
-/*!
- \fn void Preferences::setBottom(int v)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page bottom values
- \param v Bottom value
- \retval None
- */
-void Preferences::setBottom(int)
-{
-	RandB = BottomR->value() / unitRatio;
-	TopR->setMaxValue(pageHeight->value() - BottomR->value());
-}
-
-/*!
- \fn void Preferences::setLeft(int v)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page left values
- \param v Top value
- \retval None
- */
-void Preferences::setLeft(int)
-{
-	RandL = LeftR->value() / unitRatio;
-	RightR->setMaxValue(pageWidth->value() - LeftR->value());
-}
-
-/*!
- \fn void Preferences::setRight(int v)
- \author Franz Schmid
- \date
- \brief Preferences (Document / Page Size), sets Page right values
- \param v Right value
- \retval None
- */
-void Preferences::setRight(int)
-{
-	RandR = RightR->value() / unitRatio;
-	LeftR->setMaxValue(pageWidth->value() - RightR->value());
+	GroupRand->setPageHeight(Pageho);
 }
 
 /*!
@@ -1023,10 +921,8 @@ void Preferences::setSize(const QString & gr)
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	pageWidth->setValue(Pagebr * unitRatio);
 	pageHeight->setValue(Pageho * unitRatio);
-	RightR->setMaxValue(pageWidth->value() - LeftR->value());
-	LeftR->setMaxValue(pageWidth->value() - RightR->value());
-	TopR->setMaxValue(pageHeight->value() - BottomR->value());
-	BottomR->setMaxValue(pageHeight->value() - TopR->value());
+	GroupRand->setPageHeight(Pageho);
+	GroupRand->setPageWidth(Pagebr);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	delete ps2;
@@ -1099,10 +995,6 @@ void Preferences::unitChange()
 {
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	int decimals;
 	double oldUnitRatio = unitRatio;
 	double oldMin, oldMax, oldB, oldBM, oldH, oldHM, val;
@@ -1117,13 +1009,9 @@ void Preferences::unitChange()
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	einh = unitGetSuffixFromIndex(docUnitIndex);
-
+	
 	pageWidth->setSuffix(einh);
 	pageHeight->setSuffix(einh);
-	TopR->setSuffix(einh);
-	BottomR->setSuffix(einh);
-	LeftR->setSuffix(einh);
-	RightR->setSuffix(einh);
 	tabGuides->minorSpace->setSuffix(einh);
 	tabGuides->majorSpace->setSuffix(einh);
 	tabGuides->snapDistance->setSuffix(einh);
@@ -1140,10 +1028,9 @@ void Preferences::unitChange()
 	tabPDF->BleedLeft->setSuffix(einh);
 	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
 	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
-	TopR->setValues(0, pageHeight->value() - RandB * unitRatio, decimals, RandT * unitRatio);
-	BottomR->setValues(0, pageHeight->value() - RandT * unitRatio, decimals, RandB * unitRatio);
-	LeftR->setValues(0, pageWidth->value() - RandR * unitRatio, decimals, RandL * unitRatio);
-	RightR->setValues(0, pageWidth->value() - RandL * unitRatio, decimals, RandR * unitRatio);
+	GroupRand->unitChange(unitRatio, decimals, einh);
+	GroupRand->setPageHeight(Pageho);
+	GroupRand->setPageWidth(Pagebr);
 	int decimalsOld;
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 	
@@ -1181,10 +1068,6 @@ void Preferences::unitChange()
 	drawRuler();
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 }
 
 /*!

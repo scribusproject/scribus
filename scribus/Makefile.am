@@ -10,171 +10,172 @@ pixbuf_libs = pixbuf/libpixbuf.la
 endif
 
 scribus_SOURCES = \
-		about.cpp\
-		actionmanager.cpp\
-		aligndistribute.cpp\
-		alignselect.cpp\
-		annota.cpp\
-		annot.cpp\
-		applytemplatedialog.cpp\
-		arrowchooser.cpp\
-		art_kmisc.c\
-		art_render_misc.c\
-		art_render_pattern.c\
-		art_rgba_affine.c\
-		art_rgb_affine_private.c\
-		art_rgb.c\
-		art_rgb_svp.c\
-		autoformbuttongroup.cpp\
-		autoform.cpp\
-		bookmwin.cpp\
-		bookpalette.cpp\
-		buttonicon.cpp\
-		charselect.cpp\
-		checkDocument.cpp\
-		cmsprefs.cpp\
-		cmykcolor.cpp\
-		cmykfw.cpp\
-		colorchart.cpp\
-		colorm.cpp\
-		cpalette.cpp\
-		cupsoptions.cpp\
-		customfdialog.cpp\
-		dcolor.cpp\
-		delpages.cpp\
-		docinfo.cpp\
-		docitemattrprefs.ui\
-		documentchecker.cpp\
-		documentinformation.cpp\
-		druck.cpp\
-		edit1format.cpp\
-		editformats.cpp\
-		editor.cpp\
-		effectsdialog.cpp\
-		extimageprops.cpp\
-		fileloader.cpp\
-		fileunzip.cpp\
-		filewatcher.cpp\
-		fmitem.cpp\
-		fontcombo.cpp\
-		fontprefs.cpp\
-		fontreplacedialog.cpp\
-		fparser.cpp\
-		fpointarray.cpp\
-		fpoint.cpp\
-		frameedit.cpp\
-		gradienteditor.cpp\
-		gtaction.cpp\
-		gtdialogs.cpp\
-		gtfont.cpp\
-		gtframestyle.cpp\
-		gtgettext.cpp\
-		gtmeasure.cpp\
-		gtparagraphstyle.cpp\
-		gtstyle.cpp\
-		gtwriter.cpp\
-		guidemanager.cpp\
-		helpbrowser.cpp\
-		hnjalloc.c\
-		hruler.cpp\
-		hyask.cpp\
-		hyphenator.cpp\
-		hyphen.c\
-		hysettings.cpp\
-		insertTable.cpp\
-		inspage.cpp\
-		ioapi.c\
-		javadocs.cpp\
-		keymanager.cpp\
-		langmgr.cpp\
-		layers.cpp\
-		linecombo.cpp\
-		lineformats.cpp\
-		linkbutton.cpp\
-		loremipsum.cpp\
-		md5.c\
-		mdup.cpp\
-		measurements.cpp\
-		menumanager.cpp\
-		mergedoc.cpp\
-		missing.cpp\
-		movepage.cpp\
-		mpalette.cpp\
-		mspinbox.cpp\
-		multiline.cpp\
-		muster.cpp\
-		navigator.cpp\
-		newfile.cpp\
-		newtemp.cpp\
-		page.cpp\
-		pageitemattributes.ui\
-		pageitem.cpp\
-		pageselector.cpp\
-		pagesize.cpp\
-		pdfoptions.cpp\
-		pdfoptionsio.cpp\
-		pdfopts.cpp\
-		picsearch.cpp\
-		picstatus.cpp\
-		pluginmanager.cpp\
-		polygonwidget.cpp\
-		polyprops.cpp\
-		prefscontext.cpp\
-		prefs.cpp\
-		prefsdialogbase.cpp\
-		prefsfile.cpp\
-		prefsreader.cpp\
-		prefstable.cpp\
-		query.cpp\
-		rc4.c\
-		reformdoc.cpp\
-		scfonts.cpp\
-		scfonts_ttf.cpp\
-		scfontmetrics.cpp\
-		scimage.cpp\
-		scmenu.cpp\
-		scpainter.cpp\
-		scpaths.cpp\
-		scpreview.cpp\
-		scraction.cpp\
-		scrap.cpp\
-		scribusdoc.cpp\
-		scribusview.cpp\
-		scribuswin.cpp\
-		scribusXml.cpp\
-		scrpalettebase.cpp\
-		search.cpp\
-		seiten.cpp\
-		selfield.cpp\
-		serializer.cpp\
-		shadebutton.cpp\
-		spalette.cpp\
-		splash.cpp\
-		story.cpp\
-		styleselect.cpp\
-		tabcheckdoc.cpp\
-		tabguides.cpp\
-		tabmanager.cpp\
-		tabpdfoptions.cpp\
-		tabruler.cpp\
-		tabtools.cpp\
-		tabtypography.cpp\
-		tocgenerator.cpp\
-		tocindexprefs.ui\
-		tree.cpp\
-		undogui.cpp\
-		undomanager.cpp\
-		undoobject.cpp\
-		undostate.cpp\
-		units.cpp\
-		unzip.c\
-		util.cpp\
-		vgradient.cpp\
-		vruler.cpp\
-		werktoolb.cpp\
-		scribus.cpp\
-		scribusapp.cpp\
-		main.cpp
+	about.cpp		\
+	actionmanager.cpp	\
+	aligndistribute.cpp	\
+	alignselect.cpp	\
+	annota.cpp	\
+	annot.cpp	\
+	applytemplatedialog.cpp	\
+	arrowchooser.cpp	\
+	art_kmisc.c	\
+	art_render_misc.c	\
+	art_render_pattern.c	\
+	art_rgba_affine.c	\
+	art_rgb_affine_private.c	\
+	art_rgb.c	\
+	art_rgb_svp.c	\
+	autoformbuttongroup.cpp	\
+	autoform.cpp	\
+	bookmwin.cpp	\
+	bookpalette.cpp	\
+	buttonicon.cpp	\
+	charselect.cpp	\
+	checkDocument.cpp	\
+	cmsprefs.cpp	\
+	cmykcolor.cpp	\
+	cmykfw.cpp	\
+	colorchart.cpp	\
+	colorm.cpp	\
+	cpalette.cpp	\
+	cupsoptions.cpp	\
+	customfdialog.cpp	\
+	dcolor.cpp	\
+	delpages.cpp	\
+	docinfo.cpp	\
+	docitemattrprefs.ui	\
+	documentchecker.cpp	\
+	documentinformation.cpp	\
+	druck.cpp	\
+	edit1format.cpp	\
+	editformats.cpp	\
+	editor.cpp	\
+	effectsdialog.cpp	\
+	extimageprops.cpp	\
+	fileloader.cpp	\
+	fileunzip.cpp	\
+	filewatcher.cpp	\
+	fmitem.cpp	\
+	fontcombo.cpp	\
+	fontprefs.cpp	\
+	fontreplacedialog.cpp	\
+	fparser.cpp	\
+	fpointarray.cpp	\
+	fpoint.cpp	\
+	frameedit.cpp	\
+	gradienteditor.cpp	\
+	gtaction.cpp	\
+	gtdialogs.cpp	\
+	gtfont.cpp	\
+	gtframestyle.cpp	\
+	gtgettext.cpp	\
+	gtmeasure.cpp	\
+	gtparagraphstyle.cpp	\
+	gtstyle.cpp	\
+	gtwriter.cpp	\
+	guidemanager.cpp	\
+	helpbrowser.cpp	\
+	hnjalloc.c	\
+	hruler.cpp	\
+	hyask.cpp	\
+	hyphenator.cpp	\
+	hyphen.c	\
+	hysettings.cpp	\
+	insertTable.cpp	\
+	inspage.cpp	\
+	ioapi.c	\
+	javadocs.cpp	\
+	keymanager.cpp	\
+	langmgr.cpp	\
+	layers.cpp	\
+	linecombo.cpp	\
+	lineformats.cpp	\
+	linkbutton.cpp	\
+	loremipsum.cpp	\
+	marginWidget.cpp	\
+	md5.c	\
+	mdup.cpp	\
+	measurements.cpp	\
+	menumanager.cpp	\
+	mergedoc.cpp	\
+	missing.cpp	\
+	movepage.cpp	\
+	mpalette.cpp	\
+	mspinbox.cpp	\
+	multiline.cpp	\
+	muster.cpp	\
+	navigator.cpp	\
+	newfile.cpp	\
+	newtemp.cpp	\
+	page.cpp	\
+	pageitemattributes.ui	\
+	pageitem.cpp	\
+	pageselector.cpp	\
+	pagesize.cpp	\
+	pdfoptions.cpp	\
+	pdfoptionsio.cpp	\
+	pdfopts.cpp	\
+	picsearch.cpp	\
+	picstatus.cpp	\
+	pluginmanager.cpp	\
+	polygonwidget.cpp	\
+	polyprops.cpp	\
+	prefscontext.cpp	\
+	prefs.cpp	\
+	prefsdialogbase.cpp	\
+	prefsfile.cpp	\
+	prefsreader.cpp	\
+	prefstable.cpp	\
+	query.cpp	\
+	rc4.c	\
+	reformdoc.cpp	\
+	scfonts.cpp	\
+	scfonts_ttf.cpp	\
+	scfontmetrics.cpp	\
+	scimage.cpp	\
+	scmenu.cpp	\
+	scpainter.cpp	\
+	scpaths.cpp	\
+	scpreview.cpp	\
+	scraction.cpp	\
+	scrap.cpp	\
+	scribusdoc.cpp	\
+	scribusview.cpp	\
+	scribuswin.cpp	\
+	scribusXml.cpp	\
+	scrpalettebase.cpp	\
+	search.cpp	\
+	seiten.cpp	\
+	selfield.cpp	\
+	serializer.cpp	\
+	shadebutton.cpp	\
+	spalette.cpp	\
+	splash.cpp	\
+	story.cpp	\
+	styleselect.cpp	\
+	tabcheckdoc.cpp	\
+	tabguides.cpp	\
+	tabmanager.cpp	\
+	tabpdfoptions.cpp	\
+	tabruler.cpp	\
+	tabtools.cpp	\
+	tabtypography.cpp	\
+	tocgenerator.cpp	\
+	tocindexprefs.ui	\
+	tree.cpp	\
+	undogui.cpp	\
+	undomanager.cpp	\
+	undoobject.cpp	\
+	undostate.cpp	\
+	units.cpp	\
+	unzip.c	\
+	util.cpp	\
+	vgradient.cpp	\
+	vruler.cpp	\
+	werktoolb.cpp	\
+	scribus.cpp	\
+	scribusapp.cpp	\
+	main.cpp
 
 INTERFACES =
 TRANSLATIONS =
@@ -562,3 +563,4 @@ AM_CPPFLAGS = \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
     -DSHAREDIR=\"$(datadir)/scribus/\"
+noinst_HEADERS = marginWidget.h

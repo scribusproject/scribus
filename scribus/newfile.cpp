@@ -3,6 +3,7 @@
 #include <qtooltip.h>
 #include "units.h"
 #include "pagesize.h"
+#include "marginWidget.h"
 
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
@@ -11,8 +12,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
-		: QDialog( parent, "newDoc", true, 0 )
+NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "newDoc", true, 0 )
 {
 	customText="Custom";
 	customTextTR=QObject::tr( "Custom" );
@@ -88,56 +88,16 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	ButtonGroup1_2Layout->addLayout( Layout8 );
 	Layout9->addWidget( ButtonGroup1_2 );
 
-	GroupBox7 = new QGroupBox( this, "GroupBox7" );
-	GroupBox7->setTitle( tr( "Margin Guides" ) );
-	GroupBox7->setColumnLayout(0, Qt::Vertical );
-	GroupBox7->layout()->setSpacing( 0 );
-	GroupBox7->layout()->setMargin( 0 );
-	GroupBox7Layout = new QHBoxLayout( GroupBox7->layout() );
-	GroupBox7Layout->setAlignment( Qt::AlignTop );
-	GroupBox7Layout->setSpacing( 5 );
-	GroupBox7Layout->setMargin( 10 );
-	Layout3 = new QGridLayout;
-	Layout3->setSpacing( 6 );
-	Layout3->setMargin( 5 );
-	TextLabel6 = new QLabel( tr( "&Left:" ), GroupBox7, "TextLabel6" );
-	Layout3->addWidget( TextLabel6, 0, 2 );
-	TextLabel8 = new QLabel( tr( "&Right:" ), GroupBox7, "TextLabel8" );
-	Layout3->addWidget( TextLabel8, 1, 2 );
-	TextLabel5 = new QLabel( tr( "&Top:" ), GroupBox7, "TextLabel5" );
-	Layout3->addWidget( TextLabel5, 0, 0 );
-	TextLabel7 = new QLabel( tr( "&Bottom:" ), GroupBox7, "TextLabel7" );
-	Layout3->addWidget( TextLabel7, 1, 0 );
-	TopR = new MSpinBox( 0, 1000, GroupBox7, precision );
-	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setSuffix( unitSuffix );
-	TopR->setValue(Vor->RandOben * unitRatio);
-	Top = Vor->RandOben;
-	TextLabel5->setBuddy(TopR);
-	Layout3->addWidget( TopR, 0, 1 );
-	BottomR = new MSpinBox( 0, 1000, GroupBox7, precision );
-	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setSuffix( unitSuffix );
-	BottomR->setValue(Vor->RandUnten * unitRatio);
-	Bottom = Vor->RandUnten;
-	TextLabel7->setBuddy(BottomR);
-	Layout3->addWidget( BottomR, 1, 1 );
-	LeftR = new MSpinBox( 0, 1000, GroupBox7, precision );
-	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setSuffix( unitSuffix );
-	LeftR->setValue(Vor->RandLinks * unitRatio);
-	Left = Vor->RandLinks;
-	TextLabel6->setBuddy(LeftR);
-	Layout3->addWidget( LeftR, 0, 3 );
-	RightR = new MSpinBox( 0, 1000, GroupBox7, precision );
-	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setSuffix( unitSuffix );
-	RightR->setValue(Vor->RandRechts * unitRatio);
-	Right = Vor->RandRechts;
-	TextLabel8->setBuddy(RightR);
-	Layout3->addWidget( RightR, 1, 3 );
-	GroupBox7Layout->addLayout( Layout3 );
-	Layout9->addWidget( GroupBox7 );
+	struct MarginStruct marg;
+	marg.Top = Vor->RandOben;
+	marg.Bottom = Vor->RandUnten;
+	marg.Left = Vor->RandLinks;
+	marg.Right = Vor->RandRechts;
+	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &marg, precision, unitRatio, unitSuffix );
+	GroupRand->setPageHeight(Vor->PageHeight);
+	GroupRand->setPageWidth(Vor->PageWidth);
+	GroupRand->setFacingPages(Vor->FacingPages);
+	Layout9->addWidget( GroupRand );
 	NewDocLayout->addLayout( Layout9 );
 	Breite->setValue(Vor->PageWidth * unitRatio);
 	Hoehe->setValue(Vor->PageHeight * unitRatio);
@@ -240,10 +200,6 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	QToolTip::add( Hoehe, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
 	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
 	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
-	QToolTip::add( TopR, tr( "Distance between the top margin guide and the edge of the page" ) );
-	QToolTip::add( BottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
-	QToolTip::add( LeftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-	QToolTip::add( RightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
 	QToolTip::add( PgNr, tr( "First page number of the document" ) );
 	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
 	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
@@ -258,10 +214,6 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	connect(ComboBox1, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
 	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
-	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 }
 
@@ -276,62 +228,18 @@ void NewDoc::code_repeat(int m)
 		else
 			ComboBox2->setCurrentItem(PORTRAIT);
 	} // end of #869
-
-	switch (m)
-	{
-	case 0 :
-	case 3 :
-		RightR->setMaxValue(Breite->value() - LeftR->value());
-		if (m == 3)
-			break;
-	case 4 :
-		LeftR->setMaxValue(Breite->value() - RightR->value());
-		if (m == 4)
-			break;
-	case 2 :
-		TopR->setMaxValue(Hoehe->value() - BottomR->value());
-		if (m == 2)
-			break;
-	case 1 :
-		BottomR->setMaxValue(Hoehe->value() - TopR->value());
-		break;
-	}
 }
 
 void NewDoc::setBreite(int)
 {
 	Pagebr = Breite->value() / unitRatio;
-	code_repeat(0);
+	GroupRand->setPageWidth(Pagebr);
 }
 
 void NewDoc::setHoehe(int)
 {
 	Pageho = Hoehe->value() / unitRatio;
-	code_repeat(0);
-}
-
-void NewDoc::setTop(int)
-{
-	Top = TopR->value() / unitRatio;
-	code_repeat(1);
-}
-
-void NewDoc::setBottom(int)
-{
-	Bottom = BottomR->value() / unitRatio;
-	code_repeat(2);
-}
-
-void NewDoc::setLeft(int)
-{
-	Left = LeftR->value() / unitRatio;
-	code_repeat(3);
-}
-
-void NewDoc::setRight(int)
-{
-	Right = RightR->value() / unitRatio;
-	code_repeat(4);
+	GroupRand->setPageHeight(Pageho);
 }
 
 void NewDoc::setDist(int)
@@ -343,10 +251,6 @@ void NewDoc::setUnit(int newUnitIndex)
 {
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 		
 	double oldUnitRatio = unitRatio;
 	double val, oldB, oldBM, oldH, oldHM;
@@ -371,23 +275,14 @@ void NewDoc::setUnit(int newUnitIndex)
 		Breite->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pageho * unitRatio);
 		Hoehe->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pagebr * unitRatio);
 	}
-	RightR->setValues(0, Breite->value() - Left * unitRatio, decimals, Right * unitRatio);
-	LeftR->setValues(0, Breite->value() - Right * unitRatio, decimals, Left * unitRatio);
-	TopR->setValues(0, Hoehe->value() - Bottom * unitRatio, decimals, Top * unitRatio);
-	BottomR->setValues(0, Hoehe->value() - Top * unitRatio, decimals, Bottom * unitRatio);
 	Distance->setValue(Dist * unitRatio);
-	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);	
-	TopR->setSuffix(unitSuffix);
-	BottomR->setSuffix(unitSuffix);
-	LeftR->setSuffix(unitSuffix);
-	RightR->setSuffix(unitSuffix);
+	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
 	Breite->setSuffix(unitSuffix);
 	Hoehe->setSuffix(unitSuffix);
 	Distance->setSuffix( unitSuffix );
-	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	GroupRand->unitChange(unitRatio, decimals, unitSuffix);
+	GroupRand->setPageHeight(Pageho);
+	GroupRand->setPageWidth(Pagebr);
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 
@@ -415,10 +310,8 @@ void NewDoc::setOrien(int ori)
 	(ori == PORTRAIT) ? Orient = PORTRAIT : Orient = LANDSCAPE;
 	code_repeat(666); // just check w/h
 	// end of #869
-	RightR->setMaxValue(Breite->value() - LeftR->value());
-	LeftR->setMaxValue(Breite->value() - RightR->value());
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+	GroupRand->setPageHeight(Pageho);
+	GroupRand->setPageWidth(Pagebr);
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
@@ -476,24 +369,20 @@ void NewDoc::setSize(QString gr)
 	}
 	Breite->setValue(Pagebr * unitRatio);
 	Hoehe->setValue(Pageho * unitRatio);
-	RightR->setMaxValue(Breite->value() - LeftR->value());
-	LeftR->setMaxValue(Breite->value() - RightR->value());
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+	GroupRand->setPageHeight(Pageho);
+	GroupRand->setPageWidth(Pagebr);
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
 void NewDoc::setAT()
 {
-	GroupBox4->setEnabled(AutoFrame->isChecked() ? true : false);
+	GroupBox4->setEnabled(AutoFrame->isChecked());
 }
 
 void NewDoc::setDS()
 {
-	bool test = Doppelseiten->isChecked() ? false : true;
-	TextLabel6->setText(test == false ? tr("&Inside:") : tr("&Left:"));
-	TextLabel8->setText(test == false ? tr("O&utside:") : tr("&Right:"));
-	ErsteSeite->setEnabled(test == false ? true : false);
+	GroupRand->setFacingPages(Doppelseiten->isChecked());
+	ErsteSeite->setEnabled(Doppelseiten->isChecked());
 }
 
