@@ -2,7 +2,10 @@
 <title>Scribus Coding Standards</title>
 <h2>Scribus Coding Standards</h2>
 
-<p>Initial document: Paul F. Johnson, Feb 26th 2004, Version: 0.04</p>
+<p>
+Initial document: Paul F. Johnson, Feb 26th 2004, Version: 0.04<br/>
+Revised: Craig Ringer, Jul 9, 2005, Version: 0.05 (text encodings, exceptions, who to send patches to)
+</p>
 
 <p>This document is intended as a guide to all Scribus developers and contributors. It is aimed to be simple to use as well as to keep the source code simple to understand and maintain.</p>
 
@@ -244,7 +247,16 @@ if (b == true)
 
 <h4>Memory checking</h4>
 
-<p>All calls to <code>new</code> should be trapped. This is not currently implemented in the 1.1.x releases, but will be implemented in the 1.2. The preferred method would be:</p>
+<p>Due to the unavailability of exceptions (see below), we're using <code>Q_CHECK_PTR</code> to check allocations. This means that you get an abort with a useful message when an allocation fails, rather than an unexplained segfault.<p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+int *m = new int[2048];
+Q_CHECK_PTR(m);
+</small></td></tr></table></blockquote>
+
+<h5>Exceptions</h5>
+
+<p>All calls to <code>new</code> should ideally be trapped. This is not currently implemented in current releases. The preferred method would be:</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 #include &lt;new&gt;
@@ -261,21 +273,65 @@ catch(bad_exception)
 }
 </pre>
 </small></td></tr></table></blockquote>
-<p>
-As there are many calls in Scribus to new, these will have a wrapper around.</p>
+<p>As there are many calls in Scribus to new, these will have a wrapper around.</p>
 <p>For users of Qt who compile their own, they will need to include in the <code>./configure</code> script that they want to throw C++ exceptions. Failure to do so will result in the catches not catching and possibly Scribus failing to run.</p>
-<p>Currently (for v3.2), KDE recommend Qt is compiled without exceptions. This is a bad idea as it means trapping bad memory allocations cannot be caught using the prefered method.</p>
+<p>Currently (for v3.2 - v3.4), KDE recommend Qt is compiled without exceptions. This is a bad idea as it means trapping bad memory allocations cannot be caught using the prefered method. As most distros follow this recommendation, that means we (Scribus) can't expect to be able to rely on exceptions.</p>
+
+<h4>Text encodings</h4>
+
+<p>Text encodings need to be handled carefully. Strange errors can result if you treat UTF-8 text as latin-1, for example. These issues are often hard to track down, so careful coding is important. A detailed treatment of text encodings won't fit here, but some information will be provided elsewhere in the documentation. This is an early version of this part of the text; feedback would be appreciated.</p>
+
+<p>The first thing you need to understand is that Qt's <code>QString</code>, and most other Qt classes, know their own encoding and take care of text encoding issues for you, so they can be treated as "just text" when passing them around inside Scribus and to other Qt classes. It's only at the interfaces between byte-oriented and "text"-oriented code that care is required. These interfaces can be tricky to spot (the implicit conversion of a <code>QString</code> to a <code>QCString</code> or <code>char*</code>, for example, is easily missed) so caution and careful reading of API documentation is required.</p>
+
+<p>While there is no real substitute for <i>understanding</i> text encodings, some of the most important rules to follow are:</p>
+
+<p>Always construct a <code>QString</code> from a byte string using one of the <code>QString::fromblah(...)</code> methods. You should never use <code>QString(char*)</code> or <code>QString(QCString)</code>. You need to determine what encoding the byte string you're working with is in and use the correct call, by examining the documentation for the system / library you are calling. There is generally no way to tell what encoding a string is in by examining the string - at best this is guesswork. <b>Do not</b> assume a string is utf-8 or latin-1, since even if it works for you, in some locales it will not. For data read from the OS or C libraries, you generally want <code>QString::fromLocal8Bit(...)</code>. If in doubt, ask somebody.</p>
+
+<p>Similarly, you should always use the appropriate <code>QString</code> conversion methods when converting <code>QString</code>s to byte strings (eg <code>QCString</code>, <code>QByteArray</code>, or <code>char*</code>). Note that such conversions may happen automatically, so watch out for implicit conversions. If sending data to system calls or C libraries you'll generally want <code>QString::local8Bit()</code> but you should check to confirm that's correct for the specific call you're making. Some win32 calls, for example, expect UCS-2 (wchar) data, and some C libraries will expect UTF-8 strings to be passed to some methods.</p>
+
+<p>You should absolutely never do this:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+QString blah = anotherQString.utf8();
+</small></td></tr></table></blockquote>
+
+<p>The above code:</p>
+<ul>
+	<li>Converts anotherQString from its internal UCS-2 encoding to a UTF-8 byte string stored in a <code>QCString</code>; then</li>
+	<li>Passes it to the <code>QString(QCString)</code> constructor for blah;</li>
+	<li><code>QString(QCString)</code> decodes the passed <code>QCString</code> <i>according to the default byte string locale set in qt</i> which is usually latin-1 (don't rely on that; it should change to depend on locale at some point.).</li>
+</ul>
+
+<p>Thus, you end up doing a lot of pointless work encoding and decoding the string, and to top it off probably mangle it by decoding a utf-8 string as latin-1. You usually won't notice this, because you probably only send ASCII data thorough, and thus the bug will only turn up much later from people in other locales who use other text encodings. These issues tend to be a pain to track down.</p>
+
+<p>For similar reasons, when you're reading or writing a <code>QTextStream</code>, remember to call <code>QTextStream::setEncoding(...)</code> before reading/writing any data. Use <code>operator&lt;&lt;</code> with <code>QString</code>s, but <code>WriteRawBytes(...)</code> when writing byte strings that are already in the correct encoding. Byte strings in other encodings should be converted to <code>QString</code> or transcoded using <code>QTextCodec</code>. <b>Do not</b> just assume the <code>QTextStream</code> should  write out UTF-8. The correct encoding will depend on where the data is going / coming from. For example, a plain text file for the user to edit should be in their local text encoding. If you're not sure, ask someone.</p>
+
+<p>Don't convert a QString to a byte string when writing to a QTextStream - the QTextStream does that for you in operator&lt;&lt; . For example:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+QTextStream ts(&amp;file);
+// In this ase we know we want to write out UTF-8 to this file, not write in
+// the local 8-bit byte string encoding.
+ts.setEncoding(QTextStream::UnicodeUTF8);
+ts &lt;&lt; someQString.utf8();
+</small></td></tr></table></blockquote>
+
+<p>as that's the same error as in the previous example, just written a different way. Instead, you should omit the <code>.utf8()</code>.</p>
+
+<p>The best way to handle text encodings is to convert 8-bit byte strings to <code>QString</code> or another "safe" class as early as possible in input, and convert to 8-bit byte strings as late as possible on output. Above all else, do it only once and watch out for implicit conversions. You should think about encodings whenever passing text across any interface that wants byte-oriented strings rather than <code>QString</code>s. Remember to <b>read the documentation</b> of the APIs you're using to determine how they behave with text encodings, and if you're not sure, <i>ask somebody</i>.</p>
+
+<p>It is strongly recommended that you read <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> for more coverage of this issue, especially the section "Support for Encodings".</p>
 
 <h4>Submitting of patches</h4>
 
-<p>Code patches should be sent to Franz and Paul. Documentation patches should be sent to Peter and Craig. This is subject to change. Scripting matters should be addressed to Petr.</p>
-<p>Patches should be in plain text. <code>diff -u old_file.cpp new_file.cpp &gt;difference.diff</code> is the best way of sending them. Please do not send patches to the main list.</p>
+<p>Code patches should be sent to Franz, Craig Bradney, or Paul. Documentation patches should be sent to Peter and Craig Bradney. This is subject to change. Scripting matters should be addressed to Petr and Craig Ringer.</p>
+<p>Patches should be in plain text. <code>diff -u old_file.cpp new_file.cpp &gt;difference.diff</code> is the best way of sending them. Please do not send patches to the main list. Remember to use <code>-u</code> (unified diff) as other types of diff are painful to use.</p>
 <p>Please ensure that when you have changed something you put a comment immediately before the change. Ensure you put a date and who made the change and what the change is for. Make sure that the comments include the original line of code. Over time, these will be weeded out, but it useful to see what has been altered.</p>
 <p>Send a single diff for each file altered. It makes committing the changes far more simple for us!</p>
 
-<h4>Writing plugin scripts.</h4>
+<h4>Writing plugins</h4>
 
 <p>Please use the current functions and refer to the <a href="plugin_howto.html">Plugin howto</a> for further information.</p>
-<p>All code has to be encompassed within an <code>extern "C" { ... };</code> to enable the plugin to work.
+<p>All code called from the main Scribus application has to be encompassed within an <code>extern "C" { ... };</code> to enable the plugin to work.
 Ensure that all the code is documented and follows the coding guidelines set out above.</p>
 </qt>
