@@ -29,7 +29,7 @@ extern QPixmap loadIcon(QString nam);
 
 OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia", true, 0)
 {
-	setCaption(tr("OpenOffice.org Writer Importer Options"));
+	setCaption(tr("OpenDocument Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);

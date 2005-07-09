@@ -581,10 +581,9 @@ void ScImage::applyCurve(bool cmyk)
 			int c, m, y, k;
 			if (cmyk)
 			{
-				unsigned char *p = (unsigned char *) s;
-				unsigned char rc = 255 - QMIN(255, p[0] + p[3]);
-				unsigned char gc = 255 - QMIN(255, p[1] + p[3]);
-				unsigned char bc = 255 - QMIN(255, p[2] + p[3]);
+				unsigned char rc = 255 - QMIN(255, qRed(r) + qAlpha(r));
+				unsigned char gc = 255 - QMIN(255, qGreen(r) + qAlpha(r));
+				unsigned char bc = 255 - QMIN(255, qBlue(r) + qAlpha(r));
 				c = 255 - curveTable[rc];
 				m = 255 - curveTable[gc];
 				y = 255 - curveTable[bc];
@@ -660,19 +659,15 @@ void ScImage::invert(bool cmyk)
 		{
 			if (cmyk)
 			{
-				unsigned char *p = (unsigned char *) s;
 				unsigned char c, m, y, k;
-				c = 255 - QMIN(255, p[0] + p[3]);
-				m = 255 - QMIN(255, p[1] + p[3]);
-				y = 255 - QMIN(255, p[2] + p[3]);
+				c = 255 - QMIN(255, qRed(*s) + qAlpha(*s));
+				m = 255 - QMIN(255, qGreen(*s) + qAlpha(*s));
+				y = 255 - QMIN(255, qBlue(*s) + qAlpha(*s));
 				k = QMIN(QMIN(c, m), y);
-				p[0] = c - k;
-				p[1] = m - k;
-				p[2] = y - k;
-				p[3] = k;
+				*s = qRgba(c-k,m-k,y-k,k);
 			}
 			else
-				*s ^= 0x00ffffff;
+				*s ^= qRgba(255,255,255,0);
 			s++;
 		}
 	}
@@ -709,16 +704,36 @@ void ScImage::swapRGBA()
 {
 	for (int i = 0; i < height(); ++i)
 	{
-		unsigned int *ptr = (unsigned int *) scanLine(i);
-		unsigned char r, b;
+		unsigned int *ptr = (QRgb *) scanLine(i);
+		unsigned char r, g, b, a;
 		for (int j = 0; j < width(); ++j)
 		{
+			
 			unsigned char *p = (unsigned char *) ptr;
-			r = p[0];
-			b = p[2];
-			p[2] = r;
-			p[0] = b;
-			ptr++;
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			*ptr++ = qRgba(b,g,r,a);
+		}
+	}
+}
+
+void ScImage::swapByteOrder()
+{
+	for (int i = 0; i < height(); ++i)
+	{
+		unsigned int *ptr = (QRgb *) scanLine(i);
+		unsigned char r, g, b, a;
+		for (int j = 0; j < width(); ++j)
+		{
+			
+			unsigned char *p = (unsigned char *) ptr;
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			*ptr++ = qRgba(g,r,a,b);
 		}
 	}
 }
@@ -1477,22 +1492,16 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 	{
 		for (int i = 0; i < tmpImg.height(); i++)
 		{
-			unsigned int *ptr = (unsigned int *) tmpImg.scanLine(i);
-			unsigned int *ptr2 = (unsigned int *) tmpImg2.scanLine(i);
+			QRgb *ptr = (QRgb*) tmpImg.scanLine(i);
+			QRgb *ptr2 = (QRgb*) tmpImg2.scanLine(i);
 			unsigned char r, g, b;
 			for (int j = 0; j < tmpImg.width(); j++)
 			{
-				unsigned char *p = (unsigned char *) ptr;
-				unsigned char *p2 = (unsigned char *) ptr2;
-				r = 255 - QMIN(255, p[0] + p[3]);
-				g = 255 - QMIN(255, p[1] + p[3]);
-				b = 255 - QMIN(255, p[2] + p[3]);
-				p2[0] = r;
-				p2[1] = g;
-				p2[2] = b;
-				p2[3] = 255;
+				r = 255 - QMIN(255, qRed(*ptr) + qAlpha(*ptr));
+				g = 255 - QMIN(255, qGreen(*ptr) + qAlpha(*ptr));
+				b = 255 - QMIN(255, qBlue(*ptr) + qAlpha(*ptr));
 				ptr++;
-				ptr2++;
+				*ptr2++ = qRgba(r,g,b,255);
 			}
 		}
 	}
@@ -1536,82 +1545,80 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				unsigned char r, g, b, a, src_r, src_g, src_b, src_a;
 				for (unsigned int j = 0; j < layerInfo[layer].width-adj; j++)
 				{
-					unsigned char *d = (unsigned char *) dst;
-					unsigned char *s = (unsigned char *) src;
-					src_r = s[0];
-					src_g = s[1];
-					src_b = s[2];
-					src_a = s[3];
+					src_r = qRed(*src);
+					src_g = qGreen(*src);
+					src_b = qBlue(*src);
+					src_a = qAlpha(*src);
 					QString layBlend = layerInfo[layer].blend;
 					if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
 						layBlend = imgInfo.RequestProps[layer].blend;
 					if (layBlend == "mul ")
 					{
-						src_r = INT_MULT(src_r, d[0]);
-						src_g = INT_MULT(src_g, d[1]);
-						src_b = INT_MULT(src_b, d[2]);
+						src_r = INT_MULT(src_r, qRed(*dst));
+						src_g = INT_MULT(src_g, qGreen(*dst));
+						src_b = INT_MULT(src_b, qBlue(*dst));
 						if (header.color_mode == CM_CMYK)
-							src_a = INT_MULT(src_a, d[3]);
+							src_a = INT_MULT(src_a, qAlpha(*dst));
 						else
-							src_a = QMIN(src_a, d[3]);
+							src_a = QMIN(src_a, qAlpha(*dst));
 					}
 					else if (layBlend == "scrn")
 					{
-						src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
-						src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
-						src_b = 255 - INT_MULT(255 - d[2], 255 - src_b);
+						src_r = 255 - INT_MULT(255 - qRed(*dst), 255 - src_r);
+						src_g = 255 - INT_MULT(255 - qGreen(*dst), 255 - src_g);
+						src_b = 255 - INT_MULT(255 - qBlue(*dst), 255 - src_b);
 						if (header.color_mode == CM_CMYK)
-							src_a = 255 - INT_MULT(255 - d[3], 255 - src_a);
+							src_a = 255 - INT_MULT(255 - qAlpha(*dst), 255 - src_a);
 						else
-							src_a = QMIN(src_a, d[3]);
+							src_a = QMIN(src_a, qAlpha(*dst));
 					}
 					else if (layBlend == "over")
 					{
-						src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
-						src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
-						src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2]));
+						src_r = INT_MULT(qRed(*dst), qRed(*dst) + INT_MULT(2 * src_r, 255 - qRed(*dst)));
+						src_g = INT_MULT(qGreen(*dst), qGreen(*dst) + INT_MULT(2 * src_g, 255 - qGreen(*dst)));
+						src_b = INT_MULT(qBlue(*dst), qBlue(*dst) + INT_MULT(2 * src_b, 255 - qBlue(*dst)));
 						if (header.color_mode == CM_CMYK)
-							src_a = INT_MULT(d[3], d[3] + INT_MULT(2 * src_a, 255 - d[3]));
+							src_a = INT_MULT(qAlpha(*dst), qAlpha(*dst) + INT_MULT(2 * src_a, 255 - qAlpha(*dst)));
 						else
-							src_a = QMIN(src_a, d[3]);
+							src_a = QMIN(src_a, qAlpha(*dst));
 					}
 					else if (layBlend == "diff")
 					{
-						src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
-						src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
-						src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
+						src_r = qRed(*dst) > src_r ? qRed(*dst) - src_r : src_r - qRed(*dst);
+						src_g = qGreen(*dst) > src_g ? qGreen(*dst) - src_g : src_g - qGreen(*dst);
+						src_b = qBlue(*dst) > src_b ? qBlue(*dst) - src_b : src_b - qBlue(*dst);
 						if (header.color_mode == CM_CMYK)
-							src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
+							src_a = qAlpha(*dst) > src_a ? qAlpha(*dst) - src_a : src_a - qAlpha(*dst);
 						else
-							src_a = QMIN(src_a, d[3]);
+							src_a = QMIN(src_a, qAlpha(*dst));
 					}
 					else if (layBlend == "dark")
 					{
-						src_r = d[0]  < src_r ? d[0]  : src_r;
-						src_g = d[1] < src_g ? d[1] : src_g;
-						src_b = d[2] < src_b ? d[2] : src_b;
+						src_r = qRed(*dst)  < src_r ? qRed(*dst)  : src_r;
+						src_g = qGreen(*dst) < src_g ? qGreen(*dst) : src_g;
+						src_b = qBlue(*dst) < src_b ? qBlue(*dst) : src_b;
 						if (header.color_mode == CM_CMYK)
-							src_a = d[3] < src_a ? d[3] : src_a;
+							src_a = qAlpha(*dst) < src_a ? qAlpha(*dst) : src_a;
 						else
-							src_a = QMIN( src_a, d[3] );
+							src_a = QMIN( src_a, qAlpha(*dst) );
 					}
 					else if (layBlend == "lite")
 					{
-						src_r = d[0] < src_r ? src_r : d[0];
-						src_g = d[1] < src_g ? src_g : d[1];
-						src_b = d[2] < src_b ? src_b : d[2];
+						src_r = qRed(*dst) < src_r ? src_r : qRed(*dst);
+						src_g = qGreen(*dst) < src_g ? src_g : qGreen(*dst);
+						src_b = qBlue(*dst) < src_b ? src_b : qBlue(*dst);
 						if (header.color_mode == CM_CMYK)
-							src_a = d[3] < src_a ? src_a : d[3];
+							src_a = qAlpha(*dst) < src_a ? src_a : qAlpha(*dst);
 						else
-							src_a = QMIN( src_a, d[3] );
+							src_a = QMIN( src_a, qAlpha(*dst) );
 					}
 					else if (layBlend == "hue ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
+							uchar new_r = qRed(*dst);
+							uchar new_g = qGreen(*dst);
+							uchar new_b = qBlue(*dst);
 							RGBTOHSV(src_r, src_g, src_b);
 							RGBTOHSV(new_r, new_g, new_b);
 							new_r = src_r;
@@ -1619,16 +1626,16 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							src_r = new_r;
 							src_g = new_g;
 							src_b = new_b;
-							src_a = QMIN( src_a, d[3] );
+							src_a = QMIN( src_a, qAlpha(*dst) );
 						}
 					}
 					else if (layBlend == "sat ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
+							uchar new_r = qRed(*dst);
+							uchar new_g = qGreen(*dst);
+							uchar new_b = qBlue(*dst);
 							RGBTOHSV(src_r, src_g, src_b);
 							RGBTOHSV(new_r, new_g, new_b);
 							new_g = src_g;
@@ -1636,16 +1643,16 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							src_r = new_r;
 							src_g = new_g;
 							src_b = new_b;
-							src_a = QMIN(src_a, d[3]);
+							src_a = QMIN(src_a, qAlpha(*dst));
 						}
 					}
 					else if (layBlend == "lum ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
+							uchar new_r = qRed(*dst);
+							uchar new_g = qGreen(*dst);
+							uchar new_b = qBlue(*dst);
 							RGBTOHSV(src_r, src_g, src_b);
 							RGBTOHSV(new_r, new_g, new_b);
 							new_b = src_b;
@@ -1653,16 +1660,16 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							src_r = new_r;
 							src_g = new_g;
 							src_b = new_b;
-							src_a = QMIN(src_a, d[3]);
+							src_a = QMIN(src_a, qAlpha(*dst));
 						}
 					}
 					else if (layBlend == "colr")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
+							uchar new_r = qRed(*dst);
+							uchar new_g = qGreen(*dst);
+							uchar new_b = qBlue(*dst);
 							RGBTOHLS(src_r, src_g, src_b);
 							RGBTOHLS(new_r, new_g, new_b);
 							new_r = src_r;
@@ -1671,30 +1678,25 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							src_r = new_r;
 							src_g = new_g;
 							src_b = new_b;
-							src_a = QMIN(src_a, d[3]);
+							src_a = QMIN(src_a, qAlpha(*dst));
 						}
 					}
 					int layOpa = layerInfo[layer].opacity;
 					if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
 						layOpa = imgInfo.RequestProps[layer].opacity;
-					r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
-					g = (d[1] * (255 - layOpa) + src_g * layOpa) / 255;
-					b = (d[2] * (255 - layOpa) + src_b * layOpa) / 255;
-					a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
+					r = (qRed(*dst) * (255 - layOpa) + src_r * layOpa) / 255;
+					g = (qGreen(*dst) * (255 - layOpa) + src_g * layOpa) / 255;
+					b = (qBlue(*dst) * (255 - layOpa) + src_b * layOpa) / 255;
+					a = (qAlpha(*dst) * (255 - layOpa) + src_a * layOpa) / 255;
 					if (header.color_mode == CM_CMYK)
 					{
-						d[0] = r;
-						d[1] = g;
-						d[2] = b;
-						d[3] = a;
+						*dst = qRgba(r,g,b,a);
 					}
 					else
 					{
-						if (s[3] > 0)
+						if (qAlpha(*src) > 0)
 						{
-							d[0] = r;
-							d[1] = g;
-							d[2] = b;
+							*dst = qRgba(r, g, b, qAlpha(*src)); 
 						}
 					}
 					dst++;
@@ -2663,6 +2665,9 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	bool bilevel = false;
 	float xres, yres;
 	short resolutionunit = 0;
+	bool systemBigEndian;
+	int systemWordsize;
+	qSysInfo( &systemWordsize, &systemBigEndian);
 #ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
@@ -2709,8 +2714,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 					}
 				}
 			}
-			imgInfo.xres = qRound(gsRes);
-			imgInfo.yres = qRound(gsRes);
+			imgInfo.xres = qRound(xres);
+			imgInfo.yres = qRound(yres);
 			imgInfo.colorspace = 0;
 		}
 	}
@@ -2788,8 +2793,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				}
 				*this = static_cast<ScImage>(image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y)));
 				unlink(tmpFile);
-				imgInfo.xres = qRound(gsRes);
-				imgInfo.yres = qRound(gsRes);
+				imgInfo.xres = qRound(xres);
+				imgInfo.yres = qRound(yres);
 				imgInfo.colorspace = 0;
 			}
 		}
@@ -2836,6 +2841,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 						return ret;
 					}
 					uint32 tileW = columns, tileH = rows;
+					qDebug(QString("reading tiled tiff %1x%2 tileW=%3 tileH=%4 columns=%5 rows=%6").arg(height()).arg(width()).arg(tileW).arg(tileH).arg(columns).arg(rows));
 					for (yt = 0; yt < (uint32)height(); yt += rows)
 					{
 						if (yt > (uint)height())
@@ -2857,16 +2863,36 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				{
 					tsize_t bytesperrow = TIFFScanlineSize(tif);
 					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					qDebug(QString("reading photometric tiff %1x%2 bps=%3 bytes per row=%4").arg(widtht).arg(heightt).arg(bitspersample).arg(bytesperrow));
 					if (bits)
 					{
-						for (unsigned int y = 0; y < heightt; y++)
-						{
-							if (TIFFReadScanline(tif, bits, y, 0))
+						if ( bitspersample <= 8 ) {
+							for (unsigned int y = 0; y < heightt; y++)
 							{
-								memcpy(scanLine(y), bits, widtht * 4);
+								if (TIFFReadScanline(tif, bits, y, 0))
+								{
+									memcpy(scanLine(y), bits, widtht * 4);
+								}
+							}
+						}
+						else { // must be 16 bit
+							for (unsigned int y = 0; y < heightt; y++)
+							{
+								if (TIFFReadScanline(tif, bits, y, 0))
+								{
+									unsigned char * p = (unsigned char *) scanLine(y);
+									unsigned char * q = (unsigned char *) bits;
+									unsigned char * end = q + bytesperrow;
+									if (systemBigEndian != (fillorder != 1)) 
+										++q;
+									for ( ; q < end; q+=2)
+										*p++ = *q;
+								}
 							}
 						}
 						_TIFFfree(bits);
+						if (systemBigEndian == (fillorder != 1)) 
+							swapByteOrder();
 					}
 				}
 				isCMYK = true;
@@ -2875,6 +2901,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			}
 			else
 			{
+				qDebug(QString("reading rgb tiff %1x%2 bps=%3").arg(widtht).arg(heightt).arg(bitspersample));
 				bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
 				if(bits)
 				{
