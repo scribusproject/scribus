@@ -21,7 +21,6 @@
 		<submenuitem text="Cross Platform" file="cross-platform.html">
 			<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
 			<submenuitem text="Mac OSX/Fink &amp; CVS" file="machints2.html"/>
-			<submenuitem text="Windows &amp; Cygwin" file="cygwin.html"/>
 		</submenuitem>
 		<submenuitem text="Setup" file="settings1.html">
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
