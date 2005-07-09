@@ -8065,7 +8065,7 @@ void Page::chAbStyle(PageItem *b, int s)
 			}
 		}
 	}
-	if (!b->Tinput)
+//	if (!b->Tinput)
 		RefreshItem(b);
 }
 

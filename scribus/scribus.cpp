@@ -6216,8 +6216,8 @@ void ScribusApp::setNewAbStyle(int a)
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		doc->ActPage->SetAbStyle(a);
 		doc->CurrentABStil = a;
+		doc->ActPage->SetAbStyle(a);
 		Mpal->setAli(a);
 		PageItem *b = doc->ActPage->SelItem.at(0);
 		setTBvals(b);
