@@ -518,7 +518,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	PutDoc("/Trapped /False\n>>\nendobj\n");
   	for (int t = 0; t < 6; ++t)
 		XRef.append(Dokument);
-	if (Options->useLayers)
+	if ((Options->Version == 15) && (Options->useLayers))
 		XRef.append(Dokument);
 	if (Options->Version == 12)
 		XRef.append(Dokument);
@@ -605,8 +605,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					np = getMinClipF(&gly);
 					np1 = getMaxClipF(&gly);
 					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+
-						" "+FToStr(-np1.y())+" ]\n");
+					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
 					PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 					PutDoc(">>\n");
 					if ((Options->Compress) && (CompAvail))
@@ -614,10 +613,8 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					PutDoc("/Length "+IToStr(fon.length()+1));
 					if ((Options->Compress) && (CompAvail))
 						PutDoc("\n/Filter /FlateDecode");
-					PutDoc(" >>\nstream\n"+EncStream(&fon,	
-								 ObjCounter-1)+"\nendstream\nendobj\n");
-					Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("\\s"), "" )+IToStr(ig.key())] =
-						 ObjCounter-1;
+					PutDoc(" >>\nstream\n"+EncStream(&fon, ObjCounter-1)+"\nendstream\nendobj\n");
+					Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("\\s"), "" )+IToStr(ig.key())] = ObjCounter-1;
 					fon = "";
 				}
 			}
@@ -635,8 +632,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				uint posi;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
-					if ((bb[posi] == static_cast<char>(0x80)) && 
-							(static_cast<int>(bb[posi+1]) == 2))
+					if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
 						break;
 					fon += bb[posi];
 				}
@@ -706,8 +702,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				PutDoc("<<\n/Length "+IToStr(fon2.length()+1)+"\n");
 				PutDoc("/Length1 "+IToStr(len1+1)+"\n");
 				PutDoc("/Length2 "+IToStr(count)+"\n");
-				PutDoc(static_cast<int>(fon.length()-len2) == -1 ? QString("/Length3 0\n") :
-				       "/Length3 "+IToStr(fon.length()-len2)+"\n");
+				PutDoc(static_cast<int>(fon.length()-len2) == -1 ? QString("/Length3 0\n") : "/Length3 "+IToStr(fon.length()-len2)+"\n");
 				if ((Options->Compress) && (CompAvail))
 					PutDoc("/Filter /FlateDecode\n");
 				PutDoc(">>\nstream\n"+EncStream(&fon2, ObjCounter)+"\nendstream\nendobj\n");
@@ -715,7 +710,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 			}
 			if ((fformat == Foi::SFNT || fformat == Foi::TTCF) && (Options->EmbedList.contains(it.key())))
 			{
-				QString fon("");
+				QString fon = "";
 				StartObj(ObjCounter);
 				QByteArray bb;
 				AllFonts[it.key()]->RawData(bb);
@@ -793,7 +788,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				ObjCounter++;
 			}
 			else */
-			{
+//			{
 				GListeInd gl;
 				GlyIndex(AllFonts[it.key()], &gl);
 				GlyphsIdxOfFont.insert(it.key(), gl);
@@ -812,8 +807,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					PutDoc("[ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ");
 					for (int ww = 31; ww < 256; ++ww)
 					{
-						PutDoc(IToStr(static_cast<int>(AllFonts[it.key()]->CharWidth[itg.key()]*
-								1000))+" ");
+						PutDoc(IToStr(static_cast<int>(AllFonts[it.key()]->CharWidth[itg.key()]* 1000))+" ");
 						if (itg == gl.end())
 							break;
 						++itg;
@@ -824,7 +818,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					StartObj(ObjCounter);
 					ObjCounter++;
 					PutDoc("<< /Type /Encoding\n");
-					PutDoc("/BaseEncoding /" + AllFonts[it.key()]->FontEnc + "\n");
+//					PutDoc("/BaseEncoding /" + AllFonts[it.key()]->FontEnc + "\n");
 					PutDoc("/Differences [ 32\n");
 					int crc = 0;
 					for (int ww2 = 32; ww2 < 256; ++ww2)
@@ -857,7 +851,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					Seite.FObjects["Fo"+IToStr(a)+"S"+IToStr(Fc)] = ObjCounter;
 					ObjCounter++;
 				} // for(Fc)
-			} // FT_Has_PS_Glyph_Names
+//			} // FT_Has_PS_Glyph_Names
 		}
 		a++;
 	}

@@ -10534,6 +10534,32 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 	}
 	if (!currItem->Tinput)
 		RefreshItem(currItem);
+	if (Doc->appMode == modeEdit)
+	{
+		horizRuler->ItemPos = currItem->Xpos - Doc->ScratchLeft;
+		horizRuler->ItemEndPos = (currItem->Xpos+currItem->Width) - Doc->ScratchLeft;
+		if (currItem->lineColor() != "None")
+			horizRuler->lineCorr = currItem->Pwidth / 2.0;
+		else
+			horizRuler->lineCorr = 0;
+		horizRuler->ColGap = currItem->ColGap;
+		horizRuler->Cols = currItem->Cols;
+		horizRuler->Extra = currItem->Extra;
+		horizRuler->RExtra = currItem->RExtra;
+		horizRuler->First = Doc->docParagraphStyles[s].First;
+		horizRuler->Indent = Doc->docParagraphStyles[s].Indent;
+		if (currItem->imageFlippedH() || (currItem->Reverse))
+			horizRuler->Revers = true;
+		else
+			horizRuler->Revers = false;
+		horizRuler->ItemPosValid = true;
+		horizRuler->repX = false;
+		if (s < 5)
+			horizRuler->TabValues = currItem->TabValues;
+		else
+			horizRuler->TabValues = Doc->docParagraphStyles[s].TabValues;
+		horizRuler->repaint();
+	}
 }
 
 void ScribusView::chKerning(int us)

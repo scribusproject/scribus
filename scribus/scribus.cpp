@@ -7868,8 +7868,8 @@ void ScribusApp::setNewAbStyle(int a)
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		view->SetAbStyle(a);
 		doc->currentParaStyle = a;
+		view->SetAbStyle(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = view->SelItem.at(0);
 		setTBvals(currItem);

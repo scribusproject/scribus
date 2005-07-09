@@ -3068,8 +3068,11 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		}
 		imgInfo.xres = qRound(xres);
 		imgInfo.yres = qRound(yres);
-		if (isCMYK)
+		if (cinfo.output_components == 4)
+		{
+			isCMYK = true;
 			imgInfo.colorspace = 1;
+		}
 		else if (cinfo.output_components == 3)
 			imgInfo.colorspace = 0;
 		else if (cinfo.output_components == 1)
