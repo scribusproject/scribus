@@ -287,7 +287,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
-	addItem( tr("Document Checker"), loadIcon("checkdoc.png"), tabDocChecker);
+	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, ap->Prefs.AvailFonts,
 								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
