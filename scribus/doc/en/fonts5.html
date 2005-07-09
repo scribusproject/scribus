@@ -1,0 +1,36 @@
+<qt>
+
+	<title>Basic Font Tests - Part 2</title>
+	<h2>Basic Fonts Tests - Part 2</h2>
+	
+<h4>A second quality check for fonts.</h4>
+<p>Included with Scribus is a wonderful and very powerful example of what the python scripter in Scribus can do. The font sampler script, written by Steve Callcott, is a tool to create a a nicely laid out catalog of your existing font, which you can print and bind, as well as make a PDF for reference.  It also happens to make it easy to spot broken fonts or fonts which are missing needed glyphs which might pose a problem when printing, especially high end or commercial printing.</p>
+
+<div align="center"><img src="images/fontsampler.png" alt="Font Sampler with all fonts selected" width="702" height="549" hspace="15" vspace="15" align="middle" border="0" title="Font Sampler with all fonts selected" /></div>
+<p>Using this scripter module requires:
+<ul>
+<li>tkinter - which provides the Graphical UI for Python Scripts</li>
+<li>Optionally, python-imaging, which is a set of python libraries for image handling and provides the nice preview above.</li>
+<li>Obviously, python support built in Scribus.</li>
+</ul>
+</p>
+<p>Running is easy enough:</p>
+<center><img src="images/Scripter.png" alt="Launching the Font Sampler" width="380" height="185" hspace="15" vspace="15" align="middle" border="0" title="Launching the Font Sampler" /></center>
+<p>Now, depending on the number of fonts, kinds of fonts and speed/memory of your machine, it might take a while for the script to run. Approximately, 700 plus fonts on a P4 might will take a few minutes, but also remember the script is not only scanning all your fonts, but also automagically adding pages and laying them out too. If memory is short or you have lots of fonts, in the order of 1000 plus,you might want to split the job in parts.</p>
+
+<h4>Results: </h4>
+
+<center><img src="images/fontsampler2.png" alt="Scripter output showing broken font" width="893" height="534" hspace="15" vspace="15" align="middle" border="0" title="Scripter output showing broken font" /></center>
+
+<p>Note the output on the left and the right. The left side is a known high quality Type 1 font. The right side shows a freeware font from a bug report. Note, the lack of glyphs above, does not always indicate a broken font. Some specialty fonts like symbol fonts, dingbats and some non-Latin fonts may show the same results, but for a normal font, the results above are usually an indication of possible trouble.</p>
+
+
+<h4>Looking in the console</h4>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>Font /usr/X11R6/lib/X11/fonts/URW/p052023l.pfb is broken, discarding it
+Font /usr/X11R6/lib/X11/fonts/URW/p052023l.pfb is broken, discarding it
+Font /usr/X11R6/lib/X11/fonts/URW/p052023l.pfb is broken, discarding it....
+</pre>
+</small></td></tr></table></blockquote>
+When running the console, Scribus will indicate fonts which are dropped on loading and then again when used if specific glyphs are missing or broken. The same font might be listed several times as Scribus is using freetype to scan for available glyphs. <strong>This is a Good Thing &#8482;</strong> Bad fonts cause crashes in Scribus and other nastiness down the line when you export or print.
+</qt>
