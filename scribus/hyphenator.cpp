@@ -187,7 +187,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 		buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
 		if (buffer == NULL)
 			return;
-		if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer));
+		if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
 		{
 			uint i = 0;
 		  	buffer[strlen(word)] = '\0';
@@ -287,7 +287,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
 			if (buffer == NULL)
 				break;
-			if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer));
+			if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
 			{
 	  			uint i = 0;
   				buffer[strlen(word)] = '\0';
