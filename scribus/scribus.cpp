@@ -944,7 +944,7 @@ QString ScribusApp::getPreferencesLocation()
 bool ScribusApp::copy12Preferences(const QString prefsLocation)
 {
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString oldPR[5], newPR[5];
+	QString oldPR[4], newPR[4];
 	oldPR[0]=QDir::convertSeparators(prefsLocation+"/scribus.rc");
 	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
 	oldPR[2]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
@@ -954,11 +954,11 @@ bool ScribusApp::copy12Preferences(const QString prefsLocation)
 	newPR[2]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
 	newPR[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
 
-	bool existsOldPR[5], existsNewPR[5];
-	for (uint i=0;i<5;++i)
+	bool existsOldPR[4], existsNewPR[4];
+	for (uint i=0;i<4;++i)
 	{
-		existsOldPR[i] =QFile::exists(oldPR[i]);
-		existsNewPR[i] =QFile::exists(newPR[i]);
+		existsOldPR[i]=QFile::exists(oldPR[i]);
+		existsNewPR[i]=QFile::exists(newPR[i]);
 	}
 
 	bool retVal=false;
@@ -973,7 +973,7 @@ bool ScribusApp::copy12Preferences(const QString prefsLocation)
 					  "Do you want to migrate them to the new Scribus version?"),
 			  QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
 		{
-			for (uint i=0;i<5;++i)
+			for (uint i=0;i<4;++i)
 			{
 				if (existsOldPR[i] && !existsNewPR[i])
 					copyFile(oldPR[i], newPR[i]);
