@@ -5,50 +5,107 @@
 
 <p>Note: Use apt. It is the proper way to install debian packages both binary and source. Make sure you have dpkg-dev installed if you intend to build your own package from source.</p>
 
+<p>Scribus is packaged for Debian GNU/Linux by Oleksandr (Alex) Moskalenko (malex at tagancha.org). Please contact me at that email if you have questions that do not belong to the Debian or Scribus BTS (Bug Tracking System) or for comments about this page.</p>
+
+<p>If you'd like to stay on the leading edge of Scribus development please use upstream repositories as I have to upload scribus into Debian through a sponsor and it usually takes weeks to get an upload in. Because of that the official packages are usually well-behind what is available in the upstream repositories. Please try a package from an upstream directory to test the bug you discovered as it might have already been fixed and new package is available. This is called "the Scribus magic &#8482;". Please note that the repositories listed below are IDENTICAL in order to provide a backup and additional bandwidth if needed. The repo contains packages for Debian stable,testing,unstable and Ubuntu hoary,breezy distributions.
 <h3>Preparation:</h3>
-<p>Add the following lines to your <code>/etc/apt/sources.list</code> :</p>
+</p>To use our upstream repositories: Add the appropriate lines from the following list to your /etc/apt/sources.list file:<p>
+
+
+<p>Add the following lines to your <code>/etc/apt/sources.list :</code></p>
+<p> Debian stable</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>
+<!--<pre>
 deb         http://debian.scribus.net/debian/ unstable/
 deb-src     http://debian.scribus.net/debian/ unstable/
-</pre>
+</pre>-->
+
+<pre>#Debian stable
+# debian.scribus.net - Primary repository
+deb         http://debian.scribus.net/debian/ stable main non-free contrib
+deb-src     http://debian.scribus.net/debian/ stable main non-free contrib
+
+# debian.tagancha.org - Backup repository
+deb         http://debian.tagancha.org/debian/ stable main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ stable main non-free contrib</pre>
 </small></td></tr></table></blockquote>
+<p> Debian testing</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>#Debian testing
+# debian.scribus.net - Primary repository
+deb         http://debian.scribus.net/debian/ testing main non-free contrib
+deb-src     http://debian.scribus.net/debian/ testing main non-free contrib
+
+# debian.tagancha.org - Backup repository
+deb         http://debian.tagancha.org/debian/ testing main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ testing main non-free contrib</pre>
+</small></td></tr></table></blockquote>
+
+<p> Debian unstable</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>#Debian testing
+# debian.scribus.net - Primary repository
+deb         http://debian.scribus.net/debian/ unstable main non-free contrib
+deb-src     http://debian.scribus.net/debian/ unstable main non-free contrib
+
+# debian.tagancha.org - Backup repository
+deb         http://debian.tagancha.org/debian/ unstable main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ unstable main non-free contrib</pre>
+</small></td></tr></table></blockquote>
+
+<p> Ubuntu hoary</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre># Ubuntu hoary
+deb         http://debian.scribus.net/debian/ hoary main restricted
+deb-src     http://debian.scribus.net/debian/ hoary main restricted
+
+deb         http://debian.tagancha.org/debian/ hoary main restricted
+deb-src     http://debian.tagancha.org/debian/ hoary main restricted</pre>
+</small></td></tr></table></blockquote>
+
+<p> Ubuntu breezy</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre># Ubuntu breezy
+deb         http://debian.scribus.net/debian/ breezy main restricted
+deb-src     http://debian.scribus.net/debian/ breezy main restricted
+
+deb         http://debian.tagancha.org/debian/ breezy main restricted
+deb-src     http://debian.tagancha.org/debian/ breezy main restricted</pre>
+</small></td></tr></table></blockquote>
+
+<p>Once you added the relevant sources lines you can run:</p>
+
 <p>Update the package database.</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre> apt-get update</pre>
+<pre> aptitude install scribus scribus-cvs </pre>
 </small></td></tr></table></blockquote>
-
-<h3>Available packages:</h3>
-<p>Available packages include scribus (1.2.xcvs), scribus-cvs (1.3cvs), scribus-doc (Documentation for the official Debian 1.2.x package), and scribus-template (Extra templates distributed in Debian).</p>
-
-<h3>Binary package installation:</h3>
-<p>Once you modified your <code>/etc/apt/sources.list</code> you are ready to Install a binary package via</p>
+<p>or</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre> apt-get install "package(s)" </pre>
+<pre> apt-get install scribus scribus-cvs </pre>
 </small></td></tr></table></blockquote>
-<p>"package(s)" must be in the "Available packages" list above.</p>
 
-<h3>Building from the source packages:</h3>
-<p>You can also build your own package from the available source packages, in case your CPU architecture is different, you have different library version because you are running Ubuntu or Knoppix, or for any other reason you can think of. The most straightforward way to rebuild a source package is probably to run</p>
+<p>or use your favorite graphical apt-get front-end such as synaptic (Don't forget to "Reload Package List" in the synaptic. It's the equivalent of apt-get update and has to be done before new packages from these repositories will become available to your package management tools).</p>
+
+<p>"scribus" package is for 1.2.xcvs stable series whereas "scribus-cvs" package will let you try the new 1.3cvs series, which is pretty stable and much more featureful than 1.2. "scribus-cvs" package installs into /usr/local hierarchy and can be installed in parallel with the scribus package, so you can have both and even run them at the same time. However, please DO NOT file bug reports about the 1.3 scribus-cvs package or any packages in these upstream repositories into the Debian or Ubuntu BTS. Only use the distribution BTS for the package versions that are in that distribution. If you have a Scribus issue, which is not related to Debian packaging then it is much more preferable if you use scribus BTS for reporting bugs. Go to <a href="http://bugs.scribus.net/" name="http://bugs.scribus.net/">http://bugs.scribus.net/</a> and have fun.</p>
+
+
+<h3> Other branches</h3>
+<p><strong><small>Instructions below have been rendered mostly obsolete for the x86 architecture by the new repositories. If you have non-x86 hardware or would like to build an optimized package you can still use these instructions. You can submit packages for other architectures to me and I will place them into the repository.</small></strong></p>
+<h4> If your distribution is not already supported:</h4>
+
+<p>Please visit the <a href="http://wiki.scribus.net/index.php/Scribus_on_Debian_GNU/Linux">Scribus Wiki</a> for end user provided hints. </p>
+<!--<p>If you have a non-x86 arch or would like to optimize the packages for your CPT you can achive these goals by a very simple package rebuild. Make sure that you have the deb-src lines for scribus repositories uncommented and run the following commands:</p>
+<h3> The cool way &#8482; - as root or set up sudo for yourself as a user:</h3>
+
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre> apt-get source -b scribus scribus-cvs</pre>
+<pre>apt-get install apt-build</pre>
+<pre>apt-build update</pre>
+<pre>apt-build install scribus (or scribus-cvs)</pre>
 </small></td></tr></table></blockquote>
-<p>to get both 1.2cvs and 1.3cvs source packages and build binary packages from them. Don't forget to remove downloaded source packages and the directories they were unpacked into to clean up after you are done. Install the resulting packages with "dpkg -i "package"".</p>
+<p>Answer questions about your CPU and stuff - see an excellent document at: <a href="http://julien.danjou.info/article-apt-build.html">http://julien.danjou.info/article-apt-build.html</a></p>
 
-<p>You can also get the source package:</p> 
-<blockquote><table width="100%" border="1"
-        bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>
-apt-get source "package"
-</pre>
-</small></td></tr></table></blockquote>
-<p>Change to the directory where the package was unpacked.</p>
-<p>Build the package with</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td
-border="0"><small>
-<pre>dpkg-buildpackage -rfakeroot -b</pre>
-</small></td></tr></table></blockquote>
-<p>Install the package you built. with dpkg -i ../"package"</p>
+<h3> User notes about installation on other Debian-based distributions:</h3>-->
+
 
 <h3>References:</h3>
 <p>Note: these instructions are also partially available at:</p>
